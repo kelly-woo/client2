@@ -1,0 +1,116 @@
+<div class="header">
+    <div class="cpanel-header">
+        <span class="cpanel-header__title">
+            <!--<span data-channel-id="{{currentEntity.id}}" class="star glyphicon glyphicon-star star_channel"></span>-->
+            <span style="position:relative;">
+                <span class="name ng-binding dropdown-toggle" data-toggle="dropdown">
+                    <span class="prefix">{{currentEntity.prefix}}</span>{{ currentEntity|getFirstLastNameOfUser }}
+                    <span ng-if="currentEntity.type != 'user'"><i class="cpanel-header__more fa fa-caret-down"></i></span>
+                </span>
+
+                <ul class="dropdown-menu grey_dropdown header_title_dropdown" role="menu">
+                    <!--    INVITE  -->
+                    <li ng-switch="currentEntity.type" role="presentation">
+                        <a role="menuitem" tabindex="-1" ng-switch-when="user" ng-click="openModal('inviteUserToChannel')">
+                            Invite to channel
+                        </a>
+                        <a role="menuitem" tabindex="-1" ng-switch-default ng-click="openModal('invite')">
+                            Invite others
+                        </a>
+                    </li>
+                    <!--    RENAME  -->
+                    <li role="presentation" ng-if="previliged && currentEntity.type != 'user'" ng-click="openModal('rename')">
+                        <a role="menuitem" tabindex="-1">
+                            Rename Channel
+                        </a>
+                    </li>
+                    <!--    LEAVE   -->
+                    <li role="presentation" ng-if="currentEntity.type != 'user'" ng-click="onLeaveClick();">
+                        <a role="menuitem" tabindex="-1">
+                            Leave Channel
+                        </a>
+                    </li>
+                    <!--    DELETE  -->
+                    <li role="presentation" ng-if="previliged && currentEntity.type != 'user'" ng-click="onDeleteClick();">
+                        <a role="menuitem" tabindex="-1">
+                            Delete this group
+                        </a>
+                    </li>
+
+                    <!--    USE 'SWITCH' DIRECTIVE TO SHOW OPTIONS  -->
+                    <!--<li role="presentation" ng-show="hasPrivilege()" ng-click="onPrivateGroupDeleteClick();">-->
+                    <!--<a role="menuitem" tabindex="-1" ng-switch="currentEntity.type == 'privateGroup">-->
+                    <!--<span ng-switch-when=true> Delete this private group</span>-->
+                    <!--<span ng-switch-default>Delte this channel</span>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                </ul>
+            </span>
+
+        </span>
+        <span style="position: relative;">
+            <span class="member_container cursor_pointer dropdown-toggle" data-toggle="dropdown" ng-if="currentEntity.type != 'user'">
+                <span class="icon_image icon_user header-user-more-list"></span>{{currentEntity.ch_members.length || currentEntity.pg_members.length}}
+            </span>
+            <ul class="dropdown-menu header-user__list grey_dropdown header_member_dropdown" role="menu">
+                <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
+                    <a ng-if="userId == user.id">{{user|getFirstLastNameOfUser}}</a>
+                    <a ng-if="userId != user.id" ui-sref="archives({entityType:'users', entityId:userId})">{{getName(userId)}}</a>
+                </li>
+            </ul>
+        </span>
+    </div>
+
+    <!-- SEARCH BOX -->
+    <div class="cpanel-search" ng-class="{'grey': !$state.includes('**.files.**')}">
+        <form method="get" action="/search" class="cpanel-search__form search_form no_bottom_margin">
+            <input type="text" id="search_terms" name="q" class="cpanel-search__form-input search_input" placeholder="Search" disabled>
+            <span class="icon_image icon_search cpanel-search__icon"></span>
+            <!--<img class="icon-loading hidden" src="https://slack.global.ssl.fastly.net/20655/img/loading.gif">-->
+            <!--<span class="icon-close glyphicon glyphicon-remove-circle"></span>-->
+        </form>
+
+        <!-- ICONS  -->
+        <span class="cpanel-search-icon__container">
+            <span class="icon_image headerpanel-search-help-icon"></span>
+            <span class="icon_image headerpanel-search-menu-icon" data-toggle="dropdown"></span>
+            <!--<a id="flex_menu" title="" data-original-title="Open Flexpane Menu"><span class="glyphicon glyphicon-th-list"></span></a>-->
+
+            <a data-original-title="Hide Flexpane">
+                <span ng-if="$state.includes('**.files.**')" ui-sref="messages.detail" class="icon_image headerpanel-search-icon icon_close_rightmenu"></span>
+                <span ng-if="!$state.includes('**.files.**')" ui-sref="messages.detail.files" class="icon_image headerpanel-search-icon icon_open_rightmenu"></span>
+            </a>
+
+            <ul class="dropdown-menu black_dropdown cpanel-search__dropdown" role="menu">
+                <li class="disabled">
+                    <a href="#" onclick="return false;" disabled><i class="fa fa-star"></i>Starred Items</a>
+                </li>
+                <li class="disabled">
+                    <a href="#" onclick="return false;" disabled><span class="text">@</span>Recent Mentions</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-file"></i>Files</a>
+                </li>
+                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('you');">
+                    <a role="menuitem" tabindex="-1" ><i class="fa fa-user"></i>Your Files</a>
+                </li>
+                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('All');">
+                    <a role="menuitem" tabindex="-1"><i class="fa fa-files-o"></i>All Files</a>
+                </li>
+                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('PDF');">
+                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-pdf-o"></i>PDF</a>
+                </li>
+                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('Image');">
+                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-image-o"></i>Images</a>
+                </li>
+                <li class="disabled">
+                    <a href="#" onclick="return false;" disabled><i class="fa fa-users"></i>Team Directory</a>
+                </li>
+                <li class="disabled">
+                    <a href="#" onclick="return false;" disabled><i class="fa fa-history"></i>Activity Feed</a>
+                </li>
+            </ul>
+
+        </span>
+    </div>
+</div>

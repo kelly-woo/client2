@@ -1,0 +1,241 @@
+/********************************************
+
+                   MODAL
+
+********************************************/
+.modal.hide {
+    z-index: -1000;
+}
+#myModalLabel {
+    display: inline-block;
+}
+
+.modal-horizontal {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.modal-horizontal__title {
+    display: inline-block;
+    width: 23%;
+    margin-right: 2%;
+    text-align: right;
+}
+.required_title {
+    font-weight: 700;
+}
+.optional_title {
+    font-weight: 400;
+}
+.explanation_text {
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+}
+.modal-horizontal__input {
+    display: inline-block;
+    width: 74%;
+    vertical-align: top;
+
+}
+.modal-horizontal__input input {
+    border: 1px solid #d2d2d2;
+    height: 37px;
+
+}
+.modal-horizontal__input textarea {
+    border: 1px solid #d2d2d2;
+    vertical-align: top;
+
+}
+
+.modal-horizontal__input input:active,
+.modal-horizontal__input input:focus,
+.modal-horizontal__input textarea:active,
+.modal-horizontal__input textarea:focus
+{
+    box-shadow: none;
+    border: 1px solid #d2d2d2;
+
+}
+
+
+
+/*
+    join modal
+*/
+.join-modal-heading {
+    padding: 15px 0 10px;
+
+}
+.join-modal-search {
+
+}
+.join-modal-channel_container {
+    border-top: 1px solid #f2f2f2;
+    padding: 15px 20px;
+    background-color: white;
+}
+.join-modal-channel_container:hover {
+    background: #eefcf7;
+}
+
+.join-modal-channel_title {
+    color: black;
+    font-size:16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.join-modal-channel_title:hover {
+    text-decoration: none;
+    color: black;
+}
+.join-modal-channel_creator {
+    font-weight: 700;
+}
+.join-modal-channel__fullBtn {
+    width: 100%;
+}
+
+.create_channel_on_top {
+    float: right;
+    color: white;
+    margin-right: 15px;
+    cursor: pointer;
+    padding: 3px 5px;
+    margin-top: -4px;
+}
+
+.create_channel_on_top:hover {
+    text-decoration: underline;
+}
+
+
+.modal-full {
+    width: auto;
+    height: auto;
+    display: table;
+    text-align: center;
+}
+.modal-full .modal-dialog {
+    width: auto;
+    height: auto;
+    max-width : 90%;
+    max-height: 90%;
+    display: table;
+}
+
+.input-group-addon {
+    background-color: white;
+    border: 1px solid #31c08a;
+    border-radius: 0;
+    border-right: none;
+    position: relative;
+    padding: 6px 20px;
+}
+
+.form-control {
+    border: 1px solid #31c08a;
+    border-radius: 0;
+    height: 40px;
+}
+.form-control:focus {
+    border: 1px solid #31c08a;
+    border-color: #31c08a;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.input-group > .form-control {
+    border-left: none;
+
+}
+.input-group > .form-control:focus {
+    border: 1px solid #31c08a;
+    border-left: none;
+    box-shadow: none;
+}
+
+.dropdown-menu > li > .match_container {
+    padding: 10px;
+    height: 50px;
+}
+
+
+.modal-lg {
+    width: 500px;
+}
+.joinModal {
+    max-height: 93%;
+    overflow-y: scroll;
+}
+
+
+.modal-content {
+    border-radius: 0;
+}
+
+.modal-header {
+    height: 50px;
+    padding: 18px 22px;
+    background-color: #31c08a;
+    position: relative;
+}
+
+.modal-header h3 {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.close { opacity: 0.6; }
+.close:hover, .close:focus { opacity: 1; }
+
+.modal-body { padding: 20px 22px; }
+.modal-body h4 {
+    margin: 0;
+    font-size: 14px;
+    line-height: 22px;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+
+.custom-typeahead > ul {
+    left: 0 !important;
+    border-radius: 0;
+}
+
+
+.form-control[disabled] {
+    border: 1px solid rgb(192, 192, 192);
+}
+
+.custom-typeahead > ul {
+    width: 454px;
+    height: 40px;
+}
+
+.custom-typeahead > ul > li {
+    background-color: rgb(242, 242, 242);
+}
+.custom-typeahead > ul > li.active > a,
+.custom-typeahead > ul > li.active > a:hover
+{
+    background-color: #31c08a;
+}
+
+
+.control-label {
+    font-size: 13px;
+    text-align: right;
+}
+
+
+.help-block {
+    display: inline-block;
+    font-size: 12px;
+    color: #666;
+}

@@ -1,0 +1,127 @@
+<article class="msgs" when-scrolled="loadMore()" scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
+    <div class="msgs__loading" data-ng-show="msgLoadStatus.loading"></div>
+    <div class="msgs-holder">
+        <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
+            <div class="msgs-group__divider">
+                <div class="msgs-group__divider-label">{{ day.substr(8) }}</div>
+            </div>
+            <div class="msg-item"
+                 data-ng-repeat="msg in msgs | orderBy: 'time':false"
+                 data-link-id="msg.id"
+                 data-message-id="msg.message.id"
+                 data-ng-class="{ 'text': msg.message.isText, 'file-upload': msg.message.isFile, 'comment-title': msg.message.commentOption.isTitle, 'comment-continue': msg.message.commentOption.isContinue }">
+
+                <div class="msg-item-float" data-ng-if="( !msg.message.commentOption.isContinue )">
+                    <a class="user-profile user-thumb" style="background-image: url({{ server_uploaded + msg.fromEntity.u_photoUrl }});"></a>
+                </div>
+
+                <div class="msg-item-header">
+                    <span class="msg-item-header__name">{{msg.fromEntity|getFirstLastNameOfUser}}</span>
+                    <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
+                    <span class="temp msg-item-header__created">[{{msg.id + "-" + msg.messageId + "-" + msg.feedbackId}}/{{msg.message.contentType}}/{{msg.status}}]</span>
+                    <a class="msg-item__action link-remove pull-right"
+                       data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
+                       data-ng-click="deleteMessage(msg)">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+
+                <div class="msg-item-body">
+
+                    <!-- TEXT -->
+                    <div class="msg-text" data-ng-if="msg.message.contentType === 'text'">
+                        <p class="msg-text-body break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+                    </div>
+
+                    <!-- FILE -->
+                    <div class="msg-file" data-ng-if="msg.message.contentType === 'file'">
+                        <div class="msg-file-body">
+                            <img class="msg-file-body__img cursor_pointer" data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })"
+                                 data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
+                                 data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.largeThumbnailUrl }}"
+                                 data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+                        </div>
+                        <div class="msg-file-meta">
+                            <div class="msg-file-meta-up">
+                                <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+                                    {{ msg.message.content.title }}
+                                </a>
+                                <span class="bullet">•</span>
+                                <span class="msg-file-meta-info">
+                                    {{msg.message.content.size | bytes }} {{ msg.message.content.type | filetype }}
+                                </span>
+                            </div>
+                            <div class="msg-file-meta-down">
+                                <span class="msg-file-meta-info">
+                                    Shared
+                                    <a class="msg-file-meta__writer file__owner" ng-if="( msg.fromEntity.id !== msg.message.writer.id )">{{msg.message.writer|getFirstLastNameOfUser}}'s</a>
+                                    File
+                                </span>
+                                <span class="bullet">•</span>
+                                <span data-ng-if="msg.message.shared.length">
+                                    <span class="msg-file-meta-info">
+                                        in
+                                    </span>
+                                    <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared | filter: {type:'!user'}) track by $index">
+                                        <span data-ng-hide="($index === 0)">, </span>
+                                        <span class="underline file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                                            {{ sharedEntity.prefix }}{{ sharedEntity.name }}
+                                        </span>
+                                        <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message.id, sharedEntity.id)">
+                                            <i class="fa fa-minus-circle"></i>
+                                        </a>
+                                    </span>
+                                    <span ng-show="msg.message.shared.length != filteredSharedFile.length">
+                                        <span ng-show="filteredSharedFile.length != 0"> and </span>with users
+                                    </span>
+                                    <span class="bullet">•</span>
+                                </span>
+                                <a class="green_font cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">Open original</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COMMENT -->
+                    <div class="msg-comment" data-ng-if="msg.message.contentType === 'comment'">
+                        <div class="msg-comment-header" data-ng-if="( msg.message.commentOption.isTitle )">
+                            Commented on <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">{{msg.feedback.content.title || msg.feedback.content.name}}</a>
+                        </div>
+                        <div class="msg-comment-body">
+                            <!--<i class="fa fa-quote-left pull-left"></i>-->
+                            <p class="break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<div class="footer">
+    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 41px;">
+        <span class="glyphicon glyphicon-circle-arrow-up" style="top:4px;"></span>
+        <input type="file"
+               id="btn-upload-primary"
+               class=""
+               onclick="this.value=null"
+               ng-file-select="onFileSelect($files);"
+               value="Upload File">
+    </span>
+    <div id="messages-input-container" style="height: 41px;">
+        <form id="message-form" style="height: 41px;">
+            <textarea id="message-input"
+                      class=""
+                      focus-me="focusPostMessage"
+                      ng-disabled="msgLoadStatus.loading"
+                      message-submit="postMessage()"
+                      ng-model="message.content"
+                      maxlength=""
+                      style="overflow-y: hidden; height: 41px;"
+                      autocorrect="off"
+                      autocomplete="off"
+                      spellcheck="true">
+            </textarea>
+            <input type="file" id="file-upload" class="offscreen" multiple="multiple">
+        </form>
+    </div>
+</div>

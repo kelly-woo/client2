@@ -1,0 +1,23 @@
+<!-- Rename channel Modal   -->
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">×</button>
+    <h3 id="myModalLabel">Rename Channel</h3>
+</div>
+
+
+<form name="create_channel_form" ng-submit="onRenameClick(newChannelName)">
+    <div class="modal-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-2" >New Channel Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="newChannelName" ng-model="newChannelName" required/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+        <input class="btn btn-primary" type="submit" id="rename_channel" value="Rename"/>
+    </div>
+</form>

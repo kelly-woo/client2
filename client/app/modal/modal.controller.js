@@ -1,0 +1,289 @@
+'use strict';
+
+var app = angular.module('jandiApp');
+
+'use strict';
+
+/*----------------------------
+
+ Modal Controller
+ - Everything happening when modal view is up is controlled by below controllers.
+
+ ----------------------------*/
+
+// CHANNEL JOIN
+var joinModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state, $filter) {
+    $scope.userId               = $scope.user.id;
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    }
+
+    // Returns a list of channels that current user hasn't joined yet.
+    $scope.isNotMember = function(channel) {
+        return jQuery.inArray($scope.userId, channel.ch_members) ==  -1;
+    }
+
+    // Returns a name of user whose id is 'id'
+    $scope.getName = function(id) {
+        if (angular.equals(id, $scope.userId)) {
+            return 'you';
+        }
+
+        var temp = entityheaderAPIservice.getEntityFromListById($scope.userList, id);
+
+        return $filter('getFirstLastNameOfUser')(temp);
+    }
+
+    $scope.newChannel = function() {
+        $scope.openModal('channel')
+        this.cancel();
+    }
+
+    $scope.onJoinClick = function(entityId) {
+        entityheaderAPIservice.joinChannel(entityId)
+            .success(function(response) {
+                $scope.updateLeftPanelCaller();
+                $state.go('archives', {entityType:'channels', entityId:entityId});
+                $modalInstance.dismiss('cancel');
+            })
+            .error(function(response) {
+                alert(response.msg);
+            })
+    }
+}
+
+// PRIVATE_GROUP/CHANNEL CREATE
+var createEntityModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state) {
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.onCreateClick = function(entityType, entityName) {
+        entityheaderAPIservice.createEntity(entityType, entityName)
+            .success(function(response) {
+                $scope.updateLeftPanelCaller()
+                $state.go('archives', {entityType:entityType + 's', entityId:response.id});
+                $modalInstance.dismiss('cancel')
+            })
+            .error(function(response) {
+                alert(response.msg)
+            })
+    };
+}
+
+// DIRECT_MESSAGE
+var userModalCtrl = function($scope, $modalInstance, $state) {
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel')
+    }
+
+    $scope.onUserSelected = function(item) {
+        $state.go('archives', {entityType:'users', entityId:item.id});
+        this.cancel();
+        item.visibility = true;
+    }
+
+}
+
+// PRIVATE_GROUP/CHANNEL RENAME
+var renameModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope) {
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel')
+    }
+
+    $scope.onRenameClick = function(entityNewName) {
+        entityheaderAPIservice.renameEntity($state.params.entityType, $state.params.entityId,  entityNewName)
+            .success(function(response) {
+                $scope.updateLeftPanelCaller()
+                $rootScope.$emit('updateSharedEntities')
+                $modalInstance.dismiss('cancel');
+                console.log('successfully renamed');
+            })
+            .error(function(response) {
+                alert(response.msg)
+            })
+    };
+}
+
+// PRIVATE_GROUP/CHANNEL INVITE
+var inviteModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state, $filter) {
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    }
+
+    generateInviteList();
+
+    /*
+     Generating list of users that are not in current channel or private group.
+     */
+    function generateInviteList() {
+        var members = $scope.currentEntity.ch_members || $scope.currentEntity.pg_members;
+        var totalUserList = $scope.userList;
+        var userList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 })
+
+        $scope.userList = userList;
+    }
+
+    // See if 'user' is a member of current channel/privateGroup.
+    $scope.isMember = function(user, entityType) {
+        if (entityType == 'channel')
+            return jQuery.inArray(user.id, $scope.currentEntity.ch_members) >  -1;
+
+        return jQuery.inArray(user.id, $scope.currentEntity.pg_members) >  -1;
+    }
+
+    // Below function gets called when 'enter/click' happens in typeahead.
+    // This function is buggyyyy
+    // TODO : FIX IT!
+    $scope.onUserSelected = function(selectedUser) {
+        selectedUser.selected = true;
+    }
+
+    $scope.onInviteClick = function(entityType) {
+        var guestList = [];
+
+        angular.forEach($filter('filter')($scope.userList, {'selected':true}), function(user, index) {
+            this.push(user.id);
+        }, guestList)
+
+        if (guestList.length== 0) {
+            alert("No one to invite.  I guess you don't have that many friends.");
+            return;
+        }
+
+        entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
+            .success(function(response) {
+                $modalInstance.dismiss('cancel')
+                $scope.updateLeftPanelCaller();     // is this necessary?
+            })
+            .error(function(response) {
+                console.log('something went wrong ' + response.msg )
+            })
+    };
+
+}
+
+// WHEN INVITING FROM DIRECT MESSAGE
+var inviteUsertoChannelCtrl = function($scope, $modalInstance, entityheaderAPIservice) {
+    $scope.inviteOptions = entityheaderAPIservice.getInviteOptions($scope.joinedChannelList, $scope.privateGroupList);
+
+    $scope.onInviteClick = function(inviteTo) {
+
+        if (inviteTo.type == 'channel') {
+            if (inviteTo.ch_members.indexOf($scope.currentEntity.id) > -1) {
+                $modalInstance.dismiss('cancel')
+                return;
+            }
+        }
+        else {
+            if (inviteTo.pg_members.indexOf($scope.currentEntity.id) > -1) {
+                $modalInstance.dismiss('cancel')
+                return;
+            }
+        }
+
+        var id = [];
+        id.push($scope.currentEntity.id)
+
+        entityheaderAPIservice.inviteUsers(inviteTo.type, inviteTo.id, id)
+            .success(function(response) {
+                console.log('good')
+                $scope.updateLeftPanelCaller();
+                $modalInstance.dismiss('cancel')
+
+            })
+            .error(function(response) {
+                console.log('something went wrong')
+            })
+    }
+}
+
+// FILE UPLOAD controller
+var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice, $rootScope) {
+    $scope.files                = $scope.selectedFiles[0];
+
+    // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 synch가 맞는다.
+    $scope.selectOptions        = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
+
+    $scope.fileInfo             = {
+        'title'         : $scope.files.name,
+        'share'         : $scope.currentEntity,
+        'isPrivateFile' : false
+    };
+
+    console.log('****************************')
+    console.log($scope.selectOptions)
+    console.log($scope.fileInfo.share)
+    console.log('****************************')
+
+    var PRIVATE_FILE    = 740;
+    var PUBLIC_FILE     = 744;
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel')
+    }
+
+    // TODO : CURRENTLY IT'S UPLOADING ONLY ONE FILE.  MODIFY LOGIC TO UPLOAD MULTIPLE FILES
+    // Be aware of change in type of fileInfo.share (from Entity to entitiyId.)
+    $scope.onFileUpload = function(fileInfo) {
+        fileInfo.permission = PRIVATE_FILE;
+
+        if (fileInfo.share.type == 'channel') {
+            fileInfo.permission = PUBLIC_FILE;
+        }
+
+        fileInfo.share = fileInfo.share.id;
+
+        if (fileInfo.isPrivateFile) {
+            fileInfo.permission = PRIVATE_FILE;
+            fileInfo.share = '';
+        }
+
+        var fileQueue = fileAPIservice.upload($scope.files, fileInfo);
+
+        fileQueue.then(function(result) {
+            fileAPIservice.broadcastChangeShared();
+            $modalInstance.dismiss('cancel')
+        })
+
+    }
+}
+
+// FILE SHARE controller
+var fileShareModalCtrl = function($scope, $modalInstance, fileAPIservice, $rootScope) {
+    $scope.file             = $scope.fileToShare;
+    $scope.shareChannel     = $scope.currentEntity;
+
+//  removing already shared channels and privategroups but allowing users entitiy to be shared more than once.
+//    var shareOptionsChannels = fileAPIservice.removeSharedEntities($scope.file, $scope.joinedChannelList)
+//    var shareOptionsPrivates = fileAPIservice.removeSharedEntities($scope.file, $scope.privateGroupList)
+//    $scope.selectOptions    = fileAPIservice.getShareOptions(shareOptionsChannels, $scope.userList, shareOptionsPrivates);
+
+    var selectOptions    = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
+
+    $scope.selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
+
+    // If current channel is one of sharedEntities of 'file',
+    // then select first entity in list.
+    if ($scope.selectOptions.indexOf($scope.shareChannel) == -1 )
+        $scope.shareChannel = $scope.selectOptions[0]
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel')
+    }
+
+    $scope.onFileShareClick = function(shareChannel, comment) {
+        fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
+            .success(function(response) {
+                fileAPIservice.broadcastChangeShared($scope.file.id);
+                $modalInstance.dismiss('cancel')
+            })
+            .error(function(response) {
+                console.log('something went wrong')
+                console.log(response.msg)
+            })
+    }
+}

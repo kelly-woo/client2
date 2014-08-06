@@ -1,0 +1,173 @@
+<div class="rpanel-header">
+    <div class="rpanel-header-heading">
+
+        <!--TODO @filter: FILE TYPE DROPDOWN AND APPLY TO FILE FILTER-->
+        <div class="rpanel-header-heading__types">
+            <span class="dropdown-toggle cursor_pointer" data-toggle="dropdown">
+                {{ fileTypeQuery }} Files <i class="rpanel-header-file-type__more fa fa-caret-down"></i>
+            </span>
+            <ul class="dropdown-menu grey_dropdown rpanel-file-type-dropdown" role="menu">
+                <li role="presentation" data-ng-click="fileTypeQuery = 'All'">
+                    <a role="menuitem" tabindex="-1"><i class="fa fa-files-o"></i>All Files</a>
+                </li>
+
+                <li role="presentation" data-ng-click="fileTypeQuery = 'Image';">
+                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-image-o"></i>Images</a>
+                </li>
+                <li role="presentation" data-ng-click="fileTypeQuery = 'PDF';">
+                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-pdf-o"></i>PDF</a>
+                </li>
+                <li role="presentation" data-ng-click="fileTypeQuery = 'Audio'">
+                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-audio-o"></i>Audio</a>
+                </li>
+                <li role="presentation" data-ng-click="fileTypeQuery = 'Video'">
+                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-video-o"></i>Video</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="add_new_file" class="rpanel-header-toolbar__files dropdown">
+            <span class="dropdown-toggle cursor_pointer rpanel-header-heading-add-new-file">
+                <span class="icon_image icon_verti_menu rpanel-header-headding-add__icon"></span>
+                    <span class="underline">Add New File</span>
+            </span>
+
+            <ul class="dropdown-menu right-align grey_dropdown file-upload__dropdown" role="menu">
+                <li class="file_upload">
+                    <a>File</a>
+                    <input type="file" id="file_list_button" class="cursor_pointer  file_upload_btn float-right" onclick="this.value=null" data-ng-file-select="onFileSelect($files);" defaultValue="File">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="rpanel-body">
+
+    <div class="rpanel-header-toolbar">
+        <!--TODO @filter: FILE UPLOADER FILTER AND APPLY TO FILE FILTER-->
+        <div class="rpanel-header-toolbar__users cursor_pointer">
+            <span class="file-uploader-tab" data-ng-model="tabIndicator" btn-radio="'everyone'"
+                    data-ng-click="onFileFilterWriterIdClick('everyone');">
+                EVERYONE
+            </span>
+            <!--btn-radio="'{{ fileUploader == 'everyone' ? user.id : fileUploader }}'"-->
+            <span class="file-uploader-tab" data-ng-model="tabIndicator" btn-radio="'notEveryone'"
+                    data-ng-click="onFileFilterWriterIdClick(fileUploader=='everyone'?'you':fileUploader);">
+                {{ fileUploader|getFirstLastNameById:this }}
+            </span>
+
+            <span class="file-uploader-tab__more icon_add_member dropdown-toggle" data-toggle="dropdown"></span>
+            <ul class="dropdown-menu grey_dropdown file-uploader-dropdown" role="menu">
+                <li data-ng-repeat="user in userList" data-ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+                    <!--<label class="btn" data-ng-click="onFileFilterWriterIdClick(user.id);">-->
+                    <!--{{ user.name }}-->
+                    <!--</label>-->
+                    <a data-ng-click="onFileFilterWriterIdClick(user.id);">
+                       {{ user|getFirstLastNameOfUser }}
+                    </a>
+                </li>
+                <li data-ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+                    <a data-ng-click="onFileFilterWriterIdClick(user.id);">
+                        {{ user|getFirstLastNameOfUser }}
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="rpanel-body-search input-group">
+            <span class="input-group-addon">
+                <span class="icon_image icon_search rpanel-body-search__icon"></span>
+            </span>
+            <input type="text" class="form-control rpanel-body-search__input" placeholder="search file by title" data-ng-model="fileTitleQuery">
+        </div>
+
+    </div>
+
+    <div class="rpanel-body-content file-list">
+
+        <div class="file-list__item" data-ng-repeat="file in filtered = (fileList | fileByWriterId:getfileUploaderId() | fileByType:fileTypeQuery | fileByTitle:fileTitleQuery | orderBy: 'id':true)">
+
+            <!-- FILE TYPE ICON IMAGE && FILE TYPE && FILE SIZE CONTAINER ON THE LEFT -->
+            <div class="file-item-type">
+                <div class="fileicon fileicon_{{ file.content.type | filetype | lowercase}}"></div>
+                <div class="file-item-meta__type" data-ng-if="file.content.type">{{ file.content.type | filetype }}</div>
+                <div class="file-item-meta__size" data-ng-if="file.content.size > 0">{{ file.content.size | bytes }}</div>
+            </div>
+
+            <!-- FILE AUTHOR(FILE UPLOADER) CONTAINER ON THE RIGHT -->
+            <div class="file-item-body__author">
+                <span ui-sref="archives({ entityType: 'users', entityId: file.writerId })" class="file-item-body-author cursor_pointer inline-overflow-ellipsis">
+                    {{file.writer|getFirstLastNameOfUser }}
+                </span>
+            </div>
+
+             <!-- OTHER INFORMATION ABOUT FILE: TITLE, UPLOADED TIME, SHARED CHANNELS, LINK TO NEW TAB -->
+            <div class="file-item-body">
+
+                <!-- FILE TITLE WITH DROPDOWN MENU -->
+                <div class="file-item-body__title">
+                    <span class="file-item-body-title cursor_pointer inline-overflow-ellipsis" ui-sref="files({ userName: file.writer.name, itemId: file.id })">
+                        {{ file.content.title }}
+                    </span>
+                    <span class="file-item-body-title__more cursor_pointer" dropdown>
+                        <a class="dropdown-toggle link-green">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
+                            <li class="cursor_pointer">
+                                <a data-ng-click="onClickShare(file); toggleDropdown($event);"><i class="fa fa-share-alt"></i>Share</a>
+                            </li>
+                            <li class="cursor_pointer">
+                                <a data-ng-click=""><i class="fa fa-comment-o"></i>Comment</a>
+                            </li>
+                            <li class="cursor_pointer">
+                                <a href="{{ server_uploaded + file.content.fileUrl }}" download="{{ file.content.name }}"><i class="fa fa-download"></i>Download</a>
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+
+                <!-- UPLOADED TIME, SHARED CHANNELS/PRIVATEGROUPS, LINK -->
+                <div class="file-item-meta file-item-meta__listview">
+                    <div class="file-item-meta__createtime file-item-meta__info">{{ file.createTime | date: 'yyyy. MM. dd. a h:mm' }}</div>
+
+                    <div data-ng-if="file.shared.length" class="file-item-meta__info">
+                        Shared in
+                        <span data-ng-repeat="sharedEntity in filteredSharedFile = (file.shared | filter : {type:'!user'}) track by $index">
+                            <span data-ng-hide="($index === 0)">, </span>
+                            <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                                {{ sharedEntity.prefix }}{{ sharedEntity.name }}
+                            </span>
+                            <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(file.id, sharedEntity.id)">
+                                <i class="fa fa-minus-circle"></i>
+                            </a>
+                        </span>
+                        <span data-ng-show="file.shared.length != filteredSharedFile.length">
+                            <span data-ng-show="filteredSharedFile.length != 0"> and </span>with users.
+                        </span>
+                    </div>
+
+                    <div class="file-item-meta__empty file-item-meta__info" data-ng-hide="file.shareEntities.length != 0">
+                        File has not been shared in any other channels.
+                    </div>
+
+                    <div class="file-item-meta-open file-item-meta__info">
+                        <a class="file-item-meta-open__public cursor_pointer" href="{{ server_uploaded + file.content.fileUrl }}" target="{{ server_uploaded + file.content.fileUrl }}">Open public link</a>
+                    </div>
+
+                    <!--image thumbnail-->
+                    <img class="file-item-body__type-image__thumb cursor_pointer"
+                         data-ng-if="(file.content.type).indexOf('image') !== -1"
+                         data-ng-src="{{ server_uploaded+file.content.extraInfo.largeThumbnailUrl }}"
+                         data-ui-sref="files({ userName: file.writer.name, itemId: file.id })">
+                </div>
+            </div>
+        </div>
+
+        <div data-ng-show="filtered.length == 0 && fileTitleQuery == null" class="rpanel-body-content__result-msg"> No files uploaded.</div>
+        <div data-ng-show="filtered.length == 0 && fileTitleQuery != null" class="rpanel-body-content__result-msg"> No files found matching <b>{{ fileTitleQuery }}.</b></div>
+
+    </div>
+</div>

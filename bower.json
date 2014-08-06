@@ -1,15 +1,33 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
-  "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
-  "license": "MIT",
+  "name": "jandiApp",
+  "description": "Web Client of TossLab",
+  "version": "0.1.0",
+  "homepage": "https://github.com/tosslab/web_client",
   "private": true,
   "dependencies": {
-    "angular": "1.2.x",
-    "angular-route": "1.2.x",
+    "angular": ">=1.2.*",
+    "json3": "~3.3.1",
+    "es5-shim": "~3.0.1",
+    "jquery": "~1.11.0",
+    "bootstrap": "~3.1.1",
     "angular-loader": "1.2.x",
-    "angular-mocks": "~1.2.x",
-    "html5-boilerplate": "~4.3.0"
+    "angular-resource": ">=1.2.*",
+    "angular-cookies": ">=1.2.*",
+    "angular-sanitize": ">=1.2.*",
+    "angular-bootstrap": "~0.11.0",
+    "angular-ui-router": "~0.2.10",
+    "html5-boilerplate": "~4.3.0",
+    "angular-xeditable": "~0.1.8",
+    "angular-socket-io": "~0.6.0",
+    "angular-animate": "~1.2.19",
+    "ng-file-upload-shim": "~1.5.0",
+    "ng-file-upload": "~1.5.0",
+    "angular-local-storage": "~0.0.5",
+    "font-awesome": ">=4.1.0",
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "angular-mocks": ">=1.2.*",
+    "angular-scenario": ">=1.2.*"
   }
 }

@@ -1,0 +1,42 @@
+'use strict';
+
+var app = angular.module('jandiApp');
+
+app.factory('loginAPI', function($http, $rootScope) {
+    var authAPI = {};
+
+    authAPI.login = function(userdata) {
+        return $http({
+            method  : "POST",
+            url     : $rootScope.server_address + 'token',
+            data    : userdata
+        });
+    }
+
+    return authAPI;
+});
+
+app.factory('authInterceptor', function ($rootScope, $q, $window) {
+    return {
+        request: function (config) {
+            config.headers = config.headers || {};
+            // Auth token
+            if ($window.sessionStorage.token) {
+                config.headers.Authorization = $window.sessionStorage.token;
+            }
+            // API version
+            config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
+            return config;
+        },
+        responseError: function (rejection) {
+            if (rejection.status === 401) {
+                // handle the case where the user is not authenticated
+                console.log('[' + rejection.status + ' ' + rejection.statusText + '] ' + rejection.data.msg);
+//                delete $window.sessionStorage.token;
+//                $location.path('/login');
+            }
+
+            return $q.reject(rejection);
+        }
+    };
+});

@@ -1,0 +1,77 @@
+<!-- Join Modal -->
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()"><span class="icon_close"></span></button>
+    <span class="create_channel_on_top" ng-click="newChannel();">Create Channel</span>
+    <h3 id="myModalLabel">Browse channels</h3>
+</div>
+
+<div class="modal-body">
+    <div class="join-modal-search">
+        <div class="input-group">
+            <span class="input-group-addon"><span class="icon_image icon_search rpanel-body-search__icon"></span></span>
+            <input type="text" class="form-control" placeholder="Search channel by title" ng-model="channelTitleQuery">
+        </div>
+    </div>
+
+    <div id="non_member_containter">
+        <div class="join-modal-heading">Channels you can join</div>
+
+        <div class="join-modal-channel_container file-item-meta__listview is_not_member" ng-repeat="channel in filtered = (totalChannelList | filter:isNotMember | filter:{'name': channelTitleQuery})">
+            <div class="join-modal-channel_title cursor_pointer" ng-click="onJoinClick(channel.id);">#{{channel.name}}</div>
+            <div class="cursor_pointer">
+                <span class="join-modal-channel_creator"> {{ getName(channel.ch_creatorId) }} </span> created this channel on
+            </div>
+            <div>
+                {{ channel.ch_createTime | ordinalDate: 'EEE, MMMM doo' }} at {{ channel.ch_createTime | date: 'h:mm a' }}
+            </div>
+            <div>
+                <i>{{channel.ch_members.length + " member(s)"}}</i>
+            </div>
+
+            <button type="button" class="btn btn-white btn-full-width" data-ng-click="onJoinClick(channel.id)">Join</button>
+        </div>
+
+        <h5 ng-show="filtered.length == 0"> No channels to join.</h5>
+
+    </div>
+
+    <div id="is_member_container">
+        <div class="join-modal-heading">Channels you belong to</div>
+
+        <div class="join-modal-channel_container file-item-meta__listview cursor_pointer" id="is_not_member" ng-repeat="joinedChannel in joinFiltered = (joinedChannelList | filter:{'name':channelTitleQuery})"
+             ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})"  ng-click="cancel();">
+            <div class="join-modal-channel_title cursor_pointer" >#{{joinedChannel.name}}</div>
+            <div class="cursor_pointer">
+                <span class="join-modal-channel_creator">{{ getName(joinedChannel.ch_creatorId) }}</span> created this channel
+            </div>
+            <div>
+                {{ joinedChannel.ch_createTime | ordinalDate: 'EEE, MMMM doo' }} at {{ joinedChannel.ch_createTime | date: 'h:mm a' }}
+            </div>
+            <div>
+                <i>{{joinedChannel.ch_members.length + " member(s)"}}</i>
+            </div>
+        </div>
+
+        <!--<p class="is_member" ng-repeat="joinedChannel in joinFiltered = (joinedChannelList | filter:{'name':channelTitleQuery})">-->
+        <!--<a >-->
+        <!--#{{joinedChannel.name}}-->
+        <!--</a><br>-->
+
+        <!--<span class="help-block">-->
+        <!--Created by-->
+        <!--<a> {{getName(joinedChannel.ch_creatorId) }} </a>-->
+        <!--on <strong>{{joinedChannel.ch_createTime | date : 'mediumDate'}}</strong><br/>-->
+        <!--<i>{{joinedChannel.ch_members.length + " member(s)"}}</i>-->
+        <!--</span>-->
+        <!--</p>-->
+
+        <h5 ng-show="joinedChannelList.length == 0"> You have not joined any channels yet.</h5>
+        <h5 ng-show="joinFiltered.length == 0 && joinedChannelList.length != 0"> No Result.</h5>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+    <a class="new_channel_btn btn btn-ok " ng-click="newChannel(); ">Create New Channel</a>
+</div>
