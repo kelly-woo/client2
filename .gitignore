@@ -4,5 +4,6 @@ node_modules/
 client/bower_components/
 dist/
 tmp
+.tmp/
 .DS_Store
 .idea
