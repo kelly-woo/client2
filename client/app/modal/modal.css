@@ -165,10 +165,12 @@
 
 .modal-lg {
     width: 500px;
-}
-.joinModal {
     max-height: 93%;
     overflow-y: scroll;
+}
+.allowOverflowY > div {
+    max-height: 100%;
+    overflow: visible;
 }
 
 
@@ -238,4 +240,116 @@
     display: inline-block;
     font-size: 12px;
     color: #666;
+}
+
+
+/*
+    INVITE USER TO TEAM MODAL
+*/
+.invite-team-body-more-container {
+    height: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.invite-team-body_more {
+    text-align: right;
+    padding: 6px 12px 6px 30px;
+    color: white;
+    font-size: 12px;
+    display: inline-block;
+    margin-bottom: 10px;
+    position: relative;
+    float: right;
+}
+
+.invite-team-body-more_icon {
+    width: 15px;
+    height: 15px;
+    background: url('../../assets/images/icon_more_member.png');
+    position: absolute;
+    left: 7px;
+    top: 7px;
+}
+.invite-team-body .form-horizontal {
+    padding: 5px;
+    background-color: #e9e9e9;
+    height: 48px;
+    margin-bottom: 5px;
+}
+.invite-team-body .form-horizontal input {
+    border: 1px solid #d2d2d2;
+    height: 38px;
+}
+.form-horizontal input:active,
+.form-horizontal input:focus {
+    border: 1px solid #d2d2d2;
+}
+.invite-team-body .form-horizontal > div {
+    float: left;
+}
+.email_container {
+    width: 170px;
+}
+.firstName_container {
+    width: 130px;
+    margin: 0 5px;
+}
+.lastName_container {
+    width: 134px;
+}
+
+.loading_container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+.loading_container_background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+}
+.loading_bg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -45px;
+    margin-top: -45px;
+    width: 90px;
+    height: 90px;
+    background-color: black;
+    opacity: 0.65;
+    border-radius: 9px;
+}
+
+.loading_container > div > img {
+    width: 100%;
+    height: 100%;
+}
+.loading_bar {
+    /*background: url(../../assets/images/jd_loading.gif) no-repeat center center;*/
+    vertical-align: middle;
+    position: relative;
+    width: 40px;
+    margin: auto;
+    margin-top: -20px;
+    top: 50%;
+}
+
+.modal-noti-block {
+    text-align: center;
+    margin-top: 15px;
+}
+.modal-noti-block > h1 {
+    font-size: 16px;
+}
+.modal-noti-block_msg {
+    font-size: 14px;
+    margin: 2px;
 }

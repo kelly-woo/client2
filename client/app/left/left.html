@@ -3,7 +3,7 @@
     <!-- TEAM CONTAINER  -->
     <div class="lpanel-team" >
         <span class="lpanel-team__name overflow-ellipsis right_padding dropdown-toggle"> TEAMNAME
-            <!--<span class="lpanel-team__more icon_image icon_setting"></span>-->
+
         </span>
     </div>
 
@@ -101,6 +101,9 @@
         <ul class="dropdown-menu green_dropdown lpanel-user__dropdown" role="menu">
             <li role="presentation"><a data-ng-click="logout()" role="menuitem" tabindex="-1" ng-controller="authController">
                 <span class="icon_signout"></span>Sign Out</a>
+            </li>
+            <li role="presentation"><a data-ng-click="openModal('invite');" role="menuitem" tabindex="-1">
+                <span class="icon_signout"></span>Invite Others</a>
             </li>
         </ul>
     </div>

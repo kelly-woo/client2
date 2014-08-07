@@ -128,7 +128,8 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
                 scope       :   $scope,
                 templateUrl :   'app/modal/invite.channel.html',
                 controller  :   inviteModalCtrl,
-                size        :   'lg'
+                size        :   'lg',
+                windowClass :   'allowOverflowY'
             });
         }
         else if (selector == 'inviteUserToChannel') {
