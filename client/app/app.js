@@ -134,5 +134,5 @@ app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, local
     });
 
     /* use the HTML5 History API (http://diveintohtml5.info/history.html) */
-    // $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
 });
