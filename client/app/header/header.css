@@ -3,3 +3,11 @@
     height: 60px;
     background-color: #f2f2f2;
 }
+
+.header_title_dropdown {
+    top: 30px;
+}
+.header_member_dropdown {
+    top: 30px;
+    left: 7px;
+}

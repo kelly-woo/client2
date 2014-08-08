@@ -90,6 +90,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     $scope.getCurrentEntity = function() {
         return $scope.currentEntity;
     };
+
     // Checking whether user joined all possible channels or not.
     function hasMoreChannelsToJoin(a, b) {
         $scope.channelsLeft = a - b;
@@ -117,8 +118,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 scope       :   $scope,
                 templateUrl :   'app/modal/join.html',
                 controller  :   joinModalCtrl,
-                size        :   'lg',
-                windowClass :   'joinModal'
+                size        :   'lg'
             });
         }
         else if (selector == 'channel') {
@@ -142,6 +142,15 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 scope       :   $scope,
                 templateUrl :   'app/modal/list.user.html',
                 controller  :   userModalCtrl,
+                size        :   'lg',
+                windowClass :   'allowOverflowY'
+            });
+        }
+        else if (selector == 'invite') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/invite.team.html',
+                controller  :   inviteUserToTeamCtrl,
                 size        :   'lg'
             });
         }

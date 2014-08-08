@@ -1,0 +1,52 @@
+<!-- Invite to Team Modal   -->
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
+    <h3 id="myModalLabel">Invite others to team</h3>
+</div>
+
+
+<form novalidate name="invite_team_form" ng-submit="onInviteClick()">
+    <div class="modal-body invite-team-body">
+        <h4>
+            이메일을 통해 다른 팀원을 잔디로 초대하실 수 있습니다.
+        </h4>
+        <div class="loading_container" ng-if="isLoading">
+            <div class="loading_container_background"></div>
+            <div class="loading_bg"></div>
+            <div class="loading_bar"><img ng-src="../../assets/images/jd_loading.gif"/></div>
+        </div>
+
+        <div class="invite-team-body-more-container">
+            <div class="invite-team-body_more cursor_pointer btn-ok" data-ng-click="onAddMoreClick();">
+                <span class="invite-team-body-more_icon"></span>
+                More
+            </div>
+        </div>
+
+        <div class="form-horizontal">
+            <div class="email_container">
+                <input type="email" class="form-control invite" name="email" placeholder="email"
+                        ng-blur="onInviteInputBlur($event);"
+                        />
+            </div>
+            <div class="firstName_container">
+                <input type="text" class="form-control invite" name="firstName" placeholder="last name"
+                       ng-blur="onInviteInputBlur($event);"
+                        />
+            </div>
+            <div class="lastName_container">
+                <input type="text" class="form-control invite" name="lastName" placeholder="first name"
+                       ng-blur="onInviteInputBlur($event);"
+                        />
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-cancel" ng-click="cancel();">Close</button>
+        <input class="btn btn-ok" type="submit" id="invite_to_team" value="Invite"/>
+    </div>
+
+</form>

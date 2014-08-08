@@ -2,8 +2,6 @@
 
 var app = angular.module('jandiApp');
 
-'use strict';
-
 /*----------------------------
 
  Modal Controller
@@ -36,7 +34,7 @@ var joinModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $st
     }
 
     $scope.newChannel = function() {
-        $scope.openModal('channel')
+        $scope.openModal('channel');
         this.cancel();
     }
 
@@ -63,12 +61,12 @@ var createEntityModalCtrl = function($scope, $modalInstance, entityheaderAPIserv
     $scope.onCreateClick = function(entityType, entityName) {
         entityheaderAPIservice.createEntity(entityType, entityName)
             .success(function(response) {
-                $scope.updateLeftPanelCaller()
+                $scope.updateLeftPanelCaller();
                 $state.go('archives', {entityType:entityType + 's', entityId:response.id});
                 $modalInstance.dismiss('cancel')
             })
             .error(function(response) {
-                alert(response.msg)
+                alert(response.msg);
             })
     };
 }
@@ -76,7 +74,7 @@ var createEntityModalCtrl = function($scope, $modalInstance, entityheaderAPIserv
 // DIRECT_MESSAGE
 var userModalCtrl = function($scope, $modalInstance, $state) {
     $scope.cancel = function() {
-        $modalInstance.dismiss('cancel')
+        $modalInstance.dismiss('cancel');
     }
 
     $scope.onUserSelected = function(item) {
@@ -91,19 +89,19 @@ var userModalCtrl = function($scope, $modalInstance, $state) {
 var renameModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope) {
 
     $scope.cancel = function() {
-        $modalInstance.dismiss('cancel')
+        $modalInstance.dismiss('cancel');
     }
 
     $scope.onRenameClick = function(entityNewName) {
         entityheaderAPIservice.renameEntity($state.params.entityType, $state.params.entityId,  entityNewName)
             .success(function(response) {
-                $scope.updateLeftPanelCaller()
-                $rootScope.$emit('updateSharedEntities')
+                $scope.updateLeftPanelCaller();
+                $rootScope.$emit('updateSharedEntities');
                 $modalInstance.dismiss('cancel');
                 console.log('successfully renamed');
             })
             .error(function(response) {
-                alert(response.msg)
+                alert(response.msg);
             })
     };
 }
@@ -122,7 +120,7 @@ var inviteModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $
     function generateInviteList() {
         var members = $scope.currentEntity.ch_members || $scope.currentEntity.pg_members;
         var totalUserList = $scope.userList;
-        var userList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 })
+        var userList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 });
 
         $scope.userList = userList;
     }
@@ -147,7 +145,7 @@ var inviteModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $
 
         angular.forEach($filter('filter')($scope.userList, {'selected':true}), function(user, index) {
             this.push(user.id);
-        }, guestList)
+        }, guestList);
 
         if (guestList.length== 0) {
             alert("No one to invite.  I guess you don't have that many friends.");
@@ -156,14 +154,108 @@ var inviteModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $
 
         entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
             .success(function(response) {
-                $modalInstance.dismiss('cancel')
+                $modalInstance.dismiss('cancel');
                 $scope.updateLeftPanelCaller();     // is this necessary?
             })
             .error(function(response) {
-                console.log('something went wrong ' + response.msg )
+                console.log('something went wrong ' + response.msg );
             })
     };
 
+}
+
+// INVITE USER TO TEAM
+var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
+    $scope.isLoading = false;
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    }
+
+    $scope.onInviteClick = function() {
+        $scope.isLoading = true;
+
+        var invites = [];
+
+        var cur = {};
+
+        var hasAllInformation = false;
+
+        $('input.invite').each(function(index) {
+            var currentDomInput = $(this);
+
+            console.log(currentDomInput.attr('name'))
+            console.log(currentDomInput.val())
+
+            if (currentDomInput.val() === '') {
+                console.log('here')
+                return false;
+            }
+
+            switch(currentDomInput.attr('name')) {
+                case 'email':
+                    hasAllInformation = false;
+                    cur.email = currentDomInput.val();
+                    break;
+                case 'firstName':
+                    cur.firstName = currentDomInput.val();
+                    break;
+                case 'lastName':
+                    cur.lastame = currentDomInput.val();
+                    invites.push(cur);
+                    cur = {};
+                    hasAllInformation = true;
+                    break;
+                default :
+                    console.log('??')
+            }
+        })
+
+        console.log(invites);
+        console.log(hasAllInformation)
+
+        $scope.hasAllInformation = hasAllInformation;
+
+        if (hasAllInformation) {
+            teamAPIservice.inviteToTeam(invites)
+                .success(function(response) {
+//                console.log(response);
+
+                    $scope.isLoading = false;
+
+                    if ( response.sendMailFailCount > 0 ) {
+                        $('.invite-team-body').html('<div class="modal-noti-block"><h1>다음 주소로 이메일 보내기를 실패하였습니다.</h1></div>');
+
+                        angular.forEach(response.sendMailFailList, function(email) {
+                            var failEmailAddressElement = angular.element('<div class="modal-noti-block_msg">'+ email+'</div>')
+                            $('.invite-team-body').append(failEmailAddressElement)
+                        });
+                    }
+                    else {
+                        $('.invite-team-body').html('<div class="modal-noti-block"><h1>정상적으로 초대 이메일을 보냈습니다.</h1></div>');
+                    }
+
+                    $('#invite_to_team').hide();
+
+                })
+                .error(function(response) {
+                    $scope.isLoading = false;
+                    console.log('something went wrong');
+                })
+        }
+        else  {
+            $scope.isLoading = false;
+        }
+    }
+    $scope.totalNumberOfInput = 0;
+
+
+    $scope.onAddMoreClick = function() {
+//        var invite_template = angular.element('<div class="form-horizontal"><div class="form-group"><div class="col-sm-6"><input type="email" class="form-control invite" name="email" ng-required="true" placeholder="email"/></div><div class="col-sm-3" style="margin:0 -1px 0 -1px; border-collapse: collapse;"><input type="text" class="form-control invite" name="firstName" ng-required="true" placeholder="last name"/></div><div class="col-sm-3"><input type="text" class="form-control invite" name="lastName" ng-required="true" placeholder="first name"/></div></div></div>');
+
+        var invite_template = angular.element('<div class="form-horizontal"><div class="email_container"><input type="email" class="form-control invite" name="email" ng-required="true" placeholder="email" ng-blur="onInviteInputBlur($event);"/></div><div class="firstName_container"><input type="text" class="form-control invite" name="firstName" ng-required="true" placeholder="last name" ng-blur="onInviteInputBlur($event);"/></div><div class="lastName_container"><input type="text" class="form-control invite" name="lastName" ng-required="true" placeholder="first name" ng-blur="onInviteInputBlur($event);"/></div></div>');
+        $('.invite-team-body').append(invite_template);
+    }
 }
 
 // WHEN INVITING FROM DIRECT MESSAGE
@@ -174,13 +266,13 @@ var inviteUsertoChannelCtrl = function($scope, $modalInstance, entityheaderAPIse
 
         if (inviteTo.type == 'channel') {
             if (inviteTo.ch_members.indexOf($scope.currentEntity.id) > -1) {
-                $modalInstance.dismiss('cancel')
+                $modalInstance.dismiss('cancel');
                 return;
             }
         }
         else {
             if (inviteTo.pg_members.indexOf($scope.currentEntity.id) > -1) {
-                $modalInstance.dismiss('cancel')
+                $modalInstance.dismiss('cancel');
                 return;
             }
         }
@@ -190,19 +282,19 @@ var inviteUsertoChannelCtrl = function($scope, $modalInstance, entityheaderAPIse
 
         entityheaderAPIservice.inviteUsers(inviteTo.type, inviteTo.id, id)
             .success(function(response) {
-                console.log('good')
+                console.log('good');
                 $scope.updateLeftPanelCaller();
-                $modalInstance.dismiss('cancel')
+                $modalInstance.dismiss('cancel');
 
             })
             .error(function(response) {
-                console.log('something went wrong')
+                console.log('something went wrong');
             })
     }
 }
 
 // FILE UPLOAD controller
-var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice, $rootScope) {
+var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice) {
     $scope.files                = $scope.selectedFiles[0];
 
     // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 synch가 맞는다.
@@ -223,7 +315,7 @@ var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice, $roo
     var PUBLIC_FILE     = 744;
 
     $scope.cancel = function() {
-        $modalInstance.dismiss('cancel')
+        $modalInstance.dismiss('cancel');
     }
 
     // TODO : CURRENTLY IT'S UPLOADING ONLY ONE FILE.  MODIFY LOGIC TO UPLOAD MULTIPLE FILES
@@ -246,14 +338,14 @@ var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice, $roo
 
         fileQueue.then(function(result) {
             fileAPIservice.broadcastChangeShared();
-            $modalInstance.dismiss('cancel')
-        })
+            $modalInstance.dismiss('cancel');
+        });
 
     }
 }
 
 // FILE SHARE controller
-var fileShareModalCtrl = function($scope, $modalInstance, fileAPIservice, $rootScope) {
+var fileShareModalCtrl = function($scope, $modalInstance, fileAPIservice) {
     $scope.file             = $scope.fileToShare;
     $scope.shareChannel     = $scope.currentEntity;
 
@@ -272,18 +364,18 @@ var fileShareModalCtrl = function($scope, $modalInstance, fileAPIservice, $rootS
         $scope.shareChannel = $scope.selectOptions[0]
 
     $scope.cancel = function() {
-        $modalInstance.dismiss('cancel')
+        $modalInstance.dismiss('cancel');
     }
 
     $scope.onFileShareClick = function(shareChannel, comment) {
         fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
             .success(function(response) {
                 fileAPIservice.broadcastChangeShared($scope.file.id);
-                $modalInstance.dismiss('cancel')
+                $modalInstance.dismiss('cancel');
             })
             .error(function(response) {
-                console.log('something went wrong')
-                console.log(response.msg)
+                console.log('something went wrong');
+                console.log(response.msg);
             })
     }
 }

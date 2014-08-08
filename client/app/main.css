@@ -265,13 +265,9 @@ input[type="button"] {
     cursor: pointer;
 }
 .icon_signout {
-    background: url(../assets/images/icon_signout.png);
+    background: url(../assets/images/icon_signout.png) no-repeat;
     width:17px;
     height: 14px;
-    vertical-align: middle;
-    margin-right: 8px;
-    display: inline-block;
-    margin-top: -3px;
 }
 
 
@@ -335,6 +331,14 @@ input[type="button"] {
                  DROPDOWN
 
 ********************************************/
+.dropdown-menu {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.dropdown-menu li {
+    position: relative;
+    list-style: none;
+}
 .dropdown-menu > li:focus,
 .dropdown-menu > li:active,
 .dropdown-menu > li > a:active,
@@ -356,16 +360,8 @@ input[type="button"] {
     right: 0;
 }
 
-.grey_dropdown,
-.green_dropdown,
-.black_dropdown {
-    padding: 0 !important;
-}
-
 .grey_dropdown > li > a,
-.green_dropdown > li > a,
-.black_dropdown > li > a
-{
+.green_dropdown > li > a {
     line-height: 33px;
     height: 33px;
     cursor: pointer;
@@ -375,25 +371,29 @@ input[type="button"] {
 .green_dropdown > li:first-child > a {
     padding-top: 2px;
 }
+.grey_dropdown > li:first-child > a > i,
+.green_dropdown > li:first-child > a > i {
+    top: 12px;
+}
 .grey_dropdown > li:last-child > a,
 .green_dropdown > li:last-child > a {
     padding-bottom: 4px;
     line-height: 29px;
 }
-
+.grey_dropdown > li:last-child > a > i,
+.green_dropdown > li:last-child > a > i {
+    top: 8px;
+}
 .grey_dropdown > li > a > i,
 .green_dropdown > li > a > i {
-    display: inline-block;
-    width: 24px;
-    text-align: center;
-    margin-right: .25rem;
-    margin-left: -2rem;
+    position: absolute;
+    top: 10px;
+    left: 15px;
 }
 .grey_dropdown > li > a:hover {
     background-color: #31c08a;
     color: #fff;
 }
-
 .grey_dropdown > li > label {
     height: 28px;
     cursor: pointer;
@@ -424,30 +424,19 @@ input[type="button"] {
     color: #fff;
 }
 
-.header_title_dropdown {
-    top: 30px;
-}
-.header_member_dropdown {
-    top: 30px;
-    left: 7px;
-}
-
 
 .black_dropdown {
     background-color: #333 !important;
     width: 260px !important;
 }
-.black_dropdown li {
-    position: relative;
-    list-style: none;
-}
 .black_dropdown li a {
+    padding: 0 1.4rem 0 2.5rem;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
     color: #31c08a;
     font-size: 14px;
     font-weight: 700;
-    height: 40px;
-    line-height: 40px;
-    padding-left: 40px;
 }
 .black_dropdown li a:hover {
     background-color: #31c08a;
@@ -473,8 +462,6 @@ input[type="button"] {
 .black_dropdown li.nest a i {
     left: 40px;
 }
-
-
 
 
 .users_to_invite {

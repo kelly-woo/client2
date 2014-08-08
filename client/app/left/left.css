@@ -244,7 +244,12 @@
 }
 .lpanel-user__dropdown {
     left: 56px;
-    top: -23px;
+    top: -53px;
+}
+.lpanel-user__dropdown .icon_signout {
+    position: absolute;
+    top: 11px;
+    left: 13px;
 }
 #connection_icon {
     width: 11px;
