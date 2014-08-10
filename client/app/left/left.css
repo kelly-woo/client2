@@ -243,7 +243,7 @@
     transitionDISABLED: color .1s ease-out;
 }
 .lpanel-user__dropdown {
-    left: 60px;
+    left: 40px;
     top: -120px;
 }
 .lpanel-user__dropdown .icon_signout {
