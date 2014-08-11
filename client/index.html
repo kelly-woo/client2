@@ -44,6 +44,11 @@
         <div id="client-ui" class="body" ui-view=""></div>
         <div ui-view="rightpanel" class="rpanel" ng-class="{'hidden': !$state.includes('**.files')}"></div>
         <div ui-view="detailpanel" class="rpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item')}"></div>
+        <div class="rpanel__background" ng-class="{'extend': $state.includes('**.files.**')}">
+            <div class="rpanel__background-body">
+                <div class="rpanel__loading" ng-class="{'hidden': !$state.includes('**.files.**')}"></div>
+            </div>
+        </div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 
@@ -70,6 +75,8 @@
             <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
             <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
             <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+            <script src="bower_components/jquery.lazyload/jquery.lazyload.js"></script>
+            <script src="bower_components/jquery.lazyload/jquery.scrollstop.js"></script>
             <!-- endbower -->
         <!-- endbuild -->
 

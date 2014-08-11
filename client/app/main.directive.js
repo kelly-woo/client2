@@ -112,7 +112,7 @@ app.directive('ngEnterJiHoon', function() {
             if (event.which === 13) {
                 scope.$apply(function () {
                     scope.$eval(attr.ngEnterJiHoon);
-                })
+                });
                 event.preventDefault();
             }
         })
@@ -127,4 +127,19 @@ app.directive('onFileInputChanged', function() {
             element.bind('change', onChange);
         }
     }
+});
+
+app.directive('lazy', function($timeout) {
+    return {
+        restrict: 'C',
+        link: function(scope, elem) {
+            $timeout(function() {
+                $(elem).lazyload({
+                    effect: 'fadeIn',
+                    effectspeed: 300,
+                    'skip_invisible': false
+                });
+            }, 500);
+        }
+    };
 });

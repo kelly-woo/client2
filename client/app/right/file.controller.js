@@ -47,15 +47,17 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
                             }
                         }
 
-                        $scope.fileLoadStatus.loading = false;
                         $state.go('messages.detail.files.item', $state.params);
+
                     })
                     .error(function(err) {
                         console.error(err.msg)
                     });
 
+                $scope.fileLoadStatus.loading = false;
+
                 deferred.resolve();
-            });
+            }, 0);
         } else {
             deferred.reject();
         }
