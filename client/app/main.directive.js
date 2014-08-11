@@ -66,7 +66,6 @@ app.directive('whenScrolled', ['$timeout', function($timeout) {
     return function(scope, elm, attr) {
         var raw = elm[0];
         elm.bindWithDelay('scroll', function() {
-            console.warn("scroll", raw.scrollTop);
             if (raw.scrollTop <= 100 && !scope.msgLoadStatus.isFirst) {
                 var sh = raw.scrollHeight;
                 scope.$apply(attr.whenScrolled).then(function() {
