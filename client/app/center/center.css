@@ -129,10 +129,12 @@ input[disabled].cpanel-search__form-input{
     overflow: auto;
 }
 .msgs__loading {
-    background: url(../../assets/images/jd_loading.gif) no-repeat;
-    width: 100px;
-    height: 100px;
-    margin: 1rem auto;
+    background: url(../../assets/images/jd_loading.gif) center / 40px no-repeat;
+    height: 60px;
+}
+.msgs__loading.initial {
+    background: url(../../assets/images/jd_loading.gif) center / 100px no-repeat;
+    height: 100%;
 }
 .msgs-intro {
     padding: 1rem 1rem 1rem 1.5rem;

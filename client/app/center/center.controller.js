@@ -71,11 +71,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         $scope.groupMsgs = [];
         $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
-//            if (msg.status === 'shared' || msg.status === 'unshared') {
-//                return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
-//            } else {
-//                return $filter('ordinalDate')(msg.message.createTime, "yyyyMMddEEEE, MMMM doo, yyyy");
-//            }
             return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
         });
 

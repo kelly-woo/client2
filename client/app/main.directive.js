@@ -65,16 +65,19 @@ app.directive('scrollGlue', function(){
 app.directive('whenScrolled', ['$timeout', function($timeout) {
     return function(scope, elm, attr) {
         var raw = elm[0];
-        elm.bind('scroll', function() {
-            if (raw.scrollTop <= 50 && !scope.msgLoadStatus.isFirst) {
+        elm.bindWithDelay('scroll', function() {
+            console.warn("scroll", raw.scrollTop);
+            if (raw.scrollTop <= 100 && !scope.msgLoadStatus.isFirst) {
                 var sh = raw.scrollHeight;
                 scope.$apply(attr.whenScrolled).then(function() {
                     $timeout(function() {
-                        raw.scrollTop = raw.scrollHeight - sh - 40;
-                    }, 50);
+                        $(raw).animate({scrollTop: raw.scrollHeight - sh + 60}, '200', 'swing', function() {
+                        });
+                    }, 300);
+                    //raw.scrollTop = raw.scrollHeight - sh;
                 });
             }
-        });
+        }, 300);
     };
 }]);
 
