@@ -1,5 +1,7 @@
 <article class="msgs" when-scrolled="loadMore()" scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
-    <div class="msgs__loading" data-ng-show="msgLoadStatus.loading"></div>
+
+    <div class="msgs__loading" data-ng-show="msgLoadStatus.loading" data-ng-class="{'initial': (msgLoadStatus.firstLoadedId < 0)}"></div>
+
     <div class="msgs-holder">
         <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
             <div class="msgs-group__divider">
