@@ -4,11 +4,6 @@ var app = angular.module('jandiApp');
 
 app.factory('leftpanelAPIservice', function($http, $rootScope, $filter) {
     var leftpanelAPI = {};
-//    var response;
-//    var joinedChannelList = [],
-//        privateGroupList = [],
-//        userList = [],
-//        totalChannelList = [];
 
     leftpanelAPI.getLists = function() {
         return $http({
@@ -38,28 +33,37 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $filter) {
     };
 
     leftpanelAPI.getDefaultChannel = function(input) {
-        return input.joinEntity[0];
+        return input.team.t_defaultChannelId;
     }
 
-    leftpanelAPI.getGeneralList = function(array, currentUserId) {
+    leftpanelAPI.getGeneralList = function(totalEntities, joinedEntities, currentUserId) {
         var userList = [],
-            idToUserName = [],
-            totalChannelList = [];
+            totalChannelList = [],
+            unJoinedChannelList = [];
 
-        angular.forEach(array, function(entity, index) {
+        angular.forEach(totalEntities, function(entity, index) {
             var entityId = entity.id;
             var entityType = entity.type;
 
             if (entityType == "user") {
                 if (currentUserId != entityId) {
-                    idToUserName[entityId] = entity.name;
                     entity.visibility = true;
                     entity.selected = false;
                     userList.push(entity);
                 }
             }
             else if (entityType == "channel") {
+                var found = false;
+                _.each(joinedEntities, function(element, index, list) {
+                    if (!found && element.id == entityId) found = true;
+                });
+
+                if (!found) {
+                    unJoinedChannelList.push(entity);
+                }
+
                 totalChannelList.push(entity);
+
             }
         });
 
@@ -67,7 +71,7 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $filter) {
 
         returnValue.push(userList);
         returnValue.push(totalChannelList);
-        returnValue.push(idToUserName);
+        returnValue.push(unJoinedChannelList);
 
         return returnValue;
     };

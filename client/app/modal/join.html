@@ -16,7 +16,7 @@
     <div id="non_member_containter">
         <div class="join-modal-heading">Channels you can join</div>
 
-        <div class="join-modal-channel_container file-item-meta__listview is_not_member" ng-repeat="channel in filtered = (totalChannelList | filter:isNotMember | filter:{'name': channelTitleQuery})">
+        <div class="join-modal-channel_container file-item-meta__listview is_not_member" ng-repeat="channel in filtered = (unJoinedChannelList | filter:{'name': channelTitleQuery})">
             <div class="join-modal-channel_title cursor_pointer" ng-click="onJoinClick(channel.id);">#{{channel.name}}</div>
             <div class="cursor_pointer">
                 <span class="join-modal-channel_creator"> {{ getName(channel.ch_creatorId) }} </span> created this channel on
@@ -35,7 +35,7 @@
 
     </div>
 
-    <div id="is_member_container">
+    <div id="is_member_container" style="display: none;">
         <div class="join-modal-heading">Channels you belong to</div>
 
         <div class="join-modal-channel_container file-item-meta__listview cursor_pointer" id="is_not_member" ng-repeat="joinedChannel in joinFiltered = (joinedChannelList | filter:{'name':channelTitleQuery})"

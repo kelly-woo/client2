@@ -10,24 +10,35 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
 
     // Watching entityId in $stateParam so that currentEntity can be automatically updated.
     $scope.$watch('$state.params.entityId', function(newValue, oldValue) {
-        findCurrent('from entityId');
+        findCurrent();
     });
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     $scope.$watch('joinEntities', function(newValue, oldValue) {
-        if (newValue != oldValue) findCurrent('from joinEntities');
+        if (newValue != oldValue) findCurrent();
     });
+
+    $scope.$on('goToDefault', function(event, defaultChannel) {
+        console.log('gotcha')
+    })
+
+//    $scope.$on('goToDefaultChannel', function(event, defaultChannel) {
+//        console.log('hey')
+//       findCurrent(defaultChannel);
+//    });
 
     // Called when
     //  1. $state.params.entityId is changed, or
     //  2. joinEntities is changed
     // Finds currently selected entity from lists.
     // No return value.
-    function findCurrent(toDefault) {
+    function findCurrent(defaultChannel) {
         // Maybe user left channel or just logged in.
         // Whatever cases that user needs to be directed to default channel.
-//        if (toDefault) {
-//            return;
-//        }
+        if (defaultChannel) {
+            console.log('setting to default channel');
+            setCurrentEntity(defaultChannel);
+            return;
+        }
 
         var current = {};
 
@@ -62,7 +73,10 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
 
         $scope.currentEntity = current;
 
-        // Setting currentEntitiy at $rootScope so that 'rightpanelController' can access to it.
+        //  Setting alarmCnt to zero once entity is selected
+        $scope.currentEntity.alarmCnt = '';
+
+        //  Setting currentEntitiy at $rootScope so that 'rightpanelController' can access to it.
         $rootScope.currentEntity = $scope.currentEntity;
 
         hasPrivilege();
@@ -161,5 +175,4 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
             $state.go('messages.detail.files');
         $scope.$emit('updateFileTypeQuery', type);
     };
-
 });

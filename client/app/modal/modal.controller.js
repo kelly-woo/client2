@@ -10,7 +10,7 @@ var app = angular.module('jandiApp');
  ----------------------------*/
 
 // CHANNEL JOIN
-var joinModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state, $filter) {
+var joinModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state, $filter, $rootScope) {
     $scope.userId               = $scope.user.id;
 
     $scope.cancel = function() {
@@ -19,7 +19,12 @@ var joinModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $st
 
     // Returns a list of channels that current user hasn't joined yet.
     $scope.isNotMember = function(channel) {
-        return jQuery.inArray($scope.userId, channel.ch_members) ==  -1;
+//        console.log('000000')
+//        console.log($scope.totalChannelList)
+//        console.log($rootScope.totalChannelList)
+//        console.log('000000')
+        console.log(jQuery.inArray($scope.user.id, channel.ch_members))
+        return jQuery.inArray($scope.user.id, channel.ch_members) ==  -1;
     }
 
     // Returns a name of user whose id is 'id'

@@ -2,11 +2,12 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, leftpanelAPIservice, leftPanel, user, defaultChannel) {
+app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, leftpanelAPIservice, leftPanel, user, defaultChannel, entityAPIservice) {
 
     console.info('[enter] leftpanelController');
 
     var response = null;
+
 
     if (leftPanel.status != 200) {
         var err = leftPanel.data;
@@ -22,12 +23,76 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         // Just making sure to close modal view if any of them left opened.
         //$('.modal').modal('hide');
 
+//        console.info('[leftPanel] ' )
+
+        $scope.team             = response.team;
+
         $scope.totalEntityCount = response.entityCount;
-        $scope.totalEntities = response.entities;
+        $scope.totalEntities    = response.entities;
 
-        $scope.joinEntityCount = response.joinEntityCount;
-        $scope.joinEntities = response.joinEntity;
+        $scope.joinEntityCount  = response.joinEntityCount;
+        $scope.joinEntities     = response.joinEntities;
 
+        $scope.user = response.user;
+
+        //  Setting prefix for each entity.
+        setEntityPrefix();
+
+        //  Separating 'channel' and 'privateGroup'.
+        //  joinedChannelList   - List of joined channels.
+        //  privateGroupList    - List of joined private groups.
+        var joinedList = leftpanelAPIservice.getJoinedChannelList($scope.joinEntities);
+        $scope.joinedChannelList = joinedList[0];
+        $scope.privateGroupList = joinedList[1];
+
+
+        // userList         - List of all users except myself.
+        // totalChannelList - All channels including both 'joined' and 'not joined'
+        var generalList = leftpanelAPIservice.getGeneralList($scope.totalEntities, $scope.joinEntities, $scope.user.id);
+        $scope.userList = generalList[0];
+        $scope.totalChannelList = generalList[1];
+        $scope.unJoinedChannelList = generalList[2];
+
+        //  Adding privateGroups to 'totalEntities' so that 'totalEntities' contains every entities.
+        //  totalEntities   - Every entities.
+        $scope.totalEntities = $scope.totalEntities.concat($scope.privateGroupList);
+
+        ////////////    END OF PARSING      ////////////
+
+//        console.log(defaultChannel)
+//        if (defaultChannel) {
+//            console.log('broadcasting')
+//            $scope.$broadcast('goToDefaultChannel', defaultChannel);
+//        }
+
+        // Update difference between number of all channels and currently joined channels.
+        hasMoreChannelsToJoin($scope.totalChannelList.length, $scope.joinedChannelList.length);
+
+        $rootScope.totalChannelList     = $scope.totalChannelList;
+        $rootScope.joinedChannelList    = $scope.joinedChannelList;
+        $rootScope.privateGroupList     = $scope.privateGroupList;
+        $rootScope.userList             = $scope.userList;
+        $rootScope.totalEntities        = $scope.totalEntities;
+        $rootScope.joinedEntities       = $scope.joinEntities;
+        $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
+        $rootScope.user                 = $scope.user;
+
+        //  When there is unread messages on left Panel.
+        if (response.alarmInfoCount != 0) {
+//            console.log(response.alarmInfos)
+            leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
+        }
+
+        if ($state.current.name.indexOf('messages.home') != -1) {
+            $state.go('archives', {entityType:'channels',  entityId:defaultChannel });
+        }
+
+
+
+    }
+
+    //  Initialize correct prefix for 'channel' and 'user'.
+    function setEntityPrefix() {
         _.each($scope.totalEntities, function(entity) {
             entity.prefix = "";
             if (entity.type === 'channel') {
@@ -46,33 +111,40 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 entity.prefix = "";
             }
         });
+    }
 
-        $scope.user = response.user;
+    //  When there is anything to update, call this function and below function will handle properly.
+    function leftPanelAlarmHandler(alarmInfoCnt, alarms) {
+//       console.log(alarms);
+        _.each(alarms, function(value, key, list) {
+            // TODO: 서버님께서 0을 주시는 이유가 궁금합니다.
+            if (value.alarmCount == 0 )
+                return;
 
-        // Separating 'channel' and 'privateGroup'
-        var joinedList = leftpanelAPIservice.getJoinedChannelList($scope.joinEntities);
-        $scope.joinedChannelList = joinedList[0];
-        $scope.privateGroupList = joinedList[1];
+            //  TODO: tempEntity가 user 타입일 경우 잘 안되네요????
+            var tempEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, value.entityId);
 
+            //  tempEntity is archived
+            if (angular.isUndefined(tempEntity)) {
+                console.log('=================')
+                console.log('got left alarm but UNDEFINED')
+                console.log(value)
+                console.log('=================')
+                return;
+            }
+            else {
+                console.log('=================')
+                console.log('got left alarm')
+                console.log(tempEntity.name)
+                console.log(value.alarmCount)
+                console.log(value)
+                console.log('===============')
+            }
 
-        // userList         - list of all users
-        // totalChannelList - all channels including both 'joined' and 'not joined'
-        var generalList = leftpanelAPIservice.getGeneralList($scope.totalEntities, $scope.user.id);
-        $scope.userList = generalList[0];
-        $scope.totalChannelList = generalList[1];
-
-        //  Adding privateGroups to 'totalEntities'
-        $scope.totalEntities = $scope.totalEntities.concat($scope.privateGroupList);
-
-        // Update difference between number of all channels and currently joined channels.
-        hasMoreChannelsToJoin($scope.totalChannelList.length, $scope.joinedChannelList.length);
-
-        $rootScope.totalChannelList     = $scope.totalChannelList;
-        $rootScope.joinedChannelList    = $scope.joinedChannelList;
-        $rootScope.privateGroupList     = $scope.privateGroupList;
-        $rootScope.userList             = $scope.userList;
-        $rootScope.totalEntities        = $scope.totalEntities;
-        $rootScope.user                 = $scope.user;
+//            console.log(tempEntity)
+//            console.log('leftPanelAlarmUpdate "' + tempEntity.name + '/' + tempEntity.id + '" to ' + value.alarmCount)
+            entityAPIservice.updateBadgeValue(tempEntity, value.alarmCount);
+        });
     }
 
     function getLeftLists() {

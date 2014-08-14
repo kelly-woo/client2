@@ -59,5 +59,17 @@ app.factory('messageAPIservice', function($http, $rootScope) {
         });
     };
 
+    //  Updates message marker to 'lastLinkId' for 'entitiyId'
+    messageAPI.updateMessageMarker = function(entityId, entityType, lastLinkId) {
+        return $http({
+            method  : 'POST',
+            url     : $rootScope.server_address + 'entities/' + entityId + '/marker',
+            data    : {
+                "lastLinkId"    :   lastLinkId,
+                "entityType"    :   entityType
+            }
+        });
+    };
+
     return messageAPI;
 });

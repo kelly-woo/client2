@@ -95,7 +95,9 @@
     background-clip:padding-box;
     text-decoration:none !important;
     position: relative;
+    padding-right: 11px;
 }
+
 .lpanel-list ul li:hover a span{
     color: #31c08a;
 }
@@ -113,6 +115,10 @@
 }
 .lpanel-list ul li.active a span{
     color: #31c08a;
+}
+.left-panel_badge {
+    margin-top: 8px;
+    color: white !important;
 }
 .entity-remove:hover {
     color: #31c08a;

@@ -62,7 +62,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
                 $scope.fileList = fileList;
 
-                console.log("[$scope.fileLists] ", $scope.fileList);
+//                console.log("[$scope.fileLists] ", $scope.fileList);
             })
             .error(function(response) {
                 console.log(response.msg);
@@ -73,11 +73,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.$watch('currentEntity', function(newValue, oldValue) {
         if (newValue != oldValue) updateSharedList();
     });
-
-//    $rootScope.$on('updateSharedEntities', function() {
-//        console.log('here')
-//        updateSharedList();
-//    })
 
     // loop through list of files and update shared list of each file.
     function updateSharedList() {
