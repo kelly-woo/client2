@@ -18,9 +18,9 @@
                 </div>
 
                 <div class="msg-item-header">
-                    <span class="msg-item-header__name">{{msg.fromEntity|getFirstLastNameOfUser}}</span>
+                    <span class="msg-item-header__name" data-ng-click="onUserClick(msg.fromEntity);">{{msg.fromEntity|getFirstLastNameOfUser}}</span>
                     <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
-                    <span class="temp msg-item-header__created">[{{msg.id + "-" + msg.messageId + "-" + msg.feedbackId}}/{{msg.message.contentType}}/{{msg.status}}]</span>
+                    <span class="temp msg-item-header__created">[{{msg.id + "-" + msg.messageId + "-" + msg.feedbackId}}/{{msg.message.contentType}}/{{msg.status}}{{msg.eventType}}]</span>
                     <a class="msg-item__action link-remove pull-right"
                        data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
                        data-ng-click="deleteMessage(msg)">
@@ -99,6 +99,7 @@
         </div>
     </div>
 </article>
+
 <div class="footer">
     <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 41px;">
         <span class="glyphicon glyphicon-circle-arrow-up" style="top:4px;"></span>

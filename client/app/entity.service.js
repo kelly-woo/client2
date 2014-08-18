@@ -2,10 +2,12 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('entityAPIservice', function($http, $rootScope, $upload, $filter) {
+app.factory('entityAPIservice', function($http, $rootScope, $filter) {
     var entityAPI = {};
 
     entityAPI.getEntityFromListById = function(list, value) {
+        if (value == $rootScope.user.id) return $rootScope.user;
+
         var entity = $filter('filter')(list, { 'id' : value }, function(actual, expected) {
             return actual == expected;
         });
@@ -51,6 +53,7 @@ app.factory('entityAPIservice', function($http, $rootScope, $upload, $filter) {
         this.setBadgeValue(list, entity, alarmCount);
     }
 
+    //  TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
     entityAPI.setBadgeValue = function(list, entity, alarmCount) {
         if (alarmCount == -1) {
 //            console.log('incrementing')
@@ -69,6 +72,14 @@ app.factory('entityAPIservice', function($http, $rootScope, $upload, $filter) {
 
 //        console.log(entity.name + '  to ' + alarmCount)
         this.getEntityFromListById(list, entity.id).alarmCnt = alarmCount;
+    };
+
+    entityAPI.getNameByUserId = function(userId) {
+        return this.getFullName(this.getEntityFromListById($rootScope.userList, userId));
+    };
+
+    entityAPI.getFullName = function(user) {
+        return user.u_lastName + user.u_firstName;
     };
 
     return entityAPI;

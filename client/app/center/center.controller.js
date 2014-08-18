@@ -30,8 +30,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         for (var i in $scope.messages) {
             var msg = $scope.messages[i];
 
-            if (msg.status == 'event') continue;
-
             var prev = (i == 0) ? null : $scope.messages[i-1];
             // comment continuous check
             if ( msg.message.contentType === 'comment' ) {
@@ -99,12 +97,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                         if (response.messageCount) {
 
+                            console.log(response.messages)
                             for (var i in response.messages.reverse()) {
 
                                 var msg = response.messages[i];
                                 // jihoon
                                 if (msg.status == 'event') {
+//                                    console.log('event came')
+                                    console.log(msg)
+                                    msg = eventMsgHandler(msg);
 //                                    console.log(msg)
+
                                     $scope.messages.unshift(msg);
                                     continue;
                                 }
@@ -189,8 +192,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                         $scope.focusPostMessage = true;
 
                         if ( msg.status == 'event' ) {
-//                            console.log(msg)
+                            console.log(msg)
 //                            msg.status = 'event/' + msg.info.eventType;
+                            msg = eventMsgHandler(msg);
+
+                            $scope.messages.push(msg);
                             continue;
                         }
                         // parse HTML, URL code
@@ -314,7 +320,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             });
     };
 
-
     // Callback function from file finder(navigation) for uploading a file.
     $scope.onFileSelect = function($files) {
         $scope.selectedFiles = $files;
@@ -398,6 +403,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             });
     };
 
+
     //  'event' fild if not empty when,
     //      1. create channel
     //      2. leave channel
@@ -405,9 +411,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //      4. invite someone to channel
     function updateEventHandler(event) {
         if (event.eventCount == 0) return;
-
-//        console.log('[event]')
-//        console.log(event.eventCount);
 
         var eventTable = event.eventTable;
 
@@ -420,7 +423,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             if (event.info.eventType == 'invite') {
                 //  'INVITE' event.
                 //  ASSUMPTION 1. YOU CAN ONLY INVITE TO ONE CHANNEL. -> toEntity can have only one element.
-                //  ASSUMPTION 2. YOU CAN'T INVITE SOMEONE TO DIRECT MESSAGE.  -> toEntity can be id of either channel or privateGroup.
+                //  ASSUMPTION 2. YOU CAN'T INVITE SOMEONE TO DIRECT MESSAGE.  -> toEntity must be id of either channel or privateGroup.
 
                 //  someone invited 'ME' to some channel.
                 if (_.contains(event.info.inviteUsers, $scope.user.id)) {
@@ -445,30 +448,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     mustUpdateLeftPanel = true;
                     return;
                 }
-
-                //  TODO: if we decide to keep updating whole left panel, below two conditions can go together.
-                //  someone invited someone to current channel.
-//                if (event.toEntity[0] == $scope.currentEntity.id) {
-//                    console.log('someone invited someone to current channel');
-//                    mustUpdateLeftPanel = true;
-//                    return;
-//                }
-
-                //  Someone invited someone to channel I joined including current channel.
-                //  if 'toEntity' is an array.
-//                _.each(event.toEntity, function(toEntityElement, index, list) {
-//                    var updateEntity = entityAPIservice.getEntityFromListById($rootScope.joinedChannelList, toEntityElement);
-//
-//                    if (updateEntity) {
-//                        console.log('someone invited someone to some channel that I am in');
-//                        //  Should update badge value for updateEntity.
-//                        //  since we are update left panel everytime, server gives us correct number of alarms.
-////                        entityAPIservice.updateBadgeValue(updateEntity, -1);
-//                        mustUpdateLeftPanel = true;
-//                        return;
-//                    }
-//                });
-
             }
             else if (event.info.eventType == 'join' || event.info.eventType == 'leave') {
                 //  'JOIN' event
@@ -490,31 +469,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     mustUpdateLeftPanel = true;
                     return;
                 }
-
-                //  Someone joined to current channel
-//                if (event.toEntity[0] == $scope.currentEntity.id) {
-//                    if (isJoin) console.log('Someone joined current channel');
-//                    else console.log('Someone left current channel');
-//                    mustUpdateLeftPanel = true;
-//                    return;
-//                }
-                //  someone joined to channel that I'm in.
-//                _.each(event.toEntity, function(toEntityElement, index, list) {
-////                    console.log(toEntityElement + ' and ' + index)
-//
-//                    if (entityAPIservice.getEntityFromListById($rootScope.joinedChannelList, toEntityElement)) {
-//                        if (isJoin) console.log('someone joined to some channel that I am in');
-//                        else console.log('Someone left related channel')
-//                        mustUpdateLeftPanel = true;
-//                        return;
-//                    }
-//                });
             }
             else if (event.info.eventType == 'create') {
                 //  'CREATE' event
                 //  Someone created channel 'a',
                 //  I should be able to see channel 'a' as one of available channels
                 //  when attempting to join other channel.
+                //  No matter who created what, just update left panel.
 
                 console.log('crate')
                 if (event.fromEntity == $scope.user.id) {
@@ -529,7 +490,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             else if (event.info.eventType == 'archive') {
                 //  'ARCHIVE' event
                 //  ASSUMPTION 1. YOU CAN ARCHIVE ONLY ONE ENTITY AT A TIME.
+                //  Same reason as 'archive' situation, just update left panel.
                 //  TODO: HANDLE SITUATION WHEN SOMEONE ARCHIVED CURRENT ENTITY
+                //  TODO: ERROR HANDLER WILL HANDLE ABOVE SITUATION.
 
                 mustUpdateLeftPanel = true;
 
@@ -543,19 +506,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 else {
                     console.log('someone archived some channel')
                 }
-//
-//                if (_.contains($scope.joinedEntities, event.toEntity[0])) {
-//
-//                    mustUpdateLeftPanel = true;
-//                    alert(event.fromEntity + ' archived related channel');
-//                }
                 return;
             }
             else {
                 alert(' who are you ');
+                console.log(event);
             }
 
-            console.log('YOU ARE NOT SUPPOSED TO SEE ME')
             return mustUpdateLeftPanel;
         });
 
@@ -573,8 +530,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //      2. someone shares/comment on file.
     function updateAlarmHandler(alarm) {
         if (alarm.alarmCount == 0) return;
-//        console.log('[alarm]');
-//        console.log(alarm);
 
         var alarmTable = alarm.alarmTable;
 
@@ -594,17 +549,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 entityAPIservice.updateBadgeValue(updateEntity, -1);
             }
             else  {
-//                console.log(element)
                 //  'toEntity' may be an array.
                 _.each(element.toEntity, function(toEntityElement, index, list) {
                     updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, toEntityElement);
 
-                    //  updateEntity is archived.
-                    if (angular.isUndefined(updateEntity)) {
-//                        console.log('updateEntity is undefined')
-//                        console.log(element.fromEntity + ' and ' + element.toEntity)
-                        return;
-                    }
+                    //  updateEntity is archived || I don't care about updateEntity.
+                    if (angular.isUndefined(updateEntity)) return;
 
                     //  if 'toEntity' is an entity that I'm currently looking at, Don't worry about it.
                     if (updateEntity.id == $scope.currentEntity.id) return;
@@ -621,11 +571,47 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     function updateMessageMarker() {
         messageAPIservice.updateMessageMarker($scope.currentEntity.id, $scope.currentEntity.type, $scope.msgLoadStatus.localLastMsgId)
             .success(function(response) {
-
-                console.log('----------- successfully updated message marker for ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.localLastMsgId + ' with ' + $scope.currentEntity.type)
+//                console.log('----------- successfully updated message marker for ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.localLastMsgId + ' with ' + $scope.currentEntity.type)
             })
             .error(function(response) {
-                console.log('bad')
+                console.log('message marker not updated for ' + $scope.currentEntity.id);
             });
+    }
+
+
+    function eventMsgHandler(msg) {
+        if (angular.isNumber(msg.fromEntity)) {
+            msg.fromEntity = entityAPIservice.getEntityFromListById($rootScope.userList, msg.fromEntity);
+        }
+        msg.eventType = '/' + msg.info.eventType;
+        msg.message = {};
+        msg.message.contentType = 'text';
+        msg.message.content = {};
+
+        var action = '';
+
+        switch(msg.info.eventType) {
+            case 'invite':
+                action = 'invited';
+                _.each(msg.info.inviteUsers, function(element, index, list) {
+                    action += ' ' + entityAPIservice.getNameByUserId(element);
+                    if (index != list.length -1 ) action += ','
+                });
+                break;
+            case 'join' :
+                action = 'joined this channel';
+                break;
+            case 'leave' :
+                action = 'left this channel';
+                break;
+            case 'create' :
+                action = 'created current channel at ' + $filter('date')(msg.time, 'h:mm:ss a');
+                break;
+
+        }
+
+        msg.message.content.body = entityAPIservice.getFullName(msg.fromEntity) + ' ' + action + '.';
+
+        return msg;
     }
 });

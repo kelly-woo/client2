@@ -126,19 +126,19 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
             //  tempEntity is archived
             if (angular.isUndefined(tempEntity)) {
-                console.log('=================')
-                console.log('got left alarm but UNDEFINED')
-                console.log(value)
-                console.log('=================')
+//                console.log('=================')
+//                console.log('got left alarm but UNDEFINED')
+//                console.log(value)
+//                console.log('=================')
                 return;
             }
             else {
-                console.log('=================')
-                console.log('got left alarm')
-                console.log(tempEntity.name)
-                console.log(value.alarmCount)
-                console.log(value)
-                console.log('===============')
+//                console.log('=================')
+//                console.log('got left alarm')
+//                console.log(tempEntity.name)
+//                console.log(value.alarmCount)
+//                console.log(value)
+//                console.log('===============')
             }
 
 //            console.log(tempEntity)
@@ -242,4 +242,9 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
     };
 
+
+    //  Add 'onUserClick' to redirect to direct message to 'user'
+    $scope.onUserClick = function(user) {
+        $state.go('archives', { entityType:'users',  entityId:user.id });
+    }
 });
