@@ -6,8 +6,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     console.info('[enter] centerpanelController');
 
+    var CURRENT_ENTITY_ARCHIVED = 2002;
+
     var entityType = $state.params.entityType;
     var entityId = $state.params.entityId;
+
+    var updateInterval = 1500;
+
 
     $scope.entityId = entityId;
     $scope.entityType = entityType;
@@ -20,7 +25,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         firstLoadedId: -1,
         lastUpdatedId: -1,
         isFirst: false,
-        localLastMsgId: -1
+        localLastMsgId: -1,
+        loadingTimer : true,
+        isInitialLoadingCompleted : false
     };
 
     var groupByDate = function() {
@@ -78,6 +85,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     };
 
+
+    $timeout(function() {
+        $scope.msgLoadStatus.loadingTimer = false;
+    }, 1000);
+
     $scope.loadMore = function() {
         var deferred = $q.defer();
 
@@ -86,28 +98,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         if (!$scope.msgLoadStatus.loading) {
 
             $scope.msgLoadStatus.loading = true;
+
             // simulate an ajax request
             $timeout(function() {
                 // 엔티티 메세지 리스트 목록 얻기
                 messageAPIservice.getMessages(entityType, entityId, $scope.msgLoadStatus.firstLoadedId)
                     .success(function(response) {
-
                         //  lastUpdatedId 갱신
                         $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
 
                         if (response.messageCount) {
 
-                            console.log(response.messages)
                             for (var i in response.messages.reverse()) {
 
                                 var msg = response.messages[i];
+
                                 // jihoon
                                 if (msg.status == 'event') {
-//                                    console.log('event came')
-                                    console.log(msg)
                                     msg = eventMsgHandler(msg);
-//                                    console.log(msg)
-
                                     $scope.messages.unshift(msg);
                                     continue;
                                 }
@@ -133,51 +141,63 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                         // 최초 로드시 max(linkId) 업데이트
                         if ( $scope.msgLoadStatus.firstLoadedId < 0 && response.messageCount ) {
+                            //  localLastMsgId is for message marker of current entity
                             $scope.msgLoadStatus.localLastMsgId = _.max($scope.messages, function(message) {
                                 return message.id;
                             }).id;
                         }
 
                         // 추후 로딩을 위한 status 설정
-                        $scope.msgLoadStatus.firstLoadedId = response.firstIdOfReceviedList;
+                        $scope.msgLoadStatus.firstLoadedId = response.firstIdOfReceivedList;
                         $scope.msgLoadStatus.isFirst = response.isFirst;
                         $scope.msgLoadStatus.loading = false;
                         $scope.msgLoadStatus.loaded = ($scope.messages.length > 0);
 
                         // auto focus to textarea
                         $scope.focusPostMessage = true;
-
-                        updateMessageMarker();
-
                     })
                     .error(function(response) {
                         $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.getMessages"});
                     });
 
                 deferred.resolve();
-            }, 1500);
+            });
         } else {
             deferred.reject();
         }
         return deferred.promise;
     };
+
     $scope.loadMore();
 
     // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
     // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
     $scope.promise = null;
+
     var updateList = function() {
+        //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
+        //  In such case, don't update list and just return it.
+        if ($scope.msgLoadStatus.loading) {
+            $scope.promise = $timeout(updateList, updateInterval);
+            return;
+        }
+
+        //  if code gets to this point, 'getMessages' must be done.
+        $scope.msgLoadStatus.isInitialLoadingCompleted = true;
+
         messageAPIservice.getUpdatedMessages(entityType, entityId, $scope.msgLoadStatus.lastUpdatedId)
             .success(function (response) {
+
                 // jihoon
-                updateAlarmHandler(response.alarm);
-                updateEventHandler(response.event);
+                if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
+                if (response.event.eventCount != 0) updateEventHandler(response.event);
 
                 // lastUpdatedId 갱신
                 $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
 
                 response = response.updateInfo;
 
+                //  localLastMsgId is for message marker for current entity
                 if (response.messageCount) {
                     $scope.msgLoadStatus.localLastMsgId = _.max(response.messages, function(message) {
                         return message.id;
@@ -192,8 +212,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                         $scope.focusPostMessage = true;
 
                         if ( msg.status == 'event' ) {
-                            console.log(msg)
-//                            msg.status = 'event/' + msg.info.eventType;
                             msg = eventMsgHandler(msg);
 
                             $scope.messages.push(msg);
@@ -255,24 +273,31 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     groupByDate();
                 }
 
-                //  Setting message marker.
-                updateMessageMarker();
             })
             .error(function (response) {
-                // change state to ERROR with response
-                $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.getUpdatedMessages"});
+                if (response.code == CURRENT_ENTITY_ARCHIVED) {
+                    console.log('okay channel archived');
+                    $scope.updateLeftPanelCaller();
+                    $state.go('messages.home');
+                }
             });
 
         // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
-        $scope.promise = $timeout(updateList, 3000);
+        $scope.promise = $timeout(updateList, updateInterval);
     };
-    $scope.promise = $timeout(updateList, 3000);
+
+    $scope.promise = $timeout(updateList, updateInterval);
 
     // scope 소멸시(전환시) update polling 해제
-    //  message marker를 update
     $scope.$on('$destroy', function(){
         $timeout.cancel($scope.promise);
     });
+
+    //  update message marker only there are new msgs to display. otherwise, don't update.
+    $scope.$watch('msgLoadStatus.localLastMsgId', function(newVal, oldVal) {
+        if (newVal != -1) updateMessageMarker();
+    });
+
 
     $scope.message = {};
     $scope.postMessage = function() {
@@ -418,6 +443,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         //  otherwise, false.
         var mustUpdateLeftPanel = false;
 
+        console.log('There are some system events');
+        console.log('There are ' + event.eventCount)
+        console.log(eventTable);
+
         _.find(eventTable, function(event, index, list) {
 //            console.log(event);
             if (event.info.eventType == 'invite') {
@@ -497,10 +526,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 mustUpdateLeftPanel = true;
 
                 if (event.toEntity[0] == $scope.currentEntity.id) {
-                    $timeout.cancel($scope.promise);
-
-                    console.log('someone archived current channel')
-                    $state.go('messages');
+//                    $timeout.cancel($scope.promise);
+//
+//                    console.log('someone archived current channel')
+//                    $state.go('messages');
                     return;
                 }
                 else {
@@ -567,22 +596,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         });
     }
 
-    //  Updating message marker for current entity.
-    function updateMessageMarker() {
-        messageAPIservice.updateMessageMarker($scope.currentEntity.id, $scope.currentEntity.type, $scope.msgLoadStatus.localLastMsgId)
-            .success(function(response) {
-//                console.log('----------- successfully updated message marker for ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.localLastMsgId + ' with ' + $scope.currentEntity.type)
-            })
-            .error(function(response) {
-                console.log('message marker not updated for ' + $scope.currentEntity.id);
-            });
-    }
-
-
     function eventMsgHandler(msg) {
-        if (angular.isNumber(msg.fromEntity)) {
-            msg.fromEntity = entityAPIservice.getEntityFromListById($rootScope.userList, msg.fromEntity);
-        }
         msg.eventType = '/' + msg.info.eventType;
         msg.message = {};
         msg.message.contentType = 'text';
@@ -613,5 +627,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         msg.message.content.body = entityAPIservice.getFullName(msg.fromEntity) + ' ' + action + '.';
 
         return msg;
+    }
+
+    //  Updating message marker for current entity.
+    function updateMessageMarker() {
+        messageAPIservice.updateMessageMarker($scope.currentEntity.id, $scope.currentEntity.type, $scope.msgLoadStatus.localLastMsgId)
+            .success(function(response) {
+                console.log('----------- successfully updated message marker for ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.localLastMsgId + ' with ' + $scope.currentEntity.type)
+            })
+            .error(function(response) {
+                console.log('message marker not updated for ' + $scope.currentEntity.id);
+            });
     }
 });

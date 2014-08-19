@@ -16,7 +16,7 @@ var app = angular.module('jandiApp', [
 //     editableOptions.theme = 'bs3';
 // });
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice) {
 
     $rootScope._ = window._;
 
@@ -72,6 +72,12 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                 case 'files':
                     event.preventDefault();
                     $state.transitionTo('messages.detail.files.redirect', _.extend(fromParams, toParams), {  });
+                    break;
+                case 'messages.home' :
+                case 'messages' :
+                case 'toDefault':
+                    console.info('redirecting user to default channel');
+                    $rootScope.toDefault = true;
                     break;
                 default:
                     break;

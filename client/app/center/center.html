@@ -1,12 +1,16 @@
+
 <article class="msgs" when-scrolled="loadMore()" scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
-    <div class="msgs__loading" data-ng-show="msgLoadStatus.loading" data-ng-class="{'initial': (msgLoadStatus.firstLoadedId < 0)}"></div>
+    <div class="msgs__loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer" data-ng-class="{'initial': (!msgLoadStatus.isInitialLoadingCompleted)}"></div>
 
-    <div class="msgs-holder">
+    <div class="msgs-holder" data-ng-show="!msgLoadStatus.loading && !msgLoadStatus.loadingTimer || msgLoadStatus.isInitialLoadingCompleted">
+
         <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
+
             <div class="msgs-group__divider">
                 <div class="msgs-group__divider-label">{{ day.substr(8) }}</div>
             </div>
+
             <div class="msg-item"
                  data-ng-repeat="msg in msgs | orderBy: 'time':false"
                  data-link-id="msg.id"

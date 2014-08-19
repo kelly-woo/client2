@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('entityAPIservice', function($http, $rootScope, $filter) {
+app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorageService, $state) {
     var entityAPI = {};
 
     entityAPI.getEntityFromListById = function(list, value) {
@@ -80,6 +80,31 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter) {
 
     entityAPI.getFullName = function(user) {
         return user.u_lastName + user.u_firstName;
+    };
+
+    entityAPI.setLastEntityState = function(entity) {
+
+        console.log(localStorageService.get('last-state'))
+        if (localStorageService.get('last-state').entity_id == null) {
+            console.log('go to default');
+            return;
+        }
+//        console.log($state)
+//        console.log($state.current.name.indexOf('file'))
+//        console.log($state.params.entityId)
+//        console.log($state.params.entityType)
+//        console.log($state.params.itemId)
+//        console.log($rootScope.currentEntity)
+
+        var last_state = {
+            rpanel_visible  : $state.current.name.indexOf('file') > -1 ? true : false,
+            entity_id       : $state.params.entityId,
+            entity_type     : $state.params.entityType,
+            file_item       : $state.params.itemId
+        };
+
+        localStorageService.set('last-state', last_state);
+        console.log(localStorageService.get('last-state'));
     };
 
     return entityAPI;

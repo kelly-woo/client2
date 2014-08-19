@@ -17,9 +17,9 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
         if (newValue != oldValue) findCurrent();
     });
 
-    $scope.$on('goToDefault', function(event, defaultChannel) {
-        console.log('gotcha')
-    })
+//    $scope.$on('goToDefault', function(event, defaultChannel) {
+//        console.log('gotcha')
+//    })
 
 //    $scope.$on('goToDefaultChannel', function(event, defaultChannel) {
 //        console.log('hey')
@@ -31,14 +31,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     //  2. joinEntities is changed
     // Finds currently selected entity from lists.
     // No return value.
-    function findCurrent(defaultChannel) {
-        // Maybe user left channel or just logged in.
-        // Whatever cases that user needs to be directed to default channel.
-        if (defaultChannel) {
-            console.log('setting to default channel');
-            setCurrentEntity(defaultChannel);
-            return;
-        }
+    function findCurrent() {
 
         var current = {};
 
@@ -52,7 +45,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
             });
         }
 
-        setCurrentEntity(current)
+        setCurrentEntity(current);
     }
 
 
@@ -93,16 +86,9 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     };
 
     $scope.onDeleteClick = function() {
-        if ($scope.joinedChannelList.length == 1) {
-            alert('Only one left. You cannot delete current channel. Sorry.');
-            return;
-        }
-
-        console.log('deleting ' + $scope.$parent.currentEntity.name)
         entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
             .success(function(response) {
                 updateLeftPanel();
-                $rootScope.$emit('updateSharedEntities');
             })
             .error(function(response) {
                 alert(response.msg);
@@ -110,17 +96,16 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     };
 
     $scope.onLeaveClick = function() {
-        console.log('leaving ' + $scope.currentEntity.name)
 
-        if ($scope.joinedChannelList.length == 1) {
-            alert('only one left. You cannot leave current channel. Sorry.');
+        //  prevent user from leaving default channel.
+        if ($scope.currentEntity.id == $scope.team.t_defaultChannelId) {
+            console.debug('cannot leave default channel');
             return;
         }
 
         entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
             .success(function(response) {
                 updateLeftPanel();
-                $rootScope.$emit('updateSharedEntities')
             })
             .error(function(response) {
                 alert(response.msg);
@@ -158,7 +143,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
 
     function updateLeftPanel() {
         $scope.updateLeftPanelCaller();
-        $state.go('messages.home');
+        $rootScope.toDefault = true;
     }
 
     $scope.getName = function(userId) {
@@ -167,9 +152,10 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
         return $filter('getFirstLastNameOfUser')(temp);
     };
 
-    // Called when header dropdown is clicked.
-    // Setting fileTypeQuery to clicked value.
-    // If right panel is not opened yet, open it first.
+    //  Called when header dropdown is clicked.
+    //  Setting fileTypeQuery to clicked value.
+    //  If right panel is not opened yet, open it first.
+    //  right.controller is listening to 'updateFileTypeQuery'.
     $scope.onFileTypeClick = function(type) {
         if ($state.current.name != 'messages.detail.files')
             $state.go('messages.detail.files');
