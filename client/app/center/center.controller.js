@@ -157,7 +157,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                         $scope.focusPostMessage = true;
                     })
                     .error(function(response) {
-                        $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.getMessages"});
+                        if (response.code == CURRENT_ENTITY_ARCHIVED) {
+                            console.log('okay channel archived');
+                            $scope.updateLeftPanelCaller();
+                            $state.go('messages.home');
+                        }
                     });
 
                 deferred.resolve();
