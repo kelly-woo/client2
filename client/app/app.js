@@ -33,7 +33,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
         //change this code to handle the error somehow
-        $state.go('error');
+        $state.go('messages.home');
     });
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
@@ -73,11 +73,26 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                     event.preventDefault();
                     $state.transitionTo('messages.detail.files.redirect', _.extend(fromParams, toParams), {  });
                     break;
-                case 'messages.home' :
                 case 'messages' :
-                case 'toDefault':
-                    console.info('redirecting user to default channel');
-                    $rootScope.toDefault = true;
+                case 'messages.home' :
+                    event.preventDefault();
+
+                    var lastState = entityAPIservice.getLastEntityState();
+                    if (!lastState) {
+                        $rootScope.toDefault = true;
+                        return;
+                    }
+
+                    if (lastState.rpanel_visible) {
+                        if (lastState.itemId) {
+                            $state.go('messages.detail.files.item', { entityType:lastState.entityType, entityId: lastState.entityId, itemId: lastState.itemId });
+                            return;
+                        }
+                        $state.go('messages.detail.files', { entityType:lastState.entityType, entityId: lastState.entityId });
+                    }
+                    else {
+                        $state.go('messages.detail', { entityType:lastState.entityType, entityId: lastState.entityId });
+                    }
                     break;
                 default:
                     break;
@@ -95,7 +110,11 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     $rootScope.$on('$locationChangeSuccess', function(event) {
         console.log("[$locationChangeSuccess]");
+
         $rootScope.uiState = localStorageService.get('ui-state');
+
+        entityAPIservice.setLastEntityState();
+
 
         // Halt state change from even starting
         // event.preventDefault();

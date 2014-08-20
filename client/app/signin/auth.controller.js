@@ -5,6 +5,11 @@ var app = angular.module('jandiApp');
 app.controller('authController', function($scope, $state, $window, $location, loginAPI, localStorageService) {
     $scope.status = { err: false, msg: "" };
 
+
+    //  TODO:DELETE THIS LINE
+    $scope.user = {};
+    $scope.user.email = 'jihoonk@tosslab.com';
+    $scope.user.password = '1234';
      var default_state = {
         cpanel_name: 'general',
         cpanel_type: 'channel',

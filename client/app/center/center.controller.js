@@ -160,7 +160,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                         if (response.code == CURRENT_ENTITY_ARCHIVED) {
                             console.log('okay channel archived');
                             $scope.updateLeftPanelCaller();
-                            $state.go('messages.home');
+                            $rootScope.toDefault = true;
                         }
                     });
 
@@ -282,7 +282,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 if (response.code == CURRENT_ENTITY_ARCHIVED) {
                     console.log('okay channel archived');
                     $scope.updateLeftPanelCaller();
-                    $state.go('messages.home');
+                    $rootScope.toDefault = true;
                 }
             });
 
@@ -637,7 +637,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     function updateMessageMarker() {
         messageAPIservice.updateMessageMarker($scope.currentEntity.id, $scope.currentEntity.type, $scope.msgLoadStatus.localLastMsgId)
             .success(function(response) {
-                console.log('----------- successfully updated message marker for ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.localLastMsgId + ' with ' + $scope.currentEntity.type)
+//                console.log('----------- successfully updated message marker for ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.localLastMsgId + ' with ' + $scope.currentEntity.type)
             })
             .error(function(response) {
                 console.log('message marker not updated for ' + $scope.currentEntity.id);

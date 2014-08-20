@@ -77,12 +77,11 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     //  redirecting to default channel.
     $rootScope.$watch('toDefault', function(newVal, oldVal) {
         if (newVal) {
-            console.log('todefault change detected from ' + oldVal + ' to ' + newVal);
-            console.info('redirecting is about to start')
             $state.go('archives', {entityType:'channels',  entityId:defaultChannel });
             $rootScope.toDefault = false;
         }
-    })
+    });
+
 
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
