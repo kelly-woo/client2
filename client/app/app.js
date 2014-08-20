@@ -75,13 +75,14 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                     break;
                 case 'messages' :
                 case 'messages.home' :
-                    event.preventDefault();
 
                     var lastState = entityAPIservice.getLastEntityState();
                     if (!lastState) {
                         $rootScope.toDefault = true;
                         return;
                     }
+
+                    event.preventDefault();
 
                     if (lastState.rpanel_visible) {
                         if (lastState.itemId) {
