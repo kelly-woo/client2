@@ -288,7 +288,8 @@ input[type="button"] {
     background: url(../assets/images/fileicon_pdf.png);
 }
 
-.fileicon_mp4 {
+.fileicon_mp4,
+.fileicon_mov{
     background: url(../assets/images/fileicon_video.png);
 }
 

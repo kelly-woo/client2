@@ -91,7 +91,7 @@
 
             <!-- FILE TYPE ICON IMAGE && FILE TYPE && FILE SIZE CONTAINER ON THE LEFT -->
             <div class="file-item-type">
-                <div class="fileicon fileicon_{{ file.content.type | filetype | lowercase}}"></div>
+                <div class="fileicon fileicon_{{ file.content.type | filetype | lowercase }}"></div>
                 <div class="file-item-meta__type" data-ng-if="file.content.type">{{ file.content.type | filetype }}</div>
                 <div class="file-item-meta__size" data-ng-if="file.content.size > 0">{{ file.content.size | bytes }}</div>
             </div>
