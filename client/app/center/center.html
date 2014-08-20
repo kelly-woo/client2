@@ -1,12 +1,16 @@
+
 <article class="msgs" when-scrolled="loadMore()" scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
-    <div class="msgs__loading" data-ng-show="msgLoadStatus.loading" data-ng-class="{'initial': (msgLoadStatus.firstLoadedId < 0)}"></div>
+    <div class="msgs__loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer" data-ng-class="{'initial': (!msgLoadStatus.isInitialLoadingCompleted)}"></div>
 
-    <div class="msgs-holder">
+    <div class="msgs-holder" data-ng-show="!msgLoadStatus.loading && !msgLoadStatus.loadingTimer || msgLoadStatus.isInitialLoadingCompleted">
+
         <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
+
             <div class="msgs-group__divider">
                 <div class="msgs-group__divider-label">{{ day.substr(8) }}</div>
             </div>
+
             <div class="msg-item"
                  data-ng-repeat="msg in msgs | orderBy: 'time':false"
                  data-link-id="msg.id"
@@ -18,9 +22,9 @@
                 </div>
 
                 <div class="msg-item-header">
-                    <span class="msg-item-header__name">{{msg.fromEntity|getFirstLastNameOfUser}}</span>
+                    <span class="msg-item-header__name" data-ng-click="onUserClick(msg.fromEntity);">{{msg.fromEntity|getFirstLastNameOfUser}}</span>
                     <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
-                    <span class="temp msg-item-header__created">[{{msg.id + "-" + msg.messageId + "-" + msg.feedbackId}}/{{msg.message.contentType}}/{{msg.status}}]</span>
+                    <span class="temp msg-item-header__created">[{{msg.id + "-" + msg.messageId + "-" + msg.feedbackId}}/{{msg.message.contentType}}/{{msg.status}}{{msg.eventType}}]</span>
                     <a class="msg-item__action link-remove pull-right"
                        data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
                        data-ng-click="deleteMessage(msg)">
@@ -99,6 +103,7 @@
         </div>
     </div>
 </article>
+
 <div class="footer">
     <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 41px;">
         <span class="glyphicon glyphicon-circle-arrow-up" style="top:4px;"></span>

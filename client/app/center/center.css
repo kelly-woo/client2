@@ -135,6 +135,9 @@ input[disabled].cpanel-search__form-input{
 .msgs__loading.initial {
     background: url(../../assets/images/jd_loading.gif) center / 100px no-repeat;
     height: 100%;
+    width: 100%;
+    z-index: 1;
+    background-color: white;
 }
 .msgs-intro {
     padding: 1rem 1rem 1rem 1.5rem;

@@ -2,7 +2,8 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, leftpanelAPIservice, leftPanel, user, defaultChannel, entityAPIservice) {
+app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, leftpanelAPIservice, leftPanel,
+                                               user, defaultChannel, entityAPIservice, localStorageService) {
 
     console.info('[enter] leftpanelController');
 
@@ -19,12 +20,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     initLeftList();
 
     function initLeftList () {
-
-        // Just making sure to close modal view if any of them left opened.
-        //$('.modal').modal('hide');
-
-//        console.info('[leftPanel] ' )
-
         $scope.team             = response.team;
 
         $scope.totalEntityCount = response.entityCount;
@@ -59,12 +54,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
         ////////////    END OF PARSING      ////////////
 
-//        console.log(defaultChannel)
-//        if (defaultChannel) {
-//            console.log('broadcasting')
-//            $scope.$broadcast('goToDefaultChannel', defaultChannel);
-//        }
-
         // Update difference between number of all channels and currently joined channels.
         hasMoreChannelsToJoin($scope.totalChannelList.length, $scope.joinedChannelList.length);
 
@@ -82,14 +71,17 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 //            console.log(response.alarmInfos)
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
         }
-
-        if ($state.current.name.indexOf('messages.home') != -1) {
-            $state.go('archives', {entityType:'channels',  entityId:defaultChannel });
-        }
-
-
-
     }
+
+
+    //  redirecting to default channel.
+    $rootScope.$watch('toDefault', function(newVal, oldVal) {
+        if (newVal) {
+            $state.go('archives', {entityType:'channels',  entityId:defaultChannel });
+            $rootScope.toDefault = false;
+        }
+    });
+
 
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
@@ -115,7 +107,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     //  When there is anything to update, call this function and below function will handle properly.
     function leftPanelAlarmHandler(alarmInfoCnt, alarms) {
-//       console.log(alarms);
         _.each(alarms, function(value, key, list) {
             // TODO: 서버님께서 0을 주시는 이유가 궁금합니다.
             if (value.alarmCount == 0 )
@@ -126,23 +117,9 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
             //  tempEntity is archived
             if (angular.isUndefined(tempEntity)) {
-                console.log('=================')
-                console.log('got left alarm but UNDEFINED')
-                console.log(value)
-                console.log('=================')
                 return;
             }
-            else {
-                console.log('=================')
-                console.log('got left alarm')
-                console.log(tempEntity.name)
-                console.log(value.alarmCount)
-                console.log(value)
-                console.log('===============')
-            }
 
-//            console.log(tempEntity)
-//            console.log('leftPanelAlarmUpdate "' + tempEntity.name + '/' + tempEntity.id + '" to ' + value.alarmCount)
             entityAPIservice.updateBadgeValue(tempEntity, value.alarmCount);
         });
     }
@@ -176,9 +153,11 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
     $scope.updateLeftPanelCaller = function() {
+        console.log('updateLeftPanelCaller');
         getLeftLists();
     };
 
+    // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
     $rootScope.$on('updateLeftPanelCaller', function() {
         console.info("[enter] updateLeftPanelCaller");
         getLeftLists();
@@ -242,4 +221,13 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
     };
 
+
+    //  Add 'onUserClick' to redirect to direct message to 'user'
+    $scope.onUserClick = function(user) {
+        $state.go('archives', { entityType:'users',  entityId:user.id });
+    }
+
+    $scope.toDefaultChannel = function() {
+        $state.go('archives', { entityType:'channels',  entityId:defaultChannel });
+    }
 });

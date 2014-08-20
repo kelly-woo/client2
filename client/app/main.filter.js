@@ -111,6 +111,7 @@ app.filter('getFirstLastNameById', function() {
 
         var fullName = '';
 
+        console.log('hey')
         // Loop through userlist looking for matching user.id
         // if found, return full name.
         _.each(scope.userList, function(user) {
@@ -133,6 +134,10 @@ app.filter('getFirstLastNameOfUser', function() {
     return function(input) {
         if (angular.isUndefined(input)) return '';
 
+        if (input.isNumber) {
+            console.log('isnumber')
+            return $filter('getFirstLastNameById', input);
+        }
         if (input.type != 'user') return input.name;
 
         return input.u_lastName + input.u_firstName;
