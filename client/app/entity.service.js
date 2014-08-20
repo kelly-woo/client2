@@ -84,11 +84,9 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
             itemId         : $state.params.itemId
         };
 
-        console.log($state.params.entityId)
         if (last_state.entityId == null) return;
 
         localStorageService.set('last-state', last_state);
-        console.log(localStorageService.get('last-state'));
     };
 
     entityAPI.getLastEntityState = function() {

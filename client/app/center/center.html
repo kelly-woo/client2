@@ -98,6 +98,18 @@
                         </div>
                     </div>
 
+                    <!-- SYSTEM EVENT -->
+                    <div class="msg-text" data-ng-if="msg.message.contentType === 'systemEvent'">
+                        <div class="msg-comment-header">
+                            <span class="msg-comment_userType">{{ msg.message.content.actionOwner }}</span>
+                            <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+                            <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
+                                {{ invitees.u_lastName }}{{invitees.u_firstName}}
+                            </span>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -300,6 +300,7 @@ var inviteUsertoChannelCtrl = function($scope, $modalInstance, entityheaderAPIse
 
 // FILE UPLOAD controller
 var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice) {
+    $scope.isLoading            = false;
     $scope.files                = $scope.selectedFiles[0];
 
     // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 synch가 맞는다.
@@ -326,6 +327,7 @@ var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice) {
     // TODO : CURRENTLY IT'S UPLOADING ONLY ONE FILE.  MODIFY LOGIC TO UPLOAD MULTIPLE FILES
     // Be aware of change in type of fileInfo.share (from Entity to entitiyId.)
     $scope.onFileUpload = function(fileInfo) {
+        $scope.isLoading = true;
         fileInfo.permission = PRIVATE_FILE;
 
         if (fileInfo.share.type == 'channel') {
@@ -344,6 +346,9 @@ var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice) {
         fileQueue.then(function(result) {
             fileAPIservice.broadcastChangeShared();
             $modalInstance.dismiss('cancel');
+            $scope.isLoading = false;
+        }, function(response) {
+            console.debug('failed to upload file.');
         });
 
     }

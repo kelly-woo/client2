@@ -3,6 +3,8 @@
                   COMMON
 
 ********************************************/
+html { min-width: 980px; }
+
 .user-thumb-sm  { width: 28px; height: 28px; border-radius: 50%; }
 .user-thumb     { width: 35px; height: 35px; border-radius: 50%; }
 .user-thumb-lg  { width: 72px; height: 72px; border-radius: 50%; }
@@ -288,7 +290,8 @@ input[type="button"] {
     background: url(../assets/images/fileicon_pdf.png);
 }
 
-.fileicon_mp4 {
+.fileicon_mp4,
+.fileicon_mov{
     background: url(../assets/images/fileicon_video.png);
 }
 
