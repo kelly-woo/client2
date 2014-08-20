@@ -603,7 +603,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     function eventMsgHandler(msg) {
         msg.eventType = '/' + msg.info.eventType;
         msg.message = {};
-        msg.message.contentType = 'text';
+        msg.message.contentType = 'systemEvent';
         msg.message.content = {};
 
         var action = '';
@@ -611,9 +611,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         switch(msg.info.eventType) {
             case 'invite':
                 action = 'invited';
+                msg.message.invites = [];
+
                 _.each(msg.info.inviteUsers, function(element, index, list) {
-                    action += ' ' + entityAPIservice.getNameByUserId(element);
-                    if (index != list.length -1 ) action += ','
+                    var entity = entityAPIservice.getEntityFromListById($rootScope.userList, element);
+                    msg.message.invites.push(entity)
                 });
                 break;
             case 'join' :
@@ -628,7 +630,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         }
 
-        msg.message.content.body = entityAPIservice.getFullName(msg.fromEntity) + ' ' + action + '.';
+        msg.message.content.actionOwner = entityAPIservice.getFullName(msg.fromEntity);
+        msg.message.content.body = action + '.';
 
         return msg;
     }

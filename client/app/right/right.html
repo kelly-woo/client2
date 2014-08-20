@@ -131,7 +131,7 @@
 
                 <!-- UPLOADED TIME, SHARED CHANNELS/PRIVATEGROUPS, LINK -->
                 <div class="file-item-meta file-item-meta__listview">
-                    <div class="file-item-meta__createtime file-item-meta__info">{{ file.createTime | date: 'yyyy. MM. dd. a h:mm' }}</div>
+                    <div class="file-item-meta__createtime file-item-meta__info">{{ file.createTime | date: 'yyyy. MM. dd. h:mm a' }}</div>
 
                     <div data-ng-if="file.shared.length" class="file-item-meta__info">
                         Shared in

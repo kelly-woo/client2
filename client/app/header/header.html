@@ -4,7 +4,8 @@
             <!--<span data-channel-id="{{currentEntity.id}}" class="star glyphicon glyphicon-star star_channel"></span>-->
             <span style="position:relative;">
                 <span class="name ng-binding dropdown-toggle" data-toggle="dropdown">
-                    <span class="prefix">{{currentEntity.prefix}}</span>{{ currentEntity|getFirstLastNameOfUser }}
+                    <span class="prefix">{{currentEntity.prefix}}</span>
+                    {{ currentEntity|getFirstLastNameOfUser }}
                     <span ng-if="currentEntity.type != 'user'"><i class="cpanel-header__more fa fa-caret-down"></i></span>
                 </span>
 

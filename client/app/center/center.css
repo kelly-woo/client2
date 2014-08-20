@@ -252,6 +252,10 @@ input[disabled].cpanel-search__form-input{
 .msg-file-meta-info {
     color: #666;
 }
+.msg-comment_userType {
+    color: black;
+    cursor: pointer;
+}
 .msg-file-meta__writer {  }
 .msg-comment {  }
 .msg-comment-header {
