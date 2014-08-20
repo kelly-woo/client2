@@ -8,9 +8,10 @@ app.controller('authController', function($scope, $state, $window, $location, lo
 
     //  TODO:DELETE THIS LINE
     $scope.user = {};
-    $scope.user.email = 'jihoonk@tosslab.com';
-    $scope.user.password = '1234';
-     var default_state = {
+//    $scope.user.email = 'jihoonk@tosslab.com';
+//    $scope.user.password = '1234';
+
+    var default_state = {
         cpanel_name: 'general',
         cpanel_type: 'channel',
         rpanel_visible: true,
