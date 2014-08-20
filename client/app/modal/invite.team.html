@@ -4,17 +4,11 @@
     <h3 id="myModalLabel">Invite others to team</h3>
 </div>
 
-
 <form novalidate name="invite_team_form" ng-submit="onInviteClick()">
     <div class="modal-body invite-team-body">
         <h4>
             이메일을 통해 다른 팀원을 잔디로 초대하실 수 있습니다.
         </h4>
-        <div class="loading_container" ng-if="isLoading">
-            <div class="loading_container_background"></div>
-            <div class="loading_bg"></div>
-            <div class="loading_bar"><img ng-src="../../assets/images/jd_loading.gif"/></div>
-        </div>
 
         <div class="invite-team-body-more-container">
             <div class="invite-team-body_more cursor_pointer btn-ok" data-ng-click="onAddMoreClick();">
@@ -50,3 +44,9 @@
     </div>
 
 </form>
+
+<div class="loading_container" ng-if="isLoading">
+    <div class="loading_container_background"></div>
+    <div class="loading_bg"></div>
+    <div class="loading_bar"><img ng-src="../../assets/images/jd_loading.gif"/></div>
+</div>
