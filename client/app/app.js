@@ -85,6 +85,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                     event.preventDefault();
 
                     if (lastState.rpanel_visible) {
+
                         if (lastState.itemId) {
                             $state.go('messages.detail.files.item', { entityType:lastState.entityType, entityId: lastState.entityId, itemId: lastState.itemId });
                             return;

@@ -65,6 +65,7 @@ app.directive('scrollGlue', function(){
 app.directive('whenScrolled', ['$timeout', function($timeout) {
     return function(scope, elm, attr) {
         var raw = elm[0];
+
         elm.bindWithDelay('scroll', function() {
             if (raw.scrollTop <= 100 && !scope.msgLoadStatus.isFirst) {
                 var sh = raw.scrollHeight;

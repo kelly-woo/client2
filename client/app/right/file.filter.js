@@ -78,6 +78,7 @@ app.filter('filetype', function() {
             case 'video/quicktime'  : filetype = "MOV"; break;
             case 'audio/mp3'        : filetype = "MP3"; break;
             case 'audio/mpeg'       : filetype = "MPEG"; break;
+            case 'application/zip'  : filetype = "ZIP"; break;
             case 'text/plain'       : filetype = "TXT"; break;
             default                 : filetype = "ETC"; break;
         }

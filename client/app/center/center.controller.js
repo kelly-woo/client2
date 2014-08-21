@@ -11,7 +11,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var entityType = $state.params.entityType;
     var entityId = $state.params.entityId;
 
-    var updateInterval = 1500;
+    var updateInterval = 1000;
 
 
     $scope.entityId = entityId;
@@ -619,19 +619,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 });
                 break;
             case 'join' :
-                action = 'joined this channel';
+                action = 'joined this channel.';
                 break;
             case 'leave' :
-                action = 'left this channel';
+                action = 'left this channel.';
                 break;
             case 'create' :
-                action = 'created current channel at ' + $filter('date')(msg.time, 'h:mm:ss a');
+                action = 'created current channel at ' + $filter('date')(msg.time, 'h:mm:ss a') + '.';
                 break;
 
         }
 
         msg.message.content.actionOwner = entityAPIservice.getFullName(msg.fromEntity);
-        msg.message.content.body = action + '.';
+        msg.message.content.body = action;
 
         return msg;
     }

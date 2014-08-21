@@ -3,7 +3,6 @@
     <!-- TEAM CONTAINER  -->
     <div class="lpanel-team" >
         <span class="lpanel-team__name overflow-ellipsis right_padding dropdown-toggle">
-            <!--<a href="#">{{team.name}}</a>-->
             {{ team.name }}
         </span>
     </div>
@@ -18,7 +17,7 @@
 
         <!-- CHANNEL -->
         <div class="lpanel-list__channels">
-            <h2 id="channels_header" class="hoverable overflow-ellipsis " ng-click="openModal('join');">
+            <h2 id="channels_header" class="cursor_pointer overflow-ellipsis " ng-click="openModal('join');">
                 Channels
                 <span class="lpanel-entity_more icon_add_member"></span>
             </h2>
@@ -30,7 +29,7 @@
                         <span class="inline-overflow-ellipsis left-panel-channel_name">
                             <span class="prefix">#</span> {{joinedChannel.name}}
                         </span>
-                        <span class="badge left-panel_badge pull-right">{{joinedChannel.alarmCnt}}</span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{joinedChannel.alarmCnt}}</span>
                     </a>
                 </li>
             </ul>
@@ -56,7 +55,7 @@
                         <span class="unread_just_G02B6SM55 unread_just hidden"> 0 </span>
                         <span class="unread_highlight_G02B6SM55 unread_highlight hidden">0</span>
                         <span class="inline-overflow-ellipsis" data-ng-bind="group.name"></span>
-                        <span class="badge left-panel_badge pull-right">{{group.alarmCnt}}</span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{group.alarmCnt}}</span>
 
                     </a>
                 </li>
@@ -78,7 +77,7 @@
                         <span class="unread_highlight_U029JJYN1 unread_highlight hidden">0</span>
                         <span class="typing_indicator"></span>
                         <span class="inline-overflow-ellipsis">{{userEntity|getFirstLastNameOfUser}}</span>
-                        <span class="badge left-panel_badge pull-right">{{userEntity.alarmCnt}}</span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
 
                     </a>
                 </li>
