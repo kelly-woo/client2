@@ -288,14 +288,14 @@
     float: left;
 }
 .email_container {
-    width: 170px;
+    width: 37%;
 }
 .firstName_container {
-    width: 130px;
+    width: 30%;
     margin: 0 5px;
 }
 .lastName_container {
-    width: 134px;
+    width: 30%;
 }
 
 .loading_container {
