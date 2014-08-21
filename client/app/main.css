@@ -30,6 +30,10 @@ html { min-width: 980px; }
     margin: 0 -2px;
 }
 
+.green_badge {
+    background-color: #31c08a;
+}
+
 /********************************************
 
                 ANIMATION

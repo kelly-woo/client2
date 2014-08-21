@@ -75,7 +75,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                     break;
                 case 'messages' :
                 case 'messages.home' :
-                    event.preventDefault();
 
                     var lastState = entityAPIservice.getLastEntityState();
                     if (!lastState) {
@@ -83,7 +82,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                         return;
                     }
 
+                    event.preventDefault();
+
                     if (lastState.rpanel_visible) {
+
                         if (lastState.itemId) {
                             $state.go('messages.detail.files.item', { entityType:lastState.entityType, entityId: lastState.entityId, itemId: lastState.itemId });
                             return;
