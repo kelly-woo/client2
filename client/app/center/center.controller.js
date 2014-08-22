@@ -7,6 +7,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     console.info('[enter] centerpanelController');
 
     var CURRENT_ENTITY_ARCHIVED = 2002;
+    var INVALID_SECURITY_TOKEN = 2000;
 
     var entityType = $state.params.entityType;
     var entityId = $state.params.entityId;
@@ -157,11 +158,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                         $scope.focusPostMessage = true;
                     })
                     .error(function(response) {
-                        if (response.code == CURRENT_ENTITY_ARCHIVED) {
-                            console.log('okay channel archived');
-                            $scope.updateLeftPanelCaller();
-                            $rootScope.toDefault = true;
-                        }
+                        onHttpRequestError(response);
                     });
 
                 deferred.resolve();
@@ -279,11 +276,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
             })
             .error(function (response) {
-                if (response.code == CURRENT_ENTITY_ARCHIVED) {
-                    console.log('okay channel archived');
-                    $scope.updateLeftPanelCaller();
-                    $rootScope.toDefault = true;
-                }
+                onHttpRequestError(response);
             });
 
         // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
@@ -646,4 +639,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 console.log('message marker not updated for ' + $scope.currentEntity.id);
             });
     }
+
+    function onHttpRequestError(response) {
+        //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
+        if (response.code == CURRENT_ENTITY_ARCHIVED) {
+            console.log('okay channel archived');
+            $scope.updateLeftPanelCaller();
+            $rootScope.toDefault = true;
+            return;
+        }
+
+        if (response.code == INVALID_SECURITY_TOKEN) {
+            console.log('okay. forced out.');
+            $state.go('signin');
+            return;
+        }
+    }
+
 });
