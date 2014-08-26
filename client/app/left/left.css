@@ -134,7 +134,7 @@
 }
 
 .left-panel-channel_name {
-    max-width: 166px;
+    max-width: 151px;
 }
 #col_channels ul li.channel.active a.channel_name,#col_channels ul li.group.active a.group_name,#col_channels ul li.member.active a.im_name{color:white;background:#4c9689}
 .lpanel-list ul li a .prefix{

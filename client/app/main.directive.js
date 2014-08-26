@@ -66,18 +66,77 @@ app.directive('whenScrolled', ['$timeout', function($timeout) {
     return function(scope, elm, attr) {
         var raw = elm[0];
 
-        elm.bindWithDelay('scroll', function() {
+        elm.bindWithDelay('scroll', function(event) {
             if (raw.scrollTop <= 100 && !scope.msgLoadStatus.isFirst) {
-                var sh = raw.scrollHeight;
-                scope.$apply(attr.whenScrolled).then(function() {
-                    $timeout(function() {
-                        $(raw).animate({scrollTop: raw.scrollHeight - sh + 60}, '200', 'swing', function() {
-                        });
-                    }, 300);
-                    //raw.scrollTop = raw.scrollHeight - sh;
-                });
+                scope.loadMore();
+                return;
             }
         }, 300);
+    };
+}]);
+
+app.directive('lastDetector', ['$timeout', function($timeout) {
+    //  Length of list currently iterating. ('msgs' in template).
+    var length = 0;
+
+    //  Total number of rendered messages.
+    //  Gets reset to zero after list is fully iterated.
+    var numberOfRenderedMsg = 0;
+
+    var messageScrollTo = null;
+
+    //  Increment newMsgCounter if sets to 'true'.
+    var flag = false;
+
+    //  Counts number of new messages.
+    var newMsgCounter = 0;
+
+    return function (scope, element, attrs) {
+
+        length = attrs.length;
+
+        scope.$watch('$first', function(isFirst) {
+           if (isFirst) flag = true;
+        });
+
+        scope.$watch('$index', function(index) {
+
+            //  New messages are rendered once old messages in same list are rendered first.
+            if (flag) { newMsgCounter++; }
+
+            //  Always increment rendered counts.
+            numberOfRenderedMsg++;
+
+            //  Done iterating current list('msgs')
+            if (numberOfRenderedMsg == length) {
+                //  Just to make sure.  But doesn't really have much effect.
+                flag = false;
+
+                //  Remembering message element so that update can come back to proper message element.
+                //  If it's initial loading(loadMoreCounter == 1), I don't care.
+                if (messageScrollTo == null && scope.loadMoreCounter != 1) {
+                    messageScrollTo = angular.element(element[0]);
+                }
+
+                //  Setting back to zero for next iteration.
+                numberOfRenderedMsg = 0;
+            }
+
+            //  Rendered all new messages.
+            //  Time to update scroll.
+            if (newMsgCounter == scope.messageUpdateCount) {
+                newMsgCounter = 0;
+
+                //  If it's initial loading, don't update scroll.
+                if (scope.loadMoreCounter == 1) { return; }
+
+                //  If it's not initial loading, update scroll.
+                scope.updateScroll(messageScrollTo);
+
+                //  once scroll has been updated, reset 'messageScrollTo'.
+                messageScrollTo = null;
+            }
+        });
     };
 }]);
 
@@ -107,20 +166,6 @@ app.directive('focusMe', ['$timeout', function($timeout) {
         }
     }
 }]);
-
-app.directive('ngEnterJiHoon', function() {
-    return function(scope, elm, attr) {
-        elm.bind('keydown keypress', function(event) {
-
-            if (event.which === 13) {
-                scope.$apply(function () {
-                    scope.$eval(attr.ngEnterJiHoon);
-                });
-                event.preventDefault();
-            }
-        })
-    }
-});
 
 app.directive('onFileInputChanged', function() {
     return {
