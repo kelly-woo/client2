@@ -389,3 +389,45 @@ var fileShareModalCtrl = function($scope, $modalInstance, fileAPIservice) {
             })
     }
 }
+
+//  PROFILE CONTROLLER
+var profileCtrl = function($scope, $rootScope, $modalInstance, userAPIservice) {
+    $scope.curUser = _.cloneDeep($scope.user);
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.onProfileChangeClick = function() {
+
+        $scope.isLoading = true;
+
+        /*
+            TODO:  Success response has updated user entitiy.
+            TODO:  Instead of updating left panel, just switch scope variable!!!!!!!
+         */
+        userAPIservice.updateUserProfile($scope.curUser)
+            .success(function(response) {
+//                console.log(response)
+//                console.log($scope.user)
+//
+//                $rootScope.user = $scope.user = response;
+//                console.log($scope.user)
+//                console.log($rootScope.user)
+
+                $scope.updateLeftPanelCaller();
+                $scope.isLoading = false;
+                $modalInstance.dismiss('cancel');
+            })
+            .error(function(response) {
+                console.log('not okay')
+                $scope.isLoading = false;
+
+            });
+    }
+
+    $scope.onFileSelect = function($files) {
+        console.log('file selected')
+        console.log($files)
+    }
+}

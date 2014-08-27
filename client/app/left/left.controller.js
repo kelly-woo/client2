@@ -219,6 +219,14 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 size        :   'lg'
             });
         }
+        else if (selector == 'profile') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/profile.html',
+                controller  :   profileCtrl,
+                size        :   'lg'
+            });
+        }
     };
 
 
@@ -230,4 +238,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     $scope.toDefaultChannel = function() {
         $state.go('archives', { entityType:'channels',  entityId:defaultChannel });
     }
+
+    $scope.openModal('profile');
 });
