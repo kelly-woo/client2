@@ -7,13 +7,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     console.info('[enter] centerpanelController');
 
     var CURRENT_ENTITY_ARCHIVED = 2002;
-    var INVALID_SECURITY_TOKEN = 2000;
+    var INVALID_SECURITY_TOKEN  = 2000;
 
     var entityType = $state.params.entityType;
     var entityId = $state.params.entityId;
 
     var updateInterval = 1000;
 
+    $scope.lastMessage = null;
+
+    $scope.messageUpdateCount = 20;
+
+    $scope.loadMoreCounter = 0;
 
     $scope.entityId = entityId;
     $scope.entityType = entityType;
@@ -30,6 +35,59 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         loadingTimer : true,
         isInitialLoadingCompleted : false
     };
+
+
+
+    //  default loadingTimer
+    $timeout(function() {
+        $scope.msgLoadStatus.loadingTimer = false;
+    }, 1000);
+
+    function groupByDate1() {
+        for (var i = 0; i < $scope.messageUpdateCount; i++) {
+            var msg = $scope.messages[i];
+
+            var prev = (i == 0) ? null : $scope.messages[i-1];
+            // comment continuous check
+            if ( msg.message.contentType === 'comment' ) {
+                msg.message.commentOption = { isTitle: false, isContinue: false };
+                if ( i == 0 ) {
+                    msg.message.commentOption.isTitle = true;
+                } else {
+                    // TODO 이전 메세지와 feedbackId가 같은지도 체크 필요함
+                    if (prev.message.contentType === 'file') {
+
+                        // 파일 아래 바로 해당 파일의 코멘트
+                        if (prev.messageId === msg.feedbackId) {
+                            msg.message.commentOption.isContinue = true;
+                        } else {
+                            msg.message.commentOption.isTitle = true;
+                        }
+
+                    } else if (prev.message.contentType === 'comment') {
+
+                        // 같은 파일에 대한 연속 코멘트
+                        if (prev.feedbackId === msg.feedbackId) {
+                            msg.message.commentOption.isContinue = true;
+                        } else {
+                            msg.message.commentOption.isTitle = true;
+                        }
+
+                    } else {
+                        msg.message.commentOption.isTitle = true;
+                    }
+                }
+            } else if (msg.message.contentType === 'file') {
+                msg.message.isFile = true;
+            } else if (msg.message.contentType === 'text') {
+                msg.message.isText = true;
+            }
+
+            // console.log(msg.message.contentType, msg.id);
+            // console.log("");
+            $scope.messages[i] = msg;
+        }
+    }
 
     var groupByDate = function() {
         // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
@@ -73,24 +131,49 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             } else if (msg.message.contentType === 'text') {
                 msg.message.isText = true;
             }
-
-            // console.log(msg.message.contentType, msg.id);
-            // console.log("");
             $scope.messages[i] = msg;
         }
+
 
         $scope.groupMsgs = [];
         $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
             return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
         });
-
     };
 
+    var prev = null;
 
-    $timeout(function() {
-        $scope.msgLoadStatus.loadingTimer = false;
-    }, 1000);
+    $scope.updateScroll = function(lastMessage) {
 
+        disableScroll();
+
+        if (prev != null){
+            prev.removeClass('last');
+        }
+
+        if (lastMessage.position().top > 0) {
+            lastMessage.addClass('last');
+            $('.msgs').scrollTop(lastMessage.position().top - 13);
+        }
+
+        prev = lastMessage;
+
+        $timeout(function() {
+            prev.removeClass('last');
+            enableScroll();
+        }, 800)
+    };
+
+    function disableScroll() {
+        $('body').bind('mousewheel', function(e) {
+            e.preventDefault()
+            e.stopPropagation();
+        });
+    }
+
+    function enableScroll() {
+        $('body').unbind('mousewheel');
+    }
     $scope.loadMore = function() {
         var deferred = $q.defer();
 
@@ -103,7 +186,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             // simulate an ajax request
             $timeout(function() {
                 // 엔티티 메세지 리스트 목록 얻기
-                messageAPIservice.getMessages(entityType, entityId, $scope.msgLoadStatus.firstLoadedId)
+                messageAPIservice.getMessages(entityType, entityId, $scope.msgLoadStatus.firstLoadedId, $scope.messageUpdateCount)
                     .success(function(response) {
                         //  lastUpdatedId 갱신
                         $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
@@ -137,6 +220,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                 $scope.messages.unshift(msg);
                                 // console.log("msg", i, msg);
                             }
+
+                            $scope.messageUpdateCount = response.messageCount;
+
                             groupByDate();
                         }
 
@@ -156,11 +242,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                         // auto focus to textarea
                         $scope.focusPostMessage = true;
+                        $scope.loadMoreCounter++;
                     })
                     .error(function(response) {
                         onHttpRequestError(response);
                     });
-
                 deferred.resolve();
             });
         } else {
@@ -183,12 +269,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             return;
         }
 
-        //  if code gets to this point, 'getMessages' must be done.
+        //  if code gets to this point, 'getMessages' has been done at least once.
         $scope.msgLoadStatus.isInitialLoadingCompleted = true;
+
 
         messageAPIservice.getUpdatedMessages(entityType, entityId, $scope.msgLoadStatus.lastUpdatedId)
             .success(function (response) {
-
                 // jihoon
                 if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
                 if (response.event.eventCount != 0) updateEventHandler(response.event);
@@ -270,6 +356,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                 break;
                         }
                     }
+
+                    $scope.messageUpdateCount = response.messageCount;
 
                     groupByDate();
                 }
@@ -481,8 +569,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                 //  I joined some channel from mobile.  Web needs to UPDATE left Panel.
                 if (event.fromEntity == $scope.user.id) {
-                    if (isJoin) console.log('I joined something');
-                    else console.log(' I left ');
+
+                    //  leave event of myself cannot get here!
+                    console.log('I joined something');
+
                     mustUpdateLeftPanel = true;
                     return;
                 }
@@ -503,7 +593,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 //  when attempting to join other channel.
                 //  No matter who created what, just update left panel.
 
-                console.log('crate')
+                console.log('create')
                 if (event.fromEntity == $scope.user.id) {
                     console.log('I created channel')
                 }

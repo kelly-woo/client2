@@ -11,59 +11,60 @@
                 <div class="msgs-group__divider-label">{{ day.substr(8) }}</div>
             </div>
 
-            <div class="msg-item"
-                 data-ng-repeat="msg in msgs | orderBy: 'time':false"
-                 data-link-id="msg.id"
-                 data-message-id="msg.message.id"
-                 data-ng-class="{ 'text': msg.message.isText, 'file-upload': msg.message.isFile, 'comment-title': msg.message.commentOption.isTitle, 'comment-continue': msg.message.commentOption.isContinue }">
+            <div last-detector="" data-length="{{msgs.length}}"
+             class="msg-item"
+             data-ng-repeat="msg in msgs | orderBy: 'time':false"
+             data-link-id="msg.id"
+             data-message-id="msg.message.id"
+             data-ng-class="{ 'text': msg.message.isText, 'file-upload': msg.message.isFile, 'comment-title': msg.message.commentOption.isTitle, 'comment-continue': msg.message.commentOption.isContinue }">
 
-                <div class="msg-item-float" data-ng-if="( !msg.message.commentOption.isContinue )">
-                    <a class="user-profile user-thumb" style="background-image: url({{ server_uploaded + msg.fromEntity.u_photoUrl }});"></a>
+            <div class="msg-item-float" data-ng-if="( !msg.message.commentOption.isContinue )">
+                <a class="user-profile user-thumb" style="background-image: url({{ server_uploaded + msg.fromEntity.u_photoUrl }});"></a>
+            </div>
+
+            <div class="msg-item-header">
+                <span class="msg-item-header__name" data-ng-click="onUserClick(msg.fromEntity);">{{msg.fromEntity|getFirstLastNameOfUser}}</span>
+                <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
+                <span class="temp msg-item-header__created">[{{msg.id + "-" + msg.messageId + "-" + msg.feedbackId}}/{{msg.message.contentType}}/{{msg.status}}{{msg.eventType}}]</span>
+                <a class="msg-item__action link-remove pull-right"
+                   data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
+                   data-ng-click="deleteMessage(msg)">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+
+            <div class="msg-item-body">
+
+                <!-- TEXT -->
+                <div class="msg-text" data-ng-if="msg.message.contentType === 'text'">
+                    <p class="msg-text-body break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
                 </div>
 
-                <div class="msg-item-header">
-                    <span class="msg-item-header__name" data-ng-click="onUserClick(msg.fromEntity);">{{msg.fromEntity|getFirstLastNameOfUser}}</span>
-                    <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
-                    <span class="temp msg-item-header__created">[{{msg.id + "-" + msg.messageId + "-" + msg.feedbackId}}/{{msg.message.contentType}}/{{msg.status}}{{msg.eventType}}]</span>
-                    <a class="msg-item__action link-remove pull-right"
-                       data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
-                       data-ng-click="deleteMessage(msg)">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-
-                <div class="msg-item-body">
-
-                    <!-- TEXT -->
-                    <div class="msg-text" data-ng-if="msg.message.contentType === 'text'">
-                        <p class="msg-text-body break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+                <!-- FILE -->
+                <div class="msg-file" data-ng-if="msg.message.contentType === 'file'">
+                    <div class="msg-file-body">
+                        <img class="msg-file-body__img cursor_pointer" data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })"
+                             data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
+                             data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.largeThumbnailUrl }}"
+                             data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
                     </div>
-
-                    <!-- FILE -->
-                    <div class="msg-file" data-ng-if="msg.message.contentType === 'file'">
-                        <div class="msg-file-body">
-                            <img class="msg-file-body__img cursor_pointer" data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })"
-                                 data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
-                                 data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.largeThumbnailUrl }}"
-                                 data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
-                        </div>
-                        <div class="msg-file-meta">
-                            <div class="msg-file-meta-up">
-                                <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
-                                    {{ msg.message.content.title }}
-                                </a>
-                                <span class="bullet">•</span>
+                    <div class="msg-file-meta">
+                        <div class="msg-file-meta-up">
+                            <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+                                {{ msg.message.content.title }}
+                            </a>
+                            <span class="bullet">•</span>
                                 <span class="msg-file-meta-info">
                                     {{msg.message.content.size | bytes }} {{ msg.message.content.type | filetype }}
                                 </span>
-                            </div>
-                            <div class="msg-file-meta-down">
+                        </div>
+                        <div class="msg-file-meta-down">
                                 <span class="msg-file-meta-info">
                                     Shared
                                     <a class="msg-file-meta__writer file__owner" ng-if="( msg.fromEntity.id !== msg.message.writer.id )">{{msg.message.writer|getFirstLastNameOfUser}}'s</a>
                                     File
                                 </span>
-                                <span class="bullet">•</span>
+                            <span class="bullet">•</span>
                                 <span data-ng-if="msg.message.shared.length">
                                     <span class="msg-file-meta-info">
                                         in
@@ -82,38 +83,41 @@
                                     </span>
                                     <span class="bullet">•</span>
                                 </span>
-                                <a class="green_font cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">Open original</a>
-                            </div>
+                            <a class="green_font cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">Open original</a>
                         </div>
                     </div>
+                </div>
 
-                    <!-- COMMENT -->
-                    <div class="msg-comment" data-ng-if="msg.message.contentType === 'comment'">
-                        <div class="msg-comment-header" data-ng-if="( msg.message.commentOption.isTitle )">
-                            Commented on <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">{{msg.feedback.content.title || msg.feedback.content.name}}</a>
-                        </div>
-                        <div class="msg-comment-body">
-                            <!--<i class="fa fa-quote-left pull-left"></i>-->
-                            <p class="break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
-                        </div>
+                <!-- COMMENT -->
+                <div class="msg-comment" data-ng-if="msg.message.contentType === 'comment'">
+                    <div class="msg-comment-header" data-ng-if="( msg.message.commentOption.isTitle )">
+                        Commented on <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">{{msg.feedback.content.title || msg.feedback.content.name}}</a>
                     </div>
+                    <div class="msg-comment-body">
+                        <!--<i class="fa fa-quote-left pull-left"></i>-->
+                        <p class="break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+                    </div>
+                </div>
 
-                    <!-- SYSTEM EVENT -->
-                    <div class="msg-text" data-ng-if="msg.message.contentType === 'systemEvent'">
-                        <div class="msg-comment-header">
-                            <span class="msg-comment_userType">{{ msg.message.content.actionOwner }}</span>
-                            <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+                <!-- SYSTEM EVENT -->
+                <div class="msg-text" data-ng-if="msg.message.contentType === 'systemEvent'">
+                    <div class="msg-comment-header">
+                        <span class="msg-comment_userType">{{ msg.message.content.actionOwner }}</span>
+                        <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
                             <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
                                 {{ invitees.u_lastName }}{{invitees.u_firstName}}
                             </span>
-                        </div>
-
                     </div>
 
                 </div>
+
             </div>
         </div>
+
+        </div>
+
     </div>
+
 </article>
 
 <div class="footer">
@@ -144,3 +148,43 @@
         </form>
     </div>
 </div>
+
+
+<style>
+    .last {
+        background-color: rgb(238, 252, 247);
+        -webkit-animation: opacIn 0.8s; /* Chrome, Safari, Opera */
+        animation: opacIn 0.8s;
+        margin-left: -20px;
+        margin-right: -10px;
+        padding-left: 67px;
+        margin-top: -13px !important;
+        padding-top: 13px;
+        /*margin-bottom: 8px;*/
+        /*padding-bottom: 5px;*/
+    }
+    .comment-continue.last {
+        padding-top: 0;
+        margin-bottom: 0;
+        margin-top: 0 !important;
+        padding-bottom: 15px;
+    }
+    .last.file-upload {
+        margin-left: -20px !important;
+        padding-bottom: 0;
+    }
+    .last .msg-item-float {
+        left: 20px;
+        top: 13px;
+    }
+    /* Chrome, Safari, Opera */
+    @-webkit-keyframes opacIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+    /* Standard syntax */
+    @keyframes opacIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+</style>
