@@ -371,15 +371,18 @@
     height: 100%;
     border-radius: 100%;
 }
-
+.profile-body .form-horizontal  .form-group {
+    margin-bottom: 7px;
+}
 .profile-body .form-horizontal  .form-group .control-label {
     text-align: left;
     padding-top: 13px;
 }
 .profile-body .form-horizontal h4 {
-    margin-bottom: 20px;
-    margin-top: 30px;
+    margin-bottom: 15px;
+    margin-top: 25px;
 }
+
 #profile_image_uploader {
     width: 100%;
     height: 100%;
@@ -403,6 +406,9 @@
     text-align: center;
     color:  white;
     z-index: 0;
+}
+.profile-footer {
+    margin-top: 0;
 }
 .black-opac__background {
     position: absolute;

@@ -66,12 +66,12 @@ app.directive('whenScrolled', ['$timeout', function($timeout) {
     return function(scope, elm, attr) {
         var raw = elm[0];
 
-        elm.bindWithDelay('scroll', function(event) {
+        elm.bind('scroll', function(event) {
             if (raw.scrollTop <= 100 && !scope.msgLoadStatus.isFirst) {
                 scope.loadMore();
                 return;
             }
-        }, 300);
+        });
     };
 }]);
 

@@ -206,7 +206,7 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
                     cur.firstName = currentDomInput.val();
                     break;
                 case 'lastName':
-                    cur.lastame = currentDomInput.val();
+                    cur.lastName = currentDomInput.val();
                     invites.push(cur);
                     cur = {};
                     hasAllInformation = true;
