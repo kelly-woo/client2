@@ -216,9 +216,6 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
             }
         })
 
-        console.log(invites);
-        console.log(hasAllInformation)
-
         $scope.hasAllInformation = hasAllInformation;
 
         if (hasAllInformation) {
@@ -391,7 +388,7 @@ var fileShareModalCtrl = function($scope, $modalInstance, fileAPIservice) {
 }
 
 //  PROFILE CONTROLLER
-var profileCtrl = function($scope, $rootScope, $modalInstance, userAPIservice) {
+var profileCtrl = function($scope, $rootScope, $modalInstance, userAPIservice, $modal, $timeout) {
     $scope.curUser = _.cloneDeep($scope.user);
 
     $scope.cancel = function() {
@@ -403,18 +400,13 @@ var profileCtrl = function($scope, $rootScope, $modalInstance, userAPIservice) {
         $scope.isLoading = true;
 
         /*
-            TODO:  Success response has updated user entitiy.
-            TODO:  Instead of updating left panel, just switch scope variable!!!!!!!
+         TODO:  Success response has updated user entitiy.
+         TODO:  Instead of updating left panel, just switch scope variable!!!!!!!
          */
+
+        console.log($scope.curUser.u_nickName)
         userAPIservice.updateUserProfile($scope.curUser)
             .success(function(response) {
-//                console.log(response)
-//                console.log($scope.user)
-//
-//                $rootScope.user = $scope.user = response;
-//                console.log($scope.user)
-//                console.log($rootScope.user)
-
                 $scope.updateLeftPanelCaller();
                 $scope.isLoading = false;
                 $modalInstance.dismiss('cancel');
@@ -424,10 +416,89 @@ var profileCtrl = function($scope, $rootScope, $modalInstance, userAPIservice) {
                 $scope.isLoading = false;
 
             });
-    }
+    };
+
+    $scope.$watch('user', function() {
+        $scope.curUser = _.cloneDeep($scope.user);
+    });
 
     $scope.onFileSelect = function($files) {
-        console.log('file selected')
-        console.log($files)
+
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL($files[0]);
+
+        fileReader.onload = function(e) {
+            var modalInstance = $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/image.crop.html',
+                size        :   'lg',
+                windowClass :   'wide',
+                controller  :   imageCropCtrl,
+                resolve     : {
+                    myImage     : function() { return e.target.result; }
+                }
+            });
+
+            modalInstance.result.then(function(result) {
+                    $scope.updateLeftPanelCaller();
+                },
+                function() {
+                    console.log('no chagnes')
+                });
+        };
+    };
+};
+
+//  IMAGE CROP CONTROLLER
+var imageCropCtrl = function($scope, $rootScope, $modalInstance, myImage, fileAPIservice) {
+    $scope.profilePic = myImage;
+    $scope.croppedProfilePic = '';
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+
+    $scope.onCropDone = function() {
+
+        var blob = dataURItoBlob($scope.croppedProfilePic);
+        $scope.isLoading = true;
+
+        fileAPIservice.updateProfilePic(blob)
+            .success(function(response) {
+                $modalInstance.close('success');
+            })
+            .error(function(response) {
+                console.log('not okay');
+                $scope.isLoading = false;
+
+            });
+    };
+
+    function dataURItoBlob (dataURI) {
+        // convert base64 to raw binary data held in a string
+        // doesn't handle URLEncoded DataURIs
+        var byteString;
+        if (dataURI.split(',')[0].indexOf('base64') >= 0)
+            byteString = atob(dataURI.split(',')[1]);
+        else
+            byteString = unescape(dataURI.split(',')[1]);
+
+        // separate out the mime component
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+        // write the bytes of the string to an ArrayBuffer
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        // write the ArrayBuffer to a blob, and you're done
+        return new Blob([ab],{type: 'image/png'});
     }
-}
+
+    $scope.onchange = function(temp) {
+        $scope.croppedProfilePic = temp;
+    }
+};

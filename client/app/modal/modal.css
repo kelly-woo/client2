@@ -387,7 +387,13 @@
     left:   0;
     right: 0;
     opacity: 0;
+    cursor: pointer;
+    z-index: 1;
 }
+.user-profile-photo-container:hover .overlay__text {
+    text-decoration: underline;
+}
+
 .user-profile-photo__overlay {
     position: absolute;
     width: 100%;
