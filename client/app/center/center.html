@@ -19,11 +19,11 @@
              data-ng-class="{ 'text': msg.message.isText, 'file-upload': msg.message.isFile, 'comment-title': msg.message.commentOption.isTitle, 'comment-continue': msg.message.commentOption.isContinue }">
 
             <div class="msg-item-float" data-ng-if="( !msg.message.commentOption.isContinue )">
-                <a class="user-profile user-thumb" style="background-image: url({{ server_uploaded + msg.fromEntity.u_photoThumbnailUrl.smallThumbnailUrl }});"></a>
+                <a class="user-profile user-thumb" style="background-image: url({{ server_uploaded + ( msg.message.writer.u_photoThumbnailUrl.smallThumbnailUrl  || msg.message.writer.u_photoUrl ) }});"></a>
             </div>
 
             <div class="msg-item-header">
-                <span class="msg-item-header__name" data-ng-click="onUserClick(msg.fromEntity);">{{msg.fromEntity|getFirstLastNameOfUser}}</span>
+                <span class="msg-item-header__name" data-ng-click="onUserClick(msg.fromEntity);">{{msg.message.writer|getFirstLastNameOfUser}}</span>
                 <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
                 <span class="temp msg-item-header__created">[{{msg.id + "-" + msg.messageId + "-" + msg.feedbackId}}/{{msg.message.contentType}}/{{msg.status}}{{msg.eventType}}]</span>
                 <a class="msg-item__action link-remove pull-right"
