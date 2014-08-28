@@ -153,7 +153,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         if (lastMessage.position().top > 0) {
             lastMessage.addClass('last');
-            $('.msgs').scrollTop(lastMessage.position().top);
+            $('.msgs').scrollTop(lastMessage.position().top - 13);
         }
 
         prev = lastMessage;
