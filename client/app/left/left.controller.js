@@ -233,11 +233,9 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     //  Add 'onUserClick' to redirect to direct message to 'user'
     $scope.onUserClick = function(user) {
         $state.go('archives', { entityType:'users',  entityId:user.id });
-    }
+    };
 
     $scope.toDefaultChannel = function() {
         $state.go('archives', { entityType:'channels',  entityId:defaultChannel });
-    }
-
-    $scope.openModal('profile');
+    };
 });
