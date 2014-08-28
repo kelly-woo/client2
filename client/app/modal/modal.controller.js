@@ -19,10 +19,6 @@ var joinModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $st
 
     // Returns a list of channels that current user hasn't joined yet.
     $scope.isNotMember = function(channel) {
-//        console.log('000000')
-//        console.log($scope.totalChannelList)
-//        console.log($rootScope.totalChannelList)
-//        console.log('000000')
         console.log(jQuery.inArray($scope.user.id, channel.ch_members))
         return jQuery.inArray($scope.user.id, channel.ch_members) ==  -1;
     }
@@ -305,10 +301,10 @@ var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice) {
         'isPrivateFile' : false
     };
 
-    console.log('****************************')
-    console.log($scope.selectOptions)
-    console.log($scope.fileInfo.share)
-    console.log('****************************')
+//    console.log('****************************')
+//    console.log($scope.selectOptions)
+//    console.log($scope.fileInfo.share)
+//    console.log('****************************')
 
     var PRIVATE_FILE    = 740;
     var PUBLIC_FILE     = 744;
@@ -400,7 +396,6 @@ var profileCtrl = function($scope, $rootScope, $modalInstance, userAPIservice, $
          TODO:  Instead of updating left panel, just switch scope variable!!!!!!!
          */
 
-        console.log($scope.curUser.u_nickName)
         userAPIservice.updateUserProfile($scope.curUser)
             .success(function(response) {
                 $scope.updateLeftPanelCaller();

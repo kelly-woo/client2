@@ -18,7 +18,7 @@
                     <a data-ui-sref="archives({entityType:'users', entityId: comment.writer.id})"
                        class="user-profile user-thumb-sm"
                        data-user-id="{{ comment.writer.id }}"
-                       style="background-image: url({{ server_uploaded+file_detail.writer.u_photoUrl }})"></a>
+                       style="background-image: url({{ server_uploaded+file_detail.writer.u_photoThumbnailUrl.smallThumbnailUrl }})"></a>
                 </div>
                 <div class="file-detail-header__writer">{{ file_detail.writer | getFirstLastNameOfUser }}</div>
                 <div class="file-detail-header__title">
@@ -134,7 +134,7 @@
                     <a data-ui-sref="archives({entityType:'users',entityId: user.id})"
                        class="user-profile user-thumb-sm"
                        data-user-id="{{ user.id }}"
-                       style="background-image: url({{ server_uploaded + user.u_photoUrl }})"></a>
+                       style="background-image: url({{ server_uploaded + user.u_photoThumbnailUrl.smallThumbnailUrl }})"></a>
                 </div>
                 <form id="comment-form" data-ng-submit="postComment()">
                     <textarea class="comment-input" focus-me="focusPostComment" message-submit="postComment()" data-ng-model="comment.content" maxlength="" autocorrect="off" autocomplete="off" spellcheck="true"></textarea>

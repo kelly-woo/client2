@@ -24,8 +24,8 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
-    var api_address = "https://www.jandi.com/";
-//    var api_address = "https://dev.jandi.com:2323/";
+//    var api_address = "https://www.jandi.com/";
+    var api_address = "https://dev.jandi.com:2323/";
 //    var api_address = "../";
     var api_version = 1;
 
