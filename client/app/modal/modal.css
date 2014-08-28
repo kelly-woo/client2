@@ -134,6 +134,10 @@
     position: relative;
     padding: 6px 20px;
 }
+.green-input-box {
+    border: 1px solid #31c08a;
+}
+
 
 .form-control {
     border-radius: 0;
@@ -148,8 +152,8 @@
 }
 .input-group > .form-control {
     border-left: none;
-
 }
+
 .input-group > .form-control:focus {
     border: 1px solid #31c08a;
     border-left: none;
