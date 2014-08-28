@@ -71,6 +71,8 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 //            console.log(response.alarmInfos)
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
         }
+
+        console.log(response)
     }
 
 
