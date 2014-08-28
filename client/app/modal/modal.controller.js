@@ -189,11 +189,7 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
         $('input.invite').each(function(index) {
             var currentDomInput = $(this);
 
-            console.log(currentDomInput.attr('name'))
-            console.log(currentDomInput.val())
-
             if (currentDomInput.val() === '') {
-                console.log('here')
                 return false;
             }
 
