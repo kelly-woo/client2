@@ -18,7 +18,7 @@
                     <a data-ui-sref="archives({entityType:'users', entityId: comment.writer.id})"
                        class="user-profile user-thumb-sm"
                        data-user-id="{{ comment.writer.id }}"
-                       style="background-image: url({{ server_uploaded+file_detail.writer.u_photoThumbnailUrl.smallThumbnailUrl }})"></a>
+                       style="background-image: url({{ server_uploaded + ( file_detail.writer.u_photoThumbnailUrl.smallThumbnailUrl || file_detail.writer.u_photoUrl )}})"></a>
                 </div>
                 <div class="file-detail-header__writer">{{ file_detail.writer | getFirstLastNameOfUser }}</div>
                 <div class="file-detail-header__title">
@@ -108,7 +108,7 @@
                     <a data-ui-sref="archives({entityType:'users',entityId: comment.writer.id})"
                        class="user-profile user-thumb-sm"
                        data-user-id="{{ comment.writer.id }}"
-                       style="background-image: url({{ server_uploaded + comment.writer.u_photoUrl }})"></a>
+                       style="background-image: url({{ server_uploaded + ( comment.writer.u_photoThumbnailUrl.smallThumbnailUrl || comment.writer.u_photoUrl )}})"></a>
                 </div>
                 <div class="comment-item-header">
                     <span class="comment-item-header__name">{{ comment.writer|getFirstLastNameOfUser }}</span>
