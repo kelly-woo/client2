@@ -219,24 +219,26 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
                     break;
                 case 'firstName':
                     cur.firstName = currentDomInput.val();
-                    break;
-                case 'lastName':
-                    cur.lastName = currentDomInput.val();
                     invites.push(cur);
                     cur = {};
                     hasAllInformation = true;
                     break;
+                case 'lastName':
+                    cur.lastName = currentDomInput.val();
+                    break;
                 default :
                     console.log('??')
             }
-        })
+        });
+
+        console.log(invites)
 
         $scope.hasAllInformation = hasAllInformation;
 
         if (hasAllInformation) {
             teamAPIservice.inviteToTeam(invites)
                 .success(function(response) {
-//                console.log(response);
+                console.log(response);
 
                     $scope.isLoading = false;
 
@@ -256,6 +258,7 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
 
                 })
                 .error(function(response) {
+                    console.log(response)
                     $scope.isLoading = false;
                     console.log('something went wrong');
                 })

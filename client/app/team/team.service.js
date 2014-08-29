@@ -6,6 +6,7 @@ app.factory('teamAPIservice', function($http, $rootScope) {
     var teamAPI = {};
 
     teamAPI.inviteToTeam = function(inviteMembers) {
+        console.log(inviteMembers)
         return $http({
             method  : 'POST',
             url     : $rootScope.server_address + 'invitation/team',
