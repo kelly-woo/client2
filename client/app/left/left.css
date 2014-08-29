@@ -133,7 +133,7 @@
     filter: alpha(opacity=100) !important;
 }
 
-.left-panel-channel_name {
+.left-panel__name {
     max-width: 151px;
 }
 #col_channels ul li.channel.active a.channel_name,#col_channels ul li.group.active a.group_name,#col_channels ul li.member.active a.im_name{color:white;background:#4c9689}

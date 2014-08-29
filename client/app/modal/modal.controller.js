@@ -37,16 +37,20 @@ var joinModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $st
     $scope.newChannel = function() {
         $scope.openModal('channel');
         this.cancel();
-    }
+    };
+
+    $scope.isLoading = true;
 
     $scope.onJoinClick = function(entityId) {
         entityheaderAPIservice.joinChannel(entityId)
             .success(function(response) {
+                $scope.isLoading = false;
                 $scope.updateLeftPanelCaller();
                 $state.go('archives', {entityType:'channels', entityId:entityId});
                 $modalInstance.dismiss('cancel');
             })
             .error(function(response) {
+                $scope.isLoading = false;
                 alert(response.msg);
             })
     }
@@ -58,6 +62,7 @@ var createEntityModalCtrl = function($scope, $modalInstance, entityheaderAPIserv
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
+    $scope.isLoading = true;
 
     $scope.onCreateClick = function(entityType, entityName) {
         entityheaderAPIservice.createEntity(entityType, entityName)
@@ -65,9 +70,11 @@ var createEntityModalCtrl = function($scope, $modalInstance, entityheaderAPIserv
                 $scope.updateLeftPanelCaller();
                 $state.go('archives', {entityType:entityType + 's', entityId:response.id});
                 $modalInstance.dismiss('cancel')
+                $scope.isLoading = false;
             })
             .error(function(response) {
                 alert(response.msg);
+                $scope.isLoading = false;
             })
     };
 }
@@ -93,6 +100,8 @@ var renameModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $
         $modalInstance.dismiss('cancel');
     }
 
+    $scope.isLoading = true;
+
     $scope.onRenameClick = function(entityNewName) {
         entityheaderAPIservice.renameEntity($state.params.entityType, $state.params.entityId,  entityNewName)
             .success(function(response) {
@@ -100,9 +109,11 @@ var renameModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $
                 $rootScope.$emit('updateSharedEntities');
                 $modalInstance.dismiss('cancel');
                 console.log('successfully renamed');
+                $scope.isLoading = false;
             })
             .error(function(response) {
                 alert(response.msg);
+                $scope.isLoading = false;
             })
     };
 }
@@ -154,13 +165,18 @@ var inviteModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $
             return;
         }
 
+        $scope.isLoading = true;
+
         entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
             .success(function(response) {
+                $scope.isLoading = false;
+
                 $modalInstance.dismiss('cancel');
                 $scope.updateLeftPanelCaller();     // is this necessary?
             })
             .error(function(response) {
                 console.log('something went wrong ' + response.msg );
+                $scope.isLoading = false;
             })
     };
 
@@ -172,7 +188,9 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
+
+
 
     $scope.onInviteClick = function() {
         $scope.isLoading = true;
@@ -257,7 +275,7 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
 var inviteUsertoChannelCtrl = function($scope, $modalInstance, entityheaderAPIservice) {
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     $scope.inviteOptions = entityheaderAPIservice.getInviteOptions($scope.joinedChannelList, $scope.privateGroupList);
 
@@ -279,15 +297,18 @@ var inviteUsertoChannelCtrl = function($scope, $modalInstance, entityheaderAPIse
         var id = [];
         id.push($scope.currentEntity.id)
 
+        $scope.isLoading = true;
+
         entityheaderAPIservice.inviteUsers(inviteTo.type, inviteTo.id, id)
             .success(function(response) {
                 console.log('good');
                 $scope.updateLeftPanelCaller();
                 $modalInstance.dismiss('cancel');
-
+                $scope.isLoading = false;
             })
             .error(function(response) {
                 console.log('something went wrong');
+                $scope.isLoading = false;
             })
     }
 }
@@ -321,7 +342,6 @@ var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice) {
     // TODO : CURRENTLY IT'S UPLOADING ONLY ONE FILE.  MODIFY LOGIC TO UPLOAD MULTIPLE FILES
     // Be aware of change in type of fileInfo.share (from Entity to entitiyId.)
     $scope.onFileUpload = function(fileInfo) {
-        $scope.isLoading = true;
         fileInfo.permission = PRIVATE_FILE;
 
         if (fileInfo.share.type == 'channel') {
@@ -334,6 +354,7 @@ var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice) {
             fileInfo.permission = PRIVATE_FILE;
             fileInfo.share = '';
         }
+        $scope.isLoading = true;
 
         var fileQueue = fileAPIservice.upload($scope.files, fileInfo);
 
@@ -343,6 +364,7 @@ var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice) {
             $scope.isLoading = false;
         }, function(response) {
             console.debug('failed to upload file.');
+            $scope.isLoading = false;
         });
 
     }
@@ -372,13 +394,18 @@ var fileShareModalCtrl = function($scope, $modalInstance, fileAPIservice) {
     }
 
     $scope.onFileShareClick = function(shareChannel, comment) {
+
+        $scope.isLoading = true;
+
         fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
             .success(function(response) {
                 fileAPIservice.broadcastChangeShared($scope.file.id);
                 $modalInstance.dismiss('cancel');
+                $scope.isLoading = false;
             })
             .error(function(response) {
                 console.log('something went wrong');
+                $scope.isLoading = false;
                 console.log(response.msg);
             })
     }
@@ -386,6 +413,7 @@ var fileShareModalCtrl = function($scope, $modalInstance, fileAPIservice) {
 
 //  PROFILE CONTROLLER
 var profileCtrl = function($scope, $rootScope, $modalInstance, userAPIservice, $modal, $timeout) {
+
     $scope.curUser = _.cloneDeep($scope.user);
 
     $scope.cancel = function() {

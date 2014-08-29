@@ -26,7 +26,7 @@
                     <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" class="channel_name" data-channel-id="{{joinedChannel.id}}">
                         <span class="unread_just_C02BS7UB9 unread_just hidden">0</span>
                         <span class="unread_highlight_C02BS7UB9 unread_highlight hidden">0</span>
-                        <span class="inline-overflow-ellipsis left-panel-channel_name">
+                        <span class="inline-overflow-ellipsis left-panel__name">
                             <span class="prefix">#</span> {{joinedChannel.name}}
                         </span>
                         <span class="badge left-panel_badge green_badge pull-right">{{joinedChannel.alarmCnt}}</span>
@@ -76,7 +76,7 @@
                         <i class="fa fa-times-circle entity-remove" data-ng-click="userEntity.visibility = false; $event.stopPropagation(); $event.preventDefault();"></i>
                         <span class="unread_highlight_U029JJYN1 unread_highlight hidden">0</span>
                         <span class="typing_indicator"></span>
-                        <span class="inline-overflow-ellipsis">{{userEntity|getFirstLastNameOfUser}}</span>
+                        <span class="inline-overflow-ellipsis left-panel__name">{{userEntity|getFirstLastNameOfUser}}</span>
                         <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
 
                     </a>
