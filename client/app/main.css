@@ -28,6 +28,14 @@
     margin: 0 -2px;
 }
 
+.alert-jandi {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
 /********************************************
 
                 ANIMATION
