@@ -307,7 +307,7 @@
     height: 100%;
     left: 0;
     top: 0;
-    z-index: 1;
+    z-index: 11;
 }
 .loading_container_background {
     position: absolute;

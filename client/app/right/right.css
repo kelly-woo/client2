@@ -136,6 +136,7 @@
     font-size: 12px;
     line-height: 16px;
     padding-bottom: 0px;
+    max-width: 79px;
 }
 .file-item-body-author:hover {
     border-bottom: 1px solid #000;

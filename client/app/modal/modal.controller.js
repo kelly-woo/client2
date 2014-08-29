@@ -39,9 +39,11 @@ var joinModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $st
         this.cancel();
     };
 
-    $scope.isLoading = true;
 
     $scope.onJoinClick = function(entityId) {
+
+        $scope.isLoading = true;
+
         entityheaderAPIservice.joinChannel(entityId)
             .success(function(response) {
                 $scope.isLoading = false;
@@ -62,9 +64,11 @@ var createEntityModalCtrl = function($scope, $modalInstance, entityheaderAPIserv
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
-    $scope.isLoading = true;
 
     $scope.onCreateClick = function(entityType, entityName) {
+
+        $scope.isLoading = true;
+
         entityheaderAPIservice.createEntity(entityType, entityName)
             .success(function(response) {
                 $scope.updateLeftPanelCaller();
@@ -144,14 +148,14 @@ var inviteModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $
             return jQuery.inArray(user.id, $scope.currentEntity.ch_members) >  -1;
 
         return jQuery.inArray(user.id, $scope.currentEntity.pg_members) >  -1;
-    }
+    };
 
     // Below function gets called when 'enter/click' happens in typeahead.
     // This function is buggyyyy
     // TODO : FIX IT!
     $scope.onUserSelected = function(selectedUser) {
         selectedUser.selected = true;
-    }
+    };
 
     $scope.onInviteClick = function(entityType) {
         var guestList = [];

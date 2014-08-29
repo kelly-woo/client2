@@ -128,6 +128,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     function enableScroll() {
         $('body').unbind('mousewheel');
     }
+
     $scope.loadMore = function() {
         var deferred = $q.defer();
 
@@ -638,21 +639,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     function eventMsgHandler(msg) {
-        msg.eventType = '/' + msg.info.eventType;
-        msg.message = {};
-        msg.message.contentType = 'systemEvent';
-        msg.message.content = {};
-        msg.message.writer = msg.fromEntity;
+        var newMsg = msg;
+
+        newMsg.eventType = '/' + msg.info.eventType;
+
+        newMsg.message = {};
+        newMsg.message.contentType = 'systemEvent';
+        newMsg.message.content = {};
+        newMsg.message.writer = msg.fromEntity;
         var action = '';
 
         switch(msg.info.eventType) {
             case 'invite':
                 action = 'invited';
-                msg.message.invites = [];
+                newMsg.message.invites = [];
 
                 _.each(msg.info.inviteUsers, function(element, index, list) {
                     var entity = entityAPIservice.getEntityFromListById($rootScope.userList, element);
-                    msg.message.invites.push(entity)
+                    newMsg.message.invites.push(entity)
                 });
                 break;
             case 'join' :
@@ -667,10 +671,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         }
 
-        msg.message.content.actionOwner = entityAPIservice.getFullName(msg.fromEntity);
-        msg.message.content.body = action;
+        newMsg.message.content.actionOwner = entityAPIservice.getFullName(msg.fromEntity);
+        newMsg.message.content.body = action;
 
-        return msg;
+        return newMsg;
     }
 
     //  Updating message marker for current entity.
