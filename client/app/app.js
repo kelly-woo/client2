@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp', [
     'ui.router',
     'ui.bootstrap',
-    // 'xeditable',
+    'gettext',
     'LocalStorageModule',
     'angularFileUpload',
     'ngCookies',
@@ -13,20 +13,14 @@ var app = angular.module('jandiApp', [
     'ngImgCrop'
 ]);
 
-// app.run(function(editableOptions) {
-//     editableOptions.theme = 'bs3';
-// });
-
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog) {
 
     $rootScope._ = window._;
 
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
-//    var api_address = "https://www.jandi.com/";
-    var api_address = "https://dev.jandi.com:2323/";
-//    var api_address = "../";
+    var api_address = "../";
     var api_version = 1;
 
     $rootScope.server_address = api_address + "inner-api/";
@@ -131,6 +125,20 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         //
         // }
     });
+
+    //translate for multi-lang
+    $rootScope.setLang = function(lang, isDebug) {
+        if(lang) {
+            gettextCatalog.currentLanguage = lang;
+        } else {
+            gettextCatalog.currentLanguage = 'ko_KR';
+        }
+        gettextCatalog.debug = isDebug;
+    };
+
+    // init
+    $rootScope.setLang('ko_KR', true);
+
 })
 
 app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, localStorageServiceProvider) {

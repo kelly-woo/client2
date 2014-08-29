@@ -3,21 +3,33 @@
 var app = angular.module('jandiApp');
 
 app.controller('authController', function($scope, $state, $window, $location, loginAPI, localStorageService) {
-    $scope.status = { err: false, msg: "" };
 
-
-    //  TODO:DELETE THIS LINE
-    $scope.user = {};
-//    $scope.user.email = 'jihoonk@tosslab.com';
-//    $scope.user.password = '1234';
-
-    var default_state = {
+     var default_state = {
         cpanel_name: 'general',
         cpanel_type: 'channel',
         rpanel_visible: true,
         rpanel_name: 'files',
         rpanel_detail: ''
     };
+
+    $scope.user = {
+        email       : '',
+        password    : ''
+    };
+
+    $scope.error = {
+        status      : false,
+        messsage    : ''
+    };
+
+    var getTeamInfo = function(email) {
+
+    };
+
+    if ($location.search().email) {
+        $scope.user.email = $location.search().email;
+        getTeamInfo($scope.user.email);
+    }
 
     $scope.signin = function(user) {
         user.teamId = -1;
@@ -38,7 +50,8 @@ app.controller('authController', function($scope, $state, $window, $location, lo
                 $state.go('messages.home');
                 localStorageService.set('ui-state', default_state)
             }).error(function(err) {
-                // delete token if user fails to login
+                $scope.error.status = true;
+                $scope.error.message = err.message;
                 delete $window.sessionStorage.token;
                 return false;
             });

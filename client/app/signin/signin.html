@@ -1,83 +1,13 @@
-<div class="container">
-    <form class="form-signin" role="form" name="signinForm" ng-submit="signin(user)">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="email" ng-model="user.email" class="form-control" placeholder="Email address" required autofocus>
-        <input type="password" ng-model="user.password" class="form-control" placeholder="Password" required>
-        <div class="status-box error" ng-if="status.err">{{status.msg}}</div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="signinForm.$invalid">Sign in</button>
-        <a href="www.jandi.com" class="btn btn-lg btn-warning btn-block">홈페이지로 이동</a>
-    </form>
-</div> <!-- /container -->
-<style>
-    .form-signin {
-        max-width: 330px;
-        padding: 15px;
-        margin: 0 auto;
-    }
-    .form-signin .form-signin-heading,
-    .form-signin .checkbox {
-        margin-bottom: 20px;
-    }
-    .form-signin .checkbox {
-        font-weight: normal;
-    }
-    .form-signin .form-control {
-        position: relative;
-        height: auto;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        padding: 10px;
-        font-size: 16px;
-    }
-    .form-signin .form-control:focus {
-        z-index: 2;
-    }
-    .form-signin input[type="email"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-    .form-signin input[type="password"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-    .status-box {
-        margin-bottom: 10px;
-    }
-    .status-box.error {
-        color: #a94442;
-    }
-    .status-box.error:before {
-        font-family: "Glyphicons Halflings";
-        content: "\e101";
-        margin-right: 5px;
-    }
-    .status-box.ng-enter,
-    .status-box.ng-leave
-    {
-        -webkit-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-        -moz-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-        -ms-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-        -o-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-        transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-        position: relative;
-        display: block;
-        overflow: hidden;
-        text-overflow: clip;
-        white-space:nowrap;
-    }
-    .status-box.ng-leave.ng-leave-active,
-    .status-box.ng-enter {
-        opacity: 0;
-        width: 0px;
-        height: 0px;
-    }
-    .status-box.ng-enter.ng-enter-active,
-    .status-box.ng-leave {
-        opacity: 1;
-        width: 150px;
-        height: 30px;
-    }
-</style>
+<div class="jandi container">
+    <div class="jandi-header">
+        <a href="https://jandi.com"><img src="../assets/images/logo_jandi.png" class="jandi-header__logo"></a>
+    </div>
+    <div class="jandi-body">
+        <form class="form-signin" role="form" name="signinForm" ng-submit="signin(user)">
+            <input type="email" ng-model="user.email" class="form-signin__input form-control" placeholder="{{ 'Email address' | translate }}" required autofocus>
+            <input type="password" ng-model="user.password" class="form-signin__input form-control" placeholder="{{ 'Password' | translate }}" required>
+            <div class="alert-jandi alert-danger" ng-if="error.status"><i class="fa fa-warning"></i> <span translate>Invalid email or password</span></div>
+            <button class="btn btn-lg btn-signin btn-block" type="submit" ng-disabled="signinForm.$invalid" translate>Sign In</button>
+        </form>
+    </div>
+</div>

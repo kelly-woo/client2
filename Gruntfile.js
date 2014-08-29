@@ -15,7 +15,9 @@ module.exports = function (grunt) {
         ngtemplates: 'grunt-angular-templates',
         cdnify: 'grunt-google-cdn',
         protractor: 'grunt-protractor-runner',
-        injector: 'grunt-asset-injector'
+        injector: 'grunt-asset-injector',
+        nggettext_extract: 'grunt-angular-gettext',
+        nggettext_compile: 'grunt-angular-gettext'
     });
 
     // Time how long tasks take. Can help when optimizing build times
@@ -48,8 +50,7 @@ module.exports = function (grunt) {
         },
         open: {
             server: {
-                url: 'http://localhost:<%= express.options.port %>',
-                app: 'Google Chrome'
+                url: 'http://localhost:<%= express.options.port %>'
             }
         },
         watch: {
@@ -461,6 +462,31 @@ module.exports = function (grunt) {
                 }
             }
         },
+
+        // 다국어 지원이 필요한 .html을 읽어서 원본 origin_template.pot 파일 생성 위치와 파일명 지정
+        nggettext_extract: {
+            pot: {
+                files: {
+                    '<%= yeoman.client %>/app/translation/po/origin_template.pot': [
+                        '<%= yeoman.client %>/app/**/*.html'
+                    ]
+                }
+            }
+        },
+
+        // 다국어 .po 파일을 읽어서 angular 형식의 파일을 만들 위치와 파일명 지정. 별도의 모듈로 gettext_translation을 적용한다.
+        nggettext_compile: {
+            all: {
+//            options: {
+//                module: 'gettext_translation'
+//            },
+                files: {
+                    '<%= yeoman.client %>/app/translation/translation.js': [
+                        '<%= yeoman.client %>/app/translation/po/*.po'
+                    ]
+                }
+            }
+        }
     });
 
     // Used for delaying livereload until after server has restarted

@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: client/app/signin/signin.html
+msgid "Email address"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "Invalid email or password"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "Password"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "Sign In"
+msgstr ""
