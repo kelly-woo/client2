@@ -237,15 +237,19 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
         if (hasAllInformation) {
             teamAPIservice.inviteToTeam(invites)
                 .success(function(response) {
-                console.log(response);
-
                     $scope.isLoading = false;
 
                     if ( response.sendMailFailCount > 0 ) {
                         $('.invite-team-body').html('<div class="modal-noti-block"><h1>다음 주소로 이메일 보내기를 실패하였습니다.</h1></div>');
 
-                        angular.forEach(response.sendMailFailList, function(email) {
-                            var failEmailAddressElement = angular.element('<div class="modal-noti-block_msg">'+ email+'</div>')
+                        angular.forEach(response.sendMailFailList, function(object) {
+                            if (object.error.httpResponseCode == 400) {
+
+                                var failEmailAddressElement = angular.element('<div class="modal-noti-block_msg alert-jandi alert-danger">'+ object.email+'<span>은(는) 이미 가입된 이메일입니다</span><div>')
+                            }
+                            else {
+                                var failEmailAddressElement = angular.element('<div class="modal-noti-block_msg alert-jandi alert-danger">'+ object.email+'<span>은(는) 올바르지 않은 이메일 주소입니다</span><div>')
+                            }
                             $('.invite-team-body').append(failEmailAddressElement)
                         });
                     }
@@ -257,9 +261,7 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
 
                 })
                 .error(function(response) {
-                    console.log(response)
                     $scope.isLoading = false;
-                    console.log('something went wrong');
                 })
         }
         else  {
