@@ -239,6 +239,7 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
                 .success(function(response) {
                     $scope.isLoading = false;
 
+                    console.log(response)
                     if ( response.sendMailFailCount > 0 ) {
                         $('.invite-team-body').html('<div class="modal-noti-block"><h1>다음 주소로 이메일 보내기를 실패하였습니다.</h1></div>');
 
@@ -254,7 +255,7 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
                         });
                     }
                     else {
-                        $('.invite-team-body').html('<div class="modal-noti-block"><h1>정상적으로 초대 이메일을 보냈습니다.</h1></div>');
+                        $('.invite-team-body').html('<div class="modal-noti-block alert-jandi alert-success"><h1>정상적으로 초대 이메일을 보냈습니다.</h1></div>');
                     }
 
                     $('#invite_to_team').hide();
