@@ -43,52 +43,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $scope.msgLoadStatus.loadingTimer = false;
     }, 1000);
 
-    function groupByDate1() {
-        for (var i = 0; i < $scope.messageUpdateCount; i++) {
-            var msg = $scope.messages[i];
-
-            var prev = (i == 0) ? null : $scope.messages[i-1];
-            // comment continuous check
-            if ( msg.message.contentType === 'comment' ) {
-                msg.message.commentOption = { isTitle: false, isContinue: false };
-                if ( i == 0 ) {
-                    msg.message.commentOption.isTitle = true;
-                } else {
-                    // TODO 이전 메세지와 feedbackId가 같은지도 체크 필요함
-                    if (prev.message.contentType === 'file') {
-
-                        // 파일 아래 바로 해당 파일의 코멘트
-                        if (prev.messageId === msg.feedbackId) {
-                            msg.message.commentOption.isContinue = true;
-                        } else {
-                            msg.message.commentOption.isTitle = true;
-                        }
-
-                    } else if (prev.message.contentType === 'comment') {
-
-                        // 같은 파일에 대한 연속 코멘트
-                        if (prev.feedbackId === msg.feedbackId) {
-                            msg.message.commentOption.isContinue = true;
-                        } else {
-                            msg.message.commentOption.isTitle = true;
-                        }
-
-                    } else {
-                        msg.message.commentOption.isTitle = true;
-                    }
-                }
-            } else if (msg.message.contentType === 'file') {
-                msg.message.isFile = true;
-            } else if (msg.message.contentType === 'text') {
-                msg.message.isText = true;
-            }
-
-            // console.log(msg.message.contentType, msg.id);
-            // console.log("");
-            $scope.messages[i] = msg;
-        }
-    }
-
     var groupByDate = function() {
         // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
         $scope.messages = _.uniq($scope.messages);
@@ -688,7 +642,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         msg.message = {};
         msg.message.contentType = 'systemEvent';
         msg.message.content = {};
-
+        msg.message.writer = msg.fromEntity;
         var action = '';
 
         switch(msg.info.eventType) {
