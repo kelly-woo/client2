@@ -336,13 +336,15 @@
     height: 100%;
 }
 .loading_bar {
-    /*background: url(../../assets/images/jd_loading.gif) no-repeat center center;*/
+    background: url(../../assets/images/jd_loading.gif) no-repeat center center;
     vertical-align: middle;
     position: relative;
     width: 40px;
+    height: 40px;
     margin: auto;
     margin-top: -20px;
     top: 50%;
+    background-size: 40px;
 }
 
 .modal-noti-block {
