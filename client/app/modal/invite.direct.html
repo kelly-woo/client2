@@ -1,6 +1,6 @@
 <!-- Private Group Invite Modal -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel(); clear();">×</button>
+    <button type="button" class="close" ng-click="cancel(); clear();"><span class="icon_close"></span></button>
     <h3 id="myModalLabel">Invite {{currentEntity.name}} to a channel</h3>
 </div>
 
@@ -17,7 +17,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="cancel(); clear();">Close</button>
-        <input class="btn btn-primary" type="submit" id="private_invite" value="Invite"/>
+        <button type="button" class="btn btn-cancel" ng-click="cancel(); clear();">Close</button>
+        <input class="btn btn-ok" type="submit" id="private_invite" value="Invite"/>
     </div>
 </form>

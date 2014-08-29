@@ -76,13 +76,13 @@ var createEntityModalCtrl = function($scope, $modalInstance, entityheaderAPIserv
 var userModalCtrl = function($scope, $modalInstance, $state) {
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     $scope.onUserSelected = function(item) {
         $state.go('archives', {entityType:'users', entityId:item.id});
         this.cancel();
         item.visibility = true;
-    }
+    };
 
 }
 
@@ -109,9 +109,10 @@ var renameModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $
 
 // PRIVATE_GROUP/CHANNEL INVITE
 var inviteModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state, $filter) {
+
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     generateInviteList();
 
@@ -254,6 +255,10 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
 
 // WHEN INVITING FROM DIRECT MESSAGE
 var inviteUsertoChannelCtrl = function($scope, $modalInstance, entityheaderAPIservice) {
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    }
+
     $scope.inviteOptions = entityheaderAPIservice.getInviteOptions($scope.joinedChannelList, $scope.privateGroupList);
 
     $scope.onInviteClick = function(inviteTo) {
