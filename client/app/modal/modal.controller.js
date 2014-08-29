@@ -231,7 +231,6 @@ var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
             }
         });
 
-        console.log(invites)
 
         $scope.hasAllInformation = hasAllInformation;
 
