@@ -33,7 +33,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.onFileFilterWriterIdClick = function(writerId) {
         $scope.fileUploader = writerId;
         $scope.tabIndicator = 'notEveryone';
-    }
+    };
 
     $scope.getfileUploaderId = function() {
         if ($scope.fileUploader == 'you')
@@ -41,6 +41,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         else
             return $scope.fileUploader;
     };
+
     getFileList();
 
     // Functions outside of this controller or from html template can call this function in order to update file list.
@@ -61,12 +62,10 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
                 }, fileList);
 
                 $scope.fileList = fileList;
-
-//                console.log("[$scope.fileLists] ", $scope.fileList);
             })
             .error(function(response) {
                 console.log(response.msg);
-            })
+            });
     }
 
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
@@ -108,7 +107,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             $modal.open({
                 scope       : $scope,
                 templateUrl : 'app/modal/upload.html',
-                controller  : fileUploadModalCtrl,
+                controller  : 'fileUploadModalCtrl',
                 size        : 'lg'
             });
         }
@@ -116,7 +115,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             $modal.open({
                 scope       : $scope,
                 templateUrl : 'app/modal/share.html',
-                controller  : fileShareModalCtrl,
+                controller  : 'fileShareModalCtrl',
                 size        : 'lg'
             });
         }

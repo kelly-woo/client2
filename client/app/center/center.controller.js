@@ -412,7 +412,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $modal.open({
                 scope       : $scope,
                 templateUrl : 'app/modal/upload.html',
-                controller  : fileUploadModalCtrl,
+                controller  : 'fileUploadModalCtrl',
                 size        : 'lg'
             });
         }

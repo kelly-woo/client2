@@ -42,7 +42,6 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
                                     //item.content.body = safeBody.replace(/\n/g, '<br>');
                                 }
                                 item.content.body = $sce.trustAsHtml(safeBody);
-                                console.log("comment", i, item);
                                 $scope.file_comments.push(item);
                             }
                         }
@@ -51,7 +50,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
 
                     })
                     .error(function(err) {
-                        console.error(err.msg)
+                        console.error(err.msg);
                     });
 
                 $scope.fileLoadStatus.loading = false;
@@ -97,7 +96,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
     $scope.onImageClick = function() {
         $modal.open({
             scope       :   $scope,
-            controller  :   fullImageCtrl,
+            controller  :   'fullImageCtrl',
             templateUrl :   'app/modal/fullimage.html',
             windowClass :   'modal-full'
         });
@@ -168,6 +167,10 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
 
 });
 
-var fullImageCtrl = function($scope, $modalInstance) {
+app.controller('fullImageCtrl', function($scope, $modalInstance) {
     $scope.cancel = function() { $modalInstance.dismiss('cancel');}
-};
+});
+
+//var fullImageCtrl = function($scope, $modalInstance) {
+//    $scope.cancel = function() { $modalInstance.dismiss('cancel');}
+//};

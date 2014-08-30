@@ -168,7 +168,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/join.html',
-                controller  :   joinModalCtrl,
+                controller  :   'joinModalCtrl',
                 size        :   'lg'
             });
         }
@@ -176,7 +176,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/create.channel.html',
-                controller  :   createEntityModalCtrl,
+                controller  :   'createEntityModalCtrl',
                 size        :   'lg'
             });
         }
@@ -184,7 +184,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/create.private.html',
-                controller  :   createEntityModalCtrl,
+                controller  :   'createEntityModalCtrl',
                 size        :   'lg'
             });
         }
@@ -192,7 +192,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/list.user.html',
-                controller  :   userModalCtrl,
+                controller  :   'userModalCtrl',
                 size        :   'lg',
                 windowClass :   'allowOverflowY'
             });
@@ -201,7 +201,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/invite.team.html',
-                controller  :   inviteUserToTeamCtrl,
+                controller  :   'inviteUserToTeamCtrl',
                 size        :   'lg'
             });
         }
@@ -223,7 +223,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/profile.html',
-                controller  :   profileCtrl,
+                controller  :   'profileCtrl',
                 size        :   'lg'
             });
         }

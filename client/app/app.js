@@ -108,12 +108,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     });
 
     $rootScope.$on('$locationChangeSuccess', function(event) {
-        console.log("[$locationChangeSuccess]");
 
         $rootScope.uiState = localStorageService.get('ui-state');
 
         entityAPIservice.setLastEntityState();
-
 
         // Halt state change from even starting
         // event.preventDefault();

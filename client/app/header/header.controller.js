@@ -118,7 +118,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/rename.html',
-                controller  :   renameModalCtrl,
+                controller  :   'renameModalCtrl',
                 size        :   'lg'
             });
         }
@@ -126,7 +126,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/invite.channel.html',
-                controller  :   inviteModalCtrl,
+                controller  :   'inviteModalCtrl',
                 size        :   'lg',
                 windowClass :   'allowOverflowY'
             });
@@ -135,7 +135,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/invite.direct.html',
-                controller  :   inviteUsertoChannelCtrl,
+                controller  :   'inviteUsertoChannelCtrl',
                 size        :   'lg'
             })
         }
