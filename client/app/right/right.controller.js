@@ -13,14 +13,14 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.fileList = [];
 
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
-        if (type == 'you') {
+        if (type === 'you') {
             // when 'Your Files' is clicked on 'cpanel-search__dropdown'
             $scope.fileUploader = 'you';
             $scope.fileTypeQuery = 'All';
             $scope.tabIndicator = 'notEveryone';
         }
         else {
-            if (type == 'All') {
+            if (type === 'All') {
                 // when 'All Files' is clicked oon 'cpanel-search__dropdown'
                 $scope.fileUploader = 'everyone';
                 $scope.tabIndicator = 'everyone';
@@ -122,6 +122,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     };
 
     $scope.isToggled = false;
+
     $scope.toggleDropdown = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
