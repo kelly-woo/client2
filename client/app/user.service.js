@@ -18,5 +18,14 @@ app.factory('userAPIservice', function($http, $rootScope, $filter) {
         });
     };
 
+    userAPI.updateProfilePic = function(image) {
+        return $upload.upload({
+            method: 'POST',
+            url: $rootScope.server_address + 'settings/profiles/photo',
+            file: image,
+            fileFormDataName : 'photo'
+        });
+    };
+
     return userAPI;
 });

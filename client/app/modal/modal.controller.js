@@ -440,7 +440,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
                 templateUrl :   'app/modal/image.crop.html',
                 size        :   'lg',
                 windowClass :   'wide',
-                controller  :   imageCropCtrl,
+                controller  :   'imageCropCtrl',
                 resolve     : {
                     myImage     : function() { return e.target.result; }
                 }
@@ -458,7 +458,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
 });
 
 //  IMAGE CROP CONTROLLER
-app.controller('imageCropCtrl', function($scope, $rootScope, $modalInstance, myImage, fileAPIservice) {
+app.controller('imageCropCtrl', function($scope, $rootScope, $modalInstance, myImage, userAPIservice) {
     $scope.profilePic = myImage;
     $scope.croppedProfilePic = '';
 
@@ -470,7 +470,7 @@ app.controller('imageCropCtrl', function($scope, $rootScope, $modalInstance, myI
         var blob = dataURItoBlob($scope.croppedProfilePic);
         $scope.isLoading = true;
 
-        fileAPIservice.updateProfilePic(blob)
+        userAPIservice.updateProfilePic(blob)
             .success(function(response) {
                 $modalInstance.close('success');
             })
