@@ -114,7 +114,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
             $modal.open({
                 scope       : $scope,
                 templateUrl : 'app/modal/share.html',
-                controller  : fileShareModalCtrl,
+                controller  : 'fileShareModalCtrl',
                 size        : 'lg',
                 resolve: {
                     parameters: function () {
