@@ -38,7 +38,7 @@ app.controller('authController', function($scope, $state, $window, $location, lo
 
         if (!_.isUndefined(prefix)) {
             if (prefix === 'local' || prefix === 'dev') {
-                user.teamId = 0;
+                user.teamId = 1;
             } else {
                 user.teamDomain = prefix;
             }
