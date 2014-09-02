@@ -320,6 +320,10 @@ input[type="button"] {
     background: url(../assets/images/fileicon_etc.png);
 }
 
+.fileicon_zip {
+    background: url(../assets/images/fileicon_zip.png);
+}
+
 .match_container {
     width: 454px;
     height: 40px !important;
