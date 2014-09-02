@@ -88,7 +88,6 @@ app.filter('getFirstLastNameById', function() {
 
         var fullName = '';
 
-        console.log('hey')
         // Loop through userlist looking for matching user.id
         // if found, return full name.
         _.each(scope.userList, function(user) {
@@ -97,7 +96,7 @@ app.filter('getFirstLastNameById', function() {
                 fullName = user.u_lastName + user.u_firstName;
             }
 
-        })
+        });
 
         return fullName;
     }
