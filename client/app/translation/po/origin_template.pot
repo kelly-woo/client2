@@ -3,6 +3,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: client/app/header/header.html
+msgid "Activity Feed"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "All Files"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "Channels"
 msgstr ""
@@ -15,12 +23,28 @@ msgstr ""
 msgid "Create private group"
 msgstr ""
 
+#: client/app/header/header.html
+msgid "Delete this channel"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Delete this group"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "Direct Messages"
 msgstr ""
 
 #: client/app/signin/signin.html
 msgid "Email address"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Files"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Images"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -31,8 +55,36 @@ msgstr ""
 msgid "Invite Others"
 msgstr ""
 
+#: client/app/header/header.html
+msgid "Invite others to this channel"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Invite others to this group"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Invite to channel/group"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Leave channel"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Leave group"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "PDF"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "Password"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Privacy Policy"
 msgstr ""
 
 #: client/app/left/left.html
@@ -43,12 +95,52 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
+#: client/app/header/header.html
+msgid "Recent Mentions"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Rename this channel"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Rename this group"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Search"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "Sign In"
 msgstr ""
 
 #: client/app/left/left.html
 msgid "Sign Out"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Starred Items"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Team Directory"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Terms of Service"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "View files"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "View profile"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "Your Files"
 msgstr ""
 
 #: client/app/left/left.html

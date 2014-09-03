@@ -197,65 +197,49 @@ input[type="button"] {
     width: 14px;
     height: 14px;
 }
-
 .icon_add_member {
     background: url(../assets/images/icon_add_member.png);
     width: 13px;
     height: 13px;
 }
-
 .icon_user {
     background: url(../assets/images/icon_user.png);
     width: 15px;
     height: 15px;
 }
-
-
 .icon_search {
     background: url(../assets/images/icon_search.png);
     width: 20px;
     height: 19px;
 }
-.cpanel-search-icon__container .icon_image {
+
+.jdicon-header-toolbar {
     display: inline-block;
     position: relative;
     margin-left: 7px;
     vertical-align: middle;
-}
-.cpanel-search__icon {
-    left: 13px;
-    top: 10px;
-}
-.cpanel-search__dropdown {
-    left: 170px;
-    top: 45px;
-}
-.headerpanel-search-icon {
     width: 22px;
     height: 22px;
 }
-.headerpanel-search-help-icon {
+.jdicon-help {
     background: url(../assets/images/icon_help.png);
-    width: 22px;
-    height: 22px;
 }
-.grey .headerpanel-search-help-icon {
+.grey .jdicon-help {
     background: url(../assets/images/icon_help_dark.png);
 }
-.headerpanel-search-menu-icon {
+.jdicon-bars {
     background: url(../assets/images/icon_menu_white.png);
-    width: 22px;
-    height: 22px;
 }
-.grey .headerpanel-search-menu-icon {
+.grey .jdicon-bars {
     background: url(../assets/images/icon_menu_dark.png);
 }
-.icon_close_rightmenu{
+.jdicon-toggle-rightmenu__light {
     background: url(../assets/images/icon_flex_off.png);
 }
-.icon_open_rightmenu{
+.jdicon-toggle-rightmenu__dark {
     background: url(../assets/images/icon_flex_on_dark.png);
 }
+
 .icon_verti_menu{
     background: url(../assets/images/icon_verti_menu.png);
     width: 18px;
@@ -404,6 +388,7 @@ input[type="button"] {
     position: absolute;
     top: 10px;
     left: 15px;
+    font-size: 110%;
 }
 .grey_dropdown > li > a:hover {
     background-color: #31c08a;

@@ -262,8 +262,8 @@
     transitionDISABLED: color .1s ease-out;
 }
 .lpanel-user__dropdown {
-    left: 40px;
-    top: -153px;
+    left: 52px;
+    top: -90px;
 }
 .lpanel-user__dropdown .icon_signout {
     position: absolute;

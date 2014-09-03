@@ -12,6 +12,14 @@ msgstr ""
 "X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: client/app/header/header.html
+msgid "Activity Feed"
+msgstr "활동 기록"
+
+#: client/app/header/header.html
+msgid "All Files"
+msgstr "모든 파일"
+
 #: client/app/left/left.html
 msgid "Channels"
 msgstr "채널"
@@ -24,6 +32,14 @@ msgstr "채널 생성"
 msgid "Create private group"
 msgstr "비공개 그룹 생성"
 
+#: client/app/header/header.html
+msgid "Delete this channel"
+msgstr "채널 삭제하기"
+
+#: client/app/header/header.html
+msgid "Delete this group"
+msgstr "비공개 그룹 삭제하기"
+
 #: client/app/left/left.html
 msgid "Direct Messages"
 msgstr "1:1 메세지"
@@ -31,6 +47,14 @@ msgstr "1:1 메세지"
 #: client/app/signin/signin.html
 msgid "Email address"
 msgstr "이메일 주소"
+
+#: client/app/header/header.html
+msgid "Files"
+msgstr "파일"
+
+#: client/app/header/header.html
+msgid "Images"
+msgstr "이미지"
 
 #: client/app/signin/signin.html
 msgid "Invalid email or password"
@@ -40,9 +64,37 @@ msgstr "이메일 또는 비밀번호를 확인해주세요"
 msgid "Invite Others"
 msgstr "팀원 초대"
 
+#: client/app/header/header.html
+msgid "Invite others to this channel"
+msgstr "채널 초대하기"
+
+#: client/app/header/header.html
+msgid "Invite others to this group"
+msgstr "그룹 초대하기"
+
+#: client/app/header/header.html
+msgid "Invite to channel/group"
+msgstr "채널/비공개 그룹으로 초대하기"
+
+#: client/app/header/header.html
+msgid "Leave channel"
+msgstr "채널 나가기"
+
+#: client/app/header/header.html
+msgid "Leave group"
+msgstr "비공개 그룹 나가기"
+
+#: client/app/header/header.html
+msgid "PDF"
+msgstr "PDF"
+
 #: client/app/signin/signin.html
 msgid "Password"
 msgstr "비밀번호"
+
+#: client/app/header/header.html
+msgid "Privacy Policy"
+msgstr "이용약관"
 
 #: client/app/left/left.html
 msgid "Private Groups"
@@ -52,6 +104,22 @@ msgstr "비공개 그룹"
 msgid "Profile"
 msgstr "프로필 수정"
 
+#: client/app/header/header.html
+msgid "Recent Mentions"
+msgstr "최근 멘션"
+
+#: client/app/header/header.html
+msgid "Rename this channel"
+msgstr "채널 이름 변경하기"
+
+#: client/app/header/header.html
+msgid "Rename this group"
+msgstr "비공개 그룹 이름 변경하기"
+
+#: client/app/header/header.html
+msgid "Search"
+msgstr "검색"
+
 #: client/app/signin/signin.html
 msgid "Sign In"
 msgstr "로그인"
@@ -59,6 +127,30 @@ msgstr "로그인"
 #: client/app/left/left.html
 msgid "Sign Out"
 msgstr "로그아웃"
+
+#: client/app/header/header.html
+msgid "Starred Items"
+msgstr "즐겨찾기"
+
+#: client/app/header/header.html
+msgid "Team Directory"
+msgstr "팀"
+
+#: client/app/header/header.html
+msgid "Terms of Service"
+msgstr "개인정보 취급방침"
+
+#: client/app/header/header.html
+msgid "View files"
+msgstr "파일 보기"
+
+#: client/app/header/header.html
+msgid "View profile"
+msgstr "프로필 보기"
+
+#: client/app/header/header.html
+msgid "Your Files"
+msgstr "내 파일"
 
 #: client/app/left/left.html
 msgid "more..."
