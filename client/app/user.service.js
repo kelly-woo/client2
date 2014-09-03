@@ -27,5 +27,37 @@ app.factory('userAPIservice', function($http, $rootScope, $filter) {
         });
     };
 
+
+    function getEntityFromListById(list, value) {
+        if (value == $rootScope.user.id) return $rootScope.user;
+
+        var entity = $filter('filter')(list, { 'id' : value }, function(actual, expected) {
+            return actual == expected;
+        });
+
+        if (angular.isUndefined(entity) || entity.length != 1) return;
+
+        return entity[0];
+    }
+
+    userAPI.getNameFromUserId = function(userId) {
+        return this.getNameFromUser(getEntityFromListById($rootScope.userList, userId));
+    };
+
+    userAPI.getNameFromUser = function(user) {
+        if ($rootScope.displayNickname)
+            return getNickname(user);
+
+        return getFullName(user);
+    };
+
+    function getFullName(user) {
+        return user.u_lastName + user.u_firstName;
+    }
+
+    function getNickname(user) {
+        return user.u_nickname;
+    }
+
     return userAPI;
 });

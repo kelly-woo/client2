@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice) {
+app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice) {
 
     console.info('[enter] headerController');
 
@@ -16,15 +16,6 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     $scope.$watch('joinEntities', function(newValue, oldValue) {
         if (newValue != oldValue) findCurrent();
     });
-
-//    $scope.$on('goToDefault', function(event, defaultChannel) {
-//        console.log('gotcha')
-//    })
-
-//    $scope.$on('goToDefaultChannel', function(event, defaultChannel) {
-//        console.log('hey')
-//       findCurrent(defaultChannel);
-//    });
 
     // Called when
     //  1. $state.params.entityId is changed, or
@@ -147,9 +138,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     }
 
     $scope.getName = function(userId) {
-        var temp = entityheaderAPIservice.getEntityFromListById($scope.userList, userId);
-
-        return $filter('getFirstLastNameOfUser')(temp);
+        return userAPIservice.getNameFromUserId(userId)
     };
 
     //  Called when header dropdown is clicked.

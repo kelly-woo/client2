@@ -55,67 +55,63 @@ app.filter('parseUrl', function() {
 });
 
 /*
-    used in 'inviteFromChannelModal.tpl.html'
+ used in 'inviteFromChannelModal.tpl.html'
  */
 app.filter('userByName', function() {
-   return function(input, name) {
-       if (name === undefined)
-           return input;
+    return function(input, name) {
+        if (name === undefined)
+            return input;
 
-       name = name.toLowerCase();
+        name = name.toLowerCase();
 
-       var returnArray = [];
+        var returnArray = [];
 
-       _.each(input, function(user) {
-           var fullName = user.u_lastName + user.u_firstName ;
+        _.each(input, function(user) {
+            var fullName = user.u_lastName + user.u_firstName ;
 
-           if(fullName.indexOf(name) > -1) {
-               returnArray.push(user)
-           }
-       });
+            if ($rootScope.displayNickname) {
+                fullName = user.u_nicname;
+            }
 
-       return returnArray;
-   }
+            if(fullName.indexOf(name) > -1) {
+                returnArray.push(user)
+            }
+        });
+
+        return returnArray;
+    }
 });
 
 /*/
-    used in 'rpanel-header-toolbar'
+ used in 'rpanel-header-toolbar'
  */
-app.filter('getFirstLastNameById', function() {
-    return function(input, scope) {
-        if ( input == 'everyone' || input == scope.user.id || input == 'you')
-            return 'JUST YOU';
+app.filter('getFirstLastNameById', ['userAPIservice',
+    function(userAPIservice) {
+        return function(input, scope) {
+            if ( input == 'everyone' || input == scope.user.id || input == 'you')
+                return 'JUST YOU';
 
-        var fullName = '';
-
-        // Loop through userlist looking for matching user.id
-        // if found, return full name.
-        _.each(scope.userList, function(user) {
-            if (user.id == input) {
-
-                fullName = user.u_lastName + user.u_firstName;
-            }
-
-        });
-
-        return fullName;
+            return userAPIservice.getNameFromUserId(input);
+        }
     }
-});
+]);
 
 /*
 
 
  */
-app.filter('getFirstLastNameOfUser', function() {
-    return function(input) {
-        if (angular.isUndefined(input)) return '';
+app.filter('getFirstLastNameOfUser', ['userAPIservice',
+    function(userAPIservice) {
+        return function(input) {
+            if (angular.isUndefined(input)) return '';
 
-        if (input.isNumber) {
-            console.log('isnumber')
-            return $filter('getFirstLastNameById', input);
+            if (input.isNumber) {
+                console.log('isnumber')
+                return $filter('getFirstLastNameById', input);
+            }
+            if (input.type != 'user') return input.name;
+
+            return userAPIservice.getNameFromUser(input);
         }
-        if (input.type != 'user') return input.name;
-
-        return input.u_lastName + input.u_firstName;
     }
-});
+]);

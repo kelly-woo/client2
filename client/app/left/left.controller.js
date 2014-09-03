@@ -73,7 +73,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
     }
 
-
     //  redirecting to default channel.
     $rootScope.$watch('toDefault', function(newVal, oldVal) {
         if (newVal) {

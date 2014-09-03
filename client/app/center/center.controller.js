@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice) {
 
     console.info('[enter] centerpanelController');
 
@@ -670,7 +670,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         }
 
-        newMsg.message.content.actionOwner = entityAPIservice.getFullName(msg.fromEntity);
+        newMsg.message.content.actionOwner = userAPIservice.getNameFromUser(msg.fromEntity);
         newMsg.message.content.body = action;
 
         return newMsg;
