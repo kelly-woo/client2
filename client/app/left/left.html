@@ -18,11 +18,11 @@
         <!-- CHANNEL -->
         <div class="lpanel-list__channels">
             <h2 id="channels_header" class="cursor_pointer overflow-ellipsis"
-                data-toggle="collapse" data-target="#channel-list">
+                ng-click="isChListCollapsed = !isChListCollapsed">
                 Channels
                 <!--<span class="lpanel-entity_more icon_add_member"></span>-->
             </h2>
-            <ul id="channel-list" class="collapse in">
+            <ul id="channel-list" collapse="isChListCollapsed">
                 <li class="channel unread" ng-repeat="joinedChannel in joinedChannelList" ng-class="{active: $state.params.entityId == joinedChannel.id}">
                     <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" class="channel_name" data-channel-id="{{joinedChannel.id}}">
                         <span class="unread_just_C02BS7UB9 unread_just hidden">0</span>
@@ -68,13 +68,19 @@
         <!-- DIRECT MESSAGES    -->
         <div class="lpanel-list__users">
             <h2 id="direct_messages_header" class="hoverable overflow-ellipsis entity_header"
-                data-toggle="collapse" data-target="#dm-list"
-                 >
+                 ng-click="isDMCollapsed = !isDMCollapsed">
                 Direct Messages
                 <span class="lpanel-entity_more icon_add_member" ng-click="openModal('user'); $event.stopPropagation(); $event.preventDefault();"></span>
             </h2>
-            <ul id="dm-list" class="collapse in">
-                <li class="member away cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {'visibility' : 'true'})" ng-class="{active: $state.params.entityId == userEntity.id}">
+
+            <div class="lpanel-list-user_search">
+                <i class="fa fa-search absolute-search-icon"></i>
+                <input type="text" class="form-control lpanel-list-user-search__box" placeholder="search user" data-ng-model="userNameQuery"
+                        ng-change="onDMInputChange();">
+            </div>
+
+            <ul id="dm-list" collapse="isDMCollapsed">
+                <li class="member away cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {'visibility' : 'true'} | userByName:userNameQuery)" ng-class="{active: $state.params.entityId == userEntity.id}">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" class="im_name not_user_colored channel_name" data-member-id="{{userEntity.id}}">
                         <i class="fa fa-times-circle entity-remove" data-ng-click="userEntity.visibility = false; $event.stopPropagation(); $event.preventDefault();"></i>
                         <span class="unread_highlight_U029JJYN1 unread_highlight hidden">0</span>

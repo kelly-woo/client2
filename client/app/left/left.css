@@ -220,6 +220,37 @@
 .lpanel-list__users > ul > li > a {
     padding-left: 30px;
 }
+.lpanel-list-user_search {
+    position: relative;
+    margin-top: -10px;
+}
+
+.absolute-search-icon {
+    position: absolute;
+    top: 7px;
+    left: 9px;
+    color: rgb(85, 85, 85)
+}
+.lpanel-list-user-search__box {
+    padding: 3px 2px;
+    height: 30px !important;
+    border: none !important;
+    margin-left: -1px;
+    padding-right: 3px;
+    background-color: rgb(204,204,204);
+    transition: background-color 400ms;
+    padding-left: 30px;
+}
+
+.lpanel-list-user-search__box:focus,
+.lpanel-list-user-search__box:active {
+    background-color: white;
+    -webkit-transition: background-color 400ms; /* Chrome, Safari, Opera */
+    -moz-transition: background-color 400ms; /* Chrome, Safari, Opera */
+    -o-transition: background-color 400ms; /* Chrome, Safari, Opera */
+    transition: background-color 400m; /* Chrome, Safari, Opera */
+}
+
 .lpanel-user {
     float: left;
 

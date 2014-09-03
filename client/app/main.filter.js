@@ -59,8 +59,7 @@ app.filter('parseUrl', function() {
  */
 app.filter('userByName', function() {
    return function(input, name) {
-       if (name === undefined)
-           return input;
+       if (angular.isUndefined(name)) return input;
 
        name = name.toLowerCase();
 
@@ -118,4 +117,15 @@ app.filter('getFirstLastNameOfUser', function() {
 
         return input.u_lastName + input.u_firstName;
     }
+});
+
+
+/*
+    used in leftpanel for direct messages.
+ */
+app.filter('userSearch', function() {
+   return function(input, query) {
+       if (angular.isUndefined(query))  return input;
+
+   }
 });

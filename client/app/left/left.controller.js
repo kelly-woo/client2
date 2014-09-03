@@ -7,6 +7,9 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     console.info('[enter] leftpanelController');
 
+    $scope.isDMCollapsed = false;
+    $scope.isChListCollapsed = false;
+
     var response = null;
 
     if (leftPanel.status != 200) {
@@ -227,5 +230,9 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     $scope.toDefaultChannel = function() {
         $state.go('archives', { entityType:'channels',  entityId:defaultChannel });
+    };
+
+    $scope.onDMInputChange = function() {
+        if ($scope.isDMCollapsed) $scope.isDMCollapsed = false;
     };
 });
