@@ -9,8 +9,24 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.8\n"
+"X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: client/app/left/left.html
+msgid "Channels"
+msgstr "채널"
+
+#: client/app/left/left.html
+msgid "Create channel"
+msgstr "채널 생성"
+
+#: client/app/left/left.html
+msgid "Create private group"
+msgstr "비공개 그룹 생성"
+
+#: client/app/left/left.html
+msgid "Direct Messages"
+msgstr "1:1 메세지"
 
 #: client/app/signin/signin.html
 msgid "Email address"
@@ -20,13 +36,33 @@ msgstr "이메일 주소"
 msgid "Invalid email or password"
 msgstr "이메일 또는 비밀번호를 확인해주세요"
 
+#: client/app/left/left.html
+msgid "Invite Others"
+msgstr "팀원 초대"
+
 #: client/app/signin/signin.html
 msgid "Password"
 msgstr "비밀번호"
 
+#: client/app/left/left.html
+msgid "Private Groups"
+msgstr "비공개 그룹"
+
+#: client/app/left/left.html
+msgid "Profile"
+msgstr "프로필 수정"
+
 #: client/app/signin/signin.html
 msgid "Sign In"
 msgstr "로그인"
+
+#: client/app/left/left.html
+msgid "Sign Out"
+msgstr "로그아웃"
+
+#: client/app/left/left.html
+msgid "more..."
+msgstr "더 보기..."
 
 #~ msgid "Please sign in"
 #~ msgstr "잔디 회원이라면 로그인 하세요"

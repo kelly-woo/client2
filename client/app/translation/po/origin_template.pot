@@ -3,6 +3,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: client/app/left/left.html
+msgid "Channels"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "Create channel"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "Create private group"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "Direct Messages"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "Email address"
 msgstr ""
@@ -11,10 +27,30 @@ msgstr ""
 msgid "Invalid email or password"
 msgstr ""
 
+#: client/app/left/left.html
+msgid "Invite Others"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "Password"
 msgstr ""
 
+#: client/app/left/left.html
+msgid "Private Groups"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "Profile"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "Sign In"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "Sign Out"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "more..."
 msgstr ""
