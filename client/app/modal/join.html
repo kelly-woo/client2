@@ -35,7 +35,7 @@
 
     </div>
 
-    <div id="is_member_container" style="display: none;">
+    <div id="is_member_container">
         <div class="join-modal-heading">Channels you belong to</div>
 
         <div class="join-modal-channel_container file-item-meta__listview cursor_pointer" id="is_not_member" ng-repeat="joinedChannel in joinFiltered = (joinedChannelList | filter:{'name':channelTitleQuery})"
@@ -53,9 +53,9 @@
         </div>
 
         <!--<p class="is_member" ng-repeat="joinedChannel in joinFiltered = (joinedChannelList | filter:{'name':channelTitleQuery})">-->
-        <!--<a >-->
-        <!--#{{joinedChannel.name}}-->
-        <!--</a><br>-->
+            <!--<a >-->
+                <!--#{{joinedChannel.name}}-->
+            <!--</a><br>-->
 
         <!--<span class="help-block">-->
         <!--Created by-->

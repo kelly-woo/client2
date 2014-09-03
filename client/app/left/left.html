@@ -36,7 +36,8 @@
             </ul>
             <div class="clear-both"></div>
             <a class="channel-list-more lpanel-list__more">
-                <div ng-switch="totalChannelList.length - joinedChannelList.length">
+                <span ng-if="isChListCollapsed" ng-click="openModal('join');">Channel List</span>
+                <div ng-if="!isChListCollapsed" ng-switch="totalChannelList.length - joinedChannelList.length">
                     <span ng-switch-when="0"ng-click="openModal('channel');">Create channel</span>
                     <span ng-switch-default ng-click="openModal('join');">{{ totalChannelList.length - joinedChannelList.length }} more...</span>
                 </div>
