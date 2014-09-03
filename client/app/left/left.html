@@ -17,11 +17,12 @@
 
         <!-- CHANNEL -->
         <div class="lpanel-list__channels">
-            <h2 id="channels_header" class="cursor_pointer overflow-ellipsis " ng-click="openModal('join');">
+            <h2 id="channels_header" class="cursor_pointer overflow-ellipsis"
+                data-toggle="collapse" data-target="#channel-list">
                 Channels
-                <span class="lpanel-entity_more icon_add_member"></span>
+                <!--<span class="lpanel-entity_more icon_add_member"></span>-->
             </h2>
-            <ul id="channel-list">
+            <ul id="channel-list" class="collapse in">
                 <li class="channel unread" ng-repeat="joinedChannel in joinedChannelList" ng-class="{active: $state.params.entityId == joinedChannel.id}">
                     <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" class="channel_name" data-channel-id="{{joinedChannel.id}}">
                         <span class="unread_just_C02BS7UB9 unread_just hidden">0</span>
@@ -35,9 +36,9 @@
             </ul>
             <div class="clear-both"></div>
             <a class="channel-list-more lpanel-list__more">
-                <div ng-switch="channelsLeft">
+                <div ng-switch="totalChannelList.length - joinedChannelList.length">
                     <span ng-switch-when="0"ng-click="openModal('channel');">Create channel</span>
-                    <span ng-switch-default ng-click="openModal('join');">{{channelsLeft}} more...</span>
+                    <span ng-switch-default ng-click="openModal('join');">{{ totalChannelList.length - joinedChannelList.length }} more...</span>
                 </div>
             </a>
         </div>
@@ -66,11 +67,13 @@
 
         <!-- DIRECT MESSAGES    -->
         <div class="lpanel-list__users">
-            <h2 id="direct_messages_header" class="hoverable overflow-ellipsis entity_header" data-ng-click="openModal('user')" >
+            <h2 id="direct_messages_header" class="hoverable overflow-ellipsis entity_header"
+                data-toggle="collapse" data-target="#dm-list"
+                 >
                 Direct Messages
-                <span class="lpanel-entity_more icon_add_member"></span>
+                <span class="lpanel-entity_more icon_add_member" ng-click="openModal('user'); $event.stopPropagation(); $event.preventDefault();"></span>
             </h2>
-            <ul id="im-list">
+            <ul id="dm-list" class="collapse in">
                 <li class="member away cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {'visibility' : 'true'})" ng-class="{active: $state.params.entityId == userEntity.id}">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" class="im_name not_user_colored channel_name" data-member-id="{{userEntity.id}}">
                         <i class="fa fa-times-circle entity-remove" data-ng-click="userEntity.visibility = false; $event.stopPropagation(); $event.preventDefault();"></i>

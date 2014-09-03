@@ -54,6 +54,7 @@
     padding-left: 30px;
     position: relative;
     margin:0;
+    margin-bottom: 10px;
 
 }
 .lpanel-list h2.hoverable {
@@ -65,7 +66,7 @@
 .lpanel-list ul {
     list-style-type: none;
     text-align: left;
-    margin: 10px 0;
+    margin: 0;
 }
 .lpanel-list ul li {
     font-size: 14px;
@@ -96,6 +97,7 @@
     text-decoration:none !important;
     position: relative;
     padding-right: 11px;
+    height: 100%;
 }
 
 .lpanel-list ul li:hover a span{
@@ -154,6 +156,7 @@
     border-bottom: 1px dotted #ab9ba9;
     margin-left: 30px;
     cursor: pointer;
+    margin-top: 10px;
     -webkit-transitionDISABLED: .1s .2s ease-out;
     -moz-transitionDISABLED: .1s .2s ease-out;
     -o-transitionDISABLED: .1s .2s ease-out;
