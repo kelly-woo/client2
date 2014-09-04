@@ -32,7 +32,7 @@ app.factory('userAPIservice', function($http, $rootScope, $filter) {
         if (value == $rootScope.user.id) return $rootScope.user;
 
         var entity = $filter('filter')(list, { 'id' : value }, function(actual, expected) {
-            return actual == expected;
+            return actual === expected;
         });
 
         if (angular.isUndefined(entity) || entity.length != 1) return;

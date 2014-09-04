@@ -35,14 +35,14 @@
 
     </div>
 
-    <div id="is_member_container" style="display: none;">
+    <div id="is_member_container">
         <div class="join-modal-heading">Channels you belong to</div>
 
         <div class="join-modal-channel_container file-item-meta__listview cursor_pointer" id="is_not_member" ng-repeat="joinedChannel in joinFiltered = (joinedChannelList | filter:{'name':channelTitleQuery})"
              ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})"  ng-click="cancel();">
             <div class="join-modal-channel_title cursor_pointer" >#{{joinedChannel.name}}</div>
             <div class="cursor_pointer">
-                <span class="join-modal-channel_creator">{{ getName(joinedChannel.ch_creatorId) }}</span> created this channel
+                <span class="join-modal-channel_creator">{{ getName(joinedChannel.ch_creatorId) }} </span> created this channel
             </div>
             <div>
                 {{ joinedChannel.ch_createTime | ordinalDate: 'EEE, MMMM doo' }} at {{ joinedChannel.ch_createTime | date: 'h:mm a' }}

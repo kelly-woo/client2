@@ -57,7 +57,7 @@ app.filter('parseUrl', function() {
 /*
  used in 'inviteFromChannelModal.tpl.html'
  */
-app.filter('userByName', function() {
+app.filter('userByName', ['$rootScope', function($rootScope) {
     return function(input, name) {
         if (name === undefined)
             return input;
@@ -80,7 +80,8 @@ app.filter('userByName', function() {
 
         return returnArray;
     }
-});
+}
+]);
 
 /*/
  used in 'rpanel-header-toolbar'

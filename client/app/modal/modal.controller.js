@@ -10,7 +10,7 @@ var app = angular.module('jandiApp');
  ----------------------------*/
 
 // CHANNEL JOIN
-app.controller('joinModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $filter) {
+app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPIservice, entityheaderAPIservice) {
 
     $scope.userId = $scope.user.id;
 
@@ -30,9 +30,7 @@ app.controller('joinModalCtrl', function($scope, $modalInstance, entityheaderAPI
             return 'you';
         }
 
-        var temp = entityheaderAPIservice.getEntityFromListById($scope.userList, id);
-
-        return $filter('getFirstLastNameOfUser')(temp);
+        return userAPIservice.getNameFromUserId(id);
     };
 
     $scope.newChannel = function() {
@@ -100,9 +98,10 @@ app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderA
         $modalInstance.dismiss('cancel');
     };
 
-    $scope.isLoading = true;
-
     $scope.onRenameClick = function(entityNewName) {
+
+        $scope.isLoading = true;
+
         entityheaderAPIservice.renameEntity($state.params.entityType, $state.params.entityId,  entityNewName)
             .success(function(response) {
                 $scope.updateLeftPanelCaller();
