@@ -16,13 +16,21 @@ msgstr ""
 msgid "Activity Feed"
 msgstr "활동 기록"
 
-#: client/app/header/header.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "All Files"
 msgstr "모든 파일"
+
+#: client/app/right/right.html
+msgid "Audio"
+msgstr "음악 파일"
 
 #: client/app/left/left.html
 msgid "Channels"
 msgstr "채널"
+
+#: client/app/right/right.html
+msgid "Comment"
+msgstr "댓글 남기기"
 
 #: client/app/left/left.html
 msgid "Create channel"
@@ -44,15 +52,27 @@ msgstr "비공개 그룹 삭제하기"
 msgid "Direct Messages"
 msgstr "1:1 메세지"
 
+#: client/app/right/right.html
+msgid "Download"
+msgstr "다운로드"
+
+#: client/app/right/right.html
+msgid "EVERYONE"
+msgstr "모든 팀원"
+
 #: client/app/signin/signin.html
 msgid "Email address"
 msgstr "이메일 주소"
+
+#: client/app/right/right.html
+msgid "File"
+msgstr "파일"
 
 #: client/app/header/header.html
 msgid "Files"
 msgstr "파일"
 
-#: client/app/header/header.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "Images"
 msgstr "이미지"
 
@@ -76,6 +96,10 @@ msgstr "그룹 초대하기"
 msgid "Invite to channel/group"
 msgstr "채널/비공개 그룹으로 초대하기"
 
+#: client/app/right/right.html
+msgid "JUST YOU"
+msgstr "나"
+
 #: client/app/header/header.html
 msgid "Leave channel"
 msgstr "채널 나가기"
@@ -84,7 +108,15 @@ msgstr "채널 나가기"
 msgid "Leave group"
 msgstr "비공개 그룹 나가기"
 
-#: client/app/header/header.html
+#: client/app/right/right.html
+msgid "No files found matching on"
+msgstr "검색 결과가 없습니다"
+
+#: client/app/right/right.html
+msgid "No files uploaded"
+msgstr "업로드된 파일이 없습니다"
+
+#: client/app/header/header.html client/app/right/right.html
 msgid "PDF"
 msgstr "PDF"
 
@@ -120,6 +152,14 @@ msgstr "비공개 그룹 이름 변경하기"
 msgid "Search"
 msgstr "검색"
 
+#: client/app/right/right.html
+msgid "Search by title"
+msgstr "제목으로 검색"
+
+#: client/app/right/right.html
+msgid "Share"
+msgstr "공유하기"
+
 #: client/app/signin/signin.html
 msgid "Sign In"
 msgstr "로그인"
@@ -140,6 +180,14 @@ msgstr "팀"
 msgid "Terms of Service"
 msgstr "개인정보 취급방침"
 
+#: client/app/right/right.html
+msgid "Upload File"
+msgstr "파일 업로드"
+
+#: client/app/right/right.html
+msgid "Video"
+msgstr "동영상 파일"
+
 #: client/app/header/header.html
 msgid "View files"
 msgstr "파일 보기"
@@ -155,6 +203,12 @@ msgstr "내 파일"
 #: client/app/left/left.html
 msgid "more..."
 msgstr "더 보기..."
+
+#~ msgid "Upload"
+#~ msgstr "업로드"
+
+#~ msgid "Add New File"
+#~ msgstr "파일 업로드"
 
 #~ msgid "Please sign in"
 #~ msgstr "잔디 회원이라면 로그인 하세요"

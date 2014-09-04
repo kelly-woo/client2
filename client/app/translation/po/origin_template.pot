@@ -8,11 +8,20 @@ msgid "Activity Feed"
 msgstr ""
 
 #: client/app/header/header.html
+#: client/app/right/right.html
 msgid "All Files"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "Audio"
 msgstr ""
 
 #: client/app/left/left.html
 msgid "Channels"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "Comment"
 msgstr ""
 
 #: client/app/left/left.html
@@ -35,8 +44,20 @@ msgstr ""
 msgid "Direct Messages"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "Download"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "EVERYONE"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "Email address"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "File"
 msgstr ""
 
 #: client/app/header/header.html
@@ -44,6 +65,7 @@ msgid "Files"
 msgstr ""
 
 #: client/app/header/header.html
+#: client/app/right/right.html
 msgid "Images"
 msgstr ""
 
@@ -67,6 +89,10 @@ msgstr ""
 msgid "Invite to channel/group"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "JUST YOU"
+msgstr ""
+
 #: client/app/header/header.html
 msgid "Leave channel"
 msgstr ""
@@ -75,7 +101,16 @@ msgstr ""
 msgid "Leave group"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "No files found matching on"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "No files uploaded"
+msgstr ""
+
 #: client/app/header/header.html
+#: client/app/right/right.html
 msgid "PDF"
 msgstr ""
 
@@ -111,6 +146,14 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "Search by title"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "Share"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "Sign In"
 msgstr ""
@@ -129,6 +172,14 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "Terms of Service"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "Upload File"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "Video"
 msgstr ""
 
 #: client/app/header/header.html

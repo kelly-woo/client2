@@ -81,10 +81,10 @@ app.filter('userByName', function() {
 /*/
     used in 'rpanel-header-toolbar'
  */
-app.filter('getFirstLastNameById', function() {
+app.filter('getFirstLastNameById', function($filter) {
     return function(input, scope) {
         if ( input == 'everyone' || input == scope.user.id || input == 'you')
-            return 'JUST YOU';
+            return $filter('translate')('JUST YOU');
 
         var fullName = '';
 
