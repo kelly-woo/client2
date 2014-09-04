@@ -4,23 +4,23 @@
         <!--TODO @filter: FILE TYPE DROPDOWN AND APPLY TO FILE FILTER-->
         <div class="rpanel-header-heading__types">
             <span class="dropdown-toggle cursor_pointer" data-toggle="dropdown">
-                {{ fileTypeQuery }} Files <i class="rpanel-header-file-type__more fa fa-caret-down"></i>
+                {{ fileRequest.fileType | upperFirstCharacter }} Files <i class="rpanel-header-file-type__more fa fa-caret-down"></i>
             </span>
             <ul class="dropdown-menu grey_dropdown rpanel-file-type-dropdown" role="menu">
-                <li role="presentation" data-ng-click="fileTypeQuery = 'All'">
+                <li role="presentation" data-ng-click="fileRequest.fileType = 'all'">
                     <a role="menuitem" tabindex="-1"><i class="fa fa-files-o"></i>All Files</a>
                 </li>
 
-                <li role="presentation" data-ng-click="fileTypeQuery = 'Image';">
+                <li role="presentation" data-ng-click="fileRequest.fileType = 'image';">
                     <a role="menuitem" tabindex="-1"><i class="fa fa-file-image-o"></i>Images</a>
                 </li>
-                <li role="presentation" data-ng-click="fileTypeQuery = 'PDF';">
+                <li role="presentation" data-ng-click="fileRequest.fileType = 'pdf';">
                     <a role="menuitem" tabindex="-1"><i class="fa fa-file-pdf-o"></i>PDF</a>
                 </li>
-                <li role="presentation" data-ng-click="fileTypeQuery = 'Audio'">
+                <li role="presentation" data-ng-click="fileRequest.fileType = 'audio'">
                     <a role="menuitem" tabindex="-1"><i class="fa fa-file-audio-o"></i>Audio</a>
                 </li>
-                <li role="presentation" data-ng-click="fileTypeQuery = 'Video'">
+                <li role="presentation" data-ng-click="fileRequest.fileType = 'video'">
                     <a role="menuitem" tabindex="-1"><i class="fa fa-file-video-o"></i>Video</a>
                 </li>
             </ul>
@@ -42,19 +42,17 @@
     </div>
 </div>
 
-<div class="rpanel-body">
-
+<div class="rpanel-body" infinite-scroll-bottom="">
     <div class="rpanel-header-toolbar">
-        <!--TODO @filter: FILE UPLOADER FILTER AND APPLY TO FILE FILTER-->
         <div class="rpanel-header-toolbar__users cursor_pointer">
             <span class="file-uploader-tab" data-ng-model="tabIndicator" btn-radio="'everyone'"
-                    data-ng-click="onFileFilterWriterIdClick('everyone');">
+                    data-ng-click="onFileFilterWriterIdClick('all');">
                 EVERYONE
             </span>
             <!--btn-radio="'{{ fileUploader == 'everyone' ? user.id : fileUploader }}'"-->
             <span class="file-uploader-tab" data-ng-model="tabIndicator" btn-radio="'notEveryone'"
-                    data-ng-click="onFileFilterWriterIdClick(fileUploader=='everyone'?'you':fileUploader);">
-                {{ fileUploader|getFirstLastNameById:this }}
+                    data-ng-click="onFileFilterWriterIdClick(fileRequest.writerId=='all'?'mine':fileRequest.writerId);">
+                {{ fileRequest.writerId | getFirstLastNameById }}
             </span>
 
             <span class="file-uploader-tab__more icon_add_member dropdown-toggle" data-toggle="dropdown"></span>
@@ -80,14 +78,14 @@
             <span class="input-group-addon">
                 <span class="icon_image icon_search rpanel-body-search__icon"></span>
             </span>
-            <input type="text" class="form-control rpanel-body-search__input green-input-box" placeholder="search file by title" data-ng-model="fileTitleQuery">
+            <input type="text" class="form-control rpanel-body-search__input green-input-box" placeholder="search file by title" data-ng-model="fileRequest.keyword">
         </div>
 
     </div>
 
-    <div class="rpanel-body-content file-list">
+    <div class="rpanel-body-content file-list" >
 
-        <div class="file-list__item" data-ng-repeat="file in filtered = (fileList | fileByWriterId:getfileUploaderId() | fileByType:fileTypeQuery | fileByTitle:fileTitleQuery | orderBy: 'id':true)">
+        <div class="file-list__item" data-ng-repeat="file in fileList" >
 
             <!-- FILE TYPE ICON IMAGE && FILE TYPE && FILE SIZE CONTAINER ON THE LEFT -->
             <div class="file-item-type">
@@ -166,8 +164,23 @@
             </div>
         </div>
 
-        <div data-ng-show="filtered.length == 0 && fileTitleQuery == null" class="rpanel-body-content__result-msg"> No files uploaded.</div>
-        <div data-ng-show="filtered.length == 0 && fileTitleQuery != null" class="rpanel-body-content__result-msg"> No files found matching <b>{{ fileTitleQuery }}.</b></div>
+        <div class="file-list__item loading" ng-if="isScrollLoading">
+            <div class="loading_container_background scroll_loading_container_background" ng-if="isLoading"></div>
+            <div class="loading_bg scroll_loading_bg"></div>
+            <div class="loading_bar scroll_loading_bar"></div>
+        </div>
+
+        <div ng-if="fileList.length==0">
+            <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">No {{ fileRequest.fileType  }} files uploaded by {{ fileRequest.writerId|getNameInFileResult}}.</div>
+
+            <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">No files found matching <b>{{ fileRequest.keyword }}</b>.</div>
+        </div>
+
+        <div class="loading_container file" ng-if="isLoading">
+            <div class="loading_container_background file" ng-if="isLoading"></div>
+            <div class="loading_bg file"></div>
+            <div class="loading_bar file"></div>
+        </div>
 
     </div>
 </div>

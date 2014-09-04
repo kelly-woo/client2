@@ -4,54 +4,87 @@ var app = angular.module('jandiApp');
 
 app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice) {
 
+    $scope.isLoading = true;
+    $scope.isScrollLoading = false;
+
     console.info('[enter] rightpanelController');
 
-    $scope.fileTypeQuery    = 'All';
     $scope.tabIndicator     = 'everyone';
-    $scope.fileUploader     = 'everyone';
+    $scope.fileTitleQuery   = '';
+
+    $scope.fileRequest      = {};
+    $scope.fileRequest.searchType       = 'file';
+    $scope.fileRequest.writerId         = 'all';
+    $scope.fileRequest.sharedEntityId   = -1;
+    $scope.fileRequest.fileType         = 'all';
+    $scope.fileRequest.startMessageId   = -1;
+    $scope.fileRequest.listCount        = 10;
+    $scope.fileRequest.keyword          = '';
+
+
+    var startMessageId   = -1;
 
     $scope.fileList = [];
 
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
         if (type === 'you') {
             // when 'Your Files' is clicked on 'cpanel-search__dropdown'
-            $scope.fileUploader = 'you';
-            $scope.fileTypeQuery = 'All';
+            $scope.fileRequest.writerId = 'mine';
+            $scope.fileRequest.fileType = 'all';
             $scope.tabIndicator = 'notEveryone';
         }
         else {
-            if (type === 'All') {
+            if (type === 'all') {
                 // when 'All Files' is clicked oon 'cpanel-search__dropdown'
-                $scope.fileUploader = 'everyone';
+                $scope.fileRequest.writerId = 'all';
                 $scope.tabIndicator = 'everyone';
             }
-
-            $scope.fileTypeQuery = type;
+            $scope.fileRequest.fileType = type;
         }
     });
 
+    $scope.$watch('[fileRequest.writerId, fileRequest.sharedEntityId, fileRequest.fileType, fileRequest.keyword]',
+        function(newValue, oldValue) {
+            preLoadingSetup();
+            getFileList();
+    }, true);
+
     $scope.onFileFilterWriterIdClick = function(writerId) {
-        $scope.fileUploader = writerId;
+        $scope.fileRequest.writerId = writerId;
         $scope.tabIndicator = 'notEveryone';
     };
 
-    $scope.getfileUploaderId = function() {
-        if ($scope.fileUploader == 'you')
-            return $scope.user.id;
-        else
-            return $scope.fileUploader;
-    };
-
-    getFileList();
-
     // Functions outside of this controller or from html template can call this function in order to update file list.
     $scope.$on('onChangeShared', function() {
+        preLoadingSetup();
         getFileList();
     });
 
+    function preLoadingSetup() {
+        $scope.fileRequest.startMessageId   = -1;
+        isEndOfList = false;
+        $scope.isLoading = true;
+
+    }
+
+
+    var isEndOfList = false;
+
+    $scope.loadMore = function() {
+        if (isEndOfList) return;
+
+        $scope.isScrollLoading = true;
+        $scope.fileRequest.startMessageId = startMessageId;
+
+        getFileList();
+    };
+
     function getFileList() {
-        fileAPIservice.getFileList()
+
+        fileAPIservice.getFileList($scope.fileRequest)
             .success(function(response) {
+                console.log(response)
+
                 var fileList = [];
                 angular.forEach(response.files, function(entity, index) {
 
@@ -61,11 +94,43 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
                 }, fileList);
 
-                $scope.fileList = fileList;
+                generateFileList(fileList, response.fileCount, response.firstIdOfReceviedList);
             })
             .error(function(response) {
                 console.log(response.msg);
             });
+    }
+
+    function generateFileList(fileList, fileCount, firstIdOfReceviedList) {
+        if (fileCount === 0 && $scope.isScrollLoading) {
+            $('.file-list__item.loading').addClass('opac_out');
+
+            $scope.isScrollLoading = false;
+            isEndOfList = true;
+            return;
+        }
+
+        startMessageId = firstIdOfReceviedList;
+
+        if($scope.fileRequest.startMessageId === -1) {
+            //  Not loading more.
+            //  Replace current fileList with new fileList.
+            $('.file-list__item').addClass('opac_out');
+            $scope.fileList = fileList;
+            console.log('replacing');
+
+        }
+        else {
+            //  Loading more.
+            //  Append fileList to current fileList
+            console.log('appending')
+            _.forEach(fileList, function(item) {
+                $scope.fileList.push(item);
+            });
+
+        }
+        $scope.isScrollLoading = false;
+        $scope.isLoading = false;
     }
 
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.

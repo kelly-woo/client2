@@ -86,11 +86,11 @@ app.filter('userByName', ['$rootScope', function($rootScope) {
 /*/
  used in 'rpanel-header-toolbar'
  */
-app.filter('getFirstLastNameById', ['userAPIservice',
-    function(userAPIservice) {
-        return function(input, scope) {
-            if ( input == 'everyone' || input == scope.user.id || input == 'you')
-                return 'JUST YOU';
+app.filter('getFirstLastNameById', ['userAPIservice', '$rootScope',
+    function(userAPIservice, $rootScope) {
+        return function(input) {
+            if ( input === 'everyone' || input === $rootScope.user.id || input === 'mine' || input === 'all')
+                return 'YOU';
 
             return userAPIservice.getNameFromUserId(input);
         }
@@ -116,3 +116,31 @@ app.filter('getFirstLastNameOfUser', ['userAPIservice',
         }
     }
 ]);
+
+
+app.filter('upperFirstCharacter', function() {
+    return function(input) {
+        if (angular.isUndefined(input) || input.isNumber ) return input;
+        if (input === 'pdf') return 'PDF';
+
+        var newChar = input.charAt(0).toUpperCase() + input.slice(1, input.length);
+
+        return newChar;
+    }
+});
+
+/*/
+ used in 'rpanel-header-toolbar'
+ */
+app.filter('getNameInFileResult', ['userAPIservice', '$rootScope',
+    function(userAPIservice, $rootScope) {
+        return function(input) {
+            if ( input === 'all') return input;
+            if ( input === $rootScope.user.id || input === 'mine' ) return 'you';
+
+            return userAPIservice.getNameFromUserId(input);
+        }
+    }
+]);
+
+
