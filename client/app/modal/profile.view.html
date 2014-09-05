@@ -1,0 +1,51 @@
+    <div class="modal-body profile-view-body">
+        <div class="profile-view-general-container">
+            <img class="user-profile__photo view" ng-src="{{ server_uploaded + curUser.u_photoThumbnailUrl.mediumThumbnailUrl}}"/>
+            <div class="user-profile__fullName">{{ curUser|getFirstLastNameOfUser }}</div>
+            <div class="user-profile__nickName">{{ curUser.u_nickname }}</div>
+        </div>
+
+        <div class="profile-view-info-container">
+            <div class="profile-view__info border-bottom_grey">
+                <div class="info-title"> 부서 </div>
+                <div class="info-content"> {{ curUser.u_extraData.department }}</div>
+            </div>
+
+            <div class="profile-view__info border-bottom_grey">
+                <div class="info-title"> 직책 </div>
+                <div class="info-content"> {{ curUser.u_extraData.position }}</div>
+            </div>
+
+            <div class="profile-view__info border-bottom_grey">
+                <div class="info-title"> 전화번호 </div>
+                <div class="info-content"> {{ curUser.u_extraData.phoneNumber }}</div>
+            </div>
+
+            <div class="profile-view__info">
+                <div class="info-title"> 이메일 </div>
+                <div class="info-content"> {{ curUser.u_email }}</div>
+            </div>
+        </div>
+
+        <div class="profile-view-action-container">
+            <a class="profile-view-action border-right_grey"
+                  href="mailto:{{curUser.u_email}}">
+                <div class="profile-view-action__img send_email_img"></div>
+                <div class="profile-view-action__text">메일 전송</div>
+            </a>
+
+            <div class="profile-view-action border-right_grey" ng-click="onActionClick('file');">
+                <div class="profile-view-action__img file_list_img"></div>
+                <div class="profile-view-action__text">파일 리스트</div>
+
+            </div>
+
+            <div class="profile-view-action" ng-click="onActionClick('directMessage');">
+                <div class="profile-view-action__img chat_img"></div>
+                <div class="profile-view-action__text">1:1 채팅</div>
+
+            </div>
+
+        </div>
+
+    </div>

@@ -27,7 +27,7 @@
 
             <div class="msg-item-header">
                 <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
-                    <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getFirstLastNameOfUser}} </span>
+                    <span ng-if="msg.message.contentType !=  'file'"> {{msg.message.writer|getFirstLastNameOfUser}} </span>
                     <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getFirstLastNameOfUser}} </span>
                 </span>
                 <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
