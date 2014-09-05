@@ -258,6 +258,10 @@
     display: none;
 }
 
+.opac_in {
+    -webkit-animation: opacIn 0.5s; /* Chrome, Safari, Opera */
+    animation: opacIn 0.5s;
+}
 /* Chrome, Safari, Opera */
 @-webkit-keyframes opacIn {
     from {opacity: 0;}
@@ -286,8 +290,8 @@
 }
 
 .from_right {
-    -webkit-animation: opacIn 0.5s; /* Chrome, Safari, Opera */
-    animation: opacIn 0.5s;
+    -webkit-animation: fromRight 0.5s; /* Chrome, Safari, Opera */
+    animation: fromRight 0.5s;
 }
 
 /* Chrome, Safari, Opera */
