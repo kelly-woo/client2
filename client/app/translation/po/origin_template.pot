@@ -109,10 +109,6 @@ msgstr ""
 msgid "Invite to channel/group"
 msgstr ""
 
-#: client/app/right/right.html
-msgid "JUST YOU"
-msgstr ""
-
 #: client/app/header/header.html
 msgid "Leave channel"
 msgstr ""
@@ -213,6 +209,10 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "View profile"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "YOU"
 msgstr ""
 
 #: client/app/header/header.html

@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice) {
 
     console.info('[enter] centerpanelController');
 
@@ -120,7 +120,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     function disableScroll() {
         $('body').bind('mousewheel', function(e) {
-            e.preventDefault()
+            e.preventDefault();
             e.stopPropagation();
         });
     }
@@ -469,7 +469,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     };
 
 
-    //  'event' fild if not empty when,
+    //  'event' field if not empty when,
     //      1. create channel
     //      2. leave channel
     //      3. archive(delete) channel
@@ -483,9 +483,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         //  otherwise, false.
         var mustUpdateLeftPanel = false;
 
-        console.log('There are some system events');
-        console.log('There are ' + event.eventCount)
-        console.log(eventTable);
+//        console.log('There are some system events');
+//        console.log('There are ' + event.eventCount)
+//        console.log(eventTable);
 
         _.find(eventTable, function(event, index, list) {
 //            console.log(event);
@@ -496,7 +496,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                 //  someone invited 'ME' to some channel.
                 if (_.contains(event.info.inviteUsers, $scope.user.id)) {
-                    console.log('someone invited me')
+//                    console.log('someone invited me')
                     mustUpdateLeftPanel = true;
                     return;
                 }
@@ -505,7 +505,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 //  If I invited someone on web, it doesn't really matter.
                 //  But if I invited someone from different device(mobile), I need to update leftPanel on web.
                 if (event.info.invitorId == $scope.user.id) {
-                    console.log('I invited someone')
+//                    console.log('I invited someone')
                     mustUpdateLeftPanel = true;
                     return;
                 }
@@ -513,7 +513,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 var updateEntity = entityAPIservice.getEntityFromListById($rootScope.joinedEntities, event.toEntity[0]);
 
                 if (updateEntity) {
-                    console.log('someone invited someone to some channel that I am in');
+//                    console.log('someone invited someone to some channel that I am in');
                     mustUpdateLeftPanel = true;
                     return;
                 }
@@ -526,7 +526,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 if (event.fromEntity == $scope.user.id) {
 
                     //  leave event of myself cannot get here!
-                    console.log('I joined something');
+//                    console.log('I joined something');
 
                     mustUpdateLeftPanel = true;
                     return;
@@ -550,10 +550,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                 console.log('create')
                 if (event.fromEntity == $scope.user.id) {
-                    console.log('I created channel')
+//                    console.log('I created channel')
                 }
                 else {
-                    console.log('someone created channel')
+//                    console.log('someone created channel')
                 }
                 mustUpdateLeftPanel = true;
                 return;
@@ -575,13 +575,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     return;
                 }
                 else {
-                    console.log('someone archived some channel')
+//                    console.log('someone archived some channel')
                 }
                 return;
             }
             else {
-                alert(' who are you ');
-                console.log(event);
+                console.error(event);
             }
 
             return mustUpdateLeftPanel;
@@ -671,7 +670,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         }
 
-        newMsg.message.content.actionOwner = entityAPIservice.getFullName(msg.fromEntity);
+        newMsg.message.content.actionOwner = userAPIservice.getNameFromUser(msg.fromEntity);
         newMsg.message.content.body = action;
 
         return newMsg;
@@ -698,7 +697,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         }
 
         if (response.code == INVALID_SECURITY_TOKEN) {
-            console.log('okay. forced out.');
+            console.debug('INVALID SECURITY TOKEN.');
             $state.go('signin');
             return;
         }

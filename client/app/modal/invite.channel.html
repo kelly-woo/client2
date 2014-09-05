@@ -10,7 +10,7 @@
     <div class="modal-body">
         <!--    LIST OF USERS WHO WILL BE INVITED WHEN BUTTON IS CLICKED    -->
         <div class="users_to_invite">
-            <span ng-repeat="user in userToInviteList = (userList | filter : {'selected' : true})"
+            <span class="cursor_pointer" ng-repeat="user in userToInviteList = (userList | filter : {'selected' : true})"
                   data-ng-click="user.selected = false">
                 <span class="selected_user btn-ok" ng-click="user.selected = true;">{{user|getFirstLastNameOfUser}}
                 <span class="fa fa-times"></span></span>

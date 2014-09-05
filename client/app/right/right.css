@@ -123,8 +123,10 @@
 }
 
 .file-list {
-
+    background: none;
 }
+
+
 .file-list__item {
     position: relative;
     clear: both;
@@ -136,6 +138,10 @@
     padding: 24px 12px 24px 18px;
     border-bottom: 1px solid #ebebeb;
     min-height: 60px;
+
+    -webkit-animation: opacIn 1s; /* Chrome, Safari, Opera */
+    animation: opacIn 1s;
+
 }
 .file-list__item:hover {
     background: #eefcf7;
@@ -264,4 +270,52 @@
 }
 .file-item-meta .glyphicon {
     font-size: .7rem;
+}
+
+.scroll_loading_container_background {
+    background-color: rgb(238, 252, 247);
+    opacity: 1;
+}
+.scroll_loading_bg {
+    display: none;
+}
+
+.scroll_loading_bar {
+    left: auto;
+    margin: auto !important;
+}
+
+.loading_container.file {
+    position: absolute;
+    display: none;
+}
+.loading_container_background.file {
+    display: none;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opacIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+/* Standard syntax */
+@keyframes opacIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.opac_out {
+    -webkit-animation: opacOut 0.5s; /* Chrome, Safari, Opera */
+    animation: opacOut 0.5s;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opacOut {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+/* Standard syntax */
+@keyframes opacOut {
+    from {opacity: 1;}
+    to {opacity: 0;}
 }

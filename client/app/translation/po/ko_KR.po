@@ -112,10 +112,6 @@ msgstr "그룹 초대하기"
 msgid "Invite to channel/group"
 msgstr "채널/비공개 그룹으로 초대하기"
 
-#: client/app/right/right.html
-msgid "JUST YOU"
-msgstr "나"
-
 #: client/app/header/header.html
 msgid "Leave channel"
 msgstr "채널 나가기"
@@ -216,6 +212,10 @@ msgstr "파일 보기"
 msgid "View profile"
 msgstr "프로필 보기"
 
+#: client/app/right/right.html
+msgid "YOU"
+msgstr "나"
+
 #: client/app/header/header.html
 msgid "Your Files"
 msgstr "내 파일"
@@ -227,6 +227,9 @@ msgstr "더 보기..."
 #: client/app/right/file.html
 msgid "shift+enter to multiline"
 msgstr "멀티라인 입력: shift+enter"
+
+#~ msgid "JUST YOU"
+#~ msgstr "나"
 
 #~ msgid "Upload"
 #~ msgstr "업로드"

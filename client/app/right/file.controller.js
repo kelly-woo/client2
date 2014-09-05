@@ -114,7 +114,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
             $modal.open({
                 scope       : $scope,
                 templateUrl : 'app/modal/share.html',
-                controller  : fileShareModalCtrl,
+                controller  : 'fileShareModalCtrl',
                 size        : 'lg',
                 resolve: {
                     parameters: function () {
@@ -170,7 +170,3 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
 app.controller('fullImageCtrl', function($scope, $modalInstance) {
     $scope.cancel = function() { $modalInstance.dismiss('cancel');}
 });
-
-//var fullImageCtrl = function($scope, $modalInstance) {
-//    $scope.cancel = function() { $modalInstance.dismiss('cancel');}
-//};

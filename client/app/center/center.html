@@ -18,12 +18,18 @@
              data-message-id="msg.message.id"
              data-ng-class="{ 'text': msg.message.isText, 'file-upload': msg.message.isFile, 'comment-title': msg.message.commentOption.isTitle, 'comment-continue': msg.message.commentOption.isContinue }">
 
-            <div class="msg-item-float" data-ng-if="( !msg.message.commentOption.isContinue )">
-                <a class="user-profile user-thumb" style="background-image: url({{ server_uploaded + ( msg.message.writer.u_photoThumbnailUrl.smallThumbnailUrl  || msg.message.writer.u_photoUrl ) }});"></a>
+            <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);">
+                <a class="user-profile user-thumb" ng-if="msg.message.contentType !== 'file'"
+                   style="background-image: url({{ server_uploaded + ( msg.message.writer.u_photoThumbnailUrl.smallThumbnailUrl  || msg.message.writer.u_photoUrl ) }});"></a>
+                <a class="user-profile user-thumb" ng-if="msg.message.contentType === 'file'"
+                   style="background-image: url({{ server_uploaded + ( msg.fromEntity.u_photoThumbnailUrl.smallThumbnailUrl  || msg.fromEntity.u_photoUrl ) }});"></a>
             </div>
 
             <div class="msg-item-header">
-                <span class="msg-item-header__name" data-ng-click="onUserClick(msg.fromEntity);">{{msg.message.writer|getFirstLastNameOfUser}}</span>
+                <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+                    <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getFirstLastNameOfUser}} </span>
+                    <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getFirstLastNameOfUser}} </span>
+                </span>
                 <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
                 <span class="temp msg-item-header__created">[{{msg.id + "-" + msg.messageId + "-" + msg.feedbackId}}/{{msg.message.contentType}}/{{msg.status}}{{msg.eventType}}]</span>
                 <a class="msg-item__action link-remove pull-right"
@@ -60,7 +66,8 @@
                         </div>
                         <div class="msg-file-meta-down">
                                 <span class="msg-file-meta-info">
-                                    Shared
+                                    <span ng-if="msg.status == 'shared'">Shared</span>
+                                    <span ng-if="msg.status == 'unshared'">Unshared</span>
                                     <a class="msg-file-meta__writer file__owner" ng-if="( msg.fromEntity.id !== msg.message.writer.id )">{{msg.message.writer|getFirstLastNameOfUser}}'s</a>
                                     File
                                 </span>
@@ -151,40 +158,5 @@
 
 
 <style>
-    .last {
-        background-color: rgb(238, 252, 247);
-        -webkit-animation: opacIn 0.8s; /* Chrome, Safari, Opera */
-        animation: opacIn 0.8s;
-        margin-left: -20px;
-        margin-right: -10px;
-        padding-left: 67px;
-        margin-top: -13px !important;
-        padding-top: 13px;
-        /*margin-bottom: 8px;*/
-        /*padding-bottom: 5px;*/
-    }
-    .comment-continue.last {
-        padding-top: 0;
-        margin-bottom: 0;
-        margin-top: 0 !important;
-        padding-bottom: 15px;
-    }
-    .last.file-upload {
-        margin-left: -20px !important;
-        padding-bottom: 0;
-    }
-    .last .msg-item-float {
-        left: 20px;
-        top: 13px;
-    }
-    /* Chrome, Safari, Opera */
-    @-webkit-keyframes opacIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
-    /* Standard syntax */
-    @keyframes opacIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
+
 </style>

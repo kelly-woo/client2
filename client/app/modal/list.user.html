@@ -9,7 +9,7 @@
     <div class="input-group custom-typeahead">
         <span class="input-group-addon"><span class="icon_image icon_search rpanel-body-search__icon"></span></span>
         <input type="text" ng-model="selectedUser" typeahead="user as user.u_lastName+user.u_firstName for user in userList  | userByName:$viewValue"
-               typeahead-on-select="onUserSelected($item); selectedUser = '';" class="form-control" placeholder="Search users by name"
+               typeahead-on-select="onUserSelected($item); selectedUser = '';" class="form-control green-input-box" placeholder="Search users by name"
                typeahead-template-url="customTemplate.html"
                typeahead-min-length='0'>
     </div>

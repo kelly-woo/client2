@@ -15,24 +15,14 @@ app.factory('fileAPIservice', function($http, $rootScope, $upload, $filter) {
         });
     };
 
+    fileAPI.getFileList = function(fileRequest) {
+        console.log('sending');
+        console.log(fileRequest);
 
-    fileAPI.updateProfilePic = function(image) {
-        return $upload.upload({
-            method: 'POST',
-            url: $rootScope.server_address + 'settings/profiles/photo',
-            file: image,
-            fileFormDataName : 'photo'
-        });
-    };
-    fileAPI.getFileList = function() {
         return $http({
             method: 'POST',
             url: $rootScope.server_address + 'search',
-            data: {
-                searchType  :   'file',
-                userId      :   'all',
-                fileType    :   'all'
-            }
+            data: fileRequest
         })
     };
 

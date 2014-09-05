@@ -10,7 +10,7 @@ var app = angular.module('jandiApp');
  ----------------------------*/
 
 // CHANNEL JOIN
-app.controller('joinModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $filter) {
+app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPIservice, entityheaderAPIservice) {
 
     $scope.userId = $scope.user.id;
 
@@ -30,9 +30,7 @@ app.controller('joinModalCtrl', function($scope, $modalInstance, entityheaderAPI
             return 'you';
         }
 
-        var temp = entityheaderAPIservice.getEntityFromListById($scope.userList, id);
-
-        return $filter('getFirstLastNameOfUser')(temp);
+        return userAPIservice.getNameFromUserId(id);
     };
 
     $scope.newChannel = function() {
@@ -100,9 +98,10 @@ app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderA
         $modalInstance.dismiss('cancel');
     };
 
-    $scope.isLoading = true;
-
     $scope.onRenameClick = function(entityNewName) {
+
+        $scope.isLoading = true;
+
         entityheaderAPIservice.renameEntity($state.params.entityType, $state.params.entityId,  entityNewName)
             .success(function(response) {
                 $scope.updateLeftPanelCaller();
@@ -196,23 +195,24 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, teamAPIs
         $('input.invite').each(function(idx) {
             var currentDomInput = $(this);
 
-            if (currentDomInput.val() === '') {
-                return false;
-            }
-
             switch(currentDomInput.attr('name')) {
                 case 'email':
                     hasAllInformation = false;
                     cur.email = currentDomInput.val();
                     break;
+                case 'lastName':
+                    cur.lastName = currentDomInput.val();
+                    break;
                 case 'firstName':
                     cur.firstName = currentDomInput.val();
+
+                    if ( cur.email === '' || cur.lastName === '' || cur.firstName === '') {
+                        cur = {};
+                        break;
+                    }
                     invites.push(cur);
                     cur = {};
                     hasAllInformation = true;
-                    break;
-                case 'lastName':
-                    cur.lastName = currentDomInput.val();
                     break;
                 default :
                     console.warn('onInviteClick', idx);
@@ -220,9 +220,15 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, teamAPIs
         });
 
 
+
         $scope.hasAllInformation = hasAllInformation;
 
-        if (hasAllInformation) {
+        if (invites.length == 0) {
+            $scope.isLoading = false;
+            alert('missing information');
+        }
+
+        if (invites.length > 0) {
             teamAPIservice.inviteToTeam(invites)
                 .success(function(response) {
                     $scope.isLoading = false;
@@ -262,7 +268,11 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, teamAPIs
     $scope.totalNumberOfInput = 0;
 
     $scope.onAddMoreClick = function() {
-        var invite_template = angular.element('<div class="form-horizontal"><div class="email_container"><input type="email" class="form-control invite" name="email" ng-required="true" placeholder="email" ng-blur="onInviteInputBlur($event);"/></div><div class="firstName_container"><input type="text" class="form-control invite" name="firstName" ng-required="true" placeholder="last name" ng-blur="onInviteInputBlur($event);"/></div><div class="lastName_container"><input type="text" class="form-control invite" name="lastName" ng-required="true" placeholder="first name" ng-blur="onInviteInputBlur($event);"/></div></div>');
+        var invite_template = angular.element('' +
+            '<div class="form-horizontal"><div class="email_container"><input type="email" class="form-control invite" name="email" ng-required="true" placeholder="email"/></div>' +
+            '<div class="firstName_container"><input type="text" class="form-control invite" name="lastName" ng-required="true" placeholder="last name"/></div>' +
+            '<div class="lastName_container"><input type="text" class="form-control invite" name="firstName" ng-required="true" placeholder="first name"/></div>' +
+            '</div>');
         $('.invite-team-body').append(invite_template);
     };
 });
@@ -440,7 +450,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
                 templateUrl :   'app/modal/image.crop.html',
                 size        :   'lg',
                 windowClass :   'wide',
-                controller  :   imageCropCtrl,
+                controller  :   'imageCropCtrl',
                 resolve     : {
                     myImage     : function() { return e.target.result; }
                 }
@@ -458,7 +468,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
 });
 
 //  IMAGE CROP CONTROLLER
-app.controller('imageCropCtrl', function($scope, $rootScope, $modalInstance, myImage, fileAPIservice) {
+app.controller('imageCropCtrl', function($scope, $rootScope, $modalInstance, myImage, userAPIservice) {
     $scope.profilePic = myImage;
     $scope.croppedProfilePic = '';
 
@@ -470,7 +480,7 @@ app.controller('imageCropCtrl', function($scope, $rootScope, $modalInstance, myI
         var blob = dataURItoBlob($scope.croppedProfilePic);
         $scope.isLoading = true;
 
-        fileAPIservice.updateProfilePic(blob)
+        userAPIservice.updateProfilePic(blob)
             .success(function(response) {
                 $modalInstance.close('success');
             })

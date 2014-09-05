@@ -8,6 +8,7 @@
     <div class="modal-body invite-team-body">
         <h4>
             이메일을 통해 다른 팀원을 잔디로 초대하실 수 있습니다.
+            이메일주소, 성 그리고 이름 세 정보를 모두 기입하셔야 초대 이메일이 전송됩니다.
         </h4>
 
         <div class="invite-team-body-more-container">
@@ -19,16 +20,13 @@
 
         <div class="form-horizontal">
             <div class="email_container">
-                <input type="email" class="form-control invite" name="email" placeholder="email"
-                        ng-blur="onInviteInputBlur($event);"/>
+                <input type="email" class="form-control invite" name="email" placeholder="email" required/>
             </div>
             <div class="firstName_container">
-                <input type="text" class="form-control invite" name="lastName" placeholder="last name"
-                       ng-blur="onInviteInputBlur($event);"/>
+                <input type="text" class="form-control invite" name="lastName" placeholder="last name" required/>
             </div>
             <div class="lastName_container">
-                <input type="text" class="form-control invite" name="firstName" placeholder="first name"
-                       ng-blur="onInviteInputBlur($event);"/>
+                <input type="text" class="form-control invite" name="firstName" placeholder="first name" required/>
             </div>
         </div>
     </div>
@@ -37,7 +35,7 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-cancel" ng-click="cancel();">Close</button>
-        <input class="btn btn-ok" type="submit" id="invite_to_team" value="Invite"/>
+        <input class="btn btn-ok" type="submit" id="invite_to_team" value="Invite" ng-disabled="invite_team_form.$invalid"/>
     </div>
 
 </form>
