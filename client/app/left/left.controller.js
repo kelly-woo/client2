@@ -228,8 +228,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     //  Add 'onUserClick' to redirect to direct message to 'user'
     $scope.onUserClick = function(user) {
-        console.log('this is onUserClick');
-        console.log(user)
         $modal.open({
             scope       :   $scope,
             templateUrl :   'app/modal/profile.view.html',
@@ -239,14 +237,24 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 curUser     : function getCurUser(){ return user; }
             }
         });
-//        $state.go('archives', { entityType:'users',  entityId:user.id });
     };
 
     $scope.toDefaultChannel = function() {
         $state.go('archives', { entityType:'channels',  entityId:defaultChannel });
     };
 
-    $scope.onDMInputChange = function() {
+    $scope.onDMInputChange = function(userNameQuery) {
+        var temp = $filter('userByName')($rootScope.userList, userNameQuery);
+
+        if (temp.length === 1) {
+            temp[0].visibility = true;
+        }
+
         if ($scope.isDMCollapsed) $scope.isDMCollapsed = false;
     };
+
+
+    $scope.onPGCollapseClick = function() {
+        $scope.isPGCollapsed = false;
+    }
 });
