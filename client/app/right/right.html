@@ -195,11 +195,13 @@
                     </div>
 
                     <div class="file-item-meta__empty file-item-meta__info" data-ng-hide="file.shareEntities.length != 0">
-                        File has not been shared in any other channels.
+                        <span translate>File has not been shared in any other channels</span>
                     </div>
 
                     <div class="file-item-meta-open file-item-meta__info">
-                        <a class="file-item-meta-open__public cursor_pointer" href="{{ server_uploaded + file.content.fileUrl }}" target="{{ server_uploaded + file.content.fileUrl }}">Open public link</a>
+                        <a class="file-item-meta-open__public cursor_pointer" href="{{ server_uploaded + file.content.fileUrl }}" target="{{ server_uploaded + file.content.fileUrl }}">
+                            <span translate>Open original</span>
+                        </a>
                     </div>
 
                     <!--image thumbnail-->

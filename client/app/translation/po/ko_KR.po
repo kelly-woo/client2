@@ -16,6 +16,10 @@ msgstr ""
 msgid "Activity Feed"
 msgstr "활동 기록"
 
+#: client/app/right/file.html
+msgid "Add Comment"
+msgstr "댓글 남기기"
+
 #: client/app/header/header.html client/app/right/right.html
 msgid "All Files"
 msgstr "모든 파일"
@@ -28,7 +32,11 @@ msgstr "음악 파일"
 msgid "Channels"
 msgstr "채널"
 
-#: client/app/right/right.html
+#: client/app/right/file.html
+msgid "Click to view"
+msgstr "파일 보기"
+
+#: client/app/right/file.html client/app/right/right.html
 msgid "Comment"
 msgstr "댓글 남기기"
 
@@ -39,6 +47,10 @@ msgstr "채널 생성"
 #: client/app/left/left.html
 msgid "Create private group"
 msgstr "비공개 그룹 생성"
+
+#: client/app/right/file.html
+msgid "Delete"
+msgstr "삭제"
 
 #: client/app/header/header.html
 msgid "Delete this channel"
@@ -52,7 +64,7 @@ msgstr "비공개 그룹 삭제하기"
 msgid "Direct Messages"
 msgstr "1:1 메세지"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "Download"
 msgstr "다운로드"
 
@@ -68,7 +80,11 @@ msgstr "이메일 주소"
 msgid "File"
 msgstr "파일"
 
-#: client/app/header/header.html
+#: client/app/right/file.html client/app/right/right.html
+msgid "File has not been shared in any other channels"
+msgstr "공유된 채널이 없습니다"
+
+#: client/app/header/header.html client/app/right/file.html
 msgid "Files"
 msgstr "파일"
 
@@ -116,6 +132,10 @@ msgstr "검색 결과가 없습니다"
 msgid "No files uploaded"
 msgstr "업로드된 파일이 없습니다"
 
+#: client/app/right/right.html
+msgid "Open original"
+msgstr "원본파일 열기"
+
 #: client/app/header/header.html client/app/right/right.html
 msgid "PDF"
 msgstr "PDF"
@@ -156,7 +176,7 @@ msgstr "검색"
 msgid "Search by title"
 msgstr "제목으로 검색"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "Share"
 msgstr "공유하기"
 
@@ -203,6 +223,10 @@ msgstr "내 파일"
 #: client/app/left/left.html
 msgid "more..."
 msgstr "더 보기..."
+
+#: client/app/right/file.html
+msgid "shift+enter to multiline"
+msgstr "멀티라인 입력: shift+enter"
 
 #~ msgid "Upload"
 #~ msgstr "업로드"

@@ -7,6 +7,10 @@ msgstr ""
 msgid "Activity Feed"
 msgstr ""
 
+#: client/app/right/file.html
+msgid "Add Comment"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/right/right.html
 msgid "All Files"
@@ -20,6 +24,11 @@ msgstr ""
 msgid "Channels"
 msgstr ""
 
+#: client/app/right/file.html
+msgid "Click to view"
+msgstr ""
+
+#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "Comment"
 msgstr ""
@@ -30,6 +39,10 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "Create private group"
+msgstr ""
+
+#: client/app/right/file.html
+msgid "Delete"
 msgstr ""
 
 #: client/app/header/header.html
@@ -44,6 +57,7 @@ msgstr ""
 msgid "Direct Messages"
 msgstr ""
 
+#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "Download"
 msgstr ""
@@ -60,7 +74,13 @@ msgstr ""
 msgid "File"
 msgstr ""
 
+#: client/app/right/file.html
+#: client/app/right/right.html
+msgid "File has not been shared in any other channels"
+msgstr ""
+
 #: client/app/header/header.html
+#: client/app/right/file.html
 msgid "Files"
 msgstr ""
 
@@ -109,6 +129,10 @@ msgstr ""
 msgid "No files uploaded"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "Open original"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/right/right.html
 msgid "PDF"
@@ -150,6 +174,7 @@ msgstr ""
 msgid "Search by title"
 msgstr ""
 
+#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "Share"
 msgstr ""
@@ -196,4 +221,8 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "more..."
+msgstr ""
+
+#: client/app/right/file.html
+msgid "shift+enter to multiline"
 msgstr ""
