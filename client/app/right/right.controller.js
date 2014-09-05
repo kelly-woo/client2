@@ -46,6 +46,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     //  From profileViewerCtrl
     $rootScope.$on('updateFileWriterId', function(event, userId) {
         $scope.fileRequest.writerId = userId;
+        $scope.tabIndicator = 'notEveryone';
     });
 
     $scope.$watch('[fileRequest.writerId, fileRequest.sharedEntityId, fileRequest.fileType, fileRequest.keyword]',
