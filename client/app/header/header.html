@@ -63,7 +63,7 @@
     </div>
 
     <!-- SEARCH BOX -->
-    <div class="cpanel-search" ng-class="{'grey': !$state.includes('**.files.**')}">
+    <div class="cpanel-search grey" ng-class="{'grey': !$state.includes('**.files.**'), 'to_green_background': $state.includes('**.files.**')}">
         <form method="get" action="/search" class="cpanel-search__form search_form no_bottom_margin">
             <input type="text" id="search_terms" name="q" class="cpanel-search__form-input search_input" placeholder="Search" disabled>
             <span class="icon_image icon_search cpanel-search__icon"></span>

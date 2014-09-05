@@ -284,3 +284,55 @@
     from {opacity: 1;}
     to {opacity: 0;}
 }
+
+.from_right {
+    -webkit-animation: opacIn 0.5s; /* Chrome, Safari, Opera */
+    animation: opacIn 0.5s;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fromRight {
+    0%      { right: -480px; }
+    25%     { right: -320px; }
+    50%     { right: -160px; }
+    100%    { right: 0px; }
+}
+/* Standard syntax */
+@keyframes fromRight {
+    0%      { right: -480px; }
+    25%     { right: -320px; }
+    50%     { right: -160px; }
+    100%    { right: 0px; }
+}
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes toRight {
+    0%      { right: 0px; }
+    25%     { right: -160px; }
+    50%     { right: -320px; }
+    100%    { right: -480px; }
+}
+/* Standard syntax */
+@keyframes toRight {
+    0%      { right: 0px; }
+    25%     { right: -160px; }
+    50%     { right: -320px; }
+    100%    { right: -480px; }
+}
+
+
+.opacOut_hidden {
+    -webkit-animation: opacOut_hidden 0.5s; /* Chrome, Safari, Opera */
+    animation: opacOut_hidden 0.5s;
+}
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opacOut_hidden {
+    from {opacity: 1;}
+    to {opacity: 0; visibility: hidden !important; display: none !important;}/* Standard syntax */
+@keyframes opacOut_hidden {
+    from {opacity: 1;}
+    to {opacity: 0; visibility: hidden !important; display: none !important;}
+}

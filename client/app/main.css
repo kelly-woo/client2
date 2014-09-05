@@ -50,6 +50,16 @@ html { min-width: 980px; }
 .animate-enter { -webkit-transition: 1s linear all; /* Chrome */ transition: 1s linear all; opacity: 0; }
 .animate-enter.animate-enter-active { opacity: 1; }
 
+/* Chrome, Safari, Opera */
+@-webkit-keyframes green_background {
+    from {background-color: rgb(242, 242, 242);}
+    to {background-color: #31c08a;}
+}
+/* Standard syntax */
+@keyframes green_background {
+    from {background-color: rgb(242, 242, 242);}
+    to {background-color: #31c08a;}
+}
 
 
 
@@ -95,6 +105,15 @@ html { min-width: 980px; }
 }
 .link-unshare:hover {
 
+}
+.green_background {
+    background-color: #31c08a !important;
+}
+
+.to_green_background {
+    -webkit-animation: green_background 0.5s; /* Chrome, Safari, Opera */
+    animation: green_background 0.5s;
+    background-color: #31c08a !important;
 }
 
 
@@ -498,3 +517,5 @@ input[type="button"] {
     font-size: 14px;
     padding: 0px 10px;
 }
+
+
