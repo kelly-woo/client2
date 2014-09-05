@@ -150,4 +150,12 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
             $state.go('messages.detail.files');
         $scope.$emit('updateFileTypeQuery', type);
     };
+
+    $scope.onRightToggleButtonClick = function(isOpen) {
+        if (isOpen) {
+            $('.cpanel-search').addClass('to_green_background');
+            return;
+        }
+        $('.cpanel-search').removeClass('to_green_background');
+    }
 });
