@@ -94,14 +94,14 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
                 }, fileList);
 
-                generateFileList(fileList, response.fileCount, response.firstIdOfReceviedList);
+                generateFileList(fileList, response.fileCount, response.firstIdOfReceivedList);
             })
             .error(function(response) {
                 console.log(response.msg);
             });
     }
 
-    function generateFileList(fileList, fileCount, firstIdOfReceviedList) {
+    function generateFileList(fileList, fileCount, firstIdOfReceivedList) {
         if (fileCount === 0 && $scope.isScrollLoading) {
             $('.file-list__item.loading').addClass('opac_out');
 
@@ -110,7 +110,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             return;
         }
 
-        startMessageId = firstIdOfReceviedList;
+        startMessageId = firstIdOfReceivedList;
 
         if($scope.fileRequest.startMessageId === -1) {
             //  Not loading more.
