@@ -329,6 +329,7 @@
 .opacOut_hidden {
     -webkit-animation: opacOut_hidden 0.5s; /* Chrome, Safari, Opera */
     animation: opacOut_hidden 0.5s;
+    display: none;
 }
 
 

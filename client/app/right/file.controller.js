@@ -54,6 +54,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
                     });
 
                 $scope.fileLoadStatus.loading = false;
+                $('.file-detail-body').addClass('opac_in');
 
                 deferred.resolve();
             }, 0);
