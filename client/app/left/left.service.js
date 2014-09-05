@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('leftpanelAPIservice', function($http, $rootScope, $filter) {
+app.factory('leftpanelAPIservice', function($http, $rootScope) {
     var leftpanelAPI = {};
 
     leftpanelAPI.getLists = function() {
@@ -75,15 +75,6 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $filter) {
 
         return returnValue;
     };
-
-    leftpanelAPI.getEntityFromListById = function(list, value) {
-        var entity = $filter('filter')(list, { 'id' : value }, function(actual, expected) {
-            return actual == expected;
-        });
-        if (entity.length != 1) return;
-
-        return entity[0];
-    }
 
     leftpanelAPI.createChannel = function(channelName) {
         return $http({

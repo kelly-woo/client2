@@ -65,13 +65,6 @@ app.factory('entityheaderAPIservice', function($http, $rootScope,  $filter) {
         return entity.ch_creatorId == user.id;
     }
 
-    //  TODO: IS ANYONE USING BELOW FUNCTION?
-    entityheaderAPI.getEntityFromListById = function(list, value) {
-        var entity = $filter('filter')(list, { 'id' : value }, true);
-        if (entity.length != 1) return;
-
-        return entity[0];
-    }
 
     entityheaderAPI.getInviteOptions = function(joinedChannelList, privateGroupList) {
         return joinedChannelList.concat(privateGroupList);

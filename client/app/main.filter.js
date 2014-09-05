@@ -55,70 +55,81 @@ app.filter('parseUrl', function() {
 });
 
 /*
-    used in 'inviteFromChannelModal.tpl.html'
+ used in 'inviteFromChannelModal.tpl.html'
  */
-app.filter('userByName', function() {
-   return function(input, name) {
-       if (angular.isUndefined(name)) return input;
+app.filter('userByName', ['$rootScope', function($rootScope) {
+    return function(input, name) {
+        if (name === undefined)
+            return input;
 
-       name = name.toLowerCase();
+        name = name.toLowerCase();
 
-       var returnArray = [];
+        var returnArray = [];
 
-       _.each(input, function(user) {
-           var fullName = user.u_lastName + user.u_firstName ;
+        _.each(input, function(user) {
+            var fullName = user.u_lastName + user.u_firstName ;
 
-           if(fullName.indexOf(name) > -1) {
-               returnArray.push(user)
-           }
-       });
-
-       return returnArray;
-   }
-});
-
-/*/
-    used in 'rpanel-header-toolbar'
- */
-app.filter('getFirstLastNameById', function() {
-    return function(input, scope) {
-        if ( input == 'everyone' || input == scope.user.id || input == 'you')
-            return 'JUST YOU';
-
-        var fullName = '';
-
-        // Loop through userlist looking for matching user.id
-        // if found, return full name.
-        _.each(scope.userList, function(user) {
-            if (user.id == input) {
-
-                fullName = user.u_lastName + user.u_firstName;
+            if ($rootScope.displayNickname) {
+                fullName = user.u_nicname;
             }
 
+            if(fullName.indexOf(name) > -1) {
+                returnArray.push(user)
+            }
         });
 
-        return fullName;
+        return returnArray;
     }
-});
+}
+]);
+
+/*/
+ used in 'rpanel-header-toolbar'
+ */
+app.filter('getFirstLastNameById', ['userAPIservice', '$rootScope',
+    function(userAPIservice, $rootScope) {
+        return function(input) {
+            if ( input === 'everyone' || input === $rootScope.user.id || input === 'mine' || input === 'all')
+                return 'YOU';
+
+            return userAPIservice.getNameFromUserId(input);
+        }
+    }
+]);
 
 /*
 
 
  */
-app.filter('getFirstLastNameOfUser', function() {
-    return function(input) {
-        if (angular.isUndefined(input)) return '';
+app.filter('getFirstLastNameOfUser', ['userAPIservice',
+    function(userAPIservice) {
+        return function(input) {
+            if (angular.isUndefined(input)) return '';
 
-        if (input.isNumber) {
-            console.log('isnumber')
-            return $filter('getFirstLastNameById', input);
+            if (input.isNumber) {
+                console.log('isnumber')
+                return $filter('getFirstLastNameById', input);
+            }
+            if (input.type != 'user') return input.name;
+
+            return userAPIservice.getNameFromUser(input);
         }
-        if (input.type != 'user') return input.name;
+    }
+]);
 
-        return input.u_lastName + input.u_firstName;
+
+app.filter('upperFirstCharacter', function() {
+    return function(input) {
+        if (angular.isUndefined(input) || input.isNumber ) return input;
+        if (input === 'pdf') return 'PDF';
+
+        var newChar = input.charAt(0).toUpperCase() + input.slice(1, input.length);
+
+        return newChar;
     }
 });
 
+<<<<<<< HEAD
 
 /*
     used in leftpanel for direct messages.
@@ -129,3 +140,20 @@ app.filter('userSearch', function() {
 
    }
 });
+=======
+/*/
+ used in 'rpanel-header-toolbar'
+ */
+app.filter('getNameInFileResult', ['userAPIservice', '$rootScope',
+    function(userAPIservice, $rootScope) {
+        return function(input) {
+            if ( input === 'all') return input;
+            if ( input === $rootScope.user.id || input === 'mine' ) return 'you';
+
+            return userAPIservice.getNameFromUserId(input);
+        }
+    }
+]);
+
+
+>>>>>>> develop

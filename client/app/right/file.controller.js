@@ -170,7 +170,3 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
 app.controller('fullImageCtrl', function($scope, $modalInstance) {
     $scope.cancel = function() { $modalInstance.dismiss('cancel');}
 });
-
-//var fullImageCtrl = function($scope, $modalInstance) {
-//    $scope.cancel = function() { $modalInstance.dismiss('cancel');}
-//};

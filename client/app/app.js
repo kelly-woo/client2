@@ -28,6 +28,9 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.server_uploaded = api_address;
     $rootScope.api_version = api_version;
 
+    //  set this value to true if you want to display nickname instead of full name.
+    $rootScope.displayNickname = false;
+
     $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
         //change this code to handle the error somehow
         $state.go('messages.home');
