@@ -129,18 +129,6 @@ app.filter('upperFirstCharacter', function() {
     }
 });
 
-<<<<<<< HEAD
-
-/*
-    used in leftpanel for direct messages.
- */
-app.filter('userSearch', function() {
-   return function(input, query) {
-       if (angular.isUndefined(query))  return input;
-
-   }
-});
-=======
 /*/
  used in 'rpanel-header-toolbar'
  */
@@ -154,6 +142,3 @@ app.filter('getNameInFileResult', ['userAPIservice', '$rootScope',
         }
     }
 ]);
-
-
->>>>>>> develop
