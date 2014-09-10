@@ -51,6 +51,17 @@ html { min-width: 980px; }
 .animate-enter.animate-enter-active { opacity: 1; }
 
 
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opacIn-from-20 {
+    from {opacity: 0.2; }
+    to {opacity: 1; }
+}
+/* Standard syntax */
+@keyframes opacIn-from-20 {
+    from {opacity: 0.2; }
+    to {opacity: 1; }
+}
+
 
 
 /********************************************

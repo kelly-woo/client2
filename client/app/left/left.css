@@ -17,7 +17,6 @@
     width: 220px;
     height: 60px;
     line-height: 60px;
-    background: #31c08a;
     float: left;
     cursor: pointer;
     position: relative;
@@ -223,32 +222,40 @@
 .lpanel-list-user_search {
     position: relative;
     margin-top: -10px;
+    padding-left: 30px;
+    padding-right: 11px;
+    color: white;
 }
 
 .absolute-search-icon {
     position: absolute;
     top: 7px;
-    left: 9px;
-    color: rgb(85, 85, 85)
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+    z-index: 2;
+
 }
 .lpanel-list-user-search__box {
     padding: 3px 2px;
     height: 30px !important;
     border: none !important;
+    border-bottom: 1px solid white !important;
     margin-left: -1px;
     padding-right: 3px;
-    background-color: rgb(204,204,204);
-    transition: background-color 400ms;
     padding-left: 30px;
+    background-color: rgb(64, 64, 64);
+    opacity: 0.2;
+    filter: alpha(opacity=20);
 }
 
 .lpanel-list-user-search__box:focus,
 .lpanel-list-user-search__box:active {
-    background-color: white;
-    -webkit-transition: background-color 400ms; /* Chrome, Safari, Opera */
-    -moz-transition: background-color 400ms; /* Chrome, Safari, Opera */
-    -o-transition: background-color 400ms; /* Chrome, Safari, Opera */
-    transition: background-color 400m; /* Chrome, Safari, Opera */
+    color: white;
+    -webkit-animation: opacIn-from-20 400ms; /* Chrome, Safari, Opera */
+    animation: opacIn-from-20 400ms;
+
+    opacity: 1;
+    filter: alpha(opacity=100);
 }
 
 .lpanel-user {

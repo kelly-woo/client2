@@ -256,5 +256,13 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     $scope.onPGCollapseClick = function() {
         $scope.isPGCollapsed = false;
+    };
+
+    $scope.onDMInputFocus = function() {
+        $('.absolute-search-icon').animate({opacity: 1}, 400);
+    };
+
+    $scope.onDMInputBlur = function() {
+        $('.absolute-search-icon').stop().css({'opacity' : 0.2});
     }
 });

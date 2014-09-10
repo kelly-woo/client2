@@ -18,9 +18,9 @@
         <!-- CHANNEL -->
         <div class="lpanel-list__channels">
             <h2 id="channels_header" class="cursor_pointer overflow-ellipsis"
-                ng-click="isChListCollapsed = !isChListCollapsed">
-                Channels
-                <!--<span class="lpanel-entity_more icon_add_member"></span>-->
+                ng-click="isChListCollapsed = !isChListCollapsed">  Channels
+                <i ng-if="isChListCollapsed" class="fa fa-angle-down"></i>
+                <i ng-if="!isChListCollapsed" class="fa fa-angle-up"></i>
             </h2>
             <ul id="channel-list" collapse="isChListCollapsed">
                 <li class="channel unread" ng-repeat="joinedChannel in joinedChannelList" ng-class="{active: $state.params.entityId == joinedChannel.id}">
@@ -45,8 +45,11 @@
         <!-- PRIVATE GROUPS -->
         <div class="lpanel-list__groups">
             <h2 id="groups_header" class="hoverable overflow-ellipsis entity_header"
-                ng-click="isPGCollapsed = !isPGCollapsed">
-                Private Groups
+                ng-click="isPGCollapsed = !isPGCollapsed">  Private Groups
+
+                <i ng-if="isPGCollapsed" class="fa fa-angle-down"></i>
+                <i ng-if="!isPGCollapsed" class="fa fa-angle-up"></i>
+
                 <span class="lpanel-entity_more icon_image icon_add_member"
                       ng-click="openModal('private'); $event.stopPropagation(); $event.preventDefault();"></span>
             </h2>
@@ -70,12 +73,16 @@
             <h2 id="direct_messages_header" class="hoverable overflow-ellipsis entity_header"
                  ng-click="isDMCollapsed = !isDMCollapsed">
                 Direct Messages
+
+                <i ng-if="isDMCollapsed" class="fa fa-angle-down"></i>
+                <i ng-if="!isDMCollapsed" class="fa fa-angle-up"></i>
+
                 <span class="lpanel-entity_more icon_add_member" ng-click="openModal('user'); $event.stopPropagation(); $event.preventDefault();"></span>
             </h2>
 
             <div class="lpanel-list-user_search">
                 <i class="fa fa-search absolute-search-icon"></i>
-                <input type="text" class="form-control lpanel-list-user-search__box" placeholder="search user" data-ng-model="userNameQuery"
+                <input type="text" class="form-control lpanel-list-user-search__box" placeholder="" data-ng-model="userNameQuery" ng-focus="onDMInputFocus();" ng-blur="onDMInputBlur();"
                         ng-change="onDMInputChange(userNameQuery);">
             </div>
 
