@@ -54,7 +54,7 @@
                 <li class="group cursor_pointer" ng-repeat="group in privateGroupList" ng-class="{active: $state.params.entityId == group.id}">
                     <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
                         <!--<i class="fa fa-times-circle group_close"></i>-->
-                        <span class="inline-overflow-ellipsis" data-ng-bind="group.name"></span>
+                        <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name"></span>
                         <span class="badge left-panel_badge green_badge pull-right">{{group.alarmCnt}}</span>
 
                     </a>
