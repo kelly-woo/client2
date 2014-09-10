@@ -16,9 +16,6 @@ app.factory('fileAPIservice', function($http, $rootScope, $upload, $filter) {
     };
 
     fileAPI.getFileList = function(fileRequest) {
-        console.log('sending');
-        console.log(fileRequest);
-
         return $http({
             method: 'POST',
             url: $rootScope.server_address + 'search',

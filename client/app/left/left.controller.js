@@ -7,8 +7,10 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     console.info('[enter] leftpanelController');
 
-    var response = null;
+    $scope.isDMCollapsed = false;
+    $scope.isChListCollapsed = false;
 
+    var response = null;
 
     if (leftPanel.status != 200) {
         var err = leftPanel.data;
@@ -37,25 +39,22 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         //  joinedChannelList   - List of joined channels.
         //  privateGroupList    - List of joined private groups.
         var joinedList = leftpanelAPIservice.getJoinedChannelList($scope.joinEntities);
-        $scope.joinedChannelList = joinedList[0];
-        $scope.privateGroupList = joinedList[1];
+        $scope.joinedChannelList    = joinedList[0];
+        $scope.privateGroupList     = joinedList[1];
 
 
         // userList         - List of all users except myself.
         // totalChannelList - All channels including both 'joined' and 'not joined'
         var generalList = leftpanelAPIservice.getGeneralList($scope.totalEntities, $scope.joinEntities, $scope.user.id);
-        $scope.userList = generalList[0];
-        $scope.totalChannelList = generalList[1];
-        $scope.unJoinedChannelList = generalList[2];
+        $scope.userList             = generalList[0];
+        $scope.totalChannelList     = generalList[1];
+        $scope.unJoinedChannelList  = generalList[2];
 
         //  Adding privateGroups to 'totalEntities' so that 'totalEntities' contains every entities.
         //  totalEntities   - Every entities.
         $scope.totalEntities = $scope.totalEntities.concat($scope.privateGroupList);
 
         ////////////    END OF PARSING      ////////////
-
-        // Update difference between number of all channels and currently joined channels.
-        hasMoreChannelsToJoin($scope.totalChannelList.length, $scope.joinedChannelList.length);
 
         $rootScope.totalChannelList     = $scope.totalChannelList;
         $rootScope.joinedChannelList    = $scope.joinedChannelList;
@@ -68,7 +67,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
         //  When there is unread messages on left Panel.
         if (response.alarmInfoCount != 0) {
-//            console.log(response.alarmInfos)
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
         }
     }
@@ -138,11 +136,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     $scope.getCurrentEntity = function() {
         return $scope.currentEntity;
     };
-
-    // Checking whether user joined all possible channels or not.
-    function hasMoreChannelsToJoin(a, b) {
-        $scope.channelsLeft = a - b;
-    }
 
     // User pressed an enter key from invite modal view in private group.
     $scope.onUserSelected = function() {
@@ -235,8 +228,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     //  Add 'onUserClick' to redirect to direct message to 'user'
     $scope.onUserClick = function(user) {
-        console.log('this is onUserClick');
-        console.log(user)
         $modal.open({
             scope       :   $scope,
             templateUrl :   'app/modal/profile.view.html',
@@ -246,10 +237,32 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 curUser     : function getCurUser(){ return user; }
             }
         });
-//        $state.go('archives', { entityType:'users',  entityId:user.id });
     };
 
     $scope.toDefaultChannel = function() {
         $state.go('archives', { entityType:'channels',  entityId:defaultChannel });
     };
+
+    $scope.onDMInputChange = function(userNameQuery) {
+        var temp = $filter('userByName')($rootScope.userList, userNameQuery);
+
+        if (temp.length === 1) {
+            temp[0].visibility = true;
+        }
+
+        if ($scope.isDMCollapsed) $scope.isDMCollapsed = false;
+    };
+
+
+    $scope.onPGCollapseClick = function() {
+        $scope.isPGCollapsed = false;
+    };
+
+    $scope.onDMInputFocus = function() {
+        $('.absolute-search-icon').animate({opacity: 1}, 400);
+    };
+
+    $scope.onDMInputBlur = function() {
+        $('.absolute-search-icon').stop().css({'opacity' : 0.2});
+    }
 });

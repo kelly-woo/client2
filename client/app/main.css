@@ -65,6 +65,17 @@ select {
     to {background-color: #31c08a;}
 }
 
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opacIn-from-20 {
+    from {opacity: 0.2; }
+    to {opacity: 1; }
+}
+/* Standard syntax */
+@keyframes opacIn-from-20 {
+    from {opacity: 0.2; }
+    to {opacity: 1; }
+}
+
 
 
 /********************************************
