@@ -24,8 +24,6 @@
             <ul id="channel-list">
                 <li class="channel unread" ng-repeat="joinedChannel in joinedChannelList" ng-class="{active: $state.params.entityId == joinedChannel.id}">
                     <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" class="channel_name" data-channel-id="{{joinedChannel.id}}">
-                        <span class="unread_just_C02BS7UB9 unread_just hidden">0</span>
-                        <span class="unread_highlight_C02BS7UB9 unread_highlight hidden">0</span>
                         <span class="inline-overflow-ellipsis left-panel__name">
                             <span class="prefix">#</span> {{joinedChannel.name}}
                         </span>
@@ -52,9 +50,7 @@
                 <li class="group cursor_pointer" ng-repeat="group in privateGroupList" ng-class="{active: $state.params.entityId == group.id}">
                     <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
                         <!--<i class="fa fa-times-circle group_close"></i>-->
-                        <span class="unread_just_G02B6SM55 unread_just hidden"> 0 </span>
-                        <span class="unread_highlight_G02B6SM55 unread_highlight hidden">0</span>
-                        <span class="inline-overflow-ellipsis" data-ng-bind="group.name"></span>
+                        <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name"></span>
                         <span class="badge left-panel_badge green_badge pull-right">{{group.alarmCnt}}</span>
 
                     </a>
@@ -74,11 +70,8 @@
                 <li class="member away cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {'visibility' : 'true'})" ng-class="{active: $state.params.entityId == userEntity.id}">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" class="im_name not_user_colored channel_name" data-member-id="{{userEntity.id}}">
                         <i class="fa fa-times-circle entity-remove" data-ng-click="userEntity.visibility = false; $event.stopPropagation(); $event.preventDefault();"></i>
-                        <span class="unread_highlight_U029JJYN1 unread_highlight hidden">0</span>
-                        <span class="typing_indicator"></span>
                         <span class="inline-overflow-ellipsis left-panel__name">{{userEntity|getFirstLastNameOfUser}}</span>
                         <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
-
                     </a>
                 </li>
                 <span class="lpanel-list__more cursor_pointer" ng-show="(userList | filter : {'visibility' : false}).length > 0" data-ng-click="openModal('user')">

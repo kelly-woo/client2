@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('userAPIservice', function($http, $rootScope, $filter) {
+app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
     var userAPI = {};
 
     userAPI.updateUserProfile = function(user) {
