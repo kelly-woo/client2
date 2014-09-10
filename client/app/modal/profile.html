@@ -1,82 +1,87 @@
 <!-- Invite to Team Modal   -->
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">Profile</h3>
+    <h3 id="myModalLabel">
+        <span translate>Profile</span>
+    </h3>
 </div>
 
 <form novalidate name="profile_form" ng-submit="onProfileChangeClick()">
 
     <div class="modal-body profile-body">
         <h4>
-            이 페이지를 통해 프로필을 변경하실 수 있습니다.
+            <span translate>You can set or change basic information such as nickname, phone number and position.</span>
         </h4>
-
-
         <div class="user-profile-photo-container">
-            <input type="file" id="profile_image_uploader" class="file_upload_btn " onclick="this.value=null" data-ng-file-select="onFileSelect($files);"
-                    >
-            <img class="user-profile__photo" ng-src="{{ server_uploaded + curUser.u_photoThumbnailUrl.mediumThumbnailUrl}}"/>
+            <input type="file"
+                   id="profile_image_uploader"
+                   class="file_upload_btn"
+                   onclick="this.value=null"
+                   data-ng-file-select="onFileSelect($files);">
+            <img class="user-profile__photo" ng-src="{{ server_uploaded + curUser.u_photoThumbnailUrl.mediumThumbnailUrl}}" />
             <div class="user-profile-photo__overlay">
                 <div class="black-opac__background"></div>
-                <div class="overlay__text">편집</div>
+                <div class="overlay__text"><span translate>Change</span></div>
             </div>
         </div>
-
-
         <div class="form-horizontal">
             <div class="user-profile-general-container">
                 <h4>
-                    기본 정보
+                    <span translate>Basic Information</span>
                 </h4>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" > 성 </label>
+                    <label class="control-label col-sm-2"><span translate>Last Name</span></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="lastName" ng-model="curUser.u_lastName" disabled/>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2" > 이름 </label>
+                    <label class="control-label col-sm-2"><span translate>First Name</span></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="firstName" ng-model="curUser.u_firstName" disabled/>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2" > 이메일 </label>
+                    <label class="control-label col-sm-2" ><span translate>Email</span></label>
                     <div class="col-sm-10">
                         <input type="email" class="form-control" name="email" ng-model="curUser.u_email" disabled/>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2" > 닉네임 </label>
+                    <label class="control-label col-sm-2"><span translate>Nickname</span></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="nickName" ng-model="curUser.u_nickname"/>
                     </div>
                 </div>
-
             </div>
-
 
             <div class="user-profile-optional-container">
                 <h4>
-                    추가 정보
+                    <span translate>Optional Information</span>
                 </h4>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" > 전화번호 </label>
+                    <label class="control-label col-sm-2">
+                        <span translate>Phone</span>
+                    </label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="phoneNumber" ng-model="curUser.u_extraData.phoneNumber"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" > 부서 </label>
+                    <label class="control-label col-sm-2">
+                        <span translate>Department</span>
+                    </label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="department" ng-model="curUser.u_extraData.department"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" > 직책 </label>
+                    <label class="control-label col-sm-2">
+                        <span translate>Position</span>
+                    </label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="position" ng-model="curUser.u_extraData.position"/>
                     </div>
@@ -86,8 +91,8 @@
     </div>
 
     <div class="modal-footer profile-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel();">Close</button>
-        <input class="btn btn-ok" type="submit" id="change_profile" value="Change"/>
+        <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>Close</span></button>
+        <input class="btn btn-ok" type="submit" id="change_profile" value="{{ 'Edit' | translate }}"/>
     </div>
 
 </form>

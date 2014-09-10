@@ -150,10 +150,12 @@ input[type="button"] {
     color: white;
     font-size: 14px;
 }
+.btn-cancel:focus,
 .btn-cancel:hover,
 .btn-cancel:active {
     color: #31c08a;
 }
+.btn-ok:focus,
 .btn-ok:hover,
 .btn-ok:active {
     color: white;

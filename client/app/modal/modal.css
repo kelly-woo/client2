@@ -236,13 +236,16 @@
 .control-label {
     font-size: 13px;
     text-align: right;
+    padding-top: 0 !important;
+    height: 40px;
+    line-height: 40px;
 }
-
 
 .help-block {
     display: inline-block;
     font-size: 12px;
     color: #666;
+    margin-bottom: 5px !important;
 }
 
 
@@ -430,4 +433,14 @@
 }
 .overlay__text:hover {
     text-decoration: underline;
+}
+
+.modal-share__file-item-body {
+    margin-left: 120px !important;
+    width: 280px !important;
+}
+.modal-share__file-item-type {
+    position: absolute;
+    top: 20px;
+    left: 85px;
 }

@@ -185,6 +185,8 @@
 .file-item-body__title {
     position: relative;
     line-height: 20px;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
 }
 .share-modal-file-item-body__title{
     max-width: 100%;
@@ -247,10 +249,6 @@
     padding-left: 72px;
     font-weight: 900;
     font-size: .9rem;
-}
-.file-share-item-body {
-    margin-left: 81px;
-    width: 320px;
 }
 
 .file-item-body__type-image__thumb {

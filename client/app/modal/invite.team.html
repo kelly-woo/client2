@@ -1,41 +1,50 @@
 <!-- Invite to Team Modal   -->
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">Invite others to team</h3>
+    <h3 id="myModalLabel">
+        <span translate>Invite others to team</span>
+    </h3>
 </div>
 
 <form novalidate name="invite_team_form" ng-submit="onInviteClick()">
     <div class="modal-body invite-team-body">
         <h4>
-            이메일을 통해 다른 팀원을 잔디로 초대하실 수 있습니다.
-            이메일주소, 성 그리고 이름 세 정보를 모두 기입하셔야 초대 이메일이 전송됩니다.
+            <span translate>You can invite others to Jandi by email.</span>
+            <br/>
+            <span translate>Each fields(Email, Last Name, First Name) are all required.</span>
         </h4>
 
         <div class="invite-team-body-more-container">
             <div class="invite-team-body_more cursor_pointer btn-ok" data-ng-click="onAddMoreClick();">
                 <span class="invite-team-body-more_icon"></span>
-                More
+                <span translate>Add</span>
             </div>
         </div>
 
         <div class="form-horizontal">
             <div class="email_container">
-                <input type="email" class="form-control invite" name="email" placeholder="email" required/>
+                <input type="email" class="form-control invite" name="email" placeholder="{{ 'Email' | translate }}" ng-required="true" />
             </div>
             <div class="firstName_container">
-                <input type="text" class="form-control invite" name="lastName" placeholder="last name" required/>
+                <input type="text" class="form-control invite" name="lastName" placeholder="{{ 'Last Name' | translate }}" ng-required="true" />
             </div>
             <div class="lastName_container">
-                <input type="text" class="form-control invite" name="firstName" placeholder="first name" required/>
+                <input type="text" class="form-control invite" name="firstName" placeholder="{{ 'First Name' | translate }}" ng-required="true" />
             </div>
+        </div>
+
+        <div data-ng-if="false">
+            <span translate>Missing Information</span>
+            <span translate>Failed to send email</span>
+            <span translate>is already member of your team</span>
+            <span translate>is invalid email address</span>
+            <span translate>Sent the invitation mail successfully</span>
         </div>
     </div>
 
-
-
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel();">Close</button>
-        <input class="btn btn-ok" type="submit" id="invite_to_team" value="Invite" ng-disabled="invite_team_form.$invalid"/>
+        <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>Close</span></button>
+        <input class="btn btn-ok" type="submit" id="invite_to_team" value="{{ 'Invite' | translate }}" ng-disabled="invite_team_form.$invalid"/>
     </div>
 
 </form>

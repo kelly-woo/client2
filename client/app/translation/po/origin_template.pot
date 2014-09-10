@@ -3,8 +3,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: client/app/modal/create.private.html
+msgid "A private group is only visible to its members, and only members of a private group can read or search its contents."
+msgstr ""
+
 #: client/app/header/header.html
 msgid "Activity Feed"
+msgstr ""
+
+#: client/app/modal/invite.team.html
+msgid "Add"
 msgstr ""
 
 #: client/app/right/file.html
@@ -16,29 +24,102 @@ msgstr ""
 msgid "All Files"
 msgstr ""
 
+#: client/app/modal/create.channel.html
+msgid "Anyone can join."
+msgstr ""
+
 #: client/app/right/right.html
 msgid "Audio"
+msgstr ""
+
+#: client/app/modal/profile.html
+msgid "Basic Information"
+msgstr ""
+
+#: client/app/modal/join.html
+msgid "Browse channels"
+msgstr ""
+
+#: client/app/modal/image.crop.html
+#: client/app/modal/rename.html
+#: client/app/modal/share.html
+#: client/app/modal/upload.html
+msgid "Cancel"
+msgstr ""
+
+#: client/app/modal/image.crop.html
+#: client/app/modal/profile.html
+msgid "Change"
+msgstr ""
+
+#: client/app/modal/create.channel.html
+msgid "Channel Name"
 msgstr ""
 
 #: client/app/left/left.html
 msgid "Channels"
 msgstr ""
 
+#: client/app/modal/join.html
+msgid "Channels you belong to"
+msgstr ""
+
+#: client/app/modal/join.html
+msgid "Channels you can join"
+msgstr ""
+
+#: client/app/modal/invite.direct.html
+msgid "Choose"
+msgstr ""
+
 #: client/app/right/file.html
 msgid "Click to view"
 msgstr ""
 
+#: client/app/modal/create.channel.html
+#: client/app/modal/create.private.html
+#: client/app/modal/invite.channel.html
+#: client/app/modal/invite.direct.html
+#: client/app/modal/invite.team.html
+#: client/app/modal/list.user.html
+#: client/app/modal/profile.html
+msgid "Close"
+msgstr ""
+
+#: client/app/modal/share.html
+#: client/app/modal/upload.html
 #: client/app/right/file.html
 #: client/app/right/right.html
 msgid "Comment"
+msgstr ""
+
+#: client/app/modal/create.channel.html
+#: client/app/modal/join.html
+msgid "Create Channel"
+msgstr ""
+
+#: client/app/modal/create.private.html
+msgid "Create Group"
+msgstr ""
+
+#: client/app/modal/create.private.html
+msgid "Create a private group"
 msgstr ""
 
 #: client/app/left/left.html
 msgid "Create channel"
 msgstr ""
 
+#: client/app/modal/create.channel.html
+msgid "Create new channel"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "Create private group"
+msgstr ""
+
+#: client/app/modal/create.channel.html
+msgid "Creating a new channel."
 msgstr ""
 
 #: client/app/right/file.html
@@ -51,6 +132,14 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "Delete this group"
+msgstr ""
+
+#: client/app/modal/profile.html
+msgid "Department"
+msgstr ""
+
+#: client/app/modal/list.user.html
+msgid "Direct Message"
 msgstr ""
 
 #: client/app/left/left.html
@@ -66,10 +155,28 @@ msgstr ""
 msgid "EVERYONE"
 msgstr ""
 
+#: client/app/modal/invite.team.html
+msgid "Each fields(Email, Last Name, First Name) are all required."
+msgstr ""
+
+#: client/app/modal/profile.html
+msgid "Edit"
+msgstr ""
+
+#: client/app/modal/invite.team.html
+#: client/app/modal/profile.html
+msgid "Email"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "Email address"
 msgstr ""
 
+#: client/app/modal/invite.team.html
+msgid "Failed to send email"
+msgstr ""
+
+#: client/app/center/center.html
 #: client/app/right/right.html
 msgid "File"
 msgstr ""
@@ -84,6 +191,15 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
+#: client/app/modal/invite.team.html
+#: client/app/modal/profile.html
+msgid "First Name"
+msgstr ""
+
+#: client/app/modal/upload.html
+msgid "For search file by title"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/right/right.html
 msgid "Images"
@@ -93,8 +209,19 @@ msgstr ""
 msgid "Invalid email or password"
 msgstr ""
 
+#: client/app/modal/invite.channel.html
+#: client/app/modal/invite.direct.html
+#: client/app/modal/invite.team.html
+msgid "Invite"
+msgstr ""
+
 #: client/app/left/left.html
+#: client/app/modal/invite.channel.html
 msgid "Invite Others"
+msgstr ""
+
+#: client/app/modal/invite.team.html
+msgid "Invite others to team"
 msgstr ""
 
 #: client/app/header/header.html
@@ -105,8 +232,21 @@ msgstr ""
 msgid "Invite others to this group"
 msgstr ""
 
+#: client/app/modal/invite.direct.html
+msgid "Invite to"
+msgstr ""
+
 #: client/app/header/header.html
 msgid "Invite to channel/group"
+msgstr ""
+
+#: client/app/modal/invite.direct.html
+msgid "Invite {{ currentEntity | getFirstLastNameOfUser }} to a channel/group"
+msgstr ""
+
+#: client/app/modal/invite.team.html
+#: client/app/modal/profile.html
+msgid "Last Name"
 msgstr ""
 
 #: client/app/header/header.html
@@ -117,6 +257,27 @@ msgstr ""
 msgid "Leave group"
 msgstr ""
 
+#: client/app/modal/invite.team.html
+msgid "Missing Information"
+msgstr ""
+
+#: client/app/modal/create.channel.html
+#: client/app/modal/create.private.html
+msgid "Name"
+msgstr ""
+
+#: client/app/modal/rename.html
+msgid "New Channel Name"
+msgstr ""
+
+#: client/app/modal/profile.html
+msgid "Nickname"
+msgstr ""
+
+#: client/app/modal/join.html
+msgid "No channels to join"
+msgstr ""
+
 #: client/app/right/right.html
 msgid "No files found matching on"
 msgstr ""
@@ -125,8 +286,13 @@ msgstr ""
 msgid "No files uploaded"
 msgstr ""
 
+#: client/app/center/center.html
 #: client/app/right/right.html
 msgid "Open original"
+msgstr ""
+
+#: client/app/modal/profile.html
+msgid "Optional Information"
 msgstr ""
 
 #: client/app/header/header.html
@@ -138,8 +304,24 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
+#: client/app/modal/profile.html
+msgid "Phone"
+msgstr ""
+
+#: client/app/modal/create.channel.html
+msgid "Please use Private Group for a closed channel."
+msgstr ""
+
+#: client/app/modal/profile.html
+msgid "Position"
+msgstr ""
+
 #: client/app/header/header.html
 msgid "Privacy Policy"
+msgstr ""
+
+#: client/app/modal/create.private.html
+msgid "Private Group Name"
 msgstr ""
 
 #: client/app/left/left.html
@@ -147,11 +329,29 @@ msgid "Private Groups"
 msgstr ""
 
 #: client/app/left/left.html
+#: client/app/modal/profile.html
 msgid "Profile"
+msgstr ""
+
+#: client/app/modal/image.crop.html
+msgid "Profile picture"
+msgstr ""
+
+#: client/app/modal/create.channel.html
+#: client/app/modal/create.private.html
+msgid "Purpose"
 msgstr ""
 
 #: client/app/header/header.html
 msgid "Recent Mentions"
+msgstr ""
+
+#: client/app/modal/rename.html
+msgid "Rename"
+msgstr ""
+
+#: client/app/modal/rename.html
+msgid "Rename Channel"
 msgstr ""
 
 #: client/app/header/header.html
@@ -170,9 +370,36 @@ msgstr ""
 msgid "Search by title"
 msgstr ""
 
+#: client/app/modal/join.html
+msgid "Search channel by name"
+msgstr ""
+
+#: client/app/modal/invite.channel.html
+#: client/app/modal/list.user.html
+msgid "Search users by name"
+msgstr ""
+
+#: client/app/modal/invite.team.html
+msgid "Sent the invitation mail successfully"
+msgstr ""
+
+#: client/app/modal/share.html
 #: client/app/right/file.html
 #: client/app/right/right.html
 msgid "Share"
+msgstr ""
+
+#: client/app/modal/share.html
+msgid "Share File"
+msgstr ""
+
+#: client/app/modal/share.html
+#: client/app/modal/upload.html
+msgid "Share in"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "Shared"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -195,6 +422,19 @@ msgstr ""
 msgid "Terms of Service"
 msgstr ""
 
+#: client/app/modal/upload.html
+msgid "Title"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "Unshared"
+msgstr ""
+
+#: client/app/modal/upload.html
+msgid "Upload"
+msgstr ""
+
+#: client/app/modal/upload.html
 #: client/app/right/right.html
 msgid "Upload File"
 msgstr ""
@@ -215,8 +455,48 @@ msgstr ""
 msgid "YOU"
 msgstr ""
 
+#: client/app/modal/invite.team.html
+msgid "You can invite others to Jandi by email."
+msgstr ""
+
+#: client/app/modal/profile.html
+msgid "You can set or change basic information such as nickname, phone number and position."
+msgstr ""
+
 #: client/app/header/header.html
 msgid "Your Files"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "created current channel"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "created current private group"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "invite-postfix"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "invited"
+msgstr ""
+
+#: client/app/modal/invite.team.html
+msgid "is already member of your team"
+msgstr ""
+
+#: client/app/modal/invite.team.html
+msgid "is invalid email address"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "joined this channel"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "left this channel"
 msgstr ""
 
 #: client/app/left/left.html

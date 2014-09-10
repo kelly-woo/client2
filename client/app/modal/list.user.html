@@ -1,25 +1,28 @@
 <!-- POP UP MENU (LIST OF USERS) -->
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">Direct Message</h3>
+    <h3 id="myModalLabel">
+        <span translate>Direct Message</span>
+    </h3>
 </div>
 
 <div class="modal-body">
-
     <div class="input-group custom-typeahead">
         <span class="input-group-addon"><span class="icon_image icon_search rpanel-body-search__icon"></span></span>
-        <input type="text" ng-model="selectedUser" typeahead="user as user.u_lastName+user.u_firstName for user in userList  | userByName:$viewValue"
-               typeahead-on-select="onUserSelected($item); selectedUser = '';" class="form-control green-input-box" placeholder="Search users by name"
+        <input type="text"
+               class="form-control green-input-box"
+               ng-model="selectedUser"
+               placeholder="{{ 'Search users by name' | translate }}"
+               typeahead="user as user.u_lastName+user.u_firstName for user in userList  | userByName:$viewValue"
+               typeahead-on-select="onUserSelected($item); selectedUser = '';"
                typeahead-template-url="customTemplate.html"
                typeahead-min-length='0'>
     </div>
-
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-cancel" ng-click="cancel();">Close</button>
+    <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>Close</span></button>
 </div>
-
 
 <script type="text/ng-template" id="customTemplate.html">
     <a class="match_container">
