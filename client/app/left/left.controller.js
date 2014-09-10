@@ -212,12 +212,27 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 size        :   'lg'
             });
         }
+        else if (selector == 'viewProfile') {
+
+
+        }
     };
 
 
     //  Add 'onUserClick' to redirect to direct message to 'user'
     $scope.onUserClick = function(user) {
-        $state.go('archives', { entityType:'users',  entityId:user.id });
+        console.log('this is onUserClick');
+        console.log(user)
+        $modal.open({
+            scope       :   $scope,
+            templateUrl :   'app/modal/profile.view.html',
+            controller  :   'profileViewerCtrl',
+            windowClass :   'profile-view-modal',
+            resolve     :   {
+                curUser     : function getCurUser(){ return user; }
+            }
+        });
+//        $state.go('archives', { entityType:'users',  entityId:user.id });
     };
 
     $scope.toDefaultChannel = function() {

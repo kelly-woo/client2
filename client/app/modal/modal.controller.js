@@ -526,3 +526,29 @@ app.controller('imageCropCtrl', function($scope, $rootScope, $modalInstance, myI
         $scope.croppedProfilePic = temp;
     };
 });
+
+//  PROFILE VIEW CONTROLLER
+app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance, curUser, entityAPIservice, $state) {
+    $scope.curUser = entityAPIservice.getEntityFromListById($rootScope.userList, curUser.id);
+
+    $scope.onActionClick = function(actionType) {
+        if (actionType === 'email') {
+
+        }
+        else if (actionType === 'file') {
+            onFileListClick(curUser.id);
+        }
+        else if (actionType === 'directMessage') {
+            $state.go('archives', { entityType: 'users',  entityId: curUser.id });
+        }
+
+        $modalInstance.dismiss('directing to DM');
+    };
+
+    //  right controller is listening to 'updateFileWriterId'.
+    function onFileListClick (userId) {
+        if ($state.current.name != 'messages.detail.files')
+            $state.go('messages.detail.files');
+        $scope.$emit('updateFileWriterId', userId);
+    };
+});
