@@ -5,10 +5,7 @@
     top: 60px;
     bottom: 0;
     background-color: #f2f2f2;
-    z-index: 99;
-}
-.rpanel-show {
-    z-index: 99;
+    z-index: -1;
 }
 .rpanel__background {
     position: absolute;
@@ -16,7 +13,7 @@
     top: 60px;
     right: 0;
     bottom: 0;
-    z-index: 90;
+    z-index: -2;
 }
 .rpanel__background.extend {
     background-color: #f2f2f2;

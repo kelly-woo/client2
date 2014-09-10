@@ -3,7 +3,7 @@
     height: 100%;
     left: 220px;
     right: 0;
-    z-index: 100;
+    z-index: -1;
 }
 .cpanel-home {
     position: relative;
@@ -48,7 +48,7 @@
 .cpanel-header__more{color:#9e9ea6;margin:22px 0 0 0;-webkit-transitionDISABLED:color .15s ease-out;-moz-transitionDISABLED:color .15s ease-out;-o-transitionDISABLED:color .15s ease-out;transitionDISABLED:color .15s ease-out;cursor:pointer;display:inline-block; }
 .cpanel-header__more:hover { color: black; }
 /*.cpanel-search__form{margin:12px 0 0 0;width:392px;position:absolute;top:0;right:0;padding-right: 118px !important;outline:0;}*/
-.cpanel-search__form{outline:0; position: relative; display: inline-block; }
+.cpanel-search__form{outline:0; position: relative; display: none; }
 .cpanel-search__form-input{padding: 2px 0 2px 40px; font-size: 15px; width: 355px; vertical-align: middle; height: 40px; border: 0; }
 .cpanel-search__form-input:active,
 .cpanel-search__form-input:focus { outline: 0; }
@@ -77,15 +77,15 @@ input[disabled].cpanel-search__form-input{
     display: inline-block;
     position: absolute;
     right: 0;
-    background-color: #31c08a;
-    padding: 10px 15px 10px 10px;
+    padding: 20px 15px 20px 10px;
+    height: 60px;
+    width: 480px;
 }
 .cpanel-search.grey {
     background-color: #f2f2f2;
 }
 .cpanel-search-icon__container {
-    display: inline-block;
-    width: 96px;
+    float: right;
 }
 
 
@@ -127,6 +127,7 @@ input[disabled].cpanel-search__form-input{
     right: 0;
     bottom: 4rem;
     overflow: auto;
+    z-index: -1;
 }
 .msgs__loading {
     background: url(../../assets/images/jd_loading.gif) center / 40px no-repeat;

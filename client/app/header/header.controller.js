@@ -152,10 +152,10 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     };
 
     $scope.onRightToggleButtonClick = function(isOpen) {
-        if (isOpen) {
-            $('.cpanel-search').addClass('to_green_background');
-            return;
-        }
-        $('.cpanel-search').removeClass('to_green_background');
+//        if (isOpen) {
+//            $('.cpanel-search').addClass('to_green_background');
+//            return;
+//        }
+//        $('.cpanel-search').removeClass('to_green_background');
     }
 });

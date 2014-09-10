@@ -42,6 +42,10 @@ html { min-width: 980px; }
     font-size: 14px;
 }
 
+select {
+    width: 100%;
+}
+
 /********************************************
 
                 ANIMATION
