@@ -71,9 +71,12 @@
                             </div>
                             <div class="msg-file-meta-down">
                                 <span class="msg-file-meta-info">
+                                    <span data-ng-if="( msg.fromEntity.id !== msg.message.writer.id )">
+                                        <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getFirstLastNameOfUser}}</a><!--
+                                        --><span translate>'s</span>
+                                    </span>
                                     <span ng-if="msg.status == 'shared'" translate>Shared</span>
                                     <span ng-if="msg.status == 'unshared'" translate>Unshared</span>
-                                    <a class="msg-file-meta__writer file__owner" ng-if="( msg.fromEntity.id !== msg.message.writer.id )">{{msg.message.writer|getFirstLastNameOfUser}}'s</a>
                                     <span translate>File</span>
                                 </span>
                                 <span class="bullet">•</span>

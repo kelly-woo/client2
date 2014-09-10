@@ -3,6 +3,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: client/app/center/center.html
+msgid "'s"
+msgstr ""
+
 #: client/app/modal/create.private.html
 msgid "A private group is only visible to its members, and only members of a private group can read or search its contents."
 msgstr ""

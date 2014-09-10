@@ -12,6 +12,10 @@ msgstr ""
 "X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: client/app/center/center.html
+msgid "'s"
+msgstr "님의"
+
 #: client/app/modal/create.private.html
 msgid ""
 "A private group is only visible to its members, and only members of a "
