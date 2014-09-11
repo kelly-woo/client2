@@ -77,6 +77,28 @@ select {
 }
 
 
+/* Chrome, Safari, Opera */
+@-webkit-keyframes slide-from-right {
+    from {margin-right: -100%;}
+    to {margin-right: 0;  }
+}
+/* Standard syntax */
+@keyframes slide-from-right {
+    from {margin-right: -100%;}
+    to {margin-right: 0;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes display-block {
+    from {display: none; }
+    to {display: block;  }
+}
+/* Standard syntax */
+@keyframes display-block {
+    from {display: none ;}
+    to {display: block;  }
+}
+
 
 /********************************************
 
@@ -261,8 +283,8 @@ input[type="button"] {
     top: 10px;
 }
 .cpanel-search__dropdown {
-    left: 170px;
-    top: 45px;
+    left: -241px;
+    top: 25px;
 }
 .headerpanel-search-icon {
     width: 22px;

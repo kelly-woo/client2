@@ -78,8 +78,6 @@ input[disabled].cpanel-search__form-input{
     position: absolute;
     right: 0;
     padding: 20px 15px 20px 10px;
-    height: 60px;
-    width: 480px;
 }
 .cpanel-search.grey {
     background-color: #f2f2f2;
