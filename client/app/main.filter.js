@@ -142,5 +142,3 @@ app.filter('getNameInFileResult', ['userAPIservice', '$rootScope',
         }
     }
 ]);
-
-

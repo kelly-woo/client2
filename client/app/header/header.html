@@ -72,6 +72,7 @@
                 </li>
             </ul>
         </span>
+
         <!--Member Dropdown-->
         <span class="header-title-member">
             <span class="dropdown-toggle header-title-member__more" data-toggle="dropdown" data-ng-if="currentEntity.type != 'user'">
@@ -88,16 +89,13 @@
     </div>
 
     <!-- SEARCH BOX -->
-    <div class="header-search" ng-class="{'grey': !$state.includes('**.files.**')}">
-        <form method="get" action="/search" class="header-search-form">
-            <input type="text" id="search_terms" name="q" class="header-search-form__input" placeholder="{{ 'Search' | translate }}" disabled>
-            <span class="icon_image icon_search jdicon-search"></span>
-        </form>
-        <!-- TOOLBAR  -->
-        <div class="header-toolbar">
+    <div class="header-search">
+        <!-- ICONS  -->
+        <div class="header-toolbar cursor_pointer">
+
             <!--HELP-->
             <div class="header-toolbar-help">
-                <span class="icon_image jdicon-header-toolbar jdicon-help" data-toggle="dropdown"></span>
+                <i class="fa fa-question-circle fa-lg" data-toggle="dropdown"></i>
                 <ul class="dropdown-menu grey_dropdown header-toolbar-help__dropdown">
                     <li role="presentation">
                         <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
@@ -111,9 +109,10 @@
                     </li>
                 </ul>
             </div>
+
             <!--OPTIONS-->
-            <div class="header-toolbar-options">
-                <span class="icon_image jdicon-header-toolbar jdicon-bars" data-toggle="dropdown"></span>
+            <div class="header-toolbar-options file-list-icon" >
+                <i class="fa fa-bars fa-lg" data-toggle="dropdown"></i>
                 <ul class="dropdown-menu black_dropdown header-toolbar-options__dropdown" role="menu">
                     <li class="disabled" data-ng-if="false">
                         <a href="#" onclick="return false;" disabled>
@@ -157,13 +156,13 @@
                             <span translate>Images</span>
                         </a>
                     </li>
-                    <li class="disabled">
+                    <li class="disabled" data-ng-if="false">
                         <a href="#" onclick="return false;" disabled>
                             <i class="fa fa-users"></i>
                             <span translate>Team Directory</span>
                         </a>
                     </li>
-                    <li class="disabled">
+                    <li class="disabled" data-ng-if="false">
                         <a href="#" onclick="return false;" disabled>
                             <i class="fa fa-history"></i>
                             <span translate>Activity Feed</span>
@@ -171,12 +170,15 @@
                     </li>
                 </ul>
             </div>
+
             <!--TOGGLE-->
             <div class="header-toolbar-toggle">
-                <a data-original-title="Toggle RightPanel">
-                    <span ng-if="$state.includes('**.files.**')" ui-sref="messages.detail" class="icon_image jdicon-header-toolbar jdicon-toggle-rightmenu__light"></span>
-                    <span ng-if="!$state.includes('**.files.**')" ui-sref="messages.detail.files" class="icon_image jdicon-header-toolbar jdicon-toggle-rightmenu__dark"></span>
-                </a>
+                <span ng-if="$state.includes('**.files.**')" ui-sref="messages.detail" ng-click="onRightToggleButtonClick(false);">
+                    <i class="fa fa-caret-square-o-right fa-lg"></i>
+                </span>
+                <span ng-if="!$state.includes('**.files.**')" ui-sref="messages.detail.files" ng-click="onRightToggleButtonClick(true);">
+                    <i class="fa fa-caret-square-o-left fa-lg"></i>
+                </span>
             </div>
         </div>
     </div>

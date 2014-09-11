@@ -3,7 +3,7 @@
     height: 100%;
     left: 220px;
     right: 0;
-    z-index: 100;
+    z-index: -1;
 }
 .cpanel-home {
     position: relative;
@@ -21,6 +21,7 @@
     right: 0;
     bottom: 4rem;
     overflow: auto;
+    z-index: -1;
 }
 .msgs__loading {
     background: url(../../assets/images/jd_loading.gif) center / 40px no-repeat;

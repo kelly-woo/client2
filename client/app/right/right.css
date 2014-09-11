@@ -5,10 +5,7 @@
     top: 60px;
     bottom: 0;
     background-color: #f2f2f2;
-    z-index: 99;
-}
-.rpanel-show {
-    z-index: 99;
+    z-index: -1;
 }
 .rpanel__background {
     position: absolute;
@@ -16,7 +13,7 @@
     top: 60px;
     right: 0;
     bottom: 0;
-    z-index: 90;
+    z-index: -2;
 }
 .rpanel__background.extend {
     background-color: #f2f2f2;
@@ -291,6 +288,10 @@
     display: none;
 }
 
+.opac_in {
+    -webkit-animation: opacIn 0.5s; /* Chrome, Safari, Opera */
+    animation: opacIn 0.5s;
+}
 /* Chrome, Safari, Opera */
 @-webkit-keyframes opacIn {
     from {opacity: 0;}
@@ -316,4 +317,58 @@
 @keyframes opacOut {
     from {opacity: 1;}
     to {opacity: 0;}
+}
+
+.from_right {
+    -webkit-animation: fromRight 0.5s; /* Chrome, Safari, Opera */
+    animation: fromRight 0.5s;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fromRight {
+    0%      { right: -480px; }
+    25%     { right: -320px; }
+    50%     { right: -160px; }
+    100%    { right: 0px; }
+}
+/* Standard syntax */
+@keyframes fromRight {
+    0%      { right: -480px; }
+    25%     { right: -320px; }
+    50%     { right: -160px; }
+    100%    { right: 0px; }
+}
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes toRight {
+    0%      { right: 0px; }
+    25%     { right: -160px; }
+    50%     { right: -320px; }
+    100%    { right: -480px; }
+}
+/* Standard syntax */
+@keyframes toRight {
+    0%      { right: 0px; }
+    25%     { right: -160px; }
+    50%     { right: -320px; }
+    100%    { right: -480px; }
+}
+
+
+.opacOut_hidden {
+    -webkit-animation: opacOut_hidden 0.5s; /* Chrome, Safari, Opera */
+    animation: opacOut_hidden 0.5s;
+    display: none;
+}
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opacOut_hidden {
+    from {opacity: 1;}
+    to {opacity: 0; visibility: hidden !important; display: none !important;}
+}
+@keyframes opacOut_hidden {
+    from {opacity: 1;}
+    to {opacity: 0; visibility: hidden !important; display: none !important;}
 }

@@ -87,8 +87,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
         fileAPIservice.getFileList($scope.fileRequest)
             .success(function(response) {
-                console.log(response)
-
                 var fileList = [];
                 angular.forEach(response.files, function(entity, index) {
 
@@ -121,13 +119,11 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             //  Replace current fileList with new fileList.
             $('.file-list__item').addClass('opac_out');
             $scope.fileList = fileList;
-            console.log('replacing');
 
         }
         else {
             //  Loading more.
             //  Append fileList to current fileList
-            console.log('appending')
             _.forEach(fileList, function(item) {
                 $scope.fileList.push(item);
             });
