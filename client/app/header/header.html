@@ -1,12 +1,16 @@
 <div class="header">
     <div class="header-title">
+
         <!--Title Dropdown-->
         <span class="header-title-info">
-            <span class="header-title-info__name ng-binding dropdown-toggle" data-toggle="dropdown">
-                <span class="prefix">{{ currentEntity.prefix }}</span>
-                <span>{{ currentEntity | getFirstLastNameOfUser }}</span>
-                <i class="fa fa-caret-down header-title-info__more" data-ng-if="currentEntity.type != 'user'"></i>
+            <span class="header-title-info-name-container ng-binding dropdown-toggle" data-toggle="dropdown"
+                    data-ng-class="{'header-padding-for-prefix' : currentEntity.type != 'privateGroup'}">
+                    <span class="prefix">{{ currentEntity.prefix }}</span>
+                    <span class="inline-overflow-ellipsis header-title-info__name">{{ currentEntity | getFirstLastNameOfUser }}
+                        <i class="fa fa-caret-down header-title-info__more"></i>
+                    </span>
             </span>
+
             <!--Channel-->
             <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
                 <li role="presentation">
@@ -38,12 +42,12 @@
                     </a>
                 </li>
                 <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="#" onclick="return false;" disabled>
+                    <a role="menuitem" tabindex="-1" data-ng-click="onUserClick(currentEntity.id);">
                         <i class="fa fa-user"></i><span translate>View profile</span>
                     </a>
                 </li>
                 <li role="presentation">
-                    <a role="menuitem" tabindex="-1" href="#" onclick="return false;" disabled>
+                    <a role="menuitem" tabindex="-1" data-ng-click="onFileListClick(currentEntity.id)">
                         <i class="fa fa-file"></i><span translate>View files</span>
                     </a>
                 </li>
@@ -173,10 +177,10 @@
 
             <!--TOGGLE-->
             <div class="header-toolbar-toggle">
-                <span ng-if="$state.includes('**.files.**')" ui-sref="messages.detail" ng-click="onRightToggleButtonClick(false);">
+                <span ng-if="$state.includes('**.files.**')" ui-sref="messages.detail">
                     <i class="fa fa-caret-square-o-right fa-lg"></i>
                 </span>
-                <span ng-if="!$state.includes('**.files.**')" ui-sref="messages.detail.files" ng-click="onRightToggleButtonClick(true);">
+                <span ng-if="!$state.includes('**.files.**')" ui-sref="messages.detail.files">
                     <i class="fa fa-caret-square-o-left fa-lg"></i>
                 </span>
             </div>

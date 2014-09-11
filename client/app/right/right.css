@@ -216,12 +216,12 @@
 .file-item-meta__info {
     margin: 2px 0;
     line-height: 16px;
-    height:16px;
 }
 .file-item-meta__shared {
     color: #31c08a;
     margin-left: 3px;
     border-bottom: 1px solid #31c08a;
+    word-wrap: break-word;
 }
 .file-item-meta__shared:hover {
     color: #008F59;

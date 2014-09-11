@@ -3,7 +3,7 @@
                   COMMON
 
 ********************************************/
-html { min-width: 980px; }
+/*html { min-width: 960px; }*/
 
 .user-thumb-sm  { width: 28px; height: 28px; border-radius: 50%; }
 .user-thumb     { width: 35px; height: 35px; border-radius: 50%; }
@@ -514,3 +514,23 @@ input[type="button"] {
 }
 
 
+
+/*
+    below css works for firefox
+*/
+select {
+    cursor: pointer;
+}
+optgroup {
+    color: #31c08a;
+    cursor: pointer;
+    padding-left: 14px;
+}
+optgroup option {
+    color: black;
+    margin: 2px 0;
+}
+
+optgroup option:hover {
+    background: #eefcf7 !important;
+}

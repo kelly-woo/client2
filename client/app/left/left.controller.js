@@ -213,7 +213,16 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
 
     //  Add 'onUserClick' to redirect to direct message to 'user'
+    //  center and header are calling.
     $scope.onUserClick = function(user) {
+        if (angular.isNumber(user)) {
+            user = entityAPIservice.getEntityFromListById($scope.userList, user)
+        }
+        openUserProfile(user);
+    };
+
+    //  Open user profile modal view.
+    function openUserProfile(user) {
         $modal.open({
             scope       :   $scope,
             templateUrl :   'app/modal/profile.view.html',
@@ -223,7 +232,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 curUser     : function getCurUser(){ return user; }
             }
         });
-    };
+    }
 
     $scope.toDefaultChannel = function() {
         $state.go('archives', { entityType:'channels',  entityId:defaultChannel });
