@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService) {
 
     console.info('[enter] centerpanelController');
 
@@ -458,10 +458,36 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         }
     };
 
-    $scope.onClickUnshare = function(messageId, entityId) {
-        fileAPIservice.unShareEntity(messageId, entityId)
-            .success(function(response) {
-                fileAPIservice.broadcastChangeShared(messageId);
+    $scope.onClickUnshare = function(message, entity) {
+        fileAPIservice.unShareEntity(message.id, entity.id)
+            .success(function() {
+                // analytics
+                var share_target = "";
+                switch (entity.type) {
+                    case 'channel':
+                        share_target = "channel";
+                        break;
+                    case 'privateGroup':
+                        share_target = "private";
+                        break;
+                    case 'user':
+                        share_target = "direct message";
+                        break;
+                    default:
+                        share_target = "invalid";
+                        break;
+                }
+                var file_meta = (message.content.type).split("/");
+                var share_data = {
+                    "entity type"   : share_target,
+                    "category"      : file_meta[0],
+                    "extension"     : file_meta[1],
+                    "mime type"     : message.content.type,
+                    "size"          : message.content.size
+                };
+                analyticsService.mixpanelTrack( "File Unshare", share_data );
+
+                fileAPIservice.broadcastChangeShared(message.id);
             })
             .error(function(err) {
                 alert(err.msg);

@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileController', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice) {
+app.controller('fileController', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService) {
 
     console.info('[enter] fileController');
 
@@ -127,14 +127,52 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
         }
     };
 
+    $scope.onClickDownload = function(file) {
+        // analytics
+        var file_meta = (file.content.type).split("/");
+        var download_data = {
+            "category"      : file_meta[0],
+            "extension"     : file_meta[1],
+            "mime type"     : file.content.type,
+            "size"          : file.content.size
+        };
+        analyticsService.mixpanelTrack( "File Download", download_data );
+    };
+
     $scope.onClickShare = function(file) {
         $scope.fileToShare = file;
         this.openModal('share');
     };
-    $scope.onClickUnshare = function(messageId, entityId) {
-        fileAPIservice.unShareEntity(messageId, entityId)
-            .success(function(response) {
-                fileAPIservice.broadcastChangeShared(messageId);
+    $scope.onClickUnshare = function(message, entity) {
+        fileAPIservice.unShareEntity(message.id, entity.id)
+            .success(function() {
+                // analytics
+                var share_target = "";
+                switch (entity.type) {
+                    case 'channel':
+                        share_target = "channel";
+                        break;
+                    case 'privateGroup':
+                        share_target = "private";
+                        break;
+                    case 'user':
+                        share_target = "direct message";
+                        break;
+                    default:
+                        share_target = "invalid";
+                        break;
+                }
+                var file_meta = (message.content.type).split("/");
+                var share_data = {
+                    "entity type"   : share_target,
+                    "category"      : file_meta[0],
+                    "extension"     : file_meta[1],
+                    "mime type"     : message.content.type,
+                    "size"          : message.content.size
+                };
+                analyticsService.mixpanelTrack( "File Unshare", share_data );
+
+                fileAPIservice.broadcastChangeShared(message.id);
             })
             .error(function(err) {
                 alert(err.msg);
