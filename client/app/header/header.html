@@ -1,107 +1,186 @@
 <div class="header">
-    <div class="cpanel-header">
-        <span class="cpanel-header__title">
-            <span style="position:relative;">
-                <span class="name ng-binding dropdown-toggle" data-toggle="dropdown">
-                    <span class="prefix">{{currentEntity.prefix}}</span>
-                    {{ currentEntity|getFirstLastNameOfUser }}
-                    <span ng-if="currentEntity.type != 'user'"><i class="cpanel-header__more fa fa-caret-down"></i></span>
-                </span>
-
-                <ul class="dropdown-menu grey_dropdown header_title_dropdown" role="menu">
-                    <!--    INVITE  -->
-                    <li ng-switch="currentEntity.type" role="presentation">
-                        <a role="menuitem" tabindex="-1" ng-switch-when="user" ng-click="openModal('inviteUserToChannel')">
-                            Invite to channel
-                        </a>
-                        <a role="menuitem" tabindex="-1" ng-switch-default ng-click="openModal('invite')">
-                            Invite others
-                        </a>
-                    </li>
-                    <!--    RENAME  -->
-                    <li role="presentation" ng-if="previliged && currentEntity.type != 'user'" ng-click="openModal('rename')">
-                        <a role="menuitem" tabindex="-1">
-                            Rename Channel
-                        </a>
-                    </li>
-                    <!--    LEAVE   -->
-                    <li role="presentation" ng-if="currentEntity.type != 'user'" ng-click="onLeaveClick();">
-                        <a role="menuitem" tabindex="-1">
-                            Leave Channel
-                        </a>
-                    </li>
-                    <!--    DELETE  -->
-                    <li role="presentation" ng-if="previliged && currentEntity.type != 'user'" ng-click="onDeleteClick();">
-                        <a role="menuitem" tabindex="-1">
-                            Delete this group
-                        </a>
-                    </li>
-                </ul>
+    <div class="header-title">
+        <!--Title Dropdown-->
+        <span class="header-title-info">
+            <span class="header-title-info__name ng-binding dropdown-toggle" data-toggle="dropdown">
+                <span class="prefix">{{ currentEntity.prefix }}</span>
+                <span>{{ currentEntity | getFirstLastNameOfUser }}</span>
+                <i class="fa fa-caret-down header-title-info__more" data-ng-if="currentEntity.type != 'user'"></i>
             </span>
-
+            <!--Channel-->
+            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
+                        <i class="fa fa-plus"></i><span translate>Invite others to this channel</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="previliged" data-ng-click="openModal('rename')">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-pencil"></i><span translate>Rename this channel</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-click="onLeaveClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-sign-out"></i><span translate>Leave channel</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="previliged" data-ng-click="onDeleteClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-times"></i><span translate>Delete this channel</span>
+                    </a>
+                </li>
+            </ul>
+            <!--User-->
+            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
+                        <i class="fa fa-plus"></i><span translate>Invite to channel/group</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#" onclick="return false;" disabled>
+                        <i class="fa fa-user"></i><span translate>View profile</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#" onclick="return false;" disabled>
+                        <i class="fa fa-file"></i><span translate>View files</span>
+                    </a>
+                </li>
+            </ul>
+            <!--PrivateGroup-->
+            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privateGroup'">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
+                        <i class="fa fa-plus"></i><span translate>Invite others to this group</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="previliged" data-ng-click="openModal('rename')">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-pencil"></i><span translate>Rename this group</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-click="onLeaveClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-sign-out"></i><span translate>Leave group</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="previliged" data-ng-click="onDeleteClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-times"></i><span translate>Delete this group</span>
+                    </a>
+                </li>
+            </ul>
         </span>
-        <span style="position: relative;">
-            <span class="member_container cursor_pointer dropdown-toggle" data-toggle="dropdown" ng-if="currentEntity.type != 'user'">
-                <span class="icon_image icon_user header-user-more-list"></span>{{currentEntity.ch_members.length || currentEntity.pg_members.length}}
+
+        <!--Member Dropdown-->
+        <span class="header-title-member">
+            <span class="dropdown-toggle header-title-member__more" data-toggle="dropdown" data-ng-if="currentEntity.type != 'user'">
+                <span class="icon_image icon_user header-title-member__more-icon"></span>
+                <span>{{ currentEntity.ch_members.length || currentEntity.pg_members.length }}</span>
             </span>
-            <ul class="dropdown-menu header-user__list grey_dropdown header_member_dropdown" role="menu">
-                <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
-                    <a ng-if="userId == user.id">{{user|getFirstLastNameOfUser}}</a>
-                    <a ng-if="userId != user.id" ui-sref="archives({entityType:'users', entityId:userId})">{{getName(userId)}}</a>
+            <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
+                <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
+                    <a data-ng-if="userId == user.id">{{user|getFirstLastNameOfUser}}</a>
+                    <a data-ng-if="userId != user.id" data-ui-sref="archives({entityType:'users', entityId:userId})">{{getName(userId)}}</a>
                 </li>
             </ul>
         </span>
     </div>
 
     <!-- SEARCH BOX -->
-    <div class="cpanel-search">
+    <div class="header-search">
         <!-- ICONS  -->
-        <span class="cpanel-search-icon__container">
-            <span class="icon_image" data-toggle="dropdown">
-                <i class="fa fa-bars fa-lg"></i>
+        <div class="header-toolbar cursor_pointer">
 
-            </span>
-            <!--<a id="flex_menu" title="" data-original-title="Open Flexpane Menu"><span class="glyphicon glyphicon-th-list"></span></a>-->
+            <!--HELP-->
+            <div class="header-toolbar-help">
+                <i class="fa fa-question-circle fa-lg" data-toggle="dropdown"></i>
+                <ul class="dropdown-menu grey_dropdown header-toolbar-help__dropdown">
+                    <li role="presentation">
+                        <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
+                            <i class="fa fa-info-circle"></i><span translate>Terms of Service</span>
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
+                            <i class="fa fa-lock"></i><span translate>Privacy Policy</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-            <a data-original-title="Hide Flexpane">
-                <span ng-if="$state.includes('**.files.**')" ui-sref="messages.detail" ng-click="onRightToggleButtonClick(false);"class="icon_image">
+            <!--OPTIONS-->
+            <div class="header-toolbar-options file-list-icon" >
+                <i class="fa fa-bars fa-lg" data-toggle="dropdown"></i>
+                <ul class="dropdown-menu black_dropdown header-toolbar-options__dropdown" role="menu">
+                    <li class="disabled" data-ng-if="false">
+                        <a href="#" onclick="return false;" disabled>
+                            <i class="fa fa-star"></i>
+                            <span translate>Starred Items</span>
+                        </a>
+                    </li>
+                    <li class="disabled" data-ng-if="false">
+                        <a href="#" onclick="return false;" disabled>
+                            <span class="text">@</span>
+                            <span translate>Recent Mentions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="return false;">
+                            <i class="fa fa-file"></i>
+                            <span translate>Files</span>
+                        </a>
+                    </li>
+                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('you');">
+                        <a role="menuitem" tabindex="-1">
+                            <i class="fa fa-user"></i>
+                            <span translate>Your Files</span>
+                        </a>
+                    </li>
+                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('all');">
+                        <a role="menuitem" tabindex="-1">
+                            <i class="fa fa-files-o"></i>
+                            <span translate>All Files</span>
+                        </a>
+                    </li>
+                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('pdf');">
+                        <a role="menuitem" tabindex="-1">
+                            <i class="fa fa-file-pdf-o"></i>
+                            <span translate>PDF</span>
+                        </a>
+                    </li>
+                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('image');">
+                        <a role="menuitem" tabindex="-1">
+                            <i class="fa fa-file-image-o"></i>
+                            <span translate>Images</span>
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a href="#" onclick="return false;" disabled>
+                            <i class="fa fa-users"></i>
+                            <span translate>Team Directory</span>
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a href="#" onclick="return false;" disabled>
+                            <i class="fa fa-history"></i>
+                            <span translate>Activity Feed</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!--TOGGLE-->
+            <div class="header-toolbar-toggle">
+                <span ng-if="$state.includes('**.files.**')" ui-sref="messages.detail" ng-click="onRightToggleButtonClick(false);">
                     <i class="fa fa-caret-square-o-right fa-lg"></i>
                 </span>
-                <span ng-if="!$state.includes('**.files.**')" ui-sref="messages.detail.files" ng-click="onRightToggleButtonClick(true);" class="icon_image">
+                <span ng-if="!$state.includes('**.files.**')" ui-sref="messages.detail.files" ng-click="onRightToggleButtonClick(true);">
                     <i class="fa fa-caret-square-o-left fa-lg"></i>
                 </span>
-            </a>
+            </div>
 
-            <ul class="dropdown-menu black_dropdown cpanel-search__dropdown" role="menu">
-                <li class="disabled">
-                    <a href="#" onclick="return false;" disabled><i class="fa fa-star"></i>Starred Items</a>
-                </li>
-                <li class="disabled">
-                    <a href="#" onclick="return false;" disabled><span class="text">@</span>Recent Mentions</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-file"></i>Files</a>
-                </li>
-                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('you');">
-                    <a role="menuitem" tabindex="-1" ><i class="fa fa-user"></i>Your Files</a>
-                </li>
-                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('all');">
-                    <a role="menuitem" tabindex="-1"><i class="fa fa-files-o"></i>All Files</a>
-                </li>
-                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('pdf');">
-                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-pdf-o"></i>PDF</a>
-                </li>
-                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('image');">
-                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-image-o"></i>Images</a>
-                </li>
-                <li class="disabled">
-                    <a href="#" onclick="return false;" disabled><i class="fa fa-users"></i>Team Directory</a>
-                </li>
-                <li class="disabled">
-                    <a href="#" onclick="return false;" disabled><i class="fa fa-history"></i>Activity Feed</a>
-                </li>
-            </ul>
-
-        </span>
+        </div>
     </div>
 </div>
