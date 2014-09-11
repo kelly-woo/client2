@@ -10,7 +10,9 @@ var app = angular.module('jandiApp', [
     'ngResource',
     'ngSanitize',
     'ngAnimate',
-    'ngImgCrop'
+    'ngImgCrop',
+    'angulartics',
+    'angulartics.google.analytics'
 ]);
 
 app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog) {

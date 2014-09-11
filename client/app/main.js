@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.config(function ($stateProvider) {
+app.config(function ($stateProvider, $analyticsProvider) {
     $stateProvider
         .state('signin', {
             url: '/',

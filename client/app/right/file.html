@@ -75,7 +75,7 @@
                                 <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
                                     {{ sharedEntity.prefix }}{{ sharedEntity.name }}
                                 </span>
-                                <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(file_detail.id, sharedEntity.id)">
+                                <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(file_detail, sharedEntity)">
                                     <i class="fa fa-minus-circle"></i>
                                 </a>
                             </span>
@@ -107,7 +107,7 @@
                             </a>
                         </li>
                         <li class="cursor_pointer">
-                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}">
+                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
                                 <i class="fa fa-download"></i>
                                 <span translate>Download</span>
                             </a>

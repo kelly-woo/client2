@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice) {
+app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService) {
 
     $scope.isLoading = true;
     $scope.isScrollLoading = false;
@@ -199,10 +199,36 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         this.openModal('share');
     };
 
-    $scope.onClickUnshare = function(messageId, entityId) {
-        fileAPIservice.unShareEntity(messageId, entityId)
-            .success(function(response) {
-                fileAPIservice.broadcastChangeShared(messageId);
+    $scope.onClickUnshare = function(message, entity) {
+        fileAPIservice.unShareEntity(message.id, entity.id)
+            .success(function() {
+                // analytics
+                var share_target = "";
+                switch (entity.type) {
+                    case 'channel':
+                        share_target = "channel";
+                        break;
+                    case 'privateGroup':
+                        share_target = "private";
+                        break;
+                    case 'user':
+                        share_target = "direct message";
+                        break;
+                    default:
+                        share_target = "invalid";
+                        break;
+                }
+                var file_meta = (message.content.type).split("/");
+                var share_data = {
+                    "entity type"   : share_target,
+                    "category"      : file_meta[0],
+                    "extension"     : file_meta[1],
+                    "mime type"     : message.content.type,
+                    "size"          : message.content.size
+                };
+                analyticsService.mixpanelTrack( "File Unshare", share_data );
+
+                fileAPIservice.broadcastChangeShared(message.id);
             })
             .error(function(err) {
                 alert(err.msg);

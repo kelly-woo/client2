@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice) {
+app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice, analyticsService) {
 
     console.info('[enter] headerController');
 
@@ -78,11 +78,26 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
 
     $scope.onDeleteClick = function() {
         entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
-            .success(function(response) {
+            .success(function() {
+                // analytics
+                var entity_type = "";
+                switch ($scope.currentEntity.type) {
+                    case 'channel':
+                        entity_type = "channel";
+                        break;
+                    case 'privateGroup':
+                        entity_type = "private";
+                        break;
+                    default:
+                        entity_type = "invalid";
+                        break;
+                }
+                analyticsService.mixpanelTrack( "Entity Delete", { "type": entity_type } );
+
                 updateLeftPanel();
             })
-            .error(function(response) {
-                alert(response.msg);
+            .error(function(error) {
+                alert(error.msg);
             });
     };
 
@@ -96,10 +111,24 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
 
         entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
             .success(function(response) {
+                // analytics
+                var entity_type = "";
+                switch ($scope.currentEntity.type) {
+                    case 'channel':
+                        entity_type = "channel";
+                        break;
+                    case 'privateGroup':
+                        entity_type = "private";
+                        break;
+                    default:
+                        entity_type = "invalid";
+                        break;
+                }
+                analyticsService.mixpanelTrack( "Entity Leave", { "type": entity_type } );
                 updateLeftPanel();
             })
-            .error(function(response) {
-                alert(response.msg);
+            .error(function(error) {
+                alert(error.msg);
             })
     };
 
