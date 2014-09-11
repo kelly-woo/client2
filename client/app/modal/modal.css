@@ -145,7 +145,6 @@
 }
 .form-control:focus {
     border: 1px solid #31c08a;
-    border-color: #31c08a;
     outline: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -200,13 +199,11 @@
 
 .modal-body { padding: 20px 22px; }
 .modal-body h4 {
-    margin: 0;
+    margin: 0 0 20px 0;
     font-size: 14px;
     line-height: 22px;
     color: #999;
-    margin-bottom: 20px;
 }
-
 
 .custom-typeahead > ul {
     left: 0 !important;
@@ -236,13 +233,16 @@
 .control-label {
     font-size: 13px;
     text-align: right;
+    padding-top: 0 !important;
+    height: 40px;
+    line-height: 40px;
 }
-
 
 .help-block {
     display: inline-block;
     font-size: 12px;
     color: #666;
+    margin-bottom: 5px !important;
 }
 
 
@@ -341,8 +341,7 @@
     position: relative;
     width: 40px;
     height: 40px;
-    margin: auto;
-    margin-top: -20px;
+    margin: -20px auto auto;
     top: 50%;
     background-size: 40px;
 }
@@ -368,8 +367,7 @@
     overflow: hidden;
     width: 190px;
     border-radius: 100%;
-    margin: auto;
-    margin-bottom: 15px;
+    margin: auto auto 15px;
 }
 
 .user-profile__photo {
@@ -432,6 +430,15 @@
     text-decoration: underline;
 }
 
+.modal-share__file-item-body {
+    margin-left: 120px !important;
+    width: 280px !important;
+}
+.modal-share__file-item-type {
+    position: absolute;
+    top: 20px;
+    left: 85px;
+}
 
 /*
     PROFILE VIEW

@@ -1,16 +1,16 @@
 <!-- FILE SHARE Modal -->
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()"><span class="icon_close"></span></button>
-
-    <h3 id="myModalLabel">Share file</h3>
+    <h3 id="myModalLabel">
+        <span translate>Share File</span>
+    </h3>
 </div>
-
 
 <form name="file_share_form" ng-submit="onFileShareClick(shareChannel, comment)">
 
     <div class="modal-body">
         <div class="individual_file_container" style="padding-bottom: 20px; margin-bottom: 10px; ">
-            <div class="file-item-type">
+            <div class="file-item-type modal-share__file-item-type">
                 <div class="fileicon fileicon_{{ file.content.type | filetype | lowercase}}"></div>
                 <div class="file-item-meta__type" data-ng-if="file.content.type">{{ file.content.type | filetype }}</div>
                 <div class="file-item-meta__size" data-ng-if="file.content.size > 0">{{ file.content.size | bytes }}</div>
@@ -20,7 +20,7 @@
                 <span ui-sref="archives({entityType:'users',entityId:file.writerId})" class="file-item-body-title-author inline-overflow-ellipsis">{{file.writer|getFirstLastNameOfUser }}</span>
             </div>
 
-            <div class="file-share-item-body file-item-body">
+            <div class="file-item-body modal-share__file-item-body">
                 <div class="file-item-body__title ">
                     <span class="file-item-body-title-author share-modal-file-item-body__title" ui-sref="files({ userName: file.writer.name, itemId: file.id })" ng-click="cancel();">
                         {{ file.content.title }}
@@ -43,17 +43,30 @@
 
             <!-- FILE SHARE OPTION  -->
             <div class="form-group">
-                <label class="control-label col-sm-2"> Share in </label>
-                <div class="col-sm-10">
-                    <select ng-model="shareChannel" ng-options="channel as channel.u_lastName+channel.u_firstName||channel.name group by channel.type for channel in selectOptions"></select>
+                <label class="control-label col-sm-3">
+                    <span translate>Share in</span>
+                </label>
+                <div class="col-sm-9">
+                    <select class="form-control"
+                            ng-model="shareChannel"
+                            ng-options="channel as channel.u_lastName+channel.u_firstName||channel.name group by channel.type for channel in selectOptions"></select>
                 </div>
             </div>
 
             <!-- FILE COMMENT   -->
             <div class="form-group">
-                <label class="control-label col-sm-2"> Comment </label>
-                <div class="col-sm-10">
-                    <textarea disabled class="form-control" name="file_share_comment" rows="3" ng-model="comment" ng-maxlength="256" maxlength="256" style="resize:none;"></textarea>
+                <label class="control-label col-sm-3">
+                    <span translate>Comment</span>
+                </label>
+                <div class="col-sm-9">
+                    <textarea class="form-control"
+                              name="file_share_comment"
+                              rows="3"
+                              ng-model="comment"
+                              ng-maxlength="256"
+                              maxlength="256"
+                              style="resize:none;"
+                              disabled></textarea>
                 </div>
             </div>
 
@@ -62,11 +75,10 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
-        <input class="btn btn-ok" type="submit" id="file_share_btn" value="Share"/>
+        <button type="button" class="btn btn-cancel" ng-click="cancel()"><span translate>Cancel</span></button>
+        <input class="btn btn-ok" type="submit" id="file_share_btn" value="{{ 'Share' | translate }}"/>
     </div>
 </form>
-
 
 <div class="loading_container" ng-if="isLoading">
     <div class="loading_container_background"></div>

@@ -1,41 +1,71 @@
 <div class="rpanel-header">
     <div class="rpanel-header-heading">
-
         <!--TODO @filter: FILE TYPE DROPDOWN AND APPLY TO FILE FILTER-->
         <div class="rpanel-header-heading__types">
-            <span class="dropdown-toggle cursor_pointer" data-toggle="dropdown">
-                {{ fileRequest.fileType | upperFirstCharacter }} Files <i class="rpanel-header-file-type__more fa fa-caret-down"></i>
+            <span class="dropdown-toggle cursor_pointer" data-toggle="dropdown" data-ng-switch="fileRequest.fileType | upperFirstCharacter">
+                <span data-ng-switch-default>{{ 'All Files' | translate }}</span>
+                <span data-ng-switch-when="Image">{{ 'Images' | translate }}</span>
+                <span data-ng-switch-when="PDF">{{ 'PDF' | translate }}</span>
+                <span data-ng-switch-when="Audio">{{ 'Audio' | translate }}</span>
+                <span data-ng-switch-when="Video">{{ 'Video' | translate }}</span>
+                <i class="rpanel-header-heading__types__more fa fa-caret-down"></i>
             </span>
-            <ul class="dropdown-menu grey_dropdown rpanel-file-type-dropdown" role="menu">
+            <ul class="dropdown-menu grey_dropdown rpanel-header-heading__types__dropdown" role="menu">
                 <li role="presentation" data-ng-click="fileRequest.fileType = 'all'">
-                    <a role="menuitem" tabindex="-1"><i class="fa fa-files-o"></i>All Files</a>
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-files-o"></i>
+                        <span translate>All Files</span>
+                    </a>
                 </li>
-
-                <li role="presentation" data-ng-click="fileRequest.fileType = 'image';">
-                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-image-o"></i>Images</a>
+                <li role="presentation" data-ng-click="fileRequest.fileType = 'image'">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-file-image-o"></i>
+                        <span translate>Images</span>
+                    </a>
                 </li>
-                <li role="presentation" data-ng-click="fileRequest.fileType = 'pdf';">
-                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-pdf-o"></i>PDF</a>
+                <li role="presentation" data-ng-click="fileRequest.fileType = 'pdf'">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-file-pdf-o"></i>
+                        <span translate>PDF</span>
+                    </a>
                 </li>
                 <li role="presentation" data-ng-click="fileRequest.fileType = 'audio'">
-                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-audio-o"></i>Audio</a>
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-file-audio-o"></i>
+                        <span translate>Audio</span>
+                    </a>
                 </li>
                 <li role="presentation" data-ng-click="fileRequest.fileType = 'video'">
-                    <a role="menuitem" tabindex="-1"><i class="fa fa-file-video-o"></i>Video</a>
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-file-video-o"></i>
+                        <span translate>Video</span>
+                    </a>
                 </li>
             </ul>
         </div>
-
-        <div id="add_new_file" class="rpanel-header-toolbar__files dropdown">
-            <span class="dropdown-toggle cursor_pointer rpanel-header-heading-add-new-file">
-                <span class="icon_image icon_verti_menu rpanel-header-headding-add__icon"></span>
-                    <span class="underline">Add New File</span>
+        <div id="add_new_file" class="rpanel-header-heading__files dropdown">
+            <span class="dropdown-toggle cursor_pointer rpanel-header-heading__files-add">
+                <span class="icon_image icon_verti_menu rpanel-header-headding__files-add__more"></span>
+                <span class="underline" translate>Upload File</span>
             </span>
-
             <ul class="dropdown-menu right-align grey_dropdown file-upload__dropdown" role="menu">
-                <li class="file_upload">
-                    <a>File</a>
-                    <input type="file" id="file_list_button" class="cursor_pointer  file_upload_btn float-right" onclick="this.value=null" data-ng-file-select="onFileSelect($files);" defaultValue="File">
+                <li role="presentation" class="file-upload__dropdown-list">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-file-o"></i>
+                        <span translate>File</span>
+                    </a>
+                    <input type="file"
+                           id="file_list_button"
+                           class="cursor_pointer file_upload_btn float-right"
+                           onclick="this.value=null"
+                           data-ng-file-select="onFileSelect($files);"
+                           defaultValue="File">
+                </li>
+                <li class="file-upload__dropdown-list" data-ng-if="false">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-file-text-o"></i>
+                        <span>Post</span>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -45,13 +75,17 @@
 <div class="rpanel-body" infinite-scroll-bottom="">
     <div class="rpanel-header-toolbar">
         <div class="rpanel-header-toolbar__users cursor_pointer">
-            <span class="file-uploader-tab" data-ng-model="tabIndicator" btn-radio="'everyone'"
-                    data-ng-click="onFileFilterWriterIdClick('all');">
-                EVERYONE
+            <span class="file-uploader-tab"
+                  data-ng-model="tabIndicator"
+                  btn-radio="'everyone'"
+                  data-ng-click="onFileFilterWriterIdClick('all');">
+                <span translate>EVERYONE</span>
             </span>
-            <!--btn-radio="'{{ fileUploader == 'everyone' ? user.id : fileUploader }}'"-->
-            <span class="file-uploader-tab" data-ng-model="tabIndicator" btn-radio="'notEveryone'"
-                    data-ng-click="onFileFilterWriterIdClick(fileRequest.writerId=='all'?'mine':fileRequest.writerId);">
+            <span class="file-uploader-tab"
+                  data-ng-model="tabIndicator"
+                  btn-radio="'notEveryone'"
+                  data-default-value="{{ 'YOU' | translate }}"
+                  data-ng-click="onFileFilterWriterIdClick(fileRequest.writerId=='all'?'mine':fileRequest.writerId);">
                 {{ fileRequest.writerId | getFirstLastNameById }}
             </span>
 
@@ -78,7 +112,10 @@
             <span class="input-group-addon">
                 <span class="icon_image icon_search rpanel-body-search__icon"></span>
             </span>
-            <input type="text" class="form-control rpanel-body-search__input green-input-box" placeholder="search file by title" data-ng-model="fileRequest.keyword">
+            <input type="text"
+                   class="form-control rpanel-body-search__input green-input-box"
+                   placeholder="{{ 'Search by title' | translate }}"
+                   data-ng-model="fileRequest.keyword">
         </div>
 
     </div>
@@ -115,13 +152,22 @@
                         </a>
                         <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
                             <li class="cursor_pointer">
-                                <a data-ng-click="onClickShare(file); toggleDropdown($event);"><i class="fa fa-share-alt"></i>Share</a>
+                                <a data-ng-click="onClickShare(file); toggleDropdown($event);">
+                                    <i class="fa fa-share-alt"></i>
+                                    <span translate>Share</span>
+                                </a>
                             </li>
                             <li class="cursor_pointer">
-                                <a data-ng-click=""><i class="fa fa-comment-o"></i>Comment</a>
+                                <a data-ng-click="">
+                                    <i class="fa fa-comment-o"></i>
+                                    <span translate>Comment</span>
+                                </a>
                             </li>
                             <li class="cursor_pointer">
-                                <a href="{{ server_uploaded + file.content.fileUrl }}" download="{{ file.content.name }}"><i class="fa fa-download"></i>Download</a>
+                                <a href="{{ server_uploaded + file.content.fileUrl }}" download="{{ file.content.name }}">
+                                    <i class="fa fa-download"></i>
+                                    <span translate>Download</span>
+                                </a>
                             </li>
                         </ul>
                     </span>
@@ -148,11 +194,13 @@
                     </div>
 
                     <div class="file-item-meta__empty file-item-meta__info" data-ng-hide="file.shareEntities.length != 0">
-                        File has not been shared in any other channels.
+                        <span translate>File has not been shared in any other channels</span>
                     </div>
 
                     <div class="file-item-meta-open file-item-meta__info">
-                        <a class="file-item-meta-open__public cursor_pointer" href="{{ server_uploaded + file.content.fileUrl }}" target="{{ server_uploaded + file.content.fileUrl }}">Open public link</a>
+                        <a class="file-item-meta-open__public cursor_pointer" href="{{ server_uploaded + file.content.fileUrl }}" target="{{ server_uploaded + file.content.fileUrl }}">
+                            <span translate>Open original</span>
+                        </a>
                     </div>
 
                     <!--image thumbnail-->
@@ -171,9 +219,12 @@
         </div>
 
         <div ng-show="fileList.length==0">
-            <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">No {{ fileRequest.fileType  }} files uploaded by {{ fileRequest.writerId|getNameInFileResult}}.</div>
-
-            <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">No files found matching <b>{{ fileRequest.keyword }}</b>.</div>
+            <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
+                <span translate>No files uploaded</span>
+            </div>
+            <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
+                <span translate>No files found matching on</span> <strong>{{ fileRequest.keyword }}</strong>
+            </div>
         </div>
 
         <div class="loading_container file" ng-if="isLoading">

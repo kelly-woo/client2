@@ -1,7 +1,9 @@
 <!--    IMAGE   -->
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">Profile picture</h3>
+    <h3 id="myModalLabel">
+        <span translate>Profile picture</span>
+    </h3>
 </div>
 
 <div class="modal-body">
@@ -11,17 +13,19 @@
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
-    <a class="new_channel_btn btn btn-ok " ng-click="onCropDone(); ">Change</a>
+    <button type="button" class="btn btn-cancel" ng-click="cancel()">
+        <span translate>Cancel</span>
+    </button>
+    <a class="new_channel_btn btn btn-ok " ng-click="onCropDone(); ">
+        <span translate>Change</span>
+    </a>
 </div>
-
 
 <div class="loading_container" ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
     <div class="loading_bar"></div>
 </div>
-
 
 <style type="text/css">
     .cropArea {

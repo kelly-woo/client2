@@ -65,7 +65,7 @@
 .lpanel-list ul {
     list-style-type: none;
     text-align: left;
-    margin: 10px 0;
+    margin: 5px 0;
 }
 .lpanel-list ul li {
     font-size: 14px;
@@ -262,8 +262,8 @@
     transitionDISABLED: color .1s ease-out;
 }
 .lpanel-user__dropdown {
-    left: 40px;
-    top: -153px;
+    left: 52px;
+    top: -90px;
 }
 .lpanel-user__dropdown .icon_signout {
     position: absolute;
