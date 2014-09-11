@@ -86,11 +86,11 @@ app.filter('userByName', ['$rootScope', function($rootScope) {
 /*/
  used in 'rpanel-header-toolbar'
  */
-app.filter('getFirstLastNameById', ['userAPIservice', '$rootScope',
-    function(userAPIservice, $rootScope) {
+app.filter('getFirstLastNameById', ['userAPIservice', '$rootScope', '$filter',
+    function(userAPIservice, $rootScope, $filter) {
         return function(input) {
             if ( input === 'everyone' || input === $rootScope.user.id || input === 'mine' || input === 'all')
-                return 'YOU';
+                return $filter('translate')('YOU');
 
             return userAPIservice.getNameFromUserId(input);
         }

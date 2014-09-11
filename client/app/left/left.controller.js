@@ -197,20 +197,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 size        :   'lg'
             });
         }
-        else if (selector == 'agreement') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/terms/agreement.html',
-                size        :   'lg'
-            });
-        }
-        else if (selector == 'privacy') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/terms/privacy.html',
-                size        :   'lg'
-            });
-        }
         else if (selector == 'profile') {
             $modal.open({
                 scope       :   $scope,

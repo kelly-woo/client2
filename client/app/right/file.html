@@ -1,7 +1,7 @@
 <div class="rpanel-header">
     <div class="rpanel-header-heading">
         <a class="rpanel-header-heading__back" data-ui-sref="messages.detail.files">
-            <i class="fa fa-chevron-left"></i> Files
+            <i class="fa fa-chevron-left"></i> <span translate>Files</span>
         </a>
     </div>
 </div>
@@ -45,8 +45,16 @@
                     <div class="file-item-meta__type" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</div>
                 </div>
                 <div class="file-detail-body__other-action">
-                    <button ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" type="button" class="btn btn-white" ><a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">Click to view</a></button>
-                    <button ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )"type="button" class="btn btn-white" ><a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}">Download</a></button>
+                    <button ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" type="button" class="btn btn-white" >
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
+                            <span translate>Click to view</span>
+                        </a>
+                    </button>
+                    <button ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )"type="button" class="btn btn-white" >
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}">
+                            <span translate>Download</span>
+                        </a>
+                    </button>
                 </div>
             </div>
 
@@ -76,7 +84,7 @@
                             </span>
                         </span>
                         <span ng-hide="file_detail.shareEntities.length != 0">
-                            File has not been shared in any other channels.
+                            <span translate>File has not been shared in any other channels</span>
                         </span>
                     </div>
                 </div>
@@ -87,13 +95,22 @@
                     </a>
                     <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
                         <li class="cursor_pointer">
-                            <a data-ng-click="onClickShare(file_detail); toggleDropdown($event);"><i class="fa fa-share-alt"></i>Share</a>
+                            <a data-ng-click="onClickShare(file_detail); toggleDropdown($event);">
+                                <i class="fa fa-share-alt"></i>
+                                <span translate>Share</span>
+                            </a>
                         </li>
                         <li class="cursor_pointer">
-                            <a data-ng-click="focusPostComment=true; toggleDropdown($event);"><i class="fa fa-comment-o"></i>Comment</a>
+                            <a data-ng-click="focusPostComment=true; toggleDropdown($event);">
+                                <i class="fa fa-comment-o"></i>
+                                <span translate>Comment</span>
+                            </a>
                         </li>
                         <li class="cursor_pointer">
-                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}"><i class="fa fa-download"></i>Download</a>
+                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}">
+                                <i class="fa fa-download"></i>
+                                <span translate>Download</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -119,7 +136,10 @@
                         </a>
                         <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
                             <li class="cursor_pointer">
-                                <a data-ng-click="deleteComment(comment.id)"><i class="fa fa-times"></i>Delete</a>
+                                <a data-ng-click="deleteComment(comment.id)">
+                                    <i class="fa fa-times"></i>
+                                    <span translate>Delete</span>
+                                </a>
                             </li>
                         </ul>
                     </span>
@@ -137,9 +157,18 @@
                        style="background-image: url({{ server_uploaded + user.u_photoThumbnailUrl.smallThumbnailUrl }})"></a>
                 </div>
                 <form id="comment-form" data-ng-submit="postComment()">
-                    <textarea class="comment-input" focus-me="focusPostComment" message-submit="postComment()" data-ng-model="comment.content" maxlength="" autocorrect="off" autocomplete="off" spellcheck="true"></textarea>
-                    <span class="comment-input__tip pull-left">shift+enter to multiline</span>
-                    <input type="submit" class="btn comment-btn" value="Add Comment">
+                    <textarea class="comment-input"
+                              focus-me="focusPostComment"
+                              message-submit="postComment()"
+                              data-ng-model="comment.content"
+                              maxlength=""
+                              autocorrect="off"
+                              autocomplete="off"
+                              spellcheck="true"></textarea>
+                    <span class="comment-input__tip pull-left">
+                        <span translate>shift+enter to multiline</span>
+                    </span>
+                    <input type="submit" class="btn comment-btn" value="{{ 'Add Comment' | translate }}">
                 </form>
             </div>
         </div>

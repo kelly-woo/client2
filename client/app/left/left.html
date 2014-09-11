@@ -21,7 +21,7 @@
             <!--    HEADER  -->
             <div class="lpanel-list__header cursor_pointer" ng-click="isChListCollapsed = !isChListCollapsed">
                 <h2 class="cursor_pointer inline-overflow-ellipsis">
-                    Channels
+                    <span translate>Channels</span>
                 </h2>
                 <span class="lpanel-list-left">
                     <i ng-if="isChListCollapsed" class="fa fa-caret-right"></i>
@@ -54,7 +54,7 @@
             <!--    HEADER  -->
             <div class="lpanel-list__header cursor_pointer">
                 <h2 id="groups_header" class="inline-overflow-ellipsis" ng-click="isPGCollapsed = !isPGCollapsed">
-                    Private Groups
+                    <span translate>Private Groups</span>
                 </h2>
 
                 <span class="lpanel-list-left">
@@ -87,7 +87,7 @@
             <!--    HEADER  -->
             <div class="lpanel-list__header cursor_pointer">
                 <h2 id="direct_messages_header" class="hoverable inline-overflow-ellipsis entity_header" ng-click="isDMCollapsed = !isDMCollapsed">
-                    Direct Messages
+                    <span translate>Direct Messages</span>
                 </h2>
 
                 <span class="lpanel-list-left">
@@ -111,11 +111,8 @@
                         <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
                     </a>
                 </li>
-
-                <span class="lpanel-list__more cursor_pointer hidden" ng-show="(userList | filter : {'visibility' : false}).length > 0" data-ng-click="openModal('user')">
-                    {{ (userList | filter : {'visibility' : false}).length}} more...
-                </span>
             </ul>
+
             <div class="clear-both"></div>
         </div>
 
@@ -126,20 +123,27 @@
         <span data-toggle="dropdown">
             <img class="lpanel-user__avatar" data-ng-src="{{ server_uploaded + user.u_photoThumbnailUrl.smallThumbnailUrl }}">
             <div class="lpanel-user__container">
-                <span class="lpanel-user__name inline-overflow-ellipsis"> {{ user | getFirstLastNameOfUser}} </span>
+                <span class="lpanel-user__name inline-overflow-ellipsis">{{ user | getFirstLastNameOfUser}}</span>
             </div>
-
             <i class="fa fa-caret-up lpanel-user__more" ></i>
         </span>
         <ul class="dropdown-menu green_dropdown lpanel-user__dropdown" role="menu">
-            <li role="presentation"><a data-ng-click="logout()" role="menuitem" tabindex="-1" ng-controller="authController">
-                <span class="icon_signout"></span>Sign Out</a>
+            <li role="presentation">
+                <a data-ng-click="openModal('invite');" role="menuitem" tabindex="-1">
+                    <i class="fa fa-envelope-o"></i><span translate>Invite Others</span>
+                </a>
             </li>
-            <li role="presentation"><a data-ng-click="openModal('invite');" role="menuitem" tabindex="-1">
-                <i class="fa fa-envelope-o"></i>Invite Others</a>
+
+            <li role="presentation">
+                <a data-ng-click="openModal('profile');" role="menuitem" tabindex="-1">
+                    <i class="fa fa-user"></i><span translate>Profile</span>
+                </a>
             </li>
-            <li role="presentation"><a data-ng-click="openModal('profile');" role="menuitem" tabindex="-1">
-                <i class="fa fa-user"></i>Profile</a>
+
+            <li role="presentation">
+                <a data-ng-click="logout()" role="menuitem" tabindex="-1" ng-controller="authController">
+                    <span class="icon_signout"></span><span translate>Sign Out</span>
+                </a>
             </li>
         </ul>
     </div>

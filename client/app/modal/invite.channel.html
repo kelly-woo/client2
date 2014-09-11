@@ -1,8 +1,9 @@
 <!-- Private Group Invite Modal -->
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel(); clear();"><span class="icon_close"></span></button>
-
-    <h3 id="myModalLabel">Invite Others</h3>
+    <h3 id="myModalLabel">
+        <span translate>Invite Others</span>
+    </h3>
 </div>
 
 <form name="private_group_invite_form" ng-submit="onInviteClick(currentEntity.type);">
@@ -19,17 +20,22 @@
 
         <div class="input-group custom-typeahead">
             <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-            <input type="text" ng-model="selectedUser" typeahead="user as user.u_lastName+user.u_firstName for user in userList | filter : { selected : false } | userByName:$viewValue"
-                   typeahead-on-select="onUserSelected($item); selectedUser=''; $event.stopPropagation();" class="form-control green-input-box"
+            <input type="text"
+                   class="form-control green-input-box"
+                   ng-model="selectedUser"
+                   typeahead="user as user.u_lastName+user.u_firstName for user in userList | filter : { selected : false } | userByName:$viewValue"
+                   typeahead-on-select="onUserSelected($item); selectedUser=''; $event.stopPropagation();"
                    typeahead-template-url="customTemplate.html"
-                   placeholder="search users by name">
+                   placeholder="{{ 'Search users by name' | translate }}">
         </div>
 
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel(); clear();">Close</button>
-        <input class="btn btn-ok" type="submit" id="private_invite" value="Invite"/>
+        <button type="button" class="btn btn-cancel" ng-click="cancel(); clear();">
+            <span translate>Close</span>
+        </button>
+        <input class="btn btn-ok" type="submit" id="private_invite" value="{{ 'Invite' | translate }}"/>
     </div>
 </form>
 

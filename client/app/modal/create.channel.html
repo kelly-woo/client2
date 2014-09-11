@@ -1,40 +1,52 @@
 <!-- create channel Modal -->
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">Create new channel</h3>
+    <h3 id="myModalLabel">
+        <span translate>Create new channel</span>
+    </h3>
 </div>
-
 
 <form name="create_channel_form" ng-submit="onCreateClick('channel', channelName)">
     <div class="modal-body">
         <h4>
-            새로운 채널을 생성합니다. 채널은 팀의 멤버 누구나 참여할 수 있습니다.
+            <span translate>Creating a new channel.</span>
+            <span translate>Anyone can join.</span>
             <div class="help-block">
-                특정 멤버들과만 공유하고 싶은 채널을 만드시고 싶을 경우에는 PRIVATE GROUP을 생성하여 초대해 주시기 바랍니다.
+                <span translate>Please use Private Group for a closed channel.</span>
             </div>
         </h4>
-
         <div class="form-horizontal">
             <div class="form-group">
-                <label class="control-label col-sm-2" > Name</label>
+                <label class="control-label col-sm-2"><span translate>Name</span></label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="channelName" ng-model="channelName" required/>
+                    <input type="text"
+                           class="form-control"
+                           name="channelName"
+                           ng-model="channelName"
+                           placeholder="{{ 'Channel Name' | translate }}"
+                           required/>
                 </div>
             </div>
-
             <div class="form-group">
-                <label class="control-label col-sm-2"> Purpose </label>
+                <label class="control-label col-sm-2"><span translate>Purpose</span></label>
                 <div class="col-sm-10">
-                    <textarea disabled class="form-control" name="channelPurpose" rows="3" ng-model="channelPurpose" ng-maxlength="256" maxlength="256" style="resize:none;" disabled></textarea>
+                    <textarea class="form-control"
+                              name="channelPurpose"
+                              rows="3"
+                              ng-model="channelPurpose"
+                              ng-maxlength="256"
+                              maxlength="256"
+                              style="resize:none;"
+                              disabled></textarea>
                 </div>
             </div>
         </div>
-
-
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel()">Close</button>
-        <input class="btn btn-ok" type="submit" id="create_new_channel" value="Create Channel"/>
+        <button type="button" class="btn btn-cancel" ng-click="cancel()">
+            <span translate>Close</span>
+        </button>
+        <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ 'Create Channel' | translate }}" />
     </div>
 </form>
 

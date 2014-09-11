@@ -650,24 +650,26 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         switch(msg.info.eventType) {
             case 'invite':
-                action = 'invited';
+                action = $filter('translate')('invited');
                 newMsg.message.invites = [];
-
                 _.each(msg.info.inviteUsers, function(element, index, list) {
                     var entity = entityAPIservice.getEntityFromListById($rootScope.userList, element);
                     newMsg.message.invites.push(entity)
                 });
                 break;
             case 'join' :
-                action = 'joined this channel.';
+                action = $filter('translate')('joined this channel');
                 break;
             case 'leave' :
-                action = 'left this channel.';
+                action = $filter('translate')('left this channel');
                 break;
             case 'create' :
-                action = 'created current channel at ' + $filter('date')(msg.time, 'h:mm:ss a') + '.';
+                if (msg.info.entityType !== 'channel') {
+                    action = $filter('translate')('created current private group');
+                } else {
+                    action = $filter('translate')('created current channel');
+                }
                 break;
-
         }
 
         newMsg.message.content.actionOwner = userAPIservice.getNameFromUser(msg.fromEntity);
