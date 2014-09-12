@@ -22,6 +22,7 @@
     bottom: 4rem;
     overflow: auto;
     z-index: -1;
+    min-width: 260px;
 }
 .msgs__loading {
     background: url(../../assets/images/jd_loading.gif) center / 40px no-repeat;

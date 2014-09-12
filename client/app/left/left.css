@@ -3,7 +3,6 @@
     color: white;
 
     width: 220px;
-    height: 1800px;
 
     float: left;
     position: relative;
@@ -41,7 +40,7 @@
     float: left;
     position: fixed;
     top: 60px;
-    bottom: 4rem;
+    bottom: 60px;
     overflow: auto;
 }
 .lpanel-list__header {

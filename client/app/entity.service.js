@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorageService, $state, userAPIservice) {
+app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorageService, $state) {
     var entityAPI = {};
 
     entityAPI.getEntityFromListById = function(list, value) {

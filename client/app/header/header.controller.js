@@ -194,11 +194,10 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
         $scope.$emit('updateFileTypeQuery', type);
     };
 
-    $scope.onRightToggleButtonClick = function(isOpen) {
-//        if (isOpen) {
-//            $('.cpanel-search').addClass('to_green_background');
-//            return;
-//        }
-//        $('.cpanel-search').removeClass('to_green_background');
-    }
+    //  right controller is listening to 'updateFileWriterId'.
+    $scope.onFileListClick = function(userId) {
+        if ($state.current.name != 'messages.detail.files')
+            $state.go('messages.detail.files');
+        $scope.$emit('updateFileWriterId', userId);
+    };
 });
