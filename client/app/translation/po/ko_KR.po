@@ -315,7 +315,7 @@ msgstr "직책"
 
 #: client/app/header/header.html
 msgid "Privacy Policy"
-msgstr "이용약관"
+msgstr "개인정보취급방침"
 
 #: client/app/modal/create.private.html
 msgid "Private Group Name"
@@ -412,7 +412,7 @@ msgstr "팀"
 
 #: client/app/header/header.html
 msgid "Terms of Service"
-msgstr "개인정보 취급방침"
+msgstr "이용약관"
 
 #: client/app/modal/upload.html
 msgid "Title"

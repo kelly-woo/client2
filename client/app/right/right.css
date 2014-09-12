@@ -4,8 +4,11 @@
     right: 0;
     top: 60px;
     bottom: 0;
-    background-color: #f2f2f2;
+    background-color: #fff;
     z-index: -1;
+}
+.rpanel.extend {
+    background-color: #f2f2f2;
 }
 .rpanel__background {
     position: absolute;
