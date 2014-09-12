@@ -62,21 +62,6 @@
     text-decoration:none;
     text-shadow:0 1px 1px rgba(0,0,0,0.2);
 }
-.secondary_file_button {
-    font-size:.9rem;
-    color:#9e9ea6 !important;
-    font-weight:900;
-    font-family:'Lato',sans-serif;
-    margin-top:2px;
-}
-.secondary_file_button:hover {
-    color:#439fe0 !important;
-    text-decoration:none;
-}
-.secondary_file_button i {
-    font-size:1rem;
-    margin:0 .3rem 0 .2rem;
-}
 
 #messages-input-container{font-size:.9rem;position:absolute;bottom:19px;left:64px;right:10px}
 #message-form{position:relative;margin:0}
