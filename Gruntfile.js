@@ -215,7 +215,7 @@ module.exports = function (grunt) {
                     src: [
                         '<%= yeoman.dist %>/public/{,*/}*.js',
                         '<%= yeoman.dist %>/public/{,*/}*.css',
-                        //'<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                        '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                         '<%= yeoman.dist %>/public/assets/fonts/*'
                     ]
                 }
@@ -246,6 +246,10 @@ module.exports = function (grunt) {
                 patterns: {
                     js: [
                         [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+                    ],
+                    css: [
+                        [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the CSS to reference our revved images'],
+                        [/(assets\/fonts\/.*?\.(?:eot|woff|svg))/gm, 'Update the JS to reference our revved fonts']
                     ]
                 }
             }
