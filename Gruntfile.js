@@ -17,7 +17,8 @@ module.exports = function (grunt) {
         protractor: 'grunt-protractor-runner',
         injector: 'grunt-asset-injector',
         nggettext_extract: 'grunt-angular-gettext',
-        nggettext_compile: 'grunt-angular-gettext'
+        nggettext_compile: 'grunt-angular-gettext',
+        replace: 'grunt-replace'
     });
 
     // Time how long tasks take. Can help when optimizing build times
@@ -50,7 +51,7 @@ module.exports = function (grunt) {
         },
         open: {
             server: {
-                url: 'http://localhost:<%= express.options.port %>'
+                url: 'http://local.jandi.com:<%= express.options.port %>'
             }
         },
         watch: {
@@ -490,6 +491,36 @@ module.exports = function (grunt) {
                     ]
                 }
             }
+        },
+
+        // replace
+        replace: {
+            development: {
+                options: {
+                    patterns: [{
+                        json: grunt.file.readJSON('./config/environments/development.json')
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    src: ['./config/config.js'],
+                    dest: '<%= yeoman.client %>/app/'
+                }]
+            },
+            staging: {
+                options: {
+                    patterns: [{
+                        json: grunt.file.readJSON('./config/environments/staging.json')
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    src: ['./config/config.js'],
+                    dest: '<%= yeoman.client %>/app/'
+                }]
+            }
         }
     });
 
@@ -528,6 +559,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
+            'replace:development',
             'env:all',
             'concurrent:server',
             'injector',
@@ -587,6 +619,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'replace:staging',
         'concurrent:dist',
         'injector',
         'bowerInstall',
@@ -607,5 +640,12 @@ module.exports = function (grunt) {
         'newer:jshint',
         'test',
         'build'
+    ]);
+
+    grunt.registerTask('staging', [
+        'replace:staging'
+    ]);
+    grunt.registerTask('development', [
+        'replace:development'
     ]);
 };
