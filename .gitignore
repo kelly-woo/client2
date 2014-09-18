@@ -8,4 +8,4 @@ tmp
 .DS_Store
 .idea
 atlassian-ide-plugin.xml
-config.js
+client/app/config.js

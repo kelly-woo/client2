@@ -619,7 +619,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'replace:staging',
         'concurrent:dist',
         'injector',
         'bowerInstall',
