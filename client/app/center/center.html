@@ -54,8 +54,9 @@
                     <div class="msg-file" data-ng-if="msg.message.contentType === 'file'">
                         <div class="msg-file-body">
                             <img class="msg-file-body__img cursor_pointer"
+                                 rotate
                                  data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
-                                 data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.largeThumbnailUrl }}"
+                                 data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.mediumThumbnailUrl }}"
                                  data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })" />
                         </div>
                         <div class="msg-file-meta">
@@ -174,8 +175,3 @@
         </form>
     </div>
 </div>
-
-
-<style>
-
-</style>

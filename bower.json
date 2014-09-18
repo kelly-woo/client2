@@ -28,7 +28,8 @@
     "jquery.lazyload": "~1.9.3",
     "ngImgCrop": "~0.2.0",
     "angular-gettext": "~1.0.1",
-    "angulartics": "~0.16.5"
+    "angulartics": "~0.16.5",
+    "blueimp-load-image": "~1.13.0"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
