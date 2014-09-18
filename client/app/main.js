@@ -94,5 +94,15 @@ app.config(function ($stateProvider, $analyticsProvider) {
             url         : '/error?code&msg&referrer',
             title       : 'ERROR',
             controller  : 'errorController'
+        })
+        .state('404', {
+            url         : '/404',
+            title       : '404',
+            views       : {
+                '': {
+                    templateUrl : 'app/error/404.html',
+                    controller  : 'errorController'
+                }
+            }
         });
 });
