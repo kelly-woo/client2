@@ -5,10 +5,10 @@ var app = angular.module('jandiApp');
 app.config(function ($stateProvider, $analyticsProvider) {
     $stateProvider
         .state('signin', {
-            url: '/',
-            title: 'SignIn',
-            templateUrl: 'app/signin/signin.html',
-            controller: 'authController'
+            url         : '/',
+            title       : 'Sign In',
+            templateUrl : 'app/signin/signin.html',
+            controller  : 'authController'
         })
         .state('messages', {
             abstract    : true,

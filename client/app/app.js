@@ -23,7 +23,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
-    <!-- analytics -->
+    <!-- analytics start -->
     (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
         for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
     mixpanel.init(configuration.mp_token);
@@ -32,6 +32,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     ga('create', configuration.ga_token, 'auto');
+    <!-- analytics end -->
 
     var api_address = configuration.api_address;
     var api_version = configuration.api_version;
@@ -43,7 +44,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.displayNickname = false;
 
     $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
-        //change this code to handle the error somehow
         $state.go('messages.home');
     });
 
@@ -56,13 +56,11 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
         if (!fromState.name) {
             // if external access, continue to original state
-//                console.log("팀사이트로 이동");
         } else {
             // otherwise, internal access, redirect to messages state
             switch(toState.name) {
                 case 'archives':
                     event.preventDefault();
-
                     if ( toParams.entityId == $rootScope.user.id ) {
                         console.warn("prevent redirect to self direct message");
                         return false;
@@ -86,7 +84,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                     break;
                 case 'messages' :
                 case 'messages.home' :
-
                     var lastState = entityAPIservice.getLastEntityState();
                     if (!lastState) {
                         $rootScope.toDefault = true;
@@ -94,9 +91,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                     }
 
                     event.preventDefault();
-
                     if (lastState.rpanel_visible) {
-
                         if (lastState.itemId) {
                             $state.go('messages.detail.files.item', { entityType:lastState.entityType, entityId: lastState.entityId, itemId: lastState.itemId });
                             return;
@@ -152,22 +147,18 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     // init
     $rootScope.setLang('ko_KR', true);
 
-})
+});
 
 app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, localStorageServiceProvider) {
 
     $httpProvider.interceptors.push('authInterceptor');
-
-    /* CORS setting */
-    // $httpProvider.defaults.useXDomain = true;
-    // delete $httpProvider.defaults.headers.common["X-Requested-With"];
-    // $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
     /* LocalStorage prefix setting */
     localStorageServiceProvider.setPrefix('_jd_');
 
     /* URL routing rule for exception */
     $urlRouterProvider
+        .when("", "/")
         .when("/messages/", "/messages")
         .when("/channels/:id/", "/channels/:id")
         .when("/users/:id/", "/users/:id")

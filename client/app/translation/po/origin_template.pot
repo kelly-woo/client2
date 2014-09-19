@@ -110,20 +110,16 @@ msgstr ""
 msgid "Create a private group"
 msgstr ""
 
-#: client/app/left/left.html
-msgid "Create channel"
-msgstr ""
-
 #: client/app/modal/create.channel.html
 msgid "Create new channel"
 msgstr ""
 
-#: client/app/left/left.html
-msgid "Create private group"
-msgstr ""
-
 #: client/app/modal/create.channel.html
 msgid "Creating a new channel."
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "Customer Service"
 msgstr ""
 
 #: client/app/right/file.html
@@ -176,6 +172,10 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
+#: client/app/signin/signin.html
+msgid "Enter your email and password"
+msgstr ""
+
 #: client/app/modal/invite.team.html
 msgid "Failed to send email"
 msgstr ""
@@ -202,6 +202,10 @@ msgstr ""
 
 #: client/app/modal/upload.html
 msgid "For search file by title"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "Forgot Password?"
 msgstr ""
 
 #: client/app/header/header.html
@@ -320,7 +324,9 @@ msgstr ""
 msgid "Position"
 msgstr ""
 
+#: client/app/error/404.html
 #: client/app/header/header.html
+#: client/app/signin/signin.html
 msgid "Privacy Policy"
 msgstr ""
 
@@ -364,10 +370,6 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "Rename this group"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Search"
 msgstr ""
 
 #: client/app/right/right.html
@@ -422,7 +424,9 @@ msgstr ""
 msgid "Team Directory"
 msgstr ""
 
+#: client/app/error/404.html
 #: client/app/header/header.html
+#: client/app/signin/signin.html
 msgid "Terms of Service"
 msgstr ""
 
@@ -453,6 +457,14 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "View profile"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "Visit Homepage"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "Welcome to {{teamInfo.name}}"
 msgstr ""
 
 #: client/app/right/right.html
@@ -501,10 +513,6 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "left this channel"
-msgstr ""
-
-#: client/app/left/left.html
-msgid "more..."
 msgstr ""
 
 #: client/app/right/file.html

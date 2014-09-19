@@ -11,7 +11,15 @@ app.factory('loginAPI', function($http, $rootScope) {
             url     : $rootScope.server_address + 'token',
             data    : userdata
         });
-    }
+    };
+
+    authAPI.getTeamInfo = function(prefixDomain) {
+        prefixDomain = prefixDomain || 'tosslab';
+        return $http({
+            method  : "GET",
+            url     : $rootScope.server_address + 'info/team/prefix/' + prefixDomain
+        });
+    };
 
     return authAPI;
 });

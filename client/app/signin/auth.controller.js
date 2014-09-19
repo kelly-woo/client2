@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('authController', function($scope, $state, $window, $location, loginAPI, localStorageService) {
+app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService) {
 
      var default_state = {
         cpanel_name: 'general',
@@ -17,24 +17,63 @@ app.controller('authController', function($scope, $state, $window, $location, lo
         password    : ''
     };
 
+    $scope.teamInfo = {
+        id          : -1,
+        name        : '',
+        prefix      : ''
+    };
+
     $scope.error = {
         status      : false,
         messsage    : ''
     };
 
-    var getTeamInfo = function(email) {
-
+    $scope.openModal = function(selector) {
+        // OPENING JOIN MODAL VIEW
+        if (selector == 'agreement') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/terms/agreement.html',
+                size        :   'lg'
+            });
+        }
+        else if (selector == 'privacy') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/terms/privacy.html',
+                size        :   'lg'
+            });
+        }
     };
 
+    var prefix = $location.host().split('.')[0];
+    $scope.teamInfo.prefix = $location.host().split('.')[0];
+
+    // 최초 로드시 팀정보 받아오기
+    var getTeamInfo = function() {
+        if (prefix === 'local' || prefix === 'dev') {
+            prefix = 'abcd';
+        }
+        loginAPI.getTeamInfo(prefix)
+            .success(function(data) {
+                console.debug(data.teamInfo);
+                $scope.teamInfo.id = data.teamInfo.teamId;
+                $scope.teamInfo.name = data.teamInfo.name;
+            })
+            .error(function(err) {
+                console.error(err);
+                $state.go('404');
+            });
+    };
+    getTeamInfo();
+
     if ($location.search().email) {
+        // if email is in query string, set the value initially
         $scope.user.email = $location.search().email;
-        getTeamInfo($scope.user.email);
     }
 
     $scope.signin = function(user) {
         user.teamId = -1;
-
-        var prefix = $location.host().split('.')[0];
 
         if (!_.isUndefined(prefix)) {
             if (prefix === 'local' || prefix === 'dev') {

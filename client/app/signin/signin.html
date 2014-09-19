@@ -6,17 +6,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="//www.jandi.com" target="_blank">
                 <strong><img src="assets/images/logo_jandi.png" class="jandi-navbar__logo"></strong>
             </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                    <a href="#">고객 센터 방문하기 &RightArrow;</a>
+                <li class="" data-ng-if="false">
+                    <a href="#"><span translate>Customer Service</span> &RightArrow;</a>
                 </li>
-                <li>
-                    <a href="//jandi.com">잔디 홈페이지 바로가기 &RightArrow;</a>
+                <li data-ng-if="false">
+                    <a href="//www.jandi.com"><span translate>Visit Homepage</span> &RightArrow;</a>
                 </li>
             </ul>
         </div>
@@ -27,8 +27,8 @@
         <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
         <div class="col-lg-4">
             <img src="assets/images/logo-ci.png" alt="logo-ci" class="jandi-header__logo" />
-            <h2 class="jandi-header__title">환영합니다!</h2>
-            <p class="jandi-header__message">아이디와 비밀번호를 입력하세요</p>
+            <h2 class="jandi-header__title"><span translate>Welcome to {{teamInfo.name}}</span>!</h2>
+            <p class="jandi-header__message"><span translate>Enter your email and password</span></p>
         </div>
         <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
     </div>
@@ -41,11 +41,10 @@
                 </div>
                 <input type="email" ng-model="user.email" class="jandi-body__form-input form-control" placeholder="{{ 'Email address' | translate }}" required autofocus>
                 <input type="password" ng-model="user.password" class="jandi-body__form-input form-control" placeholder="{{ 'Password' | translate }}" required>
-                <button class="btn btn-jandi btn-block jandi-body__form-submit" type="submit" ng-disabled="signinForm.$invalid" translate>Sign In</button>
+                <button class="btn btn-jandi btn-block jandi-body__form-submit" type="submit" ng-disabled="signinForm.$invalid"><span translate>Sign In</span></button>
             </form>
             <div class="jandi-body__help">
-                <a class="jandi-body__help-text">아이디 비밀번호 찾기 &RightArrow;</a>
-                <a class="jandi-body__help-text">잔디 회원가입 &RightArrow;</a>
+                <a class="jandi-body__help-text"><span translate>Forgot Password?</span> &RightArrow;</a>
             </div>
         </div>
         <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>

@@ -113,21 +113,17 @@ msgstr "그룹 생성"
 msgid "Create a private group"
 msgstr "비공개 그룹 생성"
 
-#: client/app/left/left.html
-msgid "Create channel"
-msgstr "채널 생성"
-
 #: client/app/modal/create.channel.html
 msgid "Create new channel"
 msgstr "새 채널 생성"
 
-#: client/app/left/left.html
-msgid "Create private group"
-msgstr "비공개 그룹 생성"
-
 #: client/app/modal/create.channel.html
 msgid "Creating a new channel."
 msgstr "새로운 채널을 생성합니다."
+
+#: client/app/signin/signin.html
+msgid "Customer Service"
+msgstr "고객 센터"
 
 #: client/app/right/file.html
 msgid "Delete"
@@ -178,6 +174,10 @@ msgstr "이메일"
 msgid "Email address"
 msgstr "이메일 주소"
 
+#: client/app/signin/signin.html
+msgid "Enter your email and password"
+msgstr "이메일과 비밀번호를 입력하세요"
+
 #: client/app/modal/invite.team.html
 msgid "Failed to send email"
 msgstr "다음 주소로 이메일 보내기를 실패하였습니다."
@@ -201,6 +201,10 @@ msgstr "이름"
 #: client/app/modal/upload.html
 msgid "For search file by title"
 msgstr "타이틀로 파일을 쉽게 검색할 수 있습니다"
+
+#: client/app/signin/signin.html
+msgid "Forgot Password?"
+msgstr "비밀번호 찾기"
 
 #: client/app/header/header.html client/app/right/right.html
 msgid "Images"
@@ -313,7 +317,8 @@ msgstr ""
 msgid "Position"
 msgstr "직책"
 
-#: client/app/header/header.html
+#: client/app/error/404.html client/app/header/header.html
+#: client/app/signin/signin.html
 msgid "Privacy Policy"
 msgstr "개인정보취급방침"
 
@@ -356,10 +361,6 @@ msgstr "채널 이름 변경하기"
 #: client/app/header/header.html
 msgid "Rename this group"
 msgstr "비공개 그룹 이름 변경하기"
-
-#: client/app/header/header.html
-msgid "Search"
-msgstr "검색"
 
 #: client/app/right/right.html
 msgid "Search by title"
@@ -410,7 +411,8 @@ msgstr "즐겨찾기"
 msgid "Team Directory"
 msgstr "팀"
 
-#: client/app/header/header.html
+#: client/app/error/404.html client/app/header/header.html
+#: client/app/signin/signin.html
 msgid "Terms of Service"
 msgstr "이용약관"
 
@@ -441,6 +443,14 @@ msgstr "파일 보기"
 #: client/app/header/header.html
 msgid "View profile"
 msgstr "프로필 보기"
+
+#: client/app/signin/signin.html
+msgid "Visit Homepage"
+msgstr "잔디 홈페이지"
+
+#: client/app/signin/signin.html
+msgid "Welcome to {{teamInfo.name}}"
+msgstr "{{teamInfo.name}} 환영합니다"
 
 #: client/app/right/right.html
 msgid "YOU"
@@ -492,13 +502,21 @@ msgstr "님이 참여했습니다"
 msgid "left this channel"
 msgstr "님이 떠났습니다"
 
-#: client/app/left/left.html
-msgid "more..."
-msgstr "더 보기..."
-
 #: client/app/right/file.html
 msgid "shift+enter to multiline"
 msgstr "멀티라인 입력: shift+enter"
+
+#~ msgid "Create channel"
+#~ msgstr "채널 생성"
+
+#~ msgid "Create private group"
+#~ msgstr "비공개 그룹 생성"
+
+#~ msgid "Search"
+#~ msgstr "검색"
+
+#~ msgid "more..."
+#~ msgstr "더 보기..."
 
 #~ msgid "----- choose -----"
 #~ msgstr "----- 선택 -----"
