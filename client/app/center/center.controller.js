@@ -31,7 +31,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         firstLoadedId: -1,
         lastUpdatedId: -1,
         isFirst: false,
-        localLastMsgId: -1,
         loadingTimer : true,
         isInitialLoadingCompleted : false
     };
@@ -148,6 +147,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                         if (response.messageCount) {
 
+                            //  marker 설정
+                            updateMessageMarker();
+
                             for (var i in response.messages.reverse()) {
 
                                 var msg = response.messages[i];
@@ -179,14 +181,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                             $scope.messageUpdateCount = response.messageCount;
 
                             groupByDate();
-                        }
-
-                        // 최초 로드시 max(linkId) 업데이트
-                        if ( $scope.msgLoadStatus.firstLoadedId < 0 && response.messageCount ) {
-                            //  localLastMsgId is for message marker of current entity
-                            $scope.msgLoadStatus.localLastMsgId = _.max($scope.messages, function(message) {
-                                return message.id;
-                            }).id;
                         }
 
                         // 추후 로딩을 위한 status 설정
@@ -237,13 +231,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 // lastUpdatedId 갱신
                 $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
 
+
                 response = response.updateInfo;
 
-                //  localLastMsgId is for message marker for current entity
                 if (response.messageCount) {
-                    $scope.msgLoadStatus.localLastMsgId = _.max(response.messages, function(message) {
-                        return message.id;
-                    }).id;
+
+                    //  marker 설정
+                    updateMessageMarker();
 
                     // 업데이트 된 메세지 처리
                     for (var i in response.messages) {
@@ -332,12 +326,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('$destroy', function(){
         $timeout.cancel($scope.promise);
     });
-
-    //  update message marker only there are new msgs to display. otherwise, don't update.
-    $scope.$watch('msgLoadStatus.localLastMsgId', function(newVal, oldVal) {
-        if (newVal != -1) updateMessageMarker();
-    });
-
 
     $scope.message = {};
     $scope.postMessage = function() {
@@ -706,9 +694,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     //  Updating message marker for current entity.
     function updateMessageMarker() {
-        messageAPIservice.updateMessageMarker($scope.currentEntity.id, $scope.currentEntity.type, $scope.msgLoadStatus.localLastMsgId)
+        messageAPIservice.updateMessageMarker($scope.currentEntity.id, $scope.currentEntity.type, $scope.msgLoadStatus.lastUpdatedId)
             .success(function(response) {
-//                console.log('----------- successfully updated message marker for ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.localLastMsgId + ' with ' + $scope.currentEntity.type)
+                console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.lastUpdatedId + ' with ' + $scope.currentEntity.type)
             })
             .error(function(response) {
                 console.log('message marker not updated for ' + $scope.currentEntity.id);
