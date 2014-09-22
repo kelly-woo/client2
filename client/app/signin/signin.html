@@ -59,9 +59,9 @@
             </div>
             <div class="col-lg-5 col-sm-5 col-xs-12">
                 <div class="jandi-footer__terms">
-                    <a href="#" data-ng-click="openModal('agreement')"><span translate>Terms of Service</span></a>
+                    <a href="#" data-ng-click="$event.preventDefault(); openModal('agreement');"><span translate>Terms of Service</span></a>
                     <span class="divider">|</span>
-                    <a href="#" data-ng-click="openModal('privacy')"><span translate>Privacy Policy</span></a>
+                    <a href="#" data-ng-click="$event.preventDefault(); openModal('privacy');"><span translate>Privacy Policy</span></a>
                 </div>
             </div>
         </div>

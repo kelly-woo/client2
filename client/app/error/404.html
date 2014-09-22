@@ -12,11 +12,11 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="hidden">
-                    <a href="#">고객 센터 방문하기 &RightArrow;</a>
+                <li class="" data-ng-if="false">
+                    <a href="#"><span translate>Customer Service</span> &RightArrow;</a>
                 </li>
-                <li>
-                    <a href="//www.jandi.com">잔디 홈페이지 바로가기 &RightArrow;</a>
+                <li data-ng-if="false">
+                    <a href="//www.jandi.com"><span translate>Visit Homepage</span> &RightArrow;</a>
                 </li>
             </ul>
         </div>
@@ -27,8 +27,8 @@
         <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
         <div class="col-lg-4">
             <img src="assets/images/404.png" alt="logo-ci" class="jandi-header__logo-404" />
-            <h2 class="jandi-header__title-404">...길을 잃었습니다!</h2>
-            <p class="jandi-header__message-404">존재하지 않는 링크이거나 삭제된 페이지 입니다</p>
+            <h2 class="jandi-header__title-404"><span translate>That’s an error</span>!</h2>
+            <p class="jandi-header__message-404"><span translate>The page you were looking for could not be found.</span></p>
         </div>
         <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
     </div>
@@ -47,9 +47,9 @@
             </div>
             <div class="col-lg-5 col-sm-5 col-xs-12">
                 <div class="jandi-footer__terms">
-                    <a href="#" data-ng-click="openModal('agreement')"><span translate>Terms of Service</span></a>
+                    <a href="#" data-ng-click="$event.preventDefault(); openModal('agreement');"><span translate>Terms of Service</span></a>
                     <span class="divider">|</span>
-                    <a href="#" data-ng-click="openModal('privacy')"><span translate>Privacy Policy</span></a>
+                    <a href="#" data-ng-click="$event.preventDefault(); openModal('privacy');"><span translate>Privacy Policy</span></a>
                 </div>
             </div>
         </div>

@@ -118,6 +118,7 @@ msgstr ""
 msgid "Creating a new channel."
 msgstr ""
 
+#: client/app/error/404.html
 #: client/app/signin/signin.html
 msgid "Customer Service"
 msgstr ""
@@ -430,6 +431,14 @@ msgstr ""
 msgid "Terms of Service"
 msgstr ""
 
+#: client/app/error/404.html
+msgid "That’s an error"
+msgstr ""
+
+#: client/app/error/404.html
+msgid "The page you were looking for could not be found."
+msgstr ""
+
 #: client/app/modal/upload.html
 msgid "Title"
 msgstr ""
@@ -459,6 +468,7 @@ msgstr ""
 msgid "View profile"
 msgstr ""
 
+#: client/app/error/404.html
 #: client/app/signin/signin.html
 msgid "Visit Homepage"
 msgstr ""
