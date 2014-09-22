@@ -383,7 +383,7 @@
 }
 .profile-body .form-horizontal  .form-group .control-label {
     text-align: left;
-    padding-top: 13px;
+    padding-right: 13px;
 }
 .profile-body .form-horizontal h4 {
     margin-bottom: 15px;
@@ -537,30 +537,4 @@
     background-repeat: no-repeat;
     background-position: center center;
     text-align: center;
-}
-.send_email_img {
-    width: 15px;
-    height: 13px;
-    background: url(../../assets/images/profile-icon-mail.png);
-}
-.profile-view-action:hover .send_email_img {
-    background: url(../../assets/images/profile-icon-mail-hover.png);
-}
-
-.file_list_img {
-    width: 13px;
-    height: 17px;
-    background: url(../../assets/images/profile-icon-file.png);
-}
-.profile-view-action:hover .file_list_img{
-    background: url(../../assets/images/profile-icon-file-hover.png);
-}
-
-.chat_img {
-    width: 18px;
-    height: 17px;
-    background: url(../../assets/images/profile-icon-chat.png);
-}
-.profile-view-action:hover .chat_img {
-    background: url(../../assets/images/profile-icon-chat-hover.png);
 }
