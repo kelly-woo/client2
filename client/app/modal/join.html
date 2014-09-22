@@ -22,14 +22,14 @@
         </div>
     </div>
 
-    <div id="non_member_containter">
+    <div id="non_member_container">
         <div class="join-modal-heading">
             <span translate>Channels you can join</span>
         </div>
         <div class="join-modal-channel_container file-item-meta__listview is_not_member"
              ng-repeat="channel in filtered = (unJoinedChannelList | filter:{'name': channelTitleQuery})">
 
-            <div class="join-modal-channel_title cursor_pointer" ng-click="onJoinClick(channel.id);">#{{channel.name}}</div>
+            <div class="join-modal-channel_title cursor_pointer overflow-ellipsis" ng-click="onJoinClick(channel.id);">#{{channel.name}}</div>
             <div>
                 <i class="fa fa-user"></i> <span class="join-modal-channel_creator">{{ getName(channel.ch_creatorId) }}</span>
                 <span class="bullet"> • </span>
@@ -56,7 +56,7 @@
              data-ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})"
              data-ng-click="cancel();">
 
-            <div class="join-modal-channel_title cursor_pointer" >#{{joinedChannel.name}}</div>
+            <div class="join-modal-channel_title cursor_pointer overflow-ellipsis">#{{joinedChannel.name}}</div>
             <div>
                 <i class="fa fa-user"></i> <span class="join-modal-channel_creator">{{ getName(joinedChannel.ch_creatorId) }}</span>
                 <span class="bullet"> • </span>

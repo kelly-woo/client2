@@ -81,6 +81,9 @@
     background: #eefcf7;
 }
 
+#non_member_container .join-modal-channel_container .join-modal-channel_title {
+    padding-right: 55px;
+}
 .join-modal-channel_title {
     color: black;
     font-size:16px;
