@@ -519,6 +519,7 @@
     width: 33%;
     padding-top: 8px;
     cursor: pointer;
+    color: rgb(85, 84, 89);
 }
 .profile-view-action__text {
     font-size: 12px;
@@ -526,6 +527,7 @@
     text-align: center;
     margin-top: 5px;
 }
+.profile-view-action:hover,
 .profile-view-action:hover .profile-view-action__text {
     color: #31c08a;
 }
@@ -534,6 +536,7 @@
     margin: auto;
     background-repeat: no-repeat;
     background-position: center center;
+    text-align: center;
 }
 .send_email_img {
     width: 15px;
