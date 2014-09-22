@@ -145,7 +145,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     };
 
     // init
-    $rootScope.setLang('ko_KR', true);
+    // TODO: 브라우저 기본 언어로 초기화 필요
+    $rootScope.setLang('ko_KR', false);
+    var userLang = navigator.language || navigator.userLanguage;
+    console.debug("BrowserLang", userLang);
 
 });
 

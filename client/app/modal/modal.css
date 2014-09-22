@@ -164,11 +164,18 @@
     height: 50px;
 }
 
+.modal-wide .modal-dialog {
+    width: 800px;
+    overflow-y: scroll;
+    margin: 20px auto;
+    max-height: 93%;
+}
 
 .modal-lg {
     width: 500px;
-    max-height: 93%;
     overflow-y: scroll;
+    margin: 20px auto;
+    max-height: 93%;
 }
 .allowOverflowY > div {
     max-height: 100%;
@@ -358,6 +365,44 @@
     margin: 2px;
 }
 
+
+
+
+
+/*
+    PREFERENCES
+*/
+.modal-preferences-body {
+
+}
+.modal-preferences-body__section-title {
+    text-align: left;
+    margin: 20px 0 10px !important;
+    color: #333 !important;
+    font-size: 16px !important;
+}
+.modal-preferences-body .radio {
+    position: relative;
+    display: block;
+    min-height: 20px;
+    line-height: 27px;
+   /*margin-top: 10px;*/
+    /*margin-bottom: 10px;*/
+    /*padding-left: 0;*/
+}
+.modal-preferences-body .radio label {
+    padding-left: 5px;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+.modal-preferences-body .radio input[type=radio] {
+
+}
+
+
+
+
 /*
     PROFILE
 */
@@ -379,12 +424,13 @@
     margin-bottom: 7px;
 }
 .profile-body .form-horizontal  .form-group .control-label {
-    text-align: left;
+    text-align: right;
     padding-top: 13px;
 }
 .profile-body .form-horizontal h4 {
     margin-bottom: 15px;
     margin-top: 25px;
+    text-align: center;
 }
 
 #profile_image_uploader {
