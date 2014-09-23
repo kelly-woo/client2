@@ -92,7 +92,7 @@ msgstr "파일 보기"
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html client/app/modal/list.user.html
-#: client/app/modal/profile.html
+#: client/app/modal/preferences.html client/app/modal/profile.html
 msgid "Close"
 msgstr "닫기"
 
@@ -100,6 +100,10 @@ msgstr "닫기"
 #: client/app/right/file.html client/app/right/right.html
 msgid "Comment"
 msgstr "댓글 남기기"
+
+#: client/app/modal/preferences.html
+msgid "Confirm"
+msgstr "확인"
 
 #: client/app/modal/create.channel.html client/app/modal/join.html
 msgid "Create Channel"
@@ -140,6 +144,10 @@ msgstr "비공개 그룹 삭제하기"
 #: client/app/modal/profile.html
 msgid "Department"
 msgstr "부서"
+
+#: client/app/modal/preferences.html
+msgid "Desktop Notifications"
+msgstr "데스크탑 알림"
 
 #: client/app/modal/list.user.html
 msgid "Direct Message"
@@ -198,6 +206,10 @@ msgstr "파일"
 msgid "First Name"
 msgstr "이름"
 
+#: client/app/modal/preferences.html
+msgid "For all messages"
+msgstr "모든 메세지"
+
 #: client/app/modal/upload.html
 msgid "For search file by title"
 msgstr "타이틀로 파일을 쉽게 검색할 수 있습니다"
@@ -247,6 +259,10 @@ msgstr "채널/비공개 그룹으로 초대하기"
 msgid "Invite {{ currentEntity | getFirstLastNameOfUser }} to a channel/group"
 msgstr "{{ currentEntity | getFirstLastNameOfUser }}님 초대하기"
 
+#: client/app/modal/preferences.html
+msgid "Language"
+msgstr "언어"
+
 #: client/app/modal/invite.team.html client/app/modal/profile.html
 msgid "Last Name"
 msgstr "성"
@@ -267,6 +283,10 @@ msgstr "모든 정보를 입력해주세요"
 msgid "Name"
 msgstr "이름"
 
+#: client/app/modal/preferences.html
+msgid "Never"
+msgstr "없음"
+
 #: client/app/modal/rename.html
 msgid "New Channel Name"
 msgstr "새 채널 이름"
@@ -286,6 +306,10 @@ msgstr "검색 결과가 없습니다"
 #: client/app/right/right.html
 msgid "No files uploaded"
 msgstr "업로드된 파일이 없습니다"
+
+#: client/app/modal/preferences.html
+msgid "Only for direct messages"
+msgstr "1:1 메세지"
 
 #: client/app/center/center.html client/app/right/right.html
 msgid "Open original"
@@ -316,6 +340,10 @@ msgstr ""
 #: client/app/modal/profile.html
 msgid "Position"
 msgstr "직책"
+
+#: client/app/left/left.html client/app/modal/preferences.html
+msgid "Preferences"
+msgstr "서비스 설정"
 
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/signin/signin.html
@@ -464,6 +492,10 @@ msgstr "{{teamInfo.name}} 환영합니다"
 msgid "YOU"
 msgstr "나"
 
+#: client/app/modal/preferences.html
+msgid "You can change service preferences such as language, notifications."
+msgstr "언어, 데스크탑 알림 등 서비스 설정을 할 수 있습니다."
+
 #: client/app/modal/invite.team.html
 msgid "You can invite others to Jandi by email."
 msgstr "이메일을 통해 다른 팀원을 잔디로 초대할 수 있습니다."
@@ -487,6 +519,14 @@ msgid "created current private group"
 msgstr "님이 비공개 그룹을 생성했습니다"
 
 #: client/app/center/center.html
+msgid "has joined"
+msgstr "님이 떠났습니다"
+
+#: client/app/center/center.html
+msgid "has left"
+msgstr "님이 참여했습니다"
+
+#: client/app/center/center.html
 msgid "invite-postfix"
 msgstr "님을 초대했습니다"
 
@@ -502,17 +542,18 @@ msgstr "은(는) 이미 가입된 이메일입니다"
 msgid "is invalid email address"
 msgstr "은(는) 올바르지 않은 이메일 주소입니다"
 
-#: client/app/center/center.html
-msgid "joined this channel"
-msgstr "님이 참여했습니다"
-
-#: client/app/center/center.html
-msgid "left this channel"
-msgstr "님이 떠났습니다"
-
 #: client/app/right/file.html
 msgid "shift+enter to multiline"
 msgstr "멀티라인 입력: shift+enter"
+
+#~ msgid "For activity of any kind"
+#~ msgstr "모든 메세지"
+
+#~ msgid "joined this channel"
+#~ msgstr "님이 참여했습니다"
+
+#~ msgid "left this channel"
+#~ msgstr "님이 떠났습니다"
 
 #~ msgid "Create channel"
 #~ msgstr "채널 생성"

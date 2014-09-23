@@ -86,6 +86,7 @@ msgstr ""
 #: client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
 #: client/app/modal/list.user.html
+#: client/app/modal/preferences.html
 #: client/app/modal/profile.html
 msgid "Close"
 msgstr ""
@@ -95,6 +96,10 @@ msgstr ""
 #: client/app/right/file.html
 #: client/app/right/right.html
 msgid "Comment"
+msgstr ""
+
+#: client/app/modal/preferences.html
+msgid "Confirm"
 msgstr ""
 
 #: client/app/modal/create.channel.html
@@ -137,6 +142,10 @@ msgstr ""
 
 #: client/app/modal/profile.html
 msgid "Department"
+msgstr ""
+
+#: client/app/modal/preferences.html
+msgid "Desktop Notifications"
 msgstr ""
 
 #: client/app/modal/list.user.html
@@ -201,6 +210,10 @@ msgstr ""
 msgid "First Name"
 msgstr ""
 
+#: client/app/modal/preferences.html
+msgid "For all messages"
+msgstr ""
+
 #: client/app/modal/upload.html
 msgid "For search file by title"
 msgstr ""
@@ -253,6 +266,10 @@ msgstr ""
 msgid "Invite {{ currentEntity | getFirstLastNameOfUser }} to a channel/group"
 msgstr ""
 
+#: client/app/modal/preferences.html
+msgid "Language"
+msgstr ""
+
 #: client/app/modal/invite.team.html
 #: client/app/modal/profile.html
 msgid "Last Name"
@@ -275,6 +292,10 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
+#: client/app/modal/preferences.html
+msgid "Never"
+msgstr ""
+
 #: client/app/modal/rename.html
 msgid "New Channel Name"
 msgstr ""
@@ -293,6 +314,10 @@ msgstr ""
 
 #: client/app/right/right.html
 msgid "No files uploaded"
+msgstr ""
+
+#: client/app/modal/preferences.html
+msgid "Only for direct messages"
 msgstr ""
 
 #: client/app/center/center.html
@@ -323,6 +348,11 @@ msgstr ""
 
 #: client/app/modal/profile.html
 msgid "Position"
+msgstr ""
+
+#: client/app/left/left.html
+#: client/app/modal/preferences.html
+msgid "Preferences"
 msgstr ""
 
 #: client/app/error/404.html
@@ -481,6 +511,10 @@ msgstr ""
 msgid "YOU"
 msgstr ""
 
+#: client/app/modal/preferences.html
+msgid "You can change service preferences such as language, notifications."
+msgstr ""
+
 #: client/app/modal/invite.team.html
 msgid "You can invite others to Jandi by email."
 msgstr ""
@@ -502,6 +536,14 @@ msgid "created current private group"
 msgstr ""
 
 #: client/app/center/center.html
+msgid "has joined"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "has left"
+msgstr ""
+
+#: client/app/center/center.html
 msgid "invite-postfix"
 msgstr ""
 
@@ -515,14 +557,6 @@ msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "is invalid email address"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "joined this channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "left this channel"
 msgstr ""
 
 #: client/app/right/file.html
