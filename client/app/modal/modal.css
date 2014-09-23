@@ -433,9 +433,7 @@
     margin-bottom: 7px;
 }
 .profile-body .form-horizontal  .form-group .control-label {
-    text-align: left;
-    padding-right: 13px;
-    padding-top: 13px;
+    text-align: right;
 }
 .profile-body .form-horizontal h4 {
     margin-bottom: 15px;
