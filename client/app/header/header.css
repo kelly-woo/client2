@@ -1,15 +1,16 @@
 /*Header*/
 .header {
     padding-left: 220px;
-    height: 60px;
+    height: 40px;
+    line-height: 40px;
     background-color: #FFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
     min-width: 700px;
 }
 .header-title {
     position:relative;
-    height: 60px;
-    line-height: 60px;
+    height: inherit;
+    line-height inherit;
     font-size: 18px;
     color: #333;
     margin: 0;
@@ -36,6 +37,7 @@
     display: inline-block;
     position: relative;
     vertical-align: top;
+    height: inherit;
 }
 
 .header-title-info .star {
@@ -91,7 +93,7 @@
     color:#555459;
     cursor:pointer;
     display:inline-block;
-    height: 60px;
+    height: inherit;
     width: 100%;
 }
 .header-title-info .prefix {
@@ -117,7 +119,7 @@
     -o-transitionDISABLED:color .15s ease-out;
     transitionDISABLED:color .15s ease-out;
     cursor:pointer;
-    line-height: 60px;
+    line-height: inherit;
     position: absolute;
     right: 0;
 }
@@ -149,9 +151,9 @@
 /*Search bar*/
 .header-search {
     padding-right:15px;
-    line-height: 60px;
+    line-height: inherit;
     float:right;
-    margin-top: -60px;
+    margin-top: -40px;
     height: inherit;
 }
 

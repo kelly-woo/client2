@@ -1,131 +1,16 @@
+<div ui-view="headerpanel"></div>
+
 <aside class="lpanel">
-
-    <!-- TEAM CONTAINER  -->
-    <div class="lpanel-team" >
-        <span class="lpanel-team__name overflow-ellipsis right_padding dropdown-toggle">
-            {{ team.name }}
-        </span>
-    </div>
-
-    <!-- LIST CONTAINER -->
-    <div class="lpanel-list">
-
-        <!-- STARRED CONTAINER  -->
-        <div class="lpanel-list__stars" ng-show="entities.stars.length">
-            <h2 id="starred_section_header" class="overflow-ellipsis"><span class="glyphicon glyphicon-star"></span> Starred</h2>
-        </div>
-
-        <!-- CHANNEL -->
-        <div class="lpanel-list__channels">
-
-            <!--    HEADER  -->
-            <div class="lpanel-list__header cursor_pointer" ng-click="isChListCollapsed = !isChListCollapsed">
-                <h2 class="cursor_pointer inline-overflow-ellipsis">
-                    <span translate>Channels</span>
-                </h2>
-                <span class="lpanel-list-left">
-                    <i ng-if="isChListCollapsed" class="fa fa-caret-right"></i>
-                    <i ng-if="!isChListCollapsed" class="fa fa-caret-down"></i>
-                </span>
-
-                <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-plus"></i></div>
-                <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-list"></i></div>
-
-            </div>
-
-            <!--    LIST    -->
-            <ul id="channel-list" collapse="isChListCollapsed">
-                <li ng-repeat="joinedChannel in joinedChannelList" ng-class="{active: $state.params.entityId == joinedChannel.id}">
-                    <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
-                        <span class="inline-overflow-ellipsis left-panel__name">
-                            <span class="prefix">#</span> {{joinedChannel.name}}
-                        </span>
-                        <span class="badge left-panel_badge green_badge pull-right">{{joinedChannel.alarmCnt}}</span>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="clear-both"></div>
-        </div>
-
-        <!-- PRIVATE GROUPS -->
-        <div class="lpanel-list__groups">
-
-            <!--    HEADER  -->
-            <div class="lpanel-list__header cursor_pointer" ng-click="isPGCollapsed = !isPGCollapsed">
-                <h2 id="groups_header" class="inline-overflow-ellipsis">
-                    <span translate>Private Groups</span>
-                </h2>
-
-                <span class="lpanel-list-left">
-                    <i ng-if="isPGCollapsed" class="fa fa-caret-right"></i>
-                    <i ng-if="!isPGCollapsed" class="fa fa-caret-down"></i>
-                </span>
-
-                <div class="lpanel-list-option pull-right" ng-click="openModal('private'); $event.stopPropagation(); $event.preventDefault();"><i class="fa fa-plus"></i></div>
-
-            </div>
-
-            <!--    LIST    -->
-            <ul id="group-list" collapse="isPGCollapsed">
-                <li class="group cursor_pointer" ng-repeat="group in privateGroupList" ng-class="{active: $state.params.entityId == group.id}">
-                    <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
-                        <!--<i class="fa fa-times-circle group_close"></i>-->
-                        <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name"></span>
-                        <span class="badge left-panel_badge green_badge pull-right">{{group.alarmCnt}}</span>
-
-                    </a>
-                </li>
-            </ul>
-
-            <div class="clear-both"></div>
-        </div>
-
-        <!-- DIRECT MESSAGES    -->
-        <div class="lpanel-list__users">
-
-            <!--    HEADER  -->
-            <div class="lpanel-list__header cursor_pointer" ng-click="isDMCollapsed = !isDMCollapsed">
-                <h2 id="direct_messages_header" class="hoverable inline-overflow-ellipsis entity_header">
-                    <span translate>Direct Messages</span>
-                </h2>
-
-                <span class="lpanel-list-left">
-                    <i ng-if="isDMCollapsed" class="fa fa-caret-right"></i>
-                    <i ng-if="!isDMCollapsed" class="fa fa-caret-down"></i>
-                </span>
-            </div>
-
-            <!--    LIST    -->
-            <ul id="dm-list" collapse="isDMCollapsed">
-                <div class="lpanel-list-user_search">
-                    <i class="fa fa-search absolute-search-icon"></i>
-                    <input type="text" class="form-control lpanel-list-user-search__box" placeholder="" data-ng-model="userNameQuery" ng-focus="onDMInputFocus();" ng-blur="onDMInputBlur();"
-                           ng-change="onDMInputChange(userNameQuery);">
-                </div>
-
-                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | userByName:userNameQuery)">
-                    <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
-                        <i class="fa fa-times-circle entity-remove hidden" data-ng-click="userEntity.visibility = false; $event.stopPropagation(); $event.preventDefault();"></i>
-                        <span class="inline-overflow-ellipsis left-panel__name">{{userEntity|getFirstLastNameOfUser}}</span>
-                        <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="clear-both"></div>
-        </div>
-
-    </div>
 
     <!-- USER INFO CONTAINER -->
     <div class="lpanel-user">
         <span data-toggle="dropdown">
             <img class="lpanel-user__avatar" data-ng-src="{{ server_uploaded + user.u_photoThumbnailUrl.smallThumbnailUrl }}">
             <div class="lpanel-user__container">
-                <span class="lpanel-user__name inline-overflow-ellipsis">{{ user | getFirstLastNameOfUser}}</span>
+                <span class="lpanel-user__name inline-overflow-ellipsis"><b>{{team.name}}</b><br/>
+                    {{user.u_extraData.position}} {{user|getFirstLastNameOfUser}}</span>
             </div>
-            <i class="fa fa-caret-up lpanel-user__more" ></i>
+            <i class="fa fa-caret-up lpanel-user__more hidden" ></i>
         </span>
         <ul class="dropdown-menu green_dropdown lpanel-user__dropdown" role="menu">
             <li role="presentation">
@@ -154,7 +39,114 @@
         </ul>
     </div>
 
+    <!-- TEAM CONTAINER  -->
+    <div class="lpanel-team hidden">
+        <span class="lpanel-team__name overflow-ellipsis right_padding dropdown-toggle">
+            {{ team.name }}
+        </span>
+    </div>
+
+    <!-- LIST CONTAINER -->
+    <div class="lpanel-list">
+
+        <!-- STARRED CONTAINER  -->
+        <div class="lpanel-list__stars" ng-show="entities.stars.length">
+            <h2 id="starred_section_header" class="overflow-ellipsis"><span class="glyphicon glyphicon-star"></span> Starred</h2>
+        </div>
+
+        <!-- CHANNEL -->
+        <div class="lpanel-list__channels">
+
+            <!--    HEADER  -->
+            <div class="lpanel-list__header cursor_pointer" ng-click="isChListCollapsed = !isChListCollapsed">
+                <i class="lpanel-list-left fa fa-comment"></i>
+
+                <span class="lpanel-list__title inline-overflow-ellipsis" translate>Channels</span>
+
+                <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();">
+                    <i class="fa fa-plus"></i><span translate>More</span>
+                </div>
+                <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();">
+                    <i class="fa fa-list"></i><span translate>Add</span>
+                </div>
+
+            </div>
+
+            <!--    LIST    -->
+            <ul id="channel-list" collapse="isChListCollapsed">
+                <li ng-repeat="joinedChannel in joinedChannelList" ng-class="{active: $state.params.entityId == joinedChannel.id}">
+                    <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
+                        <span class="inline-overflow-ellipsis left-panel__name">
+                            <span class="prefix">#</span> {{joinedChannel.name}}
+                        </span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{joinedChannel.alarmCnt}}</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="clear-both"></div>
+        </div>
+
+        <!-- PRIVATE GROUPS -->
+        <div class="lpanel-list__groups">
+
+            <!--    HEADER  -->
+            <div class="lpanel-list__header cursor_pointer" ng-click="isPGCollapsed = !isPGCollapsed">
+                <i class="lpanel-list-left fa fa-unlock-alt"></i>
+
+                <span class="lpanel-list__title inline-overflow-ellipsis" translate>Private Groups</span>
+
+                <div class="lpanel-list-option pull-right" ng-click="openModal('private'); $event.stopPropagation(); $event.preventDefault();">
+                    <i class="fa fa-plus"></i><span translate>Add</span>
+                </div>
+
+            </div>
+
+            <!--    LIST    -->
+            <ul id="group-list" collapse="isPGCollapsed">
+                <li class="group cursor_pointer" ng-repeat="group in privateGroupList" ng-class="{active: $state.params.entityId == group.id}">
+                    <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
+                        <!--<i class="fa fa-times-circle group_close"></i>-->
+                        <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name"></span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{group.alarmCnt}}</span>
+
+                    </a>
+                </li>
+            </ul>
+
+            <div class="clear-both"></div>
+        </div>
+
+        <!-- DIRECT MESSAGES    -->
+        <div class="lpanel-list__users">
+
+            <!--    HEADER  -->
+            <div class="lpanel-list__header cursor_pointer" ng-click="isDMCollapsed = !isDMCollapsed">
+                <i class="lpanel-list-left fa fa-user"></i>
+                <span class="lpanel-list__title inline-overflow-ellipsis" translate>Direct Messages</span>
+            </div>
+
+            <!--    LIST    -->
+            <ul id="dm-list" collapse="isDMCollapsed">
+                <div class="lpanel-list-user_search">
+                    <i class="fa fa-search absolute-search-icon"></i>
+                    <input type="text" class="form-control lpanel-list-user-search__box" placeholder="" data-ng-model="userNameQuery" ng-focus="onDMInputFocus();" ng-blur="onDMInputBlur();"
+                           ng-change="onDMInputChange(userNameQuery);">
+                </div>
+
+                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | userByName:userNameQuery)">
+                    <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
+                        <i class="fa fa-times-circle entity-remove hidden" data-ng-click="userEntity.visibility = false; $event.stopPropagation(); $event.preventDefault();"></i>
+                        <span class="inline-overflow-ellipsis left-panel__name">{{userEntity|getFirstLastNameOfUser}}</span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="clear-both"></div>
+        </div>
+
+    </div>
 </aside>
 
-<div ui-view="headerpanel"></div>
 <div ui-view="centerpanel" class="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>

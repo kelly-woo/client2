@@ -79,6 +79,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
     });
 
+    console.log(user)
 
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
