@@ -682,8 +682,8 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
 });
 
 //  PREFERENCES CONTROLLER
-app.controller('preferencesController', function($scope, $rootScope, $modalInstance, gettextCatalog) {
-    $scope.currentLang = gettextCatalog.currentLanguage;
+app.controller('preferencesController', function($state, $stateParams, $scope, $rootScope, $modalInstance, gettextCatalog) {
+    $scope.currentLang = $rootScope.preferences.language;
     $scope.listLangs = [
         { "value": "ko_KR", "text": "한국어" },
         { "value": "en_US", "text": "English" }
@@ -695,11 +695,15 @@ app.controller('preferencesController', function($scope, $rootScope, $modalInsta
 
     $scope.onClickConfirm = function(currentLang) {
         $scope.isLoading = true;
-        console.debug(currentLang);
-
-        gettextCatalog.setCurrentLanguage(currentLang);
-
+        // 언어 변경
+        $rootScope.setLang(currentLang);
         $scope.isLoading = false;
-        $modalInstance.dismiss('cancel')
+        // 현재 state 다시 로드
+        $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+        });
+        $modalInstance.dismiss('cancel');
     };
 });

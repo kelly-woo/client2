@@ -126,11 +126,11 @@
                             <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites"><!--
                                 --><span data-ng-if="$index !== 0">, </span><span>{{ invitees | getFirstLastNameOfUser }}</span><!--
                             --></span>
-                            <span>{{ 'invite-postfix' | translate }}</span>
+                            <span data-ng-if="preferences.lang === 'ko_KR'">{{ 'invite-postfix' | translate }}</span>
                         </span>
                         <span data-ng-if="false"
-                              data-msg-join="{{ 'joined this channel' | translate}}"
-                              data-msg-leave="{{ 'left this channel' | translate }}"
+                              data-msg-join="{{ 'has joined' | translate}}"
+                              data-msg-leave="{{ 'has left' | translate }}"
                               data-msg-invite="{{ 'invited' | translate }}"
                               data-msg-create-channel="{{ 'created current channel' | translate }}"
                               data-msg-create-group="{{ 'created current private group' | translate }}"></span>
