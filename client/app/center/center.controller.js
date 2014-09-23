@@ -133,7 +133,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         if ($scope.msgLoadStatus.isFirst) return;
 
-        if (!$scope.msgLoadStatus.loading) {
+        if (!$scope.msgLoadStatus.loading && !$scope.isPosting) {
 
             $scope.msgLoadStatus.loading = true;
 
@@ -213,7 +213,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var updateList = function() {
         //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
         //  In such case, don't update list and just return it.
-        if ($scope.msgLoadStatus.loading) {
+        if ($scope.msgLoadStatus.loading || $scope.isPosting) {
             $scope.promise = $timeout(updateList, updateInterval);
             return;
         }
@@ -332,13 +332,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         if (!$scope.message.content) return;
 
         // prevent duplicate request
-        $scope.msgLoadStatus.loading = true;
+//        $scope.msgLoadStatus.loading = true;
+        $scope.isPosting = true;
         var msg = $scope.message.content;
         $scope.message.content = "";
 
         messageAPIservice.postMessage(entityType, entityId, {'content': msg})
             .success(function(response) {
-                $scope.msgLoadStatus.loading = false;
+                $scope.isPosting = false;
+//                $scope.msgLoadStatus.loading = false;
                 $timeout.cancel($scope.promise);
                 updateList();
             })
@@ -696,7 +698,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     function updateMessageMarker() {
         messageAPIservice.updateMessageMarker($scope.currentEntity.id, $scope.currentEntity.type, $scope.msgLoadStatus.lastUpdatedId)
             .success(function(response) {
-                console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.lastUpdatedId + ' with ' + $scope.currentEntity.type)
+//                console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.lastUpdatedId + ' with ' + $scope.currentEntity.type)
             })
             .error(function(response) {
                 console.log('message marker not updated for ' + $scope.currentEntity.id);

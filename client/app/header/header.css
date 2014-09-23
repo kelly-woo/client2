@@ -152,11 +152,13 @@
     line-height: 60px;
     float:right;
     margin-top: -60px;
+    height: inherit;
 }
 
 /*Header toolbar*/
 .header-toolbar {
     display: inline-block;
+    height: inherit;
 }
 .header-toolbar-help,
 .header-toolbar-options,
