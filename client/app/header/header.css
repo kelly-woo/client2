@@ -1,16 +1,56 @@
 /*Header*/
+.hpanel {
+    border-bottom: 1px solid #e1e1e1;
+}
 .header {
-    padding-left: 220px;
     height: 40px;
     line-height: 40px;
-    background-color: #FFF;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    background-color: #f2f2f2;
     min-width: 700px;
+    padding-left: 20px;
+    /*box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);*/
 }
+
+.header > div {
+    margin-right: 15px;
+}
+/*Search bar*/
+.header-search {
+    height: inherit;
+    line-height: inherit;
+}
+
+/*Header toolbar*/
+.header-toolbar {
+    display: inline-block;
+    height: inherit;
+}
+
+.header-toolbar-options,
+.header-toolbar-toggle {
+    display: inline;
+    margin-right: 8px;
+    font-size: 13px;
+    position: relative;
+}
+
+.header-toolbar-toggle {
+    margin-right: 0 !important;
+    padding: 0 10px;
+    border-left: 1px solid #e1e1e1;
+}
+.header-toolbar-toggle.green_background    {
+    color: white;
+}
+
+
+/*
+    old header stuff maybe to be used later in center panel. -jihoon
+*/
 .header-title {
     position:relative;
     height: inherit;
-    line-height inherit;
+    line-height: inherit;
     font-size: 18px;
     color: #333;
     margin: 0;
@@ -147,34 +187,4 @@
 .header-title-member__dropdown {
     top: 50px;
     left: 7px;
-}
-/*Search bar*/
-.header-search {
-    padding-right:15px;
-    line-height: inherit;
-    float:right;
-    margin-top: -40px;
-    height: inherit;
-}
-
-/*Header toolbar*/
-.header-toolbar {
-    display: inline-block;
-    height: inherit;
-}
-.header-toolbar-help,
-.header-toolbar-options,
-.header-toolbar-toggle {
-    display: inline;
-    margin-left: 8px;
-}
-.header-toolbar-help__dropdown {
-    top: 45px;
-    left: auto;
-    right: 75px;
-}
-.header-toolbar-options__dropdown {
-    top: 45px;
-    left: auto;
-    right: 44px;
 }

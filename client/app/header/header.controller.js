@@ -200,4 +200,12 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
             $state.go('messages.detail.files');
         $scope.$emit('updateFileWriterId', userId);
     };
+
+    $scope.onToggleClick = function() {
+        if ($state.includes('**.files.**')) {
+            $state.go('messages.detail');
+            return;
+        }
+        $state.go('messages.detail.files');
+    }
 });
