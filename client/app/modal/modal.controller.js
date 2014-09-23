@@ -680,3 +680,26 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
         $scope.$emit('updateFileWriterId', userId);
     };
 });
+
+//  PREFERENCES CONTROLLER
+app.controller('preferencesController', function($scope, $rootScope, $modalInstance, gettextCatalog) {
+    $scope.currentLang = gettextCatalog.currentLanguage;
+    $scope.listLangs = [
+        { "value": "ko_KR", "text": "한국어" },
+        { "value": "en_US", "text": "English" }
+    ];
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.onClickConfirm = function(currentLang) {
+        $scope.isLoading = true;
+        console.debug(currentLang);
+
+        gettextCatalog.setCurrentLanguage(currentLang);
+
+        $scope.isLoading = false;
+        $modalInstance.dismiss('cancel')
+    };
+});

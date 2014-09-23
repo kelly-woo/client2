@@ -278,7 +278,8 @@
 }
 .lpanel-user__dropdown {
     left: 52px;
-    top: -90px;
+    top: auto;
+    bottom: 48px;
 }
 .lpanel-user__dropdown .icon_signout {
     position: absolute;

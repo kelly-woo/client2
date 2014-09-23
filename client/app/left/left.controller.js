@@ -209,8 +209,16 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
 
         }
+        else if (selector === 'preferences') {
+            $modal.open({
+                sopce       : $scope,
+                templateUrl : 'app/modal/preferences.html',
+                controller  : 'preferencesController',
+//                windowClass : 'modal-wide',
+                size        : 'lg'
+            });
+        }
     };
-
 
     //  Add 'onUserClick' to redirect to direct message to 'user'
     //  center and header are calling.
