@@ -1,183 +1,142 @@
 <div class="header">
-
-    <!-- SEARCH BOX -->
-    <div class="header-search pull-left">
-
-        <!-- ICONS  -->
-        <div class="header-toolbar cursor_pointer">
-
-            <!--    MAIN MENU   -->
-            <div class="header-toolbar-options">
-                <span data-toggle="dropdown">
-                    <i class="fa fa-bars"></i>
-                    <span translate>Menu</span>
-                    <i class="fa fa-caret-down"></i>
-                </span>
-
-                <!-- DROPDOWN MENU  -->
-                <ul class="dropdown-menu grey_dropdown">
-                    <li role="presentation">
-                        <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
-                            <i class="fa fa-info-circle"></i><span translate>Terms of Service</span>
-                        </a>
-                    </li>
-                    <li role="presentation">
-                        <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
-                            <i class="fa fa-lock"></i><span translate>Privacy Policy</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!--    FILE    -->
-            <div class="header-toolbar-options">
-                <span data-toggle="dropdown">
-                    <i class="fa fa-file"></i>
-                    <span translate>File</span>
-                    <i class="fa fa-caret-down"></i>
-                </span>
-
-                <ul class="dropdown-menu black_dropdown header-toolbar-options__dropdown" role="menu">
-                    <li class="disabled" data-ng-if="false">
-                        <a href="#" onclick="return false;" disabled>
-                            <i class="fa fa-star"></i>
-                            <span translate>Starred Items</span>
-                        </a>
-                    </li>
-                    <li class="disabled" data-ng-if="false">
-                        <a href="#" onclick="return false;" disabled>
-                            <span class="text">@</span>
-                            <span translate>Recent Mentions</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" onclick="return false;">
-                            <i class="fa fa-file"></i>
-                            <span translate>Files</span>
-                        </a>
-                    </li>
-                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('you');">
-                        <a role="menuitem" tabindex="-1">
-                            <i class="fa fa-user"></i>
-                            <span translate>Your Files</span>
-                        </a>
-                    </li>
-                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('all');">
-                        <a role="menuitem" tabindex="-1">
-                            <i class="fa fa-files-o"></i>
-                            <span translate>All Files</span>
-                        </a>
-                    </li>
-                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('pdf');">
-                        <a role="menuitem" tabindex="-1">
-                            <i class="fa fa-file-pdf-o"></i>
-                            <span translate>PDF</span>
-                        </a>
-                    </li>
-                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('image');">
-                        <a role="menuitem" tabindex="-1">
-                            <i class="fa fa-file-image-o"></i>
-                            <span translate>Images</span>
-                        </a>
-                    </li>
-                    <li class="disabled" data-ng-if="false">
-                        <a href="#" onclick="return false;" disabled>
-                            <i class="fa fa-users"></i>
-                            <span translate>Team Directory</span>
-                        </a>
-                    </li>
-                    <li class="disabled" data-ng-if="false">
-                        <a href="#" onclick="return false;" disabled>
-                            <i class="fa fa-history"></i>
-                            <span translate>Activity Feed</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!--    PREFERENCE  -->
-            <div class="header-toolbar-options">
-                <span data-toggle="dropdown">
-                    <i class="fa fa-cog"></i>
-                    <span translate>Preference</span>
-                    <i class="fa fa-caret-down"></i>
-                </span>
-
-                <ul class="dropdown-menu black_dropdown" role="menu">
-                    <li class="disabled" data-ng-if="false">
-                        <a href="#" onclick="return false;" disabled>
-                            <i class="fa fa-star"></i>
-                            <span translate>Starred Items</span>
-                        </a>
-                    </li>
-                    <li class="disabled" data-ng-if="false">
-                        <a href="#" onclick="return false;" disabled>
-                            <span class="text">@</span>
-                            <span translate>Recent Mentions</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" onclick="return false;">
-                            <i class="fa fa-file"></i>
-                            <span translate>Files</span>
-                        </a>
-                    </li>
-                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('you');">
-                        <a role="menuitem" tabindex="-1">
-                            <i class="fa fa-user"></i>
-                            <span translate>Your Files</span>
-                        </a>
-                    </li>
-                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('all');">
-                        <a role="menuitem" tabindex="-1">
-                            <i class="fa fa-files-o"></i>
-                            <span translate>All Files</span>
-                        </a>
-                    </li>
-                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('pdf');">
-                        <a role="menuitem" tabindex="-1">
-                            <i class="fa fa-file-pdf-o"></i>
-                            <span translate>PDF</span>
-                        </a>
-                    </li>
-                    <li class="nest" role="presentation" data-ng-click="onFileTypeClick('image');">
-                        <a role="menuitem" tabindex="-1">
-                            <i class="fa fa-file-image-o"></i>
-                            <span translate>Images</span>
-                        </a>
-                    </li>
-                    <li class="disabled" data-ng-if="false">
-                        <a href="#" onclick="return false;" disabled>
-                            <i class="fa fa-users"></i>
-                            <span translate>Team Directory</span>
-                        </a>
-                    </li>
-                    <li class="disabled" data-ng-if="false">
-                        <a href="#" onclick="return false;" disabled>
-                            <i class="fa fa-history"></i>
-                            <span translate>Activity Feed</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Navbar -->
+    <div class="header-navbar cursor_pointer">
+        <!-- Menu -->
+        <div class="header-navbar-menu">
+            <span data-toggle="dropdown">
+                <i class="fa fa-bars"></i>
+                <span translate>Menu</span>
+                <i class="fa fa-caret-down"></i>
+            </span>
+            <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
+                <li role="presentation">
+                    <a data-ng-click="" role="menuitem" tabindex="-1">
+                        <i class="fa fa-comment"></i>
+                        <span translate>Create New Channel</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a data-ng-click="" role="menuitem" tabindex="-1">
+                        <i class="fa fa-unlock-alt"></i>
+                        <span translate>Create a private group</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li role="presentation">
+                    <a data-ng-click="" role="menuitem" tabindex="-1">
+                        <span translate>Team Directory</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a data-ng-click="openModal('invite');" role="menuitem" tabindex="-1">
+                        <span translate>Invite Others</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li role="presentation">
+                    <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
+                        <span translate>Terms of Service</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
+                        <span translate>Privacy Policy</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li role="presentation">
+                    <a data-ng-click="logout();" role="menuitem" tabindex="-1" ng-controller="authController">
+                        <span class="icon_signout"></span><span translate>Sign Out</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-
+        <!-- File -->
+        <div class="header-navbar-file">
+            <span data-toggle="dropdown">
+                <i class="fa fa-file"></i>
+                <span translate>File</span>
+                <i class="fa fa-caret-down"></i>
+            </span>
+            <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
+                <li class="disabled" data-ng-if="false">
+                    <a href="#" onclick="return false;" disabled>
+                        <i class="fa fa-star"></i>
+                        <span translate>Starred Items</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="return false;">
+                        <i class="fa fa-file"></i>
+                        <span translate>Files</span>
+                    </a>
+                </li>
+                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('you');">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-user"></i>
+                        <span translate>Your Files</span>
+                    </a>
+                </li>
+                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('all');">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-files-o"></i>
+                        <span translate>All Files</span>
+                    </a>
+                </li>
+                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('pdf');">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-file-pdf-o"></i>
+                        <span translate>PDF</span>
+                    </a>
+                </li>
+                <li class="nest" role="presentation" data-ng-click="onFileTypeClick('image');">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-file-image-o"></i>
+                        <span translate>Images</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Settings -->
+        <div class="header-navbar-settings">
+            <span data-toggle="dropdown">
+                <i class="fa fa-cog"></i>
+                <span translate>Settings</span>
+                <i class="fa fa-caret-down"></i>
+            </span>
+            <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
+                <li role="presentation">
+                    <a data-ng-click="openModal('profile');" role="menuitem" tabindex="-1">
+                        <i class="fa fa-user"></i><span translate>Profile</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a data-ng-click="openModal('account')" role="menuitem" tabindex="-1">
+                        <i class="fa fa-cog"></i><span translate>Account</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a data-ng-click="openModal('preferences')" role="menuitem" tabindex="-1">
+                        <i class="fa fa-wrench"></i><span translate>Preferences</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-
-    <!--    TOGGLE  -->
-    <div class="header-toolbar-toggle pull-right cursor_pointer"
-         ng-class="{'green_background' : $state.includes('**.files.**')}"
-            data-ng-click="onToggleClick();">
-        <span>
-            <i class="fa fa-caret-square-o-right fa-lg"></i>
-            <span translate>All Files</span>
-        </span>
+    <div class="header-toolbar pull-right">
+        <!-- Search -->
+        <div class="header-toolbar-search hidden">
+            <i class="fa fa-search"></i>
+            <i class="fa fa-caret-down"></i>
+        </div>
+        <!-- Toggle -->
+        <div class="header-toolbar-toggle cursor_pointer"
+             ng-class="{'green_background' : $state.includes('**.files.**')}"
+             data-ng-click="onToggleClick();">
+            <span>
+                <i class="fa fa-caret-square-o-right fa-lg"></i>
+                <span translate>All Files</span>
+            </span>
+        </div>
     </div>
-
-    <!--    SEARCH  -->
-    <div class="pull-right">
-        <i class="fa fa-search"></i>
-        <i class="fa fa-caret-down"></i>
-    </div>
-
 </div>

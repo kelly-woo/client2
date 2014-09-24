@@ -377,6 +377,31 @@
 
 
 
+/*
+    ACCOUNT
+*/
+.account-settings-body a:hover {
+    text-decoration: none;
+}
+.account-settings-body .panel {
+    margin-bottom: 15px;
+}
+.account-settings-body .panel-heading {
+    padding: 15px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 0;
+}
+.account-settings-body .panel-title {
+    color: #31c08a;
+    font-weight: 700;
+}
+.account-settings-body .panel-body {
+    border-top: 0px !important;
+}
+
+
+
 
 
 /*
