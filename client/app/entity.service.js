@@ -5,11 +5,15 @@ var app = angular.module('jandiApp');
 app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorageService, $state) {
     var entityAPI = {};
 
+    var currentEntity;
+
     entityAPI.getEntityFromListById = function(list, value) {
-        if (value == $rootScope.user.id) return $rootScope.user;
+        value = parseInt(value);
+
+        if (value === $rootScope.user.id) return $rootScope.user;
 
         var entity = $filter('filter')(list, { 'id' : value }, function(actual, expected) {
-            return actual == expected;
+            return actual === expected;
         });
 
         if (angular.isUndefined(entity) || entity.length != 1) return;
@@ -17,21 +21,18 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
         return entity[0];
     };
 
-    //  Returns proper list from $rootScope.
-    entityAPI.getEntityList = function(entity) {
-        var type = entity.type;
-        var list;
-        switch(type) {
-            case 'user' :
-                return $rootScope.userList;
-            case 'channel' :
-                return $rootScope.joinedChannelList;
-            case 'privateGroup' :
-                return $rootScope.privateGroupList;
-            default :
-                return $rootScope.totalEntities;
+    entityAPI.getEntityById = function(entityType, entityId) {
+        var list = $rootScope.joinedChannelList;
+
+        if (entityType === 'privategroups' || entityType === 'privateGroups') {
+            list = $rootScope.privateGroupList;
         }
-    }
+        else if (entityType === 'users') {
+            list = $rootScope.userList;
+        }
+
+        return this.getEntityFromListById(list, entityId);
+    };
 
     //  updating alarmCnt field of 'entity' to 'alarmCount'.
     entityAPI.updateBadgeValue = function(entity, alarmCount) {
@@ -67,16 +68,8 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
         this.getEntityFromListById(list, entity.id).alarmCnt = alarmCount;
     };
 
-    entityAPI.getNameByUserId = function(userId) {
-        return this.getFullName(this.getEntityFromListById($rootScope.userList, userId));
-    };
 
-    entityAPI.getFullName = function(user) {
-        return user.u_lastName + user.u_firstName;
-    };
-
-    entityAPI.setLastEntityState = function()
-    {
+    entityAPI.setLastEntityState = function() {
         var last_state = {
             rpanel_visible  : $state.current.name.indexOf('file') > -1 ? true : false,
             entityId       : $state.params.entityId,
@@ -96,6 +89,25 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
 
         return last_state;
     };
+
+    entityAPI.setCurrentEntity = function(entityType, entityId) {
+        currentEntity = this.getEntityById(entityType, entityId);
+        currentEntity.alarmCnt = '';
+        return currentEntity;
+    };
+
+    entityAPI.getCurrentEntity = function() {
+        return currentEntity;
+    };
+
+    entityAPI.getCreatorId = function(entity) {
+        if (entity.type === 'users') return null;
+
+        if (entity.type === 'privateGroup' || entity.type === 'privategroup') {
+            return entity.pg_creatorId;
+        }
+        return entity.ch_creatorId;
+    }
 
     return entityAPI;
 });

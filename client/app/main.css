@@ -3,10 +3,10 @@
                   COMMON
 
 ********************************************/
-html { min-width: 980px; }
+/*html { min-width: 960px; }*/
 
 .user-thumb-sm  { width: 28px; height: 28px; border-radius: 50%; }
-.user-thumb     { width: 35px; height: 35px; border-radius: 50%; }
+.user-thumb     { width: 34px; height: 34px; border-radius: 50%; }
 .user-thumb-lg  { width: 72px; height: 72px; border-radius: 50%; }
 .user-profile   { display: inline-block; background-size: 100%; background-repeat: no-repeat; }
 
@@ -34,6 +34,18 @@ html { min-width: 980px; }
     background-color: #31c08a;
 }
 
+.alert-jandi {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+select {
+    width: 100%;
+}
+
 /********************************************
 
                 ANIMATION
@@ -42,7 +54,50 @@ html { min-width: 980px; }
 .animate-enter { -webkit-transition: 1s linear all; /* Chrome */ transition: 1s linear all; opacity: 0; }
 .animate-enter.animate-enter-active { opacity: 1; }
 
+/* Chrome, Safari, Opera */
+@-webkit-keyframes green_background {
+    from {background-color: rgb(242, 242, 242);}
+    to {background-color: #31c08a;}
+}
+/* Standard syntax */
+@keyframes green_background {
+    from {background-color: rgb(242, 242, 242);}
+    to {background-color: #31c08a;}
+}
 
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opacIn-from-20 {
+    from {opacity: 0.2; }
+    to {opacity: 1; }
+}
+/* Standard syntax */
+@keyframes opacIn-from-20 {
+    from {opacity: 0.2; }
+    to {opacity: 1; }
+}
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes slide-from-right {
+    from {margin-right: -100%;}
+    to {margin-right: 0;  }
+}
+/* Standard syntax */
+@keyframes slide-from-right {
+    from {margin-right: -100%;}
+    to {margin-right: 0;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes display-block {
+    from {display: none; }
+    to {display: block;  }
+}
+/* Standard syntax */
+@keyframes display-block {
+    from {display: none ;}
+    to {display: block;  }
+}
 
 
 /********************************************
@@ -86,7 +141,16 @@ html { min-width: 980px; }
     font-size: .7rem;
 }
 .link-unshare:hover {
+    color: indianred !important;
+}
+.green_background {
+    background-color: #31c08a !important;
+}
 
+.to_green_background {
+    -webkit-animation: green_background 0.5s; /* Chrome, Safari, Opera */
+    animation: green_background 0.5s;
+    background-color: #31c08a !important;
 }
 
 
@@ -142,10 +206,12 @@ input[type="button"] {
     color: white;
     font-size: 14px;
 }
+.btn-cancel:focus,
 .btn-cancel:hover,
 .btn-cancel:active {
     color: #31c08a;
 }
+.btn-ok:focus,
 .btn-ok:hover,
 .btn-ok:active {
     color: white;
@@ -189,65 +255,22 @@ input[type="button"] {
     width: 14px;
     height: 14px;
 }
-
 .icon_add_member {
     background: url(../assets/images/icon_add_member.png);
     width: 13px;
     height: 13px;
 }
-
 .icon_user {
     background: url(../assets/images/icon_user.png);
     width: 15px;
     height: 15px;
 }
-
-
 .icon_search {
     background: url(../assets/images/icon_search.png);
     width: 20px;
     height: 19px;
 }
-.cpanel-search-icon__container .icon_image {
-    display: inline-block;
-    position: relative;
-    margin-left: 7px;
-    vertical-align: middle;
-}
-.cpanel-search__icon {
-    left: 13px;
-    top: 10px;
-}
-.cpanel-search__dropdown {
-    left: 170px;
-    top: 45px;
-}
-.headerpanel-search-icon {
-    width: 22px;
-    height: 22px;
-}
-.headerpanel-search-help-icon {
-    background: url(../assets/images/icon_help.png);
-    width: 22px;
-    height: 22px;
-}
-.grey .headerpanel-search-help-icon {
-    background: url(../assets/images/icon_help_dark.png);
-}
-.headerpanel-search-menu-icon {
-    background: url(../assets/images/icon_menu_white.png);
-    width: 22px;
-    height: 22px;
-}
-.grey .headerpanel-search-menu-icon {
-    background: url(../assets/images/icon_menu_dark.png);
-}
-.icon_close_rightmenu{
-    background: url(../assets/images/icon_flex_off.png);
-}
-.icon_open_rightmenu{
-    background: url(../assets/images/icon_flex_on_dark.png);
-}
+
 .icon_verti_menu{
     background: url(../assets/images/icon_verti_menu.png);
     width: 18px;
@@ -275,8 +298,6 @@ input[type="button"] {
     width:17px;
     height: 14px;
 }
-
-
 
 .fileicon {
     width: 26px;
@@ -310,6 +331,10 @@ input[type="button"] {
 
 .fileicon_etc {
     background: url(../assets/images/fileicon_etc.png);
+}
+
+.fileicon_zip {
+    background: url(../assets/images/fileicon_zip.png);
 }
 
 .match_container {
@@ -353,15 +378,15 @@ input[type="button"] {
 {
     outline: 0;
 }
-
-.dropdown-menu > li > input[type="file"] {
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
+.dropdown-menu > li:first-child > a {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
+.dropdown-menu > li:last-child > a {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
 .right-align {
     left: auto;
     right: 0;
@@ -396,6 +421,7 @@ input[type="button"] {
     position: absolute;
     top: 10px;
     left: 15px;
+    font-size: 110%;
 }
 .grey_dropdown > li > a:hover {
     background-color: #31c08a;
@@ -423,10 +449,14 @@ input[type="button"] {
 .green_dropdown {
     background-color: #31c08a !important;
 }
-.green_dropdown > li > a {
+.green_dropdown > li > a,
+.green_dropdown > li > a:focus
+{
     color: #fff;
+    background-color: #31c08a;
+
 }
-.green_dropdown > li > a:hover {
+.green_dropdown > li > a:hover{
     background-color: #2d956e;
     color: #fff;
 }
@@ -436,7 +466,9 @@ input[type="button"] {
     background-color: #333 !important;
     width: 260px !important;
 }
-.black_dropdown li a {
+.black_dropdown li a,
+.black_dropdown li a:focus
+{
     padding: 0 1.4rem 0 2.5rem;
     height: 40px;
     line-height: 40px;
@@ -444,6 +476,7 @@ input[type="button"] {
     color: #31c08a;
     font-size: 14px;
     font-weight: 700;
+    background-color: #333;
 }
 .black_dropdown li a:hover {
     background-color: #31c08a;
@@ -485,4 +518,26 @@ input[type="button"] {
     line-height: 23px;
     font-size: 14px;
     padding: 0px 10px;
+}
+
+
+
+/*
+    below css works for firefox
+*/
+select {
+    cursor: pointer;
+}
+optgroup {
+    color: #31c08a;
+    cursor: pointer;
+    padding-left: 14px;
+}
+optgroup option {
+    color: black;
+    margin: 2px 0;
+}
+
+optgroup option:hover {
+    background: #eefcf7 !important;
 }

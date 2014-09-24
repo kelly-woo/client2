@@ -7,8 +7,10 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     console.info('[enter] leftpanelController');
 
-    var response = null;
+    $scope.isDMCollapsed = false;
+    $scope.isChListCollapsed = false;
 
+    var response = null;
 
     if (leftPanel.status != 200) {
         var err = leftPanel.data;
@@ -16,6 +18,16 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     } else {
         response = leftPanel.data;
     }
+
+    $scope.$watch('$state.params.entityId', function(newEntityId){
+        if (angular.isUndefined(entityAPIservice.getEntityById($state.params.entityType, newEntityId))) return;
+        $scope.setCurrentEntity('from watch');
+    });
+    $scope.setCurrentEntity = function(string) {
+        console.log(string)
+        $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
+        console.log($rootScope.currentEntity)
+    };
 
     initLeftList();
 
@@ -37,25 +49,22 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         //  joinedChannelList   - List of joined channels.
         //  privateGroupList    - List of joined private groups.
         var joinedList = leftpanelAPIservice.getJoinedChannelList($scope.joinEntities);
-        $scope.joinedChannelList = joinedList[0];
-        $scope.privateGroupList = joinedList[1];
+        $scope.joinedChannelList    = joinedList[0];
+        $scope.privateGroupList     = joinedList[1];
 
 
         // userList         - List of all users except myself.
         // totalChannelList - All channels including both 'joined' and 'not joined'
         var generalList = leftpanelAPIservice.getGeneralList($scope.totalEntities, $scope.joinEntities, $scope.user.id);
-        $scope.userList = generalList[0];
-        $scope.totalChannelList = generalList[1];
-        $scope.unJoinedChannelList = generalList[2];
+        $scope.userList             = generalList[0];
+        $scope.totalChannelList     = generalList[1];
+        $scope.unJoinedChannelList  = generalList[2];
 
         //  Adding privateGroups to 'totalEntities' so that 'totalEntities' contains every entities.
         //  totalEntities   - Every entities.
         $scope.totalEntities = $scope.totalEntities.concat($scope.privateGroupList);
 
         ////////////    END OF PARSING      ////////////
-
-        // Update difference between number of all channels and currently joined channels.
-        hasMoreChannelsToJoin($scope.totalChannelList.length, $scope.joinedChannelList.length);
 
         $rootScope.totalChannelList     = $scope.totalChannelList;
         $rootScope.joinedChannelList    = $scope.joinedChannelList;
@@ -66,13 +75,17 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
         $rootScope.user                 = $scope.user;
 
+
+        //  entityAPI.hasPrivilegeHelper is watching
+        $rootScope.isLeftUpdated        = true;
+
         //  When there is unread messages on left Panel.
         if (response.alarmInfoCount != 0) {
-//            console.log(response.alarmInfos)
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
         }
-    }
 
+        $scope.setCurrentEntity('from initLeftList');
+    }
 
     //  redirecting to default channel.
     $rootScope.$watch('toDefault', function(newVal, oldVal) {
@@ -81,7 +94,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $rootScope.toDefault = false;
         }
     });
-
 
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
@@ -112,7 +124,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             if (value.alarmCount == 0 )
                 return;
 
-            //  TODO: tempEntity가 user 타입일 경우 잘 안되네요????
             var tempEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, value.entityId);
 
             //  tempEntity is archived
@@ -135,16 +146,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             });
     }
 
-
-    $scope.getCurrentEntity = function() {
-        return $scope.currentEntity;
-    };
-
-    // Checking whether user joined all possible channels or not.
-    function hasMoreChannelsToJoin(a, b) {
-        $scope.channelsLeft = a - b;
-    }
-
     // User pressed an enter key from invite modal view in private group.
     $scope.onUserSelected = function() {
         $scope.selectedUser.selected = true;
@@ -153,14 +154,14 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
     $scope.updateLeftPanelCaller = function() {
-        console.log('updateLeftPanelCaller');
+        $rootScope.isLeftUpdated= false;
         getLeftLists();
     };
 
     // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
     $rootScope.$on('updateLeftPanelCaller', function() {
         console.info("[enter] updateLeftPanelCaller");
-        getLeftLists();
+        $scope.updateLeftPanelCaller();
     });
 
     $scope.openModal = function(selector) {
@@ -168,7 +169,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/join.html',
-                controller  :   joinModalCtrl,
+                controller  :   'joinModalCtrl',
                 size        :   'lg'
             });
         }
@@ -176,7 +177,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/create.channel.html',
-                controller  :   createEntityModalCtrl,
+                controller  :   'createEntityModalCtrl',
                 size        :   'lg'
             });
         }
@@ -184,7 +185,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/create.private.html',
-                controller  :   createEntityModalCtrl,
+                controller  :   'createEntityModalCtrl',
                 size        :   'lg'
             });
         }
@@ -192,7 +193,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/list.user.html',
-                controller  :   userModalCtrl,
+                controller  :   'userModalCtrl',
                 size        :   'lg',
                 windowClass :   'allowOverflowY'
             });
@@ -201,41 +202,79 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/invite.team.html',
-                controller  :   inviteUserToTeamCtrl,
-                size        :   'lg'
-            });
-        }
-        else if (selector == 'agreement') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/terms/agreement.html',
-                size        :   'lg'
-            });
-        }
-        else if (selector == 'privacy') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/terms/privacy.html',
+                controller  :   'inviteUserToTeamCtrl',
                 size        :   'lg'
             });
         }
         else if (selector == 'profile') {
             $modal.open({
                 scope       :   $scope,
-                templateUrl :   'app/modal/profile.html',
-                controller  :   profileCtrl,
+                templateUrl :   'app/modal/settings.profile.html',
+                controller  :   'profileCtrl',
                 size        :   'lg'
+            });
+        }
+        else if (selector == 'account') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/settings.account.html',
+                controller  :   'accountController',
+                size        :   'lg'
+            });
+        }
+        else if (selector === 'preferences') {
+            $modal.open({
+                sopce       : $scope,
+                templateUrl : 'app/modal/preferences.html',
+                controller  : 'preferencesController',
+//                windowClass : 'modal-wide',
+                size        : 'lg'
             });
         }
     };
 
-
     //  Add 'onUserClick' to redirect to direct message to 'user'
+    //  center and header are calling.
     $scope.onUserClick = function(user) {
-        $state.go('archives', { entityType:'users',  entityId:user.id });
+        if (angular.isNumber(user)) {
+            user = entityAPIservice.getEntityFromListById($scope.userList, user)
+        }
+        openUserProfile(user);
     };
 
-    $scope.toDefaultChannel = function() {
-        $state.go('archives', { entityType:'channels',  entityId:defaultChannel });
+    //  Open user profile modal view.
+    function openUserProfile(user) {
+        $modal.open({
+            scope       :   $scope,
+            templateUrl :   'app/modal/profile.view.html',
+            controller  :   'profileViewerCtrl',
+            windowClass :   'profile-view-modal',
+            resolve     :   {
+                curUser     : function getCurUser(){ return user; }
+            }
+        });
+    }
+
+    $scope.onDMInputChange = function(userNameQuery) {
+        var temp = $filter('userByName')($rootScope.userList, userNameQuery);
+
+        if (temp.length === 1) {
+            temp[0].visibility = true;
+        }
+
+        if ($scope.isDMCollapsed) $scope.isDMCollapsed = false;
     };
+
+
+    $scope.onPGCollapseClick = function() {
+        $scope.isPGCollapsed = false;
+    };
+
+    $scope.onDMInputFocus = function() {
+        $('.absolute-search-icon').animate({opacity: 1}, 400);
+    };
+
+    $scope.onDMInputBlur = function() {
+        $('.absolute-search-icon').stop().css({'opacity' : 0.2});
+    }
 });

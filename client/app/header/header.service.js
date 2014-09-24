@@ -56,22 +56,6 @@ app.factory('entityheaderAPIservice', function($http, $rootScope,  $filter) {
         });
     };
 
-    entityheaderAPI.hasPrivilegeHelper = function(user, entity) {
-        if (user.u_authority == 'owner' || user.u_authority == 'admin') return true;
-
-        if (entity.type == 'privateGroup')
-            return entity.pg_creatorId == user.id;
-
-        return entity.ch_creatorId == user.id;
-    }
-
-    //  TODO: IS ANYONE USING BELOW FUNCTION?
-    entityheaderAPI.getEntityFromListById = function(list, value) {
-        var entity = $filter('filter')(list, { 'id' : value }, true);
-        if (entity.length != 1) return;
-
-        return entity[0];
-    }
 
     entityheaderAPI.getInviteOptions = function(joinedChannelList, privateGroupList) {
         return joinedChannelList.concat(privateGroupList);

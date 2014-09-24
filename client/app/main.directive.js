@@ -96,7 +96,7 @@ app.directive('lastDetector', ['$timeout', function($timeout) {
         length = attrs.length;
 
         scope.$watch('$first', function(isFirst) {
-           if (isFirst) flag = true;
+            if (isFirst) flag = true;
         });
 
         scope.$watch('$index', function(index) {
@@ -189,5 +189,35 @@ app.directive('lazy', function($timeout) {
                 });
             }, 500);
         }
+    };
+});
+
+
+app.directive('infiniteScrollBottom', function() {
+    return function(scope, element, attr) {
+
+        var fileList    = $('.file-list');
+        var rpanelBody = $('.rpanel-body');
+
+        element.bind('mousewheel', function(event) {
+
+            if (scope.isScrollLoading) return;
+
+            if (fileList.height() <= rpanelBody.height()) {
+                scope.loadMore();
+            }
+        });
+
+        element.bind('scroll', function(event) {
+            if (scope.isScrollLoading) return;
+
+            var currentScrollPosition = element.scrollTop() + element.height();
+            var elementHeight = $('.file-list').height();
+
+            if (currentScrollPosition > elementHeight ) {
+                scope.loadMore();
+            }
+
+        });
     };
 });

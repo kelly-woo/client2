@@ -1,83 +1,69 @@
-<div class="container">
-    <form class="form-signin" role="form" name="signinForm" ng-submit="signin(user)">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="email" ng-model="user.email" class="form-control" placeholder="Email address" required autofocus>
-        <input type="password" ng-model="user.password" class="form-control" placeholder="Password" required>
-        <div class="status-box error" ng-if="status.err">{{status.msg}}</div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="signinForm.$invalid">Sign in</button>
-        <a href="www.jandi.com" class="btn btn-lg btn-warning btn-block">홈페이지로 이동</a>
-    </form>
-</div> <!-- /container -->
-<style>
-    .form-signin {
-        max-width: 330px;
-        padding: 15px;
-        margin: 0 auto;
-    }
-    .form-signin .form-signin-heading,
-    .form-signin .checkbox {
-        margin-bottom: 20px;
-    }
-    .form-signin .checkbox {
-        font-weight: normal;
-    }
-    .form-signin .form-control {
-        position: relative;
-        height: auto;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        padding: 10px;
-        font-size: 16px;
-    }
-    .form-signin .form-control:focus {
-        z-index: 2;
-    }
-    .form-signin input[type="email"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-    .form-signin input[type="password"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-    .status-box {
-        margin-bottom: 10px;
-    }
-    .status-box.error {
-        color: #a94442;
-    }
-    .status-box.error:before {
-        font-family: "Glyphicons Halflings";
-        content: "\e101";
-        margin-right: 5px;
-    }
-    .status-box.ng-enter,
-    .status-box.ng-leave
-    {
-        -webkit-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-        -moz-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-        -ms-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-        -o-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-        transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-        position: relative;
-        display: block;
-        overflow: hidden;
-        text-overflow: clip;
-        white-space:nowrap;
-    }
-    .status-box.ng-leave.ng-leave-active,
-    .status-box.ng-enter {
-        opacity: 0;
-        width: 0px;
-        height: 0px;
-    }
-    .status-box.ng-enter.ng-enter-active,
-    .status-box.ng-leave {
-        opacity: 1;
-        width: 150px;
-        height: 30px;
-    }
-</style>
+<div class="jandi-navbar navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="//www.jandi.com" target="_blank">
+                <strong><img src="assets/images/logo_jandi.png" class="jandi-navbar__logo"></strong>
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="" data-ng-if="false">
+                    <a href="#"><span translate>Customer Service</span> &RightArrow;</a>
+                </li>
+                <li data-ng-if="false">
+                    <a href="//www.jandi.com"><span translate>Visit Homepage</span> &RightArrow;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="jandi-container">
+    <div class="jandi-header">
+        <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
+        <div class="col-lg-4">
+            <img src="assets/images/logo-ci.png" alt="logo-ci" class="jandi-header__logo" />
+            <h2 class="jandi-header__title"><span translate>Welcome to {{teamInfo.name}}</span>!</h2>
+            <p class="jandi-header__message"><span translate>Enter your email and password</span></p>
+        </div>
+        <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
+    </div>
+    <div class="jandi-body">
+        <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
+        <div class="col-lg-4">
+            <form class="jandi-body__form" role="form" name="signinForm" ng-submit="signin(user)">
+                <div class="alert-jandi alert-danger" ng-if="error.status">
+                    <i class="fa fa-warning"></i> <span translate>Invalid email or password</span>
+                </div>
+                <input type="email" ng-model="user.email" class="jandi-body__form-input form-control" placeholder="{{ 'Email address' | translate }}" required autofocus>
+                <input type="password" ng-model="user.password" class="jandi-body__form-input form-control" placeholder="{{ 'Password' | translate }}" required>
+                <button class="btn btn-jandi btn-block jandi-body__form-submit" type="submit" ng-disabled="signinForm.$invalid"><span translate>Sign In</span></button>
+            </form>
+            <div class="jandi-body__help">
+                <a class="jandi-body__help-text"><span translate>Forgot Password?</span> &RightArrow;</a>
+            </div>
+        </div>
+        <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
+    </div>
+    <div class="clear-both"></div>
+</div>
+<div class="jandi-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-sm-7 col-xs-12">
+                <p class="jandi-footer__text">2014 Toss Lab, Inc. All Rights Reserved.</p>
+            </div>
+            <div class="col-lg-5 col-sm-5 col-xs-12">
+                <div class="jandi-footer__terms">
+                    <a href="#" data-ng-click="$event.preventDefault(); openModal('agreement');"><span translate>Terms of Service</span></a>
+                    <span class="divider">|</span>
+                    <a href="#" data-ng-click="$event.preventDefault(); openModal('privacy');"><span translate>Privacy Policy</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

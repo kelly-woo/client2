@@ -1,0 +1,71 @@
+<!-- Modal: Preferences -->
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="cancel();"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
+        <span translate>Preferences</span>
+    </h3>
+</div>
+
+<form novalidate name="form-preferences" ng-submit="onClickConfirm(currentLang)">
+
+    <div class="modal-body modal-preferences-body">
+        <h4 class="modal-body__description">
+            <span translate>You can change service preferences such as language, notifications.</span>
+        </h4>
+        <div class="form-horizontal">
+            <div class="modal-preferences-body__section modal-preferences-body__language">
+                <h4 class="modal-preferences-body__section-title">
+                    <span translate>Language</span>
+                </h4>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <select name="preferences_languages"
+                                class="form-control"
+                                data-ng-model="currentLang"
+                                data-ng-options="lang.value as lang.text for lang in listLangs"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-preferences-body__section modal-preferences-body__notifications">
+                <h4 class="modal-preferences-body__section-title">
+                    <span translate>Desktop Notifications</span>
+                </h4>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="radio disabled">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" disabled>
+                                <span translate>For all messages</span>
+                            </label>
+                        </div>
+                        <div class="radio disabled">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" disabled>
+                                <span translate>Only for direct messages</span>
+                            </label>
+                        </div>
+                        <div class="radio disabled">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" checked>
+                                <span translate>Never</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer profile-footer">
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>Close</span></button>
+        <input class="btn btn-ok" type="submit" id="change_profile" value="{{ 'Confirm' | translate }}"/>
+    </div>
+
+</form>
+
+<div class="loading_container" data-ng-if="isLoading">
+    <div class="loading_container_background"></div>
+    <div class="loading_bg"></div>
+    <div class="loading_bar"></div>
+</div>

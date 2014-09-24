@@ -1,0 +1,259 @@
+/* NavBar */
+.jandi-navbar {
+    font-family: 'Nanum Barun Gothic', sans-serif;
+    /*font-size: 13px;*/
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+.jandi-navbar .navbar-toggle {
+    border: 0;
+}
+.jandi-navbar .navbar-toggle:hover,
+.jandi-navbar .navbar-toggle:focus {
+    background-color: transparent;
+}
+.jandi-navbar .navbar-toggle > .icon-bar {
+    background-color: #31c08a;
+}
+.jandi-navbar .navbar-brand {
+    color: #31c08a;
+    font-size : 22px;
+}
+.jandi-navbar .navbar-brand:hover {
+    color: #b8e7d1;
+}
+.jandi-navbar .navbar-nav > li > a {
+    color: #31c08a;
+    letter-spacing: 0px;
+}
+.jandi-navbar .navbar-nav > li > a:hover,
+.jandi-navbar .navbar-nav > li > a:focus {
+    color: #b8e7d1;
+    background-color: transparent;
+}
+.jandi-navbar .navbar-nav > .active > a,
+.jandi-navbar .navbar-nav > .active > a:hover,
+.jandi-navbar .navbar-nav > .active > a:focus {
+    background-color: transparent;
+    color: #b8e7d1;
+}
+.jandi-navbar .navbar-right a[type="button"] {
+    padding: 6px 20px 6px 20px;
+    color: #fff;
+}
+.jandi-navbar .navbar-right a[type="button"]:hover,
+.jandi-navbar .navbar-right a[type="button"]:focus {
+    background-color: transparent;
+    color: #31c08a;
+}
+.jandi-navbar__logo {
+    margin-top:-6px;
+    padding-left:2px;
+    height: 20px;
+}
+
+/* Buttons */
+.btn-jandi,
+.btn-jandi:focus {
+    background-color: #31c08a;
+    color: #fff;
+    border-radius: 0;
+}
+.btn-jandi:hover,
+.btn-jandi:active {
+    background-color: #2a5e47;
+    color: #fff;
+}
+.btn-jandi[disabled] {
+    background: #999;
+    color: #ddd;
+    opacity: 1;
+}
+
+/* Alert Box */
+.status-box {
+    margin-bottom: 10px;
+}
+.status-box.error {
+    color: #a94442;
+}
+.status-box.error:before {
+    font-family: "Glyphicons Halflings";
+    content: "\e101";
+    margin-right: 5px;
+}
+.status-box.ng-enter,
+.status-box.ng-leave
+{
+    -webkit-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 200ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space:nowrap;
+}
+.status-box.ng-leave.ng-leave-active,
+.status-box.ng-enter {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+}
+.status-box.ng-enter.ng-enter-active,
+.status-box.ng-leave {
+    opacity: 1;
+    width: 150px;
+    height: 30px;
+}
+
+/* Container */
+.jandi-container {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    bottom: 48px;
+    left: 0;
+    overflow-y: scroll;
+    /*padding-top: 70px;*/
+    /*margin-bottom: 40px;*/
+    min-width: inherit !important;
+}
+.jandi-container a,
+.jandi-container a:active,
+.jandi-footer a,
+.jandi-footer a:active {
+    color: #31c08a;
+    cursor: pointer;
+    word-wrap: break-word;
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+.jandi-container a:hover,
+.jandi-container a:focus,
+.jandi-footer a:hover,
+.jandi-footer a:focus {
+    color: #2a5e47;
+    text-decoration: none;
+    outline: 0;
+}
+.jandi-header {
+    min-height: 320px;
+    background: #31c08a;
+    text-align: center;
+    padding: 40px 0 50px;
+    color: #fff;
+}
+.jandi-header__title {
+    margin: 34px 0 20px;
+    padding: 0;
+    font-weight: 700;
+    font-size: 22px;
+}
+.jandi-header__message {
+    margin: 0;
+}
+.jandi-header__logo {
+    width: 160px;
+}
+.jandi-body {
+    background-color: #fff;
+    text-align: center;
+    padding: 34px 0 20px;
+    overflow: hidden;
+}
+.jandi-body__form {
+    text-align: center;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto 34px;
+}
+.jandi-body__form-input {
+    height: 48px;
+    border: 1px solid #dcdcdc;
+    margin-bottom: 7px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.jandi-body__form-submit {
+    margin: 12px 0 0;
+    height: 48px;
+}
+.jandi-body__help {
+
+}
+.jandi-body__help-text {
+    display: block;
+    margin-bottom: 15px;
+}
+.jandi-footer {
+    overflow: hidden;
+    /*position: absolute;*/
+    /*width: 100%;*/
+    background: #222;
+    padding-top: 10px;
+    font-size: 14px;
+    text-align: center;
+    padding-bottom: 10px;
+    line-height: 28px;
+    color: #f5f5f5;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.jandi-footer__text {
+    margin-bottom: 0;
+    text-align: left;
+}
+.jandi-footer__terms {
+    text-align: right;
+}
+.jandi-footer__terms a:hover,
+.jandi-footer__terms a:active {
+    color: #b8e7d1;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    html {
+        font-size: 90%;
+    }
+    .jandi-navbar {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        text-align: center;
+    }
+    .jandi-container {
+        top: 51px;
+        bottom: 76px;
+    }
+    .jandi-body {
+
+    }
+    .jandi-footer__text {
+        text-align: center;
+    }
+    .jandi-footer__terms {
+        text-align: center;
+    }
+}
+@media (min-width: 767px) {
+    html {
+        font-size:16px;
+    }
+    .jandi-navbar {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}

@@ -2,54 +2,90 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice) {
+app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService) {
+
+    $scope.isLoading = true;
+    $scope.isScrollLoading = false;
 
     console.info('[enter] rightpanelController');
 
-    $scope.fileTypeQuery    = 'All';
     $scope.tabIndicator     = 'everyone';
-    $scope.fileUploader     = 'everyone';
+    $scope.fileTitleQuery   = '';
+
+    $scope.fileRequest      = {};
+    $scope.fileRequest.searchType       = 'file';
+    $scope.fileRequest.writerId         = 'all';
+    $scope.fileRequest.sharedEntityId   = -1;
+    $scope.fileRequest.fileType         = 'all';
+    $scope.fileRequest.startMessageId   = -1;
+    $scope.fileRequest.listCount        = 10;
+    $scope.fileRequest.keyword          = '';
+
+
+    var startMessageId   = -1;
 
     $scope.fileList = [];
 
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
-        if (type == 'you') {
+        if (type === 'you') {
             // when 'Your Files' is clicked on 'cpanel-search__dropdown'
-            $scope.fileUploader = 'you';
-            $scope.fileTypeQuery = 'All';
+            $scope.fileRequest.writerId = 'mine';
+            $scope.fileRequest.fileType = 'all';
             $scope.tabIndicator = 'notEveryone';
         }
         else {
-            if (type == 'All') {
+            if (type === 'all') {
                 // when 'All Files' is clicked oon 'cpanel-search__dropdown'
-                $scope.fileUploader = 'everyone';
+                $scope.fileRequest.writerId = 'all';
                 $scope.tabIndicator = 'everyone';
             }
-
-            $scope.fileTypeQuery = type;
+            $scope.fileRequest.fileType = type;
         }
     });
 
-    $scope.onFileFilterWriterIdClick = function(writerId) {
-        $scope.fileUploader = writerId;
+    //  From profileViewerCtrl
+    $rootScope.$on('updateFileWriterId', function(event, userId) {
+        $scope.fileRequest.writerId = userId;
         $scope.tabIndicator = 'notEveryone';
-    }
+    });
 
-    $scope.getfileUploaderId = function() {
-        if ($scope.fileUploader == 'you')
-            return $scope.user.id;
-        else
-            return $scope.fileUploader;
-    };
-    getFileList();
+    $scope.$watch('[fileRequest.writerId, fileRequest.sharedEntityId, fileRequest.fileType, fileRequest.keyword]',
+        function(newValue, oldValue) {
+            preLoadingSetup();
+            getFileList();
+    }, true);
 
     // Functions outside of this controller or from html template can call this function in order to update file list.
     $scope.$on('onChangeShared', function() {
+        preLoadingSetup();
         getFileList();
     });
 
+    function preLoadingSetup() {
+        $scope.fileRequest.startMessageId   = -1;
+        isEndOfList = false;
+        $scope.isLoading = true;
+    }
+
+    $scope.onFileFilterWriterIdClick = function(writerId) {
+        $scope.fileRequest.writerId = writerId;
+        $scope.tabIndicator = 'notEveryone';
+    };
+
+    var isEndOfList = false;
+
+    $scope.loadMore = function() {
+        if (isEndOfList) return;
+
+        $scope.isScrollLoading = true;
+        $scope.fileRequest.startMessageId = startMessageId;
+
+        getFileList();
+    };
+
     function getFileList() {
-        fileAPIservice.getFileList()
+
+        fileAPIservice.getFileList($scope.fileRequest)
             .success(function(response) {
                 var fileList = [];
                 angular.forEach(response.files, function(entity, index) {
@@ -60,13 +96,41 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
                 }, fileList);
 
-                $scope.fileList = fileList;
-
-//                console.log("[$scope.fileLists] ", $scope.fileList);
+                generateFileList(fileList, response.fileCount, response.firstIdOfReceivedList);
             })
             .error(function(response) {
                 console.log(response.msg);
-            })
+            });
+    }
+
+    function generateFileList(fileList, fileCount, firstIdOfReceivedList) {
+        if (fileCount === 0 && $scope.isScrollLoading) {
+            $('.file-list__item.loading').addClass('opac_out');
+
+            $scope.isScrollLoading = false;
+            isEndOfList = true;
+            return;
+        }
+
+        startMessageId = firstIdOfReceivedList;
+
+        if($scope.fileRequest.startMessageId === -1) {
+            //  Not loading more.
+            //  Replace current fileList with new fileList.
+            $('.file-list__item').addClass('opac_out');
+            $scope.fileList = fileList;
+
+        }
+        else {
+            //  Loading more.
+            //  Append fileList to current fileList
+            _.forEach(fileList, function(item) {
+                $scope.fileList.push(item);
+            });
+
+        }
+        $scope.isScrollLoading = false;
+        $scope.isLoading = false;
     }
 
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
@@ -108,7 +172,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             $modal.open({
                 scope       : $scope,
                 templateUrl : 'app/modal/upload.html',
-                controller  : fileUploadModalCtrl,
+                controller  : 'fileUploadModalCtrl',
                 size        : 'lg'
             });
         }
@@ -116,13 +180,14 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             $modal.open({
                 scope       : $scope,
                 templateUrl : 'app/modal/share.html',
-                controller  : fileShareModalCtrl,
+                controller  : 'fileShareModalCtrl',
                 size        : 'lg'
             });
         }
     };
 
     $scope.isToggled = false;
+
     $scope.toggleDropdown = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
@@ -134,10 +199,36 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         this.openModal('share');
     };
 
-    $scope.onClickUnshare = function(messageId, entityId) {
-        fileAPIservice.unShareEntity(messageId, entityId)
-            .success(function(response) {
-                fileAPIservice.broadcastChangeShared(messageId);
+    $scope.onClickUnshare = function(message, entity) {
+        fileAPIservice.unShareEntity(message.id, entity.id)
+            .success(function() {
+                // analytics
+                var share_target = "";
+                switch (entity.type) {
+                    case 'channel':
+                        share_target = "channel";
+                        break;
+                    case 'privateGroup':
+                        share_target = "private";
+                        break;
+                    case 'user':
+                        share_target = "direct message";
+                        break;
+                    default:
+                        share_target = "invalid";
+                        break;
+                }
+                var file_meta = (message.content.type).split("/");
+                var share_data = {
+                    "entity type"   : share_target,
+                    "category"      : file_meta[0],
+                    "extension"     : file_meta[1],
+                    "mime type"     : message.content.type,
+                    "size"          : message.content.size
+                };
+                analyticsService.mixpanelTrack( "File Unshare", share_data );
+
+                fileAPIservice.broadcastChangeShared(message.id);
             })
             .error(function(err) {
                 alert(err.msg);

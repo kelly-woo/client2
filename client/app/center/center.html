@@ -1,3 +1,94 @@
+<div class="panel-title-container">
+
+    <!--Title Dropdown-->
+    <span class="panel-title-info">
+        <span class="panel-title-info-name-container ng-binding dropdown-toggle" data-toggle="dropdown"
+              data-ng-class="{'header-padding-for-prefix' : currentEntity.type != 'privateGroup'}">
+                    <span class="prefix">{{ currentEntity.prefix }}</span>
+                    <span class="inline-overflow-ellipsis panel-title-info__name">{{ currentEntity | getFirstLastNameOfUser }}
+                        <i class="fa fa-caret-down header-title-info__more"></i>
+                    </span>
+            </span>
+
+            <!--Channel-->
+            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
+                        <i class="fa fa-plus"></i><span translate>Invite others to this channel</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="openModal('rename')">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-pencil"></i><span translate>Rename this channel</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-click="onLeaveClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-sign-out"></i><span translate>Leave channel</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="onDeleteClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-times"></i><span translate>Delete this channel</span>
+                    </a>
+                </li>
+            </ul>
+            <!--User-->
+            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
+                        <i class="fa fa-plus"></i><span translate>Invite to channel/group</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="onUserClick(currentEntity.id);">
+                        <i class="fa fa-user"></i><span translate>View profile</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="onFileListClick(currentEntity.id)">
+                        <i class="fa fa-file"></i><span translate>View files</span>
+                    </a>
+                </li>
+            </ul>
+            <!--PrivateGroup-->
+            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privateGroup'">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
+                        <i class="fa fa-plus"></i><span translate>Invite others to this group</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="openModal('rename')">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-pencil"></i><span translate>Rename this group</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-click="onLeaveClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-sign-out"></i><span translate>Leave group</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="onDeleteClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-times"></i><span translate>Delete this group</span>
+                    </a>
+                </li>
+            </ul>
+        </span>
+
+    <!--Member Dropdown-->
+    <span class="panel-title-member">
+        <span class="dropdown-toggle panel-title-member__more" data-toggle="dropdown" data-ng-if="currentEntity.type != 'user'">
+            <span>{{ currentEntity.ch_members.length || currentEntity.pg_members.length }}</span>
+        </span>
+        <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
+            <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
+                <a data-ng-if="userId == user.id">{{user|getFirstLastNameOfUser}}</a>
+                <a data-ng-if="userId != user.id" data-ui-sref="archives({entityType:'users', entityId:userId})">{{userId|getFirstLastNameById}}</a>
+            </li>
+        </ul>
+    </span>
+</div>
 
 <article class="msgs" when-scrolled="loadMore()" scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
@@ -8,73 +99,100 @@
         <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
 
             <div class="msgs-group__divider">
-                <div class="msgs-group__divider-label">{{ day.substr(8) }}</div>
+                {{ day.substr(8) }}
             </div>
 
-            <div last-detector="" data-length="{{msgs.length}}"
-             class="msg-item"
-             data-ng-repeat="msg in msgs | orderBy: 'time':false"
-             data-link-id="msg.id"
-             data-message-id="msg.message.id"
-             data-ng-class="{ 'text': msg.message.isText, 'file-upload': msg.message.isFile, 'comment-title': msg.message.commentOption.isTitle, 'comment-continue': msg.message.commentOption.isContinue }">
+            <div last-detector=""
+                 data-length="{{msgs.length}}"
+                 class="msg-item"
+                 data-ng-repeat="msg in msgs | orderBy: 'time':false"
+                 data-link-id="msg.id"
+                 data-link-status="msg.status"
+                 data-message-id="msg.message.id"
+                 data-message-type="msg.message.contentType"
+                 data-feedback-id="msg.feedbackId"
+                 data-event-type="msg.eventType"
+                 data-ng-class="{   'text': msg.message.isText, 'file-upload': msg.message.isFile,
+                                    'comment-title': msg.message.commentOption.isTitle,
+                                    'comment-continue': msg.message.commentOption.isContinue,
+                                     'system-event-msg' : msg.message.contentType === 'systemEvent' }">
 
-            <div class="msg-item-float" data-ng-if="( !msg.message.commentOption.isContinue )">
-                <a class="user-profile user-thumb" style="background-image: url({{ server_uploaded + ( msg.message.writer.u_photoThumbnailUrl.smallThumbnailUrl  || msg.message.writer.u_photoUrl ) }});"></a>
-            </div>
-
-            <div class="msg-item-header">
-                <span class="msg-item-header__name" data-ng-click="onUserClick(msg.fromEntity);">{{msg.message.writer|getFirstLastNameOfUser}}</span>
-                <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
-                <span class="temp msg-item-header__created">[{{msg.id + "-" + msg.messageId + "-" + msg.feedbackId}}/{{msg.message.contentType}}/{{msg.status}}{{msg.eventType}}]</span>
-                <a class="msg-item__action link-remove pull-right"
-                   data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
-                   data-ng-click="deleteMessage(msg)">
-                    <i class="fa fa-times"></i>
-                </a>
-            </div>
-
-            <div class="msg-item-body">
-
-                <!-- TEXT -->
-                <div class="msg-text" data-ng-if="msg.message.contentType === 'text'">
-                    <p class="msg-text-body break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+                <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);">
+                    <a class="user-profile user-thumb" ng-if="msg.message.contentType !== 'file'"
+                       style="background-image: url({{ server_uploaded + ( msg.message.writer.u_photoThumbnailUrl.smallThumbnailUrl  || msg.message.writer.u_photoUrl ) }});"></a>
+                    <a class="user-profile user-thumb" ng-if="msg.message.contentType === 'file'"
+                       style="background-image: url({{ server_uploaded + ( msg.fromEntity.u_photoThumbnailUrl.smallThumbnailUrl  || msg.fromEntity.u_photoUrl ) }});"></a>
                 </div>
 
-                <!-- FILE -->
-                <div class="msg-file" data-ng-if="msg.message.contentType === 'file'">
-                    <div class="msg-file-body">
-                        <img class="msg-file-body__img cursor_pointer" data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })"
-                             data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
-                             data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.largeThumbnailUrl }}"
-                             data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+                <div class="msg-item-header">
+                    <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+                        <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getFirstLastNameOfUser}} </span>
+                        <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getFirstLastNameOfUser}} </span>
+                    </span>
+                    <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
+                    <a class="msg-item__action link-remove pull-right"
+                       data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
+                       data-ng-click="deleteMessage(msg)">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+
+                <div class="msg-item-body">
+
+                    <!-- TEXT -->
+                    <div class="msg-text" data-ng-if="msg.message.contentType === 'text'">
+                        <p class="msg-text-body break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
                     </div>
-                    <div class="msg-file-meta">
-                        <div class="msg-file-meta-up">
-                            <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
-                                {{ msg.message.content.title }}
-                            </a>
-                            <span class="bullet">•</span>
+
+                    <!-- FILE -->
+                    <div class="msg-file" data-ng-if="msg.message.contentType === 'file'">
+                        <div class="msg-file-body-float pull-left">
+                            <!--    IMAGE THUMBNAIL -->
+                            <img class="msg-file-body__img cursor_pointer"
+                                 data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
+                                 data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
+                                 data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })" />
+
+                            <div class="msg-file-body__thumbnail"
+                                 data-ng-if="(msg.message.content.type).indexOf('image') == -1">
+
+                                <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="msg-file-meta">
+
+                            <div class="msg-file-meta-up">
+                                <a class="msg-file-meta__title file__name"
+                                   data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+                                    {{ msg.message.content.title }}
+                                </a>
+                                <span class="bullet">•</span>
                                 <span class="msg-file-meta-info">
                                     {{msg.message.content.size | bytes }} {{ msg.message.content.type | filetype }}
                                 </span>
-                        </div>
-                        <div class="msg-file-meta-down">
+                            </div>
+
+                            <div class="msg-file-meta-down">
                                 <span class="msg-file-meta-info">
-                                    Shared
-                                    <a class="msg-file-meta__writer file__owner" ng-if="( msg.fromEntity.id !== msg.message.writer.id )">{{msg.message.writer|getFirstLastNameOfUser}}'s</a>
-                                    File
-                                </span>
-                            <span class="bullet">•</span>
-                                <span data-ng-if="msg.message.shared.length">
-                                    <span class="msg-file-meta-info">
-                                        in
+                                    <span data-ng-if="( msg.fromEntity.id !== msg.message.writer.id )">
+                                        <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getFirstLastNameOfUser}}</a><!--
+                                        --><span translate>'s</span>
                                     </span>
+                                    <span ng-if="msg.status == 'shared'" translate>Shared</span>
+                                    <span ng-if="msg.status == 'unshared'" translate>Unshared</span>
+                                    <span translate>File</span>
+                                </span>
+                                <span class="bullet">•</span>
+                                <span data-ng-if="msg.message.shared.length">
                                     <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared | filter: {type:'!user'}) track by $index">
                                         <span data-ng-hide="($index === 0)">, </span>
-                                        <span class="underline file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                                        <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
                                             {{ sharedEntity.prefix }}{{ sharedEntity.name }}
                                         </span>
-                                        <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message.id, sharedEntity.id)">
+                                        <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
                                             <i class="fa fa-minus-circle"></i>
                                         </a>
                                     </span>
@@ -83,46 +201,63 @@
                                     </span>
                                     <span class="bullet">•</span>
                                 </span>
-                            <a class="green_font cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">Open original</a>
+                                <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
+                                    <span translate>Open original</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- COMMENT -->
-                <div class="msg-comment" data-ng-if="msg.message.contentType === 'comment'">
-                    <div class="msg-comment-header" data-ng-if="( msg.message.commentOption.isTitle )">
-                        Commented on <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">{{msg.feedback.content.title || msg.feedback.content.name}}</a>
+                    <!-- COMMENT -->
+                    <div class="msg-comment" data-ng-if="msg.message.contentType === 'comment'">
+                        <div class="msg-comment-header" data-ng-if="( msg.message.commentOption.isTitle )">
+                            Commented on <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">{{msg.feedback.content.title || msg.feedback.content.name}}</a>
+                        </div>
+                        <div class="msg-comment-body">
+                            <!--<i class="fa fa-quote-left pull-left"></i>-->
+                            <p class="break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+                        </div>
                     </div>
-                    <div class="msg-comment-body">
-                        <!--<i class="fa fa-quote-left pull-left"></i>-->
-                        <p class="break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
-                    </div>
-                </div>
 
-                <!-- SYSTEM EVENT -->
-                <div class="msg-text" data-ng-if="msg.message.contentType === 'systemEvent'">
-                    <div class="msg-comment-header">
-                        <span class="msg-comment_userType">{{ msg.message.content.actionOwner }}</span>
-                        <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
-                            <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
-                                {{ invitees.u_lastName }}{{invitees.u_firstName}}
+                    <!-- SYSTEM EVENT -->
+                    <div class="msg-text" data-ng-if="msg.message.contentType === 'systemEvent'">
+                        <div class="msg-comment-header" data-ng-switch="msg.info.eventType">
+                            <span data-ng-switch-default>
+                                <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+                                <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
                             </span>
+                            <span data-ng-switch-when="invite">
+                                <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+                                <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+                                <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites"><!--
+                                --><span data-ng-if="$index !== 0">, </span><span>{{invitees | getFirstLastNameOfUser}}</span><!--
+                            --></span>
+                            <span data-ng-if="preferences.language === 'ko_KR'">{{ 'invite-postfix' | translate }}</span>
+                        </span>
+                        <span data-ng-if="false"
+                              data-msg-join="{{ 'has joined' | translate}}"
+                              data-msg-leave="{{ 'has left' | translate }}"
+                              data-msg-invite="{{ 'invited' | translate }}"
+                              data-msg-create-channel="{{ 'created current channel' | translate }}"
+                              data-msg-create-group="{{ 'created current private group' | translate }}"></span>
+                        </div>
                     </div>
 
                 </div>
-
             </div>
-        </div>
+
 
         </div>
+
+        <div class="post-message msgs__loading" data-ng-if="isPosting"></div>
 
     </div>
 
 </article>
 
 <div class="footer">
-    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 41px;">
-        <span class="glyphicon glyphicon-circle-arrow-up" style="top:4px;"></span>
+    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;">
+        <i class="fa fa-upload"></i>
         <input type="file"
                id="btn-upload-primary"
                class=""
@@ -130,16 +265,16 @@
                ng-file-select="onFileSelect($files);"
                value="Upload File">
     </span>
-    <div id="messages-input-container" style="height: 41px;">
-        <form id="message-form" style="height: 41px;">
+    <div id="messages-input-container" style="height: 35px;">
+        <form id="message-form" style="height: 35px;">
             <textarea id="message-input"
                       class=""
                       focus-me="focusPostMessage"
-                      ng-disabled="msgLoadStatus.loading"
                       message-submit="postMessage()"
-                      ng-model="message.content"
+                      data-ng-disabled="msgLoadStatus.loading"
+                      data-ng-model="message.content"
                       maxlength=""
-                      style="overflow-y: hidden; height: 41px;"
+                      style="overflow-y: hidden; height: 35px;"
                       autocorrect="off"
                       autocomplete="off"
                       spellcheck="true">
@@ -151,40 +286,5 @@
 
 
 <style>
-    .last {
-        background-color: rgb(238, 252, 247);
-        -webkit-animation: opacIn 0.8s; /* Chrome, Safari, Opera */
-        animation: opacIn 0.8s;
-        margin-left: -20px;
-        margin-right: -10px;
-        padding-left: 67px;
-        margin-top: -13px !important;
-        padding-top: 13px;
-        /*margin-bottom: 8px;*/
-        /*padding-bottom: 5px;*/
-    }
-    .comment-continue.last {
-        padding-top: 0;
-        margin-bottom: 0;
-        margin-top: 0 !important;
-        padding-bottom: 15px;
-    }
-    .last.file-upload {
-        margin-left: -20px !important;
-        padding-bottom: 0;
-    }
-    .last .msg-item-float {
-        left: 20px;
-        top: 13px;
-    }
-    /* Chrome, Safari, Opera */
-    @-webkit-keyframes opacIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
-    /* Standard syntax */
-    @keyframes opacIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
+
 </style>

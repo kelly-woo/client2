@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService) {
 
     console.info('[enter] centerpanelController');
 
@@ -31,63 +31,78 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         firstLoadedId: -1,
         lastUpdatedId: -1,
         isFirst: false,
-        localLastMsgId: -1,
         loadingTimer : true,
         isInitialLoadingCompleted : false
     };
 
+
+    $scope.onLeaveClick = function() {
+        //  prevent user from leaving default channel.
+        if ($scope.currentEntity.id == $scope.team.t_defaultChannelId) {
+            console.debug('cannot leave default channel');
+            return;
+        }
+
+        entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
+            .success(function(response) {
+                // analytics
+                var entity_type = "";
+                switch ($scope.currentEntity.type) {
+                    case 'channel':
+                        entity_type = "channel";
+                        break;
+                    case 'privateGroup':
+                        entity_type = "private";
+                        break;
+                    default:
+                        entity_type = "invalid";
+                        break;
+                }
+                analyticsService.mixpanelTrack( "Entity Leave", { "type": entity_type } );
+                updateLeftPanel();
+            })
+            .error(function(error) {
+                alert(error.msg);
+            })
+    };
+
+    $scope.onDeleteClick = function() {
+        entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
+            .success(function() {
+                // analytics
+                var entity_type = "";
+                switch ($scope.currentEntity.type) {
+                    case 'channel':
+                        entity_type = "channel";
+                        break;
+                    case 'privateGroup':
+                        entity_type = "private";
+                        break;
+                    default:
+                        entity_type = "invalid";
+                        break;
+                }
+                analyticsService.mixpanelTrack( "Entity Delete", { "type": entity_type } );
+
+                updateLeftPanel();
+            })
+            .error(function(error) {
+                alert(error.msg);
+            });
+    };
+
+    function updateLeftPanel() {
+        $scope.updateLeftPanelCaller();
+        $rootScope.toDefault = true;
+    }
+
+    //  END OF PANEL HEADER FUNCTIONS
 
 
     //  default loadingTimer
     $timeout(function() {
         $scope.msgLoadStatus.loadingTimer = false;
     }, 1000);
-
-    function groupByDate1() {
-        for (var i = 0; i < $scope.messageUpdateCount; i++) {
-            var msg = $scope.messages[i];
-
-            var prev = (i == 0) ? null : $scope.messages[i-1];
-            // comment continuous check
-            if ( msg.message.contentType === 'comment' ) {
-                msg.message.commentOption = { isTitle: false, isContinue: false };
-                if ( i == 0 ) {
-                    msg.message.commentOption.isTitle = true;
-                } else {
-                    // TODO 이전 메세지와 feedbackId가 같은지도 체크 필요함
-                    if (prev.message.contentType === 'file') {
-
-                        // 파일 아래 바로 해당 파일의 코멘트
-                        if (prev.messageId === msg.feedbackId) {
-                            msg.message.commentOption.isContinue = true;
-                        } else {
-                            msg.message.commentOption.isTitle = true;
-                        }
-
-                    } else if (prev.message.contentType === 'comment') {
-
-                        // 같은 파일에 대한 연속 코멘트
-                        if (prev.feedbackId === msg.feedbackId) {
-                            msg.message.commentOption.isContinue = true;
-                        } else {
-                            msg.message.commentOption.isTitle = true;
-                        }
-
-                    } else {
-                        msg.message.commentOption.isTitle = true;
-                    }
-                }
-            } else if (msg.message.contentType === 'file') {
-                msg.message.isFile = true;
-            } else if (msg.message.contentType === 'text') {
-                msg.message.isText = true;
-            }
-
-            // console.log(msg.message.contentType, msg.id);
-            // console.log("");
-            $scope.messages[i] = msg;
-        }
-    }
 
     var groupByDate = function() {
         // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
@@ -151,7 +166,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             prev.removeClass('last');
         }
 
-        if (lastMessage.position().top > 0) {
+        if (angular.isUndefined(lastMessage) && lastMessage.position().top > 0) {
             lastMessage.addClass('last');
             $('.msgs').scrollTop(lastMessage.position().top - 13);
         }
@@ -166,7 +181,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     function disableScroll() {
         $('body').bind('mousewheel', function(e) {
-            e.preventDefault()
+            e.preventDefault();
             e.stopPropagation();
         });
     }
@@ -174,12 +189,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     function enableScroll() {
         $('body').unbind('mousewheel');
     }
+
     $scope.loadMore = function() {
         var deferred = $q.defer();
 
         if ($scope.msgLoadStatus.isFirst) return;
 
-        if (!$scope.msgLoadStatus.loading) {
+        if (!$scope.msgLoadStatus.loading && !$scope.isPosting) {
 
             $scope.msgLoadStatus.loading = true;
 
@@ -192,6 +208,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                         $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
 
                         if (response.messageCount) {
+
+                            //  marker 설정
+                            updateMessageMarker();
 
                             for (var i in response.messages.reverse()) {
 
@@ -226,14 +245,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                             groupByDate();
                         }
 
-                        // 최초 로드시 max(linkId) 업데이트
-                        if ( $scope.msgLoadStatus.firstLoadedId < 0 && response.messageCount ) {
-                            //  localLastMsgId is for message marker of current entity
-                            $scope.msgLoadStatus.localLastMsgId = _.max($scope.messages, function(message) {
-                                return message.id;
-                            }).id;
-                        }
-
                         // 추후 로딩을 위한 status 설정
                         $scope.msgLoadStatus.firstLoadedId = response.firstIdOfReceivedList;
                         $scope.msgLoadStatus.isFirst = response.isFirst;
@@ -264,7 +275,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var updateList = function() {
         //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
         //  In such case, don't update list and just return it.
-        if ($scope.msgLoadStatus.loading) {
+        if ($scope.msgLoadStatus.loading || $scope.isPosting) {
             $scope.promise = $timeout(updateList, updateInterval);
             return;
         }
@@ -282,13 +293,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 // lastUpdatedId 갱신
                 $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
 
+
                 response = response.updateInfo;
 
-                //  localLastMsgId is for message marker for current entity
                 if (response.messageCount) {
-                    $scope.msgLoadStatus.localLastMsgId = _.max(response.messages, function(message) {
-                        return message.id;
-                    }).id;
+
+                    //  marker 설정
+                    updateMessageMarker();
 
                     // 업데이트 된 메세지 처리
                     for (var i in response.messages) {
@@ -378,24 +389,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $timeout.cancel($scope.promise);
     });
 
-    //  update message marker only there are new msgs to display. otherwise, don't update.
-    $scope.$watch('msgLoadStatus.localLastMsgId', function(newVal, oldVal) {
-        if (newVal != -1) updateMessageMarker();
-    });
-
-
     $scope.message = {};
     $scope.postMessage = function() {
         if (!$scope.message.content) return;
 
         // prevent duplicate request
-        $scope.msgLoadStatus.loading = true;
+//        $scope.msgLoadStatus.loading = true;
+        $scope.isPosting = true;
         var msg = $scope.message.content;
         $scope.message.content = "";
 
         messageAPIservice.postMessage(entityType, entityId, {'content': msg})
             .success(function(response) {
-                $scope.msgLoadStatus.loading = false;
+                $scope.isPosting = false;
+//                $scope.msgLoadStatus.loading = false;
                 $timeout.cancel($scope.promise);
                 updateList();
             })
@@ -457,8 +464,33 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $modal.open({
                 scope       : $scope,
                 templateUrl : 'app/modal/upload.html',
-                controller  : fileUploadModalCtrl,
+                controller  : 'fileUploadModalCtrl',
                 size        : 'lg'
+            });
+        }
+        else if (selector == 'rename') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/rename.html',
+                controller  :   'renameModalCtrl',
+                size        :   'lg'
+            });
+        }
+        else if (selector == 'invite') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/invite.channel.html',
+                controller  :   'inviteModalCtrl',
+                size        :   'lg',
+                windowClass :   'allowOverflowY'
+            });
+        }
+        else if (selector == 'inviteUserToChannel') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/invite.direct.html',
+                controller  :   'inviteUsertoChannelCtrl',
+                size        :   'lg'
             });
         }
     };
@@ -503,10 +535,36 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         }
     };
 
-    $scope.onClickUnshare = function(messageId, entityId) {
-        fileAPIservice.unShareEntity(messageId, entityId)
-            .success(function(response) {
-                fileAPIservice.broadcastChangeShared(messageId);
+    $scope.onClickUnshare = function(message, entity) {
+        fileAPIservice.unShareEntity(message.id, entity.id)
+            .success(function() {
+                // analytics
+                var share_target = "";
+                switch (entity.type) {
+                    case 'channel':
+                        share_target = "channel";
+                        break;
+                    case 'privateGroup':
+                        share_target = "private";
+                        break;
+                    case 'user':
+                        share_target = "direct message";
+                        break;
+                    default:
+                        share_target = "invalid";
+                        break;
+                }
+                var file_meta = (message.content.type).split("/");
+                var share_data = {
+                    "entity type"   : share_target,
+                    "category"      : file_meta[0],
+                    "extension"     : file_meta[1],
+                    "mime type"     : message.content.type,
+                    "size"          : message.content.size
+                };
+                analyticsService.mixpanelTrack( "File Unshare", share_data );
+
+                fileAPIservice.broadcastChangeShared(message.id);
             })
             .error(function(err) {
                 alert(err.msg);
@@ -514,7 +572,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     };
 
 
-    //  'event' fild if not empty when,
+    //  'event' field if not empty when,
     //      1. create channel
     //      2. leave channel
     //      3. archive(delete) channel
@@ -528,9 +586,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         //  otherwise, false.
         var mustUpdateLeftPanel = false;
 
-        console.log('There are some system events');
-        console.log('There are ' + event.eventCount)
-        console.log(eventTable);
+//        console.log('There are some system events');
+//        console.log('There are ' + event.eventCount)
+//        console.log(eventTable);
 
         _.find(eventTable, function(event, index, list) {
 //            console.log(event);
@@ -541,7 +599,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                 //  someone invited 'ME' to some channel.
                 if (_.contains(event.info.inviteUsers, $scope.user.id)) {
-                    console.log('someone invited me')
+//                    console.log('someone invited me')
                     mustUpdateLeftPanel = true;
                     return;
                 }
@@ -550,7 +608,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 //  If I invited someone on web, it doesn't really matter.
                 //  But if I invited someone from different device(mobile), I need to update leftPanel on web.
                 if (event.info.invitorId == $scope.user.id) {
-                    console.log('I invited someone')
+//                    console.log('I invited someone')
                     mustUpdateLeftPanel = true;
                     return;
                 }
@@ -558,7 +616,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 var updateEntity = entityAPIservice.getEntityFromListById($rootScope.joinedEntities, event.toEntity[0]);
 
                 if (updateEntity) {
-                    console.log('someone invited someone to some channel that I am in');
+//                    console.log('someone invited someone to some channel that I am in');
                     mustUpdateLeftPanel = true;
                     return;
                 }
@@ -571,7 +629,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 if (event.fromEntity == $scope.user.id) {
 
                     //  leave event of myself cannot get here!
-                    console.log('I joined something');
+//                    console.log('I joined something');
 
                     mustUpdateLeftPanel = true;
                     return;
@@ -595,10 +653,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                 console.log('create')
                 if (event.fromEntity == $scope.user.id) {
-                    console.log('I created channel')
+//                    console.log('I created channel')
                 }
                 else {
-                    console.log('someone created channel')
+//                    console.log('someone created channel')
                 }
                 mustUpdateLeftPanel = true;
                 return;
@@ -620,13 +678,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     return;
                 }
                 else {
-                    console.log('someone archived some channel')
+//                    console.log('someone archived some channel')
                 }
                 return;
             }
             else {
-                alert(' who are you ');
-                console.log(event);
+                console.error(event);
             }
 
             return mustUpdateLeftPanel;
@@ -684,46 +741,50 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     function eventMsgHandler(msg) {
-        msg.eventType = '/' + msg.info.eventType;
-        msg.message = {};
-        msg.message.contentType = 'systemEvent';
-        msg.message.content = {};
+        var newMsg = msg;
+        newMsg.eventType = '/' + msg.info.eventType;
 
+        newMsg.message = {};
+        newMsg.message.contentType = 'systemEvent';
+        newMsg.message.content = {};
+        newMsg.message.writer = msg.fromEntity;
         var action = '';
 
         switch(msg.info.eventType) {
             case 'invite':
-                action = 'invited';
-                msg.message.invites = [];
-
+                action = $filter('translate')('invited');
+                newMsg.message.invites = [];
                 _.each(msg.info.inviteUsers, function(element, index, list) {
                     var entity = entityAPIservice.getEntityFromListById($rootScope.userList, element);
-                    msg.message.invites.push(entity)
+                    newMsg.message.invites.push(entity)
                 });
                 break;
             case 'join' :
-                action = 'joined this channel.';
+                action = $filter('translate')('has joined');
                 break;
             case 'leave' :
-                action = 'left this channel.';
+                action = $filter('translate')('has left');
                 break;
             case 'create' :
-                action = 'created current channel at ' + $filter('date')(msg.time, 'h:mm:ss a') + '.';
+                if (msg.info.entityType !== 'channel') {
+                    action = $filter('translate')('created current private group');
+                } else {
+                    action = $filter('translate')('created current channel');
+                }
                 break;
-
         }
 
-        msg.message.content.actionOwner = entityAPIservice.getFullName(msg.fromEntity);
-        msg.message.content.body = action;
+        newMsg.message.content.actionOwner = userAPIservice.getNameFromUser(msg.fromEntity);
+        newMsg.message.content.body = action;
 
-        return msg;
+        return newMsg;
     }
 
     //  Updating message marker for current entity.
     function updateMessageMarker() {
-        messageAPIservice.updateMessageMarker($scope.currentEntity.id, $scope.currentEntity.type, $scope.msgLoadStatus.localLastMsgId)
+        messageAPIservice.updateMessageMarker($scope.currentEntity.id, $scope.currentEntity.type, $scope.msgLoadStatus.lastUpdatedId)
             .success(function(response) {
-//                console.log('----------- successfully updated message marker for ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.localLastMsgId + ' with ' + $scope.currentEntity.type)
+//                console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.lastUpdatedId + ' with ' + $scope.currentEntity.type)
             })
             .error(function(response) {
                 console.log('message marker not updated for ' + $scope.currentEntity.id);
@@ -740,7 +801,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         }
 
         if (response.code == INVALID_SECURITY_TOKEN) {
-            console.log('okay. forced out.');
+            console.debug('INVALID SECURITY TOKEN.');
             $state.go('signin');
             return;
         }

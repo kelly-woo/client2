@@ -2,13 +2,13 @@
 
 var app = angular.module('jandiApp');
 
-app.config(function ($stateProvider) {
+app.config(function ($stateProvider, $analyticsProvider) {
     $stateProvider
         .state('signin', {
-            url: '/',
-            title: 'SignIn',
-            templateUrl: 'app/signin/signin.html',
-            controller: 'authController'
+            url         : '/',
+            title       : 'Sign In',
+            templateUrl : 'app/signin/signin.html',
+            controller  : 'authController'
         })
         .state('messages', {
             abstract    : true,
@@ -94,5 +94,15 @@ app.config(function ($stateProvider) {
             url         : '/error?code&msg&referrer',
             title       : 'ERROR',
             controller  : 'errorController'
+        })
+        .state('404', {
+            url         : '/404',
+            title       : '404',
+            views       : {
+                '': {
+                    templateUrl : 'app/error/404.html',
+                    controller  : 'errorController'
+                }
+            }
         });
 });

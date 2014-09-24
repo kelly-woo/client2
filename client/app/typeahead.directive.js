@@ -14,6 +14,7 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
                 //SUPPORTED ATTRIBUTES (OPTIONS)
 
                 //minimal no of characters that needs to be entered before typeahead kicks-in
+
                 //jihoon
                 var minSearch;
                 if (attrs.typeaheadMinLength == 0)
@@ -267,7 +268,8 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
                 // jihoon
                 element.bind('focus', function(evt) {
                     modelCtrl.$setViewValue(evt.delegateTarget.value);
-                })
+                });
+
                 element.bind('blur', function (evt) {
                     hasFocus = false;
                 });

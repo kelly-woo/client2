@@ -15,7 +15,10 @@ module.exports = function (grunt) {
         ngtemplates: 'grunt-angular-templates',
         cdnify: 'grunt-google-cdn',
         protractor: 'grunt-protractor-runner',
-        injector: 'grunt-asset-injector'
+        injector: 'grunt-asset-injector',
+        nggettext_extract: 'grunt-angular-gettext',
+        nggettext_compile: 'grunt-angular-gettext',
+        replace: 'grunt-replace'
     });
 
     // Time how long tasks take. Can help when optimizing build times
@@ -48,8 +51,7 @@ module.exports = function (grunt) {
         },
         open: {
             server: {
-                url: 'http://localhost:<%= express.options.port %>',
-                app: 'Google Chrome'
+                url: 'http://local.jandi.com:<%= express.options.port %>'
             }
         },
         watch: {
@@ -202,8 +204,7 @@ module.exports = function (grunt) {
             target: {
                 src: '<%= yeoman.client %>/index.html',
                 ignorePath: '<%= yeoman.client %>/',
-                exclude: [/bootstrap-sass-official/, '/json3/', '/es5-shim/']
-                //exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/']
+                exclude: ['/bootstrap-sass-official/', '/json3/', '/es5-shim/']
             }
         },
 
@@ -214,7 +215,7 @@ module.exports = function (grunt) {
                     src: [
                         '<%= yeoman.dist %>/public/{,*/}*.js',
                         '<%= yeoman.dist %>/public/{,*/}*.css',
-                        //'<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                        '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                         '<%= yeoman.dist %>/public/assets/fonts/*'
                     ]
                 }
@@ -245,6 +246,10 @@ module.exports = function (grunt) {
                 patterns: {
                     js: [
                         [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+                    ],
+                    css: [
+                        [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the CSS to reference our revved images'],
+                        [/(assets\/fonts\/.*?\.(?:eot|woff|svg))/gm, 'Update the JS to reference our revved fonts']
                     ]
                 }
             }
@@ -461,6 +466,61 @@ module.exports = function (grunt) {
                 }
             }
         },
+
+        // 다국어 지원이 필요한 .html을 읽어서 원본 origin_template.pot 파일 생성 위치와 파일명 지정
+        nggettext_extract: {
+            pot: {
+                files: {
+                    '<%= yeoman.client %>/app/translation/po/origin_template.pot': [
+                        '<%= yeoman.client %>/app/**/*.html'
+                    ]
+                }
+            }
+        },
+
+        // 다국어 .po 파일을 읽어서 angular 형식의 파일을 만들 위치와 파일명 지정. 별도의 모듈로 gettext_translation을 적용한다.
+        nggettext_compile: {
+            all: {
+//            options: {
+//                module: 'gettext_translation'
+//            },
+                files: {
+                    '<%= yeoman.client %>/app/translation/translation.js': [
+                        '<%= yeoman.client %>/app/translation/po/*.po'
+                    ]
+                }
+            }
+        },
+
+        // replace
+        replace: {
+            development: {
+                options: {
+                    patterns: [{
+                        json: grunt.file.readJSON('./config/environments/development.json')
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    src: ['./config/config.js'],
+                    dest: '<%= yeoman.client %>/app/'
+                }]
+            },
+            staging: {
+                options: {
+                    patterns: [{
+                        json: grunt.file.readJSON('./config/environments/staging.json')
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    src: ['./config/config.js'],
+                    dest: '<%= yeoman.client %>/app/'
+                }]
+            }
+        }
     });
 
     // Used for delaying livereload until after server has restarted
@@ -498,6 +558,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
+            'replace:development',
             'env:all',
             'concurrent:server',
             'injector',
@@ -577,5 +638,12 @@ module.exports = function (grunt) {
         'newer:jshint',
         'test',
         'build'
+    ]);
+
+    grunt.registerTask('staging', [
+        'replace:staging'
+    ]);
+    grunt.registerTask('development', [
+        'replace:development'
     ]);
 };

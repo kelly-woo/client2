@@ -7,10 +7,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!--<base href="/">-->
-        <title ng-bind="$state.current.title + ' | JANDI'">JANDI</title>
-        <meta name="description" content="">
+        <title data-ng-bind="$state.current.title + ' | JANDI'">JANDI</title>
+        <meta name="description" content="JANDI Web application">
+        <meta name="keywords" content="JANDI, 잔디">
+        <meta name="author" content="TossLab">
+        <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
         <meta name="viewport" content="width=device-width">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <!-- build:css(client) app/vendor.css -->
             <!-- bower:css -->
@@ -26,6 +28,7 @@
             <!-- injector:css -->
             <link rel="stylesheet" href="app/app.css">
             <link rel="stylesheet" href="app/center/center.css">
+            <link rel="stylesheet" href="app/error/404.css">
             <link rel="stylesheet" href="app/header/header.css">
             <link rel="stylesheet" href="app/left/left.css">
             <link rel="stylesheet" href="app/main.css">
@@ -33,6 +36,7 @@
             <link rel="stylesheet" href="app/modal/terms/terms.css">
             <link rel="stylesheet" href="app/right/file.css">
             <link rel="stylesheet" href="app/right/right.css">
+            <link rel="stylesheet" href="app/signin/signin.css">
             <!-- endinjector -->
         <!-- endbuild -->
     </head>
@@ -43,15 +47,13 @@
 
         <!-- Add your site or application content here -->
         <div id="client-ui" class="body" ui-view=""></div>
-        <div ui-view="rightpanel" class="rpanel" ng-class="{'hidden': !$state.includes('**.files')}"></div>
-        <div ui-view="detailpanel" class="rpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item')}"></div>
-        <div class="rpanel__background" ng-class="{'extend': $state.includes('**.files.**')}">
+        <div ui-view="rightpanel" class="rpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
+        <div ui-view="detailpanel" class="rpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
+        <div class="rpanel__background" ng-class="{'extend': $state.includes('**.files.**'), 'hidden': !$state.includes('**.files.**')} ">
             <div class="rpanel__background-body">
                 <div class="rpanel__loading" ng-class="{'hidden': !$state.includes('**.files.**')}"></div>
             </div>
         </div>
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 
         <!--[if lt IE 9]>
         <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -79,16 +81,36 @@
             <script src="bower_components/jquery.lazyload/jquery.lazyload.js"></script>
             <script src="bower_components/jquery.lazyload/jquery.scrollstop.js"></script>
             <script src="bower_components/ngImgCrop/compile/minified/ng-img-crop.js"></script>
+            <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
+            <script src="bower_components/jquery-waypoints/waypoints.js"></script>
+            <script src="bower_components/SHA-1/sha1.js"></script>
+            <script src="bower_components/angulartics/src/angulartics.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-adobe.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-chartbeat.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-flurry.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-ga-cordova.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-ga.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-gtm.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-kissmetrics.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-mixpanel.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-piwik.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-scroll.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-segmentio.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-splunk.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-woopra.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-marketo.js"></script>
             <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
             <!-- injector:js -->
+            <script src="app/analytics.service.js"></script>
             <script src="app/center/center.controller.js"></script>
             <script src="app/center/center.service.js"></script>
             <script src="app/config.js"></script>
             <script src="app/entity.service.js"></script>
+            <script src="app/error/error.controller.js"></script>
             <script src="app/header/header.controller.js"></script>
             <script src="app/header/header.service.js"></script>
             <script src="app/left/left.controller.js"></script>
@@ -104,7 +126,7 @@
             <script src="app/signin/auth.controller.js"></script>
             <script src="app/signin/auth.service.js"></script>
             <script src="app/team/team.service.js"></script>
-            <script src="app/temp.controller.js"></script>
+            <script src="app/translation/translation.js"></script>
             <script src="app/typeahead.directive.js"></script>
             <script src="app/user.service.js"></script>
             <!-- endinjector -->

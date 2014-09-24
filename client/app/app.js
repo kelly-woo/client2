@@ -3,38 +3,47 @@
 var app = angular.module('jandiApp', [
     'ui.router',
     'ui.bootstrap',
-    // 'xeditable',
+    'services.config',
+    'gettext',
     'LocalStorageModule',
     'angularFileUpload',
     'ngCookies',
     'ngResource',
     'ngSanitize',
     'ngAnimate',
-    'ngImgCrop'
+    'ngImgCrop',
+    'angulartics',
+    'angulartics.google.analytics'
 ]);
 
-// app.run(function(editableOptions) {
-//     editableOptions.theme = 'bs3';
-// });
-
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration) {
 
     $rootScope._ = window._;
 
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
-//    var api_address = "https://www.jandi.com/";
-    var api_address = "https://dev.jandi.com:2323/";
-//    var api_address = "../";
-    var api_version = 1;
+    <!-- analytics start -->
+    (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+        for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+    mixpanel.init(configuration.mp_token);
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', configuration.ga_token, 'auto');
+    <!-- analytics end -->
 
+    var api_address = configuration.api_address;
+    var api_version = configuration.api_version;
     $rootScope.server_address = api_address + "inner-api/";
     $rootScope.server_uploaded = api_address;
     $rootScope.api_version = api_version;
 
+    //  set this value to true if you want to display nickname instead of full name.
+    $rootScope.displayNickname = false;
+
     $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
-        //change this code to handle the error somehow
         $state.go('messages.home');
     });
 
@@ -47,13 +56,11 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
         if (!fromState.name) {
             // if external access, continue to original state
-//                console.log("팀사이트로 이동");
         } else {
             // otherwise, internal access, redirect to messages state
             switch(toState.name) {
                 case 'archives':
                     event.preventDefault();
-
                     if ( toParams.entityId == $rootScope.user.id ) {
                         console.warn("prevent redirect to self direct message");
                         return false;
@@ -77,7 +84,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                     break;
                 case 'messages' :
                 case 'messages.home' :
-
                     var lastState = entityAPIservice.getLastEntityState();
                     if (!lastState) {
                         $rootScope.toDefault = true;
@@ -85,9 +91,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                     }
 
                     event.preventDefault();
-
                     if (lastState.rpanel_visible) {
-
                         if (lastState.itemId) {
                             $state.go('messages.detail.files.item', { entityType:lastState.entityType, entityId: lastState.entityId, itemId: lastState.itemId });
                             return;
@@ -113,12 +117,9 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     });
 
     $rootScope.$on('$locationChangeSuccess', function(event) {
-        console.log("[$locationChangeSuccess]");
-
         $rootScope.uiState = localStorageService.get('ui-state');
 
         entityAPIservice.setLastEntityState();
-
 
         // Halt state change from even starting
         // event.preventDefault();
@@ -131,27 +132,58 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         //
         // }
     });
-})
+
+    $rootScope.preferences = {
+        language        : gettextCatalog.currentLanguage,
+        notification    : ''
+    };
+
+    // translate for multi-lang
+    $rootScope.setLang = function(setLang, isDebug) {
+        setLang = setLang || 'ko_KR';
+        isDebug = isDebug || false;
+        // 언어 설정
+        gettextCatalog.setCurrentLanguage(setLang);
+        gettextCatalog.debug = isDebug;
+        // 현재 언어 저장
+        $rootScope.preferences.language = gettextCatalog.currentLanguage;
+    };
+
+    // 시스템(브라우저) 기본 언어로 초기화
+    var userLang = navigator.language || navigator.userLanguage;
+    console.info("systemLang", userLang);
+//    var debugMode = (configuration.name === 'development');
+    var debugMode = false;
+    switch( userLang ) {
+        case 'ko':
+        case 'ko_KR':
+            userLang = 'ko_KR';
+            break;
+        case 'en':
+        case 'en_US':
+        default:
+            userLang = 'en_US';
+            break;
+    }
+    $rootScope.setLang(userLang, debugMode);
+
+});
 
 app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, localStorageServiceProvider) {
 
     $httpProvider.interceptors.push('authInterceptor');
-
-    /* CORS setting */
-    // $httpProvider.defaults.useXDomain = true;
-    // delete $httpProvider.defaults.headers.common["X-Requested-With"];
-    // $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
     /* LocalStorage prefix setting */
     localStorageServiceProvider.setPrefix('_jd_');
 
     /* URL routing rule for exception */
     $urlRouterProvider
+        .when("", "/")
         .when("/messages/", "/messages")
         .when("/channels/:id/", "/channels/:id")
         .when("/users/:id/", "/users/:id")
         .when("/privategroups/:id/", "/privategroups/:id")
-        .otherwise("/");
+        .otherwise("/404");
 
     /* URL must be lower-case */
     $urlRouterProvider.rule(function ($injector, $location) {

@@ -10,18 +10,19 @@ var app = angular.module('jandiApp');
  ----------------------------*/
 
 // CHANNEL JOIN
-var joinModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state, $filter, $rootScope) {
-    $scope.userId               = $scope.user.id;
+app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPIservice, entityheaderAPIservice, analyticsService) {
+
+    $scope.userId = $scope.user.id;
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     // Returns a list of channels that current user hasn't joined yet.
     $scope.isNotMember = function(channel) {
-        console.log(jQuery.inArray($scope.user.id, channel.ch_members))
+        //console.log(jQuery.inArray($scope.user.id, channel.ch_members))
         return jQuery.inArray($scope.user.id, channel.ch_members) ==  -1;
-    }
+    };
 
     // Returns a name of user whose id is 'id'
     $scope.getName = function(id) {
@@ -29,89 +30,130 @@ var joinModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $st
             return 'you';
         }
 
-        var temp = entityheaderAPIservice.getEntityFromListById($scope.userList, id);
-
-        return $filter('getFirstLastNameOfUser')(temp);
-    }
+        return userAPIservice.getNameFromUserId(id);
+    };
 
     $scope.newChannel = function() {
         $scope.openModal('channel');
         this.cancel();
-    }
+    };
+
 
     $scope.onJoinClick = function(entityId) {
+        $scope.isLoading = true;
         entityheaderAPIservice.joinChannel(entityId)
-            .success(function(response) {
+            .success(function() {
+                // analytics
+                analyticsService.mixpanelTrack( "Channel Join" );
+
+                $scope.isLoading = false;
                 $scope.updateLeftPanelCaller();
                 $state.go('archives', {entityType:'channels', entityId:entityId});
                 $modalInstance.dismiss('cancel');
             })
-            .error(function(response) {
-                alert(response.msg);
-            })
-    }
-}
+            .error(function(error) {
+                $scope.isLoading = false;
+                alert(error.msg);
+            });
+    };
+});
 
 // PRIVATE_GROUP/CHANNEL CREATE
-var createEntityModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state) {
-
+app.controller('createEntityModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, analyticsService) {
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
     $scope.onCreateClick = function(entityType, entityName) {
+
+        $scope.isLoading = true;
+
         entityheaderAPIservice.createEntity(entityType, entityName)
             .success(function(response) {
+                // analytics
+                var entity_type = "";
+                switch ($scope.currentEntity.type) {
+                    case 'channel':
+                        entity_type = "channel";
+                        break;
+                    case 'privateGroup':
+                        entity_type = "private";
+                        break;
+                    default:
+                        entity_type = "invalid";
+                        break;
+                }
+                analyticsService.mixpanelTrack( "Entity Create", { "type": entity_type } );
+
                 $scope.updateLeftPanelCaller();
                 $state.go('archives', {entityType:entityType + 's', entityId:response.id});
-                $modalInstance.dismiss('cancel')
+                $modalInstance.dismiss('cancel');
+                $scope.isLoading = false;
             })
             .error(function(response) {
                 alert(response.msg);
-            })
+                $scope.isLoading = false;
+            });
     };
-}
+});
 
 // DIRECT_MESSAGE
-var userModalCtrl = function($scope, $modalInstance, $state) {
+app.controller('userModalCtrl', function($scope, $modalInstance, $state) {
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     $scope.onUserSelected = function(item) {
         $state.go('archives', {entityType:'users', entityId:item.id});
         this.cancel();
         item.visibility = true;
-    }
-
-}
+    };
+});
 
 // PRIVATE_GROUP/CHANNEL RENAME
-var renameModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope) {
-
+app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope, analyticsService) {
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     $scope.onRenameClick = function(entityNewName) {
-        entityheaderAPIservice.renameEntity($state.params.entityType, $state.params.entityId,  entityNewName)
+
+        $scope.isLoading = true;
+
+        entityheaderAPIservice.renameEntity($state.params.entityType, $state.params.entityId, entityNewName)
             .success(function(response) {
+                // analytics
+                var entity_type = "";
+                switch ($state.params.entityType) {
+                    case 'channels':
+                        entity_type = "channel";
+                        break;
+                    case 'privategroups':
+                        entity_type = "private";
+                        break;
+                    default:
+                        entity_type = "invalid";
+                        break;
+                }
+                analyticsService.mixpanelTrack( "Entity Name Change", { "type": entity_type } );
+
                 $scope.updateLeftPanelCaller();
                 $rootScope.$emit('updateSharedEntities');
                 $modalInstance.dismiss('cancel');
-                console.log('successfully renamed');
+                $scope.isLoading = false;
             })
             .error(function(response) {
                 alert(response.msg);
+                $scope.isLoading = false;
             })
     };
-}
+});
 
 // PRIVATE_GROUP/CHANNEL INVITE
-var inviteModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $state, $filter) {
+app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService) {
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     generateInviteList();
 
@@ -121,9 +163,8 @@ var inviteModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $
     function generateInviteList() {
         var members = $scope.currentEntity.ch_members || $scope.currentEntity.pg_members;
         var totalUserList = $scope.userList;
-        var userList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 });
 
-        $scope.userList = userList;
+        $scope.userList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 });
     }
 
     // See if 'user' is a member of current channel/privateGroup.
@@ -132,131 +173,186 @@ var inviteModalCtrl = function($scope, $modalInstance, entityheaderAPIservice, $
             return jQuery.inArray(user.id, $scope.currentEntity.ch_members) >  -1;
 
         return jQuery.inArray(user.id, $scope.currentEntity.pg_members) >  -1;
-    }
+    };
 
     // Below function gets called when 'enter/click' happens in typeahead.
     // This function is buggyyyy
     // TODO : FIX IT!
     $scope.onUserSelected = function(selectedUser) {
         selectedUser.selected = true;
-    }
+    };
 
     $scope.onInviteClick = function(entityType) {
         var guestList = [];
 
-        angular.forEach($filter('filter')($scope.userList, {'selected':true}), function(user, index) {
+        angular.forEach($filter('filter')($scope.userList, {'selected':true}), function(user) {
             this.push(user.id);
         }, guestList);
 
         if (guestList.length== 0) {
+            // TODO: 한글화
             alert("No one to invite.  I guess you don't have that many friends.");
             return;
         }
 
+        $scope.isLoading = true;
+
         entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
-            .success(function(response) {
+            .success(function() {
+                // analytics
+                var entity_type = "";
+                switch (entityType) {
+                    case 'channel':
+                        entity_type = "channel";
+                        break;
+                    case 'privateGroup':
+                        entity_type = "private";
+                        break;
+                    default:
+                        entity_type = "invalid";
+                        break;
+                }
+                analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
+
+                $scope.isLoading = false;
                 $modalInstance.dismiss('cancel');
                 $scope.updateLeftPanelCaller();     // is this necessary?
             })
-            .error(function(response) {
-                console.log('something went wrong ' + response.msg );
-            })
+            .error(function(error) {
+                console.error('inviteUsers', error.msg );
+                $scope.isLoading = false;
+            });
     };
-
-}
+});
 
 // INVITE USER TO TEAM
-var inviteUserToTeamCtrl = function($scope, $modalInstance, teamAPIservice) {
+app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter, teamAPIservice, analyticsService) {
     $scope.isLoading = false;
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     $scope.onInviteClick = function() {
         $scope.isLoading = true;
 
         var invites = [];
-
         var cur = {};
-
         var hasAllInformation = false;
 
-        $('input.invite').each(function(index) {
+        $('input.invite').each(function(idx) {
             var currentDomInput = $(this);
-
-            if (currentDomInput.val() === '') {
-                return false;
-            }
 
             switch(currentDomInput.attr('name')) {
                 case 'email':
                     hasAllInformation = false;
                     cur.email = currentDomInput.val();
                     break;
-                case 'firstName':
-                    cur.firstName = currentDomInput.val();
-                    break;
                 case 'lastName':
                     cur.lastName = currentDomInput.val();
+                    break;
+                case 'firstName':
+                    cur.firstName = currentDomInput.val();
+
+                    if ( cur.email === '' || cur.lastName === '' || cur.firstName === '') {
+                        cur = {};
+                        break;
+                    }
                     invites.push(cur);
                     cur = {};
                     hasAllInformation = true;
                     break;
                 default :
-                    console.log('??')
+                    console.warn('onInviteClick', idx);
             }
-        })
+        });
+
+        // help message
+        var help_missing = $filter('translate')('Missing Information');
+        var help_fail_send = $filter('translate')('Failed to send email');
+        var help_error_taken = $filter('translate')('is already member of your team');
+        var help_error_invalid = $filter('translate')('is invalid email address');
+        var help_success_send = $filter('translate')('Sent the invitation mail successfully');
+        // html fragment
+        var html_noti_fail = '<div class="modal-noti-block"><h1>' + help_fail_send + '</h1></div>';
+        var html_noti_success = '<div class="modal-noti-block alert-jandi alert-success"><h1>' + help_success_send + '</h1></div>';
 
         $scope.hasAllInformation = hasAllInformation;
 
-        if (hasAllInformation) {
+        if (invites.length == 0) {
+            $scope.isLoading = false;
+            alert(help_missing);
+        }
+
+        if (invites.length > 0) {
             teamAPIservice.inviteToTeam(invites)
                 .success(function(response) {
-//                console.log(response);
-
                     $scope.isLoading = false;
-
                     if ( response.sendMailFailCount > 0 ) {
-                        $('.invite-team-body').html('<div class="modal-noti-block"><h1>다음 주소로 이메일 보내기를 실패하였습니다.</h1></div>');
+                        $('.invite-team-body').html(html_noti_fail);
 
-                        angular.forEach(response.sendMailFailList, function(email) {
-                            var failEmailAddressElement = angular.element('<div class="modal-noti-block_msg">'+ email+'</div>')
-                            $('.invite-team-body').append(failEmailAddressElement)
+                        var failEmailAddressElement = '';
+                        angular.forEach(response.sendMailFailList, function(object) {
+                            if (object.error.httpResponseCode == 400) {
+                                failEmailAddressElement = angular.element('<div class="modal-noti-block_msg alert-jandi alert-danger">'+ object.email+'<span>' + help_error_taken + '</span><div>');
+                            }
+                            else {
+                                failEmailAddressElement = angular.element('<div class="modal-noti-block_msg alert-jandi alert-danger">'+ object.email+'<span>' + help_error_invalid + '</span><div>');
+                            }
+                            $('.invite-team-body').append(failEmailAddressElement);
                         });
                     }
                     else {
-                        $('.invite-team-body').html('<div class="modal-noti-block"><h1>정상적으로 초대 이메일을 보냈습니다.</h1></div>');
+                        $('.invite-team-body').html(html_noti_success);
+
+                        // analytics: n명 초대
+                        var send_count = response.sendMailSuccessCount;
+                        analyticsService.mixpanelTrack( "User Invite", { "count": send_count } );
+                        analyticsService.mixpanelPeople( "increment", { "key": "invite", "value": send_count } );
                     }
 
                     $('#invite_to_team').hide();
 
                 })
-                .error(function(response) {
+                .error(function(error) {
                     $scope.isLoading = false;
-                    console.log('something went wrong');
-                })
+                    console.error(error.code, error.msg);
+                });
         }
         else  {
             $scope.isLoading = false;
         }
-    }
+    };
+
     $scope.totalNumberOfInput = 0;
 
-
     $scope.onAddMoreClick = function() {
-//        var invite_template = angular.element('<div class="form-horizontal"><div class="form-group"><div class="col-sm-6"><input type="email" class="form-control invite" name="email" ng-required="true" placeholder="email"/></div><div class="col-sm-3" style="margin:0 -1px 0 -1px; border-collapse: collapse;"><input type="text" class="form-control invite" name="firstName" ng-required="true" placeholder="last name"/></div><div class="col-sm-3"><input type="text" class="form-control invite" name="lastName" ng-required="true" placeholder="first name"/></div></div></div>');
-
-        var invite_template = angular.element('<div class="form-horizontal"><div class="email_container"><input type="email" class="form-control invite" name="email" ng-required="true" placeholder="email" ng-blur="onInviteInputBlur($event);"/></div><div class="firstName_container"><input type="text" class="form-control invite" name="firstName" ng-required="true" placeholder="last name" ng-blur="onInviteInputBlur($event);"/></div><div class="lastName_container"><input type="text" class="form-control invite" name="lastName" ng-required="true" placeholder="first name" ng-blur="onInviteInputBlur($event);"/></div></div>');
+        var input_email = $filter('translate')('Email');
+        var input_lname = $filter('translate')('Last Name');
+        var input_fname = $filter('translate')('First Name');
+        var invite_template = angular.element('<div class="form-horizontal">' +
+            '<div class="email_container"><input type="email" class="form-control invite" name="email" ng-required="true" placeholder="' + input_email + '"/></div>' +
+            '<div class="firstName_container"><input type="text" class="form-control invite" name="lastName" ng-required="true" placeholder="' + input_lname + '"/></div>' +
+            '<div class="lastName_container"><input type="text" class="form-control invite" name="firstName" ng-required="true" placeholder="' + input_fname + '"/></div>' +
+            '</div>');
         $('.invite-team-body').append(invite_template);
-    }
-}
+    };
+});
 
 // WHEN INVITING FROM DIRECT MESSAGE
-var inviteUsertoChannelCtrl = function($scope, $modalInstance, entityheaderAPIservice) {
+app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entityheaderAPIservice) {
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
     $scope.inviteOptions = entityheaderAPIservice.getInviteOptions($scope.joinedChannelList, $scope.privateGroupList);
 
     $scope.onInviteClick = function(inviteTo) {
+
+        if (angular.isUndefined(inviteTo)) {
+            alert('Please select channel/private group.');
+            return;
+        }
 
         if (inviteTo.type == 'channel') {
             if (inviteTo.ch_members.indexOf($scope.currentEntity.id) > -1) {
@@ -272,52 +368,50 @@ var inviteUsertoChannelCtrl = function($scope, $modalInstance, entityheaderAPIse
         }
 
         var id = [];
-        id.push($scope.currentEntity.id)
+        id.push($scope.currentEntity.id);
+
+        $scope.isLoading = true;
 
         entityheaderAPIservice.inviteUsers(inviteTo.type, inviteTo.id, id)
             .success(function(response) {
-                console.log('good');
                 $scope.updateLeftPanelCaller();
                 $modalInstance.dismiss('cancel');
-
+                $scope.isLoading = false;
             })
-            .error(function(response) {
-                console.log('something went wrong');
-            })
+            .error(function(error) {
+                console.error(error.code, error.msg);
+                $scope.isLoading = false;
+            });
     }
-}
+});
 
 // FILE UPLOAD controller
-var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice) {
-    $scope.isLoading            = false;
-    $scope.files                = $scope.selectedFiles[0];
+app.controller('fileUploadModalCtrl', function($scope, $modalInstance, fileAPIservice, analyticsService) {
+    $scope.isLoading = false;
+    $scope.files = $scope.selectedFiles[0];
 
     // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 synch가 맞는다.
-    $scope.selectOptions        = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
+    $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
 
-    $scope.fileInfo             = {
+    $scope.fileInfo = {
         'title'         : $scope.files.name,
         'share'         : $scope.currentEntity,
         'isPrivateFile' : false
     };
 
-//    console.log('****************************')
-//    console.log($scope.selectOptions)
-//    console.log($scope.fileInfo.share)
-//    console.log('****************************')
-
-    var PRIVATE_FILE    = 740;
-    var PUBLIC_FILE     = 744;
+    var PRIVATE_FILE = 740;
+    var PUBLIC_FILE = 744;
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     // TODO : CURRENTLY IT'S UPLOADING ONLY ONE FILE.  MODIFY LOGIC TO UPLOAD MULTIPLE FILES
     // Be aware of change in type of fileInfo.share (from Entity to entitiyId.)
     $scope.onFileUpload = function(fileInfo) {
-        $scope.isLoading = true;
         fileInfo.permission = PRIVATE_FILE;
+
+        var share_type = fileInfo.share.type;
 
         if (fileInfo.share.type == 'channel') {
             fileInfo.permission = PUBLIC_FILE;
@@ -329,22 +423,49 @@ var fileUploadModalCtrl =  function($scope, $modalInstance, fileAPIservice) {
             fileInfo.permission = PRIVATE_FILE;
             fileInfo.share = '';
         }
+        $scope.isLoading = true;
 
         var fileQueue = fileAPIservice.upload($scope.files, fileInfo);
 
-        fileQueue.then(function(result) {
+        fileQueue.then(function(response) {
+            // analytics
+            var share_target = "";
+            switch (share_type) {
+                case 'channel':
+                    share_target = "channel";
+                    break;
+                case 'privateGroup':
+                    share_target = "private";
+                    break;
+                case 'user':
+                    share_target = "direct message";
+                    break;
+                default:
+                    share_target = "invalid";
+                    break;
+            }
+            var file_meta = (response.data.fileInfo.type).split("/");
+            var upload_data = {
+                "entity type"   : share_target,
+                "category"      : file_meta[0],
+                "extension"     : file_meta[1],
+                "mime type"     : response.data.fileInfo.type,
+                "size"          : response.data.fileInfo.size
+            };
+            analyticsService.mixpanelTrack( "File Upload", upload_data );
+
             fileAPIservice.broadcastChangeShared();
             $modalInstance.dismiss('cancel');
             $scope.isLoading = false;
-        }, function(response) {
-            console.debug('failed to upload file.');
+        }, function(error) {
+            console.error('failed to upload file', error);
+            $scope.isLoading = false;
         });
-
-    }
-}
+    };
+});
 
 // FILE SHARE controller
-var fileShareModalCtrl = function($scope, $modalInstance, fileAPIservice) {
+app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIservice, analyticsService) {
     $scope.file             = $scope.fileToShare;
     $scope.shareChannel     = $scope.currentEntity;
 
@@ -359,51 +480,92 @@ var fileShareModalCtrl = function($scope, $modalInstance, fileAPIservice) {
 
     // If current channel is one of sharedEntities of 'file',
     // then select first entity in list.
-    if ($scope.selectOptions.indexOf($scope.shareChannel) == -1 )
-        $scope.shareChannel = $scope.selectOptions[0]
+    if ($scope.selectOptions.indexOf($scope.shareChannel) == -1 ) {
+        $scope.shareChannel = $scope.selectOptions[0];
+    }
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     $scope.onFileShareClick = function(shareChannel, comment) {
+        $scope.isLoading = true;
         fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
-            .success(function(response) {
+            .success(function() {
+                // analytics
+                var share_target = "";
+                switch (shareChannel.type) {
+                    case 'channel':
+                        share_target = "channel";
+                        break;
+                    case 'privateGroup':
+                        share_target = "private";
+                        break;
+                    case 'user':
+                        share_target = "direct message";
+                        break;
+                    default:
+                        share_target = "invalid";
+                        break;
+                }
+                var file_meta = ($scope.file.content.type).split("/");
+                var share_data = {
+                    "entity type"   : share_target,
+                    "category"      : file_meta[0],
+                    "extension"     : file_meta[1],
+                    "mime type"     : $scope.file.content.type,
+                    "size"          : $scope.file.content.size
+                };
+                analyticsService.mixpanelTrack( "File Share", share_data );
+
                 fileAPIservice.broadcastChangeShared($scope.file.id);
                 $modalInstance.dismiss('cancel');
+                $scope.isLoading = false;
             })
-            .error(function(response) {
-                console.log('something went wrong');
-                console.log(response.msg);
-            })
-    }
-}
+            .error(function(error) {
+                console.error('onFileShareClick', error.code, error.msg);
+                $scope.isLoading = false;
+            });
+    };
+});
 
 //  PROFILE CONTROLLER
-var profileCtrl = function($scope, $rootScope, $modalInstance, userAPIservice, $modal, $timeout) {
+app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userAPIservice, $modal, analyticsService) {
     $scope.curUser = _.cloneDeep($scope.user);
+    // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
+    $scope.curUser.u_extraData.phoneNumber  = $scope.curUser.u_extraData.phoneNumber || "";
+    $scope.curUser.u_extraData.department   = $scope.curUser.u_extraData.department || "";
+    $scope.curUser.u_extraData.position     = $scope.curUser.u_extraData.position || "";
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
     $scope.onProfileChangeClick = function() {
-
         $scope.isLoading = true;
 
         /*
          TODO:  Success response has updated user entitiy.
          TODO:  Instead of updating left panel, just switch scope variable!!!!!!!
-         */
-
+        */
         userAPIservice.updateUserProfile($scope.curUser)
-            .success(function(response) {
+            .success(function() {
+                // analytics
+                analyticsService.mixpanelTrack( "Set Profile" );
+                var profile_data = {
+                    "nickname"  : $scope.curUser.u_nickname,
+                    "mobile"    : $scope.curUser.u_extraData.phoneNumber,
+                    "division"  : $scope.curUser.u_extraData.department,
+                    "position"  : $scope.curUser.u_extraData.position
+                };
+                analyticsService.mixpanelPeople( "set", profile_data );
+
                 $scope.updateLeftPanelCaller();
                 $scope.isLoading = false;
                 $modalInstance.dismiss('cancel');
             })
-            .error(function(response) {
-                console.log('not okay')
+            .error(function(error) {
+                console.error('updateUserProfile', error.code, error.msg);
                 $scope.isLoading = false;
 
             });
@@ -424,13 +586,14 @@ var profileCtrl = function($scope, $rootScope, $modalInstance, userAPIservice, $
                 templateUrl :   'app/modal/image.crop.html',
                 size        :   'lg',
                 windowClass :   'wide',
-                controller  :   imageCropCtrl,
+                controller  :   'imageCropCtrl',
                 resolve     : {
                     myImage     : function() { return e.target.result; }
                 }
             });
 
-            modalInstance.result.then(function(result) {
+            modalInstance.result.then(
+                function(result) {
                     $scope.updateLeftPanelCaller();
                 },
                 function() {
@@ -438,10 +601,10 @@ var profileCtrl = function($scope, $rootScope, $modalInstance, userAPIservice, $
                 });
         };
     };
-};
+});
 
 //  IMAGE CROP CONTROLLER
-var imageCropCtrl = function($scope, $rootScope, $modalInstance, myImage, fileAPIservice) {
+app.controller('imageCropCtrl', function($scope, $rootScope, $modalInstance, myImage, userAPIservice) {
     $scope.profilePic = myImage;
     $scope.croppedProfilePic = '';
 
@@ -449,18 +612,16 @@ var imageCropCtrl = function($scope, $rootScope, $modalInstance, myImage, fileAP
         $modalInstance.dismiss('cancel');
     };
 
-
     $scope.onCropDone = function() {
-
         var blob = dataURItoBlob($scope.croppedProfilePic);
         $scope.isLoading = true;
 
-        fileAPIservice.updateProfilePic(blob)
+        userAPIservice.updateProfilePic(blob)
             .success(function(response) {
                 $modalInstance.close('success');
             })
-            .error(function(response) {
-                console.log('not okay');
+            .error(function(error) {
+                console.error('onCropDone', error.code, error.msg);
                 $scope.isLoading = false;
 
             });
@@ -491,5 +652,108 @@ var imageCropCtrl = function($scope, $rootScope, $modalInstance, myImage, fileAP
 
     $scope.onchange = function(temp) {
         $scope.croppedProfilePic = temp;
-    }
-};
+    };
+});
+
+//  PROFILE VIEW CONTROLLER
+app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance, curUser, entityAPIservice, $state) {
+    $scope.curUser = entityAPIservice.getEntityFromListById($rootScope.userList, curUser.id);
+
+    $scope.onActionClick = function(actionType) {
+        if (actionType === 'email') {
+
+        }
+        else if (actionType === 'file') {
+            onFileListClick(curUser.id);
+        }
+        else if (actionType === 'directMessage') {
+            $state.go('archives', { entityType: 'users',  entityId: curUser.id });
+        }
+
+        $modalInstance.dismiss('directing to DM');
+    };
+
+    //  right controller is listening to 'updateFileWriterId'.
+    function onFileListClick (userId) {
+        if ($state.current.name != 'messages.detail.files')
+            $state.go('messages.detail.files');
+        $scope.$emit('updateFileWriterId', userId);
+    };
+});
+
+//  ACCOUNT CONTROLLER
+app.controller('accountController', function($state, $stateParams, $scope, $rootScope, $modalInstance) {
+
+    $scope.oneAtATime = true;
+    $scope.groups = [
+        {
+            title: 'Dynamic Group Header - 1',
+            content: 'Dynamic Group Body - 1'
+        },
+        {
+            title: 'Dynamic Group Header - 2',
+            content: 'Dynamic Group Body - 2'
+        }
+    ];
+
+    $scope.items = ['Item 1', 'Item 2', 'Item 3'];
+
+    $scope.addItem = function() {
+        var newItemNo = $scope.items.length + 1;
+        $scope.items.push('Item ' + newItemNo);
+    };
+
+    $scope.status = {
+        isFirstOpen: true,
+        isFirstDisabled: false
+    };
+
+    $scope.error = {
+        status  : false,
+        message : ''
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.onClickConfirm = function() {
+        $scope.isLoading = true;
+        // TODO: change password or name
+        $scope.isLoading = false;
+        // 현재 state 다시 로드
+        $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+        });
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+//  PREFERENCES CONTROLLER
+app.controller('preferencesController', function($state, $stateParams, $scope, $rootScope, $modalInstance) {
+    $scope.currentLang = $rootScope.preferences.language;
+    $scope.listLangs = [
+        { "value": "ko_KR", "text": "한국어" },
+        { "value": "en_US", "text": "English" }
+    ];
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.onClickConfirm = function(currentLang) {
+        $scope.isLoading = true;
+        // 언어 변경
+        $rootScope.setLang(currentLang);
+        $scope.isLoading = false;
+        // 현재 state 다시 로드
+        $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+        });
+        $modalInstance.dismiss('cancel');
+    };
+});

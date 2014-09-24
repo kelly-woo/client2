@@ -1,0 +1,51 @@
+<!-- Modal: Mini Profile View -->
+<div class="modal-body profile-view-body">
+
+    <div class="profile-view-general-container">
+        <img class="user-profile__photo view" data-ng-src="{{ server_uploaded + curUser.u_photoThumbnailUrl.mediumThumbnailUrl}}"/>
+        <div class="user-profile__fullName">{{ curUser|getFirstLastNameOfUser }}</div>
+        <div class="user-profile__nickName">{{ curUser.u_nickname }}</div>
+    </div>
+
+    <div class="profile-view-info-container">
+        <div class="profile-view__info border-bottom_grey">
+            <div class="info-title"><span translate>Department</span></div>
+            <div class="info-content">{{ curUser.u_extraData.department }}</div>
+        </div>
+        <div class="profile-view__info border-bottom_grey">
+            <div class="info-title"><span translate>Position</span></div>
+            <div class="info-content">{{ curUser.u_extraData.position }}</div>
+        </div>
+        <div class="profile-view__info border-bottom_grey">
+            <div class="info-title"><span translate>Phone</span></div>
+            <div class="info-content">{{ curUser.u_extraData.phoneNumber }}</div>
+        </div>
+
+        <div class="profile-view__info">
+            <div class="info-title"><span translate>Email</span></div>
+            <div class="info-content">{{ curUser.u_email }}</div>
+        </div>
+    </div>
+
+    <div class="profile-view-action-container">
+        <a class="profile-view-action border-right_grey" href="mailto:{{curUser.u_email}}">
+            <div class="profile-view-action__img">
+                <i class="fa fa-envelope"></i>
+            </div>
+            <div class="profile-view-action__text"><span translate>메일 전송</span></div>
+        </a>
+        <div class="profile-view-action border-right_grey" data-ng-click="onActionClick('file');">
+            <div class="profile-view-action__img">
+                <i class="fa fa-file"></i>
+            </div>
+            <div class="profile-view-action__text"><span translate>파일 리스트</span></div>
+        </div>
+        <div class="profile-view-action" data-ng-click="onActionClick('directMessage');">
+            <div class="profile-view-action__img">
+                <i class="fa fa-comment"></i>
+            </div>
+            <div class="profile-view-action__text"><span translate>1:1 채팅</span></div>
+        </div>
+    </div>
+
+</div>

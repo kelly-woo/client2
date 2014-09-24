@@ -1,43 +1,59 @@
-<!-- create private group  Modal -->
+<!-- Modal: Create Private Group -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
-    <h3>Create a private group</h3>
+    <button type="button" class="close" data-ng-click="cancel();"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
+        <span translate>Create a private group</span>
+    </h3>
 </div>
 
-
-<form name="private_group_create_form" ng-submit="onCreateClick('privateGroup', privateGroupName)">
+<form name="private_group_create_form" data-ng-submit="onCreateClick('privateGroup', privateGroupName)">
     <div class="modal-body">
-        <h4>
-            A private group is only visible to its members, and only members of a private group can read or search its contents.
+        <h4 class="modal-body__description">
+            <span translate>A private group is only visible to its members, and only members of a private group can read or search its contents.</span>
         </h4>
-
-        <div class="modal-horizontal">
-            <div class="modal-horizontal__title required_title">Name</div>
-            <div class="modal-horizontal__input">
-                <input type="text" class="form-control" name="privateGroupName" ng-model="privateGroupName" required/>
-                <div class="help-block">이름에는 공백이나 특수 기호를 사용 할 수 없습니다.</div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    <span translate>Name</span>
+                </label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           name="privateGroupName"
+                           data-ng-model="privateGroupName"
+                           placeholder="{{ 'Private Group Name' | translate }}"
+                           required/>
+                    <div class="help-block" data-ng-if="false">이름에는 공백이나 특수 기호를 사용 할 수 없습니다.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">
+                    <span translate>Purpose</span>
+                </label>
+                <div class="col-sm-10">
+                    <textarea class="form-control"
+                              name="privateGroupPurpose"
+                              rows="3"
+                              data-ng-model="privateGroupPurpose"
+                              data-ng-maxlength="256"
+                              maxlength="256"
+                              style="resize:none;"
+                              disabled
+                              placeholder=""></textarea>
+                </div>
             </div>
         </div>
-
-        <div class="modal-horizontal">
-            <div class="modal-horizontal__title optional_title"> Purpose </div>
-            <div class="modal-horizontal__input">
-                <textarea class="form-control" name="privateGroupPurpose" rows="3" ng-model="privateGroupPurpose" ng-maxlength="256" maxlength="256" style="resize:none;" disabled
-                          placeholder="선택 입력 사항입니다."></textarea>
-            </div>
-        </div>
-
-        <!--<div class="form-group">-->
-        <!--<label class="control-label col-sm-2">  </label>-->
-        <!--<div class="col-sm-10">-->
-        <!--<textarea class="form-control" name="privateGroupPurpose" rows="3" ng-model="privateGroupPurpose" ng-maxlength="256" maxlength="256" style="resize:none;"></textarea>-->
-        <!--</div>-->
-        <!--</div>-->
-
-
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel()">Close</button>
-        <input class="btn btn-ok" type="submit" id="create_new_private_group" value="Create Group"/>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel()">
+            <span translate>Close</span>
+        </button>
+        <input class="btn btn-ok" type="submit" id="create_new_private_group" value="{{ 'Create Group' | translate }}"/>
     </div>
 </form>
+
+<div class="loading_container" data-ng-if="isLoading">
+    <div class="loading_container_background"></div>
+    <div class="loading_bg"></div>
+    <div class="loading_bar"></div>
+</div>
