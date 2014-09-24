@@ -9,42 +9,31 @@
                 <i class="fa fa-caret-down"></i>
             </span>
             <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
-                <li role="presentation">
+                <li class="hidden" role="presentation">
                     <a data-ng-click="" role="menuitem" tabindex="-1">
                         <i class="fa fa-comment"></i>
                         <span translate>Create New Channel</span>
                     </a>
                 </li>
-                <li role="presentation">
+                <li class="hidden" role="presentation">
                     <a data-ng-click="" role="menuitem" tabindex="-1">
                         <i class="fa fa-unlock-alt"></i>
                         <span translate>Create a private group</span>
                     </a>
                 </li>
-                <li class="divider"></li>
-                <li role="presentation">
+                <li class="divider hidden"></li>
+                <li class="hidden" role="presentation">
                     <a data-ng-click="" role="menuitem" tabindex="-1">
                         <span translate>Team Directory</span>
                     </a>
                 </li>
-                <li role="presentation">
+                <li class="divider hidden"></li>
+                <li class="" role="presentation">
                     <a data-ng-click="openModal('invite');" role="menuitem" tabindex="-1">
-                        <span translate>Invite Others</span>
+                        <i class="fa fa-users"></i><span translate>Invite Others</span>
                     </a>
                 </li>
-                <li class="divider"></li>
-                <li role="presentation">
-                    <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
-                        <span translate>Terms of Service</span>
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
-                        <span translate>Privacy Policy</span>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li role="presentation">
+                <li class="" role="presentation">
                     <a data-ng-click="logout();" role="menuitem" tabindex="-1" ng-controller="authController">
                         <span class="icon_signout"></span><span translate>Sign Out</span>
                     </a>
@@ -65,7 +54,7 @@
                         <span translate>Starred Items</span>
                     </a>
                 </li>
-                <li>
+                <li class="hidden">
                     <a href="#" onclick="return false;">
                         <i class="fa fa-file"></i>
                         <span translate>Files</span>
@@ -110,7 +99,7 @@
                         <i class="fa fa-user"></i><span translate>Profile</span>
                     </a>
                 </li>
-                <li role="presentation">
+                <li class="hidden" role="presentation">
                     <a data-ng-click="openModal('account')" role="menuitem" tabindex="-1">
                         <i class="fa fa-cog"></i><span translate>Account</span>
                     </a>
@@ -118,6 +107,17 @@
                 <li role="presentation">
                     <a data-ng-click="openModal('preferences')" role="menuitem" tabindex="-1">
                         <i class="fa fa-wrench"></i><span translate>Preferences</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li class="" role="presentation">
+                    <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
+                        <span translate>Terms of Service</span>
+                    </a>
+                </li>
+                <li class="" role="presentation">
+                    <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
+                        <span translate>Privacy Policy</span>
                     </a>
                 </li>
             </ul>
