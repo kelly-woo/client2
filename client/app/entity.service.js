@@ -5,6 +5,8 @@ var app = angular.module('jandiApp');
 app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorageService, $state) {
     var entityAPI = {};
 
+    var currentEntity;
+
     entityAPI.getEntityFromListById = function(list, value) {
         if (value == $rootScope.user.id) return $rootScope.user;
 
@@ -87,6 +89,45 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
         if (!last_state || last_state.entityId == null) return null;
 
         return last_state;
+    };
+
+
+    entityAPI.hasPrivilegeHelper = function(user, entityType, entityId, isLeftUpdated) {
+        if (!isLeftUpdated) return;
+
+        if (user.u_authority == 'owner' || user.u_authority == 'admin') return true;
+
+        if (entityType === 'users') return false;
+
+        entityId = parseInt(entityId);
+
+        if (angular.isUndefined(currentEntity) || currentEntity.id != entityId) {
+            this.setCurrentEntity(entityType, entityId)
+        }
+
+        if (entityType === 'channels')
+            return currentEntity.ch_creatorId === user.id;
+
+        return currentEntity.pg_creatorId === user.id;;
+    };
+
+    entityAPI.setCurrentEntity = function(entityType, entityId) {
+        var list = $rootScope.joinedChannelList;
+
+        // TODO: privategroups and privateGroups
+        // TODO: fix this bug when re-routing.
+        if (entityType === 'privategroups' || entityType === 'privateGroups') {
+            list = $rootScope.privateGroupList;
+        }
+        else if (entityType === 'users') {
+            list = $rootScope.userList;
+        }
+
+        currentEntity = this.getEntityFromListById(list, entityId);
+    };
+
+    entityAPI.getCurrentEntity = function() {
+        return currentEntity;
     };
 
     return entityAPI;

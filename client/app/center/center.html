@@ -1,3 +1,94 @@
+<div class="panel-title-container">
+
+    <!--Title Dropdown-->
+    <span class="panel-title-info">
+        <span class="panel-title-info-name-container ng-binding dropdown-toggle" data-toggle="dropdown"
+              data-ng-class="{'header-padding-for-prefix' : currentEntity.type != 'privateGroup'}">
+                    <span class="prefix">{{ currentEntity.prefix }}</span>
+                    <span class="inline-overflow-ellipsis panel-title-info__name">{{ currentEntity | getFirstLastNameOfUser }}
+                        <i class="fa fa-caret-down header-title-info__more"></i>
+                    </span>
+            </span>
+
+            <!--Channel-->
+            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
+                        <i class="fa fa-plus"></i><span translate>Invite others to this channel</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="previliged" data-ng-click="openModal('rename')">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-pencil"></i><span translate>Rename this channel</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-click="onLeaveClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-sign-out"></i><span translate>Leave channel</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="previliged" data-ng-click="onDeleteClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-times"></i><span translate>Delete this channel</span>
+                    </a>
+                </li>
+            </ul>
+            <!--User-->
+            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
+                        <i class="fa fa-plus"></i><span translate>Invite to channel/group</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="onUserClick(currentEntity.id);">
+                        <i class="fa fa-user"></i><span translate>View profile</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="onFileListClick(currentEntity.id)">
+                        <i class="fa fa-file"></i><span translate>View files</span>
+                    </a>
+                </li>
+            </ul>
+            <!--PrivateGroup-->
+            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privateGroup'">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
+                        <i class="fa fa-plus"></i><span translate>Invite others to this group</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="previliged" data-ng-click="openModal('rename')">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-pencil"></i><span translate>Rename this group</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-click="onLeaveClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-sign-out"></i><span translate>Leave group</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-if="previliged" data-ng-click="onDeleteClick();">
+                    <a role="menuitem" tabindex="-1">
+                        <i class="fa fa-times"></i><span translate>Delete this group</span>
+                    </a>
+                </li>
+            </ul>
+        </span>
+
+    <!--Member Dropdown-->
+    <span class="panel-title-member">
+        <span class="dropdown-toggle panel-title-member__more" data-toggle="dropdown" data-ng-if="currentEntity.type != 'user'">
+            <span>{{ currentEntity.ch_members.length || currentEntity.pg_members.length }}</span>
+        </span>
+        <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
+            <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
+                <a data-ng-if="userId == user.id">{{user|getFirstLastNameOfUser}}</a>
+                <a data-ng-if="userId != user.id" data-ui-sref="archives({entityType:'users', entityId:userId})">{{userId|getFirstLastNameById}}</a>
+            </li>
+        </ul>
+    </span>
+</div>
 
 <article class="msgs" when-scrolled="loadMore()" scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
@@ -8,7 +99,7 @@
         <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
 
             <div class="msgs-group__divider">
-                <div class="msgs-group__divider-label">{{ day.substr(8) }}</div>
+                {{ day.substr(8) }}
             </div>
 
             <div last-detector=""
@@ -21,7 +112,10 @@
                  data-message-type="msg.message.contentType"
                  data-feedback-id="msg.feedbackId"
                  data-event-type="msg.eventType"
-                 data-ng-class="{ 'text': msg.message.isText, 'file-upload': msg.message.isFile, 'comment-title': msg.message.commentOption.isTitle, 'comment-continue': msg.message.commentOption.isContinue }">
+                 data-ng-class="{   'text': msg.message.isText, 'file-upload': msg.message.isFile,
+                                    'comment-title': msg.message.commentOption.isTitle,
+                                    'comment-continue': msg.message.commentOption.isContinue,
+                                     'system-event-msg' : msg.message.contentType === 'systemEvent' }">
 
                 <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);">
                     <a class="user-profile user-thumb" ng-if="msg.message.contentType !== 'file'"
@@ -52,13 +146,24 @@
 
                     <!-- FILE -->
                     <div class="msg-file" data-ng-if="msg.message.contentType === 'file'">
-                        <div class="msg-file-body">
+                        <div class="msg-file-body-float pull-left">
+                            <!--    IMAGE THUMBNAIL -->
                             <img class="msg-file-body__img cursor_pointer"
                                  data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
-                                 data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.largeThumbnailUrl }}"
+                                 data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
                                  data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })" />
+
+                            <div class="msg-file-body__thumbnail"
+                                 data-ng-if="(msg.message.content.type).indexOf('image') == -1">
+
+                                <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
+
+
+                            </div>
                         </div>
+
                         <div class="msg-file-meta">
+
                             <div class="msg-file-meta-up">
                                 <a class="msg-file-meta__title file__name"
                                    data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
@@ -69,6 +174,7 @@
                                     {{msg.message.content.size | bytes }} {{ msg.message.content.type | filetype }}
                                 </span>
                             </div>
+
                             <div class="msg-file-meta-down">
                                 <span class="msg-file-meta-info">
                                     <span data-ng-if="( msg.fromEntity.id !== msg.message.writer.id )">
@@ -83,7 +189,7 @@
                                 <span data-ng-if="msg.message.shared.length">
                                     <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared | filter: {type:'!user'}) track by $index">
                                         <span data-ng-hide="($index === 0)">, </span>
-                                        <span class="underline file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                                        <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
                                             {{ sharedEntity.prefix }}{{ sharedEntity.name }}
                                         </span>
                                         <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
@@ -95,7 +201,7 @@
                                     </span>
                                     <span class="bullet">•</span>
                                 </span>
-                                <a class="green_font cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
+                                <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
                                     <span translate>Open original</span>
                                 </a>
                             </div>
@@ -116,24 +222,25 @@
                     <!-- SYSTEM EVENT -->
                     <div class="msg-text" data-ng-if="msg.message.contentType === 'systemEvent'">
                         <div class="msg-comment-header" data-ng-switch="msg.info.eventType">
-                        <span data-ng-switch-default>
-                            <span class="msg-comment_userType">{{ msg.message.content.actionOwner }}</span>
-                            <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
-                        </span>
-                        <span data-ng-switch-when="invite">
-                            <span class="msg-comment_userType">{{ msg.message.content.actionOwner }}</span>
-                            <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
-                            <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites"><!--
-                                --><span data-ng-if="$index !== 0">, </span><span>{{ invitees | getFirstLastNameOfUser }}</span><!--
+                            <span data-ng-switch-default>
+                                <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+                                <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+                            </span>
+                            <span data-ng-switch-when="invite">
+                                <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+                                <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+                                <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites"><!--
+                                --><span data-ng-if="$index !== 0">, </span><span>{{invitees | getFirstLastNameOfUser}}</span><!--
                             --></span>
-                            <span>{{ 'invite-postfix' | translate }}</span>
-                        </span>
-                        <span data-ng-if="false"
-                              data-msg-join="{{ 'joined this channel' | translate}}"
-                              data-msg-leave="{{ 'left this channel' | translate }}"
-                              data-msg-invite="{{ 'invited' | translate }}"
-                              data-msg-create-channel="{{ 'created current channel' | translate }}"
-                              data-msg-create-group="{{ 'created current private group' | translate }}"></span>
+                                <span>{{ 'invite-postfix' | translate }}</span>
+                            </span>
+                            <span data-ng-if="false"
+                                  data-msg-join="{{ 'joined this channel' | translate}}"
+                                  data-msg-leave="{{ 'left this channel' | translate }}"
+                                  data-msg-invite="{{ 'invited' | translate }}"
+                                  data-msg-create-channel="{{ 'created current channel' | translate }}"
+                                  data-msg-create-group="{{ 'created current private group' | translate }}"></span>
+                            <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
                         </div>
                     </div>
 
@@ -150,8 +257,8 @@
 </article>
 
 <div class="footer">
-    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 41px;">
-        <span class="glyphicon glyphicon-circle-arrow-up" style="top:4px;"></span>
+    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;">
+        <i class="fa fa-upload"></i>
         <input type="file"
                id="btn-upload-primary"
                class=""
@@ -159,8 +266,8 @@
                ng-file-select="onFileSelect($files);"
                value="Upload File">
     </span>
-    <div id="messages-input-container" style="height: 41px;">
-        <form id="message-form" style="height: 41px;">
+    <div id="messages-input-container" style="height: 35px;">
+        <form id="message-form" style="height: 35px;">
             <textarea id="message-input"
                       class=""
                       focus-me="focusPostMessage"
@@ -168,7 +275,7 @@
                       data-ng-disabled="msgLoadStatus.loading"
                       data-ng-model="message.content"
                       maxlength=""
-                      style="overflow-y: hidden; height: 41px;"
+                      style="overflow-y: hidden; height: 35px;"
                       autocorrect="off"
                       autocomplete="off"
                       spellcheck="true">

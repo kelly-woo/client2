@@ -65,6 +65,10 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
         $rootScope.user                 = $scope.user;
 
+
+        //  entityAPI.hasPrivilegeHelper is watching
+        $rootScope.isLeftUpdated        = true;
+
         //  When there is unread messages on left Panel.
         if (response.alarmInfoCount != 0) {
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
@@ -78,8 +82,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             $rootScope.toDefault = false;
         }
     });
-
-    console.log(user)
 
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
@@ -146,14 +148,14 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
     $scope.updateLeftPanelCaller = function() {
-        console.log('updateLeftPanelCaller');
+        $rootScope.isLeftUpdated= false;
         getLeftLists();
     };
 
     // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
     $rootScope.$on('updateLeftPanelCaller', function() {
         console.info("[enter] updateLeftPanelCaller");
-        getLeftLists();
+        $scope.updateLeftPanelCaller();
     });
 
     $scope.openModal = function(selector) {

@@ -56,15 +56,6 @@ app.factory('entityheaderAPIservice', function($http, $rootScope,  $filter) {
         });
     };
 
-    entityheaderAPI.hasPrivilegeHelper = function(user, entity) {
-        if (user.u_authority == 'owner' || user.u_authority == 'admin') return true;
-
-        if (entity.type == 'privateGroup')
-            return entity.pg_creatorId == user.id;
-
-        return entity.ch_creatorId == user.id;
-    }
-
 
     entityheaderAPI.getInviteOptions = function(joinedChannelList, privateGroupList) {
         return joinedChannelList.concat(privateGroupList);

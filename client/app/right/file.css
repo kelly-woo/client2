@@ -16,7 +16,7 @@
     position:absolute;
     bottom:19px;
     left:20px;
-    background:#efefef;
+    background:#ededed;
     background:-webkit-gradient(linear,left bottom,left top,color-stop(0,#efefef),color-stop(1,#fff));
     background:-ms-linear-gradient(bottom,#efefef,#fff);
     background:-moz-linear-gradient(center bottom,#efefef 0,#fff 100%);
@@ -62,10 +62,12 @@
     text-decoration:none;
     text-shadow:0 1px 1px rgba(0,0,0,0.2);
 }
-
+#primary_file_button .fa-upload {
+    font-size: 17px;
+}
 #messages-input-container{font-size:.9rem;position:absolute;bottom:19px;left:64px;right:10px}
 #message-form{position:relative;margin:0}
-#message-input{background:white;width:100%;font-size:.95rem;line-height:1.2rem;border:2px solid #e0e0e0;border-left:0;-webkit-border-top-right-radius:.2rem;-webkit-border-bottom-right-radius:.2rem;-webkit-border-bottom-left-radius:0;-webkit-border-top-left-radius:0;-moz-border-radius-topright:.2rem;-moz-border-radius-bottomright:.2rem;-moz-border-radius-bottomleft:0;-moz-border-radius-topleft:0;border-top-right-radius:.2rem;border-bottom-right-radius:.2rem;border-bottom-left-radius:0;border-top-left-radius:0;-moz-background-clip:padding-box;-webkit-background-clip:padding-box;background-clip:padding-box;font-family:'Lato',sans-serif;margin:0;color:#3d3c40;-webkit-appearance:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;outline:0;position:absolute;bottom:0;height:100%;min-height:41px !important;padding:9px 5px 9px 8px;max-height:10rem;overflow-y:auto !important;resize:none !important}
+#message-input{background:white;width:100%;font-size:.95rem;line-height:1.2rem;border:2px solid #e0e0e0;border-left:0;-webkit-border-top-right-radius:.2rem;-webkit-border-bottom-right-radius:.2rem;-webkit-border-bottom-left-radius:0;-webkit-border-top-left-radius:0;-moz-border-radius-topright:.2rem;-moz-border-radius-bottomright:.2rem;-moz-border-radius-bottomleft:0;-moz-border-radius-topleft:0;border-top-right-radius:.2rem;border-bottom-right-radius:.2rem;border-bottom-left-radius:0;border-top-left-radius:0;-moz-background-clip:padding-box;-webkit-background-clip:padding-box;background-clip:padding-box;font-family:'Lato',sans-serif;margin:0;color:#3d3c40;-webkit-appearance:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;outline:0;position:absolute;bottom:0;height:100%;min-height:35px !important;padding:9px 5px 9px 8px;max-height:10rem;overflow-y:auto !important;resize:none !important}
 #message-input.with-emoji-menu{padding:9px 30px 9px 8px}
 #message-input:focus{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}
 #message-input.offline{background-color:#fdf1c1}

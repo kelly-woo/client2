@@ -6,7 +6,7 @@
 /*html { min-width: 960px; }*/
 
 .user-thumb-sm  { width: 28px; height: 28px; border-radius: 50%; }
-.user-thumb     { width: 35px; height: 35px; border-radius: 50%; }
+.user-thumb     { width: 34px; height: 34px; border-radius: 50%; }
 .user-thumb-lg  { width: 72px; height: 72px; border-radius: 50%; }
 .user-profile   { display: inline-block; background-size: 100%; background-repeat: no-repeat; }
 
@@ -141,7 +141,7 @@ select {
     font-size: .7rem;
 }
 .link-unshare:hover {
-
+    color: indianred !important;
 }
 .green_background {
     background-color: #31c08a !important;

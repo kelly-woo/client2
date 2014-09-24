@@ -36,6 +36,88 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     };
 
 
+    $scope.onLeaveClick = function() {
+        //  prevent user from leaving default channel.
+        if ($scope.currentEntity.id == $scope.team.t_defaultChannelId) {
+            console.debug('cannot leave default channel');
+            return;
+        }
+
+        entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
+            .success(function(response) {
+                // analytics
+                var entity_type = "";
+                switch ($scope.currentEntity.type) {
+                    case 'channel':
+                        entity_type = "channel";
+                        break;
+                    case 'privateGroup':
+                        entity_type = "private";
+                        break;
+                    default:
+                        entity_type = "invalid";
+                        break;
+                }
+                analyticsService.mixpanelTrack( "Entity Leave", { "type": entity_type } );
+                updateLeftPanel();
+            })
+            .error(function(error) {
+                alert(error.msg);
+            })
+    };
+
+    $scope.onDeleteClick = function() {
+        entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
+            .success(function() {
+                // analytics
+                var entity_type = "";
+                switch ($scope.currentEntity.type) {
+                    case 'channel':
+                        entity_type = "channel";
+                        break;
+                    case 'privateGroup':
+                        entity_type = "private";
+                        break;
+                    default:
+                        entity_type = "invalid";
+                        break;
+                }
+                analyticsService.mixpanelTrack( "Entity Delete", { "type": entity_type } );
+
+                updateLeftPanel();
+            })
+            .error(function(error) {
+                alert(error.msg);
+            });
+    };
+
+    function updateLeftPanel() {
+        $scope.updateLeftPanelCaller();
+        $rootScope.toDefault = true;
+    }
+
+    $rootScope.$watch('isLeftUpdated', function(newValue, oldValue) {
+        if (newValue) {
+            hasPrivilege();
+        }
+    });
+
+    // Returning true if current user is an owner of current channel/private group
+    function hasPrivilege() {
+        if ($scope.previliged == null)
+            $scope.previliged = entityAPIservice.hasPrivilegeHelper($scope.user, entityType, entityId, $rootScope.isLeftUpdated);
+
+        setCurrentEntity();
+        return $scope.previliged;
+    };
+
+    hasPrivilege();
+
+    function setCurrentEntity() {
+        $rootScope.currentEntity = entityAPIservice.getCurrentEntity();
+    }
+    //  END OF PANEL HEADER FUNCTIONS
+
 
     //  default loadingTimer
     $timeout(function() {
@@ -406,6 +488,31 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 size        : 'lg'
             });
         }
+        else if (selector == 'rename') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/rename.html',
+                controller  :   'renameModalCtrl',
+                size        :   'lg'
+            });
+        }
+        else if (selector == 'invite') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/invite.channel.html',
+                controller  :   'inviteModalCtrl',
+                size        :   'lg',
+                windowClass :   'allowOverflowY'
+            });
+        }
+        else if (selector == 'inviteUserToChannel') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/invite.direct.html',
+                controller  :   'inviteUsertoChannelCtrl',
+                size        :   'lg'
+            });
+        }
     };
 
 
@@ -655,7 +762,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     function eventMsgHandler(msg) {
         var newMsg = msg;
-
         newMsg.eventType = '/' + msg.info.eventType;
 
         newMsg.message = {};
