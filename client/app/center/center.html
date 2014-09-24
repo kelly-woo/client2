@@ -126,7 +126,7 @@
                             <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites"><!--
                                 --><span data-ng-if="$index !== 0">, </span><span>{{ invitees | getFirstLastNameOfUser }}</span><!--
                             --></span>
-                            <span data-ng-if="preferences.lang === 'ko_KR'">{{ 'invite-postfix' | translate }}</span>
+                            <span data-ng-if="preferences.language === 'ko_KR'">{{ 'invite-postfix' | translate }}</span>
                         </span>
                         <span data-ng-if="false"
                               data-msg-join="{{ 'has joined' | translate}}"

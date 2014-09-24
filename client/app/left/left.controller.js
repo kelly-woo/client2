@@ -200,14 +200,18 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         else if (selector == 'profile') {
             $modal.open({
                 scope       :   $scope,
-                templateUrl :   'app/modal/profile.html',
+                templateUrl :   'app/modal/settings.profile.html',
                 controller  :   'profileCtrl',
                 size        :   'lg'
             });
         }
-        else if (selector == 'viewProfile') {
-
-
+        else if (selector == 'account') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/settings.account.html',
+                controller  :   'accountController',
+                size        :   'lg'
+            });
         }
         else if (selector === 'preferences') {
             $modal.open({

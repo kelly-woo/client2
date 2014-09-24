@@ -1,7 +1,7 @@
-<!-- Preferences Modal -->
+<!-- Modal: Preferences -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">
+    <button type="button" class="close" data-ng-click="cancel();"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
         <span translate>Preferences</span>
     </h3>
 </div>
@@ -9,7 +9,7 @@
 <form novalidate name="form-preferences" ng-submit="onClickConfirm(currentLang)">
 
     <div class="modal-body modal-preferences-body">
-        <h4>
+        <h4 class="modal-body__description">
             <span translate>You can change service preferences such as language, notifications.</span>
         </h4>
         <div class="form-horizontal">
@@ -58,13 +58,13 @@
     </div>
 
     <div class="modal-footer profile-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>Close</span></button>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>Close</span></button>
         <input class="btn btn-ok" type="submit" id="change_profile" value="{{ 'Confirm' | translate }}"/>
     </div>
 
 </form>
 
-<div class="loading_container" ng-if="isLoading">
+<div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
     <div class="loading_bar"></div>

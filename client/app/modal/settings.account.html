@@ -1,0 +1,48 @@
+<!-- Account Setting Modal -->
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
+        <span translate>Account Setting</span>
+    </h3>
+</div>
+
+<form novalidate name="form-preferences" ng-submit="onClickConfirm()">
+
+    <div class="modal-body modal-preferences-body">
+        <h4 class="modal-body__description">
+            <span translate>계정 설정에 관한 디스크립션</span>
+        </h4>
+        <div>
+            <accordion close-others="oneAtATime">
+                <accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                    This content is straight in the template.
+                </accordion-group>
+                <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+                    {{group.content}}
+                </accordion-group>
+                <accordion-group heading="Dynamic Body Content">
+                    <p>The body of the accordion group grows to fit the contents</p>
+                    <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
+                    <div ng-repeat="item in items">{{item}}</div>
+                </accordion-group>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    This is just some content to illustrate fancy headings.
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+
+    <div class="modal-footer profile-footer">
+        <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>Close</span></button>
+    </div>
+
+</form>
+
+<div class="loading_container" ng-if="isLoading">
+    <div class="loading_container_background"></div>
+    <div class="loading_bg"></div>
+    <div class="loading_bar"></div>
+</div>

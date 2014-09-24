@@ -1,31 +1,31 @@
-<!-- Rename channel Modal   -->
+<!-- Modal: Rename Channel -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel()"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">
-        <span translate>Rename Channel</span>
+    <button type="button" class="close" data-ng-click="cancel();"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
+        <span translate>Rename</span>
     </h3>
 </div>
 
-<form name="create_channel_form" ng-submit="onRenameClick(newChannelName)">
+<form name="create_channel_form" data-ng-submit="onRenameClick(newChannelName);">
     <div class="modal-body">
         <div class="form-horizontal">
             <div class="form-group">
-                <label class="control-label col-sm-3">
-                    <span translate>New Channel Name</span>
+                <label class="control-label col-sm-2">
+                    <span translate>Name</span>
                 </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="newChannelName" ng-model="newChannelName" required/>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="newChannelName" data-ng-model="newChannelName" required/>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel()"><span translate>Cancel</span></button>
-        <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ 'Rename' | translate }}"/>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>Cancel</span></button>
+        <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ 'Confirm' | translate }}"/>
     </div>
 </form>
 
-<div class="loading_container" ng-if="isLoading">
+<div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
     <div class="loading_bar"></div>
