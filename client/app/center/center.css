@@ -6,6 +6,9 @@
     z-index: -1;
 }
 
+.rpanel-show {
+    margin-right: 480px;
+}
 /* start of title */
 
 .panel-title-container {
