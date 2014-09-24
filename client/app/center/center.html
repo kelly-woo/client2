@@ -4,35 +4,35 @@
     <span class="panel-title-info">
         <span class="panel-title-info-name-container ng-binding dropdown-toggle" data-toggle="dropdown"
               data-ng-class="{'header-padding-for-prefix' : currentEntity.type != 'privateGroup'}">
-                    <span class="prefix">{{ currentEntity.prefix }}</span>
-                    <span class="inline-overflow-ellipsis panel-title-info__name">{{ currentEntity | getFirstLastNameOfUser }}
-                        <i class="fa fa-caret-down header-title-info__more"></i>
-                    </span>
+            <span class="prefix">{{ currentEntity.prefix }}</span>
+            <span class="inline-overflow-ellipsis panel-title-info__name">{{ currentEntity | getFirstLastNameOfUser }}
+                <i class="fa fa-caret-down header-title-info__more"></i>
             </span>
+        </span>
 
-            <!--Channel-->
-            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-                        <i class="fa fa-plus"></i><span translate>Invite others to this channel</span>
-                    </a>
-                </li>
-                <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="openModal('rename')">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-pencil"></i><span translate>Rename this channel</span>
-                    </a>
-                </li>
-                <li role="presentation" data-ng-click="onLeaveClick();">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-sign-out"></i><span translate>Leave channel</span>
-                    </a>
-                </li>
-                <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="onDeleteClick();">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-times"></i><span translate>Delete this channel</span>
-                    </a>
-                </li>
-            </ul>
+        <!--Channel-->
+        <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
+                    <i class="fa fa-plus"></i><span translate>Invite others to this channel</span>
+                </a>
+            </li>
+            <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="openModal('rename')">
+                <a role="menuitem" tabindex="-1">
+                    <i class="fa fa-pencil"></i><span translate>Rename this channel</span>
+                </a>
+            </li>
+            <li role="presentation" data-ng-click="onLeaveClick();">
+                <a role="menuitem" tabindex="-1">
+                    <i class="fa fa-sign-out"></i><span translate>Leave channel</span>
+                </a>
+            </li>
+            <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="onDeleteClick();">
+                <a role="menuitem" tabindex="-1">
+                    <i class="fa fa-times"></i><span translate>Delete this channel</span>
+                </a>
+            </li>
+        </ul>
             <!--User-->
             <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
                 <li role="presentation">
