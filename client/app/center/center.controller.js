@@ -129,7 +129,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                         }
 
                     } else if (prev.message.contentType === 'comment') {
-
                         // 같은 파일에 대한 연속 코멘트
                         if (prev.feedbackId === msg.feedbackId) {
                             msg.message.commentOption.isContinue = true;
@@ -572,6 +571,69 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     };
 
 
+    $scope.onSmallThumbnailClick = function($event, message) {
+        var targetDom = angular.element($event.target);
+
+        var newThumbnail;
+        var fullUrl;
+        if (message.message.contentType === 'comment') {
+            newThumbnail = $scope.server_uploaded + message.feedback.content.extraInfo.largeThumbnailUrl;
+            fullUrl = $scope.server_uploaded + message.feedback.content.fileUrl;
+        }
+        else {
+            newThumbnail = $scope.server_uploaded + message.message.content.extraInfo.largeThumbnailUrl;
+            fullUrl = $scope.server_uploaded + message.message.content.fileUrl;
+
+        }
+
+
+        //  new DOM element for large thumbnail image.
+        var mirrorDom = angular.element('<img class="large-thumbnail cursor_pointer" src="'+newThumbnail+'"/>');
+
+        //  bind click event handler to large thumbnail image.
+        mirrorDom.bind('click', function() {
+            onLargeThumbnailClick(fullScreenToggler, mirrorDom, targetDom);
+        });
+
+        //  new DOM element for full screen image toggler.
+        var fullScreenToggler = angular.element('<div class="large-thumbnail-full-screen"><i class="fa fa-arrows-alt"></i></i></div>');
+        //  bind click event handler to full screen toggler.
+        fullScreenToggler.bind('click', function() {
+            //  opening full image modal used in file controller.
+            //  passing photo url of image that needs to be displayed in full screen.
+            $modal.open({
+                scope       :   $scope,
+                controller  :   'fullImageCtrl',
+                templateUrl :   'app/modal/fullimage.html',
+                windowClass :   'modal-full',
+                resolve     :   {
+                    photoUrl    : function() {
+                        return fullUrl;
+                    }
+                }
+            });
+        });
+
+
+        //  hide small thumbnail image.
+        targetDom.css('display', 'none');
+
+        //  append new dom elements to parent of small thubmnail
+        var parent = targetDom.parent();
+        parent.append(mirrorDom);
+        parent.append(fullScreenToggler);
+
+        //  change parent's css properties.
+        parent.addClass('large-thumbnail-parent').removeClass('pull-left');
+    };
+
+    //  when large thumbnail image is clicked, delete large thumbnail and show original(small thumbnail image).
+    function onLargeThumbnailClick(fullScreenToggler, mirrorDom, originalDom) {
+        originalDom.css('display', 'block');
+        mirrorDom.parent().removeClass('large-thumbnail-parent').addClass('pull-left');
+        mirrorDom.remove();
+        fullScreenToggler.remove();
+    }
     //  'event' field if not empty when,
     //      1. create channel
     //      2. leave channel
