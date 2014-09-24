@@ -151,7 +151,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     // 시스템(브라우저) 기본 언어로 초기화
     var userLang = navigator.language || navigator.userLanguage;
-    console.info("systemLang", userLang);
     var debugMode = (configuration.name === 'development');
     switch( userLang ) {
         case 'ko':
