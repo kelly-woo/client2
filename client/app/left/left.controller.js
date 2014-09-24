@@ -24,9 +24,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $scope.setCurrentEntity('from watch');
     });
     $scope.setCurrentEntity = function(string) {
-        console.log(string)
         $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
-        console.log($rootScope.currentEntity)
     };
 
     initLeftList();

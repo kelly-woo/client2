@@ -99,7 +99,12 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
             scope       :   $scope,
             controller  :   'fullImageCtrl',
             templateUrl :   'app/modal/fullimage.html',
-            windowClass :   'modal-full'
+            windowClass :   'modal-full',
+            resolve     :   {
+                photoUrl    : function() {
+                    return $scope.server_uploaded + $scope.file_detail.content.fileUrl;
+                }
+            }
         });
     };
 
@@ -206,6 +211,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
 
 });
 
-app.controller('fullImageCtrl', function($scope, $modalInstance) {
+app.controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {
     $scope.cancel = function() { $modalInstance.dismiss('cancel');}
+    $scope.photoUrl = photoUrl;
 });

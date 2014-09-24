@@ -79,7 +79,7 @@
     <!--Member Dropdown-->
     <span class="panel-title-member">
         <span class="dropdown-toggle panel-title-member__more" data-toggle="dropdown" data-ng-if="currentEntity.type != 'user'">
-            <span>{{ currentEntity.ch_members.length || currentEntity.pg_members.length }}</span>
+           <i class="fa fa-user"></i> <span>{{ currentEntity.ch_members.length || currentEntity.pg_members.length }}</span>
         </span>
         <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
             <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
@@ -151,14 +151,11 @@
                             <img class="msg-file-body__img cursor_pointer"
                                  data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
                                  data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
-                                 data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })" />
+                                 data-ng-click="onSmallThumbnailClick($event, msg);"/>
 
                             <div class="msg-file-body__thumbnail"
                                  data-ng-if="(msg.message.content.type).indexOf('image') == -1">
-
                                 <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
-
-
                             </div>
                         </div>
 
@@ -210,12 +207,28 @@
 
                     <!-- COMMENT -->
                     <div class="msg-comment" data-ng-if="msg.message.contentType === 'comment'">
-                        <div class="msg-comment-header" data-ng-if="( msg.message.commentOption.isTitle )">
-                            Commented on <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">{{msg.feedback.content.title || msg.feedback.content.name}}</a>
+                        <div class="msg-file-body-float pull-left">
+                            <!--    IMAGE THUMBNAIL -->
+                            <img class="msg-file-body__img cursor_pointer"
+                                 data-ng-show="(msg.feedback.content.type).indexOf('image') !== -1 && msg.message.commentOption.isTitle "
+                                 data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"
+                                 data-ng-click="onSmallThumbnailClick($event, msg);"/>
+
+                            <div class="msg-file-body__thumbnail"
+                                 data-ng-if="(msg.feedback.content.type).indexOf('image') == -1">
+                                <div class="fileicon fileicon_{{ msg.feedback.content.type | filetype | lowercase}}"></div>
+                            </div>
+
                         </div>
-                        <div class="msg-comment-body">
-                            <!--<i class="fa fa-quote-left pull-left"></i>-->
-                            <p class="break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+
+                        <div class="msg-file-meta">
+                            <div class="msg-comment-header" data-ng-if="( msg.message.commentOption.isTitle )">
+                                Commented on <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">{{msg.feedback.content.title || msg.feedback.content.name}}</a>
+                            </div>
+                            <div class="msg-comment-body">
+                                <!--<i class="fa fa-quote-left pull-left"></i>-->
+                                <p class="break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+                            </div>
                         </div>
                     </div>
 
@@ -229,9 +242,9 @@
                             <span data-ng-switch-when="invite">
                                 <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
                                 <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
-                                <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites"><!--
-                                --><span data-ng-if="$index !== 0">, </span><span>{{invitees | getFirstLastNameOfUser}}</span><!--
-                            --></span>
+                                <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
+                                <span data-ng-if="$index !== 0">, </span><span>{{invitees | getFirstLastNameOfUser}}</span>
+                            </span>
                             <span data-ng-if="preferences.language === 'ko_KR'">{{ 'invite-postfix' | translate }}</span>
                         </span>
                         <span data-ng-if="false"
@@ -240,7 +253,12 @@
                               data-msg-invite="{{ 'invited' | translate }}"
                               data-msg-create-channel="{{ 'created current channel' | translate }}"
                               data-msg-create-group="{{ 'created current private group' | translate }}"></span>
+
+                            <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
+
                         </div>
+
+
                     </div>
 
                 </div>

@@ -65,6 +65,18 @@ select {
     to {background-color: #31c08a;}
 }
 
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opacIn-from-0 {
+    from {opacity: 0.0; }
+    to {opacity: 1; display: block; }
+}
+/* Standard syntax */
+@keyframes opacIn-from-0 {
+    from {opacity: 0.0; }
+    to {opacity: 1; display: block;}
+}
+
 /* Chrome, Safari, Opera */
 @-webkit-keyframes opacIn-from-20 {
     from {opacity: 0.2; }
@@ -76,6 +88,16 @@ select {
     to {opacity: 1; }
 }
 
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opacOut-to-0 {
+    from {opacity:1; }
+    to {opacity: 0.0; display: none; }
+}
+/* Standard syntax */
+@keyframes opacOut-to-0 {
+    from {opacity: 1.0; }
+    to {opacity: 0; display: none;}
+}
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes slide-from-right {
