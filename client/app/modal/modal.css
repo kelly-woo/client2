@@ -6,9 +6,48 @@
 .modal.hide {
     z-index: -1000;
 }
-#myModalLabel {
-    display: inline-block;
+
+
+/*
+    Common
+*/
+.close {
+    opacity: 0.6;
 }
+.close:hover,
+.close:focus {
+    opacity: 1;
+}
+.modal-header {
+    height: 50px;
+    padding: 18px 22px;
+    background-color: #31c08a;
+    position: relative;
+}
+.modal-header__title {
+    display: inline-block;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+.modal-body {
+    padding: 20px 22px;
+}
+.modal-body__description {
+    margin: 0 0 20px 0;
+    font-size: 14px;
+    line-height: 22px;
+    color: #5e5e5e;
+}
+.modal-body__description-help {
+    display: inline-block;
+    font-size: 14px;
+    color: #999;
+    margin: 5px 0 !important;
+}
+
+
 
 .modal-horizontal {
     margin-bottom: 10px;
@@ -63,7 +102,7 @@
 
 
 /*
-    join modal
+    Join Modal
 */
 .join-modal-heading {
     padding: 15px 0 10px;
@@ -190,30 +229,6 @@
     border-radius: 0;
 }
 
-.modal-header {
-    height: 50px;
-    padding: 18px 22px;
-    background-color: #31c08a;
-    position: relative;
-}
-
-.modal-header h3 {
-    color: white;
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0;
-}
-
-.close { opacity: 0.6; }
-.close:hover, .close:focus { opacity: 1; }
-
-.modal-body { padding: 20px 22px; }
-.modal-body h4 {
-    margin: 0 0 20px 0;
-    font-size: 14px;
-    line-height: 22px;
-    color: #999;
-}
 
 .custom-typeahead > ul {
     left: 0 !important;
@@ -247,14 +262,6 @@
     height: 40px;
     line-height: 40px;
 }
-
-.help-block {
-    display: inline-block;
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 5px !important;
-}
-
 
 /*
     INVITE USER TO TEAM MODAL
@@ -378,6 +385,12 @@
 .modal-preferences-body {
 
 }
+.modal-preferences-body__section {
+    margin-bottom: 40px;
+}
+.modal-preferences-body__section:last-child {
+    margin-bottom: 0;
+}
 .modal-preferences-body__section-title {
     text-align: left;
     margin: 20px 0 10px !important;
@@ -413,8 +426,7 @@
     text-align: center;
     position: relative;
     overflow: hidden;
-    width: 190px;
-    border-radius: 100%;
+    width: 150px;
     margin: auto auto 15px;
 }
 
@@ -426,12 +438,10 @@
 .profile-body .form-horizontal  .form-group {
     margin-bottom: 7px;
 }
-.profile-body .form-horizontal  .form-group .control-label {
-    text-align: left;
-    padding-right: 13px;
-    padding-top: 13px;
+.profile-body .profile-body__label {
+    text-align: right;
 }
-.profile-body .form-horizontal h4 {
+.profile-body .profile-body__title {
     margin-bottom: 15px;
     margin-top: 25px;
     text-align: center;

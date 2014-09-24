@@ -134,21 +134,39 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         // }
     });
 
-    //translate for multi-lang
-    $rootScope.setLang = function(lang, isDebug) {
-        if(lang) {
-            gettextCatalog.currentLanguage = lang;
-        } else {
-            gettextCatalog.currentLanguage = 'ko_KR';
-        }
-        gettextCatalog.debug = isDebug;
+    $rootScope.preferences = {
+        language        : gettextCatalog.currentLanguage,
+        notification    : ''
     };
 
-    // init
-    // TODO: 브라우저 기본 언어로 초기화 필요
-    $rootScope.setLang('ko_KR', false);
+    // translate for multi-lang
+    $rootScope.setLang = function(setLang, isDebug) {
+        setLang = setLang || 'ko_KR';
+        isDebug = isDebug || false;
+        // 언어 설정
+        gettextCatalog.setCurrentLanguage(setLang);
+        gettextCatalog.debug = isDebug;
+        // 현재 언어 저장
+        $rootScope.preferences.language = gettextCatalog.currentLanguage;
+    };
+
+    // 시스템(브라우저) 기본 언어로 초기화
     var userLang = navigator.language || navigator.userLanguage;
-    console.debug("BrowserLang", userLang);
+    console.info("systemLang", userLang);
+//    var debugMode = (configuration.name === 'development');
+    var debugMode = false;
+    switch( userLang ) {
+        case 'ko':
+        case 'ko_KR':
+            userLang = 'ko_KR';
+            break;
+        case 'en':
+        case 'en_US':
+        default:
+            userLang = 'en_US';
+            break;
+    }
+    $rootScope.setLang(userLang, debugMode);
 
 });
 

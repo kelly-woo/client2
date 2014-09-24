@@ -107,7 +107,6 @@ app.filter('getFirstLastNameOfUser', ['userAPIservice',
             if (angular.isUndefined(input)) return '';
 
             if (input.isNumber) {
-                console.log('isnumber')
                 return $filter('getFirstLastNameById', input);
             }
             if (input.type != 'user') return input.name;

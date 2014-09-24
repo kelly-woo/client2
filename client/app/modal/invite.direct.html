@@ -1,14 +1,16 @@
-<!-- Private Group Invite Modal -->
+<!-- Modal: Invite Members to Channel/Group -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel(); clear();"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">
+    <button type="button" class="close" data-ng-click="cancel(); clear();"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
         <span translate>Invite {{ currentEntity | getFirstLastNameOfUser }} to a channel/group</span>
     </h3>
 </div>
 
-<form name="user_to_channel_invite_form" ng-submit="onInviteClick(inviteChannel);">
+<form name="user_to_channel_invite_form" data-ng-submit="onInviteClick(inviteChannel);">
     <div class="modal-body">
-        <!-- CHANNEL OPTION  -->
+        <h4 class="modal-body__description">
+            <span translate></span>
+        </h4>
         <div class="form-horizontal">
             <div class="form-group">
                 <label class="control-label col-sm-3">
@@ -16,8 +18,8 @@
                 </label>
                 <div class="col-sm-9">
                     <select class="form-control"
-                            ng-model="inviteChannel"
-                            ng-options="channel.name group by channel.type for channel in inviteOptions">
+                            data-ng-model="inviteChannel"
+                            data-ng-options="channel.name group by channel.type for channel in inviteOptions">
                         <option value="">{{ 'Choose' | translate }}</option>
                     </select>
                 </div>
@@ -25,14 +27,12 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel(); clear();">
-            <span translate>Close</span>
-        </button>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel(); clear();"><span translate>Close</span></button>
         <input class="btn btn-ok" type="submit" id="private_invite" value="{{ 'Invite' | translate }}"/>
     </div>
 </form>
 
-<div class="loading_container" ng-if="isLoading">
+<div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
     <div class="loading_bar"></div>

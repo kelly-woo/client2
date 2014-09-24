@@ -681,9 +681,59 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
     };
 });
 
+//  ACCOUNT CONTROLLER
+app.controller('accountController', function($state, $stateParams, $scope, $rootScope, $modalInstance) {
+
+    $scope.oneAtATime = true;
+    $scope.groups = [
+        {
+            title: 'Dynamic Group Header - 1',
+            content: 'Dynamic Group Body - 1'
+        },
+        {
+            title: 'Dynamic Group Header - 2',
+            content: 'Dynamic Group Body - 2'
+        }
+    ];
+
+    $scope.items = ['Item 1', 'Item 2', 'Item 3'];
+
+    $scope.addItem = function() {
+        var newItemNo = $scope.items.length + 1;
+        $scope.items.push('Item ' + newItemNo);
+    };
+
+    $scope.status = {
+        isFirstOpen: true,
+        isFirstDisabled: false
+    };
+
+    $scope.error = {
+        status  : false,
+        message : ''
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.onClickConfirm = function() {
+        $scope.isLoading = true;
+        // TODO: change password or name
+        $scope.isLoading = false;
+        // 현재 state 다시 로드
+        $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+        });
+        $modalInstance.dismiss('cancel');
+    };
+});
+
 //  PREFERENCES CONTROLLER
-app.controller('preferencesController', function($scope, $rootScope, $modalInstance, gettextCatalog) {
-    $scope.currentLang = gettextCatalog.currentLanguage;
+app.controller('preferencesController', function($state, $stateParams, $scope, $rootScope, $modalInstance) {
+    $scope.currentLang = $rootScope.preferences.language;
     $scope.listLangs = [
         { "value": "ko_KR", "text": "한국어" },
         { "value": "en_US", "text": "English" }
@@ -695,11 +745,15 @@ app.controller('preferencesController', function($scope, $rootScope, $modalInsta
 
     $scope.onClickConfirm = function(currentLang) {
         $scope.isLoading = true;
-        console.debug(currentLang);
-
-        gettextCatalog.setCurrentLanguage(currentLang);
-
+        // 언어 변경
+        $rootScope.setLang(currentLang);
         $scope.isLoading = false;
-        $modalInstance.dismiss('cancel')
+        // 현재 state 다시 로드
+        $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+        });
+        $modalInstance.dismiss('cancel');
     };
 });
