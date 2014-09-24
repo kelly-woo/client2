@@ -11,7 +11,11 @@
 .lpanel-list__header,
 .lpanel-list ul li a,
 .lpanel-list-user_search {
-    padding-left: 32px !important;
+    padding-left: 24px !important;
+}
+
+.lpanel-list__header .fa-comment {
+    font-size: 11px;
 }
 .lpanel-user {
     width: inherit;
@@ -19,6 +23,7 @@
     padding: 15px 0;
     overflow: hidden;
     border-right: 1px solid #e1e1e1;
+    padding-left: 15px !important;
 }
 .lpanel-user__avatar {
     -webkit-border-radius: 37px;
@@ -93,7 +98,7 @@
 .lpanel-list-left{
     position: absolute;
     line-height: inherit;
-    left: 13px;
+    left: 8px;
     height: inherit;
     color: #333;
 }
@@ -232,7 +237,7 @@
     box-shadow: none;
     border: none !important;
     border-bottom: 1px solid #666 !important;
-    padding: 3px 3px 0 30px;
+    padding: 3px 3px 0 21px;
     background-color: #f2f2f2;
     opacity: 0.2;
 }

@@ -8,7 +8,9 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
     var currentEntity;
 
     entityAPI.getEntityFromListById = function(list, value) {
-        if (value == $rootScope.user.id) return $rootScope.user;
+        value = parseInt(value);
+
+        if (value === $rootScope.user.id) return $rootScope.user;
 
         var entity = $filter('filter')(list, { 'id' : value }, function(actual, expected) {
             return actual === expected;
@@ -19,21 +21,18 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
         return entity[0];
     };
 
-    //  Returns proper list from $rootScope.
-    entityAPI.getEntityList = function(entity) {
-        var type = entity.type;
-        var list;
-        switch(type) {
-            case 'user' :
-                return $rootScope.userList;
-            case 'channel' :
-                return $rootScope.joinedChannelList;
-            case 'privateGroup' :
-                return $rootScope.privateGroupList;
-            default :
-                return $rootScope.totalEntities;
+    entityAPI.getEntityById = function(entityType, entityId) {
+        var list = $rootScope.joinedChannelList;
+
+        if (entityType === 'privategroups' || entityType === 'privateGroups') {
+            list = $rootScope.privateGroupList;
         }
-    }
+        else if (entityType === 'users') {
+            list = $rootScope.userList;
+        }
+
+        return this.getEntityFromListById(list, entityId);
+    };
 
     //  updating alarmCnt field of 'entity' to 'alarmCount'.
     entityAPI.updateBadgeValue = function(entity, alarmCount) {
@@ -91,44 +90,24 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
         return last_state;
     };
 
-
-    entityAPI.hasPrivilegeHelper = function(user, entityType, entityId, isLeftUpdated) {
-        if (!isLeftUpdated) return;
-
-        if (user.u_authority == 'owner' || user.u_authority == 'admin') return true;
-
-        if (entityType === 'users') return false;
-
-        entityId = parseInt(entityId);
-
-        if (angular.isUndefined(currentEntity) || currentEntity.id != entityId) {
-            this.setCurrentEntity(entityType, entityId)
-        }
-
-        if (entityType === 'channels')
-            return currentEntity.ch_creatorId === user.id;
-
-        return currentEntity.pg_creatorId === user.id;;
-    };
-
     entityAPI.setCurrentEntity = function(entityType, entityId) {
-        var list = $rootScope.joinedChannelList;
-
-        // TODO: privategroups and privateGroups
-        // TODO: fix this bug when re-routing.
-        if (entityType === 'privategroups' || entityType === 'privateGroups') {
-            list = $rootScope.privateGroupList;
-        }
-        else if (entityType === 'users') {
-            list = $rootScope.userList;
-        }
-
-        currentEntity = this.getEntityFromListById(list, entityId);
+        currentEntity = this.getEntityById(entityType, entityId);
+        currentEntity.alarmCnt = '';
+        return currentEntity;
     };
 
     entityAPI.getCurrentEntity = function() {
         return currentEntity;
     };
+
+    entityAPI.getCreatorId = function(entity) {
+        if (entity.type === 'users') return null;
+
+        if (entity.type === 'privateGroup' || entity.type === 'privategroup') {
+            return entity.pg_creatorId;
+        }
+        return entity.ch_creatorId;
+    }
 
     return entityAPI;
 });

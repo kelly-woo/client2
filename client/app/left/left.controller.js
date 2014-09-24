@@ -19,6 +19,16 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         response = leftPanel.data;
     }
 
+    $scope.$watch('$state.params.entityId', function(newEntityId){
+        if (angular.isUndefined(entityAPIservice.getEntityById($state.params.entityType, newEntityId))) return;
+        $scope.setCurrentEntity('from watch');
+    });
+    $scope.setCurrentEntity = function(string) {
+        console.log(string)
+        $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
+        console.log($rootScope.currentEntity)
+    };
+
     initLeftList();
 
     function initLeftList () {
@@ -73,6 +83,8 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         if (response.alarmInfoCount != 0) {
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
         }
+
+        $scope.setCurrentEntity('from initLeftList');
     }
 
     //  redirecting to default channel.
@@ -112,7 +124,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             if (value.alarmCount == 0 )
                 return;
 
-            //  TODO: tempEntity가 user 타입일 경우 잘 안되네요????
             var tempEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, value.entityId);
 
             //  tempEntity is archived
@@ -134,11 +145,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
             });
     }
-
-
-    $scope.getCurrentEntity = function() {
-        return $scope.currentEntity;
-    };
 
     // User pressed an enter key from invite modal view in private group.
     $scope.onUserSelected = function() {
@@ -248,10 +254,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             }
         });
     }
-
-    $scope.toDefaultChannel = function() {
-        $state.go('archives', { entityType:'channels',  entityId:defaultChannel });
-    };
 
     $scope.onDMInputChange = function(userNameQuery) {
         var temp = $filter('userByName')($rootScope.userList, userNameQuery);
