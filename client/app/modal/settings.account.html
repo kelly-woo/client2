@@ -6,33 +6,37 @@
     </h3>
 </div>
 
-<form novalidate name="form-preferences" ng-submit="onClickConfirm()">
+<form novalidate name="form-account-settings" ng-submit="onClickConfirm()">
 
-    <div class="modal-body modal-preferences-body">
+    <div class="modal-body account-settings">
         <h4 class="modal-body__description">
-            <span translate>계정 설정에 관한 디스크립션</span>
+            <span translate>You can change account settings such as full name, password</span>
         </h4>
-        <div>
-            <accordion close-others="oneAtATime">
-                <accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-                    This content is straight in the template.
-                </accordion-group>
-                <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
-                    {{group.content}}
-                </accordion-group>
-                <accordion-group heading="Dynamic Body Content">
-                    <p>The body of the accordion group grows to fit the contents</p>
-                    <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
-                    <div ng-repeat="item in items">{{item}}</div>
-                </accordion-group>
-                <accordion-group is-open="status.open">
-                    <accordion-heading>
-                        I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                    </accordion-heading>
-                    This is just some content to illustrate fancy headings.
-                </accordion-group>
-            </accordion>
-        </div>
+        <accordion class="account-settings-body" close-others="status.oneAtATime">
+            <accordion-group is-open="status.name.open">
+                <accordion-heading>
+                    {{ 'Change your full name' | translate }}
+                    <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.name.open, 'glyphicon-chevron-right': !status.name.open}"></i>
+                </accordion-heading>
+                <div>
+                    이름 변경 하세요
+                </div>
+            </accordion-group>
+            <accordion-group is-open="status.password.open">
+                <accordion-heading>
+                    {{ 'Change your password' | translate }}
+                    <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.password.open, 'glyphicon-chevron-right': !status.password.open}"></i>
+                </accordion-heading>
+                <div>
+                    비밀번호 변경 하세요
+                </div>
+            </accordion-group>
+            <accordion-group heading="{{ 'Change your email address' | translate }}" is-disabled="status.email.disabled">
+                <div>
+                    이메일 변경
+                </div>
+            </accordion-group>
+        </accordion>
     </div>
 
     <div class="modal-footer profile-footer">

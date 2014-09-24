@@ -21,6 +21,55 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
                 size        :   'lg'
             });
         }
+        else if (selector == 'channel') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/create.channel.html',
+                controller  :   'createEntityModalCtrl',
+                size        :   'lg'
+            });
+        }
+        else if (selector == 'private') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/create.private.html',
+                controller  :   'createEntityModalCtrl',
+                size        :   'lg'
+            });
+        }
+        else if (selector == 'invite') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/invite.team.html',
+                controller  :   'inviteUserToTeamCtrl',
+                size        :   'lg'
+            });
+        }
+        else if (selector == 'profile') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/settings.profile.html',
+                controller  :   'profileCtrl',
+                size        :   'lg'
+            });
+        }
+        else if (selector == 'account') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/settings.account.html',
+                controller  :   'accountController',
+                size        :   'lg'
+            });
+        }
+        else if (selector === 'preferences') {
+            $modal.open({
+                sopce       : $scope,
+                templateUrl : 'app/modal/preferences.html',
+                controller  : 'preferencesController',
+//                windowClass : 'modal-wide',
+                size        : 'lg'
+            });
+        }
     };
 
     //  Called when header dropdown is clicked.
