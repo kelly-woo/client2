@@ -1,18 +1,18 @@
 <!-- Profile Setting Modal -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">
-        <span translate>Profile</span>
+    <button type="button" class="close" data-ng-click="cancel();"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
+        <span translate>Profile Setting</span>
     </h3>
 </div>
 
-<form novalidate name="profile_form" ng-submit="onProfileChangeClick()">
+<form name="profile_form" data-ng-submit="onProfileChangeClick()" novalidate>
 
     <div class="modal-body profile-body">
-        <h4>
+        <h4 class="modal-body__description">
             <span translate>You can set or change basic information such as nickname, phone number and position.</span>
         </h4>
-        <div class="user-profile-photo-container">
+        <div class="user-profile-photo-container img-circle">
             <input type="file"
                    id="profile_image_uploader"
                    class="file_upload_btn"
@@ -26,64 +26,49 @@
         </div>
         <div class="form-horizontal">
             <div class="user-profile-general-container">
-                <h4>
+                <h4 class="profile-body__title">
                     <span translate>Basic Information</span>
                 </h4>
                 <div class="form-group">
-                    <label class="control-label col-sm-3"><span translate>Last Name</span></label>
+                    <label class="profile-body__label control-label col-sm-3"><span translate>Full Name</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="lastName" ng-model="curUser.u_lastName" disabled/>
+                        <input type="text" class="form-control" name="lastName" value="{{curUser.u_lastName + curUser.u_firstName}}" disabled/>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label class="control-label col-sm-3"><span translate>First Name</span></label>
+                    <label class="profile-body__label control-label col-sm-3" ><span translate>Email</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="firstName" ng-model="curUser.u_firstName" disabled/>
+                        <input type="email" class="form-control" name="email" data-ng-model="curUser.u_email" disabled/>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label class="control-label col-sm-3" ><span translate>Email</span></label>
+                    <label class="profile-body__label control-label col-sm-3"><span translate>Nickname</span></label>
                     <div class="col-sm-9">
-                        <input type="email" class="form-control" name="email" ng-model="curUser.u_email" disabled/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-3"><span translate>Nickname</span></label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" name="nickName" ng-model="curUser.u_nickname"/>
+                        <input type="text" class="form-control" name="nickName" data-ng-model="curUser.u_nickname"/>
                     </div>
                 </div>
             </div>
 
             <div class="user-profile-optional-container">
-                <h4>
+                <h4 class="profile-body__title">
                     <span translate>Optional Information</span>
                 </h4>
                 <div class="form-group">
-                    <label class="control-label col-sm-3">
-                        <span translate>Phone</span>
-                    </label>
+                    <label class="profile-body__label control-label col-sm-3"><span translate>Phone</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="phoneNumber" ng-model="curUser.u_extraData.phoneNumber"/>
+                        <input type="text" class="form-control" name="phoneNumber" data-ng-model="curUser.u_extraData.phoneNumber"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3">
-                        <span translate>Department</span>
-                    </label>
+                    <label class="profile-body__label control-label col-sm-3"><span translate>Department</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="department" ng-model="curUser.u_extraData.department"/>
+                        <input type="text" class="form-control" name="department" data-ng-model="curUser.u_extraData.department"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-3">
-                        <span translate>Position</span>
-                    </label>
+                    <label class="profile-body__label control-label col-sm-3"><span translate>Position</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="position" ng-model="curUser.u_extraData.position"/>
+                        <input type="text" class="form-control" name="position" data-ng-model="curUser.u_extraData.position"/>
                     </div>
                 </div>
             </div>
@@ -91,13 +76,13 @@
     </div>
 
     <div class="modal-footer profile-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>Close</span></button>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>Close</span></button>
         <input class="btn btn-ok" type="submit" id="change_profile" value="{{ 'Edit' | translate }}"/>
     </div>
 
 </form>
 
-<div class="loading_container" ng-if="isLoading">
+<div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
     <div class="loading_bar"></div>

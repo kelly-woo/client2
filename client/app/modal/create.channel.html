@@ -1,17 +1,17 @@
-<!-- create channel Modal -->
+<!-- Modal: Create Channel -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">
+    <button type="button" class="close" data-ng-click="cancel();"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
         <span translate>Create new channel</span>
     </h3>
 </div>
 
-<form name="create_channel_form" ng-submit="onCreateClick('channel', channelName)">
+<form name="create_channel_form" data-ng-submit="onCreateClick('channel', channelName)">
     <div class="modal-body">
-        <h4>
+        <h4 class="modal-body__description">
             <span translate>Creating a new channel.</span>
             <span translate>Anyone can join.</span>
-            <div class="help-block">
+            <div class="modal-body__description-help">
                 <span translate>Please use Private Group for a closed channel.</span>
             </div>
         </h4>
@@ -22,7 +22,7 @@
                     <input type="text"
                            class="form-control"
                            name="channelName"
-                           ng-model="channelName"
+                           data-ng-model="channelName"
                            placeholder="{{ 'Channel Name' | translate }}"
                            required/>
                 </div>
@@ -33,8 +33,8 @@
                     <textarea class="form-control"
                               name="channelPurpose"
                               rows="3"
-                              ng-model="channelPurpose"
-                              ng-maxlength="256"
+                              data-ng-model="channelPurpose"
+                              data-ng-maxlength="256"
                               maxlength="256"
                               style="resize:none;"
                               disabled></textarea>
@@ -43,14 +43,14 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel()">
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel()">
             <span translate>Close</span>
         </button>
         <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ 'Create Channel' | translate }}" />
     </div>
 </form>
 
-<div class="loading_container" ng-if="isLoading">
+<div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
     <div class="loading_bar"></div>

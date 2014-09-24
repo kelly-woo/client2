@@ -1,14 +1,14 @@
-<!-- Invite to Team Modal   -->
+<!-- Modal: Invite to Team by Email -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">
+    <button type="button" class="close" data-ng-click="cancel();"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
         <span translate>Invite others to team</span>
     </h3>
 </div>
 
-<form novalidate name="invite_team_form" ng-submit="onInviteClick()">
+<form novalidate name="invite_team_form" data-ng-submit="onInviteClick()">
     <div class="modal-body invite-team-body">
-        <h4>
+        <h4 class="modal-body__description">
             <span translate>You can invite others to Jandi by email.</span>
             <br/>
             <span translate>Each fields(Email, Last Name, First Name) are all required.</span>
@@ -23,13 +23,13 @@
 
         <div class="form-horizontal">
             <div class="email_container">
-                <input type="email" class="form-control invite" name="email" placeholder="{{ 'Email' | translate }}" ng-required="true" />
+                <input type="email" class="form-control invite" name="email" placeholder="{{ 'Email' | translate }}" data-ng-required="true" />
             </div>
             <div class="firstName_container">
-                <input type="text" class="form-control invite" name="lastName" placeholder="{{ 'Last Name' | translate }}" ng-required="true" />
+                <input type="text" class="form-control invite" name="lastName" placeholder="{{ 'Last Name' | translate }}" data-ng-required="true" />
             </div>
             <div class="lastName_container">
-                <input type="text" class="form-control invite" name="firstName" placeholder="{{ 'First Name' | translate }}" ng-required="true" />
+                <input type="text" class="form-control invite" name="firstName" placeholder="{{ 'First Name' | translate }}" data-ng-required="true" />
             </div>
         </div>
 
@@ -43,13 +43,13 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>Close</span></button>
-        <input class="btn btn-ok" type="submit" id="invite_to_team" value="{{ 'Invite' | translate }}" ng-disabled="invite_team_form.$invalid"/>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>Close</span></button>
+        <input class="btn btn-ok" type="submit" id="invite_to_team" value="{{ 'Invite' | translate }}" data-ng-disabled="invite_team_form.$invalid"/>
     </div>
 
 </form>
 
-<div class="loading_container" ng-if="isLoading">
+<div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
     <div class="loading_bar"></div>

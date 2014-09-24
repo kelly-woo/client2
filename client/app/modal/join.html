@@ -1,10 +1,10 @@
-<!-- Join Modal -->
+<!-- Modal: Join Channel -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel()"><span class="icon_close"></span></button>
-    <span class="create_channel_on_top" ng-click="newChannel();">
+    <button type="button" class="close" data-ng-click="cancel()"><span class="icon_close"></span></button>
+    <span class="create_channel_on_top" data-ng-click="newChannel();">
         <span translate>Create Channel</span>
     </span>
-    <h3 id="myModalLabel">
+    <h3 class="modal-header__title">
         <span translate>Browse channels</span>
     </h3>
 </div>
@@ -18,7 +18,7 @@
             <input type="text"
                    class="form-control green-input-box"
                    placeholder="{{ 'Search channel by name' | translate }}"
-                   ng-model="channelTitleQuery">
+                   data-ng-model="channelTitleQuery">
         </div>
     </div>
 
@@ -27,7 +27,7 @@
             <span translate>Channels you can join</span>
         </div>
         <div class="join-modal-channel_container file-item-meta__listview is_not_member"
-             ng-repeat="channel in filtered = (unJoinedChannelList | filter:{'name': channelTitleQuery})">
+             data-ng-repeat="channel in filtered = (unJoinedChannelList | filter:{'name': channelTitleQuery})">
 
             <div class="join-modal-channel_title cursor_pointer overflow-ellipsis" ng-click="onJoinClick(channel.id);">#{{channel.name}}</div>
             <div>
@@ -38,9 +38,11 @@
             <div>
                 <i>{{channel.ch_members.length + " member(s)"}}</i>
             </div>
-            <button type="button" class="btn btn-white btn-full-width" data-ng-click="onJoinClick(channel.id)">Join</button>
+            <button type="button" class="btn btn-white btn-full-width" data-ng-click="onJoinClick(channel.id)">
+                <span translate>Join</span>
+            </button>
         </div>
-        <h5 ng-show="filtered.length == 0">
+        <h5 data-ng-show="filtered.length == 0">
             <span translate>No channels to join</span>
         </h5>
     </div>
@@ -63,7 +65,7 @@
                 <i class="fa fa-clock-o"></i> <span>{{ joinedChannel.ch_createTime | ordinalDate: 'EEE, MMMM doo' }} at {{ joinedChannel.ch_createTime | date: 'h:mm a' }}</span>
             </div>
             <div>
-                <span>참여멤버</span> <span>{{joinedChannel.ch_members.length}}</span><span>명</span>
+                <span translate>참여멤버</span> <span>{{joinedChannel.ch_members.length}}</span><span translate>명</span>
             </div>
         </div>
 
@@ -80,18 +82,22 @@
         <!--</span>-->
         <!--</p>-->
 
-        <h5 ng-show="joinedChannelList.length == 0"> You have not joined any channels yet.</h5>
-        <h5 ng-show="joinFiltered.length == 0 && joinedChannelList.length != 0"> No Result.</h5>
+        <h5 data-ng-show="joinedChannelList.length == 0">
+            <span translate>You have not joined any channels yet</span>
+        </h5>
+        <h5 data-ng-show="joinFiltered.length == 0 && joinedChannelList.length != 0">
+            <span translate>No Result</span>
+        </h5>
     </div>
 
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-cancel" ng-click="cancel()">Cancel</button>
-    <a class="new_channel_btn btn btn-ok " ng-click="newChannel(); ">Create New Channel</a>
+    <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>Cancel</span></button>
+    <a class="new_channel_btn btn btn-ok " data-ng-click="newChannel();"><span translate>Create New Channel</span></a>
 </div>
 
-<div class="loading_container" ng-if="isLoading">
+<div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
     <div class="loading_bar"></div>

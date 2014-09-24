@@ -780,10 +780,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 });
                 break;
             case 'join' :
-                action = $filter('translate')('joined this channel');
+                action = $filter('translate')('has joined');
                 break;
             case 'leave' :
-                action = $filter('translate')('left this channel');
+                action = $filter('translate')('has left');
                 break;
             case 'create' :
                 if (msg.info.entityType !== 'channel') {
