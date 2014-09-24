@@ -35,12 +35,16 @@
     -o-transitionDISABLED: .15s;
     transitionDISABLED: .15s;
 }
+.panel-title-info {
+    max-width: 95%;
+}
 .panel-title-info,
 .panel-title-member {
     display: inline-block;
     position: relative;
     vertical-align: top;
     height: inherit;
+
 }
 
 .panel-title-info .star {
