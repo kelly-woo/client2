@@ -5,7 +5,7 @@
         <div class="header-navbar-menu">
             <span data-toggle="dropdown">
                 <i class="fa fa-bars"></i>
-                <span translate>Menu</span>
+                <span class="header-navbar__title" translate>Menu</span>
                 <i class="fa fa-caret-down"></i>
             </span>
             <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
@@ -55,7 +55,7 @@
         <div class="header-navbar-file">
             <span data-toggle="dropdown">
                 <i class="fa fa-file"></i>
-                <span translate>File</span>
+                <span class="header-navbar__title" translate>File</span>
                 <i class="fa fa-caret-down"></i>
             </span>
             <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
@@ -101,7 +101,7 @@
         <div class="header-navbar-settings">
             <span data-toggle="dropdown">
                 <i class="fa fa-cog"></i>
-                <span translate>Settings</span>
+                <span class="header-navbar__title" translate>Settings</span>
                 <i class="fa fa-caret-down"></i>
             </span>
             <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
@@ -134,8 +134,8 @@
              ng-class="{'green_background' : $state.includes('**.files.**')}"
              data-ng-click="onToggleClick();">
             <span>
-                <i class="fa fa-caret-square-o-right fa-lg"></i>
-                <span translate>All Files</span>
+                <i class="fa fa-inbox fa-lg"></i>
+                <span class="header-navbar__title" translate>All Files</span>
             </span>
         </div>
     </div>

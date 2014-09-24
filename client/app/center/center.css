@@ -16,7 +16,7 @@
     height: 35px;
     line-height: 35px;
     width: 100%;
-    font-size: 18px;
+    font-size: 14px;
     color: #333;
     margin: 0;
     padding-left: 20px;
@@ -114,6 +114,7 @@
 .panel-title-info__name {
     width: 100%;
     padding-right: 15px;
+    font-weight: 700;
 }
 .header-title-info__more {
     color:#9e9ea6;

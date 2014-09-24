@@ -96,26 +96,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $rootScope.toDefault = true;
     }
 
-    $rootScope.$watch('isLeftUpdated', function(newValue, oldValue) {
-        if (newValue) {
-            hasPrivilege();
-        }
-    });
-
-    // Returning true if current user is an owner of current channel/private group
-    function hasPrivilege() {
-        if ($scope.previliged == null)
-            $scope.previliged = entityAPIservice.hasPrivilegeHelper($scope.user, entityType, entityId, $rootScope.isLeftUpdated);
-
-        setCurrentEntity();
-        return $scope.previliged;
-    };
-
-    hasPrivilege();
-
-    function setCurrentEntity() {
-        $rootScope.currentEntity = entityAPIservice.getCurrentEntity();
-    }
     //  END OF PANEL HEADER FUNCTIONS
 
 
@@ -186,7 +166,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             prev.removeClass('last');
         }
 
-        if (lastMessage.position().top > 0) {
+        if (angular.isUndefined(lastMessage) && lastMessage.position().top > 0) {
             lastMessage.addClass('last');
             $('.msgs').scrollTop(lastMessage.position().top - 13);
         }

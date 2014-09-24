@@ -17,7 +17,7 @@
                         <i class="fa fa-plus"></i><span translate>Invite others to this channel</span>
                     </a>
                 </li>
-                <li role="presentation" data-ng-if="previliged" data-ng-click="openModal('rename')">
+                <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="openModal('rename')">
                     <a role="menuitem" tabindex="-1">
                         <i class="fa fa-pencil"></i><span translate>Rename this channel</span>
                     </a>
@@ -27,7 +27,7 @@
                         <i class="fa fa-sign-out"></i><span translate>Leave channel</span>
                     </a>
                 </li>
-                <li role="presentation" data-ng-if="previliged" data-ng-click="onDeleteClick();">
+                <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="onDeleteClick();">
                     <a role="menuitem" tabindex="-1">
                         <i class="fa fa-times"></i><span translate>Delete this channel</span>
                     </a>
@@ -58,7 +58,7 @@
                         <i class="fa fa-plus"></i><span translate>Invite others to this group</span>
                     </a>
                 </li>
-                <li role="presentation" data-ng-if="previliged" data-ng-click="openModal('rename')">
+                <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="openModal('rename')">
                     <a role="menuitem" tabindex="-1">
                         <i class="fa fa-pencil"></i><span translate>Rename this group</span>
                     </a>
@@ -68,7 +68,7 @@
                         <i class="fa fa-sign-out"></i><span translate>Leave group</span>
                     </a>
                 </li>
-                <li role="presentation" data-ng-if="previliged" data-ng-click="onDeleteClick();">
+                <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="onDeleteClick();">
                     <a role="menuitem" tabindex="-1">
                         <i class="fa fa-times"></i><span translate>Delete this group</span>
                     </a>
