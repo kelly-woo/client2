@@ -18,7 +18,8 @@ module.exports = function (grunt) {
         injector: 'grunt-asset-injector',
         nggettext_extract: 'grunt-angular-gettext',
         nggettext_compile: 'grunt-angular-gettext',
-        replace: 'grunt-replace'
+        replace: 'grunt-replace',
+        wiredep: 'grunt-wiredep'
     });
 
     // Time how long tasks take. Can help when optimizing build times
@@ -200,11 +201,38 @@ module.exports = function (grunt) {
         },
 
         // Automatically inject Bower components into the app
-        bowerInstall: {
+        wiredep: {
             target: {
-                src: '<%= yeoman.client %>/index.html',
-                ignorePath: '<%= yeoman.client %>/',
-                exclude: ['/bootstrap-sass-official/', '/json3/', '/es5-shim/']
+
+                // Point to the files that should be updated when
+                // you run `grunt wiredep`
+                src: [
+                    '<%= yeoman.client %>/index.html'
+                ],
+
+                // Optional
+                options: {
+                    cwd: '',
+                    dependencies: true,
+                    devDependencies: false,
+                    exclude: [
+                        '/bootstrap-sass-official/', '/json3/', '/es5-shim/',
+                        'bower_components/angulartics/src/angulartics-adobe.js',
+                        'bower_components/angulartics/src/angulartics-chartbeat.js',
+                        'bower_components/angulartics/src/angulartics-flurry.js',
+                        'bower_components/angulartics/src/angulartics-gtm.js',
+                        'bower_components/angulartics/src/angulartics-kissmetrics.js',
+                        'bower_components/angulartics/src/angulartics-piwik.js',
+                        'bower_components/angulartics/src/angulartics-segmentio.js',
+                        'bower_components/angulartics/src/angulartics-splunk.js',
+                        'bower_components/angulartics/src/angulartics-woopra.js',
+                        'bower_components/angulartics/src/angulartics-marketo.js'
+                    ],
+                    fileTypes: {},
+                    ignorePath: '<%= yeoman.client %>/',
+                    overrides: {}
+                }
+
             }
         },
 
@@ -550,7 +578,7 @@ module.exports = function (grunt) {
                 'env:all',
                 'concurrent:server',
                 'injector',
-                'bowerInstall',
+                'wiredep',
                 'autoprefixer',
                 'concurrent:debug'
             ]);
@@ -562,7 +590,7 @@ module.exports = function (grunt) {
             'env:all',
             'concurrent:server',
             'injector',
-            'bowerInstall',
+            'wiredep',
             'autoprefixer',
             'express:dev',
             'wait',
@@ -603,7 +631,7 @@ module.exports = function (grunt) {
                 'env:test',
                 'concurrent:test',
                 'injector',
-                'bowerInstall',
+                'wiredep',
                 'autoprefixer',
                 'express:dev',
                 'protractor'
@@ -620,7 +648,7 @@ module.exports = function (grunt) {
         'clean:dist',
         'concurrent:dist',
         'injector',
-        'bowerInstall',
+        'wiredep',
         'useminPrepare',
         'autoprefixer',
         'ngtemplates',
