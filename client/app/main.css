@@ -38,8 +38,9 @@
 select {
     width: 100%;
 }
-
-
+select:focus {
+    outline: 0;
+}
 
 /********************************************
 
@@ -528,4 +529,23 @@ optgroup option {
 
 optgroup option:hover {
     background: #eefcf7 !important;
+}
+
+
+/*
+    input
+*/
+.add-on-group {
+    position: relative;
+}
+.add-on-group .search-input {
+    padding-left: 30px;
+    box-shadow: none;
+}
+.add-on-left {
+    position: absolute;
+}
+.add-on-right   {
+    position: absolute;
+    right: 5px;
 }

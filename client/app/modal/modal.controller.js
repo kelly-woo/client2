@@ -112,6 +112,7 @@ app.controller('userModalCtrl', function($scope, $modalInstance, $state) {
 
 // PRIVATE_GROUP/CHANNEL RENAME
 app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope, analyticsService) {
+    $scope.newChannelName = $scope.currentEntity.name;
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
