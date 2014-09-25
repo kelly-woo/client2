@@ -63,7 +63,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     //      if null -> meaning searching for all chat rooms.
     //          else -> set to selected value.
     $scope.$watch('sharedEntitySearchQuery', function() {
-        console.log('this is sharedEntitySearchQuery')
         if ($scope.sharedEntitySearchQuery === null) {
             $scope.fileRequest.sharedEntityId = -1;
         }

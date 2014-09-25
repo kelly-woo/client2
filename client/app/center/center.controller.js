@@ -230,7 +230,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                                 // parse HTML, URL code
                                 var safeBody = msg.message.content.body;
-                                if (safeBody != undefined && safeBody !== "") {
+                                if (safeBody != undefined && safeBody != "") {
                                     safeBody = $filter('parseUrl')(safeBody);
                                 }
                                 msg.message.content.body = $sce.trustAsHtml(safeBody);

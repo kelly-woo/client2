@@ -43,13 +43,31 @@ app.filter('parseUrl', function() {
     var emails = /(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})/gim;
 
     return function(text) {
-        text = text.replace(urls, "<a href=\"$1\" target=\"_blank\">$1</a>");
 
-        text = text.replace(uris, "$1<a href=\"http://$2\" target=\"_blank\">$2</a>");
+        var urlStrs = text.match(urls);
+        _.forEach(urlStrs, function(urlStr) {
+            var tempUrlStr = '<a href="' + urlStr + '" target="_blank">' + urlStr + '</a>';
+            tempUrlStr = decodeURI(tempUrlStr);
+            text = text.replace(urlStr, tempUrlStr);
+        });
 
-        text = text.replace(emails, "<a href=\"mailto:$1\">$1</a>");
+        var uriStrs = text.match(uris);
+        _.forEach(uriStrs, function(uriStr) {
+            var tempUriStr = '<a href="' + uriStr + '" target="_blank">' + uriStr + '</a>';
+            tempUriStr = decodeURI(tempUriStr);
+            text = text.replace(uriStr, tempUriStr);
+        });
 
-        return decodeURI(text);
+
+
+        var emailStrs = text.match(emails);
+        _.forEach(emailStrs, function(emailStr) {
+            var tempEmailStr = '<a href="mailto:' + emailStr + '">' + emailStr + '</a>';
+            tempEmailStr = decodeURI(tempEmailStr);
+            text = text.replace(emailStr, tempEmailStr);
+        });
+
+        return text;
     };
 
 });
