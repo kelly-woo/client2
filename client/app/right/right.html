@@ -1,49 +1,5 @@
 <div class="panel-title-container">
-    <div class="rpanel-header-heading">
-        <div class="rpanel-header-heading__types">
-            <span translate>Files</span>
-
-            <!--<span class="dropdown-toggle cursor_pointer" data-toggle="dropdown" data-ng-switch="fileRequest.fileType | upperFirstCharacter">-->
-                <!--<span data-ng-switch-default>{{ 'All Files' | translate }}</span>-->
-                <!--<span data-ng-switch-when="Image">{{ 'Images' | translate }}</span>-->
-                <!--<span data-ng-switch-when="PDF">{{ 'PDF' | translate }}</span>-->
-                <!--<span data-ng-switch-when="Audio">{{ 'Audio' | translate }}</span>-->
-                <!--<span data-ng-switch-when="Video">{{ 'Video' | translate }}</span>-->
-                <!--<i class="rpanel-header-heading__types__more fa fa-caret-down"></i>-->
-            <!--</span>-->
-            <!--<ul class="dropdown-menu grey_dropdown rpanel-header-heading__types__dropdown" role="menu">-->
-                <!--<li role="presentation" data-ng-click="fileRequest.fileType = 'all'">-->
-                    <!--<a role="menuitem" tabindex="-1">-->
-                        <!--<i class="fa fa-files-o"></i>-->
-                        <!--<span translate>All Files</span>-->
-                    <!--</a>-->
-                <!--</li>-->
-                <!--<li role="presentation" data-ng-click="fileRequest.fileType = 'image'">-->
-                    <!--<a role="menuitem" tabindex="-1">-->
-                        <!--<i class="fa fa-file-image-o"></i>-->
-                        <!--<span translate>Images</span>-->
-                    <!--</a>-->
-                <!--</li>-->
-                <!--<li role="presentation" data-ng-click="fileRequest.fileType = 'pdf'">-->
-                    <!--<a role="menuitem" tabindex="-1">-->
-                        <!--<i class="fa fa-file-pdf-o"></i>-->
-                        <!--<span translate>PDF</span>-->
-                    <!--</a>-->
-                <!--</li>-->
-                <!--<li role="presentation" data-ng-click="fileRequest.fileType = 'audio'">-->
-                    <!--<a role="menuitem" tabindex="-1">-->
-                        <!--<i class="fa fa-file-audio-o"></i>-->
-                        <!--<span translate>Audio</span>-->
-                    <!--</a>-->
-                <!--</li>-->
-                <!--<li role="presentation" data-ng-click="fileRequest.fileType = 'video'">-->
-                    <!--<a role="menuitem" tabindex="-1">-->
-                        <!--<i class="fa fa-file-video-o"></i>-->
-                        <!--<span translate>Video</span>-->
-                    <!--</a>-->
-                <!--</li>-->
-            <!--</ul>-->
-        </div>
+            <span class="rpanel-header-heading" translate>Files</span>
 
         <div id="add_new_file" class="rpanel-header-heading__files cursor_pointer">
             <i class="fa fa-upload"></i>
@@ -58,8 +14,11 @@
     </div>
 </div>
 
+
 <div class="rpanel-body" infinite-scroll-bottom="">
     <div class="rpanel-header-toolbar">
+
+        <!--    FILE SEARCH INPUT BOX   -->
         <div class="rpanel-body-search add-on-group">
             <span class="add-on-left">
                 <i class="fa fa-search"></i>
@@ -69,45 +28,51 @@
                    class="form-control rpanel-body-search__input search-input"
                    placeholder="{{ 'Search by title' | translate }}"
                    data-ng-model="fileRequest.keyword">
-            <span class="add-on-right cursor_pointer">
+            <span class="add-on-right cursor_pointer" ng-click="isAdvancedOptionCollapsed = !isAdvancedOptionCollapsed">
                 <i class="fa fa-sliders"></i>
             </span>
         </div>
 
+        <!--    ADVANCED SEARCH OPTION  -->
+        <div class="advanced-search-option-container" collapse="isAdvancedOptionCollapsed">
 
+            <!--   CHAT ROOM  -->
+            <div class="advanced-search-option__category">
+                <div class="advanced-search-option__title">
+                    <span translate>Location</span>
+                </div>
 
-        <div class="rpanel-header-toolbar__users cursor_pointer hidden">
-            <span class="file-uploader-tab"
-                  data-ng-model="tabIndicator"
-                  btn-radio="'everyone'"
-                  data-ng-click="onFileFilterWriterIdClick('all');">
-                <span translate>EVERYONE</span>
-            </span>
-            <span class="file-uploader-tab"
-                  data-ng-model="tabIndicator"
-                  btn-radio="'notEveryone'"
-                  data-default-value="{{ 'YOU' | translate }}"
-                  data-ng-click="onFileFilterWriterIdClick(fileRequest.writerId=='all'?'mine':fileRequest.writerId);">
-                {{ fileRequest.writerId | getFirstLastNameById }}
-            </span>
+                <select ng-model="sharedEntitySearchQuery"
+                        ng-options="channel as channel|getFirstLastNameOfUser group by channel.type for channel in selectOptions">
+                    <option value=""><span translate> All </span></option>
+                </select>
 
-            <span class="file-uploader-tab__more icon_add_member dropdown-toggle" data-toggle="dropdown"></span>
-            <ul class="dropdown-menu grey_dropdown file-uploader-dropdown" role="menu">
-                <li data-ng-repeat="user in userList" data-ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
-                    <!--<label class="btn" data-ng-click="onFileFilterWriterIdClick(user.id);">-->
-                    <!--{{ user.name }}-->
-                    <!--</label>-->
-                    <a data-ng-click="onFileFilterWriterIdClick(user.id);">
-                       {{ user|getFirstLastNameOfUser }}
-                    </a>
-                </li>
-                <li data-ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
-                    <a data-ng-click="onFileFilterWriterIdClick(user.id);">
-                        {{ user|getFirstLastNameOfUser }}
-                    </a>
+            </div>
 
-                </li>
-            </ul>
+            <!--   FILE WRITER  -->
+            <div class="advanced-search-option__category">
+                <div class="advanced-search-option__title">
+                    <span translate>Writer</span>
+                </div>
+
+                <select ng-model="fileRequest.writerId"
+                        ng-options="user.id as user|getFirstLastNameOfUser for user in userList">
+                    <option value=""><span translate> All </span></option>
+                </select>
+
+            </div>
+
+            <!--    FILE TYPE  -->
+            <div class="advanced-search-option__category">
+                <div class="advanced-search-option__title">
+                    <span translate>File Type</span>
+                </div>
+
+                <select ng-model="fileRequest.fileType"
+                        ng-options="type|upperFirstCharacter for type in fileTypeList"></select>
+
+            </div>
+
         </div>
     </div>
 
@@ -120,7 +85,7 @@
                  data-ng-show="(file.content.type).indexOf('image') !== -1"
                  data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"
                  data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"
-            />
+                    />
             <!--    IF NOT IMAGE TYPE, SHOW FILE TYPE PREVIEW   -->
             <div class="msg-file-body__thumbnail pull-left"
                  data-ng-if="(file.content.type).indexOf('image') == -1">
@@ -137,7 +102,7 @@
                 <!--<div class="file-item-meta__size" data-ng-if="file.content.size > 0">{{ file.content.size | bytes }}</div>-->
             </div>
 
-             <!-- OTHER INFORMATION ABOUT FILE: TITLE, UPLOADED TIME, SHARED CHANNELS, LINK TO NEW TAB -->
+            <!-- OTHER INFORMATION ABOUT FILE: TITLE, UPLOADED TIME, SHARED CHANNELS, LINK TO NEW TAB -->
             <div class="file-item-body">
 
                 <!-- FILE AUTHOR(FILE UPLOADER) AND UPLOADED TIME-->
@@ -163,7 +128,7 @@
                         </span>
                         <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
                             <li class="cursor_pointer">
-                                <a data-ng-click="onClickShare(file); toggleDropdown($event);">
+                                <a data-ng-click="onClickShare(file);">
                                     <i class="fa fa-share-alt"></i>
                                     <span translate>Share</span>
                                 </a>

@@ -109,6 +109,7 @@ app.filter('getFirstLastNameOfUser', ['userAPIservice',
             if (input.isNumber) {
                 return $filter('getFirstLastNameById', input);
             }
+
             if (input.type != 'user') return input.name;
 
             return userAPIservice.getNameFromUser(input);
@@ -117,6 +118,9 @@ app.filter('getFirstLastNameOfUser', ['userAPIservice',
 ]);
 
 
+/*
+    used in file type dropdown.
+ */
 app.filter('upperFirstCharacter', function() {
     return function(input) {
         if (angular.isUndefined(input) || input.isNumber ) return input;

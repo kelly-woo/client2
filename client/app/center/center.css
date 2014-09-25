@@ -4,7 +4,6 @@
     left: 220px;
     right: 0;
     z-index: -1;
-    top: 40px;
 }
 
 .rpanel-show {
@@ -202,7 +201,7 @@
     color: #666;
     display: table;
     padding: 5px 6px;
-    margin: 5px 0 15px 47px;
+    margin: 15px 0 15px 47px;
 }
 .msgs-group__divider-label {
     display: inline-block;
@@ -214,6 +213,18 @@
     padding: 0 20px 0 47px;
     margin-bottom: 15px;
 }
+.msgs-group > .msg-item:last-child {
+    margin-bottom: 0;
+}
+.msg-item.comment-title {
+    margin-bottom: 8px;
+}
+.msg-item.comment-continue {
+    margin-bottom: 5px;
+    padding-left: 122px;
+}
+
+
 .msg-item.text {
     margin-top: 13px;
 }
@@ -242,13 +253,24 @@
     line-height: 15px;
 }
 .msg-item.comment-continue .msg-item-header {
-    padding: 12px 0 8px;
-    border-top: 1px solid #eee;
+    padding: 0;
 }
+/* continued comment writer name */
+.msg-item.comment-continue .msg-item-header .msg-item-header__name {
+    display: table-cell;
+    font-size: 13px;
+}
+
 .msg-item-header__name {
     color: #333;
     font-weight: 700;
     font-size: 15px;
+}
+.continue-comment-body {
+    display: table-cell;
+    padding-left: 12px;
+    font-size: 13px;
+    font-weight: 400;
 }
 .msg-item-header__created {
     font-size: 10px;
@@ -257,8 +279,16 @@
     font-weight: 400;
     margin-left: 3px;
 }
+/* continued comment created time   */
+.msg-item.comment-continue .msg-item-header .msg-item-header__created {
+    display: table-cell;
+    padding-left: 5px;
+}
 .msg-item-body {
     position: relative;
+}
+.msg-item.comment-continue .msg-item-body {
+    /*padding-left: 75px;*/
 }
 .msg-item-body p {
     margin: 0;
@@ -276,6 +306,7 @@
 }
 .msg-file-body__img {
     height: 65px;
+    max-width: 65px;
 }
 .msg-file-body__thumbnail {
     height: 65px;
@@ -332,6 +363,10 @@
     font-weight: 700;
     font-size: 15px;
 }
+.msg-comment .msg-file-meta__title {
+    display: block;
+    margin-top: 6px;
+}
 .msg-file-meta__title:hover {
     color: #404040;
 }
@@ -350,10 +385,13 @@
     color: #666;
 }
 .msg-file-meta__writer {  }
-.msg-comment { min-height: 65px; }
+.msg-comment { }
+.msg-comment-with-thumbnail {
+    min-height: 65px;
+}
 .msg-comment-header {
     color: #999999;
-    font-size: 15px;
+    font-size: 12px;
     margin: 5px 0 4px;
 }
 

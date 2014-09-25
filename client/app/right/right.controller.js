@@ -9,35 +9,45 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     console.info('[enter] rightpanelController');
 
-    $scope.tabIndicator     = 'everyone';
     $scope.fileTitleQuery   = '';
 
     $scope.fileRequest      = {};
     $scope.fileRequest.searchType       = 'file';
     $scope.fileRequest.writerId         = 'all';
-    $scope.fileRequest.sharedEntityId   = -1;
+    $scope.fileRequest.sharedEntityId   = $state.params.entityId;
     $scope.fileRequest.fileType         = 'all';
     $scope.fileRequest.startMessageId   = -1;
     $scope.fileRequest.listCount        = 10;
     $scope.fileRequest.keyword          = '';
 
 
+    $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
+    $scope.sharedEntitySearchQuery  = $scope.currentEntity;
+
+    $scope.selectOptionsUsers       = $scope.userList.push($scope.user);
+
+    $scope.fileTypeList = ['all', 'image', 'pdf', 'audio', 'video'];
     var startMessageId   = -1;
 
     $scope.fileList = [];
 
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
+        console.log(type)
         if (type === 'you') {
             // when 'Your Files' is clicked on 'cpanel-search__dropdown'
-            $scope.fileRequest.writerId = 'mine';
+            $scope.fileRequest.writerId = $scope.user.id;
             $scope.fileRequest.fileType = 'all';
-            $scope.tabIndicator = 'notEveryone';
         }
         else {
             if (type === 'all') {
+                alert('question here. look at comment in right.controller.js')
                 // when 'All Files' is clicked oon 'cpanel-search__dropdown'
                 $scope.fileRequest.writerId = 'all';
-                $scope.tabIndicator = 'everyone';
+
+                //  Question.
+                //  when 'All Files' is clicked,
+                //  Should I search from all sharedEntity or current channel?
+                $scope.sharedEntitySearchQuery = null;
             }
             $scope.fileRequest.fileType = type;
         }
@@ -46,11 +56,44 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     //  From profileViewerCtrl
     $rootScope.$on('updateFileWriterId', function(event, userId) {
         $scope.fileRequest.writerId = userId;
-        $scope.tabIndicator = 'notEveryone';
     });
 
-    $scope.$watch('[fileRequest.writerId, fileRequest.sharedEntityId, fileRequest.fileType, fileRequest.keyword]',
+    //  when sharedEntitySearchQuery is changed,
+    //  1. check if value is null
+    //      if null -> meaning searching for all chat rooms.
+    //          else -> set to selected value.
+    $scope.$watch('sharedEntitySearchQuery', function() {
+        console.log('this is sharedEntitySearchQuery')
+        if ($scope.sharedEntitySearchQuery === null) {
+            $scope.fileRequest.sharedEntityId = -1;
+        }
+        else {
+            $scope.fileRequest.sharedEntityId = $scope.sharedEntitySearchQuery.id;
+        }
+
+        preLoadingSetup();
+        getFileList();
+    });
+
+    //  fileRequest.writerId => 작성자
+    $scope.$watch('fileRequest.writerId', function() {
+        if ($scope.fileRequest.writerId === null) {
+            $scope.fileRequest.writerId = 'all';
+        }
+        preLoadingSetup();
+        getFileList();
+    });
+
+    //  fileRequest.fileType => 파일 타입
+    //  fileRequest.keyword  => text input box
+    //  위의 두가지중 한가지라도 바뀌면 알아서 다시 api call을 한다.
+    $scope.$watch('[fileRequest.fileType, fileRequest.keyword]',
         function(newValue, oldValue) {
+
+            //  keyword search가 비어있을 경우 advanced search panel 를 줄인다.
+            if ($scope.fileRequest.keyword === '') {
+                $scope.isAdvancedOptionCollapsed = true;
+            }
             preLoadingSetup();
             getFileList();
     }, true);
@@ -66,11 +109,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         isEndOfList = false;
         $scope.isLoading = true;
     }
-
-    $scope.onFileFilterWriterIdClick = function(writerId) {
-        $scope.fileRequest.writerId = writerId;
-        $scope.tabIndicator = 'notEveryone';
-    };
 
     var isEndOfList = false;
 
@@ -131,11 +169,19 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         }
         $scope.isScrollLoading = false;
         $scope.isLoading = false;
+
+        //  when user typed title in for search, expand advanced search option panel.
+        if ($scope.fileRequest.keyword != '') {
+            $scope.isAdvancedOptionCollapsed = false;
+        }
     }
 
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     $scope.$watch('currentEntity', function(newValue, oldValue) {
-        if (newValue != oldValue) updateSharedList();
+        if (newValue != oldValue) {
+            updateSharedList();
+            $scope.sharedEntitySearchQuery = $scope.currentEntity;
+        }
     });
 
     // loop through list of files and update shared list of each file.
@@ -184,14 +230,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
                 size        : 'lg'
             });
         }
-    };
-
-    $scope.isToggled = false;
-
-    $scope.toggleDropdown = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        $scope.isToggled = !$scope.isToggled;
     };
 
     $scope.onClickShare = function(file) {
