@@ -1,65 +1,66 @@
-<!-- FILE UPLOAD Modal -->
+<!-- Modal: File Upload -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel();"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">
+    <button type="button" class="close" data-ng-click="cancel();"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
         <span translate>Upload File</span>
     </h3>
 </div>
-
-<form name="file_upload_form"  ng-submit="onFileUpload(fileInfo);">
-
+<form name="file_upload_form" data-ng-submit="onFileUpload(fileInfo);">
     <div class="modal-body">
         <div class="form-horizontal">
-            <img ng-src="{{dataUrls[0]}}" style="max-height:130px; display: block; margin: auto; margin-bottom: 15px;" />
-            <!--    FILE TITLE  -->
+            <img data-ng-src="{{dataUrls[0]}}" class="modal-upload-img" />
+            <!-- FILE TITLE -->
             <div class="form-group">
                 <label class="control-label col-sm-3">
                     <span translate>Title</span>
                 </label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" name="file_upload_title" ng-model="fileInfo.title" required/>
-                    <div class="help-block">
+                    <input type="text" class="form-control" name="file_upload_title" data-ng-model="fileInfo.title" required/>
+                    <div class="modal-body__help">
                         <span translate>For search file by title</span>
                     </div>
                 </div>
             </div>
-
-            <!-- FILE SHARE OPTION  -->
+            <!-- FILE SHARE OPTION -->
             <div class="form-group">
                 <label class="control-label col-sm-3">
                     <span translate>Share in</span>
                 </label>
                 <div class="col-sm-9">
                     <select class="form-control"
-                            ng-disabled="fileInfo.isPrivateFile"
-                            ng-model="fileInfo.share"
-                            ng-options="channel.u_lastName+channel.u_firstName||channel.name group by channel.type for channel in selectOptions"></select>
+                            data-ng-disabled="fileInfo.isPrivateFile"
+                            data-ng-model="fileInfo.share"
+                            data-ng-options="channel.u_lastName+channel.u_firstName||channel.name group by channel.type for channel in selectOptions">
+                    </select>
                     <!--<input type="checkbox" ng-model="fileInfo.isPrivateFile" style="margin-left: 5px;">-->
                     <!--<i style="font-size:12px;">I don't want to share it.</i>-->
                 </div>
             </div>
-
-            <!-- FILE COMMENT   -->
+            <!-- FILE COMMENT -->
             <div class="form-group">
                 <label class="control-label col-sm-3">
                     <span translate>Comment</span>
                 </label>
                 <div class="col-sm-9">
-                    <textarea disabled class="form-control" name="file_upload_comment" rows="3" ng-model="fileInfo.comment" ng-maxlength="256" maxlength="256" style="resize:none;"></textarea>
+                    <textarea class="form-control"
+                              name="file_upload_comment"
+                              rows="3"
+                              data-ng-model="fileInfo.comment"
+                              data-ng-maxlength="256"
+                              maxlength="256"
+                              style="resize:none;">
+                    </textarea>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel()"><span translate>Cancel</span></button>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>Cancel</span></button>
         <input class="btn btn-ok" type="submit" id="file_upload_btn" value="{{ 'Upload' | translate }}" />
     </div>
-
 </form>
-
-<div class="loading_container" ng-if="isLoading">
+<div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
-    <div class="loading_bar"></div>
+    <div class="loading_bar icon-loading"></div>
 </div>

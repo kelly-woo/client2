@@ -152,6 +152,10 @@ msgstr "새 채널 생성"
 msgid "Creating a new channel."
 msgstr "새로운 채널을 생성합니다."
 
+#: client/app/modal/settings.account.html
+msgid "Current Password"
+msgstr "현재 비밀번호"
+
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "Customer Service"
 msgstr "고객 센터"
@@ -333,6 +337,14 @@ msgstr "이름"
 msgid "Never"
 msgstr "없음"
 
+#: client/app/modal/settings.account.html
+msgid "New Password"
+msgstr "새 비밀번호"
+
+#: client/app/modal/settings.account.html
+msgid "New Username"
+msgstr "변경할 이름"
+
 #: client/app/modal/settings.profile.html
 msgid "Nickname"
 msgstr "닉네임"
@@ -506,6 +518,14 @@ msgstr "타이틀"
 msgid "Unshared"
 msgstr "공유해제"
 
+#: client/app/modal/settings.account.html
+msgid "Update Password"
+msgstr "비밀번호 변경"
+
+#: client/app/modal/settings.account.html
+msgid "Update Username"
+msgstr "이름 변경"
+
 #: client/app/modal/upload.html
 msgid "Upload"
 msgstr "업로드"
@@ -572,6 +592,10 @@ msgstr "님이 채널을 생성했습니다"
 msgid "created current private group"
 msgstr "님이 비공개 그룹을 생성했습니다"
 
+#: client/app/modal/settings.account.html
+msgid "fail to update"
+msgstr "업데이트 중 오류가 발생했습니다"
+
 #: client/app/center/center.html
 msgid "has joined"
 msgstr "님이 떠났습니다"
@@ -579,6 +603,10 @@ msgstr "님이 떠났습니다"
 #: client/app/center/center.html
 msgid "has left"
 msgstr "님이 참여했습니다"
+
+#: client/app/modal/settings.account.html
+msgid "invalid password"
+msgstr "비밀번호가 일치하지 않습니다"
 
 #: client/app/center/center.html
 msgid "invite-postfix"
@@ -596,9 +624,17 @@ msgstr "은(는) 이미 가입된 이메일입니다"
 msgid "is invalid email address"
 msgstr "은(는) 올바르지 않은 이메일 주소입니다"
 
+#: client/app/modal/settings.account.html
+msgid "required"
+msgstr "필수항목입니다"
+
 #: client/app/right/file.html
 msgid "shift+enter to multiline"
 msgstr "멀티라인 입력: shift+enter"
+
+#: client/app/modal/settings.account.html
+msgid "update complete"
+msgstr "올바로 변경되었습니다"
 
 #: client/app/modal/profile.view.html
 msgid "메일 전송"
@@ -621,9 +657,6 @@ msgstr ""
 
 #~ msgid "Recent Mentions"
 #~ msgstr "최근 멘션"
-
-#~ msgid "New Name"
-#~ msgstr "새 이름"
 
 #~ msgid "Rename Channel"
 #~ msgstr "채널 이름 변경"

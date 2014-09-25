@@ -171,13 +171,14 @@
     min-width: 260px;
 }
 .msgs__loading {
-    background: url(../../assets/images/jd_loading.gif) center / 40px no-repeat;
-    height: 60px;
+    background-size: 40px 40px !important;
+    width: 100% !important;
+    height: 60px !important;
 }
 .msgs__loading.initial {
-    background: #fff url(../../assets/images/jd_loading.gif) center / 100px no-repeat;
-    height: 100%;
-    width: 100%;
+    background-color: #fff;
+    background-size: 100px 100px !important;
+    height: 100% !important;
     z-index: 1;
 }
 .msgs-intro {

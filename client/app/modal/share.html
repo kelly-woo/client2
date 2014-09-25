@@ -1,13 +1,11 @@
-<!-- FILE SHARE Modal -->
+<!-- Modal: File Share -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel()"><span class="icon_close"></span></button>
-    <h3 id="myModalLabel">
+    <button type="button" class="close" data-ng-click="cancel()"><span class="icon_close"></span></button>
+    <h3 class="modal-header__title">
         <span translate>Share File</span>
     </h3>
 </div>
-
-<form name="file_share_form" ng-submit="onFileShareClick(shareChannel, comment)">
-
+<form name="file_share_form" data-ng-submit="onFileShareClick(shareChannel, comment)">
     <div class="modal-body">
         <div class="individual_file_container" style="padding-bottom: 20px; margin-bottom: 10px; ">
             <div class="file-item-type modal-share__file-item-type">
@@ -15,45 +13,40 @@
                 <div class="file-item-meta__type" data-ng-if="file.content.type">{{ file.content.type | filetype }}</div>
                 <div class="file-item-meta__size" data-ng-if="file.content.size > 0">{{ file.content.size | bytes }}</div>
             </div>
-
             <div class="file-item-body__author">
-                <span ui-sref="archives({entityType:'users',entityId:file.writerId})" class="file-item-body-title-author inline-overflow-ellipsis">{{file.writer|getFirstLastNameOfUser }}</span>
+                <span data-ui-sref="archives({entityType:'users',entityId:file.writerId})" class="file-item-body-title-author inline-overflow-ellipsis">{{file.writer|getFirstLastNameOfUser }}</span>
             </div>
-
             <div class="file-item-body modal-share__file-item-body">
                 <div class="file-item-body__title ">
-                    <span class="file-item-body-title-author share-modal-file-item-body__title" ui-sref="files({ userName: file.writer.name, itemId: file.id })" ng-click="cancel();">
+                    <span class="file-item-body-title-author share-modal-file-item-body__title" data-ui-sref="files({ userName: file.writer.name, itemId: file.id })" data-ng-click="cancel();">
                         {{ file.content.title }}
                     </span>
                 </div>
-
                 <div class="file-item-meta file-item-meta__listview">
                     <div class="file-item-meta__createtime">{{ file.createTime | ordinalDate: 'EEE, MMMM doo' }} at {{ file.createTime | date: 'h:mm a' }}</div>
-                    <!--image thumbnail-->
+                    <!-- IMAGE THUMBNAIL -->
                     <img class="file-item-body__type-image__thumb cursor_pointer"
-                         ng-if="(file.content.type).indexOf('image') !== -1"
-                         ng-src="{{ server_uploaded+file.content.extraInfo.largeThumbnailUrl }}"
-                         ui-sref="files({ userName: file.writer.name, itemId: file.id })"
-                         ng-click="cancel();">
+                         data-ng-if="(file.content.type).indexOf('image') !== -1"
+                         data-ng-src="{{ server_uploaded+file.content.extraInfo.largeThumbnailUrl }}"
+                         data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"
+                         data-ng-click="cancel();" />
                 </div>
             </div>
         </div>
-
         <div class="form-horizontal">
-
-            <!-- FILE SHARE OPTION  -->
+            <!-- FILE SHARE OPTION -->
             <div class="form-group">
                 <label class="control-label col-sm-3">
                     <span translate>Share in</span>
                 </label>
                 <div class="col-sm-9">
                     <select class="form-control"
-                            ng-model="shareChannel"
-                            ng-options="channel as channel.u_lastName+channel.u_firstName||channel.name group by channel.type for channel in selectOptions"></select>
+                            data-ng-model="shareChannel"
+                            data-ng-options="channel as channel.u_lastName+channel.u_firstName||channel.name group by channel.type for channel in selectOptions">
+                    </select>
                 </div>
             </div>
-
-            <!-- FILE COMMENT   -->
+            <!-- FILE COMMENT -->
             <div class="form-group">
                 <label class="control-label col-sm-3">
                     <span translate>Comment</span>
@@ -62,26 +55,23 @@
                     <textarea class="form-control"
                               name="file_share_comment"
                               rows="3"
-                              ng-model="comment"
-                              ng-maxlength="256"
+                              data-ng-model="comment"
+                              data-ng-maxlength="256"
                               maxlength="256"
                               style="resize:none;"
-                              disabled></textarea>
+                              disabled>
+                    </textarea>
                 </div>
             </div>
-
-
         </div>
     </div>
-
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel()"><span translate>Cancel</span></button>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>Cancel</span></button>
         <input class="btn btn-ok" type="submit" id="file_share_btn" value="{{ 'Share' | translate }}"/>
     </div>
 </form>
-
-<div class="loading_container" ng-if="isLoading">
+<div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
-    <div class="loading_bar"></div>
+    <div class="loading_bar icon-loading"></div>
 </div>

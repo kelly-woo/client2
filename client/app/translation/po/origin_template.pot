@@ -157,6 +157,10 @@ msgstr ""
 msgid "Creating a new channel."
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "Current Password"
+msgstr ""
+
 #: client/app/error/404.html
 #: client/app/signin/signin.html
 msgid "Customer Service"
@@ -348,6 +352,14 @@ msgstr ""
 msgid "Never"
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "New Password"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "New Username"
+msgstr ""
+
 #: client/app/modal/settings.profile.html
 msgid "Nickname"
 msgstr ""
@@ -530,6 +542,14 @@ msgstr ""
 msgid "Unshared"
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "Update Password"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "Update Username"
+msgstr ""
+
 #: client/app/modal/upload.html
 msgid "Upload"
 msgstr ""
@@ -596,12 +616,20 @@ msgstr ""
 msgid "created current private group"
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "fail to update"
+msgstr ""
+
 #: client/app/center/center.html
 msgid "has joined"
 msgstr ""
 
 #: client/app/center/center.html
 msgid "has left"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "invalid password"
 msgstr ""
 
 #: client/app/center/center.html
@@ -620,8 +648,16 @@ msgstr ""
 msgid "is invalid email address"
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "required"
+msgstr ""
+
 #: client/app/right/file.html
 msgid "shift+enter to multiline"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "update complete"
 msgstr ""
 
 #: client/app/modal/profile.view.html
