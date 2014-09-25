@@ -4,6 +4,7 @@
     left: 220px;
     right: 0;
     z-index: -1;
+    min-width: 345px;
 }
 
 .rpanel-show {
@@ -36,7 +37,7 @@
     transitionDISABLED: .15s;
 }
 .panel-title-info {
-    max-width: 95%;
+    max-width: 89%;
 }
 .panel-title-info,
 .panel-title-member {
@@ -352,6 +353,10 @@
 .msg-file-meta {
     font-size: 14px;
     line-height: 1.3rem;
+    padding-left: 75px;
+}
+.large-thumbnail-grand-parent .msg-file-meta {
+    padding-left: 0;
 }
 .msg-file-meta-up {
     margin-bottom: 5px;

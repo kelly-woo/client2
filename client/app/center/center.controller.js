@@ -165,7 +165,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             prev.removeClass('last');
         }
 
-        if (angular.isUndefined(lastMessage) && lastMessage.position().top > 0) {
+        if (!angular.isUndefined(lastMessage) && lastMessage.position().top > 0) {
             lastMessage.addClass('last');
             $('.msgs').scrollTop(lastMessage.position().top - 13);
         }
@@ -173,7 +173,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         prev = lastMessage;
 
         $timeout(function() {
-            prev.removeClass('last');
+            if (prev != null) prev.removeClass('last');
             enableScroll();
         }, 800)
     };
@@ -625,15 +625,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         //  change parent's css properties.
         parent.addClass('large-thumbnail-parent').removeClass('pull-left');
+        parent.parent().addClass('large-thumbnail-grand-parent');
     };
 
     //  when large thumbnail image is clicked, delete large thumbnail and show original(small thumbnail image).
     function onLargeThumbnailClick(fullScreenToggler, mirrorDom, originalDom) {
         originalDom.css('display', 'block');
         mirrorDom.parent().removeClass('large-thumbnail-parent').addClass('pull-left');
+        mirrorDom.parent().parent().removeClass('large-thumbnail-grand-parent');
         mirrorDom.remove();
         fullScreenToggler.remove();
     }
+    //  right controller is listening to 'updateFileWriterId'.
+    $scope.onFileListClick = function(userId) {
+        if ($state.current.name != 'messages.detail.files')
+            $state.go('messages.detail.files');
+        $scope.$emit('updateFileWriterId', userId);
+    };
+
     //  'event' field if not empty when,
     //      1. create channel
     //      2. leave channel

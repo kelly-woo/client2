@@ -33,47 +33,47 @@
                 </a>
             </li>
         </ul>
-            <!--User-->
-            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
-                        <i class="fa fa-plus"></i><span translate>Invite to channel/group</span>
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" data-ng-click="onUserClick(currentEntity.id);">
-                        <i class="fa fa-user"></i><span translate>View profile</span>
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" data-ng-click="onFileListClick(currentEntity.id)">
-                        <i class="fa fa-file"></i><span translate>View files</span>
-                    </a>
-                </li>
-            </ul>
-            <!--PrivateGroup-->
-            <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privateGroup'">
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-                        <i class="fa fa-plus"></i><span translate>Invite others to this group</span>
-                    </a>
-                </li>
-                <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="openModal('rename')">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-pencil"></i><span translate>Rename this group</span>
-                    </a>
-                </li>
-                <li role="presentation" data-ng-click="onLeaveClick();">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-sign-out"></i><span translate>Leave group</span>
-                    </a>
-                </li>
-                <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="onDeleteClick();">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-times"></i><span translate>Delete this group</span>
-                    </a>
-                </li>
-            </ul>
+        <!--User-->
+        <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
+                    <i class="fa fa-plus"></i><span translate>Invite to channel/group</span>
+                </a>
+            </li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" data-ng-click="onUserClick(currentEntity.id);">
+                    <i class="fa fa-user"></i><span translate>View profile</span>
+                </a>
+            </li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" data-ng-click="onFileListClick(currentEntity.id)">
+                    <i class="fa fa-file"></i><span translate>View files</span>
+                </a>
+            </li>
+        </ul>
+        <!--PrivateGroup-->
+        <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privateGroup'">
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
+                    <i class="fa fa-plus"></i><span translate>Invite others to this group</span>
+                </a>
+            </li>
+            <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="openModal('rename')">
+                <a role="menuitem" tabindex="-1">
+                    <i class="fa fa-pencil"></i><span translate>Rename this group</span>
+                </a>
+            </li>
+            <li role="presentation" data-ng-click="onLeaveClick();">
+                <a role="menuitem" tabindex="-1">
+                    <i class="fa fa-sign-out"></i><span translate>Leave group</span>
+                </a>
+            </li>
+            <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="onDeleteClick();">
+                <a role="menuitem" tabindex="-1">
+                    <i class="fa fa-times"></i><span translate>Delete this group</span>
+                </a>
+            </li>
+        </ul>
         </span>
 
     <!--Member Dropdown-->
