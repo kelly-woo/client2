@@ -45,8 +45,6 @@
                     <i class="fa fa-user"></i><span translate>View profile</span>
                 </a>
             </li>
-            <li role="presentation">
-                <a role="menuitem" tabindex="-1" data-ng-click="onFileListClick(currentEntity.id)">
                     <i class="fa fa-file"></i><span translate>View files</span>
                 </a>
             </li>
@@ -275,13 +273,15 @@
 
         </div>
 
-        <div class="post-message msgs__loading" data-ng-if="isPosting"></div>
+        <div class="hidden post-message msgs__loading" data-ng-if="isPosting"></div>
 
     </div>
 
 </article>
 
 <div class="footer">
+    <!--<div class="post-message msgs__loading" data-ng-if="isPosting"></div>-->
+
     <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;">
         <i class="fa fa-upload"></i>
         <input type="file"
@@ -295,6 +295,7 @@
         <form id="message-form" style="height: 35px;">
             <textarea id="message-input"
                       class=""
+                      ng-class="{'post-loading': isPosting}"
                       focus-me="focusPostMessage"
                       message-submit="postMessage()"
                       data-ng-disabled="msgLoadStatus.loading"

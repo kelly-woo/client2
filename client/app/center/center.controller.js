@@ -388,6 +388,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $timeout.cancel($scope.promise);
     });
 
+
+    $scope.isPosting = true;
+
+
     $scope.message = {};
     $scope.postMessage = function() {
         if (!$scope.message.content) return;
