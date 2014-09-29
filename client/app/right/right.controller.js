@@ -9,6 +9,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     console.info('[enter] rightpanelController');
 
+    var startMessageId   = -1;
+
     $scope.fileTitleQuery   = '';
 
     $scope.fileRequest      = {};
@@ -27,12 +29,10 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.selectOptionsUsers       = $scope.userList.push($scope.user);
 
     $scope.fileTypeList = ['all', 'image', 'pdf', 'audio', 'video'];
-    var startMessageId   = -1;
 
     $scope.fileList = [];
 
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
-        console.log(type)
         if (type === 'you') {
             // when 'Your Files' is clicked on 'cpanel-search__dropdown'
             $scope.fileRequest.writerId = $scope.user.id;
@@ -53,10 +53,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         }
     });
 
-    //  From profileViewerCtrl
-    $rootScope.$on('updateFileWriterId', function(event, userId) {
-        $scope.fileRequest.writerId = userId;
-    });
 
     //  when sharedEntitySearchQuery is changed,
     //  1. check if value is null
@@ -74,6 +70,12 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         getFileList();
     });
 
+
+    //  From profileViewerCtrl
+    $rootScope.$on('updateFileWriterId', function(event, userId) {
+        $scope.fileRequest.writerId = userId;
+    });
+
     //  fileRequest.writerId => 작성자
     $scope.$watch('fileRequest.writerId', function() {
         if ($scope.fileRequest.writerId === null) {
@@ -85,23 +87,30 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     //  fileRequest.fileType => 파일 타입
     //  fileRequest.keyword  => text input box
-    //  위의 두가지중 한가지라도 바뀌면 알아서 다시 api call을 한다.
-    $scope.$watch('[fileRequest.fileType, fileRequest.keyword]',
+    //  onChangeShared       => 파일의 shared entity가 바뀌면 호출된다.
+    //  한가지라도 바뀌면 알아서 다시 api call을 한다.
+    $scope.$watch('[fileRequest.fileType, fileRequest.keyword, onChangeShared]',
         function(newValue, oldValue) {
-
-            //  keyword search가 비어있을 경우 advanced search panel 를 줄인다.
-            if ($scope.fileRequest.keyword === '') {
-                $scope.isAdvancedOptionCollapsed = true;
-            }
             preLoadingSetup();
             getFileList();
     }, true);
 
-    // Functions outside of this controller or from html template can call this function in order to update file list.
-    $scope.$on('onChangeShared', function() {
-        preLoadingSetup();
-        getFileList();
+
+    // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
+    //  advanced search option 중 'Location'/ 을 변경하는 부분.
+    $scope.$watch('currentEntity', function(newValue, oldValue) {
+        if (newValue != oldValue) {
+            updateSharedList();
+            $scope.sharedEntitySearchQuery = $scope.currentEntity;
+        }
     });
+
+    // loop through list of files and update shared list of each file.
+    function updateSharedList() {
+        _.each($scope.fileList, function(file) {
+            file.shared = fileAPIservice.getSharedEntities(file);
+        });
+    }
 
     function preLoadingSetup() {
         $scope.fileRequest.startMessageId   = -1;
@@ -175,20 +184,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         }
     }
 
-    // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
-    $scope.$watch('currentEntity', function(newValue, oldValue) {
-        if (newValue != oldValue) {
-            updateSharedList();
-            $scope.sharedEntitySearchQuery = $scope.currentEntity;
-        }
-    });
-
-    // loop through list of files and update shared list of each file.
-    function updateSharedList() {
-        _.each($scope.fileList, function(file) {
-            file.shared = fileAPIservice.getSharedEntities(file);
-        });
-    }
 
     // Callback function from file finder(navigation) for uploading a file.
     $scope.onFileSelect = function($files) {
