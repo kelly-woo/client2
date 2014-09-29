@@ -7,33 +7,36 @@
 </div>
 <form name="file_share_form" data-ng-submit="onFileShareClick(shareChannel, comment)">
     <div class="modal-body">
-        <div class="individual_file_container" style="padding-bottom: 20px; margin-bottom: 10px; ">
-            <div class="file-item-type modal-share__file-item-type">
-                <div class="fileicon fileicon_{{ file.content.type | filetype | lowercase}}"></div>
-                <div class="file-item-meta__type" data-ng-if="file.content.type">{{ file.content.type | filetype }}</div>
-                <div class="file-item-meta__size" data-ng-if="file.content.size > 0">{{ file.content.size | bytes }}</div>
-            </div>
-            <div class="file-item-body__author">
-                <span data-ui-sref="archives({entityType:'users',entityId:file.writerId})" class="file-item-body-title-author inline-overflow-ellipsis">{{file.writer|getFirstLastNameOfUser }}</span>
-            </div>
-            <div class="file-item-body modal-share__file-item-body">
-                <div class="file-item-body__title ">
-                    <span class="file-item-body-title-author share-modal-file-item-body__title" data-ui-sref="files({ userName: file.writer.name, itemId: file.id })" data-ng-click="cancel();">
-                        {{ file.content.title }}
-                    </span>
-                </div>
-                <div class="file-item-meta file-item-meta__listview">
-                    <div class="file-item-meta__createtime">{{ file.createTime | ordinalDate: 'EEE, MMMM doo' }} at {{ file.createTime | date: 'h:mm a' }}</div>
-                    <!-- IMAGE THUMBNAIL -->
-                    <img class="file-item-body__type-image__thumb cursor_pointer"
-                         data-ng-if="(file.content.type).indexOf('image') !== -1"
-                         data-ng-src="{{ server_uploaded+file.content.extraInfo.largeThumbnailUrl }}"
-                         data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"
-                         data-ng-click="cancel();" />
-                </div>
-            </div>
-        </div>
         <div class="form-horizontal">
+            <!-- FILE INFO -->
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span translate>File</span>
+                </label>
+                <div class="col-sm-9 modal-share__file">
+                    <div class="modal-share__file-type">
+                        <!-- IMAGE -->
+                        <img class="modal-share__file-type__image"
+                             data-ng-if="(file.content.type).indexOf('image') !== -1"
+                             data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"/>
+                        <!-- OTHER TYPE -->
+                        <div class="modal-share__file-type__other"
+                             data-ng-if="(file.content.type).indexOf('image') === -1">
+                            <div class="fileicon fileicon_{{ file.content.type | filetype | lowercase}}"></div>
+                        </div>
+                    </div>
+                    <div class="modal-share__file-body">
+                        <span class="modal-share__file-body__writer">{{ file.writer|getFirstLastNameOfUser }}</span>
+                        <span class="modal-share__file-body__time">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
+                        <div class="modal-share__file-body__title" data-ng-bind="file.content.title"></div>
+                        <div class="modal-share__file-body__meta">
+                            <span class="modal-share__file-body__meta-size"
+                                  data-ng-if="file.content.size > 0"
+                                  data-ng-bind="file.content.size | bytes"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- FILE SHARE OPTION -->
             <div class="form-group">
                 <label class="control-label col-sm-3">
