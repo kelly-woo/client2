@@ -598,11 +598,11 @@ msgstr "업데이트 중 오류가 발생했습니다"
 
 #: client/app/center/center.html
 msgid "has joined"
-msgstr "님이 떠났습니다"
+msgstr "님이 참여했습니다"
 
 #: client/app/center/center.html
 msgid "has left"
-msgstr "님이 참여했습니다"
+msgstr "님이 떠났습니다"
 
 #: client/app/modal/settings.account.html
 msgid "invalid password"

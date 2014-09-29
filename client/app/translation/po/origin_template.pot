@@ -36,17 +36,16 @@ msgstr ""
 msgid "Add Comment"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/right.html
+msgid "All"
+msgstr ""
+
+#: client/app/header/header.html
 msgid "All Files"
 msgstr ""
 
 #: client/app/modal/create.channel.html
 msgid "Anyone can join."
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Audio"
 msgstr ""
 
 #: client/app/modal/settings.profile.html
@@ -200,10 +199,6 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: client/app/right/right.html
-msgid "EVERYONE"
-msgstr ""
-
 #: client/app/modal/invite.team.html
 msgid "Each fields(Email, Last Name, First Name) are all required."
 msgstr ""
@@ -232,8 +227,11 @@ msgstr ""
 
 #: client/app/center/center.html
 #: client/app/header/header.html
-#: client/app/right/right.html
 msgid "File"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "File Type"
 msgstr ""
 
 #: client/app/right/file.html
@@ -243,6 +241,7 @@ msgstr ""
 
 #: client/app/header/header.html
 #: client/app/right/file.html
+#: client/app/right/right.html
 msgid "Files"
 msgstr ""
 
@@ -267,7 +266,6 @@ msgid "Full Name"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
 msgid "Images"
 msgstr ""
 
@@ -328,6 +326,10 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "Leave group"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "Location"
 msgstr ""
 
 #: client/app/header/header.html
@@ -394,7 +396,6 @@ msgid "Optional Information"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
 msgid "PDF"
 msgstr ""
 
@@ -559,10 +560,6 @@ msgstr ""
 msgid "Upload File"
 msgstr ""
 
-#: client/app/right/right.html
-msgid "Video"
-msgstr ""
-
 #: client/app/center/center.html
 msgid "View files"
 msgstr ""
@@ -581,7 +578,7 @@ msgid "Welcome to {{teamInfo.name}}"
 msgstr ""
 
 #: client/app/right/right.html
-msgid "YOU"
+msgid "Writer"
 msgstr ""
 
 #: client/app/modal/settings.account.html
