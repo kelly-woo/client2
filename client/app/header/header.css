@@ -22,7 +22,7 @@
     position: relative;
     display: inline-block;
     vertical-align: top;
-    padding: 0 11px 0 14px;
+    float: left;
     font-size: 13px;
 }
 .header-navbar-menu.open,
@@ -30,6 +30,10 @@
 .header-navbar-settings.open {
     background: #31c08a;
     color: #fff;
+}
+.header-navbar__topmenu {
+    display: block;
+    padding: 0 11px 0 14px;
 }
 .header-navbar__title {
     margin: 0 2px;
@@ -40,15 +44,11 @@
     left: 12px;
     min-width: 200px;
 }
-.header-navbar__dropdown .divider {
-    margin: 0;
-}
 .header-navbar__dropdown .icon_signout {
     position: absolute;
     top: 8px;
     left: 15px;
 }
-
 .header-toolbar-toggle,
 .header-toolbar-search {
     display: inline-block;

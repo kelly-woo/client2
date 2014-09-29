@@ -36,17 +36,16 @@ msgstr ""
 msgid "Add Comment"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/right.html
+msgid "All"
+msgstr ""
+
+#: client/app/header/header.html
 msgid "All Files"
 msgstr ""
 
 #: client/app/modal/create.channel.html
 msgid "Anyone can join."
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Audio"
 msgstr ""
 
 #: client/app/modal/settings.profile.html
@@ -157,6 +156,10 @@ msgstr ""
 msgid "Creating a new channel."
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "Current Password"
+msgstr ""
+
 #: client/app/error/404.html
 #: client/app/signin/signin.html
 msgid "Customer Service"
@@ -196,10 +199,6 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: client/app/right/right.html
-msgid "EVERYONE"
-msgstr ""
-
 #: client/app/modal/invite.team.html
 msgid "Each fields(Email, Last Name, First Name) are all required."
 msgstr ""
@@ -228,8 +227,11 @@ msgstr ""
 
 #: client/app/center/center.html
 #: client/app/header/header.html
-#: client/app/right/right.html
 msgid "File"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "File Type"
 msgstr ""
 
 #: client/app/right/file.html
@@ -239,6 +241,7 @@ msgstr ""
 
 #: client/app/header/header.html
 #: client/app/right/file.html
+#: client/app/right/right.html
 msgid "Files"
 msgstr ""
 
@@ -263,7 +266,6 @@ msgid "Full Name"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
 msgid "Images"
 msgstr ""
 
@@ -326,6 +328,10 @@ msgstr ""
 msgid "Leave group"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "Location"
+msgstr ""
+
 #: client/app/header/header.html
 msgid "Menu"
 msgstr ""
@@ -346,6 +352,14 @@ msgstr ""
 
 #: client/app/modal/preferences.html
 msgid "Never"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "New Password"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "New Username"
 msgstr ""
 
 #: client/app/modal/settings.profile.html
@@ -382,7 +396,6 @@ msgid "Optional Information"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
 msgid "PDF"
 msgstr ""
 
@@ -530,6 +543,14 @@ msgstr ""
 msgid "Unshared"
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "Update Password"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "Update Username"
+msgstr ""
+
 #: client/app/modal/upload.html
 msgid "Upload"
 msgstr ""
@@ -537,10 +558,6 @@ msgstr ""
 #: client/app/modal/upload.html
 #: client/app/right/right.html
 msgid "Upload File"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Video"
 msgstr ""
 
 #: client/app/center/center.html
@@ -561,7 +578,7 @@ msgid "Welcome to {{teamInfo.name}}"
 msgstr ""
 
 #: client/app/right/right.html
-msgid "YOU"
+msgid "Writer"
 msgstr ""
 
 #: client/app/modal/settings.account.html
@@ -596,12 +613,20 @@ msgstr ""
 msgid "created current private group"
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "fail to update"
+msgstr ""
+
 #: client/app/center/center.html
 msgid "has joined"
 msgstr ""
 
 #: client/app/center/center.html
 msgid "has left"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "invalid password"
 msgstr ""
 
 #: client/app/center/center.html
@@ -620,8 +645,16 @@ msgstr ""
 msgid "is invalid email address"
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "required"
+msgstr ""
+
 #: client/app/right/file.html
 msgid "shift+enter to multiline"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "update complete"
 msgstr ""
 
 #: client/app/modal/profile.view.html

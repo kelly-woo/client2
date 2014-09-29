@@ -59,5 +59,38 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
         return user.u_nickname;
     }
 
+    userAPI.validateCurrentPassword = function(cur_password) {
+        cur_password = cur_password || '';
+        return $http({
+            method  : 'POST',
+            url     : $rootScope.server_address + 'validation/password',
+            data    : {
+                password: cur_password
+            }
+        });
+    };
+
+    userAPI.updateUserName = function(firstName, lastName) {
+        return $http({
+            method  : 'POST',
+            url     : $rootScope.server_address + 'settings/name',
+            data    : {
+                firstName   : firstName,
+                lastName    : lastName
+            }
+        });
+    };
+
+    userAPI.updatePassword = function(new_password) {
+        if (!new_password) return;
+        return $http({
+            method  : 'POST',
+            url     : $rootScope.server_address + 'settings/password',
+            data    : {
+                password: new_password
+            }
+        });
+    };
+
     return userAPI;
 });

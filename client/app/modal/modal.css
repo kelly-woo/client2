@@ -6,7 +6,9 @@
 .modal.hide {
     z-index: -1000;
 }
-
+.modal-dialog {
+    z-index: 9999;
+}
 
 /*
     Common
@@ -45,6 +47,11 @@
     font-size: 14px;
     color: #999;
     margin: 5px 0 !important;
+}
+.modal-body__help {
+    margin: 6px 0 0 0;
+    color: #808080;
+    font-size: 14px;
 }
 
 
@@ -182,7 +189,7 @@
 
 
 .form-control {
-    border-radius: 0;
+    /*border-radius: 0;*/
     height: 40px;
 }
 .form-control:focus {
@@ -201,10 +208,18 @@
     box-shadow: none;
 }
 
-.dropdown-menu > li > .match_container {
-    padding: 10px;
-    height: 50px;
+
+/* typeahead list item wrapper */
+.match_container {
+    border-radius: 0 !important;
+    padding: 10px 20px !important;
+    width: 454px;
+    height: 40px;
 }
+.match_container:hover {
+    background-color : #31c08a;
+}
+
 
 .modal-wide .modal-dialog {
     width: 800px;
@@ -212,7 +227,6 @@
     margin: 20px auto;
     max-height: 93%;
 }
-
 .modal-lg {
     width: 500px;
     overflow-y: scroll;
@@ -256,15 +270,43 @@
 
 
 .control-label {
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: 400;
     text-align: right;
     padding-top: 0 !important;
     height: 40px;
     line-height: 40px;
+    color: #1d1d1d;
 }
 
+
+
+
 /*
-    INVITE USER TO TEAM MODAL
+    Invite to Channel / Group
+*/
+.form-invite-body__selected {
+    margin-bottom: 10px;
+}
+.form-invite-body__selected-user {
+    display: inline-block;
+    border: 1px solid #43a481;
+    background-color: #31c08a;
+    color: #fff;
+    text-align: center;
+    margin: 3px;
+    font-size: 14px;
+    padding: 4px 8px 3px;
+    border-radius: 2px;
+}
+.form-invite-body__selected-user .fa {
+    margin-left: 3px;
+}
+
+
+
+/*
+    INVITE USER TO TEAM
 */
 .invite-team-body-more-container {
     height: 30px;
@@ -283,9 +325,6 @@
 }
 
 .invite-team-body-more_icon {
-    width: 15px;
-    height: 15px;
-    background: url('../../assets/images/icon_more_member.png');
     position: absolute;
     left: 7px;
     top: 7px;
@@ -353,7 +392,7 @@
     height: 100%;
 }
 .loading_bar {
-    background: url(../../assets/images/jd_loading.gif) no-repeat center center;
+    background-position: center center;
     vertical-align: middle;
     position: relative;
     width: 40px;
@@ -387,7 +426,7 @@
     margin-bottom: 15px;
 }
 .account-settings-body .panel-heading {
-    padding: 15px;
+    padding: 0;
     cursor: pointer;
     background-color: #fff;
     border-bottom: 0;
@@ -396,8 +435,51 @@
     color: #31c08a;
     font-weight: 700;
 }
+.account-settings-body .accordion-toggle {
+    display: block;
+    padding: 15px;
+}
 .account-settings-body .panel-body {
-    border-top: 0px !important;
+    border-top: 0 !important;
+    padding-top: 5px;
+}
+.account-settings-body__wraper {
+    padding-left: 20px;
+    font-size: 14px;
+}
+.account-settings-body__form-group {
+    margin-bottom: 10px;
+}
+.account-settings-body__label {
+    margin-bottom: 8px;
+    height: inherit;
+    line-height: inherit;
+}
+.account-settings-body__input {
+    display: inline;
+    width: 50%;
+}
+.account-settings-body__success {
+    display: inline;
+    margin: 0 0 0 5px;
+    color: #3c763d;
+    font-size: 14px;
+}
+.account-settings-body__error {
+    display: inline;
+    margin: 0 0 0 5px;
+    color: #a94442;
+    font-size: 14px;
+}
+.account-settings-body__help {
+    color: #9e9ea6;
+    line-height: 130%;
+}
+.account-settings-body__help p {
+    margin-bottom: 5px;
+}
+.account-settings-body__submit {
+    margin-top: 10px;
 }
 
 
@@ -515,14 +597,49 @@
     text-decoration: underline;
 }
 
-.modal-share__file-item-body {
-    margin-left: 120px !important;
-    width: 280px !important;
+
+
+/*
+    SHARE
+*/
+.modal-share__file {
+    position: relative;
 }
-.modal-share__file-item-type {
+.modal-share__file-type {
     position: absolute;
-    top: 20px;
-    left: 85px;
+    width: 65px;
+    height: 65px;
+}
+.modal-share__file-type__image {
+    width: 100%;
+    height: 100%;
+}
+.modal-share__file-type__other {
+    background-color: #f2f2f2;
+    border: 1px solid #dbdbdb;
+    padding: 15px;
+}
+.modal-share__file-body {
+    margin-left: 80px;
+    padding-top: 3px;
+}
+.modal-share__file-body__writer {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15px;
+    color: #333;
+}
+.modal-share__file-body__time {
+    display: inline-block;
+    vertical-align: baseline;
+    font-size: 12px;
+    color: #999;
+}
+.modal-share__file-body__title {
+    margin: 8px 0 5px;
+}
+.modal-share__file-body__meta {
+    font-size: 12px;
 }
 
 /*
@@ -619,4 +736,13 @@
     background-repeat: no-repeat;
     background-position: center center;
     text-align: center;
+}
+
+/*
+    FILE UPLOAD
+*/
+.modal-upload-img {
+    max-height:130px;
+    display: block;
+    margin: auto auto 15px;
 }

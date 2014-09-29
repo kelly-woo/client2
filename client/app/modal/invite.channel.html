@@ -6,20 +6,19 @@
     </h3>
 </div>
 
-<form name="private_group_invite_form" ng-submit="onInviteClick(currentEntity.type);">
-
-    <div class="modal-body">
+<form name="form-invite" ng-submit="onInviteClick(currentEntity.type);">
+    <div class="modal-body form-invite-body">
         <!--    LIST OF USERS WHO WILL BE INVITED WHEN BUTTON IS CLICKED    -->
-        <div class="users_to_invite">
+        <div class="form-invite-body__selected">
             <span class="cursor_pointer"
-                  ng-repeat="user in userToInviteList = (userList | filter : {'selected' : true})"
+                  data-ng-repeat="user in userToInviteList = (userList | filter : {'selected' : true})"
                   data-ng-click="user.selected = false">
-                <span class="selected_user btn-ok" data-ng-click="user.selected = true;">
+                <span class="form-invite-body__selected-user btn-ok" data-ng-click="user.selected = true;">
                     {{ user | getFirstLastNameOfUser }} <span class="fa fa-times"></span>
                 </span>
             </span>
         </div>
-        <div class="input-group custom-typeahead">
+        <div class="input-group custom-typeahead form-invite-body__list">
             <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
             <input type="text"
                    class="form-control green-input-box"
@@ -27,7 +26,7 @@
                    typeahead="user as user.u_lastName+user.u_firstName for user in userList | filter : { selected : false } | userByName:$viewValue"
                    typeahead-on-select="onUserSelected($item); selectedUser=''; $event.stopPropagation();"
                    typeahead-template-url="customTemplate.html"
-                   placeholder="{{ 'Search users by name' | translate }}">
+                   placeholder="{{ 'Search users by name' | translate }}" />
         </div>
     </div>
 
@@ -48,6 +47,5 @@
 <div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
-    <div class="loading_bar"></div>
+    <div class="loading_bar icon-loading"></div>
 </div>
-

@@ -683,17 +683,17 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
 });
 
 //  ACCOUNT CONTROLLER
-app.controller('accountController', function($state, $stateParams, $scope, $rootScope, $modalInstance) {
+app.controller('accountController', function($state, $scope, $modalInstance, $filter, $timeout, userAPIservice) {
 
     $scope.status = {
         oneAtATime      : true,
         name: {
-            open        : false,
+            open        : true,
             disabled    : false
         },
         password: {
-            open        : false,
-            disabled    : false
+            open            : false,
+            disabled        : false
         },
         email: {
             open        : false,
@@ -701,26 +701,143 @@ app.controller('accountController', function($state, $stateParams, $scope, $root
         }
     };
 
-    $scope.error = {
-        status  : false,
-        message : ''
+    $scope.rename = {
+        cur_password : {
+            value   : '',
+            error   : {
+                status  : false,
+                message : ''
+            }
+        },
+        new_name : {
+            value   : '',
+            error   : {
+                status  : false,
+                message : ''
+            }
+        }
+    };
+
+    $scope.repassword = {
+        cur_password : {
+            value   : '',
+            error   : {
+                status  : false,
+                message : ''
+            }
+        },
+        new_password : {
+            value   : '',
+            error   : {
+                status  : false,
+                message : ''
+            }
+        },
+        result : {
+            status  : false,
+            message : ''
+        }
     };
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
-    $scope.onClickConfirm = function() {
-        $scope.isLoading = true;
-        // TODO: change password or name
-        $scope.isLoading = false;
-        // 현재 state 다시 로드
-        $state.transitionTo($state.current, $stateParams, {
-            reload: true,
-            inherit: false,
-            notify: true
-        });
-        $modalInstance.dismiss('cancel');
+    $scope.onClickChangeName = function() {
+        if (!$scope.rename.cur_password.value) {
+            $scope.rename.cur_password.error = {
+                status  : true,
+                message : $filter('translate')('required')
+            };
+        } else {
+            $scope.rename.cur_password.error.status = false;
+            if (!$scope.rename.new_name.value) {
+                $scope.rename.new_name.error = {
+                    status  : true,
+                    message : $filter('translate')('required')
+                };
+            } else {
+                $scope.rename.new_name.error.status = false;
+                $scope.isLoading = true;
+                // Check current password
+                userAPIservice.validateCurrentPassword($scope.rename.cur_password.value)
+                    .success(function() {
+                        // Update name
+//                        userAPIservice.updateUserName($scope.rename.new_name.value)
+//                            .success(function() {
+//
+//                            })
+//                            .error(function(err) {
+//
+//                            });
+                        alert('성/이름 대신 실명 하나로 받는게 더 좋지않을까요?');
+                        $scope.rename.cur_password.value = "";
+                        $scope.rename.new_name.value = "";
+                        $scope.isLoading = false;
+//                        $modalInstance.dismiss('cancel');
+                    })
+                    .error(function(err) {
+                        $scope.rename.cur_password.error = {
+                            status  : true,
+                            message : $filter('translate')('invalid password')
+                        };
+                        $scope.isLoading = false;
+                    });
+            }
+        }
+    };
+
+    $scope.onClickChangePassword = function() {
+        if (!$scope.repassword.cur_password.value) {
+            $scope.repassword.cur_password.error = {
+                status  : true,
+                message : $filter('translate')('required')
+            };
+        } else {
+            $scope.repassword.cur_password.error.status = false;
+            if (!$scope.repassword.new_password.value) {
+                $scope.repassword.new_password.error = {
+                    status  : true,
+                    message : $filter('translate')('required')
+                };
+            } else {
+                $scope.repassword.new_password.error.status = false;
+                $scope.isLoading = true;
+                // Check current password
+                userAPIservice.validateCurrentPassword($scope.repassword.cur_password.value)
+                    .success(function() {
+                        // Update password
+                        userAPIservice.updatePassword($scope.repassword.new_password.value)
+                            .success(function() {
+                                $scope.repassword.result = {
+                                    status  : true,
+                                    message : $filter('translate')('update complete')
+                                }
+                            })
+                            .error(function(err) {
+                                $scope.repassword.new_password.error = {
+                                    status  : true,
+                                    message : $filter('translate')('fail to update')
+                                }
+                            });
+                        $scope.repassword.cur_password.value = "";
+                        $scope.repassword.new_password.value = "";
+                        $scope.isLoading = false;
+                    })
+                    .error(function(err) {
+                        $scope.repassword.cur_password.error = {
+                            status  : true,
+                            message : $filter('translate')('invalid password')
+                        };
+                        $scope.isLoading = false;
+                    });
+
+                // 메세지 출력 후 숨기기
+                $timeout(function() {
+                    $scope.repassword.result.status = false;
+                }, 3000);
+            }
+        }
     };
 });
 
