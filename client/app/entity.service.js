@@ -16,6 +16,7 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
             return actual === expected;
         });
 
+        console.log( entity )
         if (angular.isUndefined(entity) || entity.length != 1) return;
 
         return entity[0];
@@ -90,8 +91,12 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
         return last_state;
     };
 
+    //  return null if 'getEntityById' return nothing.
     entityAPI.setCurrentEntity = function(entityType, entityId) {
         currentEntity = this.getEntityById(entityType, entityId);
+        if (angular.isUndefined(currentEntity)) {
+            return null;
+        }
         currentEntity.alarmCnt = '';
         return currentEntity;
     };
@@ -107,7 +112,7 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
             return entity.pg_creatorId;
         }
         return entity.ch_creatorId;
-    }
+    };
 
     return entityAPI;
 });

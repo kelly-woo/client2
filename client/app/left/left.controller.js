@@ -19,11 +19,20 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         response = leftPanel.data;
     }
 
+    //  redirecting to default channel.
+    $rootScope.$watch('toDefault', function(newVal, oldVal) {
+        if (newVal) {
+            console.log('this is toDefault')
+            $state.go('archives', {entityType:'channels',  entityId:defaultChannel });
+            $rootScope.toDefault = false;
+        }
+    });
+
     $scope.$watch('$state.params.entityId', function(newEntityId){
         if (angular.isUndefined(entityAPIservice.getEntityById($state.params.entityType, newEntityId))) return;
-        $scope.setCurrentEntity('from watch');
+        $scope.setCurrentEntity();
     });
-    $scope.setCurrentEntity = function(string) {
+    $scope.setCurrentEntity = function() {
         $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
     };
 
@@ -82,16 +91,10 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
         }
 
-        $scope.setCurrentEntity('from initLeftList');
+        $scope.setCurrentEntity();
     }
 
-    //  redirecting to default channel.
-    $rootScope.$watch('toDefault', function(newVal, oldVal) {
-        if (newVal) {
-            $state.go('archives', {entityType:'channels',  entityId:defaultChannel });
-            $rootScope.toDefault = false;
-        }
-    });
+
 
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
