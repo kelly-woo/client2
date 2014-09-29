@@ -1,16 +1,15 @@
 <div class="panel-title-container">
-            <span class="rpanel-header-heading" translate>Files</span>
+    <span class="rpanel-header-heading" translate>Files</span>
 
-        <div id="add_new_file" class="rpanel-header-heading__files cursor_pointer">
-            <i class="fa fa-upload"></i>
-            <span translate>Upload File</span>
-            <input type="file"
-                   id="file_list_button"
-                   class="cursor_pointer file_upload_btn float-right"
-                   onclick="this.value=null"
-                   data-ng-file-select="onFileSelect($files);"
-                   defaultValue="File"/>
-        </div>
+    <div id="add_new_file" class="rpanel-header-heading__files cursor_pointer">
+        <i class="fa fa-upload"></i>
+        <span translate>Upload File</span>
+        <input type="file"
+               id="file_list_button"
+               class="cursor_pointer file_upload_btn float-right"
+               onclick="this.value=null"
+               data-ng-file-select="onFileSelect($files);"
+               defaultValue="File"/>
     </div>
 </div>
 
@@ -78,14 +77,15 @@
 
     <div class="rpanel-body-content file-list" >
 
-        <div class="file-list__item" data-ng-repeat="file in fileList" >
+        <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
+             ui-sref="files({ userName: file.writer.name, itemId: file.id })" >
 
             <!--    IMAGE THUMBNAIL -->
             <img class="msg-file-body__img cursor_pointer pull-left"
                  data-ng-show="(file.content.type).indexOf('image') !== -1"
                  data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"
-                 data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"
-                    />
+                 data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>
+
             <!--    IF NOT IMAGE TYPE, SHOW FILE TYPE PREVIEW   -->
             <div class="msg-file-body__thumbnail pull-left"
                  data-ng-if="(file.content.type).indexOf('image') == -1">
@@ -93,13 +93,9 @@
             </div>
 
 
-
-
             <!-- FILE TYPE ICON IMAGE && FILE TYPE && FILE SIZE CONTAINER ON THE LEFT -->
             <div class="file-item-type hidden">
                 <div class="fileicon fileicon_{{ file.content.type | filetype | lowercase }}"></div>
-                <!--<div class="file-item-meta__type" data-ng-if="file.content.type">{{ file.content.type | filetype }}</div>-->
-                <!--<div class="file-item-meta__size" data-ng-if="file.content.size > 0">{{ file.content.size | bytes }}</div>-->
             </div>
 
             <!-- OTHER INFORMATION ABOUT FILE: TITLE, UPLOADED TIME, SHARED CHANNELS, LINK TO NEW TAB -->
@@ -118,11 +114,11 @@
 
                 <!-- FILE TITLE WITH DROPDOWN MENU -->
                 <div class="file-item-body__title">
-                    <span class="file-item-body-title cursor_pointer" ui-sref="files({ userName: file.writer.name, itemId: file.id })">
+                    <span class="file-item-body-title">
                         {{ file.content.title }}
                     </span>
 
-                    <span class="file-item-body-title__more cursor_pointer" dropdown>
+                    <span class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
                         <span class="dropdown-toggle">
                             <i class="fa fa-caret-down"></i>
                         </span>

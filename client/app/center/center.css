@@ -259,8 +259,9 @@
 }
 /* continued comment writer name */
 .msg-item.comment-continue .msg-item-header .msg-item-header__name {
-    display: table-cell;
     font-size: 13px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .msg-item-header__name {
@@ -269,10 +270,11 @@
     font-size: 15px;
 }
 .continue-comment-body {
-    display: table-cell;
     padding-left: 12px;
     font-size: 13px;
     font-weight: 400;
+    display: inline-block;
+    max-width: 91%;
 }
 .msg-item-header__created {
     font-size: 10px;
@@ -283,7 +285,6 @@
 }
 /* continued comment created time   */
 .msg-item.comment-continue .msg-item-header .msg-item-header__created {
-    display: table-cell;
     padding-left: 5px;
 }
 .msg-item-body {
@@ -304,7 +305,6 @@
     font-weight: 700;
 }
 .msg-file-body-float {
-    border: 1px solid #d2d2d2;
     margin-right: 10px;
 }
 .msg-file-body__img {
@@ -326,7 +326,7 @@
 }
 .large-thumbnail {
     margin-bottom: 10px;
-    width: 100%;
+    border: 1px solid #d2d2d2;
 }
 .large-thumbnail-parent:hover .large-thumbnail-full-screen
 {
@@ -338,7 +338,7 @@
     cursor: pointer;
     position: absolute;
     top: 10px;
-    right: 10px;
+    left: 10px;
     display: none;
     padding: 5px;
     background-color: #666666;
@@ -417,7 +417,7 @@
 /*color: #ebeded;*/
 /*}*/
 .msg-comment-body p {
-    font-size: 15px;
+    font-size: 13px;
     color: #333;
 
 }
@@ -451,6 +451,7 @@
     border: 2px solid #e0e0e0;
     border-radius: 0;
     line-height: 1.3rem;
+    padding: 5px 5px 5px 8px;
 }
 .post-loading {
     background-color: #f2f2f2 !important;

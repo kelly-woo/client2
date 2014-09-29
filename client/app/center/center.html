@@ -130,12 +130,11 @@
                         <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getFirstLastNameOfUser}} </span>
                     </span>
 
-                    <!--    COMMENT CONTENT FOR CONTINUED COMMENT ON SAME FILE  -->
+                    <!--    COMMENT FOR CONTINUED COMMENT ON SAME FILE  -->
                     <span class="continue-comment-body" ng-if="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
-                        <p class="break" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+                        <p class="break">{{msg.message.content.body}}<span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span></p>
                     </span>
 
-                    <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
                     <a class="msg-item__action link-remove pull-right"
                        data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
                        data-ng-click="deleteMessage(msg)">
@@ -213,7 +212,7 @@
 
                     <!-- COMMENT -->
                     <!-- DISPLAY COMMENT BODY ONLY WHEN IT IS TITLE  -->
-                    <!-- IF CURRENT COMMENT IS NOT TITILE, CONTENT GETS DISPLAYED WITHIN HEADER -->
+                    <!-- IF CURRENT COMMENT IS NOT TITLE, CONTENT GETS DISPLAYED WITHIN HEADER -->
                     <div class="msg-comment" data-ng-if="msg.message.contentType === 'comment' && msg.message.commentOption.isTitle" ng-class="{'msg-comment-with-thumbnail': msg.message.commentOption.isTitle}">
                         <div class="msg-file-body-float pull-left">
                             <!--    IMAGE THUMBNAIL -->
