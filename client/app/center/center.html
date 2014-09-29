@@ -92,7 +92,7 @@
 
 <article class="msgs" when-scrolled="loadMore()" scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
-    <div class="msgs__loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer" data-ng-class="{'initial': (!msgLoadStatus.isInitialLoadingCompleted)}"></div>
+    <div class="msgs__loading icon-loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer" data-ng-class="{'initial': (!msgLoadStatus.isInitialLoadingCompleted)}"></div>
 
     <div class="msgs-holder" data-ng-show="!msgLoadStatus.loading && !msgLoadStatus.loadingTimer || msgLoadStatus.isInitialLoadingCompleted">
 
@@ -275,7 +275,7 @@
 
         </div>
 
-        <div class="hidden post-message msgs__loading" data-ng-if="isPosting"></div>
+        <div class="hidden post-message msgs__loading icon-loading" data-ng-if="isPosting"></div>
 
     </div>
 

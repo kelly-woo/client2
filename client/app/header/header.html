@@ -3,7 +3,7 @@
     <div class="header-navbar cursor_pointer">
         <!-- Menu -->
         <div class="header-navbar-menu">
-            <span data-toggle="dropdown">
+            <span class="header-navbar__topmenu" data-toggle="dropdown">
                 <i class="fa fa-bars"></i>
                 <span class="header-navbar__title" translate>Menu</span>
                 <i class="fa fa-caret-down"></i>
@@ -33,6 +33,7 @@
                         <i class="fa fa-users"></i><span translate>Invite Others</span>
                     </a>
                 </li>
+                <li class="divider"></li>
                 <li class="" role="presentation">
                     <a data-ng-click="logout();" role="menuitem" tabindex="-1" ng-controller="authController">
                         <span class="icon_signout"></span><span translate>Sign Out</span>
@@ -42,7 +43,7 @@
         </div>
         <!-- File -->
         <div class="header-navbar-file">
-            <span data-toggle="dropdown">
+            <span class="header-navbar__topmenu" data-toggle="dropdown">
                 <i class="fa fa-file"></i>
                 <span class="header-navbar__title" translate>File</span>
                 <i class="fa fa-caret-down"></i>
@@ -88,7 +89,7 @@
         </div>
         <!-- Settings -->
         <div class="header-navbar-settings">
-            <span data-toggle="dropdown">
+            <span class="header-navbar__topmenu" data-toggle="dropdown">
                 <i class="fa fa-cog"></i>
                 <span class="header-navbar__title" translate>Settings</span>
                 <i class="fa fa-caret-down"></i>
@@ -99,7 +100,7 @@
                         <i class="fa fa-user"></i><span translate>Profile</span>
                     </a>
                 </li>
-                <li class="hidden" role="presentation">
+                <li class="" role="presentation">
                     <a data-ng-click="openModal('account')" role="menuitem" tabindex="-1">
                         <i class="fa fa-cog"></i><span translate>Account</span>
                     </a>
@@ -131,7 +132,7 @@
         </div>
         <!-- Toggle -->
         <div class="header-toolbar-toggle cursor_pointer"
-             ng-class="{'green_background' : $state.includes('**.files.**')}"
+             data-ng-class="{'green_background' : $state.includes('**.files.**')}"
              data-ng-click="onToggleClick();">
             <span>
                 <i class="fa fa-inbox fa-lg"></i>

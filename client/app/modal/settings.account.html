@@ -1,4 +1,4 @@
-<!-- Account Setting Modal -->
+<!-- Modal: Account Setting -->
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel();"><i class="fa fa-close"></i></button>
     <h3 class="modal-header__title">
@@ -6,47 +6,118 @@
     </h3>
 </div>
 
-<form novalidate name="form-account-settings" ng-submit="onClickConfirm()">
+<div class="modal-body account-settings">
+    <h4 class="modal-body__description">
+        <span translate>You can change account settings such as full name, password</span>
+    </h4>
+    <accordion class="account-settings-body" close-others="status.oneAtATime">
+        <accordion-group is-open="status.name.open">
+            <accordion-heading>
+                {{ 'Change your full name' | translate }}
+                <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.name.open, 'glyphicon-chevron-right': !status.name.open}"></i>
+            </accordion-heading>
+            <div class="account-settings-body__wraper">
+                <form name="form-settings-fullname" data-ng-submit="onClickChangeName();" novalidate>
+                    <div class="form-group account-settings-body__form-group"
+                         data-ng-class="{'has-error': rename.cur_password.error.status}">
+                        <label class="control-label account-settings-body__label">
+                            <span translate>Current Password</span>
+                        </label>
+                        <div>
+                            <input type="text"
+                                   name="curPassword"
+                                   class="form-control account-settings-body__input"
+                                   data-ng-model="rename.cur_password.value" />
+                            <span class="account-settings-body__error"
+                                  data-ng-if="rename.cur_password.error.status"
+                                  data-ng-bind="rename.cur_password.error.message"
+                                  data-error-required="{{ 'required' | translate }}"
+                                  data-error-invalid="{{ 'invalid password' | translate }}"
+                                  data-error-fail="{{ 'fail to update' | translate }}"
+                                  data-error-success="{{ 'update complete' | translate }}"></span>
+                        </div>
+                    </div>
+                    <div class="form-group account-settings-body__form-group"
+                         data-ng-class="{'has-error': rename.new_name.error.status}">
+                        <label class="control-label account-settings-body__label"><span translate>New Username</span></label>
+                        <div>
+                            <input type="text"
+                                   name="fullname"
+                                   class="form-control account-settings-body__input"
+                                   data-ng-model="rename.new_name.value" />
+                            <span class="account-settings-body__error"
+                                  data-ng-if="rename.new_name.error.status"
+                                  data-ng-bind="rename.new_name.error.message"></span>
+                        </div>
+                    </div>
+                    <div class="account-settings-body__help">
+                        <p>Usernames must be lowercase and cannot contain spaces.</p>
+                        <p>Most people choose to use their first name, last name, nickname, or some combination of those with initials.</p>
+                    </div>
+                    <input type="submit" class="btn btn-ok account-settings-body__submit" value="{{ 'Update Username' | translate }}" />
+                </form>
+            </div>
+        </accordion-group>
+        <accordion-group is-open="status.password.open">
+            <accordion-heading>
+                {{ 'Change your password' | translate }}
+                <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.password.open, 'glyphicon-chevron-right': !status.password.open}"></i>
+            </accordion-heading>
+            <div class="account-settings-body__wraper">
+                <form name="form-settings-password" data-ng-submit="onClickChangePassword();" novalidate>
+                    <div class="form-group account-settings-body__form-group"
+                         data-ng-class="{'has-error': repassword.cur_password.error.status}">
+                        <label class="control-label account-settings-body__label">
+                            <span translate>Current Password</span>
+                        </label>
+                        <div>
+                            <input type="text"
+                                   name="curPassword"
+                                   class="form-control account-settings-body__input"
+                                   data-ng-model="repassword.cur_password.value" />
+                            <span class="account-settings-body__error"
+                                  data-ng-if="repassword.cur_password.error.status"
+                                  data-ng-bind="repassword.cur_password.error.message"></span>
+                        </div>
+                    </div>
+                    <div class="form-group account-settings-body__form-group"
+                         data-ng-class="{'has-error': repassword.new_password.error.status}">
+                        <label class="control-label account-settings-body__label">
+                            <span translate>New Password</span>
+                        </label>
+                        <div>
+                            <input type="text"
+                                   name="newPassword"
+                                   class="form-control account-settings-body__input"
+                                   data-ng-model="repassword.new_password.value" />
+                            <span class="account-settings-body__error"
+                                  data-ng-if="repassword.new_password.error.status"
+                                  data-ng-bind="repassword.new_password.error.message"></span>
+                            <span class="account-settings-body__success"
+                                  data-ng-if="repassword.result.status">
+                                <i class="fa fa-check-circle"></i>
+                                <span data-ng-bind="repassword.result.message"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-ok account-settings-body__submit" value="{{ 'Update Password' | translate }}" />
+                </form>
+            </div>
+        </accordion-group>
+        <accordion-group heading="{{ 'Change your email address' | translate }}" is-disabled="status.email.disabled">
+            <div class="account-settings-body__wraper">
+                이메일 변경
+            </div>
+        </accordion-group>
+    </accordion>
+</div>
 
-    <div class="modal-body account-settings">
-        <h4 class="modal-body__description">
-            <span translate>You can change account settings such as full name, password</span>
-        </h4>
-        <accordion class="account-settings-body" close-others="status.oneAtATime">
-            <accordion-group is-open="status.name.open">
-                <accordion-heading>
-                    {{ 'Change your full name' | translate }}
-                    <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.name.open, 'glyphicon-chevron-right': !status.name.open}"></i>
-                </accordion-heading>
-                <div>
-                    이름 변경 하세요
-                </div>
-            </accordion-group>
-            <accordion-group is-open="status.password.open">
-                <accordion-heading>
-                    {{ 'Change your password' | translate }}
-                    <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.password.open, 'glyphicon-chevron-right': !status.password.open}"></i>
-                </accordion-heading>
-                <div>
-                    비밀번호 변경 하세요
-                </div>
-            </accordion-group>
-            <accordion-group heading="{{ 'Change your email address' | translate }}" is-disabled="status.email.disabled">
-                <div>
-                    이메일 변경
-                </div>
-            </accordion-group>
-        </accordion>
-    </div>
-
-    <div class="modal-footer profile-footer">
-        <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>Close</span></button>
-    </div>
-
-</form>
+<div class="modal-footer profile-footer">
+    <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>Close</span></button>
+</div>
 
 <div class="loading_container" ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>
-    <div class="loading_bar"></div>
+    <div class="loading_bar icon-loading"></div>
 </div>

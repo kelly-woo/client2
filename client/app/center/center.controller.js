@@ -165,7 +165,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             prev.removeClass('last');
         }
 
-        if (!angular.isUndefined(lastMessage) && lastMessage.position().top > 0) {
+        if (!angular.isUndefined(lastMessage) && !_.isNull(lastMessage) && lastMessage.position().top > 0) {
             lastMessage.addClass('last');
             $('.msgs').scrollTop(lastMessage.position().top - 13);
         }

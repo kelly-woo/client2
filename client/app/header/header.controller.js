@@ -6,6 +6,18 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
 
     console.info('[enter] headerController');
 
+    $scope.status = {
+        menu: {
+            open: false
+        },
+        file: {
+            open: false
+        },
+        settings: {
+            open: false
+        }
+    }
+
     $scope.openModal = function(selector) {
         if (selector == 'agreement') {
             $modal.open({
