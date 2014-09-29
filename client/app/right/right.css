@@ -113,12 +113,15 @@
 .advanced-search-option-container {
     background-color: white;
     padding: 0 15px;
-    padding-bottom: 11px;
+    padding-bottom: 55px;
+}
+.collapse.in.advanced-search-option-container {
+    height: 44px;
 }
 .advanced-search-option__category {
-    width: 130px;
-    display: inline-block;
-    margin-right: 8px;
+    float: left;
+    width: 31%;
+    margin-right: 3%;
 }
 .advanced-search-option__category:last-child {
     margin-right: 0;
