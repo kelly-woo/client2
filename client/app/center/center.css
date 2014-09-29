@@ -202,7 +202,7 @@
     color: #666;
     display: table;
     padding: 5px 6px;
-    margin: 15px 0 15px 47px;
+    margin: 12px 0 15px 47px;
 }
 .msgs-group__divider-label {
     display: inline-block;
@@ -351,7 +351,7 @@
     margin-right: -1px;
 }
 .msg-file-meta {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.3rem;
     padding-left: 75px;
 }
@@ -396,7 +396,7 @@
 }
 .msg-comment-header {
     color: #999999;
-    font-size: 12px;
+    font-size: 13px;
     margin: 5px 0 4px;
 }
 

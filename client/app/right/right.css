@@ -328,10 +328,7 @@
 .file-item-meta {
     text-align: left;
 }
-.file-item-meta__listview {
-    color: #666;
-    font-size: 12px;
-}
+
 .file-item-meta .glyphicon {
     font-size: .7rem;
 }

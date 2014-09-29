@@ -187,6 +187,9 @@ select:focus {
 input[type="button"] {
     cursor: pointer;
 }
+.btn {
+    padding: 4px 10px;
+}
 #btn-upload-primary {
     position: absolute;
     top: 0;
@@ -221,7 +224,7 @@ input[type="button"] {
     border-radius: 0;
     border: 1px solid #31c08a;
     color: #31c08a;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .btn-ok {
@@ -229,7 +232,7 @@ input[type="button"] {
     border-radius: 0;
     border: 1px solid #31c08a;
     color: white;
-    font-size: 14px;
+    font-size: 13px;
 }
 .btn-cancel:focus,
 .btn-cancel:hover,
@@ -548,27 +551,6 @@ input[type="button"] {
     padding: 0px 10px;
 }
 
-
-
-/*
-    below css works for firefox
-*/
-select {
-    cursor: pointer;
-}
-optgroup {
-    color: #31c08a;
-    cursor: pointer;
-    padding-left: 14px;
-}
-optgroup option {
-    color: black;
-    margin: 2px 0;
-}
-
-optgroup option:hover {
-    background: #eefcf7 !important;
-}
 
 
 /*
