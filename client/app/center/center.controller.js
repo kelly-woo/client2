@@ -619,8 +619,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         var targetDom; //  small image thumbnail dom element.
         var tempTarget = angular.element($event.target);
 
-        console.log(tempTarget.attr('class'))
-
         if (tempTarget.attr('class').indexOf('msg-file-body-float') > -1 ) {
             //  small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
             targetDom = tempTarget.children('.msg-file-body__img');
@@ -633,7 +631,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             return;
 
         //  new DOM element for large thumbnail image.
-        var mirrorDom = angular.element('<img class="large-thumbnail cursor_pointer" src="'+newThumbnail+'"/>');
+        var mirrorDom = angular.element('<img id="large-thumbnail" class="large-thumbnail cursor_pointer" src="'+newThumbnail+'"/>');
 
         //  bind click event handler to large thumbnail image.
         mirrorDom.bind('click', function() {
@@ -644,8 +642,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         //  hide small thumbnail image.
         targetDom.css('display', 'none');
 
-        //  append new dom elements to parent of small thubmnail
+        //  append new dom elements to parent of small thumbnail
         var parent = targetDom.parent();
+
+        if (angular.isDefined(parent.children('#large-thumbnail').attr('id'))) {
+            //  preventing adding multiple large thumbnail dom element to parent.
+            //  if parent already has a child whose id is 'large-thumbnail' which is 'mirrorDom', don't append it and just return.
+            return;
+        }
         parent.append(mirrorDom);
         parent.append(fullScreenToggler);
 
