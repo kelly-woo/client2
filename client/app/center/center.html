@@ -151,17 +151,20 @@
 
                     <!-- FILE -->
                     <div class="msg-file" data-ng-if="msg.message.contentType === 'file'">
-                        <div class="msg-file-body-float pull-left">
+
+                        <div class="msg-file-body-float pull-left cursor_pointer" data-ng-click="onSmallThumbnailClick($event, msg);">
+
                             <!--    IMAGE THUMBNAIL -->
                             <img class="msg-file-body__img cursor_pointer"
                                  data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
                                  data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
-                                 data-ng-click="onSmallThumbnailClick($event, msg);"/>
+                                    />
 
                             <div class="msg-file-body__thumbnail"
                                  data-ng-if="(msg.message.content.type).indexOf('image') == -1">
                                 <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
                             </div>
+
                         </div>
 
                         <div class="msg-file-meta">
@@ -214,17 +217,22 @@
                     <!-- DISPLAY COMMENT BODY WHEN IT IS TITLE  -->
                     <!-- IF CURRENT COMMENT IS NOT TITLE, CONTENT GETS DISPLAYED WITHIN HEADER -->
                     <div class="msg-comment" data-ng-if="msg.message.contentType === 'comment' && msg.message.commentOption.isTitle" ng-class="{'msg-comment-with-thumbnail': msg.message.commentOption.isTitle}">
-                        <div class="msg-file-body-float pull-left">
+                        <div class="msg-file-body-float pull-left cursor_pointer"
+                             data-ng-click="onSmallThumbnailClick($event, msg);">
+
                             <!--    IMAGE THUMBNAIL -->
                             <img class="msg-file-body__img cursor_pointer"
                                  data-ng-show="(msg.feedback.content.type).indexOf('image') !== -1 && msg.message.commentOption.isTitle"
-                                 data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"
-                                 data-ng-click="onSmallThumbnailClick($event, msg);"/>
+                                 data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
 
+                            <!--    FILE THUMBNAIL  -->
                             <div class="msg-file-body__thumbnail"
                                  data-ng-if="(msg.feedback.content.type).indexOf('image') == -1 && msg.message.commentOption.isTitle">
-                                <div class="fileicon fileicon_{{ msg.feedback.content.type | filetype | lowercase}}"></div>
+                                <div class="fileicon fileicon_{{ msg.feedback.content.type | filetype | lowercase }}"></div>
                             </div>
+
+                            <!--    COMMENT ICON    -->
+                            <i class="fa fa-comment"></i>
 
                         </div>
 

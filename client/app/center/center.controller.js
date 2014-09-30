@@ -572,10 +572,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
     $scope.onSmallThumbnailClick = function($event, message) {
-        var targetDom = angular.element($event.target);
+        //  checking type first.
+        //  file upload but not image -> return
+        if (message.message.contentType === 'file')
+            if (message.message.content.type.indexOf('image') < 0)
+                return;
+
+        // comment but not to image file -> return
+        if (message.message.contentType === 'comment')
+            if (message.feedback.content.type.indexOf('image') < 0)
+                return;
 
         var newThumbnail;
         var fullUrl;
+
         if (message.message.contentType === 'comment') {
             newThumbnail = $scope.server_uploaded + message.feedback.content.extraInfo.largeThumbnailUrl;
             fullUrl = $scope.server_uploaded + message.feedback.content.fileUrl;
@@ -583,17 +593,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         else {
             newThumbnail = $scope.server_uploaded + message.message.content.extraInfo.largeThumbnailUrl;
             fullUrl = $scope.server_uploaded + message.message.content.fileUrl;
-
         }
 
 
-        //  new DOM element for large thumbnail image.
-        var mirrorDom = angular.element('<img class="large-thumbnail cursor_pointer" src="'+newThumbnail+'"/>');
-
-        //  bind click event handler to large thumbnail image.
-        mirrorDom.bind('click', function() {
-            onLargeThumbnailClick(fullScreenToggler, mirrorDom, targetDom);
-        });
 
         //  new DOM element for full screen image toggler.
         var fullScreenToggler = angular.element('<div class="large-thumbnail-full-screen"><i class="fa fa-arrows-alt"></i></i></div>');
@@ -612,6 +614,30 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     }
                 }
             });
+        });
+
+        var targetDom; //  small image thumbnail dom element.
+        var tempTarget = angular.element($event.target);
+
+        console.log(tempTarget.attr('class'))
+
+        if (tempTarget.attr('class').indexOf('msg-file-body-float') > -1 ) {
+            //  small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
+            targetDom = tempTarget.children('.msg-file-body__img');
+        }
+        else if (tempTarget.attr('class').indexOf('fa') > -1) {
+            //  comment image clicked on small image thumnail;
+            targetDom = tempTarget.siblings('.msg-file-body__img');
+        }
+        else
+            return;
+
+        //  new DOM element for large thumbnail image.
+        var mirrorDom = angular.element('<img class="large-thumbnail cursor_pointer" src="'+newThumbnail+'"/>');
+
+        //  bind click event handler to large thumbnail image.
+        mirrorDom.bind('click', function() {
+            onLargeThumbnailClick(fullScreenToggler, mirrorDom, targetDom);
         });
 
 

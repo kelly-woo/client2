@@ -16,7 +16,6 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
             return actual === expected;
         });
 
-        console.log( entity )
         if (angular.isUndefined(entity) || entity.length != 1) return;
 
         return entity[0];

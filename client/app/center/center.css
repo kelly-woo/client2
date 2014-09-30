@@ -306,6 +306,36 @@
 }
 .msg-file-body-float {
     margin-right: 10px;
+    position: relative;
+
+}
+/* opac layer over image thumbnail  */
+.msg-file-body-float::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.2;
+}
+.msg-file-body-float .fa-comment {
+    position: absolute;
+    bottom: 11px;
+    right: 11px;
+    width: 15px;
+    color: white;
+    z-index: 1;
+    -ms-transform: scaleX(-1); /* IE 9 */
+    -webkit-transform: scaleX(-1); /* Chrome, Safari, Opera */
+    transform: scaleX(-1);
+}
+.large-thumbnail-parent.msg-file-body-float::before {
+    display: none;
+}
+.msg-file-body-float > img {
+    max-width: 100%;
 }
 .msg-file-body__img {
     height: 65px;
