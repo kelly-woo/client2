@@ -310,7 +310,7 @@
 
 }
 /* opac layer over image thumbnail  */
-.msg-file-body-float::before {
+.msg-comment .msg-file-body-float::before {
     content: "";
     position: absolute;
     top: 0;
