@@ -106,6 +106,13 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.$watch('currentEntity', function(newValue, oldValue) {
         if (newValue != oldValue) {
             updateSharedList();
+
+//            console.log('this is updateSharedList in right.controller')
+//            console.log($scope.currentEntity)
+
+            //  channel could be removed/created/left
+            //  update selectOptions for data syncrhonization issue.
+            $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
             $scope.sharedEntitySearchQuery = $scope.currentEntity;
         }
     });
