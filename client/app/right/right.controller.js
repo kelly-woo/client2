@@ -84,7 +84,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             $scope.fileRequest.writerId = 'all';
         }
 
-        console.log('fileRequest.writerId changed!!! to ' + $scope.fileRequest.writerId);
+//        console.log('fileRequest.writerId changed!!! to ' + $scope.fileRequest.writerId);
 
         preLoadingSetup();
         getFileList();

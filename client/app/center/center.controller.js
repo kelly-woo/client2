@@ -616,11 +616,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             });
         });
 
-        var targetDom; //  small image thumbnail dom element.
-        var tempTarget = angular.element($event.target);
+        var targetDom;          //  to be small image thumbnail dom element.
+        var tempTarget = angular.element($event.target);    //  dom element sending event.
 
-        if (tempTarget.attr('class').indexOf('msg-file-body-float') > -1 ) {
+        if (tempTarget.attr('class').indexOf('msg-file-body__img') > -1) {
+            //  small thumbnail of file type clicked.
+            targetDom = tempTarget;
+        }
+        else if (tempTarget.attr('class').indexOf('msg-file-body-float') > -1 ) {
             //  small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
+            //  its parent is sending an event because of opac overlay layer on top of small thumbnail.
             targetDom = tempTarget.children('.msg-file-body__img');
         }
         else if (tempTarget.attr('class').indexOf('fa') > -1) {
