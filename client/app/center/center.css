@@ -326,6 +326,7 @@
     right: 11px;
     width: 15px;
     color: white;
+    opacity: 0.8;
     z-index: 1;
     -ms-transform: scaleX(-1); /* IE 9 */
     -webkit-transform: scaleX(-1); /* Chrome, Safari, Opera */
