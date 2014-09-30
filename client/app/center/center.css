@@ -223,7 +223,6 @@
 }
 .msg-item.comment-continue {
     margin-bottom: 5px;
-    padding-left: 122px;
 }
 
 
@@ -258,6 +257,8 @@
     padding: 0;
 }
 /* continued comment writer name */
+
+.msg-comment .msg-comment-body .msg-item-header__name,
 .msg-item.comment-continue .msg-item-header .msg-item-header__name {
     font-size: 13px;
     display: inline-block;
@@ -270,11 +271,10 @@
     font-size: 15px;
 }
 .continue-comment-body {
-    padding-left: 12px;
     font-size: 13px;
     font-weight: 400;
     display: inline-block;
-    max-width: 91%;
+    max-width: 100%;
 }
 .msg-item-header__created {
     font-size: 10px;
@@ -387,6 +387,7 @@
     font-size: 12px;
     line-height: 1.3rem;
     padding-left: 75px;
+    min-height: 65px;
 }
 .large-thumbnail-grand-parent .msg-file-meta {
     padding-left: 0;
@@ -440,7 +441,7 @@
     font-weight: 700;
 }
 .msg-comment-body {
-    /*margin-top: .25rem;*/
+    margin-top: 10px;
 }
 /*.msg-comment-body i {*/
 /*font-size: 1.8rem;*/
@@ -450,7 +451,7 @@
 .msg-comment-body p {
     font-size: 13px;
     color: #333;
-
+    line-height: 1.3rem;
 }
 /*.editable-wrap textarea {
     height: 41px;

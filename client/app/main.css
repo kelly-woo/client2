@@ -17,7 +17,6 @@
 .break {
     word-wrap: break-word;
     word-break: break-all;
-    white-space: pre-wrap;
 }
 .underline { border-bottom: 1px solid #31c08a;  }
 .cursor_pointer { cursor: pointer; }

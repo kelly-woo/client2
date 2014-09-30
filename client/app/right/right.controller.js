@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService) {
+app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, $filter) {
 
     $scope.isLoading = true;
     $scope.isScrollLoading = false;
@@ -66,6 +66,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             $scope.fileRequest.sharedEntityId = $scope.sharedEntitySearchQuery.id;
         }
 
+//        console.log('sharedEntitySearchQuery chagned to  ' + $scope.sharedEntitySearchQuery.id + '/' + $filter('getFirstLastNameOfUser')($scope.sharedEntitySearchQuery));
+
         preLoadingSetup();
         getFileList();
     });
@@ -81,6 +83,9 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         if ($scope.fileRequest.writerId === null) {
             $scope.fileRequest.writerId = 'all';
         }
+
+        console.log('fileRequest.writerId changed!!! to ' + $scope.fileRequest.writerId);
+
         preLoadingSetup();
         getFileList();
     });
