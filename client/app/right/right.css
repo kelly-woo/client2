@@ -5,7 +5,6 @@
     top: 40px;
     bottom: 0;
     background-color: #fff;
-    z-index: 0;
     border-left: 1px solid #e1e1e1;
     border-top: 1px solid #e1e1e1;
 }
@@ -221,8 +220,6 @@
 .file-item-body {
     padding-left: 75px;
     min-height: 65px;
-    position: relative;
-    padding-right: 14px;
 }
 .file-item-body__author__time {
     width: 100%;
@@ -265,8 +262,8 @@
 
 .file-item-body-title__more {
     position: absolute;
-    top: 10px;
-    right: 0;
+    top: 15px;
+    right: 8px;
     color:#999;
 }
 .file-item-body-title__more:hover{
@@ -277,6 +274,7 @@
     left: auto;
     right: 0;
     top: 14px;
+    float: none;
 }
 
 .file-item {

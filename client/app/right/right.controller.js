@@ -32,6 +32,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     $scope.fileList = [];
 
+    $scope.fileListIndex = 999;
+
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
         if (type === 'you') {
             // when 'Your Files' is clicked on 'cpanel-search__dropdown'

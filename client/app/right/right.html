@@ -76,7 +76,8 @@
     <div class="rpanel-body-content file-list" >
 
         <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
-             ui-sref="files({ userName: file.writer.name, itemId: file.id })" >
+             ui-sref="files({ userName: file.writer.name, itemId: file.id })"
+                style="z-index= fileListIndex--;">
 
             <!--    IMAGE THUMBNAIL -->
             <img class="msg-file-body__img cursor_pointer pull-left"
@@ -117,38 +118,9 @@
                     </span>
                 </div>
 
-                <!--    DROPDOWN MENU   -->
-                <div class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
-                    <span class="dropdown-toggle">
-                        <i class="fa fa-bars"></i>
-                    </span>
-                    <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
-                        <li class="cursor_pointer">
-                            <a data-ng-click="onClickShare(file);">
-                                <i class="fa fa-share-alt"></i>
-                                <span translate>Share</span>
-                            </a>
-                        </li>
-                        <li class="cursor_pointer">
-                            <a data-ng-click="">
-                                <i class="fa fa-comment-o"></i>
-                                <span translate>Comment</span>
-                            </a>
-                        </li>
-                        <li class="cursor_pointer">
-                            <a href="{{ server_uploaded + file.content.fileUrl }}" download="{{ file.content.name }}">
-                                <i class="fa fa-download"></i>
-                                <span translate>Download</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-
                 <!--    UPLOADED TIME, SHARED CHANNELS/PRIVATEGROUPS, LINK
                         CURRENTLY HIDDEN    -->
                 <div class="file-item-meta file-item-meta__listview hidden">
-
                     <div data-ng-if="file.shared.length" class="file-item-meta__info">
                         Shared in
                         <span data-ng-repeat="sharedEntity in filteredSharedFile = (file.shared | filter : {type:'!user'}) track by $index">
@@ -177,6 +149,33 @@
 
                 </div>
             </div>
+
+            <!--    DROPDOWN MENU   -->
+            <div class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
+                <i class="fa fa-bars dropdown-toggle"></i>
+
+                <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
+                    <li class="cursor_pointer">
+                        <a data-ng-click="onClickShare(file);">
+                            <i class="fa fa-share-alt"></i>
+                            <span translate>Share</span>
+                        </a>
+                    </li>
+                    <li class="cursor_pointer">
+                        <a data-ng-click="">
+                            <i class="fa fa-comment-o"></i>
+                            <span translate>Comment</span>
+                        </a>
+                    </li>
+                    <li class="cursor_pointer">
+                        <a href="{{ server_uploaded + file.content.fileUrl }}" download="{{ file.content.name }}">
+                            <i class="fa fa-download"></i>
+                            <span translate>Download</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
 
         <div class="file-list__item loading" ng-if="isScrollLoading">
