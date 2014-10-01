@@ -19,13 +19,29 @@ msgstr ""
 msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
 msgstr ""
 
+#: client/app/left/left.html
+msgid "@common-add"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "@common-channels"
+msgstr ""
+
 #: client/app/error/404.html
 #: client/app/signin/signin.html
 msgid "@common-customer-service"
 msgstr ""
 
+#: client/app/left/left.html
+msgid "@common-direct-messages"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "@common-email"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "@common-more"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -35,6 +51,10 @@ msgstr ""
 #: client/app/error/404.html
 #: client/app/signin/signin.html
 msgid "@common-privacy-policy"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "@common-private-groups"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -95,7 +115,6 @@ msgstr ""
 msgid "Account Setting"
 msgstr ""
 
-#: client/app/left/left.html
 #: client/app/modal/invite.team.html
 msgid "Add"
 msgstr ""
@@ -147,10 +166,6 @@ msgstr ""
 
 #: client/app/modal/create.channel.html
 msgid "Channel Name"
-msgstr ""
-
-#: client/app/left/left.html
-msgid "Channels"
 msgstr ""
 
 #: client/app/modal/join.html
@@ -247,10 +262,6 @@ msgstr ""
 
 #: client/app/modal/list.user.html
 msgid "Direct Message"
-msgstr ""
-
-#: client/app/left/left.html
-msgid "Direct Messages"
 msgstr ""
 
 #: client/app/right/file.html
@@ -383,10 +394,6 @@ msgstr ""
 msgid "Missing Information"
 msgstr ""
 
-#: client/app/left/left.html
-msgid "More"
-msgstr ""
-
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
 #: client/app/modal/rename.html
@@ -467,10 +474,6 @@ msgstr ""
 
 #: client/app/modal/create.private.html
 msgid "Private Group Name"
-msgstr ""
-
-#: client/app/left/left.html
-msgid "Private Groups"
 msgstr ""
 
 #: client/app/header/header.html

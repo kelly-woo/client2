@@ -25,13 +25,29 @@ msgstr ""
 msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
 msgstr ""
 
+#: client/app/left/left.html
+msgid "@common-add"
+msgstr "추가"
+
+#: client/app/left/left.html
+msgid "@common-channels"
+msgstr "채널"
+
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
 msgstr "고객 센터"
 
+#: client/app/left/left.html
+msgid "@common-direct-messages"
+msgstr "1:1 메세지"
+
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "이메일"
+
+#: client/app/left/left.html
+msgid "@common-more"
+msgstr "더보기"
 
 #: client/app/signin/signin.html
 msgid "@common-password"
@@ -40,6 +56,10 @@ msgstr "비밀번호"
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-privacy-policy"
 msgstr "개인정보취급방침"
+
+#: client/app/left/left.html
+msgid "@common-private-groups"
+msgstr "비공개 그룹"
 
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
@@ -101,7 +121,7 @@ msgstr "계정 설정"
 msgid "Account Setting"
 msgstr "계정 설정"
 
-#: client/app/left/left.html client/app/modal/invite.team.html
+#: client/app/modal/invite.team.html
 msgid "Add"
 msgstr "추가"
 
@@ -150,10 +170,6 @@ msgstr "비밀번호 변경하기"
 #: client/app/modal/create.channel.html
 msgid "Channel Name"
 msgstr "채널 이름"
-
-#: client/app/left/left.html
-msgid "Channels"
-msgstr "채널"
 
 #: client/app/modal/join.html
 msgid "Channels you belong to"
@@ -238,10 +254,6 @@ msgstr "데스크탑 알림"
 
 #: client/app/modal/list.user.html
 msgid "Direct Message"
-msgstr "1:1 메세지"
-
-#: client/app/left/left.html
-msgid "Direct Messages"
 msgstr "1:1 메세지"
 
 #: client/app/right/file.html client/app/right/right.html
@@ -368,10 +380,6 @@ msgstr "메뉴"
 msgid "Missing Information"
 msgstr "모든 정보를 입력해주세요"
 
-#: client/app/left/left.html
-msgid "More"
-msgstr "더보기"
-
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/rename.html
 msgid "Name"
@@ -450,10 +458,6 @@ msgstr "개인정보취급방침"
 #: client/app/modal/create.private.html
 msgid "Private Group Name"
 msgstr "비공개 그룹 이름"
-
-#: client/app/left/left.html
-msgid "Private Groups"
-msgstr "비공개 그룹"
 
 #: client/app/header/header.html
 msgid "Profile"
@@ -665,6 +669,18 @@ msgstr ""
 #: client/app/modal/profile.view.html
 msgid "파일 리스트"
 msgstr ""
+
+#~ msgid "Channels"
+#~ msgstr "채널"
+
+#~ msgid "Direct Messages"
+#~ msgstr "1:1 메세지"
+
+#~ msgid "More"
+#~ msgstr "더보기"
+
+#~ msgid "Private Groups"
+#~ msgstr "비공개 그룹"
 
 #~ msgid "Customer Service"
 #~ msgstr "고객 센터"

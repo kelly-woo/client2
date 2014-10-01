@@ -36,13 +36,13 @@
             <div class="lpanel-list__header cursor_pointer" ng-click="isChListCollapsed = !isChListCollapsed">
                 <i class="lpanel-list-left fa fa-comment"></i>
 
-                <span class="lpanel-list__title inline-overflow-ellipsis" translate>Channels</span>
+                <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-channels</span>
 
                 <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();">
-                    <i class="fa fa-plus"></i><span translate>Add</span>
+                    <i class="fa fa-plus"></i><span translate>@common-add</span>
                 </div>
                 <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();">
-                    <i class="fa fa-list"></i><span translate>More</span>
+                    <i class="fa fa-list"></i><span translate>@common-more</span>
                 </div>
 
             </div>
@@ -69,10 +69,10 @@
             <div class="lpanel-list__header cursor_pointer" ng-click="isPGCollapsed = !isPGCollapsed">
                 <i class="lpanel-list-left fa fa-unlock-alt"></i>
 
-                <span class="lpanel-list__title inline-overflow-ellipsis" translate>Private Groups</span>
+                <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-private-groups</span>
 
                 <div class="lpanel-list-option pull-right" ng-click="openModal('private'); $event.stopPropagation(); $event.preventDefault();">
-                    <i class="fa fa-plus"></i><span translate>Add</span>
+                    <i class="fa fa-plus"></i><span translate>@common-add</span>
                 </div>
 
             </div>
@@ -98,15 +98,20 @@
             <!--    HEADER  -->
             <div class="lpanel-list__header cursor_pointer" ng-click="isDMCollapsed = !isDMCollapsed">
                 <i class="lpanel-list-left fa fa-user"></i>
-                <span class="lpanel-list__title inline-overflow-ellipsis" translate>Direct Messages</span>
+                <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-direct-messages</span>
             </div>
 
             <!--    LIST    -->
             <ul id="dm-list" collapse="isDMCollapsed">
                 <div class="lpanel-list-user_search">
                     <i class="fa fa-search absolute-search-icon"></i>
-                    <input type="text" class="form-control lpanel-list-user-search__box" placeholder="" data-ng-model="userNameQuery" ng-focus="onDMInputFocus();" ng-blur="onDMInputBlur();"
-                           ng-change="onDMInputChange(userNameQuery);">
+                    <input type="text"
+                           class="form-control lpanel-list-user-search__box"
+                           placeholder=""
+                           data-ng-model="userNameQuery"
+                           data-ng-focus="onDMInputFocus();"
+                           data-ng-blur="onDMInputBlur();"
+                           data-ng-change="onDMInputChange(userNameQuery);">
                 </div>
 
                 <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | userByName:userNameQuery)">
