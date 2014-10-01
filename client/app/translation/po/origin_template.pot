@@ -266,6 +266,10 @@ msgid "@team-invite"
 msgstr ""
 
 #: client/app/header/header.html
+msgid "@team-members"
+msgstr ""
+
+#: client/app/header/header.html
 msgid "@team-switch"
 msgstr ""
 

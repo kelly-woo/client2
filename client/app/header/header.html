@@ -24,6 +24,15 @@
                     </a>
                 </li>
                 <li class="divider"></li>
+                <!-- 팀원 보기 -->
+                <li class="hidden" role="presentation"
+                    data-ng-mouseenter="team_over = true;"
+                    data-ng-mouseleave="team_over = false;">
+                    <a data-ng-click="" role="menuitem" tabindex="-1">
+                        <span class="icon_team" data-ng-class="{ light: team_over }"></span>
+                        <span translate>@team-members</span>
+                    </a>
+                </li>
                 <!-- 팀 변경 -->
                 <li class="disabled" role="presentation">
                     <a data-ng-click="" role="menuitem" tabindex="-1">
@@ -32,17 +41,22 @@
                     </a>
                 </li>
                 <!-- 팀 초대 -->
-                <li class="" role="presentation">
+                <li class="" role="presentation"
+                    data-ng-mouseenter="invite_over = true;"
+                    data-ng-mouseleave="invite_over = false;">
                     <a data-ng-click="openModal('invite');" role="menuitem" tabindex="-1">
-                        <i class="fa fa-envelope-o"></i>
+                        <!--<i class="fa fa-envelope-o"></i>-->
+                        <span class="icon_invite" data-ng-class="{ light: invite_over }"></span>
                         <span translate>@team-invite</span>
                     </a>
                 </li>
                 <li class="divider"></li>
                 <!-- 로그아웃 -->
-                <li class="" role="presentation">
+                <li class="" role="presentation"
+                    data-ng-mouseenter="signout_over = true;"
+                    data-ng-mouseleave="signout_over = false;">
                     <a data-ng-click="logout();" role="menuitem" tabindex="-1" ng-controller="authController">
-                        <span class="icon_signout"></span>
+                        <span class="icon_signout" ng-class="{ light: signout_over }" ></span>
                         <span translate>@common-sign-out</span>
                     </a>
                 </li>

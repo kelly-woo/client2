@@ -267,6 +267,10 @@ msgid "@team-invite"
 msgstr "Invite Others to Team"
 
 #: client/app/header/header.html
+msgid "@team-members"
+msgstr "Team Members"
+
+#: client/app/header/header.html
 msgid "@team-switch"
 msgstr "Switch Teams"
 
