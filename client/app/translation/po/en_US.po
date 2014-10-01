@@ -12,10 +12,6 @@ msgstr ""
 "X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: client/app/center/center.html
-msgid "'s"
-msgstr ""
-
 #: client/app/modal/profile.view.html
 msgid "1:1 채팅"
 msgstr ""
@@ -23,6 +19,22 @@ msgstr ""
 #: client/app/right/file.html
 msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
 msgstr ""
+
+#: client/app/center/center.html
+msgid "@ch-menu-delete"
+msgstr "Delete this channel"
+
+#: client/app/center/center.html
+msgid "@ch-menu-invite"
+msgstr "Invite members to this channel"
+
+#: client/app/center/center.html
+msgid "@ch-menu-leave"
+msgstr "Leave channel"
+
+#: client/app/center/center.html
+msgid "@ch-menu-rename"
+msgstr "Rename this channel"
 
 #: client/app/header/header.html
 msgid "@common-account-settings"
@@ -102,6 +114,18 @@ msgstr "Terms of Service"
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
 
+#: client/app/center/center.html
+msgid "@dm-menu-file"
+msgstr "View files"
+
+#: client/app/center/center.html
+msgid "@dm-menu-invite"
+msgstr "Invite this member to others"
+
+#: client/app/center/center.html
+msgid "@dm-menu-profile"
+msgstr "View profile"
+
 #: client/app/error/404.html
 msgid "@error-404-message"
 msgstr "The page you were looking for could not be found"
@@ -117,10 +141,6 @@ msgstr "All Files"
 #: client/app/header/header.html
 msgid "@file-audio"
 msgstr "Audio Files"
-
-#: client/app/header/header.html
-msgid "@file-hwp"
-msgstr ""
 
 #: client/app/header/header.html
 msgid "@file-image"
@@ -174,6 +194,50 @@ msgstr "Forgot Password?"
 msgid "@login-welcome {{teamInfo.name}}"
 msgstr "Welcome to {{teamInfo.name}}"
 
+#: client/app/center/center.html
+msgid "@msg-create-ch"
+msgstr "created current channel"
+
+#: client/app/center/center.html
+msgid "@msg-create-pg"
+msgstr "created current private group"
+
+#: client/app/center/center.html
+msgid "@msg-file"
+msgstr "File"
+
+#: client/app/center/center.html
+msgid "@msg-invited"
+msgstr "invited"
+
+#: client/app/center/center.html
+msgid "@msg-invited-postfix"
+msgstr " "
+
+#: client/app/center/center.html
+msgid "@msg-joined"
+msgstr "has joined"
+
+#: client/app/center/center.html
+msgid "@msg-left"
+msgstr "has left"
+
+#: client/app/center/center.html
+msgid "@msg-open-original"
+msgstr "Open original"
+
+#: client/app/center/center.html
+msgid "@msg-shared"
+msgstr "Shared"
+
+#: client/app/center/center.html
+msgid "@msg-unshared"
+msgstr "Unshared"
+
+#: client/app/center/center.html
+msgid "@msg-whose"
+msgstr "'s"
+
 #: client/app/right/right.html
 msgid "@option-all-locations"
 msgstr "All"
@@ -181,6 +245,22 @@ msgstr "All"
 #: client/app/right/right.html
 msgid "@option-all-writers"
 msgstr "All"
+
+#: client/app/center/center.html
+msgid "@pg-menu-delete"
+msgstr "Delete this group"
+
+#: client/app/center/center.html
+msgid "@pg-menu-invite"
+msgstr "Invite members to this group"
+
+#: client/app/center/center.html
+msgid "@pg-menu-leave"
+msgstr "Leave group"
+
+#: client/app/center/center.html
+msgid "@pg-menu-rename"
+msgstr "Rename this group"
 
 #: client/app/header/header.html
 msgid "@team-invite"
@@ -311,14 +391,6 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "Delete this channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Delete this group"
-msgstr ""
-
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "Department"
 msgstr ""
@@ -352,7 +424,7 @@ msgstr ""
 msgid "Failed to send email"
 msgstr ""
 
-#: client/app/center/center.html client/app/modal/share.html
+#: client/app/modal/share.html
 msgid "File"
 msgstr ""
 
@@ -397,20 +469,8 @@ msgstr ""
 msgid "Invite others to team"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "Invite others to this channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Invite others to this group"
-msgstr ""
-
 #: client/app/modal/invite.direct.html
 msgid "Invite to"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Invite to channel/group"
 msgstr ""
 
 #: client/app/modal/invite.direct.html
@@ -427,14 +487,6 @@ msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "Last Name"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Leave channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Leave group"
 msgstr ""
 
 #: client/app/right/right.html
@@ -486,7 +538,7 @@ msgstr ""
 msgid "Only for direct messages"
 msgstr ""
 
-#: client/app/center/center.html client/app/right/right.html
+#: client/app/right/right.html
 msgid "Open original"
 msgstr ""
 
@@ -530,14 +582,6 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "Rename this channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Rename this group"
-msgstr ""
-
 #: client/app/right/right.html
 msgid "Search by title"
 msgstr ""
@@ -567,16 +611,8 @@ msgstr ""
 msgid "Share in"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "Shared"
-msgstr ""
-
 #: client/app/modal/upload.html
 msgid "Title"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Unshared"
 msgstr ""
 
 #: client/app/modal/settings.account.html
@@ -593,14 +629,6 @@ msgstr ""
 
 #: client/app/modal/upload.html client/app/right/right.html
 msgid "Upload File"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "View files"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "View profile"
 msgstr ""
 
 #: client/app/right/right.html
@@ -629,36 +657,12 @@ msgstr ""
 msgid "You have not joined any channels yet"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "created current channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "created current private group"
-msgstr ""
-
 #: client/app/modal/settings.account.html
 msgid "fail to update"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "has joined"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "has left"
-msgstr ""
-
 #: client/app/modal/settings.account.html
 msgid "invalid password"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "invite-postfix"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "invited"
 msgstr ""
 
 #: client/app/modal/invite.team.html

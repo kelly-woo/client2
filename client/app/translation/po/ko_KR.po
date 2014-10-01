@@ -13,10 +13,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: client/app/center/center.html
-msgid "'s"
-msgstr "님의"
-
 #: client/app/modal/profile.view.html
 msgid "1:1 채팅"
 msgstr ""
@@ -24,6 +20,22 @@ msgstr ""
 #: client/app/right/file.html
 msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
 msgstr ""
+
+#: client/app/center/center.html
+msgid "@ch-menu-delete"
+msgstr "채널 삭제하기"
+
+#: client/app/center/center.html
+msgid "@ch-menu-invite"
+msgstr "이 채널에 팀원 초대하기"
+
+#: client/app/center/center.html
+msgid "@ch-menu-leave"
+msgstr "채널 나가기"
+
+#: client/app/center/center.html
+msgid "@ch-menu-rename"
+msgstr "채널 이름 변경하기"
 
 #: client/app/header/header.html
 msgid "@common-account-settings"
@@ -103,6 +115,18 @@ msgstr "이용약관"
 msgid "@common-visit-homepage"
 msgstr "홈페이지 방문하기"
 
+#: client/app/center/center.html
+msgid "@dm-menu-file"
+msgstr "파일 보기"
+
+#: client/app/center/center.html
+msgid "@dm-menu-invite"
+msgstr "대화방으로 초대하기"
+
+#: client/app/center/center.html
+msgid "@dm-menu-profile"
+msgstr "프로필 보기"
+
 #: client/app/error/404.html
 msgid "@error-404-message"
 msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
@@ -118,10 +142,6 @@ msgstr "모든 파일"
 #: client/app/header/header.html
 msgid "@file-audio"
 msgstr "오디오"
-
-#: client/app/header/header.html
-msgid "@file-hwp"
-msgstr ""
 
 #: client/app/header/header.html
 msgid "@file-image"
@@ -175,6 +195,50 @@ msgstr "비밀번호 찾기"
 msgid "@login-welcome {{teamInfo.name}}"
 msgstr "{{teamInfo.name}} 환영합니다"
 
+#: client/app/center/center.html
+msgid "@msg-create-ch"
+msgstr "님이 채널을 생성했습니다"
+
+#: client/app/center/center.html
+msgid "@msg-create-pg"
+msgstr "님이 비공개 그룹을 생성했습니다"
+
+#: client/app/center/center.html
+msgid "@msg-file"
+msgstr "파일"
+
+#: client/app/center/center.html
+msgid "@msg-invited"
+msgstr "님이"
+
+#: client/app/center/center.html
+msgid "@msg-invited-postfix"
+msgstr "님을 초대했습니다"
+
+#: client/app/center/center.html
+msgid "@msg-joined"
+msgstr "님이 참여했습니다"
+
+#: client/app/center/center.html
+msgid "@msg-left"
+msgstr "님이 떠났습니다"
+
+#: client/app/center/center.html
+msgid "@msg-open-original"
+msgstr "원본 파일 보기"
+
+#: client/app/center/center.html
+msgid "@msg-shared"
+msgstr "공유된"
+
+#: client/app/center/center.html
+msgid "@msg-unshared"
+msgstr "공유 해제된"
+
+#: client/app/center/center.html
+msgid "@msg-whose"
+msgstr "님의"
+
 #: client/app/right/right.html
 msgid "@option-all-locations"
 msgstr "모든 대화방"
@@ -182,6 +246,22 @@ msgstr "모든 대화방"
 #: client/app/right/right.html
 msgid "@option-all-writers"
 msgstr "모든 팀원"
+
+#: client/app/center/center.html
+msgid "@pg-menu-delete"
+msgstr "그룹 삭제하기"
+
+#: client/app/center/center.html
+msgid "@pg-menu-invite"
+msgstr "이 그룹에 멤버 초대하기"
+
+#: client/app/center/center.html
+msgid "@pg-menu-leave"
+msgstr "그룹 나가기"
+
+#: client/app/center/center.html
+msgid "@pg-menu-rename"
+msgstr "그룹 이름 변경하기"
 
 #: client/app/header/header.html
 msgid "@team-invite"
@@ -314,14 +394,6 @@ msgstr "현재 비밀번호"
 msgid "Delete"
 msgstr "삭제"
 
-#: client/app/center/center.html
-msgid "Delete this channel"
-msgstr "채널 삭제하기"
-
-#: client/app/center/center.html
-msgid "Delete this group"
-msgstr "비공개 그룹 삭제하기"
-
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "Department"
 msgstr "부서"
@@ -356,7 +428,7 @@ msgstr "이메일"
 msgid "Failed to send email"
 msgstr "다음 주소로 이메일 보내기를 실패하였습니다."
 
-#: client/app/center/center.html client/app/modal/share.html
+#: client/app/modal/share.html
 msgid "File"
 msgstr "파일"
 
@@ -401,21 +473,9 @@ msgstr "팀원 초대"
 msgid "Invite others to team"
 msgstr "새로운 팀원 초대하기"
 
-#: client/app/center/center.html
-msgid "Invite others to this channel"
-msgstr "채널 초대하기"
-
-#: client/app/center/center.html
-msgid "Invite others to this group"
-msgstr "그룹 초대하기"
-
 #: client/app/modal/invite.direct.html
 msgid "Invite to"
 msgstr "채널/그룹 목록"
-
-#: client/app/center/center.html
-msgid "Invite to channel/group"
-msgstr "채널/비공개 그룹으로 초대하기"
 
 #: client/app/modal/invite.direct.html
 msgid "Invite {{ currentEntity | getFirstLastNameOfUser }} to a channel/group"
@@ -432,14 +492,6 @@ msgstr "언어"
 #: client/app/modal/invite.team.html
 msgid "Last Name"
 msgstr "성"
-
-#: client/app/center/center.html
-msgid "Leave channel"
-msgstr "채널 나가기"
-
-#: client/app/center/center.html
-msgid "Leave group"
-msgstr "비공개 그룹 나가기"
 
 #: client/app/right/right.html
 msgid "Location"
@@ -490,7 +542,7 @@ msgstr "업로드된 파일이 없습니다"
 msgid "Only for direct messages"
 msgstr "1:1 메세지"
 
-#: client/app/center/center.html client/app/right/right.html
+#: client/app/right/right.html
 msgid "Open original"
 msgstr "원본 보기"
 
@@ -536,14 +588,6 @@ msgstr "목적"
 msgid "Rename"
 msgstr "이름 변경"
 
-#: client/app/center/center.html
-msgid "Rename this channel"
-msgstr "채널 이름 변경하기"
-
-#: client/app/center/center.html
-msgid "Rename this group"
-msgstr "비공개 그룹 이름 변경하기"
-
 #: client/app/right/right.html
 msgid "Search by title"
 msgstr "제목으로 검색"
@@ -573,17 +617,9 @@ msgstr "파일 공유"
 msgid "Share in"
 msgstr "공유 대상"
 
-#: client/app/center/center.html
-msgid "Shared"
-msgstr "공유"
-
 #: client/app/modal/upload.html
 msgid "Title"
 msgstr "타이틀"
-
-#: client/app/center/center.html
-msgid "Unshared"
-msgstr "공유해제"
 
 #: client/app/modal/settings.account.html
 msgid "Update Password"
@@ -600,14 +636,6 @@ msgstr "업로드"
 #: client/app/modal/upload.html client/app/right/right.html
 msgid "Upload File"
 msgstr "파일 업로드"
-
-#: client/app/center/center.html
-msgid "View files"
-msgstr "파일 보기"
-
-#: client/app/center/center.html
-msgid "View profile"
-msgstr "프로필 보기"
 
 #: client/app/right/right.html
 msgid "Writer"
@@ -635,37 +663,13 @@ msgstr "닉네임, 전화번호, 직책 등 기본적인 프로필 정보를 수
 msgid "You have not joined any channels yet"
 msgstr "참여한 채널이 없습니다"
 
-#: client/app/center/center.html
-msgid "created current channel"
-msgstr "님이 채널을 생성했습니다"
-
-#: client/app/center/center.html
-msgid "created current private group"
-msgstr "님이 비공개 그룹을 생성했습니다"
-
 #: client/app/modal/settings.account.html
 msgid "fail to update"
 msgstr "업데이트 중 오류가 발생했습니다"
 
-#: client/app/center/center.html
-msgid "has joined"
-msgstr "님이 참여했습니다"
-
-#: client/app/center/center.html
-msgid "has left"
-msgstr "님이 떠났습니다"
-
 #: client/app/modal/settings.account.html
 msgid "invalid password"
 msgstr "비밀번호가 일치하지 않습니다"
-
-#: client/app/center/center.html
-msgid "invite-postfix"
-msgstr "님을 초대했습니다"
-
-#: client/app/center/center.html
-msgid "invited"
-msgstr "님이"
 
 #: client/app/modal/invite.team.html
 msgid "is already member of your team"
@@ -702,6 +706,57 @@ msgstr ""
 #: client/app/modal/profile.view.html
 msgid "파일 리스트"
 msgstr ""
+
+#~ msgid "'s"
+#~ msgstr "님의"
+
+#~ msgid "Delete this channel"
+#~ msgstr "채널 삭제하기"
+
+#~ msgid "Delete this group"
+#~ msgstr "비공개 그룹 삭제하기"
+
+#~ msgid "Invite others to this channel"
+#~ msgstr "채널 초대하기"
+
+#~ msgid "Invite others to this group"
+#~ msgstr "그룹 초대하기"
+
+#~ msgid "Invite to channel/group"
+#~ msgstr "채널/비공개 그룹으로 초대하기"
+
+#~ msgid "Leave channel"
+#~ msgstr "채널 나가기"
+
+#~ msgid "Leave group"
+#~ msgstr "비공개 그룹 나가기"
+
+#~ msgid "Rename this channel"
+#~ msgstr "채널 이름 변경하기"
+
+#~ msgid "Rename this group"
+#~ msgstr "비공개 그룹 이름 변경하기"
+
+#~ msgid "Shared"
+#~ msgstr "공유"
+
+#~ msgid "View files"
+#~ msgstr "파일 보기"
+
+#~ msgid "View profile"
+#~ msgstr "프로필 보기"
+
+#~ msgid "created current channel"
+#~ msgstr "님이 채널을 생성했습니다"
+
+#~ msgid "created current private group"
+#~ msgstr "님이 비공개 그룹을 생성했습니다"
+
+#~ msgid "has left"
+#~ msgstr "님이 떠났습니다"
+
+#~ msgid "invited"
+#~ msgstr "님이"
 
 #~ msgid "Account"
 #~ msgstr "계정 설정"

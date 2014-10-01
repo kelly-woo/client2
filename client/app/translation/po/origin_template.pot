@@ -7,16 +7,28 @@ msgstr ""
 msgid ""
 msgstr ""
 
-#: client/app/center/center.html
-msgid "'s"
-msgstr ""
-
 #: client/app/modal/profile.view.html
 msgid "1:1 채팅"
 msgstr ""
 
 #: client/app/right/file.html
 msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@ch-menu-delete"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@ch-menu-invite"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@ch-menu-leave"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@ch-menu-rename"
 msgstr ""
 
 #: client/app/header/header.html
@@ -101,6 +113,18 @@ msgstr ""
 msgid "@common-visit-homepage"
 msgstr ""
 
+#: client/app/center/center.html
+msgid "@dm-menu-file"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@dm-menu-invite"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@dm-menu-profile"
+msgstr ""
+
 #: client/app/error/404.html
 msgid "@error-404-message"
 msgstr ""
@@ -115,10 +139,6 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "@file-audio"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@file-hwp"
 msgstr ""
 
 #: client/app/header/header.html
@@ -173,12 +193,72 @@ msgstr ""
 msgid "@login-welcome {{teamInfo.name}}"
 msgstr ""
 
+#: client/app/center/center.html
+msgid "@msg-create-ch"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@msg-create-pg"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@msg-file"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@msg-invited"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@msg-invited-postfix"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@msg-joined"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@msg-left"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@msg-open-original"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@msg-shared"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@msg-unshared"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@msg-whose"
+msgstr ""
+
 #: client/app/right/right.html
 msgid "@option-all-locations"
 msgstr ""
 
 #: client/app/right/right.html
 msgid "@option-all-writers"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@pg-menu-delete"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@pg-menu-invite"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@pg-menu-leave"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@pg-menu-rename"
 msgstr ""
 
 #: client/app/header/header.html
@@ -319,14 +399,6 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "Delete this channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Delete this group"
-msgstr ""
-
 #: client/app/modal/profile.view.html
 #: client/app/modal/settings.profile.html
 msgid "Department"
@@ -363,7 +435,6 @@ msgstr ""
 msgid "Failed to send email"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/modal/share.html
 msgid "File"
 msgstr ""
@@ -411,20 +482,8 @@ msgstr ""
 msgid "Invite others to team"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "Invite others to this channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Invite others to this group"
-msgstr ""
-
 #: client/app/modal/invite.direct.html
 msgid "Invite to"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Invite to channel/group"
 msgstr ""
 
 #: client/app/modal/invite.direct.html
@@ -441,14 +500,6 @@ msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "Last Name"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Leave channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Leave group"
 msgstr ""
 
 #: client/app/right/right.html
@@ -501,7 +552,6 @@ msgstr ""
 msgid "Only for direct messages"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/right/right.html
 msgid "Open original"
 msgstr ""
@@ -549,14 +599,6 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "Rename this channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Rename this group"
-msgstr ""
-
 #: client/app/right/right.html
 msgid "Search by title"
 msgstr ""
@@ -589,16 +631,8 @@ msgstr ""
 msgid "Share in"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "Shared"
-msgstr ""
-
 #: client/app/modal/upload.html
 msgid "Title"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Unshared"
 msgstr ""
 
 #: client/app/modal/settings.account.html
@@ -616,14 +650,6 @@ msgstr ""
 #: client/app/modal/upload.html
 #: client/app/right/right.html
 msgid "Upload File"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "View files"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "View profile"
 msgstr ""
 
 #: client/app/right/right.html
@@ -650,36 +676,12 @@ msgstr ""
 msgid "You have not joined any channels yet"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "created current channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "created current private group"
-msgstr ""
-
 #: client/app/modal/settings.account.html
 msgid "fail to update"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "has joined"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "has left"
-msgstr ""
-
 #: client/app/modal/settings.account.html
 msgid "invalid password"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "invite-postfix"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "invited"
 msgstr ""
 
 #: client/app/modal/invite.team.html
