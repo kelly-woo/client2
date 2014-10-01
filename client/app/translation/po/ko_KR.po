@@ -25,7 +25,7 @@ msgstr ""
 msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
 msgstr ""
 
-#: client/app/signin/signin.html
+#: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
 msgstr "고객 센터"
 
@@ -37,7 +37,7 @@ msgstr "이메일"
 msgid "@common-password"
 msgstr "비밀번호"
 
-#: client/app/signin/signin.html
+#: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-privacy-policy"
 msgstr "개인정보취급방침"
 
@@ -45,13 +45,21 @@ msgstr "개인정보취급방침"
 msgid "@common-sign-in"
 msgstr "로그인"
 
-#: client/app/signin/signin.html
+#: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-terms-of-service"
 msgstr "이용약관"
 
-#: client/app/signin/signin.html
+#: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-visit-homepage"
 msgstr "홈페이지 방문하기"
+
+#: client/app/error/404.html
+msgid "@error-404-message"
+msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
+
+#: client/app/error/404.html
+msgid "@error-404-title"
+msgstr ".. 길을 잃었습니다"
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
@@ -207,10 +215,6 @@ msgstr "새로운 채널을 생성합니다."
 #: client/app/modal/settings.account.html
 msgid "Current Password"
 msgstr "현재 비밀번호"
-
-#: client/app/error/404.html
-msgid "Customer Service"
-msgstr "고객 센터"
 
 #: client/app/right/file.html
 msgid "Delete"
@@ -439,7 +443,7 @@ msgstr "직책"
 msgid "Preferences"
 msgstr "서비스 설정"
 
-#: client/app/error/404.html client/app/header/header.html
+#: client/app/header/header.html
 msgid "Privacy Policy"
 msgstr "개인정보취급방침"
 
@@ -528,17 +532,9 @@ msgstr "즐겨찾기"
 msgid "Team Directory"
 msgstr "팀"
 
-#: client/app/error/404.html client/app/header/header.html
+#: client/app/header/header.html
 msgid "Terms of Service"
 msgstr "이용약관"
-
-#: client/app/error/404.html
-msgid "That’s an error"
-msgstr "..길을 잃었습니다"
-
-#: client/app/error/404.html
-msgid "The page you were looking for could not be found."
-msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
 
 #: client/app/modal/upload.html
 msgid "Title"
@@ -571,10 +567,6 @@ msgstr "파일 보기"
 #: client/app/center/center.html
 msgid "View profile"
 msgstr "프로필 보기"
-
-#: client/app/error/404.html
-msgid "Visit Homepage"
-msgstr "잔디 홈페이지"
 
 #: client/app/right/right.html
 msgid "Writer"
@@ -673,6 +665,18 @@ msgstr ""
 #: client/app/modal/profile.view.html
 msgid "파일 리스트"
 msgstr ""
+
+#~ msgid "Customer Service"
+#~ msgstr "고객 센터"
+
+#~ msgid "That’s an error"
+#~ msgstr "..길을 잃었습니다"
+
+#~ msgid "The page you were looking for could not be found."
+#~ msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
+
+#~ msgid "Visit Homepage"
+#~ msgstr "잔디 홈페이지"
 
 #~ msgid "Email address"
 #~ msgstr "이메일 주소"
