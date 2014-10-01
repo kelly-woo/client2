@@ -15,6 +15,14 @@ msgstr ""
 msgid "1:1 채팅"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@option-all-locations"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@option-all-writers"
+msgstr ""
+
 #: client/app/modal/create.private.html
 msgid "A private group is only visible to its members, and only members of a private group can read or search its contents."
 msgstr ""
@@ -34,10 +42,6 @@ msgstr ""
 
 #: client/app/right/file.html
 msgid "Add Comment"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "All"
 msgstr ""
 
 #: client/app/header/header.html
@@ -227,6 +231,7 @@ msgstr ""
 
 #: client/app/center/center.html
 #: client/app/header/header.html
+#: client/app/modal/share.html
 msgid "File"
 msgstr ""
 
