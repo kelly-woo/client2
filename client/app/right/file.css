@@ -119,7 +119,7 @@
     top: 46px;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 10px;
     overflow: auto;
     padding: 0 17px;
 }

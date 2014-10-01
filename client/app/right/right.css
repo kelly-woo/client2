@@ -221,6 +221,8 @@
 .file-item-body {
     padding-left: 75px;
     min-height: 65px;
+    position: relative;
+    padding-right: 14px;
 }
 .file-item-body__author__time {
     width: 100%;
@@ -262,9 +264,10 @@
 }
 
 .file-item-body-title__more {
+    position: absolute;
+    top: 10px;
+    right: 0;
     color:#999;
-    position: relative;
-    margin-left: 4px;
 }
 .file-item-body-title__more:hover{
     color: #333;
@@ -272,8 +275,8 @@
 
 .file_action_dropdown {
     left: auto;
-    right: -75px;
-    top: 20px;
+    right: 0;
+    top: 14px;
 }
 
 .file-item {

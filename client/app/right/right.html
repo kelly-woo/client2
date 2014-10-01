@@ -110,40 +110,43 @@
 
                 </div>
 
-                <!-- FILE TITLE WITH DROPDOWN MENU -->
+                <!-- FILE TITLE -->
                 <div class="file-item-body__title">
                     <span class="file-item-body-title">
                         {{ file.content.title }}
                     </span>
-
-                    <span class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
-                        <span class="dropdown-toggle">
-                            <i class="fa fa-caret-down"></i>
-                        </span>
-                        <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
-                            <li class="cursor_pointer">
-                                <a data-ng-click="onClickShare(file);">
-                                    <i class="fa fa-share-alt"></i>
-                                    <span translate>Share</span>
-                                </a>
-                            </li>
-                            <li class="cursor_pointer">
-                                <a data-ng-click="">
-                                    <i class="fa fa-comment-o"></i>
-                                    <span translate>Comment</span>
-                                </a>
-                            </li>
-                            <li class="cursor_pointer">
-                                <a href="{{ server_uploaded + file.content.fileUrl }}" download="{{ file.content.name }}">
-                                    <i class="fa fa-download"></i>
-                                    <span translate>Download</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </span>
                 </div>
 
-                <!-- UPLOADED TIME, SHARED CHANNELS/PRIVATEGROUPS, LINK -->
+                <!--    DROPDOWN MENU   -->
+                <div class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
+                    <span class="dropdown-toggle">
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
+                        <li class="cursor_pointer">
+                            <a data-ng-click="onClickShare(file);">
+                                <i class="fa fa-share-alt"></i>
+                                <span translate>Share</span>
+                            </a>
+                        </li>
+                        <li class="cursor_pointer">
+                            <a data-ng-click="">
+                                <i class="fa fa-comment-o"></i>
+                                <span translate>Comment</span>
+                            </a>
+                        </li>
+                        <li class="cursor_pointer">
+                            <a href="{{ server_uploaded + file.content.fileUrl }}" download="{{ file.content.name }}">
+                                <i class="fa fa-download"></i>
+                                <span translate>Download</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!--    UPLOADED TIME, SHARED CHANNELS/PRIVATEGROUPS, LINK
+                        CURRENTLY HIDDEN    -->
                 <div class="file-item-meta file-item-meta__listview hidden">
 
                     <div data-ng-if="file.shared.length" class="file-item-meta__info">
