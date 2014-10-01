@@ -347,6 +347,7 @@ app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entit
     };
 
     $scope.inviteOptions = entityheaderAPIservice.getInviteOptions($scope.joinedChannelList, $scope.privateGroupList);
+    console.info($scope.inviteOptions);
 
     $scope.onInviteClick = function(inviteTo) {
 
