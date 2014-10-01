@@ -134,6 +134,12 @@
                           ng-hide="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
                         <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getFirstLastNameOfUser}} </span>
                         <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getFirstLastNameOfUser}} </span>
+
+                        <!--    CREATED TIME    -->
+                        <span class="msg-item-header__created">
+                            {{msg.time | date: 'h:mm a'}}
+                        </span>
+
                     </span>
 
                     <!--    CONTINUED COMMENT ON SAME FILE  -->
