@@ -324,26 +324,23 @@
 /*
     INVITE USER TO TEAM
 */
-.invite-team-body-more-container {
-    height: 30px;
-    width: 100%;
-    margin-bottom: 10px;
-}
-.invite-team-body_more {
-    text-align: right;
-    padding: 6px 12px 6px 30px;
-    color: white;
-    font-size: 12px;
-    display: inline-block;
-    margin-bottom: 10px;
-    position: relative;
-    float: right;
-}
+.invite-team-body {
 
-.invite-team-body-more_icon {
+}
+.invite-team-body__container {
+    position: relative;
+    padding: 37px 0 0;
+}
+.invite-team-body__container-more {
     position: absolute;
-    left: 7px;
-    top: 7px;
+    top: 0;
+    right: 0;
+    padding: 6px 8px 5px 9px;
+    color: #fff;
+    font-size: 13px;
+}
+.invite-team-body__container-more i {
+    margin-right: 2px;
 }
 .invite-team-body .form-horizontal {
     padding: 5px;

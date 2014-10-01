@@ -1,21 +1,20 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: JANDI-APP\n"
+"Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en_US\n"
 
 #: client/app/center/center.html
 msgid "'s"
-msgstr "님의"
+msgstr ""
 
 #: client/app/modal/profile.view.html
 msgid "1:1 채팅"
@@ -23,97 +22,95 @@ msgstr ""
 
 #: client/app/right/right.html
 msgid "@option-all-locations"
-msgstr "모든 대화방"
+msgstr "All"
 
 #: client/app/right/right.html
 msgid "@option-all-writers"
-msgstr "모든 팀원"
+msgstr "All"
 
 #: client/app/modal/create.private.html
 msgid ""
 "A private group is only visible to its members, and only members of a "
 "private group can read or search its contents."
 msgstr ""
-"비공개 그룹은 그룹에 가입된 멤버만 볼 수 있으며, 해당 파일, 내용들도 가입된 "
-"멤버에게만 공개됩니다."
 
 #: client/app/header/header.html
 msgid "Account"
-msgstr "계정 설정"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "Account Setting"
-msgstr "계정 설정"
+msgstr ""
 
 #: client/app/left/left.html client/app/modal/invite.team.html
 msgid "Add"
-msgstr "추가"
+msgstr ""
 
 #: client/app/right/file.html
 msgid "Add Comment"
-msgstr "댓글 남기기"
+msgstr ""
 
 #: client/app/header/header.html
 msgid "All Files"
-msgstr "모든 파일"
+msgstr ""
 
 #: client/app/modal/create.channel.html
 msgid "Anyone can join."
-msgstr "채널은 팀의 멤버 누구나 참여할 수 있습니다."
+msgstr ""
 
 #: client/app/modal/settings.profile.html
 msgid "Basic Information"
-msgstr "기본 정보"
+msgstr ""
 
 #: client/app/modal/join.html
 msgid "Browse channels"
-msgstr "채널 목록"
+msgstr ""
 
 #: client/app/modal/image.crop.html client/app/modal/join.html
 #: client/app/modal/rename.html client/app/modal/share.html
 #: client/app/modal/upload.html
 msgid "Cancel"
-msgstr "취소"
+msgstr ""
 
 #: client/app/modal/image.crop.html client/app/modal/settings.profile.html
 msgid "Change"
-msgstr "변경"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "Change your email address"
-msgstr "이메일 변경하기"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "Change your full name"
-msgstr "이름 변경하기"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "Change your password"
-msgstr "비밀번호 변경하기"
+msgstr ""
 
 #: client/app/modal/create.channel.html
 msgid "Channel Name"
-msgstr "채널 이름"
+msgstr ""
 
 #: client/app/left/left.html
 msgid "Channels"
-msgstr "채널"
+msgstr ""
 
 #: client/app/modal/join.html
 msgid "Channels you belong to"
-msgstr "참여한 채널 목록"
+msgstr ""
 
 #: client/app/modal/join.html
 msgid "Channels you can join"
-msgstr "참여 가능한 채널 목록"
+msgstr ""
 
 #: client/app/modal/invite.direct.html
 msgid "Choose"
-msgstr "선택"
+msgstr ""
 
 #: client/app/right/file.html
 msgid "Click to view"
-msgstr "파일 보기"
+msgstr ""
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
@@ -121,525 +118,522 @@ msgstr "파일 보기"
 #: client/app/modal/preferences.html client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
 msgid "Close"
-msgstr "닫기"
+msgstr ""
 
 #: client/app/modal/share.html client/app/modal/upload.html
 #: client/app/right/file.html client/app/right/right.html
 msgid "Comment"
-msgstr "댓글 남기기"
+msgstr ""
 
 #: client/app/modal/preferences.html client/app/modal/rename.html
 msgid "Confirm"
-msgstr "확인"
+msgstr ""
 
 #: client/app/modal/create.channel.html client/app/modal/join.html
 msgid "Create Channel"
-msgstr "채널 생성"
+msgstr ""
 
 #: client/app/modal/create.private.html
 msgid "Create Group"
-msgstr "그룹 생성"
+msgstr ""
 
 #: client/app/header/header.html client/app/modal/join.html
 msgid "Create New Channel"
-msgstr "새 채널 생성"
+msgstr ""
 
 #: client/app/header/header.html client/app/modal/create.private.html
 msgid "Create a private group"
-msgstr "비공개 그룹 생성"
+msgstr ""
 
 #: client/app/modal/create.channel.html
 msgid "Create new channel"
-msgstr "새 채널 생성"
+msgstr ""
 
 #: client/app/modal/create.channel.html
 msgid "Creating a new channel."
-msgstr "새로운 채널을 생성합니다."
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "Current Password"
-msgstr "현재 비밀번호"
+msgstr ""
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "Customer Service"
-msgstr "고객 센터"
+msgstr ""
 
 #: client/app/right/file.html
 msgid "Delete"
-msgstr "삭제"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Delete this channel"
-msgstr "채널 삭제하기"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Delete this group"
-msgstr "비공개 그룹 삭제하기"
+msgstr ""
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "Department"
-msgstr "부서"
+msgstr ""
 
 #: client/app/modal/preferences.html
 msgid "Desktop Notifications"
-msgstr "데스크탑 알림"
+msgstr ""
 
 #: client/app/modal/list.user.html
 msgid "Direct Message"
-msgstr "1:1 메세지"
+msgstr ""
 
 #: client/app/left/left.html
 msgid "Direct Messages"
-msgstr "1:1 메세지"
+msgstr ""
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "Download"
-msgstr "다운로드"
+msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "Each fields(Email, Last Name, First Name) are all required."
 msgstr ""
-"이메일, 성 그리고 이름 세 정보를 모두 기입하셔야 초대 이메일이 전송됩니다."
 
 #: client/app/modal/settings.profile.html
 msgid "Edit"
-msgstr "수정하기"
+msgstr ""
 
 #: client/app/modal/invite.team.html client/app/modal/profile.view.html
 #: client/app/modal/settings.profile.html
 msgid "Email"
-msgstr "이메일"
+msgstr ""
 
 #: client/app/signin/signin.html
 msgid "Email address"
-msgstr "이메일 주소"
+msgstr ""
 
 #: client/app/signin/signin.html
 msgid "Enter your email and password"
-msgstr "이메일과 비밀번호를 입력하세요"
+msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "Failed to send email"
-msgstr "다음 주소로 이메일 보내기를 실패하였습니다."
+msgstr ""
 
 #: client/app/center/center.html client/app/header/header.html
 #: client/app/modal/share.html
 msgid "File"
-msgstr "파일"
+msgstr ""
 
 #: client/app/right/right.html
 msgid "File Type"
-msgstr "파일 형식"
+msgstr ""
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "File has not been shared in any other channels"
-msgstr "공유된 채널이 없습니다"
+msgstr ""
 
 #: client/app/header/header.html client/app/right/file.html
 #: client/app/right/right.html
 msgid "Files"
-msgstr "파일"
+msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "First Name"
-msgstr "이름"
+msgstr ""
 
 #: client/app/modal/preferences.html
 msgid "For all messages"
-msgstr "모든 메세지"
+msgstr ""
 
 #: client/app/modal/upload.html
 msgid "For search file by title"
-msgstr "타이틀로 파일을 쉽게 검색할 수 있습니다"
+msgstr ""
 
 #: client/app/signin/signin.html
 msgid "Forgot Password?"
-msgstr "비밀번호 찾기"
+msgstr ""
 
 #: client/app/modal/settings.profile.html
 msgid "Full Name"
-msgstr "실명"
+msgstr ""
 
 #: client/app/header/header.html
 msgid "Images"
-msgstr "이미지"
+msgstr ""
 
 #: client/app/signin/signin.html
 msgid "Invalid email or password"
-msgstr "이메일 또는 비밀번호를 확인해주세요"
+msgstr ""
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
 msgid "Invite"
-msgstr "초대"
+msgstr ""
 
 #: client/app/header/header.html client/app/modal/invite.channel.html
 msgid "Invite Others"
-msgstr "팀원 초대"
+msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "Invite others to team"
-msgstr "새로운 팀원 초대하기"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Invite others to this channel"
-msgstr "채널 초대하기"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Invite others to this group"
-msgstr "그룹 초대하기"
+msgstr ""
 
 #: client/app/modal/invite.direct.html
 msgid "Invite to"
-msgstr "채널/그룹 목록"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Invite to channel/group"
-msgstr "채널/비공개 그룹으로 초대하기"
+msgstr ""
 
 #: client/app/modal/invite.direct.html
 msgid "Invite {{ currentEntity | getFirstLastNameOfUser }} to a channel/group"
-msgstr "{{ currentEntity | getFirstLastNameOfUser }}님 초대하기"
+msgstr ""
 
 #: client/app/modal/join.html
 msgid "Join"
-msgstr "참여"
+msgstr ""
 
 #: client/app/modal/preferences.html
 msgid "Language"
-msgstr "언어"
+msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "Last Name"
-msgstr "성"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Leave channel"
-msgstr "채널 나가기"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Leave group"
-msgstr "비공개 그룹 나가기"
+msgstr ""
 
 #: client/app/right/right.html
 msgid "Location"
-msgstr "공유된 곳"
+msgstr ""
 
 #: client/app/header/header.html
 msgid "Menu"
-msgstr "메뉴"
+msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "Missing Information"
-msgstr "모든 정보를 입력해주세요"
+msgstr ""
 
 #: client/app/left/left.html
 msgid "More"
-msgstr "더보기"
+msgstr ""
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/rename.html
 msgid "Name"
-msgstr "이름"
+msgstr ""
 
 #: client/app/modal/preferences.html
 msgid "Never"
-msgstr "없음"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "New Password"
-msgstr "새 비밀번호"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "New Username"
-msgstr "변경할 이름"
+msgstr ""
 
 #: client/app/modal/settings.profile.html
 msgid "Nickname"
-msgstr "닉네임"
+msgstr ""
 
 #: client/app/modal/join.html
 msgid "No Result"
-msgstr "결과가 없습니다"
+msgstr ""
 
 #: client/app/modal/join.html
 msgid "No channels to join"
-msgstr "참여 가능한 채널이 없습니다"
+msgstr ""
 
 #: client/app/right/right.html
 msgid "No files found matching on"
-msgstr "검색 결과가 없습니다"
+msgstr ""
 
 #: client/app/right/right.html
 msgid "No files uploaded"
-msgstr "업로드된 파일이 없습니다"
+msgstr ""
 
 #: client/app/modal/preferences.html
 msgid "Only for direct messages"
-msgstr "1:1 메세지"
+msgstr ""
 
 #: client/app/center/center.html client/app/right/right.html
 msgid "Open original"
-msgstr "원본 보기"
+msgstr ""
 
 #: client/app/modal/settings.profile.html
 msgid "Optional Information"
-msgstr "추가 정보"
+msgstr ""
 
 #: client/app/header/header.html
 msgid "PDF"
-msgstr "PDF"
+msgstr ""
 
 #: client/app/signin/signin.html
 msgid "Password"
-msgstr "비밀번호"
+msgstr ""
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "Phone"
-msgstr "전화번호"
+msgstr ""
 
 #: client/app/modal/create.channel.html
 msgid "Please use Private Group for a closed channel."
 msgstr ""
-"특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 생성"
-"하여 초대해 주시기 바랍니다."
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "Position"
-msgstr "직책"
+msgstr ""
 
 #: client/app/header/header.html client/app/modal/preferences.html
 msgid "Preferences"
-msgstr "서비스 설정"
+msgstr ""
 
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/signin/signin.html
 msgid "Privacy Policy"
-msgstr "개인정보취급방침"
+msgstr ""
 
 #: client/app/modal/create.private.html
 msgid "Private Group Name"
-msgstr "비공개 그룹 이름"
+msgstr ""
 
 #: client/app/left/left.html
 msgid "Private Groups"
-msgstr "비공개 그룹"
+msgstr ""
 
 #: client/app/header/header.html
 msgid "Profile"
-msgstr "프로필 수정"
+msgstr ""
 
 #: client/app/modal/settings.profile.html
 msgid "Profile Setting"
-msgstr "프로필 수정"
+msgstr ""
 
 #: client/app/modal/image.crop.html
 msgid "Profile picture"
-msgstr "프로필 사진"
+msgstr ""
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "Purpose"
-msgstr "목적"
+msgstr ""
 
 #: client/app/modal/rename.html
 msgid "Rename"
-msgstr "이름 변경"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Rename this channel"
-msgstr "채널 이름 변경하기"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Rename this group"
-msgstr "비공개 그룹 이름 변경하기"
+msgstr ""
 
 #: client/app/right/right.html
 msgid "Search by title"
-msgstr "제목으로 검색"
+msgstr ""
 
 #: client/app/modal/join.html
 msgid "Search channel by name"
-msgstr "이름으로 검색"
+msgstr ""
 
 #: client/app/modal/invite.channel.html client/app/modal/list.user.html
 msgid "Search users by name"
-msgstr "이름으로 검색"
+msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "Sent the invitation mail successfully"
-msgstr "정상적으로 초대 이메일을 보냈습니다."
+msgstr ""
 
 #: client/app/header/header.html
 msgid "Settings"
-msgstr "설정"
+msgstr ""
 
 #: client/app/modal/share.html client/app/right/file.html
 #: client/app/right/right.html
 msgid "Share"
-msgstr "공유하기"
+msgstr ""
 
 #: client/app/modal/share.html
 msgid "Share File"
-msgstr "파일 공유"
+msgstr ""
 
 #: client/app/modal/share.html client/app/modal/upload.html
 msgid "Share in"
-msgstr "공유 대상"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Shared"
-msgstr "공유"
+msgstr ""
 
 #: client/app/signin/signin.html
 msgid "Sign In"
-msgstr "로그인"
+msgstr ""
 
 #: client/app/header/header.html
 msgid "Sign Out"
-msgstr "로그아웃"
+msgstr ""
 
 #: client/app/header/header.html
 msgid "Starred Items"
-msgstr "즐겨찾기"
+msgstr ""
 
 #: client/app/header/header.html
 msgid "Team Directory"
-msgstr "팀"
+msgstr ""
 
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/signin/signin.html
 msgid "Terms of Service"
-msgstr "이용약관"
+msgstr ""
 
 #: client/app/error/404.html
 msgid "That’s an error"
-msgstr "..길을 잃었습니다"
+msgstr ""
 
 #: client/app/error/404.html
 msgid "The page you were looking for could not be found."
-msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
+msgstr ""
 
 #: client/app/modal/upload.html
 msgid "Title"
-msgstr "타이틀"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "Unshared"
-msgstr "공유해제"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "Update Password"
-msgstr "비밀번호 변경"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "Update Username"
-msgstr "이름 변경"
+msgstr ""
 
 #: client/app/modal/upload.html
 msgid "Upload"
-msgstr "업로드"
+msgstr ""
 
 #: client/app/modal/upload.html client/app/right/right.html
 msgid "Upload File"
-msgstr "파일 업로드"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "View files"
-msgstr "파일 보기"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "View profile"
-msgstr "프로필 보기"
+msgstr ""
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "Visit Homepage"
-msgstr "잔디 홈페이지"
+msgstr ""
 
 #: client/app/signin/signin.html
 msgid "Welcome to {{teamInfo.name}}"
-msgstr "{{teamInfo.name}} 환영합니다"
+msgstr ""
 
 #: client/app/right/right.html
 msgid "Writer"
-msgstr "작성자"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "You can change account settings such as full name, password"
-msgstr "이름, 비밀번호 등 계정 설정을 할 수 있습니다"
+msgstr ""
 
 #: client/app/modal/preferences.html
 msgid "You can change service preferences such as language, notifications."
-msgstr "언어, 데스크탑 알림 등 서비스 설정을 할 수 있습니다."
+msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "You can invite others to Jandi by email."
-msgstr "이메일을 통해 다른 팀원을 잔디로 초대할 수 있습니다."
+msgstr ""
 
 #: client/app/modal/settings.profile.html
 msgid ""
 "You can set or change basic information such as nickname, phone number and "
 "position."
-msgstr "닉네임, 전화번호, 직책 등 기본적인 프로필 정보를 수정할 수 있습니다."
+msgstr ""
 
 #: client/app/modal/join.html
 msgid "You have not joined any channels yet"
-msgstr "참여한 채널이 없습니다"
+msgstr ""
 
 #: client/app/header/header.html
 msgid "Your Files"
-msgstr "내 파일"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "created current channel"
-msgstr "님이 채널을 생성했습니다"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "created current private group"
-msgstr "님이 비공개 그룹을 생성했습니다"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "fail to update"
-msgstr "업데이트 중 오류가 발생했습니다"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "has joined"
-msgstr "님이 참여했습니다"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "has left"
-msgstr "님이 떠났습니다"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "invalid password"
-msgstr "비밀번호가 일치하지 않습니다"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "invite-postfix"
-msgstr "님을 초대했습니다"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "invited"
-msgstr "님이"
+msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "is already member of your team"
-msgstr "은(는) 이미 가입된 이메일입니다"
+msgstr ""
 
 #: client/app/modal/invite.team.html
 msgid "is invalid email address"
-msgstr "은(는) 올바르지 않은 이메일 주소입니다"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "required"
-msgstr "필수항목입니다"
+msgstr ""
 
 #: client/app/right/file.html
 msgid "shift+enter to multiline"
-msgstr "멀티라인 입력: shift+enter"
+msgstr ""
 
 #: client/app/modal/settings.account.html
 msgid "update complete"
-msgstr "올바로 변경되었습니다"
+msgstr ""
 
 #: client/app/modal/profile.view.html
 msgid "메일 전송"
@@ -656,61 +650,3 @@ msgstr ""
 #: client/app/modal/profile.view.html
 msgid "파일 리스트"
 msgstr ""
-
-#~ msgid "Audio"
-#~ msgstr "음악 파일"
-
-#~ msgid "EVERYONE"
-#~ msgstr "모든 팀원"
-
-#~ msgid "Video"
-#~ msgstr "동영상 파일"
-
-#~ msgid "YOU"
-#~ msgstr "나"
-
-#~ msgid "Activity Feed"
-#~ msgstr "활동 기록"
-
-#~ msgid "Recent Mentions"
-#~ msgstr "최근 멘션"
-
-#~ msgid "Rename Channel"
-#~ msgstr "채널 이름 변경"
-
-#~ msgid "For activity of any kind"
-#~ msgstr "모든 메세지"
-
-#~ msgid "joined this channel"
-#~ msgstr "님이 참여했습니다"
-
-#~ msgid "left this channel"
-#~ msgstr "님이 떠났습니다"
-
-#~ msgid "Create channel"
-#~ msgstr "채널 생성"
-
-#~ msgid "Create private group"
-#~ msgstr "비공개 그룹 생성"
-
-#~ msgid "Search"
-#~ msgstr "검색"
-
-#~ msgid "more..."
-#~ msgstr "더 보기..."
-
-#~ msgid "----- choose -----"
-#~ msgstr "----- 선택 -----"
-
-#, fuzzy
-#~ msgid "Upload file"
-#~ msgstr "파일 업로드"
-
-#~ msgid "JUST YOU"
-#~ msgstr "나"
-
-#~ msgid "Add New File"
-#~ msgstr "파일 업로드"
-
-#~ msgid "Please sign in"
-#~ msgstr "잔디 회원이라면 로그인 하세요"

@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('entityheaderAPIservice', function($http, $rootScope,  $filter) {
+app.factory('entityheaderAPIservice', function($http, $rootScope, $filter) {
     var entityheaderAPI = {};
 
     entityheaderAPI.renameEntity = function(entityType, entityId, newEntityName) {
@@ -39,7 +39,7 @@ app.factory('entityheaderAPIservice', function($http, $rootScope,  $filter) {
             url: $rootScope.server_address + entityType + 's/' + entityId + '/invite',
             data: {"inviteUsers": users}
         });
-    }
+    };
 
     entityheaderAPI.joinChannel = function(entityId) {
         return $http({
@@ -58,18 +58,28 @@ app.factory('entityheaderAPIservice', function($http, $rootScope,  $filter) {
 
 
     entityheaderAPI.getInviteOptions = function(joinedChannelList, privateGroupList) {
-        return joinedChannelList.concat(privateGroupList);
-    }
+        var options = [];
+        var lists = joinedChannelList.concat(privateGroupList);
+        // TODO: 이미 모든 팀원이 초대된 entity는 예외 처리
+        for (var i in lists) {
+            var entity = lists[i];
+            options.push({
+                'type'  : $filter('translate')(entity.type),
+                'name'  : entity.name
+            });
+        }
+        return options;
+    };
 
     entityheaderAPI.init = function(stateParams, scope) {
 
-        console.log('init')
-        console.log('$stateParams', stateParams)
-        console.log('scope', scope)
+        console.log('init');
+        console.log('$stateParams', stateParams);
+        console.log('scope', scope);
 
         var members = [];
 
-        console.log($rootScope.currentEntity)
+        console.log($rootScope.currentEntity);
 
         if ($rootScope.currentEntity.type == 'channel') {
             members = $rootScope.currentEntity.ch_members;
@@ -78,15 +88,14 @@ app.factory('entityheaderAPIservice', function($http, $rootScope,  $filter) {
             members = $rootScope.currentEntity.pg_members;
         }
 
-        console.log(members)
+        console.log(members);
 
         if (member == null) {
-            console.log('returning null')
+            console.log('returning null');
             return null;
         }
         return members;
-
-    }
+    };
 
     return entityheaderAPI;
 });

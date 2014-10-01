@@ -43,7 +43,7 @@
 
                 <select ng-model="sharedEntitySearchQuery"
                         ng-options="channel as channel|getFirstLastNameOfUser group by channel.type for channel in selectOptions">
-                    <option value=""><span translate> All </span></option>
+                    <option value="">{{ '@option-all-locations' | translate }}</option>
                 </select>
 
             </div>
@@ -56,7 +56,7 @@
 
                 <select ng-model="fileRequest.writerId"
                         ng-options="user.id as user|getFirstLastNameOfUser for user in userList">
-                    <option value=""><span translate> All </span></option>
+                    <option value="">{{ '@option-all-writers' | translate }}</option>
                 </select>
 
             </div>
@@ -66,10 +66,8 @@
                 <div class="advanced-search-option__title">
                     <span translate>File Type</span>
                 </div>
-
                 <select ng-model="fileRequest.fileType"
                         ng-options="type|upperFirstCharacter for type in fileTypeList"></select>
-
             </div>
 
         </div>
