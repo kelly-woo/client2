@@ -25,6 +25,10 @@ msgstr ""
 msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
 msgstr ""
 
+#: client/app/header/header.html
+msgid "@common-account-settings"
+msgstr "계정 설정"
+
 #: client/app/left/left.html
 msgid "@common-add"
 msgstr "추가"
@@ -32,6 +36,14 @@ msgstr "추가"
 #: client/app/left/left.html
 msgid "@common-channels"
 msgstr "채널"
+
+#: client/app/header/header.html
+msgid "@common-create-ch"
+msgstr "새 채널 생성"
+
+#: client/app/header/header.html
+msgid "@common-create-pg"
+msgstr "비공개 그룹 생성"
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
@@ -45,6 +57,10 @@ msgstr "1:1 메세지"
 msgid "@common-email"
 msgstr "이메일"
 
+#: client/app/header/header.html
+msgid "@common-faq"
+msgstr "FAQ"
+
 #: client/app/left/left.html
 msgid "@common-more"
 msgstr "더보기"
@@ -53,7 +69,8 @@ msgstr "더보기"
 msgid "@common-password"
 msgstr "비밀번호"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html client/app/header/header.html
+#: client/app/signin/signin.html
 msgid "@common-privacy-policy"
 msgstr "개인정보취급방침"
 
@@ -61,11 +78,24 @@ msgstr "개인정보취급방침"
 msgid "@common-private-groups"
 msgstr "비공개 그룹"
 
+#: client/app/header/header.html
+msgid "@common-profile-settings"
+msgstr "프로필 수정"
+
+#: client/app/header/header.html
+msgid "@common-service-settings"
+msgstr "서비스 설정"
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr "로그인"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/header/header.html
+msgid "@common-sign-out"
+msgstr "로그아웃"
+
+#: client/app/error/404.html client/app/header/header.html
+#: client/app/signin/signin.html
 msgid "@common-terms-of-service"
 msgstr "이용약관"
 
@@ -80,6 +110,54 @@ msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
 #: client/app/error/404.html
 msgid "@error-404-title"
 msgstr ".. 길을 잃었습니다"
+
+#: client/app/header/header.html
+msgid "@file-all"
+msgstr "모든 파일"
+
+#: client/app/header/header.html
+msgid "@file-audio"
+msgstr "오디오"
+
+#: client/app/header/header.html
+msgid "@file-hwp"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "@file-image"
+msgstr "이미지"
+
+#: client/app/header/header.html
+msgid "@file-pdf"
+msgstr "PDF"
+
+#: client/app/header/header.html
+msgid "@file-upload"
+msgstr "파일 업로드"
+
+#: client/app/header/header.html
+msgid "@file-video"
+msgstr "비디오"
+
+#: client/app/header/header.html
+msgid "@file-your"
+msgstr "내 파일"
+
+#: client/app/header/header.html
+msgid "@header-file"
+msgstr "파일"
+
+#: client/app/header/header.html
+msgid "@header-help"
+msgstr "도움말"
+
+#: client/app/header/header.html
+msgid "@header-menu"
+msgstr "메뉴"
+
+#: client/app/header/header.html
+msgid "@header-setting"
+msgstr "설정"
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
@@ -105,6 +183,14 @@ msgstr "모든 대화방"
 msgid "@option-all-writers"
 msgstr "모든 팀원"
 
+#: client/app/header/header.html
+msgid "@team-invite"
+msgstr "팀원 초대"
+
+#: client/app/header/header.html
+msgid "@team-switch"
+msgstr "팀 변경"
+
 #: client/app/modal/create.private.html
 msgid ""
 "A private group is only visible to its members, and only members of a "
@@ -112,10 +198,6 @@ msgid ""
 msgstr ""
 "비공개 그룹은 그룹에 가입된 멤버만 볼 수 있으며, 해당 파일, 내용들도 가입된 "
 "멤버에게만 공개됩니다."
-
-#: client/app/header/header.html
-msgid "Account"
-msgstr "계정 설정"
 
 #: client/app/modal/settings.account.html
 msgid "Account Setting"
@@ -128,10 +210,6 @@ msgstr "추가"
 #: client/app/right/file.html
 msgid "Add Comment"
 msgstr "댓글 남기기"
-
-#: client/app/header/header.html
-msgid "All Files"
-msgstr "모든 파일"
 
 #: client/app/modal/create.channel.html
 msgid "Anyone can join."
@@ -212,11 +290,11 @@ msgstr "채널 생성"
 msgid "Create Group"
 msgstr "그룹 생성"
 
-#: client/app/header/header.html client/app/modal/join.html
+#: client/app/modal/join.html
 msgid "Create New Channel"
 msgstr "새 채널 생성"
 
-#: client/app/header/header.html client/app/modal/create.private.html
+#: client/app/modal/create.private.html
 msgid "Create a private group"
 msgstr "비공개 그룹 생성"
 
@@ -278,8 +356,7 @@ msgstr "이메일"
 msgid "Failed to send email"
 msgstr "다음 주소로 이메일 보내기를 실패하였습니다."
 
-#: client/app/center/center.html client/app/header/header.html
-#: client/app/modal/share.html
+#: client/app/center/center.html client/app/modal/share.html
 msgid "File"
 msgstr "파일"
 
@@ -291,7 +368,7 @@ msgstr "파일 형식"
 msgid "File has not been shared in any other channels"
 msgstr "공유된 채널이 없습니다"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/right/right.html
 msgid "Files"
 msgstr "파일"
 
@@ -311,16 +388,12 @@ msgstr "타이틀로 파일을 쉽게 검색할 수 있습니다"
 msgid "Full Name"
 msgstr "실명"
 
-#: client/app/header/header.html
-msgid "Images"
-msgstr "이미지"
-
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
 msgid "Invite"
 msgstr "초대"
 
-#: client/app/header/header.html client/app/modal/invite.channel.html
+#: client/app/modal/invite.channel.html
 msgid "Invite Others"
 msgstr "팀원 초대"
 
@@ -371,10 +444,6 @@ msgstr "비공개 그룹 나가기"
 #: client/app/right/right.html
 msgid "Location"
 msgstr "공유된 곳"
-
-#: client/app/header/header.html
-msgid "Menu"
-msgstr "메뉴"
 
 #: client/app/modal/invite.team.html
 msgid "Missing Information"
@@ -429,10 +498,6 @@ msgstr "원본 보기"
 msgid "Optional Information"
 msgstr "추가 정보"
 
-#: client/app/header/header.html
-msgid "PDF"
-msgstr "PDF"
-
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "Phone"
 msgstr "전화번호"
@@ -447,21 +512,13 @@ msgstr ""
 msgid "Position"
 msgstr "직책"
 
-#: client/app/header/header.html client/app/modal/preferences.html
+#: client/app/modal/preferences.html
 msgid "Preferences"
 msgstr "서비스 설정"
-
-#: client/app/header/header.html
-msgid "Privacy Policy"
-msgstr "개인정보취급방침"
 
 #: client/app/modal/create.private.html
 msgid "Private Group Name"
 msgstr "비공개 그룹 이름"
-
-#: client/app/header/header.html
-msgid "Profile"
-msgstr "프로필 수정"
 
 #: client/app/modal/settings.profile.html
 msgid "Profile Setting"
@@ -503,10 +560,6 @@ msgstr "이름으로 검색"
 msgid "Sent the invitation mail successfully"
 msgstr "정상적으로 초대 이메일을 보냈습니다."
 
-#: client/app/header/header.html
-msgid "Settings"
-msgstr "설정"
-
 #: client/app/modal/share.html client/app/right/file.html
 #: client/app/right/right.html
 msgid "Share"
@@ -523,22 +576,6 @@ msgstr "공유 대상"
 #: client/app/center/center.html
 msgid "Shared"
 msgstr "공유"
-
-#: client/app/header/header.html
-msgid "Sign Out"
-msgstr "로그아웃"
-
-#: client/app/header/header.html
-msgid "Starred Items"
-msgstr "즐겨찾기"
-
-#: client/app/header/header.html
-msgid "Team Directory"
-msgstr "팀"
-
-#: client/app/header/header.html
-msgid "Terms of Service"
-msgstr "이용약관"
 
 #: client/app/modal/upload.html
 msgid "Title"
@@ -597,10 +634,6 @@ msgstr "닉네임, 전화번호, 직책 등 기본적인 프로필 정보를 수
 #: client/app/modal/join.html
 msgid "You have not joined any channels yet"
 msgstr "참여한 채널이 없습니다"
-
-#: client/app/header/header.html
-msgid "Your Files"
-msgstr "내 파일"
 
 #: client/app/center/center.html
 msgid "created current channel"
@@ -669,6 +702,45 @@ msgstr ""
 #: client/app/modal/profile.view.html
 msgid "파일 리스트"
 msgstr ""
+
+#~ msgid "Account"
+#~ msgstr "계정 설정"
+
+#~ msgid "All Files"
+#~ msgstr "모든 파일"
+
+#~ msgid "Images"
+#~ msgstr "이미지"
+
+#~ msgid "Menu"
+#~ msgstr "메뉴"
+
+#~ msgid "PDF"
+#~ msgstr "PDF"
+
+#~ msgid "Privacy Policy"
+#~ msgstr "개인정보취급방침"
+
+#~ msgid "Profile"
+#~ msgstr "프로필 수정"
+
+#~ msgid "Settings"
+#~ msgstr "설정"
+
+#~ msgid "Sign Out"
+#~ msgstr "로그아웃"
+
+#~ msgid "Starred Items"
+#~ msgstr "즐겨찾기"
+
+#~ msgid "Team Directory"
+#~ msgstr "팀"
+
+#~ msgid "Terms of Service"
+#~ msgstr "이용약관"
+
+#~ msgid "Your Files"
+#~ msgstr "내 파일"
 
 #~ msgid "Channels"
 #~ msgstr "채널"

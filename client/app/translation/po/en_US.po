@@ -24,6 +24,10 @@ msgstr ""
 msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
 msgstr ""
 
+#: client/app/header/header.html
+msgid "@common-account-settings"
+msgstr "Account Settings"
+
 #: client/app/left/left.html
 msgid "@common-add"
 msgstr "Add"
@@ -31,6 +35,14 @@ msgstr "Add"
 #: client/app/left/left.html
 msgid "@common-channels"
 msgstr "Channels"
+
+#: client/app/header/header.html
+msgid "@common-create-ch"
+msgstr "Create New Channel"
+
+#: client/app/header/header.html
+msgid "@common-create-pg"
+msgstr "Create New Private Group"
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
@@ -44,6 +56,10 @@ msgstr "Direct Messages"
 msgid "@common-email"
 msgstr "Email"
 
+#: client/app/header/header.html
+msgid "@common-faq"
+msgstr "FAQ"
+
 #: client/app/left/left.html
 msgid "@common-more"
 msgstr "More"
@@ -52,7 +68,8 @@ msgstr "More"
 msgid "@common-password"
 msgstr "Password"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html client/app/header/header.html
+#: client/app/signin/signin.html
 msgid "@common-privacy-policy"
 msgstr "Privacy Policy"
 
@@ -60,11 +77,24 @@ msgstr "Privacy Policy"
 msgid "@common-private-groups"
 msgstr "Private Groups"
 
+#: client/app/header/header.html
+msgid "@common-profile-settings"
+msgstr "Profile Settings"
+
+#: client/app/header/header.html
+msgid "@common-service-settings"
+msgstr "Service Preferences"
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr "Sign In"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/header/header.html
+msgid "@common-sign-out"
+msgstr "Sign Out"
+
+#: client/app/error/404.html client/app/header/header.html
+#: client/app/signin/signin.html
 msgid "@common-terms-of-service"
 msgstr "Terms of Service"
 
@@ -79,6 +109,54 @@ msgstr "The page you were looking for could not be found"
 #: client/app/error/404.html
 msgid "@error-404-title"
 msgstr "That’s an error"
+
+#: client/app/header/header.html
+msgid "@file-all"
+msgstr "All Files"
+
+#: client/app/header/header.html
+msgid "@file-audio"
+msgstr "Audio Files"
+
+#: client/app/header/header.html
+msgid "@file-hwp"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "@file-image"
+msgstr "Images"
+
+#: client/app/header/header.html
+msgid "@file-pdf"
+msgstr "PDF Files"
+
+#: client/app/header/header.html
+msgid "@file-upload"
+msgstr "File Upload"
+
+#: client/app/header/header.html
+msgid "@file-video"
+msgstr "Video Files"
+
+#: client/app/header/header.html
+msgid "@file-your"
+msgstr "Your Files"
+
+#: client/app/header/header.html
+msgid "@header-file"
+msgstr "File"
+
+#: client/app/header/header.html
+msgid "@header-help"
+msgstr "Help"
+
+#: client/app/header/header.html
+msgid "@header-menu"
+msgstr "Menu"
+
+#: client/app/header/header.html
+msgid "@header-setting"
+msgstr "Setting"
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
@@ -104,14 +182,18 @@ msgstr "All"
 msgid "@option-all-writers"
 msgstr "All"
 
+#: client/app/header/header.html
+msgid "@team-invite"
+msgstr "Invite Others to Team"
+
+#: client/app/header/header.html
+msgid "@team-switch"
+msgstr "Switch Teams"
+
 #: client/app/modal/create.private.html
 msgid ""
 "A private group is only visible to its members, and only members of a "
 "private group can read or search its contents."
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Account"
 msgstr ""
 
 #: client/app/modal/settings.account.html
@@ -124,10 +206,6 @@ msgstr ""
 
 #: client/app/right/file.html
 msgid "Add Comment"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "All Files"
 msgstr ""
 
 #: client/app/modal/create.channel.html
@@ -209,11 +287,11 @@ msgstr ""
 msgid "Create Group"
 msgstr ""
 
-#: client/app/header/header.html client/app/modal/join.html
+#: client/app/modal/join.html
 msgid "Create New Channel"
 msgstr ""
 
-#: client/app/header/header.html client/app/modal/create.private.html
+#: client/app/modal/create.private.html
 msgid "Create a private group"
 msgstr ""
 
@@ -274,8 +352,7 @@ msgstr ""
 msgid "Failed to send email"
 msgstr ""
 
-#: client/app/center/center.html client/app/header/header.html
-#: client/app/modal/share.html
+#: client/app/center/center.html client/app/modal/share.html
 msgid "File"
 msgstr ""
 
@@ -287,7 +364,7 @@ msgstr ""
 msgid "File has not been shared in any other channels"
 msgstr ""
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/right/right.html
 msgid "Files"
 msgstr ""
 
@@ -307,16 +384,12 @@ msgstr ""
 msgid "Full Name"
 msgstr ""
 
-#: client/app/header/header.html
-msgid "Images"
-msgstr ""
-
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
 msgid "Invite"
 msgstr ""
 
-#: client/app/header/header.html client/app/modal/invite.channel.html
+#: client/app/modal/invite.channel.html
 msgid "Invite Others"
 msgstr ""
 
@@ -366,10 +439,6 @@ msgstr ""
 
 #: client/app/right/right.html
 msgid "Location"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Menu"
 msgstr ""
 
 #: client/app/modal/invite.team.html
@@ -425,10 +494,6 @@ msgstr ""
 msgid "Optional Information"
 msgstr ""
 
-#: client/app/header/header.html
-msgid "PDF"
-msgstr ""
-
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "Phone"
 msgstr ""
@@ -441,20 +506,12 @@ msgstr ""
 msgid "Position"
 msgstr ""
 
-#: client/app/header/header.html client/app/modal/preferences.html
+#: client/app/modal/preferences.html
 msgid "Preferences"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Privacy Policy"
 msgstr ""
 
 #: client/app/modal/create.private.html
 msgid "Private Group Name"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Profile"
 msgstr ""
 
 #: client/app/modal/settings.profile.html
@@ -497,10 +554,6 @@ msgstr ""
 msgid "Sent the invitation mail successfully"
 msgstr ""
 
-#: client/app/header/header.html
-msgid "Settings"
-msgstr ""
-
 #: client/app/modal/share.html client/app/right/file.html
 #: client/app/right/right.html
 msgid "Share"
@@ -516,22 +569,6 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "Shared"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Sign Out"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Starred Items"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Team Directory"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Terms of Service"
 msgstr ""
 
 #: client/app/modal/upload.html
@@ -590,10 +627,6 @@ msgstr ""
 
 #: client/app/modal/join.html
 msgid "You have not joined any channels yet"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Your Files"
 msgstr ""
 
 #: client/app/center/center.html
