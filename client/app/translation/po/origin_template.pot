@@ -15,6 +15,54 @@ msgstr ""
 msgid "1:1 채팅"
 msgstr ""
 
+#: client/app/right/file.html
+msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@common-customer-service"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@common-email"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@common-password"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@common-privacy-policy"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@common-sign-in"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@common-terms-of-service"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@common-visit-homepage"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@login-invalid"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@login-message"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@login-reset-password"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@login-welcome {{teamInfo.name}}"
+msgstr ""
+
 #: client/app/right/right.html
 msgid "@option-all-locations"
 msgstr ""
@@ -165,7 +213,6 @@ msgid "Current Password"
 msgstr ""
 
 #: client/app/error/404.html
-#: client/app/signin/signin.html
 msgid "Customer Service"
 msgstr ""
 
@@ -217,14 +264,6 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: client/app/signin/signin.html
-msgid "Email address"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Enter your email and password"
-msgstr ""
-
 #: client/app/modal/invite.team.html
 msgid "Failed to send email"
 msgstr ""
@@ -245,7 +284,6 @@ msgid "File has not been shared in any other channels"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "Files"
 msgstr ""
@@ -262,20 +300,12 @@ msgstr ""
 msgid "For search file by title"
 msgstr ""
 
-#: client/app/signin/signin.html
-msgid "Forgot Password?"
-msgstr ""
-
 #: client/app/modal/settings.profile.html
 msgid "Full Name"
 msgstr ""
 
 #: client/app/header/header.html
 msgid "Images"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Invalid email or password"
 msgstr ""
 
 #: client/app/modal/invite.channel.html
@@ -404,10 +434,6 @@ msgstr ""
 msgid "PDF"
 msgstr ""
 
-#: client/app/signin/signin.html
-msgid "Password"
-msgstr ""
-
 #: client/app/modal/profile.view.html
 #: client/app/modal/settings.profile.html
 msgid "Phone"
@@ -429,7 +455,6 @@ msgstr ""
 
 #: client/app/error/404.html
 #: client/app/header/header.html
-#: client/app/signin/signin.html
 msgid "Privacy Policy"
 msgstr ""
 
@@ -510,10 +535,6 @@ msgstr ""
 msgid "Shared"
 msgstr ""
 
-#: client/app/signin/signin.html
-msgid "Sign In"
-msgstr ""
-
 #: client/app/header/header.html
 msgid "Sign Out"
 msgstr ""
@@ -528,7 +549,6 @@ msgstr ""
 
 #: client/app/error/404.html
 #: client/app/header/header.html
-#: client/app/signin/signin.html
 msgid "Terms of Service"
 msgstr ""
 
@@ -574,12 +594,7 @@ msgid "View profile"
 msgstr ""
 
 #: client/app/error/404.html
-#: client/app/signin/signin.html
 msgid "Visit Homepage"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Welcome to {{teamInfo.name}}"
 msgstr ""
 
 #: client/app/right/right.html

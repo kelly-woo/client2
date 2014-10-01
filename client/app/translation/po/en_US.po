@@ -5,12 +5,12 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: en_US\n"
 
 #: client/app/center/center.html
 msgid "'s"
@@ -19,6 +19,54 @@ msgstr ""
 #: client/app/modal/profile.view.html
 msgid "1:1 채팅"
 msgstr ""
+
+#: client/app/right/file.html
+msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@common-customer-service"
+msgstr "Customer Service"
+
+#: client/app/signin/signin.html
+msgid "@common-email"
+msgstr "Email"
+
+#: client/app/signin/signin.html
+msgid "@common-password"
+msgstr "Password"
+
+#: client/app/signin/signin.html
+msgid "@common-privacy-policy"
+msgstr "Privacy Policy"
+
+#: client/app/signin/signin.html
+msgid "@common-sign-in"
+msgstr "Sign In"
+
+#: client/app/signin/signin.html
+msgid "@common-terms-of-service"
+msgstr "Terms of Service"
+
+#: client/app/signin/signin.html
+msgid "@common-visit-homepage"
+msgstr "Visit Homepage"
+
+#: client/app/signin/signin.html
+msgid "@login-invalid"
+msgstr "Invalid email or password"
+
+#: client/app/signin/signin.html
+msgid "@login-message"
+msgstr "Enter your email and password"
+
+#: client/app/signin/signin.html
+msgid "@login-reset-password"
+msgstr "Forgot Password?"
+
+#: client/app/signin/signin.html
+msgid "@login-welcome {{teamInfo.name}}"
+msgstr "Welcome to {{teamInfo.name}}"
 
 #: client/app/right/right.html
 msgid "@option-all-locations"
@@ -157,7 +205,7 @@ msgstr ""
 msgid "Current Password"
 msgstr ""
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html
 msgid "Customer Service"
 msgstr ""
 
@@ -206,14 +254,6 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: client/app/signin/signin.html
-msgid "Email address"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Enter your email and password"
-msgstr ""
-
 #: client/app/modal/invite.team.html
 msgid "Failed to send email"
 msgstr ""
@@ -231,8 +271,7 @@ msgstr ""
 msgid "File has not been shared in any other channels"
 msgstr ""
 
-#: client/app/header/header.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "Files"
 msgstr ""
 
@@ -248,20 +287,12 @@ msgstr ""
 msgid "For search file by title"
 msgstr ""
 
-#: client/app/signin/signin.html
-msgid "Forgot Password?"
-msgstr ""
-
 #: client/app/modal/settings.profile.html
 msgid "Full Name"
 msgstr ""
 
 #: client/app/header/header.html
 msgid "Images"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Invalid email or password"
 msgstr ""
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
@@ -386,10 +417,6 @@ msgstr ""
 msgid "PDF"
 msgstr ""
 
-#: client/app/signin/signin.html
-msgid "Password"
-msgstr ""
-
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "Phone"
 msgstr ""
@@ -407,7 +434,6 @@ msgid "Preferences"
 msgstr ""
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
 msgid "Privacy Policy"
 msgstr ""
 
@@ -484,10 +510,6 @@ msgstr ""
 msgid "Shared"
 msgstr ""
 
-#: client/app/signin/signin.html
-msgid "Sign In"
-msgstr ""
-
 #: client/app/header/header.html
 msgid "Sign Out"
 msgstr ""
@@ -501,7 +523,6 @@ msgid "Team Directory"
 msgstr ""
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
 msgid "Terms of Service"
 msgstr ""
 
@@ -545,12 +566,8 @@ msgstr ""
 msgid "View profile"
 msgstr ""
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html
 msgid "Visit Homepage"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Welcome to {{teamInfo.name}}"
 msgstr ""
 
 #: client/app/right/right.html

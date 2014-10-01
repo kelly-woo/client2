@@ -21,6 +21,54 @@ msgstr "님의"
 msgid "1:1 채팅"
 msgstr ""
 
+#: client/app/right/file.html
+msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@common-customer-service"
+msgstr "고객 센터"
+
+#: client/app/signin/signin.html
+msgid "@common-email"
+msgstr "이메일"
+
+#: client/app/signin/signin.html
+msgid "@common-password"
+msgstr "비밀번호"
+
+#: client/app/signin/signin.html
+msgid "@common-privacy-policy"
+msgstr "개인정보취급방침"
+
+#: client/app/signin/signin.html
+msgid "@common-sign-in"
+msgstr "로그인"
+
+#: client/app/signin/signin.html
+msgid "@common-terms-of-service"
+msgstr "이용약관"
+
+#: client/app/signin/signin.html
+msgid "@common-visit-homepage"
+msgstr "홈페이지 방문하기"
+
+#: client/app/signin/signin.html
+msgid "@login-invalid"
+msgstr "이메일 또는 비밀번호를 확인해주세요"
+
+#: client/app/signin/signin.html
+msgid "@login-message"
+msgstr "이메일과 비밀번호를 입력하세요"
+
+#: client/app/signin/signin.html
+msgid "@login-reset-password"
+msgstr "비밀번호 찾기"
+
+#: client/app/signin/signin.html
+msgid "@login-welcome {{teamInfo.name}}"
+msgstr "{{teamInfo.name}} 환영합니다"
+
 #: client/app/right/right.html
 msgid "@option-all-locations"
 msgstr "모든 대화방"
@@ -160,7 +208,7 @@ msgstr "새로운 채널을 생성합니다."
 msgid "Current Password"
 msgstr "현재 비밀번호"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html
 msgid "Customer Service"
 msgstr "고객 센터"
 
@@ -210,14 +258,6 @@ msgstr "수정하기"
 msgid "Email"
 msgstr "이메일"
 
-#: client/app/signin/signin.html
-msgid "Email address"
-msgstr "이메일 주소"
-
-#: client/app/signin/signin.html
-msgid "Enter your email and password"
-msgstr "이메일과 비밀번호를 입력하세요"
-
 #: client/app/modal/invite.team.html
 msgid "Failed to send email"
 msgstr "다음 주소로 이메일 보내기를 실패하였습니다."
@@ -235,8 +275,7 @@ msgstr "파일 형식"
 msgid "File has not been shared in any other channels"
 msgstr "공유된 채널이 없습니다"
 
-#: client/app/header/header.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "Files"
 msgstr "파일"
 
@@ -252,10 +291,6 @@ msgstr "모든 메세지"
 msgid "For search file by title"
 msgstr "타이틀로 파일을 쉽게 검색할 수 있습니다"
 
-#: client/app/signin/signin.html
-msgid "Forgot Password?"
-msgstr "비밀번호 찾기"
-
 #: client/app/modal/settings.profile.html
 msgid "Full Name"
 msgstr "실명"
@@ -263,10 +298,6 @@ msgstr "실명"
 #: client/app/header/header.html
 msgid "Images"
 msgstr "이미지"
-
-#: client/app/signin/signin.html
-msgid "Invalid email or password"
-msgstr "이메일 또는 비밀번호를 확인해주세요"
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
@@ -390,10 +421,6 @@ msgstr "추가 정보"
 msgid "PDF"
 msgstr "PDF"
 
-#: client/app/signin/signin.html
-msgid "Password"
-msgstr "비밀번호"
-
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "Phone"
 msgstr "전화번호"
@@ -413,7 +440,6 @@ msgid "Preferences"
 msgstr "서비스 설정"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
 msgid "Privacy Policy"
 msgstr "개인정보취급방침"
 
@@ -490,10 +516,6 @@ msgstr "공유 대상"
 msgid "Shared"
 msgstr "공유"
 
-#: client/app/signin/signin.html
-msgid "Sign In"
-msgstr "로그인"
-
 #: client/app/header/header.html
 msgid "Sign Out"
 msgstr "로그아웃"
@@ -507,7 +529,6 @@ msgid "Team Directory"
 msgstr "팀"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
 msgid "Terms of Service"
 msgstr "이용약관"
 
@@ -551,13 +572,9 @@ msgstr "파일 보기"
 msgid "View profile"
 msgstr "프로필 보기"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html
 msgid "Visit Homepage"
 msgstr "잔디 홈페이지"
-
-#: client/app/signin/signin.html
-msgid "Welcome to {{teamInfo.name}}"
-msgstr "{{teamInfo.name}} 환영합니다"
 
 #: client/app/right/right.html
 msgid "Writer"
@@ -656,6 +673,24 @@ msgstr ""
 #: client/app/modal/profile.view.html
 msgid "파일 리스트"
 msgstr ""
+
+#~ msgid "Email address"
+#~ msgstr "이메일 주소"
+
+#~ msgid "Enter your email and password"
+#~ msgstr "이메일과 비밀번호를 입력하세요"
+
+#~ msgid "Forgot Password?"
+#~ msgstr "비밀번호 찾기"
+
+#~ msgid "Invalid email or password"
+#~ msgstr "이메일 또는 비밀번호를 확인해주세요"
+
+#~ msgid "Password"
+#~ msgstr "비밀번호"
+
+#~ msgid "Sign In"
+#~ msgstr "로그인"
 
 #~ msgid "Audio"
 #~ msgstr "음악 파일"
