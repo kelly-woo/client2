@@ -187,7 +187,6 @@
     padding: 8px;
     border-bottom: 1px solid #ebebeb;
     min-height: 65px;
-    z-index: 0;
     background-color: white;
 }
 .file-list__item .pull-left {
