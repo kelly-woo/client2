@@ -5,7 +5,9 @@
     right: 0;
     min-width: 345px;
 }
-
+.cpanel .panel-title-container {
+    z-index: 1;
+}
 .rpanel-show {
     margin-right: 480px;
 }
@@ -171,7 +173,6 @@
     right: 0;
     bottom: 4rem;
     overflow: auto;
-    z-index: -1;
     min-width: 260px;
 }
 .msgs__loading {
@@ -217,11 +218,9 @@
 .msgs-group > .msg-item:last-child {
     margin-bottom: 0;
 }
-.msg-item.comment-title {
+.msg-item.comment-title,
+.msg-item.comment-continue{
     margin-bottom: 8px;
-}
-.msg-item.comment-continue {
-    margin-bottom: 5px;
 }
 
 
@@ -274,6 +273,9 @@
     font-weight: 400;
     display: inline-block;
     max-width: 100%;
+}
+.continue-comment-body p {
+    margin: 0;
 }
 .msg-item-header__created {
     font-size: 10px;
@@ -473,7 +475,6 @@
     right: 0;
     bottom: 0;
     height: 60px;
-    z-index: 52;
 }
 .footer #primary_file_button {
     border: none;
