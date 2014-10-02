@@ -39,7 +39,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     initLeftList();
 
     function initLeftList () {
-        $scope.team             = response.team;
+        $rootScope.team = $scope.team = response.team;
 
         $scope.totalEntityCount = response.entityCount;
         $scope.totalEntities    = response.entities;
