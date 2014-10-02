@@ -15,6 +15,18 @@ msgstr ""
 msgid "@alert-empty-ch-can-join"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@alert-empty-file"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@alert-empty-file-search"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@alert-empty-file-shared"
+msgstr ""
+
 #: client/app/modal/settings.account.html
 msgid "@alert-invalid-password"
 msgstr ""
@@ -83,6 +95,10 @@ msgstr ""
 msgid "@btn-close"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@btn-comment"
+msgstr ""
+
 #: client/app/modal/settings.service.html
 msgid "@btn-confirm"
 msgstr ""
@@ -107,6 +123,7 @@ msgid "@btn-join"
 msgstr ""
 
 #: client/app/modal/share.html
+#: client/app/right/right.html
 msgid "@btn-share"
 msgstr ""
 
@@ -198,6 +215,10 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@common-download"
+msgstr ""
+
 #: client/app/modal/profile.view.html
 #: client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
@@ -216,6 +237,14 @@ msgstr ""
 msgid "@common-file-list"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@common-file-type"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-files"
+msgstr ""
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr ""
@@ -230,6 +259,10 @@ msgstr ""
 
 #: client/app/modal/settings.service.html
 msgid "@common-language"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-member"
 msgstr ""
 
 #: client/app/left/left.html
@@ -307,6 +340,10 @@ msgstr ""
 msgid "@common-share-in"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@common-shared-in"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr ""
@@ -331,6 +368,7 @@ msgstr ""
 
 #: client/app/header/header.html
 #: client/app/modal/upload.html
+#: client/app/right/right.html
 msgid "@common-upload-file"
 msgstr ""
 
@@ -417,6 +455,10 @@ msgstr ""
 
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@input-search-file-title"
 msgstr ""
 
 #: client/app/modal/invite.channel.html
@@ -548,6 +590,7 @@ msgid "@msg-left"
 msgstr ""
 
 #: client/app/center/center.html
+#: client/app/right/right.html
 msgid "@msg-open-original"
 msgstr ""
 
@@ -564,11 +607,11 @@ msgid "@msg-whose"
 msgstr ""
 
 #: client/app/right/right.html
-msgid "@option-all-locations"
+msgid "@option-all-members"
 msgstr ""
 
 #: client/app/right/right.html
-msgid "@option-all-writers"
+msgid "@option-all-rooms"
 msgstr ""
 
 #: client/app/modal/invite.direct.html
@@ -625,7 +668,6 @@ msgid "Click to view"
 msgstr ""
 
 #: client/app/right/file.html
-#: client/app/right/right.html
 msgid "Comment"
 msgstr ""
 
@@ -634,54 +676,15 @@ msgid "Delete"
 msgstr ""
 
 #: client/app/right/file.html
-#: client/app/right/right.html
 msgid "Download"
 msgstr ""
 
-#: client/app/right/right.html
-msgid "File Type"
-msgstr ""
-
 #: client/app/right/file.html
-#: client/app/right/right.html
 msgid "File has not been shared in any other channels"
 msgstr ""
 
-#: client/app/right/right.html
-msgid "Files"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Location"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "No files found matching on"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "No files uploaded"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Open original"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Search by title"
-msgstr ""
-
 #: client/app/right/file.html
-#: client/app/right/right.html
 msgid "Share"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Upload File"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Writer"
 msgstr ""
 
 #: client/app/right/file.html

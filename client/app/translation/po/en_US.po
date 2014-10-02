@@ -24,6 +24,18 @@ msgstr "You have not joined any channels yet"
 msgid "@alert-empty-ch-can-join"
 msgstr "No channels to join"
 
+#: client/app/right/right.html
+msgid "@alert-empty-file"
+msgstr "No files uploaded"
+
+#: client/app/right/right.html
+msgid "@alert-empty-file-search"
+msgstr "No files found matching on"
+
+#: client/app/right/right.html
+msgid "@alert-empty-file-shared"
+msgstr "File has not been shared in any other chats"
+
 #: client/app/modal/settings.account.html
 msgid "@alert-invalid-password"
 msgstr "invalid password"
@@ -86,6 +98,10 @@ msgstr "Change"
 msgid "@btn-close"
 msgstr "Close"
 
+#: client/app/right/right.html
+msgid "@btn-comment"
+msgstr "Comment"
+
 #: client/app/modal/settings.service.html
 msgid "@btn-confirm"
 msgstr "Confirm"
@@ -107,7 +123,7 @@ msgstr "Invite"
 msgid "@btn-join"
 msgstr "Join"
 
-#: client/app/modal/share.html
+#: client/app/modal/share.html client/app/right/right.html
 msgid "@btn-share"
 msgstr "Share"
 
@@ -192,6 +208,10 @@ msgstr "Direct Messages"
 msgid "@common-dm-invite-to"
 msgstr "Invite to"
 
+#: client/app/right/right.html
+msgid "@common-download"
+msgstr "Download"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
 msgid "@common-email"
@@ -209,6 +229,14 @@ msgstr "File"
 msgid "@common-file-list"
 msgstr "File List"
 
+#: client/app/right/right.html
+msgid "@common-file-type"
+msgstr "File Type"
+
+#: client/app/right/right.html
+msgid "@common-files"
+msgstr "Files"
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr "Basic Information"
@@ -224,6 +252,10 @@ msgstr "members"
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr "Language"
+
+#: client/app/right/right.html
+msgid "@common-member"
+msgstr "Member"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -291,6 +323,10 @@ msgstr "Share File"
 msgid "@common-share-in"
 msgstr "Share in"
 
+#: client/app/right/right.html
+msgid "@common-shared-in"
+msgstr "Shared in"
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr "Sign In"
@@ -313,6 +349,7 @@ msgid "@common-title"
 msgstr "Title"
 
 #: client/app/header/header.html client/app/modal/upload.html
+#: client/app/right/right.html
 msgid "@common-upload-file"
 msgstr "Upload File"
 
@@ -400,6 +437,10 @@ msgstr "Enter name to change"
 msgid "@input-search-channel-name"
 msgstr "Search channel by name"
 
+#: client/app/right/right.html
+msgid "@input-search-file-title"
+msgstr "Search file by title"
+
 #: client/app/modal/invite.channel.html
 msgid "@input-search-user-name"
 msgstr "Search users by name"
@@ -480,7 +521,9 @@ msgstr "Change your name"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name-msg"
-msgstr "Caution!!"
+msgstr ""
+"Please keep in mind when changing your name that other members can mention "
+"and search your name"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-password"
@@ -532,7 +575,7 @@ msgstr "has joined"
 msgid "@msg-left"
 msgstr "has left"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/right.html
 msgid "@msg-open-original"
 msgstr "Open original"
 
@@ -549,11 +592,11 @@ msgid "@msg-whose"
 msgstr "'s"
 
 #: client/app/right/right.html
-msgid "@option-all-locations"
+msgid "@option-all-members"
 msgstr "All"
 
 #: client/app/right/right.html
-msgid "@option-all-writers"
+msgid "@option-all-rooms"
 msgstr "All"
 
 #: client/app/modal/invite.direct.html
@@ -608,7 +651,7 @@ msgstr ""
 msgid "Click to view"
 msgstr ""
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.html
 msgid "Comment"
 msgstr ""
 
@@ -616,52 +659,16 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.html
 msgid "Download"
 msgstr ""
 
-#: client/app/right/right.html
-msgid "File Type"
-msgstr ""
-
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.html
 msgid "File has not been shared in any other channels"
 msgstr ""
 
-#: client/app/right/right.html
-msgid "Files"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Location"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "No files found matching on"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "No files uploaded"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Open original"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Search by title"
-msgstr ""
-
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.html
 msgid "Share"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Upload File"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Writer"
 msgstr ""
 
 #: client/app/right/file.html

@@ -25,6 +25,18 @@ msgstr "참여중인 채널이 없습니다"
 msgid "@alert-empty-ch-can-join"
 msgstr "참여 가능한 채널이 없습니다"
 
+#: client/app/right/right.html
+msgid "@alert-empty-file"
+msgstr "업로드된 파일이 없습니다"
+
+#: client/app/right/right.html
+msgid "@alert-empty-file-search"
+msgstr "검색 결과가 없습니다"
+
+#: client/app/right/right.html
+msgid "@alert-empty-file-shared"
+msgstr "공유된 대화방이 없습니다"
+
 #: client/app/modal/settings.account.html
 msgid "@alert-invalid-password"
 msgstr "비밀번호가 일치하지 않습니다"
@@ -87,6 +99,10 @@ msgstr "변경하기"
 msgid "@btn-close"
 msgstr "닫기"
 
+#: client/app/right/right.html
+msgid "@btn-comment"
+msgstr "댓글남기기"
+
 #: client/app/modal/settings.service.html
 msgid "@btn-confirm"
 msgstr "확인"
@@ -108,7 +124,7 @@ msgstr "초대하기"
 msgid "@btn-join"
 msgstr "참여하기"
 
-#: client/app/modal/share.html
+#: client/app/modal/share.html client/app/right/right.html
 msgid "@btn-share"
 msgstr "공유하기"
 
@@ -193,6 +209,10 @@ msgstr "1:1 메시지"
 msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
 
+#: client/app/right/right.html
+msgid "@common-download"
+msgstr "다운로드"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
 msgid "@common-email"
@@ -210,6 +230,14 @@ msgstr "파일"
 msgid "@common-file-list"
 msgstr "파일 리스트"
 
+#: client/app/right/right.html
+msgid "@common-file-type"
+msgstr "파일 타입"
+
+#: client/app/right/right.html
+msgid "@common-files"
+msgstr "파일"
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr "기본 정보"
@@ -225,6 +253,10 @@ msgstr "명 참여중"
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr "언어"
+
+#: client/app/right/right.html
+msgid "@common-member"
+msgstr "멤버"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -292,6 +324,10 @@ msgstr "파일 공유"
 msgid "@common-share-in"
 msgstr "공유 대화방"
 
+#: client/app/right/right.html
+msgid "@common-shared-in"
+msgstr "공유된 곳"
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr "로그인"
@@ -314,6 +350,7 @@ msgid "@common-title"
 msgstr "타이틀"
 
 #: client/app/header/header.html client/app/modal/upload.html
+#: client/app/right/right.html
 msgid "@common-upload-file"
 msgstr "파일 업로드"
 
@@ -400,6 +437,10 @@ msgstr "변경할 이름을 입력하세요"
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
 msgstr "채널 이름을 검색하세요"
+
+#: client/app/right/right.html
+msgid "@input-search-file-title"
+msgstr "파일 타이틀을 검색하세요"
 
 #: client/app/modal/invite.channel.html
 msgid "@input-search-user-name"
@@ -535,7 +576,7 @@ msgstr "님이 참여했습니다"
 msgid "@msg-left"
 msgstr "님이 떠났습니다"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/right.html
 msgid "@msg-open-original"
 msgstr "원본 파일 보기"
 
@@ -552,12 +593,12 @@ msgid "@msg-whose"
 msgstr "님의"
 
 #: client/app/right/right.html
-msgid "@option-all-locations"
-msgstr "모든 대화방"
+msgid "@option-all-members"
+msgstr "모든 멤버"
 
 #: client/app/right/right.html
-msgid "@option-all-writers"
-msgstr "모든 멤버"
+msgid "@option-all-rooms"
+msgstr "모든 대화방"
 
 #: client/app/modal/invite.direct.html
 msgid "@option-choose"
@@ -611,7 +652,7 @@ msgstr "댓글 남기기"
 msgid "Click to view"
 msgstr "파일 보기"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.html
 msgid "Comment"
 msgstr "댓글 남기기"
 
@@ -619,57 +660,48 @@ msgstr "댓글 남기기"
 msgid "Delete"
 msgstr "삭제"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.html
 msgid "Download"
 msgstr "다운로드"
 
-#: client/app/right/right.html
-msgid "File Type"
-msgstr "파일 형식"
-
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.html
 msgid "File has not been shared in any other channels"
 msgstr "공유된 채널이 없습니다"
 
-#: client/app/right/right.html
-msgid "Files"
-msgstr "파일"
-
-#: client/app/right/right.html
-msgid "Location"
-msgstr "공유된 곳"
-
-#: client/app/right/right.html
-msgid "No files found matching on"
-msgstr "검색 결과가 없습니다"
-
-#: client/app/right/right.html
-msgid "No files uploaded"
-msgstr "업로드된 파일이 없습니다"
-
-#: client/app/right/right.html
-msgid "Open original"
-msgstr "원본 보기"
-
-#: client/app/right/right.html
-msgid "Search by title"
-msgstr "제목으로 검색"
-
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.html
 msgid "Share"
 msgstr "공유하기"
-
-#: client/app/right/right.html
-msgid "Upload File"
-msgstr "파일 업로드"
-
-#: client/app/right/right.html
-msgid "Writer"
-msgstr "작성자"
 
 #: client/app/right/file.html
 msgid "shift+enter to multiline"
 msgstr "멀티라인 입력: shift+enter"
+
+#~ msgid "File Type"
+#~ msgstr "파일 형식"
+
+#~ msgid "Files"
+#~ msgstr "파일"
+
+#~ msgid "Location"
+#~ msgstr "공유된 곳"
+
+#~ msgid "No files found matching on"
+#~ msgstr "검색 결과가 없습니다"
+
+#~ msgid "No files uploaded"
+#~ msgstr "업로드된 파일이 없습니다"
+
+#~ msgid "Open original"
+#~ msgstr "원본 보기"
+
+#~ msgid "Search by title"
+#~ msgstr "제목으로 검색"
+
+#~ msgid "Upload File"
+#~ msgstr "파일 업로드"
+
+#~ msgid "Writer"
+#~ msgstr "작성자"
 
 #~ msgid "@file-upload"
 #~ msgstr "파일 업로드"
