@@ -10,9 +10,10 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
 
     if (_.isUndefined(fileId)) return;
 
-    $scope.file_detail = null;
-    $scope.file_comments = [];
-    $scope.glued = false;
+    $scope.initialLoaded    = false;
+    $scope.file_detail      = null;
+    $scope.file_comments    = [];
+    $scope.glued            = false;
 
     // configuration for message loading
     $scope.fileLoadStatus = {
@@ -48,6 +49,8 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
 
                         $state.go('messages.detail.files.item', $state.params);
 
+                        if (!$scope.initialLoaded) $scope.initialLoaded = true;
+
                     })
                     .error(function(err) {
                         console.error(err.msg);
@@ -71,7 +74,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
 
         fileAPIservice.postComment(fileId, $scope.comment.content)
             .success(function(response) {
-                console.log("fileAPIservice.postComment.success", response);
+//                console.log("fileAPIservice.postComment.success", response);
                 $scope.glued = true;
                 getFileDetail();
                 $scope.comment.content = "";
@@ -209,6 +212,9 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
         }
     });
 
+    $scope.onUserClick = function(user) {
+      $scope.$emit('onUserClick', user);
+    };
 });
 
 app.controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {

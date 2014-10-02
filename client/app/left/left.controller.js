@@ -39,7 +39,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     initLeftList();
 
     function initLeftList () {
-        $scope.team             = response.team;
+        $rootScope.team = $scope.team = response.team;
 
         $scope.totalEntityCount = response.entityCount;
         $scope.totalEntities    = response.entities;
@@ -192,6 +192,9 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
     };
 
+    $rootScope.$on('onUserClick', function(event, user) {
+        $scope.onUserClick(user);
+    });
     //  Add 'onUserClick' to redirect to direct message to 'user'
     //  center and header are calling.
     $scope.onUserClick = function(user) {

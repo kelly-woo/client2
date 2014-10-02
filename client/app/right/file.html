@@ -7,17 +7,14 @@
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
 
     <div class="rpanel-body-content file-detail">
+        <div class="file-detail-body-container" data-ng-show="initialLoaded && file_detail">
 
-        <div class="rpanel-body__loading" data-ng-show="fileLoadStatus.loading"></div>
-
-        <div class="file-detail-body-container" data-ng-if="!fileLoadStatus.loading && file_detail">
             <div class="file-detail-header">
                 <div class="file-detail-header-box">
                     <div class="file-detail-header__thumbnail">
-                        <a data-ui-sref="archives({entityType:'users', entityId: comment.writer.id})"
-                           class="user-profile user-thumb-sm"
-                           data-user-id="{{ comment.writer.id }}"
-                           style="background-image: url({{ server_uploaded + ( file_detail.writer.u_photoThumbnailUrl.smallThumbnailUrl || file_detail.writer.u_photoUrl )}})"></a>
+                        <img class="user-profile user-thumb-sm cursor_pointer"
+                             ng-src="{{ server_uploaded + ( file_detail.writer.u_photoThumbnailUrl.smallThumbnailUrl || file_detail.writer.u_photoUrl )}}"
+                             ng-click="onUserClick(file_detail.writer);"/>
                     </div>
                     <div class="file-detail-header__writer">{{ file_detail.writer | getFirstLastNameOfUser }}</div>
                     <div class="file-detail-header__title">
@@ -121,27 +118,26 @@
             <div class="rpanel-detail-body-comment">
                 <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}">
                     <div class="comment-item__thumbnail">
-                        <a data-ui-sref="archives({entityType:'users',entityId: comment.writer.id})"
-                           class="user-profile user-thumb-sm"
-                           data-user-id="{{ comment.writer.id }}"
-                           style="background-image: url({{ server_uploaded + ( comment.writer.u_photoThumbnailUrl.smallThumbnailUrl || comment.writer.u_photoUrl )}})"></a>
+                        <img class="user-profile user-thumb-sm cursor_pointer"
+                             ng-src="{{ server_uploaded + ( comment.writer.u_photoThumbnailUrl.smallThumbnailUrl || comment.writer.u_photoUrl )}}"
+                             ng-click="onUserClick(file_detail.writer);"/>
                     </div>
                     <div class="comment-item-header">
                         <span class="comment-item-header__name">{{ comment.writer|getFirstLastNameOfUser }}</span>
                         <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
-                    <span class="comment-item-header__action dropdown pull-right" data-ng-if="( user.id === comment.writer.id )">
-                        <a href="#" class="link-dark dropdown-toggle">
-                            <i class="fa fa-cog"></i>
-                        </a>
-                        <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
-                            <li class="cursor_pointer">
-                                <a data-ng-click="deleteComment(comment.id)">
-                                    <i class="fa fa-times"></i>
-                                    <span translate>@btn-delete</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </span>
+                        <span class="comment-item-header__action dropdown pull-right" data-ng-if="( user.id === comment.writer.id )">
+                            <a href="#" class="link-dark dropdown-toggle">
+                                <i class="fa fa-cog"></i>
+                            </a>
+                            <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+                                <li class="cursor_pointer">
+                                    <a data-ng-click="deleteComment(comment.id)">
+                                        <i class="fa fa-times"></i>
+                                        <span translate>@btn-delete</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </span>
                     </div>
                     <div class="comment-item-body">
                         <p class="break" data-ng-bind-html="(comment.content.body) || ''"></p>
@@ -150,10 +146,9 @@
 
                 <div class="comment-input-box">
                     <div class="comment-item__thumbnail">
-                        <a data-ui-sref="archives({entityType:'users',entityId: user.id})"
-                           class="user-profile user-thumb-sm"
-                           data-user-id="{{ user.id }}"
-                           style="background-image: url({{ server_uploaded + user.u_photoThumbnailUrl.smallThumbnailUrl }})"></a>
+                        <img class="user-profile user-thumb-sm cursor_pointer"
+                             ng-src="{{ server_uploaded + ( user.u_photoThumbnailUrl.smallThumbnailUrl )}}"
+                             ng-click="onUserClick(file_detail.writer);"/>
                     </div>
                     <form id="comment-form" data-ng-submit="postComment()">
                         <textarea class="comment-input"
@@ -172,7 +167,6 @@
                 </div>
             </div>
         </div>
-
 
     </div>
 </div>

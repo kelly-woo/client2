@@ -88,6 +88,7 @@
             </li>
         </ul>
     </span>
+
 </div>
 
 <article class="msgs" when-scrolled="loadMore()" scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
@@ -105,7 +106,7 @@
             <div last-detector=""
                  data-length="{{msgs.length}}"
                  class="msg-item"
-                 data-ng-repeat="msg in msgs | orderBy: 'time':false"
+                 data-ng-repeat="msg in msgs  | orderBy: 'time':false"
                  data-link-id="msg.id"
                  data-link-status="msg.status"
                  data-message-id="msg.message.id"
@@ -117,11 +118,16 @@
                                     'comment-continue': msg.message.commentOption.isContinue,
                                     'system-event-msg' : msg.message.contentType === 'systemEvent' }">
 
-                <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);">
-                    <a class="user-profile user-thumb" ng-if="msg.message.contentType !== 'file'"
-                       style="background-image: url({{ server_uploaded + ( msg.message.writer.u_photoThumbnailUrl.smallThumbnailUrl  || msg.message.writer.u_photoUrl ) }});"></a>
-                    <a class="user-profile user-thumb" ng-if="msg.message.contentType === 'file'"
-                       style="background-image: url({{ server_uploaded + ( msg.fromEntity.u_photoThumbnailUrl.smallThumbnailUrl  || msg.fromEntity.u_photoUrl ) }});"></a>
+                <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
+                        ng-switch="msg.message.contentType">
+
+                    <img class="user-profile user-thumb" ng-switch-when="systemEvent"/>
+
+                    <img class="user-profile user-thumb" ng-switch-when="file"
+                       ng-src="{{ server_uploaded + ( msg.fromEntity.smallThumbnailUrl  || msg.fromEntity.u_photoUrl ) }}"/>
+
+                    <img class="user-profile user-thumb" ng-switch-default
+                         ng-src="{{ server_uploaded + ( msg.message.writer.u_photoThumbnailUrl.smallThumbnailUrl  || msg.message.writer.u_photoUrl ) }}"/>
                 </div>
 
                 <!--    HEADER PART -->
@@ -138,6 +144,8 @@
                         <!--    CREATED TIME    -->
                         <span class="msg-item-header__created">
                             {{msg.time | date: 'h:mm a'}}
+                                                {{ msg.id }}
+
                         </span>
 
                     </span>
