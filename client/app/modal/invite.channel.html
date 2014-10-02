@@ -1,12 +1,12 @@
 <!-- Modal: Invite to Channel/Group -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel(); clear();"><i class="fa fa-close"></i></button>
+    <button type="button" class="close" data-ng-click="cancel(); clear();"><i class="fa fa-close"></i></button>
     <h3 class="modal-header__title">
-        <span translate>Invite Others</span>
+        <span translate>@modal-invite-members</span>
     </h3>
 </div>
 
-<form name="form-invite" ng-submit="onInviteClick(currentEntity.type);">
+<form name="form-invite" data-ng-submit="onInviteClick(currentEntity.type);">
     <div class="modal-body form-invite-body">
         <!--    LIST OF USERS WHO WILL BE INVITED WHEN BUTTON IS CLICKED    -->
         <div class="form-invite-body__selected">
@@ -26,13 +26,13 @@
                    typeahead="user as user.u_lastName+user.u_firstName for user in userList | filter : { selected : false } | userByName:$viewValue"
                    typeahead-on-select="onUserSelected($item); selectedUser=''; $event.stopPropagation();"
                    typeahead-template-url="customTemplate.html"
-                   placeholder="{{ 'Search users by name' | translate }}" />
+                   placeholder="{{ '@input-search-user-name' | translate }}" />
         </div>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" data-ng-click="cancel(); clear();"><span translate>Close</span></button>
-        <input class="btn btn-ok" type="submit" id="private_invite" value="{{ 'Invite' | translate }}"/>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel(); clear();"><span translate>@btn-close</span></button>
+        <input class="btn btn-ok" type="submit" id="private_invite" value="{{ '@btn-invite' | translate }}"/>
     </div>
 
 </form>

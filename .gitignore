@@ -9,3 +9,4 @@ tmp
 .idea
 atlassian-ide-plugin.xml
 client/app/config.js
+*.mo

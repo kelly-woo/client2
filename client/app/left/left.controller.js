@@ -190,48 +190,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 size        :   'lg'
             });
         }
-        else if (selector == 'user') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/list.user.html',
-                controller  :   'userModalCtrl',
-                size        :   'lg',
-                windowClass :   'allowOverflowY'
-            });
-        }
-        else if (selector == 'invite') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/invite.team.html',
-                controller  :   'inviteUserToTeamCtrl',
-                size        :   'lg'
-            });
-        }
-        else if (selector == 'profile') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/settings.profile.html',
-                controller  :   'profileCtrl',
-                size        :   'lg'
-            });
-        }
-        else if (selector == 'account') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/settings.account.html',
-                controller  :   'accountController',
-                size        :   'lg'
-            });
-        }
-        else if (selector === 'preferences') {
-            $modal.open({
-                sopce       : $scope,
-                templateUrl : 'app/modal/preferences.html',
-                controller  : 'preferencesController',
-//                windowClass : 'modal-wide',
-                size        : 'lg'
-            });
-        }
     };
 
     $rootScope.$on('onUserClick', function(event, user) {

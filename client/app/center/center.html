@@ -14,22 +14,22 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-                    <i class="fa fa-plus"></i><span translate>Invite others to this channel</span>
+                    <i class="fa fa-plus"></i><span translate>@ch-menu-invite</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="openModal('rename')">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-pencil"></i><span translate>Rename this channel</span>
+                    <i class="fa fa-pencil-square-o"></i><span translate>@ch-menu-rename</span>
                 </a>
             </li>
             <li role="presentation" data-ng-click="onLeaveClick();" data-ng-if="currentEntity.id != team.t_defaultChannelId">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-sign-out"></i><span translate>Leave channel</span>
+                    <i class="fa fa-sign-out"></i><span translate>@ch-menu-leave</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-times"></i><span translate>Delete this channel</span>
+                    <i class="fa fa-times"></i><span translate>@ch-menu-delete</span>
                 </a>
             </li>
         </ul>
@@ -37,17 +37,17 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
-                    <i class="fa fa-plus"></i><span translate>Invite to channel/group</span>
+                    <i class="fa fa-plus"></i><span translate>@dm-menu-invite</span>
                 </a>
             </li>
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="onUserClick(currentEntity.id);">
-                    <i class="fa fa-user"></i><span translate>View profile</span>
+                    <i class="fa fa-user"></i><span translate>@dm-menu-profile</span>
                 </a>
             </li>
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="onFileListClick(currentEntity.id);">
-                    <i class="fa fa-file"></i><span translate>View files</span>
+                    <i class="fa fa-file"></i><span translate>@dm-menu-file</span>
                 </a>
             </li>
         </ul>
@@ -55,26 +55,26 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privateGroup'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-                    <i class="fa fa-plus"></i><span translate>Invite others to this group</span>
+                    <i class="fa fa-plus"></i><span translate>@pg-menu-invite</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="openModal('rename')">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-pencil"></i><span translate>Rename this group</span>
+                    <i class="fa fa-pencil-square-o"></i><span translate>@pg-menu-rename</span>
                 </a>
             </li>
             <li role="presentation" data-ng-click="onLeaveClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-sign-out"></i><span translate>Leave group</span>
+                    <i class="fa fa-sign-out"></i><span translate>@pg-menu-leave</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-times"></i><span translate>Delete this group</span>
+                    <i class="fa fa-times"></i><span translate>@pg-menu-delete</span>
                 </a>
             </li>
         </ul>
-        </span>
+    </span>
 
     <!--Member Dropdown-->
     <span class="panel-title-member">
@@ -116,7 +116,7 @@
                  data-ng-class="{   'text': msg.message.isText, 'file-upload': msg.message.isFile,
                                     'comment-title': msg.message.commentOption.isTitle,
                                     'comment-continue': msg.message.commentOption.isContinue,
-                                     'system-event-msg' : msg.message.contentType === 'systemEvent' }">
+                                    'system-event-msg' : msg.message.contentType === 'systemEvent' }">
 
                 <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
                         ng-switch="msg.message.contentType">
@@ -219,11 +219,11 @@
                                 <span class="msg-file-meta-info">
                                     <span data-ng-if="( msg.fromEntity.id !== msg.message.writer.id )">
                                         <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getFirstLastNameOfUser}}</a><!--
-                                        --><span translate>'s</span>
+                                        --><span translate>@msg-whose</span>
                                     </span>
-                                    <span ng-if="msg.status == 'shared'" translate>Shared</span>
-                                    <span ng-if="msg.status == 'unshared'" translate>Unshared</span>
-                                    <span translate>File</span>
+                                    <span ng-if="msg.status == 'shared'" translate>@msg-shared</span>
+                                    <span ng-if="msg.status == 'unshared'" translate>@msg-unshared</span>
+                                    <span translate>@msg-file</span>
                                 </span>
                                 <span class="bullet">•</span>
                                 <span data-ng-if="msg.message.shared.length">
@@ -242,7 +242,7 @@
                                     <span class="bullet">•</span>
                                 </span>
                                 <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
-                                    <span translate>Open original</span>
+                                    <span translate>@msg-open-original</span>
                                 </a>
                             </div>
                         </div>
@@ -321,14 +321,14 @@
                                 <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
                                 <span data-ng-if="$index !== 0">, </span><span>{{invitees | getFirstLastNameOfUser}}</span>
                             </span>
-                            <span data-ng-if="preferences.language === 'ko_KR'">{{ 'invite-postfix' | translate }}</span>
+                            <span data-ng-if="preferences.language === 'ko_KR'">{{ '@msg-invited-postfix' | translate }}</span>
                         </span>
                         <span data-ng-if="false"
-                              data-msg-join="{{ 'has joined' | translate}}"
-                              data-msg-leave="{{ 'has left' | translate }}"
-                              data-msg-invite="{{ 'invited' | translate }}"
-                              data-msg-create-channel="{{ 'created current channel' | translate }}"
-                              data-msg-create-group="{{ 'created current private group' | translate }}"></span>
+                              data-msg-join="{{ '@msg-joined' | translate}}"
+                              data-msg-leave="{{ '@msg-left' | translate }}"
+                              data-msg-invite="{{ '@msg-invited' | translate }}"
+                              data-msg-create-channel="{{ '@msg-create-ch' | translate }}"
+                              data-msg-create-group="{{ '@msg-create-pg' | translate }}"></span>
 
                             <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
 

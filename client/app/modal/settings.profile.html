@@ -2,7 +2,7 @@
 <div class="modal-header">
     <button type="button" class="close" data-ng-click="cancel();"><i class="fa fa-close"></i></button>
     <h3 class="modal-header__title">
-        <span translate>Profile Setting</span>
+        <span translate>@common-profile-settings</span>
     </h3>
 </div>
 
@@ -10,7 +10,7 @@
 
     <div class="modal-body profile-body">
         <h4 class="modal-body__description">
-            <span translate>You can set or change basic information such as nickname, phone number and position.</span>
+            <span translate>@modal-setting-profile-msg1</span>
         </h4>
         <div class="user-profile-photo-container img-circle">
             <input type="file"
@@ -21,28 +21,28 @@
             <img class="user-profile__photo" ng-src="{{ server_uploaded + curUser.u_photoThumbnailUrl.mediumThumbnailUrl}}" />
             <div class="user-profile-photo__overlay">
                 <div class="black-opac__background"></div>
-                <div class="overlay__text"><span translate>Change</span></div>
+                <div class="overlay__text"><span translate>@btn-change</span></div>
             </div>
         </div>
         <div class="form-horizontal">
             <div class="user-profile-general-container">
                 <h4 class="profile-body__title">
-                    <span translate>Basic Information</span>
+                    <span translate>@common-info-basic</span>
                 </h4>
                 <div class="form-group">
-                    <label class="profile-body__label control-label col-sm-3"><span translate>Full Name</span></label>
+                    <label class="profile-body__label control-label col-sm-3"><span translate>@common-name</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="lastName" value="{{curUser.u_lastName + curUser.u_firstName}}" disabled/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="profile-body__label control-label col-sm-3" ><span translate>Email</span></label>
+                    <label class="profile-body__label control-label col-sm-3" ><span translate>@common-email</span></label>
                     <div class="col-sm-9">
                         <input type="email" class="form-control" name="email" data-ng-model="curUser.u_email" disabled/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="profile-body__label control-label col-sm-3"><span translate>Nickname</span></label>
+                    <label class="profile-body__label control-label col-sm-3"><span translate>@common-status-msg</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="nickName" data-ng-model="curUser.u_nickname"/>
                     </div>
@@ -51,22 +51,22 @@
 
             <div class="user-profile-optional-container">
                 <h4 class="profile-body__title">
-                    <span translate>Optional Information</span>
+                    <span translate>@common-info-optional</span>
                 </h4>
                 <div class="form-group">
-                    <label class="profile-body__label control-label col-sm-3"><span translate>Phone</span></label>
+                    <label class="profile-body__label control-label col-sm-3"><span translate>@common-phone</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="phoneNumber" data-ng-model="curUser.u_extraData.phoneNumber"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="profile-body__label control-label col-sm-3"><span translate>Department</span></label>
+                    <label class="profile-body__label control-label col-sm-3"><span translate>@common-department</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="department" data-ng-model="curUser.u_extraData.department"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="profile-body__label control-label col-sm-3"><span translate>Position</span></label>
+                    <label class="profile-body__label control-label col-sm-3"><span translate>@common-position</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="position" data-ng-model="curUser.u_extraData.position"/>
                     </div>
@@ -76,8 +76,8 @@
     </div>
 
     <div class="modal-footer profile-footer">
-        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>Close</span></button>
-        <input class="btn btn-ok" type="submit" id="change_profile" value="{{ 'Edit' | translate }}"/>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>
+        <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}"/>
     </div>
 
 </form>

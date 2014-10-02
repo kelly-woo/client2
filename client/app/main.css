@@ -350,10 +350,29 @@ input[type="button"] {
     right: 0;
     cursor: pointer;
 }
+.icon_invite {
+    background: url('../assets/images/icon_invite_dark.png') no-repeat;
+    width: 15px;
+    height: 13px;
+}
+.icon_invite.light {
+    background-image: url('../assets/images/icon_invite.png');
+}
+.icon_team {
+    background: url('../assets/images/icon_team_dark.png') no-repeat;
+    width: 15px;
+    height: 10px;
+}
+.icon_team.light {
+    background-image: url('../assets/images/icon_team.png');
+}
 .icon_signout {
-    background: url('../assets/images/icon_signout.png') no-repeat;
+    background: url('../assets/images/icon_signout_dark.png') no-repeat;
     width:17px;
     height: 14px;
+}
+.icon_signout.light {
+    background-image: url('../assets/images/icon_signout.png');
 }
 .fileicon {
     width: 26px;

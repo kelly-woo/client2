@@ -11,7 +11,7 @@ app.factory('teamAPIservice', function($http, $rootScope) {
             url     : $rootScope.server_address + 'invitation/team',
             data    : { "inviteMembers" : inviteMembers }
         });
-    }
+    };
 
     return teamAPI;
 });

@@ -9,20 +9,19 @@
 
     <div class="profile-view-info-container">
         <div class="profile-view__info border-bottom_grey">
-            <div class="info-title"><span translate>Department</span></div>
+            <div class="info-title"><span translate>@common-department</span></div>
             <div class="info-content">{{ curUser.u_extraData.department }}</div>
         </div>
         <div class="profile-view__info border-bottom_grey">
-            <div class="info-title"><span translate>Position</span></div>
+            <div class="info-title"><span translate>@common-position</span></div>
             <div class="info-content">{{ curUser.u_extraData.position }}</div>
         </div>
         <div class="profile-view__info border-bottom_grey">
-            <div class="info-title"><span translate>Phone</span></div>
+            <div class="info-title"><span translate>@common-phone</span></div>
             <div class="info-content">{{ curUser.u_extraData.phoneNumber }}</div>
         </div>
-
         <div class="profile-view__info">
-            <div class="info-title"><span translate>Email</span></div>
+            <div class="info-title"><span translate>@common-email</span></div>
             <div class="info-content">{{ curUser.u_email }}</div>
         </div>
     </div>
@@ -32,19 +31,19 @@
             <div class="profile-view-action__img">
                 <i class="fa fa-envelope"></i>
             </div>
-            <div class="profile-view-action__text"><span translate>메일 전송</span></div>
+            <div class="profile-view-action__text"><span translate>@common-send-mail</span></div>
         </a>
         <div class="profile-view-action border-right_grey" data-ng-click="onActionClick('file');">
             <div class="profile-view-action__img">
                 <i class="fa fa-file"></i>
             </div>
-            <div class="profile-view-action__text"><span translate>파일 리스트</span></div>
+            <div class="profile-view-action__text"><span translate>@common-file-list</span></div>
         </div>
         <div class="profile-view-action" data-ng-click="onActionClick('directMessage');">
             <div class="profile-view-action__img">
                 <i class="fa fa-comment"></i>
             </div>
-            <div class="profile-view-action__text"><span translate>1:1 채팅</span></div>
+            <div class="profile-view-action__text"><span translate>@common-chat-dm</span></div>
         </div>
     </div>
 
