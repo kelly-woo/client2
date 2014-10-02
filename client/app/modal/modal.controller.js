@@ -420,7 +420,7 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, fileAPIse
             var upload_data = {
                 "entity type"   : share_target,
                 "category"      : file_meta[0],
-                "extension"     : file_meta[1],
+                "extension"     : response.data.fileInfo.ext,
                 "mime type"     : response.data.fileInfo.type,
                 "size"          : response.data.fileInfo.size
             };
@@ -484,7 +484,7 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
                 var share_data = {
                     "entity type"   : share_target,
                     "category"      : file_meta[0],
-                    "extension"     : file_meta[1],
+                    "extension"     : $scope.file.content.ext,
                     "mime type"     : $scope.file.content.type,
                     "size"          : $scope.file.content.size
                 };

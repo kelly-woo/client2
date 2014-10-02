@@ -581,7 +581,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 var share_data = {
                     "entity type"   : share_target,
                     "category"      : file_meta[0],
-                    "extension"     : file_meta[1],
+                    "extension"     : message.content.ext,
                     "mime type"     : message.content.type,
                     "size"          : message.content.size
                 };
