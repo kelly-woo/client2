@@ -10,62 +10,65 @@
 
         <div class="rpanel-body__loading" data-ng-show="fileLoadStatus.loading"></div>
 
-        <div class="file-detail-header">
-            <div class="file-detail-header-box">
-                <div class="file-detail-header__thumbnail">
-                    <a data-ui-sref="archives({entityType:'users', entityId: comment.writer.id})"
-                       class="user-profile user-thumb-sm"
-                       data-user-id="{{ comment.writer.id }}"
-                       style="background-image: url({{ server_uploaded + ( file_detail.writer.u_photoThumbnailUrl.smallThumbnailUrl || file_detail.writer.u_photoUrl )}})"></a>
-                </div>
-                <div class="file-detail-header__writer">{{ file_detail.writer | getFirstLastNameOfUser }}</div>
-                <div class="file-detail-header__title">
-                    <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
-                        {{ file_detail.content.title || file_detail.content.name }}
-                    </a>
-                    <!--<i class="fa fa-external-link"></i>-->
-                </div>
-            </div>
-        </div>
-
-        <div class="file-detail-body" data-ng-hide="fileLoadStatus.loading && !file_detail">
-            <img class="file-detail-body__image"
-                 data-ng-if="( (file_detail.content.type).indexOf('image') !== -1 )"
-                 data-ng-src="{{ server_uploaded + file_detail.content.extraInfo.largeThumbnailUrl }}"
-                 data-ng-click="onImageClick();">
-
-            <div class="file-detail-body__other" data-ng-if="(file_detail.content.type).indexOf('image') == -1">
-                <div class="fileicon fileicon_left fileicon_{{ file_detail.content.type | filetype | lowercase}}">
-                    <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}"></a>
-                </div>
-                <div class="file-detail-body__other-meta file-item-meta__listview">
-                    <div class="file-item-meta__size" data-ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</div>
-                    <div class="file-item-meta__type" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</div>
-                </div>
-                <div class="file-detail-body__other-action">
-                    <button ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" type="button" class="btn btn-white" >
-                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
-                            <span translate>Click to view</span>
-                        </a>
-                    </button>
-                    <button ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )"type="button" class="btn btn-white" >
-                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}">
-                            <span translate>Download</span>
-                        </a>
-                    </button>
-                </div>
-            </div>
-
-            <div class="file-detail-body__meta file-item-meta__listview">
-                <div class="fileicon fileicon_{{ file_detail.content.type | filetype | lowercase}}"></div>
-                <div class="file-detail-body__meta-info">
-                    <div class="file-detail-body__meta-info-up">
-                        <span class="file-item-meta__createtime">{{ file_detail.createTime | date: 'yyyy. MM. dd. a h:mm' }}</span>
-                        <span class="bullet">•</span>
-                        <span class="file-item-meta__size" data-ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</span>
-                        <span class="file-item-meta__type" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</span>
+        <div class="file-detail-body-container" data-ng-if="!fileLoadStatus.loading && file_detail">
+            <div class="file-detail-header">
+                <div class="file-detail-header-box">
+                    <div class="file-detail-header__thumbnail">
+                        <a data-ui-sref="archives({entityType:'users', entityId: comment.writer.id})"
+                           class="user-profile user-thumb-sm"
+                           data-user-id="{{ comment.writer.id }}"
+                           style="background-image: url({{ server_uploaded + ( file_detail.writer.u_photoThumbnailUrl.smallThumbnailUrl || file_detail.writer.u_photoUrl )}})"></a>
                     </div>
-                    <div class="file-detail-body__meta-info-down">
+                    <div class="file-detail-header__writer">{{ file_detail.writer | getFirstLastNameOfUser }}</div>
+                    <div class="file-detail-header__title">
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
+                            {{ file_detail.content.title || file_detail.content.name }}
+                        </a>
+                        <!--<i class="fa fa-external-link"></i>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="file-detail-body">
+                <img class="file-detail-body__image"
+                     data-ng-if="( (file_detail.content.type).indexOf('image') !== -1 )"
+                     data-ng-src="{{ server_uploaded + file_detail.content.extraInfo.largeThumbnailUrl }}"
+                     data-ng-click="onImageClick();">
+
+                <div class="file-detail-body__other" data-ng-if="(file_detail.content.type).indexOf('image') == -1">
+                    <div class="fileicon fileicon_left fileicon_{{ file_detail.content.type | filetype | lowercase}}">
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}"></a>
+                    </div>
+                    <div class="file-detail-body__other-meta file-item-meta__listview">
+                        <div class="file-item-meta__size" data-ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</div>
+                        <div class="file-item-meta__type" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</div>
+                    </div>
+                    <div class="file-detail-body__other-action">
+                        <button ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" type="button" class="btn btn-white" >
+                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
+                                <span translate>Click to view</span>
+                            </a>
+                        </button>
+                        <button ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )"type="button" class="btn btn-white" >
+                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}">
+                                <span translate>Download</span>
+                            </a>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="file-detail-body__meta file-item-meta__listview">
+                    <div class="fileicon fileicon_{{ file_detail.content.type | filetype | lowercase}}"></div>
+
+                    <div class="file-detail-body__meta-info">
+                        <div class="file-detail-body__meta-info-up">
+                            <span class="file-item-meta__createtime">{{ file_detail.createTime | date: 'yyyy. MM. dd. a h:mm' }}</span>
+                            <span class="bullet">•</span>
+                            <span class="file-item-meta__size" data-ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</span>
+                            <span class="file-item-meta__type" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</span>
+                        </div>
+
+                        <div class="file-detail-body__meta-info-down">
                         <span data-ng-if="file_detail.shared.length">
                             Shared in
                             <span ng-repeat="sharedEntity in filteredSharedFile = (file_detail.shared | filter : {type:'!user'}) track by $index">
@@ -84,50 +87,48 @@
                         <span ng-hide="file_detail.shareEntities.length != 0">
                             <span translate>File has not been shared in any other channels</span>
                         </span>
+                        </div>
+                    </div>
+
+                    <div class="file-item-meta__action dropdown" is-open="isToggled">
+                        <a class="file_actions dropdown-toggle">
+                            <span class="icon_downmenu"></span>
+                        </a>
+                        <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
+                            <li class="cursor_pointer">
+                                <a data-ng-click="onClickShare(file_detail); toggleDropdown($event);">
+                                    <i class="fa fa-share-alt"></i>
+                                    <span translate>Share</span>
+                                </a>
+                            </li>
+                            <li class="cursor_pointer">
+                                <a data-ng-click="focusPostComment=true; toggleDropdown($event);">
+                                    <i class="fa fa-comment-o"></i>
+                                    <span translate>Comment</span>
+                                </a>
+                            </li>
+                            <li class="cursor_pointer">
+                                <a href="{{ server_uploaded + file_detail.content.fileUrl }}" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
+                                    <i class="fa fa-download"></i>
+                                    <span translate>Download</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-
-                <div class="file-item-meta__action dropdown" is-open="isToggled">
-                    <a class="file_actions dropdown-toggle">
-                        <span class="icon_downmenu"></span>
-                    </a>
-                    <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
-                        <li class="cursor_pointer">
-                            <a data-ng-click="onClickShare(file_detail); toggleDropdown($event);">
-                                <i class="fa fa-share-alt"></i>
-                                <span translate>Share</span>
-                            </a>
-                        </li>
-                        <li class="cursor_pointer">
-                            <a data-ng-click="focusPostComment=true; toggleDropdown($event);">
-                                <i class="fa fa-comment-o"></i>
-                                <span translate>Comment</span>
-                            </a>
-                        </li>
-                        <li class="cursor_pointer">
-                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
-                                <i class="fa fa-download"></i>
-                                <span translate>Download</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
             </div>
 
-        </div>
-
-        <div class="rpanel-detail-body-comment">
-            <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}">
-                <div class="comment-item__thumbnail">
-                    <a data-ui-sref="archives({entityType:'users',entityId: comment.writer.id})"
-                       class="user-profile user-thumb-sm"
-                       data-user-id="{{ comment.writer.id }}"
-                       style="background-image: url({{ server_uploaded + ( comment.writer.u_photoThumbnailUrl.smallThumbnailUrl || comment.writer.u_photoUrl )}})"></a>
-                </div>
-                <div class="comment-item-header">
-                    <span class="comment-item-header__name">{{ comment.writer|getFirstLastNameOfUser }}</span>
-                    <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
+            <div class="rpanel-detail-body-comment">
+                <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}">
+                    <div class="comment-item__thumbnail">
+                        <a data-ui-sref="archives({entityType:'users',entityId: comment.writer.id})"
+                           class="user-profile user-thumb-sm"
+                           data-user-id="{{ comment.writer.id }}"
+                           style="background-image: url({{ server_uploaded + ( comment.writer.u_photoThumbnailUrl.smallThumbnailUrl || comment.writer.u_photoUrl )}})"></a>
+                    </div>
+                    <div class="comment-item-header">
+                        <span class="comment-item-header__name">{{ comment.writer|getFirstLastNameOfUser }}</span>
+                        <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
                     <span class="comment-item-header__action dropdown pull-right" data-ng-if="( user.id === comment.writer.id )">
                         <a href="#" class="link-dark dropdown-toggle">
                             <i class="fa fa-cog"></i>
@@ -141,35 +142,37 @@
                             </li>
                         </ul>
                     </span>
+                    </div>
+                    <div class="comment-item-body">
+                        <p class="break" data-ng-bind-html="(comment.content.body) || ''"></p>
+                    </div>
                 </div>
-                <div class="comment-item-body">
-                    <p class="break" data-ng-bind-html="(comment.content.body) || ''"></p>
-                </div>
-            </div>
 
-            <div class="comment-input-box">
-                <div class="comment-item__thumbnail">
-                    <a data-ui-sref="archives({entityType:'users',entityId: user.id})"
-                       class="user-profile user-thumb-sm"
-                       data-user-id="{{ user.id }}"
-                       style="background-image: url({{ server_uploaded + user.u_photoThumbnailUrl.smallThumbnailUrl }})"></a>
-                </div>
-                <form id="comment-form" data-ng-submit="postComment()">
-                    <textarea class="comment-input"
-                              focus-me="focusPostComment"
-                              message-submit="postComment()"
-                              data-ng-model="comment.content"
-                              maxlength=""
-                              autocorrect="off"
-                              autocomplete="off"
-                              spellcheck="true"></textarea>
+                <div class="comment-input-box">
+                    <div class="comment-item__thumbnail">
+                        <a data-ui-sref="archives({entityType:'users',entityId: user.id})"
+                           class="user-profile user-thumb-sm"
+                           data-user-id="{{ user.id }}"
+                           style="background-image: url({{ server_uploaded + user.u_photoThumbnailUrl.smallThumbnailUrl }})"></a>
+                    </div>
+                    <form id="comment-form" data-ng-submit="postComment()">
+                        <textarea class="comment-input"
+                                  focus-me="focusPostComment"
+                                  message-submit="postComment()"
+                                  data-ng-model="comment.content"
+                                  maxlength=""
+                                  autocorrect="off"
+                                  autocomplete="off"
+                                  spellcheck="true"></textarea>
                     <span class="comment-input__tip pull-left">
                         <span translate>shift+enter to multiline</span>
                     </span>
-                    <input type="submit" class="btn comment-btn" value="{{ 'Add Comment' | translate }}">
-                </form>
+                        <input type="submit" class="btn comment-btn" value="{{ 'Add Comment' | translate }}">
+                    </form>
+                </div>
             </div>
         </div>
+
 
     </div>
 </div>

@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, $filter) {
 
     $scope.isLoading = true;
-    $scope.isScrollLoading = false;
+    $scope.isScrollLoading = true;
 
     console.info('[enter] rightpanelController');
 
@@ -31,8 +31,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.fileTypeList = ['all', 'image', 'pdf', 'audio', 'video'];
 
     $scope.fileList = [];
-
-    $scope.fileListIndex = 999;
 
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
         if (type === 'you') {
@@ -177,7 +175,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         if($scope.fileRequest.startMessageId === -1) {
             //  Not loading more.
             //  Replace current fileList with new fileList.
-            $('.file-list__item').addClass('opac_out');
+//            $('.file-list__item').addClass('opac_out');
             $scope.fileList = fileList;
 
         }
@@ -187,7 +185,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             _.forEach(fileList, function(item) {
                 $scope.fileList.push(item);
             });
-
         }
         $scope.isScrollLoading = false;
         $scope.isLoading = false;

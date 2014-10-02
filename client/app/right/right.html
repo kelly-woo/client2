@@ -75,10 +75,18 @@
 
     <div class="rpanel-body-content file-list" >
 
-        <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
-             ui-sref="files({ userName: file.writer.name, itemId: file.id })"
-                style="z-index= fileListIndex--;">
+        <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
+        <div ng-show="fileList.length==0">
+            <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
+                <span translate>No files uploaded</span>
+            </div>
+            <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
+                <span translate>No files found matching on</span> <strong>{{ fileRequest.keyword }}</strong>
+            </div>
+        </div>
 
+        <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
+             ui-sref="files({ userName: file.writer.name, itemId: file.id })">
             <!--    IMAGE THUMBNAIL -->
             <img class="msg-file-body__img cursor_pointer pull-left"
                  data-ng-show="(file.content.type).indexOf('image') !== -1"
@@ -179,24 +187,9 @@
         </div>
 
         <div class="file-list__item loading" ng-if="isScrollLoading">
-            <div class="loading_container_background scroll_loading_container_background" ng-if="isLoading"></div>
+            <div class="loading_container_background scroll_loading_container_background"></div>
             <div class="loading_bg scroll_loading_bg"></div>
-            <div class="loading_bar scroll_loading_bar"></div>
-        </div>
-
-        <div ng-show="fileList.length==0">
-            <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
-                <span translate>No files uploaded</span>
-            </div>
-            <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
-                <span translate>No files found matching on</span> <strong>{{ fileRequest.keyword }}</strong>
-            </div>
-        </div>
-
-        <div class="loading_container file" ng-if="isLoading">
-            <div class="loading_container_background file" ng-if="isLoading"></div>
-            <div class="loading_bg file"></div>
-            <div class="loading_bar file"></div>
+            <div class="loading_bar icon-loading scroll_loading_bar"></div>
         </div>
 
     </div>

@@ -153,6 +153,20 @@
     padding: 45px 0;
     background: white;
 }
+
+
+.file-detail-header,
+.file-detail-body__image,
+.file-detail-body__other,
+.file-detail-body__meta .fileicon,
+.file-detail-body__meta .file-detail-body__meta-info,
+.file-detail-body__meta .file-detail-body__meta-info-down
+{
+    display: block;
+    -webkit-animation: opacIn-from-0 0.5s; /* Chrome, Safari, Opera */
+    animation: opacIn-from-0 0.5s;
+}
+
 .file-detail-header {
     padding: 15px;
     border-bottom: 1px solid #f2f2f2;
