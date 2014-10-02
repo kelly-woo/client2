@@ -75,9 +75,18 @@
 
     <div class="rpanel-body-content file-list" >
 
-        <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
-             ui-sref="files({ userName: file.writer.name, itemId: file.id })" >
+        <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
+        <div ng-show="fileList.length==0">
+            <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
+                <span translate>No files uploaded</span>
+            </div>
+            <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
+                <span translate>No files found matching on</span> <strong>{{ fileRequest.keyword }}</strong>
+            </div>
+        </div>
 
+        <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
+             ui-sref="files({ userName: file.writer.name, itemId: file.id })">
             <!--    IMAGE THUMBNAIL -->
             <img class="msg-file-body__img cursor_pointer pull-left"
                  data-ng-show="(file.content.type).indexOf('image') !== -1"
@@ -110,42 +119,16 @@
 
                 </div>
 
-                <!-- FILE TITLE WITH DROPDOWN MENU -->
+                <!-- FILE TITLE -->
                 <div class="file-item-body__title">
                     <span class="file-item-body-title">
                         {{ file.content.title }}
                     </span>
-
-                    <span class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
-                        <span class="dropdown-toggle">
-                            <i class="fa fa-caret-down"></i>
-                        </span>
-                        <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
-                            <li class="cursor_pointer">
-                                <a data-ng-click="onClickShare(file);">
-                                    <i class="fa fa-share-alt"></i>
-                                    <span translate>Share</span>
-                                </a>
-                            </li>
-                            <li class="cursor_pointer">
-                                <a data-ng-click="">
-                                    <i class="fa fa-comment-o"></i>
-                                    <span translate>Comment</span>
-                                </a>
-                            </li>
-                            <li class="cursor_pointer">
-                                <a href="{{ server_uploaded + file.content.fileUrl }}" download="{{ file.content.name }}">
-                                    <i class="fa fa-download"></i>
-                                    <span translate>Download</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </span>
                 </div>
 
-                <!-- UPLOADED TIME, SHARED CHANNELS/PRIVATEGROUPS, LINK -->
+                <!--    UPLOADED TIME, SHARED CHANNELS/PRIVATEGROUPS, LINK
+                        CURRENTLY HIDDEN    -->
                 <div class="file-item-meta file-item-meta__listview hidden">
-
                     <div data-ng-if="file.shared.length" class="file-item-meta__info">
                         Shared in
                         <span data-ng-repeat="sharedEntity in filteredSharedFile = (file.shared | filter : {type:'!user'}) track by $index">
@@ -174,27 +157,39 @@
 
                 </div>
             </div>
+
+            <!--    DROPDOWN MENU   -->
+            <div class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
+                <i class="fa fa-bars dropdown-toggle"></i>
+
+                <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
+                    <li class="cursor_pointer">
+                        <a data-ng-click="onClickShare(file);">
+                            <i class="fa fa-share-alt"></i>
+                            <span translate>Share</span>
+                        </a>
+                    </li>
+                    <li class="cursor_pointer">
+                        <a data-ng-click="">
+                            <i class="fa fa-comment-o"></i>
+                            <span translate>Comment</span>
+                        </a>
+                    </li>
+                    <li class="cursor_pointer">
+                        <a href="{{ server_uploaded + file.content.fileUrl }}" download="{{ file.content.name }}">
+                            <i class="fa fa-download"></i>
+                            <span translate>Download</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
 
         <div class="file-list__item loading" ng-if="isScrollLoading">
-            <div class="loading_container_background scroll_loading_container_background" ng-if="isLoading"></div>
+            <div class="loading_container_background scroll_loading_container_background"></div>
             <div class="loading_bg scroll_loading_bg"></div>
-            <div class="loading_bar scroll_loading_bar"></div>
-        </div>
-
-        <div ng-show="fileList.length==0">
-            <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
-                <span translate>No files uploaded</span>
-            </div>
-            <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
-                <span translate>No files found matching on</span> <strong>{{ fileRequest.keyword }}</strong>
-            </div>
-        </div>
-
-        <div class="loading_container file" ng-if="isLoading">
-            <div class="loading_container_background file" ng-if="isLoading"></div>
-            <div class="loading_bg file"></div>
-            <div class="loading_bar file"></div>
+            <div class="loading_bar icon-loading scroll_loading_bar"></div>
         </div>
 
     </div>

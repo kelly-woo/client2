@@ -5,7 +5,6 @@
     top: 40px;
     bottom: 0;
     background-color: #fff;
-    z-index: 0;
     border-left: 1px solid #e1e1e1;
     border-top: 1px solid #e1e1e1;
 }
@@ -18,7 +17,7 @@
     top: 40px;
     right: 0;
     bottom: 0;
-    z-index: -2;
+    z-index: -1;
 }
 .rpanel__background.extend {
     background-color: #f2f2f2;
@@ -109,16 +108,12 @@
 }
 .advanced-search-option-container {
     background-color: white;
-    padding: 0 15px;
-    padding-bottom: 55px;
-}
-.collapse.in.advanced-search-option-container {
-    height: 44px;
+    padding: 0 13px 10px;
 }
 .advanced-search-option__category {
-    float: left;
-    width: 31%;
-    margin-right: 3%;
+    width: 30%;
+    margin-right: 4%;
+    display: inline-block;
 }
 .advanced-search-option__category:last-child {
     margin-right: 0;
@@ -189,13 +184,10 @@
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
-    background: white;
     padding: 8px;
     border-bottom: 1px solid #ebebeb;
     min-height: 65px;
-
-    -webkit-animation: opacIn 1s; /* Chrome, Safari, Opera */
-    animation: opacIn 1s;
+    background-color: white;
 }
 .file-list__item .pull-left {
     margin-right: 10px;
@@ -204,6 +196,28 @@
     background: #eefcf7;
 }
 
+/*
+    APPLYING OPAC ANIMATION TO FILE-LIST__ITEM
+    EXCEPT FILE-ACTION DROPDOWN
+*/
+.file-list__item .msg-file-body__img,
+.file-list__item .msg-file-body__thumbnail,
+.file-list__item .file-item-body,
+.file-list__item .white-background {
+    -webkit-animation: opacIn-from-0 0.5s; /* Chrome, Safari, Opera */
+    animation: opacIn-from-0 0.5s;
+}
+.white-background {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: -1;
+}
 .file-item-type {
     float: left;
     font-size: 10px;
@@ -262,9 +276,10 @@
 }
 
 .file-item-body-title__more {
+    position: absolute;
+    top: 15px;
+    right: 8px;
     color:#999;
-    position: relative;
-    margin-left: 4px;
 }
 .file-item-body-title__more:hover{
     color: #333;
@@ -272,8 +287,9 @@
 
 .file_action_dropdown {
     left: auto;
-    right: -75px;
-    top: 20px;
+    right: 0;
+    top: 14px;
+    float: none;
 }
 
 .file-item {
@@ -347,35 +363,9 @@
     display: none;
 }
 
-.opac_in {
-    -webkit-animation: opacIn 0.5s; /* Chrome, Safari, Opera */
-    animation: opacIn 0.5s;
-}
-/* Chrome, Safari, Opera */
-@-webkit-keyframes opacIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-/* Standard syntax */
-@keyframes opacIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
 .opac_out {
-    -webkit-animation: opacOut 0.5s; /* Chrome, Safari, Opera */
-    animation: opacOut 0.5s;
-}
-
-/* Chrome, Safari, Opera */
-@-webkit-keyframes opacOut {
-    from {opacity: 1;}
-    to {opacity: 0;}
-}
-/* Standard syntax */
-@keyframes opacOut {
-    from {opacity: 1;}
-    to {opacity: 0;}
+    -webkit-animation: opacOut-to-0 0.5s; /* Chrome, Safari, Opera */
+    animation: opacOut-to-0 0.5s;
 }
 
 .from_right {
