@@ -7,6 +7,7 @@
     background-color: #fff;
     border-left: 1px solid #e1e1e1;
     border-top: 1px solid #e1e1e1;
+    z-index: 1;
 }
 .rpanel.extend {
     background-color: #f2f2f2;
@@ -17,17 +18,20 @@
     top: 40px;
     right: 0;
     bottom: 0;
-    z-index: -1;
+    z-index: 0;
+    border-left: 1px solid #e1e1e1;
+    border-top: 1px solid #e1e1e1;
+
 }
 .rpanel__background.extend {
     background-color: #f2f2f2;
 }
 .rpanel__background-body {
     position: absolute;
-    top: 35px;
-    left: 15px;
-    right: 15px;
-    bottom: 50px;
+    top: 46px;
+    left: 17px;
+    right: 17px;
+    bottom: 10px;
     overflow: hidden;
     background: #fff;
 }
@@ -44,6 +48,7 @@
 .rpanel-show .msgs, .rpanel-show .footer {
     margin-right: 480px;
 }
+.rpanel__background .panel-title-container,
 .rpanel .panel-title-container {
     background-color: rgba(0,0,0,0);
 }
@@ -153,6 +158,20 @@
     display: block;
 }
 
+.file_list_button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 100%;
+    height: 33px;
+    overflow: hidden;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    cursor: inherit;
+    display: block;
+}
 
 .file_list__item .file-item-header .filetype_icon,
 .file_list__item .file-item-header .user-thumb-sm {
