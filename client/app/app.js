@@ -141,7 +141,8 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     // translate for multi-lang
     $rootScope.setLang = function(setLang, isDebug) {
         setLang = setLang || 'ko_KR';
-        isDebug = isDebug || false;
+//        isDebug = isDebug || false;
+        isDebug =  false;
         // 언어 설정
         gettextCatalog.setCurrentLanguage(setLang);
         gettextCatalog.debug = isDebug;
