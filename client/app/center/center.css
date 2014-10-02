@@ -577,3 +577,6 @@ css for system-event-msg
 .js-fileapi-wrapper {
     position: static !important;
 }
+.js-fileapi-wrapper > div {
+    display: none;
+}
