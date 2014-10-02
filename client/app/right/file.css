@@ -160,7 +160,8 @@
 .file-detail-body__other,
 .file-detail-body__meta .fileicon,
 .file-detail-body__meta .file-detail-body__meta-info,
-.file-detail-body__meta .file-detail-body__meta-info-down
+.file-detail-body__meta .file-detail-body__meta-info-down,
+.rpanel-detail-body-comment
 {
     display: block;
     -webkit-animation: opacIn-from-0 0.5s; /* Chrome, Safari, Opera */

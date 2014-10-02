@@ -1,16 +1,13 @@
 <div class="panel-title-container">
     <span class="rpanel-header-heading rpanel-header-heading__back cursor_pointer" data-ui-sref="messages.detail.files" translate>
-        <i class="fa fa-chevron-left"></i>  Files
+        <i class="fa fa-chevron-left"></i> <span translate> Files </span>
     </span>
 </div>
 
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
 
     <div class="rpanel-body-content file-detail">
-
-        <div class="rpanel-body__loading" data-ng-show="fileLoadStatus.loading"></div>
-
-        <div class="file-detail-body-container" data-ng-if="!fileLoadStatus.loading && file_detail">
+        <div class="file-detail-body-container" data-ng-show="initialLoaded && file_detail">
             <div class="file-detail-header">
                 <div class="file-detail-header-box">
                     <div class="file-detail-header__thumbnail">
@@ -172,6 +169,7 @@
                 </div>
             </div>
         </div>
+
 
 
     </div>
