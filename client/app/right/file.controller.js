@@ -212,6 +212,9 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
         }
     });
 
+    $scope.onUserClick = function(user) {
+      $scope.$emit('onUserClick', user);
+    };
 });
 
 app.controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {
