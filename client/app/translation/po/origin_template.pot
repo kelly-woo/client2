@@ -3,10 +3,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: client/app/right/file.html
-msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
-msgstr ""
-
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr ""
@@ -23,6 +19,7 @@ msgstr ""
 msgid "@alert-empty-file-search"
 msgstr ""
 
+#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@alert-empty-file-shared"
 msgstr ""
@@ -83,6 +80,10 @@ msgstr ""
 msgid "@btn-change"
 msgstr ""
 
+#: client/app/right/file.html
+msgid "@btn-click-to-view"
+msgstr ""
+
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
 #: client/app/modal/invite.channel.html
@@ -95,6 +96,7 @@ msgstr ""
 msgid "@btn-close"
 msgstr ""
 
+#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@btn-comment"
 msgstr ""
@@ -106,6 +108,10 @@ msgstr ""
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
 msgid "@btn-create"
+msgstr ""
+
+#: client/app/right/file.html
+msgid "@btn-delete"
 msgstr ""
 
 #: client/app/modal/settings.profile.html
@@ -123,6 +129,7 @@ msgid "@btn-join"
 msgstr ""
 
 #: client/app/modal/share.html
+#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@btn-share"
 msgstr ""
@@ -215,6 +222,7 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr ""
 
+#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@common-download"
 msgstr ""
@@ -241,6 +249,7 @@ msgstr ""
 msgid "@common-file-type"
 msgstr ""
 
+#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@common-files"
 msgstr ""
@@ -340,6 +349,7 @@ msgstr ""
 msgid "@common-share-in"
 msgstr ""
 
+#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@common-shared-in"
 msgstr ""
@@ -573,6 +583,10 @@ msgstr ""
 msgid "@msg-file"
 msgstr ""
 
+#: client/app/right/file.html
+msgid "@msg-help-multiline"
+msgstr ""
+
 #: client/app/center/center.html
 msgid "@msg-invited"
 msgstr ""
@@ -657,36 +671,4 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "@team-switch"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Add Comment"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Click to view"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Comment"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Delete"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Download"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "File has not been shared in any other channels"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Share"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "shift+enter to multiline"
 msgstr ""

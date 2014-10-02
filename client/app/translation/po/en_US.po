@@ -12,10 +12,6 @@ msgstr ""
 "X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: client/app/right/file.html
-msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
-msgstr ""
-
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "You have not joined any channels yet"
@@ -32,7 +28,7 @@ msgstr "No files uploaded"
 msgid "@alert-empty-file-search"
 msgstr "No files found matching on"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@alert-empty-file-shared"
 msgstr "File has not been shared in any other chats"
 
@@ -89,6 +85,10 @@ msgstr "Cancel"
 msgid "@btn-change"
 msgstr "Change"
 
+#: client/app/right/file.html
+msgid "@btn-click-to-view"
+msgstr "Click to view"
+
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html client/app/modal/join.html
@@ -98,7 +98,7 @@ msgstr "Change"
 msgid "@btn-close"
 msgstr "Close"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@btn-comment"
 msgstr "Comment"
 
@@ -109,6 +109,10 @@ msgstr "Confirm"
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "@btn-create"
 msgstr "Create"
+
+#: client/app/right/file.html
+msgid "@btn-delete"
+msgstr "Delete"
 
 #: client/app/modal/settings.profile.html
 msgid "@btn-edit"
@@ -123,7 +127,8 @@ msgstr "Invite"
 msgid "@btn-join"
 msgstr "Join"
 
-#: client/app/modal/share.html client/app/right/right.html
+#: client/app/modal/share.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@btn-share"
 msgstr "Share"
 
@@ -208,7 +213,7 @@ msgstr "Direct Messages"
 msgid "@common-dm-invite-to"
 msgstr "Invite to"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@common-download"
 msgstr "Download"
 
@@ -233,7 +238,7 @@ msgstr "File List"
 msgid "@common-file-type"
 msgstr "File Type"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@common-files"
 msgstr "Files"
 
@@ -323,7 +328,7 @@ msgstr "Share File"
 msgid "@common-share-in"
 msgstr "Share in"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@common-shared-in"
 msgstr "Shared in"
 
@@ -559,6 +564,10 @@ msgstr "created current private group"
 msgid "@msg-file"
 msgstr "File"
 
+#: client/app/right/file.html
+msgid "@msg-help-multiline"
+msgstr "shift+enter to multiline"
+
 #: client/app/center/center.html
 msgid "@msg-invited"
 msgstr "invited"
@@ -642,38 +651,6 @@ msgstr "Team Members"
 #: client/app/header/header.html
 msgid "@team-switch"
 msgstr "Switch Teams"
-
-#: client/app/right/file.html
-msgid "Add Comment"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Click to view"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Comment"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Delete"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Download"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "File has not been shared in any other channels"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Share"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "shift+enter to multiline"
-msgstr ""
 
 #~ msgid "@file-upload"
 #~ msgstr "File Upload"

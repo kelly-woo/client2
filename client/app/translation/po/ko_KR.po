@@ -13,10 +13,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: client/app/right/file.html
-msgid "<i class=\"fa fa-chevron-left\"></i>  Files"
-msgstr ""
-
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "참여중인 채널이 없습니다"
@@ -33,7 +29,7 @@ msgstr "업로드된 파일이 없습니다"
 msgid "@alert-empty-file-search"
 msgstr "검색 결과가 없습니다"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@alert-empty-file-shared"
 msgstr "공유된 대화방이 없습니다"
 
@@ -90,6 +86,10 @@ msgstr "취소"
 msgid "@btn-change"
 msgstr "변경하기"
 
+#: client/app/right/file.html
+msgid "@btn-click-to-view"
+msgstr "새 창에서 보기"
+
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html client/app/modal/join.html
@@ -99,7 +99,7 @@ msgstr "변경하기"
 msgid "@btn-close"
 msgstr "닫기"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@btn-comment"
 msgstr "댓글남기기"
 
@@ -110,6 +110,10 @@ msgstr "확인"
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "@btn-create"
 msgstr "생성하기"
+
+#: client/app/right/file.html
+msgid "@btn-delete"
+msgstr "삭제하기"
 
 #: client/app/modal/settings.profile.html
 msgid "@btn-edit"
@@ -124,7 +128,8 @@ msgstr "초대하기"
 msgid "@btn-join"
 msgstr "참여하기"
 
-#: client/app/modal/share.html client/app/right/right.html
+#: client/app/modal/share.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@btn-share"
 msgstr "공유하기"
 
@@ -209,7 +214,7 @@ msgstr "1:1 메시지"
 msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@common-download"
 msgstr "다운로드"
 
@@ -234,7 +239,7 @@ msgstr "파일 리스트"
 msgid "@common-file-type"
 msgstr "파일 타입"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@common-files"
 msgstr "파일"
 
@@ -324,7 +329,7 @@ msgstr "파일 공유"
 msgid "@common-share-in"
 msgstr "공유 대화방"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@common-shared-in"
 msgstr "공유된 곳"
 
@@ -560,6 +565,10 @@ msgstr "님이 비공개 그룹을 생성했습니다"
 msgid "@msg-file"
 msgstr "파일"
 
+#: client/app/right/file.html
+msgid "@msg-help-multiline"
+msgstr "멀티라인 입력: shift+enter"
+
 #: client/app/center/center.html
 msgid "@msg-invited"
 msgstr "님이"
@@ -644,37 +653,26 @@ msgstr "전체 멤버 보기"
 msgid "@team-switch"
 msgstr "팀 변경"
 
-#: client/app/right/file.html
-msgid "Add Comment"
-msgstr "댓글 남기기"
+#~ msgid "Add Comment"
+#~ msgstr "댓글 남기기"
 
-#: client/app/right/file.html
-msgid "Click to view"
-msgstr "파일 보기"
+#~ msgid "Comment"
+#~ msgstr "댓글 남기기"
 
-#: client/app/right/file.html
-msgid "Comment"
-msgstr "댓글 남기기"
+#~ msgid "Delete"
+#~ msgstr "삭제"
 
-#: client/app/right/file.html
-msgid "Delete"
-msgstr "삭제"
+#~ msgid "Download"
+#~ msgstr "다운로드"
 
-#: client/app/right/file.html
-msgid "Download"
-msgstr "다운로드"
+#~ msgid "File has not been shared in any other channels"
+#~ msgstr "공유된 채널이 없습니다"
 
-#: client/app/right/file.html
-msgid "File has not been shared in any other channels"
-msgstr "공유된 채널이 없습니다"
+#~ msgid "Share"
+#~ msgstr "공유하기"
 
-#: client/app/right/file.html
-msgid "Share"
-msgstr "공유하기"
-
-#: client/app/right/file.html
-msgid "shift+enter to multiline"
-msgstr "멀티라인 입력: shift+enter"
+#~ msgid "shift+enter to multiline"
+#~ msgstr "멀티라인 입력: shift+enter"
 
 #~ msgid "File Type"
 #~ msgstr "파일 형식"
