@@ -2,18 +2,18 @@
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel();"><i class="fa fa-close"></i></button>
     <h3 class="modal-header__title">
-        <span translate>Account Setting</span>
+        <span translate>@common-account-settings</span>
     </h3>
 </div>
 
 <div class="modal-body account-settings">
     <h4 class="modal-body__description">
-        <span translate>You can change account settings such as full name, password</span>
+        <span translate>@modal-setting-account-msg1</span>
     </h4>
     <accordion class="account-settings-body" close-others="status.oneAtATime">
         <accordion-group is-open="status.name.open">
             <accordion-heading>
-                {{ 'Change your full name' | translate }}
+                {{ '@modal-setting-account-name' | translate }}
                 <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.name.open, 'glyphicon-chevron-right': !status.name.open}"></i>
             </accordion-heading>
             <div class="account-settings-body__wraper">
@@ -21,7 +21,7 @@
                     <div class="form-group account-settings-body__form-group"
                          data-ng-class="{'has-error': rename.cur_password.error.status}">
                         <label class="control-label account-settings-body__label">
-                            <span translate>Current Password</span>
+                            <span translate>@common-current-password</span>
                         </label>
                         <div>
                             <input type="text"
@@ -31,15 +31,17 @@
                             <span class="account-settings-body__error"
                                   data-ng-if="rename.cur_password.error.status"
                                   data-ng-bind="rename.cur_password.error.message"
-                                  data-error-required="{{ 'required' | translate }}"
-                                  data-error-invalid="{{ 'invalid password' | translate }}"
-                                  data-error-fail="{{ 'fail to update' | translate }}"
-                                  data-error-success="{{ 'update complete' | translate }}"></span>
+                                  data-error-required="{{ '@alert-required' | translate }}"
+                                  data-error-invalid="{{ '@alert-invalid-password' | translate }}"
+                                  data-error-fail="{{ '@alert-update-fail' | translate }}"
+                                  data-error-success="{{ '@alert-update-success' | translate }}"></span>
                         </div>
                     </div>
                     <div class="form-group account-settings-body__form-group"
                          data-ng-class="{'has-error': rename.new_name.error.status}">
-                        <label class="control-label account-settings-body__label"><span translate>New Username</span></label>
+                        <label class="control-label account-settings-body__label">
+                            <span translate>@common-new-name</span>
+                        </label>
                         <div>
                             <input type="text"
                                    name="fullname"
@@ -51,16 +53,15 @@
                         </div>
                     </div>
                     <div class="account-settings-body__help">
-                        <p>Usernames must be lowercase and cannot contain spaces.</p>
-                        <p>Most people choose to use their first name, last name, nickname, or some combination of those with initials.</p>
+                        <span translate>@modal-setting-account-name-msg</span>
                     </div>
-                    <input type="submit" class="btn btn-ok account-settings-body__submit" value="{{ 'Update Username' | translate }}" />
+                    <input type="submit" class="btn btn-ok account-settings-body__submit" value="{{ '@btn-update-name' | translate }}" />
                 </form>
             </div>
         </accordion-group>
         <accordion-group is-open="status.password.open">
             <accordion-heading>
-                {{ 'Change your password' | translate }}
+                {{ '@modal-setting-account-password' | translate }}
                 <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.password.open, 'glyphicon-chevron-right': !status.password.open}"></i>
             </accordion-heading>
             <div class="account-settings-body__wraper">
@@ -68,7 +69,7 @@
                     <div class="form-group account-settings-body__form-group"
                          data-ng-class="{'has-error': repassword.cur_password.error.status}">
                         <label class="control-label account-settings-body__label">
-                            <span translate>Current Password</span>
+                            <span translate>@common-current-password</span>
                         </label>
                         <div>
                             <input type="text"
@@ -83,7 +84,7 @@
                     <div class="form-group account-settings-body__form-group"
                          data-ng-class="{'has-error': repassword.new_password.error.status}">
                         <label class="control-label account-settings-body__label">
-                            <span translate>New Password</span>
+                            <span translate>@common-new-password</span>
                         </label>
                         <div>
                             <input type="text"
@@ -100,20 +101,20 @@
                             </span>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-ok account-settings-body__submit" value="{{ 'Update Password' | translate }}" />
+                    <input type="submit" class="btn btn-ok account-settings-body__submit" value="{{ '@btn-update-password' | translate }}" />
                 </form>
             </div>
         </accordion-group>
-        <accordion-group heading="{{ 'Change your email address' | translate }}" is-disabled="status.email.disabled">
+        <accordion-group heading="{{ '@modal-setting-account-email' | translate }}" is-disabled="status.email.disabled">
             <div class="account-settings-body__wraper">
-                이메일 변경
+                <!-- TODO: 이메일 변경 정책 결정 후 구현 -->
             </div>
         </accordion-group>
     </accordion>
 </div>
 
 <div class="modal-footer profile-footer">
-    <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>Close</span></button>
+    <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>@btn-close</span></button>
 </div>
 
 <div class="loading_container" ng-if="isLoading">

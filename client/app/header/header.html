@@ -10,15 +10,15 @@
             </span>
             <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
                 <!-- 채널 생성 -->
-                <li class="disabled" role="presentation">
-                    <a data-ng-click="" role="menuitem" tabindex="-1">
+                <li class="" role="presentation">
+                    <a data-ng-click="openModal('channel');" role="menuitem" tabindex="-1">
                         <i class="fa fa-comment"></i>
                         <span translate>@common-create-ch</span>
                     </a>
                 </li>
                 <!-- 그룹 생성 -->
-                <li class="disabled" role="presentation">
-                    <a data-ng-click="" role="menuitem" tabindex="-1">
+                <li class="" role="presentation">
+                    <a data-ng-click="openModal('private');" role="menuitem" tabindex="-1">
                         <i class="fa fa-unlock-alt"></i>
                         <span translate>@common-create-pg</span>
                     </a>
@@ -73,7 +73,7 @@
                 <li class="disabled" role="presentation" data-ng-click="">
                     <a role="menuitem" tabindex="-1">
                         <i class="fa fa-upload"></i>
-                        <span translate>@file-upload</span>
+                        <span translate>@common-upload-file</span>
                     </a>
                 </li>
                 <li class="" role="presentation" data-ng-click="onFileTypeClick('all');">
@@ -123,17 +123,17 @@
             </span>
             <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
                 <li class="" role="presentation">
-                    <a data-ng-click="openModal('profile');" role="menuitem" tabindex="-1">
+                    <a data-ng-click="openModal('setting-profile');" role="menuitem" tabindex="-1">
                         <i class="fa fa-user"></i><span translate>@common-profile-settings</span>
                     </a>
                 </li>
                 <li class="" role="presentation">
-                    <a data-ng-click="openModal('account')" role="menuitem" tabindex="-1">
+                    <a data-ng-click="openModal('setting-account')" role="menuitem" tabindex="-1">
                         <i class="fa fa-cog"></i><span translate>@common-account-settings</span>
                     </a>
                 </li>
                 <li class="" role="presentation">
-                    <a data-ng-click="openModal('preferences')" role="menuitem" tabindex="-1">
+                    <a data-ng-click="openModal('setting-service')" role="menuitem" tabindex="-1">
                         <i class="fa fa-wrench"></i><span translate>@common-service-settings</span>
                     </a>
                 </li>

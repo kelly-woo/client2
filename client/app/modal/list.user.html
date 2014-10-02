@@ -1,8 +1,11 @@
 <!-- Modal: List of Users -->
+<!--
+    14.10.02    사용되지 않는 파일(한글화 미적용)
+-->
 <div class="modal-header">
     <button type="button" class="close" data-ng-click="cancel();"><i class="fa fa-close"></i></button>
     <h3 class="modal-header__title">
-        <span translate>Direct Message</span>
+        <span>Direct Message</span>
     </h3>
 </div>
 
@@ -12,7 +15,7 @@
         <input type="text"
                class="form-control green-input-box"
                data-ng-model="selectedUser"
-               placeholder="{{ 'Search users by name' | translate }}"
+               placeholder="{{ 'Search users by name' }}"
                typeahead="user as user.u_lastName+user.u_firstName for user in userList  | userByName:$viewValue"
                typeahead-on-select="onUserSelected($item); selectedUser = '';"
                typeahead-template-url="customTemplate.html"
@@ -21,7 +24,7 @@
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>Close</span></button>
+    <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span>Close</span></button>
 </div>
 
 <script type="text/ng-template" id="customTemplate.html">

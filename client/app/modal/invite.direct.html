@@ -2,33 +2,33 @@
 <div class="modal-header">
     <button type="button" class="close" data-ng-click="cancel(); clear();"><i class="fa fa-close"></i></button>
     <h3 class="modal-header__title">
-        <span translate>Invite {{ currentEntity | getFirstLastNameOfUser }} to a channel/group</span>
+        <span translate>@modal-dm-invite</span><span>: {{ currentEntity | getFirstLastNameOfUser }}</span>
     </h3>
 </div>
 
 <form name="user_to_channel_invite_form" data-ng-submit="onInviteClick(inviteChannel);">
     <div class="modal-body">
         <h4 class="modal-body__description">
-            <span translate></span>
+            <span translate>@modal-dm-invite-msg1</span>
         </h4>
         <div class="form-horizontal">
             <div class="form-group">
                 <label class="control-label col-sm-3">
-                    <span translate>Invite to</span>
+                    <span translate>@common-dm-invite-to</span>
                 </label>
                 <div class="col-sm-9">
                     <select class="form-control"
                             data-ng-model="inviteChannel"
                             data-ng-options="channel.name group by channel.type for channel in inviteOptions">
-                        <option value="">{{ 'Choose' | translate }}</option>
+                        <option value="">{{ '@option-choose' | translate }}</option>
                     </select>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" data-ng-click="cancel(); clear();"><span translate>Close</span></button>
-        <input class="btn btn-ok" type="submit" id="private_invite" value="{{ 'Invite' | translate }}"/>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel(); clear();"><span translate>@btn-close</span></button>
+        <input class="btn btn-ok" type="submit" id="private_invite" value="{{ '@btn-invite' | translate }}"/>
     </div>
 </form>
 

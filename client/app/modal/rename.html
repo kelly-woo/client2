@@ -2,7 +2,7 @@
 <div class="modal-header">
     <button type="button" class="close" data-ng-click="cancel();"><i class="fa fa-close"></i></button>
     <h3 class="modal-header__title">
-        <span translate>Rename</span>
+        <span translate>@common-rename</span>
     </h3>
 </div>
 
@@ -11,17 +11,22 @@
         <div class="form-horizontal">
             <div class="form-group">
                 <label class="control-label col-sm-2">
-                    <span translate>Name</span>
+                    <span translate>@common-new-name</span>
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="newChannelName" data-ng-model="newChannelName" required/>
+                    <input type="text"
+                           class="form-control"
+                           name="newChannelName"
+                           data-ng-model="newChannelName"
+                           placeholder="{{ '@input-rename' | translate }}"
+                           required/>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>Cancel</span></button>
-        <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ 'Confirm' | translate }}"/>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>@btn-cancel</span></button>
+        <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ '@btn-update-name' | translate }}"/>
     </div>
 </form>
 
