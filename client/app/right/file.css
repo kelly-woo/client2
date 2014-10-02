@@ -313,7 +313,10 @@
 }
 .comment-input-box {
     position: relative;
-    padding-left: 38px;
+    padding: 0 15px 15px 53px;
+}
+.comment-input-box .comment-item__thumbnail {
+    left: 15px;
 }
 #comment-form {
     padding-bottom: 40px;
@@ -331,7 +334,7 @@
 }
 .comment-btn {
     position: absolute;
-    right: 0;
+    right: 15px;
     width: 140px;
     height: 40px;
     border-radius: 0;
@@ -339,7 +342,7 @@
     color: #ffffff;
     font-size: 14px;
     font-weight: 700;
-    bottom: 0;
+    bottom: 15px;
 }
 .comment-btn:hover{
     color: white;

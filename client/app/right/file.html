@@ -7,7 +7,7 @@
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
 
     <div class="rpanel-body-content file-detail">
-        <div class="file-detail-body-container" data-ng-show="initialLoaded && file_detail">
+        <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 
             <div class="file-detail-header">
                 <div class="file-detail-header-box">
@@ -144,28 +144,29 @@
                     </div>
                 </div>
 
-                <div class="comment-input-box">
-                    <div class="comment-item__thumbnail">
-                        <img class="user-profile user-thumb-sm cursor_pointer"
-                             ng-src="{{ server_uploaded + ( user.u_photoThumbnailUrl.smallThumbnailUrl )}}"
-                             ng-click="onUserClick(file_detail.writer);"/>
-                    </div>
-                    <form id="comment-form" data-ng-submit="postComment()">
-                        <textarea class="comment-input"
-                                  focus-me="focusPostComment"
-                                  message-submit="postComment()"
-                                  data-ng-model="comment.content"
-                                  maxlength=""
-                                  autocorrect="off"
-                                  autocomplete="off"
-                                  spellcheck="true"></textarea>
+            </div>
+        </div>
+
+        <div class="comment-input-box" data-ng-show="initialLoaded && file_detail">
+            <div class="comment-item__thumbnail">
+                <img class="user-profile user-thumb-sm cursor_pointer"
+                     ng-src="{{ server_uploaded + ( user.u_photoThumbnailUrl.smallThumbnailUrl )}}"
+                     ng-click="onUserClick(file_detail.writer);"/>
+            </div>
+            <form id="comment-form" data-ng-submit="postComment()">
+                <textarea class="comment-input"
+                          focus-me="focusPostComment"
+                          message-submit="postComment()"
+                          data-ng-model="comment.content"
+                          maxlength=""
+                          autocorrect="off"
+                          autocomplete="off"
+                          spellcheck="true"></textarea>
                         <span class="comment-input__tip pull-left">
                             <span translate>@msg-help-multiline</span>
                         </span>
-                        <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
-                    </form>
-                </div>
-            </div>
+                <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
+            </form>
         </div>
 
     </div>
