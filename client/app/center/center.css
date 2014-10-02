@@ -573,3 +573,7 @@ css for system-event-msg
     color: #999999;
 }
 
+
+.js-fileapi-wrapper {
+    position: static !important;
+}
