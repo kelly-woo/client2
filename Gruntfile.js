@@ -509,9 +509,6 @@ module.exports = function (grunt) {
         // 다국어 .po 파일을 읽어서 angular 형식의 파일을 만들 위치와 파일명 지정. 별도의 모듈로 gettext_translation을 적용한다.
         nggettext_compile: {
             all: {
-//            options: {
-//                module: 'gettext_translation'
-//            },
                 files: {
                     '<%= yeoman.client %>/app/translation/translation.js': [
                         '<%= yeoman.client %>/app/translation/po/*.po'

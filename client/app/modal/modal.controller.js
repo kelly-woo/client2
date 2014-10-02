@@ -238,52 +238,24 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter,
         $scope.isLoading = true;
 
         var invites = [];
-        var cur = {};
-        var hasAllInformation = false;
-
         $('input.invite').each(function(idx) {
-            var currentDomInput = $(this);
-
-            switch(currentDomInput.attr('name')) {
-                case 'email':
-                    hasAllInformation = false;
-                    cur.email = currentDomInput.val();
-                    break;
-                case 'lastName':
-                    cur.lastName = currentDomInput.val();
-                    break;
-                case 'firstName':
-                    cur.firstName = currentDomInput.val();
-
-                    if ( cur.email === '' || cur.lastName === '' || cur.firstName === '') {
-                        cur = {};
-                        break;
-                    }
-                    invites.push(cur);
-                    cur = {};
-                    hasAllInformation = true;
-                    break;
-                default :
-                    console.warn('onInviteClick', idx);
+            var input = $(this);
+            if (input.val()) {
+                invites.push({
+                    'email': input.val()
+                });
             }
         });
 
         // help message
-        var help_missing = $filter('translate')('Missing Information');
-        var help_fail_send = $filter('translate')('Failed to send email');
-        var help_error_taken = $filter('translate')('is already member of your team');
-        var help_error_invalid = $filter('translate')('is invalid email address');
-        var help_success_send = $filter('translate')('Sent the invitation mail successfully');
+        var help_missing = $filter('translate')('@alert-missing-info');
+        var help_fail_send = $filter('translate')('@alert-send-mail-fail');
+        var help_error_taken = $filter('translate')('@alert-send-mail-taken');
+        var help_error_invalid = $filter('translate')('@alert-send-mail-invalid');
+        var help_success_send = $filter('translate')('@alert-send-mail-success');
         // html fragment
         var html_noti_fail = '<div class="modal-noti-block"><h1>' + help_fail_send + '</h1></div>';
         var html_noti_success = '<div class="modal-noti-block alert-jandi alert-success"><h1>' + help_success_send + '</h1></div>';
-
-        $scope.hasAllInformation = hasAllInformation;
-
-        if (invites.length == 0) {
-            $scope.isLoading = false;
-            alert(help_missing);
-        }
 
         if (invites.length > 0) {
             teamAPIservice.inviteToTeam(invites)
@@ -319,23 +291,21 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter,
                     $scope.isLoading = false;
                     console.error(error.code, error.msg);
                 });
-        }
-        else  {
+        } else {
             $scope.isLoading = false;
+            alert(help_missing);
         }
     };
 
     $scope.totalNumberOfInput = 0;
 
     $scope.onAddMoreClick = function() {
-        var input_email = $filter('translate')('Email');
-        var input_lname = $filter('translate')('Last Name');
-        var input_fname = $filter('translate')('First Name');
-        var invite_template = angular.element('<div class="form-horizontal">' +
-            '<div class="email_container"><input type="email" class="form-control invite" name="email" ng-required="true" placeholder="' + input_email + '"/></div>' +
-            '<div class="firstName_container"><input type="text" class="form-control invite" name="lastName" ng-required="true" placeholder="' + input_lname + '"/></div>' +
-            '<div class="lastName_container"><input type="text" class="form-control invite" name="firstName" ng-required="true" placeholder="' + input_fname + '"/></div>' +
-            '</div>');
+        var input_email = $filter('translate')('@input-invite-email');
+        var invite_template = angular.element(
+            '<div class="form-horizontal">' +
+                '<input type="email" class="form-control invite" name="email" data-ng-required="true" placeholder="' + input_email + '" />' +
+            '</div>'
+        );
         $('.invite-team-body').append(invite_template);
     };
 });
@@ -450,7 +420,7 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, fileAPIse
             var upload_data = {
                 "entity type"   : share_target,
                 "category"      : file_meta[0],
-                "extension"     : file_meta[1],
+                "extension"     : response.data.fileInfo.ext,
                 "mime type"     : response.data.fileInfo.type,
                 "size"          : response.data.fileInfo.size
             };
@@ -514,7 +484,7 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
                 var share_data = {
                     "entity type"   : share_target,
                     "category"      : file_meta[0],
-                    "extension"     : file_meta[1],
+                    "extension"     : $scope.file.content.ext,
                     "mime type"     : $scope.file.content.type,
                     "size"          : $scope.file.content.size
                 };
@@ -748,14 +718,14 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
         if (!$scope.rename.cur_password.value) {
             $scope.rename.cur_password.error = {
                 status  : true,
-                message : $filter('translate')('required')
+                message : $filter('translate')('@alert-required')
             };
         } else {
             $scope.rename.cur_password.error.status = false;
             if (!$scope.rename.new_name.value) {
                 $scope.rename.new_name.error = {
                     status  : true,
-                    message : $filter('translate')('required')
+                    message : $filter('translate')('@alert-required')
                 };
             } else {
                 $scope.rename.new_name.error.status = false;
@@ -780,7 +750,7 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
                     .error(function(err) {
                         $scope.rename.cur_password.error = {
                             status  : true,
-                            message : $filter('translate')('invalid password')
+                            message : $filter('translate')('@alert-invalid-password')
                         };
                         $scope.isLoading = false;
                     });
@@ -792,14 +762,14 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
         if (!$scope.repassword.cur_password.value) {
             $scope.repassword.cur_password.error = {
                 status  : true,
-                message : $filter('translate')('required')
+                message : $filter('translate')('@alert-required')
             };
         } else {
             $scope.repassword.cur_password.error.status = false;
             if (!$scope.repassword.new_password.value) {
                 $scope.repassword.new_password.error = {
                     status  : true,
-                    message : $filter('translate')('required')
+                    message : $filter('translate')('@alert-required')
                 };
             } else {
                 $scope.repassword.new_password.error.status = false;
@@ -812,13 +782,13 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
                             .success(function() {
                                 $scope.repassword.result = {
                                     status  : true,
-                                    message : $filter('translate')('update complete')
+                                    message : $filter('translate')('@alert-update-success')
                                 }
                             })
                             .error(function(err) {
                                 $scope.repassword.new_password.error = {
                                     status  : true,
-                                    message : $filter('translate')('fail to update')
+                                    message : $filter('translate')('@alert-update-fail')
                                 }
                             });
                         $scope.repassword.cur_password.value = "";
@@ -828,7 +798,7 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
                     .error(function(err) {
                         $scope.repassword.cur_password.error = {
                             status  : true,
-                            message : $filter('translate')('invalid password')
+                            message : $filter('translate')('@alert-invalid-password')
                         };
                         $scope.isLoading = false;
                     });

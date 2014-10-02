@@ -581,7 +581,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 var share_data = {
                     "entity type"   : share_target,
                     "category"      : file_meta[0],
-                    "extension"     : file_meta[1],
+                    "extension"     : message.content.ext,
                     "mime type"     : message.content.type,
                     "size"          : message.content.size
                 };
@@ -882,7 +882,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         switch(msg.info.eventType) {
             case 'invite':
-                action = $filter('translate')('invited');
+                action = $filter('translate')('@msg-invited');
                 newMsg.message.invites = [];
                 _.each(msg.info.inviteUsers, function(element, index, list) {
                     var entity = entityAPIservice.getEntityFromListById($rootScope.userList, element);
@@ -890,16 +890,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 });
                 break;
             case 'join' :
-                action = $filter('translate')('has joined');
+                action = $filter('translate')('@msg-joined');
                 break;
             case 'leave' :
-                action = $filter('translate')('has left');
+                action = $filter('translate')('@msg-left');
                 break;
             case 'create' :
                 if (msg.info.entityType !== 'channel') {
-                    action = $filter('translate')('created current private group');
+                    action = $filter('translate')('@msg-create-ch');
                 } else {
-                    action = $filter('translate')('created current channel');
+                    action = $filter('translate')('@msg-create-pg');
                 }
                 break;
         }

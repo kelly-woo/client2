@@ -13,10 +13,10 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="" data-ng-if="false">
-                    <a href="#"><span translate>Customer Service</span> &RightArrow;</a>
+                    <a href="#"><span translate>@common-customer-service</span> &RightArrow;</a>
                 </li>
                 <li data-ng-if="false">
-                    <a href="//www.jandi.com"><span translate>Visit Homepage</span> &RightArrow;</a>
+                    <a href="//www.jandi.com"><span translate>@common-visit-homepage</span> &RightArrow;</a>
                 </li>
             </ul>
         </div>
@@ -27,8 +27,8 @@
         <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
         <div class="col-lg-4">
             <img src="assets/images/logo-ci.png" alt="logo-ci" class="jandi-header__logo" />
-            <h2 class="jandi-header__title"><span translate>Welcome to {{teamInfo.name}}</span>!</h2>
-            <p class="jandi-header__message"><span translate>Enter your email and password</span></p>
+            <h2 class="jandi-header__title"><span translate>@login-welcome {{teamInfo.name}}</span>!</h2>
+            <p class="jandi-header__message"><span translate>@login-message</span></p>
         </div>
         <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
     </div>
@@ -37,14 +37,14 @@
         <div class="col-lg-4">
             <form class="jandi-body__form" role="form" name="signinForm" ng-submit="signin(user)">
                 <div class="alert-jandi alert-danger" ng-if="error.status">
-                    <i class="fa fa-warning"></i> <span translate>Invalid email or password</span>
+                    <i class="fa fa-warning"></i> <span translate>@login-invalid</span>
                 </div>
-                <input type="email" ng-model="user.email" class="jandi-body__form-input form-control" placeholder="{{ 'Email address' | translate }}" required autofocus>
-                <input type="password" ng-model="user.password" class="jandi-body__form-input form-control" placeholder="{{ 'Password' | translate }}" required>
-                <button class="btn btn-jandi btn-block jandi-body__form-submit" type="submit" ng-disabled="signinForm.$invalid"><span translate>Sign In</span></button>
+                <input type="email" ng-model="user.email" class="jandi-body__form-input form-control" placeholder="{{ '@common-email' | translate }}" required autofocus>
+                <input type="password" ng-model="user.password" class="jandi-body__form-input form-control" placeholder="{{ '@common-password' | translate }}" required>
+                <button class="btn btn-jandi btn-block jandi-body__form-submit" type="submit" ng-disabled="signinForm.$invalid"><span translate>@common-sign-in</span></button>
             </form>
             <div class="jandi-body__help">
-                <a class="jandi-body__help-text"><span translate>Forgot Password?</span> &RightArrow;</a>
+                <a class="jandi-body__help-text"><span translate>@login-reset-password</span> &RightArrow;</a>
             </div>
         </div>
         <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
@@ -59,9 +59,9 @@
             </div>
             <div class="col-lg-5 col-sm-5 col-xs-12">
                 <div class="jandi-footer__terms">
-                    <a href="#" data-ng-click="$event.preventDefault(); openModal('agreement');"><span translate>Terms of Service</span></a>
+                    <a href="#" data-ng-click="$event.preventDefault(); openModal('agreement');"><span translate>@common-terms-of-service</span></a>
                     <span class="divider">|</span>
-                    <a href="#" data-ng-click="$event.preventDefault(); openModal('privacy');"><span translate>Privacy Policy</span></a>
+                    <a href="#" data-ng-click="$event.preventDefault(); openModal('privacy');"><span translate>@common-privacy-policy</span></a>
                 </div>
             </div>
         </div>

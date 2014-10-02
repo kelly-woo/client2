@@ -57,7 +57,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
                 size        :   'lg'
             });
         }
-        else if (selector == 'profile') {
+        else if (selector == 'setting-profile') {
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/settings.profile.html',
@@ -65,7 +65,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
                 size        :   'lg'
             });
         }
-        else if (selector == 'account') {
+        else if (selector == 'setting-account') {
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/settings.account.html',
@@ -73,10 +73,10 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
                 size        :   'lg'
             });
         }
-        else if (selector === 'preferences') {
+        else if (selector === 'setting-service') {
             $modal.open({
                 sopce       : $scope,
-                templateUrl : 'app/modal/preferences.html',
+                templateUrl : 'app/modal/settings.service.html',
                 controller  : 'preferencesController',
 //                windowClass : 'modal-wide',
                 size        : 'lg'

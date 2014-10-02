@@ -1,6 +1,6 @@
 <div class="panel-title-container">
-    <span class="rpanel-header-heading rpanel-header-heading__back cursor_pointer" data-ui-sref="messages.detail.files" translate>
-        <i class="fa fa-chevron-left"></i> <span translate> Files </span>
+    <span class="rpanel-header-heading rpanel-header-heading__back cursor_pointer" data-ui-sref="messages.detail.files">
+        <i class="fa fa-chevron-left"></i> <span translate>@common-files</span>
     </span>
 </div>
 
@@ -43,12 +43,12 @@
                     <div class="file-detail-body__other-action">
                         <button ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" type="button" class="btn btn-white" >
                             <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
-                                <span translate>Click to view</span>
+                                <span translate>@btn-click-to-view</span>
                             </a>
                         </button>
                         <button ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )"type="button" class="btn btn-white" >
                             <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}">
-                                <span translate>Download</span>
+                                <span translate>@common-download</span>
                             </a>
                         </button>
                     </div>
@@ -67,7 +67,7 @@
 
                         <div class="file-detail-body__meta-info-down">
                         <span data-ng-if="file_detail.shared.length">
-                            Shared in
+                            <span translate>@common-shared-in</span>
                             <span ng-repeat="sharedEntity in filteredSharedFile = (file_detail.shared | filter : {type:'!user'}) track by $index">
                                 <span data-ng-hide="($index === 0)">, </span>
                                 <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
@@ -78,11 +78,11 @@
                                 </a>
                             </span>
                             <span ng-show="file_detail.shared.length != filteredSharedFile.length">
-                                <span ng-show="filteredSharedFile.length != 0"> and </span>with users.
+                                <!--<span ng-show="filteredSharedFile.length != 0"> and </span>with users.-->
                             </span>
                         </span>
                         <span ng-hide="file_detail.shareEntities.length != 0">
-                            <span translate>File has not been shared in any other channels</span>
+                            <span translate>@alert-empty-file-shared</span>
                         </span>
                         </div>
                     </div>
@@ -95,19 +95,19 @@
                             <li class="cursor_pointer">
                                 <a data-ng-click="onClickShare(file_detail); toggleDropdown($event);">
                                     <i class="fa fa-share-alt"></i>
-                                    <span translate>Share</span>
+                                    <span translate>@btn-share</span>
                                 </a>
                             </li>
                             <li class="cursor_pointer">
                                 <a data-ng-click="focusPostComment=true; toggleDropdown($event);">
                                     <i class="fa fa-comment-o"></i>
-                                    <span translate>Comment</span>
+                                    <span translate>@btn-comment</span>
                                 </a>
                             </li>
                             <li class="cursor_pointer">
                                 <a href="{{ server_uploaded + file_detail.content.fileUrl }}" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
                                     <i class="fa fa-download"></i>
-                                    <span translate>Download</span>
+                                    <span translate>@common-download</span>
                                 </a>
                             </li>
                         </ul>
@@ -125,19 +125,19 @@
                     <div class="comment-item-header">
                         <span class="comment-item-header__name">{{ comment.writer|getFirstLastNameOfUser }}</span>
                         <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
-                    <span class="comment-item-header__action dropdown pull-right" data-ng-if="( user.id === comment.writer.id )">
-                        <a href="#" class="link-dark dropdown-toggle">
-                            <i class="fa fa-cog"></i>
-                        </a>
-                        <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
-                            <li class="cursor_pointer">
-                                <a data-ng-click="deleteComment(comment.id)">
-                                    <i class="fa fa-times"></i>
-                                    <span translate>Delete</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </span>
+                        <span class="comment-item-header__action dropdown pull-right" data-ng-if="( user.id === comment.writer.id )">
+                            <a href="#" class="link-dark dropdown-toggle">
+                                <i class="fa fa-cog"></i>
+                            </a>
+                            <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+                                <li class="cursor_pointer">
+                                    <a data-ng-click="deleteComment(comment.id)">
+                                        <i class="fa fa-times"></i>
+                                        <span translate>@btn-delete</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </span>
                     </div>
                     <div class="comment-item-body">
                         <p class="break" data-ng-bind-html="(comment.content.body) || ''"></p>
@@ -149,7 +149,6 @@
                         <img class="user-profile user-thumb-sm cursor_pointer"
                              ng-src="{{ server_uploaded + ( user.u_photoThumbnailUrl.smallThumbnailUrl )}}"
                              ng-click="onUserClick(file_detail.writer);"/>
-
                     </div>
                     <form id="comment-form" data-ng-submit="postComment()">
                         <textarea class="comment-input"
@@ -160,16 +159,14 @@
                                   autocorrect="off"
                                   autocomplete="off"
                                   spellcheck="true"></textarea>
-                    <span class="comment-input__tip pull-left">
-                        <span translate>shift+enter to multiline</span>
-                    </span>
-                        <input type="submit" class="btn comment-btn" value="{{ 'Add Comment' | translate }}">
+                        <span class="comment-input__tip pull-left">
+                            <span translate>@msg-help-multiline</span>
+                        </span>
+                        <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
                     </form>
                 </div>
             </div>
         </div>
-
-
 
     </div>
 </div>

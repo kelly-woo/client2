@@ -5,648 +5,652 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: en_US\n"
-
-#: client/app/center/center.html
-msgid "'s"
-msgstr ""
-
-#: client/app/modal/profile.view.html
-msgid "1:1 채팅"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "@option-all-locations"
-msgstr "All"
-
-#: client/app/right/right.html
-msgid "@option-all-writers"
-msgstr "All"
-
-#: client/app/modal/create.private.html
-msgid ""
-"A private group is only visible to its members, and only members of a "
-"private group can read or search its contents."
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Account"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "Account Setting"
-msgstr ""
-
-#: client/app/left/left.html client/app/modal/invite.team.html
-msgid "Add"
-msgstr ""
-
-#: client/app/right/file.html
-msgid "Add Comment"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "All Files"
-msgstr ""
-
-#: client/app/modal/create.channel.html
-msgid "Anyone can join."
-msgstr ""
-
-#: client/app/modal/settings.profile.html
-msgid "Basic Information"
-msgstr ""
 
 #: client/app/modal/join.html
-msgid "Browse channels"
-msgstr ""
+msgid "@alert-empty-ch-belong"
+msgstr "You have not joined any channels yet"
 
-#: client/app/modal/image.crop.html client/app/modal/join.html
-#: client/app/modal/rename.html client/app/modal/share.html
-#: client/app/modal/upload.html
-msgid "Cancel"
-msgstr ""
+#: client/app/modal/join.html
+msgid "@alert-empty-ch-can-join"
+msgstr "No channels to join"
+
+#: client/app/right/right.html
+msgid "@alert-empty-file"
+msgstr "No files uploaded"
+
+#: client/app/right/right.html
+msgid "@alert-empty-file-search"
+msgstr "No files found matching on"
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@alert-empty-file-shared"
+msgstr "File has not been shared in any other chats"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-invalid-password"
+msgstr "invalid password"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-missing-info"
+msgstr "Missing Information"
+
+#: client/app/modal/join.html
+msgid "@alert-no-result"
+msgstr "No Result"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-required"
+msgstr "required"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-fail"
+msgstr "Failed to send email"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-invalid"
+msgstr "is invalid email address"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-success"
+msgstr "Sent the invitation mail successfully"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-taken"
+msgstr "is already member of your team"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-update-fail"
+msgstr "fail to update"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-update-success"
+msgstr "update complete"
+
+#: client/app/modal/invite.team.html
+msgid "@btn-add"
+msgstr "Add"
+
+#: client/app/modal/image.crop.html client/app/modal/rename.html
+#: client/app/modal/share.html client/app/modal/upload.html
+msgid "@btn-cancel"
+msgstr "Cancel"
 
 #: client/app/modal/image.crop.html client/app/modal/settings.profile.html
-msgid "Change"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "Change your email address"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "Change your full name"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "Change your password"
-msgstr ""
-
-#: client/app/modal/create.channel.html
-msgid "Channel Name"
-msgstr ""
-
-#: client/app/left/left.html
-msgid "Channels"
-msgstr ""
-
-#: client/app/modal/join.html
-msgid "Channels you belong to"
-msgstr ""
-
-#: client/app/modal/join.html
-msgid "Channels you can join"
-msgstr ""
-
-#: client/app/modal/invite.direct.html
-msgid "Choose"
-msgstr ""
+msgid "@btn-change"
+msgstr "Change"
 
 #: client/app/right/file.html
-msgid "Click to view"
-msgstr ""
+msgid "@btn-click-to-view"
+msgstr "Click to view"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html client/app/modal/list.user.html
-#: client/app/modal/preferences.html client/app/modal/settings.account.html
-#: client/app/modal/settings.profile.html
-msgid "Close"
-msgstr ""
-
-#: client/app/modal/share.html client/app/modal/upload.html
-#: client/app/right/file.html client/app/right/right.html
-msgid "Comment"
-msgstr ""
-
-#: client/app/modal/preferences.html client/app/modal/rename.html
-msgid "Confirm"
-msgstr ""
-
-#: client/app/modal/create.channel.html client/app/modal/join.html
-msgid "Create Channel"
-msgstr ""
-
-#: client/app/modal/create.private.html
-msgid "Create Group"
-msgstr ""
-
-#: client/app/header/header.html client/app/modal/join.html
-msgid "Create New Channel"
-msgstr ""
-
-#: client/app/header/header.html client/app/modal/create.private.html
-msgid "Create a private group"
-msgstr ""
-
-#: client/app/modal/create.channel.html
-msgid "Create new channel"
-msgstr ""
-
-#: client/app/modal/create.channel.html
-msgid "Creating a new channel."
-msgstr ""
-
+#: client/app/modal/invite.team.html client/app/modal/join.html
 #: client/app/modal/settings.account.html
-msgid "Current Password"
-msgstr ""
+#: client/app/modal/settings.profile.html
+#: client/app/modal/settings.service.html
+msgid "@btn-close"
+msgstr "Close"
 
-#: client/app/error/404.html client/app/signin/signin.html
-msgid "Customer Service"
-msgstr ""
+#: client/app/right/file.html client/app/right/right.html
+msgid "@btn-comment"
+msgstr "Comment"
+
+#: client/app/modal/settings.service.html
+msgid "@btn-confirm"
+msgstr "Confirm"
+
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+msgid "@btn-create"
+msgstr "Create"
 
 #: client/app/right/file.html
-msgid "Delete"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Delete this channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Delete this group"
-msgstr ""
-
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-msgid "Department"
-msgstr ""
-
-#: client/app/modal/preferences.html
-msgid "Desktop Notifications"
-msgstr ""
-
-#: client/app/modal/list.user.html
-msgid "Direct Message"
-msgstr ""
-
-#: client/app/left/left.html
-msgid "Direct Messages"
-msgstr ""
-
-#: client/app/right/file.html client/app/right/right.html
-msgid "Download"
-msgstr ""
-
-#: client/app/modal/invite.team.html
-msgid "Each fields(Email, Last Name, First Name) are all required."
-msgstr ""
+msgid "@btn-delete"
+msgstr "Delete"
 
 #: client/app/modal/settings.profile.html
-msgid "Edit"
-msgstr ""
-
-#: client/app/modal/invite.team.html client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html
-msgid "Email"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Email address"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Enter your email and password"
-msgstr ""
-
-#: client/app/modal/invite.team.html
-msgid "Failed to send email"
-msgstr ""
-
-#: client/app/center/center.html client/app/header/header.html
-#: client/app/modal/share.html
-msgid "File"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "File Type"
-msgstr ""
-
-#: client/app/right/file.html client/app/right/right.html
-msgid "File has not been shared in any other channels"
-msgstr ""
-
-#: client/app/header/header.html client/app/right/file.html
-#: client/app/right/right.html
-msgid "Files"
-msgstr ""
-
-#: client/app/modal/invite.team.html
-msgid "First Name"
-msgstr ""
-
-#: client/app/modal/preferences.html
-msgid "For all messages"
-msgstr ""
-
-#: client/app/modal/upload.html
-msgid "For search file by title"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Forgot Password?"
-msgstr ""
-
-#: client/app/modal/settings.profile.html
-msgid "Full Name"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Images"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Invalid email or password"
-msgstr ""
+msgid "@btn-edit"
+msgstr "Edit"
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
-msgid "Invite"
-msgstr ""
-
-#: client/app/header/header.html client/app/modal/invite.channel.html
-msgid "Invite Others"
-msgstr ""
-
-#: client/app/modal/invite.team.html
-msgid "Invite others to team"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Invite others to this channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Invite others to this group"
-msgstr ""
-
-#: client/app/modal/invite.direct.html
-msgid "Invite to"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Invite to channel/group"
-msgstr ""
-
-#: client/app/modal/invite.direct.html
-msgid "Invite {{ currentEntity | getFirstLastNameOfUser }} to a channel/group"
-msgstr ""
+msgid "@btn-invite"
+msgstr "Invite"
 
 #: client/app/modal/join.html
-msgid "Join"
-msgstr ""
-
-#: client/app/modal/preferences.html
-msgid "Language"
-msgstr ""
-
-#: client/app/modal/invite.team.html
-msgid "Last Name"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Leave channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Leave group"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Location"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Menu"
-msgstr ""
-
-#: client/app/modal/invite.team.html
-msgid "Missing Information"
-msgstr ""
-
-#: client/app/left/left.html
-msgid "More"
-msgstr ""
-
-#: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/rename.html
-msgid "Name"
-msgstr ""
-
-#: client/app/modal/preferences.html
-msgid "Never"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "New Password"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "New Username"
-msgstr ""
-
-#: client/app/modal/settings.profile.html
-msgid "Nickname"
-msgstr ""
-
-#: client/app/modal/join.html
-msgid "No Result"
-msgstr ""
-
-#: client/app/modal/join.html
-msgid "No channels to join"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "No files found matching on"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "No files uploaded"
-msgstr ""
-
-#: client/app/modal/preferences.html
-msgid "Only for direct messages"
-msgstr ""
-
-#: client/app/center/center.html client/app/right/right.html
-msgid "Open original"
-msgstr ""
-
-#: client/app/modal/settings.profile.html
-msgid "Optional Information"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "PDF"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "Password"
-msgstr ""
-
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-msgid "Phone"
-msgstr ""
-
-#: client/app/modal/create.channel.html
-msgid "Please use Private Group for a closed channel."
-msgstr ""
-
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-msgid "Position"
-msgstr ""
-
-#: client/app/header/header.html client/app/modal/preferences.html
-msgid "Preferences"
-msgstr ""
-
-#: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
-msgid "Privacy Policy"
-msgstr ""
-
-#: client/app/modal/create.private.html
-msgid "Private Group Name"
-msgstr ""
-
-#: client/app/left/left.html
-msgid "Private Groups"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Profile"
-msgstr ""
-
-#: client/app/modal/settings.profile.html
-msgid "Profile Setting"
-msgstr ""
-
-#: client/app/modal/image.crop.html
-msgid "Profile picture"
-msgstr ""
-
-#: client/app/modal/create.channel.html client/app/modal/create.private.html
-msgid "Purpose"
-msgstr ""
-
-#: client/app/modal/rename.html
-msgid "Rename"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Rename this channel"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "Rename this group"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Search by title"
-msgstr ""
-
-#: client/app/modal/join.html
-msgid "Search channel by name"
-msgstr ""
-
-#: client/app/modal/invite.channel.html client/app/modal/list.user.html
-msgid "Search users by name"
-msgstr ""
-
-#: client/app/modal/invite.team.html
-msgid "Sent the invitation mail successfully"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Settings"
-msgstr ""
+msgid "@btn-join"
+msgstr "Join"
 
 #: client/app/modal/share.html client/app/right/file.html
 #: client/app/right/right.html
-msgid "Share"
-msgstr ""
+msgid "@btn-share"
+msgstr "Share"
 
-#: client/app/modal/share.html
-msgid "Share File"
-msgstr ""
+#: client/app/modal/rename.html client/app/modal/settings.account.html
+msgid "@btn-update-name"
+msgstr "Update Name"
 
-#: client/app/modal/share.html client/app/modal/upload.html
-msgid "Share in"
-msgstr ""
+#: client/app/modal/settings.account.html
+msgid "@btn-update-password"
+msgstr "Update Password"
+
+#: client/app/modal/upload.html
+msgid "@btn-upload"
+msgstr "Upload"
 
 #: client/app/center/center.html
-msgid "Shared"
-msgstr ""
+msgid "@ch-menu-delete"
+msgstr "Delete this channel"
+
+#: client/app/center/center.html
+msgid "@ch-menu-invite"
+msgstr "Invite members to this channel"
+
+#: client/app/center/center.html
+msgid "@ch-menu-leave"
+msgstr "Leave channel"
+
+#: client/app/center/center.html
+msgid "@ch-menu-rename"
+msgstr "Rename this channel"
+
+#: client/app/header/header.html client/app/modal/settings.account.html
+msgid "@common-account-settings"
+msgstr "Account Settings"
+
+#: client/app/left/left.html
+msgid "@common-add"
+msgstr "Add"
+
+#: client/app/left/left.html
+msgid "@common-channels"
+msgstr "Channels"
+
+#: client/app/modal/profile.view.html
+msgid "@common-chat-dm"
+msgstr "1:1 Chat"
+
+#: client/app/modal/share.html client/app/modal/upload.html
+msgid "@common-comment"
+msgstr "Comment"
+
+#: client/app/header/header.html client/app/modal/create.channel.html
+#: client/app/modal/join.html
+msgid "@common-create-ch"
+msgstr "Create New Channel"
+
+#: client/app/header/header.html client/app/modal/create.private.html
+msgid "@common-create-pg"
+msgstr "Create New Private Group"
+
+#: client/app/modal/settings.account.html
+msgid "@common-current-password"
+msgstr "Current Password"
+
+#: client/app/error/404.html client/app/signin/signin.html
+msgid "@common-customer-service"
+msgstr "Customer Service"
+
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+msgid "@common-department"
+msgstr "Department"
+
+#: client/app/modal/settings.service.html
+msgid "@common-desktop-noti"
+msgstr "Desktop Notifications"
+
+#: client/app/left/left.html
+msgid "@common-direct-messages"
+msgstr "Direct Messages"
+
+#: client/app/modal/invite.direct.html
+msgid "@common-dm-invite-to"
+msgstr "Invite to"
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@common-download"
+msgstr "Download"
+
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/signin/signin.html
+msgid "@common-email"
+msgstr "Email"
+
+#: client/app/header/header.html
+msgid "@common-faq"
+msgstr "FAQ"
+
+#: client/app/modal/share.html
+msgid "@common-file"
+msgstr "File"
+
+#: client/app/modal/profile.view.html
+msgid "@common-file-list"
+msgstr "File List"
+
+#: client/app/right/right.html
+msgid "@common-file-type"
+msgstr "File Type"
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@common-files"
+msgstr "Files"
+
+#: client/app/modal/settings.profile.html
+msgid "@common-info-basic"
+msgstr "Basic Information"
+
+#: client/app/modal/settings.profile.html
+msgid "@common-info-optional"
+msgstr "Optional Information"
+
+#: client/app/modal/join.html
+msgid "@common-joined"
+msgstr "members"
+
+#: client/app/modal/settings.service.html
+msgid "@common-language"
+msgstr "Language"
+
+#: client/app/right/right.html
+msgid "@common-member"
+msgstr "Member"
+
+#: client/app/left/left.html
+msgid "@common-more"
+msgstr "More"
+
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/settings.profile.html
+msgid "@common-name"
+msgstr "Name"
+
+#: client/app/modal/rename.html client/app/modal/settings.account.html
+msgid "@common-new-name"
+msgstr "New Name"
+
+#: client/app/modal/settings.account.html
+msgid "@common-new-password"
+msgstr "New Password"
 
 #: client/app/signin/signin.html
-msgid "Sign In"
-msgstr ""
+msgid "@common-password"
+msgstr "Password"
 
-#: client/app/header/header.html
-msgid "Sign Out"
-msgstr ""
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+msgid "@common-phone"
+msgstr "Phone"
 
-#: client/app/header/header.html
-msgid "Starred Items"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "Team Directory"
-msgstr ""
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+msgid "@common-position"
+msgstr "Position"
 
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/signin/signin.html
-msgid "Terms of Service"
-msgstr ""
+msgid "@common-privacy-policy"
+msgstr "Privacy Policy"
 
-#: client/app/error/404.html
-msgid "That’s an error"
-msgstr ""
+#: client/app/left/left.html
+msgid "@common-private-groups"
+msgstr "Private Groups"
 
-#: client/app/error/404.html
-msgid "The page you were looking for could not be found."
-msgstr ""
+#: client/app/header/header.html client/app/modal/settings.profile.html
+msgid "@common-profile-settings"
+msgstr "Profile Settings"
 
-#: client/app/modal/upload.html
-msgid "Title"
-msgstr ""
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+msgid "@common-purpose"
+msgstr "Purpose"
 
-#: client/app/center/center.html
-msgid "Unshared"
-msgstr ""
+#: client/app/modal/rename.html
+msgid "@common-rename"
+msgstr "Rename"
 
-#: client/app/modal/settings.account.html
-msgid "Update Password"
-msgstr ""
+#: client/app/modal/profile.view.html
+msgid "@common-send-mail"
+msgstr "Send Email"
 
-#: client/app/modal/settings.account.html
-msgid "Update Username"
-msgstr ""
+#: client/app/header/header.html client/app/modal/settings.service.html
+msgid "@common-service-settings"
+msgstr "Service Preferences"
 
-#: client/app/modal/upload.html
-msgid "Upload"
-msgstr ""
+#: client/app/modal/share.html
+msgid "@common-share-file"
+msgstr "Share File"
 
-#: client/app/modal/upload.html client/app/right/right.html
-msgid "Upload File"
-msgstr ""
+#: client/app/modal/share.html client/app/modal/upload.html
+msgid "@common-share-in"
+msgstr "Share in"
 
-#: client/app/center/center.html
-msgid "View files"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "View profile"
-msgstr ""
-
-#: client/app/error/404.html client/app/signin/signin.html
-msgid "Visit Homepage"
-msgstr ""
+#: client/app/right/file.html client/app/right/right.html
+msgid "@common-shared-in"
+msgstr "Shared in"
 
 #: client/app/signin/signin.html
-msgid "Welcome to {{teamInfo.name}}"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "Writer"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "You can change account settings such as full name, password"
-msgstr ""
-
-#: client/app/modal/preferences.html
-msgid "You can change service preferences such as language, notifications."
-msgstr ""
-
-#: client/app/modal/invite.team.html
-msgid "You can invite others to Jandi by email."
-msgstr ""
-
-#: client/app/modal/settings.profile.html
-msgid ""
-"You can set or change basic information such as nickname, phone number and "
-"position."
-msgstr ""
-
-#: client/app/modal/join.html
-msgid "You have not joined any channels yet"
-msgstr ""
+msgid "@common-sign-in"
+msgstr "Sign In"
 
 #: client/app/header/header.html
-msgid "Your Files"
-msgstr ""
+msgid "@common-sign-out"
+msgstr "Sign Out"
+
+#: client/app/modal/settings.profile.html
+msgid "@common-status-msg"
+msgstr "Today's Feeling"
+
+#: client/app/error/404.html client/app/header/header.html
+#: client/app/signin/signin.html
+msgid "@common-terms-of-service"
+msgstr "Terms of Service"
+
+#: client/app/modal/upload.html
+msgid "@common-title"
+msgstr "Title"
+
+#: client/app/header/header.html client/app/modal/upload.html
+#: client/app/right/right.html
+msgid "@common-upload-file"
+msgstr "Upload File"
+
+#: client/app/error/404.html client/app/signin/signin.html
+msgid "@common-visit-homepage"
+msgstr "Visit Homepage"
 
 #: client/app/center/center.html
-msgid "created current channel"
-msgstr ""
+msgid "@dm-menu-file"
+msgstr "View Files"
 
 #: client/app/center/center.html
-msgid "created current private group"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "fail to update"
-msgstr ""
+msgid "@dm-menu-invite"
+msgstr "Invite this member to others"
 
 #: client/app/center/center.html
-msgid "has joined"
-msgstr ""
+msgid "@dm-menu-profile"
+msgstr "View Profile"
 
-#: client/app/center/center.html
-msgid "has left"
-msgstr ""
+#: client/app/error/404.html
+msgid "@error-404-message"
+msgstr "The page you were looking for could not be found"
 
-#: client/app/modal/settings.account.html
-msgid "invalid password"
-msgstr ""
+#: client/app/error/404.html
+msgid "@error-404-title"
+msgstr "That’s an error"
 
-#: client/app/center/center.html
-msgid "invite-postfix"
-msgstr ""
+#: client/app/header/header.html
+msgid "@file-all"
+msgstr "All Files"
 
-#: client/app/center/center.html
-msgid "invited"
-msgstr ""
+#: client/app/header/header.html
+msgid "@file-audio"
+msgstr "Audio Files"
+
+#: client/app/header/header.html
+msgid "@file-image"
+msgstr "Images"
+
+#: client/app/header/header.html
+msgid "@file-pdf"
+msgstr "PDF Files"
+
+#: client/app/header/header.html
+msgid "@file-video"
+msgstr "Video Files"
+
+#: client/app/header/header.html
+msgid "@file-your"
+msgstr "Your Files"
+
+#: client/app/header/header.html
+msgid "@header-file"
+msgstr "File"
+
+#: client/app/header/header.html
+msgid "@header-help"
+msgstr "Help"
+
+#: client/app/header/header.html
+msgid "@header-menu"
+msgstr "Menu"
+
+#: client/app/header/header.html
+msgid "@header-setting"
+msgstr "Setting"
+
+#: client/app/modal/create.channel.html
+msgid "@input-create-ch"
+msgstr "Enter new channel name"
+
+#: client/app/modal/create.private.html
+msgid "@input-create-pg"
+msgstr "Enter new private group name"
 
 #: client/app/modal/invite.team.html
-msgid "is already member of your team"
-msgstr ""
+msgid "@input-invite-email"
+msgstr "Enter email address to invite"
 
-#: client/app/modal/invite.team.html
-msgid "is invalid email address"
+#: client/app/modal/rename.html
+msgid "@input-rename"
+msgstr "Enter name to change"
+
+#: client/app/modal/join.html
+msgid "@input-search-channel-name"
+msgstr "Search channel by name"
+
+#: client/app/right/right.html
+msgid "@input-search-file-title"
+msgstr "Search file by title"
+
+#: client/app/modal/invite.channel.html
+msgid "@input-search-user-name"
+msgstr "Search users by name"
+
+#: client/app/signin/signin.html
+msgid "@login-invalid"
+msgstr "Invalid email or password"
+
+#: client/app/signin/signin.html
+msgid "@login-message"
+msgstr "Enter your email and password"
+
+#: client/app/signin/signin.html
+msgid "@login-reset-password"
+msgstr "Forgot Password?"
+
+#: client/app/signin/signin.html
+msgid "@login-welcome {{teamInfo.name}}"
+msgstr "Welcome to {{teamInfo.name}}"
+
+#: client/app/modal/join.html
+msgid "@modal-browse-ch"
+msgstr "Browse Channels"
+
+#: client/app/modal/create.channel.html
+msgid "@modal-create-ch-msg1"
+msgstr "Creating a new channel."
+
+#: client/app/modal/create.channel.html
+msgid "@modal-create-ch-msg2"
+msgstr "Anyone can join."
+
+#: client/app/modal/create.channel.html
+msgid "@modal-create-ch-msg3"
+msgstr "Please use Private Group for a closed channel."
+
+#: client/app/modal/create.private.html
+msgid "@modal-create-pg-msg1"
 msgstr ""
+"A private group is only visible to its members, and only members of a "
+"private group can read or search its contents."
+
+#: client/app/modal/invite.direct.html
+msgid "@modal-dm-invite"
+msgstr "Join member to others"
+
+#: client/app/modal/invite.direct.html
+msgid "@modal-dm-invite-msg1"
+msgstr "You can invite this user to chat room(private group/channel)."
+
+#: client/app/modal/invite.channel.html
+msgid "@modal-invite-members"
+msgstr "Invite Members"
+
+#: client/app/modal/join.html
+msgid "@modal-join-ch-you-belong"
+msgstr "Channels you belong to"
+
+#: client/app/modal/join.html
+msgid "@modal-join-ch-you-can"
+msgstr "Channels you can join"
+
+#: client/app/modal/image.crop.html
+msgid "@modal-profile-picture"
+msgstr "Profile Picture"
 
 #: client/app/modal/settings.account.html
-msgid "required"
+msgid "@modal-setting-account-email"
+msgstr "Change your email address"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-msg1"
+msgstr "You can change account settings such as full name, password"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-name"
+msgstr "Change your name"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-name-msg"
 msgstr ""
+"Please keep in mind when changing your name that other members can mention "
+"and search your name"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-password"
+msgstr "Change your password"
+
+#: client/app/modal/settings.profile.html
+msgid "@modal-setting-profile-msg1"
+msgstr ""
+"You can set or change basic information such as nickname, phone number and "
+"position."
+
+#: client/app/modal/settings.service.html
+msgid "@modal-setting-service-msg1"
+msgstr "You can change service preferences such as language, notifications."
+
+#: client/app/modal/invite.team.html
+msgid "@modal-team-invite-msg1"
+msgstr "You can invite others to Jandi by email."
+
+#: client/app/modal/upload.html
+msgid "@modal-upload-title-msg1"
+msgstr "For search file by title"
+
+#: client/app/center/center.html
+msgid "@msg-create-ch"
+msgstr "created current channel"
+
+#: client/app/center/center.html
+msgid "@msg-create-pg"
+msgstr "created current private group"
+
+#: client/app/center/center.html
+msgid "@msg-file"
+msgstr "File"
 
 #: client/app/right/file.html
-msgid "shift+enter to multiline"
-msgstr ""
+msgid "@msg-help-multiline"
+msgstr "shift+enter to multiline"
 
-#: client/app/modal/settings.account.html
-msgid "update complete"
-msgstr ""
+#: client/app/center/center.html
+msgid "@msg-invited"
+msgstr "invited"
 
-#: client/app/modal/profile.view.html
-msgid "메일 전송"
-msgstr ""
+#: client/app/center/center.html
+msgid "@msg-invited-postfix"
+msgstr " "
 
-#: client/app/modal/join.html
-msgid "명"
-msgstr ""
+#: client/app/center/center.html
+msgid "@msg-joined"
+msgstr "has joined"
 
-#: client/app/modal/join.html
-msgid "참여멤버"
-msgstr ""
+#: client/app/center/center.html
+msgid "@msg-left"
+msgstr "has left"
 
-#: client/app/modal/profile.view.html
-msgid "파일 리스트"
-msgstr ""
+#: client/app/center/center.html client/app/right/right.html
+msgid "@msg-open-original"
+msgstr "Open original"
+
+#: client/app/center/center.html
+msgid "@msg-shared"
+msgstr "Shared"
+
+#: client/app/center/center.html
+msgid "@msg-unshared"
+msgstr "Unshared"
+
+#: client/app/center/center.html
+msgid "@msg-whose"
+msgstr "'s"
+
+#: client/app/right/right.html
+msgid "@option-all-members"
+msgstr "All"
+
+#: client/app/right/right.html
+msgid "@option-all-rooms"
+msgstr "All"
+
+#: client/app/modal/invite.direct.html
+msgid "@option-choose"
+msgstr "Choose"
+
+#: client/app/modal/settings.service.html
+msgid "@option-noti-all"
+msgstr "For all messages"
+
+#: client/app/modal/settings.service.html
+msgid "@option-noti-dm"
+msgstr "Only for direct messages"
+
+#: client/app/modal/settings.service.html
+msgid "@option-noti-none"
+msgstr "Never"
+
+#: client/app/center/center.html
+msgid "@pg-menu-delete"
+msgstr "Delete this group"
+
+#: client/app/center/center.html
+msgid "@pg-menu-invite"
+msgstr "Invite members to this group"
+
+#: client/app/center/center.html
+msgid "@pg-menu-leave"
+msgstr "Leave group"
+
+#: client/app/center/center.html
+msgid "@pg-menu-rename"
+msgstr "Rename this group"
+
+#: client/app/header/header.html client/app/modal/invite.team.html
+msgid "@team-invite"
+msgstr "Invite Others to Team"
+
+#: client/app/header/header.html
+msgid "@team-members"
+msgstr "Team Members"
+
+#: client/app/header/header.html
+msgid "@team-switch"
+msgstr "Switch Teams"
+
+#~ msgid "@file-upload"
+#~ msgstr "File Upload"

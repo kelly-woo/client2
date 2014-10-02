@@ -1,17 +1,17 @@
 <!-- Modal: File Share -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel()"><i class="fa fa-close"></i></button>
-    <h3 id="myModalLabel">
-        <span translate>Share File</span>
+    <button type="button" class="close" data-ng-click="cancel();"><i class="fa fa-close"></i></button>
+    <h3 class="modal-header__title">
+        <span translate>@common-share-file</span>
     </h3>
 </div>
-<form name="file_share_form" data-ng-submit="onFileShareClick(shareChannel, comment)">
+<form name="file_share_form" data-ng-submit="onFileShareClick(shareChannel, comment);">
     <div class="modal-body">
         <div class="form-horizontal">
             <!-- FILE INFO -->
             <div class="form-group">
                 <label class="control-label col-sm-3">
-                    <span translate>File</span>
+                    <span translate>@common-file</span>
                 </label>
                 <div class="col-sm-9 modal-share__file">
                     <div class="modal-share__file-type">
@@ -40,7 +40,7 @@
             <!-- FILE SHARE OPTION -->
             <div class="form-group">
                 <label class="control-label col-sm-3">
-                    <span translate>Share in</span>
+                    <span translate>@common-share-in</span>
                 </label>
                 <div class="col-sm-9">
                     <select class="form-control"
@@ -52,7 +52,7 @@
             <!-- FILE COMMENT -->
             <div class="form-group">
                 <label class="control-label col-sm-3">
-                    <span translate>Comment</span>
+                    <span translate>@common-comment</span>
                 </label>
                 <div class="col-sm-9">
                     <textarea class="form-control"
@@ -69,8 +69,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>Cancel</span></button>
-        <input class="btn btn-ok" type="submit" id="file_share_btn" value="{{ 'Share' | translate }}"/>
+        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-cancel</span></button>
+        <input class="btn btn-ok" type="submit" id="file_share_btn" value="{{ '@btn-share' | translate }}"/>
     </div>
 </form>
 <div class="loading_container" data-ng-if="isLoading">

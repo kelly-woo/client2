@@ -47,7 +47,17 @@
 .header-navbar__dropdown .icon_signout {
     position: absolute;
     top: 8px;
-    left: 15px;
+    left: 16px;
+}
+.header-navbar__dropdown .icon_invite {
+    position: absolute;
+    top: 9px;
+    left: 17px;
+}
+.header-navbar__dropdown .icon_team {
+    position: absolute;
+    top: 11px;
+    left: 17px;
 }
 .header-toolbar-toggle,
 .header-toolbar-search {

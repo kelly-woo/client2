@@ -141,7 +141,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
         var file_meta = (file.content.type).split("/");
         var download_data = {
             "category"      : file_meta[0],
-            "extension"     : file_meta[1],
+            "extension"     : file.content.ext,
             "mime type"     : file.content.type,
             "size"          : file.content.size
         };
@@ -175,7 +175,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
                 var share_data = {
                     "entity type"   : share_target,
                     "category"      : file_meta[0],
-                    "extension"     : file_meta[1],
+                    "extension"     : message.content.ext,
                     "mime type"     : message.content.type,
                     "size"          : message.content.size
                 };

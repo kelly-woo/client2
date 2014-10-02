@@ -141,7 +141,7 @@
 }
 
 #non_member_container .join-modal-channel_container .join-modal-channel_title {
-    padding-right: 55px;
+    padding-right: 80px;
 }
 .join-modal-channel_title {
     color: black;
@@ -154,9 +154,6 @@
 }
 .join-modal-channel_creator {
     color: #666;
-}
-.join-modal-channel__fullBtn {
-    width: 100%;
 }
 
 .create_channel_on_top {
@@ -358,16 +355,6 @@
 }
 .invite-team-body .form-horizontal > div {
     float: left;
-}
-.email_container {
-    width: 37%;
-}
-.firstName_container {
-    width: 30%;
-    margin: 0 5px;
-}
-.lastName_container {
-    width: 30%;
 }
 
 .loading_container {
