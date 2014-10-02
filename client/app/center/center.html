@@ -88,6 +88,7 @@
             </li>
         </ul>
     </span>
+
 </div>
 
 <article class="msgs" when-scrolled="loadMore()" scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
@@ -105,7 +106,7 @@
             <div last-detector=""
                  data-length="{{msgs.length}}"
                  class="msg-item"
-                 data-ng-repeat="msg in msgs | orderBy: 'time':false"
+                 data-ng-repeat="msg in msgs  | orderBy: 'time':false"
                  data-link-id="msg.id"
                  data-link-status="msg.status"
                  data-message-id="msg.message.id"
@@ -138,6 +139,8 @@
                         <!--    CREATED TIME    -->
                         <span class="msg-item-header__created">
                             {{msg.time | date: 'h:mm a'}}
+                                                {{ msg.id }}
+
                         </span>
 
                     </span>

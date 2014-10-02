@@ -35,6 +35,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         isInitialLoadingCompleted : false
     };
 
+    $scope.isPosting = false;
 
     $scope.onLeaveClick = function() {
         //  prevent user from leaving default channel.
@@ -104,6 +105,41 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $scope.msgLoadStatus.loadingTimer = false;
     }, 1000);
 
+    var prev = null;
+
+    $scope.updateScroll = function(lastMessage) {
+
+        disableScroll();
+
+        if (prev != null){
+            prev.removeClass('last');
+        }
+
+        if (!angular.isUndefined(lastMessage) && !_.isNull(lastMessage) && lastMessage.position().top > 0) {
+            lastMessage.addClass('last');
+            $('.msgs').scrollTop(lastMessage.position().top - 13);
+        }
+
+        prev = lastMessage;
+
+        $timeout(function() {
+            if (prev != null) prev.removeClass('last');
+            enableScroll();
+        }, 800)
+    };
+
+    function disableScroll() {
+        $('body').bind('mousewheel', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+    }
+
+    function enableScroll() {
+        $('body').unbind('mousewheel');
+    }
+
+
     var groupByDate = function() {
         // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
         $scope.messages = _.uniq($scope.messages);
@@ -145,49 +181,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             } else if (msg.message.contentType === 'text') {
                 msg.message.isText = true;
             }
-            $scope.messages[i] = msg;
+            $scope.messages[i] = (msg);
         }
-
 
         $scope.groupMsgs = [];
         $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
             return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
         });
     };
-
-    var prev = null;
-
-    $scope.updateScroll = function(lastMessage) {
-
-        disableScroll();
-
-        if (prev != null){
-            prev.removeClass('last');
-        }
-
-        if (!angular.isUndefined(lastMessage) && !_.isNull(lastMessage) && lastMessage.position().top > 0) {
-            lastMessage.addClass('last');
-            $('.msgs').scrollTop(lastMessage.position().top - 13);
-        }
-
-        prev = lastMessage;
-
-        $timeout(function() {
-            if (prev != null) prev.removeClass('last');
-            enableScroll();
-        }, 800)
-    };
-
-    function disableScroll() {
-        $('body').bind('mousewheel', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-    }
-
-    function enableScroll() {
-        $('body').unbind('mousewheel');
-    }
 
     $scope.loadMore = function() {
         var deferred = $q.defer();
@@ -198,11 +199,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
             $scope.msgLoadStatus.loading = true;
 
+            log('-- loadMore');
+
             // simulate an ajax request
             $timeout(function() {
                 // 엔티티 메세지 리스트 목록 얻기
                 messageAPIservice.getMessages(entityType, entityId, $scope.msgLoadStatus.firstLoadedId, $scope.messageUpdateCount)
                     .success(function(response) {
+
+                        log('-- loadMore success');
+
                         //  lastUpdatedId 갱신
                         $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
 
@@ -269,12 +275,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
     // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
-    $scope.promise = null;
 
+    $scope.promise = null;
+    var currentLast = -1;
     var updateList = function() {
+
+        log('-- updateList');
+
         //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
         //  In such case, don't update list and just return it.
-        if ($scope.msgLoadStatus.loading || $scope.isPosting) {
+        if ($scope.msgLoadStatus.loading) {
             $scope.promise = $timeout(updateList, updateInterval);
             return;
         }
@@ -282,9 +292,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         //  if code gets to this point, 'getMessages' has been done at least once.
         $scope.msgLoadStatus.isInitialLoadingCompleted = true;
 
+        log('-- calling getUpdatedMessages');
 
         messageAPIservice.getUpdatedMessages(entityType, entityId, $scope.msgLoadStatus.lastUpdatedId)
             .success(function (response) {
+
+                log('-- getUpdatedMessages success');
+
                 // jihoon
                 if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
                 if (response.event.eventCount != 0) updateEventHandler(response.event);
@@ -303,7 +317,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     // 업데이트 된 메세지 처리
                     for (var i in response.messages) {
                         var msg = response.messages[i];
-//                        console.log("[ updated", msg.status, "]", msg);
+//                        console.log("[ updated", msg.id, " and last at ", currentLast,  "]");
+
+                        if ($scope.isPosting)
+                            $scope.isPosting = false;
+
+                        //  return if old msg was returned from server.
+                        //  'currentLast' indicates a link id of last message rendered on screen.
+                        if (msg.id <= currentLast)
+                            return;
+                        else
+                            currentLast = msg.id;
+
 
                         // auto focus to textarea
                         $scope.focusPostMessage = true;
@@ -383,14 +408,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.promise = $timeout(updateList, updateInterval);
 
-    // scope 소멸시(전환시) update polling 해제
-    $scope.$on('$destroy', function(){
-        $timeout.cancel($scope.promise);
-    });
-
     $scope.message = {};
+
+    var isPostingDone = false;
     $scope.postMessage = function() {
         if (!$scope.message.content) return;
+
+        log('-- posting message');
 
         // prevent duplicate request
 //        $scope.msgLoadStatus.loading = true;
@@ -398,11 +422,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         var msg = $scope.message.content;
         $scope.message.content = "";
 
+        $timeout.cancel($scope.promise);
+
         messageAPIservice.postMessage(entityType, entityId, {'content': msg})
             .success(function(response) {
-                $scope.isPosting = false;
-//                $scope.msgLoadStatus.loading = false;
-                $timeout.cancel($scope.promise);
+                log('-- posting message success');
                 updateList();
             })
             .error(function(response) {
@@ -912,5 +936,25 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             return;
         }
     }
+
+
+    // scope 소멸시(전환시) update polling 해제
+    $scope.$on('$destroy', function(){
+        $timeout.cancel($scope.promise);
+    });
+
+    function log(string) {
+//        console.log(string);
+    }
+
+    function testing() {
+        $scope.testing = [];
+        $scope.testing.push($scope.user)
+        $scope.testing.push($scope.user)
+        $scope.testing.push($scope.user)
+        $scope.testing.push($scope.user)
+        $scope.testing = _.uniq($scope.testing)
+    }
+    testing();
 
 });
