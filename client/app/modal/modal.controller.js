@@ -495,6 +495,8 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
 //  PROFILE CONTROLLER
 app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userAPIservice, $modal, analyticsService) {
     $scope.curUser = _.cloneDeep($scope.user);
+    $scope.isFileSelected = false;
+
     // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
     $scope.curUser.u_extraData.phoneNumber  = $scope.curUser.u_extraData.phoneNumber || "";
     $scope.curUser.u_extraData.department   = $scope.curUser.u_extraData.department || "";
@@ -544,26 +546,78 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
         fileReader.readAsDataURL($files[0]);
 
         fileReader.onload = function(e) {
-            var modalInstance = $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/image.crop.html',
-                size        :   'lg',
-                windowClass :   'wide',
-                controller  :   'imageCropCtrl',
-                resolve     : {
-                    myImage     : function() { return e.target.result; }
-                }
-            });
+            $scope.profilePic = e.target.result;
+            $scope.croppedProfilePic = '';
+            $scope.isProfilePicSelected = true;
 
-            modalInstance.result.then(
-                function(result) {
-                    $scope.updateLeftPanelCaller();
-                },
-                function() {
-                    console.log('no chagnes')
-                });
+//            var modalInstance = $modal.open({
+//                scope       :   $scope,
+//                templateUrl :   'app/modal/image.crop.html',
+//                size        :   'lg',
+//                windowClass :   'wide',
+//                controller  :   'imageCropCtrl',
+//                resolve     : {
+//                    myImage     : function() { return e.target.result; }
+//                }
+//            });
+//
+//            modalInstance.result.then(
+//                function(result) {
+//                    $scope.updateLeftPanelCaller();
+//                },
+//                function() {
+//                    console.log('no chagnes')
+//                });
         };
     };
+
+    $scope.onCropDone = function() {
+        var blob = dataURItoBlob($scope.croppedProfilePic);
+        $scope.isLoading = true;
+
+        userAPIservice.updateProfilePic(blob)
+            .success(function(response) {
+                $scope.updateLeftPanelCaller();
+                $scope.isLoading = false;
+            })
+            .error(function(error) {
+                console.error('onCropDone', error.code, error.msg);
+                $scope.isLoading = false;
+            });
+        $scope.isProfilePicSelected = false;
+    };
+
+    function dataURItoBlob (dataURI) {
+        // convert base64 to raw binary data held in a string
+        // doesn't handle URLEncoded DataURIs
+        var byteString;
+        if (dataURI.split(',')[0].indexOf('base64') >= 0)
+            byteString = atob(dataURI.split(',')[1]);
+        else
+            byteString = unescape(dataURI.split(',')[1]);
+
+        // separate out the mime component
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+        // write the bytes of the string to an ArrayBuffer
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        // write the ArrayBuffer to a blob, and you're done
+        return new Blob([ab],{type: 'image/png'});
+    }
+
+    $scope.onchange = function(temp) {
+        $scope.croppedProfilePic = temp;
+    };
+
+    $scope.onProfilePicCancel = function() {
+        $scope.isProfilePicSelected = false;
+    };
+
 });
 
 //  IMAGE CROP CONTROLLER

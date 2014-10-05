@@ -9,10 +9,12 @@
 <form name="profile_form" data-ng-submit="onProfileChangeClick()" novalidate>
 
     <div class="modal-body profile-body">
+
         <h4 class="modal-body__description">
             <span translate>@modal-setting-profile-msg1</span>
         </h4>
-        <div class="user-profile-photo-container img-circle">
+
+        <div class="user-profile-photo-container img-circle" ng-if="!isProfilePicSelected">
             <input type="file"
                    id="profile_image_uploader"
                    class="file_upload_btn"
@@ -24,7 +26,12 @@
                 <div class="overlay__text"><span translate>@btn-change</span></div>
             </div>
         </div>
-        <div class="form-horizontal">
+
+        <div class="cropArea" ng-if="isProfilePicSelected">
+            <img-crop image="profilePic" result-image="croppedProfilePic" on-change="onchange($dataURI);"></img-crop>
+        </div>
+
+        <div class="form-horizontal" ng-if="!isProfilePicSelected">
             <div class="user-profile-general-container">
                 <h4 class="profile-body__title">
                     <span translate>@common-info-basic</span>
@@ -76,8 +83,19 @@
     </div>
 
     <div class="modal-footer profile-footer">
-        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>
-        <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}"/>
+        <div ng-if="!isProfilePicSelected">
+            <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>
+            <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}"/>
+        </div>
+
+        <div ng-if="isProfilePicSelected">
+            <button type="button" class="btn btn-cancel" data-ng-click="onProfilePicCancel();">
+                <span translate>@btn-cancel</span>
+            </button>
+            <a class="new_channel_btn btn btn-ok " data-ng-click="onCropDone(); ">
+                <span translate>@btn-change</span>
+            </a>
+        </div>
     </div>
 
 </form>
