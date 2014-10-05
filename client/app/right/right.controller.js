@@ -53,6 +53,18 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         }
     });
 
+    //  when file was uploaded from center panel,
+    //  fileAPI broadcasts 'onChangeShared' to rootScope.
+    //  right controller is listening to 'onChangeShared' and update file list.
+    $rootScope.$on('onChangeShared', function() {
+        preLoadingSetup();
+        getFileList();
+    });
+
+    //  From profileViewerCtrl
+    $rootScope.$on('updateFileWriterId', function(event, userId) {
+        $scope.fileRequest.writerId = userId;
+    });
 
     //  when sharedEntitySearchQuery is changed,
     //  1. check if value is null
@@ -72,12 +84,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         getFileList();
     });
 
-
-    //  From profileViewerCtrl
-    $rootScope.$on('updateFileWriterId', function(event, userId) {
-        $scope.fileRequest.writerId = userId;
-    });
-
     //  fileRequest.writerId => 작성자
     $scope.$watch('fileRequest.writerId', function() {
         if ($scope.fileRequest.writerId === null) {
@@ -94,7 +100,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     //  fileRequest.keyword  => text input box
     //  onChangeShared       => 파일의 shared entity가 바뀌면 호출된다.
     //  한가지라도 바뀌면 알아서 다시 api call을 한다.
-    $scope.$watch('[fileRequest.fileType, fileRequest.keyword, onChangeShared]',
+    $scope.$watch('[fileRequest.fileType, fileRequest.keyword]',
         function(newValue, oldValue) {
             preLoadingSetup();
             getFileList();
@@ -102,7 +108,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
 
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
-    //  advanced search option 중 'Location'/ 을 변경하는 부분.
+    //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
     $scope.$watch('currentEntity', function(newValue, oldValue) {
         if (newValue != oldValue) {
             updateSharedList();
