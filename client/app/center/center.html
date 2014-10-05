@@ -151,7 +151,7 @@
                     <!--    CONTINUED COMMENT ON SAME FILE  -->
                     <span class="continue-comment-body" ng-if="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
                         <!--    COMMENT CONTENT -->
-                        <p class="break">
+                        <p>
                             <!--    WRITER  -->
                             <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
                                 <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getFirstLastNameOfUser}} </span>
@@ -159,7 +159,7 @@
                             </span>
 
                             <!--    CONTENT(MESSAGE)    -->
-                            {{msg.message.content.body}}
+                            <span class="break">{{msg.message.content.body}}</span>
 
                             <!--    CREATED TIME    -->
                             <span class="msg-item-header__created">
@@ -287,14 +287,14 @@
                         <!--    COMMENT MESSAGE -->
                         <div class="msg-comment-body">
 
-                            <p class="break">
+                            <p>
                                 <!--    WRITER  -->
                                 <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
                                     <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getFirstLastNameOfUser}} </span>
                                     <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getFirstLastNameOfUser}} </span>
                                 </span>
 
-                                {{msg.message.content.body}}
+                                <span class="break">{{msg.message.content.body}}</span>
 
                                 <span class="msg-item-header__created">
                                     {{msg.time | date: 'h:mm a'}}
@@ -358,7 +358,8 @@
                onclick="this.value=null"
                ng-file-select="onFileSelect($files);"
                value="Upload File">
-te    </span>
+    </span>
+
     <div id="messages-input-container" style="height: 35px;">
         <form id="message-form" style="height: 35px;">
             <textarea id="message-input"
@@ -372,7 +373,8 @@ te    </span>
                       style="overflow-y: hidden; height: 35px;"
                       autocorrect="off"
                       autocomplete="off"
-                      spellcheck="true">
+                      spellcheck="true"
+                      msd-elastic>
             </textarea>
         </form>
     </div>

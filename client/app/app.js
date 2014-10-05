@@ -13,7 +13,8 @@ var app = angular.module('jandiApp', [
     'ngAnimate',
     'ngImgCrop',
     'angulartics',
-    'angulartics.google.analytics'
+    'angulartics.google.analytics',
+    'monospaced.elastic'
 ]);
 
 app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration) {

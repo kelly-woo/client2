@@ -344,6 +344,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                         if (safeBody != undefined && safeBody !== "") {
                             safeBody = $filter('parseUrl')(safeBody);
                         }
+
                         msg.message.content.body = $sce.trustAsHtml(safeBody);
 
                         switch (msg.status) {
@@ -411,6 +412,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.message = {};
 
     var isPostingDone = false;
+
     $scope.postMessage = function() {
         if (!$scope.message.content) return;
 
@@ -428,6 +430,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             .success(function(response) {
                 log('-- posting message success');
                 updateList();
+                //  reseting position of msgs
+                $('.msgs').css('margin-bottom', 0);
             })
             .error(function(response) {
                 $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.postMessage"});
@@ -956,5 +960,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $scope.testing = _.uniq($scope.testing)
     }
     testing();
+
+    //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.
+    //  listening to 'elastic:resize' and move msg-holder to right position.
+    $scope.$on('elastic:resize', function() {
+        var currentMargin = parseInt($('.msgs').css('margin-bottom'));
+        $('.msgs').css('margin-bottom', currentMargin + 19);
+    });
 
 });
