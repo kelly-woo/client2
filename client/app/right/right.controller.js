@@ -22,11 +22,11 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.fileRequest.listCount        = 10;
     $scope.fileRequest.keyword          = '';
 
-
-    $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
     $scope.sharedEntitySearchQuery  = $scope.currentEntity;
+    $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
 
-    $scope.selectOptionsUsers       = $scope.userList.push($scope.user);
+    $scope.selectOptionsUsers       = [$scope.user];
+    $scope.selectOptionsUsers       = $scope.selectOptionsUsers.concat($scope.userList);
 
     $scope.fileTypeList = ['all', 'image', 'pdf', 'audio', 'video'];
 

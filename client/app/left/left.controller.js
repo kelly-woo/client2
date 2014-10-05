@@ -9,6 +9,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     $scope.isDMCollapsed = false;
     $scope.isChListCollapsed = false;
+    $scope.isPGCollapsed = false;
 
     var response = null;
 
@@ -216,21 +217,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             }
         });
     }
-
-    $scope.onDMInputChange = function(userNameQuery) {
-        var temp = $filter('userByName')($rootScope.userList, userNameQuery);
-
-        if (temp.length === 1) {
-            temp[0].visibility = true;
-        }
-
-        if ($scope.isDMCollapsed) $scope.isDMCollapsed = false;
-    };
-
-
-    $scope.onPGCollapseClick = function() {
-        $scope.isPGCollapsed = false;
-    };
 
     $scope.onDMInputFocus = function() {
         $('.absolute-search-icon').animate({opacity: 1}, 400);

@@ -110,13 +110,11 @@
                            placeholder=""
                            data-ng-model="userNameQuery"
                            data-ng-focus="onDMInputFocus();"
-                           data-ng-blur="onDMInputBlur();"
-                           data-ng-change="onDMInputChange(userNameQuery);">
+                           data-ng-blur="onDMInputBlur();"/>
                 </div>
 
                 <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | userByName:userNameQuery)">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
-                        <i class="fa fa-times-circle entity-remove hidden" data-ng-click="userEntity.visibility = false; $event.stopPropagation(); $event.preventDefault();"></i>
                         <span class="inline-overflow-ellipsis left-panel__name">{{userEntity|getFirstLastNameOfUser}}</span>
                         <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
                     </a>

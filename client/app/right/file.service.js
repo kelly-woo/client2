@@ -70,7 +70,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $upload, $filter) {
     // Simple putting every channel, user, and private group into one array.
     // No exception.
     fileAPI.getShareOptions = function(joinedChannelList, userList, privateGroupList) {
-        return joinedChannelList.concat(userList, privateGroupList);
+        return joinedChannelList.concat(privateGroupList, userList);
     };
 
     //  Removes entity that exists in 'file.shareEntities' from 'list'.

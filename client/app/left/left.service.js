@@ -47,7 +47,6 @@ app.factory('leftpanelAPIservice', function($http, $rootScope) {
 
             if (entityType == "user") {
                 if (currentUserId != entityId) {
-                    entity.visibility = true;
                     entity.selected = false;
                     userList.push(entity);
                 }

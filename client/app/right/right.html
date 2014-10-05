@@ -55,7 +55,7 @@
                 </div>
 
                 <select ng-model="fileRequest.writerId"
-                        ng-options="user.id as user|getFirstLastNameOfUser for user in userList">
+                        ng-options="user.id as user|getFirstLastNameOfUser for user in selectOptionsUsers">
                     <option value="">{{ '@option-all-members' | translate }}</option>
                 </select>
 
