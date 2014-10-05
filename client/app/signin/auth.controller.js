@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService) {
+app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, $rootScope) {
 
      var default_state = {
         cpanel_name: 'general',
@@ -57,7 +57,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         loginAPI.getTeamInfo(prefix)
             .success(function(data) {
                 $scope.teamInfo.id = data.teamInfo.teamId;
-                $scope.teamInfo.name = data.teamInfo.name;
+                $rootScope.team.name  = $scope.teamInfo.name = data.teamInfo.name;
             })
             .error(function(err) {
                 console.error(err);
