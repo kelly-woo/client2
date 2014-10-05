@@ -64,8 +64,10 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, $filter) {
         for (var i in lists) {
             var entity = lists[i];
             options.push({
-                'type'  : $filter('translate')(entity.type),
-                'name'  : entity.name
+                'type'      : $filter('translate')(entity.type),
+                'name'      : entity.name,
+                'members'   : entity.pg_members || entity.ch_members,
+                'id'        : entity.id
             });
         }
         return options;

@@ -317,7 +317,6 @@ app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entit
     };
 
     $scope.inviteOptions = entityheaderAPIservice.getInviteOptions($scope.joinedChannelList, $scope.privateGroupList);
-    console.info($scope.inviteOptions);
 
     $scope.onInviteClick = function(inviteTo) {
 
@@ -326,25 +325,17 @@ app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entit
             return;
         }
 
-        if (inviteTo.type == 'channel') {
-            if (inviteTo.ch_members.indexOf($scope.currentEntity.id) > -1) {
-                $modalInstance.dismiss('cancel');
-                return;
-            }
-        }
-        else {
-            if (inviteTo.pg_members.indexOf($scope.currentEntity.id) > -1) {
-                $modalInstance.dismiss('cancel');
-                return;
-            }
+        if (inviteTo.members.indexOf($scope.currentEntity.id) > -1) {
+            $modalInstance.dismiss('cancel');
+            return;
         }
 
-        var id = [];
-        id.push($scope.currentEntity.id);
+        var invitedId = [];
+        invitedId.push($scope.currentEntity.id);
 
         $scope.isLoading = true;
 
-        entityheaderAPIservice.inviteUsers(inviteTo.type, inviteTo.id, id)
+        entityheaderAPIservice.inviteUsers(inviteTo.type, inviteTo.id, invitedId)
             .success(function(response) {
                 $scope.updateLeftPanelCaller();
                 $modalInstance.dismiss('cancel');

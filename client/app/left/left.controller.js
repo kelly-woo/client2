@@ -60,7 +60,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $scope.joinedChannelList    = joinedList[0];
         $scope.privateGroupList     = joinedList[1];
 
-
         // userList         - List of all users except myself.
         // totalChannelList - All channels including both 'joined' and 'not joined'
         var generalList = leftpanelAPIservice.getGeneralList($scope.totalEntities, $scope.joinEntities, $scope.user.id);
@@ -196,6 +195,8 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     $rootScope.$on('onUserClick', function(event, user) {
         $scope.onUserClick(user);
     });
+
+
     //  Add 'onUserClick' to redirect to direct message to 'user'
     //  center and header are calling.
     $scope.onUserClick = function(user) {
