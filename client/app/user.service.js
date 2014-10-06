@@ -10,10 +10,10 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
             method: 'PUT',
             url: $rootScope.server_address + 'settings/profile',
             data: {
-                nickname    :   user.u_nickname,
-                phoneNumber :   user.u_extraData.phoneNumber,
-                department  :   user.u_extraData.department,
-                position    :   user.u_extraData.position
+                statusMessage   :   user.u_statusMessage,
+                phoneNumber     :   user.u_extraData.phoneNumber,
+                department      :   user.u_extraData.department,
+                position        :   user.u_extraData.position
             }
         });
     };
@@ -81,13 +81,12 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
         });
     };
 
-    userAPI.updateUserName = function(firstName, lastName) {
+    userAPI.updateUserName = function(new_name) {
         return $http({
             method  : 'POST',
             url     : $rootScope.server_address + 'settings/name',
             data    : {
-                firstName   : firstName,
-                lastName    : lastName
+                name    : new_name
             }
         });
     };
