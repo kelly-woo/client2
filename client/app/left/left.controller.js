@@ -225,4 +225,13 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     $scope.onDMInputBlur = function() {
         $('.absolute-search-icon').stop().css({'opacity' : 0.2});
     }
+
+    $scope.onUserContainerClick = function() {
+        $modal.open({
+            scope       :   $scope,
+            templateUrl :   'app/modal/settings.profile.html',
+            controller  :   'profileCtrl',
+            size        :   'lg'
+        });
+    }
 });
