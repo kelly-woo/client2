@@ -253,6 +253,7 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter,
         var help_error_taken = $filter('translate')('@alert-send-mail-taken');
         var help_error_invalid = $filter('translate')('@alert-send-mail-invalid');
         var help_success_send = $filter('translate')('@alert-send-mail-success');
+
         // html fragment
         var html_noti_fail = '<div class="modal-noti-block"><h1>' + help_fail_send + '</h1></div>';
         var html_noti_success = '<div class="modal-noti-block alert-jandi alert-success"><h1>' + help_success_send + '</h1></div>';
@@ -518,7 +519,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
                 // analytics
                 analyticsService.mixpanelTrack( "Set Profile" );
                 var profile_data = {
-                    "nickname"  : $scope.curUser.u_nickname,
+                    "nickname"  : $scope.curUser.u_statusMessage,
                     "mobile"    : $scope.curUser.u_extraData.phoneNumber,
                     "division"  : $scope.curUser.u_extraData.department,
                     "position"  : $scope.curUser.u_extraData.position
@@ -708,14 +709,14 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
                 userAPIservice.validateCurrentPassword($scope.rename.cur_password.value)
                     .success(function() {
                         // Update name
-//                        userAPIservice.updateUserName($scope.rename.new_name.value)
-//                            .success(function() {
-//
-//                            })
-//                            .error(function(err) {
-//
-//                            });
-                        alert('성/이름 대신 실명 하나로 받는게 더 좋지않을까요?');
+                        userAPIservice.updateUserName($scope.rename.new_name.value)
+                            .success(function() {
+                                $scope.updateLeftPanelCaller();
+                            })
+                            .error(function(err) {
+
+                            });
+//                        alert('성/이름 대신 실명 하나로 받는게 더 좋지않을까요?');
                         $scope.rename.cur_password.value = "";
                         $scope.rename.new_name.value = "";
                         $scope.isLoading = false;

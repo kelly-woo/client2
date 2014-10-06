@@ -411,8 +411,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.message = {};
 
-    var isPostingDone = false;
-
     $scope.postMessage = function() {
         if (!$scope.message.content) return;
 
@@ -785,7 +783,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 //  when attempting to join other channel.
                 //  No matter who created what, just update left panel.
 
-                console.log('create')
+//                console.log('create')
                 if (event.fromEntity == $scope.user.id) {
 //                    console.log('I created channel')
                 }
@@ -950,16 +948,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     function log(string) {
 //        console.log(string);
     }
-
-    function testing() {
-        $scope.testing = [];
-        $scope.testing.push($scope.user)
-        $scope.testing.push($scope.user)
-        $scope.testing.push($scope.user)
-        $scope.testing.push($scope.user)
-        $scope.testing = _.uniq($scope.testing)
-    }
-    testing();
 
     //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.
     //  listening to 'elastic:resize' and move msg-holder to right position.

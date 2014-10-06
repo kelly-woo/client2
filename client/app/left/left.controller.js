@@ -82,8 +82,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
         $rootScope.user                 = $scope.user;
 
-        console.log($scope.user)
-
         //  entityAPI.hasPrivilegeHelper is watching
         $rootScope.isLeftUpdated        = true;
 
