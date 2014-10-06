@@ -14,7 +14,7 @@
                   data-ng-repeat="user in userToInviteList = (userList | filter : {'selected' : true})"
                   data-ng-click="user.selected = false">
                 <span class="form-invite-body__selected-user btn-ok" data-ng-click="user.selected = true;">
-                    {{ user | getFirstLastNameOfUser }} <span class="fa fa-times"></span>
+                    {{ user | getName }} <span class="fa fa-times"></span>
                 </span>
             </span>
         </div>
@@ -23,7 +23,7 @@
             <input type="text"
                    class="form-control green-input-box"
                    data-ng-model="selectedUser"
-                   typeahead="user as user.u_lastName+user.u_firstName for user in userList | filter : { selected : false } | userByName:$viewValue"
+                   typeahead="user as user|getName for user in userList | filter : { selected : false } | userByName:$viewValue"
                    typeahead-on-select="onUserSelected($item); selectedUser=''; $event.stopPropagation();"
                    typeahead-template-url="customTemplate.html"
                    placeholder="{{ '@input-search-user-name' | translate }}" />

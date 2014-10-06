@@ -29,7 +29,11 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
 
 
     function getEntityFromListById(list, value) {
-        if (value == $rootScope.user.id) return $rootScope.user;
+        value = parseInt(value);
+
+        if (value === $rootScope.user.id) return $rootScope.user;
+
+
 
         var entity = $filter('filter')(list, { 'id' : value }, function(actual, expected) {
             return actual === expected;
@@ -45,19 +49,26 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
     };
 
     userAPI.getNameFromUser = function(user) {
-        if ($rootScope.displayNickname)
-            return getNickname(user);
-
-        return getFullName(user);
+        return user.name;
     };
 
-    function getFullName(user) {
-        return user.u_lastName + user.u_firstName;
-    }
+    userAPI.getStatusMessage = function(user) {
+        return user.u_statusMessage;
+    };
 
-    function getNickname(user) {
-        return user.u_nickname;
-    }
+    userAPI.getDepartment = function(user) {
+        return user.u_extraData.department;
+    };
+    userAPI.getPositiion = function(user) {
+        return user.u_extraData.position ;
+    };
+    userAPI.getPhoneNumber = function(user) {
+        return user.u_extraData.phoneNumber ;
+    };
+    userAPI.getEmail = function(user) {
+        return user.u_email;
+    };
+
 
     userAPI.validateCurrentPassword = function(cur_password) {
         cur_password = cur_password || '';

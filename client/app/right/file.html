@@ -16,7 +16,7 @@
                              ng-src="{{ server_uploaded + ( file_detail.writer.u_photoThumbnailUrl.smallThumbnailUrl || file_detail.writer.u_photoUrl )}}"
                              ng-click="onUserClick(file_detail.writer);"/>
                     </div>
-                    <div class="file-detail-header__writer">{{ file_detail.writer | getFirstLastNameOfUser }}</div>
+                    <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
                     <div class="file-detail-header__title">
                         <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
                             {{ file_detail.content.title || file_detail.content.name }}
@@ -129,7 +129,7 @@
                              ng-click="onUserClick(file_detail.writer);"/>
                     </div>
                     <div class="comment-item-header">
-                        <span class="comment-item-header__name">{{ comment.writer|getFirstLastNameOfUser }}</span>
+                        <span class="comment-item-header__name">{{ comment.writer|getName }}</span>
                         <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
                         <span class="comment-item-header__action dropdown pull-right" data-ng-if="( user.id === comment.writer.id )">
                             <a href="#" class="link-dark dropdown-toggle">

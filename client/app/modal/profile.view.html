@@ -3,26 +3,26 @@
 
     <div class="profile-view-general-container">
         <img class="user-profile__photo view" data-ng-src="{{ server_uploaded + curUser.u_photoThumbnailUrl.mediumThumbnailUrl}}"/>
-        <div class="user-profile__fullName">{{ curUser|getFirstLastNameOfUser }}</div>
-        <div class="user-profile__nickName">{{ curUser.u_nickname }}</div>
+        <div class="user-profile__fullName">{{ curUser | getName }}</div>
+        <div class="user-profile__nickName">{{ curUser | getUserStatusMessage }}</div>
     </div>
 
     <div class="profile-view-info-container">
         <div class="profile-view__info border-bottom_grey">
             <div class="info-title"><span translate>@common-department</span></div>
-            <div class="info-content">{{ curUser.u_extraData.department }}</div>
+            <div class="info-content">{{ curUser | getUserDepartment }}</div>
         </div>
         <div class="profile-view__info border-bottom_grey">
             <div class="info-title"><span translate>@common-position</span></div>
-            <div class="info-content">{{ curUser.u_extraData.position }}</div>
+            <div class="info-content">{{ curUser | getUserPosition }}</div>
         </div>
         <div class="profile-view__info border-bottom_grey">
             <div class="info-title"><span translate>@common-phone</span></div>
-            <div class="info-content">{{ curUser.u_extraData.phoneNumber }}</div>
+            <div class="info-content">{{ curUser | getUserPhoneNumber }}</div>
         </div>
         <div class="profile-view__info">
             <div class="info-title"><span translate>@common-email</span></div>
-            <div class="info-content">{{ curUser.u_email }}</div>
+            <div class="info-content">{{ curUser | getUserEmail }}</div>
         </div>
     </div>
 

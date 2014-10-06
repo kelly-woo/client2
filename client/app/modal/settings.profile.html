@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3"><span translate>@common-name</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="lastName" value="{{curUser.u_lastName + curUser.u_firstName}}" disabled/>
+                        <input type="text" class="form-control" name="lastName" value="{{ curUser | getName }}" disabled/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3"><span translate>@common-status-msg</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="nickName" data-ng-model="curUser.u_nickname"/>
+                        <input type="text" class="form-control" name="nickName" data-ng-model="curUser.u_statusMessage"/>
                     </div>
                 </div>
             </div>

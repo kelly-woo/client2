@@ -57,7 +57,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         loginAPI.getTeamInfo(prefix)
             .success(function(data) {
                 $scope.teamInfo.id = data.teamInfo.teamId;
-                $rootScope.team.name  = $scope.teamInfo.name = data.teamInfo.name;
+                $scope.teamInfo.name = data.teamInfo.name;
             })
             .error(function(err) {
                 console.error(err);
