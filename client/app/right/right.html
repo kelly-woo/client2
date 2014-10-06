@@ -42,7 +42,7 @@
                 </div>
 
                 <select ng-model="sharedEntitySearchQuery"
-                        ng-options="channel as channel|getFirstLastNameOfUser group by channel.type for channel in selectOptions">
+                        ng-options="channel as channel|getName group by channel.type for channel in selectOptions">
                     <option value="">{{ '@option-all-rooms' | translate }}</option>
                 </select>
 
@@ -55,7 +55,7 @@
                 </div>
 
                 <select ng-model="fileRequest.writerId"
-                        ng-options="user.id as user|getFirstLastNameOfUser for user in selectOptionsUsers">
+                        ng-options="user.id as user|getName for user in selectOptionsUsers">
                     <option value="">{{ '@option-all-members' | translate }}</option>
                 </select>
 
@@ -113,7 +113,7 @@
                 <div class="file-item-body__author__time">
                     <span data-ng-click="onUserClick(file.writer);"
                           class="file-item-body-author cursor_pointer">
-                        {{file.writer|getFirstLastNameOfUser }}
+                        {{file.writer|getName }}
                     </span>
                     <span class="file-item-meta__createtime">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
 

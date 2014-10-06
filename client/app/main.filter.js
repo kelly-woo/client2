@@ -85,11 +85,7 @@ app.filter('userByName', ['$rootScope', function($rootScope) {
         var returnArray = [];
 
         _.each(input, function(user) {
-            var fullName = user.u_lastName + user.u_firstName ;
-
-            if ($rootScope.displayNickname) {
-                fullName = user.u_nicname;
-            }
+            var fullName = user.name.toLowerCase();
 
             if(fullName.indexOf(name) > -1) {
                 returnArray.push(user)
@@ -101,32 +97,13 @@ app.filter('userByName', ['$rootScope', function($rootScope) {
 }
 ]);
 
-/*/
- used in 'rpanel-header-toolbar'
- */
-app.filter('getFirstLastNameById', ['userAPIservice', '$rootScope', '$filter',
-    function(userAPIservice, $rootScope, $filter) {
-        return function(input) {
-            if ( input === 'everyone' || input === $rootScope.user.id || input === 'mine' || input === 'all')
-                return $filter('translate')('YOU');
-
-            return userAPIservice.getNameFromUserId(input);
-        }
-    }
-]);
-
-/*
-
-
- */
-app.filter('getFirstLastNameOfUser', ['userAPIservice',
+app.filter('getName', ['userAPIservice',
     function(userAPIservice) {
         return function(input) {
             if (angular.isUndefined(input)) return '';
 
-            if (input.isNumber) {
-                return $filter('getFirstLastNameById', input);
-            }
+            if (angular.isNumber(input))
+                return userAPIservice.getNameFromUserId(input);
 
             if (input.type != 'user') return input.name;
 
@@ -135,7 +112,49 @@ app.filter('getFirstLastNameOfUser', ['userAPIservice',
     }
 ]);
 
+app.filter('getUserStatusMessage', ['userAPIservice',
+    function(userAPIservice) {
+        return function(user) {
+            return userAPIservice.getStatusMessage(user);
+        }
+    }
+]);
 
+app.filter('getUserDepartment', ['userAPIservice',
+    function(userAPIservice) {
+        return function(user) {
+            return userAPIservice.getDepartment(user);
+        }
+    }
+]);
+
+app.filter('getUserPosition', ['userAPIservice',
+    function(userAPIservice) {
+        return function(user) {
+            return userAPIservice.getPositiion(user);
+        }
+    }
+]);
+
+app.filter('getUserPhoneNumber', ['userAPIservice',
+    function(userAPIservice) {
+        return function(user) {
+            return userAPIservice.getPhoneNumber(user);
+        }
+    }
+]);
+
+app.filter('getUserEmail', ['userAPIservice',
+    function(userAPIservice) {
+        return function(user) {
+            return userAPIservice.getEmail(user);
+        }
+    }
+]);
+
+/*
+
+ */
 /*
     used in file type dropdown.
  */

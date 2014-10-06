@@ -5,7 +5,7 @@
         <span class="panel-title-info-name-container ng-binding dropdown-toggle" data-toggle="dropdown"
               data-ng-class="{'header-padding-for-prefix' : currentEntity.type != 'privateGroup'}">
             <span class="prefix">{{ currentEntity.prefix }}</span>
-            <span class="inline-overflow-ellipsis panel-title-info__name">{{ currentEntity | getFirstLastNameOfUser }}
+            <span class="inline-overflow-ellipsis panel-title-info__name">{{ currentEntity | getName }}
                 <i class="fa fa-caret-down header-title-info__more"></i>
             </span>
         </span>
@@ -83,8 +83,8 @@
         </span>
         <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
             <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
-                <a data-ng-if="userId == user.id">{{user|getFirstLastNameOfUser}}</a>
-                <a data-ng-if="userId != user.id" data-ui-sref="archives({entityType:'users', entityId:userId})">{{userId|getFirstLastNameById}}</a>
+                <a data-ng-if="userId == user.id">{{ user | getName }}</a>
+                <a data-ng-if="userId != user.id" data-ui-sref="archives({entityType:'users', entityId:userId})">{{ userId | getName }}</a>
             </li>
         </ul>
     </span>
@@ -138,8 +138,8 @@
                             IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
                     <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
                           ng-hide="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
-                        <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getFirstLastNameOfUser}} </span>
-                        <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getFirstLastNameOfUser}} </span>
+                        <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
+                        <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
 
                         <!--    CREATED TIME    -->
                         <span class="msg-item-header__created">
@@ -154,8 +154,8 @@
                         <p>
                             <!--    WRITER  -->
                             <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
-                                <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getFirstLastNameOfUser}} </span>
-                                <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getFirstLastNameOfUser}} </span>
+                                <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
+                                <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
                             </span>
 
                             <!--    CONTENT(MESSAGE)    -->
@@ -216,7 +216,7 @@
                             <div class="msg-file-meta-down">
                                 <span class="msg-file-meta-info">
                                     <span data-ng-if="( msg.fromEntity.id !== msg.message.writer.id )">
-                                        <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getFirstLastNameOfUser}}</a><!--
+                                        <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getName}}</a><!--
                                         --><span translate>@msg-whose</span>
                                     </span>
                                     <span ng-if="msg.status == 'shared'" translate>@msg-shared</span>
@@ -290,8 +290,8 @@
                             <p>
                                 <!--    WRITER  -->
                                 <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
-                                    <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getFirstLastNameOfUser}} </span>
-                                    <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getFirstLastNameOfUser}} </span>
+                                    <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
+                                    <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
                                 </span>
 
                                 <span class="break">{{msg.message.content.body}}</span>
@@ -317,7 +317,7 @@
                                 <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
                                 <span class="break" data-ng-bind-html="(msg.message.content.body) || ''"></span>
                                 <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
-                                <span data-ng-if="$index !== 0">, </span><span>{{invitees | getFirstLastNameOfUser}}</span>
+                                <span data-ng-if="$index !== 0">, </span><span>{{invitees | getName}}</span>
                             </span>
                             <span data-ng-if="preferences.language === 'ko_KR'">{{ '@msg-invited-postfix' | translate }}</span>
                         </span>

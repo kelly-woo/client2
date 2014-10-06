@@ -8,7 +8,7 @@
             <img class="lpanel-user__avatar" data-ng-src="{{ server_uploaded + user.u_photoThumbnailUrl.smallThumbnailUrl }}">
             <div class="lpanel-user__container">
                 <span class="lpanel-user__name inline-overflow-ellipsis"><b>{{team.name}}</b><br/>
-                    {{user.u_extraData.position}} {{user|getFirstLastNameOfUser}}</span>
+                    {{user | getUserPosition }} {{user | getName}}</span>
             </div>
             <i class="fa fa-caret-up lpanel-user__more hidden"></i>
         </span>
@@ -115,7 +115,7 @@
 
                 <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | userByName:userNameQuery)">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
-                        <span class="inline-overflow-ellipsis left-panel__name">{{userEntity|getFirstLastNameOfUser}}</span>
+                        <span class="inline-overflow-ellipsis left-panel__name">{{userEntity | getName}}</span>
                         <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
                     </a>
                 </li>

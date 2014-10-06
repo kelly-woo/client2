@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="modal-share__file-body">
-                        <span class="modal-share__file-body__writer">{{ file.writer|getFirstLastNameOfUser }}</span>
+                        <span class="modal-share__file-body__writer">{{ file.writer|getName }}</span>
                         <span class="modal-share__file-body__time">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
                         <div class="modal-share__file-body__title" data-ng-bind="file.content.title"></div>
                         <div class="modal-share__file-body__meta">
@@ -45,7 +45,7 @@
                 <div class="col-sm-9">
                     <select class="form-control"
                             data-ng-model="shareChannel"
-                            data-ng-options="channel as channel.u_lastName+channel.u_firstName||channel.name group by channel.type for channel in selectOptions">
+                            data-ng-options="channel as channel|getName group by channel.type for channel in selectOptions">
                     </select>
                 </div>
             </div>

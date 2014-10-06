@@ -16,7 +16,7 @@
                class="form-control green-input-box"
                data-ng-model="selectedUser"
                placeholder="{{ 'Search users by name' }}"
-               typeahead="user as user.u_lastName+user.u_firstName for user in userList  | userByName:$viewValue"
+               typeahead="user as user|getName for user in userList  | userByName:$viewValue"
                typeahead-on-select="onUserSelected($item); selectedUser = '';"
                typeahead-template-url="customTemplate.html"
                typeahead-min-length='0'>
