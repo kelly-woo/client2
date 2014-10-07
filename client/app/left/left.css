@@ -139,10 +139,16 @@
 .lpanel-list ul {
     list-style-type: none;
     text-align: left;
+    margin-bottom: 0;
 }
+
 /*  first element of list */
 .lpanel-list ul li:first-child {
     margin-top: 10px;
+}
+/* last element of list */
+.lpanel-list ul li:last-child {
+    margin-bottom: 10px;
 }
 /*  every element in list */
 .lpanel-list ul li {
@@ -188,7 +194,7 @@
 }
 /*  new message badge position  */
 .left-panel_badge {
-    margin-top: 8px;
+    margin-top: 5px;
     color: white !important;
 }
 
