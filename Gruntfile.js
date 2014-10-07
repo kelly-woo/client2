@@ -671,4 +671,9 @@ module.exports = function (grunt) {
     grunt.registerTask('development', [
         'replace:development'
     ]);
+
+    grunt.registerTask('deploy', [
+        'staging',
+        'build'
+    ]);
 };
