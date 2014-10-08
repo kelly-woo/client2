@@ -6,6 +6,8 @@ app.factory('fileAPIservice', function($http, $rootScope, $upload, $filter) {
     var fileAPI = {};
 
     fileAPI.upload = function(files, fileInfo) {
+        console.log(files)
+        console.log(fileInfo)
         return $upload.upload({
             method: 'POST',
             url: $rootScope.server_address + 'file',

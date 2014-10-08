@@ -41,7 +41,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
                                 if (safeBody != undefined && safeBody !== "") {
                                     safeBody = $filter('parseUrl')(safeBody);
                                     //item.content.body = safeBody.replace(/\n/g, '<br>');
-                                }
+                                 }
                                 item.content.body = $sce.trustAsHtml(safeBody);
                                 $scope.file_comments.push(item);
                             }
