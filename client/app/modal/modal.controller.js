@@ -350,9 +350,12 @@ app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entit
 });
 
 // FILE UPLOAD controller
-app.controller('fileUploadModalCtrl', function($scope, $modalInstance, fileAPIservice, analyticsService) {
+app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, fileAPIservice, analyticsService) {
     $scope.isLoading = false;
     $scope.files = $scope.selectedFiles[0];
+
+    console.log($scope.files);
+    console.log($scope.dataUrls[0]);
 
     // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 synch가 맞는다.
     $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
@@ -388,6 +391,14 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, fileAPIse
             fileInfo.share = '';
         }
         $scope.isLoading = true;
+
+        // 토큰은 바디에 태운다.
+        // ie9에서 html5 형식의 file upload가 불가능함.
+        // flash를 이용한 upload 만 가능함.
+        // flash upload에서 header 수정이 불가능함.
+        // 그 결과 서버쪽에서 authorization 과 버전 체크할때 에러가 무조건 남.
+        // 우선 version check를 스킵하고 authorization을 위해 header에 넣던 token를 body에 추가함.
+        fileInfo.accessToken = $window.sessionStorage.token;
 
         var fileQueue = fileAPIservice.upload($scope.files, fileInfo);
 
