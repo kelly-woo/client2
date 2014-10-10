@@ -354,6 +354,7 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
     $scope.isLoading = false;
     $scope.files = $scope.selectedFiles[0];
 
+    console.log($scope.files)
     // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 sync가 맞는다.
     $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
 
@@ -377,7 +378,7 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
 
         var share_type = fileInfo.share.type;
 
-        if (fileInfo.share.type == 'channel') {
+        if (share_type === 'channel') {
             fileInfo.permission = PUBLIC_FILE;
         }
 
@@ -497,6 +498,10 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
 app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userAPIservice, $modal, analyticsService) {
     $scope.curUser = _.cloneDeep($scope.user);
     $scope.isFileSelected = false;
+
+    $scope.isFileReaderAvailable = new FileReader();
+
+    console.log('FileReader : ', $scope.isFileReaderAvailable);
 
     // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
     $scope.curUser.u_extraData.phoneNumber  = $scope.curUser.u_extraData.phoneNumber || "";

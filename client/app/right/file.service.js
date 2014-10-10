@@ -78,7 +78,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         })
     };
 
-    // Simple putting every channel, user, and private group into one array.
+    // Simply putting every channel, user, and private group into one array.
     // No exception.
     fileAPI.getShareOptions = function(joinedChannelList, userList, privateGroupList) {
         return joinedChannelList.concat(privateGroupList, userList);

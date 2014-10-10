@@ -464,22 +464,41 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // Callback function from file finder(navigation) for uploading a file.
     $scope.onFileSelect = function($files) {
+
         $scope.selectedFiles = $files;
         $scope.dataUrls = [];
+
         for ( var i = 0; i < $files.length; i++) {
             var file = $files[i];
             if (window.FileReader && file.type.indexOf('image') > -1) {
+
+                console.log('hello fileReader')
+
                 var fileReader = new FileReader();
+
+                console.log('i have fileReader')
+                console.log(fileReader)
+
                 fileReader.readAsDataURL(file);
+
                 var loadFile = function(fileReader, index) {
+
+                    console.log('into function');
+
                     fileReader.onload = function(e) {
+                        console.log('onload');
+
                         $timeout(function() {
                             $scope.dataUrls[index] = e.target.result;
+                            console.log($scope.dataUrls[index]);
                         });
                     }
                 }(fileReader, i);
             }
         }
+
+        console.log($scope.dataUrls);
+
         this.openModal('file');
     };
 

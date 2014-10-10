@@ -78,7 +78,8 @@ msgid "@btn-add"
 msgstr "추가"
 
 #: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
+#: client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "취소"
 
