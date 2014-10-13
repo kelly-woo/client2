@@ -36,6 +36,7 @@
   },
   "resolutions": {
     "ng-file-upload": "~1.6.12",
-    "ng-file-upload-shim": "~1.6.12"
+    "ng-file-upload-shim": "~1.6.12",
+    "angular": "1.2.26"
   }
 }
