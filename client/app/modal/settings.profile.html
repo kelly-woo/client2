@@ -2,7 +2,7 @@
 <div class="modal-header">
     <button type="button" class="close" data-ng-click="cancel();"><i class="fa fa-close"></i></button>
     <h3 class="modal-header__title">
-        <span translate>@common-profile-settings</span>
+        <span translate>@common-profile-settingstranslate</span>
     </h3>
 </div>
 
@@ -16,7 +16,7 @@
 
         <div class="user-profile-photo-container img-circle" ng-if="!isProfilePicSelected">
             <img class="user-profile__photo" ng-src="{{ server_uploaded + curUser.u_photoThumbnailUrl.mediumThumbnailUrl}}" />
-            <div class="user-profile-photo__overlay" ng-if="isFileReaderAvailable">
+            <div class="user-profile-photo__overlay">
                 <div class="black-opac__background"></div>
                 <div class="overlay__text"><span translate>@btn-change</span></div>
                 <input type="file"
@@ -24,9 +24,10 @@
                        class="file_upload_btn"
                        data-ng-click="this.value=null;"
                        data-ng-file-select="onFileSelect($files);">
-
             </div>
         </div>
+
+        <span ng-if="false" translate>@ie9-profile-image-support</span>
 
         <div class="cropArea" ng-if="isProfilePicSelected">
             <img-crop image="profilePic" result-image="croppedProfilePic" on-change="onchange($dataURI);"></img-crop>

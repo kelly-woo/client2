@@ -566,9 +566,6 @@
     cursor: pointer;
     z-index: 1;
 }
-.user-profile-photo-container:hover .overlay__text {
-    text-decoration: underline;
-}
 
 .user-profile-photo__overlay {
     position: absolute;
@@ -580,9 +577,11 @@
     color:  white;
     z-index: 0;
 }
+
 .profile-footer {
     margin-top: 0;
 }
+
 .black-opac__background {
     position: absolute;
     width: 100%;
@@ -591,10 +590,13 @@
     opacity: 0.8;
     z-index: -1;
 }
+
 .overlay__text {
     color: white;
     padding: 14px;
 }
+
+.user-profile-photo__overlay:hover .overlay__text,
 .overlay__text:hover {
     text-decoration: underline;
 }

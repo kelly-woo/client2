@@ -319,8 +319,11 @@ msgid "@common-private-groups"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
+msgstr ""
+
+#: client/app/modal/settings.profile.html
+msgid "@common-profile-settingstranslate"
 msgstr ""
 
 #: client/app/modal/create.channel.html
@@ -446,6 +449,10 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "@header-setting"
+msgstr ""
+
+#: client/app/modal/settings.profile.html
+msgid "@ie9-profile-image-support"
 msgstr ""
 
 #: client/app/modal/create.channel.html

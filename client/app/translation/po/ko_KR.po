@@ -302,8 +302,13 @@ msgstr "개인정보취급방침"
 msgid "@common-private-groups"
 msgstr "비공개 그룹"
 
-#: client/app/header/header.html client/app/modal/settings.profile.html
+#: client/app/header/header.html
 msgid "@common-profile-settings"
+msgstr "프로필 수정"
+
+#: client/app/modal/settings.profile.html
+#, fuzzy
+msgid "@common-profile-settingstranslate"
 msgstr "프로필 수정"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
@@ -423,6 +428,10 @@ msgstr "메뉴"
 #: client/app/header/header.html
 msgid "@header-setting"
 msgstr "설정"
+
+#: client/app/modal/settings.profile.html
+msgid "@ie9-profile-image-support"
+msgstr "인터넷 익스플로러 9에서는 지원하지 않습니다."
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"

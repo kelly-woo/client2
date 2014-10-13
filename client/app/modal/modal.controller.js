@@ -354,7 +354,6 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
     $scope.isLoading = false;
     $scope.files = $scope.selectedFiles[0];
 
-    console.log($scope.files)
     // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 sync가 맞는다.
     $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
 
@@ -495,13 +494,11 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
 });
 
 //  PROFILE CONTROLLER
-app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userAPIservice, $modal, analyticsService) {
+app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService) {
     $scope.curUser = _.cloneDeep($scope.user);
     $scope.isFileSelected = false;
 
-    $scope.isFileReaderAvailable = new FileReader();
-
-    console.log('FileReader : ', $scope.isFileReaderAvailable);
+    $scope.isFileReaderAvailabled = true;
 
     // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
     $scope.curUser.u_extraData.phoneNumber  = $scope.curUser.u_extraData.phoneNumber || "";
@@ -511,6 +508,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
+
 
     $scope.onProfileChangeClick = function() {
         $scope.isLoading = true;
@@ -524,6 +522,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
                 // analytics
                 analyticsService.mixpanelTrack( "Set Profile" );
                 var profile_data = {
+
                     "nickname"  : $scope.curUser.u_statusMessage,
                     "mobile"    : $scope.curUser.u_extraData.phoneNumber,
                     "division"  : $scope.curUser.u_extraData.department,
@@ -546,16 +545,30 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
         $scope.curUser = _.cloneDeep($scope.user);
     });
 
+    //  TODO: ie9에서 프로필 사진 바꾸기 기능이 없음.
+    //  IE9에서 blob 읽는 법을 알아서 빨리 하기.
     $scope.onFileSelect = function($files) {
+        for (var i = 0; i < $files.length; i++) {
+            var file = $files[i];
+            if (file.flashId) {
+                $scope.isFileReaderAvailable = false;
+                alert($filter('translate')('@ie9-profile-image-support'));
+                return;
+            }
+            else {
+                if(window.FileReader && file.type.indexOf('image') > -1) {
+                    $scope.isFileReaderAvailable = true;
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL($files[0]);
 
-        var fileReader = new FileReader();
-        fileReader.readAsDataURL($files[0]);
-
-        fileReader.onload = function(e) {
-            $scope.profilePic = e.target.result;
-            $scope.croppedProfilePic = '';
-            $scope.isProfilePicSelected = true;
-        };
+                    fileReader.onload = function(e) {
+                        $scope.profilePic = e.target.result;
+                        $scope.croppedProfilePic = '';
+                        $scope.isProfilePicSelected = true;
+                    };
+                }
+            }
+        }
     };
 
     $scope.onCropDone = function() {

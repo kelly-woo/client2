@@ -6,8 +6,6 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     var fileAPI = {};
 
     fileAPI.upload = function(files, fileInfo) {
-        console.log('this is fileapi upload')
-        console.log(fileInfo);
         // 토큰은 바디에 태운다.
         // ie9에서 html5 형식의 file upload가 불가능함.
         // flash를 이용한 upload 만 가능함.
@@ -15,7 +13,6 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         // 그 결과 서버쪽에서 authorization 과 버전 체크할때 에러가 무조건 남.
         // 우선 version check를 스킵하고 authorization을 위해 header에 넣던 token를 body에 추가함.
         fileInfo.accessToken = $window.sessionStorage.token;
-        console.log(fileInfo);
 
         return $upload.upload({
             method: 'POST',

@@ -470,6 +470,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         for ( var i = 0; i < $files.length; i++) {
             var file = $files[i];
+            console.log(file);
+            console.log(window.XMLHttpRequest.__isShim);
+
             if (window.FileReader && file.type.indexOf('image') > -1) {
 
                 console.log('hello fileReader')
