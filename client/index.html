@@ -62,6 +62,11 @@
         <script src="bower_components/json3/lib/json3.min.js"></script>
         <![endif]-->
 
+        <script>
+            FileAPI = {
+                debug : false
+            };
+        </script>
         <!--    upload-shim must be loaded before angular.js    -->
         <script src="bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
 
@@ -94,12 +99,15 @@
             <script src="bower_components/angulartics/src/angulartics-mixpanel.js"></script>
             <script src="bower_components/angulartics/src/angulartics-scroll.js"></script>
             <script src="bower_components/angular-elastic/elastic.js"></script>
+            <script src="bower_components/jquery-ui/jquery-ui.js"></script>
             <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
             <!-- injector:js -->
+            <script src="app/FileReader/jquery.FileReader.js"></script>
+            <script src="app/FileReader/jquery.FileReader.min.js"></script>
             <script src="app/analytics.service.js"></script>
             <script src="app/center/center.controller.js"></script>
             <script src="app/center/center.service.js"></script>
@@ -120,6 +128,8 @@
             <script src="app/right/right.controller.js"></script>
             <script src="app/signin/auth.controller.js"></script>
             <script src="app/signin/auth.service.js"></script>
+            <script src="app/swfobject/src/swfobject.js"></script>
+            <script src="app/swfobject/swfobject.js"></script>
             <script src="app/team/team.service.js"></script>
             <script src="app/translation/translation.js"></script>
             <script src="app/typeahead.directive.js"></script>

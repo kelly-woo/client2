@@ -8,7 +8,9 @@
 <form name="file_upload_form" data-ng-submit="onFileUpload(fileInfo);">
     <div class="modal-body">
         <div class="form-horizontal">
-            <img data-ng-src="{{dataUrls[0]}}" class="modal-upload-img" />
+            <div id="image_preview_container">
+                <img data-ng-src="{{dataUrls[0]}}" class="modal-upload-img" ng-if="supportHtml5"/>
+            </div>
             <!-- FILE TITLE -->
             <div class="form-group">
                 <label class="control-label col-sm-3">

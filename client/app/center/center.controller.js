@@ -462,6 +462,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             });
     };
 
+
     // Callback function from file finder(navigation) for uploading a file.
     $scope.onFileSelect = function($files) {
 
@@ -470,38 +471,37 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         for ( var i = 0; i < $files.length; i++) {
             var file = $files[i];
-            console.log(file);
-            console.log(window.XMLHttpRequest.__isShim);
 
-            if (window.FileReader && file.type.indexOf('image') > -1) {
+            if (angular.isDefined(FileAPI.support) && !FileAPI.support.html5) {
+                $scope.supportHtml5 = FileAPI.support.html5;
 
-                console.log('hello fileReader')
+                console.log('not supporting html5', $scope.supportHtml5);
 
-                var fileReader = new FileReader();
+                FileAPI.Image(file)
+                    .preview(200, 200)
+                    .get(function (err, img){
+                        if( !err ) {
+                            $scope.fileAPIElement = img;
+                        }
+                    });
+            }
+            else {
+                $scope.supportHtml5 = true;
 
-                console.log('i have fileReader')
-                console.log(fileReader)
-
-                fileReader.readAsDataURL(file);
-
-                var loadFile = function(fileReader, index) {
-
-                    console.log('into function');
-
-                    fileReader.onload = function(e) {
-                        console.log('onload');
-
-                        $timeout(function() {
-                            $scope.dataUrls[index] = e.target.result;
-                            console.log($scope.dataUrls[index]);
-                        });
-                    }
-                }(fileReader, i);
+                if (window.FileReader && file.type.indexOf('image') > -1) {
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+                    var loadFile = function(fileReader, index) {
+                        fileReader.onload = function(e) {
+                            $timeout(function() {
+                                $scope.dataUrls[index] = e.target.result;
+                                console.log($scope.dataUrls[index]);
+                            });
+                        }
+                    }(fileReader, i);
+                }
             }
         }
-
-        console.log($scope.dataUrls);
-
         this.openModal('file');
     };
 

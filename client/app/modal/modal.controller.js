@@ -363,6 +363,19 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
         'isPrivateFile' : false
     };
 
+    $scope.$watch('fileAPIElement', function(cur) {
+
+        if (!$scope.supportHtml5 && angular.isDefined(cur)){
+            var temp = angular.element(cur);
+
+            // if there is any element other than flashimage div, remove it from parent including old flash image div.
+            $('#image_preview_container').html('');
+
+            // append new flash image div.
+            $('#image_preview_container').append(temp);
+        }
+    });
+
     var PRIVATE_FILE = 740;
     var PUBLIC_FILE = 744;
 
@@ -508,7 +521,6 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
-
 
     $scope.onProfileChangeClick = function() {
         $scope.isLoading = true;
