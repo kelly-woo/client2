@@ -42,7 +42,7 @@
                 </div>
 
                 <select ng-model="sharedEntitySearchQuery"
-                        ng-options="channel as channel|getName group by channel.type for channel in selectOptions">
+                        ng-options="channel as channel|getName group by channel.typeCategory for channel in selectOptions">
                     <option value="">{{ '@option-all-rooms' | translate }}</option>
                 </select>
 

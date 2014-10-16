@@ -70,6 +70,7 @@ msgstr ""
 
 #: client/app/modal/image.crop.html
 #: client/app/modal/rename.html
+#: client/app/modal/settings.profile.html
 #: client/app/modal/share.html
 #: client/app/modal/upload.html
 msgid "@btn-cancel"
@@ -161,6 +162,10 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "@channel"
 msgstr ""
 
 #: client/app/header/header.html
@@ -660,6 +665,10 @@ msgstr ""
 msgid "@pg-menu-rename"
 msgstr ""
 
+#: client/app/left/left.html
+msgid "@privateGroup"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/modal/invite.team.html
 msgid "@team-invite"
@@ -671,4 +680,8 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "@team-switch"
+msgstr ""
+
+#: client/app/left/left.html
+msgid "@user"
 msgstr ""

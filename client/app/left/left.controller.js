@@ -101,18 +101,27 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             entity.prefix = "";
             if (entity.type === 'channel') {
                 entity.prefix = "#";
+                entity.typeCategory = $filter('translate')('@channel');
             } else if (entity.type === 'user') {
                 entity.prefix = "@";
+                entity.typeCategory = $filter('translate')('@user');
+            }
+            else {
+                entity.typeCategory = $filter('translate')('@privateGroup');
             }
         });
+
         _.each($scope.joinEntities, function(entity) {
             entity.prefix = "";
             if (entity.type === 'channel') {
                 entity.prefix = "#";
+                entity.typeCategory = $filter('translate')('@channel');
             } else if (entity.type === 'user') {
                 entity.prefix = "@";
+                entity.typeCategory = $filter('translate')('@user');
             } else {
                 entity.prefix = "";
+                entity.typeCategory = $filter('translate')('@privateGroup');
             }
         });
     }

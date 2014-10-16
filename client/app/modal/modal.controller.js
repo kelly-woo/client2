@@ -312,12 +312,12 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter,
 });
 
 // WHEN INVITING FROM DIRECT MESSAGE
-app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entityheaderAPIservice) {
+app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entityheaderAPIservice, $rootScope) {
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
-    $scope.inviteOptions = entityheaderAPIservice.getInviteOptions($scope.joinedChannelList, $scope.privateGroupList);
+    $scope.inviteOptions = entityheaderAPIservice.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList);
 
     $scope.onInviteClick = function(inviteTo) {
 
