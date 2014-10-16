@@ -40,7 +40,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         }
         else {
             if (type === 'all') {
-                alert('question here. look at comment in right.controller.js')
                 // when 'All Files' is clicked oon 'cpanel-search__dropdown'
                 $scope.fileRequest.writerId = 'all';
 

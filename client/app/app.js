@@ -86,12 +86,16 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                 case 'messages' :
                 case 'messages.home' :
                     var lastState = entityAPIservice.getLastEntityState();
+
+                    // If lastState doesn't exist.
+                    // Direct user to default channel.
                     if (!lastState) {
                         $rootScope.toDefault = true;
                         return;
                     }
 
                     event.preventDefault();
+
                     if (lastState.rpanel_visible) {
                         if (lastState.itemId) {
                             $state.go('messages.detail.files.item', { entityType:lastState.entityType, entityId: lastState.entityId, itemId: lastState.itemId });
@@ -102,6 +106,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                     else {
                         $state.go('messages.detail', { entityType:lastState.entityType, entityId: lastState.entityId });
                     }
+
                     break;
                 default:
                     break;

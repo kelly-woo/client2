@@ -23,7 +23,12 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     //  redirecting to default channel.
     $rootScope.$watch('toDefault', function(newVal, oldVal) {
         if (newVal) {
-            console.log('this is toDefault')
+
+            console.log($scope.joinedChannelList.length);
+            console.log($scope.user);
+
+
+
             $state.go('archives', {entityType:'channels',  entityId:defaultChannel });
             $rootScope.toDefault = false;
         }
@@ -91,9 +96,23 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
 
         $scope.setCurrentEntity();
+
+        if (!entityAPIservice.hasSeenTutorial($scope.user)) {
+            // user hasn't seen tutorial yet.
+            openTutorial();
+        }
     }
 
-
+    function openTutorial() {
+        $modal.open({
+            templateUrl     :   'app/tutorial/tutorial.html',
+            controller      :   'tutorialController',
+            windowClass     :   'fade-only welcome-tutorial',
+            backdropClass   :   'welcome-tutorial-backdrop',
+            backdrop        :   'static',
+            keyboard        :   false
+        });
+    }
 
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
@@ -233,7 +252,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     $scope.onDMInputBlur = function() {
         $('.absolute-search-icon').stop().css({'opacity' : 0.2});
-    }
+    };
 
     $scope.onUserContainerClick = function() {
         $modal.open({

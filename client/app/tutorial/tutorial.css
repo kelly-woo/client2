@@ -1,0 +1,162 @@
+.modal-backdrop.in {
+    opacity: 0.3 !important;
+    filter:alpha(opacity=30) !important;
+    top: 40px;
+
+}
+
+.welcome-tutorial-backdrop {
+    background-color: rgba(0,0,0,0);
+}
+.tutorial-backdrop {
+    background-color: #000000 !important;
+    opacity: 0.3 !important;
+    filter:alpha(opacity=30) !important;
+    transition: all 0.75s ease-in-out;
+    left: 220px;
+}
+.header_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #000000 !important;
+    transition: all 0.75s ease-in-out;
+    opacity: 0;
+
+}
+.chat-message-tutorial .modal-dialog .modal-content .header_overlay {
+    opacity: 0.3 !important;
+    filter:alpha(opacity=30) !important;
+    right: 0;
+}
+.file-message-tutorial .modal-dialog .modal-content .header_overlay {
+    transform: translate(-480px, 0);
+}
+.tutorial-file-backdrop {
+    transform: translate(-480px, 0);
+}
+
+
+.welcome-tutorial {
+    vertical-align: middle;
+}
+.welcome-tutorial .modal-dialog {
+    margin: auto;
+    width: 520px;
+    position: absolute;
+    left: 50%;
+    margin-left: -260px;
+    top: 50%;
+    margin-top: -167px;
+
+}
+.chat-message-tutorial .modal-dialog{
+    margin: 0;
+    width: 420px;
+    position: absolute;
+    left: 225px;
+    top: 135px;
+}
+.file-message-tutorial .modal-dialog {
+    left: auto;
+    right: 460px;
+}
+
+@media (max-width: 900px) {
+    .file-message-tutorial .modal-dialog {
+        left: 0;
+        right: auto;
+    }
+}
+.welcome-tutorial .modal-dialog .modal-content {
+    border-radius: 8px !important;
+}
+
+.tutorial_inner_container {
+    padding: 28px 28px 0 28px;
+    -webkit-animation: opacIn-from-0 .75s; /* Chrome, Safari, Opera */
+    animation: opacIn-from-0 .75s;
+
+}
+.tutorial_inner_container h1 {
+    margin: 0 0 15px 0;
+    font-size: 25px;
+    font-weight: 700;
+
+}
+.tutorial_inner_container h2 {
+    font-size: 18px;
+    margin: 15px 0 13px 0;
+    font-weight: 700;
+}
+
+.tutorial_inner_container p {
+    font-size: 13px;
+    line-height: 20px;
+    margin: 10px 0;
+}
+
+.skip_tutorial_container {
+    margin: 20px 0;
+    font-size: 12px;
+    border: 1px solid #e1e1e1;
+    border-radius: 2px;
+    padding: 4px;
+    background-color: #f2f2f2;
+    line-height: 12px;
+    display: table;
+}
+
+.tutorial_bottom_div {
+    height: 45px;
+    font-size: 16px;
+    background-color: #f2f2f2;
+    text-align: center;
+    line-height: 45px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.skip_tutorial_container:hover,
+.tutorial_bottom_div:hover {
+    color: white;
+    background-color: #31c08a;
+}
+
+.opac_in {
+    -webkit-animation: opacIn-from-0 .75s; /* Chrome, Safari, Opera */
+    animation: opacIn-from-0 .75s;
+}
+.opac_out {
+    -webkit-animation: opacOut-to-0 .75s; /* Chrome, Safari, Opera */
+    animation: opacOut-to-0 .75s;
+
+}
+#chat_message_container .tutorial_inner_container,
+#file_message_container .tutorial_inner_container {
+    padding: 15px 15px 0 15px;
+}
+#chat_message_container .tutorial_inner_container h2,
+#file_message_container .tutorial_inner_container h2 {
+    margin: 0 0 15px 0;
+    position: relative;
+}
+
+#chat_message_container .tutorial_inner_container p,
+#file_message_container .tutorial_inner_container p {
+    margin: 10px 0;
+    padding-left: 18px;
+    position: relative;
+}
+
+#chat_message_container .tutorial_inner_container p i:first-child {
+    position: absolute;
+    left:0;
+    line-height: 20px;
+}
+
+#chat_message_container .tutorial_inner_container .skip_tutorial_container {
+    margin: 15px 0;
+}

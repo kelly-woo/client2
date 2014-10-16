@@ -113,5 +113,9 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
         return entity.ch_creatorId;
     };
 
+    entityAPI.hasSeenTutorial = function(user) {
+        return false;
+    };
+
     return entityAPI;
 });
