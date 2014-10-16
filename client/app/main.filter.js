@@ -47,14 +47,24 @@ app.filter('parseUrl', function() {
         var urlStrs = text.match(urls);
         _.forEach(urlStrs, function(urlStr) {
             var tempUrlStr = '<a href="' + urlStr + '" target="_blank">' + urlStr + '</a>';
-            tempUrlStr = decodeURI(tempUrlStr);
+            try {
+                tempUrlStr = decodeURI(tempUrlStr);
+            }
+            catch(err) {
+//                console.error(err);
+            }
             text = text.replace(urlStr, tempUrlStr);
         });
 
         var uriStrs = text.match(uris);
         _.forEach(uriStrs, function(uriStr) {
             var tempUriStr = '<a href="' + uriStr + '" target="_blank">' + uriStr + '</a>';
-            tempUriStr = decodeURI(tempUriStr);
+            try {
+                tempUriStr = decodeURI(tempUriStr);
+            }
+            catch(err) {
+//                console.error(err);
+            }
             text = text.replace(uriStr, tempUriStr);
         });
 
@@ -63,7 +73,12 @@ app.filter('parseUrl', function() {
         var emailStrs = text.match(emails);
         _.forEach(emailStrs, function(emailStr) {
             var tempEmailStr = '<a href="mailto:' + emailStr + '">' + emailStr + '</a>';
-            tempEmailStr = decodeURI(tempEmailStr);
+            try {
+                tempEmailStr = decodeURI(tempEmailStr);
+            }
+            catch(err) {
+//                console.error(err);
+            }
             text = text.replace(emailStr, tempEmailStr);
         });
 
