@@ -580,3 +580,10 @@ css for system-event-msg
 .js-fileapi-wrapper > div {
     height: 0 !important;
 }
+
+
+#chatTutorial {
+    position: fixed;
+    bottom: 30px;
+    left: 260px;
+}

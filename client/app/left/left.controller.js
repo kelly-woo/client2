@@ -23,12 +23,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     //  redirecting to default channel.
     $rootScope.$watch('toDefault', function(newVal, oldVal) {
         if (newVal) {
-
-            console.log($scope.joinedChannelList.length);
-            console.log($scope.user);
-
-
-
             $state.go('archives', {entityType:'channels',  entityId:defaultChannel });
             $rootScope.toDefault = false;
         }
@@ -99,19 +93,8 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
         if (!entityAPIservice.hasSeenTutorial($scope.user)) {
             // user hasn't seen tutorial yet.
-            openTutorial();
+            openTutorialModal('welcomeTutorial');
         }
-    }
-
-    function openTutorial() {
-        $modal.open({
-            templateUrl     :   'app/tutorial/tutorial.html',
-            controller      :   'tutorialController',
-            windowClass     :   'fade-only welcome-tutorial',
-            backdropClass   :   'welcome-tutorial-backdrop',
-            backdrop        :   'static',
-            keyboard        :   false
-        });
     }
 
     //  Initialize correct prefix for 'channel' and 'user'.
@@ -261,5 +244,110 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             controller  :   'profileCtrl',
             size        :   'lg'
         });
+    };
+
+    $scope.tutorialStatus = {
+        topicTutorial   : false,
+        chatTutorial    : false,
+        fileTutorial    : false
+    };
+
+    $scope.onTutorialPulseClick = function($event) {
+        var TutorialId = $event.target.id;
+        setTutorialStatus(TutorialId);
+        openTutorialModal(TutorialId);
+
+
+    };
+
+    function setTutorialStatus(tutorialId) {
+        switch(tutorialId){
+            case 'topicTutorial':
+                $scope.tutorialStatus.topicTutorial = true;
+                $('#topicTutorial').removeClass('pulse');
+                break;
+            case 'chatTutorial' :
+                $scope.tutorialStatus.chatTutorial = true;
+                $('#chatTutorial').removeClass('pulse');
+                break;
+            case 'fileTutorial' :
+                $scope.tutorialStatus.fileTutorial = true;
+                $('#fileTutorial').removeClass('pulse');
+                break;
+            default :
+                $('#topicTutorial').removeClass('pulse');
+                $('#chatTutorial').removeClass('pulse');
+                $('#fileTutorial').removeClass('pulse');
+
+                $scope.tutorialStatus.topicTutorial = true;
+                $scope.tutorialStatus.chatTutorial = true;
+                $scope.tutorialStatus.fileTutorial = true;
+
+                break;
+        }
+    }
+
+    function openTutorialModal(tutorialId) {
+
+        var modal;
+        switch(tutorialId){
+            case 'welcomeTutorial':
+                modal = $modal.open({
+                    templateUrl     :   'app/tutorial/tutorial.html',
+                    controller      :   'tutorialController',
+                    windowClass     :   'fade-only welcome-tutorial',
+                    backdropClass   :   'welcome-tutorial-backdrop',
+                    backdrop        :   'static',
+                    keyboard        :   false,
+                    resolve         :   {
+                        curState        :   function getCurrentTutorial() { return 0; } }
+                });
+                break;
+            case 'topicTutorial':
+                modal = $modal.open({
+                    scope           :   $scope,
+                    templateUrl     :   'app/tutorial/tutorial.html',
+                    controller      :   'tutorialController',
+                    windowClass     :   'fade-only welcome-tutorial topic-tutorial tutorial-animation',
+                    backdrop        :   false,
+                    keyboard        :   false,
+                    resolve         :   {
+                        curState        :   function getCurrentTutorial() { return 1; } }
+                });
+                break;
+            case 'chatTutorial' :
+                modal = $modal.open({
+                    scope           :   $scope,
+                    templateUrl     :   'app/tutorial/tutorial.html',
+                    controller      :   'tutorialController',
+                    windowClass     :   'fade-only welcome-tutorial chat-tutorial',
+                    backdrop        :   false,
+                    keyboard        :   false,
+                    resolve         :   {
+                        curState        :   function getCurrentTutorial() { return 2; } }
+                });
+                break;
+            case 'fileTutorial' :
+                modal = $modal.open({
+                    scope           :   $scope,
+                    templateUrl     :   'app/tutorial/tutorial.html',
+                    controller      :   'tutorialController',
+                    windowClass     :   'fade-only welcome-tutorial file-tutorial',
+                    backdrop        :   false,
+                    keyboard        :   false,
+                    resolve         :   {
+                        curState        :   function getCurrentTutorial() { return 3; } }
+                });
+                break;
+            default :
+                break;
+        }
+
+        modal.result.then(function(reason) {
+            if (reason === 'skip') {
+                setTutorialStatus();
+            }
+
+        })
     }
 });

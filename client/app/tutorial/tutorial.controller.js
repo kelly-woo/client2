@@ -2,96 +2,134 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('tutorialController', function($rootScope, $modalInstance, $scope, $state) {
+app.controller('tutorialController', function($rootScope, curState, $modalInstance, $scope, $state) {
 
     console.info('[enter] tutorialController');
 
-    var welcomeMsg  = 0;
-    var chatMsg     = 1;
-    var fileMsg     = 2;
-    var tutorialOff = 3;
+    var topicTutorial   = 1;
+    var chatTutorial    = 2;
+    var fileTutorial    = 3;
 
-    var messageContainerWidth = 420;
-    var fileMsgContainerOffset = 20;
+    $scope.curState = curState;
 
-    $scope.toNextstate= function() {
-        var nextState = -1;
-        
-        if (angular.isUndefined($scope.curState)) {
-            $scope.curState = welcomeMsg;
-            return;
-        }
+    function initTutorial() {
+        if ($scope.curState === 0) return;
+
         switch($scope.curState) {
-            case welcomeMsg:
-                nextState = chatMsg;
-                setChatMsg();
+            case 1:
+                setTopicTutorial();
                 break;
-            case chatMsg:
-                nextState = fileMsg;
-                setFileMsg();
+            case 2:
+                setChatTutorial();
                 break;
-            case fileMsg:
-                nextState = tutorialOff;
-                $modalInstance.dismiss('tutorialDone');
+            case 3:
+                setFileTutorial();
                 break;
             default:
-                nextState = welcomeMsg;
                 break;
         }
-        $scope.curState = nextState;
-    };
 
-    $scope.toNextstate();
-
-    function setChatMsg() {
-
-//        var prevElement = angular.element(document.getElementById('welcome_message_container'));
-//        prevElement.addClass('opac_out');
-
-        var element = angular.element(document.getElementsByClassName('welcome-tutorial'));
-        element.addClass('chat-message-tutorial');
-
-        // adding backgroud-color to backdrop
-        var backdrop = angular.element(document.getElementsByClassName('modal-backdrop'));
-        backdrop.addClass('tutorial-backdrop');
+        $('.tutorial_opac_background').addClass('opac_in_to_30');
 
     }
 
-    function setFileMsg() {
+    initTutorial();
+
+    function setTopicTutorial() {
+        applyHeaderOpacLayer();
+        applyCenterOpacLayer();
+        applyLeftUser();
+        applyRightOpacLayer();
+
+        if ($state.current.name == 'messages.detail.files')
+            $state.go('messages.detail');
+
+    }
+    function setChatTutorial() {
+        applyHeaderOpacLayer();
+        applyCenterOpacLayer();
+        applyLeftOpacLayer();
+        applyRightOpacLayer();
+
+        angular.element(document.getElementsByClassName('footer')).addClass('tutorial-z-index');
+
+        if ($state.current.name == 'messages.detail.files')
+            $state.go('messages.detail');
+
+    }
+    function setFileTutorial() {
+        applyLeftOpacLayer();
+        applyCenterOpacLayer();
+        applyHeaderOpacLayer();
+
+        // what is wrong with this line???
+        angular.element(document.getElementsByClassName('hpanel')).children('.header').children('.tutorial_opac_background').addClass('file-tutorial-header-opac');
+        angular.element(document.getElementsByClassName('rpanel')).addClass('tutorial-z-index');
+
         $state.go('messages.detail.files');
         $scope.$emit('updateFileTypeQuery', 'all');
-
-        var element = angular.element(document.getElementsByClassName('welcome-tutorial'));
-        element.addClass('file-message-tutorial');
-
-        var backdrop = angular.element(document.getElementsByClassName('modal-backdrop'));
-        backdrop.addClass('tutorial-file-backdrop');
-
     }
 
-    $scope.skipTutorial = function() {
-        $modalInstance.dismiss('skip');
+    function applyLeftOpacLayer() {
+        applyLeftUser();
+        applyLeftList();
+    }
+    function applyLeftUser() {
+        var background_overlay = angular.element('<div class="tutorial_opac_background"></div>');
+        angular.element(document.getElementsByClassName('lpanel')).append(background_overlay);
+    }
+    function applyLeftList() {
+        var background_overlay = angular.element('<div class="tutorial_opac_background"></div>');
+        angular.element(document.getElementsByClassName('lpanel-list')).append(background_overlay);
+    }
+
+    function applyCenterOpacLayer() {
+        var background_overlay = angular.element('<div class="tutorial_opac_background"></div>');
+        angular.element(document.getElementsByClassName('cpanel')).append(background_overlay);
+    }
+    function applyRightOpacLayer() {
+        var background_overlay = angular.element('<div class="tutorial_opac_background"></div>');
+        angular.element(document.getElementsByClassName('rpanel')).append(background_overlay);
+    }
+    function applyHeaderOpacLayer() {
+        var background_overlay = angular.element('<div class="tutorial_opac_background"></div>');
+        angular.element(document.getElementsByClassName('header')).append(background_overlay);
+    }
+
+    function removeTopicTutorial() {
+    }
+    function removeChatTutorial() {
+        angular.element(document.getElementsByClassName('footer')).removeClass('tutorial-z-index');
+
+    }
+    function removeFileTutorial() {
+        angular.element(document.getElementsByClassName('rpanel')).removeClass('tutorial-z-index');
+        angular.element(document.getElementsByClassName('header')).removeClass('file-tutorial-header-opac');
+    }
+
+    function removeOpacLayer() {
+        $('div').remove('.tutorial_opac_background');
+    }
+
+    $scope.skipTutorial = function(reason) {
+        removeOpacLayer();
+
+        switch($scope.curState) {
+            case topicTutorial:
+                removeTopicTutorial();
+                break;
+            case chatTutorial:
+                removeChatTutorial();
+                break;
+            case fileTutorial:
+                removeFileTutorial();
+                break;
+            default:
+                break;
+            
+        }
+        $modalInstance.close(reason);
     };
 
-    $scope.toprev =function() {
-        if ($scope.curState == 0) {
-            return;
-        }
-        else if ($scope.curState == 1) {
-            var element = angular.element(document.getElementsByClassName('welcome-tutorial'));
-            element.removeClass('chat-message-tutorial');
-            var backdrop = angular.element(document.getElementsByClassName('modal-backdrop'));
 
-            backdrop.removeClass('tutorial-backdrop');
-        }
-        else if ($scope.curState == 2) {
-            var element = angular.element(document.getElementsByClassName('welcome-tutorial'));
-            element.removeClass('file-message-tutorial');
-
-            var backdrop = angular.element(document.getElementsByClassName('modal-backdrop'));
-            backdrop.removeClass('tutorial-file-backdrop');
-        }
-        $scope.curState -= 1;
-
-    }
 });

@@ -5,6 +5,7 @@
     <span translate>@user</span>
     <span translate>@privateGroup</span>
 </span>
+
 <aside class="lpanel pull-left">
 
     <!-- USER INFO CONTAINER -->
@@ -25,6 +26,9 @@
             {{ team.name }}
         </span>
     </div>
+
+    <div class="tutorial-clicker tutorial-z-index pulse" id="topicTutorial" data-ng-click="onTutorialPulseClick($event);"
+         data-ng-if="!tutorialStatus.topicTutorial"></div>
 
     <!-- LIST CONTAINER -->
     <div class="lpanel-list">

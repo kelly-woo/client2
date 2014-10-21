@@ -169,6 +169,10 @@
         </div>
     </div>
     <div class="header-toolbar pull-right">
+        <div class="tutorial-clicker tutorial-z-index pulse" id="fileTutorial"
+             data-ng-click="onTutorialPulseClick($event);"
+             data-ng-if="!tutorialStatus.fileTutorial"></div>
+
         <!-- Search -->
         <div class="header-toolbar-search hidden">
             <i class="fa fa-search"></i>

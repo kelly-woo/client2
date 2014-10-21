@@ -80,7 +80,6 @@
 .lpanel-list__groups,
 .lpanel-list__users {
     background-color: #f2f2f2;
-    border-right: 1px solid #e1e1e1;
 }
 .lpanel-list__header {
     height: 27px;

@@ -1,6 +1,7 @@
 /* Header */
 .hpanel {
     border-bottom: 1px solid #e1e1e1;
+    position: relative;
 }
 .header {
     height: 40px;
@@ -77,4 +78,11 @@
 }
 .header-toolbar-toggle.green_background {
     color: white;
+}
+
+
+#fileTutorial {
+    position: fixed;
+    right: 85px;
+    top: 15px;
 }

@@ -1,46 +1,55 @@
-.modal-backdrop.in {
-    opacity: 0.3 !important;
-    filter:alpha(opacity=30) !important;
-    top: 40px;
-
+.tutorial-clicker {
+    width: 50px;
+    height: 50px;
+    background: url('../../assets/images/tutorial-click-icon.png') no-repeat;
+    cursor: pointer;
+    z-index: 1041;
 }
 
+.lpanel > .tutorial_opac_background {
+    bottom: 1px;
+    right :1px;
+}
+.cpanel .tutorial_opac_background {
+    left: -1px;
+    right : -1px;
+}
+.tutorial_opac_background {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0;
+    bottom: 0;
+    background-color: #000000;
+    opacity: 0.3;
+    z-index: 1040;
+    min-height: 41px;
+}
+
+/*
+    backdrop
+*/
+.file-tutorial-header-opac {
+    right: 480px;
+}
 .welcome-tutorial-backdrop {
     background-color: rgba(0,0,0,0);
 }
-.tutorial-backdrop {
-    background-color: #000000 !important;
-    opacity: 0.3 !important;
-    filter:alpha(opacity=30) !important;
-    transition: all 0.75s ease-in-out;
+
+/*
+    modal
+*/
+.welcome-tutorial {
+    overflow-y: hidden;
+}
+.topic-tutorial {
     left: 220px;
 }
-.header_overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    background-color: #000000 !important;
-    transition: all 0.75s ease-in-out;
-    opacity: 0;
-
+.chat-tutorial {
+    bottom: 70px;
 }
-.chat-message-tutorial .modal-dialog .modal-content .header_overlay {
-    opacity: 0.3 !important;
-    filter:alpha(opacity=30) !important;
-    right: 0;
-}
-.file-message-tutorial .modal-dialog .modal-content .header_overlay {
-    transform: translate(-480px, 0);
-}
-.tutorial-file-backdrop {
-    transform: translate(-480px, 0);
-}
-
-
-.welcome-tutorial {
-    vertical-align: middle;
+.file-tutorial {
+    right: 480px;
 }
 .welcome-tutorial .modal-dialog {
     margin: auto;
@@ -52,25 +61,37 @@
     margin-top: -167px;
 
 }
-.chat-message-tutorial .modal-dialog{
+.topic-tutorial .modal-dialog{
     margin: 0;
     width: 420px;
-    position: absolute;
-    left: 225px;
-    top: 135px;
+    left: 5px;
+    top: 115px;
 }
-.file-message-tutorial .modal-dialog {
+
+.chat-tutorial .modal-dialog {
+    position: absolute;
+    margin: 0;
+    width: 420px;
+    bottom: 0;
+    top: auto;
+    left: 240px;
+    right: auto;
+}
+
+.file-tutorial .modal-dialog {
     left: auto;
-    right: 460px;
+    right: 0px;
+    z-index: 1042;
+
 }
 
 @media (max-width: 900px) {
-    .file-message-tutorial .modal-dialog {
+    .file-tutorial-container .modal-dialog {
         left: 0;
         right: auto;
     }
 }
-.welcome-tutorial .modal-dialog .modal-content {
+.modal-content {
     border-radius: 8px !important;
 }
 
@@ -125,38 +146,78 @@
     background-color: #31c08a;
 }
 
-.opac_in {
-    -webkit-animation: opacIn-from-0 .75s; /* Chrome, Safari, Opera */
-    animation: opacIn-from-0 .75s;
-}
-.opac_out {
-    -webkit-animation: opacOut-to-0 .75s; /* Chrome, Safari, Opera */
-    animation: opacOut-to-0 .75s;
-
-}
+#channel_message_container .tutorial_inner_container,
 #chat_message_container .tutorial_inner_container,
 #file_message_container .tutorial_inner_container {
     padding: 15px 15px 0 15px;
 }
+#channel_message_container .tutorial_inner_container h2,
 #chat_message_container .tutorial_inner_container h2,
 #file_message_container .tutorial_inner_container h2 {
     margin: 0 0 15px 0;
     position: relative;
 }
 
-#chat_message_container .tutorial_inner_container p,
-#file_message_container .tutorial_inner_container p {
+#channel_message_container .tutorial_inner_container p {
     margin: 10px 0;
     padding-left: 18px;
     position: relative;
 }
 
-#chat_message_container .tutorial_inner_container p i:first-child {
+#channel_message_container .tutorial_inner_container p i:first-child {
     position: absolute;
     left:0;
     line-height: 20px;
 }
 
-#chat_message_container .tutorial_inner_container .skip_tutorial_container {
+#channel_message_container .tutorial_inner_container .skip_tutorial_container {
     margin: 15px 0;
+}
+
+
+@keyframes pulse {
+    0%      {    -webkit-transfrom: scale3d(1, 1, 1);
+                -ms-transform: scale2d(1,1);
+                transform: scale3d(1, 1, 1);
+
+            }
+    50%     {   -webkit-transfrom: scale3d(1.2, 1.2, 1.2);
+                -ms-transform: scale2d(1.2, 1.2);
+                transform: scale3d(1.2, 1.2, 1.2);
+            }
+    100%    {   -webkit-transfrom:scale3d(1, 1, 1);
+                -ms-transform: scale2d(1,1);
+                transform: scale3d(1, 1, 1);
+            }
+}
+@-webkit-keyframes pulse {
+    0%      {    -webkit-transfrom: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+    50%     {   -webkit-transfrom: scale3d(1.2, 1.2, 1.2);
+                transform: scale3d(1.2, 1.2, 1.2);
+            }
+    100%    {   -webkit-transfrom:scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+}
+.pulse {
+    animation: pulse 1s infinite;
+    -webkit-animation: pulse 1s infinite;
+}
+
+.opac_in_to_30 {
+    animation: opacIn-from-0-to-30 0.15s;
+    -webkit-animation: opacIn-from-0-to-30 0.15s;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes opacIn-from-0-to-30 {
+    from {opacity: 0.0; }
+    to {opacity: 0.3; }
+}
+/* Standard syntax */
+@keyframes opacIn-from-0-to-30 {
+    from {opacity: 0.0; }
+    to {opacity: 0.3;}
 }
