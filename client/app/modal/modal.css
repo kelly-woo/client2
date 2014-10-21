@@ -34,8 +34,7 @@
 }
 .modal-header .close {
     color: white;
-    font-size: 13px;
-    margin-top: 0;
+    font-size: 22px;
 }
 .modal-header .close:focus {
     outline: none;

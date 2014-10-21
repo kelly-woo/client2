@@ -37,6 +37,7 @@
 }
 .header-navbar__title {
     margin: 0 2px;
+    line-height: 40px;
 }
 .header-navbar__dropdown {
     position: absolute;
@@ -72,8 +73,10 @@
     border-left: 1px solid #e1e1e1;
     font-size: 13px;
 }
-.header-toolbar-toggle .fa-inbox {
-    margin-right: 3px;
+.header-toolbar-toggle .icon-filebox {
+    font-size: 16px;
+    line-height: 40px;
+    vertical-align: sub;
 }
 .header-toolbar-toggle.green_background {
     color: white;

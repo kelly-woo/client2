@@ -254,6 +254,13 @@
 .file-item-meta__action__dropdown {
     top: 28px;
 }
+.file_actions:hover {
+    text-decoration: none;
+}
+.file_actions .icon-more {
+    font-size: 21px;
+    color: rgb(153, 153, 153);
+}
 .fileicon_left {
     float: left;
 }
