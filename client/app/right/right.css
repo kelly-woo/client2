@@ -57,7 +57,7 @@
 .rpanel-header-heading { position: relative; font-weight: 700; }
 .rpanel-header-heading__back { vertical-align:middle; }
 .rpanel-header-heading__back:hover { color: #31c08a; }
-.rpanel-header-heading__back i { font-size: 14px; }
+.rpanel-header-heading__back i { font-size: 18px; vertical-align: sub; }
 
 .rpanel-header-heading__types { position: relative; font-size: 15px; line-height: inherit; color: #333; }
 .rpanel-header-heading__types__more { color:#9e9ea6; }
@@ -72,6 +72,9 @@
     top: 0px;
     font-size: 13px;
     color: #333;
+}
+.rpanel-header-heading__files .icon-upload {
+    font-size: 16px;
 }
 .rpanel-header-heading__files-add {
     color: #31c08a;
@@ -303,7 +306,9 @@
 .file-item-body-title__more:hover{
     color: #333;
 }
-
+.file-item-body-title__more .icon-more {
+    font-size: 21px;
+}
 .file_action_dropdown {
     left: auto;
     right: 0;
