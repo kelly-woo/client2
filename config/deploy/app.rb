@@ -1,4 +1,4 @@
-set :branch, 'develop'
+set :branch, 'master'
 
 # Simple Role Syntax
 # ==================

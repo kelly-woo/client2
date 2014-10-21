@@ -78,7 +78,8 @@ msgid "@btn-add"
 msgstr "추가"
 
 #: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
+#: client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "취소"
 
@@ -160,6 +161,10 @@ msgstr "채널 나가기"
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
 msgstr "채널 이름 변경하기"
+
+#: client/app/left/left.html
+msgid "@channel"
+msgstr "채널"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -641,6 +646,10 @@ msgstr "그룹 나가기"
 msgid "@pg-menu-rename"
 msgstr "그룹 이름 변경하기"
 
+#: client/app/left/left.html
+msgid "@privateGroup"
+msgstr "비공개 그룹"
+
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
 msgstr "멤버 초대"
@@ -652,6 +661,10 @@ msgstr "전체 멤버 보기"
 #: client/app/header/header.html
 msgid "@team-switch"
 msgstr "팀 변경"
+
+#: client/app/left/left.html
+msgid "@user"
+msgstr "사용자"
 
 #~ msgid "Add Comment"
 #~ msgstr "댓글 남기기"
@@ -1042,17 +1055,11 @@ msgstr "팀 변경"
 #~ msgid "Your Files"
 #~ msgstr "내 파일"
 
-#~ msgid "Channels"
-#~ msgstr "채널"
-
 #~ msgid "Direct Messages"
 #~ msgstr "1:1 메세지"
 
 #~ msgid "More"
 #~ msgstr "더보기"
-
-#~ msgid "Private Groups"
-#~ msgstr "비공개 그룹"
 
 #~ msgid "Customer Service"
 #~ msgstr "고객 센터"

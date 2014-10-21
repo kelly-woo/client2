@@ -14,7 +14,7 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-                    <i class="fa fa-plus"></i><span translate>@ch-menu-invite</span>
+                    <i class="icon-add"></i><span translate>@ch-menu-invite</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="openModal('rename')">
@@ -24,12 +24,12 @@
             </li>
             <li role="presentation" data-ng-click="onLeaveClick();" data-ng-if="currentEntity.id != team.t_defaultChannelId">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-sign-out"></i><span translate>@ch-menu-leave</span>
+                    <i class="icon-cancel"></i><span translate>@ch-menu-leave</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-times"></i><span translate>@ch-menu-delete</span>
+                    <i class="icon-delete"></i><span translate>@ch-menu-delete</span>
                 </a>
             </li>
         </ul>
@@ -37,17 +37,17 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
-                    <i class="fa fa-plus"></i><span translate>@dm-menu-invite</span>
+                    <i class="icon-add"></i><span translate>@dm-menu-invite</span>
                 </a>
             </li>
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="onUserClick(currentEntity.id);">
-                    <i class="fa fa-user"></i><span translate>@dm-menu-profile</span>
+                    <i class="icon-user2"></i><span translate>@dm-menu-profile</span>
                 </a>
             </li>
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="onFileListClick(currentEntity.id);">
-                    <i class="fa fa-file"></i><span translate>@dm-menu-file</span>
+                    <i class="icon-file"></i><span translate>@dm-menu-file</span>
                 </a>
             </li>
         </ul>
@@ -55,7 +55,7 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privateGroup'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-                    <i class="fa fa-plus"></i><span translate>@pg-menu-invite</span>
+                    <i class="icon-add"></i><span translate>@pg-menu-invite</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="openModal('rename')">
@@ -65,12 +65,12 @@
             </li>
             <li role="presentation" data-ng-click="onLeaveClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-sign-out"></i><span translate>@pg-menu-leave</span>
+                    <i class="icon-cancel"></i><span translate>@pg-menu-leave</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-times"></i><span translate>@pg-menu-delete</span>
+                    <i class="icon-delete"></i><span translate>@pg-menu-delete</span>
                 </a>
             </li>
         </ul>
@@ -79,7 +79,7 @@
     <!--Member Dropdown-->
     <span class="panel-title-member">
         <span class="dropdown-toggle panel-title-member__more" data-toggle="dropdown" data-ng-if="currentEntity.type != 'user'">
-           <i class="fa fa-user"></i> <span>{{ currentEntity.ch_members.length || currentEntity.pg_members.length }}</span>
+           <i class="icon-user"></i> <span>{{ currentEntity.ch_members.length || currentEntity.pg_members.length }}</span>
         </span>
         <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
             <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
@@ -171,7 +171,7 @@
                     <a class="msg-item__action link-remove pull-right"
                        data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
                        data-ng-click="deleteMessage(msg)">
-                        <i class="fa fa-times"></i>
+                        <i class="icon-delete"></i>
                     </a>
                 </div>
 
@@ -351,7 +351,7 @@
     <!--<div class="post-message msgs__loading" data-ng-if="isPosting"></div>-->
 
     <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;">
-        <i class="fa fa-upload"></i>
+        <i class="icon-upload"></i>
         <input type="file"
                id="btn-upload-primary"
                class="file_list_button"
@@ -380,7 +380,4 @@
     </div>
 </div>
 
-
-<style>
-
-</style>
+        

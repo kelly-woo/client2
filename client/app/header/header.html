@@ -4,7 +4,7 @@
         <!-- Menu -->
         <div class="header-navbar-menu">
             <span class="header-navbar__topmenu" data-toggle="dropdown">
-                <i class="fa fa-bars"></i>
+                <i class="icon-list"></i>
                 <span class="header-navbar__title" translate>@header-menu</span>
                 <i class="fa fa-caret-down"></i>
             </span>
@@ -12,14 +12,14 @@
                 <!-- 채널 생성 -->
                 <li class="" role="presentation">
                     <a data-ng-click="openModal('channel');" role="menuitem" tabindex="-1">
-                        <i class="fa fa-comment"></i>
+                        <i class="icon-topic-fill"></i>
                         <span translate>@common-create-ch</span>
                     </a>
                 </li>
                 <!-- 그룹 생성 -->
                 <li class="" role="presentation">
                     <a data-ng-click="openModal('private');" role="menuitem" tabindex="-1">
-                        <i class="fa fa-unlock-alt"></i>
+                        <i class="icon-chat-fill"></i>
                         <span translate>@common-create-pg</span>
                     </a>
                 </li>
@@ -36,7 +36,7 @@
                 <!-- 팀 변경 -->
                 <li class="disabled" role="presentation">
                     <a data-ng-click="" role="menuitem" tabindex="-1">
-                        <i class="fa fa-exchange"></i>
+                        <i class="icon-switch"></i>
                         <span translate>@team-switch</span>
                     </a>
                 </li>
@@ -52,27 +52,28 @@
                 </li>
                 <li class="divider"></li>
                 <!-- 로그아웃 -->
-                <li class="" role="presentation"
-                    data-ng-mouseenter="signout_over = true;"
-                    data-ng-mouseleave="signout_over = false;">
+                <li class="" role="presentation">
                     <a data-ng-click="logout();" role="menuitem" tabindex="-1" ng-controller="authController">
-                        <span class="icon_signout" ng-class="{ light: signout_over }" ></span>
+                        <i class="icon-logout"></i>
                         <span translate>@common-sign-out</span>
                     </a>
                 </li>
             </ul>
         </div>
+
         <!-- File -->
         <div class="header-navbar-file">
             <span class="header-navbar__topmenu" data-toggle="dropdown">
-                <i class="fa fa-file"></i>
+                <!--<i class="fa fa-file"></i>-->
+                <i class="icon-file"></i>
                 <span class="header-navbar__title" translate>@header-file</span>
                 <i class="fa fa-caret-down"></i>
             </span>
             <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
                 <li class="disabled" role="presentation" data-ng-click="">
                     <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-upload"></i>
+                        <!--<i class="fa fa-upload"></i>-->
+                        <i class="icon-upload"></i>
                         <span translate>@common-upload-file</span>
                     </a>
                 </li>
@@ -84,7 +85,8 @@
                 </li>
                 <li class="" role="presentation" data-ng-click="onFileTypeClick('you');">
                     <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-file-o"></i>
+                        <!--<i class="fa fa-file-o"></i>-->
+                        <i class="icon-file"></i>
                         <span translate>@file-your</span>
                     </a>
                 </li>
@@ -115,22 +117,28 @@
                 </li>
             </ul>
         </div>
+
         <!-- Settings -->
         <div class="header-navbar-settings">
             <span class="header-navbar__topmenu" data-toggle="dropdown">
-                <i class="fa fa-cog"></i>
+                <!--<i class="fa fa-cog"></i>-->
+                <i class="icon-setting"></i>
                 <span class="header-navbar__title" translate>@header-setting</span>
                 <i class="fa fa-caret-down"></i>
             </span>
             <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
                 <li class="" role="presentation">
                     <a data-ng-click="openModal('setting-profile');" role="menuitem" tabindex="-1">
-                        <i class="fa fa-user"></i><span translate>@common-profile-settings</span>
+                        <!--<i class="fa fa-user"></i>-->
+                        <i class="icon-user"></i>
+                        <span translate>@common-profile-settings</span>
                     </a>
                 </li>
                 <li class="" role="presentation">
                     <a data-ng-click="openModal('setting-account')" role="menuitem" tabindex="-1">
-                        <i class="fa fa-cog"></i><span translate>@common-account-settings</span>
+                        <!--<i class="fa fa-cog"></i>-->
+                        <i class="icon-setting"></i>
+                        <span translate>@common-account-settings</span>
                     </a>
                 </li>
                 <li class="" role="presentation">
@@ -179,7 +187,7 @@
              data-ng-class="{'green_background' : $state.includes('**.files.**')}"
              data-ng-click="onToggleClick();">
             <span>
-                <i class="fa fa-inbox fa-lg"></i>
+                <i class="icon-filebox"></i>
                 <span class="header-navbar__title" translate>@file-all</span>
             </span>
         </div>

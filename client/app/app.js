@@ -156,10 +156,12 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     switch( userLang ) {
         case 'ko':
         case 'ko_KR':
+        case 'ko-KR':
             userLang = 'ko_KR';
             break;
         case 'en':
         case 'en_US':
+        case 'en-US':
         default:
             userLang = 'en_US';
             break;

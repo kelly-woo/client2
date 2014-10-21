@@ -47,7 +47,7 @@ namespace :deploy do
       within release_path do
         execute :npm, 'install', '--quiet'
         execute :bower, 'install', '--quiet'
-        execute :grunt, 'build'
+        execute :grunt, 'deploy'
       end
     end
   end

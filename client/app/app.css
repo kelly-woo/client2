@@ -80,6 +80,7 @@ a:focus {
     outline: none;
 }
 
+/* I don't know about user-select options for now. Do we really need this now? */
 .email,
 p {
     -webkit-user-select: text;

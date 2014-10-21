@@ -1,6 +1,6 @@
 <!-- Modal: Account Setting -->
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel();"><i class="fa fa-close"></i></button>
+    <button type="button" class="close" ng-click="cancel();"><i class="icon-cancel"></i></button>
     <h3 class="modal-header__title">
         <span translate>@common-account-settings</span>
     </h3>
@@ -14,7 +14,7 @@
         <accordion-group is-open="status.name.open">
             <accordion-heading>
                 {{ '@modal-setting-account-name' | translate }}
-                <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.name.open, 'glyphicon-chevron-right': !status.name.open}"></i>
+                <i class="pull-right" data-ng-class="{'icon-down': status.name.open, 'icon-next': !status.name.open}"></i>
             </accordion-heading>
             <div class="account-settings-body__wraper">
                 <form name="form-settings-fullname" data-ng-submit="onClickChangeName();" novalidate>
@@ -62,7 +62,7 @@
         <accordion-group is-open="status.password.open">
             <accordion-heading>
                 {{ '@modal-setting-account-password' | translate }}
-                <i class="pull-right glyphicon" data-ng-class="{'glyphicon-chevron-down': status.password.open, 'glyphicon-chevron-right': !status.password.open}"></i>
+                <i class="pull-right" data-ng-class="{'icon-down': status.password.open, 'icon-next': !status.password.open}"></i>
             </accordion-heading>
             <div class="account-settings-body__wraper">
                 <form name="form-settings-password" data-ng-submit="onClickChangePassword();" novalidate>

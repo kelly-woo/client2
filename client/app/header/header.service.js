@@ -58,27 +58,16 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, $filter) {
 
 
     entityheaderAPI.getInviteOptions = function(joinedChannelList, privateGroupList) {
-        var options = [];
-        var lists = joinedChannelList.concat(privateGroupList);
         // TODO: 이미 모든 팀원이 초대된 entity는 예외 처리
-        for (var i in lists) {
-            var entity = lists[i];
-            options.push({
-//                'type'      : $filter('translate')(entity.type),
-                'type'      : entity.type,
-                'name'      : entity.name,
-                'members'   : entity.pg_members || entity.ch_members,
-                'id'        : entity.id
-            });
-        }
-        return options;
+        var lists = joinedChannelList.concat(privateGroupList);
+        return lists;
     };
 
     entityheaderAPI.init = function(stateParams, scope) {
 
-        console.log('init');
-        console.log('$stateParams', stateParams);
-        console.log('scope', scope);
+//        console.log('init');
+//        console.log('$stateParams', stateParams);
+//        console.log('scope', scope);
 
         var members = [];
 

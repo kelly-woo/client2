@@ -77,7 +77,8 @@ msgid "@btn-add"
 msgstr "Add"
 
 #: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
+#: client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "Cancel"
 
@@ -159,6 +160,10 @@ msgstr "Leave channel"
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
 msgstr "Rename this channel"
+
+#: client/app/left/left.html
+msgid "@channel"
+msgstr "Channels"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -640,6 +645,10 @@ msgstr "Leave group"
 msgid "@pg-menu-rename"
 msgstr "Rename this group"
 
+#: client/app/left/left.html
+msgid "@privateGroup"
+msgstr "Private Groups"
+
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
 msgstr "Invite Others to Team"
@@ -651,6 +660,10 @@ msgstr "Team Members"
 #: client/app/header/header.html
 msgid "@team-switch"
 msgstr "Switch Teams"
+
+#: client/app/left/left.html
+msgid "@user"
+msgstr "Users"
 
 #~ msgid "@file-upload"
 #~ msgstr "File Upload"
