@@ -14,22 +14,22 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-                    <i class="icon-add"></i><span translate>@ch-menu-invite</span>
+                    <i class="icon-invite-topic-fill"></i><span translate>@ch-menu-invite</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="openModal('rename')">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-pencil-square-o"></i><span translate>@ch-menu-rename</span>
+                    <i class="icon-edit-fill"></i><span translate>@ch-menu-rename</span>
                 </a>
             </li>
             <li role="presentation" data-ng-click="onLeaveClick();" data-ng-if="currentEntity.id != team.t_defaultChannelId">
                 <a role="menuitem" tabindex="-1">
-                    <i class="icon-cancel"></i><span translate>@ch-menu-leave</span>
+                    <i class="icon-logout"></i><span translate>@ch-menu-leave</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="icon-delete"></i><span translate>@ch-menu-delete</span>
+                    <i class="icon-delete-circle2"></i><span translate>@ch-menu-delete</span>
                 </a>
             </li>
         </ul>
@@ -37,7 +37,7 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
-                    <i class="icon-add"></i><span translate>@dm-menu-invite</span>
+                    <i class="icon-invite-topic-fill"></i><span translate>@dm-menu-invite</span>
                 </a>
             </li>
             <li role="presentation">
@@ -55,22 +55,22 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privateGroup'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-                    <i class="icon-add"></i><span translate>@pg-menu-invite</span>
+                    <i class="icon-invite-topic-fill"></i><span translate>@pg-menu-invite</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="openModal('rename')">
                 <a role="menuitem" tabindex="-1">
-                    <i class="fa fa-pencil-square-o"></i><span translate>@pg-menu-rename</span>
+                    <i class="icon-edit-fill"></i><span translate>@pg-menu-rename</span>
                 </a>
             </li>
             <li role="presentation" data-ng-click="onLeaveClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="icon-cancel"></i><span translate>@pg-menu-leave</span>
+                    <i class="icon-logout"></i><span translate>@pg-menu-leave</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="icon-delete"></i><span translate>@pg-menu-delete</span>
+                    <i class="icon-delete-circle2"></i><span translate>@pg-menu-delete</span>
                 </a>
             </li>
         </ul>
@@ -83,8 +83,14 @@
         </span>
         <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
             <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
-                <a data-ng-if="userId == user.id">{{ user | getName }}</a>
-                <a data-ng-if="userId != user.id" data-ui-sref="archives({entityType:'users', entityId:userId})">{{ userId | getName }}</a>
+                <a data-ng-if="userId == user.id">
+                    <i class="icon-user2"></i>
+                    {{ user | getName }}
+                </a>
+                <a data-ng-if="userId != user.id" data-ui-sref="archives({entityType:'users', entityId:userId})">
+                    <i class="icon-user2"></i>
+                    {{ userId | getName }}
+                </a>
             </li>
         </ul>
     </span>

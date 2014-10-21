@@ -499,7 +499,7 @@ msgstr "Join member to others"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "You can invite this user to chat room(private group/channel)."
+msgstr "You can invite this user to other chat(private group/topic)."
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"

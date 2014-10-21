@@ -57,7 +57,7 @@
 .rpanel-header-heading { position: relative; font-weight: 700; }
 .rpanel-header-heading__back { vertical-align:middle; }
 .rpanel-header-heading__back:hover { color: #31c08a; }
-.rpanel-header-heading__back i { font-size: 18px; vertical-align: sub; }
+.rpanel-header-heading__back i { font-size: 18px; vertical-align: sub; margin-right: -3px; }
 
 .rpanel-header-heading__types { position: relative; font-size: 15px; line-height: inherit; color: #333; }
 .rpanel-header-heading__types__more { color:#9e9ea6; }
@@ -299,7 +299,7 @@
 
 .file-item-body-title__more {
     position: absolute;
-    top: 15px;
+    top: 26px;
     right: 8px;
     color:#999;
 }
