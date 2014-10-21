@@ -14,7 +14,7 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-                    <i class="icon-invite-topic-fill"></i><span translate>@ch-menu-invite</span>
+                    <i class="icon-invite-fill"></i><span translate>@ch-menu-invite</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="openModal('rename')">
@@ -29,7 +29,7 @@
             </li>
             <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="icon-delete-circle2"></i><span translate>@ch-menu-delete</span>
+                    <i class=" icon-delete-circle-fill "></i><span translate>@ch-menu-delete</span>
                 </a>
             </li>
         </ul>
@@ -37,7 +37,7 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
-                    <i class="icon-invite-topic-fill"></i><span translate>@dm-menu-invite</span>
+                    <i class="icon-invite-fill"></i><span translate>@dm-menu-invite</span>
                 </a>
             </li>
             <li role="presentation">
@@ -55,7 +55,7 @@
         <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privateGroup'">
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-                    <i class="icon-invite-topic-fill"></i><span translate>@pg-menu-invite</span>
+                    <i class="icon-invite-fill"></i><span translate>@pg-menu-invite</span>
                 </a>
             </li>
             <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="openModal('rename')">
@@ -70,7 +70,7 @@
             </li>
             <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
-                    <i class="icon-delete-circle2"></i><span translate>@pg-menu-delete</span>
+                    <i class=" icon-delete-circle-fill "></i><span translate>@pg-menu-delete</span>
                 </a>
             </li>
         </ul>

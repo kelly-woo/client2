@@ -364,4 +364,5 @@
 }
 .comment-item-body p {
     margin: 0;
+    line-height: 20px;
 }
