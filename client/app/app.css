@@ -26,19 +26,6 @@
     font-weight: normal;
     font-style: normal;
 }
-/**
-* Jandi-light Fonts
-*/
-@font-face {
-    font-family: 'jandi-light';
-    src:url('../assets/fonts/jandi-light.eot?-j3kmfj');
-    src:url('../assets/fonts/jandi-light.eot?#iefix-j3kmfj') format('embedded-opentype'),
-    url('../assets/fonts/jandi-light.woff?-j3kmfj') format('woff'),
-    url('../assets/fonts/jandi-light.ttf?-j3kmfj') format('truetype'),
-    url('../assets/fonts/jandi-light.svg?-j3kmfj#jandi-light') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 
 /* NanumBarunGothic */
 @font-face{

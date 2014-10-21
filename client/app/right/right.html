@@ -2,7 +2,7 @@
     <span class="rpanel-header-heading" translate>@common-files</span>
 
     <div id="add_new_file" class="rpanel-header-heading__files cursor_pointer">
-        <i class="fa fa-upload"></i>
+        <i class="icon-upload"></i>
         <span translate>@common-upload-file</span>
         <input type="file"
                id="file_list_button"
@@ -20,7 +20,7 @@
         <!--    FILE SEARCH INPUT BOX   -->
         <div class="rpanel-body-search add-on-group">
             <span class="add-on-left">
-                <i class="fa fa-search"></i>
+                <i class="icon-search"></i>
             </span>
 
             <input type="text"
@@ -160,12 +160,12 @@
 
             <!--    DROPDOWN MENU   -->
             <div class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
-                <i class="fa fa-bars dropdown-toggle"></i>
+                <i class="icon-more dropdown-toggle"></i>
 
                 <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
                     <li class="cursor_pointer">
                         <a data-ng-click="onClickShare(file);">
-                            <i class="fa fa-share-alt"></i>
+                            <i class="icon-share"></i>
                             <span translate>@btn-share</span>
                         </a>
                     </li>
@@ -177,7 +177,7 @@
                     </li>
                     <li class="cursor_pointer">
                         <a href="{{ server_uploaded + file.content.fileUrl }}" download="{{ file.content.name }}">
-                            <i class="fa fa-download"></i>
+                            <i class="icon-download"></i>
                             <span translate>@common-download</span>
                         </a>
                     </li>

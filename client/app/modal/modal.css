@@ -195,6 +195,7 @@
     border-right: none;
     position: relative;
     padding: 6px 20px;
+    font-size: 22px;
 }
 .green-input-box {
     border: 1px solid #31c08a;
