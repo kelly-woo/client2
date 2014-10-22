@@ -100,7 +100,8 @@ msgstr "새 창에서 보기"
 msgid "@btn-close"
 msgstr "닫기"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@btn-comment"
 msgstr "댓글남기기"
 
@@ -129,8 +130,8 @@ msgstr "초대하기"
 msgid "@btn-join"
 msgstr "참여하기"
 
-#: client/app/modal/share.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/modal/share.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@btn-share"
 msgstr "공유하기"
 
@@ -219,7 +220,8 @@ msgstr "1:1 메시지"
 msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-download"
 msgstr "다운로드"
 
@@ -268,7 +270,8 @@ msgstr "언어"
 msgid "@common-member"
 msgstr "멤버"
 
-#: client/app/left/left.html
+#: client/app/left/left.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-more"
 msgstr "더보기"
 
@@ -387,6 +390,10 @@ msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
 #: client/app/error/404.html
 msgid "@error-404-title"
 msgstr ".. 길을 잃었습니다"
+
+#: client/app/right/right.html
+msgid "@file-action-more"
+msgstr "더보"
 
 #: client/app/header/header.html
 msgid "@file-all"

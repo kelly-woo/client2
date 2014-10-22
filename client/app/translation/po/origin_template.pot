@@ -417,6 +417,10 @@ msgstr ""
 msgid "@error-404-title"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@file-action-more"
+msgstr ""
+
 #: client/app/header/header.html
 msgid "@file-all"
 msgstr ""

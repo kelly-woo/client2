@@ -518,6 +518,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 size        :   'lg'
             });
         }
+        else if (select == 'share') {
+
+        }
     };
 
 
@@ -971,6 +974,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.$on('onStageLoadedToCenter', function() {
         $('#file-detail-comment-input').focus();
-    })
+    });
+
+
+    $scope.onShareClick = function(file) {
+        fileAPIservice.broadcastFileShare(file);
+    };
+
+
+
 
 });
