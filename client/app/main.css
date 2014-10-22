@@ -418,6 +418,12 @@ input[type="button"] {
     height: 150px;
 }
 
+.image-background {
+    background: url('../assets/images/checkered.png');
+    min-width: 40px;
+
+}
+
 
 
 
