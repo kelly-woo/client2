@@ -124,6 +124,7 @@
 }
 .lpanel-list-option i {
     margin-right: 2px;
+    vertical-align: text-top;
 }
 .lpanel-list-option:hover {
     color: #333;
@@ -202,15 +203,6 @@
     max-width: 141px;
 }
 
-.lpanel-list ul li a .prefix{
-    font-weight:300;
-    -moz-opacity:.5;
-    -khtml-opacity:.5;
-    -webkit-opacity:.5;
-    opacity:.5;
-    -ms-filter:alpha(opacity=50);
-    filter:alpha(opacity=50);
-}
 
 .lpanel-list__groups {
     margin: 1px 0;

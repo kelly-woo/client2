@@ -57,7 +57,7 @@
                 <li ng-repeat="joinedChannel in joinedChannelList" ng-class="{active: $state.params.entityId == joinedChannel.id}">
                     <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
                         <span class="inline-overflow-ellipsis left-panel__name">
-                            <span class="prefix">#</span> {{joinedChannel.name}}
+                            {{joinedChannel.name}}
                         </span>
                         <span class="badge left-panel_badge green_badge pull-right">{{joinedChannel.alarmCnt}}</span>
                     </a>

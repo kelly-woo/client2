@@ -70,7 +70,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
     getFileDetail();
 
     $scope.postComment = function() {
-        if (!$scope.comment.content) return;
+        if (!$scope.comment || !$scope.comment.content) return;
 
         fileAPIservice.postComment(fileId, $scope.comment.content)
             .success(function(response) {
@@ -109,13 +109,6 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
                 }
             }
         });
-    };
-
-    $scope.isToggled = false;
-    $scope.toggleDropdown = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        $scope.isToggled = !$scope.isToggled;
     };
 
     $scope.openModal = function(selector) {
@@ -215,6 +208,17 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
     $scope.onUserClick = function(user) {
       $scope.$emit('onUserClick', user);
     };
+
+
+    $scope.onCommentFocusClick = function() {
+        console.log('onCommentFocusClick');
+        $('#file-detail-comment-input').focus();
+        console.log($('#file-detail-comment-input'))
+    };
+
+    $scope.$on('setCommentFocus', function() {
+        $scope.onCommentFocusClick();
+    });
 });
 
 app.controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {

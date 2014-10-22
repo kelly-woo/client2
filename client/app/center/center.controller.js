@@ -898,7 +898,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 action = $filter('translate')('@msg-left');
                 break;
             case 'create' :
-                if (msg.info.entityType !== 'channel') {
+                if (msg.info.entityType == 'channel') {
                     action = $filter('translate')('@msg-create-ch');
                 } else {
                     action = $filter('translate')('@msg-create-pg');
@@ -954,5 +954,23 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('elastic:resize', function() {
         $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 35);
     });
+
+    $scope.setCommentFocus = function(file) {
+        if ($state.params.itemId != file.id) {
+            $rootScope.setFileDetailCommentFocus = true;
+
+            $state.go('files', {
+                userName    : file.writer.name,
+                itemId      : file.id
+            });
+        }
+        else {
+            fileAPIservice.broadcastCommentFocus();
+        }
+    };
+
+    $scope.$on('onStageLoadedToCenter', function() {
+        $('#file-detail-comment-input').focus();
+    })
 
 });
