@@ -14,11 +14,11 @@ msgstr ""
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
-msgstr "You have not joined any channels yet"
+msgstr "You have not joined any topics yet"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-can-join"
-msgstr "No channels to join"
+msgstr "No topics to join"
 
 #: client/app/right/right.html
 msgid "@alert-empty-file"
@@ -54,7 +54,7 @@ msgstr "Failed to send email"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-invalid"
-msgstr "is invalid email address"
+msgstr "is an invalid email address"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-success"
@@ -62,7 +62,7 @@ msgstr "Sent the invitation mail successfully"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-taken"
-msgstr "is already member of your team"
+msgstr "is already a member of your team"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-update-fail"
@@ -147,23 +147,23 @@ msgstr "Upload"
 
 #: client/app/center/center.html
 msgid "@ch-menu-delete"
-msgstr "Delete this channel"
+msgstr "Delete topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-invite"
-msgstr "Invite members to this channel"
+msgstr "Invite members to topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
-msgstr "Leave channel"
+msgstr "Leave topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
-msgstr "Rename this channel"
+msgstr "Rename topic"
 
 #: client/app/left/left.html
 msgid "@channel"
-msgstr "Channels"
+msgstr "Topics"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -175,7 +175,7 @@ msgstr "Add"
 
 #: client/app/left/left.html
 msgid "@common-channels"
-msgstr "Channels"
+msgstr "Topics"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
@@ -188,7 +188,7 @@ msgstr "Comment"
 #: client/app/header/header.html client/app/modal/create.channel.html
 #: client/app/modal/join.html
 msgid "@common-create-ch"
-msgstr "Create New Channel"
+msgstr "Create New Topic"
 
 #: client/app/header/header.html client/app/modal/create.private.html
 msgid "@common-create-pg"
@@ -373,7 +373,7 @@ msgstr "View Files"
 
 #: client/app/center/center.html
 msgid "@dm-menu-invite"
-msgstr "Invite this member to others"
+msgstr "Invite this member to other chat"
 
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
@@ -429,7 +429,7 @@ msgstr "Setting"
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
-msgstr "Enter new channel name"
+msgstr "Enter new topic name"
 
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
@@ -441,11 +441,11 @@ msgstr "Enter email address to invite"
 
 #: client/app/modal/rename.html
 msgid "@input-rename"
-msgstr "Enter name to change"
+msgstr "Enter new name"
 
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
-msgstr "Search channel by name"
+msgstr "Search topic by name"
 
 #: client/app/right/right.html
 msgid "@input-search-file-title"
@@ -473,11 +473,11 @@ msgstr "Welcome to {{teamInfo.name}}"
 
 #: client/app/modal/join.html
 msgid "@modal-browse-ch"
-msgstr "Browse Channels"
+msgstr "Browse Topics"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
-msgstr "Creating a new channel."
+msgstr "Creating a new topic."
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
@@ -485,7 +485,7 @@ msgstr "Anyone can join."
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "Please use Private Group for a closed channel."
+msgstr "Please use Private Group for a closed topic."
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
@@ -495,7 +495,7 @@ msgstr ""
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
-msgstr "Join member to others"
+msgstr "Join member to other chat"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
@@ -507,11 +507,11 @@ msgstr "Invite Members"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr "Channels you belong to"
+msgstr "Tocpis you belong to"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr "Channels you can join"
+msgstr "Tocpis you can join"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
@@ -523,7 +523,7 @@ msgstr "Change your email address"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-msg1"
-msgstr "You can change account settings such as full name, password"
+msgstr "You can change account settings such as full name, password, and etc."
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name"
@@ -555,11 +555,11 @@ msgstr "You can invite others to Jandi by email."
 
 #: client/app/modal/upload.html
 msgid "@modal-upload-title-msg1"
-msgstr "For search file by title"
+msgstr "You can later search file by its title"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr "created current channel"
+msgstr "created current topic"
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
@@ -631,19 +631,19 @@ msgstr "Never"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
-msgstr "Delete this group"
+msgstr "Delete private group"
 
 #: client/app/center/center.html
 msgid "@pg-menu-invite"
-msgstr "Invite members to this group"
+msgstr "Invite members to private group"
 
 #: client/app/center/center.html
 msgid "@pg-menu-leave"
-msgstr "Leave group"
+msgstr "Leave private group"
 
 #: client/app/center/center.html
 msgid "@pg-menu-rename"
-msgstr "Rename this group"
+msgstr "Rename private group"
 
 #: client/app/left/left.html
 msgid "@privateGroup"

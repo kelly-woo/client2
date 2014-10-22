@@ -97,6 +97,7 @@ msgstr ""
 msgid "@btn-close"
 msgstr ""
 
+#: client/app/center/center.html
 #: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@btn-comment"
@@ -129,6 +130,7 @@ msgstr ""
 msgid "@btn-join"
 msgstr ""
 
+#: client/app/center/center.html
 #: client/app/modal/share.html
 #: client/app/right/file.html
 #: client/app/right/right.html
@@ -227,6 +229,7 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr ""
 
+#: client/app/center/center.html
 #: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@common-download"
@@ -280,6 +283,8 @@ msgid "@common-member"
 msgstr ""
 
 #: client/app/left/left.html
+#: client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-more"
 msgstr ""
 
