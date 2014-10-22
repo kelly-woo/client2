@@ -45,17 +45,20 @@
 
                     <div class="file-detail-body__other-action">
 
-                        <button ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" type="button" class="btn btn-white" >
-                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
+                        <!--    PDF FILE    -->
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" >
+                            <button type="button" class="btn btn-white" >
                                 <span translate>@btn-click-to-view</span>
-                            </a>
-                        </button>
+                            </button>
+                        </a>
 
-                        <button ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )"type="button" class="btn btn-white" >
-                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}">
+                        <!--    NON-PDF FILE    -->
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}"  ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )">
+                            <button type="button" class="btn btn-white" >
                                 <span translate>@common-download</span>
-                            </a>
-                        </button>
+                            </button>
+                        </a>
+
                     </div>
 
                 </div>
