@@ -243,6 +243,9 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         }
     };
 
+    $scope.$on('openFileShare', function(event, file) {
+        $scope.onClickShare(file);
+    });
     $scope.onClickShare = function(file) {
         $scope.fileToShare = file;
         this.openModal('share');
