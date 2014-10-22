@@ -389,6 +389,10 @@ msgstr "The page you were looking for could not be found"
 msgid "@error-404-title"
 msgstr "That’s an error"
 
+#: client/app/right/right.html
+msgid "@file-action-more"
+msgstr "More"
+
 #: client/app/header/header.html
 msgid "@file-all"
 msgstr "All Files"
