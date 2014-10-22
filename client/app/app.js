@@ -155,20 +155,31 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     // 시스템(브라우저) 기본 언어로 초기화
     var userLang = navigator.language || navigator.userLanguage;
+    userLang = userLang.toLowerCase();
+
     var debugMode = (configuration.name === 'development');
-    switch( userLang ) {
-        case 'ko':
-        case 'ko_KR':
-        case 'ko-KR':
-            userLang = 'ko_KR';
-            break;
-        case 'en':
-        case 'en_US':
-        case 'en-US':
-        default:
-            userLang = 'en_US';
-            break;
+    if (userLang.indexOf('ko') >= 0) {
+        // korean.
+        userLang = 'ko_KR';
     }
+    else if (userLang.indexOf('en') >= 0) {
+        // english.
+        userLang = 'en_US';
+    }
+    else if (userLang.indexOf('zh') >= 0) {
+        // chinese.
+        if (userLang.indexOf('cn') >= 0) {
+            // main land china.
+            userLang = 'zh_CN';
+        }
+        else
+            userLang = 'zn_TW';
+    }
+    else if (userLang.indexOf('ja') >= 0) {
+        // japanese.
+        userLang = 'ja';
+    }
+
     $rootScope.setLang(userLang, debugMode);
 
 });

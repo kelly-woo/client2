@@ -792,7 +792,11 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
     $scope.currentLang = $rootScope.preferences.language;
     $scope.listLangs = [
         { "value": "ko_KR", "text": "한국어" },
-        { "value": "en_US", "text": "English" }
+        { "value": "en_US", "text": "English" },
+        { "value" : "zh_CN", "text": "Simplified Chinese"},
+        { "value" : "zh_TW", "text": "Traditional Chinese"},
+        { "value" : "ja", "text": "Japanese"}
+
     ];
 
     $scope.cancel = function() {

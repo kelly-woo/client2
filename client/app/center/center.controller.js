@@ -662,7 +662,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             return;
 
         //  new DOM element for large thumbnail image.
-        var mirrorDom = angular.element('<img id="large-thumbnail" class="large-thumbnail cursor_pointer" src="'+newThumbnail+'"/>');
+        var mirrorDom = angular.element('<img id="large-thumbnail" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
 
         //  bind click event handler to large thumbnail image.
         mirrorDom.bind('click', function() {
