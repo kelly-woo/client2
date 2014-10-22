@@ -955,4 +955,22 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 35);
     });
 
+    $scope.setCommentFocus = function(file) {
+        if ($state.params.itemId != file.id) {
+            $rootScope.setFileDetailCommentFocus = true;
+
+            $state.go('files', {
+                userName    : file.writer.name,
+                itemId      : file.id
+            });
+        }
+        else {
+            fileAPIservice.broadcastCommentFocus();
+        }
+    };
+
+    $scope.$on('onStageLoadedToCenter', function() {
+        $('#file-detail-comment-input').focus();
+    })
+
 });

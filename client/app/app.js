@@ -122,6 +122,9 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
         entityAPIservice.setLastEntityState();
 
+        if ($rootScope.setFileDetailCommentFocus) {
+            $rootScope.$broadcast('setCommentFocus');
+        }
         // Halt state change from even starting
         // event.preventDefault();
         // Perform custom logic

@@ -276,14 +276,14 @@
                                 <span class="bullet">•</span>
 
                                 <!--    COMMENT -->
-                                <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
+                                <a class="cursor_pointer"  data-ng-click="setCommentFocus(msg.message);">
                                     <span translate>@btn-comment</span>
                                 </a>
 
                                 <span class="bullet">•</span>
 
                                 <!--    SHARE   -->
-                                <a class="cursor_pointer" data-ng-controller="rightpanelController" data-ng-click="onClickShare(msg.message);">
+                                <a class="cursor_pointer" data-ng-cilck="onShareClick(msg.message);">
                                     <span translate>@btn-share</span>
                                 </a>
 
@@ -411,7 +411,6 @@
             <textarea id="message-input"
                       class=""
                       ng-class="{'post-loading': isPosting}"
-                      focus-me="focusPostMessage"
                       message-submit="postMessage()"
                       data-ng-disabled="msgLoadStatus.loading"
                       data-ng-model="message.content"

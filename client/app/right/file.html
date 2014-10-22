@@ -93,20 +93,20 @@
                         </div>
                     </div>
 
-                    <div class="file-item-meta__action dropdown" is-open="isToggled">
+                    <div class="file-item-meta__action dropdown">
                         <a class="file_actions dropdown-toggle"
                            tooltip="{{ '@common-more' | translate }}" tooltip-placement="bottom">
                             <i class="icon-more cursor_pointer"></i>
                         </a>
                         <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
                             <li class="cursor_pointer">
-                                <a data-ng-click="onClickShare(file_detail); toggleDropdown($event);">
+                                <a data-ng-click="onClickShare(file_detail);">
                                     <i class="fa fa-share-alt"></i>
                                     <span translate>@btn-share</span>
                                 </a>
                             </li>
                             <li class="cursor_pointer">
-                                <a data-ng-click="focusPostComment=true; toggleDropdown($event);">
+                                <a data-ng-click="onCommentFocusClick();">
                                     <i class="fa fa-comment-o"></i>
                                     <span translate>@btn-comment</span>
                                 </a>
@@ -161,7 +161,8 @@
                      ng-click="onUserClick(user);"/>
             </div>
             <form id="comment-form" data-ng-submit="postComment()">
-                <textarea class="comment-input"
+                <textarea id="file-detail-comment-input"
+                          class="comment-input"
                           focus-me="focusPostComment"
                           message-submit="postComment()"
                           data-ng-model="comment.content"
@@ -169,9 +170,10 @@
                           autocorrect="off"
                           autocomplete="off"
                           spellcheck="true"></textarea>
-                        <span class="comment-input__tip pull-left">
-                            <span translate>@msg-help-multiline</span>
-                        </span>
+
+                <span class="comment-input__tip pull-left">
+                    <span translate>@msg-help-multiline</span>
+                </span>
                 <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
             </form>
         </div>

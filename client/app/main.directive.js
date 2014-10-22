@@ -155,13 +155,20 @@ app.directive('scrollBottomOn', ['$timeout', function($timeout) {
 app.directive('focusMe', ['$timeout', function($timeout) {
     return {
         link: function(scope, element, attrs) {
-            scope.$watch(attrs.focusMe, function(value) {
-                if (value === true) {
+            scope.$watch(attrs.focusMe, function(value, oldValue) {
+
+                if (value) {
                     $timeout(function() {
+                        console.log('setting focus')
                         element[0].focus();
                         scope[attrs.focusMe] = false;
                     });
                 }
+            });
+
+            element.bind('blur', function() {
+                scope[attrs.focusMe] = false;
+
             });
         }
     }
