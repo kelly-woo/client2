@@ -130,11 +130,14 @@
                 <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
                         ng-switch="msg.message.contentType">
 
+                    <!--    SYSTEM EVENT    -->
                     <img class="user-profile user-thumb" ng-switch-when="systemEvent"/>
 
+                    <!--    FILE    -->
                     <img class="user-profile user-thumb" ng-switch-when="file"
                        ng-src="{{ server_uploaded + ( msg.fromEntity.smallThumbnailUrl  || msg.fromEntity.u_photoUrl ) }}"/>
 
+                    <!--    DEFAULT   -->
                     <img class="user-profile user-thumb" ng-switch-default
                          ng-src="{{ server_uploaded + ( msg.message.writer.u_photoThumbnailUrl.smallThumbnailUrl  || msg.message.writer.u_photoUrl ) }}"/>
                 </div>
@@ -177,6 +180,7 @@
                         </p>
                     </span>
 
+                    <!--    DELETE ICON APPEARS ON HOVER    -->
                     <a class="msg-item__action link-remove pull-right"
                        data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
                        data-ng-click="deleteMessage(msg)">
@@ -201,7 +205,7 @@
                                  data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
                                  data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
                                     />
-
+                            <!--    FILE TYPE THUMBNAIL -->
                             <div class="msg-file-body__thumbnail"
                                  data-ng-if="(msg.message.content.type).indexOf('image') == -1">
                                 <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
@@ -212,27 +216,35 @@
                         <div class="msg-file-meta">
 
                             <div class="msg-file-meta-up">
+                                <!--    TITLE   -->
                                 <a class="msg-file-meta__title file__name"
                                    data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
                                     {{ msg.message.content.title }}
                                 </a>
+
                                 <span class="bullet">•</span>
+
+                                <!--    SIZE AND FILE TYPE  -->
                                 <span class="msg-file-meta-info">
                                     {{msg.message.content.size | bytes }} {{ msg.message.content.type | filetype }}
                                 </span>
                             </div>
 
                             <div class="msg-file-meta-down">
+                                <!--    SHARED MESSAGE  -->
                                 <span class="msg-file-meta-info">
                                     <span data-ng-if="( msg.fromEntity.id !== msg.message.writer.id )">
-                                        <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getName}}</a><!--
-                                        --><span translate>@msg-whose</span>
+                                        <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getName}}</a>
+                                        <span translate>@msg-whose</span>
                                     </span>
                                     <span ng-if="msg.status == 'shared'" translate>@msg-shared</span>
                                     <span ng-if="msg.status == 'unshared'" translate>@msg-unshared</span>
                                     <span translate>@msg-file</span>
                                 </span>
+
                                 <span class="bullet">•</span>
+
+                                <!--    SHARED ENTITIES -->
                                 <span data-ng-if="msg.message.shared.length">
                                     <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared | filter: {type:'!user'}) track by $index">
                                         <span data-ng-hide="($index === 0)">, </span>
@@ -248,9 +260,34 @@
                                     </span>
                                     <span class="bullet">•</span>
                                 </span>
+
+                                <!-- OPEN ORIGINAL  -->
                                 <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
                                     <span translate>@msg-open-original</span>
                                 </a>
+
+                                <span class="bullet">•</span>
+
+                                <!--    DOWNLOAD    -->
+                                <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" download="{{ msg.message.name }}">
+                                    <span translate>@common-download</span>
+                                </a>
+
+                                <span class="bullet">•</span>
+
+                                <!--    COMMENT -->
+                                <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
+                                    <span translate>@btn-comment</span>
+                                </a>
+
+                                <span class="bullet">•</span>
+
+                                <!--    SHARE   -->
+                                <a class="cursor_pointer" data-ng-controller="rightpanelController" data-ng-click="onClickShare(msg.message);">
+                                    <span translate>@btn-share</span>
+                                </a>
+
+
                             </div>
                         </div>
                     </div>
