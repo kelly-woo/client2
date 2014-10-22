@@ -898,7 +898,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 action = $filter('translate')('@msg-left');
                 break;
             case 'create' :
-                if (msg.info.entityType !== 'channel') {
+                if (msg.info.entityType == 'channel') {
                     action = $filter('translate')('@msg-create-ch');
                 } else {
                     action = $filter('translate')('@msg-create-pg');
