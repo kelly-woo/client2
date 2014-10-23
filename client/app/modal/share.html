@@ -28,7 +28,7 @@
                     <div class="modal-share__file-body">
                         <span class="modal-share__file-body__writer">{{ file.writer|getName }}</span>
                         <span class="modal-share__file-body__time">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
-                        <div class="modal-share__file-body__title" data-ng-bind="file.content.title"></div>
+                        <div class="modal-share__file-body__title keep" data-ng-bind="file.content.title"></div>
                         <div class="modal-share__file-body__meta">
                             <span class="modal-share__file-body__meta-size"
                                   data-ng-if="file.content.size > 0"

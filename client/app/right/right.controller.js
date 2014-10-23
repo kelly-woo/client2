@@ -40,7 +40,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         }
         else {
             if (type === 'all') {
-                alert('question here. look at comment in right.controller.js')
                 // when 'All Files' is clicked oon 'cpanel-search__dropdown'
                 $scope.fileRequest.writerId = 'all';
 
@@ -246,6 +245,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.$on('openFileShare', function(event, file) {
         $scope.onClickShare(file);
     });
+
     $scope.onClickShare = function(file) {
         $scope.fileToShare = file;
         this.openModal('share');
@@ -303,4 +303,17 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         }
     };
 
+    $scope.setCommentFocus = function(file) {
+        if ($state.params.itemId != file.id) {
+            $rootScope.setFileDetailCommentFocus = true;
+
+            $state.go('files', {
+                userName    : file.writer.name,
+                itemId      : file.id
+            });
+        }
+        else {
+            fileAPIservice.broadcastCommentFocus();
+        }
+    };
 });

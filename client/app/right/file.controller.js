@@ -209,11 +209,8 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
       $scope.$emit('onUserClick', user);
     };
 
-
     $scope.onCommentFocusClick = function() {
-        console.log('onCommentFocusClick');
         $('#file-detail-comment-input').focus();
-        console.log($('#file-detail-comment-input'))
     };
 
     $scope.$on('setCommentFocus', function() {
