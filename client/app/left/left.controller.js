@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp');
 
 app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, leftpanelAPIservice, leftPanel,
-                                               user, defaultChannel, entityAPIservice, localStorageService) {
+                                               user, entityAPIservice, localStorageService) {
 
     console.info('[enter] leftpanelController');
 
@@ -24,7 +24,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     $rootScope.$watch('toDefault', function(newVal, oldVal) {
         if (newVal) {
             console.log('this is toDefault')
-            $state.go('archives', {entityType:'channels',  entityId:defaultChannel });
+            $state.go('archives', {entityType:'channels',  entityId:leftpanelAPIservice.getDefaultChannel(response) });
             $rootScope.toDefault = false;
         }
     });
@@ -81,9 +81,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $rootScope.joinedEntities       = $scope.joinEntities;
         $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
         $rootScope.user                 = $scope.user;
-
-        //  entityAPI.hasPrivilegeHelper is watching
-        $rootScope.isLeftUpdated        = true;
 
         //  When there is unread messages on left Panel.
         if (response.alarmInfoCount != 0) {
@@ -148,10 +145,13 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         leftpanelAPIservice.getLists()
             .success(function(data) {
                 response = data;
+                console.log('-- getLeft good')
                 initLeftList();
             })
             .error(function(err) {
-                $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
+//                $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
+                console.log(err)
+//                getLeftLists();
             });
     }
 
@@ -163,7 +163,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
     $scope.updateLeftPanelCaller = function() {
-        $rootScope.isLeftUpdated= false;
         getLeftLists();
     };
 

@@ -38,10 +38,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isPosting = false;
 
     $scope.onLeaveClick = function() {
-        log('leaving')
+        log('-- leaving')
+
         entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
             .success(function(response) {
-                log('good')
+                log('-- good')
                 // analytics
                 var entity_type = "";
                 switch ($scope.currentEntity.type) {

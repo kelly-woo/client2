@@ -37,6 +37,12 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
             return config;
         },
         responseError: function (rejection) {
+            console.log(rejection)
+            if (rejection.status === 0) {
+                // net::ERR_CONNECTION_REFUSED
+                // what should i do?
+                console.log('looks like api is down.');
+            }
             if (rejection.status === 401) {
                 // handle the case where the user is not authenticated
                 console.log('[' + rejection.status + ' ' + rejection.statusText + '] ' + rejection.data.msg);

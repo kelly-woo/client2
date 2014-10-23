@@ -23,9 +23,6 @@ app.config(function ($stateProvider, $analyticsProvider) {
                         },
                         user        : function (leftPanel) {
                             return leftPanel.data.user;
-                        },
-                        defaultChannel: function(leftpanelAPIservice, leftPanel) {
-                            return leftpanelAPIservice.getDefaultChannel(leftPanel.data);
                         }
                     }
                 },

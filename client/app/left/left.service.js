@@ -34,7 +34,7 @@ app.factory('leftpanelAPIservice', function($http, $rootScope) {
 
     leftpanelAPI.getDefaultChannel = function(input) {
         return input.team.t_defaultChannelId;
-    }
+    };
 
     leftpanelAPI.getGeneralList = function(totalEntities, joinedEntities, currentUserId) {
         var userList = [],
