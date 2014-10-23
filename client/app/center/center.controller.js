@@ -38,14 +38,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isPosting = false;
 
     $scope.onLeaveClick = function() {
-        //  prevent user from leaving default channel.
-        if ($scope.currentEntity.id == $scope.team.t_defaultChannelId) {
-            console.debug('cannot leave default channel');
-            return;
-        }
-
+        log('leaving')
         entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
             .success(function(response) {
+                log('good')
                 // analytics
                 var entity_type = "";
                 switch ($scope.currentEntity.type) {
@@ -86,6 +82,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 analyticsService.mixpanelTrack( "Entity Delete", { "type": entity_type } );
 
                 updateLeftPanel();
+                fileAPIservice.broadcastChangeShared();
             })
             .error(function(error) {
                 alert(error.msg);
@@ -700,6 +697,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         mirrorDom.remove();
         fullScreenToggler.remove();
     }
+
     //  right controller is listening to 'updateFileWriterId'.
     $scope.onFileListClick = function(userId) {
         if ($state.current.name != 'messages.detail.files')

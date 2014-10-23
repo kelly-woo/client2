@@ -97,7 +97,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     //  fileRequest.fileType => 파일 타입
     //  fileRequest.keyword  => text input box
-    //  onChangeShared       => 파일의 shared entity가 바뀌면 호출된다.
     //  한가지라도 바뀌면 알아서 다시 api call을 한다.
     $scope.$watch('[fileRequest.fileType, fileRequest.keyword]',
         function(newValue, oldValue) {

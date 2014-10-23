@@ -167,7 +167,8 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         getLeftLists();
     };
 
-    // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
+    // right, detail panel don't have direct access to scope function in left controller.
+    // so they emit event through rootscope.
     $rootScope.$on('updateLeftPanelCaller', function() {
         console.info("[enter] updateLeftPanelCaller");
         $scope.updateLeftPanelCaller();

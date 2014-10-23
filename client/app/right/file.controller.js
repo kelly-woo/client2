@@ -216,6 +216,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
     $scope.$on('setCommentFocus', function() {
         $scope.onCommentFocusClick();
     });
+
 });
 
 app.controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {

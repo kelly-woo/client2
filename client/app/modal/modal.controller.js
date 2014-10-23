@@ -111,7 +111,7 @@ app.controller('userModalCtrl', function($scope, $modalInstance, $state) {
 });
 
 // PRIVATE_GROUP/CHANNEL RENAME
-app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope, analyticsService) {
+app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope, analyticsService, fileAPIservice) {
     $scope.newChannelName = $scope.currentEntity.name;
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
@@ -139,9 +139,8 @@ app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderA
                 analyticsService.mixpanelTrack( "Entity Name Change", { "type": entity_type } );
 
                 $scope.updateLeftPanelCaller();
-                $rootScope.$emit('updateSharedEntities');
+                fileAPIservice.broadcastChangeShared();
                 $modalInstance.dismiss('cancel');
-                $scope.isLoading = false;
             })
             .error(function(response) {
                 alert(response.msg);
@@ -216,8 +215,7 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
                 analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
 
                 $scope.isLoading = false;
-                $modalInstance.dismiss('cancel');
-                $scope.updateLeftPanelCaller();     // is this necessary?
+                $modalInstance.dismiss('success');
             })
             .error(function(error) {
                 console.error('inviteUsers', error.msg );
