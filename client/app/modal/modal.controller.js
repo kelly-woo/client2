@@ -793,9 +793,9 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
     $scope.listLangs = [
         { "value": "ko_KR", "text": "한국어" },
         { "value": "en_US", "text": "English" },
-        { "value" : "zh_CN", "text": "Simplified Chinese"},
-        { "value" : "zh_TW", "text": "Traditional Chinese"},
-        { "value" : "ja", "text": "Japanese"}
+        { "value": "zh_CN", "text": "简体中文 Simplified Chinese" },
+        { "value": "zh_TW", "text": "繁體中文 Traditional Chinese" },
+        { "value": "ja",    "text": "日本語 Japanese"}
 
     ];
 
