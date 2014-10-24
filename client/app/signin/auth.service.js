@@ -37,7 +37,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
             return config;
         },
         responseError: function (rejection) {
-            console.log(rejection)
             if (rejection.status === 0) {
                 // net::ERR_CONNECTION_REFUSED
                 // what should i do?
