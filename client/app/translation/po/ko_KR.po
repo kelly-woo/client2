@@ -1,17 +1,11 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: JANDI-APP\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: [Web] Application\n"
+"Language: ko\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -78,8 +72,7 @@ msgid "@btn-add"
 msgstr "추가"
 
 #: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "취소"
 
@@ -100,8 +93,7 @@ msgstr "새 창에서 보기"
 msgid "@btn-close"
 msgstr "닫기"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@btn-comment"
 msgstr "댓글남기기"
 
@@ -130,8 +122,8 @@ msgstr "초대하기"
 msgid "@btn-join"
 msgstr "참여하기"
 
-#: client/app/center/center.html client/app/modal/share.html
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/modal/share.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@btn-share"
 msgstr "공유하기"
 
@@ -162,10 +154,6 @@ msgstr "토픽 나가기"
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
 msgstr "토픽 이름 변경하기"
-
-#: client/app/left/left.html
-msgid "@channel"
-msgstr "토픽"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -220,8 +208,7 @@ msgstr "1:1 메시지"
 msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@common-download"
 msgstr "다운로드"
 
@@ -270,8 +257,7 @@ msgstr "언어"
 msgid "@common-member"
 msgstr "멤버"
 
-#: client/app/left/left.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/left/left.html
 msgid "@common-more"
 msgstr "더보기"
 
@@ -391,10 +377,6 @@ msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
 msgid "@error-404-title"
 msgstr ".. 길을 잃었습니다"
 
-#: client/app/right/right.html
-msgid "@file-action-more"
-msgstr "더보"
-
 #: client/app/header/header.html
 msgid "@file-all"
 msgstr "모든 파일"
@@ -493,15 +475,11 @@ msgstr "토픽은 팀의 멤버 누구나 참여할 수 있습니다."
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr ""
-"특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 생성"
-"해 초대해 주시기 바랍니다."
+msgstr "특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 생성해 초대해 주시기 바랍니다."
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
-msgstr ""
-"비공개 그룹은 그룹에 가입된 멤버만 볼 수 있으며, 해당 파일, 내용들도 가입된 "
-"멤버에게만 공개됩니다."
+msgstr "비공개 그룹은 그룹에 가입된 멤버만 볼 수 있으며, 해당 파일, 내용들도 가입된 멤버에게만 공개됩니다."
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
@@ -541,9 +519,7 @@ msgstr "이름 변경하기"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name-msg"
-msgstr ""
-"사용자 이름은 다른 멤버들에 의해 멘션과 검색 등에 사용되기 때문에 변경에 주의"
-"해 주세요."
+msgstr "사용자 이름은 다른 멤버들에 의해 멘션과 검색 등에 사용되기 때문에 변경에 주의해 주세요."
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-password"
@@ -653,10 +629,6 @@ msgstr "비공개 그룹 나가기"
 msgid "@pg-menu-rename"
 msgstr "비공개 그룹 이름 변경하기\t\t"
 
-#: client/app/left/left.html
-msgid "@privateGroup"
-msgstr "비공개 그룹"
-
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
 msgstr "멤버 초대"
@@ -669,489 +641,3 @@ msgstr "전체 멤버 보기"
 msgid "@team-switch"
 msgstr "팀 변경"
 
-#: client/app/left/left.html
-msgid "@user"
-msgstr "사용자"
-
-#~ msgid "Add Comment"
-#~ msgstr "댓글 남기기"
-
-#~ msgid "Comment"
-#~ msgstr "댓글 남기기"
-
-#~ msgid "Delete"
-#~ msgstr "삭제"
-
-#~ msgid "Download"
-#~ msgstr "다운로드"
-
-#~ msgid "File has not been shared in any other channels"
-#~ msgstr "공유된 채널이 없습니다"
-
-#~ msgid "Share"
-#~ msgstr "공유하기"
-
-#~ msgid "shift+enter to multiline"
-#~ msgstr "멀티라인 입력: shift+enter"
-
-#~ msgid "File Type"
-#~ msgstr "파일 형식"
-
-#~ msgid "Files"
-#~ msgstr "파일"
-
-#~ msgid "Location"
-#~ msgstr "공유된 곳"
-
-#~ msgid "No files found matching on"
-#~ msgstr "검색 결과가 없습니다"
-
-#~ msgid "No files uploaded"
-#~ msgstr "업로드된 파일이 없습니다"
-
-#~ msgid "Open original"
-#~ msgstr "원본 보기"
-
-#~ msgid "Search by title"
-#~ msgstr "제목으로 검색"
-
-#~ msgid "Upload File"
-#~ msgstr "파일 업로드"
-
-#~ msgid "Writer"
-#~ msgstr "작성자"
-
-#~ msgid "@file-upload"
-#~ msgstr "파일 업로드"
-
-#~ msgid "Cancel"
-#~ msgstr "취소"
-
-#~ msgid "For search file by title"
-#~ msgstr "타이틀로 파일을 쉽게 검색할 수 있습니다"
-
-#~ msgid "Share in"
-#~ msgstr "공유 대상"
-
-#~ msgid "Title"
-#~ msgstr "타이틀"
-
-#~ msgid "Upload"
-#~ msgstr "업로드"
-
-#~ msgid "File"
-#~ msgstr "파일"
-
-#~ msgid "Share File"
-#~ msgstr "파일 공유"
-
-#~ msgid "Close"
-#~ msgstr "닫기"
-
-#~ msgid "Confirm"
-#~ msgstr "확인"
-
-#~ msgid "Desktop Notifications"
-#~ msgstr "데스크탑 알림"
-
-#~ msgid "For all messages"
-#~ msgstr "모든 메세지"
-
-#~ msgid "Language"
-#~ msgstr "언어"
-
-#~ msgid "Never"
-#~ msgstr "없음"
-
-#~ msgid "Only for direct messages"
-#~ msgstr "1:1 메세지"
-
-#~ msgid "Preferences"
-#~ msgstr "서비스 설정"
-
-#~ msgid "You can change service preferences such as language, notifications."
-#~ msgstr "언어, 데스크탑 알림 등 서비스 설정을 할 수 있습니다."
-
-#~ msgid "Basic Information"
-#~ msgstr "기본 정보"
-
-#~ msgid "Change"
-#~ msgstr "변경"
-
-#~ msgid "Department"
-#~ msgstr "부서"
-
-#~ msgid "Edit"
-#~ msgstr "수정하기"
-
-#~ msgid "Email"
-#~ msgstr "이메일"
-
-#~ msgid "Full Name"
-#~ msgstr "실명"
-
-#~ msgid "Nickname"
-#~ msgstr "닉네임"
-
-#~ msgid "Optional Information"
-#~ msgstr "추가 정보"
-
-#~ msgid "Phone"
-#~ msgstr "전화번호"
-
-#~ msgid "Position"
-#~ msgstr "직책"
-
-#~ msgid "Profile Setting"
-#~ msgstr "프로필 수정"
-
-#~ msgid ""
-#~ "You can set or change basic information such as nickname, phone number "
-#~ "and position."
-#~ msgstr ""
-#~ "닉네임, 전화번호, 직책 등 기본적인 프로필 정보를 수정할 수 있습니다."
-
-#~ msgid "Account Setting"
-#~ msgstr "계정 설정"
-
-#~ msgid "Change your email address"
-#~ msgstr "이메일 변경하기"
-
-#~ msgid "Change your full name"
-#~ msgstr "이름 변경하기"
-
-#~ msgid "Change your password"
-#~ msgstr "비밀번호 변경하기"
-
-#~ msgid "Current Password"
-#~ msgstr "현재 비밀번호"
-
-#~ msgid "New Password"
-#~ msgstr "새 비밀번호"
-
-#~ msgid "New Username"
-#~ msgstr "변경할 이름"
-
-#~ msgid "Update Username"
-#~ msgstr "이름 변경"
-
-#~ msgid "You can change account settings such as full name, password"
-#~ msgstr "이름, 비밀번호 등 계정 설정을 할 수 있습니다"
-
-#~ msgid "fail to update"
-#~ msgstr "업데이트 중 오류가 발생했습니다"
-
-#~ msgid "update complete"
-#~ msgstr "올바로 변경되었습니다"
-
-#~ msgid "Name"
-#~ msgstr "이름"
-
-#~ msgid "Rename"
-#~ msgstr "이름 변경"
-
-#~ msgid "Direct Message"
-#~ msgstr "1:1 메세지"
-
-#~ msgid "Search users by name"
-#~ msgstr "이름으로 검색"
-
-#~ msgid "Browse channels"
-#~ msgstr "채널 목록"
-
-#~ msgid "Channels you belong to"
-#~ msgstr "참여한 채널 목록"
-
-#~ msgid "Channels you can join"
-#~ msgstr "참여 가능한 채널 목록"
-
-#~ msgid "Create Channel"
-#~ msgstr "채널 생성"
-
-#~ msgid "Create New Channel"
-#~ msgstr "새 채널 생성"
-
-#~ msgid "Join"
-#~ msgstr "참여"
-
-#~ msgid "No Result"
-#~ msgstr "결과가 없습니다"
-
-#~ msgid "No channels to join"
-#~ msgstr "참여 가능한 채널이 없습니다"
-
-#~ msgid "Search channel by name"
-#~ msgstr "이름으로 검색"
-
-#~ msgid "You have not joined any channels yet"
-#~ msgstr "참여한 채널이 없습니다"
-
-#~ msgid "Add"
-#~ msgstr "추가"
-
-#~ msgid "Each fields(Email, Last Name, First Name) are all required."
-#~ msgstr ""
-#~ "이메일, 성 그리고 이름 세 정보를 모두 기입하셔야 초대 이메일이 전송됩니다."
-
-#~ msgid "Failed to send email"
-#~ msgstr "다음 주소로 이메일 보내기를 실패하였습니다."
-
-#~ msgid "First Name"
-#~ msgstr "이름"
-
-#~ msgid "Invite"
-#~ msgstr "초대"
-
-#~ msgid "Invite others to team"
-#~ msgstr "새로운 팀원 초대하기"
-
-#~ msgid "Last Name"
-#~ msgstr "성"
-
-#~ msgid "Missing Information"
-#~ msgstr "모든 정보를 입력해주세요"
-
-#~ msgid "Sent the invitation mail successfully"
-#~ msgstr "정상적으로 초대 이메일을 보냈습니다."
-
-#~ msgid "You can invite others to Jandi by email."
-#~ msgstr "이메일을 통해 다른 팀원을 잔디로 초대할 수 있습니다."
-
-#~ msgid "is already member of your team"
-#~ msgstr "은(는) 이미 가입된 이메일입니다"
-
-#~ msgid "is invalid email address"
-#~ msgstr "은(는) 올바르지 않은 이메일 주소입니다"
-
-#~ msgid "Choose"
-#~ msgstr "선택"
-
-#~ msgid "Invite to"
-#~ msgstr "채널/그룹 목록"
-
-#~ msgid ""
-#~ "Invite {{ currentEntity | getFirstLastNameOfUser }} to a channel/group"
-#~ msgstr "{{ currentEntity | getFirstLastNameOfUser }}님 초대하기"
-
-#~ msgid "Invite Others"
-#~ msgstr "팀원 초대"
-
-#~ msgid ""
-#~ "A private group is only visible to its members, and only members of a "
-#~ "private group can read or search its contents."
-#~ msgstr ""
-#~ "비공개 그룹은 그룹에 가입된 멤버만 볼 수 있으며, 해당 파일, 내용들도 가입"
-#~ "된 멤버에게만 공개됩니다."
-
-#~ msgid "Create Group"
-#~ msgstr "그룹 생성"
-
-#~ msgid "Create a private group"
-#~ msgstr "비공개 그룹 생성"
-
-#~ msgid "Private Group Name"
-#~ msgstr "비공개 그룹 이름"
-
-#~ msgid "Purpose"
-#~ msgstr "목적"
-
-#~ msgid "Anyone can join."
-#~ msgstr "채널은 팀의 멤버 누구나 참여할 수 있습니다."
-
-#~ msgid "Channel Name"
-#~ msgstr "채널 이름"
-
-#~ msgid "Create new channel"
-#~ msgstr "새 채널 생성"
-
-#~ msgid "Creating a new channel."
-#~ msgstr "새로운 채널을 생성합니다."
-
-#~ msgid "Please use Private Group for a closed channel."
-#~ msgstr ""
-#~ "특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 생"
-#~ "성하여 초대해 주시기 바랍니다."
-
-#~ msgid "'s"
-#~ msgstr "님의"
-
-#~ msgid "Delete this channel"
-#~ msgstr "채널 삭제하기"
-
-#~ msgid "Delete this group"
-#~ msgstr "비공개 그룹 삭제하기"
-
-#~ msgid "Invite others to this channel"
-#~ msgstr "채널 초대하기"
-
-#~ msgid "Invite others to this group"
-#~ msgstr "그룹 초대하기"
-
-#~ msgid "Invite to channel/group"
-#~ msgstr "채널/비공개 그룹으로 초대하기"
-
-#~ msgid "Leave channel"
-#~ msgstr "채널 나가기"
-
-#~ msgid "Leave group"
-#~ msgstr "비공개 그룹 나가기"
-
-#~ msgid "Rename this channel"
-#~ msgstr "채널 이름 변경하기"
-
-#~ msgid "Rename this group"
-#~ msgstr "비공개 그룹 이름 변경하기"
-
-#~ msgid "Shared"
-#~ msgstr "공유"
-
-#~ msgid "View files"
-#~ msgstr "파일 보기"
-
-#~ msgid "View profile"
-#~ msgstr "프로필 보기"
-
-#~ msgid "created current channel"
-#~ msgstr "님이 채널을 생성했습니다"
-
-#~ msgid "created current private group"
-#~ msgstr "님이 비공개 그룹을 생성했습니다"
-
-#~ msgid "has left"
-#~ msgstr "님이 떠났습니다"
-
-#~ msgid "invited"
-#~ msgstr "님이"
-
-#~ msgid "Account"
-#~ msgstr "계정 설정"
-
-#~ msgid "All Files"
-#~ msgstr "모든 파일"
-
-#~ msgid "Images"
-#~ msgstr "이미지"
-
-#~ msgid "Menu"
-#~ msgstr "메뉴"
-
-#~ msgid "PDF"
-#~ msgstr "PDF"
-
-#~ msgid "Privacy Policy"
-#~ msgstr "개인정보취급방침"
-
-#~ msgid "Profile"
-#~ msgstr "프로필 수정"
-
-#~ msgid "Settings"
-#~ msgstr "설정"
-
-#~ msgid "Sign Out"
-#~ msgstr "로그아웃"
-
-#~ msgid "Starred Items"
-#~ msgstr "즐겨찾기"
-
-#~ msgid "Team Directory"
-#~ msgstr "팀"
-
-#~ msgid "Terms of Service"
-#~ msgstr "이용약관"
-
-#~ msgid "Your Files"
-#~ msgstr "내 파일"
-
-#~ msgid "Direct Messages"
-#~ msgstr "1:1 메세지"
-
-#~ msgid "More"
-#~ msgstr "더보기"
-
-#~ msgid "Customer Service"
-#~ msgstr "고객 센터"
-
-#~ msgid "That’s an error"
-#~ msgstr "..길을 잃었습니다"
-
-#~ msgid "The page you were looking for could not be found."
-#~ msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
-
-#~ msgid "Visit Homepage"
-#~ msgstr "잔디 홈페이지"
-
-#~ msgid "Email address"
-#~ msgstr "이메일 주소"
-
-#~ msgid "Enter your email and password"
-#~ msgstr "이메일과 비밀번호를 입력하세요"
-
-#~ msgid "Forgot Password?"
-#~ msgstr "비밀번호 찾기"
-
-#~ msgid "Invalid email or password"
-#~ msgstr "이메일 또는 비밀번호를 확인해주세요"
-
-#~ msgid "Password"
-#~ msgstr "비밀번호"
-
-#~ msgid "Sign In"
-#~ msgstr "로그인"
-
-#~ msgid "Audio"
-#~ msgstr "음악 파일"
-
-#~ msgid "EVERYONE"
-#~ msgstr "모든 팀원"
-
-#~ msgid "Video"
-#~ msgstr "동영상 파일"
-
-#~ msgid "YOU"
-#~ msgstr "나"
-
-#~ msgid "Activity Feed"
-#~ msgstr "활동 기록"
-
-#~ msgid "Recent Mentions"
-#~ msgstr "최근 멘션"
-
-#~ msgid "Rename Channel"
-#~ msgstr "채널 이름 변경"
-
-#~ msgid "For activity of any kind"
-#~ msgstr "모든 메세지"
-
-#~ msgid "joined this channel"
-#~ msgstr "님이 참여했습니다"
-
-#~ msgid "left this channel"
-#~ msgstr "님이 떠났습니다"
-
-#~ msgid "Create channel"
-#~ msgstr "채널 생성"
-
-#~ msgid "Create private group"
-#~ msgstr "비공개 그룹 생성"
-
-#~ msgid "Search"
-#~ msgstr "검색"
-
-#~ msgid "more..."
-#~ msgstr "더 보기..."
-
-#~ msgid "----- choose -----"
-#~ msgstr "----- 선택 -----"
-
-#, fuzzy
-#~ msgid "Upload file"
-#~ msgstr "파일 업로드"
-
-#~ msgid "JUST YOU"
-#~ msgstr "나"
-
-#~ msgid "Add New File"
-#~ msgstr "파일 업로드"
-
-#~ msgid "Please sign in"
-#~ msgstr "잔디 회원이라면 로그인 하세요"
