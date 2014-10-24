@@ -94,6 +94,9 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             }).error(function(err) {
                 $scope.error.status = true;
                 $scope.error.message = err.message;
+
+                $scope.user.password = "";
+
                 delete $window.sessionStorage.token;
                 return false;
             });
