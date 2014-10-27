@@ -253,7 +253,14 @@
 }
 
 
-
+.left-star {
+    position: absolute;
+    left: 8px;
+    top: 7px;
+}
+.starred-on {
+    color: #31c08a;
+}
 
 
 .lpanel-team {

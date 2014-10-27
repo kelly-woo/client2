@@ -163,6 +163,14 @@ msgstr "토픽 나가기"
 msgid "@ch-menu-rename"
 msgstr "토픽 이름 변경하기"
 
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr "토픽 즐겨찾"
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr "즐겨찾기 해"
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "토픽"
@@ -652,6 +660,14 @@ msgstr "비공개 그룹 나가기"
 #: client/app/center/center.html
 msgid "@pg-menu-rename"
 msgstr "비공개 그룹 이름 변경하기\t\t"
+
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr "비공개 그룹 즐겨찾"
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr "즐겨찾기 해제"
 
 #: client/app/left/left.html
 msgid "@privateGroup"

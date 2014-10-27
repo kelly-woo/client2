@@ -142,7 +142,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
         $scope.messages = _.uniq($scope.messages);
 
-        console.log($scope.messages)
         for (var i in $scope.messages) {
             var msg = $scope.messages[i];
 
@@ -981,7 +980,34 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         fileAPIservice.broadcastFileShare(file);
     };
 
+    $scope.onStarClick = function() {
+        if ($scope.currentEntity.isStarred) {
+            // current entity is starred!
+            entityheaderAPIservice.removeStarEntity($scope.currentEntity.id)
+                .success(function(response) {
+//                    console.log('successfully starred current entity');
+                    $scope.updateStarredList();
+                })
+                .error(function(response) {
+//                    console.log('something went wrong starring current entity');
+                });
 
+        }
+        else {
+            // current entity is not starred entity.
+            entityheaderAPIservice.setStarEntity($scope.currentEntity.id)
+                .success(function(response) {
+//                    console.log('successfully starred current entity');
+                    $scope.updateStarredList();
+                })
+                .error(function(response) {
+//                    console.log('something went wrong starring current entity');
+                });
+        }
+    };
 
+    $scope.updateStarredList = function() {
+        $scope.updateLeftPanelCaller();
+    }
 
 });

@@ -68,7 +68,6 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
         this.getEntityFromListById(list, entity.id).alarmCnt = alarmCount;
     };
 
-
     entityAPI.setLastEntityState = function() {
         var last_state = {
             rpanel_visible  : $state.current.name.indexOf('file') > -1 ? true : false,
@@ -111,6 +110,11 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
             return entity.pg_creatorId;
         }
         return entity.ch_creatorId;
+    };
+
+    entityAPI.setStarredEntity = function(entityId) {
+        var entity = this.getEntityFromListById($rootScope.joinedChannelList.concat($rootScope.privateGroupList), entityId);
+        entity.isStarred = true;
     };
 
     return entityAPI;

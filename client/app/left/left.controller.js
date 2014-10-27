@@ -37,6 +37,15 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
     };
 
+
+    // based on uesr.u_starredEntites, populating starred look-up list.
+    $scope.setStarProperty = function() {
+        _.forEach($scope.user.u_starredEntities, function(starredEntityId) {
+            entityAPIservice.setStarredEntity(starredEntityId);
+        });
+    };
+
+
     initLeftList();
 
     function initLeftList () {
@@ -87,20 +96,22 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
         }
 
+        if ($scope.user.u_starredEntities.length > 0) {
+            // generating starred list.
+            $scope.setStarProperty();
+        }
+
         $scope.setCurrentEntity();
     }
-
 
 
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
         _.each($scope.totalEntities, function(entity) {
-            entity.prefix = "";
+            entity.isStarred = false;
             if (entity.type === 'channel') {
-                entity.prefix = "#";
                 entity.typeCategory = $filter('translate')('@channel');
             } else if (entity.type === 'user') {
-                entity.prefix = "@";
                 entity.typeCategory = $filter('translate')('@user');
             }
             else {
@@ -109,15 +120,12 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         });
 
         _.each($scope.joinEntities, function(entity) {
-            entity.prefix = "";
+            entity.isStarred = false;
             if (entity.type === 'channel') {
-                entity.prefix = "#";
                 entity.typeCategory = $filter('translate')('@channel');
             } else if (entity.type === 'user') {
-                entity.prefix = "@";
                 entity.typeCategory = $filter('translate')('@user');
             } else {
-                entity.prefix = "";
                 entity.typeCategory = $filter('translate')('@privateGroup');
             }
         });
@@ -242,5 +250,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             controller  :   'profileCtrl',
             size        :   'lg'
         });
-    }
+    };
 });
+
