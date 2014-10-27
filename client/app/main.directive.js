@@ -228,3 +228,46 @@ app.directive('infiniteScrollBottom', function() {
         });
     };
 });
+
+app.directive('rotate', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var xhr = new XMLHttpRequest();
+            console.info("elem", element);
+            console.info("attr", attrs);
+            xhr.open('GET', attrs.ngSrc, true);
+            xhr.responseType = 'blob';
+            xhr.onload = function(e) {
+                if (this.status == 200) {
+                    var temp_blob = this.response;
+                    var transform_map = [
+                        "rotate(0deg)",                 // 1: UP
+                        "rotate(0deg) scaleX(-1)",      // 2: UP + FLIP
+                        "rotate(180deg)",               // 3: DOWN
+                        "rotate(180deg) scaleX(-1)",    // 4: DOWN + FLIP
+                        "rotate(90deg) scaleY(-1)",     // 5: LEFT + FLIP
+                        "rotate(90deg) ",               // 6: LEFT
+                        "rotate(-90deg) scaleY(-1)",    // 7: RIGHT + FLIP
+                        "rotate(-90deg)"                // 8: RIGHT
+                    ];
+                    loadImage.parseMetaData(temp_blob, function (data) {
+                        if (!data.imageHead) {
+                            console.warn("imageHead", data);
+                            return;
+                        }
+                        var orientation = data.exif.get('Orientation');
+                        var r = transform_map[orientation-1];
+                        element.css({
+                            '-moz-transform': r,
+                            '-webkit-transform': r,
+                            '-o-transform': r,
+                            '-ms-transform': r
+                        }).attr('data-image-orientation', orientation);
+                    });
+                }
+            };
+            xhr.send();
+        }
+    }
+});

@@ -202,6 +202,7 @@
 
                             <!--    IMAGE THUMBNAIL -->
                             <img class="msg-file-body__img cursor_pointer"
+                                 rotate
                                  data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
                                  data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
                                     />
@@ -210,7 +211,6 @@
                                  data-ng-if="(msg.message.content.type).indexOf('image') == -1">
                                 <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
                             </div>
-
                         </div>
 
                         <div class="msg-file-meta">
@@ -424,5 +424,8 @@
         </form>
     </div>
 </div>
+<<<<<<< HEAD
 
         
+=======
+>>>>>>> b3b76d8c1bb929f46563bc1e51c4dbea81f92cf7

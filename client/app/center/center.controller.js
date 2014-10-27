@@ -984,4 +984,43 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
 
+    $scope.onImageClick = function(image) {
+        var imageUrl = $rootScope.server_uploaded + image.fileUrl;
+        var orientation = "";
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', imageUrl, true);
+        xhr.responseType = 'blob';
+        xhr.onload = function(e) {
+            if (this.status == 200) {
+                var myBlob = this.response;
+                console.debug("blob", myBlob);
+                // myBlob is now the blob that the object URL pointed to.
+                loadImage.parseMetaData(myBlob, function (data) {
+                    if (!data.imageHead) {
+                        return;
+                    }
+                    orientation = data.exif.get('Orientation');
+                    console.info("ori", orientation);
+                }, {});
+            }
+        };
+        xhr.send();
+
+        loadImage(
+            imageUrl,
+            function (img) {
+                if(img.type === "error") {
+                    console.log("Error loading image " + imageUrl);
+                } else {
+                    console.info("img", img);
+                    $('.msgs-holder').append(img);
+                }
+            }, {
+                maxWidth: 300,
+                orientation: 3,
+                canvas: true
+            }
+        );
+    }
+
 });
