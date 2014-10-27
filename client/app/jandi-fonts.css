@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'jandi-light';
-	src:url('../assets/fonts/jandi-light.eot?kubn9w');
-	src:url('../assets/fonts/jandi-light.eot?#iefixkubn9w') format('embedded-opentype'),
-		url('../assets/fonts/jandi-light.woff?kubn9w') format('woff'),
-		url('../assets/fonts/jandi-light.ttf?kubn9w') format('truetype'),
-		url('../assets/fonts/jandi-light.svg?kubn9w#jandi-light') format('svg');
+	src:url('../assets/fonts/jandi-light.eot?79kpmn');
+	src:url('../assets/fonts/jandi-light.eot?#iefix79kpmn') format('embedded-opentype'),
+		url('../assets/fonts/jandi-light.woff?79kpmn') format('woff'),
+		url('../assets/fonts/jandi-light.ttf?79kpmn') format('truetype'),
+		url('../assets/fonts/jandi-light.svg?79kpmn#jandi-light') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,6 +23,15 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-topic-fill:before {
+	content: "\e64e";
+}
+.icon-star:before {
+	content: "\e64f";
+}
+.icon-star-fill:before {
+	content: "\e650";
+}
 .icon-delete-circle2:before {
 	content: "\e646";
 }
@@ -236,7 +245,7 @@
 .icon-switch2:before {
 	content: "\e61d";
 }
-.icon-topic-fill:before {
+.icon-topic-fill2:before {
 	content: "\e61e";
 }
 .icon-topic2:before {
