@@ -50,10 +50,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-        console.debug("==============================[stateChange]==============================");
-        console.debug("   from    ", fromState.name, fromParams);
-        console.debug("    to     ", toState.name, toParams);
-        console.debug("=========================================================================");
+        console.info("==============================[stateChange]==============================");
+        console.info("   from    ", fromState.name, fromParams);
+        console.info("    to     ", toState.name, toParams);
+        console.info("=========================================================================");
 
         if (!fromState.name) {
             // if external access, continue to original state
