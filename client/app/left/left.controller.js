@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp');
 
 app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, leftpanelAPIservice, leftPanel,
-                                               user, entityAPIservice, localStorageService) {
+                                               user, entityAPIservice, entityheaderAPIservice) {
 
     console.info('[enter] leftpanelController');
 
@@ -36,6 +36,15 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     $scope.setCurrentEntity = function() {
         $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
     };
+
+
+    // based on uesr.u_starredEntites, populating starred look-up list.
+    $scope.setStarProperty = function() {
+        _.forEach($scope.user.u_starredEntities, function(starredEntityId) {
+            entityAPIservice.setStarredEntity(starredEntityId);
+        });
+    };
+
 
     initLeftList();
 
@@ -87,20 +96,22 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
         }
 
+        if ($scope.user.u_starredEntities.length > 0) {
+            // generating starred list.
+            $scope.setStarProperty();
+        }
+
         $scope.setCurrentEntity();
     }
-
 
 
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
         _.each($scope.totalEntities, function(entity) {
-            entity.prefix = "";
+            entity.isStarred = false;
             if (entity.type === 'channel') {
-                entity.prefix = "#";
                 entity.typeCategory = $filter('translate')('@channel');
             } else if (entity.type === 'user') {
-                entity.prefix = "@";
                 entity.typeCategory = $filter('translate')('@user');
             }
             else {
@@ -109,15 +120,12 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         });
 
         _.each($scope.joinEntities, function(entity) {
-            entity.prefix = "";
+            entity.isStarred = false;
             if (entity.type === 'channel') {
-                entity.prefix = "#";
                 entity.typeCategory = $filter('translate')('@channel');
             } else if (entity.type === 'user') {
-                entity.prefix = "@";
                 entity.typeCategory = $filter('translate')('@user');
             } else {
-                entity.prefix = "";
                 entity.typeCategory = $filter('translate')('@privateGroup');
             }
         });
@@ -145,12 +153,12 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         leftpanelAPIservice.getLists()
             .success(function(data) {
                 response = data;
-                console.log('-- getLeft good')
+//                console.log('-- getLeft good')
                 initLeftList();
             })
             .error(function(err) {
 //                $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
-                console.log(err)
+                console.log(err);
 //                getLeftLists();
             });
     }
@@ -233,7 +241,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     $scope.onDMInputBlur = function() {
         $('.absolute-search-icon').stop().css({'opacity' : 0.2});
-    }
+    };
 
     $scope.onUserContainerClick = function() {
         $modal.open({
@@ -242,5 +250,34 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             controller  :   'profileCtrl',
             size        :   'lg'
         });
+    };
+
+    $scope.onStarClick = function(entityType, entityId) {
+        var entity = entityAPIservice.getEntityById(entityType, entityId);
+
+        if (_.contains($scope.user.u_starredEntities, entityId)) {
+            // current entity is starred!
+            entityheaderAPIservice.removeStarEntity(entityId)
+                .success(function(response) {
+//                    console.log('successfully starred current entity');
+                    getLeftLists();
+                })
+                .error(function(response) {
+//                    console.log('something went wrong starring current entity');
+                });
+
+        }
+        else {
+            // current entity is not starred entity.
+            entityheaderAPIservice.setStarEntity(entityId)
+                .success(function(response) {
+//                    console.log('successfully starred current entity');
+                    getLeftLists();
+                })
+                .error(function(response) {
+//                    console.log('something went wrong starring current entity');
+                });
+        }
     }
 });
+
