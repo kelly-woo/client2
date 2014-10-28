@@ -1,13 +1,20 @@
 <div class="panel-title-container">
 
+    <!--    STAR ICON -->
+    <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
+        <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
+    </span>
+
+    <!--    PREFIX ICON -->
+    <span class="prefix">
+        <i data-ng-if="currentEntity.type === 'channel'" class="icon-topic-fill"></i>
+        <i data-ng-if="currentEntity.type === 'privateGroup'" class="icon-chat-fill"></i>
+        <i data-ng-if="currentEntity.type === 'user'" class="icon-user"></i>
+    </span>
+
     <!--Title Dropdown-->
     <span class="panel-title-info">
         <span class="panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix" data-toggle="dropdown">
-            <span class="prefix">
-                <i data-ng-if="currentEntity.type === 'channel'" class="icon-topic-fill"></i>
-                <i data-ng-if="currentEntity.type === 'privateGroup'" class="icon-chat-fill"></i>
-                <i data-ng-if="currentEntity.type === 'user'" class="icon-user"></i>
-            </span>
             <span class="inline-overflow-ellipsis panel-title-info__name">{{ currentEntity | getName }}
                 <i class="fa fa-caret-down header-title-info__more"></i>
             </span>
