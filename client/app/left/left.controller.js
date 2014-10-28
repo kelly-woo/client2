@@ -158,7 +158,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             })
             .error(function(err) {
 //                $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
-                console.log(err)
+                console.log(err);
 //                getLeftLists();
             });
     }

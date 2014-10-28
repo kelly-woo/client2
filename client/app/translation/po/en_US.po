@@ -167,7 +167,7 @@ msgstr "Star this topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-un-star"
-msgstr "Unstrap this topic"
+msgstr "Unstar this topic"
 
 #: client/app/left/left.html
 msgid "@channel"
@@ -686,3 +686,11 @@ msgstr "Change Teams"
 #: client/app/left/left.html
 msgid "@user"
 msgstr "Users"
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr "Star this user"
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr "Unstar this user"

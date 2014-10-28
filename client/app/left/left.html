@@ -149,7 +149,17 @@
                            data-ng-blur="onDMInputBlur();"/>
                 </div>
 
-                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | userByName:userNameQuery)"
+                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {isStarred : true} | userByName:userNameQuery)"
+                    ng-class="{active: $state.params.entityId == userEntity.id}">
+                    <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
+                        <i class="icon-star-fill left-star starred-on" ng-if="userEntity.isStarred;"></i>
+
+                        <span class="inline-overflow-ellipsis left-panel__name">{{userEntity | getName}}</span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
+                    </a>
+                </li>
+
+                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {isStarred : false} | userByName:userNameQuery)"
                     ng-class="{active: $state.params.entityId == userEntity.id}">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
                         <span class="inline-overflow-ellipsis left-panel__name">{{userEntity | getName}}</span>

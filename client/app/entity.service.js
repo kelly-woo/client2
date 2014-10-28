@@ -113,7 +113,7 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
     };
 
     entityAPI.setStarredEntity = function(entityId) {
-        var entity = this.getEntityFromListById($rootScope.joinedChannelList.concat($rootScope.privateGroupList), entityId);
+        var entity = this.getEntityFromListById($rootScope.joinedChannelList.concat($rootScope.privateGroupList, $rootScope.userList), entityId);
         entity.isStarred = true;
     };
 

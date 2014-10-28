@@ -710,3 +710,11 @@ msgstr ""
 #: client/app/left/left.html
 msgid "@user"
 msgstr ""
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr ""

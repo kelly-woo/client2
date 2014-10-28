@@ -1,7 +1,7 @@
 <div class="panel-title-container">
 
     <!--    STAR ICON -->
-    <span class="prefix star" data-ng-if="currentEntity.type != 'user'" data-ng-click="onStarClick();">
+    <span class="prefix star" data-ng-click="onStarClick();">
         <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
     </span>
 
@@ -69,6 +69,14 @@
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
                     <i class="icon-invite-fill"></i><span translate>@dm-menu-invite</span>
+                </a>
+            </li>
+
+            <!--    STAR    -->
+            <li role="presentation" data-ng-click="onStarClick()">
+                <a role="menuitem" tabindex="-1">
+                    <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@user-menu-un-star</span>
+                    <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@user-menu-star</span>
                 </a>
             </li>
 

@@ -6,7 +6,6 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, $filter) {
     var entityheaderAPI = {};
 
     entityheaderAPI.setStarEntity = function(entityId) {
-        console.log('setting star entity for ' + entityId)
         return $http({
             method  : 'POST',
             url     : $rootScope.server_address + 'settings/starred/entities/' + entityId
