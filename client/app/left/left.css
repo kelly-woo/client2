@@ -197,6 +197,7 @@
 .left-panel_badge {
     margin-top: 5px;
     color: white !important;
+    max-width: 27px;
 }
 
 .left-panel__name {
