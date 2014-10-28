@@ -292,16 +292,11 @@
     favorite star
 **/
 .lpanel-list ul li a .icon-star {
+    color:#9e9ea6;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
 
 .lpanel-list ul li:hover .icon-star {
     opacity: 1;
-}
-
-
-.lpanel-list ul li a .icon-star-fill:hover
-{
-    line-height: 10px;
 }
