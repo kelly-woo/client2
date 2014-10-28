@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp');
 
 app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, leftpanelAPIservice, leftPanel,
-                                               user, entityAPIservice, localStorageService) {
+                                               user, entityAPIservice, entityheaderAPIservice) {
 
     console.info('[enter] leftpanelController');
 
@@ -153,7 +153,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         leftpanelAPIservice.getLists()
             .success(function(data) {
                 response = data;
-                console.log('-- getLeft good')
+//                console.log('-- getLeft good')
                 initLeftList();
             })
             .error(function(err) {
@@ -241,7 +241,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
     $scope.onDMInputBlur = function() {
         $('.absolute-search-icon').stop().css({'opacity' : 0.2});
-    }
+    };
 
     $scope.onUserContainerClick = function() {
         $modal.open({
@@ -251,5 +251,33 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             size        :   'lg'
         });
     };
+
+    $scope.onStarClick = function(entityType, entityId) {
+        var entity = entityAPIservice.getEntityById(entityType, entityId);
+
+        if (_.contains($scope.user.u_starredEntities, entityId)) {
+            // current entity is starred!
+            entityheaderAPIservice.removeStarEntity(entityId)
+                .success(function(response) {
+//                    console.log('successfully starred current entity');
+                    getLeftLists();
+                })
+                .error(function(response) {
+//                    console.log('something went wrong starring current entity');
+                });
+
+        }
+        else {
+            // current entity is not starred entity.
+            entityheaderAPIservice.setStarEntity(entityId)
+                .success(function(response) {
+//                    console.log('successfully starred current entity');
+                    getLeftLists();
+                })
+                .error(function(response) {
+//                    console.log('something went wrong starring current entity');
+                });
+        }
+    }
 });
 

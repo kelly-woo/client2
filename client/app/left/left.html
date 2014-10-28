@@ -19,20 +19,8 @@
         </span>
     </div>
 
-    <!-- TEAM CONTAINER  -->
-    <div class="lpanel-team hidden">
-        <span class="lpanel-team__name overflow-ellipsis right_padding dropdown-toggle">
-            {{ team.name }}
-        </span>
-    </div>
-
     <!-- LIST CONTAINER -->
     <div class="lpanel-list">
-
-        <!-- STARRED CONTAINER  -->
-        <div class="lpanel-list__stars" ng-show="entities.stars.length">
-            <h2 id="starred_section_header" class="overflow-ellipsis"><span class="glyphicon glyphicon-star"></span> Starred</h2>
-        </div>
 
         <!-- CHANNEL -->
         <div class="lpanel-list__channels">
@@ -58,7 +46,8 @@
                 <li ng-repeat="joinedChannel in joinedChannelList | filter: { isStarred : true }" ng-class="{active: $state.params.entityId == joinedChannel.id}">
                     <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
 
-                        <i class="icon-star-fill left-star starred-on" ng-if="joinedChannel.isStarred;"></i>
+                        <i class="icon-star-fill left-star starred-on"
+                           data-ng-click="onStarClick(joinedChannel.type, joinedChannel.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
                         <span class="inline-overflow-ellipsis left-panel__name">
                             {{joinedChannel.name}}
@@ -70,7 +59,8 @@
                 <li ng-repeat="joinedChannel in joinedChannelList | filter: { isStarred : false }" ng-class="{active: $state.params.entityId == joinedChannel.id}">
                     <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
 
-                        <i class="icon-star-fill left-star starred-on" ng-if="joinedChannel.isStarred;"></i>
+                        <i class="icon-star left-star"
+                           data-ng-click="onStarClick(joinedChannel.type, joinedChannel.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
                         <span class="inline-overflow-ellipsis left-panel__name">
                             {{joinedChannel.name}}
@@ -103,7 +93,8 @@
                 <li class="group cursor_pointer" ng-repeat="group in privateGroupList | filter : { isStarred : true }" ng-class="{active: $state.params.entityId == group.id}">
                     <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
 
-                        <i class="icon-star-fill left-star starred-on" ng-if="group.isStarred;"></i>
+                        <i class="icon-star-fill left-star starred-on"
+                           data-ng-click="onStarClick(group.type, group.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
                         <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name"></span>
 
@@ -115,7 +106,8 @@
                 <li class="group cursor_pointer" ng-repeat="group in privateGroupList | filter : { isStarred : false }" ng-class="{active: $state.params.entityId == group.id}">
                     <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
 
-                        <i class="icon-star-fill left-star starred-on" ng-if="group.isStarred;"></i>
+                        <i class="icon-star left-star"
+                           data-ng-click="onStarClick(group.type, group.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
                         <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name"></span>
 
@@ -152,7 +144,8 @@
                 <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {isStarred : true} | userByName:userNameQuery)"
                     ng-class="{active: $state.params.entityId == userEntity.id}">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
-                        <i class="icon-star-fill left-star starred-on" ng-if="userEntity.isStarred;"></i>
+                        <i class="icon-star-fill left-star starred-on"
+                           data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
                         <span class="inline-overflow-ellipsis left-panel__name">{{userEntity | getName}}</span>
                         <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
@@ -162,6 +155,9 @@
                 <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {isStarred : false} | userByName:userNameQuery)"
                     ng-class="{active: $state.params.entityId == userEntity.id}">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
+                        <i class="icon-star left-star"
+                           data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
                         <span class="inline-overflow-ellipsis left-panel__name">{{userEntity | getName}}</span>
                         <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
                     </a>

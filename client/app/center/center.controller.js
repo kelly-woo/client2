@@ -979,35 +979,4 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.onShareClick = function(file) {
         fileAPIservice.broadcastFileShare(file);
     };
-
-    $scope.onStarClick = function() {
-        if ($scope.currentEntity.isStarred) {
-            // current entity is starred!
-            entityheaderAPIservice.removeStarEntity($scope.currentEntity.id)
-                .success(function(response) {
-//                    console.log('successfully starred current entity');
-                    $scope.updateStarredList();
-                })
-                .error(function(response) {
-//                    console.log('something went wrong starring current entity');
-                });
-
-        }
-        else {
-            // current entity is not starred entity.
-            entityheaderAPIservice.setStarEntity($scope.currentEntity.id)
-                .success(function(response) {
-//                    console.log('successfully starred current entity');
-                    $scope.updateStarredList();
-                })
-                .error(function(response) {
-//                    console.log('something went wrong starring current entity');
-                });
-        }
-    };
-
-    $scope.updateStarredList = function() {
-        $scope.updateLeftPanelCaller();
-    }
-
 });

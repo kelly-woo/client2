@@ -33,7 +33,7 @@
             </li>
 
             <!--    STAR    -->
-            <li role="presentation" data-ng-click="onStarClick()">
+            <li role="presentation" data-ng-click="onStarClick(currentEntity.type, currentEntity.id)">
                 <a role="menuitem" tabindex="-1">
                     <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@ch-menu-un-star</span>
                     <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@ch-menu-star</span>
@@ -73,7 +73,7 @@
             </li>
 
             <!--    STAR    -->
-            <li role="presentation" data-ng-click="onStarClick()">
+            <li role="presentation" data-ng-click="onStarClick(currentEntity.type, currentEntity.id)">
                 <a role="menuitem" tabindex="-1">
                     <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@user-menu-un-star</span>
                     <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@user-menu-star</span>
@@ -106,7 +106,7 @@
             </li>
 
             <!--    STAR    -->
-            <li role="presentation" data-ng-click="onStarClick()">
+            <li role="presentation" data-ng-click="onStarClick(currentEntity.type, currentEntity.id)">
                 <a role="menuitem" tabindex="-1">
                     <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@pg-menu-un-star</span>
                     <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@pg-menu-star</span>
