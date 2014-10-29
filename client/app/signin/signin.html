@@ -43,6 +43,10 @@
                     </div>
                     <input type="email" ng-model="user.email" class="jandi-body__form-input form-control" placeholder="{{ '@common-email' | translate }}" required autofocus>
                     <input type="password" ng-model="user.password" class="jandi-body__form-input form-control" placeholder="{{ '@common-password' | translate }}" required>
+                    <div class="left-checkbox">
+                        <input type="checkbox" ng-model="user.rememberMe" class="jandi-body__form-input-checkbox">
+                        <span class="cursor_pointer" translate data-ng-click="user.rememberMe = !user.rememberMe">@keep-me-logged-in</span>
+                    </div>
                     <button class="btn btn-jandi btn-block jandi-body__form-submit" type="submit" ng-disabled="signinForm.$invalid"><span translate>@common-sign-in</span></button>
                 </form>
                 <div class="jandi-body__help">

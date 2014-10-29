@@ -472,6 +472,10 @@ msgid "@input-search-user-name"
 msgstr "멤버 이름을 검색하세요"
 
 #: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "로그인 상태 유지"
+
+#: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr "이메일 또는 비밀번호를 확인해주세요"
 

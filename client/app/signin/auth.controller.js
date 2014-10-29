@@ -8,6 +8,11 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     $scope.hasToken = true;
 
+    $scope.error = {
+        status      : false,
+        messsage    : ''
+    };
+
     // Initialize teamInfo only where it is not iniailized.
     if (angular.isUndefined($scope.teamInfo)) {
         $scope.teamInfo = {
@@ -15,12 +20,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             name        : '',
             prefix      : ''
         };
-    }
 
-    $scope.error = {
-        status      : false,
-        messsage    : ''
-    };
+    }
 
     var prefix = $location.host().split('.')[0];
     $scope.teamInfo.prefix = $location.host().split('.')[0];
@@ -41,17 +42,20 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             });
     };
 
+
+    getTeamInfo();
+
     // $scope.user is not defined -> first time -> not logged in yet.
     // check if there is access_token.
     // if not, follow normal routine.
     if (angular.isUndefined($scope.user)) {
         checkToken();
 
-        getTeamInfo();
 
         $scope.user = {
             email       : '',
-            password    : ''
+            password    : '',
+            rememberMe  : true
         };
     }
 
@@ -75,8 +79,11 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
         loginAPI.login(user)
             .success(function(data) {
-                $window.sessionStoragetoken = data.token;
-                loginAPI.setToken(data.token);
+                $window.sessionStorage.token = data.token;
+
+                if (user.rememberMe) {
+                    setLocalStorageToken(data.token);
+                }
 
                 $state.go('messages.home');
 
@@ -96,12 +103,17 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             });
     };
 
+    function setLocalStorageToken(token) {
+        loginAPI.setToken(token);
+    }
+
     // Just checking token.
     // If token exists, redirect user to 'message.home'.
     function checkToken() {
 
         if (loginAPI.getToken()) {
-            $window.sessionStoragetoken = loginAPI.getToken();
+            $window.sessionStorage.token = loginAPI.getToken();
+
             $state.go('messages.home');
             return;
         }

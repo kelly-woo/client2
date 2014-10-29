@@ -470,6 +470,10 @@ msgid "@input-search-user-name"
 msgstr "Search users by name"
 
 #: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "keep me logged in"
+
+#: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr "Invalid email or password"
 

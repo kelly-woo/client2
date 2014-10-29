@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('loginAPI', function($http, $rootScope, localStorageService) {
+app.factory('loginAPI', function($http, $rootScope, $window, localStorageService) {
     var authAPI = {};
 
     authAPI.login = function(userdata) {
@@ -42,6 +42,10 @@ app.factory('loginAPI', function($http, $rootScope, localStorageService) {
         localStorageService.remove(token_key);
     };
 
+    authAPI.isLoggedIn = function() {
+        return $window.sessionStorage.token;
+    };
+
     return authAPI;
 });
 
@@ -50,7 +54,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, localStorageSe
         request: function (config) {
             config.headers = config.headers || {};
 
-            var token = localStorageService.get('access_token');
+            var token = localStorageService.get('access_token') || $window.sessionStorage.token;
 
             // Auth token
             if (token) {

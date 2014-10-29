@@ -498,6 +498,10 @@ msgid "@input-search-user-name"
 msgstr ""
 
 #: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr ""
+
+#: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr ""
 
