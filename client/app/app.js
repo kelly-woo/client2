@@ -177,6 +177,9 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         // japanese.
         userLang = 'ja';
     }
+    else {
+        userLang = 'en_US';
+    }
 
     $rootScope.setLang(userLang, debugMode);
 
