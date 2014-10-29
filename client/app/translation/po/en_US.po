@@ -161,6 +161,14 @@ msgstr "Leave topic"
 msgid "@ch-menu-rename"
 msgstr "Rename this topic"
 
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr "Star this topic"
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr "Unstar this topic"
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "Topics"
@@ -462,6 +470,10 @@ msgid "@input-search-user-name"
 msgstr "Search users by name"
 
 #: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "keep me logged in"
+
+#: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr "Invalid email or password"
 
@@ -651,6 +663,14 @@ msgstr "Leave private group"
 msgid "@pg-menu-rename"
 msgstr "Rename this private group"
 
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr "Star this private group"
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr "Unstar private group"
+
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "Private Groups"
@@ -670,3 +690,11 @@ msgstr "Change Teams"
 #: client/app/left/left.html
 msgid "@user"
 msgstr "Users"
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr "Star this user"
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr "Unstar this user"

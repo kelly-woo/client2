@@ -142,7 +142,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
         $scope.messages = _.uniq($scope.messages);
 
-        console.log($scope.messages)
         for (var i in $scope.messages) {
             var msg = $scope.messages[i];
 
@@ -981,9 +980,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         fileAPIservice.broadcastFileShare(file);
     };
 
-
-
-
     $scope.onImageClick = function(image) {
         var imageUrl = $rootScope.server_uploaded + image.fileUrl;
         var orientation = "";
@@ -1022,5 +1018,4 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             }
         );
     }
-
 });

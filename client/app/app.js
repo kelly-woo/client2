@@ -118,8 +118,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     });
 
     $rootScope.$on('$locationChangeSuccess', function(event) {
-        $rootScope.uiState = localStorageService.get('ui-state');
-
         entityAPIservice.setLastEntityState();
 
         if ($rootScope.setFileDetailCommentFocus) {
@@ -178,6 +176,9 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     else if (userLang.indexOf('ja') >= 0) {
         // japanese.
         userLang = 'ja';
+    }
+    else {
+        userLang = 'en_US';
     }
 
     $rootScope.setLang(userLang, debugMode);

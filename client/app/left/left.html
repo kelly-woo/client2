@@ -19,20 +19,8 @@
         </span>
     </div>
 
-    <!-- TEAM CONTAINER  -->
-    <div class="lpanel-team hidden">
-        <span class="lpanel-team__name overflow-ellipsis right_padding dropdown-toggle">
-            {{ team.name }}
-        </span>
-    </div>
-
     <!-- LIST CONTAINER -->
     <div class="lpanel-list">
-
-        <!-- STARRED CONTAINER  -->
-        <div class="lpanel-list__stars" ng-show="entities.stars.length">
-            <h2 id="starred_section_header" class="overflow-ellipsis"><span class="glyphicon glyphicon-star"></span> Starred</h2>
-        </div>
 
         <!-- CHANNEL -->
         <div class="lpanel-list__channels">
@@ -54,8 +42,26 @@
 
             <!--    LIST    -->
             <ul id="channel-list" collapse="isChListCollapsed">
-                <li ng-repeat="joinedChannel in joinedChannelList" ng-class="{active: $state.params.entityId == joinedChannel.id}">
+
+                <li ng-repeat="joinedChannel in joinedChannelList | filter: { isStarred : true }" ng-class="{active: $state.params.entityId == joinedChannel.id}">
                     <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
+
+                        <i class="icon-star-fill left-star starred-on"
+                           data-ng-click="onStarClick(joinedChannel.type, joinedChannel.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
+                        <span class="inline-overflow-ellipsis left-panel__name">
+                            {{joinedChannel.name}}
+                        </span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{joinedChannel.alarmCnt}}</span>
+                    </a>
+                </li>
+
+                <li ng-repeat="joinedChannel in joinedChannelList | filter: { isStarred : false }" ng-class="{active: $state.params.entityId == joinedChannel.id}">
+                    <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
+
+                        <i class="icon-star left-star"
+                           data-ng-click="onStarClick(joinedChannel.type, joinedChannel.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
                         <span class="inline-overflow-ellipsis left-panel__name">
                             {{joinedChannel.name}}
                         </span>
@@ -84,10 +90,27 @@
 
             <!--    LIST    -->
             <ul id="group-list" collapse="isPGCollapsed">
-                <li class="group cursor_pointer" ng-repeat="group in privateGroupList" ng-class="{active: $state.params.entityId == group.id}">
+                <li class="group cursor_pointer" ng-repeat="group in privateGroupList | filter : { isStarred : true }" ng-class="{active: $state.params.entityId == group.id}">
                     <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
-                        <!--<i class="fa fa-times-circle group_close"></i>-->
+
+                        <i class="icon-star-fill left-star starred-on"
+                           data-ng-click="onStarClick(group.type, group.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
                         <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name"></span>
+
+                        <span class="badge left-panel_badge green_badge pull-right">{{group.alarmCnt}}</span>
+
+                    </a>
+                </li>
+
+                <li class="group cursor_pointer" ng-repeat="group in privateGroupList | filter : { isStarred : false }" ng-class="{active: $state.params.entityId == group.id}">
+                    <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
+
+                        <i class="icon-star left-star"
+                           data-ng-click="onStarClick(group.type, group.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
+                        <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name"></span>
+
                         <span class="badge left-panel_badge green_badge pull-right">{{group.alarmCnt}}</span>
 
                     </a>
@@ -118,9 +141,23 @@
                            data-ng-blur="onDMInputBlur();"/>
                 </div>
 
-                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | userByName:userNameQuery)"
+                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {isStarred : true} | userByName:userNameQuery)"
                     ng-class="{active: $state.params.entityId == userEntity.id}">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
+                        <i class="icon-star-fill left-star starred-on"
+                           data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
+                        <span class="inline-overflow-ellipsis left-panel__name">{{userEntity | getName}}</span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
+                    </a>
+                </li>
+
+                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {isStarred : false} | userByName:userNameQuery)"
+                    ng-class="{active: $state.params.entityId == userEntity.id}">
+                    <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
+                        <i class="icon-star left-star"
+                           data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
                         <span class="inline-overflow-ellipsis left-panel__name">{{userEntity | getName}}</span>
                         <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
                     </a>
