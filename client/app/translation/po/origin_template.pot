@@ -166,6 +166,14 @@ msgstr ""
 msgid "@ch-menu-rename"
 msgstr ""
 
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr ""
@@ -490,6 +498,10 @@ msgid "@input-search-user-name"
 msgstr ""
 
 #: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr ""
+
+#: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr ""
 
@@ -674,6 +686,14 @@ msgstr ""
 msgid "@pg-menu-rename"
 msgstr ""
 
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr ""
@@ -693,4 +713,12 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "@user"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
 msgstr ""

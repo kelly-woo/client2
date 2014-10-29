@@ -156,8 +156,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
                     file.shared = fileAPIservice.getSharedEntities(file);
                     this.push(file);
 
-                    console.log(file);
-
                 }, fileList);
 
                 generateFileList(fileList, response.fileCount, response.firstIdOfReceivedList);

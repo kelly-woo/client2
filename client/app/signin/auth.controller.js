@@ -4,47 +4,22 @@ var app = angular.module('jandiApp');
 
 app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, $rootScope) {
 
-     var default_state = {
-        cpanel_name: 'general',
-        cpanel_type: 'channel',
-        rpanel_visible: true,
-        rpanel_name: 'files',
-        rpanel_detail: ''
-    };
-
-    $scope.user = {
-        email       : '',
-        password    : ''
-    };
-
-    $scope.teamInfo = {
-        id          : -1,
-        name        : '',
-        prefix      : ''
-    };
+    $scope.hasToken = true;
 
     $scope.error = {
         status      : false,
         messsage    : ''
     };
 
-    $scope.openModal = function(selector) {
-        // OPENING JOIN MODAL VIEW
-        if (selector == 'agreement') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/terms/agreement.html',
-                size        :   'lg'
-            });
-        }
-        else if (selector == 'privacy') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/terms/privacy.html',
-                size        :   'lg'
-            });
-        }
-    };
+    // Initialize teamInfo only where it is not iniailized.
+    if (angular.isUndefined($scope.teamInfo)) {
+        $scope.teamInfo = {
+            id          : -1,
+            name        : '',
+            prefix      : ''
+        };
+
+    }
 
     var prefix = $location.host().split('.')[0];
     $scope.teamInfo.prefix = $location.host().split('.')[0];
@@ -64,11 +39,29 @@ app.controller('authController', function($scope, $state, $window, $location, $m
                 $state.go('404');
             });
     };
+
+
     getTeamInfo();
 
-    if ($location.search().email) {
-        // if email is in query string, set the value initially
-        $scope.user.email = $location.search().email;
+    // $scope.user is not defined -> first time -> not logged in yet.
+    // check if there is access_token.
+    // if not, follow normal routine.
+    if (angular.isUndefined($scope.user)) {
+        checkToken();
+
+
+        $scope.user = {
+            email       : '',
+            password    : '',
+            rememberMe  : true
+        };
+    }
+
+    // $scope.user may be there and current state could be 'signin' at the same time.
+    // I logged in, I navigate to 'google.com' and come back to ***.jandi.com
+    // check token first.
+    if (angular.isDefined($scope.user) && $state.current.name === 'signin') {
+        checkToken();
     }
 
     $scope.signin = function(user) {
@@ -85,8 +78,12 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         loginAPI.login(user)
             .success(function(data) {
                 $window.sessionStorage.token = data.token;
+
+                if (user.rememberMe) {
+                    setLocalStorageToken(data.token);
+                }
+
                 $state.go('messages.home');
-                localStorageService.set('ui-state', default_state);
 
                 var user_identify = data.userId + '@' + data.teamId;
                 mixpanel.identify(user_identify);
@@ -98,12 +95,55 @@ app.controller('authController', function($scope, $state, $window, $location, $m
                 $scope.user.password = "";
 
                 delete $window.sessionStorage.token;
+                loginAPI.removeAccessToken();
+
                 return false;
             });
     };
 
+    function setLocalStorageToken(token) {
+        loginAPI.setToken(token);
+    }
+
+    // Just checking token.
+    // If token exists, redirect user to 'message.home'.
+    function checkToken() {
+
+        if (loginAPI.getToken() || loginAPI.isLoggedIn()) {
+            $window.sessionStorage.token = loginAPI.getToken() || loginAPI.isLoggedIn();
+
+            $state.go('messages.home');
+            return;
+        }
+
+        $scope.hasToken = false;
+    }
+
     $scope.logout = function() {
         delete $window.sessionStorage.token;
+        loginAPI.removeAccessToken();
         $state.go('signin');
     };
+    if ($location.search().email) {
+        // if email is in query string, set the value initially
+        $scope.user.email = $location.search().email;
+    }
+    $scope.openModal = function(selector) {
+        // OPENING JOIN MODAL VIEW
+        if (selector == 'agreement') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/terms/agreement.html',
+                size        :   'lg'
+            });
+        }
+        else if (selector == 'privacy') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/terms/privacy.html',
+                size        :   'lg'
+            });
+        }
+    };
+
 });
