@@ -1,7 +1,7 @@
 <div class="panel-title-container">
 
     <!--    STAR ICON -->
-    <span class="prefix star" data-ng-click="onStarClick();">
+    <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
         <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
     </span>
 
