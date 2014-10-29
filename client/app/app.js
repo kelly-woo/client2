@@ -118,8 +118,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     });
 
     $rootScope.$on('$locationChangeSuccess', function(event) {
-        $rootScope.uiState = localStorageService.get('ui-state');
-
         entityAPIservice.setLastEntityState();
 
         if ($rootScope.setFileDetailCommentFocus) {

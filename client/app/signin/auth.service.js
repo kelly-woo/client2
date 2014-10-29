@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('loginAPI', function($http, $rootScope) {
+app.factory('loginAPI', function($http, $rootScope, localStorageService) {
     var authAPI = {};
 
     authAPI.login = function(userdata) {
@@ -21,16 +21,40 @@ app.factory('loginAPI', function($http, $rootScope) {
         });
     };
 
+    var token_key = 'access_token';
+    // TODO ; MAKE IT RESOLVE.
+    // to be used later.
+    // signin state로 갈때 resolve 로 이 펑선을 불러서 트루면 바로 message.home 으로 리다이렉트 시킬 예정임.
+    // 허나 지금 authController 가 화면 바뀔 때마다 매번 불러져서 hasToken 얻어오는 resolve 가 안 불려서 error 남.
+
+
+    // access token getter
+    authAPI.getToken = function() {
+        return localStorageService.get(token_key);
+    };
+
+    // access token setter
+    authAPI.setToken = function(token) {
+        localStorageService.set(token_key, token);
+    };
+
+    authAPI.removeAccessToken = function() {
+        localStorageService.remove(token_key);
+    };
+
     return authAPI;
 });
 
-app.factory('authInterceptor', function ($rootScope, $q, $window) {
+app.factory('authInterceptor', function ($rootScope, $q, $window, localStorageService) {
     return {
         request: function (config) {
             config.headers = config.headers || {};
+
+            var token = localStorageService.get('access_token');
+
             // Auth token
-            if ($window.sessionStorage.token) {
-                config.headers.Authorization = $window.sessionStorage.token;
+            if (token) {
+                config.headers.Authorization = token;
             }
             // API version
             config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
@@ -40,13 +64,11 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
             if (rejection.status === 0) {
                 // net::ERR_CONNECTION_REFUSED
                 // what should i do?
-                console.log('looks like api is down.');
             }
             if (rejection.status === 401) {
                 // handle the case where the user is not authenticated
                 console.log('[' + rejection.status + ' ' + rejection.statusText + '] ' + rejection.data.msg);
-//                delete $window.sessionStorage.token;
-//                $location.path('/login');
+                delete $window.sessionStorage.token;
             }
 
             return $q.reject(rejection);

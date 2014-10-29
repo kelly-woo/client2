@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('leftpanelAPIservice', function($http, $rootScope) {
+app.factory('leftpanelAPIservice', function($http, $rootScope, $state) {
     var leftpanelAPI = {};
 
     leftpanelAPI.getLists = function() {
@@ -73,6 +73,10 @@ app.factory('leftpanelAPIservice', function($http, $rootScope) {
         returnValue.push(unJoinedChannelList);
 
         return returnValue;
+    };
+
+    leftpanelAPI.toSignin = function() {
+        $state.go('signin');
     };
 
     leftpanelAPI.createChannel = function(channelName) {
