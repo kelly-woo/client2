@@ -197,6 +197,7 @@
 .left-panel_badge {
     margin-top: 5px;
     color: white !important;
+    max-width: 27px;
 }
 
 .left-panel__name {
@@ -253,7 +254,14 @@
 }
 
 
-
+.left-star {
+    position: absolute;
+    left: 8px;
+    top: 7px;
+}
+.starred-on {
+    color: #31c08a;
+}
 
 
 .lpanel-team {
@@ -278,4 +286,18 @@
 }
 .lpanel-team__more:hover {
     color:white;
+}
+
+
+/**
+    favorite star
+**/
+.lpanel-list ul li a .icon-star {
+    color:#9e9ea6;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.lpanel-list ul li:hover .icon-star {
+    opacity: 1;
 }

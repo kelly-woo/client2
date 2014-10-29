@@ -163,6 +163,14 @@ msgstr "토픽 나가기"
 msgid "@ch-menu-rename"
 msgstr "토픽 이름 변경하기"
 
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr "토픽 즐겨찾기 "
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr "즐겨찾기 해제 "
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "토픽"
@@ -464,6 +472,10 @@ msgid "@input-search-user-name"
 msgstr "멤버 이름을 검색하세요"
 
 #: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "로그인 상태 유지"
+
+#: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr "이메일 또는 비밀번호를 확인해주세요"
 
@@ -653,6 +665,14 @@ msgstr "비공개 그룹 나가기"
 msgid "@pg-menu-rename"
 msgstr "비공개 그룹 이름 변경하기\t\t"
 
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr "비공개 그룹 즐겨찾기 "
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr "즐겨찾기 해제"
+
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "비공개 그룹"
@@ -672,6 +692,14 @@ msgstr "팀 변경"
 #: client/app/left/left.html
 msgid "@user"
 msgstr "사용자"
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr "유저 즐겨찾기"
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr "즐겨찾기 해제"
 
 #~ msgid "Add Comment"
 #~ msgstr "댓글 남기기"
