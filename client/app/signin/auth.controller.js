@@ -4,8 +4,6 @@ var app = angular.module('jandiApp');
 
 app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, $rootScope) {
 
-    console.info('[enter] authController')
-
     $scope.hasToken = true;
 
     $scope.error = {
