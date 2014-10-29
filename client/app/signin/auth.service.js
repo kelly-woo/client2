@@ -42,6 +42,7 @@ app.factory('loginAPI', function($http, $rootScope, $window, localStorageService
         localStorageService.remove(token_key);
     };
 
+    // checking window session storage.
     authAPI.isLoggedIn = function() {
         return $window.sessionStorage.token;
     };

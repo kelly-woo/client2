@@ -111,8 +111,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
     // If token exists, redirect user to 'message.home'.
     function checkToken() {
 
-        if (loginAPI.getToken()) {
-            $window.sessionStorage.token = loginAPI.getToken();
+        if (loginAPI.getToken() || loginAPI.isLoggedIn()) {
+            $window.sessionStorage.token = loginAPI.getToken() || loginAPI.isLoggedIn();
 
             $state.go('messages.home');
             return;
