@@ -38,7 +38,7 @@
     transitionDISABLED: .15s;
 }
 .panel-title-info {
-    max-width: 89%;
+    max-width: 73%;
 }
 .panel-title-info,
 .panel-title-member {
@@ -364,6 +364,9 @@
     display: block;
     -webkit-animation: opacIn-from-0 1s; /* Chrome, Safari, Opera */
     animation: opacIn-from-0 1s;
+}
+.large-thumbnail-parent .fa-comment {
+    display: none;
 }
 .large-thumbnail-full-screen {
     cursor: pointer;

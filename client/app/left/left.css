@@ -1,7 +1,6 @@
 .lpanel {
     color: #333;
     width: 220px;
-    position: relative;
     overflow: auto;
     background: #f2f2f2;
 }
@@ -68,10 +67,10 @@
 
 .lpanel-list {
     width: inherit;
-    overflow: auto;
-    overflow-x: hidden;
-    position: fixed;
+    overflow-y: scroll;
+    position: absolute;
     bottom: 0;
+    left: 0;
     top: 107px;
     background: #f2f2f2;
     border-right: 1px solid #e1e1e1;

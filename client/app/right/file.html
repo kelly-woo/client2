@@ -27,7 +27,8 @@
             </div>
 
             <div class="file-detail-body">
-                <img class="file-detail-body__image"
+                <img rotate
+                     class="file-detail-body__image"
                      data-ng-if="( (file_detail.content.type).indexOf('image') !== -1 )"
                      data-ng-src="{{ server_uploaded + file_detail.content.extraInfo.largeThumbnailUrl }}"
                      data-ng-click="onImageClick();">
