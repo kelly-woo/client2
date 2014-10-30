@@ -50,10 +50,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-        console.info("==============================[stateChange]==============================");
-        console.info("   from    ", fromState.name, fromParams);
-        console.info("    to     ", toState.name, toParams);
-        console.info("=========================================================================");
+        //console.info("==============================[stateChange]==============================");
+        //console.info("   from    ", fromState.name, fromParams);
+        //console.info("    to     ", toState.name, toParams);
+        //console.info("=========================================================================");
 
         if (!fromState.name) {
             // if external access, continue to original state
@@ -110,11 +110,11 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     });
 
     $rootScope.$on('$stateNotFound', function(event, unfoundState, fromState, fromParams) {
-        console.warn("==============================[stateNotFound]==============================");
-        console.log("   to", unfoundState.to); // "lazy.state"
-        console.log("   toParams", unfoundState.toParams); // {a:1, b:2}
-        console.log("   options", unfoundState.options); // {inherit:false} + default options
-        console.warn("===========================================================================");
+        console.info("==============================[stateNotFound]==============================");
+        console.info("   to", unfoundState.to); // "lazy.state"
+        console.info("   toParams", unfoundState.toParams); // {a:1, b:2}
+        console.info("   options", unfoundState.options); // {inherit:false} + default options
+        console.info("===========================================================================");
     });
 
     $rootScope.$on('$locationChangeSuccess', function(event) {

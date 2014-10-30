@@ -83,11 +83,11 @@ app.controller('authController', function($scope, $state, $window, $location, $m
                     setLocalStorageToken(data.token);
                 }
 
-                $state.go('messages.home');
-
                 var user_identify = data.userId + '@' + data.teamId;
                 mixpanel.identify(user_identify);
                 ga('set', '&uid', user_identify);
+
+                $state.go('messages.home');
             }).error(function(err) {
                 $scope.error.status = true;
                 $scope.error.message = err.message;
