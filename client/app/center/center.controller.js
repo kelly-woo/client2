@@ -610,8 +610,32 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             if (message.feedback.content.type.indexOf('image') < 0)
                 return;
 
-        var newThumbnail;
-        var fullUrl;
+
+        // checking where event came from.
+        var targetDom;          //  to be small image thumbnail dom element.
+        var tempTarget = angular.element($event.target);    //  dom element sending event.
+
+        var tempTargetClass = tempTarget.attr('class');
+
+        if (tempTargetClass.indexOf('msg-file-body__img') > -1) {
+            //  small thumbnail of file type clicked.
+            targetDom = tempTarget;
+        }
+        else if (tempTargetClass.indexOf('msg-file-body-float') > -1 ) {
+            //  small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
+            //  its parent is sending an event because of opac overlay layer on top of small thumbnail.
+            targetDom = tempTarget.children('.msg-file-body__img');
+        }
+        else if (tempTargetClass.indexOf('fa-comment') > -1) {
+            //  comment image clicked on small image thumbnail;
+            targetDom = tempTarget.siblings('.msg-file-body__img');
+        }
+        else
+            return;
+
+
+        var newThumbnail;   // large thumbnail address
+        var fullUrl;        // it could be file, too.
 
         if (message.message.contentType === 'comment') {
             newThumbnail = $scope.server_uploaded + message.feedback.content.extraInfo.largeThumbnailUrl;
@@ -626,6 +650,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         //  new DOM element for full screen image toggler.
         var fullScreenToggler = angular.element('<div class="large-thumbnail-full-screen"><i class="fa fa-arrows-alt"></i></i></div>');
+
         //  bind click event handler to full screen toggler.
         fullScreenToggler.bind('click', function() {
             //  opening full image modal used in file controller.
@@ -643,37 +668,22 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             });
         });
 
-        var targetDom;          //  to be small image thumbnail dom element.
-        var tempTarget = angular.element($event.target);    //  dom element sending event.
-
-        if (tempTarget.attr('class').indexOf('msg-file-body__img') > -1) {
-            //  small thumbnail of file type clicked.
-            targetDom = tempTarget;
-        }
-        else if (tempTarget.attr('class').indexOf('msg-file-body-float') > -1 ) {
-            //  small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
-            //  its parent is sending an event because of opac overlay layer on top of small thumbnail.
-            targetDom = tempTarget.children('.msg-file-body__img');
-        }
-        else if (tempTarget.attr('class').indexOf('fa') > -1) {
-            //  comment image clicked on small image thumnail;
-            targetDom = tempTarget.siblings('.msg-file-body__img');
-        }
-        else
-            return;
 
 
 
+        // get transform informatino from original image.
+        // if images has been rotated according to its orientation from exif, there must be transform value.
         var transform = getTransformValue(targetDom[0].style);
 
         //  new DOM element for large thumbnail image.
         var mirrorDom = angular.element('<img id="large-thumbnail" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
 
-        // copy and paste of old 'transform' css property.
+        // copy and paste of old 'transform' css property from old to large thumbnail.
         mirrorDom[0].setAttribute('style', transform);
 
         //  bind click event handler to large thumbnail image.
         mirrorDom.bind('click', function() {
+            // opening full screen image modal.
             onLargeThumbnailClick(fullScreenToggler, mirrorDom, targetDom);
         });
 
@@ -681,7 +691,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         //  hide small thumbnail image.
         targetDom.css('display', 'none');
 
-        //  append new dom elements to parent of small thumbnail
+        //  append new dom elements to parent of small thumbnail(original dom).
         var parent = targetDom.parent();
 
         if (angular.isDefined(parent.children('#large-thumbnail').attr('id'))) {
@@ -689,6 +699,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             //  if parent already has a child whose id is 'large-thumbnail' which is 'mirrorDom', don't append it and just return.
             return;
         }
+
         parent.append(mirrorDom);
         parent.append(fullScreenToggler);
 
@@ -723,6 +734,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         return transform;
     }
+
     //  when large thumbnail image is clicked, delete large thumbnail and show original(small thumbnail image).
     function onLargeThumbnailClick(fullScreenToggler, mirrorDom, originalDom) {
         originalDom.css('display', 'block');
@@ -732,48 +744,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         fullScreenToggler.remove();
     }
 
-    function imageExifSetter(element, image) {
-        var imageUrl = image.fileUrl;
-        var orientation = "";
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', imageUrl, true);
-        xhr.responseType = 'blob';
-        xhr.onload = function(e) {
-            if (this.status == 200) {
-                var myBlob = this.response;
-                var transform_map = [
-                    "rotate(0deg)",                 // 1: UP
-                    "rotate(0deg) scaleX(-1)",      // 2: UP + FLIP
-                    "rotate(180deg)",               // 3: DOWN
-                    "rotate(180deg) scaleX(-1)",    // 4: DOWN + FLIP
-                    "rotate(90deg) scaleY(-1)",     // 5: LEFT + FLIP
-                    "rotate(90deg) ",               // 6: LEFT
-                    "rotate(-90deg) scaleY(-1)",    // 7: RIGHT + FLIP
-                    "rotate(-90deg)"                // 8: RIGHT
-                ];
-
-                console.debug("blob", myBlob);
-                // myBlob is now the blob that the object URL pointed to.
-                loadImage.parseMetaData(myBlob, function (data) {
-                    if (!data.imageHead) {
-                        return;
-                    }
-                    orientation = data.exif.get('Orientation');
-                    var r = transform_map[orientation-1];
-                    element.css({
-                        '-moz-transform': r,
-                        '-webkit-transform': r,
-                        '-o-transform': r,
-                        '-ms-transform': r
-                    }).attr('data-image-orientation', orientation);
-
-                    return element;
-
-                }, {});
-            }
-        };
-        xhr.send();
-    }
 
     //  right controller is listening to 'updateFileWriterId'.
     $scope.onFileListClick = function(userId) {

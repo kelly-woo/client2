@@ -365,6 +365,9 @@
     -webkit-animation: opacIn-from-0 1s; /* Chrome, Safari, Opera */
     animation: opacIn-from-0 1s;
 }
+.large-thumbnail-parent .fa-comment {
+    display: none;
+}
 .large-thumbnail-full-screen {
     cursor: pointer;
     position: absolute;

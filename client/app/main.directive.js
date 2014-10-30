@@ -233,6 +233,9 @@ app.directive('rotate', function () {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
+            var displayProperty = element.css('display');
+
+            element.css('display', 'hidden');
             var xhr = new XMLHttpRequest();
             xhr.open('GET', attrs.ngSrc, true);
             xhr.responseType = 'blob';
@@ -262,6 +265,7 @@ app.directive('rotate', function () {
                             '-o-transform': r,
                             '-ms-transform': r
                         }).attr('data-image-orientation', orientation);
+                        element.css('display', displayProperty);
                     });
                 }
             };
