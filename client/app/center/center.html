@@ -219,7 +219,7 @@
                     <!--    CONTINUED COMMENT ON SAME FILE  -->
                     <span class="continue-comment-body" ng-if="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
                         <!--    COMMENT CONTENT -->
-                        <p>
+                        <p >
                             <!--    WRITER  -->
                             <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
                                 <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
@@ -227,7 +227,7 @@
                             </span>
 
                             <!--    CONTENT(MESSAGE)    -->
-                            <span class="keep">{{msg.message.content.body}}</span>
+                            <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
 
                             <!--    CREATED TIME    -->
                             <span class="msg-item-header__created">
