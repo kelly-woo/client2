@@ -68,19 +68,20 @@
                 <span class="header-navbar__title" translate>@header-file</span>
                 <i class="fa fa-caret-down"></i>
             </span>
+
             <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
-                <li role="presentation" data-ng-click="">
+                <li role="presentation">
                     <a role="menuitem" tabindex="-1">
-                        <!--<i class="fa fa-upload"></i>-->
                         <i class="icon-upload"></i>
                         <span translate>@common-upload-file</span>
                     </a>
-                    <input type="file"
-                           id="file_button"
-                           class="curosr_pointer"
+                    <input type="file" style="width:198px; height: 33px;"
+                           id="btn-upload-primary"
+                           class="cursor_pointer file_upload_btn float-right"
                            onclick="this.value=null"
-                           ng-file-select="onFileSelect($files);"
-                           value="Upload File">
+                           data-ng-controller="centerpanelController"
+                           data-ng-file-select="onFileSelect($files);"
+                           defaultValue="File"/>
                 </li>
 
                 <li class="divider"></li>
