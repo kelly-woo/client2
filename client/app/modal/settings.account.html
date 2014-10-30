@@ -66,8 +66,9 @@
                 {{ '@modal-setting-account-password' | translate }}
                 <i class="pull-right" data-ng-class="{'icon-down': status.password.open, 'icon-next': !status.password.open}"></i>
             </accordion-heading>
+
             <div class="account-settings-body__wraper">
-                <form name="form-settings-password" data-ng-submit="onClickChangePassword();" novalidate>
+                <form name="formSettingsPassword" data-ng-submit="onClickChangePassword();" novalidate>
                     <div class="form-group account-settings-body__form-group"
                          data-ng-class="{'has-error': repassword.cur_password.error.status}">
                         <label class="control-label account-settings-body__label">
@@ -89,7 +90,7 @@
                             <span translate>@common-new-password</span>
                         </label>
                         <div>
-                            <input type="password"
+                            <input type="password" password-strength
                                    name="newPassword"
                                    class="form-control account-settings-body__input"
                                    data-ng-model="repassword.new_password.value" />
@@ -101,9 +102,12 @@
                                 <i class="fa fa-check-circle"></i>
                                 <span data-ng-bind="repassword.result.message"></span>
                             </span>
+                            <alert type="warning" class="account-settings-body__alert" data-ng-if="formSettingsPassword.newPassword.$error.strength">
+                                {{ '@input-user-password-error' | translate}}
+                            </alert>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-ok account-settings-body__submit" value="{{ '@btn-update-password' | translate }}" />
+                    <input type="submit" class="btn btn-ok account-settings-body__submit" data-ng-disabled="formSettingsPassword.$invalid" value="{{ '@btn-update-password' | translate }}" />
                 </form>
             </div>
         </accordion-group>

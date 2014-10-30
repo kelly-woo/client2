@@ -274,3 +274,35 @@ app.directive('rotate', function () {
         }
     }
 });
+
+app.directive('passwordStrength', function($parse) {
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function(scope, elem, attrs, ctrl) {
+// TODO : BETTER PASSWORD POLICY
+// TODO : COULD ADD SPECIAL CHARACTERS.
+// This part is supposed to check the strength
+            ctrl.$parsers.unshift(function(viewValue) {
+                var hasEnoughLength, hasLowerLetter, hasUpperLetter, hasNumber;
+                hasEnoughLength = (viewValue && viewValue.length >= 8 ? true : false);
+                hasLowerLetter = (viewValue && /[a-z]/.test(viewValue)) ? true : false;
+                hasUpperLetter = (viewValue && /[A-Z]/.test(viewValue)) ? true : false;
+                hasNumber = (viewValue && /\d/.test(viewValue)) ? true : false;
+// var level = 0;
+// if (hasEnoughLength) level++;
+// if (hasLowerLetter) level++;
+// if (hasUpperLetter) level++;
+// if (hasNumber) level++;
+                if ( hasEnoughLength && hasLowerLetter && hasUpperLetter && hasNumber ) {
+                    ctrl.$setValidity('strength', true);
+                }
+                else {
+                    ctrl.$setValidity('strength', false);
+                }
+                return viewValue;
+            });
+        }
+    };
+});
+

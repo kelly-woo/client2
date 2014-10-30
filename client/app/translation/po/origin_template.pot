@@ -497,6 +497,10 @@ msgstr ""
 msgid "@input-search-user-name"
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-error"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr ""

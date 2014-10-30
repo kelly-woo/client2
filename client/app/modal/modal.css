@@ -472,6 +472,9 @@
     color: #a94442;
     font-size: 14px;
 }
+.account-settings-body__alert {
+    margin-top: 5px;
+}
 .account-settings-body__help {
     color: #9e9ea6;
     line-height: 130%;
