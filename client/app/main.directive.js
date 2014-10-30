@@ -257,6 +257,7 @@ app.directive('rotate', function () {
 //                            console.warn("imageHead", data);
                             return;
                         }
+
                         var orientation = data.exif.get('Orientation');
                         var r = transform_map[orientation-1];
                         element.css({
