@@ -204,7 +204,7 @@ msgstr "Create New Private Group"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
-msgstr "Current Password"
+msgstr "Password"
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"

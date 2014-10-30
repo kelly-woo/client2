@@ -18,6 +18,22 @@
             </accordion-heading>
             <div class="account-settings-body__wraper">
                 <form name="form-settings-fullname" data-ng-submit="onClickChangeName();" novalidate>
+
+                    <div class="form-group account-settings-body__form-group"
+                         data-ng-class="{'has-error': rename.new_name.error.status}">
+                        <label class="control-label account-settings-body__label">
+                            <span translate>@common-new-name</span>
+                        </label>
+                        <div>
+                            <input type="text"
+                                   name="fullname"
+                                   class="form-control account-settings-body__input"
+                                   data-ng-model="rename.new_name.value" />
+                            <span class="account-settings-body__error"
+                                  data-ng-if="rename.new_name.error.status"
+                                  data-ng-bind="rename.new_name.error.message"></span>
+                        </div>
+                    </div>
                     <div class="form-group account-settings-body__form-group"
                          data-ng-class="{'has-error': rename.cur_password.error.status}">
                         <label class="control-label account-settings-body__label">
@@ -37,21 +53,7 @@
                                   data-error-success="{{ '@alert-update-success' | translate }}"></span>
                         </div>
                     </div>
-                    <div class="form-group account-settings-body__form-group"
-                         data-ng-class="{'has-error': rename.new_name.error.status}">
-                        <label class="control-label account-settings-body__label">
-                            <span translate>@common-new-name</span>
-                        </label>
-                        <div>
-                            <input type="text"
-                                   name="fullname"
-                                   class="form-control account-settings-body__input"
-                                   data-ng-model="rename.new_name.value" />
-                            <span class="account-settings-body__error"
-                                  data-ng-if="rename.new_name.error.status"
-                                  data-ng-bind="rename.new_name.error.message"></span>
-                        </div>
-                    </div>
+
                     <div class="account-settings-body__help">
                         <span translate>@modal-setting-account-name-msg</span>
                     </div>

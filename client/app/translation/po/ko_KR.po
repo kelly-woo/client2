@@ -206,7 +206,7 @@ msgstr "비공개 그룹 생성"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
-msgstr "현재 비밀번호"
+msgstr "비밀번호 입력 "
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
