@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice, analyticsService) {
 
-    console.info('[enter] headerController');
+    //console.info('[enter] headerController');
 
     $scope.status = {
         menu: {

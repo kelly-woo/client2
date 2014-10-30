@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.controller('fileController', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService) {
 
-    console.info('[enter] fileController');
+    //console.info('[enter] fileController');
 
     var fileId = $state.params.itemId;
 
@@ -88,7 +88,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
     $scope.deleteComment = function(commentId) {
         fileAPIservice.deleteComment(fileId, commentId)
             .success(function(response) {
-                console.log("fileAPIservice.deleteComment.success", response);
+                //console.log("fileAPIservice.deleteComment.success", response);
                 $scope.glued = true;
                 getFileDetail();
             })

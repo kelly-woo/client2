@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, leftpanelAPIservice, leftPanel,
                                                user, entityAPIservice, entityheaderAPIservice) {
 
-    console.info('[enter] leftpanelController');
+    //console.info('[enter] leftpanelController');
 
     $scope.isDMCollapsed = false;
     $scope.isChListCollapsed = false;

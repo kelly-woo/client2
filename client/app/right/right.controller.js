@@ -7,7 +7,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.isLoading = true;
     $scope.isScrollLoading = true;
 
-    console.info('[enter] rightpanelController');
+    //console.info('[enter] rightpanelController');
 
     var startMessageId   = -1;
 
