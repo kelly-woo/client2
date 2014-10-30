@@ -662,8 +662,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         else
             return;
 
+
+
+        var transform = getTransformValue(targetDom[0].style);
+
         //  new DOM element for large thumbnail image.
         var mirrorDom = angular.element('<img id="large-thumbnail" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
+
+        // copy and paste of old 'transform' css property.
+        mirrorDom[0].setAttribute('style', transform);
 
         //  bind click event handler to large thumbnail image.
         mirrorDom.bind('click', function() {
@@ -690,6 +697,32 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         parent.parent().addClass('large-thumbnail-grand-parent');
     };
 
+
+    // get all style attributes of targetDom
+    // and pick correct 'transform' arrtibute.
+    // and return exact same property.
+    function getTransformValue(targetDomStyle) {
+        var transform;
+
+        if (targetDomStyle.getPropertyValue('-webkit-transform')) {
+            // webkit
+            transform = '-webkit-transform:' + targetDomStyle.getPropertyValue('-webkit-transform');
+        }
+        else if (targetDomStyle.getPropertyValue('-moz-transform')) {
+            // firefox
+            transform = '-moz-transform:' + targetDomStyle.getPropertyValue('-moz-transform');
+        }
+        else if (targetDomStyle.getPropertyValue('-o-transform')) {
+            // safari
+            transform = '-o-transform:' + targetDomStyle.getPropertyValue('-o-transform');
+        }
+        else {
+            // ie
+            transform = '-ms-transform:' + targetDomStyle.getPropertyValue('-ms-transform');
+        }
+
+        return transform;
+    }
     //  when large thumbnail image is clicked, delete large thumbnail and show original(small thumbnail image).
     function onLargeThumbnailClick(fullScreenToggler, mirrorDom, originalDom) {
         originalDom.css('display', 'block');
@@ -697,6 +730,49 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         mirrorDom.parent().parent().removeClass('large-thumbnail-grand-parent');
         mirrorDom.remove();
         fullScreenToggler.remove();
+    }
+
+    function imageExifSetter(element, image) {
+        var imageUrl = image.fileUrl;
+        var orientation = "";
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', imageUrl, true);
+        xhr.responseType = 'blob';
+        xhr.onload = function(e) {
+            if (this.status == 200) {
+                var myBlob = this.response;
+                var transform_map = [
+                    "rotate(0deg)",                 // 1: UP
+                    "rotate(0deg) scaleX(-1)",      // 2: UP + FLIP
+                    "rotate(180deg)",               // 3: DOWN
+                    "rotate(180deg) scaleX(-1)",    // 4: DOWN + FLIP
+                    "rotate(90deg) scaleY(-1)",     // 5: LEFT + FLIP
+                    "rotate(90deg) ",               // 6: LEFT
+                    "rotate(-90deg) scaleY(-1)",    // 7: RIGHT + FLIP
+                    "rotate(-90deg)"                // 8: RIGHT
+                ];
+
+                console.debug("blob", myBlob);
+                // myBlob is now the blob that the object URL pointed to.
+                loadImage.parseMetaData(myBlob, function (data) {
+                    if (!data.imageHead) {
+                        return;
+                    }
+                    orientation = data.exif.get('Orientation');
+                    var r = transform_map[orientation-1];
+                    element.css({
+                        '-moz-transform': r,
+                        '-webkit-transform': r,
+                        '-o-transform': r,
+                        '-ms-transform': r
+                    }).attr('data-image-orientation', orientation);
+
+                    return element;
+
+                }, {});
+            }
+        };
+        xhr.send();
     }
 
     //  right controller is listening to 'updateFileWriterId'.
@@ -980,42 +1056,4 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         fileAPIservice.broadcastFileShare(file);
     };
 
-    $scope.onImageClick = function(image) {
-        var imageUrl = $rootScope.server_uploaded + image.fileUrl;
-        var orientation = "";
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', imageUrl, true);
-        xhr.responseType = 'blob';
-        xhr.onload = function(e) {
-            if (this.status == 200) {
-                var myBlob = this.response;
-                console.debug("blob", myBlob);
-                // myBlob is now the blob that the object URL pointed to.
-                loadImage.parseMetaData(myBlob, function (data) {
-                    if (!data.imageHead) {
-                        return;
-                    }
-                    orientation = data.exif.get('Orientation');
-                    console.info("ori", orientation);
-                }, {});
-            }
-        };
-        xhr.send();
-
-        loadImage(
-            imageUrl,
-            function (img) {
-                if(img.type === "error") {
-                    console.log("Error loading image " + imageUrl);
-                } else {
-                    console.info("img", img);
-                    $('.msgs-holder').append(img);
-                }
-            }, {
-                maxWidth: 300,
-                orientation: 3,
-                canvas: true
-            }
-        );
-    }
 });

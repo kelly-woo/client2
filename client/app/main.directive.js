@@ -234,8 +234,6 @@ app.directive('rotate', function () {
         restrict: 'A',
         link: function (scope, element, attrs) {
             var xhr = new XMLHttpRequest();
-            console.info("elem", element);
-            console.info("attr", attrs);
             xhr.open('GET', attrs.ngSrc, true);
             xhr.responseType = 'blob';
             xhr.onload = function(e) {
@@ -253,7 +251,7 @@ app.directive('rotate', function () {
                     ];
                     loadImage.parseMetaData(temp_blob, function (data) {
                         if (!data.imageHead) {
-                            console.warn("imageHead", data);
+//                            console.warn("imageHead", data);
                             return;
                         }
                         var orientation = data.exif.get('Orientation');
