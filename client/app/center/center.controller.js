@@ -142,7 +142,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
         $scope.messages = _.uniq($scope.messages);
 
-        console.log($scope.messages)
         for (var i in $scope.messages) {
             var msg = $scope.messages[i];
 
@@ -611,8 +610,32 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             if (message.feedback.content.type.indexOf('image') < 0)
                 return;
 
-        var newThumbnail;
-        var fullUrl;
+
+        // checking where event came from.
+        var targetDom;          //  to be small image thumbnail dom element.
+        var tempTarget = angular.element($event.target);    //  dom element sending event.
+
+        var tempTargetClass = tempTarget.attr('class');
+
+        if (tempTargetClass.indexOf('msg-file-body__img') > -1) {
+            //  small thumbnail of file type clicked.
+            targetDom = tempTarget;
+        }
+        else if (tempTargetClass.indexOf('msg-file-body-float') > -1 ) {
+            //  small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
+            //  its parent is sending an event because of opac overlay layer on top of small thumbnail.
+            targetDom = tempTarget.children('.msg-file-body__img');
+        }
+        else if (tempTargetClass.indexOf('fa-comment') > -1) {
+            //  comment image clicked on small image thumbnail;
+            targetDom = tempTarget.siblings('.msg-file-body__img');
+        }
+        else
+            return;
+
+
+        var newThumbnail;   // large thumbnail address
+        var fullUrl;        // it could be file, too.
 
         if (message.message.contentType === 'comment') {
             newThumbnail = $scope.server_uploaded + message.feedback.content.extraInfo.largeThumbnailUrl;
@@ -627,6 +650,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         //  new DOM element for full screen image toggler.
         var fullScreenToggler = angular.element('<div class="large-thumbnail-full-screen"><i class="fa fa-arrows-alt"></i></i></div>');
+
         //  bind click event handler to full screen toggler.
         fullScreenToggler.bind('click', function() {
             //  opening full image modal used in file controller.
@@ -644,30 +668,22 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             });
         });
 
-        var targetDom;          //  to be small image thumbnail dom element.
-        var tempTarget = angular.element($event.target);    //  dom element sending event.
 
-        if (tempTarget.attr('class').indexOf('msg-file-body__img') > -1) {
-            //  small thumbnail of file type clicked.
-            targetDom = tempTarget;
-        }
-        else if (tempTarget.attr('class').indexOf('msg-file-body-float') > -1 ) {
-            //  small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
-            //  its parent is sending an event because of opac overlay layer on top of small thumbnail.
-            targetDom = tempTarget.children('.msg-file-body__img');
-        }
-        else if (tempTarget.attr('class').indexOf('fa') > -1) {
-            //  comment image clicked on small image thumnail;
-            targetDom = tempTarget.siblings('.msg-file-body__img');
-        }
-        else
-            return;
+
+
+        // get transform informatino from original image.
+        // if images has been rotated according to its orientation from exif, there must be transform value.
+        var transform = getTransformValue(targetDom[0].style);
 
         //  new DOM element for large thumbnail image.
         var mirrorDom = angular.element('<img id="large-thumbnail" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
 
+        // copy and paste of old 'transform' css property from old to large thumbnail.
+        mirrorDom[0].setAttribute('style', transform);
+
         //  bind click event handler to large thumbnail image.
         mirrorDom.bind('click', function() {
+            // opening full screen image modal.
             onLargeThumbnailClick(fullScreenToggler, mirrorDom, targetDom);
         });
 
@@ -675,7 +691,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         //  hide small thumbnail image.
         targetDom.css('display', 'none');
 
-        //  append new dom elements to parent of small thumbnail
+        //  append new dom elements to parent of small thumbnail(original dom).
         var parent = targetDom.parent();
 
         if (angular.isDefined(parent.children('#large-thumbnail').attr('id'))) {
@@ -683,6 +699,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             //  if parent already has a child whose id is 'large-thumbnail' which is 'mirrorDom', don't append it and just return.
             return;
         }
+
         parent.append(mirrorDom);
         parent.append(fullScreenToggler);
 
@@ -690,6 +707,33 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         parent.addClass('large-thumbnail-parent').removeClass('pull-left');
         parent.parent().addClass('large-thumbnail-grand-parent');
     };
+
+
+    // get all style attributes of targetDom
+    // and pick correct 'transform' arrtibute.
+    // and return exact same property.
+    function getTransformValue(targetDomStyle) {
+        var transform;
+
+        if (targetDomStyle.getPropertyValue('-webkit-transform')) {
+            // webkit
+            transform = '-webkit-transform:' + targetDomStyle.getPropertyValue('-webkit-transform');
+        }
+        else if (targetDomStyle.getPropertyValue('-moz-transform')) {
+            // firefox
+            transform = '-moz-transform:' + targetDomStyle.getPropertyValue('-moz-transform');
+        }
+        else if (targetDomStyle.getPropertyValue('-o-transform')) {
+            // safari
+            transform = '-o-transform:' + targetDomStyle.getPropertyValue('-o-transform');
+        }
+        else {
+            // ie
+            transform = '-ms-transform:' + targetDomStyle.getPropertyValue('-ms-transform');
+        }
+
+        return transform;
+    }
 
     //  when large thumbnail image is clicked, delete large thumbnail and show original(small thumbnail image).
     function onLargeThumbnailClick(fullScreenToggler, mirrorDom, originalDom) {
@@ -699,6 +743,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         mirrorDom.remove();
         fullScreenToggler.remove();
     }
+
 
     //  right controller is listening to 'updateFileWriterId'.
     $scope.onFileListClick = function(userId) {
@@ -980,8 +1025,5 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.onShareClick = function(file) {
         fileAPIservice.broadcastFileShare(file);
     };
-
-
-
 
 });

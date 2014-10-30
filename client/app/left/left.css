@@ -1,7 +1,6 @@
 .lpanel {
     color: #333;
     width: 220px;
-    position: relative;
     overflow: auto;
     background: #f2f2f2;
 }
@@ -68,10 +67,10 @@
 
 .lpanel-list {
     width: inherit;
-    overflow: auto;
-    overflow-x: hidden;
-    position: fixed;
+    overflow-y: scroll;
+    position: absolute;
     bottom: 0;
+    left: 0;
     top: 107px;
     background: #f2f2f2;
     border-right: 1px solid #e1e1e1;
@@ -197,6 +196,7 @@
 .left-panel_badge {
     margin-top: 5px;
     color: white !important;
+    max-width: 27px;
 }
 
 .left-panel__name {
@@ -253,7 +253,14 @@
 }
 
 
-
+.left-star {
+    position: absolute;
+    left: 8px;
+    top: 7px;
+}
+.starred-on {
+    color: #31c08a;
+}
 
 
 .lpanel-team {
@@ -278,4 +285,18 @@
 }
 .lpanel-team__more:hover {
     color:white;
+}
+
+
+/**
+    favorite star
+**/
+.lpanel-list ul li a .icon-star {
+    color:#9e9ea6;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.lpanel-list ul li:hover .icon-star {
+    opacity: 1;
 }

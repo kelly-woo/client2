@@ -681,6 +681,7 @@
 .user-profile__nickName {
     font-size: 14px;
     color: #333;
+    word-wrap: break-word;
 }
 .profile-view-info-container {
     margin-bottom: 28px;

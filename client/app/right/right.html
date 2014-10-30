@@ -88,7 +88,7 @@
         <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
              ui-sref="files({ userName: file.writer.name, itemId: file.id })">
             <!--    IMAGE THUMBNAIL -->
-            <img class="msg-file-body__img cursor_pointer pull-left"
+            <img rotate class="msg-file-body__img cursor_pointer pull-left"
                  data-ng-show="(file.content.type).indexOf('image') !== -1"
                  data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"
                  data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>

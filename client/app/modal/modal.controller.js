@@ -319,15 +319,17 @@ app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entit
 
     $scope.onInviteClick = function(inviteTo) {
 
+        console.log(inviteTo);
+
         if (angular.isUndefined(inviteTo)) {
             alert('Please select channel/private group.');
             return;
         }
 
-        if (inviteTo.members.indexOf($scope.currentEntity.id) > -1) {
-            $modalInstance.dismiss('cancel');
-            return;
-        }
+//        if (inviteTo.members.indexOf($scope.currentEntity.id) > -1) {
+//            $modalInstance.dismiss('cancel');
+//            return;
+//        }
 
         var invitedId = [];
         invitedId.push($scope.currentEntity.id);
