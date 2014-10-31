@@ -9,9 +9,7 @@ app.factory('teamAPIservice', function($http, $rootScope) {
         return $http({
             method  : 'POST',
             url     : $rootScope.server_address + 'invitation/team',
-            data    : { "inviteMembers" : inviteMembers,
-                        "lang" : $rootScope.preferences.lang
-                        }
+            data    : { "inviteMembers" : inviteMembers }
         });
     };
 
