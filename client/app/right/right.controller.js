@@ -204,22 +204,29 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.onFileSelect = function($files) {
         $scope.selectedFiles = $files;
         $scope.dataUrls = [];
+
         for ( var i = 0; i < $files.length; i++) {
             var file = $files[i];
-            if (window.FileReader && file.type.indexOf('image') > -1) {
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
-                var loadFile = function(fileReader, index) {
-                    fileReader.onload = function(e) {
-                        $timeout(function() {
-                            $scope.dataUrls[index] = e.target.result;
-                        });
+
+            if (angular.isDefined(FileAPI.support) && !FileAPI.support.html5) {
+                $rootScope.supportHtml5 = FileAPI.support.html5;
+            }
+            else {
+                $rootScope.supportHtml5 = true;
+
+                if (window.FileReader && file.type.indexOf('image') > -1) {
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+
+                    fileReader.onload = function (e) {
+                        $scope.dataUrls[0] = e.target.result;
                     }
-                }(fileReader, i);
+                }
             }
         }
         this.openModal('file');
     };
+
 
     $scope.openModal = function(selector) {
         // OPENING JOIN MODAL VIEW

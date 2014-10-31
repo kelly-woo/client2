@@ -8,7 +8,15 @@
 <form name="file_upload_form" data-ng-submit="onFileUpload(fileInfo);">
     <div class="modal-body">
         <div class="form-horizontal">
-            <img data-ng-src="{{dataUrls[0]}}" class="modal-upload-img" />
+            <div id="file_preview_container" data-ng-class="{'image-background': !supportHtml5}">
+                <img data-ng-src="{{dataUrls[0]}}" class="modal-upload-img image-background" ng-if="supportHtml5 && files.type.indexOf('image') != -1"/>
+                <div class="non-image-file-preview fileicon fileicon_{{ files.type | filetype | lowercase}}" ng-if="files.type.indexOf('image') == -1"></div>
+            </div>
+
+            <!--    ALERT MESSAGE WHEN USING IE9    -->
+            <div ng-if="!supportHtml5" class="modal-body__description-help bg-warning" translate>@ie9-file-preview</div>
+            <div ng-if="!supportHtml5" class="modal-body__description-help bg-warning" translate>@ie9-please-do-not-use</div>
+
             <!-- FILE TITLE -->
             <div class="form-group">
                 <label class="control-label col-sm-3">
@@ -21,6 +29,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- FILE SHARE OPTION -->
             <div class="form-group">
                 <label class="control-label col-sm-3">

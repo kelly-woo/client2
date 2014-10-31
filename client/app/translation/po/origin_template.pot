@@ -469,6 +469,18 @@ msgstr ""
 msgid "@header-setting"
 msgstr ""
 
+#: client/app/modal/upload.html
+msgid "@ie9-file-preview"
+msgstr ""
+
+#: client/app/modal/upload.html
+msgid "@ie9-please-do-not-use"
+msgstr ""
+
+#: client/app/modal/settings.profile.html
+msgid "@ie9-profile-image-support"
+msgstr ""
+
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
 msgstr ""

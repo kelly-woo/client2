@@ -441,6 +441,20 @@ msgstr "Menu"
 msgid "@header-setting"
 msgstr "Setting"
 
+#: client/app/modal/upload.html
+msgid "@ie9-file-preview"
+msgstr ""
+"Preview may not work with internet explorer 9.  However, you still can "
+"upload files."
+
+#: client/app/modal/upload.html
+msgid "@ie9-please-do-not-use"
+msgstr "Using latest version of IE, you can meet <b>JANDI</b> at its best."
+
+#: client/app/modal/settings.profile.html
+msgid "@ie9-profile-image-support"
+msgstr "Internet Explorer 9 doesn't support profile image feature."
+
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
 msgstr "Enter new topic name"
@@ -790,3 +804,7 @@ msgstr "Star this user"
 #: client/app/center/center.html
 msgid "@user-menu-un-star"
 msgstr "Unstar this user"
+
+#, fuzzy
+#~ msgid "@common-profile-settingstranslate"
+#~ msgstr "Profile Settings"

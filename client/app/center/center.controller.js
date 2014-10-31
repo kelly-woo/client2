@@ -35,6 +35,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         isInitialLoadingCompleted : false
     };
 
+    $rootScope.isIE9 = false;
+
+    if (angular.isDefined(FileAPI.support)) {
+
+        if (!FileAPI.support.html5)
+            $rootScope.isIE9 = true;
+    }
+
     $scope.isPosting = false;
 
     $scope.onLeaveClick = function() {
@@ -458,27 +466,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             .error(function(response) {
                 $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.deleteMessage"});
             });
-    };
-
-    // Callback function from file finder(navigation) for uploading a file.
-    $scope.onFileSelect = function($files) {
-        $scope.selectedFiles = $files;
-        $scope.dataUrls = [];
-        for ( var i = 0; i < $files.length; i++) {
-            var file = $files[i];
-            if (window.FileReader && file.type.indexOf('image') > -1) {
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
-                var loadFile = function(fileReader, index) {
-                    fileReader.onload = function(e) {
-                        $timeout(function() {
-                            $scope.dataUrls[index] = e.target.result;
-                        });
-                    }
-                }(fileReader, i);
-            }
-        }
-        this.openModal('file');
     };
 
     $scope.openModal = function(selector) {

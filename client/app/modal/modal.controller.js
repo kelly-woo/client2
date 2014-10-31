@@ -350,11 +350,11 @@ app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entit
 });
 
 // FILE UPLOAD controller
-app.controller('fileUploadModalCtrl', function($scope, $modalInstance, fileAPIservice, analyticsService) {
+app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, fileAPIservice, analyticsService) {
     $scope.isLoading = false;
     $scope.files = $scope.selectedFiles[0];
 
-    // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 synch가 맞는다.
+    // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 sync가 맞는다.
     $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
 
     $scope.fileInfo = {
@@ -362,6 +362,48 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, fileAPIse
         'share'         : $scope.currentEntity,
         'isPrivateFile' : false
     };
+
+    $scope.$watch('files', function(cur) {
+            // uploading image file.
+            var image_container = document.getElementById('file_preview_container');
+
+            if (!$scope.supportHtml5 && angular.isDefined(cur)){
+                // not supporting html5.
+                FileAPI.Image(cur)
+                    .preview(464, 224)
+                    .get(function (err, img) {
+                        if( !err ) {
+                            // if there is any element other than flashimage div, remove it from parent including old flash image div.
+                            image_container.innerHTML = '';
+
+                            // append new flash image div.
+                            image_container.appendChild(img);
+                        }
+                        else {
+                            //console.log(err);
+                            alert('failed to load file. please try again.');
+                            $scope.cancel();
+                        }
+                    });
+            }
+            else {
+
+                // supporting html5
+//                var img;
+//                image_container.innerHTML = '';
+//
+//                var fileReader = new FileReader();
+//                fileReader.readAsDataURL(cur);
+//
+//                fileReader.onload = function (e) {
+//                    img = angular.element('<img class="modal-upload-img" ng-src="' + e.target.result + '"/>');
+//                    console.log(img)
+//                    image_container.appendChild(img)
+//                }
+
+            }
+    });
+
 
     var PRIVATE_FILE = 740;
     var PUBLIC_FILE = 744;
@@ -377,7 +419,7 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, fileAPIse
 
         var share_type = fileInfo.share.type;
 
-        if (fileInfo.share.type == 'channel') {
+        if (share_type === 'channel') {
             fileInfo.permission = PUBLIC_FILE;
         }
 
@@ -494,9 +536,11 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
 });
 
 //  PROFILE CONTROLLER
-app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userAPIservice, $modal, analyticsService) {
+app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService) {
     $scope.curUser = _.cloneDeep($scope.user);
     $scope.isFileSelected = false;
+
+    $scope.isFileReaderAvailabled = true;
 
     // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
     $scope.curUser.u_extraData.phoneNumber  = $scope.curUser.u_extraData.phoneNumber || "";
@@ -519,6 +563,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
                 // analytics
                 analyticsService.mixpanelTrack( "Set Profile" );
                 var profile_data = {
+
                     "nickname"  : $scope.curUser.u_statusMessage,
                     "mobile"    : $scope.curUser.u_extraData.phoneNumber,
                     "division"  : $scope.curUser.u_extraData.department,
@@ -541,16 +586,30 @@ app.controller('profileCtrl', function($scope, $rootScope, $modalInstance, userA
         $scope.curUser = _.cloneDeep($scope.user);
     });
 
+    //  TODO: ie9에서 프로필 사진 바꾸기 기능이 없음.
+    //  IE9에서 blob 읽는 법을 알아서 빨리 하기.
     $scope.onFileSelect = function($files) {
+        for (var i = 0; i < $files.length; i++) {
+            var file = $files[i];
+            if (file.flashId) {
+                $scope.isFileReaderAvailable = false;
+                alert($filter('translate')('@ie9-profile-image-support'));
+                return;
+            }
+            else {
+                if(window.FileReader && file.type.indexOf('image') > -1) {
+                    $scope.isFileReaderAvailable = true;
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL($files[0]);
 
-        var fileReader = new FileReader();
-        fileReader.readAsDataURL($files[0]);
-
-        fileReader.onload = function(e) {
-            $scope.profilePic = e.target.result;
-            $scope.croppedProfilePic = '';
-            $scope.isProfilePicSelected = true;
-        };
+                    fileReader.onload = function(e) {
+                        $scope.profilePic = e.target.result;
+                        $scope.croppedProfilePic = '';
+                        $scope.isProfilePicSelected = true;
+                    };
+                }
+            }
+        }
     };
 
     $scope.onCropDone = function() {
@@ -793,9 +852,9 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
     $scope.listLangs = [
         { "value": "ko_KR", "text": "한국어" },
         { "value": "en_US", "text": "English" },
-        { "value": "zh_CN", "text": "简体中文 Simplified Chinese" },
-        { "value": "zh_TW", "text": "繁體中文 Traditional Chinese" },
-        { "value": "ja",    "text": "日本語 Japanese"}
+        { "value": "zh_CN", "text": "简体中文 " },
+        { "value": "zh_TW", "text": "繁體中文" },
+        { "value": "ja",    "text": "日本語"}
 
     ];
 

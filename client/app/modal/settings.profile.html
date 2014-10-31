@@ -15,17 +15,19 @@
         </h4>
 
         <div class="user-profile-photo-container img-circle" ng-if="!isProfilePicSelected">
-            <input type="file"
-                   id="profile_image_uploader"
-                   class="file_upload_btn"
-                   onclick="this.value=null"
-                   data-ng-file-select="onFileSelect($files);">
             <img class="user-profile__photo" ng-src="{{ server_uploaded + curUser.u_photoThumbnailUrl.mediumThumbnailUrl}}" />
             <div class="user-profile-photo__overlay">
                 <div class="black-opac__background"></div>
                 <div class="overlay__text"><span translate>@btn-change</span></div>
+                <input type="file"
+                       id="profile_image_uploader"
+                       class="file_upload_btn"
+                       data-ng-click="this.value=null;"
+                       data-ng-file-select="onFileSelect($files);">
             </div>
         </div>
+
+        <span ng-if="false" translate>@ie9-profile-image-support</span>
 
         <div class="cropArea" ng-if="isProfilePicSelected">
             <img-crop image="profilePic" result-image="croppedProfilePic" on-change="onchange($dataURI);"></img-crop>

@@ -140,13 +140,18 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         // }
     });
 
+    var serverLang = '';
+
     $rootScope.preferences = {
         language        : gettextCatalog.currentLanguage,
+        lang            : serverLang,
         notification    : ''
     };
 
     // translate for multi-lang
     $rootScope.setLang = function(setLang, isDebug) {
+        getLanguageSetting(setLang);
+
         setLang = setLang || 'ko_KR';
         isDebug = isDebug || false;
         // 언어 설정
@@ -154,37 +159,52 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         gettextCatalog.debug = isDebug;
         // 현재 언어 저장
         $rootScope.preferences.language = gettextCatalog.currentLanguage;
+        $rootScope.preferences.lang = serverLang;
     };
 
     // 시스템(브라우저) 기본 언어로 초기화
     var userLang = navigator.language || navigator.userLanguage;
     userLang = userLang.toLowerCase();
+    getLanguageSetting(userLang);
+
 
     var debugMode = (configuration.name === 'development');
-    if (userLang.indexOf('ko') >= 0) {
-        // korean.
-        userLang = 'ko_KR';
-    }
-    else if (userLang.indexOf('en') >= 0) {
-        // english.
-        userLang = 'en_US';
-    }
-    else if (userLang.indexOf('zh') >= 0) {
-        // chinese.
-        if (userLang.indexOf('cn') >= 0) {
-            // main land china.
-            userLang = 'zh_CN';
+
+    function getLanguageSetting(curLang) {
+        if (curLang.indexOf('ko') >= 0) {
+            // korean.
+            userLang    = 'ko_KR';
+            serverLang  = 'ko';
         }
-        else
-            userLang = 'zn_TW';
+        else if (curLang.indexOf('en') >= 0) {
+            // english.
+            userLang    = 'en_US';
+            serverLang  = 'en';
+
+        }
+        else if (curLang.indexOf('zh') >= 0) {
+            // chinese.
+            if (curLang.indexOf('tw') >= 0) {
+                // main land china.
+                userLang    = 'zh_TW';
+                serverLang  = 'zh-tw';
+            }
+            else {
+                userLang    = 'zn_CN';
+                serverLang  = 'zn-cn';
+            }
+        }
+        else if (curLang.indexOf('ja') >= 0) {
+            // japanese.
+            userLang    = 'ja';
+            serverLang  = 'ja';
+        }
+        else {
+            userLang    = 'en';
+            serverLang  = 'en';
+        }
     }
-    else if (userLang.indexOf('ja') >= 0) {
-        // japanese.
-        userLang = 'ja';
-    }
-    else {
-        userLang = 'en_US';
-    }
+
 
     $rootScope.setLang(userLang, debugMode);
 

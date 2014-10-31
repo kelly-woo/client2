@@ -5,10 +5,12 @@
   "homepage": "https://github.com/tosslab/web_client",
   "private": true,
   "dependencies": {
+    "ng-file-upload-shim": "~1.6.12",
+    "jquery": "~1.11.0",
     "angular": ">=1.2.*",
+    "ng-file-upload": "~1.6.12",
     "json3": "~3.3.1",
     "es5-shim": "~3.0.1",
-    "jquery": "~1.11.0",
     "bootstrap": "~3.1.1",
     "angular-loader": "1.2.x",
     "angular-resource": ">=1.2.*",
@@ -19,8 +21,6 @@
     "angular-xeditable": "~0.1.8",
     "angular-socket-io": "~0.6.0",
     "angular-animate": "~1.2.19",
-    "ng-file-upload-shim": "~1.5.0",
-    "ng-file-upload": "~1.5.0",
     "angular-local-storage": "~0.0.5",
     "font-awesome": ">=4.1.0",
     "lodash": "~2.4.1",
@@ -29,10 +29,14 @@
     "angular-gettext": "~1.0.1",
     "angulartics": "~0.16.5",
     "angular-elastic": "~2.4.0",
+    "jquery-ui": "~1.11.1",
     "blueimp-load-image": "~1.13.0"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
     "angular-scenario": ">=1.2.*"
+  },
+  "resolutions": {
+    "angular": "1.2.26"
   }
 }
