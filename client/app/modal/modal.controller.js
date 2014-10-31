@@ -375,7 +375,7 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
             if (!$scope.supportHtml5 && angular.isDefined(cur)){
                 // not supporting html5.
                 FileAPI.Image(cur)
-                    .resize(448, 224, 'max')
+                    .preview(464, 224)
                     .get(function (err, img) {
                         if( !err ) {
                             // if there is any element other than flashimage div, remove it from parent including old flash image div.
