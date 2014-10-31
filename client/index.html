@@ -31,6 +31,7 @@
             <link rel="stylesheet" href="app/center/center.css">
             <link rel="stylesheet" href="app/error/404.css">
             <link rel="stylesheet" href="app/header/header.css">
+            <link rel="stylesheet" href="app/jandi-fonts.css">
             <link rel="stylesheet" href="app/left/left.css">
             <link rel="stylesheet" href="app/main.css">
             <link rel="stylesheet" href="app/modal/modal.css">
@@ -38,6 +39,7 @@
             <link rel="stylesheet" href="app/right/file.css">
             <link rel="stylesheet" href="app/right/right.css">
             <link rel="stylesheet" href="app/signin/signin.css">
+            <link rel="stylesheet" href="app/tutorial/tutorial.css">
             <!-- endinjector -->
         <!-- endbuild -->
     </head>
@@ -64,7 +66,7 @@
 
         <script>
             FileAPI = {
-                debug : false
+                debug : true
             };
         </script>
         <!--    upload-shim must be loaded before angular.js    -->
@@ -98,8 +100,15 @@
             <script src="bower_components/angulartics/src/angulartics-ga.js"></script>
             <script src="bower_components/angulartics/src/angulartics-mixpanel.js"></script>
             <script src="bower_components/angulartics/src/angulartics-scroll.js"></script>
+            <script src="bower_components/angulartics/src/angulartics-intercom.js"></script>
             <script src="bower_components/angular-elastic/elastic.js"></script>
             <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+            <script src="bower_components/blueimp-load-image/js/load-image.js"></script>
+            <script src="bower_components/blueimp-load-image/js/load-image-ios.js"></script>
+            <script src="bower_components/blueimp-load-image/js/load-image-orientation.js"></script>
+            <script src="bower_components/blueimp-load-image/js/load-image-meta.js"></script>
+            <script src="bower_components/blueimp-load-image/js/load-image-exif.js"></script>
+            <script src="bower_components/blueimp-load-image/js/load-image-exif-map.js"></script>
             <!-- endbower -->
         <!-- endbuild -->
 
@@ -132,6 +141,7 @@
             <script src="app/swfobject/swfobject.js"></script>
             <script src="app/team/team.service.js"></script>
             <script src="app/translation/translation.js"></script>
+            <script src="app/tutorial/tutorial.controller.js"></script>
             <script src="app/typeahead.directive.js"></script>
             <script src="app/user.service.js"></script>
             <!-- endinjector -->

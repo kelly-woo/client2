@@ -186,6 +186,13 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.jandi-body__form input[type="checkbox"] {
+    margin-right :5px;
+}
+.left-checkbox {
+    text-align: left;
+    width: 100%;
+}
 .jandi-body__form-submit {
     margin: 12px 0 0;
     height: 48px;

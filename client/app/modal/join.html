@@ -1,6 +1,6 @@
 <!-- Modal: Join Channel -->
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="cancel()"><i class="fa fa-close"></i></button>
+    <button type="button" class="close" data-ng-click="cancel()"><i class="icon-cancel"></i></button>
     <span class="create_channel_on_top" data-ng-click="newChannel();">
         <span translate>@common-create-ch</span>
     </span>
@@ -14,7 +14,8 @@
     <div class="join-modal-search">
         <div class="input-group">
             <span class="input-group-addon">
-                <span class="icon_image icon_search rpanel-body-search__icon"></span>
+                <!--<span class="icon_image icon_search rpanel-body-search__icon"></span>-->
+                <i class="icon-search"></i>
             </span>
             <input type="text"
                    class="form-control green-input-box"
@@ -31,7 +32,7 @@
              data-ng-repeat="channel in filtered = (unJoinedChannelList | filter:{'name': channelTitleQuery})">
             <div class="join-modal-channel_title cursor_pointer overflow-ellipsis" ng-click="onJoinClick(channel.id);">#{{channel.name}}</div>
             <div>
-                <i class="fa fa-users"></i>
+                <i class="icon-group"></i>
                 <span class="join-modal-channel_creator">{{ getName(channel.ch_creatorId) }}</span>
                 <span class="bullet"> • </span>
                 <span>{{ channel.ch_members.length }}</span><!--
@@ -60,7 +61,7 @@
              data-ng-click="cancel();">
             <div class="join-modal-channel_title cursor_pointer overflow-ellipsis">#{{joinedChannel.name}}</div>
             <div>
-                <i class="fa fa-users"></i>
+                <i class="icon-group"></i>
                 <span class="join-modal-channel_creator">{{ getName(joinedChannel.ch_creatorId) }}</span>
                 <span class="bullet"> • </span>
                 <span>{{ joinedChannel.ch_members.length }}</span><!--

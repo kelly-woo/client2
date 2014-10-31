@@ -15,11 +15,11 @@ msgstr ""
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
-msgstr "참여중인 채널이 없습니다"
+msgstr "참여중인 토픽이 없습니다"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-can-join"
-msgstr "참여 가능한 채널이 없습니다"
+msgstr "참여 가능한 토픽이 없습니다"
 
 #: client/app/right/right.html
 msgid "@alert-empty-file"
@@ -100,7 +100,8 @@ msgstr "새 창에서 보기"
 msgid "@btn-close"
 msgstr "닫기"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@btn-comment"
 msgstr "댓글남기기"
 
@@ -129,8 +130,8 @@ msgstr "초대하기"
 msgid "@btn-join"
 msgstr "참여하기"
 
-#: client/app/modal/share.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/modal/share.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@btn-share"
 msgstr "공유하기"
 
@@ -148,19 +149,31 @@ msgstr "업로드"
 
 #: client/app/center/center.html
 msgid "@ch-menu-delete"
-msgstr "채널 삭제하기"
+msgstr "토픽 삭제하기"
 
 #: client/app/center/center.html
 msgid "@ch-menu-invite"
-msgstr "이 채널에 멤버 초대하기"
+msgstr "토픽에 멤버 초대하기"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
-msgstr "채널 나가기"
+msgstr "토픽 나가기"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
-msgstr "채널 이름 변경하기"
+msgstr "토픽 이름 변경하기"
+
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr "토픽 즐겨찾기 "
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr "즐겨찾기 해제 "
+
+#: client/app/left/left.html
+msgid "@channel"
+msgstr "토픽"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -172,7 +185,7 @@ msgstr "추가"
 
 #: client/app/left/left.html
 msgid "@common-channels"
-msgstr "채널"
+msgstr "토픽"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
@@ -185,7 +198,7 @@ msgstr "댓글"
 #: client/app/header/header.html client/app/modal/create.channel.html
 #: client/app/modal/join.html
 msgid "@common-create-ch"
-msgstr "새 채널 생성"
+msgstr "새 토픽 생성"
 
 #: client/app/header/header.html client/app/modal/create.private.html
 msgid "@common-create-pg"
@@ -193,7 +206,7 @@ msgstr "비공개 그룹 생성"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
-msgstr "현재 비밀번호"
+msgstr "비밀번호 입력 "
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
@@ -215,7 +228,8 @@ msgstr "1:1 메시지"
 msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-download"
 msgstr "다운로드"
 
@@ -264,7 +278,8 @@ msgstr "언어"
 msgid "@common-member"
 msgstr "멤버"
 
-#: client/app/left/left.html
+#: client/app/left/left.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-more"
 msgstr "더보기"
 
@@ -389,6 +404,10 @@ msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
 msgid "@error-404-title"
 msgstr ".. 길을 잃었습니다"
 
+#: client/app/right/right.html
+msgid "@file-action-more"
+msgstr "더보"
+
 #: client/app/header/header.html
 msgid "@file-all"
 msgstr "모든 파일"
@@ -435,11 +454,11 @@ msgstr "인터넷 익스플로러 9에서는 지원하지 않습니다."
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
-msgstr "생성할 채널 이름을 입력하세요"
+msgstr "생성할 토픽 채널 이름을 입력하세요"
 
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
-msgstr "생성할 그룹 이름을 입력하세요"
+msgstr "생성할 비공개 그룹 이름을 입력하세요"
 
 #: client/app/modal/invite.team.html
 msgid "@input-invite-email"
@@ -451,7 +470,7 @@ msgstr "변경할 이름을 입력하세요"
 
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
-msgstr "채널 이름을 검색하세요"
+msgstr "토픽 이름을 검색하세요"
 
 #: client/app/right/right.html
 msgid "@input-search-file-title"
@@ -460,6 +479,14 @@ msgstr "파일 타이틀을 검색하세요"
 #: client/app/modal/invite.channel.html
 msgid "@input-search-user-name"
 msgstr "멤버 이름을 검색하세요"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-error"
+msgstr "알파벳 대/소문자, 숫자 조합으로 8자리 이상"
+
+#: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "로그인 상태 유지"
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
@@ -479,15 +506,15 @@ msgstr "{{teamInfo.name}} 환영합니다"
 
 #: client/app/modal/join.html
 msgid "@modal-browse-ch"
-msgstr "채널 목록"
+msgstr "토픽 목록"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
-msgstr "새로운 채널을 생성합니다."
+msgstr "새로운 토픽을 생성합니다."
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
-msgstr "채널은 팀의 멤버 누구나 참여할 수 있습니다."
+msgstr "토픽은 팀의 멤버 누구나 참여할 수 있습니다."
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
@@ -515,11 +542,11 @@ msgstr "사용자 초대"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr "이미 참여중인 채널 목록"
+msgstr "이미 참여중인 토픽 목록"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr "참여 가능한 채널 목록"
+msgstr "참여 가능한 토픽 목록"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
@@ -565,7 +592,7 @@ msgstr "타이틀로 파일을 쉽게 검색할 수 있습니다"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr "님이 채널을 생성했습니다"
+msgstr "님이 토픽을 생성했습니다"
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
@@ -637,19 +664,31 @@ msgstr "없음"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
-msgstr "그룹 삭제하기"
+msgstr "비공개 그룹 삭제하기"
 
 #: client/app/center/center.html
 msgid "@pg-menu-invite"
-msgstr "이 그룹에 멤버 초대하기"
+msgstr "이 비공개 그룹에 멤버 초대하기"
 
 #: client/app/center/center.html
 msgid "@pg-menu-leave"
-msgstr "그룹 나가기"
+msgstr "비공개 그룹 나가기"
 
 #: client/app/center/center.html
 msgid "@pg-menu-rename"
-msgstr "그룹 이름 변경하기"
+msgstr "비공개 그룹 이름 변경하기\t\t"
+
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr "비공개 그룹 즐겨찾기 "
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr "즐겨찾기 해제"
+
+#: client/app/left/left.html
+msgid "@privateGroup"
+msgstr "비공개 그룹"
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
@@ -662,6 +701,132 @@ msgstr "전체 멤버 보기"
 #: client/app/header/header.html
 msgid "@team-switch"
 msgstr "팀 변경"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "깜빡이는 아이콘을 한 번씩 클릭해 주세요! "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr " 잘 알겠습니다! "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파일들을 볼 수 있는 "
+"사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"참여 중인 토픽 또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬"
+"이 가능하며, 파일명으로 검색 또한 가능합니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"각 파일 오른쪽에 메뉴 버튼(☰)을 클릭하시면 다른 채널에 공유하거나 댓글을 남"
+"길 수도 있으며 곧바로 다운로드 하실 수도 있습니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "모든 파일 "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "메시지 입력과 파일 업로드 "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"하단 입력창을 통해 메시지를 보낼 수 있으며 왼쪽의 업로드 아이콘을 누르면 파일"
+"을 올릴 수 있습니다. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr " 잔디의 사용법을 이미 잘 알고 있으며 다른 팁들 또한 보지 않겠습니다. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"<b>1:1 메시지</b>는 특정인과 대화를 하는 공간입니다. 물론, 다른 사람이 볼 수 "
+"없습니다. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"<b>비공개 그룹</b>은 일반 메신저의 그룹 채팅과 같은 비공개 공간으로써 참여한 "
+"사람들에게만 목록이 나타나고 나가게 되면 목록에서 사라집니다. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "토픽과 비공개 그룹, 1:1 메시지 "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"<b>토픽</b>은 누구나 참여할 수 있는 개방된 공간입니다. 토픽에서는 현재 프로젝"
+"트부터 점심메뉴 고르기까지 다양한 토픽에 대해 자유롭게 의견을 나눌 수 있으며 "
+"[☰더보기] 를 누르시면 현재 존재하는 토픽 목록을 확인 후 참여하실 수 있습니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "둘러보기"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위해 만"
+"들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 <b>{{user.name}}"
+"</b> 님을 위해 골랐으니 한 번 확인해주세요."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "Welcome to JANDI!"
+
+#: client/app/left/left.html
+msgid "@user"
+msgstr "사용자"
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr "유저 즐겨찾기"
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr "즐겨찾기 해제"
+
+#~ msgid "@tutorial-intro"
+#~ msgstr ""
+#~ "잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위해 "
+#~ "만들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 {{user."
+#~ "name}}님을 위해 골랐으니 한 번 확인해주세요. 깜빡이는 아이콘을 한 번씩 클"
+#~ "릭해 주세요! "
+
+#~ msgid ""
+#~ "@tutorial-file-msg1\n"
+#~ "            <!--모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파"
+#~ "일들을 볼 수 있는 사이트 메뉴가 열리고 다시 한 번 클리하면 닫히게 됩니"
+#~ "다.-->"
+#~ msgstr ""
+#~ "모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파일들을 볼 수 있"
+#~ "는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다. 참여 중인 토픽 "
+#~ "또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬이 가능하며, "
+#~ "파일명으로 검색 또한 가능합니다. 각 파일 오른쪽에 메뉴 버튼(☰)을 클릭하시"
+#~ "면 다른 채널에 공유하거나 댓글을 남길 수도 있으며 곧바로 다운로드 하실 수"
+#~ "도 있습니다."
+
+#~ msgid ""
+#~ "@tutorial-msg-explanation\n"
+#~ "            <!--하단 입력창을 통해 메시지를 보낼 수 있으며 <br/>-->\n"
+#~ "            <!--왼쪽의 업로드 아이콘을 누르면 파일을 올릴 수 있습니다.-->"
+#~ msgstr ""
+#~ "하단 입력창을 통해 메시지를 보낼 수 있으며 왼쪽의 업로드 아이콘을 누르면 "
+#~ "파일을 올릴 수 있습니다."
 
 #~ msgid "Add Comment"
 #~ msgstr "댓글 남기기"
@@ -1052,17 +1217,11 @@ msgstr "팀 변경"
 #~ msgid "Your Files"
 #~ msgstr "내 파일"
 
-#~ msgid "Channels"
-#~ msgstr "채널"
-
 #~ msgid "Direct Messages"
 #~ msgstr "1:1 메세지"
 
 #~ msgid "More"
 #~ msgstr "더보기"
-
-#~ msgid "Private Groups"
-#~ msgstr "비공개 그룹"
 
 #~ msgid "Customer Service"
 #~ msgstr "고객 센터"

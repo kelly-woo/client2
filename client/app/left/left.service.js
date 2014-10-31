@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('leftpanelAPIservice', function($http, $rootScope) {
+app.factory('leftpanelAPIservice', function($http, $rootScope, $state) {
     var leftpanelAPI = {};
 
     leftpanelAPI.getLists = function() {
@@ -34,7 +34,7 @@ app.factory('leftpanelAPIservice', function($http, $rootScope) {
 
     leftpanelAPI.getDefaultChannel = function(input) {
         return input.team.t_defaultChannelId;
-    }
+    };
 
     leftpanelAPI.getGeneralList = function(totalEntities, joinedEntities, currentUserId) {
         var userList = [],
@@ -75,6 +75,10 @@ app.factory('leftpanelAPIservice', function($http, $rootScope) {
         return returnValue;
     };
 
+    leftpanelAPI.toSignin = function() {
+        $state.go('signin');
+    };
+
     leftpanelAPI.createChannel = function(channelName) {
         return $http({
             method: 'POST',
@@ -95,6 +99,14 @@ app.factory('leftpanelAPIservice', function($http, $rootScope) {
         return $http({
             method: 'PUT',
             url: $rootScope.server_address + 'channels/' + channelId + '/join'
+        });
+    };
+
+    leftpanelAPI.setTutorial = function() {
+        return $http({
+            method: 'PUT',
+            url: $rootScope.server_address + 'settings/tutoredAt'
+
         });
     };
 

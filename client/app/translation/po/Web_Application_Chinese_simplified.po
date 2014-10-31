@@ -1,803 +1,779 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: [Web] Application\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
-msgstr ""
+msgstr "您尚未加入任何议题群组"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-can-join"
-msgstr ""
+msgstr "没有可加入的议题群组"
 
 #: client/app/right/right.html
 msgid "@alert-empty-file"
-msgstr ""
+msgstr "没有上传档案"
 
 #: client/app/right/right.html
 msgid "@alert-empty-file-search"
-msgstr ""
+msgstr "没有找到搜寻的档案"
 
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@alert-empty-file-shared"
-msgstr ""
+msgstr "档案没有分享到任何讨论串"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-invalid-password"
-msgstr ""
+msgstr "密码无效"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-missing-info"
-msgstr ""
+msgstr "资料不全"
 
 #: client/app/modal/join.html
 msgid "@alert-no-result"
-msgstr ""
+msgstr "搜寻没有结果"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-required"
-msgstr ""
+msgstr "必须填写"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-fail"
-msgstr ""
+msgstr "邀请送出不成功"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-invalid"
-msgstr ""
+msgstr "是无效的电子邮件地址"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-success"
-msgstr ""
+msgstr "邀请送出成功"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-taken"
-msgstr ""
+msgstr "已经是您团队的成员"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-update-fail"
-msgstr ""
+msgstr "更新不成功"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-update-success"
-msgstr ""
+msgstr "更新成功完成"
 
 #: client/app/modal/invite.team.html
 msgid "@btn-add"
-msgstr ""
+msgstr "增加"
 
-#: client/app/modal/image.crop.html
-#: client/app/modal/rename.html
-#: client/app/modal/settings.profile.html
-#: client/app/modal/share.html
+#: client/app/modal/image.crop.html client/app/modal/rename.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
 #: client/app/modal/upload.html
 msgid "@btn-cancel"
-msgstr ""
+msgstr "取消"
 
-#: client/app/modal/image.crop.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/image.crop.html client/app/modal/settings.profile.html
 msgid "@btn-change"
-msgstr ""
+msgstr "更改"
 
 #: client/app/right/file.html
 msgid "@btn-click-to-view"
-msgstr ""
+msgstr "点击查视"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
-#: client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html
-#: client/app/modal/join.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
+#: client/app/modal/invite.team.html client/app/modal/join.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@btn-close"
-msgstr ""
+msgstr "关闭"
 
-#: client/app/center/center.html
-#: client/app/right/file.html
+#: client/app/center/center.html client/app/right/file.html
 #: client/app/right/right.html
 msgid "@btn-comment"
-msgstr ""
+msgstr "留言"
 
 #: client/app/modal/settings.service.html
 msgid "@btn-confirm"
-msgstr ""
+msgstr "确定"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "@btn-create"
-msgstr ""
+msgstr "建立"
 
 #: client/app/right/file.html
 msgid "@btn-delete"
-msgstr ""
+msgstr "刪除"
 
 #: client/app/modal/settings.profile.html
 msgid "@btn-edit"
-msgstr ""
+msgstr "提交"
 
-#: client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
 msgid "@btn-invite"
-msgstr ""
+msgstr "邀请"
 
 #: client/app/modal/join.html
 msgid "@btn-join"
-msgstr ""
+msgstr "加入"
 
-#: client/app/center/center.html
-#: client/app/modal/share.html
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/modal/share.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@btn-share"
-msgstr ""
+msgstr "分享"
 
-#: client/app/modal/rename.html
-#: client/app/modal/settings.account.html
+#: client/app/modal/rename.html client/app/modal/settings.account.html
 msgid "@btn-update-name"
-msgstr ""
+msgstr "更新姓名"
 
 #: client/app/modal/settings.account.html
 msgid "@btn-update-password"
-msgstr ""
+msgstr "更新密码"
 
 #: client/app/modal/upload.html
 msgid "@btn-upload"
-msgstr ""
+msgstr "上传"
 
 #: client/app/center/center.html
 msgid "@ch-menu-delete"
-msgstr ""
+msgstr "删除这议题群组"
 
 #: client/app/center/center.html
 msgid "@ch-menu-invite"
-msgstr ""
+msgstr "邀请成员到这议题群组"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
-msgstr ""
+msgstr "离开议题群组"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
-msgstr ""
+msgstr "重新命名这议题群组"
 
 #: client/app/center/center.html
 msgid "@ch-menu-star"
-msgstr ""
+msgstr "离开议题群组 "
 
 #: client/app/center/center.html
 msgid "@ch-menu-un-star"
-msgstr ""
+msgstr "邀请成员到这议题群组 "
 
 #: client/app/left/left.html
 msgid "@channel"
-msgstr ""
+msgstr "议题群组 "
 
-#: client/app/header/header.html
-#: client/app/modal/settings.account.html
+#: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
-msgstr ""
+msgstr "帐号设定"
 
 #: client/app/left/left.html
 msgid "@common-add"
-msgstr ""
+msgstr "增加"
 
 #: client/app/left/left.html
 msgid "@common-channels"
-msgstr ""
+msgstr "议题群组"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
-msgstr ""
+msgstr "1:1 对话"
 
-#: client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@common-comment"
-msgstr ""
+msgstr "留言"
 
-#: client/app/header/header.html
-#: client/app/modal/create.channel.html
+#: client/app/header/header.html client/app/modal/create.channel.html
 #: client/app/modal/join.html
 msgid "@common-create-ch"
-msgstr ""
+msgstr "建立新议题群组"
 
-#: client/app/header/header.html
-#: client/app/modal/create.private.html
+#: client/app/header/header.html client/app/modal/create.private.html
 msgid "@common-create-pg"
-msgstr ""
+msgstr "建立私人群组"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
-msgstr ""
+msgstr "密码"
 
-#: client/app/error/404.html
-#: client/app/signin/signin.html
+#: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
-msgstr ""
+msgstr "客服"
 
-#: client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
-msgstr ""
+msgstr "部门"
 
 #: client/app/modal/settings.service.html
 msgid "@common-desktop-noti"
-msgstr ""
+msgstr "桌面通知"
 
 #: client/app/left/left.html
 msgid "@common-direct-messages"
-msgstr ""
+msgstr "直接讯息"
 
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
-msgstr ""
+msgstr "邀请到"
 
-#: client/app/center/center.html
-#: client/app/right/file.html
+#: client/app/center/center.html client/app/right/file.html
 #: client/app/right/right.html
 msgid "@common-download"
-msgstr ""
+msgstr "下载"
 
-#: client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
 msgid "@common-email"
-msgstr ""
+msgstr "电子邮件"
 
 #: client/app/header/header.html
 msgid "@common-faq"
-msgstr ""
+msgstr "常见问题"
 
 #: client/app/modal/share.html
 msgid "@common-file"
-msgstr ""
+msgstr "档案"
 
 #: client/app/modal/profile.view.html
 msgid "@common-file-list"
-msgstr ""
+msgstr "档案分享了"
 
 #: client/app/right/right.html
 msgid "@common-file-type"
-msgstr ""
+msgstr "档案类别"
 
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@common-files"
-msgstr ""
+msgstr "档案"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
-msgstr ""
+msgstr "基本资料"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-info-optional"
-msgstr ""
+msgstr "其它资料"
 
 #: client/app/modal/join.html
 msgid "@common-joined"
-msgstr ""
+msgstr "成员"
 
 #: client/app/modal/settings.service.html
 msgid "@common-language"
-msgstr ""
+msgstr "语言"
 
 #: client/app/right/right.html
 msgid "@common-member"
-msgstr ""
+msgstr "分享了"
 
-#: client/app/left/left.html
-#: client/app/right/file.html
+#: client/app/left/left.html client/app/right/file.html
 #: client/app/right/right.html
 msgid "@common-more"
-msgstr ""
+msgstr "浏览"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/settings.profile.html
 msgid "@common-name"
-msgstr ""
+msgstr "姓名"
 
-#: client/app/modal/rename.html
-#: client/app/modal/settings.account.html
+#: client/app/modal/rename.html client/app/modal/settings.account.html
 msgid "@common-new-name"
-msgstr ""
+msgstr "新姓名"
 
 #: client/app/modal/settings.account.html
 msgid "@common-new-password"
-msgstr ""
+msgstr "新密码"
 
 #: client/app/signin/signin.html
 msgid "@common-password"
-msgstr ""
+msgstr "密码"
 
-#: client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-phone"
-msgstr ""
+msgstr "电话"
 
-#: client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-position"
-msgstr ""
+msgstr "位置"
 
-#: client/app/error/404.html
-#: client/app/header/header.html
+#: client/app/error/404.html client/app/header/header.html
 #: client/app/signin/signin.html
 msgid "@common-privacy-policy"
-msgstr ""
+msgstr "隐私权条款"
 
 #: client/app/left/left.html
 msgid "@common-private-groups"
-msgstr ""
+msgstr "私人群組"
 
-#: client/app/header/header.html
+#: client/app/header/header.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
-msgstr ""
+msgstr "简介设定"
 
-#: client/app/modal/settings.profile.html
-msgid "@common-profile-settingstranslate"
-msgstr ""
-
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "@common-purpose"
-msgstr ""
+msgstr "叙述"
 
 #: client/app/modal/rename.html
 msgid "@common-rename"
-msgstr ""
+msgstr "重新命名"
 
 #: client/app/modal/profile.view.html
 msgid "@common-send-mail"
-msgstr ""
+msgstr "发送电​​子邮件"
 
-#: client/app/header/header.html
-#: client/app/modal/settings.service.html
+#: client/app/header/header.html client/app/modal/settings.service.html
 msgid "@common-service-settings"
-msgstr ""
+msgstr "服务偏好"
 
 #: client/app/modal/share.html
 msgid "@common-share-file"
-msgstr ""
+msgstr "分享档案"
 
-#: client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@common-share-in"
-msgstr ""
+msgstr "分享在"
 
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@common-shared-in"
-msgstr ""
+msgstr "已经在里面分享"
 
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
-msgstr ""
+msgstr "登入"
 
 #: client/app/header/header.html
 msgid "@common-sign-out"
-msgstr ""
+msgstr "登出"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-status-msg"
-msgstr ""
+msgstr "今天的感觉"
 
-#: client/app/error/404.html
-#: client/app/header/header.html
+#: client/app/error/404.html client/app/header/header.html
 #: client/app/signin/signin.html
 msgid "@common-terms-of-service"
-msgstr ""
+msgstr "使用條款"
 
 #: client/app/modal/upload.html
 msgid "@common-title"
-msgstr ""
+msgstr "标题"
 
-#: client/app/header/header.html
-#: client/app/modal/upload.html
+#: client/app/header/header.html client/app/modal/upload.html
 #: client/app/right/right.html
 msgid "@common-upload-file"
-msgstr ""
+msgstr "上传档案"
 
-#: client/app/error/404.html
-#: client/app/signin/signin.html
+#: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-visit-homepage"
-msgstr ""
+msgstr "造访首页"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
-msgstr ""
+msgstr "检视档案"
 
 #: client/app/center/center.html
 msgid "@dm-menu-invite"
-msgstr ""
+msgstr "邀请这成员加入其它讨论"
 
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
-msgstr ""
+msgstr "检视简介"
 
 #: client/app/error/404.html
 msgid "@error-404-message"
-msgstr ""
+msgstr "查无此页"
 
 #: client/app/error/404.html
 msgid "@error-404-title"
-msgstr ""
+msgstr "错误"
 
 #: client/app/right/right.html
 msgid "@file-action-more"
-msgstr ""
+msgstr "音频档案 "
 
 #: client/app/header/header.html
 msgid "@file-all"
-msgstr ""
+msgstr "全部档案"
 
 #: client/app/header/header.html
 msgid "@file-audio"
-msgstr ""
+msgstr "音频档案"
 
 #: client/app/header/header.html
 msgid "@file-image"
-msgstr ""
+msgstr "图像"
 
 #: client/app/header/header.html
 msgid "@file-pdf"
-msgstr ""
+msgstr "PDF"
 
 #: client/app/header/header.html
 msgid "@file-video"
-msgstr ""
+msgstr "视频档案"
 
 #: client/app/header/header.html
 msgid "@file-your"
-msgstr ""
+msgstr "您的档案"
 
 #: client/app/header/header.html
 msgid "@header-file"
-msgstr ""
+msgstr "档案"
 
 #: client/app/header/header.html
 msgid "@header-help"
-msgstr ""
+msgstr "支援"
 
 #: client/app/header/header.html
 msgid "@header-menu"
-msgstr ""
+msgstr "选择画面"
 
 #: client/app/header/header.html
 msgid "@header-setting"
-msgstr ""
-
-#: client/app/modal/settings.profile.html
-msgid "@ie9-profile-image-support"
-msgstr ""
+msgstr "设定"
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
-msgstr ""
+msgstr "输入新的议题群组名称"
 
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
-msgstr ""
+msgstr "输入新的私人群组名称"
 
 #: client/app/modal/invite.team.html
 msgid "@input-invite-email"
-msgstr ""
+msgstr "输入电子邮件地址进行邀请"
 
 #: client/app/modal/rename.html
 msgid "@input-rename"
-msgstr ""
+msgstr "输入修改的名字"
 
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
-msgstr ""
+msgstr "按名字搜寻议题群组"
 
 #: client/app/right/right.html
 msgid "@input-search-file-title"
-msgstr ""
+msgstr "按标题搜寻档案"
 
 #: client/app/modal/invite.channel.html
 msgid "@input-search-user-name"
-msgstr ""
+msgstr "按名字搜寻使用者"
 
 #: client/app/modal/settings.account.html
 msgid "@input-user-password-error"
 msgstr ""
+"必须由八个以上英文字母以及数字组成，其中一个必须是大写，其它则是小写及数字"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
-msgstr ""
+msgstr "我要保持登入状态"
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
-msgstr ""
+msgstr "电子邮件或密码无效"
 
 #: client/app/signin/signin.html
 msgid "@login-message"
-msgstr ""
+msgstr "输入您的电子邮件及密码"
 
 #: client/app/signin/signin.html
 msgid "@login-reset-password"
-msgstr ""
+msgstr "忘了密码？"
 
 #: client/app/signin/signin.html
 msgid "@login-welcome {{teamInfo.name}}"
-msgstr ""
+msgstr "欢迎"
 
 #: client/app/modal/join.html
 msgid "@modal-browse-ch"
-msgstr ""
+msgstr "浏览议题群组"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
-msgstr ""
+msgstr "建立任何人皆可加入的新议题群组"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
-msgstr ""
+msgstr "  "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr ""
+msgstr "请使用私人群组进行封闭式讨论"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
-msgstr ""
+msgstr "私人群组仅向其成员显示，且仅其成员可以阅读或搜寻其内容。"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
-msgstr ""
+msgstr "邀请成员加入其它讨论"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr ""
+msgstr "您可以邀请这使用者加入一个议题群组或私人群组"
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
-msgstr ""
+msgstr "邀请成员"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr ""
+msgstr "您属于的议题群组"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr ""
+msgstr "您可以加入的议题群租"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
-msgstr ""
+msgstr "简介照片"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-email"
-msgstr ""
+msgstr "更改您的电子邮件地址"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-msg1"
-msgstr ""
+msgstr "您可以更改您的帐号设定，包含您的姓名、密码、及电子邮件地址"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name"
-msgstr ""
+msgstr "更改您的姓名"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name-msg"
-msgstr ""
+msgstr "当您更改您的姓名，请记得其他成员可能会提及及搜寻该姓名"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-password"
-msgstr ""
+msgstr "更改您的密码"
 
 #: client/app/modal/settings.profile.html
 msgid "@modal-setting-profile-msg1"
-msgstr ""
+msgstr "您可以设定向其他成员揭示的个人资料"
 
 #: client/app/modal/settings.service.html
 msgid "@modal-setting-service-msg1"
-msgstr ""
+msgstr "您可以更改您的语言或通知设定"
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"
-msgstr ""
+msgstr "邀请其他团队成员加入JANDI!"
 
 #: client/app/modal/upload.html
 msgid "@modal-upload-title-msg1"
-msgstr ""
+msgstr "按标题搜寻"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr ""
+msgstr "建立了这议题群组"
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
-msgstr ""
+msgstr "建立了这私人群组"
 
 #: client/app/center/center.html
 msgid "@msg-file"
-msgstr ""
+msgstr "档案"
 
 #: client/app/right/file.html
 msgid "@msg-help-multiline"
-msgstr ""
+msgstr "Shift键加Enter键可多行输入"
 
 #: client/app/center/center.html
 msgid "@msg-invited"
-msgstr ""
+msgstr "邀请了"
 
 #: client/app/center/center.html
 msgid "@msg-invited-postfix"
-msgstr ""
+msgstr "  "
 
 #: client/app/center/center.html
 msgid "@msg-joined"
-msgstr ""
+msgstr "已经加入"
 
 #: client/app/center/center.html
 msgid "@msg-left"
-msgstr ""
+msgstr "已经离开"
 
-#: client/app/center/center.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/right.html
 msgid "@msg-open-original"
-msgstr ""
+msgstr "打开原始档案"
 
 #: client/app/center/center.html
 msgid "@msg-shared"
-msgstr ""
+msgstr "分享过"
 
 #: client/app/center/center.html
 msgid "@msg-unshared"
-msgstr ""
+msgstr "未分享过"
 
 #: client/app/center/center.html
 msgid "@msg-whose"
-msgstr ""
+msgstr "的"
 
 #: client/app/right/right.html
 msgid "@option-all-members"
-msgstr ""
+msgstr "全部"
 
 #: client/app/right/right.html
 msgid "@option-all-rooms"
-msgstr ""
+msgstr "全部"
 
 #: client/app/modal/invite.direct.html
 msgid "@option-choose"
-msgstr ""
+msgstr "选择"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-all"
-msgstr ""
+msgstr "给所有讯息"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-dm"
-msgstr ""
+msgstr "仅限直接讯息"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
-msgstr ""
+msgstr "从来没有"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
-msgstr ""
+msgstr "删除这群组"
 
 #: client/app/center/center.html
 msgid "@pg-menu-invite"
-msgstr ""
+msgstr "邀请成员到这群组"
 
 #: client/app/center/center.html
 msgid "@pg-menu-leave"
-msgstr ""
+msgstr "离开群组"
 
 #: client/app/center/center.html
 msgid "@pg-menu-rename"
-msgstr ""
+msgstr "重新命名这群组"
 
 #: client/app/center/center.html
 msgid "@pg-menu-star"
-msgstr ""
+msgstr "离开群组 "
 
 #: client/app/center/center.html
 msgid "@pg-menu-un-star"
-msgstr ""
+msgstr "邀请成员到这群组 "
 
 #: client/app/left/left.html
 msgid "@privateGroup"
-msgstr ""
+msgstr "私人群組 "
 
-#: client/app/header/header.html
-#: client/app/modal/invite.team.html
+#: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
-msgstr ""
+msgstr "邀请其他团队成员"
 
 #: client/app/header/header.html
 msgid "@team-members"
-msgstr ""
+msgstr "团队成员"
 
 #: client/app/header/header.html
 msgid "@team-switch"
-msgstr ""
+msgstr "更换团队"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
-msgstr ""
+msgstr "点击跳动的标记来查看一下吧！"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
-msgstr ""
+msgstr "知道了！"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
+"点击这按键开启一旁的收拉式选单，上面含有所有已在这'议题群组'/'私人群组'/'直接"
+"传讯'中被分享过的档案。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
+"您可以按类型或成员进行排序，并且亦可浏览其它议题群组。档案可以按关键字来搜"
+"寻。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
+"当您上传档案，您会看到在右边的选单按键（⋯），让您与其他'议题群组'/'私人群组'/"
+"成员进行分享，亦可以留言并直接下载。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
-msgstr ""
+msgstr "所有档案"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"
-msgstr ""
+msgstr "送出讯息及上传档案"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
+"仅需书写讯息并点击return键即可通话。要上传档案，点击左边的按键即可浏览您的电"
+"脑档案。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
-msgstr ""
+msgstr "我已经知道如何使用JANDI。让我就开始使用！"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
-msgstr ""
+msgstr "TIPS"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
-msgstr ""
+msgstr "群组及直接传讯是直接了当的。有人跟您对话时它们才会向您显示。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
-msgstr ""
+msgstr "如果您是被别人邀请加入，点击'⋯更多' 可以看到其它现有的议题群组。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
-msgstr ""
+msgstr "议题群组'、'私人群组'及'直接传讯'有什么不同？"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
+"议题群组是有特定主题的空间。任何人都可以建立一个议题群组或加入现有的。想像人"
+"们在真实生活中谈论且您可以听到或参与的事项。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
-msgstr ""
+msgstr "让我们来了解一下吧"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
 msgstr ""
+"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重要的"
+"提示。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
-msgstr ""
+msgstr "欢迎使用JANDI!"
 
 #: client/app/left/left.html
 msgid "@user"
-msgstr ""
+msgstr "成员"
 
 #: client/app/center/center.html
 msgid "@user-menu-star"
-msgstr ""
+msgstr "标记这成员"
 
 #: client/app/center/center.html
 msgid "@user-menu-un-star"
-msgstr ""
+msgstr "取消标记这成员"

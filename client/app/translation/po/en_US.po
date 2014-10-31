@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
@@ -10,15 +10,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
-msgstr "You have not joined any channels yet"
+msgstr "You have not joined any topics yet"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-can-join"
-msgstr "No channels to join"
+msgstr "No topics to join"
 
 #: client/app/right/right.html
 msgid "@alert-empty-file"
@@ -26,11 +25,11 @@ msgstr "No files uploaded"
 
 #: client/app/right/right.html
 msgid "@alert-empty-file-search"
-msgstr "No files found matching on"
+msgstr "No files found matching"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@alert-empty-file-shared"
-msgstr "File has not been shared in any other chats"
+msgstr "File has not been shared in other rooms"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-invalid-password"
@@ -42,7 +41,7 @@ msgstr "Missing Information"
 
 #: client/app/modal/join.html
 msgid "@alert-no-result"
-msgstr "No Result"
+msgstr "No matches"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-required"
@@ -50,27 +49,27 @@ msgstr "required"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-fail"
-msgstr "Failed to send email"
+msgstr "Invitation could not be sent"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-invalid"
-msgstr "is invalid email address"
+msgstr " is an invalid email address"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-success"
-msgstr "Sent the invitation mail successfully"
+msgstr "Invitation was sent successfully"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-taken"
-msgstr "is already member of your team"
+msgstr " is already a member of your team"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-update-fail"
-msgstr "fail to update"
+msgstr "Update not successful"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-update-success"
-msgstr "update complete"
+msgstr "Update completed successfully"
 
 #: client/app/modal/invite.team.html
 msgid "@btn-add"
@@ -99,7 +98,8 @@ msgstr "Click to view"
 msgid "@btn-close"
 msgstr "Close"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@btn-comment"
 msgstr "Comment"
 
@@ -117,7 +117,7 @@ msgstr "Delete"
 
 #: client/app/modal/settings.profile.html
 msgid "@btn-edit"
-msgstr "Edit"
+msgstr "Submit"
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
@@ -128,8 +128,8 @@ msgstr "Invite"
 msgid "@btn-join"
 msgstr "Join"
 
-#: client/app/modal/share.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/modal/share.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@btn-share"
 msgstr "Share"
 
@@ -147,19 +147,31 @@ msgstr "Upload"
 
 #: client/app/center/center.html
 msgid "@ch-menu-delete"
-msgstr "Delete this channel"
+msgstr "Delete this topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-invite"
-msgstr "Invite members to this channel"
+msgstr "Invite members to this topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
-msgstr "Leave channel"
+msgstr "Leave topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
-msgstr "Rename this channel"
+msgstr "Rename this topic"
+
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr "Star this topic"
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr "Unstar this topic"
+
+#: client/app/left/left.html
+msgid "@channel"
+msgstr "Topics"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -171,7 +183,7 @@ msgstr "Add"
 
 #: client/app/left/left.html
 msgid "@common-channels"
-msgstr "Channels"
+msgstr "Topics"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
@@ -184,7 +196,7 @@ msgstr "Comment"
 #: client/app/header/header.html client/app/modal/create.channel.html
 #: client/app/modal/join.html
 msgid "@common-create-ch"
-msgstr "Create New Channel"
+msgstr "Create New Topic"
 
 #: client/app/header/header.html client/app/modal/create.private.html
 msgid "@common-create-pg"
@@ -192,7 +204,7 @@ msgstr "Create New Private Group"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
-msgstr "Current Password"
+msgstr "Password"
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
@@ -214,7 +226,8 @@ msgstr "Direct Messages"
 msgid "@common-dm-invite-to"
 msgstr "Invite to"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-download"
 msgstr "Download"
 
@@ -233,7 +246,7 @@ msgstr "File"
 
 #: client/app/modal/profile.view.html
 msgid "@common-file-list"
-msgstr "File List"
+msgstr "Files Shared"
 
 #: client/app/right/right.html
 msgid "@common-file-type"
@@ -249,11 +262,11 @@ msgstr "Basic Information"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-info-optional"
-msgstr "Optional Information"
+msgstr "Additional Information"
 
 #: client/app/modal/join.html
 msgid "@common-joined"
-msgstr "members"
+msgstr " members"
 
 #: client/app/modal/settings.service.html
 msgid "@common-language"
@@ -261,11 +274,12 @@ msgstr "Language"
 
 #: client/app/right/right.html
 msgid "@common-member"
-msgstr "Member"
+msgstr "Shared by"
 
-#: client/app/left/left.html
+#: client/app/left/left.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-more"
-msgstr "More"
+msgstr "Browse"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/settings.profile.html
@@ -286,7 +300,7 @@ msgstr "Password"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-phone"
-msgstr "Phone"
+msgstr "Mobile #"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-position"
@@ -312,7 +326,7 @@ msgstr "Profile Settings"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "@common-purpose"
-msgstr "Purpose"
+msgstr "Description"
 
 #: client/app/modal/rename.html
 msgid "@common-rename"
@@ -348,7 +362,7 @@ msgstr "Sign Out"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-status-msg"
-msgstr "Today's Feeling"
+msgstr "Feeling Today?"
 
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/signin/signin.html
@@ -374,7 +388,7 @@ msgstr "View Files"
 
 #: client/app/center/center.html
 msgid "@dm-menu-invite"
-msgstr "Invite this member to others"
+msgstr "Invite this member to other rooms"
 
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
@@ -388,13 +402,17 @@ msgstr "The page you were looking for could not be found"
 msgid "@error-404-title"
 msgstr "That’s an error"
 
+#: client/app/right/right.html
+msgid "@file-action-more"
+msgstr "More"
+
 #: client/app/header/header.html
 msgid "@file-all"
 msgstr "All Files"
 
 #: client/app/header/header.html
 msgid "@file-audio"
-msgstr "Audio Files"
+msgstr "Audio"
 
 #: client/app/header/header.html
 msgid "@file-image"
@@ -402,11 +420,11 @@ msgstr "Images"
 
 #: client/app/header/header.html
 msgid "@file-pdf"
-msgstr "PDF Files"
+msgstr "PDFs"
 
 #: client/app/header/header.html
 msgid "@file-video"
-msgstr "Video Files"
+msgstr "Video"
 
 #: client/app/header/header.html
 msgid "@file-your"
@@ -434,7 +452,7 @@ msgstr "Internet Explorer 9 doesn't support profile image feature."
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
-msgstr "Enter new channel name"
+msgstr "Enter new topic name"
 
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
@@ -450,15 +468,24 @@ msgstr "Enter name to change"
 
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
-msgstr "Search channel by name"
+msgstr "Search topics by name"
 
 #: client/app/right/right.html
 msgid "@input-search-file-title"
-msgstr "Search file by title"
+msgstr "Search files by title"
 
 #: client/app/modal/invite.channel.html
 msgid "@input-search-user-name"
 msgstr "Search users by name"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-error"
+msgstr ""
+"must be 8+ characters including 1 uppercase, lowercase letter and number"
+
+#: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "keep me logged in"
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
@@ -478,33 +505,33 @@ msgstr "Welcome to {{teamInfo.name}}"
 
 #: client/app/modal/join.html
 msgid "@modal-browse-ch"
-msgstr "Browse Channels"
+msgstr "Browse Topics"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
-msgstr "Creating a new channel."
+msgstr "Create a new topic that anyone can join"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
-msgstr "Anyone can join."
+msgstr " "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "Please use Private Group for a closed channel."
+msgstr "Please use Private Group for a closed room"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
 msgstr ""
 "A private group is only visible to its members, and only members of a "
-"private group can read or search its contents."
+"private group can read or search its contents"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
-msgstr "Join member to others"
+msgstr "Invite member to other rooms"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "You can invite this user to chat room(private group/channel)."
+msgstr "You can invite this user to other rooms"
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
@@ -512,11 +539,11 @@ msgstr "Invite Members"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr "Channels you belong to"
+msgstr "Topics you belong to"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr "Channels you can join"
+msgstr "Topics you can join"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
@@ -528,7 +555,9 @@ msgstr "Change your email address"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-msg1"
-msgstr "You can change account settings such as full name, password"
+msgstr ""
+"You can change your account settings including your name, password, and "
+"email address. "
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name"
@@ -537,7 +566,7 @@ msgstr "Change your name"
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name-msg"
 msgstr ""
-"Please keep in mind when changing your name that other members can mention "
+"Please keep in mind when changing your name that other members may mention "
 "and search your name"
 
 #: client/app/modal/settings.account.html
@@ -546,29 +575,27 @@ msgstr "Change your password"
 
 #: client/app/modal/settings.profile.html
 msgid "@modal-setting-profile-msg1"
-msgstr ""
-"You can set or change basic information such as nickname, phone number and "
-"position."
+msgstr "You can set the personal information shown to other members"
 
 #: client/app/modal/settings.service.html
 msgid "@modal-setting-service-msg1"
-msgstr "You can change service preferences such as language, notifications."
+msgstr "You can change your language or notification settings"
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"
-msgstr "You can invite others to Jandi by email."
+msgstr "Invite other team members to JANDI!"
 
 #: client/app/modal/upload.html
 msgid "@modal-upload-title-msg1"
-msgstr "For search file by title"
+msgstr "For searches by title"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr "created current channel"
+msgstr "created this topic"
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
-msgstr "created current private group"
+msgstr "created this private group"
 
 #: client/app/center/center.html
 msgid "@msg-file"
@@ -636,23 +663,35 @@ msgstr "Never"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
-msgstr "Delete this group"
+msgstr "Delete this private group"
 
 #: client/app/center/center.html
 msgid "@pg-menu-invite"
-msgstr "Invite members to this group"
+msgstr "Invite members to this private group"
 
 #: client/app/center/center.html
 msgid "@pg-menu-leave"
-msgstr "Leave group"
+msgstr "Leave private group"
 
 #: client/app/center/center.html
 msgid "@pg-menu-rename"
-msgstr "Rename this group"
+msgstr "Rename this private group"
+
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr "Star this private group"
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr "Unstar private group"
+
+#: client/app/left/left.html
+msgid "@privateGroup"
+msgstr "Private Groups"
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
-msgstr "Invite Others to Team"
+msgstr "Invite Other Team Members"
 
 #: client/app/header/header.html
 msgid "@team-members"
@@ -660,7 +699,103 @@ msgstr "Team Members"
 
 #: client/app/header/header.html
 msgid "@team-switch"
-msgstr "Switch Teams"
+msgstr "Change Teams"
 
-#~ msgid "@file-upload"
-#~ msgstr "File Upload"
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "Click on the pulsing marks to check them out!"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "Got it!"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"All of the files you've shared and that have been shared with you can be "
+"found in your file drawer."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"You can toggle the view by using the All Files button to open or shut the "
+"drawer.You can sort by file type, team member who provided the file, or the "
+"room in which it was shared. You can also search for specific files by "
+"keyword. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"After you select a file, you can use the menu button (☰) to the right to "
+"share it in other rooms, comment on the file, or download it to your device."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "All Files"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "Sending messages and uploading files"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"To send messages, simply write in the text bar and hit enter. To upload a "
+"file, click the button to the left and select the file."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "I already know how to use JANDI. Just let me use it!"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr " "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"If you need privacy, use Private Groups or Direct Messages to invite just "
+"the people you want."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr ""
+"What’s the difference between Topics, Private Groups, and Direct Messages?"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"Topics are open forums that anybody can join. Discuss specific projects, "
+"share news or information, or just use as the water cooler – anything you "
+"want! You can check out other Topics to join by clicking ☰ MORE, or create "
+"your own Topic with + Add."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "Let’s find out"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDI wants to transform the way you communicate and connect with people in "
+"the workplace. Here are 3 important tips to help you get started."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "Welcome to JANDI! "
+
+#: client/app/left/left.html
+msgid "@user"
+msgstr "Users"
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr "Star this user"
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr "Unstar this user"

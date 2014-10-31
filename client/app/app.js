@@ -50,10 +50,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-        console.debug("==============================[stateChange]==============================");
-        console.debug("   from    ", fromState.name, fromParams);
-        console.debug("    to     ", toState.name, toParams);
-        console.debug("=========================================================================");
+        //console.info("==============================[stateChange]==============================");
+        //console.info("   from    ", fromState.name, fromParams);
+        //console.info("    to     ", toState.name, toParams);
+        //console.info("=========================================================================");
 
         if (!fromState.name) {
             // if external access, continue to original state
@@ -86,12 +86,16 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                 case 'messages' :
                 case 'messages.home' :
                     var lastState = entityAPIservice.getLastEntityState();
+
+                    // If lastState doesn't exist.
+                    // Direct user to default channel.
                     if (!lastState) {
                         $rootScope.toDefault = true;
                         return;
                     }
 
                     event.preventDefault();
+
                     if (lastState.rpanel_visible) {
                         if (lastState.itemId) {
                             $state.go('messages.detail.files.item', { entityType:lastState.entityType, entityId: lastState.entityId, itemId: lastState.itemId });
@@ -102,6 +106,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                     else {
                         $state.go('messages.detail', { entityType:lastState.entityType, entityId: lastState.entityId });
                     }
+
                     break;
                 default:
                     break;
@@ -110,18 +115,19 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     });
 
     $rootScope.$on('$stateNotFound', function(event, unfoundState, fromState, fromParams) {
-        console.warn("==============================[stateNotFound]==============================");
-        console.log("   to", unfoundState.to); // "lazy.state"
-        console.log("   toParams", unfoundState.toParams); // {a:1, b:2}
-        console.log("   options", unfoundState.options); // {inherit:false} + default options
-        console.warn("===========================================================================");
+        console.info("==============================[stateNotFound]==============================");
+        console.info("   to", unfoundState.to); // "lazy.state"
+        console.info("   toParams", unfoundState.toParams); // {a:1, b:2}
+        console.info("   options", unfoundState.options); // {inherit:false} + default options
+        console.info("===========================================================================");
     });
 
     $rootScope.$on('$locationChangeSuccess', function(event) {
-        $rootScope.uiState = localStorageService.get('ui-state');
-
         entityAPIservice.setLastEntityState();
 
+        if ($rootScope.setFileDetailCommentFocus) {
+            $rootScope.$broadcast('setCommentFocus');
+        }
         // Halt state change from even starting
         // event.preventDefault();
         // Perform custom logic
@@ -134,13 +140,18 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         // }
     });
 
+    var serverLang = '';
+
     $rootScope.preferences = {
         language        : gettextCatalog.currentLanguage,
+        lang            : serverLang,
         notification    : ''
     };
 
     // translate for multi-lang
     $rootScope.setLang = function(setLang, isDebug) {
+        getLanguageSetting(setLang);
+
         setLang = setLang || 'ko_KR';
         isDebug = isDebug || false;
         // 언어 설정
@@ -148,24 +159,53 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         gettextCatalog.debug = isDebug;
         // 현재 언어 저장
         $rootScope.preferences.language = gettextCatalog.currentLanguage;
+        $rootScope.preferences.lang = serverLang;
     };
 
     // 시스템(브라우저) 기본 언어로 초기화
     var userLang = navigator.language || navigator.userLanguage;
+    userLang = userLang.toLowerCase();
+    getLanguageSetting(userLang);
+
+
     var debugMode = (configuration.name === 'development');
-    switch( userLang ) {
-        case 'ko':
-        case 'ko_KR':
-        case 'ko-KR':
-            userLang = 'ko_KR';
-            break;
-        case 'en':
-        case 'en_US':
-        case 'en-US':
-        default:
-            userLang = 'en_US';
-            break;
+
+    function getLanguageSetting(curLang) {
+        if (curLang.indexOf('ko') >= 0) {
+            // korean.
+            userLang    = 'ko_KR';
+            serverLang  = 'ko';
+        }
+        else if (curLang.indexOf('en') >= 0) {
+            // english.
+            userLang    = 'en_US';
+            serverLang  = 'en';
+
+        }
+        else if (curLang.indexOf('zh') >= 0) {
+            // chinese.
+            if (curLang.indexOf('tw') >= 0) {
+                // main land china.
+                userLang    = 'zh_TW';
+                serverLang  = 'zh-tw';
+            }
+            else {
+                userLang    = 'zn_CN';
+                serverLang  = 'zn-cn';
+            }
+        }
+        else if (curLang.indexOf('ja') >= 0) {
+            // japanese.
+            userLang    = 'ja';
+            serverLang  = 'ja';
+        }
+        else {
+            userLang    = 'en';
+            serverLang  = 'en';
+        }
     }
+
+
     $rootScope.setLang(userLang, debugMode);
 
 });

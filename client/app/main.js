@@ -18,14 +18,17 @@ app.config(function ($stateProvider, $analyticsProvider) {
                     templateUrl : 'app/left/left.html',
                     controller  : 'leftpanelController',
                     resolve     : {
-                        leftPanel   : function (leftpanelAPIservice) {
-                            return leftpanelAPIservice.getLists();
+                        isLoggedIn  : function(loginAPI) {
+                            return loginAPI.isLoggedIn();
+                        },
+                        leftPanel   : function (isLoggedIn, leftpanelAPIservice) {
+                            if (isLoggedIn)
+                                return leftpanelAPIservice.getLists();
+                            else
+                                return leftpanelAPIservice.toSignin();
                         },
                         user        : function (leftPanel) {
                             return leftPanel.data.user;
-                        },
-                        defaultChannel: function(leftpanelAPIservice, leftPanel) {
-                            return leftpanelAPIservice.getDefaultChannel(leftPanel.data);
                         }
                     }
                 },

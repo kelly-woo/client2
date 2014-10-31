@@ -57,7 +57,7 @@
 .rpanel-header-heading { position: relative; font-weight: 700; }
 .rpanel-header-heading__back { vertical-align:middle; }
 .rpanel-header-heading__back:hover { color: #31c08a; }
-.rpanel-header-heading__back i { font-size: 14px; }
+.rpanel-header-heading__back i { font-size: 18px; vertical-align: text-bottom; margin-right: -3px; }
 
 .rpanel-header-heading__types { position: relative; font-size: 15px; line-height: inherit; color: #333; }
 .rpanel-header-heading__types__more { color:#9e9ea6; }
@@ -72,6 +72,9 @@
     top: 0px;
     font-size: 13px;
     color: #333;
+}
+.rpanel-header-heading__files .icon-upload {
+    font-size: 16px;
 }
 .rpanel-header-heading__files-add {
     color: #31c08a;
@@ -94,7 +97,7 @@
     border-top-left-radius: 22px;
     border-bottom-left-radius: 22px;
     padding: 3px 0 0 6px;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .rpanel-header-toolbar .rpanel-body-search .rpanel-body-search__input {
@@ -117,7 +120,7 @@
 }
 .advanced-search-option__category {
     width: 30%;
-    margin-right: 4%;
+    margin-right: 3%;
     display: inline-block;
 }
 .advanced-search-option__category:last-child {
@@ -143,6 +146,8 @@
 
 
 
+
+
 #file_list_button {
     position: absolute;
     top: 0;
@@ -154,9 +159,29 @@
     text-align: right;
     filter: alpha(opacity=0);
     opacity: 0;
+    display: block;
+    cursor: inherit;
+}
+#file_button {
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*top: 0;*/
+    /*opacity: 0;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 198px;
+    height: 33px;
+    overflow: hidden;
+    font-size: 999px;
+    text-align: right;
+    opacity: 0;
     cursor: inherit;
     display: block;
 }
+
 
 .file_list_button {
     position: absolute;
@@ -169,7 +194,6 @@
     text-align: right;
     filter: alpha(opacity=0);
     opacity: 0;
-    cursor: inherit;
     display: block;
 }
 
@@ -296,14 +320,16 @@
 
 .file-item-body-title__more {
     position: absolute;
-    top: 15px;
+    top: 26px;
     right: 8px;
     color:#999;
 }
 .file-item-body-title__more:hover{
     color: #333;
 }
-
+.file-item-body-title__more .icon-more {
+    font-size: 21px;
+}
 .file_action_dropdown {
     left: auto;
     right: 0;

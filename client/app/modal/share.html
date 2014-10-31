@@ -1,6 +1,6 @@
 <!-- Modal: File Share -->
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="cancel();"><i class="fa fa-close"></i></button>
+    <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
     <h3 class="modal-header__title">
         <span translate>@common-share-file</span>
     </h3>
@@ -28,7 +28,7 @@
                     <div class="modal-share__file-body">
                         <span class="modal-share__file-body__writer">{{ file.writer|getName }}</span>
                         <span class="modal-share__file-body__time">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
-                        <div class="modal-share__file-body__title" data-ng-bind="file.content.title"></div>
+                        <div class="modal-share__file-body__title keep" data-ng-bind="file.content.title"></div>
                         <div class="modal-share__file-body__meta">
                             <span class="modal-share__file-body__meta-size"
                                   data-ng-if="file.content.size > 0"
@@ -45,7 +45,7 @@
                 <div class="col-sm-9">
                     <select class="form-control"
                             data-ng-model="shareChannel"
-                            data-ng-options="channel as channel|getName group by channel.type for channel in selectOptions">
+                            data-ng-options="channel as channel|getName group by channel.typeCategory for channel in selectOptions">
                     </select>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <!-- Modal: File Upload -->
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="cancel();"><i class="fa fa-close"></i></button>
+    <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
     <h3 class="modal-header__title">
         <span translate>@common-upload-file</span>
     </h3>
@@ -32,7 +32,7 @@
                     <select class="form-control"
                             data-ng-disabled="fileInfo.isPrivateFile"
                             data-ng-model="fileInfo.share"
-                            data-ng-options="channel|getName group by channel.type for channel in selectOptions">
+                            data-ng-options="channel|getName group by channel.typeCategory for channel in selectOptions">
                     </select>
                     <!--<input type="checkbox" ng-model="fileInfo.isPrivateFile" style="margin-left: 5px;">-->
                     <!--<i style="font-size:12px;">I don't want to share it.</i>-->

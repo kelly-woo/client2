@@ -19,6 +19,10 @@
     word-break: break-all;
     white-space: pre-wrap;
 }
+.keep {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
 .underline { border-bottom: 1px solid #31c08a;  }
 .cursor_pointer { cursor: pointer; }
 .overflow-ellipsis{ display:block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap; }
@@ -418,6 +422,12 @@ input[type="button"] {
     height: 150px;
 }
 
+.image-background {
+    background: url('../assets/images/checkered.png');
+    min-width: 40px;
+    min-height: 40px;
+}
+
 
 
 
@@ -464,31 +474,30 @@ input[type="button"] {
     cursor: pointer;
     padding: 0 1.4rem 0 2.5rem;
 }
-.grey_dropdown > li:first-child > a,
-.green_dropdown > li:first-child > a {
-    padding-top: 2px;
-}
-.grey_dropdown > li:first-child > a > i,
-.green_dropdown > li:first-child > a > i {
-    top: 11px;
-}
 .grey_dropdown > li:last-child > a,
 .green_dropdown > li:last-child > a {
-    padding-bottom: 2px;
+    /*padding-bottom: 2px;*/
 }
 .grey_dropdown > li:last-child > a > i,
 .green_dropdown > li:last-child > a > i {
-    top: 8px;
+    /*top: 8px;*/
+}
+.grey_dropdown > li:first-child > a,
+.green_dropdown > li:first-child > a {
+    /*padding-top: 2px;*/
+}
+.grey_dropdown > li:first-child > a > i,
+.green_dropdown > li:first-child > a > i {
+    /*top: 11px;*/
 }
 .grey_dropdown > li > a > i,
 .green_dropdown > li > a > i {
     position: absolute;
-    top: 10px;
+    top: 6px;
     left: 0.5rem;
-    /*left: 16px;*/
-    font-size: 100%;
     width: 2rem;
     text-align: center;
+    font-size: 16px;
 }
 .grey_dropdown > li > a:hover {
     background-color: #31c08a;
@@ -592,3 +601,18 @@ input[type="button"] {
     position: absolute;
     right: 5px;
 }
+
+/*
+    tutorial
+*/
+
+.tutorial-z-index {
+    z-index: 1041 !important;
+}
+
+#topicTutorial {
+    position: fixed;
+    left: 150px;
+    top: 90px;
+}
+
