@@ -303,7 +303,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 $scope.tutorialStatus.chatTutorial = true;
                 $scope.tutorialStatus.fileTutorial = true;
 
-                //leftpanelAPIservice.setTutorial();
+                leftpanelAPIservice.setTutorial();
 
                 break;
         }
