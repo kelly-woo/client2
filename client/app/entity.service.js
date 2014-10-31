@@ -113,8 +113,11 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
     };
 
     entityAPI.hasSeenTutorial = function(user) {
-        return false;
-    }
+        if (angular.isUndefined(user.u_tutoredAt) || user.u_tutoredAt === null)
+            return false;
+        else
+            return true;
+    };
 
     entityAPI.setStarredEntity = function(entityId) {
         var entity = this.getEntityFromListById($rootScope.joinedChannelList.concat($rootScope.privateGroupList, $rootScope.userList), entityId);

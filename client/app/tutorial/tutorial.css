@@ -7,8 +7,11 @@
 }
 
 .lpanel > .tutorial_opac_background {
-    bottom: 1px;
-    right :1px;
+    width: 219px;
+    top: 41px;
+}
+.header > .tutorial_opac_background {
+    width: 100%;
 }
 .cpanel .tutorial_opac_background {
     left: -1px;
@@ -17,7 +20,6 @@
 .tutorial_opac_background {
     position: absolute;
     left: 0px;
-    right: 0px;
     top: 0;
     bottom: 0;
     background-color: #000000;
@@ -26,6 +28,13 @@
     min-height: 41px;
 }
 
+.lpanel_user {
+    height: 66px;
+}
+
+.lpanel_list {
+    right: 0;
+}
 /*
     backdrop
 */

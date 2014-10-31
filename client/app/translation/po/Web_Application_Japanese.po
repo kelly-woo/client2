@@ -1,11 +1,15 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: [Web] Application\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
-"Project-Id-Version: [Web] Application\n"
-"Language: ja\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -72,7 +76,8 @@ msgid "@btn-add"
 msgstr "追加"
 
 #: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
+#: client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "キャンセル"
 
@@ -93,7 +98,8 @@ msgstr "表示"
 msgid "@btn-close"
 msgstr "閉じる"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@btn-comment"
 msgstr "コメント"
 
@@ -122,8 +128,8 @@ msgstr "招待"
 msgid "@btn-join"
 msgstr "参加"
 
-#: client/app/modal/share.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/modal/share.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@btn-share"
 msgstr "共有"
 
@@ -154,6 +160,18 @@ msgstr "このチャネルから退出"
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
 msgstr "このチャネルの名称を変更する"
+
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr "このチャネルから退出"
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr "このチャネルに招待"
+
+#: client/app/left/left.html
+msgid "@channel"
+msgstr "チャネル一覧"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -208,7 +226,8 @@ msgstr "ダイレクトメッセージ一覧"
 msgid "@common-dm-invite-to"
 msgstr "へ招待"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-download"
 msgstr "ダウンロード"
 
@@ -257,7 +276,8 @@ msgstr "言語"
 msgid "@common-member"
 msgstr "共有したメンバー"
 
-#: client/app/left/left.html
+#: client/app/left/left.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-more"
 msgstr "表示"
 
@@ -377,6 +397,10 @@ msgstr "お探しのページは見つかりませんでした"
 msgid "@error-404-title"
 msgstr "エラーが発生しました"
 
+#: client/app/right/right.html
+msgid "@file-action-more"
+msgstr "音声"
+
 #: client/app/header/header.html
 msgid "@file-all"
 msgstr "全てのファイル"
@@ -445,6 +469,15 @@ msgstr "ファイル名で検索"
 msgid "@input-search-user-name"
 msgstr "メンバー名で検索"
 
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-error"
+msgstr ""
+"must be 8+ characters including 1 uppercase, lowercase letter and number"
+
+#: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "ログイン状態を保持する"
+
 #: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr "メールアドレスまたはパスワードが正しくありません"
@@ -471,15 +504,18 @@ msgstr "新規チャネルを作成。どのメンバーも参加することが
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
-msgstr ""
+msgstr " "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "特定のメンバーのみでチャットしたい場合はプライベートグループを使用してください"
+msgstr ""
+"特定のメンバーのみでチャットしたい場合はプライベートグループを使用してくださ"
+"い"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
-msgstr "プライベートグループはそのグループのメンバーのみ参加、内容の検索ができます"
+msgstr ""
+"プライベートグループはそのグループのメンバーのみ参加、内容の検索ができます"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
@@ -629,6 +665,18 @@ msgstr "このグループから退出する"
 msgid "@pg-menu-rename"
 msgstr "このグループの名称を変更する"
 
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr "このグループから退出する"
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr "このグループにメンバーを招待する "
+
+#: client/app/left/left.html
+msgid "@privateGroup"
+msgstr "プライベートグループ "
+
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
 msgstr "他のチームメンバーを招待する"
@@ -641,3 +689,98 @@ msgstr "チームメンバー"
 msgid "@team-switch"
 msgstr "他のチームに切り替える"
 
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "クリックして今すぐ見てみましょう!"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "わかりました"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"このボタンを押して、メニューを表示します。メニューにはトピック、グループ、DM"
+"内で共有された全てのファイルが表示されます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr "ファイルの種類、投稿者、トピック別、キーワードで絞り込みできます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"右メニュー内の「⋯」ボタンをクリックすることで、別のトピック、グループ、メン"
+"バーにファイルを共有したり、コメントを追加したり、ファイルをダウンロードする"
+"ことができます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "全てのファイル"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "メッセージとファイルを送信中"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"メッセージを書いてエンターキーを押しましょう。ファイルを共有するには、メッ"
+"セージ入力欄の左にあるボタンをクリックしてください"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "説明をスキップしてすぐに使いたい方"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"「グループ」と「DM（ダイレクトメッセージ）」はその名の通りです。あなた宛の会"
+"話のみ表示されます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"JANDIに招待されている方は「⋯もっと見る」をクリックしてトピックの一覧を確認し"
+"ましょう。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "トピックとグループとダイレクトメッセージの違いは何ですか？"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"「トピック」は特定のテーマごとの部屋、またはスレッドのようなものです。だれで"
+"もトピックを作ったり、既存のトピックに参加できます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "今すぐ見る"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュニケー"
+"ションできることを願っています。ここでJANDIをより良く理解するために重要な３点"
+"をご紹介します。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "JANDIへようこそ!!"
+
+#: client/app/left/left.html
+msgid "@user"
+msgstr "メンバー"
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr "お気に入りに追加する"
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr "お気に入りから削除する"

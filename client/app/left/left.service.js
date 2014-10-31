@@ -102,5 +102,13 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state) {
         });
     };
 
+    leftpanelAPI.setTutorial = function() {
+        return $http({
+            method: 'PUT',
+            url: $rootScope.server_address + 'settings/tutoredAt'
+
+        });
+    };
+
     return leftpanelAPI;
 });

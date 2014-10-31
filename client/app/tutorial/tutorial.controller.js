@@ -4,8 +4,6 @@ var app = angular.module('jandiApp');
 
 app.controller('tutorialController', function($rootScope, curState, $modalInstance, $scope, $state) {
 
-    console.info('[enter] tutorialController');
-
     var topicTutorial   = 1;
     var chatTutorial    = 2;
     var fileTutorial    = 3;
@@ -75,11 +73,11 @@ app.controller('tutorialController', function($rootScope, curState, $modalInstan
         applyLeftList();
     }
     function applyLeftUser() {
-        var background_overlay = angular.element('<div class="tutorial_opac_background"></div>');
+        var background_overlay = angular.element('<div class="tutorial_opac_background lpanel_user"></div>');
         angular.element(document.getElementsByClassName('lpanel')).append(background_overlay);
     }
     function applyLeftList() {
-        var background_overlay = angular.element('<div class="tutorial_opac_background"></div>');
+        var background_overlay = angular.element('<div class="tutorial_opac_background lpanel_list"></div>');
         angular.element(document.getElementsByClassName('lpanel-list')).append(background_overlay);
     }
 

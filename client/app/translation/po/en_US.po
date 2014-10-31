@@ -469,6 +469,11 @@ msgstr "Search files by title"
 msgid "@input-search-user-name"
 msgstr "Search users by name"
 
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-error"
+msgstr ""
+"must be 8+ characters including 1 uppercase, lowercase letter and number"
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr "keep me logged in"
@@ -686,6 +691,93 @@ msgstr "Team Members"
 #: client/app/header/header.html
 msgid "@team-switch"
 msgstr "Change Teams"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "Click on the pulsing marks to check them out!"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "Got it!"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"All of the files you've shared and that have been shared with you can be "
+"found in your file drawer."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"You can toggle the view by using the All Files button to open or shut the "
+"drawer.You can sort by file type, team member who provided the file, or the "
+"room in which it was shared. You can also search for specific files by "
+"keyword. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"After you select a file, you can use the menu button (☰) to the right to "
+"share it in other rooms, comment on the file, or download it to your device."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "All Files"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "Sending messages and uploading files"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"To send messages, simply write in the text bar and hit enter. To upload a "
+"file, click the button to the left and select the file."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "I already know how to use JANDI. Just let me use it!"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr " "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"If you need privacy, use Private Groups or Direct Messages to invite just "
+"the people you want."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr ""
+"What’s the difference between Topics, Private Groups, and Direct Messages?"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"Topics are open forums that anybody can join. Discuss specific projects, "
+"share news or information, or just use as the water cooler – anything you "
+"want! You can check out other Topics to join by clicking ☰ MORE, or create "
+"your own Topic with + Add."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "Let’s find out"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDI wants to transform the way you communicate and connect with people in "
+"the workplace. Here are 3 important tips to help you get started."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "Welcome to JANDI! "
 
 #: client/app/left/left.html
 msgid "@user"

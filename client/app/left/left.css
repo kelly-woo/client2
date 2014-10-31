@@ -95,7 +95,7 @@
 }
 .lpanel-list-left{
     position: absolute;
-    line-height: inherit;
+    line-height: inherit !important;
     left: 8px;
     height: inherit;
     color: #333;
