@@ -159,7 +159,6 @@ app.directive('focusMe', ['$timeout', function($timeout) {
 
                 if (value) {
                     $timeout(function() {
-                        console.log('setting focus')
                         element[0].focus();
                         scope[attrs.focusMe] = false;
                     });

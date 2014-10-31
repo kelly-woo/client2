@@ -209,10 +209,10 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             var file = $files[i];
 
             if (angular.isDefined(FileAPI.support) && !FileAPI.support.html5) {
-                $scope.supportHtml5 = FileAPI.support.html5;
+                $rootScope.supportHtml5 = FileAPI.support.html5;
             }
             else {
-                $scope.supportHtml5 = true;
+                $rootScope.supportHtml5 = true;
 
                 if (window.FileReader && file.type.indexOf('image') > -1) {
                     var fileReader = new FileReader();

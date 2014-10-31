@@ -380,7 +380,7 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
                             image_container.appendChild(img);
                         }
                         else {
-                            console.log(err);
+                            //console.log(err);
                             alert('failed to load file. please try again.');
                             $scope.cancel();
                         }

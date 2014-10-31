@@ -262,6 +262,12 @@
                                  data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
                                  data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
                                     />
+                            <div ng-if="(msg.message.content.type).indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
+                                 ng-click="onImageRotatorClick($event);">
+                                <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
+                            </div>
+
+                            {{FileAPI}}
                             <!--    FILE TYPE THUMBNAIL -->
                             <div class="msg-file-body__thumbnail"
                                  data-ng-if="(msg.message.content.type).indexOf('image') == -1">

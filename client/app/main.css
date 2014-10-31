@@ -616,3 +616,47 @@ input[type="button"] {
     top: 90px;
 }
 
+
+/*
+    ie
+*/
+
+
+.rotate-90 {
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+}
+.rotate-180 {
+    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+.rotate-270 {
+    transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+}
+
+.ie9-image-rotator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}
+.msg-file-body-float .ie9-image-rotator{
+    right: auto;
+    top: auto;
+    bottom: 17px;
+    display: none;
+    left: 17px;
+}
+.large-thumbnail-parent .ie9-image-rotator {
+    display: block;
+}
