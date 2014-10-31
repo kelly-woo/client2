@@ -469,6 +469,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $scope.selectedFiles = $files;
         $scope.dataUrls = [];
 
+        console.log(FileAPI);
+
+
         for ( var i = 0; i < $files.length; i++) {
             var file = $files[i];
 
@@ -477,13 +480,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
                 console.log('not supporting html5', $scope.supportHtml5);
 
+                console.log(file);
+
                 FileAPI.Image(file)
                     .preview(200, 200)
                     .get(function (err, img){
                         if( !err ) {
                             $scope.fileAPIElement = img;
+                            console.log(img)
                         }
                     });
+
+                FileAPI.getInfo(file, function(err, info) {
+                    if (!err) console.log(info);
+                });
+
             }
             else {
                 $scope.supportHtml5 = true;

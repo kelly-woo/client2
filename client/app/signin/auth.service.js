@@ -28,12 +28,25 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
     return {
         request: function (config) {
             config.headers = config.headers || {};
-            // Auth token
-            if ($window.sessionStorage.token) {
-                config.headers.Authorization = $window.sessionStorage.token;
-            }
+
             // API version
             config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
+
+            // Auth token
+            if ($window.sessionStorage.token) {
+
+                if (config.method === 'POST' && config.fileFormDataName === 'userFile') {
+                    // file upload api.
+                    if (angular.isUndefined(FileAPI.support)) {
+                        // since browser supports html5 file upload feature, FileAPI.support has not been initialized.
+//                        console.log('browser supports html5 not including authorization in header.');
+                        return config;
+                    }
+                }
+
+                config.headers.Authorization = $window.sessionStorage.token;
+            }
+
             return config;
         },
         responseError: function (rejection) {
