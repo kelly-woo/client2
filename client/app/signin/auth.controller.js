@@ -26,7 +26,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     // 최초 로드시 팀정보 받아오기
     var getTeamInfo = function() {
-        if (prefix === 'local' || prefix === 'dev') {
+        if (prefix === 'local' || prefix === 'dev' || prefix === 'grunt') {
             prefix = 'abcd';
         }
         loginAPI.getTeamInfo(prefix)

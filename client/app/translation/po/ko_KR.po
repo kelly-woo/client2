@@ -206,7 +206,7 @@ msgstr "비공개 그룹 생성"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
-msgstr "현재 비밀번호"
+msgstr "비밀번호 입력 "
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
@@ -471,6 +471,10 @@ msgstr "파일 타이틀을 검색하세요"
 msgid "@input-search-user-name"
 msgstr "멤버 이름을 검색하세요"
 
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-error"
+msgstr "알파벳 대/소문자, 숫자 조합으로 8자리 이상"
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr "로그인 상태 유지"
@@ -689,6 +693,92 @@ msgstr "전체 멤버 보기"
 msgid "@team-switch"
 msgstr "팀 변경"
 
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "깜빡이는 아이콘을 한 번씩 클릭해 주세요! "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr " 잘 알겠습니다! "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파일들을 볼 수 있는 "
+"사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"참여 중인 토픽 또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬"
+"이 가능하며, 파일명으로 검색 또한 가능합니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"각 파일 오른쪽에 메뉴 버튼(☰)을 클릭하시면 다른 채널에 공유하거나 댓글을 남"
+"길 수도 있으며 곧바로 다운로드 하실 수도 있습니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "모든 파일 "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "메시지 입력과 파일 업로드 "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"하단 입력창을 통해 메시지를 보낼 수 있으며 왼쪽의 업로드 아이콘을 누르면 파일"
+"을 올릴 수 있습니다. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr " 잔디의 사용법을 이미 잘 알고 있으며 다른 팁들 또한 보지 않겠습니다. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"<b>1:1 메시지</b>는 특정인과 대화를 하는 공간입니다. 물론, 다른 사람이 볼 수 "
+"없습니다. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"<b>비공개 그룹</b>은 일반 메신저의 그룹 채팅과 같은 비공개 공간으로써 참여한 "
+"사람들에게만 목록이 나타나고 나가게 되면 목록에서 사라집니다. "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "토픽과 비공개 그룹, 1:1 메시지 "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"<b>토픽</b>은 누구나 참여할 수 있는 개방된 공간입니다. 토픽에서는 현재 프로젝"
+"트부터 점심메뉴 고르기까지 다양한 토픽에 대해 자유롭게 의견을 나눌 수 있으며 "
+"[☰더보기] 를 누르시면 현재 존재하는 토픽 목록을 확인 후 참여하실 수 있습니다."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "둘러보기"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위해 만"
+"들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 <b>{{user.name}}"
+"</b> 님을 위해 골랐으니 한 번 확인해주세요."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "Welcome to JANDI!"
+
 #: client/app/left/left.html
 msgid "@user"
 msgstr "사용자"
@@ -700,6 +790,34 @@ msgstr "유저 즐겨찾기"
 #: client/app/center/center.html
 msgid "@user-menu-un-star"
 msgstr "즐겨찾기 해제"
+
+#~ msgid "@tutorial-intro"
+#~ msgstr ""
+#~ "잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위해 "
+#~ "만들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 {{user."
+#~ "name}}님을 위해 골랐으니 한 번 확인해주세요. 깜빡이는 아이콘을 한 번씩 클"
+#~ "릭해 주세요! "
+
+#~ msgid ""
+#~ "@tutorial-file-msg1\n"
+#~ "            <!--모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파"
+#~ "일들을 볼 수 있는 사이트 메뉴가 열리고 다시 한 번 클리하면 닫히게 됩니"
+#~ "다.-->"
+#~ msgstr ""
+#~ "모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파일들을 볼 수 있"
+#~ "는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다. 참여 중인 토픽 "
+#~ "또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬이 가능하며, "
+#~ "파일명으로 검색 또한 가능합니다. 각 파일 오른쪽에 메뉴 버튼(☰)을 클릭하시"
+#~ "면 다른 채널에 공유하거나 댓글을 남길 수도 있으며 곧바로 다운로드 하실 수"
+#~ "도 있습니다."
+
+#~ msgid ""
+#~ "@tutorial-msg-explanation\n"
+#~ "            <!--하단 입력창을 통해 메시지를 보낼 수 있으며 <br/>-->\n"
+#~ "            <!--왼쪽의 업로드 아이콘을 누르면 파일을 올릴 수 있습니다.-->"
+#~ msgstr ""
+#~ "하단 입력창을 통해 메시지를 보낼 수 있으며 왼쪽의 업로드 아이콘을 누르면 "
+#~ "파일을 올릴 수 있습니다."
 
 #~ msgid "Add Comment"
 #~ msgstr "댓글 남기기"

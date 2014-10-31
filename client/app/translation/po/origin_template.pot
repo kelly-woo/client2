@@ -497,6 +497,10 @@ msgstr ""
 msgid "@input-search-user-name"
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-error"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr ""
@@ -709,6 +713,74 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "@team-switch"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
 msgstr ""
 
 #: client/app/left/left.html

@@ -102,7 +102,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
             scope       :   $scope,
             controller  :   'fullImageCtrl',
             templateUrl :   'app/modal/fullimage.html',
-            windowClass :   'modal-full',
+            windowClass :   'modal-full fade-only',
             resolve     :   {
                 photoUrl    : function() {
                     return $scope.server_uploaded + $scope.file_detail.content.fileUrl;

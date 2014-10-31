@@ -79,7 +79,6 @@
 .lpanel-list__groups,
 .lpanel-list__users {
     background-color: #f2f2f2;
-    border-right: 1px solid #e1e1e1;
 }
 .lpanel-list__header {
     height: 27px;
@@ -96,7 +95,7 @@
 }
 .lpanel-list-left{
     position: absolute;
-    line-height: inherit;
+    line-height: inherit !important;
     left: 8px;
     height: inherit;
     color: #333;

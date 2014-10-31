@@ -11,6 +11,15 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     $scope.isChListCollapsed = false;
     $scope.isPGCollapsed = false;
 
+    // tutorial status
+    $scope.tutorialStatus = {
+        topicTutorial   : true,
+        chatTutorial    : true,
+        fileTutorial    : true,
+        count           : 3
+    };
+
+
     var response = null;
 
     if (leftPanel.status != 200) {
@@ -101,8 +110,16 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
 
         $scope.setCurrentEntity();
-    }
 
+        if (!entityAPIservice.hasSeenTutorial($scope.user)) {
+            // user hasn't seen tutorial yet.
+            $scope.tutorialStatus.topicTutorial = false;
+            $scope.tutorialStatus.chatTutorial = false;
+            $scope.tutorialStatus.fileTutorial = false;
+
+            openTutorialModal('welcomeTutorial');
+        }
+    }
 
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
@@ -209,7 +226,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $scope.onUserClick(user);
     });
 
-
     //  Add 'onUserClick' to redirect to direct message to 'user'
     //  center and header are calling.
     $scope.onUserClick = function(user) {
@@ -233,7 +249,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     }
 
     $scope.onDMInputFocus = function() {
-        $('.absolute-search-icon').animate({opacity: 1}, 400);
+        $('.absolute-search-icon').stop().animate({opacity: 1}, 400);
     };
 
     $scope.onDMInputBlur = function() {
@@ -248,6 +264,125 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             size        :   'lg'
         });
     };
+
+    $scope.onTutorialPulseClick = function($event) {
+        var TutorialId = $event.target.id;
+        setTutorialStatus(TutorialId);
+        openTutorialModal(TutorialId);
+    };
+
+    function setTutorialStatus(tutorialId) {
+
+
+        switch(tutorialId){
+            case 'topicTutorial':
+                $scope.tutorialStatus.topicTutorial = true;
+                $scope.tutorialStatus.count -= 1;
+
+                $('#topicTutorial').removeClass('pulse');
+                break;
+            case 'chatTutorial' :
+                $scope.tutorialStatus.chatTutorial = true;
+                $scope.tutorialStatus.count -= 1;
+
+                $('#chatTutorial').removeClass('pulse');
+                break;
+            case 'fileTutorial' :
+                $scope.tutorialStatus.fileTutorial = true;
+                $scope.tutorialStatus.count -= 1;
+
+                $('#fileTutorial').removeClass('pulse');
+                break;
+            default :
+
+                $('#topicTutorial').removeClass('pulse');
+                $('#chatTutorial').removeClass('pulse');
+                $('#fileTutorial').removeClass('pulse');
+
+                $scope.tutorialStatus.topicTutorial = true;
+                $scope.tutorialStatus.chatTutorial = true;
+                $scope.tutorialStatus.fileTutorial = true;
+
+                leftpanelAPIservice.setTutorial();
+
+                break;
+        }
+    }
+
+    function openTutorialModal(tutorialId) {
+
+        var modal;
+        switch (tutorialId) {
+            case 'welcomeTutorial':
+                modal = $modal.open({
+                    templateUrl: 'app/tutorial/tutorial.html',
+                    controller: 'tutorialController',
+                    windowClass: 'fade-only welcome-tutorial',
+                    backdropClass: 'welcome-tutorial-backdrop',
+                    backdrop: 'static',
+                    keyboard: false,
+                    resolve: {
+                        curState: function getCurrentTutorial() {
+                            return 0;
+                        }
+                    }
+                });
+                break;
+            case 'topicTutorial':
+                modal = $modal.open({
+                    scope: $scope,
+                    templateUrl: 'app/tutorial/tutorial.html',
+                    controller: 'tutorialController',
+                    windowClass: 'fade-only welcome-tutorial topic-tutorial tutorial-animation',
+                    backdrop: false,
+                    keyboard: false,
+                    resolve: {
+                        curState: function getCurrentTutorial() {
+                            return 1;
+                        }
+                    }
+                });
+                break;
+            case 'chatTutorial' :
+                modal = $modal.open({
+                    scope: $scope,
+                    templateUrl: 'app/tutorial/tutorial.html',
+                    controller: 'tutorialController',
+                    windowClass: 'fade-only welcome-tutorial chat-tutorial',
+                    backdrop: false,
+                    keyboard: false,
+                    resolve: {
+                        curState: function getCurrentTutorial() {
+                            return 2;
+                        }
+                    }
+                });
+                break;
+            case 'fileTutorial' :
+                modal = $modal.open({
+                    scope: $scope,
+                    templateUrl: 'app/tutorial/tutorial.html',
+                    controller: 'tutorialController',
+                    windowClass: 'fade-only welcome-tutorial file-tutorial',
+                    backdrop: false,
+                    keyboard: false,
+                    resolve: {
+                        curState: function getCurrentTutorial() {
+                            return 3;
+                        }
+                    }
+                });
+                break;
+            default :
+                break;
+        }
+
+        modal.result.then(function (reason) {
+            if (reason === 'skip' || $scope.tutorialStatus.count == 0) {
+                setTutorialStatus();
+            }
+        });
+    }
 
     $scope.onStarClick = function(entityType, entityId) {
         var entity = entityAPIservice.getEntityById(entityType, entityId);

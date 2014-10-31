@@ -601,3 +601,18 @@ input[type="button"] {
     position: absolute;
     right: 5px;
 }
+
+/*
+    tutorial
+*/
+
+.tutorial-z-index {
+    z-index: 1041 !important;
+}
+
+#topicTutorial {
+    position: fixed;
+    left: 150px;
+    top: 90px;
+}
+

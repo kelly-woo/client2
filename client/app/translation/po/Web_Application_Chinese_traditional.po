@@ -161,10 +161,17 @@ msgstr "離開議題群組"
 msgid "@ch-menu-rename"
 msgstr "重新命名這議題群組"
 
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr "離開議題群組 "
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr "邀請成員到這議題群組 "
+
 #: client/app/left/left.html
-#, fuzzy
 msgid "@channel"
-msgstr "議題群組"
+msgstr "議題群組 "
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -390,6 +397,10 @@ msgstr "查無此頁"
 msgid "@error-404-title"
 msgstr "錯誤"
 
+#: client/app/right/right.html
+msgid "@file-action-more"
+msgstr "音頻檔案 "
+
 #: client/app/header/header.html
 msgid "@file-all"
 msgstr "全部檔案"
@@ -458,6 +469,15 @@ msgstr "按標題搜尋檔案"
 msgid "@input-search-user-name"
 msgstr "按名字搜尋使用者"
 
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-error"
+msgstr ""
+"必須由八個以上英文字母以及數字組成，其中一個必須是大寫，其它則是小寫及數字"
+
+#: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "我要保持登入狀態"
+
 #: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr "電子郵件或密碼無效"
@@ -484,7 +504,7 @@ msgstr "建立任何人皆可加入的新議題群組"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
-msgstr "\n"
+msgstr "  "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
@@ -576,7 +596,7 @@ msgstr "邀請了"
 
 #: client/app/center/center.html
 msgid "@msg-invited-postfix"
-msgstr "\n"
+msgstr " "
 
 #: client/app/center/center.html
 msgid "@msg-joined"
@@ -642,10 +662,17 @@ msgstr "離開群組"
 msgid "@pg-menu-rename"
 msgstr "重新命名這群組"
 
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr "離開群組 "
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr "邀請成員到這群組 "
+
 #: client/app/left/left.html
-#, fuzzy
 msgid "@privateGroup"
-msgstr "私人群組"
+msgstr "私人群組 "
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
@@ -659,6 +686,94 @@ msgstr "團隊成員"
 msgid "@team-switch"
 msgstr "更換團隊"
 
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "點擊跳動的標記來查看一下吧！"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "知道了！"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"點擊這按鍵開啓一旁的收拉式選單，上面含有所有已在這‘議題群組’/‘私人群組’/‘直接"
+"傳訊’中被分享過的檔案。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"您可以按類型或成員進行排序，並且亦可瀏覽其它議題群組。檔案可以按關鍵字來搜"
+"尋。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"當您上傳檔案，您會看到在右邊的選單按鍵（⋯），讓您與其他‘議題群組’/‘私人群組’/"
+"成員進行分享，亦可以留言並直接下載。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "所有檔案"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "送出訊息及上傳檔案"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"僅需書寫訊息並點擊return鍵即可通話。要上傳檔案，點擊左邊的按鍵即可瀏覽您的電"
+"腦檔案。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "我已經知道如何使用JANDI。讓我就開始使用！"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr "群組及直接傳訊是直接了當的。有人跟您對話時它們才會向您顯示。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr "如果您是被別人邀請加入，點擊 ‘⋯更多’ 可以看到其它現有的議題群組。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "‘議題群組’、‘私人群組’及‘直接傳訊’有什麽不同？"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"議題群組是有特定主題的空間。任何人都可以建立一個議題群組或加入現有的。想像人"
+"們在真實生活中談論且您可以聽到或參與的事項。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "讓我們來瞭解一下吧"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最重要的"
+"提示。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "歡迎使用JANDI!"
+
 #: client/app/left/left.html
 msgid "@user"
-msgstr ""
+msgstr "成員"
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr "標記這成員"
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr "取消標記這成員"

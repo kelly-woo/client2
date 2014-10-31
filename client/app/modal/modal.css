@@ -3,6 +3,20 @@
                    MODAL
 
 ********************************************/
+/*
+    applying fade animation only.
+    To make this active, add 'fade-only' class to 'windowClass' in open.modal options
+*/
+.modal.fade.fade-only .modal-dialog{
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+
+}
 .modal.hide {
     z-index: -1000;
 }
@@ -471,6 +485,9 @@
     margin: 0 0 0 5px;
     color: #a94442;
     font-size: 14px;
+}
+.account-settings-body__alert {
+    margin-top: 5px;
 }
 .account-settings-body__help {
     color: #9e9ea6;
