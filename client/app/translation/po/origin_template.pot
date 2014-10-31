@@ -97,6 +97,7 @@ msgstr ""
 msgid "@btn-close"
 msgstr ""
 
+#: client/app/center/center.html
 #: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@btn-comment"
@@ -129,6 +130,7 @@ msgstr ""
 msgid "@btn-join"
 msgstr ""
 
+#: client/app/center/center.html
 #: client/app/modal/share.html
 #: client/app/right/file.html
 #: client/app/right/right.html
@@ -162,6 +164,14 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
 msgstr ""
 
 #: client/app/left/left.html
@@ -227,6 +237,7 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr ""
 
+#: client/app/center/center.html
 #: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@common-download"
@@ -280,6 +291,8 @@ msgid "@common-member"
 msgstr ""
 
 #: client/app/left/left.html
+#: client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-more"
 msgstr ""
 
@@ -412,6 +425,10 @@ msgstr ""
 msgid "@error-404-title"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@file-action-more"
+msgstr ""
+
 #: client/app/header/header.html
 msgid "@file-all"
 msgstr ""
@@ -478,6 +495,14 @@ msgstr ""
 
 #: client/app/modal/invite.channel.html
 msgid "@input-search-user-name"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-error"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -665,6 +690,14 @@ msgstr ""
 msgid "@pg-menu-rename"
 msgstr ""
 
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr ""
@@ -684,4 +717,12 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "@user"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
 msgstr ""

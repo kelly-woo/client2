@@ -155,13 +155,20 @@ app.directive('scrollBottomOn', ['$timeout', function($timeout) {
 app.directive('focusMe', ['$timeout', function($timeout) {
     return {
         link: function(scope, element, attrs) {
-            scope.$watch(attrs.focusMe, function(value) {
-                if (value === true) {
+            scope.$watch(attrs.focusMe, function(value, oldValue) {
+
+                if (value) {
                     $timeout(function() {
+                        console.log('setting focus')
                         element[0].focus();
                         scope[attrs.focusMe] = false;
                     });
                 }
+            });
+
+            element.bind('blur', function() {
+                scope[attrs.focusMe] = false;
+
             });
         }
     }
@@ -221,3 +228,81 @@ app.directive('infiniteScrollBottom', function() {
         });
     };
 });
+
+app.directive('rotate', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var displayProperty = element.css('display');
+
+            element.css('display', 'hidden');
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', attrs.ngSrc, true);
+            xhr.responseType = 'blob';
+            xhr.onload = function(e) {
+                if (this.status == 200) {
+                    var temp_blob = this.response;
+                    var transform_map = [
+                        "rotate(0deg)",                 // 1: UP
+                        "rotate(0deg) scaleX(-1)",      // 2: UP + FLIP
+                        "rotate(180deg)",               // 3: DOWN
+                        "rotate(180deg) scaleX(-1)",    // 4: DOWN + FLIP
+                        "rotate(90deg) scaleY(-1)",     // 5: LEFT + FLIP
+                        "rotate(90deg) ",               // 6: LEFT
+                        "rotate(-90deg) scaleY(-1)",    // 7: RIGHT + FLIP
+                        "rotate(-90deg)"                // 8: RIGHT
+                    ];
+                    loadImage.parseMetaData(temp_blob, function (data) {
+                        if (!data.imageHead) {
+//                            console.warn("imageHead", data);
+                            return;
+                        }
+
+                        var orientation = data.exif.get('Orientation');
+                        var r = transform_map[orientation-1];
+                        element.css({
+                            '-moz-transform': r,
+                            '-webkit-transform': r,
+                            '-o-transform': r,
+                            '-ms-transform': r
+                        }).attr('data-image-orientation', orientation);
+                        element.css('display', displayProperty);
+                    });
+                }
+            };
+            xhr.send();
+        }
+    }
+});
+
+app.directive('passwordStrength', function($parse) {
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function(scope, elem, attrs, ctrl) {
+// TODO : BETTER PASSWORD POLICY
+// TODO : COULD ADD SPECIAL CHARACTERS.
+// This part is supposed to check the strength
+            ctrl.$parsers.unshift(function(viewValue) {
+                var hasEnoughLength, hasLowerLetter, hasUpperLetter, hasNumber;
+                hasEnoughLength = (viewValue && viewValue.length >= 8 ? true : false);
+                hasLowerLetter = (viewValue && /[a-z]/.test(viewValue)) ? true : false;
+                hasUpperLetter = (viewValue && /[A-Z]/.test(viewValue)) ? true : false;
+                hasNumber = (viewValue && /\d/.test(viewValue)) ? true : false;
+// var level = 0;
+// if (hasEnoughLength) level++;
+// if (hasLowerLetter) level++;
+// if (hasUpperLetter) level++;
+// if (hasNumber) level++;
+                if ( hasEnoughLength && hasLowerLetter && hasUpperLetter && hasNumber ) {
+                    ctrl.$setValidity('strength', true);
+                }
+                else {
+                    ctrl.$setValidity('strength', false);
+                }
+                return viewValue;
+            });
+        }
+    };
+});
+

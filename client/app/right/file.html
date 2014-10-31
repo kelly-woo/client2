@@ -1,6 +1,6 @@
 <div class="panel-title-container">
     <span class="rpanel-header-heading rpanel-header-heading__back cursor_pointer" data-ui-sref="messages.detail.files">
-        <i class="fa fa-chevron-left"></i> <span translate>@common-files</span>
+        <i class="icon-prev"></i> <span translate>@common-files</span>
     </span>
 </div>
 
@@ -27,7 +27,8 @@
             </div>
 
             <div class="file-detail-body">
-                <img class="file-detail-body__image"
+                <img rotate
+                     class="file-detail-body__image"
                      data-ng-if="( (file_detail.content.type).indexOf('image') !== -1 )"
                      data-ng-src="{{ server_uploaded + file_detail.content.extraInfo.largeThumbnailUrl }}"
                      data-ng-click="onImageClick();">
@@ -45,17 +46,20 @@
 
                     <div class="file-detail-body__other-action">
 
-                        <button ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" type="button" class="btn btn-white" >
-                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
+                        <!--    PDF FILE    -->
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" >
+                            <button type="button" class="btn btn-white" >
                                 <span translate>@btn-click-to-view</span>
-                            </a>
-                        </button>
+                            </button>
+                        </a>
 
-                        <button ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )"type="button" class="btn btn-white" >
-                            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}">
+                        <!--    NON-PDF FILE    -->
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}"  ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )">
+                            <button type="button" class="btn btn-white" >
                                 <span translate>@common-download</span>
-                            </a>
-                        </button>
+                            </button>
+                        </a>
+
                     </div>
 
                 </div>
@@ -93,19 +97,20 @@
                         </div>
                     </div>
 
-                    <div class="file-item-meta__action dropdown" is-open="isToggled">
-                        <a class="file_actions dropdown-toggle">
-                            <span class="icon_downmenu"></span>
+                    <div class="file-item-meta__action dropdown">
+                        <a class="file_actions dropdown-toggle"
+                           tooltip="{{ '@common-more' | translate }}" tooltip-placement="bottom">
+                            <i class="icon-more cursor_pointer"></i>
                         </a>
                         <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
                             <li class="cursor_pointer">
-                                <a data-ng-click="onClickShare(file_detail); toggleDropdown($event);">
+                                <a data-ng-click="onClickShare(file_detail);">
                                     <i class="fa fa-share-alt"></i>
                                     <span translate>@btn-share</span>
                                 </a>
                             </li>
                             <li class="cursor_pointer">
-                                <a data-ng-click="focusPostComment=true; toggleDropdown($event);">
+                                <a data-ng-click="onCommentFocusClick();">
                                     <i class="fa fa-comment-o"></i>
                                     <span translate>@btn-comment</span>
                                 </a>
@@ -146,7 +151,7 @@
                         </span>
                     </div>
                     <div class="comment-item-body">
-                        <p class="break" data-ng-bind-html="(comment.content.body) || ''"></p>
+                        <p class="keep" data-ng-bind-html="(comment.content.body) || ''"></p>
                     </div>
                 </div>
 
@@ -160,7 +165,8 @@
                      ng-click="onUserClick(user);"/>
             </div>
             <form id="comment-form" data-ng-submit="postComment()">
-                <textarea class="comment-input"
+                <textarea id="file-detail-comment-input"
+                          class="comment-input"
                           focus-me="focusPostComment"
                           message-submit="postComment()"
                           data-ng-model="comment.content"
@@ -168,9 +174,10 @@
                           autocorrect="off"
                           autocomplete="off"
                           spellcheck="true"></textarea>
-                        <span class="comment-input__tip pull-left">
-                            <span translate>@msg-help-multiline</span>
-                        </span>
+
+                <span class="comment-input__tip pull-left">
+                    <span translate>@msg-help-multiline</span>
+                </span>
                 <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
             </form>
         </div>

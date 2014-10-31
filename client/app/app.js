@@ -50,10 +50,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-        console.debug("==============================[stateChange]==============================");
-        console.debug("   from    ", fromState.name, fromParams);
-        console.debug("    to     ", toState.name, toParams);
-        console.debug("=========================================================================");
+        //console.info("==============================[stateChange]==============================");
+        //console.info("   from    ", fromState.name, fromParams);
+        //console.info("    to     ", toState.name, toParams);
+        //console.info("=========================================================================");
 
         if (!fromState.name) {
             // if external access, continue to original state
@@ -115,18 +115,19 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     });
 
     $rootScope.$on('$stateNotFound', function(event, unfoundState, fromState, fromParams) {
-        console.warn("==============================[stateNotFound]==============================");
-        console.log("   to", unfoundState.to); // "lazy.state"
-        console.log("   toParams", unfoundState.toParams); // {a:1, b:2}
-        console.log("   options", unfoundState.options); // {inherit:false} + default options
-        console.warn("===========================================================================");
+        console.info("==============================[stateNotFound]==============================");
+        console.info("   to", unfoundState.to); // "lazy.state"
+        console.info("   toParams", unfoundState.toParams); // {a:1, b:2}
+        console.info("   options", unfoundState.options); // {inherit:false} + default options
+        console.info("===========================================================================");
     });
 
     $rootScope.$on('$locationChangeSuccess', function(event) {
-        $rootScope.uiState = localStorageService.get('ui-state');
-
         entityAPIservice.setLastEntityState();
 
+        if ($rootScope.setFileDetailCommentFocus) {
+            $rootScope.$broadcast('setCommentFocus');
+        }
         // Halt state change from even starting
         // event.preventDefault();
         // Perform custom logic
@@ -157,20 +158,34 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     // 시스템(브라우저) 기본 언어로 초기화
     var userLang = navigator.language || navigator.userLanguage;
+    userLang = userLang.toLowerCase();
+
     var debugMode = (configuration.name === 'development');
-    switch( userLang ) {
-        case 'ko':
-        case 'ko_KR':
-        case 'ko-KR':
-            userLang = 'ko_KR';
-            break;
-        case 'en':
-        case 'en_US':
-        case 'en-US':
-        default:
-            userLang = 'en_US';
-            break;
+    if (userLang.indexOf('ko') >= 0) {
+        // korean.
+        userLang = 'ko_KR';
     }
+    else if (userLang.indexOf('en') >= 0) {
+        // english.
+        userLang = 'en_US';
+    }
+    else if (userLang.indexOf('zh') >= 0) {
+        // chinese.
+        if (userLang.indexOf('cn') >= 0) {
+            // main land china.
+            userLang = 'zh_CN';
+        }
+        else
+            userLang = 'zn_TW';
+    }
+    else if (userLang.indexOf('ja') >= 0) {
+        // japanese.
+        userLang = 'ja';
+    }
+    else {
+        userLang = 'en_US';
+    }
+
     $rootScope.setLang(userLang, debugMode);
 
 });

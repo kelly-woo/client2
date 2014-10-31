@@ -1,7 +1,6 @@
 .lpanel {
     color: #333;
     width: 220px;
-    position: relative;
     overflow: auto;
     background: #f2f2f2;
 }
@@ -68,10 +67,10 @@
 
 .lpanel-list {
     width: inherit;
-    overflow: auto;
-    overflow-x: hidden;
-    position: fixed;
+    overflow-y: scroll;
+    position: absolute;
     bottom: 0;
+    left: 0;
     top: 107px;
     background: #f2f2f2;
     border-right: 1px solid #e1e1e1;
@@ -122,7 +121,8 @@
     margin-left: 5px;
 }
 .lpanel-list-option i {
-    margin-right: 4px;
+    margin-right: 2px;
+    vertical-align: text-top;
 }
 .lpanel-list-option:hover {
     color: #333;
@@ -195,21 +195,13 @@
 .left-panel_badge {
     margin-top: 5px;
     color: white !important;
+    max-width: 27px;
 }
 
 .left-panel__name {
     max-width: 141px;
 }
 
-.lpanel-list ul li a .prefix{
-    font-weight:300;
-    -moz-opacity:.5;
-    -khtml-opacity:.5;
-    -webkit-opacity:.5;
-    opacity:.5;
-    -ms-filter:alpha(opacity=50);
-    filter:alpha(opacity=50);
-}
 
 .lpanel-list__groups {
     margin: 1px 0;
@@ -243,7 +235,7 @@
     box-shadow: none;
     border: none !important;
     border-bottom: 1px solid #666 !important;
-    padding: 3px 3px 0 21px;
+    padding: 4px 3px 0 19px;
     background-color: #f2f2f2;
     opacity: 0.2;
     border-radius: 0;
@@ -260,7 +252,14 @@
 }
 
 
-
+.left-star {
+    position: absolute;
+    left: 8px;
+    top: 7px;
+}
+.starred-on {
+    color: #31c08a;
+}
 
 
 .lpanel-team {
@@ -285,4 +284,18 @@
 }
 .lpanel-team__more:hover {
     color:white;
+}
+
+
+/**
+    favorite star
+**/
+.lpanel-list ul li a .icon-star {
+    color:#9e9ea6;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.lpanel-list ul li:hover .icon-star {
+    opacity: 1;
 }

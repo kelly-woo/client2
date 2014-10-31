@@ -111,7 +111,7 @@ app.controller('userModalCtrl', function($scope, $modalInstance, $state) {
 });
 
 // PRIVATE_GROUP/CHANNEL RENAME
-app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope, analyticsService) {
+app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope, analyticsService, fileAPIservice) {
     $scope.newChannelName = $scope.currentEntity.name;
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
@@ -139,9 +139,8 @@ app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderA
                 analyticsService.mixpanelTrack( "Entity Name Change", { "type": entity_type } );
 
                 $scope.updateLeftPanelCaller();
-                $rootScope.$emit('updateSharedEntities');
+                fileAPIservice.broadcastChangeShared();
                 $modalInstance.dismiss('cancel');
-                $scope.isLoading = false;
             })
             .error(function(response) {
                 alert(response.msg);
@@ -216,8 +215,7 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
                 analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
 
                 $scope.isLoading = false;
-                $modalInstance.dismiss('cancel');
-                $scope.updateLeftPanelCaller();     // is this necessary?
+                $modalInstance.dismiss('success');
             })
             .error(function(error) {
                 console.error('inviteUsers', error.msg );
@@ -321,15 +319,17 @@ app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entit
 
     $scope.onInviteClick = function(inviteTo) {
 
+        console.log(inviteTo);
+
         if (angular.isUndefined(inviteTo)) {
             alert('Please select channel/private group.');
             return;
         }
 
-        if (inviteTo.members.indexOf($scope.currentEntity.id) > -1) {
-            $modalInstance.dismiss('cancel');
-            return;
-        }
+//        if (inviteTo.members.indexOf($scope.currentEntity.id) > -1) {
+//            $modalInstance.dismiss('cancel');
+//            return;
+//        }
 
         var invitedId = [];
         invitedId.push($scope.currentEntity.id);
@@ -792,7 +792,11 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
     $scope.currentLang = $rootScope.preferences.language;
     $scope.listLangs = [
         { "value": "ko_KR", "text": "한국어" },
-        { "value": "en_US", "text": "English" }
+        { "value": "en_US", "text": "English" },
+        { "value": "zh_CN", "text": "简体中文 Simplified Chinese" },
+        { "value": "zh_TW", "text": "繁體中文 Traditional Chinese" },
+        { "value": "ja",    "text": "日本語 Japanese"}
+
     ];
 
     $scope.cancel = function() {

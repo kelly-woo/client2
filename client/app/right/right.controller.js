@@ -7,7 +7,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.isLoading = true;
     $scope.isScrollLoading = true;
 
-    console.info('[enter] rightpanelController');
+    //console.info('[enter] rightpanelController');
 
     var startMessageId   = -1;
 
@@ -97,7 +97,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     //  fileRequest.fileType => 파일 타입
     //  fileRequest.keyword  => text input box
-    //  onChangeShared       => 파일의 shared entity가 바뀌면 호출된다.
     //  한가지라도 바뀌면 알아서 다시 api call을 한다.
     $scope.$watch('[fileRequest.fileType, fileRequest.keyword]',
         function(newValue, oldValue) {
@@ -242,6 +241,10 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         }
     };
 
+    $scope.$on('openFileShare', function(event, file) {
+        $scope.onClickShare(file);
+    });
+
     $scope.onClickShare = function(file) {
         $scope.fileToShare = file;
         this.openModal('share');
@@ -299,4 +302,17 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         }
     };
 
+    $scope.setCommentFocus = function(file) {
+        if ($state.params.itemId != file.id) {
+            $rootScope.setFileDetailCommentFocus = true;
+
+            $state.go('files', {
+                userName    : file.writer.name,
+                itemId      : file.id
+            });
+        }
+        else {
+            fileAPIservice.broadcastCommentFocus();
+        }
+    };
 });

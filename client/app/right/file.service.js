@@ -124,5 +124,13 @@ app.factory('fileAPIservice', function($http, $rootScope, $upload, $filter) {
         $rootScope.$broadcast('onChangeShared', ret);
     };
 
+    fileAPI.broadcastCommentFocus = function() {
+        $rootScope.$broadcast('setCommentFocus');
+    };
+
+    fileAPI.broadcastFileShare = function(file) {
+        $rootScope.$broadcast('openFileShare', file);
+    };
+
     return fileAPI;
 });

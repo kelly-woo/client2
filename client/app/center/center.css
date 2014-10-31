@@ -38,7 +38,7 @@
     transitionDISABLED: .15s;
 }
 .panel-title-info {
-    max-width: 89%;
+    max-width: 73%;
 }
 .panel-title-info,
 .panel-title-member {
@@ -96,7 +96,7 @@
     color: #1d1d1d;
 }
 .header-padding-for-prefix {
-    padding-left: 16px;
+    /*padding-left: 16px;*/
 }
 .panel-title-info-name-container {
     color:#555459;
@@ -105,7 +105,7 @@
     height: inherit;
     width: 100%;
 }
-.panel-title-info .prefix {
+.prefix {
     color:#9e9ea6;
     padding-right:.1rem;
     font-weight:500;
@@ -114,8 +114,7 @@
     -o-transitionDISABLED:color .15s ease-out;
     transitionDISABLED:color .15s ease-out;
     cursor:pointer;
-    position: absolute;
-    left:   0;
+    margin-right: 3px;
 }
 .panel-title-info__name {
     width: 100%;
@@ -355,6 +354,7 @@
     height: auto;
     max-width: 700px;
     position: relative;
+    overflow: hidden;
 }
 .large-thumbnail {
     margin-bottom: 10px;
@@ -365,6 +365,9 @@
     display: block;
     -webkit-animation: opacIn-from-0 1s; /* Chrome, Safari, Opera */
     animation: opacIn-from-0 1s;
+}
+.large-thumbnail-parent .fa-comment {
+    display: none;
 }
 .large-thumbnail-full-screen {
     cursor: pointer;
@@ -581,9 +584,11 @@ css for system-event-msg
     height: 0 !important;
 }
 
-
 #chatTutorial {
     position: fixed;
     bottom: 30px;
     left: 260px;
+}
+#primary_file_button .icon-upload {
+    line-height: 35px;
 }

@@ -1,4 +1,4 @@
-<div ui-view="headerpanel" class="hpanel"></div>
+<header ui-view="headerpanel" class="hpanel"></header>
 
 <span ng-if="false">
     <span translate>@channel</span>
@@ -20,48 +20,54 @@
         </span>
     </div>
 
-    <!-- TEAM CONTAINER  -->
-    <div class="lpanel-team hidden">
-        <span class="lpanel-team__name overflow-ellipsis right_padding dropdown-toggle">
-            {{ team.name }}
-        </span>
-    </div>
-
     <div class="tutorial-clicker tutorial-z-index pulse" id="topicTutorial" data-ng-click="onTutorialPulseClick($event);"
          data-ng-if="!tutorialStatus.topicTutorial"></div>
 
     <!-- LIST CONTAINER -->
     <div class="lpanel-list">
 
-        <!-- STARRED CONTAINER  -->
-        <div class="lpanel-list__stars" ng-show="entities.stars.length">
-            <h2 id="starred_section_header" class="overflow-ellipsis"><span class="glyphicon glyphicon-star"></span> Starred</h2>
-        </div>
-
         <!-- CHANNEL -->
         <div class="lpanel-list__channels">
 
             <!--    HEADER  -->
             <div class="lpanel-list__header cursor_pointer" ng-click="isChListCollapsed = !isChListCollapsed">
-                <i class="lpanel-list-left fa fa-comment"></i>
+                <i class="lpanel-list-left icon-topic-fill"></i>
 
                 <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-channels</span>
 
                 <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();">
-                    <i class="fa fa-plus"></i><span translate>@common-add</span>
+                    <i class="icon-add"></i><span translate>@common-add</span>
                 </div>
                 <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();">
-                    <i class="fa fa-list"></i><span translate>@common-more</span>
+                    <i class="icon-list"></i><span translate>@common-more</span>
                 </div>
 
             </div>
 
             <!--    LIST    -->
             <ul id="channel-list" collapse="isChListCollapsed">
-                <li ng-repeat="joinedChannel in joinedChannelList" ng-class="{active: $state.params.entityId == joinedChannel.id}">
+
+                <li ng-repeat="joinedChannel in joinedChannelList | filter: { isStarred : true }" ng-class="{active: $state.params.entityId == joinedChannel.id}">
                     <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
+
+                        <i class="icon-star-fill left-star starred-on"
+                           data-ng-click="onStarClick(joinedChannel.type, joinedChannel.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
                         <span class="inline-overflow-ellipsis left-panel__name">
-                            <span class="prefix">#</span> {{joinedChannel.name}}
+                            {{joinedChannel.name}}
+                        </span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{joinedChannel.alarmCnt}}</span>
+                    </a>
+                </li>
+
+                <li ng-repeat="joinedChannel in joinedChannelList | filter: { isStarred : false }" ng-class="{active: $state.params.entityId == joinedChannel.id}">
+                    <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
+
+                        <i class="icon-star left-star"
+                           data-ng-click="onStarClick(joinedChannel.type, joinedChannel.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
+                        <span class="inline-overflow-ellipsis left-panel__name">
+                            {{joinedChannel.name}}
                         </span>
                         <span class="badge left-panel_badge green_badge pull-right">{{joinedChannel.alarmCnt}}</span>
                     </a>
@@ -76,22 +82,39 @@
 
             <!--    HEADER  -->
             <div class="lpanel-list__header cursor_pointer" ng-click="isPGCollapsed = !isPGCollapsed">
-                <i class="lpanel-list-left fa fa-unlock-alt"></i>
+                <i class="lpanel-list-left icon-chat-fill"></i>
 
                 <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-private-groups</span>
 
                 <div class="lpanel-list-option pull-right" ng-click="openModal('private'); $event.stopPropagation(); $event.preventDefault();">
-                    <i class="fa fa-plus"></i><span translate>@common-add</span>
+                    <i class="icon-add"></i><span translate>@common-add</span>
                 </div>
 
             </div>
 
             <!--    LIST    -->
             <ul id="group-list" collapse="isPGCollapsed">
-                <li class="group cursor_pointer" ng-repeat="group in privateGroupList" ng-class="{active: $state.params.entityId == group.id}">
+                <li class="group cursor_pointer" ng-repeat="group in privateGroupList | filter : { isStarred : true }" ng-class="{active: $state.params.entityId == group.id}">
                     <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
-                        <!--<i class="fa fa-times-circle group_close"></i>-->
+
+                        <i class="icon-star-fill left-star starred-on"
+                           data-ng-click="onStarClick(group.type, group.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
                         <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name"></span>
+
+                        <span class="badge left-panel_badge green_badge pull-right">{{group.alarmCnt}}</span>
+
+                    </a>
+                </li>
+
+                <li class="group cursor_pointer" ng-repeat="group in privateGroupList | filter : { isStarred : false }" ng-class="{active: $state.params.entityId == group.id}">
+                    <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
+
+                        <i class="icon-star left-star"
+                           data-ng-click="onStarClick(group.type, group.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
+                        <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name"></span>
+
                         <span class="badge left-panel_badge green_badge pull-right">{{group.alarmCnt}}</span>
 
                     </a>
@@ -106,14 +129,14 @@
 
             <!--    HEADER  -->
             <div class="lpanel-list__header cursor_pointer" ng-click="isDMCollapsed = !isDMCollapsed">
-                <i class="lpanel-list-left fa fa-user"></i>
+                <i class="lpanel-list-left icon-user"></i>
                 <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-direct-messages</span>
             </div>
 
             <!--    LIST    -->
             <ul id="dm-list" collapse="isDMCollapsed">
                 <div class="lpanel-list-user_search">
-                    <i class="fa fa-search absolute-search-icon"></i>
+                    <i class="icon-search absolute-search-icon"></i>
                     <input type="text"
                            class="form-control lpanel-list-user-search__box"
                            placeholder=""
@@ -122,9 +145,23 @@
                            data-ng-blur="onDMInputBlur();"/>
                 </div>
 
-                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | userByName:userNameQuery)"
+                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {isStarred : true} | userByName:userNameQuery)"
                     ng-class="{active: $state.params.entityId == userEntity.id}">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
+                        <i class="icon-star-fill left-star starred-on"
+                           data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
+                        <span class="inline-overflow-ellipsis left-panel__name">{{userEntity | getName}}</span>
+                        <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
+                    </a>
+                </li>
+
+                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {isStarred : false} | userByName:userNameQuery)"
+                    ng-class="{active: $state.params.entityId == userEntity.id}">
+                    <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
+                        <i class="icon-star left-star"
+                           data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
+
                         <span class="inline-overflow-ellipsis left-panel__name">{{userEntity | getName}}</span>
                         <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
                     </a>

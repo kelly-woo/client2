@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.controller('fileController', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService) {
 
-    console.info('[enter] fileController');
+    //console.info('[enter] fileController');
 
     var fileId = $state.params.itemId;
 
@@ -70,7 +70,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
     getFileDetail();
 
     $scope.postComment = function() {
-        if (!$scope.comment.content) return;
+        if (!$scope.comment || !$scope.comment.content) return;
 
         fileAPIservice.postComment(fileId, $scope.comment.content)
             .success(function(response) {
@@ -88,7 +88,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
     $scope.deleteComment = function(commentId) {
         fileAPIservice.deleteComment(fileId, commentId)
             .success(function(response) {
-                console.log("fileAPIservice.deleteComment.success", response);
+                //console.log("fileAPIservice.deleteComment.success", response);
                 $scope.glued = true;
                 getFileDetail();
             })
@@ -109,13 +109,6 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
                 }
             }
         });
-    };
-
-    $scope.isToggled = false;
-    $scope.toggleDropdown = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        $scope.isToggled = !$scope.isToggled;
     };
 
     $scope.openModal = function(selector) {
@@ -215,6 +208,15 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
     $scope.onUserClick = function(user) {
       $scope.$emit('onUserClick', user);
     };
+
+    $scope.onCommentFocusClick = function() {
+        $('#file-detail-comment-input').focus();
+    };
+
+    $scope.$on('setCommentFocus', function() {
+        $scope.onCommentFocusClick();
+    });
+
 });
 
 app.controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {

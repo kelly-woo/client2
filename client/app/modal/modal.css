@@ -48,8 +48,8 @@
 }
 .modal-header .close {
     color: white;
-    font-size: 13px;
-    margin-top: 0;
+    font-size: 22px;
+    margin-top: -5px;
 }
 .modal-header .close:focus {
     outline: none;
@@ -209,6 +209,7 @@
     border-right: none;
     position: relative;
     padding: 6px 20px;
+    font-size: 22px;
 }
 .green-input-box {
     border: 1px solid #31c08a;
@@ -485,6 +486,9 @@
     color: #a94442;
     font-size: 14px;
 }
+.account-settings-body__alert {
+    margin-top: 5px;
+}
 .account-settings-body__help {
     color: #9e9ea6;
     line-height: 130%;
@@ -694,6 +698,7 @@
 .user-profile__nickName {
     font-size: 14px;
     color: #333;
+    word-wrap: break-word;
 }
 .profile-view-info-container {
     margin-bottom: 28px;

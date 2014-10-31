@@ -1,93 +1,88 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: [Web] Application\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: [Web] Application\n"
+"Language: ja\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
-msgstr "You have not joined any topics yet"
+msgstr "まだどのチャネルにも参加していません"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-can-join"
-msgstr "No topics to join"
+msgstr "参加できるチャネルがありません"
 
 #: client/app/right/right.html
 msgid "@alert-empty-file"
-msgstr "No files uploaded"
+msgstr "ファイルがありません"
 
 #: client/app/right/right.html
 msgid "@alert-empty-file-search"
-msgstr "No files found matching"
+msgstr "一致するファイルがありません"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@alert-empty-file-shared"
-msgstr "File has not been shared in other rooms"
+msgstr "共有されたファイルがありません"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-invalid-password"
-msgstr "invalid password"
+msgstr "パスワードが間違っています"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-missing-info"
-msgstr "Missing Information"
+msgstr "必要な情報が入力されていません"
 
 #: client/app/modal/join.html
 msgid "@alert-no-result"
-msgstr "No matches"
+msgstr "登録情報がありません"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-required"
-msgstr "required"
+msgstr "必須"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-fail"
-msgstr "Invitation could not be sent"
+msgstr "招待メッセージは送信されませんでした"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-invalid"
-msgstr " is an invalid email address"
+msgstr "は適切なメールアドレス形式ではありません"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-success"
-msgstr "Invitation was sent successfully"
+msgstr "招待メールが送信されました"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-taken"
-msgstr " is already a member of your team"
+msgstr "は既にチームに登録されています"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-update-fail"
-msgstr "Update not successful"
+msgstr "更新することができませんでした"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-update-success"
-msgstr "Update completed successfully"
+msgstr "更新されました"
 
 #: client/app/modal/invite.team.html
 msgid "@btn-add"
-msgstr "Add"
+msgstr "追加"
 
 #: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@btn-cancel"
-msgstr "Cancel"
+msgstr "キャンセル"
 
 #: client/app/modal/image.crop.html client/app/modal/settings.profile.html
 msgid "@btn-change"
-msgstr "Change"
+msgstr "変更"
 
 #: client/app/right/file.html
 msgid "@btn-click-to-view"
-msgstr "Click to view"
+msgstr "表示"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
@@ -96,145 +91,131 @@ msgstr "Click to view"
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@btn-close"
-msgstr "Close"
+msgstr "閉じる"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@btn-comment"
-msgstr "Comment"
+msgstr "コメント"
 
 #: client/app/modal/settings.service.html
 msgid "@btn-confirm"
-msgstr "Confirm"
+msgstr "確認"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "@btn-create"
-msgstr "Create"
+msgstr "作成"
 
 #: client/app/right/file.html
 msgid "@btn-delete"
-msgstr "Delete"
+msgstr "削除"
 
 #: client/app/modal/settings.profile.html
 msgid "@btn-edit"
-msgstr "Submit"
+msgstr "送信"
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
 msgid "@btn-invite"
-msgstr "Invite"
+msgstr "招待"
 
 #: client/app/modal/join.html
 msgid "@btn-join"
-msgstr "Join"
+msgstr "参加"
 
-#: client/app/center/center.html client/app/modal/share.html
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/modal/share.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@btn-share"
-msgstr "Share"
+msgstr "共有"
 
 #: client/app/modal/rename.html client/app/modal/settings.account.html
 msgid "@btn-update-name"
-msgstr "Update Name"
+msgstr "名前の更新"
 
 #: client/app/modal/settings.account.html
 msgid "@btn-update-password"
-msgstr "Update Password"
+msgstr "パスワードの更新"
 
 #: client/app/modal/upload.html
 msgid "@btn-upload"
-msgstr "Upload"
+msgstr "アップロード"
 
 #: client/app/center/center.html
 msgid "@ch-menu-delete"
-msgstr "Delete this topic"
+msgstr "このチャネルを削除"
 
 #: client/app/center/center.html
 msgid "@ch-menu-invite"
-msgstr "Invite members to this topic"
+msgstr "このチャネルに招待"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
-msgstr "Leave topic"
+msgstr "このチャネルから退出"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
-msgstr "Rename this topic"
-
-#: client/app/center/center.html
-msgid "@ch-menu-star"
-msgstr "Star this topic"
-
-#: client/app/center/center.html
-msgid "@ch-menu-un-star"
-msgstr "Unstar this topic"
-
-#: client/app/left/left.html
-msgid "@channel"
-msgstr "Topics"
+msgstr "このチャネルの名称を変更する"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
-msgstr "Account Settings"
+msgstr "アカウント設定"
 
 #: client/app/left/left.html
 msgid "@common-add"
-msgstr "Add"
+msgstr "追加"
 
 #: client/app/left/left.html
 msgid "@common-channels"
-msgstr "Topics"
+msgstr "チャネル一覧"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
-msgstr "1:1 Chat"
+msgstr "ダイレクトメッセージ"
 
 #: client/app/modal/share.html client/app/modal/upload.html
 msgid "@common-comment"
-msgstr "Comment"
+msgstr "コメント"
 
 #: client/app/header/header.html client/app/modal/create.channel.html
 #: client/app/modal/join.html
 msgid "@common-create-ch"
-msgstr "Create New Topic"
+msgstr "新規チャネルを作成する"
 
 #: client/app/header/header.html client/app/modal/create.private.html
 msgid "@common-create-pg"
-msgstr "Create New Private Group"
+msgstr "新規プライベートグループを作成する"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
-msgstr "Password"
+msgstr "現在のパスワード"
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
-msgstr "Customer Service"
+msgstr "カスタマー・サービス"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
-msgstr "Department"
+msgstr "部署"
 
 #: client/app/modal/settings.service.html
 msgid "@common-desktop-noti"
-msgstr "Desktop Notifications"
+msgstr "デスクトップ通知"
 
 #: client/app/left/left.html
 msgid "@common-direct-messages"
-msgstr "Direct Messages"
+msgstr "ダイレクトメッセージ一覧"
 
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
-msgstr "Invite to"
+msgstr "へ招待"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@common-download"
-msgstr "Download"
+msgstr "ダウンロード"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
 msgid "@common-email"
-msgstr "Email"
+msgstr "メールアドレス"
 
 #: client/app/header/header.html
 msgid "@common-faq"
@@ -242,459 +223,421 @@ msgstr "FAQ"
 
 #: client/app/modal/share.html
 msgid "@common-file"
-msgstr "File"
+msgstr "ファイル"
 
 #: client/app/modal/profile.view.html
 msgid "@common-file-list"
-msgstr "Files Shared"
+msgstr "共有されたファイル"
 
 #: client/app/right/right.html
 msgid "@common-file-type"
-msgstr "File Type"
+msgstr "ファイルの種類"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@common-files"
-msgstr "Files"
+msgstr "ファイル"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
-msgstr "Basic Information"
+msgstr "基本情報"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-info-optional"
-msgstr "Additional Information"
+msgstr "追加情報"
 
 #: client/app/modal/join.html
 msgid "@common-joined"
-msgstr " members"
+msgstr "メンバー"
 
 #: client/app/modal/settings.service.html
 msgid "@common-language"
-msgstr "Language"
+msgstr "言語"
 
 #: client/app/right/right.html
 msgid "@common-member"
-msgstr "Shared by"
+msgstr "共有したメンバー"
 
-#: client/app/left/left.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/left/left.html
 msgid "@common-more"
-msgstr "Browse"
+msgstr "表示"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/settings.profile.html
 msgid "@common-name"
-msgstr "Name"
+msgstr "名前"
 
 #: client/app/modal/rename.html client/app/modal/settings.account.html
 msgid "@common-new-name"
-msgstr "New Name"
+msgstr "新しい名前"
 
 #: client/app/modal/settings.account.html
 msgid "@common-new-password"
-msgstr "New Password"
+msgstr "新しいパスワード"
 
 #: client/app/signin/signin.html
 msgid "@common-password"
-msgstr "Password"
+msgstr "パスワード"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-phone"
-msgstr "Mobile #"
+msgstr "携帯番号"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-position"
-msgstr "Position"
+msgstr "役職"
 
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/signin/signin.html
 msgid "@common-privacy-policy"
-msgstr "Privacy Policy"
+msgstr "プライバシーポリシー"
 
 #: client/app/left/left.html
 msgid "@common-private-groups"
-msgstr "Private Groups"
+msgstr "プライベートグループ"
 
 #: client/app/header/header.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
-msgstr "Profile Settings"
+msgstr "プロファイル設定"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "@common-purpose"
-msgstr "Description"
+msgstr "用途"
 
 #: client/app/modal/rename.html
 msgid "@common-rename"
-msgstr "Rename"
+msgstr "リネーム"
 
 #: client/app/modal/profile.view.html
 msgid "@common-send-mail"
-msgstr "Send Email"
+msgstr "メールを送る"
 
 #: client/app/header/header.html client/app/modal/settings.service.html
 msgid "@common-service-settings"
-msgstr "Service Preferences"
+msgstr "環境設定"
 
 #: client/app/modal/share.html
 msgid "@common-share-file"
-msgstr "Share File"
+msgstr "ファイルを共有"
 
 #: client/app/modal/share.html client/app/modal/upload.html
 msgid "@common-share-in"
-msgstr "Share in"
+msgstr "共有範囲"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@common-shared-in"
-msgstr "Shared in"
+msgstr "共有範囲"
 
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
-msgstr "Sign In"
+msgstr "ログインする"
 
 #: client/app/header/header.html
 msgid "@common-sign-out"
-msgstr "Sign Out"
+msgstr "ログアウトする"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-status-msg"
-msgstr "Feeling Today?"
+msgstr "今の気分"
 
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/signin/signin.html
 msgid "@common-terms-of-service"
-msgstr "Terms of Service"
+msgstr "サービス利用規約"
 
 #: client/app/modal/upload.html
 msgid "@common-title"
-msgstr "Title"
+msgstr "タイトル"
 
 #: client/app/header/header.html client/app/modal/upload.html
 #: client/app/right/right.html
 msgid "@common-upload-file"
-msgstr "Upload File"
+msgstr "アップロード"
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-visit-homepage"
-msgstr "Visit Homepage"
+msgstr "ホームページを見る"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
-msgstr "View Files"
+msgstr "ファイルを表示"
 
 #: client/app/center/center.html
 msgid "@dm-menu-invite"
-msgstr "Invite this member to other rooms"
+msgstr "このメンバーを別のチャットに招待する"
 
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
-msgstr "View Profile"
+msgstr "プロファイルを表示する"
 
 #: client/app/error/404.html
 msgid "@error-404-message"
-msgstr "The page you were looking for could not be found"
+msgstr "お探しのページは見つかりませんでした"
 
 #: client/app/error/404.html
 msgid "@error-404-title"
-msgstr "That’s an error"
-
-#: client/app/right/right.html
-msgid "@file-action-more"
-msgstr "More"
+msgstr "エラーが発生しました"
 
 #: client/app/header/header.html
 msgid "@file-all"
-msgstr "All Files"
+msgstr "全てのファイル"
 
 #: client/app/header/header.html
 msgid "@file-audio"
-msgstr "Audio"
+msgstr "音声"
 
 #: client/app/header/header.html
 msgid "@file-image"
-msgstr "Images"
+msgstr "画像"
 
 #: client/app/header/header.html
 msgid "@file-pdf"
-msgstr "PDFs"
+msgstr "PDF"
 
 #: client/app/header/header.html
 msgid "@file-video"
-msgstr "Video"
+msgstr "動画"
 
 #: client/app/header/header.html
 msgid "@file-your"
-msgstr "Your Files"
+msgstr "あなたのファイル"
 
 #: client/app/header/header.html
 msgid "@header-file"
-msgstr "File"
+msgstr "ファイル"
 
 #: client/app/header/header.html
 msgid "@header-help"
-msgstr "Help"
+msgstr "ヘルプ"
 
 #: client/app/header/header.html
 msgid "@header-menu"
-msgstr "Menu"
+msgstr "メニュー"
 
 #: client/app/header/header.html
 msgid "@header-setting"
-msgstr "Setting"
+msgstr "設定"
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
-msgstr "Enter new topic name"
+msgstr "新規チャネルの名称を入力"
 
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
-msgstr "Enter new private group name"
+msgstr "新規プライベートグループの名称を入力"
 
 #: client/app/modal/invite.team.html
 msgid "@input-invite-email"
-msgstr "Enter email address to invite"
+msgstr "招待するメールアドレスを入力"
 
 #: client/app/modal/rename.html
 msgid "@input-rename"
-msgstr "Enter name to change"
+msgstr "名前を入力"
 
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
-msgstr "Search topics by name"
+msgstr "チャネル名で検索"
 
 #: client/app/right/right.html
 msgid "@input-search-file-title"
-msgstr "Search files by title"
+msgstr "ファイル名で検索"
 
 #: client/app/modal/invite.channel.html
 msgid "@input-search-user-name"
-msgstr "Search users by name"
-
-#: client/app/signin/signin.html
-msgid "@keep-me-logged-in"
-msgstr "keep me logged in"
+msgstr "メンバー名で検索"
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
-msgstr "Invalid email or password"
+msgstr "メールアドレスまたはパスワードが正しくありません"
 
 #: client/app/signin/signin.html
 msgid "@login-message"
-msgstr "Enter your email and password"
+msgstr "メールアドレスとパスワードを入力"
 
 #: client/app/signin/signin.html
 msgid "@login-reset-password"
-msgstr "Forgot Password?"
+msgstr "パスワードを忘れた場合"
 
 #: client/app/signin/signin.html
 msgid "@login-welcome {{teamInfo.name}}"
-msgstr "Welcome to {{teamInfo.name}}"
+msgstr "Welcome to"
 
 #: client/app/modal/join.html
 msgid "@modal-browse-ch"
-msgstr "Browse Topics"
+msgstr "チャネル一覧"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
-msgstr "Create a new topic that anyone can join"
+msgstr "新規チャネルを作成。どのメンバーも参加することができます"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
-msgstr " "
+msgstr ""
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "Please use Private Group for a closed room"
+msgstr "特定のメンバーのみでチャットしたい場合はプライベートグループを使用してください"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
-msgstr ""
-"A private group is only visible to its members, and only members of a "
-"private group can read or search its contents"
+msgstr "プライベートグループはそのグループのメンバーのみ参加、内容の検索ができます"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
-msgstr "Invite member to other rooms"
+msgstr "このメンバーを他のチャットに招待する"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "You can invite this user to other rooms"
+msgstr "このメンバーを他のチャネルやプライベートグループに招待できます"
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
-msgstr "Invite Members"
+msgstr "メンバーを招待する"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr "Topics you belong to"
+msgstr "あなたが参加しているチャネル"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr "Topics you can join"
+msgstr "参加可能なチャネル一覧"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
-msgstr "Profile Picture"
+msgstr "プロフィール画像"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-email"
-msgstr "Change your email address"
+msgstr "メールアドレスを変更する"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-msg1"
-msgstr ""
-"You can change your account settings including your name, password, and "
-"email address. "
+msgstr "あなたの名前、パスワード、メールアドレスを変更できます"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name"
-msgstr "Change your name"
+msgstr "名前を変更する"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name-msg"
-msgstr ""
-"Please keep in mind when changing your name that other members may mention "
-"and search your name"
+msgstr "他のメンバーがあなたを探せる名前で登録してください"
 
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-password"
-msgstr "Change your password"
+msgstr "パスワードを変更する"
 
 #: client/app/modal/settings.profile.html
 msgid "@modal-setting-profile-msg1"
-msgstr "You can set the personal information shown to other members"
+msgstr "他のメンバーに公開するプロフィールを設定できます"
 
 #: client/app/modal/settings.service.html
 msgid "@modal-setting-service-msg1"
-msgstr "You can change your language or notification settings"
+msgstr "言語や通知の設定を変更できます"
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"
-msgstr "Invite other team members to JANDI!"
+msgstr "あなたのチームメンバーをJANDIに招待しましょう！"
 
 #: client/app/modal/upload.html
 msgid "@modal-upload-title-msg1"
-msgstr "For searches by title"
+msgstr "ファイル名検索で使用されます"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr "created this topic"
+msgstr "このチャネルを作成する"
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
-msgstr "created this private group"
+msgstr "このプライベートグループを作成する"
 
 #: client/app/center/center.html
 msgid "@msg-file"
-msgstr "File"
+msgstr "ファイル"
 
 #: client/app/right/file.html
 msgid "@msg-help-multiline"
-msgstr "shift+enter to multiline"
+msgstr "shift+enterで改行"
 
 #: client/app/center/center.html
 msgid "@msg-invited"
-msgstr "invited"
+msgstr "が"
 
 #: client/app/center/center.html
 msgid "@msg-invited-postfix"
-msgstr " "
+msgstr "さんを招待しました"
 
 #: client/app/center/center.html
 msgid "@msg-joined"
-msgstr "has joined"
+msgstr "さんが参加しました"
 
 #: client/app/center/center.html
 msgid "@msg-left"
-msgstr "has left"
+msgstr "が退出しました"
 
 #: client/app/center/center.html client/app/right/right.html
 msgid "@msg-open-original"
-msgstr "Open original"
+msgstr "元のファイルを開く"
 
 #: client/app/center/center.html
 msgid "@msg-shared"
-msgstr "Shared"
+msgstr "共有"
 
 #: client/app/center/center.html
 msgid "@msg-unshared"
-msgstr "Unshared"
+msgstr "非共有"
 
 #: client/app/center/center.html
 msgid "@msg-whose"
-msgstr "'s"
+msgstr "の"
 
 #: client/app/right/right.html
 msgid "@option-all-members"
-msgstr "All"
+msgstr "全てのメンバー"
 
 #: client/app/right/right.html
 msgid "@option-all-rooms"
-msgstr "All"
+msgstr "全てのチャット"
 
 #: client/app/modal/invite.direct.html
 msgid "@option-choose"
-msgstr "Choose"
+msgstr "選択"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-all"
-msgstr "For all messages"
+msgstr "全てのメッセージ"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-dm"
-msgstr "Only for direct messages"
+msgstr "ダイレクトメッセージのみ"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
-msgstr "Never"
+msgstr "通知しない"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
-msgstr "Delete this private group"
+msgstr "このグループを削除する"
 
 #: client/app/center/center.html
 msgid "@pg-menu-invite"
-msgstr "Invite members to this private group"
+msgstr "このグループにメンバーを招待する"
 
 #: client/app/center/center.html
 msgid "@pg-menu-leave"
-msgstr "Leave private group"
+msgstr "このグループから退出する"
 
 #: client/app/center/center.html
 msgid "@pg-menu-rename"
-msgstr "Rename this private group"
-
-#: client/app/center/center.html
-msgid "@pg-menu-star"
-msgstr "Star this private group"
-
-#: client/app/center/center.html
-msgid "@pg-menu-un-star"
-msgstr "Unstar private group"
-
-#: client/app/left/left.html
-msgid "@privateGroup"
-msgstr "Private Groups"
+msgstr "このグループの名称を変更する"
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
-msgstr "Invite Other Team Members"
+msgstr "他のチームメンバーを招待する"
 
 #: client/app/header/header.html
 msgid "@team-members"
-msgstr "Team Members"
+msgstr "チームメンバー"
 
 #: client/app/header/header.html
 msgid "@team-switch"
-msgstr "Change Teams"
+msgstr "他のチームに切り替える"
 
-#: client/app/left/left.html
-msgid "@user"
-msgstr "Users"
-
-#: client/app/center/center.html
-msgid "@user-menu-star"
-msgstr "Star this user"
-
-#: client/app/center/center.html
-msgid "@user-menu-un-star"
-msgstr "Unstar this user"

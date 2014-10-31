@@ -15,11 +15,11 @@ msgstr ""
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
-msgstr "참여중인 채널이 없습니다"
+msgstr "참여중인 토픽이 없습니다"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-can-join"
-msgstr "참여 가능한 채널이 없습니다"
+msgstr "참여 가능한 토픽이 없습니다"
 
 #: client/app/right/right.html
 msgid "@alert-empty-file"
@@ -100,7 +100,8 @@ msgstr "새 창에서 보기"
 msgid "@btn-close"
 msgstr "닫기"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@btn-comment"
 msgstr "댓글남기기"
 
@@ -129,8 +130,8 @@ msgstr "초대하기"
 msgid "@btn-join"
 msgstr "참여하기"
 
-#: client/app/modal/share.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/modal/share.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@btn-share"
 msgstr "공유하기"
 
@@ -148,23 +149,31 @@ msgstr "업로드"
 
 #: client/app/center/center.html
 msgid "@ch-menu-delete"
-msgstr "채널 삭제하기"
+msgstr "토픽 삭제하기"
 
 #: client/app/center/center.html
 msgid "@ch-menu-invite"
-msgstr "이 채널에 멤버 초대하기"
+msgstr "토픽에 멤버 초대하기"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
-msgstr "채널 나가기"
+msgstr "토픽 나가기"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
-msgstr "채널 이름 변경하기"
+msgstr "토픽 이름 변경하기"
+
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr "토픽 즐겨찾기 "
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr "즐겨찾기 해제 "
 
 #: client/app/left/left.html
 msgid "@channel"
-msgstr "채널"
+msgstr "토픽"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -176,7 +185,7 @@ msgstr "추가"
 
 #: client/app/left/left.html
 msgid "@common-channels"
-msgstr "채널"
+msgstr "토픽"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
@@ -189,7 +198,7 @@ msgstr "댓글"
 #: client/app/header/header.html client/app/modal/create.channel.html
 #: client/app/modal/join.html
 msgid "@common-create-ch"
-msgstr "새 채널 생성"
+msgstr "새 토픽 생성"
 
 #: client/app/header/header.html client/app/modal/create.private.html
 msgid "@common-create-pg"
@@ -197,7 +206,7 @@ msgstr "비공개 그룹 생성"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
-msgstr "현재 비밀번호"
+msgstr "비밀번호 입력 "
 
 #: client/app/error/404.html client/app/signin/signin.html
 msgid "@common-customer-service"
@@ -219,7 +228,8 @@ msgstr "1:1 메시지"
 msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-download"
 msgstr "다운로드"
 
@@ -268,7 +278,8 @@ msgstr "언어"
 msgid "@common-member"
 msgstr "멤버"
 
-#: client/app/left/left.html
+#: client/app/left/left.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@common-more"
 msgstr "더보기"
 
@@ -388,6 +399,10 @@ msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
 msgid "@error-404-title"
 msgstr ".. 길을 잃었습니다"
 
+#: client/app/right/right.html
+msgid "@file-action-more"
+msgstr "더보"
+
 #: client/app/header/header.html
 msgid "@file-all"
 msgstr "모든 파일"
@@ -430,11 +445,11 @@ msgstr "설정"
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
-msgstr "생성할 채널 이름을 입력하세요"
+msgstr "생성할 토픽 채널 이름을 입력하세요"
 
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
-msgstr "생성할 그룹 이름을 입력하세요"
+msgstr "생성할 비공개 그룹 이름을 입력하세요"
 
 #: client/app/modal/invite.team.html
 msgid "@input-invite-email"
@@ -446,7 +461,7 @@ msgstr "변경할 이름을 입력하세요"
 
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
-msgstr "채널 이름을 검색하세요"
+msgstr "토픽 이름을 검색하세요"
 
 #: client/app/right/right.html
 msgid "@input-search-file-title"
@@ -455,6 +470,10 @@ msgstr "파일 타이틀을 검색하세요"
 #: client/app/modal/invite.channel.html
 msgid "@input-search-user-name"
 msgstr "멤버 이름을 검색하세요"
+
+#: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "로그인 상태 유지"
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
@@ -474,15 +493,15 @@ msgstr "{{teamInfo.name}} 환영합니다"
 
 #: client/app/modal/join.html
 msgid "@modal-browse-ch"
-msgstr "채널 목록"
+msgstr "토픽 목록"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
-msgstr "새로운 채널을 생성합니다."
+msgstr "새로운 토픽을 생성합니다."
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
-msgstr "채널은 팀의 멤버 누구나 참여할 수 있습니다."
+msgstr "토픽은 팀의 멤버 누구나 참여할 수 있습니다."
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
@@ -510,11 +529,11 @@ msgstr "사용자 초대"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr "이미 참여중인 채널 목록"
+msgstr "이미 참여중인 토픽 목록"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr "참여 가능한 채널 목록"
+msgstr "참여 가능한 토픽 목록"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
@@ -560,7 +579,7 @@ msgstr "타이틀로 파일을 쉽게 검색할 수 있습니다"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr "님이 채널을 생성했습니다"
+msgstr "님이 토픽을 생성했습니다"
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
@@ -632,19 +651,27 @@ msgstr "없음"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
-msgstr "그룹 삭제하기"
+msgstr "비공개 그룹 삭제하기"
 
 #: client/app/center/center.html
 msgid "@pg-menu-invite"
-msgstr "이 그룹에 멤버 초대하기"
+msgstr "이 비공개 그룹에 멤버 초대하기"
 
 #: client/app/center/center.html
 msgid "@pg-menu-leave"
-msgstr "그룹 나가기"
+msgstr "비공개 그룹 나가기"
 
 #: client/app/center/center.html
 msgid "@pg-menu-rename"
-msgstr "그룹 이름 변경하기"
+msgstr "비공개 그룹 이름 변경하기\t\t"
+
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr "비공개 그룹 즐겨찾기 "
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr "즐겨찾기 해제"
 
 #: client/app/left/left.html
 msgid "@privateGroup"
@@ -665,6 +692,14 @@ msgstr "팀 변경"
 #: client/app/left/left.html
 msgid "@user"
 msgstr "사용자"
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr "유저 즐겨찾기"
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr "즐겨찾기 해제"
 
 #~ msgid "Add Comment"
 #~ msgstr "댓글 남기기"
