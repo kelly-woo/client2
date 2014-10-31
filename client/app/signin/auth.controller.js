@@ -28,6 +28,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
     var getTeamInfo = function() {
         if (prefix === 'local' || prefix === 'dev') {
             prefix = 'tosslab';
+            //prefix = 'abcd';
         }
         loginAPI.getTeamInfo(prefix)
             .success(function(data) {

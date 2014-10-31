@@ -364,11 +364,6 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
     };
 
     $scope.$watch('files', function(cur) {
-        if (cur.type.indexOf('image') === -1) {
-            // uploading non-image file type.
-            addFilePreviewForNonImage();
-        }
-        else {
             // uploading image file.
             var image_container = document.getElementById('file_preview_container');
 
@@ -407,15 +402,9 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
 //                }
 
             }
-
-        }
     });
 
 
-    function addFilePreviewForNonImage() {
-        // appends preview for non-image type files.
-        console.log('uploading non-image file type.');
-    }
     var PRIVATE_FILE = 740;
     var PUBLIC_FILE = 744;
 

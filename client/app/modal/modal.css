@@ -789,3 +789,11 @@
     border: 1px solid #ccc;
     display: block;
 }
+#file_preview_container > object {
+    background: url('../assets/images/checkered.png');
+    min-width: 40px;
+    min-height: 40px;
+}
+.non-image-file-preview {
+    border: none !important;
+}

@@ -467,9 +467,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $scope.selectedFiles = $files;
         $scope.dataUrls = [];
 
-        console.log(FileAPI);
-
-
         for ( var i = 0; i < $files.length; i++) {
             var file = $files[i];
 
@@ -504,7 +501,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                         fileReader.onload = function(e) {
                             $timeout(function() {
                                 $scope.dataUrls[index] = e.target.result;
-                                console.log($scope.dataUrls[index]);
                             });
                         }
                     }(fileReader, i);

@@ -336,11 +336,8 @@ msgid "@common-private-groups"
 msgstr ""
 
 #: client/app/header/header.html
-msgid "@common-profile-settings"
-msgstr ""
-
 #: client/app/modal/settings.profile.html
-msgid "@common-profile-settingstranslate"
+msgid "@common-profile-settings"
 msgstr ""
 
 #: client/app/modal/create.channel.html
@@ -470,6 +467,14 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "@header-setting"
+msgstr ""
+
+#: client/app/modal/upload.html
+msgid "@ie9-file-preview"
+msgstr ""
+
+#: client/app/modal/upload.html
+msgid "@ie9-please-do-not-use"
 msgstr ""
 
 #: client/app/modal/settings.profile.html

@@ -441,6 +441,22 @@ msgstr "選擇畫面"
 msgid "@header-setting"
 msgstr "設定"
 
+#: client/app/modal/upload.html
+msgid "@ie9-file-preview"
+msgstr ""
+"Preview may not work with internet explorer 9.  However, you still can "
+"upload files."
+
+#: client/app/modal/upload.html
+msgid "@ie9-please-do-not-use"
+msgstr "Using latest version of IE, you can meet <b>JANDI</b> at its best."
+
+#: client/app/modal/settings.profile.html
+msgid "@ie9-profile-image-support"
+msgstr ""
+"Unfortunately, IE9 does not support profile picture change feature. Please "
+"try with latest IE. You will be surprised. "
+
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
 msgstr "輸入新的議題群組名稱"
