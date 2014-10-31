@@ -363,19 +363,59 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
         'isPrivateFile' : false
     };
 
-    $scope.$watch('fileAPIElement', function(cur) {
+    $scope.$watch('files', function(cur) {
+        if (cur.type.indexOf('image') === -1) {
+            // uploading non-image file type.
+            addFilePreviewForNonImage();
+        }
+        else {
+            // uploading image file.
+            var image_container = document.getElementById('file_preview_container');
 
-        if (!$scope.supportHtml5 && angular.isDefined(cur)){
-            var temp = angular.element(cur);
+            if (!$scope.supportHtml5 && angular.isDefined(cur)){
+                // not supporting html5.
+                FileAPI.Image(cur)
+                    .resize(448, 224, 'max')
+                    .get(function (err, img) {
+                        if( !err ) {
+                            // if there is any element other than flashimage div, remove it from parent including old flash image div.
+                            image_container.innerHTML = '';
 
-            // if there is any element other than flashimage div, remove it from parent including old flash image div.
-            $('#image_preview_container').html('');
+                            // append new flash image div.
+                            image_container.appendChild(img);
+                        }
+                        else {
+                            console.log(err);
+                            alert('failed to load file. please try again.');
+                            $scope.cancel();
+                        }
+                    });
+            }
+            else {
 
-            // append new flash image div.
-            $('#image_preview_container').append(temp);
+                // supporting html5
+//                var img;
+//                image_container.innerHTML = '';
+//
+//                var fileReader = new FileReader();
+//                fileReader.readAsDataURL(cur);
+//
+//                fileReader.onload = function (e) {
+//                    img = angular.element('<img class="modal-upload-img" ng-src="' + e.target.result + '"/>');
+//                    console.log(img)
+//                    image_container.appendChild(img)
+//                }
+
+            }
+
         }
     });
 
+
+    function addFilePreviewForNonImage() {
+        // appends preview for non-image type files.
+        console.log('uploading non-image file type.');
+    }
     var PRIVATE_FILE = 740;
     var PUBLIC_FILE = 744;
 
