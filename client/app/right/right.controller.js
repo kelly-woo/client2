@@ -215,6 +215,12 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
                 $scope.supportHtml5 = true;
 
                 if (window.FileReader && file.type.indexOf('image') > -1) {
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+
+                    fileReader.onload = function (e) {
+                        $scope.dataUrls[0] = e.target.result;
+                    }
                 }
             }
         }
