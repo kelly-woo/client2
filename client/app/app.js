@@ -184,14 +184,14 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         }
         else if (curLang.indexOf('zh') >= 0) {
             // chinese.
-            if (curLang.indexOf('cn') >= 0) {
+            if (curLang.indexOf('tw') >= 0) {
                 // main land china.
-                userLang    = 'zh_CN';
-                serverLang  = 'zh-cn';
+                userLang    = 'zh_TW';
+                serverLang  = 'zh-tw';
             }
             else {
-                userLang    = 'zn_TW';
-                serverLang  = 'zn-tw';
+                userLang    = 'zn_CN';
+                serverLang  = 'zn-cn';
             }
         }
         else if (curLang.indexOf('ja') >= 0) {
