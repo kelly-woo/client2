@@ -396,7 +396,7 @@
                                     <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
                                 </span>
 
-                                <span class="keep">{{msg.message.content.body}}</span>
+                                <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
 
                                 <span class="msg-item-header__created">
                                     {{msg.time | date: 'h:mm a'}}
