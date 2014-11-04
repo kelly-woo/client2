@@ -217,7 +217,6 @@ module.exports = function (grunt) {
                     devDependencies: false,
                     exclude: [
                         '/bootstrap-sass-official/', '/json3/', '/es5-shim/',
-                        'bower_components/ng-file-upload-shim/angular-file-upload-shim.js',
                         'bower_components/angulartics/src/angulartics-adobe.js',
                         'bower_components/angulartics/src/angulartics-chartbeat.js',
                         'bower_components/angulartics/src/angulartics-flurry.js',
@@ -470,6 +469,9 @@ module.exports = function (grunt) {
                 files: {
                     '<%= yeoman.client %>/index.html': [
                         ['{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
+                            '!{.tmp,<%= yeoman.client %>}/app/FileReader/*.*',                         
+			    '!{.tmp,<%= yeoman.client %>}/app/swfobject/*.*',
+                            '!{.tmp,<%= yeoman.client %>}/app/swfobject/*/*.*',
                             '!{.tmp,<%= yeoman.client %>}/app/app.js',
                             '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
                             '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
