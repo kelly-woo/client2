@@ -67,14 +67,16 @@
 
         <script>
             FileAPI = {
+                debug   : false,
                 cors    : true
             };
         </script>
+        <!--    upload-shim must be loaded before angular.js    -->
+        <script src="bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
 
         <!-- build:js(client) app/vendor.js -->
             <!-- bower:js -->
             <script src="bower_components/jquery/dist/jquery.js"></script>
-            <script src="bower_components/ng-file-upload-shim/angular-file-upload-shim.js"></script>
             <script src="bower_components/angular/angular.js"></script>
             <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
             <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -115,6 +117,8 @@
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
             <!-- injector:js -->
+            <script src="app/FileReader/jquery.FileReader.js"></script>
+            <script src="app/FileReader/jquery.FileReader.min.js"></script>
             <script src="app/analytics.service.js"></script>
             <script src="app/center/center.controller.js"></script>
             <script src="app/center/center.service.js"></script>
@@ -135,6 +139,8 @@
             <script src="app/right/right.controller.js"></script>
             <script src="app/signin/auth.controller.js"></script>
             <script src="app/signin/auth.service.js"></script>
+            <script src="app/swfobject/src/swfobject.js"></script>
+            <script src="app/swfobject/swfobject.js"></script>
             <script src="app/team/team.service.js"></script>
             <script src="app/translation/translation.js"></script>
             <script src="app/tutorial/tutorial.controller.js"></script>
