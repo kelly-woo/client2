@@ -457,7 +457,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     };
 
     $scope.deleteMessage = function(message) {
-        console.log("delete: ", message.messageId);
+        //console.log("delete: ", message.messageId);
         messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
             .success(function(response) {
                 $timeout.cancel($scope.promise);
