@@ -66,15 +66,19 @@ app.factory('loginAPI', function($http, $rootScope, $window, localStorageService
     var userId_key    = 'userId';
     var last_state  = 'last-state';
 
-    authAPI.setTokenData = function(tokenData) {
-        this.setToken(tokenData.token);
+    authAPI.setTokenData = function(tokenData, prefix) {
+        this.setToken(tokenData.token, prefix);
         this.setTeamId(tokenData.teamId);
         this.setUserId(tokenData.userId);
     };
 
+    authAPI.hasToken = function(token, prefix) {
+        return angular.isDefined(localStorageService.get(prefix));
+    };
+
     // token getter
-    authAPI.getToken = function() { return localStorageService.get(token_key); };
-    authAPI.setToken = function(token) { localStorageService.set(token_key, token); };
+    authAPI.getToken = function(prefix) { return localStorageService.get(prefix); };
+    authAPI.setToken = function(token, prefix) { localStorageService.set(prefix, token); };
 
     authAPI.getTeamId = function() { return localStorageService.get(teamId_key); };
     authAPI.setTeamId = function(teamId) { localStorageService.set(teamId_key, teamId); };
@@ -82,20 +86,22 @@ app.factory('loginAPI', function($http, $rootScope, $window, localStorageService
     authAPI.getUserId = function() { return localStorageService.get(userId_key); };
     authAPI.setUserId = function(userId) { localStorageService.set(userId_key, userId); };
 
-    authAPI.removeAccessToken = function() {
-        localStorageService.remove(token_key);
+    authAPI.removeAccessToken = function(prefix) {
+        console.log(prefix)
+        localStorageService.remove(prefix);
         localStorageService.remove(teamId_key);
         localStorageService.remove(userId_key);
         localStorageService.remove(last_state);
     };
 
-    authAPI.setWindowSessionStorage = function(tokenData) {
-        this.setSessionToken(tokenData.token);
+    authAPI.setWindowSessionStorage = function(tokenData, prefix) {
+        this.setSessionToken(tokenData.token, prefix);
         this.setSessionTeamId(tokenData.teamId);
         this.setSessionUserId(tokenData.userId);
+        this.setSessionPrefix(prefix);
     };
 
-    authAPI.setSessionToken = function(token) { $window.sessionStorage.token = token; };
+    authAPI.setSessionToken = function(token, prefix) { $window.sessionStorage.token = token; };
     authAPI.getSessionToken = function() { return $window.sessionStorage.token; };
 
     authAPI.setSessionTeamId = function(teamId) { $window.sessionStorage.teamId = teamId; };
@@ -104,10 +110,14 @@ app.factory('loginAPI', function($http, $rootScope, $window, localStorageService
     authAPI.setSessionUserId = function(userId) { $window.sessionStorage.userId = userId; };
     authAPI.getSessionUserId = function() { return $window.sessionStorage.userId; };
 
+    authAPI.setSessionPrefix = function(prefix) { $window.sessionStorage.prefix = prefix; };
+    authAPI.getSessionPrefix = function() { return $window.sessionStorage.prefix; };
+
     authAPI.removeSession = function() {
         delete $window.sessionStorage.token;
         delete $window.sessionStorage.teamId;
         delete $window.sessionStorage.userId;
+        delete $window.sessionStorage.prefix;
     };
 
     // checking window session storage.

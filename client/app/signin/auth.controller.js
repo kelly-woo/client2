@@ -11,25 +11,25 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         messsage    : ''
     };
 
-    // Initialize teamInfo only where it is not iniailized.
-    if (angular.isUndefined($scope.teamInfo)) {
-        $scope.teamInfo = {
-            id          : -1,
-            name        : '',
-            prefix      : ''
-        };
+    $scope.teamInfo = {
+        id          : -1,
+        name        : '',
+        prefix      : ''
+    };
 
+    function getPrefix() {
+        return $location.host().split('.')[0];
     }
-
-    var prefix = $location.host().split('.')[0];
-    $scope.teamInfo.prefix = $location.host().split('.')[0];
 
     // 최초 로드시 팀정보 받아오기
     var getTeamInfo = function() {
+        var prefix = getPrefix();
+
         if (prefix === 'local' || prefix === 'dev') {
             //prefix = 'tosslab';
             prefix = 'abcd';
         }
+
         loginAPI.getTeamInfo(prefix)
             .success(function(data) {
                 $scope.teamInfo.id = data.teamInfo.teamId;
@@ -45,32 +45,10 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             });
     };
 
-
-    getTeamInfo();
-
-    // $scope.user is not defined -> first time -> not logged in yet.
-    // check if there is access_token.
-    // if not, follow normal routine.
-    if (angular.isUndefined($scope.user)) {
-        checkToken();
-
-
-        $scope.user = {
-            email       : '',
-            password    : '',
-            rememberMe  : true
-        };
-    }
-
-    // $scope.user may exist and current state could be 'signin' at the same time.
-    // I logged in, I navigate to 'google.com' and come back to ***.jandi.com
-    // check token first.
-    if (angular.isDefined($scope.user) && $state.current.name === 'signin') {
-        checkToken();
-    }
-
     $scope.signin = function(user) {
         user.teamId = -1;
+
+        var prefix = getPrefix();
 
         if (!_.isUndefined(prefix)) {
             if (prefix === 'local' || prefix === 'dev') {
@@ -82,21 +60,17 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
         loginAPI.login(user)
             .success(function(data) {
-                setWindowSessionStorage(data);
+
+                loginAPI.setWindowSessionStorage(data, prefix);
 
                 if (user.rememberMe) {
-                    setLocalStorageToken(data);
+                    loginAPI.setTokenData(data, prefix);
                 }
 
-                var user_identify = getUserIdentify();
-
-                analyticsService.mixpanelIdentify(user_identify);
-                analyticsService.mixpanelTrack("Sign In");
-
-                ga('set', 'userId', user_identify);
-                ga('global_tracker.set', 'userId', user_identify);
+                autoLogin();
 
                 $state.go('messages.home');
+
             }).error(function(err) {
                 $scope.error.status = true;
                 $scope.error.message = err.message;
@@ -110,37 +84,94 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             });
     };
 
-    function setLocalStorageToken(tokenData) {
-        loginAPI.setTokenData(tokenData);
-    }
-    function setWindowSessionStorage(tokenData) {
-        loginAPI.setWindowSessionStorage(tokenData);
-    }
-
+    // Generate 'id@teamId' format string for google analytics.
     function getUserIdentify() {
         return (loginAPI.getUserId() || loginAPI.getSessionUserId()) + '@' + (loginAPI.getTeamId() || loginAPI.getSessionTeamId());
     }
-    // Just checking token.
-    // If token exists, redirect user to 'message.home'.
-    function checkToken() {
 
-        if (loginAPI.getToken() || loginAPI.isLoggedIn()) {
-            $window.sessionStorage.token = loginAPI.getToken() || loginAPI.isLoggedIn();
+    onSignInEnter();
 
-            var user_identify = getUserIdentify();
+    // Entry point!
+    // EVERYTHING STARTS FROM HERE.
+    function onSignInEnter() {
+        console.log('hello onsigning');
 
-            ga('set', 'userId', user_identify);
+        if (angular.isDefined($scope.user)) {
+            if ($state.current.name === 'signin') autoLogin();
+            else return;
+        }
 
-            $state.go('messages.home');
+        getTeamInfo();
+        $scope.prefix = getPrefix();
+
+        if (hasToken()) {
+            autoLogin();
             return;
         }
 
+        $scope.user = {
+            email       : '',
+            password    : '',
+            rememberMe  : true
+        };
+
         $scope.hasToken = false;
+
+    }
+
+
+    function hasToken() {
+        console.log(hasSessionAlive() || hasStorageToken())
+        return hasSessionAlive() || hasStorageToken();
+    }
+
+    // Check if current tab has alive token.
+    function hasSessionAlive() {
+        console.log()
+        console.log()
+        var a = loginAPI.getSessionPrefix()
+        var b = $scope.prefix;
+        console.log(a)
+        console.log(b)
+        console.log(a == b)
+        return loginAPI.getSessionPrefix() == $scope.prefix ;
+    }
+
+    // Check if Browser stores any token info.
+    function hasStorageToken() {
+        console.log(loginAPI.hasToken($scope.prefix))
+        return loginAPI.hasToken($scope.prefix);
+    }
+
+    function autoLogin() {
+        console.log('inside of auto')
+        loginAPI.setWindowSessionStorage({
+                'token'     : loginAPI.getToken(getPrefix()) || loginAPI.getSessionToken(),
+                'teamId'    : loginAPI.getTeamId() || loginAPI.getSessionTeamId(),
+                'userId'    : loginAPI.getUserId() || loginAPI.getSessionUserId()
+            }, getPrefix()
+        );
+
+        setStatics();
+        $state.go('messages.home');
+
+        return;
+    }
+
+    function setStatics() {
+        var user_identify = getUserIdentify();
+
+        analyticsService.mixpanelIdentify(user_identify);
+        analyticsService.mixpanelTrack("Sign In");
+
+        ga('set', 'userId', user_identify);
+        ga('global_tracker.set', 'userId', user_identify);
     }
 
     $scope.logout = function() {
-        loginAPI.removeSession();
-        loginAPI.removeAccessToken();
+        var prefix = getPrefix();
+        loginAPI.removeSession(prefix);
+        loginAPI.removeAccessToken(prefix);
         mixpanel.cookie.clear();
         $state.go('signin');
     };
