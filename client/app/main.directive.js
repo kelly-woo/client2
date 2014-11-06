@@ -299,9 +299,9 @@ app.directive('passwordStrength', function($parse) {
                 else {
                     ctrl.$setValidity('strength', false);
                 }
+
                 return viewValue;
             });
         }
     };
 });
-

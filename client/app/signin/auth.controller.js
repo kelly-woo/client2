@@ -26,11 +26,9 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     // 최초 로드시 팀정보 받아오기
     var getTeamInfo = function() {
-        console.log('this is getTeamInfo')
         if (prefix === 'local' || prefix === 'dev') {
             //prefix = 'tosslab';
             prefix = 'abcd';
-            //prefix = 'jihoon8';
         }
         loginAPI.getTeamInfo(prefix)
             .success(function(data) {
@@ -173,7 +171,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/password.reset.html',
-                controller  :   'passwordResetController',
+                controller  :   'passwordRequestController',
                 size        :   'lg'
             })
         }

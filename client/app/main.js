@@ -107,5 +107,12 @@ app.config(function ($stateProvider, $analyticsProvider) {
                     controller  : 'errorController'
                 }
             }
-        });
+        })
+        .state('password', {
+            url         : '/passwordreset?teamId&token',
+            title       : 'Reset Password',
+            templateUrl : 'app/password/password.reset.html',
+            controller  : 'passwordResetController'
+        })
+    ;
 });

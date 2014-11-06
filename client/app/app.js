@@ -227,6 +227,7 @@ app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, local
         .when("/channels/:id/", "/channels/:id")
         .when("/users/:id/", "/users/:id")
         .when("/privategroups/:id/", "/privategroups/:id")
+        .when("/passwordReset?teamId&token", "/passwordreset?teamId&token")
         .otherwise("/404");
 
     /* URL must be lower-case */

@@ -896,7 +896,7 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
 
 
 //  PASSWORD RESET CONTROLLER
-app.controller('passwordResetController', function($rootScope, $scope, $modalInstance, loginAPI, $filter) {
+app.controller('passwordRequestController', function($rootScope, $scope, $modalInstance, loginAPI, $filter) {
 
     $('#passwordResetEmailInput').focus();
     $scope.cancel = function() {

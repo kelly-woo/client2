@@ -22,13 +22,36 @@ app.factory('loginAPI', function($http, $rootScope, $window, localStorageService
     };
 
     authAPI.requestPasswordEmail = function(teamId, email, lang) {
-        console.log(teamId, email, lang)
         return $http({
             method  :'POST',
             url     : $rootScope.server_address + 'account/password/resetToken',
             data    : {
                 'teamId'    : parseInt(teamId),
                 'email'     : email,
+                'lang'      : lang
+            }
+        });
+    };
+
+    authAPI.validatePasswordToken = function(teamId, token) {
+        return $http({
+            method  : 'POST',
+            url     : $rootScope.server_address + 'validation/passwordResetToken',
+            data    : {
+                'teamId'    : parseInt(teamId),
+                'token'     : token
+            }
+        });
+    };
+
+    authAPI.resetPassword = function(teamId, token, password, lang) {
+        return $http({
+            method  : 'PUT',
+            url     : $rootScope.server_address + 'account/password',
+            data    : {
+                'teamId'    : parseInt(teamId),
+                'token'     : token,
+                'password'  : password,
                 'lang'      : lang
             }
         });

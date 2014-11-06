@@ -116,6 +116,7 @@ msgid "@btn-delete"
 msgstr "刪除"
 
 #: client/app/modal/password.reset.html client/app/modal/settings.profile.html
+#: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "提交"
 
@@ -189,6 +190,10 @@ msgstr "议题群组"
 msgid "@common-chat-dm"
 msgstr "1:1 对话"
 
+#: client/app/modal/password.reset.html
+msgid "@common-check-email-inbox"
+msgstr "请到您的电子邮件信箱收信。"
+
 #: client/app/modal/share.html client/app/modal/upload.html
 msgid "@common-comment"
 msgstr "留言"
@@ -206,7 +211,8 @@ msgstr "建立私人群组"
 msgid "@common-current-password"
 msgstr "密码"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html client/app/password/password.reset.html
+#: client/app/signin/signin.html
 msgid "@common-customer-service"
 msgstr "客服"
 
@@ -264,6 +270,10 @@ msgstr "基本资料"
 msgid "@common-info-optional"
 msgstr "其它资料"
 
+#: client/app/password/password.reset.html
+msgid "@common-invalid-request"
+msgstr "查无此页"
+
 #: client/app/modal/join.html
 msgid "@common-joined"
 msgstr "成员"
@@ -294,7 +304,7 @@ msgstr "新姓名"
 msgid "@common-new-password"
 msgstr "新密码"
 
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-password"
 msgstr "密码"
 
@@ -307,7 +317,7 @@ msgid "@common-position"
 msgstr "位置"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-privacy-policy"
 msgstr "隐私权条款"
 
@@ -360,7 +370,7 @@ msgid "@common-status-msg"
 msgstr "今天的感觉"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-terms-of-service"
 msgstr "使用條款"
 
@@ -373,7 +383,8 @@ msgstr "标题"
 msgid "@common-upload-file"
 msgstr "上传档案"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html client/app/password/password.reset.html
+#: client/app/signin/signin.html
 msgid "@common-visit-homepage"
 msgstr "造访首页"
 
@@ -486,6 +497,7 @@ msgid "@input-search-user-name"
 msgstr "按名字搜寻使用者"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
 "必须由八个以上英文字母以及数字组成，其中一个必须是大写，其它则是小写及数字"
@@ -502,7 +514,8 @@ msgstr "电子邮件或密码无效"
 msgid "@login-message"
 msgstr "输入您的电子邮件及密码"
 
-#: client/app/modal/password.reset.html client/app/signin/signin.html
+#: client/app/modal/password.reset.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密码？"
 
@@ -661,6 +674,10 @@ msgstr "仅限直接讯息"
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
 msgstr "从来没有"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-done"
+msgstr "您的密码已经变更成功。请用JANDI的行动版登入。"
 
 #: client/app/modal/password.reset.html
 msgid "@password-reset-email"
