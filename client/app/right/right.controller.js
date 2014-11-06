@@ -264,10 +264,10 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
                 var share_target = "";
                 switch (entity.type) {
                     case 'channel':
-                        share_target = "channel";
+                        share_target = "topic";
                         break;
                     case 'privateGroup':
-                        share_target = "private";
+                        share_target = "private group";
                         break;
                     case 'user':
                         share_target = "direct message";
@@ -302,6 +302,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
                 .success(function(response) {
                     $rootScope.$emit('updateLeftPanelCaller');
                     $state.go('archives', {entityType:targetEntity.type + 's',  entityId:targetEntity.id});
+                    analyticsService.mixpanelTrack( "topic Join" );
+
                 })
                 .error(function(err) {
                     alert(err.msg);

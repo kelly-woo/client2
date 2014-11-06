@@ -44,7 +44,7 @@ app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPI
         entityheaderAPIservice.joinChannel(entityId)
             .success(function() {
                 // analytics
-                analyticsService.mixpanelTrack( "Channel Join" );
+                analyticsService.mixpanelTrack( "topic Join" );
 
                 $scope.isLoading = false;
                 $scope.updateLeftPanelCaller();
@@ -74,10 +74,10 @@ app.controller('createEntityModalCtrl', function($scope, $modalInstance, entityh
                 var entity_type = "";
                 switch ($scope.currentEntity.type) {
                     case 'channel':
-                        entity_type = "channel";
+                        entity_type = "topic";
                         break;
                     case 'privateGroup':
-                        entity_type = "private";
+                        entity_type = "private group";
                         break;
                     default:
                         entity_type = "invalid";
@@ -127,10 +127,10 @@ app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderA
                 var entity_type = "";
                 switch ($state.params.entityType) {
                     case 'channels':
-                        entity_type = "channel";
+                        entity_type = "topic";
                         break;
                     case 'privategroups':
-                        entity_type = "private";
+                        entity_type = "private group";
                         break;
                     default:
                         entity_type = "invalid";
@@ -203,10 +203,10 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
                 var entity_type = "";
                 switch (entityType) {
                     case 'channel':
-                        entity_type = "channel";
+                        entity_type = "topic";
                         break;
                     case 'privateGroup':
-                        entity_type = "private";
+                        entity_type = "private group";
                         break;
                     default:
                         entity_type = "invalid";
@@ -273,6 +273,13 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter,
                             }
                             $('.invite-team-body').append(failEmailAddressElement);
                         });
+
+                        if (response.sendMailSuccessCount > 0) {
+                            // analytics: n명 초대
+                            var send_count = response.sendMailSuccessCount;
+                            analyticsService.mixpanelTrack( "User Invite", { "count": send_count } );
+                            analyticsService.mixpanelPeople( "increment", { "key": "invite", "value": send_count } );
+                        }
                     }
                     else {
                         $('.invite-team-body').html(html_noti_success);
@@ -438,10 +445,10 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
             var share_target = "";
             switch (share_type) {
                 case 'channel':
-                    share_target = "channel";
+                    share_target = "topic";
                     break;
                 case 'privateGroup':
-                    share_target = "private";
+                    share_target = "private group";
                     break;
                 case 'user':
                     share_target = "direct message";
@@ -450,7 +457,11 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
                     share_target = "invalid";
                     break;
             }
+
+            console.log(response.data.fileInfo);
             var file_meta = (response.data.fileInfo.type).split("/");
+            console.log(file_meta)
+
             var upload_data = {
                 "entity type"   : share_target,
                 "category"      : file_meta[0],
@@ -502,10 +513,10 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
                 var share_target = "";
                 switch (shareChannel.type) {
                     case 'channel':
-                        share_target = "channel";
+                        share_target = "topic";
                         break;
                     case 'privateGroup':
-                        share_target = "private";
+                        share_target = "private group";
                         break;
                     case 'user':
                         share_target = "direct message";
@@ -535,6 +546,33 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
     };
 });
 
+
+//  PROFILE VIEW CONTROLLER
+app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance, curUser, entityAPIservice, $state) {
+    $scope.curUser = entityAPIservice.getEntityFromListById($rootScope.userList, curUser.id);
+
+    $scope.onActionClick = function(actionType) {
+        if (actionType === 'email') {
+
+        }
+        else if (actionType === 'file') {
+            onFileListClick(curUser.id);
+        }
+        else if (actionType === 'directMessage') {
+            $state.go('archives', { entityType: 'users',  entityId: curUser.id });
+        }
+
+        $modalInstance.dismiss('directing to DM');
+    };
+
+    //  right controller is listening to 'updateFileWriterId'.
+    function onFileListClick (userId) {
+        if ($state.current.name != 'messages.detail.files')
+            $state.go('messages.detail.files');
+        $scope.$emit('updateFileWriterId', userId);
+    };
+});
+
 //  PROFILE CONTROLLER
 app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService) {
     $scope.curUser = _.cloneDeep($scope.user);
@@ -557,18 +595,19 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
         /*
          TODO:  Success response has updated user entitiy.
          TODO:  Instead of updating left panel, just switch scope variable!!!!!!!
-        */
+         */
         userAPIservice.updateUserProfile($scope.curUser)
             .success(function() {
                 // analytics
                 analyticsService.mixpanelTrack( "Set Profile" );
                 var profile_data = {
 
-                    "nickname"  : $scope.curUser.u_statusMessage,
+                    "status"    : $scope.curUser.u_statusMessage,
                     "mobile"    : $scope.curUser.u_extraData.phoneNumber,
                     "division"  : $scope.curUser.u_extraData.department,
                     "position"  : $scope.curUser.u_extraData.position
                 };
+
                 analyticsService.mixpanelPeople( "set", profile_data );
 
                 $scope.updateLeftPanelCaller();
@@ -661,34 +700,8 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
 
 });
 
-//  PROFILE VIEW CONTROLLER
-app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance, curUser, entityAPIservice, $state) {
-    $scope.curUser = entityAPIservice.getEntityFromListById($rootScope.userList, curUser.id);
-
-    $scope.onActionClick = function(actionType) {
-        if (actionType === 'email') {
-
-        }
-        else if (actionType === 'file') {
-            onFileListClick(curUser.id);
-        }
-        else if (actionType === 'directMessage') {
-            $state.go('archives', { entityType: 'users',  entityId: curUser.id });
-        }
-
-        $modalInstance.dismiss('directing to DM');
-    };
-
-    //  right controller is listening to 'updateFileWriterId'.
-    function onFileListClick (userId) {
-        if ($state.current.name != 'messages.detail.files')
-            $state.go('messages.detail.files');
-        $scope.$emit('updateFileWriterId', userId);
-    };
-});
-
 //  ACCOUNT CONTROLLER
-app.controller('accountController', function($state, $scope, $modalInstance, $filter, $timeout, userAPIservice) {
+app.controller('accountController', function($state, $scope, $modalInstance, $filter, $timeout, userAPIservice, analyticsService) {
 
     $scope.status = {
         oneAtATime      : true,
@@ -771,11 +784,11 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
                         userAPIservice.updateUserName($scope.rename.new_name.value)
                             .success(function() {
                                 $scope.updateLeftPanelCaller();
+                                analyticsService.mixpanelTrack("Change Name");
                             })
                             .error(function(err) {
 
                             });
-//                        alert('성/이름 대신 실명 하나로 받는게 더 좋지않을까요?');
                         $scope.rename.cur_password.value = "";
                         $scope.rename.new_name.value = "";
                         $scope.isLoading = false;
@@ -818,6 +831,9 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
                                     status  : true,
                                     message : $filter('translate')('@alert-update-success')
                                 }
+                                analyticsService.mixpanelTrack("Change Password");
+
+
                             })
                             .error(function(err) {
                                 $scope.repassword.new_password.error = {

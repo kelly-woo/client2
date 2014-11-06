@@ -55,10 +55,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 var entity_type = "";
                 switch ($scope.currentEntity.type) {
                     case 'channel':
-                        entity_type = "channel";
+                        entity_type = "topic";
                         break;
                     case 'privateGroup':
-                        entity_type = "private";
+                        entity_type = "private group";
                         break;
                     default:
                         entity_type = "invalid";
@@ -79,10 +79,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 var entity_type = "";
                 switch ($scope.currentEntity.type) {
                     case 'channel':
-                        entity_type = "channel";
+                        entity_type = "topic";
                         break;
                     case 'privateGroup':
-                        entity_type = "private";
+                        entity_type = "private group";
                         break;
                     default:
                         entity_type = "invalid";
@@ -555,10 +555,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 var share_target = "";
                 switch (entity.type) {
                     case 'channel':
-                        share_target = "channel";
+                        share_target = "topic";
                         break;
                     case 'privateGroup':
-                        share_target = "private";
+                        share_target = "private group";
                         break;
                     case 'user':
                         share_target = "direct message";

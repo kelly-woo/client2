@@ -14,7 +14,6 @@ app.factory('analyticsService', function($rootScope, $filter) {
 
     analyticsAPI.mixpanelIdentify = function( data_string ) {
         if ( _.isEmpty(data_string) ) return;
-
         mixpanel.identify( data_string );
     };
 

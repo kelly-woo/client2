@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, $rootScope) {
+app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService) {
 
     $scope.hasToken = true;
 
@@ -26,9 +26,11 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     // 최초 로드시 팀정보 받아오기
     var getTeamInfo = function() {
+        console.log('this is getTeamInfo')
         if (prefix === 'local' || prefix === 'dev') {
             //prefix = 'tosslab';
-            prefix = 'abcd';
+            //prefix = 'abcd';
+            prefix = 'jihoon8';
         }
         loginAPI.getTeamInfo(prefix)
             .success(function(data) {
@@ -37,6 +39,10 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             })
             .error(function(err) {
                 console.error(err);
+
+                loginAPI.removeSession();
+                loginAPI.removeAccessToken();
+
                 $state.go('404');
             });
     };
@@ -58,7 +64,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         };
     }
 
-    // $scope.user may be there and current state could be 'signin' at the same time.
+    // $scope.user may exist and current state could be 'signin' at the same time.
     // I logged in, I navigate to 'google.com' and come back to ***.jandi.com
     // check token first.
     if (angular.isDefined($scope.user) && $state.current.name === 'signin') {
@@ -78,15 +84,19 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
         loginAPI.login(user)
             .success(function(data) {
-                $window.sessionStorage.token = data.token;
+                setWindowSessionStorage(data);
 
                 if (user.rememberMe) {
-                    setLocalStorageToken(data.token);
+                    setLocalStorageToken(data);
                 }
 
-                var user_identify = data.userId + '@' + data.teamId;
-                mixpanel.identify(user_identify);
-                ga('set', '&uid', user_identify);
+                var user_identify = getUserIdentify();
+
+                analyticsService.mixpanelIdentify(user_identify);
+                analyticsService.mixpanelTrack("Sign In");
+
+                ga('set', 'userId', user_identify);
+                ga('global_tracker.set', 'userId', user_identify);
 
                 $state.go('messages.home');
             }).error(function(err) {
@@ -95,23 +105,33 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
                 $scope.user.password = "";
 
-                delete $window.sessionStorage.token;
+                loginAPI.removeSession();
                 loginAPI.removeAccessToken();
 
                 return false;
             });
     };
 
-    function setLocalStorageToken(token) {
-        loginAPI.setToken(token);
+    function setLocalStorageToken(tokenData) {
+        loginAPI.setTokenData(tokenData);
+    }
+    function setWindowSessionStorage(tokenData) {
+        loginAPI.setWindowSessionStorage(tokenData);
     }
 
+    function getUserIdentify() {
+        return (loginAPI.getUserId() || loginAPI.getSessionUserId()) + '@' + (loginAPI.getTeamId() || loginAPI.getSessionTeamId());
+    }
     // Just checking token.
     // If token exists, redirect user to 'message.home'.
     function checkToken() {
 
         if (loginAPI.getToken() || loginAPI.isLoggedIn()) {
             $window.sessionStorage.token = loginAPI.getToken() || loginAPI.isLoggedIn();
+
+            var user_identify = getUserIdentify();
+
+            ga('set', 'userId', user_identify);
 
             $state.go('messages.home');
             return;
@@ -121,14 +141,17 @@ app.controller('authController', function($scope, $state, $window, $location, $m
     }
 
     $scope.logout = function() {
-        delete $window.sessionStorage.token;
+        loginAPI.removeSession();
         loginAPI.removeAccessToken();
         $state.go('signin');
     };
+
+
     if ($location.search().email) {
         // if email is in query string, set the value initially
         $scope.user.email = $location.search().email;
     }
+
     $scope.openModal = function(selector) {
         // OPENING JOIN MODAL VIEW
         if (selector == 'agreement') {
