@@ -75,9 +75,9 @@ msgstr "更新されました"
 msgid "@btn-add"
 msgstr "追加"
 
-#: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/image.crop.html client/app/modal/password.reset.html
+#: client/app/modal/rename.html client/app/modal/settings.profile.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "キャンセル"
 
@@ -115,7 +115,7 @@ msgstr "作成"
 msgid "@btn-delete"
 msgstr "削除"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
 msgid "@btn-edit"
 msgstr "送信"
 
@@ -231,8 +231,8 @@ msgstr "へ招待"
 msgid "@common-download"
 msgstr "ダウンロード"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/modal/profile.view.html
+#: client/app/modal/settings.profile.html client/app/signin/signin.html
 msgid "@common-email"
 msgstr "メールアドレス"
 
@@ -500,7 +500,7 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-message"
 msgstr "メールアドレスとパスワードを入力"
 
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
@@ -662,6 +662,18 @@ msgstr "ダイレクトメッセージのみ"
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
 msgstr "通知しない"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email"
+msgstr "メールアドレスを入力してください"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-fail"
+msgstr "パスワード再設定メールが送信されませんでした"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-sent"
+msgstr "メールが送信されました"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"

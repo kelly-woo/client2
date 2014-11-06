@@ -21,6 +21,18 @@ app.factory('loginAPI', function($http, $rootScope, $window, localStorageService
         });
     };
 
+    authAPI.requestPasswordEmail = function(teamId, email, lang) {
+        console.log(teamId, email, lang)
+        return $http({
+            method  :'POST',
+            url     : $rootScope.server_address + 'account/password/resetToken',
+            data    : {
+                'teamId'    : parseInt(teamId),
+                'email'     : email,
+                'lang'      : lang
+            }
+        });
+    };
     // TODO ; MAKE IT RESOLVE.
     // to be used later.
     // signin state로 갈때 resolve 로 이 펑선을 불러서 트루면 바로 message.home 으로 리다이렉트 시킬 예정임.

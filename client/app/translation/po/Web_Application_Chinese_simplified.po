@@ -75,9 +75,9 @@ msgstr "更新成功完成"
 msgid "@btn-add"
 msgstr "增加"
 
-#: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/image.crop.html client/app/modal/password.reset.html
+#: client/app/modal/rename.html client/app/modal/settings.profile.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "取消"
 
@@ -115,7 +115,7 @@ msgstr "建立"
 msgid "@btn-delete"
 msgstr "刪除"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
 msgid "@btn-edit"
 msgstr "提交"
 
@@ -231,8 +231,8 @@ msgstr "邀请到"
 msgid "@common-download"
 msgstr "下载"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/modal/profile.view.html
+#: client/app/modal/settings.profile.html client/app/signin/signin.html
 msgid "@common-email"
 msgstr "电子邮件"
 
@@ -502,7 +502,7 @@ msgstr "电子邮件或密码无效"
 msgid "@login-message"
 msgstr "输入您的电子邮件及密码"
 
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密码？"
 
@@ -661,6 +661,18 @@ msgstr "仅限直接讯息"
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
 msgstr "从来没有"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email"
+msgstr "请输入您的电子邮件地址"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-fail"
+msgstr "您的密码重设电子邮件无法寄出"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-sent"
+msgstr "电子邮件已经成功寄出"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"

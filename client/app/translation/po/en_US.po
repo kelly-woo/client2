@@ -75,9 +75,9 @@ msgstr "Update completed successfully"
 msgid "@btn-add"
 msgstr "Add"
 
-#: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/image.crop.html client/app/modal/password.reset.html
+#: client/app/modal/rename.html client/app/modal/settings.profile.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "Cancel"
 
@@ -115,7 +115,7 @@ msgstr "Create"
 msgid "@btn-delete"
 msgstr "Delete"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
 msgid "@btn-edit"
 msgstr "Submit"
 
@@ -231,8 +231,8 @@ msgstr "Invite to"
 msgid "@common-download"
 msgstr "Download"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/modal/profile.view.html
+#: client/app/modal/settings.profile.html client/app/signin/signin.html
 msgid "@common-email"
 msgstr "Email"
 
@@ -500,7 +500,7 @@ msgstr "Invalid email or password"
 msgid "@login-message"
 msgstr "Enter your email and password"
 
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "Forgot Password?"
 
@@ -665,6 +665,20 @@ msgstr "Only for direct messages"
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
 msgstr "Never"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email"
+msgstr ""
+"Please enter your email. We will send an email with a link where you can "
+"reset your password."
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-fail"
+msgstr "Your password reset email could not be sent. Please try again."
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-sent"
+msgstr "Email was sent successfully"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"

@@ -29,8 +29,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         console.log('this is getTeamInfo')
         if (prefix === 'local' || prefix === 'dev') {
             //prefix = 'tosslab';
-            //prefix = 'abcd';
-            prefix = 'jihoon8';
+            prefix = 'abcd';
+            //prefix = 'jihoon8';
         }
         loginAPI.getTeamInfo(prefix)
             .success(function(data) {
@@ -143,6 +143,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
     $scope.logout = function() {
         loginAPI.removeSession();
         loginAPI.removeAccessToken();
+        mixpanel.cookie.clear();
         $state.go('signin');
     };
 
@@ -167,6 +168,14 @@ app.controller('authController', function($scope, $state, $window, $location, $m
                 templateUrl :   'app/modal/terms/privacy.html',
                 size        :   'lg'
             });
+        }
+        else if (selector == 'resetPassword') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/password.reset.html',
+                controller  :   'passwordResetController',
+                size        :   'lg'
+            })
         }
     };
 

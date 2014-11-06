@@ -69,6 +69,7 @@ msgid "@btn-add"
 msgstr ""
 
 #: client/app/modal/image.crop.html
+#: client/app/modal/password.reset.html
 #: client/app/modal/rename.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/share.html
@@ -116,6 +117,7 @@ msgstr ""
 msgid "@btn-delete"
 msgstr ""
 
+#: client/app/modal/password.reset.html
 #: client/app/modal/settings.profile.html
 msgid "@btn-edit"
 msgstr ""
@@ -243,6 +245,7 @@ msgstr ""
 msgid "@common-download"
 msgstr ""
 
+#: client/app/modal/password.reset.html
 #: client/app/modal/profile.view.html
 #: client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
@@ -525,6 +528,7 @@ msgstr ""
 msgid "@login-message"
 msgstr ""
 
+#: client/app/modal/password.reset.html
 #: client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr ""
@@ -684,6 +688,18 @@ msgstr ""
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
+msgstr ""
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email"
+msgstr ""
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-fail"
+msgstr ""
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-sent"
 msgstr ""
 
 #: client/app/center/center.html

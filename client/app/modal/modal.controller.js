@@ -892,3 +892,36 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
         $modalInstance.dismiss('cancel');
     };
 });
+
+
+
+//  PASSWORD RESET CONTROLLER
+app.controller('passwordResetController', function($rootScope, $scope, $modalInstance, loginAPI, $filter) {
+    $scope.emailSent = false;
+    $scope.email = '';
+
+    $scope.emailSent = true;
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.onPasswordResetRequstClick = function(email) {
+        $scope.isLoading = true;
+
+        loginAPI.requestPasswordEmail($scope.teamInfo.id, email, $rootScope.preferences.lang)
+            .success(function(response) {
+                $scope.isLoading = false;
+                $scope.emailSent = true;
+            })
+            .error(function(response) {
+                console.log(response)
+                $scope.isLoading = false;
+                alert($filter('translate')('@password-reset-email-fail'));
+            });
+
+
+    }
+});
+
+

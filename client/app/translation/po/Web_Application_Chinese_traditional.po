@@ -75,9 +75,9 @@ msgstr "更新成功完成"
 msgid "@btn-add"
 msgstr "增加"
 
-#: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/image.crop.html client/app/modal/password.reset.html
+#: client/app/modal/rename.html client/app/modal/settings.profile.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "取消"
 
@@ -115,7 +115,7 @@ msgstr "建立"
 msgid "@btn-delete"
 msgstr "刪除"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
 msgid "@btn-edit"
 msgstr "提交"
 
@@ -231,8 +231,8 @@ msgstr "邀請到"
 msgid "@common-download"
 msgstr "下載"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/modal/profile.view.html
+#: client/app/modal/settings.profile.html client/app/signin/signin.html
 msgid "@common-email"
 msgstr "電子郵件"
 
@@ -502,7 +502,7 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-message"
 msgstr "輸入您的電子郵件及密碼"
 
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
@@ -661,6 +661,18 @@ msgstr "僅限直接訊息"
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
 msgstr "從來沒有"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email"
+msgstr "請輸入您的電子郵件地址"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-fail"
+msgstr "您的密碼重設電子郵件無法寄出"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-sent"
+msgstr "電子郵件已經成功寄出"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
