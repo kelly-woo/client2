@@ -294,6 +294,7 @@ input[type="button"] {
     border: 1px solid #31c08a;
     color: #31c08a;
     font-size: 14px;
+    margin-top: 6px;
 }
 .btn-white:hover,
 .btn-white > a,

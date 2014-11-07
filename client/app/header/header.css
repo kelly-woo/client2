@@ -24,7 +24,7 @@
     display: inline-block;
     vertical-align: top;
     float: left;
-    font-size: 13px;
+    font-size: 14px;
 }
 .header-navbar-menu.open,
 .header-navbar-file.open,
@@ -72,7 +72,7 @@
 .header-toolbar-toggle {
     padding: 0 20px;
     border-left: 1px solid #e1e1e1;
-    font-size: 13px;
+    font-size: 14px;
 }
 .header-toolbar-toggle .icon-filebox {
     font-size: 16px;
