@@ -28,9 +28,10 @@
         <div class="join-modal-heading">
             <span translate>@modal-join-ch-you-can</span>
         </div>
-        <div class="join-modal-channel_container file-item-meta__listview is_not_member"
+        <div class="join-modal-channel_container file-item-meta__listview is_not_member white_background"
              data-ng-repeat="channel in filtered = (unJoinedChannelList | filter:{'name': channelTitleQuery})">
-            <div class="join-modal-channel_title cursor_pointer overflow-ellipsis" ng-click="onJoinClick(channel.id);">#{{channel.name}}</div>
+            <div class="join-modal-channel_title cursor_pointer overflow-ellipsis" ng-click="onJoinClick(channel.id);">
+                <i class="icon-topic-fill"></i> {{channel.name}}</div>
             <div>
                 <i class="icon-group"></i>
                 <span class="join-modal-channel_creator">{{ getName(channel.ch_creatorId) }}</span>
@@ -41,7 +42,7 @@
                 <i class="fa fa-clock-o"></i>
                 <span>{{ channel.ch_createTime | ordinalDate: 'EEE, MMM doo' }} at {{ channel.ch_createTime | date: 'h:mm a' }}</span>
             </div>
-            <button type="button" class="btn btn-white btn-full-width" data-ng-click="onJoinClick(channel.id)">
+            <button type="button" class="btn btn-white btn-top-right" data-ng-click="onJoinClick(channel.id)">
                 <span translate>@btn-join</span>
             </button>
         </div>
@@ -59,7 +60,8 @@
              data-ng-repeat="joinedChannel in joinFiltered = (joinedChannelList | filter:{'name':channelTitleQuery})"
              data-ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})"
              data-ng-click="cancel();">
-            <div class="join-modal-channel_title cursor_pointer overflow-ellipsis">#{{joinedChannel.name}}</div>
+            <div class="join-modal-channel_title cursor_pointer overflow-ellipsis">
+                <i class="icon-topic-fill"></i> {{joinedChannel.name}}</div>
             <div>
                 <i class="icon-group"></i>
                 <span class="join-modal-channel_creator">{{ getName(joinedChannel.ch_creatorId) }}</span>

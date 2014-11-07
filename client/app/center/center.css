@@ -165,10 +165,9 @@
 
 .msgs {
     background: #fff;
-    position: fixed;
-    margin-left: 220px;
+    position: absolute;
     margin-right: 0;
-    top: 75px;
+    top: 35px;
     left: 0;
     right: 0;
     bottom: 4rem;
@@ -193,11 +192,6 @@
 }
 .msgs-holder {
     padding: 0 10px 0 20px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
     overflow-y: scroll;
 }
 .msgs-group {

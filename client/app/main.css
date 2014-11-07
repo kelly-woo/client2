@@ -219,6 +219,10 @@ select:focus {
     background-color: #31c08a !important;
 }
 
+.white_background {
+    background-color: white;
+}
+
 
 /********************************************
 
@@ -262,10 +266,11 @@ input[type="button"] {
 }
 .btn-cancel {
     background-color: white;
-    border-radius: 0;
-    border: 1px solid #31c08a;
-    color: #31c08a;
-    font-size: 13px;
+    border-radius: 5px;
+    border: 1px solid #e1e1e1;
+    height: 30px;
+    color: #666666;
+    font-size: 14px;
 }
 .btn-cancel:focus,
 .btn-cancel:hover,
@@ -274,25 +279,23 @@ input[type="button"] {
 }
 .btn-ok {
     background-color: #31c08a;
-    border-radius: 0;
-    border: 1px solid #31c08a;
-    color: white;
+    border-radius: 5px;
+    border: 0;
+    color: #fff;
+    height: 30px;
     font-size: 13px;
+    margin-left: 0 !important;
 }
 .btn-ok:focus,
 .btn-ok:hover,
 .btn-ok:active {
     color: white;
 }
-.btn-full-width {
-    margin-top: -50px;
-    float: right;
-}
 .btn-white {
     background-color: #fff;
-    border-radius: 0;
-    border: 1px solid #31c08a;
-    color: #31c08a;
+    border-radius: 5px;
+    border: 1px solid #e1e1e1;
+    color: #666666;
     font-size: 14px;
     margin-top: 6px;
 }
@@ -301,6 +304,12 @@ input[type="button"] {
 .btn-white > a:hover {
     text-decoration: none;
     color: #31c08a;
+}
+
+.btn-top-right {
+    position: absolute;
+    right: 12px;
+    top: 24px;
 }
 
 
