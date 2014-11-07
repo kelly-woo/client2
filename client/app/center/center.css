@@ -172,6 +172,7 @@
     right: 0;
     bottom: 4rem;
     overflow: auto;
+    overflow-y: scroll;
     min-width: 260px;
 }
 .msgs__loading {
@@ -191,6 +192,12 @@
 }
 .msgs-holder {
     padding: 0 10px 0 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
 }
 .msgs-group {
 
