@@ -115,7 +115,7 @@
     line-height: inherit;
     text-align: center;
     color:  #666;
-    font-size: 11px;
+    font-size: 12px;
     margin-left: 5px;
 }
 .lpanel-list-option .fa-plus {
@@ -152,7 +152,7 @@
 }
 /*  every element in list */
 .lpanel-list ul li {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 28px;
     height: 28px;
     position:relative;
@@ -294,7 +294,7 @@
 .lpanel-list ul li a .icon-star {
     color:#9e9ea6;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .lpanel-list ul li:hover .icon-star {

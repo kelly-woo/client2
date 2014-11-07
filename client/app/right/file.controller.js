@@ -152,10 +152,10 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
                 var share_target = "";
                 switch (entity.type) {
                     case 'channel':
-                        share_target = "channel";
+                        share_target = "topic";
                         break;
                     case 'privateGroup':
-                        share_target = "private";
+                        share_target = "private group";
                         break;
                     case 'user':
                         share_target = "direct message";
@@ -187,6 +187,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
         } else {
             entityheaderAPIservice.joinChannel(targetEntity.id)
                 .success(function(response) {
+                    analyticsService.mixpanelTrack( "topic Join" );
                     $rootScope.$emit('updateLeftPanelCaller');
                     $state.go('archives', {entityType:targetEntity.type + 's',  entityId:targetEntity.id});
                 })

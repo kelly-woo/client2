@@ -75,9 +75,9 @@ msgstr "更新成功完成"
 msgid "@btn-add"
 msgstr "增加"
 
-#: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/image.crop.html client/app/modal/password.reset.html
+#: client/app/modal/rename.html client/app/modal/settings.profile.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "取消"
 
@@ -115,7 +115,8 @@ msgstr "建立"
 msgid "@btn-delete"
 msgstr "刪除"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
+#: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "提交"
 
@@ -189,6 +190,10 @@ msgstr "議題群組"
 msgid "@common-chat-dm"
 msgstr "1:1 對話"
 
+#: client/app/modal/password.reset.html
+msgid "@common-check-email-inbox"
+msgstr "請到您的電子郵件信箱收信。"
+
 #: client/app/modal/share.html client/app/modal/upload.html
 msgid "@common-comment"
 msgstr "留言"
@@ -206,7 +211,8 @@ msgstr "建立私人群組"
 msgid "@common-current-password"
 msgstr "密碼"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html client/app/password/password.reset.html
+#: client/app/signin/signin.html
 msgid "@common-customer-service"
 msgstr "客服"
 
@@ -231,8 +237,8 @@ msgstr "邀請到"
 msgid "@common-download"
 msgstr "下載"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/modal/profile.view.html
+#: client/app/modal/settings.profile.html client/app/signin/signin.html
 msgid "@common-email"
 msgstr "電子郵件"
 
@@ -264,6 +270,10 @@ msgstr "基本資料"
 msgid "@common-info-optional"
 msgstr "其它資料"
 
+#: client/app/password/password.reset.html
+msgid "@common-invalid-request"
+msgstr "查無此頁"
+
 #: client/app/modal/join.html
 msgid "@common-joined"
 msgstr "成員"
@@ -294,7 +304,7 @@ msgstr "新姓名"
 msgid "@common-new-password"
 msgstr "新密碼"
 
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-password"
 msgstr "密碼"
 
@@ -307,7 +317,7 @@ msgid "@common-position"
 msgstr "位置"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-privacy-policy"
 msgstr "隱私權條款"
 
@@ -360,7 +370,7 @@ msgid "@common-status-msg"
 msgstr "今天的感覺"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-terms-of-service"
 msgstr "使用條款"
 
@@ -373,7 +383,8 @@ msgstr "標題"
 msgid "@common-upload-file"
 msgstr "上傳檔案"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html client/app/password/password.reset.html
+#: client/app/signin/signin.html
 msgid "@common-visit-homepage"
 msgstr "造訪首頁"
 
@@ -486,6 +497,7 @@ msgid "@input-search-user-name"
 msgstr "按名字搜尋使用者"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
 "必須由八個以上英文字母以及數字組成，其中一個必須是大寫，其它則是小寫及數字"
@@ -502,7 +514,8 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-message"
 msgstr "輸入您的電子郵件及密碼"
 
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
@@ -661,6 +674,26 @@ msgstr "僅限直接訊息"
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
 msgstr "從來沒有"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-done"
+msgstr "您的密碼已經變更成功。請用JANDI的行動版登入。"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email"
+msgstr "請輸入您的電子郵件地址"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-fail"
+msgstr "您的密碼重設電子郵件無法寄出"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-sent"
+msgstr "電子郵件已經成功寄出"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-message"
+msgstr "忘記您的密碼了嗎？選擇一個新的。 "
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"

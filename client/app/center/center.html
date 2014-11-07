@@ -156,7 +156,7 @@
 
 </div>
 
-<article class="msgs" when-scrolled="loadMore()" scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
+<article class="msgs" when-scrolled="loadMore()"  scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
     <div class="msgs__loading icon-loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer" data-ng-class="{'initial': (!msgLoadStatus.isInitialLoadingCompleted)}"></div>
 
@@ -237,10 +237,11 @@
                     </span>
 
                     <!--    DELETE ICON APPEARS ON HOVER    -->
-                    <a class="msg-item__action link-remove pull-right"
+                    <a class="msg-item__action link-remove pull-right cursor_pointer"
                        data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
-                       data-ng-click="deleteMessage(msg)">
-                        <i class="icon-delete"></i>
+                       data-ng-click="deleteMessage(msg)"
+                       tooltip="메세지 삭제">
+                        <i class="icon-cancel"></i>
                     </a>
                 </div>
 
@@ -445,7 +446,6 @@
 
                 </div>
             </div>
-
 
         </div>
 
