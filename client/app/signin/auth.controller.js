@@ -26,8 +26,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         var prefix = getPrefix();
 
         if (prefix === 'local' || prefix === 'dev') {
-            prefix = 'tosslab';
-            //prefix = 'abcd';
+            //prefix = 'tosslab';
+            prefix = 'abcd';
         }
 
         loginAPI.getTeamInfo(prefix)
