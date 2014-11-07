@@ -17,7 +17,7 @@ var app = angular.module('jandiApp', [
     'monospaced.elastic'
 ]);
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration, loginAPI) {
 
     $rootScope._ = window._;
 
@@ -90,9 +90,11 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                 case 'messages.home' :
                     var lastState = entityAPIservice.getLastEntityState();
 
+                    console.log(loginAPI.getSessionUserId())
                     // If lastState doesn't exist.
                     // Direct user to default channel.
-                    if (!lastState) {
+                    if (!lastState || lastState.userId != loginAPI.getSessionUserId()) {
+                        entityAPIservice.removeLastEntityState();
                         $rootScope.toDefault = true;
                         return;
                     }
@@ -173,6 +175,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     var debugMode = (configuration.name === 'development');
 
+    // TODO: move this to service.
     function getLanguageSetting(curLang) {
         if (curLang.indexOf('ko') >= 0) {
             // korean.

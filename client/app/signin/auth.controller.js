@@ -68,9 +68,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
                 }
 
                 autoLogin();
-
-                $state.go('messages.home');
-
+                return;
             }).error(function(err) {
                 $scope.error.status = true;
                 $scope.error.message = err.message;
@@ -86,7 +84,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     // Generate 'id@teamId' format string for google analytics.
     function getUserIdentify() {
-        return (loginAPI.getUserId() || loginAPI.getSessionUserId()) + '@' + (loginAPI.getTeamId() || loginAPI.getSessionTeamId());
+        return (loginAPI.getSessionUserId() || loginAPI.getUserId()) + '@' + (loginAPI.getSessionTeamId() || loginAPI.getTeamId());
     }
 
     onSignInEnter();
@@ -94,17 +92,24 @@ app.controller('authController', function($scope, $state, $window, $location, $m
     // Entry point!
     // EVERYTHING STARTS FROM HERE.
     function onSignInEnter() {
-        console.log('hello onsigning');
 
         if (angular.isDefined($scope.user)) {
-            if ($state.current.name === 'signin') autoLogin();
+            if ($state.current.name === 'signin') {
+                autoLogin();
+            }
             else return;
         }
 
         getTeamInfo();
         $scope.prefix = getPrefix();
 
-        if (hasToken()) {
+        if (hasSessionAlive()) {
+            autoLogin();
+            return;
+        }
+
+        if (hasStorageToken()) {
+            setSessionStorage();
             autoLogin();
             return;
         }
@@ -119,43 +124,40 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     }
 
-
-    function hasToken() {
-        console.log(hasSessionAlive() || hasStorageToken())
-        return hasSessionAlive() || hasStorageToken();
-    }
-
     // Check if current tab has alive token.
     function hasSessionAlive() {
-        console.log()
-        console.log()
-        var a = loginAPI.getSessionPrefix()
-        var b = $scope.prefix;
-        console.log(a)
-        console.log(b)
-        console.log(a == b)
-        return loginAPI.getSessionPrefix() == $scope.prefix ;
+        //var a = loginAPI.getSessionPrefix()
+        //var b = $scope.prefix;
+        //
+        //console.log('session prefix', a)
+        //console.log('current prefix', b)
+        //console.log('are they same?', a == b)
+        //console.log('session token', loginAPI.getSessionToken());
+        //console.log('token defined?', !_.isUndefined(loginAPI.getSessionToken()));
+        //console.log('returning', (loginAPI.getSessionPrefix() == $scope.prefix) && !_.isUndefined(loginAPI.getSessionToken()));
+
+        return (loginAPI.getSessionPrefix() == $scope.prefix) && !_.isUndefined(loginAPI.getSessionToken());
     }
 
     // Check if Browser stores any token info.
     function hasStorageToken() {
-        console.log(loginAPI.hasToken($scope.prefix))
         return loginAPI.hasToken($scope.prefix);
     }
 
-    function autoLogin() {
-        console.log('inside of auto')
-        loginAPI.setWindowSessionStorage({
-                'token'     : loginAPI.getToken(getPrefix()) || loginAPI.getSessionToken(),
-                'teamId'    : loginAPI.getTeamId() || loginAPI.getSessionTeamId(),
-                'userId'    : loginAPI.getUserId() || loginAPI.getSessionUserId()
-            }, getPrefix()
-        );
+    // Import all necessary data from 'localstorage' to '$window.sessionStorage'.
+    function setSessionStorage() {
+        var tokenData = {
+            'token'     : loginAPI.getToken($scope.prefix),
+            'teamId'    : loginAPI.getTeamId(),
+            'userId'    : loginAPI.getUserId()
+        };
 
+        loginAPI.setWindowSessionStorage(tokenData, $scope.prefix);
+    }
+
+    function autoLogin() {
         setStatics();
         $state.go('messages.home');
-
-        return;
     }
 
     function setStatics() {
