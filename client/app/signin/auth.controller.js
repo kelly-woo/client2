@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, $rootScope) {
+app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService) {
 
     $scope.hasToken = true;
 
@@ -11,26 +11,26 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         messsage    : ''
     };
 
-    // Initialize teamInfo only where it is not iniailized.
-    if (angular.isUndefined($scope.teamInfo)) {
-        $scope.teamInfo = {
-            id          : -1,
-            name        : '',
-            prefix      : ''
-        };
+    $scope.teamInfo = {
+        id          : -1,
+        name        : '',
+        prefix      : ''
+    };
 
+    function getPrefix() {
+        return $location.host().split('.')[0];
     }
-
-    var prefix = $location.host().split('.')[0];
-    $scope.teamInfo.prefix = $location.host().split('.')[0];
 
     // 최초 로드시 팀정보 받아오기
     var getTeamInfo = function() {
+        var prefix = getPrefix();
+
         if (prefix === 'local' || prefix === 'dev') {
             //prefix = 'tosslab';
 
             prefix = 'abcd';
         }
+
         loginAPI.getTeamInfo(prefix)
             .success(function(data) {
                 $scope.teamInfo.id = data.teamInfo.teamId;
@@ -38,36 +38,18 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             })
             .error(function(err) {
                 console.error(err);
+
+                loginAPI.removeSession();
+                loginAPI.removeAccessToken();
+
                 $state.go('404');
             });
     };
 
-
-    getTeamInfo();
-
-    // $scope.user is not defined -> first time -> not logged in yet.
-    // check if there is access_token.
-    // if not, follow normal routine.
-    if (angular.isUndefined($scope.user)) {
-        checkToken();
-
-
-        $scope.user = {
-            email       : '',
-            password    : '',
-            rememberMe  : true
-        };
-    }
-
-    // $scope.user may be there and current state could be 'signin' at the same time.
-    // I logged in, I navigate to 'google.com' and come back to ***.jandi.com
-    // check token first.
-    if (angular.isDefined($scope.user) && $state.current.name === 'signin') {
-        checkToken();
-    }
-
     $scope.signin = function(user) {
         user.teamId = -1;
+
+        var prefix = getPrefix();
 
         if (!_.isUndefined(prefix)) {
             if (prefix === 'local' || prefix === 'dev') {
@@ -79,57 +61,130 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
         loginAPI.login(user)
             .success(function(data) {
-                $window.sessionStorage.token = data.token;
+
+                loginAPI.setWindowSessionStorage(data, prefix);
 
                 if (user.rememberMe) {
-                    setLocalStorageToken(data.token);
+                    loginAPI.setTokenData(data, prefix);
                 }
 
-                var user_identify = data.userId + '@' + data.teamId;
-                mixpanel.identify(user_identify);
-                ga('set', '&uid', user_identify);
-
-                $state.go('messages.home');
+                autoLogin();
+                return;
             }).error(function(err) {
                 $scope.error.status = true;
                 $scope.error.message = err.message;
 
                 $scope.user.password = "";
 
-                delete $window.sessionStorage.token;
+                loginAPI.removeSession();
                 loginAPI.removeAccessToken();
 
                 return false;
             });
     };
 
-    function setLocalStorageToken(token) {
-        loginAPI.setToken(token);
+    // Generate 'id@teamId' format string for google analytics.
+    function getUserIdentify() {
+        return (loginAPI.getSessionUserId() || loginAPI.getUserId()) + '@' + (loginAPI.getSessionTeamId() || loginAPI.getTeamId());
     }
 
-    // Just checking token.
-    // If token exists, redirect user to 'message.home'.
-    function checkToken() {
+    onSignInEnter();
 
-        if (loginAPI.getToken() || loginAPI.isLoggedIn()) {
-            $window.sessionStorage.token = loginAPI.getToken() || loginAPI.isLoggedIn();
+    // Entry point!
+    // EVERYTHING STARTS FROM HERE.
+    function onSignInEnter() {
 
-            $state.go('messages.home');
+        if (angular.isDefined($scope.user)) {
+            if ($state.current.name === 'signin') {
+                autoLogin();
+            }
+            else return;
+        }
+
+        getTeamInfo();
+        $scope.prefix = getPrefix();
+
+        if (hasSessionAlive()) {
+            autoLogin();
             return;
         }
 
+        if (hasStorageToken()) {
+            setSessionStorage();
+            autoLogin();
+            return;
+        }
+
+        $scope.user = {
+            email       : '',
+            password    : '',
+            rememberMe  : true
+        };
+
         $scope.hasToken = false;
+
+    }
+
+    // Check if current tab has alive token.
+    function hasSessionAlive() {
+        //var a = loginAPI.getSessionPrefix()
+        //var b = $scope.prefix;
+        //
+        //console.log('session prefix', a)
+        //console.log('current prefix', b)
+        //console.log('are they same?', a == b)
+        //console.log('session token', loginAPI.getSessionToken());
+        //console.log('token defined?', !_.isUndefined(loginAPI.getSessionToken()));
+        //console.log('returning', (loginAPI.getSessionPrefix() == $scope.prefix) && !_.isUndefined(loginAPI.getSessionToken()));
+
+        return (loginAPI.getSessionPrefix() == $scope.prefix) && !_.isUndefined(loginAPI.getSessionToken());
+    }
+
+    // Check if Browser stores any token info.
+    function hasStorageToken() {
+        return loginAPI.hasToken($scope.prefix);
+    }
+
+    // Import all necessary data from 'localstorage' to '$window.sessionStorage'.
+    function setSessionStorage() {
+        var tokenData = {
+            'token'     : loginAPI.getToken($scope.prefix),
+            'teamId'    : loginAPI.getTeamId(),
+            'userId'    : loginAPI.getUserId()
+        };
+
+        loginAPI.setWindowSessionStorage(tokenData, $scope.prefix);
+    }
+
+    function autoLogin() {
+        setStatics();
+        $state.go('messages.home');
+    }
+
+    function setStatics() {
+        var user_identify = getUserIdentify();
+
+        analyticsService.mixpanelIdentify(user_identify);
+        analyticsService.mixpanelTrack("Sign In");
+
+        ga('set', 'userId', user_identify);
+        ga('global_tracker.set', 'userId', user_identify);
     }
 
     $scope.logout = function() {
-        delete $window.sessionStorage.token;
-        loginAPI.removeAccessToken();
+        var prefix = getPrefix();
+        loginAPI.removeSession(prefix);
+        loginAPI.removeAccessToken(prefix);
+        mixpanel.cookie.clear();
         $state.go('signin');
     };
+
+
     if ($location.search().email) {
         // if email is in query string, set the value initially
         $scope.user.email = $location.search().email;
     }
+
     $scope.openModal = function(selector) {
         // OPENING JOIN MODAL VIEW
         if (selector == 'agreement') {
@@ -145,6 +200,14 @@ app.controller('authController', function($scope, $state, $window, $location, $m
                 templateUrl :   'app/modal/terms/privacy.html',
                 size        :   'lg'
             });
+        }
+        else if (selector == 'resetPassword') {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/password.reset.html',
+                controller  :   'passwordRequestController',
+                size        :   'lg'
+            })
         }
     };
 

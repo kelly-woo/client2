@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorageService, $state) {
+app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorageService, $state, $window) {
     var entityAPI = {};
 
     var currentEntity;
@@ -51,7 +51,8 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
         }
 
         this.setBadgeValue(list, entity, alarmCount);
-    }
+    };
+
 
     //  TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
     entityAPI.setBadgeValue = function(list, entity, alarmCount) {
@@ -68,25 +69,37 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
         this.getEntityFromListById(list, entity.id).alarmCnt = alarmCount;
     };
 
+    /**
+     * Setting/Getting/Removing 'last-state' from/to localStorage.
+     *
+     *
+     */
+    var last_state_key  = 'last-state';
+
     entityAPI.setLastEntityState = function() {
         var last_state = {
             rpanel_visible  : $state.current.name.indexOf('file') > -1 ? true : false,
-            entityId       : $state.params.entityId,
-            entityType     : $state.params.entityType,
-            itemId         : $state.params.itemId
+            entityId        : $state.params.entityId,
+            entityType      : $state.params.entityType,
+            itemId          : $state.params.itemId,
+            userId          : $window.sessionStorage.userId
         };
 
         if (last_state.entityId == null) return;
 
-        localStorageService.set('last-state', last_state);
+        localStorageService.set(last_state_key, last_state);
     };
 
     entityAPI.getLastEntityState = function() {
-        var last_state = localStorageService.get('last-state');
+        var last_state = localStorageService.get(last_state_key);
 
         if (!last_state || last_state.entityId == null) return null;
 
         return last_state;
+    };
+
+    entityAPI.removeLastEntityState = function() {
+        localStorageService.remove(last_state_key);
     };
 
     //  return null if 'getEntityById' return nothing.

@@ -75,9 +75,9 @@ msgstr "更新されました"
 msgid "@btn-add"
 msgstr "追加"
 
-#: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/image.crop.html client/app/modal/password.reset.html
+#: client/app/modal/rename.html client/app/modal/settings.profile.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "キャンセル"
 
@@ -115,7 +115,8 @@ msgstr "作成"
 msgid "@btn-delete"
 msgstr "削除"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
+#: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "送信"
 
@@ -189,6 +190,10 @@ msgstr "チャネル一覧"
 msgid "@common-chat-dm"
 msgstr "ダイレクトメッセージ"
 
+#: client/app/modal/password.reset.html
+msgid "@common-check-email-inbox"
+msgstr "メールを確認してください。"
+
 #: client/app/modal/share.html client/app/modal/upload.html
 msgid "@common-comment"
 msgstr "コメント"
@@ -206,7 +211,8 @@ msgstr "新規プライベートグループを作成する"
 msgid "@common-current-password"
 msgstr "現在のパスワード"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html client/app/password/password.reset.html
+#: client/app/signin/signin.html
 msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
@@ -231,8 +237,8 @@ msgstr "へ招待"
 msgid "@common-download"
 msgstr "ダウンロード"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/modal/profile.view.html
+#: client/app/modal/settings.profile.html client/app/signin/signin.html
 msgid "@common-email"
 msgstr "メールアドレス"
 
@@ -264,6 +270,10 @@ msgstr "基本情報"
 msgid "@common-info-optional"
 msgstr "追加情報"
 
+#: client/app/password/password.reset.html
+msgid "@common-invalid-request"
+msgstr "お探しのページは見つかりませんでした"
+
 #: client/app/modal/join.html
 msgid "@common-joined"
 msgstr "メンバー"
@@ -294,7 +304,7 @@ msgstr "新しい名前"
 msgid "@common-new-password"
 msgstr "新しいパスワード"
 
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-password"
 msgstr "パスワード"
 
@@ -307,7 +317,7 @@ msgid "@common-position"
 msgstr "役職"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-privacy-policy"
 msgstr "プライバシーポリシー"
 
@@ -360,7 +370,7 @@ msgid "@common-status-msg"
 msgstr "今の気分"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-terms-of-service"
 msgstr "サービス利用規約"
 
@@ -373,7 +383,8 @@ msgstr "タイトル"
 msgid "@common-upload-file"
 msgstr "アップロード"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html client/app/password/password.reset.html
+#: client/app/signin/signin.html
 msgid "@common-visit-homepage"
 msgstr "ホームページを見る"
 
@@ -484,6 +495,7 @@ msgid "@input-search-user-name"
 msgstr "メンバー名で検索"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
 "must be 8+ characters including 1 uppercase, lowercase letter and number"
@@ -500,7 +512,8 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-message"
 msgstr "メールアドレスとパスワードを入力"
 
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
@@ -662,6 +675,26 @@ msgstr "ダイレクトメッセージのみ"
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
 msgstr "通知しない"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-done"
+msgstr "パスワードが再設定されました。JANDIのアプリでログインしてください"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email"
+msgstr "メールアドレスを入力してください"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-fail"
+msgstr "パスワード再設定メールが送信されませんでした"
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-sent"
+msgstr "メールが送信されました"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-message"
+msgstr "パスワードをお忘れですか？ 新しいパスワードを入力してください。"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"

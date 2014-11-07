@@ -75,9 +75,9 @@ msgstr "Update completed successfully"
 msgid "@btn-add"
 msgstr "Add"
 
-#: client/app/modal/image.crop.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/image.crop.html client/app/modal/password.reset.html
+#: client/app/modal/rename.html client/app/modal/settings.profile.html
+#: client/app/modal/share.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "Cancel"
 
@@ -115,7 +115,8 @@ msgstr "Create"
 msgid "@btn-delete"
 msgstr "Delete"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
+#: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "Submit"
 
@@ -189,6 +190,10 @@ msgstr "Topics"
 msgid "@common-chat-dm"
 msgstr "1:1 Chat"
 
+#: client/app/modal/password.reset.html
+msgid "@common-check-email-inbox"
+msgstr "Please check your inbox. "
+
 #: client/app/modal/share.html client/app/modal/upload.html
 msgid "@common-comment"
 msgstr "Comment"
@@ -206,7 +211,8 @@ msgstr "Create New Private Group"
 msgid "@common-current-password"
 msgstr "Password"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html client/app/password/password.reset.html
+#: client/app/signin/signin.html
 msgid "@common-customer-service"
 msgstr "Customer Service"
 
@@ -231,8 +237,8 @@ msgstr "Invite to"
 msgid "@common-download"
 msgstr "Download"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html client/app/modal/profile.view.html
+#: client/app/modal/settings.profile.html client/app/signin/signin.html
 msgid "@common-email"
 msgstr "Email"
 
@@ -264,6 +270,10 @@ msgstr "Basic Information"
 msgid "@common-info-optional"
 msgstr "Additional Information"
 
+#: client/app/password/password.reset.html
+msgid "@common-invalid-request"
+msgstr "Oops, Invalid Request. "
+
 #: client/app/modal/join.html
 msgid "@common-joined"
 msgstr " members"
@@ -294,7 +304,7 @@ msgstr "New Name"
 msgid "@common-new-password"
 msgstr "New Password"
 
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-password"
 msgstr "Password"
 
@@ -307,7 +317,7 @@ msgid "@common-position"
 msgstr "Position"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-privacy-policy"
 msgstr "Privacy Policy"
 
@@ -360,7 +370,7 @@ msgid "@common-status-msg"
 msgstr "Feeling Today?"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/signin/signin.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-terms-of-service"
 msgstr "Terms of Service"
 
@@ -373,7 +383,8 @@ msgstr "Title"
 msgid "@common-upload-file"
 msgstr "Upload File"
 
-#: client/app/error/404.html client/app/signin/signin.html
+#: client/app/error/404.html client/app/password/password.reset.html
+#: client/app/signin/signin.html
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
 
@@ -484,6 +495,7 @@ msgid "@input-search-user-name"
 msgstr "Search users by name"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
 "must be 8+ characters including 1 uppercase, lowercase letter and number"
@@ -500,7 +512,8 @@ msgstr "Invalid email or password"
 msgid "@login-message"
 msgstr "Enter your email and password"
 
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.html
+#: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "Forgot Password?"
 
@@ -665,6 +678,29 @@ msgstr "Only for direct messages"
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
 msgstr "Never"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-done"
+msgstr ""
+"Your password has been changed successfully. Please login with JANDI app."
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email"
+msgstr ""
+"Please enter your email. We will send an email with a link where you can "
+"reset your password."
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-fail"
+msgstr "Your password reset email could not be sent. Please try again."
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-sent"
+msgstr "Email was sent successfully"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-message"
+msgstr "Forgot your password? Choose a new one."
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"

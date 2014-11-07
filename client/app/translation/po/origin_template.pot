@@ -69,6 +69,7 @@ msgid "@btn-add"
 msgstr ""
 
 #: client/app/modal/image.crop.html
+#: client/app/modal/password.reset.html
 #: client/app/modal/rename.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/share.html
@@ -116,7 +117,9 @@ msgstr ""
 msgid "@btn-delete"
 msgstr ""
 
+#: client/app/modal/password.reset.html
 #: client/app/modal/settings.profile.html
+#: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr ""
 
@@ -195,6 +198,10 @@ msgstr ""
 msgid "@common-chat-dm"
 msgstr ""
 
+#: client/app/modal/password.reset.html
+msgid "@common-check-email-inbox"
+msgstr ""
+
 #: client/app/modal/share.html
 #: client/app/modal/upload.html
 msgid "@common-comment"
@@ -216,6 +223,7 @@ msgid "@common-current-password"
 msgstr ""
 
 #: client/app/error/404.html
+#: client/app/password/password.reset.html
 #: client/app/signin/signin.html
 msgid "@common-customer-service"
 msgstr ""
@@ -243,6 +251,7 @@ msgstr ""
 msgid "@common-download"
 msgstr ""
 
+#: client/app/modal/password.reset.html
 #: client/app/modal/profile.view.html
 #: client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
@@ -278,6 +287,10 @@ msgstr ""
 msgid "@common-info-optional"
 msgstr ""
 
+#: client/app/password/password.reset.html
+msgid "@common-invalid-request"
+msgstr ""
+
 #: client/app/modal/join.html
 msgid "@common-joined"
 msgstr ""
@@ -311,6 +324,7 @@ msgstr ""
 msgid "@common-new-password"
 msgstr ""
 
+#: client/app/password/password.reset.html
 #: client/app/signin/signin.html
 msgid "@common-password"
 msgstr ""
@@ -327,6 +341,7 @@ msgstr ""
 
 #: client/app/error/404.html
 #: client/app/header/header.html
+#: client/app/password/password.reset.html
 #: client/app/signin/signin.html
 msgid "@common-privacy-policy"
 msgstr ""
@@ -386,6 +401,7 @@ msgstr ""
 
 #: client/app/error/404.html
 #: client/app/header/header.html
+#: client/app/password/password.reset.html
 #: client/app/signin/signin.html
 msgid "@common-terms-of-service"
 msgstr ""
@@ -401,6 +417,7 @@ msgid "@common-upload-file"
 msgstr ""
 
 #: client/app/error/404.html
+#: client/app/password/password.reset.html
 #: client/app/signin/signin.html
 msgid "@common-visit-homepage"
 msgstr ""
@@ -510,6 +527,7 @@ msgid "@input-search-user-name"
 msgstr ""
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
 
@@ -525,6 +543,8 @@ msgstr ""
 msgid "@login-message"
 msgstr ""
 
+#: client/app/modal/password.reset.html
+#: client/app/password/password.reset.html
 #: client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr ""
@@ -684,6 +704,26 @@ msgstr ""
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
+msgstr ""
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-done"
+msgstr ""
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email"
+msgstr ""
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-fail"
+msgstr ""
+
+#: client/app/modal/password.reset.html
+msgid "@password-reset-email-sent"
+msgstr ""
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-message"
 msgstr ""
 
 #: client/app/center/center.html

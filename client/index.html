@@ -67,6 +67,7 @@
 
         <script>
             FileAPI = {
+                debug   : false,
                 cors    : true
             };
         </script>
@@ -115,7 +116,10 @@
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
             <!-- injector:js -->
+            <script src="app/FileReader/jquery.FileReader.js"></script>
+            <script src="app/FileReader/jquery.FileReader.min.js"></script>
             <script src="app/analytics.service.js"></script>
+            <script src="app/angulartics-ga-custom.js"></script>
             <script src="app/center/center.controller.js"></script>
             <script src="app/center/center.service.js"></script>
             <script src="app/config.js"></script>
@@ -129,12 +133,15 @@
             <script src="app/main.filter.js"></script>
             <script src="app/main.js"></script>
             <script src="app/modal/modal.controller.js"></script>
+            <script src="app/password/password.controller.js"></script>
             <script src="app/right/file.controller.js"></script>
             <script src="app/right/file.filter.js"></script>
             <script src="app/right/file.service.js"></script>
             <script src="app/right/right.controller.js"></script>
             <script src="app/signin/auth.controller.js"></script>
             <script src="app/signin/auth.service.js"></script>
+            <script src="app/swfobject/src/swfobject.js"></script>
+            <script src="app/swfobject/swfobject.js"></script>
             <script src="app/team/team.service.js"></script>
             <script src="app/translation/translation.js"></script>
             <script src="app/tutorial/tutorial.controller.js"></script>
