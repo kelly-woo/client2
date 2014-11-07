@@ -691,6 +691,10 @@ msgstr "您的密碼重設電子郵件無法寄出"
 msgid "@password-reset-email-sent"
 msgstr "電子郵件已經成功寄出"
 
+#: client/app/password/password.reset.html
+msgid "@password-reset-message"
+msgstr "忘記您的密碼了嗎？選擇一個新的。 "
+
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
 msgstr "刪除這群組"

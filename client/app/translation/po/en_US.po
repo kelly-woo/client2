@@ -698,6 +698,10 @@ msgstr "Your password reset email could not be sent. Please try again."
 msgid "@password-reset-email-sent"
 msgstr "Email was sent successfully"
 
+#: client/app/password/password.reset.html
+msgid "@password-reset-message"
+msgstr "Forgot your password? Choose a new one."
+
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
 msgstr "Delete this private group"

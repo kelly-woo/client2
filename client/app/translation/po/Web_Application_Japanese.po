@@ -692,6 +692,10 @@ msgstr "パスワード再設定メールが送信されませんでした"
 msgid "@password-reset-email-sent"
 msgstr "メールが送信されました"
 
+#: client/app/password/password.reset.html
+msgid "@password-reset-message"
+msgstr "パスワードをお忘れですか？ 新しいパスワードを入力してください。"
+
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
 msgstr "このグループを削除する"

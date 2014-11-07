@@ -722,6 +722,10 @@ msgstr ""
 msgid "@password-reset-email-sent"
 msgstr ""
 
+#: client/app/password/password.reset.html
+msgid "@password-reset-message"
+msgstr ""
+
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
 msgstr ""
