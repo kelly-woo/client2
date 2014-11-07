@@ -203,7 +203,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         else if (selector == 'resetPassword') {
             $modal.open({
                 scope       :   $scope,
-                templateUrl :   'app/modal/password.reset.html',
+                templateUrl :   'app/modal/password.reset.request.html',
                 controller  :   'passwordRequestController',
                 size        :   'lg'
             })
