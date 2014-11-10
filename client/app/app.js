@@ -17,7 +17,7 @@ var app = angular.module('jandiApp', [
     'monospaced.elastic'
 ]);
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration, loginAPI) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration, storageAPIservice) {
 
     $rootScope._ = window._;
 
@@ -90,10 +90,9 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                 case 'messages.home' :
                     var lastState = entityAPIservice.getLastEntityState();
 
-                    console.log(loginAPI.getSessionUserId())
                     // If lastState doesn't exist.
                     // Direct user to default channel.
-                    if (!lastState || lastState.userId != loginAPI.getSessionUserId()) {
+                    if (!lastState || lastState.userId != storageAPIservice.getSessionUserId()) {
                         entityAPIservice.removeLastEntityState();
                         $rootScope.toDefault = true;
                         return;
@@ -130,9 +129,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.$on('$locationChangeSuccess', function(event) {
         entityAPIservice.setLastEntityState();
 
-        if ($rootScope.setFileDetailCommentFocus) {
-            $rootScope.$broadcast('setCommentFocus');
-        }
         // Halt state change from even starting
         // event.preventDefault();
         // Perform custom logic

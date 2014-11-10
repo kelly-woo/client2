@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice) {
 
     //console.info('[enter] centerpanelController');
 
@@ -12,7 +12,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var entityType = $state.params.entityType;
     var entityId = $state.params.entityId;
 
-    var updateInterval = 1000;
+    var updateInterval = 2000;
 
     $scope.lastMessage = null;
 
@@ -961,16 +961,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     function onHttpRequestError(response) {
         //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
         if (response.code == CURRENT_ENTITY_ARCHIVED) {
-            console.log('okay channel archived');
+            //console.log('okay channel archived');
             $scope.updateLeftPanelCaller();
             $rootScope.toDefault = true;
             return;
         }
 
         if (response.code == INVALID_SECURITY_TOKEN) {
-            console.debug('INVALID SECURITY TOKEN.');
+            //console.debug('INVALID SECURITY TOKEN.');
             $state.go('signin');
             return;
+        }
+
+        if (response === 'Unauthorized') {
+            //console.debug('logged out');
+            leftpanelAPIservice.toSignin();
         }
     }
 

@@ -458,9 +458,9 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
                     break;
             }
 
-            console.log(response.data.fileInfo);
+            //console.log(response.data.fileInfo);
             var file_meta = (response.data.fileInfo.type).split("/");
-            console.log(file_meta)
+            //console.log(file_meta)
 
             var upload_data = {
                 "entity type"   : share_target,

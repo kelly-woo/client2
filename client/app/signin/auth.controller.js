@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService) {
+app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService, storageAPIservice) {
 
     $scope.hasToken = true;
 
@@ -27,7 +27,6 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
         if (prefix === 'local' || prefix === 'dev') {
             //prefix = 'tosslab';
-
             prefix = 'abcd';
         }
 
@@ -39,8 +38,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             .error(function(err) {
                 console.error(err);
 
-                loginAPI.removeSession();
-                loginAPI.removeAccessToken();
+                storageAPIservice.removeSession();
+                storageAPIservice.removeAccessToken();
 
                 $state.go('404');
             });
@@ -62,10 +61,10 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         loginAPI.login(user)
             .success(function(data) {
 
-                loginAPI.setWindowSessionStorage(data, prefix);
+                storageAPIservice.setWindowSessionStorage(data, prefix);
 
                 if (user.rememberMe) {
-                    loginAPI.setTokenData(data, prefix);
+                    storageAPIservice.setTokenData(data, prefix);
                 }
 
                 autoLogin();
@@ -76,8 +75,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
                 $scope.user.password = "";
 
-                loginAPI.removeSession();
-                loginAPI.removeAccessToken();
+                storageAPIservice.removeSession();
+                storageAPIservice.removeAccessToken();
 
                 return false;
             });
@@ -85,7 +84,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     // Generate 'id@teamId' format string for google analytics.
     function getUserIdentify() {
-        return (loginAPI.getSessionUserId() || loginAPI.getUserId()) + '@' + (loginAPI.getSessionTeamId() || loginAPI.getTeamId());
+        return (storageAPIservice.getSessionUserId() || storageAPIservice.getUserId()) + '@' + (storageAPIservice.getSessionTeamId() || storageAPIservice.getTeamId());
     }
 
     onSignInEnter();
@@ -127,33 +126,37 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     // Check if current tab has alive token.
     function hasSessionAlive() {
-        //var a = loginAPI.getSessionPrefix()
+        //var a = storageAPIservice.getSessionPrefix()
         //var b = $scope.prefix;
-        //
+
         //console.log('session prefix', a)
         //console.log('current prefix', b)
         //console.log('are they same?', a == b)
-        //console.log('session token', loginAPI.getSessionToken());
-        //console.log('token defined?', !_.isUndefined(loginAPI.getSessionToken()));
-        //console.log('returning', (loginAPI.getSessionPrefix() == $scope.prefix) && !_.isUndefined(loginAPI.getSessionToken()));
+        //console.log('session token', storageAPIservice.getSessionToken());
+        //console.log('token defined?', !_.isUndefined(storageAPIservice.getSessionToken()));
+        //console.log('returning', (storageAPIservice.getSessionPrefix() == $scope.prefix) && !_.isUndefined(storageAPIservice.getSessionToken()));
 
-        return (loginAPI.getSessionPrefix() == $scope.prefix) && !_.isUndefined(loginAPI.getSessionToken());
+        return (storageAPIservice.getSessionPrefix() == $scope.prefix) && !_.isUndefined(storageAPIservice.getSessionToken());
     }
 
     // Check if Browser stores any token info.
     function hasStorageToken() {
-        return loginAPI.hasToken($scope.prefix);
+        //console.log('returning', storageAPIservice.getToken($scope.prefix));
+
+        //console.log('returning', storageAPIservice.hasToken($scope.prefix));
+
+        return storageAPIservice.hasToken($scope.prefix);
     }
 
     // Import all necessary data from 'localstorage' to '$window.sessionStorage'.
     function setSessionStorage() {
         var tokenData = {
-            'token'     : loginAPI.getToken($scope.prefix),
-            'teamId'    : loginAPI.getTeamId(),
-            'userId'    : loginAPI.getUserId()
+            'token'     : storageAPIservice.getToken($scope.prefix),
+            'teamId'    : storageAPIservice.getTeamId(),
+            'userId'    : storageAPIservice.getUserId()
         };
 
-        loginAPI.setWindowSessionStorage(tokenData, $scope.prefix);
+        storageAPIservice.setWindowSessionStorage(tokenData, $scope.prefix);
     }
 
     function autoLogin() {
@@ -173,8 +176,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     $scope.logout = function() {
         var prefix = getPrefix();
-        loginAPI.removeSession(prefix);
-        loginAPI.removeAccessToken(prefix);
+        storageAPIservice.removeSession(prefix);
+        storageAPIservice.removeAccessToken(prefix);
         mixpanel.cookie.clear();
         $state.go('signin');
     };
@@ -204,7 +207,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         else if (selector == 'resetPassword') {
             $modal.open({
                 scope       :   $scope,
-                templateUrl :   'app/modal/password.reset.html',
+                templateUrl :   'app/modal/password.reset.request.html',
                 controller  :   'passwordRequestController',
                 size        :   'lg'
             })

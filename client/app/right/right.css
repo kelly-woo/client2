@@ -46,7 +46,7 @@
     z-index: 90;
 }
 .rpanel-show .msgs, .rpanel-show .footer {
-    margin-right: 480px;
+    /*margin-right: 480px;*/
 }
 .rpanel__background .panel-title-container,
 .rpanel .panel-title-container {

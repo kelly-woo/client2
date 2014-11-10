@@ -26,7 +26,8 @@
             <input type="text"
                    class="form-control rpanel-body-search__input search-input"
                    placeholder="{{ '@input-search-file-title' | translate }}"
-                   data-ng-model="fileRequest.keyword">
+                   data-ng-model="fileRequest.keyword"
+                    on-enter="onFileTitleQueryEnter();">
             <span class="add-on-right cursor_pointer" ng-click="isAdvancedOptionCollapsed = !isAdvancedOptionCollapsed">
                 <i class="fa fa-sliders"></i>
             </span>
@@ -82,6 +83,7 @@
             </div>
             <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
                 <span translate>@alert-empty-file-search</span> <strong>{{ fileRequest.keyword }}</strong>
+                <br><i style="font-size: 11px;"> Please, hit enter to search again.</i>
             </div>
         </div>
 

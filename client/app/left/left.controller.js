@@ -220,6 +220,14 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
                 size        :   'lg'
             });
         }
+        else if (selector == 'file') {
+            $modal.open({
+                scope       : $scope,
+                templateUrl : 'app/modal/upload.html',
+                controller  : 'fileUploadModalCtrl',
+                size        : 'lg'
+            });
+        }
     };
 
     $rootScope.$on('onUserClick', function(event, user) {
@@ -446,5 +454,35 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             target.addClass('rotate-90');
         }
     }
+
+
+
+    // Callback function from file finder(navigation) for uploading a file.
+    $scope.onFileSelect = function($files) {
+        $scope.selectedFiles = $files;
+        $scope.dataUrls = [];
+
+        for ( var i = 0; i < $files.length; i++) {
+            var file = $files[i];
+
+            if (angular.isDefined(FileAPI.support) && !FileAPI.support.html5) {
+                $rootScope.supportHtml5 = FileAPI.support.html5;
+            }
+            else {
+                $rootScope.supportHtml5 = true;
+
+                if (window.FileReader && file.type.indexOf('image') > -1) {
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+
+                    fileReader.onload = function (e) {
+                        $scope.dataUrls[0] = e.target.result;
+                    }
+                }
+            }
+        }
+        $scope.openModal('file');
+    };
+
 });
 

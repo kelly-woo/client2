@@ -32,6 +32,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     $scope.fileList = [];
 
+    var initialLoadDone = false;
+
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
         if (type === 'you') {
             // when 'Your Files' is clicked on 'cpanel-search__dropdown'
@@ -69,7 +71,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     //  1. check if value is null
     //      if null -> meaning searching for all chat rooms.
     //          else -> set to selected value.
-    $scope.$watch('sharedEntitySearchQuery', function() {
+    $scope.$watch('sharedEntitySearchQuery', function(newValue, oldValue) {
         if ($scope.sharedEntitySearchQuery === null) {
             $scope.fileRequest.sharedEntityId = -1;
         }
@@ -79,31 +81,48 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
 //        console.log('sharedEntitySearchQuery chagned to  ' + $scope.sharedEntitySearchQuery.id + '/' + $filter('getFirstLastNameOfUser')($scope.sharedEntitySearchQuery));
 
-        preLoadingSetup();
-        getFileList();
+        if (newValue != oldValue) {
+            preLoadingSetup();
+            getFileList();
+        }
     });
 
     //  fileRequest.writerId => 작성자
-    $scope.$watch('fileRequest.writerId', function() {
+    $scope.$watch('fileRequest.writerId', function(newValue, oldValue) {
         if ($scope.fileRequest.writerId === null) {
             $scope.fileRequest.writerId = 'all';
         }
 
-//        console.log('fileRequest.writerId changed!!! to ' + $scope.fileRequest.writerId);
-
-        preLoadingSetup();
-        getFileList();
+        if (newValue != oldValue) {
+            preLoadingSetup();
+            getFileList();
+        }
     });
 
     //  fileRequest.fileType => 파일 타입
-    //  fileRequest.keyword  => text input box
     //  한가지라도 바뀌면 알아서 다시 api call을 한다.
-    $scope.$watch('[fileRequest.fileType, fileRequest.keyword]',
-        function(newValue, oldValue) {
+    $scope.$watch('[fileRequest.fileType]', function(newValue, oldValue) {
+        if (newValue != oldValue) {
             preLoadingSetup();
             getFileList();
+        }
     }, true);
 
+
+    // scope function that gets called when user hits 'enter' in '.rpanel-body-search__input'.
+
+    $scope.onFileTitleQueryEnter = function() {
+        preLoadingSetup();
+        getFileList();
+    };
+
+
+    // Checking if initial load has been processed or not.
+    // if not, load once.
+    if (!initialLoadDone) {
+        preLoadingSetup();
+        getFileList();
+    }
 
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
@@ -127,6 +146,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             file.shared = fileAPIservice.getSharedEntities(file);
         });
     }
+
 
     function preLoadingSetup() {
         $scope.fileRequest.startMessageId   = -1;
@@ -159,6 +179,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
                 }, fileList);
 
                 generateFileList(fileList, response.fileCount, response.firstIdOfReceivedList);
+                initialLoadDone = true;
             })
             .error(function(response) {
                 console.log(response.msg);

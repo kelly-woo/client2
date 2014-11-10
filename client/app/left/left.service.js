@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('leftpanelAPIservice', function($http, $rootScope, $state) {
+app.factory('leftpanelAPIservice', function($http, $rootScope, $state, storageAPIservice, $location) {
     var leftpanelAPI = {};
 
     leftpanelAPI.getLists = function() {
@@ -75,10 +75,6 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state) {
         return returnValue;
     };
 
-    leftpanelAPI.toSignin = function() {
-        $state.go('signin');
-    };
-
     leftpanelAPI.createChannel = function(channelName) {
         return $http({
             method: 'POST',
@@ -109,6 +105,14 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state) {
 
         });
     };
+
+
+    leftpanelAPI.toSignin = function() {
+        storageAPIservice.removeAccessToken($location.host().split('.')[0]);
+        storageAPIservice.removeSession();
+        $state.go('signin');
+    };
+
 
     return leftpanelAPI;
 });
