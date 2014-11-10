@@ -216,7 +216,14 @@ module.exports = function (grunt) {
                     dependencies: true,
                     devDependencies: false,
                     exclude: [
-                        '/bootstrap-sass-official/', '/json3/', '/es5-shim/',
+                        '/bootstrap-sass-official/',
+                        '/json3/',
+                        '/es5-shim/',
+                        'ng-file-upload-shim',
+                        'bower_components/angulartics/src/angulartics-ga-cordova.js',
+                        'bower_components/angulartics/src/angulartics-ga.js',
+                        'bower_components/angulartics/src/angulartics-mixpanel.js',
+                        'bower_components/angulartics/src/angulartics-scroll.js',
                         'bower_components/angulartics/src/angulartics-adobe.js',
                         'bower_components/angulartics/src/angulartics-chartbeat.js',
                         'bower_components/angulartics/src/angulartics-flurry.js',
@@ -226,7 +233,8 @@ module.exports = function (grunt) {
                         'bower_components/angulartics/src/angulartics-segmentio.js',
                         'bower_components/angulartics/src/angulartics-splunk.js',
                         'bower_components/angulartics/src/angulartics-woopra.js',
-                        'bower_components/angulartics/src/angulartics-marketo.js'
+                        'bower_components/angulartics/src/angulartics-marketo.js',
+                        'bower_components/angulartics/src/angulartics-intercom.js'
                     ],
                     fileTypes: {},
                     ignorePath: '<%= yeoman.client %>/',
