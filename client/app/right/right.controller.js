@@ -69,7 +69,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     //  1. check if value is null
     //      if null -> meaning searching for all chat rooms.
     //          else -> set to selected value.
-    $scope.$watch('sharedEntitySearchQuery', function() {
+    $scope.$watch('sharedEntitySearchQuery', function(newValue, oldValue) {
         if ($scope.sharedEntitySearchQuery === null) {
             $scope.fileRequest.sharedEntityId = -1;
         }
@@ -79,28 +79,31 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
 //        console.log('sharedEntitySearchQuery chagned to  ' + $scope.sharedEntitySearchQuery.id + '/' + $filter('getFirstLastNameOfUser')($scope.sharedEntitySearchQuery));
 
-        preLoadingSetup();
-        getFileList();
+        if (newValue != oldValue) {
+            preLoadingSetup();
+            getFileList();
+        }
     });
 
     //  fileRequest.writerId => 작성자
-    $scope.$watch('fileRequest.writerId', function() {
+    $scope.$watch('fileRequest.writerId', function(newValue, oldValue) {
         if ($scope.fileRequest.writerId === null) {
             $scope.fileRequest.writerId = 'all';
         }
 
-//        console.log('fileRequest.writerId changed!!! to ' + $scope.fileRequest.writerId);
-
-        preLoadingSetup();
-        getFileList();
+        if (newValue != oldValue) {
+            preLoadingSetup();
+            getFileList();
+        }
     });
 
     //  fileRequest.fileType => 파일 타입
     //  한가지라도 바뀌면 알아서 다시 api call을 한다.
-    $scope.$watch('[fileRequest.fileType]',
-        function(newValue, oldValue) {
+    $scope.$watch('[fileRequest.fileType]', function(newValue, oldValue) {
+        if (newValue != oldValue) {
             preLoadingSetup();
             getFileList();
+        }
     }, true);
 
 
