@@ -139,8 +139,8 @@ app.factory('loginAPI', function($http, $rootScope, $window, localStorageService
 
     authAPI.setSessionToken = function(token) { $window.sessionStorage.token = token; };
     authAPI.getSessionToken = function() {
-        if (_.isUndefined($window.sessionStorage.token)) console.log($window.sessionStorage.token)
-        if ($window.sessionStorage.token === 'undefined') console.log('undefined!! but in string')
+        //if (_.isUndefined($window.sessionStorage.token)) console.log($window.sessionStorage.token)
+        //if ($window.sessionStorage.token === 'undefined') console.log('undefined!! but in string')
         return $window.sessionStorage.token;
     };
 
@@ -156,6 +156,7 @@ app.factory('loginAPI', function($http, $rootScope, $window, localStorageService
     function isSessionTokenDataDefined() {
         return !_.isUndefined($window.sessionStorage.tokenData);
     };
+
     authAPI.removeSession = function() {
         $window.sessionStorage.clear();
 
@@ -173,7 +174,7 @@ app.factory('loginAPI', function($http, $rootScope, $window, localStorageService
     return authAPI;
 });
 
-app.factory('authInterceptor', function ($rootScope, $q, $window, localStorageService) {
+app.factory('authInterceptor', function ($rootScope, $q, $window) {
     return {
         request: function (config) {
             config.headers = config.headers || {};
@@ -197,6 +198,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, localStorageSe
 
             return config;
         },
+
         responseError: function (rejection) {
             if (rejection.status === 0) {
                 // net::ERR_CONNECTION_REFUSED
@@ -204,8 +206,10 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, localStorageSe
             }
             if (rejection.status === 401) {
                 // handle the case where the user is not authenticated
+                console.log('401!!!!!')
                 console.log('[' + rejection.status + ' ' + rejection.statusText + '] ' + rejection.data.msg);
                 delete $window.sessionStorage.token;
+                return null;
             }
 
             return $q.reject(rejection);

@@ -90,7 +90,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                 case 'messages.home' :
                     var lastState = entityAPIservice.getLastEntityState();
 
-                    console.log(loginAPI.getSessionUserId())
                     // If lastState doesn't exist.
                     // Direct user to default channel.
                     if (!lastState || lastState.userId != loginAPI.getSessionUserId()) {
