@@ -12,7 +12,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var entityType = $state.params.entityType;
     var entityId = $state.params.entityId;
 
-    var updateInterval = 1000;
+    var updateInterval = 2000;
 
     $scope.lastMessage = null;
 
