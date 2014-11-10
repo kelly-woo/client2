@@ -123,7 +123,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         preLoadingSetup();
         getFileList();
     }
-    
+
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
     $scope.$watch('currentEntity', function(newValue, oldValue) {
@@ -146,6 +146,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             file.shared = fileAPIservice.getSharedEntities(file);
         });
     }
+
 
     function preLoadingSetup() {
         $scope.fileRequest.startMessageId   = -1;
