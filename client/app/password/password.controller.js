@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('passwordResetController', function($scope, $state, $filter, $location, $modal, loginAPI, $rootScope, $timeout) {
+app.controller('passwordResetController', function($scope, $state, $filter, $location, $modal, loginAPI, $rootScope, $timeout, storageAPIservice) {
     var teamId = $state.params.teamId;
     var token = $state.params.token;
 
@@ -30,8 +30,8 @@ app.controller('passwordResetController', function($scope, $state, $filter, $loc
                 $scope.resetDone = true;
                 $scope.isLoading = false;
 
-                loginAPI.removeAccessToken();
-                loginAPI.removeSession();
+                storageAPIservice.removeAccessToken();
+                storageAPIservice.removeSession();
 
                 $timeout(function() {
                     $state.go('signin');
