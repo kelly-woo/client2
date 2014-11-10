@@ -126,21 +126,25 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     // Check if current tab has alive token.
     function hasSessionAlive() {
-        //var a = loginAPI.getSessionPrefix()
+        //var a = storageAPIservice.getSessionPrefix()
         //var b = $scope.prefix;
-        //
+
         //console.log('session prefix', a)
         //console.log('current prefix', b)
         //console.log('are they same?', a == b)
-        //console.log('session token', loginAPI.getSessionToken());
-        //console.log('token defined?', !_.isUndefined(loginAPI.getSessionToken()));
-        //console.log('returning', (loginAPI.getSessionPrefix() == $scope.prefix) && !_.isUndefined(loginAPI.getSessionToken()));
+        //console.log('session token', storageAPIservice.getSessionToken());
+        //console.log('token defined?', !_.isUndefined(storageAPIservice.getSessionToken()));
+        //console.log('returning', (storageAPIservice.getSessionPrefix() == $scope.prefix) && !_.isUndefined(storageAPIservice.getSessionToken()));
 
         return (storageAPIservice.getSessionPrefix() == $scope.prefix) && !_.isUndefined(storageAPIservice.getSessionToken());
     }
 
     // Check if Browser stores any token info.
     function hasStorageToken() {
+        //console.log('returning', storageAPIservice.getToken($scope.prefix));
+
+        //console.log('returning', storageAPIservice.hasToken($scope.prefix));
+
         return storageAPIservice.hasToken($scope.prefix);
     }
 
@@ -172,8 +176,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     $scope.logout = function() {
         var prefix = getPrefix();
-        loginAPI.removeSession(prefix);
-        loginAPI.removeAccessToken(prefix);
+        storageAPIservice.removeSession(prefix);
+        storageAPIservice.removeAccessToken(prefix);
         mixpanel.cookie.clear();
         $state.go('signin');
     };

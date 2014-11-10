@@ -23,7 +23,12 @@ app.config(function ($stateProvider, $analyticsProvider) {
                         },
                         leftPanel   : function (isLoggedIn, leftpanelAPIservice) {
                             if (isLoggedIn)
-                                return leftpanelAPIservice.getLists();
+                                return leftpanelAPIservice.getLists()
+                                    .success(function(response) {
+                                    })
+                                    .error(function(response) {
+                                        leftpanelAPIservice.toSignin();
+                                    });
                             else
                                 return leftpanelAPIservice.toSignin();
                         },

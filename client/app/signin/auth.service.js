@@ -81,7 +81,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
 
                 config.headers.Authorization = $window.sessionStorage.token;
             }
-
             return config;
         },
 
@@ -94,8 +93,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
                 // handle the case where the user is not authenticated
                 console.log('401!!!!!')
                 console.log('[' + rejection.status + ' ' + rejection.statusText + '] ' + rejection.data.msg);
-                delete $window.sessionStorage.token;
-                return null;
             }
 
             return $q.reject(rejection);
