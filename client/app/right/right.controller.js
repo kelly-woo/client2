@@ -96,14 +96,20 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     });
 
     //  fileRequest.fileType => 파일 타입
-    //  fileRequest.keyword  => text input box
     //  한가지라도 바뀌면 알아서 다시 api call을 한다.
-    $scope.$watch('[fileRequest.fileType, fileRequest.keyword]',
+    $scope.$watch('[fileRequest.fileType]',
         function(newValue, oldValue) {
             preLoadingSetup();
             getFileList();
     }, true);
 
+
+    // scope function that gets called when user hits 'enter' in '.rpanel-body-search__input'.
+
+    $scope.onFileTitleQueryEnter = function() {
+        preLoadingSetup();
+        getFileList();
+    };
 
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
