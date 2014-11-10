@@ -32,6 +32,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     $scope.fileList = [];
 
+    var initialLoadDone = false;
+
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
         if (type === 'you') {
             // when 'Your Files' is clicked on 'cpanel-search__dropdown'
@@ -114,6 +116,14 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         getFileList();
     };
 
+
+    // Checking if initial load has been processed or not.
+    // if not, load once.
+    if (!initialLoadDone) {
+        preLoadingSetup();
+        getFileList();
+    }
+    
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
     $scope.$watch('currentEntity', function(newValue, oldValue) {
@@ -168,6 +178,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
                 }, fileList);
 
                 generateFileList(fileList, response.fileCount, response.firstIdOfReceivedList);
+                initialLoadDone = true;
             })
             .error(function(response) {
                 console.log(response.msg);
