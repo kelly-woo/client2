@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorageService, $state, $window) {
+app.factory('entityAPIservice', function($http, $rootScope, $filter, $state, $window, storageAPIservice) {
     var entityAPI = {};
 
     var currentEntity;
@@ -87,11 +87,11 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
 
         if (last_state.entityId == null) return;
 
-        localStorageService.set(last_state_key, last_state);
+        storageAPIservice.setToken(last_state_key, last_state);
     };
 
     entityAPI.getLastEntityState = function() {
-        var last_state = localStorageService.get(last_state_key);
+        var last_state = storageAPIservice.getToken(last_state_key);
 
         if (!last_state || last_state.entityId == null) return null;
 
@@ -99,7 +99,7 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, localStorag
     };
 
     entityAPI.removeLastEntityState = function() {
-        localStorageService.remove(last_state_key);
+        storageAPIservice.removeLastState();
     };
 
     //  return null if 'getEntityById' return nothing.

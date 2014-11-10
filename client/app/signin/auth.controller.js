@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService) {
+app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService, storageAPIservice) {
 
     $scope.hasToken = true;
 
@@ -38,8 +38,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             .error(function(err) {
                 console.error(err);
 
-                loginAPI.removeSession();
-                loginAPI.removeAccessToken();
+                storageAPIservice.removeSession();
+                storageAPIservice.removeAccessToken();
 
                 $state.go('404');
             });
@@ -61,10 +61,10 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         loginAPI.login(user)
             .success(function(data) {
 
-                loginAPI.setWindowSessionStorage(data, prefix);
+                storageAPIservice.setWindowSessionStorage(data, prefix);
 
                 if (user.rememberMe) {
-                    loginAPI.setTokenData(data, prefix);
+                    storageAPIservice.setTokenData(data, prefix);
                 }
 
                 autoLogin();
@@ -75,8 +75,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
                 $scope.user.password = "";
 
-                loginAPI.removeSession();
-                loginAPI.removeAccessToken();
+                storageAPIservice.removeSession();
+                storageAPIservice.removeAccessToken();
 
                 return false;
             });
@@ -84,7 +84,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     // Generate 'id@teamId' format string for google analytics.
     function getUserIdentify() {
-        return (loginAPI.getSessionUserId() || loginAPI.getUserId()) + '@' + (loginAPI.getSessionTeamId() || loginAPI.getTeamId());
+        return (storageAPIservice.getSessionUserId() || storageAPIservice.getUserId()) + '@' + (storageAPIservice.getSessionTeamId() || storageAPIservice.getTeamId());
     }
 
     onSignInEnter();
@@ -136,23 +136,23 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         //console.log('token defined?', !_.isUndefined(loginAPI.getSessionToken()));
         //console.log('returning', (loginAPI.getSessionPrefix() == $scope.prefix) && !_.isUndefined(loginAPI.getSessionToken()));
 
-        return (loginAPI.getSessionPrefix() == $scope.prefix) && !_.isUndefined(loginAPI.getSessionToken());
+        return (storageAPIservice.getSessionPrefix() == $scope.prefix) && !_.isUndefined(storageAPIservice.getSessionToken());
     }
 
     // Check if Browser stores any token info.
     function hasStorageToken() {
-        return loginAPI.hasToken($scope.prefix);
+        return storageAPIservice.hasToken($scope.prefix);
     }
 
     // Import all necessary data from 'localstorage' to '$window.sessionStorage'.
     function setSessionStorage() {
         var tokenData = {
-            'token'     : loginAPI.getToken($scope.prefix),
-            'teamId'    : loginAPI.getTeamId(),
-            'userId'    : loginAPI.getUserId()
+            'token'     : storageAPIservice.getToken($scope.prefix),
+            'teamId'    : storageAPIservice.getTeamId(),
+            'userId'    : storageAPIservice.getUserId()
         };
 
-        loginAPI.setWindowSessionStorage(tokenData, $scope.prefix);
+        storageAPIservice.setWindowSessionStorage(tokenData, $scope.prefix);
     }
 
     function autoLogin() {
