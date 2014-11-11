@@ -428,6 +428,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         var msg = $scope.message.content;
         $scope.message.content = "";
 
+        //if (msg === 'stop') {
+        //    console.log('stoping polling')
+        //    $timeout.cancel($scope.promise);
+        //    return;
+        //}
         $timeout.cancel($scope.promise);
 
         messageAPIservice.postMessage(entityType, entityId, {'content': msg})
