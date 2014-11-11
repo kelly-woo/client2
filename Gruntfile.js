@@ -217,6 +217,7 @@ module.exports = function (grunt) {
                     devDependencies: false,
                     exclude: [
                         '/bootstrap-sass-official/', '/json3/', '/es5-shim/',
+                        '/ng-file-upload-shim/',
                         'bower_components/angulartics/src/angulartics-adobe.js',
                         'bower_components/angulartics/src/angulartics-chartbeat.js',
                         'bower_components/angulartics/src/angulartics-flurry.js',

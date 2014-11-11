@@ -68,14 +68,17 @@
         <script>
             FileAPI = {
                 debug   : false,
-                cors    : true
+                cors    : true,
+                jsUrl   : 'http://local.jandi.com:3000/FileAPI.min.js',
+                flashUrl: 'http://local.jandi.com:3000/FileAPI.flash.swf'
             };
         </script>
+
+        <script src="bower_components/ng-file-upload-shim/angular-file-upload-shim.js"></script>
 
         <!-- build:js(client) app/vendor.js -->
             <!-- bower:js -->
             <script src="bower_components/jquery/dist/jquery.js"></script>
-            <script src="bower_components/ng-file-ugit addpload-shim/angular-file-upload-shim.js"></script>
             <script src="bower_components/angular/angular.js"></script>
             <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
             <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
