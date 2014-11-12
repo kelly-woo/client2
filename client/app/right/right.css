@@ -324,6 +324,7 @@
     right: 8px;
     color:#999;
 }
+.file_actions .tooltip,
 .file-item-body-title__more .tooltip{
     width: 62px;
 }
