@@ -324,6 +324,9 @@
     right: 8px;
     color:#999;
 }
+.file-item-body-title__more .tooltip{
+    width: 62px;
+}
 .file-item-body-title__more:hover{
     color: #333;
 }

@@ -163,10 +163,9 @@
             <!--    DROPDOWN MENU   -->
             <i ng-if="false" translate>@file-action-more</i>
 
-            <div class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();"
-                    tooltip="{{ '@common-more' | translate }}" tooltip-placement="bottom">
+            <div class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
 
-                <i class="icon-more dropdown-toggle"></i>
+                <i class="icon-more dropdown-toggle" tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="bottom"></i>
 
 
                 <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">

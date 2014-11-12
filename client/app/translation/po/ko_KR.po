@@ -416,7 +416,7 @@ msgstr ".. 길을 잃었습니다"
 
 #: client/app/right/right.html
 msgid "@file-action-more"
-msgstr "더보"
+msgstr "더보기 "
 
 #: client/app/header/header.html
 msgid "@file-all"
