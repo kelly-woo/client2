@@ -486,6 +486,19 @@ msgstr "생성할 비공개 그룹 이름을 입력하세요"
 msgid "@input-invite-email"
 msgstr "초대할 이메일 주소를 입력하세요"
 
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr "최대 입력 글자 수가 넘었습니다: 20자 "
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
+
+#: client/app/modal/settings.profile.html
+#, fuzzy
+msgid "@input-max-length-error"
+msgstr "최대 입력 글자 수가 넘었습니다. "
+
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "변경할 이름을 입력하세요"

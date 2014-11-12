@@ -510,6 +510,18 @@ msgstr ""
 msgid "@input-invite-email"
 msgstr ""
 
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr ""
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr ""
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-error"
+msgstr ""
+
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr ""

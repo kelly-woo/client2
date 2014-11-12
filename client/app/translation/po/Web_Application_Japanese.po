@@ -482,6 +482,18 @@ msgstr "新規プライベートグループの名称を入力"
 msgid "@input-invite-email"
 msgstr "招待するメールアドレスを入力"
 
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr ""
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr ""
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-error"
+msgstr "入力可能な文字数を超えています"
+
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "名前を入力"

@@ -484,6 +484,18 @@ msgstr "输入新的私人群组名称"
 msgid "@input-invite-email"
 msgstr "输入电子邮件地址进行邀请"
 
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr "您已经超越字数限制"
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr "您已经超越字数限制"
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-error"
+msgstr "您已经超越字数限制"
+
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "输入修改的名字"

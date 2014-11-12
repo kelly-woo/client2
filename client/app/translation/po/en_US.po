@@ -482,6 +482,18 @@ msgstr "Enter new private group name"
 msgid "@input-invite-email"
 msgstr "Enter email address to invite"
 
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr "You've exceeded the maximum character limit: 20 characters"
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr "You've exceeded the maximum character limit: 60 characters"
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-error"
+msgstr "You've exceeded the maximum character limit."
+
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "Enter name to change"

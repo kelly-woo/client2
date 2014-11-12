@@ -584,7 +584,7 @@
     margin-bottom: 7px;
 }
 .profile-body .profile-body__label {
-    text-align: right;
+    text-align: left;
 }
 .profile-body .profile-body__title {
     margin-bottom: 15px;
@@ -639,7 +639,11 @@
     text-decoration: underline;
 }
 
-
+.profile-settings-body__alert {
+    padding: 10px 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
 
 /*
     SHARE
@@ -700,7 +704,7 @@
     border-radius: 5px;
 }
 .profile-view-general-container {
-    height: 60px;
+    min-height: 60px;
     padding-left: 90px;
     position: relative;
     padding-top: 12px;
@@ -731,8 +735,9 @@
     position: relative;
     font-size: 14px;
     padding: 11px 0 11px 85px;
-    height: 39px;
+    min-height: 39px;
     text-align: left;
+    word-wrap: break-word;
 }
 .info-title {
     color: #999;
