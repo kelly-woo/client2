@@ -61,7 +61,7 @@
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="nickName" data-ng-model="curUser.u_statusMessage" ng-maxlength="60"/>
                         <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.nickName.$error.maxlength">
-                            {{ '@input-max-length-60-error' | translate}}
+                            {{ '@input-max-length-error' | translate}}
                         </alert>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="phoneNumber" data-ng-model="curUser.u_extraData.phoneNumber" ng-maxlength="20"/>
                         <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.phoneNumber.$error.maxlength">
-                            {{ '@input-max-length-20-error' | translate}}
+                            {{ '@input-max-length-error' | translate}}
                         </alert>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="department" data-ng-model="curUser.u_extraData.department" ng-maxlength="60"/>
                         <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.department.$error.maxlength">
-                            {{ '@input-max-length-60-error' | translate}}
+                            {{ '@input-max-length-error' | translate}}
                         </alert>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="position" data-ng-model="curUser.u_extraData.position" ng-maxlength="60"/>
                         <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.position.$error.maxlength">
-                            {{ '@input-max-length-60-error' | translate}}
+                            {{ '@input-max-length-error' | translate}}
                         </alert>
                     </div>
                 </div>
@@ -108,6 +108,8 @@
         </div>
     </div>
 
+    <span translate ng-if="false">@input-max-length-60-error</span>
+    <span translate ng-if="false">@input-max-length-20-error</span>
     <div class="modal-footer profile-footer">
         <div ng-if="!isProfilePicSelected">
             <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>

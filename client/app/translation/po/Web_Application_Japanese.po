@@ -75,9 +75,10 @@ msgstr "更新されました"
 msgid "@btn-add"
 msgstr "追加"
 
-#: client/app/modal/image.crop.html client/app/modal/password.reset.html
-#: client/app/modal/rename.html client/app/modal/settings.profile.html
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/image.crop.html
+#: client/app/modal/password.reset.request.html client/app/modal/rename.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
+#: client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "キャンセル"
 
@@ -115,7 +116,8 @@ msgstr "作成"
 msgid "@btn-delete"
 msgstr "削除"
 
-#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "送信"
@@ -190,7 +192,7 @@ msgstr "チャネル一覧"
 msgid "@common-chat-dm"
 msgstr "ダイレクトメッセージ"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@common-check-email-inbox"
 msgstr "メールを確認してください。"
 
@@ -237,8 +239,9 @@ msgstr "へ招待"
 msgid "@common-download"
 msgstr "ダウンロード"
 
-#: client/app/modal/password.reset.html client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "メールアドレス"
 
@@ -301,10 +304,11 @@ msgid "@common-new-name"
 msgstr "新しい名前"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@common-new-password"
 msgstr "新しいパスワード"
 
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/signin/signin.html
 msgid "@common-password"
 msgstr "パスワード"
 
@@ -478,6 +482,18 @@ msgstr "新規プライベートグループの名称を入力"
 msgid "@input-invite-email"
 msgstr "招待するメールアドレスを入力"
 
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr ""
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr ""
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-error"
+msgstr "入力可能な文字数を超えています"
+
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "名前を入力"
@@ -512,7 +528,7 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-message"
 msgstr "メールアドレスとパスワードを入力"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 #: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
@@ -585,6 +601,7 @@ msgid "@modal-setting-account-name-msg"
 msgstr "他のメンバーがあなたを探せる名前で登録してください"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@modal-setting-account-password"
 msgstr "パスワードを変更する"
 
@@ -680,15 +697,15 @@ msgstr "通知しない"
 msgid "@password-reset-done"
 msgstr "パスワードが再設定されました。JANDIのアプリでログインしてください"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email"
 msgstr "メールアドレスを入力してください"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-fail"
 msgstr "パスワード再設定メールが送信されませんでした"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-sent"
 msgstr "メールが送信されました"
 

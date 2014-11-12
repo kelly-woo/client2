@@ -75,9 +75,10 @@ msgstr "Update completed successfully"
 msgid "@btn-add"
 msgstr "Add"
 
-#: client/app/modal/image.crop.html client/app/modal/password.reset.html
-#: client/app/modal/rename.html client/app/modal/settings.profile.html
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/image.crop.html
+#: client/app/modal/password.reset.request.html client/app/modal/rename.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
+#: client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "Cancel"
 
@@ -115,7 +116,8 @@ msgstr "Create"
 msgid "@btn-delete"
 msgstr "Delete"
 
-#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "Submit"
@@ -190,7 +192,7 @@ msgstr "Topics"
 msgid "@common-chat-dm"
 msgstr "1:1 Chat"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@common-check-email-inbox"
 msgstr "Please check your inbox. "
 
@@ -237,8 +239,9 @@ msgstr "Invite to"
 msgid "@common-download"
 msgstr "Download"
 
-#: client/app/modal/password.reset.html client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "Email"
 
@@ -301,10 +304,11 @@ msgid "@common-new-name"
 msgstr "New Name"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@common-new-password"
 msgstr "New Password"
 
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/signin/signin.html
 msgid "@common-password"
 msgstr "Password"
 
@@ -478,6 +482,18 @@ msgstr "Enter new private group name"
 msgid "@input-invite-email"
 msgstr "Enter email address to invite"
 
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr "You've exceeded the maximum character limit: 20 characters"
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr "You've exceeded the maximum character limit: 60 characters"
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-error"
+msgstr "You've exceeded the maximum character limit."
+
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "Enter name to change"
@@ -512,7 +528,7 @@ msgstr "Invalid email or password"
 msgid "@login-message"
 msgstr "Enter your email and password"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 #: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "Forgot Password?"
@@ -588,6 +604,7 @@ msgstr ""
 "and search your name"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@modal-setting-account-password"
 msgstr "Change your password"
 
@@ -684,17 +701,17 @@ msgid "@password-reset-done"
 msgstr ""
 "Your password has been changed successfully. Please login with JANDI app."
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email"
 msgstr ""
 "Please enter your email. We will send an email with a link where you can "
 "reset your password."
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-fail"
 msgstr "Your password reset email could not be sent. Please try again."
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-sent"
 msgstr "Email was sent successfully"
 

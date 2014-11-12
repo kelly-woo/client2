@@ -75,9 +75,10 @@ msgstr "更新成功完成"
 msgid "@btn-add"
 msgstr "增加"
 
-#: client/app/modal/image.crop.html client/app/modal/password.reset.html
-#: client/app/modal/rename.html client/app/modal/settings.profile.html
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/image.crop.html
+#: client/app/modal/password.reset.request.html client/app/modal/rename.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
+#: client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "取消"
 
@@ -115,7 +116,8 @@ msgstr "建立"
 msgid "@btn-delete"
 msgstr "刪除"
 
-#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "提交"
@@ -190,7 +192,7 @@ msgstr "议题群组"
 msgid "@common-chat-dm"
 msgstr "1:1 对话"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@common-check-email-inbox"
 msgstr "请到您的电子邮件信箱收信。"
 
@@ -237,8 +239,9 @@ msgstr "邀请到"
 msgid "@common-download"
 msgstr "下载"
 
-#: client/app/modal/password.reset.html client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "电子邮件"
 
@@ -301,10 +304,11 @@ msgid "@common-new-name"
 msgstr "新姓名"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@common-new-password"
 msgstr "新密码"
 
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/signin/signin.html
 msgid "@common-password"
 msgstr "密码"
 
@@ -480,6 +484,18 @@ msgstr "输入新的私人群组名称"
 msgid "@input-invite-email"
 msgstr "输入电子邮件地址进行邀请"
 
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr "您已经超越字数限制"
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr "您已经超越字数限制"
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-error"
+msgstr "您已经超越字数限制"
+
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "输入修改的名字"
@@ -514,7 +530,7 @@ msgstr "电子邮件或密码无效"
 msgid "@login-message"
 msgstr "输入您的电子邮件及密码"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 #: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密码？"
@@ -584,6 +600,7 @@ msgid "@modal-setting-account-name-msg"
 msgstr "当您更改您的姓名，请记得其他成员可能会提及及搜寻该姓名"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@modal-setting-account-password"
 msgstr "更改您的密码"
 
@@ -679,15 +696,15 @@ msgstr "从来没有"
 msgid "@password-reset-done"
 msgstr "您的密码已经变更成功。请用JANDI的行动版登入。"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email"
 msgstr "请输入您的电子邮件地址"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-fail"
 msgstr "您的密码重设电子邮件无法寄出"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-sent"
 msgstr "电子邮件已经成功寄出"
 
