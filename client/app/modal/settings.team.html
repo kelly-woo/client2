@@ -1,0 +1,154 @@
+<!-- Modal: TEAM Setting -->
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel();"><i class="icon-cancel"></i></button>
+    <h3 class="modal-header__title">
+        <span translate>@setting-team-title</span>
+    </h3>
+</div>
+
+<div class="modal-body account-settings">
+    <h4 class="modal-body__description">
+        <span translate>@modal-setting-account-msg1</span>
+    </h4>
+
+    <accordion class="account-settings-body" close-others="status.oneAtATime">
+
+        <!--    TEAM NAME   -->
+        <accordion-group is-open="status.name.open">
+            <accordion-heading>
+                {{ '@setting-team-name-change' | translate }}
+                <i class="pull-right" data-ng-class="{'icon-down': status.name.open, 'icon-next': !status.name.open}"></i>
+            </accordion-heading>
+
+            <div class="account-settings-body__wraper">
+                <form name="teamNameChangeForm" data-ng-submit="onTeamNameUpdateClick(team);" novalidate>
+                    <div class="form-group account-settings-body__form-group">
+
+                        <label class="control-label account-settings-body__label">
+                            <span translate>@setting-team-new-name</span>
+                        </label>
+
+                        <div>
+                            <!-- TODO: TEAM NAME CONTRAINS? -->
+                            <input type="text"
+                                   name="newTeamName"
+                                   class="form-control account-settings-body__input"
+                                   data-ng-model="team.newName" />
+                        </div>
+                    </div>
+
+                    <div class="account-settings-body__help">
+                        <span translate>@setting-team-name-msg</span>
+                    </div>
+                    <input type="submit" class="btn btn-ok account-settings-body__submit" value="{{ '@btn-update-name' | translate }}"
+                            ng-disabled="!teamNameChangeForm.$dirty"/>
+                    <span ng-if="false" translate>@setting-team-name-confirm</span>
+                </form>
+            </div>
+        </accordion-group>
+
+        <!--    TEAM URL    -->
+        <accordion-group is-open="status.url.open">
+            <accordion-heading>
+                {{ '@setting-team-domain-change' | translate }}
+                <i class="pull-right" data-ng-class="{'icon-down': status.url.open, 'icon-next': !status.url.open}"></i>
+            </accordion-heading>
+
+            <div class="account-settings-body__wraper">
+                <form name="teamURLChangeForm" data-ng-submit="onTeamURLUpdateClick(team);" novalidate>
+
+                    <!--    NEW PREFIX DOMAIN URL  -->
+                    <div class="form-group account-settings-body__form-group">
+                        <label class="control-label account-settings-body__label">
+                            <span translate>@setting-team-new-domain</span>
+                        </label>
+
+                        <div>
+                            <input type="text" name="newPrefixDomain" ng-required="true"
+                                   class="form-control account-settings-body__input"
+                                   data-ng-model="team.newPrefix"
+                                   team-prefix-domain-checker=""/>
+
+                            <alert type="warning" class="profile-settings-body__alert"
+                                   data-ng-if="teamURLChangeForm.newPrefixDomain.$error.isAvailableDomain">
+                                {{ '@setting-team-domain-warning-msg' | translate}}
+                            </alert>
+                            <alert type="warning" class="profile-settings-body__alert"
+                                   data-ng-if="teamURLChangeForm.newPrefixDomain.$error.isValidDomain">
+                                {{ '@setting-team-domain-warning-msg' | translate}}
+                            </alert>
+
+                        </div>
+                    </div>
+
+                    <!--    CONFRIM PASSWORD    -->
+                    <div class="form-group account-settings-body__form-group">
+                        <label class="control-label account-settings-body__label">
+                            <span translate>@common-pasword-enter</span>
+                        </label>
+                        <div>
+                            <input type="password" name="pasword" ng-required="true"
+                                   class="form-control account-settings-body__input"
+                                   data-ng-model="team.passwordConfirm" />
+                        </div>
+                    </div>
+
+                    <div class="account-settings-body__help">
+                        <span translate>@setting-team-domain-msg</span>
+                    </div>
+
+                    <input type="submit" class="btn btn-ok account-settings-body__submit"
+                           data-ng-disabled="teamURLChangeForm.$invalid || !teamURLChangeForm.$dirty"
+                           value="{{ '@setting-team-domain-change' | translate }}" />
+                    <span ng-if="false" translate>@setting-team-domain-confirm</span>
+                </form>
+            </div>
+        </accordion-group>
+
+        <!--    TEAM DELETE -->
+        <accordion-group is-open="status.delete.open">
+            <accordion-heading>
+                {{ '@setting-team-delete' | translate }}
+                <i class="pull-right" data-ng-class="{'icon-down': status.delete.open, 'icon-next': !status.delete.open}"></i>
+            </accordion-heading>
+
+            <div class="text-danger" translate>@common-warning
+
+            </div>
+            <div class="account-settings-body__help">
+                <span translate>@setting-team-delete-confirm</span>
+            </div>
+            <br>
+            <div class="account-settings-body__wraper">
+                <form name="teamDeleteForm" data-ng-submit="onTeamDeleteClick(team);" novalidate>
+
+                    <!--    CONFRIM PASSWORD    -->
+                    <div class="form-group account-settings-body__form-group">
+                        <label class="control-label account-settings-body__label">
+                            <span translate>@common-pasword-enter</span>
+                        </label>
+                        <div>
+                            <input type="password" name="deletePasswordConfirm" ng-required="true"
+                                   class="form-control account-settings-body__input"
+                                   data-ng-model="team.deletePasswordConfirm" />
+                        </div>
+                    </div>
+
+                    <input type="submit" class="btn btn-danger account-settings-body__submit"
+                           data-ng-disabled="teamDeleteForm.$invalid || !teamDeleteForm.$dirty"
+                           value="{{ '@setting-team-delete' | translate }}" />
+                </form>
+            </div>
+        </accordion-group>
+    </accordion>
+</div>
+
+<div class="modal-footer profile-footer">
+    <button type="button" class="btn btn-cancel" ng-click="cancel();"><span translate>@btn-close</span></button>
+</div>
+
+<div class="loading_container" ng-if="isLoading">
+    <div class="loading_container_background"></div>
+    <div class="loading_bg"></div>
+    <div class="loading_bar icon-loading"></div>
+</div>

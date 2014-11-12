@@ -231,9 +231,16 @@ select:focus {
 ********************************************/
 input[type="button"] {
     cursor: pointer;
+
 }
 .btn {
     padding: 4px 10px;
+    border-radius: 5px;
+    border: 0;
+    color: #fff;
+    height: 30px;
+    font-size: 13px;
+
 }
 #btn-upload-primary {
     position: absolute;
@@ -279,11 +286,6 @@ input[type="button"] {
 }
 .btn-ok {
     background-color: #31c08a;
-    border-radius: 5px;
-    border: 0;
-    color: #fff;
-    height: 30px;
-    font-size: 13px;
     margin-left: 0 !important;
 }
 .btn-ok:focus,
@@ -311,9 +313,6 @@ input[type="button"] {
     right: 12px;
     top: 24px;
 }
-
-
-
 
 /********************************************
 

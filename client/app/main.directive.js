@@ -320,3 +320,55 @@ app.directive('onEnter', function() {
        }
    }
 });
+
+
+app.directive('teamPrefixDomainChecker', function(teamAPIservice) {
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function(scope, elem, attrs, ctrl) {
+            elem.bind('keyup', function() {
+                var temp = this.value.toLowerCase();
+                this.value = temp;
+                var checkValue = temp.trim();
+                if (!checkValue || ctrl.$error.isValidDomain) return checkValue;
+                teamAPIservice.prefixDomainValidator(checkValue)
+                    .success(function(response) {
+                        if (response.isValidate) {
+                            ctrl.$setValidity('isAvailableDomain', true);
+                        } else {
+                            ctrl.$setValidity('isAvailableDomain', false);
+                        }
+                    })
+                    .error(function(err) {
+                        ctrl.$setValidity('isAvailableDomain', false);
+                        console.error(err);
+                    });
+                ctrl.$setValidity('isLoading', true);
+                return checkValue;
+            });
+
+            ctrl.$parsers.unshift(function(viewValue) {
+                ctrl.$setValidity('isLoading', false);
+                var isInvalidLength, hasSpaceCharacter, hasNonWordCharacter;
+
+                // 3 <= length < 63
+                isInvalidLength = (viewValue && (viewValue.length < 3 || viewValue.length >= 63)) ? true : false;
+
+                // nonword characters
+                hasNonWordCharacter = (viewValue && /\W/.test(viewValue)) ? true : false;
+
+                // space, a tab, a line break.
+                hasSpaceCharacter = (viewValue && /\s/.test(viewValue)) ? true : false;
+
+                if ( isInvalidLength || hasSpaceCharacter || hasNonWordCharacter ) {
+                    ctrl.$setValidity('isValidDomain', false);
+                } else {
+                    ctrl.$setValidity('isValidDomain', true);
+                }
+
+                return viewValue;
+            });
+        }
+    };
+});

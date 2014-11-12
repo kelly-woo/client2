@@ -82,6 +82,15 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
                 size        : 'lg'
             });
         }
+        else if (selector === 'setting-team') {
+            $modal.open({
+                sopce       : $scope,
+                templateUrl : 'app/modal/settings.team.html',
+                controller  : 'teamSettingController',
+                size        : 'lg'
+            });
+
+        }
     };
 
     //  Called when header dropdown is clicked.
@@ -108,4 +117,6 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
         }
         $state.go('messages.detail.files');
     }
+
+    $scope.openModal('setting-team');
 });

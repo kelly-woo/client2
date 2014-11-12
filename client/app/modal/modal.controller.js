@@ -893,8 +893,6 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
     };
 });
 
-
-
 //  PASSWORD RESET CONTROLLER
 app.controller('passwordRequestController', function($rootScope, $scope, $modalInstance, loginAPI, $filter) {
     $scope.onLoadDone = true;
@@ -922,4 +920,76 @@ app.controller('passwordRequestController', function($rootScope, $scope, $modalI
     }
 });
 
+app.controller('teamSettingController', function($state, $scope, $modalInstance, $filter, $timeout, userAPIservice, analyticsService) {
+
+    $scope.status = {
+        oneAtATime      : true,
+        name: {
+            open        : false,
+            disabled    : false
+        },
+        url: {
+            open            : false,
+            disabled        : false
+        },
+        delete: {
+            open        : true,
+            disabled    : false
+        }
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.onTeamNameUpdateClick = function(team) {
+        var x;
+        if (confirm($filter('translate')('@setting-team-name-confirm')) == true) {
+            x = "You pressed OK!";
+        } else {
+            return;
+        }
+
+        console.log(x);
+        console.log(team.newName);
+
+    };
+
+    $scope.onTeamURLUpdateClick = function(team) {
+        var x;
+        if (confirm($filter('translate')('@setting-team-domain-confirm')) == true) {
+            x = "You pressed OK!";
+        } else {
+            return;
+        }
+
+        console.log(team.newPrefix);
+        console.log(team.passwordConfirm);
+    };
+
+    $scope.onTeamDeleteClick = function(team) {
+        var x;
+        if (confirm($filter('translate')('@setting-team-delete-confirm')) == true) {
+            x = "You pressed OK!";
+        } else {
+            return;
+        }
+
+        $scope.isLoading = true;
+
+        userAPIservice.validateCurrentPassword(team.deletePasswordConfirm)
+            .success(function() {
+                // password confirmed.
+                console.log('password confirmed');
+                // TODO: delete team here.
+            })
+            .error(function(err) {
+                $scope.isLoading = false;
+                alert($filter('translate')('@common-api-error-msg'));
+            });
+
+
+        console.log(team.deletePasswordConfirm);
+    }
+});
 

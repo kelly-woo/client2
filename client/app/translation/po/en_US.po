@@ -95,7 +95,7 @@ msgstr "Click to view"
 #: client/app/modal/invite.team.html client/app/modal/join.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
-#: client/app/modal/settings.service.html
+#: client/app/modal/settings.service.html client/app/modal/settings.team.html
 msgid "@btn-close"
 msgstr "Close"
 
@@ -137,6 +137,7 @@ msgid "@btn-share"
 msgstr "Share"
 
 #: client/app/modal/rename.html client/app/modal/settings.account.html
+#: client/app/modal/settings.team.html
 msgid "@btn-update-name"
 msgstr "Update Name"
 
@@ -183,6 +184,10 @@ msgstr "Account Settings"
 #: client/app/left/left.html
 msgid "@common-add"
 msgstr "Add"
+
+#: client/app/left/left.html
+msgid "@common-api-error-msg"
+msgstr "Something went wrong. Please try again."
 
 #: client/app/left/left.html
 msgid "@common-channels"
@@ -311,6 +316,10 @@ msgstr "New Password"
 msgid "@common-password"
 msgstr "Password"
 
+#: client/app/modal/settings.team.html
+msgid "@common-pasword-enter"
+msgstr "Enter your password"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-phone"
 msgstr "Mobile #"
@@ -390,6 +399,10 @@ msgstr "Upload File"
 #: client/app/signin/signin.html
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
+
+#: client/app/modal/settings.team.html
+msgid "@common-warning"
+msgstr "WARNING"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -594,7 +607,7 @@ msgstr "Profile Picture"
 msgid "@modal-setting-account-email"
 msgstr "Change your email address"
 
-#: client/app/modal/settings.account.html
+#: client/app/modal/settings.account.html client/app/modal/settings.team.html
 msgid "@modal-setting-account-msg1"
 msgstr ""
 "You can change your account settings including your name, password, and "
@@ -753,6 +766,60 @@ msgstr "Unstar private group"
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "Private Groups"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete"
+msgstr "Delete Team"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete-confirm"
+msgstr ""
+"Are you sure you want to delete your team? All the content will be erased. "
+"This process cannot be undone."
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-change"
+msgstr "Change Domain (URL)"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-confirm"
+msgstr "Are you sure you want to change the team domain (URL)?"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-msg"
+msgstr ""
+"Your team members use the domain (URL) to sign in on the web. Please ensure "
+"that your team members are aware of any changes."
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-warning-msg"
+msgstr ""
+"Domain names must have at least 3 characters, and can only consist of lower "
+"case letters, numbers, and hyphens (-). "
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-change"
+msgstr "Change Team Name"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-confirm"
+msgstr "Are you sure you want to change your team name?"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-msg"
+msgstr "Your team name is displayed on various headings and browser tabs. "
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-domain"
+msgstr "New Domain (URL)"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-name"
+msgstr "New Team Name"
+
+#: client/app/header/header.html client/app/modal/settings.team.html
+msgid "@setting-team-title"
+msgstr "Team Settings"
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"

@@ -13,5 +13,13 @@ app.factory('teamAPIservice', function($http, $rootScope) {
         });
     };
 
+    teamAPI.prefixDomainValidator = function(prefixDomain) {
+        if (!prefixDomain) return;
+        return $http({
+            method : 'GET',
+            url : $rootScope.server_address + 'validation/domain/' + prefixDomain
+        });
+    };
+
     return teamAPI;
 });
