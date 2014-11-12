@@ -251,9 +251,14 @@
     font-weight: 700;
     line-height: 1.3rem;
 }
+.msg-item-header .tooltip {
+    width: 60px;
+}
+
 .msg-item.comment-continue .msg-item-header {
     padding: 0;
 }
+
 /* continued comment writer name */
 
 .msg-comment .msg-comment-body .msg-item-header__name,

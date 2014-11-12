@@ -304,8 +304,6 @@ msgid "@common-member"
 msgstr ""
 
 #: client/app/left/left.html
-#: client/app/right/file.html
-#: client/app/right/right.html
 msgid "@common-more"
 msgstr ""
 
@@ -442,6 +440,7 @@ msgstr ""
 msgid "@error-404-title"
 msgstr ""
 
+#: client/app/right/file.html
 #: client/app/right/right.html
 msgid "@file-action-more"
 msgstr ""
