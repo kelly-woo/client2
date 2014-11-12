@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService, storageAPIservice) {
 
     // local test purpose
-    var localHost = false;
+    var localHost = true;
 
     $scope.hasToken = true;
 

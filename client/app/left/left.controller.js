@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp');
 
 app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, leftpanelAPIservice, leftPanel,
-                                               user, entityAPIservice, entityheaderAPIservice) {
+                                               user, entityAPIservice, entityheaderAPIservice, fileAPIservice) {
 
     //console.info('[enter] leftpanelController');
 
@@ -464,6 +464,12 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
         for ( var i = 0; i < $files.length; i++) {
             var file = $files[i];
+
+            // check file size.
+            if (fileAPIservice.isFileTooLarge(file)) {
+                alert($filter('translate')('@file-size-too-large-error'));
+                return;
+            }
 
             if (angular.isDefined(FileAPI.support) && !FileAPI.support.html5) {
                 $rootScope.supportHtml5 = FileAPI.support.html5;

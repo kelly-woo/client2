@@ -461,6 +461,10 @@ msgstr ""
 msgid "@file-pdf"
 msgstr ""
 
+#: client/app/left/left.html
+msgid "@file-size-too-large-error"
+msgstr ""
+
 #: client/app/header/header.html
 msgid "@file-video"
 msgstr ""

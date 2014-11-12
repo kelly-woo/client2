@@ -289,8 +289,7 @@ msgstr "語言"
 msgid "@common-member"
 msgstr "分享了"
 
-#: client/app/left/left.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/left/left.html
 msgid "@common-more"
 msgstr "瀏覽"
 
@@ -412,7 +411,7 @@ msgstr "查無此頁"
 msgid "@error-404-title"
 msgstr "錯誤"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@file-action-more"
 msgstr "音頻檔案 "
 
@@ -431,6 +430,10 @@ msgstr "圖像"
 #: client/app/header/header.html
 msgid "@file-pdf"
 msgstr "PDF"
+
+#: client/app/left/left.html
+msgid "@file-size-too-large-error"
+msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
 
 #: client/app/header/header.html
 msgid "@file-video"

@@ -291,8 +291,7 @@ msgstr "언어"
 msgid "@common-member"
 msgstr "멤버"
 
-#: client/app/left/left.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/left/left.html
 msgid "@common-more"
 msgstr "더보기"
 
@@ -414,7 +413,7 @@ msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
 msgid "@error-404-title"
 msgstr ".. 길을 잃었습니다"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@file-action-more"
 msgstr "더보기 "
 
@@ -433,6 +432,10 @@ msgstr "이미지"
 #: client/app/header/header.html
 msgid "@file-pdf"
 msgstr "PDF"
+
+#: client/app/left/left.html
+msgid "@file-size-too-large-error"
+msgstr "현재 100MB 이상의 파일은 업로드 할 수 없습니다."
 
 #: client/app/header/header.html
 msgid "@file-video"
@@ -495,9 +498,8 @@ msgid "@input-max-length-60-error"
 msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
 
 #: client/app/modal/settings.profile.html
-#, fuzzy
 msgid "@input-max-length-error"
-msgstr "최대 입력 글자 수가 넘었습니다. "
+msgstr "최대 입력 글자 수가 넘었습니다.  "
 
 #: client/app/modal/rename.html
 msgid "@input-rename"

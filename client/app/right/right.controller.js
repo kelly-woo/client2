@@ -229,6 +229,12 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
         for ( var i = 0; i < $files.length; i++) {
             var file = $files[i];
 
+            // check file size.
+            if (fileAPIservice.isFileTooLarge(file)) {
+                alert($filter('translate')('@file-size-too-large-error'));
+                return;
+            }
+
             if (angular.isDefined(FileAPI.support) && !FileAPI.support.html5) {
                 $rootScope.supportHtml5 = FileAPI.support.html5;
             }

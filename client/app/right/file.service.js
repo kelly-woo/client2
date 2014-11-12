@@ -140,5 +140,15 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         $rootScope.$broadcast('openFileShare', file);
     };
 
+
+    var fileSizeLimit = 100; // 100MB
+
+    // Return true if file size is over 100MB.
+    fileAPI.isFileTooLarge = function(file) {
+        var sizeInMb = file.size/(Math.pow(1024,2));
+        if (sizeInMb > fileSizeLimit)
+            return true;
+        return false;
+    };
     return fileAPI;
 });

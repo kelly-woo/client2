@@ -289,8 +289,7 @@ msgstr "Language"
 msgid "@common-member"
 msgstr "Shared by"
 
-#: client/app/left/left.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/left/left.html
 msgid "@common-more"
 msgstr "Browse"
 
@@ -412,7 +411,7 @@ msgstr "The page you were looking for could not be found"
 msgid "@error-404-title"
 msgstr "That’s an error"
 
-#: client/app/right/right.html
+#: client/app/right/file.html client/app/right/right.html
 msgid "@file-action-more"
 msgstr "More"
 
@@ -431,6 +430,10 @@ msgstr "Images"
 #: client/app/header/header.html
 msgid "@file-pdf"
 msgstr "PDFs"
+
+#: client/app/left/left.html
+msgid "@file-size-too-large-error"
+msgstr "Currently you cannot upload a file that exceeds 100MB."
 
 #: client/app/header/header.html
 msgid "@file-video"
