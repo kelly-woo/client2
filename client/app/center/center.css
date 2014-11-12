@@ -170,9 +170,10 @@
     top: 35px;
     left: 0;
     right: 0;
-    bottom: 105px;
+    bottom: 100px;
     overflow: auto;
     min-width: 260px;
+    padding-bottom: 5px;
 }
 .msgs__loading {
     background-size: 40px 40px !important;
@@ -590,4 +591,9 @@ css for system-event-msg
 }
 #primary_file_button .icon-upload {
     line-height: 35px;
+}
+
+.dnd-hover .msgs,
+.dnd-hover .footer {
+    background-color: #eefcf7;
 }

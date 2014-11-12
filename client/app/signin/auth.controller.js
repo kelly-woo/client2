@@ -4,6 +4,9 @@ var app = angular.module('jandiApp');
 
 app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService, storageAPIservice) {
 
+    // local test purpose
+    var localHost = false;
+
     $scope.hasToken = true;
 
     $scope.error = {
@@ -26,8 +29,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         var prefix = getPrefix();
 
         if (prefix === 'local' || prefix === 'dev') {
-            //prefix = 'tosslab';
-            prefix = 'abcd';
+            if (localHost) prefix = 'tosslab';
+            else prefix = 'abcd';
         }
 
         loginAPI.getTeamInfo(prefix)
@@ -52,8 +55,8 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
         if (!_.isUndefined(prefix)) {
             if (prefix === 'local' || prefix === 'dev') {
-                user.teamId = 1;
-                //user.teamId = 279;
+                if (localHost) user.teamId = 279;
+                else user.teamId = 1;
             } else {
                 user.teamDomain = prefix;
             }
