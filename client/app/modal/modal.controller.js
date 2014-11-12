@@ -943,35 +943,39 @@ app.controller('teamSettingController', function($state, $scope, $modalInstance,
     };
 
     $scope.onTeamNameUpdateClick = function(team) {
-        var x;
-        if (confirm($filter('translate')('@setting-team-name-confirm')) == true) {
-            x = "You pressed OK!";
-        } else {
+        if (!confirm($filter('translate')('@setting-team-name-confirm'))) {
             return;
         }
 
-        console.log(x);
-        console.log(team.newName);
+        $scope.isLoading = true;
 
     };
 
     $scope.onTeamURLUpdateClick = function(team) {
-        var x;
-        if (confirm($filter('translate')('@setting-team-domain-confirm')) == true) {
-            x = "You pressed OK!";
-        } else {
+        if (!confirm($filter('translate')('@setting-team-domain-confirm'))) {
             return;
         }
 
-        console.log(team.newPrefix);
-        console.log(team.passwordConfirm);
+        $scope.isLoading = true;
+
+        userAPIservice.validateCurrentPassword(team.passwordConfirm)
+            .success(function() {
+                // password confirmed.
+                console.log('password confirmed');
+                // TODO: delete team here.
+            })
+            .error(function(err) {
+                team.passwordConfirm = '';
+                $('#teamURLPassword').focus();
+                $scope.isLoading = false;
+                alert($filter('translate')('@common-api-error-msg'));
+
+            });
+
     };
 
     $scope.onTeamDeleteClick = function(team) {
-        var x;
-        if (confirm($filter('translate')('@setting-team-delete-confirm')) == true) {
-            x = "You pressed OK!";
-        } else {
+        if (!confirm($filter('translate')('@setting-team-delete-confirm'))) {
             return;
         }
 
@@ -984,12 +988,12 @@ app.controller('teamSettingController', function($state, $scope, $modalInstance,
                 // TODO: delete team here.
             })
             .error(function(err) {
+                team.deletePasswordConfirm = '';
+                $('#teamDeletePassword').focus();
                 $scope.isLoading = false;
                 alert($filter('translate')('@common-api-error-msg'));
             });
+    };
 
-
-        console.log(team.deletePasswordConfirm);
-    }
 });
 
