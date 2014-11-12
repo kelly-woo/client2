@@ -77,9 +77,10 @@ msgstr "정상적으로 변경되었습니다"
 msgid "@btn-add"
 msgstr "추가"
 
-#: client/app/modal/image.crop.html client/app/modal/password.reset.html
-#: client/app/modal/rename.html client/app/modal/settings.profile.html
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/image.crop.html
+#: client/app/modal/password.reset.request.html client/app/modal/rename.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
+#: client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "취소"
 
@@ -117,7 +118,8 @@ msgstr "생성하기"
 msgid "@btn-delete"
 msgstr "삭제하기"
 
-#: client/app/modal/password.reset.html client/app/modal/settings.profile.html
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "수정하기"
@@ -192,7 +194,7 @@ msgstr "토픽"
 msgid "@common-chat-dm"
 msgstr "1:1 메시지"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@common-check-email-inbox"
 msgstr "메일함을 확인해 주세요."
 
@@ -239,8 +241,9 @@ msgstr "대화방 목록"
 msgid "@common-download"
 msgstr "다운로드"
 
-#: client/app/modal/password.reset.html client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "이메일"
 
@@ -303,10 +306,11 @@ msgid "@common-new-name"
 msgstr "변경할 이름"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@common-new-password"
 msgstr "새 비밀번호"
 
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/signin/signin.html
 msgid "@common-password"
 msgstr "비밀번호"
 
@@ -515,7 +519,7 @@ msgstr "이메일 또는 비밀번호를 확인해주세요"
 msgid "@login-message"
 msgstr "이메일과 비밀번호를 입력하세요"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 #: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "비밀번호 찾기"
@@ -523,6 +527,10 @@ msgstr "비밀번호 찾기"
 #: client/app/signin/signin.html
 msgid "@login-welcome {{teamInfo.name}}"
 msgstr "{{teamInfo.name}} 환영합니다"
+
+#: client/app/center/center.html
+msgid "@message-delete"
+msgstr "삭제"
 
 #: client/app/modal/join.html
 msgid "@modal-browse-ch"
@@ -591,6 +599,7 @@ msgstr ""
 "해 주세요."
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@modal-setting-account-password"
 msgstr "비밀번호 변경하기"
 
@@ -686,15 +695,15 @@ msgstr "없음"
 msgid "@password-reset-done"
 msgstr "패스워드가 변경되었습니다. JANDI 앱으로 로그인해 주세요."
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email"
 msgstr "이메일 주소를 입력해주세요"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-fail"
 msgstr "패스워드 초기화 이메일 발송에 실패했습니다"
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-sent"
 msgstr "이메일이 성공적으로 발송되었습니다"
 

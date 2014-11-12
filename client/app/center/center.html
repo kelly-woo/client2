@@ -240,7 +240,7 @@
                     <a class="msg-item__action link-remove pull-right cursor_pointer"
                        data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
                        data-ng-click="deleteMessage(msg)"
-                       tooltip="메세지 삭제">
+                       tooltip="{{ '@message-delete' | translate }}">
                         <i class="icon-cancel"></i>
                     </a>
                 </div>
@@ -268,7 +268,6 @@
                                 <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
                             </div>
 
-                            {{FileAPI}}
                             <!--    FILE TYPE THUMBNAIL -->
                             <div class="msg-file-body__thumbnail"
                                  data-ng-if="(msg.message.content.type).indexOf('image') == -1">
