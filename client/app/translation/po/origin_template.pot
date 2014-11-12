@@ -69,7 +69,7 @@ msgid "@btn-add"
 msgstr ""
 
 #: client/app/modal/image.crop.html
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 #: client/app/modal/rename.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/share.html
@@ -117,7 +117,7 @@ msgstr ""
 msgid "@btn-delete"
 msgstr ""
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 #: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
@@ -198,7 +198,7 @@ msgstr ""
 msgid "@common-chat-dm"
 msgstr ""
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@common-check-email-inbox"
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "@common-download"
 msgstr ""
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 #: client/app/modal/profile.view.html
 #: client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
@@ -321,10 +321,10 @@ msgid "@common-new-name"
 msgstr ""
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@common-new-password"
 msgstr ""
 
-#: client/app/password/password.reset.html
 #: client/app/signin/signin.html
 msgid "@common-password"
 msgstr ""
@@ -510,6 +510,14 @@ msgstr ""
 msgid "@input-invite-email"
 msgstr ""
 
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr ""
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr ""
+
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr ""
@@ -543,7 +551,7 @@ msgstr ""
 msgid "@login-message"
 msgstr ""
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 #: client/app/password/password.reset.html
 #: client/app/signin/signin.html
 msgid "@login-reset-password"
@@ -614,6 +622,7 @@ msgid "@modal-setting-account-name-msg"
 msgstr ""
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@modal-setting-account-password"
 msgstr ""
 
@@ -710,15 +719,15 @@ msgstr ""
 msgid "@password-reset-done"
 msgstr ""
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email"
 msgstr ""
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-fail"
 msgstr ""
 
-#: client/app/modal/password.reset.html
+#: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-sent"
 msgstr ""
 

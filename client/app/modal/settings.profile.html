@@ -6,7 +6,7 @@
     </h3>
 </div>
 
-<form name="profile_form" data-ng-submit="onProfileChangeClick()" novalidate>
+<form name="profileForm" data-ng-submit="onProfileChangeClick()" novalidate>
 
     <div class="modal-body profile-body">
 
@@ -38,22 +38,31 @@
                 <h4 class="profile-body__title">
                     <span translate>@common-info-basic</span>
                 </h4>
+
+                <!--    USER NAME   -->
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3"><span translate>@common-name</span></label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="lastName" value="{{ curUser | getName }}" disabled/>
                     </div>
                 </div>
+
+                <!--    USER EMAIL  -->
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3" ><span translate>@common-email</span></label>
                     <div class="col-sm-9">
                         <input type="email" class="form-control" name="email" data-ng-model="curUser.u_email" disabled/>
                     </div>
                 </div>
+
+                <!--    STATUS MESSAGE  -->
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3"><span translate>@common-status-msg</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="nickName" data-ng-model="curUser.u_statusMessage"/>
+                        <input type="text" class="form-control" name="nickName" data-ng-model="curUser.u_statusMessage" ng-maxlength="60"/>
+                        <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.nickName.$error.maxlength">
+                            {{ '@input-max-length-60-error' | translate}}
+                        </alert>
                     </div>
                 </div>
             </div>
@@ -62,22 +71,37 @@
                 <h4 class="profile-body__title">
                     <span translate>@common-info-optional</span>
                 </h4>
+
+                <!--    PHONE NUMBER    -->
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3"><span translate>@common-phone</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="phoneNumber" data-ng-model="curUser.u_extraData.phoneNumber"/>
+                        <input type="text" class="form-control" name="phoneNumber" data-ng-model="curUser.u_extraData.phoneNumber" ng-maxlength="20"/>
+                        <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.phoneNumber.$error.maxlength">
+                            {{ '@input-max-length-20-error' | translate}}
+                        </alert>
                     </div>
                 </div>
+
+                <!--    DEPARTEMENT -->
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3"><span translate>@common-department</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="department" data-ng-model="curUser.u_extraData.department"/>
+                        <input type="text" class="form-control" name="department" data-ng-model="curUser.u_extraData.department" ng-maxlength="60"/>
+                        <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.department.$error.maxlength">
+                            {{ '@input-max-length-60-error' | translate}}
+                        </alert>
                     </div>
                 </div>
+
+                <!--    POSITION    -->
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3"><span translate>@common-position</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="position" data-ng-model="curUser.u_extraData.position"/>
+                        <input type="text" class="form-control" name="position" data-ng-model="curUser.u_extraData.position" ng-maxlength="60"/>
+                        <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.position.$error.maxlength">
+                            {{ '@input-max-length-60-error' | translate}}
+                        </alert>
                     </div>
                 </div>
             </div>
@@ -87,7 +111,8 @@
     <div class="modal-footer profile-footer">
         <div ng-if="!isProfilePicSelected">
             <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>
-            <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}"/>
+            <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}"
+                    ng-disabled="profileForm.$invalid || !profileForm.$dirty"/>
         </div>
 
         <div ng-if="isProfilePicSelected">
