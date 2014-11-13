@@ -95,7 +95,7 @@ msgstr "点击查视"
 #: client/app/modal/invite.team.html client/app/modal/join.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
-#: client/app/modal/settings.service.html
+#: client/app/modal/settings.service.html client/app/modal/settings.team.html
 msgid "@btn-close"
 msgstr "关闭"
 
@@ -137,6 +137,7 @@ msgid "@btn-share"
 msgstr "分享"
 
 #: client/app/modal/rename.html client/app/modal/settings.account.html
+#: client/app/modal/settings.team.html
 msgid "@btn-update-name"
 msgstr "更新姓名"
 
@@ -183,6 +184,11 @@ msgstr "帐号设定"
 #: client/app/left/left.html
 msgid "@common-add"
 msgstr "增加"
+
+#: client/app/left/left.html
+#, fuzzy
+msgid "@common-api-error-msg"
+msgstr "今天的感觉"
 
 #: client/app/left/left.html
 msgid "@common-channels"
@@ -311,6 +317,11 @@ msgstr "新密码"
 msgid "@common-password"
 msgstr "密码"
 
+#: client/app/modal/settings.team.html
+#, fuzzy
+msgid "@common-pasword-enter"
+msgstr "密码"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-phone"
 msgstr "电话"
@@ -390,6 +401,11 @@ msgstr "上传档案"
 #: client/app/signin/signin.html
 msgid "@common-visit-homepage"
 msgstr "造访首页"
+
+#: client/app/modal/settings.team.html
+#, fuzzy
+msgid "@common-warning"
+msgstr "分享在"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -495,7 +511,7 @@ msgstr "您已经超越字数限制"
 msgid "@input-max-length-60-error"
 msgstr "您已经超越字数限制"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "您已经超越字数限制"
 
@@ -594,7 +610,7 @@ msgstr "简介照片"
 msgid "@modal-setting-account-email"
 msgstr "更改您的电子邮件地址"
 
-#: client/app/modal/settings.account.html
+#: client/app/modal/settings.account.html client/app/modal/settings.team.html
 msgid "@modal-setting-account-msg1"
 msgstr "您可以更改您的帐号设定，包含您的姓名、密码、及电子邮件地址"
 
@@ -746,6 +762,64 @@ msgstr "邀请成员到这群组 "
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "私人群組 "
+
+#: client/app/modal/settings.team.html
+#, fuzzy
+msgid "@setting-team-delete"
+msgstr "刪除"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete-confirm"
+msgstr ""
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-change"
+msgstr ""
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-confirm"
+msgstr ""
+
+#: client/app/modal/settings.team.html
+#, fuzzy
+msgid "@setting-team-domain-msg"
+msgstr "您可以更改您的帐号设定，包含您的姓名、密码、及电子邮件地址"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-taken-warning-msg"
+msgstr "input-team-domain-taken"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-warning-msg"
+msgstr ""
+
+#: client/app/modal/settings.team.html
+#, fuzzy
+msgid "@setting-team-name-change"
+msgstr "当您更改您的姓名，请记得其他成员可能会提及及搜寻该姓名"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-confirm"
+msgstr ""
+
+#: client/app/modal/settings.team.html
+#, fuzzy
+msgid "@setting-team-name-msg"
+msgstr "当您更改您的姓名，请记得其他成员可能会提及及搜寻该姓名"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-domain"
+msgstr ""
+
+#: client/app/modal/settings.team.html
+#, fuzzy
+msgid "@setting-team-new-name"
+msgstr "更改您的姓名"
+
+#: client/app/header/header.html client/app/modal/settings.team.html
+#, fuzzy
+msgid "@setting-team-title"
+msgstr "欢迎使用JANDI!"
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"

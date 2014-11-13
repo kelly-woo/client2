@@ -929,11 +929,11 @@ app.controller('teamSettingController', function($state, $scope, $modalInstance,
             disabled    : false
         },
         url: {
-            open            : false,
+            open            : true,
             disabled        : false
         },
         delete: {
-            open        : true,
+            open        : false,
             disabled    : false
         }
     };

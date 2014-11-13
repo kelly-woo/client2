@@ -30,18 +30,22 @@
 
                         <div>
                             <!-- TODO: TEAM NAME CONTRAINS? -->
-                            <input type="text"
-                                   name="newTeamName"
+                            <input type="text" name="newTeamName"
                                    class="form-control account-settings-body__input"
-                                   data-ng-model="team.newName" />
+                                   data-ng-model="team.newName" ng-maxlength="20"/>
                         </div>
                     </div>
+
+                    <alert type="warning" class="profile-settings-body__alert" data-ng-if="teamNameChangeForm.newTeamName.$error.maxlength">
+                        {{ '@input-max-length-error' | translate}}
+                    </alert>
 
                     <div class="account-settings-body__help">
                         <span translate>@setting-team-name-msg</span>
                     </div>
+
                     <input type="submit" class="btn btn-ok account-settings-body__submit" value="{{ '@btn-update-name' | translate }}"
-                            ng-disabled="!teamNameChangeForm.$dirty"/>
+                            ng-disabled="!teamNameChangeForm.$dirty || teamNameChangeForm.newTeamName.$error.maxlength"/>
                     <span ng-if="false" translate>@setting-team-name-confirm</span>
                 </form>
             </div>
@@ -71,8 +75,9 @@
 
                             <alert type="warning" class="profile-settings-body__alert"
                                    data-ng-if="teamURLChangeForm.newPrefixDomain.$error.isAvailableDomain">
-                                {{ '@setting-team-domain-warning-msg' | translate}}
+                                {{ '@setting-team-domain-taken-warning-msg' | translate}}
                             </alert>
+
                             <alert type="warning" class="profile-settings-body__alert"
                                    data-ng-if="teamURLChangeForm.newPrefixDomain.$error.isValidDomain">
                                 {{ '@setting-team-domain-warning-msg' | translate}}
@@ -81,7 +86,7 @@
                         </div>
                     </div>
 
-                    <!--    CONFRIM PASSWORD    -->
+                    <!--    PASSWORD    -->
                     <div class="form-group account-settings-body__form-group">
                         <label class="control-label account-settings-body__label">
                             <span translate>@common-pasword-enter</span>

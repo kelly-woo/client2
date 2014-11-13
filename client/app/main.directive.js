@@ -331,7 +331,8 @@ app.directive('teamPrefixDomainChecker', function(teamAPIservice) {
                 var temp = this.value.toLowerCase();
                 this.value = temp;
                 var checkValue = temp.trim();
-                if (!checkValue || ctrl.$error.isValidDomain) return checkValue;
+                if (!checkValue || ctrl.$error.isValidDomain || checkValue.length < 3) return checkValue;
+
                 teamAPIservice.prefixDomainValidator(checkValue)
                     .success(function(response) {
                         if (response.isValidate) {
@@ -349,19 +350,13 @@ app.directive('teamPrefixDomainChecker', function(teamAPIservice) {
             });
 
             ctrl.$parsers.unshift(function(viewValue) {
+                if (!viewValue || viewValue.length < 3) {
+                    return viewValue;
+                }
+
                 ctrl.$setValidity('isLoading', false);
-                var isInvalidLength, hasSpaceCharacter, hasNonWordCharacter;
 
-                // 3 <= length < 63
-                isInvalidLength = (viewValue && (viewValue.length < 3 || viewValue.length >= 63)) ? true : false;
-
-                // nonword characters
-                hasNonWordCharacter = (viewValue && /\W/.test(viewValue)) ? true : false;
-
-                // space, a tab, a line break.
-                hasSpaceCharacter = (viewValue && /\s/.test(viewValue)) ? true : false;
-
-                if ( isInvalidLength || hasSpaceCharacter || hasNonWordCharacter ) {
+                if ( viewValue && !/^[1-z0-9-]{3,60}$/.test(viewValue) ) {
                     ctrl.$setValidity('isValidDomain', false);
                 } else {
                     ctrl.$setValidity('isValidDomain', true);

@@ -59,7 +59,7 @@ msgstr "은(는) 올바르지 않은 이메일 주소입니다"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-success"
-msgstr "정상적으로 초대 이메일을 보냈습니다."
+msgstr "정상적으로 초대 이메일을 보냈습니다"
 
 #: client/app/modal/invite.team.html
 msgid "@alert-send-mail-taken"
@@ -510,7 +510,7 @@ msgstr "최대 입력 글자 수가 넘었습니다: 20자 "
 msgid "@input-max-length-60-error"
 msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "최대 입력 글자 수가 넘었습니다.  "
 
@@ -790,6 +790,10 @@ msgid "@setting-team-domain-msg"
 msgstr ""
 "팀 URL을 바꾸게 되면 팀원들이 주소를 찾지 못하거나 공유한 파일을 찾을 수 없게"
 "되기 때문에 자주 변경하지 말아주시기 바랍니다."
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-taken-warning-msg"
+msgstr "이미 사용중인 도메인 입니다"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-warning-msg"

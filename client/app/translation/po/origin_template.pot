@@ -536,6 +536,7 @@ msgid "@input-max-length-60-error"
 msgstr ""
 
 #: client/app/modal/settings.profile.html
+#: client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr ""
 
@@ -807,6 +808,10 @@ msgstr ""
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-msg"
+msgstr ""
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-taken-warning-msg"
 msgstr ""
 
 #: client/app/modal/settings.team.html
