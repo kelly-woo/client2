@@ -29,7 +29,7 @@ msgstr "没有找到搜寻的档案"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@alert-empty-file-shared"
-msgstr "档案没有分享到任何讨论串"
+msgstr "档案没有分享到其它群组"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-invalid-password"
@@ -88,7 +88,7 @@ msgstr "更改"
 
 #: client/app/right/file.html
 msgid "@btn-click-to-view"
-msgstr "点击查视"
+msgstr "点击检视"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
@@ -114,7 +114,7 @@ msgstr "建立"
 
 #: client/app/right/file.html
 msgid "@btn-delete"
-msgstr "刪除"
+msgstr "删除"
 
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/settings.profile.html
@@ -190,7 +190,7 @@ msgstr "议题群组"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
-msgstr "1:1 对话"
+msgstr "一对一"
 
 #: client/app/modal/password.reset.request.html
 msgid "@common-check-email-inbox"
@@ -228,7 +228,7 @@ msgstr "桌面通知"
 
 #: client/app/left/left.html
 msgid "@common-direct-messages"
-msgstr "直接讯息"
+msgstr "直接传讯"
 
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
@@ -317,7 +317,7 @@ msgstr "电话"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-position"
-msgstr "位置"
+msgstr "职位"
 
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/password/password.reset.html client/app/signin/signin.html
@@ -326,7 +326,7 @@ msgstr "隐私权条款"
 
 #: client/app/left/left.html
 msgid "@common-private-groups"
-msgstr "私人群組"
+msgstr "私人群组"
 
 #: client/app/header/header.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
@@ -375,11 +375,11 @@ msgstr "今天的感觉"
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/password/password.reset.html client/app/signin/signin.html
 msgid "@common-terms-of-service"
-msgstr "使用條款"
+msgstr "使用条款"
 
 #: client/app/modal/upload.html
 msgid "@common-title"
-msgstr "标题"
+msgstr "议题"
 
 #: client/app/header/header.html client/app/modal/upload.html
 #: client/app/right/right.html
@@ -397,7 +397,7 @@ msgstr "检视档案"
 
 #: client/app/center/center.html
 msgid "@dm-menu-invite"
-msgstr "邀请这成员加入其它讨论"
+msgstr "邀请这成员加入其它群组"
 
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
@@ -453,7 +453,7 @@ msgstr "支援"
 
 #: client/app/header/header.html
 msgid "@header-menu"
-msgstr "选择画面"
+msgstr "选单"
 
 #: client/app/header/header.html
 msgid "@header-setting"
@@ -560,7 +560,7 @@ msgstr "  "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "请使用私人群组进行封闭式讨论"
+msgstr "请使用私人群组为隐秘空间"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
@@ -568,11 +568,11 @@ msgstr "私人群组仅向其成员显示，且仅其成员可以阅读或搜寻
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
-msgstr "邀请成员加入其它讨论"
+msgstr "邀请成员加入其它群组"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "您可以邀请这使用者加入一个议题群组或私人群组"
+msgstr "您可以邀请这使用者加入其它群组"
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
@@ -693,7 +693,7 @@ msgstr "给所有讯息"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-dm"
-msgstr "仅限直接讯息"
+msgstr "仅限直接传讯"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
@@ -721,19 +721,19 @@ msgstr "忘记您的密码了吗？选择一个新的。"
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
-msgstr "删除这群组"
+msgstr "删除这私人群组"
 
 #: client/app/center/center.html
 msgid "@pg-menu-invite"
-msgstr "邀请成员到这群组"
+msgstr "邀请成员到这私人群组"
 
 #: client/app/center/center.html
 msgid "@pg-menu-leave"
-msgstr "离开群组"
+msgstr "离开私人群组"
 
 #: client/app/center/center.html
 msgid "@pg-menu-rename"
-msgstr "重新命名这群组"
+msgstr "重新命名这私人群组"
 
 #: client/app/center/center.html
 msgid "@pg-menu-star"
@@ -782,8 +782,8 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"当您上传档案，您会看到在右边的选单按键（⋯），让您与其他'议题群组'/'私人群组'/"
-"成员进行分享，亦可以留言并直接下载。"
+"当您上传档案，您会看到在右边的选单按键(ᵒᵒᵒ)，让您与其他'议题群组'/'私人群组'/"
+"成员进行分享，亦可以留言并直接下载。 "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"

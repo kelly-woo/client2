@@ -13,11 +13,11 @@ msgstr ""
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
-msgstr "まだどのチャネルにも参加していません"
+msgstr "まだどのトピックにも参加していません"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-can-join"
-msgstr "参加できるチャネルがありません"
+msgstr "参加できるトピックがありません"
 
 #: client/app/right/right.html
 msgid "@alert-empty-file"
@@ -150,19 +150,19 @@ msgstr "アップロード"
 
 #: client/app/center/center.html
 msgid "@ch-menu-delete"
-msgstr "このチャネルを削除"
+msgstr "このトピックを削除"
 
 #: client/app/center/center.html
 msgid "@ch-menu-invite"
-msgstr "このチャネルに招待"
+msgstr "このトピックに招待"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
-msgstr "このチャネルから退出"
+msgstr "このトピックから退出"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
-msgstr "このチャネルの名称を変更する"
+msgstr "このトピックの名称を変更する"
 
 #: client/app/center/center.html
 msgid "@ch-menu-star"
@@ -186,7 +186,7 @@ msgstr "追加"
 
 #: client/app/left/left.html
 msgid "@common-channels"
-msgstr "チャネル一覧"
+msgstr "トピック一覧"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
@@ -203,7 +203,7 @@ msgstr "コメント"
 #: client/app/header/header.html client/app/modal/create.channel.html
 #: client/app/modal/join.html
 msgid "@common-create-ch"
-msgstr "新規チャネルを作成する"
+msgstr "新規トピックを作成する"
 
 #: client/app/header/header.html client/app/modal/create.private.html
 msgid "@common-create-pg"
@@ -475,7 +475,7 @@ msgstr "Internet Explorer 9 doesn't support profile image feature."
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
-msgstr "新規チャネルの名称を入力"
+msgstr "新規トピックの名称を入力"
 
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
@@ -503,7 +503,7 @@ msgstr "名前を入力"
 
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
-msgstr "チャネル名で検索"
+msgstr "トピック名で検索"
 
 #: client/app/right/right.html
 msgid "@input-search-file-title"
@@ -546,11 +546,11 @@ msgstr "削除する"
 
 #: client/app/modal/join.html
 msgid "@modal-browse-ch"
-msgstr "チャネル一覧"
+msgstr "トピック一覧"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
-msgstr "新規チャネルを作成。どのメンバーも参加することができます"
+msgstr "新規トピックを作成。どのメンバーも参加することができます"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
@@ -573,7 +573,7 @@ msgstr "このメンバーを他のチャットに招待する"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "このメンバーを他のチャネルやプライベートグループに招待できます"
+msgstr "このメンバーを他のトピックやプライベートグループに招待できます"
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
@@ -581,11 +581,11 @@ msgstr "メンバーを招待する"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr "あなたが参加しているチャネル"
+msgstr "あなたが参加しているトピック"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr "参加可能なチャネル一覧"
+msgstr "参加可能なトピック一覧"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
@@ -630,7 +630,7 @@ msgstr "ファイル名検索で使用されます"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr "このチャネルを作成する"
+msgstr "このトピックを作成する"
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"

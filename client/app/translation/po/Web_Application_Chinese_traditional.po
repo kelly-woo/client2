@@ -29,7 +29,7 @@ msgstr "沒有找到搜尋的檔案"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@alert-empty-file-shared"
-msgstr "檔案沒有分享到任何討論串"
+msgstr "檔案沒有分享到其它群組"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-invalid-password"
@@ -88,7 +88,7 @@ msgstr "更改"
 
 #: client/app/right/file.html
 msgid "@btn-click-to-view"
-msgstr "點擊查視"
+msgstr "點擊檢視"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
@@ -190,7 +190,7 @@ msgstr "議題群組"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
-msgstr "1:1 對話"
+msgstr "一對一"
 
 #: client/app/modal/password.reset.request.html
 msgid "@common-check-email-inbox"
@@ -228,7 +228,7 @@ msgstr "桌面通知"
 
 #: client/app/left/left.html
 msgid "@common-direct-messages"
-msgstr "直接訊息"
+msgstr "直接傳訊"
 
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
@@ -317,7 +317,7 @@ msgstr "電話"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-position"
-msgstr "位置"
+msgstr "職位"
 
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/password/password.reset.html client/app/signin/signin.html
@@ -379,7 +379,7 @@ msgstr "使用條款"
 
 #: client/app/modal/upload.html
 msgid "@common-title"
-msgstr "標題"
+msgstr "議題"
 
 #: client/app/header/header.html client/app/modal/upload.html
 #: client/app/right/right.html
@@ -397,7 +397,7 @@ msgstr "檢視檔案"
 
 #: client/app/center/center.html
 msgid "@dm-menu-invite"
-msgstr "邀請這成員加入其它討論"
+msgstr "邀請這成員加入其它群組"
 
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
@@ -453,7 +453,7 @@ msgstr "支援"
 
 #: client/app/header/header.html
 msgid "@header-menu"
-msgstr "選擇畫面"
+msgstr "選單"
 
 #: client/app/header/header.html
 msgid "@header-setting"
@@ -560,7 +560,7 @@ msgstr "  "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "請使用私人群組進行封閉式討論"
+msgstr "請使用私人群組為隱秘空間"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
@@ -568,11 +568,11 @@ msgstr "私人群組僅向其成員顯示，且僅其成員可以閲讀或搜尋
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
-msgstr "邀請成員加入其它討論"
+msgstr "邀請成員加入其它群組"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "您可以邀請這使用者加入一個議題群組或私人群組"
+msgstr "您可以邀請這使用者加入其它群組"
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
@@ -693,7 +693,7 @@ msgstr "給所有訊息"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-dm"
-msgstr "僅限直接訊息"
+msgstr "僅限直接傳訊"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-none"
@@ -721,19 +721,19 @@ msgstr "忘記您的密碼了嗎？選擇一個新的。 "
 
 #: client/app/center/center.html
 msgid "@pg-menu-delete"
-msgstr "刪除這群組"
+msgstr "刪除這私人群組"
 
 #: client/app/center/center.html
 msgid "@pg-menu-invite"
-msgstr "邀請成員到這群組"
+msgstr "邀請成員到這私人群組"
 
 #: client/app/center/center.html
 msgid "@pg-menu-leave"
-msgstr "離開群組"
+msgstr "離開私人群組"
 
 #: client/app/center/center.html
 msgid "@pg-menu-rename"
-msgstr "重新命名這群組"
+msgstr "重新命名這私人群組"
 
 #: client/app/center/center.html
 msgid "@pg-menu-star"
@@ -771,18 +771,18 @@ msgstr "知道了！"
 msgid "@tutorial-file-msg1"
 msgstr ""
 "點擊這按鍵開啓一旁的收拉式選單，上面含有所有已在這‘議題群組’/‘私人群組’/‘直接"
-"傳訊’中被分享過的檔案。"
+"傳訊’中被分享過的檔案。 "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
 "您可以按類型或成員進行排序，並且亦可瀏覽其它議題群組。檔案可以按關鍵字來搜"
-"尋。"
+"尋。 "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"當您上傳檔案，您會看到在右邊的選單按鍵（⋯），讓您與其他‘議題群組’/‘私人群組’/"
+"當您上傳檔案，您會看到在右邊的選單按鍵(ᵒᵒᵒ)，讓您與其他‘議題群組’/‘私人群組’/"
 "成員進行分享，亦可以留言並直接下載。"
 
 #: client/app/tutorial/tutorial.html

@@ -1,17 +1,15 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: JANDI-APP\n"
+"Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ko_KR\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-SourceCharset: UTF-8\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -168,7 +166,7 @@ msgstr "토픽 이름 변경하기"
 
 #: client/app/center/center.html
 msgid "@ch-menu-star"
-msgstr "토픽 즐겨찾기 "
+msgstr "유저 즐겨찾기 "
 
 #: client/app/center/center.html
 msgid "@ch-menu-un-star"
@@ -176,7 +174,7 @@ msgstr "즐겨찾기 해제 "
 
 #: client/app/left/left.html
 msgid "@channel"
-msgstr "토픽"
+msgstr "토픽 "
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -744,15 +742,15 @@ msgstr "비공개 그룹 이름 변경하기\t\t"
 
 #: client/app/center/center.html
 msgid "@pg-menu-star"
-msgstr "비공개 그룹 즐겨찾기 "
+msgstr "유저 즐겨찾기 "
 
 #: client/app/center/center.html
 msgid "@pg-menu-un-star"
-msgstr "즐겨찾기 해제"
+msgstr "즐겨찾기 해제 "
 
 #: client/app/left/left.html
 msgid "@privateGroup"
-msgstr "비공개 그룹"
+msgstr "그룹 생성 "
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
@@ -778,7 +776,7 @@ msgstr " 잘 알겠습니다! "
 msgid "@tutorial-file-msg1"
 msgstr ""
 "모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파일들을 볼 수 있는 "
-"사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다."
+"사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
@@ -789,8 +787,8 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"각 파일 오른쪽에 메뉴 버튼(☰)을 클릭하시면 다른 채널에 공유하거나 댓글을 남"
-"길 수도 있으며 곧바로 다운로드 하실 수도 있습니다."
+"각 파일 오른쪽에  메뉴 버튼(ᵒᵒᵒ)을 클릭하시면 다른 채널에 공유하거나 댓글을 "
+"남길 수도 있으며 곧바로 다운로드 하실 수도 있습니다. "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
@@ -839,7 +837,7 @@ msgstr ""
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
-msgstr "둘러보기"
+msgstr "Next"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
@@ -1165,9 +1163,6 @@ msgstr "즐겨찾기 해제"
 #~ msgstr ""
 #~ "비공개 그룹은 그룹에 가입된 멤버만 볼 수 있으며, 해당 파일, 내용들도 가입"
 #~ "된 멤버에게만 공개됩니다."
-
-#~ msgid "Create Group"
-#~ msgstr "그룹 생성"
 
 #~ msgid "Create a private group"
 #~ msgstr "비공개 그룹 생성"
