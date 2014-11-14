@@ -320,11 +320,12 @@
 .control-label {
     font-size: 15px;
     font-weight: 400;
-    text-align: right;
+    text-align: left !important;
     padding-top: 0 !important;
     height: 33px;
     line-height: 33px;
     color: #1d1d1d;
+
 }
 
 
