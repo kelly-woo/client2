@@ -107,5 +107,9 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
             return;
         }
         $state.go('messages.detail.files');
-    }
+    };
+
+    $scope.onShowToturialClick = function() {
+        $scope.initTutorialStatus();
+    };
 });
