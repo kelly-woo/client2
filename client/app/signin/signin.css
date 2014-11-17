@@ -1,14 +1,14 @@
 /* NavBar */
 .jandi-navbar {
-    font-family: 'Nanum Barun Gothic', sans-serif;
-    /*font-size: 13px;*/
-    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    background-color: #fff;
-    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    background-color: #f2f2f2;
+    min-width: 700px;
+    height: 40px;
+    line-height: 40px;
+    min-height: 40px;
+    /*-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);*/
+    /*-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);*/
+    /*box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);*/
 }
 .jandi-navbar .navbar-toggle {
     border: 0;
@@ -21,8 +21,9 @@
     background-color: #31c08a;
 }
 .jandi-navbar .navbar-brand {
-    color: #31c08a;
-    font-size : 22px;
+    line-height: 40px;
+    height: 40px;
+    padding: 0 20px;
 }
 .jandi-navbar .navbar-brand:hover {
     color: #b8e7d1;
@@ -52,9 +53,6 @@
     color: #31c08a;
 }
 .jandi-navbar__logo {
-    margin-top:-6px;
-    padding-left:2px;
-    height: 20px;
 }
 
 /* Buttons */
@@ -117,7 +115,7 @@
 /* Container */
 .jandi-container {
     position: fixed;
-    top: 70px;
+    top: 40px;
     right: 0;
     bottom: 48px;
     left: 0;
@@ -260,7 +258,5 @@
         font-size:16px;
     }
     .jandi-navbar {
-        padding-top: 10px;
-        padding-bottom: 10px;
     }
 }
