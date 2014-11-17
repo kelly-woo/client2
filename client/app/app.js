@@ -153,7 +153,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.setLang = function(setLang, isDebug) {
         getLanguageSetting(setLang);
 
-        setLang = setLang || 'ko_KR';
+        setLang = setLang || 'ko';
         isDebug = isDebug || false;
         // 언어 설정
         gettextCatalog.setCurrentLanguage(setLang);
@@ -175,7 +175,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     function getLanguageSetting(curLang) {
         if (curLang.indexOf('ko') >= 0) {
             // korean.
-            userLang    = 'ko_KR';
+            userLang    = 'ko';
             serverLang  = 'ko';
         }
         else if (curLang.indexOf('en') >= 0) {
@@ -202,7 +202,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
             serverLang  = 'ja';
         }
         else {
-            userLang    = 'en';
+            userLang    = 'en_US';
             serverLang  = 'en';
         }
     }
