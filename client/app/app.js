@@ -160,7 +160,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         gettextCatalog.debug = isDebug;
         // 현재 언어 저장
         $rootScope.preferences.language = gettextCatalog.currentLanguage;
-        $rootScope.preferences.lang = serverLang;
+        $rootScope.preferences.serverLang = serverLang;
     };
 
     // 시스템(브라우저) 기본 언어로 초기화

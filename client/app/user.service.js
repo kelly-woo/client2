@@ -102,5 +102,11 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
         });
     };
 
+    userAPI.getUserLanguage = function() {
+        if ($rootScope.preferences.serverLang == 'ko')
+            return 'ko';
+
+        return 'en'
+    };
     return userAPI;
 });

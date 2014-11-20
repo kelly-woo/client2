@@ -907,7 +907,7 @@ app.controller('passwordRequestController', function($rootScope, $scope, $modalI
     $scope.onPasswordResetRequstClick = function(email) {
         $scope.isLoading = true;
 
-        loginAPI.requestPasswordEmail($scope.teamInfo.id, email, $rootScope.preferences.lang)
+        loginAPI.requestPasswordEmail($scope.teamInfo.id, email, $rootScope.preferences.serverLang)
             .success(function(response) {
                 $scope.isLoading = false;
                 $scope.emailSent = true;
