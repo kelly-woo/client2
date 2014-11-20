@@ -51,11 +51,9 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
     userAPI.getNameFromUser = function(user) {
         return user.name;
     };
-
     userAPI.getStatusMessage = function(user) {
         return user.u_statusMessage;
     };
-
     userAPI.getDepartment = function(user) {
         return user.u_extraData.department;
     };
@@ -100,6 +98,10 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
                 password: new_password
             }
         });
+    };
+
+    userAPI.isAuthorized = function(user) {
+        return user.u_authority === 'owner'
     };
 
     return userAPI;

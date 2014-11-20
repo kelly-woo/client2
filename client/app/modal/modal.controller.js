@@ -883,6 +883,7 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
         // 언어 변경
         $rootScope.setLang(currentLang);
         $scope.isLoading = false;
+
         // 현재 state 다시 로드
         $state.transitionTo($state.current, $stateParams, {
             reload: true,
@@ -920,7 +921,7 @@ app.controller('passwordRequestController', function($rootScope, $scope, $modalI
     }
 });
 
-app.controller('teamSettingController', function($state, $scope, $modalInstance, $filter, $timeout, userAPIservice, analyticsService) {
+app.controller('teamSettingController', function($state, $stateParams, $scope, $rootScope, $modalInstance, $filter, $timeout, userAPIservice, teamAPIservice) {
 
     $scope.status = {
         oneAtATime      : true,
@@ -948,7 +949,13 @@ app.controller('teamSettingController', function($state, $scope, $modalInstance,
         }
 
         $scope.isLoading = true;
-
+        teamAPIservice.updateTeamName(team.newName)
+            .success(function(response) {
+                handleTeamSettingAPISuccess();
+            })
+            .error( function(err) {
+                handleTeamSettingAPIError(err);
+            })
     };
 
     $scope.onTeamURLUpdateClick = function(team) {
@@ -960,19 +967,39 @@ app.controller('teamSettingController', function($state, $scope, $modalInstance,
 
         userAPIservice.validateCurrentPassword(team.passwordConfirm)
             .success(function() {
-                // password confirmed.
-                console.log('password confirmed');
-                // TODO: delete team here.
+                teamAPIservice.updatePrefixDomain($scope.team.newPrefix)
+                    .success(function(response) {
+                        handleTeamSettingAPISuccess();
+                    })
+                    .error(function(err) {
+                        handleTeamSettingAPIError(err);
+                });
             })
             .error(function(err) {
-                team.passwordConfirm = '';
-                $('#teamURLPassword').focus();
-                $scope.isLoading = false;
-                alert($filter('translate')('@common-api-error-msg'));
-
+                handleTeamSettingAPIError(err);
             });
-
     };
+
+    function handleTeamSettingAPIError(err) {
+        console.log(err.msg);
+        $scope.team.passwordConfirm = '';
+        $('#teamURLPassword').focus();
+        $scope.isLoading = false;
+        alert($filter('translate')('@common-api-error-msg'));
+    }
+
+    function handleTeamSettingAPISuccess() {
+        $scope.isLoading = false;
+
+        $modalInstance.dismiss('cancel');
+
+        // 현재 state 다시 로드
+        $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+        });
+    }
 
     $scope.onTeamDeleteClick = function(team) {
         if (!confirm($filter('translate')('@setting-team-delete-confirm'))) {

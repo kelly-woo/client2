@@ -18,6 +18,10 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
         }
     }
 
+    $scope.isUserAuthorized = function() {
+        return userAPIservice.isAuthorized($scope.user);
+    };
+
     $scope.openModal = function(selector) {
         if (selector == 'agreement') {
             $modal.open({
@@ -116,7 +120,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
             return;
         }
         $state.go('messages.detail.files');
-    }
+    };
 
     $scope.openModal('setting-team');
 });

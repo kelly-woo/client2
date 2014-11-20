@@ -21,5 +21,25 @@ app.factory('teamAPIservice', function($http, $rootScope) {
         });
     };
 
+    teamAPI.updatePrefixDomain = function(domain) {
+      return $http({
+          method    : 'PUT',
+          url       : $rootScope.server_address  + 'teams/' + $rootScope.team.id + '/domain',
+          data      : {
+              'domain'  : domain
+          }
+      });
+    };
+
+    teamAPI.updateTeamName = function(name) {
+        return $http({
+            method  : 'PUT',
+            url     : $rootScope.server_address  + 'teams/' + $rootScope.team.id + '/name',
+            data    : {
+                'name'  : name
+            }
+        });
+    };
+
     return teamAPI;
 });

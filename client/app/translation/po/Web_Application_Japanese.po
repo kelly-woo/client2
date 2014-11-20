@@ -95,7 +95,7 @@ msgstr "表示"
 #: client/app/modal/invite.team.html client/app/modal/join.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
-#: client/app/modal/settings.service.html
+#: client/app/modal/settings.service.html client/app/modal/settings.team.html
 msgid "@btn-close"
 msgstr "閉じる"
 
@@ -137,6 +137,7 @@ msgid "@btn-share"
 msgstr "共有"
 
 #: client/app/modal/rename.html client/app/modal/settings.account.html
+#: client/app/modal/settings.team.html
 msgid "@btn-update-name"
 msgstr "名前の更新"
 
@@ -183,6 +184,10 @@ msgstr "アカウント設定"
 #: client/app/left/left.html
 msgid "@common-add"
 msgstr "追加"
+
+#: client/app/left/left.html
+msgid "@common-api-error-msg"
+msgstr "処理が失敗しました。もう一度お試しください"
 
 #: client/app/left/left.html
 msgid "@common-channels"
@@ -249,6 +254,10 @@ msgstr "メールアドレス"
 msgid "@common-faq"
 msgstr "FAQ"
 
+#: client/app/modal/settings.team.html
+msgid "@common-feature-not-supported-msg"
+msgstr "この機能は現在開発中です。近日提供開始予定です"
+
 #: client/app/modal/share.html
 msgid "@common-file"
 msgstr "ファイル"
@@ -310,6 +319,10 @@ msgstr "新しいパスワード"
 #: client/app/signin/signin.html
 msgid "@common-password"
 msgstr "パスワード"
+
+#: client/app/modal/settings.team.html
+msgid "@common-pasword-enter"
+msgstr "パスワードを入力してください"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-phone"
@@ -390,6 +403,10 @@ msgstr "アップロード"
 #: client/app/signin/signin.html
 msgid "@common-visit-homepage"
 msgstr "ホームページを見る"
+
+#: client/app/modal/settings.team.html
+msgid "@common-warning"
+msgstr "警告"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -493,7 +510,7 @@ msgstr ""
 msgid "@input-max-length-60-error"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "入力可能な文字数を超えています"
 
@@ -595,7 +612,7 @@ msgstr "プロフィール画像"
 msgid "@modal-setting-account-email"
 msgstr "メールアドレスを変更する"
 
-#: client/app/modal/settings.account.html
+#: client/app/modal/settings.account.html client/app/modal/settings.team.html
 msgid "@modal-setting-account-msg1"
 msgstr "あなたの名前、パスワード、メールアドレスを変更できます"
 
@@ -747,6 +764,62 @@ msgstr "このグループにメンバーを招待する "
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "プライベートグループ "
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete"
+msgstr "チーム削除"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete-confirm"
+msgstr ""
+"本当にチームを削除しますか？すべてのメッセージやファイルは削除され、元に戻す"
+"ことはできません"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-change"
+msgstr "ドメイン名変更"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-confirm"
+msgstr "本当にドメイン名（URL)を変更してよいですか？"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-msg"
+msgstr ""
+"ログインするためにはこのドメインのURLが必要になります。必ずメンバー全員に最新"
+"のURLを周知してください"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-taken-warning-msg"
+msgstr "そのドメイン名はすでに利用されています"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-warning-msg"
+msgstr "ドメイン名は最低３文字必要で、半角英数小文字、ハイフンのみ利用できます"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-change"
+msgstr "チーム名変更"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-confirm"
+msgstr "本当にチーム名を変更してよいですか？"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-msg"
+msgstr "チーム名はブラウザーのタブやヘッダーなどに表示されています"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-domain"
+msgstr "新しいドメイン（URL)"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-name"
+msgstr "新しいチーム名"
+
+#: client/app/header/header.html client/app/modal/settings.team.html
+msgid "@setting-team-title"
+msgstr "チーム設定"
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"

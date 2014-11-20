@@ -118,34 +118,39 @@
                 <i class="pull-right" data-ng-class="{'icon-down': status.delete.open, 'icon-next': !status.delete.open}"></i>
             </accordion-heading>
 
-            <div class="text-danger" translate>@common-warning
+            <div translate>@common-feature-not-supported-msg</div>
 
-            </div>
-            <div class="account-settings-body__help">
-                <span translate>@setting-team-delete-confirm</span>
-            </div>
-            <br>
-            <div class="account-settings-body__wraper">
-                <form name="teamDeleteForm" data-ng-submit="onTeamDeleteClick(team);" novalidate>
+            <div ng-if="false">
+                <div class="text-danger" translate>@common-warning
 
-                    <!--    CONFRIM PASSWORD    -->
-                    <div class="form-group account-settings-body__form-group">
-                        <label class="control-label account-settings-body__label">
-                            <span translate>@common-pasword-enter</span>
-                        </label>
-                        <div>
-                            <input type="password" name="deletePasswordConfirm" ng-required="true"
-                                   class="form-control account-settings-body__input"
-                                   id="teamDeletePassword"
-                                   data-ng-model="team.deletePasswordConfirm" />
+                </div>
+                <div class="account-settings-body__help">
+                    <span translate>@setting-team-delete-confirm</span>
+                </div>
+                <br>
+                <div class="account-settings-body__wraper">
+                    <form name="teamDeleteForm" data-ng-submit="onTeamDeleteClick(team);" novalidate>
+
+                        <!--    CONFRIM PASSWORD    -->
+                        <div class="form-group account-settings-body__form-group">
+                            <label class="control-label account-settings-body__label">
+                                <span translate>@common-pasword-enter</span>
+                            </label>
+                            <div>
+                                <input type="password" name="deletePasswordConfirm" ng-required="true"
+                                       class="form-control account-settings-body__input"
+                                       id="teamDeletePassword"
+                                       data-ng-model="team.deletePasswordConfirm" />
+                            </div>
                         </div>
-                    </div>
 
-                    <input type="submit" class="btn btn-danger account-settings-body__submit"
-                           data-ng-disabled="teamDeleteForm.$invalid || !teamDeleteForm.$dirty"
-                           value="{{ '@setting-team-delete' | translate }}" />
-                </form>
+                        <input type="submit" class="btn btn-danger account-settings-body__submit"
+                               data-ng-disabled="teamDeleteForm.$invalid || !teamDeleteForm.$dirty"
+                               value="{{ '@setting-team-delete' | translate }}" />
+                    </form>
+                </div>
             </div>
+
         </accordion-group>
     </accordion>
 </div>

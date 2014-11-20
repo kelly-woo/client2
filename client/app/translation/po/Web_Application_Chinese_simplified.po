@@ -186,9 +186,8 @@ msgid "@common-add"
 msgstr "增加"
 
 #: client/app/left/left.html
-#, fuzzy
 msgid "@common-api-error-msg"
-msgstr "今天的感觉"
+msgstr "有错误发生。请再试一次。"
 
 #: client/app/left/left.html
 msgid "@common-channels"
@@ -255,6 +254,10 @@ msgstr "电子邮件"
 msgid "@common-faq"
 msgstr "常见问题"
 
+#: client/app/modal/settings.team.html
+msgid "@common-feature-not-supported-msg"
+msgstr "这功能目前正在开发中并且即将推出。"
+
 #: client/app/modal/share.html
 msgid "@common-file"
 msgstr "档案"
@@ -318,9 +321,8 @@ msgid "@common-password"
 msgstr "密码"
 
 #: client/app/modal/settings.team.html
-#, fuzzy
 msgid "@common-pasword-enter"
-msgstr "密码"
+msgstr "输入您的密码"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-phone"
@@ -403,9 +405,8 @@ msgid "@common-visit-homepage"
 msgstr "造访首页"
 
 #: client/app/modal/settings.team.html
-#, fuzzy
 msgid "@common-warning"
-msgstr "分享在"
+msgstr "警示"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -764,62 +765,58 @@ msgid "@privateGroup"
 msgstr "私人群組 "
 
 #: client/app/modal/settings.team.html
-#, fuzzy
 msgid "@setting-team-delete"
-msgstr "刪除"
+msgstr "删除团队"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete-confirm"
-msgstr ""
+msgstr "您确定您要删除您的团队？您所有的内容将被清除，这将不能被回复。"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-change"
-msgstr ""
+msgstr "更改网域(URL)"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-confirm"
-msgstr ""
+msgstr "您确定您要更改团队的网域（URL）？"
 
 #: client/app/modal/settings.team.html
-#, fuzzy
 msgid "@setting-team-domain-msg"
-msgstr "您可以更改您的帐号设定，包含您的姓名、密码、及电子邮件地址"
+msgstr ""
+"您的团队成员是使用网域(URL)在网页上登入。请确保您的团队成员都知道的任何更改。"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-taken-warning-msg"
-msgstr "input-team-domain-taken"
+msgstr "网域已被别人使用"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-warning-msg"
 msgstr ""
+"网域名称必须至少有3个字符，并且只能由小写字母，数字和连字符（ - ）组成。"
 
 #: client/app/modal/settings.team.html
-#, fuzzy
 msgid "@setting-team-name-change"
-msgstr "当您更改您的姓名，请记得其他成员可能会提及及搜寻该姓名"
+msgstr "更改团队名称"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-name-confirm"
-msgstr ""
+msgstr "您确定您要更改您团队的名称？"
 
 #: client/app/modal/settings.team.html
-#, fuzzy
 msgid "@setting-team-name-msg"
-msgstr "当您更改您的姓名，请记得其他成员可能会提及及搜寻该姓名"
+msgstr "您的团队名称会显示在不同的标题和浏览器标签上。"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-new-domain"
-msgstr ""
+msgstr "新网域(URL)"
 
 #: client/app/modal/settings.team.html
-#, fuzzy
 msgid "@setting-team-new-name"
-msgstr "更改您的姓名"
+msgstr "新团队名称"
 
 #: client/app/header/header.html client/app/modal/settings.team.html
-#, fuzzy
 msgid "@setting-team-title"
-msgstr "欢迎使用JANDI!"
+msgstr "团队设定"
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"

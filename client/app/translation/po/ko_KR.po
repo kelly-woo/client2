@@ -256,6 +256,10 @@ msgstr "이메일"
 msgid "@common-faq"
 msgstr "FAQ"
 
+#: client/app/modal/settings.team.html
+msgid "@common-feature-not-supported-msg"
+msgstr "지금은 제공되지 않는 기능입니다."
+
 #: client/app/modal/share.html
 msgid "@common-file"
 msgstr "파일"

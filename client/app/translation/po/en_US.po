@@ -254,6 +254,10 @@ msgstr "Email"
 msgid "@common-faq"
 msgstr "FAQ"
 
+#: client/app/modal/settings.team.html
+msgid "@common-feature-not-supported-msg"
+msgstr "This feature is currently in development and will be available soon."
+
 #: client/app/modal/share.html
 msgid "@common-file"
 msgstr "File"

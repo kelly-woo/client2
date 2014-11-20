@@ -95,7 +95,7 @@ msgstr "點擊查視"
 #: client/app/modal/invite.team.html client/app/modal/join.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
-#: client/app/modal/settings.service.html
+#: client/app/modal/settings.service.html client/app/modal/settings.team.html
 msgid "@btn-close"
 msgstr "關閉"
 
@@ -137,6 +137,7 @@ msgid "@btn-share"
 msgstr "分享"
 
 #: client/app/modal/rename.html client/app/modal/settings.account.html
+#: client/app/modal/settings.team.html
 msgid "@btn-update-name"
 msgstr "更新姓名"
 
@@ -183,6 +184,10 @@ msgstr "帳號設定"
 #: client/app/left/left.html
 msgid "@common-add"
 msgstr "增加"
+
+#: client/app/left/left.html
+msgid "@common-api-error-msg"
+msgstr "有錯誤發生。請再試一次。"
 
 #: client/app/left/left.html
 msgid "@common-channels"
@@ -249,6 +254,10 @@ msgstr "電子郵件"
 msgid "@common-faq"
 msgstr "常見問題"
 
+#: client/app/modal/settings.team.html
+msgid "@common-feature-not-supported-msg"
+msgstr "這功能目前正在開發中并且即將推出。"
+
 #: client/app/modal/share.html
 msgid "@common-file"
 msgstr "檔案"
@@ -310,6 +319,10 @@ msgstr "新密碼"
 #: client/app/signin/signin.html
 msgid "@common-password"
 msgstr "密碼"
+
+#: client/app/modal/settings.team.html
+msgid "@common-pasword-enter"
+msgstr "輸入您的密碼"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-phone"
@@ -390,6 +403,10 @@ msgstr "上傳檔案"
 #: client/app/signin/signin.html
 msgid "@common-visit-homepage"
 msgstr "造訪首頁"
+
+#: client/app/modal/settings.team.html
+msgid "@common-warning"
+msgstr "警示"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -495,7 +512,7 @@ msgstr ""
 msgid "@input-max-length-60-error"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "您已經超越字數限制"
 
@@ -594,7 +611,7 @@ msgstr "簡介照片"
 msgid "@modal-setting-account-email"
 msgstr "更改您的電子郵件地址"
 
-#: client/app/modal/settings.account.html
+#: client/app/modal/settings.account.html client/app/modal/settings.team.html
 msgid "@modal-setting-account-msg1"
 msgstr "您可以更改您的帳號設定，包含您的姓名、密碼、及電子郵件地址"
 
@@ -746,6 +763,60 @@ msgstr "邀請成員到這群組 "
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "私人群組 "
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete"
+msgstr "刪除團隊"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete-confirm"
+msgstr "您確定您要刪除您的團隊？您所有的内容將被清除。這將不能被回復。"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-change"
+msgstr "更改網域(URL)"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-confirm"
+msgstr "您確定您要更改團隊的網域(URL)？"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-msg"
+msgstr ""
+"您的團隊成員是使用網域(URL)在網頁上登入。請確保您的團隊成員都知道的任何更改。"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-taken-warning-msg"
+msgstr "網域已被別人使用"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-warning-msg"
+msgstr ""
+"網域名稱必須至少有3個字符，並且只能由小寫字母，數字和連字符（ - ）組成。"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-change"
+msgstr "更改團隊名稱"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-confirm"
+msgstr "您確定您要更改您團隊的名稱？"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-msg"
+msgstr "您的團隊名稱會顯示在不同的標題和瀏覽器標籤上。"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-domain"
+msgstr "新網域(URL)"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-name"
+msgstr "新團隊名稱"
+
+#: client/app/header/header.html client/app/modal/settings.team.html
+msgid "@setting-team-title"
+msgstr "團隊設定"
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
