@@ -930,7 +930,7 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
             disabled    : false
         },
         url: {
-            open            : true,
+            open            : false,
             disabled        : false
         },
         delete: {
@@ -938,6 +938,8 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
             disabled    : false
         }
     };
+
+    $scope.team.newName = $scope.team.name;
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');

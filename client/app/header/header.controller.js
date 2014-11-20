@@ -16,7 +16,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
         settings: {
             open: false
         }
-    }
+    };
 
     $scope.isUserAuthorized = function() {
         return userAPIservice.isAuthorized($scope.user);
@@ -122,5 +122,4 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
         $state.go('messages.detail.files');
     };
 
-    $scope.openModal('setting-team');
 });

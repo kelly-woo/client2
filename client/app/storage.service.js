@@ -46,13 +46,34 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, localStora
         return _.indexOf(keys, prefix) > -1;
     };
 
-// token getter
+    /**
+     * checks whether current token valid for current prefix(domain) by checking teamId.
+     * @param curTeamId
+     * @returns {boolean}
+     */
+    storageAPI.hasValidToken = function(curTeamId) {
+        return this.getTeamId() == curTeamId;
+    };
+
+    /**
+     * update token information on 'localStorage' from 'session'
+     * @param prefix
+     */
+    storageAPI.updateToken = function(prefix) {
+        this.setToken(prefix, this.getSessionToken());
+        this.setTeamId(this.getSessionTeamId());
+        this.setUserId(this.getSessionUserId());
+    };
+
+    // token getter & setter
     storageAPI.getToken = function(prefix) { return localStorageService.get(prefix); };
     storageAPI.setToken = function(prefix, token) { localStorageService.set(prefix, token); };
 
+    // teamId getter & setter
     storageAPI.getTeamId = function() { return localStorageService.get(teamId_key); };
     storageAPI.setTeamId = function(teamId) { localStorageService.set(teamId_key, teamId); };
 
+    // userId getter & setter
     storageAPI.getUserId = function() { return localStorageService.get(userId_key); };
     storageAPI.setUserId = function(userId) { localStorageService.set(userId_key, userId); };
 

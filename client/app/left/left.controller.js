@@ -453,7 +453,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         else {
             target.addClass('rotate-90');
         }
-    }
+    };
 
 
 

@@ -99,6 +99,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
         if (angular.isDefined($scope.user)) {
             if ($state.current.name === 'signin') {
+                validateToken();
                 autoLogin();
             }
             else return;
@@ -123,32 +124,39 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             password    : '',
             rememberMe  : true
         };
+        storageAPIservice.removeSession($scope.prefix);
+        storageAPIservice.removeAccessToken($scope.prefix);
 
         $scope.hasToken = false;
 
     }
 
+    // validating token by comparing teamid and current prefix.
+    // matching teamId but not-matching prefix means, team name has been changed somewhere. so update team prefix.
+    function validateToken() {
+        var curPrefix = getPrefix();
+
+        // team domain(prefix) has been changed so it needs to be updated without have user log out.
+        if (storageAPIservice.getSessionPrefix() && curPrefix != storageAPIservice.getSessionPrefix()) {
+            // updating session.
+            storageAPIservice.setSessionPrefix(curPrefix);
+        }
+
+        if (!storageAPIservice.hasValidToken($scope.team.id)) {
+            // user has old token with old prefix.
+            // in this case, don't redirect user to login page, but instead, update token.
+            storageAPIservice.updateToken(curPrefix);
+        }
+
+    }
+
     // Check if current tab has alive token.
     function hasSessionAlive() {
-        //var a = storageAPIservice.getSessionPrefix()
-        //var b = $scope.prefix;
-
-        //console.log('session prefix', a)
-        //console.log('current prefix', b)
-        //console.log('are they same?', a == b)
-        //console.log('session token', storageAPIservice.getSessionToken());
-        //console.log('token defined?', !_.isUndefined(storageAPIservice.getSessionToken()));
-        //console.log('returning', (storageAPIservice.getSessionPrefix() == $scope.prefix) && !_.isUndefined(storageAPIservice.getSessionToken()));
-
         return (storageAPIservice.getSessionPrefix() == $scope.prefix) && !_.isUndefined(storageAPIservice.getSessionToken());
     }
 
     // Check if Browser stores any token info.
     function hasStorageToken() {
-        //console.log('returning', storageAPIservice.getToken($scope.prefix));
-
-        //console.log('returning', storageAPIservice.hasToken($scope.prefix));
-
         return storageAPIservice.hasToken($scope.prefix);
     }
 
