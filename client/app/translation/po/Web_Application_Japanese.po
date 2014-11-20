@@ -360,6 +360,10 @@ msgstr "共有範囲"
 msgid "@common-shared-in"
 msgstr "共有範囲"
 
+#: client/app/header/header.html
+msgid "@common-show-tutorial"
+msgstr "チュートリアル"
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr "ログインする"
@@ -462,16 +466,20 @@ msgstr "設定"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"Preview may not work with internet explorer 9.  However, you still can "
-"upload files."
+"プレビュー機能はInternet Explorer 9で利用できない場合がありますが、ファイルの"
+"アップロードは利用可能です"
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
-msgstr "Using latest version of IE, you can meet <b>JANDI</b> at its best."
+msgstr ""
+"最新バージョンのInternet Explorerをお使いいただければ、JANDIの機能をフルにご"
+"利用いただけます"
 
 #: client/app/modal/settings.profile.html
 msgid "@ie9-profile-image-support"
-msgstr "Internet Explorer 9 doesn't support profile image feature."
+msgstr ""
+"Internet Explorer 9では、プロフィール画像の変更機能はサポートされていません。"
+"ご利用するには、最新バージョンにアップデートしてください。"
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
@@ -487,11 +495,11 @@ msgstr "招待するメールアドレスを入力"
 
 #: client/app/modal/settings.profile.html
 msgid "@input-max-length-20-error"
-msgstr ""
+msgstr " "
 
 #: client/app/modal/settings.profile.html
 msgid "@input-max-length-60-error"
-msgstr ""
+msgstr " "
 
 #: client/app/modal/settings.profile.html
 msgid "@input-max-length-error"
@@ -517,7 +525,8 @@ msgstr "メンバー名で検索"
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
-"must be 8+ characters including 1 uppercase, lowercase letter and number"
+"8文字以上で、少なくとも大文字、小文字、アルファベット、数字をそれぞれ1文字以"
+"上含めてください"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"

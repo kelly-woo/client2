@@ -360,6 +360,10 @@ msgstr "공유 대화방"
 msgid "@common-shared-in"
 msgstr "공유된 곳"
 
+#: client/app/header/header.html
+msgid "@common-show-tutorial"
+msgstr "튜토리얼 보기"
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr "로그인"
@@ -462,18 +466,20 @@ msgstr "설정"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"인터넷 익스플로러9에서 파일 미리보기가 제공 안될 수 있습니다.  하지만 파일 업"
-"로드는 여전히 하실 수 있습니다. "
+"인터넷 익스플로러 9 에서는 이미지 미리보기가 제대로 작동하지 않을 수 있으나, "
+"파일은 올바르게 업로드 되기 때문에 걱정하지 않으셔도 됩니다."
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
 msgstr ""
-"최신 버전의 인터넷 익스플로러를 사용하시면, 진정한 잔디를 만나실 수 있습니"
-"다.  "
+"JANDI의 모든 기능을 이용하기 위해 최신 버전의 인터넷 익스플로러를 설치해주세"
+"요."
 
 #: client/app/modal/settings.profile.html
 msgid "@ie9-profile-image-support"
-msgstr "죄송합니다. 인터넷 익스플로러 9에서는 지원하지 않습니다."
+msgstr ""
+"인터넷 익스플로러 9 버전은 프로파일 사진 편집을 지원하지 않습니다. 잔디의 기"
+"능을 완전히 이용하기 위해서 최신 버전을 사용해주세요."
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"

@@ -360,6 +360,10 @@ msgstr "分享在"
 msgid "@common-shared-in"
 msgstr "已經在裏面分享"
 
+#: client/app/header/header.html
+msgid "@common-show-tutorial"
+msgstr "顯示教學指南"
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr "登入"
@@ -462,18 +466,17 @@ msgstr "設定"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"Preview may not work with internet explorer 9.  However, you still can "
-"upload files."
+"IE9瀏覽器無法適當支援文件預覽。如果圖像不能正確顯示，別擔心，這不影響您上傳的"
+"檔案。"
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
-msgstr "Using latest version of IE, you can meet <b>JANDI</b> at its best."
+msgstr "爲了達到對JANDI的最佳體驗，請使用最新版本的IE瀏覽器。"
 
 #: client/app/modal/settings.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
-"Unfortunately, IE9 does not support profile picture change feature. Please "
-"try with latest IE. You will be surprised. "
+"IE9瀏覽器不支援的簡介照片編輯。請使用IE瀏覽器的最新版本以達到最佳體驗。"
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
@@ -489,11 +492,11 @@ msgstr "輸入電子郵件地址進行邀請"
 
 #: client/app/modal/settings.profile.html
 msgid "@input-max-length-20-error"
-msgstr ""
+msgstr " "
 
 #: client/app/modal/settings.profile.html
 msgid "@input-max-length-60-error"
-msgstr ""
+msgstr " "
 
 #: client/app/modal/settings.profile.html
 msgid "@input-max-length-error"

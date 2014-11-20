@@ -360,6 +360,10 @@ msgstr "分享在"
 msgid "@common-shared-in"
 msgstr "已经在里面分享"
 
+#: client/app/header/header.html
+msgid "@common-show-tutorial"
+msgstr "显示教学指南"
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr "登入"
@@ -462,18 +466,17 @@ msgstr "设定"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"Preview may not work with internet explorer 9.  However, you still can "
-"upload files."
+"IE9浏览器无法适当支援文件预览。如果图像不能正确显示，别担心，这不影响您上传的"
+"档案。"
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
-msgstr "Using latest version of IE, you can meet <b>JANDI</b> at its best."
+msgstr "为了达到对JANDI的最佳体验，请使用最新版本的IE浏览器。"
 
 #: client/app/modal/settings.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
-"Unfortunately, IE9 does not support profile picture change feature. Please "
-"try with latest IE. You will be surprised. "
+"IE9浏览器不支援的简介照片编辑。请使用IE浏览器的最新版本以达到最佳体验。"
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"

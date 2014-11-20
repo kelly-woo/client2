@@ -360,6 +360,10 @@ msgstr "Share in"
 msgid "@common-shared-in"
 msgstr "Shared in"
 
+#: client/app/header/header.html
+msgid "@common-show-tutorial"
+msgstr "Show Tutorial"
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr "Sign In"
@@ -462,16 +466,21 @@ msgstr "Settings"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"Preview may not work with internet explorer 9.  However, you still can "
-"upload files."
+"Internet Explorer 9 does not properly support file previewing. Don't worry "
+"if the image is not displayed correctly - this does not impact the file you "
+"upload."
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
-msgstr "Using latest version of IE, you can meet <b>JANDI</b> at its best."
+msgstr ""
+"For the optimal JANDI experience, please use the latest version of Internet "
+"Explorer."
 
 #: client/app/modal/settings.profile.html
 msgid "@ie9-profile-image-support"
-msgstr "Internet Explorer 9 doesn't support profile image feature."
+msgstr ""
+"Internet Explorer 9 does not support profile picture editing. Try the latest "
+"version of Internet Explorer for the optimal experience."
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
