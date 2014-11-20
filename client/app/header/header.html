@@ -152,6 +152,7 @@
                 </li>
             </ul>
         </div>
+
         <!-- Help -->
         <div class="header-navbar-settings">
             <span class="header-navbar__topmenu" data-toggle="dropdown">
@@ -167,6 +168,14 @@
                     </a>
                 </li>
 
+                <li role="presentation">
+                    <a data-ng-click="onShowToturialClick();" role="menuitem" tabindex="-1">
+                        <i class="fa fa-question-circle"></i>
+                        <span translate ng-if="false">@common-show-tutorial</span>
+                        <span>Show Tutorial</span>
+                    </a>
+                </li>
+
                 <li class="divider"></li>
 
                 <li class="" role="presentation">
@@ -175,6 +184,7 @@
                         <span translate>@common-terms-of-service</span>
                     </a>
                 </li>
+
                 <li class="" role="presentation">
                     <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
                         <i class="fa fa-lock"></i>
