@@ -41,5 +41,12 @@ app.factory('teamAPIservice', function($http, $rootScope) {
         });
     };
 
+    teamAPI.deleteTeam = function() {
+        return $http({
+            method  : 'DELETE',
+            url     : $rootScope.server_address  + 'teams/' + $rootScope.team.id
+        });
+    };
+
     return teamAPI;
 });

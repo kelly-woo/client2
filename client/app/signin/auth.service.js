@@ -91,8 +91,8 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
             }
             if (rejection.status === 401) {
                 // handle the case where the user is not authenticated
-                //console.log('401!!!!!')
-                //console.log('[' + rejection.status + ' ' + rejection.statusText + '] ' + rejection.data.msg);
+                console.log('401!!!!!')
+                console.log('[' + rejection.status + ' ' + rejection.statusText + '] ' + rejection.data.msg);
             }
 
             return $q.reject(rejection);

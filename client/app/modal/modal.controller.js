@@ -921,7 +921,7 @@ app.controller('passwordRequestController', function($rootScope, $scope, $modalI
     }
 });
 
-app.controller('teamSettingController', function($state, $stateParams, $scope, $rootScope, $modalInstance, $filter, $timeout, userAPIservice, teamAPIservice) {
+app.controller('teamSettingController', function($state, $stateParams, $scope, $rootScope, $modalInstance, $filter, $timeout, userAPIservice, teamAPIservice, $window) {
 
     $scope.status = {
         oneAtATime      : true,
@@ -1013,14 +1013,15 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
         userAPIservice.validateCurrentPassword(team.deletePasswordConfirm)
             .success(function() {
                 // password confirmed.
-                console.log('password confirmed');
-                // TODO: delete team here.
+                teamAPIservice.deleteTeam()
+                    .success(function(response) {
+                        $window.location.replace('https://www.jandi.com');
+                    })
+                    .error(function(err) {
+                    });
             })
             .error(function(err) {
-                team.deletePasswordConfirm = '';
-                $('#teamDeletePassword').focus();
-                $scope.isLoading = false;
-                alert($filter('translate')('@common-api-error-msg'));
+                handleTeamSettingAPIError(err);
             });
     };
 
