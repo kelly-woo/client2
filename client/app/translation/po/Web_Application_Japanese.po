@@ -174,7 +174,7 @@ msgstr "このチャネルに招待"
 
 #: client/app/left/left.html
 msgid "@channel"
-msgstr "チャネル一覧"
+msgstr "トピック一覧"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
