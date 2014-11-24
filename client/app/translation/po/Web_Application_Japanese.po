@@ -417,7 +417,7 @@ msgstr "エラーが発生しました"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@file-action-more"
-msgstr "音声"
+msgstr "もっと見る"
 
 #: client/app/header/header.html
 msgid "@file-all"
