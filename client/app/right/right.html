@@ -86,7 +86,6 @@
                 <br><i style="font-size: 11px;"> Please, hit enter to search again.</i>
             </div>
         </div>
-
         <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
              ui-sref="files({ userName: file.writer.name, itemId: file.id })">
             <!--    IMAGE THUMBNAIL -->
@@ -100,6 +99,7 @@
                  data-ng-if="(file.content.type).indexOf('image') == -1">
                 <div class="fileicon fileicon_{{ file.content.type | filetype | lowercase}}"></div>
             </div>
+            {{ file.content.type }}
 
             <!-- FILE TYPE ICON IMAGE && FILE TYPE && FILE SIZE CONTAINER ON THE LEFT -->
             <div class="file-item-type hidden">

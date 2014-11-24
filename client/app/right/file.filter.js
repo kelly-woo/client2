@@ -79,10 +79,17 @@ app.filter('filetype', function() {
             case 'audio/mp3'        :   filetype = "MP3"; break;
             case 'audio/mpeg'       :   filetype = "MPEG"; break;
             case 'application/zip'  :   filetype = "ZIP"; break;
-            case 'text/plain'       :   filetype = "TXT"; break;
 
-            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation' :
-            case 'application/vnd.ms-powerpoint' :
+            case 'text/plain'       :
+            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :    // docx
+            case 'application/msword' :    // doc
+
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :          // xlsx
+            case 'application/vnd.ms-excel' :          // xls
+                                        filetype = "TXT"; break;
+
+            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation' :  // pptx
+            case 'application/vnd.ms-powerpoint' :      // ppt
                                         filetype = 'PPT'; break;
 
 
