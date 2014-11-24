@@ -70,17 +70,23 @@ app.filter('filetype', function() {
         if (typeof type === 'undefined') return 'undefined';
         var filetype = "";
         switch(type) {
-            case 'image/jpeg'       : filetype = "JPG"; break;
-            case 'image/png'        : filetype = "PNG"; break;
-            case 'image/gif'        : filetype = "GIF"; break;
-            case 'application/pdf'  : filetype = "PDF"; break;
-            case 'video/mp4'        : filetype = "MP4"; break;
-            case 'video/quicktime'  : filetype = "MOV"; break;
-            case 'audio/mp3'        : filetype = "MP3"; break;
-            case 'audio/mpeg'       : filetype = "MPEG"; break;
-            case 'application/zip'  : filetype = "ZIP"; break;
-            case 'text/plain'       : filetype = "TXT"; break;
-            default                 : filetype = "ETC"; break;
+            case 'image/jpeg'       :   filetype = "JPG"; break;
+            case 'image/png'        :   filetype = "PNG"; break;
+            case 'image/gif'        :   filetype = "GIF"; break;
+            case 'application/pdf'  :   filetype = "PDF"; break;
+            case 'video/mp4'        :   filetype = "MP4"; break;
+            case 'video/quicktime'  :   filetype = "MOV"; break;
+            case 'audio/mp3'        :   filetype = "MP3"; break;
+            case 'audio/mpeg'       :   filetype = "MPEG"; break;
+            case 'application/zip'  :   filetype = "ZIP"; break;
+            case 'text/plain'       :   filetype = "TXT"; break;
+
+            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation' :
+            case 'application/vnd.ms-powerpoint' :
+                                        filetype = 'PPT'; break;
+
+
+            default                 :   filetype = "ETC"; break;
         }
         return filetype;
     };
