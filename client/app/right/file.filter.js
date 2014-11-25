@@ -80,18 +80,18 @@ app.filter('filetype', function() {
             case 'audio/mpeg'       :   filetype = "MPEG"; break;
             case 'application/zip'  :   filetype = "ZIP"; break;
 
-            case 'text/plain'       :
+            case 'text/plain'           :
+            case 'application/msword'   :    // doc
             case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :    // docx
-            case 'application/msword' :    // doc
-
-            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :          // xlsx
-            case 'application/vnd.ms-excel' :          // xls
                                         filetype = "TXT"; break;
 
-            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation' :  // pptx
-            case 'application/vnd.ms-powerpoint' :      // ppt
-                                        filetype = 'PPT'; break;
+            case 'application/vnd.ms-excel' :          // xls
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :          // xlsx
+                                        filetype = "EXCEL"; break;
 
+            case 'application/vnd.ms-powerpoint' :      // ppt
+            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation' :  // pptx
+                                        filetype = 'PPT'; break;
 
             default                 :   filetype = "ETC"; break;
         }

@@ -423,7 +423,9 @@ input[type="button"] {
 }
 .fileicon_ppt {
     background: url('../assets/images/fileicon_ppt.png') no-repeat;
-
+}
+.fileicon_excel {
+    background: url('../assets/images/fileicon_excel.png') no-repeat;
 }
 .icon-more-member {
     background: url('../assets/images/icon_more_member.png') no-repeat;
