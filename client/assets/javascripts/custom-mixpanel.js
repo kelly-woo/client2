@@ -344,7 +344,6 @@ var send_query = function(url, data) {
 
 
 var custom_mixpanel_people_set = function(prop, to) {
-	console.log(prop)
 	var data = {};
 	var $set = {};
 	if (isObject(prop)) {

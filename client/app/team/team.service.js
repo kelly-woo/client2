@@ -21,16 +21,6 @@ app.factory('teamAPIservice', function($http, $rootScope) {
         });
     };
 
-    teamAPI.updatePrefixDomain = function(domain) {
-      return $http({
-          method    : 'PUT',
-          url       : $rootScope.server_address  + 'teams/' + $rootScope.team.id + '/domain',
-          data      : {
-              'domain'  : domain
-          }
-      });
-    };
-
     teamAPI.updateTeamName = function(name) {
         return $http({
             method  : 'PUT',
@@ -41,10 +31,24 @@ app.factory('teamAPIservice', function($http, $rootScope) {
         });
     };
 
+    teamAPI.updatePrefixDomain = function(domain) {
+      return $http({
+          method    : 'PUT',
+          url       : $rootScope.server_address  + 'teams/' + $rootScope.team.id + '/domain',
+          data      : {
+              'domain'  : domain,
+              'lang'    : $rootScope.preferences.serverLang
+          }
+      });
+    };
+
     teamAPI.deleteTeam = function() {
         return $http({
             method  : 'DELETE',
-            url     : $rootScope.server_address  + 'teams/' + $rootScope.team.id
+            url     : $rootScope.server_address  + 'teams/' + $rootScope.team.id,
+            data    : {
+                'lang'    : $rootScope.preferences.serverLang
+            }
         });
     };
 

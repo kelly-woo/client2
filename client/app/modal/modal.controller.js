@@ -922,7 +922,7 @@ app.controller('passwordRequestController', function($rootScope, $scope, $modalI
     }
 });
 
-app.controller('teamSettingController', function($state, $stateParams, $scope, $rootScope, $modalInstance, $filter, $timeout, userAPIservice, teamAPIservice, $window, configuration) {
+app.controller('teamSettingController', function($state, $stateParams, $scope, $rootScope, $modalInstance, $filter, $timeout, userAPIservice, teamAPIservice, $window, configuration, analyticsService) {
 
     $scope.status = {
         oneAtATime      : true,
@@ -1078,6 +1078,5 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
                 handleTeamSettingAPIError(err);
             });
     };
-
 });
 
