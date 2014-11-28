@@ -197,3 +197,17 @@ app.filter('getNameInFileResult', ['userAPIservice', '$rootScope',
         }
     }
 ]);
+
+/**
+ *
+ */
+
+app.filter('getMixPanelFormat', function() {
+    return function(input) {
+        input = input.toLowerCase();
+
+        // replacing all space with '_'.
+        input = input.replace(/ /g, "_");
+        return input;
+    }
+});

@@ -785,6 +785,7 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
                             .success(function() {
                                 $scope.updateLeftPanelCaller();
                                 analyticsService.mixpanelTrack("Change Name");
+                                analyticsService.mixpanelPeople({'name':$scope.rename.new_name.value});
                             })
                             .error(function(err) {
 
@@ -921,7 +922,7 @@ app.controller('passwordRequestController', function($rootScope, $scope, $modalI
     }
 });
 
-app.controller('teamSettingController', function($state, $stateParams, $scope, $rootScope, $modalInstance, $filter, $timeout, userAPIservice, teamAPIservice, $window) {
+app.controller('teamSettingController', function($state, $stateParams, $scope, $rootScope, $modalInstance, $filter, $timeout, userAPIservice, teamAPIservice, $window, configuration) {
 
     $scope.status = {
         oneAtATime      : true,
@@ -951,9 +952,11 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
         }
 
         $scope.isLoading = true;
+        var mixPanel_event = "Domain Change";
+
         teamAPIservice.updateTeamName(team.newName)
             .success(function(response) {
-                handleTeamSettingAPISuccess();
+                updateMixPanel(mixPanel_event, team.newName);
             })
             .error( function(err) {
                 handleTeamSettingAPIError(err);
@@ -966,12 +969,13 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
         }
 
         $scope.isLoading = true;
+        var mixPanel_event = "Team Name Change";
 
         userAPIservice.validateCurrentPassword(team.passwordConfirm)
             .success(function() {
-                teamAPIservice.updatePrefixDomain($scope.team.newPrefix)
+                teamAPIservice.updatePrefixDomain(team.newPrefix)
                     .success(function(response) {
-                        handleTeamSettingAPISuccess();
+                        updateMixPanel(mixPanel_event, team.newPrefix);
                     })
                     .error(function(err) {
                         handleTeamSettingAPIError(err);
@@ -982,6 +986,55 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
             });
     };
 
+    function updateMixPanel(eventToTrack, value) {
+        //console.log(value)
+        //console.log('i have ' , eventToTrack);
+        // eventToTrack = 'Team Name Change'
+        analyticsService.mixpanelTrack(eventToTrack);
+
+        // now eventToTrack = 'team_name_change'
+        eventToTrack = $filter('getMixPanelFormat')(eventToTrack);
+
+        //console.log('now I have ' , eventToTrack);
+
+        var libName = eventToTrack.indexOf('domain') ? 'team_domain' : 'team_name';
+
+        mixpanel.init(configuration.mp_token, {
+            'ip'    : false,
+            'loaded' : function(){
+                updateMixPanelForMember(libName, value);
+            }
+        },  libName);
+    }
+
+    function updateMixPanelForMember(libName, value) {
+        var localLib;
+        if (libName === 'team_name')
+            localLib = mixpanel.team_name;
+        else
+            localLib = mixpanel.team_domain;
+
+        _.forEach($scope.userList, function(member) {
+            //console.log(member.id, $scope.team.id)
+            //console.log(libName, value)
+
+            localLib.cookie.clear();
+            localLib.identify(member.id + '-' + $scope.team.id);
+
+            custom_mixpanel_people_set_helper(libName, value);
+        });
+
+        handleTeamSettingAPISuccess();
+    }
+
+    function custom_mixpanel_people_set_helper(libName, value) {
+        if (libName === 'team_name') {
+            custom_mixpanel_people_set( { 'team_name' : value } );
+        }
+        else
+            custom_mixpanel_people_set( { 'team_domain' : value } );
+    }
+
     function handleTeamSettingAPIError(err) {
         console.log(err.msg);
         $scope.team.passwordConfirm = '';
@@ -989,6 +1042,7 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
         $scope.isLoading = false;
         alert($filter('translate')('@common-api-error-msg'));
     }
+
 
     function handleTeamSettingAPISuccess() {
         $scope.isLoading = false;

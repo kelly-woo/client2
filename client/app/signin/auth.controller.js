@@ -88,7 +88,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     // Generate 'id@teamId' format string for google analytics.
     function getUserIdentify() {
-        return (storageAPIservice.getSessionUserId() || storageAPIservice.getUserId()) + '@' + (storageAPIservice.getSessionTeamId() || storageAPIservice.getTeamId());
+        return (storageAPIservice.getSessionUserId() || storageAPIservice.getUserId()) + '-' + (storageAPIservice.getSessionTeamId() || storageAPIservice.getTeamId());
     }
 
     onSignInEnter();

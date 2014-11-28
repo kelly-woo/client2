@@ -7,7 +7,7 @@ var breaker = {};
 
  var HTTP_PROTOCOL = (("https:" == document.location.protocol) ? "https://" : "http://"),
 	LIB_VERSION = '2.3.0',
-	SNIPPET_VERSION = (mixpanel && mixpanel['__SV']) || 0,
+	//SNIPPET_VERSION = (mixpanel && mixpanel['__SV']) || 0,
 	// http://hacks.mozilla.org/2009/07/cross-site-xmlhttprequest-with-cors/
 	// https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest#withCredentials
 	USE_XHR = (window.XMLHttpRequest && 'withCredentials' in new XMLHttpRequest()),
@@ -344,6 +344,7 @@ var send_query = function(url, data) {
 
 
 var custom_mixpanel_people_set = function(prop, to) {
+	console.log(prop)
 	var data = {};
 	var $set = {};
 	if (isObject(prop)) {

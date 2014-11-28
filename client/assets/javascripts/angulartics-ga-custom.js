@@ -35,6 +35,7 @@
                     var send_command = 'send';
                     var hit_type = 'pageview';
 
+                    // ga('send', 'pageview', 'path);
                     ga(send_command, hit_type, path);
 
                     ga(function() {
