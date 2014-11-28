@@ -104,5 +104,12 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
         return user.u_authority === 'owner'
     };
 
+    userAPI.getUserLanguage = function() {
+        if ($rootScope.preferences.serverLang == 'ko')
+            return 'ko';
+
+        return 'en'
+    };
+
     return userAPI;
 });

@@ -399,6 +399,10 @@ msgstr ""
 msgid "@common-shared-in"
 msgstr ""
 
+#: client/app/header/header.html
+msgid "@common-show-tutorial"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr ""

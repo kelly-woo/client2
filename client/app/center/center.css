@@ -252,7 +252,7 @@
     line-height: 1.3rem;
 }
 .msg-item-header .tooltip {
-    width: 60px;
+    width: 64px;
 }
 
 .msg-item.comment-continue .msg-item-header {
@@ -598,7 +598,15 @@ css for system-event-msg
     line-height: 35px;
 }
 
-.dnd-hover .msgs,
+.msgs {
+    border: 5px solid transparent;
+    border-bottom: 0 !important;
+}
+.footer {
+    border: 5px solid transparent;
+    border-top: 0 !important;
+}
+.dnd-hover .msgs ,
 .dnd-hover .footer {
-    background-color: #eefcf7;
+    border: 5px solid rgba(49, 192, 138, 0.3);
 }

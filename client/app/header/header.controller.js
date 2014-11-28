@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice, analyticsService) {
+app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice) {
 
     //console.info('[enter] headerController');
 
@@ -24,16 +24,24 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
 
     $scope.openModal = function(selector) {
         if (selector == 'agreement') {
+
+            var agreement = 'app/modal/terms/agreement';
+            var lang = userAPIservice.getUserLanguage();
+            agreement = agreement + '_' + lang + '.html';
             $modal.open({
                 scope       :   $scope,
-                templateUrl :   'app/modal/terms/agreement.html',
+                templateUrl :   agreement,
                 size        :   'lg'
             });
         }
         else if (selector == 'privacy') {
+            var privacy = 'app/modal/terms/privacy';
+            var lang = userAPIservice.getUserLanguage();
+            privacy = privacy + '_' + lang + '.html';
+
             $modal.open({
                 scope       :   $scope,
-                templateUrl :   'app/modal/terms/privacy.html',
+                templateUrl :   privacy,
                 size        :   'lg'
             });
         }
@@ -122,4 +130,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
         $state.go('messages.detail.files');
     };
 
+    $scope.onShowToturialClick = function() {
+        $scope.initTutorialStatus();
+    };
 });

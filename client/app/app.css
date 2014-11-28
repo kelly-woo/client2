@@ -27,12 +27,6 @@
     font-style: normal;
 }
 
-/* NanumBarunGothic */
-@font-face{
-    font-family: 'Nanum Barun Gothic';
-    src: url('../assets/fonts/NanumBarunGothic.woff') format('woff');
-}
-
 /* KoPub Dotum */
 @font-face {
     font-family: 'KoPub Dotum';
@@ -53,6 +47,11 @@
     url(//cdn.jsdelivr.net/font-kopub/1.0/KoPubDotum-Bold.ttf) format('truetype');
 }
 
+
+:lang(ja) { font-family:    "serif", Arial, "Lucida Grande", "segoe UI", "Hiragino Kaku Gothic Pro", Meiryo, Verdana, sans-serif, fontAwesome; }
+:lang(ko) { font-family:    "KoPub Dotum",  sans-serif, serif, fontAwesome; }
+:lang(en) { font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif, serif, fontAwesome; }
+
 /**
  * App-wide Styles
  */
@@ -64,7 +63,6 @@
  }
 
  body {
-     font-family: "KoPub Dotum", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
      height: 100%;
      width: 100%;
      -webkit-font-smoothing: antialiased;

@@ -112,15 +112,19 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $scope.setCurrentEntity();
 
         if (!entityAPIservice.hasSeenTutorial($scope.user)) {
-            // user hasn't seen tutorial yet.
-            $scope.tutorialStatus.topicTutorial = false;
-            $scope.tutorialStatus.chatTutorial = false;
-            $scope.tutorialStatus.fileTutorial = false;
-
-            openTutorialModal('welcomeTutorial');
+            $scope.initTutorialStatus();
         }
     }
 
+
+    $scope.initTutorialStatus = function() {
+        // user hasn't seen tutorial yet.
+        $scope.tutorialStatus.topicTutorial = false;
+        $scope.tutorialStatus.chatTutorial = false;
+        $scope.tutorialStatus.fileTutorial = false;
+
+        openTutorialModal('welcomeTutorial');
+    }
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
         _.each($scope.totalEntities, function(entity) {

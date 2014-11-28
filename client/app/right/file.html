@@ -54,7 +54,7 @@
                         </a>
 
                         <!--    NON-PDF FILE    -->
-                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}"  ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )">
+                        <a href="{{ server_uploaded + 'download/'+ file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}"  ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )">
                             <button type="button" class="btn btn-white" >
                                 <span translate>@common-download</span>
                             </button>
@@ -116,7 +116,7 @@
                                 </a>
                             </li>
                             <li class="cursor_pointer">
-                                <a href="{{ server_uploaded + file_detail.content.fileUrl }}" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
+                                <a href="{{ server_uploaded + 'download/' + file_detail.content.fileUrl }}" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
                                     <i class="fa fa-download"></i>
                                     <span translate>@common-download</span>
                                 </a>

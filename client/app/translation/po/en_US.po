@@ -167,15 +167,15 @@ msgstr "Rename this topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-star"
-msgstr "Star this topic"
+msgstr "Star this topic "
 
 #: client/app/center/center.html
 msgid "@ch-menu-un-star"
-msgstr "Unstar this topic"
+msgstr "Unstar this user "
 
 #: client/app/left/left.html
 msgid "@channel"
-msgstr "Topics"
+msgstr "Topics "
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -373,6 +373,10 @@ msgstr "Share in"
 msgid "@common-shared-in"
 msgstr "Shared in"
 
+#: client/app/header/header.html
+msgid "@common-show-tutorial"
+msgstr "Show Tutorial"
+
 #: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr "Sign In"
@@ -383,7 +387,7 @@ msgstr "Sign Out"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-status-msg"
-msgstr "Feeling Today?"
+msgstr "Status"
 
 #: client/app/error/404.html client/app/header/header.html
 #: client/app/password/password.reset.html client/app/signin/signin.html
@@ -458,7 +462,7 @@ msgstr "Video"
 
 #: client/app/header/header.html
 msgid "@file-your"
-msgstr "Your Files"
+msgstr "My Files"
 
 #: client/app/header/header.html
 msgid "@header-file"
@@ -474,21 +478,26 @@ msgstr "Menu"
 
 #: client/app/header/header.html
 msgid "@header-setting"
-msgstr "Setting"
+msgstr "Settings"
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"Preview may not work with internet explorer 9.  However, you still can "
-"upload files."
+"Internet Explorer 9 does not properly support file previewing. Don't worry "
+"if the image is not displayed correctly - this does not impact the file you "
+"upload."
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
-msgstr "Using latest version of IE, you can meet <b>JANDI</b> at its best."
+msgstr ""
+"For the optimal JANDI experience, please use the latest version of Internet "
+"Explorer."
 
 #: client/app/modal/settings.profile.html
 msgid "@ie9-profile-image-support"
-msgstr "Internet Explorer 9 doesn't support profile image feature."
+msgstr ""
+"Internet Explorer 9 does not support profile picture editing. Try the latest "
+"version of Internet Explorer for the optimal experience."
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
@@ -538,7 +547,7 @@ msgstr ""
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
-msgstr "keep me logged in"
+msgstr "Keep me logged in"
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
@@ -567,7 +576,7 @@ msgstr "Browse Topics"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
-msgstr "Create a new topic that anyone can join"
+msgstr "Create topics that anyone can join"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
@@ -575,7 +584,7 @@ msgstr " "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "Please use Private Group for a closed room"
+msgstr "For a more private setting, use private groups or direct messages"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
@@ -597,11 +606,11 @@ msgstr "Invite Members"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr "Topics you belong to"
+msgstr "Topics You Already Joined"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr "Topics you can join"
+msgstr "Other Topics You Can Join"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
@@ -761,15 +770,15 @@ msgstr "Rename this private group"
 
 #: client/app/center/center.html
 msgid "@pg-menu-star"
-msgstr "Star this private group"
+msgstr "Star this user "
 
 #: client/app/center/center.html
 msgid "@pg-menu-un-star"
-msgstr "Unstar private group"
+msgstr "Unstar this private group"
 
 #: client/app/left/left.html
 msgid "@privateGroup"
-msgstr "Private Groups"
+msgstr "Private Groups "
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -853,20 +862,20 @@ msgstr "Got it!"
 msgid "@tutorial-file-msg1"
 msgstr ""
 "All of the files you've shared and that have been shared with you can be "
-"found in your file drawer."
+"found in your file drawer. "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
 "You can toggle the view by using the All Files button to open or shut the "
-"drawer.You can sort by file type, team member who provided the file, or the "
-"room in which it was shared. You can also search for specific files by "
+"drawer.  You can sort by file type, team member who provided the file, or "
+"the room in which it was shared. You can also search for specific files by "
 "keyword. "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"After you select a file, you can use the menu button (☰) to the right to "
+"After you select a file, you can use the menu button (ᵒᵒᵒ) to the right to "
 "share it in other rooms, comment on the file, or download it to your device."
 
 #: client/app/tutorial/tutorial.html
@@ -911,12 +920,12 @@ msgid "@tutorial-topic-topic-explanation"
 msgstr ""
 "Topics are open forums that anybody can join. Discuss specific projects, "
 "share news or information, or just use as the water cooler – anything you "
-"want! You can check out other Topics to join by clicking ☰ MORE, or create "
+"want! You can check out other Topics to join by clicking ☰ BROWSE, or create "
 "your own Topic with + Add."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
-msgstr "Let’s find out"
+msgstr "Next"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"

@@ -130,10 +130,12 @@
     border-radius: 2px;
     padding: 4px;
     background-color: #f2f2f2;
-    line-height: 12px;
+    line-height: 13px;
     display: table;
 }
-
+.skip_tutorial_container .icon-ok {
+    margin-right: 3px;
+}
 .tutorial_bottom_div {
     height: 45px;
     font-size: 16px;
@@ -180,31 +182,41 @@
 
 
 @keyframes pulse {
-    0%      {    -webkit-transfrom: scale3d(1, 1, 1);
-                -ms-transform: scale3d(1,1);
+    0%      {
+                -webkit-transform: scale3d(1, 1, 1);
+                -ms-transform: scale3d(1, 1, 1);
                 transform: scale3d(1, 1, 1);
 
             }
-    50%     {   -webkit-transfrom: scale3d(1.2, 1.2, 1.2);
-                -ms-transform: scale3d(1.2, 1.2);
+    50%     {
+                -webkit-transform: scale3d(1.2, 1.2, 1.2);
+                -ms-transform: scale3d(1.2, 1.2, 1.2);
                 transform: scale3d(1.2, 1.2, 1.2);
             }
-    100%    {   -webkit-transfrom:scale3d(1, 1, 1);
-                -ms-transform: scale3d(1,1);
+    100%    {
+                -webkit-transform:scale3d(1, 1, 1);
+                -ms-transform: scale3d(1, 1, 1);
                 transform: scale3d(1, 1, 1);
             }
 }
 @-webkit-keyframes pulse {
-    0%      {    -webkit-transfrom: scale3d(1, 1, 1);
+    0%      {
+                -webkit-transform: scale3d(1, 1, 1);
+                -ms-transform: scale3d(1, 1, 1);
                 transform: scale3d(1, 1, 1);
             }
-    50%     {   -webkit-transfrom: scale3d(1.2, 1.2, 1.2);
+    50%     {
+                -webkit-transform: scale3d(1.2, 1.2, 1.2);
+                -ms-transform: scale3d(1, 1, 1);
                 transform: scale3d(1.2, 1.2, 1.2);
             }
-    100%    {   -webkit-transfrom:scale3d(1, 1, 1);
+    100%    {
+                -webkit-transform:scale3d(1, 1, 1);
+                -ms-transform: scale3d(1, 1, 1);
                 transform: scale3d(1, 1, 1);
             }
 }
+
 .pulse {
     animation: pulse 1s infinite;
     -webkit-animation: pulse 1s infinite;
@@ -217,13 +229,13 @@
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes opacIn-from-0-to-30 {
-    from {opacity: 0.0; }
-    to {opacity: 0.3; }
+    from { opacity: 0.0; }
+    to { opacity: 0.3; }
 }
 /* Standard syntax */
 @keyframes opacIn-from-0-to-30 {
-    from {opacity: 0.0; }
-    to {opacity: 0.3;}
+    from { opacity: 0.0; }
+    to { opacity: 0.3;}
 }
 
 

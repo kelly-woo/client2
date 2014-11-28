@@ -866,7 +866,7 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
 app.controller('preferencesController', function($state, $stateParams, $scope, $rootScope, $modalInstance) {
     $scope.currentLang = $rootScope.preferences.language;
     $scope.listLangs = [
-        { "value": "ko_KR", "text": "한국어" },
+        { "value": "ko",    "text": "한국어" },
         { "value": "en_US", "text": "English" },
         { "value": "zh_CN", "text": "简体中文 " },
         { "value": "zh_TW", "text": "繁體中文" },
@@ -906,7 +906,7 @@ app.controller('passwordRequestController', function($rootScope, $scope, $modalI
     $scope.onPasswordResetRequstClick = function(email) {
         $scope.isLoading = true;
 
-        loginAPI.requestPasswordEmail($scope.teamInfo.id, email, $rootScope.preferences.lang)
+        loginAPI.requestPasswordEmail($scope.teamInfo.id, email, $rootScope.preferences.serverLang)
             .success(function(response) {
                 $scope.isLoading = false;
                 $scope.emailSent = true;

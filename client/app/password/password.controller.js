@@ -24,7 +24,7 @@ app.controller('passwordResetController', function($scope, $state, $filter, $loc
 
     $scope.resetPassword = function(user) {
         $scope.isLoading = true;
-        loginAPI.resetPassword(teamId, token, user.password, $rootScope.preferences.lang)
+        loginAPI.resetPassword(teamId, token, user.password, $rootScope.preferences.serverLang)
             .success(function(response) {
 
                 $scope.resetDone = true;
