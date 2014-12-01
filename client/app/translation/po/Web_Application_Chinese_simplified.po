@@ -517,18 +517,22 @@ msgstr "您已经超越字数限制"
 msgid "@input-max-length-error"
 msgstr "您已经超越字数限制"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-average"
 msgstr "普通"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-excellent"
 msgstr "非常强"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-good"
 msgstr "强"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-very-weak"
 msgstr "弱"
@@ -549,11 +553,9 @@ msgstr "按标题搜寻档案"
 msgid "@input-search-user-name"
 msgstr "按名字搜寻使用者"
 
-#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
-msgstr ""
-"必须由八个以上英文字母以及数字组成，其中一个必须是大写，其它则是小写及数字"
+msgstr "透过增加数字，大写字母和特殊字符的组合来加强您的密码"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -567,8 +569,7 @@ msgstr "电子邮件或密码无效"
 msgid "@login-message"
 msgstr "输入您的电子邮件及密码"
 
-#: client/app/modal/password.reset.request.html
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密码？"
 

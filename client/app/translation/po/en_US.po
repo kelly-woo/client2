@@ -557,7 +557,8 @@ msgstr "Search users by name"
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
-"must be 8+ characters including 1 uppercase, lowercase letter and number"
+"Strengthen your password by adding a mix of numbers, capitalized letters, "
+"and special characters. "
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"

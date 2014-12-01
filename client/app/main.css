@@ -705,13 +705,17 @@ input[type="button"] {
 }
 .password-level-block {
     float: left;
-    width: 87px;
+    width: 23%;
+    margin: 0 1%;
     height: 5px;
     background-color: #f2f2f2;
-    margin-right: 4px;
+}
+.password-level-1 {
+}
+.password-level-2,
+.password-level-3 {
 }
 .password-level-4 {
-    margin-right: 0;
 }
 
 .level1 .password-level-1 {

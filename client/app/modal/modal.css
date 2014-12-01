@@ -485,6 +485,7 @@
 }
 .account-settings-body__form-group {
     margin-bottom: 10px;
+    width: 50%;
 }
 .account-settings-body__label {
     margin-bottom: 8px;
@@ -493,7 +494,6 @@
 }
 .account-settings-body__input {
     display: inline;
-    width: 50%;
 }
 .account-settings-body__success {
     display: inline;

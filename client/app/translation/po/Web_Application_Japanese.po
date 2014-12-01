@@ -556,8 +556,7 @@ msgstr "メンバー名で検索"
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
-"8文字以上で、少なくとも大文字、小文字、アルファベット、数字をそれぞれ1文字以"
-"上含めてください"
+"パスワードに大文字小文字、数字、特殊記号を入れることで安全性を高めましょう"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"

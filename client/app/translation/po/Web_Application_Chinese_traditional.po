@@ -552,8 +552,7 @@ msgstr "按名字搜尋使用者"
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
-msgstr ""
-"必須由八個以上英文字母以及數字組成，其中一個必須是大寫，其它則是小寫及數字"
+msgstr "透過增加數字，大寫字母和特殊字符的組合來加强您的密碼。"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"

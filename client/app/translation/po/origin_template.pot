@@ -544,18 +544,22 @@ msgstr ""
 msgid "@input-max-length-error"
 msgstr ""
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-average"
 msgstr ""
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-excellent"
 msgstr ""
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-good"
 msgstr ""
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-very-weak"
 msgstr ""
@@ -576,7 +580,6 @@ msgstr ""
 msgid "@input-search-user-name"
 msgstr ""
 
-#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
@@ -594,7 +597,6 @@ msgid "@login-message"
 msgstr ""
 
 #: client/app/modal/password.reset.request.html
-#: client/app/password/password.reset.html
 #: client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr ""

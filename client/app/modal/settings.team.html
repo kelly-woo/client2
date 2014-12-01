@@ -15,21 +15,22 @@
 
         <!--    TEAM NAME   -->
         <accordion-group is-open="status.name.open">
+
+            <!--    ACCORDION TITLE -->
             <accordion-heading>
                 {{ '@setting-team-name-change' | translate }}
                 <i class="pull-right" data-ng-class="{'icon-down': status.name.open, 'icon-next': !status.name.open}"></i>
             </accordion-heading>
 
+            <!--    ACCORDION BODY  -->
             <div class="account-settings-body__wraper">
                 <form name="teamNameChangeForm" data-ng-submit="onTeamNameUpdateClick(team);" novalidate>
                     <div class="form-group account-settings-body__form-group">
-
                         <label class="control-label account-settings-body__label">
                             <span translate>@setting-team-new-name</span>
                         </label>
 
                         <div>
-                            <!-- TODO: TEAM NAME CONTRAINS? -->
                             <input type="text" name="newTeamName"
                                    class="form-control account-settings-body__input"
                                    data-ng-model="team.newName" ng-maxlength="20"/>

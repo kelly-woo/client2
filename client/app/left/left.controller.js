@@ -493,6 +493,5 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
         $scope.openModal('file');
     };
-
 });
 

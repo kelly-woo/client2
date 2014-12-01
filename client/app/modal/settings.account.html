@@ -11,6 +11,7 @@
         <span translate>@modal-setting-account-msg1</span>
     </h4>
     <accordion class="account-settings-body" close-others="status.oneAtATime">
+
         <accordion-group is-open="status.name.open">
             <accordion-heading>
                 {{ '@modal-setting-account-name' | translate }}
@@ -61,6 +62,7 @@
                 </form>
             </div>
         </accordion-group>
+
         <accordion-group is-open="status.password.open">
             <accordion-heading>
                 {{ '@modal-setting-account-password' | translate }}
@@ -84,16 +86,49 @@
                                   data-ng-bind="repassword.cur_password.error.message"></span>
                         </div>
                     </div>
+
                     <div class="form-group account-settings-body__form-group"
                          data-ng-class="{'has-error': repassword.new_password.error.status}">
                         <label class="control-label account-settings-body__label">
                             <span translate>@common-new-password</span>
                         </label>
-                        <div>
+
+                        <div ng-class="{'level1':   (   formSettingsPassword.newPassword.passwordStrengthLevel >= 0
+                                                    ||  formSettingsPassword.newPassword.passwordStrengthLevel  >= 1)
+                                                    &&  formSettingsPassword.newPassword.$dirty
+                                                    &&  formSettingsPassword.newPassword.$viewValue,
+                                        'level2':       formSettingsPassword.newPassword.passwordStrengthLevel >= 2,
+                                        'level3':       formSettingsPassword.newPassword.passwordStrengthLevel >= 3,
+                                        'level4':       formSettingsPassword.newPassword.passwordStrengthLevel >= 4}">
                             <input type="password" password-strength
                                    name="newPassword"
-                                   class="form-control account-settings-body__input"
-                                   data-ng-model="repassword.new_password.value" />
+                                   class="form-control account-settings-body__input password-input-border"
+                                   data-ng-model="repassword.new_password.value"/>
+
+                            <div class="password-strength-indicator">
+                                <div class="password-level-block-container">
+                                    <span class="password-level-block password-level-1"></span>
+                                    <span class="password-level-block password-level-2"></span>
+                                    <span class="password-level-block password-level-3"></span>
+                                    <span class="password-level-block password-level-4"></span>
+                                </div>
+
+                                <div class="password-level-warning-msg"
+                                     ng-if="formSettingsPassword.newPassword.$dirty && formSettingsPassword.newPassword.$viewValue"
+                                     ng-switch="formSettingsPassword.newPassword.passwordStrengthLevel">
+                                    <span ng-switch-when="0"><span translate> @input-password-very-weak </span> </span>
+                                    <span ng-switch-when="1"><span translate> @input-password-very-weak </span> </span>
+                                    <span ng-switch-when="2"><span translate> @input-password-average   </span> </span>
+                                    <span ng-switch-when="3"><span translate> @input-password-good      </span> </span>
+                                    <span ng-switch-when="4"><span translate> @input-password-excellent </span> </span>
+                                </div>
+                            </div>
+
+                            <alert type="danger"
+                                   data-ng-if="formSettingsPassword.newPassword.passwordStrengthLevel <= 2 && formSettingsPassword.$dirty && formSettingsPassword.newPassword.$viewValue">
+                                {{ '@input-user-password-error' | translate}}
+                            </alert>
+
                             <span class="account-settings-body__error"
                                   data-ng-if="repassword.new_password.error.status"
                                   data-ng-bind="repassword.new_password.error.message"></span>
@@ -102,15 +137,13 @@
                                 <i class="fa fa-check-circle"></i>
                                 <span data-ng-bind="repassword.result.message"></span>
                             </span>
-                            <alert type="warning" class="account-settings-body__alert" data-ng-if="formSettingsPassword.newPassword.$error.strength">
-                                {{ '@input-user-password-error' | translate}}
-                            </alert>
                         </div>
                     </div>
                     <input type="submit" class="btn btn-ok account-settings-body__submit" data-ng-disabled="formSettingsPassword.$invalid" value="{{ '@btn-update-password' | translate }}" />
                 </form>
             </div>
         </accordion-group>
+
         <accordion-group heading="{{ '@modal-setting-account-email' | translate }}" is-disabled="status.email.disabled">
             <div class="account-settings-body__wraper">
                 <!-- TODO: 이메일 변경 정책 결정 후 구현 -->

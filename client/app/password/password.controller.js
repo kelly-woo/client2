@@ -14,7 +14,6 @@ app.controller('passwordResetController', function($scope, $state, $filter, $loc
     $scope.resetDone = false;
     $scope.resetFailed = false;
 
-
     loginAPI.validatePasswordToken(teamId, token)
         .success(function(response) {
             userId = response.id;
