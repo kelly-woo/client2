@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService, storageAPIservice) {
+app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService, storageAPIservice, userAPIservice) {
 
     // local test purpose
     var localHost = false;
@@ -204,8 +204,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         if (selector == 'agreement') {
 
             var agreement = 'app/modal/terms/agreement';
-            var lang = userAPIservice.getUserLanguage();
-            agreement = agreement + '_' + lang + '.html';
+            agreement = agreement + '_' + userAPIservice.getUserLanguage() + '.html';
 
             $modal.open({
                 scope       :   $scope,
@@ -215,8 +214,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         }
         else if (selector == 'privacy') {
             var privacy = 'app/modal/terms/privacy';
-            var lang = userAPIservice.getUserLanguage();
-            privacy = privacy + '_' + lang + '.html';
+            privacy = privacy + '_' + userAPIservice.getUserLanguage() + '.html';
 
             $modal.open({
                 scope       :   $scope,

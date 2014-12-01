@@ -9,8 +9,11 @@ app.controller('passwordResetController', function($scope, $state, $filter, $loc
     var userId = '';
     $scope.token = '';
 
+    $scope.title = $filter('translate')('@common-new-password');
+
     $scope.resetDone = false;
     $scope.resetFailed = false;
+
 
     loginAPI.validatePasswordToken(teamId, token)
         .success(function(response) {
@@ -18,8 +21,8 @@ app.controller('passwordResetController', function($scope, $state, $filter, $loc
             token = response.token;
         })
         .error(function(response) {
-            alert($filter('translate')('@common-invalid-request'));
-            $state.go('signin');
+            //alert($filter('translate')('@common-invalid-request'));
+            //$state.go('signin');
         });
 
     $scope.resetPassword = function(user) {

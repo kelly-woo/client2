@@ -218,8 +218,7 @@ msgstr "Create New Private Group"
 msgid "@common-current-password"
 msgstr "Password"
 
-#: client/app/error/404.html client/app/password/password.reset.html
-#: client/app/signin/signin.html
+#: client/app/error/404.html client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "Customer Service"
 
@@ -333,7 +332,7 @@ msgid "@common-position"
 msgstr "Position"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "Privacy Policy"
 
@@ -390,7 +389,7 @@ msgid "@common-status-msg"
 msgstr "Status"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "Terms of Service"
 
@@ -403,8 +402,7 @@ msgstr "Title"
 msgid "@common-upload-file"
 msgstr "Upload File"
 
-#: client/app/error/404.html client/app/password/password.reset.html
-#: client/app/signin/signin.html
+#: client/app/error/404.html client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
 
@@ -522,6 +520,22 @@ msgstr "You've exceeded the maximum character limit: 60 characters"
 #: client/app/modal/settings.profile.html client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit."
+
+#: client/app/password/password.reset.html
+msgid "@input-password-average"
+msgstr "Average"
+
+#: client/app/password/password.reset.html
+msgid "@input-password-excellent"
+msgstr "Excellent"
+
+#: client/app/password/password.reset.html
+msgid "@input-password-good"
+msgstr "Good"
+
+#: client/app/password/password.reset.html
+msgid "@input-password-very-weak"
+msgstr "Weak"
 
 #: client/app/modal/rename.html
 msgid "@input-rename"

@@ -676,3 +676,69 @@ input[type="button"] {
 .large-thumbnail-parent .ie9-image-rotator {
     display: block;
 }
+
+
+/********************************************
+
+                 PASSWORD STRENGTH
+
+********************************************/
+.level1 .password-input-border {
+    border-color: #c03131;
+}
+.level2 .password-input-border {
+    border-color: #eb952f;
+}
+.level3 .password-input-border {
+    border-color: #c4ac0e;
+}
+.level4 .password-input-border {
+    border-color: #31C08A;
+}
+.password-strength-indicator {
+    width: 100%;
+    margin-top: 4px;
+}
+.password-level-block-container {
+    height: 5px;
+    margin-bottom: 10px;
+}
+.password-level-block {
+    float: left;
+    width: 87px;
+    height: 5px;
+    background-color: #f2f2f2;
+    margin-right: 4px;
+}
+.password-level-4 {
+    margin-right: 0;
+}
+
+.level1 .password-level-1 {
+    background-color: #c03131;
+}
+.level2 .password-level-2 {
+    background-color: #eb952f;
+}
+.level3 .password-level-3{
+    background-color: #c4ac0e;
+}
+.level4 .password-level-4{
+    background-color: #31C08A;
+}
+
+.password-level-warning-msg {
+    text-align: left;
+}
+.level1 .password-level-warning-msg {
+    color: #c03131;
+}
+.level2 .password-level-warning-msg {
+    color: #eb952f;
+}
+.level3 .password-level-warning-msg {
+    color: #c4ac0e;
+}
+.level4 .password-level-warning-msg {
+    color: #31C08A;
+}

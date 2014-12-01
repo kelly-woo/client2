@@ -218,8 +218,7 @@ msgstr "비공개 그룹 생성"
 msgid "@common-current-password"
 msgstr "비밀번호 입력 "
 
-#: client/app/error/404.html client/app/password/password.reset.html
-#: client/app/signin/signin.html
+#: client/app/error/404.html client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "고객 센터"
 
@@ -333,7 +332,7 @@ msgid "@common-position"
 msgstr "직책"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "개인정보취급방침"
 
@@ -390,7 +389,7 @@ msgid "@common-status-msg"
 msgstr "오늘의 기분"
 
 #: client/app/error/404.html client/app/header/header.html
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "이용약관"
 
@@ -403,8 +402,7 @@ msgstr "타이틀"
 msgid "@common-upload-file"
 msgstr "파일 업로드"
 
-#: client/app/error/404.html client/app/password/password.reset.html
-#: client/app/signin/signin.html
+#: client/app/error/404.html client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "홈페이지 방문하기"
 
@@ -521,6 +519,22 @@ msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
 #: client/app/modal/settings.profile.html client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "최대 입력 글자 수가 넘었습니다.  "
+
+#: client/app/password/password.reset.html
+msgid "@input-password-average"
+msgstr "약함"
+
+#: client/app/password/password.reset.html
+msgid "@input-password-excellent"
+msgstr "강함 "
+
+#: client/app/password/password.reset.html
+msgid "@input-password-good"
+msgstr "좋음 "
+
+#: client/app/password/password.reset.html
+msgid "@input-password-very-weak"
+msgstr "아주 약함 "
 
 #: client/app/modal/rename.html
 msgid "@input-rename"

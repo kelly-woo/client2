@@ -211,3 +211,50 @@ app.filter('getMixPanelFormat', function() {
         return input;
     }
 });
+
+/**
+ * checks viewvalue for password and returns strength.
+ * 4 categories
+ *      1. length(longer 8 characters)
+ *      2. combination of lower/upper case
+ *      3. contains number
+ *      4. contains special character
+ *
+ * If input satisfies two out of four categories, user can proceed to next step.
+ */
+app.directive('passwordStrength', function($parse) {
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function(scope, elem, attrs, ctrl) {
+
+            ctrl.$parsers.unshift(function(viewValue) {
+                var hasEnoughLength, hasLowerLetter, hasUpperLetter, hasNumber, hasSpecialCharacter;
+
+                hasEnoughLength = (viewValue && viewValue.length >= 8 ? true : false);
+                hasLowerLetter = (viewValue && /[a-z]/.test(viewValue)) ? true : false;
+                hasUpperLetter = (viewValue && /[A-Z]/.test(viewValue)) ? true : false;
+                hasNumber = (viewValue && /\d/.test(viewValue)) ? true : false;
+                hasSpecialCharacter = (viewValue && /[~!@#$%^&*()_+]/.test(viewValue)) ? true : false;
+
+                var level = 0;
+
+                if (hasEnoughLength) level++;
+                if (hasLowerLetter && hasUpperLetter) level++;
+                if (hasNumber) level++;
+                if (hasSpecialCharacter) level++;
+
+
+                if ( hasEnoughLength && hasLowerLetter && hasUpperLetter && hasNumber ) {
+                    //ctrl.$setValidity('strength', true);
+                }
+                else {
+                    //ctrl.$setValidity('strength', false);
+                }
+
+                ctrl.passwordStrengthLevel = level;
+                return viewValue;
+            });
+        }
+    };
+});
