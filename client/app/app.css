@@ -47,8 +47,7 @@
     url(//cdn.jsdelivr.net/font-kopub/1.0/KoPubDotum-Bold.ttf) format('truetype');
 }
 
-
-:lang(ja) { font-family:    "serif", Arial, "Lucida Grande", "segoe UI", "Hiragino Kaku Gothic Pro", Meiryo, Verdana, sans-serif, fontAwesome; }
+:lang(ja) { font-family:    "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", arial, helvetica, sans-serif, fontAwesome; }
 :lang(ko) { font-family:    "KoPub Dotum",  sans-serif, serif, fontAwesome; }
 :lang(en) { font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif, serif, fontAwesome; }
 
