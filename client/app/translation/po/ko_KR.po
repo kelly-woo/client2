@@ -688,7 +688,7 @@ msgstr "멀티라인 입력: shift+enter"
 
 #: client/app/center/center.html
 msgid "@msg-invited"
-msgstr "님이"
+msgstr "님이 초대하였습니다. "
 
 #: client/app/center/center.html
 msgid "@msg-invited-postfix"

@@ -580,6 +580,7 @@ msgstr ""
 msgid "@input-search-user-name"
 msgstr ""
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
