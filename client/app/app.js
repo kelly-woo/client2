@@ -174,30 +174,30 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     // TODO: move this to service.
     function getLanguageSetting(curLang) {
         if (curLang.indexOf('ko') >= 0) {
-            // korean.
+            // korean
             userLang    = 'ko';
             serverLang  = 'ko';
         }
         else if (curLang.indexOf('en') >= 0) {
-            // english.
+            // english
             userLang    = 'en_US';
             serverLang  = 'en';
 
         }
         else if (curLang.indexOf('zh') >= 0) {
-            // chinese.
+            // chinese
             if (curLang.indexOf('tw') >= 0) {
-                // main land china.
+                // main land china
                 userLang    = 'zh_TW';
                 serverLang  = 'zh-tw';
             }
             else {
-                userLang    = 'zn_CN';
-                serverLang  = 'zn-cn';
+                userLang    = 'zh_CN';
+                serverLang  = 'zh-cn';
             }
         }
         else if (curLang.indexOf('ja') >= 0) {
-            // japanese.
+            // japanese
             userLang    = 'ja';
             serverLang  = 'ja';
         }

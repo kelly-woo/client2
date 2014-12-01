@@ -167,11 +167,11 @@ msgstr "このトピックの名称を変更する"
 
 #: client/app/center/center.html
 msgid "@ch-menu-star"
-msgstr "このチャネルから退出"
+msgstr "このトピックをお気に入りに追加する"
 
 #: client/app/center/center.html
 msgid "@ch-menu-un-star"
-msgstr "このチャネルに招待"
+msgstr "このトピックをお気に入りから削除する"
 
 #: client/app/left/left.html
 msgid "@channel"
@@ -764,11 +764,11 @@ msgstr "このグループの名称を変更する"
 
 #: client/app/center/center.html
 msgid "@pg-menu-star"
-msgstr "このグループから退出する"
+msgstr "このグループをお気に入りに追加する"
 
 #: client/app/center/center.html
 msgid "@pg-menu-un-star"
-msgstr "このグループにメンバーを招待する "
+msgstr "このグループをお気に入りから削除する"
 
 #: client/app/left/left.html
 msgid "@privateGroup"
