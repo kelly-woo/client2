@@ -210,6 +210,9 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     $rootScope.setLang(userLang, debugMode);
 
+
+    $rootScope.headerTemplate = 'app/tpl/header.tpl.html';
+    $rootScope.footerTemplate = 'app/tpl/footer.tpl.html';
 });
 
 app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, localStorageServiceProvider) {

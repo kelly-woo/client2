@@ -89,23 +89,23 @@ app.filter('parseUrl', function() {
 
 /*
  used in 'inviteFromChannelModal.tpl.html'
- */
-app.filter('userByName', ['$rootScope', function($rootScope) {
-    return function(input, name) {
-        if (name === undefined)
-            return input;
+        */
+        app.filter('userByName', ['$rootScope', function($rootScope) {
+            return function(input, name) {
+                if (name === undefined)
+                    return input;
 
-        name = name.toLowerCase();
+                name = name.toLowerCase();
 
-        var returnArray = [];
+                var returnArray = [];
 
-        _.each(input, function(user) {
-            var fullName = user.name.toLowerCase();
+                _.each(input, function(user) {
+                    var fullName = user.name.toLowerCase();
 
-            if(fullName.indexOf(name) > -1) {
-                returnArray.push(user)
-            }
-        });
+                    if(fullName.indexOf(name) > -1) {
+                        returnArray.push(user)
+                    }
+                });
 
         return returnArray;
     }
