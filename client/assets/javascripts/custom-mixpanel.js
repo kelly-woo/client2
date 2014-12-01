@@ -10,11 +10,11 @@ var breaker = {};
 	//SNIPPET_VERSION = (mixpanel && mixpanel['__SV']) || 0,
 	// http://hacks.mozilla.org/2009/07/cross-site-xmlhttprequest-with-cors/
 	// https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest#withCredentials
-	USE_XHR = (window.XMLHttpRequest && 'withCredentials' in new XMLHttpRequest()),
+	USE_XHR = (window.XMLHttpRequest && 'withCredentials' in new XMLHttpRequest());
 	// IE<10 does not support cross-origin XHR's but script tags
 	// with defer won't block window.onload; ENQUEUE_REQUESTS
 	// should only be true for Opera<12
-	ENQUEUE_REQUESTS = !USE_XHR && (userAgent.indexOf('MSIE') == -1) && (userAgent.indexOf('Mozilla') == -1);
+	//ENQUEUE_REQUESTS = !USE_XHR && (userAgent.indexOf('MSIE') == -1) && (userAgent.indexOf('Mozilla') == -1);
 
 
 
