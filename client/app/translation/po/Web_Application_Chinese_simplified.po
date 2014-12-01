@@ -284,7 +284,7 @@ msgstr "其它资料"
 
 #: client/app/password/password.reset.html
 msgid "@common-invalid-request"
-msgstr "查无此页"
+msgstr "请求无效"
 
 #: client/app/modal/join.html
 msgid "@common-joined"

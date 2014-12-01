@@ -158,6 +158,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         // 언어 설정
         gettextCatalog.setCurrentLanguage(setLang);
         gettextCatalog.debug = isDebug;
+
         // 현재 언어 저장
         $rootScope.preferences.language = gettextCatalog.currentLanguage;
         $rootScope.preferences.serverLang = serverLang;
@@ -206,7 +207,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
             serverLang  = 'en';
         }
     }
-
 
     $rootScope.setLang(userLang, debugMode);
 

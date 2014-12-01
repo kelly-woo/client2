@@ -18,7 +18,7 @@ app.controller('passwordResetController', function($scope, $state, $filter, $loc
             token = response.token;
         })
         .error(function(response) {
-            alert($filter('translate')('@invalid-request'));
+            alert($filter('translate')('@common-invalid-request'));
             $state.go('signin');
         });
 

@@ -116,5 +116,10 @@ app.config(function ($stateProvider, $analyticsProvider) {
             templateUrl : 'app/password/password.reset.html',
             controller  : 'passwordResetController'
         })
-    ;
+        .state('passwordTest', {
+            url         : '/passwordTest',
+            title       : 'Reset Password',
+            templateUrl : 'app/password/password.reset.html',
+            controller  : 'passwordResetController'
+        });
 });
