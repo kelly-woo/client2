@@ -166,7 +166,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     // 시스템(브라우저) 기본 언어로 초기화
     var userLang = navigator.language || navigator.userLanguage;
-    userLang = userLang.toLowerCase();
     getLanguageSetting(userLang);
 
 
@@ -174,6 +173,8 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     // TODO: move this to service.
     function getLanguageSetting(curLang) {
+        curLang = curLang.toLowerCase();
+
         if (curLang.indexOf('ko') >= 0) {
             // korean
             userLang    = 'ko';

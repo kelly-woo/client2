@@ -987,15 +987,10 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
     };
 
     function updateMixPanel(eventToTrack, value) {
-        //console.log(value)
-        //console.log('i have ' , eventToTrack);
-        // eventToTrack = 'Team Name Change'
         analyticsService.mixpanelTrack(eventToTrack);
 
         // now eventToTrack = 'team_name_change'
         eventToTrack = $filter('getMixPanelFormat')(eventToTrack);
-
-        //console.log('now I have ' , eventToTrack);
 
         var libName = eventToTrack.indexOf('domain') ? 'team_domain' : 'team_name';
 
@@ -1015,9 +1010,6 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
             localLib = mixpanel.team_domain;
 
         _.forEach($scope.userList, function(member) {
-            //console.log(member.id, $scope.team.id)
-            //console.log(libName, value)
-
             localLib.cookie.clear();
             localLib.identify(member.id + '-' + $scope.team.id);
 
@@ -1036,7 +1028,6 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
     }
 
     function handleTeamSettingAPIError(err) {
-        console.log(err.msg);
         $scope.team.passwordConfirm = '';
         $('#teamURLPassword').focus();
         $scope.isLoading = false;
