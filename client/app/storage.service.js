@@ -110,8 +110,6 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, localStora
 
     storageAPI.setSessionToken = function(token) { $window.sessionStorage.token = token; };
     storageAPI.getSessionToken = function() {
-        //if (_.isUndefined($window.sessionStorage.token)) console.log($window.sessionStorage.token)
-        //if ($window.sessionStorage.token === 'undefined') console.log('undefined!! but in string')
         return $window.sessionStorage.token;
     };
 
@@ -126,7 +124,7 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, localStora
 
     function isSessionTokenDataDefined() {
         return !_.isUndefined($window.sessionStorage.tokenData);
-    };
+    }
 
     storageAPI.removeSession = function() {
         $window.sessionStorage.clear();
