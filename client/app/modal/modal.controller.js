@@ -927,7 +927,7 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
     $scope.status = {
         oneAtATime      : true,
         name: {
-            open        : false,
+            open        : true,
             disabled    : false
         },
         url: {
@@ -1052,7 +1052,6 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
         if (!confirm($filter('translate')('@setting-team-delete-confirm'))) {
             return;
         }
-
         $scope.isLoading = true;
 
         userAPIservice.validateCurrentPassword(team.deletePasswordConfirm)
@@ -1060,9 +1059,11 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
                 // password confirmed.
                 teamAPIservice.deleteTeam()
                     .success(function(response) {
+                        $modalInstance.dismiss('cancel');
                         $window.location.replace('https://www.jandi.com');
                     })
                     .error(function(err) {
+                        handleTeamSettingAPIError(err);
                     });
             })
             .error(function(err) {

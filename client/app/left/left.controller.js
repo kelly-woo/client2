@@ -54,6 +54,15 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     };
 
 
+    $scope.initTutorialStatus = function() {
+        // user hasn't seen tutorial yet.
+        $scope.tutorialStatus.topicTutorial = false;
+        $scope.tutorialStatus.chatTutorial = false;
+        $scope.tutorialStatus.fileTutorial = false;
+
+        openTutorialModal('welcomeTutorial');
+    };
+
     initLeftList();
 
     function initLeftList () {
@@ -116,15 +125,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
     }
 
-
-    $scope.initTutorialStatus = function() {
-        // user hasn't seen tutorial yet.
-        $scope.tutorialStatus.topicTutorial = false;
-        $scope.tutorialStatus.chatTutorial = false;
-        $scope.tutorialStatus.fileTutorial = false;
-
-        openTutorialModal('welcomeTutorial');
-    }
     //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
         _.each($scope.totalEntities, function(entity) {
