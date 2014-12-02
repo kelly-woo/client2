@@ -997,7 +997,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.
     //  listening to 'elastic:resize' and move msg-holder to right position.
     $scope.$on('elastic:resize', function() {
-        $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 35);
+        $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 30);
     });
 
     $scope.setCommentFocus = function(file) {
