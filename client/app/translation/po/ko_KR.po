@@ -520,18 +520,22 @@ msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
 msgid "@input-max-length-error"
 msgstr "최대 입력 글자 수가 넘었습니다.  "
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-average"
 msgstr "약함"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-excellent"
 msgstr "강함 "
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-good"
 msgstr "좋음 "
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-very-weak"
 msgstr "아주 약함 "
@@ -570,8 +574,7 @@ msgstr "이메일 또는 비밀번호를 확인해주세요"
 msgid "@login-message"
 msgstr "이메일과 비밀번호를 입력하세요"
 
-#: client/app/modal/password.reset.request.html
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "비밀번호 찾기"
 
@@ -688,7 +691,7 @@ msgstr "멀티라인 입력: shift+enter"
 
 #: client/app/center/center.html
 msgid "@msg-invited"
-msgstr "님이 초대하였습니다. "
+msgstr "님이"
 
 #: client/app/center/center.html
 msgid "@msg-invited-postfix"

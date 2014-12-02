@@ -429,9 +429,10 @@
                                 <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
                                 <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
                                 <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
-                                <span data-ng-if="$index !== 0">, </span><span>{{invitees | getName}}</span>
-                            </span>
-                            <span data-ng-if="preferences.language === 'ko_KR'">{{ '@msg-invited-postfix' | translate }}</span>
+                                    <span>{{invitees | getName}}<span data-ng-if="!$last">, </span></span>
+
+                                </span>
+                            <span data-ng-if="preferences.language === 'ko'">{{ '@msg-invited-postfix' | translate }}</span>
                         </span>
                         <span data-ng-if="false"
                               data-msg-join="{{ '@msg-joined' | translate}}"
