@@ -517,18 +517,22 @@ msgstr " "
 msgid "@input-max-length-error"
 msgstr "您已經超越字數限制"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-average"
 msgstr "普通"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-excellent"
 msgstr "非常強"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-good"
 msgstr "強"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-very-weak"
 msgstr "弱"
@@ -566,8 +570,7 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-message"
 msgstr "輸入您的電子郵件及密碼"
 
-#: client/app/modal/password.reset.request.html
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
@@ -627,7 +630,7 @@ msgstr "簡介照片"
 msgid "@modal-setting-account-email"
 msgstr "更改您的電子郵件地址"
 
-#: client/app/modal/settings.account.html client/app/modal/settings.team.html
+#: client/app/modal/settings.account.html
 msgid "@modal-setting-account-msg1"
 msgstr "您可以更改您的帳號設定，包含您的姓名、密碼、及電子郵件地址"
 
@@ -651,6 +654,10 @@ msgstr "您可以設定向其他成員揭示的個人資料"
 #: client/app/modal/settings.service.html
 msgid "@modal-setting-service-msg1"
 msgstr "您可以更改您的語言或通知設定"
+
+#: client/app/modal/settings.team.html
+msgid "@modal-setting-team-msg"
+msgstr "您可以在這裏變更您的團隊設定。請注意，任何變更也將適用到您的團隊成員。"
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"

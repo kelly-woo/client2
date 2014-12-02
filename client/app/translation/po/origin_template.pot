@@ -659,7 +659,6 @@ msgid "@modal-setting-account-email"
 msgstr ""
 
 #: client/app/modal/settings.account.html
-#: client/app/modal/settings.team.html
 msgid "@modal-setting-account-msg1"
 msgstr ""
 
@@ -682,6 +681,10 @@ msgstr ""
 
 #: client/app/modal/settings.service.html
 msgid "@modal-setting-service-msg1"
+msgstr ""
+
+#: client/app/modal/settings.team.html
+msgid "@modal-setting-team-msg"
 msgstr ""
 
 #: client/app/modal/invite.team.html

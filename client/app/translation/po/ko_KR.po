@@ -638,7 +638,7 @@ msgstr "프로필 사진"
 msgid "@modal-setting-account-email"
 msgstr "이메일 변경하기"
 
-#: client/app/modal/settings.account.html client/app/modal/settings.team.html
+#: client/app/modal/settings.account.html
 msgid "@modal-setting-account-msg1"
 msgstr "이름, 비밀번호 등 계정 설정을 할 수 있습니다."
 
@@ -664,6 +664,12 @@ msgstr "닉네임, 전화번호, 직책 등 기본적인 프로필 정보를 수
 #: client/app/modal/settings.service.html
 msgid "@modal-setting-service-msg1"
 msgstr "언어, 데스크탑 알림 등 서비스 설정을 할 수 있습니다."
+
+#: client/app/modal/settings.team.html
+msgid "@modal-setting-team-msg"
+msgstr ""
+"팀에 관련한 사항들을 변경할 수 있습니다. 다만 변경 내용은 모든 팀 멤버들에게 "
+"적용되므로 주의하여 주시기 바랍니다."
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"

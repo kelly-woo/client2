@@ -521,18 +521,22 @@ msgstr "You've exceeded the maximum character limit: 60 characters"
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit."
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-average"
 msgstr "Average"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-excellent"
 msgstr "Excellent"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-good"
 msgstr "Good"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-very-weak"
 msgstr "Weak"
@@ -572,8 +576,7 @@ msgstr "Invalid email or password"
 msgid "@login-message"
 msgstr "Enter your email and password"
 
-#: client/app/modal/password.reset.request.html
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "Forgot Password?"
 
@@ -635,7 +638,7 @@ msgstr "Profile Picture"
 msgid "@modal-setting-account-email"
 msgstr "Change your email address"
 
-#: client/app/modal/settings.account.html client/app/modal/settings.team.html
+#: client/app/modal/settings.account.html
 msgid "@modal-setting-account-msg1"
 msgstr ""
 "You can change your account settings including your name, password, and "
@@ -663,6 +666,12 @@ msgstr "You can set the personal information shown to other members"
 #: client/app/modal/settings.service.html
 msgid "@modal-setting-service-msg1"
 msgstr "You can change your language or notification settings"
+
+#: client/app/modal/settings.team.html
+msgid "@modal-setting-team-msg"
+msgstr ""
+"You can change your team settings here. Please note that any modifications "
+"will also be applied to your teammates."
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"

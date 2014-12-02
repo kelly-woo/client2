@@ -520,18 +520,22 @@ msgstr " "
 msgid "@input-max-length-error"
 msgstr "入力可能な文字数を超えています"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-average"
 msgstr "普通 "
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-excellent"
 msgstr "非常に強い"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-good"
 msgstr "強い "
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-password-very-weak"
 msgstr "弱い "
@@ -570,8 +574,7 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-message"
 msgstr "メールアドレスとパスワードを入力"
 
-#: client/app/modal/password.reset.request.html
-#: client/app/password/password.reset.html client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
@@ -634,7 +637,7 @@ msgstr "プロフィール画像"
 msgid "@modal-setting-account-email"
 msgstr "メールアドレスを変更する"
 
-#: client/app/modal/settings.account.html client/app/modal/settings.team.html
+#: client/app/modal/settings.account.html
 msgid "@modal-setting-account-msg1"
 msgstr "あなたの名前、パスワード、メールアドレスを変更できます"
 
@@ -658,6 +661,12 @@ msgstr "他のメンバーに公開するプロフィールを設定できます
 #: client/app/modal/settings.service.html
 msgid "@modal-setting-service-msg1"
 msgstr "言語や通知の設定を変更できます"
+
+#: client/app/modal/settings.team.html
+msgid "@modal-setting-team-msg"
+msgstr ""
+"チーム設定の変更ができます。ここで変更された内容は、チームメンバーにも適用さ"
+"れますのでご注意下さい"
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"

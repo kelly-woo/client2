@@ -553,6 +553,7 @@ msgstr "按标题搜寻档案"
 msgid "@input-search-user-name"
 msgstr "按名字搜寻使用者"
 
+#: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr "透过增加数字，大写字母和特殊字符的组合来加强您的密码"
@@ -629,7 +630,7 @@ msgstr "简介照片"
 msgid "@modal-setting-account-email"
 msgstr "更改您的电子邮件地址"
 
-#: client/app/modal/settings.account.html client/app/modal/settings.team.html
+#: client/app/modal/settings.account.html
 msgid "@modal-setting-account-msg1"
 msgstr "您可以更改您的帐号设定，包含您的姓名、密码、及电子邮件地址"
 
@@ -653,6 +654,10 @@ msgstr "您可以设定向其他成员揭示的个人资料"
 #: client/app/modal/settings.service.html
 msgid "@modal-setting-service-msg1"
 msgstr "您可以更改您的语言或通知设定"
+
+#: client/app/modal/settings.team.html
+msgid "@modal-setting-team-msg"
+msgstr "您可以在这裏变更您的团队设定。请注意，任何变更也将适用到您的团队成员。"
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"
