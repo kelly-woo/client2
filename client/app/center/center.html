@@ -430,7 +430,6 @@
                                 <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
                                 <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
                                     <span>{{invitees | getName}}<span data-ng-if="!$last">, </span></span>
-
                                 </span>
                             <span data-ng-if="preferences.language === 'ko'">{{ '@msg-invited-postfix' | translate }}</span>
                         </span>
