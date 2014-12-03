@@ -10,6 +10,8 @@ app.controller('tutorialController', function($rootScope, curState, $modalInstan
 
     $scope.curState = curState;
 
+    initTutorial();
+
     function initTutorial() {
         if ($scope.curState === 0) return;
 
@@ -31,7 +33,6 @@ app.controller('tutorialController', function($rootScope, curState, $modalInstan
 
     }
 
-    initTutorial();
 
     function setTopicTutorial() {
         applyHeaderOpacLayer();
