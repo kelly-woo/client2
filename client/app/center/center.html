@@ -263,7 +263,6 @@
 
                                 <!--    IMAGE THUMBNAIL -->
                                 <img class="msg-file-body__img cursor_pointer"
-                                     rotate
                                      data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
                                      data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
                                         />
@@ -370,7 +369,7 @@
                                  data-ng-click="onSmallThumbnailClick($event, msg);">
 
                                 <!--    IMAGE THUMBNAIL -->
-                                <img rotate class="msg-file-body__img cursor_pointer"
+                                <img class="msg-file-body__img cursor_pointer"
                                      data-ng-show="(msg.feedback.content.type).indexOf('image') !== -1 && msg.message.commentOption.isTitle"
                                      data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
 
