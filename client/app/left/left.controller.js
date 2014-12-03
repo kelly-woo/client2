@@ -32,7 +32,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         if (angular.isUndefined(entityAPIservice.getEntityById($state.params.entityType, newEntityId))) return;
         $scope.setCurrentEntity();
     });
-    
+
     $scope.setCurrentEntity = function() {
         $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
     };
