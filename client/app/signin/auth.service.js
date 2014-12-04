@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('loginAPI', function($http, $rootScope) {
+app.factory('loginAPI', function($http, $rootScope, storageAPIservice) {
     var authAPI = {};
 
     authAPI.login = function(userdata) {
@@ -58,10 +58,14 @@ app.factory('loginAPI', function($http, $rootScope) {
         });
     };
 
+    authAPI.isSignedIn = function() {
+        return storageAPIservice.hasAccessTokenLocal() || storageAPIservice.hasAccessTokenSession();
+    };
+
     return authAPI;
 });
 
-app.factory('authInterceptor', function ($rootScope, $q, $window) {
+app.factory('authInterceptor', function ($rootScope, $q, $window, configuration, localStorageService) {
     return {
         request: function (config) {
 
@@ -71,14 +75,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
             config.headers = config.headers || {};
 
             // API version
-            if (config.version == 2) {
-                console.log('its two!!!!!!')
-                config.headers.Accept = "application/vnd.tosslab.jandi-v"+2+"+json";
-            }
-            else {
-                config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
-            }
-
             config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
 
             // Auth token for file api for ie9.
@@ -93,7 +89,10 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
                     }
                 }
 
-                config.headers.Authorization = $window.sessionStorage.token;
+                // Somehow, I was unable to use 'storageAPIservice' in 'authInterceptor' due to circular dependency.
+                // Get 'access_token' from localStorage directly using localStorageService api.
+                // If localStorage does not contain 'access_token', get it from $window.sessionStorage.
+                config.headers.Authorization = localStorageService.get('access_token') || $window.sessionStorage.access_token;
             }
             return config;
         },

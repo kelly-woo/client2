@@ -70,8 +70,8 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, $state, $wi
     };
 
     /**
-     * Setting/Getting/Removing 'last-state' from/to localStorage.
      *
+     *  Setting/Getting/Removing 'last-state' from/to localStorage.
      *
      */
     var last_state_key  = 'last-state';
@@ -87,11 +87,11 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, $state, $wi
 
         if (last_state.entityId == null) return;
 
-        storageAPIservice.setToken(last_state_key, last_state);
+        storageAPIservice.setLastStateLocal(last_state);
     };
 
     entityAPI.getLastEntityState = function() {
-        var last_state = storageAPIservice.getToken(last_state_key);
+        var last_state = storageAPIservice.getLastStateLocal();
 
         if (!last_state || last_state.entityId == null) return null;
 
@@ -99,7 +99,7 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, $state, $wi
     };
 
     entityAPI.removeLastEntityState = function() {
-        storageAPIservice.removeLastState();
+        storageAPIservice.removeLastStateLocal();
     };
 
     //  return null if 'getEntityById' return nothing.

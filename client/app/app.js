@@ -146,6 +146,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         // }
     });
 
+    $rootScope.$on('$destroy', function() {
+        console.log('adsl;f;ladjsfl;j;alsdjkf;lasdjfl;jkads;fljkas;dlfkj;alsdkfjl;adjksf;lkasjd;flkjf');
+        storageAPIservice.removeAccessToken();
+    });
     var debugMode = (configuration.name === 'development');
 
     // translate for multi-lang

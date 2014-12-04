@@ -108,8 +108,9 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, storageAP
 
 
     leftpanelAPI.toSignin = function() {
-        storageAPIservice.removeAccessToken($location.host().split('.')[0]);
+        storageAPIservice.removeLocal();
         storageAPIservice.removeSession();
+
         if ($state.is('signin')) {
             $state.transitionTo('signin', '', {'reload':true});
         }

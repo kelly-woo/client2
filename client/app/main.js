@@ -18,12 +18,13 @@ app.config(function ($stateProvider, $analyticsProvider) {
                     templateUrl : 'app/left/left.html',
                     controller  : 'leftpanelController',
                     resolve     : {
-                        leftPanel   : function (storageAPIservice, leftpanelAPIservice) {
-                            if (storageAPIservice.isLoggedIn())
+                        leftPanel   : function (loginAPI, leftpanelAPIservice) {
+                            if (loginAPI.isSignedIn())
                                 return leftpanelAPIservice.getLists()
                                     .success(function(response) {
                                     })
                                     .error(function(response) {
+                                        console.log('here')
                                         leftpanelAPIservice.toSignin();
                                     });
                             else

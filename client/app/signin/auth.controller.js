@@ -16,16 +16,121 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     $scope.teamInfo = {
         id          : -1,
-        name        : '',
-        prefix      : ''
+        name        : ''
     };
 
-    function getPrefix() {
-        return $location.host().split('.')[0];
+    $scope.logout = function() {
+        removeAccessInfo();
+        mixpanel.cookie.clear();
+        $state.go('signin');
+    };
+
+    $scope.signin = function(user) {
+        user.grant_type = "password";
+        user.username = user.email;
+
+        loginAPI.login(user)
+            .success(function(data) {
+                console.info(
+                    'sign in good'
+                );
+
+                var memberId = getCurrentMemberId(data.account.memberships, $scope.teamInfo.id);
+
+                // If localStorage has all info, there is no need to store exact same info on $window.sessionStorage.
+                // Store all data on $window.sessionStorage only when user decides not to 'keep logged in'.
+                if (user.rememberMe) {
+
+                    // Store token in local storage.
+                    storageAPIservice.setTokenLocal(data);
+
+                    // Store account id, team id, member id in localStorage for analytics usage.
+                    storageAPIservice.setAccountInfoLocal(data.account.id, $scope.teamInfo.id, memberId);
+                }
+                else {
+
+                    // Store token in window session.
+                    storageAPIservice.setTokenSession(data);
+                    // Store account id, team id, member id in session for analytics usage.
+                    storageAPIservice.setAcountInfoSession(data.account.id, $scope.teamInfo.id, memberId);
+
+                }
+
+                // TODO: store token in cookie.
+                //storageAPIservice.setTokenCookie(data);
+
+                autoLogin();
+
+            }).error(function(err) {
+                $scope.error.status = true;
+                $scope.error.message = err.message;
+
+                $scope.user.password = "";
+
+                removeAccessInfo();
+
+                return false;
+            });
+    };
+
+
+    // Returns memberId of current team from Account.
+    function getCurrentMemberId(memberships, teamId) {
+        var memberId = -1;
+        _.forEach(memberships, function(membership) {
+            if (membership.teamId == teamId) {
+                memberId = membership.memberId;
+                return false;
+            }
+        });
+
+        return memberId;
+    }
+
+    onSignInEnter();
+
+    // Entry point.
+    // EVERYTHING STARTS FROM HERE.
+    function onSignInEnter() {
+        //if (storageAPIservice.hasAccessTokenLocal()) {
+        //    // User has localStorage.
+        //    // Import all necessary info.
+        //    setTokenSessionStorage();
+        //
+        //    autoLogin();
+        //    return;
+        //}
+
+        //if (storageAPIservice.hasAccessTokenSession()) {
+        //    // User has alive session.
+        //    // Just proceed to next step.
+        //    autoLogin();
+        //    return;
+        //}
+
+        getTeamInfo();
+
+        $scope.user = {
+            email       : '',
+            password    : '',
+            rememberMe  : true
+        };
+        var testing = true;
+        if (testing) {
+            $scope.user.password = '123456aB';
+            $scope.user.email = 'jihoonk@tosslab.com'
+            $scope.user.rememberMe = false;
+        }
+        $scope.testing = testing;
+
+        removeAccessInfo();
+
+        $scope.hasToken = false;
+
     }
 
     // 최초 로드시 팀정보 받아오기
-    var getTeamInfo = function() {
+    function getTeamInfo() {
         var prefix = getPrefix();
 
         if (prefix === 'local' || prefix === 'dev') {
@@ -41,142 +146,26 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             .error(function(err) {
                 console.error(err);
 
-                storageAPIservice.removeSession();
-                storageAPIservice.removeAccessToken();
+                removeAccessInfo();
 
                 $state.go('404');
             });
-    };
-
-    $scope.signin = function(user) {
-        user.teamId = -1;
-        user.grant_type = 'password';
-
-        var prefix = getPrefix();
-
-        if (!_.isUndefined(prefix)) {
-            if (prefix === 'local' || prefix === 'dev') {
-                if (localHost) user.teamId = 279;
-                else user.teamId = 1;
-            } else {
-                user.teamDomain = prefix;
-            }
-        }
-
-
-        console.log(user)
-
-        loginAPI.login(user)
-            .success(function(data) {
-
-                console.log(data)
-
-                // store token in window session.
-                storageAPIservice.setWindowSessionStorage(data, prefix);
-
-                // store token in local storage.
-                if (user.rememberMe) {
-                    storageAPIservice.setTokenData(data, prefix);
-                }
-
-                autoLogin();
-                return;
-            }).error(function(err) {
-                $scope.error.status = true;
-                $scope.error.message = err.message;
-
-                $scope.user.password = "";
-
-                storageAPIservice.removeSession();
-                storageAPIservice.removeAccessToken();
-
-                return false;
-            });
-    };
-
-    // Generate 'id@teamId' format string for google analytics.
-    function getUserIdentify() {
-        return (storageAPIservice.getSessionUserId() || storageAPIservice.getUserId()) + '-' + (storageAPIservice.getSessionTeamId() || storageAPIservice.getTeamId());
     }
 
-    onSignInEnter();
-
-    // Entry point!
-    // EVERYTHING STARTS FROM HERE.
-    function onSignInEnter() {
-
-        if (angular.isDefined($scope.user)) {
-            if ($state.current.name === 'signin') {
-                validateToken();
-                autoLogin();
-            }
-            else return;
-        }
-
-        getTeamInfo();
-        $scope.prefix = getPrefix();
-
-        if (hasSessionAlive()) {
-            autoLogin();
-            return;
-        }
-
-        if (hasStorageToken()) {
-            setSessionStorage();
-            autoLogin();
-            return;
-        }
-
-        $scope.user = {
-            email       : '',
-            password    : '',
-            rememberMe  : true
-        };
-        storageAPIservice.removeSession($scope.prefix);
-        storageAPIservice.removeAccessToken($scope.prefix);
-
-        $scope.hasToken = false;
-
+    // Retrieves prefix of current URL.
+    function getPrefix() {
+        return $location.host().split('.')[0];
     }
 
-    // validating token by comparing teamid and current prefix.
-    // matching teamId but not-matching prefix means, team name has been changed somewhere. so update team prefix.
-    function validateToken() {
-        var curPrefix = getPrefix();
-
-        // team domain(prefix) has been changed so it needs to be updated without have user log out.
-        if (storageAPIservice.getSessionPrefix() && curPrefix != storageAPIservice.getSessionPrefix()) {
-            // updating session.
-            storageAPIservice.setSessionPrefix(curPrefix);
-        }
-
-        if (!storageAPIservice.hasValidToken($scope.team.id)) {
-            // user has old token with old prefix.
-            // in this case, don't redirect user to login page, but instead, update token.
-            storageAPIservice.updateToken(curPrefix);
-        }
-
-    }
-
-    // Check if current tab has alive token.
-    function hasSessionAlive() {
-        return (storageAPIservice.getSessionPrefix() == $scope.prefix) && !_.isUndefined(storageAPIservice.getSessionToken());
-    }
-
-    // Check if Browser stores any token info.
-    function hasStorageToken() {
-        return storageAPIservice.hasToken($scope.prefix);
-    }
 
     // Import all necessary data from 'localstorage' to '$window.sessionStorage'.
-    function setSessionStorage() {
+    function setTokenSessionStorage() {
         var tokenData = {
-            'token'     : storageAPIservice.getToken($scope.prefix),
-            'teamId'    : storageAPIservice.getTeamId(),
-            'userId'    : storageAPIservice.getUserId()
+            'access_token'  : storageAPIservice.getAccessTokenLocal(),
+            'refresh_token' : storageAPIservice.getRefreshTokenLocal(),
+            'token_type'    : storageAPIservice.getTokenTypeLocal()
         };
-
-        storageAPIservice.setWindowSessionStorage(tokenData, $scope.prefix);
+        storageAPIservice.setTokenSession(tokenData);
     }
 
     function autoLogin() {
@@ -194,18 +183,15 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         ga('global_tracker.set', 'userId', user_identify);
     }
 
-    $scope.logout = function() {
-        var prefix = getPrefix();
-        storageAPIservice.removeSession(prefix);
-        storageAPIservice.removeAccessToken(prefix);
-        mixpanel.cookie.clear();
-        $state.go('signin');
-    };
+    // Generate 'memberId-teamId' format string for google analytics.
+    function getUserIdentify() {
+        return (storageAPIservice.getMemberIdLocal() || storageAPIservice.getMemberIdSession()) + '-' + (storageAPIservice.getTeamIdLocal() || storageAPIservice.getTeamIdSession());
+    }
 
-
-    if ($location.search().email) {
-        // if email is in query string, set the value initially
-        $scope.user.email = $location.search().email;
+    // Removes all token related info in both 'LocalStorage' and '$window.sessionStorage'.
+    function removeAccessInfo() {
+        storageAPIservice.removeSession();
+        storageAPIservice.removeLocal();
     }
 
     $scope.openModal = function(selector) {
