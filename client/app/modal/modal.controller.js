@@ -881,8 +881,10 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
 
     $scope.onClickConfirm = function(currentLang) {
         $scope.isLoading = true;
+
         // 언어 변경
         $rootScope.setLang(currentLang);
+
         $scope.isLoading = false;
 
         // 현재 state 다시 로드
@@ -891,7 +893,9 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
             inherit: false,
             notify: true
         });
+
         $modalInstance.dismiss('cancel');
+
     };
 });
 

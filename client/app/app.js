@@ -21,31 +21,36 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     $rootScope._ = window._;
 
-    $rootScope.$state = $state;
+    $rootScope.$state       = $state;
     $rootScope.$stateParams = $stateParams;
 
-    <!-- analytics start -->
-    (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-        for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-    mixpanel.init(configuration.mp_token);
 
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', configuration.ga_token, 'auto');
-    ga('create', configuration.ga_token_global, 'auto', {'name': 'global_tracker'});
-    <!-- analytics end -->
-
+    // api_version will be no longer needed in this format.
     var api_address = configuration.api_address;
     var api_version = configuration.api_version;
-    $rootScope.server_address = api_address + "inner-api/";
-    $rootScope.server_uploaded = api_address;
-    $rootScope.api_version = api_version;
 
-    //  set this value to true if you want to display nickname instead of full name.
-    $rootScope.displayNickname = false;
+    $rootScope.server_address   = api_address + "inner-api/";
+    $rootScope.server_uploaded  = api_address;
+    $rootScope.api_version      = api_version;
+
+    /*
+        'language'      : is for translator to bring right language for current user. Translator needs this value.
+        'serverLang'    : is for server to detect right language for current user.  Server needs this value.
+        'notification'  : soon to be implement
+     */
+    $rootScope.preferences      = {
+        language        : gettextCatalog.currentLanguage,
+        serverLang      : '',
+        notification    : ''
+    };
+
+    // Stores templates in angular variable.
+    // TODO: angular variable로 가지고 있지말고 configuration 처럼 가지고 있는건 어떠한가?
+    $rootScope.templates = {
+        'header'    : 'app/tpl/header.tpl.html',
+        'footer'    : 'app/tpl/footer.tpl.html'
+    };
+
 
     $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
         $state.go('messages.home');
@@ -141,13 +146,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         // }
     });
 
-    var serverLang = '';
-
-    $rootScope.preferences = {
-        language        : gettextCatalog.currentLanguage,
-        lang            : serverLang,
-        notification    : ''
-    };
+    var debugMode = (configuration.name === 'development');
 
     // translate for multi-lang
     $rootScope.setLang = function(setLang, isDebug) {
@@ -155,26 +154,46 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
         setLang = setLang || 'ko';
         isDebug = isDebug || false;
-        // 언어 설정
-        gettextCatalog.setCurrentLanguage(setLang);
-        gettextCatalog.debug = isDebug;
 
-        // 현재 언어 저장
-        $rootScope.preferences.language = gettextCatalog.currentLanguage;
-        $rootScope.preferences.serverLang = serverLang;
+        // 언어 설정 for nggettext(translator)
+        gettextCatalog.setCurrentLanguage($rootScope.preferences.language);
+        gettextCatalog.debug = isDebug;
     };
 
-    // 시스템(브라우저) 기본 언어로 초기화
-    var userLang = navigator.language || navigator.userLanguage;
-    getLanguageSetting(userLang);
+    // Language Setup
+    $rootScope.setLang(navigator.language || navigator.userLanguage, debugMode);
 
 
-    var debugMode = (configuration.name === 'development');
+    <!-- analytics start -->
+    initMixPanel();
+    initGoogleAnalytics();
+    <!-- analytics end -->
+
+    function initMixPanel() {
+        (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+            for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+        mixpanel.init(configuration.mp_token);
+    }
+    function initGoogleAnalytics() {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', configuration.ga_token, 'auto');
+        ga('create', configuration.ga_token_global, 'auto', {'name': 'global_tracker'});
+    }
 
     // TODO: move this to service.
+    // Browser/OS may give us slightly different format for same language.
+    // In such case, we reformat the language variable so that we can notify 'server' and 'translator' with correct language format.
     function getLanguageSetting(curLang) {
+        var userLang;
+        var serverLang;
+
         curLang = curLang.toLowerCase();
 
+        // Choose correct/right format!!
         if (curLang.indexOf('ko') >= 0) {
             // korean
             userLang    = 'ko';
@@ -207,13 +226,11 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
             userLang    = 'en_US';
             serverLang  = 'en';
         }
+
+        // Save it!!
+        $rootScope.preferences.language     = userLang;
+        $rootScope.preferences.serverLang   = serverLang;
     }
-
-    $rootScope.setLang(userLang, debugMode);
-
-
-    $rootScope.headerTemplate = 'app/tpl/header.tpl.html';
-    $rootScope.footerTemplate = 'app/tpl/footer.tpl.html';
 });
 
 app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, localStorageServiceProvider) {

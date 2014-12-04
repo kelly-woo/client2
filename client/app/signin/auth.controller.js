@@ -50,6 +50,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
     $scope.signin = function(user) {
         user.teamId = -1;
+        user.grant_type = 'password';
 
         var prefix = getPrefix();
 
@@ -62,11 +63,18 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             }
         }
 
+
+        console.log(user)
+
         loginAPI.login(user)
             .success(function(data) {
 
+                console.log(data)
+
+                // store token in window session.
                 storageAPIservice.setWindowSessionStorage(data, prefix);
 
+                // store token in local storage.
                 if (user.rememberMe) {
                     storageAPIservice.setTokenData(data, prefix);
                 }

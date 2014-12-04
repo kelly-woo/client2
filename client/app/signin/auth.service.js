@@ -9,7 +9,8 @@ app.factory('loginAPI', function($http, $rootScope) {
         return $http({
             method  : "POST",
             url     : $rootScope.server_address + 'token',
-            data    : userdata
+            data    : userdata,
+            version : 2
         });
     };
 
@@ -63,11 +64,24 @@ app.factory('loginAPI', function($http, $rootScope) {
 app.factory('authInterceptor', function ($rootScope, $q, $window) {
     return {
         request: function (config) {
+
+            if (config.method == 'POST')
+                console.log(config);
+
             config.headers = config.headers || {};
+
             // API version
+            if (config.version == 2) {
+                console.log('its two!!!!!!')
+                config.headers.Accept = "application/vnd.tosslab.jandi-v"+2+"+json";
+            }
+            else {
+                config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
+            }
+
             config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
 
-            // Auth token
+            // Auth token for file api for ie9.
             if ($window.sessionStorage.token) {
 
                 if (config.method === 'POST' && config.fileFormDataName === 'userFile') {

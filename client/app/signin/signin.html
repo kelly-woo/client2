@@ -1,7 +1,7 @@
 <title>{{teamInfo.name}}</title>
 
 <div id="signin-container" ng-if="!hasToken">
-    <div id="header" ng-include="headerTemplate"></div>
+    <div id="header" ng-include="templates.header"></div>
 
     <div class="jandi-container">
         <div class="jandi-header">
@@ -43,6 +43,6 @@
     </div>
 
 
-    <div id="footer" ng-include="footerTemplate"></div>
+    <div id="footer" ng-include="templates.footer"></div>
 
 </div>

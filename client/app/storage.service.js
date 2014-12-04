@@ -34,20 +34,11 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, localStora
 
     storageAPI.hasToken = function(prefix) {
         var keys = localStorageService.keys();
-
-        //console.log('looking for "', prefix, '" from ', keys);
-        //console.log('have you found what youve been looking for?', _.indexOf(keys, prefix) > -1)
-
-        //if (_.indexOf(keys, prefix) > -1) {
-        //    console.log('found!');
-        //    console.log('is token valid?', angular.isDefined(localStorageService.get(prefix)))
-        //}
-
         return _.indexOf(keys, prefix) > -1;
     };
 
     /**
-     * checks whether current token valid for current prefix(domain) by checking teamId.
+     * Checks whether current token is valid for current prefix(domain) by checking teamId.
      * @param curTeamId
      * @returns {boolean}
      */
@@ -56,7 +47,7 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, localStora
     };
 
     /**
-     * update token information on 'localStorage' from 'session'
+     * Updates token information on 'localStorage' from 'session'
      * @param prefix
      */
     storageAPI.updateToken = function(prefix) {
@@ -90,9 +81,9 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, localStora
      *
      * $window.sessionStorage
      *
-     * Setting two object.
+     * Storing two objects.
      *
-     *  token : token,
+     *  token : token
      *  prefix : prefix
      *
      *  Currently not storing 'teamId' and 'userId'.
