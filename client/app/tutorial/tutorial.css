@@ -1,6 +1,6 @@
 .lpanel > .tutorial_opac_background {
     width: 219px;
-    top: 41px;
+    top: 0;
 }
 .header > .tutorial_opac_background {
     width: 100%;
@@ -21,7 +21,7 @@
 }
 
 .lpanel_user {
-    height: 66px;
+    height: 67px;
 }
 
 .lpanel_list {
