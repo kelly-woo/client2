@@ -29,8 +29,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         var prefix = getPrefix();
 
         if (prefix === 'local' || prefix === 'dev') {
-            if (localHost) prefix = 'tosslab';
-            else prefix = 'abcd';
+            prefix = 'tosslab';
         }
 
         loginAPI.getTeamInfo(prefix)
@@ -55,8 +54,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
 
         if (!_.isUndefined(prefix)) {
             if (prefix === 'local' || prefix === 'dev') {
-                if (localHost) user.teamId = 279;
-                else user.teamId = 1;
+                user.teamId = 279;
             } else {
                 user.teamDomain = prefix;
             }
