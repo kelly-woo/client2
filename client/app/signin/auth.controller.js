@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('authController', function($scope, $state, $window, $location, $modal, loginAPI, localStorageService, analyticsService, storageAPIservice, userAPIservice) {
+app.controller('authController', function($scope, $state, $window, $location, $modal, authAPIservice, localStorageService, analyticsService, storageAPIservice, userAPIservice) {
 
     // local test purpose
     var localHost = false;
@@ -19,17 +19,12 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         name        : ''
     };
 
-    $scope.logout = function() {
-        removeAccessInfo();
-        mixpanel.cookie.clear();
-        $state.go('signin');
-    };
 
     $scope.signin = function(user) {
         user.grant_type = "password";
         user.username = user.email;
 
-        loginAPI.login(user)
+        authAPIservice.login(user)
             .success(function(data) {
                 console.info(
                     'sign in good'
@@ -92,21 +87,24 @@ app.controller('authController', function($scope, $state, $window, $location, $m
     // Entry point.
     // EVERYTHING STARTS FROM HERE.
     function onSignInEnter() {
-        //if (storageAPIservice.hasAccessTokenLocal()) {
-        //    // User has localStorage.
-        //    // Import all necessary info.
-        //    setTokenSessionStorage();
-        //
-        //    autoLogin();
-        //    return;
-        //}
+        console.log(
+            'this is onSigninEnter'
+        )
+        if (storageAPIservice.hasAccessTokenLocal()) {
+            // User has localStorage.
+            // Import all necessary info.
+            setTokenSessionStorage();
 
-        //if (storageAPIservice.hasAccessTokenSession()) {
-        //    // User has alive session.
-        //    // Just proceed to next step.
-        //    autoLogin();
-        //    return;
-        //}
+            autoLogin();
+            return;
+        }
+
+        if (storageAPIservice.hasAccessTokenSession()) {
+            // User has alive session.
+            // Just proceed to next step.
+            autoLogin();
+            return;
+        }
 
         getTeamInfo();
 
@@ -138,7 +136,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
             else prefix = 'abcd';
         }
 
-        loginAPI.getTeamInfo(prefix)
+        authAPIservice.getTeamInfo(prefix)
             .success(function(data) {
                 $scope.teamInfo.id = data.teamInfo.teamId;
                 $scope.teamInfo.name = data.teamInfo.name;

@@ -2,14 +2,60 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('leftpanelAPIservice', function($http, $rootScope, $state, storageAPIservice, $location) {
+app.factory('leftpanelAPIservice', function($http, $rootScope, $state, storageAPIservice) {
     var leftpanelAPI = {};
 
     leftpanelAPI.getLists = function() {
         return $http({
             method: 'GET',
-            url: $rootScope.server_address + 'leftSideMenu'
+            url: $rootScope.server_address + 'leftSideMenu',
+            params  : {
+                "teamId"    : storageAPIservice.getTeamIdSession() || storageAPIservice.getTeamIdLocal()
+            }
         });
+    };
+
+    leftpanelAPI.createChannel = function(channelName) {
+        return $http({
+            method: 'POST',
+            url: $rootScope.server_address + 'channel',
+            data : {"name": channelName}
+        });
+    };
+
+    leftpanelAPI.createPrivateGroup = function(name) {
+        return $http({
+            method: 'POST',
+            url: $rootScope.server_address + 'privateGroup',
+            data : {"name" : name}
+        });
+    };
+
+    leftpanelAPI.joinChannel = function(channelId) {
+        return $http({
+            method: 'PUT',
+            url: $rootScope.server_address + 'channels/' + channelId + '/join'
+        });
+    };
+
+    leftpanelAPI.setTutorial = function() {
+        return $http({
+            method: 'PUT',
+            url: $rootScope.server_address + 'settings/tutoredAt'
+
+        });
+    };
+
+
+    leftpanelAPI.toSignin = function() {
+        storageAPIservice.removeLocal();
+        storageAPIservice.removeSession();
+
+        if ($state.is('signin')) {
+            $state.transitionTo('signin', '', {'reload':true});
+        }
+        else
+            $state.go('signin');
     };
 
     leftpanelAPI.getJoinedChannelList = function(array) {
@@ -73,49 +119,6 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, storageAP
         returnValue.push(unJoinedChannelList);
 
         return returnValue;
-    };
-
-    leftpanelAPI.createChannel = function(channelName) {
-        return $http({
-            method: 'POST',
-            url: $rootScope.server_address + 'channel',
-            data : {"name": channelName}
-        });
-    };
-
-    leftpanelAPI.createPrivateGroup = function(name) {
-        return $http({
-            method: 'POST',
-            url: $rootScope.server_address + 'privateGroup',
-            data : {"name" : name}
-        });
-    };
-
-    leftpanelAPI.joinChannel = function(channelId) {
-        return $http({
-            method: 'PUT',
-            url: $rootScope.server_address + 'channels/' + channelId + '/join'
-        });
-    };
-
-    leftpanelAPI.setTutorial = function() {
-        return $http({
-            method: 'PUT',
-            url: $rootScope.server_address + 'settings/tutoredAt'
-
-        });
-    };
-
-
-    leftpanelAPI.toSignin = function() {
-        storageAPIservice.removeLocal();
-        storageAPIservice.removeSession();
-
-        if ($state.is('signin')) {
-            $state.transitionTo('signin', '', {'reload':true});
-        }
-        else
-            $state.go('signin');
     };
 
 

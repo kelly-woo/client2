@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice) {
+app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice, authAPIservice) {
 
     //console.info('[enter] headerController');
 
@@ -105,6 +105,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
         }
     };
 
+
     //  Called when header dropdown is clicked.
     //  Setting fileTypeQuery to clicked value.
     //  If right panel is not opened yet, open it first.
@@ -133,4 +134,8 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     $scope.onShowToturialClick = function() {
         $scope.initTutorialStatus();
     };
+
+    $scope.onSignOutClick =function() {
+        authAPIservice.signOut();
+    }
 });

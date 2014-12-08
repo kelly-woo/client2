@@ -51,17 +51,16 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         'footer'    : 'app/tpl/footer.tpl.html'
     };
 
-
     $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
         $state.go('messages.home');
     });
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-        //console.info("==============================[stateChange]==============================");
-        //console.info("   from    ", fromState.name, fromParams);
-        //console.info("    to     ", toState.name, toParams);
-        //console.info("=========================================================================");
+        console.info("==============================[stateChange]==============================");
+        console.info("   from    ", fromState.name, fromParams);
+        console.info("    to     ", toState.name, toParams);
+        console.info("=========================================================================");
 
         if (!fromState.name) {
             // if external access, continue to original state
@@ -146,10 +145,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         // }
     });
 
-    $rootScope.$on('$destroy', function() {
-        console.log('adsl;f;ladjsfl;j;alsdjkf;lasdjfl;jkads;fljkas;dlfkj;alsdkfjl;adjksf;lkasjd;flkjf');
-        storageAPIservice.removeAccessToken();
-    });
     var debugMode = (configuration.name === 'development');
 
     // translate for multi-lang

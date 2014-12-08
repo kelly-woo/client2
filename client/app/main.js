@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.config(function ($stateProvider, $analyticsProvider) {
+app.config(function ($stateProvider) {
     $stateProvider
         .state('signin', {
             url         : '/',
@@ -18,13 +18,12 @@ app.config(function ($stateProvider, $analyticsProvider) {
                     templateUrl : 'app/left/left.html',
                     controller  : 'leftpanelController',
                     resolve     : {
-                        leftPanel   : function (loginAPI, leftpanelAPIservice) {
-                            if (loginAPI.isSignedIn())
+                        leftPanel   : function (authAPIservice, leftpanelAPIservice) {
+                            if (authAPIservice.isSignedIn())
                                 return leftpanelAPIservice.getLists()
                                     .success(function(response) {
                                     })
                                     .error(function(response) {
-                                        console.log('here')
                                         leftpanelAPIservice.toSignin();
                                     });
                             else
@@ -34,15 +33,17 @@ app.config(function ($stateProvider, $analyticsProvider) {
                             return leftPanel.data.user;
                         }
                     }
-                },
-                'rightpanel': {
-                    templateUrl: 'app/right/right.html',
-                    controller: 'rightpanelController'
-                },
-                'detailpanel': {
-                    templateUrl : 'app/right/file.html',
-                    controller  : 'fileController'
                 }
+                //,
+                //'rightpanel': {
+                //    templateUrl: 'app/right/right.html',
+                //    controller: 'rightpanelController'
+                //}
+                //,
+                //'detailpanel': {
+                //    templateUrl : 'app/right/file.html',
+                //    controller  : 'fileController'
+                //}
             }
         })
         .state('messages.home', {
