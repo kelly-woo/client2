@@ -240,7 +240,9 @@ app.directive('rotate', function () {
             xhr.responseType = 'blob';
             xhr.onload = function(e) {
                 if (this.status == 200) {
+
                     var temp_blob = this.response;
+
                     var transform_map = [
                         "rotate(0deg)",                 // 1: UP
                         "rotate(0deg) scaleX(-1)",      // 2: UP + FLIP
@@ -251,6 +253,7 @@ app.directive('rotate', function () {
                         "rotate(-90deg) scaleY(-1)",    // 7: RIGHT + FLIP
                         "rotate(-90deg)"                // 8: RIGHT
                     ];
+
                     loadImage.parseMetaData(temp_blob, function (data) {
                         if (!data.imageHead) {
 //                            console.warn("imageHead", data);
@@ -259,12 +262,44 @@ app.directive('rotate', function () {
 
                         var orientation = data.exif.get('Orientation');
                         var r = transform_map[orientation-1];
+
+                        var originalWidth = element[0].width;
+                        var originalHeight= element[0].height;
+
+                        // 세로로 긴 이미지.
+                        if (originalWidth > originalHeight && orientation >= 4) {
+
+                            if (angular.isDefined(attrs.rotateWidth)) {
+                                originalWidth = attrs.rotateWidth;
+                                originalHeight = '100%';
+                            }
+                            var positionOffset = (originalWidth - originalHeight)/2;
+
+                            // img 를 감싸고 있는 div(.image_wrapper)의 값을 변경해준다.
+                            element.parent().css({
+                                'height'    : attrs.rotateWidth || originalWidth,
+                                'width'     : attrs.rotateHeight || originalHeight,
+                                'position'  : 'relative'
+                            });
+
+                            // img 자체의 css 값을 변경한다.
+                            element.css({
+                                'height'    : originalHeight,
+                                'width'     : originalWidth,
+                                'position'  : 'absolute',
+                                'left'      : attrs.rotateLeftAlign == 'true' ? 0-positionOffset : 0,
+                                'top'       : positionOffset,
+                                'max-width' : originalWidth
+                            })
+                        }
+
                         element.css({
                             '-moz-transform': r,
                             '-webkit-transform': r,
                             '-o-transform': r,
                             '-ms-transform': r
                         }).attr('data-image-orientation', orientation);
+
                         element.css('display', displayProperty);
                     });
                 }
@@ -307,18 +342,18 @@ app.directive('passwordStrength', function($parse) {
 });
 
 app.directive('onEnter', function() {
-   return {
-       link: function(scope, element, attrs) {
-           element.bind('keypress', function(event) {
-               if (event.which === 13 || event.which === 13) {
-                   scope.$apply(function() {
-                       scope.$eval(attrs.onEnter);
-                   });
-                   event.preventDefault();
-               }
-           })
-       }
-   }
+    return {
+        link: function(scope, element, attrs) {
+            element.bind('keypress', function(event) {
+                if (event.which === 13 || event.which === 13) {
+                    scope.$apply(function() {
+                        scope.$eval(attrs.onEnter);
+                    });
+                    event.preventDefault();
+                }
+            })
+        }
+    }
 });
 
 

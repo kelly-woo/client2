@@ -591,6 +591,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
     $scope.onSmallThumbnailClick = function($event, message) {
+
         //  checking type first.
         //  file upload but not image -> return
         if (message.message.contentType === 'file')
@@ -604,11 +605,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
         // checking where event came from.
-        var targetDom;          //  to be small image thumbnail dom element.
-        var tempTarget = angular.element($event.target);    //  dom element sending event.
+        var targetDom;                                      //  Will be small image thumbnail dom element.
+        var tempTarget = angular.element($event.target);    //  dom element that just sent an event.
 
         var tempTargetClass = tempTarget.attr('class');
 
+        console.log(tempTargetClass);
+        
         if (tempTargetClass.indexOf('msg-file-body__img') > -1) {
             //  small thumbnail of file type clicked.
             targetDom = tempTarget;
@@ -625,6 +628,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         else
             return;
 
+        console.log('here?')
+        console.log(targetDom);
 
         var newThumbnail;   // large thumbnail address
         var fullUrl;        // it could be file, too.

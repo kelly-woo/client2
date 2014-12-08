@@ -27,11 +27,13 @@
             </div>
 
             <div class="file-detail-body">
-                <img rotate
-                     class="file-detail-body__image"
-                     data-ng-if="( (file_detail.content.type).indexOf('image') !== -1 )"
-                     data-ng-src="{{ server_uploaded + file_detail.content.extraInfo.largeThumbnailUrl }}"
-                     data-ng-click="onImageClick();">
+                <div class="image_wrapper">
+                    <img rotate rotate-left-align=false
+                         class="file-detail-body__image"
+                         data-ng-if="( (file_detail.content.type).indexOf('image') !== -1 )"
+                         data-ng-src="{{ server_uploaded + file_detail.content.extraInfo.largeThumbnailUrl }}"
+                         data-ng-click="onImageClick();"/>
+                </div>
 
                 <div class="file-detail-body__other" data-ng-if="(file_detail.content.type).indexOf('image') == -1">
 

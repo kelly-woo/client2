@@ -86,13 +86,18 @@
                 <br><i style="font-size: 11px;"> Please, hit enter to search again.</i>
             </div>
         </div>
+
+
         <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
              ui-sref="files({ userName: file.writer.name, itemId: file.id })">
+
             <!--    IMAGE THUMBNAIL -->
-            <img rotate class="msg-file-body__img cursor_pointer pull-left"
-                 data-ng-show="(file.content.type).indexOf('image') !== -1"
-                 data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"
-                 data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>
+            <div class="imaage_wrapper pull-left">
+                <img rotate rotate-width="65" rotate-height="65" class="cursor_pointer msg-file-body__img"
+                     data-ng-show="(file.content.type).indexOf('image') !== -1"
+                     data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"
+                     data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>
+            </div>
 
             <!--    IF NOT IMAGE TYPE, SHOW FILE TYPE PREVIEW   -->
             <div class="msg-file-body__thumbnail pull-left"

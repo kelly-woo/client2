@@ -393,22 +393,6 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
                         }
                     });
             }
-            else {
-
-                // supporting html5
-//                var img;
-//                image_container.innerHTML = '';
-//
-//                var fileReader = new FileReader();
-//                fileReader.readAsDataURL(cur);
-//
-//                fileReader.onload = function (e) {
-//                    img = angular.element('<img class="modal-upload-img" ng-src="' + e.target.result + '"/>');
-//                    console.log(img)
-//                    image_container.appendChild(img)
-//                }
-
-            }
     });
 
 
@@ -546,7 +530,6 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
     };
 });
 
-
 //  PROFILE VIEW CONTROLLER
 app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance, curUser, entityAPIservice, $state) {
     $scope.curUser = entityAPIservice.getEntityFromListById($rootScope.userList, curUser.id);
@@ -578,7 +561,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     $scope.curUser = _.cloneDeep($scope.user);
     $scope.isFileSelected = false;
 
-    $scope.isFileReaderAvailabled = true;
+    $scope.isFileReaderAvailable = true;
 
     // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
     $scope.curUser.u_extraData.phoneNumber  = $scope.curUser.u_extraData.phoneNumber || "";
@@ -655,6 +638,8 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
         var blob = dataURItoBlob($scope.croppedProfilePic);
         $scope.isLoading = true;
 
+        // Since I'm calling 'updateProfilePic' api with blob file,
+        // there might be an image file missing file extension.
         userAPIservice.updateProfilePic(blob)
             .success(function(response) {
                 $scope.updateLeftPanelCaller();
@@ -922,6 +907,7 @@ app.controller('passwordRequestController', function($rootScope, $scope, $modalI
     }
 });
 
+// TEAM SETTING CONTROLLER
 app.controller('teamSettingController', function($state, $stateParams, $scope, $rootScope, $modalInstance, $filter, $timeout, userAPIservice, teamAPIservice, $window, configuration, analyticsService) {
 
     $scope.status = {
