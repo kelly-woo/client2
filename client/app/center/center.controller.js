@@ -591,6 +591,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
     $scope.onSmallThumbnailClick = function($event, message) {
+
         //  checking type first.
         //  file upload but not image -> return
         if (message.message.contentType === 'file')
@@ -602,29 +603,40 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             if (message.feedback.content.type.indexOf('image') < 0)
                 return;
 
+        // Image is long but not wide. There may be a white space on each side of an image.
+        // When user clicks on white(blank) space of image, it will do nothing and return.
+        if (angular.isDefined(angular.element($event.target).children('#large-thumbnail').attr('id'))) {
+            return;
+        }
 
         // checking where event came from.
-        var targetDom;          //  to be small image thumbnail dom element.
-        var tempTarget = angular.element($event.target);    //  dom element sending event.
+        var targetDom;                                      //  Will be small image thumbnail dom element.
+        var tempTarget = angular.element($event.target);    //  dom element that just sent an event.
 
         var tempTargetClass = tempTarget.attr('class');
 
         if (tempTargetClass.indexOf('msg-file-body__img') > -1) {
-            //  small thumbnail of file type clicked.
+            //  Small thumbnail of file type clicked.
             targetDom = tempTarget;
         }
         else if (tempTargetClass.indexOf('msg-file-body-float') > -1 ) {
-            //  small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
-            //  its parent is sending an event because of opac overlay layer on top of small thumbnail.
+            //  Small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
+            //  Its parent is sending an event because of opac overlay layer on top of small thumbnail.
+            targetDom = tempTarget.children('.msg-file-body__img');
+        }
+        else if (tempTargetClass.indexOf('image_wrapper') > -1) {
             targetDom = tempTarget.children('.msg-file-body__img');
         }
         else if (tempTargetClass.indexOf('fa-comment') > -1) {
-            //  comment image clicked on small image thumbnail;
-            targetDom = tempTarget.siblings('.msg-file-body__img');
+            //  Comment image clicked on small image thumbnail.
+            targetDom = tempTarget.siblings('.image_wrapper').children('.msg-file-body__img');
         }
         else
             return;
 
+        //if (angular.isUndefined(targetDom)) {
+        //    return;
+        //}
 
         var newThumbnail;   // large thumbnail address
         var fullUrl;        // it could be file, too.
@@ -641,6 +653,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
         //  new DOM element for full screen image toggler.
+        // TODO: CONTROLLER IS NOT SUPPOSED TO MANUPLATE DOM ELEMENTS. FIND BETTER WAY TO ADD DOM ELEMENT!!!!!
         var fullScreenToggler = angular.element('<div class="large-thumbnail-full-screen"><i class="fa fa-arrows-alt"></i></i></div>');
 
         //  bind click event handler to full screen toggler.
@@ -662,15 +675,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
 
-
-        // get transform informatino from original image.
-        // if images has been rotated according to its orientation from exif, there must be transform value.
+        // get transform information from original image.
+        // if image was rotated according to its orientation from exif data, there must be transform value.
         var transform = getTransformValue(targetDom[0].style);
 
         //  new DOM element for large thumbnail image.
         var mirrorDom = angular.element('<img id="large-thumbnail" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
 
-        // copy and paste of old 'transform' css property from old to large thumbnail.
+        // copy and paste of old 'transform' css property from small to large thumbnail.
         mirrorDom[0].setAttribute('style', transform);
 
         //  bind click event handler to large thumbnail image.
@@ -684,7 +696,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         targetDom.css('display', 'none');
 
         //  append new dom elements to parent of small thumbnail(original dom).
-        var parent = targetDom.parent();
+        var parent = targetDom.parent().parent();
 
         if (angular.isDefined(parent.children('#large-thumbnail').attr('id'))) {
             //  preventing adding multiple large thumbnail dom element to parent.

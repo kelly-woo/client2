@@ -214,7 +214,9 @@
     max-height: 90%;
     display: table;
 }
-
+.modal-full .modal-dialog .modal-content {
+    background-color: rgba(0,0,0,0);
+}
 .input-group-addon {
     background-color: white;
     border-radius: 0;
@@ -813,8 +815,7 @@
     margin-bottom: 15px;
 }
 
-#file_preview_container > div,
-#file_preview_container > img {
+#file_preview_container img {
     margin: auto;
     border: 1px solid #ccc;
     display: block;

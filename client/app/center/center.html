@@ -261,22 +261,26 @@
 
                             <div class="msg-file-body-float pull-left cursor_pointer" data-ng-click="onSmallThumbnailClick($event, msg);">
 
-                                <!--    IMAGE THUMBNAIL -->
-                                <img class="msg-file-body__img cursor_pointer"
-                                     rotate
-                                     data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
-                                     data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
-                                        />
-                                <div ng-if="(msg.message.content.type).indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
-                                     ng-click="onImageRotatorClick($event);">
-                                    <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
-                                </div>
+                                    <!--    IMAGE THUMBNAIL -->
+                                    <div class="image_wrapper">
+                                        <img rotate rotate-left-align="true"
+                                                class="msg-file-body__img cursor_pointer"
+                                             data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
+                                             data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
+                                                />
+                                    </div>
 
-                                <!--    FILE TYPE THUMBNAIL -->
-                                <div class="msg-file-body__thumbnail"
-                                     data-ng-if="(msg.message.content.type).indexOf('image') == -1">
-                                    <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
-                                </div>
+                                    <div ng-if="(msg.message.content.type).indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
+                                         ng-click="onImageRotatorClick($event);">
+                                        <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
+                                    </div>
+
+                                    <!--    FILE TYPE THUMBNAIL -->
+                                    <div class="msg-file-body__thumbnail"
+                                         data-ng-if="(msg.message.content.type).indexOf('image') == -1">
+                                        <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
+                                    </div>
+
                             </div>
 
                             <div class="msg-file-meta">
@@ -370,9 +374,12 @@
                                  data-ng-click="onSmallThumbnailClick($event, msg);">
 
                                 <!--    IMAGE THUMBNAIL -->
-                                <img rotate class="msg-file-body__img cursor_pointer"
-                                     data-ng-show="(msg.feedback.content.type).indexOf('image') !== -1 && msg.message.commentOption.isTitle"
-                                     data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
+                                <div class="image_wrapper">
+                                    <img rotate rotate-left-align="true"
+                                         class="msg-file-body__img cursor_pointer"
+                                         data-ng-show="(msg.feedback.content.type).indexOf('image') !== -1 && msg.message.commentOption.isTitle"
+                                         data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
+                                </div>
 
                                 <!--    FILE THUMBNAIL  -->
                                 <div class="msg-file-body__thumbnail"

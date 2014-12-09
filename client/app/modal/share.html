@@ -16,9 +16,12 @@
                 <div class="col-sm-9 modal-share__file">
                     <div class="modal-share__file-type">
                         <!-- IMAGE -->
-                        <img class="modal-share__file-type__image"
-                             data-ng-if="(file.content.type).indexOf('image') !== -1"
-                             data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"/>
+                        <div class="image_wrapper">
+                            <img rotate rotate-width="65" rotate-height="65" rotate-left-align="false" class="modal-share__file-type__image"
+                                 data-ng-if="(file.content.type).indexOf('image') !== -1"
+                                 data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"/>
+                        </div>
+
                         <!-- OTHER TYPE -->
                         <div class="modal-share__file-type__other"
                              data-ng-if="(file.content.type).indexOf('image') === -1">

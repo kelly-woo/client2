@@ -24,6 +24,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         user.grant_type = "password";
         user.username = user.email;
 
+
         authAPIservice.login(user)
             .success(function(data) {
                 console.info(
@@ -35,15 +36,12 @@ app.controller('authController', function($scope, $state, $window, $location, $m
                 // If localStorage has all info, there is no need to store exact same info on $window.sessionStorage.
                 // Store all data on $window.sessionStorage only when user decides not to 'keep logged in'.
                 if (user.rememberMe) {
-
                     // Store token in local storage.
                     storageAPIservice.setTokenLocal(data);
-
                     // Store account id, team id, member id in localStorage for analytics usage.
                     storageAPIservice.setAccountInfoLocal(data.account.id, $scope.teamInfo.id, memberId);
                 }
                 else {
-
                     // Store token in window session.
                     storageAPIservice.setTokenSession(data);
                     // Store account id, team id, member id in session for analytics usage.
@@ -132,8 +130,7 @@ app.controller('authController', function($scope, $state, $window, $location, $m
         var prefix = getPrefix();
 
         if (prefix === 'local' || prefix === 'dev') {
-            if (localHost) prefix = 'tosslab';
-            else prefix = 'abcd';
+            prefix = 'tosslab';
         }
 
         authAPIservice.getTeamInfo(prefix)
