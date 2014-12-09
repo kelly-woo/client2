@@ -603,6 +603,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             if (message.feedback.content.type.indexOf('image') < 0)
                 return;
 
+        // Image is long but not wide. There may be a white space on each side of an image.
+        // When user clicks on white(blank) space of image, it will do nothing and return.
+        if (angular.isDefined(angular.element($event.target).children('#large-thumbnail').attr('id'))) {
+            return;
+        }
 
         // checking where event came from.
         var targetDom;                                      //  Will be small image thumbnail dom element.
@@ -611,23 +616,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         var tempTargetClass = tempTarget.attr('class');
 
         if (tempTargetClass.indexOf('msg-file-body__img') > -1) {
-            //  small thumbnail of file type clicked.
+            //  Small thumbnail of file type clicked.
             targetDom = tempTarget;
         }
         else if (tempTargetClass.indexOf('msg-file-body-float') > -1 ) {
-            //  small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
-            //  its parent is sending an event because of opac overlay layer on top of small thumbnail.
+            //  Small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
+            //  Its parent is sending an event because of opac overlay layer on top of small thumbnail.
             targetDom = tempTarget.children('.msg-file-body__img');
-        }
-        else if (tempTargetClass.indexOf('fa-comment') > -1) {
-            //  comment image clicked on small image thumbnail;
-            targetDom = tempTarget.siblings('.msg-file-body__img');
         }
         else if (tempTargetClass.indexOf('image_wrapper') > -1) {
             targetDom = tempTarget.children('.msg-file-body__img');
         }
+        else if (tempTargetClass.indexOf('fa-comment') > -1) {
+            //  Comment image clicked on small image thumbnail.
+            targetDom = tempTarget.siblings('.image_wrapper').children('.msg-file-body__img');
+        }
         else
             return;
+
+        //if (angular.isUndefined(targetDom)) {
+        //    return;
+        //}
 
         var newThumbnail;   // large thumbnail address
         var fullUrl;        // it could be file, too.
