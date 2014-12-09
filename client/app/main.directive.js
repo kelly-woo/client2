@@ -234,14 +234,20 @@ app.directive('rotate', function () {
         link: function (scope, element, attrs) {
             var displayProperty = element.css('display');
 
+            // hide image while rotating.
+            element.css('opacity', '0');
             element.css('display', 'hidden');
+
+
             var xhr = new XMLHttpRequest();
             xhr.open('GET', attrs.ngSrc, true);
             xhr.responseType = 'blob';
+
             xhr.onload = function(e) {
                 if (this.status == 200) {
 
                     var temp_blob = this.response;
+
 
                     var transform_map = [
                         "rotate(0deg)",                 // 1: UP
@@ -255,12 +261,15 @@ app.directive('rotate', function () {
                     ];
 
                     loadImage.parseMetaData(temp_blob, function (data) {
-                        if (!data.imageHead) {
-//                            console.warn("imageHead", data);
+                        if (!data.imageHead || !data.exif) {
+                            element.css('opacity', '1');
+                            element.css(displayProperty);
                             return;
                         }
 
+
                         var orientation = data.exif.get('Orientation');
+
                         var r = transform_map[orientation-1];
 
                         var originalWidth = element[0].width;
@@ -300,10 +309,14 @@ app.directive('rotate', function () {
                             '-ms-transform': r
                         }).attr('data-image-orientation', orientation);
 
-                        element.css('display', displayProperty);
+
+                        // restore display attribute.
+                        element.css('opacity', '1');
+                        element.css(displayProperty);
                     });
                 }
             };
+
             xhr.send();
         }
     }
@@ -314,20 +327,20 @@ app.directive('passwordStrength', function($parse) {
         require: 'ngModel',
         restrict: 'A',
         link: function(scope, elem, attrs, ctrl) {
-// TODO : BETTER PASSWORD POLICY
-// TODO : COULD ADD SPECIAL CHARACTERS.
-// This part is supposed to check the strength
+            // TODO : BETTER PASSWORD POLICY
+            // TODO : COULD ADD SPECIAL CHARACTERS.
+            // This part is supposed to check the strength
             ctrl.$parsers.unshift(function(viewValue) {
                 var hasEnoughLength, hasLowerLetter, hasUpperLetter, hasNumber;
                 hasEnoughLength = (viewValue && viewValue.length >= 8 ? true : false);
                 hasLowerLetter = (viewValue && /[a-z]/.test(viewValue)) ? true : false;
                 hasUpperLetter = (viewValue && /[A-Z]/.test(viewValue)) ? true : false;
                 hasNumber = (viewValue && /\d/.test(viewValue)) ? true : false;
-// var level = 0;
-// if (hasEnoughLength) level++;
-// if (hasLowerLetter) level++;
-// if (hasUpperLetter) level++;
-// if (hasNumber) level++;
+                // var level = 0;
+                // if (hasEnoughLength) level++;
+                // if (hasLowerLetter) level++;
+                // if (hasUpperLetter) level++;
+                // if (hasNumber) level++;
                 if ( hasEnoughLength && hasLowerLetter && hasUpperLetter && hasNumber ) {
                     ctrl.$setValidity('strength', true);
                 }

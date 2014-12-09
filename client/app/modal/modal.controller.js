@@ -442,9 +442,7 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
                     break;
             }
 
-            //console.log(response.data.fileInfo);
             var file_meta = (response.data.fileInfo.type).split("/");
-            //console.log(file_meta)
 
             var upload_data = {
                 "entity type"   : share_target,
@@ -453,6 +451,7 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
                 "mime type"     : response.data.fileInfo.type,
                 "size"          : response.data.fileInfo.size
             };
+
             analyticsService.mixpanelTrack( "File Upload", upload_data );
 
             fileAPIservice.broadcastChangeShared();
@@ -530,7 +529,7 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
     };
 });
 
-//  PROFILE VIEW CONTROLLER
+// PROFILE VIEW CONTROLLER
 app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance, curUser, entityAPIservice, $state) {
     $scope.curUser = entityAPIservice.getEntityFromListById($rootScope.userList, curUser.id);
 
@@ -556,7 +555,7 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
     };
 });
 
-//  PROFILE CONTROLLER
+// PROFILE CONTROLLER
 app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService) {
     $scope.curUser = _.cloneDeep($scope.user);
     $scope.isFileSelected = false;
@@ -685,7 +684,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
 
 });
 
-//  ACCOUNT CONTROLLER
+// ACCOUNT CONTROLLER
 app.controller('accountController', function($state, $scope, $modalInstance, $filter, $timeout, userAPIservice, analyticsService) {
 
     $scope.status = {
@@ -848,7 +847,7 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
     };
 });
 
-//  PREFERENCES CONTROLLER
+// PREFERENCES CONTROLLER
 app.controller('preferencesController', function($state, $stateParams, $scope, $rootScope, $modalInstance) {
     $scope.currentLang = $rootScope.preferences.language;
     $scope.listLangs = [
@@ -880,7 +879,7 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
     };
 });
 
-//  PASSWORD RESET CONTROLLER
+// PASSWORD RESET CONTROLLER
 app.controller('passwordRequestController', function($rootScope, $scope, $modalInstance, loginAPI, $filter) {
     $scope.onLoadDone = true;
 
