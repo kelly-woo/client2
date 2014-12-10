@@ -422,7 +422,10 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
         }
         $scope.isLoading = true;
 
-        var fileQueue = fileAPIservice.upload($scope.files, fileInfo);
+        var fileQueue = fileAPIservice.upload($scope.files, fileInfo).progress(function(evt) {
+           console.log(evt)
+            console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :'+ evt.config.file.name);
+        });;
 
         fileQueue.then(function(response) {
             // analytics
