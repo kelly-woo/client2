@@ -159,6 +159,9 @@
 
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
 <div ng-file-drop="onFileSelect($files);" ng-file-drag-over-class="dnd-hover">
+    <div class="dnd-hover-msg" >
+        <span translate>@dnd-dile-upload-msg<div class="background"></div></span>
+    </div>
 
     <article class="msgs" when-scrolled="loadMore()"  scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
