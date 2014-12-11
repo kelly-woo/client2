@@ -622,7 +622,7 @@ css for system-event-msg
     z-index: 1;
     text-align: center;
 }
-.dnd-hover-msg span {
+.dnd-hover-msg > span {
     padding: 3px 5px;
     color: white;
     border: 2px solid white;
@@ -630,6 +630,7 @@ css for system-event-msg
     height: 35px;
     font-size: 16px;
     position: relative;
+    background-color: rgba(26, 155, 106, 0.8);
 }
 .dnd-hover-msg span .background {
     background-color: #1a9b6a;
