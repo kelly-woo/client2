@@ -606,6 +606,9 @@ css for system-event-msg
     border: 5px solid transparent;
     border-top: 0 !important;
 }
+.dnd-not-support {
+    display: block;
+}
 .dnd-hover .dnd-hover-msg {
     display: block;
 }
