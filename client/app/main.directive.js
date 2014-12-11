@@ -340,9 +340,12 @@ app.directive('passwordStrength', function($parse) {
         link: function(scope, elem, attrs, ctrl) {
 
             ctrl.$parsers.unshift(function(viewValue) {
-                var hasEnoughLength, hasLowerLetter, hasUpperLetter, hasNumber, hasSpecialCharacter;
 
-                hasEnoughLength = (viewValue && viewValue.length >= 8 ? true : false);
+                var hasEnoughLength, hasLowerLetter, hasUpperLetter, hasNumber, hasSpecialCharacter, hasSpace;
+
+                hasSpace = (viewValue && /\s/.test(viewValue)) ? true : false;
+
+                hasEnoughLength = (viewValue && viewValue.length >= 8 && !/\s/.test(viewValue) ? true : false);
                 hasLowerLetter = (viewValue && /[a-z]/.test(viewValue)) ? true : false;
                 hasUpperLetter = (viewValue && /[A-Z]/.test(viewValue)) ? true : false;
                 hasNumber = (viewValue && /\d/.test(viewValue)) ? true : false;
@@ -350,19 +353,14 @@ app.directive('passwordStrength', function($parse) {
 
                 var level = 0;
 
-                if (hasEnoughLength) level++;
-                if (hasLowerLetter && hasUpperLetter) level++;
-                if (hasNumber) level++;
-                if (hasSpecialCharacter) level++;
-
-
-                if ( hasEnoughLength && hasLowerLetter && hasUpperLetter && hasNumber ) {
-                    //ctrl.$setValidity('strength', true);
-                }
-                else {
-                    //ctrl.$setValidity('strength', false);
+                if (hasEnoughLength) {
+                    level++;
+                    if (hasLowerLetter && hasUpperLetter) level++;
+                    if ((hasNumber && hasLowerLetter)  || (hasNumber && hasLowerLetter)) level++;
+                    if (hasSpecialCharacter) level++;
                 }
 
+                ctrl.passwordHasSpace = hasSpace;
                 ctrl.passwordStrengthLevel = level;
                 return viewValue;
             });
