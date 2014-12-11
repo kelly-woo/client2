@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, leftpanelAPIservice, leftPanel,
+app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
                                                user, entityAPIservice, entityheaderAPIservice, fileAPIservice) {
 
     //console.info('[enter] leftpanelController');
@@ -342,8 +342,15 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
     };
 
+    $scope.$on('onFileSelect', function(event, files){
+        $scope.onFileSelect(files);
+    });
 
-
+    /*********************************************************************
+     *
+     *  Tutorial related controller
+     *
+     *********************************************************************/
     // Callback function from file finder(navigation) for uploading a file.
     $scope.onFileSelect = function($files) {
         $scope.selectedFiles = $files;
@@ -375,6 +382,22 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             }
         }
         $scope.openModal('file');
+    };
+
+
+    $scope.onFileUploadAbortClick = function() {
+        if (angular.isUndefined($rootScope.fileQueue)) return;
+        $rootScope.fileQueue.abort('abort');
+        $rootScope.curUpload.progress = 0;
+        $rootScope.curUpload.isAborted = true;
+    };
+
+    $scope.onFileIconCloseClick = function() {
+        $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
+            function() {
+                fileAPIservice.clearCurUpload();
+            }
+        )
     };
 
     /*********************************************************************

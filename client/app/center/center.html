@@ -1,5 +1,5 @@
-<div class="panel-title-container">
 
+<div class="panel-title-container">
     <!--    STAR ICON -->
     <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
         <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
@@ -156,12 +156,32 @@
 
 </div>
 
-
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
-<div ng-file-drop="onFileSelect($files);" ng-file-drag-over-class="dnd-hover">
+<div ng-file-drop="onFileSelect($files);" drag-over-class="dnd-hover">
     <div class="dnd-hover-msg" >
-        <span translate>@dnd-dile-upload-msg<div class="background"></div></span>
+        <span translate>@dnd-file-upload-msg<div class="background"></div></span>
     </div>
+
+    <div class="file-upload-progress-container" ng-if="curUpload.status != null" ng-class="{'isAborted':curUpload.isAborted}">
+        <!--    'uploading'     -->
+        <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
+        <!--    'aborted'       -->
+        <span translate ng-if="curUpload.isAborted">@common-file-upload-abort-msg</span>
+        <!--    'done'      -->
+        <span translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
+
+        <!--    file title  -->
+        <span class="file-upload-progress-title">[{{curUpload.title}}]</span>
+        <!--    progress in percentile  -->
+        <span class="file-upload-progress-completion-percent">{{curUpload.progress}}%</span>
+        <!--    'cancel'    -->
+        <span class="file-upload-progress-abort pull-right cursor_pointer" ng-click="onFileUploadAbortClick();" data-ng-if="curUpload.status=='uploading'">cancel</span>
+        <!--    'x' icon    -->
+        <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'"><i class="icon-cancel"></i></span>
+
+        <div class="file-upload-progress-bar" style="width:{{curUpload.progress}}%;"></div>
+    </div>
+
 
     <article class="msgs" when-scrolled="loadMore()"  scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 

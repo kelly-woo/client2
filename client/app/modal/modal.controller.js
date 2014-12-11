@@ -357,7 +357,7 @@ app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entit
 });
 
 // FILE UPLOAD controller
-app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, fileAPIservice, analyticsService) {
+app.controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstance, $window, fileAPIservice, analyticsService, $timeout) {
     $scope.isLoading = false;
     $scope.files = $scope.selectedFiles[0];
 
@@ -405,6 +405,7 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
 
     // TODO : CURRENTLY IT'S UPLOADING ONLY ONE FILE.  MODIFY LOGIC TO UPLOAD MULTIPLE FILES
     // Be aware of change in type of fileInfo.share (from Entity to entitiyId.)
+    // $rootScope.fileQueue is a singleton variable.
     $scope.onFileUpload = function(fileInfo) {
         fileInfo.permission = PRIVATE_FILE;
 
@@ -422,48 +423,66 @@ app.controller('fileUploadModalCtrl', function($scope, $modalInstance, $window, 
         }
         $scope.isLoading = true;
 
-        var fileQueue = fileAPIservice.upload($scope.files, fileInfo).progress(function(evt) {
-           console.log(evt)
-            console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :'+ evt.config.file.name);
-        });;
+        $rootScope.fileQueue = fileAPIservice.upload($scope.files, fileInfo);
 
-        fileQueue.then(function(response) {
-            // analytics
-            var share_target = "";
-            switch (share_type) {
-                case 'channel':
-                    share_target = "topic";
-                    break;
-                case 'privateGroup':
-                    share_target = "private group";
-                    break;
-                case 'user':
-                    share_target = "direct message";
-                    break;
-                default:
-                    share_target = "invalid";
-                    break;
-            }
+        $modalInstance.dismiss('cancel');
 
-            var file_meta = (response.data.fileInfo.type).split("/");
 
-            var upload_data = {
-                "entity type"   : share_target,
-                "category"      : file_meta[0],
-                "extension"     : response.data.fileInfo.ext,
-                "mime type"     : response.data.fileInfo.type,
-                "size"          : response.data.fileInfo.size
-            };
+        $rootScope.fileQueue
+            .then(function(response) {
+                $rootScope.curUpload.status = 'done';
 
-            analyticsService.mixpanelTrack( "File Upload", upload_data );
+                // analytics
+                var share_target = "";
+                switch (share_type) {
+                    case 'channel':
+                        share_target = "topic";
+                        break;
+                    case 'privateGroup':
+                        share_target = "private group";
+                        break;
+                    case 'user':
+                        share_target = "direct message";
+                        break;
+                    default:
+                        share_target = "invalid";
+                        break;
+                }
 
-            fileAPIservice.broadcastChangeShared();
-            $modalInstance.dismiss('cancel');
-            $scope.isLoading = false;
-        }, function(error) {
-            console.error('failed to upload file', error);
-            $scope.isLoading = false;
-        });
+                var file_meta = (response.data.fileInfo.type).split("/");
+
+                var upload_data = {
+                    "entity type"   : share_target,
+                    "category"      : file_meta[0],
+                    "extension"     : response.data.fileInfo.ext,
+                    "mime type"     : response.data.fileInfo.type,
+                    "size"          : response.data.fileInfo.size
+                };
+
+                analyticsService.mixpanelTrack( "File Upload", upload_data );
+                fileAPIservice.broadcastChangeShared();
+
+                $timeout(function() {
+                    $('.file-upload-progress-container').animate( {'opacity': 0 }, 500, function() {
+                            fileAPIservice.clearCurUpload();
+                        })
+                }, 2000)
+
+
+            }, function(error) {
+                console.error('failed to upload file', error);
+                $scope.isLoading = false;
+                $rootScope.curUpload.status = 'error';
+
+            }, function(evt) {
+                // progress
+                $rootScope.curUpload = {};
+                $rootScope.curUpload.title = evt.config.file.name;
+                $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
+                $rootScope.curUpload.status = 'uploading';
+
+            });
+
     };
 });
 
