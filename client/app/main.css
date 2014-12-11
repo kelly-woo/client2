@@ -707,41 +707,29 @@ input[type="button"] {
 }
 .password-strength-indicator {
     width: 100%;
-    margin-top: 4px;
+    margin-top: 1px;
 }
-.password-level-block-container {
+.password-level-bar {
     height: 5px;
-    margin-bottom: 10px;
 }
-.password-level-block {
-    float: left;
-    width: 23%;
-    margin: 0 1%;
-    height: 5px;
-    background-color: #f2f2f2;
-}
-.password-level-1 {
-}
-.password-level-2,
-.password-level-3 {
-}
-.password-level-4 {
-}
-
-.level1 .password-level-1 {
+.level1 .password-level-bar {
+    width: 25%;
     background-color: #c03131;
 }
-.level2 .password-level-2 {
+.level2 .password-level-bar {
+    width: 50%;
     background-color: #eb952f;
 }
-.level3 .password-level-3{
+.level3 .password-level-bar {
+    width: 75%;
     background-color: #c4ac0e;
 }
-.level4 .password-level-4{
+.level4 .password-level-bar {
+    width: 100%;
     background-color: #31C08A;
 }
-
 .password-level-warning-msg {
+    margin-bottom: 4px;
     text-align: left;
 }
 .level1 .password-level-warning-msg {

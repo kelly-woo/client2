@@ -106,12 +106,7 @@
                                    data-ng-model="repassword.new_password.value"/>
 
                             <div class="password-strength-indicator">
-                                <div class="password-level-block-container">
-                                    <span class="password-level-block password-level-1"></span>
-                                    <span class="password-level-block password-level-2"></span>
-                                    <span class="password-level-block password-level-3"></span>
-                                    <span class="password-level-block password-level-4"></span>
-                                </div>
+                                <div class="password-level-bar"></div>
 
                                 <div class="password-level-warning-msg"
                                      ng-if="formSettingsPassword.newPassword.$dirty && formSettingsPassword.newPassword.$viewValue"
@@ -125,9 +120,16 @@
                             </div>
 
                             <alert type="danger"
-                                   data-ng-if="formSettingsPassword.newPassword.passwordStrengthLevel <= 2 && formSettingsPassword.$dirty && formSettingsPassword.newPassword.$viewValue">
+                                   data-ng-if="formSettingsPassword.newPassword.passwordStrengthLevel <= 2 && !formSettingsPassword.newPassword.passwordHasSpace
+                                                && formSettingsPassword.$dirty && formSettingsPassword.newPassword.$viewValue">
                                 {{ '@input-user-password-error' | translate}}
                             </alert>
+
+                            <alert type="danger"
+                                   data-ng-if="formSettingsPassword.newPassword.passwordHasSpace && formSettingsPassword.$dirty && formSettingsPassword.newPassword.$viewValue">
+                                SPACE!!! {{ '@input-user-password-error' | translate}}
+                            </alert>
+
 
                             <span class="account-settings-body__error"
                                   data-ng-if="repassword.new_password.error.status"
