@@ -218,7 +218,7 @@ msgstr "建立私人群组"
 msgid "@common-current-password"
 msgstr "密码"
 
-#: client/app/error/404.html client/app/tpl/header.tpl.html
+#: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "客服"
 
@@ -268,6 +268,18 @@ msgstr "档案分享了"
 #: client/app/right/right.html
 msgid "@common-file-type"
 msgstr "档案类别"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-abort-msg"
+msgstr "取消了"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-done-msg"
+msgstr "完成了"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-progress-msg"
+msgstr "上传中..."
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@common-files"
@@ -331,8 +343,7 @@ msgstr "电话"
 msgid "@common-position"
 msgstr "职位"
 
-#: client/app/error/404.html client/app/header/header.html
-#: client/app/tpl/footer.tpl.html
+#: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "隐私权条款"
 
@@ -388,8 +399,7 @@ msgstr "登出"
 msgid "@common-status-msg"
 msgstr "今天的感觉"
 
-#: client/app/error/404.html client/app/header/header.html
-#: client/app/tpl/footer.tpl.html
+#: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "使用条款"
 
@@ -402,7 +412,7 @@ msgstr "议题"
 msgid "@common-upload-file"
 msgstr "上传档案"
 
-#: client/app/error/404.html client/app/tpl/header.tpl.html
+#: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "造访首页"
 
@@ -421,6 +431,10 @@ msgstr "邀请这成员加入其它群组"
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
 msgstr "检视简介"
+
+#: client/app/center/center.html
+msgid "@dnd-file-upload-msg"
+msgstr "拖拽您的檔案到這裏上傳"
 
 #: client/app/error/404.html
 msgid "@error-404-message"

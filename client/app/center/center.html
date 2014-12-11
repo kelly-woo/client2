@@ -159,7 +159,8 @@
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
 <div ng-file-drop="onFileSelect($files);" drag-over-class="dnd-hover">
     <div class="dnd-hover-msg" >
-        <span translate>@dnd-file-upload-msg<div class="background"></div></span>
+        <span translate>@dnd-file-upload-msg</span>
+        <div class="background"></div>
     </div>
 
     <div class="file-upload-progress-container" ng-if="curUpload.status != null" ng-class="{'isAborted':curUpload.isAborted}">
