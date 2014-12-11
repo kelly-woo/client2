@@ -228,7 +228,7 @@ app.directive('infiniteScrollBottom', function() {
     };
 });
 
-zapp.directive('rotate', function () {
+app.directive('rotate', function () {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
