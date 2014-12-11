@@ -23,6 +23,10 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         });
     };
 
+    fileAPI.abort = function(file) {
+        file.abort();
+    };
+
     fileAPI.getFileList = function(fileRequest) {
         return $http({
             method: 'POST',
@@ -150,5 +154,11 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
             return true;
         return false;
     };
+
+    fileAPI.clearCurUpload = function() {
+        $rootScope.curUpload = {};
+
+    };
+
     return fileAPI;
 });

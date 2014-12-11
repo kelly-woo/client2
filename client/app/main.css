@@ -52,7 +52,7 @@ select:focus {
 
 ********************************************/
 .animate-enter { -webkit-transition: 1s linear all; /* Chrome */ transition: 1s linear all; opacity: 0; }
-.animate-enter.animate-enter-active { opacity: 1; }
+.animate-enter-active , .animate-enter.animate-enter-active { opacity: 1; }
 
 .image_wrapper img {
     -webkit-transition: opacity 0.5s linear; /* Chrome */

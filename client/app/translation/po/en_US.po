@@ -218,7 +218,7 @@ msgstr "Create New Private Group"
 msgid "@common-current-password"
 msgstr "Password"
 
-#: client/app/error/404.html client/app/tpl/header.tpl.html
+#: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "Customer Service"
 
@@ -268,6 +268,18 @@ msgstr "Files Shared"
 #: client/app/right/right.html
 msgid "@common-file-type"
 msgstr "File Type"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-abort-msg"
+msgstr "Canceled"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-done-msg"
+msgstr "Finished"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-progress-msg"
+msgstr "Uploading..."
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@common-files"
@@ -331,8 +343,7 @@ msgstr "Mobile #"
 msgid "@common-position"
 msgstr "Position"
 
-#: client/app/error/404.html client/app/header/header.html
-#: client/app/tpl/footer.tpl.html
+#: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "Privacy Policy"
 
@@ -388,8 +399,7 @@ msgstr "Sign Out"
 msgid "@common-status-msg"
 msgstr "Status"
 
-#: client/app/error/404.html client/app/header/header.html
-#: client/app/tpl/footer.tpl.html
+#: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "Terms of Service"
 
@@ -402,7 +412,7 @@ msgstr "Title"
 msgid "@common-upload-file"
 msgstr "Upload File"
 
-#: client/app/error/404.html client/app/tpl/header.tpl.html
+#: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
 
@@ -421,6 +431,10 @@ msgstr "Invite this member to other rooms"
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
 msgstr "View Profile"
+
+#: client/app/center/center.html
+msgid "@dnd-file-upload-msg"
+msgstr "Drag your file and drop here to upload"
 
 #: client/app/error/404.html
 msgid "@error-404-message"

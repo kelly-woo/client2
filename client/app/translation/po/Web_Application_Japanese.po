@@ -218,7 +218,7 @@ msgstr "新規プライベートグループを作成する"
 msgid "@common-current-password"
 msgstr "現在のパスワード"
 
-#: client/app/error/404.html client/app/tpl/header.tpl.html
+#: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
@@ -268,6 +268,18 @@ msgstr "共有されたファイル"
 #: client/app/right/right.html
 msgid "@common-file-type"
 msgstr "ファイルの種類"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-abort-msg"
+msgstr "キャンセルされました"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-done-msg"
+msgstr "完了しました"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-progress-msg"
+msgstr "アップロード中..."
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@common-files"
@@ -331,8 +343,7 @@ msgstr "携帯番号"
 msgid "@common-position"
 msgstr "役職"
 
-#: client/app/error/404.html client/app/header/header.html
-#: client/app/tpl/footer.tpl.html
+#: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "プライバシーポリシー"
 
@@ -388,8 +399,7 @@ msgstr "ログアウトする"
 msgid "@common-status-msg"
 msgstr "今の気分"
 
-#: client/app/error/404.html client/app/header/header.html
-#: client/app/tpl/footer.tpl.html
+#: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "サービス利用規約"
 
@@ -402,7 +412,7 @@ msgstr "タイトル"
 msgid "@common-upload-file"
 msgstr "アップロード"
 
-#: client/app/error/404.html client/app/tpl/header.tpl.html
+#: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "ホームページを見る"
 
@@ -421,6 +431,10 @@ msgstr "このメンバーを別のチャットに招待する"
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
 msgstr "プロファイルを表示する"
+
+#: client/app/center/center.html
+msgid "@dnd-file-upload-msg"
+msgstr "ファイルをドラッグ＆ドロップして共有"
 
 #: client/app/error/404.html
 msgid "@error-404-message"

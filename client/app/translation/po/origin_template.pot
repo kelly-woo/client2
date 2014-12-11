@@ -228,7 +228,6 @@ msgstr ""
 msgid "@common-current-password"
 msgstr ""
 
-#: client/app/error/404.html
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr ""
@@ -281,6 +280,18 @@ msgstr ""
 
 #: client/app/right/right.html
 msgid "@common-file-type"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@common-file-upload-abort-msg"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@common-file-upload-done-msg"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@common-file-upload-progress-msg"
 msgstr ""
 
 #: client/app/right/file.html
@@ -350,7 +361,6 @@ msgstr ""
 msgid "@common-position"
 msgstr ""
 
-#: client/app/error/404.html
 #: client/app/header/header.html
 #: client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
@@ -413,7 +423,6 @@ msgstr ""
 msgid "@common-status-msg"
 msgstr ""
 
-#: client/app/error/404.html
 #: client/app/header/header.html
 #: client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
@@ -429,7 +438,6 @@ msgstr ""
 msgid "@common-upload-file"
 msgstr ""
 
-#: client/app/error/404.html
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr ""
@@ -448,6 +456,10 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@dnd-file-upload-msg"
 msgstr ""
 
 #: client/app/error/404.html

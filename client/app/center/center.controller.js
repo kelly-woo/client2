@@ -883,7 +883,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //  if 'alarm' Field in response from update call is not empty,
     //  we need to handle alarm.
     //  'alarm' field is not empty when
-    //      1. someone posts new messages in any other channels including 'not joined' channel.
+    //      1. som”eone posts new messages in any other channels including 'not joined' channel.
     //      2. someone shares/comment on file.
     function updateAlarmHandler(alarm) {
         if (alarm.alarmCount == 0) return;
