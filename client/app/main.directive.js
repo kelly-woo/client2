@@ -354,7 +354,7 @@ app.directive('passwordStrength', function($parse) {
 
                 var hasEnoughLength, hasLowerLetter, hasUpperLetter, hasNumber, hasSpecialCharacter, hasSpace;
 
-                hasSpace = (viewValue && /\s/.test(viewValue)) ? true : false;
+                hasSpace = /\s/.test(viewValue);
                 if (hasSpace) {
                     ctrl.isInvalid              = true;
                     ctrl.passwordHasSpace       = hasSpace;
@@ -362,11 +362,11 @@ app.directive('passwordStrength', function($parse) {
                     return;
                 }
 
-                hasEnoughLength     = viewValue.length >= 8  ? true : false;
-                hasLowerLetter      = /[a-z]/.test(viewValue) ? true : false;
-                hasUpperLetter      = /[A-Z]/.test(viewValue) ? true : false;
-                hasNumber           = /\d/.test(viewValue) ? true : false;
-                hasSpecialCharacter = /[(`~!@#$%^&*()_\-+={}|:;"'<>,.?/)]/.test(viewValue) ? true : false;
+                hasEnoughLength     = viewValue.length >= 8;
+                hasLowerLetter      = /[a-z]/.test(viewValue);
+                hasUpperLetter      = /[A-Z]/.test(viewValue);
+                hasNumber           = /\d/.test(viewValue);
+                hasSpecialCharacter = /[(`~!@#$%^&*()_\-+={}|:;"'<>,.?/)]/.test(viewValue);
 
 
                 var level = 0;
@@ -378,6 +378,7 @@ app.directive('passwordStrength', function($parse) {
                     if (hasSpecialCharacter)    level++;
                 }
 
+                ctrl.passwordHasSpace       = hasSpace;
                 ctrl.hasEnoughLength        = hasEnoughLength;
                 ctrl.passwordStrengthLevel  = level;
                 ctrl.isInvalid              = (!hasEnoughLength || level < 2);
