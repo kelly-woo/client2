@@ -712,11 +712,11 @@ app.controller('accountController', function($state, $scope, $modalInstance, $fi
     $scope.status = {
         oneAtATime      : true,
         name: {
-            open        : false,
+            open        : true,
             disabled    : false
         },
         password: {
-            open            : true,
+            open            : false,
             disabled        : false
         },
         email: {

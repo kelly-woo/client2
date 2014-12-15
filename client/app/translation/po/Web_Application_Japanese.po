@@ -573,8 +573,15 @@ msgstr "メンバー名で検索"
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
-msgstr ""
-"パスワードに大文字小文字、数字、特殊記号を入れることで安全性を高めましょう"
+msgstr "最低1文字以上の数字か大文字か記号を含めてください"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-hasSpace-error"
+msgstr "パスワードにスペースを含めることはできません"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-min-length-error"
+msgstr "パスワードは8文字以上にしてください"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"

@@ -575,8 +575,15 @@ msgstr "Search users by name"
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
 msgstr ""
-"Strengthen your password by adding a mix of numbers, capitalized letters, "
-"and special characters. "
+"Must contain at least one number or uppercase letter or special character."
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-hasSpace-error"
+msgstr "Password cannot contain space"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-min-length-error"
+msgstr "Must be more than 8 characters"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"

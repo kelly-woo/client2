@@ -341,18 +341,33 @@ app.directive('passwordStrength', function($parse) {
         require: 'ngModel',
         restrict: 'A',
         link: function(scope, elem, attrs, ctrl) {
-
             ctrl.$parsers.unshift(function(viewValue) {
+
+                if (!viewValue) {
+                    ctrl.hasEnoughLength        = false;
+                    ctrl.passwordStrengthLevel  = 0;
+                    ctrl.isInvalid              = true;
+                    ctrl.passwordHasSpace       = false;
+
+                    return;
+                }
 
                 var hasEnoughLength, hasLowerLetter, hasUpperLetter, hasNumber, hasSpecialCharacter, hasSpace;
 
                 hasSpace = (viewValue && /\s/.test(viewValue)) ? true : false;
+                if (hasSpace) {
+                    ctrl.isInvalid              = true;
+                    ctrl.passwordHasSpace       = hasSpace;
+                    ctrl.passwordStrengthLevel  = 0;
+                    return;
+                }
 
-                hasEnoughLength = (viewValue && viewValue.length >= 8 && !/\s/.test(viewValue) ? true : false);
-                hasLowerLetter = (viewValue && /[a-z]/.test(viewValue)) ? true : false;
-                hasUpperLetter = (viewValue && /[A-Z]/.test(viewValue)) ? true : false;
-                hasNumber = (viewValue && /\d/.test(viewValue)) ? true : false;
-                hasSpecialCharacter = (viewValue && /[~!@#$%^&*()_+]/.test(viewValue)) ? true : false;
+                hasEnoughLength     = viewValue.length >= 8  ? true : false;
+                hasLowerLetter      = /[a-z]/.test(viewValue) ? true : false;
+                hasUpperLetter      = /[A-Z]/.test(viewValue) ? true : false;
+                hasNumber           = /\d/.test(viewValue) ? true : false;
+                hasSpecialCharacter = /[(`~!@#$%^&*()_\-+={}|:;"'<>,.?/)]/.test(viewValue) ? true : false;
+
 
                 var level = 0;
 
@@ -363,8 +378,10 @@ app.directive('passwordStrength', function($parse) {
                     if (hasSpecialCharacter)    level++;
                 }
 
-                ctrl.passwordHasSpace = hasSpace;
-                ctrl.passwordStrengthLevel = level;
+                ctrl.hasEnoughLength        = hasEnoughLength;
+                ctrl.passwordStrengthLevel  = level;
+                ctrl.isInvalid              = (!hasEnoughLength || level < 2);
+
                 return viewValue;
             });
         }

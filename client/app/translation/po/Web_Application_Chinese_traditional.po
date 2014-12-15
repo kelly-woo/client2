@@ -570,7 +570,15 @@ msgstr "按名字搜尋使用者"
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-user-password-error"
-msgstr "透過增加數字，大寫字母和特殊字符的組合來加强您的密碼。"
+msgstr "必須至少包含一個數字或大寫字母或特殊字符"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-hasSpace-error"
+msgstr "密碼不能包含空格"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-min-length-error"
+msgstr "一定要超過8個字符"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"

@@ -71,6 +71,8 @@
 
             <div class="account-settings-body__wraper">
                 <form name="formSettingsPassword" data-ng-submit="onClickChangePassword();" novalidate>
+
+                    <!--    CURRENT PASSWORD    -->
                     <div class="form-group account-settings-body__form-group"
                          data-ng-class="{'has-error': repassword.cur_password.error.status}">
                         <label class="control-label account-settings-body__label">
@@ -87,8 +89,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group account-settings-body__form-group"
-                         data-ng-class="{'has-error': repassword.new_password.error.status}">
+                    <!--    NEW PASSWORD    -->
+                    <div class="form-group account-settings-body__form-group" data-ng-class="{'has-error': repassword.new_password.error.status}">
                         <label class="control-label account-settings-body__label">
                             <span translate>@common-new-password</span>
                         </label>
@@ -107,29 +109,24 @@
 
                             <div class="password-strength-indicator">
                                 <div class="password-level-bar"></div>
-
-                                <div class="password-level-warning-msg"
-                                     ng-if="formSettingsPassword.newPassword.$dirty && formSettingsPassword.newPassword.$viewValue"
-                                     ng-switch="formSettingsPassword.newPassword.passwordStrengthLevel">
-                                    <span ng-switch-when="0"><span translate> @input-password-very-weak </span> </span>
-                                    <span ng-switch-when="1"><span translate> @input-password-very-weak </span> </span>
-                                    <span ng-switch-when="2"><span translate> @input-password-average   </span> </span>
-                                    <span ng-switch-when="3"><span translate> @input-password-good      </span> </span>
-                                    <span ng-switch-when="4"><span translate> @input-password-excellent </span> </span>
-                                </div>
                             </div>
 
-                            <alert type="danger"
-                                   data-ng-if="formSettingsPassword.newPassword.passwordStrengthLevel <= 2 && !formSettingsPassword.newPassword.passwordHasSpace
-                                                && formSettingsPassword.$dirty && formSettingsPassword.newPassword.$viewValue">
-                                {{ '@input-user-password-error' | translate}}
-                            </alert>
+                            <alert type="danger" data-ng-if="formSettingsPassword.newPassword.isInvalid && formSettingsPassword.$dirty && formSettingsPassword.newPassword.$viewValue">
+                                <!--        CANNOT CONTAIN SPACE -->
+                                <span data-ng-if="formSettingsPassword.newPassword.passwordHasSpace">
+                                    {{ '@input-user-password-hasSpace-error' | translate}}
+                                </span>
 
-                            <alert type="danger"
-                                   data-ng-if="formSettingsPassword.newPassword.passwordHasSpace && formSettingsPassword.$dirty && formSettingsPassword.newPassword.$viewValue">
-                                SPACE!!! {{ '@input-user-password-error' | translate}}
-                            </alert>
+                                <!--        AT LEAST 8 CHARACTERS  -->
+                                <span data-ng-if="!formSettingsPassword.newPassword.hasEnoughLength  && !formSettingsPassword.newPassword.passwordHasSpace">
+                                    {{ '@input-user-password-min-length-error' | translate}}
+                                </span>
 
+                                <!--        GENERAL PASSWORD WEAK MSG   -->
+                                <span data-ng-if="formSettingsPassword.newPassword.passwordStrengthLevel < 2 && !formSettingsPassword.newPassword.passwordHasSpace && formSettingsPassword.newPassword.hasEnoughLength">
+                                    {{ '@input-user-password-error' | translate}}
+                                </span>
+                            </alert>
 
                             <span class="account-settings-body__error"
                                   data-ng-if="repassword.new_password.error.status"
@@ -139,6 +136,7 @@
                                 <i class="fa fa-check-circle"></i>
                                 <span data-ng-bind="repassword.result.message"></span>
                             </span>
+
                         </div>
                     </div>
                     <input type="submit" class="btn btn-ok account-settings-body__submit" data-ng-disabled="formSettingsPassword.$invalid" value="{{ '@btn-update-password' | translate }}" />

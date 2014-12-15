@@ -133,6 +133,4 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     $scope.onShowToturialClick = function() {
         $scope.initTutorialStatus();
     };
-
-    $scope.openModal('setting-account');
 });
