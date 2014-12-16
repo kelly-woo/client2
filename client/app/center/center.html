@@ -53,7 +53,7 @@
             </li>
 
             <!--    DELETE  -->
-            <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="onDeleteClick();">
+            <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id && currentEntity.id != team.t_defaultChannelId" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
                     <i class=" icon-delete-circle-fill "></i><span translate>@ch-menu-delete</span>
                 </a>
