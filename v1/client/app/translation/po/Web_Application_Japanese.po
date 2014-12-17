@@ -1,0 +1,982 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: [Web] Application\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.9\n"
+
+#: client/app/modal/join.html
+msgid "@alert-empty-ch-belong"
+msgstr "まだどのトピックにも参加していません"
+
+#: client/app/modal/join.html
+msgid "@alert-empty-ch-can-join"
+msgstr "参加できるトピックがありません"
+
+#: client/app/right/right.html
+msgid "@alert-empty-file"
+msgstr "ファイルがありません"
+
+#: client/app/right/right.html
+msgid "@alert-empty-file-search"
+msgstr "一致するファイルがありません"
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@alert-empty-file-shared"
+msgstr "共有されたファイルがありません"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-invalid-password"
+msgstr "パスワードが間違っています"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-missing-info"
+msgstr "必要な情報が入力されていません"
+
+#: client/app/modal/join.html
+msgid "@alert-no-result"
+msgstr "登録情報がありません"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-required"
+msgstr "必須"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-fail"
+msgstr "招待メッセージは送信されませんでした"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-invalid"
+msgstr "は適切なメールアドレス形式ではありません"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-success"
+msgstr "招待メールが送信されました"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-taken"
+msgstr "は既にチームに登録されています"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-update-fail"
+msgstr "更新することができませんでした"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-update-success"
+msgstr "更新されました"
+
+#: client/app/modal/invite.team.html
+msgid "@btn-add"
+msgstr "追加"
+
+#: client/app/modal/image.crop.html
+#: client/app/modal/password.reset.request.html client/app/modal/rename.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
+#: client/app/modal/upload.html
+msgid "@btn-cancel"
+msgstr "キャンセル"
+
+#: client/app/modal/image.crop.html client/app/modal/settings.profile.html
+msgid "@btn-change"
+msgstr "変更"
+
+#: client/app/right/file.html
+msgid "@btn-click-to-view"
+msgstr "表示"
+
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
+#: client/app/modal/invite.team.html client/app/modal/join.html
+#: client/app/modal/settings.account.html
+#: client/app/modal/settings.profile.html
+#: client/app/modal/settings.service.html client/app/modal/settings.team.html
+msgid "@btn-close"
+msgstr "閉じる"
+
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
+msgid "@btn-comment"
+msgstr "コメント"
+
+#: client/app/modal/settings.service.html
+msgid "@btn-confirm"
+msgstr "確認"
+
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+msgid "@btn-create"
+msgstr "作成"
+
+#: client/app/right/file.html
+msgid "@btn-delete"
+msgstr "削除"
+
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/settings.profile.html
+#: client/app/password/password.reset.html
+msgid "@btn-edit"
+msgstr "送信"
+
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
+#: client/app/modal/invite.team.html
+msgid "@btn-invite"
+msgstr "招待"
+
+#: client/app/modal/join.html
+msgid "@btn-join"
+msgstr "参加"
+
+#: client/app/center/center.html client/app/modal/share.html
+#: client/app/right/file.html client/app/right/right.html
+msgid "@btn-share"
+msgstr "共有"
+
+#: client/app/modal/rename.html client/app/modal/settings.account.html
+#: client/app/modal/settings.team.html
+msgid "@btn-update-name"
+msgstr "名前の更新"
+
+#: client/app/modal/settings.account.html
+msgid "@btn-update-password"
+msgstr "パスワードの更新"
+
+#: client/app/modal/upload.html
+msgid "@btn-upload"
+msgstr "アップロード"
+
+#: client/app/center/center.html
+msgid "@ch-menu-delete"
+msgstr "このトピックを削除"
+
+#: client/app/center/center.html
+msgid "@ch-menu-invite"
+msgstr "このトピックに招待"
+
+#: client/app/center/center.html
+msgid "@ch-menu-leave"
+msgstr "このトピックから退出"
+
+#: client/app/center/center.html
+msgid "@ch-menu-rename"
+msgstr "このトピックの名称を変更する"
+
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr "このトピックをお気に入りに追加する"
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr "このトピックをお気に入りから削除する"
+
+#: client/app/left/left.html
+msgid "@channel"
+msgstr "トピック一覧"
+
+#: client/app/header/header.html client/app/modal/settings.account.html
+msgid "@common-account-settings"
+msgstr "アカウント設定"
+
+#: client/app/left/left.html
+msgid "@common-add"
+msgstr "追加"
+
+#: client/app/left/left.html
+msgid "@common-api-error-msg"
+msgstr "処理が失敗しました。もう一度お試しください"
+
+#: client/app/left/left.html
+msgid "@common-channels"
+msgstr "トピック一覧"
+
+#: client/app/modal/profile.view.html
+msgid "@common-chat-dm"
+msgstr "ダイレクトメッセージ"
+
+#: client/app/modal/password.reset.request.html
+msgid "@common-check-email-inbox"
+msgstr "メールを確認してください。"
+
+#: client/app/modal/share.html client/app/modal/upload.html
+msgid "@common-comment"
+msgstr "コメント"
+
+#: client/app/header/header.html client/app/modal/create.channel.html
+#: client/app/modal/join.html
+msgid "@common-create-ch"
+msgstr "新規トピックを作成する"
+
+#: client/app/header/header.html client/app/modal/create.private.html
+msgid "@common-create-pg"
+msgstr "新規プライベートグループを作成する"
+
+#: client/app/modal/settings.account.html
+msgid "@common-current-password"
+msgstr "現在のパスワード"
+
+#: client/app/tpl/header.tpl.html
+msgid "@common-customer-service"
+msgstr "カスタマー・サービス"
+
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+msgid "@common-department"
+msgstr "部署"
+
+#: client/app/modal/settings.service.html
+msgid "@common-desktop-noti"
+msgstr "デスクトップ通知"
+
+#: client/app/left/left.html
+msgid "@common-direct-messages"
+msgstr "ダイレクトメッセージ一覧"
+
+#: client/app/modal/invite.direct.html
+msgid "@common-dm-invite-to"
+msgstr "へ招待"
+
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
+msgid "@common-download"
+msgstr "ダウンロード"
+
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/signin/signin.html
+msgid "@common-email"
+msgstr "メールアドレス"
+
+#: client/app/header/header.html
+msgid "@common-faq"
+msgstr "FAQ"
+
+#: client/app/modal/settings.team.html
+msgid "@common-feature-not-supported-msg"
+msgstr "この機能は現在開発中です。近日提供開始予定です"
+
+#: client/app/modal/share.html
+msgid "@common-file"
+msgstr "ファイル"
+
+#: client/app/modal/profile.view.html
+msgid "@common-file-list"
+msgstr "共有されたファイル"
+
+#: client/app/right/right.html
+msgid "@common-file-type"
+msgstr "ファイルの種類"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-abort-msg"
+msgstr "キャンセルされました"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-done-msg"
+msgstr "完了しました"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-progress-msg"
+msgstr "アップロード中..."
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@common-files"
+msgstr "ファイル"
+
+#: client/app/modal/settings.profile.html
+msgid "@common-info-basic"
+msgstr "基本情報"
+
+#: client/app/modal/settings.profile.html
+msgid "@common-info-optional"
+msgstr "追加情報"
+
+#: client/app/password/password.reset.html
+msgid "@common-invalid-request"
+msgstr "不適切なリクエスト"
+
+#: client/app/modal/join.html
+msgid "@common-joined"
+msgstr "メンバー"
+
+#: client/app/modal/settings.service.html
+msgid "@common-language"
+msgstr "言語"
+
+#: client/app/right/right.html
+msgid "@common-member"
+msgstr "共有したメンバー"
+
+#: client/app/left/left.html
+msgid "@common-more"
+msgstr "表示"
+
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/settings.profile.html
+msgid "@common-name"
+msgstr "名前"
+
+#: client/app/modal/rename.html client/app/modal/settings.account.html
+msgid "@common-new-name"
+msgstr "新しい名前"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@common-new-password"
+msgstr "新しいパスワード"
+
+#: client/app/signin/signin.html
+msgid "@common-password"
+msgstr "パスワード"
+
+#: client/app/modal/settings.team.html
+msgid "@common-pasword-enter"
+msgstr "パスワードを入力してください"
+
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+msgid "@common-phone"
+msgstr "携帯番号"
+
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+msgid "@common-position"
+msgstr "役職"
+
+#: client/app/header/header.html client/app/tpl/footer.tpl.html
+msgid "@common-privacy-policy"
+msgstr "プライバシーポリシー"
+
+#: client/app/left/left.html
+msgid "@common-private-groups"
+msgstr "プライベートグループ"
+
+#: client/app/header/header.html client/app/modal/settings.profile.html
+msgid "@common-profile-settings"
+msgstr "プロファイル設定"
+
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+msgid "@common-purpose"
+msgstr "用途"
+
+#: client/app/modal/rename.html
+msgid "@common-rename"
+msgstr "リネーム"
+
+#: client/app/modal/profile.view.html
+msgid "@common-send-mail"
+msgstr "メールを送る"
+
+#: client/app/header/header.html client/app/modal/settings.service.html
+msgid "@common-service-settings"
+msgstr "環境設定"
+
+#: client/app/modal/share.html
+msgid "@common-share-file"
+msgstr "ファイルを共有"
+
+#: client/app/modal/share.html client/app/modal/upload.html
+msgid "@common-share-in"
+msgstr "共有範囲"
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@common-shared-in"
+msgstr "共有範囲"
+
+#: client/app/header/header.html
+msgid "@common-show-tutorial"
+msgstr "チュートリアル"
+
+#: client/app/signin/signin.html
+msgid "@common-sign-in"
+msgstr "ログインする"
+
+#: client/app/header/header.html
+msgid "@common-sign-out"
+msgstr "ログアウトする"
+
+#: client/app/modal/settings.profile.html
+msgid "@common-status-msg"
+msgstr "今の気分"
+
+#: client/app/header/header.html client/app/tpl/footer.tpl.html
+msgid "@common-terms-of-service"
+msgstr "サービス利用規約"
+
+#: client/app/modal/upload.html
+msgid "@common-title"
+msgstr "タイトル"
+
+#: client/app/header/header.html client/app/modal/upload.html
+#: client/app/right/right.html
+msgid "@common-upload-file"
+msgstr "アップロード"
+
+#: client/app/tpl/header.tpl.html
+msgid "@common-visit-homepage"
+msgstr "ホームページを見る"
+
+#: client/app/modal/settings.team.html
+msgid "@common-warning"
+msgstr "警告"
+
+#: client/app/center/center.html
+msgid "@dm-menu-file"
+msgstr "ファイルを表示"
+
+#: client/app/center/center.html
+msgid "@dm-menu-invite"
+msgstr "このメンバーを別のチャットに招待する"
+
+#: client/app/center/center.html
+msgid "@dm-menu-profile"
+msgstr "プロファイルを表示する"
+
+#: client/app/center/center.html
+msgid "@dnd-file-upload-msg"
+msgstr "ファイルをドラッグ＆ドロップして共有"
+
+#: client/app/error/404.html
+msgid "@error-404-message"
+msgstr "お探しのページは見つかりませんでした"
+
+#: client/app/error/404.html
+msgid "@error-404-title"
+msgstr "エラーが発生しました"
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@file-action-more"
+msgstr "もっと見る"
+
+#: client/app/header/header.html
+msgid "@file-all"
+msgstr "全てのファイル"
+
+#: client/app/header/header.html
+msgid "@file-audio"
+msgstr "音声"
+
+#: client/app/header/header.html
+msgid "@file-image"
+msgstr "画像"
+
+#: client/app/header/header.html
+msgid "@file-pdf"
+msgstr "PDF"
+
+#: client/app/left/left.html
+msgid "@file-size-too-large-error"
+msgstr "現在のところ、100MBを超えるファイルはアップロードできません。"
+
+#: client/app/header/header.html
+msgid "@file-video"
+msgstr "動画"
+
+#: client/app/header/header.html
+msgid "@file-your"
+msgstr "あなたのファイル"
+
+#: client/app/header/header.html
+msgid "@header-file"
+msgstr "ファイル"
+
+#: client/app/header/header.html
+msgid "@header-help"
+msgstr "ヘルプ"
+
+#: client/app/header/header.html
+msgid "@header-menu"
+msgstr "メニュー"
+
+#: client/app/header/header.html
+msgid "@header-setting"
+msgstr "設定"
+
+#: client/app/modal/upload.html
+msgid "@ie9-file-preview"
+msgstr ""
+"プレビュー機能はInternet Explorer 9で利用できない場合がありますが、ファイルの"
+"アップロードは利用可能です"
+
+#: client/app/modal/upload.html
+msgid "@ie9-please-do-not-use"
+msgstr ""
+"最新バージョンのInternet Explorerをお使いいただければ、JANDIの機能をフルにご"
+"利用いただけます"
+
+#: client/app/modal/settings.profile.html
+msgid "@ie9-profile-image-support"
+msgstr ""
+"Internet Explorer 9では、プロフィール画像の変更機能はサポートされていません。"
+"ご利用するには、最新バージョンにアップデートしてください。"
+
+#: client/app/modal/create.channel.html
+msgid "@input-create-ch"
+msgstr "新規トピックの名称を入力"
+
+#: client/app/modal/create.private.html
+msgid "@input-create-pg"
+msgstr "新規プライベートグループの名称を入力"
+
+#: client/app/modal/invite.team.html
+msgid "@input-invite-email"
+msgstr "招待するメールアドレスを入力"
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr " "
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr " "
+
+#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+msgid "@input-max-length-error"
+msgstr "入力可能な文字数を超えています"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@input-password-average"
+msgstr "普通 "
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@input-password-excellent"
+msgstr "非常に強い"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@input-password-good"
+msgstr "強い "
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@input-password-very-weak"
+msgstr "弱い "
+
+#: client/app/modal/rename.html
+msgid "@input-rename"
+msgstr "名前を入力"
+
+#: client/app/modal/join.html
+msgid "@input-search-channel-name"
+msgstr "トピック名で検索"
+
+#: client/app/right/right.html
+msgid "@input-search-file-title"
+msgstr "ファイル名で検索"
+
+#: client/app/modal/invite.channel.html
+msgid "@input-search-user-name"
+msgstr "メンバー名で検索"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@input-user-password-error"
+msgstr "最低1文字以上の数字か大文字か記号を含めてください"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-hasSpace-error"
+msgstr "パスワードにスペースを含めることはできません"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-min-length-error"
+msgstr "パスワードは8文字以上にしてください"
+
+#: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "ログイン状態を保持する"
+
+#: client/app/signin/signin.html
+msgid "@login-invalid"
+msgstr "メールアドレスまたはパスワードが正しくありません"
+
+#: client/app/signin/signin.html
+msgid "@login-message"
+msgstr "メールアドレスとパスワードを入力"
+
+#: client/app/modal/password.reset.request.html client/app/signin/signin.html
+msgid "@login-reset-password"
+msgstr "パスワードを忘れた場合"
+
+#: client/app/signin/signin.html
+msgid "@login-welcome {{teamInfo.name}}"
+msgstr "Welcome to"
+
+#: client/app/center/center.html
+msgid "@message-delete"
+msgstr "削除する"
+
+#: client/app/modal/join.html
+msgid "@modal-browse-ch"
+msgstr "トピック一覧"
+
+#: client/app/modal/create.channel.html
+msgid "@modal-create-ch-msg1"
+msgstr "新規トピックを作成。どのメンバーも参加することができます"
+
+#: client/app/modal/create.channel.html
+msgid "@modal-create-ch-msg2"
+msgstr " "
+
+#: client/app/modal/create.channel.html
+msgid "@modal-create-ch-msg3"
+msgstr ""
+"特定のメンバーのみでチャットしたい場合はプライベートグループを使用してくださ"
+"い"
+
+#: client/app/modal/create.private.html
+msgid "@modal-create-pg-msg1"
+msgstr ""
+"プライベートグループはそのグループのメンバーのみ参加、内容の検索ができます"
+
+#: client/app/modal/invite.direct.html
+msgid "@modal-dm-invite"
+msgstr "このメンバーを他のチャットに招待する"
+
+#: client/app/modal/invite.direct.html
+msgid "@modal-dm-invite-msg1"
+msgstr "このメンバーを他のトピックやプライベートグループに招待できます"
+
+#: client/app/modal/invite.channel.html
+msgid "@modal-invite-members"
+msgstr "メンバーを招待する"
+
+#: client/app/modal/join.html
+msgid "@modal-join-ch-you-belong"
+msgstr "あなたが参加しているトピック"
+
+#: client/app/modal/join.html
+msgid "@modal-join-ch-you-can"
+msgstr "参加可能なトピック一覧"
+
+#: client/app/modal/image.crop.html
+msgid "@modal-profile-picture"
+msgstr "プロフィール画像"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-email"
+msgstr "メールアドレスを変更する"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-msg1"
+msgstr "あなたの名前、パスワード、メールアドレスを変更できます"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-name"
+msgstr "名前を変更する"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-name-msg"
+msgstr "他のメンバーがあなたを探せる名前で登録してください"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@modal-setting-account-password"
+msgstr "パスワードを変更する"
+
+#: client/app/modal/settings.profile.html
+msgid "@modal-setting-profile-msg1"
+msgstr "他のメンバーに公開するプロフィールを設定できます"
+
+#: client/app/modal/settings.service.html
+msgid "@modal-setting-service-msg1"
+msgstr "言語や通知の設定を変更できます"
+
+#: client/app/modal/settings.team.html
+msgid "@modal-setting-team-msg"
+msgstr ""
+"チーム設定の変更ができます。ここで変更された内容は、チームメンバーにも適用さ"
+"れますのでご注意下さい"
+
+#: client/app/modal/invite.team.html
+msgid "@modal-team-invite-msg1"
+msgstr "あなたのチームメンバーをJANDIに招待しましょう！"
+
+#: client/app/modal/upload.html
+msgid "@modal-upload-title-msg1"
+msgstr "ファイル名検索で使用されます"
+
+#: client/app/center/center.html
+msgid "@msg-create-ch"
+msgstr "このトピックを作成する"
+
+#: client/app/center/center.html
+msgid "@msg-create-pg"
+msgstr "このプライベートグループを作成する"
+
+#: client/app/center/center.html
+msgid "@msg-file"
+msgstr "ファイル"
+
+#: client/app/right/file.html
+msgid "@msg-help-multiline"
+msgstr "shift+enterで改行"
+
+#: client/app/center/center.html
+msgid "@msg-invited"
+msgstr "が"
+
+#: client/app/center/center.html
+msgid "@msg-invited-postfix"
+msgstr "さんを招待しました"
+
+#: client/app/center/center.html
+msgid "@msg-joined"
+msgstr "さんが参加しました"
+
+#: client/app/center/center.html
+msgid "@msg-left"
+msgstr "が退出しました"
+
+#: client/app/center/center.html client/app/right/right.html
+msgid "@msg-open-original"
+msgstr "元のファイルを開く"
+
+#: client/app/center/center.html
+msgid "@msg-shared"
+msgstr "共有"
+
+#: client/app/center/center.html
+msgid "@msg-unshared"
+msgstr "非共有"
+
+#: client/app/center/center.html
+msgid "@msg-whose"
+msgstr "の"
+
+#: client/app/right/right.html
+msgid "@option-all-members"
+msgstr "全てのメンバー"
+
+#: client/app/right/right.html
+msgid "@option-all-rooms"
+msgstr "全てのチャット"
+
+#: client/app/modal/invite.direct.html
+msgid "@option-choose"
+msgstr "選択"
+
+#: client/app/modal/settings.service.html
+msgid "@option-noti-all"
+msgstr "全てのメッセージ"
+
+#: client/app/modal/settings.service.html
+msgid "@option-noti-dm"
+msgstr "ダイレクトメッセージのみ"
+
+#: client/app/modal/settings.service.html
+msgid "@option-noti-none"
+msgstr "通知しない"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-done"
+msgstr "パスワードが再設定されました。JANDIのアプリでログインしてください"
+
+#: client/app/modal/password.reset.request.html
+msgid "@password-reset-email"
+msgstr "メールアドレスを入力してください"
+
+#: client/app/modal/password.reset.request.html
+msgid "@password-reset-email-fail"
+msgstr "パスワード再設定メールが送信されませんでした"
+
+#: client/app/modal/password.reset.request.html
+msgid "@password-reset-email-sent"
+msgstr "メールが送信されました"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-message"
+msgstr "パスワードをお忘れですか？ 新しいパスワードを入力してください。"
+
+#: client/app/center/center.html
+msgid "@pg-menu-delete"
+msgstr "このグループを削除する"
+
+#: client/app/center/center.html
+msgid "@pg-menu-invite"
+msgstr "このグループにメンバーを招待する"
+
+#: client/app/center/center.html
+msgid "@pg-menu-leave"
+msgstr "このグループから退出する"
+
+#: client/app/center/center.html
+msgid "@pg-menu-rename"
+msgstr "このグループの名称を変更する"
+
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr "このグループをお気に入りに追加する"
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr "このグループをお気に入りから削除する"
+
+#: client/app/left/left.html
+msgid "@privateGroup"
+msgstr "プライベートグループ "
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete"
+msgstr "チーム削除"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete-confirm"
+msgstr ""
+"本当にチームを削除しますか？すべてのメッセージやファイルは削除され、元に戻す"
+"ことはできません"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-change"
+msgstr "ドメイン名変更"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-confirm"
+msgstr "本当にドメイン名（URL)を変更してよいですか？"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-msg"
+msgstr ""
+"ログインするためにはこのドメインのURLが必要になります。必ずメンバー全員に最新"
+"のURLを周知してください"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-taken-warning-msg"
+msgstr "そのドメイン名はすでに利用されています"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-warning-msg"
+msgstr "ドメイン名は最低３文字必要で、半角英数小文字、ハイフンのみ利用できます"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-change"
+msgstr "チーム名変更"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-confirm"
+msgstr "本当にチーム名を変更してよいですか？"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-msg"
+msgstr "チーム名はブラウザーのタブやヘッダーなどに表示されています"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-domain"
+msgstr "新しいドメイン（URL)"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-name"
+msgstr "新しいチーム名"
+
+#: client/app/header/header.html client/app/modal/settings.team.html
+msgid "@setting-team-title"
+msgstr "チーム設定"
+
+#: client/app/header/header.html client/app/modal/invite.team.html
+msgid "@team-invite"
+msgstr "他のチームメンバーを招待する"
+
+#: client/app/header/header.html
+msgid "@team-members"
+msgstr "チームメンバー"
+
+#: client/app/header/header.html
+msgid "@team-switch"
+msgstr "他のチームに切り替える"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "クリックして今すぐ見てみましょう!"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "わかりました"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"このボタンを押して、メニューを表示します。メニューにはトピック、グループ、DM"
+"内で共有された全てのファイルが表示されます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr "ファイルの種類、投稿者、トピック別、キーワードで絞り込みできます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"右メニュー内の「⋯」ボタンをクリックすることで、別のトピック、グループ、メン"
+"バーにファイルを共有したり、コメントを追加したり、ファイルをダウンロードする"
+"ことができます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "全てのファイル"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "メッセージとファイルを送信中"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"メッセージを書いてエンターキーを押しましょう。ファイルを共有するには、メッ"
+"セージ入力欄の左にあるボタンをクリックしてください"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "説明をスキップしてすぐに使いたい方"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"「グループ」と「DM（ダイレクトメッセージ）」はその名の通りです。あなた宛の会"
+"話のみ表示されます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"JANDIに招待されている方は「⋯もっと見る」をクリックしてトピックの一覧を確認し"
+"ましょう。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "トピックとグループとダイレクトメッセージの違いは何ですか？"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"「トピック」は特定のテーマごとの部屋、またはスレッドのようなものです。だれで"
+"もトピックを作ったり、既存のトピックに参加できます。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "今すぐ見る"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュニケー"
+"ションできることを願っています。ここでJANDIをより良く理解するために重要な３点"
+"をご紹介します。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "JANDIへようこそ!!"
+
+#: client/app/left/left.html
+msgid "@user"
+msgstr "メンバー"
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr "お気に入りに追加する"
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr "お気に入りから削除する"

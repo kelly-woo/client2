@@ -1,0 +1,968 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: [Web] Application\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.9\n"
+
+#: client/app/modal/join.html
+msgid "@alert-empty-ch-belong"
+msgstr "您尚未加入任何議題群組"
+
+#: client/app/modal/join.html
+msgid "@alert-empty-ch-can-join"
+msgstr "沒有可加入的議題群組"
+
+#: client/app/right/right.html
+msgid "@alert-empty-file"
+msgstr "沒有上傳檔案"
+
+#: client/app/right/right.html
+msgid "@alert-empty-file-search"
+msgstr "沒有找到搜尋的檔案"
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@alert-empty-file-shared"
+msgstr "檔案沒有分享到其它群組"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-invalid-password"
+msgstr "密碼無效"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-missing-info"
+msgstr "資料不全"
+
+#: client/app/modal/join.html
+msgid "@alert-no-result"
+msgstr "搜尋沒有結果"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-required"
+msgstr "必須填寫"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-fail"
+msgstr "邀請送出不成功"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-invalid"
+msgstr "是無效的電子郵件地址"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-success"
+msgstr "邀請送出成功"
+
+#: client/app/modal/invite.team.html
+msgid "@alert-send-mail-taken"
+msgstr "已經是您團隊的成員"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-update-fail"
+msgstr "更新不成功"
+
+#: client/app/modal/settings.account.html
+msgid "@alert-update-success"
+msgstr "更新成功完成"
+
+#: client/app/modal/invite.team.html
+msgid "@btn-add"
+msgstr "增加"
+
+#: client/app/modal/image.crop.html
+#: client/app/modal/password.reset.request.html client/app/modal/rename.html
+#: client/app/modal/settings.profile.html client/app/modal/share.html
+#: client/app/modal/upload.html
+msgid "@btn-cancel"
+msgstr "取消"
+
+#: client/app/modal/image.crop.html client/app/modal/settings.profile.html
+msgid "@btn-change"
+msgstr "更改"
+
+#: client/app/right/file.html
+msgid "@btn-click-to-view"
+msgstr "點擊檢視"
+
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
+#: client/app/modal/invite.team.html client/app/modal/join.html
+#: client/app/modal/settings.account.html
+#: client/app/modal/settings.profile.html
+#: client/app/modal/settings.service.html client/app/modal/settings.team.html
+msgid "@btn-close"
+msgstr "關閉"
+
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
+msgid "@btn-comment"
+msgstr "留言"
+
+#: client/app/modal/settings.service.html
+msgid "@btn-confirm"
+msgstr "確定"
+
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+msgid "@btn-create"
+msgstr "建立"
+
+#: client/app/right/file.html
+msgid "@btn-delete"
+msgstr "刪除"
+
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/settings.profile.html
+#: client/app/password/password.reset.html
+msgid "@btn-edit"
+msgstr "提交"
+
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
+#: client/app/modal/invite.team.html
+msgid "@btn-invite"
+msgstr "邀請"
+
+#: client/app/modal/join.html
+msgid "@btn-join"
+msgstr "加入"
+
+#: client/app/center/center.html client/app/modal/share.html
+#: client/app/right/file.html client/app/right/right.html
+msgid "@btn-share"
+msgstr "分享"
+
+#: client/app/modal/rename.html client/app/modal/settings.account.html
+#: client/app/modal/settings.team.html
+msgid "@btn-update-name"
+msgstr "更新姓名"
+
+#: client/app/modal/settings.account.html
+msgid "@btn-update-password"
+msgstr "更新密碼"
+
+#: client/app/modal/upload.html
+msgid "@btn-upload"
+msgstr "上傳"
+
+#: client/app/center/center.html
+msgid "@ch-menu-delete"
+msgstr "刪除這議題群組"
+
+#: client/app/center/center.html
+msgid "@ch-menu-invite"
+msgstr "邀請成員到這議題群組"
+
+#: client/app/center/center.html
+msgid "@ch-menu-leave"
+msgstr "離開議題群組"
+
+#: client/app/center/center.html
+msgid "@ch-menu-rename"
+msgstr "重新命名這議題群組"
+
+#: client/app/center/center.html
+msgid "@ch-menu-star"
+msgstr "離開議題群組 "
+
+#: client/app/center/center.html
+msgid "@ch-menu-un-star"
+msgstr "邀請成員到這議題群組 "
+
+#: client/app/left/left.html
+msgid "@channel"
+msgstr "議題群組 "
+
+#: client/app/header/header.html client/app/modal/settings.account.html
+msgid "@common-account-settings"
+msgstr "帳號設定"
+
+#: client/app/left/left.html
+msgid "@common-add"
+msgstr "增加"
+
+#: client/app/left/left.html
+msgid "@common-api-error-msg"
+msgstr "有錯誤發生。請再試一次。"
+
+#: client/app/left/left.html
+msgid "@common-channels"
+msgstr "議題群組"
+
+#: client/app/modal/profile.view.html
+msgid "@common-chat-dm"
+msgstr "一對一"
+
+#: client/app/modal/password.reset.request.html
+msgid "@common-check-email-inbox"
+msgstr "請到您的電子郵件信箱收信。"
+
+#: client/app/modal/share.html client/app/modal/upload.html
+msgid "@common-comment"
+msgstr "留言"
+
+#: client/app/header/header.html client/app/modal/create.channel.html
+#: client/app/modal/join.html
+msgid "@common-create-ch"
+msgstr "建立新議題群組"
+
+#: client/app/header/header.html client/app/modal/create.private.html
+msgid "@common-create-pg"
+msgstr "建立私人群組"
+
+#: client/app/modal/settings.account.html
+msgid "@common-current-password"
+msgstr "密碼"
+
+#: client/app/tpl/header.tpl.html
+msgid "@common-customer-service"
+msgstr "客服"
+
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+msgid "@common-department"
+msgstr "部門"
+
+#: client/app/modal/settings.service.html
+msgid "@common-desktop-noti"
+msgstr "桌面通知"
+
+#: client/app/left/left.html
+msgid "@common-direct-messages"
+msgstr "直接傳訊"
+
+#: client/app/modal/invite.direct.html
+msgid "@common-dm-invite-to"
+msgstr "邀請到"
+
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
+msgid "@common-download"
+msgstr "下載"
+
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/signin/signin.html
+msgid "@common-email"
+msgstr "電子郵件"
+
+#: client/app/header/header.html
+msgid "@common-faq"
+msgstr "常見問題"
+
+#: client/app/modal/settings.team.html
+msgid "@common-feature-not-supported-msg"
+msgstr "這功能目前正在開發中并且即將推出。"
+
+#: client/app/modal/share.html
+msgid "@common-file"
+msgstr "檔案"
+
+#: client/app/modal/profile.view.html
+msgid "@common-file-list"
+msgstr "檔案分享了"
+
+#: client/app/right/right.html
+msgid "@common-file-type"
+msgstr "檔案類別"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-abort-msg"
+msgstr "取消了"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-done-msg"
+msgstr "完成了"
+
+#: client/app/center/center.html
+msgid "@common-file-upload-progress-msg"
+msgstr "上傳中..."
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@common-files"
+msgstr "檔案"
+
+#: client/app/modal/settings.profile.html
+msgid "@common-info-basic"
+msgstr "基本資料"
+
+#: client/app/modal/settings.profile.html
+msgid "@common-info-optional"
+msgstr "其它資料"
+
+#: client/app/password/password.reset.html
+msgid "@common-invalid-request"
+msgstr "請求無效"
+
+#: client/app/modal/join.html
+msgid "@common-joined"
+msgstr "成員"
+
+#: client/app/modal/settings.service.html
+msgid "@common-language"
+msgstr "語言"
+
+#: client/app/right/right.html
+msgid "@common-member"
+msgstr "分享了"
+
+#: client/app/left/left.html
+msgid "@common-more"
+msgstr "瀏覽"
+
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/settings.profile.html
+msgid "@common-name"
+msgstr "姓名"
+
+#: client/app/modal/rename.html client/app/modal/settings.account.html
+msgid "@common-new-name"
+msgstr "新姓名"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@common-new-password"
+msgstr "新密碼"
+
+#: client/app/signin/signin.html
+msgid "@common-password"
+msgstr "密碼"
+
+#: client/app/modal/settings.team.html
+msgid "@common-pasword-enter"
+msgstr "輸入您的密碼"
+
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+msgid "@common-phone"
+msgstr "電話"
+
+#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+msgid "@common-position"
+msgstr "職位"
+
+#: client/app/header/header.html client/app/tpl/footer.tpl.html
+msgid "@common-privacy-policy"
+msgstr "隱私權條款"
+
+#: client/app/left/left.html
+msgid "@common-private-groups"
+msgstr "私人群組"
+
+#: client/app/header/header.html client/app/modal/settings.profile.html
+msgid "@common-profile-settings"
+msgstr "簡介設定"
+
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
+msgid "@common-purpose"
+msgstr "敘述"
+
+#: client/app/modal/rename.html
+msgid "@common-rename"
+msgstr "重新命名"
+
+#: client/app/modal/profile.view.html
+msgid "@common-send-mail"
+msgstr "發送電子郵件"
+
+#: client/app/header/header.html client/app/modal/settings.service.html
+msgid "@common-service-settings"
+msgstr "服務偏好"
+
+#: client/app/modal/share.html
+msgid "@common-share-file"
+msgstr "分享檔案"
+
+#: client/app/modal/share.html client/app/modal/upload.html
+msgid "@common-share-in"
+msgstr "分享在"
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@common-shared-in"
+msgstr "已經在裏面分享"
+
+#: client/app/header/header.html
+msgid "@common-show-tutorial"
+msgstr "顯示教學指南"
+
+#: client/app/signin/signin.html
+msgid "@common-sign-in"
+msgstr "登入"
+
+#: client/app/header/header.html
+msgid "@common-sign-out"
+msgstr "登出"
+
+#: client/app/modal/settings.profile.html
+msgid "@common-status-msg"
+msgstr "今天的感覺"
+
+#: client/app/header/header.html client/app/tpl/footer.tpl.html
+msgid "@common-terms-of-service"
+msgstr "使用條款"
+
+#: client/app/modal/upload.html
+msgid "@common-title"
+msgstr "議題"
+
+#: client/app/header/header.html client/app/modal/upload.html
+#: client/app/right/right.html
+msgid "@common-upload-file"
+msgstr "上傳檔案"
+
+#: client/app/tpl/header.tpl.html
+msgid "@common-visit-homepage"
+msgstr "造訪首頁"
+
+#: client/app/modal/settings.team.html
+msgid "@common-warning"
+msgstr "警示"
+
+#: client/app/center/center.html
+msgid "@dm-menu-file"
+msgstr "檢視檔案"
+
+#: client/app/center/center.html
+msgid "@dm-menu-invite"
+msgstr "邀請這成員加入其它群組"
+
+#: client/app/center/center.html
+msgid "@dm-menu-profile"
+msgstr "檢視簡介"
+
+#: client/app/center/center.html
+msgid "@dnd-file-upload-msg"
+msgstr "拖拽您的档案到这里上传"
+
+#: client/app/error/404.html
+msgid "@error-404-message"
+msgstr "查無此頁"
+
+#: client/app/error/404.html
+msgid "@error-404-title"
+msgstr "錯誤"
+
+#: client/app/right/file.html client/app/right/right.html
+msgid "@file-action-more"
+msgstr "音頻檔案 "
+
+#: client/app/header/header.html
+msgid "@file-all"
+msgstr "全部檔案"
+
+#: client/app/header/header.html
+msgid "@file-audio"
+msgstr "音頻檔案"
+
+#: client/app/header/header.html
+msgid "@file-image"
+msgstr "圖像"
+
+#: client/app/header/header.html
+msgid "@file-pdf"
+msgstr "PDF"
+
+#: client/app/left/left.html
+msgid "@file-size-too-large-error"
+msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
+
+#: client/app/header/header.html
+msgid "@file-video"
+msgstr "視頻檔案"
+
+#: client/app/header/header.html
+msgid "@file-your"
+msgstr "您的檔案"
+
+#: client/app/header/header.html
+msgid "@header-file"
+msgstr "檔案"
+
+#: client/app/header/header.html
+msgid "@header-help"
+msgstr "支援"
+
+#: client/app/header/header.html
+msgid "@header-menu"
+msgstr "選單"
+
+#: client/app/header/header.html
+msgid "@header-setting"
+msgstr "設定"
+
+#: client/app/modal/upload.html
+msgid "@ie9-file-preview"
+msgstr ""
+"IE9瀏覽器無法適當支援文件預覽。如果圖像不能正確顯示，別擔心，這不影響您上傳的"
+"檔案。"
+
+#: client/app/modal/upload.html
+msgid "@ie9-please-do-not-use"
+msgstr "爲了達到對JANDI的最佳體驗，請使用最新版本的IE瀏覽器。"
+
+#: client/app/modal/settings.profile.html
+msgid "@ie9-profile-image-support"
+msgstr ""
+"IE9瀏覽器不支援的簡介照片編輯。請使用IE瀏覽器的最新版本以達到最佳體驗。"
+
+#: client/app/modal/create.channel.html
+msgid "@input-create-ch"
+msgstr "輸入新的議題群組名稱"
+
+#: client/app/modal/create.private.html
+msgid "@input-create-pg"
+msgstr "輸入新的私人群組名稱"
+
+#: client/app/modal/invite.team.html
+msgid "@input-invite-email"
+msgstr "輸入電子郵件地址進行邀請"
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-20-error"
+msgstr " "
+
+#: client/app/modal/settings.profile.html
+msgid "@input-max-length-60-error"
+msgstr " "
+
+#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+msgid "@input-max-length-error"
+msgstr "您已經超越字數限制"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@input-password-average"
+msgstr "普通"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@input-password-excellent"
+msgstr "非常強"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@input-password-good"
+msgstr "強"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@input-password-very-weak"
+msgstr "弱"
+
+#: client/app/modal/rename.html
+msgid "@input-rename"
+msgstr "輸入修改的名字"
+
+#: client/app/modal/join.html
+msgid "@input-search-channel-name"
+msgstr "按名字搜尋議題群組"
+
+#: client/app/right/right.html
+msgid "@input-search-file-title"
+msgstr "按標題搜尋檔案"
+
+#: client/app/modal/invite.channel.html
+msgid "@input-search-user-name"
+msgstr "按名字搜尋使用者"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@input-user-password-error"
+msgstr "必須至少包含一個數字或大寫字母或特殊字符"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-hasSpace-error"
+msgstr "密碼不能包含空格"
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-min-length-error"
+msgstr "一定要超過8個字符"
+
+#: client/app/signin/signin.html
+msgid "@keep-me-logged-in"
+msgstr "我要保持登入狀態"
+
+#: client/app/signin/signin.html
+msgid "@login-invalid"
+msgstr "電子郵件或密碼無效"
+
+#: client/app/signin/signin.html
+msgid "@login-message"
+msgstr "輸入您的電子郵件及密碼"
+
+#: client/app/modal/password.reset.request.html client/app/signin/signin.html
+msgid "@login-reset-password"
+msgstr "忘了密碼？"
+
+#: client/app/signin/signin.html
+msgid "@login-welcome {{teamInfo.name}}"
+msgstr "歡迎"
+
+#: client/app/center/center.html
+msgid "@message-delete"
+msgstr "删除"
+
+#: client/app/modal/join.html
+msgid "@modal-browse-ch"
+msgstr "瀏覽議題群組"
+
+#: client/app/modal/create.channel.html
+msgid "@modal-create-ch-msg1"
+msgstr "建立任何人皆可加入的新議題群組"
+
+#: client/app/modal/create.channel.html
+msgid "@modal-create-ch-msg2"
+msgstr "  "
+
+#: client/app/modal/create.channel.html
+msgid "@modal-create-ch-msg3"
+msgstr "請使用私人群組為隱秘空間"
+
+#: client/app/modal/create.private.html
+msgid "@modal-create-pg-msg1"
+msgstr "私人群組僅向其成員顯示，且僅其成員可以閲讀或搜尋其内容。"
+
+#: client/app/modal/invite.direct.html
+msgid "@modal-dm-invite"
+msgstr "邀請成員加入其它群組"
+
+#: client/app/modal/invite.direct.html
+msgid "@modal-dm-invite-msg1"
+msgstr "您可以邀請這使用者加入其它群組"
+
+#: client/app/modal/invite.channel.html
+msgid "@modal-invite-members"
+msgstr "邀請成員"
+
+#: client/app/modal/join.html
+msgid "@modal-join-ch-you-belong"
+msgstr "您屬於的議題群組"
+
+#: client/app/modal/join.html
+msgid "@modal-join-ch-you-can"
+msgstr "您可以加入的議題群租"
+
+#: client/app/modal/image.crop.html
+msgid "@modal-profile-picture"
+msgstr "簡介照片"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-email"
+msgstr "更改您的電子郵件地址"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-msg1"
+msgstr "您可以更改您的帳號設定，包含您的姓名、密碼、及電子郵件地址"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-name"
+msgstr "更改您的姓名"
+
+#: client/app/modal/settings.account.html
+msgid "@modal-setting-account-name-msg"
+msgstr "當您更改您的姓名，請記得其他成員可能會提及及搜尋該姓名"
+
+#: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
+msgid "@modal-setting-account-password"
+msgstr "更改您的密碼"
+
+#: client/app/modal/settings.profile.html
+msgid "@modal-setting-profile-msg1"
+msgstr "您可以設定向其他成員揭示的個人資料"
+
+#: client/app/modal/settings.service.html
+msgid "@modal-setting-service-msg1"
+msgstr "您可以更改您的語言或通知設定"
+
+#: client/app/modal/settings.team.html
+msgid "@modal-setting-team-msg"
+msgstr "您可以在這裏變更您的團隊設定。請注意，任何變更也將適用到您的團隊成員。"
+
+#: client/app/modal/invite.team.html
+msgid "@modal-team-invite-msg1"
+msgstr "邀請其他團隊成員加入JANDI!"
+
+#: client/app/modal/upload.html
+msgid "@modal-upload-title-msg1"
+msgstr "按標題搜尋"
+
+#: client/app/center/center.html
+msgid "@msg-create-ch"
+msgstr "建立了這議題群組"
+
+#: client/app/center/center.html
+msgid "@msg-create-pg"
+msgstr "建立了這私人群組"
+
+#: client/app/center/center.html
+msgid "@msg-file"
+msgstr "檔案"
+
+#: client/app/right/file.html
+msgid "@msg-help-multiline"
+msgstr "Shift鍵加Enter鍵可多行輸入"
+
+#: client/app/center/center.html
+msgid "@msg-invited"
+msgstr "邀請了"
+
+#: client/app/center/center.html
+msgid "@msg-invited-postfix"
+msgstr " "
+
+#: client/app/center/center.html
+msgid "@msg-joined"
+msgstr "已經加入"
+
+#: client/app/center/center.html
+msgid "@msg-left"
+msgstr "已經離開"
+
+#: client/app/center/center.html client/app/right/right.html
+msgid "@msg-open-original"
+msgstr "打開原始檔案"
+
+#: client/app/center/center.html
+msgid "@msg-shared"
+msgstr "分享過"
+
+#: client/app/center/center.html
+msgid "@msg-unshared"
+msgstr "未分享過"
+
+#: client/app/center/center.html
+msgid "@msg-whose"
+msgstr "的"
+
+#: client/app/right/right.html
+msgid "@option-all-members"
+msgstr "全部"
+
+#: client/app/right/right.html
+msgid "@option-all-rooms"
+msgstr "全部"
+
+#: client/app/modal/invite.direct.html
+msgid "@option-choose"
+msgstr "選擇"
+
+#: client/app/modal/settings.service.html
+msgid "@option-noti-all"
+msgstr "給所有訊息"
+
+#: client/app/modal/settings.service.html
+msgid "@option-noti-dm"
+msgstr "僅限直接傳訊"
+
+#: client/app/modal/settings.service.html
+msgid "@option-noti-none"
+msgstr "從來沒有"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-done"
+msgstr "您的密碼已經變更成功。請用JANDI的行動版登入。"
+
+#: client/app/modal/password.reset.request.html
+msgid "@password-reset-email"
+msgstr "請輸入您的電子郵件地址"
+
+#: client/app/modal/password.reset.request.html
+msgid "@password-reset-email-fail"
+msgstr "您的密碼重設電子郵件無法寄出"
+
+#: client/app/modal/password.reset.request.html
+msgid "@password-reset-email-sent"
+msgstr "電子郵件已經成功寄出"
+
+#: client/app/password/password.reset.html
+msgid "@password-reset-message"
+msgstr "忘記您的密碼了嗎？選擇一個新的。 "
+
+#: client/app/center/center.html
+msgid "@pg-menu-delete"
+msgstr "刪除這私人群組"
+
+#: client/app/center/center.html
+msgid "@pg-menu-invite"
+msgstr "邀請成員到這私人群組"
+
+#: client/app/center/center.html
+msgid "@pg-menu-leave"
+msgstr "離開私人群組"
+
+#: client/app/center/center.html
+msgid "@pg-menu-rename"
+msgstr "重新命名這私人群組"
+
+#: client/app/center/center.html
+msgid "@pg-menu-star"
+msgstr "離開群組 "
+
+#: client/app/center/center.html
+msgid "@pg-menu-un-star"
+msgstr "邀請成員到這群組 "
+
+#: client/app/left/left.html
+msgid "@privateGroup"
+msgstr "私人群組 "
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete"
+msgstr "刪除團隊"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-delete-confirm"
+msgstr "您確定您要刪除您的團隊？您所有的内容將被清除。這將不能被回復。"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-change"
+msgstr "更改網域(URL)"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-confirm"
+msgstr "您確定您要更改團隊的網域(URL)？"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-msg"
+msgstr ""
+"您的團隊成員是使用網域(URL)在網頁上登入。請確保您的團隊成員都知道的任何更改。"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-taken-warning-msg"
+msgstr "網域已被別人使用"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-domain-warning-msg"
+msgstr ""
+"網域名稱必須至少有3個字符，並且只能由小寫字母，數字和連字符（ - ）組成。"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-change"
+msgstr "更改團隊名稱"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-confirm"
+msgstr "您確定您要更改您團隊的名稱？"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-name-msg"
+msgstr "您的團隊名稱會顯示在不同的標題和瀏覽器標籤上。"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-domain"
+msgstr "新網域(URL)"
+
+#: client/app/modal/settings.team.html
+msgid "@setting-team-new-name"
+msgstr "新團隊名稱"
+
+#: client/app/header/header.html client/app/modal/settings.team.html
+msgid "@setting-team-title"
+msgstr "團隊設定"
+
+#: client/app/header/header.html client/app/modal/invite.team.html
+msgid "@team-invite"
+msgstr "邀請其他團隊成員"
+
+#: client/app/header/header.html
+msgid "@team-members"
+msgstr "團隊成員"
+
+#: client/app/header/header.html
+msgid "@team-switch"
+msgstr "更換團隊"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "點擊跳動的標記來查看一下吧！"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "知道了！"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"點擊這按鍵開啓一旁的收拉式選單，上面含有所有已在這‘議題群組’/‘私人群組’/‘直接"
+"傳訊’中被分享過的檔案。 "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"您可以按類型或成員進行排序，並且亦可瀏覽其它議題群組。檔案可以按關鍵字來搜"
+"尋。 "
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"當您上傳檔案，您會看到在右邊的選單按鍵(ᵒᵒᵒ)，讓您與其他‘議題群組’/‘私人群組’/"
+"成員進行分享，亦可以留言並直接下載。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "所有檔案"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "送出訊息及上傳檔案"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"僅需書寫訊息並點擊return鍵即可通話。要上傳檔案，點擊左邊的按鍵即可瀏覽您的電"
+"腦檔案。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "我已經知道如何使用JANDI。讓我就開始使用！"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr "群組及直接傳訊是直接了當的。有人跟您對話時它們才會向您顯示。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr "如果您是被別人邀請加入，點擊 ‘⋯更多’ 可以看到其它現有的議題群組。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr "‘議題群組’、‘私人群組’及‘直接傳訊’有什麽不同？"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"議題群組是有特定主題的空間。任何人都可以建立一個議題群組或加入現有的。想像人"
+"們在真實生活中談論且您可以聽到或參與的事項。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "讓我們來瞭解一下吧"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最重要的"
+"提示。"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "歡迎使用JANDI!"
+
+#: client/app/left/left.html
+msgid "@user"
+msgstr "成員"
+
+#: client/app/center/center.html
+msgid "@user-menu-star"
+msgstr "標記這成員"
+
+#: client/app/center/center.html
+msgid "@user-menu-un-star"
+msgstr "取消標記這成員"

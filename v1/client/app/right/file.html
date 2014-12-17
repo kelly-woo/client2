@@ -1,0 +1,188 @@
+<div class="panel-title-container">
+    <span class="rpanel-header-heading rpanel-header-heading__back cursor_pointer" data-ui-sref="messages.detail.files">
+        <i class="icon-prev"></i> <span translate>@common-files</span>
+    </span>
+</div>
+
+<div class="rpanel-body" scroll-glue data-ng-model="glued">
+
+    <div class="rpanel-body-content file-detail">
+        <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
+
+            <div class="file-detail-header">
+                <div class="file-detail-header-box">
+                    <div class="file-detail-header__thumbnail">
+                        <img class="user-profile user-thumb-sm cursor_pointer"
+                             ng-src="{{ server_uploaded + ( file_detail.writer.u_photoThumbnailUrl.smallThumbnailUrl || file_detail.writer.u_photoUrl )}}"
+                             ng-click="onUserClick(file_detail.writer);"/>
+                    </div>
+                    <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
+                    <div class="file-detail-header__title">
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
+                            {{ file_detail.content.title || file_detail.content.name }}
+                        </a>
+                        <!--<i class="fa fa-external-link"></i>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="file-detail-body">
+                <div class="image_wrapper">
+                    <img rotate rotate-left-align=false
+                         class="file-detail-body__image"
+                         data-ng-if="( (file_detail.content.type).indexOf('image') !== -1 )"
+                         data-ng-src="{{ server_uploaded + file_detail.content.extraInfo.largeThumbnailUrl }}"
+                         data-ng-click="onImageClick();"/>
+                </div>
+
+                <div class="file-detail-body__other" data-ng-if="(file_detail.content.type).indexOf('image') == -1">
+
+                    <div class="fileicon fileicon_left fileicon_{{ file_detail.content.type | filetype | lowercase}}">
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}"></a>
+                    </div>
+
+                    <div class="file-detail-body__other-meta file-item-meta__listview">
+                        <div class="file-item-meta__size" data-ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</div>
+                        <div class="file-item-meta__type" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</div>
+                    </div>
+
+                    <div class="file-detail-body__other-action">
+
+                        <!--    PDF FILE    -->
+                        <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" >
+                            <button type="button" class="btn btn-white" >
+                                <span translate>@btn-click-to-view</span>
+                            </button>
+                        </a>
+
+                        <!--    NON-PDF FILE    -->
+                        <a href="{{ server_uploaded + 'download/'+ file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}"  ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )">
+                            <button type="button" class="btn btn-white" >
+                                <span translate>@common-download</span>
+                            </button>
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="file-detail-body__meta file-item-meta__listview">
+                    <div class="fileicon fileicon_{{ file_detail.content.type | filetype | lowercase}}"></div>
+
+                    <div class="file-detail-body__meta-info">
+                        <div class="file-detail-body__meta-info-up">
+                            <span class="file-item-meta__createtime">{{ file_detail.createTime | date: 'yyyy. MM. dd. a h:mm' }}</span>
+                            <span class="bullet">•</span>
+                            <span class="file-item-meta__size" data-ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</span>
+                            <span class="file-item-meta__type" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</span>
+                        </div>
+
+                        <div class="file-detail-body__meta-info-down">
+                        <span data-ng-if="file_detail.shared.length">
+                            <span translate>@common-shared-in</span>
+                            <span ng-repeat="sharedEntity in filteredSharedFile = (file_detail.shared | filter : {type:'!user'}) track by $index">
+                                <span data-ng-hide="($index === 0)">, </span>
+                                <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                                    {{ sharedEntity.prefix }}{{ sharedEntity.name }}
+                                </span>
+                                <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(file_detail, sharedEntity)">
+                                    <i class="fa fa-minus-circle"></i>
+                                </a>
+                            </span>
+                            <span ng-show="file_detail.shared.length != filteredSharedFile.length">
+                                <!--<span ng-show="filteredSharedFile.length != 0"> and </span>with users.-->
+                            </span>
+                        </span>
+                        <span ng-hide="file_detail.shareEntities.length != 0">
+                            <span translate>@alert-empty-file-shared</span>
+                        </span>
+                        </div>
+                    </div>
+
+                    <div class="file-item-meta__action dropdown">
+                        <a class="file_actions dropdown-toggle"
+                           tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="bottom">
+                            <i class="icon-more cursor_pointer"></i>
+                        </a>
+                        <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
+                            <li class="cursor_pointer">
+                                <a data-ng-click="onClickShare(file_detail);">
+                                    <i class="fa fa-share-alt"></i>
+                                    <span translate>@btn-share</span>
+                                </a>
+                            </li>
+                            <li class="cursor_pointer">
+                                <a data-ng-click="onCommentFocusClick();">
+                                    <i class="fa fa-comment-o"></i>
+                                    <span translate>@btn-comment</span>
+                                </a>
+                            </li>
+                            <li class="cursor_pointer">
+                                <a href="{{ server_uploaded + 'download/' + file_detail.content.fileUrl }}" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
+                                    <i class="fa fa-download"></i>
+                                    <span translate>@common-download</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rpanel-detail-body-comment">
+                <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}">
+                    <div class="comment-item__thumbnail">
+                        <img class="user-profile user-thumb-sm cursor_pointer"
+                             ng-src="{{ server_uploaded + ( comment.writer.u_photoThumbnailUrl.smallThumbnailUrl || comment.writer.u_photoUrl )}}"
+                             ng-click="onUserClick(comment.writer);"/>
+                    </div>
+                    <div class="comment-item-header">
+                        <span class="comment-item-header__name">{{ comment.writer|getName }}</span>
+                        <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
+                        <span class="comment-item-header__action dropdown pull-right" data-ng-if="( user.id === comment.writer.id )">
+                            <a href="#" class="link-dark dropdown-toggle">
+                                <i class="fa fa-cog"></i>
+                            </a>
+                            <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+                                <li class="cursor_pointer">
+                                    <a data-ng-click="deleteComment(comment.id)">
+                                        <i class="fa fa-times"></i>
+                                        <span translate>@btn-delete</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </span>
+                    </div>
+                    <div class="comment-item-body">
+                        <p class="keep" data-ng-bind-html="(comment.content.body) || ''"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="comment-input-box" data-ng-show="initialLoaded && file_detail">
+            <div class="comment-item__thumbnail">
+                <img class="user-profile user-thumb-sm cursor_pointer"
+                     ng-src="{{ server_uploaded + ( user.u_photoThumbnailUrl.smallThumbnailUrl )}}"
+                     ng-click="onUserClick(user);"/>
+            </div>
+            <form id="comment-form" data-ng-submit="postComment()">
+                <textarea id="file-detail-comment-input"
+                          class="comment-input"
+                          focus-me="focusPostComment"
+                          message-submit="postComment()"
+                          data-ng-model="comment.content"
+                          maxlength=""
+                          autocorrect="off"
+                          autocomplete="off"
+                          spellcheck="true"></textarea>
+
+                <span class="comment-input__tip pull-left">
+                    <span translate>@msg-help-multiline</span>
+                </span>
+                <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
+            </form>
+        </div>
+
+    </div>
+</div>

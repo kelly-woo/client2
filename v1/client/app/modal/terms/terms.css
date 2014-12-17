@@ -1,0 +1,50 @@
+.jd-pop {
+    background-color: #fff;
+    color: #000;
+    text-align: left;
+    line-height: 160%;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+.jd-pop-head {
+    border-bottom: 2px solid #31c08a;
+}
+.jd-pop-head h1 {
+    text-align: center;
+    padding: 20px 0 10px;
+    font-size: 22px;
+    color: #31c08a;
+}
+.jd-contents {
+    padding: 10px 25px;
+    color: #666;
+}
+.jd-contents h2 {
+    font-size: 18px;
+    color: #3c3c3c;
+}
+.jd-contents p {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+.jd-contents ul,
+.jd-contents ol {
+    font-size: 14px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+}
+.jd-contents hr {
+    margin: 15px 0;
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+.jd-pop-foot {
+    padding: 10px 25px;
+    color: #3c3c3c;
+    text-align: center;
+}
+.jd-pop-foot .contact {
+    text-align: left;
+}
