@@ -597,6 +597,14 @@ msgstr ""
 msgid "@input-user-password-error"
 msgstr ""
 
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-hasSpace-error"
+msgstr ""
+
+#: client/app/modal/settings.account.html
+msgid "@input-user-password-min-length-error"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr ""

@@ -325,43 +325,64 @@ app.directive('rotate', function () {
 
 /**
  * checks viewvalue for password and returns strength.
- * 4 categories
- *      1. length(longer 8 characters)
- *      2. combination of lower/upper case
- *      3. contains number
- *      4. contains special character
  *
- * If input satisfies two out of four categories, user can proceed to next step.
+ * 1. MUST BE AT 8+ CHARACTERS.
+ * 2. MUST CONTAIN AT LEAST TWO OF BELOW,
+ *      a. upper case character
+ *      b. lower case character
+ *      c. number
+ *      d. special character
+ * 3. CANNOT CONTAIN 'space' character.
+ *
+ * If result lever is 2+, then it is a pass.
  */
 app.directive('passwordStrength', function($parse) {
     return {
         require: 'ngModel',
         restrict: 'A',
         link: function(scope, elem, attrs, ctrl) {
-
             ctrl.$parsers.unshift(function(viewValue) {
+
+                if (!viewValue) {
+                    ctrl.hasEnoughLength        = false;
+                    ctrl.passwordStrengthLevel  = 0;
+                    ctrl.isInvalid              = true;
+                    ctrl.passwordHasSpace       = false;
+
+                    return;
+                }
 
                 var hasEnoughLength, hasLowerLetter, hasUpperLetter, hasNumber, hasSpecialCharacter, hasSpace;
 
-                hasSpace = (viewValue && /\s/.test(viewValue)) ? true : false;
+                hasSpace = /\s/.test(viewValue);
+                if (hasSpace) {
+                    ctrl.isInvalid              = true;
+                    ctrl.passwordHasSpace       = hasSpace;
+                    ctrl.passwordStrengthLevel  = 0;
+                    return;
+                }
 
-                hasEnoughLength = (viewValue && viewValue.length >= 8 && !/\s/.test(viewValue) ? true : false);
-                hasLowerLetter = (viewValue && /[a-z]/.test(viewValue)) ? true : false;
-                hasUpperLetter = (viewValue && /[A-Z]/.test(viewValue)) ? true : false;
-                hasNumber = (viewValue && /\d/.test(viewValue)) ? true : false;
-                hasSpecialCharacter = (viewValue && /[~!@#$%^&*()_+]/.test(viewValue)) ? true : false;
+                hasEnoughLength     = viewValue.length >= 8;
+                hasLowerLetter      = /[a-z]/.test(viewValue);
+                hasUpperLetter      = /[A-Z]/.test(viewValue);
+                hasNumber           = /\d/.test(viewValue);
+                hasSpecialCharacter = /[(`~!@#$%^&*()_\-+={}|:;"'<>,.?/)]/.test(viewValue);
+
 
                 var level = 0;
 
                 if (hasEnoughLength) {
-                    level++;
-                    if (hasLowerLetter && hasUpperLetter) level++;
-                    if ((hasNumber && hasLowerLetter)  || (hasNumber && hasLowerLetter)) level++;
-                    if (hasSpecialCharacter) level++;
+                    if (hasLowerLetter)         level++;
+                    if (hasUpperLetter)         level++;
+                    if (hasNumber)              level++;
+                    if (hasSpecialCharacter)    level++;
                 }
 
-                ctrl.passwordHasSpace = hasSpace;
-                ctrl.passwordStrengthLevel = level;
+                ctrl.passwordHasSpace       = hasSpace;
+                ctrl.hasEnoughLength        = hasEnoughLength;
+                ctrl.passwordStrengthLevel  = level;
+                ctrl.isInvalid              = (!hasEnoughLength || level < 2);
+
                 return viewValue;
             });
         }

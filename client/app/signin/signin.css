@@ -184,6 +184,9 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.passwordResetFormWrapper .jandi-body__form-input {
+    margin-bottom: 1px;
+}
 .jandi-body__form input[type="checkbox"] {
     margin-right :5px;
 }
