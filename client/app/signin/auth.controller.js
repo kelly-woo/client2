@@ -1,224 +1,147 @@
-'use strict';
+(function() {
+    'use strict';
 
-var app = angular.module('jandiApp');
+    angular
+        .module('jandiApp')
+        .controller('authController', authController);
 
-app.controller('authController', function($scope, $state, $window, $location, $modal, authAPIservice, localStorageService, analyticsService, storageAPIservice, userAPIservice) {
+    function authController($scope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService) {
+        var vm = this;
 
-    // local test purpose
-    var localHost = false;
+        (function(){
+            if (storageAPIservice.hasAccessTokenLocal() || storageAPIservice.hasAccessTokenSession()) {
+                accountService.getAccountInfo()
+                    .success(function(response) {
+                        accountService.setAccount(response);
+                        getCurrentMember();
+                    })
+                    .error(function(err) {
 
-    $scope.hasToken = true;
+                    })
+                    .finally(function() {
 
-    $scope.error = {
-        status      : false,
-        messsage    : ''
-    };
-
-    $scope.teamInfo = {
-        id          : -1,
-        name        : ''
-    };
-
-
-    $scope.signin = function(user) {
-        user.grant_type = "password";
-        user.username = user.email;
-
-
-        authAPIservice.login(user)
-            .success(function(data) {
-                console.info(
-                    'sign in good'
-                );
-
-                var memberId = getCurrentMemberId(data.account.memberships, $scope.teamInfo.id);
-
-                // If localStorage has all info, there is no need to store exact same info on $window.sessionStorage.
-                // Store all data on $window.sessionStorage only when user decides not to 'keep logged in'.
-                if (user.rememberMe) {
-                    // Store token in local storage.
-                    storageAPIservice.setTokenLocal(data);
-                    // Store account id, team id, member id in localStorage for analytics usage.
-                    storageAPIservice.setAccountInfoLocal(data.account.id, $scope.teamInfo.id, memberId);
-                }
-                else {
-                    // Store token in window session.
-                    storageAPIservice.setTokenSession(data);
-                    // Store account id, team id, member id in session for analytics usage.
-                    storageAPIservice.setAcountInfoSession(data.account.id, $scope.teamInfo.id, memberId);
-
-                }
-
-                // TODO: store token in cookie.
-                //storageAPIservice.setTokenCookie(data);
-
-                autoLogin();
-
-            }).error(function(err) {
-                $scope.error.status = true;
-                $scope.error.message = err.message;
-
-                $scope.user.password = "";
-
-                removeAccessInfo();
-
-                return false;
-            });
-    };
-
-
-    // Returns memberId of current team from Account.
-    function getCurrentMemberId(memberships, teamId) {
-        var memberId = -1;
-        _.forEach(memberships, function(membership) {
-            if (membership.teamId == teamId) {
-                memberId = membership.memberId;
-                return false;
+                    });
             }
-        });
 
-        return memberId;
-    }
+        })();
 
-    onSignInEnter();
+        function getCurrentMember() {
+            var account = accountService.getAccount();
 
-    // Entry point.
-    // EVERYTHING STARTS FROM HERE.
-    function onSignInEnter() {
-        console.log(
-            'this is onSigninEnter'
-        )
-        if (storageAPIservice.hasAccessTokenLocal()) {
-            // User has localStorage.
-            // Import all necessary info.
-            setTokenSessionStorage();
+            // Get information about team and member id.
+            var signInInfo = accountService.getCurrentMemberId(account.memberships);
 
-            autoLogin();
-            return;
+            // Now get member information for current team.
+            memberService.getMemberInfo(signInInfo.memberId)
+                .success(function(response) {
+                    // Set local member.
+                    memberService.setMember(response);
+
+                    setStatics();
+
+                    $state.go('messages.home');
+                })
+                .error(function(err) {
+                    $scope.signInFailed = true;
+                    publicService.signOut();
+                })
+                .finally(function() {
+
+                });
         }
-
-        if (storageAPIservice.hasAccessTokenSession()) {
-            // User has alive session.
-            // Just proceed to next step.
-            autoLogin();
-            return;
-        }
-
-        getTeamInfo();
-
         $scope.user = {
-            email       : '',
-            password    : '',
-            rememberMe  : true
+            username: storageAPIservice.getLastEmail(),
+            rememberMe : true
         };
-        var testing = true;
-        if (testing) {
-            $scope.user.password = '123456aB';
-            $scope.user.email = 'jihoonk@tosslab.com'
-            $scope.user.rememberMe = false;
-        }
-        $scope.testing = testing;
 
-        removeAccessInfo();
+        $scope.onSignIn = function(user) {
 
-        $scope.hasToken = false;
+            if ($scope.isLoading) return;
+            user.grant_type = "password";
 
-    }
+            $scope.toggleLoading();
 
-    // 최초 로드시 팀정보 받아오기
-    function getTeamInfo() {
-        var prefix = getPrefix();
+            // TODO: HAS TO BE BETTER WAY TO DO THIS.
+            authAPIservice.signIn(user)
+                .success(function(response) {
+                    // Set account first.
+                    accountService.setAccount(response.account);
 
-        if (prefix === 'local' || prefix === 'dev') {
-            prefix = 'tosslab';
-        }
+                    // Get information about team and member id.
+                    var signInInfo = accountService.getCurrentMemberId(response.account.memberships);
 
-        authAPIservice.getTeamInfo(prefix)
-            .success(function(data) {
-                $scope.teamInfo.id = data.teamInfo.teamId;
-                $scope.teamInfo.name = data.teamInfo.name;
-            })
-            .error(function(err) {
-                console.error(err);
+                    // Store all data on $window.sessionStorage only when user decides not to 'keep logged in'.
+                    if (user.rememberMe) {
+                        // Store token in local storage.
+                        storageAPIservice.setTokenLocal(response);
+                        // Store account id, team id, member id in localStorage for analytics usage.
+                        storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId);
+                    }
+                    else {
+                        // Store token in window session.
+                        storageAPIservice.setTokenSession(response);
+                        // Store account id, team id, member id in session for analytics usage.
+                        storageAPIservice.setAcountInfoSession(response.account.id, signInInfo.teamId, signInInfo.memberId);
+                    }
 
-                removeAccessInfo();
+                    // Now get member information for current team.
+                    memberService.getMemberInfo(signInInfo.memberId)
+                        .success(function(response) {
+                            // Set local member.
+                            memberService.setMember(response);
 
-                $state.go('404');
-            });
-    }
+                            setStatics();
 
-    // Retrieves prefix of current URL.
-    function getPrefix() {
-        return $location.host().split('.')[0];
-    }
+                            $state.go('messages.home');
+                        })
+                        .error(function(err) {
+                            $scope.signInFailed = true;
+                            storageAPIservice.removeSession();
+                            storageAPIservice.removeLocal();
+                            accountService.removeAccount();
+                            memberService.removeMember();
+                        })
+                        .finally(function() {
 
-
-    // Import all necessary data from 'localstorage' to '$window.sessionStorage'.
-    function setTokenSessionStorage() {
-        var tokenData = {
-            'access_token'  : storageAPIservice.getAccessTokenLocal(),
-            'refresh_token' : storageAPIservice.getRefreshTokenLocal(),
-            'token_type'    : storageAPIservice.getTokenTypeLocal()
+                        });
+                })
+                .error(function(err) {
+                    $scope.signInFailed = true;
+                })
+                .finally(function() {
+                    $scope.toggleLoading();
+                });
         };
-        storageAPIservice.setTokenSession(tokenData);
-    }
 
-    function autoLogin() {
-        setStatics();
-        $state.go('messages.home');
-    }
+        function setStatics() {
+            var user_identify = analyticsService.getUserIdentify();
 
-    function setStatics() {
-        var user_identify = getUserIdentify();
+            analyticsService.mixpanelIdentify(user_identify);
+            analyticsService.mixpanelTrack("Sign In");
 
-        analyticsService.mixpanelIdentify(user_identify);
-        analyticsService.mixpanelTrack("Sign In");
-
-        ga('set', 'userId', user_identify);
-        ga('global_tracker.set', 'userId', user_identify);
-    }
-
-    // Generate 'memberId-teamId' format string for google analytics.
-    function getUserIdentify() {
-        return (storageAPIservice.getMemberIdLocal() || storageAPIservice.getMemberIdSession()) + '-' + (storageAPIservice.getTeamIdLocal() || storageAPIservice.getTeamIdSession());
-    }
-
-    // Removes all token related info in both 'LocalStorage' and '$window.sessionStorage'.
-    function removeAccessInfo() {
-        storageAPIservice.removeSession();
-        storageAPIservice.removeLocal();
-    }
-
-    $scope.openModal = function(selector) {
-        if (selector == 'agreement') {
-
-            var agreement = 'app/modal/terms/agreement';
-            agreement = agreement + '_' + userAPIservice.getUserLanguage() + '.html';
-
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   agreement,
-                size        :   'lg'
-            });
+            ga('set', 'userId', user_identify);
+            ga('global_tracker.set', 'userId', user_identify);
         }
-        else if (selector == 'privacy') {
-            var privacy = 'app/modal/terms/privacy';
-            privacy = privacy + '_' + userAPIservice.getUserLanguage() + '.html';
 
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   privacy,
-                size        :   'lg'
-            });
-        }
-        else if (selector == 'resetPassword') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/password.reset.request.html',
-                controller  :   'passwordRequestController',
-                size        :   'lg'
-            })
-        }
-    };
 
-});
+        $scope.toggleLoading = function() {
+            $scope.isLoading = !$scope.isLoading;
+        };
+        $scope.openModal = function(selector) {
+            if (selector == 'agreement') {
+                publicService.openAgreementModal();
+            }
+            else if (selector == 'privacy') {
+                publicService.openPrivacyModal();
+            }
+            else if (selector == 'resetPassword') {
+                $modal.open({
+                    scope       :   $scope,
+                    templateUrl :   'app/modal/password.reset.request.html',
+                    controller  :   'passwordRequestController',
+                    size        :   'lg'
+                })
+            }
+        };
+    }
+})();

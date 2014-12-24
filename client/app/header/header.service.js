@@ -2,20 +2,27 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('entityheaderAPIservice', function($http, $rootScope, $filter) {
+app.factory('entityheaderAPIservice', function($http, $rootScope, storageAPIservice, memberService) {
     var entityheaderAPI = {};
 
     entityheaderAPI.setStarEntity = function(entityId) {
         return $http({
             method  : 'POST',
-            url     : $rootScope.server_address + 'settings/starred/entities/' + entityId
+            url     : $rootScope.server_address + 'settings/starred/entities/' + entityId,
+            data    : {
+                teamId: memberService.getTeamId()
+            }
         });
     };
 
     entityheaderAPI.removeStarEntity = function(entityId) {
         return $http({
             method  : 'DELETE',
-            url     : $rootScope.server_address + 'settings/starred/entities/' + entityId
+            url     : $rootScope.server_address + 'settings/starred/entities/' + entityId,
+            params  : {
+                teamId: memberService.getTeamId()
+            }
+
         });
     };
 
@@ -30,14 +37,21 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, $filter) {
     entityheaderAPI.leaveEntity = function(entityType, entityId) {
         return $http({
             method: 'PUT',
-            url: $rootScope.server_address + entityType + 's/' + entityId + '/leave'
+            url: $rootScope.server_address + entityType + 's/' + entityId + '/leave',
+            data: {
+                teamId: memberService.getTeamId()
+            }
         });
     };
 
     entityheaderAPI.deleteEntity = function(entityType, entityId) {
         return $http({
             method: 'DELETE',
-            url: $rootScope.server_address + entityType + 's/' + entityId
+            url: $rootScope.server_address + entityType + 's/' + entityId,
+            params: {
+                teamId: memberService.getTeamId()
+            }
+
         });
     };
 
@@ -51,14 +65,20 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, $filter) {
         return $http({
             method: 'PUT',
             url: $rootScope.server_address + entityType + 's/' + entityId + '/invite',
-            data: {"inviteUsers": users}
+            data: {
+                inviteUsers: users,
+                teamId: memberService.getTeamId()
+            }
         });
     };
 
     entityheaderAPI.joinChannel = function(entityId) {
         return $http({
             method: 'PUT',
-            url: $rootScope.server_address + 'channels/' + entityId + '/join'
+            url: $rootScope.server_address + 'channels/' + entityId + '/join',
+            data: {
+                teamId: memberService.getTeamId()
+            }
         });
     };
 
@@ -66,42 +86,14 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, $filter) {
         return $http({
             method: 'POST',
             url: $rootScope.server_address + entityType,
-            data : {"name": entityName}
+            data : {
+                name: entityName,
+                teamId: memberService.getTeamId()
+            }
         });
     };
 
 
-    entityheaderAPI.getInviteOptions = function(joinedChannelList, privateGroupList) {
-        // TODO: 이미 모든 팀원이 초대된 entity는 예외 처리
-        var lists = joinedChannelList.concat(privateGroupList);
-        return lists;
-    };
-
-    entityheaderAPI.init = function(stateParams, scope) {
-
-//        console.log('init');
-//        console.log('$stateParams', stateParams);
-//        console.log('scope', scope);
-
-        var members = [];
-
-        console.log($rootScope.currentEntity);
-
-        if ($rootScope.currentEntity.type == 'channel') {
-            members = $rootScope.currentEntity.ch_members;
-        }
-        else if ($rootScope.currentEntity.type == 'privateGroup') {
-            members = $rootScope.currentEntity.pg_members;
-        }
-
-        console.log(members);
-
-        if (member == null) {
-            console.log('returning null');
-            return null;
-        }
-        return members;
-    };
 
     return entityheaderAPI;
 });

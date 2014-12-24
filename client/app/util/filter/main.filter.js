@@ -89,80 +89,80 @@ app.filter('parseUrl', function() {
 
 /*
  used in 'inviteFromChannelModal.tpl.html'
-        */
-        app.filter('userByName', ['$rootScope', function($rootScope) {
-            return function(input, name) {
-                if (name === undefined)
-                    return input;
+ */
+app.filter('userByName', ['$rootScope', function($rootScope) {
+    return function(input, name) {
+        if (name === undefined)
+            return input;
 
-                name = name.toLowerCase();
+        name = name.toLowerCase();
 
-                var returnArray = [];
+        var returnArray = [];
+        console.log(input, name)
+        _.each(input, function(user) {
+            var fullName = user.name.toLowerCase();
 
-                _.each(input, function(user) {
-                    var fullName = user.name.toLowerCase();
-
-                    if(fullName.indexOf(name) > -1) {
-                        returnArray.push(user)
-                    }
-                });
+            if(fullName.indexOf(name) > -1) {
+                returnArray.push(user)
+            }
+        });
 
         return returnArray;
     }
 }
 ]);
 
-app.filter('getName', ['userAPIservice',
-    function(userAPIservice) {
+app.filter('getName', ['memberService',
+    function(memberService) {
         return function(input) {
             if (angular.isUndefined(input)) return '';
 
             if (angular.isNumber(input))
-                return userAPIservice.getNameFromUserId(input);
+                return memberService.getNameById(input);
 
             if (input.type != 'user') return input.name;
 
-            return userAPIservice.getNameFromUser(input);
+            return memberService.getNameFromMember(input);
         }
     }
 ]);
 
-app.filter('getUserStatusMessage', ['userAPIservice',
-    function(userAPIservice) {
-        return function(user) {
-            return userAPIservice.getStatusMessage(user);
+app.filter('getUserStatusMessage', ['memberService',
+    function(memberService) {
+        return function(member) {
+            return memberService.getStatusMessage(member);
         }
     }
 ]);
 
-app.filter('getUserDepartment', ['userAPIservice',
-    function(userAPIservice) {
-        return function(user) {
-            return userAPIservice.getDepartment(user);
+app.filter('getUserDepartment', ['memberService',
+    function(memberService) {
+        return function(member) {
+            return memberService.getDepartment(member);
         }
     }
 ]);
 
-app.filter('getUserPosition', ['userAPIservice',
-    function(userAPIservice) {
-        return function(user) {
-            return userAPIservice.getPositiion(user);
+app.filter('getUserPosition', ['memberService',
+    function(memberService) {
+        return function(member) {
+            return memberService.getPositiion(member);
         }
     }
 ]);
 
-app.filter('getUserPhoneNumber', ['userAPIservice',
-    function(userAPIservice) {
-        return function(user) {
-            return userAPIservice.getPhoneNumber(user);
+app.filter('getUserPhoneNumber', ['memberService',
+    function(memberService) {
+        return function(member) {
+            return memberService.getPhoneNumber(member);
         }
     }
 ]);
 
-app.filter('getUserEmail', ['userAPIservice',
-    function(userAPIservice) {
-        return function(user) {
-            return userAPIservice.getEmail(user);
+app.filter('getUserEmail', ['memberService',
+    function(memberService) {
+        return function(member) {
+            return memberService.getEmail(member);
         }
     }
 ]);
@@ -171,7 +171,7 @@ app.filter('getUserEmail', ['userAPIservice',
 
  */
 /*
-    used in file type dropdown.
+ used in file type dropdown.
  */
 app.filter('upperFirstCharacter', function() {
     return function(input) {

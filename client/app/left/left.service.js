@@ -2,47 +2,24 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('leftpanelAPIservice', function($http, $rootScope, $state, storageAPIservice) {
+app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, storageAPIservice, memberService) {
     var leftpanelAPI = {};
 
     leftpanelAPI.getLists = function() {
         return $http({
             method: 'GET',
             url: $rootScope.server_address + 'leftSideMenu',
-            params  : {
-                "teamId"    : storageAPIservice.getTeamIdSession() || storageAPIservice.getTeamIdLocal()
+            params: {
+                teamId: memberService.getTeamId()
             }
         });
     };
 
-    leftpanelAPI.createChannel = function(channelName) {
-        return $http({
-            method: 'POST',
-            url: $rootScope.server_address + 'channel',
-            data : {"name": channelName}
-        });
-    };
-
-    leftpanelAPI.createPrivateGroup = function(name) {
-        return $http({
-            method: 'POST',
-            url: $rootScope.server_address + 'privateGroup',
-            data : {"name" : name}
-        });
-    };
-
-    leftpanelAPI.joinChannel = function(channelId) {
-        return $http({
-            method: 'PUT',
-            url: $rootScope.server_address + 'channels/' + channelId + '/join'
-        });
-    };
-
+    // TODO: SHOULD MOVE TO memberService
     leftpanelAPI.setTutorial = function() {
         return $http({
             method: 'PUT',
             url: $rootScope.server_address + 'settings/tutoredAt'
-
         });
     };
 
@@ -121,6 +98,31 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, storageAP
         return returnValue;
     };
 
+    //  Initialize correct prefix for 'channel' and 'user'.
+    leftpanelAPI.setEntityPrefix = function($scope) {
+        _.each($scope.totalEntities, function(entity) {
+            entity.isStarred = false;
+            if (entity.type === 'channel') {
+                entity.typeCategory = $filter('translate')('@channel');
+            } else if (entity.type === 'user') {
+                entity.typeCategory = $filter('translate')('@user');
+            }
+            else {
+                entity.typeCategory = $filter('translate')('@privateGroup');
+            }
+        });
+
+        _.each($scope.joinEntities, function(entity) {
+            entity.isStarred = false;
+            if (entity.type === 'channel') {
+                entity.typeCategory = $filter('translate')('@channel');
+            } else if (entity.type === 'user') {
+                entity.typeCategory = $filter('translate')('@user');
+            } else {
+                entity.typeCategory = $filter('translate')('@privateGroup');
+            }
+        });
+    };
 
     return leftpanelAPI;
 });

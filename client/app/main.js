@@ -16,20 +16,20 @@ app.config(function ($stateProvider) {
             views       : {
                 '': {
                     templateUrl : 'app/left/left.html',
-                    controller  : 'leftpanelController',
+                    controller  : 'leftPanelController1',
                     resolve     : {
                         leftPanel   : function (authAPIservice, leftpanelAPIservice) {
                             if (authAPIservice.isSignedIn())
                                 return leftpanelAPIservice.getLists()
                                     .success(function(response) {
                                     })
-                                    .error(function(response) {
+                                    .error(function(err) {
                                         leftpanelAPIservice.toSignin();
                                     });
                             else
                                 return leftpanelAPIservice.toSignin();
                         },
-                        user        : function (leftPanel) {
+                        member        : function (leftPanel) {
                             return leftPanel.data.user;
                         }
                     }

@@ -2,33 +2,24 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('authAPIservice', function($http, $rootScope, $state, storageAPIservice) {
+app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, memberService) {
     var authAPI = {};
 
-    authAPI.login = function(userdata) {
+    authAPI.signIn = function(userdata) {
         return $http({
-            method  : "POST",
-            url     : $rootScope.server_address + 'token',
-            data    : userdata
+            method: "POST",
+            url: $rootScope.server_address + 'token',
+            data: userdata
         });
     };
 
-    authAPI.getTeamInfo = function(prefixDomain) {
-        prefixDomain = prefixDomain || 'tosslab';
+    authAPI.requestPasswordEmail = function(email) {
         return $http({
-            method  : "GET",
-            url     : $rootScope.server_address + 'info/team/prefix/' + prefixDomain
-        });
-    };
-
-    authAPI.requestPasswordEmail = function(teamId, email, lang) {
-        return $http({
-            method  :'POST',
-            url     : $rootScope.server_address + 'account/password/resetToken',
-            data    : {
-                'teamId'    : parseInt(teamId),
-                'email'     : email,
-                'lang'      : lang
+            method:'POST',
+            url: $rootScope.server_address + 'accounts/password/resetToken',
+            data: {
+                email: email,
+                lang: accountService.getAccountLanguage
             }
         });
     };
@@ -76,22 +67,15 @@ app.factory('authAPIservice', function($http, $rootScope, $state, storageAPIserv
     authAPI.signOut = function() {
         storageAPIservice.removeSession();
         storageAPIservice.removeLocal();
-        mixpanel.cookie.clear();
+        accountService.removeAccount();
+        memberService.removeMember();
+
+        if(mixpanel.cookie) mixpanel.cookie.clear();
         $state.go('signin');
     };
 
-    // After getting new 'access_token', replace old 'access_token' with new one.
-    authAPI.updateAccessToken = function(tokenData) {
-        var access_token = tokenData.access_token;
 
-        if (storageAPIservice.getAccessTokenLocal()) {
-            storageAPIservice.setAccessTokenLocal(access_token);
-        }
 
-        if (storageAPIservice.getAccessTokenSession()) {
-            storageAPIservice.setAccessTokenSession(access_token);
-        }
-    };
 
     return authAPI;
 });
@@ -104,24 +88,8 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
             // API version
             config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
 
-            // Auth token for file api for ie9.
-            if ($window.sessionStorage.access_token) {
+            config.headers.Authorization = (localStorageService.get('token_type') || $window.sessionStorage.token_type) + " " + (localStorageService.get('access_token') || $window.sessionStorage.access_token);
 
-                if (config.method === 'POST' && config.fileFormDataName === 'userFile') {
-                    // file upload api.
-                    if (angular.isUndefined(FileAPI.support)) {
-                        // since browser supports html5 file upload feature, FileAPI.support has not been initialized.
-//                        console.log('browser supports html5 not including authorization in header.');
-                        return config;
-                    }
-                }
-
-                // Somehow, I was unable to use 'storageAPIservice' in 'authInterceptor' due to circular dependency.
-                // Get 'access_token' from localStorage directly using localStorageService api.
-                // If localStorage does not contain 'access_token', get it from $window.sessionStorage.
-                config.headers.Authorization = (localStorageService.get('token_type') || $window.sessionStorage.token_type) + " " + (localStorageService.get('access_token') || $window.sessionStorage.access_token);
-
-            }
             return config;
         },
 

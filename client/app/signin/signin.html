@@ -1,38 +1,39 @@
 <title>{{teamInfo.name}}</title>
 
-<div id="signin-container" ng-if="!hasToken">
+<div id="signin-container">
     <div id="header" ng-include="templates.header"></div>
 
     <div class="jandi-container">
-        <div class="jandi-header">
-            <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
-            <div class="col-lg-4">
-                <img src="assets/images/logo-ci.png" alt="logo-ci" class="jandi-header__logo" />
-                <h2 class="jandi-header__title"><span translate>@login-welcome {{teamInfo.name}}</span>!</h2>
-                <p class="jandi-header__message"><span translate>@login-message</span></p>
-            </div>
-            <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
-        </div>
-
         <div class="jandi-body">
+            <div class="title__divider"></div>
+            <h2 class="title">
+                <span translate>@common-sign-in</span>
+            </h2>
+
             <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
 
             <div class="col-lg-4">
-                <form class="jandi-body__form" role="form" name="signinForm" ng-submit="signin(user)">
-                    <div class="alert-jandi alert-danger" ng-if="error.status">
+                <form class="jandi-body__form" role="form" name="signinForm" ng-submit="onSignIn(user)">
+
+                    <div class="alert-jandi alert-danger" ng-if="signInFailed">
                         <i class="fa fa-warning"></i> <span translate>@login-invalid</span>
                     </div>
-                    <input type="email" ng-model="user.email" class="jandi-body__form-input form-control" placeholder="{{ '@common-email' | translate }}" required autofocus>
+
+                    <input type="email" ng-model="user.username" class="jandi-body__form-input form-control" placeholder="{{ '@common-email' | translate }}" required autofocus>
+
                     <input type="password" ng-model="user.password" class="jandi-body__form-input form-control" placeholder="{{ '@common-password' | translate }}" required>
+
                     <div class="left-checkbox">
                         <input type="checkbox" ng-model="user.rememberMe" class="jandi-body__form-input-checkbox">
                         <span class="cursor_pointer" translate data-ng-click="user.rememberMe = !user.rememberMe">@keep-me-logged-in</span>
                     </div>
+
                     <button class="btn btn-jandi btn-block jandi-body__form-submit" type="submit" ng-disabled="signinForm.$invalid && !testing"><span translate>@common-sign-in</span></button>
+
+                    <div class="jandi-body__help">
+                        <a class="jandi-body__help-text" data-ng-click="openModal('resetPassword');"><span translate>@login-reset-password</span></a>
+                    </div>
                 </form>
-                <div class="jandi-body__help">
-                    <a class="jandi-body__help-text" data-ng-click="openModal('resetPassword');"><span translate>@login-reset-password</span></a>
-                </div>
             </div>
 
             <div class="col-lg-4 hidden-xs hidden-sm hidden-md"></div>
@@ -42,7 +43,8 @@
         <div class="clear-both"></div>
     </div>
 
-
     <div id="footer" ng-include="templates.footer"></div>
-
 </div>
+
+
+<div ng-include="templates.loading"></div>

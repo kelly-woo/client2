@@ -48,6 +48,26 @@ select:focus {
 
 /********************************************
 
+            BASIC TEMPLATE
+
+********************************************/
+
+.title__divider {
+    width: 90px;
+    height: 1px;
+    background-color: #999999;
+    margin: 0 auto 18px;
+}
+.title {
+    font-size: 18px;
+    color: #666666;
+    margin:0 auto 30px;
+    font-weight: 400;
+}
+
+
+/********************************************
+
                 ANIMATION
 
 ********************************************/

@@ -2,21 +2,9 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
+app.factory('userAPIservice', function($http, $rootScope, $filter, $upload, memberService) {
     var userAPI = {};
 
-    userAPI.updateUserProfile = function(user) {
-        return $http({
-            method: 'PUT',
-            url: $rootScope.server_address + 'settings/profile',
-            data: {
-                statusMessage   :   user.u_statusMessage,
-                phoneNumber     :   user.u_extraData.phoneNumber,
-                department      :   user.u_extraData.department,
-                position        :   user.u_extraData.position
-            }
-        });
-    };
 
     userAPI.updateProfilePic = function(image) {
         return $upload.upload({
@@ -31,7 +19,8 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
     function getEntityFromListById(list, value) {
         value = parseInt(value);
 
-        if (value === $rootScope.user.id) return $rootScope.user;
+        console.log(list, value)
+        if (value === $rootScope.member.id) return $rootScope.member;
 
 
 
@@ -45,28 +34,8 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
     }
 
     userAPI.getNameFromUserId = function(userId) {
-        return this.getNameFromUser(getEntityFromListById($rootScope.userList, userId));
+        return memberService.getNameFromMember(getEntityFromListById($rootScope.memberList, userId));
     };
-
-    userAPI.getNameFromUser = function(user) {
-        return user.name;
-    };
-    userAPI.getStatusMessage = function(user) {
-        return user.u_statusMessage;
-    };
-    userAPI.getDepartment = function(user) {
-        return user.u_extraData.department;
-    };
-    userAPI.getPositiion = function(user) {
-        return user.u_extraData.position ;
-    };
-    userAPI.getPhoneNumber = function(user) {
-        return user.u_extraData.phoneNumber ;
-    };
-    userAPI.getEmail = function(user) {
-        return user.u_email;
-    };
-
 
     userAPI.validateCurrentPassword = function(cur_password) {
         cur_password = cur_password || '';
@@ -100,8 +69,8 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload) {
         });
     };
 
-    userAPI.isAuthorized = function(user) {
-        return user.u_authority === 'owner'
+    userAPI.isAuthorized = function() {
+        return  memberService.getMember().u_authority === 'owner'
     };
 
     userAPI.getUserLanguage = function() {

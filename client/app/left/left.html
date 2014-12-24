@@ -11,12 +11,12 @@
 <aside class="lpanel">
 
     <!-- USER INFO CONTAINER -->
-    <div class="lpanel-user cursor_pointer" ng-click="onUserContainerClick();">
+    <div class="lpanel-user cursor_pointer" ng-click="onCurrentMemberContainerClick();">
         <span data-toggle="dropdown">
             <img class="lpanel-user__avatar" data-ng-src="{{ server_uploaded + user.u_photoThumbnailUrl.smallThumbnailUrl }}">
             <div class="lpanel-user__container">
                 <span class="lpanel-user__name inline-overflow-ellipsis"><b>{{team.name}}</b><br/>
-                    {{user | getUserPosition }} {{user | getName}}</span>
+                    {{ member | getUserPosition }} {{ member | getName}}</span>
             </div>
             <i class="fa fa-caret-up lpanel-user__more hidden"></i>
         </span>
@@ -32,7 +32,7 @@
         <div class="lpanel-list__channels">
 
             <!--    HEADER  -->
-            <div class="lpanel-list__header cursor_pointer" ng-click="isChListCollapsed = !isChListCollapsed">
+            <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isTopicCollapsed = !leftListCollapseStatus.isTopicCollapsed">
                 <i class="lpanel-list-left icon-topic-fill"></i>
 
                 <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-channels</span>
@@ -47,7 +47,7 @@
             </div>
 
             <!--    LIST    -->
-            <ul id="channel-list" collapse="isChListCollapsed">
+            <ul id="channel-list" collapse="leftListCollapseStatus.isTopicCollapsed">
 
                 <li ng-repeat="joinedChannel in joinedChannelList | filter: { isStarred : true }" ng-class="{active: $state.params.entityId == joinedChannel.id}">
                     <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
@@ -83,7 +83,7 @@
         <div class="lpanel-list__groups">
 
             <!--    HEADER  -->
-            <div class="lpanel-list__header cursor_pointer" ng-click="isPGCollapsed = !isPGCollapsed">
+            <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isPGCollapsed = !leftListCollapseStatus.isPGCollapsed">
                 <i class="lpanel-list-left icon-chat-fill"></i>
 
                 <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-private-groups</span>
@@ -95,7 +95,7 @@
             </div>
 
             <!--    LIST    -->
-            <ul id="group-list" collapse="isPGCollapsed">
+            <ul id="group-list" collapse="leftListCollapseStatus.isPGCollapsed">
                 <li class="group cursor_pointer" ng-repeat="group in privateGroupList | filter : { isStarred : true }" ng-class="{active: $state.params.entityId == group.id}">
                     <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
 
@@ -130,13 +130,13 @@
         <div class="lpanel-list__users">
 
             <!--    HEADER  -->
-            <div class="lpanel-list__header cursor_pointer" ng-click="isDMCollapsed = !isDMCollapsed">
+            <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isDMCollapsed = !leftListCollapseStatus.isDMCollapsed">
                 <i class="lpanel-list-left icon-user"></i>
                 <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-direct-messages</span>
             </div>
 
             <!--    LIST    -->
-            <ul id="dm-list" collapse="isDMCollapsed">
+            <ul id="dm-list" collapse="leftListCollapseStatus.isDMCollapsed">
                 <div class="lpanel-list-user_search">
                     <i class="icon-search absolute-search-icon"></i>
                     <input type="text"
@@ -147,7 +147,7 @@
                            data-ng-blur="onDMInputBlur();"/>
                 </div>
 
-                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {isStarred : true} | userByName:userNameQuery)"
+                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (memberList | filter: {isStarred : true} | userByName:userNameQuery)"
                     ng-class="{active: $state.params.entityId == userEntity.id}">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
                         <i class="icon-star-fill left-star starred-on"
@@ -158,7 +158,7 @@
                     </a>
                 </li>
 
-                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (userList | filter: {isStarred : false} | userByName:userNameQuery)"
+                <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (memberList | filter: {isStarred : false} | userByName:userNameQuery)"
                     ng-class="{active: $state.params.entityId == userEntity.id}">
                     <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
                         <i class="icon-star left-star"
@@ -176,4 +176,4 @@
     </div>
 </aside>
 
-<div ui-view="centerpanel" class="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>
+<!--<div ui-view="centerpanel" class="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>-->

@@ -10,23 +10,17 @@ var app = angular.module('jandiApp');
  ----------------------------*/
 
 // CHANNEL JOIN
-app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPIservice, entityheaderAPIservice, analyticsService) {
+app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPIservice, entityheaderAPIservice, analyticsService, accountService, memberService, publicService) {
 
-    $scope.userId = $scope.user.id;
+    $scope.memberId = memberService.getMemberId();
 
     $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
+        publicService.closeModal($modalInstance);
     };
 
-    // Returns a list of channels that current user hasn't joined yet.
-    $scope.isNotMember = function(channel) {
-        //console.log(jQuery.inArray($scope.user.id, channel.ch_members))
-        return jQuery.inArray($scope.user.id, channel.ch_members) ==  -1;
-    };
-
-    // Returns a name of user whose id is 'id'
-    $scope.getName = function(id) {
-        if (angular.equals(id, $scope.userId)) {
+    // Returns a name of creator of entity.
+    $scope.getCreatorName = function(entity) {
+        if (angular.equals(id, $scope.memberId)) {
             return 'you';
         }
 
@@ -40,22 +34,27 @@ app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPI
 
 
     $scope.onJoinClick = function(entityId) {
-        $scope.isLoading = true;
+        if ($scope.isLoading) return;
+
+        $scope.toggleLoading();
+
         entityheaderAPIservice.joinChannel(entityId)
             .success(function() {
                 // analytics
                 analyticsService.mixpanelTrack( "topic Join" );
 
-                $scope.isLoading = false;
                 $scope.updateLeftPanelCaller();
                 $state.go('archives', {entityType:'channels', entityId:entityId});
-                $modalInstance.dismiss('cancel');
+                publicService.closeModal($modalInstance);
             })
             .error(function(error) {
-                $scope.isLoading = false;
                 alert(error.msg);
+            })
+            .finally(function() {
+                $scope.toggleLoading();
             });
     };
+
 });
 
 // PRIVATE_GROUP/CHANNEL CREATE
@@ -578,14 +577,16 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
 });
 
 // PROFILE CONTROLLER
-app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService) {
-    $scope.curUser = _.cloneDeep($scope.user);
+app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService) {
+
+    $scope.curUser = _.cloneDeep(memberService.getMember());
+    console.log($scope.curUser)
     $scope.isFileSelected = false;
 
     $scope.isFileReaderAvailable = true;
 
     // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
-    $scope.curUser.u_extraData.phoneNumber  = $scope.curUser.u_extraData.phoneNumber || "";
+    $scope.curUser.u_extraData.phoneNumber  = memberService.getPhoneNumber($scope.curUser) || "";
     $scope.curUser.u_extraData.department   = $scope.curUser.u_extraData.department || "";
     $scope.curUser.u_extraData.position     = $scope.curUser.u_extraData.position || "";
 
@@ -594,13 +595,21 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     };
 
     $scope.onProfileChangeClick = function() {
-        $scope.isLoading = true;
+
+        alert('cannot find proper api. ask John.')
+
+        return;
+
+        if ($scope.isLoading) return;
+
+        $scope.toggleLoading();
+
 
         /*
          TODO:  Success response has updated user entitiy.
          TODO:  Instead of updating left panel, just switch scope variable!!!!!!!
          */
-        userAPIservice.updateUserProfile($scope.curUser)
+        memberService.updateMemberProfile($scope.curUser)
             .success(function() {
                 // analytics
                 analyticsService.mixpanelTrack( "Set Profile" );
@@ -615,18 +624,19 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
                 analyticsService.mixpanelPeople( "set", profile_data );
 
                 $scope.updateLeftPanelCaller();
-                $scope.isLoading = false;
                 $modalInstance.dismiss('cancel');
             })
             .error(function(error) {
                 console.error('updateUserProfile', error.code, error.msg);
-                $scope.isLoading = false;
-
+            })
+            .finally(function() {
+                $scope.toggleLoading();
             });
+
     };
 
-    $scope.$watch('user', function() {
-        $scope.curUser = _.cloneDeep($scope.user);
+    $scope.$watch('member', function() {
+        $scope.curUser = _.cloneDeep(memberService.getMember());
     });
 
     //  TODO: ie9에서 프로필 사진 바꾸기 기능이 없음.
@@ -906,7 +916,7 @@ app.controller('preferencesController', function($state, $stateParams, $scope, $
 });
 
 // PASSWORD RESET CONTROLLER
-app.controller('passwordRequestController', function($rootScope, $scope, $modalInstance, loginAPI, $filter) {
+app.controller('passwordRequestController', function($rootScope, $scope, $modalInstance, authAPIservice, $filter) {
     $scope.onLoadDone = true;
 
     $('#passwordResetEmailInput').focus();
@@ -915,17 +925,19 @@ app.controller('passwordRequestController', function($rootScope, $scope, $modalI
     };
 
     $scope.onPasswordResetRequstClick = function(email) {
-        $scope.isLoading = true;
+        if ($scope.isLoading) return;
+        $scope.toggleLoading();
 
-        loginAPI.requestPasswordEmail($scope.teamInfo.id, email, $rootScope.preferences.serverLang)
+        authAPIservice.requestPasswordEmail(email)
             .success(function(response) {
-                $scope.isLoading = false;
                 $scope.emailSent = true;
             })
             .error(function(response) {
                 console.log(response)
-                $scope.isLoading = false;
                 alert($filter('translate')('@password-reset-email-fail'));
+            })
+            .finally(function() {
+                $scope.toggleLoading();
             });
 
 

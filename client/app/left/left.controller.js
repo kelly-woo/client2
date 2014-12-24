@@ -1,15 +1,46 @@
+(function() {
+    'use strict';
+
+    angular
+        .module('jandiApp')
+        .controller('leftPanelController', leftPanelController);
+
+
+    function leftPanelController($scope, $rootScope, storageAPIservice, accountService,  leftPanel, member, leftpanelAPIservice) {
+        var vm = this;
+
+        $rootScope.isDMCollapsed = false || storageAPIservice.isLeftDMCollapsed();
+        $rootScope.isTopicCollapsed = false || storageAPIservice.isLeftTopicCollapsed();
+        $rootScope.isPGCollapsed = true || storageAPIservice.isLeftPGCollapsed();
+
+        accountService.setMember(leftPanel.data.user);
+
+        var joinedList = leftpanelAPIservice.getJoinedChannelList(leftPanel.data.joinEntities);
+
+        $scope.joinedChannelList    = joinedList[0];
+        $scope.privateGroupList     = joinedList[1];
+
+
+        vm.onUserContainerClick = function() {
+            console.log('mb')
+        }
+    }
+})();
+
 'use strict';
 
 var app = angular.module('jandiApp');
 
-app.controller('leftpanelController', function($scope, $rootScope, $state, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-                                               user, entityAPIservice, entityheaderAPIservice, fileAPIservice) {
+app.controller('leftPanelController1', function($scope, $rootScope, $state, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
+                                               member, entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice) {
 
-    //console.info('[enter] leftpanelController');
+    console.info('[enter] leftpanelController');
 
-    $scope.isDMCollapsed = false;
-    $scope.isChListCollapsed = false;
-    $scope.isPGCollapsed = false;
+    $scope.leftListCollapseStatus = {
+        isTopicCollapsed: storageAPIservice.isLeftTopicCollapsed() || false,
+        isPGCollapsed: storageAPIservice.isLeftPGCollapsed() || false,
+        isDMCollapsed: storageAPIservice.isLeftDMCollapsed() || false
+    };
 
     var response = null;
 
@@ -28,21 +59,30 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
     });
 
+
+    // TODO: THERE HAS TO BE A BETTER WAY TO DO THIS.
+    $scope.$watch('leftListCollapseStatus.isTopicCollapsed',
+        function(newVal, oldVal) {
+            storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
+        });
+    $scope.$watch('leftListCollapseStatus.isPGCollapsed',
+        function(newVal, oldVal) {
+            storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
+        });
+    $scope.$watch('leftListCollapseStatus.isDMCollapsed',
+        function(newVal, oldVal) {
+            storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
+        });
+
+
     $scope.$watch('$state.params.entityId', function(newEntityId){
+        if (!newEntityId) return;
         if (angular.isUndefined(entityAPIservice.getEntityById($state.params.entityType, newEntityId))) return;
-        $scope.setCurrentEntity();
+        setCurrentEntity();
     });
 
-    $scope.setCurrentEntity = function() {
+    function setCurrentEntity() {
         $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
-    };
-
-
-    // based on uesr.u_starredEntites, populating starred look-up list.
-    $scope.setStarProperty = function() {
-        _.forEach($scope.user.u_starredEntities, function(starredEntityId) {
-            entityAPIservice.setStarredEntity(starredEntityId);
-        });
     };
 
 
@@ -67,6 +107,8 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     initLeftList();
 
     function initLeftList () {
+        memberService.setMember(response.user);
+
         $rootScope.team = $scope.team = response.team;
 
         $scope.totalEntityCount = response.entityCount;
@@ -74,8 +116,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
 
         $scope.joinEntityCount  = response.joinEntityCount;
         $scope.joinEntities     = response.joinEntities;
-
-        $scope.user = response.user;
 
         //  Setting prefix for each entity.
         setEntityPrefix();
@@ -87,10 +127,10 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $scope.joinedChannelList    = joinedList[0];
         $scope.privateGroupList     = joinedList[1];
 
-        // userList         - List of all users except myself.
+        // memberList         - List of all users except myself.
         // totalChannelList - All channels including both 'joined' and 'not joined'
-        var generalList = leftpanelAPIservice.getGeneralList($scope.totalEntities, $scope.joinEntities, $scope.user.id);
-        $scope.userList             = generalList[0];
+        var generalList = leftpanelAPIservice.getGeneralList($scope.totalEntities, $scope.joinEntities, memberService.getMemberId());
+        $scope.memberList           = generalList[0];
         $scope.totalChannelList     = generalList[1];
         $scope.unJoinedChannelList  = generalList[2];
 
@@ -103,53 +143,30 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $rootScope.totalChannelList     = $scope.totalChannelList;
         $rootScope.joinedChannelList    = $scope.joinedChannelList;
         $rootScope.privateGroupList     = $scope.privateGroupList;
-        $rootScope.userList             = $scope.userList;
+        $rootScope.memberList           = $scope.memberList;
         $rootScope.totalEntities        = $scope.totalEntities;
         $rootScope.joinedEntities       = $scope.joinEntities;
         $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
-        $rootScope.user                 = $scope.user;
 
         //  When there is unread messages on left Panel.
         if (response.alarmInfoCount != 0) {
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
         }
 
-        if ($scope.user.u_starredEntities.length > 0) {
+        if (memberService.getStarredEntities().length > 0) {
             // generating starred list.
-            $scope.setStarProperty();
+            setStar();
         }
+        if ($state.params.entityId)
+            setCurrentEntity();
 
-        $scope.setCurrentEntity();
-
-        if (!entityAPIservice.hasSeenTutorial($scope.user)) {
+        if (!memberService.hasSeenTutorial()) {
             $scope.initTutorialStatus();
         }
     }
 
-    //  Initialize correct prefix for 'channel' and 'user'.
     function setEntityPrefix() {
-        _.each($scope.totalEntities, function(entity) {
-            entity.isStarred = false;
-            if (entity.type === 'channel') {
-                entity.typeCategory = $filter('translate')('@channel');
-            } else if (entity.type === 'user') {
-                entity.typeCategory = $filter('translate')('@user');
-            }
-            else {
-                entity.typeCategory = $filter('translate')('@privateGroup');
-            }
-        });
-
-        _.each($scope.joinEntities, function(entity) {
-            entity.isStarred = false;
-            if (entity.type === 'channel') {
-                entity.typeCategory = $filter('translate')('@channel');
-            } else if (entity.type === 'user') {
-                entity.typeCategory = $filter('translate')('@user');
-            } else {
-                entity.typeCategory = $filter('translate')('@privateGroup');
-            }
-        });
+        leftpanelAPIservice.setEntityPrefix($scope);
     }
 
     //  When there is anything to update, call this function and below function will handle properly.
@@ -196,18 +213,13 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     // right, detail panel don't have direct access to scope function in left controller.
     // so they emit event through rootscope.
     $rootScope.$on('updateLeftPanelCaller', function() {
-        console.info("[enter] updateLeftPanelCaller");
+        //console.info("[enter] updateLeftPanelCaller");
         $scope.updateLeftPanelCaller();
     });
 
     $scope.openModal = function(selector) {
         if (selector == 'join') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/join.html',
-                controller  :   'joinModalCtrl',
-                size        :   'lg'
-            });
+            publicService.openJoinModal($scope);
         }
         else if (selector == 'channel') {
             $modal.open({
@@ -243,7 +255,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     //  center and header are calling.
     $scope.onUserClick = function(user) {
         if (angular.isNumber(user)) {
-            user = entityAPIservice.getEntityFromListById($scope.userList, user)
+            user = entityAPIservice.getEntityFromListById($scope.memberList, user)
         }
         openUserProfile(user);
     };
@@ -261,51 +273,51 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         });
     }
 
+    // TODO: REALLY??? IS THIS THE BEST???
     $scope.onDMInputFocus = function() {
         $('.absolute-search-icon').stop().animate({opacity: 1}, 400);
     };
-
     $scope.onDMInputBlur = function() {
         $('.absolute-search-icon').stop().css({'opacity' : 0.2});
     };
 
-    $scope.onUserContainerClick = function() {
-        $modal.open({
-            scope       :   $scope,
-            templateUrl :   'app/modal/settings.profile.html',
-            controller  :   'profileCtrl',
-            size        :   'lg'
-        });
+    $scope.onCurrentMemberContainerClick = function() {
+        publicService.openCurrentMemberModal($scope);
     };
 
-
+    // based on uesr.u_starredEntites, populating starred look-up list.
+    function setStar() {
+        _.forEach(memberService.getStarredEntities(), function(starredEntityId) {
+            entityAPIservice.setStarred(starredEntityId);
+        });
+    }
     $scope.onStarClick = function(entityType, entityId) {
         var entity = entityAPIservice.getEntityById(entityType, entityId);
 
-        if (_.contains($scope.user.u_starredEntities, entityId)) {
-            // current entity is starred!
+        if (entity.isStarred) {
             entityheaderAPIservice.removeStarEntity(entityId)
                 .success(function(response) {
-//                    console.log('successfully starred current entity');
                     getLeftLists();
                 })
                 .error(function(response) {
-//                    console.log('something went wrong starring current entity');
                 });
-
         }
         else {
             // current entity is not starred entity.
             entityheaderAPIservice.setStarEntity(entityId)
                 .success(function(response) {
-//                    console.log('successfully starred current entity');
                     getLeftLists();
                 })
                 .error(function(response) {
-//                    console.log('something went wrong starring current entity');
                 });
+
         }
     };
+
+    $scope.toggleLoading = function() {
+        $scope.isLoading = !$scope.isLoading;
+    };
+
 
     $scope.onImageRotatorClick = function($event) {
         var sender = angular.element($event.target);
@@ -342,15 +354,15 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         }
     };
 
-    $scope.$on('onFileSelect', function(event, files){
-        $scope.onFileSelect(files);
-    });
 
     /*********************************************************************
      *
-     *  Tutorial related controller
+     *  FILE related controller
      *
      *********************************************************************/
+    $scope.$on('onFileSelect', function(event, files){
+        $scope.onFileSelect(files);
+    });
     // Callback function from file finder(navigation) for uploading a file.
     $scope.onFileSelect = function($files) {
         $scope.selectedFiles = $files;
@@ -384,7 +396,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
         $scope.openModal('file');
     };
 
-
     $scope.onFileUploadAbortClick = function() {
         if (angular.isUndefined($rootScope.fileQueue)) return;
         $rootScope.fileQueue.abort('abort');
@@ -413,8 +424,6 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     };
 
     function setTutorialStatus(tutorialId) {
-
-
         switch(tutorialId){
             case 'topicTutorial':
                 $scope.tutorialStatus.topicTutorial = true;
@@ -451,73 +460,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
     }
 
     function openTutorialModal(tutorialId) {
-
-        var modal;
-
-        switch (tutorialId) {
-            case 'welcomeTutorial':
-                modal = $modal.open({
-                    templateUrl: 'app/tutorial/tutorial.html',
-                    controller: 'tutorialController',
-                    windowClass: 'fade-only welcome-tutorial',
-                    backdropClass: 'welcome-tutorial-backdrop',
-                    backdrop: 'static',
-                    keyboard: false,
-                    resolve: {
-                        curState: function getCurrentTutorial() {
-                            return 0;
-                        }
-                    }
-                });
-                break;
-            case 'topicTutorial':
-                modal = $modal.open({
-                    scope: $scope,
-                    templateUrl: 'app/tutorial/tutorial.html',
-                    controller: 'tutorialController',
-                    windowClass: 'fade-only welcome-tutorial topic-tutorial tutorial-animation',
-                    backdrop: false,
-                    keyboard: false,
-                    resolve: {
-                        curState: function getCurrentTutorial() {
-                            return 1;
-                        }
-                    }
-                });
-                break;
-            case 'chatTutorial' :
-                modal = $modal.open({
-                    scope: $scope,
-                    templateUrl: 'app/tutorial/tutorial.html',
-                    controller: 'tutorialController',
-                    windowClass: 'fade-only welcome-tutorial chat-tutorial',
-                    backdrop: false,
-                    keyboard: false,
-                    resolve: {
-                        curState: function getCurrentTutorial() {
-                            return 2;
-                        }
-                    }
-                });
-                break;
-            case 'fileTutorial' :
-                modal = $modal.open({
-                    scope: $scope,
-                    templateUrl: 'app/tutorial/tutorial.html',
-                    controller: 'tutorialController',
-                    windowClass: 'fade-only welcome-tutorial file-tutorial',
-                    backdrop: false,
-                    keyboard: false,
-                    resolve: {
-                        curState: function getCurrentTutorial() {
-                            return 3;
-                        }
-                    }
-                });
-                break;
-            default :
-                break;
-        }
+        var modal = publicService.openTutorialModal($scope, tutorialId);
 
         modal.result.then(function (reason) {
             if (reason === 'skip' || $scope.tutorialStatus.count == 0) {
@@ -525,5 +468,7 @@ app.controller('leftpanelController', function($scope, $rootScope, $state, $filt
             }
         });
     }
+
+    publicService.openCurrentMemberModal($scope)
 });
 

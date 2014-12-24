@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('analyticsService', function($rootScope, $filter) {
+app.factory('analyticsService', function($rootScope, storageAPIservice) {
     var analyticsAPI = {};
 
     analyticsAPI.mixpanelTrack = function( title, data_json ) {
@@ -42,6 +42,11 @@ app.factory('analyticsService', function($rootScope, $filter) {
         if ( _.isEmpty(data_string) ) return;
 
         mixpanel.alias( data_string );
+    };
+
+    // Generate 'memberId-teamId' format string for google analytics.
+    analyticsAPI.getUserIdentify = function() {
+        return (storageAPIservice.getMemberIdLocal() || storageAPIservice.getMemberIdSession()) + '-' + (storageAPIservice.getTeamIdLocal() || storageAPIservice.getTeamIdSession());
     };
 
     return analyticsAPI;

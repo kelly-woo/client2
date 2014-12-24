@@ -8,10 +8,15 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, $cookieSto
     var tokenType_key       = 'token_type';
     var lastState_key       = 'last-state';
 
-    var accountId_key       = 'account_id'
+    var accountId_key       = 'account_id';
     var teamId_key          = 'team_id';
     var memberId_key        = 'member_id';
 
+    var lastEmail_key       = 'last_email';
+
+    var leftDMCollapsed_key = 'is_left_dm_collapsed';
+    var leftTopicCollapsed_key = 'is_left_topic_collapsed';
+    var leftPGCollapsed_key = 'is_left_pg_collapsed';
     /**
      *
      * localStorage Code below.
@@ -45,6 +50,10 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, $cookieSto
     storageAPI.setTokenTypeLocal = function(token_type) { localStorageService.set(tokenType_key, token_type); };
     storageAPI.getTokenTypeLocal = function() { return localStorageService.get(tokenType_key); };
 
+
+    storageAPI.setLastEmail = function(email) { localStorageService.set(lastEmail_key, email); };
+    storageAPI.getLastEmail = function() { return localStorageService.get(lastEmail_key); };
+
     storageAPI.hasAccessTokenLocal = function() {
         return this.getAccessTokenLocal();
     };
@@ -55,7 +64,9 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, $cookieSto
     //            Last State
     //
     ///////////////////////////////
-    storageAPI.setLastStateLocal = function(last_state) { localStorageService.set(lastState_key, last_state); };
+    storageAPI.setLastStateLocal = function(last_state) {
+        localStorageService.set(lastState_key, last_state);
+    };
     storageAPI.getLastStateLocal = function() { localStorageService.get(lastState_key); };
 
     storageAPI.removeLastStateLocal = function() { localStorageService.remove(lastState_key); };
@@ -95,6 +106,27 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, $cookieSto
         localStorageService.remove(accountId_key);
         localStorageService.remove(teamId_key);
         localStorageService.remove(memberId_key);
+        localStorageService.remove(leftTopicCollapsed_key);
+        localStorageService.remove(leftPGCollapsed_key);
+        localStorageService.remove(leftDMCollapsed_key);
+
+    };
+
+
+    // TODO: to be implemented.
+    storageAPI.setLeftTopicCollapsed = function(isCollapsed) { localStorageService.set(leftTopicCollapsed_key, isCollapsed); };
+    storageAPI.isLeftTopicCollapsed = function() { return localStorageService.get(leftTopicCollapsed_key) === 'true'; };
+
+    storageAPI.setLeftPGCollapsed = function(isCollapsed) { localStorageService.set(leftPGCollapsed_key, isCollapsed); };
+    storageAPI.isLeftPGCollapsed = function() { return localStorageService.get(leftPGCollapsed_key) === 'true';;   };
+
+    storageAPI.setLeftDMCollapsed = function(isCollapsed) { localStorageService.set(leftDMCollapsed_key, isCollapsed); };
+    storageAPI.isLeftDMCollapsed = function() { return localStorageService.get(leftDMCollapsed_key) === 'true';; };
+
+    storageAPI.setLeftListStatus = function(status) {
+        storageAPI.setLeftTopicCollapsed(status.isTopicCollapsed);
+        storageAPI.setLeftPGCollapsed(status.isPGCollapsed);
+        storageAPI.setLeftDMCollapsed(status.isDMCollapsed);
     };
 
     /**

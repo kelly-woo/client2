@@ -2,15 +2,13 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('entityAPIservice', function($http, $rootScope, $filter, $state, $window, storageAPIservice) {
+app.factory('entityAPIservice', function($rootScope, $filter, $state, $window, storageAPIservice) {
     var entityAPI = {};
-
-    var currentEntity;
 
     entityAPI.getEntityFromListById = function(list, value) {
         value = parseInt(value);
 
-        if (value === $rootScope.user.id) return $rootScope.user;
+        if (value === $rootScope.member.id) return $rootScope.member;
 
         var entity = $filter('filter')(list, { 'id' : value }, function(actual, expected) {
             return actual === expected;
@@ -22,17 +20,46 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, $state, $wi
     };
 
     entityAPI.getEntityById = function(entityType, entityId) {
+        entityType = entityType.toLowerCase();
+
         var list = $rootScope.joinedChannelList;
 
-        if (entityType === 'privategroups' || entityType === 'privateGroups') {
+        // TODO: ISN'T 'indexOf' fucntion slow?
+        // TODO: FIND FASTER/BETTER WAY TO DO THIS.
+        if (entityType.indexOf('privategroup') > -1) {
             list = $rootScope.privateGroupList;
         }
-        else if (entityType === 'users') {
-            list = $rootScope.userList;
+        else if (entityType.indexOf('user')) {
+            list = $rootScope.memberList;
         }
 
         return this.getEntityFromListById(list, entityId);
     };
+
+    //  return null if 'getEntityById' return nothing.
+    entityAPI.setCurrentEntity = function(entityType, entityId) {
+        var currentEntity = this.getEntityById(entityType, entityId);
+        if (angular.isUndefined(currentEntity)) {
+            return null;
+        }
+        currentEntity.alarmCnt = '';
+        return currentEntity;
+    };
+
+    entityAPI.getCreatorId = function(entity) {
+        if (entity.type === 'users') return null;
+
+        if (entity.type === 'privateGroup' || entity.type === 'privategroup') {
+            return entity.pg_creatorId;
+        }
+        return entity.ch_creatorId;
+    };
+
+    entityAPI.setStarred = function(entityId) {
+        var entity = this.getEntityFromListById($rootScope.joinedChannelList.concat($rootScope.privateGroupList, $rootScope.memberList), entityId);
+        entity.isStarred = true;
+    };
+
 
     //  updating alarmCnt field of 'entity' to 'alarmCount'.
     entityAPI.updateBadgeValue = function(entity, alarmCount) {
@@ -52,8 +79,6 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, $state, $wi
 
         this.setBadgeValue(list, entity, alarmCount);
     };
-
-
     //  TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
     entityAPI.setBadgeValue = function(list, entity, alarmCount) {
         if (alarmCount == -1) {
@@ -69,13 +94,18 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, $state, $wi
         this.getEntityFromListById(list, entity.id).alarmCnt = alarmCount;
     };
 
+
+    entityAPI.getInviteOptions = function(joinedChannelList, privateGroupList) {
+        // TODO: 이미 모든 팀원이 초대된 entity는 예외 처리
+        var lists = joinedChannelList.concat(privateGroupList);
+        return lists;
+    };
+
     /**
      *
      *  Setting/Getting/Removing 'last-state' from/to localStorage.
      *
      */
-    var last_state_key  = 'last-state';
-
     entityAPI.setLastEntityState = function() {
         var last_state = {
             rpanel_visible  : $state.current.name.indexOf('file') > -1 ? true : false,
@@ -101,41 +131,5 @@ app.factory('entityAPIservice', function($http, $rootScope, $filter, $state, $wi
     entityAPI.removeLastEntityState = function() {
         storageAPIservice.removeLastStateLocal();
     };
-
-    //  return null if 'getEntityById' return nothing.
-    entityAPI.setCurrentEntity = function(entityType, entityId) {
-        currentEntity = this.getEntityById(entityType, entityId);
-        if (angular.isUndefined(currentEntity)) {
-            return null;
-        }
-        currentEntity.alarmCnt = '';
-        return currentEntity;
-    };
-
-    entityAPI.getCurrentEntity = function() {
-        return currentEntity;
-    };
-
-    entityAPI.getCreatorId = function(entity) {
-        if (entity.type === 'users') return null;
-
-        if (entity.type === 'privateGroup' || entity.type === 'privategroup') {
-            return entity.pg_creatorId;
-        }
-        return entity.ch_creatorId;
-    };
-
-    entityAPI.hasSeenTutorial = function(user) {
-        if (angular.isUndefined(user.u_tutoredAt) || user.u_tutoredAt === null)
-            return false;
-        else
-            return true;
-    };
-
-    entityAPI.setStarredEntity = function(entityId) {
-        var entity = this.getEntityFromListById($rootScope.joinedChannelList.concat($rootScope.privateGroupList, $rootScope.userList), entityId);
-        entity.isStarred = true;
-    };
-
     return entityAPI;
 });

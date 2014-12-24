@@ -2,8 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice, authAPIservice) {
-
+app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice, authAPIservice, publicService) {
     //console.info('[enter] headerController');
 
     $scope.status = {
@@ -24,26 +23,10 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
 
     $scope.openModal = function(selector) {
         if (selector == 'agreement') {
-
-            var agreement = 'app/modal/terms/agreement';
-            var lang = userAPIservice.getUserLanguage();
-            agreement = agreement + '_' + lang + '.html';
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   agreement,
-                size        :   'lg'
-            });
+            publicService.openAgreementModal();
         }
         else if (selector == 'privacy') {
-            var privacy = 'app/modal/terms/privacy';
-            var lang = userAPIservice.getUserLanguage();
-            privacy = privacy + '_' + lang + '.html';
-
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   privacy,
-                size        :   'lg'
-            });
+            publicService.openPrivacyModal();
         }
         else if (selector == 'channel') {
             $modal.open({
