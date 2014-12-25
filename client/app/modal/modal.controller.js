@@ -225,22 +225,23 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
 
 // INVITE USER TO TEAM
 app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter, teamAPIservice, analyticsService) {
-    $scope.isLoading = false;
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
     $scope.onInviteClick = function() {
-        $scope.isLoading = true;
+        if ($scope.isLoading) return;
+
+        $scope.toggleLoading();
+
 
         var invites = [];
         $('input.invite').each(function(idx) {
             var input = $(this);
             if (input.val()) {
-                invites.push({
-                    'email': input.val()
-                });
+                invites.push(input.val());
+                input.attr('id', input.val());
             }
         });
 
@@ -258,46 +259,47 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter,
         if (invites.length > 0) {
             teamAPIservice.inviteToTeam(invites)
                 .success(function(response) {
-                    $scope.isLoading = false;
-                    if ( response.sendMailFailCount > 0 ) {
-                        $('.invite-team-body').html(html_noti_fail);
+                    var successCnt = 0;
+                    var successList = [];
+                    var failList = [];
 
-                        var failEmailAddressElement = '';
-                        angular.forEach(response.sendMailFailList, function(object) {
-                            if (object.error.httpResponseCode == 400) {
-                                failEmailAddressElement = angular.element('<div class="modal-noti-block_msg alert-jandi alert-danger">'+ object.email+'<span>' + help_error_taken + '</span><div>');
-                            }
-                            else {
-                                failEmailAddressElement = angular.element('<div class="modal-noti-block_msg alert-jandi alert-danger">'+ object.email+'<span>' + help_error_invalid + '</span><div>');
-                            }
-                            $('.invite-team-body').append(failEmailAddressElement);
-                        });
+                    _.forEach(response, function(value, index) {
+                        var inviteStatus = '';
+                        angular.element(document.getElementById(value.email)).parent().children('.modal-noti-block_msg').remove();
+                        console.log(angular.element(document.getElementById(value.email)).parent().children('.modal-noti-block_msg').remove())
+                        if (!value.success) {
+                            failList.push(value.email);
 
-                        if (response.sendMailSuccessCount > 0) {
-                            // analytics: n명 초대
-                            var send_count = response.sendMailSuccessCount;
-                            analyticsService.mixpanelTrack( "User Invite", { "count": send_count } );
-                            analyticsService.mixpanelPeople( "increment", { "key": "invite", "value": send_count } );
+                            if (value.msg.indexOf('already has membership') > -1) {
+                                inviteStatus = angular.element('<div class="modal-noti-block_msg alert-jandi alert-danger">'+ value.email+'<span>' + help_error_taken + '</span><div>');
+                            }
+                            else if (value.msg.indexOf('Invalid') > -1) {
+                                inviteStatus = angular.element('<div class="modal-noti-block_msg alert-jandi alert-danger">'+ value.email+'<span>' + help_error_invalid + '</span><div>');
+                            }
                         }
+                        else {
+                            successCnt++;
+                            successList.push(value.email);
+                            inviteStatus = angular.element('<div class="modal-noti-block_msg alert-jandi alert-success"><span>' + help_success_send + '</span><div>');
+                        }
+
+                        angular.element(document.getElementById(value.email)).parent().append(inviteStatus)
+
+                    });
+
+                    if (successCnt > 0) {
+                        analyticsService.mixpanelTrack( "User Invite", { "count": successCnt } );
+                        analyticsService.mixpanelPeople( "increment", { "key": "invite", "value": successCnt } );
                     }
-                    else {
-                        $('.invite-team-body').html(html_noti_success);
-
-                        // analytics: n명 초대
-                        var send_count = response.sendMailSuccessCount;
-                        analyticsService.mixpanelTrack( "User Invite", { "count": send_count } );
-                        analyticsService.mixpanelPeople( "increment", { "key": "invite", "value": send_count } );
-                    }
-
-                    $('#invite_to_team').hide();
-
                 })
                 .error(function(error) {
-                    $scope.isLoading = false;
                     console.error(error.code, error.msg);
+                })
+                .finally(function() {
+                    $scope.toggleLoading();
                 });
         } else {
-            $scope.isLoading = false;
+            $scope.toggleLoading();
             alert(help_missing);
         }
     };
@@ -573,14 +575,13 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
         if ($state.current.name != 'messages.detail.files')
             $state.go('messages.detail.files');
         $scope.$emit('updateFileWriterId', userId);
-    };
+    }
 });
 
 // PROFILE CONTROLLER
 app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService) {
 
     $scope.curUser = _.cloneDeep(memberService.getMember());
-    console.log($scope.curUser)
     $scope.isFileSelected = false;
 
     $scope.isFileReaderAvailable = true;
@@ -651,6 +652,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
             }
             else {
                 if(window.FileReader && file.type.indexOf('image') > -1) {
+                    console.log('here')
                     $scope.isFileReaderAvailable = true;
                     var fileReader = new FileReader();
                     fileReader.readAsDataURL($files[0]);
@@ -659,6 +661,9 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
                         $scope.profilePic = e.target.result;
                         $scope.croppedProfilePic = '';
                         $scope.isProfilePicSelected = true;
+                        console.log($scope.isProfilePicSelected)
+                        console.log('wowowow')
+                        console.log(e)
                     };
                 }
             }
@@ -666,21 +671,26 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     };
 
     $scope.onCropDone = function() {
+
+        if ($scope.isLoading) return;
+
+        $scope.toggleLoading();
+
         var blob = dataURItoBlob($scope.croppedProfilePic);
-        $scope.isLoading = true;
 
         // Since I'm calling 'updateProfilePic' api with blob file,
         // there might be an image file missing file extension.
-        userAPIservice.updateProfilePic(blob)
+        memberService.updateProfilePic(blob, $scope.isFileReaderAvailable)
             .success(function(response) {
                 $scope.updateLeftPanelCaller();
-                $scope.isLoading = false;
             })
             .error(function(error) {
                 console.error('onCropDone', error.code, error.msg);
-                $scope.isLoading = false;
+            })
+            .finally(function() {
+                $scope.toggleLoading();
+                $scope.isProfilePicSelected = false;
             });
-        $scope.isProfilePicSelected = false;
     };
 
     function dataURItoBlob (dataURI) {

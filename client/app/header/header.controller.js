@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, localStorageService, entityheaderAPIservice, entityAPIservice, userAPIservice, authAPIservice, publicService) {
+app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, authAPIservice, memberService, publicService) {
     //console.info('[enter] headerController');
 
     $scope.status = {
@@ -18,7 +18,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     };
 
     $scope.isUserAuthorized = function() {
-        return userAPIservice.isAuthorized($scope.user);
+        return memberService.isAuthorized($scope.user);
     };
 
     $scope.openModal = function(selector) {
@@ -29,28 +29,13 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
             publicService.openPrivacyModal();
         }
         else if (selector == 'channel') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/create.channel.html',
-                controller  :   'createEntityModalCtrl',
-                size        :   'lg'
-            });
+            publicService.openTopicCreateModal($scope);
         }
         else if (selector == 'private') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/create.private.html',
-                controller  :   'createEntityModalCtrl',
-                size        :   'lg'
-            });
+            publicService.openPrivateCreateModal($scope);
         }
         else if (selector == 'invite') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/invite.team.html',
-                controller  :   'inviteUserToTeamCtrl',
-                size        :   'lg'
-            });
+            publicService.openInviteToTeamModal($scope);
         }
         else if (selector == 'setting-profile') {
             $modal.open({
@@ -120,5 +105,9 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
 
     $scope.onSignOutClick =function() {
         authAPIservice.signOut();
-    }
+    };
+
+    $scope.toggleLoading = function() {
+        $scope.isLoading = !$scope.isLoading;
+    };
 });

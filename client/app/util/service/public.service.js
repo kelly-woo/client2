@@ -10,6 +10,9 @@
             openPrivacyModal: openPrivacyModal,
             openAgreementModal: openAgreementModal,
             openJoinModal: openJoinModal,
+            openTopicCreateModal: openTopicCreateModal,
+            openPrivateCreateModal: openPrivateCreateModal,
+            openInviteToTeamModal: openInviteToTeamModal,
             openTutorialModal: openTutorialModal,
             openCurrentMemberModal: openCurrentMemberModal,
             closeModal: closeModal,
@@ -46,7 +49,30 @@
                 size        :   'lg'
             });
         }
-
+        function openTopicCreateModal($scope) {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/create.channel.html',
+                controller  :   'createEntityModalCtrl',
+                size        :   'lg'
+            });
+        }
+        function openPrivateCreateModal($scope) {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/create.private.html',
+                controller  :   'createEntityModalCtrl',
+                size        :   'lg'
+            });
+        }
+        function openInviteToTeamModal($scope) {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/invite.team.html',
+                controller  :   'inviteUserToTeamCtrl',
+                size        :   'lg'
+            });
+        }
         function openTutorialModal($scope, tutorialId) {
             var modal;
 
@@ -135,6 +161,9 @@
             storageAPIservice.removeLocal();
             accountService.removeAccount();
             memberService.removeMember();
+
+            if(mixpanel.cookie) mixpanel.cookie.clear();
+            $state.go('signin');
 
         }
     }

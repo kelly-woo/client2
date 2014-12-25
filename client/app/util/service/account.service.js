@@ -16,7 +16,7 @@
             setAccount: setAccount,
             removeAccount: removeAccount,
             getCurrentMemberId: getCurrentMemberId,
-            getAccountLanguage: accountLanguage || $rootScope.preferences.serverLang
+            getAccountLanguage: getAccountLanguage
         };
 
         return service;
@@ -63,8 +63,11 @@
                     signInInfo.teamId   = membership.teamId;
                 }
             });
-
             return signInInfo;
+        }
+
+        function getAccountLanguage() {
+            return accountLanguage || $rootScope.preferences.serverLang;
         }
     }
 })();

@@ -5,17 +5,6 @@ var app = angular.module('jandiApp');
 app.factory('userAPIservice', function($http, $rootScope, $filter, $upload, memberService) {
     var userAPI = {};
 
-
-    userAPI.updateProfilePic = function(image) {
-        return $upload.upload({
-            method: 'POST',
-            url: $rootScope.server_address + 'settings/profiles/photo',
-            file: image,
-            fileFormDataName : 'photo'
-        });
-    };
-
-
     function getEntityFromListById(list, value) {
         value = parseInt(value);
 
@@ -67,10 +56,6 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload, memb
                 password: new_password
             }
         });
-    };
-
-    userAPI.isAuthorized = function() {
-        return  memberService.getMember().u_authority === 'owner'
     };
 
     userAPI.getUserLanguage = function() {

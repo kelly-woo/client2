@@ -5,13 +5,14 @@
         .module('jandiApp')
         .factory('memberService', memberService);
 
-    memberService.$inject = ['$location', 'configuration', '$http', '$rootScope', 'storageAPIservice', 'entityAPIservice'];
+    memberService.$inject = ['$location', 'configuration', '$http', '$rootScope', 'storageAPIservice', 'entityAPIservice', '$upload'];
 
-    function memberService($location, configuration, $http, $rootScope, storageAPIservice, entityAPIservice) {
+    function memberService($location, configuration, $http, $rootScope, storageAPIservice, entityAPIservice, $upload) {
 
         var service = {
             getMemberInfo: getMemberInfo,
             updateMemberProfile: updateMemberProfile,
+            updateProfilePic: updateProfilePic,
             setMember: setMember,
             getMember: getMember,
             removeMember: removeMember,
@@ -25,7 +26,8 @@
             getPositiion: getPositiion,
             getPhoneNumber: getPhoneNumber,
             getEmail: getEmail,
-            getNameById: getNameById
+            getNameById: getNameById,
+            isAuthorized: isAuthorized
 
         } ;
 
@@ -49,7 +51,17 @@
                     position        :   member.u_extraData.position
                 }
             });
-        };
+        }
+
+        function updateProfilePic(image, supportHTML) {
+            var flash_url = supportHTML ? '' : 'v2/';
+            return $upload.upload({
+                method: 'POST',
+                url: $rootScope.server_address + flash_url + 'settings/profiles/photo',
+                file: image,
+                fileFormDataName : 'photo'
+            });
+        }
 
         function setMember(member) {
             $rootScope.member = member;
@@ -101,6 +113,9 @@
         }
         function getNameById(entityId) {
             return this.getNameFromMember(entityAPIservice.getEntityFromListById($rootScope.totalEntities, entityId));
+        }
+        function isAuthorized() {
+            return  getMember().u_authority === 'owner';
         }
 
     }

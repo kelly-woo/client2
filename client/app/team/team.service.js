@@ -2,14 +2,18 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('teamAPIservice', function($http, $rootScope) {
+app.factory('teamAPIservice', function($http, $rootScope, accountService, memberService) {
     var teamAPI = {};
 
-    teamAPI.inviteToTeam = function(inviteMembers) {
+    teamAPI.inviteToTeam = function(receivers) {
         return $http({
             method  : 'POST',
-            url     : $rootScope.server_address + 'invitation/team',
-            data    : { "inviteMembers" : inviteMembers }
+            url     : $rootScope.server_address + 'invitations',
+            data    : {
+                teamId: memberService.getTeamId(),
+                receivers: receivers,
+                lang: accountService.getAccountLanguage()
+            }
         });
     };
 

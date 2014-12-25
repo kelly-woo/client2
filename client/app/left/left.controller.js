@@ -83,7 +83,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
 
     function setCurrentEntity() {
         $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
-    };
+    }
 
 
     // tutorial status
@@ -157,6 +157,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
             // generating starred list.
             setStar();
         }
+
         if ($state.params.entityId)
             setCurrentEntity();
 
@@ -222,20 +223,10 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
             publicService.openJoinModal($scope);
         }
         else if (selector == 'channel') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/create.channel.html',
-                controller  :   'createEntityModalCtrl',
-                size        :   'lg'
-            });
+            publicService.openTopicCreateModal($scope);
         }
         else if (selector == 'private') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/create.private.html',
-                controller  :   'createEntityModalCtrl',
-                size        :   'lg'
-            });
+            publicService.openPrivateCreateModal($scope);
         }
         else if (selector == 'file') {
             $modal.open({
@@ -469,6 +460,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
         });
     }
 
-    publicService.openCurrentMemberModal($scope)
+    publicService.openInviteToTeamModal($scope);
 });
 

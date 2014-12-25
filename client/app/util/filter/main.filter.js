@@ -167,6 +167,29 @@ app.filter('getUserEmail', ['memberService',
     }
 ]);
 
+app.filter('getSmallThumbnail', ['$rootScope',
+    function($rootScope) {
+        return function(member) {
+            return $rootScope.server_uploaded + (member.u_photoThumbnailUrl.smallThumbnailUrl || member.u_photoUrl);
+        }
+    }
+]);
+app.filter('getMediumThumbnail', ['$rootScope',
+    function($rootScope) {
+        return function(member) {
+            return $rootScope.server_uploaded + (member.u_photoThumbnailUrl.mediumThumbnailUrl || member.u_photoUrl);
+        }
+    }
+]);
+app.filter('getlargeThumbnail', ['$rootScope',
+    function($rootScope) {
+        return function(member) {
+            return $rootScope.server_uploaded + (member.u_photoThumbnailUrl.largeThumbnailUrl || member.u_photoUrl);
+        }
+    }
+]);
+
+
 /*
 
  */

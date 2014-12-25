@@ -13,7 +13,7 @@
     <!-- USER INFO CONTAINER -->
     <div class="lpanel-user cursor_pointer" ng-click="onCurrentMemberContainerClick();">
         <span data-toggle="dropdown">
-            <img class="lpanel-user__avatar" data-ng-src="{{ server_uploaded + user.u_photoThumbnailUrl.smallThumbnailUrl }}">
+            <img class="lpanel-user__avatar" data-ng-src="{{ member | getSmallThumbnail }}">
             <div class="lpanel-user__container">
                 <span class="lpanel-user__name inline-overflow-ellipsis"><b>{{team.name}}</b><br/>
                     {{ member | getUserPosition }} {{ member | getName}}</span>

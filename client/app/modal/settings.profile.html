@@ -14,8 +14,12 @@
             <span translate>@modal-setting-profile-msg1</span>
         </h4>
 
+        <div class="cropArea" ng-if="isProfilePicSelected">
+            <img-crop image="profilePic" result-image="croppedProfilePic" on-change="onchange($dataURI);"></img-crop>
+        </div>
+
         <div class="user-profile-photo-container img-circle" ng-if="!isProfilePicSelected">
-            <img class="user-profile__photo" ng-src="{{ server_uploaded + curUser.u_photoThumbnailUrl.mediumThumbnailUrl}}" />
+            <img class="user-profile__photo" ng-src="{{ curUser | getMediumThumbnail }}" />
             <div class="user-profile-photo__overlay">
                 <div class="black-opac__background"></div>
                 <div class="overlay__text"><span translate>@btn-change</span></div>
@@ -28,10 +32,6 @@
         </div>
 
         <span ng-if="false" translate>@ie9-profile-image-support</span>
-
-        <div class="cropArea" ng-if="isProfilePicSelected">
-            <img-crop image="profilePic" result-image="croppedProfilePic" on-change="onchange($dataURI);"></img-crop>
-        </div>
 
         <div class="form-horizontal" ng-if="!isProfilePicSelected">
             <div class="user-profile-general-container">
@@ -110,6 +110,7 @@
 
     <span translate ng-if="false">@input-max-length-60-error</span>
     <span translate ng-if="false">@input-max-length-20-error</span>
+
     <div class="modal-footer profile-footer">
         <div ng-if="!isProfilePicSelected">
             <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>
@@ -129,8 +130,4 @@
 
 </form>
 
-<div class="loading_container" data-ng-if="isLoading">
-    <div class="loading_container_background"></div>
-    <div class="loading_bg"></div>
-    <div class="loading_bar icon-loading"></div>
-</div>
+<div ng-include="templates.loading"></div>

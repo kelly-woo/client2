@@ -6,7 +6,7 @@
     </h3>
 </div>
 
-<form name="invite_team_form" data-ng-submit="onInviteClick();" novalidate>
+<form name="inviteTeamForm" data-ng-submit="onInviteClick();" novalidate>
     <div class="modal-body invite-team-body">
         <h4 class="modal-body__description">
             <span translate>@modal-team-invite-msg1</span>
@@ -16,10 +16,12 @@
                 <i class="icon-add"></i>
                 <span translate>@btn-add</span>
             </div>
-            <div class="form-horizontal">
-                <input type="email" class="form-control invite" name="email" placeholder="{{ '@input-invite-email' | translate }}" data-ng-required="true" />
+
+            <div class="form-horizontal invite-body-form-control">
+                <input type="email" class="form-control invite" name="email" placeholder="{{ '@input-invite-email' | translate }}" ng-required="true" />
             </div>
         </div>
+
         <div data-ng-if="false">
             <span translate>@alert-missing-info</span>
             <span translate>@alert-send-mail-fail</span>
@@ -27,15 +29,13 @@
             <span translate>@alert-send-mail-invalid</span>
             <span translate>@alert-send-mail-success</span>
         </div>
+
     </div>
+
     <div class="modal-footer">
         <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>
-        <input class="btn btn-ok" type="submit" id="invite_to_team" value="{{ '@btn-invite' | translate }}" data-ng-disabled="invite_team_form.$invalid"/>
+        <input class="btn btn-ok" type="submit" id="invite_to_team" value="{{ '@btn-invite' | translate }}" data-ng-disabled="inviteTeamForm.$invalid"/>
     </div>
 </form>
 
-<div class="loading_container" data-ng-if="isLoading">
-    <div class="loading_container_background"></div>
-    <div class="loading_bg"></div>
-    <div class="loading_bar icon-loading"></div>
-</div>
+<div ng-include="templates.loading"></div>

@@ -21,7 +21,6 @@ app.factory('entityAPIservice', function($rootScope, $filter, $state, $window, s
 
     entityAPI.getEntityById = function(entityType, entityId) {
         entityType = entityType.toLowerCase();
-
         var list = $rootScope.joinedChannelList;
 
         // TODO: ISN'T 'indexOf' fucntion slow?
@@ -29,10 +28,9 @@ app.factory('entityAPIservice', function($rootScope, $filter, $state, $window, s
         if (entityType.indexOf('privategroup') > -1) {
             list = $rootScope.privateGroupList;
         }
-        else if (entityType.indexOf('user')) {
+        else if (entityType.indexOf('user') > -1) {
             list = $rootScope.memberList;
         }
-
         return this.getEntityFromListById(list, entityId);
     };
 
@@ -119,7 +117,6 @@ app.factory('entityAPIservice', function($rootScope, $filter, $state, $window, s
 
         storageAPIservice.setLastStateLocal(last_state);
     };
-
     entityAPI.getLastEntityState = function() {
         var last_state = storageAPIservice.getLastStateLocal();
 
@@ -127,7 +124,6 @@ app.factory('entityAPIservice', function($rootScope, $filter, $state, $window, s
 
         return last_state;
     };
-
     entityAPI.removeLastEntityState = function() {
         storageAPIservice.removeLastStateLocal();
     };
