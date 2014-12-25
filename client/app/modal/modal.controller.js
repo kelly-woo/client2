@@ -579,61 +579,78 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
 });
 
 // PROFILE CONTROLLER
-app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService) {
+app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService, accountService) {
 
     $scope.curUser = _.cloneDeep(memberService.getMember());
-    $scope.isFileSelected = false;
+    $scope.u_email = memberService.getEmail($scope.curUser);
+
+    $scope.isProfilePicSelected = false;
 
     $scope.isFileReaderAvailable = true;
 
     // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
     $scope.curUser.u_extraData.phoneNumber  = memberService.getPhoneNumber($scope.curUser) || "";
-    $scope.curUser.u_extraData.department   = $scope.curUser.u_extraData.department || "";
-    $scope.curUser.u_extraData.position     = $scope.curUser.u_extraData.position || "";
+    $scope.curUser.u_extraData.department   = memberService.getDepartment($scope.curUser) || "";
+    $scope.curUser.u_extraData.position     = memberService.getPosition($scope.curUser) || "";
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
     $scope.onProfileChangeClick = function() {
-
-        alert('cannot find proper api. ask John.')
-
-        return;
-
         if ($scope.isLoading) return;
-
         $scope.toggleLoading();
 
+        if (!isNamePristine()) {
+            // Name Change!!!
+            memberService.setName(memberService.getName($scope.curUser))
+                .success(function() {
+                    ////TODO: Currently, there is no return value.  How about member object for return???
+                    memberService.getMemberInfo(memberService.getMemberId())
+                        .success(function(response) {
+                            memberService.setMember(response);
+                        })
+                        .error(function(err){
+                            console.log(err)
+                        })
+                })
+                .error(function(err) {
+                    console.log(err)
+                })
+                .finally(function() {
+                    $scope.toggleLoading();
+                });
+        }
+        else if (!isEmailPristine()) {
+            // email address changed!!
 
-        /*
-         TODO:  Success response has updated user entitiy.
-         TODO:  Instead of updating left panel, just switch scope variable!!!!!!!
-         */
-        memberService.updateMemberProfile($scope.curUser)
-            .success(function() {
-                // analytics
-                analyticsService.mixpanelTrack( "Set Profile" );
-                var profile_data = {
+            console.log('me?')
+            $scope.toggleLoading();
 
-                    "status"    : $scope.curUser.u_statusMessage,
-                    "mobile"    : $scope.curUser.u_extraData.phoneNumber,
-                    "division"  : $scope.curUser.u_extraData.department,
-                    "position"  : $scope.curUser.u_extraData.position
-                };
+        }
+        else {
+            memberService.updateProfile($scope.curUser)
+                .success(function(response) {
+                    memberService.setMember(response);
+                    // analytics
+                    analyticsService.mixpanelTrack( "Set Profile" );
+                    var profile_data = {
 
-                analyticsService.mixpanelPeople( "set", profile_data );
+                        "status"    : $scope.curUser.u_statusMessage,
+                        "mobile"    : $scope.curUser.u_extraData.phoneNumber,
+                        "division"  : $scope.curUser.u_extraData.department,
+                        "position"  : $scope.curUser.u_extraData.position
+                    };
 
-                $scope.updateLeftPanelCaller();
-                $modalInstance.dismiss('cancel');
-            })
-            .error(function(error) {
-                console.error('updateUserProfile', error.code, error.msg);
-            })
-            .finally(function() {
-                $scope.toggleLoading();
-            });
-
+                    analyticsService.mixpanelPeople( "set", profile_data );
+                })
+                .error(function(error) {
+                    console.error('updateUserProfile', error.code, error.msg);
+                })
+                .finally(function() {
+                    $scope.toggleLoading();
+                });
+        }
     };
 
     $scope.$watch('member', function() {
@@ -652,18 +669,15 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
             }
             else {
                 if(window.FileReader && file.type.indexOf('image') > -1) {
-                    console.log('here')
                     $scope.isFileReaderAvailable = true;
                     var fileReader = new FileReader();
                     fileReader.readAsDataURL($files[0]);
 
+                    $scope.isProfilePicSelected = true;
+
                     fileReader.onload = function(e) {
-                        $scope.profilePic = e.target.result;
                         $scope.croppedProfilePic = '';
-                        $scope.isProfilePicSelected = true;
-                        console.log($scope.isProfilePicSelected)
-                        console.log('wowowow')
-                        console.log(e)
+                        $scope.profilePic = e.target.result;
                     };
                 }
             }
@@ -682,7 +696,11 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
         // there might be an image file missing file extension.
         memberService.updateProfilePic(blob, $scope.isFileReaderAvailable)
             .success(function(response) {
-                $scope.updateLeftPanelCaller();
+                // TODO: Currently, there is no return value.  How about member object for return???
+                memberService.getMemberInfo(memberService.getMemberId())
+                    .success(function(response) {
+                        memberService.setMember(response);
+                    })
             })
             .error(function(error) {
                 console.error('onCropDone', error.code, error.msg);
@@ -719,11 +737,32 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     $scope.onchange = function(temp) {
         $scope.croppedProfilePic = temp;
     };
-
     $scope.onProfilePicCancel = function() {
         $scope.isProfilePicSelected = false;
     };
 
+    $scope.isPristine = function() {
+        return isNamePristine() && isStatusPristine() && isPhoneNumberPristine() && isDepartmentPristine() && isPositionPristine();
+    };
+
+    function isNamePristine() {
+        return memberService.getName($scope.curUser) == memberService.getName(memberService.getMember());
+    }
+    function isEmailPristine() {
+        return $scope.u_email == memberService.getEmail(memberService.getMember());
+    }
+    function isStatusPristine() {
+        return memberService.getStatusMessage($scope.curUser) == memberService.getStatusMessage(memberService.getMember());
+    }
+    function isPhoneNumberPristine() {
+        return memberService.getPhoneNumber($scope.curUser) == memberService.getPhoneNumber(memberService.getMember());
+    }
+    function isDepartmentPristine() {
+        return memberService.getDepartment($scope.curUser) == memberService.getDepartment(memberService.getMember());
+    }
+    function isPositionPristine() {
+        return memberService.getPosition($scope.curUser) == memberService.getPosition(memberService.getMember());
+    }
 });
 
 // ACCOUNT CONTROLLER

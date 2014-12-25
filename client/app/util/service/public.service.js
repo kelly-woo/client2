@@ -23,7 +23,7 @@
 
         function openPrivacyModal() {
             var privacy = 'app/modal/terms/privacy';
-            privacy = privacy + '_' + accountService.getAccountLanguage + '.html';
+            privacy = privacy + '_' + accountService.getAccountLanguage() + '.html';
 
             $modal.open({
                 templateUrl: privacy,
@@ -33,7 +33,7 @@
 
         function openAgreementModal() {
             var agreement = 'app/modal/terms/agreement';
-            agreement = agreement + '_' + accountService.getAccountLanguage + '.html';
+            agreement = agreement + '_' + accountService.getAccountLanguage() + '.html';
 
             $modal.open({
                 templateUrl: agreement,

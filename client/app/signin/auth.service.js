@@ -49,31 +49,70 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     };
 
     authAPI.isSignedIn = function() {
-        return storageAPIservice.hasAccessTokenLocal() || storageAPIservice.hasAccessTokenSession();
+        if (angular.isDefined(storageAPIservice.getRefreshTokenLocal()) || angular.isDefined(storageAPIservice.getRefreshTokenSession())){
+            return true;
+        }
+        return false;
     };
 
     authAPI.requestAccessTokenWithRefreshToken = function() {
-        console.log('access_token: ', storageAPIservice.getAccessTokenLocal(), storageAPIservice.getAccessTokenSession());
+        var refresh_token = storageAPIservice.getRefreshTokenLocal() || storageAPIservice.getRefreshTokenSession();
+
+        if (!refresh_token) {
+            this.signOut();
+            return;
+        }
+
         return $http({
             method  : "POST",
             url     : $rootScope.server_address + 'token',
             data    : {
                 'grant_type'    : 'refresh_token',
-                'refresh_token' : storageAPIservice.getRefreshTokenLocal() || storageAPIservice.getRefreshTokenSession()
+                'refresh_token' : refresh_token
             }
         });
     };
 
-    authAPI.signOut = function() {
-        storageAPIservice.removeSession();
-        storageAPIservice.removeLocal();
-        accountService.removeAccount();
-        memberService.removeMember();
+    authAPI.updateAccessToken = function(response) {
+        if (angular.isDefined(storageAPIservice.getRefreshTokenLocal()))
+            storageAPIservice.setAccessTokenLocal(response.access_token)
+        else
+            storageAPIservice.setAccessTokenSession(response.access_token);
 
-        if(mixpanel.cookie) mixpanel.cookie.clear();
-        $state.go('signin');
+        $state.go($state.current, {}, {reload: true}); //second parameter is for $stateParams
     };
 
+    authAPI.signOut = function() {
+                if(mixpanel.cookie) mixpanel.cookie.clear();
+
+                storageAPIservice.removeSession();
+                storageAPIservice.removeLocal();
+
+                $state.go('signin');
+        //DeleteToken()
+        //    .success(function() {
+        //        if(mixpanel.cookie) mixpanel.cookie.clear();
+        //
+        //        storageAPIservice.removeSession();
+        //        storageAPIservice.removeLocal();
+        //
+        //        $state.go('signin');
+        //
+        //    });
+
+    };
+
+    function DeleteToken() {
+        return $http({
+            method: 'DELETE',
+            url: $rootScope.server_address + 'token',
+            data: {
+                refresh_token: storageAPIservice.getRefreshTokenLocal() || storageAPIservice.getRefreshTokenSession()
+            },
+            headers : { "Content-Type": "application/json;charset=utf-8" }
+
+        });
+    }
 
 
 
@@ -97,30 +136,31 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
             if (rejection.status === 0) {
                 // net::ERR_CONNECTION_REFUSED
                 // what should i do?
+                return $q.reject(rejection);
+
             }
             if (rejection.status === 400) {
                 // This is just bad request.
                 console.debug('BAD REQUEST');
                 console.debug(rejection.config.method, rejection.config.url);
                 console.debug(rejection.config.data);
+                return $q.reject(rejection);
 
             }
             if (rejection.status === 401) {
                 // Unauthorized Access.
                 // What to do? - get new access_token using refresh_token
-                console.debug('401 Unauthorized.');
                 var authAPIservice = $injector.get('authAPIservice');
                 authAPIservice.requestAccessTokenWithRefreshToken()
                     .success(function(response) {
                         authAPIservice.updateAccessToken(response);
-                        return rejection;
                     })
                     .error(function(error) {
-
+                        // bad refresh_token.
+                        authAPIservice.signOut();
                     });
             }
 
-            return $q.reject(rejection);
         }
     };
 });

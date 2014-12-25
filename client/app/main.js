@@ -18,20 +18,30 @@ app.config(function ($stateProvider) {
                     templateUrl : 'app/left/left.html',
                     controller  : 'leftPanelController1',
                     resolve     : {
-                        leftPanel   : function (authAPIservice, leftpanelAPIservice) {
-                            if (authAPIservice.isSignedIn())
-                                return leftpanelAPIservice.getLists()
-                                    .success(function(response) {
-                                    })
-                                    .error(function(err) {
-                                        leftpanelAPIservice.toSignin();
-                                    });
-                            else
-                                return leftpanelAPIservice.toSignin();
-                        },
-                        member        : function (leftPanel) {
-                            return leftPanel.data.user;
+                        leftPanel: function (leftpanelAPIservice) {
+                                return leftpanelAPIservice.getLists();
                         }
+                        //member: function (leftPanel, authAPIservice) {
+                        //    console.log(leftPanel)
+                        //    if (!leftPanel)
+                        //        authAPIservice.signOut();
+                        //    return leftPanel.data.user;
+                        //}
+                        //account: function(member, accountService) {
+                        //    if (_.isUndefined(accountService.getAccount())) {
+                        //        console.log('account undefined');
+                        //        return accountService.getAccountInfo()
+                        //            .success(function(response) {
+                        //                return response;
+                        //            })
+                        //            .error(function(err) {
+                        //                leftpanelAPIservice.toSignin();
+                        //            })
+                        //    }
+                        //    else {
+                        //        return accountService.getAccount();
+                        //    }
+                        //}
                     }
                 }
                 //,

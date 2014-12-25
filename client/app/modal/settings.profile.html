@@ -7,7 +7,6 @@
 </div>
 
 <form name="profileForm" data-ng-submit="onProfileChangeClick()" novalidate>
-
     <div class="modal-body profile-body">
 
         <h4 class="modal-body__description">
@@ -15,18 +14,17 @@
         </h4>
 
         <div class="cropArea" ng-if="isProfilePicSelected">
-            <img-crop image="profilePic" result-image="croppedProfilePic" on-change="onchange($dataURI);"></img-crop>
+            <img-crop image="profilePic" result-image="croppedProfilePic" on-change="onchange($dataURI);" ></img-crop>
         </div>
 
-        <div class="user-profile-photo-container img-circle" ng-if="!isProfilePicSelected">
-            <img class="user-profile__photo" ng-src="{{ curUser | getMediumThumbnail }}" />
+        <div class="user-profile-photo-container img-circle opac-zero" ng-if="!isProfilePicSelected">
+            <img on-image-load on-image-load-opac-parent="true" class="user-profile__photo" ng-src="{{ curUser | getMediumThumbnail }}" />
             <div class="user-profile-photo__overlay">
                 <div class="black-opac__background"></div>
                 <div class="overlay__text"><span translate>@btn-change</span></div>
                 <input type="file"
                        id="profile_image_uploader"
                        class="file_upload_btn"
-                       data-ng-click="this.value=null;"
                        data-ng-file-select="onFileSelect($files);">
             </div>
         </div>
@@ -43,7 +41,7 @@
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3"><span translate>@common-name</span></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="lastName" value="{{ curUser | getName }}" disabled/>
+                        <input type="text" class="form-control" name="name" data-ng-model="curUser.name"/>
                     </div>
                 </div>
 
@@ -51,7 +49,12 @@
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3" ><span translate>@common-email</span></label>
                     <div class="col-sm-9">
-                        <input type="email" class="form-control" name="email" data-ng-model="curUser.u_email" disabled/>
+                        <select ng-model="u_email" class="form-control" name="email"
+                                ng-options="email.id as email.id for email in account.emails | filter : {status:'confirmed'} ">
+                        </select>
+
+                        Is there an API that changes member.u_email?????
+
                     </div>
                 </div>
 
@@ -115,7 +118,7 @@
         <div ng-if="!isProfilePicSelected">
             <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>
             <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}"
-                    ng-disabled="profileForm.$invalid || !profileForm.$dirty"/>
+                    ng-disabled="isPristine()"/>
         </div>
 
         <div ng-if="isProfilePicSelected">

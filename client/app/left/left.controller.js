@@ -6,7 +6,7 @@
         .controller('leftPanelController', leftPanelController);
 
 
-    function leftPanelController($scope, $rootScope, storageAPIservice, accountService,  leftPanel, member, leftpanelAPIservice) {
+    function leftPanelController($scope, $rootScope, storageAPIservice, accountService,  leftPanel, leftpanelAPIservice) {
         var vm = this;
 
         $rootScope.isDMCollapsed = false || storageAPIservice.isLeftDMCollapsed();
@@ -32,9 +32,15 @@
 var app = angular.module('jandiApp');
 
 app.controller('leftPanelController1', function($scope, $rootScope, $state, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-                                               member, entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice) {
+                                                entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice) {
 
     console.info('[enter] leftpanelController');
+    $scope.isLoading = true;
+
+    if (!leftPanel) return;
+
+    $scope.isLoading = false;
+    $rootScope.isReady = true;
 
     $scope.leftListCollapseStatus = {
         isTopicCollapsed: storageAPIservice.isLeftTopicCollapsed() || false,
@@ -109,6 +115,20 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     function initLeftList () {
         memberService.setMember(response.user);
 
+        // Signed in with token. So there will no account info.
+        // Currently, there is no page that uses acocunt info right after user signed in.
+        // As a result, get Account info asynchronously, meaning there may a short period of time that app is waiting for account info.
+        if (_.isUndefined(accountService.getAccount())) {
+            accountService.getAccountInfo()
+                .success(function(response) {
+                    accountService.setAccount(response);
+                })
+                .error(function(err) {
+                    console.log(err)
+                    leftpanelAPIservice.toSignin();
+                })
+        }
+
         $rootScope.team = $scope.team = response.team;
 
         $scope.totalEntityCount = response.entityCount;
@@ -165,7 +185,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
             $scope.initTutorialStatus();
         }
     }
-
     function setEntityPrefix() {
         leftpanelAPIservice.setEntityPrefix($scope);
     }
@@ -459,7 +478,5 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
             }
         });
     }
-
-    publicService.openInviteToTeamModal($scope);
 });
 

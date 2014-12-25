@@ -24,6 +24,8 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.$state       = $state;
     $rootScope.$stateParams = $stateParams;
 
+    $rootScope.isReady = false;
+
 
     // api_version will be no longer needed in this format.
     var api_address = configuration.api_address;
@@ -59,15 +61,19 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
         console.info("==============================[stateChange]==============================");
-        console.info("   from    ", fromState.name, fromParams);
-        console.info("    to     ", toState.name, toParams);
+        console.info("   from    ", fromState.name, ' / ', fromParams);
+        console.info("    to     ", toState.name, ' / ',toParams);
         console.info("=========================================================================");
 
         if (!fromState.name) {
             // if external access, continue to original state
-        } else {
+        }
+        else {
             // otherwise, internal access, redirect to messages state
             switch(toState.name) {
+                case 'signin':
+                    console.log('herer')
+                    break;
                 case 'archives':
                     event.preventDefault();
                     if ( toParams.entityId == $rootScope.member.id ) {

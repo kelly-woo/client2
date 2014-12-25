@@ -11,19 +11,20 @@
 
         var service = {
             getMemberInfo: getMemberInfo,
-            updateMemberProfile: updateMemberProfile,
-            updateProfilePic: updateProfilePic,
             setMember: setMember,
             getMember: getMember,
             removeMember: removeMember,
+            updateProfilePic: updateProfilePic,
+            updateProfile: updateProfile,
             hasSeenTutorial: hasSeenTutorial,
             getTeamId: getTeamId,
             getStarredEntities: getStarredEntities,
             getMemberId: getMemberId,
-            getNameFromMember: getNameFromMember,
+            getName: getName,
+            setName: setName,
             getStatusMessage: getStatusMessage,
             getDepartment: getDepartment,
-            getPositiion: getPositiion,
+            getPosition: getPosition,
             getPhoneNumber: getPhoneNumber,
             getEmail: getEmail,
             getNameById: getNameById,
@@ -39,30 +40,6 @@
                 url: $rootScope.server_address + 'account/members/' + memberId
             });
         }
-
-        function updateMemberProfile(member) {
-            return $http({
-                method: 'PUT',
-                url: $rootScope.server_address + 'settings/profile',
-                data: {
-                    statusMessage   :   member.u_statusMessage,
-                    phoneNumber     :   member.u_extraData.phoneNumber,
-                    department      :   member.u_extraData.department,
-                    position        :   member.u_extraData.position
-                }
-            });
-        }
-
-        function updateProfilePic(image, supportHTML) {
-            var flash_url = supportHTML ? '' : 'v2/';
-            return $upload.upload({
-                method: 'POST',
-                url: $rootScope.server_address + flash_url + 'settings/profiles/photo',
-                file: image,
-                fileFormDataName : 'photo'
-            });
-        }
-
         function setMember(member) {
             $rootScope.member = member;
             storageAPIservice.setLastEmail(member.u_email);
@@ -74,6 +51,28 @@
             $rootScope.member = null;
         }
 
+        function updateProfilePic(image, supportHTML) {
+            var flash_url = supportHTML ? '' : 'v2/';
+            return $upload.upload({
+                method: 'PUT',
+                url: $rootScope.server_address + flash_url + 'members/' + this.getMemberId() + '/profile/photo',
+                file: image,
+                fileFormDataName : 'photo'
+            });
+        }
+        function updateProfile(member) {
+            return $http({
+                method: 'PUT',
+                url: $rootScope.server_address + 'members/' + this.getMemberId() + '/profile',
+                data: {
+                    statusMessage   :   member.u_statusMessage,
+                    phoneNumber     :   member.u_extraData.phoneNumber,
+                    department      :   member.u_extraData.department,
+                    position        :   member.u_extraData.position
+                }
+            });
+
+        }
         function hasSeenTutorial() {
             if (angular.isUndefined(this.getMember().u_tutoredAt) || this.getMember().u_tutoredAt === null)
                 return false;
@@ -93,24 +92,34 @@
         function getMemberId() {
             return this.getMember().id;
         }
-        function getNameFromMember(member) {
+        function getName(member) {
             return member.name;
-        } 
-        function getStatusMessage(member) {
-            return member.u_statusMessage;
-        } 
-        function getDepartment(member) {
-            return member.u_extraData.department;
-        } 
-        function getPositiion(member) {
-            return member.u_extraData.position ;
-        } 
-        function getPhoneNumber(member) {
-            return member.u_extraData.phoneNumber ;
-        } 
+        }
+        function setName(name) {
+            return $http({
+                method: 'PUT',
+                url: $rootScope.server_address + 'members/' + this.getMemberId() + '/name',
+                data: {
+                    name: name
+                }
+            });
+        }
         function getEmail(member) {
             return member.u_email;
         }
+        function getStatusMessage(member) {
+            return member.u_statusMessage;
+        }
+        function getPhoneNumber(member) {
+            return member.u_extraData.phoneNumber ;
+        }
+        function getDepartment(member) {
+            return member.u_extraData.department;
+        } 
+        function getPosition(member) {
+            return member.u_extraData.position ;
+        } 
+
         function getNameById(entityId) {
             return this.getNameFromMember(entityAPIservice.getEntityFromListById($rootScope.totalEntities, entityId));
         }

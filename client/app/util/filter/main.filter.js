@@ -122,7 +122,7 @@ app.filter('getName', ['memberService',
 
             if (input.type != 'user') return input.name;
 
-            return memberService.getNameFromMember(input);
+            return memberService.getName(input);
         }
     }
 ]);
@@ -146,7 +146,7 @@ app.filter('getUserDepartment', ['memberService',
 app.filter('getUserPosition', ['memberService',
     function(memberService) {
         return function(member) {
-            return memberService.getPositiion(member);
+            return memberService.getPosition(member);
         }
     }
 ]);
