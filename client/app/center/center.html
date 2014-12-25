@@ -39,21 +39,21 @@
             </li>
 
             <!--    RENAME  -->
-            <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id" data-ng-click="openModal('rename')">
+            <li role="presentation" data-ng-if="isOwner();" data-ng-click="openModal('rename')">
                 <a role="menuitem" tabindex="-1">
                     <i class="icon-edit-fill"></i><span translate>@ch-menu-rename</span>
                 </a>
             </li>
 
             <!--    LEAVE   -->
-            <li role="presentation" data-ng-click="onLeaveClick();" data-ng-if="currentEntity.id != team.t_defaultChannelId">
+            <li role="presentation" data-ng-click="onLeaveClick();" data-ng-if="isDefaultTopic();">
                 <a role="menuitem" tabindex="-1">
                     <i class="icon-logout"></i><span translate>@ch-menu-leave</span>
                 </a>
             </li>
 
             <!--    DELETE  -->
-            <li role="presentation" data-ng-if="currentEntity.ch_creatorId === user.id && currentEntity.id != team.t_defaultChannelId" data-ng-click="onDeleteClick();">
+            <li role="presentation" data-ng-if="isOwner() && !isDefaultTopic()" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
                     <i class=" icon-delete-circle-fill "></i><span translate>@ch-menu-delete</span>
                 </a>
@@ -112,7 +112,7 @@
             </li>
 
             <!--    RENAME  -->
-            <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="openModal('rename')">
+            <li role="presentation" data-ng-if="isOwner();" data-ng-click="openModal('rename')">
                 <a role="menuitem" tabindex="-1">
                     <i class="icon-edit-fill"></i><span translate>@pg-menu-rename</span>
                 </a>
@@ -126,7 +126,7 @@
             </li>
 
             <!--    DELETE  -->
-            <li role="presentation" data-ng-if="currentEntity.pg_creatorId === user.id" data-ng-click="onDeleteClick();">
+            <li role="presentation" data-ng-if="isOwner();" data-ng-click="onDeleteClick();">
                 <a role="menuitem" tabindex="-1">
                     <i class=" icon-delete-circle-fill "></i><span translate>@pg-menu-delete</span>
                 </a>
