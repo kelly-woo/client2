@@ -121,7 +121,7 @@
         } 
 
         function getNameById(entityId) {
-            return this.getNameFromMember(entityAPIservice.getEntityFromListById($rootScope.totalEntities, entityId));
+            return this.getName(entityAPIservice.getEntityFromListById($rootScope.totalEntities, entityId));
         }
         function isAuthorized() {
             return  getMember().u_authority === 'owner';

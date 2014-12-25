@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, publicService) {
 
     //console.info('[enter] centerpanelController');
 
@@ -38,7 +38,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $rootScope.isIE9 = false;
 
     if (angular.isDefined(FileAPI.support)) {
-
         if (!FileAPI.support.html5)
             $rootScope.isIE9 = true;
     }
@@ -492,13 +491,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             });
         }
         else if (selector == 'invite') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/invite.channel.html',
-                controller  :   'inviteModalCtrl',
-                size        :   'lg',
-                windowClass :   'allowOverflowY'
-            });
+            publicService.openInviteToCurrentEntityModal($scope);
         }
         else if (selector == 'inviteUserToChannel') {
             $modal.open({

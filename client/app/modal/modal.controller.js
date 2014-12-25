@@ -161,9 +161,9 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
      */
     function generateInviteList() {
         var members = $scope.currentEntity.ch_members || $scope.currentEntity.pg_members;
-        var totalUserList = $scope.userList;
+        var totalUserList = $scope.memberList;
 
-        $scope.userList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 });
+        $scope.availableMemberList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 });
     }
 
     // See if 'user' is a member of current channel/privateGroup.
@@ -184,20 +184,20 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
     $scope.onInviteClick = function(entityType) {
         var guestList = [];
 
-        angular.forEach($filter('filter')($scope.userList, {'selected':true}), function(user) {
+        if (angular.isUndefined($scope.userToInviteList)) return;
+
+        if ($scope.isLoading) return;
+        $scope.toggleLoading();
+
+        angular.forEach($scope.userToInviteList, function(user) {
             this.push(user.id);
         }, guestList);
-
-        if (guestList.length== 0) {
-            // TODO: 한글화
-            alert("No one to invite.  I guess you don't have that many friends.");
-            return;
-        }
 
         $scope.isLoading = true;
 
         entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
-            .success(function() {
+            .success(function(response) {
+                console.log(response)
                 // analytics
                 var entity_type = "";
                 switch (entityType) {
@@ -211,14 +211,20 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
                         entity_type = "invalid";
                         break;
                 }
+
                 analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
 
-                $scope.isLoading = false;
+                // TODO -  ASK JOHN FOR AN API THAT RETRIEVES UPDATED INFO OF TOPIC/PG.
+                $scope.updateLeftPanelCaller();
+                
                 $modalInstance.dismiss('success');
             })
             .error(function(error) {
                 console.error('inviteUsers', error.msg );
-                $scope.isLoading = false;
+            })
+            .finally(function() {
+                $scope.toggleLoading();
+
             });
     };
 });

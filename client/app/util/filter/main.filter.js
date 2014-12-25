@@ -98,12 +98,12 @@ app.filter('userByName', ['$rootScope', function($rootScope) {
         name = name.toLowerCase();
 
         var returnArray = [];
-        console.log(input, name)
-        _.each(input, function(user) {
-            var fullName = user.name.toLowerCase();
+
+        _.each(input, function(member) {
+            var fullName = member.name.toLowerCase();
 
             if(fullName.indexOf(name) > -1) {
-                returnArray.push(user)
+                returnArray.push(member)
             }
         });
 

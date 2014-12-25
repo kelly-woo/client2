@@ -30,7 +30,10 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, storageAPIserv
         return $http({
             method: 'PUT',
             url: $rootScope.server_address + entityType + '/' + entityId,
-            data: {"name": newEntityName}
+            data: {
+                name: newEntityName,
+                teamId: memberService.getTeamId()
+            }
         });
     };
 

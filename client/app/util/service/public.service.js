@@ -15,6 +15,7 @@
             openInviteToTeamModal: openInviteToTeamModal,
             openTutorialModal: openTutorialModal,
             openCurrentMemberModal: openCurrentMemberModal,
+            openInviteToCurrentEntityModal: openInviteToCurrentEntityModal,
             closeModal: closeModal,
             signOut: signOut
         };
@@ -151,6 +152,17 @@
                 controller  :   'profileCtrl',
                 size        :   'lg'
             });
+        }
+
+        function openInviteToCurrentEntityModal($scope) {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/invite.channel.html',
+                controller  :   'inviteModalCtrl',
+                size        :   'lg',
+                windowClass :   'allowOverflowY'
+            });
+
         }
         function closeModal(modalInstance) {
             modalInstance.dismiss('close');
