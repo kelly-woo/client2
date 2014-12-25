@@ -503,12 +503,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             publicService.openInviteToCurrentEntityModal($scope);
         }
         else if (selector == 'inviteUserToChannel') {
-            $modal.open({
-                scope       :   $scope,
-                templateUrl :   'app/modal/invite.direct.html',
-                controller  :   'inviteUsertoChannelCtrl',
-                size        :   'lg'
-            });
+            publicService.openInviteToJoinedEntityModal($scope);
         }
         else if (select == 'share') {
 

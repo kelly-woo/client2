@@ -93,11 +93,6 @@ app.factory('entityAPIservice', function($rootScope, $filter, $state, $window, s
     };
 
 
-    entityAPI.getInviteOptions = function(joinedChannelList, privateGroupList) {
-        // TODO: 이미 모든 팀원이 초대된 entity는 예외 처리
-        var lists = joinedChannelList.concat(privateGroupList);
-        return lists;
-    };
 
     /**
      *

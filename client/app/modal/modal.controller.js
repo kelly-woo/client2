@@ -324,26 +324,18 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter,
 });
 
 // WHEN INVITING FROM DIRECT MESSAGE
-app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entityheaderAPIservice, $rootScope) {
+app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entityheaderAPIservice, publicService, $rootScope) {
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
-    $scope.inviteOptions = entityheaderAPIservice.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList);
+    $scope.inviteOptions = publicService.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList, $scope.currentEntity.id);
 
     $scope.onInviteClick = function(inviteTo) {
 
-        console.log(inviteTo);
+        if ($scope.isLoading) return;
 
-        if (angular.isUndefined(inviteTo)) {
-            alert('Please select channel/private group.');
-            return;
-        }
-
-//        if (inviteTo.members.indexOf($scope.currentEntity.id) > -1) {
-//            $modalInstance.dismiss('cancel');
-//            return;
-//        }
+        $scope.toggleLoading();
 
         var invitedId = [];
         invitedId.push($scope.currentEntity.id);
@@ -354,11 +346,12 @@ app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entit
             .success(function(response) {
                 $scope.updateLeftPanelCaller();
                 $modalInstance.dismiss('cancel');
-                $scope.isLoading = false;
             })
             .error(function(error) {
                 console.error(error.code, error.msg);
-                $scope.isLoading = false;
+            })
+            .finally(function() {
+                $scope.toggleLoading();
             });
     }
 });

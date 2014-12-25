@@ -7,6 +7,7 @@
 
     function publicService($modal, accountService, storageAPIservice, memberService) {
         var service = {
+            getInviteOptions: getInviteOptions,
             openPrivacyModal: openPrivacyModal,
             openAgreementModal: openAgreementModal,
             openJoinModal: openJoinModal,
@@ -16,11 +17,28 @@
             openTutorialModal: openTutorialModal,
             openCurrentMemberModal: openCurrentMemberModal,
             openInviteToCurrentEntityModal: openInviteToCurrentEntityModal,
+            openInviteToJoinedEntityModal: openInviteToJoinedEntityModal,
             closeModal: closeModal,
             signOut: signOut
         };
 
         return service;
+
+        function getInviteOptions(joinedChannelList, privateGroupList, inviteeId) {
+            var list = [];
+
+            angular.forEach(joinedChannelList, function(entity, index) {
+                if (!_.contains(entity.ch_members, inviteeId))
+                    this.push(entity);
+            }, list);
+
+            angular.forEach(privateGroupList, function(entity, index) {
+                if (!_.contains(entity.pg_members, inviteeId))
+                    this.push(entity);
+            }, list);
+
+            return list;
+        }
 
         function openPrivacyModal() {
             var privacy = 'app/modal/terms/privacy';
@@ -162,7 +180,14 @@
                 size        :   'lg',
                 windowClass :   'allowOverflowY'
             });
-
+        }
+        function openInviteToJoinedEntityModal($scope) {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/invite.direct.html',
+                controller  :   'inviteUsertoChannelCtrl',
+                size        :   'lg'
+            });
         }
         function closeModal(modalInstance) {
             modalInstance.dismiss('close');
