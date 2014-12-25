@@ -216,7 +216,7 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
 
                 // TODO -  ASK JOHN FOR AN API THAT RETRIEVES UPDATED INFO OF TOPIC/PG.
                 $scope.updateLeftPanelCaller();
-                
+
                 $modalInstance.dismiss('success');
             })
             .error(function(error) {
