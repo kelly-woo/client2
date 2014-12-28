@@ -74,6 +74,7 @@
 
         }
         function hasSeenTutorial() {
+            console.log(this.getMember())
             if (angular.isUndefined(this.getMember().u_tutoredAt) || this.getMember().u_tutoredAt === null)
                 return false;
             else

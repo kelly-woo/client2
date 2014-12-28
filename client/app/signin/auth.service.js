@@ -143,6 +143,10 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
                 console.debug('BAD REQUEST');
                 console.debug(rejection.config.method, rejection.config.url);
                 console.debug(rejection);
+
+                //var authAPIservice = $injector.get('authAPIservice');
+                //authAPIservice.signOut();
+
                 return $q.reject(rejection);
 
             }

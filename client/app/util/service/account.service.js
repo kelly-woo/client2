@@ -51,6 +51,7 @@
             if (configuration.name == 'development') {
                 if (prefix == 'local') {
                     prefix = 'tosslab'
+                    //prefix = 'jihoon'
                 }
                 if (prefix == 'dev')
                     prefix = 'abcd';

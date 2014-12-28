@@ -17,8 +17,9 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
     // TODO: SHOULD MOVE TO memberService
     leftpanelAPI.setTutorial = function() {
+        console.log('tutoredAt')
         return $http({
-            method: 'PUT',
+            method: 'POST',
             url: $rootScope.server_address + 'settings/tutoredAt'
         });
     };
@@ -35,7 +36,6 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
             $state.transitionTo('signin', '', {'reload':true});
         }
         else {
-            console.log('moving to signin')
             $state.transitionTo('signin', '', {'reload':true});
 
         }

@@ -182,6 +182,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
             setCurrentEntity();
 
         if (!memberService.hasSeenTutorial()) {
+            // TODO: IM NOT GETTING TUTORIAL INFO FROM LEFTPANEL.USER
             $scope.initTutorialStatus();
         }
     }
