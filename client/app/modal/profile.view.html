@@ -1,7 +1,7 @@
 <!-- Modal: Mini Profile View -->
 <div class="modal-body profile-view-body">
     <div class="profile-view-general-container">
-        <img class="user-profile__photo view" data-ng-src="{{ server_uploaded + curUser.u_photoThumbnailUrl.mediumThumbnailUrl}}"/>
+        <img class="user-profile__photo view" data-ng-src="{{ curUser | getSmallThumbnail }}"/>
         <div class="user-profile__fullName">{{ curUser | getName }}</div>
         <div class="user-profile__nickName">{{ curUser | getUserStatusMessage }}</div>
     </div>

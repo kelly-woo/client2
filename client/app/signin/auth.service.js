@@ -143,7 +143,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
                 // This is just bad request.
                 console.debug('BAD REQUEST');
                 console.debug(rejection.config.method, rejection.config.url);
-                console.debug(rejection.config.data);
+                console.debug(rejection);
                 return $q.reject(rejection);
 
             }

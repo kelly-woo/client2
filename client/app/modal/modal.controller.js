@@ -553,7 +553,7 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
 
 // PROFILE VIEW CONTROLLER
 app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance, curUser, entityAPIservice, $state) {
-    $scope.curUser = entityAPIservice.getEntityFromListById($rootScope.userList, curUser.id);
+    $scope.curUser = curUser;
 
     $scope.onActionClick = function(actionType) {
         if (actionType === 'email') {

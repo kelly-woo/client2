@@ -18,6 +18,7 @@
             openCurrentMemberModal: openCurrentMemberModal,
             openInviteToCurrentEntityModal: openInviteToCurrentEntityModal,
             openInviteToJoinedEntityModal: openInviteToJoinedEntityModal,
+            openMemberProfileModal: openMemberProfileModal,
             closeModal: closeModal,
             signOut: signOut
         };
@@ -188,6 +189,18 @@
                 controller  :   'inviteUsertoChannelCtrl',
                 size        :   'lg'
             });
+        }
+        function openMemberProfileModal($scope, member) {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/profile.view.html',
+                controller  :   'profileViewerCtrl',
+                windowClass :   'profile-view-modal',
+                resolve     :   {
+                    curUser     : function getCurUser(){ return member; }
+                }
+            });
+
         }
         function closeModal(modalInstance) {
             modalInstance.dismiss('close');

@@ -267,21 +267,8 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
         if (angular.isNumber(user)) {
             user = entityAPIservice.getEntityFromListById($scope.memberList, user)
         }
-        openUserProfile(user);
+        publicService.openMemberProfileModal($scope, user);
     };
-
-    //  Open user profile modal view.
-    function openUserProfile(user) {
-        $modal.open({
-            scope       :   $scope,
-            templateUrl :   'app/modal/profile.view.html',
-            controller  :   'profileViewerCtrl',
-            windowClass :   'profile-view-modal',
-            resolve     :   {
-                curUser     : function getCurUser(){ return user; }
-            }
-        });
-    }
 
     // TODO: REALLY??? IS THIS THE BEST???
     $scope.onDMInputFocus = function() {

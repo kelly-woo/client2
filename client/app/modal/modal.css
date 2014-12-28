@@ -707,6 +707,7 @@
 }
 .profile-view-modal .modal-dialog {
     width: 310px;
+    margin: 10px auto;
 }
 .profile-view-modal  .modal-content {
     border-radius: 10px;
