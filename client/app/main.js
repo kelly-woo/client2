@@ -123,7 +123,7 @@ app.config(function ($stateProvider) {
             }
         })
         .state('password', {
-            url         : '/passwordreset?teamId&token',
+            url         : '/passwordreset?token',
             title       : 'Reset Password',
             templateUrl : 'app/password/password.reset.html',
             controller  : 'passwordResetController'

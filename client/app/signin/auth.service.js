@@ -15,11 +15,11 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
 
     authAPI.requestPasswordEmail = function(email) {
         return $http({
-            method:'POST',
+            method: 'POST',
             url: $rootScope.server_address + 'accounts/password/resetToken',
             data: {
                 email: email,
-                lang: accountService.getAccountLanguage
+                lang: accountService.getAccountLanguage()
             }
         });
     };
@@ -35,15 +35,14 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
         });
     };
 
-    authAPI.resetPassword = function(teamId, token, password, lang) {
+    authAPI.resetPassword = function(token, password) {
         return $http({
             method  : 'PUT',
-            url     : $rootScope.server_address + 'account/password',
+            url     : $rootScope.server_address + 'accounts/password',
             data    : {
-                'teamId'    : parseInt(teamId),
-                'token'     : token,
-                'password'  : password,
-                'lang'      : lang
+                token: token,
+                password: password,
+                lang: accountService.getAccountLanguage()
             }
         });
     };

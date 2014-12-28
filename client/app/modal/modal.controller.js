@@ -272,7 +272,7 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter,
                     _.forEach(response, function(value, index) {
                         var inviteStatus = '';
                         angular.element(document.getElementById(value.email)).parent().children('.modal-noti-block_msg').remove();
-                        console.log(angular.element(document.getElementById(value.email)).parent().children('.modal-noti-block_msg').remove())
+                        //console.log(angular.element(document.getElementById(value.email)).parent().children('.modal-noti-block_msg').remove())
                         if (!value.success) {
                             failList.push(value.email);
 

@@ -19,6 +19,7 @@
             openInviteToCurrentEntityModal: openInviteToCurrentEntityModal,
             openInviteToJoinedEntityModal: openInviteToJoinedEntityModal,
             openMemberProfileModal: openMemberProfileModal,
+            openPasswordResetRequestModal: openPasswordResetRequestModal,
             closeModal: closeModal,
             signOut: signOut
         };
@@ -200,7 +201,14 @@
                     curUser     : function getCurUser(){ return member; }
                 }
             });
-
+        }
+        function openPasswordResetRequestModal($scope) {
+            $modal.open({
+                scope       :   $scope,
+                templateUrl :   'app/modal/password.reset.request.html',
+                controller  :   'passwordRequestController',
+                size        :   'lg'
+            });
         }
         function closeModal(modalInstance) {
             modalInstance.dismiss('close');

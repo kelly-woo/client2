@@ -135,12 +135,7 @@
                 publicService.openPrivacyModal();
             }
             else if (selector == 'resetPassword') {
-                $modal.open({
-                    scope       :   $scope,
-                    templateUrl :   'app/modal/password.reset.request.html',
-                    controller  :   'passwordRequestController',
-                    size        :   'lg'
-                })
+                publicService.openPasswordResetRequestModal($scope);
             }
         };
     }
