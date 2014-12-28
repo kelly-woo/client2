@@ -114,7 +114,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
 
     function initLeftList () {
         memberService.setMember(response.user);
-
+        $rootScope.team = response.team;
         // Signed in with token. So there will no account info.
         // Currently, there is no page that uses acocunt info right after user signed in.
         // As a result, get Account info asynchronously, meaning there may a short period of time that app is waiting for account info.

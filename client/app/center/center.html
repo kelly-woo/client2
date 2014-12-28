@@ -47,7 +47,7 @@
             </li>
 
             <!--    LEAVE   -->
-            <li role="presentation" data-ng-click="onLeaveClick();" data-ng-if="isDefaultTopic();">
+            <li role="presentation" data-ng-click="onLeaveClick();" data-ng-if="!isDefaultTopic();">
                 <a role="menuitem" tabindex="-1">
                     <i class="icon-logout"></i><span translate>@ch-menu-leave</span>
                 </a>

@@ -7,7 +7,7 @@
 
     accountService.$inject = ['$location', 'configuration', '$http', '$rootScope', 'storageAPIservice'];
 
-    function accountService($location, configuration, $http, $rootScope, storageAPIservice) {
+    function accountService($location, configuration, $http, $rootScope) {
         var accountLanguage;
 
         var service = {

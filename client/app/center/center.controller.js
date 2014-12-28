@@ -37,6 +37,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $rootScope.isIE9 = false;
 
+    console.log($rootScope.currentEntity)
     if (angular.isDefined(FileAPI.support)) {
         if (!FileAPI.support.html5)
             $rootScope.isIE9 = true;
@@ -45,12 +46,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isPosting = false;
 
     $scope.isOwner = function() {
-        var ownerId = $rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId;
-        return ownerId == memberService.getMemberId();
+        return ($rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId) == memberService.getMemberId();
     };
     $scope.isDefaultTopic = function() {
-        var defaultChannelId = $rootScope.team.t_defaultchannelId;
-        return defaultChannelId == $rootScope.currentEntity.id;
+        return $rootScope.team.t_defaultChannelId == $rootScope.currentEntity.id;
     };
 
     $scope.onLeaveClick = function() {
