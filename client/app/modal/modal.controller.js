@@ -58,7 +58,7 @@ app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPI
 });
 
 // PRIVATE_GROUP/CHANNEL CREATE
-app.controller('createEntityModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, analyticsService) {
+app.controller('createEntityModalCtrl', function($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService) {
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
@@ -84,7 +84,7 @@ app.controller('createEntityModalCtrl', function($scope, $modalInstance, entityh
                 }
                 analyticsService.mixpanelTrack( "Entity Create", { "type": entity_type } );
 
-                $scope.updateLeftPanelCaller();
+                $rootScope.$emit('updateLeftPanelCaller');
                 $state.go('archives', {entityType:entityType + 's', entityId:response.id});
                 $modalInstance.dismiss('cancel');
                 $scope.isLoading = false;
@@ -582,6 +582,7 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
 app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService, accountService) {
 
     $scope.curUser = _.cloneDeep(memberService.getMember());
+    console.log($scope.curUser)
     $scope.u_email = memberService.getEmail($scope.curUser);
 
     $scope.isProfilePicSelected = false;

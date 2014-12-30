@@ -21,29 +21,13 @@ app.config(function ($stateProvider) {
                         leftPanel: function (leftpanelAPIservice) {
                                 return leftpanelAPIservice.getLists();
                         }
-                        //member: function (leftPanel, authAPIservice) {
-                        //    console.log(leftPanel)
-                        //    if (!leftPanel)
-                        //        authAPIservice.signOut();
-                        //    return leftPanel.data.user;
-                        //}
-                        //account: function(member, accountService) {
-                        //    if (_.isUndefined(accountService.getAccount())) {
-                        //        console.log('account undefined');
-                        //        return accountService.getAccountInfo()
-                        //            .success(function(response) {
-                        //                return response;
-                        //            })
-                        //            .error(function(err) {
-                        //                leftpanelAPIservice.toSignin();
-                        //            })
-                        //    }
-                        //    else {
-                        //        return accountService.getAccount();
-                        //    }
-                        //}
                     }
+                },
+                'headerpanel' : {
+                    templateUrl : 'app/header/header.html',
+                    controller  : 'headerController'
                 }
+
                 //,
                 //'rightpanel': {
                 //    templateUrl: 'app/right/right.html',
@@ -69,10 +53,6 @@ app.config(function ($stateProvider) {
             url         : '^/{entityType}/{entityId:[0-9]+}',
             title       : 'Messages',
             views       : {
-                'headerpanel' : {
-                    templateUrl : 'app/header/header.html',
-                    controller  : 'headerController'
-                },
                 'centerpanel': {
                     templateUrl : 'app/center/center.html',
                     controller  : 'centerpanelController'

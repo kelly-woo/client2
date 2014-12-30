@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService) {
 
-    //console.info('[enter] centerpanelController');
+    console.info('[enter] centerpanelController');
 
     var CURRENT_ENTITY_ARCHIVED = 2002;
     var INVALID_SECURITY_TOKEN  = 2000;
@@ -37,7 +37,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $rootScope.isIE9 = false;
 
-    console.log($rootScope.currentEntity)
     if (angular.isDefined(FileAPI.support)) {
         if (!FileAPI.support.html5)
             $rootScope.isIE9 = true;
@@ -151,7 +150,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     function enableScroll() {
         $('body').unbind('mousewheel');
     }
-
 
     var groupByDate = function() {
         // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
@@ -535,7 +533,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // TODO rightpanelController 로직 중복 해결 필요
     $scope.onClickSharedEntity = function(entityId) {
         var targetEntity = fileAPIservice.getEntityById($scope.totalEntities, entityId);
-        if (fileAPIservice.isMember(targetEntity, $scope.user)) {
+        if (fileAPIservice.isMember(targetEntity, $scope.member)) {
             $state.go('archives', { entityType: targetEntity.type + 's', entityId: targetEntity.id });
         } else {
             entityheaderAPIservice.joinChannel(targetEntity.id)
@@ -778,7 +776,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 //  ASSUMPTION 2. YOU CAN'T INVITE SOMEONE TO DIRECT MESSAGE.  -> toEntity must be id of either channel or privateGroup.
 
                 //  someone invited 'ME' to some channel.
-                if (_.contains(event.info.inviteUsers, $scope.user.id)) {
+                if (_.contains(event.info.inviteUsers, $scope.member.id)) {
 //                    console.log('someone invited me')
                     mustUpdateLeftPanel = true;
                     return;
@@ -787,7 +785,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 //  I invited someone.
                 //  If I invited someone on web, it doesn't really matter.
                 //  But if I invited someone from different device(mobile), I need to update leftPanel on web.
-                if (event.info.invitorId == $scope.user.id) {
+                if (event.info.invitorId == $scope.member.id) {
 //                    console.log('I invited someone')
                     mustUpdateLeftPanel = true;
                     return;
@@ -806,7 +804,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 var isJoin = event.info.eventType == 'join' ? true : false;
 
                 //  I joined some channel from mobile.  Web needs to UPDATE left Panel.
-                if (event.fromEntity == $scope.user.id) {
+                if (event.fromEntity == $scope.member.id) {
 
                     //  leave event of myself cannot get here!
 //                    console.log('I joined something');
@@ -832,7 +830,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 //  No matter who created what, just update left panel.
 
 //                console.log('create')
-                if (event.fromEntity == $scope.user.id) {
+                if (event.fromEntity == $scope.member.id) {
 //                    console.log('I created channel')
                 }
                 else {
@@ -888,17 +886,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         _.each(alarmTable, function(element, index, list) {
             //  Alarm is from me.  Don't worry about this.
-            if (element.fromEntity == $scope.user.id) return;
+            if (element.fromEntity == $scope.member.id) return;
 
             var updateEntity;
 
             //  Alarm is to me --> DIRECT MESSAGE TO ME.
             //  Updating 'fromEntity'.
-            if (element.toEntity.length == 1 && element.toEntity[0] === ($scope.user.id) ) {
+            if (element.toEntity.length == 1 && element.toEntity[0] === ($scope.member.id) ) {
                 //  DIRECT MESSAGE with fromEntity is already open, so DON'T WORRY ABOUT IT.
                 if(element.fromEntity == $scope.currentEntity.id) return;
 
-                updateEntity = entityAPIservice.getEntityFromListById($scope.userList, element.fromEntity);
+                updateEntity = entityAPIservice.getEntityFromListById($scope.memberList, element.fromEntity);
                 entityAPIservice.updateBadgeValue(updateEntity, -1);
             }
             else  {
@@ -954,7 +952,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 break;
         }
 
-        newMsg.message.content.actionOwner = userAPIservice.getNameFromUser(msg.fromEntity);
+        newMsg.message.content.actionOwner = memberService.getName(msg.fromEntity);
         newMsg.message.content.body = action;
 
         return newMsg;

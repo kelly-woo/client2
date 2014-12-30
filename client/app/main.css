@@ -527,6 +527,11 @@ input[type="button"] {
     cursor: pointer;
     padding: 0 1.4rem 0 2.5rem;
 }
+.grey_dropdown > li > a:empty,
+.green_dropdown > li > a:empty {
+    display: none;
+}
+
 .grey_dropdown > li:last-child > a,
 .green_dropdown > li:last-child > a {
     /*padding-bottom: 2px;*/

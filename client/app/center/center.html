@@ -142,11 +142,11 @@
         </span>
         <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
             <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
-                <a data-ng-if="userId == user.id">
+                <a data-ng-if="userId == member.id">
                     <i class="icon-user2"></i>
                     {{ user | getName }}
                 </a>
-                <a data-ng-if="userId != user.id" data-ui-sref="archives({entityType:'users', entityId:userId})">
+                <a data-ng-if="userId != member.id" data-ui-sref="archives({entityType:'users', entityId:userId})">
                     <i class="icon-user2"></i>
                     {{ userId | getName }}
                 </a>
@@ -157,7 +157,7 @@
 </div>
 
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
-<div ng-if="false" ng-file-drop="onFileSelect($files);" drag-over-class="dnd-hover" hide-on-drop-not-available="false">
+<div ng-file-drop="onFileSelect($files);" drag-over-class="dnd-hover" hide-on-drop-not-available="false">
     <div class="dnd-hover-msg" >
         <span translate>@dnd-file-upload-msg</span>
         <div class="background"></div>
@@ -266,7 +266,7 @@
 
                         <!--    DELETE ICON APPEARS ON HOVER    -->
                         <a class="msg-item__action link-remove pull-right cursor_pointer"
-                           data-ng-if="( user.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
+                           data-ng-if="( member.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"
                            data-ng-click="deleteMessage(msg)"
                            tooltip="{{ '@message-delete' | translate }}">
                             <i class="icon-cancel"></i>

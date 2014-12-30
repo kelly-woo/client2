@@ -1,15 +1,8 @@
 <div ng-include="templates.loading"></div>
 <div ng-if="isReady">
+
     <header ui-view="headerpanel" class="hpanel"></header>
 
-
-<span ng-if="false">
-    <span translate>@channel</span>
-    <span translate>@user</span>
-    <span translate>@privateGroup</span>
-    <span translate>@file-size-too-large-error</span>
-    <span translate>@common-api-error-msg</span>
-</span>
 
     <aside class="lpanel">
 
@@ -182,3 +175,12 @@
     <div ui-view="centerpanel" class="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>
 
 </div>
+
+
+<span ng-if="false">
+    <span translate>@channel</span>
+    <span translate>@user</span>
+    <span translate>@privateGroup</span>
+    <span translate>@file-size-too-large-error</span>
+    <span translate>@common-api-error-msg</span>
+</span>

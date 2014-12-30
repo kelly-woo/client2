@@ -265,6 +265,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     //  Add 'onUserClick' to redirect to direct message to 'user'
     //  center and header are calling.
     $scope.onUserClick = function(user) {
+        console.log(user)
         if (angular.isNumber(user)) {
             user = entityAPIservice.getEntityFromListById($scope.memberList, user)
         }

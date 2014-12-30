@@ -8,6 +8,7 @@
     memberService.$inject = ['$location', 'configuration', '$http', '$rootScope', 'storageAPIservice', 'entityAPIservice', '$upload'];
 
     function memberService($location, configuration, $http, $rootScope, storageAPIservice, entityAPIservice, $upload) {
+        var noUExtraData = "i dont have u_extraData";
 
         var service = {
             getMemberInfo: getMemberInfo,
@@ -28,7 +29,10 @@
             getPhoneNumber: getPhoneNumber,
             getEmail: getEmail,
             getNameById: getNameById,
-            isAuthorized: isAuthorized
+            isAuthorized: isAuthorized,
+            getSmallThumbnail: getSmallThumbnail,
+            getMediumThumbnail: getMediumThumbnail,
+            getLargeThumbnail: getLargeThumbnail
 
         } ;
 
@@ -94,6 +98,7 @@
             return this.getMember().id;
         }
         function getName(member) {
+            if (angular.isUndefined(member)) return 'deactivated user';
             return member.name;
         }
         function setName(name) {
@@ -111,14 +116,19 @@
         function getStatusMessage(member) {
             return member.u_statusMessage;
         }
+
+
         function getPhoneNumber(member) {
-            return member.u_extraData.phoneNumber ;
+            if (angular.isUndefined(member.u_extraData)) return noUExtraData;
+            return member.u_extraData.phoneNumber || '';
         }
         function getDepartment(member) {
-            return member.u_extraData.department;
+            if (angular.isUndefined(member.u_extraData)) return noUExtraData;
+            return member.u_extraData.department || '';
         } 
         function getPosition(member) {
-            return member.u_extraData.position ;
+            if (angular.isUndefined(member.u_extraData)) return noUExtraData;
+            return member.u_extraData.position || '';
         } 
 
         function getNameById(entityId) {
@@ -127,6 +137,5 @@
         function isAuthorized() {
             return  getMember().u_authority === 'owner';
         }
-
     }
 })();
