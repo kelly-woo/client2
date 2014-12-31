@@ -53,7 +53,7 @@
                     prefix = 'tosslab'
                     //prefix = 'jihoon'
                 }
-                if (prefix == 'dev')
+                else if (prefix == 'dev')
                     prefix = 'abcd';
             }
 
