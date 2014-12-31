@@ -29,11 +29,7 @@
             getPhoneNumber: getPhoneNumber,
             getEmail: getEmail,
             getNameById: getNameById,
-            isAuthorized: isAuthorized,
-            getSmallThumbnail: getSmallThumbnail,
-            getMediumThumbnail: getMediumThumbnail,
-            getLargeThumbnail: getLargeThumbnail
-
+            isAuthorized: isAuthorized
         } ;
 
         return service;

@@ -20,6 +20,7 @@
             openInviteToJoinedEntityModal: openInviteToJoinedEntityModal,
             openMemberProfileModal: openMemberProfileModal,
             openPasswordResetRequestModal: openPasswordResetRequestModal,
+            openFileUploadModal: openFileUploadModal,
             closeModal: closeModal,
             signOut: signOut
         };
@@ -208,6 +209,14 @@
                 templateUrl :   'app/modal/password.reset.request.html',
                 controller  :   'passwordRequestController',
                 size        :   'lg'
+            });
+        }
+        function openFileUploadModal($scope) {
+            $modal.open({
+                scope       : $scope,
+                templateUrl : 'app/modal/upload.html',
+                controller  : 'fileUploadModalCtrl',
+                size        : 'lg'
             });
         }
         function closeModal(modalInstance) {

@@ -408,6 +408,10 @@ app.controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstanc
     // Be aware of change in type of fileInfo.share (from Entity to entitiyId.)
     // $rootScope.fileQueue is a singleton variable.
     $scope.onFileUpload = function(fileInfo) {
+        if ($scope.isLoading) return;
+
+        $scope.toggleLoading();
+
         fileInfo.permission = PRIVATE_FILE;
 
         var share_type = fileInfo.share.type;
@@ -422,12 +426,12 @@ app.controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstanc
             fileInfo.permission = PRIVATE_FILE;
             fileInfo.share = '';
         }
-        $scope.isLoading = true;
 
-        $rootScope.fileQueue = fileAPIservice.upload($scope.files, fileInfo);
+
+        $rootScope.fileQueue = fileAPIservice.upload($scope.files, fileInfo, $scope.supportHtml5);
 
         $modalInstance.dismiss('cancel');
-
+        $scope.toggleLoading();
 
         $rootScope.fileQueue
             .then(function(response) {
@@ -470,10 +474,18 @@ app.controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstanc
                 }, 2000)
 
 
+
             }, function(error) {
                 console.error('failed to upload file', error);
-                $scope.isLoading = false;
                 $rootScope.curUpload.status = 'error';
+                $rootScope.curUpload.hasError = true;
+                $rootScope.curUpload.progress = 0;
+
+                $timeout(function() {
+                    $('.file-upload-progress-container').animate( {'opacity': 0 }, 500, function() {
+                        fileAPIservice.clearCurUpload();
+                    })
+                }, 2000)
 
             }, function(evt) {
                 // progress
@@ -582,7 +594,6 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
 app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService, accountService) {
 
     $scope.curUser = _.cloneDeep(memberService.getMember());
-    console.log($scope.curUser)
     $scope.u_email = memberService.getEmail($scope.curUser);
 
     $scope.isProfilePicSelected = false;

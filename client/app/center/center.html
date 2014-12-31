@@ -163,13 +163,16 @@
         <div class="background"></div>
     </div>
 
-    <div class="file-upload-progress-container" ng-if="curUpload.status != null" ng-class="{'isAborted':curUpload.isAborted}">
+    <div class="file-upload-progress-container" ng-if="curUpload.status != null" ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError}">
         <!--    'uploading'     -->
         <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
         <!--    'aborted'       -->
         <span translate ng-if="curUpload.isAborted">@common-file-upload-abort-msg</span>
         <!--    'done'      -->
         <span translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
+        <!--    'error'     -->
+        <span translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
+
 
         <!--    file title  -->
         <span class="file-upload-progress-title">[{{curUpload.title}}]</span>

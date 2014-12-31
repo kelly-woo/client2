@@ -2,24 +2,23 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $filter) {
+app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, memberService, entityAPIservice) {
     var fileAPI = {};
 
-    fileAPI.upload = function(files, fileInfo) {
-        // 토큰은 바디에 태운다.
-        // ie9에서 html5 형식의 file upload가 불가능함.
-        // flash를 이용한 upload 만 가능함.
-        // flash upload에서 header 수정이 불가능함.
-        // 그 결과 서버쪽에서 authorization 과 버전 체크할때 에러가 무조건 남.
-        // 우선 version check를 스킵하고 authorization을 위해 header에 넣던 token를 body에 추가함.
-        fileInfo.accessToken = $window.sessionStorage.token;
+    fileAPI.upload = function(files, fileInfo, supportHTML) {
+        var flash_url = supportHTML ? '' : 'v2/';
 
+        console.log(flash_url + 'file')
         return $upload.upload({
             method: 'POST',
-            url: $rootScope.server_address + 'file',
+            url: $rootScope.server_address + flash_url + 'file',
             data: fileInfo,
             file: files,
-            fileFormDataName: 'userFile'
+            fileFormDataName: 'userFile',
+            params: {
+                teamId: memberService.getTeamId()
+            }
+
         });
     };
 
@@ -101,33 +100,16 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     fileAPI.getSharedEntities = function(file) {
         var sharedEntityArray = [];
         var unique = _.uniq(file.shareEntities);
+
         _.each(unique, function(sharedEntityId) {
-            var sharedEntity = fileAPI.getEntityById($rootScope.totalEntities, sharedEntityId);
-            if( sharedEntity.type == 'privateGroup' && fileAPI.isMember(sharedEntity, $rootScope.user) ||
+            var sharedEntity = entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId);
+            if( sharedEntity.type == 'privateGroup' && entityAPIservice.isMember(sharedEntity, $rootScope.member) ||
                 sharedEntity.type == 'channel' ||
                 sharedEntity.type == 'user' )  {
                 sharedEntityArray.push(sharedEntity)
             }
         });
         return sharedEntityArray;
-    };
-
-    fileAPI.getEntityById = function(list, entityId) {
-        var temp = $filter('filter')(list, {id : entityId}, function(actual, expected) {
-            return angular.equals(actual, expected);
-        });
-
-        if (temp.length != 1) return false;
-
-        return temp[0];
-    };
-
-    //  Returns true is 'user' is a member of 'entity'
-    fileAPI.isMember = function(entity, user) {
-        if (entity.type == 'channel')
-            return jQuery.inArray(user.id, entity.ch_members) > -1;
-        else
-            return jQuery.inArray(user.id, entity.pg_members) > -1;
     };
 
     // Broadcast shareEntities change event to centerpanel, rightpanel, detailpanel

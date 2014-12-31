@@ -249,12 +249,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
             publicService.openPrivateCreateModal($scope);
         }
         else if (selector == 'file') {
-            $modal.open({
-                scope       : $scope,
-                templateUrl : 'app/modal/upload.html',
-                controller  : 'fileUploadModalCtrl',
-                size        : 'lg'
-            });
+            publicService.openFileUploadModal($scope);
         }
     };
 
