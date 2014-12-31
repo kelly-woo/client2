@@ -532,8 +532,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // TODO rightpanelController 로직 중복 해결 필요
     $scope.onClickSharedEntity = function(entityId) {
-        var targetEntity = fileAPIservice.getEntityById($scope.totalEntities, entityId);
-        if (fileAPIservice.isMember(targetEntity, $scope.member)) {
+        var targetEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, entityId);
+        if (entityAPIservice.isMember(targetEntity, $scope.member)) {
             $state.go('archives', { entityType: targetEntity.type + 's', entityId: targetEntity.id });
         } else {
             entityheaderAPIservice.joinChannel(targetEntity.id)

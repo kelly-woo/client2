@@ -74,7 +74,6 @@
 
         }
         function hasSeenTutorial() {
-            console.log(this.getMember())
             if (angular.isUndefined(this.getMember().u_tutoredAt) || this.getMember().u_tutoredAt === null)
                 return false;
             else
@@ -84,7 +83,6 @@
             if (angular.isUndefined(this.getMember())) {
                 return storageAPIservice.getTeamIdLocal() || storageAPIservice.getTeamIdSession();
             }
-
             return this.getMember().teamId;
         }
         function getStarredEntities() {

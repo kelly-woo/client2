@@ -19,25 +19,28 @@ app.config(function ($stateProvider) {
                     controller  : 'leftPanelController1',
                     resolve     : {
                         leftPanel: function (leftpanelAPIservice) {
-                                return leftpanelAPIservice.getLists();
+                                return leftpanelAPIservice.getLists()
+                                    .success(function(response) {
+
+                                    })
+                                    .error(function(err) {
+                                        console.log(err)
+                                    });
                         }
                     }
                 },
                 'headerpanel' : {
                     templateUrl : 'app/header/header.html',
                     controller  : 'headerController'
+                },
+                'rightpanel': {
+                    templateUrl: 'app/right/right.html',
+                    controller: 'rightpanelController'
+                },
+                'detailpanel': {
+                    templateUrl : 'app/right/file.html',
+                    controller  : 'fileController'
                 }
-
-                //,
-                //'rightpanel': {
-                //    templateUrl: 'app/right/right.html',
-                //    controller: 'rightpanelController'
-                //}
-                //,
-                //'detailpanel': {
-                //    templateUrl : 'app/right/file.html',
-                //    controller  : 'fileController'
-                //}
             }
         })
         .state('messages.home', {

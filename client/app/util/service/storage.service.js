@@ -50,6 +50,9 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, $cookieSto
     storageAPI.setTokenTypeLocal = function(token_type) { localStorageService.set(tokenType_key, token_type); };
     storageAPI.getTokenTypeLocal = function() { return localStorageService.get(tokenType_key); };
 
+    // token_type getter & setter
+    storageAPI.setMemberIdLocal = function(token_type) { localStorageService.set(tokenType_key, token_type); };
+    storageAPI.getMemberIdLocal = function() { return localStorageService.get(tokenType_key); };
 
     storageAPI.setLastEmail = function(email) { localStorageService.set(lastEmail_key, email); };
     storageAPI.getLastEmail = function() { return localStorageService.get(lastEmail_key); };

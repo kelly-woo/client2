@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileController', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService) {
+app.controller('fileController', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice) {
 
     //console.info('[enter] fileController');
 
@@ -181,8 +181,8 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
             });
     };
     $scope.onClickSharedEntity = function(entityId) {
-        var targetEntity = fileAPIservice.getEntityById($scope.totalEntities, entityId);
-        if (fileAPIservice.isMember(targetEntity, $scope.user)) {
+        var targetEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, entityId);
+        if (entityAPIservice.isMember(targetEntity, $scope.member)) {
             $state.go('archives', { entityType: targetEntity.type + 's', entityId: targetEntity.id });
         } else {
             entityheaderAPIservice.joinChannel(targetEntity.id)

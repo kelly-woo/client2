@@ -23,10 +23,10 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.fileRequest.keyword          = '';
 
     $scope.sharedEntitySearchQuery  = $scope.currentEntity;
-    $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
+    $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.memberList, $scope.privateGroupList);
 
-    $scope.selectOptionsUsers       = [$scope.user];
-    $scope.selectOptionsUsers       = $scope.selectOptionsUsers.concat($scope.userList);
+    $scope.selectOptionsUsers       = [$scope.member];
+    $scope.selectOptionsUsers       = $scope.selectOptionsUsers.concat($scope.memberList);
 
     $scope.fileTypeList = ['all', 'image', 'pdf', 'audio', 'video'];
 
@@ -37,7 +37,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
         if (type === 'you') {
             // when 'Your Files' is clicked on 'cpanel-search__dropdown'
-            $scope.fileRequest.writerId = $scope.user.id;
+            $scope.fileRequest.writerId = $scope.member.id;
             $scope.fileRequest.fileType = 'all';
         }
         else {
@@ -135,7 +135,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
             //  channel could be removed/created/left
             //  update selectOptions for data syncrhonization issue.
-            $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
+            $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.memberList, $scope.privateGroupList);
             $scope.sharedEntitySearchQuery = $scope.currentEntity;
         }
     });
@@ -169,6 +169,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
         fileAPIservice.getFileList($scope.fileRequest)
             .success(function(response) {
+                console.log(response)
                 var fileList = [];
                 angular.forEach(response.files, function(entity, index) {
 
@@ -294,7 +295,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     
     $scope.onClickSharedEntity = function(entityId) {
         var targetEntity = fileAPIservice.getEntityById($scope.totalEntities, entityId);
-        if (fileAPIservice.isMember(targetEntity, $scope.user)) {
+        if (fileAPIservice.isMember(targetEntity, $scope.member)) {
             $state.go('archives', { entityType: targetEntity.type + 's', entityId: targetEntity.id });
         } else {
             entityheaderAPIservice.joinChannel(targetEntity.id)

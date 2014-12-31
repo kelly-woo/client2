@@ -7,9 +7,18 @@
 
     function authController($scope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService) {
         var vm = this;
+        $scope.toggleLoading = function() {
+            $scope.isLoading = !$scope.isLoading;
+        };
 
         (function(){
+            console.log('authController')
             if (storageAPIservice.hasAccessTokenLocal() || storageAPIservice.hasAccessTokenSession()) {
+
+                $scope.toggleLoading();
+
+                console.log('trying to auto sign in')
+
                 accountService.getAccountInfo()
                     .success(function(response) {
                         accountService.setAccount(response);
@@ -19,22 +28,31 @@
 
                     })
                     .finally(function() {
-
                     });
             }
 
         })();
 
-        function getCurrentMember() {
+        function getCurrentMember(memberId) {
             var account = accountService.getAccount();
 
+            var curMemberId;
+
+            if (memberId) {
+                curMemberId = memberId;
+            }
+            else {
+                var signInInfo = accountService.getCurrentMemberId(account.memberships);
+                curMemberId = signInInfo.memberId;
+            }
+
             // Get information about team and member id.
-            var signInInfo = accountService.getCurrentMemberId(account.memberships);
 
             // Now get member information for current team.
-            memberService.getMemberInfo(signInInfo.memberId)
+            memberService.getMemberInfo(curMemberId)
                 .success(function(response) {
                     // Set local member.
+
                     memberService.setMember(response);
 
                     setStatics();
@@ -84,7 +102,6 @@
                         storageAPIservice.setAcountInfoSession(response.account.id, signInInfo.teamId, signInInfo.memberId);
                     }
 
-                    // Now get member information for current team.
                     memberService.getMemberInfo(signInInfo.memberId)
                         .success(function(response) {
                             // Set local member.
@@ -124,9 +141,6 @@
         }
 
 
-        $scope.toggleLoading = function() {
-            $scope.isLoading = !$scope.isLoading;
-        };
         $scope.openModal = function(selector) {
             if (selector == 'agreement') {
                 publicService.openAgreementModal();
@@ -138,5 +152,6 @@
                 publicService.openPasswordResetRequestModal($scope);
             }
         };
+
     }
 })();

@@ -509,7 +509,7 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
 //    var shareOptionsPrivates = fileAPIservice.removeSharedEntities($scope.file, $scope.privateGroupList)
 //    $scope.selectOptions    = fileAPIservice.getShareOptions(shareOptionsChannels, $scope.userList, shareOptionsPrivates);
 
-    var selectOptions    = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
+    var selectOptions    = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.memberList, $scope.privateGroupList);
 
     $scope.selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
 

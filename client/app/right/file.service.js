@@ -8,7 +8,6 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     fileAPI.upload = function(files, fileInfo, supportHTML) {
         var flash_url = supportHTML ? '' : 'v2/';
 
-        console.log(flash_url + 'file')
         return $upload.upload({
             method: 'POST',
             url: $rootScope.server_address + flash_url + 'file',
@@ -27,6 +26,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     };
 
     fileAPI.getFileList = function(fileRequest) {
+        fileRequest.teamId = memberService.getTeamId();
         return $http({
             method: 'POST',
             url: $rootScope.server_address + 'search',
@@ -35,18 +35,24 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     };
 
     fileAPI.getFileDetail = function(fileId) {
+
         return $http({
             method  : 'GET',
-            url     : $rootScope.server_address + 'messages/' + fileId
+            url     : $rootScope.server_address + 'messages/' + fileId,
+            params  : {
+                teamId: memberService.getTeamId()
+            }
         })
     };
 
     fileAPI.postComment = function(fileId, content) {
+
         return $http({
             method  : 'POST',
             url     : $rootScope.server_address + 'messages/' + fileId + '/comment',
             data    : {
-                'comment'   : content
+                comment : content,
+                teamId  : memberService.getTeamId()
             }
         })
     };
@@ -54,7 +60,10 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     fileAPI.deleteComment = function(fileId, commentId) {
         return $http({
             method  : 'DELETE',
-            url     : $rootScope.server_address + 'messages/' + fileId + '/comments/' + commentId
+            url     : $rootScope.server_address + 'messages/' + fileId + '/comments/' + commentId,
+            params  : {
+                teamId  : memberService.getTeamId()
+            }
         })
     };
 
@@ -63,7 +72,8 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
             method  : 'PUT',
             url     : $rootScope.server_address + 'messages/' + fileId + '/share',
             data    : {
-                'shareEntity' : shareEntity
+                shareEntity : shareEntity,
+                teamId  : memberService.getTeamId()
             }
         })
     };
@@ -73,7 +83,8 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
             method: 'PUT',
             url: $rootScope.server_address + 'messages/' + fileId + '/unshare',
             data : {
-                'unshareEntity' : unShareEntity
+                unshareEntity : unShareEntity,
+                teamId  : memberService.getTeamId()
             }
         })
     };
@@ -101,7 +112,10 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         var sharedEntityArray = [];
         var unique = _.uniq(file.shareEntities);
 
+        console.log(file)
+        console.log(unique)
         _.each(unique, function(sharedEntityId) {
+            console.log(sharedEntityId)
             var sharedEntity = entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId);
             if( sharedEntity.type == 'privateGroup' && entityAPIservice.isMember(sharedEntity, $rootScope.member) ||
                 sharedEntity.type == 'channel' ||
