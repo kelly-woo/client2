@@ -13,18 +13,10 @@ var app = angular.module('jandiApp');
 app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPIservice, entityheaderAPIservice, analyticsService, accountService, memberService, publicService) {
 
     $scope.memberId = memberService.getMemberId();
+    $scope.channelTitleQuery = '';
 
     $scope.cancel = function() {
         publicService.closeModal($modalInstance);
-    };
-
-    // Returns a name of creator of entity.
-    $scope.getCreatorName = function(entity) {
-        if (angular.equals(id, $scope.memberId)) {
-            return 'you';
-        }
-
-        return userAPIservice.getNameFromUserId(id);
     };
 
     $scope.newChannel = function() {
