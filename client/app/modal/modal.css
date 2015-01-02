@@ -23,6 +23,7 @@
 .modal-dialog {
     font-size: 14px;
     z-index: 9999;
+    margin: 20px auto;
 }
 .modal-footer {
     margin-top: 0;
