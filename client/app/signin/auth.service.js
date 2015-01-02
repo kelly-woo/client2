@@ -140,9 +140,9 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
             }
             if (rejection.status === 400) {
                 // This is just bad request.
-                console.debug('BAD REQUEST');
-                console.debug(rejection.config.method, rejection.config.url);
-                console.debug(rejection);
+                //console.debug('BAD REQUEST');
+                //console.debug(rejection.config.method, rejection.config.url);
+                //console.debug(rejection);
 
                 return $q.reject(rejection);
 

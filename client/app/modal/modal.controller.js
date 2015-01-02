@@ -427,7 +427,10 @@ app.controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstanc
 
         $rootScope.fileQueue
             .then(function(response) {
-                console.log(response)
+                console.log(response.data)
+                console.log(response.status)
+                console.log(response.config)
+
                 if (angular.isUndefined(response)) {
                     $rootScope.curUpload.status = 'error';
                     $rootScope.curUpload.hasError = true;
