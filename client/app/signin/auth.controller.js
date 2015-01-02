@@ -16,17 +16,17 @@
         };
 
         (function(){
-            console.log('authController')
+            //console.log('authController')
             if (storageAPIservice.getAccessToken()) {
-                console.log('has access')
+                //console.log('has access')
                 $scope.toggleLoading();
 
-                console.log('trying to auto sign in')
+                //console.log('trying to auto sign in')
 
                 accountService.getAccountInfo()
                     .success(function(response) {
-                        console.log('got account info')
-                        console.log(response)
+                        //console.log('got account info')
+                        //console.log(response)
 
                         accountService.setAccount(response);
                         getCurrentMember();
@@ -55,12 +55,12 @@
 
             // Get information about team and member id.
 
-            console.log('getting member from server')
+            //console.log('getting member from server')
             // Now get member information for current team.
             memberService.getMemberInfo(curMemberId)
                 .success(function(response) {
-                    console.log('getMemberInfo good')
-                    console.log(response)
+                    //console.log('getMemberInfo good')
+                    //console.log(response)
                     // Set local member.
                     memberService.setMember(response);
 
