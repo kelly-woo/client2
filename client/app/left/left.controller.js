@@ -217,7 +217,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
         leftpanelAPIservice.getLists()
             .success(function(data) {
                 response = data;
-                console.log('-- getLeft good')
+                //console.log('-- getLeft good')
                 initLeftList();
             })
             .error(function(err) {

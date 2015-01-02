@@ -427,7 +427,6 @@ app.controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstanc
 
         $rootScope.fileQueue
             .then(function(response) {
-                console.log('file upload success')
                 console.log(response)
                 if (angular.isUndefined(response)) {
                     $rootScope.curUpload.status = 'error';
@@ -439,10 +438,11 @@ app.controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstanc
                             fileAPIservice.clearCurUpload();
                         })
                     }, 2000)
-
                     return;
-
                 }
+
+                console.log('file upload success')
+
                 $rootScope.curUpload.status = 'done';
 
                 // analytics

@@ -102,7 +102,6 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, $cookieSto
         Basically, everything except last_state.
     */
     storageAPI.removeLocal = function() {
-        console.debug('removing local');
         localStorageService.remove(accessToken_key);
         localStorageService.remove(refreshToken_key);
         localStorageService.remove(tokenType_key);
@@ -188,7 +187,6 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, $cookieSto
 
     // Removes everything in $window.sessionStorage.
     storageAPI.removeSession = function() {
-        console.debug('removing session');
         delete $window.sessionStorage.access_token;
         delete $window.sessionStorage.refresh_token;
         delete $window.sessionStorage.account_id;
