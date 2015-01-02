@@ -933,7 +933,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 action = $filter('translate')('@msg-invited');
                 newMsg.message.invites = [];
                 _.each(msg.info.inviteUsers, function(element, index, list) {
-                    var entity = entityAPIservice.getEntityFromListById($rootScope.userList, element);
+                    var entity = entityAPIservice.getEntityFromListById($rootScope.memberList, element);
                     newMsg.message.invites.push(entity)
                 });
                 break;
