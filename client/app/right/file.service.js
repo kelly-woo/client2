@@ -18,6 +18,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
         console.log(fileInfo.accessToken)
         console.log(fileInfo.teamId)
+
         return $upload.upload({
             method: 'POST',
             url: $rootScope.server_address + flash_url + 'file',
