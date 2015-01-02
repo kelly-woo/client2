@@ -14,7 +14,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         console.log(fileInfo);
 
         if(!supportHTML)
-            fileInfo.accessToken ~= storageAPIservice.getAccessToken();
+            fileInfo.accessToken = storageAPIservice.getAccessToken();
 
         console.log(fileInfo.accessToken)
         console.log(fileInfo.teamId)
