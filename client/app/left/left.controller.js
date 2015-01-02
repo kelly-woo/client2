@@ -34,7 +34,7 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function($scope, $rootScope, $state, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
                                                 entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice) {
 
-    console.info('[enter] leftpanelController');
+    //console.info('[enter] leftpanelController');
     $scope.isLoading = true;
 
     if (!leftPanel) return;

@@ -169,7 +169,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
         fileAPIservice.getFileList($scope.fileRequest)
             .success(function(response) {
-                console.log(response)
+                //console.log(response)
                 var fileList = [];
                 angular.forEach(response.files, function(entity, index) {
 

@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService) {
 
-    console.info('[enter] centerpanelController');
+    //console.info('[enter] centerpanelController');
 
     var CURRENT_ENTITY_ARCHIVED = 2002;
     var INVALID_SECURITY_TOKEN  = 2000;
