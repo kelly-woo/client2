@@ -120,6 +120,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     initLeftList();
 
     function initLeftList () {
+        console.log(response)
         memberService.setMember(response.user);
         $rootScope.team = response.team;
 
@@ -178,6 +179,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
         $rootScope.joinedEntities       = $scope.joinEntities;
         $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
 
+        console.log($scope.memberList)
         //  When there is unread messages on left Panel.
         if (response.alarmInfoCount != 0) {
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
@@ -265,9 +267,11 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     //  Add 'onUserClick' to redirect to direct message to 'user'
     //  center and header are calling.
     $scope.onUserClick = function(user) {
-        console.log(user)
         if (angular.isNumber(user)) {
             user = entityAPIservice.getEntityFromListById($scope.memberList, user)
+        }
+        else {
+            user = entityAPIservice.getEntityFromListById($scope.memberList, user.id)
         }
         publicService.openMemberProfileModal($scope, user);
     };
