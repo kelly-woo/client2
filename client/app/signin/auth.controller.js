@@ -96,6 +96,9 @@
                     // Set account first.
                     accountService.setAccount(response.account);
 
+                    console.log('signin success');
+                    console.log(response.account)
+
                     // Get information about team and member id.
                     var signInInfo = accountService.getCurrentMemberId(response.account.memberships);
 
@@ -112,6 +115,9 @@
                         // Store account id, team id, member id in session for analytics usage.
                         storageAPIservice.setAcountInfoSession(response.account.id, signInInfo.teamId, signInInfo.memberId);
                     }
+
+                    console.log('signinInfo')
+                    console.log(signInInfo)
 
                     memberService.getMemberInfo(signInInfo.memberId)
                         .success(function(response) {

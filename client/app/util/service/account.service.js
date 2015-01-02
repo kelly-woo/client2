@@ -42,6 +42,8 @@
         // TODO: CURRENTLY THIS IS O(N) ALGORITHM.  WHEN FOUND MATCH, BREAK OUT OF FOR LOOP AND RETURN RIGHT AWAY!
         // Returns memberId of current team from Account.
         function getCurrentMemberId(memberships) {
+            console.log('this is getCurrentMemberId')
+
             var signInInfo = {
                 memberId    : -1,
                 teamId      : -1
@@ -55,9 +57,10 @@
                 }
             }
 
-            console.log(prefix)
+            console.log('looking for ', prefix)
 
             _.forEach(memberships, function(membership, index) {
+                console.log('membership', membership.t_domain, '/', membership.memberId, '/', membership.teamId)
                 if (membership.t_domain == prefix) {
                     signInInfo.memberId = membership.memberId;
                     signInInfo.teamId   = membership.teamId;
