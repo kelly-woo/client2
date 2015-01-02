@@ -18,7 +18,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
             url: $rootScope.server_address + flash_url + 'file',
             data: fileInfo,
             file: files,
-            fileFormDataName: 'userFile',
+            fileFormDataName: 'userFile'
         });
     };
 
