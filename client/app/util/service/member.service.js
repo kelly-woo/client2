@@ -23,6 +23,7 @@
             getMemberId: getMemberId,
             getName: getName,
             setName: setName,
+            setEmail: setEmail,
             getStatusMessage: getStatusMessage,
             getDepartment: getDepartment,
             getPosition: getPosition,
@@ -103,6 +104,16 @@
                     name: name
                 }
             });
+        }
+        function setEmail(email) {
+            return $http({
+                method: 'PUT',
+                url: $rootScope.server_address + 'members/' + this.getMemberId() + '/email',
+                data: {
+                    email: email
+                }
+            });
+
         }
         function getEmail(member) {
             return member.u_email;

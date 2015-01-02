@@ -594,7 +594,6 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
 app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService, accountService) {
 
     $scope.curUser = _.cloneDeep(memberService.getMember());
-    $scope.u_email = memberService.getEmail($scope.curUser);
 
     $scope.isProfilePicSelected = false;
 
@@ -636,9 +635,16 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
         else if (!isEmailPristine()) {
             // email address changed!!
 
-            console.log('me?')
-            $scope.toggleLoading();
-
+            memberService.setEmail(memberService.getEmail($scope.curUser))
+                .success(function(response) {
+                    memberService.setMember(response);
+                })
+                .error(function(err) {
+                    console.log(err)
+                })
+                .finally(function() {
+                    $scope.toggleLoading();
+                });
         }
         else {
             memberService.updateProfile($scope.curUser)
@@ -754,14 +760,14 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     };
 
     $scope.isPristine = function() {
-        return isNamePristine() && isStatusPristine() && isPhoneNumberPristine() && isDepartmentPristine() && isPositionPristine();
+        return isNamePristine() && isEmailPristine() && isStatusPristine() && isPhoneNumberPristine() && isDepartmentPristine() && isPositionPristine();
     };
 
     function isNamePristine() {
         return memberService.getName($scope.curUser) == memberService.getName(memberService.getMember());
     }
     function isEmailPristine() {
-        return $scope.u_email == memberService.getEmail(memberService.getMember());
+        return $scope.curUser.u_email == memberService.getEmail(memberService.getMember());
     }
     function isStatusPristine() {
         return memberService.getStatusMessage($scope.curUser) == memberService.getStatusMessage(memberService.getMember());

@@ -49,12 +49,9 @@
                 <div class="form-group">
                     <label class="profile-body__label control-label col-sm-3" ><span translate>@common-email</span></label>
                     <div class="col-sm-9">
-                        <select ng-model="u_email" class="form-control" name="email"
+                        <select ng-model="curUser.u_email" class="form-control" name="email"
                                 ng-options="email.id as email.id for email in account.emails | filter : {status:'confirmed'} ">
                         </select>
-
-                        Is there an API that changes member.u_email?????
-
                     </div>
                 </div>
 
