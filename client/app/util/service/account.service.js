@@ -53,10 +53,9 @@
                     prefix = 'tosslab'
                     //prefix = 'jihoon'
                 }
-                else if (prefix == 'dev')
-                    prefix = 'abcd';
             }
 
+            console.log(prefix)
 
             _.forEach(memberships, function(membership, index) {
                 if (membership.t_domain == prefix) {
