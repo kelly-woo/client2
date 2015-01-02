@@ -192,6 +192,7 @@ msgstr ""
 msgid "@common-add"
 msgstr ""
 
+#: client/app/center/center.html
 #: client/app/left/left.html
 msgid "@common-api-error-msg"
 msgstr ""
@@ -556,26 +557,6 @@ msgstr ""
 msgid "@input-max-length-error"
 msgstr ""
 
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-average"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-excellent"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-good"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-very-weak"
-msgstr ""
-
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr ""
@@ -598,10 +579,12 @@ msgid "@input-user-password-error"
 msgstr ""
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-hasSpace-error"
 msgstr ""
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-min-length-error"
 msgstr ""
 
@@ -613,17 +596,9 @@ msgstr ""
 msgid "@login-invalid"
 msgstr ""
 
-#: client/app/signin/signin.html
-msgid "@login-message"
-msgstr ""
-
 #: client/app/modal/password.reset.request.html
 #: client/app/signin/signin.html
 msgid "@login-reset-password"
-msgstr ""
-
-#: client/app/signin/signin.html
-msgid "@login-welcome {{teamInfo.name}}"
 msgstr ""
 
 #: client/app/center/center.html
