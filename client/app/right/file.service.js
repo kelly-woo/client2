@@ -8,16 +8,10 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     fileAPI.upload = function(files, fileInfo, supportHTML) {
         var flash_url = supportHTML ? '' : 'v2/';
 
-        console.log(flash_url);
-        console.log(fileInfo);
         fileInfo.teamId  = memberService.getTeamId();
-        console.log(fileInfo);
 
         if(!supportHTML)
             fileInfo.access_token = storageAPIservice.getAccessToken();
-
-        console.log(fileInfo.accessToken)
-        console.log(fileInfo.teamId)
 
         return $upload.upload({
             method: 'POST',
