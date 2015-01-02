@@ -5,7 +5,9 @@
         .module('jandiApp')
         .controller('authController', authController);
 
-    function authController($scope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService) {
+        authController.$inject = ['$scope', '$state', '$modal', 'authAPIservice', 'analyticsService', 'storageAPIservice', 'accountService', 'memberService', 'publicService'];
+
+        function authController($scope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService) {
 
         var vm = this;
 
