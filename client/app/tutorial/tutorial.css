@@ -8,6 +8,7 @@
 .cpanel .tutorial_opac_background {
     left: -1px;
     right : -1px;
+    bottom: 0;
 }
 .tutorial_opac_background {
     position: absolute;
@@ -24,7 +25,8 @@
 }
 
 .lpanel_list {
-    right: 0;
+    right: 1px;
+    bottom: 0;
 }
 /*
     backdrop
