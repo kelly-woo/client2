@@ -120,7 +120,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     initLeftList();
 
     function initLeftList () {
-        console.log(response)
         memberService.setMember(response.user);
         $rootScope.team = response.team;
 
@@ -179,7 +178,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
         $rootScope.joinedEntities       = $scope.joinEntities;
         $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
 
-        console.log($scope.memberList)
         //  When there is unread messages on left Panel.
         if (response.alarmInfoCount != 0) {
             leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);

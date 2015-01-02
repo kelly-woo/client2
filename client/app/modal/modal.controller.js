@@ -427,6 +427,8 @@ app.controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstanc
 
         $rootScope.fileQueue
             .then(function(response) {
+                console.log('file upload success')
+                console.log(response)
                 $rootScope.curUpload.status = 'done';
 
                 // analytics
