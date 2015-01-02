@@ -1,5 +1,5 @@
 'use strict';
-app.factory('storageAPIservice', function($http, $rootScope, $window, $cookieStore, localStorageService) {
+app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, localStorageService) {
 
     var storageAPI = {};
 
