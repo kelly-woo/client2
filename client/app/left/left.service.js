@@ -17,9 +17,8 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
     // TODO: SHOULD MOVE TO memberService
     leftpanelAPI.setTutorial = function() {
-        console.log('tutoredAt')
         return $http({
-            method: 'POST',
+            method: 'PUT',
             url: $rootScope.server_address + 'settings/tutoredAt'
         });
     };

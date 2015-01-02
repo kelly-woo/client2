@@ -17,7 +17,6 @@
             removeMember: removeMember,
             updateProfilePic: updateProfilePic,
             updateProfile: updateProfile,
-            hasSeenTutorial: hasSeenTutorial,
             getTeamId: getTeamId,
             getStarredEntities: getStarredEntities,
             getMemberId: getMemberId,
@@ -73,12 +72,6 @@
                 }
             });
 
-        }
-        function hasSeenTutorial() {
-            if (angular.isUndefined(this.getMember().u_tutoredAt) || this.getMember().u_tutoredAt === null)
-                return false;
-            else
-                return true;
         }
         function getTeamId() {
             if (angular.isUndefined(this.getMember())) {

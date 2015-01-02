@@ -93,13 +93,20 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
 
 
     // tutorial status
-    $scope.tutorialStatus = {
+    $rootScope.tutorialStatus = {
         topicTutorial   : true,
         chatTutorial    : true,
         fileTutorial    : true,
         count           : 3
     };
 
+    $scope.$on('initTutorialStatus', function() {
+        $scope.initTutorialStatus();
+    });
+
+    $scope.$on('onTutorialPulseClick', function(event, $event) {
+        $scope.onTutorialPulseClick($event);
+    });
     $scope.initTutorialStatus = function() {
         // user hasn't seen tutorial yet.
         $scope.tutorialStatus.topicTutorial = false;
@@ -123,9 +130,11 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
             accountService.getAccountInfo()
                 .success(function(response) {
                     accountService.setAccount(response);
+                    if(!accountService.hasSeenTutorial()) {
+                        $scope.initTutorialStatus();
+                    }
                 })
                 .error(function(err) {
-                    console.log(err)
                     leftpanelAPIservice.toSignin();
                 })
         }
@@ -181,11 +190,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
 
         if ($state.params.entityId)
             setCurrentEntity();
-
-        if (!memberService.hasSeenTutorial()) {
-            // TODO: IM NOT GETTING TUTORIAL INFO FROM LEFTPANEL.USER
-            $scope.initTutorialStatus();
-        }
     }
     function setEntityPrefix() {
         leftpanelAPIservice.setEntityPrefix($scope);

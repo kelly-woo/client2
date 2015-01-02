@@ -100,7 +100,13 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     };
 
     $scope.onShowToturialClick = function() {
-        $scope.initTutorialStatus();
+        $rootScope.$broadcast('initTutorialStatus');
+    };
+
+    $scope.onTutorialPulseClick = function($event) {
+        console.log($event)
+        $rootScope.$broadcast('onTutorialPulseClick', $event);
+
     };
 
     $scope.onSignOutClick =function() {

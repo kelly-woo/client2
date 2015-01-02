@@ -16,6 +16,7 @@
             setAccount: setAccount,
             removeAccount: removeAccount,
             getCurrentMemberId: getCurrentMemberId,
+            hasSeenTutorial: hasSeenTutorial,
             getAccountLanguage: getAccountLanguage
         };
 
@@ -35,7 +36,6 @@
             $rootScope.account = account;
             accountLanguage = account.lang;
         }
-
         function removeAccount() {
             $rootScope.account = null;
         }
@@ -66,6 +66,13 @@
             });
             return signInInfo;
         }
+        function hasSeenTutorial() {
+            if (angular.isUndefined(getAccount().tutoredAt) || getAccount().tutoredAt === null)
+                return false;
+            else
+                return true;
+        }
+
 
         function getAccountLanguage() {
             return accountLanguage || $rootScope.preferences.serverLang;
