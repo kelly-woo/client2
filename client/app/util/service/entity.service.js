@@ -35,9 +35,9 @@
             });
 
             if (angular.isUndefined(entity)) {
-                console.log(entity)
-                console.log(value)
-                console.log(list)
+                //console.log(entity)
+                //console.log(value)
+                //console.log(list)co
             }
             if (angular.isUndefined(entity) || entity.length != 1) return;
 
@@ -85,9 +85,9 @@
         }
         //  Returns true is 'user' is a member of 'entity'
         function isMember (entity, user) {
-            console.log(entity.type)
-            console.log(entity.pg_members)
-            console.log(user.id)
+            //console.log(entity.type)
+            //console.log(entity.pg_members)
+            //console.log(user.id)
             if (entity.type == 'channel')
                 return jQuery.inArray(user.id, entity.ch_members) > -1;
             else

@@ -112,15 +112,21 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         var sharedEntityArray = [];
         var unique = _.uniq(file.shareEntities);
 
-        console.log(file)
-        console.log(unique)
+        //console.log(file)
+        //console.log(unique)
         _.each(unique, function(sharedEntityId) {
-            console.log(sharedEntityId)
             var sharedEntity = entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId);
-            if( sharedEntity.type == 'privateGroup' && entityAPIservice.isMember(sharedEntity, $rootScope.member) ||
-                sharedEntity.type == 'channel' ||
-                sharedEntity.type == 'user' )  {
-                sharedEntityArray.push(sharedEntity)
+            if (angular.isUndefined(sharedEntity)) {
+                // If I don't have it in my 'totalEntities', it means entity is 'archived'.
+                // Just return from here;
+            }
+            else {
+                if( sharedEntity.type == 'privateGroup' && entityAPIservice.isMember(sharedEntity, $rootScope.member) ||
+                    sharedEntity.type == 'channel' ||
+                    sharedEntity.type == 'user' )  {
+
+                    sharedEntityArray.push(sharedEntity)
+                }
             }
         });
         return sharedEntityArray;

@@ -6,26 +6,31 @@
         .controller('authController', authController);
 
     function authController($scope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService) {
+
         var vm = this;
+
         $scope.toggleLoading = function() {
             $scope.isLoading = !$scope.isLoading;
         };
 
         (function(){
             console.log('authController')
-            if (storageAPIservice.hasAccessTokenLocal() || storageAPIservice.hasAccessTokenSession()) {
-
+            if (storageAPIservice.getAccessToken()) {
+                console.log('has access')
                 $scope.toggleLoading();
 
                 console.log('trying to auto sign in')
 
                 accountService.getAccountInfo()
                     .success(function(response) {
+                        console.log('got account info')
+                        console.log(response)
+
                         accountService.setAccount(response);
                         getCurrentMember();
                     })
                     .error(function(err) {
-
+                        console.log('error on getAccountinfo from authController')
                     })
                     .finally(function() {
                     });
@@ -48,11 +53,13 @@
 
             // Get information about team and member id.
 
+            console.log('getting member from server')
             // Now get member information for current team.
             memberService.getMemberInfo(curMemberId)
                 .success(function(response) {
+                    console.log('getMemberInfo good')
+                    console.log(response)
                     // Set local member.
-
                     memberService.setMember(response);
 
                     setStatics();
@@ -60,6 +67,8 @@
                     $state.go('messages.home');
                 })
                 .error(function(err) {
+                    console.log('getMemberInfo bad')
+                    console.log('err')
                     $scope.signInFailed = true;
                     publicService.signOut();
                 })

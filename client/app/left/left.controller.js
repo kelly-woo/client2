@@ -1,31 +1,31 @@
-(function() {
-    'use strict';
-
-    angular
-        .module('jandiApp')
-        .controller('leftPanelController', leftPanelController);
-
-
-    function leftPanelController($scope, $rootScope, storageAPIservice, accountService,  leftPanel, leftpanelAPIservice) {
-        var vm = this;
-
-        $rootScope.isDMCollapsed = false || storageAPIservice.isLeftDMCollapsed();
-        $rootScope.isTopicCollapsed = false || storageAPIservice.isLeftTopicCollapsed();
-        $rootScope.isPGCollapsed = true || storageAPIservice.isLeftPGCollapsed();
-
-        accountService.setMember(leftPanel.data.user);
-
-        var joinedList = leftpanelAPIservice.getJoinedChannelList(leftPanel.data.joinEntities);
-
-        $scope.joinedChannelList    = joinedList[0];
-        $scope.privateGroupList     = joinedList[1];
-
-
-        vm.onUserContainerClick = function() {
-            console.log('mb')
-        }
-    }
-})();
+//(function() {
+//    'use strict';
+//
+//    angular
+//        .module('jandiApp')
+//        .controller('leftPanelController', leftPanelController);
+//
+//
+//    function leftPanelController($scope, $rootScope, storageAPIservice, accountService,  leftPanel, leftpanelAPIservice) {
+//        var vm = this;
+//
+//        $rootScope.isDMCollapsed = false || storageAPIservice.isLeftDMCollapsed();
+//        $rootScope.isTopicCollapsed = false || storageAPIservice.isLeftTopicCollapsed();
+//        $rootScope.isPGCollapsed = true || storageAPIservice.isLeftPGCollapsed();
+//
+//        accountService.setMember(leftPanel.data.user);
+//
+//        var joinedList = leftpanelAPIservice.getJoinedChannelList(leftPanel.data.joinEntities);
+//
+//        $scope.joinedChannelList    = joinedList[0];
+//        $scope.privateGroupList     = joinedList[1];
+//
+//
+//        vm.onUserContainerClick = function() {
+//            console.log('mb')
+//        }
+//    }
+//})();
 
 'use strict';
 

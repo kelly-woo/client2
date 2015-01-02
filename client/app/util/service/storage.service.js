@@ -207,6 +207,30 @@ app.factory('storageAPIservice', function($http, $rootScope, $window, $cookieSto
         $cookieStore.put(accessToken_key, tokenData.access_token);
     };
 
+
+    storageAPI.isValidValue = function(input) {
+        if(angular.isUndefined(input) || input === null || input == 'undefined') return false;
+        return true;
+    };
+
+    storageAPI.getAccessToken = function() {
+        if (storageAPI.isValidValue(storageAPI.getAccessTokenLocal()))
+            return storageAPI.getAccessTokenLocal();
+        if (storageAPI.isValidValue(storageAPI.getAccessTokenSession()))
+            return storageAPI.getAccessTokenSession();
+
+        return false;
+    };
+
+    storageAPI.getRefreshToken = function() {
+        if (storageAPI.isValidValue(storageAPI.getRefreshTokenLocal()))
+            return storageAPI.getRefreshTokenLocal();
+        if (storageAPI.isValidValue(storageAPI.getRefreshTokenSession()))
+            return storageAPI.getRefreshTokenSession();
+
+        return false;
+    };
+
     return storageAPI;
 });
 

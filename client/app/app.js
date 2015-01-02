@@ -72,7 +72,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
             // otherwise, internal access, redirect to messages state
             switch(toState.name) {
                 case 'signin':
-                    console.log('herer')
                     break;
                 case 'archives':
                     event.preventDefault();
