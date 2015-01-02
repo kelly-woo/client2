@@ -429,6 +429,20 @@ app.controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstanc
             .then(function(response) {
                 console.log('file upload success')
                 console.log(response)
+                if (angular.isUndefined(response)) {
+                    $rootScope.curUpload.status = 'error';
+                    $rootScope.curUpload.hasError = true;
+                    $rootScope.curUpload.progress = 0;
+
+                    $timeout(function() {
+                        $('.file-upload-progress-container').animate( {'opacity': 0 }, 500, function() {
+                            fileAPIservice.clearCurUpload();
+                        })
+                    }, 2000)
+
+                    return;
+
+                }
                 $rootScope.curUpload.status = 'done';
 
                 // analytics

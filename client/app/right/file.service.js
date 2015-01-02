@@ -8,16 +8,17 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     fileAPI.upload = function(files, fileInfo, supportHTML) {
         var flash_url = supportHTML ? '' : 'v2/';
 
+        console.log(flash_url);
+        console.log(fileInfo);
+        fileInfo.teamId  = memberService.getTeamId();
+        console.log(fileInfo);
+
         return $upload.upload({
             method: 'POST',
             url: $rootScope.server_address + flash_url + 'file',
             data: fileInfo,
             file: files,
             fileFormDataName: 'userFile',
-            params: {
-                teamId: memberService.getTeamId()
-            }
-
         });
     };
 
