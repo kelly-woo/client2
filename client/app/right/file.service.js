@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, memberService, entityAPIservice) {
+app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, memberService, entityAPIservice, storageAPIservice) {
     var fileAPI = {};
 
     fileAPI.upload = function(files, fileInfo, supportHTML) {
@@ -13,6 +13,11 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         fileInfo.teamId  = memberService.getTeamId();
         console.log(fileInfo);
 
+        if(!supportHTML)
+            fileInfo.accessToken = storageAPIservice.getAccessToken();
+
+        console.log(fileInfo.accessToken)
+        console.log(fileInfo.teamId)
         return $upload.upload({
             method: 'POST',
             url: $rootScope.server_address + flash_url + 'file',
