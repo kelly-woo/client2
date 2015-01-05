@@ -107,13 +107,16 @@
                 list = $rootScope.joinedChannelList;
             }
             else if (entity.type == 'user') {
-                list = $rootScope.userList;
+                list = $rootScope.memberList;
             }
 
             this.setBadgeValue(list, entity, alarmCount);
         }
         //  TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
         function setBadgeValue (list, entity, alarmCount) {
+            var curEntity = this.getEntityFromListById(list, entity.id);
+            if (angular.isUndefined(curEntity)) return;
+
             if (alarmCount == -1) {
                 if (angular.isUndefined(this.getEntityFromListById(list, entity.id).alarmCnt)) {
                     this.getEntityFromListById(list, entity.id).alarmCnt = 1;
