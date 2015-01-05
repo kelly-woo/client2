@@ -17,7 +17,8 @@
             removeAccount: removeAccount,
             getCurrentMemberId: getCurrentMemberId,
             hasSeenTutorial: hasSeenTutorial,
-            getAccountLanguage: getAccountLanguage
+            getAccountLanguage: getAccountLanguage,
+            validateCurrentPassword: validateCurrentPassword
         };
 
         return service;
@@ -52,8 +53,8 @@
             var prefix = $location.host().split('.')[0];
             if (configuration.name == 'development') {
                 if (prefix == 'local' || prefix == 'dev') {
-                    prefix = 'tosslab'
-                    //prefix = 'jihoon'
+                    //prefix = 'tosslab'
+                    prefix = 'jihoontesting'
                 }
             }
 
@@ -78,6 +79,17 @@
 
         function getAccountLanguage() {
             return accountLanguage || $rootScope.preferences.serverLang;
+        }
+
+        function validateCurrentPassword(cur_password) {
+            cur_password = cur_password || '';
+            return $http({
+                method  : 'POST',
+                url     : $rootScope.server_address + 'validation/password',
+                data    : {
+                    password: cur_password
+                }
+            });
         }
     }
 })();

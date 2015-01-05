@@ -1017,7 +1017,7 @@ app.controller('passwordRequestController', function($rootScope, $scope, $modalI
 });
 
 // TEAM SETTING CONTROLLER
-app.controller('teamSettingController', function($state, $stateParams, $scope, $rootScope, $modalInstance, $filter, $timeout, userAPIservice, teamAPIservice, $window, configuration, analyticsService) {
+app.controller('teamSettingController', function($state, $stateParams, $scope, $rootScope, $modalInstance, $filter, $timeout, userAPIservice, teamAPIservice, $window, configuration, analyticsService, accountService) {
 
     $scope.status = {
         oneAtATime      : true,
@@ -1066,7 +1066,7 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
         $scope.isLoading = true;
         var mixPanel_event = "Team Name Change";
 
-        userAPIservice.validateCurrentPassword(team.passwordConfirm)
+        accountService.validateCurrentPassword(team.passwordConfirm)
             .success(function() {
                 teamAPIservice.updatePrefixDomain(team.newPrefix)
                     .success(function(response) {
@@ -1127,6 +1127,7 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
         $('#teamURLPassword').focus();
         $scope.isLoading = false;
         alert($filter('translate')('@common-api-error-msg'));
+        console.log('err')
     }
 
 
@@ -1149,7 +1150,7 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
         }
         $scope.isLoading = true;
 
-        userAPIservice.validateCurrentPassword(team.deletePasswordConfirm)
+        accountService.validateCurrentPassword(team.deletePasswordConfirm)
             .success(function() {
                 // password confirmed.
                 teamAPIservice.deleteTeam()

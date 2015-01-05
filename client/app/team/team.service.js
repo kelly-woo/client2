@@ -30,7 +30,8 @@ app.factory('teamAPIservice', function($http, $rootScope, accountService, member
             method  : 'PUT',
             url     : $rootScope.server_address  + 'teams/' + $rootScope.team.id + '/name',
             data    : {
-                'name'  : name
+                name  : name,
+                teamId: memberService.getTeamId()
             }
         });
     };
@@ -40,8 +41,9 @@ app.factory('teamAPIservice', function($http, $rootScope, accountService, member
           method    : 'PUT',
           url       : $rootScope.server_address  + 'teams/' + $rootScope.team.id + '/domain',
           data      : {
-              'domain'  : domain,
-              'lang'    : $rootScope.preferences.serverLang
+              domain  : domain,
+              lang    : $rootScope.preferences.serverLang,
+              teamId: memberService.getTeamId()
           }
       });
     };
@@ -51,7 +53,8 @@ app.factory('teamAPIservice', function($http, $rootScope, accountService, member
             method  : 'DELETE',
             url     : $rootScope.server_address  + 'teams/' + $rootScope.team.id,
             data    : {
-                'lang'    : $rootScope.preferences.serverLang
+                lang    : $rootScope.preferences.serverLang,
+                teamId: memberService.getTeamId()
             }
         });
     };

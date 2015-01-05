@@ -26,17 +26,6 @@ app.factory('userAPIservice', function($http, $rootScope, $filter, $upload, memb
         return memberService.getNameFromMember(getEntityFromListById($rootScope.memberList, userId));
     };
 
-    userAPI.validateCurrentPassword = function(cur_password) {
-        cur_password = cur_password || '';
-        return $http({
-            method  : 'POST',
-            url     : $rootScope.server_address + 'validation/password',
-            data    : {
-                password: cur_password
-            }
-        });
-    };
-
     userAPI.updateUserName = function(new_name) {
         return $http({
             method  : 'POST',

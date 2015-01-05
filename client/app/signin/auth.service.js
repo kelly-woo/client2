@@ -165,6 +165,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
                         authAPIservice.updateAccessToken(response);
                     })
                     .error(function(error) {
+                        console.log('whaty')
                         // bad refresh_token.
                         authAPIservice.signOut();
                     });
