@@ -6,7 +6,7 @@
     </h3>
 </div>
 
-<form name="profileForm" data-ng-submit="onProfileChangeClick()" novalidate>
+<form name="profileForm" data-ng-submit="onProfileChangeClick()">
     <div class="modal-body profile-body">
         <h4 class="modal-body__description">
             <span translate>@modal-setting-profile-msg1</span>
@@ -62,6 +62,17 @@
                         <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.nickName.$error.maxlength">
                             {{ '@input-max-length-error' | translate}}
                         </alert>
+                    </div>
+                </div>
+
+                <!--    LANGUAGE    -->
+                <div class="form-group">
+                    <label class="profile-body__label control-label col-sm-3"><span translate>@common-language</span></label>
+                    <div class="col-sm-9">
+                        <select name="preferencesLanguage"
+                                class="form-control"
+                                data-ng-model="lang"
+                                data-ng-options="lang.value as lang.text for lang in listLangs"></select>
                     </div>
                 </div>
             </div>

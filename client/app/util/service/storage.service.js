@@ -12,6 +12,7 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
     var teamId_key          = 'team_id';
     var memberId_key        = 'member_id';
 
+    var lastLang_key        = 'last_lang';
     var lastEmail_key       = 'last_email';
 
     var leftDMCollapsed_key = 'is_left_dm_collapsed';
@@ -56,6 +57,9 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
 
     storageAPI.setLastEmail = function(email) { localStorageService.set(lastEmail_key, email); };
     storageAPI.getLastEmail = function() { return localStorageService.get(lastEmail_key); };
+
+    storageAPI.setLastLang = function(lang) { localStorageService.set(lastLang_key, lang); };
+    storageAPI.getLastLang = function() { return localStorageService.get(lastLang_key); };
 
     storageAPI.hasAccessTokenLocal = function() {
         return this.getAccessTokenLocal();

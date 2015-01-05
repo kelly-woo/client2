@@ -17,7 +17,7 @@ var app = angular.module('jandiApp', [
     'monospaced.elastic'
 ]);
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration, storageAPIservice) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration, storageAPIservice, publicService) {
 
     $rootScope._ = window._;
 
@@ -45,6 +45,14 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         serverLang      : '',
         notification    : ''
     };
+
+    $rootScope.listLangs = [
+        { "value": "ko",    "text": "한국어" },
+        { "value": "en", "text": "English" },
+        { "value": "zh-cn", "text": "简体中文 " },
+        { "value": "zh-tw", "text": "繁體中文" },
+        { "value": "ja",    "text": "日本語"}
+    ];
 
     // Stores templates in angular variable.
     // TODO: angular variable로 가지고 있지말고 configuration 처럼 가지고 있는건 어떠한가?
@@ -144,18 +152,17 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     // translate for multi-lang
     $rootScope.setLang = function(setLang, isDebug) {
-        getLanguageSetting(setLang);
-
-        setLang = setLang || 'ko';
         isDebug = isDebug || false;
 
+        publicService.getLanguageSetting(setLang);
+
         // 언어 설정 for nggettext(translator)
-        gettextCatalog.setCurrentLanguage($rootScope.preferences.language);
-        gettextCatalog.debug = isDebug;
+        publicService.setCurrentLanguage($rootScope.preferences.language);
+        publicService.setDebugMode(isDebug);
     };
 
     // Language Setup
-    $rootScope.setLang(navigator.language || navigator.userLanguage, debugMode);
+    $rootScope.setLang(storageAPIservice.getLastLang() || navigator.language || navigator.userLanguage, debugMode);
 
 
     <!-- analytics start -->
@@ -176,54 +183,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
         ga('create', configuration.ga_token, 'auto');
         ga('create', configuration.ga_token_global, 'auto', {'name': 'global_tracker'});
-    }
-
-    // TODO: move this to service.
-    // Browser/OS may give us slightly different format for same language.
-    // In such case, we reformat the language variable so that we can notify 'server' and 'translator' with correct language format.
-    function getLanguageSetting(curLang) {
-        var userLang;
-        var serverLang;
-
-        curLang = curLang.toLowerCase();
-
-        // Choose correct/right format!!
-        if (curLang.indexOf('ko') >= 0) {
-            // korean
-            userLang    = 'ko';
-            serverLang  = 'ko';
-        }
-        else if (curLang.indexOf('en') >= 0) {
-            // english
-            userLang    = 'en_US';
-            serverLang  = 'en';
-
-        }
-        else if (curLang.indexOf('zh') >= 0) {
-            // chinese
-            if (curLang.indexOf('tw') >= 0) {
-                // main land china
-                userLang    = 'zh_TW';
-                serverLang  = 'zh-tw';
-            }
-            else {
-                userLang    = 'zh_CN';
-                serverLang  = 'zh-cn';
-            }
-        }
-        else if (curLang.indexOf('ja') >= 0) {
-            // japanese
-            userLang    = 'ja';
-            serverLang  = 'ja';
-        }
-        else {
-            userLang    = 'en_US';
-            serverLang  = 'en';
-        }
-
-        // Save it!!
-        $rootScope.preferences.language     = userLang;
-        $rootScope.preferences.serverLang   = serverLang;
     }
 });
 

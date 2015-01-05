@@ -12,12 +12,14 @@
 
         var service = {
             getAccountInfo: getAccountInfo,
+            setAccountInfo: setAccountInfo,
             getAccount: getAccount,
             setAccount: setAccount,
             removeAccount: removeAccount,
             getCurrentMemberId: getCurrentMemberId,
             hasSeenTutorial: hasSeenTutorial,
-            getAccountLanguage: getAccountLanguage
+            getAccountLanguage: getAccountLanguage,
+            setAccountLanguage: setAccountLanguage
         };
 
         return service;
@@ -26,6 +28,13 @@
             return $http({
                 method: 'GET',
                 url: $rootScope.server_address + 'account'
+            });
+        }
+        function setAccountInfo(account) {
+            return $http({
+                method: 'PUT',
+                url: $rootScope.server_address + 'account',
+                data: account
             });
         }
 
@@ -75,9 +84,14 @@
                 return true;
         }
 
+        function setAccountLanguage(lang) {
+            $rootScope.account.lang = lang;
+            accountLanguage = lang;
+        }
 
         function getAccountLanguage() {
             return accountLanguage || $rootScope.preferences.serverLang;
         }
+
     }
 })();

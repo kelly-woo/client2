@@ -596,9 +596,13 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
 });
 
 // PROFILE CONTROLLER
-app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService, accountService) {
+app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService, accountService, publicService) {
+
+    $scope.isLoading = false;
 
     $scope.curUser = _.cloneDeep(memberService.getMember());
+
+    $scope.lang = accountService.getAccountLanguage();
 
     $scope.isProfilePicSelected = false;
 
@@ -609,12 +613,14 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     $scope.curUser.u_extraData.department   = memberService.getDepartment($scope.curUser) || "";
     $scope.curUser.u_extraData.position     = memberService.getPosition($scope.curUser) || "";
 
+
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
     $scope.onProfileChangeClick = function() {
         if ($scope.isLoading) return;
+
         $scope.toggleLoading();
 
         if (!isNamePristine()) {
@@ -650,6 +656,25 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
                 .finally(function() {
                     $scope.toggleLoading();
                 });
+        }
+        else if (!isLanguagePristine()) {
+            // Language setting chagned.
+            var lang = {
+                lang: $scope.profileForm.preferencesLanguage.$viewValue
+            };
+
+            accountService.setAccountInfo(lang)
+                .success(function(response) {
+                    accountService.setAccountLanguage(response.lang);
+                    publicService.getLanguageSetting(accountService.getAccountLanguage());
+                    publicService.setCurrentLanguage();
+                })
+                .error(function(err) {
+                    console.log(err)
+                })
+                .finally(function() {
+                    $scope.toggleLoading();
+                })
         }
         else {
             memberService.updateProfile($scope.curUser)
@@ -765,7 +790,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     };
 
     $scope.isPristine = function() {
-        return isNamePristine() && isEmailPristine() && isStatusPristine() && isPhoneNumberPristine() && isDepartmentPristine() && isPositionPristine();
+        return isNamePristine() && isEmailPristine() && isStatusPristine() && isPhoneNumberPristine() && isDepartmentPristine() && isPositionPristine() && isLanguagePristine();
     };
 
     function isNamePristine() {
@@ -786,6 +811,10 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     function isPositionPristine() {
         return memberService.getPosition($scope.curUser) == memberService.getPosition(memberService.getMember());
     }
+
+    function isLanguagePristine() {
+        return $scope.profileForm.preferencesLanguage.$viewValue == accountService.getAccountLanguage();
+    };
 });
 
 // ACCOUNT CONTROLLER

@@ -130,6 +130,9 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
             accountService.getAccountInfo()
                 .success(function(response) {
                     accountService.setAccount(response);
+                    publicService.getLanguageSetting();
+                    publicService.setCurrentLanguage();
+
                     if(!accountService.hasSeenTutorial()) {
                         $scope.initTutorialStatus();
                     }
