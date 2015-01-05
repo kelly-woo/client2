@@ -22,22 +22,34 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     };
 
     $scope.openModal = function(selector) {
-        if (selector == 'agreement') {
-            publicService.openAgreementModal();
+        switch(selector) {
+            case 'agreement':
+                publicService.openAgreementModal();
+                break;
+            case 'privacy':
+                publicService.openPrivacyModal();
+                break;
+            case 'channel':
+                publicService.openTopicCreateModal($scope);
+                break;
+            case 'private':
+                publicService.openPrivateCreateModal($scope);
+                break;
+            case 'invite':
+                publicService.openInviteToTeamModal($scope);
+                break;
+            case 'teamChange':
+                publicService.openTeamChangeModal($scope);
+                break;
+            case 'setting-team':
+                publicService.openTeamSettingModal($scope);
+                break;
+            default:
+                break;
         }
-        else if (selector == 'privacy') {
-            publicService.openPrivacyModal();
-        }
-        else if (selector == 'channel') {
-            publicService.openTopicCreateModal($scope);
-        }
-        else if (selector == 'private') {
-            publicService.openPrivateCreateModal($scope);
-        }
-        else if (selector == 'invite') {
-            publicService.openInviteToTeamModal($scope);
-        }
-        else if (selector == 'setting-profile') {
+
+
+        if (selector == 'setting-profile') {
             $modal.open({
                 scope       :   $scope,
                 templateUrl :   'app/modal/settings.profile.html',
@@ -61,15 +73,6 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
 //                windowClass : 'modal-wide',
                 size        : 'lg'
             });
-        }
-        else if (selector === 'setting-team') {
-            $modal.open({
-                sopce       : $scope,
-                templateUrl : 'app/modal/settings.team.html',
-                controller  : 'teamSettingController',
-                size        : 'lg'
-            });
-
         }
     };
 
@@ -116,4 +119,5 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     $scope.toggleLoading = function() {
         $scope.isLoading = !$scope.isLoading;
     };
+
 });

@@ -21,6 +21,8 @@
             openMemberProfileModal: openMemberProfileModal,
             openPasswordResetRequestModal: openPasswordResetRequestModal,
             openFileUploadModal: openFileUploadModal,
+            openTeamChangeModal: openTeamChangeModal,
+            openTeamSettingModal: openTeamSettingModal,
             closeModal: closeModal,
             signOut: signOut
         };
@@ -218,6 +220,24 @@
                 controller  : 'fileUploadModalCtrl',
                 size        : 'lg'
             });
+        }
+
+        function openTeamChangeModal($scope) {
+            $modal.open({
+                scope       : $scope,
+                templateUrl : 'app/modal/team_change/team.change.html',
+                controller  : 'teamChangeController',
+                size        : 'lg'
+            });
+        }
+        function openTeamSettingModal($scope) {
+            $modal.open({
+                sopce       : $scope,
+                templateUrl : 'app/modal/settings.team.html',
+                controller  : 'teamSettingController',
+                size        : 'lg'
+            });
+
         }
         function closeModal(modalInstance) {
             modalInstance.dismiss('close');
