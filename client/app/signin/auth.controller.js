@@ -18,7 +18,6 @@
         (function(){
             //console.log('authController')
             if (storageAPIservice.shoudAutoSignIn()) {
-                //console.log('has access')
                 $scope.toggleLoading();
 
                 //console.log('trying to auto sign in')

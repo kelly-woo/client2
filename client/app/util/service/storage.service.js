@@ -330,8 +330,9 @@
         }
 
         function shoudAutoSignIn() {
-            if (localStorageService.cookie.get(autoSignIn_key))
-                return true;
+            var value = localStorageService.cookie.get(autoSignIn_key);
+            if (typeof value == 'string' && value == 'true') return true;
+            if (typeof value == 'boolean' && value ) return true;
 
             return false;
         }
