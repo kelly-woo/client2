@@ -18,13 +18,13 @@ app.config(function ($stateProvider) {
                     templateUrl : 'app/left/left.html',
                     controller  : 'leftPanelController1',
                     resolve     : {
-                        leftPanel: function (leftpanelAPIservice) {
+                        leftPanel: function (leftpanelAPIservice, publicService) {
                                 return leftpanelAPIservice.getLists()
                                     .success(function(response) {
 
                                     })
                                     .error(function(err) {
-                                        console.log(err)
+                                        publicService.signOut();
                                     });
                         }
                     }

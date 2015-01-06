@@ -192,7 +192,7 @@ app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, local
 
     /* LocalStorage prefix setting */
     localStorageServiceProvider.setPrefix('_jd_');
-    localStorageServiceProvider.setStorageCookie(45);
+    localStorageServiceProvider.setStorageCookie(45, '/');
     localStorageServiceProvider.setStorageCookieDomain('jandi.com');
 
     /* URL routing rule for exception */

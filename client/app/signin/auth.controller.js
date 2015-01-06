@@ -61,9 +61,12 @@
 
                 return;
             }
+
+            storageAPIservice.setAccountInfoLocal(account.id, signInInfo.teamId, signInInfo.memberId);
+            storageAPIservice.setShouldAutoSignIn(true);
             // Get information about team and member id.
 
-            //console.log('getting member from server')
+            console.log('getting member from server')
             // Now get member information for current team.
             memberService.getMemberInfo(curMemberId)
                 .success(function(response) {
