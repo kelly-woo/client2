@@ -73,6 +73,7 @@ msgstr ""
 #: client/app/modal/rename.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/share.html
+#: client/app/modal/team_change/team.change.html
 #: client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr ""
@@ -316,6 +317,7 @@ msgstr ""
 msgid "@common-joined"
 msgstr ""
 
+#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr ""
@@ -874,6 +876,7 @@ msgid "@team-members"
 msgstr ""
 
 #: client/app/header/header.html
+#: client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr ""
 

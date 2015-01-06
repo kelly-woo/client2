@@ -811,7 +811,7 @@ msgstr "비공개 그룹 이름 변경하기\t\t"
 
 #: client/app/center/center.html
 msgid "@pg-menu-star"
-msgstr "유저 즐겨찾기 "
+msgstr "비공개 그룹 즐겨찾기 "
 
 #: client/app/center/center.html
 msgid "@pg-menu-un-star"
