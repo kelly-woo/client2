@@ -1,0 +1,60 @@
+.mobile-catcher {
+    overflow: hidden;
+    opacity: 0;
+    -webkit-transition: opacity 0.7s;
+    -moz-transition: opacity 0.7s;
+    -ms-transition: opacity 0.7s;
+    -o-transition: opacity 0.7s;
+    transition: opacity 0.7s;
+}
+
+.signin-mobile-background-img {
+    width: 100%;
+}
+
+
+.mobile-catcher #download {
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    padding: 10px;
+    bottom: 0;
+    text-align: center;
+    border-top: 1px solid #e1e1e1;
+}
+.download-title {
+    padding-top: 5px;
+}
+.mobile-catcher #download .btn {
+    display: block;
+    margin: 11px auto !important;
+    height: 46px;
+    width: 100%;
+    font-size: 16px;
+
+}
+#download hr {
+    border-width: 2px;
+    width: 150px;
+
+}
+.mobile-catcher #download h1,
+.mobile-catcher #download h2 {
+    font-weight: 300;
+}
+.mobile-catcher #download h1 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding: 0 15px;
+}
+.mobile-catcher #download h2 {
+    line-height: 32px;
+    font-size: 16px;
+    margin-top: 0;
+    color: #666;
+    padding: 0 10px;
+}
+.download-badge img {
+    width: 150px;
+    padding: 5px 0;
+}

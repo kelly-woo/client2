@@ -78,7 +78,7 @@ msgstr "Add"
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
 #: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/team_change/team.change.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "Cancel"
 
@@ -185,7 +185,7 @@ msgstr "Account Settings"
 msgid "@common-add"
 msgstr "Add"
 
-#: client/app/left/left.html
+#: client/app/center/center.html client/app/left/left.html
 msgid "@common-api-error-msg"
 msgstr "Something went wrong. Please try again."
 
@@ -285,6 +285,10 @@ msgstr "Uploading..."
 msgid "@common-files"
 msgstr "Files"
 
+#: client/app/mobile/mobile.catcher.html
+msgid "@common-has-jandi-app"
+msgstr "Already have the JANDI app for mobile?"
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr "Basic Information"
@@ -301,6 +305,7 @@ msgstr "Oops, Invalid Request. "
 msgid "@common-joined"
 msgstr " members"
 
+#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr "Language"
@@ -394,6 +399,10 @@ msgstr "Sign In"
 #: client/app/header/header.html
 msgid "@common-sign-out"
 msgstr "Sign Out"
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@common-start-using-mobile"
+msgstr "Launch the JANDI app"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-status-msg"
@@ -535,26 +544,6 @@ msgstr "You've exceeded the maximum character limit: 60 characters"
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit."
 
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-average"
-msgstr "Average"
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-excellent"
-msgstr "Excellent"
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-good"
-msgstr "Good"
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-very-weak"
-msgstr "Weak"
-
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "Enter name to change"
@@ -578,10 +567,12 @@ msgstr ""
 "Must contain at least one number or uppercase letter or special character."
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-hasSpace-error"
 msgstr "Password cannot contain space"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-min-length-error"
 msgstr "Must be more than 8 characters"
 
@@ -589,21 +580,21 @@ msgstr "Must be more than 8 characters"
 msgid "@keep-me-logged-in"
 msgstr "Keep me logged in"
 
+#: client/app/mobile/mobile.catcher.html
+msgid "@landing-footer-app-download"
+msgstr "Mobile Applications"
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@landing-footer-app-download-desc"
+msgstr "Use JANDI at your desk or take it to go"
+
 #: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr "Invalid email or password"
 
-#: client/app/signin/signin.html
-msgid "@login-message"
-msgstr "Enter your email and password"
-
 #: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "Forgot Password?"
-
-#: client/app/signin/signin.html
-msgid "@login-welcome {{teamInfo.name}}"
-msgstr "Welcome to {{teamInfo.name}}"
 
 #: client/app/center/center.html
 msgid "@message-delete"
@@ -891,7 +882,7 @@ msgstr "Invite Other Team Members"
 msgid "@team-members"
 msgstr "Team Members"
 
-#: client/app/header/header.html
+#: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "Change Teams"
 
@@ -993,6 +984,24 @@ msgstr "Star this user"
 #: client/app/center/center.html
 msgid "@user-menu-un-star"
 msgstr "Unstar this user"
+
+#~ msgid "@input-password-average"
+#~ msgstr "Average"
+
+#~ msgid "@input-password-excellent"
+#~ msgstr "Excellent"
+
+#~ msgid "@input-password-good"
+#~ msgstr "Good"
+
+#~ msgid "@input-password-very-weak"
+#~ msgstr "Weak"
+
+#~ msgid "@login-message"
+#~ msgstr "Enter your email and password"
+
+#~ msgid "@login-welcome {{teamInfo.name}}"
+#~ msgstr "Welcome to {{teamInfo.name}}"
 
 #, fuzzy
 #~ msgid "@common-profile-settingstranslate"

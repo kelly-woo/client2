@@ -67,6 +67,7 @@
                     //prefix = 'jd'
                 }
             }
+            prefix = 'tosslab'
 
             _.forEach(memberships, function(membership, index) {
                 //console.log('membership', membership.t_domain, '/', membership.memberId, '/', membership.teamId)

@@ -78,7 +78,7 @@ msgstr "추가"
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
 #: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/team_change/team.change.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "취소"
 
@@ -185,7 +185,7 @@ msgstr "계정 설정"
 msgid "@common-add"
 msgstr "추가"
 
-#: client/app/left/left.html
+#: client/app/center/center.html client/app/left/left.html
 msgid "@common-api-error-msg"
 msgstr "잠시 후에 다시 시도하여 주십시요."
 
@@ -285,6 +285,10 @@ msgstr "업로드 중..."
 msgid "@common-files"
 msgstr "파일"
 
+#: client/app/mobile/mobile.catcher.html
+msgid "@common-has-jandi-app"
+msgstr "이미 JANDI 모바일 앱이 있으십니까?"
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr "기본 정보"
@@ -301,6 +305,7 @@ msgstr "잘못된 접근입니다. "
 msgid "@common-joined"
 msgstr "명 참여중"
 
+#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr "언어"
@@ -394,6 +399,10 @@ msgstr "로그인"
 #: client/app/header/header.html
 msgid "@common-sign-out"
 msgstr "로그아웃"
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@common-start-using-mobile"
+msgstr "JANDI 앱 열기"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-status-msg"
@@ -534,26 +543,6 @@ msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
 msgid "@input-max-length-error"
 msgstr "최대 입력 글자 수가 넘었습니다.  "
 
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-average"
-msgstr "약함"
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-excellent"
-msgstr "강함 "
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-good"
-msgstr "좋음 "
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-very-weak"
-msgstr "아주 약함 "
-
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "변경할 이름을 입력하세요"
@@ -577,10 +566,12 @@ msgstr ""
 "숫자, 특수문자, 또는 영어 대문자 중 최소한 1자 이상이 포함되어야 합니다"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-hasSpace-error"
 msgstr "빈 칸은 포함될 수 없습니다"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-min-length-error"
 msgstr "8자 이상 입력해주세요"
 
@@ -588,21 +579,23 @@ msgstr "8자 이상 입력해주세요"
 msgid "@keep-me-logged-in"
 msgstr "로그인 상태 유지"
 
+#: client/app/mobile/mobile.catcher.html
+msgid "@landing-footer-app-download"
+msgstr "어플리케이션 다운로드"
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@landing-footer-app-download-desc"
+msgstr ""
+"이제 더 이상 <b>파일이 회사 컴퓨터에 있어서</b> <span class=\"hidden-sm "
+"hidden-md hidden-lg\"><br></span> 곤란할 일은 없게 됩니다."
+
 #: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr "이메일 또는 비밀번호를 확인해주세요"
 
-#: client/app/signin/signin.html
-msgid "@login-message"
-msgstr "이메일과 비밀번호를 입력하세요"
-
 #: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "비밀번호 찾기"
-
-#: client/app/signin/signin.html
-msgid "@login-welcome {{teamInfo.name}}"
-msgstr "{{teamInfo.name}} 환영합니다"
 
 #: client/app/center/center.html
 msgid "@message-delete"
@@ -887,7 +880,7 @@ msgstr "멤버 초대"
 msgid "@team-members"
 msgstr "전체 멤버 보기"
 
-#: client/app/header/header.html
+#: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "팀 변경"
 
@@ -988,6 +981,24 @@ msgstr "유저 즐겨찾기"
 #: client/app/center/center.html
 msgid "@user-menu-un-star"
 msgstr "즐겨찾기 해제"
+
+#~ msgid "@input-password-average"
+#~ msgstr "약함"
+
+#~ msgid "@input-password-excellent"
+#~ msgstr "강함 "
+
+#~ msgid "@input-password-good"
+#~ msgstr "좋음 "
+
+#~ msgid "@input-password-very-weak"
+#~ msgstr "아주 약함 "
+
+#~ msgid "@login-message"
+#~ msgstr "이메일과 비밀번호를 입력하세요"
+
+#~ msgid "@login-welcome {{teamInfo.name}}"
+#~ msgstr "{{teamInfo.name}} 환영합니다"
 
 #, fuzzy
 #~ msgid "@common-profile-settingstranslate"

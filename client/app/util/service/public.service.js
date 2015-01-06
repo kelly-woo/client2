@@ -27,7 +27,9 @@
             getLanguageSetting: getLanguageSetting,
             setCurrentLanguage: setCurrentLanguage,
             setDebugMode: setDebugMode,
-            signOut: signOut
+            signOut: signOut,
+            getBrowserInfo: getBrowserInfo,
+            redirectTo: redirectTo
         };
 
         return service;
@@ -314,6 +316,17 @@
 
             if(mixpanel.cookie) mixpanel.cookie.clear();
             $state.go('signin');
+        }
+
+        function getBrowserInfo() {
+            $rootScope.isMobile = jQuery.browser.mobile;
+
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            $rootScope.isAndroid = userAgent.match(/Android/i)=='Android';
+        }
+        function redirectTo(url) {
+            // Direct to 'url'.
+            location.href = url;
         }
     }
 })();

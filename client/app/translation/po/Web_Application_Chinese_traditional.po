@@ -78,7 +78,7 @@ msgstr "增加"
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
 #: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/team_change/team.change.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "取消"
 
@@ -185,7 +185,7 @@ msgstr "帳號設定"
 msgid "@common-add"
 msgstr "增加"
 
-#: client/app/left/left.html
+#: client/app/center/center.html client/app/left/left.html
 msgid "@common-api-error-msg"
 msgstr "有錯誤發生。請再試一次。"
 
@@ -285,6 +285,10 @@ msgstr "上傳中..."
 msgid "@common-files"
 msgstr "檔案"
 
+#: client/app/mobile/mobile.catcher.html
+msgid "@common-has-jandi-app"
+msgstr "已經在您的行動裝置上有JANDI的應用程式了嗎？"
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr "基本資料"
@@ -301,6 +305,7 @@ msgstr "請求無效"
 msgid "@common-joined"
 msgstr "成員"
 
+#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr "語言"
@@ -394,6 +399,10 @@ msgstr "登入"
 #: client/app/header/header.html
 msgid "@common-sign-out"
 msgstr "登出"
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@common-start-using-mobile"
+msgstr "開啓JANDI的應用程式"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-status-msg"
@@ -531,26 +540,6 @@ msgstr " "
 msgid "@input-max-length-error"
 msgstr "您已經超越字數限制"
 
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-average"
-msgstr "普通"
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-excellent"
-msgstr "非常強"
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-good"
-msgstr "強"
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-very-weak"
-msgstr "弱"
-
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "輸入修改的名字"
@@ -573,10 +562,12 @@ msgid "@input-user-password-error"
 msgstr "必須至少包含一個數字或大寫字母或特殊字符"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-hasSpace-error"
 msgstr "密碼不能包含空格"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-min-length-error"
 msgstr "一定要超過8個字符"
 
@@ -584,21 +575,21 @@ msgstr "一定要超過8個字符"
 msgid "@keep-me-logged-in"
 msgstr "我要保持登入狀態"
 
+#: client/app/mobile/mobile.catcher.html
+msgid "@landing-footer-app-download"
+msgstr "行動應用"
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@landing-footer-app-download-desc"
+msgstr "在您的桌機上使用JANDI或帶著它到處走動 "
+
 #: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr "電子郵件或密碼無效"
 
-#: client/app/signin/signin.html
-msgid "@login-message"
-msgstr "輸入您的電子郵件及密碼"
-
 #: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
-
-#: client/app/signin/signin.html
-msgid "@login-welcome {{teamInfo.name}}"
-msgstr "歡迎"
 
 #: client/app/center/center.html
 msgid "@message-delete"
@@ -871,7 +862,7 @@ msgstr "邀請其他團隊成員"
 msgid "@team-members"
 msgstr "團隊成員"
 
-#: client/app/header/header.html
+#: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "更換團隊"
 
@@ -966,3 +957,21 @@ msgstr "標記這成員"
 #: client/app/center/center.html
 msgid "@user-menu-un-star"
 msgstr "取消標記這成員"
+
+#~ msgid "@input-password-average"
+#~ msgstr "普通"
+
+#~ msgid "@input-password-excellent"
+#~ msgstr "非常強"
+
+#~ msgid "@input-password-good"
+#~ msgstr "強"
+
+#~ msgid "@input-password-very-weak"
+#~ msgstr "弱"
+
+#~ msgid "@login-message"
+#~ msgstr "輸入您的電子郵件及密碼"
+
+#~ msgid "@login-welcome {{teamInfo.name}}"
+#~ msgstr "歡迎"

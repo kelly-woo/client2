@@ -301,6 +301,10 @@ msgstr ""
 msgid "@common-files"
 msgstr ""
 
+#: client/app/mobile/mobile.catcher.html
+msgid "@common-has-jandi-app"
+msgstr ""
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr ""
@@ -420,6 +424,10 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "@common-sign-out"
+msgstr ""
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@common-start-using-mobile"
 msgstr ""
 
 #: client/app/modal/settings.profile.html
@@ -592,6 +600,14 @@ msgstr ""
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
+msgstr ""
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@landing-footer-app-download"
+msgstr ""
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@landing-footer-app-download-desc"
 msgstr ""
 
 #: client/app/signin/signin.html

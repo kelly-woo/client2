@@ -78,7 +78,7 @@ msgstr "追加"
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
 #: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/team_change/team.change.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "キャンセル"
 
@@ -185,7 +185,7 @@ msgstr "アカウント設定"
 msgid "@common-add"
 msgstr "追加"
 
-#: client/app/left/left.html
+#: client/app/center/center.html client/app/left/left.html
 msgid "@common-api-error-msg"
 msgstr "処理が失敗しました。もう一度お試しください"
 
@@ -285,6 +285,10 @@ msgstr "アップロード中..."
 msgid "@common-files"
 msgstr "ファイル"
 
+#: client/app/mobile/mobile.catcher.html
+msgid "@common-has-jandi-app"
+msgstr "既にJANDIのアプリをお持ちですか？"
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr "基本情報"
@@ -301,6 +305,7 @@ msgstr "不適切なリクエスト"
 msgid "@common-joined"
 msgstr "メンバー"
 
+#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr "言語"
@@ -394,6 +399,10 @@ msgstr "ログインする"
 #: client/app/header/header.html
 msgid "@common-sign-out"
 msgstr "ログアウトする"
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@common-start-using-mobile"
+msgstr "アプリを開く"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-status-msg"
@@ -534,26 +543,6 @@ msgstr " "
 msgid "@input-max-length-error"
 msgstr "入力可能な文字数を超えています"
 
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-average"
-msgstr "普通 "
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-excellent"
-msgstr "非常に強い"
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-good"
-msgstr "強い "
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-password-very-weak"
-msgstr "弱い "
-
 #: client/app/modal/rename.html
 msgid "@input-rename"
 msgstr "名前を入力"
@@ -576,10 +565,12 @@ msgid "@input-user-password-error"
 msgstr "最低1文字以上の数字か大文字か記号を含めてください"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-hasSpace-error"
 msgstr "パスワードにスペースを含めることはできません"
 
 #: client/app/modal/settings.account.html
+#: client/app/password/password.reset.html
 msgid "@input-user-password-min-length-error"
 msgstr "パスワードは8文字以上にしてください"
 
@@ -587,21 +578,22 @@ msgstr "パスワードは8文字以上にしてください"
 msgid "@keep-me-logged-in"
 msgstr "ログイン状態を保持する"
 
+#: client/app/mobile/mobile.catcher.html
+msgid "@landing-footer-app-download"
+msgstr "スマートフォンアプリ"
+
+#: client/app/mobile/mobile.catcher.html
+msgid "@landing-footer-app-download-desc"
+msgstr ""
+"PCからも、スマートフォンからでもJANDIが使えますPC・スマートフォンアプリ対応 "
+
 #: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr "メールアドレスまたはパスワードが正しくありません"
 
-#: client/app/signin/signin.html
-msgid "@login-message"
-msgstr "メールアドレスとパスワードを入力"
-
 #: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
-
-#: client/app/signin/signin.html
-msgid "@login-welcome {{teamInfo.name}}"
-msgstr "Welcome to"
 
 #: client/app/center/center.html
 msgid "@message-delete"
@@ -881,7 +873,7 @@ msgstr "他のチームメンバーを招待する"
 msgid "@team-members"
 msgstr "チームメンバー"
 
-#: client/app/header/header.html
+#: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "他のチームに切り替える"
 
@@ -980,3 +972,21 @@ msgstr "お気に入りに追加する"
 #: client/app/center/center.html
 msgid "@user-menu-un-star"
 msgstr "お気に入りから削除する"
+
+#~ msgid "@input-password-average"
+#~ msgstr "普通 "
+
+#~ msgid "@input-password-excellent"
+#~ msgstr "非常に強い"
+
+#~ msgid "@input-password-good"
+#~ msgstr "強い "
+
+#~ msgid "@input-password-very-weak"
+#~ msgstr "弱い "
+
+#~ msgid "@login-message"
+#~ msgstr "メールアドレスとパスワードを入力"
+
+#~ msgid "@login-welcome {{teamInfo.name}}"
+#~ msgstr "Welcome to"

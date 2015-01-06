@@ -110,5 +110,11 @@ app.config(function ($stateProvider) {
             title       : 'Reset Password',
             templateUrl : 'app/password/password.reset.html',
             controller  : 'passwordResetController'
+        })
+        .state('mobile', {
+            url         : '/mobile',
+            templateUrl : 'app/mobile/mobile.catcher.html',
+            controller  : 'mobileCatcherController'
         });
+    ;
 });

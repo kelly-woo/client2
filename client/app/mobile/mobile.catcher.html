@@ -1,0 +1,57 @@
+
+<div class="mobile-catcher">
+    <img class="signin-mobile-background-img" ng-src="assets/images/ld-main-mobile.png"/>
+
+
+    <div id="download">
+        <span class="download-title" translate>@common-has-jandi-app</span>
+        <button class="btn bt_next btn-ok" data-ng-click="toMobileApplication()">
+            <span translate>@common-start-using-mobile</span>
+        </button>
+
+        <hr>
+
+        <h1>
+            <span translate>@landing-footer-app-download</span>
+        </h1>
+        <h2>
+            <span translate>@landing-footer-app-download-desc</span>
+        </h2>
+
+        <div class="download-badge">
+            <a ng-if="preferences.language == ('ko')" href="https://itunes.apple.com/kr/app/jandi/id904895208?mt=8&uo=4" target="itunes_store">
+                <img class="apple_badge" src="assets/images/badge_appstore_kr.svg" alt="Get it on App Store">
+            </a>
+            <a ng-if="preferences.language == ('en_US')" href="https://itunes.apple.com/app/jandi/id904895208?mt=8&uo=4" target="itunes_store">
+                <img class="apple_badge" src="assets/images/badge_appstore_en.svg" alt="Get it on App Store">
+            </a>
+            <a ng-if="preferences.language == ('ja')" href="https://itunes.apple.com/jp/app/jandi/id904895208?mt=8&uo=4" target="itunes_store">
+                <img class="apple_badge" src="assets/images/badge_appstore_jp.svg" alt="Get it on App Store">
+            </a>
+            <a ng-if="preferences.language == ('zh_CN')" href="https://itunes.apple.com/cn/app/jandi/id904895208?mt=8&uo=4" target="itunes_store">
+                <img class="apple_badge" src="assets/images/badge_appstore_cn.svg" alt="Get it on App Store">
+            </a>
+            <a ng-if="preferences.language == ('zh_TW')" href="https://itunes.apple.com/tw/app/jandi/id904895208?mt=8&uo=4" target="itunes_store">
+                <img class="apple_badge" src="assets/images/badge_appstore_tw.svg" alt="Get it on App Store">
+            </a>
+        </div>
+        <div class="download-badge">
+            <a href="https://play.google.com/store/apps/details?id=com.tosslab.jandi.app" target="play_store">
+                <img class="google_badge" ng-if="preferences.language == ('ko')" src="assets/images/badge_android_kr.svg" alt="Get it on Google Play">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.tosslab.jandi.app" target="play_store">
+                <img class="google_badge" ng-if="preferences.language == ('en_US')" src="assets/images/badge_android_en.svg" alt="Get it on Google Play">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.tosslab.jandi.app" target="play_store">
+                <img class="google_badge" ng-if="preferences.language == ('ja')" src="assets/images/badge_android_jp.svg" alt="Get it on Google Play">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.tosslab.jandi.app" target="play_store">
+                <img class="google_badge" ng-if="preferences.language == ('zh_CN')" src="assets/images/badge_android_cn.svg" alt="Get it on Google Play">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.tosslab.jandi.app" target="play_store">
+                <img class="google_badge" ng-if="preferences.language == ('zh_TW')" src="assets/images/badge_android_tw.svg" alt="Get it on Google Play">
+            </a>
+        </div>
+    </div>
+
+</div>

@@ -68,10 +68,17 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-        //console.info("==============================[stateChange]==============================");
-        //console.info("   from    ", fromState.name, ' / ', fromParams);
-        //console.info("    to     ", toState.name, ' / ',toParams);
-        //console.info("=========================================================================");
+        console.info("==============================[stateChange]==============================");
+        console.info("   from    ", fromState.name, ' / ', fromParams);
+        console.info("    to     ", toState.name, ' / ',toParams);
+        console.info("=========================================================================");
+
+        if ($rootScope.isMobile  && toState.name != 'mobile') {
+            if (storageAPIservice.getAccessToken()) {
+                event.preventDefault();
+                $state.go('mobile');
+            }
+        }
 
         if (!fromState.name) {
             // if external access, continue to original state
@@ -107,9 +114,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                 case 'messages' :
                 case 'messages.home' :
                     var lastState = entityAPIservice.getLastEntityState();
-
-                    console.log();
-                    //angular.isUndefined(entityAPIservice.getEntityById(lastState.entityType, lastState.entityId))
 
                     // If lastState doesn't exist.
                     // Direct user to default channel.
@@ -173,6 +177,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     initGoogleAnalytics();
     <!-- analytics end -->
 
+
     function initMixPanel() {
         (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
             for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
@@ -187,6 +192,8 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         ga('create', configuration.ga_token, 'auto');
         ga('create', configuration.ga_token_global, 'auto', {'name': 'global_tracker'});
     }
+
+    publicService.getBrowserInfo();
 });
 
 app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, localStorageServiceProvider) {
