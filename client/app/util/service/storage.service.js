@@ -83,7 +83,7 @@
 
             hasAccessTokenSession: hasAccessTokenSession,
 
-            setAcountInfoSession: setAcountInfoSession,
+            setAcountInfoSession: setAccountInfoSession,
 
             getAccountIdSession: getAccountIdSession,
             getTeamIdSession: getTeamIdSession,
@@ -101,14 +101,14 @@
 
             removeCookie: removeCookie,
 
+            setShouldAutoSignIn: setShouldAutoSignIn,
+            shouldAutoSignIn: shouldAutoSignIn,
+
             isValidValue: isValidValue,
 
             getAccessToken: getAccessToken,
-            getRefreshToken: getRefreshToken,
+            getRefreshToken: getRefreshToken
 
-            setShouldAutoSignIn: setShouldAutoSignIn,
-
-            shoudAutoSignIn: shoudAutoSignIn
         };
 
         return service;
@@ -165,7 +165,7 @@
         function setLastStateLocal (last_state) {
             localStorageService.set(lastState_key, last_state);
         }
-        function getLastStateLocal () { localStorageService.get(lastState_key); }
+        function getLastStateLocal () { return localStorageService.get(lastState_key); }
 
         function removeLastStateLocal () { localStorageService.remove(lastState_key); }
 
@@ -267,7 +267,7 @@
         //            Account Info
         //
         ///////////////////////////////
-        function setAcountInfoSession (accountId, teamId, memberId) {
+        function setAccountInfoSession (accountId, teamId, memberId) {
             $window.sessionStorage.account_id   = accountId;
             $window.sessionStorage.team_id      = teamId;
             $window.sessionStorage.member_id    = memberId;
@@ -333,7 +333,7 @@
             localStorageService.cookie.set(autoSignIn_key, autoSignIn);
         }
 
-        function shoudAutoSignIn() {
+        function shouldAutoSignIn() {
             var value = localStorageService.cookie.get(autoSignIn_key);
             if (typeof value == 'string' && value == 'true') return true;
             if (typeof value == 'boolean' && value ) return true;
@@ -371,7 +371,6 @@
 
             return false;
         }
-
 
     }
 })();

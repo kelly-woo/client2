@@ -82,6 +82,7 @@
         function getStarredEntities() {
             return this.getMember().u_starredEntities;
         }
+
         function getMemberId() {
             return this.getMember().id;
         }

@@ -85,7 +85,11 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
 
     $scope.$watch('$state.params.entityId', function(newEntityId){
         if (!newEntityId) return;
-        if (angular.isUndefined(entityAPIservice.getEntityById($state.params.entityType, newEntityId))) return;
+        if (angular.isUndefined(entityAPIservice.getEntityById($state.params.entityType, newEntityId))) {
+            entityAPIservice.removeLastEntityState();
+            $rootScope.toDefault = true;
+            return;
+        }
         setCurrentEntity();
     });
 

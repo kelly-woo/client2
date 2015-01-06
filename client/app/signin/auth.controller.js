@@ -17,7 +17,7 @@
 
         (function(){
             //console.log('authController')
-            if (storageAPIservice.shoudAutoSignIn()) {
+            if (storageAPIservice.shouldAutoSignIn()) {
                 $scope.toggleLoading();
 
                 //console.log('trying to auto sign in')
@@ -66,7 +66,7 @@
             storageAPIservice.setShouldAutoSignIn(true);
             // Get information about team and member id.
 
-            console.log('getting member from server')
+            //console.log('getting member from server')
             // Now get member information for current team.
             memberService.getMemberInfo(curMemberId)
                 .success(function(response) {
@@ -140,7 +140,7 @@
                         // Store token in window session.
                         storageAPIservice.setTokenSession(response);
                         // Store account id, team id, member id in session for analytics usage.
-                        storageAPIservice.setAcountInfoSession(response.account.id, signInInfo.teamId, signInInfo.memberId);
+                        storageAPIservice.setAccountInfoSession(response.account.id, signInInfo.teamId, signInInfo.memberId);
                     }
 
                     memberService.getMemberInfo(signInInfo.memberId)

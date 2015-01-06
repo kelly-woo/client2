@@ -144,7 +144,7 @@
                 entityType      : $state.params.entityType,
                 itemId          : $state.params.itemId,
                 userId          : $window.sessionStorage.userId
-            }
+            };
 
             if (last_state.entityId == null) return;
 

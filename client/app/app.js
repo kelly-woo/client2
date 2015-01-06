@@ -17,7 +17,7 @@ var app = angular.module('jandiApp', [
     'monospaced.elastic'
 ]);
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration, storageAPIservice, publicService) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration, storageAPIservice, publicService, memberService) {
 
     $rootScope._ = window._;
 
@@ -110,7 +110,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
                     // If lastState doesn't exist.
                     // Direct user to default channel.
-                    if (!lastState || lastState.userId != storageAPIservice.getSessionUserId()) {
+                    if (!lastState) {
                         entityAPIservice.removeLastEntityState();
                         $rootScope.toDefault = true;
                         return;
