@@ -17,7 +17,7 @@ var app = angular.module('jandiApp', [
     'monospaced.elastic'
 ]);
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, entityAPIservice, gettextCatalog, configuration, storageAPIservice, publicService, memberService) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, gettextCatalog, configuration, storageAPIservice, publicService, entityAPIservice) {
 
     $rootScope._ = window._;
 
@@ -108,9 +108,12 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
                 case 'messages.home' :
                     var lastState = entityAPIservice.getLastEntityState();
 
+                    console.log();
+                    //angular.isUndefined(entityAPIservice.getEntityById(lastState.entityType, lastState.entityId))
+
                     // If lastState doesn't exist.
                     // Direct user to default channel.
-                    if (!lastState) {
+                    if (!lastState || angular.isUndefined(entityAPIservice.getEntityById(lastState.entityType, lastState.entityId))) {
                         entityAPIservice.removeLastEntityState();
                         $rootScope.toDefault = true;
                         return;
