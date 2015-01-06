@@ -37,7 +37,10 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     //console.info('[enter] leftpanelController');
     $scope.isLoading = true;
 
-    if (!leftPanel) return;
+    if (!leftPanel) {
+        publicService.signOut();
+        return;
+    }
 
     $scope.isLoading = false;
     $rootScope.isReady = true;
@@ -49,7 +52,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     };
 
     var response = null;
-
     if (leftPanel.status != 200) {
         var err = leftPanel.data;
         $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
