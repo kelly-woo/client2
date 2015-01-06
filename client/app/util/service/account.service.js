@@ -64,6 +64,7 @@
                 if (prefix == 'local' || prefix == 'dev') {
                     prefix = 'tosslab'
                     //prefix = 'jihoontesting12'
+                    //prefix = 'jd'
                 }
             }
 

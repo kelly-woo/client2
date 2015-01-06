@@ -17,7 +17,7 @@
 
         (function(){
             //console.log('authController')
-            if (storageAPIservice.getAccessToken()) {
+            if (storageAPIservice.shoudAutoSignIn()) {
                 //console.log('has access')
                 $scope.toggleLoading();
 
@@ -25,8 +25,8 @@
 
                 accountService.getAccountInfo()
                     .success(function(response) {
-                        console.log('got account info')
-                        console.log(response)
+                        //console.log('got account info')
+                        //console.log(response)
 
                         accountService.setAccount(response);
                         getCurrentMember();
@@ -53,7 +53,7 @@
                 curMemberId = signInInfo.memberId;
             }
 
-            console.log(signInInfo)
+            //console.log(signInInfo)
             if (curMemberId == -1) {
                 console.log('no memberid')
                 // Could not find member id that is associated with current team.
@@ -124,13 +124,16 @@
 
                     // Store all data on $window.sessionStorage only when user decides not to 'keep logged in'.
                     if (user.rememberMe) {
+                        // User tends to 'keep logged in'. So tokenInfo should be available in different team domain.
+
                         // Store token in local storage.
-                        storageAPIservice.setTokenLocal(response);
+                        //storageAPIservice.setTokenLocal(response);
+
                         // Store account id, team id, member id in localStorage for analytics usage.
                         storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId);
                         storageAPIservice.setAccessTokenLocalCookie(response);
                         storageAPIservice.setShouldAutoSignIn(true);
-                        storageAPIservice.shoudAutoSignIn();
+                        console.log(storageAPIservice.shoudAutoSignIn());
 
                     }
                     else {

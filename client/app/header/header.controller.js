@@ -113,7 +113,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     };
 
     $scope.onSignOutClick =function() {
-        authAPIservice.signOut();
+        publicService.signOut();
     };
 
     $scope.toggleLoading = function() {

@@ -3,9 +3,9 @@
         .module('jandiApp')
         .factory('publicService', publicService);
 
-    publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state'];
+    publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'storageAPIservice'];
 
-    function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state) {
+    function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, storageAPIservice) {
         var service = {
             getInviteOptions: getInviteOptions,
             openPrivacyModal: openPrivacyModal,
@@ -306,8 +306,11 @@
         function signOut() {
             storageAPIservice.removeSession();
             storageAPIservice.removeLocal();
+            storageAPIservice.removeCookie();
+
             accountService.removeAccount();
             memberService.removeMember();
+
 
             if(mixpanel.cookie) mixpanel.cookie.clear();
             $state.go('signin');

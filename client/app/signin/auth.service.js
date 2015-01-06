@@ -81,25 +81,6 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
         $state.go($state.current, {}, {reload: true}); //second parameter is for $stateParams
     };
 
-    authAPI.signOut = function() {
-                if(mixpanel.cookie) mixpanel.cookie.clear();
-
-                storageAPIservice.removeSession();
-                storageAPIservice.removeLocal();
-
-                $state.go('signin');
-        //DeleteToken()
-        //    .success(function() {
-        //        if(mixpanel.cookie) mixpanel.cookie.clear();
-        //
-        //        storageAPIservice.removeSession();
-        //        storageAPIservice.removeLocal();
-        //
-        //        $state.go('signin');
-        //
-        //    });
-
-    };
 
     function DeleteToken() {
         return $http({
@@ -135,8 +116,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
             //    }
             //}
 
-            config.headers.Authorization = (localStorageService.get('token_type') || $window.sessionStorage.token_type) + " " + (storageAPIservice.getAccessToken());
-
+            config.headers.authorization = "bearer " + (storageAPIservice.getAccessToken());
             return config;
         },
 

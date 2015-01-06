@@ -33,55 +33,83 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
 
     var service = {
         setTokenLocal: setTokenLocal,
+
         setAccessTokenLocal: setAccessTokenLocal,
         getAccessTokenLocal: getAccessTokenLocal,
+
         setRefreshTokenLocal: setRefreshTokenLocal,
         getRefreshTokenLocal: getRefreshTokenLocal,
+
         setTokenTypeLocal: setTokenTypeLocal,
         getTokenTypeLocal: getTokenTypeLocal,
-        setMemberIdLocal: setMemberIdLocal,
-        getMemberIdLocal: getMemberIdLocal,
+
         setLastEmail: setLastEmail,
         getLastEmail: getLastEmail,
+
         setLastLang: setLastLang,
         getLastLang: getLastLang,
+
         hasAccessTokenLocal: hasAccessTokenLocal,
+
         setLastStateLocal: setLastStateLocal,
         getLastStateLocal: getLastStateLocal,
         removeLastStateLocal: removeLastStateLocal,
+
         setAccountInfoLocal: setAccountInfoLocal,
         getAccountIdLocal: getAccountIdLocal,
+
         getTeamIdLocal: getTeamIdLocal,
         getMemberIdLocal: getMemberIdLocal,
+
         removeLocal: removeLocal,
+
         setLeftTopicCollapsed: setLeftTopicCollapsed,
         isLeftTopicCollapsed: isLeftTopicCollapsed,
+
         setLeftPGCollapsed: setLeftPGCollapsed,
         isLeftPGCollapsed: isLeftPGCollapsed,
+
         setLeftDMCollapsed: setLeftDMCollapsed,
         isLeftDMCollapsed: isLeftDMCollapsed,
+
         setLeftListStatus: setLeftListStatus,
+
         setTokenSession: setTokenSession,
+
         setAccessTokenSession: setAccessTokenSession,
         getAccessTokenSession: getAccessTokenSession,
+
         setRefreshTokenSession: setRefreshTokenSession,
         getRefreshTokenSession: getRefreshTokenSession,
+
         setTokenTypeSession: setTokenTypeSession,
         getTokenTypeSession: getTokenTypeSession,
+
         hasAccessTokenSession: hasAccessTokenSession,
+
         setAcountInfoSession: setAcountInfoSession,
+
         getAccountIdSession: getAccountIdSession,
         getTeamIdSession: getTeamIdSession,
         getMemberIdSession: getMemberIdSession,
+
         removeSession: removeSession,
+
         setAccessTokenLocalCookie: setAccessTokenLocalCookie,
+
         getAccessTokenCookie: getAccessTokenCookie,
         getRefreshTokenCookie: getRefreshTokenCookie,
         getTokenTypeCookie: getTokenTypeCookie,
+
+        removeCookie: removeCookie,
+
         isValidValue: isValidValue,
+
         getAccessToken: getAccessToken,
         getRefreshToken: getRefreshToken,
+
         setShouldAutoSignIn: setShouldAutoSignIn,
+
         shoudAutoSignIn: shoudAutoSignIn
     };
 
@@ -119,10 +147,6 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
     // token_type getter & setter
     function setTokenTypeLocal (token_type) { localStorageService.set(tokenType_key, token_type); }
     function getTokenTypeLocal () { return localStorageService.get(tokenType_key); }
-
-    // token_type getter & setter
-    function setMemberIdLocal (token_type) { localStorageService.set(tokenType_key, token_type); }
-    function getMemberIdLocal () { return localStorageService.get(tokenType_key); }
 
     function setLastEmail (email) { localStorageService.set(lastEmail_key, email); }
     function getLastEmail () { return localStorageService.get(lastEmail_key); }
@@ -297,6 +321,27 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
 
         return false;
     }
+
+    function removeCookie() {
+        localStorageService.cookie.remove(accessToken_key);
+        localStorageService.cookie.remove(refreshToken_key);
+        localStorageService.cookie.remove(tokenType_key);
+        setShouldAutoSignIn(false);
+    }
+
+    function setShouldAutoSignIn(autoSignIn) {
+        localStorageService.cookie.set(autoSignIn_key, autoSignIn);
+    }
+
+    function shoudAutoSignIn() {
+        if (localStorageService.cookie.get(autoSignIn_key) === 'true')
+            return true;
+
+        return false;
+    }
+
+
+
     function isValidValue (input) {
         if(angular.isUndefined(input) || input === null || input == 'undefined') return false;
         return true;
@@ -306,6 +351,8 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
     // Call below two functions not worrying about getting invalid value for both 'access_token' and 'refresh_token'.
     // If browser contains invalid value, it will detect such case and return false.
     function getAccessToken () {
+        if (getAccessTokenCookie())
+            return getAccessTokenCookie();
         if (isValidValue(getAccessTokenLocal()))
             return getAccessTokenLocal();
         if (isValidValue(getAccessTokenSession()))
@@ -314,6 +361,8 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
         return false;
     }
     function getRefreshToken () {
+        if (getRefreshTokenCookie())
+            return getRefreshTokenCookie();
         if (isValidValue(getRefreshTokenLocal()))
             return getRefreshTokenLocal();
         if (isValidValue(getRefreshTokenSession()))
@@ -323,15 +372,7 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
     }
 
 
-    function setShouldAutoSignIn(autoSignIn) {
-        localStorageService.cookie.set(autoSignIn_key, autoSignIn);
-    }
-    function shoudAutoSignIn() {
-        if (localStorageService.cookie.get(autoSignIn_key) === 'true')
-           return true;
 
-        return false;
-    }
 });
 
 
