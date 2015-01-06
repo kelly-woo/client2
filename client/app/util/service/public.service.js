@@ -3,9 +3,9 @@
         .module('jandiApp')
         .factory('publicService', publicService);
 
-    publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'storageAPIservice'];
+    publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state'];
 
-    function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, storageAPIservice) {
+    function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state) {
         var service = {
             getInviteOptions: getInviteOptions,
             openPrivacyModal: openPrivacyModal,

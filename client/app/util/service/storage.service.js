@@ -5,9 +5,10 @@
         .module('jandiApp')
         .factory('storageAPIservice', storageAPIservice);
 
-    storageAPIservice.$inject = ['$rootScope', '$window', '$cookieStore', 'localStorageService'];
-    
-    function storageAPIservice($rootScope, $window, $cookieStore, localStorageService) {
+    storageAPIservice.$inject = ['$window', 'localStorageService'];
+
+    function storageAPIservice($window, localStorageService) {
+
         var accessToken_key     = 'access_token';
         var refreshToken_key    = 'refresh_token';
         var tokenType_key       = 'token_type';
@@ -210,10 +211,10 @@
         function isLeftTopicCollapsed () { return localStorageService.get(leftTopicCollapsed_key) === 'true'; }
 
         function setLeftPGCollapsed (isCollapsed) { localStorageService.set(leftPGCollapsed_key, isCollapsed); }
-        function isLeftPGCollapsed () { return localStorageService.get(leftPGCollapsed_key) === 'true';;   }
+        function isLeftPGCollapsed () { return localStorageService.get(leftPGCollapsed_key) === 'true';   }
 
         function setLeftDMCollapsed (isCollapsed) { localStorageService.set(leftDMCollapsed_key, isCollapsed); }
-        function isLeftDMCollapsed () { return localStorageService.get(leftDMCollapsed_key) === 'true';; }
+        function isLeftDMCollapsed () { return localStorageService.get(leftDMCollapsed_key) === 'true'; }
 
         function setLeftListStatus (status) {
             setLeftTopicCollapsed(status.isTopicCollapsed);
@@ -329,7 +330,7 @@
         }
 
         function shoudAutoSignIn() {
-            if (localStorageService.cookie.get(autoSignIn_key) === 'true')
+            if (localStorageService.cookie.get(autoSignIn_key))
                 return true;
 
             return false;
@@ -369,3 +370,5 @@
 
     }
 })();
+
+
