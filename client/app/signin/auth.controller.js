@@ -25,8 +25,8 @@
 
                 accountService.getAccountInfo()
                     .success(function(response) {
-                        //console.log('got account info')
-                        //console.log(response)
+                        console.log('got account info')
+                        console.log(response)
 
                         accountService.setAccount(response);
                         getCurrentMember();
@@ -53,6 +53,15 @@
                 curMemberId = signInInfo.memberId;
             }
 
+            console.log(signInInfo)
+            if (curMemberId == -1) {
+                console.log('no memberid')
+                // Could not find member id that is associated with current team.
+                publicService.signOut();
+                $scope.toggleLoading();
+
+                return;
+            }
             // Get information about team and member id.
 
             //console.log('getting member from server')
@@ -102,6 +111,17 @@
                     // Get information about team and member id.
                     var signInInfo = accountService.getCurrentMemberId(response.account.memberships);
 
+                    if (signInInfo.memberId == -1) {
+                        console.log('no memberid')
+                        // Could not find member id that is associated with current team.
+                        $scope.signInFailed = true;
+                        storageAPIservice.removeSession();
+                        storageAPIservice.removeLocal();
+                        accountService.removeAccount();
+                        memberService.removeMember();
+                        return;
+                    }
+
                     // Store all data on $window.sessionStorage only when user decides not to 'keep logged in'.
                     if (user.rememberMe) {
                         // Store token in local storage.
@@ -126,6 +146,7 @@
                             $state.go('messages.home');
                         })
                         .error(function(err) {
+                            console.log(err)
                             $scope.signInFailed = true;
                             storageAPIservice.removeSession();
                             storageAPIservice.removeLocal();
