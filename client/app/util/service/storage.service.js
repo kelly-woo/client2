@@ -29,6 +29,8 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
     var leftTopicCollapsed_key = 'is_left_topic_collapsed';
     var leftPGCollapsed_key = 'is_left_pg_collapsed';
 
+    var autoSignIn_key      = 'should_auto_sign_in';
+
     var service = {
         setTokenLocal: setTokenLocal,
         setAccessTokenLocal: setAccessTokenLocal,
@@ -73,9 +75,14 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
         getMemberIdSession: getMemberIdSession,
         removeSession: removeSession,
         setAccessTokenLocalCookie: setAccessTokenLocalCookie,
+        getAccessTokenCookie: getAccessTokenCookie,
+        getRefreshTokenCookie: getRefreshTokenCookie,
+        getTokenTypeCookie: getTokenTypeCookie,
         isValidValue: isValidValue,
         getAccessToken: getAccessToken,
-        getRefreshToken: getRefreshToken
+        getRefreshToken: getRefreshToken,
+        setShouldAutoSignIn: setShouldAutoSignIn,
+        shoudAutoSignIn: shoudAutoSignIn
     };
 
     return service;
@@ -180,8 +187,6 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
 
     }
 
-
-    // TODO: to be implemented.
     function setLeftTopicCollapsed (isCollapsed) { localStorageService.set(leftTopicCollapsed_key, isCollapsed); }
     function isLeftTopicCollapsed () { return localStorageService.get(leftTopicCollapsed_key) === 'true'; }
 
@@ -267,15 +272,39 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
      */
 
     function setAccessTokenLocalCookie (tokenData) {
-        $cookieStore.put(accessToken_key, tokenData.access_token);
+        localStorageService.cookie.set(accessToken_key, tokenData.access_token);
+        localStorageService.cookie.set(refreshToken_key, tokenData.refresh_token);
+        localStorageService.cookie.set(tokenType_key, tokenData.token_type);
     }
 
+    function getAccessTokenCookie() {
+        if (isValidValue(localStorageService.cookie.get(accessToken_key)))
+            return localStorageService.cookie.get(accessToken_key);
 
+        return false;
+    }
+
+    function getRefreshTokenCookie() {
+        if (isValidValue(localStorageService.cookie.get(refreshToken_key)))
+            return localStorageService.cookie.get(refreshToken_key);
+
+        return false;
+    }
+
+    function getTokenTypeCookie() {
+        if (isValidValue(localStorageService.cookie.get(tokenType_key)))
+            return localStorageService.cookie.get(tokenType_key);
+
+        return false;
+    }
     function isValidValue (input) {
         if(angular.isUndefined(input) || input === null || input == 'undefined') return false;
         return true;
     }
 
+
+    // Call below two functions not worrying about getting invalid value for both 'access_token' and 'refresh_token'.
+    // If browser contains invalid value, it will detect such case and return false.
     function getAccessToken () {
         if (isValidValue(getAccessTokenLocal()))
             return getAccessTokenLocal();
@@ -284,7 +313,6 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
 
         return false;
     }
-
     function getRefreshToken () {
         if (isValidValue(getRefreshTokenLocal()))
             return getRefreshTokenLocal();
@@ -294,6 +322,16 @@ app.factory('storageAPIservice', function($rootScope, $window, $cookieStore, loc
         return false;
     }
 
+
+    function setShouldAutoSignIn(autoSignIn) {
+        localStorageService.cookie.set(autoSignIn_key, autoSignIn);
+    }
+    function shoudAutoSignIn() {
+        if (localStorageService.cookie.get(autoSignIn_key) === 'true')
+           return true;
+
+        return false;
+    }
 });
 
 

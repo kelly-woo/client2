@@ -128,6 +128,10 @@
                         storageAPIservice.setTokenLocal(response);
                         // Store account id, team id, member id in localStorage for analytics usage.
                         storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId);
+                        storageAPIservice.setAccessTokenLocalCookie(response);
+                        storageAPIservice.setShouldAutoSignIn(true);
+                        storageAPIservice.shoudAutoSignIn();
+
                     }
                     else {
                         // Store token in window session.

@@ -25,11 +25,8 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
 
     leftpanelAPI.toSignin = function() {
-        console.log('to signin')
-
         storageAPIservice.removeLocal();
         storageAPIservice.removeSession();
-        console.log($state.is('signin'))
 
         if ($state.is('signin')) {
             $state.transitionTo('signin', '', {'reload':true});
