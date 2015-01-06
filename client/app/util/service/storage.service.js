@@ -83,7 +83,7 @@
 
             hasAccessTokenSession: hasAccessTokenSession,
 
-            setAcountInfoSession: setAccountInfoSession,
+            setAccountInfoSession: setAccountInfoSession,
 
             getAccountIdSession: getAccountIdSession,
             getTeamIdSession: getTeamIdSession,
