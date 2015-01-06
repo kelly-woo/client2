@@ -93,7 +93,9 @@
 
             setAccessTokenLocalCookie: setAccessTokenLocalCookie,
 
+            setAccessTokenCookie: setAccessTokenCookie,
             getAccessTokenCookie: getAccessTokenCookie,
+
             getRefreshTokenCookie: getRefreshTokenCookie,
             getTokenTypeCookie: getTokenTypeCookie,
 
@@ -296,7 +298,9 @@
             localStorageService.cookie.set(refreshToken_key, tokenData.refresh_token);
             localStorageService.cookie.set(tokenType_key, tokenData.token_type);
         }
-
+        function setAccessTokenCookie(access_token) {
+            localStorageService.cookie.set(accessToken_key, access_token);
+        }
         function getAccessTokenCookie() {
             if (isValidValue(localStorageService.cookie.get(accessToken_key)))
                 return localStorageService.cookie.get(accessToken_key);

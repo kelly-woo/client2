@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, memberService) {
+app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, publicService) {
     var authAPI = {};
 
     authAPI.signIn = function(userdata) {
@@ -55,11 +55,11 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     };
 
     authAPI.requestAccessTokenWithRefreshToken = function() {
-        var refresh_token = storageAPIservice.getRefreshTokenLocal() || storageAPIservice.getRefreshTokenSession();
+        var refresh_token = storageAPIservice.getRefreshToken();
 
         if (!refresh_token) {
-            this.signOut();
-            return;
+            publicService.signOut();
+            return null;
         }
 
         return $http({
@@ -73,10 +73,16 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     };
 
     authAPI.updateAccessToken = function(response) {
-        if (angular.isDefined(storageAPIservice.getRefreshTokenLocal()))
+        if (storageAPIservice.isValidValue(storageAPIservice.getRefreshTokenLocal())) {
             storageAPIservice.setAccessTokenLocal(response.access_token)
-        else
+        }
+        else if (storageAPIservice.isValidValue(storageAPIservice.getRefreshTokenSession())) {
             storageAPIservice.setAccessTokenSession(response.access_token);
+        }
+        else {
+            storageAPIservice.setAccessTokenCookie(response.access_token);
+        }
+
 
         $state.go($state.current, {}, {reload: true}); //second parameter is for $stateParams
     };
@@ -137,9 +143,14 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
             }
             if (rejection.status === 401) {
+                console.log('401!!!!!!!!')
                 // Unauthorized Access.
                 // What to do? - get new access_token using refresh_token
                 var authAPIservice = $injector.get('authAPIservice');
+                console.log(authAPIservice)
+
+                if (angular.isUndefined(authAPIservice)) return;
+
                 authAPIservice.requestAccessTokenWithRefreshToken()
                     .success(function(response) {
                         authAPIservice.updateAccessToken(response);
