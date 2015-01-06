@@ -71,16 +71,16 @@
                         <div>
                             <input type="text" name="newPrefixDomain" ng-required="true"
                                    class="form-control account-settings-body__input"
-                                   data-ng-model="team.newPrefix"
+                                   data-ng-model="team.newDomain"
                                    team-prefix-domain-checker=""/>
 
                             <alert type="warning" class="profile-settings-body__alert"
-                                   data-ng-if="teamURLChangeForm.newPrefixDomain.$error.isAvailableDomain">
+                                   data-ng-if="teamURLChangeForm.newPrefixDomain.$error.isAvailableDomain && !isNewUrlPristine()">
                                 {{ '@setting-team-domain-taken-warning-msg' | translate}}
                             </alert>
 
                             <alert type="warning" class="profile-settings-body__alert"
-                                   data-ng-if="teamURLChangeForm.newPrefixDomain.$error.isValidDomain">
+                                   data-ng-if="teamURLChangeForm.newPrefixDomain.$error.isValidDomain && !teamURLChangeForm.newPrefixDomain.$error.isAvailableDomain ">
                                 {{ '@setting-team-domain-warning-msg' | translate}}
                             </alert>
 
@@ -105,7 +105,7 @@
                     </div>
 
                     <input type="submit" class="btn btn-ok account-settings-body__submit"
-                           data-ng-disabled="teamURLChangeForm.$invalid || !teamURLChangeForm.$dirty"
+                           data-ng-disabled="teamURLChangeForm.$invalid || !teamURLChangeForm.$dirty || isNewUrlPristine()"
                            value="{{ '@setting-team-domain-change' | translate }}" />
                     <span ng-if="false" translate>@setting-team-domain-confirm</span>
                 </form>

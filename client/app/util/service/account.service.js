@@ -12,13 +12,15 @@
 
         var service = {
             getAccountInfo: getAccountInfo,
+            setAccountInfo: setAccountInfo,
             getAccount: getAccount,
             setAccount: setAccount,
             removeAccount: removeAccount,
             getCurrentMemberId: getCurrentMemberId,
             hasSeenTutorial: hasSeenTutorial,
             getAccountLanguage: getAccountLanguage,
-            validateCurrentPassword: validateCurrentPassword
+            validateCurrentPassword: validateCurrentPassword,
+            setAccountLanguage: setAccountLanguage
         };
 
         return service;
@@ -27,6 +29,13 @@
             return $http({
                 method: 'GET',
                 url: $rootScope.server_address + 'account'
+            });
+        }
+        function setAccountInfo(account) {
+            return $http({
+                method: 'PUT',
+                url: $rootScope.server_address + 'account',
+                data: account
             });
         }
 
@@ -53,8 +62,8 @@
             var prefix = $location.host().split('.')[0];
             if (configuration.name == 'development') {
                 if (prefix == 'local' || prefix == 'dev') {
-                    //prefix = 'tosslab'
-                    prefix = 'jihoontesting'
+                    prefix = 'tosslab'
+                    //prefix = 'jihoontesting12'
                 }
             }
 
@@ -76,11 +85,14 @@
                 return true;
         }
 
+        function setAccountLanguage(lang) {
+            $rootScope.account.lang = lang;
+            accountLanguage = lang;
+        }
 
         function getAccountLanguage() {
             return accountLanguage || $rootScope.preferences.serverLang;
         }
-
         function validateCurrentPassword(cur_password) {
             cur_password = cur_password || '';
             return $http({

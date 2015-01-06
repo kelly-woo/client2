@@ -596,9 +596,13 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
 });
 
 // PROFILE CONTROLLER
-app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService, accountService) {
+app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService, accountService, publicService) {
+
+    $scope.isLoading = false;
 
     $scope.curUser = _.cloneDeep(memberService.getMember());
+
+    $scope.lang = accountService.getAccountLanguage();
 
     $scope.isProfilePicSelected = false;
 
@@ -609,12 +613,14 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     $scope.curUser.u_extraData.department   = memberService.getDepartment($scope.curUser) || "";
     $scope.curUser.u_extraData.position     = memberService.getPosition($scope.curUser) || "";
 
+
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
     $scope.onProfileChangeClick = function() {
         if ($scope.isLoading) return;
+
         $scope.toggleLoading();
 
         if (!isNamePristine()) {
@@ -650,6 +656,25 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
                 .finally(function() {
                     $scope.toggleLoading();
                 });
+        }
+        else if (!isLanguagePristine()) {
+            // Language setting chagned.
+            var lang = {
+                lang: $scope.profileForm.preferencesLanguage.$viewValue
+            };
+
+            accountService.setAccountInfo(lang)
+                .success(function(response) {
+                    accountService.setAccountLanguage(response.lang);
+                    publicService.getLanguageSetting(accountService.getAccountLanguage());
+                    publicService.setCurrentLanguage();
+                })
+                .error(function(err) {
+                    console.log(err)
+                })
+                .finally(function() {
+                    $scope.toggleLoading();
+                })
         }
         else {
             memberService.updateProfile($scope.curUser)
@@ -765,7 +790,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     };
 
     $scope.isPristine = function() {
-        return isNamePristine() && isEmailPristine() && isStatusPristine() && isPhoneNumberPristine() && isDepartmentPristine() && isPositionPristine();
+        return isNamePristine() && isEmailPristine() && isStatusPristine() && isPhoneNumberPristine() && isDepartmentPristine() && isPositionPristine() && isLanguagePristine();
     };
 
     function isNamePristine() {
@@ -786,6 +811,10 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
     function isPositionPristine() {
         return memberService.getPosition($scope.curUser) == memberService.getPosition(memberService.getMember());
     }
+
+    function isLanguagePristine() {
+        return $scope.profileForm.preferencesLanguage.$viewValue == accountService.getAccountLanguage();
+    };
 });
 
 // ACCOUNT CONTROLLER
@@ -1036,6 +1065,7 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
     };
 
     $scope.team.newName = $scope.team.name;
+    $scope.team.newDomain  = $scope.team.t_domain;
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
@@ -1063,18 +1093,68 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
             return;
         }
 
+        if ($scope.isLoading) return;
+
         $scope.isLoading = true;
         var mixPanel_event = "Team Name Change";
 
+        // Placed '$scope.isLoading = false;' so many times in different places because of timing issue.
+        // I could have just put in finally block of first api call, but then loading screen disappears too fast.
         accountService.validateCurrentPassword(team.passwordConfirm)
-            .success(function() {
-                teamAPIservice.updatePrefixDomain(team.newPrefix)
-                    .success(function(response) {
-                        updateMixPanel(mixPanel_event, team.newPrefix);
-                    })
-                    .error(function(err) {
-                        handleTeamSettingAPIError(err);
-                });
+            .success(function(response) {
+                if (response.valid) {
+                    teamAPIservice.updatePrefixDomain(team.newDomain)
+                        .success(function(response) {
+                            //updateMixPanel(mixPanel_event, team.t_domain);
+                            team.passwordConfirm = '';
+                        })
+                        .error(function(err) {
+                            handleTeamSettingAPIError(err);
+                        })
+                        .finally(function() {
+                            $scope.isLoading = false;
+                            team.passwordConfirm = '';
+                        });
+                }
+                else {
+                    handleTeamSettingAPIError();
+                    $scope.isLoading = false;
+                    team.passwordConfirm = '';
+                }
+            })
+            .error(function(err) {
+                handleTeamSettingAPIError(err);
+                $scope.isLoading = false;
+                team.passwordConfirm = '';
+            })
+            .finally(function() {
+            });
+    };
+
+    $scope.onTeamDeleteClick = function(team) {
+        if (!confirm($filter('translate')('@setting-team-delete-confirm'))) {
+            return;
+        }
+
+        $scope.isLoading = true;
+
+        accountService.validateCurrentPassword(team.deletePasswordConfirm)
+            .success(function(response) {
+                if (response.valid) {
+                    // password confirmed.
+                    teamAPIservice.deleteTeam()
+                        .success(function(response) {
+                            $modalInstance.dismiss('cancel');
+                            $window.location.replace('https://www.jandi.com');
+                        })
+                        .error(function(err) {
+                            handleTeamSettingAPIError(err);
+                        });
+                }
+                else {
+                    handleTeamSettingAPIError();
+                }
+
             })
             .error(function(err) {
                 handleTeamSettingAPIError(err);
@@ -1127,9 +1207,7 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
         $('#teamURLPassword').focus();
         $scope.isLoading = false;
         alert($filter('translate')('@common-api-error-msg'));
-        console.log('err')
     }
-
 
     function handleTeamSettingAPISuccess() {
         $scope.isLoading = false;
@@ -1144,27 +1222,8 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
         });
     }
 
-    $scope.onTeamDeleteClick = function(team) {
-        if (!confirm($filter('translate')('@setting-team-delete-confirm'))) {
-            return;
-        }
-        $scope.isLoading = true;
-
-        accountService.validateCurrentPassword(team.deletePasswordConfirm)
-            .success(function() {
-                // password confirmed.
-                teamAPIservice.deleteTeam()
-                    .success(function(response) {
-                        $modalInstance.dismiss('cancel');
-                        $window.location.replace('https://www.jandi.com');
-                    })
-                    .error(function(err) {
-                        handleTeamSettingAPIError(err);
-                    });
-            })
-            .error(function(err) {
-                handleTeamSettingAPIError(err);
-            });
+    $scope.isNewUrlPristine = function() {
+        return $scope.team.newDomain == $scope.team.t_domain;
     };
 });
 

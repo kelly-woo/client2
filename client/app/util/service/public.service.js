@@ -3,9 +3,9 @@
         .module('jandiApp')
         .factory('publicService', publicService);
 
-    publicService.$inject = ['$modal', 'accountService', 'storageAPIservice', 'memberService'];
+    publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog'];
 
-    function publicService($modal, accountService, storageAPIservice, memberService) {
+    function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog) {
         var service = {
             getInviteOptions: getInviteOptions,
             openPrivacyModal: openPrivacyModal,
@@ -21,7 +21,12 @@
             openMemberProfileModal: openMemberProfileModal,
             openPasswordResetRequestModal: openPasswordResetRequestModal,
             openFileUploadModal: openFileUploadModal,
+            openTeamChangeModal: openTeamChangeModal,
+            openTeamSettingModal: openTeamSettingModal,
             closeModal: closeModal,
+            getLanguageSetting: getLanguageSetting,
+            setCurrentLanguage: setCurrentLanguage,
+            setDebugMode: setDebugMode,
             signOut: signOut
         };
 
@@ -52,7 +57,6 @@
                 size: 'lg'
             });
         }
-
         function openAgreementModal() {
             var agreement = 'app/modal/terms/agreement';
             agreement = agreement + '_' + accountService.getAccountLanguage() + '.html';
@@ -62,7 +66,6 @@
                 size: 'lg'
             });
         }
-
         function openJoinModal($scope) {
             $modal.open({
                 scope       :   $scope,
@@ -165,7 +168,6 @@
 
             return modal;
         }
-
         function openCurrentMemberModal($scope) {
             $modal.open({
                 scope       :   $scope,
@@ -174,7 +176,6 @@
                 size        :   'lg'
             });
         }
-
         function openInviteToCurrentEntityModal($scope) {
             $modal.open({
                 scope       :   $scope,
@@ -219,10 +220,89 @@
                 size        : 'lg'
             });
         }
+
+        function openTeamChangeModal($scope) {
+            $modal.open({
+                scope       : $scope,
+                templateUrl : 'app/modal/team_change/team.change.html',
+                controller  : 'teamChangeController',
+                size        : 'lg'
+            });
+        }
+        function openTeamSettingModal($scope) {
+            $modal.open({
+                sopce       : $scope,
+                templateUrl : 'app/modal/settings.team.html',
+                controller  : 'teamSettingController',
+                size        : 'lg'
+            });
+
+        }
         function closeModal(modalInstance) {
             modalInstance.dismiss('close');
         }
 
+        // Browser/OS may give us slightly different format for same language.
+        // In such case, we reformat the language variable so that we can notify 'server' and 'translator' with correct language format.
+        function getLanguageSetting(curLang) {
+            var userLang;
+            var serverLang;
+
+            if (angular.isUndefined(curLang))
+                curLang = accountService.getAccountLanguage();
+
+            curLang = curLang.toLowerCase();
+
+            // Choose correct/right format!!
+            if (curLang.indexOf('ko') >= 0) {
+                // korean
+                userLang    = 'ko';
+                serverLang  = 'ko';
+            }
+            else if (curLang.indexOf('en') >= 0) {
+                // english
+                userLang    = 'en_US';
+                serverLang  = 'en';
+
+            }
+            else if (curLang.indexOf('zh') >= 0) {
+                // chinese
+                if (curLang.indexOf('tw') >= 0) {
+                    // main land china
+                    userLang    = 'zh_TW';
+                    serverLang  = 'zh-tw';
+                }
+                else {
+                    userLang    = 'zh_CN';
+                    serverLang  = 'zh-cn';
+                }
+            }
+            else if (curLang.indexOf('ja') >= 0) {
+                // japanese
+                userLang    = 'ja';
+                serverLang  = 'ja';
+            }
+            else {
+                // default
+                userLang    = 'en_US';
+                serverLang  = 'en';
+            }
+
+            // Save it!!
+            $rootScope.preferences.language     = userLang;
+            $rootScope.preferences.serverLang   = serverLang;
+        }
+
+        // Setting language for translator, nggettext
+        function setCurrentLanguage() {
+            gettextCatalog.setCurrentLanguage($rootScope.preferences.language);
+            storageAPIservice.setLastLang($rootScope.preferences.language);
+        }
+        // Setting debug mode for translator, nggettext
+        function setDebugMode(isDebug) {
+            gettextCatalog.debug = isDebug;
+
+        }
         function signOut() {
             storageAPIservice.removeSession();
             storageAPIservice.removeLocal();
