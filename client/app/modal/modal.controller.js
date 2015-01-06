@@ -1148,15 +1148,18 @@ app.controller('teamSettingController', function($state, $stateParams, $scope, $
                             $window.location.replace('https://www.jandi.com');
                         })
                         .error(function(err) {
+                            team.deletePasswordConfirm = '';
                             handleTeamSettingAPIError(err);
                         });
                 }
                 else {
+                    team.deletePasswordConfirm = '';
                     handleTeamSettingAPIError();
                 }
 
             })
             .error(function(err) {
+                team.deletePasswordConfirm ='';
                 handleTeamSettingAPIError(err);
             });
     };

@@ -62,8 +62,8 @@
             var prefix = $location.host().split('.')[0];
             if (configuration.name == 'development') {
                 if (prefix == 'local' || prefix == 'dev') {
-                    prefix = 'tosslab'
-                    //prefix = 'jihoontesting12'
+                    //prefix = 'tosslab'
+                    prefix = 'jihoontesting12'
                 }
             }
 
