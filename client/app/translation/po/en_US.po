@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Jay Kim <jay@tosslab.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -614,7 +614,10 @@ msgstr " "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "For a more private setting, use private groups or direct messages"
+msgstr ""
+"- Private topics are not available to non-invited members"
+"- Files shared in a private topic are only available to its participants"
+"- Topics designated as public or private cannot be converted to the other after creation"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"

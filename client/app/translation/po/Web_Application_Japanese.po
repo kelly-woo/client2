@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Jay Kim <jay@tosslab.com>\n"
 "Language-Team: \n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -504,8 +504,8 @@ msgstr "設定"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"プレビュー機能はInternet Explorer 9で利用できない場合がありますが、ファイルの"
-"アップロードは利用可能です"
+"プレビュー機能はInternet Explorer 9で利用できない場合がありますが、ファイル"
+"のアップロードは利用可能です"
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
@@ -516,8 +516,8 @@ msgstr ""
 #: client/app/modal/settings.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
-"Internet Explorer 9では、プロフィール画像の変更機能はサポートされていません。"
-"ご利用するには、最新バージョンにアップデートしてください。"
+"Internet Explorer 9では、プロフィール画像の変更機能はサポートされていませ"
+"ん。ご利用するには、最新バージョンにアップデートしてください。"
 
 #: client/app/modal/create.channel.html
 msgid "@input-create-ch"
@@ -614,8 +614,9 @@ msgstr " "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"特定のメンバーのみでチャットしたい場合はプライベートグループを使用してくださ"
-"い"
+"-プライベートトピックはそのトピックに招待されていないメンバーから見ることはできません"
+"-プライベートトピック内で共有されたファイルは、そのトピックを閲覧できるメンバーからしかアクセスできません"
+"-トピック作成後はプライベートトピックへの変更はできません。その逆もできません。"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
@@ -830,8 +831,8 @@ msgstr "本当にドメイン名（URL)を変更してよいですか？"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-msg"
 msgstr ""
-"ログインするためにはこのドメインのURLが必要になります。必ずメンバー全員に最新"
-"のURLを周知してください"
+"ログインするためにはこのドメインのURLが必要になります。必ずメンバー全員に最"
+"新のURLを周知してください"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-taken-warning-msg"
@@ -839,7 +840,8 @@ msgstr "そのドメイン名はすでに利用されています"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-warning-msg"
-msgstr "ドメイン名は最低３文字必要で、半角英数小文字、ハイフンのみ利用できます"
+msgstr ""
+"ドメイン名は最低３文字必要で、半角英数小文字、ハイフンのみ利用できます"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-name-change"
@@ -873,7 +875,8 @@ msgstr "他のチームメンバーを招待する"
 msgid "@team-members"
 msgstr "チームメンバー"
 
-#: client/app/header/header.html client/app/modal/team_change/team.change.html
+#: client/app/header/header.html
+#: client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "他のチームに切り替える"
 
@@ -954,8 +957,8 @@ msgstr "今すぐ見る"
 msgid "@tutorial-welcome-intro"
 msgstr ""
 "JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュニケー"
-"ションできることを願っています。ここでJANDIをより良く理解するために重要な３点"
-"をご紹介します。"
+"ションできることを願っています。ここでJANDIをより良く理解するために重要な３"
+"点をご紹介します。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
