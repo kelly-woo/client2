@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Jay Kim <jay@tosslab.com>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -504,8 +504,8 @@ msgstr "設定"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"IE9瀏覽器無法適當支援文件預覽。如果圖像不能正確顯示，別擔心，這不影響您上傳"
-"的檔案。"
+"IE9瀏覽器無法適當支援文件預覽。如果圖像不能正確顯示，別擔心，這不影響您上傳的"
+"檔案。"
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
@@ -609,10 +609,7 @@ msgstr "  "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr ""
-"- 私人群組對非邀請成員不開放"
-"- 在私人群組内已分享檔案僅開放給其參與者"
-"- 已設定爲公開或私人的議題群組在建立之後不能被轉換成另一個"
+msgstr "請使用私人群組為隱秘空間"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
@@ -673,8 +670,7 @@ msgstr "您可以更改您的語言或通知設定"
 
 #: client/app/modal/settings.team.html
 msgid "@modal-setting-team-msg"
-msgstr ""
-"您可以在這裏變更您的團隊設定。請注意，任何變更也將適用到您的團隊成員。"
+msgstr "您可以在這裏變更您的團隊設定。請注意，任何變更也將適用到您的團隊成員。"
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"
@@ -823,8 +819,7 @@ msgstr "您確定您要更改團隊的網域(URL)？"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-msg"
 msgstr ""
-"您的團隊成員是使用網域(URL)在網頁上登入。請確保您的團隊成員都知道的任何更"
-"改。"
+"您的團隊成員是使用網域(URL)在網頁上登入。請確保您的團隊成員都知道的任何更改。"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-taken-warning-msg"
@@ -867,8 +862,7 @@ msgstr "邀請其他團隊成員"
 msgid "@team-members"
 msgstr "團隊成員"
 
-#: client/app/header/header.html
-#: client/app/modal/team_change/team.change.html
+#: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "更換團隊"
 
@@ -883,8 +877,8 @@ msgstr "知道了！"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"點擊這按鍵開啓一旁的收拉式選單，上面含有所有已在這‘議題群組’/‘私人群組’/‘直"
-"接傳訊’中被分享過的檔案。 "
+"點擊這按鍵開啓一旁的收拉式選單，上面含有所有已在這‘議題群組’/‘私人群組’/‘直接"
+"傳訊’中被分享過的檔案。 "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
@@ -895,8 +889,8 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"當您上傳檔案，您會看到在右邊的選單按鍵(ᵒᵒᵒ)，讓您與其他‘議題群組’/‘私人群"
-"組’/成員進行分享，亦可以留言並直接下載。"
+"當您上傳檔案，您會看到在右邊的選單按鍵(ᵒᵒᵒ)，讓您與其他‘議題群組’/‘私人群組’/"
+"成員進行分享，亦可以留言並直接下載。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"

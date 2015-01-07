@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Jay Kim <jay@tosslab.com>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -78,8 +78,7 @@ msgstr "增加"
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
 #: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/team_change/team.change.html
-#: client/app/modal/upload.html
+#: client/app/modal/team_change/team.change.html client/app/modal/upload.html
 msgid "@btn-cancel"
 msgstr "取消"
 
@@ -96,8 +95,7 @@ msgstr "点击检视"
 #: client/app/modal/invite.team.html client/app/modal/join.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
-#: client/app/modal/settings.service.html
-#: client/app/modal/settings.team.html
+#: client/app/modal/settings.service.html client/app/modal/settings.team.html
 msgid "@btn-close"
 msgstr "关闭"
 
@@ -506,8 +504,8 @@ msgstr "设定"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"IE9浏览器无法适当支援文件预览。如果图像不能正确显示，别担心，这不影响您上传"
-"的档案。"
+"IE9浏览器无法适当支援文件预览。如果图像不能正确显示，别担心，这不影响您上传的"
+"档案。"
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
@@ -538,8 +536,7 @@ msgstr "您已经超越字数限制"
 msgid "@input-max-length-60-error"
 msgstr "您已经超越字数限制"
 
-#: client/app/modal/settings.profile.html
-#: client/app/modal/settings.team.html
+#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "您已经超越字数限制"
 
@@ -590,8 +587,7 @@ msgstr "在您的桌机上使用JANDI或带著它到处走动"
 msgid "@login-invalid"
 msgstr "电子邮件或密码无效"
 
-#: client/app/modal/password.reset.request.html
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密码？"
 
@@ -609,16 +605,11 @@ msgstr "建立任何人皆可加入的新议题群组"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
-msgstr ""
-"您如果离开这个私人议题群组，未来希望能够重新加入，必须先取得其它人的邀请。"
-"您确定您想要离开？"
+msgstr "  "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr ""
-"- 私人群组对非邀请成员不开放"
-"- 在私人群组内已分享档案仅开放给其参与者"
-"- 已设定为公开或私人的议题群组在建立之后不能被转换成另一个"
+msgstr "请使用私人群组为隐秘空间"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
@@ -679,8 +670,7 @@ msgstr "您可以更改您的语言或通知设定"
 
 #: client/app/modal/settings.team.html
 msgid "@modal-setting-team-msg"
-msgstr ""
-"您可以在这裏变更您的团队设定。请注意，任何变更也将适用到您的团队成员。"
+msgstr "您可以在这裏变更您的团队设定。请注意，任何变更也将适用到您的团队成员。"
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"
@@ -829,8 +819,7 @@ msgstr "您确定您要更改团队的网域（URL）？"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-msg"
 msgstr ""
-"您的团队成员是使用网域(URL)在网页上登入。请确保您的团队成员都知道的任何更"
-"改。"
+"您的团队成员是使用网域(URL)在网页上登入。请确保您的团队成员都知道的任何更改。"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-taken-warning-msg"
@@ -873,8 +862,7 @@ msgstr "邀请其他团队成员"
 msgid "@team-members"
 msgstr "团队成员"
 
-#: client/app/header/header.html
-#: client/app/modal/team_change/team.change.html
+#: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "更换团队"
 
@@ -889,8 +877,8 @@ msgstr "知道了！"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"点击这按键开启一旁的收拉式选单，上面含有所有已在这'议题群组'/'私人群组'/'直"
-"接传讯'中被分享过的档案。"
+"点击这按键开启一旁的收拉式选单，上面含有所有已在这'议题群组'/'私人群组'/'直接"
+"传讯'中被分享过的档案。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
@@ -901,8 +889,8 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"当您上传档案，您会看到在右边的选单按键(ᵒᵒᵒ)，让您与其他'议题群组'/'私人群"
-"组'/成员进行分享，亦可以留言并直接下载。 "
+"当您上传档案，您会看到在右边的选单按键(ᵒᵒᵒ)，让您与其他'议题群组'/'私人群组'/"
+"成员进行分享，亦可以留言并直接下载。 "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
@@ -915,8 +903,8 @@ msgstr "送出讯息及上传档案"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"仅需书写讯息并点击return键即可通话。要上传档案，点击左边的按键即可浏览您的"
-"电脑档案。"
+"仅需书写讯息并点击return键即可通话。要上传档案，点击左边的按键即可浏览您的电"
+"脑档案。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -941,8 +929,8 @@ msgstr "议题群组'、'私人群组'及'直接传讯'有什么不同？"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"议题群组是有特定主题的空间。任何人都可以建立一个议题群组或加入现有的。想像"
-"人们在真实生活中谈论且您可以听到或参与的事项。"
+"议题群组是有特定主题的空间。任何人都可以建立一个议题群组或加入现有的。想像人"
+"们在真实生活中谈论且您可以听到或参与的事项。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -951,8 +939,8 @@ msgstr "让我们来了解一下吧"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
 msgstr ""
-"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重要"
-"的提示。"
+"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重要的"
+"提示。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
