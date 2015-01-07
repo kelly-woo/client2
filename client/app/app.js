@@ -36,9 +36,9 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.api_version      = api_version;
 
     /*
-        'language'      : is for translator to bring right language for current user. Translator needs this value.
-        'serverLang'    : is for server to detect right language for current user.  Server needs this value.
-        'notification'  : soon to be implement
+     'language'      : is for translator to bring right language for current user. Translator needs this value.
+     'serverLang'    : is for server to detect right language for current user.  Server needs this value.
+     'notification'  : soon to be implement
      */
     $rootScope.preferences      = {
         language        : gettextCatalog.currentLanguage,
@@ -194,6 +194,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     }
 
     publicService.getBrowserInfo();
+
 });
 
 app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, localStorageServiceProvider) {

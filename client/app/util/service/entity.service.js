@@ -95,6 +95,7 @@
         }
 
         //  updating alarmCnt field of 'entity' to 'alarmCount'.
+        // 'alarmCount' is -1, it means to increment.
         function updateBadgeValue (entity, alarmCount) {
             var list = $rootScope.privateGroupList;
 

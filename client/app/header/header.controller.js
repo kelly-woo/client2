@@ -107,7 +107,6 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     };
 
     $scope.onTutorialPulseClick = function($event) {
-        console.log($event)
         $rootScope.$broadcast('onTutorialPulseClick', $event);
 
     };
@@ -119,5 +118,4 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     $scope.toggleLoading = function() {
         $scope.isLoading = !$scope.isLoading;
     };
-
 });
