@@ -35,7 +35,8 @@
             }
 
             //console.log('authController')
-            if (storageAPIservice.shouldAutoSignIn()) {
+            // Auto sign-in using cookie.
+            if (storageAPIservice.shouldAutoSignIn() || storageAPIservice.isValidValue(storageAPIservice.hasAccessTokenSession())) {
                 $scope.toggleLoading();
 
                 //console.log('trying to auto sign in')
@@ -55,6 +56,9 @@
                     });
             }
 
+            if (storageAPIservice.isValidValue(storageAPIservice.hasAccessTokenSession())) {
+
+            }
         })();
 
         function getCurrentMember(memberId) {
