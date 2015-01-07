@@ -144,7 +144,7 @@
             <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
                 <a data-ng-if="userId == member.id">
                     <i class="icon-user2"></i>
-                    {{ user | getName }}
+                    {{ member | getName }}
                 </a>
                 <a data-ng-if="userId != member.id" data-ui-sref="archives({entityType:'users', entityId:userId})">
                     <i class="icon-user2"></i>

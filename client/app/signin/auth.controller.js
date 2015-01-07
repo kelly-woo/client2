@@ -16,8 +16,27 @@
         };
 
         (function(){
+
+            // Handling users with token info in localstorage.
+            if (storageAPIservice.hasAccessTokenLocal()) {
+                // User has access_token in LocalStorage meaning we need to move all of token info from localStorage to Cookie.
+                // So that new version of auto sign-in could work with current user.
+
+                var newToken = {
+                    access_token: storageAPIservice.getAccessTokenLocal(),
+                    refresh_token: storageAPIservice.getRefreshTokenLocal(),
+                    token_type: storageAPIservice.getTokenTypeLocal()
+                };
+
+                storageAPIservice.setTokenCookie(newToken);
+                storageAPIservice.setShouldAutoSignIn(true);
+
+                storageAPIservice.removeLocal();
+            }
+
             //console.log('authController')
-            if (storageAPIservice.shouldAutoSignIn()) {
+            // Auto sign-in using cookie.
+            if (storageAPIservice.shouldAutoSignIn() || storageAPIservice.isValidValue(storageAPIservice.hasAccessTokenSession())) {
                 $scope.toggleLoading();
 
                 //console.log('trying to auto sign in')
@@ -37,6 +56,9 @@
                     });
             }
 
+            if (storageAPIservice.isValidValue(storageAPIservice.hasAccessTokenSession())) {
+
+            }
         })();
 
         function getCurrentMember(memberId) {
@@ -133,7 +155,7 @@
 
                         // Store account id, team id, member id in localStorage for analytics usage.
                         storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId);
-                        storageAPIservice.setAccessTokenLocalCookie(response);
+                        storageAPIservice.setTokenCookie(response);
                         storageAPIservice.setShouldAutoSignIn(true);
                     }
                     else {

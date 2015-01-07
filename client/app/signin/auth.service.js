@@ -57,11 +57,6 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     authAPI.requestAccessTokenWithRefreshToken = function() {
         var refresh_token = storageAPIservice.getRefreshToken();
 
-        if (!refresh_token) {
-            publicService.signOut();
-            return null;
-        }
-
         return $http({
             method  : "POST",
             url     : $rootScope.server_address + 'token',
@@ -143,11 +138,10 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
             }
             if (rejection.status === 401) {
-                console.log('401!!!!!!!!')
+                console.log('401')
                 // Unauthorized Access.
                 // What to do? - get new access_token using refresh_token
                 var authAPIservice = $injector.get('authAPIservice');
-                console.log(authAPIservice)
 
                 if (angular.isUndefined(authAPIservice)) return;
 
@@ -158,7 +152,9 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
                     .error(function(error) {
                         console.log('whaty')
                         // bad refresh_token.
-                        authAPIservice.signOut();
+                        var publicService = $injector.get('publicService');
+
+                        publicService.signOut();
                     });
             }
 
