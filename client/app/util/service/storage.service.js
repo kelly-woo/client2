@@ -27,6 +27,9 @@
 
         var autoSignIn_key      = 'should_auto_sign_in';
 
+        var bearer_type         = 'bearer';
+        var refresh_type         = 'refresh_token';
+
         var service = {
             setTokenLocal: setTokenLocal,
 
@@ -91,7 +94,7 @@
 
             removeSession: removeSession,
 
-            setAccessTokenLocalCookie: setAccessTokenLocalCookie,
+            setTokenCookie: setTokenCookie,
 
             setAccessTokenCookie: setAccessTokenCookie,
             getAccessTokenCookie: getAccessTokenCookie,
@@ -107,7 +110,9 @@
             isValidValue: isValidValue,
 
             getAccessToken: getAccessToken,
-            getRefreshToken: getRefreshToken
+            getRefreshToken: getRefreshToken,
+
+            getAccessTokenType: bearer_type
 
         };
 
@@ -293,7 +298,7 @@
          * @param tokenData
          */
 
-        function setAccessTokenLocalCookie (tokenData) {
+        function setTokenCookie (tokenData) {
             localStorageService.cookie.set(accessToken_key, tokenData.access_token);
             localStorageService.cookie.set(refreshToken_key, tokenData.refresh_token);
             localStorageService.cookie.set(tokenType_key, tokenData.token_type);
@@ -371,7 +376,6 @@
 
             return false;
         }
-
     }
 })();
 

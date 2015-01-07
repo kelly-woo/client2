@@ -304,6 +304,7 @@
 
         }
         function signOut() {
+            // There is no need to remove session storage, but still just in case.
             storageAPIservice.removeSession();
             storageAPIservice.removeLocal();
             storageAPIservice.removeCookie();
@@ -313,7 +314,17 @@
 
 
             if(mixpanel.cookie) mixpanel.cookie.clear();
-            $state.go('signin');
+            if ( $state.current.name == 'signin') {
+                // 현재 state 다시 로드
+                $state.transitionTo($state.current, {}, {
+                    reload: true,
+                    inherit: false,
+                    notify: true
+                });
+            }
+            else {
+                $state.go('signin');
+            }
         }
     }
 })();
