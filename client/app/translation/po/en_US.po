@@ -614,7 +614,10 @@ msgstr " "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "For a more private setting, use private groups or direct messages"
+msgstr ""
+"- Private topics are not available to non-invited members"
+"- Files shared in a private topic are only available to its participants"
+"- Topics designated as public or private cannot be converted to the other after creation"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"

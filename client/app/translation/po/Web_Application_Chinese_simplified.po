@@ -609,7 +609,10 @@ msgstr "  "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "请使用私人群组为隐秘空间"
+msgstr ""
+"- 私人群组对非邀请成员不开放"
+"- 在私人群组内已分享档案仅开放给其参与者"
+"- 已设定为公开或私人的议题群组在建立之后不能被转换成另一个"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
