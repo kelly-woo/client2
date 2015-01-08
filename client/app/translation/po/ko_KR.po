@@ -982,6 +982,30 @@ msgstr "유저 즐겨찾기"
 msgid "@user-menu-un-star"
 msgstr "즐겨찾기 해제"
 
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-post"
+msgstr "님으로부터 새 메시지가 도착했습니다."
+
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-pre"
+msgstr " "
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-mid"
+msgstr "에 "
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-post"
+msgstr "님으로부터 새 메시지가 도착했습니다."
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-pre"
+msgstr " "
+
+#: client/app/center/center.html
+msgid "@web-notification-title"
+msgstr "JANDI 메시지"
+
 #~ msgid "@input-password-average"
 #~ msgstr "약함"
 

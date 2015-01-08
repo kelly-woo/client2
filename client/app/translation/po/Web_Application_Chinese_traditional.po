@@ -958,6 +958,30 @@ msgstr "標記這成員"
 msgid "@user-menu-un-star"
 msgstr "取消標記這成員"
 
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-post"
+msgstr "來的新訊息"
+
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-pre"
+msgstr "有從"
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-mid"
+msgstr "裏有從"
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-post"
+msgstr "來的新訊息"
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-pre"
+msgstr "在"
+
+#: client/app/center/center.html
+msgid "@web-notification-title"
+msgstr "JANDI 新訊息"
+
 #~ msgid "@input-password-average"
 #~ msgstr "普通"
 

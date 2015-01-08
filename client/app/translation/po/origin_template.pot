@@ -975,3 +975,27 @@ msgstr ""
 #: client/app/center/center.html
 msgid "@user-menu-un-star"
 msgstr ""
+
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-post"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-pre"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-mid"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-post"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-pre"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@web-notification-title"
+msgstr ""

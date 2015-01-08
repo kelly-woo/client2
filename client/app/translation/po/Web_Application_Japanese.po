@@ -973,6 +973,30 @@ msgstr "お気に入りに追加する"
 msgid "@user-menu-un-star"
 msgstr "お気に入りから削除する"
 
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-post"
+msgstr "さんからダイレクトメッセージが届きました"
+
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-pre"
+msgstr " "
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-mid"
+msgstr "さんが"
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-post"
+msgstr "に投稿しました"
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-pre"
+msgstr " "
+
+#: client/app/center/center.html
+msgid "@web-notification-title"
+msgstr "JANDI 新着メッセージ通知"
+
 #~ msgid "@input-password-average"
 #~ msgstr "普通 "
 

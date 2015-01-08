@@ -985,6 +985,30 @@ msgstr "Star this user"
 msgid "@user-menu-un-star"
 msgstr "Unstar this user"
 
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-post"
+msgstr " "
+
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-pre"
+msgstr "You received a new direct message from "
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-mid"
+msgstr " in "
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-post"
+msgstr " "
+
+#: client/app/center/center.html
+msgid "@web-notification-body-topic-pre"
+msgstr "You received a new message from "
+
+#: client/app/center/center.html
+msgid "@web-notification-title"
+msgstr "JANDI Message"
+
 #~ msgid "@input-password-average"
 #~ msgstr "Average"
 

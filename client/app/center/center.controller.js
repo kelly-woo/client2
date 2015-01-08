@@ -884,7 +884,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         var alarmTable = alarm.alarmTable;
 
-        console.log(alarmTable)
         _.each(alarmTable, function(element, index, list) {
             //  Alarm is from me.  Don't worry about this.
             if (element.fromEntity == $scope.member.id) return;
@@ -906,7 +905,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             else  {
                 //  'toEntity' may be an array.
                 _.each(element.toEntity, function(toEntityElement, index, list) {
-                    updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, element.fromEntity);
+                    updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, element.toEntity[0]);
 
                     //  updateEntity is archived || I don't care about updateEntity.
                     if (angular.isUndefined(updateEntity)) return;
@@ -914,13 +913,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     //  if 'toEntity' is an entity that I'm currently looking at, Don't worry about it.
                     if (updateEntity.id == $scope.currentEntity.id) return;
 
-                    var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.toEntity[0]);
+                    var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
 
                     desktopNotificationService.addNotification(toEntity, updateEntity);
                     entityAPIservice.updateBadgeValue(updateEntity, -1);
                 });
             }
-
 
         });
     }
