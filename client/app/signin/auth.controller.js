@@ -53,6 +53,7 @@
                         console.log('error on getAccountinfo from authController')
                     })
                     .finally(function() {
+                        $scope.toggleLoading();
                     });
             }
 
