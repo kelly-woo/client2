@@ -18,11 +18,8 @@ app.config(function ($stateProvider) {
                     templateUrl : 'app/left/left.html',
                     controller  : 'leftPanelController1',
                     resolve     : {
-                        leftPanel: function (leftpanelAPIservice, publicService) {
+                        leftPanel: function (leftpanelAPIservice, publicService, storageAPIservice) {
                                 return leftpanelAPIservice.getLists()
-                                    .success(function(response) {
-
-                                    })
                                     .error(function(err) {
                                         publicService.signOut();
                                     });

@@ -34,13 +34,11 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function($scope, $rootScope, $state, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
                                                 entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice) {
 
-    //console.info('[enter] leftpanelController');
-    $scope.isLoading = true;
+    console.info('[enter] leftpanelController');
 
-    if (!leftPanel) {
-        publicService.signOut();
-        return;
-    }
+
+
+    $scope.isLoading = true;
 
     $scope.isLoading = false;
     $rootScope.isReady = true;
@@ -124,6 +122,15 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     initLeftList();
 
     function initLeftList () {
+        console.log(storageAPIservice.isValidValue(memberService.getMember()))
+        console.log(storageAPIservice.shouldAutoSignIn())
+        if (!storageAPIservice.isValidValue(memberService.getMember()) && !storageAPIservice.shouldAutoSignIn() ) {
+            console.log('you are not supposed to be here!');
+            publicService.signOut();
+
+        }
+
+
         memberService.setMember(response.user);
         $rootScope.team = response.team;
 

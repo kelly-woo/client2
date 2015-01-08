@@ -34,6 +34,13 @@
                 storageAPIservice.removeLocal();
             }
 
+            if (!storageAPIservice.shouldAutoSignIn()) {
+                storageAPIservice.removeLocal();
+                storageAPIservice.removeSession();
+                storageAPIservice.removeCookie();
+
+                return;
+            }
             //console.log('authController')
             // Auto sign-in using cookie.
             if (storageAPIservice.shouldAutoSignIn() || storageAPIservice.isValidValue(storageAPIservice.hasAccessTokenSession())) {
@@ -57,9 +64,6 @@
                     });
             }
 
-            if (storageAPIservice.isValidValue(storageAPIservice.hasAccessTokenSession())) {
-
-            }
         })();
 
         function getCurrentMember(memberId) {
@@ -147,6 +151,11 @@
                         return;
                     }
 
+
+                    storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId);
+                    storageAPIservice.setTokenCookie(response);
+
+
                     // Store all data on $window.sessionStorage only when user decides not to 'keep logged in'.
                     if (user.rememberMe) {
                         // User tends to 'keep logged in'. So tokenInfo should be available in different team domain.
@@ -160,10 +169,12 @@
                         storageAPIservice.setShouldAutoSignIn(true);
                     }
                     else {
+                        storageAPIservice.setShouldAutoSignIn(false);
+
                         // Store token in window session.
-                        storageAPIservice.setTokenSession(response);
+                        //storageAPIservice.setTokenSession(response);
                         // Store account id, team id, member id in session for analytics usage.
-                        storageAPIservice.setAccountInfoSession(response.account.id, signInInfo.teamId, signInInfo.memberId);
+                        //storageAPIservice.setAccountInfoSession(response.account.id, signInInfo.teamId, signInInfo.memberId);
                     }
 
                     memberService.getMemberInfo(signInInfo.memberId)

@@ -5,9 +5,9 @@
         .module('jandiApp')
         .factory('memberService', memberService);
 
-    memberService.$inject = ['$location', 'configuration', '$http', '$rootScope', 'storageAPIservice', 'entityAPIservice', '$upload'];
+    memberService.$inject = ['$http', '$rootScope', 'storageAPIservice', 'entityAPIservice', '$upload'];
 
-    function memberService($location, configuration, $http, $rootScope, storageAPIservice, entityAPIservice, $upload) {
+    function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload) {
         var noUExtraData = "i dont have u_extraData";
 
         var service = {
@@ -50,7 +50,6 @@
         function removeMember() {
             $rootScope.member = null;
         }
-
         function updateProfilePic(image, supportHTML) {
             var flash_url = supportHTML ? '' : 'v2/';
             return $upload.upload({
@@ -82,7 +81,6 @@
         function getStarredEntities() {
             return this.getMember().u_starredEntities;
         }
-
         function getMemberId() {
             return this.getMember().id;
         }
@@ -107,7 +105,6 @@
                     email: email
                 }
             });
-
         }
         function getEmail(member) {
             return member.u_email;
@@ -115,8 +112,6 @@
         function getStatusMessage(member) {
             return member.u_statusMessage;
         }
-
-
         function getPhoneNumber(member) {
             if (angular.isUndefined(member.u_extraData)) return noUExtraData;
             return member.u_extraData.phoneNumber || '';
@@ -129,7 +124,6 @@
             if (angular.isUndefined(member.u_extraData)) return noUExtraData;
             return member.u_extraData.position || '';
         } 
-
         function getNameById(entityId) {
             return this.getName(entityAPIservice.getEntityFromListById($rootScope.totalEntities, entityId));
         }
