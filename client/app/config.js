@@ -2,8 +2,8 @@
 
 angular.module('services.config', [])
     .constant('configuration', {
-        name            : 'development',
-        api_address     : 'https://dev.jandi.com:2323/',
+        name            : 'local',
+        api_address     : 'http://www.jandi.io/',
         api_version     : '2',
         ga_token        : 'UA-54051037-1',
         ga_token_global : 'UA-54051037-4',

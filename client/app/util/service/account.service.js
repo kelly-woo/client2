@@ -60,11 +60,10 @@
             };
 
             var prefix = $location.host().split('.')[0];
-            if (configuration.name == 'development') {
-                if (prefix == 'local' || prefix == 'dev') {
+
+            if (configuration.name == 'local') {
+                if (prefix == 'local') {
                     prefix = 'tosslab';
-                    //prefix = 'jihoontesting12'
-                    //prefix = 'jd'
                 }
             }
 

@@ -528,6 +528,19 @@ module.exports = function (grunt) {
 
         // replace
         replace: {
+            local: {
+                options: {
+                    patterns: [{
+                        json: grunt.file.readJSON('./config/environments/local.json')
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    src: ['./config/config.js'],
+                    dest: '<%= yeoman.client %>/app/'
+                }]
+            },
             development: {
                 options: {
                     patterns: [{
@@ -592,7 +605,6 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'replace:development',
             'env:all',
             'concurrent:server',
             'injector',
@@ -679,6 +691,9 @@ module.exports = function (grunt) {
     ]);
     grunt.registerTask('development', [
         'replace:development'
+    ]);
+    grunt.registerTask('local', [
+        'replace:local'
     ]);
 
     grunt.registerTask('deploy', [

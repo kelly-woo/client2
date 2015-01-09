@@ -197,14 +197,19 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
 });
 
-app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, localStorageServiceProvider) {
+app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, localStorageServiceProvider, configuration) {
 
     $httpProvider.interceptors.push('authInterceptor');
 
     /* LocalStorage prefix setting */
     localStorageServiceProvider.setPrefix('_jd_');
     localStorageServiceProvider.setStorageCookie(45, '/');
-    localStorageServiceProvider.setStorageCookieDomain('jandi.com');
+    if (configuration.name == 'development') {
+        localStorageServiceProvider.setStorageCookieDomain('jandi.io');
+    }
+    else {
+        localStorageServiceProvider.setStorageCookieDomain('jandi.com');
+    }
 
     /* URL routing rule for exception */
     $urlRouterProvider
