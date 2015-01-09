@@ -35,6 +35,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.server_uploaded  = api_address;
     $rootScope.api_version      = api_version;
 
+    $rootScope.configuration    = configuration;
     /*
      'language'      : is for translator to bring right language for current user. Translator needs this value.
      'serverLang'    : is for server to detect right language for current user.  Server needs this value.

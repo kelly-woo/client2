@@ -7,6 +7,8 @@ angular.module('services.config', [])
         api_version     : '@@api_version',
         ga_token        : '@@ga_token',
         ga_token_global : '@@ga_token_global',
-        mp_token        : '@@mp_token'
+        mp_token        : '@@mp_token',
+        base_url        : '@@base_url',
+        base_protocol   : '@@base_protocol'
     }
 );
