@@ -663,6 +663,9 @@ input[type="button"] {
     position: absolute;
     right: 5px;
 }
+.lowercase {
+    text-transform: lowercase;
+}
 
 /*
     tutorial

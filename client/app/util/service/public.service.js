@@ -29,9 +29,7 @@
             setDebugMode: setDebugMode,
             signOut: signOut,
             getBrowserInfo: getBrowserInfo,
-            redirectTo: redirectTo,
-            toLowerCase: toLowerCase
-
+            redirectTo: redirectTo
         };
 
         return service;
@@ -340,10 +338,6 @@
         function redirectTo(url) {
             // Direct to 'url'.
             location.href = url;
-        }
-
-        function toLowerCase(input) {
-            return input.toLowerCase().trim();
         }
     }
 })();

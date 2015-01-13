@@ -411,9 +411,7 @@ app.directive('teamPrefixDomainChecker', function(teamAPIservice) {
         restrict: 'A',
         link: function(scope, elem, attrs, ctrl) {
             elem.bind('keyup', function() {
-                var temp = this.value.toLowerCase();
-                this.value = temp;
-                var checkValue = temp.trim();
+                var checkValue = this.value.toLowerCase().trim();
                 if (!checkValue || ctrl.$error.isValidDomain || checkValue.length < 3) return checkValue;
 
                 teamAPIservice.prefixDomainValidator(checkValue)
