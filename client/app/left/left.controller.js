@@ -38,10 +38,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
 
 
 
-    $scope.isLoading = true;
-
     $scope.isLoading = false;
-    $rootScope.isReady = true;
 
     $scope.leftListCollapseStatus = {
         isTopicCollapsed: storageAPIservice.isLeftTopicCollapsed() || false,
@@ -204,6 +201,9 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
 
         if ($state.params.entityId)
             setCurrentEntity();
+
+        $rootScope.isReady = true;
+
     }
     function setEntityPrefix() {
         leftpanelAPIservice.setEntityPrefix($scope);

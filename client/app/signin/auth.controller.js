@@ -21,7 +21,6 @@
             if (storageAPIservice.hasAccessTokenLocal()) {
                 // User has access_token in LocalStorage meaning we need to move all of token info from localStorage to Cookie.
                 // So that new version of auto sign-in could work with current user.
-
                 var newToken = {
                     access_token: storageAPIservice.getAccessTokenLocal(),
                     refresh_token: storageAPIservice.getRefreshTokenLocal(),
@@ -58,8 +57,6 @@
                     })
                     .error(function(err) {
                         console.log('error on getAccountinfo from authController')
-                    })
-                    .finally(function() {
                         $scope.toggleLoading();
                     });
             }
@@ -202,9 +199,9 @@
                 })
                 .error(function(err) {
                     $scope.signInFailed = true;
+                    $scope.toggleLoading();
                 })
                 .finally(function() {
-                    $scope.toggleLoading();
                 });
         };
 
