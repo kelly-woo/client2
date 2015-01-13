@@ -594,7 +594,7 @@ msgstr "Invalid email or password"
 
 #: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
-msgstr "Forgot Password?"
+msgstr "Forgot Your Password?"
 
 #: client/app/center/center.html
 msgid "@message-delete"

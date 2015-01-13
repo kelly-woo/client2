@@ -256,6 +256,9 @@ select:focus {
     background-color: white;
 }
 
+.hover-underline:hover {
+    text-decoration: underline;
+}
 
 /********************************************
 
