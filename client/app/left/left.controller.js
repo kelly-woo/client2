@@ -149,6 +149,12 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
                     leftpanelAPIservice.toSignin();
                 })
         }
+        else {
+            // Still check whether user needs to see tutorial or not.
+            if(!accountService.hasSeenTutorial()) {
+                $scope.initTutorialStatus();
+            }
+        }
 
         $rootScope.team = $scope.team = response.team;
 

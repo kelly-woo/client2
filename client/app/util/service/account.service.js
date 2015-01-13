@@ -64,6 +64,7 @@
             if (configuration.name == 'local') {
                 if (prefix == 'local') {
                     prefix = 'tosslab';
+                    prefix = 'asdfz';
                 }
             }
 
@@ -78,10 +79,12 @@
             return signInInfo;
         }
         function hasSeenTutorial() {
-            if (angular.isUndefined(getAccount().tutoredAt) || getAccount().tutoredAt === null)
-                return false;
-            else
-                return true;
+            return !!getAccount().tutoredAt;
+
+            //if (angular.isUndefined(getAccount().tutoredAt) || getAccount().tutoredAt === null)
+            //    return false;
+            //else
+            //    return true;
         }
 
         function setAccountLanguage(lang) {

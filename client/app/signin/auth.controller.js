@@ -147,6 +147,8 @@
                         storageAPIservice.removeLocal();
                         accountService.removeAccount();
                         memberService.removeMember();
+                        $scope.toggleLoading();
+
                         return;
                     }
 
