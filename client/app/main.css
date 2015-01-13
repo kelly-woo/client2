@@ -1,6 +1,6 @@
 /********************************************
 
-                  COMMON
+                  COMMON.
 
 ********************************************/
 /*html { min-width: 960px; }*/
@@ -48,7 +48,7 @@ select:focus {
 
 /********************************************
 
-            BASIC TEMPLATE
+            BASIC TEMPLATE.
 
 ********************************************/
 
@@ -68,7 +68,7 @@ select:focus {
 
 /********************************************
 
-                ANIMATION
+                ANIMATION.
 
 ********************************************/
 .animate-enter { -webkit-transition: 1s linear all; /* Chrome */ transition: 1s linear all; opacity: 0; }
@@ -89,7 +89,7 @@ select:focus {
 
 /*
  *
-    BACKGROUND ANIMATION
+    BACKGROUND ANIMATION.
  *
  */
 
@@ -199,7 +199,7 @@ select:focus {
 
 /********************************************
 
-                   COLOR
+                   COLOR.
 
 ********************************************/
 .green_font { color: #31c08a; }
@@ -262,7 +262,7 @@ select:focus {
 
 /********************************************
 
-                  BUTTON
+                  BUTTON.
 
 ********************************************/
 input[type="button"] {
@@ -352,7 +352,7 @@ input[type="button"] {
 
 /********************************************
 
-                    ICON
+                    ICON.
 
 ********************************************/
 .icon_image {
@@ -492,7 +492,7 @@ input[type="button"] {
 
 /********************************************
 
-                 DROPDOWN
+                 DROPDOWN.
 
 ********************************************/
 .dropdown-menu {
@@ -726,7 +726,7 @@ input[type="button"] {
 
 /********************************************
 
-                 PASSWORD STRENGTH
+                 PASSWORD STRENGTH.
 
 ********************************************/
 .level1 .password-input-border {
@@ -768,4 +768,12 @@ input[type="button"] {
 .password-level-warning-msg {
     margin-bottom: 4px;
     text-align: left;
+}
+/********************************************
+
+                 MODAL.
+
+********************************************/
+.modal {
+    overflow-y: auto;
 }

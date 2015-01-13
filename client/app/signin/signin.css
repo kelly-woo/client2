@@ -119,7 +119,7 @@
     right: 0;
     bottom: 48px;
     left: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     /*padding-top: 70px;*/
     /*margin-bottom: 40px;*/
     min-width: inherit !important;

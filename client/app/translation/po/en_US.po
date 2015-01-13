@@ -187,7 +187,7 @@ msgstr "Add"
 
 #: client/app/center/center.html client/app/left/left.html
 msgid "@common-api-error-msg"
-msgstr "Something went wrong. Please try again."
+msgstr "We encountered an issue. Please try again."
 
 #: client/app/left/left.html
 msgid "@common-channels"
