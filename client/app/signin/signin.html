@@ -19,7 +19,7 @@
                         <i class="fa fa-warning"></i> <span translate>@login-invalid</span>
                     </div>
 
-                    <input type="email" ng-model="user.username" class="jandi-body__form-input form-control" placeholder="{{ '@common-email' | translate }}" required autofocus>
+                    <input type="email" ng-model="user.username" class="jandi-body__form-input form-control" placeholder="{{ '@common-email' | translate }}" required autofocus keep-lower-case="">
 
                     <input type="password" ng-model="user.password" class="jandi-body__form-input form-control" placeholder="{{ '@common-password' | translate }}" required>
 
