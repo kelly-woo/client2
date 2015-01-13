@@ -133,6 +133,8 @@
                 .success(function(response) {
                     // Set account first.
                     accountService.setAccount(response.account);
+                    publicService.getLanguageSetting();
+                    publicService.setCurrentLanguage();
 
                     //console.log('signin success');
                     //console.log(response.account)

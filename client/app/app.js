@@ -36,6 +36,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     $rootScope.api_version      = api_version;
 
     $rootScope.configuration    = configuration;
+
     /*
      'language'      : is for translator to bring right language for current user. Translator needs this value.
      'serverLang'    : is for server to detect right language for current user.  Server needs this value.
@@ -47,6 +48,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         notification    : ''
     };
 
+    // constant
     $rootScope.listLangs = [
         { "value": "ko",    "text": "한국어" },
         { "value": "en", "text": "English" },
