@@ -93,6 +93,7 @@ msgstr ""
 #: client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
 #: client/app/modal/join.html
+#: client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
