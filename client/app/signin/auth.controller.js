@@ -16,8 +16,8 @@
         };
 
         (function(){
-
             // Handling users with token info in localstorage.
+            // Move token info from 'local Storage' -> to 'Cookie'
             if (storageAPIservice.hasAccessTokenLocal()) {
                 // User has access_token in LocalStorage meaning we need to move all of token info from localStorage to Cookie.
                 // So that new version of auto sign-in could work with current user.
@@ -37,10 +37,9 @@
                 storageAPIservice.removeLocal();
                 storageAPIservice.removeSession();
                 storageAPIservice.removeCookie();
-
                 return;
             }
-            //console.log('authController')
+
             // Auto sign-in using cookie.
             if (storageAPIservice.shouldAutoSignIn() || storageAPIservice.isValidValue(storageAPIservice.hasAccessTokenSession())) {
                 $scope.toggleLoading();
@@ -50,13 +49,16 @@
                 accountService.getAccountInfo()
                     .success(function(response) {
                         //console.log('got account info')
-                        //console.log(response)
+                        console.log(response)
 
                         accountService.setAccount(response);
                         getCurrentMember();
                     })
                     .error(function(err) {
-                        console.log('error on getAccountinfo from authController')
+                        console.log('error on getAccountinfo from authController');
+                        storageAPIservice.removeLocal();
+                        storageAPIservice.removeSession();
+                        storageAPIservice.removeCookie();
                         $scope.toggleLoading();
                     });
             }
@@ -80,9 +82,8 @@
             if (curMemberId == -1) {
                 console.log('no memberid')
                 // Could not find member id that is associated with current team.
-                publicService.signOut();
-                $scope.toggleLoading();
-
+                var main_team = $scope.configuration.main_address + 'team';
+                publicService.redirectTo(main_team);
                 return;
             }
 
@@ -128,13 +129,17 @@
             // TODO: HAS TO BE BETTER WAY TO DO THIS.
             authAPIservice.signIn(user)
                 .success(function(response) {
+
                     // Set account first.
                     accountService.setAccount(response.account);
                     publicService.getLanguageSetting();
                     publicService.setCurrentLanguage();
 
-                    //console.log('signin success');
-                    //console.log(response.account)
+                    storageAPIservice.setTokenCookie(response);
+
+                    if (user.rememberMe) {
+                        storageAPIservice.setShouldAutoSignIn(true);
+                    }
 
                     // Get information about team and member id.
                     var signInInfo = accountService.getCurrentMemberId(response.account.memberships);
@@ -142,41 +147,18 @@
                     if (signInInfo.memberId == -1) {
                         console.log('no memberid')
                         // Could not find member id that is associated with current team.
-                        $scope.signInFailed = true;
+                        // Direct user to landing page!
+                        var main_team = $scope.configuration.main_address + 'team';
+                        publicService.redirectTo(main_team);
+
                         storageAPIservice.removeSession();
                         storageAPIservice.removeLocal();
-                        accountService.removeAccount();
-                        memberService.removeMember();
-                        $scope.toggleLoading();
 
                         return;
                     }
 
-
+                    // Store account id, team id, member id in localStorage for analytics usage.
                     storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId);
-                    storageAPIservice.setTokenCookie(response);
-
-
-                    // Store all data on $window.sessionStorage only when user decides not to 'keep logged in'.
-                    if (user.rememberMe) {
-                        // User tends to 'keep logged in'. So tokenInfo should be available in different team domain.
-
-                        // Store token in local storage.
-                        //storageAPIservice.setTokenLocal(response);
-
-                        // Store account id, team id, member id in localStorage for analytics usage.
-                        storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId);
-                        storageAPIservice.setTokenCookie(response);
-                        storageAPIservice.setShouldAutoSignIn(true);
-                    }
-                    else {
-                        storageAPIservice.setShouldAutoSignIn(false);
-
-                        // Store token in window session.
-                        //storageAPIservice.setTokenSession(response);
-                        // Store account id, team id, member id in session for analytics usage.
-                        //storageAPIservice.setAccountInfoSession(response.account.id, signInInfo.teamId, signInInfo.memberId);
-                    }
 
                     memberService.getMemberInfo(signInInfo.memberId)
                         .success(function(response) {
@@ -194,6 +176,9 @@
                             storageAPIservice.removeLocal();
                             accountService.removeAccount();
                             memberService.removeMember();
+
+                            $scope.toggleLoading();
+
                         })
                         .finally(function() {
 

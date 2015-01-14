@@ -6,5 +6,7 @@
     "ga_token_global"   : "UA-53634725-4",
     "mp_token"          : "f72e67d5099ab4e0ba4a83da4a9cafe3",
     "base_url"          : ".jandi.com",
-    "base_protocol"     : "https://"
+    "base_protocol"     : "https://",
+    "main_address"      : "https://www.jandi.com/main/#/"
+
 }

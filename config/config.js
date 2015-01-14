@@ -9,6 +9,7 @@ angular.module('services.config', [])
         ga_token_global : '@@ga_token_global',
         mp_token        : '@@mp_token',
         base_url        : '@@base_url',
-        base_protocol   : '@@base_protocol'
+        base_protocol   : '@@base_protocol',
+        main_address    : '@@main_address'
     }
 );
