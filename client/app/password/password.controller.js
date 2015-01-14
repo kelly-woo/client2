@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('passwordResetController', function($scope, $state, $filter, $location, $modal, authAPIservice, $rootScope, $timeout, storageAPIservice) {
+app.controller('passwordResetController', function($scope, $state, $filter, $location, $modal, authAPIservice, $rootScope, $timeout, storageAPIservice, publicService) {
     var token = $state.params.token;
 
     $scope.token = '';
@@ -38,12 +38,13 @@ app.controller('passwordResetController', function($scope, $state, $filter, $loc
                 storageAPIservice.removeSession();
 
                 $timeout(function() {
-                    $state.go('signin');
+                    var main_team = $scope.configuration.main_address + 'team';
+                    publicService.redirectTo(main_team);
                 }, 3000)
             })
             .error(function(response) {
                 $scope.resetFailed = true;
-                if (response.data.code == 40000) {
+                if (response.code == 40000) {
                     // Invalid token
                     alert($filter('translate')('@common-invalid-request'));
                 }
