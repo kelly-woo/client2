@@ -5,9 +5,9 @@
         .module('jandiApp')
         .controller('authController', authController);
 
-        authController.$inject = ['$scope', '$state', '$modal', 'authAPIservice', 'analyticsService', 'storageAPIservice', 'accountService', 'memberService', 'publicService'];
+        authController.$inject = ['$scope', '$rootScope', '$state', '$modal', 'authAPIservice', 'analyticsService', 'storageAPIservice', 'accountService', 'memberService', 'publicService'];
 
-        function authController($scope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService) {
+        function authController($scope, $rootScope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService) {
 
         var vm = this;
 
@@ -129,6 +129,17 @@
             // TODO: HAS TO BE BETTER WAY TO DO THIS.
             authAPIservice.signIn(user)
                 .success(function(response) {
+
+                    if ($rootScope.isMobile) {
+                        // When signing in from mobile.
+                        $rootScope.mobileStatus = {
+                            isSignedIn: true,
+                            access_token: response.access_token,
+                            refresh_token: response.refresh_token
+                        };
+                        $state.go('mobile');
+                        return;
+                    }
 
                     // Set account first.
                     accountService.setAccount(response.account);

@@ -7,6 +7,7 @@
     "mp_token"          : "f72e67d5099ab4e0ba4a83da4a9cafe3",
     "base_url"          : ".jandi.com",
     "base_protocol"     : "https://",
-    "main_address"      : "https://www.jandi.com/main/#/"
-
+    "main_address"      : "https://www.jandi.com/main/#/",
+    "app_store_address" : "itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8",
+    "play_store_address": "https://play.google.com/store/apps/details?id=com.tosslab.jandi.app"
 }
