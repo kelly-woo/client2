@@ -45,36 +45,47 @@
             // Start with entity
             var notificationOption = toEntity;
 
-            // Get bodyMessage for notification.
+            // Get body message for notification.
             var bodyMessage = getNotificationBodyMessage(fromEntity, toEntity);
 
+
+            if (toEntity.type == 'user') {
+                // Notification is 'to' me -> 1:1 direct message.
+                // Direct user to fromEntity who sends direct message to you.
+                notificationOption.tag = fromEntity.id;
+            }
+            else {
+                // Otherwise, get entity id from 'toEntity'
+                notificationOption.tag = toEntity.id;
+            }
+
             // Set appropriate attributes to notification.
-            notificationOption.tag = toEntity.id;
             notificationOption.body= bodyMessage;
+
+            // User profile picture.
             notificationOption.icon= $filter('getSmallThumbnail')(fromEntity);
 
             return notificationOption;
         }
+
         function getNotificationBodyMessage(fromEntity, toEntity) {
             if (toEntity.type == 'user')
                 return generateMessagesNotificationBody(fromEntity);
 
             return generateTopicNotificationBody(fromEntity, toEntity)
         }
-        // Generates body message for 1:1 messages notification.
+
+        // Generates body message for 1:1 direct message notification.
         function generateMessagesNotificationBody(fromEntity) {
             return $filter('translate')('@web-notification-body-messages-pre')
                 + fromEntity.name
                 + $filter('translate')('@web-notification-body-messages-post');
         }
-
         // Generates body messages for topic related notification.
         function generateTopicNotificationBody(fromEntity, toEntity) {
             var currentLanguage = accountService.getAccountLanguage();
 
             var bodyMessage;
-
-            console.log(currentLanguage)
 
             switch (currentLanguage) {
                 case 'ko' :
@@ -126,12 +137,14 @@
 
         // Binds fadeout effect on notification.
         function notificationFadeOut(noti) {
-            setTimeout(noti.close.bind(noti), 1500000);
+            setTimeout(noti.close.bind(noti), 5000);
         }
         // Takes user to topic/messages where notification came from.
         function onNotificationClicked(noti) {
             var toEntity = entityAPIservice.getEntityFromListById($rootScope.totalEntities, noti.tag);
             $state.go('archives', {entityType:toEntity.type + 's', entityId:toEntity.id});
+
+            console.log(document.visibilityState)
         }
     }
 

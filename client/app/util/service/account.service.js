@@ -64,7 +64,7 @@
             if (configuration.name == 'local') {
                 if (prefix == 'local') {
                     prefix = 'tosslab';
-                    prefix = 'asdfz';
+                    //prefix = 'asdfz';
                 }
             }
 
