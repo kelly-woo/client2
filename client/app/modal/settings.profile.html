@@ -13,10 +13,10 @@
         </h4>
 
         <div class="cropArea" ng-if="isProfilePicSelected">
-            <img-crop image="profilePic" result-image="croppedProfilePic" on-change="onchange($dataURI);" ></img-crop>
+            <img-crop image="profilePic" result-image="croppedProfilePic" on-change="onchange($dataURI);"></img-crop>
         </div>
 
-        <div class="user-profile-photo-container img-circle opac-zero" ng-if="!isProfilePicSelected">
+        <div class="user-profile-photo-container img-circle opac-zero" ng-class="{'hidden': isProfilePicSelected}">
             <img on-image-load on-image-load-opac-parent="true" class="user-profile__photo" ng-src="{{ curUser | getMediumThumbnail }}" />
             <div class="user-profile-photo__overlay">
                 <div class="black-opac__background"></div>
@@ -132,9 +132,7 @@
             <button type="button" class="btn btn-cancel" data-ng-click="onProfilePicCancel();">
                 <span translate>@btn-cancel</span>
             </button>
-            <a class="new_channel_btn btn btn-ok " data-ng-click="onCropDone(); ">
-                <span translate>@btn-change</span>
-            </a>
+            <button type="button" class="new_channel_btn btn btn-ok" data-ng-click="onCropDone();"><span translate>@btn-change</span></button>
         </div>
     </div>
 
