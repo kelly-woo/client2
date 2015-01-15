@@ -42,7 +42,7 @@
                 <!--    LIST    -->
                 <ul id="channel-list" collapse="leftListCollapseStatus.isTopicCollapsed">
 
-                    <li ng-repeat="joinedChannel in joinedChannelList | orderBy: ['isStarred', 'name']: true" ng-class="{active: $state.params.entityId == joinedChannel.id}">
+                    <li ng-repeat="joinedChannel in joinedChannelList | orderBy: ['isStarred', '-name']: true" ng-class="{active: $state.params.entityId == joinedChannel.id}">
                         <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
 
                             <i class="icon-star left-star" ng-class="{'icon-star-fill': joinedChannel.isStarred}"
