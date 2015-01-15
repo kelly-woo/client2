@@ -921,7 +921,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                         'false' for 'document.webkitHidden' when window is minimized.
                      */
                     if (updateEntity.id == $scope.currentEntity.id) {
-                        if (document.hidden) {
+                        if (document.hidden || !$scope.hasFocus) {
                             // User has current entity open in jandi.com but not watching it!
                             desktopNotificationService.addNotification(toEntity, updateEntity);
                         }
@@ -1048,4 +1048,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         fileAPIservice.broadcastFileShare(file);
     };
 
+
+    // Callback when window loses its focus.
+    window.onblur = function() {
+        $scope.hasFocus = false;
+    }
+    // Callback when window gets focused.
+    window.onfocus = function() {
+        $scope.hasFocus = true;
+    }
 });
