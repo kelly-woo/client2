@@ -121,6 +121,7 @@
     margin-right: 3px;
 }
 .prefix.star { margin-right: 0; padding-right: 5px; }
+.prefix .icon-star-fill { color: #31c08a; }
 .panel-title-info__name {
     width: 100%;
     padding-right: 15px;

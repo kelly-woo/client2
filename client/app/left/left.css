@@ -205,7 +205,9 @@
 .left-panel__name {
     max-width: 141px;
 }
-
+.has-unread-msg {
+    color: #31c08a;
+}
 
 .lpanel-list__groups {
     margin: 1px 0;
@@ -256,15 +258,6 @@
 }
 
 
-.left-star {
-    position: absolute;
-    left: 8px;
-    top: 7px;
-}
-.starred-on {
-    color: #31c08a;
-}
-
 
 .lpanel-team {
     font-size: 18px;
@@ -294,12 +287,24 @@
 /**
     favorite star
 **/
+.left-star {
+    position: absolute;
+    left: 8px;
+    top: 7px;
+}
+
 .lpanel-list ul li a .icon-star {
     color:#9e9ea6;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
 }
 
 .lpanel-list ul li:hover .icon-star {
     opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+
+}
+.lpanel-list ul li a .icon-star-fill {
+    color: #31c08a;
+    opacity: 1;
+
 }
