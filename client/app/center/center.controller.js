@@ -750,6 +750,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $scope.$emit('updateFileWriterId', userId);
     };
 
+    // SYSTEM EVENT.
     //  'event' field if not empty when,
     //      1. create channel
     //      2. leave channel
@@ -874,6 +875,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
 
+    // NEW MESSAGE
     //  if 'alarm' Field in response from update call is not empty,
     //  we need to handle alarm.
     //  'alarm' field is not empty when
@@ -910,10 +912,22 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     //  updateEntity is archived || I don't care about updateEntity.
                     if (angular.isUndefined(updateEntity)) return;
 
-                    //  if 'toEntity' is an entity that I'm currently looking at, Don't worry about it.
-                    if (updateEntity.id == $scope.currentEntity.id) return;
-
                     var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
+
+                    //  If 'toEntity' is an entity that I'm currently looking at, check browser's visibility state.
+                    /*
+                        TODO: CURRENT ISSUE - CHROME ON MAC/LINUX returns
+                        'visible' for 'document.webkitVisibilityState', and
+                        'false' for 'document.webkitHidden' when window is minimized.
+                     */
+                    if (updateEntity.id == $scope.currentEntity.id) {
+                        if (document.hidden) {
+                            // User has current entity open in jandi.com but not watching it!
+                            desktopNotificationService.addNotification(toEntity, updateEntity);
+                        }
+                        return;
+                    }
+
 
                     desktopNotificationService.addNotification(toEntity, updateEntity);
                     entityAPIservice.updateBadgeValue(updateEntity, -1);

@@ -137,22 +137,13 @@
 
         // Binds fadeout effect on notification.
         function notificationFadeOut(noti) {
-            setTimeout(noti.close.bind(noti), 5000);
+            setTimeout(noti.close.bind(noti), 3000);
         }
         // Takes user to topic/messages where notification came from.
         function onNotificationClicked(noti) {
             var toEntity = entityAPIservice.getEntityFromListById($rootScope.totalEntities, noti.tag);
             $state.go('archives', {entityType:toEntity.type + 's', entityId:toEntity.id});
             window.focus();
-            console.log(document.visibilityState)
-        }
-
-        document.addEventListener("visibilitychange", handleVisibilityChange, false);
-
-        function handleVisibilityChange() {
-            if (document.hidden) {
-                console.log('im hidden!!!')
-            }
         }
     }
 
