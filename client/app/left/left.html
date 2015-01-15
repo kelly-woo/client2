@@ -77,7 +77,7 @@
 
                 <!--    LIST    -->
                 <ul id="group-list" collapse="leftListCollapseStatus.isPGCollapsed">
-                    <li class="group cursor_pointer" ng-repeat="group in privateGroupList | orderBy: ['isStarred', 'name'] : true" ng-class="{active: $state.params.entityId == group.id}">
+                    <li class="group cursor_pointer" ng-repeat="group in privateGroupList | orderBy: ['isStarred', '-name'] : true" ng-class="{active: $state.params.entityId == group.id}">
                         <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
 
                             <i class="icon-star left-star" ng-class="{'icon-star-fill': group.isStarred}"
@@ -115,7 +115,7 @@
                                data-ng-blur="onDMInputBlur();"/>
                     </div>
 
-                    <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (memberList | orderBy: ['isStarred', 'name']: true | userByName:userNameQuery)"
+                    <li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (memberList | orderBy: ['isStarred', '-name']: true | userByName:userNameQuery)"
                         ng-class="{active: $state.params.entityId == userEntity.id}">
 
                         <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
