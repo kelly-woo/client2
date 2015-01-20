@@ -71,10 +71,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-        console.info("==============================[stateChange]==============================");
-        console.info("   from    ", fromState.name, ' / ', fromParams);
-        console.info("    to     ", toState.name, ' / ',toParams);
-        console.info("=========================================================================");
+        //console.info("==============================[stateChange]==============================");
+        //console.info("   from    ", fromState.name, ' / ', fromParams);
+        //console.info("    to     ", toState.name, ' / ',toParams);
+        //console.info("=========================================================================");
 
         if ($rootScope.isMobile  && toState.name != 'mobile') {
             if (storageAPIservice.getAccessToken()) {
