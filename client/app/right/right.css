@@ -298,7 +298,6 @@
     color: #999;
 }
 .file-item-meta__comments {
-    background-image: url('../../assets/images/icon-comment.png');
     background-position: 0px 0px;
     background-repeat: no-repeat;
     line-height: 14px;

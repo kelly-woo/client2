@@ -491,6 +491,9 @@ input[type="button"] {
     z-index: 1041;
 }
 
+.file-item-meta__comments {
+    background-image: url('/assets/images/icon-comment.png');
+}
 
 
 
