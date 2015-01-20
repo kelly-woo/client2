@@ -292,9 +292,20 @@
 }
 .file-item-body-author:hover {
 }
-.file-item-meta__createtime {
+.file-item-meta__createtime,
+.file-item-meta__comments {
     font-size: 12px;
     color: #999;
+}
+.file-item-meta__comments {
+    background-image: url('/assets/images/icon-comment.png');
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    line-height: 14px;
+    padding-left: 14px;
+}
+.file-item-meta__comments:empty {
+    margin-left: 100px;
 }
 .file-item-body__title {
     position: relative;
