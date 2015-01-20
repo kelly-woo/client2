@@ -492,7 +492,7 @@ input[type="button"] {
 }
 
 .file-item-meta__comments {
-    background-image: url('/assets/images/icon-comment.png');
+    background-image: url('../assets/images/icon-comment.png');
 }
 
 
