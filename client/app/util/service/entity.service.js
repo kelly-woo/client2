@@ -100,7 +100,7 @@
         function updateBadgeValue (entity, alarmCount) {
             var list = $rootScope.privateGroupList;
 
-            if (entity.type == 'channel') {
+            if (entity.type == 'channels') {
                 //  I'm not involved with entity.  I don't care about this entity.
                 if (angular.isUndefined(this.getEntityFromListById($rootScope.joinedChannelList, entity.id))) {
                     return;
@@ -108,12 +108,13 @@
 
                 list = $rootScope.joinedChannelList;
             }
-            else if (entity.type == 'user') {
+            else if (entity.type == 'users') {
                 list = $rootScope.memberList;
             }
 
             this.setBadgeValue(list, entity, alarmCount);
         }
+
         //  TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
         function setBadgeValue (list, entity, alarmCount) {
             var curEntity = this.getEntityFromListById(list, entity.id);

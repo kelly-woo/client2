@@ -142,7 +142,7 @@
         // Takes user to topic/messages where notification came from.
         function onNotificationClicked(noti) {
             var toEntity = entityAPIservice.getEntityFromListById($rootScope.totalEntities, noti.tag);
-            $state.go('archives', {entityType:toEntity.type + 's', entityId:toEntity.id});
+            $state.go('archives', {entityType:toEntity.type, entityId:toEntity.id});
             window.focus();
         }
     }

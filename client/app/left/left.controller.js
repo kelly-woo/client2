@@ -222,7 +222,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
             if (value.alarmCount == 0 )
                 return;
 
-            var tempEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, value.entityId);
+            var tempEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, value.entityId);
 
             //  tempEntity is archived
             if (angular.isUndefined(tempEntity)) {
@@ -297,13 +297,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
         publicService.openMemberProfileModal($scope, user);
     };
 
-    // TODO: REALLY??? IS THIS THE BEST???
-    $scope.onDMInputFocus = function() {
-        $('.absolute-search-icon').stop().animate({opacity: 1}, 400);
-    };
-    $scope.onDMInputBlur = function() {
-        $('.absolute-search-icon').stop().css({'opacity' : 0.2});
-    };
+
 
     $scope.onCurrentMemberContainerClick = function() {
         publicService.openCurrentMemberModal($scope);

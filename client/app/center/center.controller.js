@@ -910,8 +910,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 updateEntity = entityAPIservice.getEntityFromListById($scope.memberList, element.fromEntity);
                 var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.toEntity[0]);
 
+                $rootScope.$broadcast('updateMessageList');
                 desktopNotificationService.addNotification(updateEntity, toEntity);
-                entityAPIservice.updateBadgeValue(updateEntity, -1);
             }
             else  {
                 //  'toEntity' may be an array.
