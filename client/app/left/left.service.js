@@ -43,9 +43,9 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
         angular.forEach(array, function(entity, index) {
             var type = entity.type;
-            if (type == "channel")
+            if (type == "channels")
                 joinedChannelList.push(entity);
-            else if (type == "privateGroup")
+            else if (type == "privategroups")
                 privateGroupList.push(entity);
         });
 
@@ -70,13 +70,13 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
             var entityId = entity.id;
             var entityType = entity.type;
 
-            if (entityType == "user") {
+            if (entityType == "users") {
                 if (currentUserId != entityId) {
                     entity.selected = false;
                     userList.push(entity);
                 }
             }
-            else if (entityType == "channel") {
+            else if (entityType == "channels") {
                 var found = false;
                 _.each(joinedEntities, function(element, index, list) {
                     if (!found && element.id == entityId) found = true;
@@ -105,11 +105,14 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
         _.each($scope.totalEntities, function(entity) {
             entity.isStarred = false;
             if (entity.type === 'channel') {
+                entity.type = 'channels';
                 entity.typeCategory = $filter('translate')('@channel');
             } else if (entity.type === 'user') {
+                entity.type = 'users';
                 entity.typeCategory = $filter('translate')('@user');
             }
             else {
+                entity.type = 'privategroups';
                 entity.typeCategory = $filter('translate')('@privateGroup');
             }
         });
@@ -117,10 +120,13 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
         _.each($scope.joinEntities, function(entity) {
             entity.isStarred = false;
             if (entity.type === 'channel') {
+                entity.type = 'channels';
                 entity.typeCategory = $filter('translate')('@channel');
             } else if (entity.type === 'user') {
+                entity.type = 'users';
                 entity.typeCategory = $filter('translate')('@user');
             } else {
+                entity.type = 'privategroups';
                 entity.typeCategory = $filter('translate')('@privateGroup');
             }
         });

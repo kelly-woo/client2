@@ -51,11 +51,20 @@ app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPI
 
 // PRIVATE_GROUP/CHANNEL CREATE
 app.controller('createEntityModalCtrl', function($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService) {
+    $scope.entityType = 'public';
+
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
 
     $scope.onCreateClick = function(entityType, entityName) {
+
+        if ($scope.isLoading) return;
+
+        if (entityType == 'private')
+            entityType = 'privateGroup';
+        else
+            entityType = 'channel';
 
         $scope.isLoading = true;
 
@@ -63,7 +72,7 @@ app.controller('createEntityModalCtrl', function($scope, $rootScope, $modalInsta
             .success(function(response) {
                 // analytics
                 var entity_type = "";
-                switch ($scope.currentEntity.type) {
+                switch (entityType) {
                     case 'channel':
                         entity_type = "topic";
                         break;
@@ -79,10 +88,11 @@ app.controller('createEntityModalCtrl', function($scope, $rootScope, $modalInsta
                 $rootScope.$emit('updateLeftPanelCaller');
                 $state.go('archives', {entityType:entityType + 's', entityId:response.id});
                 $modalInstance.dismiss('cancel');
-                $scope.isLoading = false;
             })
             .error(function(response) {
                 alert(response.msg);
+            })
+            .finally(function() {
                 $scope.isLoading = false;
             });
     };

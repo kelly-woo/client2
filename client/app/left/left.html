@@ -21,14 +21,13 @@
         <!-- LIST CONTAINER -->
         <div class="lpanel-list">
 
-            <!-- CHANNEL -->
-            <div class="lpanel-list__channels">
-
+            <!-- TOPICS -->
+            <div class="lpanel-list__topics">
                 <!--    HEADER  -->
-                <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isTopicCollapsed = !leftListCollapseStatus.isTopicCollapsed">
+                <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isTopicsCollapsed = !leftListCollapseStatus.isTopicsCollapsed">
                     <i class="lpanel-list-left icon-topic-fill"></i>
 
-                    <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-channels</span>
+                    <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-topics</span>
 
                     <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();">
                         <i class="icon-add"></i><span translate>@common-add</span>
@@ -40,58 +39,23 @@
                 </div>
 
                 <!--    LIST    -->
-                <ul id="channel-list" collapse="leftListCollapseStatus.isTopicCollapsed">
+                <ul id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">
 
-                    <li ng-repeat="joinedChannel in joinedChannelList | orderBy: ['isStarred', '-name']: true" ng-class="{active: $state.params.entityId == joinedChannel.id}">
-                        <a ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})" data-channel-id="{{joinedChannel.id}}">
+                    <li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true" ng-class="{active: $state.params.entityId == joinedEntity.id}">
+                        <a ui-sref="archives({entityType:joinedEntity.type, entityId:joinedEntity.id})" data-channel-id="{{joinedEntity.id}}">
 
-                            <i class="icon-star left-star" ng-class="{'icon-star-fill': joinedChannel.isStarred}"
-                               data-ng-click="onStarClick(joinedChannel.type, joinedChannel.id); $event.preventDefault(); $event.stopPropagation();"></i>
+                            <i class="icon-star left-star" ng-class="{'icon-star-fill': joinedEntity.isStarred}"
+                               data-ng-click="onStarClick(joinedEntity.type, joinedEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
-                            <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': joinedChannel.alarmCnt > 0}">
-                                {{joinedChannel.name}}
+                            <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': joinedEntity.alarmCnt > 0}">
+                                <span class="private-topic-icon" ng-if="joinedEntity.type=='privategroups'"></span>
+                                {{joinedEntity.name}}
                             </span>
 
-                            <span class="badge left-panel_badge green_badge pull-right">{{joinedChannel.alarmCnt}}</span>
+                            <span class="badge left-panel_badge green_badge pull-right">{{joinedEntity.alarmCnt}}</span>
                         </a>
                     </li>
                 </ul>
-
-                <div class="clear-both"></div>
-            </div>
-
-            <!-- PRIVATE GROUPS -->
-            <div class="lpanel-list__groups">
-
-                <!--    HEADER  -->
-                <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isPGCollapsed = !leftListCollapseStatus.isPGCollapsed">
-                    <i class="lpanel-list-left icon-chat-fill"></i>
-
-                    <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-private-groups</span>
-
-                    <div class="lpanel-list-option pull-right" ng-click="openModal('private'); $event.stopPropagation(); $event.preventDefault();">
-                        <i class="icon-add"></i><span translate>@common-add</span>
-                    </div>
-
-                </div>
-
-                <!--    LIST    -->
-                <ul id="group-list" collapse="leftListCollapseStatus.isPGCollapsed">
-                    <li class="group cursor_pointer" ng-repeat="group in privateGroupList | orderBy: ['isStarred', '-name'] : true" ng-class="{active: $state.params.entityId == group.id}">
-                        <a ui-sref="archives({entityType:'privateGroups',entityId:group.id})" class="channel_name" data-group-id="{{group.id}}">
-
-                            <i class="icon-star left-star" ng-class="{'icon-star-fill': group.isStarred}"
-                               data-ng-click="onStarClick(group.type, group.id); $event.preventDefault(); $event.stopPropagation();"></i>
-
-                            <span class="inline-overflow-ellipsis left-panel__name" data-ng-bind="group.name" ng-class="{'has-unread-msg': group.alarmCnt > 0}"></span>
-
-                            <span class="badge left-panel_badge green_badge pull-right">{{group.alarmCnt}}</span>
-
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="clear-both"></div>
             </div>
 
             <!-- DIRECT MESSAGES    -->

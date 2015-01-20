@@ -217,9 +217,7 @@ app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, local
     /* URL routing rule for exception */
     $urlRouterProvider
         .when("", "/")
-        .when("/messages/", "/messages")
         .when("/channels/:id/", "/channels/:id")
-        .when("/users/:id/", "/users/:id")
         .when("/privategroups/:id/", "/privategroups/:id")
         .when("/passwordReset?teamId&token", "/passwordreset?teamId&token")
         .otherwise("/404");

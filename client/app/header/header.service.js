@@ -40,7 +40,7 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, storageAPIserv
     entityheaderAPI.leaveEntity = function(entityType, entityId) {
         return $http({
             method: 'PUT',
-            url: $rootScope.server_address + entityType + 's/' + entityId + '/leave',
+            url: $rootScope.server_address + entityType + '/' + entityId + '/leave',
             data: {
                 teamId: memberService.getTeamId()
             }
@@ -50,7 +50,7 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, storageAPIserv
     entityheaderAPI.deleteEntity = function(entityType, entityId) {
         return $http({
             method: 'DELETE',
-            url: $rootScope.server_address + entityType + 's/' + entityId,
+            url: $rootScope.server_address + entityType + '/' + entityId,
             params: {
                 teamId: memberService.getTeamId()
             }
@@ -67,7 +67,7 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, storageAPIserv
     entityheaderAPI.inviteUsers = function(entityType, entityId, users) {
         return $http({
             method: 'PUT',
-            url: $rootScope.server_address + entityType + 's/' + entityId + '/invite',
+            url: $rootScope.server_address + entityType + '/' + entityId + '/invite',
             data: {
                 inviteUsers: users,
                 teamId: memberService.getTeamId()

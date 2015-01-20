@@ -30,8 +30,6 @@
                 params  : {
                     teamId  : memberService.getTeamId()
                 }
-
-                //https://127.0.0.1:3000/inner-api/channels/7/messages/-1/10
             });
         }
 
@@ -90,6 +88,14 @@
 
         //  Updates message marker to 'lastLinkId' for 'entitiyId'
         function updateMessageMarker(entityId, entityType, lastLinkId) {
+            entityType = entityType.toLowerCase().trim();
+
+            if (entityType == 'privategroups')
+                entityType = 'privateGroup';
+            else if (entityType == 'channels')
+                entityType = 'channel';
+            else
+                entityType = 'user';
 
             var data = {
                 teamId: memberService.getTeamId(),

@@ -89,6 +89,7 @@ msgstr ""
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
 #: client/app/modal/invite.channel.html
 #: client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
@@ -113,6 +114,7 @@ msgstr ""
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
 msgid "@btn-create"
 msgstr ""
 
@@ -199,10 +201,6 @@ msgstr ""
 msgid "@common-api-error-msg"
 msgstr ""
 
-#: client/app/left/left.html
-msgid "@common-channels"
-msgstr ""
-
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
 msgstr ""
@@ -218,6 +216,7 @@ msgstr ""
 
 #: client/app/header/header.html
 #: client/app/modal/create.channel.html
+#: client/app/modal/create.topic.html
 #: client/app/modal/join.html
 msgid "@common-create-ch"
 msgstr ""
@@ -263,6 +262,10 @@ msgstr ""
 #: client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
 msgid "@common-email"
+msgstr ""
+
+#: client/app/modal/create.topic.html
+msgid "@common-entity-type"
 msgstr ""
 
 #: client/app/header/header.html
@@ -337,6 +340,7 @@ msgstr ""
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
 #: client/app/modal/settings.profile.html
 msgid "@common-name"
 msgstr ""
@@ -444,6 +448,18 @@ msgstr ""
 msgid "@common-title"
 msgstr ""
 
+#: client/app/left/left.html
+msgid "@common-topics"
+msgstr ""
+
+#: client/app/modal/create.topic.html
+msgid "@common-type-private"
+msgstr ""
+
+#: client/app/modal/create.topic.html
+msgid "@common-type-public"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/modal/upload.html
 #: client/app/right/right.html
@@ -544,6 +560,7 @@ msgid "@ie9-profile-image-support"
 msgstr ""
 
 #: client/app/modal/create.channel.html
+#: client/app/modal/create.topic.html
 msgid "@input-create-ch"
 msgstr ""
 
@@ -629,14 +646,17 @@ msgid "@modal-browse-ch"
 msgstr ""
 
 #: client/app/modal/create.channel.html
+#: client/app/modal/create.topic.html
 msgid "@modal-create-ch-msg1"
 msgstr ""
 
 #: client/app/modal/create.channel.html
+#: client/app/modal/create.topic.html
 msgid "@modal-create-ch-msg2"
 msgstr ""
 
 #: client/app/modal/create.channel.html
+#: client/app/modal/create.topic.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
 

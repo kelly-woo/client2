@@ -23,7 +23,7 @@
         </span>
 
         <!--Channel-->
-        <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channel'">
+        <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channels'">
             <!--    INVITE  -->
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
@@ -62,7 +62,7 @@
         </ul>
 
         <!--User-->
-        <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'user'">
+        <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'users'">
 
             <!--    INVITE  -->
             <li role="presentation">
@@ -95,7 +95,7 @@
         </ul>
 
         <!--PrivateGroup-->
-        <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privateGroup'">
+        <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privategroups'">
 
             <!--    INVITE  -->
             <li role="presentation">

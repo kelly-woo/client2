@@ -12,6 +12,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var entityType = $state.params.entityType;
     var entityId = $state.params.entityId;
 
+    // Check entityType first
+    if (entityType.slice(-1) != 's') {
+        // If entitytype doesn't contain 's' at the end, do nothing about it.
+        // Let router handle this case.
+        // Router will redirect user to same entityType with 's' at the end.
+        return;
+    }
+
     var updateInterval = 2000;
 
     $scope.lastMessage = null;
@@ -203,6 +211,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.loadMore = function() {
         var deferred = $q.defer();
+
 
         if ($scope.msgLoadStatus.isFirst) return;
 
@@ -979,7 +988,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     //  Updating message marker for current entity.
     function updateMessageMarker() {
-        messageAPIservice.updateMessageMarker($scope.currentEntity.id, $scope.currentEntity.type, $scope.msgLoadStatus.lastUpdatedId)
+        messageAPIservice.updateMessageMarker(entityId, entityType, $scope.msgLoadStatus.lastUpdatedId)
             .success(function(response) {
 //                console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.lastUpdatedId + ' with ' + $scope.currentEntity.type)
             })

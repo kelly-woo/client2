@@ -83,6 +83,7 @@
             var entity = this.getEntityFromListById($rootScope.joinedChannelList.concat($rootScope.privateGroupList, $rootScope.memberList), entityId);
             entity.isStarred = true;
         }
+
         //  Returns true is 'user' is a member of 'entity'
         function isMember (entity, user) {
             //console.log(entity.type)

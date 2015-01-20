@@ -276,6 +276,9 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
         else if (selector == 'file') {
             publicService.openFileUploadModal($scope);
         }
+        else if (selector == 'topic') {
+            publicService.openTopicCreateModal($scope);
+        }
     };
 
     $rootScope.$on('onUserClick', function(event, user) {
@@ -489,5 +492,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
             }
         });
     }
+
 });
 

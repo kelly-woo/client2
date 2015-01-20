@@ -195,6 +195,7 @@
 .lpanel-list ul li.active a span{
     color: #333333;
 }
+
 /*  new message badge position  */
 .left-panel_badge {
     margin-top: 5px;
@@ -204,6 +205,15 @@
 
 .left-panel__name {
     max-width: 141px;
+}
+.private-topic-icon {
+    width: 9px;
+    height: 12px;
+    display: inline-block;
+    opacity: 0.6;
+}
+.active .private-topic-icon {
+    opacity: 1;
 }
 .has-unread-msg {
     color: #31c08a;

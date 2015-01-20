@@ -271,7 +271,6 @@ select:focus {
 ********************************************/
 input[type="button"] {
     cursor: pointer;
-
 }
 .btn {
     padding: 4px 10px;
@@ -315,7 +314,6 @@ input[type="button"] {
     background-color: white;
     border-radius: 5px;
     border: 1px solid #e1e1e1;
-    height: 30px;
     color: #666666;
     font-size: 14px;
 }
@@ -495,6 +493,9 @@ input[type="button"] {
     background-image: url('../assets/images/icon-comment.png');
 }
 
+.private-topic-icon {
+    background-image: url('../assets/images/private-topic.svg');
+}
 
 
 /********************************************
@@ -656,6 +657,10 @@ input[type="button"] {
 /*
     input
 */
+input[type="radio"] {
+    margin-right: 5px;
+}
+
 .add-on-group {
     position: relative;
 }

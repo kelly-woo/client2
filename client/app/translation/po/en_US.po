@@ -91,8 +91,9 @@ msgid "@btn-click-to-view"
 msgstr "Click to view"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html client/app/modal/join.html
+#: client/app/modal/create.topic.html client/app/modal/invite.channel.html
+#: client/app/modal/invite.direct.html client/app/modal/invite.team.html
+#: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
@@ -109,6 +110,7 @@ msgid "@btn-confirm"
 msgstr "Confirm"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
 msgid "@btn-create"
 msgstr "Create"
 
@@ -189,10 +191,6 @@ msgstr "Add"
 msgid "@common-api-error-msg"
 msgstr "We encountered an issue. Please try again."
 
-#: client/app/left/left.html
-msgid "@common-channels"
-msgstr "Topics"
-
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
 msgstr "1:1 Chat"
@@ -206,7 +204,7 @@ msgid "@common-comment"
 msgstr "Comment"
 
 #: client/app/header/header.html client/app/modal/create.channel.html
-#: client/app/modal/join.html
+#: client/app/modal/create.topic.html client/app/modal/join.html
 msgid "@common-create-ch"
 msgstr "Create New Topic"
 
@@ -248,6 +246,10 @@ msgstr "Download"
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "Email"
+
+#: client/app/modal/create.topic.html
+msgid "@common-entity-type"
+msgstr "Type"
 
 #: client/app/header/header.html
 msgid "@common-faq"
@@ -319,7 +321,7 @@ msgid "@common-more"
 msgstr "Browse"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
 msgid "@common-name"
 msgstr "Name"
 
@@ -415,6 +417,18 @@ msgstr "Terms of Service"
 #: client/app/modal/upload.html
 msgid "@common-title"
 msgstr "Title"
+
+#: client/app/left/left.html
+msgid "@common-topics"
+msgstr "Topics"
+
+#: client/app/modal/create.topic.html
+msgid "@common-type-private"
+msgstr "Private"
+
+#: client/app/modal/create.topic.html
+msgid "@common-type-public"
+msgstr "Public"
 
 #: client/app/header/header.html client/app/modal/upload.html
 #: client/app/right/right.html
@@ -520,7 +534,7 @@ msgstr ""
 "Internet Explorer 9 does not support profile picture editing. Try the latest "
 "version of Internet Explorer for the optimal experience."
 
-#: client/app/modal/create.channel.html
+#: client/app/modal/create.channel.html client/app/modal/create.topic.html
 msgid "@input-create-ch"
 msgstr "Enter new topic name"
 
@@ -605,15 +619,15 @@ msgstr "Delete"
 msgid "@modal-browse-ch"
 msgstr "Browse Topics"
 
-#: client/app/modal/create.channel.html
+#: client/app/modal/create.channel.html client/app/modal/create.topic.html
 msgid "@modal-create-ch-msg1"
 msgstr "Create topics that anyone can join"
 
-#: client/app/modal/create.channel.html
+#: client/app/modal/create.channel.html client/app/modal/create.topic.html
 msgid "@modal-create-ch-msg2"
 msgstr " "
 
-#: client/app/modal/create.channel.html
+#: client/app/modal/create.channel.html client/app/modal/create.topic.html
 msgid "@modal-create-ch-msg3"
 msgstr "For a more private setting, use private groups or direct messages"
 
@@ -1009,6 +1023,9 @@ msgstr "You received a new message from "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message"
+
+#~ msgid "@common-channels"
+#~ msgstr "Topics"
 
 #~ msgid "@input-password-average"
 #~ msgstr "Average"

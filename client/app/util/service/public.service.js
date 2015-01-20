@@ -79,7 +79,7 @@
         function openTopicCreateModal($scope) {
             $modal.open({
                 scope       :   $scope,
-                templateUrl :   'app/modal/create.channel.html',
+                templateUrl :   'app/modal/create.topic.html',
                 controller  :   'createEntityModalCtrl',
                 size        :   'lg'
             });
