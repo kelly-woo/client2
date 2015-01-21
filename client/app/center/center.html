@@ -222,11 +222,11 @@
 
                         <!--    FILE    -->
                         <img class="user-profile user-thumb" ng-switch-when="file"
-                             ng-src="{{ server_uploaded + ( msg.fromEntity.smallThumbnailUrl  || msg.fromEntity.u_photoUrl ) }}"/>
+                             ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
 
                         <!--    DEFAULT   -->
                         <img class="user-profile user-thumb" ng-switch-default
-                             ng-src="{{ server_uploaded + ( msg.message.writer.u_photoThumbnailUrl.smallThumbnailUrl  || msg.message.writer.u_photoUrl ) }}"/>
+                             ng-src="{{ msg.message.writer | getSmallThumbnail }}"/>
                     </div>
 
                     <!--    HEADER PART -->
@@ -235,37 +235,37 @@
                     <div class="msg-item-header">
                         <!--    WRITER
                                 IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
-                    <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
-                          ng-hide="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
-                        <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
-                        <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
-
-                        <!--    CREATED TIME    -->
-                        <span class="msg-item-header__created">
-                            {{msg.time | date: 'h:mm a'}}
-                        </span>
-
-                    </span>
-
-                        <!--    CONTINUED COMMENT ON SAME FILE  -->
-                    <span class="continue-comment-body" ng-if="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
-                        <!--    COMMENT CONTENT -->
-                        <p >
-                            <!--    WRITER  -->
-                            <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
-                                <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
-                                <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
-                            </span>
-
-                            <!--    CONTENT(MESSAGE)    -->
-                            <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+                        <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
+                              ng-hide="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
+                            <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
+                            <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
 
                             <!--    CREATED TIME    -->
                             <span class="msg-item-header__created">
                                 {{msg.time | date: 'h:mm a'}}
                             </span>
-                        </p>
-                    </span>
+
+                        </span>
+
+                        <!--    CONTINUED COMMENT ON SAME FILE  -->
+                        <span class="continue-comment-body" ng-if="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
+                            <!--    COMMENT CONTENT -->
+                            <p >
+                                <!--    WRITER  -->
+                                <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+                                    <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
+                                    <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
+                                </span>
+
+                                <!--    CONTENT(MESSAGE)    -->
+                                <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+
+                                <!--    CREATED TIME    -->
+                                <span class="msg-item-header__created">
+                                    {{msg.time | date: 'h:mm a'}}
+                                </span>
+                            </p>
+                        </span>
 
                         <!--    DELETE ICON APPEARS ON HOVER    -->
                         <a class="msg-item__action link-remove pull-right cursor_pointer"
@@ -288,25 +288,25 @@
 
                             <div class="msg-file-body-float pull-left cursor_pointer" data-ng-click="onSmallThumbnailClick($event, msg);">
 
-                                    <!--    IMAGE THUMBNAIL -->
-                                    <div class="image_wrapper">
-                                        <img rotate rotate-left-align="true"
-                                                class="msg-file-body__img cursor_pointer"
-                                             data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
-                                             data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
-                                                />
-                                    </div>
+                                <!--    IMAGE THUMBNAIL -->
+                                <div class="image_wrapper">
+                                    <img rotate rotate-left-align="true"
+                                         class="msg-file-body__img cursor_pointer"
+                                         data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
+                                         data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
+                                            />
+                                </div>
 
-                                    <div ng-if="(msg.message.content.type).indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
-                                         ng-click="onImageRotatorClick($event);">
-                                        <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
-                                    </div>
+                                <div ng-if="(msg.message.content.type).indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
+                                     ng-click="onImageRotatorClick($event);">
+                                    <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
+                                </div>
 
-                                    <!--    FILE TYPE THUMBNAIL -->
-                                    <div class="msg-file-body__thumbnail"
-                                         data-ng-if="(msg.message.content.type).indexOf('image') == -1">
-                                        <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
-                                    </div>
+                                <!--    FILE TYPE THUMBNAIL -->
+                                <div class="msg-file-body__thumbnail"
+                                     data-ng-if="(msg.message.content.type).indexOf('image') == -1">
+                                    <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
+                                </div>
 
                             </div>
 
@@ -322,41 +322,41 @@
                                     <span class="bullet">•</span>
 
                                     <!--    SIZE AND FILE TYPE  -->
-                                <span class="msg-file-meta-info">
-                                    {{msg.message.content.size | bytes }} {{ msg.message.content.type | filetype }}
-                                </span>
+                                    <span class="msg-file-meta-info">
+                                        {{msg.message.content.size | bytes }} {{ msg.message.content.type | filetype }}
+                                    </span>
                                 </div>
 
                                 <div class="msg-file-meta-down">
                                     <!--    SHARED MESSAGE  -->
-                                <span class="msg-file-meta-info">
-                                    <span data-ng-if="( msg.fromEntity.id !== msg.message.writer.id )">
-                                        <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getName}}</a>
-                                        <span translate>@msg-whose</span>
+                                    <span class="msg-file-meta-info">
+                                        <span data-ng-if="( msg.fromEntity.id !== msg.message.writer.id )">
+                                            <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getName}}</a>
+                                            <span translate>@msg-whose</span>
+                                        </span>
+                                        <span ng-if="msg.status == 'shared'" translate>@msg-shared</span>
+                                        <span ng-if="msg.status == 'unshared'" translate>@msg-unshared</span>
+                                        <span translate>@msg-file</span>
                                     </span>
-                                    <span ng-if="msg.status == 'shared'" translate>@msg-shared</span>
-                                    <span ng-if="msg.status == 'unshared'" translate>@msg-unshared</span>
-                                    <span translate>@msg-file</span>
-                                </span>
 
                                     <span class="bullet">•</span>
 
                                     <!--    SHARED ENTITIES -->
-                                <span data-ng-if="msg.message.shared.length">
-                                    <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared | filter: {type:'!user'}) track by $index">
-                                        <span data-ng-hide="($index === 0)">, </span>
-                                        <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
-                                            {{ sharedEntity.prefix }}{{ sharedEntity.name }}
+                                    <span data-ng-if="msg.message.shared.length">
+                                        <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared | filter: {type:'!user'}) track by $index">
+                                            <span data-ng-hide="($index === 0)">, </span>
+                                            <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                                                {{ sharedEntity.prefix }}{{ sharedEntity.name }}
+                                            </span>
+                                            <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
+                                                <i class="fa fa-minus-circle"></i>
+                                            </a>
                                         </span>
-                                        <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
-                                            <i class="fa fa-minus-circle"></i>
-                                        </a>
+                                        <span ng-show="msg.message.shared.length != filteredSharedFile.length">
+                                            <span ng-show="filteredSharedFile.length != 0"> and </span>with users
+                                        </span>
+                                        <span class="bullet">•</span>
                                     </span>
-                                    <span ng-show="msg.message.shared.length != filteredSharedFile.length">
-                                        <span ng-show="filteredSharedFile.length != 0"> and </span>with users
-                                    </span>
-                                    <span class="bullet">•</span>
-                                </span>
 
                                     <!-- OPEN ORIGINAL  -->
                                     <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
@@ -435,16 +435,16 @@
 
                                 <p>
                                     <!--    WRITER  -->
-                                <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
-                                    <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
-                                    <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
-                                </span>
+                                    <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+                                        <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
+                                        <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
+                                    </span>
 
                                     <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
 
-                                <span class="msg-item-header__created">
-                                    {{msg.time | date: 'h:mm a'}}
-                                </span>
+                                    <span class="msg-item-header__created">
+                                        {{msg.time | date: 'h:mm a'}}
+                                    </span>
 
                                 </p>
 
@@ -455,24 +455,24 @@
                         <!-- SYSTEM EVENT -->
                         <div class="msg-text" data-ng-if="msg.message.contentType === 'systemEvent'">
                             <div class="msg-comment-header" data-ng-switch="msg.info.eventType">
-                            <span data-ng-switch-default>
-                                <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
-                                <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
-                            </span>
-                            <span data-ng-switch-when="invite">
-                                <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
-                                <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
-                                <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
-                                    <span>{{invitees | getName}}<span data-ng-if="!$last">, </span></span>
+                                <span data-ng-switch-default>
+                                    <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+                                    <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
                                 </span>
-                            <span data-ng-if="preferences.language === 'ko'">{{ '@msg-invited-postfix' | translate }}</span>
-                        </span>
-                        <span data-ng-if="false"
-                              data-msg-join="{{ '@msg-joined' | translate}}"
-                              data-msg-leave="{{ '@msg-left' | translate }}"
-                              data-msg-invite="{{ '@msg-invited' | translate }}"
-                              data-msg-create-channel="{{ '@msg-create-ch' | translate }}"
-                              data-msg-create-group="{{ '@msg-create-pg' | translate }}"></span>
+                                <span data-ng-switch-when="invite">
+                                    <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+                                    <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+                                    <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
+                                        <span>{{invitees | getName}}<span data-ng-if="!$last">, </span></span>
+                                    </span>
+                                    <span data-ng-if="preferences.language === 'ko'">{{ '@msg-invited-postfix' | translate }}</span>
+                                </span>
+                                <span data-ng-if="false"
+                                      data-msg-join="{{ '@msg-joined' | translate}}"
+                                      data-msg-leave="{{ '@msg-left' | translate }}"
+                                      data-msg-invite="{{ '@msg-invited' | translate }}"
+                                      data-msg-create-channel="{{ '@msg-create-ch' | translate }}"
+                                      data-msg-create-group="{{ '@msg-create-pg' | translate }}"></span>
 
                                 <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
 
@@ -498,15 +498,15 @@
              data-ng-if="!tutorialStatus.chatTutorial"></div>
         <!--<div class="post-message msgs__loading" data-ng-if="isPosting"></div>-->
 
-    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;">
-        <i class="icon-upload"></i>
-        <input type="file"
-               id="btn-upload-primary"
-               class="file_list_button curosr_pointer"
-               onclick="this.value=null"
-               ng-file-select="onFileSelect($files);"
-               value="Upload File">
-    </span>
+        <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;">
+            <i class="icon-upload"></i>
+            <input type="file"
+                   id="btn-upload-primary"
+                   class="file_list_button curosr_pointer"
+                   onclick="this.value=null"
+                   ng-file-select="onFileSelect($files);"
+                   value="Upload File">
+        </span>
 
         <div id="messages-input-container" style="height: 35px;">
             <form id="message-form" style="height: 35px;">

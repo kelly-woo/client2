@@ -49,5 +49,24 @@ app.factory('analyticsService', function($rootScope, storageAPIservice) {
         return (storageAPIservice.getMemberIdLocal() || storageAPIservice.getMemberIdSession()) + '-' + (storageAPIservice.getTeamIdLocal() || storageAPIservice.getTeamIdSession());
     };
 
+    analyticsAPI.getEntityType = function(entityType) {
+        var entity_type;
+        switch (entityType) {
+            case 'channels':
+                entity_type = "topic";
+                break;
+            case 'privategroups':
+                entity_type = "private group";
+                break;
+            case 'users':
+                entity_type = "direct message";
+                break;
+            default:
+                entity_type = "invalid";
+                break;
+        }
+        return entity_type;
+    };
+
     return analyticsAPI;
 });

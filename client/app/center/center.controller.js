@@ -66,18 +66,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             .success(function(response) {
                 log('-- good')
                 // analytics
-                var entity_type = "";
-                switch ($scope.currentEntity.type) {
-                    case 'channel':
-                        entity_type = "topic";
-                        break;
-                    case 'privateGroup':
-                        entity_type = "private group";
-                        break;
-                    default:
-                        entity_type = "invalid";
-                        break;
-                }
+                var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
+
                 analyticsService.mixpanelTrack( "Entity Leave", { "type": entity_type } );
                 updateLeftPanel();
             })
@@ -90,18 +80,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
             .success(function() {
                 // analytics
-                var entity_type = "";
-                switch ($scope.currentEntity.type) {
-                    case 'channel':
-                        entity_type = "topic";
-                        break;
-                    case 'privateGroup':
-                        entity_type = "private group";
-                        break;
-                    default:
-                        entity_type = "invalid";
-                        break;
-                }
+                var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
                 analyticsService.mixpanelTrack( "Entity Delete", { "type": entity_type } );
 
                 updateLeftPanel();
@@ -541,14 +520,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // TODO rightpanelController 로직 중복 해결 필요
     $scope.onClickSharedEntity = function(entityId) {
-        var targetEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, entityId);
-        if (entityAPIservice.isMember(targetEntity, $scope.member)) {
-            $state.go('archives', { entityType: targetEntity.type + 's', entityId: targetEntity.id });
-        } else {
-            entityheaderAPIservice.joinChannel(targetEntity.id)
+        var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
+
+        // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
+        if (angular.isDefined(targetEntity)) {
+            $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
+        }
+        else {
+            // Undefined targetEntity means it's an entity that I'm joined.
+            // Join topic first and go!
+            entityheaderAPIservice.joinChannel(entityId)
                 .success(function(response) {
+                    analyticsService.mixpanelTrack( "topic Join" );
                     $rootScope.$emit('updateLeftPanelCaller');
-                    $state.go('archives', {entityType:targetEntity.type + 's',  entityId:targetEntity.id});
+                    $state.go('archives', {entityType: 'channels',  entityId: entityId });
                 })
                 .error(function(err) {
                     alert(err.msg);
@@ -559,22 +544,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.onClickUnshare = function(message, entity) {
         fileAPIservice.unShareEntity(message.id, entity.id)
             .success(function() {
-                // analytics
-                var share_target = "";
-                switch (entity.type) {
-                    case 'channel':
-                        share_target = "topic";
-                        break;
-                    case 'privateGroup':
-                        share_target = "private group";
-                        break;
-                    case 'user':
-                        share_target = "direct message";
-                        break;
-                    default:
-                        share_target = "invalid";
-                        break;
-                }
+                var share_target = analyticsService.getEntityType($scope.currentEntity.type);
+
                 var file_meta = (message.content.type).split("/");
                 var share_data = {
                     "entity type"   : share_target,
@@ -972,7 +943,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 action = $filter('translate')('@msg-left');
                 break;
             case 'create' :
-                if (msg.info.entityType == 'channel') {
+                if (msg.info.entityType == 'channels') {
                     action = $filter('translate')('@msg-create-ch');
                 } else {
                     action = $filter('translate')('@msg-create-pg');

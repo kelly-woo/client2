@@ -92,8 +92,8 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     // Simply putting every channel, user, and private group into one array.
     // No exception.
-    fileAPI.getShareOptions = function(joinedChannelList, userList, privateGroupList) {
-        return joinedChannelList.concat(privateGroupList, userList);
+    fileAPI.getShareOptions = function(joinedChannelList, userList) {
+        return joinedChannelList.concat(userList);
     };
 
     //  Removes entity that exists in 'file.shareEntities' from 'list'.
@@ -110,11 +110,10 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     // Populating a list of entities to be displayed as 'shared channel/privateGroup'.
     fileAPI.getSharedEntities = function(file) {
+
         var sharedEntityArray = [];
         var unique = _.uniq(file.shareEntities);
 
-        //console.log(file)
-        //console.log(unique)
         _.each(unique, function(sharedEntityId) {
             var sharedEntity = entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId);
             if (angular.isUndefined(sharedEntity)) {
@@ -122,9 +121,9 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
                 // Just return from here;
             }
             else {
-                if( sharedEntity.type == 'privateGroup' && entityAPIservice.isMember(sharedEntity, $rootScope.member) ||
-                    sharedEntity.type == 'channel' ||
-                    sharedEntity.type == 'user' )  {
+                if( sharedEntity.type == 'privategroups' && entityAPIservice.isMember(sharedEntity, $rootScope.member) ||
+                    sharedEntity.type == 'channels' ||
+                    sharedEntity.type == 'users' )  {
 
                     sharedEntityArray.push(sharedEntity)
                 }

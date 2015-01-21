@@ -181,15 +181,21 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
             });
     };
     $scope.onClickSharedEntity = function(entityId) {
-        var targetEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, entityId);
-        if (entityAPIservice.isMember(targetEntity, $scope.member)) {
-            $state.go('archives', { entityType: targetEntity.type + 's', entityId: targetEntity.id });
-        } else {
-            entityheaderAPIservice.joinChannel(targetEntity.id)
+
+        var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
+
+        // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
+        if (angular.isDefined(targetEntity)) {
+            $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
+        }
+        else {
+            // Undefined targetEntity means it's an entity that I'm joined.
+            // Join topic first and go!
+            entityheaderAPIservice.joinChannel(entityId)
                 .success(function(response) {
                     analyticsService.mixpanelTrack( "topic Join" );
                     $rootScope.$emit('updateLeftPanelCaller');
-                    $state.go('archives', {entityType:targetEntity.type + 's',  entityId:targetEntity.id});
+                    $state.go('archives', {entityType: 'channels',  entityId: entityId });
                 })
                 .error(function(err) {
                     alert(err.msg);

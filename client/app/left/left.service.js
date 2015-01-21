@@ -106,14 +106,14 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
             entity.isStarred = false;
             if (entity.type === 'channel') {
                 entity.type = 'channels';
-                entity.typeCategory = $filter('translate')('@channel');
+                entity.typeCategory = $filter('translate')('@common-topics');
             } else if (entity.type === 'user') {
                 entity.type = 'users';
                 entity.typeCategory = $filter('translate')('@user');
             }
             else {
                 entity.type = 'privategroups';
-                entity.typeCategory = $filter('translate')('@privateGroup');
+                entity.typeCategory = $filter('translate')('@common-topics');
             }
         });
 
@@ -121,13 +121,13 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
             entity.isStarred = false;
             if (entity.type === 'channel') {
                 entity.type = 'channels';
-                entity.typeCategory = $filter('translate')('@channel');
+                entity.typeCategory = $filter('translate')('@common-topics');
             } else if (entity.type === 'user') {
                 entity.type = 'users';
                 entity.typeCategory = $filter('translate')('@user');
             } else {
                 entity.type = 'privategroups';
-                entity.typeCategory = $filter('translate')('@privateGroup');
+                entity.typeCategory = $filter('translate')('@common-topics');
             }
         });
     };
