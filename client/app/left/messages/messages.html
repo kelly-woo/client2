@@ -1,40 +1,45 @@
 <div ng-controller="messageListCtrl as MessageListCtrl">
-    <!--    HEADER  -->
-    <div class="lpanel-list__header cursor_pointer" ng-click="MessageListCtrl.onMessageHeaderClick();">
-        <i class="lpanel-list-left icon-user"></i>
-        <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-direct-messages</span>
+  <!--    HEADER  -->
+  <div class="lpanel-list__header cursor_pointer" ng-click="MessageListCtrl.onMessageHeaderClick();">
+    <i class="lpanel-list-left icon-user"></i>
+    <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-direct-messages</span>
+    <div class="lpanel-list-option pull-right" ng-click="MessageListCtrl.openModal('memberList'); $event.stopPropagation(); $event.preventDefault();">
+      <i class="icon-add"></i><span translate>@common-add</span>
     </div>
 
-    <!--    LIST    -->
-    <ul id="dm-list" collapse="MessageListCtrl.isMessageListCollapsed">
-        <!--    WHEN THERE IS NO ONE IN MESSAGE LIST    -->
-        <div class="empty-mesage-list-container" ng-if="MessageListCtrl.messageList.length == 0">
-            no list!
-        </div>
+  </div>
 
-        <!-- WHERE THERE IS AT LEAST ONE PERSON IN MESSAGE LIST -->
-        <div ng-if="MessageListCtrl.messageList.length > 0">
-            <li class="member cursor_pointer" ng-repeat="userEntity in MessageListCtrl.messageList"
-                ng-class="{active: $state.params.entityId == userEntity.id}">
-                <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
-                    <i class="icon-star left-star" ng-class="{'icon-star-fill': userEntity.isStarred}"
-                       data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
+  <!--    LIST    -->
+  <ul id="dm-list" collapse="MessageListCtrl.isMessageListCollapsed">
+    <!--    WHEN THERE IS NO ONE IN MESSAGE LIST    -->
+    <div class="empty-mesage-list-container" ng-if="MessageListCtrl.messageList.length == 0">
+      no list!
+    </div>
 
-                    <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}">{{userEntity | getName}}</span>
+    <!-- WHERE THERE IS AT LEAST ONE PERSON IN MESSAGE LIST -->
+    <div ng-if="MessageListCtrl.messageList.length > 0">
+      <li class="member cursor_pointer" ng-repeat="userEntity in MessageListCtrl.messageList"
+          ng-class="{active: $state.params.entityId == userEntity.id}">
+        <a ui-sref="archives({entityType:'users',entityId: userEntity.id})"
+           ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}" data-member-id="{{userEntity.id}}">
 
-                    <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
+          <i class="icon-star left-star" ng-class="{'icon-star-fill': userEntity.isStarred}"
+             data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
-                <span class="left-panel_leave pull-right opac-zero"
-                      ng-click="MessageListCtrl.onMeesageLeaveClick(userEntity.id); $event.preventDefault(); $event.stopPropagation();"
-                      tooltip="{{ '@common-leave' | translate }}">
-                    <i class="icon-cancel"></i>
-                </span>
+          <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}">{{userEntity | getName}}</span>
 
-                </a>
-            </li>
-        </div>
+          <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
 
-    </ul>
+          <span class="left-panel_leave pull-right"
+                ng-click="MessageListCtrl.onMeesageLeaveClick(userEntity.id); $event.preventDefault(); $event.stopPropagation();">
+            <i class="icon-cancel"></i>
+          </span>
 
-    <div class="clear-both"></div>
+        </a>
+      </li>
+    </div>
+
+  </ul>
+
+  <div class="clear-both"></div>
 </div>

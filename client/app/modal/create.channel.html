@@ -1,35 +1,35 @@
 <!-- Modal: Create Channel -->
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
-    <h3 class="modal-header__title">
-        <span translate>@common-create-ch</span>
-    </h3>
+  <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
+  <h3 class="modal-header__title">
+    <span translate>@common-create-ch</span>
+  </h3>
 </div>
 
 <form name="create_channel_form" data-ng-submit="onCreateClick('channel', channelName)">
-    <div class="modal-body">
-        <h4 class="modal-body__description">
-            <span translate>@modal-create-ch-msg1</span>
-            <span translate>@modal-create-ch-msg2</span>
-            <div class="modal-body__description-help">
-                <span translate>@modal-create-ch-msg3</span>
-            </div>
-        </h4>
-        <div class="form-horizontal">
-            <div class="form-group">
-                <label class="control-label col-sm-2"><span translate>@common-name</span></label>
-                <div class="col-sm-10">
-                    <input type="text"
-                           class="form-control"
-                           name="channelName"
-                           data-ng-model="channelName"
-                           placeholder="{{ '@input-create-ch' | translate }}"
-                           required/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2"><span translate>@common-purpose</span></label>
-                <div class="col-sm-10">
+  <div class="modal-body">
+    <h4 class="modal-body__description">
+      <span translate>@modal-create-ch-msg1</span>
+      <span translate>@modal-create-ch-msg2</span>
+      <div class="modal-body__description-help">
+        <span translate>@modal-create-ch-msg3</span>
+      </div>
+    </h4>
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label class="control-label col-sm-2"><span translate>@common-name</span></label>
+        <div class="col-sm-10">
+          <input type="text"
+                 class="form-control"
+                 name="channelName"
+                 data-ng-model="channelName"
+                 placeholder="{{ '@input-create-ch' | translate }}"
+                 required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2"><span translate>@common-purpose</span></label>
+        <div class="col-sm-10">
                     <textarea class="form-control"
                               name="channelPurpose"
                               rows="3"
@@ -38,20 +38,20 @@
                               maxlength="256"
                               style="resize:none;"
                               disabled></textarea>
-                </div>
-            </div>
         </div>
+      </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" data-ng-click="cancel()">
-            <span translate>@btn-close</span>
-        </button>
-        <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ '@btn-create' | translate }}" />
-    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-cancel" data-ng-click="cancel()">
+      <span translate>@btn-close</span>
+    </button>
+    <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ '@btn-create' | translate }}" />
+  </div>
 </form>
 
 <div class="loading_container" data-ng-if="isLoading">
-    <div class="loading_container_background"></div>
-    <div class="loading_bg"></div>
-    <div class="loading_bar icon-loading"></div>
+  <div class="loading_container_background"></div>
+  <div class="loading_bg"></div>
+  <div class="loading_bar icon-loading"></div>
 </div>

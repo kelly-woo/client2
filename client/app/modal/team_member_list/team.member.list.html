@@ -1,0 +1,43 @@
+<!-- Modal: TEAM MEMBER LIST  -->
+<div class="modal-header">
+  <!--  CLOSE BUTTON  -->
+  <button type="button" class="close" data-ng-click="cancel()"><i class="icon-cancel"></i></button>
+
+  <!--  TITLE -->
+  <h3 class="modal-header__title">
+    <span translate>@modal-member-list-title</span>
+  </h3>
+
+</div>
+
+<div class="modal-body modal_team_member_list_body">
+
+  <!--  SEARCH BOX  -->
+  <div class="modal_team_member_search_box">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="icon-search"></i></span>
+      <input type="text"
+             class="form-control green-input-box"
+             placeholder="{{ '@input-search-user-name' | translate }}"
+             data-ng-model="memberNameQuery">
+    </div>
+  </div>
+
+  <div class="modal_team_member_list">
+    <div ng-repeat="member in memberList | orderBy:['!isStarred', 'name'] | userByName:memberNameQuery"
+         class="modal_team_member_container cursor_pointer" ng-click="onMemberClick(member.id);">
+
+      <img on-image-load="" class="modal_team_member_profile_pic_thumbnail" ng-src="{{ member | getSmallThumbnail }}"/>
+
+      <div class="modal_team_member_name">{{member|getName}}</div>
+
+      <i class="icon-star right-star opac-zero" ng-class="{'icon-star-fill': member.isStarred}"
+         data-ng-click="onStarClick('users', member.id); $event.preventDefault(); $event.stopPropagation();"></i>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div ng-include="templates.loading"></div>

@@ -1,0 +1,44 @@
+.modal_team_member_list_body {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.modal_team_member_list {
+  margin-top: 20px;
+}
+.modal_team_member_container {
+  padding: 9px 9px 0 9px;
+  background-color: white;
+  width: 100%;
+  height: 44px;
+  border-bottom: 1px solid #f2f2f2;
+}
+.modal_team_member_container:hover {
+  background-color: #eefcf7;
+}
+.modal_team_member_container:hover .icon-star {
+  opacity: 1;
+}
+
+.modal_team_member_profile_pic_thumbnail,
+.modal_team_member_name {
+  display: inline-block;
+}
+.modal_team_member_profile_pic_thumbnail {
+  width: 25px;
+  border-radius: 25px;
+  vertical-align: middle;
+}
+
+.modal_team_member_list .right-star {
+  float: right;
+  line-height: 25px;
+}
+
+.modal_team_member_list .icon-star-fill {
+  color: #31c08a;
+  opacity: 1;
+}
+.modal_team_member_name {
+  line-height: 25px;
+  margin-left: 5px;
+}

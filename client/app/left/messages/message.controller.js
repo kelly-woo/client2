@@ -1,108 +1,112 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('jandiApp')
-        .controller('messageListCtrl', messageListCtrl);
+  angular
+    .module('jandiApp')
+    .controller('messageListCtrl', messageListCtrl);
 
-    /* @ngInject */
-    function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice) {
-        var vm = this;
+  /* @ngInject */
+  function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice, publicService) {
+    var vm = this;
 
 
-        // okay - okay to go!
-        // loading - currently loading.
-        // failed - failed to retrieve list from server.
+    // okay - okay to go!
+    // loading - currently loading.
+    // failed - failed to retrieve list from server.
+    vm.messageListLoadingStatus = 'okay';
 
-        vm.messageListLoadingStatus = 'okay';
+    vm.messageList;
+    vm.isMessageListCollapsed = storageAPIservice.isLeftDMCollapsed();
 
-        vm.messageList;
-        vm.isMessageListCollapsed = storageAPIservice.isLeftDMCollapsed();
+    // TODO: REALLY??? IS THIS THE BEST???
+    vm.onDMInputFocus = onDMInputFocus;
+    vm.onDMInputBlur = onDMInputBlur;
 
-        // TODO: REALLY??? IS THIS THE BEST???
-        vm.onDMInputFocus = onDMInputFocus;
-        vm.onDMInputBlur = onDMInputBlur;
+    vm.onMessageHeaderClick = onMessageHeaderClick;
+    vm.onMeesageLeaveClick = onMeesageLeaveClick;
 
-        vm.onMessageHeaderClick = onMessageHeaderClick;
-        vm.onMeesageLeaveClick = onMeesageLeaveClick;
+    vm.openModal= openTeamMemberListModal;
 
-        // Must keep watching memberList in 'leftController' in order to keep member's starred status.
-        $scope.$watch('memberList', function() {
-            getMessageList();
+    function openTeamMemberListModal() {
+      publicService.openTeamMemberListModal($scope);
+    }
+
+    // Must keep watching memberList in 'leftController' in order to keep member's starred status.
+    $scope.$watch('memberList', function() {
+      getMessageList();
+    });
+
+    $scope.$on('updateMessageList', function() {
+      getMessageList();
+    });
+
+    getMessageList();
+
+    function getMessageList() {
+      if (vm.messageListLoadingStatus == 'loading') return;
+
+      vm.messageListLoadingStatus = 'loading';
+
+      messageList.getRecentMessageList()
+        .success(function(response) {
+          vm.messageList = _generateMessageList(response);
+          vm.messageListLoadingStatus = 'okay';
+        })
+        .error(function(err) {
+          vm.messageListLoadingStatus = 'failed';
+          console.log(err)
+        })
+        .finally(function() {
         });
+    }
 
-        $scope.$on('updateMessageList', function() {
-            getMessageList();
+    function onMessageHeaderClick() {
+      vm.isMessageListCollapsed = !vm.isMessageListCollapsed;
+      storageAPIservice.setLeftDMCollapsed(vm.isMessageListCollapsed);
+    }
+
+    function _generateMessageList(messages) {
+      var messageList = [];
+      messages = _.uniq(messages, 'entityId');
+      _.each(messages, function(message) {
+
+        var entity = entityAPIservice.getEntityFromListById($scope.memberList, message.entityId);
+
+        if (!angular.isUndefined(entity)) {
+          if (message.unread > 0) {
+            entityAPIservice.updateBadgeValue(entity, message.unread);
+          }
+          messageList.push(entity);
+        }
+      });
+
+      return messageList;
+    }
+
+    function onMeesageLeaveClick(entityId) {
+      messageList.leaveCurrentMessage(entityId)
+        .success(function(response) {
+          if (entityId == $scope.currentEntity.id) {
+            $rootScope.toDefault = true;
+          }
+        })
+        .error(function(err) {
+          // TODO: WHAT SHOULD I DO WHEN FAILED?
+        })
+        .finally(function() {
+          getMessageList();
         });
-
-        getMessageList();
-
-        function getMessageList() {
-            if (vm.messageListLoadingStatus == 'loading') return;
-
-            vm.messageListLoadingStatus = 'loading';
-
-            messageList.getRecentMessageList()
-                .success(function(response) {
-                    vm.messageList = _generateMessageList(response);
-                    vm.messageListLoadingStatus = 'okay';
-                })
-                .error(function(err) {
-                    vm.messageListLoadingStatus = 'failed';
-                    console.log(err)
-                })
-                .finally(function() {
-                });
-        }
-
-        function onMessageHeaderClick() {
-            vm.isMessageListCollapsed = !vm.isMessageListCollapsed;
-            storageAPIservice.setLeftDMCollapsed(vm.isMessageListCollapsed);
-        }
-
-        function _generateMessageList(messages) {
-            var messageList = [];
-
-            _.each(messages, function(message) {
-
-                var entity = entityAPIservice.getEntityFromListById($scope.memberList, message.entityId);
-
-                if (!angular.isUndefined(entity)) {
-                    if (message.unread > 0) {
-                        entityAPIservice.updateBadgeValue(entity, message.unread);
-                    }
-                    messageList.push(entity);
-                }
-            });
-
-            return messageList;
-        }
-
-        function onMeesageLeaveClick(entityId) {
-            messageList.leaveCurrentMessage(entityId)
-                .success(function(response) {
-                    if (entityId == $scope.currentEntity.id) {
-                        $rootScope.toDefault = true;
-                    }
-                })
-                .error(function(err) {
-                    // TODO: WHAT SHOULD I DO WHEN FAILED?
-                })
-                .finally(function() {
-                    getMessageList();
-                });
-
-        }
-
-
-        function onDMInputFocus() {
-            $('.absolute-search-icon').stop().animate({opacity: 1}, 400);
-        }
-
-        function onDMInputBlur() {
-            $('.absolute-search-icon').stop().css({'opacity' : 0.2});
-        }
 
     }
+
+    function onDMInputFocus() {
+      $('.absolute-search-icon').stop().animate({opacity: 1}, 400);
+    }
+
+    function onDMInputBlur() {
+      $('.absolute-search-icon').stop().css({'opacity' : 0.2});
+    }
+
+  }
 
 })();

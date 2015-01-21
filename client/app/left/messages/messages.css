@@ -1,9 +1,22 @@
 .lpanel-list ul li:hover .left-panel_leave {
     opacity: 0.6;
 }
+.has-unread-msg .left-panel_leave {
+    display: none;
+}
 .left-panel_leave {
     margin-right: 5px;
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  -ms-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 0;
 }
 .left-panel_leave:hover {
     opacity: 1 !important;
 }
+.has-unread-msg {
+    /*color: #31c08a;*/
+}
+

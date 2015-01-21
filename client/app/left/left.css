@@ -6,7 +6,7 @@
     left: 0;
     top: 41px;
     bottom: 0;
-    z-index: 0;
+    background: #f2f2f2;
 }
 
 
@@ -30,7 +30,6 @@
     top: 67px;
     background: #f2f2f2;
     box-sizing: content-box;
-    z-index: -1;
 }
 .lpanel-list__channels,
 .lpanel-list__groups,
@@ -168,10 +167,6 @@
 .active .private-topic-icon {
     opacity: 1;
 }
-.has-unread-msg {
-    color: #31c08a;
-}
-
 .lpanel-list__groups {
     margin: 1px 0;
 }
