@@ -185,8 +185,6 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
             this.push(user.id);
         }, guestList);
 
-        $scope.isLoading = true;
-
         entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
             .success(function(response) {
                 console.log(response)
@@ -206,17 +204,17 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
 
                 analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
 
-                // TODO -  ASK JOHN FOR AN API THAT RETRIEVES UPDATED INFO OF TOPIC/PG.
+                // TODO -  ASK JOHN FOR AN API THAT RETRIEVES UPDATED INFO OF SPECIFIC TOPIC/PG.
                 $scope.updateLeftPanelCaller();
 
                 $modalInstance.dismiss('success');
             })
             .error(function(error) {
+                // TODO - TO JAY, MAYBE WE NEED TO SHOW MESSAGE WHY IT FAILED??
                 console.error('inviteUsers', error.msg );
             })
             .finally(function() {
                 $scope.toggleLoading();
-
             });
     };
 });
