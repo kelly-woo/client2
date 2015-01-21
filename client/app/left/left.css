@@ -2,11 +2,11 @@
     color: #333;
     width: 220px;
     overflow: auto;
-    background: #f2f2f2;
     position: absolute;
     left: 0;
     top: 41px;
     bottom: 0;
+    z-index: 0;
 }
 
 
@@ -20,54 +20,6 @@
 .lpanel-list__header .fa-comment {
     font-size: 11px;
 }
-.lpanel-user {
-    width: inherit;
-    height: 67px;
-    padding: 15px 0;
-    overflow: hidden;
-    border-right: 1px solid #e1e1e1;
-    padding-left: 15px !important;
-}
-.lpanel-user__avatar {
-    -webkit-border-radius: 37px;
-    -moz-border-radius: 37px;
-    border-radius: 37px;
-    float: left;
-    width: 37px;
-    height: 37px;
-    margin-right: 9px;
-}
-
-.lpanel-user__container {
-    position: relative;
-}
-.lpanel-user__name {
-    max-width: 142px;
-    font-size: 14px;
-    display: inline-block;
-    line-height: 18px;
-}
-.lpanel-user__more {
-    position: absolute;
-    color: #333;
-    right: 20px;
-    top: 25px;
-    font-size: 1rem;
-    -webkit-transitionDISABLED: color .1s ease-out;
-    -moz-transitionDISABLED: color .1s ease-out;
-    -o-transitionDISABLED: color .1s ease-out;
-    transitionDISABLED: color .1s ease-out;
-}
-.lpanel-user__dropdown {
-    left: 52px;
-    top: auto;
-    bottom: 48px;
-}
-.lpanel-user__dropdown .icon_signout {
-    position: absolute;
-    top: 6px;
-    left: 13px;
-}
 
 .lpanel-list {
     width: inherit;
@@ -78,6 +30,7 @@
     top: 67px;
     background: #f2f2f2;
     box-sizing: content-box;
+    z-index: -1;
 }
 .lpanel-list__channels,
 .lpanel-list__groups,

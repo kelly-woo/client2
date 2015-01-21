@@ -1,0 +1,10 @@
+<div ng-controller="currentMemberCtrl as CurrentMemberCtrl">
+    <div class="background"></div>
+    <div ng-click="CurrentMemberCtrl.onCurrentMemberContainerClick();">
+        <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
+        <div class="lpanel-user__container">
+        <span class="lpanel-user__name inline-overflow-ellipsis"><b>{{team|getName}}</b><br/>
+            {{ member | getUserPosition }} {{ member | getName}}</span>
+        </div>
+    </div>
+</div>

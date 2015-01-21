@@ -4,22 +4,13 @@
     <aside class="lpanel">
 
         <!-- USER INFO CONTAINER -->
-        <div class="lpanel-user cursor_pointer" ng-click="onCurrentMemberContainerClick();">
-        <span data-toggle="dropdown">
-            <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
-            <div class="lpanel-user__container">
-                <span class="lpanel-user__name inline-overflow-ellipsis"><b>{{team.name}}</b><br/>
-                    {{ member | getUserPosition }} {{ member | getName}}</span>
-            </div>
-            <i class="fa fa-caret-up lpanel-user__more hidden"></i>
-        </span>
-        </div>
+        <div class="lpanel-user cursor_pointer" ng-include="templates.left_user"></div>
 
         <div class="tutorial-clicker tutorial-z-index pulse" id="topicTutorial" data-ng-click="onTutorialPulseClick($event);"
              data-ng-if="!tutorialStatus.topicTutorial"></div>
 
         <!-- LIST CONTAINER -->
-        <div class="lpanel-list">
+        <div left-custom-scroll="" class="lpanel-list">
 
             <!-- TOPICS -->
             <div class="lpanel-list__topics">

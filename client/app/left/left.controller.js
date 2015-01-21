@@ -297,12 +297,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
         publicService.openMemberProfileModal($scope, user);
     };
 
-
-
-    $scope.onCurrentMemberContainerClick = function() {
-        publicService.openCurrentMemberModal($scope);
-    };
-
     // based on uesr.u_starredEntites, populating starred look-up list.
     function setStar() {
         _.forEach(memberService.getStarredEntities(), function(starredEntityId) {
