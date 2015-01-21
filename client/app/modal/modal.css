@@ -854,11 +854,17 @@
 }
 .private-topic-help-msg-container {
     height: 0;
-    -webkit-transition: height 0.7s, opacity 0.7s;
-    -moz-transition: height 0.7s, opacity 0.7s;
-    -ms-transition: height 0.7s, opacity 0.7s;
-    -o-transition: height 0.7s, opacity 0.7s;
-    transition: height 0.7s, opacity 0.7s;
+    /*-webkit-transition: height 0.7s, opacity 0.7s;*/
+    /*-moz-transition: height 0.7s, opacity 0.7s;*/
+    /*-ms-transition: height 0.7s, opacity 0.7s;*/
+    /*-o-transition: height 0.7s, opacity 0.7s;*/
+    /*transition: height 0.7s, opacity 0.7s;*/
+
+    /*-webkit-transition: height 0.7s;*/
+    /*-moz-transition: height 0.7s;*/
+    /*-ms-transition: height 0.7s;*/
+    /*-o-transition: height 0.7s;*/
+    /*transition: height 0.7s;*/
 }
 .private-topic-help-msg-container.opac-in {
     height: 17px;

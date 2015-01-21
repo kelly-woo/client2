@@ -14,17 +14,7 @@
 
         <!-- WHERE THERE IS AT LEAST ONE PERSON IN MESSAGE LIST -->
         <div ng-if="MessageListCtrl.messageList.length > 0">
-            <div class="lpanel-list-user_search">
-                <i class="icon-search absolute-search-icon"></i>
-                <input type="text"
-                       class="form-control lpanel-list-user-search__box"
-                       placeholder=""
-                       data-ng-model="userNameQuery"
-                       data-ng-focus="MessageListCtrl.onDMInputFocus();"
-                       data-ng-blur="MessageListCtrl.onDMInputBlur();"/>
-            </div>
-
-            <li class="member cursor_pointer" ng-repeat="userEntity in MessageListCtrl.messageList | userByName:userNameQuery"
+            <li class="member cursor_pointer" ng-repeat="userEntity in MessageListCtrl.messageList"
                 ng-class="{active: $state.params.entityId == userEntity.id}">
                 <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
                     <i class="icon-star left-star" ng-class="{'icon-star-fill': userEntity.isStarred}"
