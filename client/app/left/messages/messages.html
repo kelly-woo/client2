@@ -7,26 +7,32 @@
 
     <!--    LIST    -->
     <ul id="dm-list" collapse="MessageListCtrl.isMessageListCollapsed">
-        <div class="lpanel-list-user_search">
-            <i class="icon-search absolute-search-icon"></i>
-            <input type="text"
-                   class="form-control lpanel-list-user-search__box"
-                   placeholder=""
-                   data-ng-model="userNameQuery"
-                   data-ng-focus="MessageListCtrl.onDMInputFocus();"
-                   data-ng-blur="MessageListCtrl.onDMInputBlur();"/>
+        <!--    WHEN THERE IS NO ONE IN MESSAGE LIST    -->
+        <div class="empty-mesage-list-container" ng-if="MessageListCtrl.messageList.length == 0">
+            no list!
         </div>
 
-        <!--<li class="member cursor_pointer" ng-repeat="userEntity in visibleUsers = (messageList | orderBy: ['isStarred', '-name']: true | userByName:userNameQuery)"-->
-        <li class="member cursor_pointer" ng-repeat="userEntity in MessageListCtrl.messageList | userByName:userNameQuery"
-            ng-class="{active: $state.params.entityId == userEntity.id}">
-            <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
-                <i class="icon-star left-star" ng-class="{'icon-star-fill': userEntity.isStarred}"
-                   data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
+        <!-- WHERE THERE IS AT LEAST ONE PERSON IN MESSAGE LIST -->
+        <div ng-if="MessageListCtrl.messageList.length > 0">
+            <div class="lpanel-list-user_search">
+                <i class="icon-search absolute-search-icon"></i>
+                <input type="text"
+                       class="form-control lpanel-list-user-search__box"
+                       placeholder=""
+                       data-ng-model="userNameQuery"
+                       data-ng-focus="MessageListCtrl.onDMInputFocus();"
+                       data-ng-blur="MessageListCtrl.onDMInputBlur();"/>
+            </div>
 
-                <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}">{{userEntity | getName}}</span>
+            <li class="member cursor_pointer" ng-repeat="userEntity in MessageListCtrl.messageList | userByName:userNameQuery"
+                ng-class="{active: $state.params.entityId == userEntity.id}">
+                <a ui-sref="archives({entityType:'users',entityId: userEntity.id})" data-member-id="{{userEntity.id}}">
+                    <i class="icon-star left-star" ng-class="{'icon-star-fill': userEntity.isStarred}"
+                       data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
-                <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
+                    <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}">{{userEntity | getName}}</span>
+
+                    <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
 
                 <span class="left-panel_leave pull-right opac-zero"
                       ng-click="MessageListCtrl.onMeesageLeaveClick(userEntity.id); $event.preventDefault(); $event.stopPropagation();"
@@ -34,8 +40,10 @@
                     <i class="icon-cancel"></i>
                 </span>
 
-            </a>
-        </li>
+                </a>
+            </li>
+        </div>
+
     </ul>
 
     <div class="clear-both"></div>
