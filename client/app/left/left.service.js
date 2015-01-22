@@ -100,6 +100,7 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
         return returnValue;
     };
 
+    // TODO: REFACTOR | TO entityAPIservice - LOGIC ONLY.
     //  Initialize correct prefix for 'channel' and 'user'.
     leftpanelAPI.setEntityPrefix = function($scope) {
         _.each($scope.totalEntities, function(entity) {

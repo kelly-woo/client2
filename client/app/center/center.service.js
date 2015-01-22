@@ -90,6 +90,7 @@
         function updateMessageMarker(entityId, entityType, lastLinkId) {
             entityType = entityType.toLowerCase().trim();
 
+            // TODO: REFACTOR | TO entityAPIservice - LOGIC ONLY.
             if (entityType == 'privategroups')
                 entityType = 'privateGroup';
             else if (entityType == 'channels')

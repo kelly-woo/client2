@@ -12,7 +12,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var entityType = $state.params.entityType;
     var entityId = $state.params.entityId;
 
-    // Check entityType first
+    // TODO: REFACTOR | TO entityAPIservice - WHOLE BLOCK WITH MEANINGFUL NAME.
+    // CALL FUNCTION INSTEAD OF LINES OF CODE
+    // Check entityType first.
     if (entityType.slice(-1) != 's') {
         // If entitytype doesn't contain 's' at the end, do nothing about it.
         // Let router handle this case.

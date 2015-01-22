@@ -51,7 +51,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
     // constant
     $rootScope.listLangs = [
         { "value": "ko",    "text": "한국어" },
-        { "value": "en", "text": "English" },
+        { "value": "en",    "text": "English" },
         { "value": "zh-cn", "text": "简体中文 " },
         { "value": "zh-tw", "text": "繁體中文" },
         { "value": "ja",    "text": "日本語"}
@@ -59,6 +59,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
     // Stores templates in angular variable.
     // TODO: angular variable로 가지고 있지말고 configuration 처럼 가지고 있는건 어떠한가?
+    // TODO: STUDY AND USE 'ngTemplate'
     $rootScope.templates = {
         'header'    : 'app/tpl/header.tpl.html',
         'footer'    : 'app/tpl/footer.tpl.html',
