@@ -91,8 +91,9 @@ msgid "@btn-click-to-view"
 msgstr "表示"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html client/app/modal/join.html
+#: client/app/modal/create.topic.html client/app/modal/invite.channel.html
+#: client/app/modal/invite.direct.html client/app/modal/invite.team.html
+#: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
@@ -109,6 +110,7 @@ msgid "@btn-confirm"
 msgstr "確認"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
 msgid "@btn-create"
 msgstr "作成"
 
@@ -181,17 +183,13 @@ msgstr "トピック一覧"
 msgid "@common-account-settings"
 msgstr "アカウント設定"
 
-#: client/app/left/left.html
+#: client/app/left/left.html client/app/left/messages/messages.html
 msgid "@common-add"
 msgstr "追加"
 
 #: client/app/center/center.html client/app/left/left.html
 msgid "@common-api-error-msg"
 msgstr "処理が失敗しました。もう一度お試しください"
-
-#: client/app/left/left.html
-msgid "@common-channels"
-msgstr "トピック一覧"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
@@ -205,8 +203,18 @@ msgstr "メールを確認してください。"
 msgid "@common-comment"
 msgstr "コメント"
 
+#: client/app/left/messages/messages.html
+msgid "@common-conversation-leave"
+msgstr "退出する"
+
+#: client/app/left/messages/messages.html
+msgid "@common-conversation-leave-confirm"
+msgstr ""
+"この会話から退出しますか？メッセージ履歴は非表示になりますが、再開した場合に"
+"はこれまでの会話履歴は表示されます"
+
 #: client/app/header/header.html client/app/modal/create.channel.html
-#: client/app/modal/join.html
+#: client/app/modal/create.topic.html client/app/modal/join.html
 msgid "@common-create-ch"
 msgstr "新規トピックを作成する"
 
@@ -230,7 +238,7 @@ msgstr "部署"
 msgid "@common-desktop-noti"
 msgstr "デスクトップ通知"
 
-#: client/app/left/left.html
+#: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
 msgstr "ダイレクトメッセージ一覧"
 
@@ -248,6 +256,10 @@ msgstr "ダウンロード"
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "メールアドレス"
+
+#: client/app/modal/create.topic.html
+msgid "@common-entity-type"
+msgstr "公開/非公開"
 
 #: client/app/header/header.html
 msgid "@common-faq"
@@ -319,7 +331,7 @@ msgid "@common-more"
 msgstr "表示"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
 msgid "@common-name"
 msgstr "名前"
 
@@ -351,10 +363,6 @@ msgstr "役職"
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "プライバシーポリシー"
-
-#: client/app/left/left.html
-msgid "@common-private-groups"
-msgstr "プライベートグループ"
 
 #: client/app/header/header.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
@@ -400,6 +408,11 @@ msgstr "ログインする"
 msgid "@common-sign-out"
 msgstr "ログアウトする"
 
+#: client/app/left/messages/messages.html
+msgid "@common-start-new-message"
+msgstr ""
+"メッセージ送ったり、これまでの会話履歴を見るには以下のボタンを押してください"
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
 msgstr "アプリを開く"
@@ -415,6 +428,18 @@ msgstr "サービス利用規約"
 #: client/app/modal/upload.html
 msgid "@common-title"
 msgstr "タイトル"
+
+#: client/app/left/left.html
+msgid "@common-topics"
+msgstr "トピック"
+
+#: client/app/modal/create.topic.html
+msgid "@common-type-private"
+msgstr "非公開"
+
+#: client/app/modal/create.topic.html
+msgid "@common-type-public"
+msgstr "公開"
 
 #: client/app/header/header.html client/app/modal/upload.html
 #: client/app/right/right.html
@@ -519,11 +544,11 @@ msgstr ""
 "Internet Explorer 9では、プロフィール画像の変更機能はサポートされていません。"
 "ご利用するには、最新バージョンにアップデートしてください。"
 
-#: client/app/modal/create.channel.html
+#: client/app/modal/create.channel.html client/app/modal/create.topic.html
 msgid "@input-create-ch"
 msgstr "新規トピックの名称を入力"
 
-#: client/app/modal/create.private.html
+#: client/app/modal/create.private.html client/app/modal/create.topic.html
 msgid "@input-create-pg"
 msgstr "新規プライベートグループの名称を入力"
 
@@ -539,7 +564,8 @@ msgstr " "
 msgid "@input-max-length-60-error"
 msgstr " "
 
-#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
+#: client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "入力可能な文字数を超えています"
 
@@ -556,6 +582,7 @@ msgid "@input-search-file-title"
 msgstr "ファイル名で検索"
 
 #: client/app/modal/invite.channel.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
 msgstr "メンバー名で検索"
 
@@ -617,10 +644,32 @@ msgstr ""
 "特定のメンバーのみでチャットしたい場合はプライベートグループを使用してくださ"
 "い"
 
-#: client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
+msgid "@modal-create-entity-title"
+msgstr "トピックを作成した後に、公開・非公開を変更することはできません"
+
+#: client/app/modal/create.private.html client/app/modal/create.topic.html
 msgid "@modal-create-pg-msg1"
 msgstr ""
 "プライベートグループはそのグループのメンバーのみ参加、内容の検索ができます"
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-1"
+msgstr ""
+"-プライベートトピックはそのトピックに招待されていないメンバーから見ることはで"
+"きません"
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-2"
+msgstr ""
+"-プライベートトピック内で共有されたファイルは、そのトピックを閲覧できるメン"
+"バーからしかアクセスできません"
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-3"
+msgstr ""
+"-トピック作成後はプライベートトピックへの変更はできません。その逆もできませ"
+"ん。"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
@@ -641,6 +690,10 @@ msgstr "あなたが参加しているトピック"
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
 msgstr "参加可能なトピック一覧"
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@modal-member-list-title"
+msgstr "メッセージの送信相手を選択"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
@@ -996,6 +1049,12 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
+
+#~ msgid "@common-channels"
+#~ msgstr "トピック一覧"
+
+#~ msgid "@common-private-groups"
+#~ msgstr "プライベートグループ"
 
 #~ msgid "@input-password-average"
 #~ msgstr "普通 "

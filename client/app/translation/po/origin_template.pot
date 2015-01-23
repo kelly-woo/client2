@@ -193,6 +193,7 @@ msgid "@common-account-settings"
 msgstr ""
 
 #: client/app/left/left.html
+#: client/app/left/messages/messages.html
 msgid "@common-add"
 msgstr ""
 
@@ -212,6 +213,14 @@ msgstr ""
 #: client/app/modal/share.html
 #: client/app/modal/upload.html
 msgid "@common-comment"
+msgstr ""
+
+#: client/app/left/messages/messages.html
+msgid "@common-conversation-leave"
+msgstr ""
+
+#: client/app/left/messages/messages.html
+msgid "@common-conversation-leave-confirm"
 msgstr ""
 
 #: client/app/header/header.html
@@ -243,7 +252,7 @@ msgstr ""
 msgid "@common-desktop-noti"
 msgstr ""
 
-#: client/app/left/left.html
+#: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
 msgstr ""
 
@@ -378,10 +387,6 @@ msgstr ""
 msgid "@common-privacy-policy"
 msgstr ""
 
-#: client/app/left/left.html
-msgid "@common-private-groups"
-msgstr ""
-
 #: client/app/header/header.html
 #: client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
@@ -429,6 +434,10 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "@common-sign-out"
+msgstr ""
+
+#: client/app/left/messages/messages.html
+msgid "@common-start-new-message"
 msgstr ""
 
 #: client/app/mobile/mobile.catcher.html
@@ -565,6 +574,7 @@ msgid "@input-create-ch"
 msgstr ""
 
 #: client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
 msgid "@input-create-pg"
 msgstr ""
 
@@ -580,6 +590,7 @@ msgstr ""
 msgid "@input-max-length-60-error"
 msgstr ""
 
+#: client/app/modal/create.topic.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.team.html
 msgid "@input-max-length-error"
@@ -598,6 +609,7 @@ msgid "@input-search-file-title"
 msgstr ""
 
 #: client/app/modal/invite.channel.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
 msgstr ""
 
@@ -646,22 +658,36 @@ msgid "@modal-browse-ch"
 msgstr ""
 
 #: client/app/modal/create.channel.html
-#: client/app/modal/create.topic.html
 msgid "@modal-create-ch-msg1"
 msgstr ""
 
 #: client/app/modal/create.channel.html
-#: client/app/modal/create.topic.html
 msgid "@modal-create-ch-msg2"
 msgstr ""
 
 #: client/app/modal/create.channel.html
-#: client/app/modal/create.topic.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
 
+#: client/app/modal/create.topic.html
+msgid "@modal-create-entity-title"
+msgstr ""
+
 #: client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
 msgid "@modal-create-pg-msg1"
+msgstr ""
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-1"
+msgstr ""
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-2"
+msgstr ""
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-3"
 msgstr ""
 
 #: client/app/modal/invite.direct.html
@@ -682,6 +708,10 @@ msgstr ""
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
+msgstr ""
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@modal-member-list-title"
 msgstr ""
 
 #: client/app/modal/image.crop.html

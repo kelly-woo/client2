@@ -91,8 +91,9 @@ msgid "@btn-click-to-view"
 msgstr "點擊檢視"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html client/app/modal/join.html
+#: client/app/modal/create.topic.html client/app/modal/invite.channel.html
+#: client/app/modal/invite.direct.html client/app/modal/invite.team.html
+#: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
@@ -109,6 +110,7 @@ msgid "@btn-confirm"
 msgstr "確定"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
 msgid "@btn-create"
 msgstr "建立"
 
@@ -181,17 +183,13 @@ msgstr "議題群組 "
 msgid "@common-account-settings"
 msgstr "帳號設定"
 
-#: client/app/left/left.html
+#: client/app/left/left.html client/app/left/messages/messages.html
 msgid "@common-add"
 msgstr "增加"
 
 #: client/app/center/center.html client/app/left/left.html
 msgid "@common-api-error-msg"
 msgstr "有錯誤發生。請再試一次。"
-
-#: client/app/left/left.html
-msgid "@common-channels"
-msgstr "議題群組"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
@@ -205,8 +203,18 @@ msgstr "請到您的電子郵件信箱收信。"
 msgid "@common-comment"
 msgstr "留言"
 
+#: client/app/left/messages/messages.html
+msgid "@common-conversation-leave"
+msgstr "離開"
+
+#: client/app/left/messages/messages.html
+msgid "@common-conversation-leave-confirm"
+msgstr ""
+"您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直到您"
+"收到新的訊息或以手動方式重新打開它。 "
+
 #: client/app/header/header.html client/app/modal/create.channel.html
-#: client/app/modal/join.html
+#: client/app/modal/create.topic.html client/app/modal/join.html
 msgid "@common-create-ch"
 msgstr "建立新議題群組"
 
@@ -230,7 +238,7 @@ msgstr "部門"
 msgid "@common-desktop-noti"
 msgstr "桌面通知"
 
-#: client/app/left/left.html
+#: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
 msgstr "直接傳訊"
 
@@ -248,6 +256,10 @@ msgstr "下載"
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "電子郵件"
+
+#: client/app/modal/create.topic.html
+msgid "@common-entity-type"
+msgstr " 公開/私人"
 
 #: client/app/header/header.html
 msgid "@common-faq"
@@ -319,7 +331,7 @@ msgid "@common-more"
 msgstr "瀏覽"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
 msgid "@common-name"
 msgstr "姓名"
 
@@ -351,10 +363,6 @@ msgstr "職位"
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "隱私權條款"
-
-#: client/app/left/left.html
-msgid "@common-private-groups"
-msgstr "私人群組"
 
 #: client/app/header/header.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
@@ -400,6 +408,11 @@ msgstr "登入"
 msgid "@common-sign-out"
 msgstr "登出"
 
+#: client/app/left/messages/messages.html
+msgid "@common-start-new-message"
+msgstr ""
+"您所有直接傳訊的訊息現在是隱藏的。點擊以下按鍵以開始或重新打開一個對話。"
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
 msgstr "開啓JANDI的應用程式"
@@ -415,6 +428,18 @@ msgstr "使用條款"
 #: client/app/modal/upload.html
 msgid "@common-title"
 msgstr "議題"
+
+#: client/app/left/left.html
+msgid "@common-topics"
+msgstr "議題群組"
+
+#: client/app/modal/create.topic.html
+msgid "@common-type-private"
+msgstr "私人"
+
+#: client/app/modal/create.topic.html
+msgid "@common-type-public"
+msgstr "公開"
 
 #: client/app/header/header.html client/app/modal/upload.html
 #: client/app/right/right.html
@@ -516,11 +541,11 @@ msgid "@ie9-profile-image-support"
 msgstr ""
 "IE9瀏覽器不支援的簡介照片編輯。請使用IE瀏覽器的最新版本以達到最佳體驗。"
 
-#: client/app/modal/create.channel.html
+#: client/app/modal/create.channel.html client/app/modal/create.topic.html
 msgid "@input-create-ch"
 msgstr "輸入新的議題群組名稱"
 
-#: client/app/modal/create.private.html
+#: client/app/modal/create.private.html client/app/modal/create.topic.html
 msgid "@input-create-pg"
 msgstr "輸入新的私人群組名稱"
 
@@ -536,7 +561,8 @@ msgstr " "
 msgid "@input-max-length-60-error"
 msgstr " "
 
-#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
+#: client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "您已經超越字數限制"
 
@@ -553,6 +579,7 @@ msgid "@input-search-file-title"
 msgstr "按標題搜尋檔案"
 
 #: client/app/modal/invite.channel.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
 msgstr "按名字搜尋使用者"
 
@@ -611,9 +638,25 @@ msgstr "  "
 msgid "@modal-create-ch-msg3"
 msgstr "請使用私人群組為隱秘空間"
 
-#: client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
+msgid "@modal-create-entity-title"
+msgstr "議題群組一經建立將無法在公開或私人兩種類別之間自由轉換"
+
+#: client/app/modal/create.private.html client/app/modal/create.topic.html
 msgid "@modal-create-pg-msg1"
 msgstr "私人群組僅向其成員顯示，且僅其成員可以閲讀或搜尋其内容。"
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-1"
+msgstr "- 私人群組對非邀請成員不開放"
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-2"
+msgstr "- 在私人群組内已分享檔案僅開放給其參與者"
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-3"
+msgstr "- 已設定爲公開或私人的議題群組在建立之後不能被轉換成另一個"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
@@ -634,6 +677,10 @@ msgstr "您屬於的議題群組"
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
 msgstr "您可以加入的議題群租"
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@modal-member-list-title"
+msgstr "選擇一個成員以分享直接傳訊的訊息。"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
@@ -981,6 +1028,12 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
+
+#~ msgid "@common-channels"
+#~ msgstr "議題群組"
+
+#~ msgid "@common-private-groups"
+#~ msgstr "私人群組"
 
 #~ msgid "@input-password-average"
 #~ msgstr "普通"

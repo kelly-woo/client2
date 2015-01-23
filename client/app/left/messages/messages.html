@@ -15,10 +15,11 @@
   <!--    LIST    -->
   <ul id="dm-list" collapse="MessageListCtrl.isMessageListCollapsed">
     <!--    WHEN THERE IS NO ONE IN MESSAGE LIST    -->
-    <div class="empty-message-list-container" ng-if="MessageListCtrl.messageList.length == 0">
-    <!--<div class="empty-message-list-container cursor_pointer" ng-if="MessageListCtrl.messageList.length > 0">-->
-      no list!
-      <div class="empty-message-list__new-message hover-underline" translate>
+    <div class="empty-message-list-container cursor_pointer" ng-if="MessageListCtrl.messageList.length == 0"
+         ng-click="MessageListCtrl.openModal('memberList');">
+      <!--<div class="empty-message-list-container cursor_pointer" ng-if="MessageListCtrl.messageList.length > 0">-->
+      <img class="empty-message-list__img" src="/assets/images/chat-empty.png"/>
+      <div class="empty-message-list__new-message" translate>
         @common-start-new-message
       </div>
     </div>
@@ -40,7 +41,8 @@
           <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
 
           <span class="left-panel_leave pull-right"
-                ng-click="MessageListCtrl.onMeesageLeaveClick(userEntity.id); $event.preventDefault(); $event.stopPropagation();">
+                ng-click="MessageListCtrl.onMeesageLeaveClick(userEntity.id); $event.preventDefault(); $event.stopPropagation();"
+                tooltip="{{'@common-conversation-leave' | translate}}">
             <i class="icon-cancel"></i>
           </span>
 
@@ -54,3 +56,4 @@
 
   <div class="clear-both"></div>
 </div>
+<div ng-if="false" translate>@common-conversation-leave-confirm</div>

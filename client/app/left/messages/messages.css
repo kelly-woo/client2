@@ -1,7 +1,16 @@
 .empty-message-list-container {
   padding: 10px 11px 0 24px;
+  text-align: center;
+  color: #999999;
 }
-
+.empty-message-list-container:hover .empty-message-list__new-message {
+  text-decoration: underline;
+}
+.empty-message-list__img {
+  width: 40px;
+  display: block;
+  margin: 10px auto;
+}
 .lpanel-list ul li:hover .left-panel_leave {
     opacity: 0.6;
 }
@@ -23,4 +32,8 @@
 .has-unread-msg {
     /*color: #31c08a;*/
 }
+
+:lang(ja) {  }
+:lang(ko) {  }
+:lang(en) {  }
 

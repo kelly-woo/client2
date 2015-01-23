@@ -1,0 +1,12 @@
+#create-entity-body .modal-body__description {
+  margin: 0;
+}
+.entity-type-title {
+  padding-right: 0;
+}
+.entity-type-title:lang(ja) {
+  font-size: 12px;
+}
+.entity-type-title:lang(en) {
+  padding-right: 15px;
+}

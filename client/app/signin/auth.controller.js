@@ -49,7 +49,7 @@
                 accountService.getAccountInfo()
                     .success(function(response) {
                         //console.log('got account info')
-                        console.log(response)
+                        //console.log(response)
 
                         accountService.setAccount(response);
                         getCurrentMember();

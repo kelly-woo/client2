@@ -183,7 +183,7 @@ msgstr "Topics "
 msgid "@common-account-settings"
 msgstr "Account Settings"
 
-#: client/app/left/left.html
+#: client/app/left/left.html client/app/left/messages/messages.html
 msgid "@common-add"
 msgstr "Add"
 
@@ -202,6 +202,17 @@ msgstr "Please check your inbox. "
 #: client/app/modal/share.html client/app/modal/upload.html
 msgid "@common-comment"
 msgstr "Comment"
+
+#: client/app/left/messages/messages.html
+msgid "@common-conversation-leave"
+msgstr "Leave"
+
+#: client/app/left/messages/messages.html
+msgid "@common-conversation-leave-confirm"
+msgstr ""
+"Are you sure you want to leave this conversation? This will hide it from "
+"view in the Messages tab until you receive a new message or manually reopen "
+"it."
 
 #: client/app/header/header.html client/app/modal/create.channel.html
 #: client/app/modal/create.topic.html client/app/modal/join.html
@@ -228,7 +239,7 @@ msgstr "Department"
 msgid "@common-desktop-noti"
 msgstr "Desktop Notifications"
 
-#: client/app/left/left.html
+#: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
 msgstr "Direct Messages"
 
@@ -354,10 +365,6 @@ msgstr "Position"
 msgid "@common-privacy-policy"
 msgstr "Privacy Policy"
 
-#: client/app/left/left.html
-msgid "@common-private-groups"
-msgstr "Private Groups"
-
 #: client/app/header/header.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "Profile Settings"
@@ -401,6 +408,10 @@ msgstr "Sign In"
 #: client/app/header/header.html
 msgid "@common-sign-out"
 msgstr "Sign Out"
+
+#: client/app/left/messages/messages.html
+msgid "@common-start-new-message"
+msgstr "Click to start a new conversation"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
@@ -538,7 +549,7 @@ msgstr ""
 msgid "@input-create-ch"
 msgstr "Enter new topic name"
 
-#: client/app/modal/create.private.html
+#: client/app/modal/create.private.html client/app/modal/create.topic.html
 msgid "@input-create-pg"
 msgstr "Enter new private group name"
 
@@ -554,7 +565,8 @@ msgstr "You've exceeded the maximum character limit: 20 characters"
 msgid "@input-max-length-60-error"
 msgstr "You've exceeded the maximum character limit: 60 characters"
 
-#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
+#: client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit."
 
@@ -571,6 +583,7 @@ msgid "@input-search-file-title"
 msgstr "Search files by title"
 
 #: client/app/modal/invite.channel.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
 msgstr "Search users by name"
 
@@ -619,23 +632,43 @@ msgstr "Delete"
 msgid "@modal-browse-ch"
 msgstr "Browse Topics"
 
-#: client/app/modal/create.channel.html client/app/modal/create.topic.html
+#: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
 msgstr "Create topics that anyone can join"
 
-#: client/app/modal/create.channel.html client/app/modal/create.topic.html
+#: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
 msgstr " "
 
-#: client/app/modal/create.channel.html client/app/modal/create.topic.html
+#: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr "For a more private setting, use private groups or direct messages"
 
-#: client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
+msgid "@modal-create-entity-title"
+msgstr ""
+"Topic type cannot be switched between public and private after creation"
+
+#: client/app/modal/create.private.html client/app/modal/create.topic.html
 msgid "@modal-create-pg-msg1"
 msgstr ""
 "A private group is only visible to its members, and only members of a "
 "private group can read or search its contents"
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-1"
+msgstr "- Private topics are not available to non-invited members"
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-2"
+msgstr ""
+"- Files shared in a private topic are only available to its participants"
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-3"
+msgstr ""
+"- Topics designated as public or private cannot be converted to the other "
+"after creation"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
@@ -656,6 +689,10 @@ msgstr "Topics You Already Joined"
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
 msgstr "Other Topics You Can Join"
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@modal-member-list-title"
+msgstr "Member List"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
@@ -1023,6 +1060,9 @@ msgstr "You received a new message from "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message"
+
+#~ msgid "@common-private-groups"
+#~ msgstr "Private Groups"
 
 #~ msgid "@common-channels"
 #~ msgstr "Topics"

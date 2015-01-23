@@ -91,8 +91,9 @@ msgid "@btn-click-to-view"
 msgstr "새 창에서 보기"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html client/app/modal/join.html
+#: client/app/modal/create.topic.html client/app/modal/invite.channel.html
+#: client/app/modal/invite.direct.html client/app/modal/invite.team.html
+#: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
@@ -109,6 +110,7 @@ msgid "@btn-confirm"
 msgstr "확인"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
 msgid "@btn-create"
 msgstr "생성하기"
 
@@ -181,17 +183,13 @@ msgstr "토픽 "
 msgid "@common-account-settings"
 msgstr "계정 설정"
 
-#: client/app/left/left.html
+#: client/app/left/left.html client/app/left/messages/messages.html
 msgid "@common-add"
 msgstr "추가"
 
 #: client/app/center/center.html client/app/left/left.html
 msgid "@common-api-error-msg"
 msgstr "잠시 후에 다시 시도하여 주십시요."
-
-#: client/app/left/left.html
-msgid "@common-channels"
-msgstr "토픽"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
@@ -205,8 +203,18 @@ msgstr "메일함을 확인해 주세요."
 msgid "@common-comment"
 msgstr "댓글"
 
+#: client/app/left/messages/messages.html
+msgid "@common-conversation-leave"
+msgstr "나가기"
+
+#: client/app/left/messages/messages.html
+msgid "@common-conversation-leave-confirm"
+msgstr ""
+"나가시겠습니까? 1:1 대화를 나가시면 목록에서는 사라지지만 대화 내용은 보관됩"
+"니다."
+
 #: client/app/header/header.html client/app/modal/create.channel.html
-#: client/app/modal/join.html
+#: client/app/modal/create.topic.html client/app/modal/join.html
 msgid "@common-create-ch"
 msgstr "새 토픽 생성"
 
@@ -230,7 +238,7 @@ msgstr "부서"
 msgid "@common-desktop-noti"
 msgstr "데스크탑 알림"
 
-#: client/app/left/left.html
+#: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
 msgstr "1:1 메시지"
 
@@ -248,6 +256,10 @@ msgstr "다운로드"
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "이메일"
+
+#: client/app/modal/create.topic.html
+msgid "@common-entity-type"
+msgstr "공개 여부"
 
 #: client/app/header/header.html
 msgid "@common-faq"
@@ -319,7 +331,7 @@ msgid "@common-more"
 msgstr "더보기"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
 msgid "@common-name"
 msgstr "이름"
 
@@ -351,10 +363,6 @@ msgstr "직책"
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr "개인정보취급방침"
-
-#: client/app/left/left.html
-msgid "@common-private-groups"
-msgstr "비공개 그룹"
 
 #: client/app/header/header.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
@@ -400,6 +408,11 @@ msgstr "로그인"
 msgid "@common-sign-out"
 msgstr "로그아웃"
 
+#: client/app/left/messages/messages.html
+msgid "@common-start-new-message"
+msgstr ""
+"현재 열려있는 대화방이 없습니다. 지금 팀 멤버들에게 메시지를 보내보세요."
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
 msgstr "JANDI 앱 열기"
@@ -415,6 +428,18 @@ msgstr "이용약관"
 #: client/app/modal/upload.html
 msgid "@common-title"
 msgstr "타이틀"
+
+#: client/app/left/left.html
+msgid "@common-topics"
+msgstr "토픽"
+
+#: client/app/modal/create.topic.html
+msgid "@common-type-private"
+msgstr "비공개"
+
+#: client/app/modal/create.topic.html
+msgid "@common-type-public"
+msgstr "공개"
 
 #: client/app/header/header.html client/app/modal/upload.html
 #: client/app/right/right.html
@@ -519,11 +544,11 @@ msgstr ""
 "인터넷 익스플로러 9 버전은 프로파일 사진 편집을 지원하지 않습니다. 잔디의 기"
 "능을 완전히 이용하기 위해서 최신 버전을 사용해주세요."
 
-#: client/app/modal/create.channel.html
+#: client/app/modal/create.channel.html client/app/modal/create.topic.html
 msgid "@input-create-ch"
 msgstr "생성할 토픽 채널 이름을 입력하세요"
 
-#: client/app/modal/create.private.html
+#: client/app/modal/create.private.html client/app/modal/create.topic.html
 msgid "@input-create-pg"
 msgstr "생성할 비공개 그룹 이름을 입력하세요"
 
@@ -539,7 +564,8 @@ msgstr "최대 입력 글자 수가 넘었습니다: 20자 "
 msgid "@input-max-length-60-error"
 msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
 
-#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
+#: client/app/modal/settings.team.html
 msgid "@input-max-length-error"
 msgstr "최대 입력 글자 수가 넘었습니다.  "
 
@@ -556,6 +582,7 @@ msgid "@input-search-file-title"
 msgstr "파일 타이틀을 검색하세요"
 
 #: client/app/modal/invite.channel.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
 msgstr "멤버 이름을 검색하세요"
 
@@ -619,11 +646,29 @@ msgstr ""
 "특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 생성"
 "해 초대해 주시기 바랍니다."
 
-#: client/app/modal/create.private.html
+#: client/app/modal/create.topic.html
+msgid "@modal-create-entity-title"
+msgstr "공개 여부 설정은 이후에 변경이 불가능합니다."
+
+#: client/app/modal/create.private.html client/app/modal/create.topic.html
 msgid "@modal-create-pg-msg1"
 msgstr ""
 "비공개 그룹은 그룹에 가입된 멤버만 볼 수 있으며, 해당 파일, 내용들도 가입된 "
 "멤버에게만 공개됩니다."
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-1"
+msgstr ""
+"- 비공개 토픽은 초대를 받아야만 참여할 수 있으며 참여하지 않은 멤버들에게는 "
+"목록조차 노출되지 않습니다."
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-2"
+msgstr "- 비공개 토픽에 공유된 파일은 참여자들만 열람할 수 있습니다."
+
+#: client/app/modal/create.topic.html
+msgid "@modal-create-private-topic-help-msg-3"
+msgstr "- 비공개/공개 토픽은 생성 이후에 속성을 변경할 수 없습니다."
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
@@ -644,6 +689,10 @@ msgstr "이미 참여중인 토픽 목록"
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
 msgstr "참여 가능한 토픽 목록"
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@modal-member-list-title"
+msgstr "멤버 선택하기"
 
 #: client/app/modal/image.crop.html
 msgid "@modal-profile-picture"
@@ -1005,6 +1054,12 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
+
+#~ msgid "@common-channels"
+#~ msgstr "토픽"
+
+#~ msgid "@common-private-groups"
+#~ msgstr "비공개 그룹"
 
 #~ msgid "@input-password-average"
 #~ msgstr "약함"

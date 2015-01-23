@@ -6,7 +6,7 @@
     .controller('messageListCtrl', messageListCtrl);
 
   /* @ngInject */
-  function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice, publicService) {
+  function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice, publicService, $filter) {
     var vm = this;
 
 
@@ -84,6 +84,10 @@
     }
 
     function onMeesageLeaveClick(entityId) {
+      if (!confirm($filter('translate')('@common-conversation-leave-confirm'))) {
+        return;
+      }
+
       messageList.leaveCurrentMessage(entityId)
         .success(function(response) {
           if (entityId == $scope.currentEntity.id) {
