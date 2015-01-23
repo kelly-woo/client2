@@ -93,6 +93,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   };
 
+  $scope.onMeesageLeaveClick = function(entityId) {
+    $rootScope.$broadcast('leaveCurrentChat', entityId);
+  }
   function updateLeftPanel() {
     $scope.updateLeftPanelCaller();
     $rootScope.toDefault = true;

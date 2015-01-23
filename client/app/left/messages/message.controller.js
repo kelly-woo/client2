@@ -118,6 +118,9 @@
       $('.absolute-search-icon').stop().css({'opacity' : 0.2});
     }
 
+    $scope.$on('leaveCurrentChat', function(event, entityId) {
+      onMeesageLeaveClick(entityId);
+    })
   }
 
 })();
