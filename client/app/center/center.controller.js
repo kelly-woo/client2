@@ -878,11 +878,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       var updateEntity;
 
-      //  Alarm is to me --> DIRECT MESSAGE TO ME.
-      //  Updating 'fromEntity'.
-      if (element.toEntity.length == 1 && element.toEntity[0] === ($scope.member.id) ) {
+      // Alarm is to me --> DIRECT MESSAGE TO ME.
+      // When new message came in through DM to me, update 'fromEntity'.
+      if (element.toEntity[0] === ($scope.member.id) ) {
         //  DIRECT MESSAGE with fromEntity is already open, so DON'T WORRY ABOUT IT.
-        if(element.fromEntity == $scope.currentEntity.id) return;
+        if(element.fromEntity == $scope.currentEntity.id) {
+          // Still needs to update meesage list on left bottom.
+          $rootScope.$broadcast('updateMessageList');
+
+          return;
+        }
 
         updateEntity = entityAPIservice.getEntityFromListById($scope.memberList, element.fromEntity);
         var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.toEntity[0]);
@@ -967,7 +972,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateMessageMarker() {
     messageAPIservice.updateMessageMarker(entityId, entityType, $scope.msgLoadStatus.lastUpdatedId)
       .success(function(response) {
-//                console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.lastUpdatedId + ' with ' + $scope.currentEntity.type)
+        //console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.lastUpdatedId + ' with ' + $scope.currentEntity.type)
       })
       .error(function(response) {
         console.log('message marker not updated for ' + $scope.currentEntity.id);

@@ -32,7 +32,13 @@
 .has-unread-msg {
     /*color: #31c08a;*/
 }
-
+#dm-list .tooltip:lang(en),
+#dm-list .tooltip:lang(ko) {
+  width: 48px;
+  left: 170px !important;
+}
+#dm-list .tooltip-inner:lang(ko) {
+}
 :lang(ja) {  }
 :lang(ko) {  }
 :lang(en) {  }
