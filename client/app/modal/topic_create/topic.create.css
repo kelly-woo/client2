@@ -1,5 +1,19 @@
+#create-entity-body {
+  padding-bottom: 0;
+  margin-bottom: -19px;
+}
 #create-entity-body .modal-body__description {
   margin: 0;
+}
+
+#create-entity-body .modal-body__description-help {
+  height: auto;
+  margin-top: 10px;
+}
+
+.modal-body-type-container {
+  margin-top: -10px;
+  line-height: 22px;
 }
 .entity-type-title {
   padding-right: 0;
