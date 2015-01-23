@@ -22,8 +22,8 @@
       </span>
     </span>
 
-    <!--Channel-->
-    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channels'">
+    <!--  TOPICS  -->
+    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channels' || currentEntity.type === 'privategroups'">
       <!--    INVITE  -->
       <li role="presentation">
         <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
@@ -103,45 +103,6 @@
 
     </ul>
 
-    <!--PrivateGroup-->
-    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'privategroups'">
-
-      <!--    INVITE  -->
-      <li role="presentation">
-        <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
-          <i class="icon-invite-fill"></i><span translate>@pg-menu-invite</span>
-        </a>
-      </li>
-
-      <!--    STAR    -->
-      <li role="presentation" data-ng-click="onStarClick(currentEntity.type, currentEntity.id)">
-        <a role="menuitem" tabindex="-1">
-          <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@pg-menu-un-star</span>
-          <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@pg-menu-star</span>
-        </a>
-      </li>
-
-      <!--    RENAME  -->
-      <li role="presentation" data-ng-if="isOwner();" data-ng-click="openModal('rename')">
-        <a role="menuitem" tabindex="-1">
-          <i class="icon-edit-fill"></i><span translate>@pg-menu-rename</span>
-        </a>
-      </li>
-
-      <!--    LEAVE   -->
-      <li role="presentation" data-ng-click="onLeaveClick();">
-        <a role="menuitem" tabindex="-1">
-          <i class="icon-logout"></i><span translate>@pg-menu-leave</span>
-        </a>
-      </li>
-
-      <!--    DELETE  -->
-      <li role="presentation" data-ng-if="isOwner();" data-ng-click="onDeleteClick();">
-        <a role="menuitem" tabindex="-1">
-          <i class=" icon-delete-circle-fill "></i><span translate>@pg-menu-delete</span>
-        </a>
-      </li>
-    </ul>
   </span>
 
   <!--Member Dropdown-->

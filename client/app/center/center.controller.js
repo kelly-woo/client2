@@ -95,7 +95,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.onMeesageLeaveClick = function(entityId) {
     $rootScope.$broadcast('leaveCurrentChat', entityId);
-  }
+  };
   function updateLeftPanel() {
     $scope.updateLeftPanelCaller();
     $rootScope.toDefault = true;
@@ -194,7 +194,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.loadMore = function() {
     var deferred = $q.defer();
-
 
     if ($scope.msgLoadStatus.isFirst) return;
 
