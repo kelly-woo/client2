@@ -27,7 +27,7 @@
     <!-- WHERE THERE IS AT LEAST ONE PERSON IN MESSAGE LIST -->
     <div ng-if="MessageListCtrl.messageList.length > 0">
 
-      <li class="member cursor_pointer" ng-repeat="userEntity in MessageListCtrl.messageList"
+      <li class="member cursor_pointer" ng-repeat="userEntity in MessageListCtrl.messageList | orderBy: 'lastMessageId': true"
           ng-class="{active: $state.params.entityId == userEntity.id}">
 
         <a ui-sref="archives({entityType:'users',entityId: userEntity.id})"

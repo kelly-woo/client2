@@ -37,6 +37,7 @@
     });
 
     $scope.$on('updateMessageList', function() {
+      console.log('this is on updateMessageList')
       getMessageList();
     });
 
@@ -74,7 +75,7 @@
 
         if (!angular.isUndefined(entity)) {
           if (message.unread > 0) {
-            // Number of unread message can be greater than 0 even I'm currently viewing an entity that just sent a meesage to me.
+            // Number of unread message can be greater than 0 even I'm currently viewing an entity that just sent a message to me.
             // In this case, message list still needs to be updated because entity may not be on the list.
             // However, I don't need to update/increment badge count for current entity.
             // Thus, update badge count for entities that I'm not viewing.
@@ -83,6 +84,10 @@
             }
 
           }
+
+          // merge message object to entity object so that list can be sorted by 'lastMessageId' attribute in message object.
+          $.extend(entity, message);
+
           messageList.push(entity);
         }
       });
