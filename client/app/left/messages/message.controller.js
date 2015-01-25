@@ -37,7 +37,6 @@
     });
 
     $scope.$on('updateMessageList', function() {
-      console.log('this is on updateMessageList')
       getMessageList();
     });
 
