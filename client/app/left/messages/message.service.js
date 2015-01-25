@@ -1,34 +1,35 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('jandiApp')
-        .service('messageList', messageList);
+  angular
+    .module('jandiApp')
+    .service('messageList', messageList);
+  messageList.$inject = ['$http', 'memberService', 'configuration'];
 
-    /* @ngInject */
-    function messageList($http, memberService, configuration) {
-        var server_address = configuration.api_address + 'inner-api/';
-        this.getRecentMessageList = getRecentMessageList;
-        this.leaveCurrentMessage = leaveCurrentMessage;
+  /* @ngInject */
+  function messageList($http, memberService, configuration) {
+    var server_address = configuration.api_address + 'inner-api/';
+    this.getRecentMessageList = getRecentMessageList;
+    this.leaveCurrentMessage = leaveCurrentMessage;
 
 
-        function getRecentMessageList() {
-            return $http({
-                method: 'GET',
-                url: server_address + 'members/' + memberService.getMemberId() + '/chats',
-                params: {
-                    memberId: memberService.getMemberId()
-                }
-            });
+    function getRecentMessageList() {
+      return $http({
+        method: 'GET',
+        url: server_address + 'members/' + memberService.getMemberId() + '/chats',
+        params: {
+          memberId: memberService.getMemberId()
         }
-
-        function leaveCurrentMessage(messageId) {
-            return $http({
-                method: 'DELETE',
-                url: server_address + 'members/' + memberService.getMemberId() + '/chats/' + messageId
-            });
-        }
-
+      });
     }
+
+    function leaveCurrentMessage(messageId) {
+      return $http({
+        method: 'DELETE',
+        url: server_address + 'members/' + memberService.getMemberId() + '/chats/' + messageId
+      });
+    }
+
+  }
 
 })();

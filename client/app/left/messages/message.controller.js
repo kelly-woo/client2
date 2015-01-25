@@ -5,6 +5,7 @@
     .module('jandiApp')
     .controller('messageListCtrl', messageListCtrl);
 
+  messageListCtrl.$inject = ['$scope', '$rootScope', 'storageAPIservice', 'messageList', 'entityAPIservice', 'publicService', '$filter'];
   /* @ngInject */
   function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice, publicService, $filter) {
     var vm = this;

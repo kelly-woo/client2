@@ -1,62 +1,62 @@
 <div class="opac-zero" ng-class="{'opac-in': isReady }">
 
-    <aside class="lpanel">
+  <aside class="lpanel">
 
-        <!-- USER INFO CONTAINER -->
-        <div class="lpanel-user cursor_pointer" ng-include="templates.left_user"></div>
+    <!-- USER INFO CONTAINER -->
+    <div class="lpanel-user cursor_pointer" ng-include="templates.left_user"></div>
 
-        <div class="tutorial-clicker tutorial-z-index pulse" id="topicTutorial" data-ng-click="onTutorialPulseClick($event);"
-             data-ng-if="!tutorialStatus.topicTutorial"></div>
+    <div class="tutorial-clicker tutorial-z-index pulse" id="topicTutorial" data-ng-click="onTutorialPulseClick($event);"
+         data-ng-if="!tutorialStatus.topicTutorial"></div>
 
-        <!-- LIST CONTAINER -->
-        <div left-custom-scroll="" class="lpanel-list">
+    <!-- LIST CONTAINER -->
+    <div left-custom-scroll="" class="lpanel-list">
 
-            <!-- TOPICS -->
-            <div class="lpanel-list__topics">
-                <!--    HEADER  -->
-                <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isTopicsCollapsed = !leftListCollapseStatus.isTopicsCollapsed">
-                    <i class="lpanel-list-left icon-topic-fill"></i>
+      <!-- TOPICS -->
+      <div class="lpanel-list__topics">
+        <!--    HEADER  -->
+        <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isTopicsCollapsed = !leftListCollapseStatus.isTopicsCollapsed">
+          <i class="lpanel-list-left icon-topic-fill"></i>
 
-                    <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-topics</span>
+          <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-topics</span>
 
-                    <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();">
-                        <i class="icon-add"></i><span translate>@common-add</span>
-                    </div>
-                    <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();">
-                        <i class="icon-list"></i><span translate>@common-more</span>
-                    </div>
+          <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();">
+            <i class="icon-add"></i><span translate>@common-add</span>
+          </div>
+          <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();">
+            <i class="icon-list"></i><span translate>@common-more</span>
+          </div>
 
-                </div>
+        </div>
 
-                <!--    LIST    -->
-                <ul id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">
+        <!--    LIST    -->
+        <ul id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">
 
-                    <li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true" ng-class="{active: $state.params.entityId == joinedEntity.id}">
-                        <a ui-sref="archives({entityType:joinedEntity.type, entityId:joinedEntity.id})" data-channel-id="{{joinedEntity.id}}">
+          <li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true" ng-class="{active: $state.params.entityId == joinedEntity.id}">
+            <a ui-sref="archives({entityType:joinedEntity.type, entityId:joinedEntity.id})" data-channel-id="{{joinedEntity.id}}">
 
-                            <i class="icon-star left-star" ng-class="{'icon-star-fill': joinedEntity.isStarred}"
-                               data-ng-click="onStarClick(joinedEntity.type, joinedEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
+              <i class="icon-star left-star" ng-class="{'icon-star-fill': joinedEntity.isStarred}"
+                 data-ng-click="onStarClick(joinedEntity.type, joinedEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
 
                             <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': joinedEntity.alarmCnt > 0}">
                                 <span class="private-topic-icon" ng-if="joinedEntity.type=='privategroups'"></span>
                                 {{joinedEntity.name}}
                             </span>
 
-                            <span class="badge left-panel_badge green_badge pull-right">{{joinedEntity.alarmCnt}}</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+              <span class="badge left-panel_badge green_badge pull-right">{{joinedEntity.alarmCnt}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-            <!-- DIRECT MESSAGES    -->
-            <div class="lpanel-list__users">
-                <div ng-include="templates.msgList"></div>
-            </div>
+      <!-- DIRECT MESSAGES    -->
+      <div class="lpanel-list__users">
+        <div ng-include="templates.msgList"></div>
+      </div>
 
-        </div>
-    </aside>
+    </div>
+  </aside>
 
-    <div ui-view="centerpanel" class="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>
+  <div ui-view="centerpanel" class="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>
 
 </div>
 
