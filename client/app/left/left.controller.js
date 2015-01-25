@@ -32,7 +32,7 @@
 var app = angular.module('jandiApp');
 
 app.controller('leftPanelController1', function($scope, $rootScope, $state, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-                                                entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice) {
+                                                entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService) {
 
   //console.info('[enter] leftpanelController');
 
@@ -132,7 +132,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     $rootScope.team = response.team;
 
     // Signed in with token. So there will no account info.
-    // Currently, there is no page that uses acocunt info right after user signed in.
+    // Currently, there is no page that uses account info right after user signed in.
     // As a result, get Account info asynchronously, meaning there may a short period of time that app is waiting for account info.
     if (_.isUndefined(accountService.getAccount())) {
       accountService.getAccountInfo()
@@ -144,6 +144,12 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
           if(!accountService.hasSeenTutorial()) {
             $scope.initTutorialStatus();
           }
+
+          analyticsService.accountIdentifyMixpanel(response);
+          analyticsService.accountMixpanelTrack("Sign In");
+
+          analyticsService.memberIdentifyMixpanel();
+          analyticsService.mixpanelTrack("Sign In");
         })
         .error(function(err) {
           leftpanelAPIservice.toSignin();

@@ -3,9 +3,10 @@
     .module('jandiApp')
     .factory('publicService', publicService);
 
-  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state'];
+  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'analyticsService'];
 
-  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state) {
+  /* @ngInject */
+  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService) {
     var service = {
       getInviteOptions: getInviteOptions,
       openPrivacyModal: openPrivacyModal,
@@ -69,6 +70,7 @@
         size: 'lg'
       });
     }
+
     function openJoinModal($scope) {
       $modal.open({
         scope       :   $scope,
@@ -223,7 +225,14 @@
         size        : 'lg'
       });
     }
-
+    function openTeamMemberListModal($scope) {
+      $modal.open({
+        sopce       : $scope,
+        templateUrl : 'app/modal/team_member_list/team.member.list.html',
+        controller  : 'teamMemberListCtrl',
+        size        : 'lg'
+      });
+    }
     function openTeamChangeModal($scope) {
       $modal.open({
         scope       : $scope,
@@ -239,17 +248,8 @@
         controller  : 'teamSettingController',
         size        : 'lg'
       });
-    }
 
-    function openTeamMemberListModal($scope) {
-      $modal.open({
-        sopce       : $scope,
-        templateUrl : 'app/modal/team_member_list/team.member.list.html',
-        controller  : 'teamMemberListCtrl',
-        size        : 'lg'
-      });
     }
-
     function closeModal(modalInstance) {
       modalInstance.dismiss('close');
     }
@@ -325,7 +325,9 @@
       memberService.removeMember();
 
 
-      if(mixpanel.cookie) mixpanel.cookie.clear();
+      analyticsService.removeMemberCookieMixpanel();
+      analyticsService.removeAccountCookieMixpanel();
+
       if ( $state.current.name == 'signin') {
         // 현재 state 다시 로드
         $state.transitionTo($state.current, {}, {
