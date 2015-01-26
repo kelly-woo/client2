@@ -23,7 +23,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
   $scope.fileRequest.keyword          = '';
 
   $scope.sharedEntitySearchQuery  = $scope.currentEntity;
-  $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.memberList, $scope.privateGroupList);
+  $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
 
   $scope.selectOptionsUsers       = [$scope.member];
   $scope.selectOptionsUsers       = $scope.selectOptionsUsers.concat($scope.memberList);
@@ -128,14 +128,11 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
   $scope.$watch('currentEntity', function(newValue, oldValue) {
     if (newValue != oldValue) {
       updateSharedList();
-
-//            console.log('this is updateSharedList in right.controller')
-//            console.log($scope.currentEntity)
-
       //  channel could be removed/created/left
       //  update selectOptions for data syncrhonization issue.
-      $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.memberList, $scope.privateGroupList);
+      $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
       $scope.sharedEntitySearchQuery = $scope.currentEntity;
+
     }
   });
 
@@ -331,7 +328,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     fileAPIservice.deleteFile(fileId)
       .success(function(response) {
-        console.log(response)
+        //console.log(response)
         getFileList();
       })
       .error(function(err) {
