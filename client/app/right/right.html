@@ -76,19 +76,7 @@
 
   <div class="rpanel-body-content file-list" >
 
-    <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
-    <div ng-show="fileList.length==0">
-      <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
-        <span translate>@alert-empty-file</span>
-      </div>
-      <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
-        <span translate>@alert-empty-file-search</span> <strong>{{ fileRequest.keyword }}</strong>
-        <br><i style="font-size: 11px;"> Please, hit enter to search again.</i>
-      </div>
-    </div>
-
-
-    <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList | filter: {'status':'!archived'}"
+    <div class="file-list__item cursor_pointer" data-ng-repeat="file in avaiableFileList = fileList | filter: {'status':'!archived'}"
          ui-sref="files({ userName: file.writer.name, itemId: file.id })">
 
       <!--    IMAGE THUMBNAIL -->
@@ -189,7 +177,7 @@
             </a>
           </li>
 
-          <li class="cursor_pointer">
+          <li class="cursor_pointer" ng-if="file | isFileWriter:member">
             <a data-ng-click="onFileDeleteClick(file.id)">
               <i class="icon-cancel"></i>
               <span translate>@message-delete</span>
@@ -201,6 +189,20 @@
       </div>
 
     </div>
+
+    <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
+    <div ng-show="avaiableFileList.length == 0">
+      <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
+        <span translate>@alert-empty-file</span>
+      </div>
+
+      <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
+        <span translate>@alert-empty-file-search</span> <strong>{{ fileRequest.keyword }}</strong>
+        <br><i style="font-size: 11px;"> Please, hit enter to search again.</i>
+      </div>
+
+    </div>
+
 
     <div class="file-list__item loading" ng-if="isScrollLoading">
       <div class="loading_container_background scroll_loading_container_background"></div>

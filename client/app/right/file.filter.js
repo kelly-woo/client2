@@ -176,3 +176,12 @@ app.filter('getFileIconImage', function() {
     return filetype;
   };
 });
+
+app.filter('isFileWriter', function() {
+  return function(input, member) {
+    var fileWriterId = input.writerId;
+    var memberId = member.id;
+
+    return fileWriterId == memberId;
+  }
+});
