@@ -6,7 +6,7 @@
 
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
 
-  <div class="rpanel-body-content file-detail">
+  <div class="rpanel-body-content file-detail" ng-if="!isFileArchived">
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 
       <div class="file-detail-header">
@@ -18,16 +18,16 @@
           </div>
           <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
           <div class="file-detail-header__title">
-            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
+            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="!isFileArchived">
               {{ file_detail.content.title || file_detail.content.name }}
             </a>
-            <!--<i class="fa fa-external-link"></i>-->
+            <div translate>@common-deleted-file-msg</div>
           </div>
         </div>
       </div>
 
       <div class="file-detail-body">
-        <div class="image_wrapper">
+        <div class="image_wrapper" ng-if="!isFileArchived">
           <img rotate rotate-left-align=false
                class="file-detail-body__image"
                data-ng-if="( (file_detail.content.type).indexOf('image') !== -1 )"
@@ -42,11 +42,13 @@
           </a>
 
           <div class="file-detail-body__other-meta file-item-meta__listview">
-            <div class="file-item-meta__size" data-ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</div>
-            <div class="file-item-meta__type" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</div>
+            <div class="file-item-meta__size" data-ng-if="file_detail.content.size > 0 && !isFileArchived">{{ file_detail.content.size | bytes }}</div>
+            <div class="file-item-meta__type" data-ng-if="file_detail.content.type && !isFileArchived">{{ file_detail.content.type | filetype }}</div>
+
+            <div class="delete-item__msg" ng-if="isFileArchived" translate>@common-deleted-file-msg</div>
           </div>
 
-          <div class="file-detail-body__other-action">
+          <div class="file-detail-body__other-action" ng-if="!isFileArchived">
 
             <!--    PDF FILE    -->
             <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" >
@@ -66,7 +68,7 @@
 
         </div>
 
-        <div class="file-detail-body__meta file-item-meta__listview">
+        <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
           <img class="fileicon" ng-src="assets/images/fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}.png"/>
 
           <div class="file-detail-body__meta-info">
@@ -128,6 +130,99 @@
         </div>
       </div>
 
+      <div class="rpanel-detail-body-comment" >
+        <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}">
+          <div class="comment-item__thumbnail">
+            <img class="user-profile user-thumb-sm cursor_pointer"
+                 ng-src="{{ comment.writer | getSmallThumbnail }}"
+                 ng-click="onUserClick(comment.writer);"/>
+          </div>
+          <div class="comment-item-header">
+            <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
+            <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
+                        <span class="comment-item-header__action dropdown pull-right" data-ng-if="( member.id === comment.writer.id )">
+                            <a href="#" class="link-dark dropdown-toggle">
+                              <i class="fa fa-cog"></i>
+                            </a>
+                            <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+                              <li class="cursor_pointer">
+                                <a data-ng-click="deleteComment(comment.id)">
+                                  <i class="fa fa-times"></i>
+                                  <span translate>@btn-delete</span>
+                                </a>
+                              </li>
+                            </ul>
+                        </span>
+          </div>
+          <div class="comment-item-body">
+            <p class="keep" data-ng-bind-html="(comment.content.body) || ''"></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="comment-input-box" data-ng-show="initialLoaded && file_detail" ng-if="!isFileArchived">
+      <div class="comment-item__thumbnail">
+        <img class="user-profile user-thumb-sm cursor_pointer"
+             ng-src="{{ member | getSmallThumbnail }}"
+             ng-click="onUserClick(user);"/>
+      </div>
+      <form id="comment-form" data-ng-submit="postComment()">
+                <textarea id="file-detail-comment-input"
+                          class="comment-input"
+                          focus-me="focusPostComment"
+                          message-submit="postComment()"
+                          data-ng-model="comment.content"
+                          maxlength=""
+                          autocorrect="off"
+                          autocomplete="off"
+                          spellcheck="true"></textarea>
+
+                <span class="comment-input__tip pull-left">
+                    <span translate>@msg-help-multiline</span>
+                </span>
+        <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
+      </form>
+    </div>
+
+  </div>
+
+
+  <div class="rpanel-body-content file-detail archived-file-detail" ng-if="isFileArchived">
+    <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
+
+      <div class="file-detail-header">
+        <div class="file-detail-header-box">
+          <div class="file-detail-header__thumbnail">
+            <img class="user-profile user-thumb-sm cursor_pointer"
+                 ng-src="{{ file_detail.writer | getSmallThumbnail }}"
+                 ng-click="onUserClick(file_detail.writer);"/>
+          </div>
+
+          <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
+
+          <div class="file-detail-header__title">
+            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="!isFileArchived">
+              {{ file_detail.content.title || file_detail.content.name }}
+            </a>
+            <div translate>@common-deleted-file-msg</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="file-detail-body">
+        <div class="file-detail-body__other">
+
+          <img class="fileicon fileicon_left" ng-src="assets/images/fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}.png"/>
+
+          <div class="file-detail-body__other-meta file-item-meta__listview delete-item__msg" translate>
+            @common-deleted-file-msg
+          </div>
+        </div>
+      </div>
+
       <div class="rpanel-detail-body-comment">
         <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}">
           <div class="comment-item__thumbnail">
@@ -160,29 +255,6 @@
       </div>
     </div>
 
-    <div class="comment-input-box" data-ng-show="initialLoaded && file_detail">
-      <div class="comment-item__thumbnail">
-        <img class="user-profile user-thumb-sm cursor_pointer"
-             ng-src="{{ member | getSmallThumbnail }}"
-             ng-click="onUserClick(user);"/>
-      </div>
-      <form id="comment-form" data-ng-submit="postComment()">
-                <textarea id="file-detail-comment-input"
-                          class="comment-input"
-                          focus-me="focusPostComment"
-                          message-submit="postComment()"
-                          data-ng-model="comment.content"
-                          maxlength=""
-                          autocorrect="off"
-                          autocomplete="off"
-                          spellcheck="true"></textarea>
-
-                <span class="comment-input__tip pull-left">
-                    <span translate>@msg-help-multiline</span>
-                </span>
-        <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
-      </form>
-    </div>
-
   </div>
+
 </div>
