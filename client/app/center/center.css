@@ -412,11 +412,14 @@
     margin-bottom: 5px;
 }
 .archived-msg-file-meta__title {
-  color: #666;
+  color: #b7b7b7;
   padding-bottom: 2px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 15px;
+}
+.archived-msg-file-meta__title:hover {
+  color: #b7b7b7;
 }
 
 .msg-file-meta .msg-file-meta__title,
