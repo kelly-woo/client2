@@ -6,6 +6,7 @@
     .module('jandiApp')
     .controller('teamMemberListCtrl', teamMemberListCtrl);
 
+  teamMemberListCtrl.$inject = ['$scope', '$rootScope', '$state', '$modalInstance'];
   /* @ngInject */
   function teamMemberListCtrl($scope, $rootScope, $state, $modalInstance) {
     var vm = $scope;
