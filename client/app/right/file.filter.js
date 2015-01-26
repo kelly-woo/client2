@@ -185,3 +185,18 @@ app.filter('isFileWriter', function() {
     return fileWriterId == memberId;
   }
 });
+
+app.filter('getAvailableFiles', function() {
+  return function (input) {
+    var return_array = [];
+    angular.forEach(input, function (file, index) {
+      var fileStatus = file.status;
+
+      if (fileStatus != 'archived'){
+        this.push(file)
+      }
+    }, return_array);
+
+    return return_array;
+  }
+});

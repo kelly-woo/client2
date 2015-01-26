@@ -171,7 +171,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
           var file = entity;
           file.shared = fileAPIservice.getSharedEntities(file);
-          this.push(file);
+          if (file.status != 'archived')
+            this.push(file);
 
         }, fileList);
 

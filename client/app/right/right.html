@@ -76,7 +76,7 @@
 
   <div class="rpanel-body-content file-list" >
 
-    <div class="file-list__item cursor_pointer" data-ng-repeat="file in avaiableFileList = fileList | filter: {'status':'!archived'}"
+    <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList "
          ui-sref="files({ userName: file.writer.name, itemId: file.id })">
 
       <!--    IMAGE THUMBNAIL -->
@@ -94,7 +94,6 @@
         <img class="fileicon" ng-src="assets/images/fileicon_{{file.content.type | getFileIconImage | lowercase}}.png"/>
 
       </div>
-
 
       <!-- OTHER INFORMATION ABOUT FILE: TITLE, UPLOADED TIME, SHARED CHANNELS, LINK TO NEW TAB -->
       <div class="file-item-body">
@@ -191,7 +190,7 @@
     </div>
 
     <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
-    <div ng-show="avaiableFileList.length == 0">
+    <div ng-show="fileList.length == 0">
       <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
         <span translate>@alert-empty-file</span>
       </div>
