@@ -411,6 +411,14 @@
 .msg-file-meta-up {
     margin-bottom: 5px;
 }
+.archived-msg-file-meta__title {
+  color: #666;
+  padding-bottom: 2px;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 15px;
+}
+
 .msg-file-meta .msg-file-meta__title,
 .msg-comment .msg-file-meta__title {
     color: #333;
@@ -443,6 +451,7 @@
 }
 .msg-file-meta__writer {  }
 .msg-comment { }
+
 .msg-comment-with-thumbnail {
     min-height: 65px;
 }
