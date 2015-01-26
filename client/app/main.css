@@ -464,6 +464,10 @@ input[type="button"] {
 .fileicon_excel {
     background: url('../assets/images/fileicon_excel.png') no-repeat;
 }
+.fileicon_hwp {
+    background: url('../assets/images/fileicon_hwp.png') no-repeat;
+}
+
 .icon-more-member {
     background: url('../assets/images/icon_more_member.png') no-repeat;
     width: 15px;
