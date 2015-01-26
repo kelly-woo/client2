@@ -314,7 +314,7 @@ app.controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstanc
   $scope.files = $scope.selectedFiles[0];
 
   // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 sync가 맞는다.
-  $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.userList, $scope.privateGroupList);
+  $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinEntities, $scope.memberList);
 
   $scope.fileInfo = {
     'title'         : $scope.files.name,
