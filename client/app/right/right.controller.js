@@ -23,7 +23,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.fileRequest.keyword          = '';
 
     $scope.sharedEntitySearchQuery  = $scope.currentEntity;
-    $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.memberList, $scope.privateGroupList);
+    $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
 
     $scope.selectOptionsUsers       = [$scope.member];
     $scope.selectOptionsUsers       = $scope.selectOptionsUsers.concat($scope.memberList);
@@ -135,7 +135,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
             //  channel could be removed/created/left
             //  update selectOptions for data syncrhonization issue.
-            $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedChannelList, $scope.memberList, $scope.privateGroupList);
+            $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberListgi);
             $scope.sharedEntitySearchQuery = $scope.currentEntity;
         }
     });
