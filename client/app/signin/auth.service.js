@@ -108,16 +108,8 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
       // API version
       config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
 
-      //if (config.method === 'POST' && config.fileFormDataName === 'userFile') {
-      //    // file upload api.
-      //    if (angular.isUndefined(FileAPI.support)) {
-      //    // since browser supports html5 file upload feature, FileAPI.support has not been initialized.
-      //    // console.log('browser supports html5 not including authorization in header.');
-      //        return config;
-      //    }
-      //}
-
       config.headers.authorization = "bearer " + (storageAPIservice.getAccessToken());
+
       return config;
     },
 

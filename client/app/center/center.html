@@ -275,8 +275,7 @@
                 <!--    FILE TYPE THUMBNAIL -->
                 <div class="msg-file-body__thumbnail"
                      data-ng-if="(msg.message.content.type).indexOf('image') == -1">
-                  <img class="fileicon" ng-src="assets/images/fileicon_{{msg.message.content.type | getFileIconImage | lowercase}}.png"/>
-
+                  <div class="fileicon fileicon_{{ msg.message.content.type | filetype | lowercase}}"></div>
                 </div>
 
               </div>
@@ -382,8 +381,7 @@
                 <!--    FILE THUMBNAIL  -->
                 <div class="msg-file-body__thumbnail"
                      data-ng-if="(msg.feedback.content.type).indexOf('image') == -1 && msg.message.commentOption.isTitle">
-                  <img class="fileicon" ng-src="assets/images/fileicon_{{msg.feedback.content.type | getFileIconImage | lowercase}}.png"/>
-
+                  <div class="fileicon fileicon_{{ msg.feedback.content.type | filetype | lowercase }}"></div>
                 </div>
 
                 <!--    COMMENT ICON    -->

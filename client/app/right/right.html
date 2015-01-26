@@ -88,7 +88,7 @@
     </div>
 
 
-    <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
+    <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList | filter: {'status':'!archived'}"
          ui-sref="files({ userName: file.writer.name, itemId: file.id })">
 
       <!--    IMAGE THUMBNAIL -->
@@ -174,18 +174,29 @@
               <span translate>@btn-share</span>
             </a>
           </li>
+
           <li class="cursor_pointer">
             <a data-ng-click="setCommentFocus(file);">
               <i class="fa fa-comment-o"></i>
               <span translate>@btn-comment</span>
             </a>
           </li>
+
           <li class="cursor_pointer">
             <a href="{{ server_uploaded  + 'download/' + file.content.fileUrl }}" download="{{ file.content.name }}">
               <i class="icon-download"></i>
               <span translate>@common-download</span>
             </a>
           </li>
+
+          <li class="cursor_pointer">
+            <a data-ng-click="onFileDeleteClick(file.id)">
+              <i class="icon-cancel"></i>
+              <span translate>@message-delete</span>
+            </a>
+          </li>
+
+
         </ul>
       </div>
 
