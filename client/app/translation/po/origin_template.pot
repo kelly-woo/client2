@@ -89,7 +89,6 @@ msgstr ""
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
-#: client/app/modal/create.topic.html
 #: client/app/modal/invite.channel.html
 #: client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
@@ -99,6 +98,7 @@ msgstr ""
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 #: client/app/modal/settings.team.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@btn-close"
 msgstr ""
 
@@ -114,7 +114,7 @@ msgstr ""
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@btn-create"
 msgstr ""
 
@@ -215,6 +215,7 @@ msgstr ""
 msgid "@common-comment"
 msgstr ""
 
+#: client/app/center/center.html
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr ""
@@ -225,8 +226,8 @@ msgstr ""
 
 #: client/app/header/header.html
 #: client/app/modal/create.channel.html
-#: client/app/modal/create.topic.html
 #: client/app/modal/join.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
 msgstr ""
 
@@ -241,6 +242,11 @@ msgstr ""
 
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
+msgstr ""
+
+#: client/app/center/center.html
+#: client/app/right/file.html
+msgid "@common-deleted-file-msg"
 msgstr ""
 
 #: client/app/modal/profile.view.html
@@ -273,7 +279,7 @@ msgstr ""
 msgid "@common-email"
 msgstr ""
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
 msgstr ""
 
@@ -349,8 +355,8 @@ msgstr ""
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
-#: client/app/modal/create.topic.html
 #: client/app/modal/settings.profile.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
 msgstr ""
 
@@ -461,11 +467,11 @@ msgstr ""
 msgid "@common-topics"
 msgstr ""
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-type-private"
 msgstr ""
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-type-public"
 msgstr ""
 
@@ -569,12 +575,11 @@ msgid "@ie9-profile-image-support"
 msgstr ""
 
 #: client/app/modal/create.channel.html
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@input-create-ch"
 msgstr ""
 
 #: client/app/modal/create.private.html
-#: client/app/modal/create.topic.html
 msgid "@input-create-pg"
 msgstr ""
 
@@ -590,9 +595,9 @@ msgstr ""
 msgid "@input-max-length-60-error"
 msgstr ""
 
-#: client/app/modal/create.topic.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.team.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@input-max-length-error"
 msgstr ""
 
@@ -650,6 +655,7 @@ msgid "@login-reset-password"
 msgstr ""
 
 #: client/app/center/center.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr ""
 
@@ -669,24 +675,23 @@ msgstr ""
 msgid "@modal-create-ch-msg3"
 msgstr ""
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
 msgstr ""
 
 #: client/app/modal/create.private.html
-#: client/app/modal/create.topic.html
 msgid "@modal-create-pg-msg1"
 msgstr ""
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
 msgstr ""
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
 msgstr ""
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-3"
 msgstr ""
 
@@ -850,30 +855,6 @@ msgstr ""
 
 #: client/app/password/password.reset.html
 msgid "@password-reset-message"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@pg-menu-delete"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@pg-menu-invite"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@pg-menu-leave"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@pg-menu-rename"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@pg-menu-star"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@pg-menu-un-star"
 msgstr ""
 
 #: client/app/left/left.html

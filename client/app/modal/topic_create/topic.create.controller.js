@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('createEntityModalCtrl', createEntityModalCtrl);
 
-  function createEntityModalCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService) {
+  function createEntityModalCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter) {
     $scope.entityType = 'public';
 
     $scope.cancel = function() {
@@ -45,11 +45,19 @@
           $modalInstance.dismiss('cancel');
         })
         .error(function(response) {
-          alert(response.msg);
+          _onCreateError(response);
         })
         .finally(function() {
           $scope.isLoading = false;
         });
     };
+
+    var duplicate_name_error = 4000;
+    function _onCreateError(err) {
+      if (err.code == duplicate_name_error) {
+        // Duplicate name error.
+        alert($filter('translate')('@common-duplicate-name-err'));
+      }
+    }
   }
 })();

@@ -91,12 +91,13 @@ msgid "@btn-click-to-view"
 msgstr "Click to view"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/create.topic.html client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html client/app/modal/invite.team.html
-#: client/app/modal/join.html client/app/modal/password.reset.request.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
+#: client/app/modal/invite.team.html client/app/modal/join.html
+#: client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@btn-close"
 msgstr "Close"
 
@@ -110,7 +111,7 @@ msgid "@btn-confirm"
 msgstr "Confirm"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@btn-create"
 msgstr "Create"
 
@@ -203,7 +204,7 @@ msgstr "Please check your inbox. "
 msgid "@common-comment"
 msgstr "Comment"
 
-#: client/app/left/messages/messages.html
+#: client/app/center/center.html client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr "Leave"
 
@@ -215,7 +216,7 @@ msgstr ""
 "it."
 
 #: client/app/header/header.html client/app/modal/create.channel.html
-#: client/app/modal/create.topic.html client/app/modal/join.html
+#: client/app/modal/join.html client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
 msgstr "Create New Topic"
 
@@ -230,6 +231,11 @@ msgstr "Password"
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "Customer Service"
+
+#: client/app/center/center.html client/app/right/file.html
+#, fuzzy
+msgid "@common-deleted-file-msg"
+msgstr "Files"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
@@ -258,7 +264,7 @@ msgstr "Download"
 msgid "@common-email"
 msgstr "Email"
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
 msgstr "Type"
 
@@ -332,7 +338,8 @@ msgid "@common-more"
 msgstr "Browse"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
+#: client/app/modal/settings.profile.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
 msgstr "Name"
 
@@ -433,11 +440,11 @@ msgstr "Title"
 msgid "@common-topics"
 msgstr "Topics"
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-type-private"
 msgstr "Private"
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-type-public"
 msgstr "Public"
 
@@ -545,13 +552,14 @@ msgstr ""
 "Internet Explorer 9 does not support profile picture editing. Try the latest "
 "version of Internet Explorer for the optimal experience."
 
-#: client/app/modal/create.channel.html client/app/modal/create.topic.html
+#: client/app/modal/create.channel.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@input-create-ch"
 msgstr "Enter new topic name"
 
-#: client/app/modal/create.private.html client/app/modal/create.topic.html
+#: client/app/modal/create.private.html
 msgid "@input-create-pg"
-msgstr "Enter new private group name"
+msgstr "Enter new private topic name"
 
 #: client/app/modal/invite.team.html
 msgid "@input-invite-email"
@@ -565,8 +573,8 @@ msgstr "You've exceeded the maximum character limit: 20 characters"
 msgid "@input-max-length-60-error"
 msgstr "You've exceeded the maximum character limit: 60 characters"
 
-#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
-#: client/app/modal/settings.team.html
+#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit."
 
@@ -624,7 +632,7 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/right.html
 msgid "@message-delete"
 msgstr "Delete"
 
@@ -642,29 +650,29 @@ msgstr " "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "For a more private setting, use private groups or direct messages"
+msgstr "For a more private setting, use private topic or direct messages"
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
 msgstr ""
 "Topic type cannot be switched between public and private after creation"
 
-#: client/app/modal/create.private.html client/app/modal/create.topic.html
+#: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
 msgstr ""
-"A private group is only visible to its members, and only members of a "
+"A private topic is only visible to its members, and only members of a "
 "private group can read or search its contents"
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
 msgstr "- Private topics are not available to non-invited members"
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
 msgstr ""
 "- Files shared in a private topic are only available to its participants"
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-3"
 msgstr ""
 "- Topics designated as public or private cannot be converted to the other "
@@ -751,7 +759,7 @@ msgstr "created this topic"
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
-msgstr "created this private group"
+msgstr "created this private topic"
 
 #: client/app/center/center.html
 msgid "@msg-file"
@@ -840,33 +848,9 @@ msgstr "Email was sent successfully"
 msgid "@password-reset-message"
 msgstr "Forgot your password? Choose a new one."
 
-#: client/app/center/center.html
-msgid "@pg-menu-delete"
-msgstr "Delete this private group"
-
-#: client/app/center/center.html
-msgid "@pg-menu-invite"
-msgstr "Invite members to this private group"
-
-#: client/app/center/center.html
-msgid "@pg-menu-leave"
-msgstr "Leave private group"
-
-#: client/app/center/center.html
-msgid "@pg-menu-rename"
-msgstr "Rename this private group"
-
-#: client/app/center/center.html
-msgid "@pg-menu-star"
-msgstr "Star this user "
-
-#: client/app/center/center.html
-msgid "@pg-menu-un-star"
-msgstr "Unstar this private group"
-
 #: client/app/left/left.html
 msgid "@privateGroup"
-msgstr "Private Groups "
+msgstr "Private Topics"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -936,7 +920,7 @@ msgstr "Team Members"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
-msgstr "Change Teams"
+msgstr "Switch Teams"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
@@ -995,13 +979,13 @@ msgstr " "
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"If you need privacy, use Private Groups or Direct Messages to invite just "
-"the people you want."
+"If you need privacy, use Private topic or Direct Messages to invite just the "
+"people you want."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
 msgstr ""
-"What’s the difference between Topics, Private Groups, and Direct Messages?"
+"What’s the difference between Topics, Private Topics, and Direct Messages?"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
@@ -1060,6 +1044,24 @@ msgstr "You received a new message from "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message"
+
+#~ msgid "@pg-menu-delete"
+#~ msgstr "Delete this private group"
+
+#~ msgid "@pg-menu-invite"
+#~ msgstr "Invite members to this private group"
+
+#~ msgid "@pg-menu-leave"
+#~ msgstr "Leave private group"
+
+#~ msgid "@pg-menu-rename"
+#~ msgstr "Rename this private group"
+
+#~ msgid "@pg-menu-star"
+#~ msgstr "Star this user "
+
+#~ msgid "@pg-menu-un-star"
+#~ msgstr "Unstar this private group"
 
 #~ msgid "@common-private-groups"
 #~ msgstr "Private Groups"
