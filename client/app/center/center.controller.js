@@ -573,9 +573,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         return;
 
     // comment but not to image file -> return
-    if (message.message.contentType === 'comment')
-      if (message.feedback.content.type.indexOf('image') < 0)
+    if (message.message.contentType === 'comment'){
+      if (message.feedback.content.type.indexOf('image') < 0 || message.feedback.status == 'archived') {
         return;
+      }
+    }
 
     // Image is long but not wide. There may be a white space on each side of an image.
     // When user clicks on white(blank) space of image, it will do nothing and return.

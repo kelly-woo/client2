@@ -1,7 +1,7 @@
 <div class="panel-title-container">
-    <span class="rpanel-header-heading rpanel-header-heading__back cursor_pointer" data-ui-sref="messages.detail.files">
-        <i class="icon-prev"></i> <span translate>@common-files</span>
-    </span>
+  <span class="rpanel-header-heading rpanel-header-heading__back cursor_pointer" data-ui-sref="messages.detail.files">
+    <i class="icon-prev"></i> <span translate>@common-files</span>
+  </span>
 </div>
 
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
@@ -80,24 +80,24 @@
             </div>
 
             <div class="file-detail-body__meta-info-down">
-                        <span data-ng-if="file_detail.shared.length">
-                            <span translate>@common-shared-in</span>
-                            <span ng-repeat="sharedEntity in filteredSharedFile = (file_detail.shared | filter : {type:'!user'}) track by $index">
-                                <span data-ng-hide="($index === 0)">, </span>
-                                <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
-                                    {{ sharedEntity.prefix }}{{ sharedEntity.name }}
-                                </span>
-                                <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(file_detail, sharedEntity)">
-                                  <i class="fa fa-minus-circle"></i>
-                                </a>
-                            </span>
-                            <span ng-show="file_detail.shared.length != filteredSharedFile.length">
-                                <!--<span ng-show="filteredSharedFile.length != 0"> and </span>with users.-->
-                            </span>
-                        </span>
-                        <span ng-hide="file_detail.shareEntities.length != 0">
-                            <span translate>@alert-empty-file-shared</span>
-                        </span>
+              <span data-ng-if="file_detail.shared.length">
+                <span translate>@common-shared-in</span>
+                <span ng-repeat="sharedEntity in filteredSharedFile = (file_detail.shared | filter : {type:'!user'}) track by $index">
+                  <span data-ng-hide="($index === 0)">, </span>
+                  <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                    {{ sharedEntity.prefix }}{{ sharedEntity.name }}
+                  </span>
+                  <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(file_detail, sharedEntity)">
+                    <i class="fa fa-minus-circle"></i>
+                  </a>
+                </span>
+                <span ng-show="file_detail.shared.length != filteredSharedFile.length">
+                  <!--<span ng-show="filteredSharedFile.length != 0"> and </span>with users.-->
+                </span>
+              </span>
+              <span ng-hide="file_detail.shareEntities.length != 0">
+                <span translate>@alert-empty-file-shared</span>
+              </span>
             </div>
           </div>
 
@@ -140,19 +140,19 @@
           <div class="comment-item-header">
             <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
             <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
-                        <span class="comment-item-header__action dropdown pull-right" data-ng-if="( member.id === comment.writer.id )">
-                            <a href="#" class="link-dark dropdown-toggle">
-                              <i class="fa fa-cog"></i>
-                            </a>
-                            <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
-                              <li class="cursor_pointer">
-                                <a data-ng-click="deleteComment(comment.id)">
-                                  <i class="fa fa-times"></i>
-                                  <span translate>@btn-delete</span>
-                                </a>
-                              </li>
-                            </ul>
-                        </span>
+            <span class="comment-item-header__action dropdown pull-right" data-ng-if="( member.id === comment.writer.id )">
+              <a href="#" class="link-dark dropdown-toggle">
+                <i class="fa fa-cog"></i>
+              </a>
+              <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+                <li class="cursor_pointer">
+                  <a data-ng-click="deleteComment(comment.id)">
+                    <i class="fa fa-times"></i>
+                    <span translate>@btn-delete</span>
+                  </a>
+                </li>
+              </ul>
+            </span>
           </div>
           <div class="comment-item-body">
             <p class="keep" data-ng-bind-html="(comment.content.body) || ''"></p>
@@ -169,19 +169,19 @@
              ng-click="onUserClick(user);"/>
       </div>
       <form id="comment-form" data-ng-submit="postComment()">
-                <textarea id="file-detail-comment-input"
-                          class="comment-input"
-                          focus-me="focusPostComment"
-                          message-submit="postComment()"
-                          data-ng-model="comment.content"
-                          maxlength=""
-                          autocorrect="off"
-                          autocomplete="off"
-                          spellcheck="true"></textarea>
+        <textarea id="file-detail-comment-input"
+                  class="comment-input"
+                  focus-me="focusPostComment"
+                  message-submit="postComment()"
+                  data-ng-model="comment.content"
+                  maxlength=""
+                  autocorrect="off"
+                  autocomplete="off"
+                  spellcheck="true"></textarea>
 
-                <span class="comment-input__tip pull-left">
-                    <span translate>@msg-help-multiline</span>
-                </span>
+        <span class="comment-input__tip pull-left">
+          <span translate>@msg-help-multiline</span>
+        </span>
         <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
       </form>
     </div>
@@ -214,7 +214,7 @@
 
       <div class="file-detail-archive-status-container">
         <div class="file-detail-archive-status-container__inner">
-          {{file_detail.updateTime  | date: 'yyyy/MM/dd h:mm a' }}
+          <span translate>@file-delete-time-msg-pre</span>{{file_detail.updateTime  | date: 'yyyy/MM/dd h:mm a' }}<span translate>@file-delete-time-msg-post</span>
         </div>
       </div>
 
@@ -223,8 +223,8 @@
 
           <img class="fileicon fileicon_left" ng-src="assets/images/fileicon_archived.png"/>
 
-          <div class="file-detail-body__other-meta file-item-meta__listview delete-item__msg" translate>
-            @common-deleted-file-msg
+          <div class="file-detail-body__other-meta file-item-meta__listview delete-item__msg" >
+            {{file_detail.updateTime  | date: 'yyyy/MM/dd h:mm a' }}
           </div>
         </div>
       </div>
@@ -239,19 +239,19 @@
           <div class="comment-item-header">
             <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
             <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
-                        <span class="comment-item-header__action dropdown pull-right" data-ng-if="( member.id === comment.writer.id )">
-                            <a href="#" class="link-dark dropdown-toggle">
-                              <i class="fa fa-cog"></i>
-                            </a>
-                            <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
-                              <li class="cursor_pointer">
-                                <a data-ng-click="deleteComment(comment.id)">
-                                  <i class="fa fa-times"></i>
-                                  <span translate>@btn-delete</span>
-                                </a>
-                              </li>
-                            </ul>
-                        </span>
+            <span class="comment-item-header__action dropdown pull-right" data-ng-if="( member.id === comment.writer.id )">
+              <a href="#" class="link-dark dropdown-toggle">
+                <i class="fa fa-cog"></i>
+              </a>
+              <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+                <li class="cursor_pointer">
+                  <a data-ng-click="deleteComment(comment.id)">
+                    <i class="fa fa-times"></i>
+                    <span translate>@btn-delete</span>
+                  </a>
+                </li>
+              </ul>
+            </span>
           </div>
           <div class="comment-item-body">
             <p class="keep" data-ng-bind-html="(comment.content.body) || ''"></p>
