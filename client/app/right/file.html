@@ -214,18 +214,9 @@
 
       <div class="file-detail-archive-status-container">
         <div class="file-detail-archive-status-container__inner">
+          <img class="fileicon archived-file-icon-center" ng-src="assets/images/fileicon_archived.png"/>
+
           <span translate>@file-delete-time-msg-pre</span>{{file_detail.updateTime  | date: 'yyyy/MM/dd h:mm a' }}<span translate>@file-delete-time-msg-post</span>
-        </div>
-      </div>
-
-      <div class="file-detail-body">
-        <div class="file-detail-body__other">
-
-          <img class="fileicon fileicon_left" ng-src="assets/images/fileicon_archived.png"/>
-
-          <div class="file-detail-body__other-meta file-item-meta__listview delete-item__msg" >
-            {{file_detail.updateTime  | date: 'yyyy/MM/dd h:mm a' }}
-          </div>
         </div>
       </div>
 
