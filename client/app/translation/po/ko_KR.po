@@ -91,12 +91,13 @@ msgid "@btn-click-to-view"
 msgstr "새 창에서 보기"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/create.topic.html client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html client/app/modal/invite.team.html
-#: client/app/modal/join.html client/app/modal/password.reset.request.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
+#: client/app/modal/invite.team.html client/app/modal/join.html
+#: client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@btn-close"
 msgstr "닫기"
 
@@ -110,7 +111,7 @@ msgid "@btn-confirm"
 msgstr "확인"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@btn-create"
 msgstr "생성하기"
 
@@ -203,7 +204,7 @@ msgstr "메일함을 확인해 주세요."
 msgid "@common-comment"
 msgstr "댓글"
 
-#: client/app/left/messages/messages.html
+#: client/app/center/center.html client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr "나가기"
 
@@ -214,7 +215,7 @@ msgstr ""
 "니다."
 
 #: client/app/header/header.html client/app/modal/create.channel.html
-#: client/app/modal/create.topic.html client/app/modal/join.html
+#: client/app/modal/join.html client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
 msgstr "새 토픽 생성"
 
@@ -257,7 +258,7 @@ msgstr "다운로드"
 msgid "@common-email"
 msgstr "이메일"
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
 msgstr "공개 여부"
 
@@ -331,7 +332,8 @@ msgid "@common-more"
 msgstr "더보기"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
+#: client/app/modal/settings.profile.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
 msgstr "이름"
 
@@ -433,11 +435,11 @@ msgstr "타이틀"
 msgid "@common-topics"
 msgstr "토픽"
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-type-private"
 msgstr "비공개"
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-type-public"
 msgstr "공개"
 
@@ -544,11 +546,12 @@ msgstr ""
 "인터넷 익스플로러 9 버전은 프로파일 사진 편집을 지원하지 않습니다. 잔디의 기"
 "능을 완전히 이용하기 위해서 최신 버전을 사용해주세요."
 
-#: client/app/modal/create.channel.html client/app/modal/create.topic.html
+#: client/app/modal/create.channel.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@input-create-ch"
 msgstr "생성할 토픽 채널 이름을 입력하세요"
 
-#: client/app/modal/create.private.html client/app/modal/create.topic.html
+#: client/app/modal/create.private.html
 msgid "@input-create-pg"
 msgstr "생성할 비공개 그룹 이름을 입력하세요"
 
@@ -564,8 +567,8 @@ msgstr "최대 입력 글자 수가 넘었습니다: 20자 "
 msgid "@input-max-length-60-error"
 msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
 
-#: client/app/modal/create.topic.html client/app/modal/settings.profile.html
-#: client/app/modal/settings.team.html
+#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@input-max-length-error"
 msgstr "최대 입력 글자 수가 넘었습니다.  "
 
@@ -646,27 +649,27 @@ msgstr ""
 "특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 생성"
 "해 초대해 주시기 바랍니다."
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
 msgstr "공개 여부 설정은 이후에 변경이 불가능합니다."
 
-#: client/app/modal/create.private.html client/app/modal/create.topic.html
+#: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
 msgstr ""
 "비공개 그룹은 그룹에 가입된 멤버만 볼 수 있으며, 해당 파일, 내용들도 가입된 "
 "멤버에게만 공개됩니다."
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
 msgstr ""
 "- 비공개 토픽은 초대를 받아야만 참여할 수 있으며 참여하지 않은 멤버들에게는 "
 "목록조차 노출되지 않습니다."
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
 msgstr "- 비공개 토픽에 공유된 파일은 참여자들만 열람할 수 있습니다."
 
-#: client/app/modal/create.topic.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-3"
 msgstr "- 비공개/공개 토픽은 생성 이후에 속성을 변경할 수 없습니다."
 
@@ -745,11 +748,11 @@ msgstr "타이틀로 파일을 쉽게 검색할 수 있습니다"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr "님이 토픽을 생성했습니다"
+msgstr "님이 공개 토픽을 생성했습니다."
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
-msgstr "님이 비공개 그룹을 생성했습니다"
+msgstr "님이 비공개 토픽을 생성했습니다."
 
 #: client/app/center/center.html
 msgid "@msg-file"
@@ -834,30 +837,6 @@ msgstr "이메일이 성공적으로 발송되었습니다"
 #: client/app/password/password.reset.html
 msgid "@password-reset-message"
 msgstr "패스워드를 잊으셨나요? 새로운 패스워드를 입력해주세요."
-
-#: client/app/center/center.html
-msgid "@pg-menu-delete"
-msgstr "비공개 그룹 삭제하기"
-
-#: client/app/center/center.html
-msgid "@pg-menu-invite"
-msgstr "이 비공개 그룹에 멤버 초대하기"
-
-#: client/app/center/center.html
-msgid "@pg-menu-leave"
-msgstr "비공개 그룹 나가기"
-
-#: client/app/center/center.html
-msgid "@pg-menu-rename"
-msgstr "비공개 그룹 이름 변경하기\t\t"
-
-#: client/app/center/center.html
-msgid "@pg-menu-star"
-msgstr "비공개 그룹 즐겨찾기 "
-
-#: client/app/center/center.html
-msgid "@pg-menu-un-star"
-msgstr "즐겨찾기 해제 "
 
 #: client/app/left/left.html
 msgid "@privateGroup"
@@ -1054,6 +1033,24 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
+
+#~ msgid "@pg-menu-delete"
+#~ msgstr "비공개 그룹 삭제하기"
+
+#~ msgid "@pg-menu-invite"
+#~ msgstr "이 비공개 그룹에 멤버 초대하기"
+
+#~ msgid "@pg-menu-leave"
+#~ msgstr "비공개 그룹 나가기"
+
+#~ msgid "@pg-menu-rename"
+#~ msgstr "비공개 그룹 이름 변경하기\t\t"
+
+#~ msgid "@pg-menu-star"
+#~ msgstr "비공개 그룹 즐겨찾기 "
+
+#~ msgid "@pg-menu-un-star"
+#~ msgstr "즐겨찾기 해제 "
 
 #~ msgid "@common-channels"
 #~ msgstr "토픽"
