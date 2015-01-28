@@ -38,27 +38,21 @@
             <input type="radio" ng-model="entityType" value="public"/><span class="radio-title" translate>@common-type-public</span>
             <input type="radio" ng-model="entityType" value="private"/><span class="radio-title" translate>@common-type-private</span>
           </div>
-        </div>
-      </div>
-    </div>
+          <!-- TOPIC TYPE HELP MESSAGE  -->
+          <div class="modal-body-type-container">
+            <span translate>@modal-create-entity-title</span>
 
-    <!-- TOPIC TYPE HELP MESSAGE  -->
-    <div class="form-horizontal modal-body-type-container">
-      <div class="form-group">
-        <label class="control-label col-sm-2 entity-type-title"></label>
-        <div class="col-sm-10">
-          <span translate>@modal-create-entity-title</span>
-
-          <!--<div class="private-topic-help-msg-container modal-body__description-help opac-zero" ng-class="{'opac-in':entityType == 'private'}">-->
-          <div class="private-topic-help-msg-container modal-body__description-help" ng-if="entityType == 'private'">
-            <div translate>@modal-create-private-topic-help-msg-1</div>
-            <div translate>@modal-create-private-topic-help-msg-2</div>
-            <div translate>@modal-create-private-topic-help-msg-3</div>
+            <div class="private-topic-help-msg-container modal-body__description-help" ng-if="entityType == 'private'">
+              <div translate>@modal-create-private-topic-help-msg-1</div>
+              <div translate>@modal-create-private-topic-help-msg-2</div>
+              <div translate>@modal-create-private-topic-help-msg-3</div>
+            </div>
           </div>
 
         </div>
       </div>
     </div>
+
 
 
   </div>
