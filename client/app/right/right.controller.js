@@ -135,7 +135,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
             //  channel could be removed/created/left
             //  update selectOptions for data syncrhonization issue.
-            $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberListgi);
+            $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
             $scope.sharedEntitySearchQuery = $scope.currentEntity;
         }
     });
