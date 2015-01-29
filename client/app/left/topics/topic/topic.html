@@ -1,0 +1,17 @@
+<li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true"
+    ng-class="{active: $state.params.entityId == joinedEntity.id}">
+  <a ui-sref="archives({entityType:joinedEntity.type, entityId:joinedEntity.id})"
+     data-channel-id="{{joinedEntity.id}}">
+
+    <i class="icon-star left-star" ng-class="{'icon-star-fill': joinedEntity.isStarred}"
+       data-ng-click="onStarClick(joinedEntity.type, joinedEntity.id);
+                          $event.preventDefault(); $event.stopPropagation();"></i>
+
+        <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': joinedEntity.alarmCnt > 0}">
+          <span class="private-topic-icon" ng-if="joinedEntity.type=='privategroups'"></span>
+          {{joinedEntity.name}}
+        </span>
+
+    <span class="badge left-panel_badge green_badge pull-right">{{joinedEntity.alarmCnt}}</span>
+  </a>
+</li>

@@ -6,27 +6,25 @@
     .controller('messageListCtrl', messageListCtrl);
 
   messageListCtrl.$inject = ['$scope', '$rootScope', 'storageAPIservice', 'messageList', 'entityAPIservice', 'publicService', '$filter'];
+
   /* @ngInject */
   function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice, publicService, $filter) {
-    var vm = this;
-
-
     // okay - okay to go!
     // loading - currently loading.
     // failed - failed to retrieve list from server.
-    vm.messageListLoadingStatus = 'okay';
+    $scope.messageListLoadingStatus = 'okay';
 
-    vm.messageList;
-    vm.isMessageListCollapsed = storageAPIservice.isLeftDMCollapsed();
+    $scope.messageList;
+    $scope.isMessageListCollapsed = storageAPIservice.isLeftDMCollapsed();
 
     // TODO: REALLY??? IS THIS THE BEST???
-    vm.onDMInputFocus = onDMInputFocus;
-    vm.onDMInputBlur = onDMInputBlur;
+    $scope.onDMInputFocus = onDMInputFocus;
+    $scope.onDMInputBlur = onDMInputBlur;
 
-    vm.onMessageHeaderClick = onMessageHeaderClick;
-    vm.onMeesageLeaveClick = onMeesageLeaveClick;
+    $scope.onMessageHeaderClick = onMessageHeaderClick;
+    $scope.onMeesageLeaveClick = onMeesageLeaveClick;
 
-    vm.openModal= openTeamMemberListModal;
+    $scope.openModal= openTeamMemberListModal;
 
     function openTeamMemberListModal() {
       publicService.openTeamMemberListModal($scope);
@@ -41,20 +39,19 @@
       getMessageList();
     });
 
-    getMessageList();
 
     function getMessageList() {
-      if (vm.messageListLoadingStatus == 'loading') return;
+      if ($scope.messageListLoadingStatus == 'loading') return;
 
-      vm.messageListLoadingStatus = 'loading';
+      $scope.messageListLoadingStatus = 'loading';
 
       messageList.getRecentMessageList()
         .success(function(response) {
-          vm.messageList = _generateMessageList(response);
-          vm.messageListLoadingStatus = 'okay';
+          $scope.messageList = _generateMessageList(response);
+          $scope.messageListLoadingStatus = 'okay';
         })
         .error(function(err) {
-          vm.messageListLoadingStatus = 'failed';
+          $scope.messageListLoadingStatus = 'failed';
           console.log(err)
         })
         .finally(function() {
@@ -62,8 +59,8 @@
     }
 
     function onMessageHeaderClick() {
-      vm.isMessageListCollapsed = !vm.isMessageListCollapsed;
-      storageAPIservice.setLeftDMCollapsed(vm.isMessageListCollapsed);
+      $scope.isMessageListCollapsed = !$scope.isMessageListCollapsed;
+      storageAPIservice.setLeftDMCollapsed($scope.isMessageListCollapsed);
     }
 
     function _generateMessageList(messages) {
