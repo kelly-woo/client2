@@ -333,7 +333,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     fileAPIservice.deleteFile(fileId)
       .success(function(response) {
-        getFileList();
         $rootScope.$broadcast('onFileDeleted', fileId);
       })
       .error(function(err) {

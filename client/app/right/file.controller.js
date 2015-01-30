@@ -241,6 +241,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
       .success(function(response) {
         getFileDetail();
         $rootScope.$broadcast('onFileDeleted', fileId);
+        console.log('here')
       })
       .error(function(err) {
         console.log(err);

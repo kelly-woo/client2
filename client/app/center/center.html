@@ -204,6 +204,7 @@
           <!--    DISPLAY WRITER WHEN IT IS NOT TITLE COMMENT    -->
           <!--    WHEN IT IS TITLE COMMENT, APPLY DIFFERENT CSS FORMAT  -->
           <div class="msg-item-header">
+
             <!--    WRITER
                     IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
             <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
@@ -237,7 +238,6 @@
                 </span>
               </p>
             </span>
-
             <!--    DELETE ICON APPEARS ON HOVER    -->
             <a class="msg-item__action link-remove pull-right cursor_pointer"
                data-ng-if="( member.id === msg.fromEntity.id &&  msg.message.contentType === 'text' )"

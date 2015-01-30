@@ -7,7 +7,7 @@
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
 
   <!-- FILE -->
-  <div class="rpanel-body-content file-detail" ng-if="!isFileArchived">
+  <div class="rpanel-body-content file-detail" ng-show="!isFileArchived">
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 
       <div class="file-detail-header">
@@ -168,7 +168,7 @@
       </div>
     </div>
 
-    <div class="comment-input-box" data-ng-show="initialLoaded && file_detail" ng-if="!isFileArchived">
+    <div class="comment-input-box" data-ng-show="initialLoaded && file_detail">
       <div class="comment-item__thumbnail">
         <img class="user-profile user-thumb-sm cursor_pointer"
              ng-src="{{ member | getSmallThumbnail }}"

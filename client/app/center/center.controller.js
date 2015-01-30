@@ -570,10 +570,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.$on('onFileDeleted', function(event, deletedFileId) {
     _.forEach($scope.messages, function(message) {
       var file;
+      console.log('hi', deletedFileId);
+      console.log(message.message);
+
+      //msg.message.contentType === 'systemEvent
+      //msg.message.commentOption.isTitle }}
+  //<div ng-if="!msg.message.commentOption.isTitle">
+  //{{ msg.feedback.status}}
+
 
       // Is it file?
       if (message.message.contentType == 'file')
         file = message.message;
+      else if (message.message.contentType == 'comment') {
+        file = message.feedback;
+      }
 
       // If not, continue to next message.
       if (angular.isUndefined(file)) return;
@@ -581,7 +592,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // If this file deleted?
       if (file.id == deletedFileId) {
         file.status = 'archived';
-        return false;
       }
     });
 
