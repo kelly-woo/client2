@@ -147,7 +147,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
     $scope.messages = _.uniq($scope.messages);
 
-    console.log($scope.messages)
+    //console.log($scope.messages)
     for (var i in $scope.messages) {
       var msg = $scope.messages[i];
 
@@ -563,6 +563,29 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   };
 
+
+  // Listen to file delete event.
+  // Find deleted file id from current list($scope.messages).
+  // If current list contains deleted file, change its status to 'archived'.
+  $scope.$on('onFileDeleted', function(event, deletedFileId) {
+    _.forEach($scope.messages, function(message) {
+      var file;
+
+      // Is it file?
+      if (message.message.contentType == 'file')
+        file = message.message;
+
+      // If not, continue to next message.
+      if (angular.isUndefined(file)) return;
+
+      // If this file deleted?
+      if (file.id == deletedFileId) {
+        file.status = 'archived';
+        return false;
+      }
+    });
+
+  });
 
   $scope.onSmallThumbnailClick = function($event, message) {
 

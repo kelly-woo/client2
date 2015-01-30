@@ -52,8 +52,8 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
             if (!$scope.initialLoaded) $scope.initialLoaded = true;
 
             $scope.isFileArchived = isFileArchived($scope.file_detail);
-            console.log($scope.file_detail)
-            console.log('is deleted file?', $scope.isFileArchived)
+            //console.log($scope.file_detail)
+            //console.log('is deleted file?', $scope.isFileArchived)
           })
           .error(function(err) {
             console.error(err.msg);
@@ -231,6 +231,24 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
   $scope.$on('setCommentFocus', function() {
     $scope.onCommentFocusClick();
   });
+
+  $scope.onFileDeleteClick = function(fileId) {
+    if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
+      return;
+    }
+
+    fileAPIservice.deleteFile(fileId)
+      .success(function(response) {
+        getFileDetail();
+        $rootScope.$broadcast('onFileDeleted', fileId);
+      })
+      .error(function(err) {
+        console.log(err);
+      })
+      .finally(function() {
+
+      });
+  }
 
 });
 

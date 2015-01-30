@@ -54,6 +54,10 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     }
   });
 
+  $scope.$on('onFileDeleted', function(event, deletedFileId) {
+    preLoadingSetup();
+    getFileList();
+  });
   //  when file was uploaded from center panel,
   //  fileAPI broadcasts 'onChangeShared' to rootScope.
   //  right controller is listening to 'onChangeShared' and update file list.
@@ -165,7 +169,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     fileAPIservice.getFileList($scope.fileRequest)
       .success(function(response) {
-        console.log(response)
+        //console.log(response)
         var fileList = [];
         angular.forEach(response.files, function(entity, index) {
 
@@ -329,8 +333,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
     fileAPIservice.deleteFile(fileId)
       .success(function(response) {
-        //console.log(response)
         getFileList();
+        $rootScope.$broadcast('onFileDeleted', fileId);
       })
       .error(function(err) {
         console.log(err);
