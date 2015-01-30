@@ -46,6 +46,12 @@ select:focus {
     outline: 0;
 }
 
+.lowercase {
+  text-transform: lowercase;
+}
+input[type="email"] {
+  text-transform: lowercase;
+}
 /********************************************
 
             BASIC TEMPLATE.
