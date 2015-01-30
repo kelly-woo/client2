@@ -128,6 +128,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     }
 
 
+    //console.log(response)
     memberService.setMember(response.user);
     $rootScope.team = response.team;
 
@@ -320,7 +321,19 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     if (entity.isStarred) {
       entityheaderAPIservice.removeStarEntity(entityId)
         .success(function(response) {
+          //memberService.updateCurrentMember()
+          //  .success(function(response) {
+          //    console.log(response)
+          //    memberService.setMember(response);
+          //    setStar();
+          //  })
+          //  .error(function(err) {
+          //
+          //  });
+
           getLeftLists();
+          // TODO: UPDATE CURRENT MYSELF ONLY.
+          // TODO: CALL 'setStar()' afterwards.
         })
         .error(function(response) {
         });
@@ -439,7 +452,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
    *  Tutorial related controller
    *
    *********************************************************************/
-
   $scope.onTutorialPulseClick = function($event) {
     var TutorialId = $event.target.id;
     setTutorialStatus(TutorialId);

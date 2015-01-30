@@ -755,11 +755,15 @@ msgstr "For searches by title"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr "created this topic"
+msgstr "created this public topic."
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
+<<<<<<< HEAD
 msgstr "created this private topic"
+=======
+msgstr "created this private topic."
+>>>>>>> develop
 
 #: client/app/center/center.html
 msgid "@msg-file"
@@ -1045,6 +1049,7 @@ msgstr "You received a new message from "
 msgid "@web-notification-title"
 msgstr "JANDI Message"
 
+<<<<<<< HEAD
 #~ msgid "@pg-menu-delete"
 #~ msgstr "Delete this private group"
 
@@ -1063,6 +1068,66 @@ msgstr "JANDI Message"
 #~ msgid "@pg-menu-un-star"
 #~ msgstr "Unstar this private group"
 
+=======
+#~ msgid "@ch-menu-delete-short"
+#~ msgstr "Delete"
+
+#~ msgid "@ch-menu-invite-short"
+#~ msgstr "Invite members"
+
+#~ msgid "@ch-menu-leave-short"
+#~ msgstr "Leave"
+
+#~ msgid "@ch-menu-rename-short"
+#~ msgstr "Rename"
+
+#~ msgid "@ch-menu-star-short"
+#~ msgstr "Star"
+
+#~ msgid "@ch-menu-un-star-short"
+#~ msgstr "Unstar"
+
+#~ msgid "@pg-menu-delete"
+#~ msgstr "Delete this private group"
+
+#~ msgid "@pg-menu-delete-short"
+#~ msgstr "Delete"
+
+#~ msgid "@pg-menu-invite"
+#~ msgstr "Invite members to this private group"
+
+#~ msgid "@pg-menu-invite-short"
+#~ msgstr "Invite members"
+
+#~ msgid "@pg-menu-leave"
+#~ msgstr "Leave private group"
+
+#~ msgid "@pg-menu-leave-short"
+#~ msgstr "Leave"
+
+#~ msgid "@pg-menu-rename"
+#~ msgstr "Rename this private group"
+
+#~ msgid "@pg-menu-rename-short"
+#~ msgstr "Rename"
+
+#~ msgid "@pg-menu-star"
+#~ msgstr "Star this user "
+
+#~ msgid "@pg-menu-star-short"
+#~ msgstr "Star"
+
+#~ msgid "@pg-menu-un-star"
+#~ msgstr "Unstar this private group"
+
+#~ msgid "@pg-menu-un-star-short"
+#~ msgstr "Unstar"
+
+#, fuzzy
+#~ msgid "@common-deleted-file-msg"
+#~ msgstr "Files"
+
+>>>>>>> develop
 #~ msgid "@common-private-groups"
 #~ msgstr "Private Groups"
 

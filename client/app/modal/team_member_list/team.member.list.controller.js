@@ -11,9 +11,13 @@
   function teamMemberListCtrl($scope, $rootScope, $state, $modalInstance) {
     var vm = $scope;
 
+    vm.cancel = cancel;
     vm.onStarClick = onStarClick;
     vm.onMemberClick = onMemberClick;
 
+    function cancel() {
+      $modalInstance.dismiss('close');
+    }
     function onStarClick(entityType, entityId) {
       $rootScope.$broadcast('onStarClick', entityType, entityId);
     }
