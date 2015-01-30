@@ -244,11 +244,6 @@ msgstr ""
 msgid "@common-customer-service"
 msgstr ""
 
-#: client/app/center/center.html
-#: client/app/right/file.html
-msgid "@common-deleted-file-msg"
-msgstr ""
-
 #: client/app/modal/profile.view.html
 #: client/app/modal/settings.profile.html
 msgid "@common-department"
@@ -655,7 +650,6 @@ msgid "@login-reset-password"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/right/right.html
 msgid "@message-delete"
 msgstr ""
 

@@ -232,11 +232,6 @@ msgstr "Password"
 msgid "@common-customer-service"
 msgstr "Customer Service"
 
-#: client/app/center/center.html client/app/right/file.html
-#, fuzzy
-msgid "@common-deleted-file-msg"
-msgstr "Files"
-
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
 msgstr "Department"
@@ -632,7 +627,7 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
-#: client/app/center/center.html client/app/right/right.html
+#: client/app/center/center.html
 msgid "@message-delete"
 msgstr "Delete"
 
@@ -759,11 +754,7 @@ msgstr "created this public topic."
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
-<<<<<<< HEAD
-msgstr "created this private topic"
-=======
 msgstr "created this private topic."
->>>>>>> develop
 
 #: client/app/center/center.html
 msgid "@msg-file"
@@ -1049,26 +1040,6 @@ msgstr "You received a new message from "
 msgid "@web-notification-title"
 msgstr "JANDI Message"
 
-<<<<<<< HEAD
-#~ msgid "@pg-menu-delete"
-#~ msgstr "Delete this private group"
-
-#~ msgid "@pg-menu-invite"
-#~ msgstr "Invite members to this private group"
-
-#~ msgid "@pg-menu-leave"
-#~ msgstr "Leave private group"
-
-#~ msgid "@pg-menu-rename"
-#~ msgstr "Rename this private group"
-
-#~ msgid "@pg-menu-star"
-#~ msgstr "Star this user "
-
-#~ msgid "@pg-menu-un-star"
-#~ msgstr "Unstar this private group"
-
-=======
 #~ msgid "@ch-menu-delete-short"
 #~ msgstr "Delete"
 
@@ -1127,7 +1098,6 @@ msgstr "JANDI Message"
 #~ msgid "@common-deleted-file-msg"
 #~ msgstr "Files"
 
->>>>>>> develop
 #~ msgid "@common-private-groups"
 #~ msgstr "Private Groups"
 
