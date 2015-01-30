@@ -6,6 +6,7 @@
 
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
 
+  <!-- FILE -->
   <div class="rpanel-body-content file-detail" ng-if="!isFileArchived">
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 
@@ -21,7 +22,6 @@
             <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="!isFileArchived">
               {{ file_detail.content.title || file_detail.content.name }}
             </a>
-            <div translate>@common-deleted-file-msg</div>
           </div>
         </div>
       </div>
@@ -189,6 +189,8 @@
   </div>
 
 
+
+  <!-- ARCHIVED FILE  -->
   <div class="rpanel-body-content file-detail archived-file-detail" ng-if="isFileArchived">
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 

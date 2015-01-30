@@ -53,7 +53,7 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
 
             $scope.isFileArchived = isFileArchived($scope.file_detail);
             console.log($scope.file_detail)
-            console.log($scope.isFileArchived )
+            console.log('is deleted file?', $scope.isFileArchived)
           })
           .error(function(err) {
             console.error(err.msg);
