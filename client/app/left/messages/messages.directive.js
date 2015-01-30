@@ -12,7 +12,7 @@
       link: link,
       transclude: true,
       replace: true,
-      templateUrl: '/app/left/messages/messages.html',
+      templateUrl: 'app/left/messages/messages.html',
       controller: 'messageListCtrl'
     };
 
