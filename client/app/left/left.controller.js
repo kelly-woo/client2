@@ -128,7 +128,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     }
 
 
-    console.log(response)
+    //console.log(response)
     memberService.setMember(response.user);
     $rootScope.team = response.team;
 
