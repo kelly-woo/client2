@@ -142,9 +142,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
           publicService.getLanguageSetting();
           publicService.setCurrentLanguage();
 
-          if(!accountService.hasSeenTutorial()) {
-            $scope.initTutorialStatus();
-          }
+          _checkUpdateMessageStatus();
 
           analyticsService.accountIdentifyMixpanel(response);
           analyticsService.accountMixpanelTrack("Sign In");
@@ -158,9 +156,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     }
     else {
       // Still check whether user needs to see tutorial or not.
-      if(!accountService.hasSeenTutorial()) {
-        $scope.initTutorialStatus();
-      }
+      _checkUpdateMessageStatus();
     }
 
     $rootScope.team = $scope.team = response.team;
@@ -218,6 +214,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     $rootScope.isReady = true;
 
   }
+
   function setEntityPrefix() {
     leftpanelAPIservice.setEntityPrefix($scope);
   }
@@ -452,6 +449,22 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
    *  Tutorial related controller
    *
    *********************************************************************/
+  function _checkUpdateMessageStatus() {
+    if(!accountService.hasSeenTutorial()) {
+      $scope.initTutorialStatus();
+    }
+    else if(accountService.hasChangeLog()) {
+      _openChangeLogPopUp();
+    }
+  }
+
+  function _openChangeLogPopUp() {
+    console.log('has message to see!!')
+    var modal = publicService.openTutorialModal($scope, 'topicTutorial');
+    modal.result.then(function (reason) {
+      console.log(reason)
+    });
+  }
   $scope.onTutorialPulseClick = function($event) {
     var TutorialId = $event.target.id;
     setTutorialStatus(TutorialId);

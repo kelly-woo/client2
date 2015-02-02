@@ -9,13 +9,13 @@
   function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService) {
     var service = {
       getInviteOptions: getInviteOptions,
+      openTutorialModal: openTutorialModal,
       openPrivacyModal: openPrivacyModal,
       openAgreementModal: openAgreementModal,
       openJoinModal: openJoinModal,
       openTopicCreateModal: openTopicCreateModal,
       openPrivateCreateModal: openPrivateCreateModal,
       openInviteToTeamModal: openInviteToTeamModal,
-      openTutorialModal: openTutorialModal,
       openCurrentMemberModal: openCurrentMemberModal,
       openInviteToCurrentEntityModal: openInviteToCurrentEntityModal,
       openInviteToJoinedEntityModal: openInviteToJoinedEntityModal,
@@ -52,57 +52,6 @@
       return list;
     }
 
-    function openPrivacyModal() {
-      var privacy = 'app/modal/terms/privacy';
-      privacy = privacy + '_' + accountService.getAccountLanguage() + '.html';
-
-      $modal.open({
-        templateUrl: privacy,
-        size: 'lg'
-      });
-    }
-    function openAgreementModal() {
-      var agreement = 'app/modal/terms/agreement';
-      agreement = agreement + '_' + accountService.getAccountLanguage() + '.html';
-
-      $modal.open({
-        templateUrl: agreement,
-        size: 'lg'
-      });
-    }
-
-    function openJoinModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/join.html',
-        controller  :   'joinModalCtrl',
-        size        :   'lg'
-      });
-    }
-    function openTopicCreateModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/topic_create/topic.create.html',
-        controller  :   'createEntityModalCtrl',
-        size        :   'lg'
-      });
-    }
-    function openPrivateCreateModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/create.private.html',
-        controller  :   'createEntityModalCtrl',
-        size        :   'lg'
-      });
-    }
-    function openInviteToTeamModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/invite.team.html',
-        controller  :   'inviteUserToTeamCtrl',
-        size        :   'lg'
-      });
-    }
     function openTutorialModal($scope, tutorialId) {
       var modal;
 
@@ -172,6 +121,58 @@
       }
 
       return modal;
+    }
+
+    function openPrivacyModal() {
+      var privacy = 'app/modal/terms/privacy';
+      privacy = privacy + '_' + accountService.getAccountLanguage() + '.html';
+
+      $modal.open({
+        templateUrl: privacy,
+        size: 'lg'
+      });
+    }
+    function openAgreementModal() {
+      var agreement = 'app/modal/terms/agreement';
+      agreement = agreement + '_' + accountService.getAccountLanguage() + '.html';
+
+      $modal.open({
+        templateUrl: agreement,
+        size: 'lg'
+      });
+    }
+
+    function openJoinModal($scope) {
+      $modal.open({
+        scope       :   $scope,
+        templateUrl :   'app/modal/join.html',
+        controller  :   'joinModalCtrl',
+        size        :   'lg'
+      });
+    }
+    function openTopicCreateModal($scope) {
+      $modal.open({
+        scope       :   $scope,
+        templateUrl :   'app/modal/topic_create/topic.create.html',
+        controller  :   'createEntityModalCtrl',
+        size        :   'lg'
+      });
+    }
+    function openPrivateCreateModal($scope) {
+      $modal.open({
+        scope       :   $scope,
+        templateUrl :   'app/modal/create.private.html',
+        controller  :   'createEntityModalCtrl',
+        size        :   'lg'
+      });
+    }
+    function openInviteToTeamModal($scope) {
+      $modal.open({
+        scope       :   $scope,
+        templateUrl :   'app/modal/invite.team.html',
+        controller  :   'inviteUserToTeamCtrl',
+        size        :   'lg'
+      });
     }
     function openCurrentMemberModal($scope) {
       $modal.open({
@@ -250,6 +251,7 @@
       });
 
     }
+
     function closeModal(modalInstance) {
       modalInstance.dismiss('close');
     }
