@@ -41,9 +41,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
   $scope.isLoading = false;
 
   $scope.leftListCollapseStatus = {
-    isTopicCollapsed: storageAPIservice.isLeftTopicCollapsed() || false,
-    isPGCollapsed: storageAPIservice.isLeftPGCollapsed() || false,
-    isDMCollapsed: storageAPIservice.isLeftDMCollapsed() || false
+    isTopicsCollapsed: storageAPIservice.isLeftTopicCollapsed() || false
   };
 
   var response = null;
@@ -64,18 +62,11 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
 
 
   // TODO: THERE HAS TO BE A BETTER WAY TO DO THIS.
-  $scope.$watch('leftListCollapseStatus.isTopicCollapsed',
+  $scope.$watch('leftListCollapseStatus.isTopicsCollapsed',
     function(newVal, oldVal) {
       storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
-    });
-  $scope.$watch('leftListCollapseStatus.isPGCollapsed',
-    function(newVal, oldVal) {
-      storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
-    });
-  $scope.$watch('leftListCollapseStatus.isDMCollapsed',
-    function(newVal, oldVal) {
-      storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
-    });
+    }
+  );
 
 
   $scope.$watch('$state.params.entityId', function(newEntityId){
@@ -459,10 +450,9 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
   }
 
   function _openChangeLogPopUp() {
-    console.log('has message to see!!')
-    var modal = publicService.openTutorialModal($scope, 'topicTutorial');
+    var modal = publicService.openTutorialModal('topicTutorial');
     modal.result.then(function (reason) {
-      console.log(reason)
+      setTutorialStatus();
     });
   }
   $scope.onTutorialPulseClick = function($event) {
@@ -508,7 +498,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
   }
 
   function openTutorialModal(tutorialId) {
-    var modal = publicService.openTutorialModal($scope, tutorialId);
+    var modal = publicService.openTutorialModal(tutorialId);
 
     modal.result.then(function (reason) {
       if (reason === 'skip' || $scope.tutorialStatus.count == 0) {

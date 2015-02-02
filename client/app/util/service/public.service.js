@@ -3,10 +3,10 @@
     .module('jandiApp')
     .factory('publicService', publicService);
 
-  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'analyticsService'];
+  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'analyticsService', 'tutorialService'];
 
   /* @ngInject */
-  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService) {
+  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService, tutorialService) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -52,69 +52,21 @@
       return list;
     }
 
-    function openTutorialModal($scope, tutorialId) {
+    function openTutorialModal(tutorialId) {
       var modal;
 
       switch (tutorialId) {
         case 'welcomeTutorial':
-          modal = $modal.open({
-            templateUrl: 'app/tutorial/tutorial.html',
-            controller: 'tutorialController',
-            windowClass: 'fade-only welcome-tutorial',
-            backdropClass: 'welcome-tutorial-backdrop',
-            backdrop: 'static',
-            keyboard: false,
-            resolve: {
-              curState: function getCurrentTutorial() {
-                return 0;
-              }
-            }
-          });
+          modal = tutorialService.openWelcomeModal();
           break;
         case 'topicTutorial':
-          modal = $modal.open({
-            scope: $scope,
-            templateUrl: 'app/tutorial/tutorial.html',
-            controller: 'tutorialController',
-            windowClass: 'fade-only welcome-tutorial topic-tutorial tutorial-animation',
-            backdrop: false,
-            keyboard: false,
-            resolve: {
-              curState: function getCurrentTutorial() {
-                return 1;
-              }
-            }
-          });
+          modal = tutorialService.openTopicModal();
           break;
         case 'chatTutorial' :
-          modal = $modal.open({
-            scope: $scope,
-            templateUrl: 'app/tutorial/tutorial.html',
-            controller: 'tutorialController',
-            windowClass: 'fade-only welcome-tutorial chat-tutorial',
-            backdrop: false,
-            keyboard: false,
-            resolve: {
-              curState: function getCurrentTutorial() {
-                return 2;
-              }
-            }
-          });
+          modal = tutorialService.openChatModal();
           break;
         case 'fileTutorial' :
-          modal = $modal.open({
-            scope: $scope,
-            templateUrl: 'app/tutorial/tutorial.html',
-            controller: 'tutorialController',
-            windowClass: 'fade-only welcome-tutorial file-tutorial',
-            backdrop: false,
-            keyboard: false,
-            resolve: {
-              curState: function getCurrentTutorial() {
-                return 3;
-              }
-            }
-          });
+          modal = tutorialService.openFileModal();
           break;
         default :
           break;

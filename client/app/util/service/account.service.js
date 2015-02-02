@@ -79,11 +79,6 @@
     }
 
     function hasChangeLog() {
-
-      console.log(configuration)
-      console.log(configuration.last_update_message);
-      console.log(new Date(configuration.last_update_message))
-
       var account = getAccount();
 
       // Account or tutoredAt info don't exist. return false.
@@ -92,11 +87,8 @@
       var tutoredAt = new Date(account.tutoredAt);
       var lastUpdateMesageAt = new Date(configuration.last_update_message);
 
-      console.log(tutoredAt)
-      console.log(lastUpdateMesageAt)
       // Return true if and only if tutoredAt is in past.
       if (tutoredAt < lastUpdateMesageAt) {
-        console.log('return true!!!');
         return true;
       }
 
