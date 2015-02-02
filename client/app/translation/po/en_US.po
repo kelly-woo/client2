@@ -929,25 +929,26 @@ msgstr "Got it!"
 msgid "@tutorial-file-msg1"
 msgstr ""
 "All of the files you've shared and that have been shared with you can be "
-"found in your file drawer. "
+"found in your JANDI file drawer."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
 "You can toggle the view by using the All Files button to open or shut the "
-"drawer.  You can sort by file type, team member who provided the file, or "
-"the room in which it was shared. You can also search for specific files by "
-"keyword. "
+"drawer. You can search for specific files by keyword and sort by file type, "
+"team member who provided the file, or the conversation in which it was "
+"shared."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
 "After you select a file, you can use the menu button (ᵒᵒᵒ) to the right to "
-"share it in other rooms, comment on the file, or download it to your device."
+"share it in other conversations, comment on the file, or download it to your "
+"device."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
-msgstr "All Files"
+msgstr "Your file drawer"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"
@@ -956,12 +957,13 @@ msgstr "Sending messages and uploading files"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"To send messages, simply write in the text bar and hit enter. To upload a "
-"file, click the button to the left and select the file."
+"To send messages, simply type in the text bar and press enter. To upload a "
+"file, click the button to the left and select the desired file path, or drag "
+"and drop the file anywhere in the center messaging pane."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
-msgstr "I already know how to use JANDI. Just let me use it!"
+msgstr "Skip tutorial"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
@@ -969,30 +971,37 @@ msgstr "TIPS"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
-msgstr " "
+msgstr ""
+"Direct Messages are private, one-on-one conversations between two members. "
+"Direct Messages will automatically appear when you receive a new message, or "
+"you can initiate a conversation by clicking + Add. You can also close and "
+"hide Direct Messages while preserving the message history until the "
+"conversation is restarted."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"If you need privacy, use Private topic or Direct Messages to invite just the "
-"people you want."
+"Private Topics are available on an invite-only basis and the information "
+"shared is only visible to the participants. Start a new Private Topic by "
+"clicking + Add."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
 msgstr ""
-"What’s the difference between Topics, Private Topics, and Direct Messages?"
+"What’s the difference between Public Topics, Private Topics, and Direct "
+"Messages?"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"Topics are open forums that anybody can join. Discuss specific projects, "
-"share news or information, or just use as the water cooler – anything you "
-"want! You can check out other Topics to join by clicking ☰ BROWSE, or create "
-"your own Topic with + Add."
+"Topics are group-oriented forums for discussing and sharing anything you "
+"want – project updates, meeting schedules, ideas for lunch, and more. Public "
+"Topics are open for anybody on your team to participate. You can create your "
+"own with + Add, or join other active Public Topics by clicking ☰ BROWSE."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
-msgstr "Next"
+msgstr "Continue »"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
