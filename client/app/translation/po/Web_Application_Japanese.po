@@ -176,6 +176,33 @@ msgstr "このトピックをお気に入りに追加する"
 msgid "@ch-menu-un-star"
 msgstr "このトピックをお気に入りから削除する"
 
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-1"
+msgstr ""
+"「プライベートグループ」は「プライベートトピック」と名称が変わり、鍵のマーク"
+"のアイコンで「トピックス」タブ内に表示されます。プライベートトピックはこれま"
+"で通り、招待されない限り参加することや、そのトピックが存在することすらわかり"
+"ません。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-2"
+msgstr ""
+"ダイレクトメッセージの表示順が変更され、最新のメッセージから順ひ並ぶようにな"
+"りました"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-3"
+msgstr ""
+"ダイレクトメッセージは会話のあったものだけが表示されるようになりました。会話"
+"履歴は閉じることによって非表示にすることができます。同じ相手と会話を再開する"
+"と、再び表示されます。過去の会話履歴も表示されます。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-title"
+msgstr ""
+"今回のアップデートでは、より良いユーザー体験のため、レイアウトの変更と、いく"
+"つかの便利な機能を実装しました。"
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "トピック一覧"
@@ -949,6 +976,7 @@ msgstr ""
 "セージ入力欄の左にあるボタンをクリックするか、ファイルをドラッグ＆ドロップし"
 "てください。"
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr "チュートリアルをスキップする"

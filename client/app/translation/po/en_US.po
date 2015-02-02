@@ -176,6 +176,35 @@ msgstr "Star this topic "
 msgid "@ch-menu-un-star"
 msgstr "Unstar this topic"
 
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-1"
+msgstr ""
+"Private Groups were renamed Private Topics and integrated into the Topics "
+"list. Private Topics are marked with lock symbols, and as before, are "
+"available on an invite-only basis with all communications only visible to "
+"the participants."
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-2"
+msgstr ""
+"Direct Message conversations are now reordered automatically based on the "
+"latest messages. "
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-3"
+msgstr ""
+"By default, Direct Messages are listed if messages have previously been "
+"exchanged, but you can choose to close and hide them. Direct Messages that "
+"have been closed will automatically reappear (along with the message "
+"history) when you receive a new message, or you can click + Add to initiate "
+"a conversation."
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-title"
+msgstr ""
+"We recently updated the layout and added some nifty features to improve your "
+"experience"
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "Topics "
@@ -961,6 +990,7 @@ msgstr ""
 "file, click the button to the left and select the desired file path, or drag "
 "and drop the file anywhere in the center messaging pane."
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr "Skip tutorial"

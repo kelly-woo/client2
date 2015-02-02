@@ -176,6 +176,29 @@ msgstr "토픽 즐겨찾기 "
 msgid "@ch-menu-un-star"
 msgstr "즐겨찾기 해제 "
 
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-1"
+msgstr ""
+"비공개 그룹이 \"비공개 토픽\"으로 전환되어 하나의 토픽 리스트에 통합되었습니"
+"다. 물론 비공개 그룹은 참여자들에게만 노출되며 공유된 파일들 또한 참여자들만 "
+"열람할 수 있습니다."
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-2"
+msgstr ""
+"1:1 메시지는 일반 메신저 서비스와 같이 가장 최근 메시지 순으로 정렬됩니다."
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-3"
+msgstr ""
+"이제 필요하다면 1:1 메시지 대화방으로부터 나갈 수 있게 되었습니다. 하지만 대"
+"화 내용은 보존되기 때문에 대화방을 닫았던 상대방이더라도 [+추가]를 눌러 대화"
+"방을 열 경우 과거의 내용을 다시 볼 수 있습니다."
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-title"
+msgstr "잔디의 사용방법이 크게 달라졌습니다!"
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "토픽 "
@@ -953,6 +976,7 @@ msgstr ""
 "이콘을 클릭하거나 간단하게 파일을 메시지 창으로  <b>드래그&드롭</b> 하시면 됩"
 "니다."
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr "더 이상 보지 않기"

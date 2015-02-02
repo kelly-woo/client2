@@ -15,6 +15,8 @@
     this.openTopicModal = openTopicModal;
     this.openChatModal = openChatModal;
     this.openFileModal = openFileModal;
+    this.openChangeLogModal = openChangeLogModal;
+
     this.updateChangeLogTime = updateChangeLogTime;
 
     function openWelcomeModal() {
@@ -70,6 +72,20 @@
         resolve: {
           curState: function getCurrentTutorial() {
             return 3;
+          }
+        }
+      });
+    }
+    function openChangeLogModal() {
+      return $modal.open({
+        templateUrl: 'app/modal/change_log/changeLog.html',
+        controller: 'tutorialController',
+        windowClass: 'fade-only welcome-tutorial topic-tutorial tutorial-animation',
+        backdrop: false,
+        keyboard: false,
+        resolve: {
+          curState: function getCurrentTutorial() {
+            return 1;
           }
         }
       });
