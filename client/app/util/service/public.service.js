@@ -275,10 +275,6 @@
       storageAPIservice.removeLocal();
       storageAPIservice.removeCookie();
 
-      accountService.removeAccount();
-      memberService.removeMember();
-
-
       analyticsService.removeMemberCookieMixpanel();
       analyticsService.removeAccountCookieMixpanel();
 

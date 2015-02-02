@@ -38,6 +38,12 @@
     background-color: rgba(0,0,0,0);
 }
 
+.cpanel_background {
+  left: 219px;
+  right: 0;
+  top: 41px;
+  bottom: 0;
+}
 /*
     modal
 */
