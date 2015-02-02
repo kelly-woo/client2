@@ -5,13 +5,17 @@
     .module('jandiApp')
     .service('tutorialService', tutorialService);
 
-  tutorialService.$inject = ['$modal'];
+  tutorialService.$inject = ['$modal', '$http', 'configuration'];
 
-  function tutorialService($modal) {
+  function tutorialService($modal, $http, configuration) {
+
+    var api_address = configuration.api_address + 'inner-api/';
+
     this.openWelcomeModal = openWelcomeModal;
     this.openTopicModal = openTopicModal;
     this.openChatModal = openChatModal;
     this.openFileModal = openFileModal;
+    this.updateChangeLogTime = updateChangeLogTime;
 
     function openWelcomeModal() {
       return $modal.open({
@@ -68,6 +72,13 @@
             return 3;
           }
         }
+      });
+    }
+
+    function updateChangeLogTime() {
+      return $http({
+        method: 'PUT',
+        url: api_address + 'settings/tutoredAt'
       });
     }
   }

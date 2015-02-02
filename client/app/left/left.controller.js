@@ -32,7 +32,7 @@
 var app = angular.module('jandiApp');
 
 app.controller('leftPanelController1', function($scope, $rootScope, $state, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-                                                entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService) {
+                                                entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService) {
 
   //console.info('[enter] leftpanelController');
 
@@ -451,8 +451,9 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
 
   function _openChangeLogPopUp() {
     var modal = publicService.openTutorialModal('topicTutorial');
+
     modal.result.then(function (reason) {
-      setTutorialStatus();
+      tutorialService.updateChangeLogTime();
     });
   }
   $scope.onTutorialPulseClick = function($event) {
@@ -491,7 +492,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
         $scope.tutorialStatus.chatTutorial = true;
         $scope.tutorialStatus.fileTutorial = true;
 
-        leftpanelAPIservice.setTutorial();
+        tutorialService.updateChangeLogTime();
 
         break;
     }
