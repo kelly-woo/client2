@@ -693,7 +693,11 @@ css for system-event-msg
 .isAborted .jandi-file-upload-progress-bar .progress-bar  {
   background-color: rgba(235, 149, 47, 0.7);
 }
-.remove-animation .progress-bar{
+.file-upload-done .progress-bar{
   -webkit-animation: none !important;
   animation: none !important;
+  background-image: none;
+}
+.file-upload-done {
+
 }
