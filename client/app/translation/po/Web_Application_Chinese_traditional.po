@@ -176,6 +176,27 @@ msgstr "離開議題群組 "
 msgid "@ch-menu-un-star"
 msgstr "邀請成員到這議題群組 "
 
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-1"
+msgstr ""
+"\"私人群組被更名爲私人議題並整合到議題列表中。私人議題都標有上鎖符號，並像以"
+"前一樣提供僅限邀請機制，僅參與者可以看到所有溝通内容。\""
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-2"
+msgstr "直接傳訊的對話現在將根據最新的訊息自動重新排序。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-3"
+msgstr ""
+"針對直接傳訊，初始設定是如果是已經傳出的訊息將表列出來，但您可以選擇關閉並隱"
+"藏它們。當您收到新的訊息，已關閉的直接傳訊將會自動重新出現（連同訊息歷史記"
+"錄），或者您也可以點擊‘+添加’來啟動對話。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-title"
+msgstr "我們最近更新了排版和增加了一些極好的功能以提高您的體驗"
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "議題群組 "
@@ -932,6 +953,7 @@ msgstr ""
 "僅需書寫訊息並點擊return鍵即可通話。要上傳檔案，點擊左邊的按鍵即可瀏覽您的電"
 "腦檔案。"
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr "我已經知道如何使用JANDI。讓我就開始使用！"
