@@ -1020,8 +1020,8 @@ msgstr "다른 팁 보기 »"
 msgid "@tutorial-welcome-intro"
 msgstr ""
 "잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위해 만"
-"들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 <b>{{user.name}}"
-"</b> 님을 위해 골랐으니 한 번 확인해주세요."
+"들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 <b>{{member|"
+"getName}}</b> 님을 위해 골랐으니 한 번 확인해주세요."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
