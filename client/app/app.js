@@ -86,20 +86,12 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
       }
     }
 
-    if (!fromState.name) {
-      // if external access, continue to original state
-    }
-    else {
       // otherwise, internal access, redirect to messages state
       switch(toState.name) {
         case 'signin':
           break;
         case 'archives':
           event.preventDefault();
-          if ( toParams.entityId == $rootScope.member.id ) {
-            console.warn("prevent redirect to self direct message");
-            return false;
-          }
 
           if ( fromState.name.indexOf("files") !== -1 ) {
             if (fromParams.itemId) {
@@ -146,7 +138,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         default:
           break;
       }
-    }
   });
 
   $rootScope.$on('$stateNotFound', function(event, unfoundState, fromState, fromParams) {
