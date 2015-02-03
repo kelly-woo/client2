@@ -982,7 +982,7 @@ msgstr ""
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
-msgstr "讓我們來瞭解一下吧"
+msgstr "讓我們來瞭解一下吧 »"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"

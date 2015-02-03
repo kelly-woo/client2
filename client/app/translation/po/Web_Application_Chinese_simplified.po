@@ -917,6 +917,7 @@ msgstr "更换团队"
 msgid "@tutorial-click-blink"
 msgstr "点击跳动的标记来查看一下吧！"
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr "知道了！"
@@ -953,7 +954,6 @@ msgstr ""
 "仅需书写讯息并点击return键即可通话。要上传档案，点击左边的按键即可浏览您的电"
 "脑档案。"
 
-#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr "我已经知道如何使用JANDI。让我就开始使用！"

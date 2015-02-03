@@ -942,6 +942,7 @@ msgstr ""
 msgid "@tutorial-click-blink"
 msgstr ""
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr ""
@@ -970,7 +971,6 @@ msgstr ""
 msgid "@tutorial-msg-explanation"
 msgstr ""
 
-#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr ""
