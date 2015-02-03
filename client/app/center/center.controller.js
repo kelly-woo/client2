@@ -59,6 +59,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.isPosting = false;
 
   $scope.isOwner = function() {
+
     return ($rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId) == memberService.getMemberId();
   };
   $scope.isDefaultTopic = function() {
