@@ -32,7 +32,7 @@
 var app = angular.module('jandiApp');
 
 app.controller('leftPanelController1', function($scope, $rootScope, $state, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-                                                entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService) {
+                                                entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService) {
 
   //console.info('[enter] leftpanelController');
 
@@ -41,9 +41,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
   $scope.isLoading = false;
 
   $scope.leftListCollapseStatus = {
-    isTopicCollapsed: storageAPIservice.isLeftTopicCollapsed() || false,
-    isPGCollapsed: storageAPIservice.isLeftPGCollapsed() || false,
-    isDMCollapsed: storageAPIservice.isLeftDMCollapsed() || false
+    isTopicsCollapsed: storageAPIservice.isLeftTopicCollapsed() || false
   };
 
   var response = null;
@@ -64,18 +62,11 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
 
 
   // TODO: THERE HAS TO BE A BETTER WAY TO DO THIS.
-  $scope.$watch('leftListCollapseStatus.isTopicCollapsed',
+  $scope.$watch('leftListCollapseStatus.isTopicsCollapsed',
     function(newVal, oldVal) {
       storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
-    });
-  $scope.$watch('leftListCollapseStatus.isPGCollapsed',
-    function(newVal, oldVal) {
-      storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
-    });
-  $scope.$watch('leftListCollapseStatus.isDMCollapsed',
-    function(newVal, oldVal) {
-      storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
-    });
+    }
+  );
 
 
   $scope.$watch('$state.params.entityId', function(newEntityId){
@@ -142,9 +133,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
           publicService.getLanguageSetting();
           publicService.setCurrentLanguage();
 
-          if(!accountService.hasSeenTutorial()) {
-            $scope.initTutorialStatus();
-          }
+          _checkUpdateMessageStatus();
 
           analyticsService.accountIdentifyMixpanel(response);
           analyticsService.accountMixpanelTrack("Sign In");
@@ -158,9 +147,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     }
     else {
       // Still check whether user needs to see tutorial or not.
-      if(!accountService.hasSeenTutorial()) {
-        $scope.initTutorialStatus();
-      }
+      _checkUpdateMessageStatus();
     }
 
     $rootScope.team = $scope.team = response.team;
@@ -218,6 +205,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
     $rootScope.isReady = true;
 
   }
+
   function setEntityPrefix() {
     leftpanelAPIservice.setEntityPrefix($scope);
   }
@@ -452,6 +440,22 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
    *  Tutorial related controller
    *
    *********************************************************************/
+  function _checkUpdateMessageStatus() {
+    if(!accountService.hasSeenTutorial()) {
+      $scope.initTutorialStatus();
+    }
+    else if(accountService.hasChangeLog()) {
+      _openChangeLogPopUp();
+    }
+  }
+
+  function _openChangeLogPopUp() {
+    var modal = tutorialService.openChangeLogModal();
+
+    modal.result.then(function (reason) {
+      tutorialService.updateChangeLogTime();
+    });
+  }
   $scope.onTutorialPulseClick = function($event) {
     var TutorialId = $event.target.id;
     setTutorialStatus(TutorialId);
@@ -488,14 +492,14 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
         $scope.tutorialStatus.chatTutorial = true;
         $scope.tutorialStatus.fileTutorial = true;
 
-        leftpanelAPIservice.setTutorial();
+        tutorialService.updateChangeLogTime();
 
         break;
     }
   }
 
   function openTutorialModal(tutorialId) {
-    var modal = publicService.openTutorialModal($scope, tutorialId);
+    var modal = publicService.openTutorialModal(tutorialId);
 
     modal.result.then(function (reason) {
       if (reason === 'skip' || $scope.tutorialStatus.count == 0) {

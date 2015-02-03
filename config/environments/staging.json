@@ -10,5 +10,6 @@
   "base_protocol"     : "https://",
   "main_address"      : "https://www.jandi.com/main/#/",
   "app_store_address" : "itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8",
-  "play_store_address": "https://play.google.com/store/apps/details?id=com.tosslab.jandi.app"
+  "play_store_address": "https://play.google.com/store/apps/details?id=com.tosslab.jandi.app",
+  "last_update_message" : "02/02/2015"
 }

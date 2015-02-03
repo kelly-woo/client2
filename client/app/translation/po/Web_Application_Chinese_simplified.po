@@ -176,6 +176,27 @@ msgstr "离开议题群组 "
 msgid "@ch-menu-un-star"
 msgstr "邀请成员到这议题群组 "
 
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-1"
+msgstr ""
+"私人群组被更名为私人议题并整合到议题列表中。私人议题都标有上锁符号，并像以前"
+"一样提供仅限邀请机制，仅参与者可以看到所有沟通内容。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-2"
+msgstr "直接传讯的对话现在将根据最新的讯息自动重新排序。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-3"
+msgstr ""
+"针对直接传讯，初始设定是如果是已经传出的讯息将表列出来，但您可以选择关闭并隐"
+"藏它们。当您收到新的讯息，已关闭的直接传讯将会自动重新出现（连同讯息历史记"
+"录），或者您也可以点击'+添加'来启动对话。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-title"
+msgstr "我们最近更新了排版和增加了一些极好的功能以提高您的体验"
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "议题群组 "
@@ -932,6 +953,7 @@ msgstr ""
 "仅需书写讯息并点击return键即可通话。要上传档案，点击左边的按键即可浏览您的电"
 "脑档案。"
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr "我已经知道如何使用JANDI。让我就开始使用！"
@@ -960,7 +982,7 @@ msgstr ""
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
-msgstr "让我们来了解一下吧"
+msgstr "让我们来了解一下吧 »"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"

@@ -804,8 +804,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         var updateEntity = entityAPIservice.getEntityFromListById($rootScope.joinedEntities, event.toEntity[0]);
         if (updateEntity) {
-          if (isJoin) console.log('Someone joined to related entity')
-          else console.log('Someone left related entity')
+          //if (isJoin) console.log('Someone joined to related entity')
+          //else console.log('Someone left related entity')
 
           mustUpdateLeftPanel = true;
           return;

@@ -183,6 +183,22 @@ msgstr ""
 msgid "@ch-menu-un-star"
 msgstr ""
 
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-1"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-2"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-3"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-title"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr ""
@@ -954,6 +970,7 @@ msgstr ""
 msgid "@tutorial-msg-explanation"
 msgstr ""
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr ""

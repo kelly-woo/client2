@@ -176,6 +176,29 @@ msgstr "토픽 즐겨찾기 "
 msgid "@ch-menu-un-star"
 msgstr "즐겨찾기 해제 "
 
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-1"
+msgstr ""
+"비공개 그룹이 \"비공개 토픽\"으로 전환되어 하나의 토픽 리스트에 통합되었습니"
+"다. 물론 비공개 그룹은 참여자들에게만 노출되며 공유된 파일들 또한 참여자들만 "
+"열람할 수 있습니다."
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-2"
+msgstr ""
+"1:1 메시지는 일반 메신저 서비스와 같이 가장 최근 메시지 순으로 정렬됩니다."
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-3"
+msgstr ""
+"이제 필요하다면 1:1 메시지 대화방으로부터 나갈 수 있게 되었습니다. 하지만 대"
+"화 내용은 보존되기 때문에 대화방을 닫았던 상대방이더라도 [+추가]를 눌러 대화"
+"방을 열 경우 과거의 내용을 다시 볼 수 있습니다."
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-title"
+msgstr "잔디의 사용방법이 크게 달라졌습니다!"
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "토픽 "
@@ -923,8 +946,8 @@ msgstr " 잘 알겠습니다! "
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파일들을 볼 수 있는 "
-"사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다"
+"[모든 파일] 버튼을 클릭하시면 참여 토픽이나 사용자님께 공유됐던 모든 파일들"
+"을 볼 수 있는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
@@ -940,7 +963,7 @@ msgstr ""
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
-msgstr "모든 파일 "
+msgstr "파일 서랍"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"
@@ -949,12 +972,14 @@ msgstr "메시지 입력과 파일 업로드 "
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"하단 입력창을 통해 메시지를 보낼 수 있으며 왼쪽의 업로드 아이콘을 누르면 파일"
-"을 올릴 수 있습니다. "
+"메시지 입력창을 통해 대화를 나눌 수 있습니다. 파일 업로드를 위해서는 왼쪽 아"
+"이콘을 클릭하거나 간단하게 파일을 메시지 창으로  <b>드래그&드롭</b> 하시면 됩"
+"니다."
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
-msgstr " 잔디의 사용법을 이미 잘 알고 있으며 다른 팁들 또한 보지 않겠습니다. "
+msgstr "더 이상 보지 않기"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
@@ -963,29 +988,33 @@ msgstr "TIPS"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
-"<b>1:1 메시지</b>는 특정인과 대화를 하는 공간입니다. 물론, 다른 사람이 볼 수 "
-"없습니다. "
+"<b>1:1 메시지</b>를 통해 다른 멤버와 직접적으로 대화를 나눌 수 있으며 공유된 "
+"파일은 해당 멤버만 열람할 수 있습니다. 대화 목록을 닫을 수 있지만 대화 내용"
+"은 보존되므로 대화가 다시 시작될 경우 과거 대화 내용을 볼 수 있습니다. [+추"
+"가] 버튼을 눌러 대화를 시작할 수 있습니다. "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"<b>비공개 그룹</b>은 일반 메신저의 그룹 채팅과 같은 비공개 공간으로써 참여한 "
-"사람들에게만 목록이 나타나고 나가게 되면 목록에서 사라집니다. "
+"<b>비공개 토픽</b>은 초대를 통해서만 참여할 수 있고 공유 파일들도 참여자들에"
+"게만 노출되기 때문에 보안이 필요한 주제일 경우 이용할 수 있습니다. [+추가] 메"
+"뉴를 통해 토픽 속성을 선택할 수 있습니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
-msgstr "토픽과 비공개 그룹, 1:1 메시지 "
+msgstr "공개 토픽과 비공개 토픽, 1:1 메시지 "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"<b>토픽</b>은 누구나 참여할 수 있는 개방된 공간입니다. 토픽에서는 현재 프로젝"
-"트부터 점심메뉴 고르기까지 다양한 토픽에 대해 자유롭게 의견을 나눌 수 있으며 "
-"[☰더보기] 를 누르시면 현재 존재하는 토픽 목록을 확인 후 참여하실 수 있습니다."
+"<b>토픽</b>은 다양한 주제별로 대화를 나눌 수 있는 단체대화방이라고 할 수 있습"
+"니다. 토픽에서는 현재 진행 업무부터 점심 메뉴까지 다양한 주제에 대해 자유롭"
+"게 의견을 나눌 수 있으며, [☰더보기] 를 누르시면 현재 존재하는 공개 토픽 목록"
+"을 확인 후 참여하실 수 있습니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
-msgstr "Next"
+msgstr "다른 팁 보기 »"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
