@@ -110,21 +110,11 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
   initLeftList();
 
   function initLeftList () {
-
-    console.log($stateParams)
-    console.log($state)
-
-
-    //console.log(storageAPIservice.isValidValue(memberService.getMember()))
-    //console.log(storageAPIservice.shouldAutoSignIn())
     if (!storageAPIservice.isValidValue(memberService.getMember()) && !storageAPIservice.shouldAutoSignIn() ) {
       console.log('you are not supposed to be here!');
       publicService.signOut();
-
     }
 
-
-    //console.log(response)
     memberService.setMember(response.user);
     $rootScope.team = response.team;
 
@@ -458,7 +448,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     var modal = tutorialService.openChangeLogModal();
 
     modal.result.then(function (reason) {
-      tutorialService.updateChangeLogTime();
+      _updateChangeLogTime();
     });
   }
   $scope.onTutorialPulseClick = function($event) {
@@ -497,12 +487,25 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
         $scope.tutorialStatus.chatTutorial = true;
         $scope.tutorialStatus.fileTutorial = true;
 
-        tutorialService.updateChangeLogTime();
+        _updateChangeLogTime();
 
         break;
     }
   }
+  function _updateChangeLogTime() {
+    tutorialService.setTutoredAtTime()
+      .success(function(response) {
 
+        //accountService.setAccount(response);
+        accountService.updateAccountTutoredTime(response.tutoredAt);
+      })
+      .error(function(err) {
+
+      })
+      .finally(function() {
+
+      });
+  }
   function openTutorialModal(tutorialId) {
     var modal = publicService.openTutorialModal(tutorialId);
 
