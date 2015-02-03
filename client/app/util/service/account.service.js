@@ -95,6 +95,8 @@
       return false;
     }
     function hasSeenTutorial() {
+      console.log(getAccount().tutoredAt)
+      console.log(!!getAccount().tutoredAt)
       return !!getAccount().tutoredAt;
     }
 
