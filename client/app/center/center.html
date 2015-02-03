@@ -40,7 +40,7 @@
       </li>
 
       <!--    RENAME  -->
-      <li role="presentation" data-ng-if="isOwner();" data-ng-click="openModal('rename')">
+      <li role="presentation" data-ng-if="isOwner() && !isDefaultTopic();" data-ng-click="openModal('rename')">
         <a role="menuitem" tabindex="-1">
           <i class="icon-edit-fill"></i><span translate>@ch-menu-rename</span>
         </a>
