@@ -22,6 +22,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return;
   }
 
+  if (entityId == $rootScope.member.id) {
+    $rootScope.toDefault = true;
+  }
+
   var updateInterval = 2000;
 
   $scope.lastMessage = null;
