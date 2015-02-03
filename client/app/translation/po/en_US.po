@@ -674,12 +674,19 @@ msgstr " "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
+<<<<<<< HEAD
 msgstr "For a more private setting, use private topic or direct messages"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
 msgstr ""
 "Topic type cannot be switched between public and private after creation"
+=======
+msgstr ""
+"- Private topics are not available to non-invited members"
+"- Files shared in a private topic are only available to its participants"
+"- Topics designated as public or private cannot be converted to the other after creation"
+>>>>>>> eec6b39fa36a3dc85c7b62f555de98f078d7a5db
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"

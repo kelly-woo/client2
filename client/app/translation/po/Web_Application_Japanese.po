@@ -671,8 +671,9 @@ msgstr " "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"特定のメンバーのみでチャットしたい場合はプライベートグループを使用してくださ"
-"い"
+"-「公開」を選んだ場合でもチームメンバー以外の人が閲覧することはできません"
+"-プライベートトピック内で共有されたファイルは、そのトピックを閲覧できるメンバーからしかアクセスできません"
+"-トピック作成後はプライベートトピックへの変更はできません。その逆もできません。"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
