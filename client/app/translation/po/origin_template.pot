@@ -298,6 +298,38 @@ msgstr ""
 msgid "@common-file-type"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@common-file-type-all"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-file-type-audio"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-file-type-documents"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-file-type-images"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-file-type-pdf"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-file-type-presentations"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-file-type-spreadsheets"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-file-type-video"
+msgstr ""
+
 #: client/app/center/center.html
 msgid "@common-file-upload-abort-msg"
 msgstr ""

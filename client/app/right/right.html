@@ -67,10 +67,17 @@
         <div class="advanced-search-option__title">
           <span translate>@common-file-type</span>
         </div>
-        <select ng-model="fileRequest.fileType"
-                ng-options="type|upperFirstCharacter for type in fileTypeList"></select>
+        <select ng-model="fileTypeFilter"
+                ng-options="type.viewValue| upperFirstCharacter for type in fileTypeList"></select>
       </div>
-
+      <span ng-if="false" translate>@common-file-type-all</span>
+      <span ng-if="false" translate>@common-file-type-documents</span>
+      <span ng-if="false" translate>@common-file-type-presentations</span>
+      <span ng-if="false" translate>@common-file-type-spreadsheets</span>
+      <span ng-if="false" translate>@common-file-type-pdf</span>
+      <span ng-if="false" translate>@common-file-type-images</span>
+      <span ng-if="false" translate>@common-file-type-video</span>
+      <span ng-if="false" translate>@common-file-type-audio</span>
     </div>
   </div>
 

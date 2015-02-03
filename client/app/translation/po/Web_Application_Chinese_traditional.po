@@ -282,6 +282,38 @@ msgstr "檔案分享了"
 msgid "@common-file-type"
 msgstr "檔案類別"
 
+#: client/app/right/right.html
+msgid "@common-file-type-all"
+msgstr "全部類別"
+
+#: client/app/right/right.html
+msgid "@common-file-type-audio"
+msgstr "音頻"
+
+#: client/app/right/right.html
+msgid "@common-file-type-documents"
+msgstr "文件"
+
+#: client/app/right/right.html
+msgid "@common-file-type-images"
+msgstr "圖像"
+
+#: client/app/right/right.html
+msgid "@common-file-type-pdf"
+msgstr "pdf"
+
+#: client/app/right/right.html
+msgid "@common-file-type-presentations"
+msgstr "簡報"
+
+#: client/app/right/right.html
+msgid "@common-file-type-spreadsheets"
+msgstr "表單"
+
+#: client/app/right/right.html
+msgid "@common-file-type-video"
+msgstr "視頻"
+
 #: client/app/center/center.html
 msgid "@common-file-upload-abort-msg"
 msgstr "取消了"

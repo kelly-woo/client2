@@ -282,6 +282,38 @@ msgstr "파일 리스트"
 msgid "@common-file-type"
 msgstr "파일 타입"
 
+#: client/app/right/right.html
+msgid "@common-file-type-all"
+msgstr "모든 타입"
+
+#: client/app/right/right.html
+msgid "@common-file-type-audio"
+msgstr "오디오"
+
+#: client/app/right/right.html
+msgid "@common-file-type-documents"
+msgstr "워드/한글"
+
+#: client/app/right/right.html
+msgid "@common-file-type-images"
+msgstr "이미지"
+
+#: client/app/right/right.html
+msgid "@common-file-type-pdf"
+msgstr "pdf"
+
+#: client/app/right/right.html
+msgid "@common-file-type-presentations"
+msgstr "파워포인트"
+
+#: client/app/right/right.html
+msgid "@common-file-type-spreadsheets"
+msgstr "엑셀"
+
+#: client/app/right/right.html
+msgid "@common-file-type-video"
+msgstr "비디오"
+
 #: client/app/center/center.html
 msgid "@common-file-upload-abort-msg"
 msgstr "취소됨"
