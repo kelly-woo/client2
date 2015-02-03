@@ -79,7 +79,7 @@ app.controller('tutorialController', function($rootScope, curState, $modalInstan
   }
   function applyLeftList() {
     var background_overlay = angular.element('<div class="tutorial_opac_background lpanel_list"></div>');
-    angular.element(document.getElementsByClassName('lpanel-list')).append(background_overlay);
+    angular.element(document.getElementsByClassName('lpanel')).append(background_overlay);
   }
 
   function applyCenterOpacLayer() {

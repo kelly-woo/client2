@@ -31,7 +31,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('leftPanelController1', function($scope, $rootScope, $state, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
+app.controller('leftPanelController1', function($scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
                                                 entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService) {
 
   //console.info('[enter] leftpanelController');
@@ -110,6 +110,11 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $fil
   initLeftList();
 
   function initLeftList () {
+
+    console.log($stateParams)
+    console.log($state)
+
+
     //console.log(storageAPIservice.isValidValue(memberService.getMember()))
     //console.log(storageAPIservice.shouldAutoSignIn())
     if (!storageAPIservice.isValidValue(memberService.getMember()) && !storageAPIservice.shouldAutoSignIn() ) {
