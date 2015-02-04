@@ -303,6 +303,38 @@ msgstr "档案分享了"
 msgid "@common-file-type"
 msgstr "档案类别"
 
+#: client/app/right/right.html
+msgid "@common-file-type-all"
+msgstr "全部类别"
+
+#: client/app/right/right.html
+msgid "@common-file-type-audio"
+msgstr "音频"
+
+#: client/app/right/right.html
+msgid "@common-file-type-documents"
+msgstr "文件"
+
+#: client/app/right/right.html
+msgid "@common-file-type-images"
+msgstr "图像"
+
+#: client/app/right/right.html
+msgid "@common-file-type-pdf"
+msgstr "pdf"
+
+#: client/app/right/right.html
+msgid "@common-file-type-presentations"
+msgstr "简报"
+
+#: client/app/right/right.html
+msgid "@common-file-type-spreadsheets"
+msgstr "表单"
+
+#: client/app/right/right.html
+msgid "@common-file-type-video"
+msgstr "视频"
+
 #: client/app/center/center.html
 msgid "@common-file-upload-abort-msg"
 msgstr "取消了"
