@@ -37,7 +37,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
   var initialLoadDone = false;
 
   $rootScope.$on('updateFileTypeQuery', function(event, type) {
-    console.log(type)
     if (type === 'you') {
       // when 'Your Files' is clicked on 'cpanel-search__dropdown'
       $scope.fileRequest.writerId = $scope.member.id;
