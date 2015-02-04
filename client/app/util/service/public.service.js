@@ -3,19 +3,19 @@
     .module('jandiApp')
     .factory('publicService', publicService);
 
-  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'analyticsService'];
+  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'analyticsService', 'tutorialService'];
 
   /* @ngInject */
-  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService) {
+  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService, tutorialService) {
     var service = {
       getInviteOptions: getInviteOptions,
+      openTutorialModal: openTutorialModal,
       openPrivacyModal: openPrivacyModal,
       openAgreementModal: openAgreementModal,
       openJoinModal: openJoinModal,
       openTopicCreateModal: openTopicCreateModal,
       openPrivateCreateModal: openPrivateCreateModal,
       openInviteToTeamModal: openInviteToTeamModal,
-      openTutorialModal: openTutorialModal,
       openCurrentMemberModal: openCurrentMemberModal,
       openInviteToCurrentEntityModal: openInviteToCurrentEntityModal,
       openInviteToJoinedEntityModal: openInviteToJoinedEntityModal,
@@ -50,6 +50,29 @@
       }, list);
 
       return list;
+    }
+
+    function openTutorialModal(tutorialId) {
+      var modal;
+
+      switch (tutorialId) {
+        case 'welcomeTutorial':
+          modal = tutorialService.openWelcomeModal();
+          break;
+        case 'topicTutorial':
+          modal = tutorialService.openTopicModal();
+          break;
+        case 'chatTutorial' :
+          modal = tutorialService.openChatModal();
+          break;
+        case 'fileTutorial' :
+          modal = tutorialService.openFileModal();
+          break;
+        default :
+          break;
+      }
+
+      return modal;
     }
 
     function openPrivacyModal() {
@@ -102,76 +125,6 @@
         controller  :   'inviteUserToTeamCtrl',
         size        :   'lg'
       });
-    }
-    function openTutorialModal($scope, tutorialId) {
-      var modal;
-
-      switch (tutorialId) {
-        case 'welcomeTutorial':
-          modal = $modal.open({
-            templateUrl: 'app/tutorial/tutorial.html',
-            controller: 'tutorialController',
-            windowClass: 'fade-only welcome-tutorial',
-            backdropClass: 'welcome-tutorial-backdrop',
-            backdrop: 'static',
-            keyboard: false,
-            resolve: {
-              curState: function getCurrentTutorial() {
-                return 0;
-              }
-            }
-          });
-          break;
-        case 'topicTutorial':
-          modal = $modal.open({
-            scope: $scope,
-            templateUrl: 'app/tutorial/tutorial.html',
-            controller: 'tutorialController',
-            windowClass: 'fade-only welcome-tutorial topic-tutorial tutorial-animation',
-            backdrop: false,
-            keyboard: false,
-            resolve: {
-              curState: function getCurrentTutorial() {
-                return 1;
-              }
-            }
-          });
-          break;
-        case 'chatTutorial' :
-          modal = $modal.open({
-            scope: $scope,
-            templateUrl: 'app/tutorial/tutorial.html',
-            controller: 'tutorialController',
-            windowClass: 'fade-only welcome-tutorial chat-tutorial',
-            backdrop: false,
-            keyboard: false,
-            resolve: {
-              curState: function getCurrentTutorial() {
-                return 2;
-              }
-            }
-          });
-          break;
-        case 'fileTutorial' :
-          modal = $modal.open({
-            scope: $scope,
-            templateUrl: 'app/tutorial/tutorial.html',
-            controller: 'tutorialController',
-            windowClass: 'fade-only welcome-tutorial file-tutorial',
-            backdrop: false,
-            keyboard: false,
-            resolve: {
-              curState: function getCurrentTutorial() {
-                return 3;
-              }
-            }
-          });
-          break;
-        default :
-          break;
-      }
-
-      return modal;
     }
     function openCurrentMemberModal($scope) {
       $modal.open({
@@ -250,6 +203,7 @@
       });
 
     }
+
     function closeModal(modalInstance) {
       modalInstance.dismiss('close');
     }
@@ -320,10 +274,6 @@
       storageAPIservice.removeSession();
       storageAPIservice.removeLocal();
       storageAPIservice.removeCookie();
-
-      accountService.removeAccount();
-      memberService.removeMember();
-
 
       analyticsService.removeMemberCookieMixpanel();
       analyticsService.removeAccountCookieMixpanel();

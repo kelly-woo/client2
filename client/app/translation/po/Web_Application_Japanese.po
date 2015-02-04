@@ -176,6 +176,33 @@ msgstr "このトピックをお気に入りに追加する"
 msgid "@ch-menu-un-star"
 msgstr "このトピックをお気に入りから削除する"
 
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-1"
+msgstr ""
+"「プライベートグループ」は「プライベートトピック」と名称が変わり、鍵のマーク"
+"のアイコンで「トピックス」タブ内に表示されます。プライベートトピックはこれま"
+"で通り、招待されない限り参加することや、そのトピックが存在することすらわかり"
+"ません。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-2"
+msgstr ""
+"ダイレクトメッセージの表示順が変更され、最新のメッセージから順ひ並ぶようにな"
+"りました"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-3"
+msgstr ""
+"ダイレクトメッセージは会話のあったものだけが表示されるようになりました。会話"
+"履歴は閉じることによって非表示にすることができます。同じ相手と会話を再開する"
+"と、再び表示されます。過去の会話履歴も表示されます。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-title"
+msgstr ""
+"今回のアップデートでは、より良いユーザー体験のため、レイアウトの変更と、いく"
+"つかの便利な機能を実装しました。"
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "トピック一覧"
@@ -230,6 +257,10 @@ msgstr "現在のパスワード"
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
+
+#: client/app/center/center.html client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr "削除されたファイル"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
@@ -492,6 +523,18 @@ msgstr "全てのファイル"
 msgid "@file-audio"
 msgstr "音声"
 
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr "ファイルを削除してよいですか？削除後もコメントは残ります"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr "に削除されました"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr " "
+
 #: client/app/header/header.html
 msgid "@file-image"
 msgstr "画像"
@@ -625,7 +668,8 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr "削除する"
 
@@ -913,26 +957,27 @@ msgstr "他のチームに切り替える"
 msgid "@tutorial-click-blink"
 msgstr "クリックして今すぐ見てみましょう!"
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
-msgstr "わかりました"
+msgstr "チュートリアルを終了する"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"このボタンを押して、メニューを表示します。メニューにはトピック、グループ、DM"
-"内で共有された全てのファイルが表示されます。"
+"このボタンを押して、ファイル一覧を表示します。トピック、プライベートトピッ"
+"ク、ダイレクトメッセージで共有された全てのファイルが表示されます。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
-msgstr "ファイルの種類、投稿者、トピック別、キーワードで絞り込みできます。"
+msgstr "ファイル名、共有された場所、投稿者、ファイルの種類で絞り込みできます。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"右メニュー内の「⋯」ボタンをクリックすることで、別のトピック、グループ、メン"
-"バーにファイルを共有したり、コメントを追加したり、ファイルをダウンロードする"
-"ことができます。"
+"右メニュー内の「⋯」ボタンをクリックすることで、他のトピック、プライベートト"
+"ピック、ダイレクトメッセージにファイルを共有したり、コメントを追加したり、"
+"ファイルをダウンロードすることができます。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
@@ -946,11 +991,12 @@ msgstr "メッセージとファイルを送信中"
 msgid "@tutorial-msg-explanation"
 msgstr ""
 "メッセージを書いてエンターキーを押しましょう。ファイルを共有するには、メッ"
-"セージ入力欄の左にあるボタンをクリックしてください"
+"セージ入力欄の左にあるボタンをクリックするか、ファイルをドラッグ＆ドロップし"
+"てください。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
-msgstr "説明をスキップしてすぐに使いたい方"
+msgstr "チュートリアルをスキップする"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
@@ -959,28 +1005,31 @@ msgstr "TIPS"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
-"「グループ」と「DM（ダイレクトメッセージ）」はその名の通りです。あなた宛の会"
-"話のみ表示されます。"
+"「ダイレクトメッセージ」は1対1のやりとり用で、他のメンバーは閲覧できません。"
+"最新の会話から順に表示されます。会話を閉じると一覧から消えますが、会話を再開"
+"すると再び表示されます。過去の会話履歴も表示されます。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"JANDIに招待されている方は「⋯もっと見る」をクリックしてトピックの一覧を確認し"
-"ましょう。"
+"「プライベートトピック」は、招待されたメンバーのみ見ることができるトピックで"
+"す。新しいプライベートトピックを作成するには「＋追加」をクリックしてくださ"
+"い。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
-msgstr "トピックとグループとダイレクトメッセージの違いは何ですか？"
+msgstr "トピックとプライベートトピックとダイレクトメッセージの違いは何ですか？"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"「トピック」は特定のテーマごとの部屋、またはスレッドのようなものです。だれで"
-"もトピックを作ったり、既存のトピックに参加できます。"
+"「トピック」は特定のテーマごとの部屋、またはスレッドのようなものです。会話の"
+"内容がイメージできる名前をつけるとよいでしょう。トピックは「＋追加」で作った"
+"り、「☰ 表示」で既存のトピックを探して参加できます。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
-msgstr "今すぐ見る"
+msgstr "続きを見る »"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"

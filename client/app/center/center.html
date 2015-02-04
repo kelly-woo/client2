@@ -7,9 +7,9 @@
 
   <!--    PREFIX ICON -->
   <span class="prefix">
-    <i data-ng-if="currentEntity.type === 'channel'" class="icon-topic-fill"></i>
-    <i data-ng-if="currentEntity.type === 'privateGroup'" class="icon-chat-fill"></i>
-    <i data-ng-if="currentEntity.type === 'user'" class="icon-user"></i>
+    <i data-ng-if="currentEntity.type === 'channels'" class="icon-topic-fill"></i>
+    <i data-ng-if="currentEntity.type === 'privategroups'" class="icon-chat-fill"></i>
+    <i data-ng-if="currentEntity.type === 'users'" class="icon-user"></i>
   </span>
 
   <!--Title Dropdown-->
@@ -40,7 +40,7 @@
       </li>
 
       <!--    RENAME  -->
-      <li role="presentation" data-ng-if="isOwner();" data-ng-click="openModal('rename')">
+      <li role="presentation" data-ng-if="isOwner() && !isDefaultTopic();" data-ng-click="openModal('rename')">
         <a role="menuitem" tabindex="-1">
           <i class="icon-edit-fill"></i><span translate>@ch-menu-rename</span>
         </a>
@@ -133,7 +133,9 @@
     <div class="background"></div>
   </div>
 
-  <div class="file-upload-progress-container" ng-if="curUpload.status != null" ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError}">
+  <div class="file-upload-progress-container" ng-if="curUpload.status != null"
+       ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
+                  'file-upload-done': curUpload.status == 'done'}">
     <!--    'uploading'     -->
     <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
     <!--    'aborted'       -->
@@ -153,9 +155,10 @@
     <!--    'x' icon    -->
     <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'"><i class="icon-cancel"></i></span>
 
-    <div class="file-upload-progress-bar" style="width:{{curUpload.progress}}%;"></div>
-  </div>
+    <!--<div class="file-upload-progress-bar" style="width:{{curUpload.progress}}%;"></div>-->
+    <progressbar class="progress-striped jandi-file-upload-progress-bar active" max="100" value="curUpload.progress"></progressbar>
 
+  </div>
 
   <article class="msgs" when-scrolled="loadMore()"  scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
@@ -314,7 +317,7 @@
                   <div class="archived-file-title" ng-if="msg.message.status == 'archived'">
                     <a class="msg-file-meta__title file__name"
                        data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
-                      <span translate>@common-deleted-file-msg</span>
+                      <span translate>@common-deleted-file-title</span>
                     </a>
 
                   </div>
@@ -435,7 +438,7 @@
 
                   <div ng-if="msg.feedback.status == 'archived'">
                     <a class="archived-msg-file-meta__title" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
-                      <span translate>@common-deleted-file-msg</span>
+                      <span translate>@common-deleted-file-title</span>
                     </a>
                   </div>
                 </div>

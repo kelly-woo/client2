@@ -83,12 +83,10 @@ app.factory('analyticsService', function($rootScope, storageAPIservice) {
   };
 
   analyticsAPI.removeAccountCookieMixpanel= function() {
-    if (angular.isUndefined(mixpanel.account.cookie)) return;
-    mixpanel.account.cookie.clear();
+    if (!!mixpanel.account.cookie) mixpanel.account.cookie.clear();
   };
   analyticsAPI.removeMemberCookieMixpanel= function() {
-    if (angular.isUndefined(mixpanel.cookie)) return;
-    mixpanel.cookie.clear();
+    if (!!mixpanel.cookie) mixpanel.cookie.clear();
   };
 
   return analyticsAPI;

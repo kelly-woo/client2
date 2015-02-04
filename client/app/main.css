@@ -446,10 +446,13 @@ input[type="button"] {
 .fileicon_pdf {
     background: url('../assets/images/fileicon_pdf.png') no-repeat;
 }
+
+.fileicon_video,
 .fileicon_mp4,
 .fileicon_mov{
     background: url('../assets/images/fileicon_video.png') no-repeat;
 }
+.fileicon_audio,
 .fileicon_mp3,
 .fileicon_mpeg {
     background: url('../assets/images/fileicon_audio.png') no-repeat;
@@ -504,7 +507,7 @@ input[type="button"] {
 }
 
 .private-topic-icon {
-    background-image: url('../assets/images/private-topic.svg');
+    background: url('../assets/images/private-topic.svg') no-repeat;
 }
 
 

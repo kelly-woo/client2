@@ -183,6 +183,22 @@ msgstr ""
 msgid "@ch-menu-un-star"
 msgstr ""
 
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-1"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-2"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-3"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-title"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr ""
@@ -242,6 +258,11 @@ msgstr ""
 
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
+msgstr ""
+
+#: client/app/center/center.html
+#: client/app/right/file.html
+msgid "@common-deleted-file-title"
 msgstr ""
 
 #: client/app/modal/profile.view.html
@@ -521,6 +542,18 @@ msgstr ""
 msgid "@file-audio"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr ""
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr ""
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr ""
+
 #: client/app/header/header.html
 msgid "@file-image"
 msgstr ""
@@ -650,6 +683,8 @@ msgid "@login-reset-password"
 msgstr ""
 
 #: client/app/center/center.html
+#: client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr ""
 
@@ -926,6 +961,7 @@ msgstr ""
 msgid "@tutorial-click-blink"
 msgstr ""
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr ""

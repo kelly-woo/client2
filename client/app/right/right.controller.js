@@ -82,9 +82,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     else {
       $scope.fileRequest.sharedEntityId = $scope.sharedEntitySearchQuery.id;
     }
-
-//        console.log('sharedEntitySearchQuery chagned to  ' + $scope.sharedEntitySearchQuery.id + '/' + $filter('getFirstLastNameOfUser')($scope.sharedEntitySearchQuery));
-
+    //        console.log('sharedEntitySearchQuery chagned to  ' + $scope.sharedEntitySearchQuery.id + '/' + $filter('getFirstLastNameOfUser')($scope.sharedEntitySearchQuery));
     if (newValue != oldValue) {
       preLoadingSetup();
       getFileList();
@@ -118,8 +116,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     preLoadingSetup();
     getFileList();
   };
-
-
   // Checking if initial load has been processed or not.
   // if not, load once.
   if (!initialLoadDone) {
@@ -132,11 +128,14 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
   $scope.$watch('currentEntity', function(newValue, oldValue) {
     if (newValue != oldValue) {
       updateSharedList();
+
+      //            console.log('this is updateSharedList in right.controller')
+      //            console.log($scope.currentEntity)
+
       //  channel could be removed/created/left
-      //  update selectOptions for data syncrhonization issue.
+      //  update selectOptions for data synchronization issue.
       $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
       $scope.sharedEntitySearchQuery = $scope.currentEntity;
-
     }
   });
 
@@ -179,6 +178,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
             this.push(file);
 
         }, fileList);
+
 
         generateFileList(fileList, response.fileCount, response.firstIdOfReceivedList);
         initialLoadDone = true;

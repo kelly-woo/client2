@@ -176,6 +176,27 @@ msgstr "離開議題群組 "
 msgid "@ch-menu-un-star"
 msgstr "邀請成員到這議題群組 "
 
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-1"
+msgstr ""
+"\"私人群組被更名爲私人議題並整合到議題列表中。私人議題都標有上鎖符號，並像以"
+"前一樣提供僅限邀請機制，僅參與者可以看到所有溝通内容。\""
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-2"
+msgstr "直接傳訊的對話現在將根據最新的訊息自動重新排序。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-explanation-3"
+msgstr ""
+"針對直接傳訊，初始設定是如果是已經傳出的訊息將表列出來，但您可以選擇關閉並隱"
+"藏它們。當您收到新的訊息，已關閉的直接傳訊將會自動重新出現（連同訊息歷史記"
+"錄），或者您也可以點擊‘+添加’來啟動對話。"
+
+#: client/app/modal/change_log/changeLog.html
+msgid "@change-log-title"
+msgstr "我們最近更新了排版和增加了一些極好的功能以提高您的體驗"
+
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "議題群組 "
@@ -230,6 +251,10 @@ msgstr "密碼"
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "客服"
+
+#: client/app/center/center.html client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr "已刪除檔案"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
@@ -492,6 +517,18 @@ msgstr "全部檔案"
 msgid "@file-audio"
 msgstr "音頻檔案"
 
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr "您確定要刪除這檔案？ 請注意留言的部分不會被刪除。"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr " "
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr "刪除時間："
+
 #: client/app/header/header.html
 msgid "@file-image"
 msgstr "圖像"
@@ -621,7 +658,8 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr "删除"
 
@@ -896,31 +934,31 @@ msgstr "更換團隊"
 msgid "@tutorial-click-blink"
 msgstr "點擊跳動的標記來查看一下吧！"
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr "知道了！"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
-msgstr ""
-"點擊這按鍵開啓一旁的收拉式選單，上面含有所有已在這‘議題群組’/‘私人群組’/‘直接"
-"傳訊’中被分享過的檔案。 "
+msgstr "您所分享和分享給您的所有檔案可以在您的JANDI檔案庫被找到。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"您可以按類型或成員進行排序，並且亦可瀏覽其它議題群組。檔案可以按關鍵字來搜"
-"尋。 "
+"您可以透過使用‘所有檔案’按鈕打開或關閉檔案庫的顯示。您可以透過關鍵字搜尋特定"
+"檔案和透過檔案類型，哪位團隊成員提供的檔案，或者在哪個對話裏分享的來進行分"
+"類。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"當您上傳檔案，您會看到在右邊的選單按鍵(ᵒᵒᵒ)，讓您與其他‘議題群組’/‘私人群組’/"
-"成員進行分享，亦可以留言並直接下載。"
+"當您選擇了一個檔案，您可以使用右邊的選單按鍵(ᵒᵒᵒ)進行分享到其它對話中，對其進"
+"行留言，或直接下載它到您的裝置中。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
-msgstr "所有檔案"
+msgstr "您的檔案庫"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"
@@ -929,12 +967,12 @@ msgstr "送出訊息及上傳檔案"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"僅需書寫訊息並點擊return鍵即可通話。要上傳檔案，點擊左邊的按鍵即可瀏覽您的電"
-"腦檔案。"
+"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按鈕和"
+"選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
-msgstr "我已經知道如何使用JANDI。讓我就開始使用！"
+msgstr "跳過教學示範"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
@@ -942,25 +980,31 @@ msgstr "TIPS"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
-msgstr "群組及直接傳訊是直接了當的。有人跟您對話時它們才會向您顯示。"
+msgstr ""
+"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳訊"
+"會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳訊，"
+"同時仍然保留訊息歷史直到對話重新啟動。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
-msgstr "如果您是被別人邀請加入，點擊 ‘⋯更多’ 可以看到其它現有的議題群組。"
+msgstr ""
+"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新的私"
+"人議題。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
-msgstr "‘議題群組’、‘私人群組’及‘直接傳訊’有什麽不同？"
+msgstr "‘公開議題’、‘私人議題’及‘直接傳訊’有什麽不同？"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"議題群組是有特定主題的空間。任何人都可以建立一個議題群組或加入現有的。想像人"
-"們在真實生活中談論且您可以聽到或參與的事項。"
+"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐的建"
+"議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建立您自己"
+"的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
-msgstr "讓我們來瞭解一下吧"
+msgstr "繼續 »"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"

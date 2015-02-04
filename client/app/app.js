@@ -17,7 +17,7 @@ var app = angular.module('jandiApp', [
   'monospaced.elastic'
 ]);
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, gettextCatalog, configuration, storageAPIservice, publicService, entityAPIservice) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, gettextCatalog, configuration, storageAPIservice, publicService, entityAPIservice, analyticsService) {
 
   $rootScope._ = window._;
 
@@ -86,20 +86,12 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
       }
     }
 
-    if (!fromState.name) {
-      // if external access, continue to original state
-    }
-    else {
       // otherwise, internal access, redirect to messages state
       switch(toState.name) {
         case 'signin':
           break;
         case 'archives':
           event.preventDefault();
-          if ( toParams.entityId == $rootScope.member.id ) {
-            console.warn("prevent redirect to self direct message");
-            return false;
-          }
 
           if ( fromState.name.indexOf("files") !== -1 ) {
             if (fromParams.itemId) {
@@ -146,7 +138,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
         default:
           break;
       }
-    }
   });
 
   $rootScope.$on('$stateNotFound', function(event, unfoundState, fromState, fromParams) {
@@ -189,12 +180,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
       for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
 
     mixpanel.init(configuration.mp_member_token, {'loaded': function() {
-      mixpanel.cookie.clear();
-      mixpanel.identify(UUID());
+      analyticsService.removeMemberCookieMixpanel();
     }});
     mixpanel.init(configuration.mp_account_token, {'loaded': function() {
-      mixpanel.account.cookie.clear();
-      mixpanel.account.identify(UUID());
+      analyticsService.removeAccountCookieMixpanel();
     }}, 'account');
   }
   function initGoogleAnalytics() {

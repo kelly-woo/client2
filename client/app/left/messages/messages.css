@@ -1,5 +1,5 @@
 .empty-message-list-container {
-  padding: 10px 24px 0 24px;
+  padding: 10px 24px 10px 24px;
   text-align: center;
   color: #999999;
 }
@@ -35,7 +35,6 @@
 #dm-list .tooltip:lang(en),
 #dm-list .tooltip:lang(ko) {
   width: 48px;
-  left: 170px !important;
 }
 #dm-list .tooltip-inner:lang(ko) {
 }

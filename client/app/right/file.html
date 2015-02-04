@@ -38,14 +38,15 @@
         <div class="file-detail-body__other" data-ng-if="(file_detail.content.type).indexOf('image') == -1">
 
           <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
-            <img class="fileicon fileicon_left" ng-src="assets/images/fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}.png"/>
+            <!--<img class="fileicon fileicon_left" ng-src="assets/images/fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}.png"/>-->
+            <div class="fileicon fileicon_left fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
           </a>
 
           <div class="file-detail-body__other-meta file-item-meta__listview">
             <div class="file-item-meta__size" data-ng-if="file_detail.content.size > 0 && !isFileArchived">{{ file_detail.content.size | bytes }}</div>
             <div class="file-item-meta__type" data-ng-if="file_detail.content.type && !isFileArchived">{{ file_detail.content.type | filetype }}</div>
 
-            <div class="delete-item__msg" ng-if="isFileArchived" translate>@common-deleted-file-msg</div>
+            <div class="delete-item__msg" ng-if="isFileArchived" translate>@common-deleted-file-title</div>
           </div>
 
           <div class="file-detail-body__other-action" ng-if="!isFileArchived">
@@ -69,7 +70,8 @@
         </div>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
-          <img class="fileicon" ng-src="assets/images/fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}.png"/>
+          <!--<img class="fileicon" ng-src="assets/images/fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}.png"/>-->
+          <div class="fileicon fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
 
           <div class="file-detail-body__meta-info">
             <div class="file-detail-body__meta-info-up">
@@ -214,7 +216,7 @@
             <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="!isFileArchived">
               {{ file_detail.content.title || file_detail.content.name }}
             </a>
-            <div translate>@common-deleted-file-msg</div>
+            <div translate>@common-deleted-file-title</div>
           </div>
 
         </div>
