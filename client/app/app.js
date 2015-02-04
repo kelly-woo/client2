@@ -17,7 +17,7 @@ var app = angular.module('jandiApp', [
   'monospaced.elastic'
 ]);
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, gettextCatalog, configuration, storageAPIservice, publicService, entityAPIservice) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, gettextCatalog, configuration, storageAPIservice, publicService, entityAPIservice, analyticsService) {
 
   $rootScope._ = window._;
 
