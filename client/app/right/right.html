@@ -101,8 +101,8 @@
       <!--    IF NOT IMAGE TYPE, SHOW FILE TYPE PREVIEW   -->
       <div class="msg-file-body__thumbnail pull-left"
            data-ng-if="(file.content.type).indexOf('image') == -1">
-        <!--<div class="fileicon fileicon_{{ file.content.type | filetype | lowercase}}"></div>-->
-        <img class="fileicon" ng-src="assets/images/fileicon_{{file.content.type | getFileIconImage | lowercase}}.png"/>
+        <div class="fileicon fileicon_{{ file.content.type | getFileIconImage | lowercase}}"></div>
+        <!--<img class="fileicon" ng-src="assets/images/fileicon_{{file.content.type | getFileIconImage | lowercase}}.png"/>-->
 
       </div>
 
