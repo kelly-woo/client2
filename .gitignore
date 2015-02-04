@@ -3,6 +3,8 @@ logs/*
 node_modules/
 client/bower_components/
 dist/
+coverage/
+test-junit-results.xml
 tmp
 .tmp/
 .DS_Store
