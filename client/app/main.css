@@ -507,7 +507,7 @@ input[type="button"] {
 }
 
 .private-topic-icon {
-    background: url('../assets/images/private-topic.svg') no-repeat left center;
+    background: url('../assets/images/private-topic.svg') no-repeat;
 }
 
 
