@@ -121,6 +121,13 @@
 <!-- endbuild -->
 
 <!-- build:js({.tmp,client}) app/app.js -->
+<script src="components/base/base.framework.js"></script>
+<script src="components/app/config/config.js"></script>
+<!-- <script src="components/app/storage/storage.js"></script>
+<script src="components/app/analytics/analytics.js"></script>
+<script src="components/app/language/language.js"></script>
+<script src="components/app/session/session.js"></script> -->
+<script src="components/app/app.framework.js"></script>
 <script src="app/app.js"></script>
 <!-- injector:js -->
 <script src="assets/javascripts/UUID.js"></script>
@@ -141,7 +148,6 @@
 <script src="app/util/service/user.service.js"></script>
 <script src="app/center/center.controller.js"></script>
 <script src="app/center/center.service.js"></script>
-<script src="app/config.js"></script>
 <script src="app/error/error.controller.js"></script>
 <script src="app/header/header.controller.js"></script>
 <script src="app/header/header.service.js"></script>
@@ -172,6 +178,7 @@
 <script src="app/translation/translation.js"></script>
 <script src="app/tutorial/tutorial.controller.js"></script>
 <script src="app/tutorial/tutorial.service.js"></script>
+<script src="components/app/config/config.service.js"></script>
 <!-- endinjector -->
 <!-- endbuild -->
 </body>

@@ -2,14 +2,13 @@
   'use strict';
 
   /**
-   *
-   *
    * last_update_message
    *  - Month/Dday/Year Hour:Minute:Second
    */
-  angular.module('services.config', [])
+  angular
+    .module('app.config', [])
     .constant('configuration', {
-      name                : 'local',
+      name                : 'development',
       api_address         : 'http://www.jandi.io:8888/',
       api_version         : '2',
       ga_token            : 'UA-54051037-1',
@@ -21,10 +20,15 @@
       main_address        : 'http://www.jandi.io:8888/main/#/',
       app_store_address   : 'itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8',
       play_store_address  : 'https://play.google.com/store/apps/details?id=com.tosslab.jandi.app',
-      last_update_message : '02/04/2015 11:22:50'
-    }
-  );
+      last_update_message : '02/03/2015 16:00:00'
+    })
+    .run(run);
 
+  /* @ngInject */
+  function run($rootScope, config) {
+    // server address, server api version 
+    config.init($rootScope);
+  }
 
 })();
 

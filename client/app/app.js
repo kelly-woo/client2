@@ -1,22 +1,15 @@
 'use strict';
 
 var app = angular.module('jandiApp', [
-  'ui.router',
-  'ui.bootstrap',
-  'services.config',
+  'base.framework',
+  'app.framework',
   'gettext',
   'LocalStorageModule',
-  'angularFileUpload',
   'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ngAnimate',
-  'ngImgCrop',
   'angulartics',
-  'angulartics.google.analytics.custom',
-  'monospaced.elastic'
+  'angulartics.google.analytics.custom'
 ]);
-
+  
 app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, gettextCatalog, configuration, storageAPIservice, publicService, entityAPIservice) {
 
   $rootScope._ = window._;
@@ -28,14 +21,15 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
 
   // api_version will be no longer needed in this format.
-  var api_address = configuration.api_address;
-  var api_version = configuration.api_version;
+  // --> move components/app/config/config.service.js 
+  // var api_address = configuration.api_address;
+  // var api_version = configuration.api_version;
 
-  $rootScope.server_address   = api_address + "inner-api/";
-  $rootScope.server_uploaded  = api_address;
-  $rootScope.api_version      = api_version;
+  // $rootScope.server_address   = api_address + "inner-api/";
+  // $rootScope.server_uploaded  = api_address;
+  // $rootScope.api_version      = api_version;
 
-  $rootScope.configuration    = configuration;
+  // $rootScope.configuration    = configuration;
 
   /*
    'language'      : is for translator to bring right language for current user. Translator needs this value.
