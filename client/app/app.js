@@ -180,12 +180,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
       for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
 
     mixpanel.init(configuration.mp_member_token, {'loaded': function() {
-      mixpanel.cookie.clear();
-      mixpanel.identify(UUID());
+      analyticsService.removeMemberCookieMixpanel();
     }});
     mixpanel.init(configuration.mp_account_token, {'loaded': function() {
-      mixpanel.account.cookie.clear();
-      mixpanel.account.identify(UUID());
+      analyticsService.removeAccountCookieMixpanel();
     }}, 'account');
   }
   function initGoogleAnalytics() {
