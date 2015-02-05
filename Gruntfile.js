@@ -669,23 +669,55 @@ module.exports = function (grunt) {
             ]);
     });
 
-    grunt.registerTask('build', [
-        'clean:dist',
-        'concurrent:dist',
-        'injector',
-        'wiredep',
-        'useminPrepare',
-        'autoprefixer',
-        'ngtemplates',
-        'concat',
-        'ngAnnotate',
-        'copy:dist',
-        'cdnify',
-        'cssmin',
-        'uglify',
-        'rev',
-        'usemin'
-    ]);
+    grunt.registerTask('build', function(target) {
+        if (target === 'test') {
+            return grunt.task.run([
+                // karma - unit test *) change concurrent:test to test 
+                'clean:server',
+                'env:all',
+                'test',
+                'injector',
+                'autoprefixer',
+                'karma',
+
+                // protractor - e2e test
+                
+
+                'clean:dist',
+                'concurrent:dist',
+                'injector',
+                'wiredep',
+                'useminPrepare',
+                'autoprefixer',
+                'ngtemplates',
+                'concat',
+                'ngAnnotate',
+                'copy:dist',
+                'cdnify',
+                'cssmin',
+                'uglify',
+                'rev',
+                'usemin'
+            ]);
+        }
+        else grunt.task.run([
+                'clean:dist',
+                'concurrent:dist',
+                'injector',
+                'wiredep',
+                'useminPrepare',
+                'autoprefixer',
+                'ngtemplates',
+                'concat',
+                'ngAnnotate',
+                'copy:dist',
+                'cdnify',
+                'cssmin',
+                'uglify',
+                'rev',
+                'usemin'
+            ]);
+    });
 
     grunt.registerTask('default', [
         'newer:jshint',
