@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('jandiApp')
+    .module('app.storage')
     .factory('storageAPIservice', storageAPIservice);
 
   storageAPIservice.$inject = ['$window', 'localStorageService'];

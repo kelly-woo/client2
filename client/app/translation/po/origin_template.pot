@@ -319,6 +319,45 @@ msgstr ""
 msgid "@common-file-type"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@common-file-type-all"
+msgstr ""
+
+#: client/app/header/header.html
+#: client/app/right/right.html
+msgid "@common-file-type-audio"
+msgstr ""
+
+#: client/app/header/header.html
+#: client/app/right/right.html
+msgid "@common-file-type-documents"
+msgstr ""
+
+#: client/app/header/header.html
+#: client/app/right/right.html
+msgid "@common-file-type-images"
+msgstr ""
+
+#: client/app/header/header.html
+#: client/app/right/right.html
+msgid "@common-file-type-pdf"
+msgstr ""
+
+#: client/app/header/header.html
+#: client/app/right/right.html
+msgid "@common-file-type-presentations"
+msgstr ""
+
+#: client/app/header/header.html
+#: client/app/right/right.html
+msgid "@common-file-type-spreadsheets"
+msgstr ""
+
+#: client/app/header/header.html
+#: client/app/right/right.html
+msgid "@common-file-type-video"
+msgstr ""
+
 #: client/app/center/center.html
 msgid "@common-file-upload-abort-msg"
 msgstr ""
@@ -538,6 +577,7 @@ msgstr ""
 msgid "@file-all"
 msgstr ""
 
+<<<<<<< HEAD
 #: client/app/header/header.html
 msgid "@file-audio"
 msgstr ""
@@ -562,12 +602,10 @@ msgstr ""
 msgid "@file-pdf"
 msgstr ""
 
+=======
+>>>>>>> develop
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@file-video"
 msgstr ""
 
 #: client/app/header/header.html

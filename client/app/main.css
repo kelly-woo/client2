@@ -475,6 +475,7 @@ input[type="button"] {
 }
 .fileicon_hwp {
     background: url('../assets/images/fileicon_hwp.png') no-repeat;
+  background-size: 26px 31px;
 }
 
 .icon-more-member {

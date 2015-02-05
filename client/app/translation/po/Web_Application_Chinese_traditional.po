@@ -307,6 +307,38 @@ msgstr "檔案分享了"
 msgid "@common-file-type"
 msgstr "檔案類別"
 
+#: client/app/right/right.html
+msgid "@common-file-type-all"
+msgstr "全部類別"
+
+#: client/app/right/right.html
+msgid "@common-file-type-audio"
+msgstr "音頻"
+
+#: client/app/right/right.html
+msgid "@common-file-type-documents"
+msgstr "文件"
+
+#: client/app/right/right.html
+msgid "@common-file-type-images"
+msgstr "圖像"
+
+#: client/app/right/right.html
+msgid "@common-file-type-pdf"
+msgstr "pdf"
+
+#: client/app/right/right.html
+msgid "@common-file-type-presentations"
+msgstr "簡報"
+
+#: client/app/right/right.html
+msgid "@common-file-type-spreadsheets"
+msgstr "表單"
+
+#: client/app/right/right.html
+msgid "@common-file-type-video"
+msgstr "視頻"
+
 #: client/app/center/center.html
 msgid "@common-file-upload-abort-msg"
 msgstr "取消了"
@@ -350,7 +382,7 @@ msgstr "語言"
 
 #: client/app/right/right.html
 msgid "@common-member"
-msgstr "分享了"
+msgstr "曾經被誰分享"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -421,7 +453,7 @@ msgstr "分享在"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@common-shared-in"
-msgstr "已經在裏面分享"
+msgstr "曾經分享在哪個議題下"
 
 #: client/app/header/header.html
 msgid "@common-show-tutorial"
