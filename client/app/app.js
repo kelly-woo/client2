@@ -2,12 +2,7 @@
 
 var app = angular.module('jandiApp', [
   'base.framework',
-  'app.framework',
-  'gettext',
-  'LocalStorageModule',
-  'ngCookies',
-  'angulartics',
-  'angulartics.google.analytics.custom'
+  'app.framework'
 ]);
   
 app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, gettextCatalog, configuration, storageAPIservice, publicService, entityAPIservice) {
@@ -123,14 +118,14 @@ app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, local
   $httpProvider.interceptors.push('authInterceptor');
 
   /* LocalStorage prefix setting */
-  localStorageServiceProvider.setPrefix('_jd_');
-  localStorageServiceProvider.setStorageCookie(45, '/');
-  if (configuration.name == 'development') {
-    localStorageServiceProvider.setStorageCookieDomain('jandi.io');
-  }
-  else {
-    localStorageServiceProvider.setStorageCookieDomain('jandi.com');
-  }
+  //localStorageServiceProvider.setPrefix('_jd_');
+  //localStorageServiceProvider.setStorageCookie(45, '/');
+  //if (configuration.name == 'development') {
+  //  localStorageServiceProvider.setStorageCookieDomain('jandi.io');
+  //}
+  //else {
+  //  localStorageServiceProvider.setStorageCookieDomain('jandi.com');
+  //}
 
   /* URL routing rule for exception */
   $urlRouterProvider

@@ -6,8 +6,8 @@
       'base.framework',
       'app.config',
       'app.analytics',
-      'app.language'
-      // 'app.storage',
+      'app.language',
+      'app.storage'
       // 'app.session'
     ])
     .run(run)

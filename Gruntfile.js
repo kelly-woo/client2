@@ -66,6 +66,7 @@ module.exports = function (grunt) {
           '!<%= yeoman.client %>/components/app/config/config.js',
           '!<%= yeoman.client %>/components/app/analytics/analytics.js',
           '!<%= yeoman.client %>/components/app/language/language.js',
+          '!<%= yeoman.client %>/components/app/storage/storage.js',
           '!<%= yeoman.client %>/app/app.js'],
         tasks: ['injector:scripts']
       },
@@ -489,6 +490,7 @@ module.exports = function (grunt) {
               '!{.tmp,<%= yeoman.client %>}/components/app/config/config.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
               '!{.tmp,<%= yeoman.client %>}/app/app.js',
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
