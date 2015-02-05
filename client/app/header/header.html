@@ -1,234 +1,260 @@
 <div class="header">
-    <!-- Navbar -->
-    <div class="header-navbar cursor_pointer">
-        <!-- Menu -->
-        <div class="header-navbar-menu">
+  <!-- Navbar -->
+  <div class="header-navbar cursor_pointer">
+    <!-- Menu -->
+    <div class="header-navbar-menu">
             <span class="header-navbar__topmenu" data-toggle="dropdown">
                 <i class="fa fa-bars"></i>
                 <span class="header-navbar__title" translate>@header-menu</span>
                 <i class="fa fa-caret-down"></i>
             </span>
-            <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
-                <!-- 채널 생성 -->
-                <li class="" role="presentation">
-                    <a data-ng-click="openModal('channel');" role="menuitem" tabindex="-1">
-                        <i class="icon-topic-fill"></i>
-                        <span translate>@common-create-ch</span>
-                    </a>
-                </li>
-                <!-- 그룹 생성 -->
-                <li class="hidden" role="presentation">
-                    <a data-ng-click="openModal('private');" role="menuitem" tabindex="-1">
-                        <i class="icon-chat-fill"></i>
-                        <span translate>@common-create-pg</span>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <!-- 팀원 보기 -->
-                <li class="hidden" role="presentation"
-                    data-ng-mouseenter="team_over = true;"
-                    data-ng-mouseleave="team_over = false;">
-                    <a data-ng-click="" role="menuitem" tabindex="-1">
-                        <span class="icon_team" data-ng-class="{ light: team_over }"></span>
-                        <span translate>@team-members</span>
-                    </a>
-                </li>
-                <!-- 팀 변경 -->
-                <li role="presentation">
-                    <a data-ng-click="openModal('teamChange');" role="menuitem" tabindex="-1">
-                        <i class="icon-switch"></i>
-                        <span translate>@team-switch</span>
-                    </a>
-                </li>
-                <!-- 팀 초대 -->
-                <li class="" role="presentation"
-                    data-ng-mouseenter="invite_over = true;"
-                    data-ng-mouseleave="invite_over = false;">
-                    <a data-ng-click="openModal('invite');" role="menuitem" tabindex="-1">
-                        <!--<i class="fa fa-envelope-o"></i>-->
-                        <span class="icon_invite" data-ng-class="{ light: invite_over }"></span>
-                        <span translate>@team-invite</span>
-                    </a>
-                </li>
+      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
+        <!-- 채널 생성 -->
+        <li class="" role="presentation">
+          <a data-ng-click="openModal('channel');" role="menuitem" tabindex="-1">
+            <i class="icon-topic-fill"></i>
+            <span translate>@common-create-ch</span>
+          </a>
+        </li>
+        <!-- 그룹 생성 -->
+        <li class="hidden" role="presentation">
+          <a data-ng-click="openModal('private');" role="menuitem" tabindex="-1">
+            <i class="icon-chat-fill"></i>
+            <span translate>@common-create-pg</span>
+          </a>
+        </li>
+        <li class="divider"></li>
+        <!-- 팀원 보기 -->
+        <li class="hidden" role="presentation"
+            data-ng-mouseenter="team_over = true;"
+            data-ng-mouseleave="team_over = false;">
+          <a data-ng-click="" role="menuitem" tabindex="-1">
+            <span class="icon_team" data-ng-class="{ light: team_over }"></span>
+            <span translate>@team-members</span>
+          </a>
+        </li>
+        <!-- 팀 변경 -->
+        <li role="presentation">
+          <a data-ng-click="openModal('teamChange');" role="menuitem" tabindex="-1">
+            <i class="icon-switch"></i>
+            <span translate>@team-switch</span>
+          </a>
+        </li>
+        <!-- 팀 초대 -->
+        <li class="" role="presentation"
+            data-ng-mouseenter="invite_over = true;"
+            data-ng-mouseleave="invite_over = false;">
+          <a data-ng-click="openModal('invite');" role="menuitem" tabindex="-1">
+            <!--<i class="fa fa-envelope-o"></i>-->
+            <span class="icon_invite" data-ng-class="{ light: invite_over }"></span>
+            <span translate>@team-invite</span>
+          </a>
+        </li>
 
-                <li class="divider"></li>
+        <li class="divider"></li>
 
-                <!-- 로그아웃 -->
-                <li class="" role="presentation">
-                    <a data-ng-click="onSignOutClick();" role="menuitem" tabindex="-1">
-                        <i class="icon-logout"></i>
-                        <span translate>@common-sign-out</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <!-- 로그아웃 -->
+        <li class="" role="presentation">
+          <a data-ng-click="onSignOutClick();" role="menuitem" tabindex="-1">
+            <i class="icon-logout"></i>
+            <span translate>@common-sign-out</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
-        <!-- File -->
-        <div class="header-navbar-file">
+    <!-- File -->
+    <div class="header-navbar-file">
             <span class="header-navbar__topmenu" data-toggle="dropdown">
                 <i class="fa fa-file"></i>
                 <span class="header-navbar__title" translate>@header-file</span>
                 <i class="fa fa-caret-down"></i>
             </span>
 
-            <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
-                <li role="presentation">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="icon-upload"></i>
-                        <span translate>@common-upload-file</span>
-                    </a>
-                    <input type="file" style="width:198px; height: 33px;"
-                           id="btn-upload-primary"
-                           class="cursor_pointer file_upload_btn float-right"
-                           onclick="this.value=null"
-                           data-ng-file-select="onFileSelect($files);"
-                           defaultValue="File"/>
-                </li>
+      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1">
+            <i class="icon-upload"></i>
+            <span translate>@common-upload-file</span>
+          </a>
+          <input type="file" style="width:198px; height: 33px;"
+                 id="btn-upload-primary"
+                 class="cursor_pointer file_upload_btn float-right"
+                 onclick="this.value=null"
+                 data-ng-file-select="onFileSelect($files);"
+                 defaultValue="File"/>
+        </li>
 
-                <li class="divider"></li>
+        <li class="divider"></li>
 
-                <li class="" role="presentation" data-ng-click="onFileTypeClick('all');">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-files-o"></i>
-                        <span translate>@file-all</span>
-                    </a>
-                </li>
-                <li class="" role="presentation" data-ng-click="onFileTypeClick('you');">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-file-o"></i>
-                        <span translate>@file-your</span>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li class="" role="presentation" data-ng-click="onFileTypeClick('image');">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-file-image-o"></i>
-                        <span translate>@file-image</span>
-                    </a>
-                </li>
-                <li class="" role="presentation" data-ng-click="onFileTypeClick('pdf');">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-file-pdf-o"></i>
-                        <span translate>@file-pdf</span>
-                    </a>
-                </li>
-                <li class="" role="presentation" data-ng-click="onFileTypeClick('audio');">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-file-audio-o"></i>
-                        <span translate>@file-audio</span>
-                    </a>
-                </li>
-                <li class="" role="presentation" data-ng-click="onFileTypeClick('video');">
-                    <a role="menuitem" tabindex="-1">
-                        <i class="fa fa-file-movie-o"></i>
-                        <span translate>@file-video</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <li class="" role="presentation" data-ng-click="onFileTypeClick('all');">
+          <a role="menuitem" tabindex="-1">
+            <i class="fa fa-files-o"></i>
+            <span translate>@file-all</span>
+          </a>
+        </li>
+        <li class="" role="presentation" data-ng-click="onFileTypeClick('you');">
+          <a role="menuitem" tabindex="-1">
+            <i class="fa fa-file-o"></i>
+            <span translate>@file-your</span>
+          </a>
+        </li>
 
-        <!-- Settings -->
-        <div class="header-navbar-settings">
+        <li class="divider"></li>
+
+        <li class="" role="presentation" data-ng-click="onFileTypeClick('document');">
+          <a role="menuitem" tabindex="-1">
+            <i class="fa fa-file-word-o"></i>
+            <span ng-bind-html="'@common-file-type-documents' | translate | upperFirstCharacter"> </span>
+          </a>
+        </li>
+
+        <li class="" role="presentation" data-ng-click="onFileTypeClick('presentation');">
+          <a role="menuitem" tabindex="-1">
+            <i class="fa fa-file-powerpoint-o"></i>
+            <span ng-bind-html="'@common-file-type-presentations' | translate | upperFirstCharacter"> </span>
+          </a>
+        </li>
+
+        <li class="" role="presentation" data-ng-click="onFileTypeClick('spreadsheet');">
+          <a role="menuitem" tabindex="-1">
+            <i class="fa fa-file-excel-o"></i>
+            <span ng-bind-html="'@common-file-type-spreadsheets' | translate | upperFirstCharacter"> </span>
+          </a>
+        </li>
+
+        <li class="" role="presentation" data-ng-click="onFileTypeClick('pdf');">
+          <a role="menuitem" tabindex="-1">
+            <i class="fa fa-file-pdf-o"></i>
+            <span ng-bind-html="'@common-file-type-pdf' | translate | upperFirstCharacter"> </span>
+          </a>
+        </li>
+
+        <li class="" role="presentation" data-ng-click="onFileTypeClick('image');">
+          <a role="menuitem" tabindex="-1">
+            <i class="fa fa-file-image-o"></i>
+            <span ng-bind-html="'@common-file-type-images' | translate | upperFirstCharacter"> </span>
+          </a>
+        </li>
+
+        <li class="" role="presentation" data-ng-click="onFileTypeClick('video');">
+          <a role="menuitem" tabindex="-1">
+            <i class="fa fa-file-movie-o"></i>
+            <span ng-bind-html="'@common-file-type-video' | translate | upperFirstCharacter"> </span>
+          </a>
+        </li>
+
+        <li class="" role="presentation" data-ng-click="onFileTypeClick('audio');">
+          <a role="menuitem" tabindex="-1">
+            <i class="fa fa-file-audio-o"></i>
+            <span ng-bind-html="'@common-file-type-audio' | translate | upperFirstCharacter"> </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Settings -->
+    <div class="header-navbar-settings">
             <span class="header-navbar__topmenu" data-toggle="dropdown">
                 <i class="fa fa-cog"></i>
                 <span class="header-navbar__title" translate>@header-setting</span>
                 <i class="fa fa-caret-down"></i>
             </span>
 
-            <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
+      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
 
-                <!--    PROFILE -->
-                <li class="" role="presentation">
-                    <a data-ng-click="openModal('setting-profile');" role="menuitem" tabindex="-1">
-                        <i class="fa fa-user"></i>
-                        <span translate>@common-profile-settings</span>
-                    </a>
-                </li>
+        <!--    PROFILE -->
+        <li class="" role="presentation">
+          <a data-ng-click="openModal('setting-profile');" role="menuitem" tabindex="-1">
+            <i class="fa fa-user"></i>
+            <span translate>@common-profile-settings</span>
+          </a>
+        </li>
 
-                <!--    ACCOUNT    -->
-                <li class="" role="presentation" ng-if="false">
-                    <a data-ng-click="openModal('setting-account')" role="menuitem" tabindex="-1">
-                        <i class="fa fa-cog"></i>
-                        <span translate>@common-account-settings</span>
-                    </a>
-                </li>
+        <!--    ACCOUNT    -->
+        <li class="" role="presentation" ng-if="false">
+          <a data-ng-click="openModal('setting-account')" role="menuitem" tabindex="-1">
+            <i class="fa fa-cog"></i>
+            <span translate>@common-account-settings</span>
+          </a>
+        </li>
 
-                <!--    SERVICE     -->
-                <li class="hidden" role="presentation">
-                    <a data-ng-click="openModal('setting-service')" role="menuitem" tabindex="-1">
-                        <i class="fa fa-wrench"></i><span translate>@common-service-settings</span>
-                    </a>
-                </li>
+        <!--    SERVICE     -->
+        <li class="hidden" role="presentation">
+          <a data-ng-click="openModal('setting-service')" role="menuitem" tabindex="-1">
+            <i class="fa fa-wrench"></i><span translate>@common-service-settings</span>
+          </a>
+        </li>
 
-                <!--    TEAM    -->
-                <li class="" role="presentation" ng-if="isUserAuthorized();">
-                    <a data-ng-click="openModal('setting-team')" role="menuitem" tabindex="-1">
-                        <i class="icon-group"></i><span translate>@setting-team-title</span>
-                    </a>
-                </li>
+        <!--    TEAM    -->
+        <li class="" role="presentation" ng-if="isUserAuthorized();">
+          <a data-ng-click="openModal('setting-team')" role="menuitem" tabindex="-1">
+            <i class="icon-group"></i><span translate>@setting-team-title</span>
+          </a>
+        </li>
 
-            </ul>
-        </div>
+      </ul>
+    </div>
 
-        <!-- Help -->
-        <div class="header-navbar-settings">
+    <!-- Help -->
+    <div class="header-navbar-settings">
             <span class="header-navbar__topmenu" data-toggle="dropdown">
                 <i class="fa fa-question-circle"></i>
                 <span class="header-navbar__title" translate>@header-help</span>
                 <i class="fa fa-caret-down"></i>
             </span>
-            <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
-                <li role="presentation">
-                    <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
-                        <i class="fa fa-info-circle"></i>
-                        <span translate>@common-faq</span>
-                    </a>
-                </li>
+      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
+        <li role="presentation">
+          <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
+            <i class="fa fa-info-circle"></i>
+            <span translate>@common-faq</span>
+          </a>
+        </li>
 
-                <li role="presentation">
-                    <a data-ng-click="onShowToturialClick();" role="menuitem" tabindex="-1">
-                        <i class="fa fa-question-circle"></i>
-                        <span translate>@common-show-tutorial</span>
-                    </a>
-                </li>
+        <li role="presentation">
+          <a data-ng-click="onShowToturialClick();" role="menuitem" tabindex="-1">
+            <i class="fa fa-question-circle"></i>
+            <span translate>@common-show-tutorial</span>
+          </a>
+        </li>
 
-                <li class="divider"></li>
+        <li class="divider"></li>
 
-                <li class="" role="presentation">
-                    <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
-                        <i class="fa fa-folder"></i>
-                        <span translate>@common-terms-of-service</span>
-                    </a>
-                </li>
+        <li class="" role="presentation">
+          <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
+            <i class="fa fa-folder"></i>
+            <span translate>@common-terms-of-service</span>
+          </a>
+        </li>
 
-                <li class="" role="presentation">
-                    <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
-                        <i class="fa fa-lock"></i>
-                        <span translate>@common-privacy-policy</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <li class="" role="presentation">
+          <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
+            <i class="fa fa-lock"></i>
+            <span translate>@common-privacy-policy</span>
+          </a>
+        </li>
+      </ul>
     </div>
+  </div>
 
-    <div class="header-toolbar pull-right">
-        <div class="tutorial-clicker tutorial-z-index pulse" id="fileTutorial"
-             data-ng-click="onTutorialPulseClick($event);"
-             data-ng-if="!tutorialStatus.fileTutorial"></div>
+  <div class="header-toolbar pull-right">
+    <div class="tutorial-clicker tutorial-z-index pulse" id="fileTutorial"
+         data-ng-click="onTutorialPulseClick($event);"
+         data-ng-if="!tutorialStatus.fileTutorial"></div>
 
-        <!-- Search -->
-        <div class="header-toolbar-search hidden">
-            <i class="fa fa-search"></i>
-            <i class="fa fa-caret-down"></i>
-        </div>
-        <!-- Toggle -->
-        <div class="header-toolbar-toggle cursor_pointer"
-             data-ng-class="{'green_background' : $state.includes('**.files.**')}"
-             data-ng-click="onToggleClick();">
+    <!-- Search -->
+    <div class="header-toolbar-search hidden">
+      <i class="fa fa-search"></i>
+      <i class="fa fa-caret-down"></i>
+    </div>
+    <!-- Toggle -->
+    <div class="header-toolbar-toggle cursor_pointer"
+         data-ng-class="{'green_background' : $state.includes('**.files.**')}"
+         data-ng-click="onToggleClick();">
             <span>
                 <i class="icon-filebox"></i>
                 <span class="header-navbar__title" translate>@file-all</span>
             </span>
-        </div>
     </div>
+  </div>
 </div>
