@@ -7,9 +7,9 @@
 
   <!--    PREFIX ICON -->
   <span class="prefix">
-    <i data-ng-if="currentEntity.type === 'channel'" class="icon-topic-fill"></i>
-    <i data-ng-if="currentEntity.type === 'privateGroup'" class="icon-chat-fill"></i>
-    <i data-ng-if="currentEntity.type === 'user'" class="icon-user"></i>
+    <i data-ng-if="currentEntity.type === 'channels'" class="icon-topic-fill"></i>
+    <i data-ng-if="currentEntity.type === 'privategroups'" class="icon-chat-fill"></i>
+    <i data-ng-if="currentEntity.type === 'users'" class="icon-user"></i>
   </span>
 
   <!--Title Dropdown-->
@@ -40,7 +40,7 @@
       </li>
 
       <!--    RENAME  -->
-      <li role="presentation" data-ng-if="isOwner();" data-ng-click="openModal('rename')">
+      <li role="presentation" data-ng-if="isOwner() && !isDefaultTopic();" data-ng-click="openModal('rename')">
         <a role="menuitem" tabindex="-1">
           <i class="icon-edit-fill"></i><span translate>@ch-menu-rename</span>
         </a>
@@ -278,7 +278,8 @@
                 <!--    FILE TYPE THUMBNAIL -->
                 <div class="msg-file-body__thumbnail"
                      data-ng-if="(msg.message.content.type).indexOf('image') == -1">
-                  <img class="fileicon" ng-src="assets/images/fileicon_{{msg.message.content.type | getFileIconImage | lowercase}}.png"/>
+                  <!--<img class="fileicon fileicon_{{msg.message.content.type | getFileIconImage | lowercase}}" ng-src="/assets/images/fileicon_{{msg.message.content.type | getFileIconImage | lowercase}}.png"/>-->
+                  <div class="fileicon fileicon_{{msg.message.content.type | getFileIconImage | lowercase}}" ></div>
 
                 </div>
 
@@ -385,7 +386,8 @@
                 <!--    FILE THUMBNAIL  -->
                 <div class="msg-file-body__thumbnail"
                      data-ng-if="(msg.feedback.content.type).indexOf('image') == -1 && msg.message.commentOption.isTitle">
-                  <img class="fileicon" ng-src="assets/images/fileicon_{{msg.feedback.content.type | getFileIconImage | lowercase}}.png"/>
+                  <!--<img class="fileicon" ng-src="/assets/images/fileicon_{{msg.feedback.content.type | getFileIconImage | lowercase}}.png"/>-->
+                  <div class="fileicon fileicon_{{msg.feedback.content.type | getFileIconImage | lowercase}}"></div>
 
                 </div>
 

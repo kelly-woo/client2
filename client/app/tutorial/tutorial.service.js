@@ -17,7 +17,7 @@
     this.openFileModal = openFileModal;
     this.openChangeLogModal = openChangeLogModal;
 
-    this.updateChangeLogTime = updateChangeLogTime;
+    this.setTutoredAtTime = setTutoredAtTime;
 
     function openWelcomeModal() {
       return $modal.open({
@@ -91,7 +91,7 @@
       });
     }
 
-    function updateChangeLogTime() {
+    function setTutoredAtTime() {
       return $http({
         method: 'PUT',
         url: api_address + 'settings/tutoredAt'

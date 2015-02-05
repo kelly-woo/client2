@@ -17,11 +17,12 @@
       setAccount: setAccount,
       removeAccount: removeAccount,
       getCurrentMemberId: getCurrentMemberId,
-      hasChangeLog: hasChangeLog,
-      hasSeenTutorial: hasSeenTutorial,
       getAccountLanguage: getAccountLanguage,
       validateCurrentPassword: validateCurrentPassword,
-      setAccountLanguage: setAccountLanguage
+      setAccountLanguage: setAccountLanguage,
+      hasChangeLog: hasChangeLog,
+      hasSeenTutorial: hasSeenTutorial,
+      updateAccountTutoredTime: updateAccountTutoredTime
     };
 
     return service;
@@ -78,26 +79,6 @@
       return signInInfo;
     }
 
-    function hasChangeLog() {
-      var account = getAccount();
-
-      // Account or tutoredAt info don't exist. return false.
-      if (!account || !account.tutoredAt) return false;
-
-      var tutoredAt = new Date(account.tutoredAt);
-      var lastUpdateMesageAt = new Date(configuration.last_update_message);
-
-      // Return true if and only if tutoredAt is in past.
-      if (tutoredAt < lastUpdateMesageAt) {
-        return true;
-      }
-
-      return false;
-    }
-    function hasSeenTutorial() {
-      return !!getAccount().tutoredAt;
-    }
-
     function setAccountLanguage(lang) {
       $rootScope.account.lang = lang;
       accountLanguage = lang;
@@ -115,6 +96,33 @@
           password: cur_password
         }
       });
+    }
+
+    function hasChangeLog() {
+      var account = getAccount();
+
+      // Account or tutoredAt info don't exist. return false.
+      if (!account || !account.tutoredAt) return false;
+
+      var tutoredAt = new Date(account.tutoredAt);
+      var lastUpdateMessageAt = new Date(configuration.last_update_message);
+
+      // Return true if and only if tutoredAt is in past.
+      if (tutoredAt < lastUpdateMessageAt) {
+        return true;
+      }
+
+      return false;
+    }
+    function hasSeenTutorial() {
+      return !!getAccount().tutoredAt;
+    }
+
+    function updateAccountTutoredTime(updatedTime) {
+      var account = getAccount();
+      if (!account) return;
+
+      account.tutoredAt = updatedTime;
     }
   }
 })();

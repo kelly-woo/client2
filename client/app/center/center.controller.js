@@ -22,6 +22,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return;
   }
 
+  if (entityId == $rootScope.member.id) {
+    $rootScope.toDefault = true;
+  }
+
   var updateInterval = 2000;
 
   $scope.lastMessage = null;
@@ -55,6 +59,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.isPosting = false;
 
   $scope.isOwner = function() {
+
     return ($rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId) == memberService.getMemberId();
   };
   $scope.isDefaultTopic = function() {

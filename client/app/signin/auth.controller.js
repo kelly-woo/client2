@@ -50,6 +50,10 @@
           .success(function(response) {
             //console.log('got account info')
             accountService.setAccount(response);
+
+            publicService.getLanguageSetting();
+            publicService.setCurrentLanguage();
+
             analyticsService.accountIdentifyMixpanel(response);
             analyticsService.accountMixpanelTrack("Sign In");
 

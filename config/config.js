@@ -2,12 +2,11 @@
   'use strict';
 
   /**
-   *
-   *
    * last_update_message
    *  - Month/Dday/Year Hour:Minute:Second
    */
-  angular.module('services.config', [])
+  angular
+    .module('app.config', [])
     .constant('configuration', {
       name                : '@@name',
       api_address         : '@@api_address',
@@ -22,9 +21,14 @@
       app_store_address   : '@@app_store_address',
       play_store_address  : '@@play_store_address',
       last_update_message : '@@last_update_message'
-    }
-  );
+    })
+    .run(run);
 
+  /* @ngInject */
+  function run($rootScope, config) {
+    // server address, server api version 
+    config.init($rootScope);
+  }
 
 })();
 

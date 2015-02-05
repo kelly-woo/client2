@@ -3,10 +3,10 @@
     .module('jandiApp')
     .factory('publicService', publicService);
 
-  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'analyticsService', 'tutorialService'];
+  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'analyticsService', 'tutorialService', 'language'];
 
   /* @ngInject */
-  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService, tutorialService) {
+  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService, tutorialService, language) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -211,64 +211,18 @@
     // Browser/OS may give us slightly different format for same language.
     // In such case, we reformat the language variable so that we can notify 'server' and 'translator' with correct language format.
     function getLanguageSetting(curLang) {
-      var userLang;
-      var serverLang;
-
-      if (angular.isUndefined(curLang))
-        curLang = accountService.getAccountLanguage();
-
-      curLang = curLang.toLowerCase();
-
-      // Choose correct/right format!!
-      if (curLang.indexOf('ko') >= 0) {
-        // korean
-        userLang    = 'ko';
-        serverLang  = 'ko';
-      }
-      else if (curLang.indexOf('en') >= 0) {
-        // english
-        userLang    = 'en_US';
-        serverLang  = 'en';
-
-      }
-      else if (curLang.indexOf('zh') >= 0) {
-        // chinese
-        if (curLang.indexOf('tw') >= 0) {
-          // main land china
-          userLang    = 'zh_TW';
-          serverLang  = 'zh-tw';
-        }
-        else {
-          userLang    = 'zh_CN';
-          serverLang  = 'zh-cn';
-        }
-      }
-      else if (curLang.indexOf('ja') >= 0) {
-        // japanese
-        userLang    = 'ja';
-        serverLang  = 'ja';
-      }
-      else {
-        // default
-        userLang    = 'en_US';
-        serverLang  = 'en';
-      }
-
-      // Save it!!
-      $rootScope.preferences.language     = userLang;
-      $rootScope.preferences.serverLang   = serverLang;
+      language.getLanguageSetting(curLang);
     }
 
     // Setting language for translator, nggettext
     function setCurrentLanguage() {
-      gettextCatalog.setCurrentLanguage($rootScope.preferences.language);
-      storageAPIservice.setLastLang($rootScope.preferences.language);
+      language.setCurrentLanguage();
     }
     // Setting debug mode for translator, nggettext
     function setDebugMode(isDebug) {
-      gettextCatalog.debug = isDebug;
-
+      language.setDebugMode(isDebug);
     }
+
     function signOut() {
       // There is no need to remove session storage, but still just in case.
       storageAPIservice.removeSession();

@@ -309,6 +309,38 @@ msgstr "共有されたファイル"
 msgid "@common-file-type"
 msgstr "ファイルの種類"
 
+#: client/app/right/right.html
+msgid "@common-file-type-all"
+msgstr "全ての種類"
+
+#: client/app/right/right.html
+msgid "@common-file-type-audio"
+msgstr "音声"
+
+#: client/app/right/right.html
+msgid "@common-file-type-documents"
+msgstr "文書"
+
+#: client/app/right/right.html
+msgid "@common-file-type-images"
+msgstr "画像"
+
+#: client/app/right/right.html
+msgid "@common-file-type-pdf"
+msgstr "pdf"
+
+#: client/app/right/right.html
+msgid "@common-file-type-presentations"
+msgstr "プレゼンテーション"
+
+#: client/app/right/right.html
+msgid "@common-file-type-spreadsheets"
+msgstr "スプレッドシート"
+
+#: client/app/right/right.html
+msgid "@common-file-type-video"
+msgstr "動画"
+
 #: client/app/center/center.html
 msgid "@common-file-upload-abort-msg"
 msgstr "キャンセルされました"
