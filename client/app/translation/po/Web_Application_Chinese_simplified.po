@@ -378,7 +378,7 @@ msgstr "语言"
 
 #: client/app/right/right.html
 msgid "@common-member"
-msgstr "分享了"
+msgstr "曾经被谁分享"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -449,7 +449,7 @@ msgstr "分享在"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@common-shared-in"
-msgstr "已经在里面分享"
+msgstr "曾经分享在哪个议题下"
 
 #: client/app/header/header.html
 msgid "@common-show-tutorial"

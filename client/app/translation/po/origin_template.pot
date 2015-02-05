@@ -318,30 +318,37 @@ msgstr ""
 msgid "@common-file-type-all"
 msgstr ""
 
+#: client/app/header/header.html
 #: client/app/right/right.html
 msgid "@common-file-type-audio"
 msgstr ""
 
+#: client/app/header/header.html
 #: client/app/right/right.html
 msgid "@common-file-type-documents"
 msgstr ""
 
+#: client/app/header/header.html
 #: client/app/right/right.html
 msgid "@common-file-type-images"
 msgstr ""
 
+#: client/app/header/header.html
 #: client/app/right/right.html
 msgid "@common-file-type-pdf"
 msgstr ""
 
+#: client/app/header/header.html
 #: client/app/right/right.html
 msgid "@common-file-type-presentations"
 msgstr ""
 
+#: client/app/header/header.html
 #: client/app/right/right.html
 msgid "@common-file-type-spreadsheets"
 msgstr ""
 
+#: client/app/header/header.html
 #: client/app/right/right.html
 msgid "@common-file-type-video"
 msgstr ""
@@ -565,24 +572,8 @@ msgstr ""
 msgid "@file-all"
 msgstr ""
 
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr ""
-
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@file-video"
 msgstr ""
 
 #: client/app/header/header.html
