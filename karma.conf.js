@@ -97,8 +97,9 @@ module.exports = function(config) {
 
     // code coverage report
     coverageReporter: {
-      type: 'html',
-      dir: 'coverage/'
+      type: 'cobertura',
+      dir: 'coverage/',
+      file: 'coverage.xml'
     },
 
     colors: true
