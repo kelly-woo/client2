@@ -35,7 +35,6 @@
 #dm-list .tooltip:lang(en),
 #dm-list .tooltip:lang(ko) {
   width: 48px;
-  left: 170px !important;
 }
 #dm-list .tooltip-inner:lang(ko) {
 }

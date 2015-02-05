@@ -475,6 +475,7 @@ input[type="button"] {
 }
 .fileicon_hwp {
     background: url('../assets/images/fileicon_hwp.png') no-repeat;
+  background-size: 26px 31px;
 }
 
 .icon-more-member {
@@ -507,7 +508,7 @@ input[type="button"] {
 }
 
 .private-topic-icon {
-    background-image: url('../assets/images/private-topic.svg');
+    background: url('../assets/images/private-topic.svg') no-repeat;
 }
 
 

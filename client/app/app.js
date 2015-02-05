@@ -4,8 +4,8 @@ var app = angular.module('jandiApp', [
   'base.framework',
   'app.framework'
 ]);
-  
-app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageService, gettextCatalog, configuration, storageAPIservice, publicService, entityAPIservice) {
+
+app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice, publicService, entityAPIservice) {
 
   $rootScope._ = window._;
 
@@ -113,19 +113,9 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
 });
 
-app.config(function ($urlRouterProvider, $httpProvider, $locationProvider, localStorageServiceProvider, configuration) {
+app.config(function ($urlRouterProvider, $httpProvider) {
 
   $httpProvider.interceptors.push('authInterceptor');
-
-  /* LocalStorage prefix setting */
-  //localStorageServiceProvider.setPrefix('_jd_');
-  //localStorageServiceProvider.setStorageCookie(45, '/');
-  //if (configuration.name == 'development') {
-  //  localStorageServiceProvider.setStorageCookieDomain('jandi.io');
-  //}
-  //else {
-  //  localStorageServiceProvider.setStorageCookieDomain('jandi.com');
-  //}
 
   /* URL routing rule for exception */
   $urlRouterProvider

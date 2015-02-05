@@ -555,7 +555,7 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
 });
 
 // PROFILE CONTROLLER
-app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService, accountService, publicService) {
+app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstance, userAPIservice, $modal, analyticsService, memberService, accountService, publicService, $state, $stateParams) {
 
   $scope.isLoading = false;
 
@@ -627,6 +627,17 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
           accountService.setAccountLanguage(response.lang);
           publicService.getLanguageSetting(accountService.getAccountLanguage());
           publicService.setCurrentLanguage();
+
+          $modalInstance.dismiss('cancel');
+
+          // 현재 state 다시 로드
+          $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+          });
+
+
         })
         .error(function(err) {
           console.log(err)
