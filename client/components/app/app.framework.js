@@ -5,9 +5,9 @@
     .module('app.framework', [
       'base.framework',
       'app.config',
-      'app.analytics' //,
+      'app.analytics',
+      'app.language'
       // 'app.storage',
-      // 'app.language',
       // 'app.session'
     ])
     .run(run)

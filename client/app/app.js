@@ -19,38 +19,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
 
   $rootScope.isReady = false;
 
-
-  // api_version will be no longer needed in this format.
-  // --> move components/app/config/config.service.js 
-  // var api_address = configuration.api_address;
-  // var api_version = configuration.api_version;
-
-  // $rootScope.server_address   = api_address + "inner-api/";
-  // $rootScope.server_uploaded  = api_address;
-  // $rootScope.api_version      = api_version;
-
-  // $rootScope.configuration    = configuration;
-
-  /*
-   'language'      : is for translator to bring right language for current user. Translator needs this value.
-   'serverLang'    : is for server to detect right language for current user.  Server needs this value.
-   'notification'  : soon to be implement
-   */
-  $rootScope.preferences      = {
-    language        : gettextCatalog.currentLanguage,
-    serverLang      : '',
-    notification    : ''
-  };
-
-  // constant
-  $rootScope.listLangs = [
-    { "value": "ko",    "text": "한국어" },
-    { "value": "en",    "text": "English" },
-    { "value": "zh-cn", "text": "简体中文 " },
-    { "value": "zh-tw", "text": "繁體中文" },
-    { "value": "ja",    "text": "日本語"}
-  ];
-
   // Stores templates in angular variable.
   // TODO: angular variable로 가지고 있지말고 configuration 처럼 가지고 있는건 어떠한가?
   // TODO: STUDY AND USE 'ngTemplate'
@@ -145,52 +113,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, localStorageServi
   $rootScope.$on('$locationChangeSuccess', function(event) {
     entityAPIservice.setLastEntityState();
   });
-
-  var debugMode = (configuration.name === 'development');
-
-  // translate for multi-lang
-  $rootScope.setLang = function(setLang, isDebug) {
-    isDebug = isDebug || false;
-
-    publicService.getLanguageSetting(setLang);
-
-    // 언어 설정 for nggettext(translator)
-    publicService.setCurrentLanguage($rootScope.preferences.language);
-    publicService.setDebugMode(isDebug);
-  };
-
-  // Language Setup
-  $rootScope.setLang(storageAPIservice.getLastLang() || navigator.language || navigator.userLanguage, debugMode);
-
-
-  // <!-- analytics start -->
-  // initMixPanel();
-  // initGoogleAnalytics();
-  // <!-- analytics end -->
-
-
-  // function initMixPanel() {
-  //   (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-  //     for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-
-  //   mixpanel.init(configuration.mp_member_token, {'loaded': function() {
-  //     mixpanel.cookie.clear();
-  //     mixpanel.identify(UUID());
-  //   }});
-  //   mixpanel.init(configuration.mp_account_token, {'loaded': function() {
-  //     mixpanel.account.cookie.clear();
-  //     mixpanel.account.identify(UUID());
-  //   }}, 'account');
-  // }
-  // function initGoogleAnalytics() {
-  //   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  //     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  //     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  //   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  //   ga('create', configuration.ga_token, 'auto');
-  //   ga('create', configuration.ga_token_global, 'auto', {'name': 'global_tracker'});
-  // }
 
   publicService.getBrowserInfo();
 
