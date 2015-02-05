@@ -64,6 +64,7 @@ module.exports = function (grunt) {
                     '!<%= yeoman.client %>/components/base/base.framework.js',
                     '!<%= yeoman.client %>/components/app/app.framework.js',
                     '!<%= yeoman.client %>/components/app/config/config.js',
+                    '!<%= yeoman.client %>/components/app/analytics/analytics.js',
                     '!<%= yeoman.client %>/app/app.js'],
                 tasks: ['injector:scripts']
             },
@@ -485,6 +486,7 @@ module.exports = function (grunt) {
                             '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
                             '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
                             '!{.tmp,<%= yeoman.client %>}/components/app/config/config.js',
+                            '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
                             '!{.tmp,<%= yeoman.client %>}/app/app.js',
                             '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
                             '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']

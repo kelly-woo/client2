@@ -4,9 +4,9 @@
   angular
     .module('app.framework', [
       'base.framework',
-      'app.config' //,
+      'app.config',
+      'app.analytics' //,
       // 'app.storage',
-      // 'app.analytics',
       // 'app.language',
       // 'app.session'
     ])
