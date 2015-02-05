@@ -681,8 +681,6 @@ module.exports = function (grunt) {
                 'karma',
 
                 // protractor - e2e test
-                
-                
 
                 'clean:dist',
                 'concurrent:dist',
