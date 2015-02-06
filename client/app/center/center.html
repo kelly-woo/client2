@@ -221,7 +221,7 @@
 
               <!--    CREATED TIME    -->
               <span class="msg-item-header__created">
-                {{msg.time | date: 'h:mm a'}}
+                {{msg.time | gethmmaFormat }}
               </span>
 
             </span>
@@ -241,7 +241,7 @@
 
                 <!--    CREATED TIME    -->
                 <span class="msg-item-header__created">
-                  {{msg.time | date: 'h:mm a'}}
+                  {{msg.time | gethmmaFormat}}
                 </span>
               </p>
             </span>
@@ -466,7 +466,7 @@
                   <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
 
                   <span class="msg-item-header__created">
-                    {{msg.time | date: 'h:mm a'}}
+                    {{msg.time | gethmmaFormat}}
                   </span>
 
                 </p>
@@ -497,7 +497,7 @@
                       data-msg-create-channel="{{ '@msg-create-ch' | translate }}"
                       data-msg-create-group="{{ '@msg-create-pg' | translate }}"></span>
 
-                <span class="msg-item-header__created">{{msg.time | date: 'h:mm a'}}</span>
+                <span class="msg-item-header__created">{{msg.time | gethmmaFormat}}</span>
 
               </div>
 

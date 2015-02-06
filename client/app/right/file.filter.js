@@ -200,3 +200,17 @@ app.filter('getAvailableFiles', function() {
     return return_array;
   }
 });
+
+app.filter('getyyyyMMddformat', function($filter) {
+  return function(input) {
+    var date = $filter('date')(input,'yyyy/MM/dd h:mm a');
+    return date;
+  }
+});
+
+app.filter('gethmmaFormat', function($filter) {
+  return function(input) {
+    var date = $filter('date')(input, 'h:mm a');
+    return date;
+  }
+});

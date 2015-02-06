@@ -75,7 +75,7 @@
 
           <div class="file-detail-body__meta-info">
             <div class="file-detail-body__meta-info-up">
-              <span class="file-item-meta__createtime">{{ file_detail.createTime | date: 'yyyy. MM. dd. a h:mm' }}</span>
+              <span class="file-item-meta__createtime">{{ file_detail.createTime | getyyyyMMddformat }}</span>
               <span class="bullet">•</span>
               <span class="file-item-meta__size" data-ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</span>
               <span class="file-item-meta__type" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</span>
@@ -226,7 +226,7 @@
         <div class="file-detail-archive-status-container__inner">
           <img class="fileicon archived-file-icon-center" ng-src="assets/images/fileicon_archived.png"/>
 
-          <span translate>@file-delete-time-msg-pre</span>{{file_detail.updateTime  | date: 'yyyy/MM/dd h:mm a' }}<span translate>@file-delete-time-msg-post</span>
+          <span translate>@file-delete-time-msg-pre</span>{{file_detail.updateTime  | getyyyyMMddformat }}<span translate>@file-delete-time-msg-post</span>
         </div>
       </div>
 
