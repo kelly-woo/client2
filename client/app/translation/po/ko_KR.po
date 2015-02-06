@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Jay Kim <jay@tosslab.com>\n"
 "Language-Team: \n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.4\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -179,9 +179,9 @@ msgstr "즐겨찾기 해제 "
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
 msgstr ""
-"비공개 그룹이 \"<b>비공개 토픽</b>\"으로 전환되어 하나의 토픽 리스트에 통합되"
-"었습니다. 물론 비공개 그룹은 참여자들에게만 노출되며 공유된 파일들 또한 참여"
-"자들만 열람할 수 있습니다."
+"비공개 그룹이 \"<b>비공개 토픽</b>\"으로 전환되어 하나의 토픽 리스트에 통합"
+"되었습니다. 물론 비공개 그룹은 참여자들에게만 노출되며 공유된 파일들 또한 참"
+"여자들만 열람할 수 있습니다."
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
@@ -245,7 +245,7 @@ msgstr "새 토픽 생성"
 
 #: client/app/header/header.html client/app/modal/create.private.html
 msgid "@common-create-pg"
-msgstr "비공개 그룹 생성"
+msgstr "비공개 토픽 생성"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
@@ -542,7 +542,7 @@ msgstr "더보기 "
 
 #: client/app/header/header.html
 msgid "@file-all"
-msgstr "모든 파일"
+msgstr "파일 서랍"
 
 #: client/app/header/header.html
 msgid "@file-audio"
@@ -587,8 +587,8 @@ msgstr "설정"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"인터넷 익스플로러 9 에서는 이미지 미리보기가 제대로 작동하지 않을 수 있으나, "
-"파일은 올바르게 업로드 되기 때문에 걱정하지 않으셔도 됩니다."
+"인터넷 익스플로러 9 에서는 이미지 미리보기가 제대로 작동하지 않을 수 있으"
+"나, 파일은 올바르게 업로드 되기 때문에 걱정하지 않으셔도 됩니다."
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
@@ -605,11 +605,11 @@ msgstr ""
 #: client/app/modal/create.channel.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@input-create-ch"
-msgstr "생성할 토픽 채널 이름을 입력하세요"
+msgstr "토픽 이름을 입력하세요"
 
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
-msgstr "생성할 비공개 그룹 이름을 입력하세요"
+msgstr "비공개 토픽 이름을 입력하세요"
 
 #: client/app/modal/invite.team.html
 msgid "@input-invite-email"
@@ -638,7 +638,7 @@ msgstr "토픽 이름을 검색하세요"
 
 #: client/app/right/right.html
 msgid "@input-search-file-title"
-msgstr "파일 타이틀을 검색하세요"
+msgstr "파일 이름을 검색하세요"
 
 #: client/app/modal/invite.channel.html
 #: client/app/modal/team_member_list/team.member.list.html
@@ -702,9 +702,9 @@ msgstr "토픽은 팀의 멤버 누구나 참여할 수 있습니다."
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"- 비공개 토픽은 초대를 받아야만 참여할 수 있으며 참여하지 않은 멤버들에게는 목록조차 노출되지 않습니다."
-"- 비공개 토픽에 공유된 파일은 참여자들만 열람할 수 있습니다."
-"- 비공개/공개 토픽은 생성 이후에 속성을 변경할 수 없습니다."
+"- 비공개 토픽은 초대를 받아야만 참여할 수 있으며 참여하지 않은 멤버들에게는 "
+"목록조차 노출되지 않습니다.- 비공개 토픽에 공유된 파일은 참여자들만 열람할 "
+"수 있습니다.- 비공개/공개 토픽은 생성 이후에 속성을 변경할 수 없습니다."
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -713,8 +713,8 @@ msgstr "공개 여부 설정은 이후에 변경이 불가능합니다."
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
 msgstr ""
-"비공개 그룹은 그룹에 가입된 멤버만 볼 수 있으며, 해당 파일, 내용들도 가입된 "
-"멤버에게만 공개됩니다."
+"비공개 토픽은 초대된 멤버만 볼 수 있으며, 파일들 또한 초대된 멤버에게만 공개"
+"됩니다."
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
@@ -736,7 +736,8 @@ msgstr "대화방으로 초대"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "1:1 대화 중에 간편하게 해당 멤버를 다른 대화방으로 초대할 수 있습니다."
+msgstr ""
+"1:1 대화 중에 간편하게 해당 멤버를 다른 대화방으로 초대할 수 있습니다."
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
@@ -773,8 +774,8 @@ msgstr "이름 변경하기"
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name-msg"
 msgstr ""
-"사용자 이름은 다른 멤버들에 의해 멘션과 검색 등에 사용되기 때문에 변경에 주의"
-"해 주세요."
+"사용자 이름은 다른 멤버들에 의해 멘션과 검색 등에 사용되기 때문에 변경에 주"
+"의해 주세요."
 
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
@@ -792,8 +793,8 @@ msgstr "언어, 데스크탑 알림 등 서비스 설정을 할 수 있습니다
 #: client/app/modal/settings.team.html
 msgid "@modal-setting-team-msg"
 msgstr ""
-"팀에 관련한 사항들을 변경할 수 있습니다. 다만 변경 내용은 모든 팀 멤버들에게 "
-"적용되므로 주의하여 주시기 바랍니다."
+"팀에 관련한 사항들을 변경할 수 있습니다. 다만 변경 내용은 모든 팀 멤버들에"
+"게 적용되므로 주의하여 주시기 바랍니다."
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"
@@ -801,7 +802,7 @@ msgstr "이메일을 통해 다른 멤버들을 잔디로 초대할 수 있습�
 
 #: client/app/modal/upload.html
 msgid "@modal-upload-title-msg1"
-msgstr "타이틀로 파일을 쉽게 검색할 수 있습니다"
+msgstr "파일명으로 파일을 쉽게 검색할 수 있습니다"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
@@ -897,7 +898,7 @@ msgstr "패스워드를 잊으셨나요? 새로운 패스워드를 입력해주�
 
 #: client/app/left/left.html
 msgid "@privateGroup"
-msgstr "그룹 생성 "
+msgstr "토픽 생성 "
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -920,8 +921,8 @@ msgstr "정말로 팀 URL을 변경하시겠습니까?"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-msg"
 msgstr ""
-"팀 URL을 바꾸게 되면 팀원들이 주소를 찾지 못하거나 공유한 파일을 찾을 수 없게"
-"되기 때문에 자주 변경하지 말아주시기 바랍니다."
+"팀 URL을 바꾸게 되면 팀원들이 주소를 찾지 못하거나 공유한 파일을 찾을 수 없"
+"게되기 때문에 자주 변경하지 말아주시기 바랍니다."
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-taken-warning-msg"
@@ -930,8 +931,8 @@ msgstr "이미 사용중인 도메인 입니다"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-warning-msg"
 msgstr ""
-"새로운 URL은 3자 이상의 영어 소문자/숫자/빼기(-) 기호 이외에는 사용할 수 없습"
-"니다."
+"새로운 URL은 3자 이상의 영어 소문자/숫자/빼기(-) 기호 이외에는 사용할 수 없"
+"습니다."
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-name-change"
@@ -965,7 +966,8 @@ msgstr "멤버 초대"
 msgid "@team-members"
 msgstr "전체 멤버 보기"
 
-#: client/app/header/header.html client/app/modal/team_change/team.change.html
+#: client/app/header/header.html
+#: client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "팀 변경"
 
@@ -980,20 +982,20 @@ msgstr " 잘 알겠습니다! "
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"[모든 파일] 버튼을 클릭하시면 참여 토픽이나 사용자님께 공유됐던 모든 파일들"
+"[파일 서랍] 버튼을 클릭하시면 참여 토픽이나 사용자님께 공유됐던 모든 파일들"
 "을 볼 수 있는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"참여 중인 토픽 또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬"
-"이 가능하며, 파일명으로 검색 또한 가능합니다."
+"참여 중인 토픽 이외에도 멤버별, 타입별로 정렬이 가능하며, 파일명 검색 또한 "
+"가능합니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"각 파일 오른쪽에  메뉴 버튼(ᵒᵒᵒ)을 클릭하시면 다른 채널에 공유하거나 댓글을 "
-"남길 수도 있으며 곧바로 다운로드 하실 수도 있습니다. "
+"각 파일 오른쪽에  메뉴 버튼(ᵒᵒᵒ)을 클릭하시면 다른 토픽에 공유하거나 댓글을 "
+"남길 수 있으며 곧바로 다운로드 하실 수도 있습니다. "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
@@ -1007,8 +1009,8 @@ msgstr "메시지 입력과 파일 업로드 "
 msgid "@tutorial-msg-explanation"
 msgstr ""
 "메시지 입력창을 통해 대화를 나눌 수 있습니다. 파일 업로드를 위해서는 왼쪽 아"
-"이콘을 클릭하거나 간단하게 파일을 메시지 창으로  <b>드래그&드롭</b> 하시면 됩"
-"니다."
+"이콘을 클릭하거나 간단하게 파일을 메시지 창으로  <b>드래그&드롭</b> 하시면 "
+"됩니다."
 
 #: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
@@ -1022,17 +1024,17 @@ msgstr "TIPS"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
-"<b>1:1 메시지</b>를 통해 다른 멤버와 직접적으로 대화를 나눌 수 있으며 공유된 "
-"파일은 해당 멤버만 열람할 수 있습니다. 대화 목록을 닫을 수 있지만 대화 내용"
-"은 보존되므로 대화가 다시 시작될 경우 과거 대화 내용을 볼 수 있습니다. [+추"
-"가] 버튼을 눌러 대화를 시작할 수 있습니다. "
+"<b>1:1 메시지</b>를 통해 다른 멤버와 직접적으로 대화를 나눌 수 있으며 공유"
+"된 파일은 해당 멤버만 열람할 수 있습니다. 대화 목록을 닫을 수 있지만 대화 내"
+"용은 보존되므로 대화가 다시 시작될 경우 과거 대화 내용을 볼 수 있습니다. "
+"[+추가] 버튼을 눌러 대화를 시작할 수 있습니다. "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
 "<b>비공개 토픽</b>은 초대를 통해서만 참여할 수 있고 공유 파일들도 참여자들에"
-"게만 노출되기 때문에 보안이 필요한 주제일 경우 이용할 수 있습니다. [+추가] 메"
-"뉴를 통해 토픽 속성을 선택할 수 있습니다."
+"게만 노출되기 때문에 보안이 필요한 주제일 경우 이용할 수 있습니다. [+추가] "
+"메뉴를 통해 토픽 속성을 선택할 수 있습니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
@@ -1041,10 +1043,10 @@ msgstr "공개 토픽과 비공개 토픽, 1:1 메시지 "
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"<b>토픽</b>은 다양한 주제별로 대화를 나눌 수 있는 단체대화방이라고 할 수 있습"
-"니다. 토픽에서는 현재 진행 업무부터 점심 메뉴까지 다양한 주제에 대해 자유롭"
-"게 의견을 나눌 수 있으며, [☰더보기] 를 누르시면 현재 존재하는 공개 토픽 목록"
-"을 확인 후 참여하실 수 있습니다."
+"<b>토픽</b>은 다양한 주제별로 대화를 나눌 수 있는 단체대화방이라고 할 수 있"
+"습니다. 토픽에서는 현재 진행 업무부터 점심 메뉴까지 다양한 주제에 대해 자유"
+"롭게 의견을 나눌 수 있으며, [☰더보기] 를 누르시면 현재 존재하는 공개 토픽 목"
+"록을 확인 후 참여하실 수 있습니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -1145,23 +1147,23 @@ msgstr "JANDI 메시지"
 
 #~ msgid "@tutorial-intro"
 #~ msgstr ""
-#~ "잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위해 "
-#~ "만들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 {{user."
+#~ "잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위"
+#~ "해 만들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 {{user."
 #~ "name}}님을 위해 골랐으니 한 번 확인해주세요. 깜빡이는 아이콘을 한 번씩 클"
 #~ "릭해 주세요! "
 
 #~ msgid ""
 #~ "@tutorial-file-msg1\n"
-#~ "            <!--모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파"
-#~ "일들을 볼 수 있는 사이트 메뉴가 열리고 다시 한 번 클리하면 닫히게 됩니"
+#~ "            <!--모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 "
+#~ "파일들을 볼 수 있는 사이트 메뉴가 열리고 다시 한 번 클리하면 닫히게 됩니"
 #~ "다.-->"
 #~ msgstr ""
 #~ "모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파일들을 볼 수 있"
-#~ "는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다. 참여 중인 토픽 "
-#~ "또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬이 가능하며, "
-#~ "파일명으로 검색 또한 가능합니다. 각 파일 오른쪽에 메뉴 버튼(☰)을 클릭하시"
-#~ "면 다른 채널에 공유하거나 댓글을 남길 수도 있으며 곧바로 다운로드 하실 수"
-#~ "도 있습니다."
+#~ "는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다. 참여 중인 토"
+#~ "픽 또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬이 가능하"
+#~ "며, 파일명으로 검색 또한 가능합니다. 각 파일 오른쪽에 메뉴 버튼(☰)을 클릭"
+#~ "하시면 다른 채널에 공유하거나 댓글을 남길 수도 있으며 곧바로 다운로드 하"
+#~ "실 수도 있습니다."
 
 #~ msgid ""
 #~ "@tutorial-msg-explanation\n"
@@ -1386,7 +1388,8 @@ msgstr "JANDI 메시지"
 
 #~ msgid "Each fields(Email, Last Name, First Name) are all required."
 #~ msgstr ""
-#~ "이메일, 성 그리고 이름 세 정보를 모두 기입하셔야 초대 이메일이 전송됩니다."
+#~ "이메일, 성 그리고 이름 세 정보를 모두 기입하셔야 초대 이메일이 전송됩니"
+#~ "다."
 
 #~ msgid "Failed to send email"
 #~ msgstr "다음 주소로 이메일 보내기를 실패하였습니다."
@@ -1461,8 +1464,8 @@ msgstr "JANDI 메시지"
 
 #~ msgid "Please use Private Group for a closed channel."
 #~ msgstr ""
-#~ "특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 생"
-#~ "성하여 초대해 주시기 바랍니다."
+#~ "특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 "
+#~ "생성하여 초대해 주시기 바랍니다."
 
 #~ msgid "'s"
 #~ msgstr "님의"
