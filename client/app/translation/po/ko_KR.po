@@ -587,8 +587,8 @@ msgstr "설정"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"인터넷 익스플로러 9 에서는 이미지 미리보기가 제대로 작동하지 않을 수 있으"
-"나, 파일은 올바르게 업로드 되기 때문에 걱정하지 않으셔도 됩니다."
+"인터넷 익스플로러 9 에서는 이미지 미리보기가 제대로 작동하지 않을 수 있으나, "
+"파일은 올바르게 업로드 되기 때문에 걱정하지 않으셔도 됩니다."
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
@@ -702,9 +702,9 @@ msgstr "토픽은 팀의 멤버 누구나 참여할 수 있습니다."
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"- 비공개 토픽은 초대를 받아야만 참여할 수 있으며 참여하지 않은 멤버들에게는 "
-"목록조차 노출되지 않습니다.- 비공개 토픽에 공유된 파일은 참여자들만 열람할 "
-"수 있습니다.- 비공개/공개 토픽은 생성 이후에 속성을 변경할 수 없습니다."
+"- 비공개 토픽은 초대를 받아야만 참여할 수 있으며 참여하지 않은 멤버들에게는 목록조차 노출되지 않습니다."
+"- 비공개 토픽에 공유된 파일은 참여자들만 열람할 수 있습니다."
+"- 비공개/공개 토픽은 생성 이후에 속성을 변경할 수 없습니다."
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -774,8 +774,8 @@ msgstr "이름 변경하기"
 #: client/app/modal/settings.account.html
 msgid "@modal-setting-account-name-msg"
 msgstr ""
-"사용자 이름은 다른 멤버들에 의해 멘션과 검색 등에 사용되기 때문에 변경에 주"
-"의해 주세요."
+"사용자 이름은 다른 멤버들에 의해 멘션과 검색 등에 사용되기 때문에 변경에 주의"
+"해 주세요."
 
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
@@ -793,8 +793,8 @@ msgstr "언어, 데스크탑 알림 등 서비스 설정을 할 수 있습니다
 #: client/app/modal/settings.team.html
 msgid "@modal-setting-team-msg"
 msgstr ""
-"팀에 관련한 사항들을 변경할 수 있습니다. 다만 변경 내용은 모든 팀 멤버들에"
-"게 적용되므로 주의하여 주시기 바랍니다."
+"팀에 관련한 사항들을 변경할 수 있습니다. 다만 변경 내용은 모든 팀 멤버들에게 "
+"적용되므로 주의하여 주시기 바랍니다."
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"
@@ -921,8 +921,8 @@ msgstr "정말로 팀 URL을 변경하시겠습니까?"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-msg"
 msgstr ""
-"팀 URL을 바꾸게 되면 팀원들이 주소를 찾지 못하거나 공유한 파일을 찾을 수 없"
-"게되기 때문에 자주 변경하지 말아주시기 바랍니다."
+"팀 URL을 바꾸게 되면 팀원들이 주소를 찾지 못하거나 공유한 파일을 찾을 수 없게"
+"되기 때문에 자주 변경하지 말아주시기 바랍니다."
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-taken-warning-msg"
@@ -931,8 +931,8 @@ msgstr "이미 사용중인 도메인 입니다"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-warning-msg"
 msgstr ""
-"새로운 URL은 3자 이상의 영어 소문자/숫자/빼기(-) 기호 이외에는 사용할 수 없"
-"습니다."
+"새로운 URL은 3자 이상의 영어 소문자/숫자/빼기(-) 기호 이외에는 사용할 수 없습"
+"니다."
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-name-change"
@@ -1388,8 +1388,7 @@ msgstr "JANDI 메시지"
 
 #~ msgid "Each fields(Email, Last Name, First Name) are all required."
 #~ msgstr ""
-#~ "이메일, 성 그리고 이름 세 정보를 모두 기입하셔야 초대 이메일이 전송됩니"
-#~ "다."
+#~ "이메일, 성 그리고 이름 세 정보를 모두 기입하셔야 초대 이메일이 전송됩니다."
 
 #~ msgid "Failed to send email"
 #~ msgstr "다음 주소로 이메일 보내기를 실패하였습니다."
