@@ -398,3 +398,7 @@
   line-height: 20px;
 }
 
+.archived-file__title {
+  font-size: 15px;
+  color: #b7b7b7;
+}

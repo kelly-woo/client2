@@ -212,7 +212,7 @@
 
           <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
 
-          <div class="file-detail-header__title">
+          <div class="file-detail-header__title archived-file__title">
             <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="!isFileArchived">
               {{ file_detail.content.title || file_detail.content.name }}
             </a>

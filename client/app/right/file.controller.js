@@ -240,6 +240,8 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
     fileAPIservice.deleteFile(fileId)
       .success(function(response) {
         getFileDetail();
+        //$state.go('messages.detail.files');
+
         $rootScope.$broadcast('onFileDeleted', fileId);
         console.log('here')
       })
