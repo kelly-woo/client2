@@ -114,32 +114,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.msgLoadStatus.loadingTimer = false;
   }, 1000);
 
-  var prev = null;
-
   var firstLocalMsgId = -1;
   var anchorMsg= -1;
 
-  $scope.updateScroll = function(lastMessage) {
-    console.log(firstLocalMsgId)
+  $scope.updateScroll = function() {
     var lastMsg;
 
     $timeout(function() {
-      var temp = document.getElementById(firstLocalMsgId)
-      lastMsg = angular.element(temp)
-      console.log(lastMsg.position().top);
-
-      //$('.msgs').scrollTop(lastMessage.position().top);
+      lastMsg = angular.element(document.getElementById(firstLocalMsgId));
       $('.msgs').scrollTop(lastMsg.position().top);
-      //lastMessage.addClass('last');
       lastMsg.addClass('last');
-      //$('.msgs').animate( {scrollTop: lastMsg.position().top}, '0', 'swing', function() {
-      //});
     }, 10);
 
-    prev = lastMessage;
-
     $timeout(function() {
-      //lastMessage.removeClass('last');
       lastMsg.removeClass('last');
       enableScroll();
 
@@ -245,16 +232,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 var msg = response.messages[i];
 
                 if (_isFirstMessage(i)) {
-                  console.log('first is ', msg.id)
                   $scope.lastLocalMsgId = msg.id;
                 }
 
                 if (_isLastMessage(i, response.messages)) {
-                  console.log('last is ', msg.id)
-                  firstLocalMsgId = anchorMsg;
+                    firstLocalMsgId = anchorMsg;
                   anchorMsg = msg.id;
-
-                  console.log(firstLocalMsgId, anchorMsg)
                 }
 
                 // jihoon

@@ -8,24 +8,29 @@
 
   function lastDetector() {
     var counter = 0;
-    var messageScrollTo;
-
+    var counterFlag = false;
     return {
       restrict: 'A',
       link: link
     };
 
     function link (scope, element, attrs) {
-      counter++;
-
-      if (attrs.linkId == scope.lastLocalMsgId) {
-        messageScrollTo = angular.element(element[0]);
+      if (scope.loadMoreCounter == 1) {
+        if (counterFlag) {
+          counter = 0;
+          counterFlag = false;
+        }
       }
+
+      counter++;
 
       if (counter == scope.messages.length) {
         //  If it's initial loading, don't update scroll.
-        if (scope.loadMoreCounter == 1) { return; }
-        scope.updateScroll(messageScrollTo);
+        if (scope.loadMoreCounter == 1) {
+          counterFlag = true;
+          return;
+        }
+        scope.updateScroll();
       }
     }
   }
