@@ -1090,7 +1090,7 @@ msgstr " "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-pre"
-msgstr "You received a new direct message from "
+msgstr "in direct message with "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-topic-mid"
@@ -1102,11 +1102,11 @@ msgstr " "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-topic-pre"
-msgstr "In "
+msgstr "in "
 
 #: client/app/center/center.html
 msgid "@web-notification-title"
-msgstr "JANDI Message"
+msgstr "JANDI Message Received"
 
 #~ msgid "@ch-menu-delete-short"
 #~ msgstr "Delete"
