@@ -114,35 +114,34 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.msgLoadStatus.loadingTimer = false;
   }, 1000);
 
-  var prev = null;
+  var firstLocalMsgId = -1;
+  var anchorMsg= -1;
 
-  $scope.updateScroll = function(lastMessage) {
-
-    disableScroll();
-
-    if (prev != null){
-      prev.removeClass('last');
-    }
-
-    if (!angular.isUndefined(lastMessage) && !_.isNull(lastMessage) && lastMessage.position().top > 0) {
-      lastMessage.addClass('last');
-      $('.msgs').scrollTop(lastMessage.position().top - 13);
-    }
-
-    prev = lastMessage;
+  $scope.updateScroll = function() {
+    var lastMsg;
 
     $timeout(function() {
-      if (prev != null) prev.removeClass('last');
+      lastMsg = angular.element(document.getElementById(firstLocalMsgId));
+      $('.msgs').scrollTop(lastMsg.position().top);
+      lastMsg.addClass('last');
+    }, 10);
+
+    $timeout(function() {
+      lastMsg.removeClass('last');
       enableScroll();
-    }, 800)
+
+    }, 1000)
   };
 
-  function disableScroll() {
+  /**
+   * Bind an event to 'mousewheel' and prevent web page from scrolling.
+   */
+  $scope.disableScroll = function() {
     $('body').bind('mousewheel', function(e) {
       e.preventDefault();
       e.stopPropagation();
     });
-  }
+  };
 
   function enableScroll() {
     $('body').unbind('mousewheel');
@@ -181,13 +180,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       } else if (msg.message.contentType === 'text') {
         msg.message.isText = true;
       }
-      $scope.messages[i] = msg;
     }
     $scope.groupMsgs = [];
     $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
       return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
     });
   };
+
+  function _isLastMessage(index, response) {
+    return index == response.length - 1;
+  }
+  function _isFirstMessage(index) {
+    return index == 0;
+  }
 
   $scope.loadMore = function() {
     var deferred = $q.defer();
@@ -212,13 +217,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
 
             if (response.messageCount) {
-
               //  marker 설정
               updateMessageMarker();
 
               for (var i in response.messages.reverse()) {
-
                 var msg = response.messages[i];
+
+                if (_isFirstMessage(i)) {
+                  $scope.lastLocalMsgId = msg.id;
+                }
+
+                if (_isLastMessage(i, response.messages)) {
+                    firstLocalMsgId = anchorMsg;
+                  anchorMsg = msg.id;
+                }
 
                 // jihoon
                 if (msg.status == 'event') {
@@ -241,7 +253,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 msg.message.content.body = $sce.trustAsHtml(safeBody);
 
                 $scope.messages.unshift(msg);
-                // console.log("msg", i, msg);
+
               }
 
               $scope.messageUpdateCount = response.messageCount;

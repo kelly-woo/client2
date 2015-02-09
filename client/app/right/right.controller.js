@@ -69,7 +69,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
   function getFileType(type) {
     var fileType = {};
     _.forEach($scope.fileTypeList, function(object, index) {
-      var value = object.value
+      var value = object.value;
 
       if (value == type) {
         fileType = object;
@@ -189,6 +189,10 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
   function getFileList() {
     if (!$scope.fileRequest.fileType) {
       $scope.fileRequest.fileType = 'all';
+    }
+
+    if (!$scope.fileRequest.sharedEntityId) {
+      $scope.fileRequest.sharedEntityId = $state.params.entityId;
     }
 
     fileAPIservice.getFileList($scope.fileRequest)

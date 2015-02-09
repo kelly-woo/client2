@@ -709,7 +709,10 @@ msgstr "  "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "請使用私人群組為隱秘空間"
+msgstr ""
+"- 私人群組對非邀請成員不開放"
+"- 在私人群組内已分享檔案僅開放給其參與者"
+"- 已設定爲公開或私人的議題群組在建立之後不能被轉換成另一個"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
