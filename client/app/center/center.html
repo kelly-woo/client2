@@ -188,11 +188,6 @@
                               'comment-title': msg.message.commentOption.isTitle,
                               'comment-continue': msg.message.commentOption.isContinue,
                               'system-event-msg': msg.message.contentType === 'systemEvent' }">
-
-
-          {{msg.id}}
-
-
           <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
                ng-switch="msg.message.contentType">
 
