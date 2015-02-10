@@ -316,31 +316,31 @@ msgstr "File Type"
 msgid "@common-file-type-all"
 msgstr "all"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-audio"
 msgstr "audio"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-documents"
 msgstr "documents"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-images"
 msgstr "images"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-pdf"
 msgstr "PDF"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-presentations"
 msgstr "presentations"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-spreadsheets"
 msgstr "spreadsheets"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-video"
 msgstr "video"
 
@@ -549,25 +549,9 @@ msgstr "More"
 msgid "@file-all"
 msgstr "File Drawer"
 
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr "Audio"
-
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr "Images"
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr "PDFs"
-
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "Currently you cannot upload a file that exceeds 100MB."
-
-#: client/app/header/header.html
-msgid "@file-video"
-msgstr "Video"
 
 #: client/app/header/header.html
 msgid "@file-your"
@@ -979,6 +963,7 @@ msgstr "Switch Teams"
 msgid "@tutorial-click-blink"
 msgstr "Click on the pulsing marks to check them out!"
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr "Got it!"
@@ -1019,7 +1004,6 @@ msgstr ""
 "file, click the button to the left and select the desired file path, or drag "
 "and drop the file anywhere in the center messaging pane."
 
-#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr "Skip tutorial"
@@ -1090,7 +1074,7 @@ msgstr " "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-pre"
-msgstr "in direct message with "
+msgstr "from "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-topic-mid"
@@ -1107,6 +1091,18 @@ msgstr "in "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@file-audio"
+#~ msgstr "Audio"
+
+#~ msgid "@file-image"
+#~ msgstr "Images"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDFs"
+
+#~ msgid "@file-video"
+#~ msgstr "Video"
 
 #~ msgid "@ch-menu-delete-short"
 #~ msgstr "Delete"

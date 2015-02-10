@@ -84,8 +84,6 @@
     // Generates body messages for topic related notification.
     function generateTopicNotificationBody(fromEntity, toEntity) {
       var currentLanguage = accountService.getAccountLanguage();
-      console.log(fromEntity.name)
-      console.log(toEntity.name)
       var bodyMessage;
 
       switch (currentLanguage) {

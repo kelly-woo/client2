@@ -142,7 +142,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
       }
 
-      if (refjection.status == 502) {
+      if (rejection.status == 502) {
         console.log('its 502 error!! Network needs to be re-established.');
 
       }
