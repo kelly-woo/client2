@@ -116,7 +116,7 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
     var members = $scope.currentEntity.ch_members || $scope.currentEntity.pg_members;
     var totalUserList = $scope.memberList;
 
-    $scope.availableMemberList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 });
+    $scope.availableMemberList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 || user.status == 'disabled' });
   }
 
   // See if 'user' is a member of current channel/privateGroup.

@@ -264,6 +264,10 @@ msgstr "桌面通知"
 msgid "@common-direct-messages"
 msgstr "直接傳訊"
 
+#: client/app/center/center.html
+msgid "@common-disabled-member-notice-msg-short"
+msgstr "這成員已經被暫時關閉。"
+
 #: client/app/modal/profile.view.html
 msgid "@common-disabled-member-profile-msg"
 msgstr "這成員已經被暫時關閉。欲知更多細節，請聯係團隊管理者。"

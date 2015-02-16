@@ -258,10 +258,6 @@
     }
 
     function isDisabledMember(member) {
-      console.log(member)
-      console.log(member.status)
-
-
       return member.status == 'disabled';
     }
   }

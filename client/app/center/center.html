@@ -1,5 +1,5 @@
 <!--    TODO: HAVE 'panel-title-container' in separate template!!   -->
-<div class="panel-title-container">
+<div class="panel-title-container" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}">
   <!--    STAR ICON -->
   <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
     <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
@@ -65,7 +65,7 @@
     <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'users'">
 
       <!--    INVITE  -->
-      <li role="presentation">
+      <li role="presentation" ng-if="!isDisabledMember(currentEntity);">
         <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
           <i class="icon-invite-fill"></i><span translate>@dm-menu-invite</span>
         </a>
@@ -122,6 +122,10 @@
         </a>
       </li>
     </ul>
+  </span>
+
+  <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledMember(currentEntity);" translate>
+    @common-disabled-member-notice-msg-short
   </span>
 
 </div>

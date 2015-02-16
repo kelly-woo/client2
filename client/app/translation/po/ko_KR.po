@@ -267,6 +267,10 @@ msgstr "데스크탑 알림"
 msgid "@common-direct-messages"
 msgstr "1:1 메시지"
 
+#: client/app/center/center.html
+msgid "@common-disabled-member-notice-msg-short"
+msgstr "차단된 멤버입니다."
+
 #: client/app/modal/profile.view.html
 msgid "@common-disabled-member-profile-msg"
 msgstr "차단된 멤버입니다. 궁금하신 사항은 팀 관리자에게 문의하세요."

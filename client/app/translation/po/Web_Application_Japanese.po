@@ -270,6 +270,10 @@ msgstr "デスクトップ通知"
 msgid "@common-direct-messages"
 msgstr "ダイレクトメッセージ一覧"
 
+#: client/app/center/center.html
+msgid "@common-disabled-member-notice-msg-short"
+msgstr "このメンバーは現在無効化されています。"
+
 #: client/app/modal/profile.view.html
 msgid "@common-disabled-member-profile-msg"
 msgstr ""

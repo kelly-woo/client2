@@ -705,9 +705,37 @@ css for system-event-msg
 /**
   DISABLED MEMBER CSS
 */
+.center-panel-disabled-member.panel-title-container {
+  background-color: red;
+  color: white !important;
+}
+
+
+.center-panel-disabled-member.panel-title-container .prefix,
+.center-panel-disabled-member.panel-title-container .panel-title-info-name-container,
+.center-panel-disabled-member.panel-title-container .header-title-info__more {
+  color: white !important;
+}
+
+.center-panel-disabled-member .panel-title-info:hover .panel-title-info__name,
+.center-panel-disabled-member .panel-title-info:hover .header-title-info__more {
+  color: #e1e1e1 !important;
+
+}
+
 .center-panel-disabled-member .user-profile,
 .center-panel-disabled-member .msg-item-header__nameSpace,
 .center-panel-disabled-member.msg-item-header__name {
   text-decoration: line-through;
   opacity: 0.4;
+}
+
+.disabled-member-notice-msg {
+  margin-right: 7px;
+}
+
+@media (max-width: 620px) {
+  .disabled-member-notice-msg {
+    width: 40%;
+  }
 }

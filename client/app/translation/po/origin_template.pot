@@ -273,6 +273,10 @@ msgstr ""
 msgid "@common-direct-messages"
 msgstr ""
 
+#: client/app/center/center.html
+msgid "@common-disabled-member-notice-msg-short"
+msgstr ""
+
 #: client/app/modal/profile.view.html
 msgid "@common-disabled-member-profile-msg"
 msgstr ""
