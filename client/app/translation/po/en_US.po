@@ -320,31 +320,31 @@ msgstr "File Type"
 msgid "@common-file-type-all"
 msgstr "all"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-audio"
 msgstr "audio"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-documents"
 msgstr "documents"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-images"
 msgstr "images"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-pdf"
 msgstr "PDF"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-presentations"
 msgstr "presentations"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-spreadsheets"
 msgstr "spreadsheets"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-video"
 msgstr "video"
 
@@ -582,10 +582,6 @@ msgstr "PDFs"
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "Currently you cannot upload a file that exceeds 100MB."
-
-#: client/app/header/header.html
-msgid "@file-video"
-msgstr "Video"
 
 #: client/app/header/header.html
 msgid "@file-your"
@@ -1109,7 +1105,7 @@ msgstr " "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-pre"
-msgstr "in direct message with "
+msgstr "from "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-topic-mid"
@@ -1127,8 +1123,22 @@ msgstr "in "
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
 
+<<<<<<< HEAD
 #~ msgid "@common-deleted-file-msg"
 #~ msgstr "Deleted File"
+=======
+#~ msgid "@file-audio"
+#~ msgstr "Audio"
+
+#~ msgid "@file-image"
+#~ msgstr "Images"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDFs"
+
+#~ msgid "@file-video"
+#~ msgstr "Video"
+>>>>>>> develop
 
 #~ msgid "@ch-menu-delete-short"
 #~ msgstr "Delete"

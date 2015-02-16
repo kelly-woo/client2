@@ -135,7 +135,7 @@ app.filter('getFileIconImage', function() {
       // Video
       case 'video/mp4'                :
       case 'video/quicktime'          :
-      case 'application/octet-stream' :
+      //case 'application/octet-stream' :
       case 'video/x-matroska' : // mkv
         filetype = "video";
         break;
