@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, $filter) {
+app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService) {
 
   $scope.isLoading = true;
   $scope.isScrollLoading = true;
@@ -353,4 +353,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
       fileAPIservice.broadcastCommentFocus();
     }
   };
+
+  $scope.isDisabledMember = function(member) {
+    return publicService.isDisabledMember(member);
+  }
 });

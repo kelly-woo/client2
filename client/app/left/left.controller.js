@@ -274,7 +274,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
   $rootScope.$on('onUserClick', function(event, user) {
     $scope.onUserClick(user);
   });
-
   //  Add 'onUserClick' to redirect to direct message to 'user'
   //  center and header are calling.
   $scope.onUserClick = function(user) {
@@ -372,6 +371,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
       target.addClass('rotate-90');
     }
   };
+
 
 
   /*********************************************************************

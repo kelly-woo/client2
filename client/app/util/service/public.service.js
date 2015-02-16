@@ -31,7 +31,8 @@
       setDebugMode: setDebugMode,
       signOut: signOut,
       getBrowserInfo: getBrowserInfo,
-      redirectTo: redirectTo
+      redirectTo: redirectTo,
+      isDisabledMember: isDisabledMember
     };
 
     return service;
@@ -254,6 +255,14 @@
     function redirectTo(url) {
       // Direct to 'url'.
       location.href = url;
+    }
+
+    function isDisabledMember(member) {
+      console.log(member)
+      console.log(member.status)
+
+
+      return member.status == 'disabled';
     }
   }
 })();

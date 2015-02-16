@@ -26,6 +26,8 @@
 
     $scope.openModal= openTeamMemberListModal;
 
+    $scope.isDisabledMember = isDisabledMember;
+
     function openTeamMemberListModal() {
       publicService.openTeamMemberListModal($scope);
     }
@@ -119,6 +121,11 @@
     function onDMInputBlur() {
       $('.absolute-search-icon').stop().css({'opacity' : 0.2});
     }
+
+    function isDisabledMember(member) {
+      return publicService.isDisabledMember(member);
+    }
+
 
     $scope.$on('leaveCurrentChat', function(event, entityId) {
       onMeesageLeaveClick(entityId);

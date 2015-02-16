@@ -234,3 +234,11 @@ app.filter('getMixPanelFormat', function() {
         return input;
     }
 });
+
+app.filter('isDisabledMember', function() {
+  return function(member) {
+    console.log(member)
+    console.log(member.status)
+    return member.status == 'disabled';
+  }
+});

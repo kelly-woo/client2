@@ -110,7 +110,6 @@
       <div class="msg-file-body__thumbnail pull-left"
            data-ng-if="(file.content.type).indexOf('image') == -1">
         <div class="fileicon fileicon_{{ file.content.type | getFileIconImage | lowercase}}"></div>
-        <!--<img class="fileicon" ng-src="assets/images/fileicon_{{file.content.type | getFileIconImage | lowercase}}.png"/>-->
 
       </div>
 
@@ -122,7 +121,8 @@
         <!-- TODO: implement or link 'onUserClick()'    -->
         <div class="file-item-body__author__time">
           <span data-ng-click="onUserClick(file.writer);"
-                class="file-item-body-author cursor_pointer">
+                class="file-item-body-author cursor_pointer"
+                ng-class="{'right-panel-disabled-member': isDisabledMember(file.writer)}">
             {{file.writer|getName }}
           </span>
           <span class="file-item-meta__createtime">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
