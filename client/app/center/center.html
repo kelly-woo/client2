@@ -189,7 +189,8 @@
                               'comment-continue': msg.message.commentOption.isContinue,
                               'system-event-msg': msg.message.contentType === 'systemEvent' }">
           <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
-               ng-switch="msg.message.contentType">
+               ng-switch="msg.message.contentType"
+               ng-class="{'center-panel-disabled-member' : msg.message.writer.status == 'disabled' || msg.fromEntity.status == 'disabled'}">
 
             <!--    SYSTEM EVENT    -->
             <img class="user-profile user-thumb" ng-switch-when="systemEvent"/>
@@ -206,13 +207,16 @@
           <!--    HEADER PART -->
           <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->
           <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->
-          <div class="msg-item-header">
+          <div class="msg-item-header"
+               ng-class="{'center-panel-disabled-member' : msg.message.writer.status == 'disabled' || msg.fromEntity.status == 'disabled'}">
             <!--    WRITER
                     IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
             <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
                   ng-hide="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
-              <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
-              <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
+              <span class="msg-item-header__nameSpace">
+                <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}}</span>
+                <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}}</span>
+              </span>
 
               <!--    CREATED TIME    -->
               <span class="msg-item-header__created">
@@ -226,7 +230,8 @@
               <!--    COMMENT CONTENT -->
               <p >
                 <!--    WRITER  -->
-                <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+                <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
+                      ng-class="{'center-panel-disabled-member' : msg.message.writer.status == 'disabled' || msg.fromEntity.status == 'disabled'}">
                   <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
                   <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
                 </span>
@@ -413,9 +418,10 @@
 
                 <p>
                   <!--    WRITER  -->
-                  <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+                  <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
+                        ng-class="{'center-panel-disabled-member' : msg.message.writer.status == 'disabled' || msg.fromEntity.status == 'disabled'}">
                     <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
-                    <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
+                    <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}}</span>
                   </span>
 
                   <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>

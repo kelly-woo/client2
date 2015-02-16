@@ -701,3 +701,13 @@ css for system-event-msg
 .file-upload-done {
 
 }
+
+/**
+  DISABLED MEMBER CSS
+*/
+.center-panel-disabled-member .user-profile,
+.center-panel-disabled-member .msg-item-header__nameSpace,
+.center-panel-disabled-member.msg-item-header__name {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
