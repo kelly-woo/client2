@@ -264,6 +264,10 @@ msgstr "桌面通知"
 msgid "@common-direct-messages"
 msgstr "直接傳訊"
 
+#: client/app/modal/profile.view.html
+msgid "@common-disabled-member-profile-msg"
+msgstr "這成員已經被暫時關閉。欲知更多細節，請聯係團隊管理者。"
+
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
 msgstr "邀請到"
@@ -307,31 +311,31 @@ msgstr "檔案類別"
 msgid "@common-file-type-all"
 msgstr "全部類別"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-audio"
 msgstr "音頻"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-documents"
 msgstr "文件"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-images"
 msgstr "圖像"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-presentations"
 msgstr "簡報"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-spreadsheets"
 msgstr "表單"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-video"
 msgstr "視頻"
 
@@ -541,25 +545,9 @@ msgstr "音頻檔案 "
 msgid "@file-all"
 msgstr "全部檔案"
 
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr "音頻檔案"
-
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr "圖像"
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr "PDF"
-
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
-
-#: client/app/header/header.html
-msgid "@file-video"
-msgstr "視頻檔案"
 
 #: client/app/header/header.html
 msgid "@file-your"
@@ -693,9 +681,8 @@ msgstr "  "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"- 私人群組對非邀請成員不開放"
-"- 在私人群組内已分享檔案僅開放給其參與者"
-"- 已設定爲公開或私人的議題群組在建立之後不能被轉換成另一個"
+"- 私人群組對非邀請成員不開放- 在私人群組内已分享檔案僅開放給其參與者- 已設定"
+"爲公開或私人的議題群組在建立之後不能被轉換成另一個"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -1069,6 +1056,18 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
+
+#~ msgid "@file-audio"
+#~ msgstr "音頻檔案"
+
+#~ msgid "@file-image"
+#~ msgstr "圖像"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDF"
+
+#~ msgid "@file-video"
+#~ msgstr "視頻檔案"
 
 #~ msgid "@pg-menu-delete"
 #~ msgstr "刪除這私人群組"

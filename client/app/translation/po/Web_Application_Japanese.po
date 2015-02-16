@@ -270,6 +270,11 @@ msgstr "デスクトップ通知"
 msgid "@common-direct-messages"
 msgstr "ダイレクトメッセージ一覧"
 
+#: client/app/modal/profile.view.html
+msgid "@common-disabled-member-profile-msg"
+msgstr ""
+"このメンバーは現在無効化されています。詳細はチーム管理者にお問い合わせ下さい"
+
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
 msgstr "へ招待"
@@ -313,31 +318,31 @@ msgstr "ファイルの種類"
 msgid "@common-file-type-all"
 msgstr "全ての種類"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-audio"
 msgstr "音声"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-documents"
 msgstr "文書"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-images"
 msgstr "画像"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-presentations"
 msgstr "プレゼンテーション"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-spreadsheets"
 msgstr "スプレッドシート"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-video"
 msgstr "動画"
 
@@ -547,25 +552,9 @@ msgstr "もっと見る"
 msgid "@file-all"
 msgstr "全てのファイル"
 
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr "音声"
-
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr "画像"
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr "PDF"
-
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "現在のところ、100MBを超えるファイルはアップロードできません。"
-
-#: client/app/header/header.html
-msgid "@file-video"
-msgstr "動画"
 
 #: client/app/header/header.html
 msgid "@file-your"
@@ -703,9 +692,10 @@ msgstr " "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"-「公開」を選んだ場合でもチームメンバー以外の人が閲覧することはできません"
-"-プライベートトピック内で共有されたファイルは、そのトピックを閲覧できるメンバーからしかアクセスできません"
-"-トピック作成後はプライベートトピックへの変更はできません。その逆もできません。"
+"-「公開」を選んだ場合でもチームメンバー以外の人が閲覧することはできません-プ"
+"ライベートトピック内で共有されたファイルは、そのトピックを閲覧できるメンバー"
+"からしかアクセスできません-トピック作成後はプライベートトピックへの変更はでき"
+"ません。その逆もできません。"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -973,6 +963,7 @@ msgstr "他のチームに切り替える"
 msgid "@tutorial-click-blink"
 msgstr "クリックして今すぐ見てみましょう!"
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr "チュートリアルを終了する"
@@ -1009,7 +1000,6 @@ msgstr ""
 "セージ入力欄の左にあるボタンをクリックするか、ファイルをドラッグ＆ドロップし"
 "てください。"
 
-#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr "チュートリアルをスキップする"
@@ -1093,6 +1083,18 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
+
+#~ msgid "@file-audio"
+#~ msgstr "音声"
+
+#~ msgid "@file-image"
+#~ msgstr "画像"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDF"
+
+#~ msgid "@file-video"
+#~ msgstr "動画"
 
 #~ msgid "@pg-menu-delete"
 #~ msgstr "このグループを削除する"

@@ -273,6 +273,12 @@ msgstr "Desktop Notifications"
 msgid "@common-direct-messages"
 msgstr "Direct Messages"
 
+#: client/app/modal/profile.view.html
+msgid "@common-disabled-member-profile-msg"
+msgstr ""
+"This member has been temporarily disabled. Please contact the team "
+"administrator for more information."
+
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
 msgstr "Invite to"
@@ -1157,10 +1163,6 @@ msgstr "JANDI Message Received"
 
 #~ msgid "@pg-menu-un-star-short"
 #~ msgstr "Unstar"
-
-#, fuzzy
-#~ msgid "@common-deleted-file-msg"
-#~ msgstr "Files"
 
 #~ msgid "@common-private-groups"
 #~ msgstr "Private Groups"

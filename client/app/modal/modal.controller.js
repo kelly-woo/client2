@@ -532,14 +532,21 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
 app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance, curUser, entityAPIservice, $state) {
   $scope.curUser = curUser;
 
-  $scope.onActionClick = function(actionType) {
-    if (actionType === 'email') {
+  $scope.isUserDisabled = $scope.curUser.status == 'disabled';
 
+  $scope.onActionClick = function(actionType) {
+
+    if (actionType === 'email') {
+      if ($scope.isUserDisabled) return;
+
+      window.location.href = "mailto:"+$scope.curUser.u_email;
     }
     else if (actionType === 'file') {
       onFileListClick(curUser.id);
     }
     else if (actionType === 'directMessage') {
+      if ($scope.isUserDisabled) return;
+
       $state.go('archives', { entityType: 'users',  entityId: curUser.id });
     }
 
