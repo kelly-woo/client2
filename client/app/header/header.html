@@ -1,13 +1,15 @@
 <div class="header">
   <!-- Navbar -->
   <div class="header-navbar cursor_pointer">
+
     <!-- Menu -->
     <div class="header-navbar-menu">
-            <span class="header-navbar__topmenu" data-toggle="dropdown">
-                <i class="fa fa-bars"></i>
-                <span class="header-navbar__title" translate>@header-menu</span>
-                <i class="fa fa-caret-down"></i>
-            </span>
+      <span class="header-navbar__topmenu" data-toggle="dropdown">
+        <i class="fa fa-bars"></i>
+        <span class="header-navbar__title" translate>@header-menu</span>
+        <i class="fa fa-caret-down"></i>
+      </span>
+
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
         <!-- 채널 생성 -->
         <li class="" role="presentation">
@@ -65,11 +67,11 @@
 
     <!-- File -->
     <div class="header-navbar-file">
-            <span class="header-navbar__topmenu" data-toggle="dropdown">
-                <i class="fa fa-file"></i>
-                <span class="header-navbar__title" translate>@header-file</span>
-                <i class="fa fa-caret-down"></i>
-            </span>
+      <span class="header-navbar__topmenu" data-toggle="dropdown">
+        <i class="fa fa-file"></i>
+        <span class="header-navbar__title" translate>@header-file</span>
+        <i class="fa fa-caret-down"></i>
+      </span>
 
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
         <li role="presentation">
@@ -155,11 +157,11 @@
 
     <!-- Settings -->
     <div class="header-navbar-settings">
-            <span class="header-navbar__topmenu" data-toggle="dropdown">
-                <i class="fa fa-cog"></i>
-                <span class="header-navbar__title" translate>@header-setting</span>
-                <i class="fa fa-caret-down"></i>
-            </span>
+      <span class="header-navbar__topmenu" data-toggle="dropdown">
+        <i class="fa fa-cog"></i>
+        <span class="header-navbar__title" translate>@header-setting</span>
+        <i class="fa fa-caret-down"></i>
+      </span>
 
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
 
@@ -188,7 +190,7 @@
 
         <!--    TEAM    -->
         <li class="" role="presentation" ng-if="isUserAuthorized();">
-          <a data-ng-click="openModal('setting-team')" role="menuitem" tabindex="-1">
+          <a data-ng-click="toAdmin()" role="menuitem" tabindex="-1">
             <i class="icon-group"></i><span translate>@setting-team-title</span>
           </a>
         </li>
@@ -198,11 +200,11 @@
 
     <!-- Help -->
     <div class="header-navbar-settings">
-            <span class="header-navbar__topmenu" data-toggle="dropdown">
-                <i class="fa fa-question-circle"></i>
-                <span class="header-navbar__title" translate>@header-help</span>
-                <i class="fa fa-caret-down"></i>
-            </span>
+      <span class="header-navbar__topmenu" data-toggle="dropdown">
+        <i class="fa fa-question-circle"></i>
+        <span class="header-navbar__title" translate>@header-help</span>
+        <i class="fa fa-caret-down"></i>
+      </span>
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
         <li role="presentation">
           <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
