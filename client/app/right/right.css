@@ -475,7 +475,10 @@
   display: none;
 }
 
-
+.right-panel-disabled-member {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
 /* Chrome, Safari, Opera */
 @-webkit-keyframes opacOut_hidden {
   from {opacity: 1;}

@@ -373,3 +373,14 @@
     margin: 0;
     line-height: 20px;
 }
+
+.file-detail-disabled-member .file-detail-header__thumbnail,
+.file-detail-disabled-member .comment-item__thumbnail {
+  opacity: 0.4;
+}
+.file-detail-disabled-member .file-detail-header__writer,
+.file-detail-disabled-member .comment-item-header__name {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
