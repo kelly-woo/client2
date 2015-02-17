@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, publicService) {
+app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, $filter, configuration) {
   var authAPI = {};
 
   authAPI.signIn = function(userdata) {
@@ -95,7 +95,16 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     });
   }
 
+  /**
+   * Pop up alert window saying current member has been disabled from current eam.
+   * Keep meber logged in but redirect to main.
+   */
+  authAPI.onCurrentMemberDisabled = function() {
+    var mainTeamAddr = configuration.main_address+'team';
+    confirm($filter('translate')('@current-member-disabled-notice-msg'));
 
+    location.href = mainTeamAddr;
+  };
 
   return authAPI;
 });
@@ -130,6 +139,20 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
       }
       if (rejection.status === 403) {
+        // Just in case, for Peter.
+        var disabledMemberAccessingTeamCode = 40301;
+
+
+        console.log('it is 403!!!!');
+        var situationCode = rejection.data.code;
+
+        if (situationCode == disabledMemberAccessingTeamCode) {
+          // Current member has been disabled from current team!!
+          var authAPIservice = $injector.get('authAPIservice');
+          if (angular.isUndefined(authAPIservice)) return;
+          authAPIservice.onCurrentMemberDisabled();
+        }
+
         return $q.reject(rejection);
 
       }
@@ -139,7 +162,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
       }
       if (rejection.status === 401) {
-        console.log('401')
         // Unauthorized Access.
         // What to do? - get new access_token using refresh_token
         var authAPIservice = $injector.get('authAPIservice');
