@@ -260,6 +260,11 @@ msgstr ""
 msgid "@common-customer-service"
 msgstr ""
 
+#: client/app/center/center.html
+#: client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr ""
+
 #: client/app/modal/profile.view.html
 #: client/app/modal/settings.profile.html
 msgid "@common-department"
@@ -580,6 +585,33 @@ msgstr ""
 msgid "@file-all"
 msgstr ""
 
+<<<<<<< HEAD
+#: client/app/header/header.html
+msgid "@file-audio"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr ""
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr ""
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "@file-image"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "@file-pdf"
+msgstr ""
+
+=======
+>>>>>>> develop
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr ""
@@ -697,6 +729,8 @@ msgid "@login-reset-password"
 msgstr ""
 
 #: client/app/center/center.html
+#: client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr ""
 

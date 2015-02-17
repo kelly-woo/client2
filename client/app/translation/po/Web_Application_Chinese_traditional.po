@@ -252,6 +252,10 @@ msgstr "密碼"
 msgid "@common-customer-service"
 msgstr "客服"
 
+#: client/app/center/center.html client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr "已刪除檔案"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
 msgstr "部門"
@@ -549,6 +553,30 @@ msgstr "音頻檔案 "
 msgid "@file-all"
 msgstr "全部檔案"
 
+#: client/app/header/header.html
+msgid "@file-audio"
+msgstr "音頻檔案"
+
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr "您確定要刪除這檔案？ 請注意留言的部分不會被刪除。"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr " "
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr "刪除時間："
+
+#: client/app/header/header.html
+msgid "@file-image"
+msgstr "圖像"
+
+#: client/app/header/header.html
+msgid "@file-pdf"
+msgstr "PDF"
+
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
@@ -666,7 +694,8 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr "删除"
 

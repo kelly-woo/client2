@@ -258,6 +258,10 @@ msgstr "現在のパスワード"
 msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
+#: client/app/center/center.html client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr "削除されたファイル"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
 msgstr "部署"
@@ -556,6 +560,30 @@ msgstr "もっと見る"
 msgid "@file-all"
 msgstr "全てのファイル"
 
+#: client/app/header/header.html
+msgid "@file-audio"
+msgstr "音声"
+
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr "ファイルを削除してよいですか？削除後もコメントは残ります"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr "に削除されました"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr " "
+
+#: client/app/header/header.html
+msgid "@file-image"
+msgstr "画像"
+
+#: client/app/header/header.html
+msgid "@file-pdf"
+msgstr "PDF"
+
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "現在のところ、100MBを超えるファイルはアップロードできません。"
@@ -677,7 +705,8 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr "削除する"
 

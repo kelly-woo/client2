@@ -94,7 +94,6 @@
       </div>
     </div>
 
-
     <div class="file-list__item cursor_pointer" data-ng-repeat="file in fileList"
          ui-sref="files({ userName: file.writer.name, itemId: file.id })">
 
@@ -113,7 +112,6 @@
 
       </div>
 
-
       <!-- OTHER INFORMATION ABOUT FILE: TITLE, UPLOADED TIME, SHARED CHANNELS, LINK TO NEW TAB -->
       <div class="file-item-body">
 
@@ -125,7 +123,7 @@
                 ng-class="{'right-panel-disabled-member': isDisabledMember(file.writer)}">
             {{file.writer|getName }}
           </span>
-          <span class="file-item-meta__createtime">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
+          <span class="file-item-meta__createtime">{{ file.createTime | getyyyyMMddformat }}</span>
           <span class="file-item-meta__comments">{{ file.commentCount }}</span>
         </div>
 
@@ -181,22 +179,34 @@
               <span translate>@btn-share</span>
             </a>
           </li>
+
           <li class="cursor_pointer">
             <a data-ng-click="setCommentFocus(file);">
               <i class="fa fa-comment-o"></i>
               <span translate>@btn-comment</span>
             </a>
           </li>
+
           <li class="cursor_pointer">
             <a href="{{ server_uploaded  + 'download/' + file.content.fileUrl }}" download="{{ file.content.name }}">
               <i class="icon-download"></i>
               <span translate>@common-download</span>
             </a>
           </li>
+
+          <li class="cursor_pointer" ng-if="file | isFileWriter:member">
+            <a data-ng-click="onFileDeleteClick(file.id)">
+              <i class="fa fa-minus-circle"></i>
+              <span translate>@message-delete</span>
+            </a>
+          </li>
+
+
         </ul>
       </div>
 
     </div>
+
 
     <div class="file-list__item loading" ng-if="isScrollLoading">
       <div class="loading_container_background scroll_loading_container_background"></div>
@@ -206,3 +216,5 @@
 
   </div>
 </div>
+
+<span ng-if="false" translate>@file-delete-confirm-msg</span>

@@ -261,6 +261,10 @@ msgstr "Password"
 msgid "@common-customer-service"
 msgstr "Customer Service"
 
+#: client/app/center/center.html client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr "Deleted File"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
 msgstr "Department"
@@ -559,6 +563,32 @@ msgstr "More"
 msgid "@file-all"
 msgstr "File Drawer"
 
+#: client/app/header/header.html
+msgid "@file-audio"
+msgstr "Audio"
+
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr ""
+"Are you sure you want to delete this file? Please note this will not delete "
+"the associated comments."
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr ", file was deleted."
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr "As of "
+
+#: client/app/header/header.html
+msgid "@file-image"
+msgstr "Images"
+
+#: client/app/header/header.html
+msgid "@file-pdf"
+msgstr "PDFs"
+
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "Currently you cannot upload a file that exceeds 100MB."
@@ -682,7 +712,8 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr "Delete"
 
@@ -1102,6 +1133,8 @@ msgstr "in "
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
 
+#~ msgid "@common-deleted-file-msg"
+#~ msgstr "Deleted File"
 #~ msgid "@file-audio"
 #~ msgstr "Audio"
 

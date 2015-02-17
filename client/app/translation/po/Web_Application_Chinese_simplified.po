@@ -252,6 +252,10 @@ msgstr "密码"
 msgid "@common-customer-service"
 msgstr "客服"
 
+#: client/app/center/center.html client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr "已删除档案"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
 msgstr "部门"
@@ -549,6 +553,30 @@ msgstr "音频档案 "
 msgid "@file-all"
 msgstr "全部档案"
 
+#: client/app/header/header.html
+msgid "@file-audio"
+msgstr "音频档案"
+
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr "您确定要删除这档案？ 请注意留言的部分不会被删除。"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr " "
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr "删除时间："
+
+#: client/app/header/header.html
+msgid "@file-image"
+msgstr "图像"
+
+#: client/app/header/header.html
+msgid "@file-pdf"
+msgstr "PDF"
+
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "您目前将无法上传大於100MB的档案。"
@@ -666,7 +694,8 @@ msgstr "电子邮件或密码无效"
 msgid "@login-reset-password"
 msgstr "忘了密码？"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr "删除"
 

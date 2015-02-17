@@ -176,3 +176,41 @@ app.filter('getFileIconImage', function() {
     return filetype;
   };
 });
+
+app.filter('isFileWriter', function() {
+  return function(input, member) {
+    var fileWriterId = input.writerId;
+    var memberId = member.id;
+
+    return fileWriterId == memberId;
+  }
+});
+
+app.filter('getAvailableFiles', function() {
+  return function (input) {
+    var return_array = [];
+    angular.forEach(input, function (file, index) {
+      var fileStatus = file.status;
+
+      if (fileStatus != 'archived'){
+        this.push(file)
+      }
+    }, return_array);
+
+    return return_array;
+  }
+});
+
+app.filter('getyyyyMMddformat', function($filter) {
+  return function(input) {
+    var date = $filter('date')(input,'yyyy/MM/dd h:mm a');
+    return date;
+  }
+});
+
+app.filter('gethmmaFormat', function($filter) {
+  return function(input) {
+    var date = $filter('date')(input, 'h:mm a');
+    return date;
+  }
+});
