@@ -237,8 +237,20 @@ app.filter('getMixPanelFormat', function() {
 
 app.filter('isDisabledMember', function() {
   return function(member) {
-    console.log(member)
-    console.log(member.status)
     return member.status == 'disabled';
   }
 });
+
+
+app.filter('getEnabledMembers', function() {
+  return function(members) {
+    var enabledMembers = [];
+    _.each(members, function(member) {
+      if (member.status == 'enabled')
+        enabledMembers.push(member);
+    });
+
+    return enabledMembers;
+  }
+});
+

@@ -24,7 +24,7 @@
   </div>
 
   <div class="modal_team_member_list">
-    <div ng-repeat="member in memberList | orderBy:['!isStarred', 'name'] | userByName:memberNameQuery"
+    <div ng-repeat="member in memberList | getEnabledMembers:member | orderBy:['!isStarred', 'name'] | userByName:memberNameQuery"
          class="modal_team_member_container cursor_pointer" ng-click="onMemberClick(member.id);">
 
       <img on-image-load="" class="modal_team_member_profile_pic_thumbnail" ng-src="{{ member | getSmallThumbnail }}"/>
