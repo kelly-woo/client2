@@ -101,9 +101,7 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
    */
   authAPI.onCurrentMemberDisabled = function() {
     var mainTeamAddr = configuration.main_address+'team';
-    //confirm($filter('translate')('@current-member-disabled-notice-msg'));
-    console.log(storageAPIservice.getAccessToken())
-    console.log(storageAPIservice.getRefreshToken())
+    confirm($filter('translate')('@current-member-disabled-notice-msg'));
     location.href = mainTeamAddr;
   };
 
