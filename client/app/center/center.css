@@ -732,7 +732,13 @@ css for system-event-msg
   text-decoration: line-through;
   opacity: 0.4;
 }
+.center-panel-disabled-member-input {
+  background-color: #EDEDED !important;
+  color: #999999 !important;
+}
+.center-panel-disabled-member-input:hover {
 
+}
 
 @media (max-width: 620px) {
   .disabled-member-notice-msg {

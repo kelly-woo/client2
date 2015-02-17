@@ -487,13 +487,15 @@
          data-ng-if="!tutorialStatus.chatTutorial"></div>
     <!--<div class="post-message msgs__loading" data-ng-if="isPosting"></div>-->
 
-    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;">
+    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;"
+          ng-class="{'center-panel-disabled-member-input': isDisabledMember(currentEntity)}">
       <i class="icon-upload"></i>
       <input type="file"
              id="btn-upload-primary"
              class="file_list_button curosr_pointer"
              onclick="this.value=null"
              ng-file-select="onFileSelect($files);"
+             data-ng-disabled="isDisabledMember(currentEntity)"
              value="Upload File">
     </span>
 
@@ -501,9 +503,10 @@
       <form id="message-form" style="height: 35px;">
         <textarea id="message-input"
                   class=""
-                  ng-class="{'post-loading': isPosting}"
+                  ng-class="{ 'post-loading': isPosting,
+                              'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
                   message-submit="postMessage()"
-                  data-ng-disabled="msgLoadStatus.loading"
+                  data-ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
                   data-ng-model="message.content"
                   maxlength=""
                   style="overflow-y: hidden; height: 35px;"
