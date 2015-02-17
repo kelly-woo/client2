@@ -101,8 +101,9 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
    */
   authAPI.onCurrentMemberDisabled = function() {
     var mainTeamAddr = configuration.main_address+'team';
-    confirm($filter('translate')('@current-member-disabled-notice-msg'));
-
+    //confirm($filter('translate')('@current-member-disabled-notice-msg'));
+    console.log(storageAPIservice.getAccessToken())
+    console.log(storageAPIservice.getRefreshToken())
     location.href = mainTeamAddr;
   };
 
@@ -153,7 +154,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
           authAPIservice.onCurrentMemberDisabled();
         }
 
-        return $q.reject(rejection);
+        return;
 
       }
 
