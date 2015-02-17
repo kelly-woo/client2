@@ -706,10 +706,13 @@ css for system-event-msg
   DISABLED MEMBER CSS
 */
 .center-panel-disabled-member.panel-title-container {
-  background-color: red;
+  background-color: #ef6700;
   color: white !important;
 }
 
+.center-panel-disabled-member.panel-title-container .disabled-member-notice-msg {
+  margin-right: 10px;
+}
 
 .center-panel-disabled-member.panel-title-container .prefix,
 .center-panel-disabled-member.panel-title-container .panel-title-info-name-container,
@@ -730,9 +733,6 @@ css for system-event-msg
   opacity: 0.4;
 }
 
-.disabled-member-notice-msg {
-  margin-right: 7px;
-}
 
 @media (max-width: 620px) {
   .disabled-member-notice-msg {
