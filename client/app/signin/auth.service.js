@@ -108,16 +108,8 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
       // API version
       config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
 
-      //if (config.method === 'POST' && config.fileFormDataName === 'userFile') {
-      //    // file upload api.
-      //    if (angular.isUndefined(FileAPI.support)) {
-      //    // since browser supports html5 file upload feature, FileAPI.support has not been initialized.
-      //    // console.log('browser supports html5 not including authorization in header.');
-      //        return config;
-      //    }
-      //}
-
       config.headers.authorization = "bearer " + (storageAPIservice.getAccessToken());
+
       return config;
     },
 
@@ -142,25 +134,29 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
       }
 
-        if (rejection.status === 401) {
-          console.log('401')
-          // Unauthorized Access.
-          // What to do? - get new access_token using refresh_token
-          var authAPIservice = $injector.get('authAPIservice');
+      if (rejection.status == 502) {
+        console.log('its 502 error!! Network needs to be re-established.');
 
-          if (angular.isUndefined(authAPIservice)) return;
+      }
+      if (rejection.status === 401) {
+        console.log('401')
+        // Unauthorized Access.
+        // What to do? - get new access_token using refresh_token
+        var authAPIservice = $injector.get('authAPIservice');
 
-          authAPIservice.requestAccessTokenWithRefreshToken()
-            .success(function(response) {
-              authAPIservice.updateAccessToken(response);
-            })
-            .error(function(error) {
-              // bad refresh_token.
-              var publicService = $injector.get('publicService');
+        if (angular.isUndefined(authAPIservice)) return;
 
-              publicService.signOut();
-            });
-        }
+        authAPIservice.requestAccessTokenWithRefreshToken()
+          .success(function(response) {
+            authAPIservice.updateAccessToken(response);
+          })
+          .error(function(error) {
+            // bad refresh_token.
+            var publicService = $injector.get('publicService');
+
+            publicService.signOut();
+          });
+      }
 
     }
   };

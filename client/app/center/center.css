@@ -411,6 +411,17 @@
 .msg-file-meta-up {
   margin-bottom: 5px;
 }
+.archived-msg-file-meta__title {
+  color: #b7b7b7;
+  padding-bottom: 2px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 35px;
+}
+.archived-msg-file-meta__title:hover {
+  color: #b7b7b7;
+}
+
 .msg-file-meta .msg-file-meta__title,
 .msg-comment .msg-file-meta__title {
   color: #333;
@@ -443,6 +454,7 @@
 }
 .msg-file-meta__writer {  }
 .msg-comment { }
+
 .msg-comment-with-thumbnail {
   min-height: 65px;
 }
@@ -462,26 +474,11 @@
 .msg-comment-body {
   margin-top: 10px;
 }
-/*.msg-comment-body i {*/
-/*font-size: 1.8rem;*/
-/*line-height: 2rem;*/
-/*color: #ebeded;*/
-/*}*/
 .msg-comment-body p {
   font-size: 14px;
   color: #333;
   line-height: 1.3rem;
 }
-/*.editable-wrap textarea {
-    height: 41px;
-    background: #fff;
-    font-size: .95rem;
-    line-height: 1.2rem;
-    border: 2px solid #e0e0e0;
-    margin: 0;
-    color: #3d3c40;
-    resize: none;
-}*/
 
 .footer {
   background: #fff;
@@ -565,9 +562,11 @@
   background-size: 30px;
 }
 
-/*
-css for system-event-msg
-*/
+/********************************************
+
+            System Event Message
+
+********************************************/
 .system-event-msg {
   min-height: 15px;
 }
@@ -610,6 +609,13 @@ css for system-event-msg
   border: 5px solid transparent;
   border-top: 0 !important;
 }
+
+/********************************************
+
+                Drag & Drop
+
+********************************************/
+
 .dnd-not-support {
   display: block;
 }
@@ -652,6 +658,11 @@ css for system-event-msg
   z-index: -1;
 }
 
+/********************************************
+
+            File Progress bar
+
+********************************************/
 .file-upload-progress-container {
   position: absolute;
   width: 100%;
@@ -669,8 +680,9 @@ css for system-event-msg
 
 .file-upload-progress-abort:hover,
 .file-upload-progress-icon-cancel:hover {
-  opacity: 1;
+    opacity: 1;
 }
+
 .isAborted .jandi-file-upload-progress-bar {
   background-color: rgba(235, 149, 47, 0.7);
 
@@ -700,4 +712,21 @@ css for system-event-msg
 }
 .file-upload-done {
 
+}
+
+/********************************************
+
+            Archived File
+
+********************************************/
+.archived-file {
+
+}
+
+.archived-file-title {
+  line-height: 63px;
+}
+.archived-file .msg-file-meta__title {
+  color: #b7b7b7;
+  font-size: 14px;
 }

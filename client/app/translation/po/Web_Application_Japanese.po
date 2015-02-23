@@ -258,6 +258,10 @@ msgstr "現在のパスワード"
 msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
+#: client/app/center/center.html client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr "削除されたファイル"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
 msgstr "部署"
@@ -551,6 +555,18 @@ msgstr "全てのファイル"
 msgid "@file-audio"
 msgstr "音声"
 
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr "ファイルを削除してよいですか？削除後もコメントは残ります"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr "に削除されました"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr " "
+
 #: client/app/header/header.html
 msgid "@file-image"
 msgstr "画像"
@@ -684,7 +700,8 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr "削除する"
 
@@ -703,8 +720,9 @@ msgstr " "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"特定のメンバーのみでチャットしたい場合はプライベートグループを使用してくださ"
-"い"
+"-「公開」を選んだ場合でもチームメンバー以外の人が閲覧することはできません"
+"-プライベートトピック内で共有されたファイルは、そのトピックを閲覧できるメンバーからしかアクセスできません"
+"-トピック作成後はプライベートトピックへの変更はできません。その逆もできません。"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -972,6 +990,7 @@ msgstr "他のチームに切り替える"
 msgid "@tutorial-click-blink"
 msgstr "クリックして今すぐ見てみましょう!"
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr "チュートリアルを終了する"
@@ -1008,7 +1027,6 @@ msgstr ""
 "セージ入力欄の左にあるボタンをクリックするか、ファイルをドラッグ＆ドロップし"
 "てください。"
 
-#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr "チュートリアルをスキップする"

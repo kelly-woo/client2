@@ -252,6 +252,10 @@ msgstr "密碼"
 msgid "@common-customer-service"
 msgstr "客服"
 
+#: client/app/center/center.html client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr "已刪除檔案"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
 msgstr "部門"
@@ -545,6 +549,18 @@ msgstr "全部檔案"
 msgid "@file-audio"
 msgstr "音頻檔案"
 
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr "您確定要刪除這檔案？ 請注意留言的部分不會被刪除。"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr " "
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr "刪除時間："
+
 #: client/app/header/header.html
 msgid "@file-image"
 msgstr "圖像"
@@ -674,7 +690,8 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr "删除"
 
@@ -692,7 +709,10 @@ msgstr "  "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "請使用私人群組為隱秘空間"
+msgstr ""
+"- 私人群組對非邀請成員不開放"
+"- 在私人群組内已分享檔案僅開放給其參與者"
+"- 已設定爲公開或私人的議題群組在建立之後不能被轉換成另一個"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"

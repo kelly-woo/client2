@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Jay Kim <jay@tosslab.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "No files found matching"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@alert-empty-file-shared"
-msgstr "File has not been shared in other rooms"
+msgstr "File has not been shared"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-invalid-password"
@@ -154,11 +154,11 @@ msgstr "Upload"
 
 #: client/app/center/center.html
 msgid "@ch-menu-delete"
-msgstr "Delete this topic"
+msgstr "Delete topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-invite"
-msgstr "Invite members to this topic"
+msgstr "Invite members"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
@@ -166,15 +166,15 @@ msgstr "Leave topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
-msgstr "Rename this topic"
+msgstr "Rename topic"
 
 #: client/app/center/center.html
 msgid "@ch-menu-star"
-msgstr "Star this topic "
+msgstr "Star topic "
 
 #: client/app/center/center.html
 msgid "@ch-menu-un-star"
-msgstr "Unstar this topic"
+msgstr "Unstar topic"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
@@ -223,7 +223,7 @@ msgstr "We encountered an issue. Please try again."
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
-msgstr "1:1 Chat"
+msgstr "1:1 Message"
 
 #: client/app/modal/password.reset.request.html
 msgid "@common-check-email-inbox"
@@ -241,17 +241,17 @@ msgstr "Leave"
 msgid "@common-conversation-leave-confirm"
 msgstr ""
 "Are you sure you want to leave this conversation? This will hide it from "
-"view in the Messages tab until you receive a new message or manually reopen "
-"it."
+"view in the conversation list until you receive a new message or manually "
+"reopen it."
 
 #: client/app/header/header.html client/app/modal/create.channel.html
 #: client/app/modal/join.html client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
-msgstr "Create New Topic"
+msgstr "Create Topic"
 
 #: client/app/header/header.html client/app/modal/create.private.html
 msgid "@common-create-pg"
-msgstr "Create New Private Group"
+msgstr "Create Private Topic"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
@@ -260,6 +260,10 @@ msgstr "Password"
 #: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr "Customer Service"
+
+#: client/app/center/center.html client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr "Deleted File"
 
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
@@ -316,31 +320,31 @@ msgstr "File Type"
 msgid "@common-file-type-all"
 msgstr "all"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-audio"
 msgstr "audio"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-documents"
 msgstr "documents"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-images"
 msgstr "images"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-pdf"
 msgstr "PDF"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-presentations"
 msgstr "presentations"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-spreadsheets"
 msgstr "spreadsheets"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-video"
 msgstr "video"
 
@@ -374,7 +378,7 @@ msgstr "Additional Information"
 
 #: client/app/password/password.reset.html
 msgid "@common-invalid-request"
-msgstr "Oops, Invalid Request. "
+msgstr "Invalid Request. "
 
 #: client/app/modal/join.html
 msgid "@common-joined"
@@ -430,7 +434,7 @@ msgstr "Privacy Policy"
 
 #: client/app/header/header.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
-msgstr "Profile Settings"
+msgstr "Profile"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "@common-purpose"
@@ -523,7 +527,7 @@ msgstr "View Files"
 
 #: client/app/center/center.html
 msgid "@dm-menu-invite"
-msgstr "Invite this member to other rooms"
+msgstr "Invite to a topic"
 
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
@@ -531,7 +535,7 @@ msgstr "View Profile"
 
 #: client/app/center/center.html
 msgid "@dnd-file-upload-msg"
-msgstr "Drag your file and drop here to upload"
+msgstr "Drag and drop your file here to upload"
 
 #: client/app/error/404.html
 msgid "@error-404-message"
@@ -539,7 +543,7 @@ msgstr "The page you were looking for could not be found"
 
 #: client/app/error/404.html
 msgid "@error-404-title"
-msgstr "That’s an error"
+msgstr "Oops!"
 
 #: client/app/right/file.html client/app/right/right.html
 msgid "@file-action-more"
@@ -547,11 +551,25 @@ msgstr "More"
 
 #: client/app/header/header.html
 msgid "@file-all"
-msgstr "All Files"
+msgstr "File Drawer"
 
 #: client/app/header/header.html
 msgid "@file-audio"
 msgstr "Audio"
+
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr ""
+"Are you sure you want to delete this file? Please note this will not delete "
+"the associated comments."
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr ", file was deleted."
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr "As of "
 
 #: client/app/header/header.html
 msgid "@file-image"
@@ -566,16 +584,12 @@ msgid "@file-size-too-large-error"
 msgstr "Currently you cannot upload a file that exceeds 100MB."
 
 #: client/app/header/header.html
-msgid "@file-video"
-msgstr "Video"
-
-#: client/app/header/header.html
 msgid "@file-your"
 msgstr "My Files"
 
 #: client/app/header/header.html
 msgid "@header-file"
-msgstr "File"
+msgstr "Files"
 
 #: client/app/header/header.html
 msgid "@header-help"
@@ -623,16 +637,16 @@ msgstr "Enter email address to invite"
 
 #: client/app/modal/settings.profile.html
 msgid "@input-max-length-20-error"
-msgstr "You've exceeded the maximum character limit: 20 characters"
+msgstr "You've exceeded the maximum character limit (20)"
 
 #: client/app/modal/settings.profile.html
 msgid "@input-max-length-60-error"
-msgstr "You've exceeded the maximum character limit: 60 characters"
+msgstr "You've exceeded the maximum character limit (60)"
 
 #: client/app/modal/settings.profile.html client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@input-max-length-error"
-msgstr "You've exceeded the maximum character limit."
+msgstr "You've exceeded the maximum character limit"
 
 #: client/app/modal/rename.html
 msgid "@input-rename"
@@ -666,7 +680,7 @@ msgstr "Password cannot contain space"
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
 msgid "@input-user-password-min-length-error"
-msgstr "Must be more than 8 characters"
+msgstr "Must be 8+ characters"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -688,7 +702,8 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr "Delete"
 
@@ -717,11 +732,11 @@ msgstr ""
 msgid "@modal-create-pg-msg1"
 msgstr ""
 "A private topic is only visible to its members, and only members of a "
-"private group can read or search its contents"
+"private topic can read or search its contents"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
-msgstr "- Private topics are not available to non-invited members"
+msgstr "- Private topics cannot be accessed by non-invited members"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
@@ -736,11 +751,11 @@ msgstr ""
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
-msgstr "Invite member to other rooms"
+msgstr "Invite to a topic"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "You can invite this user to other rooms"
+msgstr "You can invite this member to a topic"
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
@@ -748,11 +763,11 @@ msgstr "Invite Members"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr "Topics You Already Joined"
+msgstr "Topics Joined"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr "Other Topics You Can Join"
+msgstr "Other Available Topics"
 
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@modal-member-list-title"
@@ -789,17 +804,17 @@ msgstr "Change your password"
 
 #: client/app/modal/settings.profile.html
 msgid "@modal-setting-profile-msg1"
-msgstr "You can set the personal information shown to other members"
+msgstr "Set the personal information that other members see"
 
 #: client/app/modal/settings.service.html
 msgid "@modal-setting-service-msg1"
-msgstr "You can change your language or notification settings"
+msgstr "Change your language or notification settings"
 
 #: client/app/modal/settings.team.html
 msgid "@modal-setting-team-msg"
 msgstr ""
-"You can change your team settings here. Please note that any modifications "
-"will also be applied to your teammates."
+"Change your team settings here. Please note that any modifications will also "
+"be applied to your teammates."
 
 #: client/app/modal/invite.team.html
 msgid "@modal-team-invite-msg1"
@@ -883,14 +898,11 @@ msgstr "Never"
 
 #: client/app/password/password.reset.html
 msgid "@password-reset-done"
-msgstr ""
-"Your password has been changed successfully. Please login with JANDI app."
+msgstr "Your password has been changed successfully. Please sign in to JANDI."
 
 #: client/app/modal/password.reset.request.html
 msgid "@password-reset-email"
-msgstr ""
-"Please enter your email. We will send an email with a link where you can "
-"reset your password."
+msgstr "Enter your email and we will help you reset your password."
 
 #: client/app/modal/password.reset.request.html
 msgid "@password-reset-email-fail"
@@ -915,8 +927,8 @@ msgstr "Delete Team"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete-confirm"
 msgstr ""
-"Are you sure you want to delete your team? All the content will be erased. "
-"This process cannot be undone."
+"Are you sure you want to delete this team? All of the content will be "
+"erased. This process cannot be undone."
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-change"
@@ -982,6 +994,7 @@ msgstr "Switch Teams"
 msgid "@tutorial-click-blink"
 msgstr "Click on the pulsing marks to check them out!"
 
+#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr "Got it!"
@@ -995,7 +1008,7 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"You can toggle the view by using the All Files button to open or shut the "
+"You can toggle the view by using the File Drawer button to open or shut the "
 "drawer. You can search for specific files by keyword and sort by file type, "
 "team member who provided the file, or the conversation in which it was "
 "shared."
@@ -1022,7 +1035,6 @@ msgstr ""
 "file, click the button to the left and select the desired file path, or drag "
 "and drop the file anywhere in the center messaging pane."
 
-#: client/app/modal/change_log/changeLog.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr "Skip tutorial"
@@ -1077,15 +1089,15 @@ msgstr "Welcome to JANDI! "
 
 #: client/app/left/left.html
 msgid "@user"
-msgstr "Users"
+msgstr "Direct Messages"
 
 #: client/app/center/center.html
 msgid "@user-menu-star"
-msgstr "Star this user"
+msgstr "Star user"
 
 #: client/app/center/center.html
 msgid "@user-menu-un-star"
-msgstr "Unstar this user"
+msgstr "Unstar user"
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-post"
@@ -1093,11 +1105,11 @@ msgstr " "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-pre"
-msgstr "You received a new direct message from "
+msgstr "from "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-topic-mid"
-msgstr " in "
+msgstr " from "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-topic-post"
@@ -1105,11 +1117,28 @@ msgstr " "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-topic-pre"
-msgstr "You received a new message from "
+msgstr "in "
 
 #: client/app/center/center.html
 msgid "@web-notification-title"
-msgstr "JANDI Message"
+msgstr "JANDI Message Received"
+
+<<<<<<< HEAD
+#~ msgid "@common-deleted-file-msg"
+#~ msgstr "Deleted File"
+=======
+#~ msgid "@file-audio"
+#~ msgstr "Audio"
+
+#~ msgid "@file-image"
+#~ msgstr "Images"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDFs"
+
+#~ msgid "@file-video"
+#~ msgstr "Video"
+>>>>>>> develop
 
 #~ msgid "@ch-menu-delete-short"
 #~ msgstr "Delete"
@@ -1164,10 +1193,6 @@ msgstr "JANDI Message"
 
 #~ msgid "@pg-menu-un-star-short"
 #~ msgstr "Unstar"
-
-#, fuzzy
-#~ msgid "@common-deleted-file-msg"
-#~ msgstr "Files"
 
 #~ msgid "@common-private-groups"
 #~ msgstr "Private Groups"
