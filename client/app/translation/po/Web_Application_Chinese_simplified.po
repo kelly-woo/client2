@@ -252,6 +252,10 @@ msgstr "密码"
 msgid "@common-customer-service"
 msgstr "客服"
 
+#: client/app/center/center.html client/app/right/file.html
+msgid "@common-deleted-file-title"
+msgstr "已删除档案"
+
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 msgid "@common-department"
 msgstr "部门"
@@ -545,6 +549,18 @@ msgstr "全部档案"
 msgid "@file-audio"
 msgstr "音频档案"
 
+#: client/app/right/right.html
+msgid "@file-delete-confirm-msg"
+msgstr "您确定要删除这档案？ 请注意留言的部分不会被删除。"
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-post"
+msgstr " "
+
+#: client/app/right/file.html
+msgid "@file-delete-time-msg-pre"
+msgstr "删除时间："
+
 #: client/app/header/header.html
 msgid "@file-image"
 msgstr "图像"
@@ -674,7 +690,8 @@ msgstr "电子邮件或密码无效"
 msgid "@login-reset-password"
 msgstr "忘了密码？"
 
-#: client/app/center/center.html
+#: client/app/center/center.html client/app/right/file.html
+#: client/app/right/right.html
 msgid "@message-delete"
 msgstr "删除"
 
@@ -692,7 +709,10 @@ msgstr "  "
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
-msgstr "请使用私人群组为隐秘空间"
+msgstr ""
+"- 私人群组对非邀请成员不开放"
+"- 在私人群组内已分享档案仅开放给其参与者"
+"- 已设定为公开或私人的议题群组在建立之后不能被转换成另一个"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"

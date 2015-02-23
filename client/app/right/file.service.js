@@ -162,6 +162,16 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   };
 
+  fileAPI.deleteFile = function(fileId) {
+    return $http({
+      method: 'DELETE',
+      url: $rootScope.server_address + 'files/' + fileId,
+      params: {
+        teamId: memberService.getTeamId()
+      }
+    });
+  };
+
   fileAPI.generateFileTypeFilter = function() {
     var array = [
       {viewValue: $filter('translate')('@common-file-type-all'), value: 'all'},
