@@ -1123,22 +1123,11 @@ msgstr "in "
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
 
-<<<<<<< HEAD
 #~ msgid "@common-deleted-file-msg"
 #~ msgstr "Deleted File"
-=======
-#~ msgid "@file-audio"
-#~ msgstr "Audio"
-
-#~ msgid "@file-image"
-#~ msgstr "Images"
-
-#~ msgid "@file-pdf"
-#~ msgstr "PDFs"
 
 #~ msgid "@file-video"
 #~ msgstr "Video"
->>>>>>> develop
 
 #~ msgid "@ch-menu-delete-short"
 #~ msgstr "Delete"
