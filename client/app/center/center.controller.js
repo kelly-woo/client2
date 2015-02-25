@@ -624,9 +624,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // comment but not to image file -> return
     if (message.message.contentType === 'comment'){
-      if (message.feedback.content.type.indexOf('image') < 0 || message.feedback.status == 'archived') {
+      //if (message.feedback.content.type.indexOf('image') < 0 || message.feedback.status == 'archived') {
         return;
-      }
+      //}
     }
 
     // Image is long but not wide. There may be a white space on each side of an image.
@@ -658,11 +658,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       targetDom = tempTarget.siblings('.image_wrapper').children('.msg-file-body__img');
     }
     else {
-      // issue : JND-974, by ysyun 2015.2.25 
-      //   - recovery width
-      $timeout(function() {
-        message.dynamicWidth = {};
-      }, 50);
       return;
     }
 
@@ -739,33 +734,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     parent.append(mirrorDom);
     parent.append(fullScreenToggler);
 
-    // issue : JND-974, by ysyun 2015.2.25 
-    //   - if click thumbnail, change dynamically width per <img id="large-thumbnail-[message.id]"> 
-    var thumbWidth = mirrorDom[0].clientWidth;
-    if(mirrorDom) {
-      $timeout(function() {
-        var img = angular.element('#large-thumbnail-' + message.id);
-        var width = img[0].clientWidth;
-        if(thumbWidth === width) {
-          $timeout(function() {
-            _width(message);
-          }, 300);
-        } else {
-          _width(message);
-        }
-      }, 150);
-    }
-
     //  change parent's css properties.
     parent.addClass('large-thumbnail-parent').removeClass('pull-left');
     parent.parent().addClass('large-thumbnail-grand-parent');
   };
-
-  function _width(message) {
-    var img = angular.element('#large-thumbnail-' + message.id);
-    var width = img[0].clientWidth;
-    message.dynamicWidth = { 'width' : width + 'px' };
-  }
 
   // get all style attributes of targetDom
   // and pick correct 'transform' arrtibute.

@@ -253,7 +253,7 @@
               <i class="icon-cancel"></i>
             </a>
           </div>
-          <div class="msg-item-body" ng-style="msg.dynamicWidth">
+          <div class="msg-item-body">
 
             <!-- TEXT -->
             <div class="msg-text" data-ng-if="msg.message.contentType === 'text'">
@@ -264,7 +264,7 @@
             <div class="msg-file" ng-cloak data-ng-if="msg.message.contentType === 'file'">
 
               <!--  FILE PREVIEW IMAGE  -->
-              <div class="msg-file-body-float pull-left cursor_pointer" data-ng-click="onSmallThumbnailClick($event, msg);">
+              <div class="msg-file-body-float pull-left" data-ng-click="onSmallThumbnailClick($event, msg);">
                 <!--  FILE NOT ARCHIVED -->
                 <div ng-if="msg.message.status != 'archived'">
                   <!--    IMAGE THUMBNAIL -->
@@ -401,7 +401,8 @@
 
               <!--    LEFT PART OF BODY CONTENT
                       IMAGE/FILE THUMBNAIL    -->
-              <div class="msg-file-body-float pull-left cursor_pointer"
+              <div class="msg-file-body-float pull-left"
+                   ng-class="{cursor_pointer: msg.message.contentType !== 'comment'"
                    data-ng-click="onSmallThumbnailClick($event, msg);">
 
                 <div ng-if="msg.feedback.status != 'archived'">
