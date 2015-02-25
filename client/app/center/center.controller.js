@@ -749,7 +749,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         if(thumbWidth === width) {
           $timeout(function() {
             _width(message);
-          }, 200);
+          }, 300);
         } else {
           _width(message);
         }
