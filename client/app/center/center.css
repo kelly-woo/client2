@@ -297,15 +297,8 @@
 .msg-item.comment-continue .msg-item-header .msg-item-header__created {
   padding-left: 5px;
 }
-
-/* 
-issue : JND-974
-fix : add width: 720px;
-by ysyun 2015.2.25 
-*/
 .msg-item-body {
   position: relative;
-  width: 720px;
 }
 .msg-item.comment-continue .msg-item-body {
   /*padding-left: 75px;*/
@@ -385,7 +378,12 @@ issue : JND-974
 fix : remove margin-bottom: 10px;
 by ysyun 2015.2.25 
 */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 .large-thumbnail {
+  display:inline;
   border: 1px solid #d2d2d2;
 }
 .large-thumbnail-parent:hover .large-thumbnail-full-screen

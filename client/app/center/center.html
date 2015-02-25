@@ -253,8 +253,7 @@
               <i class="icon-cancel"></i>
             </a>
           </div>
-
-          <div class="msg-item-body">
+          <div class="msg-item-body" ng-style="msg.dynamicWidth">
 
             <!-- TEXT -->
             <div class="msg-text" data-ng-if="msg.message.contentType === 'text'">
@@ -262,7 +261,7 @@
             </div>
 
             <!-- FILE -->
-            <div class="msg-file" data-ng-if="msg.message.contentType === 'file'">
+            <div class="msg-file" ng-cloak data-ng-if="msg.message.contentType === 'file'">
 
               <!--  FILE PREVIEW IMAGE  -->
               <div class="msg-file-body-float pull-left cursor_pointer" data-ng-click="onSmallThumbnailClick($event, msg);">
