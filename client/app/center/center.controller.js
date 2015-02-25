@@ -700,6 +700,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     });
 
 
+    // issue : JND-974, by ysyun 2015.2.25 
+    // if click fa-comment icon, must not working
+    if(!targetDom[0]) {
+      return;
+    }
 
     // get transform information from original image.
     // if image was rotated according to its orientation from exif data, there must be transform value.
