@@ -624,14 +624,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // comment but not to image file -> return
     if (message.message.contentType === 'comment'){
-      if (message.feedback.content.type.indexOf('image') < 0 || message.feedback.status == 'archived') {
+      //if (message.feedback.content.type.indexOf('image') < 0 || message.feedback.status == 'archived') {
         return;
-      }
+      //}
     }
 
     // Image is long but not wide. There may be a white space on each side of an image.
     // When user clicks on white(blank) space of image, it will do nothing and return.
-    if (angular.isDefined(angular.element($event.target).children('#large-thumbnail').attr('id'))) {
+    if (angular.isDefined(angular.element($event.target).children('#large-thumbnail-' + message.id).attr('id'))) {
       return;
     }
 
@@ -657,8 +657,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //  Comment image clicked on small image thumbnail.
       targetDom = tempTarget.siblings('.image_wrapper').children('.msg-file-body__img');
     }
-    else
+    else {
       return;
+    }
 
     //if (angular.isUndefined(targetDom)) {
     //    return;
@@ -675,8 +676,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       newThumbnail = $scope.server_uploaded + message.message.content.extraInfo.largeThumbnailUrl;
       fullUrl = $scope.server_uploaded + message.message.content.fileUrl;
     }
-
-
 
     //  new DOM element for full screen image toggler.
     // TODO: CONTROLLER IS NOT SUPPOSED TO MANUPLATE DOM ELEMENTS. FIND BETTER WAY TO ADD DOM ELEMENT!!!!!
@@ -699,14 +698,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
     });
 
-
-
     // get transform information from original image.
     // if image was rotated according to its orientation from exif data, there must be transform value.
-    var transform = getTransformValue(targetDom[0].style);
-
+    // 
+    // issue : JND-974, by ysyun 2015.2.25 
+    //   - if click fa-comment icon, must not working (cause occured error)
+    //   - change id="large-thumbnail" to id="large-thumbnail-' + message.id + '"
+    var transform = getTransformValue(targetDom[0] ? targetDom[0].style: undefined);
     //  new DOM element for large thumbnail image.
-    var mirrorDom = angular.element('<img id="large-thumbnail" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
+    var mirrorDom = angular.element('<img id="large-thumbnail-' + message.id + '" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
 
     // copy and paste of old 'transform' css property from small to large thumbnail.
     mirrorDom[0].setAttribute('style', transform);
@@ -717,14 +717,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       onLargeThumbnailClick(fullScreenToggler, mirrorDom, targetDom);
     });
 
-
     //  hide small thumbnail image.
     targetDom.css('display', 'none');
 
     //  append new dom elements to parent of small thumbnail(original dom).
     var parent = targetDom.parent().parent();
 
-    if (angular.isDefined(parent.children('#large-thumbnail').attr('id'))) {
+    // issue : JND-974, by ysyun 2015.2.25 
+    //   - change id="large-thumbnail" to id="large-thumbnail-' + message.id + '"
+    if (angular.isDefined(parent.children('#large-thumbnail-' + message.id).attr('id'))) {
       //  preventing adding multiple large thumbnail dom element to parent.
       //  if parent already has a child whose id is 'large-thumbnail' which is 'mirrorDom', don't append it and just return.
       return;
@@ -738,11 +739,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     parent.parent().addClass('large-thumbnail-grand-parent');
   };
 
-
   // get all style attributes of targetDom
   // and pick correct 'transform' arrtibute.
   // and return exact same property.
   function getTransformValue(targetDomStyle) {
+
+    if(!targetDomStyle) { return ''; }
+
     var transform;
 
     if (targetDomStyle.getPropertyValue('-webkit-transform')) {
