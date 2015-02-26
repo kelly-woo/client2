@@ -401,8 +401,8 @@
 
               <!--    LEFT PART OF BODY CONTENT
                       IMAGE/FILE THUMBNAIL    -->
-              <div class="msg-file-body-float pull-left"
-                   ng-class="{cursor_pointer: msg.message.contentType !== 'comment'"
+              <div class="msg-file-body-float pull-left" 
+                   ng-class="{'cursor_pointer': msg.message.contentType !== 'comment'}" 
                    data-ng-click="onSmallThumbnailClick($event, msg);">
 
                 <div ng-if="msg.feedback.status != 'archived'">
