@@ -46,6 +46,9 @@ app.filter('parseUrl', function() {
 
     return function(text) {
 
+        // fix : JND-846 
+        text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+
         var urlStrs = text.match(urls);
         _.forEach(urlStrs, function(urlStr) {
             var tempUrlStr = '<a href="' + urlStr + '" target="_blank">' + urlStr + '</a>';
@@ -60,6 +63,8 @@ app.filter('parseUrl', function() {
 
         var uriStrs = text.match(uris);
         _.forEach(uriStrs, function(uriStr) {
+            // if <slide ..>www.tosslab.com, uriStr value is ;www.tosslab.com. so remove ; in uriStr
+            uriStr = uriStr.substring(uriStr.indexOf('www'));
             var tempUriStr = '<a href="http://' + uriStr + '" target="_blank">' + uriStr + '</a>';
             try {
                 tempUriStr = decodeURI(tempUriStr);
