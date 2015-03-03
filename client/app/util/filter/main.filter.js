@@ -40,7 +40,9 @@ app.filter('parseUrl', function() {
     //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
     var uris = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
     //Change email addresses to mailto:: links.
-    var emails = /(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})/gim;
+    // var emails = /(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})/gim;
+    // ref : http://blog.trojanhunter.com/2012/09/26/the-best-regex-to-validate-an-email-address/
+    var emails = /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/gim;
 
     return function(text) {
 
@@ -58,7 +60,7 @@ app.filter('parseUrl', function() {
 
         var uriStrs = text.match(uris);
         _.forEach(uriStrs, function(uriStr) {
-            var tempUriStr = '<a href="' + uriStr + '" target="_blank">' + uriStr + '</a>';
+            var tempUriStr = '<a href="http://' + uriStr + '" target="_blank">' + uriStr + '</a>';
             try {
                 tempUriStr = decodeURI(tempUriStr);
             }

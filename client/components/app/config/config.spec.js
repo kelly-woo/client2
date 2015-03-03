@@ -12,7 +12,7 @@
     it('configuration constant list', _configurationList);
 
     function _configurationList() {
-      console.log('configuration: ', configuration);
+      //console.log('configuration: ', configuration);
       expect(configuration).not.toBeNull();
       expect(configuration.name).not.toBeNull();
     }
