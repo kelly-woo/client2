@@ -36,8 +36,12 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
     //console.info("    to     ", toState.name, ' / ',toParams);
     //console.info("=========================================================================");
 
+
     if ($rootScope.isMobile  && toState.name != 'mobile') {
-      if (storageAPIservice.getAccessToken()) {
+      if (toState.name == "password") {
+        return;
+      }
+      else if (storageAPIservice.getAccessToken()) {
         event.preventDefault();
         $state.go('mobile');
       }
