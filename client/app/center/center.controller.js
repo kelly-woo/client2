@@ -122,14 +122,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $timeout(function() {
       lastMsg = angular.element(document.getElementById(firstLocalMsgId));
-      $('.msgs').scrollTop(lastMsg.position().top);
-      lastMsg.addClass('last');
+
+      if (!!lastMsg) {
+        // This line must be executed!! but just to make sure that I'm not using 'undefiend object'.
+        $('.msgs').scrollTop(lastMsg.position().top);
+        lastMsg.addClass('last');
+      }
     }, 10);
 
     $timeout(function() {
-      lastMsg.removeClass('last');
+      // Enable scroll first.
       enableScroll();
-
+      lastMsg.removeClass('last');
     }, 1000)
   };
 
