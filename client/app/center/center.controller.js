@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService) {
 
   //console.info('[enter] centerpanelController');
-
+  log('---------------------------------------')
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
 
@@ -116,38 +116,43 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var firstLocalMsgId = -1;
   var anchorMsg= -1;
-
   $scope.updateScroll = function() {
+
+    if (firstLocalMsgId == -1) return;
+
+    log('-- updating scroll');
+
+    _disableScroll();
+
     var lastMsg;
 
+    // $timeout inside of $timeout????
     $timeout(function() {
       lastMsg = angular.element(document.getElementById(firstLocalMsgId));
+      $('.msgs').scrollTop(lastMsg.position().top);
+      lastMsg.addClass('last');
 
-      if (!!lastMsg) {
-        // This line must be executed!! but just to make sure that I'm not using 'undefiend object'.
-        $('.msgs').scrollTop(lastMsg.position().top);
-        lastMsg.addClass('last');
-      }
+      $timeout(function() {
+        if (firstLocalMsgId != -1) {
+          lastMsg.removeClass('last');
+        }
+      }, 1000)
     }, 10);
-
-    $timeout(function() {
-      // Enable scroll first.
-      enableScroll();
-      lastMsg.removeClass('last');
-    }, 1000)
   };
 
   /**
    * Bind an event to 'mousewheel' and prevent web page from scrolling.
+   * But make sure to enable scrolling after 1 second.
    */
-  $scope.disableScroll = function() {
+  function _disableScroll() {
     $('body').bind('mousewheel', function(e) {
       e.preventDefault();
       e.stopPropagation();
     });
-  };
 
-  function enableScroll() {
+    $timeout(function() { _enableScroll(); }, 1000)
+  }
+  function _enableScroll() {
     $('body').unbind('mousewheel');
   }
 
@@ -201,6 +206,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.loadMore = function() {
     var deferred = $q.defer();
 
+    // No more messages to load.
     if ($scope.msgLoadStatus.isFirst) return;
 
     if (!$scope.msgLoadStatus.loading && !$scope.isPosting) {
@@ -214,8 +220,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         // 엔티티 메세지 리스트 목록 얻기
         messageAPIservice.getMessages(entityType, entityId, $scope.msgLoadStatus.firstLoadedId, $scope.messageUpdateCount)
           .success(function(response) {
-
-            log('-- loadMore success');
+            log('  -- loadMore success');
 
             //  lastUpdatedId 갱신
             $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
@@ -232,7 +237,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 }
 
                 if (_isLastMessage(i, response.messages)) {
-                    firstLocalMsgId = anchorMsg;
+                  firstLocalMsgId = anchorMsg;
                   anchorMsg = msg.id;
                 }
 
@@ -274,6 +279,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             // auto focus to textarea
             $scope.focusPostMessage = true;
             $scope.loadMoreCounter++;
+
+            // If code gets to this point, 'getMessages' has been executed at least once.
+            $scope.msgLoadStatus.isInitialLoadingCompleted = true;
           })
           .error(function(response) {
             onHttpRequestError(response);
@@ -283,14 +291,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else {
       deferred.reject();
     }
+
     return deferred.promise;
   };
-
   $scope.loadMore();
 
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
-
   $scope.promise = null;
   var currentLast = -1;
   var updateList = function() {
@@ -304,15 +311,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       return;
     }
 
-    //  if code gets to this point, 'getMessages' has been done at least once.
-    $scope.msgLoadStatus.isInitialLoadingCompleted = true;
 
-    log('-- calling getUpdatedMessages');
+    log('  -- calling getUpdatedMessages');
 
     messageAPIservice.getUpdatedMessages(entityType, entityId, $scope.msgLoadStatus.lastUpdatedId)
       .success(function (response) {
 
-        log('-- getUpdatedMessages success');
+        log('  -- getUpdatedMessages success');
 
         // jihoon
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
@@ -428,6 +433,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
 
   $scope.promise = $timeout(updateList, updateInterval);
+
 
   $scope.message = {};
 
@@ -596,8 +602,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       //msg.message.contentType === 'systemEvent
       //msg.message.commentOption.isTitle }}
-  //<div ng-if="!msg.message.commentOption.isTitle">
-  //{{ msg.feedback.status}}
+      //<div ng-if="!msg.message.commentOption.isTitle">
+      //{{ msg.feedback.status}}
 
 
       // Is it file?
@@ -629,7 +635,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // comment but not to image file -> return
     if (message.message.contentType === 'comment'){
       //if (message.feedback.content.type.indexOf('image') < 0 || message.feedback.status == 'archived') {
-        return;
+      return;
       //}
     }
 
@@ -1060,7 +1066,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   });
 
   function log(string) {
-//        console.log(string);
+    //console.log(string);
   }
 
   //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.

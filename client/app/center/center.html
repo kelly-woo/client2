@@ -1,5 +1,5 @@
 <!--    TODO: HAVE 'panel-title-container' in separate template!!   -->
-<div class="panel-title-container">
+<div class="panel-title-container" >
   <!--    STAR ICON -->
   <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
     <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
@@ -127,7 +127,7 @@
 </div>
 
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
-<div ng-file-drop="onFileSelect($files);" drag-over-class="dnd-hover" hide-on-drop-not-available="false">
+<div id="here" ng-file-drop="onFileSelect($files);" drag-over-class="dnd-hover" hide-on-drop-not-available="false">
   <div class="dnd-hover-msg" >
     <span translate>@dnd-file-upload-msg</span>
     <div class="background"></div>
@@ -160,11 +160,16 @@
 
   </div>
 
+  <div class="msgs-inner__border"></div>
   <article class="msgs" when-scrolled="loadMore()"  scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
-    <div class="msgs__loading icon-loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer" data-ng-class="{'initial': (!msgLoadStatus.isInitialLoadingCompleted)}"></div>
+    <div class="msgs__loading icon-loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer"
+         data-ng-class="{'initial': !msgLoadStatus.isInitialLoadingCompleted }"></div>
 
-    <div class="msgs-holder" data-ng-show="!msgLoadStatus.loading && !msgLoadStatus.loadingTimer || msgLoadStatus.isInitialLoadingCompleted">
+
+    <div class="msgs-holder" data-ng-show="!msgLoadStatus.loading && !msgLoadStatus.loadingTimer
+                                            || msgLoadStatus.isInitialLoadingCompleted">
+
 
       <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
 
@@ -306,7 +311,7 @@
                   <!--  NOT ARCHIVED FILE -->
                   <div ng-if="msg.message.status != 'archived'">
                     <!--    TITLE   -->
-                    <a class="msg-file-meta__title file__name"
+                    <a class="msg-file-meta__title file__name break-word"
                        data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
                       {{ msg.message.content.title }}
                     </a>
@@ -401,8 +406,8 @@
 
               <!--    LEFT PART OF BODY CONTENT
                       IMAGE/FILE THUMBNAIL    -->
-              <div class="msg-file-body-float pull-left" 
-                   ng-class="{'cursor_pointer': msg.message.contentType !== 'comment'}" 
+              <div class="msg-file-body-float pull-left"
+                   ng-class="{'cursor_pointer': msg.message.contentType !== 'comment'}"
                    data-ng-click="onSmallThumbnailClick($event, msg);">
 
                 <div ng-if="msg.feedback.status != 'archived'">
@@ -439,7 +444,7 @@
 
                   <!--    FILE TITLE/NAME  -->
                   <div ng-if="msg.feedback.status != 'archived'">
-                    <a class="msg-file-meta__title file__name" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
+                    <a class="msg-file-meta__title file__name break-word" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
                       {{msg.feedback.content.title || msg.feedback.content.name}}
                     </a>
                   </div>
@@ -516,6 +521,8 @@
   </article>
 
   <div class="footer">
+    <div class="footer_inner_border"></div>
+
     <div class="tutorial-clicker tutorial-z-index pulse" id="chatTutorial"
          data-ng-click="onTutorialPulseClick($event);"
          data-ng-if="!tutorialStatus.chatTutorial"></div>

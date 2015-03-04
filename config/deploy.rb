@@ -45,9 +45,16 @@ namespace :deploy do
   before :updated, :npm_install do
     on roles(:all) do
       within release_path do
-        execute :npm, 'install', '--quiet'
-        execute :bower, 'install', '--quiet'
-        execute :grunt, 'deploy'
+        if fetch(:stage).to_s.start_with? 'dev'
+          execute :npm, 'install', '--quiet'
+          execute :bower, 'install', '--quiet'
+          execute :grunt, 'development'
+          execute :grunt, 'build'
+        else
+          execute :npm, 'install', '--quiet'
+          execute :bower, 'install', '--quiet'
+          execute :grunt, 'deploy'
+        end
       end
     end
   end

@@ -203,7 +203,7 @@ article {
   margin: 1rem 0 0;
 }
 .msgs-holder {
-  padding: 0 10px 0 20px;
+  /*padding: 0 10px 0 20px;*/
 }
 .msgs-group {
 
@@ -224,7 +224,8 @@ article {
 }
 .msg-item {
   position: relative;
-  padding: 0 20px 0 47px;
+  /*padding: 0 20px 0 47px;*/
+  padding: 0 30px 0 67px;
   margin-bottom: 15px;
 }
 .msgs-group > .msg-item:last-child {
@@ -255,7 +256,7 @@ article {
 .msg-item-float {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 20px;
 }
 .msg-item-header {
   padding: 2px 0 5px;
@@ -541,30 +542,39 @@ by ysyun 2015.2.25
 
 .last {
   background-color: rgb(238, 252, 247);
-  -webkit-animation: opacIn 0.8s; /* Chrome, Safari, Opera */
+  /*margin-left: -20px;*/
+  /*padding-left: 67px;*/
+
+  -webkit-animation: opacIn 0.8s;  /* Chrome, Safari, Opera*/
   animation: opacIn 0.8s;
-  margin-left: -20px;
-  margin-right: -10px;
-  padding-left: 67px;
-  margin-top: -13px !important;
-  padding-top: 13px;
+  /*margin-right: -10px;*/
+  /*margin-top: -13px !important;*/
+  /*padding-top: 13px;*/
   /*margin-bottom: 8px;*/
   /*padding-bottom: 5px;*/
 }
-.comment-continue.last {
-  padding-top: 0;
-  margin-bottom: 0;
-  margin-top: 0 !important;
-  padding-bottom: 15px;
-}
-.last.file-upload {
-  margin-left: -20px !important;
-  padding-bottom: 0;
-}
-.last .msg-item-float {
-  left: 20px;
-  top: 13px;
-}
+/*.msg-item.last {*/
+  /*padding-top: 6px;*/
+  /*margin-top: -6px;*/
+/*}*/
+/*.msg-item.last .msg-item-float {*/
+  /*left: 20px;*/
+  /*top: 6px;*/
+/*}*/
+/*.system-event-msg.last {*/
+  /*padding-top: 1px;*/
+  /*margin-top: -6px;*/
+/*}*/
+/*.comment-continue.last {*/
+  /*padding-top: 0;*/
+  /*margin-bottom: 0;*/
+  /*margin-top: 0 !important;*/
+  /*padding-bottom: 15px;*/
+/*}*/
+/*.last.file-upload {*/
+  /*margin-left: -20px !important;*/
+  /*padding-bottom: 0;*/
+/*}*/
 /* Chrome, Safari, Opera */
 @-webkit-keyframes opacIn {
   from {opacity: 0;}
@@ -627,29 +637,50 @@ by ysyun 2015.2.25
   line-height: 35px;
 }
 
-.msgs {
-  border: 5px solid transparent;
-  border-bottom: 0 !important;
-}
-.footer {
-  border: 5px solid transparent;
-  border-top: 0 !important;
-}
+/*.msgs {*/
+  /*border: 5px solid transparent;*/
+  /*border-bottom: 0 !important;*/
+/*}*/
+/*.footer {*/
+  /*border: 5px solid transparent;*/
+  /*border-top: 0 !important;*/
+/*}*/
 
 /********************************************
 
                 Drag & Drop
 
 ********************************************/
-
+.footer_inner_border {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-top: 0 !important;
+}
+.msgs-inner__border {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 35px;
+  bottom: 60px;
+  border-bottom: 0 !important;
+  z-index: 1;
+  display: none;
+}
 .dnd-not-support {
   display: block;
+}
+.dnd-hover {
+  border-top: 1px solid red;
 }
 .dnd-hover .dnd-hover-msg {
   display: block;
 }
-.dnd-hover .msgs ,
-.dnd-hover .footer {
+.dnd-hover .msgs-inner__border,
+.dnd-hover .footer_inner_border {
+  display: block;
   border: 5px solid rgba(26, 155, 106, 0.5);
 }
 
@@ -755,4 +786,10 @@ by ysyun 2015.2.25
 .archived-file .msg-file-meta__title {
   color: #b7b7b7;
   font-size: 14px;
+}
+
+
+.msg-file-meta__title.inline-overflow-ellipsis {
+  width: 100%;
+  display: inline;
 }

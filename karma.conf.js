@@ -29,7 +29,8 @@ module.exports = function(config) {
       'client/bower_components/angular-socket-io/socket.js',
       'client/bower_components/angular-ui-router/release/angular-ui-router.js',
       'client/bower_components/angular-xeditable/dist/js/xeditable.js',
-      'client/bower_components/angulartics/dist/angulartics-ga.min.js',
+      'client/bower_components/angulartics/src/angulartics.js',
+      'client/bower_components/angular-elastic/elastic.js',
       'client/bower_components/blueimp-load-image/js/load-image.js',
       'client/bower_components/bootstrap/dist/js/bootstrap.js',
       'client/bower_components/angular-cookies/angular-cookies.js',
@@ -39,30 +40,31 @@ module.exports = function(config) {
       'client/bower_components/ng-file-upload-shim/angular-file-upload-shim.js',
       'client/bower_components/ngImgCrop/compile/unminified/ng-img-crop.js',
       'client/bower_components/SHA-1/sha1.js',
+      'client/assets/javascripts/detectmobilebrowser.js',
       'client/components/base/**/*.js',
       // 'client/components/app/session/session.js',
-      // 'client/components/app/analytics/analytics.js',
-      // 'client/components/app/config/config.js',
-      // 'client/components/app/language/language.js',
-      // 'client/components/app/storage/storage.js',
+      'client/components/app/analytics/analytics.js',
+      'client/components/app/config/config.js',
+      'client/components/app/language/language.js',
+      'client/components/app/storage/storage.js',
       'client/components/app/**/*.js',
       'client/app/app.js',
-      'client/app/**/*.js',
-      'client/app/**/*.html'
+      'client/app/**/*.js' //,
+      //'client/app/**/*.html'
     ],
 
     preprocessors: {
-      '**/*.html': 'html2js',
+      //'**/*.html': 'html2js',
       'client/**/*.js': ['coverage']
     },
 
-    ngHtml2JsPreprocessor: {
-      stripPrefix: 'client/'
-    },
+    // ngHtml2JsPreprocessor: {
+    //   stripPrefix: 'client/'
+    // },
 
-    ngJade2JsPreprocessor: {
-      stripPrefix: 'client/'
-    },
+    // ngJade2JsPreprocessor: {
+    //   stripPrefix: 'client/'
+    // },
 
     // list of files / patterns to exclude
     exclude: [],
@@ -90,7 +92,7 @@ module.exports = function(config) {
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: true,
-    reporters: ['coverage', 'junit'],
+    reporters: ['coverage', 'junit', 'progress'],
     junitReporter: {
       outputFile: 'test-junit-results.xml'
     }, 
