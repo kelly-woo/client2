@@ -45,7 +45,6 @@
       var raw = elm[0];
 
       elm.bind('scroll', function(event) {
-        console.log(scope.msgLoadStatus.isInitialLoadingCompleted)
         if (raw.scrollTop <= 20 && !scope.msgLoadStatus.isFirst && scope.msgLoadStatus.isInitialLoadingCompleted) {
           scope.loadMore();
         }

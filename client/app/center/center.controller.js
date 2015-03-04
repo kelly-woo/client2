@@ -1066,7 +1066,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   });
 
   function log(string) {
-    console.log(string);
+    //console.log(string);
   }
 
   //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.
