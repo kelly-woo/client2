@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService) {
 
   //console.info('[enter] centerpanelController');
-
+  log('---------------------------------------')
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
 
@@ -120,6 +120,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     if (firstLocalMsgId == -1) return;
 
+    log('-- updating scroll');
+
+    _disableScroll();
+
     var lastMsg;
 
     // $timeout inside of $timeout????
@@ -216,8 +220,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         // 엔티티 메세지 리스트 목록 얻기
         messageAPIservice.getMessages(entityType, entityId, $scope.msgLoadStatus.firstLoadedId, $scope.messageUpdateCount)
           .success(function(response) {
-            _disableScroll();
-            log('-- loadMore success');
+            log('  -- loadMore success');
 
             //  lastUpdatedId 갱신
             $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
@@ -264,9 +267,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
               $scope.messageUpdateCount = response.messageCount;
 
-              // If code gets to this point, 'getMessages' has been executed at least once.
-              $scope.msgLoadStatus.isInitialLoadingCompleted = true;
-
               groupByDate();
             }
 
@@ -279,6 +279,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             // auto focus to textarea
             $scope.focusPostMessage = true;
             $scope.loadMoreCounter++;
+
+            // If code gets to this point, 'getMessages' has been executed at least once.
+            $scope.msgLoadStatus.isInitialLoadingCompleted = true;
           })
           .error(function(response) {
             onHttpRequestError(response);
@@ -309,12 +312,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
 
-    log('-- calling getUpdatedMessages');
+    log('  -- calling getUpdatedMessages');
 
     messageAPIservice.getUpdatedMessages(entityType, entityId, $scope.msgLoadStatus.lastUpdatedId)
       .success(function (response) {
 
-        log('-- getUpdatedMessages success');
+        log('  -- getUpdatedMessages success');
 
         // jihoon
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
@@ -1063,7 +1066,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   });
 
   function log(string) {
-//        console.log(string);
+    console.log(string);
   }
 
   //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.
