@@ -25,10 +25,10 @@
       counter++;
 
       if (counter == scope.messages.length) {
-        //  If it's initial loading, don't update scroll.
+        //If it's initial loading, set 'counterFlag' to true.
         if (scope.loadMoreCounter == 1) {
           counterFlag = true;
-          return;
+          //return;
         }
         scope.updateScroll();
       }
@@ -46,8 +46,6 @@
 
       elm.bind('scroll', function(event) {
         if (raw.scrollTop <= 10 && !scope.msgLoadStatus.isFirst) {
-          scope.disableScroll();
-
           scope.loadMore();
         }
       });

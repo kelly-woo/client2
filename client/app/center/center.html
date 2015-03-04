@@ -162,9 +162,11 @@
 
   <article class="msgs" when-scrolled="loadMore()"  scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
-    <div class="msgs__loading icon-loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer" data-ng-class="{'initial': (!msgLoadStatus.isInitialLoadingCompleted)}"></div>
+    <div class="msgs__loading icon-loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer"
+         data-ng-class="{'initial': !msgLoadStatus.isInitialLoadingCompleted }"></div>
 
-    <div class="msgs-holder" data-ng-show="!msgLoadStatus.loading && !msgLoadStatus.loadingTimer || msgLoadStatus.isInitialLoadingCompleted">
+    <div class="msgs-holder" data-ng-show="!msgLoadStatus.loading && !msgLoadStatus.loadingTimer
+                                            || msgLoadStatus.isInitialLoadingCompleted">
 
       <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
 
@@ -401,8 +403,8 @@
 
               <!--    LEFT PART OF BODY CONTENT
                       IMAGE/FILE THUMBNAIL    -->
-              <div class="msg-file-body-float pull-left" 
-                   ng-class="{'cursor_pointer': msg.message.contentType !== 'comment'}" 
+              <div class="msg-file-body-float pull-left"
+                   ng-class="{'cursor_pointer': msg.message.contentType !== 'comment'}"
                    data-ng-click="onSmallThumbnailClick($event, msg);">
 
                 <div ng-if="msg.feedback.status != 'archived'">
