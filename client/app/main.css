@@ -23,6 +23,9 @@
     word-wrap: break-word;
     white-space: pre-wrap;
 }
+.break-word {
+  word-wrap: break-word;
+}
 .underline { border-bottom: 1px solid #31c08a;  }
 .cursor_pointer { cursor: pointer; }
 .overflow-ellipsis{ display:block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap; }

@@ -787,3 +787,9 @@ by ysyun 2015.2.25
   color: #b7b7b7;
   font-size: 14px;
 }
+
+
+.msg-file-meta__title.inline-overflow-ellipsis {
+  width: 100%;
+  display: inline;
+}
