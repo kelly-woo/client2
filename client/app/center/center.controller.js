@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService) {
 
   //console.info('[enter] centerpanelController');
-
+  log('---------------------------------------')
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
 
@@ -116,34 +116,43 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var firstLocalMsgId = -1;
   var anchorMsg= -1;
-
   $scope.updateScroll = function() {
+
+    if (firstLocalMsgId == -1) return;
+
+    log('-- updating scroll');
+
+    _disableScroll();
+
     var lastMsg;
 
+    // $timeout inside of $timeout????
     $timeout(function() {
       lastMsg = angular.element(document.getElementById(firstLocalMsgId));
       $('.msgs').scrollTop(lastMsg.position().top);
       lastMsg.addClass('last');
+
+      $timeout(function() {
+        if (firstLocalMsgId != -1) {
+          lastMsg.removeClass('last');
+        }
+      }, 1000)
     }, 10);
-
-    $timeout(function() {
-      lastMsg.removeClass('last');
-      enableScroll();
-
-    }, 1000)
   };
 
   /**
    * Bind an event to 'mousewheel' and prevent web page from scrolling.
+   * But make sure to enable scrolling after 1 second.
    */
-  $scope.disableScroll = function() {
+  function _disableScroll() {
     $('body').bind('mousewheel', function(e) {
       e.preventDefault();
       e.stopPropagation();
     });
-  };
 
-  function enableScroll() {
+    $timeout(function() { _enableScroll(); }, 1000)
+  }
+  function _enableScroll() {
     $('body').unbind('mousewheel');
   }
 
@@ -197,6 +206,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.loadMore = function() {
     var deferred = $q.defer();
 
+    // No more messages to load.
     if ($scope.msgLoadStatus.isFirst) return;
 
     if (!$scope.msgLoadStatus.loading && !$scope.isPosting) {
@@ -210,8 +220,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         // 엔티티 메세지 리스트 목록 얻기
         messageAPIservice.getMessages(entityType, entityId, $scope.msgLoadStatus.firstLoadedId, $scope.messageUpdateCount)
           .success(function(response) {
-
-            log('-- loadMore success');
+            log('  -- loadMore success');
 
             //  lastUpdatedId 갱신
             $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
@@ -228,7 +237,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 }
 
                 if (_isLastMessage(i, response.messages)) {
-                    firstLocalMsgId = anchorMsg;
+                  firstLocalMsgId = anchorMsg;
                   anchorMsg = msg.id;
                 }
 
@@ -270,6 +279,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             // auto focus to textarea
             $scope.focusPostMessage = true;
             $scope.loadMoreCounter++;
+
+            // If code gets to this point, 'getMessages' has been executed at least once.
+            $scope.msgLoadStatus.isInitialLoadingCompleted = true;
           })
           .error(function(response) {
             onHttpRequestError(response);
@@ -279,14 +291,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else {
       deferred.reject();
     }
+
     return deferred.promise;
   };
-
   $scope.loadMore();
 
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
-
   $scope.promise = null;
   var currentLast = -1;
   var updateList = function() {
@@ -300,15 +311,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       return;
     }
 
-    //  if code gets to this point, 'getMessages' has been done at least once.
-    $scope.msgLoadStatus.isInitialLoadingCompleted = true;
 
-    log('-- calling getUpdatedMessages');
+    log('  -- calling getUpdatedMessages');
 
     messageAPIservice.getUpdatedMessages(entityType, entityId, $scope.msgLoadStatus.lastUpdatedId)
       .success(function (response) {
 
-        log('-- getUpdatedMessages success');
+        log('  -- getUpdatedMessages success');
 
         // jihoon
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
@@ -424,6 +433,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
 
   $scope.promise = $timeout(updateList, updateInterval);
+
 
   $scope.message = {};
 
@@ -592,8 +602,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       //msg.message.contentType === 'systemEvent
       //msg.message.commentOption.isTitle }}
-  //<div ng-if="!msg.message.commentOption.isTitle">
-  //{{ msg.feedback.status}}
+      //<div ng-if="!msg.message.commentOption.isTitle">
+      //{{ msg.feedback.status}}
 
 
       // Is it file?
@@ -624,14 +634,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // comment but not to image file -> return
     if (message.message.contentType === 'comment'){
-      if (message.feedback.content.type.indexOf('image') < 0 || message.feedback.status == 'archived') {
-        return;
-      }
+      //if (message.feedback.content.type.indexOf('image') < 0 || message.feedback.status == 'archived') {
+      return;
+      //}
     }
 
     // Image is long but not wide. There may be a white space on each side of an image.
     // When user clicks on white(blank) space of image, it will do nothing and return.
-    if (angular.isDefined(angular.element($event.target).children('#large-thumbnail').attr('id'))) {
+    if (angular.isDefined(angular.element($event.target).children('#large-thumbnail-' + message.id).attr('id'))) {
       return;
     }
 
@@ -657,8 +667,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //  Comment image clicked on small image thumbnail.
       targetDom = tempTarget.siblings('.image_wrapper').children('.msg-file-body__img');
     }
-    else
+    else {
       return;
+    }
 
     //if (angular.isUndefined(targetDom)) {
     //    return;
@@ -675,8 +686,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       newThumbnail = $scope.server_uploaded + message.message.content.extraInfo.largeThumbnailUrl;
       fullUrl = $scope.server_uploaded + message.message.content.fileUrl;
     }
-
-
 
     //  new DOM element for full screen image toggler.
     // TODO: CONTROLLER IS NOT SUPPOSED TO MANUPLATE DOM ELEMENTS. FIND BETTER WAY TO ADD DOM ELEMENT!!!!!
@@ -699,14 +708,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
     });
 
-
-
     // get transform information from original image.
     // if image was rotated according to its orientation from exif data, there must be transform value.
-    var transform = getTransformValue(targetDom[0].style);
-
+    // 
+    // issue : JND-974, by ysyun 2015.2.25 
+    //   - if click fa-comment icon, must not working (cause occured error)
+    //   - change id="large-thumbnail" to id="large-thumbnail-' + message.id + '"
+    var transform = getTransformValue(targetDom[0] ? targetDom[0].style: undefined);
     //  new DOM element for large thumbnail image.
-    var mirrorDom = angular.element('<img id="large-thumbnail" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
+    var mirrorDom = angular.element('<img id="large-thumbnail-' + message.id + '" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
 
     // copy and paste of old 'transform' css property from small to large thumbnail.
     mirrorDom[0].setAttribute('style', transform);
@@ -717,14 +727,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       onLargeThumbnailClick(fullScreenToggler, mirrorDom, targetDom);
     });
 
-
     //  hide small thumbnail image.
     targetDom.css('display', 'none');
 
     //  append new dom elements to parent of small thumbnail(original dom).
     var parent = targetDom.parent().parent();
 
-    if (angular.isDefined(parent.children('#large-thumbnail').attr('id'))) {
+    // issue : JND-974, by ysyun 2015.2.25 
+    //   - change id="large-thumbnail" to id="large-thumbnail-' + message.id + '"
+    if (angular.isDefined(parent.children('#large-thumbnail-' + message.id).attr('id'))) {
       //  preventing adding multiple large thumbnail dom element to parent.
       //  if parent already has a child whose id is 'large-thumbnail' which is 'mirrorDom', don't append it and just return.
       return;
@@ -738,11 +749,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     parent.parent().addClass('large-thumbnail-grand-parent');
   };
 
-
   // get all style attributes of targetDom
   // and pick correct 'transform' arrtibute.
   // and return exact same property.
   function getTransformValue(targetDomStyle) {
+
+    if(!targetDomStyle) { return ''; }
+
     var transform;
 
     if (targetDomStyle.getPropertyValue('-webkit-transform')) {
@@ -1053,7 +1066,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   });
 
   function log(string) {
-//        console.log(string);
+    console.log(string);
   }
 
   //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.

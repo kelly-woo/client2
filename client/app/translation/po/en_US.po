@@ -1135,6 +1135,7 @@ msgstr "JANDI Message Received"
 
 #~ msgid "@common-deleted-file-msg"
 #~ msgstr "Deleted File"
+<<<<<<< HEAD
 #~ msgid "@file-audio"
 #~ msgstr "Audio"
 
@@ -1143,6 +1144,8 @@ msgstr "JANDI Message Received"
 
 #~ msgid "@file-pdf"
 #~ msgstr "PDFs"
+=======
+>>>>>>> develop
 
 #~ msgid "@file-video"
 #~ msgstr "Video"

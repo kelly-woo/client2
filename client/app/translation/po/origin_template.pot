@@ -2,6 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -585,11 +586,6 @@ msgstr ""
 msgid "@file-all"
 msgstr ""
 
-<<<<<<< HEAD
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr ""
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""
@@ -602,16 +598,6 @@ msgstr ""
 msgid "@file-delete-time-msg-pre"
 msgstr ""
 
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr ""
-
-=======
->>>>>>> develop
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr ""

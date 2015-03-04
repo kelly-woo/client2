@@ -132,7 +132,7 @@
 </div>
 
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
-<div ng-file-drop="onFileSelect($files);" drag-over-class="dnd-hover" hide-on-drop-not-available="false">
+<div id="here" ng-file-drop="onFileSelect($files);" drag-over-class="dnd-hover" hide-on-drop-not-available="false">
   <div class="dnd-hover-msg" >
     <span translate>@dnd-file-upload-msg</span>
     <div class="background"></div>
@@ -165,11 +165,16 @@
 
   </div>
 
+  <div class="msgs-inner__border"></div>
   <article class="msgs" when-scrolled="loadMore()"  scroll-bottom-on="msgLoadStatus.loaded" scroll-glue>
 
-    <div class="msgs__loading icon-loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer" data-ng-class="{'initial': (!msgLoadStatus.isInitialLoadingCompleted)}"></div>
+    <div class="msgs__loading icon-loading" data-ng-show="msgLoadStatus.loading || msgLoadStatus.loadingTimer"
+         data-ng-class="{'initial': !msgLoadStatus.isInitialLoadingCompleted }"></div>
 
-    <div class="msgs-holder" data-ng-show="!msgLoadStatus.loading && !msgLoadStatus.loadingTimer || msgLoadStatus.isInitialLoadingCompleted">
+
+    <div class="msgs-holder" data-ng-show="!msgLoadStatus.loading && !msgLoadStatus.loadingTimer
+                                            || msgLoadStatus.isInitialLoadingCompleted">
+
 
       <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
 
@@ -262,7 +267,6 @@
               <i class="icon-cancel"></i>
             </a>
           </div>
-
           <div class="msg-item-body">
 
             <!-- TEXT -->
@@ -271,10 +275,10 @@
             </div>
 
             <!-- FILE -->
-            <div class="msg-file" data-ng-if="msg.message.contentType === 'file'">
+            <div class="msg-file" ng-cloak data-ng-if="msg.message.contentType === 'file'">
 
               <!--  FILE PREVIEW IMAGE  -->
-              <div class="msg-file-body-float pull-left cursor_pointer" data-ng-click="onSmallThumbnailClick($event, msg);">
+              <div class="msg-file-body-float pull-left" data-ng-click="onSmallThumbnailClick($event, msg);">
                 <!--  FILE NOT ARCHIVED -->
                 <div ng-if="msg.message.status != 'archived'">
                   <!--    IMAGE THUMBNAIL -->
@@ -411,7 +415,8 @@
 
               <!--    LEFT PART OF BODY CONTENT
                       IMAGE/FILE THUMBNAIL    -->
-              <div class="msg-file-body-float pull-left cursor_pointer"
+              <div class="msg-file-body-float pull-left"
+                   ng-class="{'cursor_pointer': msg.message.contentType !== 'comment'}"
                    data-ng-click="onSmallThumbnailClick($event, msg);">
 
                 <div ng-if="msg.feedback.status != 'archived'">
@@ -525,6 +530,8 @@
   </article>
 
   <div class="footer">
+    <div class="footer_inner_border"></div>
+
     <div class="tutorial-clicker tutorial-z-index pulse" id="chatTutorial"
          data-ng-click="onTutorialPulseClick($event);"
          data-ng-if="!tutorialStatus.chatTutorial"></div>
