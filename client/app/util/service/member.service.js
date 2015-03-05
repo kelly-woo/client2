@@ -32,7 +32,11 @@
       getEmail: getEmail,
       getNameById: getNameById,
       isAuthorized: isAuthorized,
+      getSmallThumbnailUrl: getSmallThumbnailUrl,
+      getMediumThumbnailUrl: getMediumThumbnailUrl,
+      getLargeThumbnailUrl: getLargeThumbnailUrl,
       getPhotoUrl: getPhotoUrl,
+
       getDefaultPhotoUrl: getDefaultPhotoUrl
     } ;
 
@@ -140,8 +144,18 @@
     function isAuthorized() {
       return  currentMember.u_authority === 'owner';
     }
-    function getPhotoUrl() {
-      return currentMember.u_photoUrl;
+
+    function getSmallThumbnailUrl(member) {
+      return member.u_photoThumbnailUrl.smallThumbnailUrl;
+    }
+    function getMediumThumbnailUrl(member) {
+      return member.u_photoThumbnailUrl.MediumThumbnailUrl;
+    }
+    function getLargeThumbnailUrl(member) {
+      return member.u_photoThumbnailUrl.largeThumbnailUrl;
+    }
+    function getPhotoUrl(member) {
+      return member.u_photoUrl;
     }
     function getDefaultPhotoUrl() {
 
