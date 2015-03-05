@@ -32,8 +32,8 @@
                     <span translate>@common-title</span>
                 </label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" name="file_upload_title" data-ng-model="fileInfo.title" required/>
-                    <div class="modal-body__help">
+                    <input type="text" class="form-control" name="file_upload_title" data-ng-model="fileInfo.title" required ng-disabled="true"/>
+                    <div class="modal-body__help" ng-if="false">
                         <span translate>@modal-upload-title-msg1</span>
                     </div>
                 </div>
