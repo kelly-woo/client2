@@ -8,7 +8,7 @@
                           $event.preventDefault(); $event.stopPropagation();"></i>
 
         <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': joinedEntity.alarmCnt > 0}">
-          <span class="private-topic-icon" ng-if="joinedEntity.type=='privategroups'"></span>
+          <i class="icon-private-group" ng-if="joinedEntity.type=='privategroups'"></i>
           {{joinedEntity.name}}
         </span>
 
