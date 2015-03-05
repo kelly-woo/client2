@@ -146,17 +146,19 @@
     }
 
     function getSmallThumbnailUrl(member) {
-      return member.u_photoThumbnailUrl.smallThumbnailUrl;
+      return member.u_photoThumbnailUrl.smallThumbnailUrl || getPhotoUrl(member);
     }
     function getMediumThumbnailUrl(member) {
-      return member.u_photoThumbnailUrl.MediumThumbnailUrl;
+      return member.u_photoThumbnailUrl.MediumThumbnailUrl || getPhotoUrl(member);
     }
     function getLargeThumbnailUrl(member) {
-      return member.u_photoThumbnailUrl.largeThumbnailUrl;
+      return member.u_photoThumbnailUrl.largeThumbnailUrl || getPhotoUrl(member);
     }
     function getPhotoUrl(member) {
       return member.u_photoUrl;
     }
+
+    // TODO: TO BE IMPLEMENTED.
     function getDefaultPhotoUrl() {
 
     }

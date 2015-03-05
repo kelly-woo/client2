@@ -177,27 +177,21 @@ app.filter('getUserEmail', ['memberService',
 app.filter('getSmallThumbnail', ['memberService', 'config',
   function(memberService, config) {
     return function(member) {
-      var url = memberService.getSmallThumbnailUrl(member) || memberService.getPhotoUrl(member);
-
-      return config.server_uploaded + url;
+      return config.server_uploaded + memberService.getSmallThumbnailUrl(member);
     }
   }
 ]);
 app.filter('getMediumThumbnail', ['memberService', 'config',
   function(memberService, config) {
     return function(member) {
-      var url = memberService.getMediumThumbnailUrl(member) || memberService.getPhotoUrl(member);
-
-      return config.server_uploaded + url;
+      return config.server_uploaded + memberService.getMediumThumbnailUrl(member);
     }
   }
 ]);
 app.filter('getlargeThumbnail', ['memberService', 'config',
   function(memberService, config) {
     return function(member) {
-      var url = memberService.getLargeThumbnailUrl(member) || memberService.getPhotoUrl(member);
-
-      return config.server_uploaded + url;
+      return config.server_uploaded + memberService.getLargeThumbnailUrl(member);
     }
   }
 ]);
