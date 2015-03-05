@@ -11,7 +11,7 @@
 
     function redirectTo(url) {
       // Direct to 'url'.
-      location.href = url;
+      window.location.href = url;
     }
 
     /**
@@ -20,17 +20,26 @@
     function urlScheme() {
       var url_to_app, url_to_store;
 
-      if (_isAndroid())
-        url_to_store = configuration.play_store_address;
-      else
-        url_to_store = configuration.app_store_address;
-
       var access_token = _getAccessToken();
       var refresh_token = _getRefreshToken();
 
-      url_to_app = 'tosslabjandi://open?' + access_token + '' + refresh_token;
+      url_to_app = 'tosslabjandi://open?' + access_token + '&' + refresh_token;
 
-      _startApp(url_to_app, url_to_store);
+      if (_isAndroid()) {
+        // Android.
+        url_to_app = 'intent://open?' +
+                      access_token +
+                      '&' +
+                      refresh_token +
+                      '/#Intent;scheme=tosslabjandi;package=com.tosslab.jandi.app;end;';
+
+        redirectTo(url_to_app);
+      } else {
+        // iOS.
+        url_to_store = configuration.app_store_address;
+        _startApp(url_to_app, url_to_store);
+      }
+
     }
 
     /**
@@ -55,8 +64,7 @@
       var access_token = storageAPIservice.getAccessToken() || $rootScope.mobileStatus.access_token;
       if (!!access_token) {
         access_token = 'access_token='+access_token;
-      }
-      else {
+      } else {
         access_token = '';
       }
       return access_token;
@@ -64,13 +72,13 @@
 
     /**
      *
-     * @returns {refresh_token with correct format '&refresh_token=token_value}
+     * @returns {refresh_token with correct format 'refresh_token=token_value}
      * @private
      */
     function _getRefreshToken() {
       var refresh_token = storageAPIservice.getRefreshToken() || $rootScope.mobileStatus.refresh_token;
       if (!!refresh_token) {
-        refresh_token = '&refresh_token='+refresh_token;
+        refresh_token = 'refresh_token='+refresh_token;
       }
       else {
         refresh_token = '';
@@ -94,7 +102,7 @@
 
       timeout = setTimeout(function(){
         redirectTo(url_to_store);
-      }, 1500);
+      }, 500);
 
     }
     /**
