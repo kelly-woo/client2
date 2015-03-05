@@ -174,24 +174,24 @@ app.filter('getUserEmail', ['memberService',
     }
 ]);
 
-app.filter('getSmallThumbnail', ['$rootScope',
+app.filter('getSmallThumbnail', ['$rootScope', 'memberService',
     function($rootScope) {
         return function(member) {
-            return $rootScope.server_uploaded + (member.u_photoThumbnailUrl.smallThumbnailUrl || member.u_photoUrl);
+            return $rootScope.server_uploaded + (member.u_photoThumbnailUrl.smallThumbnailUrl || memberService.getPhotoUrl);
         }
     }
 ]);
-app.filter('getMediumThumbnail', ['$rootScope',
+app.filter('getMediumThumbnail', ['$rootScope', 'memberService',
     function($rootScope) {
         return function(member) {
-            return $rootScope.server_uploaded + (member.u_photoThumbnailUrl.mediumThumbnailUrl || member.u_photoUrl);
+            return $rootScope.server_uploaded + (member.u_photoThumbnailUrl.mediumThumbnailUrl || memberService.getPhotoUrl);
         }
     }
 ]);
-app.filter('getlargeThumbnail', ['$rootScope',
+app.filter('getlargeThumbnail', ['$rootScope', 'memberService',
     function($rootScope) {
         return function(member) {
-            return $rootScope.server_uploaded + (member.u_photoThumbnailUrl.largeThumbnailUrl || member.u_photoUrl);
+            return $rootScope.server_uploaded + (member.u_photoThumbnailUrl.largeThumbnailUrl || memberService.getPhotoUrl);
         }
     }
 ]);

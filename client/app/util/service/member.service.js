@@ -9,6 +9,7 @@
 
   function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload) {
     var noUExtraData = "i dont have u_extraData";
+    var currentMember;
 
     var service = {
       updateCurrentMember: updateCurrentMember,
@@ -30,7 +31,9 @@
       getPhoneNumber: getPhoneNumber,
       getEmail: getEmail,
       getNameById: getNameById,
-      isAuthorized: isAuthorized
+      isAuthorized: isAuthorized,
+      getPhotoUrl: getPhotoUrl,
+      getDefaultPhotoUrl: getDefaultPhotoUrl
     } ;
 
 
@@ -47,14 +50,15 @@
       });
     }
     function setMember(member) {
+      currentMember = member;
       $rootScope.member = member;
       storageAPIservice.setLastEmail(member.u_email);
     }
     function getMember() {
-      return $rootScope.member;
+      return currentMember;
     }
     function removeMember() {
-      $rootScope.member = null;
+      currentMember = null;
     }
     function updateProfilePic(image, supportHTML) {
       var flash_url = supportHTML ? '' : 'v2/';
@@ -82,13 +86,13 @@
       if (angular.isUndefined(this.getMember())) {
         return storageAPIservice.getTeamIdLocal() || storageAPIservice.getTeamIdSession();
       }
-      return this.getMember().teamId;
+      return currentMember.teamId;
     }
     function getStarredEntities() {
-      return this.getMember().u_starredEntities;
+      return currentMember.u_starredEntities;
     }
     function getMemberId() {
-      return this.getMember().id;
+      return currentMember.id;
     }
     function getName(member) {
       if (angular.isUndefined(member)) return 'deactivated user';
@@ -134,7 +138,14 @@
       return this.getName(entityAPIservice.getEntityFromListById($rootScope.totalEntities, entityId));
     }
     function isAuthorized() {
-      return  getMember().u_authority === 'owner';
+      return  currentMember.u_authority === 'owner';
     }
+    function getPhotoUrl() {
+      return currentMember.u_photoUrl;
+    }
+    function getDefaultPhotoUrl() {
+
+    }
+
   }
 })();
