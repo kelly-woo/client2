@@ -32,6 +32,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.messageUpdateCount = 20;
 
+  // To be used in directive.
   $scope.loadMoreCounter = 0;
 
   $scope.entityId = entityId;
@@ -225,7 +226,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             //  lastUpdatedId 갱신
             $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
 
+            // When there are messages to update.
             if (response.messageCount) {
+
               //  marker 설정
               updateMessageMarker();
 
@@ -276,8 +279,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $scope.msgLoadStatus.loading = false;
             $scope.msgLoadStatus.loaded = ($scope.messages.length > 0);
 
-            // auto focus to textarea
+            // auto focus to textarea - CURRENTLY NOT USED.
             $scope.focusPostMessage = true;
+
             $scope.loadMoreCounter++;
 
             // If code gets to this point, 'getMessages' has been executed at least once.
@@ -291,7 +295,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else {
       deferred.reject();
     }
-
     return deferred.promise;
   };
   $scope.loadMore();
@@ -688,7 +691,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     //  new DOM element for full screen image toggler.
-    // TODO: CONTROLLER IS NOT SUPPOSED TO MANUPLATE DOM ELEMENTS. FIND BETTER WAY TO ADD DOM ELEMENT!!!!!
+    // TODO: CONTROLLER IS NOT SUPPOSED TO MANIPULATE DOM ELEMENTS. FIND BETTER WAY TO ADD DOM ELEMENT!!!!!
     var fullScreenToggler = angular.element('<div class="large-thumbnail-full-screen"><i class="fa fa-arrows-alt"></i></i></div>');
 
     //  bind click event handler to full screen toggler.

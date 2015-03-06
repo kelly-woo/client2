@@ -15,6 +15,8 @@
     };
 
     function link (scope, element, attrs) {
+
+      // Switched to new topic.  Reset flag and counter.
       if (scope.loadMoreCounter == 1) {
         if (counterFlag) {
           counter = 0;
