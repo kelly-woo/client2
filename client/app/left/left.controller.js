@@ -192,6 +192,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     if (memberService.getStarredEntities().length > 0) {
       // generating starred list.
       setStar();
+      $rootScope.$broadcast('onSetStarDone');
     }
 
     if ($state.params.entityId)

@@ -24,16 +24,38 @@
   </div>
 
   <div class="modal_team_member_list">
-    <div ng-repeat="member in memberList | getEnabledMembers:member | orderBy:['!isStarred', 'name'] | userByName:memberNameQuery"
-         class="modal_team_member_container cursor_pointer" ng-click="onMemberClick(member.id);">
 
-      <img on-image-load="" class="modal_team_member_profile_pic_thumbnail" ng-src="{{ member | getSmallThumbnail }}"/>
+    <tabset class="member-list-tab cursor_pointer">
+      <tab class="enabled-member-list-container tab-title" active="memberListSetting.enabledMemberList.active">
+        <tab-heading>
+          Enabled Member
+        </tab-heading>
 
-      <div class="modal_team_member_name">{{member|getName}}</div>
+        <team-member-list-template
+          ng-repeat="member in filtered = (enabledMemberList | orderBy: ['!isStarred', 'name'] | userByName: memberNameQuery)">
+        </team-member-list-template>
 
-      <i class="icon-star right-star opac-zero" ng-class="{'icon-star-fill': member.isStarred}"
-         data-ng-click="onStarClick('users', member.id); $event.preventDefault(); $event.stopPropagation();"></i>
-    </div>
+        <div class="no-result-container" ng-if="filtered.length == 0">
+          <span translate>@alert-no-result</span>
+        </div>
+
+      </tab>
+
+      <tab class="disabled-member-list-container tab-title" active="memberListSetting.disabledMemberList.active">
+        <tab-heading>
+          Disabled Member
+        </tab-heading>
+
+        <team-member-list-template
+          ng-repeat="member in filtered = (disabledMemberList | orderBy: ['!isStarred', 'name'] | userByName: memberNameQuery)">
+        </team-member-list-template>
+
+        <div class="no-result-container" ng-if="filtered.length == 0">
+          <span translate>@alert-no-result</span>
+        </div>
+
+      </tab>
+    </tabset>
 
   </div>
 

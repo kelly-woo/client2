@@ -249,15 +249,15 @@ app.filter('isDisabledMember', function() {
 });
 
 
-app.filter('getEnabledMembers', function() {
-  return function(members) {
+app.filter('getMemberList', function() {
+  return function(members, status) {
+    console.log(status)
     var enabledMembers = [];
     _.each(members, function(member) {
-      if (member.status == 'enabled')
+      if (member.status == status)
         enabledMembers.push(member);
     });
 
     return enabledMembers;
-  }
+  };
 });
-
