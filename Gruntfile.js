@@ -19,7 +19,9 @@ module.exports = function (grunt) {
     nggettext_extract: 'grunt-angular-gettext',
     nggettext_compile: 'grunt-angular-gettext',
     replace: 'grunt-replace',
-    wiredep: 'grunt-wiredep'
+    wiredep: 'grunt-wiredep',
+    changelog: 'grunt-conventional-changelog',
+    bump: 'grunt-bump'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -580,6 +582,33 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.client %>/components/app/config/'
         }]
       }
+    },
+
+    changelog: {
+      options: {
+        // Task-specific options go here.
+        repository: 'https://github.com/tosslab/web_client.git',
+        version: require('./package.json').version
+      }
+    }, 
+
+    bump: {
+      options: {
+        files: ['package.json'],
+        updateConfigs: [],
+        commit: false,
+        commitMessage: 'Release v%VERSION%',
+        commitFiles: ['package.json'],
+        createTag: true,
+        tagName: 'v%VERSION%',
+        tagMessage: 'Version %VERSION%',
+        push: false,
+        pushTo: 'upstream',
+        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
+        globalReplace: false,
+        prereleaseName: false,
+        regExp: false
+      }
     }
   });
 
@@ -743,5 +772,10 @@ module.exports = function (grunt) {
   grunt.registerTask('deploy', [
     'staging',
     'build'
+  ]);
+
+  grunt.registerTask('version', [
+    'bump',
+    'changelog'
   ]);
 };
