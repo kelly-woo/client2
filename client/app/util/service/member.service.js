@@ -9,6 +9,7 @@
 
   function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload) {
     var noUExtraData = "i dont have u_extraData";
+    var currentMember;
 
     var service = {
       updateCurrentMember: updateCurrentMember,
@@ -30,7 +31,13 @@
       getPhoneNumber: getPhoneNumber,
       getEmail: getEmail,
       getNameById: getNameById,
-      isAuthorized: isAuthorized
+      isAuthorized: isAuthorized,
+      getSmallThumbnailUrl: getSmallThumbnailUrl,
+      getMediumThumbnailUrl: getMediumThumbnailUrl,
+      getLargeThumbnailUrl: getLargeThumbnailUrl,
+      getPhotoUrl: getPhotoUrl,
+
+      getDefaultPhotoUrl: getDefaultPhotoUrl
     } ;
 
 
@@ -47,14 +54,15 @@
       });
     }
     function setMember(member) {
+      currentMember = member;
       $rootScope.member = member;
       storageAPIservice.setLastEmail(member.u_email);
     }
     function getMember() {
-      return $rootScope.member;
+      return currentMember;
     }
     function removeMember() {
-      $rootScope.member = null;
+      currentMember = null;
     }
     function updateProfilePic(image, supportHTML) {
       var flash_url = supportHTML ? '' : 'v2/';
@@ -82,13 +90,13 @@
       if (angular.isUndefined(this.getMember())) {
         return storageAPIservice.getTeamIdLocal() || storageAPIservice.getTeamIdSession();
       }
-      return this.getMember().teamId;
+      return currentMember.teamId;
     }
     function getStarredEntities() {
-      return this.getMember().u_starredEntities;
+      return currentMember.u_starredEntities;
     }
     function getMemberId() {
-      return this.getMember().id;
+      return currentMember.id;
     }
     function getName(member) {
       if (angular.isUndefined(member)) return 'deactivated user';
@@ -134,7 +142,26 @@
       return this.getName(entityAPIservice.getEntityFromListById($rootScope.totalEntities, entityId));
     }
     function isAuthorized() {
-      return  getMember().u_authority === 'owner';
+      return  currentMember.u_authority === 'owner';
     }
+
+    function getSmallThumbnailUrl(member) {
+      return member.u_photoThumbnailUrl.smallThumbnailUrl || getPhotoUrl(member);
+    }
+    function getMediumThumbnailUrl(member) {
+      return member.u_photoThumbnailUrl.MediumThumbnailUrl || getPhotoUrl(member);
+    }
+    function getLargeThumbnailUrl(member) {
+      return member.u_photoThumbnailUrl.largeThumbnailUrl || getPhotoUrl(member);
+    }
+    function getPhotoUrl(member) {
+      return member.u_photoUrl;
+    }
+
+    // TODO: TO BE IMPLEMENTED.
+    function getDefaultPhotoUrl() {
+
+    }
+
   }
 })();

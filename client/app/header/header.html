@@ -1,4 +1,5 @@
 <div class="header">
+
   <!-- Navbar -->
   <div class="header-navbar cursor_pointer">
 
@@ -74,21 +75,6 @@
       </span>
 
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1">
-            <i class="icon-upload"></i>
-            <span translate>@common-upload-file</span>
-          </a>
-          <input type="file" style="width:198px; height: 33px;"
-                 id="btn-upload-primary"
-                 class="cursor_pointer file_upload_btn float-right"
-                 onclick="this.value=null"
-                 data-ng-file-select="onFileSelect($files);"
-                 defaultValue="File"/>
-        </li>
-
-        <li class="divider"></li>
-
         <li class="" role="presentation" data-ng-click="onFileTypeClick('all');">
           <a role="menuitem" tabindex="-1">
             <i class="fa fa-files-o"></i>
