@@ -48,8 +48,7 @@
 
       $scope.enabledMemberList = enabledMemberList;
       $scope.disabledMemberList = disabledMemberList;
-
-
+      $scope.hasDisabledMember = $scope.disabledMemberList.length > 0;
     }
     function cancel() {
       $modalInstance.dismiss('close');

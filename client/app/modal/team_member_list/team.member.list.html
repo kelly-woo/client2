@@ -28,7 +28,7 @@
     <tabset class="member-list-tab cursor_pointer">
       <tab class="enabled-member-list-container tab-title" active="memberListSetting.enabledMemberList.active">
         <tab-heading>
-          Enabled Member
+          <span translate>@common-active-member</span>
         </tab-heading>
 
         <team-member-list-template
@@ -41,9 +41,9 @@
 
       </tab>
 
-      <tab class="disabled-member-list-container tab-title" active="memberListSetting.disabledMemberList.active">
+      <tab class="disabled-member-list-container tab-title" active="memberListSetting.disabledMemberList.active" ng-if="hasDisabledMember">
         <tab-heading>
-          Disabled Member
+          <span translate>@common-inactive-member</span>
         </tab-heading>
 
         <team-member-list-template
