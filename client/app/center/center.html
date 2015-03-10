@@ -368,9 +368,11 @@
                         <i class="fa fa-minus-circle"></i>
                       </a>
                     </span>
-                    <span ng-show="msg.message.shared.length != filteredSharedFile.length">
+
+                    <span ng-show="msg.message.shared.length != filteredSharedFile.length" ng-if="false">
                       <span ng-show="filteredSharedFile.length != 0"> and </span>with users
                     </span>
+
                     <span class="bullet">•</span>
                   </span>
 
