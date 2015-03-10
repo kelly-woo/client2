@@ -130,10 +130,6 @@
     $scope.$on('leaveCurrentChat', function(event, entityId) {
       onMeesageLeaveClick(entityId);
     });
-
-
-    publicService.openTeamMemberListModal($scope);
-
   }
 
 })();
