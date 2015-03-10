@@ -112,11 +112,11 @@
     </span>
     <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
       <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
-        <a data-ng-if="userId == member.id">
+        <a data-ng-if="userId == member.id" data-ng-click="onUserClick(member);">
           <i class="icon-user2"></i>
           {{ member | getName }}
         </a>
-        <a data-ng-if="userId != member.id" data-ui-sref="archives({entityType:'users', entityId:userId})">
+        <a data-ng-if="userId != member.id" data-ng-click="onUserClick(userId);">
           <i class="icon-user2"></i>
           {{ userId | getName }}
         </a>
