@@ -259,7 +259,7 @@
 
     function isDisabledMember(member) {
       if (!member.status) {
-        var member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
+        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
       }
 
       return member.status == 'disabled';
