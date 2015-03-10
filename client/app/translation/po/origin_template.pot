@@ -33,6 +33,7 @@ msgid "@alert-missing-info"
 msgstr ""
 
 #: client/app/modal/join.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@alert-no-result"
 msgstr ""
 
@@ -206,6 +207,10 @@ msgstr ""
 #: client/app/header/header.html
 #: client/app/modal/settings.account.html
 msgid "@common-account-settings"
+msgstr ""
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-active-member"
 msgstr ""
 
 #: client/app/left/left.html
@@ -385,6 +390,10 @@ msgstr ""
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
+msgstr ""
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-inactive-member"
 msgstr ""
 
 #: client/app/modal/settings.profile.html
@@ -772,6 +781,10 @@ msgstr ""
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
+msgstr ""
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@modal-member-list-title"
 msgstr ""
 
 #: client/app/modal/image.crop.html

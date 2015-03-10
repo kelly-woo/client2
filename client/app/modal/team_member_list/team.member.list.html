@@ -26,9 +26,9 @@
   <div class="modal_team_member_list">
 
     <tabset class="member-list-tab cursor_pointer">
-      <tab class="enabled-member-list-container tab-title" active="memberListSetting.enabledMemberList.active">
+      <tab class="enabled-member-list-container tab-title overflow-ellipsis" active="memberListSetting.enabledMemberList.active">
         <tab-heading>
-          <span translate>@common-active-member</span>
+          <div translate>@common-active-member</div>
         </tab-heading>
 
         <team-member-list-template
@@ -36,12 +36,12 @@
         </team-member-list-template>
 
         <div class="no-result-container" ng-if="filtered.length == 0">
-          <span translate>@alert-no-result</span>
+          <div translate>@alert-no-result</div>
         </div>
 
       </tab>  <!-- END OF ENABLED MEMBER LIST -->
 
-      <tab class="disabled-member-list-container tab-title" active="memberListSetting.disabledMemberList.active" ng-if="hasDisabledMember">
+      <tab class="disabled-member-list-container tab-title overflow-ellipsis" active="memberListSetting.disabledMemberList.active" ng-if="hasDisabledMember">
         <tab-heading>
           <span translate>@common-inactive-member</span>
         </tab-heading>
