@@ -41,7 +41,7 @@
 
       </tab>  <!-- END OF ENABLED MEMBER LIST -->
 
-      <tab class="disabled-member-list-container tab-title overflow-ellipsis" active="memberListSetting.disabledMemberList.active" ng-if="hasDisabledMember">
+      <tab class="disabled-member-list-container tab-title tab-title-overflow-ellipsis" active="memberListSetting.disabledMemberList.active" ng-if="hasDisabledMember">
         <tab-heading>
           <span translate>@common-inactive-member</span>
         </tab-heading>
@@ -61,5 +61,7 @@
 
 </div>  <!-- END OF MODAL BODY  -->
 
+<div ng-if="false" translate>@common-inactive-member</div>
+<div ng-if="false" translate>@common-active-member</div>
 
 <div ng-include="templates.loading"></div>

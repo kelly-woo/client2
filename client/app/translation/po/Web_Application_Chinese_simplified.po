@@ -205,6 +205,10 @@ msgstr "议题群组 "
 msgid "@common-account-settings"
 msgstr "帐号设定"
 
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-active-member"
+msgstr "现行成员"
+
 #: client/app/left/left.html client/app/left/messages/messages.html
 msgid "@common-add"
 msgstr "增加"
@@ -367,6 +371,10 @@ msgstr "档案"
 msgid "@common-has-jandi-app"
 msgstr "已经在您的行动装置上有JANDI的应用程式了吗？"
 
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-inactive-member"
+msgstr "关闭成员"
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr "基本资料"
@@ -508,8 +516,7 @@ msgstr "私人"
 msgid "@common-type-public"
 msgstr "公开"
 
-#: client/app/header/header.html client/app/modal/upload.html
-#: client/app/right/right.html
+#: client/app/modal/upload.html client/app/right/right.html
 msgid "@common-upload-file"
 msgstr "上传档案"
 
@@ -553,10 +560,6 @@ msgstr "音频档案 "
 msgid "@file-all"
 msgstr "全部档案"
 
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr "音频档案"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "您确定要删除这档案？ 请注意留言的部分不会被删除。"
@@ -568,14 +571,6 @@ msgstr " "
 #: client/app/right/file.html
 msgid "@file-delete-time-msg-pre"
 msgstr "删除时间："
-
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr "图像"
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr "PDF"
 
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"

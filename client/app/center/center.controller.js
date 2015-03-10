@@ -1104,13 +1104,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.isDisabledMember = function(member) {
     return publicService.isDisabledMember(member);
-  }
+  };
+
   // Callback when window loses its focus.
   window.onblur = function() {
     $scope.hasFocus = false;
-  }
+  };
+
   // Callback when window gets focused.
   window.onfocus = function() {
     $scope.hasFocus = true;
-  }
+  };
 });
