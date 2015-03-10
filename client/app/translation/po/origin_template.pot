@@ -209,10 +209,6 @@ msgstr ""
 msgid "@common-account-settings"
 msgstr ""
 
-#: client/app/modal/team_member_list/team.member.list.html
-msgid "@common-active-member"
-msgstr ""
-
 #: client/app/left/left.html
 #: client/app/left/messages/messages.html
 msgid "@common-add"
@@ -390,10 +386,6 @@ msgstr ""
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
-msgstr ""
-
-#: client/app/modal/team_member_list/team.member.list.html
-msgid "@common-inactive-member"
 msgstr ""
 
 #: client/app/modal/settings.profile.html

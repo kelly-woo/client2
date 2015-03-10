@@ -1056,7 +1056,7 @@ msgstr "歡迎使用JANDI!"
 
 #: client/app/left/left.html
 msgid "@user"
-msgstr "成員"
+msgstr "一對一"
 
 #: client/app/center/center.html
 msgid "@user-menu-star"

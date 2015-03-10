@@ -123,7 +123,7 @@ msgstr "삭제하기"
 #: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
-msgstr "수정하기"
+msgstr "확인"
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
@@ -393,7 +393,7 @@ msgstr "언어"
 
 #: client/app/right/right.html
 msgid "@common-member"
-msgstr "멤버"
+msgstr "업로드한 멤버"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -562,7 +562,7 @@ msgstr "오디오"
 
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
-msgstr "이 파일을 삭제하시겠습니까? 파일의 코멘트는 삭제되지 않습니다."
+msgstr "이 파일을 삭제하시겠습니까? 파일의 댓글은 삭제되지 않습니다."
 
 #: client/app/right/file.html
 msgid "@file-delete-time-msg-post"
@@ -1084,7 +1084,7 @@ msgstr "Welcome to JANDI!"
 
 #: client/app/left/left.html
 msgid "@user"
-msgstr "사용자"
+msgstr "1:1 대화방"
 
 #: client/app/center/center.html
 msgid "@user-menu-star"

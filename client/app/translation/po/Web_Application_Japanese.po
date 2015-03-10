@@ -560,10 +560,6 @@ msgstr "もっと見る"
 msgid "@file-all"
 msgstr "全てのファイル"
 
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr "音声"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "ファイルを削除してよいですか？削除後もコメントは残ります"
@@ -575,14 +571,6 @@ msgstr "に削除されました"
 #: client/app/right/file.html
 msgid "@file-delete-time-msg-pre"
 msgstr " "
-
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr "画像"
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr "PDF"
 
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
@@ -882,7 +870,7 @@ msgstr "全てのメンバー"
 
 #: client/app/right/right.html
 msgid "@option-all-rooms"
-msgstr "全てのチャット"
+msgstr "全トピック"
 
 #: client/app/modal/invite.direct.html
 msgid "@option-choose"
@@ -1083,7 +1071,7 @@ msgstr "JANDIへようこそ!!"
 
 #: client/app/left/left.html
 msgid "@user"
-msgstr "メンバー"
+msgstr "ダイレクトメッセージ"
 
 #: client/app/center/center.html
 msgid "@user-menu-star"
