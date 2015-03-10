@@ -65,14 +65,14 @@
     <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'users'">
 
       <!--    INVITE  -->
-      <li role="presentation" ng-if="!isDisabledMember(currentEntity);">
+      <li role="presentation" data-ng-if="!isDisabledMember(currentEntity);">
         <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
           <i class="icon-invite-fill"></i><span translate>@dm-menu-invite</span>
         </a>
       </li>
 
       <!--    STAR    -->
-      <li role="presentation" data-ng-click="onStarClick(currentEntity.type, currentEntity.id)">
+      <li role="presentation" data-ng-click="onStarClick(currentEntity.type, currentEntity.id)" data-ng-if="!isDisabledMember(currentEntity);">
         <a role="menuitem" tabindex="-1">
           <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@user-menu-un-star</span>
           <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@user-menu-star</span>
@@ -82,7 +82,7 @@
       <!--    VIEW USER PROFILE   -->
       <li role="presentation">
         <a role="menuitem" tabindex="-1" data-ng-click="onUserClick(currentEntity.id);">
-          <i class="icon-user2"></i><span translate>@dm-menu-profile</span>
+          <i class="icon-user"></i><span translate>@dm-menu-profile</span>
         </a>
       </li>
 
