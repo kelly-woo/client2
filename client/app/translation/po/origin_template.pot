@@ -33,7 +33,6 @@ msgid "@alert-missing-info"
 msgstr ""
 
 #: client/app/modal/join.html
-#: client/app/modal/team_member_list/team.member.list.html
 msgid "@alert-no-result"
 msgstr ""
 
@@ -773,10 +772,6 @@ msgstr ""
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr ""
-
-#: client/app/modal/team_member_list/team.member.list.html
-msgid "@modal-member-list-title"
 msgstr ""
 
 #: client/app/modal/image.crop.html

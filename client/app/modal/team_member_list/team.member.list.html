@@ -8,7 +8,7 @@
     <span translate>@modal-member-list-title</span>
   </h3>
 
-</div>
+</div>  <!-- END OF MODAL-HEADER  -->
 
 <div class="modal-body modal_team_member_list_body">
 
@@ -21,7 +21,7 @@
              placeholder="{{ '@input-search-user-name' | translate }}"
              data-ng-model="memberNameQuery">
     </div>
-  </div>
+  </div>  <!-- END OF SEARCH BOX  -->
 
   <div class="modal_team_member_list">
 
@@ -39,7 +39,7 @@
           <span translate>@alert-no-result</span>
         </div>
 
-      </tab>
+      </tab>  <!-- END OF ENABLED MEMBER LIST -->
 
       <tab class="disabled-member-list-container tab-title" active="memberListSetting.disabledMemberList.active" ng-if="hasDisabledMember">
         <tab-heading>
@@ -54,12 +54,12 @@
           <span translate>@alert-no-result</span>
         </div>
 
-      </tab>
-    </tabset>
+      </tab>  <!-- END OF DISABLED MEMBER LIST  -->
+    </tabset> <!--  END OF TABSET -->
 
-  </div>
+  </div>  <!-- END OF MEMBER LIST -->
 
-</div>
+</div>  <!-- END OF MODAL BODY  -->
 
 
 <div ng-include="templates.loading"></div>
