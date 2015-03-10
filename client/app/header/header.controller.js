@@ -122,6 +122,10 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
   $scope.toAdmin = function() {
     var teamName = $filter('getName')($scope.team)
     publicService.redirectTo(configuration.main_address + 'admin/' + teamName);
-  }
+  };
+
+  $scope.toTeam = function() {
+    publicService.redirectTo(configuration.main_address + 'team');
+  };
 
 });
