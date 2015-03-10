@@ -771,9 +771,11 @@ by ysyun 2015.2.25
 
 }
 
-/**
+/********************************************
+
   DISABLED MEMBER CSS
-*/
+
+********************************************/
 .center-panel-disabled-member.panel-title-container {
   background-color: #ef6700;
   color: white !important;
@@ -781,7 +783,6 @@ by ysyun 2015.2.25
 
 .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg {
   margin-right: 10px;
-  width: 50%;
   text-align: right;
 }
 
@@ -814,15 +815,19 @@ by ysyun 2015.2.25
 @media (max-width: 960px) {
   .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg {
     margin-right: 0;
+    width: 50%;
+
   }
 }
 @media (max-width: 650px) {
   .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg {
     width: 40%;
   }
+
   .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg:lang(ja) {
     width: auto;
   }
+}
 /********************************************
 
             Archived File
