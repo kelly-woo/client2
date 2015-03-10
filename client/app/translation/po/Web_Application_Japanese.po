@@ -211,6 +211,10 @@ msgstr "トピック一覧"
 msgid "@common-account-settings"
 msgstr "アカウント設定"
 
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-active-member"
+msgstr "有効なメンバー"
+
 #: client/app/left/left.html client/app/left/messages/messages.html
 msgid "@common-add"
 msgstr "追加"
@@ -365,6 +369,10 @@ msgstr "ファイル"
 msgid "@common-has-jandi-app"
 msgstr "既にJANDIのアプリをお持ちですか？"
 
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-inactive-member"
+msgstr "ブロックされたメンバー"
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr "基本情報"
@@ -506,8 +514,7 @@ msgstr "非公開"
 msgid "@common-type-public"
 msgstr "公開"
 
-#: client/app/header/header.html client/app/modal/upload.html
-#: client/app/right/right.html
+#: client/app/modal/upload.html client/app/right/right.html
 msgid "@common-upload-file"
 msgstr "アップロード"
 

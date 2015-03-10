@@ -2,7 +2,6 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -209,6 +208,10 @@ msgstr ""
 msgid "@common-account-settings"
 msgstr ""
 
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-active-member"
+msgstr ""
+
 #: client/app/left/left.html
 #: client/app/left/messages/messages.html
 msgid "@common-add"
@@ -380,6 +383,10 @@ msgstr ""
 msgid "@common-has-jandi-app"
 msgstr ""
 
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-inactive-member"
+msgstr ""
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr ""
@@ -531,7 +538,6 @@ msgstr ""
 msgid "@common-type-public"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/upload.html
 #: client/app/right/right.html
 msgid "@common-upload-file"

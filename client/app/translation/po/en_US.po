@@ -213,6 +213,10 @@ msgstr "Topics "
 msgid "@common-account-settings"
 msgstr "Account Settings"
 
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-active-member"
+msgstr "Current Members"
+
 #: client/app/left/left.html client/app/left/messages/messages.html
 msgid "@common-add"
 msgstr "Add"
@@ -368,6 +372,10 @@ msgstr "Files"
 msgid "@common-has-jandi-app"
 msgstr "Already have the JANDI app for mobile?"
 
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-inactive-member"
+msgstr "Disabled Members"
+
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
 msgstr "Basic Information"
@@ -508,8 +516,7 @@ msgstr "Private"
 msgid "@common-type-public"
 msgstr "Public"
 
-#: client/app/header/header.html client/app/modal/upload.html
-#: client/app/right/right.html
+#: client/app/modal/upload.html client/app/right/right.html
 msgid "@common-upload-file"
 msgstr "Upload File"
 
@@ -553,10 +560,6 @@ msgstr "More"
 msgid "@file-all"
 msgstr "File Drawer"
 
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr "Audio"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""
@@ -570,14 +573,6 @@ msgstr ", file was deleted."
 #: client/app/right/file.html
 msgid "@file-delete-time-msg-pre"
 msgstr "As of "
-
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr "Images"
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr "PDFs"
 
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
@@ -1122,6 +1117,15 @@ msgstr "in "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@file-audio"
+#~ msgstr "Audio"
+
+#~ msgid "@file-image"
+#~ msgstr "Images"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDFs"
 
 #~ msgid "@common-deleted-file-msg"
 #~ msgstr "Deleted File"

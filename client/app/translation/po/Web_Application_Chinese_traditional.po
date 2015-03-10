@@ -205,6 +205,10 @@ msgstr "議題群組 "
 msgid "@common-account-settings"
 msgstr "帳號設定"
 
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-active-member"
+msgstr "現行成員"
+
 #: client/app/left/left.html client/app/left/messages/messages.html
 msgid "@common-add"
 msgstr "增加"
@@ -311,31 +315,31 @@ msgstr "檔案類別"
 msgid "@common-file-type-all"
 msgstr "全部類別"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-audio"
 msgstr "音頻"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-documents"
 msgstr "文件"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-images"
 msgstr "圖像"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-presentations"
 msgstr "簡報"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-spreadsheets"
 msgstr "表單"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-video"
 msgstr "視頻"
 
@@ -358,6 +362,10 @@ msgstr "檔案"
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "已經在您的行動裝置上有JANDI的應用程式了嗎？"
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-inactive-member"
+msgstr "關閉成員"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
@@ -500,8 +508,7 @@ msgstr "私人"
 msgid "@common-type-public"
 msgstr "公開"
 
-#: client/app/header/header.html client/app/modal/upload.html
-#: client/app/right/right.html
+#: client/app/modal/upload.html client/app/right/right.html
 msgid "@common-upload-file"
 msgstr "上傳檔案"
 
@@ -545,10 +552,6 @@ msgstr "音頻檔案 "
 msgid "@file-all"
 msgstr "全部檔案"
 
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr "音頻檔案"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "您確定要刪除這檔案？ 請注意留言的部分不會被刪除。"
@@ -561,21 +564,9 @@ msgstr " "
 msgid "@file-delete-time-msg-pre"
 msgstr "刪除時間："
 
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr "圖像"
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr "PDF"
-
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
-
-#: client/app/header/header.html
-msgid "@file-video"
-msgstr "視頻檔案"
 
 #: client/app/header/header.html
 msgid "@file-your"
@@ -1085,6 +1076,18 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
+
+#~ msgid "@file-audio"
+#~ msgstr "音頻檔案"
+
+#~ msgid "@file-image"
+#~ msgstr "圖像"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDF"
+
+#~ msgid "@file-video"
+#~ msgstr "視頻檔案"
 
 #~ msgid "@pg-menu-delete"
 #~ msgstr "刪除這私人群組"
