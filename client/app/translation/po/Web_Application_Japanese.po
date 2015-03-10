@@ -276,7 +276,7 @@ msgstr "デスクトップ通知"
 
 #: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
-msgstr "ダイレクトメッセージ一覧"
+msgstr "ダイレクトメッセージ"
 
 #: client/app/center/center.html
 msgid "@common-disabled-member-notice-msg-short"
