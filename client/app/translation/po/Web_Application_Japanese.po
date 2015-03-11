@@ -277,11 +277,11 @@ msgstr "デスクトップ通知"
 
 #: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
-msgstr "ダイレクトメッセージ"
+msgstr "ダイレクトメッセージ一覧"
 
 #: client/app/center/center.html
 msgid "@common-disabled-member-notice-msg-short"
-msgstr "このメンバーは現在無効化されています。"
+msgstr ""
 
 #: client/app/modal/profile.view.html
 msgid "@common-disabled-member-profile-msg"

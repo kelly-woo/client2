@@ -103,8 +103,6 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     var teamName = storageAPIservice.getTeamName();
     var mainTeamAddr = configuration.main_address+'team';
 
-    console.log($filter('translate')('@common-sign-in'))
-    console.log($filter('translate')('@current-member-disabled-notice-msg-pre'))
     var disabledMsg = $filter('translate')('@current-member-disabled-notice-msg-pre') +
                       teamName +
                       $filter('translate')('@current-member-disabled-notice-msg-post');
@@ -158,9 +156,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
           if (angular.isUndefined(authAPIservice)) return;
           authAPIservice.onCurrentMemberDisabled();
         }
-
-        return;
-
       }
 
       if (rejection.status == 502) {

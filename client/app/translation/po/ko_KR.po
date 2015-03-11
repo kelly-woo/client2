@@ -278,7 +278,7 @@ msgstr "1:1 메시지"
 
 #: client/app/center/center.html
 msgid "@common-disabled-member-notice-msg-short"
-msgstr "차단된 멤버입니다."
+msgstr ""
 
 #: client/app/modal/profile.view.html
 msgid "@common-disabled-member-profile-msg"
@@ -1133,10 +1133,6 @@ msgstr "JANDI 메시지"
 
 #~ msgid "@file-video"
 #~ msgstr "비디오"
-
-#, fuzzy
-#~ msgid "@common-deleted-file-msg"
-#~ msgstr "파일"
 
 #~ msgid "@pg-menu-delete"
 #~ msgstr "비공개 그룹 삭제하기"

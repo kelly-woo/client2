@@ -45,6 +45,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
   };
 
   var response = null;
+  if (!leftPanel) return;
   if (leftPanel.status != 200) {
     var err = leftPanel.data;
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
