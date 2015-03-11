@@ -96,13 +96,23 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
   }
 
   /**
-   * Pop up alert window saying current member has been disabled from current eam.
-   * Keep meber logged in but redirect to main.
+   * Pop up alert window saying current member has been disabled from current team.
+   * Keep member logged in but redirect to main.
    */
   authAPI.onCurrentMemberDisabled = function() {
+    var teamName = storageAPIservice.getTeamName();
     var mainTeamAddr = configuration.main_address+'team';
-    confirm($filter('translate')('@current-member-disabled-notice-msg'));
+
+    console.log($filter('translate')('@common-sign-in'))
+    console.log($filter('translate')('@current-member-disabled-notice-msg-pre'))
+    var disabledMsg = $filter('translate')('@current-member-disabled-notice-msg-pre') +
+                      teamName +
+                      $filter('translate')('@current-member-disabled-notice-msg-post');
+
+    confirm(disabledMsg);
+
     location.href = mainTeamAddr;
+
   };
 
   return authAPI;
@@ -138,11 +148,8 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
       }
       if (rejection.status === 403) {
-        // Just in case, for Peter.
         var disabledMemberAccessingTeamCode = 40301;
 
-
-        console.log('it is 403!!!!');
         var situationCode = rejection.data.code;
 
         if (situationCode == disabledMemberAccessingTeamCode) {

@@ -560,6 +560,14 @@ msgstr ""
 msgid "@common-warning"
 msgstr ""
 
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-post"
+msgstr ""
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-pre"
+msgstr ""
+
 #: client/app/center/center.html
 msgid "@dm-menu-file"
 msgstr ""

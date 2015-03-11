@@ -40,6 +40,7 @@ msgid "@alert-missing-info"
 msgstr "资料不全"
 
 #: client/app/modal/join.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@alert-no-result"
 msgstr "搜寻没有结果"
 
@@ -527,6 +528,14 @@ msgstr "造访首页"
 #: client/app/modal/settings.team.html
 msgid "@common-warning"
 msgstr "警示"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-post"
+msgstr "使用权限已经暂时被关闭。欲知更多细节，请联系团队管理者"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-pre"
+msgstr "您的"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
