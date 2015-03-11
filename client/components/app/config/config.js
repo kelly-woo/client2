@@ -9,7 +9,7 @@
     .module('app.config', [])
     .constant('configuration', {
       name                : 'local',
-      api_address         : 'http://www.jandi.io:8888/',
+      api_address         : 'http://www.jandi.io:5000/',
       api_version         : '2',
       ga_token            : 'UA-54051037-1',
       ga_token_global     : 'UA-54051037-4',

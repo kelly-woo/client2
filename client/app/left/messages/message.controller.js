@@ -49,6 +49,7 @@
 
       messageList.getRecentMessageList()
         .success(function(response) {
+          console.log(response)
           $scope.messageList = _generateMessageList(response);
           $scope.messageListLoadingStatus = 'okay';
         })
@@ -70,7 +71,7 @@
       messages = _.uniq(messages, 'entityId');
       _.each(messages, function(message) {
 
-        var entity = entityAPIservice.getEntityFromListById($scope.memberList, message.entityId);
+        var entity = entityAPIservice.getEntityFromListById($scope.memberList, message.companionId);
 
         if (!angular.isUndefined(entity)) {
           if (message.unread > 0) {
