@@ -5,6 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
   //console.info('[enter] rightpanelController');
 
+  var initialLoadDone = false;
   var startMessageId   = -1;
   var disabledMemberAddedOnSharedIn = false;
   var disabledMemberAddedOnSharedBy = false;
@@ -15,7 +16,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
   function _init() {
 
-    $scope.isLoading = true;
+    $scope.isLoading = false;
     $scope.isScrollLoading = false;
 
     $scope.fileList = [];
@@ -32,6 +33,14 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     _initSharedInFilter();
     _initSharedByFilter($scope.currentEntity);
     _initFileTypeFilter();
+
+    // Checking if initial load has been processed or not.
+    // if not, load once.
+    if (!initialLoadDone) {
+      preLoadingSetup();
+      getFileList();
+    }
+
   }
 
   /**
@@ -104,7 +113,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.fileRequest.fileType = $scope.fileTypeFilter.value
   }
 
-  var initialLoadDone = false;
 
   $rootScope.$on('updateFileTypeQuery', function(event, type) {
     _onUpdateFileTypeQuery(type);
@@ -214,17 +222,9 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
   // scope function that gets called when user hits 'enter' in '.rpanel-body-search__input'.
   $scope.onFileTitleQueryEnter = function() {
-    console.log($scope.fileRequest.keyword);
     preLoadingSetup();
     getFileList();
   };
-
-  // Checking if initial load has been processed or not.
-  // if not, load once.
-  if (!initialLoadDone) {
-    preLoadingSetup();
-    getFileList();
-  }
 
   // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
   //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
@@ -254,6 +254,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.fileRequest.startMessageId   = -1;
     isEndOfList = false;
     $scope.isLoading = true;
+    $scope.fileList = [];
   }
 
   var isEndOfList = false;
@@ -268,9 +269,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
   };
 
   function getFileList() {
-
-    $scope.fileList = [];
-
     fileAPIservice.getFileList($scope.fileRequest)
       .success(function(response) {
         var fileList = [];
