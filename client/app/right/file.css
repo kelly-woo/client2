@@ -150,7 +150,7 @@
   padding: 8px;
   color: #666;
   text-align: center;
-  padding: 45px 0;
+  padding: 45px 10px;
   background: white;
 }
 
@@ -402,6 +402,15 @@
   line-height: 20px;
 }
 
+.file-detail-disabled-member .file-detail-header__thumbnail,
+.file-detail-disabled-member .comment-item__thumbnail {
+  opacity: 0.4;
+}
+.file-detail-disabled-member .file-detail-header__writer,
+.file-detail-disabled-member .comment-item-header__name {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
 .archived-file__title {
   font-size: 15px;
   color: #b7b7b7;

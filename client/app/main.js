@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 var app = angular.module('jandiApp');
 
@@ -21,6 +21,7 @@ app.config(function ($stateProvider) {
             leftPanel: function (leftpanelAPIservice, publicService, storageAPIservice) {
               return leftpanelAPIservice.getLists()
                 .error(function(err) {
+                  console.log('lkjasdlfjal;sdkfjl;')
                   publicService.signOut();
                 });
             }

@@ -11,7 +11,8 @@
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 
       <div class="file-detail-header">
-        <div class="file-detail-header-box">
+        <div class="file-detail-header-box"
+             ng-class="{'file-detail-disabled-member': isDisabledMember(file_detail.writer)}">
           <div class="file-detail-header__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
                  ng-src="{{ file_detail.writer | getSmallThumbnail }}"
@@ -111,7 +112,7 @@
             <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
               <li class="cursor_pointer">
                 <a data-ng-click="onClickShare(file_detail);">
-                  <i class="fa fa-share-alt"></i>
+                  <i class="icon-share"></i>
                   <span translate>@btn-share</span>
                 </a>
               </li>
@@ -123,7 +124,7 @@
               </li>
               <li class="cursor_pointer">
                 <a href="{{ server_uploaded + 'download/' + file_detail.content.fileUrl }}" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
-                  <i class="fa fa-download"></i>
+                  <i class="icon-download"></i>
                   <span translate>@common-download</span>
                 </a>
               </li>
@@ -138,8 +139,9 @@
         </div>
       </div>
 
-      <div class="rpanel-detail-body-comment" >
-        <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}">
+      <div class="rpanel-detail-body-comment">
+        <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}"
+             ng-class="{'file-detail-disabled-member': isDisabledMember(comment.writer)}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
                  ng-src="{{ comment.writer | getSmallThumbnail }}"

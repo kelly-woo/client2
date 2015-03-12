@@ -83,7 +83,6 @@
         curMemberId = signInInfo.memberId;
       }
 
-      //console.log(signInInfo)
       if (curMemberId == -1) {
         console.log('no memberid')
         // Could not find member id that is associated with current team.
@@ -92,7 +91,7 @@
         return;
       }
 
-      storageAPIservice.setAccountInfoLocal(account.id, signInInfo.teamId, signInInfo.memberId);
+      storageAPIservice.setAccountInfoLocal(account.id, signInInfo.teamId, signInInfo.memberId, signInInfo.teamName);
       storageAPIservice.setShouldAutoSignIn(true);
       // Get information about team and member id.
 
@@ -178,7 +177,7 @@
           }
 
           // Store account id, team id, member id in localStorage for analytics usage.
-          storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId);
+          storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId, signInInfo.teamName);
 
           memberService.getMemberInfo(signInInfo.memberId)
             .success(function(response) {

@@ -27,7 +27,8 @@
     <div ng-if="messageList.length > 0">
       <li class="member cursor_pointer"
           ng-repeat="userEntity in messageList | orderBy: 'lastMessageId': true"
-          ng-class="{active: $state.params.entityId == userEntity.id}">
+          ng-class="{'active': $state.params.entityId == userEntity.id,
+                    'messages-list-disabled-member': isDisabledMember(userEntity)}">
 
         <a ui-sref="archives({entityType:'users',entityId: userEntity.id})"
            ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}" data-member-id="{{userEntity.id}}">

@@ -17,6 +17,7 @@
     var accountId_key       = 'account_id';
     var teamId_key          = 'team_id';
     var memberId_key        = 'member_id';
+    var teamName_key        = 'team_name';
 
     var lastLang_key        = 'last_lang';
     var lastEmail_key       = 'last_email';
@@ -109,7 +110,9 @@
       getAccessToken: getAccessToken,
       getRefreshToken: getRefreshToken,
 
-      getAccessTokenType: bearer_type
+      getAccessTokenType: bearer_type,
+
+      getTeamName: getTeamName
 
     };
 
@@ -176,10 +179,11 @@
     //            Account Info
     //
     ///////////////////////////////
-    function setAccountInfoLocal (accountId, teamId, memberId) {
+    function setAccountInfoLocal (accountId, teamId, memberId, teamName) {
       localStorageService.set(accountId_key, accountId);
       localStorageService.set(teamId_key, teamId);
       localStorageService.set(memberId_key, memberId);
+      localStorageService.set(teamName_key, teamName);
     }
 
     function getAccountIdLocal () { return localStorageService.get(accountId_key); }
@@ -265,10 +269,11 @@
     //            Account Info
     //
     ///////////////////////////////
-    function setAccountInfoSession (accountId, teamId, memberId) {
+    function setAccountInfoSession (accountId, teamId, memberId, teamName) {
       $window.sessionStorage.account_id   = accountId;
       $window.sessionStorage.team_id      = teamId;
       $window.sessionStorage.member_id    = memberId;
+      $window.sessionStorage.team_name    = teamName;
     }
 
     function getAccountIdSession () { return $window.sessionStorage.account_id; }
@@ -368,6 +373,13 @@
         return getRefreshTokenSession();
 
       return false;
+    }
+
+    function getTeamName() {
+      if (isValidValue(localStorageService.get(teamName_key)))
+      return localStorageService.get(teamName_key);
+
+    return $window.sessionStorage.team_name;
     }
   }
 })();

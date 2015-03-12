@@ -57,7 +57,8 @@
     function getCurrentMemberId(memberships) {
       var signInInfo = {
         memberId    : -1,
-        teamId      : -1
+        teamId      : -1,
+        teamName    : ''
       };
 
       var prefix = $location.host().split('.')[0];
@@ -73,6 +74,7 @@
         if (membership.t_domain == prefix) {
           signInInfo.memberId = membership.memberId;
           signInInfo.teamId   = membership.teamId;
+          signInInfo.teamName   = membership.name;
         }
       });
 

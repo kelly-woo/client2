@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'jandi-light';
-  src:url('../assets/fonts/jandi-light.eot?635f9t');
-  src:url('../assets/fonts/jandi-light.eot?#iefix635f9t') format('embedded-opentype'),
-  url('../assets/fonts/jandi-light.woff?635f9t') format('woff'),
-  url('../assets/fonts/jandi-light.ttf?635f9t') format('truetype'),
-  url('../assets/fonts/jandi-light.svg?635f9t#jandi-light') format('svg');
+  src:url('../assets/fonts/jandi-light.eot?-3jcdt1');
+  src:url('../assets/fonts/jandi-light.eot?#iefix-3jcdt1') format('embedded-opentype'),
+  url('../assets/fonts/jandi-light.woff?-3jcdt1') format('woff'),
+  url('../assets/fonts/jandi-light.ttf?-3jcdt1') format('truetype'),
+  url('../assets/fonts/jandi-light.svg?-3jcdt1#jandi-light') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -35,171 +35,186 @@
   content: "\e602";
 }
 
-.icon-current-members:before {
+.icon-chat-fill:before {
   content: "\e603";
 }
 
-.icon-delete:before {
+.icon-current-members:before {
   content: "\e604";
 }
 
-.icon-delete-circle-fill:before {
+.icon-delete:before {
   content: "\e605";
 }
 
-.icon-disabled-members:before {
+.icon-delete-circle-fill:before {
   content: "\e606";
 }
 
-.icon-down:before {
+.icon-disabled-members:before {
   content: "\e607";
 }
 
-.icon-download:before {
+.icon-down:before {
   content: "\e608";
 }
 
-.icon-down-long:before {
+.icon-download:before {
   content: "\e609";
 }
 
-.icon-edit-fill:before {
+.icon-down-long:before {
   content: "\e60a";
 }
 
-.icon-file:before {
+.icon-edit-fill:before {
   content: "\e60b";
 }
 
-.icon-filebox:before {
+.icon-file:before {
   content: "\e60c";
 }
 
-.icon-group:before {
+.icon-filebox:before {
   content: "\e60d";
 }
 
-.icon-invite-fill:before {
+.icon-file-fill:before {
   content: "\e60e";
 }
 
-.icon-invite-topic-fill:before {
+.icon-group:before {
   content: "\e60f";
 }
 
-.icon-language:before {
+.icon-invite-fill:before {
   content: "\e610";
 }
 
-.icon-list:before {
+.icon-invite-topic-fill:before {
   content: "\e611";
 }
 
-.icon-login:before {
+.icon-language:before {
   content: "\e612";
 }
 
-.icon-logout:before {
+.icon-list:before {
   content: "\e613";
 }
 
-.icon-more:before {
+.icon-login:before {
   content: "\e614";
 }
 
-.icon-next:before {
+.icon-logout:before {
   content: "\e615";
 }
 
-.icon-next-long:before {
+.icon-more:before {
   content: "\e616";
 }
 
-.icon-notebook:before {
+.icon-more-fill:before {
   content: "\e617";
 }
 
-.icon-ok:before {
+.icon-next:before {
   content: "\e618";
 }
 
-.icon-pc:before {
+.icon-next-long:before {
   content: "\e619";
 }
 
-.icon-phone:before {
+.icon-notebook:before {
   content: "\e61a";
 }
 
-.icon-prev:before {
+.icon-ok:before {
   content: "\e61b";
 }
 
-.icon-prev-long:before {
+.icon-pc:before {
   content: "\e61c";
 }
 
-.icon-private-group:before {
+.icon-phone:before {
   content: "\e61d";
 }
 
-.icon-private-topic:before {
+.icon-prev:before {
   content: "\e61e";
 }
 
-.icon-refresh:before {
+.icon-prev-long:before {
   content: "\e61f";
 }
 
-.icon-search:before {
+.icon-private-group:before {
   content: "\e620";
 }
 
-.icon-setting:before {
+.icon-private-topic:before {
   content: "\e621";
 }
 
-.icon-share:before {
+.icon-refresh:before {
   content: "\e622";
 }
 
-.icon-star:before {
+.icon-search:before {
   content: "\e623";
 }
 
-.icon-star-fill:before {
+.icon-setting:before {
   content: "\e624";
 }
 
-.icon-switch:before {
+.icon-share:before {
   content: "\e625";
 }
 
-.icon-topic:before {
+.icon-star:before {
   content: "\e626";
 }
 
-.icon-unshare:before {
+.icon-star-fill:before {
   content: "\e627";
 }
 
-.icon-up:before {
+.icon-switch:before {
   content: "\e628";
 }
 
-.icon-upload:before {
+.icon-topic:before {
   content: "\e629";
 }
 
-.icon-up-long:before {
+.icon-topic-fill:before {
   content: "\e62a";
 }
 
-.icon-user:before {
+.icon-unshare:before {
   content: "\e62b";
 }
 
-.icon-wrench:before {
+.icon-up:before {
   content: "\e62c";
 }
 
+.icon-upload:before {
+  content: "\e62d";
+}
+
+.icon-up-long:before {
+  content: "\e62e";
+}
+
+.icon-user:before {
+  content: "\e62f";
+}
+
+.icon-wrench:before {
+  content: "\e630";
+}

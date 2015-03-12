@@ -28,10 +28,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var updateInterval = 2000;
 
+  $scope.hasFocus = true;
+
   $scope.lastMessage = null;
 
   $scope.messageUpdateCount = 20;
 
+  // To be used in directive.
   $scope.loadMoreCounter = 0;
 
   $scope.entityId = entityId;
@@ -225,7 +228,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             //  lastUpdatedId 갱신
             $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
 
+            // When there are messages to update.
             if (response.messageCount) {
+
               //  marker 설정
               updateMessageMarker();
 
@@ -276,8 +281,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $scope.msgLoadStatus.loading = false;
             $scope.msgLoadStatus.loaded = ($scope.messages.length > 0);
 
-            // auto focus to textarea
+            // auto focus to textarea - CURRENTLY NOT USED.
             $scope.focusPostMessage = true;
+
             $scope.loadMoreCounter++;
 
             // If code gets to this point, 'getMessages' has been executed at least once.
@@ -291,7 +297,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else {
       deferred.reject();
     }
-
     return deferred.promise;
   };
   $scope.loadMore();
@@ -688,7 +693,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     //  new DOM element for full screen image toggler.
-    // TODO: CONTROLLER IS NOT SUPPOSED TO MANUPLATE DOM ELEMENTS. FIND BETTER WAY TO ADD DOM ELEMENT!!!!!
+    // TODO: CONTROLLER IS NOT SUPPOSED TO MANIPULATE DOM ELEMENTS. FIND BETTER WAY TO ADD DOM ELEMENT!!!!!
     var fullScreenToggler = angular.element('<div class="large-thumbnail-full-screen"><i class="fa fa-arrows-alt"></i></i></div>');
 
     //  bind click event handler to full screen toggler.
@@ -919,74 +924,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   }
 
-
-  // NEW MESSAGE
-  //  if 'alarm' Field in response from update call is not empty,
-  //  we need to handle alarm.
-  //  'alarm' field is not empty when
-  //      1. someone posts new messages in any other channels including 'not joined' channel.
-  //      2. someone shares/comment on file.
-  function updateAlarmHandler(alarm) {
-    if (alarm.alarmCount == 0) return;
-
-    var alarmTable = alarm.alarmTable;
-
-    _.each(alarmTable, function(element, index, list) {
-      //  Alarm is from me.  Don't worry about this.
-      if (element.fromEntity == $scope.member.id) return;
-
-      var updateEntity;
-
-      // Alarm is to me --> DIRECT MESSAGE TO ME.
-      // When new message came in through DM to me, update 'fromEntity'.
-      if (element.toEntity[0] === ($scope.member.id) ) {
-        //  DIRECT MESSAGE with fromEntity is already open, so DON'T WORRY ABOUT IT.
-        if(element.fromEntity == $scope.currentEntity.id) {
-          // Still needs to update meesage list on left bottom.
-          $rootScope.$broadcast('updateMessageList');
-
-          return;
-        }
-
-        updateEntity = entityAPIservice.getEntityFromListById($scope.memberList, element.fromEntity);
-        var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.toEntity[0]);
-
-        $rootScope.$broadcast('updateMessageList');
-        desktopNotificationService.addNotification(updateEntity, toEntity);
-      }
-      else  {
-        //  'toEntity' may be an array.
-        _.each(element.toEntity, function(toEntityElement, index, list) {
-          updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, element.toEntity[0]);
-
-          //  updateEntity is archived || I don't care about updateEntity.
-          if (angular.isUndefined(updateEntity)) return;
-
-          var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
-
-          //  If 'toEntity' is an entity that I'm currently looking at, check browser's visibility state.
-          /*
-           TODO: CURRENT ISSUE - CHROME ON MAC/LINUX returns
-           'visible' for 'document.webkitVisibilityState', and
-           'false' for 'document.webkitHidden' when window is minimized.
-           */
-          if (updateEntity.id == $scope.currentEntity.id) {
-            if (document.hidden || !$scope.hasFocus) {
-              // User has current entity open in jandi.com but not watching it!
-              desktopNotificationService.addNotification(toEntity, updateEntity);
-            }
-            return;
-          }
-
-
-          desktopNotificationService.addNotification(toEntity, updateEntity);
-          entityAPIservice.updateBadgeValue(updateEntity, -1);
-        });
-      }
-
-    });
-  }
-
   function eventMsgHandler(msg) {
     var newMsg = msg;
     newMsg.eventType = '/' + msg.info.eventType;
@@ -1098,13 +1035,82 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     fileAPIservice.broadcastFileShare(file);
   };
 
+  $scope.isDisabledMember = function(member) {
+    return publicService.isDisabledMember(member);
+  };
 
+  // NEW MESSAGE
+  //  if 'alarm' field in response from update call is not empty,
+  //  we need to handle alarm(s).
+  //  'alarm' field is not empty when
+  //      1. someone posts new messages in any channel.  Channel includes
+  //        a. joined channel.
+  //        b. not joined channel.
+  //        c. 1:1 direct message.
+  //      2. someone shares/comment on file.
+  function updateAlarmHandler(alarm) {
+    if (alarm.alarmCount == 0) return;
+
+    var alarmTable = alarm.alarmTable;
+
+    _.each(alarmTable, function(element, index, list) {
+      // Alarm is from me.  Don't worry about this.
+      if (element.fromEntity == $scope.member.id) return;
+
+      var updateEntity;
+
+      // Alarm is to me --> DIRECT MESSAGE TO ME.
+      // When new message came in through DM to me, update 'fromEntity'.
+      if (element.toEntity[0] === $scope.member.id) {
+
+        // When browser has focus and user is watching 1:1 chat, DO NOT SEND NOTIFICATION.
+        if (_hasBrowserFocus() && element.fromEntity == $scope.currentEntity.id) return;
+
+        // OTHERWISE, SEND NOTIFICATION.
+        _sendNotification(element.fromEntity, element.toEntity[0]);
+      }
+      else  {
+        //  'toEntity' may be an array.
+        _.each(element.toEntity, function(toEntityElement, index, list) {
+          updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, element.toEntity[0]);
+
+          //  updateEntity is archived || I don't care about updateEntity.
+          if (angular.isUndefined(updateEntity)) return;
+
+          //  If 'toEntity' is an entity that I'm currently looking at, check browser's visibility state.
+          if (updateEntity.id == $scope.currentEntity.id && _hasBrowserFocus()) return;
+
+          var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
+
+          desktopNotificationService.addNotification(toEntity, updateEntity);
+          entityAPIservice.updateBadgeValue(updateEntity, -1);
+        });
+      }
+
+    });
+  }
+
+  function _sendNotification(fromEntity, toEntity) {
+    fromEntity = entityAPIservice.getEntityFromListById($scope.memberList, fromEntity);
+    toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, toEntity);
+
+    $rootScope.$broadcast('updateMessageList');
+    desktopNotificationService.addNotification(fromEntity, toEntity);
+  }
+
+  function _hasBrowserFocus() {
+    return !_isBrowserHidden();
+  }
+  function _isBrowserHidden() {
+    return document.hidden || !$scope.hasFocus;
+  }
   // Callback when window loses its focus.
   window.onblur = function() {
     $scope.hasFocus = false;
-  }
+  };
+
   // Callback when window gets focused.
   window.onfocus = function() {
     $scope.hasFocus = true;
-  }
+  };
 });

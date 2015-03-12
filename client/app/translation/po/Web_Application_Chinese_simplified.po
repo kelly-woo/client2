@@ -40,6 +40,7 @@ msgid "@alert-missing-info"
 msgstr "资料不全"
 
 #: client/app/modal/join.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@alert-no-result"
 msgstr "搜寻没有结果"
 
@@ -205,6 +206,10 @@ msgstr "议题群组 "
 msgid "@common-account-settings"
 msgstr "帐号设定"
 
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-active-member"
+msgstr "现行成员"
+
 #: client/app/left/left.html client/app/left/messages/messages.html
 msgid "@common-add"
 msgstr "增加"
@@ -268,6 +273,14 @@ msgstr "桌面通知"
 msgid "@common-direct-messages"
 msgstr "直接传讯"
 
+#: client/app/center/center.html
+msgid "@common-disabled-member-notice-msg-short"
+msgstr "这成员已经被暂时关闭"
+
+#: client/app/modal/profile.view.html
+msgid "@common-disabled-member-profile-msg"
+msgstr "这成员已经被暂时关闭。欲知更多细节，请联系团队管理者。"
+
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
 msgstr "邀请到"
@@ -311,31 +324,31 @@ msgstr "档案类别"
 msgid "@common-file-type-all"
 msgstr "全部类别"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-audio"
 msgstr "音频"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-documents"
 msgstr "文件"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-images"
 msgstr "图像"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-presentations"
 msgstr "简报"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-spreadsheets"
 msgstr "表单"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-video"
 msgstr "视频"
 
@@ -358,6 +371,10 @@ msgstr "档案"
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "已经在您的行动装置上有JANDI的应用程式了吗？"
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-inactive-member"
+msgstr "关闭成员"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
@@ -500,8 +517,7 @@ msgstr "私人"
 msgid "@common-type-public"
 msgstr "公开"
 
-#: client/app/header/header.html client/app/modal/upload.html
-#: client/app/right/right.html
+#: client/app/modal/upload.html client/app/right/right.html
 msgid "@common-upload-file"
 msgstr "上传档案"
 
@@ -512,6 +528,14 @@ msgstr "造访首页"
 #: client/app/modal/settings.team.html
 msgid "@common-warning"
 msgstr "警示"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-post"
+msgstr "使用权限已经暂时被关闭。欲知更多细节，请联系团队管理者"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-pre"
+msgstr "您的"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -545,10 +569,6 @@ msgstr "音频档案 "
 msgid "@file-all"
 msgstr "全部档案"
 
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr "音频档案"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "您确定要删除这档案？ 请注意留言的部分不会被删除。"
@@ -561,21 +581,9 @@ msgstr " "
 msgid "@file-delete-time-msg-pre"
 msgstr "删除时间："
 
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr "图像"
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr "PDF"
-
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "您目前将无法上传大於100MB的档案。"
-
-#: client/app/header/header.html
-msgid "@file-video"
-msgstr "视频档案"
 
 #: client/app/header/header.html
 msgid "@file-your"
@@ -710,9 +718,8 @@ msgstr "  "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"- 私人群组对非邀请成员不开放"
-"- 在私人群组内已分享档案仅开放给其参与者"
-"- 已设定为公开或私人的议题群组在建立之后不能被转换成另一个"
+"- 私人群组对非邀请成员不开放- 在私人群组内已分享档案仅开放给其参与者- 已设定"
+"为公开或私人的议题群组在建立之后不能被转换成另一个"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -1053,7 +1060,7 @@ msgstr "欢迎使用JANDI!"
 
 #: client/app/left/left.html
 msgid "@user"
-msgstr "成员"
+msgstr "一对一"
 
 #: client/app/center/center.html
 msgid "@user-menu-star"
@@ -1086,6 +1093,18 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新讯息"
+
+#~ msgid "@file-audio"
+#~ msgstr "音频档案"
+
+#~ msgid "@file-image"
+#~ msgstr "图像"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDF"
+
+#~ msgid "@file-video"
+#~ msgstr "视频档案"
 
 #~ msgid "@pg-menu-delete"
 #~ msgstr "删除这私人群组"

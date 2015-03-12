@@ -116,7 +116,7 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
     var members = $scope.currentEntity.ch_members || $scope.currentEntity.pg_members;
     var totalUserList = $scope.memberList;
 
-    $scope.availableMemberList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 });
+    $scope.availableMemberList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 || user.status == 'disabled' });
   }
 
   // See if 'user' is a member of current channel/privateGroup.
@@ -532,14 +532,21 @@ app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIser
 app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance, curUser, entityAPIservice, $state) {
   $scope.curUser = curUser;
 
-  $scope.onActionClick = function(actionType) {
-    if (actionType === 'email') {
+  $scope.isUserDisabled = $scope.curUser.status == 'disabled';
 
+  $scope.onActionClick = function(actionType) {
+
+    if (actionType === 'email') {
+      if ($scope.isUserDisabled) return;
+
+      window.location.href = "mailto:"+$scope.curUser.u_email;
     }
     else if (actionType === 'file') {
       onFileListClick(curUser.id);
     }
     else if (actionType === 'directMessage') {
+      if ($scope.isUserDisabled) return;
+
       $state.go('archives', { entityType: 'users',  entityId: curUser.id });
     }
 

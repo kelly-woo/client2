@@ -475,7 +475,10 @@
   display: none;
 }
 
-
+.right-panel-disabled-member {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
 /* Chrome, Safari, Opera */
 @-webkit-keyframes opacOut_hidden {
   from {opacity: 1;}
@@ -484,4 +487,10 @@
 @keyframes opacOut_hidden {
   from {opacity: 1;}
   to {opacity: 0; visibility: hidden !important; display: none !important;}
+}
+
+
+.rpanel-loading {
+  position: relative;
+  padding: 27px;
 }

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
@@ -40,6 +40,7 @@ msgid "@alert-missing-info"
 msgstr "모든 정보를 입력하세요"
 
 #: client/app/modal/join.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@alert-no-result"
 msgstr "결과가 없습니다"
 
@@ -123,7 +124,7 @@ msgstr "삭제하기"
 #: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
-msgstr "수정하기"
+msgstr "확인"
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/invite.team.html
@@ -179,9 +180,9 @@ msgstr "즐겨찾기 해제 "
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
 msgstr ""
-"비공개 그룹이 \"<b>비공개 토픽</b>\"으로 전환되어 하나의 토픽 리스트에 통합"
-"되었습니다. 물론 비공개 그룹은 참여자들에게만 노출되며 공유된 파일들 또한 참"
-"여자들만 열람할 수 있습니다."
+"비공개 그룹이 \"<b>비공개 토픽</b>\"으로 전환되어 하나의 토픽 리스트에 통합되"
+"었습니다. 물론 비공개 그룹은 참여자들에게만 노출되며 공유된 파일들 또한 참여"
+"자들만 열람할 수 있습니다."
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
@@ -207,6 +208,10 @@ msgstr "토픽 "
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr "계정 설정"
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-active-member"
+msgstr "멤버"
 
 #: client/app/left/left.html client/app/left/messages/messages.html
 msgid "@common-add"
@@ -271,6 +276,14 @@ msgstr "데스크탑 알림"
 msgid "@common-direct-messages"
 msgstr "1:1 메시지"
 
+#: client/app/center/center.html
+msgid "@common-disabled-member-notice-msg-short"
+msgstr "차단된 멤버입니다"
+
+#: client/app/modal/profile.view.html
+msgid "@common-disabled-member-profile-msg"
+msgstr "차단된 멤버입니다. 궁금하신 사항은 팀 관리자에게 문의하세요."
+
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
@@ -314,31 +327,31 @@ msgstr "파일 타입"
 msgid "@common-file-type-all"
 msgstr "모든 타입"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-audio"
 msgstr "오디오"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-documents"
 msgstr "워드/한글"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-images"
 msgstr "이미지"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-presentations"
 msgstr "파워포인트"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-spreadsheets"
 msgstr "엑셀"
 
-#: client/app/right/right.html
+#: client/app/header/header.html client/app/right/right.html
 msgid "@common-file-type-video"
 msgstr "비디오"
 
@@ -361,6 +374,10 @@ msgstr "파일"
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "이미 JANDI 모바일 앱이 있으십니까?"
+
+#: client/app/modal/team_member_list/team.member.list.html
+msgid "@common-inactive-member"
+msgstr "차단 멤버"
 
 #: client/app/modal/settings.profile.html
 msgid "@common-info-basic"
@@ -385,7 +402,7 @@ msgstr "언어"
 
 #: client/app/right/right.html
 msgid "@common-member"
-msgstr "멤버"
+msgstr "업로드한 멤버"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -503,8 +520,7 @@ msgstr "비공개"
 msgid "@common-type-public"
 msgstr "공개"
 
-#: client/app/header/header.html client/app/modal/upload.html
-#: client/app/right/right.html
+#: client/app/modal/upload.html client/app/right/right.html
 msgid "@common-upload-file"
 msgstr "파일 업로드"
 
@@ -515,6 +531,14 @@ msgstr "홈페이지 방문하기"
 #: client/app/modal/settings.team.html
 msgid "@common-warning"
 msgstr "경고"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-post"
+msgstr "으로부터 차단되었습니다. 자세한 사항은 팀 관리자에게 문의하세요."
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-pre"
+msgstr ""
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -548,13 +572,9 @@ msgstr "더보기 "
 msgid "@file-all"
 msgstr "파일 서랍"
 
-#: client/app/header/header.html
-msgid "@file-audio"
-msgstr "오디오"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
-msgstr "이 파일을 삭제하시겠습니까? 파일의 코멘트는 삭제되지 않습니다."
+msgstr "이 파일을 삭제하시겠습니까? 파일의 댓글은 삭제되지 않습니다."
 
 #: client/app/right/file.html
 msgid "@file-delete-time-msg-post"
@@ -564,21 +584,9 @@ msgstr "에 삭제되었습니다."
 msgid "@file-delete-time-msg-pre"
 msgstr " "
 
-#: client/app/header/header.html
-msgid "@file-image"
-msgstr "이미지"
-
-#: client/app/header/header.html
-msgid "@file-pdf"
-msgstr "PDF"
-
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "현재 100MB 이상의 파일은 업로드 할 수 없습니다."
-
-#: client/app/header/header.html
-msgid "@file-video"
-msgstr "비디오"
 
 #: client/app/header/header.html
 msgid "@file-your"
@@ -719,9 +727,9 @@ msgstr "토픽은 팀의 멤버 누구나 참여할 수 있습니다."
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"- 비공개 토픽은 초대를 받아야만 참여할 수 있으며 참여하지 않은 멤버들에게는 목록조차 노출되지 않습니다."
-"- 비공개 토픽에 공유된 파일은 참여자들만 열람할 수 있습니다."
-"- 비공개/공개 토픽은 생성 이후에 속성을 변경할 수 없습니다."
+"- 비공개 토픽은 초대를 받아야만 참여할 수 있으며 참여하지 않은 멤버들에게는 "
+"목록조차 노출되지 않습니다.- 비공개 토픽에 공유된 파일은 참여자들만 열람할 "
+"수 있습니다.- 비공개/공개 토픽은 생성 이후에 속성을 변경할 수 없습니다."
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -753,8 +761,7 @@ msgstr "대화방으로 초대"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr ""
-"1:1 대화 중에 간편하게 해당 멤버를 다른 대화방으로 초대할 수 있습니다."
+msgstr "1:1 대화 중에 간편하게 해당 멤버를 다른 대화방으로 초대할 수 있습니다."
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
@@ -983,8 +990,7 @@ msgstr "멤버 초대"
 msgid "@team-members"
 msgstr "전체 멤버 보기"
 
-#: client/app/header/header.html
-#: client/app/modal/team_change/team.change.html
+#: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "팀 변경"
 
@@ -1006,8 +1012,8 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"참여 중인 토픽 이외에도 멤버별, 타입별로 정렬이 가능하며, 파일명 검색 또한 "
-"가능합니다."
+"참여 중인 토픽 이외에도 멤버별, 타입별로 정렬이 가능하며, 파일명 검색 또한 가"
+"능합니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
@@ -1027,8 +1033,8 @@ msgstr "메시지 입력과 파일 업로드 "
 msgid "@tutorial-msg-explanation"
 msgstr ""
 "메시지 입력창을 통해 대화를 나눌 수 있습니다. 파일 업로드를 위해서는 왼쪽 아"
-"이콘을 클릭하거나 간단하게 파일을 메시지 창으로  <b>드래그&드롭</b> 하시면 "
-"됩니다."
+"이콘을 클릭하거나 간단하게 파일을 메시지 창으로  <b>드래그&드롭</b> 하시면 됩"
+"니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -1041,17 +1047,17 @@ msgstr "TIPS"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
-"<b>1:1 메시지</b>를 통해 다른 멤버와 직접적으로 대화를 나눌 수 있으며 공유"
-"된 파일은 해당 멤버만 열람할 수 있습니다. 대화 목록을 닫을 수 있지만 대화 내"
-"용은 보존되므로 대화가 다시 시작될 경우 과거 대화 내용을 볼 수 있습니다. "
-"[+추가] 버튼을 눌러 대화를 시작할 수 있습니다. "
+"<b>1:1 메시지</b>를 통해 다른 멤버와 직접적으로 대화를 나눌 수 있으며 공유된 "
+"파일은 해당 멤버만 열람할 수 있습니다. 대화 목록을 닫을 수 있지만 대화 내용"
+"은 보존되므로 대화가 다시 시작될 경우 과거 대화 내용을 볼 수 있습니다. [+추"
+"가] 버튼을 눌러 대화를 시작할 수 있습니다. "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
 "<b>비공개 토픽</b>은 초대를 통해서만 참여할 수 있고 공유 파일들도 참여자들에"
-"게만 노출되기 때문에 보안이 필요한 주제일 경우 이용할 수 있습니다. [+추가] "
-"메뉴를 통해 토픽 속성을 선택할 수 있습니다."
+"게만 노출되기 때문에 보안이 필요한 주제일 경우 이용할 수 있습니다. [+추가] 메"
+"뉴를 통해 토픽 속성을 선택할 수 있습니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
@@ -1060,10 +1066,10 @@ msgstr "공개 토픽과 비공개 토픽, 1:1 메시지 "
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"<b>토픽</b>은 다양한 주제별로 대화를 나눌 수 있는 단체대화방이라고 할 수 있"
-"습니다. 토픽에서는 현재 진행 업무부터 점심 메뉴까지 다양한 주제에 대해 자유"
-"롭게 의견을 나눌 수 있으며, [☰더보기] 를 누르시면 현재 존재하는 공개 토픽 목"
-"록을 확인 후 참여하실 수 있습니다."
+"<b>토픽</b>은 다양한 주제별로 대화를 나눌 수 있는 단체대화방이라고 할 수 있습"
+"니다. 토픽에서는 현재 진행 업무부터 점심 메뉴까지 다양한 주제에 대해 자유롭"
+"게 의견을 나눌 수 있으며, [☰더보기] 를 누르시면 현재 존재하는 공개 토픽 목록"
+"을 확인 후 참여하실 수 있습니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -1082,7 +1088,7 @@ msgstr "Welcome to JANDI!"
 
 #: client/app/left/left.html
 msgid "@user"
-msgstr "사용자"
+msgstr "1:1 대화방"
 
 #: client/app/center/center.html
 msgid "@user-menu-star"
@@ -1116,9 +1122,17 @@ msgstr " "
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
 
-#, fuzzy
-#~ msgid "@common-deleted-file-msg"
-#~ msgstr "파일"
+#~ msgid "@file-audio"
+#~ msgstr "오디오"
+
+#~ msgid "@file-image"
+#~ msgstr "이미지"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDF"
+
+#~ msgid "@file-video"
+#~ msgstr "비디오"
 
 #~ msgid "@pg-menu-delete"
 #~ msgstr "비공개 그룹 삭제하기"
@@ -1168,23 +1182,23 @@ msgstr "JANDI 메시지"
 
 #~ msgid "@tutorial-intro"
 #~ msgstr ""
-#~ "잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위"
-#~ "해 만들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 {{user."
+#~ "잔디는 여러분의 팀 커뮤니케이션이 좀 더 빠르고 유연할 수 있도록 돕기 위해 "
+#~ "만들어졌습니다. 잔디를 사용하실 때 꼭 알고계셔야 할 세 가지를 {{user."
 #~ "name}}님을 위해 골랐으니 한 번 확인해주세요. 깜빡이는 아이콘을 한 번씩 클"
 #~ "릭해 주세요! "
 
 #~ msgid ""
 #~ "@tutorial-file-msg1\n"
-#~ "            <!--모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 "
-#~ "파일들을 볼 수 있는 사이트 메뉴가 열리고 다시 한 번 클리하면 닫히게 됩니"
+#~ "            <!--모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파"
+#~ "일들을 볼 수 있는 사이트 메뉴가 열리고 다시 한 번 클리하면 닫히게 됩니"
 #~ "다.-->"
 #~ msgstr ""
 #~ "모든 파일을 클릭하시면 현재 토픽 또는 대화에서 공유됐던 파일들을 볼 수 있"
-#~ "는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다. 참여 중인 토"
-#~ "픽 또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬이 가능하"
-#~ "며, 파일명으로 검색 또한 가능합니다. 각 파일 오른쪽에 메뉴 버튼(☰)을 클릭"
-#~ "하시면 다른 채널에 공유하거나 댓글을 남길 수도 있으며 곧바로 다운로드 하"
-#~ "실 수도 있습니다."
+#~ "는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다. 참여 중인 토픽 "
+#~ "또는 그룹 뿐만이 아니라 다른 토픽이나 멤버별, 타입별로도 정렬이 가능하며, "
+#~ "파일명으로 검색 또한 가능합니다. 각 파일 오른쪽에 메뉴 버튼(☰)을 클릭하시"
+#~ "면 다른 채널에 공유하거나 댓글을 남길 수도 있으며 곧바로 다운로드 하실 수"
+#~ "도 있습니다."
 
 #~ msgid ""
 #~ "@tutorial-msg-explanation\n"
@@ -1484,8 +1498,8 @@ msgstr "JANDI 메시지"
 
 #~ msgid "Please use Private Group for a closed channel."
 #~ msgstr ""
-#~ "특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 "
-#~ "생성하여 초대해 주시기 바랍니다."
+#~ "특정 멤버들과만 공유하고 싶은 채널을 만들고 싶은 경우에는 비공개 그룹을 생"
+#~ "성하여 초대해 주시기 바랍니다."
 
 #~ msgid "'s"
 #~ msgstr "님의"
