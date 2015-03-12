@@ -538,7 +538,7 @@ msgstr "으로부터 차단되었습니다. 자세한 사항은 팀 관리자에
 
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-pre"
-msgstr ""
+msgstr " "
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
