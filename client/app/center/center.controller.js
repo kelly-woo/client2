@@ -1112,5 +1112,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // Callback when window gets focused.
   window.onfocus = function() {
     $scope.hasFocus = true;
+    _clearBadgeCount($scope.currentEntity);
   };
+
+  /**
+   * If badge count was incremented while un-focused state,
+   * still keep track of badge counts and display on left side.
+   *
+   * However, when user comes back to JANDI, clear badge count of currently looking entity.
+   *
+   * @param entity
+   * @private
+   */
+  function _clearBadgeCount(entity) {
+    if (!entity || !entity.alarmCnt) return;
+
+    entityAPIservice.updateBadgeValue(entity, '');
+  }
 });
