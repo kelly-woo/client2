@@ -814,9 +814,8 @@ by ysyun 2015.2.25
 
 @media (max-width: 960px) {
   .center-panel-disabled-member.panel-title-container .disabled-member-notice-msg {
-    margin-right: 0;
+    margin-right: 4px;
     width: 50%;
-
   }
 }
 @media (max-width: 650px) {

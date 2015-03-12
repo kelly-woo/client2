@@ -281,7 +281,7 @@ msgstr "ダイレクトメッセージ一覧"
 
 #: client/app/center/center.html
 msgid "@common-disabled-member-notice-msg-short"
-msgstr ""
+msgstr "このメンバーは現在無効化されています"
 
 #: client/app/modal/profile.view.html
 msgid "@common-disabled-member-profile-msg"

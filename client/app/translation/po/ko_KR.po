@@ -278,7 +278,7 @@ msgstr "1:1 메시지"
 
 #: client/app/center/center.html
 msgid "@common-disabled-member-notice-msg-short"
-msgstr ""
+msgstr "차단된 멤버입니다"
 
 #: client/app/modal/profile.view.html
 msgid "@common-disabled-member-profile-msg"

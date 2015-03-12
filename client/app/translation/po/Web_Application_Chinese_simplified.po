@@ -275,7 +275,7 @@ msgstr "直接传讯"
 
 #: client/app/center/center.html
 msgid "@common-disabled-member-notice-msg-short"
-msgstr ""
+msgstr "这成员已经被暂时关闭"
 
 #: client/app/modal/profile.view.html
 msgid "@common-disabled-member-profile-msg"
