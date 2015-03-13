@@ -995,7 +995,7 @@ msgstr "チームメンバー"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
-msgstr "他のチームに切り替える"
+msgstr "ホームに戻る"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"

@@ -970,7 +970,7 @@ msgstr "團隊成員"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
-msgstr "更換團隊"
+msgstr "回到首頁"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
