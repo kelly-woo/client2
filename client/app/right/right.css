@@ -86,63 +86,7 @@
 
 
 
-.rpanel-header-toolbar {
-  position: relative;
-  border-bottom: 1px solid #ebebeb;
-  background-color: white;
-}
-.rpanel-header-toolbar .rpanel-body-search {
 
-}
-
-.rpanel-header-toolbar .rpanel-body-search .add-on-left {
-  height: 22px;
-  border-right: 0;
-  border-top-left-radius: 22px;
-  border-bottom-left-radius: 22px;
-  padding: 3px 0 0 6px;
-  font-size: 16px;
-}
-
-.rpanel-header-toolbar .rpanel-body-search .rpanel-body-search__input {
-  height: 22px;
-  background-color: #f2f2f2;
-  border: 1px solid #d2d2d2;
-  border-radius: 22px;
-  font-size: 12px;
-  color: #999;
-  line-height: 15px;
-  padding: 4px 12px 4px 30px;
-}
-.rpanel-header-toolbar .rpanel-body-search .add-on-right {
-  top: 14px;
-  right: 19px;
-}
-.advanced-search-option-container {
-  padding: 0 13px;
-}
-.advanced-search-option__category {
-  width: 30%;
-  margin-right: 3%;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-.advanced-search-option__category:last-child {
-  margin-right: 0;
-}
-.advanced-search-option__category select {
-  width: 100%;
-  border-radius: 0;
-  border: 1px solid #d2d2d2;
-  height: 24px;
-  font-size: 12px;
-  background-color: white;
-}
-.advanced-search-option__title {
-  font-size: 12px;
-  color: #333;
-  margin-bottom: 4px;
-}
 .rpanel-header-toolbar__users { vertical-align: baseline; }
 
 .rpanel-header-toolbar .btn-user { min-width: 80px; }
@@ -493,4 +437,67 @@
 .rpanel-loading {
   position: relative;
   padding: 27px;
+}
+
+
+/********************
+
+
+*********************/
+.rpanel .tab-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 75px;
+  bottom: 0;
+}
+.rpanel-body {
+  /*position: absolute;*/
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  overflow: auto;
+  /*padding: 0 17px;*/
+}
+
+.rpanel-body-content {
+  padding: 20px 18px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 72px;
+  overflow-y: auto;
+}
+
+.rpanel-body-content__result-msg {
+  padding: 8px;
+  color: #666;
+  text-align: center;
+  padding: 45px 10px;
+  background: white;
+}
+
+.rpanel-body-tab-container .nav-tabs {
+  cursor: pointer;
+}
+.rpanel-body-tab-container .nav-tabs > li > a {
+  border-radius: 0;
+  padding: 0;
+  text-align: center;
+  width: 102px;
+  font-size: 14px;
+  color: #999999;
+  height: 35px;
+  line-height: 35px;
+}
+
+.rpanel-body-tab-container .nav-tabs > li.active > a {
+  color: #333;
+}
+
+.rpanel-body-tab-container .nav-tabs > li > a,
+.rpanel-body-tab-container .nav-tabs > li > a:hover {
+  border: 0;
 }

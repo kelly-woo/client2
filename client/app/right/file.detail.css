@@ -114,45 +114,6 @@
   left: 175px;
   top: 25px;
 }
-.rpanel-body {
-  position: absolute;
-  top: 46px;
-  left: 0;
-  right: 0;
-  bottom: 10px;
-  overflow: auto;
-  padding: 0 17px;
-}
-.rpanel-body-content {
-  background-color: white;
-}
-.rpanel-body-search {
-  padding: 11px;
-  background-color: white;
-}
-.rpanel-body-search__icon {
-  top: 10px;
-  left : 10px;
-}
-
-.rpanel-body-search__input {
-  height: 40px;
-  border-left: none;
-  border-radius: 0;
-}
-.rpanel-body-search__input:focus {
-  border: 1px solid #31c08a;
-  border-left: none;
-  box-shadow: none;
-}
-
-.rpanel-body-content__result-msg {
-  padding: 8px;
-  color: #666;
-  text-align: center;
-  padding: 45px 10px;
-  background: white;
-}
 
 
 .file-detail-header,

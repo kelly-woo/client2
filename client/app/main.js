@@ -21,7 +21,6 @@ app.config(function ($stateProvider) {
             leftPanel: function (leftpanelAPIservice, publicService, storageAPIservice) {
               return leftpanelAPIservice.getLists()
                 .error(function(err) {
-                  console.log('lkjasdlfjal;sdkfjl;')
                   publicService.signOut();
                 });
             }
@@ -33,7 +32,7 @@ app.config(function ($stateProvider) {
         },
         'rightpanel': {
           templateUrl: 'app/right/right.html',
-          controller: 'rightpanelController'
+          controller: 'rPanelCtrl'
         },
         'detailpanel': {
           templateUrl : 'app/right/file.html',
@@ -78,11 +77,7 @@ app.config(function ($stateProvider) {
       }
     })
     .state('archives', {
-      url         : '/archives/{entityType}/{entityId}',
-      template    : '<h1>팀사이트 > Recent Activity of {{userId}}</h1>',
-      controller  : function($scope, $stateParams) {
-        $scope.userId = $stateParams.entityId;
-      }
+      url         : '/archives/{entityType}/{entityId}'
     })
     .state('files', {
       url         : '/files/{userName}/{itemId}',

@@ -1,0 +1,29 @@
+.rpanel-search {
+  padding: 8px 18px;
+}
+
+.rpanel-search .add-on-left {
+  border-right: 0;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  font-size: 16px;
+
+  position: absolute;
+  top: 14px;
+  left : 26px;
+}
+.rpanel-search input {
+  height: auto;
+  font-size: 12px;
+  padding: 4px 12px 2px 30px;
+
+  border: 1px solid #d2d2d2;
+  border-radius: 22px;
+
+  background-color: white;
+}
+.rpanel-header-toolbar {
+  position: relative;
+  border-bottom: 1px solid #ebebeb;
+  background-color: white;
+}

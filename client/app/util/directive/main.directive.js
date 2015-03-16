@@ -121,33 +121,7 @@ app.directive('lazy', function($timeout) {
 });
 
 
-app.directive('infiniteScrollBottom', function() {
-  return function(scope, element, attr) {
 
-    var fileList = $('.file-list');
-    var rpanelBody = $('.rpanel-body');
-
-    element.bind('mousewheel', function(event) {
-      if (scope.isScrollLoading) return;
-
-      if (fileList.height() <= rpanelBody.height()) {
-        scope.loadMore();
-      }
-    });
-
-    element.bind('scroll', function(event) {
-      if (scope.isScrollLoading) return;
-
-      var currentScrollPosition = element.scrollTop() + element.height();
-      var elementHeight = $('.file-list').height();
-
-      if (currentScrollPosition > elementHeight ) {
-        scope.loadMore();
-      }
-
-    });
-  };
-});
 
 app.directive('rotate', function () {
   return {
