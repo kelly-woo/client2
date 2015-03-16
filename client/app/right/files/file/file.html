@@ -21,8 +21,7 @@
     <!-- FILE AUTHOR(FILE UPLOADER) AND UPLOADED TIME-->
     <!-- TODO: implement or link 'onUserClick()'    -->
     <div class="file-item-body__author__time">
-      <span data-ng-click="onUserClick(file.writer);"
-            class="file-item-body-author cursor_pointer"
+      <span class="file-item-body-author cursor_pointer"
             ng-class="{'right-panel-disabled-member': isDisabledMember(file.writer)}">
         {{file.writer|getName }}
       </span>

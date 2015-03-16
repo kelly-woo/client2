@@ -408,19 +408,7 @@
       }
     };
 
-    $scope.setCommentFocus = function(file) {
-      if ($state.params.itemId != file.id) {
-        $rootScope.setFileDetailCommentFocus = true;
 
-        $state.go('files', {
-          userName    : file.writer.name,
-          itemId      : file.id
-        });
-      }
-      else {
-        fileAPIservice.broadcastCommentFocus();
-      }
-    };
 
     $scope.isDisabledMember = function(member) {
       return _isDisabledMember(member);

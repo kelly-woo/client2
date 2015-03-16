@@ -10,6 +10,7 @@
 
     $scope.onFileItemClick = onFileItemClick;
     $scope.onFileDeleteClick = onFileDeleteClick;
+    $scope.setCommentFocus = setCommentFocus;
 
     function onFileItemClick() {
       $state.go('files', {userName: file.writer.name, itemId: file.id});
@@ -34,7 +35,19 @@
         });
     }
 
-  }
+    function setCommentFocus() {
+      if ($state.params.itemId != file.id) {
+        $rootScope.setFileDetailCommentFocus = true;
 
+        $state.go('files', {
+          userName    : file.writer.name,
+          itemId      : file.id
+        });
+      }
+      else {
+        fileAPIservice.broadcastCommentFocus();
+      }
+    }
+  }
 
 })();
