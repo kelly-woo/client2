@@ -6,7 +6,6 @@
   bottom: 0;
   background-color: #fff;
   border-left: 1px solid #e1e1e1;
-  border-top: 1px solid #e1e1e1;
   z-index: 1;
 }
 .rpanel.extend {
@@ -83,10 +82,6 @@
 .rpanel-header-headding__files-add__more {
   left: 0;
 }
-
-
-
-
 .rpanel-header-toolbar__users { vertical-align: baseline; }
 
 .rpanel-header-toolbar .btn-user { min-width: 80px; }
@@ -163,41 +158,8 @@
   transitionDISABLED: .1s;
 }
 
-.file-list {
-  background: none;
-}
 
 
-.file-list__item {
-  position: relative;
-  clear: both;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-  padding: 8px;
-  border-bottom: 1px solid #ebebeb;
-  min-height: 65px;
-  background-color: white;
-}
-.file-list__item .pull-left {
-  margin-right: 10px;
-}
-.file-list__item:hover {
-  background: #eefcf7;
-}
-
-/*
-    APPLYING OPAC ANIMATION TO FILE-LIST__ITEM
-    EXCEPT FILE-ACTION DROPDOWN
-*/
-.file-list__item .msg-file-body__img,
-.file-list__item .msg-file-body__thumbnail,
-.file-list__item .file-item-body,
-.file-list__item .white-background {
-  -webkit-animation: opacIn-from-0 0.5s; /* Chrome, Safari, Opera */
-  animation: opacIn-from-0 0.5s;
-}
 .white-background {
   width: 100%;
   height: 100%;
@@ -223,81 +185,22 @@
 .file-item-meta__size {
   color: #666;
 }
-.file-item-body {
-  padding-left: 77px;
-  min-height: 65px;
-}
-.file-item-body__author__time {
-  width: 100%;
-  text-align: left;
-  padding-top: 0;
-  line-height: 30px;
-}
-.file-item-body-author {
-  font-size: 14px;
-  color: #333;
-  margin-right: 3px;
-}
 .file-item-body-author:hover {
-}
-.file-item-meta__createtime,
-.file-item-meta__comments {
-  font-size: 12px;
-  color: #999;
-}
-.file-item-meta__comments {
-  background-position: 0px 0px;
-  background-repeat: no-repeat;
-  line-height: 14px;
-  padding-left: 14px;
-}
-.file-item-meta__comments:empty {
-  margin-left: 100px;
-}
-.file-item-body__title {
-  position: relative;
-  -ms-word-wrap: break-word;
-  word-wrap: break-word;
-  margin: 4px 0;
-  font-size: 15px;
-  color: #333;
 }
 .share-modal-file-item-body__title{
   max-width: 100%;
-}
-.file-item-body-title {
-  color: #333;
-  /*font-weight: 700;*/
-  max-width: 285px;
-  vertical-align: top;
-  padding-bottom: 2px;
 }
 .file-item-body-title:hover {
   text-decoration: underline;
 }
 
-.file-item-body-title__more {
-  position: absolute;
-  top: 26px;
-  right: 8px;
-  color:#999;
-}
-
+¬
 .file-item-meta__action .tooltip,
 .file-item-body-title__more .tooltip{
   width: 76px;
 }
 .file-item-body-title__more:hover{
   color: #333;
-}
-.file-item-body-title__more .icon-more {
-  font-size: 21px;
-}
-.file_action_dropdown {
-  left: auto;
-  right: 0;
-  top: 14px;
-  float: none;
 }
 
 .file-item {
@@ -341,9 +244,6 @@
 }
 .file-item-body__type-other {
 
-}
-.file-item-meta {
-  text-align: left;
 }
 
 .file-item-meta .glyphicon {
@@ -461,23 +361,7 @@
   /*padding: 0 17px;*/
 }
 
-.rpanel-body-content {
-  padding: 20px 18px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 72px;
-  overflow-y: auto;
-}
 
-.rpanel-body-content__result-msg {
-  padding: 8px;
-  color: #666;
-  text-align: center;
-  padding: 45px 10px;
-  background: white;
-}
 
 .rpanel-body-tab-container .nav-tabs {
   cursor: pointer;
@@ -489,7 +373,7 @@
   width: 102px;
   font-size: 14px;
   color: #999999;
-  height: 35px;
+  height: 36px;
   line-height: 35px;
 }
 
@@ -497,7 +381,9 @@
   color: #333;
 }
 
+.rpanel-body-tab-container .nav-tabs > li:first-child > a {
+  border-left: 0;
+}
 .rpanel-body-tab-container .nav-tabs > li > a,
 .rpanel-body-tab-container .nav-tabs > li > a:hover {
-  border: 0;
 }

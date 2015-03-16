@@ -2,9 +2,9 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileController', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice, publicService) {
+app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice, publicService) {
 
-  //console.info('[enter] fileController');
+  //console.info('[enter] fileDetailCtrl');
 
   var fileId = $state.params.itemId;
 
@@ -243,7 +243,6 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
         //$state.go('messages.detail.files');
 
         $rootScope.$broadcast('onFileDeleted', fileId);
-        console.log('here')
       })
       .error(function(err) {
         console.log(err);

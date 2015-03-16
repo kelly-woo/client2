@@ -1,0 +1,110 @@
+<div class="file-list__item cursor_pointer" ng-click="onFileItemClick();">
+
+  <!--    IMAGE THUMBNAIL -->
+  <div class="image_wrapper pull-left">
+    <img rotate rotate-width="65" rotate-height="65" class="cursor_pointer msg-file-body__img"
+         data-ng-show="(file.content.type).indexOf('image') !== -1"
+         data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"
+         data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>
+  </div>
+
+  <!--    IF NOT IMAGE TYPE, SHOW FILE TYPE PREVIEW   -->
+  <div class="msg-file-body__thumbnail pull-left"
+       data-ng-if="(file.content.type).indexOf('image') == -1">
+    <div class="fileicon fileicon_{{ file.content.type | getFileIconImage | lowercase}}"></div>
+
+  </div>
+
+  <!-- OTHER INFORMATION ABOUT FILE: TITLE, UPLOADED TIME, SHARED CHANNELS, LINK TO NEW TAB -->
+  <div class="file-item-body">
+
+    <!-- FILE AUTHOR(FILE UPLOADER) AND UPLOADED TIME-->
+    <!-- TODO: implement or link 'onUserClick()'    -->
+    <div class="file-item-body__author__time">
+      <span data-ng-click="onUserClick(file.writer);"
+            class="file-item-body-author cursor_pointer"
+            ng-class="{'right-panel-disabled-member': isDisabledMember(file.writer)}">
+        {{file.writer|getName }}
+      </span>
+      <span class="file-item-meta__createtime">{{ file.createTime | getyyyyMMddformat }}</span>
+      <span class="file-item-meta__comments">{{ file.commentCount }}</span>
+    </div>
+
+    <!-- FILE TITLE -->
+    <div class="file-item-body__title">
+      <span class="file-item-body-title">
+        {{ file.content.title }}
+      </span>
+    </div>
+
+    <!--    UPLOADED TIME, SHARED CHANNELS/PRIVATEGROUPS, LINK
+            CURRENTLY HIDDEN    -->
+    <div class="file-item-meta file-item-meta__listview hidden">
+      <div data-ng-if="file.shared.length" class="file-item-meta__info">
+        <span translate>@common-shared-in</span>
+        <span data-ng-repeat="sharedEntity in filteredSharedFile = (file.shared | filter : {type:'!user'}) track by $index">
+          <span data-ng-hide="($index === 0)">, </span>
+          <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+            {{ sharedEntity.prefix }}{{ sharedEntity.name }}
+          </span>
+          <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(file, sharedEntity)">
+            <i class="fa fa-minus-circle"></i>
+          </a>
+        </span>
+        <span data-ng-show="file.shared.length != filteredSharedFile.length">
+          <!--<span data-ng-show="filteredSharedFile.length != 0"> and </span>with users.-->
+        </span>
+      </div>
+
+      <div class="file-item-meta__empty file-item-meta__info" data-ng-hide="file.shareEntities.length != 0">
+        <span translate>@alert-empty-file-shared</span>
+      </div>
+
+      <div class="file-item-meta-open file-item-meta__info">
+        <a class="file-item-meta-open__public cursor_pointer" href="{{ server_uploaded + file.content.fileUrl }}" target="{{ server_uploaded + file.content.fileUrl }}">
+          <span translate>@msg-open-original</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!--    DROPDOWN MENU   -->
+  <div class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
+
+    <i class="icon-more dropdown-toggle" tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="bottom"></i>
+
+
+    <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
+      <li class="cursor_pointer">
+        <a data-ng-click="onClickShare(file);">
+          <i class="icon-share"></i>
+          <span translate>@btn-share</span>
+        </a>
+      </li>
+
+      <li class="cursor_pointer">
+        <a data-ng-click="setCommentFocus(file);">
+          <i class="fa fa-comment-o"></i>
+          <span translate>@btn-comment</span>
+        </a>
+      </li>
+
+      <li class="cursor_pointer">
+        <a href="{{ server_uploaded  + 'download/' + file.content.fileUrl }}" download="{{ file.content.name }}">
+          <i class="icon-download"></i>
+          <span translate>@common-download</span>
+        </a>
+      </li>
+
+      <li class="cursor_pointer" ng-if="file | isFileWriter:member">
+        <a data-ng-click="onFileDeleteClick(file.id)">
+          <i class="fa fa-minus-circle"></i>
+          <span translate>@message-delete</span>
+        </a>
+      </li>
+
+
+    </ul>
+  </div>
+</div>

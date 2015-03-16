@@ -11,7 +11,7 @@
       restrict: 'EA',
       scope: true,
       link: link,
-      templateUrl : 'app/right/file_tab/file.html',
+      templateUrl : 'app/right/files/files.html',
       controller: 'rPanelFileTabCtrl'
     };
 

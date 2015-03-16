@@ -5,13 +5,17 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
+  function rPanelFileTabCtrl($scope, $rootScope, $modal, $filter, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
     var disabledMemberAddedOnSharedBy = false;
 
 
+
+    $scope.$on('onFileDeleted', function() {
+      _refreshFileList();
+    });
 
     //  fileRequest.writerId - 작성자
     $scope.$watch('fileRequest.writerId', function(newValue, oldValue) {
@@ -425,24 +429,6 @@
     function _isDisabledMember(member) {
       return !!member && publicService.isDisabledMember(member);
     }
-
-    $scope.onFileDeleteClick = function(fileId) {
-      if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
-        return;
-      }
-
-      fileAPIservice.deleteFile(fileId)
-        .success(function(response) {
-          $rootScope.$broadcast('onFileDeleted', fileId);
-        })
-        .error(function(err) {
-          console.log(err);
-        })
-        .finally(function() {
-
-        });
-    };
-
 
   }
 

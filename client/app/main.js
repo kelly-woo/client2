@@ -35,8 +35,8 @@ app.config(function ($stateProvider) {
           controller: 'rPanelCtrl'
         },
         'detailpanel': {
-          templateUrl : 'app/right/file.html',
-          controller  : 'fileController'
+          templateUrl : 'app/right/file.detail/file.detail.html',
+          controller  : 'fileDetailCtrl'
         }
       }
     })
@@ -71,8 +71,8 @@ app.config(function ($stateProvider) {
       params      : [ 'entityType', 'entityId', 'userName', 'itemId' ],
       views       : {
         'detailpanel@': {
-          templateUrl : 'app/right/file.html',
-          controller  : 'fileController'
+          templateUrl : 'app/right/file.detail/file.detail.html',
+          controller  : 'fileDetailCtrl'
         }
       }
     })
