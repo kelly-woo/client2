@@ -5,22 +5,45 @@ var app = angular.module('jandiApp');
 app.controller('headerController', function($scope, $rootScope, $state, $filter, $modal, authAPIservice, memberService, publicService, configuration) {
   //console.info('[enter] headerController');
 
-  $scope.status = {
-    menu: {
-      open: false
-    },
-    file: {
-      open: false
-    },
-    settings: {
-      open: false
-    }
+  (function() {
+    _initRightPanelButtonLabel();
+  })();
+
+  $scope.$on('$stateChangeSuccess', function() {
+    _initRightPanelButtonLabel();
+  });
+
+
+
+
+  //  Called when header dropdown is clicked.
+  //  Setting fileTypeQuery to clicked value.
+  //  If right panel is not opened yet, open it first.
+  //  right.controller is listening to 'updateFileTypeQuery'.
+  $scope.onFileTypeClick = function(type) {
+    if ($state.current.name != 'messages.detail.files')
+      $state.go('messages.detail.files');
+    $scope.$emit('updateFileTypeQuery', type);
+  };
+  //  right controller is listening to 'updateFileWriterId'.
+  $scope.onFileListClick = function(userId) {
+    if ($state.current.name != 'messages.detail.files')
+      $state.go('messages.detail.files');
+    $scope.$emit('updateFileWriterId', userId);
   };
 
-  $scope.isUserAuthorized = function() {
-    return memberService.isAuthorized($scope.user);
-  };
 
+
+  $scope.toAdmin = function() {
+    var teamName = $filter('getName')($scope.team)
+    publicService.redirectTo(configuration.main_address + 'admin/' + teamName);
+  };
+  $scope.toTeam = function() {
+    publicService.redirectTo(configuration.main_address + 'team');
+  };
+  $scope.onSignOutClick =function() {
+    publicService.signOut();
+  };
   $scope.openModal = function(selector) {
     switch(selector) {
       case 'agreement':
@@ -75,57 +98,39 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
       });
     }
   };
-
-
-  //  Called when header dropdown is clicked.
-  //  Setting fileTypeQuery to clicked value.
-  //  If right panel is not opened yet, open it first.
-  //  right.controller is listening to 'updateFileTypeQuery'.
-  $scope.onFileTypeClick = function(type) {
-    if ($state.current.name != 'messages.detail.files')
-      $state.go('messages.detail.files');
-    $scope.$emit('updateFileTypeQuery', type);
+  $scope.toggleLoading = function() {
+    $scope.isLoading = !$scope.isLoading;
+  };
+  $scope.isUserAuthorized = function() {
+    return memberService.isAuthorized($scope.user);
   };
 
-  //  right controller is listening to 'updateFileWriterId'.
-  $scope.onFileListClick = function(userId) {
-    if ($state.current.name != 'messages.detail.files')
-      $state.go('messages.detail.files');
-    $scope.$emit('updateFileWriterId', userId);
+  $scope.onShowTutorialClick = function() {
+    $rootScope.$broadcast('initTutorialStatus');
+  };
+  $scope.onTutorialPulseClick = function($event) {
+    $rootScope.$broadcast('onTutorialPulseClick', $event);
   };
 
   $scope.onToggleClick = function() {
-    if ($state.includes('**.files.**')) {
+    if (_isRightPanelVislble()) {
       $state.go('messages.detail');
       return;
     }
     $state.go('messages.detail.files');
   };
 
-  $scope.onShowToturialClick = function() {
-    $rootScope.$broadcast('initTutorialStatus');
-  };
+  function _initRightPanelButtonLabel() {
+    $scope.isRpanelVisible = _isRightPanelVislble();
 
-  $scope.onTutorialPulseClick = function($event) {
-    $rootScope.$broadcast('onTutorialPulseClick', $event);
-
-  };
-
-  $scope.onSignOutClick =function() {
-    publicService.signOut();
-  };
-
-  $scope.toggleLoading = function() {
-    $scope.isLoading = !$scope.isLoading;
-  };
-
-  $scope.toAdmin = function() {
-    var teamName = $filter('getName')($scope.team)
-    publicService.redirectTo(configuration.main_address + 'admin/' + teamName);
-  };
-
-  $scope.toTeam = function() {
-    publicService.redirectTo(configuration.main_address + 'team');
-  };
+    if ($scope.isRpanelVisible) {
+      $scope.rPanelButtonLabel = $filter('translate')('@btn-close');
+    } else {
+      $scope.rPanelButtonLabel = $filter('translate')('@common-search');
+    }
+  }
+  function _isRightPanelVislble() {
+    return $state.includes('**.files.**');
+  }
 
 });
