@@ -1,10 +1,13 @@
 .advanced-search-option-container {
-  padding: 14px 18px 12px;
+  padding: 23px 0 12px 23px;
+  margin-right: 18px;
+  border-right: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
   background-color: white;
 }
 .advanced-search-option__category {
-  width: 30%;
-  margin-right: 3%;
+  width: 123px;
+  margin-right: 12px;
   display: inline-block;
 }
 .advanced-search-option__category:last-child {
@@ -12,14 +15,14 @@
 }
 .advanced-search-option__category select {
   width: 100%;
-  border-radius: 0;
+  border-radius: 0 !important;
   border: 1px solid #d2d2d2;
   height: 24px;
-  font-size: 12px;
+  font-size: 14px;
   background-color: white;
 }
 .advanced-search-option__title {
-  font-size: 12px;
+  font-size: 13px;
   color: #333;
   margin-bottom: 4px;
 }

@@ -78,6 +78,10 @@
   border-radius: 3px;
   border: 1px solid #E1E1E1
 }
+.rpanel-header-heading__files:hover {
+  background-color: #e2e0e3;
+}
+
 .rpanel-header-heading__files .icon-upload {
   font-size: 16px;
 }
@@ -354,7 +358,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 75px;
+  top: 76px;
   bottom: 0;
 }
 .rpanel-body {
@@ -371,6 +375,8 @@
 
 .rpanel-body-tab-container .nav-tabs {
   cursor: pointer;
+  margin-right: 18px;
+  border-bottom: 1px solid #e1e1e1;
 }
 .rpanel-body-tab-container .nav-tabs > li > a {
   border-radius: 0;
@@ -381,10 +387,14 @@
   color: #999999;
   height: 36px;
   line-height: 35px;
+  background-color: #e2e0e3;
+  margin-right: 0;
 }
 
 .rpanel-body-tab-container .nav-tabs > li.active > a {
   color: #333;
+  background-color: white;
+  border-bottom: 0;
 }
 
 .rpanel-body-tab-container .nav-tabs > li:first-child > a {
@@ -392,4 +402,5 @@
 }
 .rpanel-body-tab-container .nav-tabs > li > a,
 .rpanel-body-tab-container .nav-tabs > li > a:hover {
+  border-color: #e2e0e3;
 }

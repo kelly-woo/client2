@@ -1,20 +1,18 @@
 .rpanel-search {
-  padding: 8px 18px;
+  /*padding: 8px 18px;*/
+  padding-left: 18px;
+  padding-top: 9px;
   height: 40px;
 }
 
 .rpanel-search .add-on-left {
-  border-right: 0;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-  font-size: 16px;
-
   position: absolute;
   top: 14px;
   left : 26px;
 }
 .rpanel-search input {
-  height: auto;
+  width: 436px;
+  height: 22px;
   font-size: 12px;
   padding: 4px 12px 2px 30px;
 
