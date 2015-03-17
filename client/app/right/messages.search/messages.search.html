@@ -1,0 +1,39 @@
+<!--    ADVANCED SEARCH OPTION  -->
+<div class="advanced-search-option-container">
+
+  <!--   CHAT ROOM  -->
+  <div class="advanced-search-option__category">
+    <div class="advanced-search-option__title">
+      <span translate>@common-shared-in</span>
+    </div>
+
+    <select ng-model="sharedEntitySearchQuery"
+            ng-options="channel as channel|getName group by channel.typeCategory for channel in selectOptions | orderBy: 'name'">
+      <option value="">{{ '@option-all-rooms' | translate }}</option>
+    </select>
+
+  </div>  <!--  END OF CHAT ROOM  -->
+
+  <!--   FILE WRITER  -->
+  <div class="advanced-search-option__category">
+    <div class="advanced-search-option__title">
+      <span translate>@common-member</span>
+    </div>
+
+    <select ng-model="fileRequest.writerId"
+            ng-options="user.id as user | getName for user in selectOptionsUsers | orderBy: 'name'">
+      <option value="">{{ '@option-all-members' | translate }}</option>
+    </select>
+
+  </div>  <!-- END OF FILE WRTIER -->
+
+  <!--    FILE TYPE  -->
+  <div class="advanced-search-option__category">
+    <div class="advanced-search-option__title">
+      <span translate>@common-file-type</span>
+    </div>
+    <select ng-model="fileTypeFilter"
+            ng-options="type.viewValue| upperFirstCharacter for type in fileTypeList"></select>
+  </div>  <!-- END OF FILE TYPE -->
+
+</div>  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
