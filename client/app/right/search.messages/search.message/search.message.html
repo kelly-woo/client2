@@ -1,0 +1,13 @@
+<div class="rpanel-search-message-card">
+  <div class="entity">
+    <span class="title">{{ message.entity.name }}</span>
+    <span class="time pull-right">{{ message.current.time | getyyyyMMddformat }}</span>
+  </div>
+
+  <neighbor-item message="prev" ng-if="prev" class="neighbor"></neighbor-item>
+
+  <neighbor-item message="current" ng-if="prev" class="current"></neighbor-item>
+
+  <neighbor-item message="next" ng-if="next" class="neighbor"></neighbor-item>
+
+</div>

@@ -1,0 +1,16 @@
+<div>
+    <span class="writer">
+      {{ message.memberId | getName}}
+    </span>
+
+  <span class="file-indicator" ng-if="isFile">
+    <span class="type-icon" ng-class="{ 'icon-share': isShared,
+                                        'icon-icon-unshare': isUnShared,
+                                        'file-item-meta__comments': isComment}">
+    </span>
+  <span class="file-writer">{{ message.file.writerId | getName}}</span> |
+  <span class="file-title">{{ message.file.title }}</span>
+</span>
+
+  {{ message.text }}
+</div>

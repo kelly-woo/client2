@@ -1,0 +1,73 @@
+<div class="rpanel-message-search">
+
+  <!--    ADVANCED SEARCH OPTION  -->
+  <div class="advanced-search-option-container">
+
+    <!--   장소  -->
+    <div class="advanced-search-option__category">
+      <div class="advanced-search-option__title">
+        <span translate>@common-entity-location</span>
+      </div>
+
+      <select ng-model="messageLocation"
+              ng-options="channel as channel|getName group by channel.typeCategory for channel in chatRoomOptions | orderBy: 'name'">
+        <option value="">{{ '@option-all-rooms' | translate }}</option>
+      </select>
+
+    </div>  <!--  END OF 장소 -->
+
+    <!--   작성자  -->
+    <div class="advanced-search-option__category">
+      <div class="advanced-search-option__title">
+        <span translate>@common-message-writer</span>
+      </div>
+
+      <select ng-model="messageWriter"
+              ng-options="user.id as user | getName for user in chatWriterOptions | orderBy: 'name'">
+        <option value="">{{ '@option-all-members' | translate }}</option>
+      </select>
+
+    </div>  <!-- END OF FILE 작성자 -->
+
+  </div>  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
+
+  <div class="rpanel-body-content" infinite-scroll-bottom="loadMore();">
+
+    <div class="no-search-input-container" ng-if="isSearchQueryEmpty" ng-click="setSearchInputFocus();">
+      <i class="icon-search"></i>
+      <div class="no-search-input-container__text">
+        <span translate>@input-to-search</span>
+      </div>
+    </div>
+
+    <div class="rpanel-message-list">
+
+      <div ng-if="!isSearchQueryEmpty && false">
+        <span ng-if="isSearching"> {{ searchQuery.q }}searching.....</span>
+        <!--<div ng-if="!isSearchQueryEmpty" class="rpanel-body-content__result-msg">-->
+          <!--<span translate>@alert-empty-file-search</span> <strong>{{ searchQuery.q }}</strong>-->
+        <!--</div>-->
+      </div>
+      <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
+      <div class="break-word" ng-if="messageList.length==0 && false">
+        <div class="rpanel-body-content__result-msg rpanel-loading" ng-if="isLoading">
+          <div class="loading_container_background scroll_loading_container_background"></div>
+          <div class="loading_bg scroll_loading_bg"></div>
+          <div class="loading_bar icon-loading scroll_loading_bar"></div>
+        </div>
+      </div>
+
+      <message-search-card data-ng-repeat="message in messageList"></message-search-card>
+
+      <div class="file-list__item loading" ng-if="isScrollLoading">
+        <div class="loading_container_background scroll_loading_container_background"></div>
+        <div class="loading_bg scroll_loading_bg"></div>
+        <div class="loading_bar icon-loading scroll_loading_bar"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+

@@ -47,8 +47,13 @@
 </div>  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
 <div class="rpanel-body-content" infinite-scroll-bottom="loadMore();">
-  <div class="file-list">
 
+  <div class="search-result-container" ng-if="!isSearchQueryEmpty && fileList.length > 0">
+    "<span class="search-result-msg__query">{{fileRequest.keyword}}</span>"
+    <span class="search-result-msg__length">{{fileList.length}}</span>
+  </div>
+
+  <div class="file-list">
     <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
     <div class="break-word" ng-if="fileList.length==0">
       <div class="rpanel-body-content__result-msg rpanel-loading" ng-if="isLoading">

@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $modal, $filter, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
+  function rPanelFileTabCtrl($scope, $rootScope, $modal, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -62,11 +62,15 @@
       _refreshFileList();
     });
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
+
       $scope.fileRequest.keyword = keyword;
       _refreshFileList();
     });
 
     function _refreshFileList() {
+
+      if (!_isFileTabActive()) return;
+
       preLoadingSetup();
       getFileList();
     }
@@ -418,6 +422,9 @@
       return !!member && publicService.isDisabledMember(member);
     }
 
+    function _isFileTabActive() {
+      return $scope.isFileTabActive;
+    }
   }
 
 

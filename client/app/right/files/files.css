@@ -1,5 +1,5 @@
 .advanced-search-option-container {
-  padding: 23px 0 12px 23px;
+  padding: 15px 0 12px 23px;
   margin-right: 18px;
   border-right: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
@@ -27,8 +27,9 @@
   margin-bottom: 4px;
 }
 
+
 .rpanel-body-content {
-  padding: 20px 18px;
+  padding: 13px 18px 20px 18px;
   position: absolute;
   left: 0;
   right: 0;
@@ -36,7 +37,15 @@
   top: 72px;
   overflow-y: auto;
 }
+.search-result-container {
+  margin: 0 0 13px 40px;
+  color: #999999;
+}
 
+.search-result-msg__length,
+.search-result-msg__query {
+  color: #333333
+}
 .file-list {
   background: none;
 }
