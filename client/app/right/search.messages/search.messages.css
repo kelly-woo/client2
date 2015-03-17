@@ -20,3 +20,7 @@
 .rpanel-message-search  .no-search-input-container .no-search-input-container__text {
   margin-top: 20px;
 }
+
+.rpanel-message-search .highlight {
+  background-color: #ffff00;
+}

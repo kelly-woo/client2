@@ -10,7 +10,8 @@
     return {
       restrict: 'EA',
       scope: {
-        message: "="
+        message: "=",
+        query: "="
       },
       replace: true,
       link: link,
@@ -34,6 +35,12 @@
     $scope.isShared = isShared();
     $scope.isUnShared = isUnShared();
     $scope.isComment = isComment();
+
+
+    if ($scope.query) {
+      var query = $scope.query;
+      $('.search-container').highlight(query, {wordsOnly: false, caseSensitive: false});
+    }
 
     function isFile() {
       return message.type != 'text';

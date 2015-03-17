@@ -12,7 +12,7 @@
       scope: true,
       link: link,
       templateUrl : 'app/right/search.messages/search.message/search.message.html',
-      controller: 'rPanelSearchMessageCtrl'
+      controller: 'rPanelMessageSearchCardCtrl'
     };
 
     function link(scope, element, attrs) {

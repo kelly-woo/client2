@@ -21,8 +21,6 @@
         _resetMessageSearchResult();
         return;
       }
-      console.log('setting keyword', keyword)
-
       _refreshSearchQuery();
       _setSearchQueryQ(keyword);
       searchMessages();
@@ -34,7 +32,7 @@
       _initChatRoomOption();
       _initChatWriterOption();
 
-      test();
+      searchMessages();
     })();
 
     function searchMessages() {
@@ -61,7 +59,7 @@
 
     function _initMessageSearchQuery() {
       $scope.searchQuery = {
-        q: '테스트1',
+        q: 'uber',
         page: DEFAULT_PAGE,
         perPage: DEFAULT_PER_PAGE,
         writerId: '',
