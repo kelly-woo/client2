@@ -21,6 +21,9 @@
 
   background-color: white;
 }
+.rpanel-search input:focus {
+  border-color: #31c08a;
+}
 .rpanel-header-toolbar {
   position: relative;
   border-bottom: 1px solid #ebebeb;

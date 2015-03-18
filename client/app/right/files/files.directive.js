@@ -22,13 +22,13 @@
   function infiniteScrollBottom() {
     return function(scope, element, attrs) {
 
-      var fileList = $('.file-list');
-      var rpanelBody = $('.rpanel-body-content');
+      var rpanelBody = element;
+      var list = element.children('.infinite-scroll-bottom-list');
 
       element.bind('mousewheel', function(event) {
         if (scope.isScrollLoading) return;
 
-        if (fileList.height() <= rpanelBody.height()) {
+        if (list.height() <= rpanelBody.height()) {
           scope.$apply(attrs.infiniteScrollBottom);
         }
       });
@@ -38,7 +38,7 @@
         if (scope.isScrollLoading) return;
 
         var currentScrollPosition = element.scrollTop() + element.height();
-        var elementHeight = $('.file-list').height();
+        var elementHeight = list.height();
 
         if (elementHeight - currentScrollPosition < 20) {
           scope.$apply(attrs.infiniteScrollBottom);

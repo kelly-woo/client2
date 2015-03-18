@@ -1,12 +1,17 @@
-<div class="rpanel-search-message-card">
+<div class="rpanel-search-message-card" ng-click="onMessageCardClick();">
   <div class="entity">
+    <i class="entity-icon" ng-class="{ 'icon-user': entity.type == 'user',
+                                          'icon-topic-fill': entity.type == 'channel',
+                                          'icon-private-group': entity.type == 'privateGroup'}">
+
+    </i>
     <span class="title">{{ message.entity.name }}</span>
     <span class="time pull-right">{{ message.current.time | getyyyyMMddformat }}</span>
   </div>
 
   <neighbor-item message="prev" ng-if="prev" class="neighbor"></neighbor-item>
 
-  <neighbor-item message="current" query="searchQuery.q" ng-if="prev" class="current search-container" id="search-current"></neighbor-item>
+  <neighbor-item message="current" query="searchQuery.q" ng-if="prev" class="current search-container break-word" id="search-current"></neighbor-item>
 
   <neighbor-item message="next" ng-if="next" class="neighbor"></neighbor-item>
 

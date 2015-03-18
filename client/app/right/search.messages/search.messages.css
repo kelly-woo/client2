@@ -16,11 +16,21 @@
 .rpanel-message-search  .no-search-input-container .icon-search {
   font-size: 64px;
 }
-
-.rpanel-message-search  .no-search-input-container .no-search-input-container__text {
-  margin-top: 20px;
+.rpanel-alert-msg-container {
+  text-align: center;
+  margin-top: 70px;
+  color: #999;
 }
-
+.rpanel-alert-msg-container__img {
+  display: block;
+  margin: auto;
+}
+.rpanel-alert-msg-container__text {
+  margin-top: 16px;
+}
+.rpanel-alert-msg-container .searchQuery {
+  color: #333;
+}
 .rpanel-message-search .highlight {
   background-color: #ffff00;
 }

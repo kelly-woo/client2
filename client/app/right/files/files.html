@@ -53,7 +53,7 @@
     <span class="search-result-msg__length">{{fileList.length}}</span>
   </div>
 
-  <div class="file-list">
+  <div class="file-list infinite-scroll-bottom-list">
     <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
     <div class="break-word" ng-if="fileList.length==0">
       <div class="rpanel-body-content__result-msg rpanel-loading" ng-if="isLoading">
@@ -62,12 +62,14 @@
         <div class="loading_bar icon-loading scroll_loading_bar"></div>
       </div>
 
-      <div ng-if="!isLoading">
-        <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
+      <div ng-if="!isLoading" class="rpanel-alert-msg-container">
+        <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
+
+        <div ng-if="fileRequest.keyword == ''" class="rpanel-alert-msg-container__text">
           <span translate>@alert-empty-file</span>
         </div>
-        <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
-          <span translate>@alert-empty-file-search</span> <strong>{{ fileRequest.keyword }}</strong>
+        <div ng-if="fileRequest.keyword != ''" class="rpanel-alert-msg-container__text">
+          <span translate>@alert-empty-file-search</span>:<span class="searchQuery">{{ fileRequest.keyword }}</span>
         </div>
       </div>
     </div>

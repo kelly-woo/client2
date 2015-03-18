@@ -10,6 +10,9 @@
 .rpanel-search-message-card .entity {
   margin-bottom: 28px;
 }
+.rpanel-search-message-card .entity-icon {
+  font-size: 14px;
+}
 .rpanel-search-message-card .title {
   color: #333333;
   font-weight: 700;
@@ -63,16 +66,17 @@
 }
 
 .rpanel-search-message-card .current {
-  max-height: 65px;
   margin-bottom: 16px;
-  display: -webkit-box;
   max-width: 100%;
   line-height: 1.1;
+}
+.show4lines {
+  display: -webkit-box;
+  max-height: 65px;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 16px;
 }
 .rpanel-search-message-card .current .writer {
   margin-right: 5px;

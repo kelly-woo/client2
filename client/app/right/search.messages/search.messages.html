@@ -10,7 +10,8 @@
       </div>
 
       <select ng-model="messageLocation"
-              ng-options="channel as channel|getName group by channel.typeCategory for channel in chatRoomOptions | orderBy: 'name'">
+              ng-options="channel as channel|getName group by channel.typeCategory for channel in chatRoomOptions | orderBy: 'name'"
+              ng-change="updateMessageLocationFilter();">
         <option value="">{{ '@option-all-rooms' | translate }}</option>
       </select>
 
@@ -23,7 +24,8 @@
       </div>
 
       <select ng-model="messageWriter"
-              ng-options="user.id as user | getName for user in chatWriterOptions | orderBy: 'name'">
+              ng-options="user.id as user | getName for user in chatWriterOptions | orderBy: 'name'"
+              ng-change="updateMessageWriterFilter();">
         <option value="">{{ '@option-all-members' | translate }}</option>
       </select>
 
@@ -31,30 +33,38 @@
 
   </div>  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
-  <div class="rpanel-body-content" infinite-scroll-bottom="loadMore();">
+  <div class="rpanel-body-content" infinite-scroll-bottom="searchMessages();">
 
-    <div class="no-search-input-container" ng-if="isSearchQueryEmpty" ng-click="setSearchInputFocus();">
+    <div class="rpanel-alert-msg-container no-search-input-container" ng-if="isSearchQueryEmpty" ng-click="setSearchInputFocus();">
       <i class="icon-search"></i>
-      <div class="no-search-input-container__text">
+      <div class="rpanel-alert-msg-container__text">
         <span translate>@input-to-search</span>
       </div>
     </div>
 
-    <div class="rpanel-message-list" >
+    <div class="rpanel-message-list infinite-scroll-bottom-list">
 
-      <div ng-if="!isSearchQueryEmpty && false">
+      <div ng-if="!isSearchQueryEmpty">
         <span ng-if="isSearching"> {{ searchQuery.q }}searching.....</span>
         <!--<div ng-if="!isSearchQueryEmpty" class="rpanel-body-content__result-msg">-->
           <!--<span translate>@alert-empty-file-search</span> <strong>{{ searchQuery.q }}</strong>-->
         <!--</div>-->
-      </div>
-      <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
-      <div class="break-word" ng-if="messageList.length==0 && false">
-        <div class="rpanel-body-content__result-msg rpanel-loading" ng-if="isLoading">
-          <div class="loading_container_background scroll_loading_container_background"></div>
-          <div class="loading_bg scroll_loading_bg"></div>
-          <div class="loading_bar icon-loading scroll_loading_bar"></div>
+
+
+        <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
+        <div class="break-word rpanel-alert-msg-container" ng-if="messageList.length==0 && !isSearching">
+          <div class="rpanel-body-content__result-msg rpanel-loading" ng-if="false">
+            <div class="loading_container_background scroll_loading_container_background"></div>
+            <div class="loading_bg scroll_loading_bg"></div>
+            <div class="loading_bar icon-loading scroll_loading_bar"></div>
+          </div>
+          <img class="rpanel-alert-msg-container__img" src="assets/images/message-search-no-result.png">
+          <div class="rpanel-alert-msg-container__text">
+            <span translate>@alert-no-result</span>
+            : <span class="searchQuery">{{searchQuery.q}}</span>
+          </div>
         </div>
+
       </div>
 
       <message-search-card data-ng-repeat="message in messageList"></message-search-card>

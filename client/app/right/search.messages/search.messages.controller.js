@@ -11,37 +11,69 @@
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
 
+    var isLastPage = false;
+
     $scope.isSearching = false;
     $scope.messageList;
 
+    $scope.searchMessages = searchMessages;
+
+    $scope.updateMessageLocationFilter = updateMessageLocationFilter;
+    $scope.updateMessageWriterFilter = updateMessageWriterFilter;
+
+    // First function to be called.
+    (function() {
+      _initMessageSearchQuery();
+      _initChatRoomOption();
+      _initChatWriterOption();
+    })();
+
+    // When value of search input box(at the top of right panel) changed.
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
-      if (!_isMessageTabActive()) return;
+      _setSearchQueryQ(keyword);
 
       if (!keyword) {
         _resetMessageSearchResult();
         return;
       }
+
+      if (!_isMessageTabActive()) return;
+
       _refreshSearchQuery();
-      _setSearchQueryQ(keyword);
       searchMessages();
 
     });
 
-    (function() {
-      _initMessageSearchQuery();
-      _initChatRoomOption();
-      _initChatWriterOption();
-
+    // When message tab is selected.
+    $scope.$on('onrPanelMessageTabSelected', function() {
+      _refreshSearchQuery();
       searchMessages();
-    })();
+    });
+
+    // When entity location filter is changed.
+    function updateMessageLocationFilter() {
+      _refreshSearchQuery();
+      $scope.searchQuery.entityId = !!$scope.messageLocation ? $scope.messageLocation.id : '';
+      searchMessages();
+    }
+
+    // When writer filter is changed.
+    function updateMessageWriterFilter() {
+      _refreshSearchQuery();
+      $scope.searchQuery.writerId = $scope.messageWriter || '';
+      searchMessages();
+    }
 
     function searchMessages() {
-      if (_isLoading()) return;
+      if (_isLoading() || !$scope.searchQuery.q || isLastPage ) return;
+
+      console.log($scope.searchQuery)
 
       _showLoading();
 
       messageSearchHelper.searchMessages($scope.searchQuery)
         .success(function(response) {
+          console.log(response.cursor)
           _updateSearchQueryCursor(response.cursor);
           _updateMessageList(response);
         })
@@ -59,20 +91,24 @@
 
     function _initMessageSearchQuery() {
       $scope.searchQuery = {
-        q: 'uber',
+        q: '',
         page: DEFAULT_PAGE,
         perPage: DEFAULT_PER_PAGE,
         writerId: '',
         entityId: ''
       };
     }
-
+    /**
+     * Reset only 'page' and 'perPage' value.
+     * @private
+     */
     function _refreshSearchQuery() {
-      $scope.searchQuery = {
-        page: DEFAULT_PAGE,
-        perPage: DEFAULT_PER_PAGE
-      };
+      $scope.messageList = [];
 
+      $scope.searchQuery.page = DEFAULT_PAGE;
+      $scope.searchQuery.perPage = DEFAULT_PER_PAGE;
+
+      isLastPage = false;
     }
     /**
      * Update 'page' in searchQuery.
@@ -81,8 +117,16 @@
      */
     function _updateSearchQueryCursor(cursor) {
       $scope.searchQuery.page = cursor.page + 1;
+
+      if(_isLastPage(cursor)) {
+        console.log('last page');
+        isLastPage = true;
+      }
     }
 
+    function _isLastPage(cursor) {
+      return cursor.page >= cursor.pageCount;
+    }
     /**
      * Set 'q' in searchQuery.
      * @param keyword

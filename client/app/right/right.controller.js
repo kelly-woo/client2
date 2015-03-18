@@ -19,7 +19,7 @@
     };
     $scope.onMessageTabSelected = function() {
       _setMessageTabStatus();
-      $rootScope.$broadcast('onrPanelFileTabSelected');
+      $rootScope.$broadcast('onrPanelMessageTabSelected');
     };
     function _setFileTabStatus() {
       $scope.isFileTabActive = true;

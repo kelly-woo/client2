@@ -36,16 +36,22 @@
     $scope.isUnShared = isUnShared();
     $scope.isComment = isComment();
 
+    (function() {
+      if (!!$scope.query) {
+        highlightText($scope.query);
+      }
+    })();
 
     if ($scope.query) {
-      var query = $scope.query;
-      $('.search-container').highlight(query, {wordsOnly: false, caseSensitive: false});
+    }
+    function highlightText(text) {
+      $('.search-container').highlight(text, {wordsOnly: false, caseSensitive: false});
+
     }
 
     function isFile() {
       return message.type != 'text';
     }
-
     function isShared() {
       return message.status == STATUS_SHARED;
     }
