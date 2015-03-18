@@ -1,4 +1,5 @@
-<div class="rpanel-search-message-card" ng-click="onMessageCardClick();">
+<div class="rpanel-search-message-card" ng-click="onMessageCardClick();">{{current.linkId}}
+
   <div class="entity">
     <i class="entity-icon" ng-class="{ 'icon-user': entity.type == 'user',
                                           'icon-topic-fill': entity.type == 'channel',

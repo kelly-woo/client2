@@ -28,7 +28,7 @@ function fakeNgModel(initValue) {
   };
 }
 
-app.directive('scrollGlue', function(){
+app.directive('scrol2lGlue', function(){
   return {
     priority: 1,
     require: ['?ngModel'],
@@ -38,7 +38,8 @@ app.directive('scrollGlue', function(){
         ngModel = ctrls[0] || fakeNgModel(true);
 
       function scrollToBottom() {
-        el.scrollTop = el.scrollHeight;
+        console.log(scope.loadMoreCounter)
+        //el.scrollTop = el.scrollHeight;
       }
 
       function shouldActivateAutoScroll() {
@@ -48,7 +49,11 @@ app.directive('scrollGlue', function(){
 
       scope.$watch(function() {
         if (ngModel.$viewValue) {
-          scrollToBottom();
+          if (!scope.isMessageSearchJumping) {
+            console.log(scope.isMessageSearchJumping)
+            scrollToBottom();
+
+          }
         }
       });
 

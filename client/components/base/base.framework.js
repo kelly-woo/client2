@@ -10,7 +10,8 @@
       'ngSanitize',
       'ngAnimate',
       'ngImgCrop',
-      'monospaced.elastic'
+      'monospaced.elastic',
+      'base.highlight'
     ])
     .run(run)
     .config(config);

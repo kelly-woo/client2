@@ -146,16 +146,29 @@
     }
 
     function getSmallThumbnailUrl(member) {
+      if (_isNumber(member)) {
+        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member)
+      }
       return member.u_photoThumbnailUrl.smallThumbnailUrl || getPhotoUrl(member);
     }
     function getMediumThumbnailUrl(member) {
+      if (_isNumber(member)) {
+        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member)
+      }
       return member.u_photoThumbnailUrl.MediumThumbnailUrl || getPhotoUrl(member);
     }
     function getLargeThumbnailUrl(member) {
+      if (_isNumber(member)) {
+        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member)
+      }
       return member.u_photoThumbnailUrl.largeThumbnailUrl || getPhotoUrl(member);
     }
     function getPhotoUrl(member) {
       return member.u_photoUrl;
+    }
+
+    function _isNumber(member) {
+      return (typeof member == 'number')
     }
 
     // TODO: TO BE IMPLEMENTED.

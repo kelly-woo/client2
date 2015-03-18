@@ -44,9 +44,10 @@
 
     if ($scope.query) {
     }
-    function highlightText(text) {
-      $('.search-container').highlight(text, {wordsOnly: false, caseSensitive: false});
 
+    function highlightText(text) {
+      //$('.search-container').highlight(text, {wordsOnly: false, caseSensitive: false});
+      $('.search-container').highlight(text);
     }
 
     function isFile() {

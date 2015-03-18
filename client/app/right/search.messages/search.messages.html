@@ -59,10 +59,19 @@
             <div class="loading_bar icon-loading scroll_loading_bar"></div>
           </div>
           <img class="rpanel-alert-msg-container__img" src="assets/images/message-search-no-result.png">
+
           <div class="rpanel-alert-msg-container__text">
-            <span translate>@alert-no-result</span>
-            : <span class="searchQuery">{{searchQuery.q}}</span>
+            <div ng-if="!apiError">
+              <span translate>@alert-no-result</span>
+              : <span class="searchQuery">{{searchQuery.q}}</span>
+            </div>
+
+            <div ng-if="apiError">
+              <span translate>@common-api-error-msg</span>
+            </div>
           </div>
+
+
         </div>
 
       </div>

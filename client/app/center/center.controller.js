@@ -2,37 +2,28 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper) {
 
   //console.info('[enter] centerpanelController');
   log('---------------------------------------')
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
+  var DEFAULT_MESSAGE_UPDATE_COUNT = 20;
 
   var entityType = $state.params.entityType;
   var entityId = $state.params.entityId;
 
-  // TODO: REFACTOR | TO entityAPIservice - WHOLE BLOCK WITH MEANINGFUL NAME.
-  // CALL FUNCTION INSTEAD OF LINES OF CODE
-  // Check entityType first.
-  if (entityType.slice(-1) != 's') {
-    // If entitytype doesn't contain 's' at the end, do nothing about it.
-    // Let router handle this case.
-    // Router will redirect user to same entityType with 's' at the end.
-    return;
-  }
-
-  if (entityId == $rootScope.member.id) {
-    $rootScope.toDefault = true;
-  }
 
   var updateInterval = 2000;
 
   $scope.hasFocus = true;
+  $scope.isInitialLoadingCompleted = false;
+  $rootScope.isIE9 = false;
+  $scope.isPosting = false;
+
 
   $scope.lastMessage = null;
 
-  $scope.messageUpdateCount = 20;
 
   // To be used in directive.
   $scope.loadMoreCounter = 0;
@@ -41,25 +32,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.entityType = entityType;
   $scope.messages = [];
 
+  var firstMessageId,
+    lastMessageId,
+    localFirstMessageId,
+    localLastMessageId,
+    loadedLocalFirstMessagedId,
+    loadedLastMessageId;
+
+  $scope.isMessageSearchJumping = false;
+
   // configuration for message loading
   $scope.msgLoadStatus = {
     loading: false,
     loaded: false,
     firstLoadedId: -1,
-    lastUpdatedId: -1,
     isFirst: false,
-    loadingTimer : true,
-    isInitialLoadingCompleted : false
+    loadingTimer : true
   };
 
-  $rootScope.isIE9 = false;
-
-  if (angular.isDefined(FileAPI.support)) {
-    if (!FileAPI.support.html5)
-      $rootScope.isIE9 = true;
-  }
-
-  $scope.isPosting = false;
 
   $scope.isOwner = function() {
 
@@ -68,7 +58,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.isDefaultTopic = function() {
     return $rootScope.team.t_defaultChannelId == $rootScope.currentEntity.id;
   };
-
   $scope.onLeaveClick = function() {
     log('-- leaving')
 
@@ -85,7 +74,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         alert(error.msg);
       })
   };
-
   $scope.onDeleteClick = function() {
     entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
       .success(function() {
@@ -100,7 +88,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         alert(error.msg);
       });
   };
-
   $scope.onMeesageLeaveClick = function(entityId) {
     $rootScope.$broadcast('leaveCurrentChat', entityId);
   };
@@ -111,55 +98,114 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   //  END OF PANEL HEADER FUNCTIONS
 
+  (function() {
+    _onStartUpCheckList();
 
-  //  default loadingTimer
-  $timeout(function() {
-    $scope.msgLoadStatus.loadingTimer = false;
-  }, 1000);
+    _setDefaultLoadingScreen();
+    _initMsgSearchQuery();
+    _initLocalVariables();
 
-  var firstLocalMsgId = -1;
-  var anchorMsg= -1;
-  $scope.updateScroll = function() {
+    if(_hasMessageIdToSearch()) {
+      _jumpToMessage();
+    } else {
 
-    if (firstLocalMsgId == -1) return;
+      loadMore();
+    }
 
-    log('-- updating scroll');
+    //$scope.promise = $timeout(updateList, updateInterval);
 
-    _disableScroll();
-
-    var lastMsg;
-
-    // $timeout inside of $timeout????
-    $timeout(function() {
-      lastMsg = angular.element(document.getElementById(firstLocalMsgId));
-      $('.msgs').scrollTop(lastMsg.position().top);
-      lastMsg.addClass('last');
-
-      $timeout(function() {
-        if (firstLocalMsgId != -1) {
-          lastMsg.removeClass('last');
-        }
-      }, 1000)
-    }, 10);
-  };
+  })();
 
   /**
-   * Bind an event to 'mousewheel' and prevent web page from scrolling.
-   * But make sure to enable scrolling after 1 second.
+   * If there is anything to be checked before loading message, do it here!
+   * @private
    */
-  function _disableScroll() {
-    $('body').bind('mousewheel', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    });
-
-    $timeout(function() { _enableScroll(); }, 1000)
+  function _onStartUpCheckList() {
+    _checkIE9();
+    _hasCorrectEntityType();
+    _isMyself();
   }
-  function _enableScroll() {
-    $('body').unbind('mousewheel');
+  function _checkIE9() {
+    if (angular.isDefined(FileAPI.support)) {
+      if (!FileAPI.support.html5)
+        $rootScope.isIE9 = true;
+    }
+  }
+  function _hasCorrectEntityType() {
+    // TODO: REFACTOR | TO entityAPIservice - WHOLE BLOCK WITH MEANINGFUL NAME.
+    // CALL FUNCTION INSTEAD OF LINES OF CODE
+    // Check entityType first.
+    if (entityType.slice(-1) != 's') {
+      // If entitytype doesn't contain 's' at the end, do nothing about it.
+      // Let router handle this case.
+      // Router will redirect user to same entityType with 's' at the end.
+      return;
+    }
+  }
+  function _isMyself() {
+    if (entityId == $rootScope.member.id) {
+      $rootScope.toDefault = true;
+    }
   }
 
-  var groupByDate = function() {
+
+  function _setDefaultLoadingScreen() {
+    //  default loadingTimer
+    $timeout(function() {
+      $scope.msgLoadStatus.loadingTimer = false;
+    }, 1000);
+  }
+
+  function _initMsgSearchQuery() {
+    $scope.msgSearchQuery = {
+      count: DEFAULT_MESSAGE_UPDATE_COUNT
+    };
+  }
+
+  function _initLocalVariables() {
+    firstMessageId = -1;
+    lastMessageId = -1;
+    localFirstMessageId = -1;
+    localLastMessageId = -1;
+    loadedLocalFirstMessagedId = -1;
+  }
+
+  function _resetLoadMoreCounter() {
+    $scope.loadMoreCounter = 0;
+    $scope.isInitialLoadingCompleted = false;
+  }
+  function _resetMessages() {
+    $scope.groupMsgs = [];
+    $scope.messages = [];
+  }
+  function _hasMessageIdToSearch() {
+    return messageSearchHelper.hasMessageToSearch();
+  }
+  $scope.$on('jumpToMessageId', function(event, params) {
+    _initLocalVariables();
+    _jumpToMessage();
+  });
+
+  function _jumpToMessage() {
+    var toMessageId = messageSearchHelper.getLinkId();
+
+    _setSearchMode();
+    _resetLoadMoreCounter();
+    _resetMessages();
+    _setMsgSearchQueryLinkId(toMessageId);
+    loadMore();
+  }
+
+  function _setMsgSearchQueryLinkId(linkId) {
+    $scope.msgSearchQuery = {
+      linkId: linkId,
+      count: DEFAULT_MESSAGE_UPDATE_COUNT
+    };
+  }
+  function _setMsgSearchQueryType(type) {
+    $scope.msgSearchQuery.type = type;
+  }
+  function groupByDate() {
     // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
     $scope.messages = _.uniq($scope.messages);
 
@@ -197,86 +243,46 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
       return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
     });
-  };
-
-  function _isLastMessage(index, response) {
-    return index == response.length - 1;
-  }
-  function _isFirstMessage(index) {
-    return index == 0;
   }
 
-  $scope.loadMore = function() {
+  $scope.loadMore = loadMore;
+  function loadMore() {
     var deferred = $q.defer();
 
     // No more messages to load.
-    if ($scope.msgLoadStatus.isFirst) return;
+    if (!_hasMoreOldMessageToLoad()) return;
 
     if (!$scope.msgLoadStatus.loading && !$scope.isPosting) {
 
+      // TODO: come up with function and name.
       $scope.msgLoadStatus.loading = true;
 
       log('-- loadMore');
 
       // simulate an ajax request
       $timeout(function() {
+
         // 엔티티 메세지 리스트 목록 얻기
-        messageAPIservice.getMessages(entityType, entityId, $scope.msgLoadStatus.firstLoadedId, $scope.messageUpdateCount)
+        messageAPIservice.getMessages(entityType, entityId, $scope.msgSearchQuery)
           .success(function(response) {
             log('  -- loadMore success');
 
-            //  lastUpdatedId 갱신
-            $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
+            firstMessageId = response.firstLinkId;
+            lastMessageId = response.lastLinkId;
+
+            var messagesList = response.records;
 
             // When there are messages to update.
-            if (response.messageCount) {
-
-              //  marker 설정
-              updateMessageMarker();
-
-              for (var i in response.messages.reverse()) {
-                var msg = response.messages[i];
-
-                if (_isFirstMessage(i)) {
-                  $scope.lastLocalMsgId = msg.id;
-                }
-
-                if (_isLastMessage(i, response.messages)) {
-                  firstLocalMsgId = anchorMsg;
-                  anchorMsg = msg.id;
-                }
-
-                // jihoon
-                if (msg.status == 'event') {
-                  msg = eventMsgHandler(msg);
-                  $scope.messages.unshift(msg);
-                  continue;
-                }
-
-                // shared entities 가 있을 경우
-                if ( (msg.status === 'shared' || msg.status === 'unshared') && msg.message.shareEntities.length) {
-                  // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
-                  msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
-                }
-
-                // parse HTML, URL code
-                var safeBody = msg.message.content.body;
-                if (safeBody != undefined && safeBody != "") {
-                  safeBody = $filter('parseUrl')(safeBody);
-                }
-                msg.message.content.body = $sce.trustAsHtml(safeBody);
-
-                $scope.messages.unshift(msg);
-
-              }
-
-              $scope.messageUpdateCount = response.messageCount;
-
+            if (messagesList.length) {
+              _messageProcessor(messagesList);
               groupByDate();
             }
 
+            //  marker 설정
+            updateMessageMarker();
+
             // 추후 로딩을 위한 status 설정
-            $scope.msgLoadStatus.firstLoadedId = response.firstIdOfReceivedList;
+            $scope.msgLoadStatus.firstLoadedId = response.firstLinkId;
             $scope.msgLoadStatus.isFirst = response.isFirst;
             $scope.msgLoadStatus.loading = false;
             $scope.msgLoadStatus.loaded = ($scope.messages.length > 0);
@@ -287,7 +293,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $scope.loadMoreCounter++;
 
             // If code gets to this point, 'getMessages' has been executed at least once.
-            $scope.msgLoadStatus.isInitialLoadingCompleted = true;
+            $scope.isInitialLoadingCompleted = true;
           })
           .error(function(response) {
             onHttpRequestError(response);
@@ -298,14 +304,188 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       deferred.reject();
     }
     return deferred.promise;
+
+
+  }
+
+  $scope.loadNewMessages = loadNewMessages;
+  function loadNewMessages() {
+    if (!_hasMoreNewMessageToLoad()) return;
+
+    _setMsgSearchQueryLinkId(localLastMessageId);
+    _setMsgSearchQueryType('new');
+    loadMore();
+  }
+
+  $scope.loadOldMessages = loadOldMessages;
+  function loadOldMessages() {
+    if (!_hasMoreOldMessageToLoad()) return;
+
+    _setMsgSearchQueryLinkId(localFirstMessageId);
+    _setMsgSearchQueryType('old');
+    loadMore();
+  }
+
+
+  /**
+   * Process each element in array handling every cases.
+   * @param messagesList
+   * @private
+   */
+  function _messageProcessor(messagesList) {
+    for (var i in messagesList.reverse()) {
+      var msg = messagesList[i];
+
+      if (_isFirstMessage(i, messagesList)) {
+        loadedLocalFirstMessagedId = localFirstMessageId;
+        localFirstMessageId = msg.id;
+
+        console.log('loadedLocalFirstMessagedId: ', loadedLocalFirstMessagedId, 'localFirstMessageId: ', localFirstMessageId);
+      }
+
+      if (_isLastMessage(i)) {
+        loadedLastMessageId = msg.id;
+        localLastMessageId = localLastMessageId < loadedLastMessageId ? loadedLastMessageId : localLastMessageId;
+        //console.log('localLastMessageId: ', localLastMessageId, ' lastMessageId: ', lastMessageId);
+      }
+
+
+      // jihoon
+      if (msg.status == 'event') {
+        msg = eventMsgHandler(msg);
+        $scope.messages.unshift(msg);
+        continue;
+      }
+
+      // shared entities 가 있을 경우
+      if ( (msg.status === 'shared' || msg.status === 'unshared') && msg.message.shareEntities.length) {
+        // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
+        msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
+      }
+
+      // parse HTML, URL code
+      var safeBody = msg.message.content.body;
+      if (safeBody != undefined && safeBody != "") {
+        safeBody = $filter('parseUrl')(safeBody);
+      }
+      msg.message.content.body = $sce.trustAsHtml(safeBody);
+
+      $scope.messages.unshift(msg);
+
+    }
+  }
+  function _isLastMessage(index) {
+    return index == 0;
+  }
+  function _isFirstMessage(index, response) {
+    return index == response.length - 1;
+  }
+  function _isInitialLoad() {
+    return $scope.loadMoreCounter == 1;
+  }
+  function _hasMoreOldMessageToLoad() {
+    if (localFirstMessageId == -1) return true;
+
+    return localFirstMessageId != firstMessageId;
+  }
+  function _hasMoreNewMessageToLoad() {
+    //console.log('localLastMessageId: ', localLastMessageId, 'lastMessageId: ', lastMessageId, localLastMessageId < lastMessageId)
+    return localLastMessageId < lastMessageId;
+  }
+  function _isLoadingNewMessages() {
+    return $scope.msgSearchQuery.type == 'new';
+  }
+
+
+  $scope.updateScroll = function() {
+
+    if (_isSearchMode()) {
+      _disableScroll();
+      _findMessageDomElementById(messageSearchHelper.getLinkId());
+      _resetSearchMode();
+
+      return;
+    }
+
+    if (_isInitialLoad()) {
+      $timeout(function() {
+        document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
+      }, 10);
+      return;
+    }
+
+    if (_isLoadingNewMessages()) {
+      var temp = angular.element(document.getElementById(localFirstMessageId));
+      _animateBackgroundColor(temp);
+      return;
+    }
+
+    if (loadedLocalFirstMessagedId == -1) return;
+
+    _disableScroll();
+
+    var anchorMessageId = loadedLocalFirstMessagedId;
+    _findMessageDomElementById(anchorMessageId);
+
   };
-  $scope.loadMore();
+  function _findMessageDomElementById(id) {
+    var lastMsg;
+
+    // $timeout inside of $timeout????
+    $timeout(function() {
+
+      lastMsg = angular.element(document.getElementById(id));
+      var positionTop = lastMsg.position().top;
+
+      _animateBackgroundColor(lastMsg);
+      document.getElementById('msgs-container').scrollTop = positionTop;
+
+    }, 10);
+  }
+
+  function _animateBackgroundColor(element) {
+    element.addClass('last');
+    $timeout(function() {
+        element.removeClass('last');
+    }, 1000)
+  }
+  
+  /**
+   * Bind an event to 'mousewheel' and prevent web page from scrolling.
+   * But make sure to enable scrolling after 1 second.
+   */
+  function _disableScroll() {
+    $('body').bind('mousewheel', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    $timeout(function() { _enableScroll(); }, 1000)
+  }
+  function _enableScroll() {
+    $('body').unbind('mousewheel');
+  }
+
+
+  function _setSearchMode() {
+    $scope.isMessageSearchJumping = true;
+  }
+  function _resetSearchMode() {
+    $scope.isMessageSearchJumping = false;
+    messageSearchHelper.resetMessageSearch();
+
+  }
+  function _isSearchMode() {
+    return $scope.isMessageSearchJumping;
+  }
+
+
 
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
   $scope.promise = null;
   var currentLast = -1;
-  var updateList = function() {
+  function updateList () {
 
     log('-- updateList');
 
@@ -328,7 +508,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
         if (response.event.eventCount != 0) updateEventHandler(response.event);
 
-        // lastUpdatedId 갱신
+        // lastUpdatedId 갱신 --> lastMessageId
         $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
 
 
@@ -423,7 +603,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             }
           }
 
-          $scope.messageUpdateCount = response.messageCount;
 
           groupByDate();
         }
@@ -435,10 +614,39 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
     $scope.promise = $timeout(updateList, updateInterval);
-  };
+  }
 
-  $scope.promise = $timeout(updateList, updateInterval);
+  function onHttpRequestError(response) {
+    //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
+    if (response.code == CURRENT_ENTITY_ARCHIVED) {
+      //console.log('okay channel archived');
+      $scope.updateLeftPanelCaller();
+      $rootScope.toDefault = true;
+      return;
+    }
 
+    if (response.code == INVALID_SECURITY_TOKEN) {
+      //console.debug('INVALID SECURITY TOKEN.');
+      $state.go('signin');
+      return;
+    }
+
+    if (response === 'Unauthorized') {
+      //console.debug('logged out');
+      leftpanelAPIservice.toSignin();
+    }
+  }
+
+  //  Updating message marker for current entity.
+  function updateMessageMarker() {
+    messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
+      .success(function(response) {
+      //  console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + lastMessageId);
+      })
+      .error(function(response) {
+        console.log('message marker not updated for ' + $scope.currentEntity.id);
+      });
+  }
 
   $scope.message = {};
 
@@ -931,7 +1139,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     newMsg.message = {};
     newMsg.message.contentType = 'systemEvent';
     newMsg.message.content = {};
-    newMsg.message.writer = msg.fromEntity;
+    newMsg.message.writer = entityAPIservice.getEntityFromListById($scope.memberList, msg.fromEntity);
     var action = '';
 
     switch(msg.info.eventType) {
@@ -958,42 +1166,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         break;
     }
 
-    newMsg.message.content.actionOwner = memberService.getName(msg.fromEntity);
+    newMsg.message.content.actionOwner = memberService.getNameById(msg.fromEntity);
     newMsg.message.content.body = action;
 
     return newMsg;
-  }
-
-  //  Updating message marker for current entity.
-  function updateMessageMarker() {
-    messageAPIservice.updateMessageMarker(entityId, entityType, $scope.msgLoadStatus.lastUpdatedId)
-      .success(function(response) {
-        //console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + $scope.msgLoadStatus.lastUpdatedId + ' with ' + $scope.currentEntity.type)
-      })
-      .error(function(response) {
-        console.log('message marker not updated for ' + $scope.currentEntity.id);
-      });
-  }
-
-  function onHttpRequestError(response) {
-    //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
-    if (response.code == CURRENT_ENTITY_ARCHIVED) {
-      //console.log('okay channel archived');
-      $scope.updateLeftPanelCaller();
-      $rootScope.toDefault = true;
-      return;
-    }
-
-    if (response.code == INVALID_SECURITY_TOKEN) {
-      //console.debug('INVALID SECURITY TOKEN.');
-      $state.go('signin');
-      return;
-    }
-
-    if (response === 'Unauthorized') {
-      //console.debug('logged out');
-      leftpanelAPIservice.toSignin();
-    }
   }
 
 

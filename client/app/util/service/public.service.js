@@ -259,11 +259,19 @@
 
     function isDisabledMember(member) {
       if (!member) return false;
+      if (_isNumber(member)) {
+        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member);
+      }
+
       if (!member.status) {
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
       }
 
       return member.status == 'disabled';
+    }
+
+    function _isNumber(obj) {
+      return typeof obj == 'number';
     }
   }
 })();

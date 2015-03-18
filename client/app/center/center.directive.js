@@ -14,8 +14,7 @@
       link: link
     };
 
-    function link (scope, element, attrs) {
-
+    function link (scope, element, attrs, ctrl) {
       // Switched to new topic.  Reset flag and counter.
       if (scope.loadMoreCounter == 1) {
         if (counterFlag) {
@@ -30,7 +29,6 @@
         //If it's initial loading, set 'counterFlag' to true.
         if (scope.loadMoreCounter == 1) {
           counterFlag = true;
-          return;
         }
         scope.updateScroll();
       }
@@ -51,14 +49,25 @@
       elm.bind('scroll', function(event) {
         var scrollTop = raw.scrollTop;
 
+        var element = angular.element(document.getElementById('msgs-container'));
+
+        console.log()
+
+        if (raw.scrollTop + element.outerHeight() == raw.scrollHeight) {
+          // Bottom reached!
+          scope.loadNewMessages();
+          return;
+        }
+
         // If scrolling down, Don't worry about loading more of content.
         if (scrollTop > position) return;
 
         position = scrollTop;
 
-        if (raw.scrollTop <= 20 && !scope.msgLoadStatus.isFirst && scope.msgLoadStatus.isInitialLoadingCompleted) {
-          scope.loadMore();
+        if (raw.scrollTop <= 20 && scope.isInitialLoadingCompleted) {
+          scope.loadOldMessages();
         }
+
       });
 
     }

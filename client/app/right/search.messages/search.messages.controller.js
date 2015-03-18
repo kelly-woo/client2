@@ -13,19 +13,24 @@
 
     var isLastPage = false;
 
-    $scope.isSearching = false;
-    $scope.messageList;
-
-    $scope.searchMessages = searchMessages;
-
-    $scope.updateMessageLocationFilter = updateMessageLocationFilter;
-    $scope.updateMessageWriterFilter = updateMessageWriterFilter;
 
     // First function to be called.
     (function() {
+      $scope.isSearching = false;
+      $scope.apiError = false;
+
+      $scope.messageList;
+
+      // Methods
+      $scope.searchMessages = searchMessages;
+      $scope.updateMessageLocationFilter = updateMessageLocationFilter;
+      $scope.updateMessageWriterFilter = updateMessageWriterFilter;
+
       _initMessageSearchQuery();
       _initChatRoomOption();
       _initChatWriterOption();
+
+      searchMessages();
     })();
 
     // When value of search input box(at the top of right panel) changed.
@@ -67,23 +72,24 @@
     function searchMessages() {
       if (_isLoading() || !$scope.searchQuery.q || isLastPage ) return;
 
-      console.log($scope.searchQuery)
+      $scope.apiError = false;
 
       _showLoading();
 
       messageSearchHelper.searchMessages($scope.searchQuery)
         .success(function(response) {
-          console.log(response.cursor)
           _updateSearchQueryCursor(response.cursor);
           _updateMessageList(response);
         })
         .error(function(err) {
           console.log(err);
+          _onMessageSearchErr(err);
         })
         .finally(function(){
           _hideLoading();
         });
     }
+
     $scope.setSearchInputFocus = setSearchInputFocus;
     function setSearchInputFocus() {
       $rootScope.$broadcast('rPanelSearchFocus');
@@ -91,7 +97,7 @@
 
     function _initMessageSearchQuery() {
       $scope.searchQuery = {
-        q: '',
+        q: 'uber',
         page: DEFAULT_PAGE,
         perPage: DEFAULT_PER_PAGE,
         writerId: '',
@@ -119,7 +125,6 @@
       $scope.searchQuery.page = cursor.page + 1;
 
       if(_isLastPage(cursor)) {
-        console.log('last page');
         isLastPage = true;
       }
     }
@@ -181,6 +186,9 @@
       $scope.isSearching = false;
     }
 
+    function _onMessageSearchErr(err) {
+      $scope.apiError = true;
+    }
     function test() {
       var temp = {
         "cursor": {
