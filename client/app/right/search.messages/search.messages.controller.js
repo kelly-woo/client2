@@ -97,7 +97,7 @@
 
     function _initMessageSearchQuery() {
       $scope.searchQuery = {
-        q: 'uber',
+        q: '',
         page: DEFAULT_PAGE,
         perPage: DEFAULT_PER_PAGE,
         writerId: '',

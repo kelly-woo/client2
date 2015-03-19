@@ -112,7 +112,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       loadMore();
     }
 
-    //$scope.promise = $timeout(updateList, updateInterval);
+    $scope.promise = $timeout(updateList, updateInterval);
 
   })();
 
@@ -181,6 +181,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _hasMessageIdToSearch() {
     return messageSearchHelper.hasMessageToSearch();
   }
+
   $scope.$on('jumpToMessageId', function(event, params) {
     _initLocalVariables();
     _jumpToMessage();
@@ -205,6 +206,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _setMsgSearchQueryType(type) {
     $scope.msgSearchQuery.type = type;
   }
+
   function groupByDate() {
     // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
     $scope.messages = _.uniq($scope.messages);
@@ -243,6 +245,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
       return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
     });
+
   }
 
   $scope.loadMore = loadMore;
@@ -269,6 +272,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
             firstMessageId = response.firstLinkId;
             lastMessageId = response.lastLinkId;
+            lastUpdatedLinkId = response.globalLastLinkId;
 
             var messagesList = response.records;
 
@@ -339,8 +343,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (_isFirstMessage(i, messagesList)) {
         loadedLocalFirstMessagedId = localFirstMessageId;
         localFirstMessageId = msg.id;
-
-        console.log('loadedLocalFirstMessagedId: ', loadedLocalFirstMessagedId, 'localFirstMessageId: ', localFirstMessageId);
       }
 
       if (_isLastMessage(i)) {
@@ -396,10 +398,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return $scope.msgSearchQuery.type == 'new';
   }
 
-
   $scope.updateScroll = function() {
-
     if (_isSearchMode()) {
+      console.log('-- updateScroll: search')
       _disableScroll();
       _findMessageDomElementById(messageSearchHelper.getLinkId());
       _resetSearchMode();
@@ -408,19 +409,23 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     if (_isInitialLoad()) {
-      $timeout(function() {
-        document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
-      }, 10);
+      console.log('-- updateScroll: initial')
+
+      _scrollToBottom();
       return;
     }
 
     if (_isLoadingNewMessages()) {
+      console.log('-- updateScroll: load new message')
+
       var temp = angular.element(document.getElementById(localFirstMessageId));
       _animateBackgroundColor(temp);
       return;
     }
 
     if (loadedLocalFirstMessagedId == -1) return;
+
+    console.log('-- updateScroll: load old message')
 
     _disableScroll();
 
@@ -443,13 +448,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }, 10);
   }
 
+  function _scrollToBottom() {
+    $timeout(function() {
+      document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
+    }, 10);
+  }
   function _animateBackgroundColor(element) {
     element.addClass('last');
     $timeout(function() {
         element.removeClass('last');
     }, 1000)
   }
-  
+
+  var treshhold = 60;
+  function _hasBottomReached() {
+    var element = document.getElementById('msgs-container');
+    var scrollHeight = element.scrollHeight;
+    element = angular.element(element);
+
+    return scrollHeight - (element.outerHeight() + element.scrollTop()) < treshhold;
+  }
+
   /**
    * Bind an event to 'mousewheel' and prevent web page from scrolling.
    * But make sure to enable scrolling after 1 second.
@@ -484,7 +503,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
   $scope.promise = null;
+
   var currentLast = -1;
+  var lastUpdatedLinkId = -1;
   function updateList () {
 
     log('-- updateList');
@@ -499,7 +520,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     log('  -- calling getUpdatedMessages');
 
-    messageAPIservice.getUpdatedMessages(entityType, entityId, $scope.msgLoadStatus.lastUpdatedId)
+    messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(function (response) {
 
         log('  -- getUpdatedMessages success');
@@ -509,8 +530,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         if (response.event.eventCount != 0) updateEventHandler(response.event);
 
         // lastUpdatedId 갱신 --> lastMessageId
-        $scope.msgLoadStatus.lastUpdatedId = response.lastLinkId;
-
+        lastUpdatedLinkId = response.lastLinkId;
 
         response = response.updateInfo;
 
@@ -601,10 +621,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 console.error("!!! unfiltered message", msg);
                 break;
             }
+
+            groupByDate();
+
+
+            if (_hasBottomReached()) {
+              console.log('bottom reached!!')
+              _scrollToBottom();
+            } else {
+              console.log('new message arrived!')
+            }
           }
 
 
-          groupByDate();
         }
 
       })

@@ -25,7 +25,10 @@
 
       counter++;
 
+      console.log(counter, scope.messages.length)
+
       if (counter == scope.messages.length) {
+        console.log(counter == scope.messages.length)
         //If it's initial loading, set 'counterFlag' to true.
         if (scope.loadMoreCounter == 1) {
           counterFlag = true;
@@ -50,8 +53,6 @@
         var scrollTop = raw.scrollTop;
 
         var element = angular.element(document.getElementById('msgs-container'));
-
-        console.log()
 
         if (raw.scrollTop + element.outerHeight() == raw.scrollHeight) {
           // Bottom reached!

@@ -24,26 +24,10 @@
 
       params.teamId  = memberService.getTeamId();
 
-      console.log(params)
-
       return $http({
         method  : 'GET',
         url     : server_address + entityType + '/' + entityId + '/messages',
         params  : params
-      });
-    }
-
-    // get message lists
-    function getMessages1(entityType, entityId, offset, limit) {
-      entityType = entityType || 'channels';
-      offset = offset || -1;
-      limit = limit || 20;
-      return $http({
-        method  : 'GET',
-        url     : $rootScope.server_address + entityType + '/' + entityId + '/messages/' + offset + '/' + limit,
-        params  : {
-          teamId  : memberService.getTeamId()
-        }
       });
     }
 
