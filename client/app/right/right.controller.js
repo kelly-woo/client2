@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
+app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, $filter, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
   //console.info('[enter] rightpanelController');
 
   var initialLoadDone = false;
