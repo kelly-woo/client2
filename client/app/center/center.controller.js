@@ -189,6 +189,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _resetMessages() {
     $scope.groupMsgs = [];
     $scope.messages = [];
+    $scope.isMessageSearchJumping = false;
   }
 
   $scope.$on('jumpToMessageId', function(event, params) {
@@ -198,10 +199,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _jumpToMessage() {
     var toMessageId = messageSearchHelper.getLinkId();
+    _init();
 
     _setSearchMode();
-
-    _init();
 
     _setMsgSearchQueryLinkId(toMessageId);
     loadMore();
@@ -359,7 +359,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     messagesList = messagesList.reverse();
 
-    if (_isInitialLoad) {
+    if (_isInitialLoad()) {
       _updateLoadedLastMessageId(messagesList[0]);
       _updateLoadedFirstMessageId(messagesList[messagesList.length - 1]);
     } else {
@@ -414,7 +414,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.updateScroll = function() {
     if (_isSearchMode()) {
-      console.log('-- updateScroll: search')
+      console.log('-- updateScroll: search', messageSearchHelper.getLinkId())
       _disableScroll();
       _findMessageDomElementById(messageSearchHelper.getLinkId());
       _resetSearchMode();
@@ -510,8 +510,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
   function _resetSearchMode() {
     $scope.isMessageSearchJumping = false;
-    messageSearchHelper.resetMessageSearch();
 
+    messageSearchHelper.resetMessageSearch();
   }
   function _isSearchMode() {
     return $scope.isMessageSearchJumping;
@@ -558,6 +558,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
           localLastMessageId = response.lastLinkId;
           loadedLastMessageId = localLastMessageId;
+
           //  marker 설정
           updateMessageMarker();
 
@@ -713,9 +714,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     messageAPIservice.postMessage(entityType, entityId, {'content': msg})
       .success(function(response) {
         log('-- posting message success');
-        updateList();
         //  reseting position of msgs
         $('.msgs').css('margin-bottom', 0);
+
+        if (_isSearchMode()) {
+          console.log('posing - search mode')
+        } else {
+          console.log('posting - regular')
+          updateList();
+        }
       })
       .error(function(response) {
         $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.postMessage"});
