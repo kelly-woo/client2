@@ -5,6 +5,10 @@
   margin-top: 10px;
   background-color: white;
   font-size: 16px;
+  cursor: pointer;
+}
+.rpanel-search-message-card:hover {
+  background: #eefcf7;
 }
 
 .rpanel-search-message-card .entity {

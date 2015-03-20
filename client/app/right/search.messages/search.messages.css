@@ -17,15 +17,9 @@
   text-align: center;
   cursor: pointer;
 }
-
-.search-result-summary,
-.search-result-summary-ing {
-}
-
-.rpanel-message-search  .no-search-input-container:hover .no-search-input-container__text {
+.no-search-input-container:hover .rpanel-alert-msg-container__text {
   text-decoration: underline;
 }
-
 
 .rpanel-message-search  .no-search-input-container .icon-search {
   font-size: 64px;
