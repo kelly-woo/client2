@@ -11,16 +11,16 @@ msgstr ""
 msgid "@alert-empty-ch-can-join"
 msgstr ""
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@alert-empty-file"
 msgstr ""
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr ""
 
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@alert-empty-file-shared"
 msgstr ""
 
@@ -34,6 +34,7 @@ msgstr ""
 
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr ""
 
@@ -84,7 +85,7 @@ msgstr ""
 msgid "@btn-change"
 msgstr ""
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@btn-click-to-view"
 msgstr ""
 
@@ -104,8 +105,8 @@ msgid "@btn-close"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@btn-comment"
 msgstr ""
 
@@ -119,7 +120,7 @@ msgstr ""
 msgid "@btn-create"
 msgstr ""
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr ""
 
@@ -141,8 +142,8 @@ msgstr ""
 
 #: client/app/center/center.html
 #: client/app/modal/share.html
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@btn-share"
 msgstr ""
 
@@ -220,6 +221,7 @@ msgstr ""
 
 #: client/app/center/center.html
 #: client/app/left/left.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr ""
 
@@ -266,7 +268,7 @@ msgid "@common-customer-service"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr ""
 
@@ -296,8 +298,8 @@ msgid "@common-dm-invite-to"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@common-download"
 msgstr ""
 
@@ -306,6 +308,10 @@ msgstr ""
 #: client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
 msgid "@common-email"
+msgstr ""
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@common-entity-location"
 msgstr ""
 
 #: client/app/modal/topic_create/topic.create.html
@@ -328,46 +334,46 @@ msgstr ""
 msgid "@common-file-list"
 msgstr ""
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr ""
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr ""
 
@@ -383,7 +389,7 @@ msgstr ""
 msgid "@common-file-upload-progress-msg"
 msgstr ""
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/right/right.html
 msgid "@common-files"
 msgstr ""
@@ -417,8 +423,16 @@ msgstr ""
 msgid "@common-language"
 msgstr ""
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-member"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-message"
+msgstr ""
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@common-message-writer"
 msgstr ""
 
 #: client/app/left/left.html
@@ -479,6 +493,10 @@ msgstr ""
 msgid "@common-rename"
 msgstr ""
 
+#: client/app/header/header.html
+msgid "@common-search"
+msgstr ""
+
 #: client/app/modal/profile.view.html
 msgid "@common-send-mail"
 msgstr ""
@@ -497,8 +515,9 @@ msgstr ""
 msgid "@common-share-in"
 msgstr ""
 
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
+#: client/app/right/files/files.html
 msgid "@common-shared-in"
 msgstr ""
 
@@ -592,8 +611,8 @@ msgstr ""
 msgid "@error-404-title"
 msgstr ""
 
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@file-action-more"
 msgstr ""
 
@@ -605,11 +624,11 @@ msgstr ""
 msgid "@file-delete-confirm-msg"
 msgstr ""
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr ""
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr ""
 
@@ -684,13 +703,17 @@ msgstr ""
 msgid "@input-search-channel-name"
 msgstr ""
 
-#: client/app/right/right.html
+#: client/app/right/rpanel_search/rpanel.search.html
 msgid "@input-search-file-title"
 msgstr ""
 
 #: client/app/modal/invite.channel.html
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
+msgstr ""
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@input-to-search"
 msgstr ""
 
 #: client/app/modal/settings.account.html
@@ -730,8 +753,8 @@ msgid "@login-reset-password"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@message-delete"
 msgstr ""
 
@@ -852,7 +875,7 @@ msgstr ""
 msgid "@msg-file"
 msgstr ""
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@msg-help-multiline"
 msgstr ""
 
@@ -873,7 +896,7 @@ msgid "@msg-left"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/right/right.html
+#: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr ""
 
@@ -889,11 +912,13 @@ msgstr ""
 msgid "@msg-whose"
 msgstr ""
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@option-all-members"
 msgstr ""
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@option-all-rooms"
 msgstr ""
 
@@ -935,6 +960,14 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "@privateGroup"
+msgstr ""
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@search-in-progress"
+msgstr ""
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@search-result-summary"
 msgstr ""
 
 #: client/app/modal/settings.team.html

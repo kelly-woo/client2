@@ -37,7 +37,7 @@
 
     <div class="rpanel-alert-msg-container no-search-input-container" ng-if="isSearchQueryEmpty" ng-click="setSearchInputFocus();">
       <i class="icon-search"></i>
-      <div class="rpanel-alert-msg-container__text">
+      <div class="rpanel-alert-msg-container__text hover-underline">
         <span translate>@input-to-search</span>
       </div>
     </div>
@@ -45,9 +45,16 @@
     <div class="rpanel-message-list infinite-scroll-bottom-list">
 
       <div ng-if="!isSearchQueryEmpty">
-        <span ng-if="isSearching"> {{ searchQuery.q }}searching.....</span>
+        <div class="search-status-container">
+          <span class="search-result-summary-ing" ng-if="isSearching"><span translate>@search-in-progress</span></span>
+
+          <div class="search-result-summary" ng-if="!isSearching && messageList.length > 0">
+            <span translate>@search-result-summary</span>
+          </div>
+        </div>
+
         <!--<div ng-if="!isSearchQueryEmpty" class="rpanel-body-content__result-msg">-->
-          <!--<span translate>@alert-empty-file-search</span> <strong>{{ searchQuery.q }}</strong>-->
+        <!--<span translate>@alert-empty-file-search</span> <strong>{{ searchQuery.q }}</strong>-->
         <!--</div>-->
 
 
@@ -89,4 +96,3 @@
   </div>
 
 </div>
-

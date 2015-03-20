@@ -19,15 +19,16 @@ msgstr "참여중인 토픽이 없습니다"
 msgid "@alert-empty-ch-can-join"
 msgstr "참여 가능한 토픽이 없습니다"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@alert-empty-file"
 msgstr "업로드된 파일이 없습니다"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "검색 결과가 없습니다"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@alert-empty-file-shared"
 msgstr "공유된 대화방이 없습니다"
 
@@ -41,6 +42,7 @@ msgstr "모든 정보를 입력하세요"
 
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr "결과가 없습니다"
 
@@ -87,7 +89,7 @@ msgstr "취소"
 msgid "@btn-change"
 msgstr "변경하기"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@btn-click-to-view"
 msgstr "새 창에서 보기"
 
@@ -102,8 +104,8 @@ msgstr "새 창에서 보기"
 msgid "@btn-close"
 msgstr "닫기"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@btn-comment"
 msgstr "댓글남기기"
 
@@ -116,7 +118,7 @@ msgstr "확인"
 msgid "@btn-create"
 msgstr "생성하기"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr "삭제하기"
 
@@ -136,7 +138,8 @@ msgid "@btn-join"
 msgstr "참여하기"
 
 #: client/app/center/center.html client/app/modal/share.html
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@btn-share"
 msgstr "공유하기"
 
@@ -218,6 +221,7 @@ msgid "@common-add"
 msgstr "추가"
 
 #: client/app/center/center.html client/app/left/left.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr "잠시 후에 다시 시도하여 주십시요."
 
@@ -260,7 +264,7 @@ msgstr "비밀번호 입력 "
 msgid "@common-customer-service"
 msgstr "고객 센터"
 
-#: client/app/center/center.html client/app/right/file.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "삭제된 파일"
 
@@ -288,8 +292,8 @@ msgstr "차단된 멤버입니다. 궁금하신 사항은 팀 관리자에게 �
 msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@common-download"
 msgstr "다운로드"
 
@@ -298,6 +302,10 @@ msgstr "다운로드"
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "이메일"
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@common-entity-location"
+msgstr "공개 여부"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
@@ -319,39 +327,39 @@ msgstr "파일"
 msgid "@common-file-list"
 msgstr "파일 리스트"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr "파일 타입"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "모든 타입"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "오디오"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "워드/한글"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "이미지"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "파워포인트"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "엑셀"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "비디오"
 
@@ -367,7 +375,7 @@ msgstr "완료"
 msgid "@common-file-upload-progress-msg"
 msgstr "업로드 중..."
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html client/app/right/right.html
 msgid "@common-files"
 msgstr "파일"
 
@@ -400,9 +408,18 @@ msgstr "명 참여중"
 msgid "@common-language"
 msgstr "언어"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "업로드한 멤버"
+
+#: client/app/right/right.html
+msgid "@common-message"
+msgstr "메시지"
+
+#: client/app/right/search.messages/search.messages.html
+#, fuzzy
+msgid "@common-message-writer"
+msgstr "파일 공유"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -455,6 +472,10 @@ msgstr "목적"
 msgid "@common-rename"
 msgstr "이름 변경"
 
+#: client/app/header/header.html
+msgid "@common-search"
+msgstr "검색"
+
 #: client/app/modal/profile.view.html
 msgid "@common-send-mail"
 msgstr "메일 보내기"
@@ -471,7 +492,8 @@ msgstr "파일 공유"
 msgid "@common-share-in"
 msgstr "공유 대화방"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html client/app/right/files/files.html
 msgid "@common-shared-in"
 msgstr "공유된 곳"
 
@@ -564,7 +586,8 @@ msgstr "존재하지 않는 링크이거나 삭제된 페이지 입니다"
 msgid "@error-404-title"
 msgstr ".. 길을 잃었습니다"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@file-action-more"
 msgstr "더보기 "
 
@@ -576,11 +599,11 @@ msgstr "파일 서랍"
 msgid "@file-delete-confirm-msg"
 msgstr "이 파일을 삭제하시겠습니까? 파일의 댓글은 삭제되지 않습니다."
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr "에 삭제되었습니다."
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr " "
 
@@ -660,7 +683,7 @@ msgstr "변경할 이름을 입력하세요"
 msgid "@input-search-channel-name"
 msgstr "토픽 이름을 검색하세요"
 
-#: client/app/right/right.html
+#: client/app/right/rpanel_search/rpanel.search.html
 msgid "@input-search-file-title"
 msgstr "파일 이름을 검색하세요"
 
@@ -668,6 +691,10 @@ msgstr "파일 이름을 검색하세요"
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
 msgstr "멤버 이름을 검색하세요"
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@input-to-search"
+msgstr "검색어를 입력하세요."
 
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
@@ -707,8 +734,8 @@ msgstr "이메일 또는 비밀번호를 확인해주세요"
 msgid "@login-reset-password"
 msgstr "비밀번호 찾기"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@message-delete"
 msgstr "삭제"
 
@@ -840,7 +867,7 @@ msgstr "님이 비공개 토픽을 생성했습니다."
 msgid "@msg-file"
 msgstr "파일"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@msg-help-multiline"
 msgstr "멀티라인 입력: shift+enter"
 
@@ -860,7 +887,7 @@ msgstr "님이 참여했습니다"
 msgid "@msg-left"
 msgstr "님이 떠났습니다"
 
-#: client/app/center/center.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "원본 파일 보기"
 
@@ -876,11 +903,13 @@ msgstr "공유 해제된"
 msgid "@msg-whose"
 msgstr "님의"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@option-all-members"
 msgstr "모든 멤버"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@option-all-rooms"
 msgstr "모든 대화방"
 
@@ -923,6 +952,17 @@ msgstr "패스워드를 잊으셨나요? 새로운 패스워드를 입력해주�
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "토픽 생성 "
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@search-in-progress"
+msgstr "<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span> 검색 중..."
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@search-result-summary"
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>에 대한 <span "
+"class=\"searchQueryKeyword\">{{messageList.length}}</span>개의 검색 결과가 있"
+"습니다."
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -1121,6 +1161,9 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
+
+#~ msgid "@search-result-summary-post"
+#~ msgstr "개의 검색 결과가 있습니다."
 
 #~ msgid "@file-audio"
 #~ msgstr "오디오"

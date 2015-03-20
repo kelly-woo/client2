@@ -358,7 +358,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 76px;
+  top: 36px;
   bottom: 0;
 }
 .rpanel-body {
@@ -372,7 +372,12 @@
 }
 
 
-
+.rpanel-body-tab-container {
+  position: absolute;;
+  top: 40px;
+  bottom: 0;
+  width: 100%;
+}
 .rpanel-body-tab-container .nav-tabs {
   cursor: pointer;
   margin-right: 18px;

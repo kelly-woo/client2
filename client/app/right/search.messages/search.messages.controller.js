@@ -6,7 +6,7 @@
     .controller('rPanelMessageTabCtrl', rPanelMessageTabCtrl);
 
   /* @ngInject */
-  function rPanelMessageTabCtrl($scope, $rootScope, fileAPIservice, messageSearchHelper) {
+  function rPanelMessageTabCtrl($scope, $rootScope, fileAPIservice, messageSearchHelper, accountService, $filter) {
 
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
@@ -70,6 +70,7 @@
     }
 
     function searchMessages() {
+
       if (_isLoading() || !$scope.searchQuery.q || isLastPage ) return;
 
       $scope.apiError = false;
@@ -78,6 +79,7 @@
 
       messageSearchHelper.searchMessages($scope.searchQuery)
         .success(function(response) {
+          console.log(response)
           _updateSearchQueryCursor(response.cursor);
           _updateMessageList(response);
         })

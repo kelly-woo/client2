@@ -19,15 +19,16 @@ msgstr "您尚未加入任何議題群組"
 msgid "@alert-empty-ch-can-join"
 msgstr "沒有可加入的議題群組"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@alert-empty-file"
 msgstr "沒有上傳檔案"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "沒有找到搜尋的檔案"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@alert-empty-file-shared"
 msgstr "檔案沒有分享到其它群組"
 
@@ -41,6 +42,7 @@ msgstr "資料不全"
 
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr "搜尋沒有結果"
 
@@ -87,7 +89,7 @@ msgstr "取消"
 msgid "@btn-change"
 msgstr "更改"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@btn-click-to-view"
 msgstr "點擊檢視"
 
@@ -102,8 +104,8 @@ msgstr "點擊檢視"
 msgid "@btn-close"
 msgstr "關閉"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@btn-comment"
 msgstr "留言"
 
@@ -116,7 +118,7 @@ msgstr "確定"
 msgid "@btn-create"
 msgstr "建立"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr "刪除"
 
@@ -136,7 +138,8 @@ msgid "@btn-join"
 msgstr "加入"
 
 #: client/app/center/center.html client/app/modal/share.html
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@btn-share"
 msgstr "分享"
 
@@ -215,6 +218,7 @@ msgid "@common-add"
 msgstr "增加"
 
 #: client/app/center/center.html client/app/left/left.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr "有錯誤發生。請再試一次。"
 
@@ -257,7 +261,7 @@ msgstr "密碼"
 msgid "@common-customer-service"
 msgstr "客服"
 
-#: client/app/center/center.html client/app/right/file.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "已刪除檔案"
 
@@ -285,8 +289,8 @@ msgstr "這成員已經被暫時關閉。欲知更多細節，請聯係團隊管
 msgid "@common-dm-invite-to"
 msgstr "邀請到"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@common-download"
 msgstr "下載"
 
@@ -295,6 +299,11 @@ msgstr "下載"
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "電子郵件"
+
+#: client/app/right/search.messages/search.messages.html
+#, fuzzy
+msgid "@common-entity-location"
+msgstr " 公開/私人"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
@@ -316,39 +325,39 @@ msgstr "檔案"
 msgid "@common-file-list"
 msgstr "檔案分享了"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr "檔案類別"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "全部類別"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "音頻"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "文件"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "圖像"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "簡報"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "表單"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "視頻"
 
@@ -364,7 +373,7 @@ msgstr "完成了"
 msgid "@common-file-upload-progress-msg"
 msgstr "上傳中..."
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html client/app/right/right.html
 msgid "@common-files"
 msgstr "檔案"
 
@@ -397,9 +406,18 @@ msgstr "成員"
 msgid "@common-language"
 msgstr "語言"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "曾經被誰分享"
+
+#: client/app/right/right.html
+msgid "@common-message"
+msgstr "私訊"
+
+#: client/app/right/search.messages/search.messages.html
+#, fuzzy
+msgid "@common-message-writer"
+msgstr "分享檔案"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -452,6 +470,10 @@ msgstr "敘述"
 msgid "@common-rename"
 msgstr "重新命名"
 
+#: client/app/header/header.html
+msgid "@common-search"
+msgstr "搜尋"
+
 #: client/app/modal/profile.view.html
 msgid "@common-send-mail"
 msgstr "發送電子郵件"
@@ -468,7 +490,8 @@ msgstr "分享檔案"
 msgid "@common-share-in"
 msgstr "分享在"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html client/app/right/files/files.html
 msgid "@common-shared-in"
 msgstr "曾經分享在哪個議題下"
 
@@ -561,7 +584,8 @@ msgstr "查無此頁"
 msgid "@error-404-title"
 msgstr "錯誤"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@file-action-more"
 msgstr "音頻檔案 "
 
@@ -573,11 +597,11 @@ msgstr "全部檔案"
 msgid "@file-delete-confirm-msg"
 msgstr "您確定要刪除這檔案？ 請注意留言的部分不會被刪除。"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr " "
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr "刪除時間："
 
@@ -654,7 +678,7 @@ msgstr "輸入修改的名字"
 msgid "@input-search-channel-name"
 msgstr "按名字搜尋議題群組"
 
-#: client/app/right/right.html
+#: client/app/right/rpanel_search/rpanel.search.html
 msgid "@input-search-file-title"
 msgstr "按標題搜尋檔案"
 
@@ -662,6 +686,11 @@ msgstr "按標題搜尋檔案"
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
 msgstr "按名字搜尋使用者"
+
+#: client/app/right/search.messages/search.messages.html
+#, fuzzy
+msgid "@input-to-search"
+msgstr "輸入新的議題群組名稱"
 
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
@@ -698,8 +727,8 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@message-delete"
 msgstr "删除"
 
@@ -822,7 +851,7 @@ msgstr "建立了這私人議題"
 msgid "@msg-file"
 msgstr "檔案"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@msg-help-multiline"
 msgstr "Shift鍵加Enter鍵可多行輸入"
 
@@ -842,7 +871,7 @@ msgstr "已經加入"
 msgid "@msg-left"
 msgstr "已經離開"
 
-#: client/app/center/center.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "打開原始檔案"
 
@@ -858,11 +887,13 @@ msgstr "未分享過"
 msgid "@msg-whose"
 msgstr "的"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@option-all-members"
 msgstr "全部"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@option-all-rooms"
 msgstr "全部"
 
@@ -905,6 +936,16 @@ msgstr "忘記您的密碼了嗎？選擇一個新的。 "
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "私人群組 "
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@search-in-progress"
+msgstr "搜尋 <span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>..."
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@search-result-summary"
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span> 與 <span class="
+"\"searchQueryKeyword\">{{messageList.length}}</span> 符合"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -1093,6 +1134,9 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
+
+#~ msgid "@search-result-summary-post"
+#~ msgstr " 符合"
 
 #~ msgid "@file-audio"
 #~ msgstr "音頻檔案"

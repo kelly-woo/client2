@@ -19,15 +19,16 @@ msgstr "You have not joined any topics yet"
 msgid "@alert-empty-ch-can-join"
 msgstr "No topics to join"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@alert-empty-file"
 msgstr "No files uploaded"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "No files found matching"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@alert-empty-file-shared"
 msgstr "File has not been shared"
 
@@ -41,6 +42,7 @@ msgstr "Missing Information"
 
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr "No matches"
 
@@ -87,7 +89,7 @@ msgstr "Cancel"
 msgid "@btn-change"
 msgstr "Change"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@btn-click-to-view"
 msgstr "Click to view"
 
@@ -102,8 +104,8 @@ msgstr "Click to view"
 msgid "@btn-close"
 msgstr "Close"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@btn-comment"
 msgstr "Comment"
 
@@ -116,7 +118,7 @@ msgstr "Confirm"
 msgid "@btn-create"
 msgstr "Create"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr "Delete"
 
@@ -136,7 +138,8 @@ msgid "@btn-join"
 msgstr "Join"
 
 #: client/app/center/center.html client/app/modal/share.html
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@btn-share"
 msgstr "Share"
 
@@ -223,6 +226,7 @@ msgid "@common-add"
 msgstr "Add"
 
 #: client/app/center/center.html client/app/left/left.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr "We encountered an issue. Please try again."
 
@@ -266,7 +270,7 @@ msgstr "Password"
 msgid "@common-customer-service"
 msgstr "Customer Service"
 
-#: client/app/center/center.html client/app/right/file.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "Deleted File"
 
@@ -296,8 +300,8 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr "Invite to"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@common-download"
 msgstr "Download"
 
@@ -306,6 +310,11 @@ msgstr "Download"
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "Email"
+
+#: client/app/right/search.messages/search.messages.html
+#, fuzzy
+msgid "@common-entity-location"
+msgstr "Type"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
@@ -327,39 +336,39 @@ msgstr "File"
 msgid "@common-file-list"
 msgstr "Files Shared"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr "File Type"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "all"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "audio"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "documents"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "images"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "PDF"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "presentations"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "spreadsheets"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "video"
 
@@ -375,7 +384,7 @@ msgstr "Finished"
 msgid "@common-file-upload-progress-msg"
 msgstr "Uploading..."
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html client/app/right/right.html
 msgid "@common-files"
 msgstr "Files"
 
@@ -408,9 +417,18 @@ msgstr " members"
 msgid "@common-language"
 msgstr "Language"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "Shared by"
+
+#: client/app/right/right.html
+msgid "@common-message"
+msgstr "Messages"
+
+#: client/app/right/search.messages/search.messages.html
+#, fuzzy
+msgid "@common-message-writer"
+msgstr "Share File"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -463,6 +481,10 @@ msgstr "Description"
 msgid "@common-rename"
 msgstr "Rename"
 
+#: client/app/header/header.html
+msgid "@common-search"
+msgstr "Search"
+
 #: client/app/modal/profile.view.html
 msgid "@common-send-mail"
 msgstr "Send Email"
@@ -479,7 +501,8 @@ msgstr "Share File"
 msgid "@common-share-in"
 msgstr "Share in"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html client/app/right/files/files.html
 msgid "@common-shared-in"
 msgstr "Shared in"
 
@@ -573,7 +596,8 @@ msgstr "The page you were looking for could not be found"
 msgid "@error-404-title"
 msgstr "Oops!"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@file-action-more"
 msgstr "More"
 
@@ -587,11 +611,11 @@ msgstr ""
 "Are you sure you want to delete this file? Please note this will not delete "
 "the associated comments."
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr ", file was deleted."
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr "As of "
 
@@ -672,7 +696,7 @@ msgstr "Enter name to change"
 msgid "@input-search-channel-name"
 msgstr "Search topics by name"
 
-#: client/app/right/right.html
+#: client/app/right/rpanel_search/rpanel.search.html
 msgid "@input-search-file-title"
 msgstr "Search files by title"
 
@@ -680,6 +704,10 @@ msgstr "Search files by title"
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
 msgstr "Search users by name"
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@input-to-search"
+msgstr "Please type in a keyword to search"
 
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
@@ -718,8 +746,8 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@message-delete"
 msgstr "Delete"
 
@@ -852,7 +880,7 @@ msgstr "created this private topic."
 msgid "@msg-file"
 msgstr "File"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@msg-help-multiline"
 msgstr "shift+enter to multiline"
 
@@ -872,7 +900,7 @@ msgstr "has joined"
 msgid "@msg-left"
 msgstr "has left"
 
-#: client/app/center/center.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "Open original"
 
@@ -888,11 +916,13 @@ msgstr "Unshared"
 msgid "@msg-whose"
 msgstr "'s"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@option-all-members"
 msgstr "All"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@option-all-rooms"
 msgstr "All"
 
@@ -935,6 +965,17 @@ msgstr "Forgot your password? Choose a new one."
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "Private Topics"
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@search-in-progress"
+msgstr ""
+"Searching <span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>..."
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@search-result-summary"
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{messageList.length}}</span> matches for "
+"<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -1138,6 +1179,9 @@ msgstr "in "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@search-result-summary-post"
+#~ msgstr " "
 
 #~ msgid "@file-audio"
 #~ msgstr "Audio"

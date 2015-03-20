@@ -10,6 +10,8 @@
       restrict: 'EA',
       scope: true,
       link: link,
+      replace: true,
+
       templateUrl : 'app/right/rpanel_search/rpanel.search.html',
       controller: 'rPanelSearchCtrl'
     };

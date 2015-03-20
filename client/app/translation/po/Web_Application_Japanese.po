@@ -19,15 +19,16 @@ msgstr "まだどのトピックにも参加していません"
 msgid "@alert-empty-ch-can-join"
 msgstr "参加できるトピックがありません"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@alert-empty-file"
 msgstr "ファイルがありません"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "一致するファイルがありません"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@alert-empty-file-shared"
 msgstr "共有されたファイルがありません"
 
@@ -41,6 +42,7 @@ msgstr "必要な情報が入力されていません"
 
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr "登録情報がありません"
 
@@ -87,7 +89,7 @@ msgstr "キャンセル"
 msgid "@btn-change"
 msgstr "変更"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@btn-click-to-view"
 msgstr "表示"
 
@@ -102,8 +104,8 @@ msgstr "表示"
 msgid "@btn-close"
 msgstr "閉じる"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@btn-comment"
 msgstr "コメント"
 
@@ -116,7 +118,7 @@ msgstr "確認"
 msgid "@btn-create"
 msgstr "作成"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr "削除"
 
@@ -136,7 +138,8 @@ msgid "@btn-join"
 msgstr "参加"
 
 #: client/app/center/center.html client/app/modal/share.html
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@btn-share"
 msgstr "共有"
 
@@ -221,6 +224,7 @@ msgid "@common-add"
 msgstr "追加"
 
 #: client/app/center/center.html client/app/left/left.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr "処理が失敗しました。もう一度お試しください"
 
@@ -263,7 +267,7 @@ msgstr "現在のパスワード"
 msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
-#: client/app/center/center.html client/app/right/file.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "削除されたファイル"
 
@@ -292,8 +296,8 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr "へ招待"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@common-download"
 msgstr "ダウンロード"
 
@@ -302,6 +306,11 @@ msgstr "ダウンロード"
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr "メールアドレス"
+
+#: client/app/right/search.messages/search.messages.html
+#, fuzzy
+msgid "@common-entity-location"
+msgstr "公開/非公開"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
@@ -323,39 +332,39 @@ msgstr "ファイル"
 msgid "@common-file-list"
 msgstr "共有されたファイル"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr "ファイルの種類"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr "全ての種類"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "音声"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "文書"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "画像"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "プレゼンテーション"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "スプレッドシート"
 
-#: client/app/header/header.html client/app/right/right.html
+#: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "動画"
 
@@ -371,7 +380,7 @@ msgstr "完了しました"
 msgid "@common-file-upload-progress-msg"
 msgstr "アップロード中..."
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html client/app/right/right.html
 msgid "@common-files"
 msgstr "ファイル"
 
@@ -404,9 +413,18 @@ msgstr "メンバー"
 msgid "@common-language"
 msgstr "言語"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "共有したメンバー"
+
+#: client/app/right/right.html
+msgid "@common-message"
+msgstr "メッセージ "
+
+#: client/app/right/search.messages/search.messages.html
+#, fuzzy
+msgid "@common-message-writer"
+msgstr "ファイルを共有"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -459,6 +477,10 @@ msgstr "用途"
 msgid "@common-rename"
 msgstr "リネーム"
 
+#: client/app/header/header.html
+msgid "@common-search"
+msgstr "検索"
+
 #: client/app/modal/profile.view.html
 msgid "@common-send-mail"
 msgstr "メールを送る"
@@ -475,7 +497,8 @@ msgstr "ファイルを共有"
 msgid "@common-share-in"
 msgstr "共有範囲"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html client/app/right/files/files.html
 msgid "@common-shared-in"
 msgstr "共有範囲"
 
@@ -569,7 +592,8 @@ msgstr "お探しのページは見つかりませんでした"
 msgid "@error-404-title"
 msgstr "エラーが発生しました"
 
-#: client/app/right/file.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@file-action-more"
 msgstr "もっと見る"
 
@@ -581,11 +605,11 @@ msgstr "全てのファイル"
 msgid "@file-delete-confirm-msg"
 msgstr "ファイルを削除してよいですか？削除後もコメントは残ります"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr "に削除されました"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr " "
 
@@ -665,7 +689,7 @@ msgstr "名前を入力"
 msgid "@input-search-channel-name"
 msgstr "トピック名で検索"
 
-#: client/app/right/right.html
+#: client/app/right/rpanel_search/rpanel.search.html
 msgid "@input-search-file-title"
 msgstr "ファイル名で検索"
 
@@ -673,6 +697,11 @@ msgstr "ファイル名で検索"
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
 msgstr "メンバー名で検索"
+
+#: client/app/right/search.messages/search.messages.html
+#, fuzzy
+msgid "@input-to-search"
+msgstr "新規トピックの名称を入力"
 
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
@@ -710,8 +739,8 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
-#: client/app/center/center.html client/app/right/file.html
-#: client/app/right/right.html
+#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/right/files/file/file.html
 msgid "@message-delete"
 msgstr "削除する"
 
@@ -845,7 +874,7 @@ msgstr "このプライベートトピックを作成する"
 msgid "@msg-file"
 msgstr "ファイル"
 
-#: client/app/right/file.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@msg-help-multiline"
 msgstr "shift+enterで改行"
 
@@ -865,7 +894,7 @@ msgstr "さんが参加しました"
 msgid "@msg-left"
 msgstr "が退出しました"
 
-#: client/app/center/center.html client/app/right/right.html
+#: client/app/center/center.html client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "元のファイルを開く"
 
@@ -881,11 +910,13 @@ msgstr "非共有"
 msgid "@msg-whose"
 msgstr "の"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@option-all-members"
 msgstr "全てのメンバー"
 
-#: client/app/right/right.html
+#: client/app/right/files/files.html
+#: client/app/right/search.messages/search.messages.html
 msgid "@option-all-rooms"
 msgstr "全トピック"
 
@@ -928,6 +959,17 @@ msgstr "パスワードをお忘れですか？ 新しいパスワードを入�
 #: client/app/left/left.html
 msgid "@privateGroup"
 msgstr "プライベートグループ "
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@search-in-progress"
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>を検索しています"
+
+#: client/app/right/search.messages/search.messages.html
+msgid "@search-result-summary"
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>の検索結果が<span "
+"class=\"searchQueryKeyword\">{{messageList.length}}</span>件あります"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -1121,6 +1163,9 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
+
+#~ msgid "@search-result-summary-post"
+#~ msgstr "件あります"
 
 #~ msgid "@file-audio"
 #~ msgstr "音声"

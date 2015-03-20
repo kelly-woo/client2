@@ -2,10 +2,24 @@
   width: 206px;
 }
 
+.rpanel-message-search .search-status-container {
+  margin-left: 40px;
+  color: #999999;
+  font-size: 14px;
+}
+
+.rpanel-message-search .search-status-container .searchQueryKeyword {
+  color: #333333;
+}
+
 .rpanel-message-search  .no-search-input-container {
   margin-top: 67px;
   text-align: center;
   cursor: pointer;
+}
+
+.search-result-summary,
+.search-result-summary-ing {
 }
 
 .rpanel-message-search  .no-search-input-container:hover .no-search-input-container__text {
