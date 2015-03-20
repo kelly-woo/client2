@@ -211,6 +211,8 @@
                               'system-event-msg' : msg.message.contentType === 'systemEvent',
                               'archived-file': msg.message.status === 'archived'
                               }">
+
+          {{ msg.id }}
           <!--  User Thumbnail || System event message on left of the message-->
           <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
                ng-switch="msg.message.contentType"

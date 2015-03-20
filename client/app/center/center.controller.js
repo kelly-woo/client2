@@ -37,7 +37,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     lastMessageId,              // 현재 엔티티가 가지고 있는 가장 아래 메세지 아이디.
     localFirstMessageId,        // 메세지들 중 가장 위에 있는 메세지 아이디.
     localLastMessageId,         // 메세지들 중 가낭 아래에 있는 메세지 아이디.
-    loadedLocalFirstMessagedId, // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
+    loadedFirstMessagedId, // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
     loadedLastMessageId;        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
 
   $scope.isMessageSearchJumping = false;
@@ -98,10 +98,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   (function() {
     _onStartUpCheckList();
 
-    _resetLoadMoreCounter();
-    _setDefaultLoadingScreen();
-    _initMsgSearchQuery();
-    _initLocalVariables();
+    _init();
 
     if(_hasMessageIdToSearch()) {
       _jumpToMessage();
@@ -114,17 +111,22 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   })();
 
+  function _init() {
+    _resetMessages();
+    _resetLoadMoreCounter();
+    _setDefaultLoadingScreen();
+    _initMsgSearchQuery();
+    _initLocalVariables();
+  }
+
   $scope.$on('refreshCurrentTopic', function() {
     console.log('itsme')
     _refreshCurrentTopic();
   });
 
   function _refreshCurrentTopic() {
-    _resetLoadMoreCounter();
-    _resetMessages();
-    _setDefaultLoadingScreen();
-    _initMsgSearchQuery();
-    _initLocalVariables();
+    _init();
+
     loadMore();
   }
   /**
@@ -177,7 +179,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     lastMessageId = -1;
     localFirstMessageId = -1;
     localLastMessageId = -1;
-    loadedLocalFirstMessagedId = -1;
+    loadedFirstMessagedId = -1;
   }
 
   function _resetLoadMoreCounter() {
@@ -198,8 +200,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var toMessageId = messageSearchHelper.getLinkId();
 
     _setSearchMode();
-    _resetLoadMoreCounter();
-    _resetMessages();
+
+    _init();
+
     _setMsgSearchQueryLinkId(toMessageId);
     loadMore();
   }
@@ -278,6 +281,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     if (!$scope.msgLoadStatus.loading && !$scope.isPosting) {
 
+      loadedFirstMessagedId = localFirstMessageId;
+      loadedLastMessageId = localLastMessageId;
+
       // TODO: come up with function and name.
       $scope.msgLoadStatus.loading = true;
       $scope.isPolling = false;
@@ -331,26 +337,39 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   }
 
+  function _updateMessageIds(messagesList) {
+    if (_isLoadingNewMessages()) {
+      _updateLoadedLastMessageId(messagesList[0]);
+    } else {
+      _updateLoadedFirstMessageId(messagesList[messagesList.length - 1]);
+    }
+  }
+  function _updateLoadedFirstMessageId(msg) {
+    localFirstMessageId = msg.id;
+  }
+  function _updateLoadedLastMessageId(msg) {
+    localLastMessageId = msg.id;
+  }
   /**
    * Process each element in array handling every cases.
    * @param messagesList
    * @private
    */
   function _messageProcessor(messagesList) {
-    for (var i in messagesList.reverse()) {
+
+    messagesList = messagesList.reverse();
+
+    if (_isInitialLoad) {
+      _updateLoadedLastMessageId(messagesList[0]);
+      _updateLoadedFirstMessageId(messagesList[messagesList.length - 1]);
+    } else {
+      _updateMessageIds(messagesList);
+    }
+
+
+
+    for (var i in messagesList) {
       var msg = messagesList[i];
-
-      if (_isFirstMessage(i, messagesList)) {
-        loadedLocalFirstMessagedId = localFirstMessageId;
-        localFirstMessageId = msg.id;
-      }
-
-      if (_isLastMessage(i)) {
-        loadedLastMessageId = msg.id;
-        localLastMessageId = localLastMessageId < loadedLastMessageId ? loadedLastMessageId : localLastMessageId;
-        //console.log('localLastMessageId: ', localLastMessageId, ' lastMessageId: ', lastMessageId);
-      }
-
 
       // jihoon
       if (msg.status == 'event') {
@@ -377,14 +396,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
 
-  function _isLastMessage(index) {
-    return index == 0;
-  }
-  function _isFirstMessage(index, response) {
-    return index == response.length - 1;
-  }
   function _isInitialLoad() {
-    return $scope.loadMoreCounter == 1;
+    return loadedFirstMessagedId < 0;
   }
   function _hasMoreOldMessageToLoad() {
     if (localFirstMessageId == -1) return true;
@@ -392,7 +405,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return localFirstMessageId != firstMessageId;
   }
   function _hasMoreNewMessageToLoad() {
-    //console.log('localLastMessageId: ', localLastMessageId, 'lastMessageId: ', lastMessageId, localLastMessageId < lastMessageId)
+    console.log('localLastMessageId: ', localLastMessageId, 'lastMessageId: ', lastMessageId, localLastMessageId < lastMessageId)
     return localLastMessageId < lastMessageId;
   }
   function _isLoadingNewMessages() {
@@ -424,14 +437,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       return;
     }
 
-    if (loadedLocalFirstMessagedId == -1) return;
+    if (loadedFirstMessagedId == -1) return;
 
     console.log('-- updateScroll: load old message')
 
     _disableScroll();
 
-    var anchorMessageId = loadedLocalFirstMessagedId;
-    _findMessageDomElementById(anchorMessageId);
+    _findMessageDomElementById(loadedFirstMessagedId);
 
   };
   function _findMessageDomElementById(id) {
@@ -539,12 +551,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         // lastUpdatedId 갱신 --> lastMessageId
         lastUpdatedLinkId = response.lastLinkId;
-        localLastMessageId = response.lastLinkId;
 
         response = response.updateInfo;
 
         if (response.messageCount) {
 
+          localLastMessageId = response.lastLinkId;
+          loadedLastMessageId = localLastMessageId;
           //  marker 설정
           updateMessageMarker();
 

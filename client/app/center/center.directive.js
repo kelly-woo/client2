@@ -62,6 +62,7 @@
         var element = angular.element(document.getElementById('msgs-container'));
 
         if (raw.scrollTop + element.outerHeight() == raw.scrollHeight) {
+          console.log('bottom!!!')
           // Bottom reached!
           scope.loadNewMessages();
           scope.isAtBottom();

@@ -264,6 +264,10 @@
     $scope.loadMore = function() {
       if (isEndOfList || $scope.isScrollLoading) return;
 
+      if ($scope.fileList.length==0 && $scope.fileRequest.keyword != '') {
+        // No search result.
+        return;
+      }
       $scope.isScrollLoading = true;
       $scope.fileRequest.startMessageId = startMessageId;
 
