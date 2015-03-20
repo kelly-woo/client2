@@ -938,13 +938,14 @@ msgstr "私人群組 "
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
-msgstr "搜寻 <span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>..."
+msgstr ""
+"搜寻 <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>..."
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span> 与 <span class="
-"\"searchQueryKeyword\">{{messageList.length}}</span> 符合"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 与 <span "
+"class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"

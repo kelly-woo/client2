@@ -969,13 +969,14 @@ msgstr "Private Topics"
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
 msgstr ""
-"Searching <span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>..."
+"Searching <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</"
+"span>..."
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{messageList.length}}</span> matches for "
-"<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>"
+"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> matches "
+"for <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"

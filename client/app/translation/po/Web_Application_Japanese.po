@@ -963,13 +963,14 @@ msgstr "プライベートグループ "
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>を検索しています"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>を検索して"
+"います"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>の検索結果が<span "
-"class=\"searchQueryKeyword\">{{messageList.length}}</span>件あります"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>の検索結果"
+"が<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>件あります"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"

@@ -21,6 +21,11 @@
 
       $scope.messageList;
 
+      $scope.searchStatus = {
+        keyword: '',
+        length: ''
+      };
+
       // Methods
       $scope.searchMessages = searchMessages;
       $scope.updateMessageLocationFilter = updateMessageLocationFilter;
@@ -89,7 +94,13 @@
         })
         .finally(function(){
           _hideLoading();
+          _updateSearchStatus();
         });
+    }
+
+    function _updateSearchStatus() {
+      $scope.searchStatus.keyword = $scope.searchQuery.q;
+      $scope.searchStatus.length = $scope.messageList.length;
     }
 
     $scope.setSearchInputFocus = setSearchInputFocus;

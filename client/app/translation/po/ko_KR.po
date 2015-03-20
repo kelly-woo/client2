@@ -955,14 +955,15 @@ msgstr "토픽 생성 "
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
-msgstr "<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span> 검색 중..."
+msgstr ""
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 검색 중..."
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchQuery.q}}</span>에 대한 <span "
-"class=\"searchQueryKeyword\">{{messageList.length}}</span>개의 검색 결과가 있"
-"습니다."
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>에 대한 "
+"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>개의 검색 결"
+"과가 있습니다."
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"

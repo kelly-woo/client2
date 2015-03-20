@@ -81,6 +81,11 @@
 
     function _init() {
 
+      $scope.searchStatus = {
+        keyword: '',
+        length: ''
+      };
+
       $scope.isLoading = false;
       $scope.isScrollLoading = false;
 
@@ -293,10 +298,14 @@
         })
         .error(function(response) {
           console.log(response.msg);
+        })
+        .finally(function() {
+          _updateSearchStatus();
         });
     }
 
     function generateFileList(fileList, fileCount, firstIdOfReceivedList) {
+
       if (fileCount === 0 && $scope.isScrollLoading) {
         $('.file-list__item.loading').addClass('opac_out');
 
@@ -323,10 +332,13 @@
       }
       $scope.isScrollLoading = false;
       $scope.isLoading = false;
-
     }
 
 
+    function _updateSearchStatus() {
+      $scope.searchStatus.keyword = $scope.fileRequest.keyword;
+      $scope.searchStatus.length = $scope.fileList.length;
+    }
     // there is a function listening to 'onFileSelect' in left.controller
     $scope.onFileSelect = function($files) {
       $rootScope.$broadcast('onFileSelect', $files);

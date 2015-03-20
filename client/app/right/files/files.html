@@ -48,19 +48,19 @@
 
 <div class="rpanel-body-content" infinite-scroll-bottom="loadMore();">
 
-  <div class="search-result-container" ng-if="!isSearchQueryEmpty && fileList.length > 0">
-    "<span class="search-result-msg__query">{{fileRequest.keyword}}</span>"
-    <span class="search-result-msg__length">{{fileList.length}}</span>
+
+  <div class="search-result-container">
+
+    <div class="search-result-summary-ing" ng-if="isLoading"><span translate>@search-in-progress</span></div>
+
+    <div class="search-result-summary" ng-if="!isLoading && fileList.length > 0 && !isSearchQueryEmpty">
+      <span translate>@search-result-summary</span>
+    </div>
   </div>
 
   <div class="file-list infinite-scroll-bottom-list">
     <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
     <div class="break-word" ng-if="fileList.length==0">
-      <div class="rpanel-body-content__result-msg rpanel-loading" ng-if="isLoading">
-        <div class="loading_container_background scroll_loading_container_background"></div>
-        <div class="loading_bg scroll_loading_bg"></div>
-        <div class="loading_bar icon-loading scroll_loading_bar"></div>
-      </div>
 
       <div ng-if="!isLoading" class="rpanel-alert-msg-container">
         <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
@@ -76,7 +76,7 @@
 
     <file data-ng-repeat="file in fileList"></file>
 
-    <div class="file-list__item loading" ng-if="isScrollLoading">
+    <div class="file-list__item loading" ng-if="isScrollLoading && fileList.length > 0">
       <div class="loading_container_background scroll_loading_container_background"></div>
       <div class="loading_bg scroll_loading_bg"></div>
       <div class="loading_bar icon-loading scroll_loading_bar"></div>
