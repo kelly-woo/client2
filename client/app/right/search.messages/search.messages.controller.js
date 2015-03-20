@@ -80,6 +80,7 @@
 
       $scope.apiError = false;
 
+      _updateSearchStatusKeyword();
       _showLoading();
 
       messageSearchHelper.searchMessages($scope.searchQuery)
@@ -87,6 +88,7 @@
           console.log(response)
           _updateSearchQueryCursor(response.cursor);
           _updateMessageList(response);
+          _updateSearchStatusTotalCount(response.cursor.totalCount);
         })
         .error(function(err) {
           console.log(err);
@@ -94,13 +96,14 @@
         })
         .finally(function(){
           _hideLoading();
-          _updateSearchStatus();
         });
     }
 
-    function _updateSearchStatus() {
+    function _updateSearchStatusKeyword() {
       $scope.searchStatus.keyword = $scope.searchQuery.q;
-      $scope.searchStatus.length = $scope.messageList.length;
+    }
+    function _updateSearchStatusTotalCount(count) {
+      $scope.searchStatus.length = count;
     }
 
     $scope.setSearchInputFocus = setSearchInputFocus;

@@ -280,6 +280,8 @@
     };
 
     function getFileList() {
+      _updateSearchStatusKeyword();
+
       fileAPIservice.getFileList($scope.fileRequest)
         .success(function(response) {
           var fileList = [];
@@ -300,7 +302,7 @@
           console.log(response.msg);
         })
         .finally(function() {
-          _updateSearchStatus();
+          _updateSearchStatusTotalCount();
         });
     }
 
@@ -335,8 +337,11 @@
     }
 
 
-    function _updateSearchStatus() {
+    function _updateSearchStatusKeyword() {
       $scope.searchStatus.keyword = $scope.fileRequest.keyword;
+    }
+
+    function _updateSearchStatusTotalCount(count) {
       $scope.searchStatus.length = $scope.fileList.length;
     }
     // there is a function listening to 'onFileSelect' in left.controller
