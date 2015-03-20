@@ -299,6 +299,18 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     $scope.onStarClick(entityType, entityId)
   });
 
+  $scope.onTopicClicked = onTopicClicked;
+
+  function onTopicClicked(entityType, entityId) {
+    console.log('me')
+    if ($scope.currentEntity.id == entityId) {
+      $rootScope.$broadcast('refreshCurrentTopic');
+    } else {
+      $state.go('archives', { entityType: entityType, entityId: entityId });
+    }
+  }
+
+
   $scope.onStarClick = function(entityType, entityId) {
     var entity = entityAPIservice.getEntityById(entityType, entityId);
 

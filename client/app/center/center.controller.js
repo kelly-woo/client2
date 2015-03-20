@@ -13,6 +13,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var entityType = $state.params.entityType;
   var entityId = $state.params.entityId;
 
+  var SCROLL_BOTTOM_THRESHOLD = 60;
 
   var updateInterval = 2000;
 
@@ -20,7 +21,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.isInitialLoadingCompleted = false;
   $rootScope.isIE9 = false;
   $scope.isPosting = false;
-
+  $scope.isPolling = false;
 
   $scope.lastMessage = null;
 
@@ -32,27 +33,23 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.entityType = entityType;
   $scope.messages = [];
 
-  var firstMessageId,
-    lastMessageId,
-    localFirstMessageId,
-    localLastMessageId,
-    loadedLocalFirstMessagedId,
-    loadedLastMessageId;
+  var firstMessageId,           // 현재 엔티티가 가지고 있는 가장 위 메세지 아이디.
+    lastMessageId,              // 현재 엔티티가 가지고 있는 가장 아래 메세지 아이디.
+    localFirstMessageId,        // 메세지들 중 가장 위에 있는 메세지 아이디.
+    localLastMessageId,         // 메세지들 중 가낭 아래에 있는 메세지 아이디.
+    loadedLocalFirstMessagedId, // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
+    loadedLastMessageId;        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
 
   $scope.isMessageSearchJumping = false;
 
   // configuration for message loading
   $scope.msgLoadStatus = {
     loading: false,
-    loaded: false,
-    firstLoadedId: -1,
-    isFirst: false,
     loadingTimer : true
   };
 
 
   $scope.isOwner = function() {
-
     return ($rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId) == memberService.getMemberId();
   };
   $scope.isDefaultTopic = function() {
@@ -67,7 +64,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         // analytics
         var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
 
-        analyticsService.mixpanelTrack( "Entity Leave", { "type": entity_type } );
+        analyticsService.mixpanelTrack( "Entity Leave" , { "type": entity_type } );
         updateLeftPanel();
       })
       .error(function(error) {
@@ -101,6 +98,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   (function() {
     _onStartUpCheckList();
 
+    _resetLoadMoreCounter();
     _setDefaultLoadingScreen();
     _initMsgSearchQuery();
     _initLocalVariables();
@@ -116,6 +114,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   })();
 
+  $scope.$on('refreshCurrentTopic', function() {
+    console.log('itsme')
+    _refreshCurrentTopic();
+  });
+
+  function _refreshCurrentTopic() {
+    _resetLoadMoreCounter();
+    _resetMessages();
+    _setDefaultLoadingScreen();
+    _initMsgSearchQuery();
+    _initLocalVariables();
+    loadMore();
+  }
   /**
    * If there is anything to be checked before loading message, do it here!
    * @private
@@ -125,6 +136,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _hasCorrectEntityType();
     _isMyself();
   }
+
   function _checkIE9() {
     if (angular.isDefined(FileAPI.support)) {
       if (!FileAPI.support.html5)
@@ -148,7 +160,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
 
-
   function _setDefaultLoadingScreen() {
     //  default loadingTimer
     $timeout(function() {
@@ -161,7 +172,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       count: DEFAULT_MESSAGE_UPDATE_COUNT
     };
   }
-
   function _initLocalVariables() {
     firstMessageId = -1;
     lastMessageId = -1;
@@ -177,9 +187,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _resetMessages() {
     $scope.groupMsgs = [];
     $scope.messages = [];
-  }
-  function _hasMessageIdToSearch() {
-    return messageSearchHelper.hasMessageToSearch();
   }
 
   $scope.$on('jumpToMessageId', function(event, params) {
@@ -245,20 +252,35 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
       return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
     });
+  }
 
+  $scope.loadNewMessages = loadNewMessages;
+  function loadNewMessages() {
+    if (!_hasMoreNewMessageToLoad()) return;
+
+    _setMsgSearchQueryLinkId(localLastMessageId);
+    _setMsgSearchQueryType('new');
+    loadMore();
+  }
+
+  $scope.loadOldMessages = loadOldMessages;
+  function loadOldMessages() {
+    if (!_hasMoreOldMessageToLoad()) return;
+
+    _setMsgSearchQueryLinkId(localFirstMessageId);
+    _setMsgSearchQueryType('old');
+    loadMore();
   }
 
   $scope.loadMore = loadMore;
   function loadMore() {
     var deferred = $q.defer();
 
-    // No more messages to load.
-    if (!_hasMoreOldMessageToLoad()) return;
-
     if (!$scope.msgLoadStatus.loading && !$scope.isPosting) {
 
       // TODO: come up with function and name.
       $scope.msgLoadStatus.loading = true;
+      $scope.isPolling = false;
 
       log('-- loadMore');
 
@@ -286,10 +308,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             updateMessageMarker();
 
             // 추후 로딩을 위한 status 설정
-            $scope.msgLoadStatus.firstLoadedId = response.firstLinkId;
-            $scope.msgLoadStatus.isFirst = response.isFirst;
             $scope.msgLoadStatus.loading = false;
-            $scope.msgLoadStatus.loaded = ($scope.messages.length > 0);
 
             // auto focus to textarea - CURRENTLY NOT USED.
             $scope.focusPostMessage = true;
@@ -311,25 +330,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
   }
-
-  $scope.loadNewMessages = loadNewMessages;
-  function loadNewMessages() {
-    if (!_hasMoreNewMessageToLoad()) return;
-
-    _setMsgSearchQueryLinkId(localLastMessageId);
-    _setMsgSearchQueryType('new');
-    loadMore();
-  }
-
-  $scope.loadOldMessages = loadOldMessages;
-  function loadOldMessages() {
-    if (!_hasMoreOldMessageToLoad()) return;
-
-    _setMsgSearchQueryLinkId(localFirstMessageId);
-    _setMsgSearchQueryType('old');
-    loadMore();
-  }
-
 
   /**
    * Process each element in array handling every cases.
@@ -376,6 +376,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     }
   }
+
   function _isLastMessage(index) {
     return index == 0;
   }
@@ -453,20 +454,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
     }, 10);
   }
+
+  $scope.isAtBottom = function() {
+    _clearBadgeCount($scope.currentEntity);
+  };
+
   function _animateBackgroundColor(element) {
     element.addClass('last');
     $timeout(function() {
-        element.removeClass('last');
+      element.removeClass('last');
     }, 1000)
   }
 
-  var treshhold = 60;
   function _hasBottomReached() {
     var element = document.getElementById('msgs-container');
     var scrollHeight = element.scrollHeight;
     element = angular.element(element);
 
-    return scrollHeight - (element.outerHeight() + element.scrollTop()) < treshhold;
+    return scrollHeight - (element.outerHeight() + element.scrollTop()) < SCROLL_BOTTOM_THRESHOLD;
   }
 
   /**
@@ -485,7 +490,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $('body').unbind('mousewheel');
   }
 
-
+  function _hasMessageIdToSearch() {
+    return messageSearchHelper.hasMessageToSearch();
+  }
   function _setSearchMode() {
     $scope.isMessageSearchJumping = true;
   }
@@ -504,7 +511,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
   $scope.promise = null;
 
-  var currentLast = -1;
   var lastUpdatedLinkId = -1;
   function updateList () {
 
@@ -520,6 +526,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     log('  -- calling getUpdatedMessages');
 
+    $scope.isPolling = true;
+
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(function (response) {
 
@@ -531,6 +539,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         // lastUpdatedId 갱신 --> lastMessageId
         lastUpdatedLinkId = response.lastLinkId;
+        localLastMessageId = response.lastLinkId;
 
         response = response.updateInfo;
 
@@ -551,14 +560,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
             if ($scope.isPosting)
               $scope.isPosting = false;
-
-            //  return if old msg was returned from server.
-            //  'currentLast' indicates a link id of last message rendered on screen.
-            if (msg.id <= currentLast)
-              return;
-            else
-              currentLast = msg.id;
-
 
             // auto focus to textarea
             $scope.focusPostMessage = true;
@@ -621,19 +622,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 console.error("!!! unfiltered message", msg);
                 break;
             }
-
             groupByDate();
+          }
 
-
+          if (_hasBrowserFocus()) {
             if (_hasBottomReached()) {
               console.log('bottom reached!!')
               _scrollToBottom();
-            } else {
-              console.log('new message arrived!')
+            }
+            else {
+              entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
             }
           }
-
-
         }
 
       })
@@ -670,7 +670,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateMessageMarker() {
     messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
       .success(function(response) {
-      //  console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + lastMessageId);
+        //  console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + lastMessageId);
       })
       .error(function(response) {
         console.log('message marker not updated for ' + $scope.currentEntity.id);
@@ -1317,7 +1317,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // Callback when window gets focused.
   window.onfocus = function() {
     $scope.hasFocus = true;
-    _clearBadgeCount($scope.currentEntity);
+    //_clearBadgeCount($scope.currentEntity);
   };
 
   /**

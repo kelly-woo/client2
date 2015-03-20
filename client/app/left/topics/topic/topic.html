@@ -1,6 +1,7 @@
 <li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true"
-    ng-class="{active: $state.params.entityId == joinedEntity.id}">
-  <a ui-sref="archives({entityType:joinedEntity.type, entityId:joinedEntity.id})"
+    ng-class="{active: $state.params.entityId == joinedEntity.id}"
+    data-ng-click="onTopicClicked(joinedEntity.type, joinedEntity.id);">
+  <a
      data-channel-id="{{joinedEntity.id}}">
 
     <i class="icon-star left-star" ng-class="{'icon-star-fill': joinedEntity.isStarred}"

@@ -15,6 +15,13 @@
     };
 
     function link (scope, element, attrs, ctrl) {
+
+      if (scope.isPolling) {
+        console.log('polling');
+        counter++;
+        return;
+      }
+
       // Switched to new topic.  Reset flag and counter.
       if (scope.loadMoreCounter == 1) {
         if (counterFlag) {
@@ -57,6 +64,7 @@
         if (raw.scrollTop + element.outerHeight() == raw.scrollHeight) {
           // Bottom reached!
           scope.loadNewMessages();
+          scope.isAtBottom();
           return;
         }
 
