@@ -462,12 +462,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       var positionTop = lastMsg.position().top;
 
       _animateBackgroundColor(lastMsg);
+      console.log('moving scroll', positionTop)
+      if (_isInitialLoad()) {
+        console.log('initial load')
+        positionTop -= 60;
+      }
       document.getElementById('msgs-container').scrollTop = positionTop;
 
-    }, 10);
+    }, 5);
   }
 
   function _scrollToBottom() {
+    console.log('scrolling to bottom')
     $timeout(function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
     }, 10);

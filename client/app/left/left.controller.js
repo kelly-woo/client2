@@ -302,7 +302,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
   $scope.onTopicClicked = onTopicClicked;
 
   function onTopicClicked(entityType, entityId) {
-    console.log('me')
     if ($scope.currentEntity.id == entityId) {
       $rootScope.$broadcast('refreshCurrentTopic');
     } else {

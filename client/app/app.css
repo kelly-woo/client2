@@ -28,7 +28,7 @@
 }
 
 :lang(ja) { font-family:    "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", arial, helvetica, sans-serif, fontAwesome; }
-:lang(ko) { font-family:    "Malgun Gothic",  "Apple SD Gothic Neo", sans-serif, serif, fontAwesome; }
+:lang(ko) { font-family:    "Helvetica Neue", Helvetica, "Apple SD Gothic Neo", "Malgun Gothic",  sans-serif, serif, fontAwesome; }
 :lang(en) { font-family:    "Helvetica Neue", Helvetica, Arial, sans-serif, serif, fontAwesome; }
 
 /**
