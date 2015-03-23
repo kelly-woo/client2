@@ -17,7 +17,7 @@
     function link (scope, element, attrs, ctrl) {
 
       if (scope.isPolling) {
-        console.log('polling');
+        //console.log('polling');
         counter++;
         return;
       }
@@ -32,10 +32,10 @@
 
       counter++;
 
-      console.log(counter, scope.messages.length)
+      //console.log(counter, scope.messages.length)
 
       if (counter == scope.messages.length) {
-        console.log(counter == scope.messages.length)
+        //console.log(counter == scope.messages.length)
         //If it's initial loading, set 'counterFlag' to true.
         if (scope.loadMoreCounter == 1) {
           counterFlag = true;
@@ -62,7 +62,7 @@
         var element = angular.element(document.getElementById('msgs-container'));
 
         if (raw.scrollTop + element.outerHeight() == raw.scrollHeight) {
-          console.log('bottom!!!')
+          //console.log('bottom!!!')
           // Bottom reached!
           scope.loadNewMessages();
           scope.isAtBottom();

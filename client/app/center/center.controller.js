@@ -33,6 +33,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.entityType = entityType;
   $scope.messages = [];
 
+  $scope.promise = null;        // Polling object.
+
+  $scope.message = {};          // Message to post.
+
   var firstMessageId,           // 현재 엔티티가 가지고 있는 가장 위 메세지 아이디.
     lastMessageId,              // 현재 엔티티가 가지고 있는 가장 아래 메세지 아이디.
     localFirstMessageId,        // 메세지들 중 가장 위에 있는 메세지 아이디.
@@ -120,7 +124,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   $scope.$on('refreshCurrentTopic', function() {
-    console.log('itsme')
     _refreshCurrentTopic();
   });
 
@@ -170,8 +173,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _initMsgSearchQuery() {
+    //console.log('initing msgSearchQuery')
     $scope.msgSearchQuery = {
-      count: DEFAULT_MESSAGE_UPDATE_COUNT
+      count: DEFAULT_MESSAGE_UPDATE_COUNT,
     };
   }
   function _initLocalVariables() {
@@ -293,6 +297,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // simulate an ajax request
       $timeout(function() {
 
+        //console.log($scope.msgSearchQuery)
+
         // 엔티티 메세지 리스트 목록 얻기
         messageAPIservice.getMessages(entityType, entityId, $scope.msgSearchQuery)
           .success(function(response) {
@@ -405,7 +411,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return localFirstMessageId != firstMessageId;
   }
   function _hasMoreNewMessageToLoad() {
-    console.log('localLastMessageId: ', localLastMessageId, 'lastMessageId: ', lastMessageId, localLastMessageId < lastMessageId)
+    //console.log('localLastMessageId: ', localLastMessageId, 'lastMessageId: ', lastMessageId, 'Has more newer message: ', localLastMessageId < lastMessageId)
     return localLastMessageId < lastMessageId;
   }
   function _isLoadingNewMessages() {
@@ -478,6 +484,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }, 1000)
   }
 
+  function _hasLastMessage() {
+    //console.log('hasLastMessage: ', localLastMessageId == lastMessageId);
+    return localLastMessageId == lastMessageId;
+  }
   function _hasBottomReached() {
     var element = document.getElementById('msgs-container');
     var scrollHeight = element.scrollHeight;
@@ -521,7 +531,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
-  $scope.promise = null;
+
 
   var lastUpdatedLinkId = -1;
   function updateList () {
@@ -555,9 +565,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         response = response.updateInfo;
 
         if (response.messageCount) {
-
-          localLastMessageId = response.lastLinkId;
+          //console.log('updating current entity.');
+          localLastMessageId = lastUpdatedLinkId;
           loadedLastMessageId = localLastMessageId;
+          lastMessageId = localLastMessageId;
 
           //  marker 설정
           updateMessageMarker();
@@ -641,10 +652,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
           if (_hasBrowserFocus()) {
             if (_hasBottomReached()) {
-              console.log('bottom reached!!')
+              console.log('bottom reached and scrolling to bottom');
               _scrollToBottom();
             }
             else {
+              //console.log('updating badge count');
               entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
             }
           }
@@ -691,7 +703,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   }
 
-  $scope.message = {};
 
   $scope.postMessage = function() {
     if (!$scope.message.content) return;
@@ -713,19 +724,23 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     messageAPIservice.postMessage(entityType, entityId, {'content': msg})
       .success(function(response) {
+        $scope.isPosting = false;
+
         log('-- posting message success');
         //  reseting position of msgs
         $('.msgs').css('margin-bottom', 0);
 
-        if (_isSearchMode()) {
-          console.log('posing - search mode')
-        } else {
-          console.log('posting - regular')
+        if (_hasLastMessage()) {
+          //console.log('posting - regular')
           updateList();
+        } else {
+          console.log('posing - search mode')
+          _refreshCurrentTopic();
         }
       })
       .error(function(response) {
         $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.postMessage"});
+        $scope.isPosting = false;
       });
   };
 
