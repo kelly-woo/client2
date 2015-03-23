@@ -11,6 +11,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 
+#: client/app/tpl/503/503.html
+msgid "@503-unavailable-msg"
+msgstr "JANDI现在基于定期维护而无法使用。"
+
+#: client/app/tpl/503/503.html
+msgid "@503-will-be-back-msg"
+msgstr "我们预计几个小时内就可以恢复运作。感谢您的耐心等候。"
+
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "您尚未加入任何议题群组"

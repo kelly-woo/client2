@@ -11,6 +11,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 
+#: client/app/tpl/503/503.html
+msgid "@503-unavailable-msg"
+msgstr "JANDIは現在定期メンテナンス中のためご利用できません。"
+
+#: client/app/tpl/503/503.html
+msgid "@503-will-be-back-msg"
+msgstr ""
+"定期メンテナンスは数時間で終了の予定です。ご不便をお掛けし申し訳ありません。"
+
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "まだどのトピックにも参加していません"

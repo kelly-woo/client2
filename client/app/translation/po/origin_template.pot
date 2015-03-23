@@ -3,6 +3,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: client/app/tpl/503/503.html
+msgid "@503-unavailable-msg"
+msgstr ""
+
+#: client/app/tpl/503/503.html
+msgid "@503-will-be-back-msg"
+msgstr ""
+
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr ""
