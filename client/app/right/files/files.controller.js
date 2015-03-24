@@ -66,7 +66,6 @@
     // 2. re-initialize shared in filter.
     $scope.$on('onInitLeftListDone', function() {
       _generateShareOptions();
-      _initSharedInFilter();
     });
 
     $scope.$on('onrPanelFileTabSelected', function() {

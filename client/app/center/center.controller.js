@@ -552,16 +552,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
 
-    console.log('  -- calling getUpdatedMessages');
+    //console.log('  -- calling getUpdatedMessages');
 
     $scope.isPolling = true;
 
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(function (response) {
 
-        console.log('  -- getUpdatedMessages success');
+        //console.log('  -- getUpdatedMessages success');
 
-        console.log(response)
+        //console.log(response)
         // jihoon
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
         if (response.event.eventCount != 0) updateEventHandler(response.event);
@@ -597,14 +597,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $scope.focusPostMessage = true;
 
             if ( msg.status == 'event' ) {
-              console.log(msg.status)
               msg = eventMsgHandler(msg);
-
-              console.log(msg)
               $scope.messages.push(msg);
-
-              groupByDate();
-
               continue;
             }
 
@@ -659,12 +653,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 console.error("!!! unfiltered message", msg);
                 break;
             }
-            groupByDate();
           }
+          if (response.messages.length > 0) groupByDate();
 
           if (_hasBrowserFocus()) {
             if (_hasBottomReached()) {
-              console.log('bottom reached and scrolling to bottom');
+              //console.log('bottom reached and scrolling to bottom');
               _scrollToBottom();
             }
             else {
@@ -1093,7 +1087,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateEventHandler(event) {
     if (event.eventCount == 0) return;
 
-    console.log('event count: ', event.eventCount);
+    //console.log('event count: ', event.eventCount);
 
     var eventTable = event.eventTable;
 
