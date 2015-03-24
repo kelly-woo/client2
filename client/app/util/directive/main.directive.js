@@ -124,11 +124,10 @@ app.directive('lazy', function($timeout) {
 app.directive('infiniteScrollBottom', function() {
   return function(scope, element, attr) {
 
-    var fileList    = $('.file-list');
+    var fileList = $('.file-list');
     var rpanelBody = $('.rpanel-body');
 
     element.bind('mousewheel', function(event) {
-
       if (scope.isScrollLoading) return;
 
       if (fileList.height() <= rpanelBody.height()) {

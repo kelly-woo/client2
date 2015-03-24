@@ -46,7 +46,16 @@
     function link(scope, elm, attr) {
       var raw = elm[0];
 
+      var position = 0;
+
       elm.bind('scroll', function(event) {
+        var scrollTop = raw.scrollTop;
+
+        // If scrolling down, Don't worry about loading more of content.
+        if (scrollTop > position) return;
+
+        position = scrollTop;
+
         if (raw.scrollTop <= 20 && !scope.msgLoadStatus.isFirst && scope.msgLoadStatus.isInitialLoadingCompleted) {
           scope.loadMore();
         }

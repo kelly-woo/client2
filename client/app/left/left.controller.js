@@ -45,6 +45,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
   };
 
   var response = null;
+  if (!leftPanel) return;
   if (leftPanel.status != 200) {
     var err = leftPanel.data;
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
@@ -192,6 +193,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     if (memberService.getStarredEntities().length > 0) {
       // generating starred list.
       setStar();
+      $rootScope.$broadcast('onSetStarDone');
     }
 
     if ($state.params.entityId)
@@ -274,7 +276,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
   $rootScope.$on('onUserClick', function(event, user) {
     $scope.onUserClick(user);
   });
-
   //  Add 'onUserClick' to redirect to direct message to 'user'
   //  center and header are calling.
   $scope.onUserClick = function(user) {
@@ -372,6 +373,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
       target.addClass('rotate-90');
     }
   };
+
 
 
   /*********************************************************************

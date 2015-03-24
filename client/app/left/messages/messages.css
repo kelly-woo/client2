@@ -42,3 +42,8 @@
 :lang(ko) {  }
 :lang(en) {  }
 
+
+
+.messages-list-disabled-member .left-panel__name {
+  text-decoration: line-through;
+}

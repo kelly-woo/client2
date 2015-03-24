@@ -11,6 +11,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 
+#: client/app/tpl/503/503.html
+msgid "@503-unavailable-msg"
+msgstr "현재 잔디는 정기 점검 중입니다."
+
+#: client/app/tpl/503/503.html
+msgid "@503-will-be-back-msg"
+msgstr "1~2시간 내에 점검이 완료될 예정이니 조금만 기다려주세요."
+
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "참여중인 토픽이 없습니다"
@@ -40,6 +48,7 @@ msgid "@alert-missing-info"
 msgstr "모든 정보를 입력하세요"
 
 #: client/app/modal/join.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@alert-no-result"
 msgstr "결과가 없습니다"
 
@@ -274,6 +283,14 @@ msgstr "데스크탑 알림"
 #: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
 msgstr "1:1 메시지"
+
+#: client/app/center/center.html
+msgid "@common-disabled-member-notice-msg-short"
+msgstr "차단된 멤버입니다"
+
+#: client/app/modal/profile.view.html
+msgid "@common-disabled-member-profile-msg"
+msgstr "차단된 멤버입니다. 궁금하신 사항은 팀 관리자에게 문의하세요."
 
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
@@ -522,6 +539,14 @@ msgstr "홈페이지 방문하기"
 #: client/app/modal/settings.team.html
 msgid "@common-warning"
 msgstr "경고"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-post"
+msgstr "으로부터 차단되었습니다. 자세한 사항은 팀 관리자에게 문의하세요."
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-pre"
+msgstr " "
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -975,7 +1000,7 @@ msgstr "전체 멤버 보기"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
-msgstr "팀 변경"
+msgstr "잔디 메인으로"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
@@ -1116,10 +1141,6 @@ msgstr "JANDI 메시지"
 
 #~ msgid "@file-video"
 #~ msgstr "비디오"
-
-#, fuzzy
-#~ msgid "@common-deleted-file-msg"
-#~ msgstr "파일"
 
 #~ msgid "@pg-menu-delete"
 #~ msgstr "비공개 그룹 삭제하기"

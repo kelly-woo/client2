@@ -1,5 +1,5 @@
 set :application, 'web_landing'
-set :branch, 'feature/landing'
+set :branch, 'landing/master'
 set :deploy_to, '/srv/www/web_landing'
 
 # Simple Role Syntax

@@ -1,5 +1,15 @@
+
+<div ng-if="false">
+  <span translate>@web-notification-title</span>
+  <span translate>@web-notification-body-messages-pre</span>
+  <span translate>@web-notification-body-messages-post</span>
+  <span translate>@web-notification-body-topic-pre</span>
+  <span translate>@web-notification-body-topic-mid</span>
+  <span translate>@web-notification-body-topic-post</span>
+</div>
+
 <!--    TODO: HAVE 'panel-title-container' in separate template!!   -->
-<div class="panel-title-container" >
+<div class="panel-title-container" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}">
   <!--    STAR ICON -->
   <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
     <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
@@ -65,14 +75,14 @@
     <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'users'">
 
       <!--    INVITE  -->
-      <li role="presentation">
+      <li role="presentation" data-ng-if="!isDisabledMember(currentEntity);">
         <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
           <i class="icon-invite-fill"></i><span translate>@dm-menu-invite</span>
         </a>
       </li>
 
       <!--    STAR    -->
-      <li role="presentation" data-ng-click="onStarClick(currentEntity.type, currentEntity.id)">
+      <li role="presentation" data-ng-click="onStarClick(currentEntity.type, currentEntity.id)" data-ng-if="!isDisabledMember(currentEntity);">
         <a role="menuitem" tabindex="-1">
           <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@user-menu-un-star</span>
           <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@user-menu-star</span>
@@ -82,7 +92,7 @@
       <!--    VIEW USER PROFILE   -->
       <li role="presentation">
         <a role="menuitem" tabindex="-1" data-ng-click="onUserClick(currentEntity.id);">
-          <i class="icon-user2"></i><span translate>@dm-menu-profile</span>
+          <i class="icon-user"></i><span translate>@dm-menu-profile</span>
         </a>
       </li>
 
@@ -112,16 +122,21 @@
     </span>
     <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
       <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
-        <a data-ng-if="userId == member.id">
+        <a data-ng-if="userId == member.id" data-ng-click="onUserClick(member);">
           <i class="icon-user2"></i>
           {{ member | getName }}
         </a>
-        <a data-ng-if="userId != member.id" data-ui-sref="archives({entityType:'users', entityId:userId})">
+        <a data-ng-if="userId != member.id" data-ng-click="onUserClick(userId);">
           <i class="icon-user2"></i>
           {{ userId | getName }}
         </a>
       </li>
     </ul>
+  </span>
+
+  <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledMember(currentEntity);">
+    <img src="assets/images/icon-disabled-members-alert.png"/>
+    <span translate>@common-disabled-member-notice-msg-short</span>
   </span>
 
 </div>
@@ -198,7 +213,8 @@
 
           <!--  User Thumbnail || System event message on left of the message-->
           <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
-               ng-switch="msg.message.contentType">
+               ng-switch="msg.message.contentType"
+               ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }">
 
             <!--    SYSTEM EVENT    -->
             <img class="user-profile user-thumb" ng-switch-when="systemEvent"/>
@@ -213,16 +229,18 @@
           </div>
 
           <!--    HEADER PART -->
-          <!--    DISPLAY WRITER WHEN IT IS NOT TITLE COMMENT    -->
-          <!--    WHEN IT IS TITLE COMMENT, APPLY DIFFERENT CSS FORMAT  -->
-          <div class="msg-item-header">
-
+          <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->
+          <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->
+          <div class="msg-item-header"
+               ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }">
             <!--    WRITER
                     IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
             <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
                   ng-hide="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
-              <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
-              <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
+              <span class="msg-item-header__nameSpace">
+                <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}}</span>
+                <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}}</span>
+              </span>
 
               <!--    CREATED TIME    -->
               <span class="msg-item-header__created">
@@ -236,7 +254,8 @@
               <!--    COMMENT CONTENT -->
               <p>
                 <!--    WRITER  -->
-                <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+                <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
+                      ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }">
                   <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
                   <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
                 </span>
@@ -359,9 +378,11 @@
                         <i class="fa fa-minus-circle"></i>
                       </a>
                     </span>
-                    <span ng-show="msg.message.shared.length != filteredSharedFile.length">
+
+                    <span ng-show="msg.message.shared.length != filteredSharedFile.length" ng-if="false">
                       <span ng-show="filteredSharedFile.length != 0"> and </span>with users
                     </span>
+
                     <span class="bullet">•</span>
                   </span>
 
@@ -462,10 +483,10 @@
 
                 <p>
                   <!--    WRITER  -->
-
-                  <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+                  <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
+                        ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }">
                     <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
-                    <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}} </span>
+                    <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}}</span>
                   </span>
 
                   <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
@@ -528,13 +549,15 @@
          data-ng-if="!tutorialStatus.chatTutorial"></div>
     <!--<div class="post-message msgs__loading" data-ng-if="isPosting"></div>-->
 
-    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;">
+    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;"
+          ng-class="{'center-panel-disabled-member-input': isDisabledMember(currentEntity)}">
       <i class="icon-upload"></i>
       <input type="file"
              id="btn-upload-primary"
              class="file_list_button curosr_pointer"
              onclick="this.value=null"
              ng-file-select="onFileSelect($files);"
+             data-ng-disabled="isDisabledMember(currentEntity)"
              value="Upload File">
     </span>
 
@@ -542,9 +565,10 @@
       <form id="message-form" style="height: 35px;">
         <textarea id="message-input"
                   class=""
-                  ng-class="{'post-loading': isPosting}"
+                  ng-class="{ 'post-loading': isPosting,
+                              'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
                   message-submit="postMessage()"
-                  data-ng-disabled="msgLoadStatus.loading"
+                  data-ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
                   data-ng-model="message.content"
                   maxlength=""
                   style="overflow-y: hidden; height: 35px;"
@@ -556,13 +580,4 @@
       </form>
     </div>
   </div>
-</div>
-
-<div ng-if="false">
-  <span translate>@web-notification-title</span>
-  <span translate>@web-notification-body-messages-pre</span>
-  <span translate>@web-notification-body-messages-post</span>
-  <span translate>@web-notification-body-topic-pre</span>
-  <span translate>@web-notification-body-topic-mid</span>
-  <span translate>@web-notification-body-topic-post</span>
 </div>

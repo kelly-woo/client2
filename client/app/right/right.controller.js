@@ -2,71 +2,146 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, $filter) {
-
-  $scope.isLoading = true;
-  $scope.isScrollLoading = true;
-
+app.controller('rightpanelController', function($scope, $rootScope, $modal, $timeout, $state, $filter, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
   //console.info('[enter] rightpanelController');
 
-  var startMessageId   = -1;
-
-  $scope.fileTitleQuery   = '';
-
-  $scope.fileRequest      = {
-    searchType: 'file',
-    writerId: 'all',
-    sharedEntityId: $state.params.entityId,
-    startMessageId: -1,
-    listCount: 10,
-    keyword: '',
-    fileType: $scope.fileTypeFilter
-  };
-
-  $scope.sharedEntitySearchQuery  = $scope.currentEntity;
-  $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
-
-  $scope.selectOptionsUsers       = [$scope.member];
-  $scope.selectOptionsUsers       = $scope.selectOptionsUsers.concat($scope.memberList);
-
-  $scope.fileTypeList = fileAPIservice.generateFileTypeFilter();
-  $scope.fileTypeFilter = $scope.fileTypeList[0];
-
-  $scope.fileList = [];
-
   var initialLoadDone = false;
+  var startMessageId   = -1;
+  var disabledMemberAddedOnSharedIn = false;
+  var disabledMemberAddedOnSharedBy = false;
+
+  (function() {
+    _init();
+  })();
+
+  function _init() {
+
+    $scope.isLoading = false;
+    $scope.isScrollLoading = false;
+
+    $scope.fileList = [];
+    $scope.fileTitleQuery   = '';
+
+    $scope.fileRequest      = {
+      searchType: 'file',
+      sharedEntityId: $state.params.entityId,
+      startMessageId: -1,
+      listCount: 10,
+      keyword: ''
+    };
+
+    _initSharedInFilter();
+    _initSharedByFilter($scope.currentEntity);
+    _initFileTypeFilter();
+
+    // Checking if initial load has been processed or not.
+    // if not, load once.
+    if (!initialLoadDone) {
+      preLoadingSetup();
+      getFileList();
+    }
+
+  }
+
+  /**
+   * Initializing and setting 'Shared in' Options.
+   * @private
+   */
+  function _initSharedInFilter() {
+
+    var currentMember = $scope.currentEntity;
+
+    /*
+      What 'getShareOptions' is doing is basically to 'concat' two lists.
+      Since 'concat' two lists may take O(n) time complexity, I want to call 'getShareOptions' as least times as possible.
+      When disabled member is added to option, to take that disabled member out, just reset the list.
+     */
+    if (disabledMemberAddedOnSharedIn || !$scope.selectOptions) {
+      // Very default setting.
+      $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
+      disabledMemberAddedOnSharedIn = false;
+    }
+
+    // If current member is disabled member, add current member to options just for now.
+    // Set the flag to true.
+    if (_isDisabledMember(currentMember)) {
+      $scope.selectOptions = $scope.selectOptions.concat(currentMember);
+      disabledMemberAddedOnSharedIn = true;
+    }
+
+    $scope.sharedEntitySearchQuery = currentMember;
+  }
+
+  /**
+   * Initializing and setting 'Shared by' Options.
+   * @private
+   */
+  function _initSharedByFilter(entity) {
+    if (disabledMemberAddedOnSharedBy || !$scope.selectOptionsUsers) {
+      // Very default setting.
+      // Add myself to list as a default option.
+      _addToSharedByOption($scope.member);
+      disabledMemberAddedOnSharedBy = false;
+    }
+
+    // When accessing disabled member's file list.
+    if (_isDisabledMember(entity)) {
+      _addToSharedByOption(entity);
+      disabledMemberAddedOnSharedBy = true;
+    }
+
+    $scope.fileRequest.writerId = 'all';
+
+  }
+
+  /**
+   * Helper function of 'initSharedByFilter'.
+   * @param member
+   * @private
+   */
+  function _addToSharedByOption(member) {
+    $scope.selectOptionsUsers = fileAPIservice.getShareOptions([member], $scope.memberList);
+  }
+
+  /**
+   * Initializing and setting 'File Type' Options.
+   * @private
+   */
+  function _initFileTypeFilter() {
+    $scope.fileTypeList = fileAPIservice.generateFileTypeFilter();
+    $scope.fileTypeFilter = $scope.fileTypeList[0];
+    $scope.fileRequest.fileType = $scope.fileTypeFilter.value
+  }
+
 
   $rootScope.$on('updateFileTypeQuery', function(event, type) {
+    _onUpdateFileTypeQuery(type);
+  });
+  function _onUpdateFileTypeQuery(type) {
+    var newType = '';
     if (type === 'you') {
       // when 'Your Files' is clicked on 'cpanel-search__dropdown'
       $scope.fileRequest.writerId = $scope.member.id;
-      getFileType('all');
+      newType = 'all';
     }
     else {
       if (type === 'all') {
         // when 'All Files' is clicked oon 'cpanel-search__dropdown'
         $scope.fileRequest.writerId = 'all';
-
-        //  Question.
-        //  when 'All Files' is clicked,
-        //  Should I search from all sharedEntity or current channel?
         $scope.sharedEntitySearchQuery = null;
       }
-      getFileType(type);
+      newType = type;
     }
-  });
+    _updateFileType(newType);
+  }
 
-  $scope.$on('onFileDeleted', function(event, deletedFileId) {
-    preLoadingSetup();
-    getFileList();
-  });
   /**
    * Iterate through fileTypelist which is generated by default looking for 'type'.
    * Update $scope.fileTypeFilter variable after found match.
    *
    * @param type
    */
-  function getFileType(type) {
+  function _updateFileType(type) {
     var fileType = {};
     _.forEach($scope.fileTypeList, function(object, index) {
       var value = object.value;
@@ -78,6 +153,13 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     });
     $scope.fileTypeFilter = fileType
   }
+
+
+  $scope.$on('onFileDeleted', function(event, deletedFileId) {
+    preLoadingSetup();
+    getFileList();
+  });
+
   //  when file was uploaded from center panel,
   //  fileAPI broadcasts 'onChangeShared' to rootScope.
   //  right controller is listening to 'onChangeShared' and update file list.
@@ -88,6 +170,10 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
   //  From profileViewerCtrl
   $rootScope.$on('updateFileWriterId', function(event, userId) {
+    var entity = entityAPIservice.getEntityFromListById($scope.memberList, userId);
+
+    _initSharedByFilter(entity);
+
     $scope.fileRequest.writerId = userId;
   });
 
@@ -97,16 +183,17 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
   //          else -> set to selected value.
   $scope.$watch('sharedEntitySearchQuery', function(newValue, oldValue) {
     if ($scope.sharedEntitySearchQuery === null || angular.isUndefined($scope.sharedEntitySearchQuery)) {
+      // 'All'
       $scope.fileRequest.sharedEntityId = -1;
-    }
-    else {
+    } else {
       $scope.fileRequest.sharedEntityId = $scope.sharedEntitySearchQuery.id;
     }
-    //        console.log('sharedEntitySearchQuery chagned to  ' + $scope.sharedEntitySearchQuery.id + '/' + $filter('getFirstLastNameOfUser')($scope.sharedEntitySearchQuery));
+
     if (newValue != oldValue) {
       preLoadingSetup();
       getFileList();
     }
+
   });
 
   //  fileRequest.writerId => 작성자
@@ -138,12 +225,6 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     preLoadingSetup();
     getFileList();
   };
-  // Checking if initial load has been processed or not.
-  // if not, load once.
-  if (!initialLoadDone) {
-    preLoadingSetup();
-    getFileList();
-  }
 
   // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
   //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
@@ -156,8 +237,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
       //  channel could be removed/created/left
       //  update selectOptions for data synchronization issue.
-      $scope.selectOptions            = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
-      $scope.sharedEntitySearchQuery = $scope.currentEntity;
+      _initSharedInFilter();
+      _initSharedByFilter(newValue);
     }
   });
 
@@ -173,6 +254,7 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     $scope.fileRequest.startMessageId   = -1;
     isEndOfList = false;
     $scope.isLoading = true;
+    $scope.fileList = [];
   }
 
   var isEndOfList = false;
@@ -187,17 +269,8 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
   };
 
   function getFileList() {
-    if (!$scope.fileRequest.fileType) {
-      $scope.fileRequest.fileType = 'all';
-    }
-
-    if (!$scope.fileRequest.sharedEntityId) {
-      $scope.fileRequest.sharedEntityId = $state.params.entityId;
-    }
-
     fileAPIservice.getFileList($scope.fileRequest)
       .success(function(response) {
-        //console.log(response)
         var fileList = [];
         angular.forEach(response.files, function(entity, index) {
 
@@ -355,6 +428,14 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
     }
   };
 
+  $scope.isDisabledMember = function(member) {
+    return _isDisabledMember(member);
+  };
+
+  function _isDisabledMember(member) {
+    return !!member && publicService.isDisabledMember(member);
+  }
+
   $scope.onFileDeleteClick = function(fileId) {
     if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
       return;
@@ -371,4 +452,12 @@ app.controller('rightpanelController', function($scope, $rootScope, $modal, $tim
 
       });
   };
+
+  $scope.showLoading = function() {
+    $scope.isLoading = true;
+  };
+  $scope.hideLoading = function() {
+    $scope.isLoading = false;
+  };
+
 });

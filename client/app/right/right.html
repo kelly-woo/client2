@@ -27,7 +27,7 @@
              class="form-control rpanel-body-search__input search-input"
              placeholder="{{ '@input-search-file-title' | translate }}"
              data-ng-model="fileRequest.keyword"
-             on-enter="onFileTitleQueryEnter();">
+             on-search-input-change="onFileTitleQueryEnter();">
       <span class="add-on-right cursor_pointer" ng-click="isAdvancedOptionCollapsed = !isAdvancedOptionCollapsed">
         <i class="fa fa-sliders"></i>
       </span>
@@ -84,13 +84,22 @@
 
   <div class="rpanel-body-content file-list" >
 
+
     <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
-    <div ng-show="fileList.length==0">
-      <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
-        <span translate>@alert-empty-file</span>
+    <div class="break-word" ng-if="fileList.length==0">
+      <div class="rpanel-body-content__result-msg rpanel-loading" ng-if="isLoading">
+        <div class="loading_container_background scroll_loading_container_background"></div>
+        <div class="loading_bg scroll_loading_bg"></div>
+        <div class="loading_bar icon-loading scroll_loading_bar"></div>
       </div>
-      <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
-        <span translate>@alert-empty-file-search</span> <strong>{{ fileRequest.keyword }}</strong>
+
+      <div ng-if="!isLoading">
+        <div ng-if="fileRequest.keyword == ''" class="rpanel-body-content__result-msg">
+          <span translate>@alert-empty-file</span>
+        </div>
+        <div ng-if="fileRequest.keyword != ''" class="rpanel-body-content__result-msg">
+          <span translate>@alert-empty-file-search</span> <strong>{{ fileRequest.keyword }}</strong>
+        </div>
       </div>
     </div>
 
@@ -109,7 +118,6 @@
       <div class="msg-file-body__thumbnail pull-left"
            data-ng-if="(file.content.type).indexOf('image') == -1">
         <div class="fileicon fileicon_{{ file.content.type | getFileIconImage | lowercase}}"></div>
-        <!--<img class="fileicon" ng-src="assets/images/fileicon_{{file.content.type | getFileIconImage | lowercase}}.png"/>-->
 
       </div>
 
@@ -120,7 +128,8 @@
         <!-- TODO: implement or link 'onUserClick()'    -->
         <div class="file-item-body__author__time">
           <span data-ng-click="onUserClick(file.writer);"
-                class="file-item-body-author cursor_pointer">
+                class="file-item-body-author cursor_pointer"
+                ng-class="{'right-panel-disabled-member': isDisabledMember(file.writer)}">
             {{file.writer|getName }}
           </span>
           <span class="file-item-meta__createtime">{{ file.createTime | getyyyyMMddformat }}</span>

@@ -1,5 +1,5 @@
 set :application, 'web_landing'
-set :branch, ENV['BRANCH'] || 'feature/landing'
+set :branch, ENV['BRANCH'] || 'landing/develop'
 set :password, ask('Server password:', nil)
 set :deploy_to, '/srv/www/web_landing'
 

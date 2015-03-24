@@ -11,6 +11,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 
+#: client/app/tpl/503/503.html
+msgid "@503-unavailable-msg"
+msgstr "JANDIは現在定期メンテナンス中のためご利用できません。"
+
+#: client/app/tpl/503/503.html
+msgid "@503-will-be-back-msg"
+msgstr ""
+"定期メンテナンスは数時間で終了の予定です。ご不便をお掛けし申し訳ありません。"
+
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "まだどのトピックにも参加していません"
@@ -40,6 +49,7 @@ msgid "@alert-missing-info"
 msgstr "必要な情報が入力されていません"
 
 #: client/app/modal/join.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@alert-no-result"
 msgstr "登録情報がありません"
 
@@ -277,6 +287,15 @@ msgstr "デスクトップ通知"
 #: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
 msgstr "ダイレクトメッセージ一覧"
+
+#: client/app/center/center.html
+msgid "@common-disabled-member-notice-msg-short"
+msgstr "このメンバーは現在無効化されています"
+
+#: client/app/modal/profile.view.html
+msgid "@common-disabled-member-profile-msg"
+msgstr ""
+"このメンバーは現在無効化されています。詳細はチーム管理者にお問い合わせ下さい"
 
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
@@ -525,6 +544,15 @@ msgstr "ホームページを見る"
 #: client/app/modal/settings.team.html
 msgid "@common-warning"
 msgstr "警告"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-post"
+msgstr ""
+"へのアクセスは現在無効化されています。詳細はチーム管理者にお問い合わせ下さい"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-pre"
+msgstr "チーム管理者により"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -976,7 +1004,7 @@ msgstr "チームメンバー"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
-msgstr "他のチームに切り替える"
+msgstr "ホームに戻る"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"

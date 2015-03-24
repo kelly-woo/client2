@@ -3,10 +3,10 @@
     .module('jandiApp')
     .factory('publicService', publicService);
 
-  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'analyticsService', 'tutorialService', 'language'];
+  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'analyticsService', 'tutorialService', 'language', 'entityAPIservice'];
 
   /* @ngInject */
-  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService, tutorialService, language) {
+  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService, tutorialService, language, entityAPIservice) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -31,7 +31,8 @@
       setDebugMode: setDebugMode,
       signOut: signOut,
       getBrowserInfo: getBrowserInfo,
-      redirectTo: redirectTo
+      redirectTo: redirectTo,
+      isDisabledMember: isDisabledMember
     };
 
     return service;
@@ -254,6 +255,15 @@
     function redirectTo(url) {
       // Direct to 'url'.
       location.href = url;
+    }
+
+    function isDisabledMember(member) {
+      if (!member) return false;
+      if (!member.status) {
+        member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
+      }
+
+      return member.status == 'disabled';
     }
   }
 })();

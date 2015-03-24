@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 var app = angular.module('jandiApp');
 
@@ -21,6 +21,7 @@ app.config(function ($stateProvider) {
             leftPanel: function (leftpanelAPIservice, publicService, storageAPIservice) {
               return leftpanelAPIservice.getLists()
                 .error(function(err) {
+                  console.log('lkjasdlfjal;sdkfjl;')
                   publicService.signOut();
                 });
             }
@@ -112,6 +113,10 @@ app.config(function ($stateProvider) {
       url         : '/mobile',
       templateUrl : 'app/mobile/mobile.catcher.html',
       controller  : 'mobileCatcherController'
+    })
+    .state('503', {
+      url         : '/gongsajung',
+      templateUrl : 'app/tpl/503/503.html',
+      controller  : 'underConstructionCtrl'
     });
-  ;
 });

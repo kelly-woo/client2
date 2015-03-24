@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileController', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice) {
+app.controller('fileController', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice, publicService) {
 
   //console.info('[enter] fileController');
 
@@ -251,6 +251,10 @@ app.controller('fileController', function($scope, $rootScope, $state, $modal, $s
       .finally(function() {
 
       });
+  }
+
+  $scope.isDisabledMember = function(member) {
+    return publicService.isDisabledMember(member);
   }
 
 });

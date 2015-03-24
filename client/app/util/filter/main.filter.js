@@ -241,3 +241,23 @@ app.filter('getMixPanelFormat', function() {
     return input;
   }
 });
+
+app.filter('isDisabledMember', function() {
+  return function(member) {
+    return member.status == 'disabled';
+  }
+});
+
+
+app.filter('getMemberList', function() {
+  return function(members, status) {
+    console.log(status)
+    var enabledMembers = [];
+    _.each(members, function(member) {
+      if (member.status == status)
+        enabledMembers.push(member);
+    });
+
+    return enabledMembers;
+  };
+});

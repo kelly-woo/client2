@@ -38,11 +38,12 @@
         </li>
         <!-- 팀 변경 -->
         <li role="presentation">
-          <a data-ng-click="openModal('teamChange');" role="menuitem" tabindex="-1">
+          <a data-ng-click="toTeam();" role="menuitem" tabindex="-1">
             <i class="icon-switch"></i>
             <span translate>@team-switch</span>
           </a>
         </li>
+
         <!-- 팀 초대 -->
         <li class="" role="presentation"
             data-ng-mouseenter="invite_over = true;"
@@ -64,7 +65,7 @@
           </a>
         </li>
       </ul>
-    </div>
+    </div>  <!--  END OF MENU -->
 
     <!-- File -->
     <div class="header-navbar-file">
@@ -143,11 +144,11 @@
 
     <!-- Settings -->
     <div class="header-navbar-settings">
-            <span class="header-navbar__topmenu" data-toggle="dropdown">
-                <i class="fa fa-cog"></i>
-                <span class="header-navbar__title" translate>@header-setting</span>
-                <i class="fa fa-caret-down"></i>
-            </span>
+      <span class="header-navbar__topmenu" data-toggle="dropdown">
+        <i class="fa fa-cog"></i>
+        <span class="header-navbar__title" translate>@header-setting</span>
+        <i class="fa fa-caret-down"></i>
+      </span>
 
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
 
@@ -176,7 +177,7 @@
 
         <!--    TEAM    -->
         <li class="" role="presentation" ng-if="isUserAuthorized();">
-          <a data-ng-click="openModal('setting-team')" role="menuitem" tabindex="-1">
+          <a data-ng-click="toAdmin()" role="menuitem" tabindex="-1">
             <i class="icon-group"></i><span translate>@setting-team-title</span>
           </a>
         </li>
@@ -186,11 +187,11 @@
 
     <!-- Help -->
     <div class="header-navbar-settings">
-            <span class="header-navbar__topmenu" data-toggle="dropdown">
-                <i class="fa fa-question-circle"></i>
-                <span class="header-navbar__title" translate>@header-help</span>
-                <i class="fa fa-caret-down"></i>
-            </span>
+      <span class="header-navbar__topmenu" data-toggle="dropdown">
+        <i class="fa fa-question-circle"></i>
+        <span class="header-navbar__title" translate>@header-help</span>
+        <i class="fa fa-caret-down"></i>
+      </span>
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
         <li role="presentation">
           <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">

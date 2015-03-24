@@ -11,6 +11,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 
+#: client/app/tpl/503/503.html
+msgid "@503-unavailable-msg"
+msgstr "JANDI现在基于定期维护而无法使用。"
+
+#: client/app/tpl/503/503.html
+msgid "@503-will-be-back-msg"
+msgstr "我们预计几个小时内就可以恢复运作。感谢您的耐心等候。"
+
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "您尚未加入任何议题群组"
@@ -40,6 +48,7 @@ msgid "@alert-missing-info"
 msgstr "资料不全"
 
 #: client/app/modal/join.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@alert-no-result"
 msgstr "搜寻没有结果"
 
@@ -271,6 +280,14 @@ msgstr "桌面通知"
 #: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
 msgstr "直接传讯"
+
+#: client/app/center/center.html
+msgid "@common-disabled-member-notice-msg-short"
+msgstr "这成员已经被暂时关闭"
+
+#: client/app/modal/profile.view.html
+msgid "@common-disabled-member-profile-msg"
+msgstr "这成员已经被暂时关闭。欲知更多细节，请联系团队管理者。"
 
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
@@ -519,6 +536,14 @@ msgstr "造访首页"
 #: client/app/modal/settings.team.html
 msgid "@common-warning"
 msgstr "警示"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-post"
+msgstr "使用权限已经暂时被关闭。欲知更多细节，请联系团队管理者"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-pre"
+msgstr "您的"
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -953,7 +978,7 @@ msgstr "团队成员"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
-msgstr "更换团队"
+msgstr "回到首页"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"

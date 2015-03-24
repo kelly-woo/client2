@@ -11,6 +11,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 
+#: client/app/tpl/503/503.html
+msgid "@503-unavailable-msg"
+msgstr "JANDI is currently unavailable due to scheduled maintenance."
+
+#: client/app/tpl/503/503.html
+msgid "@503-will-be-back-msg"
+msgstr "We expect to be back in a couple of hours. Thanks for your patience."
+
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "You have not joined any topics yet"
@@ -40,6 +48,7 @@ msgid "@alert-missing-info"
 msgstr "Missing Information"
 
 #: client/app/modal/join.html
+#: client/app/modal/team_member_list/team.member.list.html
 msgid "@alert-no-result"
 msgstr "No matches"
 
@@ -280,6 +289,16 @@ msgstr "Desktop Notifications"
 #: client/app/left/messages/messages.html
 msgid "@common-direct-messages"
 msgstr "Direct Messages"
+
+#: client/app/center/center.html
+msgid "@common-disabled-member-notice-msg-short"
+msgstr "This member has been temporarily disabled"
+
+#: client/app/modal/profile.view.html
+msgid "@common-disabled-member-profile-msg"
+msgstr ""
+"This member has been temporarily disabled. Please contact the team "
+"administrator for more information."
 
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
@@ -527,6 +546,16 @@ msgstr "Visit Homepage"
 #: client/app/modal/settings.team.html
 msgid "@common-warning"
 msgstr "WARNING"
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-post"
+msgstr ""
+" has been temporarily disabled. Please contact the team administrator for "
+"more information."
+
+#: client/app/signin/signin.html
+msgid "@current-member-disabled-notice-msg-pre"
+msgstr "Your access to "
 
 #: client/app/center/center.html
 msgid "@dm-menu-file"
@@ -983,7 +1012,7 @@ msgstr "Team Members"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
-msgstr "Switch Teams"
+msgstr "Go to Account Home"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
@@ -1126,9 +1155,6 @@ msgstr "JANDI Message Received"
 
 #~ msgid "@file-pdf"
 #~ msgstr "PDFs"
-
-#~ msgid "@common-deleted-file-msg"
-#~ msgstr "Deleted File"
 
 #~ msgid "@file-video"
 #~ msgstr "Video"

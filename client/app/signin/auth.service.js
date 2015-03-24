@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, publicService) {
+app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, $filter, configuration) {
   var authAPI = {};
 
   authAPI.signIn = function(userdata) {
@@ -96,6 +96,27 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
   }
 
 
+  authAPI.handleConstructionErr = function() {
+    $state.go('503');
+  };
+
+  /**
+   * Pop up alert window saying current member has been disabled from current team.
+   * Keep member logged in but redirect to main.
+   */
+  authAPI.onCurrentMemberDisabled = function() {
+    var teamName = storageAPIservice.getTeamName();
+    var mainTeamAddr = configuration.main_address+'team';
+
+    var disabledMsg = $filter('translate')('@current-member-disabled-notice-msg-pre') +
+      teamName +
+      $filter('translate')('@current-member-disabled-notice-msg-post');
+
+    confirm(disabledMsg);
+
+    location.href = mainTeamAddr;
+
+  };
 
   return authAPI;
 });
@@ -130,16 +151,29 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
       }
       if (rejection.status === 403) {
-        return $q.reject(rejection);
+        var disabledMemberAccessingTeamCode = 40301;
 
+        var situationCode = rejection.data.code;
+
+        if (situationCode == disabledMemberAccessingTeamCode) {
+          // Current member has been disabled from current team!!
+          var authAPIservice = $injector.get('authAPIservice');
+          if (angular.isUndefined(authAPIservice)) return;
+          authAPIservice.onCurrentMemberDisabled();
+        }
       }
 
       if (rejection.status == 502) {
         console.log('its 502 error!! Network needs to be re-established.');
+      }
 
+      if (rejection.status == 503) {
+        console.log(rejection.status)
+        var authAPIservice = $injector.get('authAPIservice');
+        authAPIservice.handleConstructionErr();
+        return $q.reject(rejection);
       }
       if (rejection.status === 401) {
-        console.log('401')
         // Unauthorized Access.
         // What to do? - get new access_token using refresh_token
         var authAPIservice = $injector.get('authAPIservice');

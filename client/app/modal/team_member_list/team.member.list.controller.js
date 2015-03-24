@@ -12,20 +12,46 @@
     var vm = $scope;
 
     vm.cancel = cancel;
-    vm.onStarClick = onStarClick;
-    vm.onMemberClick = onMemberClick;
 
+    $scope.memberListSetting = {
+      enabledMemberList: {
+        active: true
+      },
+      disabledMemberList: {
+        active: false
+      }
+    };
+
+    $scope.$on('onSetStarDone', function() {
+      generateMemberList();
+    });
+
+    var DISABLED_MEMBER_STATUS = 'disabled';
+    var ENABLED_MEMBER_STATUS = 'enabled';
+
+    (function() {
+      generateMemberList();
+    })();
+
+    function generateMemberList() {
+      var enabledMemberList = [];
+      var disabledMemberList = [];
+
+      _.forEach($scope.memberList, function(member) {
+        if (member.status == DISABLED_MEMBER_STATUS) {
+          disabledMemberList.push(member);
+        } else {
+          enabledMemberList.push(member);
+        }
+
+      });
+
+      $scope.enabledMemberList = enabledMemberList;
+      $scope.disabledMemberList = disabledMemberList;
+      $scope.hasDisabledMember = $scope.disabledMemberList.length > 0;
+    }
     function cancel() {
       $modalInstance.dismiss('close');
     }
-    function onStarClick(entityType, entityId) {
-      $rootScope.$broadcast('onStarClick', entityType, entityId);
-    }
-
-    function onMemberClick(entityId) {
-      $state.go('archives', { entityType: 'users',  entityId: entityId });
-      $modalInstance.dismiss('done');
-    }
-
   }
 })();

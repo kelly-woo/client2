@@ -28,7 +28,10 @@
 }
 .underline { border-bottom: 1px solid #31c08a;  }
 .cursor_pointer { cursor: pointer; }
-.overflow-ellipsis{ display:block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap; }
+
+.tab-title-overflow-ellipsis > a,
+.overflow-ellipsis { display:block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap; }
+
 .inline-overflow-ellipsis{ display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap; }
 
 .bullet {
@@ -808,4 +811,32 @@ input[type="radio"] {
 ********************************************/
 .modal {
     overflow-y: auto;
+}
+
+.disabled-member-opac-overlay {
+  opacity: 0.4;
+}
+.profile-view-general-container.disabled-member-opac-overlay {
+  margin-bottom: 0;
+}
+.profile-view-action.disabled-member-opac-overlay {
+  cursor: not-allowed;
+}
+.profile-view-action.disabled-member-opac-overlay:hover,
+.profile-view-action.disabled-member-opac-overlay:hover .profile-view-action__text {
+  color: #555459 !important;
+}
+.disabled-member-profile-body {
+  padding: 23px 20px 27px !important;
+  margin: 15px 0 !important;
+  text-align: center;
+  font-size: 13px;
+  line-height: 21px;
+  color: #929292;
+  background-color: #f2f2f2;
+}
+
+.disabled-member-profile-body__image {
+  display: block;
+  margin: 0 auto 12px;
 }

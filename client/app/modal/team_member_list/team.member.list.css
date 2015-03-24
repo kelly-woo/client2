@@ -1,3 +1,6 @@
+.tab-title-overflow-ellipsis {
+
+}
 .modal_team_member_list_body {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -5,6 +8,7 @@
 .modal_team_member_list {
   margin-top: 20px;
 }
+.no-result-container,
 .modal_team_member_container {
   padding: 9px 9px 0 9px;
   background-color: white;
@@ -41,4 +45,44 @@
 .modal_team_member_name {
   line-height: 25px;
   margin-left: 5px;
+}
+
+.member-list-tab li {
+  width: 50%;
+  text-align: center;
+}
+.member-list-tab li a:last-child {
+  margin-right: 0;
+}
+
+.member-list-tab li.active {
+  /*width: 70%;*/
+}
+.member-list-tab a {
+  color: #999999;
+}
+.member-list-tab .active a  {
+}
+
+.member-list-tab .nav-tabs {
+  border: 0;
+}
+
+.member-list-tab .nav-tabs > li > a:hover {
+  border-bottom-color: rgba(0,0,0,0);
+}
+
+.member-list-tab .nav-tabs > li.active > a,
+.member-list-tab .nav-tabs > li.active > a:hover,
+.member-list-tab .nav-tabs > li.active > a:focus {
+  border-color: rgba(0,0,0,0);
+  color: #333333;
+
+}
+
+.no-result-container {
+  text-align: center;
+  padding: 0;
+  height: 40px;
+  line-height: 40px;
 }
