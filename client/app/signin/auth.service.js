@@ -124,6 +124,11 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
       // API version
       config.headers.Accept = "application/vnd.tosslab.jandi-v"+$rootScope.api_version+"+json";
 
+      // Add version control to 'messages/update' api.
+      if (config.url.indexOf('messages/update') > 0 ) {
+        config.headers.Accept = "application/vnd.tosslab.jandi-v3+json";
+      }
+
       config.headers.authorization = "bearer " + (storageAPIservice.getAccessToken());
 
       return config;
