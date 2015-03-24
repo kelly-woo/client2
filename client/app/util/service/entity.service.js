@@ -36,7 +36,6 @@
         _.forEach(list, function(entity, index) {
           if (entity.entityId == entityId) {
             returnObj = entity;
-
           }
         });
 

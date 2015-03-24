@@ -78,7 +78,7 @@
             // In this case, message list still needs to be updated because entity may not be on the list.
             // However, I don't need to update/increment badge count for current entity.
             // Thus, update badge count for entities that I'm not viewing.
-            if (message.entityId != $scope.currentEntity.id) {
+            if (message.companionId != $scope.currentEntity.id) {
               entityAPIservice.updateBadgeValue(entity, message.unread);
             }
 
