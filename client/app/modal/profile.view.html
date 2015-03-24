@@ -47,7 +47,7 @@
     </div>
 
     <div class="profile-view-action border-left_grey" data-ng-click="onActionClick('directMessage');"
-         ng-class="{'disabled-member-opac-overlay': isUserDisabled}">
+         ng-class="{'disabled-member-opac-overlay': isUserDisabled || isMyself}">
 
       <div class="profile-view-action__img">
         <i class="fa fa-comments"></i>

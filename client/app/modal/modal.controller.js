@@ -533,6 +533,7 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
   $scope.curUser = curUser;
 
   $scope.isUserDisabled = $scope.curUser.status == 'disabled';
+  $scope.isMyself = $scope.curUser == $scope.member;
 
   $scope.onActionClick = function(actionType) {
 
@@ -545,7 +546,7 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
       onFileListClick(curUser.id);
     }
     else if (actionType === 'directMessage') {
-      if ($scope.isUserDisabled) return;
+      if ($scope.isUserDisabled || $scope.isMyself) return;
 
       $state.go('archives', { entityType: 'users',  entityId: curUser.id });
     }
