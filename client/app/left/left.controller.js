@@ -201,6 +201,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
 
     $rootScope.isReady = true;
 
+    $rootScope.$broadcast('onInitLeftListDone');
   }
 
   function setEntityPrefix() {

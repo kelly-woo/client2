@@ -58,6 +58,17 @@
     $rootScope.$on('onChangeShared', function() {
       _refreshFileList();
     });
+
+
+    // Joined new entity
+    // Left current entity
+    // 1. Re-initialize shared in select options
+    // 2. re-initialize shared in filter.
+    $scope.$on('onInitLeftListDone', function() {
+      _generateShareOptions();
+      _initSharedInFilter();
+    });
+
     $scope.$on('onrPanelFileTabSelected', function() {
       _refreshFileList();
     });
@@ -127,7 +138,7 @@
        */
       if (disabledMemberAddedOnSharedIn || !$scope.selectOptions) {
         // Very default setting.
-        $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
+        _generateShareOptions();
         disabledMemberAddedOnSharedIn = false;
       }
 
@@ -139,6 +150,9 @@
       }
 
       $scope.sharedEntitySearchQuery = currentMember;
+    }
+    function _generateShareOptions() {
+      $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
     }
 
     /**

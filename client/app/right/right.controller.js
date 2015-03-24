@@ -37,7 +37,7 @@
       $scope.isLoading = false;
     };
 
-    $scope.messageTab = true;
+    //$scope.messageTab = true;
 
   }
 
