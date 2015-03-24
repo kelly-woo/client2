@@ -22,7 +22,7 @@
     $scope.onDMInputBlur = onDMInputBlur;
 
     $scope.onMessageHeaderClick = onMessageHeaderClick;
-    $scope.onMeesageLeaveClick = onMeesageLeaveClick;
+    $scope.onMeesageLeaveClick = onMessageLeaveClick;
 
     $scope.openModal= openTeamMemberListModal;
 
@@ -94,7 +94,7 @@
       return messageList;
     }
 
-    function onMeesageLeaveClick(entityId) {
+    function onMessageLeaveClick(entityId) {
       if (!confirm($filter('translate')('@common-conversation-leave-confirm'))) {
         return;
       }
