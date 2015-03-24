@@ -47,7 +47,6 @@
 
       messageList.getRecentMessageList()
         .success(function(response) {
-          console.log(response)
           $scope.messageList = _generateMessageList(response);
           $scope.messageListLoadingStatus = 'okay';
         })

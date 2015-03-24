@@ -10,6 +10,7 @@
     function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice) {
 
         var service = {
+          getEntityFromListByEntityId: getEntityFromListByEntityId,
             getEntityFromListById: getEntityFromListById,
             getEntityById: getEntityById,
             setCurrentEntity: setCurrentEntity,
@@ -25,6 +26,22 @@
 
         return service;
 
+      function getEntityFromListByEntityId(list, entityId) {
+        entityId = parseInt(entityId);
+
+        if (entityId === $rootScope.member.id) return $rootScope.member;
+
+        var returnObj;
+
+        _.forEach(list, function(entity, index) {
+          if (entity.entityId == entityId) {
+            returnObj = entity;
+
+          }
+        });
+
+        return returnObj;
+      }
         function getEntityFromListById (list, value) {
             value = parseInt(value);
 

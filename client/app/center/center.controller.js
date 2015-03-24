@@ -1058,33 +1058,29 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       var updateEntity;
 
-      // Alarm is to me --> DIRECT MESSAGE TO ME.
-      // When new message came in through DM to me, update 'fromEntity'.
-      if (element.toEntity[0] === $scope.member.id) {
+      //  'toEntity' may be an array.
+      _.each(element.toEntity, function(toEntityElement, index, list) {
+        // updateEntity is not undefined in case of either public or private topic.
+        updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, toEntityElement);
 
-        // When browser has focus and user is watching 1:1 chat, DO NOT SEND NOTIFICATION.
-        if (_hasBrowserFocus() && element.fromEntity == $scope.currentEntity.id) return;
+        if (angular.isUndefined(updateEntity)) {
+          // updateEntity is not undefined in case of member.
+          updateEntity = entityAPIservice.getEntityFromListByEntityId($scope.memberList, toEntityElement);
+        }
 
-        // OTHERWISE, SEND NOTIFICATION.
-        _sendNotification(element.fromEntity, element.toEntity[0]);
-      }
-      else  {
-        //  'toEntity' may be an array.
-        _.each(element.toEntity, function(toEntityElement, index, list) {
-          updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, element.toEntity[0]);
+        // if updateEntity is still undefined, don't worry about it.
+        if (angular.isUndefined(updateEntity)) { return; }
 
-          //  updateEntity is archived || I don't care about updateEntity.
-          if (angular.isUndefined(updateEntity)) return;
 
-          //  If 'toEntity' is an entity that I'm currently looking at, check browser's visibility state.
-          if (updateEntity.id == $scope.currentEntity.id && _hasBrowserFocus()) return;
+        //  If 'toEntity' is an entity that I'm currently looking at, check browser's visibility state.
 
-          var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
+        if (updateEntity == $scope.currentEntity && _hasBrowserFocus()) return;
 
-          desktopNotificationService.addNotification(toEntity, updateEntity);
-          entityAPIservice.updateBadgeValue(updateEntity, -1);
-        });
-      }
+        var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
+
+        desktopNotificationService.addNotification(toEntity, updateEntity);
+        entityAPIservice.updateBadgeValue(updateEntity, -1);
+      });
 
     });
   }
