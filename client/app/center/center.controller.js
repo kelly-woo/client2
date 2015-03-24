@@ -1072,7 +1072,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         // if updateEntity is still undefined, don't worry about it.
         if (angular.isUndefined(updateEntity)) { return; }
 
-
+        if (updateEntity.type == 'users') {
+          $rootScope.$broadcast('updateMessageList')
+        }
         //  If 'toEntity' is an entity that I'm currently looking at, check browser's visibility state.
 
         if (updateEntity == $scope.currentEntity && _hasBrowserFocus()) return;
@@ -1084,14 +1086,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
 
     });
-  }
-
-  function _sendNotification(fromEntity, toEntity) {
-    fromEntity = entityAPIservice.getEntityFromListById($scope.memberList, fromEntity);
-    toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, toEntity);
-
-    $rootScope.$broadcast('updateMessageList');
-    desktopNotificationService.addNotification(fromEntity, toEntity);
   }
 
   function _hasBrowserFocus() {
