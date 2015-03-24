@@ -515,6 +515,7 @@
                     <span>{{invitees | getName}}<span data-ng-if="!$last">, </span></span>
                   </span>
                   <span data-ng-if="preferences.language === 'ko'">{{ '@msg-invited-postfix' | translate }}</span>
+                  <span data-ng-if="preferences.language === 'ja'">{{ '@msg-invited-postfix' | translate }}</span>
                 </span>
                 <span data-ng-if="false"
                       data-msg-join="{{ '@msg-joined' | translate}}"
