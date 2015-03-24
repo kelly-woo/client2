@@ -1,4 +1,4 @@
-<div class="panel-title-container">
+<div class="panel-title-container file-detail">
   <span class="rpanel-header-heading rpanel-header-heading__back cursor_pointer" data-ui-sref="messages.detail.files">
     <i class="icon-prev"></i> <span translate>@common-files</span>
   </span>
@@ -232,7 +232,7 @@
         </div>
       </div>
 
-      <div class="rpanel-detail-body-comment">
+      <div class="rpanel-detail-body-comment" ng-if="file_comments.length > 0">
         <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"

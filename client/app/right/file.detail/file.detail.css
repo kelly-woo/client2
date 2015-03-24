@@ -3,6 +3,13 @@
                  FILE LIST
 
 ********************************************/
+.panel-title-container.file-detail {
+  height: 41px;
+}
+
+.rpanel-body-content.file-detail {
+  top: 41px;
+}
 .file__name {
   font-weight: 900;
   font-size: 1rem;
@@ -130,11 +137,14 @@
 }
 
 .file-detail-header {
+
   padding: 15px;
   border-bottom: 1px solid #f2f2f2;
   position: relative;
   font-size: 14px;
   color: #666;
+  background-color: white;
+
 }
 .file-detail-header-box {
   padding: 0px 10px 0px 38px;
@@ -158,6 +168,8 @@
 .file-detail-body {
   padding: 15px;
   border-bottom: 1px solid #f2f2f2;
+  background-color: white;
+
 }
 .file-item-body-title-author {
   max-width: 76px;
@@ -241,11 +253,11 @@
 
 .file-detail-archive-status-container {
   text-align: center;
-  padding: 15px 15px 0 15px;
+  padding: 15px 15px 15px 15px;
   font-size: 15px;
   color: #999999;
   line-height: 22px;
-
+  background-color: white;
 }
 .file-detail-archive-status-container__inner {
   padding: 10px;
@@ -264,6 +276,7 @@
 ********************************************/
 
 .rpanel-detail-body-comment {
+  background-color: white;
   padding: 15px;
 }
 .archived-file-detail .rpanel-detail-body-comment {
@@ -316,6 +329,7 @@
 .comment-input-box {
   position: relative;
   padding: 0 15px 15px 53px;
+  background-color: white;
 }
 .comment-input-box .comment-item__thumbnail {
   left: 15px;
