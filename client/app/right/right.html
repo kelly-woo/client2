@@ -3,13 +3,13 @@
 <tabset class="rpanel-body-tab-container">
 
   <!--  FILE TAB  -->
-  <tab select="onFileTabSelected();">
+  <tab select="onFileTabSelected();" active="isFileTabActive">
     <tab-heading><span translate>@common-files</span></tab-heading>
     <r-panel-file-tab></r-panel-file-tab>
   </tab>
 
   <!--  MESSAGE TAB -->
-  <tab select="onMessageTabSelected();" active="messageTab">
+  <tab select="onMessageTabSelected();" active="isMessageTabActive">
     <tab-heading><span translate>@common-message</span></tab-heading>
     <r-panel-messages-tab></r-panel-messages-tab>
   </tab>

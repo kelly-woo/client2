@@ -214,6 +214,7 @@
         }
         newType = type;
       }
+
       _updateFileType(newType);
     }
 

@@ -10,9 +10,18 @@
 
     $scope.isSearchQueryEmpty = true;
 
+    $scope.isFileTabActive = true;
+    $scope.isMessageTabActive = false;
+
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
       $scope.isSearchQueryEmpty = keyword ? false : true;
     });
+
+    $scope.$on('setFileTabActive', function() {
+      if (!$scope.isFileTabACitve)
+        _setFileTabStatus();
+    });
+
     $scope.onFileTabSelected = function() {
       _setFileTabStatus();
       $rootScope.$broadcast('onrPanelFileTabSelected');
@@ -21,6 +30,7 @@
       _setMessageTabStatus();
       $rootScope.$broadcast('onrPanelMessageTabSelected');
     };
+
     function _setFileTabStatus() {
       $scope.isFileTabActive = true;
       $scope.isMessageTabActive = false;
@@ -36,8 +46,6 @@
     $scope.hideLoading = function() {
       $scope.isLoading = false;
     };
-
-    //$scope.messageTab = true;
 
   }
 

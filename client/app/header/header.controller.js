@@ -24,6 +24,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
     if ($state.current.name != 'messages.detail.files')
       $state.go('messages.detail.files');
     $scope.$emit('updateFileTypeQuery', type);
+    $rootScope.$broadcast('setFileTabActive');
   };
   //  right controller is listening to 'updateFileWriterId'.
   $scope.onFileListClick = function(userId) {
@@ -113,7 +114,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
   };
 
   $scope.onToggleClick = function() {
-    if (_isRightPanelVislble()) {
+    if (_isRpanelVisible()) {
       $state.go('messages.detail');
       return;
     }
@@ -121,7 +122,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
   };
 
   function _initRightPanelButtonLabel() {
-    $scope.isRpanelVisible = _isRightPanelVislble();
+    $scope.isRpanelVisible = _isRpanelVisible();
 
     if ($scope.isRpanelVisible) {
       $scope.rPanelButtonLabel = $filter('translate')('@btn-close');
@@ -129,7 +130,7 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
       $scope.rPanelButtonLabel = $filter('translate')('@common-search');
     }
   }
-  function _isRightPanelVislble() {
+  function _isRpanelVisible() {
     return $state.includes('**.files.**');
   }
 

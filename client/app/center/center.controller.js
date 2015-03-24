@@ -1299,8 +1299,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //      2. someone shares/comment on file.
   function updateAlarmHandler(alarm) {
 
-    console.log(alarm)
-
+    //console.log(alarm)
 
     if (alarm.alarmCount == 0) return;
 
