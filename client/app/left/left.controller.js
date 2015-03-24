@@ -80,6 +80,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
 
   function setCurrentEntity() {
     $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
+    console.log($rootScope.currentEntity)
   }
 
 
@@ -221,7 +222,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
       if (angular.isUndefined(tempEntity)) {
         return;
       }
-
       entityAPIservice.updateBadgeValue(tempEntity, value.alarmCount);
     });
   }

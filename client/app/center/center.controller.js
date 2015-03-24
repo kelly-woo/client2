@@ -4,8 +4,8 @@ var app = angular.module('jandiApp');
 
 app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper) {
 
-  //console.info('[enter] centerpanelController');
-  log('---------------------------------------')
+  //console.info('[enter] centerpanelController', $scope.currentEntity);
+
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
   var DEFAULT_MESSAGE_UPDATE_COUNT = 20;
@@ -175,7 +175,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _initMsgSearchQuery() {
     //console.log('initing msgSearchQuery')
     $scope.msgSearchQuery = {
-      count: DEFAULT_MESSAGE_UPDATE_COUNT,
+      count: DEFAULT_MESSAGE_UPDATE_COUNT
     };
   }
   function _initLocalVariables() {
@@ -480,6 +480,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   $scope.isAtBottom = function() {
+    console.log('isAtBottom')
     _clearBadgeCount($scope.currentEntity);
   };
 
@@ -542,7 +543,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var lastUpdatedLinkId = -1;
   function updateList () {
 
-    log('-- updateList');
+    console.log('-- updateList');
 
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
@@ -559,9 +560,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(function (response) {
 
-        //console.log('  -- getUpdatedMessages success');
-
-        //console.log(response)
+        console.log('  -- getUpdatedMessages success');
         // jihoon
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
         if (response.event.eventCount != 0) updateEventHandler(response.event);
@@ -572,7 +571,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         response = response.updateInfo;
 
         if (response.messageCount) {
-          //console.log('updating current entity.');
           localLastMessageId = lastUpdatedLinkId;
           loadedLastMessageId = localLastMessageId;
           lastMessageId = localLastMessageId;
@@ -586,75 +584,78 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
           // 업데이트 된 메세지 처리
-          for (var i in response.messages) {
-            var msg = response.messages[i];
+          if (response.messages.length > 0) {
+            for (var i in response.messages) {
+              var msg = response.messages[i];
 //                        console.log("[ updated", msg.id, " and last at ", currentLast,  "]");
 
-            if ($scope.isPosting)
-              $scope.isPosting = false;
+              if ($scope.isPosting)
+                $scope.isPosting = false;
 
-            // auto focus to textarea
-            $scope.focusPostMessage = true;
+              // auto focus to textarea
+              $scope.focusPostMessage = true;
 
-            if ( msg.status == 'event' ) {
-              msg = eventMsgHandler(msg);
-              $scope.messages.push(msg);
-              continue;
-            }
-
-            var safeBody = msg.message.content.body;
-            if (safeBody != undefined && safeBody !== "") {
-              safeBody = $filter('parseUrl')(safeBody);
-            }
-
-            msg.message.content.body = $sce.trustAsHtml(safeBody);
-
-            switch (msg.status) {
-              case 'created':
+              if ( msg.status == 'event' ) {
+                msg = eventMsgHandler(msg);
                 $scope.messages.push(msg);
-                break;
-              case 'edited':
-                var target = _.find($scope.messages, function(m) {
-                  return m.messageId === msg.messageId;
-                });
-                if (!_.isUndefined(target)) {
-                  var targetIdx = $scope.messages.indexOf(target);
-                  $scope.messages.splice(targetIdx, 1);
+                continue;
+              }
+
+              var safeBody = msg.message.content.body;
+              if (safeBody != undefined && safeBody !== "") {
+                safeBody = $filter('parseUrl')(safeBody);
+              }
+
+              msg.message.content.body = $sce.trustAsHtml(safeBody);
+
+              switch (msg.status) {
+                case 'created':
                   $scope.messages.push(msg);
-                }
-                break;
-              case 'archived':
-                var target = _.find($scope.messages, function(m) {
-                  return m.messageId === msg.messageId;
-                });
-                if (!_.isUndefined(target)) {
-                  var targetIdx = $scope.messages.indexOf(target);
-                  $scope.messages.splice(targetIdx, 1);
-                }
-                break;
-              case 'shared':
-                msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
-                $scope.messages.push(msg);
-                break;
-              case 'unshared':
-                var target = _.find($scope.messages.reverse(), function(m) {
-                  return m.messageId === msg.messageId;
-                });
-                if (!_.isUndefined(target)) {
-                  // 기존 shared message 제거
-                  var targetIdx = $scope.messages.indexOf(target);
-                  $scope.messages.splice(targetIdx, 1);
-                  // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
+                  break;
+                case 'edited':
+                  var target = _.find($scope.messages, function(m) {
+                    return m.messageId === msg.messageId;
+                  });
+                  if (!_.isUndefined(target)) {
+                    var targetIdx = $scope.messages.indexOf(target);
+                    $scope.messages.splice(targetIdx, 1);
+                    $scope.messages.push(msg);
+                  }
+                  break;
+                case 'archived':
+                  var target = _.find($scope.messages, function(m) {
+                    return m.messageId === msg.messageId;
+                  });
+                  if (!_.isUndefined(target)) {
+                    var targetIdx = $scope.messages.indexOf(target);
+                    $scope.messages.splice(targetIdx, 1);
+                  }
+                  break;
+                case 'shared':
                   msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
                   $scope.messages.push(msg);
-                }
-                break;
-              default:
-                console.error("!!! unfiltered message", msg);
-                break;
+                  break;
+                case 'unshared':
+                  var target = _.find($scope.messages.reverse(), function(m) {
+                    return m.messageId === msg.messageId;
+                  });
+                  if (!_.isUndefined(target)) {
+                    // 기존 shared message 제거
+                    var targetIdx = $scope.messages.indexOf(target);
+                    $scope.messages.splice(targetIdx, 1);
+                    // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
+                    msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
+                    $scope.messages.push(msg);
+                  }
+                  break;
+                default:
+                  console.error("!!! unfiltered message", msg);
+                  break;
+              }
             }
+
+            groupByDate();
           }
-          if (response.messages.length > 0) groupByDate();
 
           if (_hasBrowserFocus()) {
             if (_hasBottomReached()) {
@@ -662,7 +663,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
               _scrollToBottom();
             }
             else {
-              //console.log('updating badge count');
+              console.log('updating current entity and badge count');
               entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
             }
           }
@@ -702,7 +703,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateMessageMarker() {
     messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
       .success(function(response) {
-        //  console.log('----------- successfully updated message marker for entity id ' + $scope.currentEntity.id + ' to ' + lastMessageId);
+          console.log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
       })
       .error(function(response) {
         console.log('message marker not updated for ' + $scope.currentEntity.id);
@@ -993,8 +994,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // get transform information from original image.
     // if image was rotated according to its orientation from exif data, there must be transform value.
-    // 
-    // issue : JND-974, by ysyun 2015.2.25 
+    //
+    // issue : JND-974, by ysyun 2015.2.25
     //   - if click fa-comment icon, must not working (cause occured error)
     //   - change id="large-thumbnail" to id="large-thumbnail-' + message.id + '"
     var transform = getTransformValue(targetDom[0] ? targetDom[0].style: undefined);
@@ -1016,7 +1017,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //  append new dom elements to parent of small thumbnail(original dom).
     var parent = targetDom.parent().parent();
 
-    // issue : JND-974, by ysyun 2015.2.25 
+    // issue : JND-974, by ysyun 2015.2.25
     //   - change id="large-thumbnail" to id="large-thumbnail-' + message.id + '"
     if (angular.isDefined(parent.children('#large-thumbnail-' + message.id).attr('id'))) {
       //  preventing adding multiple large thumbnail dom element to parent.
@@ -1297,6 +1298,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //        c. 1:1 direct message.
   //      2. someone shares/comment on file.
   function updateAlarmHandler(alarm) {
+
+    console.log(alarm)
+
+
     if (alarm.alarmCount == 0) return;
 
     var alarmTable = alarm.alarmTable;
@@ -1307,34 +1312,35 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       var updateEntity;
 
-      // Alarm is to me --> DIRECT MESSAGE TO ME.
-      // When new message came in through DM to me, update 'fromEntity'.
-      if (element.toEntity[0] === $scope.member.id) {
+      //  'toEntity' may be an array.
+      _.each(element.toEntity, function(toEntityElement, index, list) {
+        updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, toEntityElement) || entityAPIservice.getMemberByEntityId($scope.memberList, toEntityElement);
 
-        // When browser has focus and user is watching 1:1 chat, DO NOT SEND NOTIFICATION.
-        if (_hasBrowserFocus() && element.fromEntity == $scope.currentEntity.id) return;
+        // Don't worry about entity that I don't have at the moment.
+        if (angular.isUndefined(updateEntity)) return;
 
-        // OTHERWISE, SEND NOTIFICATION.
-        _sendNotification(element.fromEntity, element.toEntity[0]);
-      }
-      else  {
-        //  'toEntity' may be an array.
-        _.each(element.toEntity, function(toEntityElement, index, list) {
-          updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, element.toEntity[0]);
+        console.log(updateEntity.id)
+        console.log($scope.currentEntity.id)
+        console.log(updateEntity.id == $scope.currentEntity.id)
 
-          //  updateEntity is archived || I don't care about updateEntity.
-          if (angular.isUndefined(updateEntity)) return;
+        // If I'm looking at the entity and it's got focus -> don't bother to update badge or send notification.
+        if (updateEntity.id == $scope.currentEntity.id && _hasBrowserFocus()) {
+          console.log(updateEntity.id)
+          console.log($scope.currentEntity.id)
 
-          //  If 'toEntity' is an entity that I'm currently looking at, check browser's visibility state.
-          if (updateEntity.id == $scope.currentEntity.id && _hasBrowserFocus()) return;
+          console.log('returning')
+          return;
+        }
 
-          var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
+        // I need to who sent new message for browser notification.
+        var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
 
-          desktopNotificationService.addNotification(toEntity, updateEntity);
-          entityAPIservice.updateBadgeValue(updateEntity, -1);
-        });
-      }
+        // Send browser notification.
+        desktopNotificationService.addNotification(toEntity, updateEntity);
 
+        // Update badge value.
+        entityAPIservice.updateBadgeValue(updateEntity, -1);
+      });
     });
   }
 
@@ -1360,6 +1366,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // Callback when window gets focused.
   window.onfocus = function() {
     $scope.hasFocus = true;
+    if (_hasBottomReached())
+      _clearBadgeCount($scope.currentEntity);
     //_clearBadgeCount($scope.currentEntity);
   };
 

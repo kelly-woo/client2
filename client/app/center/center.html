@@ -10,6 +10,8 @@
 
 <!--    TODO: HAVE 'panel-title-container' in separate template!!   -->
 <div class="panel-title-container" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}">
+  {{currentEntity.companionId}}
+  {{currentEntity.entityId}}
   <!--    STAR ICON -->
   <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
     <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
@@ -211,6 +213,7 @@
                               'system-event-msg' : msg.message.contentType === 'systemEvent',
                               'archived-file': msg.message.status === 'archived' }">
 
+          {{ msg.id }}
           <!--  User Thumbnail || System event message on left of the message-->
           <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
                ng-switch="msg.message.contentType"
