@@ -108,6 +108,10 @@ app.config(function ($stateProvider) {
       url         : '/mobile',
       templateUrl : 'app/mobile/mobile.catcher.html',
       controller  : 'mobileCatcherController'
+    })
+    .state('503', {
+      url         : '/gongsajung',
+      templateUrl : 'app/tpl/503/503.html',
+      controller  : 'underConstructionCtrl'
     });
-  ;
 });

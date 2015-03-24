@@ -49,7 +49,7 @@
       var bodyMessage = getNotificationBodyMessage(fromEntity, toEntity);
 
 
-      if (toEntity.type == 'user') {
+      if (_isUser(toEntity)) {
         // Notification is 'to' me -> 1:1 direct message.
         // Direct user to fromEntity who sends direct message to you.
         notificationOption.tag = fromEntity.id;
@@ -69,7 +69,7 @@
     }
 
     function getNotificationBodyMessage(fromEntity, toEntity) {
-      if (toEntity.type == 'user')
+      if (_isUser(toEntity))
         return generateMessagesNotificationBody(fromEntity);
 
       return generateTopicNotificationBody(fromEntity, toEntity)
@@ -133,6 +133,10 @@
       var toEntity = entityAPIservice.getEntityFromListById($rootScope.totalEntities, noti.tag);
       $state.go('archives', {entityType:toEntity.type, entityId:toEntity.id});
       window.focus();
+    }
+
+    function _isUser(entity) {
+      return entity.type == 'users';
     }
   }
 

@@ -11,6 +11,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 
+#: client/app/tpl/503/503.html
+msgid "@503-unavailable-msg"
+msgstr "JANDIは現在定期メンテナンス中のためご利用できません。"
+
+#: client/app/tpl/503/503.html
+msgid "@503-will-be-back-msg"
+msgstr ""
+"定期メンテナンスは数時間で終了の予定です。ご不便をお掛けし申し訳ありません。"
+
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "まだどのトピックにも参加していません"
@@ -308,9 +317,8 @@ msgid "@common-email"
 msgstr "メールアドレス"
 
 #: client/app/right/search.messages/search.messages.html
-#, fuzzy
 msgid "@common-entity-location"
-msgstr "公開/非公開"
+msgstr "送信先"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
@@ -422,9 +430,8 @@ msgid "@common-message"
 msgstr "メッセージ "
 
 #: client/app/right/search.messages/search.messages.html
-#, fuzzy
 msgid "@common-message-writer"
-msgstr "ファイルを共有"
+msgstr "送信者"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -699,9 +706,8 @@ msgid "@input-search-user-name"
 msgstr "メンバー名で検索"
 
 #: client/app/right/search.messages/search.messages.html
-#, fuzzy
 msgid "@input-to-search"
-msgstr "新規トピックの名称を入力"
+msgstr "キーワードを入力して検索してください"
 
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
@@ -960,12 +966,14 @@ msgstr "パスワードをお忘れですか？ 新しいパスワードを入�
 msgid "@privateGroup"
 msgstr "プライベートグループ "
 
+#: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
 msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>を検索して"
 "います"
 
+#: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""

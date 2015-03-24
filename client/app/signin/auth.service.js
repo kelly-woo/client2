@@ -95,6 +95,11 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     });
   }
 
+
+  authAPI.handleConstructionErr = function() {
+    $state.go('503');
+  };
+
   /**
    * Pop up alert window saying current member has been disabled from current team.
    * Keep member logged in but redirect to main.
@@ -104,8 +109,8 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     var mainTeamAddr = configuration.main_address+'team';
 
     var disabledMsg = $filter('translate')('@current-member-disabled-notice-msg-pre') +
-                      teamName +
-                      $filter('translate')('@current-member-disabled-notice-msg-post');
+      teamName +
+      $filter('translate')('@current-member-disabled-notice-msg-post');
 
     confirm(disabledMsg);
 
@@ -165,7 +170,13 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
       if (rejection.status == 502) {
         console.log('its 502 error!! Network needs to be re-established.');
+      }
 
+      if (rejection.status == 503) {
+        console.log(rejection.status)
+        var authAPIservice = $injector.get('authAPIservice');
+        authAPIservice.handleConstructionErr();
+        return $q.reject(rejection);
       }
       if (rejection.status === 401) {
         // Unauthorized Access.

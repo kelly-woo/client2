@@ -10,6 +10,11 @@
   margin-right: 12px;
   display: inline-block;
 }
+.advanced-search-option__category:lang(zh-tw),
+.advanced-search-option__category:lang(zh-cn) {
+  width: 130px;
+  margin-right: 10px;
+}
 .advanced-search-option__category:last-child {
   margin-right: 0;
 }

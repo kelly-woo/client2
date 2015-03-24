@@ -10,7 +10,7 @@
   function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice) {
 
     var service = {
-      getMemberByEntityId: getMemberByEntityId,
+      getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityFromListById: getEntityFromListById,
       getEntityById: getEntityById,
       setCurrentEntity: setCurrentEntity,
@@ -26,6 +26,21 @@
 
     return service;
 
+    function getEntityFromListByEntityId(list, entityId) {
+      entityId = parseInt(entityId);
+
+      if (entityId === $rootScope.member.id) return $rootScope.member;
+
+      var returnObj;
+
+      _.forEach(list, function(entity, index) {
+        if (entity.entityId == entityId) {
+          returnObj = entity;
+        }
+      });
+
+      return returnObj;
+    }
     function getEntityFromListById (list, value) {
       value = parseInt(value);
 
@@ -42,24 +57,6 @@
       return returnEntity;
     }
 
-    function getMemberByEntityId(list, entityId) {
-      if (!_isMemberList(list)) return null;
-
-      var member;
-
-      _.forEach(list, function(entity, index) {
-        if (entity.entityId == entityId) {
-          member = entity;
-        }
-      });
-
-      return member;
-
-
-    }
-    function _isMemberList(list) {
-      return list[0].type == 'users';
-    }
     function getEntityById (entityType, entityId) {
       entityType = entityType.toLowerCase();
       var list = $rootScope.joinedChannelList;
@@ -114,7 +111,7 @@
     //  updating alarmCnt field of 'entity' to 'alarmCount'.
     // 'alarmCount' is -1, it means to increment.
     function updateBadgeValue (entity, alarmCount) {
-      console.log('updating')
+      //console.log('updating')
       var list = $rootScope.privateGroupList;
 
       if (entity.type == 'channels') {
@@ -137,7 +134,7 @@
       var curEntity = this.getEntityFromListById(list, entity.id);
       if (angular.isUndefined(curEntity)) return;
 
-      console.log(alarmCount)
+      //console.log(alarmCount)
       if (alarmCount == -1) {
         if (angular.isUndefined(this.getEntityFromListById(list, entity.id).alarmCnt)) {
           this.getEntityFromListById(list, entity.id).alarmCnt = 1;

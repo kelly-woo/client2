@@ -11,6 +11,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 
+#: client/app/tpl/503/503.html
+msgid "@503-unavailable-msg"
+msgstr "JANDI is currently unavailable due to scheduled maintenance."
+
+#: client/app/tpl/503/503.html
+msgid "@503-will-be-back-msg"
+msgstr "We expect to be back in a couple of hours. Thanks for your patience."
+
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "You have not joined any topics yet"
@@ -312,9 +320,8 @@ msgid "@common-email"
 msgstr "Email"
 
 #: client/app/right/search.messages/search.messages.html
-#, fuzzy
 msgid "@common-entity-location"
-msgstr "Type"
+msgstr "Sent In"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
@@ -426,9 +433,8 @@ msgid "@common-message"
 msgstr "Messages"
 
 #: client/app/right/search.messages/search.messages.html
-#, fuzzy
 msgid "@common-message-writer"
-msgstr "Share File"
+msgstr "Sent By"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -966,12 +972,14 @@ msgstr "Forgot your password? Choose a new one."
 msgid "@privateGroup"
 msgstr "Private Topics"
 
+#: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
 msgstr ""
 "Searching <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</"
 "span>..."
 
+#: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""

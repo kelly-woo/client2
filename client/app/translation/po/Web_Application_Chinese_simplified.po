@@ -11,6 +11,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.9\n"
 
+#: client/app/tpl/503/503.html
+msgid "@503-unavailable-msg"
+msgstr "JANDI现在基于定期维护而无法使用。"
+
+#: client/app/tpl/503/503.html
+msgid "@503-will-be-back-msg"
+msgstr "我们预计几个小时内就可以恢复运作。感谢您的耐心等候。"
+
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
 msgstr "您尚未加入任何议题群组"
@@ -302,7 +310,7 @@ msgstr "电子邮件"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-entity-location"
-msgstr " 公开/私人"
+msgstr "发送在"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
@@ -414,9 +422,8 @@ msgid "@common-message"
 msgstr "私信"
 
 #: client/app/right/search.messages/search.messages.html
-#, fuzzy
 msgid "@common-message-writer"
-msgstr "分享档案"
+msgstr "发送者是"
 
 #: client/app/left/left.html
 msgid "@common-more"
@@ -687,9 +694,8 @@ msgid "@input-search-user-name"
 msgstr "按名字搜寻使用者"
 
 #: client/app/right/search.messages/search.messages.html
-#, fuzzy
 msgid "@input-to-search"
-msgstr "输入新的议题群组名称"
+msgstr "按照关键词搜寻您的讯息"
 
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
@@ -936,11 +942,13 @@ msgstr "忘记您的密码了吗？选择一个新的。"
 msgid "@privateGroup"
 msgstr "私人群組 "
 
+#: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
 msgstr ""
 "搜寻 <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>..."
 
+#: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""

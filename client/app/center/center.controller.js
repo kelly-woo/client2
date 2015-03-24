@@ -480,7 +480,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   $scope.isAtBottom = function() {
-    console.log('isAtBottom')
+    //console.log('isAtBottom')
     _clearBadgeCount($scope.currentEntity);
   };
 
@@ -543,7 +543,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var lastUpdatedLinkId = -1;
   function updateList () {
 
-    console.log('-- updateList');
+    //console.log('-- updateList');
 
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
@@ -560,7 +560,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(function (response) {
 
-        console.log('  -- getUpdatedMessages success');
+        //console.log('  -- getUpdatedMessages success');
         // jihoon
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
         if (response.event.eventCount != 0) updateEventHandler(response.event);
@@ -703,7 +703,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateMessageMarker() {
     messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
       .success(function(response) {
-          console.log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
+          //console.log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
       })
       .error(function(response) {
         console.log('message marker not updated for ' + $scope.currentEntity.id);
@@ -1314,42 +1314,30 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       //  'toEntity' may be an array.
       _.each(element.toEntity, function(toEntityElement, index, list) {
-        updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, toEntityElement) || entityAPIservice.getMemberByEntityId($scope.memberList, toEntityElement);
+        // updateEntity is not undefined in case of either public or private topic.
+        updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, toEntityElement);
 
-        // Don't worry about entity that I don't have at the moment.
-        if (angular.isUndefined(updateEntity)) return;
-
-        console.log(updateEntity.id)
-        console.log($scope.currentEntity.id)
-        console.log(updateEntity.id == $scope.currentEntity.id)
-
-        // If I'm looking at the entity and it's got focus -> don't bother to update badge or send notification.
-        if (updateEntity.id == $scope.currentEntity.id && _hasBrowserFocus()) {
-          console.log(updateEntity.id)
-          console.log($scope.currentEntity.id)
-
-          console.log('returning')
-          return;
+        if (angular.isUndefined(updateEntity)) {
+          // updateEntity is not undefined in case of member.
+          updateEntity = entityAPIservice.getEntityFromListByEntityId($scope.memberList, toEntityElement);
         }
 
-        // I need to who sent new message for browser notification.
+        // if updateEntity is still undefined, don't worry about it.
+        if (angular.isUndefined(updateEntity)) { return; }
+
+        if (updateEntity.type == 'users') {
+          $rootScope.$broadcast('updateMessageList')
+        }
+        //  If 'toEntity' is an entity that I'm currently looking at, check browser's visibility state.
+
+        if (updateEntity == $scope.currentEntity && _hasBrowserFocus()) return;
+
         var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
 
-        // Send browser notification.
         desktopNotificationService.addNotification(toEntity, updateEntity);
-
-        // Update badge value.
         entityAPIservice.updateBadgeValue(updateEntity, -1);
       });
     });
-  }
-
-  function _sendNotification(fromEntity, toEntity) {
-    fromEntity = entityAPIservice.getEntityFromListById($scope.memberList, fromEntity);
-    toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, toEntity);
-
-    $rootScope.$broadcast('updateMessageList');
-    desktopNotificationService.addNotification(fromEntity, toEntity);
   }
 
   function _hasBrowserFocus() {
