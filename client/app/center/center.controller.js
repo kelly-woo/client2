@@ -462,9 +462,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       var positionTop = lastMsg.position().top;
 
       _animateBackgroundColor(lastMsg);
-      console.log('moving scroll', positionTop)
+      //console.log('moving scroll', positionTop)
       if (_isInitialLoad()) {
-        console.log('initial load')
+        //console.log('initial load')
         positionTop -= 60;
       }
       document.getElementById('msgs-container').scrollTop = positionTop;
