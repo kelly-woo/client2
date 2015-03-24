@@ -552,15 +552,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
 
-    log('  -- calling getUpdatedMessages');
+    console.log('  -- calling getUpdatedMessages');
 
     $scope.isPolling = true;
 
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(function (response) {
 
-        log('  -- getUpdatedMessages success');
+        console.log('  -- getUpdatedMessages success');
 
+        console.log(response)
         // jihoon
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
         if (response.event.eventCount != 0) updateEventHandler(response.event);
@@ -596,12 +597,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $scope.focusPostMessage = true;
 
             if ( msg.status == 'event' ) {
+              console.log(msg.status)
               msg = eventMsgHandler(msg);
 
+              console.log(msg)
               $scope.messages.push(msg);
+
+              groupByDate();
+
               continue;
             }
-            // parse HTML, URL code
+
             var safeBody = msg.message.content.body;
             if (safeBody != undefined && safeBody !== "") {
               safeBody = $filter('parseUrl')(safeBody);
@@ -1086,6 +1092,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //      4. invite someone to channel
   function updateEventHandler(event) {
     if (event.eventCount == 0) return;
+
+    console.log('event count: ', event.eventCount);
 
     var eventTable = event.eventTable;
 

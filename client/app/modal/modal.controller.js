@@ -148,7 +148,7 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
 
     entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
       .success(function(response) {
-        console.log(response)
+        //console.log(response)
         // analytics
         var entity_type = "";
         switch (entityType) {
