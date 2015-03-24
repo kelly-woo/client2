@@ -44,7 +44,7 @@ msgstr "모든 정보를 입력하세요"
 #: client/app/modal/team_member_list/team.member.list.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
-msgstr "결과가 없습니다"
+msgstr "검색 결과가 없습니다"
 
 #: client/app/modal/settings.account.html
 msgid "@alert-required"
@@ -792,7 +792,7 @@ msgstr "1:1 대화 중에 간편하게 해당 멤버를 다른 대화방으로 �
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
-msgstr "사용자 초대"
+msgstr "멤버 초대하기"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"

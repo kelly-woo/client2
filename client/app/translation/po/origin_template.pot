@@ -962,10 +962,12 @@ msgstr ""
 msgid "@privateGroup"
 msgstr ""
 
+#: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
 msgstr ""
 
+#: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""

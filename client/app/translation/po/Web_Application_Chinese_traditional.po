@@ -174,7 +174,7 @@ msgstr "重新命名這議題群組"
 
 #: client/app/center/center.html
 msgid "@ch-menu-star"
-msgstr "離開議題群組 "
+msgstr "重要議題群組 "
 
 #: client/app/center/center.html
 msgid "@ch-menu-un-star"
@@ -427,7 +427,7 @@ msgstr "瀏覽"
 #: client/app/modal/settings.profile.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
-msgstr "姓名"
+msgstr "名稱"
 
 #: client/app/modal/rename.html client/app/modal/settings.account.html
 msgid "@common-new-name"
@@ -587,7 +587,7 @@ msgstr "錯誤"
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@file-action-more"
-msgstr "音頻檔案 "
+msgstr "更多"
 
 #: client/app/header/header.html
 msgid "@file-all"
@@ -1012,7 +1012,7 @@ msgstr "團隊成員"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
-msgstr "回到首頁"
+msgstr "回到帳號首頁"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
