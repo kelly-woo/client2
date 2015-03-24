@@ -85,7 +85,7 @@
 
       messageSearchHelper.searchMessages($scope.searchQuery)
         .success(function(response) {
-          console.log(response)
+          //console.log(response)
           _updateSearchQueryCursor(response.cursor);
           _updateMessageList(response);
           _updateSearchStatusTotalCount(response.cursor.totalCount);

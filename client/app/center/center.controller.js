@@ -420,7 +420,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.updateScroll = function() {
     if (_isSearchMode()) {
-      console.log('-- updateScroll: search', messageSearchHelper.getLinkId())
+      //console.log('-- updateScroll: search', messageSearchHelper.getLinkId())
       _disableScroll();
       _findMessageDomElementById(messageSearchHelper.getLinkId());
       _resetSearchMode();
@@ -429,14 +429,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     if (_isInitialLoad()) {
-      console.log('-- updateScroll: initial')
+      //console.log('-- updateScroll: initial')
 
       _scrollToBottom();
       return;
     }
 
     if (_isLoadingNewMessages()) {
-      console.log('-- updateScroll: load new message')
+      //console.log('-- updateScroll: load new message')
 
       var temp = angular.element(document.getElementById(localFirstMessageId));
       _animateBackgroundColor(temp);
@@ -445,7 +445,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     if (loadedFirstMessagedId == -1) return;
 
-    console.log('-- updateScroll: load old message')
+    //console.log('-- updateScroll: load old message')
 
     _disableScroll();
 
@@ -473,7 +473,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _scrollToBottom() {
-    console.log('scrolling to bottom')
+    //console.log('scrolling to bottom')
     $timeout(function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
     }, 10);

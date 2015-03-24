@@ -5,6 +5,7 @@
 ********************************************/
 .panel-title-container.file-detail {
   height: 41px;
+  line-height: 41px;
 }
 
 .rpanel-body-content.file-detail {

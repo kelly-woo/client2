@@ -73,6 +73,10 @@
   width: 80px;
   text-align: center;
 }
+
+.header-toolbar-toggle .toggle-icon {
+  vertical-align: middle;
+}
 .header-toolbar-toggle .icon-filebox {
   font-size: 16px;
   vertical-align: text-bottom;
