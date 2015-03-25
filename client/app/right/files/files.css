@@ -1,6 +1,5 @@
 .advanced-search-option-container {
   padding: 15px 0 12px 23px;
-  margin-right: 18px;
   border-right: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
   background-color: white;
@@ -23,7 +22,7 @@
   border-radius: 0 !important;
   border: 1px solid #d2d2d2;
   height: 24px;
-  font-size: 14px;
+  font-size: 13px;
   background-color: white;
 }
 .advanced-search-option__title {
