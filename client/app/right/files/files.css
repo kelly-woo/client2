@@ -5,8 +5,8 @@
   background-color: white;
 }
 .advanced-search-option__category {
-  width: 123px;
-  margin-right: 12px;
+  width: 137px;
+  margin-right: 10px;
   display: inline-block;
 }
 .advanced-search-option__category:lang(zh-tw),
@@ -38,7 +38,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  top: 72px;
+  top: 73px;
   overflow-y: auto;
 }
 .search-result-container {
@@ -52,6 +52,7 @@
 }
 .file-list {
   background: none;
+  margin-top: -3px;
 }
 
 .rpanel-body-content__result-msg {
