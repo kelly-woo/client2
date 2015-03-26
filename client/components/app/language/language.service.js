@@ -12,6 +12,7 @@
     this.getLanguageSetting = getLanguageSetting;
     this.setCurrentLanguage = setCurrentLanguage;
     this.setDebugMode = setDebugMode;
+    this.getLanguageList = getLanguageList;
 
     /*
      'language'      : is for translator to bring right language for current user. Translator needs this value.
@@ -111,6 +112,10 @@
     // Setting debug mode for translator, nggettext
     function setDebugMode(isDebug) {
       gettextCatalog.debug = isDebug;
+    }
+
+    function getLanguageList() {
+      return this.listLangs;
     }
   }
 

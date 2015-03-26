@@ -35,6 +35,23 @@
   display: block;
   padding: 0 11px 0 14px;
 }
+.header-navbar__menu-icon {
+  vertical-align: middle;
+
+}
+.header-navbar__topmenu .fa-question-circle {
+  font-size: 16px;
+}
+.header-navbar__topmenu .icon-language {
+  font-size: 20px;
+  /*line-height: 41px;*/
+}
+
+.header-navbar__topmenu .fa-caret-down {
+  vertical-align: text-bottom;
+  color: #999;
+}
+
 .header-navbar__title {
   line-height: 40px;
 }

@@ -47,75 +47,67 @@
     </div>  <!--  END OF MENU -->
 
 
-    <!-- Menu -->
-    <div class="header-navbar-menu hidden">
-
+    <!-- LANGUAGE -->
+    <div class="header-navbar-menu" id="language">
       <span class="header-navbar__topmenu" data-toggle="dropdown">
-        <i class="fa fa-bars"></i>
-        <span class="header-navbar__title" translate>@header-menu</span>
+        <i class="icon-language header-navbar__menu-icon"></i>
         <i class="fa fa-caret-down"></i>
       </span>
+
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
-        <!-- 채널 생성 -->
-        <li class="" role="presentation">
-          <a data-ng-click="openModal('channel');" role="menuitem" tabindex="-1">
-            <i class="icon-topic-fill"></i>
-            <span translate>@common-create-ch</span>
+        <li class=""  role="presentation" ng-repeat="language in languageList" ng-click="onLanguageClick(language.value);">
+          <a role="menuitem" tabindex="-1">
+            <span> {{ language.text }}</span>
           </a>
         </li>
-        <!-- 그룹 생성 -->
-        <li class="hidden" role="presentation">
-          <a data-ng-click="openModal('private');" role="menuitem" tabindex="-1">
-            <i class="icon-chat-fill"></i>
-            <span translate>@common-create-pg</span>
-          </a>
-        </li>
-        <li class="divider"></li>
-        <!-- 팀원 보기 -->
-        <li class="hidden" role="presentation"
-            data-ng-mouseenter="team_over = true;"
-            data-ng-mouseleave="team_over = false;">
-          <a data-ng-click="" role="menuitem" tabindex="-1">
-            <span class="icon_team" data-ng-class="{ light: team_over }"></span>
-            <span translate>@team-members</span>
-          </a>
-        </li>
-        <!-- 팀 변경 -->
+
+      </ul>
+    </div>  <!--  END OF MENU -->
+
+    <!-- Help -->
+    <div class="header-navbar-settings">
+      <span class="header-navbar__topmenu" data-toggle="dropdown">
+        <i class="fa fa-question-circle"></i>
+        <i class="fa fa-caret-down"></i>
+      </span>
+      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
         <li role="presentation">
-          <a data-ng-click="toTeam();" role="menuitem" tabindex="-1">
-            <i class="icon-switch"></i>
-            <span translate>@team-switch</span>
+          <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
+            <i class="fa fa-info-circle"></i>
+            <span translate>@common-faq</span>
           </a>
         </li>
 
-        <!-- 팀 초대 -->
-        <li class="" role="presentation"
-            data-ng-mouseenter="invite_over = true;"
-            data-ng-mouseleave="invite_over = false;">
-          <a data-ng-click="openModal('invite');" role="menuitem" tabindex="-1">
-            <!--<i class="fa fa-envelope-o"></i>-->
-            <span class="icon_invite" data-ng-class="{ light: invite_over }"></span>
-            <span translate>@team-invite</span>
+        <li role="presentation">
+          <a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
+            <i class="fa fa-question-circle"></i>
+            <span translate>@common-show-tutorial</span>
           </a>
         </li>
 
         <li class="divider"></li>
 
-        <!-- 로그아웃 -->
         <li class="" role="presentation">
-          <a data-ng-click="onSignOutClick();" role="menuitem" tabindex="-1">
-            <i class="icon-logout"></i>
-            <span translate>@common-sign-out</span>
+          <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
+            <i class="fa fa-folder"></i>
+            <span translate>@common-terms-of-service</span>
+          </a>
+        </li>
+
+        <li class="" role="presentation">
+          <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
+            <i class="fa fa-lock"></i>
+            <span translate>@common-privacy-policy</span>
           </a>
         </li>
       </ul>
-    </div>  <!--  END OF MENU -->
+    </div>
+
 
     <!-- File -->
     <div class="header-navbar-file hidden">
       <span class="header-navbar__topmenu" data-toggle="dropdown">
         <i class="fa fa-file"></i>
-        <span class="header-navbar__title" translate>@header-file</span>
         <i class="fa fa-caret-down"></i>
       </span>
 
@@ -229,45 +221,6 @@
       </ul>
     </div>
 
-    <!-- Help -->
-    <div class="header-navbar-settings hidden">
-      <span class="header-navbar__topmenu" data-toggle="dropdown">
-        <i class="fa fa-question-circle"></i>
-        <span class="header-navbar__title" translate>@header-help</span>
-        <i class="fa fa-caret-down"></i>
-      </span>
-      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
-        <li role="presentation">
-          <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
-            <i class="fa fa-info-circle"></i>
-            <span translate>@common-faq</span>
-          </a>
-        </li>
-
-        <li role="presentation">
-          <a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
-            <i class="fa fa-question-circle"></i>
-            <span translate>@common-show-tutorial</span>
-          </a>
-        </li>
-
-        <li class="divider"></li>
-
-        <li class="" role="presentation">
-          <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
-            <i class="fa fa-folder"></i>
-            <span translate>@common-terms-of-service</span>
-          </a>
-        </li>
-
-        <li class="" role="presentation">
-          <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
-            <i class="fa fa-lock"></i>
-            <span translate>@common-privacy-policy</span>
-          </a>
-        </li>
-      </ul>
-    </div>
   </div>
 
   <div class="header-toolbar pull-right">
