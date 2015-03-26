@@ -89,4 +89,8 @@
   color: #333333;
 }
 
+.file-indicator .file-icon {
+  height: 15px;
+  vertical-align: top;
+}
 
