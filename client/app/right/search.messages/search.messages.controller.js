@@ -36,8 +36,6 @@
       _initChatWriterOption();
 
       searchMessages();
-
-      test()
     })();
 
     // When value of search input box(at the top of right panel) changed.
@@ -207,6 +205,7 @@
     function _onMessageSearchErr(err) {
       $scope.apiError = true;
     }
+
     function test() {
       $scope.searchQuery = {
         q: '네',
