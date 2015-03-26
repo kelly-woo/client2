@@ -1,13 +1,12 @@
 .advanced-search-option-container {
   padding: 15px 0 12px 23px;
-  margin-right: 18px;
   border-right: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
   background-color: white;
 }
 .advanced-search-option__category {
-  width: 123px;
-  margin-right: 12px;
+  width: 137px;
+  margin-right: 10px;
   display: inline-block;
 }
 .advanced-search-option__category:lang(zh-tw),
@@ -23,7 +22,7 @@
   border-radius: 0 !important;
   border: 1px solid #d2d2d2;
   height: 24px;
-  font-size: 14px;
+  font-size: 13px;
   background-color: white;
 }
 .advanced-search-option__title {
@@ -39,7 +38,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  top: 72px;
+  top: 73px;
   overflow-y: auto;
 }
 .search-result-container {
@@ -53,6 +52,7 @@
 }
 .file-list {
   background: none;
+  margin-top: -3px;
 }
 
 .rpanel-body-content__result-msg {
