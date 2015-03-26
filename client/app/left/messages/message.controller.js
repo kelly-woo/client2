@@ -128,7 +128,7 @@
 
 
     $scope.$on('leaveCurrentChat', function(event, entityId) {
-      onMeesageLeaveClick(entityId);
+      onMessageLeaveClick(entityId);
     });
   }
 

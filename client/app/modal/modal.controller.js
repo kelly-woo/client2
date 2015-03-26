@@ -559,6 +559,8 @@ app.controller('profileViewerCtrl', function($scope, $rootScope, $modalInstance,
     if ($state.current.name != 'messages.detail.files')
       $state.go('messages.detail.files');
     $scope.$emit('updateFileWriterId', userId);
+    $rootScope.$broadcast('setFileTabActive');
+
   }
 });
 

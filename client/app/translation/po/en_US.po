@@ -321,7 +321,7 @@ msgstr "Email"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-entity-location"
-msgstr "Sent In"
+msgstr "Sent in"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-entity-type"
@@ -345,7 +345,7 @@ msgstr "Files Shared"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type"
-msgstr "File Type"
+msgstr "File type"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-all"
@@ -434,7 +434,7 @@ msgstr "Messages"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
-msgstr "Sent By"
+msgstr "Sent by"
 
 #: client/app/left/left.html
 msgid "@common-more"

@@ -419,7 +419,7 @@ msgstr "曾经被谁分享"
 
 #: client/app/right/right.html
 msgid "@common-message"
-msgstr "私信"
+msgstr "信息"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
