@@ -526,6 +526,10 @@ msgstr "開啓JANDI的應用程式"
 msgid "@common-status-msg"
 msgstr "今天的感覺"
 
+#: client/app/header/header.html
+msgid "@common-team"
+msgstr "團隊"
+
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "使用條款"
@@ -1019,6 +1023,10 @@ msgstr "團隊成員"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
+msgstr "更換團隊"
+
+#: client/app/header/header.html
+msgid "@to-account-home"
 msgstr "回到帳號首頁"
 
 #: client/app/tutorial/tutorial.html

@@ -62,11 +62,14 @@ app.controller('headerController', function($scope, $rootScope, $state, $filter,
       case 'invite':
         publicService.openInviteToTeamModal($scope);
         break;
-      case 'teamChange':
+      case 'team-change':
         publicService.openTeamChangeModal($scope);
         break;
       case 'setting-team':
         publicService.openTeamSettingModal($scope);
+        break;
+      case 'team-member':
+        publicService.openTeamMemberListModal($scope);
         break;
       default:
         break;

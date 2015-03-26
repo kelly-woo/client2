@@ -529,6 +529,10 @@ msgstr "JANDI 앱 열기"
 msgid "@common-status-msg"
 msgstr "오늘의 기분"
 
+#: client/app/header/header.html
+msgid "@common-team"
+msgstr "팀"
+
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "이용약관"
@@ -1042,6 +1046,10 @@ msgstr "전체 멤버 보기"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
+msgstr "팀 전환하기"
+
+#: client/app/header/header.html
+msgid "@to-account-home"
 msgstr "잔디 메인으로"
 
 #: client/app/tutorial/tutorial.html

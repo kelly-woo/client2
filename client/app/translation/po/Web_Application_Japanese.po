@@ -534,6 +534,10 @@ msgstr "アプリを開く"
 msgid "@common-status-msg"
 msgstr "今の気分"
 
+#: client/app/header/header.html
+msgid "@common-team"
+msgstr "チーム"
+
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "サービス利用規約"
@@ -1046,6 +1050,10 @@ msgstr "チームメンバー"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
+msgstr "ホームに戻る"
+
+#: client/app/header/header.html
+msgid "@to-account-home"
 msgstr "ホームに戻る"
 
 #: client/app/tutorial/tutorial.html

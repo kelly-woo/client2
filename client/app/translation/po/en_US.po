@@ -536,6 +536,10 @@ msgstr "Launch the JANDI app"
 msgid "@common-status-msg"
 msgstr "Status"
 
+#: client/app/header/header.html
+msgid "@common-team"
+msgstr "Team"
+
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "Terms of Service"
@@ -1054,6 +1058,10 @@ msgstr "Team Members"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
+msgstr "Switch Teams"
+
+#: client/app/header/header.html
+msgid "@to-account-home"
 msgstr "Go to Account Home"
 
 #: client/app/tutorial/tutorial.html

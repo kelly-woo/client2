@@ -554,6 +554,10 @@ msgid "@common-status-msg"
 msgstr ""
 
 #: client/app/header/header.html
+msgid "@common-team"
+msgstr ""
+
+#: client/app/header/header.html
 #: client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr ""
@@ -1045,6 +1049,10 @@ msgstr ""
 #: client/app/header/header.html
 #: client/app/modal/team_change/team.change.html
 msgid "@team-switch"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "@to-account-home"
 msgstr ""
 
 #: client/app/tutorial/tutorial.html
