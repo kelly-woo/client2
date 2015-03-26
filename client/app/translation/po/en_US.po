@@ -708,7 +708,7 @@ msgstr "Search topics by name"
 
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@input-search-file-title"
-msgstr "Search files by title"
+msgstr "Search by keyword(s)"
 
 #: client/app/modal/invite.channel.html
 #: client/app/modal/team_member_list/team.member.list.html
