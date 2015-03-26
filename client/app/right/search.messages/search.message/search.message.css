@@ -106,6 +106,6 @@
 
 .file-indicator .file-icon {
   height: 15px;
-  vertical-align: top;
+  vertical-align: baseline;
 }
 
