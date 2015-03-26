@@ -384,10 +384,11 @@
 .invite-team-body__container-more {
   position: absolute;
   top: 0;
-  right: 0;
-  padding: 6px 8px 5px 9px;
+  right: 5px;
+  padding: 7px 12px 7px 10px;
   color: #fff;
   font-size: 13px;
+  border-radius: 5px;
 }
 .invite-team-body__container-more i {
   margin-right: 2px;
