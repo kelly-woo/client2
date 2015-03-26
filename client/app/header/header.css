@@ -47,8 +47,10 @@
   /*line-height: 41px;*/
 }
 
+.open .header-navbar__topmenu .fa-caret-down {
+  color: white;
+}
 .header-navbar__topmenu .fa-caret-down {
-  vertical-align: text-bottom;
   color: #999;
 }
 
