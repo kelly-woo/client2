@@ -686,7 +686,7 @@ msgstr "按名字搜尋議題群組"
 
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@input-search-file-title"
-msgstr "按標題搜尋檔案"
+msgstr "關鍵字搜尋"
 
 #: client/app/modal/invite.channel.html
 #: client/app/modal/team_member_list/team.member.list.html

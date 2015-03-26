@@ -692,7 +692,7 @@ msgstr "토픽 이름을 검색하세요"
 
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@input-search-file-title"
-msgstr "파일 이름을 검색하세요"
+msgstr "검색어를 입력하세요"
 
 #: client/app/modal/invite.channel.html
 #: client/app/modal/team_member_list/team.member.list.html
