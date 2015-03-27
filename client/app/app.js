@@ -21,8 +21,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
     'header'    : 'app/tpl/header.tpl.html',
     'footer'    : 'app/tpl/footer.tpl.html',
     'loading'   : 'app/tpl/loading.tpl.html',
-    'msgList'   : 'app/left/messages/messages.html',
-    'left_user' : 'app/left/member/member.html'
+    'msgList'   : 'app/left/messages/messages.html'
   };
 
   $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {

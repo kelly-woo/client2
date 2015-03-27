@@ -1,9 +1,9 @@
-<div class="opac-zero" ng-class="{'opac-in': isReady }">
+<div class="" ng-class="{'opac-in': isReady }">
 
   <aside class="lpanel">
 
     <!-- USER INFO CONTAINER -->
-    <div class="lpanel-user cursor_pointer" ng-include="templates.left_user"></div>
+    <current-user></current-user>
 
     <div class="tutorial-clicker tutorial-z-index pulse" id="topicTutorial" data-ng-click="onTutorialPulseClick($event);"
          data-ng-if="!tutorialStatus.topicTutorial"></div>
@@ -12,15 +12,22 @@
     <div class="lpanel-list">
       <!--    HEADER  -->
       <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isTopicsCollapsed = !leftListCollapseStatus.isTopicsCollapsed">
+
+        <i class="fa lpanel-collapse-arrow" ng-class="{'fa-caret-down': !leftListCollapseStatus.isTopicsCollapsed,
+                                                'fa-caret-right': leftListCollapseStatus.isTopicsCollapsed}"></i>
+
         <i class="lpanel-list-left icon-topic-fill"></i>
 
         <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-topics</span>
 
-        <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();">
-          <i class="icon-add"></i><span translate>@common-add</span>
+        <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();"
+             tooltip="{{'@common-add' | translate}}" tooltip-popup-delay="567" tooltip-placement="left">
+          <i class="icon-add"></i>
         </div>
-        <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();">
-          <i class="icon-list"></i><span translate>@common-more</span>
+
+        <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();"
+             tooltip="{{'@common-more' | translate}}" tooltip-popup-delay="418" tooltip-placement="left">
+          <i class="icon-list"></i>
         </div>
 
       </div>

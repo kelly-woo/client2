@@ -1,13 +1,16 @@
 <div>
   <!--    HEADER  -->
   <div class="lpanel-list__header cursor_pointer" ng-click="onMessageHeaderClick();">
+    <i class="fa lpanel-collapse-arrow" ng-class="{'fa-caret-down': !isMessageListCollapsed,
+                                                'fa-caret-right': isMessageListCollapsed}"></i>
 
     <i class="lpanel-list-left icon-user"></i>
 
     <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-direct-messages</span>
 
-    <div class="lpanel-list-option pull-right" ng-click="openModal('memberList'); $event.stopPropagation(); $event.preventDefault();">
-      <i class="icon-add"></i><span translate>@common-add</span>
+    <div class="lpanel-list-option pull-right" ng-click="openModal('memberList'); $event.stopPropagation(); $event.preventDefault();"
+         tooltip="{{'@common-add' | translate}}" tooltip-placement="left">
+      <i class="icon-add"></i>
     </div>
 
   </div>
