@@ -4,8 +4,8 @@
     <span class="team-name">{{team|getName}}</span>
   </div>
 
-  <div class="lpanel-user__user" ng-click="onCurrentMemberContainerClick();">
-    <i class="icon-setting user-setting-icon"></i>
+  <div class="lpanel-user__user"data-toggle="dropdown">
+    <i class="icon-setting user-setting-icon" ></i>
 
     <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
     <div class="lpanel-user__container">
@@ -13,5 +13,25 @@
       <br>
       <span class="lpanel-user__name">{{ member | getName}}</span>
     </div>
+
   </div>
+  <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu" id="current-user-dropdown">
+    <li class="" role="presentation">
+      <a data-ng-click="onCurrentMemberContainerClick();" role="menuitem" tabindex="-1">
+        <i class="fa fa-user"></i>
+        <span translate>@common-profile-settings</span>
+      </a>
+    </li>
+
+    <!-- 로그아웃 -->
+    <li class="" role="presentation">
+      <a data-ng-click="onSignOutClick();" role="menuitem" tabindex="-1">
+        <i class="icon-logout"></i>
+        <span translate>@common-sign-out</span>
+      </a>
+    </li>
+
+
+  </ul>
+
 </div>

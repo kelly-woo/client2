@@ -7,6 +7,8 @@
   top: 41px;
   bottom: 0;
   background: #f2f2f2;
+  z-index: 700;
+  overflow: visible
 }
 
 

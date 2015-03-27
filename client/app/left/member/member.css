@@ -1,8 +1,9 @@
 .lpanel-user {
   width: inherit;
-  overflow: hidden;
+  overflow: visible;
   border-right: 1px solid #e1e1e1;
   position: relative;
+
 }
 
 .lpanel-user .lpanel-user__team,
@@ -78,4 +79,9 @@
 }
 .user-setting-icon:hover {
   opacity: 1;
+}
+
+#current-user-dropdown {
+  left: 181px;
+  top: 60px;
 }
