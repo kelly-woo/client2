@@ -10,10 +10,14 @@
     var vm = $scope;
 
     vm.onCurrentMemberContainerClick = onCurrentMemberContainerClick;
+    vm.onSignOutClick = onSignOutClick;
 
     function onCurrentMemberContainerClick() {
       publicService.openCurrentMemberModal(vm);
     }
 
+    function onSignOutClick() {
+      publicService.signOut();
+    }
   }
 })();
