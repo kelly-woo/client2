@@ -1,9 +1,17 @@
-<div ng-controller="currentMemberCtrl as CurrentMemberCtrl">
-    <div ng-click="CurrentMemberCtrl.onCurrentMemberContainerClick();">
-        <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
-        <div class="lpanel-user__container">
-        <span class="lpanel-user__name inline-overflow-ellipsis"><b>{{team|getName}}</b><br/>
-            {{ member | getUserPosition }} {{ member | getName}}</span>
-        </div>
+<div class="lpanel-user cursor_pointer">
+  <div class="lpanel-user__team overflow-ellipsis">
+    <i class="icon-group icon"></i>
+    <span class="team-name">{{team|getName}}</span>
+  </div>
+
+  <div class="lpanel-user__user" ng-click="onCurrentMemberContainerClick();">
+    <i class="icon-setting user-setting-icon"></i>
+
+    <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
+    <div class="lpanel-user__container">
+      <span class="lpanel-user__position">{{ member | getUserPosition }}</span>
+      <br>
+      <span class="lpanel-user__name">{{ member | getName}}</span>
     </div>
+  </div>
 </div>

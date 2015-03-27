@@ -13,11 +13,7 @@
       link: link,
       transclude: true,
       replace: true,
-      template: '<div class="lpanel-list__topics">' +
-                  '<ul id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">' +
-                    '<div ng-transclude></div>' +
-                  '</ul>' +
-                '</div>'
+      templateUrl: 'app/left/topics/topics.html'
     };
 
     function link(scope, element, attrs) {
