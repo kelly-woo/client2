@@ -611,8 +611,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
         .finally(function() {
           $scope.toggleLoading();
         });
-    }
-    else if (!isEmailPristine()) {
+    } else if (!isEmailPristine()) {
       // email address changed!!
 
       memberService.setEmail(memberService.getEmail($scope.curUser))
@@ -625,38 +624,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
         .finally(function() {
           $scope.toggleLoading();
         });
-    }
-    else if (!isLanguagePristine()) {
-      // Language setting chagned.
-      var lang = {
-        lang: $scope.profileForm.preferencesLanguage.$viewValue
-      };
-
-      accountService.setAccountInfo(lang)
-        .success(function(response) {
-          accountService.setAccountLanguage(response.lang);
-          publicService.getLanguageSetting(accountService.getAccountLanguage());
-          publicService.setCurrentLanguage();
-
-          $modalInstance.dismiss('cancel');
-
-          // 현재 state 다시 로드
-          $state.transitionTo($state.current, $stateParams, {
-            reload: true,
-            inherit: false,
-            notify: true
-          });
-
-
-        })
-        .error(function(err) {
-          console.log(err)
-        })
-        .finally(function() {
-          $scope.toggleLoading();
-        })
-    }
-    else {
+    } else {
       memberService.updateProfile($scope.curUser)
         .success(function(response) {
           memberService.setMember(response);
@@ -770,7 +738,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
   };
 
   $scope.isPristine = function() {
-    return isNamePristine() && isEmailPristine() && isStatusPristine() && isPhoneNumberPristine() && isDepartmentPristine() && isPositionPristine() && isLanguagePristine();
+    return isNamePristine() && isEmailPristine() && isStatusPristine() && isPhoneNumberPristine() && isDepartmentPristine() && isPositionPristine();
   };
 
   function isNamePristine() {
@@ -791,10 +759,6 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
   function isPositionPristine() {
     return memberService.getPosition($scope.curUser) == memberService.getPosition(memberService.getMember());
   }
-
-  function isLanguagePristine() {
-    return $scope.profileForm.preferencesLanguage.$viewValue == accountService.getAccountLanguage();
-  };
 });
 
 // ACCOUNT CONTROLLER
