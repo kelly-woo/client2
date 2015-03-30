@@ -40,7 +40,8 @@
 
 }
 .header-navbar__topmenu .fa-question-circle {
-  font-size: 16px;
+  font-size: 19px;
+  vertical-align: middle;
 }
 .header-navbar__topmenu .icon-language {
   font-size: 20px;
