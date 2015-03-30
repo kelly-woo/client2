@@ -24,7 +24,7 @@
 .lpanel-list__header .tooltip {
 }
 .lpanel-list {
-  width: inherit;
+  width: 219px;
   overflow-y: auto;
   position: absolute;
   bottom: 0;
@@ -32,6 +32,7 @@
   top: 88px;
   background: #f2f2f2;
   border-top: 1px solid #e1e1e1;
+  border-right: 1px solid #e1e1e1;
   box-sizing: content-box;
 }
 .lpanel-list__channels,
@@ -49,6 +50,7 @@
   font-size: 12px;
   padding-left: 29px;
   padding-right: 7px;
+  margin-bottom: 1px;
 }
 .lpanel-list__header:hover {
   background-color: white;
@@ -62,10 +64,10 @@
 }
 .lpanel-collapse-arrow {
   position: absolute;
-  top: 10px;
-  left: 8px;
-  color: #666;
-  font-size: 8px;
+  top: 7px;
+  left: 6px;
+  color: #999;
+  font-size: 12px;
 }
 
 .lpanel-list__title {
@@ -88,7 +90,7 @@
   margin-left: 5px;
 }
 .lpanel-list-option i {
-  margin-right: 2px;
+  margin-right: 4px;
   vertical-align: text-top;
 }
 .lpanel-list-option:hover {

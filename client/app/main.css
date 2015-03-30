@@ -587,7 +587,7 @@ input[type="button"] {
     width: 2rem;
     text-align: center;
     font-size: 16px;
-    line-height: 19px;
+    line-height: 20px;
 }
 .grey_dropdown > li > a:hover {
     background-color: #31c08a;
