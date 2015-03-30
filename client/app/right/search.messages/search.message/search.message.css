@@ -64,7 +64,7 @@
 
 
 .rpanel-search-message-card .neighbor {
-  max-height: 43px;
+  max-height: 50px;
   display: -webkit-box;
   max-width: 100%;
   line-height: 1.5;
@@ -107,6 +107,6 @@
 .file-indicator .file-icon {
   height: 15px;
   vertical-align: baseline;
-  margin-top: 5px;
+  margin-bottom: -1px;
 }
 
