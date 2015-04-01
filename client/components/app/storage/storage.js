@@ -14,10 +14,10 @@
     /* LocalStorage prefix setting */
     localStorageServiceProvider.setPrefix('_jd_');
     localStorageServiceProvider.setStorageCookie(45, '/');
-    if (configuration.name == 'development') {
-      localStorageServiceProvider.setStorageCookieDomain('jandi.io');
-    } else {
+    if (configuration.name == 'staging') {
       localStorageServiceProvider.setStorageCookieDomain('jandi.com');
+    } else {
+      localStorageServiceProvider.setStorageCookieDomain('jandi.io');
     }
   }
 
