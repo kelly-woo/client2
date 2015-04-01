@@ -96,7 +96,7 @@
       return $modal.open({
         templateUrl: 'app/modal/change_log/changeLog.msg.search.html',
         controller: 'tutorialController',
-        windowClass: 'fade-only welcome-tutorial topic-tutorial tutorial-animation',
+        windowClass: 'fade-only welcome-tutorial file-tutorial tutorial-animation',
         backdrop: false,
         keyboard: false,
         resolve: {
