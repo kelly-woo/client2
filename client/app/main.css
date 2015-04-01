@@ -444,6 +444,7 @@ input[type="button"] {
     display: block;
     margin: auto;
 }
+.fileicon_img,
 .fileicon_jpg,
 .fileicon_png,
 .fileicon_gif {

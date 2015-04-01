@@ -172,6 +172,10 @@
   background-color: white;
 
 }
+
+.file-detail-body .image_wrapper {
+  margin-bottom: 10px;
+}
 .file-item-body-title-author {
   max-width: 76px;
 }
@@ -222,8 +226,7 @@
   left: 0px;
 }
 .file-detail-body__meta-info {
-  margin: 13px 36px 0;
-
+  margin: 0px 36px 0;
 }
 .file-detail-body__meta-info-up {
   margin-bottom: 0px;

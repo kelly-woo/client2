@@ -28,15 +28,14 @@
       </div>
 
       <div class="file-detail-body">
-        <div class="image_wrapper" ng-if="!isFileArchived">
+        <div class="image_wrapper" ng-if="!isFileArchived && (file_detail.content.type).indexOf('image') !== -1 ">
           <img rotate rotate-left-align=false
                class="file-detail-body__image"
-               data-ng-if="( (file_detail.content.type).indexOf('image') !== -1 )"
                data-ng-src="{{ server_uploaded + file_detail.content.extraInfo.largeThumbnailUrl }}"
                data-ng-click="onImageClick();"/>
         </div>
 
-        <div class="file-detail-body__other" data-ng-if="(file_detail.content.type).indexOf('image') == -1">
+        <div class="file-detail-body__other hidden" data-ng-if="(file_detail.content.type).indexOf('image') == -1">
 
           <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
             <!--<img class="fileicon fileicon_left" ng-src="assets/images/fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}.png"/>-->
