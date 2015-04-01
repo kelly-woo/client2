@@ -840,3 +840,20 @@ input[type="radio"] {
   display: block;
   margin: 0 auto 12px;
 }
+
+
+
+/********************************************
+
+                 FLAG.
+
+********************************************/
+
+.flag {
+  width: 16px;
+  height: 11px;
+  margin-right:5px;
+  background: url('../assets/images/flags/flags.png') no-repeat scroll 0% 0% transparent;
+  margin-top: -0.18em;
+  display: inline-block;
+}

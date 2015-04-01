@@ -29,9 +29,9 @@
     var listLangs = this.listLangs = [
       { "value": "ko",    "text": "한국어" },
       { "value": "en",    "text": "English" },
+      { "value": "ja",    "text": "日本語"},
       { "value": "zh-cn", "text": "简体中文 " },
-      { "value": "zh-tw", "text": "繁體中文" },
-      { "value": "ja",    "text": "日本語"}
+      { "value": "zh-tw", "text": "繁體中文" }
     ];
 
     function init() {
