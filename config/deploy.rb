@@ -38,10 +38,6 @@ set :keep_releases, 10
 
 namespace :deploy do
 
-  run_locally do
-    execute 'git pull'
-  end
-
   before :updated, :npm_install do
     on roles(:all) do
       within release_path do
