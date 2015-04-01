@@ -54,7 +54,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://local.jandi.com:<%= express.options.port %>'
+        url: 'http://local.jandi.io:<%= express.options.port %>'
       }
     },
     watch: {
