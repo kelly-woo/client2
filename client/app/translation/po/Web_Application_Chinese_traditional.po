@@ -252,12 +252,12 @@ msgstr ""
 "您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直到您"
 "收到新的訊息或以手動方式重新打開它。 "
 
-#: client/app/header/header.html client/app/modal/create.channel.html
-#: client/app/modal/join.html client/app/modal/topic_create/topic.create.html
+#: client/app/modal/create.channel.html client/app/modal/join.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
 msgstr "建立新議題"
 
-#: client/app/header/header.html client/app/modal/create.private.html
+#: client/app/modal/create.private.html
 msgid "@common-create-pg"
 msgstr "建立私人議題"
 
@@ -352,6 +352,10 @@ msgstr "文件"
 msgid "@common-file-type-images"
 msgstr "圖像"
 
+#: client/app/right/files/files.html
+msgid "@common-file-type-others"
+msgstr "其它"
+
 #: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
@@ -408,7 +412,6 @@ msgstr "請求無效"
 msgid "@common-joined"
 msgstr "成員"
 
-#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr "語言"
@@ -464,7 +467,8 @@ msgstr "職位"
 msgid "@common-privacy-policy"
 msgstr "隱私權條款"
 
-#: client/app/header/header.html client/app/modal/settings.profile.html
+#: client/app/header/header.html client/app/left/member/member.html
+#: client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "簡介設定"
 
@@ -509,7 +513,7 @@ msgstr "顯示教學指南"
 msgid "@common-sign-in"
 msgstr "登入"
 
-#: client/app/header/header.html
+#: client/app/left/member/member.html
 msgid "@common-sign-out"
 msgstr "登出"
 
@@ -550,7 +554,7 @@ msgstr "私人"
 msgid "@common-type-public"
 msgstr "公開"
 
-#: client/app/modal/upload.html client/app/right/right.html
+#: client/app/modal/upload.html
 msgid "@common-upload-file"
 msgstr "上傳檔案"
 
@@ -622,18 +626,6 @@ msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
 #: client/app/header/header.html
 msgid "@file-your"
 msgstr "您的檔案"
-
-#: client/app/header/header.html
-msgid "@header-file"
-msgstr "檔案"
-
-#: client/app/header/header.html
-msgid "@header-help"
-msgstr "支援"
-
-#: client/app/header/header.html
-msgid "@header-menu"
-msgstr "選單"
 
 #: client/app/header/header.html
 msgid "@header-setting"
@@ -1152,6 +1144,15 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
+
+#~ msgid "@header-file"
+#~ msgstr "檔案"
+
+#~ msgid "@header-help"
+#~ msgstr "支援"
+
+#~ msgid "@header-menu"
+#~ msgstr "選單"
 
 #~ msgid "@search-result-summary-post"
 #~ msgstr " 符合"

@@ -261,12 +261,12 @@ msgstr ""
 "view in the conversation list until you receive a new message or manually "
 "reopen it."
 
-#: client/app/header/header.html client/app/modal/create.channel.html
-#: client/app/modal/join.html client/app/modal/topic_create/topic.create.html
+#: client/app/modal/create.channel.html client/app/modal/join.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
 msgstr "Create Topic"
 
-#: client/app/header/header.html client/app/modal/create.private.html
+#: client/app/modal/create.private.html
 msgid "@common-create-pg"
 msgstr "Create Private Topic"
 
@@ -363,6 +363,10 @@ msgstr "documents"
 msgid "@common-file-type-images"
 msgstr "images"
 
+#: client/app/right/files/files.html
+msgid "@common-file-type-others"
+msgstr "Other"
+
 #: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "PDF"
@@ -419,7 +423,6 @@ msgstr "Invalid Request. "
 msgid "@common-joined"
 msgstr " members"
 
-#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr "Language"
@@ -475,7 +478,8 @@ msgstr "Position"
 msgid "@common-privacy-policy"
 msgstr "Privacy Policy"
 
-#: client/app/header/header.html client/app/modal/settings.profile.html
+#: client/app/header/header.html client/app/left/member/member.html
+#: client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "Profile"
 
@@ -520,7 +524,7 @@ msgstr "Show Tutorial"
 msgid "@common-sign-in"
 msgstr "Sign In"
 
-#: client/app/header/header.html
+#: client/app/left/member/member.html
 msgid "@common-sign-out"
 msgstr "Sign Out"
 
@@ -560,7 +564,7 @@ msgstr "Private"
 msgid "@common-type-public"
 msgstr "Public"
 
-#: client/app/modal/upload.html client/app/right/right.html
+#: client/app/modal/upload.html
 msgid "@common-upload-file"
 msgstr "Upload File"
 
@@ -636,18 +640,6 @@ msgstr "Currently you cannot upload a file that exceeds 100MB."
 #: client/app/header/header.html
 msgid "@file-your"
 msgstr "My Files"
-
-#: client/app/header/header.html
-msgid "@header-file"
-msgstr "Files"
-
-#: client/app/header/header.html
-msgid "@header-help"
-msgstr "Help"
-
-#: client/app/header/header.html
-msgid "@header-menu"
-msgstr "Menu"
 
 #: client/app/header/header.html
 msgid "@header-setting"
@@ -1196,6 +1188,15 @@ msgstr "in "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@header-file"
+#~ msgstr "Files"
+
+#~ msgid "@header-help"
+#~ msgstr "Help"
+
+#~ msgid "@header-menu"
+#~ msgstr "Menu"
 
 #~ msgid "@search-result-summary-post"
 #~ msgstr " "

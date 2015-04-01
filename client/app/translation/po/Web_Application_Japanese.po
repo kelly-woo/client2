@@ -259,12 +259,12 @@ msgstr ""
 "この会話から退出しますか？メッセージ履歴は非表示になりますが、再開した場合に"
 "はこれまでの会話履歴は表示されます"
 
-#: client/app/header/header.html client/app/modal/create.channel.html
-#: client/app/modal/join.html client/app/modal/topic_create/topic.create.html
+#: client/app/modal/create.channel.html client/app/modal/join.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
 msgstr "新規トピックを作成する"
 
-#: client/app/header/header.html client/app/modal/create.private.html
+#: client/app/modal/create.private.html
 msgid "@common-create-pg"
 msgstr "新規プライベートグループを作成する"
 
@@ -360,6 +360,10 @@ msgstr "文書"
 msgid "@common-file-type-images"
 msgstr "画像"
 
+#: client/app/right/files/files.html
+msgid "@common-file-type-others"
+msgstr "その他"
+
 #: client/app/header/header.html client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
@@ -416,7 +420,6 @@ msgstr "不適切なリクエスト"
 msgid "@common-joined"
 msgstr "メンバー"
 
-#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr "言語"
@@ -472,7 +475,8 @@ msgstr "役職"
 msgid "@common-privacy-policy"
 msgstr "プライバシーポリシー"
 
-#: client/app/header/header.html client/app/modal/settings.profile.html
+#: client/app/header/header.html client/app/left/member/member.html
+#: client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "プロファイル設定"
 
@@ -517,7 +521,7 @@ msgstr "チュートリアル"
 msgid "@common-sign-in"
 msgstr "ログインする"
 
-#: client/app/header/header.html
+#: client/app/left/member/member.html
 msgid "@common-sign-out"
 msgstr "ログアウトする"
 
@@ -558,7 +562,7 @@ msgstr "非公開"
 msgid "@common-type-public"
 msgstr "公開"
 
-#: client/app/modal/upload.html client/app/right/right.html
+#: client/app/modal/upload.html
 msgid "@common-upload-file"
 msgstr "アップロード"
 
@@ -631,18 +635,6 @@ msgstr "現在のところ、100MBを超えるファイルはアップロード�
 #: client/app/header/header.html
 msgid "@file-your"
 msgstr "あなたのファイル"
-
-#: client/app/header/header.html
-msgid "@header-file"
-msgstr "ファイル"
-
-#: client/app/header/header.html
-msgid "@header-help"
-msgstr "ヘルプ"
-
-#: client/app/header/header.html
-msgid "@header-menu"
-msgstr "メニュー"
 
 #: client/app/header/header.html
 msgid "@header-setting"
@@ -1180,6 +1172,15 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
+
+#~ msgid "@header-file"
+#~ msgstr "ファイル"
+
+#~ msgid "@header-help"
+#~ msgstr "ヘルプ"
+
+#~ msgid "@header-menu"
+#~ msgstr "メニュー"
 
 #~ msgid "@search-result-summary-post"
 #~ msgstr "件あります"

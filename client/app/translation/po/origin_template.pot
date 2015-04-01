@@ -363,6 +363,10 @@ msgstr ""
 msgid "@common-file-type-images"
 msgstr ""
 
+#: client/app/right/files/files.html
+msgid "@common-file-type-others"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-pdf"

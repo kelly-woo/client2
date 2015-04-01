@@ -108,7 +108,9 @@ app.filter('filetype', function($filter) {
       case 'application/vnd.openxmlformats-officedocument.presentationml.presentation' :  // pptx
         filetype = $filter('translate')('@common-file-type-presentations'); break;
 
-      default                 :   filetype = "ETC"; break;
+      default                 :
+        // ETC
+        filetype = $filter('translate')('@common-file-type-others'); break;
     }
     return filetype;
   };
