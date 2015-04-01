@@ -16,6 +16,15 @@
   line-height: inherit;
   vertical-align: top;
 }
+
+.language-navbar-menu ul {
+  min-width: 150px;
+}
+
+.language-navbar-menu .grey_dropdown > li > a {
+  padding: 0 1.4rem 0 2.0rem;
+}
+
 .header-navbar-menu,
 .header-navbar-file,
 .header-navbar-settings {

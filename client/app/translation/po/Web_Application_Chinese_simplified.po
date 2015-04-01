@@ -1039,19 +1039,18 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"您可以透过使用'所有档案'按钮打开或关闭档案库的显示。您可以透过关键字搜寻特定"
-"档案和透过档案类型，哪位团队成员提供的档案，或者在哪个对话里分享的来进行分"
-"类。"
+"想找到封尘已久的档案，透过键入关键词或筛选功能中“档案类别、曾经被谁分享、曾经"
+"分享在哪个议题下”的项目进行查找。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"当您选择了一个档案，您可以使用右边的选单按键(ᵒᵒᵒ)进行分享到其它对话中，对其进"
-"行留言，或直接下载它到您的装置中。"
+"收放搜寻栏好简单！点击右上角的「搜寻」开启关键词搜寻功能；点击「关闭」即可收"
+"纳搜寻栏。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
-msgstr "您的档案库"
+msgstr "档案库和搜寻栏"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"
