@@ -1069,26 +1069,28 @@ msgstr "Got it!"
 msgid "@tutorial-file-msg1"
 msgstr ""
 "All of the files you've shared and that have been shared with you can be "
-"found in your JANDI file drawer."
+"found in your JANDI file drawer. After you select a file, you can use the "
+"menu button (ᵒᵒᵒ) to share it in other conversations, comment on the file, "
+"or download it to your device."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"You can toggle the view by using the File Drawer button to open or shut the "
-"drawer. You can search for specific files by keyword and sort by file type, "
-"team member who provided the file, or the conversation in which it was "
-"shared."
+"To find older files, search by keyword(s) and use our flexible filters to "
+"sort by file type, team member who uploaded the file, or the conversation in "
+"which it was shared. Similarly, click over to the Messages tab to search "
+"through your conversation history and jump back to specific points in the "
+"discussion for more context. "
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"After you select a file, you can use the menu button (ᵒᵒᵒ) to the right to "
-"share it in other conversations, comment on the file, or download it to your "
-"device."
+"You can also toggle the view by using the Search and Close buttons to open "
+"and shut the right panel."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
-msgstr "Your file drawer"
+msgstr "Your file drawer and search panel"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"

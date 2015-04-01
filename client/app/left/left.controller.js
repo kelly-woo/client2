@@ -459,7 +459,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
   }
 
   function _openChangeLogPopUp() {
-    var modal = tutorialService.openChangeLogModal();
+    var modal = tutorialService.openRightChangeLogModal();
 
     modal.result.then(function (reason) {
       _updateChangeLogTime();

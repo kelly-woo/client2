@@ -48,7 +48,7 @@
 
 
     <!-- LANGUAGE -->
-    <div class="header-navbar-menu" id="language">
+    <div class="header-navbar-menu language-navbar-menu" id="language">
       <span class="header-navbar__topmenu" data-toggle="dropdown">
         <i class="icon-language header-navbar__menu-icon"></i>
         <i class="fa fa-caret-down"></i>
@@ -101,124 +101,6 @@
             <span translate>@common-privacy-policy</span>
           </a>
         </li>
-      </ul>
-    </div>
-
-
-    <!-- File -->
-    <div class="header-navbar-file hidden">
-      <span class="header-navbar__topmenu" data-toggle="dropdown">
-        <i class="fa fa-file"></i>
-        <i class="fa fa-caret-down"></i>
-      </span>
-
-      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
-        <li class="" role="presentation" data-ng-click="onFileTypeClick('all');">
-          <a role="menuitem" tabindex="-1">
-            <i class="fa fa-files-o"></i>
-            <span translate>@file-all</span>
-          </a>
-        </li>
-        <li class="" role="presentation" data-ng-click="onFileTypeClick('you');">
-          <a role="menuitem" tabindex="-1">
-            <i class="fa fa-file-o"></i>
-            <span translate>@file-your</span>
-          </a>
-        </li>
-
-        <li class="divider"></li>
-
-        <li class="" role="presentation" data-ng-click="onFileTypeClick('document');">
-          <a role="menuitem" tabindex="-1">
-            <i class="fa fa-file-word-o"></i>
-            <span ng-bind-html="'@common-file-type-documents' | translate | upperFirstCharacter"> </span>
-          </a>
-        </li>
-
-        <li class="" role="presentation" data-ng-click="onFileTypeClick('presentation');">
-          <a role="menuitem" tabindex="-1">
-            <i class="fa fa-file-powerpoint-o"></i>
-            <span ng-bind-html="'@common-file-type-presentations' | translate | upperFirstCharacter"> </span>
-          </a>
-        </li>
-
-        <li class="" role="presentation" data-ng-click="onFileTypeClick('spreadsheet');">
-          <a role="menuitem" tabindex="-1">
-            <i class="fa fa-file-excel-o"></i>
-            <span ng-bind-html="'@common-file-type-spreadsheets' | translate | upperFirstCharacter"> </span>
-          </a>
-        </li>
-
-        <li class="" role="presentation" data-ng-click="onFileTypeClick('pdf');">
-          <a role="menuitem" tabindex="-1">
-            <i class="fa fa-file-pdf-o"></i>
-            <span ng-bind-html="'@common-file-type-pdf' | translate | upperFirstCharacter"> </span>
-          </a>
-        </li>
-
-        <li class="" role="presentation" data-ng-click="onFileTypeClick('image');">
-          <a role="menuitem" tabindex="-1">
-            <i class="fa fa-file-image-o"></i>
-            <span ng-bind-html="'@common-file-type-images' | translate | upperFirstCharacter"> </span>
-          </a>
-        </li>
-
-        <li class="" role="presentation" data-ng-click="onFileTypeClick('video');">
-          <a role="menuitem" tabindex="-1">
-            <i class="fa fa-file-movie-o"></i>
-            <span ng-bind-html="'@common-file-type-video' | translate | upperFirstCharacter"> </span>
-          </a>
-        </li>
-
-        <li class="" role="presentation" data-ng-click="onFileTypeClick('audio');">
-          <a role="menuitem" tabindex="-1">
-            <i class="fa fa-file-audio-o"></i>
-            <span ng-bind-html="'@common-file-type-audio' | translate | upperFirstCharacter"> </span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Settings -->
-    <div class="header-navbar-settings hidden">
-      <span class="header-navbar__topmenu" data-toggle="dropdown">
-        <i class="fa fa-cog"></i>
-        <span class="header-navbar__title" translate>@header-setting</span>
-        <i class="fa fa-caret-down"></i>
-      </span>
-
-      <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
-
-        <!--    PROFILE -->
-        <li class="" role="presentation">
-          <a data-ng-click="openModal('setting-profile');" role="menuitem" tabindex="-1">
-            <i class="fa fa-user"></i>
-            <span translate>@common-profile-settings</span>
-          </a>
-        </li>
-
-        <!--    ACCOUNT    -->
-        <li class="" role="presentation" ng-if="false">
-          <a data-ng-click="openModal('setting-account')" role="menuitem" tabindex="-1">
-            <i class="fa fa-cog"></i>
-            <span translate>@common-account-settings</span>
-          </a>
-        </li>
-
-        <!--    SERVICE     -->
-        <li class="hidden" role="presentation">
-          <a data-ng-click="openModal('setting-service')" role="menuitem" tabindex="-1">
-            <i class="fa fa-wrench"></i><span translate>@common-service-settings</span>
-          </a>
-        </li>
-
-        <!--    TEAM    -->
-        <li class="" role="presentation" ng-if="isUserAuthorized();">
-          <a data-ng-click="toAdmin()" role="menuitem" tabindex="-1">
-            <i class="icon-group"></i><span translate>@setting-team-title</span>
-          </a>
-        </li>
-
       </ul>
     </div>
 

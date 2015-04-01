@@ -1056,24 +1056,27 @@ msgstr " 잘 알겠습니다! "
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"[파일 서랍] 버튼을 클릭하시면 참여 토픽이나 사용자님께 공유됐던 모든 파일들"
-"을 볼 수 있는 사이드 메뉴가 열리고 다시 한 번 클릭하면 닫히게 됩니다."
+"내가 직접 업로드한 파일들 뿐 아니라 토픽 또는 1:1 메시지로 공유된 모든 파일들"
+"을 파일서랍에서 열람하실 수 있습니다. 파일을 선택한 뒤, 메뉴 버튼 (ᵒᵒᵒ)을 누"
+"르시면 댓글을 달거나 다른 대화에 공유하실 수 있으며 다운로드 또한 가능합니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"참여 중인 토픽 이외에도 멤버별, 타입별로 정렬이 가능하며, 파일명 검색 또한 가"
-"능합니다."
+"검색어와 분류 옵션을 통해 파일을 검색하실 수 있습니다. 파일이 공유된 대화방이"
+"나 업로드한 사람, 또는 파일 종류로 분류가 가능합니다. \"메시지\" 탭에서는 과"
+"거의 메시지 검색이 가능합니다. 검색 결과에서 해당 메시지가 작성된 시점으로 바"
+"로 이동할 수 있으므로 당시의 업무 맥락을 쉽게 파악할 수 있습니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"각 파일 오른쪽에  메뉴 버튼(ᵒᵒᵒ)을 클릭하시면 다른 토픽에 공유하거나 댓글을 "
-"남길 수 있으며 곧바로 다운로드 하실 수도 있습니다. "
+"또한, \"[검색]\"과 \"[닫기 >]\" 버튼을 통해 오른쪽 영역을 열고 닫을 수도 있습"
+"니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
-msgstr "파일 서랍"
+msgstr "파일 서랍과 검색 패널"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"
