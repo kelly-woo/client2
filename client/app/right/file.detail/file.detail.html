@@ -77,9 +77,9 @@
           <div class="file-detail-body__meta-info">
             <div class="file-detail-body__meta-info-up">
               <span class="file-item-meta__createtime">{{ file_detail.createTime | getyyyyMMddformat }}</span>
-              <span class="bullet">•</span>
-              <span class="file-item-meta__size" data-ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</span>
-              <span class="file-item-meta__type" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</span>
+              <span class="bullet hidden">•</span>
+              <span class="file-item-meta__size hidden" data-ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</span>
+              <span class="file-item-meta__type hidden" data-ng-if="file_detail.content.type">{{ file_detail.content.type | filetype }}</span>
             </div>
 
             <div class="file-detail-body__meta-info-down">

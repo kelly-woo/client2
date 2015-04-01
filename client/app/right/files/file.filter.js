@@ -65,7 +65,7 @@ app.filter('fileByType', function() {
 /*
  * @filter      : file type(extension) formatting
  */
-app.filter('filetype', function() {
+app.filter('filetype', function($filter) {
   return function(type) {
     if (typeof type === 'undefined') return 'undefined';
 
@@ -98,15 +98,15 @@ app.filter('filetype', function() {
       case 'text/plain'           :
       case 'application/msword'   :    // doc
       case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :    // docx
-        filetype = "TXT"; break;
+        filetype = $filter('translate')('@common-file-type-documents'); break;
 
       case 'application/vnd.ms-excel' :          // xls
       case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :          // xlsx
-        filetype = "EXCEL"; break;
+        filetype = $filter('translate')('@common-file-type-spreadsheets'); break;
 
       case 'application/vnd.ms-powerpoint' :      // ppt
       case 'application/vnd.openxmlformats-officedocument.presentationml.presentation' :  // pptx
-        filetype = 'PPT'; break;
+        filetype = $filter('translate')('@common-file-type-presentations'); break;
 
       default                 :   filetype = "ETC"; break;
     }
