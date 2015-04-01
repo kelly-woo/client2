@@ -255,14 +255,12 @@ msgstr ""
 msgid "@common-conversation-leave-confirm"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/create.channel.html
 #: client/app/modal/join.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/create.private.html
 msgid "@common-create-pg"
 msgstr ""
@@ -426,7 +424,6 @@ msgstr ""
 msgid "@common-joined"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr ""
@@ -488,6 +485,7 @@ msgid "@common-privacy-policy"
 msgstr ""
 
 #: client/app/header/header.html
+#: client/app/left/member/member.html
 #: client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr ""
@@ -537,7 +535,7 @@ msgstr ""
 msgid "@common-sign-in"
 msgstr ""
 
-#: client/app/header/header.html
+#: client/app/left/member/member.html
 msgid "@common-sign-out"
 msgstr ""
 
@@ -579,7 +577,6 @@ msgid "@common-type-public"
 msgstr ""
 
 #: client/app/modal/upload.html
-#: client/app/right/right.html
 msgid "@common-upload-file"
 msgstr ""
 
@@ -650,18 +647,6 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "@file-your"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@header-file"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@header-help"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@header-menu"
 msgstr ""
 
 #: client/app/header/header.html

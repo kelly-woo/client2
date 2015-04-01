@@ -21,11 +21,11 @@ msgstr "我们预计几个小时内就可以恢复运作。感谢您的耐心等
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
-msgstr "您尚未加入任何议题群组"
+msgstr "您尚未加入任何议题"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-can-join"
-msgstr "没有可加入的议题群组"
+msgstr "没有可加入的议题"
 
 #: client/app/right/files/files.html
 msgid "@alert-empty-file"
@@ -166,27 +166,27 @@ msgstr "上传"
 
 #: client/app/center/center.html
 msgid "@ch-menu-delete"
-msgstr "删除这议题群组"
+msgstr "删除议题"
 
 #: client/app/center/center.html
 msgid "@ch-menu-invite"
-msgstr "邀请成员到这议题群组"
+msgstr "邀请成员至此议题"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
-msgstr "离开议题群组"
+msgstr "离开议题"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
-msgstr "重新命名这议题群组"
+msgstr "重新命名议题"
 
 #: client/app/center/center.html
 msgid "@ch-menu-star"
-msgstr "重要议题群组"
+msgstr "标记议题"
 
 #: client/app/center/center.html
 msgid "@ch-menu-un-star"
-msgstr "邀请成员到这议题群组 "
+msgstr "取消标记议题"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
@@ -211,7 +211,7 @@ msgstr "我们最近更新了排版和增加了一些极好的功能以提高您
 
 #: client/app/left/left.html
 msgid "@channel"
-msgstr "议题群组 "
+msgstr "议题"
 
 #: client/app/header/header.html client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -232,7 +232,7 @@ msgstr "有错误发生。请再试一次。"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
-msgstr "一对一"
+msgstr "直接传讯"
 
 #: client/app/modal/password.reset.request.html
 msgid "@common-check-email-inbox"
@@ -249,17 +249,17 @@ msgstr "离开"
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave-confirm"
 msgstr ""
-"您确定您要离开这个对话？一离开将使这对话在'讯息'标签下是隐藏看不到的，直到您"
+"您确定您要离开这个对话？一离开将使这对话在'信息'标签下是隐藏看不到的，直到您"
 "收到新的讯息或以手动方式重新打开它。"
 
 #: client/app/header/header.html client/app/modal/create.channel.html
 #: client/app/modal/join.html client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
-msgstr "建立新议题群组"
+msgstr "建立新议题"
 
 #: client/app/header/header.html client/app/modal/create.private.html
 msgid "@common-create-pg"
-msgstr "建立私人群组"
+msgstr "建立私人议题"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
@@ -330,7 +330,7 @@ msgstr "档案"
 
 #: client/app/modal/profile.view.html
 msgid "@common-file-list"
-msgstr "档案分享了"
+msgstr "已分享档案"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type"
@@ -540,7 +540,7 @@ msgstr "议题"
 
 #: client/app/left/left.html
 msgid "@common-topics"
-msgstr "议题群组"
+msgstr "议题"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-type-private"
@@ -576,7 +576,7 @@ msgstr "检视档案"
 
 #: client/app/center/center.html
 msgid "@dm-menu-invite"
-msgstr "邀请这成员加入其它群组"
+msgstr "邀请此成员加入其它议题"
 
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
@@ -657,11 +657,11 @@ msgstr ""
 #: client/app/modal/create.channel.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@input-create-ch"
-msgstr "输入新的议题群组名称"
+msgstr "输入新的议题名称"
 
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
-msgstr "输入新的私人群组名称"
+msgstr "输入新的私人议题名称"
 
 #: client/app/modal/invite.team.html
 msgid "@input-invite-email"
@@ -686,7 +686,7 @@ msgstr "输入修改的名字"
 
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
-msgstr "按名字搜寻议题群组"
+msgstr "按名字搜寻议题"
 
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@input-search-file-title"
@@ -699,7 +699,7 @@ msgstr "按名字搜寻使用者"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@input-to-search"
-msgstr "按照关键词搜寻您的讯息"
+msgstr "按照关键词搜寻您的信息"
 
 #: client/app/modal/settings.account.html
 #: client/app/password/password.reset.html
@@ -743,11 +743,11 @@ msgstr "删除"
 
 #: client/app/modal/join.html
 msgid "@modal-browse-ch"
-msgstr "浏览议题群组"
+msgstr "浏览议题"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
-msgstr "建立任何人皆可加入的新议题群组"
+msgstr "建立任何人皆可加入的新议题"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
@@ -756,36 +756,36 @@ msgstr "  "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"- 私人群组对非邀请成员不开放- 在私人群组内已分享档案仅开放给其参与者- 已设定"
-"为公开或私人的议题群组在建立之后不能被转换成另一个"
+"- 私人议题对未受邀成员不开放- 在私人议题内已分享档案仅开放给其参与者- 已设定"
+"为公开或私人的议题在建立之后不能被转换成另一个"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
-msgstr "议题群组一经建立将无法在公开或私人两种类别之间自由转换"
+msgstr "议题一经建立将无法在公开或私人两种类别之间自由转换"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
-msgstr "私人群组仅向其成员显示，且仅其成员可以阅读或搜寻其内容。"
+msgstr "私人议题仅向其成员显示，且仅其成员可以阅读或搜寻其内容。"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
-msgstr "- 私人群组对非邀请成员不开放"
+msgstr "- 私人议题对未受邀成员不开放"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
-msgstr "- 在私人群组内已分享档案仅开放给其参与者"
+msgstr "- 私人议题里的档案仅开放给其受邀成员"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-3"
-msgstr "- 已设定为公开或私人的议题群组在建立之后不能被转换成另一个"
+msgstr "- 已设定为公开或私人的议题在建立之后不能被转换成另一个"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
-msgstr "邀请成员加入其它群组"
+msgstr "邀请成员加入其他议题"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "您可以邀请这使用者加入其它群组"
+msgstr "您可以邀请此用户加入议题"
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
@@ -793,11 +793,11 @@ msgstr "邀请成员"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr "您属于的议题群组"
+msgstr "已加入的议题"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr "您可以加入的议题群租"
+msgstr "其它议题"
 
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@modal-member-list-title"
@@ -850,11 +850,11 @@ msgstr "按标题搜寻"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr "建立了这议题群组"
+msgstr "建立公开议题"
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
-msgstr "建立了这私人议题群组"
+msgstr "建立私人议题"
 
 #: client/app/center/center.html
 msgid "@msg-file"
@@ -912,7 +912,7 @@ msgstr "选择"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-all"
-msgstr "给所有讯息"
+msgstr "给所有信息"
 
 #: client/app/modal/settings.service.html
 msgid "@option-noti-dm"
@@ -944,7 +944,7 @@ msgstr "忘记您的密码了吗？选择一个新的。"
 
 #: client/app/left/left.html
 msgid "@privateGroup"
-msgstr "私人群組 "
+msgstr "私人议题"
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
@@ -1040,7 +1040,9 @@ msgstr "知道了！"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
-msgstr "您所分享和分享给您的所有档案可以在您的JANDI档案库被找到。"
+msgstr ""
+"所有分享过的档案都在档案库里。想分享、留言、下载或删除档案，只需要在选定档案"
+"后，将点击右边的「ᵒᵒᵒ」即可。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
@@ -1061,12 +1063,12 @@ msgstr "您的档案库"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"
-msgstr "送出讯息及上传档案"
+msgstr "送出信息及上传档案"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"要发送讯息，只需在文字栏中开始打字然后按'Enter'。要上传档案，点击左侧的按钮和"
+"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传档案，点击左侧的按钮和"
 "选择所需的档案路径，或任意拖拽档案到中间留言板上的任何地方。"
 
 #: client/app/tutorial/tutorial.html
@@ -1117,7 +1119,7 @@ msgstr "欢迎使用JANDI!"
 
 #: client/app/left/left.html
 msgid "@user"
-msgstr "一对一"
+msgstr "直接传讯"
 
 #: client/app/center/center.html
 msgid "@user-menu-star"
@@ -1149,7 +1151,7 @@ msgstr "在"
 
 #: client/app/center/center.html
 msgid "@web-notification-title"
-msgstr "JANDI 新讯息"
+msgstr "JANDI 新信息"
 
 #~ msgid "@search-result-summary-post"
 #~ msgstr " 符合"
