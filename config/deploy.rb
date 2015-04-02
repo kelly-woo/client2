@@ -43,6 +43,7 @@ namespace :deploy do
       within release_path do
         if fetch(:stage).to_s.start_with? 'dev'
           execute :npm, 'install', '--quiet'
+          execute :bower, 'prune', '--quiet'
           execute :bower, 'install', '--quiet'
           execute :grunt, 'development'
           execute :grunt, 'build'
