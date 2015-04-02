@@ -14,19 +14,18 @@
     $scope.isMessageTabActive = false;
 
     $scope.$on('resetRPanelSearchStatusKeyword', function() {
-      $scope.isSearchQueryEmpty = _isSearchQueryEmpty();
+      _isSearchQueryEmpty();
     });
 
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
-      $scope.isSearchQueryEmpty = _isSearchQueryEmpty(keyword);
+      _isSearchQueryEmpty(keyword);
     });
 
     function _isSearchQueryEmpty(keyword) {
-      return !keyword;
+      $scope.isSearchQueryEmpty =  !keyword;
     }
     $scope.$on('setFileTabActive', function() {
-      if (!$scope.isFileTabACitve)
-        _setFileTabStatus();
+      _setFileTabStatus();
     });
 
     $scope.onFileTabSelected = function() {
@@ -41,10 +40,12 @@
     function _setFileTabStatus() {
       $scope.isFileTabActive = true;
       $scope.isMessageTabActive = false;
+      _logCurrentTabStatus();
     }
     function _setMessageTabStatus() {
       $scope.isFileTabActive = false;
       $scope.isMessageTabActive = true;
+      _logCurrentTabStatus();
     }
 
     $scope.showLoading = function() {
@@ -54,6 +55,14 @@
       $scope.isLoading = false;
     };
 
+    function _logCurrentTabStatus() {
+      if (false) {
+        console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
+        console.log('file tab:', $scope.isFileTabActive)
+        console.log('message tab:', $scope.isMessageTabActive)
+        console.log('------------------------------------------------------------------------------------------------------------------')
+      }
+    }
   }
 
 })();

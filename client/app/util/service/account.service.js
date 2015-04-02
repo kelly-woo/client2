@@ -109,8 +109,6 @@
       var tutoredAt = new Date(account.tutoredAt);
       var lastUpdateMessageAt = new Date(configuration.last_update_message);
 
-      console.log(tutoredAt)
-      console.log(lastUpdateMessageAt)
       // Return true if and only if tutoredAt is in past.
       if (tutoredAt < lastUpdateMessageAt) {
         return true;
