@@ -12,6 +12,7 @@
     this.getLanguageSetting = getLanguageSetting;
     this.setCurrentLanguage = setCurrentLanguage;
     this.setDebugMode = setDebugMode;
+    this.getLanguageList = getLanguageList;
 
     /*
      'language'      : is for translator to bring right language for current user. Translator needs this value.
@@ -28,9 +29,9 @@
     var listLangs = this.listLangs = [
       { "value": "ko",    "text": "한국어" },
       { "value": "en",    "text": "English" },
+      { "value": "ja",    "text": "日本語"},
       { "value": "zh-cn", "text": "简体中文 " },
-      { "value": "zh-tw", "text": "繁體中文" },
-      { "value": "ja",    "text": "日本語"}
+      { "value": "zh-tw", "text": "繁體中文" }
     ];
 
     function init() {
@@ -111,6 +112,10 @@
     // Setting debug mode for translator, nggettext
     function setDebugMode(isDebug) {
       gettextCatalog.debug = isDebug;
+    }
+
+    function getLanguageList() {
+      return this.listLangs;
     }
   }
 

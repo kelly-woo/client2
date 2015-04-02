@@ -21,13 +21,13 @@
 }
 
 .lpanel_user {
-  height: 67px;
+  height: 88px;
 }
 
 .lpanel_list {
   right: 1px;
   bottom: 0;
-  top: 67px !important;
+  top: 88px !important;
 }
 /*
     backdrop

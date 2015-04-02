@@ -50,8 +50,8 @@
       if (newValue != oldValue) {
         _refreshFileList();
       }
-
     });
+
     //  when file was uploaded from center panel,
     //  fileAPI broadcasts 'onChangeShared' to rootScope.
     //  right controller is listening to 'onChangeShared' and update file list.
@@ -71,10 +71,37 @@
     $scope.$on('onrPanelFileTabSelected', function() {
       _refreshFileList();
     });
-    $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
 
+    $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
       $scope.fileRequest.keyword = keyword;
       _refreshFileList();
+    });
+
+    //  From profileViewerCtrl
+    $rootScope.$on('updateFileWriterId', function(event, userId) {
+      var entity = entityAPIservice.getEntityFromListById($scope.memberList, userId);
+
+      _initSharedByFilter(entity);
+
+      $scope.fileRequest.writerId = userId;
+      _resetSearchStatusKeyword();
+
+    });
+
+    // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
+    //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
+    $scope.$watch('currentEntity', function(newValue, oldValue) {
+      if (newValue != oldValue) {
+        updateSharedList();
+
+        //            console.log('this is updateSharedList in right.controller')
+        //            console.log($scope.currentEntity)
+
+        //  channel could be removed/created/left
+        //  update selectOptions for data synchronization issue.
+        _initSharedInFilter();
+        _initSharedByFilter(newValue);
+      }
     });
 
     function _refreshFileList() {
@@ -238,30 +265,6 @@
     }
 
 
-    //  From profileViewerCtrl
-    $rootScope.$on('updateFileWriterId', function(event, userId) {
-      var entity = entityAPIservice.getEntityFromListById($scope.memberList, userId);
-
-      _initSharedByFilter(entity);
-
-      $scope.fileRequest.writerId = userId;
-    });
-
-    // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
-    //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
-    $scope.$watch('currentEntity', function(newValue, oldValue) {
-      if (newValue != oldValue) {
-        updateSharedList();
-
-        //            console.log('this is updateSharedList in right.controller')
-        //            console.log($scope.currentEntity)
-
-        //  channel could be removed/created/left
-        //  update selectOptions for data synchronization issue.
-        _initSharedInFilter();
-        _initSharedByFilter(newValue);
-      }
-    });
 
     // loop through list of files and update shared list of each file.
     function updateSharedList() {
@@ -351,6 +354,11 @@
     }
 
 
+    function _resetSearchStatusKeyword() {
+      $scope.fileRequest.keyword = '';
+      $scope.searchStatus.keyword = $scope.fileRequest.keyword;
+      $rootScope.$broadcast('resetRPanelSearchStatusKeyword');
+    }
     function _updateSearchStatusKeyword() {
       $scope.searchStatus.keyword = $scope.fileRequest.keyword;
     }

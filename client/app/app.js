@@ -21,8 +21,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
     'header'    : 'app/tpl/header.tpl.html',
     'footer'    : 'app/tpl/footer.tpl.html',
     'loading'   : 'app/tpl/loading.tpl.html',
-    'msgList'   : 'app/left/messages/messages.html',
-    'left_user' : 'app/left/member/member.html'
+    'msgList'   : 'app/left/messages/messages.html'
   };
 
   $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
@@ -31,10 +30,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-    //console.info("==============================[stateChange]==============================");
-    //console.info("   from    ", fromState.name, ' / ', fromParams);
-    //console.info("    to     ", toState.name, ' / ',toParams);
-    //console.info("=========================================================================");
+    console.info("==============================[stateChange]==============================");
+    console.info("   from    ", fromState.name, ' / ', fromParams);
+    console.info("    to     ", toState.name, ' / ',toParams);
+    console.info("=========================================================================");
 
 
     if ($rootScope.isMobile  && toState.name != 'mobile') {

@@ -5,16 +5,19 @@
     .module('jandiApp')
     .controller('currentMemberCtrl', currentMemberCtrl);
 
-  currentMemberCtrl.$inject = ['$scope', 'publicService'];
   /* @ngInject */
   function currentMemberCtrl($scope, publicService) {
-    var vm = this;
+    var vm = $scope;
 
     vm.onCurrentMemberContainerClick = onCurrentMemberContainerClick;
+    vm.onSignOutClick = onSignOutClick;
 
     function onCurrentMemberContainerClick() {
-      publicService.openCurrentMemberModal($scope);
+      publicService.openCurrentMemberModal(vm);
     }
 
+    function onSignOutClick() {
+      publicService.signOut();
+    }
   }
 })();

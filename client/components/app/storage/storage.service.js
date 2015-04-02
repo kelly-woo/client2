@@ -5,8 +5,7 @@
     .module('app.storage')
     .factory('storageAPIservice', storageAPIservice);
 
-  storageAPIservice.$inject = ['$window', 'localStorageService'];
-
+  /* @ngInject */
   function storageAPIservice($window, localStorageService) {
 
     var accessToken_key     = 'access_token';

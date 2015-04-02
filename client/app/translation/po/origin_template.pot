@@ -40,9 +40,12 @@ msgstr ""
 msgid "@alert-missing-info"
 msgstr ""
 
+#: client/app/right/search.messages/search.messages.html
+msgid "@alert-no-messages-found"
+msgstr ""
+
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
-#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr ""
 
@@ -213,7 +216,6 @@ msgstr ""
 msgid "@channel"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr ""
@@ -255,14 +257,12 @@ msgstr ""
 msgid "@common-conversation-leave-confirm"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/create.channel.html
 #: client/app/modal/join.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/create.private.html
 msgid "@common-create-pg"
 msgstr ""
@@ -350,37 +350,34 @@ msgstr ""
 msgid "@common-file-type-all"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr ""
 
-#: client/app/header/header.html
+#: client/app/right/files/files.html
+msgid "@common-file-type-others"
+msgstr ""
+
 #: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr ""
@@ -426,7 +423,6 @@ msgstr ""
 msgid "@common-joined"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr ""
@@ -487,7 +483,7 @@ msgstr ""
 msgid "@common-privacy-policy"
 msgstr ""
 
-#: client/app/header/header.html
+#: client/app/left/member/member.html
 #: client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr ""
@@ -509,7 +505,6 @@ msgstr ""
 msgid "@common-send-mail"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/settings.service.html
 msgid "@common-service-settings"
 msgstr ""
@@ -537,7 +532,7 @@ msgstr ""
 msgid "@common-sign-in"
 msgstr ""
 
-#: client/app/header/header.html
+#: client/app/left/member/member.html
 msgid "@common-sign-out"
 msgstr ""
 
@@ -551,6 +546,10 @@ msgstr ""
 
 #: client/app/modal/settings.profile.html
 msgid "@common-status-msg"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "@common-team"
 msgstr ""
 
 #: client/app/header/header.html
@@ -575,7 +574,6 @@ msgid "@common-type-public"
 msgstr ""
 
 #: client/app/modal/upload.html
-#: client/app/right/right.html
 msgid "@common-upload-file"
 msgstr ""
 
@@ -624,10 +622,6 @@ msgstr ""
 msgid "@file-action-more"
 msgstr ""
 
-#: client/app/header/header.html
-msgid "@file-all"
-msgstr ""
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""
@@ -642,26 +636,6 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@file-your"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@header-file"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@header-help"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@header-menu"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@header-setting"
 msgstr ""
 
 #: client/app/modal/upload.html
@@ -1028,7 +1002,6 @@ msgstr ""
 msgid "@setting-team-new-name"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/settings.team.html
 msgid "@setting-team-title"
 msgstr ""
@@ -1047,27 +1020,36 @@ msgstr ""
 msgid "@team-switch"
 msgstr ""
 
+#: client/app/header/header.html
+msgid "@to-account-home"
+msgstr ""
+
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
 msgstr ""
 
 #: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr ""
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
 msgstr ""

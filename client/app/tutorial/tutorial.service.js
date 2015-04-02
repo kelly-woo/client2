@@ -16,6 +16,7 @@
     this.openChatModal = openChatModal;
     this.openFileModal = openFileModal;
     this.openChangeLogModal = openChangeLogModal;
+    this.openRightChangeLogModal = openRightChangeLogModal;
 
     this.setTutoredAtTime = setTutoredAtTime;
 
@@ -86,6 +87,21 @@
         resolve: {
           curState: function getCurrentTutorial() {
             return 1;
+          }
+        }
+      });
+    }
+
+    function openRightChangeLogModal() {
+      return $modal.open({
+        templateUrl: 'app/modal/change_log/changeLog.msg.search.html',
+        controller: 'tutorialController',
+        windowClass: 'fade-only welcome-tutorial file-tutorial tutorial-animation',
+        backdrop: false,
+        keyboard: false,
+        resolve: {
+          curState: function getCurrentTutorial() {
+            return 3;
           }
         }
       });

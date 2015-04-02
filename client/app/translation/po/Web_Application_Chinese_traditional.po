@@ -21,11 +21,11 @@ msgstr "我們預計幾個小時内就可以恢復運作。感謝您的耐心等
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-belong"
-msgstr "您尚未加入任何議題群組"
+msgstr "您尚未加入任何議題"
 
 #: client/app/modal/join.html
 msgid "@alert-empty-ch-can-join"
-msgstr "沒有可加入的議題群組"
+msgstr "沒有可加入的議題"
 
 #: client/app/right/files/files.html
 msgid "@alert-empty-file"
@@ -48,9 +48,12 @@ msgstr "密碼無效"
 msgid "@alert-missing-info"
 msgstr "資料不全"
 
+#: client/app/right/search.messages/search.messages.html
+msgid "@alert-no-messages-found"
+msgstr "搜尋沒有結果"
+
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
-#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr "搜尋沒有結果"
 
@@ -166,27 +169,27 @@ msgstr "上傳"
 
 #: client/app/center/center.html
 msgid "@ch-menu-delete"
-msgstr "刪除這議題群組"
+msgstr "刪除議題"
 
 #: client/app/center/center.html
 msgid "@ch-menu-invite"
-msgstr "邀請成員到這議題群組"
+msgstr "邀請成員至此議題"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
-msgstr "離開議題群組"
+msgstr "離開議題"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
-msgstr "重新命名這議題群組"
+msgstr "重新命名議題"
 
 #: client/app/center/center.html
 msgid "@ch-menu-star"
-msgstr "重要議題群組 "
+msgstr "標記議題"
 
 #: client/app/center/center.html
 msgid "@ch-menu-un-star"
-msgstr "邀請成員到這議題群組 "
+msgstr "取消標記議題"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
@@ -211,9 +214,9 @@ msgstr "我們最近更新了排版和增加了一些極好的功能以提高您
 
 #: client/app/left/left.html
 msgid "@channel"
-msgstr "議題群組 "
+msgstr "議題"
 
-#: client/app/header/header.html client/app/modal/settings.account.html
+#: client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr "帳號設定"
 
@@ -232,7 +235,7 @@ msgstr "有錯誤發生。請再試一次。"
 
 #: client/app/modal/profile.view.html
 msgid "@common-chat-dm"
-msgstr "一對一"
+msgstr "直接傳訊"
 
 #: client/app/modal/password.reset.request.html
 msgid "@common-check-email-inbox"
@@ -252,14 +255,14 @@ msgstr ""
 "您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直到您"
 "收到新的訊息或以手動方式重新打開它。 "
 
-#: client/app/header/header.html client/app/modal/create.channel.html
-#: client/app/modal/join.html client/app/modal/topic_create/topic.create.html
+#: client/app/modal/create.channel.html client/app/modal/join.html
+#: client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
-msgstr "建立新議題群組"
+msgstr "建立新議題"
 
-#: client/app/header/header.html client/app/modal/create.private.html
+#: client/app/modal/create.private.html
 msgid "@common-create-pg"
-msgstr "建立私人群組"
+msgstr "建立私人議題"
 
 #: client/app/modal/settings.account.html
 msgid "@common-current-password"
@@ -330,7 +333,7 @@ msgstr "檔案"
 
 #: client/app/modal/profile.view.html
 msgid "@common-file-list"
-msgstr "檔案分享了"
+msgstr "已分享檔案"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type"
@@ -340,31 +343,35 @@ msgstr "檔案類別"
 msgid "@common-file-type-all"
 msgstr "全部類別"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "音頻"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "文件"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "圖像"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
+msgid "@common-file-type-others"
+msgstr "其它"
+
+#: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "簡報"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "表單"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "視頻"
 
@@ -408,7 +415,6 @@ msgstr "請求無效"
 msgid "@common-joined"
 msgstr "成員"
 
-#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 msgid "@common-language"
 msgstr "語言"
@@ -464,7 +470,7 @@ msgstr "職位"
 msgid "@common-privacy-policy"
 msgstr "隱私權條款"
 
-#: client/app/header/header.html client/app/modal/settings.profile.html
+#: client/app/left/member/member.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "簡介設定"
 
@@ -484,7 +490,7 @@ msgstr "搜尋"
 msgid "@common-send-mail"
 msgstr "發送電子郵件"
 
-#: client/app/header/header.html client/app/modal/settings.service.html
+#: client/app/modal/settings.service.html
 msgid "@common-service-settings"
 msgstr "服務偏好"
 
@@ -509,7 +515,7 @@ msgstr "顯示教學指南"
 msgid "@common-sign-in"
 msgstr "登入"
 
-#: client/app/header/header.html
+#: client/app/left/member/member.html
 msgid "@common-sign-out"
 msgstr "登出"
 
@@ -526,6 +532,10 @@ msgstr "開啓JANDI的應用程式"
 msgid "@common-status-msg"
 msgstr "今天的感覺"
 
+#: client/app/header/header.html
+msgid "@common-team"
+msgstr "團隊"
+
 #: client/app/header/header.html client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr "使用條款"
@@ -536,7 +546,7 @@ msgstr "議題"
 
 #: client/app/left/left.html
 msgid "@common-topics"
-msgstr "議題群組"
+msgstr "議題"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-type-private"
@@ -546,7 +556,7 @@ msgstr "私人"
 msgid "@common-type-public"
 msgstr "公開"
 
-#: client/app/modal/upload.html client/app/right/right.html
+#: client/app/modal/upload.html
 msgid "@common-upload-file"
 msgstr "上傳檔案"
 
@@ -572,7 +582,7 @@ msgstr "檢視檔案"
 
 #: client/app/center/center.html
 msgid "@dm-menu-invite"
-msgstr "邀請這成員加入其它群組"
+msgstr "邀請此成員加入其它議題"
 
 #: client/app/center/center.html
 msgid "@dm-menu-profile"
@@ -595,10 +605,6 @@ msgstr "錯誤"
 msgid "@file-action-more"
 msgstr "更多"
 
-#: client/app/header/header.html
-msgid "@file-all"
-msgstr "全部檔案"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "您確定要刪除這檔案？ 請注意留言的部分不會被刪除。"
@@ -614,26 +620,6 @@ msgstr "刪除時間："
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
-
-#: client/app/header/header.html
-msgid "@file-your"
-msgstr "您的檔案"
-
-#: client/app/header/header.html
-msgid "@header-file"
-msgstr "檔案"
-
-#: client/app/header/header.html
-msgid "@header-help"
-msgstr "支援"
-
-#: client/app/header/header.html
-msgid "@header-menu"
-msgstr "選單"
-
-#: client/app/header/header.html
-msgid "@header-setting"
-msgstr "設定"
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
@@ -653,11 +639,11 @@ msgstr ""
 #: client/app/modal/create.channel.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@input-create-ch"
-msgstr "輸入新的議題群組名稱"
+msgstr "輸入新的議題名稱"
 
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
-msgstr "輸入新的私人群組名稱"
+msgstr "輸入新的私人議題名稱"
 
 #: client/app/modal/invite.team.html
 msgid "@input-invite-email"
@@ -682,7 +668,7 @@ msgstr "輸入修改的名字"
 
 #: client/app/modal/join.html
 msgid "@input-search-channel-name"
-msgstr "按名字搜尋議題群組"
+msgstr "按名字搜尋議題"
 
 #: client/app/right/rpanel_search/rpanel.search.html
 msgid "@input-search-file-title"
@@ -739,11 +725,11 @@ msgstr "删除"
 
 #: client/app/modal/join.html
 msgid "@modal-browse-ch"
-msgstr "瀏覽議題群組"
+msgstr "瀏覽議題"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg1"
-msgstr "建立任何人皆可加入的新議題群組"
+msgstr "建立任何人皆可加入的新議題"
 
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg2"
@@ -752,36 +738,36 @@ msgstr "  "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"- 私人群組對非邀請成員不開放- 在私人群組内已分享檔案僅開放給其參與者- 已設定"
-"爲公開或私人的議題群組在建立之後不能被轉換成另一個"
+"- 私人議題對未受邀成員不開放- 在私人議題内已分享檔案僅開放給其參與者- 已設定"
+"爲公開或私人的議題在建立之後不能被轉換成另一個"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
-msgstr "議題群組一經建立將無法在公開或私人兩種類別之間自由轉換"
+msgstr "議題一經建立將無法在公開或私人兩種類別之間自由轉換"
 
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
-msgstr "私人群組僅向其成員顯示，且僅其成員可以閲讀或搜尋其内容。"
+msgstr "私人議題僅向其成員顯示，且僅其成員可以閲讀或搜尋其内容。"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
-msgstr "- 私人群組對非邀請成員不開放"
+msgstr "- 私人議題對未受邀成員不開放"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
-msgstr "- 在私人群組内已分享檔案僅開放給其參與者"
+msgstr "- 私人議題裏的檔案僅開放給其受邀成員"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-3"
-msgstr "- 已設定爲公開或私人的議題群組在建立之後不能被轉換成另一個"
+msgstr "- 已設定爲公開或私人的議題在建立之後不能被轉換成另一個"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
-msgstr "邀請成員加入其它群組"
+msgstr "邀請成員加入其他議題"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "您可以邀請這使用者加入其它群組"
+msgstr "您可以邀請此使用者加入議題"
 
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
@@ -789,11 +775,11 @@ msgstr "邀請成員"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-belong"
-msgstr "您屬於的議題群組"
+msgstr "已加入的議題"
 
 #: client/app/modal/join.html
 msgid "@modal-join-ch-you-can"
-msgstr "您可以加入的議題群租"
+msgstr "其它議題"
 
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@modal-member-list-title"
@@ -846,11 +832,11 @@ msgstr "按標題搜尋"
 
 #: client/app/center/center.html
 msgid "@msg-create-ch"
-msgstr "建立了這公開議題 "
+msgstr "建立公開議題 "
 
 #: client/app/center/center.html
 msgid "@msg-create-pg"
-msgstr "建立了這私人議題"
+msgstr "建立私人議題"
 
 #: client/app/center/center.html
 msgid "@msg-file"
@@ -940,7 +926,7 @@ msgstr "忘記您的密碼了嗎？選擇一個新的。 "
 
 #: client/app/left/left.html
 msgid "@privateGroup"
-msgstr "私人群組 "
+msgstr "私人议题"
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
@@ -1005,7 +991,7 @@ msgstr "新網域(URL)"
 msgid "@setting-team-new-name"
 msgstr "新團隊名稱"
 
-#: client/app/header/header.html client/app/modal/settings.team.html
+#: client/app/modal/settings.team.html
 msgid "@setting-team-title"
 msgstr "團隊設定"
 
@@ -1019,6 +1005,10 @@ msgstr "團隊成員"
 
 #: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
+msgstr "更換團隊"
+
+#: client/app/header/header.html
+msgid "@to-account-home"
 msgstr "回到帳號首頁"
 
 #: client/app/tutorial/tutorial.html
@@ -1026,30 +1016,36 @@ msgid "@tutorial-click-blink"
 msgstr "點擊跳動的標記來查看一下吧！"
 
 #: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr "知道了！"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
-msgstr "您所分享和分享給您的所有檔案可以在您的JANDI檔案庫被找到。"
+msgstr ""
+"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定檔案"
+"後，將點擊右邊的「ᵒᵒᵒ」即可。"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"您可以透過使用‘所有檔案’按鈕打開或關閉檔案庫的顯示。您可以透過關鍵字搜尋特定"
-"檔案和透過檔案類型，哪位團隊成員提供的檔案，或者在哪個對話裏分享的來進行分"
-"類。"
+"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、曾經"
+"分享在哪個議題下”的項目進行搜尋。"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"當您選擇了一個檔案，您可以使用右邊的選單按鍵(ᵒᵒᵒ)進行分享到其它對話中，對其進"
-"行留言，或直接下載它到您的裝置中。"
+"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即可收"
+"納搜尋欄。"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
-msgstr "您的檔案庫"
+msgstr "檔案庫和搜尋欄"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"
@@ -1142,6 +1138,24 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
+
+#~ msgid "@file-all"
+#~ msgstr "全部檔案"
+
+#~ msgid "@file-your"
+#~ msgstr "您的檔案"
+
+#~ msgid "@header-setting"
+#~ msgstr "設定"
+
+#~ msgid "@header-file"
+#~ msgstr "檔案"
+
+#~ msgid "@header-help"
+#~ msgstr "支援"
+
+#~ msgid "@header-menu"
+#~ msgstr "選單"
 
 #~ msgid "@search-result-summary-post"
 #~ msgstr " 符合"

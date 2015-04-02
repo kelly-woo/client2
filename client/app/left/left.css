@@ -1,244 +1,257 @@
 .lpanel {
-    color: #333;
-    width: 220px;
-    overflow: auto;
-    position: absolute;
-    left: 0;
-    top: 41px;
-    bottom: 0;
-    background: #f2f2f2;
+  color: #333;
+  width: 220px;
+  overflow: auto;
+  position: absolute;
+  left: 0;
+  top: 41px;
+  bottom: 0;
+  background: #f2f2f2;
+  z-index: 700;
+  overflow: visible
 }
 
 
-.lpanel-user,
-.lpanel-list__header,
 .lpanel-list ul li a,
 .lpanel-list-user_search {
-    padding-left: 24px !important;
+  padding-left: 24px !important;
 }
 
 .lpanel-list__header .fa-comment {
-    font-size: 11px;
+  font-size: 11px;
 }
 
+.lpanel-list__header .tooltip {
+}
 .lpanel-list {
-    width: inherit;
-    overflow-y: auto;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    top: 67px;
-    background: #f2f2f2;
-    box-sizing: content-box;
+  width: 219px;
+  overflow-y: auto;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 88px;
+  background: #f2f2f2;
+  border-top: 1px solid #e1e1e1;
+  border-right: 1px solid #e1e1e1;
+  box-sizing: content-box;
 }
 .lpanel-list__channels,
 .lpanel-list__groups,
 .lpanel-list__users {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 .lpanel-list__header {
-    height: 27px;
-    line-height: 27px;
-    text-align: left;
-    background-color: #e2e2e2;
-    margin: 0;
-    position: relative;
-    font-size: 12px;
-    padding-right: 7px;
+  height: 27px;
+  line-height: 27px;
+  text-align: left;
+  background-color: #e2e2e2;
+  margin: 0;
+  position: relative;
+  font-size: 12px;
+  padding-left: 29px;
+  padding-right: 7px;
+  margin-bottom: 1px;
 }
 .lpanel-list__header:hover {
-    background-color: white;
+  background-color: white;
 }
 .lpanel-list-left{
-    position: absolute;
-    line-height: inherit !important;
-    left: 8px;
-    height: inherit;
-    color: #333;
+  position: absolute;
+  line-height: inherit !important;
+  left: 15px;
+  height: inherit;
+  color: #333;
+}
+.lpanel-collapse-arrow {
+  position: absolute;
+  top: 7px;
+  left: 6px;
+  color: #999;
+  font-size: 12px;
 }
 
 .lpanel-list__title {
-    font-size: 12px;
-    color: #333;
-    margin: 0;
-    line-height: inherit;
-    height: inherit;
+  font-size: 12px;
+  color: #333;
+  margin: 0;
+  line-height: inherit;
+  height: inherit;
 }
 
 .lpanel-list-option {
-    height: inherit;
-    line-height: inherit;
-    text-align: center;
-    color:  #666;
-    font-size: 12px;
-    margin-left: 5px;
+  height: inherit;
+  line-height: inherit;
+  text-align: center;
+  color:  #666;
+  font-size: 12px;
+  margin-left: 5px;
 }
 .lpanel-list-option .fa-plus {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 .lpanel-list-option i {
-    margin-right: 2px;
-    vertical-align: text-top;
+  margin-right: 4px;
+  vertical-align: text-top;
 }
 .lpanel-list-option:hover {
-    color: #333;
+  color: #333;
 }
 .lpanel-list__header:hover .lpanel-list-option {
-    /*-webkit-animation: slide-from-right 400ms;*/
-    /*animation: slide-from-right 400ms;*/
-    /*-webkit-animation-fill-mode: forwards;*/
-    /*display: block;*/
+  /*-webkit-animation: slide-from-right 400ms;*/
+  /*animation: slide-from-right 400ms;*/
+  /*-webkit-animation-fill-mode: forwards;*/
+  /*display: block;*/
 }
 
 /*  list */
 .lpanel-list ul {
-    list-style-type: none;
-    text-align: left;
-    margin-bottom: 0;
+  list-style-type: none;
+  text-align: left;
+  margin-bottom: 0;
 }
 
 /*  first element of list */
 .lpanel-list ul li:first-child {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 /* last element of list */
 .lpanel-list ul li:last-child {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 /*  every element in list */
 .lpanel-list ul li {
-    font-size: 14px;
-    line-height: 28px;
-    height: 28px;
-    position:relative;
+  font-size: 14px;
+  line-height: 28px;
+  height: 28px;
+  position:relative;
 }
 
 /*  text in element */
 .lpanel-list ul li a {
-    color: #666;
-    line-height: inherit;
-    height: inherit;
-    display:block;
-    -webkit-border-top-right-radius:.25rem;
-    -webkit-border-bottom-right-radius:.25rem;
-    -webkit-border-bottom-left-radius:0;
-    -webkit-border-top-left-radius:0;
-    -moz-border-radius-topright:.25rem;
-    -moz-border-radius-bottomright:.25rem;
-    -moz-border-radius-bottomleft:0;
-    -moz-border-radius-topleft:0;
-    border-top-right-radius:.25rem;
-    border-bottom-right-radius:.25rem;
-    border-bottom-left-radius:0;
-    border-top-left-radius:0;
-    -moz-background-clip:padding-box;
-    -webkit-background-clip:padding-box;
-    background-clip:padding-box;
-    text-decoration:none !important;
-    position: relative;
-    padding-right: 11px;
+  color: #666;
+  line-height: inherit;
+  height: inherit;
+  display:block;
+  -webkit-border-top-right-radius:.25rem;
+  -webkit-border-bottom-right-radius:.25rem;
+  -webkit-border-bottom-left-radius:0;
+  -webkit-border-top-left-radius:0;
+  -moz-border-radius-topright:.25rem;
+  -moz-border-radius-bottomright:.25rem;
+  -moz-border-radius-bottomleft:0;
+  -moz-border-radius-topleft:0;
+  border-top-right-radius:.25rem;
+  border-bottom-right-radius:.25rem;
+  border-bottom-left-radius:0;
+  border-top-left-radius:0;
+  -moz-background-clip:padding-box;
+  -webkit-background-clip:padding-box;
+  background-clip:padding-box;
+  text-decoration:none !important;
+  position: relative;
+  padding-right: 11px;
 }
 
 .lpanel-list ul li.active  {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .lpanel-list ul li:hover a span,
 .lpanel-list ul li.active a span{
-    color: #333333;
+  color: #333333;
 }
 
 /*  new message badge position  */
 .left-panel_badge {
-    margin-top: 5px;
-    color: white !important;
-    max-width: 27px;
+  margin-top: 5px;
+  color: white !important;
+  max-width: 27px;
 }
 
 .left-panel__name {
-    max-width: 141px;
+  max-width: 141px;
 }
 .private-topic-icon {
-    width: 9px;
-    height: 12px;
-    display: inline-block;
-    opacity: 0.6;
+  width: 9px;
+  height: 12px;
+  display: inline-block;
+  opacity: 0.6;
 }
 .active .private-topic-icon {
-    opacity: 1;
+  opacity: 1;
 }
 .lpanel-list__groups {
-    margin: 1px 0;
+  margin: 1px 0;
 }
 .lpanel-list__stars {
-    margin: 1rem 0;
+  margin: 1rem 0;
 }
 .lpanel-list__channels {
-    /*margin: 1rem 0 2rem;*/
+  /*margin: 1rem 0 2rem;*/
 }
 
 .lpanel-list-left .fa-caret-down {
-    margin-left: -3px;
+  margin-left: -3px;
 }
 .lpanel-list-user_search {
-    position: relative;
-    padding-right: 11px;
-    color: white;
-    margin: 10px 10px 7px 0;
+  position: relative;
+  padding-right: 11px;
+  color: white;
+  margin: 10px 10px 7px 0;
 }
 
 .absolute-search-icon {
-    position: absolute;
-    top: 7px;
-    z-index: 2;
-    color: #666;
-    opacity: 0.2;
+  position: absolute;
+  top: 7px;
+  z-index: 2;
+  color: #666;
+  opacity: 0.2;
 }
 .lpanel-list-user-search__box {
-    height: 28px !important;
-    box-shadow: none;
-    border: none !important;
-    border-bottom: 1px solid #666 !important;
-    padding: 4px 3px 0 19px;
-    background-color: #f2f2f2;
-    opacity: 0.2;
-    border-radius: 0;
+  height: 28px !important;
+  box-shadow: none;
+  border: none !important;
+  border-bottom: 1px solid #666 !important;
+  padding: 4px 3px 0 19px;
+  background-color: #f2f2f2;
+  opacity: 0.2;
+  border-radius: 0;
 }
 
 .lpanel-list-user-search__box:focus,
 .lpanel-list-user-search__box:active {
-    /*color: white;*/
-    -webkit-animation: opacIn-from-20 400ms;
-    animation: opacIn-from-20 400ms;
+  /*color: white;*/
+  -webkit-animation: opacIn-from-20 400ms;
+  animation: opacIn-from-20 400ms;
 
-    opacity: 1;
-    filter: alpha(opacity=100);
+  opacity: 1;
+  filter: alpha(opacity=100);
 }
 
 
 
 .lpanel-team {
-    font-size: 18px;
-    font-weight: 900;
-    padding-left: 30px;
-    color: white;
-    width: 220px;
-    height: 40px;
-    line-height: 40px;
-    cursor: pointer;
-    position: relative;
+  font-size: 18px;
+  font-weight: 900;
+  padding-left: 30px;
+  color: white;
+  width: 220px;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  position: relative;
 }
 .lpanel-team__name {
-    max-width:170px;
+  max-width:170px;
 }
 .lpanel-team__more {
-    position:absolute;
-    top:23px;
-    right:20px;
-    font-size:1rem;
+  position:absolute;
+  top:23px;
+  right:20px;
+  font-size:1rem;
 }
 .lpanel-team__more:hover {
-    color:white;
+  color:white;
 }
 
 
@@ -246,23 +259,23 @@
     favorite star
 **/
 .left-star {
-    position: absolute;
-    left: 8px;
-    top: 7px;
+  position: absolute;
+  left: 8px;
+  top: 7px;
 }
 
 .lpanel-list ul li a .icon-star {
-    color:#9e9ea6;
-    opacity: 0;
+  color:#9e9ea6;
+  opacity: 0;
 }
 
 .lpanel-list ul li:hover .icon-star {
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
 
 }
 .lpanel-list ul li a .icon-star-fill {
-    color: #31c08a;
-    opacity: 1;
+  color: #31c08a;
+  opacity: 1;
 
 }

@@ -28,7 +28,7 @@ app.config(function ($stateProvider) {
         },
         'headerpanel' : {
           templateUrl : 'app/header/header.html',
-          controller  : 'headerController'
+          controller  : 'headerCtrl'
         },
         'rightpanel': {
           templateUrl: 'app/right/right.html',

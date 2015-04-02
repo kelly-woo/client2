@@ -444,6 +444,7 @@ input[type="button"] {
     display: block;
     margin: auto;
 }
+.fileicon_img,
 .fileicon_jpg,
 .fileicon_png,
 .fileicon_gif {
@@ -587,7 +588,7 @@ input[type="button"] {
     width: 2rem;
     text-align: center;
     font-size: 16px;
-    line-height: 19px;
+    line-height: 20px;
 }
 .grey_dropdown > li > a:hover {
     background-color: #31c08a;
@@ -839,4 +840,21 @@ input[type="radio"] {
 .disabled-member-profile-body__image {
   display: block;
   margin: 0 auto 12px;
+}
+
+
+
+/********************************************
+
+                 FLAG.
+
+********************************************/
+
+.flag {
+  width: 16px;
+  height: 11px;
+  margin-right:5px;
+  background: url('../assets/images/flags/flags.png') no-repeat scroll 0% 0% transparent;
+  margin-top: -0.18em;
+  display: inline-block;
 }

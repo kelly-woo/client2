@@ -1,9 +1,38 @@
-<div ng-controller="currentMemberCtrl as CurrentMemberCtrl">
-    <div ng-click="CurrentMemberCtrl.onCurrentMemberContainerClick();">
-        <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
-        <div class="lpanel-user__container">
-        <span class="lpanel-user__name inline-overflow-ellipsis"><b>{{team|getName}}</b><br/>
-            {{ member | getUserPosition }} {{ member | getName}}</span>
-        </div>
+<div class="lpanel-user cursor_pointer">
+  <div class="lpanel-user__team overflow-ellipsis">
+    <i class="icon-group icon"></i>
+    <span class="team-name">{{team|getName}}</span>
+  </div>
+
+  <div class="lpanel-user__user"data-toggle="dropdown">
+    <i class="icon-setting user-setting-icon" ></i>
+
+    <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
+
+    <div class="lpanel-user__container">
+      <span class="lpanel-user__name inline-overflow-ellipsis">{{ member | getName}}</span>
+      <br>
+      <span class="lpanel-user__position inline-overflow-ellipsis">{{ member | getUserPosition }}</span>
     </div>
+
+  </div>
+
+  <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu" id="current-user-dropdown">
+    <li class="" role="presentation">
+      <a data-ng-click="onCurrentMemberContainerClick();" role="menuitem" tabindex="-1">
+        <i class="fa fa-user"></i>
+        <span translate>@common-profile-settings</span>
+      </a>
+    </li>
+
+    <!-- 로그아웃 -->
+    <li class="" role="presentation">
+      <a ng-click="onSignOutClick();" role="menuitem" tabindex="-1">
+        <i class="icon-logout"></i>
+        <span translate>@common-sign-out</span>
+      </a>
+    </li>
+
+
+  </ul>
 </div>

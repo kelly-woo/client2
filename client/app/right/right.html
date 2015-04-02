@@ -15,16 +15,4 @@
   </tab>
 </tabset>
 
-<!--  FILE UPLOAD BUTTON  -->
-<div id="add_new_file" class="rpanel-header-heading__files cursor_pointer">
-  <i class="icon-upload"></i>
-  <span translate>@common-upload-file</span>
-  <input type="file"
-         id="file_list_button"
-         class="cursor_pointer file_upload_btn float-right"
-         onclick="this.value=null"
-         data-ng-file-select="onFileSelect($files);"
-         defaultValue="File"/>
-</div>  <!-- END OF FILE UPLOAD BUTTON  -->
-
 <span ng-if="false" translate>@file-delete-confirm-msg</span>

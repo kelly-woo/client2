@@ -13,13 +13,21 @@
       $rootScope.$broadcast('onrPanelFileTitleQueryChanged', $scope.keyword);
     };
 
+    $scope.$on('resetRPanelSearchStatusKeyword', function() {
+      _resetKeyword();
+    });
+
     $scope.$on('rPanelSearchFocus', function() {
       _setFocus();
     });
 
+    function _resetKeyword() {
+      $scope.keyword = '';
+    }
     function _setFocus() {
       $('#right-panel-search-box').focus();
     }
+
   }
 })();
 
