@@ -24,7 +24,8 @@
 
   }
 
-  function neighborItemCtrl($scope) {
+  /* @ngInject */
+  function neighborItemCtrl($scope, $timeout) {
     var message = $scope.message;
 
     var STATUS_SHARED = 'shared';
@@ -46,8 +47,9 @@
     }
 
     function highlightText(text) {
-      //$('.search-container').highlight(text, {wordsOnly: false, caseSensitive: false});
-      $('.search-container').highlight(text);
+      $timeout(function() {
+        $('.current .message-content').highlight(text);
+      }, 50)
     }
 
     function isFile() {
