@@ -8,13 +8,15 @@
     <i class="icon-setting user-setting-icon" ></i>
 
     <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
+
     <div class="lpanel-user__container">
-      <span class="lpanel-user__position">{{ member | getUserPosition }}</span>
+      <span class="lpanel-user__name inline-overflow-ellipsis">{{ member | getName}}</span>
       <br>
-      <span class="lpanel-user__name">{{ member | getName}}</span>
+      <span class="lpanel-user__position inline-overflow-ellipsis">{{ member | getUserPosition }}</span>
     </div>
 
   </div>
+
   <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu" id="current-user-dropdown">
     <li class="" role="presentation">
       <a data-ng-click="onCurrentMemberContainerClick();" role="menuitem" tabindex="-1">
@@ -33,5 +35,4 @@
 
 
   </ul>
-
 </div>
