@@ -13,10 +13,17 @@
     $scope.isFileTabActive = true;
     $scope.isMessageTabActive = false;
 
-    $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
-      $scope.isSearchQueryEmpty = keyword ? false : true;
+    $scope.$on('resetRPanelSearchStatusKeyword', function() {
+      $scope.isSearchQueryEmpty = _isSearchQueryEmpty();
     });
 
+    $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
+      $scope.isSearchQueryEmpty = _isSearchQueryEmpty(keyword);
+    });
+
+    function _isSearchQueryEmpty(keyword) {
+      return !keyword;
+    }
     $scope.$on('setFileTabActive', function() {
       if (!$scope.isFileTabACitve)
         _setFileTabStatus();

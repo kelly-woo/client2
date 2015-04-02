@@ -38,6 +38,14 @@
       searchMessages();
     })();
 
+    // File List clicked on member profile modal view.
+    $scope.$on('resetRPanelSearchStatusKeyword', function() {
+      _resetChatWriter();
+      _resetChatRoom();
+      _initMessageSearchQuery();
+      _resetMessageSearchResult();
+    });
+
     // When value of search input box(at the top of right panel) changed.
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
       _setSearchQueryQ(keyword);
@@ -181,8 +189,14 @@
     function _initChatRoomOption() {
       $scope.chatRoomOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
     }
+    function _resetChatRoom() {
+      $scope.messageLocation = '';
+    }
     function _initChatWriterOption() {
       $scope.chatWriterOptions = fileAPIservice.getShareOptions([$scope.member], $scope.memberList);
+    }
+    function _resetChatWriter() {
+      $scope.messageWriter = '';
     }
     function _resetMessageSearchResult() {
       $scope.messageList = [];
