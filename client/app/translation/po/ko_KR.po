@@ -48,9 +48,12 @@ msgstr "비밀번호가 일치하지 않습니다"
 msgid "@alert-missing-info"
 msgstr "모든 정보를 입력하세요"
 
+#: client/app/right/search.messages/search.messages.html
+msgid "@alert-no-messages-found"
+msgstr "검색 결과가 없습니다"
+
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
-#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr "검색 결과가 없습니다"
 
@@ -216,7 +219,7 @@ msgstr "잔디의 사용방법이 크게 달라졌습니다!"
 msgid "@channel"
 msgstr "토픽 "
 
-#: client/app/header/header.html client/app/modal/settings.account.html
+#: client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr "계정 설정"
 
@@ -343,15 +346,15 @@ msgstr "파일 타입"
 msgid "@common-file-type-all"
 msgstr "모든 타입"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "오디오"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "워드/한글"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "이미지"
 
@@ -359,19 +362,19 @@ msgstr "이미지"
 msgid "@common-file-type-others"
 msgstr "기타"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "파워포인트"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "엑셀"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "비디오"
 
@@ -470,8 +473,7 @@ msgstr "직책"
 msgid "@common-privacy-policy"
 msgstr "개인정보취급방침"
 
-#: client/app/header/header.html client/app/left/member/member.html
-#: client/app/modal/settings.profile.html
+#: client/app/left/member/member.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "프로필 수정"
 
@@ -491,7 +493,7 @@ msgstr "검색"
 msgid "@common-send-mail"
 msgstr "메일 보내기"
 
-#: client/app/header/header.html client/app/modal/settings.service.html
+#: client/app/modal/settings.service.html
 msgid "@common-service-settings"
 msgstr "서비스 설정"
 
@@ -606,10 +608,6 @@ msgstr ".. 길을 잃었습니다"
 msgid "@file-action-more"
 msgstr "더보기 "
 
-#: client/app/header/header.html
-msgid "@file-all"
-msgstr "파일 서랍"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "이 파일을 삭제하시겠습니까? 파일의 댓글은 삭제되지 않습니다."
@@ -625,14 +623,6 @@ msgstr " "
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "현재 100MB 이상의 파일은 업로드 할 수 없습니다."
-
-#: client/app/header/header.html
-msgid "@file-your"
-msgstr "내 파일"
-
-#: client/app/header/header.html
-msgid "@header-setting"
-msgstr "설정"
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
@@ -1024,7 +1014,7 @@ msgstr "새로운 URL (웹 주소)"
 msgid "@setting-team-new-name"
 msgstr "새로운 팀 이름"
 
-#: client/app/header/header.html client/app/modal/settings.team.html
+#: client/app/modal/settings.team.html
 msgid "@setting-team-title"
 msgstr "팀 세팅"
 
@@ -1049,10 +1039,12 @@ msgid "@tutorial-click-blink"
 msgstr "깜빡이는 아이콘을 한 번씩 클릭해 주세요! "
 
 #: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr " 잘 알겠습니다! "
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
@@ -1060,6 +1052,7 @@ msgstr ""
 "을 파일서랍에서 열람하실 수 있습니다. 파일을 선택한 뒤, 메뉴 버튼 (ᵒᵒᵒ)을 누"
 "르시면 댓글을 달거나 다른 대화에 공유하실 수 있으며 다운로드 또한 가능합니다."
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
@@ -1068,12 +1061,14 @@ msgstr ""
 "거의 메시지 검색이 가능합니다. 검색 결과에서 해당 메시지가 작성된 시점으로 바"
 "로 이동할 수 있으므로 당시의 업무 맥락을 쉽게 파악할 수 있습니다."
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
 "또한, \"[검색]\"과 \"[닫기 >]\" 버튼을 통해 오른쪽 영역을 열고 닫을 수도 있습"
 "니다."
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
 msgstr "파일 서랍과 검색 패널"
@@ -1174,6 +1169,15 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
+
+#~ msgid "@file-all"
+#~ msgstr "파일 서랍"
+
+#~ msgid "@file-your"
+#~ msgstr "내 파일"
+
+#~ msgid "@header-setting"
+#~ msgstr "설정"
 
 #~ msgid "@header-file"
 #~ msgstr "파일"

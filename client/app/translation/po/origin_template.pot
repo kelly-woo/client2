@@ -40,9 +40,12 @@ msgstr ""
 msgid "@alert-missing-info"
 msgstr ""
 
+#: client/app/right/search.messages/search.messages.html
+msgid "@alert-no-messages-found"
+msgstr ""
+
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
-#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr ""
 
@@ -213,7 +216,6 @@ msgstr ""
 msgid "@channel"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr ""
@@ -348,17 +350,14 @@ msgstr ""
 msgid "@common-file-type-all"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr ""
@@ -367,22 +366,18 @@ msgstr ""
 msgid "@common-file-type-others"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr ""
@@ -488,7 +483,6 @@ msgstr ""
 msgid "@common-privacy-policy"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/left/member/member.html
 #: client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
@@ -511,7 +505,6 @@ msgstr ""
 msgid "@common-send-mail"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/settings.service.html
 msgid "@common-service-settings"
 msgstr ""
@@ -629,10 +622,6 @@ msgstr ""
 msgid "@file-action-more"
 msgstr ""
 
-#: client/app/header/header.html
-msgid "@file-all"
-msgstr ""
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""
@@ -647,14 +636,6 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@file-your"
-msgstr ""
-
-#: client/app/header/header.html
-msgid "@header-setting"
 msgstr ""
 
 #: client/app/modal/upload.html
@@ -1021,7 +1002,6 @@ msgstr ""
 msgid "@setting-team-new-name"
 msgstr ""
 
-#: client/app/header/header.html
 #: client/app/modal/settings.team.html
 msgid "@setting-team-title"
 msgstr ""

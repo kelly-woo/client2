@@ -49,9 +49,12 @@ msgstr "パスワードが間違っています"
 msgid "@alert-missing-info"
 msgstr "必要な情報が入力されていません"
 
+#: client/app/right/search.messages/search.messages.html
+msgid "@alert-no-messages-found"
+msgstr "一致するメッセージがありません"
+
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
-#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr "登録情報がありません"
 
@@ -220,7 +223,7 @@ msgstr ""
 msgid "@channel"
 msgstr "トピック一覧"
 
-#: client/app/header/header.html client/app/modal/settings.account.html
+#: client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr "アカウント設定"
 
@@ -348,15 +351,15 @@ msgstr "ファイルの種類"
 msgid "@common-file-type-all"
 msgstr "全ての種類"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "音声"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "文書"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "画像"
 
@@ -364,19 +367,19 @@ msgstr "画像"
 msgid "@common-file-type-others"
 msgstr "その他"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "プレゼンテーション"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "スプレッドシート"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "動画"
 
@@ -475,8 +478,7 @@ msgstr "役職"
 msgid "@common-privacy-policy"
 msgstr "プライバシーポリシー"
 
-#: client/app/header/header.html client/app/left/member/member.html
-#: client/app/modal/settings.profile.html
+#: client/app/left/member/member.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "プロファイル設定"
 
@@ -496,7 +498,7 @@ msgstr "検索"
 msgid "@common-send-mail"
 msgstr "メールを送る"
 
-#: client/app/header/header.html client/app/modal/settings.service.html
+#: client/app/modal/settings.service.html
 msgid "@common-service-settings"
 msgstr "環境設定"
 
@@ -612,10 +614,6 @@ msgstr "エラーが発生しました"
 msgid "@file-action-more"
 msgstr "もっと見る"
 
-#: client/app/header/header.html
-msgid "@file-all"
-msgstr "全てのファイル"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "ファイルを削除してよいですか？削除後もコメントは残ります"
@@ -631,14 +629,6 @@ msgstr " "
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "現在のところ、100MBを超えるファイルはアップロードできません。"
-
-#: client/app/header/header.html
-msgid "@file-your"
-msgstr "あなたのファイル"
-
-#: client/app/header/header.html
-msgid "@header-setting"
-msgstr "設定"
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
@@ -1028,7 +1018,7 @@ msgstr "新しいドメイン（URL)"
 msgid "@setting-team-new-name"
 msgstr "新しいチーム名"
 
-#: client/app/header/header.html client/app/modal/settings.team.html
+#: client/app/modal/settings.team.html
 msgid "@setting-team-title"
 msgstr "チーム設定"
 
@@ -1053,30 +1043,39 @@ msgid "@tutorial-click-blink"
 msgstr "クリックして今すぐ見てみましょう!"
 
 #: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr "チュートリアルを終了する"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"このボタンを押して、ファイル一覧を表示します。トピック、プライベートトピッ"
-"ク、ダイレクトメッセージで共有された全てのファイルが表示されます。"
+"アップロードされたファイルは全て右カラムのファイル一覧（ファイルドロワー）か"
+"らアクセスできます。「・・・」ボタンをクリックし、ダウンロードや共有範囲の変"
+"更、コメントの追加などができます"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
-msgstr "ファイル名、共有された場所、投稿者、ファイルの種類で絞り込みできます。"
+msgstr ""
+"ファイルをキーワードで検索したり、共有範囲、共有したメンバー、ファイルの種類"
+"で絞り込むことができます。「メッセージ」タブをクリックすることでメッセージを"
+"検索することができます。検索結果をクリックすると、その会話の部分にジャンプす"
+"ることができます"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"右メニュー内の「⋯」ボタンをクリックすることで、他のトピック、プライベートト"
-"ピック、ダイレクトメッセージにファイルを共有したり、コメントを追加したり、"
-"ファイルをダウンロードすることができます。"
+"「検索」ボタンを押して右パネルを開いたり、「閉じる」ボタンを押して右パネルを"
+"閉じることができます"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
-msgstr "全てのファイル"
+msgstr "ファイルドロワーと検索パネル"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"
@@ -1172,6 +1171,15 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
+
+#~ msgid "@file-all"
+#~ msgstr "全てのファイル"
+
+#~ msgid "@file-your"
+#~ msgstr "あなたのファイル"
+
+#~ msgid "@header-setting"
+#~ msgstr "設定"
 
 #~ msgid "@header-file"
 #~ msgstr "ファイル"

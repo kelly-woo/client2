@@ -29,7 +29,7 @@ msgstr "No topics to join"
 
 #: client/app/right/files/files.html
 msgid "@alert-empty-file"
-msgstr "No files uploaded"
+msgstr "No files found"
 
 #: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
@@ -48,9 +48,12 @@ msgstr "invalid password"
 msgid "@alert-missing-info"
 msgstr "Missing Information"
 
+#: client/app/right/search.messages/search.messages.html
+msgid "@alert-no-messages-found"
+msgstr "No messages found matching"
+
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
-#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr "No matches"
 
@@ -221,7 +224,7 @@ msgstr ""
 msgid "@channel"
 msgstr "Topics "
 
-#: client/app/header/header.html client/app/modal/settings.account.html
+#: client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr "Account Settings"
 
@@ -351,15 +354,15 @@ msgstr "File type"
 msgid "@common-file-type-all"
 msgstr "all"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "audio"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "documents"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "images"
 
@@ -367,19 +370,19 @@ msgstr "images"
 msgid "@common-file-type-others"
 msgstr "Other"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "PDF"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "presentations"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "spreadsheets"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "video"
 
@@ -478,8 +481,7 @@ msgstr "Position"
 msgid "@common-privacy-policy"
 msgstr "Privacy Policy"
 
-#: client/app/header/header.html client/app/left/member/member.html
-#: client/app/modal/settings.profile.html
+#: client/app/left/member/member.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "Profile"
 
@@ -499,7 +501,7 @@ msgstr "Search"
 msgid "@common-send-mail"
 msgstr "Send Email"
 
-#: client/app/header/header.html client/app/modal/settings.service.html
+#: client/app/modal/settings.service.html
 msgid "@common-service-settings"
 msgstr "Service Preferences"
 
@@ -615,10 +617,6 @@ msgstr "Oops!"
 msgid "@file-action-more"
 msgstr "More"
 
-#: client/app/header/header.html
-msgid "@file-all"
-msgstr "File Drawer"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""
@@ -636,14 +634,6 @@ msgstr "As of "
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "Currently you cannot upload a file that exceeds 100MB."
-
-#: client/app/header/header.html
-msgid "@file-your"
-msgstr "My Files"
-
-#: client/app/header/header.html
-msgid "@header-setting"
-msgstr "Settings"
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
@@ -1036,7 +1026,7 @@ msgstr "New Domain (URL)"
 msgid "@setting-team-new-name"
 msgstr "New Team Name"
 
-#: client/app/header/header.html client/app/modal/settings.team.html
+#: client/app/modal/settings.team.html
 msgid "@setting-team-title"
 msgstr "Team Settings"
 
@@ -1061,33 +1051,36 @@ msgid "@tutorial-click-blink"
 msgstr "Click on the pulsing marks to check them out!"
 
 #: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr "Got it!"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
 "All of the files you've shared and that have been shared with you can be "
-"found in your JANDI file drawer. After you select a file, you can use the "
-"menu button (ᵒᵒᵒ) to share it in other conversations, comment on the file, "
-"or download it to your device."
+"found in your JANDI file drawer. Use the menu button (ᵒᵒᵒ) to download, "
+"share, or comment on a file. "
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"To find older files, search by keyword(s) and use our flexible filters to "
-"sort by file type, team member who uploaded the file, or the conversation in "
-"which it was shared. Similarly, click over to the Messages tab to search "
-"through your conversation history and jump back to specific points in the "
-"discussion for more context. "
+"To find an older file, search by keyword(s) and use our flexible filters to "
+"sort by file type, uploader, or conversation in which it was shared. You can "
+"also click over to the Messages tab to search through your conversation "
+"history and jump back to specific points in the discussion for more context. "
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"You can also toggle the view by using the Search and Close buttons to open "
-"and shut the right panel."
+"Toggle the view by using the Search and Close buttons to open and minimize "
+"the right panel."
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
 msgstr "Your file drawer and search panel"
@@ -1190,6 +1183,15 @@ msgstr "in "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@file-all"
+#~ msgstr "File Drawer"
+
+#~ msgid "@file-your"
+#~ msgstr "My Files"
+
+#~ msgid "@header-setting"
+#~ msgstr "Settings"
 
 #~ msgid "@header-file"
 #~ msgstr "Files"

@@ -48,9 +48,12 @@ msgstr "密碼無效"
 msgid "@alert-missing-info"
 msgstr "資料不全"
 
+#: client/app/right/search.messages/search.messages.html
+msgid "@alert-no-messages-found"
+msgstr "搜尋沒有結果"
+
 #: client/app/modal/join.html
 #: client/app/modal/team_member_list/team.member.list.html
-#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-result"
 msgstr "搜尋沒有結果"
 
@@ -213,7 +216,7 @@ msgstr "我們最近更新了排版和增加了一些極好的功能以提高您
 msgid "@channel"
 msgstr "議題"
 
-#: client/app/header/header.html client/app/modal/settings.account.html
+#: client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr "帳號設定"
 
@@ -340,15 +343,15 @@ msgstr "檔案類別"
 msgid "@common-file-type-all"
 msgstr "全部類別"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr "音頻"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "文件"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr "圖像"
 
@@ -356,19 +359,19 @@ msgstr "圖像"
 msgid "@common-file-type-others"
 msgstr "其它"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr "pdf"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr "簡報"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr "表單"
 
-#: client/app/header/header.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr "視頻"
 
@@ -467,8 +470,7 @@ msgstr "職位"
 msgid "@common-privacy-policy"
 msgstr "隱私權條款"
 
-#: client/app/header/header.html client/app/left/member/member.html
-#: client/app/modal/settings.profile.html
+#: client/app/left/member/member.html client/app/modal/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "簡介設定"
 
@@ -488,7 +490,7 @@ msgstr "搜尋"
 msgid "@common-send-mail"
 msgstr "發送電子郵件"
 
-#: client/app/header/header.html client/app/modal/settings.service.html
+#: client/app/modal/settings.service.html
 msgid "@common-service-settings"
 msgstr "服務偏好"
 
@@ -603,10 +605,6 @@ msgstr "錯誤"
 msgid "@file-action-more"
 msgstr "更多"
 
-#: client/app/header/header.html
-msgid "@file-all"
-msgstr "全部檔案"
-
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "您確定要刪除這檔案？ 請注意留言的部分不會被刪除。"
@@ -622,14 +620,6 @@ msgstr "刪除時間："
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
-
-#: client/app/header/header.html
-msgid "@file-your"
-msgstr "您的檔案"
-
-#: client/app/header/header.html
-msgid "@header-setting"
-msgstr "設定"
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
@@ -1001,7 +991,7 @@ msgstr "新網域(URL)"
 msgid "@setting-team-new-name"
 msgstr "新團隊名稱"
 
-#: client/app/header/header.html client/app/modal/settings.team.html
+#: client/app/modal/settings.team.html
 msgid "@setting-team-title"
 msgstr "團隊設定"
 
@@ -1026,28 +1016,33 @@ msgid "@tutorial-click-blink"
 msgstr "點擊跳動的標記來查看一下吧！"
 
 #: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr "知道了！"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
 "所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定檔案"
 "後，將點擊右邊的「ᵒᵒᵒ」即可。"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
 "想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、曾經"
 "分享在哪個議題下”的項目進行搜尋。"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
 "收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即可收"
 "納搜尋欄。"
 
+#: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
 msgstr "檔案庫和搜尋欄"
@@ -1143,6 +1138,15 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
+
+#~ msgid "@file-all"
+#~ msgstr "全部檔案"
+
+#~ msgid "@file-your"
+#~ msgstr "您的檔案"
+
+#~ msgid "@header-setting"
+#~ msgstr "設定"
 
 #~ msgid "@header-file"
 #~ msgstr "檔案"
