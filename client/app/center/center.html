@@ -10,8 +10,6 @@
 
 <!--    TODO: HAVE 'panel-title-container' in separate template!!   -->
 <div class="panel-title-container" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}">
-  {{currentEntity.companionId}}
-  {{currentEntity.entityId}}
   <!--    STAR ICON -->
   <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
     <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
