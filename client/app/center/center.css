@@ -230,6 +230,7 @@ article {
 }
 .msgs-group > .msg-item:last-child {
   margin-bottom: 0;
+  padding-bottom: 5px;
 }
 .msg-item.comment-title,
 .msg-item.comment-continue{
