@@ -308,6 +308,12 @@ msgstr "대화방 목록"
 msgid "@common-download"
 msgstr "다운로드"
 
+#: client/app/modal/topic_create/topic.create.html
+msgid "@common-duplicate-name-err"
+msgstr ""
+"업무의 혼란을 줄이기 위해 중복된 이름의 토픽은 허용하지 않고 있습니다. 다른 "
+"이름으로 생성해주세요."
+
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 #: client/app/signin/signin.html

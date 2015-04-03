@@ -311,6 +311,10 @@ msgstr ""
 msgid "@common-download"
 msgstr ""
 
+#: client/app/modal/topic_create/topic.create.html
+msgid "@common-duplicate-name-err"
+msgstr ""
+
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/profile.view.html
 #: client/app/modal/settings.profile.html

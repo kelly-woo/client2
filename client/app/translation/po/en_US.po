@@ -316,6 +316,10 @@ msgstr "Invite to"
 msgid "@common-download"
 msgstr "Download"
 
+#: client/app/modal/topic_create/topic.create.html
+msgid "@common-duplicate-name-err"
+msgstr "That topic name is already in use. Please try again."
+
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 #: client/app/signin/signin.html

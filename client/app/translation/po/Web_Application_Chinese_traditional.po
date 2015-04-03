@@ -305,6 +305,10 @@ msgstr "邀請到"
 msgid "@common-download"
 msgstr "下載"
 
+#: client/app/modal/topic_create/topic.create.html
+msgid "@common-duplicate-name-err"
+msgstr "這個議題名稱已經被使用。請選擇另外一個。"
+
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/profile.view.html client/app/modal/settings.profile.html
 #: client/app/signin/signin.html

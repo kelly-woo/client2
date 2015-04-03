@@ -28,7 +28,6 @@
   <span class="panel-title-info">
 
     <!--    TITLE   -->
-    <!--    TITLE   -->
     <span class="panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix" data-toggle="dropdown">
       <span class="inline-overflow-ellipsis panel-title-info__name">{{ currentEntity | getName }}
         <i class="fa fa-caret-down header-title-info__more"></i>
@@ -38,7 +37,7 @@
     <!--  TOPICS  -->
     <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channels' || currentEntity.type === 'privategroups'">
       <!--    INVITE  -->
-      <li role="presentation">
+      <li role="presentation" data-ng-if="!isDefaultTopic();">
         <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
           <i class="icon-invite-fill"></i><span translate>@ch-menu-invite</span>
         </a>
