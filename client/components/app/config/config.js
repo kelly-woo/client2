@@ -20,7 +20,7 @@
       main_address        : 'http://www.jandi.io:8888/main/#/',
       app_store_address   : 'itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8',
       play_store_address  : 'https://play.google.com/store/apps/details?id=com.tosslab.jandi.app',
-      last_update_message : '04/01/2015 20:45:00'
+      last_update_message : '04/06/2015 22:40:00'
     })
     .run(run);
 
