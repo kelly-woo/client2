@@ -1113,11 +1113,11 @@ msgstr "一對一"
 
 #: client/app/center/center.html
 msgid "@user-menu-star"
-msgstr "標記這成員"
+msgstr "標記此成員"
 
 #: client/app/center/center.html
 msgid "@user-menu-un-star"
-msgstr "取消標記這成員"
+msgstr "取消標記此成員"
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-post"
