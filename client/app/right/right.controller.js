@@ -7,45 +7,59 @@
 
   /* ngInject */
   function rPanelCtrl($scope, $rootScope) {
+    var fileTab;
+    var messageTab;
 
-    $scope.isSearchQueryEmpty = true;
+    (function() {
+      _init();
+    })();
 
-    $scope.isFileTabActive = true;
-    $scope.isMessageTabActive = false;
+    /**
+     * Default set-up.
+     * @private
+     */
+    function _init() {
+      $scope.isSearchQueryEmpty = true;
+
+      fileTab = {
+        active: true
+      };
+      messageTab = {
+        active: false
+      };
+
+      $scope.tabs = [fileTab, messageTab];
+    }
+
 
     $scope.$on('resetRPanelSearchStatusKeyword', function() {
-      _isSearchQueryEmpty();
+      _updateSearchQueryEmptyStatus();
     });
 
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
-      _isSearchQueryEmpty(keyword);
+      _updateSearchQueryEmptyStatus(keyword);
     });
 
-    function _isSearchQueryEmpty(keyword) {
+    function _updateSearchQueryEmptyStatus(keyword) {
       $scope.isSearchQueryEmpty =  !keyword;
     }
+
     $scope.$on('setFileTabActive', function() {
       _setFileTabStatus();
     });
 
-    $scope.onFileTabSelected = function() {
-      _setFileTabStatus();
+    $scope.onFileTabSelected = function(a) {
       $rootScope.$broadcast('onrPanelFileTabSelected');
     };
     $scope.onMessageTabSelected = function() {
-      _setMessageTabStatus();
       $rootScope.$broadcast('onrPanelMessageTabSelected');
     };
 
     function _setFileTabStatus() {
-      $scope.isFileTabActive = true;
-      $scope.isMessageTabActive = false;
-      _logCurrentTabStatus();
+      fileTab.active = true;
     }
     function _setMessageTabStatus() {
-      $scope.isFileTabActive = false;
-      $scope.isMessageTabActive = true;
-      _logCurrentTabStatus();
+      messageTab.active = true;
     }
 
     $scope.showLoading = function() {
@@ -55,14 +69,6 @@
       $scope.isLoading = false;
     };
 
-    function _logCurrentTabStatus() {
-      if (false) {
-        console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
-        console.log('file tab:', $scope.isFileTabActive)
-        console.log('message tab:', $scope.isMessageTabActive)
-        console.log('------------------------------------------------------------------------------------------------------------------')
-      }
-    }
   }
 
 })();

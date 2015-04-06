@@ -1,16 +1,13 @@
 <r-panel-search></r-panel-search>
 
 <tabset class="rpanel-body-tab-container">
-
   <!--  FILE TAB  -->
-  <tab select="onFileTabSelected();" active="isFileTabActive">
-    <tab-heading><span translate>@common-files</span></tab-heading>
+  <tab active="tabs[0].active" select="onFileTabSelected();" heading="{{'@common-files' | translate}}">
     <r-panel-file-tab></r-panel-file-tab>
   </tab>
 
   <!--  MESSAGE TAB -->
-  <tab select="onMessageTabSelected();" active="isMessageTabActive">
-    <tab-heading><span translate>@common-message</span></tab-heading>
+  <tab active="tabs[1].active" select="onMessageTabSelected();" heading="{{'@common-message' | translate}}">
     <r-panel-messages-tab></r-panel-messages-tab>
   </tab>
 </tabset>
