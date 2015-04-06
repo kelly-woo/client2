@@ -40,10 +40,6 @@
       _updateSearchQueryEmptyStatus(keyword);
     });
 
-    function _updateSearchQueryEmptyStatus(keyword) {
-      $scope.isSearchQueryEmpty =  !keyword;
-    }
-
     $scope.$on('setFileTabActive', function() {
       _setFileTabStatus();
     });
@@ -55,6 +51,10 @@
       $rootScope.$broadcast('onrPanelMessageTabSelected');
     };
 
+
+    function _updateSearchQueryEmptyStatus(keyword) {
+      $scope.isSearchQueryEmpty =  !keyword;
+    }
     function _setFileTabStatus() {
       fileTab.active = true;
     }
@@ -67,6 +67,13 @@
     };
     $scope.hideLoading = function() {
       $scope.isLoading = false;
+    };
+
+    $scope.isFileTabActive = function() {
+      return fileTab.active;
+    };
+    $scope.isMessageTabActive = function() {
+      return messageTab.active;
     };
 
   }
