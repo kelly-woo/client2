@@ -1,0 +1,29 @@
+<div class="help-messages-container cursor_pointer" ng-click="onButtonClicked($event);">
+
+  <!-- WHEN I'M THE ONLY ONE IN ROOM  -->
+  <div class="help-messages__img" ng-class="helpImageClass"></div>
+
+  <div class="help-messages__heading">
+    {{ helpMessages.heading }}
+  </div>
+
+  <div class="help-messages__message">
+    {{ helpMessages.message }}
+  </div>
+
+  <div ng-if="isButtonRequired" class="help-messages__button btn btn-ok">
+    {{ helpButtonText }}
+  </div>
+
+  <span ng-if="false" translate>@your-file-drawer-is-empty-heading</span>
+  <span ng-if="false" translate>@click-to-share-file</span>
+
+  <span ng-if="false" translate>@you-are-all-alone-heading</span>
+  <span ng-if="false" translate>@click-to-invite-to-current-topic</span>
+
+  <span ng-if="false" translate>@start-chatting-heading</span>
+
+</div>
+
+
+

@@ -535,8 +535,8 @@
 
       </div>
 
-      <div class="hidden post-message msgs__loading icon-loading" data-ng-if="isPosting"></div>
-
+      <!--  WHEN THERE ARE NO MESSAGES OTHER THAN SYSTEM EVENT MESSAGE. -->
+      <center-help-message-container ng-if="hasNoMessage"></center-help-message-container>
     </div>
 
   </article>

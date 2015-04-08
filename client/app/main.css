@@ -519,6 +519,26 @@ input[type="button"] {
 }
 
 
+.help-enter-a-message {
+  background: url('../assets/images/center/help-enter-a-message.png') no-repeat;
+  width: 93px;
+  height: 88px;
+}
+.help-invite-members {
+  background: url('../assets/images/center/help-invite-members.png') no-repeat;
+  width: 113px;
+  height: 130px;
+}
+.help-send-invitations {
+  background: url('../assets/images/center/help-send-invitations.png') no-repeat;
+}
+.help-upload-a-file {
+  background: url('../assets/images/center/help-upload-a-file.png') no-repeat;
+  width: 75px;
+  height: 80px;
+}
+
+
 /********************************************
 
                  DROPDOWN.

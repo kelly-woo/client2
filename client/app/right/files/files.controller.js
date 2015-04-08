@@ -12,11 +12,6 @@
     var disabledMemberAddedOnSharedBy = false;
 
 
-
-    $scope.$on('onFileDeleted', function() {
-      _refreshFileList();
-    });
-
     //  fileRequest.writerId - 작성자
     $scope.$watch('fileRequest.writerId', function(newValue, oldValue) {
       if ($scope.fileRequest.writerId === null) {
@@ -52,13 +47,16 @@
       }
     });
 
+    $scope.$on('onFileDeleted', function() {
+      _refreshFileList();
+    });
+
     //  when file was uploaded from center panel,
     //  fileAPI broadcasts 'onChangeShared' to rootScope.
     //  right controller is listening to 'onChangeShared' and update file list.
     $rootScope.$on('onChangeShared', function() {
       _refreshFileList();
     });
-
 
     // Joined new entity
     // Left current entity
@@ -148,6 +146,10 @@
       }
 
     }
+
+    $scope.hasNoFilesUpload = function() {
+      return $scope.fileList.length == 0 && $scope.fileTitleQuery != '';
+    };
 
     /**
      * Initializing and setting 'Shared in' Options.

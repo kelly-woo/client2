@@ -1,0 +1,19 @@
+.help-messages-container {
+  text-align: center;
+  margin-top: 75px;
+  margin-bottom: 30px;
+}
+
+.help-messages__img {
+  margin: 0 auto 20px;
+}
+.help-messages__heading {
+  margin-bottom: 10px;
+}
+.help-messages__button {
+  margin-top: 30px;
+}
+.help-messages-container:hover .help-messages__heading,
+.help-messages-container:hover .help-messages__message {
+  text-decoration: underline;
+}

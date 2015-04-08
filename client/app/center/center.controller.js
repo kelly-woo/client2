@@ -29,6 +29,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // To be used in directive.
   $scope.loadMoreCounter = 0;
 
+  $scope.systemMessageCount= 0;
+
   $scope.entityId = entityId;
   $scope.entityType = entityType;
   $scope.messages = [];
@@ -102,6 +104,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   (function() {
     _onStartUpCheckList();
 
+    $scope.systemMessageCount= 0;
+
     _init();
 
     if(_hasMessageIdToSearch()) {
@@ -112,7 +116,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     $scope.promise = $timeout(updateList, updateInterval);
-
   })();
 
   function _init() {
@@ -303,12 +306,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         messageAPIservice.getMessages(entityType, entityId, $scope.msgSearchQuery)
           .success(function(response) {
             log('  -- loadMore success');
-
             firstMessageId = response.firstLinkId;
             lastMessageId = response.lastLinkId;
             lastUpdatedLinkId = response.globalLastLinkId;
 
             var messagesList = response.records;
+
 
             // When there are messages to update.
             if (messagesList.length) {
@@ -329,6 +332,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
             // If code gets to this point, 'getMessages' has been executed at least once.
             $scope.isInitialLoadingCompleted = true;
+
+            _checkEntityMessageStatus();
           })
           .error(function(response) {
             onHttpRequestError(response);
@@ -379,8 +384,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       // jihoon
       if (msg.status == 'event') {
+        // System Message.
         msg = eventMsgHandler(msg);
         $scope.messages.unshift(msg);
+        _updateSystemEventMessageCounter();
         continue;
       }
 
@@ -405,6 +412,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _isInitialLoad() {
     return loadedFirstMessagedId < 0;
   }
+
+  /**
+   * Checks if there is no old messages to load.
+   * Meaning all previous messages has been loaded and display on web.
+   * @returns {boolean}
+   * @private
+   */
   function _hasMoreOldMessageToLoad() {
     if (localFirstMessageId == -1) return true;
 
@@ -479,6 +493,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }, 10);
   }
 
+  // TODO: NOT A GOOD NAME. WHEN FUNCTION NAME STARTS WITH 'is' EXPECT IT TO RETURN BOOLEAN VALUE.
+  // Current 'isAtBottom' function is not returning boolean. PLEASE CHANGE THE NAME!!
+
   $scope.isAtBottom = function() {
     //console.log('isAtBottom')
     _clearBadgeCount($scope.currentEntity);
@@ -538,8 +555,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
-
-
   var lastUpdatedLinkId = -1;
   function updateList () {
 
@@ -596,8 +611,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
               $scope.focusPostMessage = true;
 
               if ( msg.status == 'event' ) {
+                // System Event Message.
                 msg = eventMsgHandler(msg);
                 $scope.messages.push(msg);
+                _updateSystemEventMessageCounter();
                 continue;
               }
 
@@ -667,6 +684,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
               entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
             }
           }
+
+          _checkEntityMessageStatus();
         }
 
       })
@@ -750,7 +769,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $scope.isPosting = false;
       });
   };
-
   $scope.editMessage = function(messageId, updateContent) {
     if (updateContent === "") return "";
 
@@ -764,7 +782,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.editMessage"});
       });
   };
-
   $scope.deleteMessage = function(message) {
     //console.log("delete: ", message.messageId);
     messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
@@ -776,7 +793,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.deleteMessage"});
       });
   };
-
   $scope.openModal = function(selector) {
     // OPENING JOIN MODAL VIEW
     if (selector == 'file') {
@@ -805,7 +821,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     }
   };
-
 
   /*
    *  $scope.messages 중 shared entity 변화가 일어난 경우 추가/삭제 처리
@@ -1358,6 +1373,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //_clearBadgeCount($scope.currentEntity);
   };
 
+  $scope.$on('setChatInputFocus', function() {
+    setChatInputFocus();
+  })
+  function setChatInputFocus() {
+    $('#message-input').focus();
+  }
+
   /**
    * If badge count was incremented while un-focused state,
    * still keep track of badge counts and display on left side.
@@ -1372,4 +1394,43 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     entityAPIservice.updateBadgeValue(entity, '');
   }
+
+
+  /********************************************
+
+      EMPTY MESSAGE.
+
+   ********************************************/
+  $scope.$on('onInitLeftListDone', function() {
+    _checkEntityMessageStatus();
+  });
+
+  function _checkEntityMessageStatus() {
+    $scope.hasNoMessage = _hasNoMessage();
+
+    if ($scope.hasNoMessage) {
+      $scope.isLonelyPerson = _amIAlone();
+      $rootScope.$broadcast('onEntityMessageStatusChanged');
+    }
+
+  }
+
+  function _amIAlone() {
+    var memberCount = entityAPIservice.getMemberLength($rootScope.currentEntity);
+    return memberCount == 1;
+  }
+
+  function _hasNoMessage() {
+    var messageLength = $scope.messages.length;
+    var systemMessageLength = $scope.systemMessageCount;
+
+    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageLength || messageLength == 1)) return true;
+
+    return false;
+  }
+
+  function _updateSystemEventMessageCounter() {
+    $scope.systemMessageCount++;
+  }
+
 });

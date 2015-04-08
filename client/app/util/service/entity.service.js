@@ -21,7 +21,9 @@
       setBadgeValue: setBadgeValue,
       setLastEntityState: setLastEntityState,
       getLastEntityState: getLastEntityState,
-      removeLastEntityState: removeLastEntityState
+      removeLastEntityState: removeLastEntityState,
+      getMemberLength: getMemberLength
+
     };
 
     return service;
@@ -177,6 +179,16 @@
     }
     function removeLastEntityState () {
       storageAPIservice.removeLastStateLocal();
+    }
+
+    function getMemberLength(entity) {
+      if (angular.isUndefined(entity) || entity.type == 'uses') {
+        return -1;
+      }
+
+      var members = entity.ch_members || entity.pg_members;
+
+      return members.length;
     }
   }
 })();

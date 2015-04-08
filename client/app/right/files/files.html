@@ -64,12 +64,11 @@
     <div class="break-word" ng-if="fileList.length==0">
 
       <div ng-if="!isLoading" class="rpanel-alert-msg-container">
-        <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
 
-        <div ng-if="fileRequest.keyword == ''" class="rpanel-alert-msg-container__text">
-          <span translate>@alert-empty-file</span>
-        </div>
+        <center-help-message-container ng-if="fileRequest.keyword == ''"></center-help-message-container>
+
         <div ng-if="fileRequest.keyword != ''" class="rpanel-alert-msg-container__text">
+          <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
           <span translate>@alert-empty-file-search</span>: <span class="searchQuery">{{ fileRequest.keyword }}</span>
         </div>
       </div>
