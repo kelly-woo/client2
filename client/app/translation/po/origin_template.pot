@@ -213,6 +213,10 @@ msgid "@channel"
 msgstr ""
 
 #: client/app/center/help-messages/help.messages.html
+msgid "@click-to-invite-to-current-team"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
 msgid "@click-to-invite-to-current-topic"
 msgstr ""
 
@@ -900,6 +904,10 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "@msg-whose"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@no-team-member-joined"
 msgstr ""
 
 #: client/app/right/files/files.html

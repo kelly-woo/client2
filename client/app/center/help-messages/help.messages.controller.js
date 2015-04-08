@@ -6,7 +6,7 @@
     .controller('HelpMessageCtrl', HelpMessageCtrl);
 
   /* @ngInject */
-  function HelpMessageCtrl($scope, $rootScope, $filter, publicService, modalHelper) {
+  function HelpMessageCtrl($scope, $rootScope, $filter, modalHelper) {
 
     // TODO: TO CONFIG??
     var NO_MEMBER_IN_TEAM = 'NO_MEMBER_IN_TEAM';
@@ -18,8 +18,9 @@
       _init();
     })();
 
-    $scope.$on('onEntityMessageStatusChanged', function(event) {
-      _init();
+    $scope.$on('onEntityMessageStatusChanged', function(event, param) {
+      $scope.currentState = param;
+      _getCurrentHelpState();
     });
 
     function _init() {
@@ -71,8 +72,6 @@
             _setChatInputBoxFocus
           );
           break;
-
-
       }
 
     }

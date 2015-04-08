@@ -213,6 +213,10 @@ msgid "@channel"
 msgstr "議題"
 
 #: client/app/center/help-messages/help.messages.html
+msgid "@click-to-invite-to-current-team"
+msgstr "現在就邀請他們以開始協作。"
+
+#: client/app/center/help-messages/help.messages.html
 msgid "@click-to-invite-to-current-topic"
 msgstr "點擊以下按鈕邀請其他成員加入對話。"
 
@@ -885,6 +889,10 @@ msgstr "未分享過"
 #: client/app/center/center.html
 msgid "@msg-whose"
 msgstr "的"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@no-team-member-joined"
+msgstr "還未有其他成員加入您的團隊。"
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html

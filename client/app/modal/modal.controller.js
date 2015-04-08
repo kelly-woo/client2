@@ -102,7 +102,7 @@ app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderA
 });
 
 // PRIVATE_GROUP/CHANNEL INVITE
-app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService) {
+app.controller('inviteModalCtrl', function($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService) {
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
@@ -166,7 +166,7 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
         analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
 
         // TODO -  ASK JOHN FOR AN API THAT RETRIEVES UPDATED INFO OF SPECIFIC TOPIC/PG.
-        $scope.updateLeftPanelCaller();
+        $rootScope.$broadcast('updateLeftPanelCaller');
 
         $modalInstance.dismiss('success');
       })
@@ -178,6 +178,12 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
         $scope.toggleLoading();
       });
   };
+
+  $scope.toggleLoading = function() {
+    $scope.isLoading = !$scope.isLoading;
+  };
+
+
 });
 
 // INVITE USER TO TEAM

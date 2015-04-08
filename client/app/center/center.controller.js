@@ -1384,9 +1384,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
 
   $scope.$on('setChatInputFocus', function() {
-    setChatInputFocus();
-  })
-  function setChatInputFocus() {
+    _setChatInputFocus();
+  });
+  function _setChatInputFocus() {
     $('#message-input').focus();
   }
 
@@ -1416,22 +1416,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   });
 
   function _checkEntityMessageStatus() {
-    var hasNoMessage = $scope.hasNoMessage = _hasNoMessage();
+    $scope.hasNoMessage = _hasNoMessage();
 
-    if (!hasNoMessage) {
-      // Current topic has messages going on. NO NEED TO DISPLAY ANY TYPE OF HELP MESSAGES.
-      return;
-    }
+    // Current topic has messages going on. NO NEED TO DISPLAY ANY TYPE OF HELP MESSAGES.
+    if (!$scope.hasNoMessage) { return; }
 
     var emptyMessageStateHelper = 'NO_CONVERSATION_IN_TOPIC';
 
+    // I am only member in current topic.
     if (_amIAlone()) {
-      // I am only member in current topic.
       emptyMessageStateHelper = 'NO_MEMBER_IN_TOPIC';
     }
 
     $scope.emptyMessageStateHelper = emptyMessageStateHelper;
-    $rootScope.$broadcast('onEntityMessageStatusChanged');
+    $rootScope.$broadcast('onEntityMessageStatusChanged', emptyMessageStateHelper);
   }
 
   function _amIAlone() {

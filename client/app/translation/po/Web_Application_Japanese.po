@@ -220,6 +220,10 @@ msgid "@channel"
 msgstr "トピック一覧"
 
 #: client/app/center/help-messages/help.messages.html
+msgid "@click-to-invite-to-current-team"
+msgstr "新しいメンバーを招待してコラボレーションを始めましょう"
+
+#: client/app/center/help-messages/help.messages.html
 msgid "@click-to-invite-to-current-topic"
 msgstr "以下のボタンをクリックしてメンバーを招待しましょう"
 
@@ -909,6 +913,10 @@ msgstr "非共有"
 #: client/app/center/center.html
 msgid "@msg-whose"
 msgstr "の"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@no-team-member-joined"
+msgstr "このチームには他のメンバーがいません。"
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html

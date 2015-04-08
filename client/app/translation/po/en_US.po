@@ -221,6 +221,10 @@ msgid "@channel"
 msgstr "Topics "
 
 #: client/app/center/help-messages/help.messages.html
+msgid "@click-to-invite-to-current-team"
+msgstr "Invite them now to start collaborating."
+
+#: client/app/center/help-messages/help.messages.html
 msgid "@click-to-invite-to-current-topic"
 msgstr "Click the button below to invite other members to the conversation."
 
@@ -915,6 +919,10 @@ msgstr "Unshared"
 #: client/app/center/center.html
 msgid "@msg-whose"
 msgstr "'s"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@no-team-member-joined"
+msgstr "No other members have joined your team. "
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html

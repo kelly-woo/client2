@@ -216,6 +216,10 @@ msgid "@channel"
 msgstr "토픽 "
 
 #: client/app/center/help-messages/help.messages.html
+msgid "@click-to-invite-to-current-team"
+msgstr "지금 바로 멤버들을 초대하세요."
+
+#: client/app/center/help-messages/help.messages.html
 msgid "@click-to-invite-to-current-topic"
 msgstr "메시지를 입력하셔서 대화를 시작해보세요."
 
@@ -905,6 +909,10 @@ msgstr "공유 해제된"
 #: client/app/center/center.html
 msgid "@msg-whose"
 msgstr "님의"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@no-team-member-joined"
+msgstr "아직 팀에 가입한 멤버가 없습니다. "
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html

@@ -14,8 +14,7 @@
       transclude: true,
       link: link,
       scope: {
-        currentState: '=status',
-        currentModalInstance: '=modalInstance'
+        currentState: '=status'
       }
     };
 
