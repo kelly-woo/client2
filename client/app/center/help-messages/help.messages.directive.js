@@ -12,7 +12,11 @@
       templateUrl: 'app/center/help-messages/help.messages.html',
       replace: true,
       transclude: true,
-      link: link
+      link: link,
+      scope: {
+        currentState: '=status',
+        currentModalInstance: '=modalInstance'
+      }
     };
 
     function link(scope, element, attr, ctrl) {

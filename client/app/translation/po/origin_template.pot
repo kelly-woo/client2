@@ -20,10 +20,6 @@ msgid "@alert-empty-ch-can-join"
 msgstr ""
 
 #: client/app/right/files/files.html
-msgid "@alert-empty-file"
-msgstr ""
-
-#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr ""
 
@@ -214,6 +210,14 @@ msgstr ""
 
 #: client/app/left/left.html
 msgid "@channel"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@click-to-invite-to-current-topic"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@click-to-share-file"
 msgstr ""
 
 #: client/app/modal/settings.account.html
@@ -1010,6 +1014,10 @@ msgstr ""
 msgid "@setting-team-title"
 msgstr ""
 
+#: client/app/center/help-messages/help.messages.html
+msgid "@start-chatting-heading"
+msgstr ""
+
 #: client/app/header/header.html
 #: client/app/modal/invite.team.html
 msgid "@team-invite"
@@ -1136,4 +1144,12 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "@web-notification-title"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@you-are-all-alone-heading"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@your-file-drawer-is-empty-heading"
 msgstr ""

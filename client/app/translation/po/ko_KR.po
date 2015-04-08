@@ -28,10 +28,6 @@ msgid "@alert-empty-ch-can-join"
 msgstr "참여 가능한 토픽이 없습니다"
 
 #: client/app/right/files/files.html
-msgid "@alert-empty-file"
-msgstr "업로드된 파일이 없습니다"
-
-#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "검색 결과가 없습니다"
 
@@ -218,6 +214,14 @@ msgstr "잔디의 사용방법이 크게 달라졌습니다!"
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "토픽 "
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@click-to-invite-to-current-topic"
+msgstr "메시지를 입력하셔서 대화를 시작해보세요."
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@click-to-share-file"
+msgstr "토픽 또는 1:1메시지에서 파일을 업로드하실 수 있습니다."
 
 #: client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -1024,6 +1028,10 @@ msgstr "새로운 팀 이름"
 msgid "@setting-team-title"
 msgstr "팀 세팅"
 
+#: client/app/center/help-messages/help.messages.html
+msgid "@start-chatting-heading"
+msgstr "아직 메시지가 없습니다. 메시지를 입력하셔서 대화를 시작해보세요."
+
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
 msgstr "멤버 초대"
@@ -1175,6 +1183,19 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@you-are-all-alone-heading"
+msgstr "아직 메시지가 없습니다. 메시지를 입력하셔서 대화를 시작해보세요."
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@your-file-drawer-is-empty-heading"
+msgstr ""
+"파일 서랍에 아직 파일이 없습니다. 토픽 또는 1:1메시지에서 파일을 업로드하실 "
+"수 있습니다."
+
+#~ msgid "@alert-empty-file"
+#~ msgstr "업로드된 파일이 없습니다"
 
 #~ msgid "@file-all"
 #~ msgstr "파일 서랍"

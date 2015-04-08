@@ -6,7 +6,13 @@
     .controller('HelpMessageCtrl', HelpMessageCtrl);
 
   /* @ngInject */
-  function HelpMessageCtrl($scope, $rootScope, $filter) {
+  function HelpMessageCtrl($scope, $rootScope, $filter, publicService, modalHelper) {
+
+    // TODO: TO CONFIG??
+    var NO_MEMBER_IN_TEAM = 'NO_MEMBER_IN_TEAM';
+    var NO_MEMBER_IN_TOPIC = 'NO_MEMBER_IN_TOPIC';
+    var NO_FILES_UPLOADED = 'NO_FILES_UPLOADED';
+    var NO_CONVERSATION_IN_TOPIC = 'NO_CONVERSATION_IN_TOPIC';
 
     (function() {
       _init();
@@ -22,38 +28,53 @@
 
 
     function _getCurrentHelpState() {
-      if ($scope.hasNoFilesUpload) {
-        // HAS_NO_FILES_UPLOADED;
-        _createTemplate(
-          'help-upload-a-file',
-          $filter('translate')('@your-file-drawer-is-empty-heading'),
-          $filter('translate')('@click-to-share-file'),
-          true,
-          $filter('translate')('@common-upload-file'),
-          _openFileUploadModal
-        );
+      var state = $scope.currentState;
 
-      } else if ($scope.isLonelyPerson) {
-        // HOME_ALONE;
-        _createTemplate(
-          'help-invite-members',
-          $filter('translate')('@you-are-all-alone-heading'),
-          $filter('translate')('@click-to-invite-to-current-topic'),
-          true,
-          $filter('translate')('@btn-invite'),
-          _openInviteModal
-        );
-      } else {
-        // NEED_TO_TALK;
-        _createTemplate(
-          'help-enter-a-message',
-          $filter('translate')('@start-chatting-heading'),
-          '',
-          false,
-          '',
-          _setChatInputBoxFocus
-        );
+      switch (state) {
+        case NO_MEMBER_IN_TEAM:
+          _createTemplate(
+            'help-invite-members',
+            $filter('translate')('@no-team-member-joined'),
+            $filter('translate')('@click-to-invite-to-current-team'),
+            true,
+            $filter('translate')('@btn-invite'),
+            _openInviteToTeamModal
+          );
+          break;
+        case NO_MEMBER_IN_TOPIC:
+          _createTemplate(
+            'help-invite-members',
+            $filter('translate')('@you-are-all-alone-heading'),
+            $filter('translate')('@click-to-invite-to-current-topic'),
+            true,
+            $filter('translate')('@btn-invite'),
+            _openInviteModal
+          );
+          break;
+        case NO_FILES_UPLOADED:
+          _createTemplate(
+            'help-upload-a-file',
+            $filter('translate')('@your-file-drawer-is-empty-heading'),
+            $filter('translate')('@click-to-share-file'),
+            true,
+            $filter('translate')('@common-upload-file'),
+            _openFileUploadModal
+          );
+          break;
+        case NO_CONVERSATION_IN_TOPIC:
+          _createTemplate(
+            'help-enter-a-message',
+            $filter('translate')('@start-chatting-heading'),
+            '',
+            false,
+            '',
+            _setChatInputBoxFocus
+          );
+          break;
+
+
       }
+
     }
 
 
@@ -71,8 +92,13 @@
       $scope.onButtonClicked = actionFunction;
     }
 
+
+    function _openInviteToTeamModal() {
+      modalHelper.closeModal();
+      modalHelper.openInviteToTeamModal();
+    }
     function _openInviteModal() {
-      $scope.openModal('invite');
+      modalHelper.openInviteToCurrentEntityModal();
     }
 
     function _setChatInputBoxFocus() {

@@ -28,10 +28,6 @@ msgid "@alert-empty-ch-can-join"
 msgstr "No topics to join"
 
 #: client/app/right/files/files.html
-msgid "@alert-empty-file"
-msgstr "No files found"
-
-#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "No files found matching"
 
@@ -223,6 +219,14 @@ msgstr ""
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "Topics "
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@click-to-invite-to-current-topic"
+msgstr "Click the button below to invite other members to the conversation."
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@click-to-share-file"
+msgstr "Upload and share files directly into any conversation."
 
 #: client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -1034,6 +1038,10 @@ msgstr "New Team Name"
 msgid "@setting-team-title"
 msgstr "Team Settings"
 
+#: client/app/center/help-messages/help.messages.html
+msgid "@start-chatting-heading"
+msgstr "Enter a message to start the conversation."
+
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
 msgstr "Invite Other Team Members"
@@ -1187,6 +1195,17 @@ msgstr "in "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@you-are-all-alone-heading"
+msgstr "You are all alone in this topic. "
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@your-file-drawer-is-empty-heading"
+msgstr "Your file drawer is empty."
+
+#~ msgid "@alert-empty-file"
+#~ msgstr "No files found"
 
 #~ msgid "@file-all"
 #~ msgstr "File Drawer"

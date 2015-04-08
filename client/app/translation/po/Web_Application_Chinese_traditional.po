@@ -28,10 +28,6 @@ msgid "@alert-empty-ch-can-join"
 msgstr "沒有可加入的議題"
 
 #: client/app/right/files/files.html
-msgid "@alert-empty-file"
-msgstr "沒有上傳檔案"
-
-#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "沒有找到搜尋的檔案"
 
@@ -215,6 +211,14 @@ msgstr "我們最近更新了排版和增加了一些極好的功能以提高您
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "議題"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@click-to-invite-to-current-topic"
+msgstr "點擊以下按鈕邀請其他成員加入對話。"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@click-to-share-file"
+msgstr "直接上傳及分享檔案到任何對話當中。"
 
 #: client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -999,6 +1003,10 @@ msgstr "新團隊名稱"
 msgid "@setting-team-title"
 msgstr "團隊設定"
 
+#: client/app/center/help-messages/help.messages.html
+msgid "@start-chatting-heading"
+msgstr "輸入訊息以開始對話"
+
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
 msgstr "邀請其他團隊成員"
@@ -1142,6 +1150,17 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@you-are-all-alone-heading"
+msgstr "這個議題目前衹有您一人。點擊以下按鈕邀請其他成員加入對話。"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@your-file-drawer-is-empty-heading"
+msgstr "您的檔案庫是空的。"
+
+#~ msgid "@alert-empty-file"
+#~ msgstr "沒有上傳檔案"
 
 #~ msgid "@file-all"
 #~ msgstr "全部檔案"

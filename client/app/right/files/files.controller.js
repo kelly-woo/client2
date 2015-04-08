@@ -11,6 +11,8 @@
     var disabledMemberAddedOnSharedIn = false;
     var disabledMemberAddedOnSharedBy = false;
 
+    // To be used in directive('centerHelpMessageContainer')
+    $scope.emptyMessageStateHelper = 'NO_FILES_UPLOADED';
 
     //  fileRequest.writerId - 작성자
     $scope.$watch('fileRequest.writerId', function(newValue, oldValue) {
@@ -146,10 +148,6 @@
       }
 
     }
-
-    $scope.hasNoFilesUpload = function() {
-      return $scope.fileList.length == 0 && $scope.fileTitleQuery != '';
-    };
 
     /**
      * Initializing and setting 'Shared in' Options.

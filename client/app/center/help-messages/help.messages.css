@@ -1,3 +1,6 @@
+.team-member-empty-list.help-messages-container {
+  margin: 0 auto;
+}
 .help-messages-container {
   text-align: center;
   margin-top: 75px;

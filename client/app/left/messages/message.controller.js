@@ -5,10 +5,8 @@
     .module('jandiApp')
     .controller('messageListCtrl', messageListCtrl);
 
-  messageListCtrl.$inject = ['$scope', '$rootScope', 'storageAPIservice', 'messageList', 'entityAPIservice', 'publicService', '$filter'];
-
   /* @ngInject */
-  function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice, publicService, $filter) {
+  function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice, publicService, $filter, modalHelper) {
     // okay - okay to go!
     // loading - currently loading.
     // failed - failed to retrieve list from server.
@@ -29,7 +27,7 @@
     $scope.isDisabledMember = isDisabledMember;
 
     function openTeamMemberListModal() {
-      publicService.openTeamMemberListModal($scope);
+      modalHelper.openTeamMemberListModal();
     }
 
     // Must keep watching memberList in 'leftController' in order to keep member's starred status.

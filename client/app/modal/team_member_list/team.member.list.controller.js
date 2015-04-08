@@ -6,10 +6,12 @@
     .module('jandiApp')
     .controller('teamMemberListCtrl', teamMemberListCtrl);
 
-  teamMemberListCtrl.$inject = ['$scope', '$rootScope', '$state', '$modalInstance'];
   /* @ngInject */
-  function teamMemberListCtrl($scope, $rootScope, $state, $modalInstance) {
+  function teamMemberListCtrl($scope, $rootScope, $state, $modalInstance, modalHelper) {
+
     var vm = $scope;
+
+    $scope.emptyMessageStateHelper = 'NO_MEMBER_IN_TEAM';
 
     vm.cancel = cancel;
 
@@ -46,6 +48,7 @@
 
       });
 
+      $scope.hasMember = $scope.memberList.length > 0;
       $scope.enabledMemberList = enabledMemberList;
       $scope.disabledMemberList = disabledMemberList;
       $scope.hasDisabledMember = $scope.disabledMemberList.length > 0;

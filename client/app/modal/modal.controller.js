@@ -183,6 +183,8 @@ app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderA
 // INVITE USER TO TEAM
 app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter, teamAPIservice, analyticsService) {
 
+  console.log('hi')
+
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
@@ -273,6 +275,10 @@ app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter,
     );
     $('.invite-team-body').append(invite_template);
   };
+
+  $scope.toggleLoading = function() {
+    $scope.isLoading = !$scope.isLoading;
+  }
 });
 
 // WHEN INVITING FROM DIRECT MESSAGE

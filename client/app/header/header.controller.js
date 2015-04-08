@@ -7,7 +7,7 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, $stateParams, $filter, $modal, accountService, memberService, publicService, configuration, language) {
+  function headerCtrl($scope, $rootScope, $state, $stateParams, $filter, $modal, accountService, memberService, publicService, configuration, language, modalHelper) {
 
     (function() {
       _initRightPanelButtonLabel();
@@ -85,6 +85,7 @@
     $scope.onSignOutClick =function() {
       publicService.signOut();
     };
+
     $scope.openModal = function(selector) {
       switch(selector) {
         case 'agreement':
@@ -109,7 +110,7 @@
           publicService.openTeamSettingModal($scope);
           break;
         case 'team-member':
-          publicService.openTeamMemberListModal($scope);
+          modalHelper.openTeamMemberListModal();
           break;
         default:
           break;
@@ -178,5 +179,6 @@
     }
 
   }
+
 
 })();

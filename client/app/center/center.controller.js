@@ -31,6 +31,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.systemMessageCount= 0;
 
+  // To be used in directive('centerHelpMessageContainer')
+  $scope.emptyMessageStateHelper = '';
+
+
+
   $scope.entityId = entityId;
   $scope.entityType = entityType;
   $scope.messages = [];
@@ -420,6 +425,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hasMoreOldMessageToLoad() {
+    if (lastMessageId == -1) {
+      //console.log('new team first topic welcome')
+      return false;
+    }
+
     if (localFirstMessageId == -1) return true;
 
     return localFirstMessageId != firstMessageId;
@@ -1406,13 +1416,22 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   });
 
   function _checkEntityMessageStatus() {
-    $scope.hasNoMessage = _hasNoMessage();
+    var hasNoMessage = $scope.hasNoMessage = _hasNoMessage();
 
-    if ($scope.hasNoMessage) {
-      $scope.isLonelyPerson = _amIAlone();
-      $rootScope.$broadcast('onEntityMessageStatusChanged');
+    if (!hasNoMessage) {
+      // Current topic has messages going on. NO NEED TO DISPLAY ANY TYPE OF HELP MESSAGES.
+      return;
     }
 
+    var emptyMessageStateHelper = 'NO_CONVERSATION_IN_TOPIC';
+
+    if (_amIAlone()) {
+      // I am only member in current topic.
+      emptyMessageStateHelper = 'NO_MEMBER_IN_TOPIC';
+    }
+
+    $scope.emptyMessageStateHelper = emptyMessageStateHelper;
+    $rootScope.$broadcast('onEntityMessageStatusChanged');
   }
 
   function _amIAlone() {

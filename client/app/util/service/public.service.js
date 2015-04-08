@@ -3,10 +3,8 @@
     .module('jandiApp')
     .factory('publicService', publicService);
 
-  publicService.$inject = ['$rootScope', '$modal', 'accountService', 'storageAPIservice', 'memberService', 'gettextCatalog', '$state', 'analyticsService', 'tutorialService', 'language', 'entityAPIservice'];
-
   /* @ngInject */
-  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService, tutorialService, language, entityAPIservice) {
+  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService, tutorialService, language, entityAPIservice, modalHelper) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -119,13 +117,8 @@
         size        :   'lg'
       });
     }
-    function openInviteToTeamModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/invite.team.html',
-        controller  :   'inviteUserToTeamCtrl',
-        size        :   'lg'
-      });
+    function openInviteToTeamModal() {
+      modalHelper.openInviteToTeamModal();
     }
     function openCurrentMemberModal($scope) {
       $modal.open({
@@ -135,14 +128,8 @@
         size        :   'lg'
       });
     }
-    function openInviteToCurrentEntityModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/invite.channel.html',
-        controller  :   'inviteModalCtrl',
-        size        :   'lg',
-        windowClass :   'allowOverflowY'
-      });
+    function openInviteToCurrentEntityModal() {
+      modalHelper.openInviteToCurrentEntityModal();
     }
     function openInviteToJoinedEntityModal($scope) {
       $modal.open({
@@ -179,13 +166,8 @@
         size        : 'lg'
       });
     }
-    function openTeamMemberListModal($scope) {
-      $modal.open({
-        sopce       : $scope,
-        templateUrl : 'app/modal/team_member_list/team.member.list.html',
-        controller  : 'teamMemberListCtrl',
-        size        : 'lg'
-      });
+    function openTeamMemberListModal() {
+      modalHelper.openTeamMemberListModal();
     }
     function openTeamChangeModal($scope) {
       $modal.open({
@@ -197,7 +179,7 @@
     }
     function openTeamSettingModal($scope) {
       $modal.open({
-        sopce       : $scope,
+        scope       : $scope,
         templateUrl : 'app/modal/settings.team.html',
         controller  : 'teamSettingController',
         size        : 'lg'

@@ -29,10 +29,6 @@ msgid "@alert-empty-ch-can-join"
 msgstr "参加できるトピックがありません"
 
 #: client/app/right/files/files.html
-msgid "@alert-empty-file"
-msgstr "ファイルがありません"
-
-#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr "一致するファイルがありません"
 
@@ -222,6 +218,14 @@ msgstr ""
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "トピック一覧"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@click-to-invite-to-current-topic"
+msgstr "以下のボタンをクリックしてメンバーを招待しましょう"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@click-to-share-file"
+msgstr "アップロードして、会話の中で共有しましょう"
 
 #: client/app/modal/settings.account.html
 msgid "@common-account-settings"
@@ -1026,6 +1030,10 @@ msgstr "新しいチーム名"
 msgid "@setting-team-title"
 msgstr "チーム設定"
 
+#: client/app/center/help-messages/help.messages.html
+msgid "@start-chatting-heading"
+msgstr "メッセージを書いて会話を始めましょう"
+
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
 msgstr "他のチームメンバーを招待する"
@@ -1175,6 +1183,17 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@you-are-all-alone-heading"
+msgstr "このトピックには他にメンバーがいません。"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@your-file-drawer-is-empty-heading"
+msgstr "ファイルがありません。"
+
+#~ msgid "@alert-empty-file"
+#~ msgstr "ファイルがありません"
 
 #~ msgid "@file-all"
 #~ msgstr "全てのファイル"
