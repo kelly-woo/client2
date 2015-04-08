@@ -108,31 +108,36 @@ app.filter('parseAnchor', function() {
 
   return function( text ) {
     var strs,
+        str,
+        words,
+        word,
+        i, iLen,
+        j, jLen,
         matchs;
 
-    strs = text.split( rSplit );
-    _.forEach( strs, function( str, index, strs ) {
-      if ( str === '' ) {
-        strs[ index ] = '\r\n';
-      } else {
-        if ( matchs = rEmailAddr.exec( str ) ) {      // email
-          // console.log('Email ::: ', matchs );
-          strs[ index ] = parse( str, str.indexOf( matchs[ 0 ] ), matchs[ 0 ].length, function () {
+    strs = text.split( /\r?\n/ );
+
+    for ( i = 0, iLen = strs.length; i < iLen; ++i ) {
+      str = strs[ i ];
+      words = str.split( /\s/ );
+      for ( j = 0, jLen = words.length; j < jLen; ++j ) {
+        word = words[ j ];
+        if ( matchs = rEmailAddr.exec( word ) ) {
+          words[ j ] = parse( word, word.indexOf( matchs[ 0 ] ), matchs[ 0 ].length, function () {
             return decodeUri( '<a href="mailto:' + matchs[ 0 ] + '">' + matchs[ 0 ] + '</a>' );
           });
-        } else if ( matchs = rWebUrl.exec( str ) ) {  // Uri, Url
-          // console.log('Uri, Url ::: ', matchs );
-          strs[ index ] = parse( str, str.indexOf( matchs[ 0 ] ), matchs[ 0 ].length, function () {
+        } else if ( matchs = rWebUrl.exec( word ) ) {
+          words[ j ] = parse( word, word.indexOf( matchs[ 0 ] ), matchs[ 0 ].length, function () {
             return decodeUri( '<a href="' + ( matchs[ 2 ] ? '' : DEFAULT_PROTO ) + matchs[ 0 ] + '" target="_blank">' + matchs[ 0 ] + '</a>' );
           });
         } else {
-            strs[ index ] = escape( str );
+          words[ j ] = escape( word );
         }
       }
-    });
+      strs[ i ] = words.join( ' ' );
+    }
 
-    // console.log( strs.join(" ") );
-    return strs.join(" ");
+    return strs.join( '\r\n' );
   };
 });
 
