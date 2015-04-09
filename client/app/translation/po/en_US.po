@@ -671,6 +671,14 @@ msgstr "As of "
 msgid "@file-size-too-large-error"
 msgstr "Currently you cannot upload a file that exceeds 100MB."
 
+#: client/app/center/center.html
+msgid "@go-to-latest-message-msg"
+msgstr "Go to the most recent messages"
+
+#: client/app/center/center.html
+msgid "@has-new-message-alert-msg"
+msgstr ""
+
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
