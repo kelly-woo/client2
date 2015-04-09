@@ -248,12 +248,11 @@
     }
 
     function isDisabledMember(member) {
-      if (!member || angular.isUndefined(member)) return false;
+      if (angular.isUndefined(member) || member.type != 'users' || !member) return false;
+
       if (_isNumber(member)) {
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member);
-      }
-
-      if (!member.status) {
+      } else if (!member.status) {
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
       }
 

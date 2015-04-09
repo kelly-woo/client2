@@ -100,6 +100,9 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     $state.go('503');
   };
 
+  authAPI.on40300Err = function() {
+    $state.go('messages.home');
+  };
   /**
    * Pop up alert window saying current member has been disabled from current team.
    * Keep member logged in but redirect to main.
@@ -158,16 +161,16 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
       if (rejection.status === 403) {
         var disabledMemberAccessingTeamCode = 40301;
 
+        var authAPIservice = $injector.get('authAPIservice');
+        if (angular.isUndefined(authAPIservice)) return;
+
         var situationCode = rejection.data.code;
         if (situationCode == disabledMemberAccessingTeamCode) {
           // Current member has been disabled from current team!!
-          var authAPIservice = $injector.get('authAPIservice');
-          if (angular.isUndefined(authAPIservice)) return;
           authAPIservice.onCurrentMemberDisabled();
         } else if (situationCode == 40300) {
-          console.log(situationCode)
-          $rootScope.toDefault = true;
-          return;
+          authAPIservice.on40300Err();
+          return $q.reject(rejection);
         }
       }
 

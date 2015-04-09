@@ -437,9 +437,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       return false;
     }
 
-    if (localFirstMessageId == -1) {
-      if (firstMessageId != -1) return true;
-    }
+    if (localFirstMessageId == -1) { return true; }
 
     return localFirstMessageId != firstMessageId;
   }
@@ -1172,6 +1170,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         //  'JOIN' event
         var isJoin = event.info.eventType == 'join' ? true : false;
 
+        if (isJoin && _isDefaultTopic()) {
+          // Someone joined to default topic -> get new member list.
+          console.log('welcome to team')
+          mustUpdateLeftPanel = true;
+        }
+
         //  I joined some channel from mobile.  Web needs to UPDATE left Panel.
         if (event.fromEntity == $scope.member.id) {
 
@@ -1263,11 +1267,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         break;
       case 'join' :
         action = $filter('translate')('@msg-joined');
-        if (_isDefaultTopic()) {
-          // Someone joined to default topic -> get new memberlist.
-          console.log('joined to current team')
-          updateLeftPanel();
-        }
         break;
       case 'leave' :
         action = $filter('translate')('@msg-left');
@@ -1468,7 +1467,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var messageLength = $scope.messages.length;
 
     //console.log(messageLength, systemMessageCount, !_hasMoreOldMessageToLoad())
-    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength >= 1)) return true;
+    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength <= 1)) return true;
 
     return false;
   }
@@ -1492,7 +1491,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var totalTeamMemberCount = currentSessionHelper.getCurrentTeamMemberCount() + 1;
 
     //console.log('this is _isFullRoom ', totalTeamMemberCount,' and ', currentEntityMemberCount, ' returning ', currentEntityMemberCount == totalTeamMemberCount);
-
     return currentEntityMemberCount == totalTeamMemberCount;
   }
 
