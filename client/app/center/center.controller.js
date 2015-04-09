@@ -25,6 +25,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.lastMessage = null;
 
+  $scope.hasScrollToBottom = false;
+
 
   // To be used in directive('lastDetector')
   $scope.loadMoreCounter = 0;
@@ -190,7 +192,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     localLastMessageId = -1;
     loadedFirstMessagedId = -1;
 
-    systemMessageCount= 0;
+    systemMessageCount = 0;
+
+    _resetHasScrollToBottom();
   }
 
   function _resetLoadMoreCounter() {
@@ -506,6 +510,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _showContents();
     }, 10);
   }
+  function _scrollToBottomWithAnimate() {
+    var height = document.getElementById('msgs-container').scrollHeight;
+    $('#msgs-container').animate({scrollTop: height}, '500', 'swing', function() {
+      _resetHasScrollToBottom()    });
+    //$('#msgs-container').scrollTop(height);
+  }
 
   function _showContents() {
     $('#msgs-holder').addClass('opac-in-fast');
@@ -519,6 +529,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.isAtBottom = function() {
     //console.log('isAtBottom')
     _clearBadgeCount($scope.currentEntity);
+    _resetHasScrollToBottom()
   };
 
   function _animateBackgroundColor(element) {
@@ -1517,4 +1528,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //  loadOldMessages();
     //}
   }
+
+  $scope.onScrollToBottomIconClicked = onScrollToBottomIconClicked;
+  function onScrollToBottomIconClicked() {
+    if (_hasMoreNewMessageToLoad()) {
+      // Has more messages to load
+    } else {
+      // Already have lastest message of current entity, just scroll down to it.
+      _scrollToBottomWithAnimate();
+    }
+  }
+
+  function _resetHasScrollToBottom() {
+    $scope.hasScrollToBottom = false;
+  }
+
+
 });

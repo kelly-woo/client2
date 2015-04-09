@@ -60,11 +60,18 @@
 
       elm.bind('scroll', function(event) {
         var scrollTop = raw.scrollTop;
-        if (raw.scrollTop + messageContainer.outerHeight() == raw.scrollHeight) {
+        var scrollDiff =  raw.scrollHeight - (raw.scrollTop + messageContainer.outerHeight());
+
+        if (scrollDiff == 0) {
           // Bottom reached!
           scope.loadNewMessages();
           scope.isAtBottom();
           return;
+        } else if (scrollDiff < 200) {
+          scope.hasScrollToBottom = false;
+        } else if (scrollDiff > 200) {
+          // Scrolled upward over 200.
+          scope.hasScrollToBottom = true;
         }
 
         // If scrolling down, Don't worry about loading more of content.

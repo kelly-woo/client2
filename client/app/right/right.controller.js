@@ -28,6 +28,7 @@
         active: false
       };
 
+      _msgSearchTest();
       $scope.tabs = [fileTab, messageTab];
     }
 
@@ -76,6 +77,16 @@
       return messageTab.active;
     };
 
+
+    function _msgSearchTest() {
+      fileTab = {
+        active: false
+      };
+      messageTab = {
+        active: true
+      };
+
+    }
   }
 
 })();

@@ -844,3 +844,26 @@ by ysyun 2015.2.25
   color: #b7b7b7;
   font-size: 14px;
 }
+
+
+/********************************************
+
+            SCROLL TO BOTTOM
+
+********************************************/
+.scroll-to-bottom-container {
+  position: absolute;
+  right: 12px;
+  bottom: 67px;
+  width: 34px;
+  height: 34px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(217, 232, 226, 0.9);
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.scroll-to-bottom-icon {
+  font-size: 28px;
+  color: #31c08a;
+}

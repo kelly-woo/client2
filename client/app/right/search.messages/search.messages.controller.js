@@ -36,6 +36,8 @@
       _initChatWriterOption();
 
       searchMessages();
+
+      test();
     })();
 
     // File List clicked on member profile modal view.
@@ -222,11 +224,11 @@
 
     function test() {
       $scope.searchQuery = {
-        q: '네',
+        q: 'uber',
         page: DEFAULT_PAGE,
         perPage: DEFAULT_PER_PAGE,
-        writerId: '282',
-        entityId: '310'
+        writerId: '',
+        entityId: ''
       };
 
       searchMessages();
