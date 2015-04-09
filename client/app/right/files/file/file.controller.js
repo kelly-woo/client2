@@ -6,7 +6,9 @@
     .controller('fileCtrl', fileCtrl);
 
   function fileCtrl($scope, $rootScope, $filter, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
-    var file = $scope.file;
+    var file;
+
+    file = $scope.file;
 
     $scope.onFileItemClick = onFileItemClick;
     $scope.onFileDeleteClick = onFileDeleteClick;
@@ -49,5 +51,4 @@
       }
     }
   }
-
 })();
