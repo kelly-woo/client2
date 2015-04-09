@@ -36,7 +36,7 @@
             scope.onFileDeleteClick();
           }
 
-          extendMenu.removeClass('open');
+          scope.status.isopen = false;
         });
     }
   }
