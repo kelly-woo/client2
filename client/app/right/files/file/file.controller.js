@@ -14,10 +14,6 @@
     $scope.onFileDeleteClick = onFileDeleteClick;
     $scope.setCommentFocus = setCommentFocus;
 
-    $scope.status = {
-      isopen: false
-    };
-
     function onFileItemClick() {
       $state.go('files', {userName: file.writer.name, itemId: file.id});
     }
