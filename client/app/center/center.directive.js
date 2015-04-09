@@ -40,7 +40,8 @@
         if (scope.loadMoreCounter == 1) {
           counterFlag = true;
         }
-        scope.updateScroll();
+
+        scope.onLastMessageRendered();
       }
     }
   }
@@ -56,13 +57,11 @@
 
       var position = 0;
 
+      var messageContainer = angular.element(document.getElementById('msgs-container'));
+
       elm.bind('scroll', function(event) {
         var scrollTop = raw.scrollTop;
-
-        var element = angular.element(document.getElementById('msgs-container'));
-
-        if (raw.scrollTop + element.outerHeight() == raw.scrollHeight) {
-          //console.log('bottom!!!')
+        if (raw.scrollTop + messageContainer.outerHeight() == raw.scrollHeight) {
           // Bottom reached!
           scope.loadNewMessages();
           scope.isAtBottom();
@@ -79,8 +78,9 @@
         }
 
       });
-
     }
+
+
   }
 
 })();

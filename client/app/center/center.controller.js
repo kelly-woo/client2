@@ -26,15 +26,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.lastMessage = null;
 
 
-  // To be used in directive.
+  // To be used in directive('lastDetector')
   $scope.loadMoreCounter = 0;
-
-  $scope.systemMessageCount= 0;
 
   // To be used in directive('centerHelpMessageContainer')
   $scope.emptyMessageStateHelper = '';
 
-
+  $scope.systemMessageCount= 0;
 
   $scope.entityId = entityId;
   $scope.entityType = entityType;
@@ -335,9 +333,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
             $scope.loadMoreCounter++;
 
-            // If code gets to this point, 'getMessages' has been executed at least once.
-            $scope.isInitialLoadingCompleted = true;
-
             _checkEntityMessageStatus();
           })
           .error(function(response) {
@@ -442,7 +437,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return $scope.msgSearchQuery.type == 'new';
   }
 
-  $scope.updateScroll = function() {
+  $scope.onLastMessageRendered = function () {
+    _updateScroll();
+    _checkMessageContainerHeight();
+  };
+
+  function _updateScroll() {
     if (_isSearchMode()) {
       //console.log('-- updateScroll: search', messageSearchHelper.getLinkId())
       _disableScroll();
@@ -453,9 +453,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     if (_isInitialLoad()) {
-      //console.log('-- updateScroll: initial')
-
       _scrollToBottom();
+      $scope.isInitialLoadingCompleted = true;
       return;
     }
 
@@ -475,7 +474,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     _findMessageDomElementById(loadedFirstMessagedId);
 
-  };
+  }
   function _findMessageDomElementById(id) {
     var lastMsg;
 
@@ -690,7 +689,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
               _scrollToBottom();
             }
             else {
-              console.log('updating current entity and badge count');
+              //console.log(' current entity and badge count');
               entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
             }
           }
@@ -1450,4 +1449,23 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.systemMessageCount++;
   }
 
+  /**
+   * Check height of '#msgs-container' and '#msgs-holder'.
+   *
+   * If height of '#msgs-holder' is bigger than that of '#msgs-container',
+   *   reload once more in order to fill the screen.
+   *
+   * @private
+   */
+  function _checkMessageContainerHeight() {
+    //var messageContainer = angular.element(document.getElementById('msgs-container'));
+    //var messages = angular.element(document.getElementById('msgs-holder'));
+    //
+    //var messageContainerHeight = messageContainer.outerHeight();
+    //var messagesHeight = messages.outerHeight();
+    //
+    //if (messagesHeight < messageContainerHeight) {
+    //  loadOldMessages();
+    //}
+  }
 });

@@ -219,18 +219,6 @@ msgstr ""
 msgid "@channel"
 msgstr "トピック一覧"
 
-#: client/app/center/help-messages/help.messages.html
-msgid "@click-to-invite-to-current-team"
-msgstr "新しいメンバーを招待してコラボレーションを始めましょう"
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@click-to-invite-to-current-topic"
-msgstr "以下のボタンをクリックしてメンバーを招待しましょう"
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@click-to-share-file"
-msgstr "アップロードして、会話の中で共有しましょう"
-
 #: client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr "アカウント設定"
@@ -613,6 +601,34 @@ msgstr "プロファイルを表示する"
 msgid "@dnd-file-upload-msg"
 msgstr "ファイルをドラッグ＆ドロップして共有"
 
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-click-to-invite-to-current-team"
+msgstr "新しいメンバーを招待してコラボレーションを始めましょう"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-click-to-invite-to-current-topic"
+msgstr "以下のボタンをクリックしてメンバーを招待しましょう"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-click-to-share-file"
+msgstr "アップロードして、会話の中で共有しましょう"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-no-team-member-joined"
+msgstr "このチームには他のメンバーがいません。"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-start-chatting-heading"
+msgstr "メッセージを書いて会話を始めましょう"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-you-are-all-alone-heading"
+msgstr "このトピックには他にメンバーがいません。"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-your-file-drawer-is-empty-heading"
+msgstr "ファイルがありません。"
+
 #: client/app/error/404.html
 msgid "@error-404-message"
 msgstr "お探しのページは見つかりませんでした"
@@ -914,10 +930,6 @@ msgstr "非共有"
 msgid "@msg-whose"
 msgstr "の"
 
-#: client/app/center/help-messages/help.messages.html
-msgid "@no-team-member-joined"
-msgstr "このチームには他のメンバーがいません。"
-
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@option-all-members"
@@ -1037,10 +1049,6 @@ msgstr "新しいチーム名"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-title"
 msgstr "チーム設定"
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@start-chatting-heading"
-msgstr "メッセージを書いて会話を始めましょう"
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
@@ -1191,14 +1199,6 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@you-are-all-alone-heading"
-msgstr "このトピックには他にメンバーがいません。"
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@your-file-drawer-is-empty-heading"
-msgstr "ファイルがありません。"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "ファイルがありません"

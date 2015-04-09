@@ -212,18 +212,6 @@ msgstr ""
 msgid "@channel"
 msgstr ""
 
-#: client/app/center/help-messages/help.messages.html
-msgid "@click-to-invite-to-current-team"
-msgstr ""
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@click-to-invite-to-current-topic"
-msgstr ""
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@click-to-share-file"
-msgstr ""
-
 #: client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr ""
@@ -621,6 +609,34 @@ msgstr ""
 msgid "@dnd-file-upload-msg"
 msgstr ""
 
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-click-to-invite-to-current-team"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-click-to-invite-to-current-topic"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-click-to-share-file"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-no-team-member-joined"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-start-chatting-heading"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-you-are-all-alone-heading"
+msgstr ""
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-your-file-drawer-is-empty-heading"
+msgstr ""
+
 #: client/app/error/404.html
 msgid "@error-404-message"
 msgstr ""
@@ -906,10 +922,6 @@ msgstr ""
 msgid "@msg-whose"
 msgstr ""
 
-#: client/app/center/help-messages/help.messages.html
-msgid "@no-team-member-joined"
-msgstr ""
-
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@option-all-members"
@@ -1020,10 +1032,6 @@ msgstr ""
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-title"
-msgstr ""
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@start-chatting-heading"
 msgstr ""
 
 #: client/app/header/header.html
@@ -1152,12 +1160,4 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "@web-notification-title"
-msgstr ""
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@you-are-all-alone-heading"
-msgstr ""
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@your-file-drawer-is-empty-heading"
 msgstr ""

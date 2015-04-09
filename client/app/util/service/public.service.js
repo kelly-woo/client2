@@ -1,3 +1,11 @@
+/**
+ *
+ *        TODO: PLEASE MOVE EVERYTHING THAT IS RELATED TO 'MODAL' TO 'modal.service.js'
+ *         4/9/2015 JiHoon
+ *
+ */
+
+
 (function() {
   angular
     .module('jandiApp')

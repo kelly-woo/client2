@@ -182,7 +182,7 @@
     }
 
     function getMemberLength(entity) {
-      if (angular.isUndefined(entity) || entity.type == 'uses') {
+      if (angular.isUndefined(entity) || entity.type == 'users') {
         return -1;
       }
 

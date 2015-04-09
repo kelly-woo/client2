@@ -9,7 +9,7 @@
     return {
       restrict: 'EA',
       controller: 'HelpMessageCtrl',
-      templateUrl: 'app/center/help-messages/help.messages.html',
+      templateUrl: 'app/center/help_messages/help.messages.html',
       replace: true,
       transclude: true,
       link: link,

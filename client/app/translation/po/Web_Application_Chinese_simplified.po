@@ -212,18 +212,6 @@ msgstr "我们最近更新了排版和增加了一些极好的功能以提高您
 msgid "@channel"
 msgstr "议题"
 
-#: client/app/center/help-messages/help.messages.html
-msgid "@click-to-invite-to-current-team"
-msgstr "现在就邀请他们以开始协作。"
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@click-to-invite-to-current-topic"
-msgstr "点击以下按钮邀请其他成员加入对话。"
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@click-to-share-file"
-msgstr "直接上传及分享档案到任何对话当中。"
-
 #: client/app/modal/settings.account.html
 msgid "@common-account-settings"
 msgstr "帐号设定"
@@ -604,6 +592,34 @@ msgstr "检视简介"
 msgid "@dnd-file-upload-msg"
 msgstr "拖拽您的檔案到這裏上傳"
 
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-click-to-invite-to-current-team"
+msgstr "现在就送出邀请 一同开启团队合作"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-click-to-invite-to-current-topic"
+msgstr "点击按钮邀请其他成员加入。"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-click-to-share-file"
+msgstr "直接上传及分享档案到任何对话当中。"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-no-team-member-joined"
+msgstr "尚未有其他成员加入您的团队。"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-start-chatting-heading"
+msgstr "输入信息以开始对话"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-you-are-all-alone-heading"
+msgstr "这个议题目前只有您一人。"
+
+#: client/app/center/help-messages/help.messages.html
+msgid "@emptyMsg-your-file-drawer-is-empty-heading"
+msgstr "您的档案库是空的。"
+
 #: client/app/error/404.html
 msgid "@error-404-message"
 msgstr "查无此页"
@@ -890,10 +906,6 @@ msgstr "未分享过"
 msgid "@msg-whose"
 msgstr "的"
 
-#: client/app/center/help-messages/help.messages.html
-msgid "@no-team-member-joined"
-msgstr "还未有其他成员加入您的团队。"
-
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@option-all-members"
@@ -1010,10 +1022,6 @@ msgstr "新团队名称"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-title"
 msgstr "团队设定"
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@start-chatting-heading"
-msgstr "输入信息以开始对话"
 
 #: client/app/header/header.html client/app/modal/invite.team.html
 msgid "@team-invite"
@@ -1158,14 +1166,6 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新信息"
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@you-are-all-alone-heading"
-msgstr "这个议题目前只有您一人。"
-
-#: client/app/center/help-messages/help.messages.html
-msgid "@your-file-drawer-is-empty-heading"
-msgstr "您的档案库是空的。"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "没有上传档案"
