@@ -39,7 +39,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
                 if (item.status === 'archived') continue;
                 var safeBody = item.content.body;
                 if (safeBody != undefined && safeBody !== "") {
-                  safeBody = $filter('parseUrl')(safeBody);
+                  safeBody = $filter('parseAnchor')(safeBody);
                   //item.content.body = safeBody.replace(/\n/g, '<br>');
                 }
                 item.content.body = $sce.trustAsHtml(safeBody);

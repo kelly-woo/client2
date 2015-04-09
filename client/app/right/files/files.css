@@ -40,6 +40,7 @@
   bottom: 0;
   top: 73px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .search-result-container {
   margin: 0 0 13px 40px;

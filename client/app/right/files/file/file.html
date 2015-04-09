@@ -69,41 +69,37 @@
   </div>
 
   <!--    DROPDOWN MENU   -->
-  <div class="file-item-body-title__more" dropdown ng-click="$event.stopPropagation();">
-
+  <div class="file-item-body-title__more" dropdown is-open="status.isopen">
     <i class="icon-more dropdown-toggle" tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="bottom"></i>
-
 
     <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
       <li class="cursor_pointer">
-        <a data-ng-click="onClickShare(file);">
+        <a class="share-file">
           <i class="icon-share"></i>
           <span translate>@btn-share</span>
         </a>
       </li>
 
       <li class="cursor_pointer">
-        <a data-ng-click="setCommentFocus(file);">
+        <a class="focus-comment-file">
           <i class="fa fa-comment-o"></i>
           <span translate>@btn-comment</span>
         </a>
       </li>
 
       <li class="cursor_pointer">
-        <a href="{{ server_uploaded  + 'download/' + file.content.fileUrl }}" download="{{ file.content.name }}">
+        <a class="download-file" href="{{ server_uploaded  + 'download/' + file.content.fileUrl }}" download="{{ file.content.name }}">
           <i class="icon-download"></i>
           <span translate>@common-download</span>
         </a>
       </li>
 
       <li class="cursor_pointer" ng-if="file | isFileWriter:member">
-        <a data-ng-click="onFileDeleteClick(file.id)">
+        <a class="delete-file">
           <i class="fa fa-minus-circle"></i>
           <span translate>@message-delete</span>
         </a>
       </li>
-
-
     </ul>
   </div>
 </div>

@@ -408,7 +408,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // parse HTML, URL code
       var safeBody = msg.message.content.body;
       if (safeBody != undefined && safeBody != "") {
-        safeBody = $filter('parseUrl')(safeBody);
+        safeBody = $filter('parseAnchor')(safeBody);
       }
       msg.message.content.body = $sce.trustAsHtml(safeBody);
 
@@ -642,7 +642,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
               var safeBody = msg.message.content.body;
               if (safeBody != undefined && safeBody !== "") {
-                safeBody = $filter('parseUrl')(safeBody);
+                safeBody = $filter('parseAnchor')(safeBody);
               }
 
               msg.message.content.body = $sce.trustAsHtml(safeBody);

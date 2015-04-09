@@ -4,7 +4,6 @@
     text-align: left;
     line-height: 160%;
     font-size: 14px;
-    margin-bottom: 30px;
 }
 .jd-pop-head {
     border-bottom: 2px solid #31c08a;
@@ -14,6 +13,7 @@
     padding: 20px 0 10px;
     font-size: 22px;
     color: #31c08a;
+    margin-top: 0;
 }
 .jd-contents {
     padding: 10px 25px;
