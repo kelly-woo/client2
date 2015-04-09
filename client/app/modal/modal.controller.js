@@ -584,7 +584,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
 
 
   $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
+    closeModal();
   };
 
   $scope.onProfileChangeClick = function() {
@@ -600,6 +600,7 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
           memberService.getMemberInfo(memberService.getMemberId())
             .success(function(response) {
               memberService.setMember(response);
+              closeModal();
             })
             .error(function(err){
               console.log(err)
@@ -613,10 +614,10 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
         });
     } else if (!isEmailPristine()) {
       // email address changed!!
-
       memberService.setEmail(memberService.getEmail($scope.curUser))
         .success(function(response) {
           memberService.setMember(response);
+          closeModal();
         })
         .error(function(err) {
           console.log(err)
@@ -628,6 +629,8 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
       memberService.updateProfile($scope.curUser)
         .success(function(response) {
           memberService.setMember(response);
+          closeModal();
+
           // analytics
           analyticsService.mixpanelTrack( "Set Profile" );
           var profile_data = {
@@ -758,6 +761,10 @@ app.controller('profileCtrl', function($scope, $rootScope, $filter, $modalInstan
   }
   function isPositionPristine() {
     return memberService.getPosition($scope.curUser) == memberService.getPosition(memberService.getMember());
+  }
+
+  function closeModal() {
+    $modalInstance.dismiss('cancel');
   }
 });
 

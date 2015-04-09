@@ -115,8 +115,7 @@
     <div class="modal-footer profile-footer">
         <div ng-if="!isProfilePicSelected">
             <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>
-            <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}"
-                    ng-disabled="isPristine()"/>
+            <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}" ng-disabled="isPristine()"/>
         </div>
 
         <div ng-if="isProfilePicSelected">
