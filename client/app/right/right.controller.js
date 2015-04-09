@@ -28,7 +28,7 @@
         active: false
       };
 
-      _msgSearchTest();
+      //_msgSearchTest();
       $scope.tabs = [fileTab, messageTab];
     }
 

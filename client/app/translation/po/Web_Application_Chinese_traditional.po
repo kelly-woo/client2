@@ -593,31 +593,41 @@ msgstr "檢視簡介"
 msgid "@dnd-file-upload-msg"
 msgstr "拖拽您的档案到这里上传"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
 msgstr "現在就送出邀請 一同開啟團隊合作。"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-topic"
 msgstr "點擊按鈕邀請其他成員加入。"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-share-file"
 msgstr "直接上傳及分享檔案到任何對話當中。"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
+#, fuzzy
+msgid "@emptyMsg-everyone-in-current-topic"
+msgstr "點擊按鈕邀請其他成員加入。"
+
+#: client/app/center/help_messages/help.messages.html
+#, fuzzy
+msgid "@emptyMsg-invite-not-joined-teammate"
+msgstr "現在就送出邀請 一同開啟團隊合作。"
+
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-no-team-member-joined"
 msgstr "尚未有其他成員加入您的團隊。"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-start-chatting-heading"
 msgstr "輸入訊息以開始對話"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-you-are-all-alone-heading"
 msgstr "這個議題目前只有您一人。"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-your-file-drawer-is-empty-heading"
 msgstr "您的檔案庫是空的。"
 
@@ -649,6 +659,14 @@ msgstr "刪除時間："
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
+
+#: client/app/center/center.html
+msgid "@go-to-latest-message-msg"
+msgstr "去到最近的訊息"
+
+#: client/app/center/center.html
+msgid "@has-new-message-alert-msg"
+msgstr ""
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"

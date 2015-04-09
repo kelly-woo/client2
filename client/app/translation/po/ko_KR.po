@@ -662,6 +662,14 @@ msgstr " "
 msgid "@file-size-too-large-error"
 msgstr "현재 100MB 이상의 파일은 업로드 할 수 없습니다."
 
+#: client/app/center/center.html
+msgid "@go-to-latest-message-msg"
+msgstr "최신 메시지로 가기"
+
+#: client/app/center/center.html
+msgid "@has-new-message-alert-msg"
+msgstr ""
+
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""

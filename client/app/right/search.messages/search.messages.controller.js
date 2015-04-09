@@ -37,7 +37,7 @@
 
       searchMessages();
 
-      test();
+      //test();
     })();
 
     // File List clicked on member profile modal view.

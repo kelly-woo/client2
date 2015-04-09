@@ -674,6 +674,14 @@ msgstr ""
 msgid "@file-size-too-large-error"
 msgstr ""
 
+#: client/app/center/center.html
+msgid "@go-to-latest-message-msg"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@has-new-message-alert-msg"
+msgstr ""
+
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
