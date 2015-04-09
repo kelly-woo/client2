@@ -32,7 +32,6 @@
 
       counter++;
 
-      //console.log(counter, scope.messages.length)
 
       if (counter == scope.messages.length) {
         //console.log(counter == scope.messages.length)

@@ -54,9 +54,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // configuration for message loading
   $scope.msgLoadStatus = {
     loading: false,
-    loadingTimer : true
+    loadingTimer : false // no longer using.
   };
-
 
   $scope.isOwner = function() {
     return ($rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId) == memberService.getMemberId();
@@ -209,6 +208,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _jumpToMessage() {
     var toMessageId = messageSearchHelper.getLinkId();
+
+    _hideContents();
+
     _init();
 
     _setSearchMode();
@@ -332,6 +334,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $scope.focusPostMessage = true;
 
             $scope.loadMoreCounter++;
+            $scope.isInitialLoadingCompleted = true;
+
 
             _checkEntityMessageStatus();
           })
@@ -444,17 +448,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _updateScroll() {
     if (_isSearchMode()) {
-      //console.log('-- updateScroll: search', messageSearchHelper.getLinkId())
       _disableScroll();
       _findMessageDomElementById(messageSearchHelper.getLinkId());
       _resetSearchMode();
-
       return;
     }
 
     if (_isInitialLoad()) {
       _scrollToBottom();
-      $scope.isInitialLoadingCompleted = true;
       return;
     }
 
@@ -485,26 +486,28 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       var positionTop = lastMsg.position().top;
 
       _animateBackgroundColor(lastMsg);
-      //console.log('moving scroll', positionTop)
-      if (_isInitialLoad()) {
-        //console.log('initial load')
-        positionTop -= 60;
-      }
       document.getElementById('msgs-container').scrollTop = positionTop;
 
-    }, 5);
+      _showContents();
+    }, 100);
   }
 
   function _scrollToBottom() {
-    //console.log('scrolling to bottom')
     $timeout(function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
+      _showContents();
     }, 10);
+  }
+
+  function _showContents() {
+    $('#msgs-holder').addClass('opac-in-fast');
+  }
+  function _hideContents() {
+    $('#msgs-holder').removeClass('opac-in-fast');
   }
 
   // TODO: NOT A GOOD NAME. WHEN FUNCTION NAME STARTS WITH 'is' EXPECT IT TO RETURN BOOLEAN VALUE.
   // Current 'isAtBottom' function is not returning boolean. PLEASE CHANGE THE NAME!!
-
   $scope.isAtBottom = function() {
     //console.log('isAtBottom')
     _clearBadgeCount($scope.currentEntity);
