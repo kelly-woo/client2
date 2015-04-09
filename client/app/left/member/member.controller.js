@@ -6,9 +6,10 @@
     .controller('currentMemberCtrl', currentMemberCtrl);
 
   /* @ngInject */
-  function currentMemberCtrl($scope, publicService) {
+  function currentMemberCtrl($scope, publicService, currentSessionHelper) {
     var vm = $scope;
 
+    vm.team = currentSessionHelper.getCurrentTeam();
     vm.onCurrentMemberContainerClick = onCurrentMemberContainerClick;
     vm.onSignOutClick = onSignOutClick;
 

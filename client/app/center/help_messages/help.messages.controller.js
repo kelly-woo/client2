@@ -13,6 +13,7 @@
     var NO_MEMBER_IN_TOPIC = 'NO_MEMBER_IN_TOPIC';
     var NO_FILES_UPLOADED = 'NO_FILES_UPLOADED';
     var NO_CONVERSATION_IN_TOPIC = 'NO_CONVERSATION_IN_TOPIC';
+    var EVERYONE_IN_THE_BUILDING = 'EVERYONE_IN_THE_BUILDING';
 
     var currentState;
     (function() {
@@ -42,7 +43,10 @@
      * @private
      */
     function _isCenterRelated() {
-      return currentState == NO_CONVERSATION_IN_TOPIC || currentState == NO_MEMBER_IN_TOPIC;
+      return  currentState == NO_CONVERSATION_IN_TOPIC ||
+              currentState == NO_MEMBER_IN_TOPIC ||
+              currentState == EVERYONE_IN_THE_BUILDING ||
+              currentState == NO_MEMBER_IN_TEAM;
     }
 
     function _init() {
@@ -92,6 +96,16 @@
             false,
             '',
             _setChatInputBoxFocus
+          );
+          break;
+        case EVERYONE_IN_THE_BUILDING:
+          _createTemplate(
+            'help-invite-members',
+            $filter('translate')('@emptyMsg-everyone-in-current-topic'),
+            $filter('translate')('@emptyMsg-invite-not-joined-teammate'),
+            true,
+            $filter('translate')('@btn-invite'),
+            _openInviteToTeamModal
           );
           break;
       }

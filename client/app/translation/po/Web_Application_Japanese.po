@@ -601,31 +601,40 @@ msgstr "プロファイルを表示する"
 msgid "@dnd-file-upload-msg"
 msgstr "ファイルをドラッグ＆ドロップして共有"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
 msgstr "新しいメンバーを招待してコラボレーションを始めましょう"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-topic"
 msgstr "以下のボタンをクリックしてメンバーを招待しましょう"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-share-file"
 msgstr "アップロードして、会話の中で共有しましょう"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
+msgid "@emptyMsg-everyone-in-current-topic"
+msgstr "チームの全員が参加しました。"
+
+#: client/app/center/help_messages/help.messages.html
+msgid "@emptyMsg-invite-not-joined-teammate"
+msgstr ""
+"まだJANDIに参加していない同僚がいたら今すぐ「メニュー」から招待しましょう"
+
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-no-team-member-joined"
 msgstr "このチームには他のメンバーがいません。"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-start-chatting-heading"
 msgstr "メッセージを書いて会話を始めましょう"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-you-are-all-alone-heading"
 msgstr "このトピックには他にメンバーがいません。"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-your-file-drawer-is-empty-heading"
 msgstr "ファイルがありません。"
 

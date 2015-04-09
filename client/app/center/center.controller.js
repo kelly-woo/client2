@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper, currentSessionHelper) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
 
@@ -32,7 +32,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // To be used in directive('centerHelpMessageContainer')
   $scope.emptyMessageStateHelper = '';
 
-  $scope.systemMessageCount= 0;
 
   $scope.entityId = entityId;
   $scope.entityType = entityType;
@@ -47,7 +46,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     localFirstMessageId,        // 메세지들 중 가장 위에 있는 메세지 아이디.
     localLastMessageId,         // 메세지들 중 가낭 아래에 있는 메세지 아이디.
     loadedFirstMessagedId, // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
-    loadedLastMessageId;        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
+    loadedLastMessageId,        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
+    systemMessageCount;
 
   $scope.isMessageSearchJumping = false;
 
@@ -61,7 +61,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return ($rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId) == memberService.getMemberId();
   };
   $scope.isDefaultTopic = function() {
-    return $rootScope.team.t_defaultChannelId == $rootScope.currentEntity.id;
+    return _isDefaultTopic();
   };
   $scope.onLeaveClick = function() {
     log('-- leaving')
@@ -106,7 +106,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   (function() {
     _onStartUpCheckList();
 
-    $scope.systemMessageCount= 0;
 
     _init();
 
@@ -121,6 +120,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   })();
 
   function _init() {
+
     _resetMessages();
     _resetLoadMoreCounter();
     _setDefaultLoadingScreen();
@@ -189,6 +189,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     localFirstMessageId = -1;
     localLastMessageId = -1;
     loadedFirstMessagedId = -1;
+
+    systemMessageCount= 0;
   }
 
   function _resetLoadMoreCounter() {
@@ -336,6 +338,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $scope.loadMoreCounter++;
             $scope.isInitialLoadingCompleted = true;
 
+            // TODO: Erase this when default topic issue is resolved by John.
+            _showContents();
 
             _checkEntityMessageStatus();
           })
@@ -424,12 +428,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hasMoreOldMessageToLoad() {
+    //console.log(localFirstMessageId)
+    //console.log(firstMessageId)
+    //console.log(lastMessageId)
+
     if (lastMessageId == -1) {
       //console.log('new team first topic welcome')
       return false;
     }
 
-    if (localFirstMessageId == -1) return true;
+    if (localFirstMessageId == -1) {
+      if (firstMessageId != -1) return true;
+    }
 
     return localFirstMessageId != firstMessageId;
   }
@@ -1253,6 +1263,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         break;
       case 'join' :
         action = $filter('translate')('@msg-joined');
+        if (_isDefaultTopic()) {
+          // Someone joined to default topic -> get new memberlist.
+          console.log('joined to current team')
+          updateLeftPanel();
+        }
         break;
       case 'leave' :
         action = $filter('translate')('@msg-left');
@@ -1426,30 +1441,63 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var emptyMessageStateHelper = 'NO_CONVERSATION_IN_TOPIC';
 
     // I am only member in current topic.
-    if (_amIAlone()) {
+    if (_isSoloTeam()) {
+      emptyMessageStateHelper = 'NO_MEMBER_IN_TEAM';
+    } else if (_isFullRoom()) {
+      if (!_isDefaultTopic()) {
+        emptyMessageStateHelper = 'EVERYONE_IN_THE_BUILDING';
+      }
+    } else if (_amIAlone()) {
       emptyMessageStateHelper = 'NO_MEMBER_IN_TOPIC';
     }
 
+    //console.log(emptyMessageStateHelper)
     $scope.emptyMessageStateHelper = emptyMessageStateHelper;
     $rootScope.$broadcast('onEntityMessageStatusChanged', emptyMessageStateHelper);
   }
 
   function _amIAlone() {
     var memberCount = entityAPIservice.getMemberLength($rootScope.currentEntity);
+
+    //console.log('this is _alIAlone ', memberCount, ' returning ', memberCount == 1)
+
     return memberCount == 1;
   }
 
   function _hasNoMessage() {
     var messageLength = $scope.messages.length;
-    var systemMessageLength = $scope.systemMessageCount;
 
-    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageLength || messageLength == 1)) return true;
+    //console.log(messageLength, systemMessageCount, !_hasMoreOldMessageToLoad())
+    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength >= 1)) return true;
 
     return false;
   }
 
   function _updateSystemEventMessageCounter() {
-    $scope.systemMessageCount++;
+    systemMessageCount++;
+  }
+
+  function _isSoloTeam() {
+    var activeMemberCount = currentSessionHelper.getCurrentTeamMemberCount();
+    //console.log('this is _isSoloTeam ', activeMemberCount, ' returning ', activeMemberCount == 0);
+
+    return activeMemberCount == 0;
+  }
+
+  function _isFullRoom() {
+
+    var currentEntityMemberCount = entityAPIservice.getMemberLength($rootScope.currentEntity);
+
+    // $scope.memberList does not include myself.
+    var totalTeamMemberCount = currentSessionHelper.getCurrentTeamMemberCount() + 1;
+
+    //console.log('this is _isFullRoom ', totalTeamMemberCount,' and ', currentEntityMemberCount, ' returning ', currentEntityMemberCount == totalTeamMemberCount);
+
+    return currentEntityMemberCount == totalTeamMemberCount;
+  }
+
+  function _isDefaultTopic() {
+    return currentSessionHelper.isDefaultTopic($rootScope.currentEntity);
   }
 
   /**

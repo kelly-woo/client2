@@ -7,7 +7,7 @@
     .controller('teamMemberListCtrl', teamMemberListCtrl);
 
   /* @ngInject */
-  function teamMemberListCtrl($scope, $rootScope, $state, $modalInstance, modalHelper) {
+  function teamMemberListCtrl($scope, $rootScope, $state, $modalInstance, currentSessionHelper) {
 
     var vm = $scope;
 
@@ -48,7 +48,7 @@
 
       });
 
-      $scope.hasMember = $scope.memberList.length > 0;
+      $scope.hasMember = currentSessionHelper.getCurrentTeamMemberCount() > 0;
       $scope.enabledMemberList = enabledMemberList;
       $scope.disabledMemberList = disabledMemberList;
       $scope.hasDisabledMember = $scope.disabledMemberList.length > 0;

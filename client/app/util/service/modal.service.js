@@ -55,7 +55,7 @@
     }
 
     function closeModal() {
-      modal.dismiss('close');
+      if (!!modal) modal.dismiss('close');
     }
   }
 })();

@@ -159,12 +159,15 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
         var disabledMemberAccessingTeamCode = 40301;
 
         var situationCode = rejection.data.code;
-
         if (situationCode == disabledMemberAccessingTeamCode) {
           // Current member has been disabled from current team!!
           var authAPIservice = $injector.get('authAPIservice');
           if (angular.isUndefined(authAPIservice)) return;
           authAPIservice.onCurrentMemberDisabled();
+        } else if (situationCode == 40300) {
+          console.log(situationCode)
+          $rootScope.toDefault = true;
+          return;
         }
       }
 

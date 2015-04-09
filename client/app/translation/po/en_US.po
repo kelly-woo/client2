@@ -604,31 +604,39 @@ msgstr "View Profile"
 msgid "@dnd-file-upload-msg"
 msgstr "Drag and drop your file here to upload"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
 msgstr "Invite them now to start collaborating."
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-topic"
 msgstr "Click the button below to invite other members to the conversation."
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-share-file"
 msgstr "Upload and share files directly into any conversation."
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
+msgid "@emptyMsg-everyone-in-current-topic"
+msgstr "All of your members have joined this conversation."
+
+#: client/app/center/help_messages/help.messages.html
+msgid "@emptyMsg-invite-not-joined-teammate"
+msgstr "If you have teammates who are not here, invite them to JANDI now!"
+
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-no-team-member-joined"
 msgstr "No other members have joined your team. "
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-start-chatting-heading"
 msgstr "Enter a message to start the conversation."
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-you-are-all-alone-heading"
 msgstr "You are all alone in this topic. "
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-your-file-drawer-is-empty-heading"
 msgstr "Your file drawer is empty."
 

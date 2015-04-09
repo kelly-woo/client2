@@ -22,8 +22,8 @@
       setLastEntityState: setLastEntityState,
       getLastEntityState: getLastEntityState,
       removeLastEntityState: removeLastEntityState,
-      getMemberLength: getMemberLength
-
+      getMemberLength: getMemberLength,
+      isDefaultTopic: isDefaultTopic
     };
 
     return service;
@@ -189,6 +189,10 @@
       var members = entity.ch_members || entity.pg_members;
 
       return members.length;
+    }
+
+    function isDefaultTopic(entity) {
+      return entity.id == $rootScope.team.t_defaultChannelId;
     }
   }
 })();

@@ -11,7 +11,6 @@
       controller: 'HelpMessageCtrl',
       templateUrl: 'app/center/help_messages/help.messages.html',
       replace: true,
-      transclude: true,
       link: link,
       scope: {
         currentState: '=status'

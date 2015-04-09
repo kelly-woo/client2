@@ -597,31 +597,39 @@ msgstr "프로필 보기"
 msgid "@dnd-file-upload-msg"
 msgstr "파일을 이곳에 드래그 & 드롭하여 업로드하세요"
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
 msgstr "지금 바로 멤버들을 초대하세요."
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-topic"
 msgstr "여기를 클릭하시고 토픽에 멤버를 초대해보세요."
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-share-file"
 msgstr "토픽 또는 1:1메시지에서 파일을 업로드하실 수 있습니다."
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
+msgid "@emptyMsg-everyone-in-current-topic"
+msgstr "이 토픽에는 모든 멤버들이 참여하고 있습니다."
+
+#: client/app/center/help_messages/help.messages.html
+msgid "@emptyMsg-invite-not-joined-teammate"
+msgstr "아직 팀에 초대되지 않은 다른 멤버가 있다면, 지금 초대하세요."
+
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-no-team-member-joined"
 msgstr "아직 팀에 가입한 멤버가 없습니다. "
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-start-chatting-heading"
 msgstr "아직 메시지가 없습니다. 메시지를 입력하셔서 대화를 시작해보세요."
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-you-are-all-alone-heading"
 msgstr "아직 토픽에 초대된 멤버가 없습니다. "
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-your-file-drawer-is-empty-heading"
 msgstr "파일 서랍에 아직 파일이 없습니다. "
 

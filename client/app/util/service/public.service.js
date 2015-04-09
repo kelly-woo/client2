@@ -248,7 +248,7 @@
     }
 
     function isDisabledMember(member) {
-      if (!member) return false;
+      if (!member || angular.isUndefined(member)) return false;
       if (_isNumber(member)) {
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member);
       }

@@ -189,8 +189,6 @@ app.controller('inviteModalCtrl', function($scope, $rootScope, $modalInstance, e
 // INVITE USER TO TEAM
 app.controller('inviteUserToTeamCtrl', function($scope, $modalInstance, $filter, teamAPIservice, analyticsService) {
 
-  console.log('hi')
-
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };

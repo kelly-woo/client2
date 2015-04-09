@@ -609,31 +609,39 @@ msgstr ""
 msgid "@dnd-file-upload-msg"
 msgstr ""
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
 msgstr ""
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-topic"
 msgstr ""
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-share-file"
 msgstr ""
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
+msgid "@emptyMsg-everyone-in-current-topic"
+msgstr ""
+
+#: client/app/center/help_messages/help.messages.html
+msgid "@emptyMsg-invite-not-joined-teammate"
+msgstr ""
+
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-no-team-member-joined"
 msgstr ""
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-start-chatting-heading"
 msgstr ""
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-you-are-all-alone-heading"
 msgstr ""
 
-#: client/app/center/help-messages/help.messages.html
+#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-your-file-drawer-is-empty-heading"
 msgstr ""
 

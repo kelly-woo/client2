@@ -32,7 +32,8 @@
 var app = angular.module('jandiApp');
 
 app.controller('leftPanelController1', function($scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-                                                entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService) {
+                                                entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
+                                                currentSessionHelper) {
 
   //console.info('[enter] leftpanelController');
 
@@ -118,7 +119,9 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     }
 
     memberService.setMember(response.user);
-    $rootScope.team = response.team;
+
+
+    currentSessionHelper.setCurrentTeam(response.team);
 
     // Signed in with token. So there will no account info.
     // Currently, there is no page that uses account info right after user signed in.
@@ -147,7 +150,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
       _checkUpdateMessageStatus();
     }
 
-    $rootScope.team = $scope.team = response.team;
+
 
     $scope.totalEntityCount = response.entityCount;
     $scope.totalEntities    = response.entities;
@@ -185,6 +188,9 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     $rootScope.totalEntities        = $scope.totalEntities;
     $rootScope.joinedEntities       = $scope.joinEntities;
     $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
+
+    currentSessionHelper.setCurrentTeam(response.team);
+    currentSessionHelper.setCurrentTeamMemberList($scope.memberList);
 
     //  When there is unread messages on left Panel.
     if (response.alarmInfoCount != 0) {
