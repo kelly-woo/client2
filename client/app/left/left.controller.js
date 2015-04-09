@@ -112,6 +112,8 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
 
   initLeftList();
 
+
+  // TODO: MOVE VARIABLES FROM '$rootScope' to 'session.service'
   function initLeftList () {
     if (!storageAPIservice.isValidValue(memberService.getMember()) && !storageAPIservice.shouldAutoSignIn() ) {
       console.log('you are not supposed to be here!');
@@ -120,7 +122,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
 
     memberService.setMember(response.user);
 
-
+    $rootScope.team = response.team;
     currentSessionHelper.setCurrentTeam(response.team);
 
     // Signed in with token. So there will no account info.

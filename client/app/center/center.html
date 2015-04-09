@@ -10,7 +10,6 @@
 
 <!--    TODO: HAVE 'panel-title-container' in separate template!!   -->
 <div class="panel-title-container" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}">
-  {{   hasScrollToBottom }}
   <!--    STAR ICON -->
   <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
     <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
@@ -539,12 +538,16 @@
 
   </article>
 
-  <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasScrollToBottom" ng-click="onScrollToBottomIconClicked();">
+  <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasScrollToBottom && !hasNewMsg" ng-click="onScrollToBottomIconClicked();">
     <i class="icon-down scroll-to-bottom-icon"></i>
   </div>
+
   <div class="footer">
 
-    <div class="has-new-msg-alert-container"></div>
+    <div class="has-new-msg-alert-container cursor_pointer" ng-if="hasNewMsg" ng-click="onHasNewMessageAlertClicked();">
+      <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>{{ '@has-new-message-alert-msg' | translate}}</span>
+      <i class="icon-cancel pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
+    </div>
 
     <div class="footer_inner_border"></div>
 

@@ -52,6 +52,7 @@
     };
 
     function link(scope, elm, attr) {
+      var threshold = 700;
       var raw = elm[0];
 
       var position = 0;
@@ -67,9 +68,9 @@
           scope.loadNewMessages();
           scope.isAtBottom();
           return;
-        } else if (scrollDiff < 200) {
+        } else if (scrollDiff < threshold) {
           scope.hasScrollToBottom = false;
-        } else if (scrollDiff > 200) {
+        } else if (scrollDiff > threshold) {
           // Scrolled upward over 200.
           scope.hasScrollToBottom = true;
         }

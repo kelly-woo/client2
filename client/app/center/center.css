@@ -862,8 +862,40 @@ by ysyun 2015.2.25
   border-radius: 10px;
   padding: 3px;
 }
-
+.scroll-to-bottom-container:active {
+  bottom: 63px;
+}
 .scroll-to-bottom-icon {
   font-size: 28px;
   color: #31c08a;
+}
+
+
+/********************************************
+
+            HAS NEW MESSAGE
+
+********************************************/
+.has-new-msg-alert-container {
+  position: absolute;
+  left: 64px;
+  right: 10px;
+  bottom: 100%;
+  height: 36px;
+  background-color: rgba(49, 192, 138, 0.1);
+  color: white;
+  font-size: 16px;
+}
+.has-new-msg-alert-container-text {
+  line-height: 36px;
+}
+.has-new-msg-alert-container-close {
+  padding-top: 8px;
+  padding-right: 8px;
+  font-size: 18px;
+  color: white;
+}
+
+.has-new-msg-alert-container-close:hover {
+  color: #E0E0E0;
 }

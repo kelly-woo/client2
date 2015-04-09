@@ -26,6 +26,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.lastMessage = null;
 
   $scope.hasScrollToBottom = false;
+  $scope.hasNewMsg = false;
 
 
   // To be used in directive('lastDetector')
@@ -194,7 +195,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     systemMessageCount = 0;
 
-    _resetHasScrollToBottom();
+    _resetNewMsgHelpers();
   }
 
   function _resetLoadMoreCounter() {
@@ -513,7 +514,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _scrollToBottomWithAnimate() {
     var height = document.getElementById('msgs-container').scrollHeight;
     $('#msgs-container').animate({scrollTop: height}, '500', 'swing', function() {
-      _resetHasScrollToBottom()    });
+      _resetNewMsgHelpers();
+    });
     //$('#msgs-container').scrollTop(height);
   }
 
@@ -540,6 +542,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _hasLastMessage() {
+    //console.log('localLastMessageId: ', localLastMessageId );
+    //console.log('lastMessageId: ',  lastMessageId);
     //console.log('hasLastMessage: ', localLastMessageId == lastMessageId);
     return localLastMessageId == lastMessageId;
   }
@@ -617,6 +621,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         response = response.updateInfo;
 
         if (response.messageCount) {
+          if (!_hasLastMessage()) {
+            // New message Came in, but I'm not currently looking at older messages without loading latest message.
+            // Do whatever needs to be done, and return from here.
+            // Do not update messages.
+            _gotNewMessage();
+            return;
+          }
+
+          // When there is a message to update on current topic.
           localLastMessageId = lastUpdatedLinkId;
           loadedLastMessageId = localLastMessageId;
           lastMessageId = localLastMessageId;
@@ -709,10 +722,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             if (_hasBottomReached()) {
               //console.log('bottom reached and scrolling to bottom');
               _scrollToBottom();
-            }
-            else {
+            } else {
               //console.log(' current entity and badge count');
-              entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
+              _gotNewMessage();
             }
           }
 
@@ -753,7 +765,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateMessageMarker() {
     messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
       .success(function(response) {
-          //console.log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
+        //console.log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
       })
       .error(function(response) {
         console.log('message marker not updated for ' + $scope.currentEntity.id);
@@ -1435,7 +1447,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   /********************************************
 
-      EMPTY MESSAGE.
+   EMPTY MESSAGE.
 
    ********************************************/
   $scope.$on('onInitLeftListDone', function() {
@@ -1531,17 +1543,60 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.onScrollToBottomIconClicked = onScrollToBottomIconClicked;
   function onScrollToBottomIconClicked() {
+    // Remove icon first.
+    _resetHasScrollToBottom();
+
+    _newMsgHelper();
+  }
+
+  function _resetNewMsgHelpers() {
+    _resetNewMsgAlert();
+    _resetHasScrollToBottom();
+  }
+  function _resetNewMsgAlert() {
+    $scope.hasNewMsg = false;
+  }
+  function _resetHasScrollToBottom() {
+    $scope.hasScrollToBottom = false;
+  }
+
+  $scope.onHasNewMessageAlertClicked = onHasNewMessageAlertClicked;
+  function onHasNewMessageAlertClicked() {
+    _newMsgHelper();
+  }
+
+  function _newMsgHelper() {
     if (_hasMoreNewMessageToLoad()) {
       // Has more messages to load
+      _refreshCurrentTopic();
     } else {
       // Already have lastest message of current entity, just scroll down to it.
       _scrollToBottomWithAnimate();
     }
   }
-
-  function _resetHasScrollToBottom() {
-    $scope.hasScrollToBottom = false;
+  $scope.onHasNewMessageAlertCloseClicked = onHasNewMessageAlertCloseClicked;
+  function onHasNewMessageAlertCloseClicked() {
+    console.log('hello this is onHasNewMessageAlertCloseClicked')
+    _resetNewMsgAlert();
   }
 
+
+  /**
+   * Handle a case when I receive a message while
+   *   1.  I'm looking at somewhere else(probably older messages through search)
+   *       without having most recent message.
+   *   2.  I'm looking at somewhere else with latest message with me.
+   *
+   *   이 엔티티의 마지막 메세지가 없는 상태에서 새로운 메세지가 들어왔을 때.
+   *   이 엔티티의 마지막 메세지가 있는 상태에서 새로운 메세지가 들어왔을 때.
+   *   둘 다.
+   *
+   *  @private
+   */
+  function _gotNewMessage() {
+    $scope.hasNewMsg = true;
+    entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
+
+  }
 
 });

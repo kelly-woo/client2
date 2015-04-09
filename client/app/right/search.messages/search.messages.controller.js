@@ -224,7 +224,7 @@
 
     function test() {
       $scope.searchQuery = {
-        q: 'uber',
+        q: 'JJ에이치',
         page: DEFAULT_PAGE,
         perPage: DEFAULT_PER_PAGE,
         writerId: '',
