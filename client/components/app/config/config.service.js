@@ -24,6 +24,7 @@
       configuration.api_version     = configuration.api_version;
 
       // config service
+      self.socket_server  = configuration.api_address;
       self.server_address  = configuration.api_address + "inner-api/";
       self.server_uploaded = configuration.api_address;
       self.api_version     = configuration.api_version; 

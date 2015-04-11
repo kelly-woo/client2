@@ -7,7 +7,8 @@
       'app.config',
       'app.analytics',
       'app.language',
-      'app.storage'
+      'app.storage',
+      'app.socket'
       // 'app.session'
     ])
     .run(run)
