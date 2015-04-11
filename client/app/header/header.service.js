@@ -37,26 +37,8 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, storageAPIserv
         });
     };
 
-    entityheaderAPI.leaveEntity = function(entityType, entityId) {
-        return $http({
-            method: 'PUT',
-            url: $rootScope.server_address + entityType + '/' + entityId + '/leave',
-            data: {
-                teamId: memberService.getTeamId()
-            }
-        });
-    };
 
-    entityheaderAPI.deleteEntity = function(entityType, entityId) {
-        return $http({
-            method: 'DELETE',
-            url: $rootScope.server_address + entityType + '/' + entityId,
-            params: {
-                teamId: memberService.getTeamId()
-            }
 
-        });
-    };
 
     /*
      PARAMS

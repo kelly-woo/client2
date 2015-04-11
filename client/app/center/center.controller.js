@@ -60,50 +60,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loadingTimer : false // no longer using.
   };
 
-  $scope.isOwner = function() {
-    return ($rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId) == memberService.getMemberId();
-  };
-  $scope.isDefaultTopic = function() {
-    return _isDefaultTopic();
-  };
-  $scope.onLeaveClick = function() {
-    log('-- leaving')
-
-    entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
-      .success(function(response) {
-        log('-- good')
-        // analytics
-        var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
-
-        analyticsService.mixpanelTrack( "Entity Leave" , { "type": entity_type } );
-        updateLeftPanel();
-      })
-      .error(function(error) {
-        alert(error.msg);
-      })
-  };
-  $scope.onDeleteClick = function() {
-    entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
-      .success(function() {
-        // analytics
-        var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
-        analyticsService.mixpanelTrack( "Entity Delete", { "type": entity_type } );
-
-        updateLeftPanel();
-        fileAPIservice.broadcastChangeShared();
-      })
-      .error(function(error) {
-        alert(error.msg);
-      });
-  };
-  $scope.onMeesageLeaveClick = function(entityId) {
-    $rootScope.$broadcast('leaveCurrentChat', entityId);
-  };
-  function updateLeftPanel() {
-    $scope.updateLeftPanelCaller();
-    $rootScope.toDefault = true;
-  }
-
   //  END OF PANEL HEADER FUNCTIONS
 
   (function() {

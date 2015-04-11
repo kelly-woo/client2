@@ -1,0 +1,124 @@
+(function() {
+  'use strict';
+
+  angular
+    .module('jandiApp')
+    .controller('entityHeaderCtrl', entityHeaderCtrl);
+
+  /* @ngInject */
+  function entityHeaderCtrl($scope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
+                            publicService, jndPubSub, fileAPIservice, analyticsService) {
+
+    var currentEntity;
+    var entityId;
+    var entityType;
+
+    (function() {
+      _init();
+    })();
+
+    $scope.$on('onCurrentEntityChanged', function(event, param) {
+      _initWithParam(param);
+    });
+
+    function _init() {
+      _initWithParam(currentEntity);
+    }
+
+    function _initWithParam(param) {
+      _checkCurrentEntity(param);
+      _checkOwnership();
+      _checkIfDefaultTopic();
+    }
+
+    /**
+     * Check parameter and update local variable 'currentEntity'.
+     *
+     * @param param
+     * @private
+     */
+    function _checkCurrentEntity(param) {
+      var entity;
+      if (publicService.isNullOrUndefined(param)) {
+        entity = $scope.currentEntity;
+      } else {
+        entity = param;
+      }
+      _setCurrentEntity(entity);
+    }
+
+    function _setCurrentEntity(entity) {
+      currentEntity = entity;
+      entityId = entity.id;
+      entityType = entity.type;
+    }
+    /**
+     * Check ownership of current entity whether I'm an owner of current entity or not.
+     * Set updated value to $scope.isOwner variable.
+     */
+    function _checkOwnership() {
+      $scope.isOwner = entityAPIservice.isOwner(currentEntity, memberService.getMemberId());
+    }
+
+    /**
+     * Check whether current entity is a default topic of current team.
+     * * Set updated value to $scope.isDefaultTopic variable.
+     */
+    function _checkIfDefaultTopic() {
+      $scope.isDefaultTopic = currentSessionHelper.isDefaultTopic(currentEntity);
+    }
+
+
+    $scope.onLeaveClick = function() {
+      entityHeader.leaveEntity(entityType, entityId)
+        .success(function(response) {
+          // analytics
+          var entity_type = analyticsService.getEntityType(entityType);
+
+          analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
+          updateLeftPanel();
+        })
+        .error(function(error) {
+          alert(error.msg);
+        })
+    };
+
+    $scope.onDeleteClick = function() {
+      entityHeader.deleteEntity(entityType, entityId)
+        .success(function() {
+          // analytics
+          var entity_type = analyticsService.getEntityType(entityType);
+          analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
+
+          updateLeftPanel();
+          fileAPIservice.broadcastChangeShared();
+        })
+        .error(function(error) {
+          alert(error.msg);
+        });
+    };
+
+    $scope.onCurrentChatLeave = function() {
+      jndPubSub.pub('leaveCurrentChat', entityId);
+    };
+
+    function updateLeftPanel() {
+      jndPubSub.pub('updateLeftPanelCaller');
+      publicService.goToDefaultTopic();
+    }
+
+
+    // TODO: PLEASE REFACTOR THIS 'onStarClick' method.
+    // TODO: THERE ARE MANY DIFFERENT PLACES USING DUPLICATED LINES OF CODES.
+    $scope.onStarClick = function(entityType, entityId) {
+      var param = {
+        entityType: entityType,
+        entityId: entityId
+      };
+
+      jndPubSub.pub('onStarClick', param);
+    }
+
+
+  }
+})();

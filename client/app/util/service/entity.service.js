@@ -5,9 +5,8 @@
     .module('jandiApp')
     .factory('entityAPIservice', entityAPIservice);
 
-  entityAPIservice.$inject = ['$rootScope', '$filter', '$state', '$window', 'storageAPIservice'];
-
-  function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice) {
+  /* @ngInject */
+  function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice, jndPubSub) {
 
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
@@ -23,7 +22,9 @@
       getLastEntityState: getLastEntityState,
       removeLastEntityState: removeLastEntityState,
       getMemberLength: getMemberLength,
-      isDefaultTopic: isDefaultTopic
+      isDefaultTopic: isDefaultTopic,
+      isOwner: isOwner
+
     };
 
     return service;
@@ -76,12 +77,15 @@
 
 
     //  return null if 'getEntityById' return nothing.
-    function setCurrentEntity (entityType, entityId) {
-      var currentEntity = this.getEntityById(entityType, entityId);
+    function setCurrentEntity (currentEntity) {
       if (angular.isUndefined(currentEntity)) {
         return null;
       }
+
       currentEntity.alarmCnt = '';
+
+      jndPubSub.pub('onCurrentEntityChanged', currentEntity);
+
       return currentEntity;
     }
 
@@ -193,6 +197,10 @@
 
     function isDefaultTopic(entity) {
       return entity.id == $rootScope.team.t_defaultChannelId;
+    }
+
+    function isOwner(entity, memberId) {
+      return (entity.ch_creatorId || entity.pg_creatorId) == memberId;
     }
   }
 })();

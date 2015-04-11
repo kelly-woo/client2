@@ -6,7 +6,7 @@
     .controller('messageListCtrl', messageListCtrl);
 
   /* @ngInject */
-  function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice, publicService, $filter, modalHelper) {
+  function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice, publicService, $filter, modalHelper, jndPubSub) {
     // okay - okay to go!
     // loading - currently loading.
     // failed - failed to retrieve list from server.
@@ -128,6 +128,17 @@
     $scope.$on('leaveCurrentChat', function(event, entityId) {
       onMessageLeaveClick(entityId);
     });
+
+    // TODO: PLEASE REFACTOR THIS 'onStarClick' method.
+    // TODO: THERE ARE MANY DIFFERENT PLACES USING DUPLICATED LINES OF CODES.
+    $scope.onStarClick = function(entityType, entityId) {
+      var param = {
+        entityType: entityType,
+        entityId: entityId
+      };
+
+      jndPubSub.pub('onStarClick', param);
+    }
   }
 
 })();

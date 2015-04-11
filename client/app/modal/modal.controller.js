@@ -64,16 +64,16 @@ app.controller('userModalCtrl', function($scope, $modalInstance, $state) {
 
 // PRIVATE_GROUP/CHANNEL RENAME
 app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope, analyticsService, fileAPIservice) {
-  $scope.newChannelName = $scope.currentEntity.name;
+  $scope.newTopicName = $scope.currentEntity.name;
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
 
-  $scope.onRenameClick = function(entityNewName) {
+  $scope.onRenameClick = function(newTopicName) {
 
     $scope.isLoading = true;
 
-    entityheaderAPIservice.renameEntity($state.params.entityType, $state.params.entityId, entityNewName)
+    entityheaderAPIservice.renameEntity($state.params.entityType, $state.params.entityId, newTopicName)
       .success(function(response) {
         // analytics
         var entity_type = "";

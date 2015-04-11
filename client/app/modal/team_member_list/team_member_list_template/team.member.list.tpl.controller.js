@@ -6,7 +6,7 @@
     .controller('teamMemberListTemplateCtrl', teamMemberListTemplateCtrl);
 
 
-  function teamMemberListTemplateCtrl($scope, $rootScope, $state) {
+  function teamMemberListTemplateCtrl($scope, $rootScope, $state, jndPubSub) {
     $scope.onMemberClick = onMemberClick;
     $scope.onStarClick = onStarClick;
 
@@ -16,7 +16,12 @@
     }
 
     function onStarClick(entityType, entityId) {
-      $rootScope.$broadcast('onStarClick', entityType, entityId);
+      var param = {
+        entityType: entityType,
+        entityId: entityId
+      };
+
+      jndPubSub.pub('onStarClick', param);
     }
 
 

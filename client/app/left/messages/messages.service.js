@@ -4,7 +4,6 @@
   angular
     .module('jandiApp')
     .service('messageList', messageList);
-  messageList.$inject = ['$http', 'memberService', 'configuration'];
 
   /* @ngInject */
   function messageList($http, memberService, configuration) {

@@ -12,7 +12,9 @@
     .factory('publicService', publicService);
 
   /* @ngInject */
-  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService, gettextCatalog, $state, analyticsService, tutorialService, language, entityAPIservice, modalHelper) {
+  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService,
+                         currentSessionHelper, $state, analyticsService, tutorialService, language,
+                         entityAPIservice, modalHelper, leftpanelAPIservice) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -38,7 +40,10 @@
       signOut: signOut,
       getBrowserInfo: getBrowserInfo,
       redirectTo: redirectTo,
-      isDisabledMember: isDisabledMember
+      isDisabledMember: isDisabledMember,
+      isNullOrUndefined: isNullOrUndefined,
+      goToDefaultTopic: goToDefaultTopic
+
     };
 
     return service;
@@ -248,7 +253,8 @@
     }
 
     function isDisabledMember(member) {
-      if (angular.isUndefined(member) || member.type != 'users' || !member) return false;
+
+      if (isNullOrUndefined(member)) return false;
 
       if (_isNumber(member)) {
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member);
@@ -261,6 +267,14 @@
 
     function _isNumber(obj) {
       return typeof obj == 'number';
+    }
+
+    function isNullOrUndefined(value) {
+      return value === null || angular.isUndefined(value);
+    }
+
+    function goToDefaultTopic() {
+      $state.go('archives', {entityType:'channels',  entityId:currentSessionHelper.getDefaultTopicId() });
     }
   }
 })();

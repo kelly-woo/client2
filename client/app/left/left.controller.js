@@ -54,6 +54,10 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     response = leftPanel.data;
   }
 
+  $rootScope.$on('goToDefault', function() {
+    $state.go('archives', {entityType:'channels',  entityId:leftpanelAPIservice.getDefaultChannel(response) });
+    $rootScope.toDefault = false;
+  });
   //  redirecting to default channel.
   $rootScope.$watch('toDefault', function(newVal, oldVal) {
     if (newVal) {
@@ -61,6 +65,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
       $rootScope.toDefault = false;
     }
   });
+
 
 
   // TODO: THERE HAS TO BE A BETTER WAY TO DO THIS.
@@ -73,17 +78,20 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
 
   $scope.$watch('$state.params.entityId', function(newEntityId){
     if (!newEntityId) return;
-    if (angular.isUndefined(entityAPIservice.getEntityById($state.params.entityType, newEntityId))) {
-      return;
-    }
-    setCurrentEntity();
+
+    _setCurrentEntityWithTypeAndId($state.params.entityType, newEntityId)
+
   });
 
-  function setCurrentEntity() {
-    $rootScope.currentEntity = entityAPIservice.setCurrentEntity($state.params.entityType, $state.params.entityId);
-    //console.log($rootScope.currentEntity)
-  }
+  function _setCurrentEntityWithTypeAndId(entityType, entityId) {
+    var currentEntity = entityAPIservice.getEntityById(entityType, entityId);
 
+    if (angular.isUndefined(currentEntity)) {
+      return;
+    }
+
+    $rootScope.currentEntity = entityAPIservice.setCurrentEntity(currentEntity);
+  }
 
   // tutorial status
   $rootScope.tutorialStatus = {
@@ -206,7 +214,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     }
 
     if ($state.params.entityId)
-      setCurrentEntity();
+      _setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
 
     $rootScope.isReady = true;
 
@@ -304,13 +312,14 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     });
   }
 
-  $scope.$on('onStarClick', function(event, entityType, entityId) {
-    $scope.onStarClick(entityType, entityId)
-  });
-
   $scope.onTopicClicked = onTopicClicked;
 
   function onTopicClicked(entityType, entityId) {
+    if (publicService.isNullOrUndefined($scope.currentEntity.id)) {
+      publicService.goToDefaultTopic();
+      return;
+    }
+
     if ($scope.currentEntity.id == entityId) {
       $rootScope.$broadcast('refreshCurrentTopic');
     } else {
@@ -319,24 +328,18 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
   }
 
 
+  $scope.$on('onStarClick', function(event, params) {
+    $scope.onStarClick(params.entityType, params.entityId)
+  });
+
   $scope.onStarClick = function(entityType, entityId) {
     var entity = entityAPIservice.getEntityById(entityType, entityId);
 
     if (entity.isStarred) {
       entityheaderAPIservice.removeStarEntity(entityId)
         .success(function(response) {
-          //memberService.updateCurrentMember()
-          //  .success(function(response) {
-          //    console.log(response)
-          //    memberService.setMember(response);
-          //    setStar();
-          //  })
-          //  .error(function(err) {
-          //
-          //  });
-
           getLeftLists();
-          // TODO: UPDATE CURRENT MYSELF ONLY.
+          // TODO: UPDATE CURRENT ONLY.
           // TODO: CALL 'setStar()' afterwards.
         })
         .error(function(response) {
