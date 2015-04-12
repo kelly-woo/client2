@@ -64,7 +64,7 @@
       </li>
 
       <!--    DELETE  -->
-      <li role="presentation" data-ng-if="isOwner() && !isDefaultTopic()" data-ng-click="onDeleteClick();">
+      <li role="presentation" data-ng-if="isOwner() && !isDefaultTopic()" data-ng-click="openModal('deleteTopic');">
         <a role="menuitem" tabindex="-1">
           <i class=" icon-delete-circle-fill "></i><span translate>@ch-menu-delete</span>
         </a>
