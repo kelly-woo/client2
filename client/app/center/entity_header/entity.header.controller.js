@@ -6,7 +6,7 @@
     .controller('entityHeaderCtrl', entityHeaderCtrl);
 
   /* @ngInject */
-  function entityHeaderCtrl($scope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
+  function entityHeaderCtrl($scope, $filter, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, fileAPIservice, analyticsService) {
 
     var currentEntity;
@@ -70,32 +70,41 @@
 
 
     $scope.onLeaveClick = function() {
-      entityHeader.leaveEntity(entityType, entityId)
-        .success(function(response) {
-          // analytics
-          var entity_type = analyticsService.getEntityType(entityType);
+      var isLeaveChannel;
 
-          analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
-          updateLeftPanel();
-        })
-        .error(function(error) {
-          alert(error.msg);
-        })
+      isLeaveChannel = entityType === 'privategroups' ? confirm($filter('translate')('@ch-menu-leave-private-confirm')) : true;
+
+      if (isLeaveChannel) {
+        entityHeader.leaveEntity(entityType, entityId)
+          .success(function(response) {
+            // analytics
+            var entity_type = analyticsService.getEntityType(entityType);
+
+            analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
+            updateLeftPanel();
+          })
+          .error(function(error) {
+            alert(error.msg);
+          })
+      }
+
     };
 
     $scope.onDeleteClick = function() {
-      entityHeader.deleteEntity(entityType, entityId)
-        .success(function() {
-          // analytics
-          var entity_type = analyticsService.getEntityType(entityType);
-          analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
+      if (confirm($filter('translate')('@ch-menu-delete-confirm'))) {
+        entityHeader.deleteEntity(entityType, entityId)
+          .success(function() {
+            // analytics
+            var entity_type = analyticsService.getEntityType(entityType);
+            analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
-          updateLeftPanel();
-          fileAPIservice.broadcastChangeShared();
-        })
-        .error(function(error) {
-          alert(error.msg);
-        });
+            updateLeftPanel();
+            fileAPIservice.broadcastChangeShared();
+          })
+          .error(function(error) {
+            alert(error.msg);
+          });
+      }
     };
 
     $scope.onCurrentChatLeave = function() {

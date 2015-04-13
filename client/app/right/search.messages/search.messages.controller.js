@@ -39,6 +39,10 @@
 
       //test();
     })();
+    $scope.$on('onInitLeftListDone', function() {
+      _initChatRoomOption();
+    });
+
 
     // File List clicked on member profile modal view.
     $scope.$on('resetRPanelSearchStatusKeyword', function() {

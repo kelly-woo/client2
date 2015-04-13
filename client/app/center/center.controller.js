@@ -60,8 +60,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loadingTimer : false // no longer using.
   };
 
-  //  END OF PANEL HEADER FUNCTIONS
-
   (function() {
     _onStartUpCheckList();
 
@@ -801,22 +799,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         controller  : 'fileUploadModalCtrl',
         size        : 'lg'
       });
-    }
-    else if (selector == 'rename') {
+    } else if (selector == 'rename') {
       $modal.open({
         scope       :   $scope,
         templateUrl :   'app/modal/rename.html',
         controller  :   'renameModalCtrl',
         size        :   'lg'
       });
-    }
-    else if (selector == 'invite') {
+    } else if (selector == 'invite') {
       publicService.openInviteToCurrentEntityModal($scope);
-    }
-    else if (selector == 'inviteUserToChannel') {
+    } else if (selector == 'inviteUserToChannel') {
       publicService.openInviteToJoinedEntityModal($scope);
-    }
-    else if (select == 'share') {
+    } else if (selector == 'share') {
 
     }
   };
