@@ -1,6 +1,6 @@
 <li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true"
     ng-class="{active: $state.params.entityId == joinedEntity.id}"
-    data-ng-click="onTopicClicked(joinedEntity.type, joinedEntity.id);"
+    data-ng-click="onTopicClicked(joinedEntity.type, joinedEntity.id, joinedEntity);"
   class="cursor_pointer">
   <a data-channel-id="{{joinedEntity.id}}">
       {{ joinedEntity.entityId }}
@@ -8,7 +8,8 @@
        data-ng-click="onStarClick(joinedEntity.type, joinedEntity.id);
                           $event.preventDefault(); $event.stopPropagation();"></i>
 
-        <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': joinedEntity.alarmCnt > 0}">
+        <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': joinedEntity.alarmCnt > 0}"
+          ng-mouseenter="setTooltip($event, joinedEntity.name)" tooltip="{{tooltip}}" tooltip-placement="right-center-topic-title">
           <i class="icon-private-group" ng-if="joinedEntity.type=='privategroups'"></i>
           {{joinedEntity.name}}
         </span>
