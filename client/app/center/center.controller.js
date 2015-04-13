@@ -60,10 +60,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.isDefaultTopic = function() {
     return $rootScope.team.t_defaultChannelId == $rootScope.currentEntity.id;
   };
-  $scope.onLeaveClick = function() {
+  $scope.onLeaveClick = function(channelType) {
+    var isLeaveChannel;
+
     log('-- leaving');
 
-    if (confirm($filter('translate')('@ch-menu-leave-private-confirm'))) {
+    isLeaveChannel = channelType === 'privategroups' ? confirm($filter('translate')('@ch-menu-leave-private-confirm')) : true;
+
+    if (isLeaveChannel) {
       entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
         .success(function(response) {
           log('-- good');
