@@ -606,14 +606,12 @@ msgid "@emptyMsg-click-to-share-file"
 msgstr "直接上傳及分享檔案到任何對話當中。"
 
 #: client/app/center/help_messages/help.messages.html
-#, fuzzy
 msgid "@emptyMsg-everyone-in-current-topic"
-msgstr "點擊按鈕邀請其他成員加入。"
+msgstr "所有的成員皆已加入此議題。"
 
 #: client/app/center/help_messages/help.messages.html
-#, fuzzy
 msgid "@emptyMsg-invite-not-joined-teammate"
-msgstr "現在就送出邀請 一同開啟團隊合作。"
+msgstr "還有未加入的成員嗎？快邀請他/她加入JANDI！"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-no-team-member-joined"
@@ -666,7 +664,7 @@ msgstr "去到最近的訊息"
 
 #: client/app/center/center.html
 msgid "@has-new-message-alert-msg"
-msgstr ""
+msgstr "您有新訊息"
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"

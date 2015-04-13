@@ -1563,6 +1563,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.onHasNewMessageAlertClicked = onHasNewMessageAlertClicked;
   function onHasNewMessageAlertClicked() {
     _newMsgHelper();
+    _resetNewMsgHelpers();
   }
 
   function _newMsgHelper() {
@@ -1570,13 +1571,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // Has more messages to load
       _refreshCurrentTopic();
     } else {
-      // Already have lastest message of current entity, just scroll down to it.
+      // Already have latest message of current entity, just scroll down to it.
       _scrollToBottomWithAnimate();
     }
   }
   $scope.onHasNewMessageAlertCloseClicked = onHasNewMessageAlertCloseClicked;
   function onHasNewMessageAlertCloseClicked() {
-    console.log('hello this is onHasNewMessageAlertCloseClicked')
     _resetNewMsgAlert();
   }
 
@@ -1596,7 +1596,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _gotNewMessage() {
     $scope.hasNewMsg = true;
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
-
   }
 
 });

@@ -673,7 +673,7 @@ msgstr "最新のメッセージに移動"
 
 #: client/app/center/center.html
 msgid "@has-new-message-alert-msg"
-msgstr ""
+msgstr "新着メッセージがあります"
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
