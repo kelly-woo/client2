@@ -58,13 +58,15 @@
 
       <!--    LEAVE   -->
       <li role="presentation" data-ng-click="onLeaveClick();" data-ng-if="!isDefaultTopic();">
+        <span ng-if="false" translate>@ch-menu-leave-private-confirm</span>
         <a role="menuitem" tabindex="-1">
           <i class="icon-logout"></i><span translate>@ch-menu-leave</span>
         </a>
       </li>
 
       <!--    DELETE  -->
-      <li role="presentation" data-ng-if="isOwner() && !isDefaultTopic()" data-ng-click="openModal('deleteTopic');">
+      <li role="presentation" data-ng-click="onDeleteTopicClick();" data-ng-if="isOwner() && !isDefaultTopic()" >
+        <span ng-if="false" translate>@ch-menu-delete-confirm</span>
         <a role="menuitem" tabindex="-1">
           <i class=" icon-delete-circle-fill "></i><span translate>@ch-menu-delete</span>
         </a>

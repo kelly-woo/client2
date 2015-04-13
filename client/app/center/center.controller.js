@@ -61,21 +61,42 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return $rootScope.team.t_defaultChannelId == $rootScope.currentEntity.id;
   };
   $scope.onLeaveClick = function() {
-    log('-- leaving')
+    log('-- leaving');
 
-    entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
-      .success(function(response) {
-        log('-- good')
-        // analytics
-        var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
+    if (confirm($filter('translate')('@ch-menu-leave-private-confirm'))) {
+      entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
+        .success(function(response) {
+          log('-- good');
+          // analytics
+          var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
 
-        analyticsService.mixpanelTrack( "Entity Leave" , { "type": entity_type } );
-        updateLeftPanel();
-      })
-      .error(function(error) {
-        alert(error.msg);
-      })
+          analyticsService.mixpanelTrack( "Entity Leave" , { "type": entity_type } );
+          updateLeftPanel();
+        })
+        .error(function(error) {
+          alert(error.msg);
+        });
+    }
   };
+
+  $scope.onDeleteTopicClick = function () {
+    if (confirm($filter('translate')('@ch-menu-delete-confirm'))) {
+      entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
+        .success(function() {
+          $scope.updateLeftPanel();
+
+          fileAPIservice.broadcastChangeShared();
+
+          // analytics
+          var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
+          analyticsService.mixpanelTrack("Entity Delete", { "type": entity_type });
+        })
+        .error(function(error) {
+          console.log(error.msg);
+        });
+    }
+  };
+
   $scope.onMeesageLeaveClick = function(entityId) {
     $rootScope.$broadcast('leaveCurrentChat', entityId);
   };
@@ -784,13 +805,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       publicService.openInviteToCurrentEntityModal($scope);
     } else if (selector == 'inviteUserToChannel') {
       publicService.openInviteToJoinedEntityModal($scope);
-    } else if (selector === 'deleteTopic') {
-      $modal.open({
-        scope: $scope,
-        templateUrl: 'app/modal/delete.topic.html',
-        controller: 'deleteTopicModalCtrl',
-        size: 'lg'
-      });
     } else if (selector == 'share') {
 
     }

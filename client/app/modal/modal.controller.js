@@ -101,33 +101,6 @@ app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderA
   };
 });
 
-// CHANNEL DELETE
-app.controller('deleteTopicModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, analyticsService, fileAPIservice) {
-  $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
-  };
-  $scope.onDeleteTopicClick = function() {
-    $scope.toggleLoading();
-    entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
-      .success(function() {
-        $scope.updateLeftPanel();
-
-        fileAPIservice.broadcastChangeShared();
-
-        // analytics
-        var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
-        analyticsService.mixpanelTrack("Entity Delete", { "type": entity_type });
-      })
-      .error(function(error) {
-        console.log(error.msg);
-      })
-      .finally(function() {
-        $scope.toggleLoading();
-        $scope.cancel();
-      });
-  };
-});
-
 // PRIVATE_GROUP/CHANNEL INVITE
 app.controller('inviteModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService) {
   $scope.cancel = function() {
