@@ -34,10 +34,10 @@
       target = $( event.target );
       c = target
             .clone()
-            .css( {display: 'inline', width: 'auto', visibility: 'hidden'} )
+            .css( {display: 'block', width: 'auto', visibility: 'hidden'} )
             .appendTo(target.parent());
 
-      $scope.tooltip = c.width() > target.width() ? joinedEntityName : '';
+      $scope.tooltip = c.width() <= target.width() ? joinedEntityName : '';
       c.remove();
     };
   }
