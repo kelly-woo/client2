@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -112,7 +112,8 @@ msgstr "表示"
 msgid "@btn-close"
 msgstr "閉じる"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
 msgstr "コメント"
@@ -169,12 +170,22 @@ msgid "@ch-menu-delete"
 msgstr "このトピックを削除"
 
 #: client/app/center/center.html
+msgid "@ch-menu-delete-confirm"
+msgstr "本当にこのトピックを削除しますか？"
+
+#: client/app/center/center.html
 msgid "@ch-menu-invite"
 msgstr "このトピックに招待"
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
 msgstr "このトピックから退出"
+
+#: client/app/center/center.html
+msgid "@ch-menu-leave-private-confirm"
+msgstr ""
+"プライベートトピックから退出すると、そのプライベートトピックのメンバーに改め"
+"て招待されない限り再び参加することはできません。本当に退出しますか？"
 
 #: client/app/center/center.html
 msgid "@ch-menu-rename"
@@ -275,7 +286,8 @@ msgstr "現在のパスワード"
 msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "削除されたファイル"
 
@@ -304,7 +316,8 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr "へ招待"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@common-download"
 msgstr "ダウンロード"
@@ -678,8 +691,8 @@ msgstr "新着メッセージがあります"
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"プレビュー機能はInternet Explorer 9で利用できない場合がありますが、ファイルの"
-"アップロードは利用可能です"
+"プレビュー機能はInternet Explorer 9で利用できない場合がありますが、ファイル"
+"のアップロードは利用可能です"
 
 #: client/app/modal/upload.html
 msgid "@ie9-please-do-not-use"
@@ -690,8 +703,8 @@ msgstr ""
 #: client/app/modal/settings.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
-"Internet Explorer 9では、プロフィール画像の変更機能はサポートされていません。"
-"ご利用するには、最新バージョンにアップデートしてください。"
+"Internet Explorer 9では、プロフィール画像の変更機能はサポートされていませ"
+"ん。ご利用するには、最新バージョンにアップデートしてください。"
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/topic_create/topic.create.html
@@ -776,7 +789,8 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
 msgstr "削除する"
@@ -798,8 +812,8 @@ msgid "@modal-create-ch-msg3"
 msgstr ""
 "-「公開」を選んだ場合でもチームメンバー以外の人が閲覧することはできません-プ"
 "ライベートトピック内で共有されたファイルは、そのトピックを閲覧できるメンバー"
-"からしかアクセスできません-トピック作成後はプライベートトピックへの変更はでき"
-"ません。その逆もできません。"
+"からしかアクセスできません-トピック作成後はプライベートトピックへの変更はで"
+"きません。その逆もできません。"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -813,8 +827,8 @@ msgstr ""
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
 msgstr ""
-"-プライベートトピックはそのトピックに招待されていないメンバーから見ることはで"
-"きません"
+"-プライベートトピックはそのトピックに招待されていないメンバーから見ることは"
+"できません"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
@@ -1009,7 +1023,8 @@ msgstr ""
 msgid "@search-result-summary"
 msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>の検索結果"
-"が<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>件あります"
+"が<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>件ありま"
+"す"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -1032,8 +1047,8 @@ msgstr "本当にドメイン名（URL)を変更してよいですか？"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-msg"
 msgstr ""
-"ログインするためにはこのドメインのURLが必要になります。必ずメンバー全員に最新"
-"のURLを周知してください"
+"ログインするためにはこのドメインのURLが必要になります。必ずメンバー全員に最"
+"新のURLを周知してください"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-taken-warning-msg"
@@ -1041,7 +1056,8 @@ msgstr "そのドメイン名はすでに利用されています"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-warning-msg"
-msgstr "ドメイン名は最低３文字必要で、半角英数小文字、ハイフンのみ利用できます"
+msgstr ""
+"ドメイン名は最低３文字必要で、半角英数小文字、ハイフンのみ利用できます"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-name-change"
@@ -1075,7 +1091,8 @@ msgstr "他のチームメンバーを招待する"
 msgid "@team-members"
 msgstr "チームメンバー"
 
-#: client/app/header/header.html client/app/modal/team_change/team.change.html
+#: client/app/header/header.html
+#: client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "チーム切替"
 
@@ -1157,7 +1174,8 @@ msgstr ""
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
-msgstr "トピックとプライベートトピックとダイレクトメッセージの違いは何ですか？"
+msgstr ""
+"トピックとプライベートトピックとダイレクトメッセージの違いは何ですか？"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
@@ -1174,8 +1192,8 @@ msgstr "続きを見る »"
 msgid "@tutorial-welcome-intro"
 msgstr ""
 "JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュニケー"
-"ションできることを願っています。ここでJANDIをより良く理解するために重要な３点"
-"をご紹介します。"
+"ションできることを願っています。ここでJANDIをより良く理解するために重要な３"
+"点をご紹介します。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"

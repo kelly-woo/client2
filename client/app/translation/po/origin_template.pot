@@ -2,6 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -173,11 +174,19 @@ msgid "@ch-menu-delete"
 msgstr ""
 
 #: client/app/center/center.html
+msgid "@ch-menu-delete-confirm"
+msgstr ""
+
+#: client/app/center/center.html
 msgid "@ch-menu-invite"
 msgstr ""
 
 #: client/app/center/center.html
 msgid "@ch-menu-leave"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@ch-menu-leave-private-confirm"
 msgstr ""
 
 #: client/app/center/center.html
