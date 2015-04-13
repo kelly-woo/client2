@@ -51,6 +51,7 @@
 .header-navbar__topmenu .fa-question-circle {
   font-size: 19px;
   vertical-align: middle;
+  margin-right: 2px;
 }
 .header-navbar__topmenu .icon-language {
   font-size: 20px;
