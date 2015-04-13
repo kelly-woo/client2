@@ -60,6 +60,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loadingTimer : false // no longer using.
   };
 
+  $scope.updateLeftPanel = updateLeftPanel;
+
   $scope.isOwner = function() {
     return ($rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId) == memberService.getMemberId();
   };
@@ -67,35 +69,42 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return _isDefaultTopic();
   };
   $scope.onLeaveClick = function() {
-    log('-- leaving')
+    log('-- leaving');
 
-    entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
-      .success(function(response) {
-        log('-- good')
-        // analytics
-        var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
+    if (confirm($filter('translate')('@ch-menu-leave-private-confirm'))) {
+      entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
+        .success(function(response) {
+          log('-- good');
+          // analytics
+          var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
 
-        analyticsService.mixpanelTrack( "Entity Leave" , { "type": entity_type } );
-        updateLeftPanel();
-      })
-      .error(function(error) {
-        alert(error.msg);
-      })
+          analyticsService.mixpanelTrack( "Entity Leave" , { "type": entity_type } );
+          updateLeftPanel();
+        })
+        .error(function(error) {
+          alert(error.msg);
+        });
+    }
   };
-  $scope.onDeleteClick = function() {
-    entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
-      .success(function() {
-        // analytics
-        var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
-        analyticsService.mixpanelTrack( "Entity Delete", { "type": entity_type } );
 
-        updateLeftPanel();
-        fileAPIservice.broadcastChangeShared();
-      })
-      .error(function(error) {
-        alert(error.msg);
-      });
+  $scope.onDeleteTopicClick = function () {
+    if (confirm($filter('translate')('@ch-menu-delete-confirm'))) {
+      entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
+        .success(function() {
+          $scope.updateLeftPanel();
+
+          fileAPIservice.broadcastChangeShared();
+
+          // analytics
+          var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
+          analyticsService.mixpanelTrack("Entity Delete", { "type": entity_type });
+        })
+        .error(function(error) {
+          console.log(error.msg);
+        });
+    }
   };
+
   $scope.onMeesageLeaveClick = function(entityId) {
     $rootScope.$broadcast('leaveCurrentChat', entityId);
   };
@@ -845,22 +854,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         controller  : 'fileUploadModalCtrl',
         size        : 'lg'
       });
-    }
-    else if (selector == 'rename') {
+    } else if (selector == 'rename') {
       $modal.open({
         scope       :   $scope,
         templateUrl :   'app/modal/rename.html',
         controller  :   'renameModalCtrl',
         size        :   'lg'
       });
-    }
-    else if (selector == 'invite') {
+    } else if (selector == 'invite') {
       publicService.openInviteToCurrentEntityModal($scope);
-    }
-    else if (selector == 'inviteUserToChannel') {
+    } else if (selector == 'inviteUserToChannel') {
       publicService.openInviteToJoinedEntityModal($scope);
-    }
-    else if (select == 'share') {
+    } else if (selector == 'share') {
 
     }
   };
