@@ -677,7 +677,7 @@ msgstr "Go to the most recent messages"
 
 #: client/app/center/center.html
 msgid "@has-new-message-alert-msg"
-msgstr ""
+msgstr "You received a new message"
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"

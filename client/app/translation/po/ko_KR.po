@@ -668,7 +668,7 @@ msgstr "최신 메시지로 가기"
 
 #: client/app/center/center.html
 msgid "@has-new-message-alert-msg"
-msgstr ""
+msgstr "새로운 메시지가 있습니다."
 
 #: client/app/modal/upload.html
 msgid "@ie9-file-preview"

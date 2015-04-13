@@ -119,7 +119,7 @@ app.filter('parseAnchor', function() {
 
     for ( i = 0, iLen = strs.length; i < iLen; ++i ) {
       str = strs[ i ];
-      words = str.split( /\s/ );
+      words = str.split( ' ' );   // 문자열 split시 ' '과 /\s/는 다르게 처리됨. 예) "%E3%80%80(encodeURI 처리된 문자)"
       for ( j = 0, jLen = words.length; j < jLen; ++j ) {
         word = words[ j ];
         if ( matchs = rEmailAddr.exec( word ) ) {
