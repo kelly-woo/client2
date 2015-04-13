@@ -57,7 +57,7 @@
       </li>
 
       <!--    LEAVE   -->
-      <li role="presentation" data-ng-click="onLeaveClick();" data-ng-if="!isDefaultTopic();">
+      <li role="presentation" data-ng-click="onLeaveClick(currentEntity.type);" data-ng-if="!isDefaultTopic();">
         <span ng-if="false" translate>@ch-menu-leave-private-confirm</span>
         <a role="menuitem" tabindex="-1">
           <i class="icon-logout"></i><span translate>@ch-menu-leave</span>
