@@ -8,7 +8,7 @@
       'app.analytics',
       'app.language',
       'app.storage',
-      'app.socket',
+      //'app.socket',
       'app.pubsub'
       // 'app.session'
     ])
