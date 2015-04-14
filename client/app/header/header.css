@@ -51,6 +51,7 @@
 .header-navbar__topmenu .fa-question-circle {
   font-size: 19px;
   vertical-align: middle;
+  margin-right: 2px;
 }
 .header-navbar__topmenu .icon-language {
   font-size: 20px;
@@ -62,10 +63,11 @@
 }
 .header-navbar__topmenu .fa-caret-down {
   color: #999;
+  vertical-align: middle;
 }
 
 .header-navbar__title {
-  line-height: 40px;
+  line-height: 43px;
 }
 .header-navbar__dropdown {
   position: absolute;
