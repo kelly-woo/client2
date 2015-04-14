@@ -1,6 +1,7 @@
-set :application, 'web_landing'
-set :branch, 'landing/master'
-set :deploy_to, '/srv/www/web_landing'
+set :application, 'web_admin'
+set :repo_url, 'git@github.com:tosslab/web_admin.git'
+set :branch, 'master'
+set :deploy_to, '/srv/www/web_admin'
 
 # Simple Role Syntax
 # ==================

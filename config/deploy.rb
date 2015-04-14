@@ -49,6 +49,7 @@ namespace :deploy do
           execute :grunt, 'build'
         else
           execute :npm, 'install', '--quiet'
+          execute :bower, 'prune', '--quiet'
           execute :bower, 'install', '--quiet'
           execute :grunt, 'deploy'
         end
