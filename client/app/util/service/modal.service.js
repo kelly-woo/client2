@@ -15,6 +15,8 @@
 
     var modal;
 
+    this.openMemberProfileModal = openMemberProfileModal;
+
     this.openTeamMemberListModal = openTeamMemberListModal;
 
     this.openInviteToCurrentEntityModal = openInviteToCurrentEntityModal;
@@ -23,6 +25,20 @@
     this.closeModal = closeModal;
 
 
+    function openMemberProfileModal($scope, member) {
+      var modalOption = {
+        scope       :   $scope,
+        templateUrl :   'app/modal/profile.view.html',
+        controller  :   'profileViewerCtrl',
+        windowClass :   'profile-view-modal',
+        resolve     :   {
+          curUser     : function getCurUser(){ return member; }
+        }
+      };
+
+      modal = _modalOpener(modalOption);
+
+    }
     function openTeamMemberListModal() {
       var modalOption = {
         templateUrl : 'app/modal/team_member_list/team.member.list.html',

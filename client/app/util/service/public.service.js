@@ -153,15 +153,7 @@
       });
     }
     function openMemberProfileModal($scope, member) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/profile.view.html',
-        controller  :   'profileViewerCtrl',
-        windowClass :   'profile-view-modal',
-        resolve     :   {
-          curUser     : function getCurUser(){ return member; }
-        }
-      });
+      modalHelper.openMemberProfileModal($scope, member);
     }
     function openPasswordResetRequestModal($scope) {
       $modal.open({

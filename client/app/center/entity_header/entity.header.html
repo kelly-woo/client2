@@ -5,7 +5,7 @@
   </span>
 
   <!--    PREFIX ICON -->
-  <span class="prefix">
+  <span class="prefix" ng-click="onPrefixIconCicked();">
     <i data-ng-if="currentEntity.type === 'channels'" class="icon-topic-fill"></i>
     <i data-ng-if="currentEntity.type === 'privategroups'" class="icon-chat-fill"></i>
     <i data-ng-if="currentEntity.type === 'users'" class="icon-user"></i>

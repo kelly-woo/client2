@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, entityHeader, entityAPIservice, memberService, currentSessionHelper,
-                            publicService, jndPubSub, fileAPIservice, analyticsService) {
+                            publicService, jndPubSub, fileAPIservice, analyticsService, modalHelper) {
 
     var currentEntity;
     var entityId;
@@ -116,6 +116,15 @@
       publicService.goToDefaultTopic();
     }
 
+    $scope.onPrefixIconCicked = function() {
+      if (entityType === 'users') {
+        _onUserPrefixIconClicked();
+      }
+    };
+
+    function _onUserPrefixIconClicked() {
+      modalHelper.openMemberProfileModal($scope, currentEntity);
+    }
 
     // TODO: PLEASE REFACTOR THIS 'onStarClick' method.
     // TODO: THERE ARE MANY DIFFERENT PLACES USING DUPLICATED LINES OF CODES.
