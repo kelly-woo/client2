@@ -28,9 +28,11 @@
 
     function _initWithParam(param) {
       console.log('init with ', param);
-      _checkCurrentEntity(param);
-      _checkOwnership();
-      _checkIfDefaultTopic();
+      if (!!param) {
+        _checkCurrentEntity(param);
+        _checkOwnership();
+        _checkIfDefaultTopic();
+      }
     }
 
     /**
