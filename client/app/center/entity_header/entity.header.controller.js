@@ -50,11 +50,14 @@
     }
 
     function _setCurrentEntity(entity) {
-      currentEntity = entity;
-      entityId = entity.id;
-      entityType = entity.type;
-      $scope.currentEntity = entity;
-      console.log('now ', $scope.currentEntity)
+      if (!!entity) {
+        currentEntity = entity;
+        entityId = entity.id;
+        entityType = entity.type;
+        $scope.currentEntity = entity;
+        console.log('now ', $scope.currentEntity)
+
+      }
     }
     /**
      * Check ownership of current entity whether I'm an owner of current entity or not.

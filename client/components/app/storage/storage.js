@@ -3,7 +3,6 @@
 
   angular
     .module('app.storage', [
-      'app.config',
       'ngCookies',
       'LocalStorageModule'])
     .config(config)
