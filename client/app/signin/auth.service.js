@@ -162,6 +162,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
         //console.debug('BAD REQUEST');
         //console.debug(rejection.config.method, rejection.config.url);
         //console.debug(rejection.headers);
+        return $q.reject(rejection);
 
       } else if (rejection.status === 403) {
         console.log('I am so sorry. It is 403 error. You are not supposed to be here.');
