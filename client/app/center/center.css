@@ -325,10 +325,10 @@ article {
   font-weight: 700;
 }
 
-/* 
+/*
 issue : JND-974
 fix : add margin-bottom: 10px;
-by ysyun 2015.2.25 
+by ysyun 2015.2.25
 */
 .msg-file-body-float {
   margin-right: 10px;
@@ -416,7 +416,7 @@ by ysyun 2015.2.25
 /*
 issue : JND-974
 fix : change min-height:65px to minheight:65px !important
-by ysyun 2015.2.25 
+by ysyun 2015.2.25
 */
 .msg-file-meta {
   font-size: 12px;
@@ -425,11 +425,11 @@ by ysyun 2015.2.25
   min-height: 65px !important;
 }
 
-/* 
+/*
 issue : JND-974
-fix : add comma(,) between .large-thumbnail-grand-parent and .msg-file-meta 
+fix : add comma(,) between .large-thumbnail-grand-parent and .msg-file-meta
       add width: 100%;
-by ysyun 2015.2.25 
+by ysyun 2015.2.25
 */
 .large-thumbnail-grand-parent, .msg-file-meta {
   padding-left: 0;

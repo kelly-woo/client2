@@ -1,12 +1,16 @@
 <!-- Modal: File Upload -->
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
+    <button type="button" class="close" data-ng-click="eventHandler();"><i class="icon-cancel"></i></button>
     <h3 class="modal-header__title">
         <span translate>@common-upload-file</span>
+
+        <span class="file-index">
+            (<span class="current-index">{{currentIndex}}</span>/<span class="last-index">{{lastIndex}}</span>)
+        </span>
     </h3>
 </div>
 
-<form name="file_upload_form" data-ng-submit="onFileUpload(fileInfo);">
+<form name="file_upload_form" data-ng-submit="eventHandler('upload');">
     <div class="modal-body">
         <div class="form-horizontal">
 
@@ -14,12 +18,12 @@
             <div id="file_preview_container" data-ng-class="{'image-background': !supportHtml5}">
 
                 <div class="image_wrapper">
-                    <img rotate class="modal-upload-img image-background"
-                         ng-src="{{dataUrls[0]}}"
-                         ng-if="supportHtml5 && files.type.indexOf('image') != -1"/>
+                    <img rotate upload-image-preview class="modal-upload-img image-background"
+                         ng-src="{{dataUrl}}"
+                         ng-if="supportHtml5 && file.isImage"/>
                 </div>
 
-                <div class="non-image-file-preview fileicon fileicon_{{ files.type | filetype | lowercase}}" ng-if="files.type.indexOf('image') == -1"></div>
+                <div class="non-image-file-preview fileicon fileicon_{{file.type | filetype | lowercase}}" ng-if="!file.isImage"></div>
             </div>
 
             <!--    ALERT MESSAGE WHEN USING IE9    -->
@@ -47,7 +51,7 @@
                 <div class="col-sm-9">
                     <select class="form-control"
                             data-ng-disabled="fileInfo.isPrivateFile"
-                            data-ng-model="fileInfo.share"
+                            data-ng-model="fileInfo.currentEntity"
                             data-ng-options="channel|getName group by channel.typeCategory for channel in selectOptions | orderBy: 'name'">
                     </select>
                     <!--<input type="checkbox" ng-model="fileInfo.isPrivateFile" style="margin-left: 5px;">-->
@@ -61,6 +65,7 @@
                 </label>
                 <div class="col-sm-9">
                     <textarea class="form-control"
+                              id="file_upload_comment"
                               name="file_upload_comment"
                               rows="3"
                               data-ng-model="fileInfo.comment"
@@ -73,7 +78,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-cancel</span></button>
+        <button type="button" class="btn btn-cancel" data-ng-click="eventHandler();"><span translate>@btn-cancel</span></button>
         <input class="btn btn-ok" type="submit" id="file_upload_btn" value="{{ '@btn-upload' | translate }}" />
     </div>
 </form>
