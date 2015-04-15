@@ -19,6 +19,7 @@
       // Handling users with token info in localstorage.
       // Move token info from 'local Storage' -> to 'Cookie'
       if (storageAPIservice.hasAccessTokenLocal()) {
+        //console.log('hasAccessTokenLocal')
         // User has access_token in LocalStorage meaning we need to move all of token info from localStorage to Cookie.
         // So that new version of auto sign-in could work with current user.
         var newToken = {
@@ -33,18 +34,12 @@
         storageAPIservice.removeLocal();
       }
 
-      if (!storageAPIservice.shouldAutoSignIn()) {
-        storageAPIservice.removeLocal();
-        storageAPIservice.removeSession();
-        storageAPIservice.removeCookie();
-        return;
-      }
 
       // Auto sign-in using cookie.
-      if (storageAPIservice.shouldAutoSignIn() || storageAPIservice.isValidValue(storageAPIservice.hasAccessTokenSession())) {
+      if (storageAPIservice.shouldAutoSignIn() || (storageAPIservice.getAccessToken())) {
         $scope.toggleLoading();
 
-        //console.log('trying to auto sign in')
+        //console.log('trying to auto sign in ', (storageAPIservice.getAccessToken()))
 
         accountService.getAccountInfo()
           .success(function(response) {
@@ -60,7 +55,7 @@
             getCurrentMember();
           })
           .error(function(err) {
-            console.log('error on getAccountinfo from authController');
+            //console.log('error on getAccountinfo from authController');
             storageAPIservice.removeLocal();
             storageAPIservice.removeSession();
             storageAPIservice.removeCookie();
@@ -84,7 +79,7 @@
       }
 
       if (curMemberId == -1) {
-        console.log('no memberid')
+        //console.log('no memberid')
         // Could not find member id that is associated with current team.
         var main_team = $scope.configuration.main_address + 'team';
         publicService.redirectTo(main_team);
@@ -109,8 +104,8 @@
           $state.go('messages.home');
         })
         .error(function(err) {
-          console.log('getMemberInfo bad')
-          console.log('err')
+          //console.log('getMemberInfo bad')
+          //console.log('err')
           $scope.signInFailed = true;
           publicService.signOut();
         })
@@ -164,7 +159,7 @@
           var signInInfo = accountService.getCurrentMemberId(response.account.memberships);
 
           if (signInInfo.memberId == -1) {
-            console.log('no memberid')
+            //console.log('no memberid')
             // Could not find member id that is associated with current team.
             // Direct user to landing page!
             var main_team = $scope.configuration.main_address + 'team';
@@ -189,7 +184,7 @@
               $state.go('messages.home');
             })
             .error(function(err) {
-              console.log(err)
+              //console.log(err)
               $scope.signInFailed = true;
               storageAPIservice.removeSession();
               storageAPIservice.removeLocal();
