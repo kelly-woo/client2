@@ -18,7 +18,6 @@
     })();
 
     $scope.$on('onCurrentEntityChanged', function(event, param) {
-      console.log('listened onCurrentEntityChanged ', param)
       _initWithParam(param);
     });
 
@@ -27,7 +26,6 @@
     }
 
     function _initWithParam(param) {
-      console.log('init with ', param);
       if (!!param) {
         _checkCurrentEntity(param);
         _checkOwnership();
@@ -57,8 +55,6 @@
         entityId = entity.id;
         entityType = entity.type;
         $scope.currentEntity = entity;
-        console.log('now ', $scope.currentEntity)
-
       }
     }
     /**
