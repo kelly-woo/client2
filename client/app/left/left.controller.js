@@ -120,7 +120,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
 
   initLeftList();
 
-
   // TODO: MOVE VARIABLES FROM '$rootScope' to 'session.service'
   function initLeftList () {
     if (!storageAPIservice.isValidValue(memberService.getMember()) && !storageAPIservice.shouldAutoSignIn() ) {

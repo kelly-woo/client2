@@ -100,7 +100,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onStartUpCheckList() {
     _checkIE9();
-    _hasCorrectEntityType();
+    //_hasCorrectEntityType();
     _isMyself();
   }
 
@@ -122,7 +122,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
   function _isMyself() {
+
+    if (!$rootScope.member) return;
     if (entityId == $rootScope.member.id) {
+      // Go to default Topic.
       $rootScope.toDefault = true;
     }
   }
@@ -564,7 +567,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(function (response) {
 
-        //console.log('  -- getUpdatedMessages success');
         // jihoon
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
         if (response.event.eventCount != 0) updateEventHandler(response.event);
@@ -754,7 +756,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           //console.log('posting - regular')
           updateList();
         } else {
-          console.log('posing - search mode')
+          //console.log('posing - search mode')
           _refreshCurrentTopic();
         }
       })
@@ -886,8 +888,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.$on('onFileDeleted', function(event, deletedFileId) {
     _.forEach($scope.messages, function(message) {
       var file;
-      console.log('hi', deletedFileId);
-      console.log(message.message);
+      //console.log('hi', deletedFileId);
+      //console.log(message.message);
 
       //msg.message.contentType === 'systemEvent
       //msg.message.commentOption.isTitle }}

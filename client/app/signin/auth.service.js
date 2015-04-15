@@ -67,25 +67,19 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
         'grant_type'    : 'refresh_token',
         'refresh_token' : refresh_token
       }
+    }).success(function(response) {
+      updateAccessToken(response);
     })
-      .success(function(response) {
-        console.log(response)
-        authAPIservice.updateAccessToken(response);
-      })
       .error(function(err) {
         // bad refresh_token.
-        console.log('bad refresh_token')
         _signOut();
       })
-      .finally(function() {
-
-      });
   };
 
   function _signOut() {
     publicService.signOut();
   }
-  authAPI.updateAccessToken = function(response) {
+  function updateAccessToken() {
     if (storageAPIservice.isValidValue(storageAPIservice.getRefreshTokenLocal())) {
       storageAPIservice.setAccessTokenLocal(response.access_token)
     }
@@ -98,7 +92,7 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
 
 
     $state.go($state.current, {}, {reload: true}); //second parameter is for $stateParams
-  };
+  }
 
 
   function DeleteToken() {
@@ -159,58 +153,51 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
       return config;
     },
-
     responseError: function (rejection) {
       if (rejection.status === 0) {
         // net::ERR_CONNECTION_REFUSED
         // what should i do?
-        return $q.reject(rejection);
-
-      }
-      if (rejection.status === 400) {
+      } else if (rejection.status === 400) {
         // This is just bad request.
         //console.debug('BAD REQUEST');
         //console.debug(rejection.config.method, rejection.config.url);
         //console.debug(rejection.headers);
 
-        return $q.reject(rejection);
+      } else if (rejection.status === 403) {
+        console.log('I am so sorry. It is 403 error. You are not supposed to be here.');
 
-      }
-      if (rejection.status === 403) {
         var disabledMemberAccessingTeamCode = 40301;
 
-        var authAPIservice = $injector.get('authAPIservice');
-        if (angular.isUndefined(authAPIservice)) return;
-
         var situationCode = rejection.data.code;
+
         if (situationCode == disabledMemberAccessingTeamCode) {
           // Current member has been disabled from current team!!
+          var authAPIservice = $injector.get('authAPIservice');
+          if (angular.isUndefined(authAPIservice)) return;
           authAPIservice.onCurrentMemberDisabled();
-        } else if (situationCode == 40300) {
-          authAPIservice.on40300Err();
-          return $q.reject(rejection);
         }
-      }
+      } else if (rejection.status == 502) {
+        console.log('I am so sorry. It is 502 error. Network needs to be re-established.');
+        return $q.reject(rejection);
 
-      if (rejection.status == 502) {
-        console.log('its 502 error!! Network needs to be re-established.');
-      }
-
-      if (rejection.status == 503) {
+      } else if (rejection.status == 503) {
         var authAPIservice = $injector.get('authAPIservice');
         authAPIservice.handleConstructionErr();
         return $q.reject(rejection);
-      }
-      if (rejection.status === 401) {
+      } else if (rejection.status === 401) {
         // Unauthorized Access.
         // What to do? - get new access_token using refresh_token
+        -        console.log('I am so sorry. It is 401 error. Network needs to be re-established.');
+        +        console.log('I am so sorry. It is 401 error.');
         var authAPIservice = $injector.get('authAPIservice');
 
         if (angular.isUndefined(authAPIservice)) return;
 
         authAPIservice.requestAccessTokenWithRefreshToken();
+        return $q.reject(rejection);
       }
 
+
     }
-  };
+  }
 });

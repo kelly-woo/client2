@@ -40,9 +40,8 @@
         $scope.toggleLoading();
 
         //console.log('trying to auto sign in ', (storageAPIservice.getAccessToken()))
-
         accountService.getAccountInfo()
-          .success(function(response) {
+          .success(function (response) {
             //console.log('got account info')
             accountService.setAccount(response);
 
@@ -54,7 +53,7 @@
 
             getCurrentMember();
           })
-          .error(function(err) {
+          .error(function (err) {
             //console.log('error on getAccountinfo from authController');
             storageAPIservice.removeLocal();
             storageAPIservice.removeSession();
@@ -62,7 +61,6 @@
             $scope.toggleLoading();
           });
       }
-
     })();
 
     function getCurrentMember(memberId) {
