@@ -414,7 +414,7 @@ app.controller('leftPanelController1', function(
   $scope.onFileSelect = function($files) {
     var fileObject = Object.create(fileService).init($files);
     if (fileObject.size() > 0) {
-      $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.hasAllFileAPI;
+      $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
       $scope.fileObject = fileObject;
       $scope.openModal('file');
     }
