@@ -175,7 +175,10 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
           var authAPIservice = $injector.get('authAPIservice');
           if (angular.isUndefined(authAPIservice)) return;
           authAPIservice.onCurrentMemberDisabled();
+        } else {
+          return $q.reject(rejection);
         }
+
       } else if (rejection.status == 502) {
         console.log('I am so sorry. It is 502 error. Network needs to be re-established.');
         return $q.reject(rejection);
