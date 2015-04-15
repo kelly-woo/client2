@@ -18,7 +18,6 @@
     })();
 
     $scope.$on('onCurrentEntityChanged', function(event, param) {
-      console.log('listened onCurrentEntityChanged ', param)
       _initWithParam(param);
     });
 
@@ -57,8 +56,6 @@
         entityId = entity.id;
         entityType = entity.type;
         $scope.currentEntity = entity;
-        console.log('now ', $scope.currentEntity)
-
       }
     }
     /**

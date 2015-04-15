@@ -11,7 +11,6 @@
     this.pub = publish;
 
     function publish(event, param) {
-      console.log('broadcasting ', event)
       $rootScope.$broadcast(event, param);
     }
   }
