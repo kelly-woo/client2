@@ -18,14 +18,16 @@
     })();
 
     $scope.$on('onCurrentEntityChanged', function(event, param) {
+      console.log('listened onCurrentEntityChanged ', param)
       _initWithParam(param);
     });
 
     function _init() {
-      _initWithParam(currentEntity);
+      _initWithParam($scope.currentEntity);
     }
 
     function _initWithParam(param) {
+      console.log('init with ', param);
       _checkCurrentEntity(param);
       _checkOwnership();
       _checkIfDefaultTopic();
@@ -51,6 +53,8 @@
       currentEntity = entity;
       entityId = entity.id;
       entityType = entity.type;
+      $scope.currentEntity = entity;
+      console.log('now ', $scope.currentEntity)
     }
     /**
      * Check ownership of current entity whether I'm an owner of current entity or not.

@@ -697,7 +697,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function onHttpRequestError(response) {
-    console.log(response)
     //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
     if (response.code == CURRENT_ENTITY_ARCHIVED) {
       //console.log('okay channel archived');
