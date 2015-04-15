@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, $filter, configuration) {
+app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, $filter, configuration, publicService) {
   var authAPI = {};
 
   authAPI.signIn = function(userdata) {
@@ -57,16 +57,34 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
   authAPI.requestAccessTokenWithRefreshToken = function() {
     var refresh_token = storageAPIservice.getRefreshToken();
 
-    return $http({
+    if (!refresh_token) {
+      _signOut();
+    }
+    $http({
       method  : "POST",
       url     : $rootScope.server_address + 'token',
       data    : {
         'grant_type'    : 'refresh_token',
         'refresh_token' : refresh_token
       }
-    });
+    })
+      .success(function(response) {
+        console.log(response)
+        authAPIservice.updateAccessToken(response);
+      })
+      .error(function(err) {
+        // bad refresh_token.
+        console.log('bad refresh_token')
+        _signOut();
+      })
+      .finally(function() {
+
+      });
   };
 
+  function _signOut() {
+    publicService.signOut();
+  }
   authAPI.updateAccessToken = function(response) {
     if (storageAPIservice.isValidValue(storageAPIservice.getRefreshTokenLocal())) {
       storageAPIservice.setAccessTokenLocal(response.access_token)
@@ -150,7 +168,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
         // This is just bad request.
         //console.debug('BAD REQUEST');
         //console.debug(rejection.config.method, rejection.config.url);
-        //console.debug(rejection);
+        //console.debug(rejection.headers);
 
         return $q.reject(rejection);
 
@@ -173,7 +191,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
       }
 
       if (rejection.status == 503) {
-        console.log(rejection.status)
         var authAPIservice = $injector.get('authAPIservice');
         authAPIservice.handleConstructionErr();
         return $q.reject(rejection);
@@ -185,16 +202,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
 
         if (angular.isUndefined(authAPIservice)) return;
 
-        authAPIservice.requestAccessTokenWithRefreshToken()
-          .success(function(response) {
-            authAPIservice.updateAccessToken(response);
-          })
-          .error(function(error) {
-            // bad refresh_token.
-            var publicService = $injector.get('publicService');
-
-            publicService.signOut();
-          });
+        authAPIservice.requestAccessTokenWithRefreshToken();
       }
 
     }

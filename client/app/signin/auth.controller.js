@@ -19,6 +19,7 @@
       // Handling users with token info in localstorage.
       // Move token info from 'local Storage' -> to 'Cookie'
       if (storageAPIservice.hasAccessTokenLocal()) {
+        console.log('hasAccessTokenLocal')
         // User has access_token in LocalStorage meaning we need to move all of token info from localStorage to Cookie.
         // So that new version of auto sign-in could work with current user.
         var newToken = {
@@ -33,22 +34,16 @@
         storageAPIservice.removeLocal();
       }
 
-      if (!storageAPIservice.shouldAutoSignIn()) {
-        storageAPIservice.removeLocal();
-        storageAPIservice.removeSession();
-        storageAPIservice.removeCookie();
-        return;
-      }
 
       // Auto sign-in using cookie.
-      if (storageAPIservice.shouldAutoSignIn() || storageAPIservice.isValidValue(storageAPIservice.hasAccessTokenSession())) {
+      if (storageAPIservice.shouldAutoSignIn() || (storageAPIservice.getAccessToken())) {
         $scope.toggleLoading();
 
-        //console.log('trying to auto sign in')
+        console.log('trying to auto sign in ', (storageAPIservice.getAccessToken()))
 
         accountService.getAccountInfo()
           .success(function(response) {
-            //console.log('got account info')
+            console.log('got account info')
             accountService.setAccount(response);
 
             publicService.getLanguageSetting();
