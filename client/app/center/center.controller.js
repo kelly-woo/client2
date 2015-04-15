@@ -700,19 +700,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //console.log('okay channel archived');
       $scope.updateLeftPanelCaller();
       $rootScope.toDefault = true;
-      return;
-    }
-
-    if (response.code == INVALID_SECURITY_TOKEN) {
+    } else if (response.code == INVALID_SECURITY_TOKEN) {
       //console.debug('INVALID SECURITY TOKEN.');
       $state.go('signin');
-      return;
-    }
-
-    if (response === 'Unauthorized') {
+    } else if (response === 'Unauthorized') {
       //console.debug('logged out');
       leftpanelAPIservice.toSignin();
     }
+
+    $rootScope.toDefault = true;
+
   }
 
   //  Updating message marker for current entity.
