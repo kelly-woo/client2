@@ -66,10 +66,10 @@
 
 <!-- Add your site or application content here -->
 
-<div class="hpanel" ui-view="headerpanel"></div>
-<div id="client-ui" class="body" ui-view=""></div>
-<div ui-view="rightpanel" class="rpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
-<div ui-view="detailpanel" class="rpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
+<div class="hpanel non-selectable" ui-view="headerpanel"></div>
+<div class="body" id="client-ui" ui-view=""></div>
+<div class="rpanel non-selectable" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
+<div class="rpanel non-selectable" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
 <div class="rpanel__background" ng-class="{'extend': $state.includes('**.files.**'), 'hidden': !$state.includes('**.files.**')} ">
     <div class="panel-title-container"></div>
     <div class="rpanel__background-body">
