@@ -325,10 +325,10 @@ article {
   font-weight: 700;
 }
 
-/* 
+/*
 issue : JND-974
 fix : add margin-bottom: 10px;
-by ysyun 2015.2.25 
+by ysyun 2015.2.25
 */
 .msg-file-body-float {
   margin-right: 10px;
@@ -416,7 +416,7 @@ by ysyun 2015.2.25
 /*
 issue : JND-974
 fix : change min-height:65px to minheight:65px !important
-by ysyun 2015.2.25 
+by ysyun 2015.2.25
 */
 .msg-file-meta {
   font-size: 12px;
@@ -425,11 +425,11 @@ by ysyun 2015.2.25
   min-height: 65px !important;
 }
 
-/* 
+/*
 issue : JND-974
-fix : add comma(,) between .large-thumbnail-grand-parent and .msg-file-meta 
+fix : add comma(,) between .large-thumbnail-grand-parent and .msg-file-meta
       add width: 100%;
-by ysyun 2015.2.25 
+by ysyun 2015.2.25
 */
 .large-thumbnail-grand-parent, .msg-file-meta {
   padding-left: 0;
@@ -652,21 +652,12 @@ by ysyun 2015.2.25
                 Drag & Drop
 
 ********************************************/
-.footer_inner_border {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  border-top: 0 !important;
-}
 .msgs-inner__border {
   position: absolute;
   left: 0;
   right: 0;
   top: 35px;
-  bottom: 60px;
-  border-bottom: 0 !important;
+  bottom: 0;
   z-index: 1;
   display: none;
 }
@@ -679,8 +670,7 @@ by ysyun 2015.2.25
 .dnd-hover .dnd-hover-msg {
   display: block;
 }
-.dnd-hover .msgs-inner__border,
-.dnd-hover .footer_inner_border {
+.dnd-hover .msgs-inner__border {
   display: block;
   border: 5px solid rgba(26, 155, 106, 0.5);
 }
