@@ -59,7 +59,7 @@
     }
     function openInviteToTeamModal() {
       var modalOption = {
-        templateUrl :   'app/modal/invite.team.html',
+        templateUrl :   'app/modal/invite_to_team/invite.team.html',
         controller  :   'inviteUserToTeamCtrl',
         size        :   'lg'
       };

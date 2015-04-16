@@ -55,11 +55,15 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
   };
 
   authAPI.requestAccessTokenWithRefreshToken = function() {
+    //console.log('requestAccessTokenWithRefreshToken')
+
     var refresh_token = storageAPIservice.getRefreshToken();
 
     if (!refresh_token) {
       _signOut();
+      return;
     }
+
     $http({
       method  : "POST",
       url     : $rootScope.server_address + 'token',
@@ -69,17 +73,18 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
       }
     }).success(function(response) {
       updateAccessToken(response);
+    }).error(function(err) {
+      // bad refresh_token.
+      _signOut();
     })
-      .error(function(err) {
-        // bad refresh_token.
-        _signOut();
-      })
   };
 
   function _signOut() {
     publicService.signOut();
   }
-  function updateAccessToken() {
+
+
+  function updateAccessToken(response) {
     if (storageAPIservice.isValidValue(storageAPIservice.getRefreshTokenLocal())) {
       storageAPIservice.setAccessTokenLocal(response.access_token)
     }
@@ -162,7 +167,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
         //console.debug('BAD REQUEST');
         //console.debug(rejection.config.method, rejection.config.url);
         //console.debug(rejection.headers);
-
+        return $q.reject(rejection);
       } else if (rejection.status === 403) {
         console.log('I am so sorry. It is 403 error. You are not supposed to be here.');
 
@@ -178,7 +183,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
         } else {
           return $q.reject(rejection);
         }
-
       } else if (rejection.status == 502) {
         console.log('I am so sorry. It is 502 error. Network needs to be re-established.');
         return $q.reject(rejection);
@@ -190,8 +194,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
       } else if (rejection.status === 401) {
         // Unauthorized Access.
         // What to do? - get new access_token using refresh_token
-        -        console.log('I am so sorry. It is 401 error. Network needs to be re-established.');
-        +        console.log('I am so sorry. It is 401 error.');
+        console.log('I am so sorry. It is 401 error.');
         var authAPIservice = $injector.get('authAPIservice');
 
         if (angular.isUndefined(authAPIservice)) return;
@@ -199,8 +202,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
         authAPIservice.requestAccessTokenWithRefreshToken();
         return $q.reject(rejection);
       }
-
-
     }
   }
 });

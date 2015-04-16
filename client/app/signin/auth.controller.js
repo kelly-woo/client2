@@ -35,32 +35,33 @@
       }
 
 
+      if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) return;
+
       // Auto sign-in using cookie.
-      if (storageAPIservice.shouldAutoSignIn() || (storageAPIservice.getAccessToken())) {
-        $scope.toggleLoading();
+      //console.log('trying to auto sign in ', (storageAPIservice.getAccessToken()))
 
-        //console.log('trying to auto sign in ', (storageAPIservice.getAccessToken()))
-        accountService.getAccountInfo()
-          .success(function (response) {
-            //console.log('got account info')
-            accountService.setAccount(response);
+      $scope.toggleLoading();
 
-            publicService.getLanguageSetting();
-            publicService.setCurrentLanguage();
+      accountService.getAccountInfo()
+        .success(function(response) {
+          //console.log('got account info')
+          accountService.setAccount(response);
 
-            analyticsService.accountIdentifyMixpanel(response);
-            analyticsService.accountMixpanelTrack("Sign In");
+          publicService.getLanguageSetting();
+          publicService.setCurrentLanguage();
 
-            getCurrentMember();
-          })
-          .error(function (err) {
-            //console.log('error on getAccountinfo from authController');
-            storageAPIservice.removeLocal();
-            storageAPIservice.removeSession();
-            storageAPIservice.removeCookie();
-            $scope.toggleLoading();
-          });
-      }
+          analyticsService.accountIdentifyMixpanel(response);
+          analyticsService.accountMixpanelTrack("Sign In");
+
+          getCurrentMember();
+        })
+        .error(function(err) {
+          //console.log('error on getAccountinfo from authController');
+          storageAPIservice.removeLocal();
+          storageAPIservice.removeSession();
+          storageAPIservice.removeCookie();
+          $scope.toggleLoading();
+        });
     })();
 
     function getCurrentMember(memberId) {

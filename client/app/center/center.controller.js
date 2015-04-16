@@ -17,7 +17,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var updateInterval = 2000;
 
-  $scope.hasFocus = true;
+  $scope.hasFocus = false;
   $scope.isInitialLoadingCompleted = false;
   $rootScope.isIE9 = false;
   $scope.isPosting = false;
@@ -545,9 +545,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // TODO: NOT A GOOD NAME. WHEN FUNCTION NAME STARTS WITH 'is' EXPECT IT TO RETURN BOOLEAN VALUE.
   // Current 'isAtBottom' function is not returning boolean. PLEASE CHANGE THE NAME!!
   $scope.isAtBottom = function() {
-    //console.log('isAtBottom')
     _clearBadgeCount($scope.currentEntity);
-    _resetHasScrollToBottom()
+    _resetNewMsgHelpers();
   };
 
   function _animateBackgroundColor(element) {
@@ -618,9 +617,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       return;
     }
 
-
-    //console.log('  -- calling getUpdatedMessages');
-
     $scope.isPolling = true;
 
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
@@ -636,6 +632,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         response = response.updateInfo;
 
         if (response.messageCount) {
+
+          //console.log(response)
           if (!_hasLastMessage()) {
             // New message Came in, but I'm not currently looking at older messages without loading latest message.
             // Do whatever needs to be done, and return from here.
@@ -733,7 +731,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             groupByDate();
           }
 
+          //console.log('updatelist')
           if (_hasBrowserFocus()) {
+            //console.log('window with focus')
+
             if (_hasBottomReached()) {
               //console.log('bottom reached and scrolling to bottom');
               _scrollToBottom();
@@ -741,6 +742,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
               //console.log(' current entity and badge count');
               _gotNewMessage();
             }
+          } else {
+            //console.log('window without focus');
+            _gotNewMessage();
+
           }
 
           _checkEntityMessageStatus();
@@ -761,12 +766,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //console.log('okay channel archived');
       $scope.updateLeftPanelCaller();
       $rootScope.toDefault = true;
-    } else if (response.code == INVALID_SECURITY_TOKEN) {
+      return;
+    }
+
+    if (response.code == INVALID_SECURITY_TOKEN) {
       //console.debug('INVALID SECURITY TOKEN.');
       $state.go('signin');
-    } else if (response === 'Unauthorized') {
-      //console.debug('logged out');
-      leftpanelAPIservice.toSignin();
+      return;
+    }
+
+    if (response === 'Unauthorized') {
+      // It is 401 error.
+      // 401 error should be handled in 'auth.service'.
+      // Let go of 401 error.
+      // Catch and handle 403 error instead.
+      return;
     }
 
     $rootScope.toDefault = true;
@@ -1370,9 +1384,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //        c. 1:1 direct message.
   //      2. someone shares/comment on file.
   function updateAlarmHandler(alarm) {
-
-    //console.log(alarm)
-
     if (alarm.alarmCount == 0) return;
 
     var alarmTable = alarm.alarmTable;
@@ -1384,13 +1395,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       var updateEntity;
 
       //  'toEntity' may be an array.
-      _.each(element.toEntity, function(toEntityElement, index, list) {
+      _.each(element.toEntity, function(toEntityElementId, index, list) {
+
+        // Compare 'toEntityElementId' to
+        //  entityId(local variable) - for private and public topics
+        //  or
+        //  $scope.currentEntity.entityId - for users.
+        if (toEntityElementId === entityId || toEntityElementId === $scope.currentEntity.entityId) {
+          // 'Alarm' also contains a new message info for current entity which comes in response.updateInfo in updateList.
+          return false;
+        }
+
+        //console.log('alarm to other room');
         // updateEntity is not undefined in case of either public or private topic.
-        updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, toEntityElement);
+        updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, toEntityElementId);
 
         if (angular.isUndefined(updateEntity)) {
           // updateEntity is not undefined in case of member.
-          updateEntity = entityAPIservice.getEntityFromListByEntityId($scope.memberList, toEntityElement);
+          updateEntity = entityAPIservice.getEntityFromListByEntityId($scope.memberList, toEntityElementId);
         }
 
         // if updateEntity is still undefined, don't worry about it.
@@ -1405,6 +1427,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
 
+        //console.log('sedning out notification')
         desktopNotificationService.addNotification(toEntity, updateEntity);
         entityAPIservice.updateBadgeValue(updateEntity, -1);
       });
@@ -1427,7 +1450,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.hasFocus = true;
     if (_hasBottomReached())
       _clearBadgeCount($scope.currentEntity);
-    //_clearBadgeCount($scope.currentEntity);
   };
 
   $scope.$on('setChatInputFocus', function() {
@@ -1455,7 +1477,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   /********************************************
 
-   EMPTY MESSAGE.
+           EMPTY MESSAGE.
 
    ********************************************/
   $scope.$on('onInitLeftListDone', function() {
@@ -1549,6 +1571,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //}
   }
 
+  /********************************************
+
+          NEW MESSAGE ALERT.
+
+   ********************************************/
+
   $scope.onScrollToBottomIconClicked = onScrollToBottomIconClicked;
   function onScrollToBottomIconClicked() {
     // Remove icon first.
@@ -1602,8 +1630,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    *  @private
    */
   function _gotNewMessage() {
+    //console.log('_gotNewMessage')
     $scope.hasNewMsg = true;
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
   }
 
+
+  function _getEntityId() {
+    var id;
+    if (entityType === 'users') {
+      id = $scope.currentEntity.entityId;
+    } else {
+      id = $scope.currentEntity.id;
+    }
+
+    return id;
+  }
 });
