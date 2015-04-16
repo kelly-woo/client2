@@ -73,7 +73,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       loadMore();
     }
 
-    $scope.promise = $timeout(updateList, updateInterval);
+    //$scope.promise = $timeout(updateList, updateInterval);
   })();
 
   function _init() {
@@ -486,6 +486,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // TODO: NOT A GOOD NAME. WHEN FUNCTION NAME STARTS WITH 'is' EXPECT IT TO RETURN BOOLEAN VALUE.
   // Current 'isAtBottom' function is not returning boolean. PLEASE CHANGE THE NAME!!
   $scope.isAtBottom = function() {
+    console.log('isAtBottom')
     _clearBadgeCount($scope.currentEntity);
     _resetNewMsgHelpers();
   };
@@ -547,14 +548,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
   var lastUpdatedLinkId = -1;
-  function updateList () {
+  function updateList() {
 
     //console.log('-- updateList');
 
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
     if ($scope.msgLoadStatus.loading) {
-      $scope.promise = $timeout(updateList, updateInterval);
+      //$scope.promise = $timeout(updateList, updateInterval);
       return;
     }
 
@@ -565,7 +566,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         // jihoon
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
-        if (response.event.eventCount != 0) updateEventHandler(response.event);
+        //if (response.event.eventCount != 0) updateEventHandler(response.event);
 
         // lastUpdatedId 갱신 --> lastMessageId
         lastUpdatedLinkId = response.lastLinkId;
@@ -574,14 +575,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         if (response.messageCount) {
 
+          console.log('its me')
+
+          console.log(_hasLastMessage())
           //console.log(response)
           if (!_hasLastMessage()) {
             // New message Came in, but I'm not currently looking at older messages without loading latest message.
             // Do whatever needs to be done, and return from here.
-            // Do not update messages.
+            // Do not update messages just let user know that there is a new message.
             _gotNewMessage();
             return;
           }
+
 
           // When there is a message to update on current topic.
           localLastMessageId = lastUpdatedLinkId;
@@ -672,11 +677,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             groupByDate();
           }
 
+          console.log('is from me? ', _isMessageFromMe(msg))
+          // If message is from me -> I just wrote a message. -> Just scroll to bottom.
           if (_isMessageFromMe(msg)) {
             _scrollToBottom();
             return;
           }
+
           //console.log('updatelist')
+          console.log('has focus? ', _hasBrowserFocus())
+          // Message is not from me. -> Someone just wrote a message.
           if (_hasBrowserFocus()) {
             //console.log('window with focus')
 
@@ -702,7 +712,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
 
     // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
-    $scope.promise = $timeout(updateList, updateInterval);
+    //$scope.promise = $timeout(updateList, updateInterval);
   }
 
   function onHttpRequestError(response) {
@@ -1128,62 +1138,62 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _.find(eventTable, function(event, index, list) {
 //            console.log(event);
       if (event.info.eventType == 'invite') {
-        //  'INVITE' event.
-        //  ASSUMPTION 1. YOU CAN ONLY INVITE TO ONE CHANNEL. -> toEntity can have only one element.
-        //  ASSUMPTION 2. YOU CAN'T INVITE SOMEONE TO DIRECT MESSAGE.  -> toEntity must be id of either channel or privateGroup.
-
-        //  someone invited 'ME' to some channel.
-        if (_.contains(event.info.inviteUsers, $scope.member.id)) {
-//                    console.log('someone invited me')
-          mustUpdateLeftPanel = true;
-          return;
-        }
-
-        //  I invited someone.
-        //  If I invited someone on web, it doesn't really matter.
-        //  But if I invited someone from different device(mobile), I need to update leftPanel on web.
-        if (event.info.invitorId == $scope.member.id) {
-//                    console.log('I invited someone')
-          mustUpdateLeftPanel = true;
-          return;
-        }
-
-        var updateEntity = entityAPIservice.getEntityFromListById($rootScope.joinedEntities, event.toEntity[0]);
-
-        if (updateEntity) {
-//                    console.log('someone invited someone to some channel that I am in');
-          mustUpdateLeftPanel = true;
-          return;
-        }
+//        //  'INVITE' event.
+//        //  ASSUMPTION 1. YOU CAN ONLY INVITE TO ONE CHANNEL. -> toEntity can have only one element.
+//        //  ASSUMPTION 2. YOU CAN'T INVITE SOMEONE TO DIRECT MESSAGE.  -> toEntity must be id of either channel or privateGroup.
+//
+//        //  someone invited 'ME' to some channel.
+//        if (_.contains(event.info.inviteUsers, $scope.member.id)) {
+////                    console.log('someone invited me')
+//          mustUpdateLeftPanel = true;
+//          return;
+//        }
+//
+//        //  I invited someone.
+//        //  If I invited someone on web, it doesn't really matter.
+//        //  But if I invited someone from different device(mobile), I need to update leftPanel on web.
+//        if (event.info.invitorId == $scope.member.id) {
+////                    console.log('I invited someone')
+//          mustUpdateLeftPanel = true;
+//          return;
+//        }
+//
+//        var updateEntity = entityAPIservice.getEntityFromListById($rootScope.joinedEntities, event.toEntity[0]);
+//
+//        if (updateEntity) {
+////                    console.log('someone invited someone to some channel that I am in');
+//          mustUpdateLeftPanel = true;
+//          return;
+//        }
       }
       else if (event.info.eventType == 'join' || event.info.eventType == 'leave') {
-        //  'JOIN' event
-        var isJoin = event.info.eventType == 'join' ? true : false;
-
-        if (isJoin && _isDefaultTopic()) {
-          // Someone joined to default topic -> get new member list.
-          console.log('welcome to team')
-          mustUpdateLeftPanel = true;
-        }
-
-        //  I joined some channel from mobile.  Web needs to UPDATE left Panel.
-        if (event.fromEntity == $scope.member.id) {
-
-          //  leave event of myself cannot get here!
-//                    console.log('I joined something');
-
-          mustUpdateLeftPanel = true;
-          return;
-        }
-
-        var updateEntity = entityAPIservice.getEntityFromListById($rootScope.joinedEntities, event.toEntity[0]);
-        if (updateEntity) {
-          //if (isJoin) console.log('Someone joined to related entity')
-          //else console.log('Someone left related entity')
-
-          mustUpdateLeftPanel = true;
-          return;
-        }
+//        //  'JOIN' event
+//        var isJoin = event.info.eventType == 'join' ? true : false;
+//
+//        if (isJoin && _isDefaultTopic()) {
+//          // Someone joined to default topic -> get new member list.
+//          console.log('welcome to team')
+//          mustUpdateLeftPanel = true;
+//        }
+//
+//        //  I joined some channel from mobile.  Web needs to UPDATE left Panel.
+//        if (event.fromEntity == $scope.member.id) {
+//
+//          //  leave event of myself cannot get here!
+////                    console.log('I joined something');
+//
+//          mustUpdateLeftPanel = true;
+//          return;
+//        }
+//
+//        var updateEntity = entityAPIservice.getEntityFromListById($rootScope.joinedEntities, event.toEntity[0]);
+//        if (updateEntity) {
+//          //if (isJoin) console.log('Someone joined to related entity')
+//          //else console.log('Someone left related entity')
+//
+//          mustUpdateLeftPanel = true;
+//          return;
+//        }
       }
       else if (event.info.eventType == 'create') {
         //  'CREATE' event
@@ -1372,9 +1382,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
 
-        //console.log('sedning out notification')
+        console.log('sending out notification')
         desktopNotificationService.addNotification(toEntity, updateEntity);
-        entityAPIservice.updateBadgeValue(updateEntity, -1);
+        //console.log('updating badge value')
+        //entityAPIservice.updateBadgeValue(updateEntity, -1);
       });
     });
   }
@@ -1542,6 +1553,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _resetNewMsgHelpers() {
+    console.log('reseting')
     _resetNewMsgAlert();
     _resetHasScrollToBottom();
   }
@@ -1554,6 +1566,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.onHasNewMessageAlertClicked = onHasNewMessageAlertClicked;
   function onHasNewMessageAlertClicked() {
+    _clearBadgeCount($scope.currentEntity);
     _newMsgHelper();
     _resetNewMsgHelpers();
   }
@@ -1586,7 +1599,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    *  @private
    */
   function _gotNewMessage() {
-    //console.log('_gotNewMessage')
+    console.log('_gotNewMessage')
     $scope.hasNewMsg = true;
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
   }
@@ -1602,4 +1615,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     return id;
   }
+
+  $scope.$on('updateChatList', function() {
+    console.log('updating center message list.')
+    updateList();
+  });
 });

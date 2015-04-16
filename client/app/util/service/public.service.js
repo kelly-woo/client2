@@ -14,7 +14,7 @@
   /* @ngInject */
   function publicService($rootScope, $modal, accountService, storageAPIservice, memberService,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, modalHelper, leftpanelAPIservice) {
+                         entityAPIservice, modalHelper, leftpanelAPIservice, jndWebSocket) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -219,6 +219,9 @@
 
       analyticsService.removeMemberCookieMixpanel();
       analyticsService.removeAccountCookieMixpanel();
+
+      // Disconnect socket connection.
+      jndWebSocket.disconnectTeam();
 
       if ( $state.current.name == 'signin') {
         // 현재 state 다시 로드

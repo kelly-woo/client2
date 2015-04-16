@@ -33,7 +33,7 @@ var app = angular.module('jandiApp');
 
 app.controller('leftPanelController1', function($scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
                                                 entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-                                                currentSessionHelper) {
+                                                currentSessionHelper, jndWebSocket) {
 
   //console.info('[enter] leftpanelController');
 
@@ -127,10 +127,12 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
       publicService.signOut();
     }
 
-    memberService.setMember(response.user);
-
     $rootScope.team = response.team;
     currentSessionHelper.setCurrentTeam(response.team);
+
+    memberService.setMember(response.user);
+
+    _checkSocketStatus();
 
     // Signed in with token. So there will no account info.
     // Currently, there is no page that uses account info right after user signed in.
@@ -220,6 +222,9 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     $rootScope.$broadcast('onInitLeftListDone');
   }
 
+  function _checkSocketStatus() {
+    jndWebSocket.checkSocketConnection();
+  }
   function setEntityPrefix() {
     leftpanelAPIservice.setEntityPrefix($scope);
   }
@@ -267,7 +272,7 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
   // right, detail panel don't have direct access to scope function in left controller.
   // so they emit event through rootscope.
   $rootScope.$on('updateLeftPanelCaller', function() {
-    //console.info("[enter] updateLeftPanelCaller");
+    console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
 

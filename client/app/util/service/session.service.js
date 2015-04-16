@@ -15,10 +15,12 @@
     .service('currentSessionHelper', currentSessionHelper);
 
   /* @ngInject */
-  function currentSessionHelper($rootScope) {
+  function currentSessionHelper() {
 
-    var currentTeam = $rootScope.team;
-    var currentTeamMemberList = $rootScope.memberList;
+    var currentTeam;
+    var currentTeamMemberList;
+    var currentEntity;
+
 
     this.getCurrentTeam = getCurrentTeam;
     this.setCurrentTeam = setCurrentTeam;
@@ -31,6 +33,9 @@
     this.setCurrentTeamMemberList = setCurrentTeamMemberList;
 
     this.getCurrentTeamMemberCount = getCurrentTeamMemberCount;
+
+    this.setCurrentEntity = setCurrentEntity;
+    this.getCurrentEntity = getCurrentEntity;
 
 
 
@@ -57,6 +62,16 @@
       //console.log(activeMemberCount)
       return activeMemberCount;
     }
+
+    function setCurrentEntity(entity) {
+      currentEntity = entity;
+    }
+
+    function getCurrentEntity() {
+      return currentEntity;
+    }
+
+
 
 
 

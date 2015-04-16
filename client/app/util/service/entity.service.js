@@ -6,7 +6,8 @@
     .factory('entityAPIservice', entityAPIservice);
 
   /* @ngInject */
-  function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice, jndPubSub) {
+  function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice, jndPubSub,
+                            currentSessionHelper) {
 
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
@@ -29,6 +30,15 @@
 
     return service;
 
+
+    /**
+     * Takes 'entityId' from entity as an 'entityId'
+     * Used to compare with chat room.
+     *
+     * @param list
+     * @param entityId
+     * @returns {*}
+     */
     function getEntityFromListByEntityId(list, entityId) {
       entityId = parseInt(entityId);
 
@@ -44,6 +54,15 @@
 
       return returnObj;
     }
+
+    /**
+     * Takes an 'id' of entity as a 'value'
+     * Used to compare with topics.
+     *
+     * @param list
+     * @param value
+     * @returns {*}
+     */
     function getEntityFromListById (list, value) {
       value = parseInt(value);
 
@@ -60,6 +79,14 @@
       return returnEntity;
     }
 
+    /**
+     * If entityType is 'channel', look for entityId only in 'joinedChannelList'.
+     * So none-joined topic will be found.
+     *
+     * @param entityType
+     * @param entityId
+     * @returns {*}
+     */
     function getEntityById (entityType, entityId) {
       entityType = entityType.toLowerCase();
       var list = $rootScope.joinedChannelList;
@@ -85,6 +112,7 @@
       currentEntity.alarmCnt = '';
 
       jndPubSub.pub('onCurrentEntityChanged', currentEntity);
+      currentSessionHelper.setCurrentEntity(currentEntity);
 
       return currentEntity;
     }
