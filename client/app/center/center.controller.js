@@ -716,14 +716,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       return;
     }
 
-    if (response === 'Unauthorized') {
-      // It is 401 error.
-      // 401 error should be handled in 'auth.service'.
-      // Let go of 401 error.
-      // Catch and handle 403 error instead.
->>>>>>> hotfix/auto-sign-in
-    }
-
     $rootScope.toDefault = true;
 
   }
