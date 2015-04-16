@@ -3,9 +3,6 @@
 
   angular
     .module('jandiApp')
-    .config(function($tooltipProvider) {
-      $tooltipProvider.options({appendToBody:true});
-    })
     .directive('topic', topic)
     .controller('topicCtrl', topicCtrl);
 

@@ -9,7 +9,7 @@
                           $event.preventDefault(); $event.stopPropagation();"></i>
 
         <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': joinedEntity.alarmCnt > 0}"
-          ng-mouseenter="setTooltip($event, joinedEntity.name)" tooltip="{{tooltip}}" tooltip-placement="right-center-topic-title">
+          ng-mouseenter="setTooltip($event, joinedEntity.name)" tooltip="{{tooltip}}" tooltip-placement="right-center-topic-title" tooltip-append-to-body="true">
           <i class="icon-private-group" ng-if="joinedEntity.type=='privategroups'"></i>
           {{joinedEntity.name}}
         </span>
