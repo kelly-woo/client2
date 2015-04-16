@@ -672,6 +672,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             groupByDate();
           }
 
+          if (_isMessageFromMe(msg)) {
+            return;
+          }
           //console.log('updatelist')
           if (_hasBrowserFocus()) {
             //console.log('window with focus')
@@ -1375,6 +1378,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     });
   }
 
+  /**
+   * Check whether msg is from myself.
+   * True msg is written by me.
+   *
+   * @param msg
+   * @returns {boolean}
+   * @private
+   */
+  function _isMessageFromMe(msg) {
+    return msg.fromEntity === memberService.getMemberId();
+  }
   function _hasBrowserFocus() {
     return !_isBrowserHidden();
   }
