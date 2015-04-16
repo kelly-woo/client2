@@ -162,7 +162,7 @@
     function openFileUploadModal($scope) {
       $modal.open({
         scope       : $scope,
-        templateUrl : 'app/modal/upload.html',
+        templateUrl : 'app/modal/upload/upload.html',
         controller  : 'fileUploadModalCtrl',
         size        : 'lg'
       });

@@ -2,10 +2,6 @@
 .file-list__item {
   position: relative;
   clear: both;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
   padding: 8px;
   border-bottom: 1px solid #ebebeb;
   min-height: 65px;
