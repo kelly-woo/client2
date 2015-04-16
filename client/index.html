@@ -66,10 +66,10 @@
 
 <!-- Add your site or application content here -->
 
-<div class="hpanel" ui-view="headerpanel"></div>
-<div id="client-ui" class="body" ui-view=""></div>
-<div ui-view="rightpanel" class="rpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
-<div ui-view="detailpanel" class="rpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
+<div class="hpanel non-selectable" ui-view="headerpanel"></div>
+<div class="body" id="client-ui" ui-view=""></div>
+<div class="rpanel non-selectable" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
+<div class="rpanel non-selectable" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
 <div class="rpanel__background" ng-class="{'extend': $state.includes('**.files.**'), 'hidden': !$state.includes('**.files.**')} ">
     <div class="panel-title-container"></div>
     <div class="rpanel__background-body">
@@ -148,6 +148,7 @@
 <script src="app/util/service/analytics.service.js"></script>
 <script src="app/util/service/desktop.notification.service.js"></script>
 <script src="app/util/service/entity.service.js"></script>
+<script src="app/util/service/file.service.js"></script>
 <script src="app/util/service/general.service.js"></script>
 <script src="app/util/service/member.service.js"></script>
 <script src="app/util/service/modal.service.js"></script>
@@ -186,6 +187,7 @@
 <script src="app/modal/team_member_list/team_member_list_template/team.member.list.tpl.controller.js"></script>
 <script src="app/modal/team_member_list/team_member_list_template/team.member.list.tpl.directive.js"></script>
 <script src="app/modal/topic_create/topic.create.controller.js"></script>
+<script src="app/modal/upload/upload.controller.js"></script>
 <script src="app/password/password.controller.js"></script>
 <script src="app/right/file.detail/file.detail.controller.js"></script>
 <script src="app/right/files/file.filter.js"></script>
