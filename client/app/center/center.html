@@ -11,7 +11,7 @@
 <entity-header></entity-header>
 
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
-<div ng-file-drop="onFileSelect($files);" drag-over-class="dnd-hover" hide-on-drop-not-available="false">
+<div dragdown-area ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
   <div class="dnd-hover-msg" >
     <span translate>@dnd-file-upload-msg</span>
     <div class="background"></div>
@@ -34,6 +34,8 @@
     <span class="file-upload-progress-title">[{{curUpload.title}}]</span>
     <!--    progress in percentile  -->
     <span class="file-upload-progress-completion-percent">{{curUpload.progress}}%</span>
+    <!--    progress file index  -->
+    <span class="file-upload-progress-file-index">({{curUpload.cFileIndex}} of {{curUpload.lFileIndex}})</span>
     <!--    'cancel'    -->
     <span class="file-upload-progress-abort pull-right cursor_pointer" ng-click="onFileUploadAbortClick();" data-ng-if="curUpload.status=='uploading'">cancel</span>
     <!--    'x' icon    -->
@@ -419,8 +421,6 @@
       <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
       <i class="icon-cancel pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
     </div>
-
-    <div class="footer_inner_border"></div>
 
     <div class="tutorial-clicker tutorial-z-index pulse" id="chatTutorial"
          data-ng-click="onTutorialPulseClick($event);"

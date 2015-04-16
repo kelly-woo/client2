@@ -22,6 +22,8 @@
     this.openInviteToCurrentEntityModal = openInviteToCurrentEntityModal;
     this.openInviteToTeamModal = openInviteToTeamModal;
 
+    this.openCurrentMemberModal = openCurrentMemberModal;
+
     this.closeModal = closeModal;
 
 
@@ -63,6 +65,17 @@
         controller  :   'inviteUserToTeamCtrl',
         size        :   'lg'
       };
+      modal = _modalOpener(modalOption);
+    }
+
+    function openCurrentMemberModal($scope) {
+      var modalOption = {
+        scope       :   $scope,
+        templateUrl :   'app/modal/current_member_profile/settings.profile.html',
+        controller  :   'profileCtrl',
+        size        :   'lg'
+      };
+
       modal = _modalOpener(modalOption);
     }
 
