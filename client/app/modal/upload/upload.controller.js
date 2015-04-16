@@ -113,6 +113,8 @@
           if (!lock) {
             fileUploadShifting();
           }
+        } else {
+          fileUploadIndex++;  // fileUploadQueue index 증가
         }
 
         // upload modal의 현재 진행중인 file의 index 갱신
