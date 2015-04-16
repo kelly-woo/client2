@@ -586,6 +586,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $('body').unbind('mousewheel');
   }
 
+  /**
+   * center에 drag&drop 으로 file upload시 window 내에서 발생하는
+   * drag&drop 이벤트 에서도 file upload sequence 시작되기 때문에
+   * window의 drag start event cancel
+   */
+  (function _disableDrag() {
+    $('body').on('dragstart', function(evt) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      return false;
+    });
+  }());
+
   function _hasMessageIdToSearch() {
     return messageSearchHelper.hasMessageToSearch();
   }
