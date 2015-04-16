@@ -707,12 +707,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //console.log('okay channel archived');
       $scope.updateLeftPanelCaller();
       $rootScope.toDefault = true;
-    } else if (response.code == INVALID_SECURITY_TOKEN) {
+      return;
+    }
+
+    if (response.code == INVALID_SECURITY_TOKEN) {
       //console.debug('INVALID SECURITY TOKEN.');
       $state.go('signin');
-    } else if (response === 'Unauthorized') {
-      //console.debug('logged out');
-      leftpanelAPIservice.toSignin();
+      return;
+    }
+
+    if (response === 'Unauthorized') {
+      // It is 401 error.
+      // 401 error should be handled in 'auth.service'.
+      // Let go of 401 error.
+      // Catch and handle 403 error instead.
       return;
     }
 
