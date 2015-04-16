@@ -3,8 +3,40 @@
 
   angular
     .module('jandiApp')
+    .directive('dragdownArea', dragdown)
     .directive('lastDetector', lastDetector)
     .directive('whenScrolled', whenScrolled);
+
+  // element에 drag-over-class 속성으로 drag over상태 알려주는 event handler 처리시
+  // IE9<에서 blink 현상이 있으므로 code로 직접 handling.
+  function dragdown() {
+    return {
+      restrict: 'A',
+      link: link
+    };
+
+    function link(scope, element) {
+      var dragging = 0;
+      element
+        .on('dragenter', function() {
+          dragging++;
+          element.addClass('dnd-hover');
+        })
+        .on('dragover', function() {
+          element.addClass('dnd-hover');
+        })
+        .on('dragleave', function() {
+          dragging--;
+          if (dragging === 0) {
+            element.removeClass('dnd-hover');
+          }
+        })
+        .on('drop', function() {
+          dragging = 0;
+          element.removeClass('dnd-hover');
+        });
+    }
+  }
 
   function lastDetector() {
     var counter = 0;

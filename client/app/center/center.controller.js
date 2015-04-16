@@ -60,6 +60,65 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loadingTimer : false // no longer using.
   };
 
+  $scope.updateLeftPanel = updateLeftPanel;
+
+  $scope.isOwner = function() {
+    return ($rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId) == memberService.getMemberId();
+  };
+  $scope.isDefaultTopic = function() {
+    return _isDefaultTopic();
+  };
+  $scope.onLeaveClick = function(channelType) {
+    var isLeaveChannel;
+
+    log('-- leaving');
+
+    isLeaveChannel = channelType === 'privategroups' ? confirm($filter('translate')('@ch-menu-leave-private-confirm')) : true;
+
+    if (isLeaveChannel) {
+      entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
+        .success(function(response) {
+          log('-- good');
+          // analytics
+          var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
+
+          analyticsService.mixpanelTrack( "Entity Leave" , { "type": entity_type } );
+          updateLeftPanel();
+        })
+        .error(function(error) {
+          alert(error.msg);
+        });
+    }
+  };
+
+  $scope.onDeleteTopicClick = function () {
+    if (confirm($filter('translate')('@ch-menu-delete-confirm'))) {
+      entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
+        .success(function() {
+          $scope.updateLeftPanel();
+
+          fileAPIservice.broadcastChangeShared();
+
+          // analytics
+          var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
+          analyticsService.mixpanelTrack("Entity Delete", { "type": entity_type });
+        })
+        .error(function(error) {
+          console.log(error.msg);
+        });
+    }
+  };
+
+  $scope.onMeesageLeaveClick = function(entityId) {
+    $rootScope.$broadcast('leaveCurrentChat', entityId);
+  };
+  function updateLeftPanel() {
+    $scope.updateLeftPanelCaller();
+    $rootScope.toDefault = true;
+  }
+
+  //  END OF PANEL HEADER FUNCTIONS
+
   (function() {
     _onStartUpCheckList();
 
@@ -300,9 +359,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $scope.loadMoreCounter++;
             $scope.isInitialLoadingCompleted = true;
 
-            // TODO: Erase this when default topic issue is resolved by John.
-            _showContents();
-
             _checkEntityMessageStatus();
           })
           .error(function(response) {
@@ -465,8 +521,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _scrollToBottom() {
     $timeout(function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
-      _showContents();
     }, 10);
+    $timeout(function() {
+      _showContents();
+    }, 100);
   }
   function _scrollToBottomWithAnimate() {
     var height = document.getElementById('msgs-container').scrollHeight;
