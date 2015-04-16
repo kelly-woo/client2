@@ -563,8 +563,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(function (response) {
 
-        //console.log(response.alarm);
-
         // jihoon
         if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
         if (response.event.eventCount != 0) updateEventHandler(response.event);
@@ -715,6 +713,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else if (response === 'Unauthorized') {
       //console.debug('logged out');
       leftpanelAPIservice.toSignin();
+      return;
+    }
+
+    if (response === 'Unauthorized') {
+      // It is 401 error.
+      // 401 error should be handled in 'auth.service'.
+      // Let go of 401 error.
+      // Catch and handle 403 error instead.
+>>>>>>> hotfix/auto-sign-in
     }
 
     $rootScope.toDefault = true;
