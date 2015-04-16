@@ -673,6 +673,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           }
 
           if (_isMessageFromMe(msg)) {
+            _scrollToBottom();
             return;
           }
           //console.log('updatelist')
