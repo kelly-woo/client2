@@ -219,6 +219,7 @@ article {
   border-top: 3px solid #31c08a;
 }
 .msg-item {
+  height: 100%;
   position: relative;
   /*padding: 0 20px 0 47px;*/
   padding: 0 30px 0 67px;
