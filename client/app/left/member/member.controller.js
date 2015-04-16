@@ -6,12 +6,13 @@
     .controller('currentMemberCtrl', currentMemberCtrl);
 
   /* @ngInject */
-  function currentMemberCtrl($scope, publicService, currentSessionHelper) {
+  function currentMemberCtrl($scope, publicService, currentSessionHelper, memberService) {
     var vm = $scope;
 
     vm.team = currentSessionHelper.getCurrentTeam();
     vm.onCurrentMemberContainerClick = onCurrentMemberContainerClick;
     vm.onSignOutClick = onSignOutClick;
+    vm.member = memberService.getMember();
 
     function onCurrentMemberContainerClick() {
       publicService.openCurrentMemberModal(vm);

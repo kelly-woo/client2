@@ -33,10 +33,6 @@ article {
   padding-left: 20px;
   background-color: white;
   border-bottom: 1px solid #e1e1e1;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   -webkit-transitionDISABLED: .15s .2s ease-out;
   -moz-transitionDISABLED: .15s .2s ease-out;
   -o-transitionDISABLED: .15s .2s ease-out;
@@ -223,6 +219,7 @@ article {
   border-top: 3px solid #31c08a;
 }
 .msg-item {
+  height: 100%;
   position: relative;
   /*padding: 0 20px 0 47px;*/
   padding: 0 30px 0 67px;

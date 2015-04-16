@@ -134,12 +134,8 @@
       modalHelper.openInviteToTeamModal();
     }
     function openCurrentMemberModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/settings.profile.html',
-        controller  :   'profileCtrl',
-        size        :   'lg'
-      });
+      modalHelper.openCurrentMemberModal($scope);
+
     }
     function openInviteToCurrentEntityModal() {
       modalHelper.openInviteToCurrentEntityModal();
