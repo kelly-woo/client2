@@ -300,9 +300,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             $scope.loadMoreCounter++;
             $scope.isInitialLoadingCompleted = true;
 
-            // TODO: Erase this when default topic issue is resolved by John.
-            _showContents();
-
             _checkEntityMessageStatus();
           })
           .error(function(response) {
@@ -465,8 +462,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _scrollToBottom() {
     $timeout(function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
-      _showContents();
     }, 10);
+    $timeout(function() {
+      _showContents();
+    }, 100);
   }
   function _scrollToBottomWithAnimate() {
     var height = document.getElementById('msgs-container').scrollHeight;
