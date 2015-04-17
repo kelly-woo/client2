@@ -17,7 +17,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var updateInterval = 2000;
 
-  $scope.hasFocus = false;
   $scope.isInitialLoadingCompleted = false;
   $rootScope.isIE9 = false;
   $scope.isPosting = false;
@@ -25,6 +24,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.lastMessage = null;
 
+  $scope.hasFocus = true;
   $scope.hasScrollToBottom = false;
   $scope.hasNewMsg = false;
 
@@ -759,9 +759,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
               _gotNewMessage();
             }
           } else {
-            //console.log('window without focus');
-            _gotNewMessage();
-
+            if (msg.status != 'event') {
+              //console.log('window without focus');
+              _gotNewMessage();
+            }
+            _scrollToBottom();
           }
 
           _checkEntityMessageStatus();
