@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function jndWebSocket(socketFactory, config, currentSessionHelper, memberService, storageAPIservice,
-                        entityAPIservice, jndPubSub, desktopNotificationService) {
+                        entityAPIservice, jndWebSocketHelper) {
     var socket;
     var isConnected;
 
@@ -15,9 +15,12 @@
     var CONNECT_TEAM = 'connect_team';
     var ERROR_CONNECT_TEAM = 'error_connect_team';
 
-    var MESSAGE = 'message';
+
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_LEFT = 'topic_left';
+    var TOPIC_DELETED = 'topic_deleted';
+    var TOPIC_CREATED = 'topic_created';
+    var TOPIC_NAME_UPDATED = 'topic_name_updated';
 
     var MEMBER_PRESENCE_UPDATED = 'member_presence_updated';
 
@@ -26,9 +29,14 @@
 
 
     // message types
+    var MESSAGE = 'message';
     var MESSAGE_TOPIC_JOIN = 'topic_join';
     var MESSAGE_TOPIC_LEAVE = 'topic_leave';
     var MESSAGE_TOPIC_INVITE = 'topic_invite';
+    var MESSAGE_DELETE = 'message_delete';
+
+    // variables with '_APP_' has nothing to do with socket server. Just for internal use.
+    var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
 
     this.init = init;
     this.checkSocketConnection = checkSocketConnection;
@@ -76,6 +84,9 @@
 
       socket.on(TOPIC_JOINED, _onTopicJoined);
       socket.on(TOPIC_LEFT, _onTopicLeft);
+      socket.on(TOPIC_DELETED, _onTopicLDeleted);
+      socket.on(TOPIC_CREATED, _onTopicLCreated);
+      socket.on(TOPIC_NAME_UPDATED, _onTopicLNameUpdated);
 
 
       socket.on(MESSAGE, _onMessage);
@@ -94,7 +105,7 @@
      * @private
      */
     function _onCheckConnectTeam(data) {
-      _socketEventLogger(CHECK_CONNECT_TEAM, data, false);
+      jndWebSocketHelper.socketEventLogger(CHECK_CONNECT_TEAM, data, false);
       isConnected = true;
 
       var param = {};
@@ -117,7 +128,7 @@
 
 
     function _onConnectTeam(data) {
-      _socketEventLogger(CONNECT_TEAM, data, false);
+      jndWebSocketHelper.socketEventLogger(CONNECT_TEAM, data, false);
     }
 
     /**
@@ -128,7 +139,7 @@
      * @private
      */
     function _onErrorConnectTeam(data) {
-      _socketEventLogger(ERROR_CONNECT_TEAM, data, false);
+      jndWebSocketHelper.socketEventLogger(ERROR_CONNECT_TEAM, data, false);
 
       isConnected = false;
 
@@ -136,11 +147,27 @@
     }
 
     function _onTopicJoined(data) {
-      _socketEventLogger(TOPIC_JOINED, data, false);
+      jndWebSocketHelper.socketEventLogger(TOPIC_JOINED, data, false);
+      jndWebSocketHelper.topicJoinHandler(data);
     }
 
     function _onTopicLeft(data) {
-      _socketEventLogger(TOPIC_LEFT, data, false);
+      jndWebSocketHelper.socketEventLogger(TOPIC_LEFT, data, false);
+      jndWebSocketHelper.topicLeaveHandler(data);
+    }
+
+    function _onTopicLDeleted(data) {
+      jndWebSocketHelper.socketEventLogger(TOPIC_DELETED, data, false);
+      jndWebSocketHelper.topicLeaveHandler(data);
+    }
+
+    function _onTopicLCreated(data) {
+      jndWebSocketHelper.socketEventLogger(TOPIC_CREATED, data, false);
+      jndWebSocketHelper.topicCreateHandler(data);
+    }
+    function _onTopicLNameUpdated(data) {
+      jndWebSocketHelper.socketEventLogger(TOPIC_NAME_UPDATED, data, false);
+      jndWebSocketHelper.topicCreateHandler(data);
     }
 
 
@@ -155,115 +182,27 @@
     function _onMessage(data) {
       var messageType = data.messageType;
 
+
       switch (messageType) {
         case MESSAGE_TOPIC_JOIN:
-          _onOthersTopicJoin(data);
           break;
         case MESSAGE_TOPIC_LEAVE:
-          _onOthersTopicLeave(data);
           break;
         case MESSAGE_TOPIC_INVITE:
-          _onOthersTopicInvite(data);
+          break;
+        case MESSAGE_DELETE:
           break;
         default:
-          _onMessageCreated(data);
+          messageType = _APP_GOT_NEW_MESSAGE;
           break;
       }
+
+      jndWebSocketHelper.socketEventLogger(messageType, data, false);
+      jndWebSocketHelper.eventStatusLogger(messageType, data);
+
+      jndWebSocketHelper.messageEventHandler(data.room, data.writer, messageType);
+
     }
-
-    /**
-     * Callback function when others joined any topic.
-     * @param param
-     * @private
-     */
-    function _onOthersTopicJoin(param) {
-      _handleSystemEvent(param.room, param.writer);
-
-      _log(memberService.getName(entityAPIservice.getEntityById('users', param.writer)) + ' joined ' + _getRoom(param.room).name)
-    }
-
-    /**
-     * Callback function when other left topic.
-     *
-     * @param param
-     * @private
-     */
-    function _onOthersTopicLeave(param) {
-      _handleSystemEvent(param.room, param.writer);
-
-      _log(memberService.getName(entityAPIservice.getEntityById('users', param.writer)) + ' left ' + _getRoom(param.room).name)
-    }
-
-
-    /**
-     * Callback function when other left topic.
-     *
-     * @param param
-     * @private
-     */
-    function _onOthersTopicInvite(param) {
-      _handleSystemEvent(param.room, param.writer);
-
-      _log(memberService.getName(entityAPIservice.getEntityById('users', param.writer)) + ' invited ' + param.inviter.length + ' people to ' + _getRoom(param.room).name)
-    }
-
-    function _onMessageCreated(param) {
-      //_handleSystemEvent(param.room, param.writer);
-      var room = _getRoom(param.room);
-
-      if (_.isUndefined(room)) {
-        _log('not related room event');
-        return;
-      }
-
-      if (_isCurrentRoom(room)) {
-        _log('event in current room');
-        _updateCenterMessage();
-        return;
-      }
-
-      var writer = entityAPIservice.getEntityById('users', param.writer);
-      if (_.isUndefined(writer)) {
-        _log('An action of an unknown user');
-        return;
-      }
-
-      _updateLeftPanel();
-
-      console.log('sending out notification')
-      desktopNotificationService.addNotification(writer, room);
-
-      _log(memberService.getName(entityAPIservice.getEntityById('users', param.writer)) + ' wrote a message at ' + _getRoom(param.room).name)
-    }
-
-    function _onMemberPresenceUpdated(data) {
-      _socketEventLogger(MEMBER_PRESENCE_UPDATED, data, false);
-    }
-
-
-    function _handleSystemEvent(room, writer) {
-      var room = _getRoom(room);
-
-      if (_.isUndefined(room)) {
-        _log('not related room event');
-        return;
-      }
-
-      if (_isCurrentRoom(room)) {
-        _log('event in current room');
-        _updateCenterMessage();
-        return;
-      }
-
-      var writer = entityAPIservice.getEntityById('users', writer);
-      if (_.isUndefined(writer)) {
-        _log('An action of an unknown user');
-        return;
-      }
-
-      _updateLeftPanel();
-    }
-
 
     /**
      * Disconnect socket connection.
@@ -272,7 +211,7 @@
      *  2. switches team.
      */
     function disconnectTeam() {
-      _socketEventLogger(DISCONNECT_TEAM, data, true);
+      jndWebSocketHelper.socketEventLogger(DISCONNECT_TEAM, data, true);
 
       var param = {
         teamId: currentSessionHelper.getTeamId(),
@@ -290,46 +229,9 @@
     function _emit(eventName, data) {
       socket.emit(eventName, data);
 
-      _socketEventLogger(eventName, data, true);
+      jndWebSocketHelper.socketEventLogger(eventName, data, true);
     }
 
-
-    function _getRoom(room) {
-      console.log(room.type)
-      return entityAPIservice.getEntityById(room.type, room.id);
-    }
-    function _isCurrentRoom(room) {
-      var roomId = room.id;
-      var currentEntity = currentSessionHelper.getCurrentEntity();
-
-      return roomId === currentEntity.id;
-    }
-
-    function _updateLeftPanel() {
-      jndPubSub.updateLeftPanel();
-    }
-
-    function _updateCenterMessage() {
-      jndPubSub.updateChatList();
-    }
-
-
-    function _socketEventLogger(event, data, isEmitting) {
-      if (_isTestingMode()) {
-        console.log("======================", isEmitting ? 'EMIT' : 'RECEIVE', "======================  ")
-        console.log('event name: ', event);
-        console.log('event data: ', data);
-        console.log("")
-      }
-    }
-
-    function _log(msg) {
-      if (_isTestingMode()) console.log(msg);
-    }
-
-    function _isTestingMode() {
-      return config.name === 'local' || config.name === 'development';
-    }
 
 
   }

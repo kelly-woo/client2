@@ -37,7 +37,7 @@
 
       searchMessages();
 
-      //test();
+      test();
     })();
     $scope.$on('onInitLeftListDone', function() {
       _initChatRoomOption();
@@ -233,6 +233,14 @@
         perPage: DEFAULT_PER_PAGE,
         writerId: '',
         entityId: ''
+      };
+
+      $scope.searchQuery = {
+        q: 'hi',
+        page: DEFAULT_PAGE,
+        perPage: DEFAULT_PER_PAGE,
+        writerId: '',
+        entityId: '494'
       };
 
       searchMessages();

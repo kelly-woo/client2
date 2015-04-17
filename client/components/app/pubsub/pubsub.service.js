@@ -12,6 +12,8 @@
 
     this.updateLeftPanel = updateLeftPanel;
     this.updateChatList = updateChatList;
+    this.updateMessageList = updateMessageList;
+    this.toDefaultTopic = toDefaultTopic;
 
     function publish(event, param) {
       $rootScope.$broadcast(event, param);
@@ -22,7 +24,15 @@
     }
 
     function updateChatList() {
-      $rootScope.$broadcast('updateChatList');
+      $rootScope.$broadcast('centerUpdateChatList');
+    }
+    function updateMessageList() {
+      $rootScope.$broadcast('updateMessageList');
+    }
+
+    function toDefaultTopic() {
+      $rootScope.$broadcast('toDefaultTopic');
+
     }
   }
 })();

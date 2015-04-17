@@ -100,7 +100,7 @@
       messageList.leaveCurrentMessage(entityId)
         .success(function(response) {
           if (entityId == $scope.currentEntity.id) {
-            $rootScope.toDefault = true;
+            publicService.goToDefaultTopic();
           }
         })
         .error(function(err) {

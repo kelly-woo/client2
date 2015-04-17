@@ -97,7 +97,6 @@
 
         if (scrollDiff == 0) {
           // Bottom reached!
-          console.log('at bottom1!')
           scope.loadNewMessages();
           scope.isAtBottom();
           return;

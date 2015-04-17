@@ -12,9 +12,9 @@
     .factory('publicService', publicService);
 
   /* @ngInject */
-  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService,
+  function publicService($rootScope, $modal, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, modalHelper, leftpanelAPIservice, jndWebSocket) {
+                         entityAPIservice, modalHelper) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -43,7 +43,6 @@
       isDisabledMember: isDisabledMember,
       isNullOrUndefined: isNullOrUndefined,
       goToDefaultTopic: goToDefaultTopic
-
     };
 
     return service;
@@ -267,5 +266,6 @@
     function goToDefaultTopic() {
       $state.go('archives', {entityType:'channels',  entityId:currentSessionHelper.getDefaultTopicId() });
     }
+
   }
 })();

@@ -10,6 +10,7 @@
                             currentSessionHelper) {
 
     var service = {
+      getEntityByEntityId: getEntityByEntityId,
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityFromListById: getEntityFromListById,
       getEntityById: getEntityById,
@@ -31,6 +32,9 @@
     return service;
 
 
+    function getEntityByEntityId(entityId) {
+      return getEntityFromListByEntityId($rootScope.memberList, entityId);
+    }
     /**
      * Takes 'entityId' from entity as an 'entityId'
      * Used to compare with chat room.

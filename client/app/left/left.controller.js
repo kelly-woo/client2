@@ -54,10 +54,6 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
     response = leftPanel.data;
   }
 
-  $rootScope.$on('goToDefault', function() {
-    $state.go('archives', {entityType:'channels',  entityId:leftpanelAPIservice.getDefaultChannel(response) });
-    $rootScope.toDefault = false;
-  });
   //  redirecting to default channel.
   $rootScope.$watch('toDefault', function(newVal, oldVal) {
     if (newVal) {
