@@ -17,12 +17,13 @@
 
     function link(scope, element) {
       var dragging = 0;
+
       element
-        .on('dragenter', function() {
+        .on('dragenter', function(event) {
           dragging++;
           element.addClass('dnd-hover');
         })
-        .on('dragover', function() {
+        .on('dragover', function(event) {
           element.addClass('dnd-hover');
         })
         .on('dragleave', function() {

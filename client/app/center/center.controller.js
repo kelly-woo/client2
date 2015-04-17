@@ -587,6 +587,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $('body').unbind('mousewheel');
   }
 
+  /**
+   * center에 drag&drop 으로 file upload시 window 내에서 발생하는
+   * drag&drop 이벤트 에서도 file upload sequence 시작되기 때문에
+   * window의 drag start event cancel
+   */
+  (function _disableDrag() {
+    $('body').on('dragstart', function(evt) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      return false;
+    });
+  }());
+
   function _hasMessageIdToSearch() {
     return messageSearchHelper.hasMessageToSearch();
   }
@@ -841,9 +854,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (selector == 'file') {
       $modal.open({
         scope       : $scope,
-        templateUrl : 'app/modal/upload.html',
+        templateUrl : 'app/modal/upload/upload.html',
         controller  : 'fileUploadModalCtrl',
-        size        : 'lg'
+        size        : 'lg',
+        backdrop    : 'static'
       });
     } else if (selector == 'rename') {
       $modal.open({

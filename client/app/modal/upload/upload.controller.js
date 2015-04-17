@@ -12,7 +12,9 @@
           it,
           fileUploadQueue,
           fileUploadIndex,
-          lock;
+          lock,
+          lProgressBarIndex,
+          cProgressBarIndex;
 
       $scope.isLoading = false;
 
@@ -36,13 +38,19 @@
       fileUploadIndex = 0;                    // file upload queue index
       lock = false;                           // file upload queue locker(순차 upload를 위함)
 
+      lProgressBarIndex = cProgressBarIndex = 0;
+
       function eventHandler(btnType) {
 
         // upload event 처리
         if (btnType === 'upload') {
+          lProgressBarIndex++;
+
           fileUploadQueue.push((function($tScope, $cScope, currentIndex, file, fileInfo) {
             return function(callback) {
               lock = true;
+
+              cProgressBarIndex++;
 
               // progress bar 초기화
               $tScope.curUpload = {};
@@ -99,8 +107,12 @@
                 function(evt) {       // progress
                   // center.html에 표현되는 progress bar의 상태 변경
                   $tScope.curUpload = {};
-                  $tScope.curUpload.lFileIndex = $cScope.lastIndex;
-                  $tScope.curUpload.cFileIndex = currentIndex;
+                  // $tScope.curUpload.lFileIndex = $cScope.lastIndex;
+                  // $tScope.curUpload.cFileIndex = currentIndex;
+
+                  $tScope.curUpload.lFileIndex = lProgressBarIndex;
+                  $tScope.curUpload.cFileIndex = cProgressBarIndex;
+
                   $tScope.curUpload.title = evt.config.file.name;
                   $tScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
                   $tScope.curUpload.status = 'uploading';
@@ -115,6 +127,9 @@
           }
         } else {
           fileUploadIndex++;  // fileUploadQueue index 증가
+
+          // 모든 작업이 마무리 되었다면 progress bar 숨기기
+          $scope.lastIndex === fileUploadIndex && closeProgressBar();
         }
 
         // upload modal의 현재 진행중인 file의 index 갱신
@@ -147,9 +162,7 @@
             fileUploadIndex++;    // fileUploadQueue index 증가
 
             // 모든 작업이 마무리 되었다면 progress bar 숨기기
-            if ($scope.lastIndex === fileUploadIndex) {
-              closeProgressBar();
-            }
+            $scope.lastIndex === fileUploadIndex && closeProgressBar();
           });
         }
       }

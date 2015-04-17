@@ -52,6 +52,7 @@
         });
     };
 
+    // todo: error handling service 필요함
     var duplicate_name_error = 4000;
     function _onCreateError(err) {
       if (err.code == duplicate_name_error) {
