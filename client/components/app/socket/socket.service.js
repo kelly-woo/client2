@@ -106,6 +106,8 @@
      */
     function _onCheckConnectTeam(data) {
       jndWebSocketHelper.socketEventLogger(CHECK_CONNECT_TEAM, data, false);
+
+      currentSessionHelper.setSocketConnection();
       isConnected = true;
 
       var param = {};
@@ -211,14 +213,16 @@
      *  2. switches team.
      */
     function disconnectTeam() {
-      jndWebSocketHelper.socketEventLogger(DISCONNECT_TEAM, data, true);
+      if (currentSessionHelper.getSocketConnection()) {
+        jndWebSocketHelper.socketEventLogger(DISCONNECT_TEAM, '', true);
+        currentSessionHelper.resetSocketConnection();
+        var param = {
+          teamId: memberService.getTeamId(),
+          memberId: memberService.getMemberId()
+        };
 
-      var param = {
-        teamId: currentSessionHelper.getTeamId(),
-        memberId: memberService.getMemberId()
-      };
-
-      _emit(DISCONNECT_TEAM, param);
+        _emit(DISCONNECT_TEAM, param);
+      }
     }
     /**
      * Wrapper of emit doing basically same thing.

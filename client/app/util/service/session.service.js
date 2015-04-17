@@ -21,6 +21,8 @@
     var currentTeamMemberList;
     var currentEntity;
 
+    var isSocketConnected = false;
+
 
     this.getCurrentTeam = getCurrentTeam;
     this.setCurrentTeam = setCurrentTeam;
@@ -36,6 +38,10 @@
 
     this.setCurrentEntity = setCurrentEntity;
     this.getCurrentEntity = getCurrentEntity;
+
+    this.setSocketConnection = setSocketConnection;
+    this.resetSocketConnection = resetSocketConnection;
+    this.getSocketConnection = getSocketConnection;
 
 
 
@@ -69,6 +75,17 @@
 
     function getCurrentEntity() {
       return currentEntity;
+    }
+
+    function setSocketConnection() {
+      isSocketConnected = true;
+    }
+    function resetSocketConnection() {
+      isSocketConnected = false;
+    }
+
+    function getSocketConnection() {
+      return isSocketConnected;
     }
 
 

@@ -31,9 +31,11 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('leftPanelController1', function($scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-                                                entityAPIservice, entityheaderAPIservice, fileAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-                                                currentSessionHelper, jndWebSocket) {
+// 사용되지 않는 arguments: $stateParams, $modal, $window, $timeout
+app.controller('leftPanelController1', function(
+  $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
+  entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
+  currentSessionHelper, fileAPIservice, fileService, jndWebSocket) {
 
   //console.info('[enter] leftpanelController');
 
@@ -123,11 +125,13 @@ app.controller('leftPanelController1', function($scope, $rootScope, $state, $sta
       publicService.signOut();
     }
 
+
     $rootScope.team = response.team;
     currentSessionHelper.setCurrentTeam(response.team);
 
     memberService.setMember(response.user);
 
+    // Check socket status when loading.
     _checkSocketStatus();
 
     // Signed in with token. So there will no account info.
