@@ -33,7 +33,7 @@ msgstr ""
 msgid "@alert-invalid-password"
 msgstr ""
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-missing-info"
 msgstr ""
 
@@ -50,19 +50,19 @@ msgstr ""
 msgid "@alert-required"
 msgstr ""
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-fail"
 msgstr ""
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-invalid"
 msgstr ""
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-success"
 msgstr ""
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-taken"
 msgstr ""
 
@@ -74,22 +74,22 @@ msgstr ""
 msgid "@alert-update-success"
 msgstr ""
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@btn-add"
 msgstr ""
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/rename.html
-#: client/app/modal/settings.profile.html
 #: client/app/modal/share.html
 #: client/app/modal/team_change/team.change.html
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
 msgstr ""
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
-#: client/app/modal/settings.profile.html
 msgid "@btn-change"
 msgstr ""
 
@@ -99,13 +99,13 @@ msgstr ""
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/invite.channel.html
 #: client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 #: client/app/modal/join.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
-#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html
 #: client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
@@ -132,15 +132,15 @@ msgstr ""
 msgid "@btn-delete"
 msgstr ""
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/password.reset.request.html
-#: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr ""
 
 #: client/app/modal/invite.channel.html
 #: client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@btn-invite"
 msgstr ""
 
@@ -165,39 +165,31 @@ msgstr ""
 msgid "@btn-update-password"
 msgstr ""
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-delete"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "@ch-menu-delete-confirm"
-msgstr ""
-
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-invite"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-leave"
 msgstr ""
 
-#: client/app/center/center.html
-msgid "@ch-menu-leave-private-confirm"
-msgstr ""
-
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-rename"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-star"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-un-star"
 msgstr ""
 
@@ -249,11 +241,11 @@ msgid "@common-check-email-inbox"
 msgstr ""
 
 #: client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@common-comment"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr ""
@@ -285,8 +277,8 @@ msgstr ""
 msgid "@common-deleted-file-title"
 msgstr ""
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html
 msgid "@common-department"
 msgstr ""
 
@@ -298,7 +290,7 @@ msgstr ""
 msgid "@common-direct-messages"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
 msgstr ""
 
@@ -320,9 +312,9 @@ msgstr ""
 msgid "@common-duplicate-name-err"
 msgstr ""
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr ""
@@ -349,6 +341,10 @@ msgstr ""
 
 #: client/app/modal/profile.view.html
 msgid "@common-file-list"
+msgstr ""
+
+#: client/app/modal/share.html
+msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr ""
 
 #: client/app/right/files/files.html
@@ -416,11 +412,11 @@ msgstr ""
 msgid "@common-inactive-member"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-info-basic"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-info-optional"
 msgstr ""
 
@@ -454,7 +450,7 @@ msgstr ""
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
 msgstr ""
@@ -477,13 +473,13 @@ msgstr ""
 msgid "@common-pasword-enter"
 msgstr ""
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html
 msgid "@common-phone"
 msgstr ""
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/profile.view.html
-#: client/app/modal/settings.profile.html
 msgid "@common-position"
 msgstr ""
 
@@ -493,7 +489,7 @@ msgid "@common-privacy-policy"
 msgstr ""
 
 #: client/app/left/member/member.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-profile-settings"
 msgstr ""
 
@@ -523,7 +519,7 @@ msgid "@common-share-file"
 msgstr ""
 
 #: client/app/modal/share.html
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@common-share-in"
 msgstr ""
 
@@ -553,7 +549,7 @@ msgstr ""
 msgid "@common-start-using-mobile"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-status-msg"
 msgstr ""
 
@@ -566,7 +562,7 @@ msgstr ""
 msgid "@common-terms-of-service"
 msgstr ""
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@common-title"
 msgstr ""
 
@@ -582,7 +578,7 @@ msgstr ""
 msgid "@common-type-public"
 msgstr ""
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr ""
 
@@ -602,15 +598,15 @@ msgstr ""
 msgid "@current-member-disabled-notice-msg-pre"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-file"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-invite"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr ""
 
@@ -691,15 +687,15 @@ msgstr ""
 msgid "@has-new-message-alert-msg"
 msgstr ""
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@ie9-please-do-not-use"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
 
@@ -712,19 +708,19 @@ msgstr ""
 msgid "@input-create-pg"
 msgstr ""
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@input-invite-email"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-20-error"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-60-error"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@input-max-length-error"
@@ -878,7 +874,7 @@ msgstr ""
 msgid "@modal-setting-account-password"
 msgstr ""
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@modal-setting-profile-msg1"
 msgstr ""
 
@@ -890,11 +886,11 @@ msgstr ""
 msgid "@modal-setting-team-msg"
 msgstr ""
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@modal-team-invite-msg1"
 msgstr ""
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@modal-upload-title-msg1"
 msgstr ""
 
@@ -1060,7 +1056,7 @@ msgid "@setting-team-title"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@team-invite"
 msgstr ""
 
@@ -1155,11 +1151,11 @@ msgstr ""
 msgid "@user"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@user-menu-star"
 msgstr ""
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@user-menu-un-star"
 msgstr ""
 
