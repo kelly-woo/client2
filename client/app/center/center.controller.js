@@ -613,8 +613,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return $scope.isMessageSearchJumping;
   }
 
-
-
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
   var lastUpdatedLinkId = -1;

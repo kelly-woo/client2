@@ -88,7 +88,8 @@ msgstr "增加"
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
-#: client/app/modal/share.html client/app/modal/team_change/team.change.html
+#: client/app/modal/share/share.html
+#: client/app/modal/team_change/team.change.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
 msgstr "取消"
@@ -147,7 +148,7 @@ msgstr "邀請"
 msgid "@btn-join"
 msgstr "加入"
 
-#: client/app/center/center.html client/app/modal/share.html
+#: client/app/center/center.html client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -240,7 +241,7 @@ msgstr "直接傳訊"
 msgid "@common-check-email-inbox"
 msgstr "請到您的電子郵件信箱收信。"
 
-#: client/app/modal/share.html client/app/modal/upload/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-comment"
 msgstr "留言"
 
@@ -334,7 +335,7 @@ msgstr "常見問題"
 msgid "@common-feature-not-supported-msg"
 msgstr "這功能目前正在開發中并且即將推出。"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file"
 msgstr "檔案"
 
@@ -342,7 +343,7 @@ msgstr "檔案"
 msgid "@common-file-list"
 msgstr "已分享檔案"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr "檔案已成功被分享。您想要現在跳轉到那對話中嗎？"
 
@@ -508,11 +509,11 @@ msgstr "發送電子郵件"
 msgid "@common-service-settings"
 msgstr "服務偏好"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-share-file"
 msgstr "分享檔案"
 
-#: client/app/modal/share.html client/app/modal/upload/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-share-in"
 msgstr "分享在"
 

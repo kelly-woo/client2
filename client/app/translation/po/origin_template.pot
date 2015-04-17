@@ -82,7 +82,7 @@ msgstr ""
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/rename.html
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 #: client/app/modal/team_change/team.change.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
@@ -149,7 +149,7 @@ msgid "@btn-join"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -240,7 +240,7 @@ msgstr ""
 msgid "@common-check-email-inbox"
 msgstr ""
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 #: client/app/modal/upload/upload.html
 msgid "@common-comment"
 msgstr ""
@@ -335,7 +335,7 @@ msgstr ""
 msgid "@common-feature-not-supported-msg"
 msgstr ""
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file"
 msgstr ""
 
@@ -343,7 +343,7 @@ msgstr ""
 msgid "@common-file-list"
 msgstr ""
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr ""
 
@@ -514,11 +514,11 @@ msgstr ""
 msgid "@common-service-settings"
 msgstr ""
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-share-file"
 msgstr ""
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 #: client/app/modal/upload/upload.html
 msgid "@common-share-in"
 msgstr ""

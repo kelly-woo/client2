@@ -88,7 +88,8 @@ msgstr "Add"
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
-#: client/app/modal/share.html client/app/modal/team_change/team.change.html
+#: client/app/modal/share/share.html
+#: client/app/modal/team_change/team.change.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
 msgstr "Cancel"
@@ -146,7 +147,7 @@ msgstr "Invite"
 msgid "@btn-join"
 msgstr "Join"
 
-#: client/app/center/center.html client/app/modal/share.html
+#: client/app/center/center.html client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -247,7 +248,7 @@ msgstr "1:1 Message"
 msgid "@common-check-email-inbox"
 msgstr "Please check your inbox. "
 
-#: client/app/modal/share.html client/app/modal/upload/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-comment"
 msgstr "Comment"
 
@@ -342,7 +343,7 @@ msgstr "FAQ"
 msgid "@common-feature-not-supported-msg"
 msgstr "This feature is currently in development and will be available soon."
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file"
 msgstr "File"
 
@@ -350,7 +351,7 @@ msgstr "File"
 msgid "@common-file-list"
 msgstr "Files Shared"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr ""
 "File has been shared successfully. Do you want to jump to that conversation "
@@ -518,11 +519,11 @@ msgstr "Send Email"
 msgid "@common-service-settings"
 msgstr "Service Preferences"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-share-file"
 msgstr "Share File"
 
-#: client/app/modal/share.html client/app/modal/upload/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-share-in"
 msgstr "Share in"
 

@@ -88,7 +88,8 @@ msgstr "추가"
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
-#: client/app/modal/share.html client/app/modal/team_change/team.change.html
+#: client/app/modal/share/share.html
+#: client/app/modal/team_change/team.change.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
 msgstr "취소"
@@ -147,7 +148,7 @@ msgstr "초대하기"
 msgid "@btn-join"
 msgstr "참여하기"
 
-#: client/app/center/center.html client/app/modal/share.html
+#: client/app/center/center.html client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -243,7 +244,7 @@ msgstr "1:1 메시지"
 msgid "@common-check-email-inbox"
 msgstr "메일함을 확인해 주세요."
 
-#: client/app/modal/share.html client/app/modal/upload/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-comment"
 msgstr "댓글"
 
@@ -339,7 +340,7 @@ msgstr "FAQ"
 msgid "@common-feature-not-supported-msg"
 msgstr "지금은 제공되지 않는 기능입니다."
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file"
 msgstr "파일"
 
@@ -347,7 +348,7 @@ msgstr "파일"
 msgid "@common-file-list"
 msgstr "파일 리스트"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr ""
 "파일이 성공적으로 공유되었습니다. 파일이 공유된 대화로 이동하시겠습니까?"
@@ -514,11 +515,11 @@ msgstr "메일 보내기"
 msgid "@common-service-settings"
 msgstr "서비스 설정"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-share-file"
 msgstr "파일 공유"
 
-#: client/app/modal/share.html client/app/modal/upload/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-share-in"
 msgstr "공유 대화방"
 

@@ -89,7 +89,8 @@ msgstr "追加"
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
-#: client/app/modal/share.html client/app/modal/team_change/team.change.html
+#: client/app/modal/share/share.html
+#: client/app/modal/team_change/team.change.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
 msgstr "キャンセル"
@@ -148,7 +149,7 @@ msgstr "招待"
 msgid "@btn-join"
 msgstr "参加"
 
-#: client/app/center/center.html client/app/modal/share.html
+#: client/app/center/center.html client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -247,7 +248,7 @@ msgstr "ダイレクトメッセージ"
 msgid "@common-check-email-inbox"
 msgstr "メールを確認してください。"
 
-#: client/app/modal/share.html client/app/modal/upload/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-comment"
 msgstr "コメント"
 
@@ -342,7 +343,7 @@ msgstr "FAQ"
 msgid "@common-feature-not-supported-msg"
 msgstr "この機能は現在開発中です。近日提供開始予定です"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file"
 msgstr "ファイル"
 
@@ -350,7 +351,7 @@ msgstr "ファイル"
 msgid "@common-file-list"
 msgstr "共有されたファイル"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr "ファイルが共有されました。ファイルについてコメントしますか？"
 
@@ -516,11 +517,11 @@ msgstr "メールを送る"
 msgid "@common-service-settings"
 msgstr "環境設定"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-share-file"
 msgstr "ファイルを共有"
 
-#: client/app/modal/share.html client/app/modal/upload/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-share-in"
 msgstr "共有範囲"
 
