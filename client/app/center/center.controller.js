@@ -873,6 +873,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       .success(function(response) {
         $timeout.cancel($scope.promise);
         updateList();
+        $rootScope.$broadcast('updateMessageList')
       })
       .error(function(response) {
         $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.deleteMessage"});

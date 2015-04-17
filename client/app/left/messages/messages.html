@@ -29,7 +29,7 @@
     <!-- WHERE THERE IS AT LEAST ONE PERSON IN MESSAGE LIST -->
     <div ng-if="messageList.length > 0">
       <li class="member cursor_pointer"
-          ng-repeat="userEntity in messageList | orderBy: 'lastMessageId': true"
+          ng-repeat="userEntity in messageList | orderBy: 'lastLinkId': true"
           ng-class="{'active': $state.params.entityId == userEntity.id,
                     'messages-list-disabled-member': isDisabledMember(userEntity)}">
 
@@ -41,7 +41,6 @@
 
           <span class="inline-overflow-ellipsis left-panel__name" ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}">{{userEntity | getName}}</span>
           <span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>
-
           <span class="left-panel_leave pull-right"
                 ng-click="onMeesageLeaveClick(userEntity.id); $event.preventDefault(); $event.stopPropagation();"
                 tooltip="{{'@common-conversation-leave' | translate}}" tooltip-popup-delay="1000"  tooltip-append-to-body="true">
