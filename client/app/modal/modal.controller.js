@@ -63,7 +63,7 @@ app.controller('userModalCtrl', function($scope, $modalInstance, $state) {
 });
 
 // PRIVATE_GROUP/CHANNEL RENAME
-app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $rootScope, analyticsService, fileAPIservice) {
+app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService, fileAPIservice) {
   $scope.newTopicName = $scope.currentEntity.name;
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
@@ -95,9 +95,20 @@ app.controller('renameModalCtrl', function($scope, $modalInstance, entityheaderA
         $modalInstance.dismiss('cancel');
       })
       .error(function(response) {
-        alert(response.msg);
-        $scope.isLoading = false;
+        _onCreateError(response);
       })
+      .finally(function() {
+        $scope.isLoading = false;
+      });
+
+    // todo: error handling service 필요함
+    var duplicate_name_error = 4000;
+    function _onCreateError(err) {
+      if (err.code == duplicate_name_error) {
+        // Duplicate name error.
+        alert($filter('translate')('@common-duplicate-name-err'));
+      }
+    }
   };
 });
 
