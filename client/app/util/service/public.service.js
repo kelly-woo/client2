@@ -164,7 +164,8 @@
         scope       : $scope,
         templateUrl : 'app/modal/upload/upload.html',
         controller  : 'fileUploadModalCtrl',
-        size        : 'lg'
+        size        : 'lg',
+        backdrop    : 'static'
       });
     }
     function openTeamMemberListModal() {

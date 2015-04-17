@@ -850,11 +850,6 @@
   margin-bottom: 15px;
 }
 
-#file_preview_container img {
-  margin: auto;
-  border: 1px solid #ccc;
-  display: block;
-}
 #file_preview_container > object {
   background: url('../assets/images/checkered.png');
   min-width: 40px;
@@ -862,6 +857,20 @@
 }
 .non-image-file-preview {
   border: none !important;
+}
+
+.upload-image-preview {
+  height: 130px;
+  line-height: 130px;
+  width: 100%;
+  text-align: center;
+}
+
+.upload-image-preview img {
+  vertical-align: middle;
+  margin: auto;
+  border: 1px solid #ccc;
+  display: inline-block;
 }
 
 /*
