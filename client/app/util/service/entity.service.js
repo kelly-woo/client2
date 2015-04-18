@@ -228,7 +228,7 @@
     }
 
     function isDefaultTopic(entity) {
-      return entity.id == $rootScope.team.t_defaultChannelId;
+      return entity.id == currentSessionHelper.getDefaultTopicId();
     }
 
     function isOwner(entity, memberId) {

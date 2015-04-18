@@ -6,8 +6,14 @@
     .service('jndWebSocketHelper', jndWebSocketHelper);
 
   /* @ngInject */
-  function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService, logger, $state) {
+  function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService, logger, $state, configuration, $timeout) {
+    this.teamNameChangeEventHandler = teamNameChangeEventHandler;
+    this.teamDomainChangeEventHandler = teamDomainChangeEventHandler;
+
     this.topicChangeEventHandler = topicChangeEventHandler;
+    this.chatMessageListEventHandler = chatMessageListEventHandler;
+
+    this.onMemberProfileUpdatedHanlder = onMemberProfileUpdatedHanlder;
 
     this.messageEventHandler = messageEventHandler;
     this.topicLeaveHandler = topicLeaveHandler;
@@ -27,11 +33,27 @@
     // variables with '_APP_' has nothing to do with socket server. Just for internal use.
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
 
+    function teamNameChangeEventHandler(data) {
+      currentSessionHelper.updateCurrentTeamName(data.team.name);
+    }
+
+    function teamDomainChangeEventHandler(data) {
+      var newAddress = configuration.base_protocol + data.team.domain + configuration.base_url;
+      alert('Your team domain address has been changed to ' + newAddress + '. Click \'okay\' to proceed.');
+      location.href = newAddress;
+    }
 
     function topicChangeEventHandler() {
       _updateLeftPanel();
     }
 
+    function chatMessageListEventHandler() {
+      _updateMessageList();
+    }
+
+    function onMemberProfileUpdatedHanlder() {
+      memberService.onMemberProfileUpdated();
+    }
     function messageEventHandler(room, writer, eventType) {
       var roomEntity = _getRoom(room);
       var writer = _getActionOwner(writer);

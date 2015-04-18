@@ -15,6 +15,8 @@
     var CONNECT_TEAM = 'connect_team';
     var ERROR_CONNECT_TEAM = 'error_connect_team';
 
+    var TEAM_NAME_UPDATED = 'team_name_updated';
+    var TEAM_DOMAIN_UPDATED = 'team_domain_updated';
 
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_LEFT = 'topic_left';
@@ -25,6 +27,12 @@
     var TOPIC_STARRED = 'topic_starred';
     var TOPIC_UNSTARRED = 'topic_unstarred';
 
+    var CHAT_CLOSE = 'chat_close';
+    var MEMBER_STARRED = 'member_starred';
+    var MEMBER_UNSTARRED = 'member_unstarred';
+
+
+    var MEMBER_PROFILE_UPDATED = 'member_profile_updated';
     var MEMBER_PRESENCE_UPDATED = 'member_presence_updated';
 
     // Emit only events.
@@ -85,18 +93,26 @@
       socket.on(CONNECT_TEAM, _onConnectTeam);
       socket.on(ERROR_CONNECT_TEAM, _onErrorConnectTeam);
 
+      socket.on(TEAM_NAME_UPDATED, _onTeamNameUpdated);
+      socket.on(TEAM_DOMAIN_UPDATED, _onTeamDomainUpdated);
+
       socket.on(TOPIC_JOINED, _onTopicJoined);
       socket.on(TOPIC_LEFT, _onTopicLeft);
       socket.on(TOPIC_DELETED, _onTopicLDeleted);
       socket.on(TOPIC_CREATED, _onTopicLCreated);
       socket.on(TOPIC_NAME_UPDATED, _onTopicLNameUpdated);
 
-      socket.on(TOPIC_STARRED, _onTopicStarred);
-      socket.on(TOPIC_UNSTARRED, _onTopicStarred);
+      socket.on(TOPIC_STARRED, _onStarredEvent);
+      socket.on(TOPIC_UNSTARRED, _onStarredEvent);
+      socket.on(MEMBER_STARRED, _onStarredEvent);
+      socket.on(MEMBER_UNSTARRED, _onStarredEvent);
+
+      socket.on(CHAT_CLOSE, _onChatClose);
 
 
       socket.on(MESSAGE, _onMessage);
 
+      socket.on(MEMBER_PROFILE_UPDATED, _onMemberProfileUpdated);
       //socket.on(MEMBER_PRESENCE_UPDATED, _onMemberPresenceUpdated);
 
 
@@ -154,6 +170,15 @@
       checkSocketConnection();
     }
 
+    function _onTeamNameUpdated(data) {
+      jndWebSocketHelper.socketEventLogger(TEAM_NAME_UPDATED, data, false);
+      jndWebSocketHelper.teamNameChangeEventHandler(data);
+    }
+    function _onTeamDomainUpdated(data) {
+      jndWebSocketHelper.socketEventLogger(TEAM_DOMAIN_UPDATED, data, false);
+      jndWebSocketHelper.teamDomainChangeEventHandler(data);
+    }
+
     function _onTopicJoined(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_JOINED, data, false);
       jndWebSocketHelper.topicChangeEventHandler(data);
@@ -178,10 +203,19 @@
       jndWebSocketHelper.topicChangeEventHandler(data);
     }
 
-    function _onTopicStarred(data) {
+    function _onStarredEvent(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_STARRED, data, false);
       jndWebSocketHelper.topicChangeEventHandler(data);
+    }
 
+    function _onChatClose(data) {
+      jndWebSocketHelper.socketEventLogger(CHAT_CLOSE, data, false);
+      jndWebSocketHelper.chatMessageListEventHandler(data);
+    }
+
+    function _onMemberProfileUpdated(data) {
+      jndWebSocketHelper.socketEventLogger(MEMBER_PROFILE_UPDATED, data, false);
+      jndWebSocketHelper.onMemberProfileUpdatedHanlder(data);
     }
 
 

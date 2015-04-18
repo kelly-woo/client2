@@ -27,6 +27,8 @@
     this.getCurrentTeam = getCurrentTeam;
     this.setCurrentTeam = setCurrentTeam;
 
+    this.updateCurrentTeamName = updateCurrentTeamName;
+
     this.isDefaultTopic = isDefaultTopic;
     this.getDefaultTopicId = getDefaultTopicId;
 
@@ -47,6 +49,14 @@
 
     function getCurrentTeam() { return currentTeam; }
     function setCurrentTeam(team) { currentTeam = team; }
+
+    function _setCurrentTeamName(teamName) {
+      currentTeam.name = teamName;
+    }
+
+    function updateCurrentTeamName(teamName) {
+      _setCurrentTeamName(teamName);
+    }
 
     function isDefaultTopic(topic) {
       return topic.id == getDefaultTopicId();

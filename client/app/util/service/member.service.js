@@ -5,9 +5,9 @@
     .module('jandiApp')
     .factory('memberService', memberService);
 
-  memberService.$inject = ['$http', '$rootScope', 'storageAPIservice', 'entityAPIservice', '$upload'];
+  memberService.$inject = ['$http', '$rootScope', 'storageAPIservice', 'entityAPIservice', '$upload', 'jndPubSub'];
 
-  function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload) {
+  function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload, jndPubSub) {
     var noUExtraData = "i dont have u_extraData";
     var currentMember;
 
@@ -36,6 +36,8 @@
       getMediumThumbnailUrl: getMediumThumbnailUrl,
       getLargeThumbnailUrl: getLargeThumbnailUrl,
       getPhotoUrl: getPhotoUrl,
+
+      onMemberProfileUpdated: onMemberProfileUpdated,
 
       getDefaultPhotoUrl: getDefaultPhotoUrl
     } ;
@@ -173,6 +175,18 @@
 
     // TODO: TO BE IMPLEMENTED.
     function getDefaultPhotoUrl() {
+
+    }
+
+    function onMemberProfileUpdated() {
+      getMemberInfo(getMemberId())
+        .success(function(response) {
+          setMember(response);
+          jndPubSub.pub('onMemberProfileUpdated');
+        })
+        .error(function(err) {
+          // Do nothing. Pretend like nothing happened.
+        })
 
     }
 

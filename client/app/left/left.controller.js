@@ -126,8 +126,8 @@ app.controller('leftPanelController1', function(
     }
 
 
-    $rootScope.team = response.team;
     currentSessionHelper.setCurrentTeam(response.team);
+    $rootScope.team = currentSessionHelper.getCurrentTeam();
 
     memberService.setMember(response.user);
 
@@ -319,7 +319,7 @@ app.controller('leftPanelController1', function(
   $scope.onTopicClicked = onTopicClicked;
 
   function onTopicClicked(entityType, entityId) {
-    if (publicService.isNullOrUndefined($scope.currentEntity.id)) {
+    if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
       publicService.goToDefaultTopic();
       return;
     }

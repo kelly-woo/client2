@@ -84,7 +84,6 @@
 
           // merge message object to entity object so that list can be sorted by 'lastMessageId' attribute in message object.
           $.extend(entity, message);
-
           messageList.push(entity);
         }
       });
