@@ -118,8 +118,7 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
   };
 
   authAPI.onNetworkLost = function() {
-    console.log('502!!');
-    console.log('state re-loading!!');
+    console.log('its 502 handler. dont worry');
     $state.go($state.current, {}, {reload: true}); //second parameter is for $stateParams
   };
 
@@ -193,9 +192,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
         console.log('I am so sorry. It is 502 error. Network needs to be re-established.');
         var authAPIservice = $injector.get('authAPIservice');
         authAPIservice.onNetworkLost();
-
         return $q.reject(rejection);
-
       } else if (rejection.status == 503) {
         var authAPIservice = $injector.get('authAPIservice');
         authAPIservice.handleConstructionErr();
