@@ -123,7 +123,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     if (selector == 'share') {
       $modal.open({
         scope       : $scope,
-        templateUrl : 'app/modal/share.html',
+        templateUrl : 'app/modal/share/share.html',
         controller  : 'fileShareModalCtrl',
         size        : 'lg',
         resolve: {

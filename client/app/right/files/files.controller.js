@@ -386,7 +386,7 @@
       else if (selector == 'share') {
         $modal.open({
           scope       : $scope,
-          templateUrl : 'app/modal/share.html',
+          templateUrl : 'app/modal/share/share.html',
           controller  : 'fileShareModalCtrl',
           size        : 'lg'
         });

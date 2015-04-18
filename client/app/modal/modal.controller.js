@@ -40,7 +40,7 @@ app.controller('joinModalCtrl', function($scope, $modalInstance, $state, userAPI
         publicService.closeModal($modalInstance);
       })
       .error(function(error) {
-        alert(error.msg);
+        console.log('onJoinClick', error.msg);
       })
       .finally(function() {
         $scope.toggleLoading();
@@ -228,71 +228,6 @@ app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entit
         $scope.toggleLoading();
       });
   }
-});
-
-// FILE SHARE controller
-app.controller('fileShareModalCtrl', function($scope, $modalInstance, fileAPIservice, analyticsService) {
-  $scope.file             = $scope.fileToShare;
-  $scope.shareChannel     = $scope.currentEntity;
-
-//  removing already shared channels and privategroups but allowing users entitiy to be shared more than once.
-//    var shareOptionsChannels = fileAPIservice.removeSharedEntities($scope.file, $scope.joinedChannelList)
-//    var shareOptionsPrivates = fileAPIservice.removeSharedEntities($scope.file, $scope.privateGroupList)
-//    $scope.selectOptions    = fileAPIservice.getShareOptions(shareOptionsChannels, $scope.userList, shareOptionsPrivates);
-
-  var selectOptions    = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
-
-  $scope.selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
-
-  // If current channel is one of sharedEntities of 'file',
-  // then select first entity in list.
-  if ($scope.selectOptions.indexOf($scope.shareChannel) == -1 ) {
-    $scope.shareChannel = $scope.selectOptions[0];
-  }
-
-  $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
-  };
-
-  $scope.onFileShareClick = function(shareChannel, comment) {
-    $scope.isLoading = true;
-    fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
-      .success(function() {
-        // analytics
-        var share_target = "";
-        switch (shareChannel.type) {
-          case 'channel':
-            share_target = "topic";
-            break;
-          case 'privateGroup':
-            share_target = "private group";
-            break;
-          case 'user':
-            share_target = "direct message";
-            break;
-          default:
-            share_target = "invalid";
-            break;
-        }
-        var file_meta = ($scope.file.content.type).split("/");
-        var share_data = {
-          "entity type"   : share_target,
-          "category"      : file_meta[0],
-          "extension"     : $scope.file.content.ext,
-          "mime type"     : $scope.file.content.type,
-          "size"          : $scope.file.content.size
-        };
-        analyticsService.mixpanelTrack( "File Share", share_data );
-
-        fileAPIservice.broadcastChangeShared($scope.file.id);
-        $modalInstance.dismiss('cancel');
-        $scope.isLoading = false;
-      })
-      .error(function(error) {
-        console.error('onFileShareClick', error.code, error.msg);
-        $scope.isLoading = false;
-      });
-  };
 });
 
 // PROFILE VIEW CONTROLLER

@@ -615,8 +615,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return $scope.isMessageSearchJumping;
   }
 
-
-
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   var lastUpdatedLinkId = -1;
   function updateList() {
