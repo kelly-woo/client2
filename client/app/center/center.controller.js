@@ -19,7 +19,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var updateInterval = 2000;
 
-  $scope.hasFocus = true;
   $scope.isInitialLoadingCompleted = false;
   $rootScope.isIE9 = false;
   $scope.isPosting = false;
@@ -27,6 +26,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.lastMessage = null;
 
+  $scope.hasFocus = true;
   $scope.hasScrollToBottom = false;
   $scope.hasNewMsg = false;
 
@@ -733,11 +733,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             groupByDate();
           }
 
-
           // When there is a message to update on current topic.
           localLastMessageId = lastUpdatedLinkId;
           loadedLastMessageId = localLastMessageId;
           lastMessageId = localLastMessageId;
+
 
           _checkEntityMessageStatus();
         }
