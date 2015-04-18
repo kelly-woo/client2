@@ -22,6 +22,9 @@
     var TOPIC_CREATED = 'topic_created';
     var TOPIC_NAME_UPDATED = 'topic_name_updated';
 
+    var TOPIC_STARRED = 'topic_starred';
+    var TOPIC_UNSTARRED = 'topic_unstarred';
+
     var MEMBER_PRESENCE_UPDATED = 'member_presence_updated';
 
     // Emit only events.
@@ -88,6 +91,9 @@
       socket.on(TOPIC_CREATED, _onTopicLCreated);
       socket.on(TOPIC_NAME_UPDATED, _onTopicLNameUpdated);
 
+      socket.on(TOPIC_STARRED, _onTopicStarred);
+      socket.on(TOPIC_UNSTARRED, _onTopicStarred);
+
 
       socket.on(MESSAGE, _onMessage);
 
@@ -150,7 +156,7 @@
 
     function _onTopicJoined(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_JOINED, data, false);
-      jndWebSocketHelper.topicJoinHandler(data);
+      jndWebSocketHelper.topicChangeEventHandler(data);
     }
 
     function _onTopicLeft(data) {
@@ -165,11 +171,17 @@
 
     function _onTopicLCreated(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_CREATED, data, false);
-      jndWebSocketHelper.topicCreateHandler(data);
+      jndWebSocketHelper.topicChangeEventHandler(data);
     }
     function _onTopicLNameUpdated(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_NAME_UPDATED, data, false);
-      jndWebSocketHelper.topicCreateHandler(data);
+      jndWebSocketHelper.topicChangeEventHandler(data);
+    }
+
+    function _onTopicStarred(data) {
+      jndWebSocketHelper.socketEventLogger(TOPIC_STARRED, data, false);
+      jndWebSocketHelper.topicChangeEventHandler(data);
+
     }
 
 

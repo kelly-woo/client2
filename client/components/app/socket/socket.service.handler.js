@@ -7,10 +7,10 @@
 
   /* @ngInject */
   function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService, logger, $state) {
+    this.topicChangeEventHandler = topicChangeEventHandler;
+
     this.messageEventHandler = messageEventHandler;
-    this.topicJoinHandler = topicJoinHandler;
     this.topicLeaveHandler = topicLeaveHandler;
-    this.topicCreateHandler = topicCreateHandler;
 
     this.socketEventLogger = socketEventLogger;
     this.eventStatusLogger = eventStatusLogger;
@@ -27,6 +27,10 @@
     // variables with '_APP_' has nothing to do with socket server. Just for internal use.
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
 
+
+    function topicChangeEventHandler() {
+      _updateLeftPanel();
+    }
 
     function messageEventHandler(room, writer, eventType) {
       var roomEntity = _getRoom(room);
@@ -77,19 +81,12 @@
     }
 
 
-    function topicJoinHandler(param) {
-      _updateLeftPanel();
-    }
     function topicLeaveHandler(param) {
       _updateLeftPanel();
 
       if (_isCurrentEntity(param.topic)) {
         $state.go('archives', {entityType:'channels',  entityId:currentSessionHelper.getDefaultTopicId() });
       }
-    }
-
-    function topicCreateHandler(param) {
-      _updateLeftPanel();
     }
 
     function _isMessageDeleted(eventType) {
@@ -106,6 +103,7 @@
       return true;
     }
 
+
     function _updateLeftPanel() {
       log('update left panel');
       jndPubSub.updateLeftPanel();
@@ -119,15 +117,34 @@
       jndPubSub.updateMessageList();
     }
 
+    /**
+     * Returns entity whose id is room.id.
+     * @param room
+     * @returns {*}
+     * @private
+     */
     function _getRoom(room) {
       if (room.type === 'chat') {
         return entityAPIservice.getEntityByEntityId(room.id);
       }
       return entityAPIservice.getEntityById(room.type, room.id);
     }
+    /**
+     * Returns member entity whose id is 'writerId'.
+     * @param writerId
+     * @returns {*}
+     * @private
+     */
     function _getActionOwner(writerId) {
       return entityAPIservice.getEntityById('users', writerId);
     }
+    /**
+     * Return 'true' if target(room) is a chat entity.
+     *
+     * @param room
+     * @returns {boolean}
+     * @private
+     */
     function _isDMToMe(room) {
 
       var memberList = room.members;
@@ -145,6 +162,13 @@
       return foundMyself;
 
     }
+    /**
+     * Checks whether id of current entity(actively looking) is same as room.
+     *
+     * @param room
+     * @returns {boolean}
+     * @private
+     */
     function _isCurrentEntity(room) {
       var roomId = room.id;
       var currentEntity = currentSessionHelper.getCurrentEntity();
