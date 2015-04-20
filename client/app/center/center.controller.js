@@ -717,7 +717,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     console.error("!!! unfiltered message", msg);
                     break;
                 }
-
                 _newMessageAlertChecker(msg);
               }
 
@@ -735,7 +734,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           localLastMessageId = lastUpdatedLinkId;
           loadedLastMessageId = localLastMessageId;
           lastMessageId = localLastMessageId;
-
 
           _checkEntityMessageStatus();
         }
@@ -1390,8 +1388,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         //  entityId(local variable) - for private and public topics
         //  or
         //  $scope.currentEntity.entityId - for users.
-        if (toEntityElementId === entityId || toEntityElementId === $scope.currentEntity.entityId) {
+        if (toEntityElementId === parseInt(entityId) || toEntityElementId === $scope.currentEntity.entityId) {
           // 'Alarm' also contains a new message info for current entity which comes in response.updateInfo in updateList.
+          // toEntityElementId which came in as api response is number type while 'entityId' is a String type.
+          // Convert entityId from String type to number then compare to 'toEntityElementId'.
           return false;
         }
 
