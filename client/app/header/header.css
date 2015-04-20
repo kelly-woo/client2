@@ -1,13 +1,14 @@
 /* Header */
 .hpanel {
-  border-bottom: 1px solid #e1e1e1;
+  border-bottom: 1px solid #192d3e;
   position: relative;
 }
 .header {
   height: 40px;
   line-height: 40px;
-  background-color: #f2f2f2;
+  background-color: #192d3e;
   min-width: 220px;
+  color: white;
 }
 .header-navbar,
 .header-toolbar {
@@ -37,7 +38,7 @@
 .header-navbar-menu.open,
 .header-navbar-file.open,
 .header-navbar-settings.open {
-  background: #31c08a;
+  background: #556979;
   color: #fff;
 }
 .header-navbar__topmenu {
@@ -99,7 +100,6 @@
   padding: 0 10px;
 }
 .header-toolbar-toggle {
-  border-left: 1px solid #e1e1e1;
   font-size: 14px;
   width: 80px;
   text-align: center;

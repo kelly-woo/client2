@@ -5,11 +5,11 @@
   top: 0;
   bottom: 0;
   background-color: #fff;
-  border-left: 1px solid #e1e1e1;
   z-index: 1;
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
 }
 .rpanel.extend {
-  background-color: #f2f2f2;
+  background-color: #f1f4f8;
 }
 .rpanel__background {
   position: absolute;
@@ -51,11 +51,11 @@
 .rpanel .panel-title-container {
   background-color: rgba(0,0,0,0);
 }
-.rpanel-header a { color: #555459; }
+.rpanel-header a { color: #00a6e9; }
 .rpanel-header a:hover { text-decoration: none; color: #31c08a; }
 .rpanel-header-heading { position: relative; font-weight: 700; }
-.rpanel-header-heading__back { vertical-align:middle; }
-.rpanel-header-heading__back:hover { color: #31c08a; }
+.rpanel-header-heading__back { vertical-align:middle; color:#00a6e9;}
+.rpanel-header-heading__back:hover { color: #192d3e; }
 .rpanel-header-heading__back i { font-size: 18px; vertical-align: text-bottom; margin-right: -3px; }
 
 .rpanel-header-heading__types { position: relative; font-size: 15px; line-height: inherit; color: #333; }
@@ -218,14 +218,14 @@
   padding: 1rem .5rem;
 }
 .file-item-meta__shared {
-  color: #31c08a;
+  color: #00a6e9;
   margin-left: 3px;
-  border-bottom: 1px solid #31c08a;
+  border-bottom: 1px solid #00a6e9;
   word-wrap: break-word;
 }
 .file-item-meta__shared:hover {
-  color: #008F59;
-  border-color: #008F59;
+  color: #192d3e;
+  border-color: #192d3e;
 }
 
 .file-item-meta-open__public {
@@ -382,6 +382,7 @@
 .rpanel-body-tab-container .nav-tabs {
   cursor: pointer;
   border-bottom: 1px solid #e1e1e1;
+  background-color: #556979;
 }
 .rpanel-body-tab-container .nav-tabs > li > a {
   border-radius: 0;
@@ -389,11 +390,12 @@
   text-align: center;
   width: 102px;
   font-size: 14px;
-  color: #999999;
+  color: #FFFFFF;
   height: 36px;
   line-height: 35px;
-  background-color: #e2e0e3;
+  /* background-color: #e2e0e3; */
   margin-right: 0;
+  margin-top: 1px;
 }
 
 .rpanel-body-tab-container .nav-tabs > li.active > a {
@@ -407,5 +409,5 @@
 }
 .rpanel-body-tab-container .nav-tabs > li > a,
 .rpanel-body-tab-container .nav-tabs > li > a:hover {
-  border-color: #e2e0e3;
+  /* border-color: #e2e0e3; */
 }

@@ -7,20 +7,20 @@
 
 .lpanel-user .lpanel-user__team {
   padding: 8px 15px;
-  background-color: white;
-  border-right: 1px solid #e1e1e1;
+  background-color: #556979;
+  color: white;
 }
 
 .lpanel-user .lpanel-user__user {
   padding: 8px 15px;
-  background-color: rgb(242, 242, 242);
+  background-color: #f1f4f8;
   border-right: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
 }
 
 .lpanel-user__team {
   height: 35px;
   color: #333;
-  border-bottom: 1px solid #e1e1e1;
   line-height: 1;
 }
 .lpanel-user__team .icon {
