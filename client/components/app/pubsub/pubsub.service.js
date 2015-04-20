@@ -13,6 +13,8 @@
     this.updateLeftPanel = updateLeftPanel;
     this.updateChatList = updateChatList;
     this.updateMessageList = updateMessageList;
+    this.updateRightFileDetailPanel = updateRightFileDetailPanel;
+
     this.toDefaultTopic = toDefaultTopic;
 
     function publish(event, param) {
@@ -30,9 +32,12 @@
       $rootScope.$broadcast('updateMessageList');
     }
 
+    function updateRightFileDetailPanel() {
+      $rootScope.$broadcast('updateRightFileDetailPanel');
+    }
+
     function toDefaultTopic() {
       $rootScope.$broadcast('toDefaultTopic');
-
     }
   }
 })();

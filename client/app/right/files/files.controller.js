@@ -5,11 +5,13 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $modal, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
+  function rPanelFileTabCtrl($scope, $rootScope, $modal, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
     var disabledMemberAddedOnSharedBy = false;
+
+    var fileIdMap = {};
 
     // To be used in directive('centerHelpMessageContainer')
     $scope.emptyMessageStateHelper = 'NO_FILES_UPLOADED';
@@ -32,6 +34,7 @@
         _refreshFileList();
       }
     }, true);
+
     //  when sharedEntitySearchQuery is changed,
     //  1. check if value is null
     //      if null -> meaning searching for all chat rooms.
@@ -41,32 +44,56 @@
         // 'All'
         $scope.fileRequest.sharedEntityId = -1;
       } else {
-        $scope.fileRequest.sharedEntityId = $scope.sharedEntitySearchQuery.id;
+        $scope.fileRequest.sharedEntityId = newValue.id;
       }
 
-      if (newValue != oldValue) {
+      if (newValue.id != oldValue.id) {
         _refreshFileList();
       }
     });
 
+    $scope.$on('rightFileOnFileDeleted', function(event, param) {
+      if (_isFileTabActive()) {
+        if (_hasFileId(param.file.id)) {
+          _refreshFileList();
+        }
+      }
+    });
+
+    function _hasFileId(fileId) {
+      return fileIdMap[fileId];
+    }
+    /**
+     * Joined new entity or Left current entity
+     *
+     *  1. Re-initialize shared in select options
+     *  2. re-initialize shared in filter.
+     */
+    $scope.$on('onJoinedTopicListChanged_leftInitDone', function() {
+      _initSharedInFilter();
+    });
+
     $scope.$on('onFileDeleted', function() {
+      console.log('onFileDeleted')
       _refreshFileList();
     });
 
-    //  when file was uploaded from center panel,
-    //  fileAPI broadcasts 'onChangeShared' to rootScope.
-    //  right controller is listening to 'onChangeShared' and update file list.
-    $rootScope.$on('onChangeShared', function() {
-      _refreshFileList();
+    $scope.$on('updateFileControllerOnShareUnshare', function(event, param) {
+      if (_isFileStatusChangedOnCurrentFilter(param)) {
+        _refreshFileList();
+      }
     });
 
-    // Joined new entity
-    // Left current entity
-    // 1. Re-initialize shared in select options
-    // 2. re-initialize shared in filter.
-    $scope.$on('onInitLeftListDone', function() {
-      _generateShareOptions();
-    });
+    /**
+     * Check if data.room.id(an id of entity where file is shared/unshared) is same as currently selected filter.
+     *
+     * @param data
+     * @returns {boolean}
+     * @private
+     */
+    function _isFileStatusChangedOnCurrentFilter(data) {
+      return data.room.id === $scope.fileRequest.sharedEntityId;
+    }
 
     $scope.$on('onrPanelFileTabSelected', function() {
       _refreshFileList();
@@ -92,11 +119,9 @@
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
     $scope.$watch('currentEntity', function(newValue, oldValue) {
       if (newValue != oldValue) {
-        updateSharedList();
-
+        //updateSharedList();
         //            console.log('this is updateSharedList in right.controller')
         //            console.log($scope.currentEntity)
-
         //  channel could be removed/created/left
         //  update selectOptions for data synchronization issue.
         _initSharedInFilter();
@@ -131,7 +156,7 @@
 
       $scope.fileRequest      = {
         searchType: 'file',
-        sharedEntityId: $state.params.entityId,
+        sharedEntityId: parseInt($state.params.entityId),
         startMessageId: -1,
         listCount: 10,
         keyword: ''
@@ -140,6 +165,8 @@
       _initSharedInFilter();
       _initSharedByFilter($scope.currentEntity);
       _initFileTypeFilter();
+
+      fileIdMap = {};
 
       // Checking if initial load has been processed or not.
       // if not, load once.
@@ -296,6 +323,7 @@
       getFileList();
     };
 
+
     function getFileList() {
       _updateSearchStatusKeyword();
 
@@ -308,6 +336,8 @@
             file.shared = fileAPIservice.getSharedEntities(file);
             if (file.status != 'archived')
               this.push(file);
+
+            fileIdMap[file.id] = true;
 
           }, fileList);
 
@@ -366,24 +396,10 @@
     function _updateSearchStatusTotalCount(count) {
       $scope.searchStatus.length = $scope.fileList.length;
     }
-    // there is a function listening to 'onFileSelect' in left.controller
-    $scope.onFileSelect = function($files) {
-      $rootScope.$broadcast('onFileSelect', $files);
-    };
 
 
     $scope.openModal = function(selector) {
-      // OPENING JOIN MODAL VIEW
-      if (selector == 'file') {
-        $modal.open({
-          scope       : $scope,
-          templateUrl : 'app/modal/upload/upload.html',
-          controller  : 'fileUploadModalCtrl',
-          size        : 'lg',
-          backdrop    : 'static'
-        });
-      }
-      else if (selector == 'share') {
+      if (selector == 'share') {
         $modal.open({
           scope       : $scope,
           templateUrl : 'app/modal/share/share.html',

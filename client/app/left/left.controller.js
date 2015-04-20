@@ -35,10 +35,14 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileService, jndWebSocket) {
+  currentSessionHelper, fileAPIservice, fileService, jndWebSocket, jndPubSub) {
 
   //console.info('[enter] leftpanelController');
 
+  var afterLeftInit = {
+    hasBroadcast: false,
+    broadcastTo: ''
+  };
 
 
   $scope.isLoading = false;
@@ -56,6 +60,25 @@ app.controller('leftPanelController1', function(
     response = leftPanel.data;
   }
 
+
+  $scope.$on('onJoinedTopicListChanged', function(event, param) {
+    _setAfterLeftInit(param);
+  });
+
+  function _setAfterLeftInit(param) {
+    afterLeftInit.hasBroadcast = true;
+    afterLeftInit.broadcastTo = param;
+  }
+  function _resetAfterLeftInit() {
+    afterLeftInit.hasBroadcast = false;
+  }
+  function _hasAfterLeftInit() {
+    return afterLeftInit.hasBroadcast;
+  }
+  function _broadcastAfterLeftInit() {
+    jndPubSub.pub(afterLeftInit.broadcastTo);
+  }
+
   //  redirecting to default channel.
   $rootScope.$watch('toDefault', function(newVal, oldVal) {
     if (newVal) {
@@ -63,16 +86,6 @@ app.controller('leftPanelController1', function(
       $rootScope.toDefault = false;
     }
   });
-
-
-
-  // TODO: THERE HAS TO BE A BETTER WAY TO DO THIS.
-  $scope.$watch('leftListCollapseStatus.isTopicsCollapsed',
-    function(newVal, oldVal) {
-      storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
-    }
-  );
-
 
   $scope.$watch('$state.params.entityId', function(newEntityId){
     if (!newEntityId) return;
@@ -219,6 +232,10 @@ app.controller('leftPanelController1', function(
 
     $rootScope.isReady = true;
 
+    if (_hasAfterLeftInit()) {
+      _broadcastAfterLeftInit();
+      _resetAfterLeftInit();
+    }
     $rootScope.$broadcast('onInitLeftListDone');
   }
 

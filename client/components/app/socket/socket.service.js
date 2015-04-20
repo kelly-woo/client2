@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function jndWebSocket(socketFactory, config, currentSessionHelper, memberService, storageAPIservice,
-                        entityAPIservice, jndWebSocketHelper) {
+                        jndWebSocketHelper) {
     var socket;
     var isConnected;
 
@@ -31,24 +31,29 @@
     var MEMBER_STARRED = 'member_starred';
     var MEMBER_UNSTARRED = 'member_unstarred';
 
-
     var MEMBER_PROFILE_UPDATED = 'member_profile_updated';
     var MEMBER_PRESENCE_UPDATED = 'member_presence_updated';
+
+    var FILE_DELETED = 'file_deleted';
 
     // Emit only events.
     var DISCONNECT_TEAM = 'disconnect_team';
 
 
+
     // message types
-    var MESSAGE = 'message';
+    var MESSAGE = config.socketEvent.MESSAGE;
 
-    var MESSAGE_TOPIC_JOIN = 'topic_join';
-    var MESSAGE_TOPIC_LEAVE = 'topic_leave';
-    var MESSAGE_TOPIC_INVITE = 'topic_invite';
+    var MESSAGE_TOPIC_JOIN = config.socketEvent.MESSAGE_TOPIC_JOIN;
+    var MESSAGE_TOPIC_LEAVE = config.socketEvent.MESSAGE_TOPIC_LEAVE;
+    var MESSAGE_TOPIC_INVITE = config.socketEvent.MESSAGE_TOPIC_INVITE;
 
-    var MESSAGE_DELETE = 'message_delete';
+    var MESSAGE_DELETE = config.socketEvent.MESSAGE_DELETE;
 
-    var MESSAGE_FILE_SHARE = 'file_share';
+    var MESSAGE_FILE_SHARE = config.socketEvent.MESSAGE_FILE_SHARE;
+    var MESSAGE_FILE_UNSHARE = config.socketEvent.MESSAGE_FILE_UNSHARE;
+
+    var MESSAGE_FILE_COMMENT = config.socketEvent.MESSAGE_FILE_COMMENT;
 
 
     // variables with '_APP_' has nothing to do with socket server. Just for internal use.
@@ -113,6 +118,9 @@
       socket.on(MEMBER_UNSTARRED, _onStarredEvent);
 
       socket.on(CHAT_CLOSE, _onChatClose);
+
+
+      socket.on(FILE_DELETED, _onFileDeleted);
 
 
       socket.on(MESSAGE, _onMessage);
@@ -218,9 +226,13 @@
       jndWebSocketHelper.chatMessageListEventHandler(data);
     }
 
+    function _onFileDeleted(data) {
+      jndWebSocketHelper.socketEventLogger(FILE_DELETED, data, false);
+      jndWebSocketHelper.fileDeletedHandler(data);
+    }
     function _onMemberProfileUpdated(data) {
       jndWebSocketHelper.socketEventLogger(MEMBER_PROFILE_UPDATED, data, false);
-      jndWebSocketHelper.onMemberProfileUpdatedHanlder(data);
+      jndWebSocketHelper.onMemberProfileUpdatedHandler(data);
     }
 
 
@@ -235,22 +247,19 @@
     function _onMessage(data) {
       var messageType = data.messageType;
 
-
-      switch (messageType) {
-        case MESSAGE_TOPIC_JOIN:
-          break;
-        case MESSAGE_TOPIC_LEAVE:
-          break;
-        case MESSAGE_TOPIC_INVITE:
-          break;
-        case MESSAGE_DELETE:
-          break;
-        case MESSAGE_FILE_SHARE:
-          break;
-        default:
-          messageType = _APP_GOT_NEW_MESSAGE;
-          break;
+      if (messageType === MESSAGE_FILE_COMMENT) {
+        // File comment event is handled in different handler since its 'rooms' attribute is an array.
+        jndWebSocketHelper.socketEventLogger(messageType, data, false);
+        jndWebSocketHelper.messageEventFileCommentHandler(data);
+        return;
       }
+
+      if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
+        jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
+
+      }
+
+      messageType = messageType || _APP_GOT_NEW_MESSAGE;
 
       jndWebSocketHelper.socketEventLogger(messageType, data, false);
       jndWebSocketHelper.eventStatusLogger(messageType, data);

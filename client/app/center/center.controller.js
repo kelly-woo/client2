@@ -629,11 +629,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(function (response) {
 
-        log(response)
-
-        if (response.alarm.alarmCount > 0) updateAlarmHandler(response.alarm);
-        if (response.event.eventCount > 0) updateEventHandler(response.event);
-
         // lastUpdatedId 갱신 --> lastMessageId
         lastUpdatedLinkId = response.lastLinkId;
 
@@ -672,6 +667,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 _handleSystemEventMessage();
                 continue;
               } else {
+                log('not a system event message ');
                 // Non System Event Message.
                 switch (msg.status) {
                   case 'created':
@@ -1371,6 +1367,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //        c. 1:1 direct message.
   //      2. someone shares/comment on file.
   function updateAlarmHandler(alarm) {
+
+    return;
+
     if (alarm.alarmCount == 0) return;
 
     var alarmTable = alarm.alarmTable;
@@ -1658,17 +1657,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _newMessageAlertChecker(msg) {
-
-    log('is from me? ', _isMessageFromMe(msg))
-
     // If message is from me -> I just wrote a message -> Just scroll to bottom.
     if (_isMessageFromMe(msg)) {
       _scrollToBottom();
       return;
     }
 
-    log(_hasBottomReached())
-    log(_hasBrowserFocus())
+    //log('bottom? ', _hasBottomReached(), ' focus? ', _hasBrowserFocus());
+
 
     // Message is not from me -> Someone just wrote a message.
     if (_hasBottomReached()) {

@@ -15,7 +15,7 @@
     .service('currentSessionHelper', currentSessionHelper);
 
   /* @ngInject */
-  function currentSessionHelper() {
+  function currentSessionHelper($state) {
 
     var currentTeam;
     var currentTeamMemberList;
@@ -23,6 +23,8 @@
 
     var isSocketConnected = false;
 
+    // File id of a file currently selected in right panel.
+    var currentFileId = -1;
 
     this.getCurrentTeam = getCurrentTeam;
     this.setCurrentTeam = setCurrentTeam;
@@ -45,6 +47,8 @@
     this.resetSocketConnection = resetSocketConnection;
     this.getSocketConnection = getSocketConnection;
 
+    this.getCurrentFileId = getCurrentFileId;
+    this.removeCurrentFileId = removeCurrentFileId;
 
 
     function getCurrentTeam() { return currentTeam; }
@@ -98,6 +102,15 @@
       return isSocketConnected;
     }
 
+    function setCurrentFileId(fileId) {
+      currentFileId = fileId;
+    }
+    function getCurrentFileId() {
+      return parseInt($state.params.itemId);
+    }
+    function removeCurrentFileId() {
+      currentFileId = -1;
+    }
 
 
 

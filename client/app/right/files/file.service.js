@@ -141,12 +141,12 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   // Broadcast shareEntities change event to centerpanel, rightpanel, detailpanel
   fileAPI.broadcastChangeShared = function(id) {
-    var ret = (id) ? {messageId: id} : null;
-    $rootScope.$broadcast('onChangeShared', ret);
+    //var ret = (id) ? {messageId: id} : null;
+    //$rootScope.$broadcast('onChangeShared', ret);
   };
 
   fileAPI.broadcastCommentFocus = function() {
-    $rootScope.$broadcast('setCommentFocus');
+    //$rootScope.$broadcast('setCommentFocus');
   };
 
   fileAPI.broadcastFileShare = function(file) {

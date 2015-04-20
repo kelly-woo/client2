@@ -6,16 +6,23 @@
     .service('jndWebSocketHelper', jndWebSocketHelper);
 
   /* @ngInject */
-  function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService, logger, $state, configuration, $timeout) {
+  function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService,
+                              logger, $state, configuration, config, desktopNotificationService) {
+
     this.teamNameChangeEventHandler = teamNameChangeEventHandler;
     this.teamDomainChangeEventHandler = teamDomainChangeEventHandler;
 
     this.topicChangeEventHandler = topicChangeEventHandler;
     this.chatMessageListEventHandler = chatMessageListEventHandler;
 
-    this.onMemberProfileUpdatedHanlder = onMemberProfileUpdatedHanlder;
+    this.fileDeletedHandler = fileDeletedHandler;
+
+    this.onMemberProfileUpdatedHandler = onMemberProfileUpdatedHandler;
 
     this.messageEventHandler = messageEventHandler;
+    this.messageEventFileShareUnshareHandler = messageEventFileShareUnshareHandler;
+    this.messageEventFileCommentHandler = messageEventFileCommentHandler;
+
     this.topicLeaveHandler = topicLeaveHandler;
 
     this.socketEventLogger = socketEventLogger;
@@ -23,12 +30,20 @@
     this.log = log;
 
 
-    // message types
-    var MESSAGE_TOPIC_JOIN = 'topic_join';
-    var MESSAGE_TOPIC_LEAVE = 'topic_leave';
-    var MESSAGE_TOPIC_INVITE = 'topic_invite';
-    var MESSAGE_DELETE = 'message_delete';
 
+    // message types
+    var MESSAGE = config.socketEvent.MESSAGE;
+
+    var MESSAGE_TOPIC_JOIN = config.socketEvent.MESSAGE_TOPIC_JOIN;
+    var MESSAGE_TOPIC_LEAVE = config.socketEvent.MESSAGE_TOPIC_LEAVE;
+    var MESSAGE_TOPIC_INVITE = config.socketEvent.MESSAGE_TOPIC_INVITE;
+
+    var MESSAGE_DELETE = config.socketEvent.MESSAGE_DELETE;
+
+    var MESSAGE_FILE_SHARE = config.socketEvent.MESSAGE_FILE_SHARE;
+    var MESSAGE_FILE_UNSHARE = config.socketEvent.MESSAGE_FILE_UNSHARE;
+
+    var MESSAGE_FILE_COMMENT = config.socketEvent.MESSAGE_FILE_COMMENT;
 
     // variables with '_APP_' has nothing to do with socket server. Just for internal use.
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
@@ -46,6 +61,7 @@
     }
 
     function topicChangeEventHandler() {
+      _onJoinedTopicListChanged();
       _updateLeftPanel();
     }
 
@@ -53,51 +69,103 @@
       _updateMessageList();
     }
 
-    function onMemberProfileUpdatedHanlder() {
+    /**
+     * Handle case when file is deleted.
+     * @param data
+     */
+    function fileDeletedHandler(data) {
+      jndPubSub.pub('rightFileOnFileDeleted', data);
+      jndPubSub.pub('rightFileDetailOnFileDeleted', data);
+      jndPubSub.pub('centerOnFileDeleted', data);
+    }
+    function onMemberProfileUpdatedHandler() {
       memberService.onMemberProfileUpdated();
     }
+
     function messageEventHandler(room, writer, eventType) {
       var roomEntity = _getRoom(room);
       var writer = _getActionOwner(writer);
 
+      // Only when message is deleted.
       if (_isMessageDeleted(eventType)) {
         log('message deleted');
-
         _updateCenterForCurrentEntity(room);
         return;
       }
 
+      // Only when DM to me.
       if (_isDMToMe(room)) {
         _messageDMToMeHandler(room);
         return;
       }
 
-      if (!_isRelatedEvent(roomEntity, writer)) {
-        return;
-      }
+      // Check if message event happened in any related topics.
+      if (!_isRelatedEvent(roomEntity, writer)) { return; }
+
 
       if (_isSystemEvent(eventType)) {
+        log('system event');
         _updateLeftPanel();
         _updateCenterForCurrentEntity(room);
       } else {
         // message is written to one of related topic/DM.
-        _updateCenterMessage();
-
+        log('new message written');
+        _updateCenterForCurrentEntity(room);
+        _updateLeftPanelForOtherEntity(room);
+        _sendBrowserNotificationForOtherEntity(room, writer);
       }
-
-
     }
 
     /**
-     * Update center message list only if room is current entity.
+     * Handles only 'message -> file_share' and 'message -> file_unshare'.
      *
-     * @param room
      * @private
      */
-    function _updateCenterForCurrentEntity(room) {
-      if (_isCurrentEntity(room)) {
-        log('update center for current entity');
+    function messageEventFileShareUnshareHandler(data) {
+      var room = data.room;
+      var writer = data.writer;
+
+      var roomEntity = _getRoom(room);
+      var writer = _getActionOwner(writer);
+
+      log('file share/unshare event');
+      log(data);
+
+      _updateCenterForCurrentEntity(room);
+      _updateLeftPanelForOtherEntity(room);
+      _updateFilesPanelonRight(data);
+
+
+    }
+    /**
+     * Handles only 'message -> file_comment'
+     * @param data
+     */
+    function messageEventFileCommentHandler(data) {
+      var fileId = data.file.id;
+      log('file comment event');
+
+      var rooms = data.rooms;
+
+      var foundCurrentRoom = false;
+      var hasRelatedRoom = false;
+
+      _.forEach(rooms, function(room) {
+        foundCurrentRoom = _isCurrentEntity(room) || foundCurrentRoom;
+        hasRelatedRoom = _isRelatedEvent(_getRoom(room), _getActionOwner(data.writer)) || hasRelatedRoom;
+      });
+
+      if (!hasRelatedRoom) return;
+
+      if (foundCurrentRoom) {
         _updateCenterMessage();
+      }
+
+      _updateLeftPanel();
+
+      // Update Right panel - file detail
+      if (_isCurrentFile(fileId)) {
+        _updateFileDetailPanel();
       }
     }
 
@@ -116,7 +184,6 @@
       _updateCenterMessage();
     }
 
-
     /**
      * Update left panel entities.
      *
@@ -125,6 +192,8 @@
      * @param param
      */
     function topicLeaveHandler(param) {
+      _onJoinedTopicListChanged();
+
       _updateLeftPanel();
 
       if (_isCurrentEntity(param.topic)) {
@@ -143,10 +212,59 @@
         log('not related room event');
         return false;
       }
+
+      log('related room event');
+
       return true;
     }
+    function _isCurrentFile(fileId) {
+      return fileId === currentSessionHelper.getCurrentFileId();
+    }
 
+    /**
+     * Update center message list only if room is current entity.
+     *
+     * @param room
+     * @private
+     */
+    function _updateCenterForCurrentEntity(room) {
+      if (_isCurrentEntity(room)) {
+        log('update center for current entity');
+        _updateCenterMessage();
+      }
+    }
+    /**
+     * Update left panel entities only if room is NOT current entity.
+     * Main purpose is to update badge count on left panel.
+     *
+     * @param room
+     * @private
+     */
+    function _updateLeftPanelForOtherEntity(room) {
+      if (!_isCurrentEntity(room)) {
+        log('update left panel for other entity');
+        _updateLeftPanel();
+      }
+    }
 
+    function _updateFilesPanelonRight(data) {
+      log('update right panel file controller');
+      jndPubSub.pub('updateFileControllerOnShareUnshare', data)
+
+    }
+    /**
+     * Send browser notification only for non-current entity.
+     *
+     * @param room
+     * @private
+     */
+    function _sendBrowserNotificationForOtherEntity(room, writer) {
+      if (!_isCurrentEntity(room)) {
+        // Non-current entity -> Send notification!!!
+        log('Send browser notification');
+        desktopNotificationService.addNotification(writer, room);
+      }
+    }
     function _updateLeftPanel() {
       log('update left panel');
       jndPubSub.updateLeftPanel();
@@ -159,7 +277,20 @@
       log('update message list');
       jndPubSub.updateMessageList();
     }
+    function _updateFileDetailPanel() {
+      log('update file detail panel');
+      jndPubSub.updateRightFileDetailPanel();
+    }
 
+    /**
+     * Broadcast 'onJoinedTopicListChanged' event when user left or joined any topics.
+     *
+     * rPanelFileTabCtrl in files.controller is listening.
+     * @private
+     */
+    function _onJoinedTopicListChanged() {
+      jndPubSub.pub('onJoinedTopicListChanged', 'onJoinedTopicListChanged_leftInitDone');
+    }
     /**
      * Returns entity whose id is room.id.
      * @param room
@@ -231,9 +362,22 @@
       logger.log(msg);
     }
     function eventStatusLogger(event, data) {
-      var room = entityAPIservice.getEntityById(data.room.type, data.room.id);
-      if (!room) return;
-      var roomName = room.name;
+      var room;
+      var roomName;
+
+      if (data.rooms) {
+        _.forEach(data.rooms, function(room) {
+          room = entityAPIservice.getEntityById(room.type, room.id);
+          roomName += ' ' + room.name;
+        })
+      } else {
+        room = entityAPIservice.getEntityById(data.room.type, data.room.id);
+
+        if (!room) return;
+
+        roomName = room.name;
+      }
+
       var writerName = memberService.getName(entityAPIservice.getEntityById('users', data.writer));
 
       if (event === MESSAGE_TOPIC_INVITE) {
@@ -250,7 +394,16 @@
           verb = ' left ';
           break;
         case _APP_GOT_NEW_MESSAGE:
-          verb = ' wrote ';
+          verb = ' wrote in ';
+          break;
+        case MESSAGE_DELETE:
+          verb = ' deleted a message in ';
+          break;
+        case MESSAGE_FILE_SHARE:
+          verb = ' shared a file in ';
+          break;
+        case MESSAGE_FILE_UNSHARE:
+          verb = ' unshared a file from ';
           break;
 
 
