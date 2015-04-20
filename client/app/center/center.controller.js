@@ -685,59 +685,59 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 $scope.messages.push(msg);
                 _updateSystemEventMessageCounter();
                 continue;
+              } else {
+                switch (msg.status) {
+                  case 'created':
+                    $scope.messages.push(msg);
+                    break;
+                  case 'edited':
+                    var target = _.find($scope.messages, function(m) {
+                      return m.messageId === msg.messageId;
+                    });
+                    if (!_.isUndefined(target)) {
+                      var targetIdx = $scope.messages.indexOf(target);
+                      $scope.messages.splice(targetIdx, 1);
+                      $scope.messages.push(msg);
+                    }
+                    break;
+                  case 'archived':
+                    var target = _.find($scope.messages, function(m) {
+                      return m.messageId === msg.messageId;
+                    });
+                    if (!_.isUndefined(target)) {
+                      var targetIdx = $scope.messages.indexOf(target);
+                      $scope.messages.splice(targetIdx, 1);
+                    }
+                    break;
+                  case 'shared':
+                    msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
+                    $scope.messages.push(msg);
+                    break;
+                  case 'unshared':
+                    var target = _.find($scope.messages.reverse(), function(m) {
+                      return m.messageId === msg.messageId;
+                    });
+                    if (!_.isUndefined(target)) {
+                      // 기존 shared message 제거
+                      var targetIdx = $scope.messages.indexOf(target);
+                      $scope.messages.splice(targetIdx, 1);
+                      // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
+                      msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
+                      $scope.messages.push(msg);
+                    }
+                    break;
+                  default:
+                    console.error("!!! unfiltered message", msg);
+                    break;
+                }
               }
 
               var safeBody = msg.message.content.body;
               if (safeBody != undefined && safeBody !== "") {
                 safeBody = $filter('parseAnchor')(safeBody);
               }
-
               msg.message.content.body = $sce.trustAsHtml(safeBody);
 
-              switch (msg.status) {
-                case 'created':
-                  $scope.messages.push(msg);
-                  break;
-                case 'edited':
-                  var target = _.find($scope.messages, function(m) {
-                    return m.messageId === msg.messageId;
-                  });
-                  if (!_.isUndefined(target)) {
-                    var targetIdx = $scope.messages.indexOf(target);
-                    $scope.messages.splice(targetIdx, 1);
-                    $scope.messages.push(msg);
-                  }
-                  break;
-                case 'archived':
-                  var target = _.find($scope.messages, function(m) {
-                    return m.messageId === msg.messageId;
-                  });
-                  if (!_.isUndefined(target)) {
-                    var targetIdx = $scope.messages.indexOf(target);
-                    $scope.messages.splice(targetIdx, 1);
-                  }
-                  break;
-                case 'shared':
-                  msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
-                  $scope.messages.push(msg);
-                  break;
-                case 'unshared':
-                  var target = _.find($scope.messages.reverse(), function(m) {
-                    return m.messageId === msg.messageId;
-                  });
-                  if (!_.isUndefined(target)) {
-                    // 기존 shared message 제거
-                    var targetIdx = $scope.messages.indexOf(target);
-                    $scope.messages.splice(targetIdx, 1);
-                    // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
-                    msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
-                    $scope.messages.push(msg);
-                  }
-                  break;
-                default:
-                  console.error("!!! unfiltered message", msg);
-                  break;
-              }
             }
 
             groupByDate();
@@ -747,6 +747,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             _scrollToBottom();
             return;
           }
+
           //console.log('updatelist')
           if (_hasBrowserFocus()) {
             //console.log('window with focus')
@@ -755,15 +756,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
               //console.log('bottom reached and scrolling to bottom');
               _scrollToBottom();
             } else {
-              //console.log(' current entity and badge count');
-              _gotNewMessage();
+              if (msg.status != 'event') {
+                //console.log('window without focus');
+                _gotNewMessage();
+              }
             }
           } else {
+            //console.log('window without focus');
+
             if (msg.status != 'event') {
-              //console.log('window without focus');
+              //console.log('this is system event.')
               _gotNewMessage();
+            } else {
             }
-            _scrollToBottom();
           }
 
           _checkEntityMessageStatus();
@@ -1421,8 +1426,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         //  entityId(local variable) - for private and public topics
         //  or
         //  $scope.currentEntity.entityId - for users.
-        if (toEntityElementId === entityId || toEntityElementId === $scope.currentEntity.entityId) {
+        if (toEntityElementId === parseInt(entityId) || toEntityElementId === $scope.currentEntity.entityId) {
           // 'Alarm' also contains a new message info for current entity which comes in response.updateInfo in updateList.
+          // toEntityElementId which came in as api response is number type while 'entityId' is a String type.
+          // Convert entityId from String type to number then compare to 'toEntityElementId'.
           return false;
         }
 
