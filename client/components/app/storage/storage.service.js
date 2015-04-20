@@ -211,6 +211,8 @@
       localStorageService.remove(leftTopicCollapsed_key);
       localStorageService.remove(leftPGCollapsed_key);
       localStorageService.remove(leftDMCollapsed_key);
+      localStorageService.remove(teamName_key);
+      localStorageService.remove(lastState_key);
 
     }
 
