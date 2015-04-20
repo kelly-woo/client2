@@ -33,6 +33,8 @@
     // variables with '_APP_' has nothing to do with socket server. Just for internal use.
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
 
+    var chatEntity = 'chat';
+
     function teamNameChangeEventHandler(data) {
       currentSessionHelper.updateCurrentTeamName(data.team.name);
     }
@@ -86,14 +88,26 @@
 
     }
 
+    /**
+     * Update center message list only if room is current entity.
+     *
+     * @param room
+     * @private
+     */
     function _updateCenterForCurrentEntity(room) {
-      log('update center for current entity');
-
       if (_isCurrentEntity(room)) {
+        log('update center for current entity');
         _updateCenterMessage();
       }
-
     }
+
+    /**
+     * Always update center message.
+     * Update messageList(left bottom) only if room is not current entity.
+     *
+     * @param room
+     * @private
+     */
     function _messageDMToMeHandler(room) {
       log('DM to me');
       if (!_isCurrentEntity(room)) {
@@ -103,6 +117,13 @@
     }
 
 
+    /**
+     * Update left panel entities.
+     *
+     * Re-direct user to default topic if current left current entity.
+     *
+     * @param param
+     */
     function topicLeaveHandler(param) {
       _updateLeftPanel();
 
@@ -146,7 +167,7 @@
      * @private
      */
     function _getRoom(room) {
-      if (room.type === 'chat') {
+      if (room.type === chatEntity) {
         return entityAPIservice.getEntityByEntityId(room.id);
       }
       return entityAPIservice.getEntityById(room.type, room.id);
@@ -168,6 +189,10 @@
      * @private
      */
     function _isDMToMe(room) {
+
+      if (room.type != chatEntity) {
+        return false;
+      }
 
       var memberList = room.members;
       if (_.isUndefined(memberList)) return false;
@@ -195,7 +220,7 @@
       var roomId = room.id;
       var currentEntity = currentSessionHelper.getCurrentEntity();
 
-      return room.type === 'chat' ? roomId == currentEntity.entityId : roomId == currentEntity.id;
+      return room.type === chatEntity ? roomId == currentEntity.entityId : roomId == currentEntity.id;
 
     }
 

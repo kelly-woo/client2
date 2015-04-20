@@ -41,10 +41,15 @@
 
     // message types
     var MESSAGE = 'message';
+
     var MESSAGE_TOPIC_JOIN = 'topic_join';
     var MESSAGE_TOPIC_LEAVE = 'topic_leave';
     var MESSAGE_TOPIC_INVITE = 'topic_invite';
+
     var MESSAGE_DELETE = 'message_delete';
+
+    var MESSAGE_FILE_SHARE = 'file_share';
+
 
     // variables with '_APP_' has nothing to do with socket server. Just for internal use.
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
@@ -239,6 +244,8 @@
         case MESSAGE_TOPIC_INVITE:
           break;
         case MESSAGE_DELETE:
+          break;
+        case MESSAGE_FILE_SHARE:
           break;
         default:
           messageType = _APP_GOT_NEW_MESSAGE;
