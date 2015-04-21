@@ -61,7 +61,12 @@
 .member-list-tab a {
   color: #999999;
 }
+.member-list-tab a:hover {
+  color: #366480;
+  background-color: #d7e0e8 !important;
+}
 .member-list-tab .active a  {
+  background-color: white !important;
 }
 
 .member-list-tab .nav-tabs {

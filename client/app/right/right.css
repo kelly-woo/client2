@@ -390,12 +390,23 @@
   text-align: center;
   width: 102px;
   font-size: 14px;
-  color: #a8afb5;
+  color: #d7e0e8;
   height: 36px;
-  line-height: 35px;
+  line-height: 36px;
   /* background-color: #e2e0e3; */
   margin-right: 0;
   margin-top: 1px;
+  border: none;
+}
+.rpanel-body-tab-container .nav-tabs > li > a:hover {
+  color: white;
+  background-color: #154a67;
+  border: none;
+}
+.rpanel-body-tab-container .nav-tabs > li > a:active {
+  color: white;
+  background-color: #154a67;
+  border: none;
 }
 
 .rpanel-body-tab-container .nav-tabs > li.active > a {
