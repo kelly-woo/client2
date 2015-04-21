@@ -40,7 +40,7 @@ msgstr "공유된 대화방이 없습니다"
 msgid "@alert-invalid-password"
 msgstr "비밀번호가 일치하지 않습니다"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-missing-info"
 msgstr "모든 정보를 입력하세요"
 
@@ -57,19 +57,19 @@ msgstr "검색 결과가 없습니다"
 msgid "@alert-required"
 msgstr "필수 항목 입니다"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-fail"
 msgstr "다음 주소로 이메일 보내기를 실패하였습니다"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-invalid"
 msgstr "은(는) 올바르지 않은 이메일 주소입니다"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-success"
 msgstr "정상적으로 초대 이메일을 보냈습니다"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-taken"
 msgstr "은(는) 이미 가입된 이메일입니다"
 
@@ -81,18 +81,21 @@ msgstr "업데이트 중 오류가 발생했습니다"
 msgid "@alert-update-success"
 msgstr "정상적으로 변경되었습니다"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@btn-add"
 msgstr "추가"
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/team_change/team.change.html client/app/modal/upload.html
+#: client/app/modal/share/share.html
+#: client/app/modal/team_change/team.change.html
+#: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
 msgstr "취소"
 
-#: client/app/modal/image.crop.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/image.crop.html
 msgid "@btn-change"
 msgstr "변경하기"
 
@@ -101,11 +104,11 @@ msgid "@btn-click-to-view"
 msgstr "새 창에서 보기"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html client/app/modal/join.html
-#: client/app/modal/password.reset.request.html
+#: client/app/modal/invite_to_team/invite.team.html
+#: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
-#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@btn-close"
@@ -130,14 +133,14 @@ msgstr "생성하기"
 msgid "@btn-delete"
 msgstr "삭제하기"
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/password.reset.request.html
-#: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "확인"
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@btn-invite"
 msgstr "초대하기"
 
@@ -145,7 +148,7 @@ msgstr "초대하기"
 msgid "@btn-join"
 msgstr "참여하기"
 
-#: client/app/center/center.html client/app/modal/share.html
+#: client/app/center/center.html client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -160,41 +163,31 @@ msgstr "이름 변경하기"
 msgid "@btn-update-password"
 msgstr "비밀번호 변경하기"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "업로드"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-delete"
 msgstr "토픽 삭제하기"
 
-#: client/app/center/center.html
-msgid "@ch-menu-delete-confirm"
-msgstr "이 토픽을 정말 삭제하시겠습니까?"
-
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-invite"
 msgstr "토픽에 멤버 초대하기"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-leave"
 msgstr "토픽 나가기"
 
-#: client/app/center/center.html
-msgid "@ch-menu-leave-private-confirm"
-msgstr ""
-"비공개 토픽을 나가시면 초대를 받지 않는한 다시 참여하실 수 없습니다. 나가시"
-"겠습니까?"
-
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-rename"
 msgstr "토픽 이름 변경하기"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-star"
 msgstr "토픽 즐겨찾기 "
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-un-star"
 msgstr "즐겨찾기 해제 "
 
@@ -251,11 +244,12 @@ msgstr "1:1 메시지"
 msgid "@common-check-email-inbox"
 msgstr "메일함을 확인해 주세요."
 
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-comment"
 msgstr "댓글"
 
-#: client/app/center/center.html client/app/left/messages/messages.html
+#: client/app/center/entity_header/entity.header.html
+#: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr "나가기"
 
@@ -287,7 +281,8 @@ msgstr "고객 센터"
 msgid "@common-deleted-file-title"
 msgstr "삭제된 파일"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/profile.view.html
 msgid "@common-department"
 msgstr "부서"
 
@@ -299,7 +294,7 @@ msgstr "데스크탑 알림"
 msgid "@common-direct-messages"
 msgstr "1:1 메시지"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
 msgstr "차단된 멤버입니다"
 
@@ -323,9 +318,9 @@ msgstr ""
 "업무의 혼란을 줄이기 위해 중복된 이름의 토픽은 허용하지 않고 있습니다. 다른 "
 "이름으로 생성해주세요."
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/password.reset.request.html
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-#: client/app/signin/signin.html
+#: client/app/modal/profile.view.html client/app/signin/signin.html
 msgid "@common-email"
 msgstr "이메일"
 
@@ -345,13 +340,18 @@ msgstr "FAQ"
 msgid "@common-feature-not-supported-msg"
 msgstr "지금은 제공되지 않는 기능입니다."
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file"
 msgstr "파일"
 
 #: client/app/modal/profile.view.html
 msgid "@common-file-list"
 msgstr "파일 리스트"
+
+#: client/app/modal/share/share.html
+msgid "@common-file-share-jump-channel-confirm-msg"
+msgstr ""
+"파일이 성공적으로 공유되었습니다. 파일이 공유된 대화로 이동하시겠습니까?"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type"
@@ -417,11 +417,11 @@ msgstr "이미 JANDI 모바일 앱이 있으십니까?"
 msgid "@common-inactive-member"
 msgstr "차단 멤버"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-info-basic"
 msgstr "기본 정보"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-info-optional"
 msgstr "추가 정보"
 
@@ -454,7 +454,7 @@ msgid "@common-more"
 msgstr "더보기"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
 msgstr "이름"
@@ -476,11 +476,13 @@ msgstr "비밀번호"
 msgid "@common-pasword-enter"
 msgstr "비밀번호 입력"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/profile.view.html
 msgid "@common-phone"
 msgstr "전화번호"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/profile.view.html
 msgid "@common-position"
 msgstr "직책"
 
@@ -488,7 +490,8 @@ msgstr "직책"
 msgid "@common-privacy-policy"
 msgstr "개인정보취급방침"
 
-#: client/app/left/member/member.html client/app/modal/settings.profile.html
+#: client/app/left/member/member.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "프로필 수정"
 
@@ -512,11 +515,11 @@ msgstr "메일 보내기"
 msgid "@common-service-settings"
 msgstr "서비스 설정"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-share-file"
 msgstr "파일 공유"
 
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-share-in"
 msgstr "공유 대화방"
 
@@ -546,7 +549,7 @@ msgstr ""
 msgid "@common-start-using-mobile"
 msgstr "JANDI 앱 열기"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-status-msg"
 msgstr "오늘의 기분"
 
@@ -558,7 +561,7 @@ msgstr "팀"
 msgid "@common-terms-of-service"
 msgstr "이용약관"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@common-title"
 msgstr "타이틀"
 
@@ -574,7 +577,7 @@ msgstr "비공개"
 msgid "@common-type-public"
 msgstr "공개"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "파일 업로드"
 
@@ -594,15 +597,15 @@ msgstr "으로부터 차단되었습니다. 자세한 사항은 팀 관리자에
 msgid "@current-member-disabled-notice-msg-pre"
 msgstr " "
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-file"
 msgstr "파일 보기"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-invite"
 msgstr "대화방으로 초대하기"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr "프로필 보기"
 
@@ -683,19 +686,19 @@ msgstr "최신 메시지로 가기"
 msgid "@has-new-message-alert-msg"
 msgstr "새로운 메시지가 있습니다."
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
 "인터넷 익스플로러 9 에서는 이미지 미리보기가 제대로 작동하지 않을 수 있으"
 "나, 파일은 올바르게 업로드 되기 때문에 걱정하지 않으셔도 됩니다."
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@ie9-please-do-not-use"
 msgstr ""
 "JANDI의 모든 기능을 이용하기 위해 최신 버전의 인터넷 익스플로러를 설치해주세"
 "요."
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
 "인터넷 익스플로러 9 버전은 프로파일 사진 편집을 지원하지 않습니다. 잔디의 기"
@@ -710,19 +713,20 @@ msgstr "토픽 이름을 입력하세요"
 msgid "@input-create-pg"
 msgstr "비공개 토픽 이름을 입력하세요"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@input-invite-email"
 msgstr "초대할 이메일 주소를 입력하세요"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-20-error"
 msgstr "최대 입력 글자 수가 넘었습니다: 20자 "
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-60-error"
 msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
 
-#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@input-max-length-error"
 msgstr "최대 입력 글자 수가 넘었습니다.  "
@@ -887,7 +891,7 @@ msgstr ""
 msgid "@modal-setting-account-password"
 msgstr "비밀번호 변경하기"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@modal-setting-profile-msg1"
 msgstr "닉네임, 전화번호, 직책 등 기본적인 프로필 정보를 수정할 수 있습니다."
 
@@ -901,11 +905,11 @@ msgstr ""
 "팀에 관련한 사항들을 변경할 수 있습니다. 다만 변경 내용은 모든 팀 멤버들에"
 "게 적용되므로 주의하여 주시기 바랍니다."
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@modal-team-invite-msg1"
 msgstr "이메일을 통해 다른 멤버들을 잔디로 초대할 수 있습니다."
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@modal-upload-title-msg1"
 msgstr "파일명으로 파일을 쉽게 검색할 수 있습니다"
 
@@ -1080,7 +1084,8 @@ msgstr "새로운 팀 이름"
 msgid "@setting-team-title"
 msgstr "팀 세팅"
 
-#: client/app/header/header.html client/app/modal/invite.team.html
+#: client/app/header/header.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@team-invite"
 msgstr "멤버 초대"
 
@@ -1202,11 +1207,11 @@ msgstr "Welcome to JANDI!"
 msgid "@user"
 msgstr "1:1 대화방"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@user-menu-star"
 msgstr "유저 즐겨찾기"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@user-menu-un-star"
 msgstr "즐겨찾기 해제"
 
@@ -1233,6 +1238,14 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
+
+#~ msgid "@ch-menu-delete-confirm"
+#~ msgstr "이 토픽을 정말 삭제하시겠습니까?"
+
+#~ msgid "@ch-menu-leave-private-confirm"
+#~ msgstr ""
+#~ "비공개 토픽을 나가시면 초대를 받지 않는한 다시 참여하실 수 없습니다. 나가"
+#~ "시겠습니까?"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "업로드된 파일이 없습니다"

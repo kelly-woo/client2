@@ -20,6 +20,39 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     loading: false
   };
 
+  $scope.$on('updateRightFileDetailPanel', function() {
+    _init();
+  });
+
+  $scope.$on('rightFileDetailOnFileDeleted', function(event, param) {
+    _onFileChanged(param);
+  });
+
+  $scope.$on('rightFileDetailOnFileCommentDeleted', function(event, param) {
+    _onFileChanged(param);
+  });
+
+  $scope.$on('updateFileDetailPanel', function(event, param) {
+    _onFileChanged(param);
+  });
+
+  function _onFileChanged(param) {
+    if (_isFileDetailActive()) {
+      var deletedFileId = param.file.id;
+      if (parseInt(fileId) === deletedFileId) {
+        getFileDetail();
+      }
+    }
+  }
+
+  (function() {
+    _init();
+  })();
+
+  function _init() {
+    getFileDetail();
+  }
+
   function getFileDetail() {
     var deferred = $q.defer();
     if (!$scope.fileLoadStatus.loading) {
@@ -71,7 +104,6 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     return deferred.promise;
   }
 
-  getFileDetail();
 
   function isFileArchived(file) {
     return file.status == 'archived';
@@ -82,9 +114,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
 
     fileAPIservice.postComment(fileId, $scope.comment.content)
       .success(function(response) {
-//                console.log("fileAPIservice.postComment.success", response);
         $scope.glued = true;
-        getFileDetail();
         $scope.comment.content = "";
         $scope.focusPostComment = true;
       })
@@ -123,7 +153,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     if (selector == 'share') {
       $modal.open({
         scope       : $scope,
-        templateUrl : 'app/modal/share.html',
+        templateUrl : 'app/modal/share/share.html',
         controller  : 'fileShareModalCtrl',
         size        : 'lg',
         resolve: {
@@ -250,12 +280,15 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       .finally(function() {
 
       });
-  }
+  };
 
   $scope.isDisabledMember = function(member) {
     return publicService.isDisabledMember(member);
-  }
+  };
 
+  function _isFileDetailActive() {
+    return !!$state.params.itemId;
+  }
 });
 
 app.controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {

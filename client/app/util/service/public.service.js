@@ -12,9 +12,9 @@
     .factory('publicService', publicService);
 
   /* @ngInject */
-  function publicService($rootScope, $modal, accountService, storageAPIservice, memberService,
+  function publicService($rootScope, $modal, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, modalHelper, leftpanelAPIservice) {
+                         entityAPIservice, modalHelper) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -43,7 +43,6 @@
       isDisabledMember: isDisabledMember,
       isNullOrUndefined: isNullOrUndefined,
       goToDefaultTopic: goToDefaultTopic
-
     };
 
     return service;
@@ -217,6 +216,9 @@
       analyticsService.removeMemberCookieMixpanel();
       analyticsService.removeAccountCookieMixpanel();
 
+      // Disconnect socket connection.
+      jndWebSocket.disconnectTeam();
+
       if ( $state.current.name == 'signin') {
         // 현재 state 다시 로드
         $state.transitionTo($state.current, {}, {
@@ -265,5 +267,6 @@
     function goToDefaultTopic() {
       $state.go('archives', {entityType:'channels',  entityId:currentSessionHelper.getDefaultTopicId() });
     }
+
   }
 })();

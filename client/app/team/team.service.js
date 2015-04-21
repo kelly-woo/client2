@@ -1,61 +1,32 @@
-'use strict';
+(function() {
+  'use strict';
 
-var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .service('teamAPIservice', teamAPIservice);
 
-app.factory('teamAPIservice', function($http, $rootScope, accountService, memberService) {
-    var teamAPI = {};
+  /* @ngInject */
+  function teamAPIservice($http, configuration, accountService, memberService) {
+    var team;
 
-    teamAPI.inviteToTeam = function(receivers) {
-        return $http({
-            method  : 'POST',
-            url     : $rootScope.server_address + 'invitations',
-            data    : {
-                teamId: memberService.getTeamId(),
-                receivers: receivers,
-                lang: accountService.getAccountLanguage()
-            }
-        });
-    };
+    this.setTeam = setTeam;
+    this.inviteToTeam = inviteToTeam;
 
-    teamAPI.prefixDomainValidator = function(prefixDomain) {
-        if (!prefixDomain) return;
-        return $http({
-            method : 'GET',
-            url : $rootScope.server_address + 'validation/domain/' + prefixDomain
-        });
-    };
-
-    teamAPI.updateTeamName = function(name) {
-        return $http({
-            method  : 'PUT',
-            url     : $rootScope.server_address  + 'teams/' + $rootScope.team.id + '/name',
-            data    : {
-                name  : name
-            }
-        });
-    };
-
-    teamAPI.updatePrefixDomain = function(domain) {
+    function inviteToTeam(receivers) {
       return $http({
-          method    : 'PUT',
-          url       : $rootScope.server_address  + 'teams/' + $rootScope.team.id + '/domain',
-          data      : {
-              domain  : domain,
-              lang    : $rootScope.preferences.serverLang
-          }
+        method: 'POST',
+        url: configuration.server_address + 'invitations',
+        data: {
+          teamId: memberService.getTeamId(),
+          receivers: receivers,
+          lang: accountService.getAccountLanguage()
+        }
       });
-    };
+    }
 
-    teamAPI.deleteTeam = function() {
-        return $http({
-            method  : 'DELETE',
-            url     : $rootScope.server_address  + 'teams/' + $rootScope.team.id,
-            data    : {
-                lang    : $rootScope.preferences.serverLang,
-                teamId: memberService.getTeamId()
-            }
-        });
-    };
+    function setTeam(team) { this.team = team;}
+    function getTeam() { return team;}
 
-    return teamAPI;
-});
+    function setTeamName(name) { this.team.name = name; }
+  }
+})();

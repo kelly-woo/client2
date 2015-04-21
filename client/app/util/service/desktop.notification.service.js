@@ -14,6 +14,7 @@
 
     return service;
 
+
     function addNotification(fromEntity, toEntity) {
 
       var notificationOption = getNotificationOption(fromEntity, toEntity);

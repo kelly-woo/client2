@@ -11,7 +11,8 @@
       'ngAnimate',
       'ngImgCrop',
       'monospaced.elastic',
-      'base.highlight'
+      'base.highlight',
+      'base.logger'
     ])
     .run(run)
     .config(config);
