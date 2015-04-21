@@ -1,12 +1,12 @@
 /* Header */
 .hpanel {
-  border-bottom: 1px solid #192d3e;
+  border-bottom: 1px solid #154a67;
   position: relative;
 }
 .header {
   height: 40px;
   line-height: 40px;
-  background-color: #192d3e;
+  background-color: #154a67;
   min-width: 220px;
   color: white;
 }
@@ -38,7 +38,7 @@
 .header-navbar-menu.open,
 .header-navbar-file.open,
 .header-navbar-settings.open {
-  background: #556979;
+  background: #366480;
   color: #fff;
 }
 .header-navbar__topmenu {

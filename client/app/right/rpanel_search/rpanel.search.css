@@ -3,7 +3,7 @@
   padding-left: 13px;
   padding-top: 7px;
   height: 40px;
-  background-color: #556979;
+  background-color: #366480;
 }
 
 .rpanel-search .add-on-left {
@@ -24,7 +24,7 @@
   background-color: white;
 }
 .rpanel-search input:focus {
-  border-color: #192d3e;
+  border-color: #154a67;
 }
 .rpanel-header-toolbar {
   position: relative;

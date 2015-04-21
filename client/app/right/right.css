@@ -49,13 +49,13 @@
 }
 .rpanel__background .panel-title-container,
 .rpanel .panel-title-container {
-  background-color: rgba(0,0,0,0);
+  background-color: #366480;
 }
 .rpanel-header a { color: #00a6e9; }
 .rpanel-header a:hover { text-decoration: none; color: #31c08a; }
 .rpanel-header-heading { position: relative; font-weight: 700; }
-.rpanel-header-heading__back { vertical-align:middle; color:#00a6e9;}
-.rpanel-header-heading__back:hover { color: #192d3e; }
+.rpanel-header-heading__back { vertical-align:middle; color:white;}
+.rpanel-header-heading__back:hover { color: #00abe6; }
 .rpanel-header-heading__back i { font-size: 18px; vertical-align: text-bottom; margin-right: -3px; }
 
 .rpanel-header-heading__types { position: relative; font-size: 15px; line-height: inherit; color: #333; }
@@ -218,9 +218,9 @@
   padding: 1rem .5rem;
 }
 .file-item-meta__shared {
-  color: #00a6e9;
+  color: #00abe6;
   margin-left: 3px;
-  border-bottom: 1px solid #00a6e9;
+  border-bottom: 1px solid #00abe6;
   word-wrap: break-word;
 }
 .file-item-meta__shared:hover {
@@ -382,7 +382,7 @@
 .rpanel-body-tab-container .nav-tabs {
   cursor: pointer;
   border-bottom: 1px solid #e1e1e1;
-  background-color: #556979;
+  background-color: #366480;
 }
 .rpanel-body-tab-container .nav-tabs > li > a {
   border-radius: 0;

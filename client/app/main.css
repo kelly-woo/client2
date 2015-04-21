@@ -270,7 +270,7 @@ input[type="email"] {
   color: indianred !important;
 }
 .green_badge {
-  background-color: #00a6e9;
+  background-color: #00abe6;
 }
 .green_background {
   background-color: #31c08a !important;
@@ -345,10 +345,10 @@ input[type="button"] {
 .btn-cancel:focus,
 .btn-cancel:hover,
 .btn-cancel:active {
-  color: #00a6e9;
+  color: #00abe6;
 }
 .btn-ok {
-  background-color: #00a6e9;
+  background-color: #00abe6;
   margin-left: 0 !important;
 }
 .btn-ok:focus,
@@ -368,7 +368,7 @@ input[type="button"] {
 .btn-white > a,
 .btn-white > a:hover {
   text-decoration: none;
-  color: #00a6e9;
+  color: #00abe6;
 }
 
 .btn-top-right {
@@ -624,7 +624,7 @@ input[type="button"] {
   line-height: 20px;
 }
 .grey_dropdown > li > a:hover {
-  background-color: #556979;
+  background-color: #366480;
   color: #fff;
 }
 .grey_dropdown > li > label {
