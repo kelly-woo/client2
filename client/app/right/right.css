@@ -262,7 +262,7 @@
 }
 
 .scroll_loading_container_background {
-  background-color: rgb(238, 252, 247);
+  background-color: #f2fbff;
   opacity: 1;
 }
 .scroll_loading_bg {
