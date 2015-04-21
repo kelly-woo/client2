@@ -35,6 +35,7 @@
     var MEMBER_PRESENCE_UPDATED = 'member_presence_updated';
 
     var FILE_DELETED = 'file_deleted';
+    var FILE_COMMENT_DELETED = 'file_comment_deleted';
 
     // Emit only events.
     var DISCONNECT_TEAM = 'disconnect_team';
@@ -121,6 +122,8 @@
 
 
       socket.on(FILE_DELETED, _onFileDeleted);
+
+      socket.on(FILE_COMMENT_DELETED, _onFileCommentDeleted);
 
 
       socket.on(MESSAGE, _onMessage);
@@ -229,6 +232,11 @@
     function _onFileDeleted(data) {
       jndWebSocketHelper.socketEventLogger(FILE_DELETED, data, false);
       jndWebSocketHelper.fileDeletedHandler(data);
+    }
+
+    function _onFileCommentDeleted(data) {
+      jndWebSocketHelper.socketEventLogger(FILE_COMMENT_DELETED, data, false);
+      jndWebSocketHelper.fileCommentDeletedHandler(data);
     }
     function _onMemberProfileUpdated(data) {
       jndWebSocketHelper.socketEventLogger(MEMBER_PROFILE_UPDATED, data, false);

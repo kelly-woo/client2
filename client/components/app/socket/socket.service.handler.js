@@ -16,6 +16,7 @@
     this.chatMessageListEventHandler = chatMessageListEventHandler;
 
     this.fileDeletedHandler = fileDeletedHandler;
+    this.fileCommentDeletedHandler = fileCommentDeletedHandler;
 
     this.onMemberProfileUpdatedHandler = onMemberProfileUpdatedHandler;
 
@@ -78,6 +79,10 @@
       jndPubSub.pub('rightFileDetailOnFileDeleted', data);
       jndPubSub.pub('centerOnFileDeleted', data);
     }
+    function fileCommentDeletedHandler(data) {
+      jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
+      jndPubSub.pub('centerOnFileCommentDeleted', data);
+    }
     function onMemberProfileUpdatedHandler() {
       memberService.onMemberProfileUpdated();
     }
@@ -131,9 +136,11 @@
       log('file share/unshare event');
       log(data);
 
-      _updateCenterForCurrentEntity(room);
+
+      _updateCenterForRelatedFile(data.file);
       _updateLeftPanelForOtherEntity(room);
       _updateFilesPanelonRight(data);
+      _udpateFileDetailPanel(data);
 
 
     }
@@ -221,6 +228,10 @@
       return fileId === currentSessionHelper.getCurrentFileId();
     }
 
+    function _updateCenterForRelatedFile(file) {
+      log('update center for related file');
+      jndPubSub.pub('updateCenterForRelatedFile', file);
+    }
     /**
      * Update center message list only if room is current entity.
      *
@@ -250,7 +261,10 @@
     function _updateFilesPanelonRight(data) {
       log('update right panel file controller');
       jndPubSub.pub('updateFileControllerOnShareUnshare', data)
+    }
 
+    function _udpateFileDetailPanel(data) {
+      jndPubSub.pub('updateFileDetailPanel', data)
     }
     /**
      * Send browser notification only for non-current entity.

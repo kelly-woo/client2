@@ -25,13 +25,25 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   });
 
   $scope.$on('rightFileDetailOnFileDeleted', function(event, param) {
+    _onFileChanged(param);
+  });
+
+  $scope.$on('rightFileDetailOnFileCommentDeleted', function(event, param) {
+    _onFileChanged(param);
+  });
+
+  $scope.$on('updateFileDetailPanel', function(event, param) {
+    _onFileChanged(param);
+  });
+
+  function _onFileChanged(param) {
     if (_isFileDetailActive()) {
       var deletedFileId = param.file.id;
       if (parseInt(fileId) === deletedFileId) {
         getFileDetail();
       }
     }
-  });
+  }
 
   (function() {
     _init();
