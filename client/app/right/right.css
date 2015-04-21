@@ -9,7 +9,7 @@
   box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
 }
 .rpanel.extend {
-  background-color: #f1f4f8;
+  background-color: white;
 }
 .rpanel__background {
   position: absolute;
@@ -390,7 +390,7 @@
   text-align: center;
   width: 102px;
   font-size: 14px;
-  color: #FFFFFF;
+  color: #a8afb5;
   height: 36px;
   line-height: 35px;
   /* background-color: #e2e0e3; */
