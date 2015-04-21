@@ -56,7 +56,7 @@
 
 .lpanel-user__container {
   position: relative;
-  max-width: 142px;
+  max-width: 152px;
   display: inline-block;
   line-height: 18px;
   color: #333;
@@ -89,6 +89,6 @@
 }
 
 #current-user-dropdown {
-  left: 210px;
+  left: 230px;
   top: 65px;
 }

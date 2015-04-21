@@ -9,7 +9,7 @@ article {
 .cpanel {
   position: absolute;
   top: 41px;
-  left: 220px;
+  left: 240px;
   right: 0;
   bottom: 0;
   min-width: 345px;
@@ -508,7 +508,8 @@ by ysyun 2015.2.25
 .footer {
   background: #fff;
   position: fixed;
-  margin-left: 220px;
+  margin-left: 240px;
+  margin-right: 8px;
   left: 0;
   right: 0;
   bottom: 0;

@@ -63,7 +63,7 @@
   color: white;
 }
 .header-navbar__topmenu .fa-caret-down {
-  color: #999;
+  color: #6A8FA6;
   vertical-align: middle;
 }
 
@@ -103,6 +103,10 @@
   font-size: 14px;
   width: 80px;
   text-align: center;
+}
+.header-toolbar-toggle:hover {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
 }
 
 .header-toolbar-toggle .toggle-icon {
