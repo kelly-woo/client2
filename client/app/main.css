@@ -345,10 +345,10 @@ input[type="button"] {
 .btn-cancel:focus,
 .btn-cancel:hover,
 .btn-cancel:active {
-  color: #31c08a;
+  color: #00a6e9;
 }
 .btn-ok {
-  background-color: #31c08a;
+  background-color: #00a6e9;
   margin-left: 0 !important;
 }
 .btn-ok:focus,
@@ -368,7 +368,7 @@ input[type="button"] {
 .btn-white > a,
 .btn-white > a:hover {
   text-decoration: none;
-  color: #31c08a;
+  color: #00a6e9;
 }
 
 .btn-top-right {
