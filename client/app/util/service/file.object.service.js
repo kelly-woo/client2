@@ -3,13 +3,13 @@
 
   angular
       .module('jandiApp')
-      .factory('fileService', fileService);
+      .factory('fileObjectService', fileObjectService);
 
   /**
-   * fileService는 jandiApp에서 제공하는 file object를 관리한다.
+   * fileObjectService는 jandiApp에서 제공하는 file object이다.
    */
   /* @ngInject */
-  function fileService($filter, fileAPIservice) {
+  function fileObjectService($filter, fileAPIservice) {
     var rImage;
 
     rImage = /image/;
@@ -39,7 +39,7 @@
       /**
        * file object setter
        */
-      setFiles: function($files) {
+      setFiles: function($files, fileObject) {
         var that = this,
             options = that.options,
             files,
@@ -47,9 +47,12 @@
             fileReader,
             i, len;
 
-        that.files = files = $files;  // 원본 $file object를 수정하므로 copy object 생성 필요함.
-        for (i = 0, len = that.options.isMultiple ? files.length : 1; i < len; ++i) {
-          file = files[i];
+        // fileObject format
+        // name, type, size
+
+        files = [];
+        for (i = 0, len = that.options.isMultiple ? $files.length : 1; i < len; ++i) {
+          file = options.createFileObject ? options.createFileObject($files[i]) : $files[i];
 
           // file size check 100MB이상은 upload 하지 않음
           if (fileAPIservice.isFileTooLarge(file)) {
@@ -63,7 +66,11 @@
 
           // image file 여부
           file.isImage = (options.supportFileReader && rImage.test(file.type));
+
+          files.push(file);
         }
+
+        that.files = files;
 
         return that;
       },
@@ -84,13 +91,10 @@
        * file object 처리 반복자
        */
       iterator: function() {    // 상위 개념 object와 prototype 연결 필요함
-        var files,
-            index,
-            length;
+        var files = this.files,
+            index = 0,
+            length = files.length;
 
-        files = this.files;
-        length = files.length;
-        index = 0;
         return {
           currentIndex: function() {
             return index;

@@ -36,7 +36,7 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileService) {
+  currentSessionHelper, fileAPIservice, fileObjectService) {
 
   //console.info('[enter] leftpanelController');
 
@@ -411,7 +411,7 @@ app.controller('leftPanelController1', function(
   });
   // Callback function from file finder(navigation) for uploading a file.
   $scope.onFileSelect = function($files) {
-    var fileObject = Object.create(fileService).init($files);
+    var fileObject = Object.create(fileObjectService).init($files);
     if (fileObject.size() > 0) {
       $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
       $scope.fileObject = fileObject;
