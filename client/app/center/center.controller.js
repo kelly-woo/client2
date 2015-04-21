@@ -938,7 +938,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // Listen to file delete event.
   // Find deleted file id from current list($scope.messages).
   // If current list contains deleted file, change its status to 'archived'.
-  $scope.$on('onFileDeleted', function(event, deletedFileId) {
+  // TODO: Still o(n) algorithm.  too bad!! very bad!!! make it o(1) by using map.
+  $scope.$on('centerOnFileDeleted', function(event, param) {
+    var deletedFileId = param.file.id;
+
     _.forEach($scope.messages, function(message) {
       var file;
       //log('hi', deletedFileId);

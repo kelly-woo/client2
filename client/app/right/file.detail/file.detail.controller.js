@@ -24,6 +24,15 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     _init();
   });
 
+  $scope.$on('rightFileDetailOnFileDeleted', function(event, param) {
+    if (_isFileDetailActive()) {
+      var deletedFileId = param.file.id;
+      if (parseInt(fileId) === deletedFileId) {
+        getFileDetail();
+      }
+    }
+  });
+
   (function() {
     _init();
   })();
@@ -265,6 +274,9 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     return publicService.isDisabledMember(member);
   };
 
+  function _isFileDetailActive() {
+    return !!$state.params.itemId;
+  }
 });
 
 app.controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {
