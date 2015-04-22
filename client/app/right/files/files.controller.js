@@ -121,6 +121,7 @@
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
     $scope.$on('onCurrentEntityChanged', function(event, currentEntity) {
+      console.log('onCurrentEntityChanged')
       localCurrentEntity = currentEntity;
       _setSharedInEntity(localCurrentEntity);
       _initSharedByFilter(localCurrentEntity);
@@ -156,13 +157,21 @@
         keyword: ''
       };
 
-      localCurrentEntity = currentSessionHelper.getCurrentEntity();
+      fileIdMap = {};
 
+      _initFileTypeFilter();
       _initSharedInFilter();
       _initSharedByFilter(localCurrentEntity);
-      _initFileTypeFilter();
+      _setDefaultSharedByFilter();
 
-      fileIdMap = {};
+      localCurrentEntity = currentSessionHelper.getCurrentEntity();
+      if (publicService.isNullOrUndefined(localCurrentEntity)) {
+        // This may happen because file controller may be called before current entity is defined.
+        // In this case, initialize options first then return from here
+        return;
+      }
+
+      _setSharedInEntity(localCurrentEntity);
 
       // Checking if initial load has been processed or not.
       // if not, load once.
@@ -197,7 +206,6 @@
         $scope.selectOptions = $scope.selectOptions.concat(currentMember);
         disabledMemberAddedOnSharedIn = true;
       }
-      _setSharedInEntity(currentMember);
     }
 
     function _generateShareOptions() {
@@ -226,9 +234,10 @@
         _addToSharedByOption(entity);
         disabledMemberAddedOnSharedBy = true;
       }
+    }
 
+    function _setDefaultSharedByFilter() {
       $scope.fileRequest.writerId = 'all';
-
     }
 
     /**

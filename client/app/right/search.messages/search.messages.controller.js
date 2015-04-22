@@ -37,7 +37,7 @@
 
       searchMessages();
 
-      test();
+      //test();
     })();
     $scope.$on('onInitLeftListDone', function() {
       _initChatRoomOption();
