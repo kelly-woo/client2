@@ -8,7 +8,7 @@
     </div>
 
     <select ng-model="sharedEntitySearchQuery"
-            ng-options="channel as channel|getName group by channel.typeCategory for channel in selectOptions | orderBy: 'name'">
+            ng-options="channel.id as channel|getName group by channel.typeCategory for channel in selectOptions | orderBy: 'name'">
       <option value="">{{ '@option-all-rooms' | translate }}</option>
     </select>
 

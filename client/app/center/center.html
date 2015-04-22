@@ -52,7 +52,6 @@
          ng-show="msgLoadStatus.loading"
          ng-class="{'initial': loadMoreCounter < 1 || msgLoadStatus.loadingTimer}"></div>
 
-
     <div class="msgs-holder opac-zero" id="msgs-holder">
       <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
 
@@ -77,7 +76,7 @@
                               'comment-continue': msg.message.commentOption.isContinue,
                               'system-event-msg' : msg.message.contentType === 'systemEvent',
                               'archived-file': msg.message.status === 'archived' }">
-{{msg.markerOwner|getName}}/{{msg.id}}/{{msg.readCount}}
+<!--{{msg.markerOwner|getName}}/{{msg.id}}/{{msg.readCount}}-->
           <!--  User Thumbnail || System event message on left of the message-->
           <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
                ng-switch="msg.message.contentType"

@@ -1536,7 +1536,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       var obj = messages[oldMarker];
       var msg = obj.message;
       if (!!msg.readCount) {
-        msg.readCount = msg.readCount - 1;
+        msg.readCount--;
       }
       //msg.readCount = msg.readCount ? --msg.readCount : '';
       msg.markerOwner = '';

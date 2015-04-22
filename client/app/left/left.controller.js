@@ -289,7 +289,7 @@ app.controller('leftPanelController1', function(
   // right, detail panel don't have direct access to scope function in left controller.
   // so they emit event through rootscope.
   $rootScope.$on('updateLeftPanelCaller', function() {
-    console.info("[enter] updateLeftPanelCaller");
+    //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
 
