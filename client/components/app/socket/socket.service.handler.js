@@ -113,7 +113,6 @@
       // Only when DM to me.
       if (_isDMToMe(room)) {
         _messageDMToMeHandler(room);
-
         return;
       }
 
@@ -126,6 +125,11 @@
         _updateLeftPanel();
         _updateCenterForCurrentEntity(room);
       } else {
+        if (eventType === config.socketEvent.MESSAGE_DELETE) {
+          log('message delete')
+          _updateCenterForCurrentEntity(room);
+          return;
+        }
         // message is written to one of related topic/DM.
         log('new message written');
         _updateCenterForCurrentEntity(room);

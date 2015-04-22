@@ -206,6 +206,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function groupByDate() {
+    messages = {};
     for (var i in $scope.messages) {
       var msg = $scope.messages[i];
 
@@ -239,7 +240,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         index: i,
         message: msg
       };
-
     }
 
     $scope.groupMsgs = [];
@@ -620,6 +620,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 continue;
               } else {
                 log('not a system event message ');
+                var isArchived = false;
+
                 // Non System Event Message.
                 switch (msg.status) {
                   case 'created':
@@ -636,13 +638,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     }
                     break;
                   case 'archived':
+
                     var target = _.find($scope.messages, function(m) {
                       return m.messageId === msg.messageId;
                     });
+
                     if (!_.isUndefined(target)) {
                       var targetIdx = $scope.messages.indexOf(target);
                       $scope.messages.splice(targetIdx, 1);
+                      isArchived = true;
                     }
+
                     break;
                   case 'shared':
                     msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
@@ -665,7 +671,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     console.error("!!! unfiltered message", msg);
                     break;
                 }
-                _newMessageAlertChecker(msg);
+                if (!isArchived)
+                  _newMessageAlertChecker(msg);
               }
 
               var safeBody = msg.message.content.body;
@@ -783,12 +790,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   };
   $scope.deleteMessage = function(message) {
-    //log("delete: ", message.messageId);
+    log("delete: ", message.messageId);
     messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
       .success(function(response) {
       })
       .error(function(response) {
-        $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.deleteMessage"});
+        updateList();
       });
   };
   $scope.openModal = function(selector) {
@@ -863,61 +870,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
 
 
-  // Listen to file delete event.
-  // Find deleted file id from current list($scope.messages).
-  // If current list contains deleted file, change its status to 'archived'.
-  // TODO: Still o(n) algorithm.  too bad!! very bad!!! make it o(1) by using map.
-  $scope.$on('centerOnFileDeleted', function(event, param) {
-    var deletedFileId = param.file.id;
-    _.forEach($scope.messages, function(message) {
-      if (message.message.id === deletedFileId) {
-        message.message.status = 'archived';
-        return false;
-      }
-    });
-  });
-
-  /**
-   * file comment delete handler.
-   * Loop through messages list and find matching file comment.
-   *
-   * File comment delete -> Hide corresponding comment for now.
-   *
-   * TODO: this is still o(n). make it o(1)!!!!!
-   */
-  $scope.$on('centerOnFileCommentDeleted', function(event, param) {
-    _.forEach($scope.messages, function(message) {
-      if (message.message.id === param.comment.id) {
-        var commentLinkId = message.id;
-        var angularDomElement = angular.element(document.getElementById(commentLinkId));
-        angularDomElement.addClass('hidden');
-      }
-    });
-  });
-
-  /**
-   * Shared entity is changed to file.
-   *  1. get updated info from server by calling getFileDetail api
-   *  2. Update shared Entity information.
-   *
-   */
-  $scope.$on('updateCenterForRelatedFile', function(event, file) {
-    _.forEach($scope.messages, function (message) {
-      if (message.message.id === file.id) {
-        fileAPIservice.getFileDetail(message.message.id)
-          .success(function (response) {
-            for (var i in response.messageDetails) {
-
-              var item = response.messageDetails[i];
-              if (item.contentType === 'file') {
-                message.message.shared = fileAPIservice.getSharedEntities(item);
-              }
-            }
-
-          });
-      }
-    });
-  });
 
   $scope.onSmallThumbnailClick = function($event, message) {
 
@@ -1527,11 +1479,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     var msg = obj.message;
 
+    if (msg.status === 'archived') {
+      console.log('archived!!!!!!!!!!!!')
+    }
     msg.readCount = msg.readCount ? msg.readCount++ : 1;
     msg.markerOwner = markerOwner;
 
     $scope.messages[obj.index] = msg;
     localMarkersList[markerOwner] = lastLinkId;
+    console.log('putting back ',obj)
+
   }
 
   function _removeOldMarker(memberId) {
@@ -1552,7 +1509,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // Remove marker from a message whose link is oldMarker.
     if (messages[oldMarker]) {
-      //console.log('removing marker for ', memberId, ' at ' , oldMarker);
+      console.log('removing marker for ', memberId, ' at ' , oldMarker);
       var obj = messages[oldMarker];
       var msg = obj.message;
       if (!!msg.readCount) {
@@ -1561,7 +1518,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //msg.readCount = msg.readCount ? --msg.readCount : '';
       msg.markerOwner = '';
       $scope.messages[obj.index] = msg;
-
+      console.log('putting back ',obj)
     }
   }
 
@@ -1614,4 +1571,68 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _isTopic() {
     return currentSessionHelper.getCurrentEntityType() != 'users';
   }
+
+
+  // Listen to file delete event.
+  // Find deleted file id from current list($scope.messages).
+  // If current list contains deleted file, change its status to 'archived'.
+  // TODO: Still o(n) algorithm.  too bad!! very bad!!! make it o(1) by using map.
+  $scope.$on('centerOnFileDeleted', function(event, param) {
+    var deletedFileId = param.file.id;
+
+    _.forEach($scope.messages, function(message) {
+
+      if (message.message.contentType === 'comment' && message.message.commentOption.isTitle) {
+        if (message.message.feedbackId === deletedFileId) {
+          message.feedback.status = 'archived'
+        }
+      }
+
+      if (message.message.id === deletedFileId) {
+        message.message.status = 'archived';
+      }
+    });
+  });
+
+  /**
+   * file comment delete handler.
+   * Loop through messages list and find matching file comment.
+   *
+   * File comment delete -> Hide corresponding comment for now.
+   *
+   * TODO: this is still o(n). make it o(1)!!!!!
+   */
+  $scope.$on('centerOnFileCommentDeleted', function(event, param) {
+    _.forEach($scope.messages, function(message) {
+      if (message.message.id === param.comment.id) {
+        var commentLinkId = message.id;
+        var angularDomElement = angular.element(document.getElementById(commentLinkId));
+        angularDomElement.addClass('hidden');
+      }
+    });
+  });
+
+  /**
+   * Shared entity is changed to file.
+   *  1. get updated info from server by calling getFileDetail api
+   *  2. Update shared Entity information.
+   *
+   */
+  $scope.$on('updateCenterForRelatedFile', function(event, file) {
+    _.forEach($scope.messages, function (message) {
+      if (message.message.id === file.id) {
+        fileAPIservice.getFileDetail(message.message.id)
+          .success(function (response) {
+            for (var i in response.messageDetails) {
+
+              var item = response.messageDetails[i];
+              if (item.contentType === 'file') {
+                message.message.shared = fileAPIservice.getSharedEntities(item);
+              }
+            }
+
+          });
+      }
+    });
+  });
 });
