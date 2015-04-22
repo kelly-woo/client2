@@ -54,27 +54,54 @@
 
     var chatEntity = 'chat';
 
+    /**
+     * Team name change event Handler
+     *
+     * What it does
+     *  1. Update team name changing value 'name' in current session to data.team.name
+     *
+     * @param data
+     */
     function teamNameChangeEventHandler(data) {
       currentSessionHelper.updateCurrentTeamName(data.team.name);
     }
 
+    /**
+     * Team domain change event handler
+     *
+     * What it does
+     *  1. alert user that domain has changed
+     *  2. Re-direct user to new domain
+     *
+     * @param data
+     */
     function teamDomainChangeEventHandler(data) {
       var newAddress = configuration.base_protocol + data.team.domain + configuration.base_url;
       alert('Your team domain address has been changed to ' + newAddress + '. Click \'okay\' to proceed.');
       location.href = newAddress;
     }
 
+    /**
+     *
+     * Event handler for
+     * ['topic created', 'topic name updated', 'topic starred', 'topic unstarred', 'topic joined']
+     *
+     */
     function topicChangeEventHandler() {
       _onJoinedTopicListChanged();
       _updateLeftPanel();
     }
 
+    /**
+     * Chat cloase event handler
+      */
     function chatMessageListEventHandler() {
       _updateMessageList();
     }
 
     /**
-     * Handle case when file is deleted.
+     * File delete event handler
+     *
      * @param data
      */
     function fileDeletedHandler(data) {
@@ -82,11 +109,27 @@
       jndPubSub.pub('rightFileDetailOnFileDeleted', data);
       jndPubSub.pub('centerOnFileDeleted', data);
     }
+
+    /**
+     * File comment deleted event handler
+     *
+     * @param data
+     */
     function fileCommentDeletedHandler(data) {
       jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
       jndPubSub.pub('centerOnFileCommentDeleted', data);
     }
 
+    /**
+     * Room marker updated event Handler
+     *
+     * What it does
+     *  1. call proper function in center panel for current entity.
+     *
+     * Do nothing for non-current entity.
+     *
+     * @param data
+     */
     function roomMarkerUpdatedHandler(data) {
       var room = data.room;
       if (_isCurrentEntity(room)) {
@@ -95,22 +138,26 @@
       }
     }
 
+    /**
+     * Member profile update event handler
+     */
     function onMemberProfileUpdatedHandler() {
       memberService.onMemberProfileUpdated();
     }
+
 
     function messageEventHandler(room, writer, eventType) {
       var roomEntity = _getRoom(room);
       var writer = _getActionOwner(writer);
 
-      // Only when message is deleted.
+      // message delete.
       if (_isMessageDeleted(eventType)) {
         log('message deleted');
         _updateCenterForCurrentEntity(room);
         return;
       }
 
-      // Only when DM to me.
+      // dm to me.
       if (_isDMToMe(room)) {
         _messageDMToMeHandler(room, writer);
         return;
@@ -119,27 +166,18 @@
       // Check if message event happened in any related topics.
       if (!_isRelatedEvent(roomEntity, writer)) { return; }
 
-
       if (_isSystemEvent(eventType)) {
-        log('system event');
-        _updateLeftPanel();
-        _updateCenterForCurrentEntity(room);
+        _systemMessageHandler(room);
       } else {
-        if (eventType === config.socketEvent.MESSAGE_DELETE) {
-          log('message delete')
-          _updateCenterForCurrentEntity(room);
-          return;
-        }
-        // message is written to one of related topic/DM.
-        log('new message written');
-        _updateCenterForCurrentEntity(room);
-        _updateLeftPanelForOtherEntity(room);
-        _sendBrowserNotificationForOtherEntity(room, writer);
+        _newMessageHandler(room, writer);
       }
     }
 
     /**
-     * Handles only 'message -> file_share' and 'message -> file_unshare'.
+     *
+     * ['file share', 'file unshare'] event handler.
+     *
+     *      'message_file_share' and 'message_file_unshare'
      *
      * @private
      */
@@ -243,6 +281,45 @@
         $state.go('archives', {entityType:'channels',  entityId:currentSessionHelper.getDefaultTopicId() });
       }
     }
+
+    /**
+     * System event message handler
+     *
+     * What it does
+     *  1. Update left panel
+     *  2. update center panel for current entity only.
+     *
+     * @param room
+     * @private
+     */
+    function _systemMessageHandler(room) {
+      log('system event');
+      _updateLeftPanel();
+      _updateCenterForCurrentEntity(room);
+    }
+
+    /**
+     * New message created handler
+     *
+     * What it does
+     *  1. update center for current entity
+     *  2. update left panel for non-current entity
+     *  3. send browser notification
+     *
+     * @param room
+     * @param writer
+     * @private
+     */
+    function _newMessageHandler(room, writer) {
+      // new message in topic/dm.
+      log('new message written');
+      _updateCenterForCurrentEntity(room);
+      _updateLeftPanelForOtherEntity(room);
+      _sendBrowserNotificationForOtherEntity(room, writer);
+
+    }
+
+
 
     function _isMessageDeleted(eventType) {
       return eventType === MESSAGE_DELETE;
