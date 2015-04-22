@@ -182,7 +182,7 @@
    */
   app.filter('getFileIconImage', function() {
     var fileIconImageMap = {
-          'img': ['image/jpeg', 'image/png', 'image/gif'],
+          'img': ['image/jpeg', 'image/png', 'image/gif', 'image/vnd.adobe.photoshop'],
           'pdf': ['application/pdf'],
           'video': ['video/mp4', 'video/quicktime', 'video/x-matroska'],
           'audio': ['audio/mp3', 'audio/mpeg'],

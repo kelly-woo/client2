@@ -166,19 +166,19 @@
                   <div class="image_wrapper">
                     <img rotate rotate-left-align="true"
                          class="msg-file-body__img cursor_pointer"
-                         data-ng-show="(msg.message.content.type).indexOf('image') !== -1"
+                         data-ng-show="msg.message.content.filterType.indexOf('image') !== -1"
                          data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
                       />
                   </div>
 
-                  <div ng-if="(msg.message.content.type).indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
+                  <div ng-if="msg.message.content.filterType.indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
                        ng-click="onImageRotatorClick($event);">
                     <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
                   </div>
 
                   <!--    FILE TYPE THUMBNAIL -->
                   <div class="msg-file-body__thumbnail"
-                       data-ng-if="(msg.message.content.type).indexOf('image') == -1">
+                       data-ng-if="msg.message.content.filterType.indexOf('image') == -1">
                     <div class="fileicon fileicon_{{msg.message.content.type | getFileIconImage | lowercase}}" ></div>
 
                   </div>
@@ -307,13 +307,13 @@
                   <div class="image_wrapper">
                     <img rotate rotate-left-align="true"
                          class="msg-file-body__img cursor_pointer"
-                         data-ng-show="(msg.feedback.content.type).indexOf('image') !== -1 && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'"
+                         data-ng-show="msg.feedback.content.filterType.indexOf('image') !== -1 && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'"
                          data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
                   </div>
 
                   <!--    FILE THUMBNAIL  -->
                   <div class="msg-file-body__thumbnail"
-                       data-ng-if="(msg.feedback.content.type).indexOf('image') == -1 && msg.message.commentOption.isTitle">
+                       data-ng-if="msg.feedback.content.filterType.indexOf('image') == -1 && msg.message.commentOption.isTitle">
                     <div class="fileicon fileicon_{{msg.feedback.content.type | getFileIconImage | lowercase}}" ></div>
 
                   </div>

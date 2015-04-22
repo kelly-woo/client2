@@ -17,7 +17,7 @@
                     <img rotate class="modal-upload-img image-background"/>
                 </div>
 
-                <div class="non-image-file-preview fileicon fileicon_{{file.type | filetype | lowercase}}" ng-if="!file.isImage"></div>
+                <div class="non-image-file-preview fileicon fileicon_{{file.type | getFileIconImage | lowercase}}" ng-if="!file.isImage"></div>
             </div>
 
             <!--    ALERT MESSAGE WHEN USING IE9    -->
