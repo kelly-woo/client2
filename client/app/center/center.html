@@ -42,7 +42,6 @@
     <!--    'x' icon    -->
     <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'"><i class="icon-cancel"></i></span>
 
-    <!--<div class="file-upload-progress-bar" style="width:{{curUpload.progress}}%;"></div>-->
     <progressbar class="progress-striped jandi-file-upload-progress-bar active" max="100" value="curUpload.progress"></progressbar>
 
   </div>
@@ -56,9 +55,7 @@
     <div class="msgs-holder opac-zero" id="msgs-holder">
       <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
 
-        <div class="msgs-group__divider">
-          {{ day.substr(8) }}
-        </div>
+        <date-divider></date-divider>
 
         <div last-detector=""
              id="{{msg.id}}"
@@ -77,31 +74,57 @@
                               'comment-continue': msg.message.commentOption.isContinue,
                               'system-event-msg' : msg.message.contentType === 'systemEvent',
                               'archived-file': msg.message.status === 'archived' }">
-<!--{{msg.markerOwner|getName}}/{{msg.id}}/{{msg.readCount}}-->
-          <!--  User Thumbnail || System event message on left of the message-->
-          <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
-               ng-switch="msg.message.contentType"
-               ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }">
+          <!--{{msg.markerOwner|getName}}/{{msg.id}}/{{msg.readCount}}-->
 
-            <!--    SYSTEM EVENT    -->
-            <img class="user-profile user-thumb" ng-switch-when="systemEvent"/>
+          <system-event ng-if="msg.message.contentType === 'systemEvent'"></system-event>
+          <text ng-if="msg.message.isText"></text>
+          <file-uploaded ng-if="msg.message.isFile"></file-uploaded>
+          <title-comment ng-if="msg.message.contentType === 'comment'"></title-comment>
+        </div>
 
-            <!--    FILE    -->
-            <img on-image-load class="user-profile user-thumb" ng-switch-when="file"
-                 ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
+      </div>
 
-            <!--    DEFAULT   -->
-            <img on-image-load class="user-profile user-thumb" ng-switch-default
-                 ng-src="{{ msg.message.writer | getSmallThumbnail }}"/>
-          </div>
+      <!--  WHEN THERE ARE NO MESSAGES OTHER THAN SYSTEM EVENT MESSAGE. -->
+      <center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>
+    </div>
 
-          <!--    HEADER PART -->
-          <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->
-          <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->
-          <div class="msg-item-header"
-               ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }">
-            <!--    WRITER
-                    IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
+  </article>
+
+  <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasScrollToBottom && !hasNewMsg" ng-click="onScrollToBottomIconClicked();"
+       tooltip="{{'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
+    <i class="icon-down scroll-to-bottom-icon"></i>
+  </div>
+
+  <!-- chat input box -->
+  <center-chat-input-box></center-chat-input-box>
+
+
+</div>
+
+<div ng-if="false">
+  <!--  User Thumbnail || System event message on left of the message-->
+
+  <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
+       ng-switch="msg.message.contentType"
+       ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }">
+
+
+    <!--    FILE    -->
+    <img on-image-load class="user-profile user-thumb" ng-switch-when="file"
+         ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
+
+    <!--    DEFAULT   -->
+    <img on-image-load class="user-profile user-thumb" ng-switch-default
+         ng-src="{{ msg.message.writer | getSmallThumbnail }}"/>
+  </div>
+
+  <!--    HEADER PART -->
+  <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->
+  <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->
+  <div class="msg-item-header"
+       ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }">
+    <!--    WRITER
+            IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
             <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
                   ng-hide="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
               <span class="msg-item-header__nameSpace">
@@ -117,7 +140,7 @@
               <span class="badge unread-badge">{{ msg.unreadCount }}</span>
             </span>
 
-            <!--    CONTINUED COMMENT ON SAME FILE  -->
+    <!--    CONTINUED COMMENT ON SAME FILE  -->
             <span class="continue-comment-body" ng-if="!msg.message.commentOption.isTitle && msg.message.contentType === 'comment'">
               <!--    COMMENT CONTENT -->
               <p>
@@ -139,92 +162,92 @@
 
               </p>
             </span>
-            <!--    DELETE ICON APPEARS ON HOVER    -->
-            <a class="msg-item__action link-remove pull-right cursor_pointer"
-               data-ng-if="( member.id === msg.fromEntity &&  msg.message.contentType === 'text' )"
-               data-ng-click="deleteMessage(msg)"
-               tooltip="{{ '@message-delete' | translate }}">
-              <i class="icon-cancel"></i>
-            </a>
+    <!--    DELETE ICON APPEARS ON HOVER    -->
+    <a class="msg-item__action link-remove pull-right cursor_pointer"
+       data-ng-if="( member.id === msg.fromEntity &&  msg.message.contentType === 'text' )"
+       data-ng-click="deleteMessage(msg)"
+       tooltip="{{ '@message-delete' | translate }}">
+      <i class="icon-cancel"></i>
+    </a>
+  </div>
+  <div class="msg-item-body">
+
+    <!-- TEXT -->
+    <div class="msg-text" data-ng-if="msg.message.contentType === 'text'">
+      <p class="msg-text-body keep" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+    </div>
+
+    <!-- FILE -->
+    <div class="msg-file" ng-cloak data-ng-if="msg.message.contentType === 'file'">
+
+      <!--  FILE PREVIEW IMAGE  -->
+      <div class="msg-file-body-float pull-left" data-ng-click="onSmallThumbnailClick($event, msg);">
+        <!--  FILE NOT ARCHIVED -->
+        <div ng-if="msg.message.status != 'archived'">
+          <!--    IMAGE THUMBNAIL -->
+          <div class="image_wrapper">
+            <img rotate rotate-left-align="true"
+                 class="msg-file-body__img cursor_pointer"
+                 data-ng-show="msg.message.content.filterType.indexOf('image') !== -1"
+                 data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
+              />
           </div>
-          <div class="msg-item-body">
 
-            <!-- TEXT -->
-            <div class="msg-text" data-ng-if="msg.message.contentType === 'text'">
-              <p class="msg-text-body keep" data-ng-bind-html="(msg.message.content.body) || ''"></p>
-            </div>
+          <div ng-if="msg.message.content.filterType.indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
+               ng-click="onImageRotatorClick($event);">
+            <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
+          </div>
 
-            <!-- FILE -->
-            <div class="msg-file" ng-cloak data-ng-if="msg.message.contentType === 'file'">
+          <!--    FILE TYPE THUMBNAIL -->
+          <div class="msg-file-body__thumbnail"
+               data-ng-if="msg.message.content.filterType.indexOf('image') == -1">
+            <div class="fileicon fileicon_{{msg.message.content.type | getFileIconImage | lowercase}}" ></div>
 
-              <!--  FILE PREVIEW IMAGE  -->
-              <div class="msg-file-body-float pull-left" data-ng-click="onSmallThumbnailClick($event, msg);">
-                <!--  FILE NOT ARCHIVED -->
-                <div ng-if="msg.message.status != 'archived'">
-                  <!--    IMAGE THUMBNAIL -->
-                  <div class="image_wrapper">
-                    <img rotate rotate-left-align="true"
-                         class="msg-file-body__img cursor_pointer"
-                         data-ng-show="msg.message.content.filterType.indexOf('image') !== -1"
-                         data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
-                      />
-                  </div>
+          </div>
+        </div>
 
-                  <div ng-if="msg.message.content.filterType.indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
-                       ng-click="onImageRotatorClick($event);">
-                    <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
-                  </div>
+        <!--  ARCHIVED FILE -->
+        <div ng-if="msg.message.status == 'archived'">
+          <!--    FILE TYPE THUMBNAIL -->
+          <div class="msg-file-body__thumbnail">
+            <img class="fileicon" ng-src="assets/images/fileicon_archived.png"/>
+          </div>
+        </div>
+      </div>
 
-                  <!--    FILE TYPE THUMBNAIL -->
-                  <div class="msg-file-body__thumbnail"
-                       data-ng-if="msg.message.content.filterType.indexOf('image') == -1">
-                    <div class="fileicon fileicon_{{msg.message.content.type | getFileIconImage | lowercase}}" ></div>
+      <!--  FILE INFO -->
+      <div class="msg-file-meta">
 
-                  </div>
-                </div>
+        <div class="msg-file-meta-up">
 
-                <!--  ARCHIVED FILE -->
-                <div ng-if="msg.message.status == 'archived'">
-                  <!--    FILE TYPE THUMBNAIL -->
-                  <div class="msg-file-body__thumbnail">
-                    <img class="fileicon" ng-src="assets/images/fileicon_archived.png"/>
-                  </div>
-                </div>
-              </div>
+          <!--  NOT ARCHIVED FILE -->
+          <div ng-if="msg.message.status != 'archived'">
+            <!--    TITLE   -->
+            <a class="msg-file-meta__title file__name break-word"
+               data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+              {{ msg.message.content.title }}
+            </a>
 
-              <!--  FILE INFO -->
-              <div class="msg-file-meta">
+            <span class="bullet">•</span>
 
-                <div class="msg-file-meta-up">
-
-                  <!--  NOT ARCHIVED FILE -->
-                  <div ng-if="msg.message.status != 'archived'">
-                    <!--    TITLE   -->
-                    <a class="msg-file-meta__title file__name break-word"
-                       data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
-                      {{ msg.message.content.title }}
-                    </a>
-
-                    <span class="bullet">•</span>
-
-                    <!--    SIZE AND FILE TYPE  -->
+            <!--    SIZE AND FILE TYPE  -->
                   <span class="msg-file-meta-info">
                     {{msg.message.content.size | bytes }} {{ msg.message.content.type | filetype }}
                   </span>
-                  </div>
+          </div>
 
-                  <!--  ARCHIVED FILE -->
-                  <div class="archived-file-title" ng-if="msg.message.status == 'archived'">
-                    <a class="msg-file-meta__title file__name"
-                       data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
-                      <span translate>@common-deleted-file-title</span>
-                    </a>
+          <!--  ARCHIVED FILE -->
+          <div class="archived-file-title" ng-if="msg.message.status == 'archived'">
+            <a class="msg-file-meta__title file__name"
+               data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+              <span translate>@common-deleted-file-title</span>
+            </a>
 
-                  </div>
-                </div>
+          </div>
+        </div>
 
-                <div ng-if="msg.message.status != 'archived'" class="msg-file-meta-down">
-                  <!--    SHARED MESSAGE  -->
+        <div ng-if="msg.message.status != 'archived'" class="msg-file-meta-down">
+          <!--    SHARED MESSAGE  -->
                   <span class="msg-file-meta-info">
                     <span data-ng-if="( msg.id !== msg.message.writer.id )">
                       <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getName}}</a>
@@ -235,9 +258,9 @@
                     <span translate>@msg-file</span>
                   </span>
 
-                  <span class="bullet">•</span>
+          <span class="bullet">•</span>
 
-                  <!--    SHARED ENTITIES -->
+          <!--    SHARED ENTITIES -->
                   <span data-ng-if="msg.message.shared.length">
                     <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared | filter: {type:'!user'}) track by $index">
                       <span data-ng-hide="($index === 0)">, </span>
@@ -256,208 +279,121 @@
                     <span class="bullet">•</span>
                   </span>
 
-                  <!-- OPEN ORIGINAL  -->
-                  <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
-                    <span translate>@msg-open-original</span>
-                  </a>
+          <!-- OPEN ORIGINAL  -->
+          <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
+            <span translate>@msg-open-original</span>
+          </a>
 
-                  <span class="bullet">•</span>
+          <span class="bullet">•</span>
 
-                  <!--    DOWNLOAD    -->
-                  <a class="cursor_pointer" href="{{ server_uploaded +'download/' + msg.message.content.fileUrl }}" download="{{ msg.message.content.title  }}">
-                    <span translate>@common-download</span>
-                  </a>
+          <!--    DOWNLOAD    -->
+          <a class="cursor_pointer" href="{{ server_uploaded +'download/' + msg.message.content.fileUrl }}" download="{{ msg.message.content.title  }}">
+            <span translate>@common-download</span>
+          </a>
 
-                  <span class="bullet">•</span>
+          <span class="bullet">•</span>
 
-                  <!--    COMMENT -->
-                  <a class="cursor_pointer"  data-ng-click="setCommentFocus(msg.message);">
-                    <span translate>@btn-comment</span>
-                  </a>
+          <!--    COMMENT -->
+          <a class="cursor_pointer"  data-ng-click="setCommentFocus(msg.message);">
+            <span translate>@btn-comment</span>
+          </a>
 
-                  <span class="bullet">•</span>
+          <span class="bullet">•</span>
 
-                  <!--    SHARE   -->
-                  <a class="cursor_pointer" data-ng-click="onShareClick(msg.message);">
-                    <span translate>@btn-share</span>
-                  </a>
+          <!--    SHARE   -->
+          <a class="cursor_pointer" data-ng-click="onShareClick(msg.message);">
+            <span translate>@btn-share</span>
+          </a>
 
 
-                </div>
-              </div>
-            </div>
+        </div>
+      </div>
+    </div>
 
-            <!--    COMMENT
-                    최초 댓글
-                    DISPLAY COMMENT BODY WHEN IT IS TITLE
-                    IF CURRENT COMMENT IS NOT TITLE, CONTENT GETS DISPLAYED WITHIN HEADER -->
-            <div class="msg-comment" data-ng-if="msg.message.contentType === 'comment' && msg.message.commentOption.isTitle"
-                 ng-class="{  'msg-comment-with-thumbnail': msg.message.commentOption.isTitle,
+    <!--    COMMENT
+            최초 댓글
+            DISPLAY COMMENT BODY WHEN IT IS TITLE
+            IF CURRENT COMMENT IS NOT TITLE, CONTENT GETS DISPLAYED WITHIN HEADER -->
+    <div class="msg-comment" data-ng-if="msg.message.contentType === 'comment' && msg.message.commentOption.isTitle"
+         ng-class="{  'msg-comment-with-thumbnail': msg.message.commentOption.isTitle,
                               'archived-file-with-comment': msg.feedback.status=='archived'}">
 
-              <!--    LEFT PART OF BODY CONTENT
-                      IMAGE/FILE THUMBNAIL    -->
-              <div class="msg-file-body-float pull-left"
-                   ng-class="{'cursor_pointer': msg.message.contentType !== 'comment'}"
-                   data-ng-click="onSmallThumbnailClick($event, msg);">
+      <!--    LEFT PART OF BODY CONTENT
+              IMAGE/FILE THUMBNAIL    -->
+      <div class="msg-file-body-float pull-left"
+           ng-class="{'cursor_pointer': msg.message.contentType !== 'comment'}"
+           data-ng-click="onSmallThumbnailClick($event, msg);">
 
-                <div ng-if="msg.feedback.status != 'archived'">
-                  <!--    IMAGE THUMBNAIL -->
-                  <div class="image_wrapper">
-                    <img rotate rotate-left-align="true"
-                         class="msg-file-body__img cursor_pointer"
-                         data-ng-show="msg.feedback.content.filterType.indexOf('image') !== -1 && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'"
-                         data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
-                  </div>
+        <div ng-if="msg.feedback.status != 'archived'">
+          <!--    IMAGE THUMBNAIL -->
+          <div class="image_wrapper">
+            <img rotate rotate-left-align="true"
+                 class="msg-file-body__img cursor_pointer"
+                 data-ng-show="msg.feedback.content.filterType.indexOf('image') !== -1 && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'"
+                 data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
+          </div>
 
-                  <!--    FILE THUMBNAIL  -->
-                  <div class="msg-file-body__thumbnail"
-                       data-ng-if="msg.feedback.content.filterType.indexOf('image') == -1 && msg.message.commentOption.isTitle">
-                    <div class="fileicon fileicon_{{msg.feedback.content.type | getFileIconImage | lowercase}}" ></div>
+          <!--    FILE THUMBNAIL  -->
+          <div class="msg-file-body__thumbnail"
+               data-ng-if="msg.feedback.content.filterType.indexOf('image') == -1 && msg.message.commentOption.isTitle">
+            <div class="fileicon fileicon_{{msg.feedback.content.type | getFileIconImage | lowercase}}" ></div>
 
-                  </div>
-                </div>
+          </div>
+        </div>
 
-                <div class="msg-file-body__thumbnail" ng-if="msg.feedback.status == 'archived'">
-                  <img class="fileicon" ng-src="assets/images/fileicon_archived.png"/>
-                </div>
+        <div class="msg-file-body__thumbnail" ng-if="msg.feedback.status == 'archived'">
+          <img class="fileicon" ng-src="assets/images/fileicon_archived.png"/>
+        </div>
 
-                <!--    COMMENT ICON    -->
-                <i class="fa fa-comment"></i>
+        <!--    COMMENT ICON    -->
+        <i class="fa fa-comment"></i>
 
 
-              </div>
+      </div>
 
-              <!--    RIGHT PART OF BODY CONTENT  -->
-              <div class="msg-file-meta">
-                <div class="msg-comment-header" data-ng-if="( msg.message.commentOption.isTitle )">
-                  Commented on
+      <!--    RIGHT PART OF BODY CONTENT  -->
+      <div class="msg-file-meta">
+        <div class="msg-comment-header" data-ng-if="( msg.message.commentOption.isTitle )">
+          Commented on
 
-                  <!--    FILE TITLE/NAME  -->
-                  <div ng-if="msg.feedback.status != 'archived'">
-                    <a class="msg-file-meta__title file__name break-word" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
-                      {{msg.feedback.content.title || msg.feedback.content.name}}
-                    </a>
-                  </div>
+          <!--    FILE TITLE/NAME  -->
+          <div ng-if="msg.feedback.status != 'archived'">
+            <a class="msg-file-meta__title file__name break-word" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
+              {{msg.feedback.content.title || msg.feedback.content.name}}
+            </a>
+          </div>
 
-                  <div ng-if="msg.feedback.status == 'archived'">
-                    <a class="archived-msg-file-meta__title" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
-                      <span translate>@common-deleted-file-title</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
+          <div ng-if="msg.feedback.status == 'archived'">
+            <a class="archived-msg-file-meta__title" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
+              <span translate>@common-deleted-file-title</span>
+            </a>
+          </div>
+        </div>
+      </div>
 
-              <!--    COMMENT MESSAGE -->
-              <div class="msg-comment-body">
+      <!--    COMMENT MESSAGE -->
+      <div class="msg-comment-body">
 
-                <p>
-                  <!--    WRITER  -->
+        <p>
+          <!--    WRITER  -->
                   <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
                         ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }">
                     <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
                     <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}}</span>
                   </span>
 
-                  <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+          <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
 
                   <span class="msg-item-header__created">
                     {{msg.time | gethmmaFormat}}
                   </span>
 
-                </p>
-
-              </div>
-
-            </div>
-
-            <!-- SYSTEM EVENT -->
-            <div class="msg-text" data-ng-if="msg.message.contentType === 'systemEvent'">
-              <div class="msg-comment-header" data-ng-switch="msg.info.eventType">
-                <span data-ng-switch-default>
-                  <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
-                  <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
-                </span>
-                <span data-ng-switch-when="invite">
-                  <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
-                  <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
-                  <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
-                    <span>{{invitees | getName}}<span data-ng-if="!$last">, </span></span>
-                  </span>
-                  <span data-ng-if="preferences.language === 'ko'">{{ '@msg-invited-postfix' | translate }}</span>
-                  <span data-ng-if="preferences.language === 'ja'">{{ '@msg-invited-postfix' | translate }}</span>
-                </span>
-                <span data-ng-if="false"
-                      data-msg-join="{{ '@msg-joined' | translate}}"
-                      data-msg-leave="{{ '@msg-left' | translate }}"
-                      data-msg-invite="{{ '@msg-invited' | translate }}"
-                      data-msg-create-channel="{{ '@msg-create-ch' | translate }}"
-                      data-msg-create-group="{{ '@msg-create-pg' | translate }}"></span>
-
-                <span class="msg-item-header__created">{{msg.time | gethmmaFormat}}</span>
-
-              </div>
-
-
-            </div>
-
-          </div>
-        </div>
+        </p>
 
       </div>
 
-      <!--  WHEN THERE ARE NO MESSAGES OTHER THAN SYSTEM EVENT MESSAGE. -->
-      <center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>
     </div>
 
-  </article>
 
-  <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasScrollToBottom && !hasNewMsg" ng-click="onScrollToBottomIconClicked();"
-       tooltip="{{'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
-    <i class="icon-down scroll-to-bottom-icon"></i>
-  </div>
-
-  <div class="footer">
-
-    <div class="has-new-msg-alert-container cursor_pointer" ng-if="hasNewMsg" ng-click="onHasNewMessageAlertClicked();">
-      <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
-      <i class="icon-cancel pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
-    </div>
-
-    <div class="tutorial-clicker tutorial-z-index pulse" id="chatTutorial"
-         data-ng-click="onTutorialPulseClick($event);"
-         data-ng-if="!tutorialStatus.chatTutorial"></div>
-    <!--<div class="post-message msgs__loading" data-ng-if="isPosting"></div>-->
-
-    <span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;"
-          ng-class="{'center-panel-disabled-member-input': isDisabledMember(currentEntity)}">
-      <i class="icon-upload"></i>
-      <input type="file"
-             id="btn-upload-primary"
-             class="file_list_button curosr_pointer"
-             onclick="this.value=null"
-             ng-file-select="onFileSelect($files);"
-             data-ng-disabled="isDisabledMember(currentEntity)"
-             value="Upload File" multiple>
-    </span>
-
-    <div id="messages-input-container" style="height: 35px;">
-      <form id="message-form" style="height: 35px;">
-        <textarea id="message-input"
-                  class=""
-                  ng-class="{ 'post-loading': isPosting,
-                              'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
-                  message-submit="postMessage()"
-                  data-ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
-                  data-ng-model="message.content"
-                  maxlength=""
-                  style="overflow-y: hidden; height: 35px;"
-                  autocorrect="off"
-                  autocomplete="off"
-                  spellcheck="true"
-                  msd-elastic>
-        </textarea>
-      </form>
-    </div>
   </div>
 </div>

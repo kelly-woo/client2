@@ -1,0 +1,45 @@
+<div class="footer">
+
+  <div class="has-new-msg-alert-container cursor_pointer" ng-if="hasNewMsg" ng-click="onHasNewMessageAlertClicked();">
+    <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
+    <i class="icon-cancel pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
+  </div>
+
+
+  <div class="tutorial-clicker tutorial-z-index pulse" id="chatTutorial"
+       data-ng-click="onTutorialPulseClick($event);"
+       data-ng-if="!tutorialStatus.chatTutorial">
+  </div>
+
+<span id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;"
+      ng-class="{'center-panel-disabled-member-input': isDisabledMember(currentEntity)}">
+      <i class="icon-upload"></i>
+      <input type="file"
+             id="btn-upload-primary"
+             class="file_list_button curosr_pointer"
+             onclick="this.value=null"
+             ng-file-select="onFileSelect($files);"
+             data-ng-disabled="isDisabledMember(currentEntity)"
+             value="Upload File" multiple>
+    </span>
+
+  <div id="messages-input-container" style="height: 35px;">
+    <form id="message-form" style="height: 35px;">
+        <textarea id="message-input"
+                  class=""
+                  ng-class="{ 'post-loading': isPosting,
+                              'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
+                  message-submit="postMessage()"
+                  data-ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
+                  data-ng-model="message.content"
+                  maxlength=""
+                  style="overflow-y: hidden; height: 35px;"
+                  autocorrect="off"
+                  autocomplete="off"
+                  spellcheck="true"
+                  msd-elastic>
+        </textarea>
+    </form>
+  </div>
+
+</div>
