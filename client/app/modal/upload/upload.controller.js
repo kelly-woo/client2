@@ -56,7 +56,12 @@
               $tScope.curUpload = {};
               $tScope.curUpload.progress = 0;
 
-              $tScope.fileQueue = fileAPIservice.upload(file, fileInfo, $scope.supportHtml5);
+              $tScope.fileQueue = fileAPIservice.upload({
+                files: file,
+                fileInfo: fileInfo,
+                supportHTML: $scope.supportHtml5,
+                uploadType: fileInfo.uploadType
+              });
               $tScope.fileQueue.then(   // success
                 function(response) {
                   if (response == null) {
@@ -182,6 +187,12 @@
           isPrivateFile: false,
           currentEntity: currentEntity
         };
+
+        // integration upload에 사용되는 fileInfo Object 생성
+        if (file._fileInfo) {
+          angular.extend(fileInfo, file._fileInfo);
+          delete file._fileInfo;
+        }
 
         if (fileInfo.isPrivateFile) {   // privategroups
           fileInfo.permission = PRIVATE_FILE;
