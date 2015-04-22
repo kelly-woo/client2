@@ -3,11 +3,16 @@
 
   angular
     .module('jandiApp')
-    .service('integrateService', integrateService);
+    .service('integrationService', integrationService);
 
   /* @ngInject */
-  function integrateService($rootScope, $timeout, fileAPIservice, fileObjectService, analyticsService) {
+  function integrationService($rootScope, $timeout, fileAPIservice, fileObjectService, analyticsService) {
+    /**
+     * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
+     */
 
+    // object inherit model
+    // object 상속 model 특정 namespace로 옮겨야 함..
     var Objecz = {
       create: function(prop) {
           var that = this,
@@ -33,9 +38,16 @@
       }
     };
 
+    /**
+     * Integration
+     */
     var Integration = Objecz.create({
       init: function(options) { return this; },
+      uploadType: 'integration',
       open: function() {},
+      /**
+       * addEventListeners
+       */
       on: function () {
         var that = this,
             buttonEle;
@@ -51,6 +63,7 @@
       _fileGetCallback: function(files) {
         var that = this;
 
+        // file select callback
         if (that.onSelect) {
           that.onSelect(files);
         }
@@ -59,11 +72,13 @@
         var that = this,
             fileObject;
 
+        // jandi file object
         fileObject = Object.create(fileObjectService).init(files, {
-          createFileObject: that._createFileObject
+          createFileObject: that._createFileObject.bind(that)
         });
 
         if (fileObject.size() > 0) {
+          // direct upload user interface 사용
           $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
           that._fileUploadSequence(fileObject);
 
@@ -73,95 +88,112 @@
           // that.options.scope.openModal('file');
         }
       },
+      /**
+       * 연속된 file upload
+       */
       _fileUploadSequence: function(files) {
         var that = this,
-            i, len;
+            file,
+            it,
+            len;
 
-        i = 0;
+        it = files.iterator();
         len = files.size();
-        that._upload(i, len, files.getFiles(i), function callback() {
-          ++i;
-          console.log('callback call ::: ', i, len, i < len);
-          i < len ? that._upload(i, len, files.getFiles(i), callback) : that._closeProgressBar();
+        that._upload(it.currentIndex(), len, it.next(), function callback() {
+          that._upload(it.currentIndex(), len, it.next(), callback);
         });
       },
+      /**
+       * file upload
+       */
       _upload: function(index, length, file, callback) {
-        var that = this
+        var that = this;
 
-        that._updateFileObject(file);
-        console.log("file ::: ", file);
-        $rootScope.fileQueue = fileAPIservice.upload({
-          fileInfo: file,
-          supportHTML: that.options.scope.supportHtml5,
-          uploadType: file.uploadType
-        });
-        $rootScope.fileQueue.then(   // success
-          function(response) {
-            if (response == null) {
-              uploadErrorHandler($rootScope);
-            } else {
-              $rootScope.curUpload.status = 'done';
-              fileAPIservice.broadcastChangeShared();
+        if (file) {
+          that._updateFileObject(file);
+          // console.log("file ::: ", file);
+          $rootScope.fileQueue = fileAPIservice.upload({
+            fileInfo: file,
+            supportHTML: that.options.scope.supportHtml5,
+            uploadType: file.uploadType
+          });
+          $rootScope.fileQueue.then(   // success
+            function(response) {
+              if (response == null) {
+                uploadErrorHandler($rootScope);
+              } else {
+                $rootScope.curUpload.status = 'done';
+                // console.log("file upload success ::: ", index, length, file.name);
 
-              // analytics
-              var share_target = "";
-              switch (that.options.scope.currentEntity.type) {
-                case 'channel':
-                  share_target = "topic";
-                  break;
-                case 'privateGroup':
-                  share_target = "private group";
-                  break;
-                case 'user':
-                  share_target = "direct message";
-                  break;
-                default:
-                  share_target = "invalid";
-                  break;
+                // socket 사용으로 삭제 예정
+                fileAPIservice.broadcastChangeShared();
+
+                // analytics
+                var share_target = "";
+                switch (that.options.scope.currentEntity.type) {
+                  case 'channel':
+                    share_target = "topic";
+                    break;
+                  case 'privateGroup':
+                    share_target = "private group";
+                    break;
+                  case 'user':
+                    share_target = "direct message";
+                    break;
+                  default:
+                    share_target = "invalid";
+                    break;
+                }
+
+                var file_meta = (response.data.fileInfo.type).split("/");
+
+                var upload_data = {
+                  "entity type"   : share_target,
+                  "category"      : file_meta[0],
+                  "extension"     : response.data.fileInfo.ext,
+                  "mime type"     : response.data.fileInfo.type,
+                  "size"          : response.data.fileInfo.size
+                };
+
+                analyticsService.mixpanelTrack( "File Upload", upload_data );
               }
 
-              var file_meta = (response.data.fileInfo.type).split("/");
+              // console.log('done', arguments);
+              callback();         // upload success 후 callback 수행
+            },
+            function(error) {     // error
+              that._uploadErrorHandler($rootScope);
 
-              var upload_data = {
-                "entity type"   : share_target,
-                "category"      : file_meta[0],
-                "extension"     : response.data.fileInfo.ext,
-                "mime type"     : response.data.fileInfo.type,
-                "size"          : response.data.fileInfo.size
-              };
+              // console.log('error', arguments);
+              callback();         // upload error 후 callback 수행
+            },
+            function(evt) {       // progress
+              // center.html에 표현되는 progress bar의 상태 변경
+              $rootScope.curUpload = {};
 
-              analyticsService.mixpanelTrack( "File Upload", upload_data );
+              $rootScope.curUpload.lFileIndex = length;
+              $rootScope.curUpload.cFileIndex = index + 1;
+
+              $rootScope.curUpload.title = file.title;
+              $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
+              $rootScope.curUpload.status = 'uploading';
             }
-
-            // console.log('done', arguments);
-            callback();         // upload success 후 callback 수행
-          },
-          function(error) {     // error
-            that._uploadErrorHandler($rootScope);
-
-            // console.log('error', arguments);
-            callback();         // upload error 후 callback 수행
-          },
-          function(evt) {       // progress
-            // center.html에 표현되는 progress bar의 상태 변경
-            $rootScope.curUpload = {};
-            // $rootScope.curUpload.lFileIndex = $cScope.lastIndex;
-            // $rootScope.curUpload.cFileIndex = currentIndex;
-
-            $rootScope.curUpload.lFileIndex = length;
-            $rootScope.curUpload.cFileIndex = index + 1;
-
-            $rootScope.curUpload.title = file.title;
-            $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
-            $rootScope.curUpload.status = 'uploading';
-          }
-        );
+          );
+        } else {
+          that._closeProgressBar();
+        }
       },
+      /**
+       * file upload시 error 처리
+       */
       _uploadErrorHandler: function($scope) {
         $scope.curUpload.status = 'error';
         $scope.curUpload.hasError = true;
         $scope.curUpload.progress = 0;
       },
+      /**
+       * center.html에 표현되는 progress bar close
+       */
       _closeProgressBar: function() {
         $timeout(function() {
           $('.file-upload-progress-container').animate( {'opacity': 0 }, 500, function() {
@@ -169,6 +201,9 @@
           });
         }, 2000);
       },
+      /**
+       * upload uri에 전달하는 data object create
+       */
       _updateFileObject: function(file) {
         var that = this;
 
@@ -187,6 +222,9 @@
       PUBLIC_FILE: 744     // PUBLIC_FILE code
     });
 
+    /**
+     * GoogleDrive Integration
+     */
     var GoogleDriveIntegration = Integration.create({
       init: function(options) {
         Integration.init.call(this, options);
@@ -217,7 +255,11 @@
 
         return this;
       },
-      serviceType: 'google', // server에 전달하는 service type
+      service: 'google', // server에 전달하는 service type
+      /**
+       * google drive picker open
+       * token이 존재한다면 picker를 바로 출력하고, 아니면 인증완료후 picker 호출
+       */
       open: function () {
         Integration.open.call(this);
 
@@ -232,6 +274,10 @@
           }.bind(that));
         }
       },
+      /**
+       * picker object 생성 & 출력
+       * picker object 생성시 options 수정 가능함.
+       */
       _showPicker: function() {
         var that = this,
             accessToken,
@@ -256,6 +302,9 @@
           .build()
           .setVisible(true);
       },
+      /**
+       * picker의 상태 변경 callback
+       */
       _pickerCallback: function(data) {
         var that = this;
 
@@ -288,20 +337,25 @@
           immediate: immediate
         }, callback);
       },
+      /**
+       * file upload시 server로 전달하는 data object 생성
+       */
       _createFileObject: function(file) {
         return {
           title: file.name,
           link: file.url,
+          service: this.service,
           mimeType: file.mimeType,
-          serviceType: 'google',
-          size: file.sizeBytes || 0,
+          size: file.sizeBytes,
 
-          uploadType: 'integration'
+          uploadType: this.uploadType
         };
       }
     });
 
-
+    /**
+     * DropBox Integration
+     */
     var DropBoxIntegration = Integration.create({
       init: function(options) {
         Integration.init.call(this, options);
@@ -317,45 +371,41 @@
 
         return this;
       },
+      service: 'bropbox',
+      /**
+       * dropbox choose object 생성 & 출력
+       * choose object 생성시 options 수정 가능함.
+       */
       open: function() {
         Integration.open.call(this);
 
         var that = this;
 
         Dropbox.choose({
-          // Required. Called when a user selects an item in the Chooser.
           success: that._fileGetCallback.bind(that),
-          // Optional. Called when the user closes the dialog without selecting a file
-          // and does not include any parameters.
           cancel: function() {},
-          // Optional. "preview" (default) is a preview link to the document for sharing,
-          // "direct" is an expiring link to download the contents of the file. For more
-          // information about link types, see Link types below.
           linkType: "preview",
-          // Optional. A value of false (default) limits selection to a single file, while
-          // true enables multiple file selection.
           multiselect: that.options.multiple,
-          // Optional. This is a list of file extensions. If specified, the user will
-          // only be able to select files with these extensions. You may also specify
-          // file types, such as "video" or "images" in the list. For more information,
-          // see File types below. By default, all extensions are allowed.
           extenstion: ['.*']
         });
       },
+      /**
+       * file upload시 server로 전달하는 data object 생성
+       */
       _createFileObject: function(file) {
         return {
           title: file.name,
           link: file.link,
-          mimeType: file.name,
-          serviceType: 'dropbox',
-          size: file.bytes || 0,
+          service: this.service,
+          size: file.bytes,
 
-          uploadType: 'integration'
+          uploadType: this.uploadType
         };
       }
     });
 
 
+    // google drive picker docs: https://developers.google.com/picker/docs/
     function createGoogleDrive($scope, ele) {
       var apiKey = 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs',
           clientId = '720371329165-sripefi3is5k3vlvrjgn5d3onn9na2es.apps.googleusercontent.com';
@@ -365,10 +415,7 @@
 
       window._createGDPicker = function() {
         Object.create(GoogleDriveIntegration).init({
-          // $rootScope: $$rootScope,                  // 필수,
           scope: $scope,                          // 필수, 종속 scope
-          // fileAPIservice: fileAPIservice,         // 필수, file api
-          // fileObjectService: fileObjectService,   // 필수, file object 생성 함수
           buttonEle: ele,                         // 필수, button element
           apiKey: apiKey,                         // 필수, google dirve api key
           clientId: clientId,                     // 필수, goggle dirve client id
@@ -377,6 +424,7 @@
       };
     }
 
+    // dropbox chooser docs: https://www.dropbox.com/developers/dropins/chooser/js
     function createDropBox($scope, ele) {
       var apiKey = '4hbb9l5wu46okhp';
 
@@ -384,10 +432,7 @@
         Dropbox.appKey = apiKey;
 
         Object.create(DropBoxIntegration).init({
-          // $rootScope: $$rootScope,                  // 필수
           scope: $scope,                          // 필수, 종속 scope
-          // fileAPIservice: fileAPIservice,         // 필수, file api
-          // fileObjectService: fileObjectService,   // 필수, file object 생성 함수
           buttonEle: ele,                         // 필수, button element
           multiple: true
         }).open();

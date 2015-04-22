@@ -122,7 +122,7 @@
                 </a>
               </li>
               <li class="cursor_pointer">
-                <a href="{{ server_uploaded + 'download/' + file_detail.content.fileUrl }}" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
+                <a href="{{ server_uploaded + 'download/' + file_detail.content.fileUrl }}" target="_blank" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
                   <i class="icon-download"></i>
                   <span translate>@common-download</span>
                 </a>

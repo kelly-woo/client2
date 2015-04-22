@@ -48,7 +48,6 @@
     };
 
     function link (scope, element, attrs, ctrl) {
-
       if (scope.isPolling) {
         //console.log('polling');
         counter++;

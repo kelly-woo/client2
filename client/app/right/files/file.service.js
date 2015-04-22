@@ -25,7 +25,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     return $upload.upload({
       method: 'POST',
-      url: uploadType === 'integration' ? 'http://www.jandi.io:4000/inner-api/v2/file/external' : $rootScope.server_address + flash_url + 'file',
+      url: uploadType === 'integration' ? 'http://www.jandi.io:4000/inner-api/v2/file/integrate' : $rootScope.server_address + flash_url + 'file',
       // url: $rootScope.server_address + flash_url + 'file' + (uploadType === 'integration' ? '/external' : ''),
       data: fileInfo,
       file: files,
