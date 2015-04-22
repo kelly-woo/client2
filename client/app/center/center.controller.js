@@ -2,7 +2,8 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper, currentSessionHelper, logger, integrationService) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper, currentSessionHelper, logger, integrationService,
+                                                 centerService) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
 
@@ -108,35 +109,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onStartUpCheckList() {
+    centerService.preventChatWithMyself(entityId);
     _checkIE9();
-    //_hasCorrectEntityType();
-    _isMyself();
   }
 
   function _checkIE9() {
-    if (angular.isDefined(FileAPI.support)) {
-      if (!FileAPI.support.html5)
-        $rootScope.isIE9 = true;
-    }
-  }
-  function _hasCorrectEntityType() {
-    // TODO: REFACTOR | TO entityAPIservice - WHOLE BLOCK WITH MEANINGFUL NAME.
-    // CALL FUNCTION INSTEAD OF LINES OF CODE
-    // Check entityType first.
-    if (entityType.slice(-1) != 's') {
-      // If entitytype doesn't contain 's' at the end, do nothing about it.
-      // Let router handle this case.
-      // Router will redirect user to same entityType with 's' at the end.
-      return;
-    }
-  }
-  function _isMyself() {
-
-    if (!$rootScope.member) return;
-    if (entityId == $rootScope.member.id) {
-      // Go to default Topic.
-      publicService.goToDefaultTopic();
-    }
+    $rootScope.isIE9 = centerService.isIE9();
   }
 
   function _setDefaultLoadingScreen() {
@@ -1487,8 +1465,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.messages[obj.index] = msg;
     localMarkersList[markerOwner] = lastLinkId;
-    console.log('putting back ',obj)
-
   }
 
   function _removeOldMarker(memberId) {
