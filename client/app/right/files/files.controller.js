@@ -5,12 +5,13 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $modal, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper) {
+  function rPanelFileTabCtrl($scope, $rootScope, $modal, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper, logger) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
     var disabledMemberAddedOnSharedBy = false;
 
+    var localCurrentEntity;
     var fileIdMap = {};
 
     // To be used in directive('centerHelpMessageContainer')
@@ -34,20 +35,21 @@
         _refreshFileList();
       }
     }, true);
-
     //  when sharedEntitySearchQuery is changed,
     //  1. check if value is null
     //      if null -> meaning searching for all chat rooms.
     //          else -> set to selected value.
     $scope.$watch('sharedEntitySearchQuery', function(newValue, oldValue) {
-      if ($scope.sharedEntitySearchQuery === null || angular.isUndefined($scope.sharedEntitySearchQuery)) {
+      //console.log('sharedEntitySearchQuery', $scope.sharedEntitySearchQuery)
+      if (publicService.isNullOrUndefined($scope.sharedEntitySearchQuery)) {
         // 'All'
         $scope.fileRequest.sharedEntityId = -1;
       } else {
-        $scope.fileRequest.sharedEntityId = newValue.id;
+        $scope.fileRequest.sharedEntityId = $scope.sharedEntitySearchQuery;
       }
 
-      if (newValue.id != oldValue.id) {
+      // If it's a new value, upd©ate file list.
+      if ($scope.fileRequest.sharedEntityId != oldValue) {
         _refreshFileList();
       }
     });
@@ -63,18 +65,19 @@
     function _hasFileId(fileId) {
       return fileIdMap[fileId];
     }
+
     /**
      * Joined new entity or Left current entity
      *
      *  1. Re-initialize shared in select options
      *  2. re-initialize shared in filter.
      */
-    $scope.$on('onJoinedTopicListChanged_leftInitDone', function() {
-      _initSharedInFilter();
+    $scope.$on('onJoinedTopicListChanged_leftInitDone', function(event, param) {
+      logger.log('onJoinedTopicListChanged_leftInitDone');
+      _generateShareOptions();
     });
 
     $scope.$on('onFileDeleted', function() {
-      console.log('onFileDeleted')
       _refreshFileList();
     });
 
@@ -117,22 +120,14 @@
 
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
-    $scope.$watch('currentEntity', function(newValue, oldValue) {
-      if (newValue != oldValue) {
-        //updateSharedList();
-        //            console.log('this is updateSharedList in right.controller')
-        //            console.log($scope.currentEntity)
-        //  channel could be removed/created/left
-        //  update selectOptions for data synchronization issue.
-        _initSharedInFilter();
-        _initSharedByFilter(newValue);
-      }
+    $scope.$on('onCurrentEntityChanged', function(event, currentEntity) {
+      localCurrentEntity = currentEntity;
+      _setSharedInEntity(localCurrentEntity);
+      _initSharedByFilter(localCurrentEntity);
     });
 
     function _refreshFileList() {
-
       if (!_isFileTabActive()) return;
-
       preLoadingSetup();
       getFileList();
     }
@@ -142,7 +137,6 @@
     })();
 
     function _init() {
-
       $scope.searchStatus = {
         keyword: '',
         length: ''
@@ -162,8 +156,10 @@
         keyword: ''
       };
 
+      localCurrentEntity = currentSessionHelper.getCurrentEntity();
+
       _initSharedInFilter();
-      _initSharedByFilter($scope.currentEntity);
+      _initSharedByFilter(localCurrentEntity);
       _initFileTypeFilter();
 
       fileIdMap = {};
@@ -182,7 +178,7 @@
      */
     function _initSharedInFilter() {
 
-      var currentMember = $scope.currentEntity;
+      var currentMember = localCurrentEntity;
 
       /*
        What 'getShareOptions' is doing is basically to 'concat' two lists.
@@ -201,13 +197,18 @@
         $scope.selectOptions = $scope.selectOptions.concat(currentMember);
         disabledMemberAddedOnSharedIn = true;
       }
-
-      $scope.sharedEntitySearchQuery = currentMember;
+      _setSharedInEntity(currentMember);
     }
+
     function _generateShareOptions() {
+      //console.log('generating shared options')
       $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
     }
 
+    function _setSharedInEntity(entity) {
+      //console.log('setting shared in entity to ', entity)
+      $scope.sharedEntitySearchQuery = entity.id;
+    }
     /**
      * Initializing and setting 'Shared by' Options.
      * @private
@@ -253,6 +254,7 @@
     $rootScope.$on('updateFileTypeQuery', function(event, type) {
       _onUpdateFileTypeQuery(type);
     });
+
     function _onUpdateFileTypeQuery(type) {
       var newType = '';
       if (type === 'you') {
@@ -290,16 +292,6 @@
       });
       $scope.fileTypeFilter = fileType
     }
-
-
-
-    // loop through list of files and update shared list of each file.
-    function updateSharedList() {
-      _.each($scope.fileList, function(file) {
-        file.shared = fileAPIservice.getSharedEntities(file);
-      });
-    }
-
 
     function preLoadingSetup() {
       $scope.fileRequest.startMessageId   = -1;

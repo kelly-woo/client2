@@ -54,7 +54,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var systemMessageCount;         // system event message의 갯수를 keep track 한다.
 
   var globalUnreadCount;
-  var globalreadCount;
+  var hasRetryGetRoomInfo;        // Indicates that whether current entity has failed getting room info once.
+  var localMarkersList;           // Has most up-to-date information on marker-marker.owner.
+  var roomMemberLength;
 
 
   var messages = {};
@@ -159,10 +161,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     systemMessageCount = 0;
 
-    globalUnreadCount = -1;
-    globalreadCount = 1;
+    _resetUnreadCounters();
 
-    $scope.globalReadCountOffset = 0;
     _resetNewMsgHelpers();
   }
 
@@ -1373,9 +1373,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _getEntityId() {
     var id;
     if (entityType === 'users') {
-      id = $scope.currentEntity.entityId;
+      id = currentSessionHelper.getCurrentEntity().entityId;
+      console.log()
     } else {
-      id = $scope.currentEntity.id;
+      id = currentSessionHelper.getCurrentEntity().id;
     }
 
     return id;
@@ -1432,21 +1433,37 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
 
+
+  function _resetUnreadCounters() {
+    globalUnreadCount = -1;
+    hasRetryGetRoomInfo = false;
+    localMarkersList = {};    // Has most up-to-date information on marker-marker.owner.
+    roomMemberLength = 0;
+  }
+
   /**
    * Update unread count
    */
-
   function _setUnreadCount() {
     _getCurrentRoomInfo();
   }
 
+  /**
+   *
+   * @private
+   */
   function _getCurrentRoomInfo() {
     var currentRoomId = _getEntityId();
     messageAPIservice.getRoomInformation(currentRoomId)
       .success(function(response) {
         _calculateUnReadCount(response);
+        hasRetryGetRoomInfo = false;
       })
       .error(function(err) {
+        if (!hasRetryGetRoomInfo && publicService.isNullOrUndefined(currentRoomId)) {
+          _getCurrentRoomInfo();
+          hasRetryGetRoomInfo = true;
+        }
       });
   }
 
@@ -1462,8 +1479,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _updateUnreadCount();
   });
 
-  var localMarkersList = {};    // Has most up-to-date information on marker-marker.owner.
-  var roomMemberLength = 0;
   /**
    *  1. Loop through markers list in response of room api.
    *  2. Find corresponding message in messages obj and set 'readCount'
@@ -1473,10 +1488,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _calculateUnReadCount(data) {
-
-    roomMemberLength = data.members.length - 1;
-    //console.log('calculating unread count there are ', roomMemberLength)
-
     _markMarkers(data.markers);
     _updateUnreadCount();
   }
@@ -1545,7 +1556,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       var obj = messages[oldMarker];
       var msg = obj.message;
       if (!!msg.readCount) {
-        msg.readCount = msg.readCount - 1;
+        msg.readCount--;
       }
       //msg.readCount = msg.readCount ? --msg.readCount : '';
       msg.markerOwner = '';
@@ -1556,9 +1567,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
   function _updateUnreadCount() {
-    //console.log('iterating messages starting from ', roomMemberLength)
 
-    globalUnreadCount = entityAPIservice.getMemberLength($scope.currentEntity) - 1;
+    roomMemberLength = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity()) - 1;
+
+
+    if (_isTopic()) {
+      globalUnreadCount = roomMemberLength;
+    } else {
+      globalUnreadCount = 1;
+    }
+
+    //console.log('iterating messages starting from ', globalUnreadCount)
 
     _.forEachRight($scope.messages, function(message, index) {
 
@@ -1586,11 +1605,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   $scope.$on('centerOnTopicLeave', function(event, param) {
-    //console.log('centerOnTopicLeave', param);
     // Someone left current topic -> update markers
     _removeOldMarker(param.writer);
   });
   function _hasMarkersToBeMarked() {
     return _.size(localMarkersList) < roomMemberLength;
+  }
+  function _isTopic() {
+    return currentSessionHelper.getCurrentEntityType() != 'users';
   }
 });

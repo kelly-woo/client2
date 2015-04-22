@@ -115,14 +115,11 @@
     }
 
     function getRoomInformation(roomId) {
-
       var teamId = currentSessionHelper.getCurrentTeam().id;
-
       return $http({
         method: 'GET',
         url: server_address + 'teams/' + teamId + '/rooms/' + roomId
-      })
-
+      });
     }
   }
 })();

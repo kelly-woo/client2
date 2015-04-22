@@ -115,8 +115,8 @@
 
       currentEntity.alarmCnt = '';
 
-      jndPubSub.pub('onCurrentEntityChanged', currentEntity);
       currentSessionHelper.setCurrentEntity(currentEntity);
+      jndPubSub.pub('onCurrentEntityChanged', currentEntity);
 
       return currentEntity;
     }

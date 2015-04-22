@@ -151,7 +151,6 @@
     }
 
     function messageEventTopicLeaveHandler(data) {
-      log('topic left event');
       var room = data.room;
       var writer = data.writer;
 
@@ -161,6 +160,9 @@
 
       if (!_isRelatedEvent(roomEntity, writer)) { return; }
 
+      if (_isActionFromMe(data.writer)) return;
+
+      log('topic left event');
 
       if (_isCurrentEntity(room)) {
         jndPubSub.pub('centerOnTopicLeave', data);
@@ -168,9 +170,8 @@
       }
 
       _updateLeftPanelForOtherEntity(room);
-
-
     }
+
     /**
      * Handles only 'message -> file_comment'
      * @param data
@@ -394,6 +395,9 @@
 
       return room.type === chatEntity ? roomId == currentEntity.entityId : roomId == currentEntity.id;
 
+    }
+    function _isActionFromMe(writerId) {
+      return writerId === currentSessionHelper.getCurrentMemberId();
     }
 
     function socketEventLogger(event, data, isEmitting) {
