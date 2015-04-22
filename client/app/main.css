@@ -890,4 +890,5 @@ input[type="radio"] {
   background: url('../assets/images/flags/flags.png') no-repeat scroll 0% 0% transparent;
   margin-top: -0.18em;
   display: inline-block;
+  margin-left: -16px;
 }
