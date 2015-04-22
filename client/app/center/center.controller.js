@@ -1506,10 +1506,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (messages[oldMarker]) {
       var obj = messages[oldMarker];
       var msg = obj.message;
+
       if (!!msg.readCount) {
         msg.readCount--;
+        if (msg.readCount === 0) msg.readCount = '';
       }
-      //msg.readCount = msg.readCount ? --msg.readCount : '';
       msg.markerOwner = '';
       $scope.messages[obj.index] = msg;
     }
