@@ -113,6 +113,7 @@
       // Only when DM to me.
       if (_isDMToMe(room)) {
         _messageDMToMeHandler(room);
+
         return;
       }
 
@@ -217,6 +218,7 @@
         _updateMessageList();
       }
       _updateCenterMessage();
+      _updateChatList();
     }
 
     /**
@@ -323,7 +325,10 @@
       log('update file detail panel');
       jndPubSub.updateRightFileDetailPanel();
     }
+    function _updateChatList() {
+      jndPubSub.updateLeftChatList();
 
+    }
     /**
      * Broadcast 'onJoinedTopicListChanged' event when user left or joined any topics.
      *

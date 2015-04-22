@@ -17,6 +17,8 @@
 
     this.toDefaultTopic = toDefaultTopic;
 
+    this.updateLeftChatList = updateLeftChatList;
+
     function publish(event, param) {
       $rootScope.$broadcast(event, param);
     }
@@ -38,6 +40,10 @@
 
     function toDefaultTopic() {
       $rootScope.$broadcast('toDefaultTopic');
+    }
+
+    function updateLeftChatList() {
+      $rootScope.$broadcast('updateMessageList');
     }
   }
 })();
