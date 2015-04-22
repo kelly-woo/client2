@@ -37,6 +37,8 @@
     var FILE_DELETED = 'file_deleted';
     var FILE_COMMENT_DELETED = 'file_comment_deleted';
 
+    var ROOM_MARKER_UPDATED = 'room_marker_updated';
+
     // Emit only events.
     var DISCONNECT_TEAM = 'disconnect_team';
 
@@ -124,6 +126,8 @@
       socket.on(FILE_DELETED, _onFileDeleted);
 
       socket.on(FILE_COMMENT_DELETED, _onFileCommentDeleted);
+
+      socket.on(ROOM_MARKER_UPDATED, _onRoomMarkerUpdated);
 
 
       socket.on(MESSAGE, _onMessage);
@@ -238,6 +242,14 @@
       jndWebSocketHelper.socketEventLogger(FILE_COMMENT_DELETED, data, false);
       jndWebSocketHelper.fileCommentDeletedHandler(data);
     }
+
+    function _onRoomMarkerUpdated(data) {
+      jndWebSocketHelper.socketEventLogger(ROOM_MARKER_UPDATED, data, false);
+      jndWebSocketHelper.roomMarkerUpdatedHandler(data);
+    }
+
+
+
     function _onMemberProfileUpdated(data) {
       jndWebSocketHelper.socketEventLogger(MEMBER_PROFILE_UPDATED, data, false);
       jndWebSocketHelper.onMemberProfileUpdatedHandler(data);
@@ -267,6 +279,9 @@
 
       }
 
+      if (messageType === MESSAGE_TOPIC_LEAVE) {
+        jndWebSocketHelper.messageEventTopicLeaveHandler(data);
+      }
       messageType = messageType || _APP_GOT_NEW_MESSAGE;
 
       jndWebSocketHelper.socketEventLogger(messageType, data, false);

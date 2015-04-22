@@ -3,20 +3,21 @@
 
   angular
     .module('jandiApp')
-    .factory('messageAPIservice', messageAPIservice);
+    .service('messageAPIservice', messageAPIservice);
 
-  function messageAPIservice($http, $rootScope, memberService, configuration) {
-    var service = {
-      getMessages: getMessages,
-      getUpdatedMessages: getUpdatedMessages,
-      postMessage: postMessage,
-      editMessage: editMessage,
-      deleteMessage: deleteMessage,
-      updateMessageMarker: updateMessageMarker
-    };
-    var server_address = configuration.api_address + 'inner-api/';
+  /* @ngInject */
+  function messageAPIservice($http, $rootScope, memberService, configuration, currentSessionHelper) {
 
-    return service;
+    this.getMessages = getMessages;
+    this.getUpdatedMessages = getUpdatedMessages;
+    this.postMessage = postMessage;
+    this.editMessage = editMessage;
+    this.deleteMessage = deleteMessage;
+    this.updateMessageMarker = updateMessageMarker;
+
+    this.getRoomInformation = getRoomInformation;
+
+    var server_address = configuration.server_address;
 
     // get message lists
     function getMessages(entityType, entityId, params) {
@@ -111,6 +112,17 @@
         }
 
       });
+    }
+
+    function getRoomInformation(roomId) {
+
+      var teamId = currentSessionHelper.getCurrentTeam().id;
+
+      return $http({
+        method: 'GET',
+        url: server_address + 'teams/' + teamId + '/rooms/' + roomId
+      })
+
     }
   }
 })();

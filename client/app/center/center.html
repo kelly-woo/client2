@@ -55,7 +55,6 @@
 
 
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <!--data-ng-show="(msgLoadStatus.loading && isInitialLoadingCompleted) || !msgLoadStatus.loadingTimer "-->
       <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
 
         <div class="msgs-group__divider">
@@ -79,6 +78,7 @@
                               'comment-continue': msg.message.commentOption.isContinue,
                               'system-event-msg' : msg.message.contentType === 'systemEvent',
                               'archived-file': msg.message.status === 'archived' }">
+{{msg.markerOwner|getName}}/{{msg.id}}/{{msg.readCount}}
           <!--  User Thumbnail || System event message on left of the message-->
           <div class="msg-item-float cursor_pointer" data-ng-if="( !msg.message.commentOption.isContinue )" data-ng-click="onUserClick(msg.fromEntity);"
                ng-switch="msg.message.contentType"
@@ -115,6 +115,7 @@
                 {{msg.time | gethmmaFormat }}
               </span>
 
+              <span class="badge unread-badge">{{ msg.unreadCount }}</span>
             </span>
 
             <!--    CONTINUED COMMENT ON SAME FILE  -->
@@ -135,6 +136,8 @@
                 <span class="msg-item-header__created">
                   {{msg.time | gethmmaFormat}}
                 </span>
+                <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+
               </p>
             </span>
             <!--    DELETE ICON APPEARS ON HOVER    -->

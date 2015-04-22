@@ -1,7 +1,18 @@
-/**
- * by ysyun
- * fix : padding between article tag and chat message input tag;
- */
+.unread-badge {
+  background-color: #999999;
+  border-radius: 16px;
+  font-family: "Helvetica Neue Roman";
+  font-size: 11px;
+  color: #ffffff;
+  padding: 3px 6px;
+  font-weight: 400;
+}
+
+.image_wrapper img {
+  width: 65px;
+  height: 65px;
+}
+
 article {
   padding-bottom: 10px;
 }
