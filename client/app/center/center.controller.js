@@ -17,6 +17,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var isLogEnabled = true;
 
+
   $scope.isInitialLoadingCompleted = false;
   $rootScope.isIE9 = false;
   $scope.isPosting = false;
@@ -43,13 +44,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.message = {};          // Message to post.
 
-  var firstMessageId,           // 현재 엔티티가 가지고 있는 가장 위 메세지 아이디.
-    lastMessageId,              // 현재 엔티티가 가지고 있는 가장 아래 메세지 아이디.
-    localFirstMessageId,        // 메세지들 중 가장 위에 있는 메세지 아이디.
-    localLastMessageId,         // 메세지들 중 가낭 아래에 있는 메세지 아이디.
-    loadedFirstMessagedId, // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
-    loadedLastMessageId,        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
-    systemMessageCount;
+  var firstMessageId;             // 현재 엔티티가 가지고 있는 가장 위 메세지 아이디.
+  var lastMessageId;              // 현재 엔티티가 가지고 있는 가장 아래 메세지 아이디.
+  var localFirstMessageId;        // 메세지들 중 가장 위에 있는 메세지 아이디.
+  var localLastMessageId;         // 메세지들 중 가낭 아래에 있는 메세지 아이디.
+  var loadedFirstMessagedId;      // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
+  var loadedLastMessageId;        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
+
+  var systemMessageCount;         // system event message의 갯수를 keep track 한다.
+
+  var globalUnreadCount;
+  var globalreadCount;
+
+
+  var messages = {};
 
   $scope.isMessageSearchJumping = false;
 
@@ -151,6 +159,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     systemMessageCount = 0;
 
+    globalUnreadCount = -1;
+    globalreadCount = 1;
+
+    $scope.globalReadCountOffset = 0;
     _resetNewMsgHelpers();
   }
 
@@ -162,6 +174,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.groupMsgs = [];
     $scope.messages = [];
     $scope.isMessageSearchJumping = false;
+    messages = {};
   }
 
   $scope.$on('jumpToMessageId', function(event, params) {
@@ -193,10 +206,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function groupByDate() {
-    // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
-    //$scope.messages = _.uniq($scope.messages);
-
-    //log($scope.messages)
     for (var i in $scope.messages) {
       var msg = $scope.messages[i];
 
@@ -225,7 +234,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       } else if (msg.message.contentType === 'text') {
         msg.message.isText = true;
       }
+
+      messages[msg.id] = {
+        index: i,
+        message: msg
+      };
+
     }
+
     $scope.groupMsgs = [];
     $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
       return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
@@ -290,6 +306,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
             //  marker 설정
             updateMessageMarker();
+            _setUnreadCount();
 
             // 추후 로딩을 위한 status 설정
             $scope.msgLoadStatus.loading = false;
@@ -578,8 +595,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             return;
           }
 
-          //  marker 설정
-          updateMessageMarker();
 
           // 업데이트 된 메세지 처리
           if (response.messages.length > 0) {
@@ -663,12 +678,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             groupByDate();
           }
 
+          //  marker 설정
+          updateMessageMarker();
+
           // When there is a message to update on current topic.
           localLastMessageId = lastUpdatedLinkId;
           loadedLastMessageId = localLastMessageId;
           lastMessageId = localLastMessageId;
 
           _checkEntityMessageStatus();
+
+          if (_hasMarkersToBeMarked()) {
+            console.log('message arrived late updaing unread message count.')
+            _setUnreadCount();
+          }
         }
 
       })
@@ -871,7 +894,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     });
   });
-
 
   /**
    * Shared entity is changed to file.
@@ -1397,4 +1419,169 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
 
+
+
+
+
+  /**
+   * Update unread count
+   */
+
+  function _setUnreadCount() {
+    _getCurrentRoomInfo();
+  }
+
+  function _getCurrentRoomInfo() {
+    var currentRoomId = _getEntityId();
+    messageAPIservice.getRoomInformation(currentRoomId)
+      .success(function(response) {
+        _calculateUnReadCount(response);
+      })
+      .error(function(err) {
+      });
+  }
+
+  $scope.$on('centerOnMarkerUpdated', function(event, param) {
+    //log('centerOnMarkerUpdated');
+    log(param);
+
+    if (param.marker.memberId != memberService.getMemberId()) {
+      //log('updating individual marker')
+      _updateIndividualMarker(param.marker);
+    }
+
+    _updateUnreadCount();
+  });
+
+  var localMarkersList = {};    // Has most up-to-date information on marker-marker.owner.
+  var roomMemberLength = 0;
+  /**
+   *  1. Loop through markers list in response of room api.
+   *  2. Find corresponding message in messages obj and set 'readCount'
+   *  3. Update message object in $scope.messages.
+   *
+   * @param data
+   * @private
+   */
+  function _calculateUnReadCount(data) {
+
+    roomMemberLength = data.members.length - 1;
+    //console.log('calculating unread count there are ', roomMemberLength)
+
+    _markMarkers(data.markers);
+    _updateUnreadCount();
+  }
+
+  /**
+   *
+   * @param markersList
+   * @private
+   */
+  function _markMarkers(markersList) {
+    _.forEach(markersList, function(marker) {
+      var lastLinkId = marker.lastLinkId;
+
+      // If it's my own information, skip it.
+      if (marker.memberId === memberService.getMemberId()) return;
+
+      _setNewMarker(lastLinkId, marker.memberId);
+    });
+  }
+
+  function _updateIndividualMarker(marker) {
+    //console.log('updating individual marker for ', marker)
+    var memberId = marker.memberId;
+
+    _removeOldMarker(memberId);
+    _setNewMarker(marker.lastLinkId, memberId)
+  }
+
+  function _setNewMarker(lastLinkId, markerOwner) {
+    //console.log('setting new marker for ', markerOwner, ' at ', lastLinkId);
+    var obj = messages[lastLinkId];
+
+    if (publicService.isNullOrUndefined(obj)) {
+      //console.log('setting new marker but message is not here yet');
+      return;
+    }
+
+    var msg = obj.message;
+
+    msg.readCount = msg.readCount ? msg.readCount++ : 1;
+    msg.markerOwner = markerOwner;
+
+    $scope.messages[obj.index] = msg;
+    localMarkersList[markerOwner] = lastLinkId;
+  }
+
+  function _removeOldMarker(memberId) {
+
+    var oldMarker = -1;
+
+    // Get old lastLinkId of memberId and remove old information.
+    if (!!localMarkersList[memberId]) {
+      oldMarker = localMarkersList[memberId];
+      localMarkersList[memberId] = false;
+      //console.log('old marker was at ', oldMarker);
+    }
+
+    if (oldMarker < 0) {
+      // No need to remove remove previous marker.
+      return;
+    }
+
+    // Remove marker from a message whose link is oldMarker.
+    if (messages[oldMarker]) {
+      //console.log('removing marker for ', memberId, ' at ' , oldMarker);
+      var obj = messages[oldMarker];
+      var msg = obj.message;
+      if (!!msg.readCount) {
+        msg.readCount = msg.readCount - 1;
+      }
+      //msg.readCount = msg.readCount ? --msg.readCount : '';
+      msg.markerOwner = '';
+      $scope.messages[obj.index] = msg;
+
+    }
+  }
+
+
+  function _updateUnreadCount() {
+    //console.log('iterating messages starting from ', roomMemberLength)
+
+    globalUnreadCount = entityAPIservice.getMemberLength($scope.currentEntity) - 1;
+
+    _.forEachRight($scope.messages, function(message, index) {
+
+      if (!!message.readCount) {
+        if (localMarkersList[message.markerOwner] != message.id) {
+          // un-synchronized marker information on message. -> remove it!
+          message.markerOwner = '';
+          message.readCount--;
+          return;
+        }
+        globalUnreadCount = globalUnreadCount - message.readCount;
+      }
+
+      if (globalUnreadCount <= 0)
+        message.unreadCount = '';
+      else if (!!message.unreadCount) {
+        message.unreadCount = Math.min(message.unreadCount, globalUnreadCount)
+      } else {
+        message.unreadCount = globalUnreadCount;
+      }
+
+
+
+    });
+  }
+
+  $scope.$on('centerOnTopicLeave', function(event, param) {
+    //console.log('centerOnTopicLeave', param);
+    // Someone left current topic -> update markers
+    _removeOldMarker(param.writer);
+  });
+  function _hasMarkersToBeMarked() {
+    return _.size(localMarkersList) < roomMemberLength;
+  }
 });

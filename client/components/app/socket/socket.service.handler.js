@@ -18,11 +18,14 @@
     this.fileDeletedHandler = fileDeletedHandler;
     this.fileCommentDeletedHandler = fileCommentDeletedHandler;
 
+    this.roomMarkerUpdatedHandler = roomMarkerUpdatedHandler;
+
     this.onMemberProfileUpdatedHandler = onMemberProfileUpdatedHandler;
 
     this.messageEventHandler = messageEventHandler;
-    this.messageEventFileShareUnshareHandler = messageEventFileShareUnshareHandler;
     this.messageEventFileCommentHandler = messageEventFileCommentHandler;
+    this.messageEventFileShareUnshareHandler = messageEventFileShareUnshareHandler;
+    this.messageEventTopicLeaveHandler = messageEventTopicLeaveHandler;
 
     this.topicLeaveHandler = topicLeaveHandler;
 
@@ -83,6 +86,15 @@
       jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
       jndPubSub.pub('centerOnFileCommentDeleted', data);
     }
+
+    function roomMarkerUpdatedHandler(data) {
+      var room = data.room;
+      if (_isCurrentEntity(room)) {
+        log('update marker for current entity');
+        jndPubSub.pub('centerOnMarkerUpdated', data);
+      }
+    }
+
     function onMemberProfileUpdatedHandler() {
       memberService.onMemberProfileUpdated();
     }
@@ -130,17 +142,32 @@
       var room = data.room;
       var writer = data.writer;
 
-      var roomEntity = _getRoom(room);
-      var writer = _getActionOwner(writer);
-
       log('file share/unshare event');
-      log(data);
-
 
       _updateCenterForRelatedFile(data.file);
       _updateLeftPanelForOtherEntity(room);
       _updateFilesPanelonRight(data);
       _udpateFileDetailPanel(data);
+    }
+
+    function messageEventTopicLeaveHandler(data) {
+      log('topic left event');
+      var room = data.room;
+      var writer = data.writer;
+
+
+      var roomEntity = _getRoom(room);
+      var writer = _getActionOwner(writer);
+
+      if (!_isRelatedEvent(roomEntity, writer)) { return; }
+
+
+      if (_isCurrentEntity(room)) {
+        jndPubSub.pub('centerOnTopicLeave', data);
+        _updateCenterMessage();
+      }
+
+      _updateLeftPanelForOtherEntity(room);
 
 
     }
