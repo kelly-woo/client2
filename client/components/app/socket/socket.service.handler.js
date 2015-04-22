@@ -112,7 +112,7 @@
 
       // Only when DM to me.
       if (_isDMToMe(room)) {
-        _messageDMToMeHandler(room);
+        _messageDMToMeHandler(room, writer);
         return;
       }
 
@@ -216,13 +216,15 @@
      * @param room
      * @private
      */
-    function _messageDMToMeHandler(room) {
+    function _messageDMToMeHandler(room, writerEntity) {
       log('DM to me');
+
       if (!_isCurrentEntity(room)) {
         _updateMessageList();
       }
       _updateCenterMessage();
       _updateChatList();
+      _sendBrowserNotificationForOtherEntity(_getRoom(room), writerEntity);
     }
 
     /**
@@ -310,7 +312,7 @@
       if (!_isCurrentEntity(room)) {
         // Non-current entity -> Send notification!!!
         log('Send browser notification');
-        desktopNotificationService.addNotification(writer, room);
+        desktopNotificationService.addNotification(writer, _getRoom(room));
       }
     }
     function _updateLeftPanel() {
