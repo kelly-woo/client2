@@ -1479,16 +1479,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     var msg = obj.message;
 
-    if (msg.status === 'archived') {
-      console.log('archived!!!!!!!!!!!!')
-    }
     msg.readCount = msg.readCount ? msg.readCount++ : 1;
     msg.markerOwner = markerOwner;
 
     $scope.messages[obj.index] = msg;
     localMarkersList[markerOwner] = lastLinkId;
-    console.log('putting back ',obj)
-
   }
 
   function _removeOldMarker(memberId) {
@@ -1509,7 +1504,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // Remove marker from a message whose link is oldMarker.
     if (messages[oldMarker]) {
-      console.log('removing marker for ', memberId, ' at ' , oldMarker);
       var obj = messages[oldMarker];
       var msg = obj.message;
       if (!!msg.readCount) {
@@ -1518,7 +1512,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //msg.readCount = msg.readCount ? --msg.readCount : '';
       msg.markerOwner = '';
       $scope.messages[obj.index] = msg;
-      console.log('putting back ',obj)
     }
   }
 
