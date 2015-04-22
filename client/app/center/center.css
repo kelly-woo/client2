@@ -8,10 +8,6 @@
   font-weight: 400;
 }
 
-.image_wrapper img {
-  width: 65px;
-  height: 65px;
-}
 
 article {
   padding-bottom: 10px;
@@ -373,8 +369,8 @@ by ysyun 2015.2.25
   max-width: 100%;
 }
 .msg-file-body__img {
-  max-height: 65px;
-  max-width: 65px;
+  height: 65px;
+  width: 65px;
 }
 .msg-file-body__thumbnail {
   height: 65px;
