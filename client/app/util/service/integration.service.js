@@ -120,7 +120,7 @@
           $rootScope.fileQueue.then(   // success
             function(response) {
               if (response == null) {
-                uploadErrorHandler($rootScope);
+                that._uploadErrorHandler($rootScope);
               } else {
                 $rootScope.curUpload.status = 'done';
                 // console.log("file upload success ::: ", index, length, file.name);

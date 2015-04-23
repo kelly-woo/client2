@@ -2,8 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper, currentSessionHelper, logger, integrationService,
-                                                 centerService) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper, currentSessionHelper, logger, centerService) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
 
@@ -1096,15 +1095,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.isDisabledMember = function(member) {
     return publicService.isDisabledMember(member);
   };
-
-
-  $scope.gdClick = function(event) {
-    integrationService.createGoogleDrive($scope, event.target);
-  };
-
-  $scope.dbClick = function(event) {
-    integrationService.createDropBox($scope, event.target);
-  }
 
   /**
    * Check whether msg is from myself.
