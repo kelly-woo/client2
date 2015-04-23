@@ -1,13 +1,14 @@
 /* Header */
 .hpanel {
-  border-bottom: 1px solid #e1e1e1;
+  border-bottom: 1px solid #154a67;
   position: relative;
 }
 .header {
   height: 40px;
   line-height: 40px;
-  background-color: #f2f2f2;
+  background-color: #154a67;
   min-width: 220px;
+  color: white;
 }
 .header-navbar,
 .header-toolbar {
@@ -37,7 +38,7 @@
 .header-navbar-menu.open,
 .header-navbar-file.open,
 .header-navbar-settings.open {
-  background: #31c08a;
+  background: #366480;
   color: #fff;
 }
 .header-navbar__topmenu {
@@ -62,7 +63,7 @@
   color: white;
 }
 .header-navbar__topmenu .fa-caret-down {
-  color: #999;
+  color: #6A8FA6;
   vertical-align: middle;
 }
 
@@ -99,10 +100,13 @@
   padding: 0 10px;
 }
 .header-toolbar-toggle {
-  border-left: 1px solid #e1e1e1;
   font-size: 14px;
   width: 80px;
   text-align: center;
+}
+.header-toolbar-toggle:hover {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
 }
 
 .header-toolbar-toggle .toggle-icon {

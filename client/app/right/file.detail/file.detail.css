@@ -4,8 +4,8 @@
 
 ********************************************/
 .panel-title-container.file-detail {
-  height: 41px;
-  line-height: 41px;
+  height: 42px;
+  line-height: 42px;
 }
 
 .rpanel-body-content.file-detail {
@@ -64,8 +64,8 @@
   text-shadow:0 1px 1px white;
 }
 #primary_file_button:hover {
-  background:#31c08a;
-  border-color:#31c08a;
+  background:#154a67;
+  border-color:#154a67;
   color:white;
   text-decoration:none;
   text-shadow:0 1px 1px rgba(0,0,0,0.2);
@@ -357,8 +357,8 @@
   right: 15px;
   width: 140px;
   height: 40px;
-  border-radius: 0;
-  background: #31c08a;
+  border-radius: 5px;
+  background: #00abe6;
   color: #ffffff;
   font-size: 14px;
   font-weight: 700;
