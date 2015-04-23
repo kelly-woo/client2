@@ -33,7 +33,7 @@
       vm.member = memberService.getMember();
     }
 
-    vm.$on('onMemberProfileUpdated', function() {
+    vm.$on('onCurrentMemberChanged', function() {
       _setCurrentMember();
     });
 

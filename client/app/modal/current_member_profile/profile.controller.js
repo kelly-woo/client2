@@ -9,14 +9,17 @@
   /* @ngInject */
   function profileCtrl($scope, modalHelper, $filter, analyticsService, memberService, accountService) {
 
-    $scope.isLoading = false;
+    (function() {
+      _getMember();
+    })();
 
-    $scope.curUser = _.cloneDeep(memberService.getMember());
+    function _getMember() {
+      $scope.curUser = _.cloneDeep(memberService.getMember());
+    }
 
     $scope.lang = accountService.getAccountLanguage();
 
     $scope.isProfilePicSelected = false;
-
     $scope.isFileReaderAvailable = true;
 
     // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
@@ -41,7 +44,7 @@
             ////TODO: Currently, there is no return value.  How about member object for return???
             memberService.getMemberInfo(memberService.getMemberId())
               .success(function(response) {
-                memberService.setMember(response);
+                console.log('name changed good')
                 closeModal();
               })
               .error(function(err){
@@ -58,7 +61,7 @@
         // email address changed!!
         memberService.setEmail(memberService.getEmail($scope.curUser))
           .success(function(response) {
-            memberService.setMember(response);
+            console.log('email changed good')
             closeModal();
           })
           .error(function(err) {
@@ -70,7 +73,8 @@
       } else {
         memberService.updateProfile($scope.curUser)
           .success(function(response) {
-            memberService.setMember(response[0]);
+            console.log('update profile good')
+
             closeModal();
 
             // analytics
@@ -94,8 +98,8 @@
       }
     };
 
-    $scope.$watch('member', function() {
-      $scope.curUser = _.cloneDeep(memberService.getMember());
+    $scope.$on('onCurrentMemberChanged', function() {
+      _getMember();
     });
 
     //  TODO: ie9에서 프로필 사진 바꾸기 기능이 없음.

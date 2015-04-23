@@ -20,7 +20,7 @@
 
     this.roomMarkerUpdatedHandler = roomMarkerUpdatedHandler;
 
-    this.onMemberProfileUpdatedHandler = onMemberProfileUpdatedHandler;
+    this.memberProfileUpdatedHandler = memberProfileUpdatedHandler;
 
     this.messageEventHandler = messageEventHandler;
     this.messageEventFileCommentHandler = messageEventFileCommentHandler;
@@ -141,8 +141,19 @@
     /**
      * Member profile update event handler
      */
-    function onMemberProfileUpdatedHandler() {
-      memberService.onMemberProfileUpdated();
+    function memberProfileUpdatedHandler(data) {
+      log('member profile updated');
+      log(data);
+      var member = data.member;
+      if (_isActionFromMe(member.id)) {
+        log('my profile updated');
+        memberService.onMemberProfileUpdated();
+      }
+      else {
+        log('not my profile updated.');
+        _replaceMemberEntityInMemberList(member);
+      }
+
     }
 
 
@@ -319,6 +330,13 @@
 
     }
 
+    function _replaceMemberEntityInMemberList(member) {
+      log('replacing member');
+
+      // TODO: I think it is too much to update whole left panel when only memberlist needs to be updates.
+      _updateLeftPanel();
+
+    }
 
 
     function _isMessageDeleted(eventType) {
@@ -485,7 +503,7 @@
 
     }
     function _isActionFromMe(writerId) {
-      return writerId === currentSessionHelper.getCurrentMemberId();
+      return writerId === memberService.getMemberId();
     }
 
     function socketEventLogger(event, data, isEmitting) {

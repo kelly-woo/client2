@@ -121,7 +121,6 @@
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
     $scope.$on('onCurrentEntityChanged', function(event, currentEntity) {
-      console.log('onCurrentEntityChanged')
       localCurrentEntity = currentEntity;
       _setSharedInEntity(localCurrentEntity);
       _initSharedByFilter(localCurrentEntity);
