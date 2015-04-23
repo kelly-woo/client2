@@ -10,7 +10,7 @@
   <!--    WRITER-->
     <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
       <span class="msg-item-header__nameSpace">
-        <span ng-if="msg.message.contentType !== 'file'"> {{msg.fromEntity | getName}}</span>
+        {{msg.fromEntity | getName}}
       </span>
 
       <!--    CREATED TIME    -->

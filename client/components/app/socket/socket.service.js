@@ -252,7 +252,7 @@
 
     function _onMemberProfileUpdated(data) {
       jndWebSocketHelper.socketEventLogger(MEMBER_PROFILE_UPDATED, data, false);
-      jndWebSocketHelper.onMemberProfileUpdatedHandler(data);
+      jndWebSocketHelper.memberProfileUpdatedHandler(data);
     }
 
 

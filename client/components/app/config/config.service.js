@@ -26,6 +26,7 @@
       // config service
 
       self.socket_server  = configuration.api_address;
+      //self.socket_server  = '192.168.0.203';
       self.server_address  = configuration.api_address + "inner-api/";
       self.server_uploaded = configuration.api_address;
       self.api_version     = configuration.api_version;

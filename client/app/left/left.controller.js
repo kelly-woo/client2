@@ -293,6 +293,12 @@ app.controller('leftPanelController1', function(
     $scope.updateLeftPanelCaller();
   });
 
+  $scope.$on('leftOnMemberListChange', function() {
+    console.log('asdlkfjasdlf')
+    $scope.memberList = currentSessionHelper.getCurrentTeamMemberList();
+    console.log($rootScope.memberList)
+  });
+
   $scope.openModal = function(selector) {
     if (selector == 'join') {
       publicService.openJoinModal($scope);

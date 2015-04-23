@@ -59,6 +59,7 @@
       currentMember = member;
       $rootScope.member = member;
       storageAPIservice.setLastEmail(member.u_email);
+      jndPubSub.pub('onCurrentMemberChanged');
     }
     function getMember() {
       return currentMember;
@@ -182,7 +183,6 @@
       getMemberInfo(getMemberId())
         .success(function(response) {
           setMember(response);
-          jndPubSub.pub('onMemberProfileUpdated');
         })
         .error(function(err) {
           // Do nothing. Pretend like nothing happened.
