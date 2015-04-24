@@ -294,9 +294,7 @@ app.controller('leftPanelController1', function(
   });
 
   $scope.$on('leftOnMemberListChange', function() {
-    console.log('asdlkfjasdlf')
     $scope.memberList = currentSessionHelper.getCurrentTeamMemberList();
-    console.log($rootScope.memberList)
   });
 
   $scope.openModal = function(selector) {
