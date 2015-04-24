@@ -1361,6 +1361,134 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     roomMemberLength = 0;
   }
 
+  var lastLinkIdToCount = {};
+  var memberIdToLastLinkId = {};
+
+
+  /**
+   * Increment count value in 'lastLinkIdToCount'
+   *
+   * If lastLinkIdToCount[lastLinkId] does not exist, set it to 1.
+   *
+   * @param lastLinkId
+   * @private
+   */
+  function _putLastLinkId(lastLinkId) {
+    if (lastLinkIdToCount[lastLinkId]) {
+      lastLinkIdToCount[lastLinkId]++;
+    } else {
+      lastLinkIdToCount[lastLinkId] = 1;
+    }
+    console.log('lastLinkId to count ', lastLinkIdToCount[lastLinkId]);
+  }
+
+  /**
+   * Put (memberId, lastLinkId) key-value pair in memberIdToLastLinkId map.
+   *
+   * @param memberId
+   * @param lastLinkId
+   * @private
+   */
+  function _putMemberIdToLastLinkId(memberId, lastLinkId) {
+    memberIdToLastLinkId[memberId] = lastLinkId;
+    console.log('member id to last link ', memberIdToLastLinkId[memberId]);
+  }
+
+  /**
+   * Put new marker by adding both value to both 'lastLinkIdToCount' and 'memberIdToLastLinkId'.
+   *
+   * @param memberId
+   * @param lastLinkId
+   * @private
+   */
+  function _putNewMarker(memberId, lastLinkId) {
+    console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
+    _putLastLinkId(lastLinkId);
+    _putMemberIdToLastLinkId(memberId, lastLinkId);
+  }
+
+  /**
+   * Iterate through markers list from server and put marker.
+   *
+   * @param markers
+   * @private
+   */
+  function _initMarkers(markers) {
+    console.log('start initializing markers', markers);
+
+    _.forEach(markers, function(marker) {
+      console.log(marker)
+      _putNewMarker(marker.memberId, marker.lastLinkId);
+    });
+  }
+
+  function _updateMarker(memberId, lastLinkId) {
+    _removeMarker(memberId, lastLinkId);
+    _putNewMarker(memberId, lastLinkId);
+  }
+
+  /**
+   * Remove marker by removing corresponding data from 'lastLinkIdToCount' and 'memberIdToLastLinkId'.
+   *
+   * @param memberId
+   * @param lastLinkId
+   * @private
+   */
+  function _removeMarker(memberId) {
+    var oldLastLinkId = _getLastLinkIdofMemberId(memberId);
+
+    if (publicService.isNullOrUndefined(oldLastLinkId)) return;
+
+    console.log('decrementing count for ', oldLastLinkId, 'from ', lastLinkIdToCount[oldLastLinkId]);
+    lastLinkIdToCount[oldLastLinkId]--;
+    console.log('now is at ', lastLinkIdToCount[oldLastLinkId]);
+    if (lastLinkIdToCount[oldLastLinkId] === 0) {
+      console.log('decremented back to zero');
+      delete lastLinkIdToCount[oldLastLinkId];
+    }
+    delete memberIdToLastLinkId[memberId];
+  }
+
+  /**
+   * get lastLinkId of memberId.
+   *
+   * @param memberId
+   * @returns {*}
+   * @private
+   */
+  function _getLastLinkIdofMemberId(memberId) {
+    return memberIdToLastLinkId[memberId];
+  }
+
+  function _updateUnreadCount() {
+    var globalUnreadCount;
+
+    if (centerService.isChat()) {
+      globalUnreadCount = 1;
+    } else {
+      globalUnreadCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity()) - 1;
+    }
+
+    console.log('unread counter starts from ', globalUnreadCount);
+
+    _.forEach($scope.messages, function(message, index) {
+
+      console.log('reading index at ', index);
+
+      if (!!lastLinkIdToCount[message.id]) {
+        globalUnreadCount -= lastLinkIdToCount[message.id];
+      }
+
+      message.unreadCount = globalUnreadCount;
+
+      console.log('putting back ', message, ' at ', index);
+      $scope.messages[index] = message;
+
+    })
+
+  }
+
+
   /**
    * Update unread count
    */
@@ -1376,7 +1504,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var currentRoomId = _getEntityId();
     messageAPIservice.getRoomInformation(currentRoomId)
       .success(function(response) {
-        _calculateUnReadCount(response);
+        console.log(response.markers)
+        _initMarkers(response.markers);
         hasRetryGetRoomInfo = false;
       })
       .error(function(err) {
@@ -1485,7 +1614,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
 
-  function _updateUnreadCount() {
+  function _updateUnreadCount1() {
 
     roomMemberLength = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity()) - 1;
 
@@ -1533,6 +1662,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _isTopic() {
     return currentSessionHelper.getCurrentEntityType() != 'users';
   }
+
 
 
   // Listen to file delete event.
