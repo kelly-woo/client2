@@ -317,6 +317,7 @@
           .setOAuthToken(accessToken)
           .addView(view)
           .setCallback(that._pickerCallback.bind(that))
+          // .setRelayUrl('http://www.jandi.io:4000/rpc_relay.html')
           .build()
           .setVisible(true);
       },
@@ -353,9 +354,9 @@
           client_id: this.options.clientId,
           scope: 'https://www.googleapis.com/auth/drive.readonly',
           immediate: immediate,
-          redirect_uri: 'http://www.jandi.io:4000/oauth2callback',
-          state: 'google',
-          response_type: 'code'
+          redirect_uri: 'http://www.jandi.io:4000/oauth2callback'
+          // state: 'google',
+          // response_type: 'code'
         };
 
         gapi.auth.authorize(params, callback);
@@ -389,8 +390,11 @@
       },
       setToken: function(token) {
         gapi.auth.setToken(token);
+        that._showPicker();
       }
     });
+
+    // window.document.domain = 'jandi.io';
 
     /**
      * DropBox Integration
