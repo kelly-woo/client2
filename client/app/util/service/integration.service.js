@@ -348,13 +348,14 @@
         this._doAuth(true);
       },
       _doAuth: function(immediate, callback) {
-        var scope = 'https://www.googleapis.com/auth/drive.readonly';
-
-        gapi.auth.authorize({
+        var params = {
           client_id: this.options.clientId,
-          scope: scope,
-          immediate: immediate
-        }, callback);
+          scope: 'https://www.googleapis.com/auth/drive.readonly',
+          immediate: immediate,
+          state: 'tosslab'
+        };
+
+        gapi.auth.authorize(params, callback);
       },
       /**
        * file upload시 server로 전달하는 data object 생성
