@@ -119,9 +119,7 @@
           });
           $rootScope.fileQueue.then(   // success
             function(response) {
-              if (response == null) {
-                that._uploadErrorHandler($rootScope);
-              } else {
+              if (response) {
                 $rootScope.curUpload.status = 'done';
                 // console.log("file upload success ::: ", index, length, file.name);
 
@@ -156,6 +154,8 @@
                 };
 
                 analyticsService.mixpanelTrack( "File Upload", upload_data );
+              } else {
+                that._uploadErrorHandler($rootScope);
               }
 
               // console.log('done', arguments);
@@ -354,9 +354,9 @@
           client_id: this.options.clientId,
           scope: 'https://www.googleapis.com/auth/drive.readonly',
           immediate: immediate,
-          redirect_uri: 'http://www.jandi.io:4000/oauth2callback'
-          // state: 'google',
-          // response_type: 'code'
+          redirect_uri: 'http://www.jandi.io:4000/oauth2callback',
+          state: 'google',
+          response_type: 'code'
         };
 
         gapi.auth.authorize(params, callback);
@@ -390,11 +390,11 @@
       },
       setToken: function(token) {
         gapi.auth.setToken(token);
-        that._showPicker();
+        this._showPicker();
       }
     });
 
-    // window.document.domain = 'jandi.io';
+    window.document.domain = 'jandi.io';
 
     /**
      * DropBox Integration
