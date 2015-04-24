@@ -730,10 +730,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.postMessage = function() {
     if (!$scope.message.content) return;
 
-    if ($scope.message.content == 'show progress') {
-      _showProgress();
-      return
-    }
     log('-- posting message');
 
     // prevent duplicate request
@@ -1611,10 +1607,4 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     });
   });
-
-  function _showProgress() {
-    $scope.forceShowProgress = true;
-    $scope.msgLoadStatus.loading = true
-    console.log('me')
-  }
 });
