@@ -286,7 +286,8 @@
         } else {
           that._openIntegrationModal();
 
-          that._doAuth(false, function() {
+          that._doAuth(false, function(token) {
+            console.log('do auth callback arguments ::: ', arguments);
             that._showPicker();
           }.bind(that));
         }
@@ -352,10 +353,18 @@
           client_id: this.options.clientId,
           scope: 'https://www.googleapis.com/auth/drive.readonly',
           immediate: immediate,
-          state: 'tosslab'
+          redirect_uri: 'http://www.jandi.io:4000/oauth2callback',
+          state: 'google',
+          response_type: 'code'
         };
 
         gapi.auth.authorize(params, callback);
+
+        // var url = "https://accounts.google.com/o/oauth2/auth?client_id=720371329165-sripefi3is5k3vlvrjgn5d3onn9na2es.apps.googleusercontent.com&redirect_uri=http://www.jandi.io:4000/oauth2callback&scope=https://www.googleapis.com/auth/drive.readonly&response_type=code"
+
+        // $.getScript(url, function () {
+        //   console.log('authorize callback ::: ', arguments);
+        // });
       },
       /**
        * file upload시 server로 전달하는 data object 생성
@@ -377,6 +386,9 @@
         var that = this;
 
         // console.log(options.scope);
+      },
+      setToken: function(token) {
+        gapi.auth.setToken(token);
       }
     });
 
@@ -413,7 +425,8 @@
           cancel: function() {},
           linkType: "preview",
           multiselect: that.options.multiple,
-          extenstion: ['.*']
+          extenstion: ['.*'],
+          origin: 'www.jandi.io'
         });
       },
       /**
@@ -431,7 +444,7 @@
       }
     });
 
-
+    window.foo = "fooo";
     // google drive picker docs: https://developers.google.com/picker/docs/
     function createGoogleDrive($scope, ele, options) {
       var apiKey = 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs',
@@ -441,13 +454,13 @@
       !window.gapi && $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker');
 
       window._createGDPicker = function() {
-        Object.create(GoogleDriveIntegration).init({
+        (window.googleDriveIntegration = Object.create(GoogleDriveIntegration).init({
           scope: $scope,                          // 필수, 종속 scope
           buttonEle: ele,                         // 필수, button element
           apiKey: apiKey,                         // 필수, google dirve api key
           clientId: clientId,                     // 필수, goggle dirve client id
           multiple: options.multiple || true      // multiple file upload
-        }).open();
+        })).open();
       };
     }
 
