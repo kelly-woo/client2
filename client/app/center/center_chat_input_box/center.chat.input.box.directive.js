@@ -5,7 +5,9 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox() {
+  function centerChatInputBox(integrationService) {
+    var multiple = true;    // multiple upload 여부
+
     return {
       restrict: 'E',
       scope: false,
@@ -15,7 +17,32 @@
     };
 
     function link(scope, element, attrs) {
+      var menu = element.find('#integration-menu'),
+          uploadMap = {
+            'client': function(ele) {
+              $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
+                .on('change', function(evt) {
+                  scope.onFileSelect(evt.target.files);
+                })
+                .trigger('click');
+            },
+            'google-drive': function(ele) {
+              integrationService.createGoogleDrive(scope, ele, {multiple: multiple});
+            },
+            'dropbox': function(ele) {
+              integrationService.createDropBox(scope, ele, {multiple: multiple});
+            }
+          };
 
+      menu
+        .on('click', 'li', function() {
+          var className = this.className,
+              fn;
+
+          if (fn = uploadMap[className]) {
+            fn(this);
+          }
+        });
     }
   }
 })();
