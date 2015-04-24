@@ -228,8 +228,9 @@
           scope:   scope,
           templateUrl: 'app/modal/integration/integration.html',
           controller: 'fileIntegrationModalCtrl',
-          size: 'lg',
-          windowClass: 'integration-modal'
+          size: 'lg'
+          // ,
+          // windowClass: 'integration-'
         });
       },
       PRIVATE_FILE: 740,   // PRIVATE_FILE code
@@ -283,7 +284,7 @@
         if (token = gapi.auth.getToken()) {
           that._showPicker();
         } else {
-          // that._openIntegrationModal();
+          that._openIntegrationModal();
 
           that._doAuth(false, function() {
             that._showPicker();
@@ -347,9 +348,11 @@
         this._doAuth(true);
       },
       _doAuth: function(immediate, callback) {
+        var scope = 'https://www.googleapis.com/auth/drive.readonly';
+
         gapi.auth.authorize({
           client_id: this.options.clientId,
-          scope: 'https://www.googleapis.com/auth/drive.readonly',
+          scope: scope,
           immediate: immediate
         }, callback);
       },
@@ -368,11 +371,11 @@
         };
       },
       _openIntegrationModal: function() {
-        Integration._openIntegrationModal.call(this);
+        // Integration._openIntegrationModal.call(this);
 
         var that = this;
 
-        console.log(options.scope);
+        // console.log(options.scope);
       }
     });
 
