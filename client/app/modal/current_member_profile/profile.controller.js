@@ -70,7 +70,7 @@
       } else {
         memberService.updateProfile($scope.curUser)
           .success(function(response) {
-            memberService.setMember(response[0]);
+            memberService.setMember(response);
             closeModal();
 
             // analytics
