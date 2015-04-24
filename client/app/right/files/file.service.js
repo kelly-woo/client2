@@ -6,7 +6,8 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   var fileAPI = {};
 
   fileAPI.upload = function(files, fileInfo, supportHTML, uploadType) {
-    var url;
+    var url,
+        flash_url;
 
     if (angular.isObject(files)) {
       fileInfo = files.fileInfo;
@@ -15,8 +16,8 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       files = files.files;
     }
 
-    // url = $rootScope.server_address + supportHTML && uploadType !== ? '' : 'v2/'
-    var flash_url = supportHTML ? '' : 'v2/';
+    flash_url = supportHTML ? '' : 'v2/';
+    url = uploadType === 'integration' ? $rootScope.server_address + 'v2/file/integrate' : $rootScope.server_address + flash_url + 'file',
 
     fileInfo.teamId  = memberService.getTeamId();
 
@@ -25,8 +26,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     return $upload.upload({
       method: 'POST',
-      url: uploadType === 'integration' ? 'http://www.jandi.io:4000/inner-api/v2/file/integrate' : $rootScope.server_address + flash_url + 'file',
-      // url: $rootScope.server_address + flash_url + 'file' + (uploadType === 'integration' ? '/external' : ''),
+      url: url,
       data: fileInfo,
       file: files,
       fileFormDataName: 'userFile'

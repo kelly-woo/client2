@@ -6,6 +6,8 @@
     .directive('centerChatInputBox', centerChatInputBox);
 
   function centerChatInputBox(integrationService) {
+    var multiple = true;    // multiple upload 여부
+
     return {
       restrict: 'E',
       scope: false,
@@ -16,20 +18,19 @@
 
     function link(scope, element, attrs) {
       var menu = element.find('#integration-menu'),
-          integraitonMap = {
+          uploadMap = {
             'client': function(ele) {
-              // XMLHttpRequestUpload, FileReader, FormData 지원해야 upload 가능
-              $("<input type=file multiple />")
-                .on("change", function(evt) {
+              $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
+                .on('change', function(evt) {
                   scope.onFileSelect(evt.target.files);
                 })
-                .trigger("click");
+                .trigger('click');
             },
             'google-drive': function(ele) {
-              integrationService.createGoogleDrive(scope, ele);
+              integrationService.createGoogleDrive(scope, ele, {multiple: multiple});
             },
             'dropbox': function(ele) {
-              integrationService.createDropBox(scope, ele);
+              integrationService.createDropBox(scope, ele, {multiple: multiple});
             }
           };
 
@@ -38,7 +39,7 @@
           var className = this.className,
               fn;
 
-          if (fn = integraitonMap[className]) {
+          if (fn = uploadMap[className]) {
             fn(this);
           }
         });

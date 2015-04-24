@@ -6,7 +6,7 @@
     .service('integrationService', integrationService);
 
   /* @ngInject */
-  function integrationService($rootScope, $timeout, fileAPIservice, fileObjectService, analyticsService) {
+  function integrationService($rootScope, $modal, $timeout, fileAPIservice, fileObjectService, analyticsService) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
@@ -218,6 +218,20 @@
           file.share = file.currentEntity.id;
         }
       },
+      _openIntegrationModal: function() {
+        var that = this,
+            scope;
+
+        scope = that.options.scope;
+
+        $modal.open({
+          scope:   scope,
+          templateUrl: 'app/modal/integration/integration.html',
+          controller: 'fileIntegrationModalCtrl',
+          size: 'lg',
+          windowClass: 'integration-modal'
+        });
+      },
       PRIVATE_FILE: 740,   // PRIVATE_FILE code
       PUBLIC_FILE: 744     // PUBLIC_FILE code
     });
@@ -269,6 +283,8 @@
         if (token = gapi.auth.getToken()) {
           that._showPicker();
         } else {
+          // that._openIntegrationModal();
+
           that._doAuth(false, function() {
             that._showPicker();
           }.bind(that));
@@ -350,6 +366,13 @@
 
           uploadType: this.uploadType
         };
+      },
+      _openIntegrationModal: function() {
+        Integration._openIntegrationModal.call(this);
+
+        var that = this;
+
+        console.log(options.scope);
       }
     });
 
@@ -406,7 +429,7 @@
 
 
     // google drive picker docs: https://developers.google.com/picker/docs/
-    function createGoogleDrive($scope, ele) {
+    function createGoogleDrive($scope, ele, options) {
       var apiKey = 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs',
           clientId = '720371329165-sripefi3is5k3vlvrjgn5d3onn9na2es.apps.googleusercontent.com';
 
@@ -419,13 +442,13 @@
           buttonEle: ele,                         // 필수, button element
           apiKey: apiKey,                         // 필수, google dirve api key
           clientId: clientId,                     // 필수, goggle dirve client id
-          multiple: true                          // multiple file upload
+          multiple: options.multiple || true      // multiple file upload
         }).open();
       };
     }
 
     // dropbox chooser docs: https://www.dropbox.com/developers/dropins/chooser/js
-    function createDropBox($scope, ele) {
+    function createDropBox($scope, ele, options) {
       var apiKey = '4hbb9l5wu46okhp';
 
       !window.Dropbox && $.getScript('https://www.dropbox.com/static/api/2/dropins.js', function() {
@@ -434,7 +457,7 @@
         Object.create(DropBoxIntegration).init({
           scope: $scope,                          // 필수, 종속 scope
           buttonEle: ele,                         // 필수, button element
-          multiple: true
+          multiple: options.multiple || true
         }).open();
       });
     }
