@@ -89,7 +89,8 @@
      * Connect to socket server and initialize socket variable.
      */
     function connect() {
-      var myIoSocket = io.connect(config.socket_server);
+      // When connecting to socket, always force new connection.
+      var myIoSocket = io.connect(config.socket_server, {forceNew: true});
 
       socket = socketFactory({
         prefix: '_jnd_socket:',
@@ -102,6 +103,7 @@
      * @private
      */
     function _setSocketEventListener() {
+      console.log('setting socket event listener')
       socket.on(CHECK_CONNECT_TEAM, _onCheckConnectTeam);
       socket.on(CONNECT_TEAM, _onConnectTeam);
       socket.on(ERROR_CONNECT_TEAM, _onErrorConnectTeam);
@@ -299,14 +301,17 @@
      */
     function disconnectTeam() {
       if (currentSessionHelper.getSocketConnection()) {
-        jndWebSocketHelper.socketEventLogger(DISCONNECT_TEAM, '', true);
         currentSessionHelper.resetSocketConnection();
+
         var param = {
           teamId: memberService.getTeamId(),
           memberId: memberService.getMemberId()
         };
 
         _emit(DISCONNECT_TEAM, param);
+
+        // Update socket status variable.
+        isConnected = false;
       }
     }
     /**
@@ -317,7 +322,6 @@
      */
     function _emit(eventName, data) {
       socket.emit(eventName, data);
-
       jndWebSocketHelper.socketEventLogger(eventName, data, true);
     }
 
