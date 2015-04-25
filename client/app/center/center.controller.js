@@ -474,7 +474,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   // TODO: NOT A GOOD NAME. WHEN FUNCTION NAME STARTS WITH 'is' EXPECT IT TO RETURN BOOLEAN VALUE.
   // Current 'isAtBottom' function is not returning boolean. PLEASE CHANGE THE NAME!!
-  $scope.isAtBottom = function() {
+  $scope.clearNewMessageAlerts = function() {
+    //console.log('this is isAtBottom')
     _clearBadgeCount($scope.currentEntity);
     _resetNewMsgHelpers();
   };
@@ -1237,10 +1238,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _resetHasScrollToBottom();
   }
   function _resetNewMsgAlert() {
-    $scope.hasNewMsg = false;
+    $timeout(function() {
+      $scope.hasNewMsg = false;
+    });
   }
   function _resetHasScrollToBottom() {
-    $scope.hasScrollToBottom = false;
+   $timeout(function() {
+     $scope.hasScrollToBottom = false;
+   });
   }
 
   $scope.onHasNewMessageAlertClicked = onHasNewMessageAlertClicked;
@@ -1429,10 +1434,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _initMarkers(markers) {
-    console.log('start initializing markers', markers);
+    //console.log('start initializing markers', markers);
 
     _.forEach(markers, function(marker) {
-      console.log(marker)
+      //console.log(marker)
       _putNewMarker(marker.memberId, marker.lastLinkId);
     });
 
@@ -1502,7 +1507,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       globalUnreadCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity()) - 1;
     }
 
-    console.log('unread counter starts from ', globalUnreadCount);
+    //console.log('unread counter starts from ', globalUnreadCount);
 
     _.forEachRight($scope.messages, function(message, index) {
       if (!!lastLinkIdToCount[message.id]) {
@@ -1516,7 +1521,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       $scope.messages[index] = message;
     });
 
-    console.log(lastLinkIdToCount)
+    //console.log(lastLinkIdToCount)
   }
 
   /**
