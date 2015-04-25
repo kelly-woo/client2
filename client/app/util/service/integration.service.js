@@ -349,23 +349,20 @@
       _driveApiLoaded: function() {
         this._doAuth(true);
       },
+      doAuth: function(token) {
+        gapi.auth.setToken(token);
+        this._showPicker();
+      },
       _doAuth: function(immediate, callback) {
         var params = {
           client_id: this.options.clientId,
           scope: 'https://www.googleapis.com/auth/drive.readonly',
           immediate: immediate,
           redirect_uri: 'http://www.jandi.io:4000/oauth2callback',
-          state: 'google',
           response_type: 'code'
         };
 
         gapi.auth.authorize(params, callback);
-
-        // var url = "https://accounts.google.com/o/oauth2/auth?client_id=720371329165-sripefi3is5k3vlvrjgn5d3onn9na2es.apps.googleusercontent.com&redirect_uri=http://www.jandi.io:4000/oauth2callback&scope=https://www.googleapis.com/auth/drive.readonly&response_type=code"
-
-        // $.getScript(url, function () {
-        //   console.log('authorize callback ::: ', arguments);
-        // });
       },
       /**
        * file upload시 server로 전달하는 data object 생성
@@ -387,14 +384,8 @@
         var that = this;
 
         // console.log(options.scope);
-      },
-      setToken: function(token) {
-        gapi.auth.setToken(token);
-        this._showPicker();
       }
     });
-
-    window.document.domain = 'jandi.io';
 
     /**
      * DropBox Integration
@@ -429,8 +420,7 @@
           cancel: function() {},
           linkType: "preview",
           multiselect: that.options.multiple,
-          extenstion: ['.*'],
-          origin: 'www.jandi.io'
+          extenstion: ['.*']
         });
       },
       /**
@@ -448,7 +438,6 @@
       }
     });
 
-    window.foo = "fooo";
     // google drive picker docs: https://developers.google.com/picker/docs/
     function createGoogleDrive($scope, ele, options) {
       var apiKey = 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs',
@@ -479,7 +468,7 @@
           scope: $scope,                          // 필수, 종속 scope
           buttonEle: ele,                         // 필수, button element
           multiple: options.multiple || true
-        }).open();
+        })._doAuth();
       });
     }
 
