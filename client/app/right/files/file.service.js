@@ -17,8 +17,9 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     }
 
     flash_url = supportHTML ? '' : 'v2/';
-    url = uploadType === 'integration' ? $rootScope.server_address + 'v2/file/integrate' : $rootScope.server_address + flash_url + 'file',
+    // url = uploadType === 'integration' ? $rootScope.server_address + 'v2/file/integrate' : $rootScope.server_address + flash_url + 'file',
 
+    url = uploadType === 'integration' ?  'http://www.jandi.io:4000/inner-api/v2/file/integrate' : $rootScope.server_address + flash_url + 'file',
     fileInfo.teamId  = memberService.getTeamId();
 
     if(!supportHTML)

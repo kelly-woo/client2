@@ -18,7 +18,7 @@
       $rootScope.api_version      = configuration.api_version;
       $rootScope.configuration    = configuration;
 
-      // configuration constant service       
+      // configuration constant service
       configuration.server_address  = configuration.api_address + "inner-api/";
       configuration.server_uploaded = configuration.api_address;
       configuration.api_version     = configuration.api_version;
@@ -34,6 +34,8 @@
 
       _setSocketMessageEventNames();
 
+      // cut off sub-domain
+      window.document.domain = 'jandi.' + /.([a-zA-Z]+)$/.exec(window.document.domain)[1];
     }
 
     /**

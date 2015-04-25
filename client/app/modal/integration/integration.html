@@ -6,76 +6,32 @@
     </h3>
 </div>
 
-<form name="file_upload_form" data-ng-submit="eventHandler('upload');">
-    <div class="modal-body">
-        <div class="form-horizontal">
-
-
-            <div id="file_preview_container" data-ng-class="{'image-background': !supportHtml5}">
-
-                <div class="image_wrapper upload-image-preview" ng-if="supportHtml5 && file.isImage">
-                    <img rotate class="modal-upload-img image-background"/>
-                </div>
-
-                <div class="non-image-file-preview fileicon fileicon_{{file.type | getFileIconImage | lowercase}}" ng-if="!file.isImage"></div>
+<div class="modal-body">
+    <ul class="row">
+        <li>
+            <div class="image integration-google-drive-desc-1"></div>
+            <div class="desc">
+                <p>desc1</p>
             </div>
-
-            <!--    ALERT MESSAGE WHEN USING IE9    -->
-            <div ng-if="!supportHtml5" class="modal-body__description-help bg-warning" translate>@ie9-file-preview</div>
-            <div ng-if="!supportHtml5" class="modal-body__description-help bg-warning" translate>@ie9-please-do-not-use</div>
-
-            <!-- FILE TITLE -->
-            <div class="form-group">
-                <label class="control-label col-sm-3">
-                    <span translate>@common-title</span>
-                </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="file_upload_title" data-ng-model="fileInfo.title" required ng-disabled="true"/>
-                    <div class="modal-body__help" ng-if="false">
-                        <span translate>@modal-upload-title-msg1</span>
-                    </div>
-                </div>
+        </li>
+        <li>
+            <div class="image integration-google-drive-desc-2"></div>
+            <div class="desc">
+                <p>desc2</p>
             </div>
-
-            <!-- FILE SHARE OPTION -->
-            <div class="form-group">
-                <label class="control-label col-sm-3">
-                    <span translate>@common-share-in</span>
-                </label>
-                <div class="col-sm-9">
-                    <select class="form-control"
-                            data-ng-disabled="fileInfo.isPrivateFile"
-                            data-ng-model="fileInfo.currentEntity"
-                            data-ng-options="channel|getName group by channel.typeCategory for channel in selectOptions | orderBy: 'name'">
-                    </select>
-                    <!--<input type="checkbox" ng-model="fileInfo.isPrivateFile" style="margin-left: 5px;">-->
-                    <!--<i style="font-size:12px;">I don't want to share it.</i>-->
-                </div>
+        </li>
+        <li>
+            <div class="image integration-google-drive-desc-3"></div>
+            <div class="desc">
+                <p>desc3</p>
             </div>
-            <!-- FILE COMMENT -->
-            <div class="form-group">
-                <label class="control-label col-sm-3">
-                    <span translate>@common-comment</span>
-                </label>
-                <div class="col-sm-9">
-                    <textarea class="form-control"
-                              id="file_upload_comment"
-                              name="file_upload_comment"
-                              rows="3"
-                              data-ng-model="fileInfo.comment"
-                              data-ng-maxlength="256"
-                              maxlength="256"
-                              style="resize:none;">
-                    </textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" data-ng-click="eventHandler();"><span translate>@btn-cancel</span></button>
-        <input class="btn btn-ok" type="submit" id="file_upload_btn" value="{{ '@btn-upload' | translate }}" />
-    </div>
-</form>
+        </li>
+    </ul>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-cancel" data-ng-click="eventHandler();"><span translate>@btn-cancel</span></button>
+    <input class="btn btn-ok" type="submit" id="file_upload_btn" value="{{ '@btn-upload' | translate }}" />
+</div>
 <div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
     <div class="loading_bg"></div>

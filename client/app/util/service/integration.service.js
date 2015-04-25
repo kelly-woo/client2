@@ -119,9 +119,7 @@
           });
           $rootScope.fileQueue.then(   // success
             function(response) {
-              if (response == null) {
-                that._uploadErrorHandler($rootScope);
-              } else {
+              if (response) {
                 $rootScope.curUpload.status = 'done';
                 // console.log("file upload success ::: ", index, length, file.name);
 
@@ -156,6 +154,8 @@
                 };
 
                 analyticsService.mixpanelTrack( "File Upload", upload_data );
+              } else {
+                that._uploadErrorHandler($rootScope);
               }
 
               // console.log('done', arguments);
@@ -224,13 +224,18 @@
 
         scope = that.options.scope;
 
-        $modal.open({
+        that.modal = $modal.open({
           scope:   scope,
           templateUrl: 'app/modal/integration/integration.html',
           controller: 'fileIntegrationModalCtrl',
           size: 'lg',
           windowClass: 'integration-modal'
         });
+      },
+      _closeIntegrationModal: function() {
+        var that = this;
+
+        that.modal && that.modal.dismiss('cancel');
       },
       PRIVATE_FILE: 740,   // PRIVATE_FILE code
       PUBLIC_FILE: 744     // PUBLIC_FILE code
@@ -283,9 +288,10 @@
         if (token = gapi.auth.getToken()) {
           that._showPicker();
         } else {
-          // that._openIntegrationModal();
+          that._openIntegrationModal();
 
-          that._doAuth(false, function() {
+          that._doAuth(false, function(token) {
+            console.log('do auth callback arguments ::: ', arguments);
             that._showPicker();
           }.bind(that));
         }
@@ -315,6 +321,7 @@
           .setOAuthToken(accessToken)
           .addView(view)
           .setCallback(that._pickerCallback.bind(that))
+          // .setRelayUrl('http://www.jandi.io:4000/rpc_relay.html')
           .build()
           .setVisible(true);
       },
@@ -346,12 +353,23 @@
       _driveApiLoaded: function() {
         this._doAuth(true);
       },
+      doAuth: function(token) {
+        var that = this;
+
+        that._closeIntegrationModal();
+        gapi.auth.setToken(token);
+        that._showPicker();
+      },
       _doAuth: function(immediate, callback) {
-        gapi.auth.authorize({
+        var params = {
           client_id: this.options.clientId,
           scope: 'https://www.googleapis.com/auth/drive.readonly',
-          immediate: immediate
-        }, callback);
+          immediate: immediate,
+          redirect_uri: 'http://www.jandi.io:4000/oauth2/google',  // todo: local, dev, pro 한경에 맞추어 설정 가능하도록 조정
+          response_type: 'code'
+        };
+
+        gapi.auth.authorize(params, callback);
       },
       /**
        * file upload시 server로 전달하는 data object 생성
@@ -372,7 +390,7 @@
 
         var that = this;
 
-        console.log(options.scope);
+        // console.log(options.scope);
       }
     });
 
@@ -404,13 +422,24 @@
 
         var that = this;
 
+        that._openIntegrationModal();
+
         Dropbox.choose({
-          success: that._fileGetCallback.bind(that),
-          cancel: function() {},
+          success: that._success.bind(that),
+          cancel: that._cancel.bind(that),
           linkType: "preview",
           multiselect: that.options.multiple,
           extenstion: ['.*']
         });
+      },
+      _success: function(files) {
+        var that = this;
+
+        that._closeIntegrationModal();
+        that._fileGetCallback(files);
+      },
+      _cancel: function() {
+        this._closeIntegrationModal();
       },
       /**
        * file upload시 server로 전달하는 data object 생성
@@ -427,7 +456,6 @@
       }
     });
 
-
     // google drive picker docs: https://developers.google.com/picker/docs/
     function createGoogleDrive($scope, ele, options) {
       var apiKey = 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs',
@@ -437,13 +465,13 @@
       !window.gapi && $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker');
 
       window._createGDPicker = function() {
-        Object.create(GoogleDriveIntegration).init({
+        (window.googleDriveIntegration = Object.create(GoogleDriveIntegration).init({
           scope: $scope,                          // 필수, 종속 scope
           buttonEle: ele,                         // 필수, button element
           apiKey: apiKey,                         // 필수, google dirve api key
           clientId: clientId,                     // 필수, goggle dirve client id
           multiple: options.multiple || true      // multiple file upload
-        }).open();
+        })).open();
       };
     }
 

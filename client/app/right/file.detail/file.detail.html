@@ -38,7 +38,7 @@
         <div class="file-detail-body__other hidden" data-ng-if="file_detail.content.filterType.indexOf('image') == -1">
 
           <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
-            <div class="fileicon fileicon_left fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
+            <div class="fileicon fileicon-left fileicon-{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
           </a>
 
           <div class="file-detail-body__other-meta file-item-meta__listview">
@@ -69,7 +69,7 @@
         </div>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
-          <div class="fileicon fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
+          <div class="fileicon fileicon-{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
 
           <div class="file-detail-body__meta-info">
             <div class="file-detail-body__meta-info-up">
