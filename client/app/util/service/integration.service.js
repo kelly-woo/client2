@@ -228,10 +228,12 @@
           scope:   scope,
           templateUrl: 'app/modal/integration/integration.html',
           controller: 'fileIntegrationModalCtrl',
-          size: 'lg'
-          // ,
-          // windowClass: 'integration-'
+          size: 'lg',
+          windowClass: 'integration-modal'
         });
+      },
+      _closeIntegrationModal: function() {
+        $modal.dismiss('close');
       },
       PRIVATE_FILE: 740,   // PRIVATE_FILE code
       PUBLIC_FILE: 744     // PUBLIC_FILE code
@@ -302,6 +304,8 @@
             view,
             picker;
 
+        that._closeIntegrationModal();
+
         accessToken = gapi.auth.getToken().access_token;
         view = new google.picker.DocsView();
         view.setIncludeFolders(true);
@@ -358,7 +362,7 @@
           client_id: this.options.clientId,
           scope: 'https://www.googleapis.com/auth/drive.readonly',
           immediate: immediate,
-          redirect_uri: 'http://www.jandi.io:4000/oauth2callback',
+          redirect_uri: 'http://www.jandi.io:4000/oauth2/google',  // todo: local, dev, pro 한경에 맞추어 설정 가능하도록 조정
           response_type: 'code'
         };
 
@@ -379,7 +383,7 @@
         };
       },
       _openIntegrationModal: function() {
-        // Integration._openIntegrationModal.call(this);
+        Integration._openIntegrationModal.call(this);
 
         var that = this;
 
@@ -414,6 +418,8 @@
         Integration.open.call(this);
 
         var that = this;
+
+        that._closeIntegrationModal();
 
         Dropbox.choose({
           success: that._fileGetCallback.bind(that),
@@ -468,7 +474,7 @@
           scope: $scope,                          // 필수, 종속 scope
           buttonEle: ele,                         // 필수, button element
           multiple: options.multiple || true
-        })._doAuth();
+        }).open();
       });
     }
 

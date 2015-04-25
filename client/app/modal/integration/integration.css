@@ -1,0 +1,8 @@
+.integration-modal .modal-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    margin-top: -225px;
+    margin-left: -300px;
+}
