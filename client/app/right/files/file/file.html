@@ -11,7 +11,7 @@
   <!--    IF NOT IMAGE TYPE, SHOW FILE TYPE PREVIEW   -->
   <div class="msg-file-body__thumbnail pull-left"
        data-ng-if="file.content.filterType.indexOf('image') == -1">
-    <div class="fileicon fileicon_{{ file.content.type | getFileIconImage | lowercase}}"></div>
+    <div class="fileicon fileicon-{{ file.content.type | getFileIconImage | lowercase}}"></div>
   </div>
 
   <!-- OTHER INFORMATION ABOUT FILE: TITLE, UPLOADED TIME, SHARED CHANNELS, LINK TO NEW TAB -->

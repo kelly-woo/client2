@@ -2,7 +2,52 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 600px;
+    width: 700px;
     margin-top: -225px;
-    margin-left: -300px;
+    margin-left: -350px;
+}
+
+.integration-modal .modal-body {
+	padding: 0;
+}
+
+.integration-modal .row {
+	margin-left: 23px;
+	margin-right: 23px;
+	padding-top: 62px;
+	padding-bottom: 60px;
+}
+.integration-modal .row>li {
+	width: 180px;
+	margin-left: 42px;
+	margin-right: 42px;
+	float: left;
+}
+.integration-modal .row>li:first-child {
+	margin-left: 15px;
+	margin-right: 0;
+}
+.integration-modal .row>li:last-child {
+	margin-left: 0;
+	margin-right: 15px;
+}
+
+.integration-modal .image {
+	position: relative; */
+	display: block;
+	height: 180px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.integration-modal .desc {
+	position: relative;
+	padding-top: 22px;
+	height: 105px;
+	overflow: hidden;
+}
+
+.integration-modal .desc p {
+	font-size: 13px;
+	color: #333;
 }

@@ -201,7 +201,7 @@
           <!--    FILE TYPE THUMBNAIL -->
           <div class="msg-file-body__thumbnail"
                data-ng-if="msg.message.content.filterType.indexOf('image') == -1">
-            <div class="fileicon fileicon_{{msg.message.content.type | getFileIconImage | lowercase}}" ></div>
+            <div class="fileicon fileicon-{{msg.message.content.type | getFileIconImage | lowercase}}" ></div>
 
           </div>
         </div>
@@ -336,7 +336,7 @@
           <!--    FILE THUMBNAIL  -->
           <div class="msg-file-body__thumbnail"
                data-ng-if="msg.feedback.content.filterType.indexOf('image') == -1 && msg.message.commentOption.isTitle">
-            <div class="fileicon fileicon_{{msg.feedback.content.type | getFileIconImage | lowercase}}" ></div>
+            <div class="fileicon fileicon-{{msg.feedback.content.type | getFileIconImage | lowercase}}" ></div>
 
           </div>
         </div>

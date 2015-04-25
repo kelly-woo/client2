@@ -224,7 +224,7 @@
 
         scope = that.options.scope;
 
-        $modal.open({
+        that.modal = $modal.open({
           scope:   scope,
           templateUrl: 'app/modal/integration/integration.html',
           controller: 'fileIntegrationModalCtrl',
@@ -233,7 +233,9 @@
         });
       },
       _closeIntegrationModal: function() {
-        $modal.dismiss('close');
+        var that = this;
+
+        that.modal && that.modal.dismiss('cancel');
       },
       PRIVATE_FILE: 740,   // PRIVATE_FILE code
       PUBLIC_FILE: 744     // PUBLIC_FILE code
@@ -304,8 +306,6 @@
             view,
             picker;
 
-        that._closeIntegrationModal();
-
         accessToken = gapi.auth.getToken().access_token;
         view = new google.picker.DocsView();
         view.setIncludeFolders(true);
@@ -354,8 +354,11 @@
         this._doAuth(true);
       },
       doAuth: function(token) {
+        var that = this;
+
+        that._closeIntegrationModal();
         gapi.auth.setToken(token);
-        this._showPicker();
+        that._showPicker();
       },
       _doAuth: function(immediate, callback) {
         var params = {
@@ -419,15 +422,24 @@
 
         var that = this;
 
-        that._closeIntegrationModal();
+        that._openIntegrationModal();
 
         Dropbox.choose({
-          success: that._fileGetCallback.bind(that),
-          cancel: function() {},
+          success: that._success.bind(that),
+          cancel: that._cancel.bind(that),
           linkType: "preview",
           multiselect: that.options.multiple,
           extenstion: ['.*']
         });
+      },
+      _success: function(files) {
+        var that = this;
+
+        that._closeIntegrationModal();
+        that._fileGetCallback(files);
+      },
+      _cancel: function() {
+        this._closeIntegrationModal();
       },
       /**
        * file upload시 server로 전달하는 data object 생성
