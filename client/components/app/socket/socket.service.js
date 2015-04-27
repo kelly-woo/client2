@@ -103,7 +103,6 @@
      * @private
      */
     function _setSocketEventListener() {
-      console.log('setting socket event listener')
       socket.on(CHECK_CONNECT_TEAM, _onCheckConnectTeam);
       socket.on(CONNECT_TEAM, _onConnectTeam);
       socket.on(ERROR_CONNECT_TEAM, _onErrorConnectTeam);
