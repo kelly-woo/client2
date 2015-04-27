@@ -1,0 +1,33 @@
+<!-- SYSTEM EVENT -->
+<div>
+  <div class="msg-item-float cursor_pointer">
+    <img class="user-profile user-thumb"/>
+  </div>
+
+  <div class="msg-item-body">
+    <div class="msg-text">
+      <div class="msg-comment-header" data-ng-switch="msg.info.eventType">
+                <span data-ng-switch-default>
+                  <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+                  <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+                </span>
+                <span data-ng-switch-when="invite">
+                  <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+                  <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+                  <span class="msg-comment_userType" data-ng-repeat="invitees in msg.message.invites">
+                    <span>{{invitees | getName}}<span data-ng-if="!$last">, </span></span>
+                  </span>
+                  <span data-ng-if="preferences.language === 'ko'">{{ '@msg-invited-postfix' | translate }}</span>
+                  <span data-ng-if="preferences.language === 'ja'">{{ '@msg-invited-postfix' | translate }}</span>
+                </span>
+                <span data-ng-if="false"
+                      data-msg-join="{{ '@msg-joined' | translate}}"
+                      data-msg-leave="{{ '@msg-left' | translate }}"
+                      data-msg-invite="{{ '@msg-invited' | translate }}"
+                      data-msg-create-channel="{{ '@msg-create-ch' | translate }}"
+                      data-msg-create-group="{{ '@msg-create-pg' | translate }}"></span>
+        <span class="msg-item-header__created">{{msg.time | gethmmaFormat}}</span>
+      </div>
+    </div>
+  </div>
+</div>

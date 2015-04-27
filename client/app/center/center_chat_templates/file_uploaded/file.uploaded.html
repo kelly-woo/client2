@@ -1,0 +1,159 @@
+<!--  User Thumbnail -->
+<div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
+     ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+  <img on-image-load class="user-profile user-thumb"
+       ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
+</div>
+
+<div class="msg-item-header"
+     ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+  <!--    WRITER-->
+    <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+      <span class="msg-item-header__nameSpace">
+        {{msg.fromEntity | getName}}
+      </span>
+
+      <!--    CREATED TIME    -->
+      <span class="msg-item-header__created">
+        {{msg.time | gethmmaFormat}}
+      </span>
+
+      <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+    </span>
+</div>
+
+<div class="msg-item-body">
+  <!-- FILE -->
+  <div class="msg-file" ng-cloak>
+
+    <!--  FILE PREVIEW IMAGE  -->
+    <div class="msg-file-body-float pull-left" data-ng-click="onSmallThumbnailClick($event, msg);">
+      <!--  FILE NOT ARCHIVED -->
+      <div ng-if="msg.message.status != 'archived'">
+        <!--    IMAGE THUMBNAIL -->
+        <div class="image_wrapper">
+          <img rotate rotate-left-align="true"
+               class="msg-file-body__img cursor_pointer"
+               data-ng-show="msg.message.content.filterType.indexOf('image') !== -1"
+               data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
+            />
+        </div>
+
+        <div ng-if="msg.message.content.filterType.indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
+             ng-click="onImageRotatorClick($event);">
+          <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
+        </div>
+
+        <!--    FILE TYPE THUMBNAIL -->
+        <div class="msg-file-body__thumbnail"
+             data-ng-if="msg.message.content.filterType.indexOf('image') == -1">
+          <div class="fileicon fileicon-{{msg.message.content.type | getFileIconImage | lowercase}}" ></div>
+
+        </div>
+      </div>
+
+      <!--  ARCHIVED FILE -->
+      <div ng-if="msg.message.status == 'archived'">
+        <!--    FILE TYPE THUMBNAIL -->
+        <div class="msg-file-body__thumbnail">
+          <img class="fileicon" ng-src="assets/images/fileicon_archived.png"/>
+        </div>
+      </div>
+    </div>
+
+    <!--  FILE INFO -->
+    <div class="msg-file-meta">
+
+      <div class="msg-file-meta-up">
+
+        <!--  NOT ARCHIVED FILE -->
+        <div ng-if="msg.message.status != 'archived'">
+          <!--    TITLE   -->
+          <a class="msg-file-meta__title file__name break-word"
+             data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+            {{ msg.message.content.title }}
+          </a>
+
+          <span class="bullet">•</span>
+
+          <!--    SIZE AND FILE TYPE  -->
+                  <span class="msg-file-meta-info">
+                    {{msg.message.content.size | bytes }} {{ msg.message.content.type | filetype }}
+                  </span>
+        </div>
+
+        <!--  ARCHIVED FILE -->
+        <div class="archived-file-title" ng-if="msg.message.status == 'archived'">
+          <a class="msg-file-meta__title file__name"
+             data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+            <span translate>@common-deleted-file-title</span>
+          </a>
+
+        </div>
+      </div>
+
+      <div ng-if="msg.message.status != 'archived'" class="msg-file-meta-down">
+        <!--    SHARED MESSAGE  -->
+                  <span class="msg-file-meta-info">
+                    <span data-ng-if="( msg.id !== msg.message.writer.id )">
+                      <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getName}}</a>
+                      <span translate>@msg-whose</span>
+                    </span>
+                    <span ng-if="msg.status == 'shared'" translate>@msg-shared</span>
+                    <span ng-if="msg.status == 'unshared'" translate>@msg-unshared</span>
+                    <span translate>@msg-file</span>
+                  </span>
+
+        <span class="bullet">•</span>
+
+        <!--    SHARED ENTITIES -->
+                  <span data-ng-if="msg.message.shared.length">
+                    <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared | filter: {type:'!user'}) track by $index">
+                      <span data-ng-hide="($index === 0)">, </span>
+                      <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                        {{ sharedEntity.prefix }}{{ sharedEntity.name }}
+                      </span>
+                      <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
+                        <i class="fa fa-minus-circle"></i>
+                      </a>
+                    </span>
+
+                    <span ng-show="msg.message.shared.length != filteredSharedFile.length" ng-if="false">
+                      <span ng-show="filteredSharedFile.length != 0"> and </span>with users
+                    </span>
+
+                    <span class="bullet">•</span>
+                  </span>
+
+        <!-- OPEN ORIGINAL  -->
+        <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
+          <span translate>@msg-open-original</span>
+        </a>
+
+        <span class="bullet">•</span>
+
+        <!--    DOWNLOAD    -->
+        <a class="cursor_pointer" href="{{ server_uploaded +'download/' + msg.message.content.fileUrl }}" download="{{ msg.message.content.title  }}">
+          <span translate>@common-download</span>
+        </a>
+
+        <span class="bullet">•</span>
+
+        <!--    COMMENT -->
+        <a class="cursor_pointer"  data-ng-click="setCommentFocus(msg.message);">
+          <span translate>@btn-comment</span>
+        </a>
+
+        <span class="bullet">•</span>
+
+        <!--    SHARE   -->
+        <a class="cursor_pointer" data-ng-click="onShareClick(msg.message);">
+          <span translate>@btn-share</span>
+        </a>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>

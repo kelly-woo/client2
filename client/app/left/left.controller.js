@@ -31,15 +31,18 @@
 
 var app = angular.module('jandiApp');
 
-
 // 사용되지 않는 arguments: $stateParams, $modal, $window, $timeout
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileService) {
+  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub) {
 
   //console.info('[enter] leftpanelController');
 
+  var afterLeftInit = {
+    hasBroadcast: false,
+    broadcastTo: ''
+  };
 
 
   $scope.isLoading = false;
@@ -57,10 +60,25 @@ app.controller('leftPanelController1', function(
     response = leftPanel.data;
   }
 
-  $rootScope.$on('goToDefault', function() {
-    $state.go('archives', {entityType:'channels',  entityId:leftpanelAPIservice.getDefaultChannel(response) });
-    $rootScope.toDefault = false;
+
+  $scope.$on('onJoinedTopicListChanged', function(event, param) {
+    _setAfterLeftInit(param);
   });
+
+  function _setAfterLeftInit(param) {
+    afterLeftInit.hasBroadcast = true;
+    afterLeftInit.broadcastTo = param;
+  }
+  function _resetAfterLeftInit() {
+    afterLeftInit.hasBroadcast = false;
+  }
+  function _hasAfterLeftInit() {
+    return afterLeftInit.hasBroadcast;
+  }
+  function _broadcastAfterLeftInit() {
+    jndPubSub.pub(afterLeftInit.broadcastTo);
+  }
+
   //  redirecting to default channel.
   $rootScope.$watch('toDefault', function(newVal, oldVal) {
     if (newVal) {
@@ -68,16 +86,6 @@ app.controller('leftPanelController1', function(
       $rootScope.toDefault = false;
     }
   });
-
-
-
-  // TODO: THERE HAS TO BE A BETTER WAY TO DO THIS.
-  $scope.$watch('leftListCollapseStatus.isTopicsCollapsed',
-    function(newVal, oldVal) {
-      storageAPIservice.setLeftListStatus($scope.leftListCollapseStatus);
-    }
-  );
-
 
   $scope.$watch('$state.params.entityId', function(newEntityId){
     if (!newEntityId) return;
@@ -130,10 +138,14 @@ app.controller('leftPanelController1', function(
       publicService.signOut();
     }
 
+
+    currentSessionHelper.setCurrentTeam(response.team);
+    $rootScope.team = currentSessionHelper.getCurrentTeam();
+
     memberService.setMember(response.user);
 
-    $rootScope.team = response.team;
-    currentSessionHelper.setCurrentTeam(response.team);
+    // Check socket status when loading.
+    _checkSocketStatus();
 
     // Signed in with token. So there will no account info.
     // Currently, there is no page that uses account info right after user signed in.
@@ -220,9 +232,16 @@ app.controller('leftPanelController1', function(
 
     $rootScope.isReady = true;
 
+    if (_hasAfterLeftInit()) {
+      _broadcastAfterLeftInit();
+      _resetAfterLeftInit();
+    }
     $rootScope.$broadcast('onInitLeftListDone');
   }
 
+  function _checkSocketStatus() {
+    jndWebSocket.checkSocketConnection();
+  }
   function setEntityPrefix() {
     leftpanelAPIservice.setEntityPrefix($scope);
   }
@@ -274,6 +293,10 @@ app.controller('leftPanelController1', function(
     $scope.updateLeftPanelCaller();
   });
 
+  $scope.$on('leftOnMemberListChange', function() {
+    $scope.memberList = currentSessionHelper.getCurrentTeamMemberList();
+  });
+
   $scope.openModal = function(selector) {
     if (selector == 'join') {
       publicService.openJoinModal($scope);
@@ -317,7 +340,7 @@ app.controller('leftPanelController1', function(
   $scope.onTopicClicked = onTopicClicked;
 
   function onTopicClicked(entityType, entityId) {
-    if (publicService.isNullOrUndefined($scope.currentEntity.id)) {
+    if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
       publicService.goToDefaultTopic();
       return;
     }
@@ -411,7 +434,7 @@ app.controller('leftPanelController1', function(
   });
   // Callback function from file finder(navigation) for uploading a file.
   $scope.onFileSelect = function($files) {
-    var fileObject = Object.create(fileService).init($files);
+    var fileObject = Object.create(fileObjectService).init($files);
     if (fileObject.size() > 0) {
       $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
       $scope.fileObject = fileObject;

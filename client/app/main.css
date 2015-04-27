@@ -452,50 +452,125 @@ input[type="button"] {
   background-image: url('../assets/images/icon_signout.png');
 }
 .fileicon {
+  background-image: url('../assets/images/fileicons.png');
   width: 26px;
   height: 31px;
   display: block;
   margin: auto;
 }
-.fileicon_img,
-.fileicon_jpg,
-.fileicon_png,
-.fileicon_gif {
-  background: url('../assets/images/fileicon_img.png') no-repeat;
+.fileicon-img,
+.fileicon-jpg,
+.fileicon-png,
+.fileicon-gif {
+  background-position: -78px -93px;
 }
-.fileicon_pdf {
-  background: url('../assets/images/fileicon_pdf.png') no-repeat;
+.dropbox-fileicon-img,
+.dropbox-fileicon-jpg,
+.dropbox-fileicon-png,
+.dropbox-fileicon-gif {
+  background-position: -104px -93px;
 }
-
-.fileicon_video,
-.fileicon_mp4,
-.fileicon_mov{
-  background: url('../assets/images/fileicon_video.png') no-repeat;
+.google-dirve-fileicon-img,
+.google-dirve-fileicon-jpg,
+.google-dirve-fileicon-png,
+.google-dirve-fileicon-gif {
+  background-position: -130px 0px;
 }
-.fileicon_audio,
-.fileicon_mp3,
-.fileicon_mpeg {
-  background: url('../assets/images/fileicon_audio.png') no-repeat;
+.fileicon-pdf {
+  background-position: 0px -31px;
 }
-.fileicon_txt {
-  background: url('../assets/images/fileicon_txt.png') no-repeat;
+.dropbox-fileicon-pdf {
+  background-position: -26px -31px;
 }
-
-.fileicon_etc {
-  background: url('../assets/images/fileicon_etc.png') no-repeat;
+.google-drive-fileicon-pdf {
+  background-position: -52px -31px;
 }
-.fileicon_zip {
+.fileicon-video,
+.fileicon-mp4,
+.fileicon-mov{
+  background-position: 0px -124px;
+}
+.dropbox-fileicon-video,
+.dropbox-fileicon-mp4,
+.dropbox-fileicon-mov{
+  background-position: -26px -124px;
+}
+.google-drive-fileicon-video,
+.google-drive-fileicon-mp4,
+.google-drive-fileicon-mov{
+  background-position: -52px -124px;
+}
+.fileicon-audio,
+.fileicon-mp3,
+.fileicon-mpeg {
+  background-position: -26px 0px;
+}
+.fileicon-audio,
+.fileicon-mp3,
+.fileicon-mpeg {
+  background-position: -26px 0px;
+}
+.dropbox-fileicon-audio,
+.dropbox-fileicon-mp3,
+.dropbox-fileicon-mpeg {
+  background-position: 0px -93px;
+}
+.google-drive-fileicon-audio,
+.google-drive-fileicon-mp3,
+.google-drive-fileicon-mpeg {
+  background-position: -52px 0px;
+}
+.fileicon-txt {
+  background-position: -130px -31px;
+}
+.dropbox-fileicon-txt {
+  background-position: -130px -62px;
+}
+.google-drive-fileicon-txt {
+  background-position: -130px -93px;
+}
+.fileicon-etc {
+  background-position: -78px 0px;
+}
+.dropbox-fileicon-etc {
+  background-position: -78px -31px;
+}
+.google-drive-fileicon-etc {
+  background-position: 0px -62px;
+}
+.fileicon-zip {
   background: url('../assets/images/fileicon_zip.png') no-repeat;
+  width: 26px;
+  height: 31px;
+  display: block;
+  margin: auto;
 }
-.fileicon_ppt {
-  background: url('../assets/images/fileicon_ppt.png') no-repeat;
+.fileicon-ppt {
+  background-position: 0px 0px;
 }
-.fileicon_excel {
-  background: url('../assets/images/fileicon_excel.png') no-repeat;
+.dropbox-fileicon-ppt {
+  background-position: -26px -93px;
 }
-.fileicon_hwp {
-  background: url('../assets/images/fileicon_hwp.png') no-repeat;
-  background-size: 26px 31px;
+.google-drive-fileicon-ppt {
+  background-position: -52px -93px;
+}
+.fileicon-excel {
+  background-position: -104px 0px;
+}
+.dropbox-fileicon-excel {
+  background-position: -104px -31px;
+}
+.google-drive-fileicon-excel {
+  background-position: -104px -62px;
+}
+.fileicon-hwp {
+  background-position: -26px -62px;
+}
+.dropbox-fileicon-hwp {
+  background-position: -52px -62px;
+}
+.google-drive-fileicon-hwp {
+  background-position: -78px -62px;
 }
 
 .icon-more-member {
@@ -508,6 +583,17 @@ input[type="button"] {
   width: 150px;
   height: 150px;
 }
+
+.integration-google-drive-desc-1 {
+  background-image: url('../assets/images/integration/desc/googledrive-share.png');
+}
+.integration-google-drive-desc-2 {
+  background-image: url('../assets/images/integration/desc/googledrive-filetype.png');
+}
+.integration-google-drive-desc-3 {
+  background-image: url('../assets/images/integration/desc/googledrive-popup.png');
+}
+
 
 .image-background {
   background: url('../assets/images/checkered.png');

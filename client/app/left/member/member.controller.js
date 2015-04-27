@@ -9,10 +9,13 @@
   function currentMemberCtrl($scope, $rootScope, publicService, currentSessionHelper, memberService) {
     var vm = $scope;
 
-    vm.team = currentSessionHelper.getCurrentTeam();
+    (function() {
+      _setCurrentTeam();
+      _setCurrentMember();
+    })();
+
     vm.onCurrentMemberContainerClick = onCurrentMemberContainerClick;
     vm.onSignOutClick = onSignOutClick;
-    vm.member = memberService.getMember();
 
     function onCurrentMemberContainerClick() {
       publicService.openCurrentMemberModal(vm);
@@ -22,8 +25,20 @@
       publicService.signOut();
     }
 
-    $rootScope.$watch('member', function() {
+    function _setCurrentTeam() {
+      vm.team = currentSessionHelper.getCurrentTeam();
+
+    }
+    function _setCurrentMember() {
       vm.member = memberService.getMember();
-    })
+    }
+
+    vm.$on('onCurrentMemberChanged', function() {
+      _setCurrentMember();
+    });
+
+    vm.$on('onTeamInfoUpdated', function() {
+      _setCurrentTeam();
+    });
   }
 })();

@@ -29,7 +29,7 @@
     <!-- WHERE THERE IS AT LEAST ONE PERSON IN MESSAGE LIST -->
     <div ng-if="messageList.length > 0">
       <li class="member cursor_pointer"
-          ng-repeat="userEntity in messageList | orderBy: 'lastLinkId': true"
+          ng-repeat="userEntity in messageList"
           ng-class="{'active': $state.params.entityId == userEntity.id,
                     'messages-list-disabled-member': isDisabledMember(userEntity)}">
 

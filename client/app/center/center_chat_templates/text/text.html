@@ -1,0 +1,37 @@
+  <!--  User Thumbnail -->
+  <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
+       ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+    <img on-image-load class="user-profile user-thumb"
+         ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
+  </div>
+
+  <div class="msg-item-header"
+       ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+    <!--    WRITER-->
+    <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+      <span class="msg-item-header__nameSpace">
+        <span ng-if="msg.message.contentType !== 'file'"> {{msg.fromEntity | getName}}</span>
+      </span>
+
+      <!--    CREATED TIME    -->
+      <span class="msg-item-header__created">
+        {{msg.time | gethmmaFormat}}
+      </span>
+
+      <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+    </span>
+    <!--    DELETE ICON APPEARS ON HOVER    -->
+    <a class="msg-item__action link-remove pull-right cursor_pointer"
+       data-ng-if="member.id === msg.fromEntity"
+       data-ng-click="deleteMessage(msg)"
+       tooltip="{{ '@message-delete' | translate }}">
+      <i class="icon-cancel"></i>
+    </a>
+  </div>
+
+  <div class="msg-item-body">
+    <!-- TEXT -->
+    <div class="msg-text">
+      <p class="msg-text-body keep" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+    </div>
+  </div>

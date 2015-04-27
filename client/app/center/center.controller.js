@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper, currentSessionHelper) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper, currentSessionHelper, logger, centerService) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
 
@@ -13,9 +13,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var entityType = $state.params.entityType;
   var entityId = $state.params.entityId;
 
-  var SCROLL_BOTTOM_THRESHOLD = 60;
+  var SCROLL_BOTTOM_THRESHOLD = 700;
 
-  var updateInterval = 2000;
+  var isLogEnabled = true;
+
 
   $scope.isInitialLoadingCompleted = false;
   $rootScope.isIE9 = false;
@@ -40,17 +41,23 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.entityType = entityType;
   $scope.messages = [];
 
-  $scope.promise = null;        // Polling object.
 
   $scope.message = {};          // Message to post.
 
-  var firstMessageId,           // 현재 엔티티가 가지고 있는 가장 위 메세지 아이디.
-    lastMessageId,              // 현재 엔티티가 가지고 있는 가장 아래 메세지 아이디.
-    localFirstMessageId,        // 메세지들 중 가장 위에 있는 메세지 아이디.
-    localLastMessageId,         // 메세지들 중 가낭 아래에 있는 메세지 아이디.
-    loadedFirstMessagedId, // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
-    loadedLastMessageId,        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
-    systemMessageCount;
+  var firstMessageId;             // 현재 엔티티가 가지고 있는 가장 위 메세지 아이디.
+  var lastMessageId;              // 현재 엔티티가 가지고 있는 가장 아래 메세지 아이디.
+  var localFirstMessageId;        // 메세지들 중 가장 위에 있는 메세지 아이디.
+  var localLastMessageId;         // 메세지들 중 가낭 아래에 있는 메세지 아이디.
+  var loadedFirstMessagedId;      // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
+  var loadedLastMessageId;        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
+
+  var systemMessageCount;         // system event message의 갯수를 keep track 한다.
+
+  var hasRetryGetRoomInfo;        // Indicates that whether current entity has failed getting room info once.
+  var lastLinkIdToCount;
+  var memberIdToLastLinkId;
+
+  var messages = {};
 
   $scope.isMessageSearchJumping = false;
 
@@ -59,65 +66,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loading: false,
     loadingTimer : false // no longer using.
   };
-
-  $scope.updateLeftPanel = updateLeftPanel;
-
-  $scope.isOwner = function() {
-    return ($rootScope.currentEntity.ch_creatorId || $rootScope.currentEntity.pg_creatorId) == memberService.getMemberId();
-  };
-  $scope.isDefaultTopic = function() {
-    return _isDefaultTopic();
-  };
-  $scope.onLeaveClick = function(channelType) {
-    var isLeaveChannel;
-
-    log('-- leaving');
-
-    isLeaveChannel = channelType === 'privategroups' ? confirm($filter('translate')('@ch-menu-leave-private-confirm')) : true;
-
-    if (isLeaveChannel) {
-      entityheaderAPIservice.leaveEntity($scope.currentEntity.type, $scope.currentEntity.id)
-        .success(function(response) {
-          log('-- good');
-          // analytics
-          var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
-
-          analyticsService.mixpanelTrack( "Entity Leave" , { "type": entity_type } );
-          updateLeftPanel();
-        })
-        .error(function(error) {
-          alert(error.msg);
-        });
-    }
-  };
-
-  $scope.onDeleteTopicClick = function () {
-    if (confirm($filter('translate')('@ch-menu-delete-confirm'))) {
-      entityheaderAPIservice.deleteEntity($scope.currentEntity.type, $scope.currentEntity.id)
-        .success(function() {
-          $scope.updateLeftPanel();
-
-          fileAPIservice.broadcastChangeShared();
-
-          // analytics
-          var entity_type = analyticsService.getEntityType($scope.currentEntity.type);
-          analyticsService.mixpanelTrack("Entity Delete", { "type": entity_type });
-        })
-        .error(function(error) {
-          console.log(error.msg);
-        });
-    }
-  };
-
-  $scope.onMeesageLeaveClick = function(entityId) {
-    $rootScope.$broadcast('leaveCurrentChat', entityId);
-  };
-  function updateLeftPanel() {
-    $scope.updateLeftPanelCaller();
-    $rootScope.toDefault = true;
-  }
-
-  //  END OF PANEL HEADER FUNCTIONS
 
   (function() {
     _onStartUpCheckList();
@@ -132,7 +80,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       loadMore();
     }
 
-    $scope.promise = $timeout(updateList, updateInterval);
+    //$scope.promise = $timeout(updateList, updateInterval);
   })();
 
   function _init() {
@@ -158,35 +106,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onStartUpCheckList() {
+    centerService.preventChatWithMyself(entityId);
     _checkIE9();
-    //_hasCorrectEntityType();
-    _isMyself();
   }
 
   function _checkIE9() {
-    if (angular.isDefined(FileAPI.support)) {
-      if (!FileAPI.support.html5)
-        $rootScope.isIE9 = true;
-    }
-  }
-  function _hasCorrectEntityType() {
-    // TODO: REFACTOR | TO entityAPIservice - WHOLE BLOCK WITH MEANINGFUL NAME.
-    // CALL FUNCTION INSTEAD OF LINES OF CODE
-    // Check entityType first.
-    if (entityType.slice(-1) != 's') {
-      // If entitytype doesn't contain 's' at the end, do nothing about it.
-      // Let router handle this case.
-      // Router will redirect user to same entityType with 's' at the end.
-      return;
-    }
-  }
-  function _isMyself() {
-
-    if (!$rootScope.member) return;
-    if (entityId == $rootScope.member.id) {
-      // Go to default Topic.
-      $rootScope.toDefault = true;
-    }
+    $rootScope.isIE9 = centerService.isIE9();
   }
 
   function _setDefaultLoadingScreen() {
@@ -197,7 +122,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _initMsgSearchQuery() {
-    //console.log('initing msgSearchQuery')
+    //log('initing msgSearchQuery')
     $scope.msgSearchQuery = {
       count: DEFAULT_MESSAGE_UPDATE_COUNT
     };
@@ -211,6 +136,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     systemMessageCount = 0;
 
+    _resetUnreadCounters();
+
     _resetNewMsgHelpers();
   }
 
@@ -222,6 +149,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.groupMsgs = [];
     $scope.messages = [];
     $scope.isMessageSearchJumping = false;
+    messages = {};
   }
 
   $scope.$on('jumpToMessageId', function(event, params) {
@@ -253,10 +181,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function groupByDate() {
-    // 중복 메세지 제거 (TODO 매번 모든 리스트를 다 돌리는게 비효율적이지만 일단...)
-    $scope.messages = _.uniq($scope.messages);
-
-    //console.log($scope.messages)
+    messages = {};
     for (var i in $scope.messages) {
       var msg = $scope.messages[i];
 
@@ -285,7 +210,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       } else if (msg.message.contentType === 'text') {
         msg.message.isText = true;
       }
+
+      messages[msg.id] = {
+        index: i,
+        message: msg
+      };
     }
+
     $scope.groupMsgs = [];
     $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
       return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
@@ -323,17 +254,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       $scope.msgLoadStatus.loading = true;
       $scope.isPolling = false;
 
-      log('-- loadMore');
+      //log('-- loadMore');
 
       // simulate an ajax request
       $timeout(function() {
 
-        //console.log($scope.msgSearchQuery)
+        //log($scope.msgSearchQuery)
 
         // 엔티티 메세지 리스트 목록 얻기
         messageAPIservice.getMessages(entityType, entityId, $scope.msgSearchQuery)
           .success(function(response) {
-            log('  -- loadMore success');
+            //log('  -- loadMore success');
+
             firstMessageId = response.firstLinkId;
             lastMessageId = response.lastLinkId;
             lastUpdatedLinkId = response.globalLastLinkId;
@@ -349,6 +281,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
             //  marker 설정
             updateMessageMarker();
+            _setUnreadCount();
 
             // 추후 로딩을 위한 status 설정
             $scope.msgLoadStatus.loading = false;
@@ -407,7 +340,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     for (var i in messagesList) {
       var msg = messagesList[i];
-
       // jihoon
       if (msg.status == 'event') {
         // System Message.
@@ -446,12 +378,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hasMoreOldMessageToLoad() {
-    //console.log(localFirstMessageId)
-    //console.log(firstMessageId)
-    //console.log(lastMessageId)
+    //log(localFirstMessageId)
+    //log(firstMessageId)
+    //log(lastMessageId)
 
     if (lastMessageId == -1) {
-      //console.log('new team first topic welcome')
+      //log('new team first topic welcome')
       return false;
     }
 
@@ -460,7 +392,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return localFirstMessageId != firstMessageId;
   }
   function _hasMoreNewMessageToLoad() {
-    //console.log('localLastMessageId: ', localLastMessageId, 'lastMessageId: ', lastMessageId, 'Has more newer message: ', localLastMessageId < lastMessageId)
+    //log('localLastMessageId: ', localLastMessageId, 'lastMessageId: ', lastMessageId, 'Has more newer message: ', localLastMessageId < lastMessageId)
     return localLastMessageId < lastMessageId;
   }
   function _isLoadingNewMessages() {
@@ -469,7 +401,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.onLastMessageRendered = function () {
     _updateScroll();
-    _checkMessageContainerHeight();
   };
 
   function _updateScroll() {
@@ -486,7 +417,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     if (_isLoadingNewMessages()) {
-      //console.log('-- updateScroll: load new message')
+      //log('-- updateScroll: load new message')
 
       var temp = angular.element(document.getElementById(localFirstMessageId));
       _animateBackgroundColor(temp);
@@ -495,7 +426,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     if (loadedFirstMessagedId == -1) return;
 
-    //console.log('-- updateScroll: load old message')
+    //log('-- updateScroll: load old message')
 
     _disableScroll();
 
@@ -543,7 +474,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   // TODO: NOT A GOOD NAME. WHEN FUNCTION NAME STARTS WITH 'is' EXPECT IT TO RETURN BOOLEAN VALUE.
   // Current 'isAtBottom' function is not returning boolean. PLEASE CHANGE THE NAME!!
-  $scope.isAtBottom = function() {
+  $scope.clearNewMessageAlerts = function() {
+    //console.log('this is isAtBottom')
     _clearBadgeCount($scope.currentEntity);
     _resetNewMsgHelpers();
   };
@@ -556,9 +488,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _hasLastMessage() {
-    //console.log('localLastMessageId: ', localLastMessageId );
-    //console.log('lastMessageId: ',  lastMessageId);
-    //console.log('hasLastMessage: ', localLastMessageId == lastMessageId);
+    //log('localLastMessageId: ', localLastMessageId );
+    //log('lastMessageId: ',  lastMessageId);
+    //log('hasLastMessage: ', localLastMessageId == lastMessageId);
     return localLastMessageId == lastMessageId;
   }
   function _hasBottomReached() {
@@ -613,19 +545,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return $scope.isMessageSearchJumping;
   }
 
-
-
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
-  // TODO: [건의사항] 웹에서는 polling 보다는 websocket이 더 효과적일듯
   var lastUpdatedLinkId = -1;
-  function updateList () {
-
-    //console.log('-- updateList');
-
+  function updateList() {
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
     if ($scope.msgLoadStatus.loading) {
-      $scope.promise = $timeout(updateList, updateInterval);
       return;
     }
 
@@ -634,10 +559,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(function (response) {
 
-        // jihoon
-        if (response.alarm.alarmCount != 0) updateAlarmHandler(response.alarm);
-        if (response.event.eventCount != 0) updateEventHandler(response.event);
-
         // lastUpdatedId 갱신 --> lastMessageId
         lastUpdatedLinkId = response.lastLinkId;
 
@@ -645,33 +566,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         if (response.messageCount) {
 
-          //console.log(response)
           if (!_hasLastMessage()) {
-            // New message Came in, but I'm not currently looking at older messages without loading latest message.
-            // Do whatever needs to be done, and return from here.
-            // Do not update messages.
             _gotNewMessage();
             return;
           }
-
-          // When there is a message to update on current topic.
-          localLastMessageId = lastUpdatedLinkId;
-          loadedLastMessageId = localLastMessageId;
-          lastMessageId = localLastMessageId;
-
-          //  marker 설정
-          updateMessageMarker();
-
-          // Update message marker first and the update message list!!
-          // Update message list
-          $rootScope.$broadcast('updateMessageList');
 
 
           // 업데이트 된 메세지 처리
           if (response.messages.length > 0) {
             for (var i in response.messages) {
               var msg = response.messages[i];
-//                        console.log("[ updated", msg.id, " and last at ", currentLast,  "]");
+
+              if (localLastMessageId >= msg.id) {
+                // Prevent duplicate messages in center panel.
+                return;
+              }
 
               if ($scope.isPosting)
                 $scope.isPosting = false;
@@ -679,13 +588,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
               // auto focus to textarea
               $scope.focusPostMessage = true;
 
-              if ( msg.status == 'event' ) {
+              if (msg.status == 'event') {
                 // System Event Message.
                 msg = eventMsgHandler(msg);
                 $scope.messages.push(msg);
-                _updateSystemEventMessageCounter();
+                _handleSystemEventMessage();
                 continue;
               } else {
+                log('not a system event message ');
+                var isArchived = false;
+
+                // Non System Event Message.
                 switch (msg.status) {
                   case 'created':
                     $scope.messages.push(msg);
@@ -701,13 +614,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     }
                     break;
                   case 'archived':
+
                     var target = _.find($scope.messages, function(m) {
                       return m.messageId === msg.messageId;
                     });
+
                     if (!_.isUndefined(target)) {
                       var targetIdx = $scope.messages.indexOf(target);
                       $scope.messages.splice(targetIdx, 1);
+                      isArchived = true;
                     }
+
                     break;
                   case 'shared':
                     msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
@@ -730,6 +647,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                     console.error("!!! unfiltered message", msg);
                     break;
                 }
+                if (!isArchived)
+                  _newMessageAlertChecker(msg);
               }
 
               var safeBody = msg.message.content.body;
@@ -737,41 +656,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                 safeBody = $filter('parseAnchor')(safeBody);
               }
               msg.message.content.body = $sce.trustAsHtml(safeBody);
-
             }
 
             groupByDate();
           }
 
-          if (_isMessageFromMe(msg)) {
-            _scrollToBottom();
-            return;
-          }
+          //  marker 설정
+          updateMessageMarker();
 
-          //console.log('updatelist')
-          if (_hasBrowserFocus()) {
-            //console.log('window with focus')
-
-            if (_hasBottomReached()) {
-              //console.log('bottom reached and scrolling to bottom');
-              _scrollToBottom();
-            } else {
-              if (msg.status != 'event') {
-                //console.log('window without focus');
-                _gotNewMessage();
-              }
-            }
-          } else {
-            //console.log('window without focus');
-
-            if (msg.status != 'event') {
-              //console.log('this is system event.')
-              _gotNewMessage();
-            } else {
-            }
-          }
+          // When there is a message to update on current topic.
+          localLastMessageId = lastUpdatedLinkId;
+          loadedLastMessageId = localLastMessageId;
+          lastMessageId = localLastMessageId;
 
           _checkEntityMessageStatus();
+
         }
 
       })
@@ -780,15 +679,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
 
     // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
-    $scope.promise = $timeout(updateList, updateInterval);
+    //$scope.promise = $timeout(updateList, updateInterval);
   }
 
   function onHttpRequestError(response) {
     //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
     if (response.code == CURRENT_ENTITY_ARCHIVED) {
-      //console.log('okay channel archived');
+      //log('okay channel archived');
       $scope.updateLeftPanelCaller();
-      $rootScope.toDefault = true;
+      publicService.goToDefaultTopic();
       return;
     }
 
@@ -806,7 +705,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       return;
     }
 
-    $rootScope.toDefault = true;
+    publicService.goToDefaultTopic();
 
   }
 
@@ -814,10 +713,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateMessageMarker() {
     messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
       .success(function(response) {
-        //console.log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
+        //log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
       })
       .error(function(response) {
-        console.log('message marker not updated for ' + $scope.currentEntity.id);
+        log('message marker not updated for ' + $scope.currentEntity.id);
       });
   }
 
@@ -828,31 +727,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     log('-- posting message');
 
     // prevent duplicate request
-//        $scope.msgLoadStatus.loading = true;
     $scope.isPosting = true;
     var msg = $scope.message.content;
     $scope.message.content = "";
-
-    //if (msg === 'stop') {
-    //    console.log('stoping polling')
-    //    $timeout.cancel($scope.promise);
-    //    return;
-    //}
-    $timeout.cancel($scope.promise);
 
     messageAPIservice.postMessage(entityType, entityId, {'content': msg})
       .success(function(response) {
         $scope.isPosting = false;
 
         log('-- posting message success');
+
         //  reseting position of msgs
         $('.msgs').css('margin-bottom', 0);
 
-        if (_hasLastMessage()) {
-          //console.log('posting - regular')
-          updateList();
-        } else {
-          //console.log('posing - search mode')
+        if (!_hasLastMessage()) {
+          log('posting - search mode')
           _refreshCurrentTopic();
         }
       })
@@ -867,23 +756,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var message = {"content": updateContent};
     messageAPIservice.editMessage(entityType, entityId, messageId, message)
       .success(function(response) {
-        $timeout.cancel($scope.promise);
-        updateList();
       })
       .error(function(response) {
         $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.editMessage"});
       });
   };
   $scope.deleteMessage = function(message) {
-    //console.log("delete: ", message.messageId);
+    log("delete: ", message.messageId);
     messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
       .success(function(response) {
-        $timeout.cancel($scope.promise);
-        updateList();
-        $rootScope.$broadcast('updateMessageList')
       })
       .error(function(response) {
-        $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.deleteMessage"});
+        updateList();
       });
   };
   $scope.openModal = function(selector) {
@@ -911,28 +795,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     }
   };
-
-  /*
-   *  $scope.messages 중 shared entity 변화가 일어난 경우 추가/삭제 처리
-   */
-  $scope.$on('onChangeShared', function(event, data) {
-    // 파일업로드인 경우엔 어차피 polling시 패널을 갱신하기 때문에 예외 처리
-    if (_.isNull(data)) return;
-    // share / unshare 경우
-    _.each($scope.messages, function(msg) {
-      if (msg.messageId === data.messageId) {
-        // TODO 변경된 shareEntities를 얻기 위해 일단 파일 상세정보를 모두 가져옴
-        fileAPIservice.getFileDetail(msg.messageId).success(function(response) {
-          for (var i in response.messageDetails) {
-            var item = response.messageDetails[i];
-            if (item.contentType === 'file') {
-              msg.message.shared = fileAPIservice.getSharedEntities(item);
-            }
-          }
-        });
-      }
-    });
-  });
 
   // TODO rightpanelController 로직 중복 해결 필요
   $scope.onClickSharedEntity = function(entityId) {
@@ -980,52 +842,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
 
 
-  // Listen to file delete event.
-  // Find deleted file id from current list($scope.messages).
-  // If current list contains deleted file, change its status to 'archived'.
-  $scope.$on('onFileDeleted', function(event, deletedFileId) {
-    _.forEach($scope.messages, function(message) {
-      var file;
-      //console.log('hi', deletedFileId);
-      //console.log(message.message);
-
-      //msg.message.contentType === 'systemEvent
-      //msg.message.commentOption.isTitle }}
-      //<div ng-if="!msg.message.commentOption.isTitle">
-      //{{ msg.feedback.status}}
-
-
-      // Is it file?
-      if (message.message.contentType == 'file')
-        file = message.message;
-      else if (message.message.contentType == 'comment') {
-        file = message.feedback;
-      }
-
-      // If not, continue to next message.
-      if (angular.isUndefined(file)) return;
-
-      // If this file deleted?
-      if (file.id == deletedFileId) {
-        file.status = 'archived';
-      }
-    });
-
-  });
 
   $scope.onSmallThumbnailClick = function($event, message) {
 
     //  checking type first.
     //  file upload but not image -> return
-    if (message.message.contentType === 'file')
-      if (message.message.content.type.indexOf('image') < 0)
+    if (message.message.contentType === 'file') {
+      if (message.message.content.filterType.indexOf('image') < 0) {
         return;
+      }
+    }
 
     // comment but not to image file -> return
     if (message.message.contentType === 'comment'){
-      //if (message.feedback.content.type.indexOf('image') < 0 || message.feedback.status == 'archived') {
       return;
-      //}
     }
 
     // Image is long but not wide. There may be a white space on each side of an image.
@@ -1139,7 +969,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
 
   // get all style attributes of targetDom
-  // and pick correct 'transform' arrtibute.
+  // and pick correct 'transform' attribute.
   // and return exact same property.
   function getTransformValue(targetDomStyle) {
 
@@ -1184,138 +1014,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$emit('updateFileWriterId', userId);
   };
 
-  // SYSTEM EVENT.
-  //  'event' field if not empty when,
-  //      1. create channel
-  //      2. leave channel
-  //      3. archive(delete) channel
-  //      4. invite someone to channel
-  function updateEventHandler(event) {
-    if (event.eventCount == 0) return;
-
-    //console.log('event count: ', event.eventCount);
-
-    var eventTable = event.eventTable;
-
-    //  true, if left panel must be updated.
-    //  otherwise, false.
-    var mustUpdateLeftPanel = false;
-
-//        console.log('There are some system events');
-//        console.log('There are ' + event.eventCount)
-//        console.log(eventTable);
-
-    _.find(eventTable, function(event, index, list) {
-//            console.log(event);
-      if (event.info.eventType == 'invite') {
-        //  'INVITE' event.
-        //  ASSUMPTION 1. YOU CAN ONLY INVITE TO ONE CHANNEL. -> toEntity can have only one element.
-        //  ASSUMPTION 2. YOU CAN'T INVITE SOMEONE TO DIRECT MESSAGE.  -> toEntity must be id of either channel or privateGroup.
-
-        //  someone invited 'ME' to some channel.
-        if (_.contains(event.info.inviteUsers, $scope.member.id)) {
-//                    console.log('someone invited me')
-          mustUpdateLeftPanel = true;
-          return;
-        }
-
-        //  I invited someone.
-        //  If I invited someone on web, it doesn't really matter.
-        //  But if I invited someone from different device(mobile), I need to update leftPanel on web.
-        if (event.info.invitorId == $scope.member.id) {
-//                    console.log('I invited someone')
-          mustUpdateLeftPanel = true;
-          return;
-        }
-
-        var updateEntity = entityAPIservice.getEntityFromListById($rootScope.joinedEntities, event.toEntity[0]);
-
-        if (updateEntity) {
-//                    console.log('someone invited someone to some channel that I am in');
-          mustUpdateLeftPanel = true;
-          return;
-        }
-      }
-      else if (event.info.eventType == 'join' || event.info.eventType == 'leave') {
-        //  'JOIN' event
-        var isJoin = event.info.eventType == 'join' ? true : false;
-
-        if (isJoin && _isDefaultTopic()) {
-          // Someone joined to default topic -> get new member list.
-          console.log('welcome to team')
-          mustUpdateLeftPanel = true;
-        }
-
-        //  I joined some channel from mobile.  Web needs to UPDATE left Panel.
-        if (event.fromEntity == $scope.member.id) {
-
-          //  leave event of myself cannot get here!
-//                    console.log('I joined something');
-
-          mustUpdateLeftPanel = true;
-          return;
-        }
-
-        var updateEntity = entityAPIservice.getEntityFromListById($rootScope.joinedEntities, event.toEntity[0]);
-        if (updateEntity) {
-          //if (isJoin) console.log('Someone joined to related entity')
-          //else console.log('Someone left related entity')
-
-          mustUpdateLeftPanel = true;
-          return;
-        }
-      }
-      else if (event.info.eventType == 'create') {
-        //  'CREATE' event
-        //  Someone created channel 'a',
-        //  I should be able to see channel 'a' as one of available channels
-        //  when attempting to join other channel.
-        //  No matter who created what, just update left panel.
-
-//                console.log('create')
-        if (event.fromEntity == $scope.member.id) {
-//                    console.log('I created channel')
-        }
-        else {
-//                    console.log('someone created channel')
-        }
-        mustUpdateLeftPanel = true;
-        return;
-      }
-      else if (event.info.eventType == 'archive') {
-        //  'ARCHIVE' event
-        //  ASSUMPTION 1. YOU CAN ARCHIVE ONLY ONE ENTITY AT A TIME.
-        //  Same reason as 'archive' situation, just update left panel.
-        //  TODO: HANDLE SITUATION WHEN SOMEONE ARCHIVED CURRENT ENTITY
-        //  TODO: ERROR HANDLER WILL HANDLE ABOVE SITUATION.
-
-        mustUpdateLeftPanel = true;
-
-        if (event.toEntity[0] == $scope.currentEntity.id) {
-//                    $timeout.cancel($scope.promise);
-//
-//                    console.log('someone archived current channel')
-//                    $state.go('messages');
-          return;
-        }
-        else {
-//                    console.log('someone archived some channel')
-        }
-        return;
-      }
-      else {
-        console.error(event);
-      }
-
-      return mustUpdateLeftPanel;
-    });
-
-    if (mustUpdateLeftPanel) {
-      $scope.$emit('updateLeftPanelCaller');
-    }
-
-  }
-
   function eventMsgHandler(msg) {
     var newMsg = msg;
     newMsg.eventType = '/' + msg.info.eventType;
@@ -1356,14 +1054,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return newMsg;
   }
 
-
-  // scope 소멸시(전환시) update polling 해제
-  $scope.$on('$destroy', function(){
-    $timeout.cancel($scope.promise);
-  });
-
   function log(string) {
-    //console.log(string);
+    if (isLogEnabled) logger.log(string)
   }
 
   //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.
@@ -1398,68 +1090,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.isDisabledMember = function(member) {
     return publicService.isDisabledMember(member);
   };
-
-  // NEW MESSAGE
-  //  if 'alarm' field in response from update call is not empty,
-  //  we need to handle alarm(s).
-  //  'alarm' field is not empty when
-  //      1. someone posts new messages in any channel.  Channel includes
-  //        a. joined channel.
-  //        b. not joined channel.
-  //        c. 1:1 direct message.
-  //      2. someone shares/comment on file.
-  function updateAlarmHandler(alarm) {
-    if (alarm.alarmCount == 0) return;
-
-    var alarmTable = alarm.alarmTable;
-
-    _.each(alarmTable, function(element, index, list) {
-      // Alarm is from me.  Don't worry about this.
-      if (element.fromEntity == $scope.member.id) return;
-
-      var updateEntity;
-
-      //  'toEntity' may be an array.
-      _.each(element.toEntity, function(toEntityElementId, index, list) {
-
-        // Compare 'toEntityElementId' to
-        //  entityId(local variable) - for private and public topics
-        //  or
-        //  $scope.currentEntity.entityId - for users.
-        if (toEntityElementId === parseInt(entityId) || toEntityElementId === $scope.currentEntity.entityId) {
-          // 'Alarm' also contains a new message info for current entity which comes in response.updateInfo in updateList.
-          // toEntityElementId which came in as api response is number type while 'entityId' is a String type.
-          // Convert entityId from String type to number then compare to 'toEntityElementId'.
-          return false;
-        }
-
-        //console.log('alarm to other room');
-        // updateEntity is not undefined in case of either public or private topic.
-        updateEntity = entityAPIservice.getEntityFromListById($scope.joinEntities, toEntityElementId);
-
-        if (angular.isUndefined(updateEntity)) {
-          // updateEntity is not undefined in case of member.
-          updateEntity = entityAPIservice.getEntityFromListByEntityId($scope.memberList, toEntityElementId);
-        }
-
-        // if updateEntity is still undefined, don't worry about it.
-        if (angular.isUndefined(updateEntity)) { return; }
-
-        if (updateEntity.type == 'users') {
-          $rootScope.$broadcast('updateMessageList')
-        }
-        //  If 'toEntity' is an entity that I'm currently looking at, check browser's visibility state.
-
-        if (updateEntity == $scope.currentEntity && _hasBrowserFocus()) return;
-
-        var toEntity = entityAPIservice.getEntityFromListById($scope.totalEntities, element.fromEntity);
-
-        //console.log('sedning out notification')
-        desktopNotificationService.addNotification(toEntity, updateEntity);
-        entityAPIservice.updateBadgeValue(updateEntity, -1);
-      });
-    });
-  }
 
   /**
    * Check whether msg is from myself.
@@ -1515,7 +1145,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   /********************************************
 
-           EMPTY MESSAGE.
+   EMPTY MESSAGE.
 
    ********************************************/
   $scope.$on('onInitLeftListDone', function() {
@@ -1541,7 +1171,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       emptyMessageStateHelper = 'NO_MEMBER_IN_TOPIC';
     }
 
-    //console.log(emptyMessageStateHelper)
+    //log(emptyMessageStateHelper)
     $scope.emptyMessageStateHelper = emptyMessageStateHelper;
     $rootScope.$broadcast('onEntityMessageStatusChanged', emptyMessageStateHelper);
   }
@@ -1549,7 +1179,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _amIAlone() {
     var memberCount = entityAPIservice.getMemberLength($rootScope.currentEntity);
 
-    //console.log('this is _alIAlone ', memberCount, ' returning ', memberCount == 1)
+    //log('this is _alIAlone ', memberCount, ' returning ', memberCount == 1)
 
     return memberCount == 1;
   }
@@ -1557,7 +1187,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _hasNoMessage() {
     var messageLength = $scope.messages.length;
 
-    //console.log(messageLength, systemMessageCount, !_hasMoreOldMessageToLoad())
+    //log(messageLength, systemMessageCount, !_hasMoreOldMessageToLoad())
     if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength <= 1)) return true;
 
     return false;
@@ -1569,7 +1199,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _isSoloTeam() {
     var activeMemberCount = currentSessionHelper.getCurrentTeamMemberCount();
-    //console.log('this is _isSoloTeam ', activeMemberCount, ' returning ', activeMemberCount == 0);
+    //log('this is _isSoloTeam ', activeMemberCount, ' returning ', activeMemberCount == 0);
 
     return activeMemberCount == 0;
   }
@@ -1581,7 +1211,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // $scope.memberList does not include myself.
     var totalTeamMemberCount = currentSessionHelper.getCurrentTeamMemberCount() + 1;
 
-    //console.log('this is _isFullRoom ', totalTeamMemberCount,' and ', currentEntityMemberCount, ' returning ', currentEntityMemberCount == totalTeamMemberCount);
+    //log('this is _isFullRoom ', totalTeamMemberCount,' and ', currentEntityMemberCount, ' returning ', currentEntityMemberCount == totalTeamMemberCount);
     return currentEntityMemberCount == totalTeamMemberCount;
   }
 
@@ -1589,29 +1219,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return currentSessionHelper.isDefaultTopic($rootScope.currentEntity);
   }
 
-  /**
-   * Check height of '#msgs-container' and '#msgs-holder'.
-   *
-   * If height of '#msgs-holder' is bigger than that of '#msgs-container',
-   *   reload once more in order to fill the screen.
-   *
-   * @private
-   */
-  function _checkMessageContainerHeight() {
-    //var messageContainer = angular.element(document.getElementById('msgs-container'));
-    //var messages = angular.element(document.getElementById('msgs-holder'));
-    //
-    //var messageContainerHeight = messageContainer.outerHeight();
-    //var messagesHeight = messages.outerHeight();
-    //
-    //if (messagesHeight < messageContainerHeight) {
-    //  loadOldMessages();
-    //}
-  }
-
   /********************************************
 
-          NEW MESSAGE ALERT.
+   NEW MESSAGE ALERT.
 
    ********************************************/
 
@@ -1628,14 +1238,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _resetHasScrollToBottom();
   }
   function _resetNewMsgAlert() {
-    $scope.hasNewMsg = false;
+    $timeout(function() {
+      $scope.hasNewMsg = false;
+    });
   }
   function _resetHasScrollToBottom() {
-    $scope.hasScrollToBottom = false;
+   $timeout(function() {
+     $scope.hasScrollToBottom = false;
+   });
   }
 
   $scope.onHasNewMessageAlertClicked = onHasNewMessageAlertClicked;
   function onHasNewMessageAlertClicked() {
+    _clearBadgeCount($scope.currentEntity);
     _newMsgHelper();
     _resetNewMsgHelpers();
   }
@@ -1668,7 +1283,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    *  @private
    */
   function _gotNewMessage() {
-    //console.log('_gotNewMessage')
+    log('_gotNewMessage')
     $scope.hasNewMsg = true;
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
   }
@@ -1677,11 +1292,346 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _getEntityId() {
     var id;
     if (entityType === 'users') {
-      id = $scope.currentEntity.entityId;
+      id = currentSessionHelper.getCurrentEntity().entityId;
     } else {
-      id = $scope.currentEntity.id;
+      id = currentSessionHelper.getCurrentEntity().id;
     }
-
     return id;
   }
+
+  $scope.$on('centerUpdateChatList', function() {
+    updateList();
+  });
+
+  /**
+   * Decide to whether display badge or not.
+   *
+   * Display badge and new message alert bar only when
+   *  1. message is not written by me AND
+   *  2. scroll is not currently at the bottom AND
+   *  3. window doesn't have focus state.
+   *
+   * @param msg
+   * @private
+   */
+  function _newMessageAlertChecker(msg) {
+    // If message is from me -> I just wrote a message -> Just scroll to bottom.
+    if (_isMessageFromMe(msg)) {
+      _scrollToBottom();
+      return;
+    }
+
+    // Message is not from me -> Someone just wrote a message.
+    if (_hasBottomReached()) {
+      //log('window with focus')
+      if (_hasBrowserFocus()) {
+        //log('bottom reached and scrolling to bottom');
+        _scrollToBottom();
+        return;
+      }
+    }
+    _gotNewMessage();
+  }
+
+  /**
+   * Decide whether to scroll to bottom on system event message.
+   *
+   * @private
+   */
+  function _handleSystemEventMessage() {
+    _updateSystemEventMessageCounter();
+
+    if (_hasLastMessage() && _hasBottomReached()) {
+      _scrollToBottom();
+    }
+  }
+
+
+
+
+
+
+  function _resetUnreadCounters() {
+    hasRetryGetRoomInfo = false;
+    lastLinkIdToCount = {};
+    memberIdToLastLinkId = {};
+  }
+
+
+  /**
+   * Increment count value in 'lastLinkIdToCount'
+   *
+   * If lastLinkIdToCount[lastLinkId] does not exist, set it to 1.
+   *
+   * @param lastLinkId
+   * @private
+   */
+  function _putLastLinkId(lastLinkId, memberId) {
+    if (lastLinkIdToCount[lastLinkId]) {
+      var currentObj = lastLinkIdToCount[lastLinkId];
+
+      if (currentObj.members[memberId]) {
+        // 이미 memberId의 마커 정보가 저장되어있음.
+      } else {
+        // 새로운 마커를 추가.
+        var members = currentObj.members;
+        members[memberId] = true;
+        currentObj.count = currentObj.count + 1;
+
+        lastLinkIdToCount[lastLinkId] = currentObj;
+      }
+
+
+    } else {
+      // 기존에 없을 경우 새로 추가.
+      var members = {};
+      members[memberId] = true;
+
+
+      var obj = {
+        members: members,
+        count: 1
+      };
+
+      lastLinkIdToCount[lastLinkId] = obj;
+
+    }
+    //console.log('lastLinkId to count ', lastLinkIdToCount[lastLinkId]);
+  }
+
+  /**
+   * Put (memberId, lastLinkId) key-value pair in memberIdToLastLinkId map.
+   *
+   * @param memberId
+   * @param lastLinkId
+   * @private
+   */
+  function _putMemberIdToLastLinkId(memberId, lastLinkId) {
+    memberIdToLastLinkId[memberId] = lastLinkId;
+    //console.log('member id to last link ', memberIdToLastLinkId[memberId]);
+  }
+
+  /**
+   * Put new marker by adding both value to both 'lastLinkIdToCount' and 'memberIdToLastLinkId'.
+   *
+   * @param memberId
+   * @param lastLinkId
+   * @private
+   */
+  function _putNewMarker(memberId, lastLinkId) {
+    if (memberId === memberService.getMemberId()) {
+      return;
+    }
+    //console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
+    _putLastLinkId(lastLinkId, memberId);
+    _putMemberIdToLastLinkId(memberId, lastLinkId);
+  }
+
+  /**
+   * Iterate through markers list from server and put marker.
+   *
+   * @param markers
+   * @private
+   */
+  function _initMarkers(markers) {
+    //console.log('start initializing markers', markers);
+
+    _.forEach(markers, function(marker) {
+      //console.log(marker)
+      _putNewMarker(marker.memberId, marker.lastLinkId);
+    });
+
+    _updateUnreadCount();
+  }
+
+  function _updateMarker(memberId, lastLinkId) {
+    //console.log('update marker for ', memberId, ' to ', lastLinkId)
+    _removeMarker(memberId);
+    _putNewMarker(memberId, lastLinkId);
+  }
+
+  /**
+   * Remove marker by removing corresponding data from 'lastLinkIdToCount' and 'memberIdToLastLinkId'.
+   *
+   * @param memberId
+   * @private
+   */
+  function _removeMarker(memberId) {
+    var oldLastLinkId = _getLastLinkIdofMemberId(memberId);
+
+    if (publicService.isNullOrUndefined(oldLastLinkId)) return;
+
+    //console.log('decrementing count for ', oldLastLinkId, 'from ', lastLinkIdToCount[oldLastLinkId]);
+
+    var currentMarkerObj = lastLinkIdToCount[oldLastLinkId];
+    // Remove memberId from members.
+    delete currentMarkerObj.members[memberId];
+
+    var newSizeOfMembers = _.size(currentMarkerObj.members);
+
+    if (newSizeOfMembers === 0) {
+      delete lastLinkIdToCount[oldLastLinkId];
+    } else {
+      currentMarkerObj.count = newSizeOfMembers;
+    }
+
+    _removeMemberId(memberId);
+  }
+
+  /**
+   * get lastLinkId of memberId.
+   *
+   * @param memberId
+   * @returns {*}
+   * @private
+   */
+  function _getLastLinkIdofMemberId(memberId) {
+    return memberIdToLastLinkId[memberId];
+  }
+
+  /**
+   * Remove memberId from 'memberIdToLastLinkId'.
+   *
+   * @param memberId
+   * @private
+   */
+  function _removeMemberId(memberId) {
+    delete memberIdToLastLinkId[memberId];
+  }
+  function _updateUnreadCount() {
+    var globalUnreadCount;
+
+    if (centerService.isChat()) {
+      globalUnreadCount = 1;
+    } else {
+      globalUnreadCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity()) - 1;
+    }
+
+    //console.log('unread counter starts from ', globalUnreadCount);
+
+    _.forEachRight($scope.messages, function(message, index) {
+      if (!!lastLinkIdToCount[message.id]) {
+        var currentObj = lastLinkIdToCount[message.id];
+        var currentObjCount = currentObj.count;
+
+        globalUnreadCount = globalUnreadCount - currentObjCount;
+
+      }
+      message.unreadCount = globalUnreadCount === 0 ? '' : globalUnreadCount;
+      $scope.messages[index] = message;
+    });
+
+    //console.log(lastLinkIdToCount)
+  }
+
+  /**
+   * Callback function for marker updated socket event.
+   *
+   */
+  $scope.$on('centerOnMarkerUpdated', function(event, param) {
+    //log('centerOnMarkerUpdated');
+
+    if (param.marker.memberId != memberService.getMemberId()) {
+      //log('updating individual marker');
+      _updateMarker(param.marker.memberId, param.marker.lastLinkId);
+    }
+
+    _updateUnreadCount();
+  });
+
+  $scope.$on('centerOnTopicLeave', function(event, param) {
+    // Someone left current topic -> update markers
+    _removeMarker(param.writer);
+  });
+
+  /**
+   * Update unread count
+   */
+  function _setUnreadCount() {
+    _getCurrentRoomInfo();
+  }
+
+  /**
+   * Get room info.
+   * If failed to get room info due to undefined 'currentRoomId', try once again. *only again
+   *
+   * @private
+   */
+  function _getCurrentRoomInfo() {
+    var currentRoomId = _getEntityId();
+    messageAPIservice.getRoomInformation(currentRoomId)
+      .success(function(response) {
+        _initMarkers(response.markers);
+        hasRetryGetRoomInfo = false;
+      })
+      .error(function(err) {
+        if (!hasRetryGetRoomInfo && publicService.isNullOrUndefined(currentRoomId)) {
+          _getCurrentRoomInfo();
+          hasRetryGetRoomInfo = true;
+        }
+      });
+  }
+
+  // Listen to file delete event.
+  // Find deleted file id from current list($scope.messages).
+  // If current list contains deleted file, change its status to 'archived'.
+  // TODO: Still o(n) algorithm.  too bad!! very bad!!! make it o(1) by using map.
+  $scope.$on('centerOnFileDeleted', function(event, param) {
+    var deletedFileId = param.file.id;
+
+    _.forEach($scope.messages, function(message) {
+
+      if (message.message.contentType === 'comment' && message.message.commentOption.isTitle) {
+        if (message.message.feedbackId === deletedFileId) {
+          message.feedback.status = 'archived'
+        }
+      }
+
+      if (message.message.id === deletedFileId) {
+        message.message.status = 'archived';
+      }
+    });
+  });
+
+  /**
+   * file comment delete handler.
+   * Loop through messages list and find matching file comment.
+   *
+   * File comment delete -> Hide corresponding comment for now.
+   *
+   * TODO: this is still o(n). make it o(1)!!!!!
+   */
+  $scope.$on('centerOnFileCommentDeleted', function(event, param) {
+    _.forEach($scope.messages, function(message) {
+      if (message.message.id === param.comment.id) {
+        var commentLinkId = message.id;
+        var angularDomElement = angular.element(document.getElementById(commentLinkId));
+        angularDomElement.addClass('hidden');
+      }
+    });
+  });
+
+  /**
+   * Shared entity is changed to file.
+   *  1. get updated info from server by calling getFileDetail api
+   *  2. Update shared Entity information.
+   *
+   */
+  $scope.$on('updateCenterForRelatedFile', function(event, file) {
+    _.forEach($scope.messages, function (message) {
+      if (message.message.id === file.id) {
+        fileAPIservice.getFileDetail(message.message.id)
+          .success(function (response) {
+            for (var i in response.messageDetails) {
+
+              var item = response.messageDetails[i];
+              if (item.contentType === 'file') {
+                message.message.shared = fileAPIservice.getSharedEntities(item);
+              }
+            }
+
+          });
+      }
+    });
+  });
 });

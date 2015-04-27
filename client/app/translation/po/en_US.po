@@ -40,7 +40,7 @@ msgstr "File has not been shared"
 msgid "@alert-invalid-password"
 msgstr "invalid password"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-missing-info"
 msgstr "Missing Information"
 
@@ -57,19 +57,19 @@ msgstr "No matches"
 msgid "@alert-required"
 msgstr "required"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-fail"
 msgstr "Invitation could not be sent"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-invalid"
 msgstr " is an invalid email address"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-success"
 msgstr "Invitation was sent successfully"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-taken"
 msgstr " is already a member of your team"
 
@@ -81,18 +81,21 @@ msgstr "Update not successful"
 msgid "@alert-update-success"
 msgstr "Update completed successfully"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@btn-add"
 msgstr "Add"
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/team_change/team.change.html client/app/modal/upload.html
+#: client/app/modal/share/share.html
+#: client/app/modal/team_change/team.change.html
+#: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
 msgstr "Cancel"
 
-#: client/app/modal/image.crop.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/image.crop.html
 msgid "@btn-change"
 msgstr "Change"
 
@@ -101,11 +104,11 @@ msgid "@btn-click-to-view"
 msgstr "Click to view"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html client/app/modal/join.html
+#: client/app/modal/invite_to_team/invite.team.html client/app/modal/join.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
-#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@btn-close"
@@ -129,14 +132,14 @@ msgstr "Create"
 msgid "@btn-delete"
 msgstr "Delete"
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/password.reset.request.html
-#: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "Submit"
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@btn-invite"
 msgstr "Invite"
 
@@ -144,7 +147,7 @@ msgstr "Invite"
 msgid "@btn-join"
 msgstr "Join"
 
-#: client/app/center/center.html client/app/modal/share.html
+#: client/app/center/center.html client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -159,41 +162,31 @@ msgstr "Update Name"
 msgid "@btn-update-password"
 msgstr "Update Password"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "Upload"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-delete"
 msgstr "Delete topic"
 
-#: client/app/center/center.html
-msgid "@ch-menu-delete-confirm"
-msgstr "Are you sure you want to delete this topic?"
-
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-invite"
 msgstr "Invite members"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-leave"
 msgstr "Leave topic"
 
-#: client/app/center/center.html
-msgid "@ch-menu-leave-private-confirm"
-msgstr ""
-"If you leave this private topic, you will only be able to rejoin if you "
-"receive another invitation. Are you sure you want to leave?"
-
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-rename"
 msgstr "Rename topic"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-star"
 msgstr "Star topic "
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-un-star"
 msgstr "Unstar topic"
 
@@ -255,11 +248,12 @@ msgstr "1:1 Message"
 msgid "@common-check-email-inbox"
 msgstr "Please check your inbox. "
 
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-comment"
 msgstr "Comment"
 
-#: client/app/center/center.html client/app/left/messages/messages.html
+#: client/app/center/entity_header/entity.header.html
+#: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr "Leave"
 
@@ -291,7 +285,8 @@ msgstr "Customer Service"
 msgid "@common-deleted-file-title"
 msgstr "Deleted File"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/profile.view.html
 msgid "@common-department"
 msgstr "Department"
 
@@ -303,7 +298,7 @@ msgstr "Desktop Notifications"
 msgid "@common-direct-messages"
 msgstr "Direct Messages"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
 msgstr "This member has been temporarily disabled"
 
@@ -326,9 +321,9 @@ msgstr "Download"
 msgid "@common-duplicate-name-err"
 msgstr "That topic name is already in use. Please try again."
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/password.reset.request.html
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-#: client/app/signin/signin.html
+#: client/app/modal/profile.view.html client/app/signin/signin.html
 msgid "@common-email"
 msgstr "Email"
 
@@ -348,13 +343,19 @@ msgstr "FAQ"
 msgid "@common-feature-not-supported-msg"
 msgstr "This feature is currently in development and will be available soon."
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file"
 msgstr "File"
 
 #: client/app/modal/profile.view.html
 msgid "@common-file-list"
 msgstr "Files Shared"
+
+#: client/app/modal/share/share.html
+msgid "@common-file-share-jump-channel-confirm-msg"
+msgstr ""
+"File has been shared successfully. Do you want to jump to that conversation "
+"now?"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type"
@@ -420,11 +421,11 @@ msgstr "Already have the JANDI app for mobile?"
 msgid "@common-inactive-member"
 msgstr "Disabled Members"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-info-basic"
 msgstr "Basic Information"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-info-optional"
 msgstr "Additional Information"
 
@@ -457,7 +458,7 @@ msgid "@common-more"
 msgstr "Browse"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
 msgstr "Name"
@@ -479,11 +480,13 @@ msgstr "Password"
 msgid "@common-pasword-enter"
 msgstr "Enter your password"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/profile.view.html
 msgid "@common-phone"
 msgstr "Mobile #"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/profile.view.html
 msgid "@common-position"
 msgstr "Position"
 
@@ -491,7 +494,8 @@ msgstr "Position"
 msgid "@common-privacy-policy"
 msgstr "Privacy Policy"
 
-#: client/app/left/member/member.html client/app/modal/settings.profile.html
+#: client/app/left/member/member.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "Profile"
 
@@ -515,11 +519,11 @@ msgstr "Send Email"
 msgid "@common-service-settings"
 msgstr "Service Preferences"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-share-file"
 msgstr "Share File"
 
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-share-in"
 msgstr "Share in"
 
@@ -548,7 +552,7 @@ msgstr "Click to start a new conversation"
 msgid "@common-start-using-mobile"
 msgstr "Launch the JANDI app"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-status-msg"
 msgstr "Status"
 
@@ -560,7 +564,7 @@ msgstr "Team"
 msgid "@common-terms-of-service"
 msgstr "Terms of Service"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@common-title"
 msgstr "Title"
 
@@ -576,7 +580,7 @@ msgstr "Private"
 msgid "@common-type-public"
 msgstr "Public"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "Upload File"
 
@@ -598,15 +602,15 @@ msgstr ""
 msgid "@current-member-disabled-notice-msg-pre"
 msgstr "Your access to "
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-file"
 msgstr "View Files"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-invite"
 msgstr "Invite to a topic"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr "View Profile"
 
@@ -689,20 +693,20 @@ msgstr "Go to the most recent messages"
 msgid "@has-new-message-alert-msg"
 msgstr "You received a new message"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
 "Internet Explorer 9 does not properly support file previewing. Don't worry "
 "if the image is not displayed correctly - this does not impact the file you "
 "upload."
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@ie9-please-do-not-use"
 msgstr ""
 "For the optimal JANDI experience, please use the latest version of Internet "
 "Explorer."
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
 "Internet Explorer 9 does not support profile picture editing. Try the latest "
@@ -717,19 +721,20 @@ msgstr "Enter new topic name"
 msgid "@input-create-pg"
 msgstr "Enter new private topic name"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@input-invite-email"
 msgstr "Enter email address to invite"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-20-error"
 msgstr "You've exceeded the maximum character limit (20)"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-60-error"
 msgstr "You've exceeded the maximum character limit (60)"
 
-#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit"
@@ -892,7 +897,7 @@ msgstr ""
 msgid "@modal-setting-account-password"
 msgstr "Change your password"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@modal-setting-profile-msg1"
 msgstr "Set the personal information that other members see"
 
@@ -906,11 +911,11 @@ msgstr ""
 "Change your team settings here. Please note that any modifications will also "
 "be applied to your teammates."
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@modal-team-invite-msg1"
 msgstr "Invite other team members to JANDI!"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@modal-upload-title-msg1"
 msgstr "For searches by title"
 
@@ -1084,7 +1089,8 @@ msgstr "New Team Name"
 msgid "@setting-team-title"
 msgstr "Team Settings"
 
-#: client/app/header/header.html client/app/modal/invite.team.html
+#: client/app/header/header.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@team-invite"
 msgstr "Invite Other Team Members"
 
@@ -1206,11 +1212,11 @@ msgstr "Welcome to JANDI! "
 msgid "@user"
 msgstr "Direct Messages"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@user-menu-star"
 msgstr "Star user"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@user-menu-un-star"
 msgstr "Unstar user"
 
@@ -1237,6 +1243,14 @@ msgstr "in "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@ch-menu-delete-confirm"
+#~ msgstr "Are you sure you want to delete this topic?"
+
+#~ msgid "@ch-menu-leave-private-confirm"
+#~ msgstr ""
+#~ "If you leave this private topic, you will only be able to rejoin if you "
+#~ "receive another invitation. Are you sure you want to leave?"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "No files found"

@@ -84,7 +84,6 @@
 
           // merge message object to entity object so that list can be sorted by 'lastMessageId' attribute in message object.
           $.extend(entity, message);
-
           messageList.push(entity);
         }
       });
@@ -100,7 +99,7 @@
       messageList.leaveCurrentMessage(entityId)
         .success(function(response) {
           if (entityId == $scope.currentEntity.id) {
-            $rootScope.toDefault = true;
+            publicService.goToDefaultTopic();
           }
         })
         .error(function(err) {

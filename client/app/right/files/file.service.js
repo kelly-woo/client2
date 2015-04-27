@@ -5,9 +5,21 @@ var app = angular.module('jandiApp');
 app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, memberService, entityAPIservice, storageAPIservice) {
   var fileAPI = {};
 
-  fileAPI.upload = function(files, fileInfo, supportHTML) {
-    var flash_url = supportHTML ? '' : 'v2/';
+  fileAPI.upload = function(files, fileInfo, supportHTML, uploadType) {
+    var url,
+        flash_url;
 
+    if (angular.isObject(files)) {
+      fileInfo = files.fileInfo;
+      supportHTML = files.supportHTML;
+      uploadType = files.uploadType;
+      files = files.files;
+    }
+
+    flash_url = supportHTML ? '' : 'v2/';
+    // url = uploadType === 'integration' ? $rootScope.server_address + 'v2/file/integrate' : $rootScope.server_address + flash_url + 'file',
+
+    url = uploadType === 'integration' ?  'http://www.jandi.io:4000/inner-api/v2/file/integrate' : $rootScope.server_address + flash_url + 'file',
     fileInfo.teamId  = memberService.getTeamId();
 
     if(!supportHTML)
@@ -15,7 +27,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     return $upload.upload({
       method: 'POST',
-      url: $rootScope.server_address + flash_url + 'file',
+      url: url,
       data: fileInfo,
       file: files,
       fileFormDataName: 'userFile'
@@ -141,12 +153,12 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   // Broadcast shareEntities change event to centerpanel, rightpanel, detailpanel
   fileAPI.broadcastChangeShared = function(id) {
-    var ret = (id) ? {messageId: id} : null;
-    $rootScope.$broadcast('onChangeShared', ret);
+    //var ret = (id) ? {messageId: id} : null;
+    //$rootScope.$broadcast('onChangeShared', ret);
   };
 
   fileAPI.broadcastCommentFocus = function() {
-    $rootScope.$broadcast('setCommentFocus');
+    //$rootScope.$broadcast('setCommentFocus');
   };
 
   fileAPI.broadcastFileShare = function(file) {

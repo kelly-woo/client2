@@ -1,7 +1,15 @@
-/**
- * by ysyun
- * fix : padding between article tag and chat message input tag;
- */
+.unread-badge {
+  background-color: #AEAEAE;
+  border-radius: 16px;
+  font-family: "Helvetica Neue";
+  font-size: 11px;
+  color: #ffffff;
+  padding: 2px 5px 3px 5px;
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+
 article {
   padding-bottom: 10px;
 }
@@ -362,8 +370,8 @@ by ysyun 2015.2.25
   max-width: 100%;
 }
 .msg-file-body__img {
-  max-height: 65px;
-  max-width: 65px;
+  height: 65px;
+  width: 65px;
 }
 .msg-file-body__thumbnail {
   height: 65px;
@@ -519,6 +527,7 @@ by ysyun 2015.2.25
   border-radius: 0;
   background: #ededed;
 }
+
 .footer #message-input {
   border: 2px solid #e0e0e0;
   border-radius: 0;

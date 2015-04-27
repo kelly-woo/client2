@@ -1,0 +1,39 @@
+<!-- Modal: File Integration -->
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="eventHandler();"><i class="icon-cancel"></i></button>
+    <h3 class="modal-header__title">
+        <span translate>@common-upload-file</span>
+    </h3>
+</div>
+
+<div class="modal-body">
+    <ul class="row">
+        <li>
+            <div class="image integration-google-drive-desc-1"></div>
+            <div class="desc">
+                <p>desc1</p>
+            </div>
+        </li>
+        <li>
+            <div class="image integration-google-drive-desc-2"></div>
+            <div class="desc">
+                <p>desc2</p>
+            </div>
+        </li>
+        <li>
+            <div class="image integration-google-drive-desc-3"></div>
+            <div class="desc">
+                <p>desc3</p>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-cancel" data-ng-click="eventHandler();"><span translate>@btn-cancel</span></button>
+    <input class="btn btn-ok" type="submit" id="file_upload_btn" value="{{ '@btn-upload' | translate }}" />
+</div>
+<div class="loading_container" data-ng-if="isLoading">
+    <div class="loading_container_background"></div>
+    <div class="loading_bg"></div>
+    <div class="loading_bar icon-loading"></div>
+</div>

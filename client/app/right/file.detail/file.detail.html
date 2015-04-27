@@ -28,18 +28,17 @@
       </div>
 
       <div class="file-detail-body">
-        <div class="image_wrapper" ng-if="!isFileArchived && (file_detail.content.type).indexOf('image') !== -1 ">
+        <div class="image_wrapper" ng-if="!isFileArchived && file_detail.content.filterType.indexOf('image') !== -1 ">
           <img rotate rotate-left-align=false
                class="file-detail-body__image"
                data-ng-src="{{ server_uploaded + file_detail.content.extraInfo.largeThumbnailUrl }}"
                data-ng-click="onImageClick();"/>
         </div>
 
-        <div class="file-detail-body__other hidden" data-ng-if="(file_detail.content.type).indexOf('image') == -1">
+        <div class="file-detail-body__other hidden" data-ng-if="file_detail.content.filterType.indexOf('image') == -1">
 
           <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
-            <!--<img class="fileicon fileicon_left" ng-src="assets/images/fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}.png"/>-->
-            <div class="fileicon fileicon_left fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
+            <div class="fileicon fileicon-left fileicon-{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
           </a>
 
           <div class="file-detail-body__other-meta file-item-meta__listview">
@@ -52,14 +51,14 @@
           <div class="file-detail-body__other-action" ng-if="!isFileArchived">
 
             <!--    PDF FILE    -->
-            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="( (file_detail.content.type).indexOf('pdf') !== -1 )" >
+            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="file_detail.content.type.indexOf('pdf') !== -1" >
               <button type="button" class="btn btn-white" >
                 <span translate>@btn-click-to-view</span>
               </button>
             </a>
 
             <!--    NON-PDF FILE    -->
-            <a href="{{ server_uploaded + 'download/'+ file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}"  ng-if="( (file_detail.content.type).indexOf('pdf') == -1 )">
+            <a href="{{ server_uploaded + 'download/'+ file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}"  ng-if="file_detail.content.type.indexOf('pdf') == -1">
               <button type="button" class="btn btn-white" >
                 <span translate>@common-download</span>
               </button>
@@ -70,8 +69,7 @@
         </div>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
-          <!--<img class="fileicon" ng-src="assets/images/fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}.png"/>-->
-          <div class="fileicon fileicon_{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
+          <div class="fileicon fileicon-{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
 
           <div class="file-detail-body__meta-info">
             <div class="file-detail-body__meta-info-up">
@@ -122,7 +120,7 @@
                 </a>
               </li>
               <li class="cursor_pointer">
-                <a href="{{ server_uploaded + 'download/' + file_detail.content.fileUrl }}" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
+                <a href="{{ server_uploaded + 'download/' + file_detail.content.fileUrl }}" target="_blank" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
                   <i class="icon-download"></i>
                   <span translate>@common-download</span>
                 </a>

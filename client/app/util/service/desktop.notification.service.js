@@ -14,8 +14,11 @@
 
     return service;
 
+
     function addNotification(fromEntity, toEntity) {
 
+      console.log(fromEntity)
+      console.log(toEntity)
       var notificationOption = getNotificationOption(fromEntity, toEntity);
 
       // Set title for notification.

@@ -5,9 +5,9 @@
     .module('jandiApp')
     .factory('memberService', memberService);
 
-  memberService.$inject = ['$http', '$rootScope', 'storageAPIservice', 'entityAPIservice', '$upload'];
+  memberService.$inject = ['$http', '$rootScope', 'storageAPIservice', 'entityAPIservice', '$upload', 'jndPubSub'];
 
-  function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload) {
+  function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload, jndPubSub) {
     var noUExtraData = "i dont have u_extraData";
     var currentMember;
 
@@ -37,6 +37,8 @@
       getLargeThumbnailUrl: getLargeThumbnailUrl,
       getPhotoUrl: getPhotoUrl,
 
+      onMemberProfileUpdated: onMemberProfileUpdated,
+
       getDefaultPhotoUrl: getDefaultPhotoUrl
     } ;
 
@@ -57,6 +59,7 @@
       currentMember = member;
       $rootScope.member = member;
       storageAPIservice.setLastEmail(member.u_email);
+      jndPubSub.pub('onCurrentMemberChanged');
     }
     function getMember() {
       return currentMember;
@@ -173,6 +176,17 @@
 
     // TODO: TO BE IMPLEMENTED.
     function getDefaultPhotoUrl() {
+
+    }
+
+    function onMemberProfileUpdated() {
+      getMemberInfo(getMemberId())
+        .success(function(response) {
+          setMember(response);
+        })
+        .error(function(err) {
+          // Do nothing. Pretend like nothing happened.
+        })
 
     }
 

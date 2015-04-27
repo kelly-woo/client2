@@ -3,16 +3,15 @@
   <!--    IMAGE THUMBNAIL -->
   <div class="image_wrapper pull-left">
     <img rotate rotate-width="65" rotate-height="65" class="cursor_pointer msg-file-body__img"
-         data-ng-show="(file.content.type).indexOf('image') !== -1"
+         data-ng-show="file.content.filterType.indexOf('image') !== -1"
          data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"
          data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>
   </div>
 
   <!--    IF NOT IMAGE TYPE, SHOW FILE TYPE PREVIEW   -->
   <div class="msg-file-body__thumbnail pull-left"
-       data-ng-if="(file.content.type).indexOf('image') == -1">
-    <div class="fileicon fileicon_{{ file.content.type | getFileIconImage | lowercase}}"></div>
-
+       data-ng-if="file.content.filterType.indexOf('image') == -1">
+    <div class="fileicon fileicon-{{ file.content.type | getFileIconImage | lowercase}}"></div>
   </div>
 
   <!-- OTHER INFORMATION ABOUT FILE: TITLE, UPLOADED TIME, SHARED CHANNELS, LINK TO NEW TAB -->

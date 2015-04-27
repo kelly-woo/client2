@@ -5,7 +5,8 @@
     .module('jandiApp')
     .directive('dragdownArea', dragdown)
     .directive('lastDetector', lastDetector)
-    .directive('whenScrolled', whenScrolled);
+    .directive('whenScrolled', whenScrolled)
+    .directive('unreadCounter', unreadCounter);
 
   // element에 drag-over-class 속성으로 drag over상태 알려주는 event handler 처리시
   // IE9<에서 blink 현상이 있으므로 code로 직접 handling.
@@ -48,13 +49,11 @@
     };
 
     function link (scope, element, attrs, ctrl) {
-
       if (scope.isPolling) {
         //console.log('polling');
         counter++;
         return;
       }
-
       // Switched to new topic.  Reset flag and counter.
       if (scope.loadMoreCounter == 1) {
         if (counterFlag) {
@@ -62,10 +61,7 @@
           counterFlag = false;
         }
       }
-
       counter++;
-
-
       if (counter == scope.messages.length) {
         //console.log(counter == scope.messages.length)
         //If it's initial loading, set 'counterFlag' to true.
@@ -99,7 +95,7 @@
         if (scrollDiff == 0) {
           // Bottom reached!
           scope.loadNewMessages();
-          scope.isAtBottom();
+          scope.clearNewMessageAlerts();
           return;
         } else if (scrollDiff < threshold) {
           scope.hasScrollToBottom = false;
@@ -123,4 +119,24 @@
 
   }
 
+  function unreadCounter() {
+
+    var unreadCounter = -1;
+
+    return {
+      restrict: 'A',
+      link: link
+    };
+
+    function link(scope, element, attrs, ctrl) {
+
+      if (unreadCounter > 0) {
+        unreadCounter = scope.roomMemberLength;
+      }
+
+      console.log(unreadCounter);
+      console.log(attrs.unreadCounter);
+      console.log(scope.roomMemberLength)
+    }
+  }
 })();

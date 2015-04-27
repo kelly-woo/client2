@@ -7,23 +7,29 @@
     .controller('profileCtrl', profileCtrl);
 
   /* @ngInject */
-  function profileCtrl($scope, modalHelper, $filter, analyticsService, memberService, accountService) {
+  function profileCtrl($scope, modalHelper, $filter, analyticsService, memberService, accountService, currentMemberProfileService) {
 
-    $scope.isLoading = false;
+    (function() {
+      _setCurrentMember();
 
-    $scope.curUser = _.cloneDeep(memberService.getMember());
+      $scope.lang = accountService.getAccountLanguage();
 
-    $scope.lang = accountService.getAccountLanguage();
+      $scope.isProfilePicSelected = false;
+      $scope.isFileReaderAvailable = true;
+    })();
 
-    $scope.isProfilePicSelected = false;
+    function _setCurrentMember() {
+      $scope.curUser = _.cloneDeep(memberService.getMember());
 
-    $scope.isFileReaderAvailable = true;
+      // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
+      $scope.curUser.u_extraData.phoneNumber  = memberService.getPhoneNumber($scope.curUser) || "";
+      $scope.curUser.u_extraData.department   = memberService.getDepartment($scope.curUser) || "";
+      $scope.curUser.u_extraData.position     = memberService.getPosition($scope.curUser) || "";
+    }
 
-    // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
-    $scope.curUser.u_extraData.phoneNumber  = memberService.getPhoneNumber($scope.curUser) || "";
-    $scope.curUser.u_extraData.department   = memberService.getDepartment($scope.curUser) || "";
-    $scope.curUser.u_extraData.position     = memberService.getPosition($scope.curUser) || "";
-
+    $scope.$on('onCurrentMemberChanged', function() {
+      _setCurrentMember();
+    });
 
     $scope.cancel = function() {
       closeModal();
@@ -34,14 +40,14 @@
 
       $scope.toggleLoading();
 
-      if (!isNamePristine()) {
+      if (!_isNamePristine()) {
         // Name Change!!!
         memberService.setName(memberService.getName($scope.curUser))
           .success(function() {
             ////TODO: Currently, there is no return value.  How about member object for return???
             memberService.getMemberInfo(memberService.getMemberId())
               .success(function(response) {
-                memberService.setMember(response);
+                console.log('name changed good')
                 closeModal();
               })
               .error(function(err){
@@ -54,11 +60,11 @@
           .finally(function() {
             $scope.toggleLoading();
           });
-      } else if (!isEmailPristine()) {
+      } else if (!_isEmailPristine()) {
         // email address changed!!
         memberService.setEmail(memberService.getEmail($scope.curUser))
           .success(function(response) {
-            memberService.setMember(response);
+            console.log('email changed good')
             closeModal();
           })
           .error(function(err) {
@@ -94,10 +100,7 @@
       }
     };
 
-    $scope.$watch('member', function() {
-      $scope.curUser = _.cloneDeep(memberService.getMember());
-    });
-
+ 
     //  TODO: ie9에서 프로필 사진 바꾸기 기능이 없음.
     //  IE9에서 blob 읽는 법을 알아서 빨리 하기.
     $scope.onFileSelect = function($files) {
@@ -183,28 +186,19 @@
     };
 
     $scope.isPristine = function() {
-      return isNamePristine() && isEmailPristine() && isStatusPristine() && isPhoneNumberPristine() && isDepartmentPristine() && isPositionPristine();
+      return _isNamePristine() && _isEmailPristine() &&
+              currentMemberProfileService.isStatusMessagePristine($scope.curUser) &&
+              currentMemberProfileService.isPhoneNumberPristine($scope.curUser) &&
+              currentMemberProfileService.isDepartmentPristine($scope.curUser) &&
+              currentMemberProfileService.isPositionPristine($scope.curUser);
     };
 
-    function isNamePristine() {
-      return memberService.getName($scope.curUser) == memberService.getName(memberService.getMember());
+    function _isNamePristine() {
+      return currentMemberProfileService.isNamePristine($scope.curUser)
     }
-    function isEmailPristine() {
-      return $scope.curUser.u_email == memberService.getEmail(memberService.getMember());
+    function _isEmailPristine() {
+      return currentMemberProfileService.isEmailPristine($scope.curUser)
     }
-    function isStatusPristine() {
-      return memberService.getStatusMessage($scope.curUser) == memberService.getStatusMessage(memberService.getMember());
-    }
-    function isPhoneNumberPristine() {
-      return memberService.getPhoneNumber($scope.curUser) == memberService.getPhoneNumber(memberService.getMember());
-    }
-    function isDepartmentPristine() {
-      return memberService.getDepartment($scope.curUser) == memberService.getDepartment(memberService.getMember());
-    }
-    function isPositionPristine() {
-      return memberService.getPosition($scope.curUser) == memberService.getPosition(memberService.getMember());
-    }
-
     function closeModal() {
       modalHelper.closeModal('cancel');
     }

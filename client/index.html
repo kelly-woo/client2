@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="app/left/topics/topics.css">
     <link rel="stylesheet" href="app/main.css">
     <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
+    <link rel="stylesheet" href="app/modal/integration/integration.css">
     <link rel="stylesheet" href="app/modal/modal.css">
     <link rel="stylesheet" href="app/modal/team_change/team.change.css">
     <link rel="stylesheet" href="app/modal/team_member_list/team.member.list.css">
@@ -148,8 +149,9 @@
 <script src="app/util/service/analytics.service.js"></script>
 <script src="app/util/service/desktop.notification.service.js"></script>
 <script src="app/util/service/entity.service.js"></script>
-<script src="app/util/service/file.service.js"></script>
+<script src="app/util/service/file.object.service.js"></script>
 <script src="app/util/service/general.service.js"></script>
+<script src="app/util/service/integration.service.js"></script>
 <script src="app/util/service/member.service.js"></script>
 <script src="app/util/service/modal.service.js"></script>
 <script src="app/util/service/public.service.js"></script>
@@ -159,11 +161,18 @@
 <script src="app/center/center.controller.js"></script>
 <script src="app/center/center.directive.js"></script>
 <script src="app/center/center.service.js"></script>
+<script src="app/center/center_chat_input_box/center.chat.input.box.directive.js"></script>
+<script src="app/center/center_chat_templates/date_divider/date.divider.directive.js"></script>
+<script src="app/center/center_chat_templates/file_uploaded/file.uploaded.directive.js"></script>
+<script src="app/center/center_chat_templates/system_event/system.event.directive.js"></script>
+<script src="app/center/center_chat_templates/text/text.directive.js"></script>
+<script src="app/center/center_chat_templates/title_comment/title.comment.directive.js"></script>
 <script src="app/center/entity_header/entity.header.controller.js"></script>
 <script src="app/center/entity_header/entity.header.directive.js"></script>
 <script src="app/center/entity_header/entity.header.service.js"></script>
 <script src="app/center/help_messages/help.messages.controller.js"></script>
 <script src="app/center/help_messages/help.messages.directive.js"></script>
+<script src="app/center/message.service.js"></script>
 <script src="app/error/error.controller.js"></script>
 <script src="app/header/header.controller.js"></script>
 <script src="app/header/header.service.js"></script>
@@ -180,9 +189,12 @@
 <script src="app/left/topics/topics.directive.js"></script>
 <script src="app/main.js"></script>
 <script src="app/mobile/mobile.catcher.controller.js"></script>
-<script src="app/modal/current_member_profile/profile.controller.js"></script>
+<script src="app/modal/current_member_profile/settings.profile.controller.js"></script>
+<script src="app/modal/current_member_profile/settings.profile.service.js"></script>
+<script src="app/modal/integration/integration.controller.js"></script>
 <script src="app/modal/invite_to_team/inviteToTeam.controller.js"></script>
 <script src="app/modal/modal.controller.js"></script>
+<script src="app/modal/share/share.controller.js"></script>
 <script src="app/modal/team_change/team.change.controller.js"></script>
 <script src="app/modal/team_member_list/team.member.list.controller.js"></script>
 <script src="app/modal/team_member_list/team_member_list_template/team.member.list.tpl.controller.js"></script>
@@ -223,10 +235,13 @@
 <script src="components/app/pubsub/pubsub.js"></script>
 <script src="components/app/pubsub/pubsub.service.js"></script>
 <script src="components/app/socket/socket.js"></script>
+<script src="components/app/socket/socket.service.handler.js"></script>
 <script src="components/app/socket/socket.service.js"></script>
 <script src="components/app/storage/storage.service.js"></script>
 <script src="components/base/highlight/highlight.js"></script>
 <script src="components/base/highlight/highlight.service.js"></script>
+<script src="components/base/logger/logger.js"></script>
+<script src="components/base/logger/logger.service.js"></script>
 <!-- endinjector -->
 <!-- endbuild -->
 </body>

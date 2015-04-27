@@ -40,7 +40,7 @@ msgstr "档案没有分享到其它群组"
 msgid "@alert-invalid-password"
 msgstr "密码无效"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-missing-info"
 msgstr "资料不全"
 
@@ -57,19 +57,19 @@ msgstr "搜寻没有结果"
 msgid "@alert-required"
 msgstr "必须填写"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-fail"
 msgstr "邀请送出不成功"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-invalid"
 msgstr "是无效的电子邮件地址"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-success"
 msgstr "邀请送出成功"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@alert-send-mail-taken"
 msgstr "已经是您团队的成员"
 
@@ -81,18 +81,21 @@ msgstr "更新不成功"
 msgid "@alert-update-success"
 msgstr "更新成功完成"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@btn-add"
 msgstr "增加"
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
-#: client/app/modal/settings.profile.html client/app/modal/share.html
-#: client/app/modal/team_change/team.change.html client/app/modal/upload.html
+#: client/app/modal/share/share.html
+#: client/app/modal/team_change/team.change.html
+#: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
 msgstr "取消"
 
-#: client/app/modal/image.crop.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/image.crop.html
 msgid "@btn-change"
 msgstr "更改"
 
@@ -101,11 +104,11 @@ msgid "@btn-click-to-view"
 msgstr "点击检视"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html client/app/modal/join.html
-#: client/app/modal/password.reset.request.html
+#: client/app/modal/invite_to_team/invite.team.html
+#: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
-#: client/app/modal/settings.profile.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@btn-close"
@@ -130,14 +133,14 @@ msgstr "建立"
 msgid "@btn-delete"
 msgstr "删除"
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/password.reset.request.html
-#: client/app/modal/settings.profile.html
 #: client/app/password/password.reset.html
 msgid "@btn-edit"
 msgstr "提交"
 
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@btn-invite"
 msgstr "邀请"
 
@@ -145,7 +148,7 @@ msgstr "邀请"
 msgid "@btn-join"
 msgstr "加入"
 
-#: client/app/center/center.html client/app/modal/share.html
+#: client/app/center/center.html client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -160,41 +163,31 @@ msgstr "更新姓名"
 msgid "@btn-update-password"
 msgstr "更新密码"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "上传"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-delete"
 msgstr "删除议题"
 
-#: client/app/center/center.html
-msgid "@ch-menu-delete-confirm"
-msgstr "您确定要删除这个议题？"
-
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-invite"
 msgstr "邀请成员至此议题"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-leave"
 msgstr "离开议题"
 
-#: client/app/center/center.html
-msgid "@ch-menu-leave-private-confirm"
-msgstr ""
-"离开私人议题后，未来希望能够重新加入，必须先取得其它人的邀请。您确定要离开"
-"吗？"
-
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-rename"
 msgstr "重新命名议题"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-star"
 msgstr "标记议题"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-un-star"
 msgstr "取消标记议题"
 
@@ -248,11 +241,12 @@ msgstr "直接传讯"
 msgid "@common-check-email-inbox"
 msgstr "请到您的电子邮件信箱收信。"
 
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-comment"
 msgstr "留言"
 
-#: client/app/center/center.html client/app/left/messages/messages.html
+#: client/app/center/entity_header/entity.header.html
+#: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr "离开"
 
@@ -284,7 +278,8 @@ msgstr "客服"
 msgid "@common-deleted-file-title"
 msgstr "已删除档案"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/profile.view.html
 msgid "@common-department"
 msgstr "部门"
 
@@ -296,7 +291,7 @@ msgstr "桌面通知"
 msgid "@common-direct-messages"
 msgstr "直接传讯"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
 msgstr "这成员已经被暂时关闭"
 
@@ -318,9 +313,9 @@ msgstr "下载"
 msgid "@common-duplicate-name-err"
 msgstr "这个议题名称已经被使用。请选择另外一个。"
 
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/password.reset.request.html
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
-#: client/app/signin/signin.html
+#: client/app/modal/profile.view.html client/app/signin/signin.html
 msgid "@common-email"
 msgstr "电子邮件"
 
@@ -340,13 +335,17 @@ msgstr "常见问题"
 msgid "@common-feature-not-supported-msg"
 msgstr "这功能目前正在开发中并且即将推出。"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-file"
 msgstr "档案"
 
 #: client/app/modal/profile.view.html
 msgid "@common-file-list"
 msgstr "已分享档案"
+
+#: client/app/modal/share/share.html
+msgid "@common-file-share-jump-channel-confirm-msg"
+msgstr "档案已成功被分享。您想要现在跳转到那对话中吗？"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type"
@@ -412,11 +411,11 @@ msgstr "已经在您的行动装置上有JANDI的应用程式了吗？"
 msgid "@common-inactive-member"
 msgstr "关闭成员"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-info-basic"
 msgstr "基本资料"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-info-optional"
 msgstr "其它资料"
 
@@ -449,7 +448,7 @@ msgid "@common-more"
 msgstr "浏览"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
 msgstr "名称"
@@ -471,11 +470,13 @@ msgstr "密码"
 msgid "@common-pasword-enter"
 msgstr "输入您的密码"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/profile.view.html
 msgid "@common-phone"
 msgstr "电话"
 
-#: client/app/modal/profile.view.html client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/profile.view.html
 msgid "@common-position"
 msgstr "职位"
 
@@ -483,7 +484,8 @@ msgstr "职位"
 msgid "@common-privacy-policy"
 msgstr "隐私权条款"
 
-#: client/app/left/member/member.html client/app/modal/settings.profile.html
+#: client/app/left/member/member.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-profile-settings"
 msgstr "简介设定"
 
@@ -507,11 +509,11 @@ msgstr "发送电​​子邮件"
 msgid "@common-service-settings"
 msgstr "服务偏好"
 
-#: client/app/modal/share.html
+#: client/app/modal/share/share.html
 msgid "@common-share-file"
 msgstr "分享档案"
 
-#: client/app/modal/share.html client/app/modal/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-share-in"
 msgstr "分享在"
 
@@ -541,7 +543,7 @@ msgstr ""
 msgid "@common-start-using-mobile"
 msgstr "开啓JANDI的应用程式"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@common-status-msg"
 msgstr "今天的感觉"
 
@@ -553,7 +555,7 @@ msgstr "团队"
 msgid "@common-terms-of-service"
 msgstr "使用条款"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@common-title"
 msgstr "议题"
 
@@ -569,7 +571,7 @@ msgstr "私人"
 msgid "@common-type-public"
 msgstr "公开"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "上传档案"
 
@@ -589,15 +591,15 @@ msgstr "使用权限已经暂时被关闭。欲知更多细节，请联系团队
 msgid "@current-member-disabled-notice-msg-pre"
 msgstr "您的"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-file"
 msgstr "检视档案"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-invite"
 msgstr "邀请此成员加入其它议题"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr "检视简介"
 
@@ -678,17 +680,17 @@ msgstr "去到最近的信息"
 msgid "@has-new-message-alert-msg"
 msgstr "您有新信息"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
 "IE9浏览器无法适当支援文件预览。如果图像不能正确显示，别担心，这不影响您上传"
 "的档案。"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@ie9-please-do-not-use"
 msgstr "为了达到对JANDI的最佳体验，请使用最新版本的IE浏览器。"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
 "IE9浏览器不支援的简介照片编辑。请使用IE浏览器的最新版本以达到最佳体验。"
@@ -702,19 +704,20 @@ msgstr "输入新的议题名称"
 msgid "@input-create-pg"
 msgstr "输入新的私人议题名称"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@input-invite-email"
 msgstr "输入电子邮件地址进行邀请"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-20-error"
 msgstr "您已经超越字数限制"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-60-error"
 msgstr "您已经超越字数限制"
 
-#: client/app/modal/settings.profile.html client/app/modal/settings.team.html
+#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@input-max-length-error"
 msgstr "您已经超越字数限制"
@@ -868,7 +871,7 @@ msgstr "当您更改您的姓名，请记得其他成员可能会提及及搜寻
 msgid "@modal-setting-account-password"
 msgstr "更改您的密码"
 
-#: client/app/modal/settings.profile.html
+#: client/app/modal/current_member_profile/settings.profile.html
 msgid "@modal-setting-profile-msg1"
 msgstr "您可以设定向其他成员揭示的个人资料"
 
@@ -881,11 +884,11 @@ msgid "@modal-setting-team-msg"
 msgstr ""
 "您可以在这裏变更您的团队设定。请注意，任何变更也将适用到您的团队成员。"
 
-#: client/app/modal/invite.team.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@modal-team-invite-msg1"
 msgstr "邀请其他团队成员加入JANDI!"
 
-#: client/app/modal/upload.html
+#: client/app/modal/upload/upload.html
 msgid "@modal-upload-title-msg1"
 msgstr "按标题搜寻"
 
@@ -1055,7 +1058,8 @@ msgstr "新团队名称"
 msgid "@setting-team-title"
 msgstr "团队设定"
 
-#: client/app/header/header.html client/app/modal/invite.team.html
+#: client/app/header/header.html
+#: client/app/modal/invite_to_team/invite.team.html
 msgid "@team-invite"
 msgstr "邀请其他团队成员"
 
@@ -1168,11 +1172,11 @@ msgstr "欢迎使用JANDI!"
 msgid "@user"
 msgstr "直接传讯"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@user-menu-star"
 msgstr "标记此成员"
 
-#: client/app/center/center.html
+#: client/app/center/entity_header/entity.header.html
 msgid "@user-menu-un-star"
 msgstr "取消标记此成员"
 
@@ -1199,6 +1203,14 @@ msgstr "在"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新信息"
+
+#~ msgid "@ch-menu-delete-confirm"
+#~ msgstr "您确定要删除这个议题？"
+
+#~ msgid "@ch-menu-leave-private-confirm"
+#~ msgstr ""
+#~ "离开私人议题后，未来希望能够重新加入，必须先取得其它人的邀请。您确定要离"
+#~ "开吗？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "没有上传档案"
