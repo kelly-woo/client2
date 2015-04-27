@@ -28,7 +28,6 @@
     }
 
     function isChat() {
-      console.log('type of current entity is ', currentSessionHelper.getCurrentEntityType());
       return currentSessionHelper.getCurrentEntityType() === 'users';
     }
   }
