@@ -95,7 +95,7 @@
         if (scrollDiff == 0) {
           // Bottom reached!
           scope.loadNewMessages();
-          scope.isAtBottom();
+          scope.clearNewMessageAlerts();
           return;
         } else if (scrollDiff < threshold) {
           scope.hasScrollToBottom = false;

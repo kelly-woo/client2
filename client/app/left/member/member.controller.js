@@ -6,7 +6,7 @@
     .controller('currentMemberCtrl', currentMemberCtrl);
 
   /* @ngInject */
-  function currentMemberCtrl($scope, publicService, currentSessionHelper, memberService) {
+  function currentMemberCtrl($scope, $rootScope, publicService, currentSessionHelper, memberService) {
     var vm = $scope;
 
     (function() {

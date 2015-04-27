@@ -76,8 +76,7 @@
       } else {
         memberService.updateProfile($scope.curUser)
           .success(function(response) {
-            console.log('update profile good')
-
+            memberService.setMember(response);
             closeModal();
 
             // analytics

@@ -10,6 +10,7 @@
     .constant('configuration', {
       name                : '@@name',
       api_address         : '@@api_address',
+      socket_address      : '@@socket_address',
       api_version         : '@@api_version',
       ga_token            : '@@ga_token',
       ga_token_global     : '@@ga_token_global',

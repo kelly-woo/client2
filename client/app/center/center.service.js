@@ -6,10 +6,11 @@
     .service('centerService', centerService);
 
   /* @ngInject */
-  function centerService(memberService, publicService) {
+  function centerService(memberService, publicService, currentSessionHelper) {
 
     this.preventChatWithMyself  = preventChatWithMyself;
     this.isIE9  = isIE9;
+    this.isChat  = isChat;
 
     function preventChatWithMyself(entityId) {
       entityId = parseInt(entityId);
@@ -24,6 +25,10 @@
           return true;
       }
       return false;
+    }
+
+    function isChat() {
+      return currentSessionHelper.getCurrentEntityType() === 'users';
     }
   }
 })();

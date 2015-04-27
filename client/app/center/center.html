@@ -74,7 +74,6 @@
                               'comment-continue': msg.message.commentOption.isContinue,
                               'system-event-msg' : msg.message.contentType === 'systemEvent',
                               'archived-file': msg.message.status === 'archived' }">
-          <!--{{msg.markerOwner|getName}}/{{msg.id}}/{{msg.readCount}}-->
 
           <system-event ng-if="msg.message.contentType === 'systemEvent'"></system-event>
           <text ng-if="msg.message.isText"></text>
