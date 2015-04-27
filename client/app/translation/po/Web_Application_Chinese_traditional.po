@@ -109,12 +109,14 @@ msgstr "點擊檢視"
 #: client/app/modal/invite_to_team/invite.team.html
 #: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
-#: client/app/modal/settings.service.html client/app/modal/settings.team.html
+#: client/app/modal/settings.service.html
+#: client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@btn-close"
 msgstr "關閉"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
@@ -148,7 +150,9 @@ msgstr "邀請"
 msgid "@btn-join"
 msgstr "加入"
 
-#: client/app/center/center.html client/app/modal/share/share.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -163,6 +167,7 @@ msgstr "更新姓名"
 msgid "@btn-update-password"
 msgstr "更新密碼"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "上傳"
@@ -194,8 +199,8 @@ msgstr "取消標記議題"
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
 msgstr ""
-"\"私人群組被更名爲私人議題並整合到議題列表中。私人議題都標有上鎖符號，並像以"
-"前一樣提供僅限邀請機制，僅參與者可以看到所有溝通内容。\""
+"\"私人群組被更名爲私人議題並整合到議題列表中。私人議題都標有上鎖符號，並像"
+"以前一樣提供僅限邀請機制，僅參與者可以看到所有溝通内容。\""
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
@@ -204,9 +209,9 @@ msgstr "直接傳訊的對話現在將根據最新的訊息自動重新排序。
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-3"
 msgstr ""
-"針對直接傳訊，初始設定是如果是已經傳出的訊息將表列出來，但您可以選擇關閉並隱"
-"藏它們。當您收到新的訊息，已關閉的直接傳訊將會自動重新出現（連同訊息歷史記"
-"錄），或者您也可以點擊‘+添加’來啟動對話。"
+"針對直接傳訊，初始設定是如果是已經傳出的訊息將表列出來，但您可以選擇關閉並"
+"隱藏它們。當您收到新的訊息，已關閉的直接傳訊將會自動重新出現（連同訊息歷史"
+"記錄），或者您也可以點擊‘+添加’來啟動對話。"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-title"
@@ -253,8 +258,8 @@ msgstr "離開"
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave-confirm"
 msgstr ""
-"您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直到您"
-"收到新的訊息或以手動方式重新打開它。 "
+"您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直到"
+"您收到新的訊息或以手動方式重新打開它。 "
 
 #: client/app/modal/create.channel.html client/app/modal/join.html
 #: client/app/modal/topic_create/topic.create.html
@@ -274,6 +279,8 @@ msgid "@common-customer-service"
 msgstr "客服"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "已刪除檔案"
@@ -304,6 +311,7 @@ msgid "@common-dm-invite-to"
 msgstr "邀請到"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@common-download"
@@ -362,6 +370,22 @@ msgstr "音頻"
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "文件"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-docs"
+msgstr "Google Docs"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-documents"
+msgstr "Google文件"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-presentations"
+msgstr "Google簡報"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-spreadsheets"
+msgstr "Google試算表"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
@@ -571,6 +595,7 @@ msgstr "私人"
 msgid "@common-type-public"
 msgstr "公開"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "上傳檔案"
@@ -672,11 +697,23 @@ msgstr "刪除時間："
 msgid "@file-size-too-large-error"
 msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
 
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-computer"
+msgstr "我的電腦"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-dropbox"
+msgstr "Dropbox"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-google-drive"
+msgstr " Google雲端硬碟"
+
 #: client/app/center/center.html
 msgid "@go-to-latest-message-msg"
 msgstr "去到最近的訊息"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "您有新訊息"
 
@@ -758,6 +795,40 @@ msgstr "密碼不能包含空格"
 msgid "@input-user-password-min-length-error"
 msgstr "一定要超過8個字符"
 
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-3"
+msgstr "為完成帳戶連接，請啟用瀏覽器的彈跳視窗功能"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-1"
+msgstr "連結妳的Dropbox帳戶"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-2"
+msgstr "自Dropbox上傳之檔案將會與其他檔案並排分類"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-1"
+msgstr "連結你的Google帳戶"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-2"
+msgstr ""
+"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使用篩選"
+"功能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-submit"
+msgstr "開始串連"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-dropbox"
+msgstr "從Dropbox上傳"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-google-drive"
+msgstr "從Google雲端硬碟上傳"
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr "我要保持登入狀態"
@@ -774,11 +845,13 @@ msgstr "在您的桌機上使用JANDI或帶著它到處走動 "
 msgid "@login-invalid"
 msgstr "電子郵件或密碼無效"
 
-#: client/app/modal/password.reset.request.html client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html
+#: client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
@@ -799,8 +872,8 @@ msgstr "  "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"- 私人議題對未受邀成員不開放- 在私人議題内已分享檔案僅開放給其參與者- 已設定"
-"爲公開或私人的議題在建立之後不能被轉換成另一個"
+"- 私人議題對未受邀成員不開放- 在私人議題内已分享檔案僅開放給其參與者- 已設"
+"定爲公開或私人的議題在建立之後不能被轉換成另一個"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -892,15 +965,16 @@ msgstr "邀請其他團隊成員加入JANDI!"
 msgid "@modal-upload-title-msg1"
 msgstr "按標題搜尋"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "建立公開議題 "
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "建立私人議題"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr "檔案"
 
@@ -908,35 +982,40 @@ msgstr "檔案"
 msgid "@msg-help-multiline"
 msgstr "Shift鍵加Enter鍵可多行輸入"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "邀請了"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr " "
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "已經加入"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "已經離開"
 
-#: client/app/center/center.html client/app/right/files/file/file.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "打開原始檔案"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr "分享過"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr "未分享過"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr "的"
 
@@ -1000,8 +1079,8 @@ msgstr ""
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 與 <span "
-"class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 與 "
+"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -1090,8 +1169,8 @@ msgstr "知道了！"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定檔案"
-"後，將點擊右邊的「ᵒᵒᵒ」即可。"
+"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定檔"
+"案後，將點擊右邊的「ᵒᵒᵒ」即可。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
@@ -1104,8 +1183,8 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即可收"
-"納搜尋欄。"
+"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即可"
+"收納搜尋欄。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
@@ -1133,8 +1212,8 @@ msgstr "TIPS"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
-"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳訊"
-"會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳"
+"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳"
+"訊會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳"
 "訊，同時仍然保留訊息歷史直到對話重新啟動。"
 
 #: client/app/tutorial/tutorial.html
@@ -1161,8 +1240,8 @@ msgstr "繼續 »"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
 msgstr ""
-"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最重要的"
-"提示。"
+"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最重要"
+"的提示。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"

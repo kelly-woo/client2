@@ -116,6 +116,7 @@ msgid "@btn-close"
 msgstr "閉じる"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
@@ -149,7 +150,9 @@ msgstr "招待"
 msgid "@btn-join"
 msgstr "参加"
 
-#: client/app/center/center.html client/app/modal/share/share.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -164,6 +167,7 @@ msgstr "名前の更新"
 msgid "@btn-update-password"
 msgstr "パスワードの更新"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "アップロード"
@@ -281,6 +285,8 @@ msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "削除されたファイル"
@@ -312,6 +318,7 @@ msgid "@common-dm-invite-to"
 msgstr "へ招待"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@common-download"
@@ -370,6 +377,22 @@ msgstr "音声"
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "文書"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-docs"
+msgstr "Google Docs"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-documents"
+msgstr "Googleドキュメント"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-presentations"
+msgstr "Googleスライド"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-spreadsheets"
+msgstr "Googleスプレッドシート"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
@@ -579,6 +602,7 @@ msgstr "非公開"
 msgid "@common-type-public"
 msgstr "公開"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "アップロード"
@@ -682,11 +706,23 @@ msgstr " "
 msgid "@file-size-too-large-error"
 msgstr "現在のところ、100MBを超えるファイルはアップロードできません。"
 
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-computer"
+msgstr "マイコンピューター"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-dropbox"
+msgstr "Dropboxからインポート"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-google-drive"
+msgstr "Googleドライブ"
+
 #: client/app/center/center.html
 msgid "@go-to-latest-message-msg"
 msgstr "最新のメッセージに移動"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "新着メッセージがあります"
 
@@ -771,6 +807,43 @@ msgstr "パスワードにスペースを含めることはできません"
 msgid "@input-user-password-min-length-error"
 msgstr "パスワードは8文字以上にしてください"
 
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-3"
+msgstr ""
+"アカウントを接続するために、ブラウザのポップアップ表示を許可してください"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-1"
+msgstr "Dropboxアカウントを追加してファイルを共有"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-2"
+msgstr ""
+"Dropboxをファイルの種類(PDF, PPT, Excel)で検索し、Dropboxのウィンドウで表示"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-1"
+msgstr "Googleドライブからファイルを共有するためにGoogleアカウントを追加"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-2"
+msgstr ""
+"\"Googleドキュメント\"フィルターで、Googleドライブに保存されているGoogleド"
+"キュメント、スプレッドシート、スライドを簡単に絞り込み。Googleドライブ上の"
+"ファイルは種類別に分類されます"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-submit"
+msgstr "クラウド連携を追加"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-dropbox"
+msgstr "Dropboxからファイルをアップロード"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-google-drive"
+msgstr "Googleドライブからファイルをアップロード"
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr "ログイン状態を保持する"
@@ -793,6 +866,7 @@ msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
@@ -916,15 +990,16 @@ msgstr "あなたのチームメンバーをJANDIに招待しましょう！"
 msgid "@modal-upload-title-msg1"
 msgstr "ファイル名検索で使用されます"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "このトピックを作成する"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "このプライベートトピックを作成する"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr "ファイル"
 
@@ -932,35 +1007,40 @@ msgstr "ファイル"
 msgid "@msg-help-multiline"
 msgstr "shift+enterで改行"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "が"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr "さんを招待しました"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "さんが参加しました"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "が退出しました"
 
-#: client/app/center/center.html client/app/right/files/file/file.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "元のファイルを開く"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr "共有"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr "非共有"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr "の"
 

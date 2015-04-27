@@ -123,7 +123,10 @@
         fileTypeTranMap = {
           TXT: '@common-file-type-documents',
           EXCEL: '@common-file-type-spreadsheets',
-          PPT: '@common-file-type-presentations'
+          PPT: '@common-file-type-presentations',
+          'Google Doc': '@common-file-type-google-documents',
+          'Google Spreadsheet': '@common-file-type-google-spreadsheets',
+          'Google Presentation': '@common-file-type-google-presentations'
         };
     angular.extend(fileTypeMap, integrationType);
     fileTypeMap = createMap(fileTypeMap);

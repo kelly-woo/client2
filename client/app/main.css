@@ -588,17 +588,6 @@ input[type="button"] {
   height: 150px;
 }
 
-.integration-google-drive-desc-1 {
-  background-image: url('../assets/images/integration/desc/googledrive-share.png');
-}
-.integration-google-drive-desc-2 {
-  background-image: url('../assets/images/integration/desc/googledrive-filetype.png');
-}
-.integration-google-drive-desc-3 {
-  background-image: url('../assets/images/integration/desc/googledrive-popup.png');
-}
-
-
 .image-background {
   background: url('../assets/images/checkered.png');
   min-width: 40px;

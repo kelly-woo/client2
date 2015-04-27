@@ -218,7 +218,10 @@
           file.share = file.currentEntity.id;
         }
       },
-      _openIntegrationModal: function() {
+      /**
+       * integration modal open
+       */
+      _openIntegrationModal: function(data) {
         var that = this,
             scope;
 
@@ -229,7 +232,12 @@
           templateUrl: 'app/modal/integration/integration.html',
           controller: 'fileIntegrationModalCtrl',
           size: 'lg',
-          windowClass: 'integration-modal'
+          windowClass: 'integration-modal',
+          resolve: {
+            data: function() {
+              return data;
+            }
+          }
         });
       },
       _closeIntegrationModal: function() {
@@ -385,12 +393,27 @@
           uploadType: this.uploadType
         };
       },
+      /**
+       * google drive integration modal open
+       */
       _openIntegrationModal: function() {
-        Integration._openIntegrationModal.call(this);
-
-        var that = this;
-
-        // console.log(options.scope);
+        Integration._openIntegrationModal.call(this, {
+          title: '@integration-title-google-drive',
+          descs: [
+            {
+              img: '../assets/images/integration/desc/googledrive-share.png',
+              txt: '@integration-desc-google-drive-1',
+            },
+            {
+              img: '../assets/images/integration/desc/googledrive-filetype.png',
+              txt: '@integration-desc-google-drive-2'
+            },
+            {
+              img: '../assets/images/integration/desc/googledrive-popup.png',
+              txt: '@integration-desc-3'
+            }
+          ]
+        });
       }
     });
 
@@ -453,6 +476,28 @@
 
           uploadType: this.uploadType
         };
+      },
+      /**
+       * dropbox modal integration open
+       */
+      _openIntegrationModal: function() {
+        Integration._openIntegrationModal.call(this, {
+          title: '@integration-title-dropbox',
+          descs: [
+            {
+              img: '../assets/images/integration/desc/dropbox-share.png',
+              txt: '@integration-desc-dropbox-1',
+            },
+            {
+              img: '../assets/images/integration/desc/dropbox-link.png',
+              txt: '@integration-desc-dropbox-2'
+            },
+            {
+              img: '../assets/images/integration/desc/dropbox-popup.png',
+              txt: '@integration-desc-3'
+            }
+          ]
+        });
       }
     });
 

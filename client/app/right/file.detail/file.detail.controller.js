@@ -65,7 +65,8 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
             for (var i in response.messageDetails) {
               var item = response.messageDetails[i];
               if (item.contentType === 'file') {
-                $scope.file_detail = item;
+                setImageUrl($scope.file_detail = item);
+
                 // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
                 $scope.file_detail.shared = fileAPIservice.getSharedEntities(item);
               } else if (item.contentType === 'comment') {
@@ -135,6 +136,22 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       });
   };
 
+  /**
+   * file detail에서 integraiton preview로 들어갈 image map
+   */
+  var integrationPreviewMap = {
+    google: '../assets/images/integration/preview/web_preview_google.png',
+    dropbox: '../assets/images/integration/preview/web_preview_dropbox.png'
+  };
+  /**
+   * file detail에서 preview 공간에 들어갈 image의 url을 설정함
+   */
+  function setImageUrl(fileDetail) {
+    var content = fileDetail.content;
+    // file detail에서 preview image 설정
+    $scope.ImageUrl = $filter('hasPreview')(content) ? scope.server_uploaded + content.extraInfo.largeThumbnailUrl : integrationPreviewMap[content.serverUrl];
+  }
+
   $scope.onImageClick = function() {
     $modal.open({
       scope       :   $scope,
@@ -143,7 +160,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       windowClass :   'modal-full fade-only',
       resolve     :   {
         photoUrl    : function() {
-          return $scope.server_uploaded + $scope.file_detail.content.fileUrl;
+          return $scope.ImageUrl;
         }
       }
     });
