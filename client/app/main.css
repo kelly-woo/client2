@@ -464,25 +464,25 @@ input[type="button"] {
 .fileicon-gif {
   background-position: -78px -93px;
 }
-.dropbox-fileicon-img,
-.dropbox-fileicon-jpg,
-.dropbox-fileicon-png,
-.dropbox-fileicon-gif {
+.fileicon-img-dropbox,
+.fileicon-jpg-dropbox,
+.fileicon-png-dropbox,
+.fileicon-gif-dropbox {
   background-position: -104px -93px;
 }
-.google-dirve-fileicon-img,
-.google-dirve-fileicon-jpg,
-.google-dirve-fileicon-png,
-.google-dirve-fileicon-gif {
+.fileicon-img-google-drive,
+.fileicon-jpg-google-drive,
+.fileicon-png-google-drive,
+.fileicon-gif-google-drive {
   background-position: -130px 0px;
 }
 .fileicon-pdf {
   background-position: 0px -31px;
 }
-.dropbox-fileicon-pdf {
+.fileicon-pdf-dropbox {
   background-position: -26px -31px;
 }
-.google-drive-fileicon-pdf {
+.fileicon-pdf-google-drive {
   background-position: -52px -31px;
 }
 .fileicon-video,
@@ -490,14 +490,14 @@ input[type="button"] {
 .fileicon-mov{
   background-position: 0px -124px;
 }
-.dropbox-fileicon-video,
-.dropbox-fileicon-mp4,
-.dropbox-fileicon-mov{
+.fileicon-video-dropbox,
+.fileicon-mp4-dropbox,
+.fileicon-mov-dropbox {
   background-position: -26px -124px;
 }
-.google-drive-fileicon-video,
-.google-drive-fileicon-mp4,
-.google-drive-fileicon-mov{
+.fileicon-video-google-drive,
+.fileicon-mp4-google-drive,
+.fileicon-mov-google-drive {
   background-position: -52px -124px;
 }
 .fileicon-audio,
@@ -505,37 +505,32 @@ input[type="button"] {
 .fileicon-mpeg {
   background-position: -26px 0px;
 }
-.fileicon-audio,
-.fileicon-mp3,
-.fileicon-mpeg {
-  background-position: -26px 0px;
-}
-.dropbox-fileicon-audio,
-.dropbox-fileicon-mp3,
-.dropbox-fileicon-mpeg {
+.fileicon-audio-dropbox,
+.fileicon-mp3-dropbox,
+.fileicon-mpeg-dropbox {
   background-position: 0px -93px;
 }
-.google-drive-fileicon-audio,
-.google-drive-fileicon-mp3,
-.google-drive-fileicon-mpeg {
+.fileicon-audio-google-drive,
+.fileicon-mp3-google-drive,
+.fileicon-mpeg-google-drive {
   background-position: -52px 0px;
 }
 .fileicon-txt {
   background-position: -130px -31px;
 }
-.dropbox-fileicon-txt {
+.fileicon-txt-dropbox {
   background-position: -130px -62px;
 }
-.google-drive-fileicon-txt {
+.fileicon-txt-google-drive {
   background-position: -130px -93px;
 }
 .fileicon-etc {
   background-position: -78px 0px;
 }
-.dropbox-fileicon-etc {
+.fileicon-etc-dropbox {
   background-position: -78px -31px;
 }
-.google-drive-fileicon-etc {
+.fileicon-etc-google-drive {
   background-position: 0px -62px;
 }
 .fileicon-zip {
@@ -548,29 +543,38 @@ input[type="button"] {
 .fileicon-ppt {
   background-position: 0px 0px;
 }
-.dropbox-fileicon-ppt {
+.fileicon-ppt-dropbox {
   background-position: -26px -93px;
 }
-.google-drive-fileicon-ppt {
+.fileicon-ppt-google-drive {
   background-position: -52px -93px;
 }
 .fileicon-excel {
   background-position: -104px 0px;
 }
-.dropbox-fileicon-excel {
+.fileicon-excel-dropbox {
   background-position: -104px -31px;
 }
-.google-drive-fileicon-excel {
+.fileicon-excel-google-drive {
   background-position: -104px -62px;
 }
 .fileicon-hwp {
   background-position: -26px -62px;
 }
-.dropbox-fileicon-hwp {
+.fileicon-hwp-dropbox {
   background-position: -52px -62px;
 }
-.google-drive-fileicon-hwp {
+.fileicon-hwp-google-drive {
   background-position: -78px -62px;
+}
+.fileicon-document-google-drive {
+  background-position: -78px -124px;
+}
+.fileicon-spreadsheet-google-drive {
+  background-position: -130px -124px;
+}
+.fileicon-presentation-google-drive {
+  background-position: -104px -124px;
 }
 
 .icon-more-member {

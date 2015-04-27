@@ -412,7 +412,7 @@
 
         return this;
       },
-      service: 'bropbox',
+      service: 'dropbox',
       /**
        * dropbox choose object 생성 & 출력
        * choose object 생성시 options 수정 가능함.

@@ -1,10 +1,10 @@
 .integration-modal .modal-dialog {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
     width: 700px;
-    margin-top: -225px;
-    margin-left: -350px;
+    /*margin-top: -225px;*/
+    /*margin-left: -350px;*/
 }
 
 .integration-modal .modal-body {

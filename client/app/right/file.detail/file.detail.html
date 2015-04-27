@@ -20,25 +20,21 @@
           </div>
           <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
           <div class="file-detail-header__title">
-            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="!isFileArchived">
-              {{ file_detail.content.title || file_detail.content.name }}
+            <a original-file file-url="{{file_detail.content.fileUrl}}" ng-if="!isFileArchived">
+              {{ file_detail.content | fileTitle }}
             </a>
           </div>
         </div>
       </div>
 
       <div class="file-detail-body">
-        <div class="image_wrapper" ng-if="!isFileArchived && file_detail.content.filterType.indexOf('image') !== -1 ">
-          <img rotate rotate-left-align=false
-               class="file-detail-body__image"
-               data-ng-src="{{ server_uploaded + file_detail.content.extraInfo.largeThumbnailUrl }}"
-               data-ng-click="onImageClick();"/>
+        <div class="image_wrapper" file-detail-preview>
+          <img class="file-detail-body__image" rotate rotate-left-align="false" ng-click="onImageClick();"/>
         </div>
 
-        <div class="file-detail-body__other hidden" data-ng-if="file_detail.content.filterType.indexOf('image') == -1">
-
+        <div class="file-detail-body__other hidden" ng-if="!(file_detail.content | hasPreview)">
           <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
-            <div class="fileicon fileicon-left fileicon-{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
+            <div class="fileicon fileicon-left fileicon-{{file_detail.content | fileIcon}}"></div>
           </a>
 
           <div class="file-detail-body__other-meta file-item-meta__listview">
@@ -58,7 +54,7 @@
             </a>
 
             <!--    NON-PDF FILE    -->
-            <a href="{{ server_uploaded + 'download/'+ file_detail.content.fileUrl }}" download="{{ file_detail.content.name }}"  ng-if="file_detail.content.type.indexOf('pdf') == -1">
+            <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" ng-if="file_detail.content.type.indexOf('pdf') == -1">
               <button type="button" class="btn btn-white" >
                 <span translate>@common-download</span>
               </button>
@@ -69,7 +65,7 @@
         </div>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
-          <div class="fileicon fileicon-{{file_detail.content.type | getFileIconImage | lowercase}}"></div>
+          <div class="fileicon fileicon-{{file_detail.content | fileIcon}}"></div>
 
           <div class="file-detail-body__meta-info">
             <div class="file-detail-body__meta-info-up">
@@ -120,7 +116,7 @@
                 </a>
               </li>
               <li class="cursor_pointer">
-                <a href="{{ server_uploaded + 'download/' + file_detail.content.fileUrl }}" target="_blank" data-ng-click="onClickDownload(file_detail);" download="{{ file_detail.content.name }}">
+                <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" ng-click="onClickDownload(file_detail);">
                   <i class="icon-download"></i>
                   <span translate>@common-download</span>
                 </a>
@@ -212,8 +208,8 @@
           <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
 
           <div class="file-detail-header__title archived-file__title">
-            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="!isFileArchived">
-              {{ file_detail.content.title || file_detail.content.name }}
+            <a original-file file-url="{{file_detail.content.fileUrl}}" ng-if="!isFileArchived">
+              {{ file_detail.content | fileTitle }}
             </a>
             <div translate>@common-deleted-file-title</div>
           </div>

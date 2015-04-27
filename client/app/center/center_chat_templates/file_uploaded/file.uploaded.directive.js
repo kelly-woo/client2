@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('fileUploaded', fileUploaded);
 
-  function fileUploaded() {
+  function fileUploaded($filter) {
     return {
       restrict: 'E',
       scope: false,
@@ -14,7 +14,6 @@
     };
 
     function link(scope, element, attrs) {
-
     }
   }
 })();

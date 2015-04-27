@@ -64,17 +64,14 @@
       <div ng-if="msg.feedback.status != 'archived'">
         <!--    IMAGE THUMBNAIL -->
         <div class="image_wrapper">
-          <img rotate rotate-left-align="true"
-               class="msg-file-body__img cursor_pointer"
-               data-ng-show="msg.feedback.content.filterType.indexOf('image') !== -1 && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'"
-               data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
+          <img class="msg-file-body__img cursor_pointer" rotate rotate-left-align="true"
+               ng-if="(msg.feedback.content | hasPreview) && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'"
+               ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
         </div>
 
         <!--    FILE THUMBNAIL  -->
-        <div class="msg-file-body__thumbnail"
-             data-ng-if="msg.feedback.content.filterType.indexOf('image') == -1 && msg.message.commentOption.isTitle">
-          <div class="fileicon fileicon-{{msg.feedback.content.type | getFileIconImage | lowercase}}" ></div>
-
+        <div class="msg-file-body__thumbnail" ng-if="!(msg.feedback.content | hasPreview) && msg.message.commentOption.isTitle">
+          <div class="fileicon fileicon-{{msg.feedback.content | fileIcon}}" ></div>
         </div>
       </div>
 
@@ -94,7 +91,7 @@
         <!--    FILE TITLE/NAME  -->
         <div ng-if="msg.feedback.status != 'archived'">
           <a class="msg-file-meta__title file__name break-word" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
-            {{msg.feedback.content.title || msg.feedback.content.name}}
+            {{msg.feedback.content | fileTitle}}
           </a>
         </div>
 
