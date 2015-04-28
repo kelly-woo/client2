@@ -23,7 +23,7 @@
 
     $scope.title = $filter('translate')(data.title);
     for (i = 0, len = descs.length; i < len; ++i) {
-      $scope['descImage' + (i + 1)] = descs[i].img;
+      $scope['descClassName' + (i + 1)] = descs[i].className;
       $scope['descText' + (i + 1)] = $filter('translate')(descs[i].txt);
     }
   }

@@ -142,8 +142,8 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    * file detail에서 integraiton preview로 들어갈 image map
    */
   var integrationPreviewMap = {
-    google: '../assets/images/integration/preview/web_preview_google.png',
-    dropbox: '../assets/images/integration/preview/web_preview_dropbox.png'
+    google: '../assets/images/web_preview_google.png',
+    dropbox: '../assets/images/web_preview_dropbox.png'
   };
   /**
    * file detail에서 preview 공간에 들어갈 image의 url을 설정함

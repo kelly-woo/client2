@@ -610,6 +610,26 @@ input[type="button"] {
   background: url('../assets/images/private-topic.svg') no-repeat;
 }
 
+.integration-desc-google-drive-1 {
+  background-image: url('../assets/images/googledrive-share.png');
+}
+.integration-desc-google-drive-2 {
+  background-image: url('../assets/images/googledrive-filetype.png');
+}
+.integration-desc-google-drive-3 {
+  background-image: url('../assets/images/googledrive-popup.png');
+}
+
+.integration-desc-dropbox-1 {
+  background-image: url('../assets/images/dropbox-share.png');
+}
+.integration-desc-dropbox-2 {
+  background-image: url('../assets/images/dropbox-link.png');
+}
+.integration-desc-dropbox-3 {
+  background-image: url('../assets/images/dropbox-popup.png');
+}
+
 
 .help-enter-a-message {
   background: url('../assets/images/center/help-enter-a-message.png') no-repeat;

@@ -395,15 +395,15 @@
             title: '@integration-title-google-drive',   // modal title
             descs: [                                    // modal description
               {
-                img: '../assets/images/integration/desc/googledrive-share.png',
+                className: 'integration-desc-google-drive-1',
                 txt: '@integration-desc-google-drive-1',
               },
               {
-                img: '../assets/images/integration/desc/googledrive-filetype.png',
+                className: 'integration-desc-google-drive-2',
                 txt: '@integration-desc-google-drive-2'
               },
               {
-                img: '../assets/images/integration/desc/googledrive-popup.png',
+                className: 'integration-desc-google-drive-3',
                 txt: '@integration-desc-3'
               }
             ],
@@ -494,15 +494,15 @@
             title: '@integration-title-dropbox',    // modal title
             descs: [                                // modal description
               {
-                img: '../assets/images/integration/desc/dropbox-share.png',
+                className: 'integration-desc-dropbox-1',
                 txt: '@integration-desc-dropbox-1',
               },
               {
-                img: '../assets/images/integration/desc/dropbox-link.png',
+                className: 'integration-desc-dropbox-2',
                 txt: '@integration-desc-dropbox-2'
               },
               {
-                img: '../assets/images/integration/desc/dropbox-popup.png',
+                className: 'integration-desc-dropbox-3',
                 txt: '@integration-desc-3'
               }
             ],
