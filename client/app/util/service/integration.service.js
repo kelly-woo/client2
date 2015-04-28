@@ -56,6 +56,7 @@
         if (buttonEle.length) {
           buttonEle
             .on('click', function() {
+              console.log('integration button click...');
               that.open();
             });
         }
@@ -221,7 +222,7 @@
       /**
        * integration modal open
        */
-      _openIntegrationModal: function(data) {
+      _openIntegrationModal: function(data, handler) {
         var that = this,
             scope;
 
@@ -236,6 +237,9 @@
           resolve: {
             data: function() {
               return data;
+            },
+            startIntegration: function() {
+              return handler.startIntegration;
             }
           }
         });
@@ -297,11 +301,6 @@
           that._showPicker();
         } else {
           that._openIntegrationModal();
-
-          that._doAuth(false, function(token) {
-            console.log('do auth callback arguments ::: ', arguments);
-            that._showPicker();
-          }.bind(that));
         }
       },
       /**
@@ -397,23 +396,34 @@
        * google drive integration modal open
        */
       _openIntegrationModal: function() {
-        Integration._openIntegrationModal.call(this, {
-          title: '@integration-title-google-drive',
-          descs: [
-            {
-              img: '../assets/images/integration/desc/googledrive-share.png',
-              txt: '@integration-desc-google-drive-1',
-            },
-            {
-              img: '../assets/images/integration/desc/googledrive-filetype.png',
-              txt: '@integration-desc-google-drive-2'
-            },
-            {
-              img: '../assets/images/integration/desc/googledrive-popup.png',
-              txt: '@integration-desc-3'
+        var that = this;
+
+        Integration._openIntegrationModal.call(that,
+          {
+            title: '@integration-title-google-drive',
+            descs: [
+              {
+                img: '../assets/images/integration/desc/googledrive-share.png',
+                txt: '@integration-desc-google-drive-1',
+              },
+              {
+                img: '../assets/images/integration/desc/googledrive-filetype.png',
+                txt: '@integration-desc-google-drive-2'
+              },
+              {
+                img: '../assets/images/integration/desc/googledrive-popup.png',
+                txt: '@integration-desc-3'
+              }
+            ]
+          },
+          {
+            startIntegration: function() {
+              that._doAuth(false, function(token) {
+                that._showPicker();
+              }.bind(that));
             }
-          ]
-        });
+          }
+        );
       }
     });
 
@@ -446,14 +456,6 @@
         var that = this;
 
         that._openIntegrationModal();
-
-        Dropbox.choose({
-          success: that._success.bind(that),
-          cancel: that._cancel.bind(that),
-          linkType: "preview",
-          multiselect: that.options.multiple,
-          extenstion: ['.*']
-        });
       },
       _success: function(files) {
         var that = this;
@@ -481,23 +483,38 @@
        * dropbox modal integration open
        */
       _openIntegrationModal: function() {
-        Integration._openIntegrationModal.call(this, {
-          title: '@integration-title-dropbox',
-          descs: [
-            {
-              img: '../assets/images/integration/desc/dropbox-share.png',
-              txt: '@integration-desc-dropbox-1',
-            },
-            {
-              img: '../assets/images/integration/desc/dropbox-link.png',
-              txt: '@integration-desc-dropbox-2'
-            },
-            {
-              img: '../assets/images/integration/desc/dropbox-popup.png',
-              txt: '@integration-desc-3'
+        var that = this;
+
+        Integration._openIntegrationModal.call(that,
+          {
+            title: '@integration-title-dropbox',
+            descs: [
+              {
+                img: '../assets/images/integration/desc/dropbox-share.png',
+                txt: '@integration-desc-dropbox-1',
+              },
+              {
+                img: '../assets/images/integration/desc/dropbox-link.png',
+                txt: '@integration-desc-dropbox-2'
+              },
+              {
+                img: '../assets/images/integration/desc/dropbox-popup.png',
+                txt: '@integration-desc-3'
+              }
+            ]
+          },
+          {
+            startIntegration: function() {
+              Dropbox.choose({
+                success: that._success.bind(that),
+                cancel: that._cancel.bind(that),
+                linkType: "preview",
+                multiselect: that.options.multiple,
+                extenstion: ['.*']
+              });
             }
-          ]
-        });
+          }
+        );
       }
     });
 

@@ -7,7 +7,7 @@
     .controller('fileIntegrationModalCtrl', fileIntegrationModalCtrl);
 
   /* @ngInject */
-  function fileIntegrationModalCtrl($scope, $modalInstance, $filter, data) {
+  function fileIntegrationModalCtrl($scope, $modalInstance, $filter, data, startIntegration) {
     console.log('file integration modal ctrl ::: ', $scope, data);
     var descs = data.descs;
     var i;
@@ -17,7 +17,7 @@
       $modalInstance.dismiss('cancel');
     };
     $scope.integrate = function() {
-
+      startIntegration();
     };
 
     $scope.title = $filter('translate')(data.title);
