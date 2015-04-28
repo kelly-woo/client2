@@ -19,18 +19,18 @@
     function link(scope, element, attrs) {
       var menu = element.find('#integration-menu'),
           uploadMap = {
-            'client': function(ele) {
+            'client': function() {
               $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
                 .on('change', function(evt) {
                   scope.onFileSelect(evt.target.files);
                 })
                 .trigger('click');
             },
-            'google-drive': function(ele) {
-              integrationService.createGoogleDrive(scope, ele, {multiple: multiple});
+            'google-drive': function() {
+              integrationService.createGoogleDrive(scope, {multiple: multiple});
             },
-            'dropbox': function(ele) {
-              integrationService.createDropBox(scope, ele, {multiple: multiple});
+            'dropbox': function() {
+              integrationService.createDropBox(scope, {multiple: multiple});
             }
           };
 
@@ -40,7 +40,7 @@
               fn;
 
           if (fn = uploadMap[className]) {
-            fn(this);
+            fn();
           }
         });
     }

@@ -6,7 +6,7 @@
     .service('integrationService', integrationService);
 
   /* @ngInject */
-  function integrationService($rootScope, $modal, $timeout, fileAPIservice, fileObjectService, analyticsService) {
+  function integrationService($rootScope, $modal, $timeout, fileAPIservice, fileObjectService, accountService, analyticsService) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
@@ -48,19 +48,6 @@
       /**
        * addEventListeners
        */
-      on: function () {
-        var that = this,
-            buttonEle;
-
-        buttonEle = that.options.buttonEle;
-        if (buttonEle.length) {
-          buttonEle
-            .on('click', function() {
-              console.log('integration button click...');
-              that.open();
-            });
-        }
-      },
       _fileGetCallback: function(files) {
         var that = this;
 
@@ -222,14 +209,14 @@
       /**
        * integration modal open
        */
-      _openIntegrationModal: function(data, handler) {
-        var that = this,
-            scope;
+      _openIntegrationModal: function(data) {
+        var that = this;
 
-        scope = that.options.scope;
+        // modal이 이미 open된 상태라면 cancel
+        that.modal && that.modal.dismiss('cancel');
 
         that.modal = $modal.open({
-          scope:   scope,
+          scope: that.options.scope,
           templateUrl: 'app/modal/integration/integration.html',
           controller: 'fileIntegrationModalCtrl',
           size: 'lg',
@@ -237,9 +224,6 @@
           resolve: {
             data: function() {
               return data;
-            },
-            startIntegration: function() {
-              return handler.startIntegration;
             }
           }
         });
@@ -260,6 +244,14 @@
       init: function(options) {
         Integration.init.call(this, options);
 
+        this.localeMap = {
+          'ko': 'ko',
+          'zh-cn': 'zh-CN',
+          'zh-tw': 'zh-TW',
+          'ja': 'ja',
+          'en': 'en'
+        };
+
         this.options = {
           apiKey: '',
           clientId: '',
@@ -268,16 +260,6 @@
 
         angular.extend(this.options, options);
         this.options.buttonEle = $(this.options.buttonEle);
-
-        if (this.options.apiKey == null) {
-          console.log('put api key');
-        }
-
-        if (this.options.clientId == null) {
-          console.log('put client id');
-        }
-
-        Integration.on.call(this);
 
         // Load the drive API
         gapi.client.setApiKey(this.options.apiKey);
@@ -291,11 +273,13 @@
        * google drive picker open
        * token이 존재한다면 picker를 바로 출력하고, 아니면 인증완료후 picker 호출
        */
-      open: function () {
+      open: function(scope) {
         Integration.open.call(this);
 
         var that = this,
             token;
+
+        that.options.scope = scope;
 
         if (token = gapi.auth.getToken()) {
           that._showPicker();
@@ -304,19 +288,27 @@
         }
       },
       /**
+       * google drive modal open
+       */
+      _open: function() {
+        var that = this;
+
+        that._doAuth(false, function(token) {
+          that._showPicker();
+        }.bind(that));
+      },
+      /**
        * picker object 생성 & 출력
        * picker object 생성시 options 수정 가능함.
        */
       _showPicker: function() {
-        var that = this,
-            accessToken,
-            view,
-            picker;
+        var that = this;
+        var accessToken = gapi.auth.getToken().access_token;
+        var view = new google.picker.DocsView();
+        var picker = that.picker = new google.picker.PickerBuilder();
+        var lang = accountService.getAccountLanguage();
 
-        accessToken = gapi.auth.getToken().access_token;
-        view = new google.picker.DocsView();
         view.setIncludeFolders(true);
-        picker = that.picker = new google.picker.PickerBuilder();
 
         // multiple file upload
         that.options.multiple && picker.enableFeature(google.picker.Feature.MULTISELECT_ENABLED);
@@ -327,8 +319,8 @@
           .setDeveloperKey(that.options.apiKey)
           .setOAuthToken(accessToken)
           .addView(view)
+          .setLocale(that.localeMap[lang])
           .setCallback(that._pickerCallback.bind(that))
-          // .setRelayUrl('http://www.jandi.io:4000/rpc_relay.html')
           .build()
           .setVisible(true);
       },
@@ -372,7 +364,7 @@
           client_id: this.options.clientId,
           scope: 'https://www.googleapis.com/auth/drive.readonly',
           immediate: immediate,
-          redirect_uri: 'http://www.jandi.io:4000/oauth2/google',  // todo: local, dev, pro 한경에 맞추어 설정 가능하도록 조정
+          redirect_uri: $rootScope.server_uploaded + 'oauth2/google',
           response_type: 'code'
         };
 
@@ -400,8 +392,8 @@
 
         Integration._openIntegrationModal.call(that,
           {
-            title: '@integration-title-google-drive',
-            descs: [
+            title: '@integration-title-google-drive',   // modal title
+            descs: [                                    // modal description
               {
                 img: '../assets/images/integration/desc/googledrive-share.png',
                 txt: '@integration-desc-google-drive-1',
@@ -414,14 +406,11 @@
                 img: '../assets/images/integration/desc/googledrive-popup.png',
                 txt: '@integration-desc-3'
               }
-            ]
-          },
-          {
-            startIntegration: function() {
-              that._doAuth(false, function(token) {
-                that._showPicker();
-              }.bind(that));
-            }
+            ],
+            startIntegration: function() {    // 연동 시작 버튼 핸들러
+              that._open();
+            },
+            cInterface: 'confirm'             // modal의 확인 interface 명
           }
         );
       }
@@ -441,8 +430,6 @@
         angular.extend(this.options, options);
         this.options.buttonEle = $(this.options.buttonEle);
 
-        Integration.on.call(this);
-
         return this;
       },
       service: 'dropbox',
@@ -450,12 +437,29 @@
        * dropbox choose object 생성 & 출력
        * choose object 생성시 options 수정 가능함.
        */
-      open: function() {
+      open: function(scope) {
         Integration.open.call(this);
 
         var that = this;
 
+        this.options.scope = scope;
+
         that._openIntegrationModal();
+        that._open();
+      },
+      /**
+       * dropbox의 modal open
+       */
+      _open: function() {
+        var that = this;
+
+        Dropbox.choose({
+          success: that._success.bind(that),
+          cancel: that._cancel.bind(that),
+          linkType: "preview",
+          multiselect: that.options.multiple,
+          extenstion: ['.*']
+        });
       },
       _success: function(files) {
         var that = this;
@@ -487,8 +491,8 @@
 
         Integration._openIntegrationModal.call(that,
           {
-            title: '@integration-title-dropbox',
-            descs: [
+            title: '@integration-title-dropbox',    // modal title
+            descs: [                                // modal description
               {
                 img: '../assets/images/integration/desc/dropbox-share.png',
                 txt: '@integration-desc-dropbox-1',
@@ -501,55 +505,51 @@
                 img: '../assets/images/integration/desc/dropbox-popup.png',
                 txt: '@integration-desc-3'
               }
-            ]
-          },
-          {
-            startIntegration: function() {
-              Dropbox.choose({
-                success: that._success.bind(that),
-                cancel: that._cancel.bind(that),
-                linkType: "preview",
-                multiselect: that.options.multiple,
-                extenstion: ['.*']
-              });
-            }
+            ],
+            cInterface: 'alert'   // modal의 확인 interface 명
           }
         );
       }
     });
 
     // google drive picker docs: https://developers.google.com/picker/docs/
-    function createGoogleDrive($scope, ele, options) {
-      var apiKey = 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs',
-          clientId = '720371329165-sripefi3is5k3vlvrjgn5d3onn9na2es.apps.googleusercontent.com';
+    var googleDriveIntegration;
+    function createGoogleDrive($scope, options) {
+      var apiKey = 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs';
+      var clientId = '720371329165-sripefi3is5k3vlvrjgn5d3onn9na2es.apps.googleusercontent.com';
 
-      !window.google && $.getScript('https://www.google.com/jsapi?key=' + apiKey);
-      !window.gapi && $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker');
+      if (!window.google || !window.gapi) {
+        !window.google && $.getScript('https://www.google.com/jsapi?key=' + apiKey);
+        !window.gapi && $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker');
 
-      window._createGDPicker = function() {
-        (window.googleDriveIntegration = Object.create(GoogleDriveIntegration).init({
-          scope: $scope,                          // 필수, 종속 scope
-          buttonEle: ele,                         // 필수, button element
-          apiKey: apiKey,                         // 필수, google dirve api key
-          clientId: clientId,                     // 필수, goggle dirve client id
-          multiple: options.multiple || true      // multiple file upload
-        })).open();
-      };
+        window._createGDPicker = function() {
+          (googleDriveIntegration = window.googleDriveIntegration = Object.create(GoogleDriveIntegration).init({
+            apiKey: apiKey,                         // 필수, google dirve api key
+            clientId: clientId,                     // 필수, goggle dirve client id
+            multiple: options.multiple || true      // multiple file upload
+          })).open($scope);
+        };
+      } else {
+        googleDriveIntegration && googleDriveIntegration.open($scope);
+      }
     }
 
     // dropbox chooser docs: https://www.dropbox.com/developers/dropins/chooser/js
-    function createDropBox($scope, ele, options) {
+    var dropboxIntegration;
+    function createDropBox($scope, options) {
       var apiKey = '4hbb9l5wu46okhp';
 
-      !window.Dropbox && $.getScript('https://www.dropbox.com/static/api/2/dropins.js', function() {
-        Dropbox.appKey = apiKey;
+      if (!window.dropboxIntegration) {
+        $.getScript('https://www.dropbox.com/static/api/2/dropins.js', function() {
+          Dropbox.appKey = apiKey;
 
-        Object.create(DropBoxIntegration).init({
-          scope: $scope,                          // 필수, 종속 scope
-          buttonEle: ele,                         // 필수, button element
-          multiple: options.multiple || true
-        }).open();
-      });
+          (dropboxIntegration = Object.create(DropBoxIntegration).init({
+            multiple: options.multiple || true
+          })).open($scope);
+        });
+      } else {
+        dropboxIntegration && dropboxIntegration.open($scope);
+      }
     }
 
     return {

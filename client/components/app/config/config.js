@@ -27,7 +27,7 @@
 
   /* @ngInject */
   function run($rootScope, config) {
-    // server address, server api version 
+    // server address, server api version
     config.init($rootScope);
   }
 

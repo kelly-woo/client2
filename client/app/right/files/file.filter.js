@@ -170,9 +170,6 @@
 
     return function(content) {
       var integration;
-      // console.log(' ::: ', fileIconImageMap[content.type] || 'etc' + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : ''));
-
-      // console.log(' ::: ',fileIconImageMap[content.type] || 'etc');
       return (fileIconImageMap[content.type] || 'etc') + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '');
     };
   });
@@ -197,7 +194,7 @@
   app.filter('hasPreview', function() {
     var rImage = /image/i;
     return function(content) {
-      return rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+      return !!content && !!content.extraInfo && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
     };
   });
 

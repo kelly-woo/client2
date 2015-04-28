@@ -65,7 +65,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
             for (var i in response.messageDetails) {
               var item = response.messageDetails[i];
               if (item.contentType === 'file') {
-                setImageUrl($scope.file_detail = item);
+                $scope.file_detail = item;
 
                 // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
                 $scope.file_detail.shared = fileAPIservice.getSharedEntities(item);
@@ -86,6 +86,8 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
             if (!$scope.initialLoaded) $scope.initialLoaded = true;
 
             $scope.isFileArchived = isFileArchived($scope.file_detail);
+
+            setImageUrl($scope.file_detail);
             //console.log($scope.file_detail)
             //console.log('is deleted file?', $scope.isFileArchived)
           })
@@ -148,8 +150,9 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    */
   function setImageUrl(fileDetail) {
     var content = fileDetail.content;
+
     // file detail에서 preview image 설정
-    $scope.ImageUrl = $filter('hasPreview')(content) ? scope.server_uploaded + content.extraInfo.largeThumbnailUrl : integrationPreviewMap[content.serverUrl];
+    $scope.ImageUrl = $filter('hasPreview')(content) ? $scope.server_uploaded + content.extraInfo.largeThumbnailUrl : (integrationPreviewMap[content.serverUrl] || '');
   }
 
   $scope.onImageClick = function() {

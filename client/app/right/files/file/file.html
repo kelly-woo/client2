@@ -3,8 +3,8 @@
   <!--    IMAGE THUMBNAIL -->
   <div class="image_wrapper pull-left">
     <img class="cursor_pointer msg-file-body__img" rotate rotate-width="65" rotate-height="65"
-         ng-show="(file.content | hasPreview)"
-         ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"
+         ng-if="(file.content | hasPreview)"
+         ng-src="{{ server_uploaded + file.content.extraInfo.smallThumbnailUrl }}"
          ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>
   </div>
 
