@@ -630,6 +630,21 @@ input[type="button"] {
   background-image: url('../assets/images/dropbox-popup.png');
 }
 
+#integration-menu .icon-notebook {
+  font-size: 16px;
+}
+#integration-menu .icon-google-drive {
+  background-image: url('../assets/images/icon_google_drive.png');
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+#integration-menu .icon-dropbox {
+  background-image: url('../assets/images/icon_dropbox.png');
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
 
 .help-enter-a-message {
   background: url('../assets/images/center/help-enter-a-message.png') no-repeat;

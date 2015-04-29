@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox(integrationService) {
+  function centerChatInputBox(integrationService, configuration) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -15,6 +15,7 @@
       replace: true,
       templateUrl: 'app/center/center_chat_input_box/center.chat.input.box.html'
     };
+
 
     function link(scope, element, attrs) {
       var menu = element.find('#integration-menu'),
@@ -43,6 +44,16 @@
             fn();
           }
         });
+
+      // file upload menu의 각 item image pre-load
+      var iconGoogleDrive = new Image();
+      var iconDropbox = new Image();
+
+      iconGoogleDrive.src = configuration.assets_url + '../assets/images/icon_google_drive.png';
+      iconDropbox.src = configuration.assets_url + '../assets/images/icon_dropbox.png';
+
+      menu.find('.icon-google-drive').css({backgroundImage: iconGoogleDrive.src});
+      menu.find('.icon-dropbox').css({backgroundImage: iconDropbox.src});
     }
   }
 })();
