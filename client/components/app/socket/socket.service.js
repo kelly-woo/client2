@@ -151,7 +151,6 @@
       jndWebSocketHelper.socketEventLogger(CHECK_CONNECT_TEAM, data, false);
 
       currentSessionHelper.setSocketConnection();
-      isConnected = true;
 
       var param = {};
 
@@ -174,6 +173,7 @@
 
     function _onConnectTeam(data) {
       jndWebSocketHelper.socketEventLogger(CONNECT_TEAM, data, false);
+      isConnected = true;
     }
 
     /**

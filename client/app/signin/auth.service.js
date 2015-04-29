@@ -72,7 +72,7 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
         'refresh_token' : refresh_token
       }
     }).success(function(response) {
-      updateAccessToken(response);
+      updateAccessToken(response, refresh_token);
     }).error(function(err) {
       // bad refresh_token.
       _signOut();
@@ -84,17 +84,9 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
   }
 
 
-  function updateAccessToken(response) {
-    if (storageAPIservice.isValidValue(storageAPIservice.getRefreshTokenLocal())) {
-      storageAPIservice.setAccessTokenLocal(response.access_token)
-    }
-    else if (storageAPIservice.isValidValue(storageAPIservice.getRefreshTokenSession())) {
-      storageAPIservice.setAccessTokenSession(response.access_token);
-    }
-    else {
-      storageAPIservice.setAccessTokenCookie(response.access_token);
-    }
-
+  function updateAccessToken(response, refresh_token) {
+    response.refresh_token = refresh_token;
+    storageAPIservice.setTokenCookie(response);
 
     $state.go($state.current, {}, {reload: true}); //second parameter is for $stateParams
   }
@@ -196,7 +188,6 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
         var authAPIservice = $injector.get('authAPIservice');
 
         if (angular.isUndefined(authAPIservice)) return;
-
         authAPIservice.requestAccessTokenWithRefreshToken();
         return $q.reject(rejection);
       }

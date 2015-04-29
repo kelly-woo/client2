@@ -38,8 +38,6 @@
       if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) return;
 
       // Auto sign-in using cookie.
-      //console.log('trying to auto sign in ', (storageAPIservice.getAccessToken()))
-
       $scope.toggleLoading();
 
       accountService.getAccountInfo()
