@@ -1243,9 +1243,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     });
   }
   function _resetHasScrollToBottom() {
-   $timeout(function() {
-     $scope.hasScrollToBottom = false;
-   });
+    $timeout(function() {
+      $scope.hasScrollToBottom = false;
+    });
   }
 
   $scope.onHasNewMessageAlertClicked = onHasNewMessageAlertClicked;
@@ -1419,9 +1419,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _putNewMarker(memberId, lastLinkId) {
-    if (memberId === memberService.getMemberId()) {
-      return;
-    }
     //console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
     _putLastLinkId(lastLinkId, memberId);
     _putMemberIdToLastLinkId(memberId, lastLinkId);
@@ -1502,12 +1499,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var globalUnreadCount;
 
     if (centerService.isChat()) {
-      globalUnreadCount = 1;
+      globalUnreadCount = 2;
     } else {
-      globalUnreadCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity()) - 1;
+      globalUnreadCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity());
     }
-
-    //console.log('unread counter starts from ', globalUnreadCount);
 
     _.forEachRight($scope.messages, function(message, index) {
       if (!!lastLinkIdToCount[message.id]) {
@@ -1517,11 +1512,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         globalUnreadCount = globalUnreadCount - currentObjCount;
 
       }
+
+      if (message.unreadCount === '') {
+        // if message.unreadCount is an 'empty string', then globalUnreadCount for current message has reached to ZERO!!!
+        // There is no way that we need to increment unread count for any type of message.
+        // So just leave as it is. as ZERO.
+        globalUnreadCount = 0;
+      }
+
       message.unreadCount = globalUnreadCount === 0 ? '' : globalUnreadCount;
       $scope.messages[index] = message;
     });
 
-    //console.log(lastLinkIdToCount)
   }
 
   /**
@@ -1533,9 +1535,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     if (param.marker.memberId != memberService.getMemberId()) {
       //log('updating individual marker');
-      _updateMarker(param.marker.memberId, param.marker.lastLinkId);
     }
 
+    _updateMarker(param.marker.memberId, param.marker.lastLinkId);
     _updateUnreadCount();
   });
 
