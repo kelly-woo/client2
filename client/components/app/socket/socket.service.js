@@ -6,8 +6,7 @@
     .service('jndWebSocket', jndWebSocket);
 
   /* @ngInject */
-  function jndWebSocket(socketFactory, config, currentSessionHelper, memberService, storageAPIservice,
-                        jndWebSocketHelper) {
+  function jndWebSocket(socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, $injector) {
     var socket;
     var isConnected;
 
@@ -90,6 +89,7 @@
      */
     function connect() {
       // When connecting to socket, always force new connection.
+
       var myIoSocket = io.connect(config.socket_server, {forceNew: true});
 
       socket = socketFactory({
@@ -184,9 +184,15 @@
      * @private
      */
     function _onErrorConnectTeam(data) {
+      var INVALID_SOCKET_TOKEN = 'Invalid token';
+      isConnected = false;
+
       jndWebSocketHelper.socketEventLogger(ERROR_CONNECT_TEAM, data, false);
 
-      isConnected = false;
+      if (data.message === INVALID_SOCKET_TOKEN) {
+        _onInvalidSocketToken();
+        return;
+      }
 
       checkSocketConnection();
     }
@@ -324,6 +330,14 @@
       jndWebSocketHelper.socketEventLogger(eventName, data, true);
     }
 
+
+    function _onInvalidSocketToken() {
+      var authAPIservice = $injector.get('authAPIservice');
+
+      if (angular.isUndefined(authAPIservice)) return;
+
+      authAPIservice.requestAccessTokenWithRefreshToken();
+    }
 
 
   }
