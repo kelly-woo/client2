@@ -1396,7 +1396,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       lastLinkIdToCount[lastLinkId] = obj;
 
     }
-    //console.log('lastLinkId to count ', lastLinkIdToCount[lastLinkId]);
+    console.log('lastLinkId to count ', lastLinkIdToCount[lastLinkId]);
   }
 
   /**
@@ -1408,7 +1408,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _putMemberIdToLastLinkId(memberId, lastLinkId) {
     memberIdToLastLinkId[memberId] = lastLinkId;
-    //console.log('member id to last link ', memberIdToLastLinkId[memberId]);
+    console.log('member id to last link ', memberIdToLastLinkId[memberId]);
   }
 
   /**
@@ -1419,7 +1419,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _putNewMarker(memberId, lastLinkId) {
-    //console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
+    console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
     _putLastLinkId(lastLinkId, memberId);
     _putMemberIdToLastLinkId(memberId, lastLinkId);
   }
@@ -1510,7 +1510,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         var currentObjCount = currentObj.count;
 
         globalUnreadCount = globalUnreadCount - currentObjCount;
-
       }
 
       if (message.unreadCount === '') {
@@ -1531,7 +1530,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    *
    */
   $scope.$on('centerOnMarkerUpdated', function(event, param) {
-    //log('centerOnMarkerUpdated');
+    log('centerOnMarkerUpdated');
 
     if (param.marker.memberId != memberService.getMemberId()) {
       //log('updating individual marker');

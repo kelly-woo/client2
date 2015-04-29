@@ -163,8 +163,9 @@
 
       // message delete.
       if (_isMessageDeleted(eventType)) {
-        log('message deleted');
         _updateCenterForCurrentEntity(room);
+        // Must update left panel for other room;
+        _updateLeftPanelForOtherEntity(room);
         return;
       }
 
