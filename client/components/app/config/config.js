@@ -17,6 +17,7 @@
       mp_account_token    : '322e7bff6504a2f680c0f2d4a3545319',
       mp_member_token     : '081e1e9730e547f43bdbf59be36a4e31',
       base_url            : '.jandi.io:8888',
+      assets_url          : 'http://local.jandi.io:9000/',
       base_protocol       : 'http://',
       main_address        : 'http://www.jandi.io:8888/main/#/',
       app_store_address   : 'itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8',
@@ -27,7 +28,7 @@
 
   /* @ngInject */
   function run($rootScope, config) {
-    // server address, server api version 
+    // server address, server api version
     config.init($rootScope);
   }
 

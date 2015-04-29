@@ -170,7 +170,8 @@
 
     return function(content) {
       var integration;
-      return (fileIconImageMap[content.type] || 'etc') + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '');
+
+      return content ? (fileIconImageMap[content.type] || 'etc') + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '') : 'etc';
     };
   });
 
@@ -184,7 +185,7 @@
     return function(content) {
       var title = content.title || content.name;
 
-      return integrationMap[content.serverUrl] && !nonExtMap[content.type] ? title.substring(0, title.lastIndexOf('.')) : title;
+      return content ? integrationMap[content.serverUrl] && !nonExtMap[content.type] ? title.substring(0, title.lastIndexOf('.')) : title : '';
     };
   });
 
