@@ -19,13 +19,6 @@
             <span translate>@team-members</span>
           </a>
         </li>
-        <!-- 팀 초대 -->
-        <li class="" role="presentation">
-          <a data-ng-click="openModal('invite');" role="menuitem" tabindex="-1">
-            <i class="icon-invite-topic-fill"></i>
-            <span translate>@team-invite</span>
-          </a>
-        </li>
 
         <!-- 팀 변경 -->
         <li role="presentation">
@@ -46,6 +39,15 @@
       </ul>
     </div>  <!--  END OF MENU -->
 
+    <div class="divider"></div>
+
+    <!-- INVITE -->
+    <div class="header-navbar-menu invite-navbar-menu" id="invite">
+      <span class="header-navbar__topmenu" data-ng-click="openModal('invite');">
+        <i class="icon-invite-fill header-navbar__menu-icon"></i>
+        <span translate>Invite</span>
+      </span>
+    </div>  <!--  END OF MENU -->
 
     <!-- LANGUAGE -->
     <div class="header-navbar-menu language-navbar-menu" id="language">

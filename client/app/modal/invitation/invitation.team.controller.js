@@ -4,10 +4,27 @@
 
   angular
     .module('jandiApp')
-    .controller('inviteUserToTeamCtrl', inviteUserToTeamCtrl);
+    .controller('invitationTeamCtrl', invitationTeamCtrl);
 
   /* @ngInject */
-  function inviteUserToTeamCtrl($scope, $modalInstance, $filter, teamAPIservice, analyticsService) {
+  function invitationTeamCtrl($scope, $modalInstance, $filter, teamAPIservice, analyticsService, teamInfo, configuration) {
+    console.log('team info ::: ', teamInfo);
+
+    $scope.disabledImage = configuration.assets_url + 'assets/images/invite-disabled.png';
+    $scope.doneImage = configuration.assets_url + 'assets/images/invite-done.png';
+    $scope.membersImage = configuration.assets_url + 'assets/images/invite-members.png';
+
+    $scope.seedUri = 'http://www.jandi.io:8888/landing/#/seed/XMC4keRD'
+    $scope.inviteDisalbed = teamInfo.invitationStatus === "disabled";
+    // $scope.inviteDisabled = true;
+
+    $scope.add = function() {
+      $scope.invitation.add();
+    };
+    $scope.send = function() {
+      $scope.invitation.send();
+    };
+
     $scope.cancel = function() {
       $modalInstance.dismiss('cancel');
     };
@@ -96,11 +113,11 @@
     $scope.onAddMoreClick = function() {
       var input_email = $filter('translate')('@input-invite-email');
       var invite_template = angular.element(
-        '<div class="form-horizontal">' +
-        '<input type="email" class="form-control invite" name="email" data-ng-required="true" placeholder="' + input_email + '" />' +
+        '<div class="form-horizontal" style="position: absolute;">' +
+          '<input type="email" class="form-control invite" name="email" data-ng-required="true" placeholder="' + input_email + '" />' +
         '</div>'
       );
-      $('.invite-team-body').append(invite_template);
+      $('.invites').append(invite_template);
     };
 
     $scope.toggleLoading = function() {

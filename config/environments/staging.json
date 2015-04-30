@@ -8,6 +8,7 @@
   "mp_account_token"  : "fe754ed3c3b6fcf0c510ebcfd6244f3e",
   "mp_member_token"   : "f72e67d5099ab4e0ba4a83da4a9cafe3",
   "base_url"          : ".jandi.com",
+  "assets_url"        : "https://www.jandi.com/app/",
   "base_protocol"     : "https://",
   "main_address"      : "https://www.jandi.com/main/#/",
   "app_store_address" : "itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8",
