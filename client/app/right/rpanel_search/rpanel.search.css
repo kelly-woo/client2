@@ -3,6 +3,7 @@
   padding-left: 13px;
   padding-top: 7px;
   height: 40px;
+  background-color: #366480;
 }
 
 .rpanel-search .add-on-left {
@@ -17,13 +18,13 @@
   font-size: 13px;
   padding: 2px 12px 2px 30px;
 
-  border: 1px solid #d2d2d2;
+  border: 1px solid #FFFFFF;
   border-radius: 22px;
 
   background-color: white;
 }
 .rpanel-search input:focus {
-  border-color: #31c08a;
+  border-color: #154a67;
 }
 .rpanel-header-toolbar {
   position: relative;

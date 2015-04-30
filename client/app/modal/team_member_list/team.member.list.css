@@ -17,7 +17,7 @@
   border-bottom: 1px solid #f2f2f2;
 }
 .modal_team_member_container:hover {
-  background-color: #eefcf7;
+  background-color: #f2fbff;
 }
 .modal_team_member_container:hover .icon-star {
   opacity: 1;
@@ -39,7 +39,7 @@
 }
 
 .modal_team_member_list .icon-star-fill {
-  color: #31c08a;
+  color: #f9bb00;
   opacity: 1;
 }
 .modal_team_member_name {
@@ -61,7 +61,12 @@
 .member-list-tab a {
   color: #999999;
 }
+.member-list-tab a:hover {
+  color: #366480;
+  background-color: #E6ECF2 !important;
+}
 .member-list-tab .active a  {
+  background-color: white !important;
 }
 
 .member-list-tab .nav-tabs {

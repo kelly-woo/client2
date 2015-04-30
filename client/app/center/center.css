@@ -17,7 +17,7 @@ article {
 .cpanel {
   position: absolute;
   top: 41px;
-  left: 220px;
+  left: 240px;
   right: 0;
   bottom: 0;
   min-width: 345px;
@@ -39,7 +39,7 @@ article {
   color: #333;
   margin: 0;
   padding-left: 20px;
-  background-color: white;
+  background-color: #f1f4f8;
   border-bottom: 1px solid #e1e1e1;
   -webkit-transitionDISABLED: .15s .2s ease-out;
   -moz-transitionDISABLED: .15s .2s ease-out;
@@ -133,7 +133,7 @@ article {
   margin-right: 3px;
 }
 .prefix.star { margin-right: 0; padding-right: 5px; }
-.prefix .icon-star-fill { color: #31c08a; }
+.prefix .icon-star-fill { color: #f9bb00; }
 .panel-title-info__name {
   width: 100%;
   padding-right: 15px;
@@ -213,13 +213,13 @@ article {
 
 }
 .msgs-group__divider {
-  background-color: #ededed;
+  background-color: #d7e0e8;
   border-radius: 3px;
   font-size: 12px;
-  color: #666;
+  color: #192d3e;
   display: table;
   padding: 5px 6px;
-  margin: 12px 0 15px 47px;
+  margin: 12px 0 15px 66px;
 }
 .msgs-group__divider-label {
   display: inline-block;
@@ -516,7 +516,8 @@ by ysyun 2015.2.25
 .footer {
   background: #fff;
   position: fixed;
-  margin-left: 220px;
+  margin-left: 240px;
+  margin-right: 8px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -525,11 +526,12 @@ by ysyun 2015.2.25
 .footer #primary_file_button {
   border: none;
   border-radius: 0;
-  background: #ededed;
+  background: #d7e0e8;
+  color: #154a67;
 }
 
 .footer #message-input {
-  border: 2px solid #e0e0e0;
+  border: 2px solid #d7e0e8;
   border-radius: 0;
   line-height: 1.3rem;
   padding: 5px 5px 5px 8px;
@@ -548,7 +550,7 @@ by ysyun 2015.2.25
 }
 
 .last {
-  background-color: rgb(238, 252, 247);
+  background-color: #f2fbff;
   /*margin-left: -20px;*/
   /*padding-left: 67px;*/
 
@@ -854,7 +856,7 @@ by ysyun 2015.2.25
   width: 34px;
   height: 34px;
   background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(217, 232, 226, 0.9);
+  border: 1px solid rgba(208, 236, 237, 0.9);
   border-radius: 10px;
   padding: 3px 3px 3px 2px;
 }
@@ -863,7 +865,7 @@ by ysyun 2015.2.25
 }
 .scroll-to-bottom-icon {
   font-size: 28px;
-  color: #31c08a;
+  color: #00abe6;
 }
 
 
@@ -874,16 +876,16 @@ by ysyun 2015.2.25
 ********************************************/
 .has-new-msg-alert-container {
   position: absolute;
-  left: 64px;
+  left: 66px;
   right: 10px;
   bottom: 100%;
   height: 36px;
-  background-color: rgba(49, 192, 138, 0.8);
+  background-color: rgba(94, 94, 94, 0.8);
   color: white;
   font-size: 16px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  padding-left: 10px;
+  padding-left: 14px;
 }
 
 .has-new-msg-alert-container:hover .has-new-msg-alert-container-text {
@@ -896,9 +898,9 @@ by ysyun 2015.2.25
   padding-top: 8px;
   padding-right: 8px;
   font-size: 18px;
-  color: white;
+  color: rgba(255,255,255,0.7);
 }
 
 .has-new-msg-alert-container-close:hover {
-  color: #E0E0E0;
+  color: white;
 }
