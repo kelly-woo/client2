@@ -570,8 +570,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             _gotNewMessage();
             return;
           }
-
-
           // 업데이트 된 메세지 처리
           if (response.messages.length > 0) {
             for (var i in response.messages) {
@@ -670,7 +668,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           lastMessageId = localLastMessageId;
 
           _checkEntityMessageStatus();
-
+          _updateUnreadCount();
         }
 
       })
@@ -1380,13 +1378,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
         lastLinkIdToCount[lastLinkId] = currentObj;
       }
-
-
     } else {
       // 기존에 없을 경우 새로 추가.
       var members = {};
       members[memberId] = true;
-
 
       var obj = {
         members: members,
@@ -1394,9 +1389,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       };
 
       lastLinkIdToCount[lastLinkId] = obj;
-
     }
-    console.log('lastLinkId to count ', lastLinkIdToCount[lastLinkId]);
+    //console.log('lastLinkId to count ', lastLinkIdToCount[lastLinkId]);
   }
 
   /**
@@ -1408,7 +1402,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _putMemberIdToLastLinkId(memberId, lastLinkId) {
     memberIdToLastLinkId[memberId] = lastLinkId;
-    console.log('member id to last link ', memberIdToLastLinkId[memberId]);
+    //console.log('member id to last link ', memberIdToLastLinkId[memberId]);
   }
 
   /**
@@ -1419,7 +1413,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _putNewMarker(memberId, lastLinkId) {
-    console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
     _putLastLinkId(lastLinkId, memberId);
     _putMemberIdToLastLinkId(memberId, lastLinkId);
   }
@@ -1519,6 +1512,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         globalUnreadCount = 0;
       }
 
+      if (message.unreadCount < globalUnreadCount) {
+        globalUnreadCount = message.unreadCount;
+      }
+
+      if (globalUnreadCount < 0) globalUnreadCount = 0;
       message.unreadCount = globalUnreadCount === 0 ? '' : globalUnreadCount;
       $scope.messages[index] = message;
     });
@@ -1564,9 +1562,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       .success(function(response) {
         _initMarkers(response.markers);
         hasRetryGetRoomInfo = false;
+        //console.log('success')
       })
       .error(function(err) {
         if (!hasRetryGetRoomInfo && publicService.isNullOrUndefined(currentRoomId)) {
+          //console.log('me')
           _getCurrentRoomInfo();
           hasRetryGetRoomInfo = true;
         }
