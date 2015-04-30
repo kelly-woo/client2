@@ -11,8 +11,15 @@
        data-ng-if="!tutorialStatus.chatTutorial">
   </div>
 
-  <div id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;" ng-class="{'center-panel-disabled-member-input': isDisabledMember(currentEntity)}">
+  <div id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;" ng-class="{'center-panel-disabled-member-input': isDisabledMember(currentEntity)}" dropdown dropdown-toggle="true">
     <i class="icon-upload"></i>
+    <div id="integration-menu" class="dropdown-menu" style="top: -102px;">
+      <ul>
+        <li class="client"><i class="item-icon icon-notebook"></i><span class="item-text" translate>@file-upload-computer</span></li>
+        <li class="google-drive"><i class="item-icon icon-google-drive"></i><span class="item-text" translate>@file-upload-google-drive</span></li>
+        <li class="dropbox"><i class="item-icon icon-dropbox"></i><span class="item-text" translate>@file-upload-dropbox</span></li>
+      </ul>
+    </div>
   </div>
 
   <div id="messages-input-container" style="height: 35px;">

@@ -17,11 +17,12 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     }
 
     flash_url = supportHTML ? '' : 'v2/';
-    // url = uploadType === 'integration' ? $rootScope.server_address + 'v2/file/integrate' : $rootScope.server_address + flash_url + 'file',
 
-    url = uploadType === 'integration' ?  'http://www.jandi.io:4000/inner-api/v2/file/integrate' : $rootScope.server_address + flash_url + 'file',
+    // upload type이 integration이라면 'v2/file/integrate'로 request함
+    // 아니라면 flash_url + 'file'로 request함
+    url = $rootScope.server_address + (uploadType === 'integration'? 'v2/file/integrate' : flash_url + 'file');
+
     fileInfo.teamId  = memberService.getTeamId();
-
     if(!supportHTML)
       fileInfo.access_token = storageAPIservice.getAccessToken();
 

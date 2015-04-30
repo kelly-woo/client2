@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice, publicService) {
+app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice, publicService, configuration) {
 
   //console.info('[enter] fileDetailCtrl');
 
@@ -66,6 +66,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
               var item = response.messageDetails[i];
               if (item.contentType === 'file') {
                 $scope.file_detail = item;
+
                 // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
                 $scope.file_detail.shared = fileAPIservice.getSharedEntities(item);
               } else if (item.contentType === 'comment') {
@@ -85,6 +86,8 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
             if (!$scope.initialLoaded) $scope.initialLoaded = true;
 
             $scope.isFileArchived = isFileArchived($scope.file_detail);
+
+            setImageUrl($scope.file_detail);
             //console.log($scope.file_detail)
             //console.log('is deleted file?', $scope.isFileArchived)
           })
@@ -135,6 +138,25 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       });
   };
 
+  /**
+   * file detail에서 integraiton preview로 들어갈 image map
+   */
+  var integrationPreviewMap = {
+    google: 'assets/images/web_preview_google.png',
+    dropbox: 'assets/images/web_preview_dropbox.png'
+  };
+  /**
+   * file detail에서 preview 공간에 들어갈 image의 url을 설정함
+   */
+  function setImageUrl(fileDetail) {
+    var content = fileDetail.content;
+
+    // file detail에서 preview image 설정
+    $scope.ImageUrl = $filter('hasPreview')(content) ?
+      $scope.server_uploaded + content.extraInfo.largeThumbnailUrl :
+      (integrationPreviewMap[content.serverUrl] && (configuration.assets_url + integrationPreviewMap[content.serverUrl]));
+  }
+
   $scope.onImageClick = function() {
     $modal.open({
       scope       :   $scope,
@@ -143,7 +165,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       windowClass :   'modal-full fade-only',
       resolve     :   {
         photoUrl    : function() {
-          return $scope.server_uploaded + $scope.file_detail.content.fileUrl;
+          return $scope.ImageUrl;
         }
       }
     });
@@ -291,39 +313,40 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   }
 });
 
-app.controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {
-  $scope.cancel = function() { $modalInstance.dismiss('cancel');}
-  $scope.photoUrl = photoUrl;
-  $scope.onImageRotatorClick = function($event) {
+app
+  .controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {
+    $scope.cancel = function() { $modalInstance.dismiss('cancel');}
+    $scope.photoUrl = photoUrl;
+    $scope.onImageRotatorClick = function($event) {
 
-    var sender = angular.element($event.target);
-    var senderID = sender.attr('id');
+      var sender = angular.element($event.target);
+      var senderID = sender.attr('id');
 
-    var target = '';
-    switch(senderID){
-      case 'fromModal':
-        target = sender.parent().siblings('img.image-background').parent();
-        break;
-      default :
-        break;
-    }
+      var target = '';
+      switch(senderID){
+        case 'fromModal':
+          target = sender.parent().siblings('img.image-background').parent();
+          break;
+        default :
+          break;
+      }
 
-    if (target === '') return;
-    var targetClass = target.attr('class');
+      if (target === '') return;
+      var targetClass = target.attr('class');
 
-    if (targetClass.indexOf('rotate-90') > -1) {
-      target.removeClass('rotate-90');
-      target.addClass('rotate-180');
-    }
-    else if(targetClass.indexOf('rotate-180') > -1) {
-      target.removeClass('rotate-180');
-      target.addClass('rotate-270');
-    }
-    else if(targetClass.indexOf('rotate-270') > -1) {
-      target.removeClass('rotate-270');
-    }
-    else {
-      target.addClass('rotate-90');
-    }
-  }
-});
+      if (targetClass.indexOf('rotate-90') > -1) {
+        target.removeClass('rotate-90');
+        target.addClass('rotate-180');
+      }
+      else if(targetClass.indexOf('rotate-180') > -1) {
+        target.removeClass('rotate-180');
+        target.addClass('rotate-270');
+      }
+      else if(targetClass.indexOf('rotate-270') > -1) {
+        target.removeClass('rotate-270');
+      }
+      else {
+        target.addClass('rotate-90');
+      }
+    };
+  });

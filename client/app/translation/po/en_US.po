@@ -114,7 +114,9 @@ msgstr "Click to view"
 msgid "@btn-close"
 msgstr "Close"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
 msgstr "Comment"
@@ -147,7 +149,9 @@ msgstr "Invite"
 msgid "@btn-join"
 msgstr "Join"
 
-#: client/app/center/center.html client/app/modal/share/share.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -162,6 +166,7 @@ msgstr "Update Name"
 msgid "@btn-update-password"
 msgstr "Update Password"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "Upload"
@@ -281,7 +286,10 @@ msgstr "Password"
 msgid "@common-customer-service"
 msgstr "Customer Service"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/center_chat_templates/title_comment/title.comment.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "Deleted File"
 
@@ -312,7 +320,9 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr "Invite to"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@common-download"
 msgstr "Download"
@@ -372,6 +382,22 @@ msgstr "audio"
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "documents"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-docs"
+msgstr "Google Docs"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-documents"
+msgstr "Google Documents"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-presentations"
+msgstr "Google Presentations"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-spreadsheets"
+msgstr "Google Spreadsheets"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
@@ -580,6 +606,7 @@ msgstr "Private"
 msgid "@common-type-public"
 msgstr "Public"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "Upload File"
@@ -685,11 +712,23 @@ msgstr "As of "
 msgid "@file-size-too-large-error"
 msgstr "Currently you cannot upload a file that exceeds 100MB."
 
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-computer"
+msgstr "My Computer"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-dropbox"
+msgstr "Dropbox"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-google-drive"
+msgstr "Google Drive"
+
 #: client/app/center/center.html
 msgid "@go-to-latest-message-msg"
 msgstr "Go to the most recent messages"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "You received a new message"
 
@@ -777,6 +816,43 @@ msgstr "Password cannot contain space"
 msgid "@input-user-password-min-length-error"
 msgstr "Must be 8+ characters"
 
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-3"
+msgstr "Pop-ups must be enabled in order to connect your account"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-1"
+msgstr "Connect your account to share files from Dropbox"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-2"
+msgstr ""
+"Files shared from Dropbox will be categorized (eg Word, Excel, PDF) "
+"alongside other files on JANDI"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-1"
+msgstr "Connect your account to share files from Google Drive"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-2"
+msgstr ""
+"Use the 'Google Docs' filter to show Google Documents, Spreadsheets, and "
+"Presentations. Other files stored on Google Drive will be categorized by "
+"file type (eg Word, Excel, PDF)"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-submit"
+msgstr "Add Integration"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-dropbox"
+msgstr "Share from Dropbox"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-google-drive"
+msgstr "Share from Google Drive"
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr "Keep me logged in"
@@ -797,7 +873,9 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/text/text.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
 msgstr "Delete"
@@ -919,15 +997,16 @@ msgstr "Invite other team members to JANDI!"
 msgid "@modal-upload-title-msg1"
 msgstr "For searches by title"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "created this public topic."
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "created this private topic."
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr "File"
 
@@ -935,35 +1014,40 @@ msgstr "File"
 msgid "@msg-help-multiline"
 msgstr "shift+enter to multiline"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "invited"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr " "
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "has joined"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "has left"
 
-#: client/app/center/center.html client/app/right/files/file/file.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "Open original"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr "Shared"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr "Unshared"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr "'s"
 
@@ -1243,6 +1327,15 @@ msgstr "in "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@common-file-type-google-document"
+#~ msgstr "Google Documents"
+
+#~ msgid "@common-file-type-google-presentation"
+#~ msgstr "Google Spreadsheets"
+
+#~ msgid "@common-file-type-google-spreadsheet"
+#~ msgstr "Google Presentations"
 
 #~ msgid "@ch-menu-delete-confirm"
 #~ msgstr "Are you sure you want to delete this topic?"

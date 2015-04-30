@@ -94,7 +94,10 @@
   font-size: 14px;
 }
 
-
+/* google drive picker modal background */
+.picker.modal-dialog-bg {
+  z-index: 1000;
+}
 
 .modal-horizontal {
   margin-bottom: 10px;

@@ -17,21 +17,19 @@
                     <div class="modal-share__file-type">
                         <!-- IMAGE -->
                         <div class="image_wrapper">
-                            <img rotate rotate-width="65" rotate-height="65" rotate-left-align="false" class="modal-share__file-type__image"
-                                 data-ng-if="file.content.filterType.indexOf('image') !== -1"
-                                 data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"/>
+                            <img class="modal-share__file-type__image" rotate rotate-width="65" rotate-height="65" rotate-left-align="false"
+                                 ng-if="(file.content | hasPreview)" ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"/>
                         </div>
 
                         <!-- OTHER TYPE -->
-                        <div class="modal-share__file-type__other"
-                             data-ng-if="file.content.filterType.indexOf('image') === -1">
-                            <div class="fileicon fileicon-{{ file.content.type | getFileIconImage | lowercase}}"></div>
+                        <div class="modal-share__file-type__other" ng-if="!(file.content | hasPreview)">
+                            <div class="fileicon fileicon-{{file.content | fileIcon}}"></div>
                         </div>
                     </div>
                     <div class="modal-share__file-body">
                         <span class="modal-share__file-body__writer">{{ file.writer|getName }}</span>
                         <span class="modal-share__file-body__time">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
-                        <div class="modal-share__file-body__title keep" data-ng-bind="file.content.title"></div>
+                        <div class="modal-share__file-body__title keep">{{ file.content | fileTitle }}</div>
                         <div class="modal-share__file-body__meta">
                             <span class="modal-share__file-body__meta-size"
                                   data-ng-if="file.content.size > 0"

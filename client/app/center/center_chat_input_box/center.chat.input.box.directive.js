@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox(integrationService) {
+  function centerChatInputBox(integrationService, configuration) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -17,39 +17,42 @@
     };
 
     function link(scope, element, attrs) {
-      // var menu = element.find('#integration-menu'),
-      //     uploadMap = {
-      //       'client': function(ele) {
-      //         $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
-      //           .on('change', function(evt) {
-      //             scope.onFileSelect(evt.target.files);
-      //           })
-      //           .trigger('click');
-      //       },
-      //       'google-drive': function(ele) {
-      //         integrationService.createGoogleDrive(scope, ele, {multiple: multiple});
-      //       },
-      //       'dropbox': function(ele) {
-      //         integrationService.createDropBox(scope, ele, {multiple: multiple});
-      //       }
-      //     };
+      var menu = element.find('#integration-menu'),
+          uploadMap = {
+            'client': function() {
+              $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
+                .on('change', function(evt) {
+                  scope.onFileSelect(evt.target.files);
+                })
+                .trigger('click');
+            },
+            'google-drive': function() {
+              integrationService.createGoogleDrive(scope, {multiple: multiple});
+            },
+            'dropbox': function() {
+              integrationService.createDropBox(scope, {multiple: multiple});
+            }
+          };
 
-      // menu
-      //   .on('click', 'li', function() {
-      //     var className = this.className,
-      //         fn;
+      menu
+        .on('click', 'li', function() {
+          var className = this.className,
+              fn;
 
-      //     if (fn = uploadMap[className]) {
-      //       fn(this);
-      //     }
-      //   });
-      element.find('#primary_file_button').on('click', function() {
-        $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
-          .on('change', function(evt) {
-            scope.onFileSelect(evt.target.files);
-          })
-          .trigger('click');
-      });
+          if (fn = uploadMap[className]) {
+            fn();
+          }
+        });
+
+      // file upload menu의 각 item image pre-load
+      var iconGoogleDrive = new Image();
+      var iconDropbox = new Image();
+
+      iconGoogleDrive.src = configuration.assets_url + '../assets/images/icon_google_drive.png';
+      iconDropbox.src = configuration.assets_url + '../assets/images/icon_dropbox.png';
+
+      menu.find('.icon-google-drive').css({backgroundImage: iconGoogleDrive.src});
+      menu.find('.icon-dropbox').css({backgroundImage: iconDropbox.src});
     }
   }
 })();

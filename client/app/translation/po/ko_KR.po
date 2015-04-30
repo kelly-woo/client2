@@ -115,6 +115,7 @@ msgid "@btn-close"
 msgstr "닫기"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
@@ -148,7 +149,9 @@ msgstr "초대하기"
 msgid "@btn-join"
 msgstr "참여하기"
 
-#: client/app/center/center.html client/app/modal/share/share.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -163,6 +166,7 @@ msgstr "이름 변경하기"
 msgid "@btn-update-password"
 msgstr "비밀번호 변경하기"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "업로드"
@@ -277,6 +281,8 @@ msgid "@common-customer-service"
 msgstr "고객 센터"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "삭제된 파일"
@@ -307,6 +313,7 @@ msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@common-download"
@@ -368,6 +375,22 @@ msgstr "오디오"
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "워드/한글"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-docs"
+msgstr "Google Docs"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-documents"
+msgstr "구글 문서"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-presentations"
+msgstr "구글 프레젠테이션"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-spreadsheets"
+msgstr "구글 스프레드시트"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
@@ -577,6 +600,7 @@ msgstr "비공개"
 msgid "@common-type-public"
 msgstr "공개"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "파일 업로드"
@@ -678,11 +702,23 @@ msgstr " "
 msgid "@file-size-too-large-error"
 msgstr "현재 100MB 이상의 파일은 업로드 할 수 없습니다."
 
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-computer"
+msgstr "내 컴퓨터"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-dropbox"
+msgstr "드롭박스"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-google-drive"
+msgstr "구글 드라이브"
+
 #: client/app/center/center.html
 msgid "@go-to-latest-message-msg"
 msgstr "최신 메시지로 가기"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "새로운 메시지가 있습니다."
 
@@ -768,6 +804,46 @@ msgstr "빈 칸은 포함될 수 없습니다"
 msgid "@input-user-password-min-length-error"
 msgstr "8자 이상 입력해주세요"
 
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-3"
+msgstr ""
+"브라우저의 팝업이 차단되었을 때는 계정 인증이나 파일 탐색기 실행이 불가능하"
+"므로 꼭 팝업 차단 후 사용하시기 바랍니다."
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-1"
+msgstr ""
+"드롭박스 계정과 연동하여 드롭박스의 파일을 업로드하고 팀원들과 공유하실 수 "
+"있습니다."
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-2"
+msgstr ""
+"드롭박스 파일들은 잔디 내의 다른 파일들과 동일하게 등록되지만, 클릭시에는 드"
+"롭박스의 링크로 이동합니다. "
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-1"
+msgstr "구글 계정과 연동하여 구글 드라이브의 파일을 업로드하실 수 있습니다."
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-2"
+msgstr ""
+"구글 문서, 스프레드시트, 프레젠테이션은 잔디내에서 'Google Docs'로 분류되며 "
+"기타 파일들은 (MS doc, excel, ppt 등) 파일 타입에 따라 분류됩니다. "
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-submit"
+msgstr "연동 시작하기"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-dropbox"
+msgstr "드롭박스에서 파일 업로드하기"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-google-drive"
+msgstr "구글 드라이브에서 파일 업로드하기"
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr "로그인 상태 유지"
@@ -791,6 +867,7 @@ msgid "@login-reset-password"
 msgstr "비밀번호 찾기"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
@@ -913,15 +990,16 @@ msgstr "이메일을 통해 다른 멤버들을 잔디로 초대할 수 있습�
 msgid "@modal-upload-title-msg1"
 msgstr "파일명으로 파일을 쉽게 검색할 수 있습니다"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "님이 공개 토픽을 생성했습니다."
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "님이 비공개 토픽을 생성했습니다."
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr "파일"
 
@@ -929,35 +1007,40 @@ msgstr "파일"
 msgid "@msg-help-multiline"
 msgstr "멀티라인 입력: shift+enter"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "님이"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr "님을 초대했습니다"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "님이 참여했습니다"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "님이 떠났습니다"
 
-#: client/app/center/center.html client/app/right/files/file/file.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "원본 파일 보기"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr "공유된"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr "공유 해제된"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr "님의"
 
@@ -1238,6 +1321,15 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
+
+#~ msgid "@common-file-type-google-document"
+#~ msgstr "구글 문서"
+
+#~ msgid "@common-file-type-google-presentation"
+#~ msgstr "구글 스프레드시트"
+
+#~ msgid "@common-file-type-google-spreadsheet"
+#~ msgstr "구글 프레젠테이션"
 
 #~ msgid "@ch-menu-delete-confirm"
 #~ msgstr "이 토픽을 정말 삭제하시겠습니까?"

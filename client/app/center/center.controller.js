@@ -897,11 +897,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var fullUrl;        // it could be file, too.
 
     if (message.message.contentType === 'comment') {
-      newThumbnail = $scope.server_uploaded + message.feedback.content.extraInfo.largeThumbnailUrl;
+      newThumbnail = $scope.server_uploaded + (message.feedback.content.extraInfo ? message.feedback.content.extraInfo.largeThumbnailUrl : '');
       fullUrl = $scope.server_uploaded + message.feedback.content.fileUrl;
     }
     else {
-      newThumbnail = $scope.server_uploaded + message.message.content.extraInfo.largeThumbnailUrl;
+      newThumbnail = $scope.server_uploaded + (message.message.content.extraInfo ? message.message.content.extraInfo.largeThumbnailUrl : '');
       fullUrl = $scope.server_uploaded + message.message.content.fileUrl;
     }
 

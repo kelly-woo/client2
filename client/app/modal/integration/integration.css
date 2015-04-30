@@ -1,10 +1,10 @@
 .integration-modal .modal-dialog {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
     width: 700px;
-    margin-top: -225px;
-    margin-left: -350px;
+    /*margin-top: -225px;*/
+    /*margin-left: -350px;*/
 }
 
 .integration-modal .modal-body {
@@ -15,13 +15,14 @@
 	margin-left: 23px;
 	margin-right: 23px;
 	padding-top: 62px;
-	padding-bottom: 60px;
+	padding-bottom: 23px;
 }
 .integration-modal .row>li {
 	width: 180px;
 	margin-left: 42px;
 	margin-right: 42px;
 	float: left;
+	list-style: none;
 }
 .integration-modal .row>li:first-child {
 	margin-left: 15px;
@@ -33,7 +34,7 @@
 }
 
 .integration-modal .image {
-	position: relative; */
+	position: relative;
 	display: block;
 	height: 180px;
 	background-repeat: no-repeat;
@@ -43,11 +44,11 @@
 .integration-modal .desc {
 	position: relative;
 	padding-top: 22px;
-	height: 105px;
 	overflow: hidden;
 }
 
 .integration-modal .desc p {
 	font-size: 13px;
 	color: #333;
+	line-height: 22px;
 }

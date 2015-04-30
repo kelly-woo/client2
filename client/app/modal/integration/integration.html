@@ -1,36 +1,53 @@
 <!-- Modal: File Integration -->
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="eventHandler();"><i class="icon-cancel"></i></button>
+    <button type="button" class="close" ng-click="close();"><i class="icon-cancel"></i></button>
     <h3 class="modal-header__title">
-        <span translate>@common-upload-file</span>
+        <span>{{title}}</span>
     </h3>
 </div>
 
 <div class="modal-body">
     <ul class="row">
         <li>
-            <div class="image integration-google-drive-desc-1"></div>
+            <div class="image {{descClassName1}}"></div>
             <div class="desc">
-                <p>desc1</p>
+                <p>{{descText1}}</p>
             </div>
         </li>
         <li>
-            <div class="image integration-google-drive-desc-2"></div>
+            <div class="image {{descClassName2}}"></div>
             <div class="desc">
-                <p>desc2</p>
+                <p>{{descText2}}</p>
             </div>
         </li>
         <li>
-            <div class="image integration-google-drive-desc-3"></div>
+            <div class="image {{descClassName3}}"></div>
             <div class="desc">
-                <p>desc3</p>
+                <p>{{descText3}}</p>
             </div>
         </li>
     </ul>
 </div>
+
+<span ng-if="false" translate>@integration-title-google-drive</span>
+<span ng-if="false" translate>@integration-desc-google-drive-1</span>
+<span ng-if="false" translate>@integration-desc-google-drive-2</span>
+
+<span ng-if="false" translate>@integration-title-dropbox</span>
+<span ng-if="false" translate>@integration-desc-dropbox-1</span>
+<span ng-if="false" translate>@integration-desc-dropbox-2</span>
+
+<span ng-if="false" translate>@integration-desc-3</span>
+
+
 <div class="modal-footer">
-    <button type="button" class="btn btn-cancel" data-ng-click="eventHandler();"><span translate>@btn-cancel</span></button>
-    <input class="btn btn-ok" type="submit" id="file_upload_btn" value="{{ '@btn-upload' | translate }}" />
+    <div ng-if="!!confirm">
+        <button class="btn btn-cancel" ng-click="close();"><span translate>@btn-cancel</span></button>
+        <button class="btn btn-ok" ng-click="integrate()"><span translate>@integration-submit</span></button>
+    </div>
+    <div ng-if="!!alert">
+        <button class="btn btn-ok" ng-click="close();"><span translate>@btn-confirm</span></button>
+    </div>
 </div>
 <div class="loading_container" data-ng-if="isLoading">
     <div class="loading_container_background"></div>
