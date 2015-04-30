@@ -25,6 +25,10 @@
 .invite-enalbed .modal-body > div {
   margin-bottom: 6px;
 }
+.invite-enalbed .modal-body .alert-jandi {
+  margin: 0;
+  color: #666;
+}
 
 .invite-modal-content hr {
   border-top: 1px solid #d1d1d1;
@@ -66,7 +70,9 @@
 .send-invite.disabled:active {
   color: #999;
 }
-
+.invites input[readonly] {
+  cursor: default;
+}
 .invites .form-horizontal {
   padding-bottom: 6px;
 }
@@ -94,7 +100,6 @@
   border-top: 0;
 }
 .invite-enalbed .modal-footer.invite-done img{
-  padding-top: 10px;
   padding-bottom: 45px;
 }
 .done-invite {
@@ -110,7 +115,7 @@
 .invite-enalbed .modal-footer {
   text-align: center;
   margin: 0;
-  padding-top: 20px;
+  padding-top: 36px;
   border-top: 1px solid #d1d1d1;
 }
 .modal-footer .invite-link-desc {

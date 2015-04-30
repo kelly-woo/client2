@@ -36,7 +36,8 @@
           onValidFormat: function() {},
           onSuccess: function() {},
           onDuplicate: function() {},
-          onSend: function() {}
+          onBeforeSend: function() {},
+          onAfterSend: function() {}
         };
         angular.extend(this.options, options);
 
@@ -50,23 +51,30 @@
 
         return this;
       },
-      send: function() {
+      send: function(obj) {
         var that = this;
         var options = that.options;
         var emailMap = that.emailMap;
         var list = [];
+        var successCnt = 0;
+        var totalCnt = 0;
         var invite;
         var e;
 
         if (invite = options.inviteFn) {
+          if(options.onBeforeSend(obj) === false) {
+            return;
+          }
+
           for (e in emailMap) {
-            e !== EMPTY_VALUE && list.push(e);
+            if (e !== EMPTY_VALUE) {
+              list.push(e);
+              ++totalCnt;
+            }
           }
 
           return invite(list)
             .success(function(response) {
-              var successCnt = 0;
-
               _.forEach(response, function(value, index) {
                 var email = value.email;
                 var fn;
@@ -102,7 +110,8 @@
               console.error(error.code, error.msg);
             })
             .finally(function() {
-              that.options.onSend(that.ele);
+              that.ele.find('input').attr({readOnly: true, placeholder: ''});
+              options.onAfterSend(that.ele, successCnt, totalCnt);
             });
         }
       },

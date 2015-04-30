@@ -21,13 +21,18 @@
     $scope.add = function() {
       $scope.invitation.add();
     };
-    $scope.send = function() {
-      $scope.invitation.send();
+    $scope.send = function($event) {
+      $scope.invitation.send($event);
     };
 
     $scope.cancel = function() {
       $modalInstance.dismiss('cancel');
     };
+
+    $scope.toggleLoading = function() {
+      $scope.isLoading = !$scope.isLoading;
+    }
+
 
     $scope.onInviteClick = function() {
       if ($scope.isLoading) return;
@@ -120,8 +125,6 @@
       $('.invites').append(invite_template);
     };
 
-    $scope.toggleLoading = function() {
-      $scope.isLoading = !$scope.isLoading;
-    }
+
   }
 })();

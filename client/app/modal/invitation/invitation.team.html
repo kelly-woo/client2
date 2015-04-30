@@ -28,7 +28,7 @@
         <i class="icon-add"></i>
         <span translate>@btn-add</span>
       </div>
-      <div class="send-invite invite-btn cursor_pointer btn-ok" ng-click="send();">
+      <div class="send-invite invite-btn cursor_pointer btn-ok" ng-click="send($event);">
         <span translate>Send Invites</span>
       </div>
     </div>
@@ -39,8 +39,8 @@
           <span translate>Or just send them this link</span>
         </div>
         <div class="invite-link-copy">
-          <input class="invite-public-link form-control invite" type="text" value="{{seedUri}}">
-          <div class="send-invite invite-btn cursor_pointer btn-ok" ng-click="send();">
+          <input id="invite-link" class="invite-public-link form-control invite" type="text" value="{{seedUri}}">
+          <div class="clip-invite invite-btn cursor_pointer btn-ok" ng-click="clipboard($event);">
             <span translate>Send Invites</span>
           </div>
         </div>
