@@ -746,7 +746,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         }
       })
       .error(function(response) {
-        $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.postMessage"});
         $scope.isPosting = false;
       });
   };
