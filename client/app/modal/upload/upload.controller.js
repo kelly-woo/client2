@@ -50,6 +50,7 @@
           lProgressBarIndex++;
 
           fileUploadQueue.push((function($tScope, $cScope, currentIndex, file, fileInfo) {
+            $cScope.comment = '';
             return function(callback) {
               var tmpFileInfo = angular.extend({}, fileInfo);
 
@@ -192,7 +193,8 @@
         fileInfo = {
           title: file.name,
           isPrivateFile: false,
-          currentEntity: entity || currentEntity
+          currentEntity: entity || currentEntity,
+          comment: $scope.comment
         };
 
         // integration upload에 사용되는 fileInfo Object 생성
