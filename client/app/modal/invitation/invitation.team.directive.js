@@ -6,9 +6,6 @@
     .directive('invitationModal', invitationModal);
 
   function invitationModal($http, $filter, invitationService, teamAPIservice, configuration, memberService, clipboard) {
-    var clip =
-    console.log('clip ::: ', clip);
-
     return {
       restrict: 'A',
       link: link
@@ -40,14 +37,14 @@
               item.children('div').remove();
               item.append('<div class="modal-noti-block_msg alert-jandi alert-danger"><span>' + emailPlaceholder + '</span><div>');
 
-              if (ele.parent().find('.alert-danger').length > 0) {
+              if (ele.parents('#invites').find('.alert-danger').length > 0) {
                 invitation.ele.parent().children('.send-invite').addClass('disabled');
               }
             },
             onValidFormat: function (ele) {
               ele.parent().children('div').remove();
 
-              if (ele.parent().find('.alert-danger').length === 0) {
+              if (ele.parents('#invites').find('.alert-danger').length === 0) {
                 invitation.ele.parent().children('.send-invite').removeClass('disabled');
               }
             },
@@ -60,6 +57,8 @@
               var body = ele.parent();
               var footer = body.parent().children('.modal-footer');
               var msg;
+              var emptys;
+              var i, len;
 
               body.children('.invite-btn').remove();
               footer.addClass('invite-done');
@@ -88,6 +87,12 @@
               footer.find('.done-invite').on('click', function() {
                 scope.cancel();
               });
+
+              if (emptys = invitation.getEmptyInputBox()) {
+                for (i = 0, len = emptys.length; i < len; ++i) {
+                  emptys[i].remove();
+                }
+              }
 
               scope.toggleLoading();
             },

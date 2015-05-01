@@ -52,9 +52,13 @@
 .add-invite:active {
   color: #999;
 }
+.clip-invite,
 .send-invite {
   color: #fff;
 }
+.clip-invite:focus,
+.clip-invite:hover,
+.clip-invite:active,
 .send-invite:focus,
 .send-invite:hover,
 .send-invite:active {
@@ -74,7 +78,7 @@
   cursor: default;
 }
 .invites .form-horizontal {
-  padding-bottom: 6px;
+  padding-bottom: 7px;
 }
 .invites .form-horizontal:last-child {
   padding-bottom: 0;

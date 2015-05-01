@@ -94,7 +94,7 @@
                 for (i = 0, len = emailMap[email].length; i < len; ++i) {
                   ele = $(emailMap[email][i]);
                   if (options.checkIcon) {
-                    ele.parent().append($(icon)).children('i:not(:last-child)').remove()
+                    ele.parent().append($(icon)).children('i:not(:last-child)').remove();
                   }
                   fn(ele);
                 }
@@ -134,7 +134,7 @@
               that.options.onInvalidFormat(ele);
             } else {
               that.options.onValidFormat(ele);
-              that._addMapItem(value, this);
+              that._addMapItem(value, $(this));
             }
           });
       },
@@ -164,6 +164,11 @@
       },
       _isEmail: function(value) {
         return rEmail.test(value);
+      },
+      getEmptyInputBox: function() {
+        var that = this;
+
+        return that.emailMap[EMPTY_VALUE];
       }
     };
 
