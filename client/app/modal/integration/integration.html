@@ -11,34 +11,33 @@
         <li>
             <div class="image {{descClassName1}}"></div>
             <div class="desc">
-                <p>{{descText1}}</p>
+                <p ng-bind-html="descText1"></p>
             </div>
         </li>
         <li>
             <div class="image {{descClassName2}}"></div>
             <div class="desc">
-                <p>{{descText2}}</p>
+                <p ng-bind-html="descText2"></p>
             </div>
         </li>
         <li>
             <div class="image {{descClassName3}}"></div>
             <div class="desc">
-                <p>{{descText3}}</p>
+                <p ng-bind-html="descText3"></p>
             </div>
         </li>
     </ul>
 </div>
 
-<span ng-if="false" translate>@integration-title-google-drive</span>
-<span ng-if="false" translate>@integration-desc-google-drive-1</span>
-<span ng-if="false" translate>@integration-desc-google-drive-2</span>
-
-<span ng-if="false" translate>@integration-title-dropbox</span>
-<span ng-if="false" translate>@integration-desc-dropbox-1</span>
-<span ng-if="false" translate>@integration-desc-dropbox-2</span>
-
-<span ng-if="false" translate>@integration-desc-3</span>
-
+<div ng-if="false">
+    <span translate>@integration-title-google-drive</span>
+    <span translate>@integration-desc-google-drive-1</span>
+    <span translate>@integration-desc-google-drive-2</span>
+    <span translate>@integration-title-dropbox</span>
+    <span translate>@integration-desc-dropbox-1</span>
+    <span translate>@integration-desc-dropbox-2</span>
+    <span translate>@integration-desc-3</span>
+</div>
 
 <div class="modal-footer">
     <div ng-if="!!confirm">

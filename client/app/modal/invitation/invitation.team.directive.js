@@ -12,9 +12,11 @@
     };
 
     function link(scope, element, attrs) {
-      var emailPlaceholder = $filter('translate')('@input-invite-email');
-      var someFailInvite = 'Some fail';
-      var allIFailInvite = 'All fail';
+      var emailPlaceholder = $filter('translate')('@common-email');
+      var done = $filter('translate')('@common-done');
+      var invalidEmail = $filter('translate')('@invitation-invaild-email');
+      var someFail = $filter('translate')('@invitation-some-fail');
+
       var invitation;
 
       if (!scope.inviteDisabled) {
@@ -35,7 +37,7 @@
               var item = ele.parent();
 
               item.children('div').remove();
-              item.append('<div class="modal-noti-block_msg alert-jandi alert-danger"><span>' + emailPlaceholder + '</span><div>');
+              item.append('<div class="modal-noti-block_msg alert-jandi alert-danger"><span>' + invalidEmail + '</span><div>');
 
               if (ele.parents('#invites').find('.alert-danger').length > 0) {
                 invitation.ele.parent().children('.send-invite').addClass('disabled');
@@ -63,10 +65,9 @@
               body.children('.invite-btn').remove();
               footer.addClass('invite-done');
 
-              if (successCnt === 0) {
-                msg = allIFailInvite;
-              } else if (successCnt !== totalCnt) {
-                msg = someFailInvite;
+              // 부분 실패
+              if (successCnt !== totalCnt) {
+                msg = someFail;
               }
 
               if (msg) {
@@ -79,7 +80,7 @@
                 '<div class="done-content">' +
                   (!!successCnt ? '<img src="' + scope.doneImage + '">' : '') +   // 하나도 성공하지 못함
                   '<div class="done-invite invite-btn cursor_pointer btn-ok">' +
-                    '<span translate>Done</span>' +
+                    '<span translate>' + done +'</span>' +
                   '</div>' +
                 '</div>'
               );
@@ -90,7 +91,7 @@
 
               if (emptys = invitation.getEmptyInputBox()) {
                 for (i = 0, len = emptys.length; i < len; ++i) {
-                  emptys[i].remove();
+                  $(emptys[i]).parent().remove();
                 }
               }
 

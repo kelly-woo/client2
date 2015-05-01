@@ -33,10 +33,6 @@ msgstr ""
 msgid "@alert-invalid-password"
 msgstr ""
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-missing-info"
-msgstr ""
-
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr ""
@@ -50,22 +46,6 @@ msgstr ""
 msgid "@alert-required"
 msgstr ""
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-fail"
-msgstr ""
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-invalid"
-msgstr ""
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-success"
-msgstr ""
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-taken"
-msgstr ""
-
 #: client/app/modal/settings.account.html
 msgid "@alert-update-fail"
 msgstr ""
@@ -74,12 +54,9 @@ msgstr ""
 msgid "@alert-update-success"
 msgstr ""
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@btn-add"
-msgstr ""
-
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
+#: client/app/modal/integration/integration.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/rename.html
 #: client/app/modal/share/share.html
@@ -102,7 +79,6 @@ msgstr ""
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/invite.channel.html
 #: client/app/modal/invite.direct.html
-#: client/app/modal/invite_to_team/invite.team.html
 #: client/app/modal/join.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
@@ -119,6 +95,7 @@ msgstr ""
 msgid "@btn-comment"
 msgstr ""
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/settings.service.html
 msgid "@btn-confirm"
 msgstr ""
@@ -139,14 +116,18 @@ msgstr ""
 msgid "@btn-edit"
 msgstr ""
 
+#: client/app/header/header.html
 #: client/app/modal/invite.channel.html
 #: client/app/modal/invite.direct.html
-#: client/app/modal/invite_to_team/invite.team.html
 msgid "@btn-invite"
 msgstr ""
 
 #: client/app/modal/join.html
 msgid "@btn-join"
+msgstr ""
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@btn-send"
 msgstr ""
 
 #: client/app/center/center.html
@@ -167,7 +148,6 @@ msgstr ""
 msgid "@btn-update-password"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr ""
@@ -257,6 +237,10 @@ msgstr ""
 msgid "@common-conversation-leave-confirm"
 msgstr ""
 
+#: client/app/modal/invitation/invitation.team.html
+msgid "@common-copy"
+msgstr ""
+
 #: client/app/modal/create.channel.html
 #: client/app/modal/join.html
 #: client/app/modal/topic_create/topic.create.html
@@ -307,6 +291,10 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr ""
 
+#: client/app/modal/invitation/invitation.team.html
+msgid "@common-done"
+msgstr ""
+
 #: client/app/center/center.html
 #: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
@@ -319,6 +307,7 @@ msgid "@common-duplicate-name-err"
 msgstr ""
 
 #: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/invitation/invitation.team.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/profile.view.html
 #: client/app/signin/signin.html
@@ -600,7 +589,6 @@ msgstr ""
 msgid "@common-type-public"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr ""
@@ -743,10 +731,6 @@ msgstr ""
 msgid "@input-create-pg"
 msgstr ""
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@input-invite-email"
-msgstr ""
-
 #: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-20-error"
 msgstr ""
@@ -827,6 +811,30 @@ msgstr ""
 
 #: client/app/modal/integration/integration.html
 msgid "@integration-title-google-drive"
+msgstr ""
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-contact-desc"
+msgstr ""
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-disabled"
+msgstr ""
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-invaild-email"
+msgstr ""
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-link-desc"
+msgstr ""
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-more-email"
+msgstr ""
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-some-fail"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -952,10 +960,6 @@ msgstr ""
 
 #: client/app/modal/settings.team.html
 msgid "@modal-setting-team-msg"
-msgstr ""
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@modal-team-invite-msg1"
 msgstr ""
 
 #: client/app/modal/upload/upload.html
@@ -1128,8 +1132,7 @@ msgstr ""
 msgid "@setting-team-title"
 msgstr ""
 
-#: client/app/header/header.html
-#: client/app/modal/invite_to_team/invite.team.html
+#: client/app/modal/invitation/invitation.team.html
 msgid "@team-invite"
 msgstr ""
 

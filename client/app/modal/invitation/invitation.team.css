@@ -12,8 +12,8 @@
 .invite-disalbed .modal-body .disabled-desc {
   font-size: 16px;
   color: #575757;
-  padding-top: 30px;
-  padding-bottom: 45px;
+  padding: 30px 40px 40px 25px;
+  line-height: 24px;
 }
 /*
     ENABLED INVITE USER TO TEAM
@@ -34,7 +34,7 @@
   border-top: 1px solid #d1d1d1;
 }
 .invites {
-  max-height: 195px;
+  max-height: 189px;
   overflow-y: auto;
 }
 .invite-btn {
@@ -78,7 +78,7 @@
   cursor: default;
 }
 .invites .form-horizontal {
-  padding-bottom: 7px;
+  padding-bottom: 6px;
 }
 .invites .form-horizontal:last-child {
   padding-bottom: 0;

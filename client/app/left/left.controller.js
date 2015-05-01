@@ -543,5 +543,23 @@ app.controller('leftPanelController1', function(
     });
   }
 
+  response && currentTeamAdmin(response);
+
+  // team의 현재 관리자 정보를 찾아서 설정함.
+  function currentTeamAdmin(res) {
+    var entities = res.entities;
+    var entity;
+    var i, len;
+
+    for (i = 0, len = entities.length; i < len; ++i) {
+      entity = entities[i];
+
+      if (entity.u_authority === 'owner') {
+        currentSessionHelper.setCurrentTeamAdmin(entity);
+        break;
+      }
+    }
+  }
+
 });
 

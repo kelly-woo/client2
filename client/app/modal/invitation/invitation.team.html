@@ -11,9 +11,8 @@
   <div class="invite-disalbed" ng-show="inviteDisabled">
     <div class="modal-body">
       <img src="{{disabledImage}}">
-      <!-- <div class="invite-disabled-image"></div> -->
       <div class="disabled-desc">
-        <span>Invitation hash been disabled by admin.</span>
+        <span translate>@invitation-disabled</span>
       </div>
     </div>
   </div>
@@ -25,39 +24,34 @@
       </div>
 
       <div class="add-invite invite-btn cursor_pointer btn-ok" ng-click="add();">
-        <i class="icon-add"></i>
-        <span translate>@btn-add</span>
+        <span translate>@invitation-more-email</span>
       </div>
       <div class="send-invite invite-btn cursor_pointer btn-ok disabled" ng-click="send($event);">
-        <span translate>Send Invites</span>
+        <span translate>@btn-send</span>
       </div>
     </div>
 
     <div class="modal-footer">
       <div class="progress-content">
         <div class="invite-link-desc">
-          <span translate>Or just send them this link</span>
+          <span translate>@invitation-link-desc</span>
         </div>
         <div class="invite-link-copy">
           <input id="invite-link" class="invite-public-link form-control invite" type="text" value="{{seedUri}}">
           <div class="clip-invite invite-btn cursor_pointer btn-ok" ng-click="clipboard($event);">
-            <span translate>Send Invites</span>
+            <span translate>@common-copy</span>
           </div>
         </div>
-        <div class="invite-contact-desc">inviting over 100 members? Contact us at support@tosslab.com</div>
+        <div class="invite-contact-desc"><span translate>@invitation-contact-desc</span></div>
       </div>
     </div>
   </div>
 </div>
 
 <div ng-include="templates.loading"></div>
-<div data-ng-if="false">
-  <h4 class="modal-body__description">
-    <span translate>@modal-team-invite-msg1</span>
-  </h4>
-  <span translate>@alert-missing-info</span>
-  <span translate>@alert-send-mail-fail</span>
-  <span translate>@alert-send-mail-taken</span>
-  <span translate>@alert-send-mail-invalid</span>
-  <span translate>@alert-send-mail-success</span>
+<div ng-if="false">
+  <span translate>@common-email</span>
+  <span translate>@common-done</span>
+  <span translate>@invitation-invaild-email</span>
+  <span translate>@invitation-some-fail</span>
 </div>

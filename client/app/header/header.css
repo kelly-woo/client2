@@ -18,7 +18,7 @@
   vertical-align: top;
 }
 
-.header-navbar .divider {
+.header-navbar>.divider {
   width: 1px;
   height: 17px;
   background-color: #366480;

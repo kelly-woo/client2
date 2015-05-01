@@ -134,7 +134,7 @@
               that.options.onInvalidFormat(ele);
             } else {
               that.options.onValidFormat(ele);
-              that._addMapItem(value, $(this));
+              that._addMapItem(value, this);
             }
           });
       },
@@ -145,7 +145,7 @@
         that.length++;
 
         ele = $(that.options.templateItem).appendTo(that.ele);
-        that._addMapItem(ele.val() || EMPTY_VALUE, ele);
+        that._addMapItem(ele.val() || EMPTY_VALUE, ele.children('input')[0]);
       },
       _addMapItem: function(value, ele) {
         var that = this;

@@ -41,10 +41,6 @@ msgstr "共有されたファイルがありません"
 msgid "@alert-invalid-password"
 msgstr "パスワードが間違っています"
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-missing-info"
-msgstr "必要な情報が入力されていません"
-
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr "一致するメッセージがありません"
@@ -58,22 +54,6 @@ msgstr "登録情報がありません"
 msgid "@alert-required"
 msgstr "必須"
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-fail"
-msgstr "招待メッセージは送信されませんでした"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-invalid"
-msgstr "は適切なメールアドレス形式ではありません"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-success"
-msgstr "招待メールが送信されました"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-taken"
-msgstr "は既にチームに登録されています"
-
 #: client/app/modal/settings.account.html
 msgid "@alert-update-fail"
 msgstr "更新することができませんでした"
@@ -82,12 +62,9 @@ msgstr "更新することができませんでした"
 msgid "@alert-update-success"
 msgstr "更新されました"
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@btn-add"
-msgstr "追加"
-
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
+#: client/app/modal/integration/integration.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
 #: client/app/modal/share/share.html
 #: client/app/modal/team_change/team.change.html
@@ -107,7 +84,6 @@ msgstr "表示"
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite_to_team/invite.team.html
 #: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
@@ -122,6 +98,7 @@ msgstr "閉じる"
 msgid "@btn-comment"
 msgstr "コメント"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/settings.service.html
 msgid "@btn-confirm"
 msgstr "確認"
@@ -141,14 +118,18 @@ msgstr "削除"
 msgid "@btn-edit"
 msgstr "送信"
 
-#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite_to_team/invite.team.html
+#: client/app/header/header.html client/app/modal/invite.channel.html
+#: client/app/modal/invite.direct.html
 msgid "@btn-invite"
 msgstr "招待"
 
 #: client/app/modal/join.html
 msgid "@btn-join"
 msgstr "参加"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@btn-send"
+msgstr "送信"
 
 #: client/app/center/center.html
 #: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
@@ -167,7 +148,6 @@ msgstr "名前の更新"
 msgid "@btn-update-password"
 msgstr "パスワードの更新"
 
-#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "アップロード"
@@ -267,6 +247,10 @@ msgstr ""
 "この会話から退出しますか？メッセージ履歴は非表示になりますが、再開した場合に"
 "はこれまでの会話履歴は表示されます"
 
+#: client/app/modal/invitation/invitation.team.html
+msgid "@common-copy"
+msgstr "コピー"
+
 #: client/app/modal/create.channel.html client/app/modal/join.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
@@ -317,6 +301,10 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr "へ招待"
 
+#: client/app/modal/invitation/invitation.team.html
+msgid "@common-done"
+msgstr "確認"
+
 #: client/app/center/center.html
 #: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
@@ -329,6 +317,7 @@ msgid "@common-duplicate-name-err"
 msgstr "このトピック名は既に使用されています"
 
 #: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/invitation/invitation.team.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/profile.view.html client/app/signin/signin.html
 msgid "@common-email"
@@ -602,7 +591,6 @@ msgstr "非公開"
 msgid "@common-type-public"
 msgstr "公開"
 
-#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "アップロード"
@@ -753,10 +741,6 @@ msgstr "新規トピックの名称を入力"
 msgid "@input-create-pg"
 msgstr "新規プライベートグループの名称を入力"
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@input-invite-email"
-msgstr "招待するメールアドレスを入力"
-
 #: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-20-error"
 msgstr " "
@@ -810,7 +794,8 @@ msgstr "パスワードは8文字以上にしてください"
 #: client/app/modal/integration/integration.html
 msgid "@integration-desc-3"
 msgstr ""
-"アカウントを接続するために、ブラウザのポップアップ表示を許可してください"
+"アカウントを接続するために、<b>ブラウザのポップアップ表示を許可してください"
+"</b>"
 
 #: client/app/modal/integration/integration.html
 msgid "@integration-desc-dropbox-1"
@@ -843,6 +828,34 @@ msgstr "Dropboxからファイルをアップロード"
 #: client/app/modal/integration/integration.html
 msgid "@integration-title-google-drive"
 msgstr "Googleドライブからファイルをアップロード"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-contact-desc"
+msgstr ""
+"100人以上のメンバーを追加したいですか？ サポートにご連絡はこちらまで "
+"support@tosslab.com"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-disabled"
+msgstr ""
+"管理者によって招待が取り消されました。詳細は管理者({{adminName}})にお問い合"
+"わせください"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-invaild-email"
+msgstr "正しいメールアドレスの形式を入力してください"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-link-desc"
+msgstr "またはリンクを送信"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-more-email"
+msgstr "さらに追加"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-some-fail"
+msgstr "いくつかの招待が送信されませんでした"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -981,10 +994,6 @@ msgid "@modal-setting-team-msg"
 msgstr ""
 "チーム設定の変更ができます。ここで変更された内容は、チームメンバーにも適用さ"
 "れますのでご注意下さい"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@modal-team-invite-msg1"
-msgstr "あなたのチームメンバーをJANDIに招待しましょう！"
 
 #: client/app/modal/upload/upload.html
 msgid "@modal-upload-title-msg1"
@@ -1166,8 +1175,7 @@ msgstr "新しいチーム名"
 msgid "@setting-team-title"
 msgstr "チーム設定"
 
-#: client/app/header/header.html
-#: client/app/modal/invite_to_team/invite.team.html
+#: client/app/modal/invitation/invitation.team.html
 msgid "@team-invite"
 msgstr "他のチームメンバーを招待する"
 
@@ -1318,6 +1326,30 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
+
+#~ msgid "@alert-missing-info"
+#~ msgstr "必要な情報が入力されていません"
+
+#~ msgid "@alert-send-mail-fail"
+#~ msgstr "招待メッセージは送信されませんでした"
+
+#~ msgid "@alert-send-mail-invalid"
+#~ msgstr "は適切なメールアドレス形式ではありません"
+
+#~ msgid "@alert-send-mail-success"
+#~ msgstr "招待メールが送信されました"
+
+#~ msgid "@alert-send-mail-taken"
+#~ msgstr "は既にチームに登録されています"
+
+#~ msgid "@modal-team-invite-msg1"
+#~ msgstr "あなたのチームメンバーをJANDIに招待しましょう！"
+
+#~ msgid "@btn-add"
+#~ msgstr "追加"
+
+#~ msgid "@input-invite-email"
+#~ msgstr "招待するメールアドレスを入力"
 
 #~ msgid "@ch-menu-delete-confirm"
 #~ msgstr "本当にこのトピックを削除しますか？"
