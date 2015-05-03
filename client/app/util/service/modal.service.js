@@ -50,12 +50,20 @@
       modal = _modalOpener(modalOption);
     }
 
+
     function openInviteToCurrentEntityModal() {
       var modalOption = {
-        templateUrl :   'app/modal/invite.channel.html',
-        controller  :   'inviteModalCtrl',
+        templateUrl :   'app/modal/invitation/invitation.channel.html',
+        controller  :   'invitationChannelCtrl',
         size        :   'lg',
-        windowClass :   'allowOverflowY'
+        windowClass :   'allowOverflowY',
+        resolve     : {
+          data      : function() {
+            // 토픽으로 초대 가능한 member의 수
+            // 현재 channel의 유저가 가진 team의 갯수
+            return '';
+          }
+        }
       };
       modal = _modalOpener(modalOption);
     }

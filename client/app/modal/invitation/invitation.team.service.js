@@ -133,8 +133,8 @@
             if (!rEmail.test(value) && this.value !== '') {
               that.options.onInvalidFormat(ele);
             } else {
-              that.options.onValidFormat(ele);
               that._addMapItem(value, this);
+              that.options.onValidFormat(ele);
             }
           });
       },

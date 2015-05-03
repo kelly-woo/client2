@@ -46,8 +46,10 @@
             onValidFormat: function (ele) {
               ele.parent().children('div').remove();
 
-              if (ele.parents('#invites').find('.alert-danger').length === 0) {
-                invitation.ele.parent().children('.send-invite').removeClass('disabled');
+              if (invitation.length === invitation.getEmptyInputBox().length) {           // 모든 input에 아무값 입력되지 않은 상태
+                invitation.ele.parent().children('.send-invite').addClass('disabled');
+              } else if (ele.parents('#invites').find('.alert-danger').length === 0) {
+                invitation.ele.parent().children('.send-invite').removeClass('disabled'); // 특정 input에 경고 메시지 나온 상태
               }
             },
             onBeforeSend: function(event) {
