@@ -16,9 +16,8 @@
     function inviteToTeam(receivers) {
       return $http({
         method: 'POST',
-        url: configuration.server_address + 'invitations',
+        url: configuration.server_address + 'team/' + memberService.getTeamId() + '/invitations',
         data: {
-          teamId: memberService.getTeamId(),
           receivers: receivers,
           lang: accountService.getAccountLanguage()
         }
