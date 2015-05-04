@@ -485,7 +485,7 @@
 
     }
     function _isActionFromMe(writerId) {
-      return writerId === currentSessionHelper.getCurrentMemberId();
+      return writerId === memberService.getMemberId();
     }
 
     function socketEventLogger(event, data, isEmitting) {
