@@ -514,41 +514,58 @@
 
     // google drive picker docs: https://developers.google.com/picker/docs/
     var googleDriveIntegration;
+    var googleDriveIntegrationLock;
     function createGoogleDrive($scope, options) {
       var apiKey = 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs';
       var clientId = '720371329165-sripefi3is5k3vlvrjgn5d3onn9na2es.apps.googleusercontent.com';
 
-      if (!window.google || !window.gapi) {
-        !window.google && $.getScript('https://www.google.com/jsapi?key=' + apiKey);
-        !window.gapi && $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker');
+      if (!googleDriveIntegrationLock) {
+        googleDriveIntegrationLock = true;
+        if (!window.googleDriveIntegration) {
+          $.getScript('https://www.google.com/jsapi?key=' + apiKey)
+            .success(function() {
+              $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker');
+            })
+            .error(function(evt) {
+              console.error('google dirve integrate error', evt);
+            });
 
-        window._createGDPicker = function() {
-          (googleDriveIntegration = window.googleDriveIntegration = Object.create(GoogleDriveIntegration).init({
-            apiKey: apiKey,                         // 필수, google dirve api key
-            clientId: clientId,                     // 필수, goggle dirve client id
-            multiple: options.multiple || true      // multiple file upload
-          })).open($scope);
-        };
-      } else {
-        googleDriveIntegration && googleDriveIntegration.open($scope);
+          window._createGDPicker = function() {
+            (googleDriveIntegration = window.googleDriveIntegration = Object.create(GoogleDriveIntegration).init({
+              apiKey: apiKey,                         // 필수, google dirve api key
+              clientId: clientId,                     // 필수, goggle dirve client id
+              multiple: options.multiple || true      // multiple file upload
+            })).open($scope);
+            dropboxIntegrationLock = false;
+          };
+        } else {
+          googleDriveIntegration && googleDriveIntegration.open($scope);
+          dropboxIntegrationLock = false;
+        }
       }
     }
 
     // dropbox chooser docs: https://www.dropbox.com/developers/dropins/chooser/js
     var dropboxIntegration;
+    var dropboxIntegrationLock;
     function createDropBox($scope, options) {
       var apiKey = '4hbb9l5wu46okhp';
 
-      if (!window.dropboxIntegration) {
-        $.getScript('https://www.dropbox.com/static/api/2/dropins.js', function() {
-          Dropbox.appKey = apiKey;
+      if (!dropboxIntegrationLock) {
+        dropboxIntegrationLock = true;
+        if (!window.dropboxIntegration) {
+          $.getScript('https://www.dropbox.com/static/api/2/dropins.js', function() {
+            Dropbox.appKey = apiKey;
 
-          (dropboxIntegration = Object.create(DropBoxIntegration).init({
-            multiple: options.multiple || true
-          })).open($scope);
-        });
-      } else {
-        dropboxIntegration && dropboxIntegration.open($scope);
+            (dropboxIntegration = Object.create(DropBoxIntegration).init({
+              multiple: options.multiple || true
+            })).open($scope);
+            dropboxIntegrationLock = false;
+          });
+        } else {
+          dropboxIntegration && dropboxIntegration.open($scope);
+          dropboxIntegrationLock = false;
+        }
       }
     }
 

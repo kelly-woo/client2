@@ -639,13 +639,24 @@ input[type="button"] {
   height: 16px;
   display: inline-block;
 }
+#integration-menu li:hover .icon-google-drive {
+  background-image: url('../assets/images/icon_google_drive_white.png');
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
 #integration-menu .icon-dropbox {
   background-image: url('../assets/images/icon_dropbox.png');
   width: 16px;
   height: 16px;
   display: inline-block;
 }
-
+#integration-menu li:hover .icon-dropbox {
+  background-image: url('../assets/images/icon_dropbox_white.png');
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
 .help-enter-a-message {
   background: url('../assets/images/center/help-enter-a-message.png') no-repeat;
   width: 93px;

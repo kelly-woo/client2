@@ -17,27 +17,28 @@
     };
 
     function link(scope, element, attrs) {
-      var menu = element.find('#integration-menu'),
-          uploadMap = {
-            'client': function() {
-              $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
-                .on('change', function(evt) {
-                  scope.onFileSelect(evt.target.files);
-                })
-                .trigger('click');
-            },
-            'google-drive': function() {
-              integrationService.createGoogleDrive(scope, {multiple: multiple});
-            },
-            'dropbox': function() {
-              integrationService.createDropBox(scope, {multiple: multiple});
-            }
-          };
+      var menu = element.find('#integration-menu');
+      var primaryFileBtn = element.children('#primary_file_button');
+      var uploadMap = {
+        'computer': function() {
+          $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
+            .on('change', function(evt) {
+              scope.onFileSelect(evt.target.files);
+            })
+            .trigger('click');
+        },
+        'google-drive': function() {
+          integrationService.createGoogleDrive(scope, {multiple: multiple});
+        },
+        'dropbox': function() {
+          integrationService.createDropBox(scope, {multiple: multiple});
+        }
+      };
 
       menu
         .on('click', 'li', function() {
-          var className = this.className,
-              fn;
+          var className = this.className;
+          var fn;
 
           if (fn = uploadMap[className]) {
             fn();
