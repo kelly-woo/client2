@@ -147,6 +147,7 @@ msgstr "Update Name"
 msgid "@btn-update-password"
 msgstr "Update Password"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "Upload"
@@ -595,6 +596,7 @@ msgstr "Private"
 msgid "@common-type-public"
 msgstr "Public"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "Upload File"
@@ -1100,6 +1102,10 @@ msgstr "Email was sent successfully"
 #: client/app/password/password.reset.html
 msgid "@password-reset-message"
 msgstr "Forgot your password? Choose a new one."
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@placeholder-input-message"
+msgstr "Enter your message here (press Shift+Enter for multiple lines)"
 
 #: client/app/left/left.html
 msgid "@privateGroup"

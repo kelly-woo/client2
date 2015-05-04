@@ -148,6 +148,7 @@ msgstr ""
 msgid "@btn-update-password"
 msgstr ""
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr ""
@@ -589,6 +590,7 @@ msgstr ""
 msgid "@common-type-public"
 msgstr ""
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr ""
@@ -1064,6 +1066,10 @@ msgstr ""
 
 #: client/app/password/password.reset.html
 msgid "@password-reset-message"
+msgstr ""
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@placeholder-input-message"
 msgstr ""
 
 #: client/app/left/left.html
