@@ -121,7 +121,7 @@
 
     return function(file) {
       var fileTypeTran;
-      return (fileTypeTran = fileTypeTranMap[fileTypeMap[file.mimeType] || file.ext]) ? $filter('translate')(fileTypeTran) : file.ext;
+      return (fileTypeTran = fileTypeTranMap[fileTypeMap[file.type] || file.ext]) ? $filter('translate')(fileTypeTran) : file.ext;
     };
   });
 

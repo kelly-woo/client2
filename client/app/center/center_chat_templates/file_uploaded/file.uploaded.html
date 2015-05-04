@@ -70,9 +70,8 @@
 
           <span class="bullet" ng-if="msg.message.content.size > 0">•</span>
           <!--    SIZE AND FILE TYPE  -->
-          <span class="msg-file-meta-info" ng-if="msg.message.content.size > 0">
-            {{msg.message.content.size | bytes }} {{ msg.message.content | fileType }}
-          </span>
+          <span class="msg-file-meta-info" ng-if="msg.message.content.size > 0">{{ msg.message.content.size | bytes }}</span>
+          <span class="msg-file-meta-info">{{ msg.message.content | fileType }}</span>
         </div>
 
         <!--  ARCHIVED FILE -->
