@@ -52,3 +52,7 @@
 	color: #333;
 	line-height: 22px;
 }
+
+.picker.modal-dialog {
+	line-height: 1;
+}

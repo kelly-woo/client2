@@ -524,9 +524,13 @@
         if (!window.googleDriveIntegration) {
           $.getScript('https://www.google.com/jsapi?key=' + apiKey)
             .success(function() {
-              $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker');
+              $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker')
+                .complete(function() {
+                  googleDriveIntegrationLock = false;
+                });
             })
             .error(function(evt) {
+              googleDriveIntegrationLock = false;
               console.error('google dirve integrate error', evt);
             });
 
@@ -536,11 +540,10 @@
               clientId: clientId,                     // 필수, goggle dirve client id
               multiple: options.multiple || true      // multiple file upload
             })).open($scope);
-            dropboxIntegrationLock = false;
           };
         } else {
           googleDriveIntegration && googleDriveIntegration.open($scope);
-          dropboxIntegrationLock = false;
+          googleDriveIntegrationLock = false;
         }
       }
     }
@@ -560,6 +563,8 @@
             (dropboxIntegration = Object.create(DropBoxIntegration).init({
               multiple: options.multiple || true
             })).open($scope);
+          })
+          .complete(function() {
             dropboxIntegrationLock = false;
           });
         } else {
