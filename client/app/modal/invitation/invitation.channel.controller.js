@@ -7,25 +7,37 @@
     .module('jandiApp')
     .controller('invitationChannelCtrl', invitationChannelCtrl);
 
-  function invitationChannelCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService) {
-    $scope.cancel = function() {
-      $modalInstance.dismiss('cancel');
-    };
-
-    generateInviteList();
+  function invitationChannelCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, $filter, publicService, analyticsService) {
+    InitInvite();
 
     /*
      Generating list of users that are not in current channel or private group.
      */
-    function generateInviteList() {
+    function InitInvite() {
       var members = $scope.currentEntity.ch_members || $scope.currentEntity.pg_members;
       var totalUserList = $scope.memberList;
+      var msg1;
+      var msg2;
 
       $scope.availableMemberList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 || user.status == 'disabled' });
+      $scope.availableMemberList.length !== 0;
 
-      // 초대 가능한 member가 존재하지 않는다면 team member 초대를 유도함.
-      $scope.inviteChannel = $scope.availableMemberList.length === 0 ? true : false;
+      if ($scope.account && $scope.account.memberships.length >= 2) {   // team size >= 2
+        msg1 = '@emptyMsg-no-team-member-joined';
+        msg2 = '@emptyMsg-invite-not-joined-teammate';
+      } else {        // team size < 2
+        msg1 = '@emptyMsg-no-team-member-joined';
+        msg2 = '@emptyMsg-click-to-invite-to-current-team';
+      }
+
+      $scope.inviteTeamMsg1 = $filter('translate')(msg1);
+      $scope.inviteTeamMsg2 = $filter('translate')(msg2);
     }
+
+    $scope.onInviteTeamClick = function() {
+      $modalInstance.dismiss('cancel');
+      publicService.openInviteToTeamModal();
+    };
 
     // See if 'user' is a member of current channel/privateGroup.
     $scope.isMember = function(user, entityType) {
@@ -85,6 +97,10 @@
         .finally(function() {
           $scope.toggleLoading();
         });
+    };
+
+    $scope.cancel = function() {
+      $modalInstance.dismiss('cancel');
     };
 
     $scope.toggleLoading = function() {

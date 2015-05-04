@@ -157,7 +157,7 @@ msgstr "Delete topic"
 
 #: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-invite"
-msgstr "Invite members"
+msgstr "Invite Members to Topic"
 
 #: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-leave"
