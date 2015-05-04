@@ -670,8 +670,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           lastMessageId = localLastMessageId;
 
           _checkEntityMessageStatus();
-
+          _updateUnreadCount();
         }
+
+
 
       })
       .error(function (response) {
@@ -761,7 +763,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   };
   $scope.deleteMessage = function(message) {
-    log("delete: ", message.messageId);
+    //console.log("delete: ", message.messageId);
     messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
       .success(function(response) {
       })
@@ -1287,7 +1289,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
   }
 
-
+// TODO: MOVE TO CENTER SERVICE
   function _getEntityId() {
     var id;
     if (entityType === 'users') {
@@ -1419,6 +1421,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _putNewMarker(memberId, lastLinkId) {
     console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
+    if (lastLinkId < 0) return;
+
     _putLastLinkId(lastLinkId, memberId);
     _putMemberIdToLastLinkId(memberId, lastLinkId);
   }
@@ -1559,6 +1563,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _getCurrentRoomInfo() {
     var currentRoomId = _getEntityId();
+
     messageAPIservice.getRoomInformation(currentRoomId)
       .success(function(response) {
         _initMarkers(response.markers);
