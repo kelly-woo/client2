@@ -88,7 +88,7 @@
       <li class="cursor_pointer">
         <a class="download-file" download-file file-url="{{file.content.fileUrl}}" file-title="{{file.content.title}}">
           <i class="icon-download"></i>
-          <span translate>@common-download</span>
+          <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
         </a>
       </li>
 

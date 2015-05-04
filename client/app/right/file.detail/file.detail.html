@@ -56,7 +56,7 @@
             <!--    NON-PDF FILE    -->
             <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" ng-if="file_detail.content.type.indexOf('pdf') == -1">
               <button type="button" class="btn btn-white" >
-                <span translate>@common-download</span>
+                <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
               </button>
             </a>
 
@@ -118,7 +118,7 @@
               <li class="cursor_pointer">
                 <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" ng-click="onClickDownload(file_detail);">
                   <i class="icon-download"></i>
-                  <span translate>@common-download</span>
+                  <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
                 </a>
               </li>
               <li class="cursor_pointer" ng-if="file_detail | isFileWriter:member">

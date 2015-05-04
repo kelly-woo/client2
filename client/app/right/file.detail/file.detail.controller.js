@@ -87,7 +87,10 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
 
             $scope.isFileArchived = isFileArchived($scope.file_detail);
 
-            setImageUrl($scope.file_detail);
+            if ($scope.file_detail) {
+              setImageUrl($scope.file_detail);    // preview image url 생성
+              $scope.isIntegrateFile  = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
+            }
             //console.log($scope.file_detail)
             //console.log('is deleted file?', $scope.isFileArchived)
           })
@@ -158,17 +161,22 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   }
 
   $scope.onImageClick = function() {
-    $modal.open({
-      scope       :   $scope,
-      controller  :   'fullImageCtrl',
-      templateUrl :   'app/modal/fullimage.html',
-      windowClass :   'modal-full fade-only',
-      resolve     :   {
-        photoUrl    : function() {
-          return $scope.ImageUrl;
+    var content = $scope.file_detail.content;
+    if (integrationPreviewMap[content.serverUrl]) {
+      var win = window.open(content.fileUrl, '_blank');
+    } else {
+      $modal.open({
+        scope       :   $scope,
+        controller  :   'fullImageCtrl',
+        templateUrl :   'app/modal/fullimage.html',
+        windowClass :   'modal-full fade-only',
+        resolve     :   {
+          photoUrl    : function() {
+            return $scope.ImageUrl;
+          }
         }
-      }
-    });
+      });
+    }
   };
 
   $scope.openModal = function(selector) {

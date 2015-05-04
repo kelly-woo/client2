@@ -77,6 +77,10 @@
   animation: opacIn-from-0 0.5s;
 }
 
+.file-detail-body__image {
+  display: inline-block;
+}
+
 .file-detail-header {
 
   padding: 15px;
@@ -114,6 +118,7 @@
 }
 
 .file-detail-body .image_wrapper {
+  text-align: center;
   margin-bottom: 10px;
 }
 .file-item-body-title-author {

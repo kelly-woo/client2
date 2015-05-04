@@ -201,9 +201,19 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       {viewValue: $filter('translate')('@common-file-type-pdf'), value: 'pdf'},
       {viewValue: $filter('translate')('@common-file-type-images'), value: 'image'},
       {viewValue: $filter('translate')('@common-file-type-video'), value: 'video'},
-      {viewValue: $filter('translate')('@common-file-type-audio'), value: 'audio'}
+      {viewValue: $filter('translate')('@common-file-type-audio'), value: 'audio'},
+      {viewValue: $filter('translate')('@common-file-type-google-docs'), value: 'googleDocs'}
     ];
     return array;
+  };
+
+  var integrateMap = {
+    'google': true,
+    'dropbox': true
+  };
+
+  fileAPI.isIntegrateFile = function(serverUrl) {
+    return !!integrateMap[serverUrl];
   };
 
   return fileAPI;

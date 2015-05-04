@@ -68,12 +68,11 @@
             {{ msg.message.content | fileTitle }}
           </a>
 
-          <span class="bullet">•</span>
-
+          <span class="bullet" ng-if="msg.message.content.size > 0">•</span>
           <!--    SIZE AND FILE TYPE  -->
-                  <span class="msg-file-meta-info">
-                    {{msg.message.content.size | bytes }} {{ msg.message.content | fileType }}
-                  </span>
+          <span class="msg-file-meta-info" ng-if="msg.message.content.size > 0">
+            {{msg.message.content.size | bytes }} {{ msg.message.content | fileType }}
+          </span>
         </div>
 
         <!--  ARCHIVED FILE -->
@@ -127,7 +126,7 @@
         <span class="bullet">•</span>
 
         <!--    DOWNLOAD    -->
-        <a class="cursor_pointer" download-file file-url="{{msg.message.content.fileUrl}}" file-title="{{msg.message.content.title}}">
+        <a class="cursor_pointer" ng-if="!isIntegrateFile" download-file file-url="{{msg.message.content.fileUrl}}" file-title="{{msg.message.content.title}}">
           <span translate>@common-download</span>
         </a>
 
