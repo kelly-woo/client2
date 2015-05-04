@@ -20,7 +20,7 @@
       var msg2;
 
       $scope.availableMemberList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 || user.status == 'disabled' });
-      $scope.availableMemberList.length !== 0;
+      $scope.inviteChannel = $scope.availableMemberList.length !== 0;
 
       if ($scope.account && $scope.account.memberships.length >= 2) {   // team size >= 2
         msg1 = '@emptyMsg-no-team-member-joined';
