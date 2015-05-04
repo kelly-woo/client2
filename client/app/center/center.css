@@ -389,6 +389,7 @@ by ysyun 2015.2.25
 }
 .large-thumbnail {
   border: 1px solid #d2d2d2;
+  max-width: 100%;
 }
 .large-thumbnail-parent:hover .large-thumbnail-full-screen
 {
@@ -677,7 +678,7 @@ by ysyun 2015.2.25
 }
 .dnd-hover .msgs-inner__border {
   display: block;
-  border: 5px solid rgba(26, 155, 106, 0.5);
+  border: 5px solid rgba(0, 166, 233, 0.5);
 }
 
 .dnd-hover-msg {
@@ -696,7 +697,7 @@ by ysyun 2015.2.25
   height: 35px;
   font-size: 16px;
   position: relative;
-  background-color: rgba(26, 155, 106, 0.8);
+  background-color: rgba(21, 74, 103, 0.8);
 }
 .dnd-hover-msg span .background {
   background-color: #1a9b6a;
@@ -735,15 +736,10 @@ by ysyun 2015.2.25
 .file-upload-progress-icon-cancel:hover {
     opacity: 1;
 }
-
-.isAborted .jandi-file-upload-progress-bar {
-  background-color: rgba(235, 149, 47, 0.7);
-
-}
 .jandi-file-upload-progress-bar {
   height: 30px;
   margin: 0;
-  background-color: rgba(26, 155, 106, 0.7);
+  background-color: rgba(94, 94, 94, 0.8);
   position: absolute;
   left: 0;
   right: 0;
@@ -753,10 +749,14 @@ by ysyun 2015.2.25
 
 }
 .jandi-file-upload-progress-bar .progress-bar {
-  background-color: #287254;
+  background-color: rgba(0, 170, 232, 1);
+}
+.isAborted .jandi-file-upload-progress-bar {
+  background-color: rgba(225, 129, 16, 0.8);
+
 }
 .isAborted .jandi-file-upload-progress-bar .progress-bar  {
-  background-color: rgba(235, 149, 47, 0.7);
+  background-color: rgba(225, 129, 16, 0.8);
 }
 .file-upload-done .progress-bar{
   -webkit-animation: none !important;
