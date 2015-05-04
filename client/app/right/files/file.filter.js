@@ -103,46 +103,25 @@
   /**
    * file을 표현하는 text를 get
    */
-  app.filter('filetype', function($filter) {
+  app.filter('fileType', function($filter) {
     var fileTypeMap = {
-          JPG: 'image/jpeg',
-          PNG: 'image/png',
-          GIF: 'image/gif',
-          PDF: 'application/pdf',
-          MP4: 'video/mp4',
-          MOV: ['video/quicktime', 'application/octet-stream'],
-          MKV: 'video/x-matroska',
-          MP3: 'audio/mp3',
-          MPEG: 'audio/mpeg',
-          ZIP: 'application/zip',
-          HWP: 'application/x-hwp',
-          TXT: ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-          EXCEL: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-          PPT: ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']
-        },
-        fileTypeTranMap = {
-          TXT: '@common-file-type-documents',
-          EXCEL: '@common-file-type-spreadsheets',
-          PPT: '@common-file-type-presentations',
-          'Google Doc': '@common-file-type-google-documents',
-          'Google Spreadsheet': '@common-file-type-google-spreadsheets',
-          'Google Presentation': '@common-file-type-google-presentations'
-        };
-    angular.extend(fileTypeMap, integrationType);
+      txt: ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+      excel: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+      ppt: ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']
+    };
+    var fileTypeTranMap = {
+      txt: '@common-file-type-documents',
+      excel: '@common-file-type-spreadsheets',
+      ppt: '@common-file-type-presentations',
+      'document': '@common-file-type-google-documents',
+      'spreadsheet': '@common-file-type-google-spreadsheets',
+      'presentation': '@common-file-type-google-presentations'
+    };
     fileTypeMap = createMap(fileTypeMap);
 
-    return function(type) {
-      var str,
-          tranStr,
-          ret;
-
-      if (str = fileTypeMap[type]) {
-        ret = (tranStr = fileTypeTranMap[str]) ? $filter('translate')(tranStr) : str;
-      } else {
-        ret = $filter('translate')('@common-file-type-others');
-      }
-
-      return ret;
+    return function(file) {
+      var fileTypeTran;
+      return (fileTypeTran = fileTypeTranMap[fileTypeMap[file.mimeType] || file.ext]) ? $filter('translate')(fileTypeTran) : file.ext;
     };
   });
 
