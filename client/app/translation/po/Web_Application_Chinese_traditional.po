@@ -87,6 +87,7 @@ msgstr "增加"
 
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
+#: client/app/modal/integration/integration.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
 #: client/app/modal/share/share.html
 #: client/app/modal/team_change/team.change.html
@@ -115,6 +116,7 @@ msgid "@btn-close"
 msgstr "關閉"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
@@ -148,7 +150,9 @@ msgstr "邀請"
 msgid "@btn-join"
 msgstr "加入"
 
-#: client/app/center/center.html client/app/modal/share/share.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -163,6 +167,7 @@ msgstr "更新姓名"
 msgid "@btn-update-password"
 msgstr "更新密碼"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "上傳"
@@ -274,6 +279,8 @@ msgid "@common-customer-service"
 msgstr "客服"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "已刪除檔案"
@@ -304,6 +311,7 @@ msgid "@common-dm-invite-to"
 msgstr "邀請到"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@common-download"
@@ -571,6 +579,7 @@ msgstr "私人"
 msgid "@common-type-public"
 msgstr "公開"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "上傳檔案"
@@ -676,7 +685,7 @@ msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
 msgid "@go-to-latest-message-msg"
 msgstr "去到最近的訊息"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "您有新訊息"
 
@@ -779,6 +788,7 @@ msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
@@ -892,15 +902,16 @@ msgstr "邀請其他團隊成員加入JANDI!"
 msgid "@modal-upload-title-msg1"
 msgstr "按標題搜尋"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "建立公開議題 "
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "建立私人議題"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr "檔案"
 
@@ -908,35 +919,40 @@ msgstr "檔案"
 msgid "@msg-help-multiline"
 msgstr "Shift鍵加Enter鍵可多行輸入"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "邀請了"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr " "
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "已經加入"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "已經離開"
 
-#: client/app/center/center.html client/app/right/files/file/file.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "打開原始檔案"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr "分享過"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr "未分享過"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr "的"
 
@@ -985,6 +1001,10 @@ msgstr "電子郵件已經成功寄出"
 #: client/app/password/password.reset.html
 msgid "@password-reset-message"
 msgstr "忘記您的密碼了嗎？選擇一個新的。 "
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@placeholder-input-message"
+msgstr "輸入訊息（Shift+Enter 進行換行）"
 
 #: client/app/left/left.html
 msgid "@privateGroup"

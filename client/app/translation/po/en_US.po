@@ -87,6 +87,7 @@ msgstr "Add"
 
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
+#: client/app/modal/integration/integration.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
 #: client/app/modal/share/share.html
 #: client/app/modal/team_change/team.change.html
@@ -114,7 +115,9 @@ msgstr "Click to view"
 msgid "@btn-close"
 msgstr "Close"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
 msgstr "Comment"
@@ -147,7 +150,9 @@ msgstr "Invite"
 msgid "@btn-join"
 msgstr "Join"
 
-#: client/app/center/center.html client/app/modal/share/share.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -162,6 +167,7 @@ msgstr "Update Name"
 msgid "@btn-update-password"
 msgstr "Update Password"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "Upload"
@@ -281,7 +287,10 @@ msgstr "Password"
 msgid "@common-customer-service"
 msgstr "Customer Service"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/center_chat_templates/title_comment/title.comment.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "Deleted File"
 
@@ -312,7 +321,9 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr "Invite to"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@common-download"
 msgstr "Download"
@@ -580,6 +591,7 @@ msgstr "Private"
 msgid "@common-type-public"
 msgstr "Public"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "Upload File"
@@ -689,7 +701,7 @@ msgstr "Currently you cannot upload a file that exceeds 100MB."
 msgid "@go-to-latest-message-msg"
 msgstr "Go to the most recent messages"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "You received a new message"
 
@@ -797,7 +809,9 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
-#: client/app/center/center.html client/app/right/file.detail/file.detail.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/text/text.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
 msgstr "Delete"
@@ -919,15 +933,16 @@ msgstr "Invite other team members to JANDI!"
 msgid "@modal-upload-title-msg1"
 msgstr "For searches by title"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "created this public topic."
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "created this private topic."
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr "File"
 
@@ -935,35 +950,40 @@ msgstr "File"
 msgid "@msg-help-multiline"
 msgstr "shift+enter to multiline"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "invited"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr " "
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "has joined"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "has left"
 
-#: client/app/center/center.html client/app/right/files/file/file.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "Open original"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr "Shared"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr "Unshared"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr "'s"
 
@@ -1012,6 +1032,10 @@ msgstr "Email was sent successfully"
 #: client/app/password/password.reset.html
 msgid "@password-reset-message"
 msgstr "Forgot your password? Choose a new one."
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@placeholder-input-message"
+msgstr "Enter your message here (press Shift+Enter for multiple lines)"
 
 #: client/app/left/left.html
 msgid "@privateGroup"

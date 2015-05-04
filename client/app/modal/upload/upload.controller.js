@@ -44,10 +44,21 @@
 
         // upload event 처리
         if (btnType === 'upload') {
+          // upload 수행 해야할 file이 존재한다면 file에 대한 file 정보 생성
+          // $scope.fileInfo = createFileInfo($scope, $scope.file, $scope.fileInfo.currentEntity);
+
           lProgressBarIndex++;
 
           fileUploadQueue.push((function($tScope, $cScope, currentIndex, file, fileInfo) {
+            fileInfo.share = $scope.fileInfo.currentEntity.id;    // 공유 대화방 id
+            fileInfo.comment = $scope.comment;                    // file upload message에 대한 comment
+            $cScope.comment = '';
+
             return function(callback) {
+              var tmpFileInfo = angular.extend({}, fileInfo);
+
+              delete tmpFileInfo.currentEntity;
+
               lock = true;
 
               cProgressBarIndex++;
@@ -58,9 +69,9 @@
 
               $tScope.fileQueue = fileAPIservice.upload({
                 files: file,
-                fileInfo: fileInfo,
+                fileInfo: tmpFileInfo,
                 supportHTML: $scope.supportHtml5,
-                uploadType: fileInfo.uploadType
+                uploadType: tmpFileInfo.uploadType
               });
               $tScope.fileQueue.then(   // success
                 function(response) {
@@ -146,7 +157,7 @@
 
         if ($scope.file) {
           // upload 수행 해야할 file이 존재한다면 file에 대한 file 정보 생성
-          $scope.fileInfo = createFileInfo($scope, $scope.file);
+          $scope.fileInfo = createFileInfo($scope, $scope.file, $scope.fileInfo.currentEntity);
         } else {
           // upload 수행 해야할 file이 존재하지 않는다면 upload modal 숨김
           $modalInstance.dismiss('cancel');
@@ -175,7 +186,7 @@
       /**
        * file에 대한 file 정보(request parameter) object 생성
        */
-      function createFileInfo($scope, file) {
+      function createFileInfo($scope, file, entity) {
         var fileInfo;
 
         if (file.isImage) {
@@ -185,7 +196,8 @@
         fileInfo = {
           title: file.name,
           isPrivateFile: false,
-          currentEntity: currentEntity
+          currentEntity: entity || currentEntity,
+          comment: $scope.comment
         };
 
         // integration upload에 사용되는 fileInfo Object 생성
@@ -232,6 +244,7 @@
        */
       function createImgEle($scope, file) {
         var fileReader;
+        var index;
 
         fileReader = new window.FileReader();
         fileReader.readAsDataURL(file);
@@ -242,9 +255,6 @@
         };
       }
 
-      /**
-       * IE에서 ng-src 속성을 사용하게 되면 console에 syntax error 뱉으므로 $watch를 사용하여 element의 property로 설정함.
-       */
       $scope.$watch('dataUrl', function(newValue, oldValue){
         var modalUploadImg;
 
