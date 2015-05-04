@@ -87,94 +87,29 @@
     return map;
   }
 
-  app.filter('filetype', function($filter) {
+  /**
+   * file을 표현하는 text를 get
+   */
+  app.filter('fileType', function($filter) {
     var fileTypeMap = {
-          JPG: 'image/jpeg',
-          PNG: 'image/png',
-          GIF: 'image/gif',
-          PDF: 'application/pdf',
-          MP4: 'video/mp4',
-          MOV: ['video/quicktime', 'application/octet-stream'],
-          MKV: 'video/x-matroska',
-          MP3: 'audio/mp3',
-          MPEG: 'audio/mpeg',
-          ZIP: 'application/zip',
-          HWP: 'application/x-hwp',
-          TXT: ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-          EXCEL: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-          PPT: ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'],
-          'Google Doc': '',
-          'Google Spreadsheet': 'application/vnd.google-apps.spreadsheet',
-          'Google Presentation': ''
-        },
-        fileTypeTranMap = {
-          TXT: '@common-file-type-documents',
-          EXCEL: '@common-file-type-spreadsheets',
-          PPT: '@common-file-type-presentations'
-        };
+      txt: ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+      excel: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+      ppt: ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']
+    };
+    var fileTypeTranMap = {
+      txt: '@common-file-type-documents',
+      excel: '@common-file-type-spreadsheets',
+      ppt: '@common-file-type-presentations',
+      'document': '@common-file-type-google-documents',
+      'spreadsheet': '@common-file-type-google-spreadsheets',
+      'presentation': '@common-file-type-google-presentations'
+    };
     fileTypeMap = createMap(fileTypeMap);
 
-    return function(type) {
-      var str,
-          tranStr,
-          ret;
-
-      if (str = fileTypeMap[type]) {
-        ret = (tranStr = fileTypeTranMap[str]) ? $filter('translate')(tranStr) : str;
-      } else {
-        ret = $filter('translate')('@common-file-type-others');
-      }
-
-      return ret;
+    return function(file) {
+      var fileTypeTran;
+      return (fileTypeTran = fileTypeTranMap[fileTypeMap[file.mimeType] || file.ext]) ? $filter('translate')(fileTypeTran) : file.ext;
     };
-    // return function(type) {
-    //   if (typeof type === 'undefined') return 'undefined';
-
-    //   var filetype = "";
-
-    //   switch(type) {
-    //     case 'image/jpeg'       :   filetype = "JPG"; break;
-
-    //     case 'image/png'        :   filetype = "PNG"; break;
-
-    //     case 'image/gif'        :   filetype = "GIF"; break;
-
-    //     case 'application/pdf'  :   filetype = "PDF"; break;
-
-    //     case 'video/mp4'        :   filetype = "MP4"; break;
-
-    //     case 'video/quicktime'          :   filetype = "MOV"; break;
-    //     case 'application/octet-stream' :   filetype = "MOV"; break;
-
-    //     case 'video/x-matroska' : filetype = "MKV"; break; // mkv
-
-    //     case 'audio/mp3'        :   filetype = "MP3"; break;
-
-    //     case 'audio/mpeg'       :   filetype = "MPEG"; break;
-
-    //     case 'application/zip'  :   filetype = "ZIP"; break;
-
-    //     case 'application/x-hwp': filetype = "HWP"; break;
-
-    //     case 'text/plain'           :
-    //     case 'application/msword'   :    // doc
-    //     case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :    // docx
-    //       filetype = $filter('translate')('@common-file-type-documents'); break;
-
-    //     case 'application/vnd.ms-excel' :          // xls
-    //     case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :          // xlsx
-    //       filetype = $filter('translate')('@common-file-type-spreadsheets'); break;
-
-    //     case 'application/vnd.ms-powerpoint' :      // ppt
-    //     case 'application/vnd.openxmlformats-officedocument.presentationml.presentation' :  // pptx
-    //       filetype = $filter('translate')('@common-file-type-presentations'); break;
-
-    //     default                 :
-    //       // ETC
-    //       filetype = $filter('translate')('@common-file-type-others'); break;
-    //   }
-    //   return filetype;
-    // };
   });
 
   /**
