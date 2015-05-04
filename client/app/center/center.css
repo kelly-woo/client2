@@ -754,11 +754,11 @@ by ysyun 2015.2.25
   background-color: rgba(0, 170, 232, 1);
 }
 .isAborted .jandi-file-upload-progress-bar {
-  background-color: rgba(235, 149, 47, 0.7);
+  background-color: rgba(225, 129, 16, 0.8);
 
 }
 .isAborted .jandi-file-upload-progress-bar .progress-bar  {
-  background-color: rgba(235, 149, 47, 0.7);
+  background-color: rgba(225, 129, 16, 0.8);
 }
 .file-upload-done .progress-bar{
   -webkit-animation: none !important;
