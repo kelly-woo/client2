@@ -30,18 +30,18 @@
         'google-drive': function() {
           integrationService.createGoogleDrive(scope, {multiple: multiple});
         },
-        'dropbox': function() {
-          integrationService.createDropBox(scope, {multiple: multiple});
+        'dropbox': function(evt) {
+          integrationService.createDropBox(scope, {multiple: multiple, event: evt});
         }
       };
 
       menu
-        .on('click', 'li', function() {
+        .on('click', 'li', function(evt) {
           var className = this.className;
           var fn;
 
           if (fn = uploadMap[className]) {
-            fn();
+            fn(evt);
           }
         });
 

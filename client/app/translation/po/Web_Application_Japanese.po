@@ -66,8 +66,8 @@ msgstr "更新されました"
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/integration/integration.html
-#: client/app/modal/password.reset.request.html client/app/modal/rename.html
-#: client/app/modal/share/share.html
+#: client/app/modal/password.reset.request.html
+#: client/app/modal/rename.html client/app/modal/share/share.html
 #: client/app/modal/team_change/team.change.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
@@ -82,10 +82,12 @@ msgstr "変更"
 msgid "@btn-click-to-view"
 msgstr "表示"
 
-#: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/create.channel.html
+#: client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/join.html client/app/modal/password.reset.request.html
+#: client/app/modal/invite.channel.html
+#: client/app/modal/invite.direct.html client/app/modal/join.html
+#: client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.service.html
 #: client/app/modal/settings.team.html
@@ -105,7 +107,8 @@ msgstr "コメント"
 msgid "@btn-confirm"
 msgstr "確認"
 
-#: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/create.channel.html
+#: client/app/modal/create.private.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@btn-create"
 msgstr "作成"
@@ -182,29 +185,29 @@ msgstr "このトピックをお気に入りから削除する"
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
 msgstr ""
-"「プライベートグループ」は「プライベートトピック」と名称が変わり、鍵のマー"
-"クのアイコンで「トピックス」タブ内に表示されます。プライベートトピックはこ"
-"れまで通り、招待されない限り参加することや、そのトピックが存在することすら"
-"わかりません。"
+"「プライベートグループ」は「プライベートトピック」と名称が変わり、鍵の"
+"マークのアイコンで「トピックス」タブ内に表示されます。プライベートトピッ"
+"クはこれまで通り、招待されない限り参加することや、そのトピックが存在する"
+"ことすらわかりません。"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
 msgstr ""
-"ダイレクトメッセージの表示順が変更され、最新のメッセージから順ひ並ぶように"
-"なりました"
+"ダイレクトメッセージの表示順が変更され、最新のメッセージから順ひ並ぶよう"
+"になりました"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-3"
 msgstr ""
-"ダイレクトメッセージは会話のあったものだけが表示されるようになりました。会"
-"話履歴は閉じることによって非表示にすることができます。同じ相手と会話を再開"
-"すると、再び表示されます。過去の会話履歴も表示されます。"
+"ダイレクトメッセージは会話のあったものだけが表示されるようになりました。"
+"会話履歴は閉じることによって非表示にすることができます。同じ相手と会話を"
+"再開すると、再び表示されます。過去の会話履歴も表示されます。"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-title"
 msgstr ""
-"今回のアップデートでは、より良いユーザー体験のため、レイアウトの変更と、い"
-"くつかの便利な機能を実装しました。"
+"今回のアップデートでは、より良いユーザー体験のため、レイアウトの変更と、"
+"いくつかの便利な機能を実装しました。"
 
 #: client/app/left/left.html
 msgid "@channel"
@@ -247,8 +250,8 @@ msgstr "退出する"
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave-confirm"
 msgstr ""
-"この会話から退出しますか？メッセージ履歴は非表示になりますが、再開した場合"
-"にはこれまでの会話履歴は表示されます"
+"この会話から退出しますか？メッセージ履歴は非表示になりますが、再開した場"
+"合にはこれまでの会話履歴は表示されます"
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@common-copy"
@@ -298,8 +301,8 @@ msgstr "このメンバーは現在無効化されています"
 #: client/app/modal/profile.view.html
 msgid "@common-disabled-member-profile-msg"
 msgstr ""
-"このメンバーは現在無効化されています。詳細はチーム管理者にお問い合わせ下さ"
-"い"
+"このメンバーは現在無効化されています。詳細はチーム管理者にお問い合わせ下"
+"さい"
 
 #: client/app/modal/invite.direct.html
 msgid "@common-dm-invite-to"
@@ -423,7 +426,8 @@ msgstr "完了しました"
 msgid "@common-file-upload-progress-msg"
 msgstr "アップロード中..."
 
-#: client/app/right/file.detail/file.detail.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/right.html
 msgid "@common-files"
 msgstr "ファイル"
 
@@ -471,7 +475,8 @@ msgstr "送信者"
 msgid "@common-more"
 msgstr "表示"
 
-#: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/create.channel.html
+#: client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
@@ -513,7 +518,8 @@ msgstr "プライバシーポリシー"
 msgid "@common-profile-settings"
 msgstr "プロファイル設定"
 
-#: client/app/modal/create.channel.html client/app/modal/create.private.html
+#: client/app/modal/create.channel.html
+#: client/app/modal/create.private.html
 msgid "@common-purpose"
 msgstr "用途"
 
@@ -542,7 +548,8 @@ msgid "@common-share-in"
 msgstr "共有範囲"
 
 #: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html client/app/right/files/files.html
+#: client/app/right/files/file/file.html
+#: client/app/right/files/files.html
 msgid "@common-shared-in"
 msgstr "共有範囲"
 
@@ -561,8 +568,8 @@ msgstr "ログアウトする"
 #: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
 msgstr ""
-"メッセージ送ったり、これまでの会話履歴を見るには以下のボタンを押してくださ"
-"い"
+"メッセージ送ったり、これまでの会話履歴を見るには以下のボタンを押してくだ"
+"さい"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
@@ -612,8 +619,8 @@ msgstr "警告"
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-post"
 msgstr ""
-"へのアクセスは現在無効化されています。詳細はチーム管理者にお問い合わせ下さ"
-"い"
+"へのアクセスは現在無効化されています。詳細はチーム管理者にお問い合わせ下"
+"さい"
 
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-pre"
@@ -654,7 +661,8 @@ msgstr "チームの全員が参加しました。"
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-invite-not-joined-teammate"
 msgstr ""
-"まだJANDIに参加していない同僚がいたら今すぐ「メニュー」から招待しましょう"
+"まだJANDIに参加していない同僚がいたら今すぐ「メニュー」から招待しましょ"
+"う"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-no-team-member-joined"
@@ -724,20 +732,20 @@ msgstr "新着メッセージがあります"
 #: client/app/modal/upload/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"プレビュー機能はInternet Explorer 9で利用できない場合がありますが、ファイル"
-"のアップロードは利用可能です"
+"プレビュー機能はInternet Explorer 9で利用できない場合がありますが、ファ"
+"イルのアップロードは利用可能です"
 
 #: client/app/modal/upload/upload.html
 msgid "@ie9-please-do-not-use"
 msgstr ""
-"最新バージョンのInternet Explorerをお使いいただければ、JANDIの機能をフルに"
-"ご利用いただけます"
+"最新バージョンのInternet Explorerをお使いいただければ、JANDIの機能をフル"
+"にご利用いただけます"
 
 #: client/app/modal/current_member_profile/settings.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
-"Internet Explorer 9では、プロフィール画像の変更機能はサポートされていませ"
-"ん。ご利用するには、最新バージョンにアップデートしてください。"
+"Internet Explorer 9では、プロフィール画像の変更機能はサポートされていま"
+"せん。ご利用するには、最新バージョンにアップデートしてください。"
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/topic_create/topic.create.html
@@ -801,8 +809,8 @@ msgstr "パスワードは8文字以上にしてください"
 #: client/app/modal/integration/integration.html
 msgid "@integration-desc-3"
 msgstr ""
-"アカウントを接続するために、<b>ブラウザのポップアップ表示を許可してください"
-"</b>"
+"アカウントを接続するために、<b>ブラウザのポップアップ表示を許可してくだ"
+"さい</b>"
 
 #: client/app/modal/integration/integration.html
 msgid "@integration-desc-dropbox-1"
@@ -811,7 +819,8 @@ msgstr "Dropboxアカウントを追加してファイルを共有"
 #: client/app/modal/integration/integration.html
 msgid "@integration-desc-dropbox-2"
 msgstr ""
-"Dropboxをファイルの種類(PDF, PPT, Excel)で検索し、Dropboxのウィンドウで表示"
+"Dropboxをファイルの種類(PDF, PPT, Excel)で検索し、Dropboxのウィンドウで"
+"表示"
 
 #: client/app/modal/integration/integration.html
 msgid "@integration-desc-google-drive-1"
@@ -820,9 +829,9 @@ msgstr "Googleドライブからファイルを共有するためにGoogleアカ
 #: client/app/modal/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
-"\"Googleドキュメント\"フィルターで、Googleドライブに保存されているGoogleド"
-"キュメント、スプレッドシート、スライドを簡単に絞り込み。Googleドライブ上の"
-"ファイルは種類別に分類されます"
+"\"Googleドキュメント\"フィルターで、Googleドライブに保存されているGoogle"
+"ドキュメント、スプレッドシート、スライドを簡単に絞り込み。Googleドライブ"
+"上のファイルは種類別に分類されます"
 
 #: client/app/modal/integration/integration.html
 msgid "@integration-submit"
@@ -845,8 +854,8 @@ msgstr ""
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-disabled"
 msgstr ""
-"管理者によって招待が取り消されました。詳細は管理者({{adminName}})にお問い合"
-"わせください"
+"管理者によって招待が取り消されました。詳細は管理者({{adminName}})にお問"
+"い合わせください"
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-invaild-email"
@@ -858,7 +867,7 @@ msgstr "またはリンクを送信"
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-more-email"
-msgstr "さらに追加"
+msgstr "+ さらに追加"
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-some-fail"
@@ -875,8 +884,8 @@ msgstr "スマートフォンアプリ"
 #: client/app/mobile/mobile.catcher.html
 msgid "@landing-footer-app-download-desc"
 msgstr ""
-"PCからも、スマートフォンからでもJANDIが使えますPC・スマートフォンアプリ対"
-"応 "
+"PCからも、スマートフォンからでもJANDIが使えますPC・スマートフォンアプリ"
+"対応 "
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
@@ -909,10 +918,10 @@ msgstr " "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"-「公開」を選んだ場合でもチームメンバー以外の人が閲覧することはできません-"
-"プライベートトピック内で共有されたファイルは、そのトピックを閲覧できるメン"
-"バーからしかアクセスできません-トピック作成後はプライベートトピックへの変更"
-"はできません。その逆もできません。"
+"-「公開」を選んだ場合でもチームメンバー以外の人が閲覧することはできませ"
+"ん-プライベートトピック内で共有されたファイルは、そのトピックを閲覧でき"
+"るメンバーからしかアクセスできません-トピック作成後はプライベートトピッ"
+"クへの変更はできません。その逆もできません。"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -921,25 +930,26 @@ msgstr "トピックを作成した後に、公開・非公開を変更するこ
 #: client/app/modal/create.private.html
 msgid "@modal-create-pg-msg1"
 msgstr ""
-"プライベートグループはそのグループのメンバーのみ参加、内容の検索ができます"
+"プライベートグループはそのグループのメンバーのみ参加、内容の検索ができま"
+"す"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
 msgstr ""
-"-プライベートトピックはそのトピックに招待されていないメンバーから見ることは"
-"できません"
+"-プライベートトピックはそのトピックに招待されていないメンバーから見るこ"
+"とはできません"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
 msgstr ""
-"-プライベートトピック内で共有されたファイルは、そのトピックを閲覧できるメン"
-"バーからしかアクセスできません"
+"-プライベートトピック内で共有されたファイルは、そのトピックを閲覧できる"
+"メンバーからしかアクセスできません"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-3"
 msgstr ""
-"-トピック作成後はプライベートトピックへの変更はできません。その逆もできませ"
-"ん。"
+"-トピック作成後はプライベートトピックへの変更はできません。その逆もでき"
+"ません。"
 
 #: client/app/modal/invite.direct.html
 msgid "@modal-dm-invite"
@@ -1001,8 +1011,8 @@ msgstr "言語や通知の設定を変更できます"
 #: client/app/modal/settings.team.html
 msgid "@modal-setting-team-msg"
 msgstr ""
-"チーム設定の変更ができます。ここで変更された内容は、チームメンバーにも適用"
-"されますのでご注意下さい"
+"チーム設定の変更ができます。ここで変更された内容は、チームメンバーにも適"
+"用されますのでご注意下さい"
 
 #: client/app/modal/upload/upload.html
 msgid "@modal-upload-title-msg1"
@@ -1121,16 +1131,16 @@ msgstr "プライベートグループ "
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>を検索し"
-"ています"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>を検索"
+"しています"
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>の検索結"
-"果が<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>件あり"
-"ます"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>の検索"
+"結果が<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>"
+"件あります"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -1139,8 +1149,8 @@ msgstr "チーム削除"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete-confirm"
 msgstr ""
-"本当にチームを削除しますか？すべてのメッセージやファイルは削除され、元に戻"
-"すことはできません"
+"本当にチームを削除しますか？すべてのメッセージやファイルは削除され、元に"
+"戻すことはできません"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-change"
@@ -1153,8 +1163,8 @@ msgstr "本当にドメイン名（URL)を変更してよいですか？"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-msg"
 msgstr ""
-"ログインするためにはこのドメインのURLが必要になります。必ずメンバー全員に最"
-"新のURLを周知してください"
+"ログインするためにはこのドメインのURLが必要になります。必ずメンバー全員"
+"に最新のURLを周知してください"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-taken-warning-msg"
@@ -1220,25 +1230,25 @@ msgstr "チュートリアルを終了する"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"アップロードされたファイルは全て右カラムのファイル一覧（ファイルドロワー）"
-"からアクセスできます。「・・・」ボタンをクリックし、ダウンロードや共有範囲"
-"の変更、コメントの追加などができます"
+"アップロードされたファイルは全て右カラムのファイル一覧（ファイルドロ"
+"ワー）からアクセスできます。「・・・」ボタンをクリックし、ダウンロードや"
+"共有範囲の変更、コメントの追加などができます"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"ファイルをキーワードで検索したり、共有範囲、共有したメンバー、ファイルの種"
-"類で絞り込むことができます。「メッセージ」タブをクリックすることでメッセー"
-"ジを検索することができます。検索結果をクリックすると、その会話の部分にジャ"
-"ンプすることができます"
+"ファイルをキーワードで検索したり、共有範囲、共有したメンバー、ファイルの"
+"種類で絞り込むことができます。「メッセージ」タブをクリックすることでメッ"
+"セージを検索することができます。検索結果をクリックすると、その会話の部分"
+"にジャンプすることができます"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"「検索」ボタンを押して右パネルを開いたり、「閉じる」ボタンを押して右パネル"
-"を閉じることができます"
+"「検索」ボタンを押して右パネルを開いたり、「閉じる」ボタンを押して右パネ"
+"ルを閉じることができます"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
@@ -1252,9 +1262,9 @@ msgstr "メッセージとファイルを送信中"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"メッセージを書いてエンターキーを押しましょう。ファイルを共有するには、メッ"
-"セージ入力欄の左にあるボタンをクリックするか、ファイルをドラッグ＆ドロップ"
-"してください。"
+"メッセージを書いてエンターキーを押しましょう。ファイルを共有するには、"
+"メッセージ入力欄の左にあるボタンをクリックするか、ファイルをドラッグ＆ド"
+"ロップしてください。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -1268,15 +1278,15 @@ msgstr "TIPS"
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
 "「ダイレクトメッセージ」は1対1のやりとり用で、他のメンバーは閲覧できませ"
-"ん。最新の会話から順に表示されます。会話を閉じると一覧から消えますが、会話"
-"を再開すると再び表示されます。過去の会話履歴も表示されます。"
+"ん。最新の会話から順に表示されます。会話を閉じると一覧から消えますが、会"
+"話を再開すると再び表示されます。過去の会話履歴も表示されます。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"「プライベートトピック」は、招待されたメンバーのみ見ることができるトピック"
-"です。新しいプライベートトピックを作成するには「＋追加」をクリックしてくだ"
-"さい。"
+"「プライベートトピック」は、招待されたメンバーのみ見ることができるトピッ"
+"クです。新しいプライベートトピックを作成するには「＋追加」をクリックして"
+"ください。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
@@ -1286,9 +1296,9 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"「トピック」は特定のテーマごとの部屋、またはスレッドのようなものです。会話"
-"の内容がイメージできる名前をつけるとよいでしょう。トピックは「＋追加」で"
-"作ったり、「☰ 表示」で既存のトピックを探して参加できます。"
+"「トピック」は特定のテーマごとの部屋、またはスレッドのようなものです。会"
+"話の内容がイメージできる名前をつけるとよいでしょう。トピックは「＋追加」"
+"で作ったり、「☰ 表示」で既存のトピックを探して参加できます。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -1297,9 +1307,9 @@ msgstr "続きを見る »"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
 msgstr ""
-"JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュニケー"
-"ションできることを願っています。ここでJANDIをより良く理解するために重要な３"
-"点をご紹介します。"
+"JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュニ"
+"ケーションできることを願っています。ここでJANDIをより良く理解するために"
+"重要な３点をご紹介します。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
@@ -1370,8 +1380,9 @@ msgstr "JANDI 新着メッセージ通知"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "プライベートトピックから退出すると、そのプライベートトピックのメンバーに"
-#~ "改めて招待されない限り再び参加することはできません。本当に退出しますか？"
+#~ "プライベートトピックから退出すると、そのプライベートトピックのメン"
+#~ "バーに改めて招待されない限り再び参加することはできません。本当に退出"
+#~ "しますか？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "ファイルがありません"

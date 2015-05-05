@@ -83,7 +83,7 @@
                 var i, len;
 
                 if (value.success) {
-                  successCnt += emailMap[email].length;
+                  ++successCnt;
                   fn = options.onSuccess;
                   icon = options.templateCheck;
                 } else {
@@ -150,6 +150,8 @@
       _addMapItem: function(value, ele) {
         var that = this;
 
+        value = value.toLowerCase();
+
         that.emailMap[value] = that.emailMap[value] || [];
         that.emailMap[value].push(ele);
       },
@@ -168,7 +170,7 @@
       getEmptyInputBox: function() {
         var that = this;
 
-        return that.emailMap[EMPTY_VALUE];
+        return that.emailMap[EMPTY_VALUE] || [];
       }
     };
 

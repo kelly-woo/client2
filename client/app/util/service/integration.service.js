@@ -319,6 +319,7 @@
           .setDeveloperKey(that.options.apiKey)
           .setOAuthToken(accessToken)
           .addView(view)
+          .setOrigin(window.location.protocol + '//' + window.location.host)
           .setLocale(that.localeMap[lang])
           .setCallback(that._pickerCallback.bind(that))
           .build()
@@ -430,9 +431,29 @@
         angular.extend(this.options, options);
         this.options.buttonEle = $(this.options.buttonEle);
 
+        this._on();
+
         return this;
       },
       service: 'dropbox',
+      /**
+       * Dropbox는 addListener를 사용하여 handler 내에 chooer를 생성하면 popup이 갱신 되는 반면에
+       * addListener를 사용하지 않고 chooser를 생성하면 popup이 갱신되지 않으므로
+       * _on function은 DropBoxIntegration object 생성시 한번 addListener를 사용하여 특정
+       * dom element click시 마다 chooser object를 생성하도록 함.
+       */
+      _on: function() {
+        var that = this;
+        var options = that.options;
+
+        Dropbox.addListener(options.event.currentTarget, 'click', function(evt) {
+          evt.preventDefault();
+
+          that._open();
+        });
+
+        that._open();
+      },
       /**
        * dropbox choose object 생성 & 출력
        * choose object 생성시 options 수정 가능함.
@@ -445,7 +466,7 @@
         this.options.scope = scope;
 
         that._openIntegrationModal();
-        that._open();
+        // that._open();
       },
       /**
        * dropbox의 modal open
@@ -561,7 +582,8 @@
             Dropbox.appKey = apiKey;
 
             (dropboxIntegration = Object.create(DropBoxIntegration).init({
-              multiple: options.multiple || true
+              multiple: options.multiple || true,
+              event: options.event
             })).open($scope);
           })
           .complete(function() {

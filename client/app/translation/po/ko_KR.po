@@ -852,7 +852,7 @@ msgstr "또는 이 링크를 공유하여 멤버들을 초대하세요."
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-more-email"
-msgstr "이메일 주소 추가"
+msgstr "+ 이메일 주소 추가"
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-some-fail"
