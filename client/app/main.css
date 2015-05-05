@@ -253,8 +253,7 @@ input[type="email"] {
 .link-remove,
 .link-remove:link,
 .link-remove:active {
-  color: #9e9ea6;
-  opacity: .3;
+  color: #154a67;
   margin-left: -2px;
 }
 .link-remove:hover {
