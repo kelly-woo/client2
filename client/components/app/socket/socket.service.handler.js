@@ -260,8 +260,10 @@
     }
 
     /**
-     * Always update center message.
-     * Update messageList(left bottom) only if room is not current entity.
+     *
+     * 1. Always update center message.
+     * 2. Update messageList(left bottom) only if room is not current entity.
+     * 3. Send browser notification if action is not from me.
      *
      * @param room
      * @private
@@ -269,12 +271,12 @@
     function _messageDMToMeHandler(room, writerEntity) {
       log('DM to me');
 
-      if (!_isCurrentEntity(room)) {
-        _updateMessageList();
-      }
       _updateCenterMessage();
       _updateChatList();
-      _sendBrowserNotificationForOtherEntity(_getRoom(room), writerEntity);
+
+      if (!_isActionFromMe(writerEntity.id)) {
+        _sendBrowserNotificationForOtherEntity(_getRoom(room), writerEntity);
+      }
     }
 
     /**

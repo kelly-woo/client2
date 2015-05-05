@@ -6,13 +6,13 @@
     font-size: 14px;
 }
 .jd-pop-head {
-    border-bottom: 2px solid #31c08a;
+    border-bottom: 2px solid #154a67;
 }
 .jd-pop-head h1 {
     text-align: center;
     padding: 20px 0 10px;
     font-size: 22px;
-    color: #31c08a;
+    color: #154a67;
     margin-top: 0;
 }
 .jd-contents {
@@ -20,8 +20,9 @@
     color: #666;
 }
 .jd-contents h2 {
-    font-size: 18px;
-    color: #3c3c3c;
+  font-size: 18px;
+  color: #3c3c3c;
+  line-height: 26px;
 }
 .jd-contents p {
     font-size: 14px;
@@ -47,4 +48,5 @@
 }
 .jd-pop-foot .contact {
     text-align: left;
+    margin-bottom: 15px;
 }

@@ -1,11 +1,12 @@
 /* NavBar */
 .jandi-navbar {
     text-transform: uppercase;
-    background-color: #f2f2f2;
+    background-color: #154a67;
     min-width: 700px;
     height: 40px;
     line-height: 40px;
     min-height: 40px;
+    border: none;
     /*-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);*/
     /*-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);*/
     /*box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);*/
@@ -53,18 +54,19 @@
     color: #31c08a;
 }
 .jandi-navbar__logo {
+    margin-top: -4px;
 }
 
 /* Buttons */
 .btn-jandi,
 .btn-jandi:focus {
-    background-color: #31c08a;
+    background-color: #00abe6;
     color: #fff;
     border-radius: 0;
 }
 .btn-jandi:hover,
 .btn-jandi:active {
-    background-color: #2a5e47;
+    background-color: #154a67;
     color: #fff;
 }
 .btn-jandi[disabled] {
@@ -128,7 +130,7 @@
 .jandi-container a:active,
 .jandi-footer a,
 .jandi-footer a:active {
-    color: #31c08a;
+    color: #00abe6;
     cursor: pointer;
     word-wrap: break-word;
     -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
@@ -141,7 +143,7 @@
 .jandi-container a:focus,
 .jandi-footer a:hover,
 .jandi-footer a:focus {
-    color: #2a5e47;
+    color: #00abe6;
     text-decoration: none;
     outline: 0;
 }
@@ -184,6 +186,9 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.jandi-body__form-input:focus {
+    border: 1px solid #154a67;
+}
 .passwordResetFormWrapper .jandi-body__form-input {
     margin-bottom: 1px;
 }
@@ -206,19 +211,19 @@
     margin-bottom: 15px;
 }
 .jandi-footer {
-    overflow: hidden;
-    /*position: absolute;*/
-    /*width: 100%;*/
-    background: #222;
-    padding-top: 10px;
-    font-size: 14px;
-    text-align: center;
-    padding-bottom: 10px;
-    line-height: 28px;
-    color: #f5f5f5;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  overflow: hidden;
+  /* position: absolute; */
+  /* width: 100%; */
+  background: #f1f4f8;
+  padding-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  padding-bottom: 10px;
+  line-height: 28px;
+  color: #154a67;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 .jandi-footer__text {
     margin-bottom: 0;
@@ -229,7 +234,7 @@
 }
 .jandi-footer__terms a:hover,
 .jandi-footer__terms a:active {
-    color: #b8e7d1;
+    color: #154a67;
 }
 
 /* Responsive */
