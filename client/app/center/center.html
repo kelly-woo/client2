@@ -50,7 +50,7 @@
   <article class="msgs" id="msgs-container" when-scrolled="loadMore()" scroll-glue>
     <div class="msgs__loading icon-loading"
          ng-show="msgLoadStatus.loading"
-         ng-class="{'initial': loadMoreCounter < 1}"></div>
+         ng-class="{'initial': loadMoreCounter < 1 || forceShowProgress}"></div>
 
     <div class="msgs-holder opac-zero" id="msgs-holder">
       <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">

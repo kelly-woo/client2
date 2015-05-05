@@ -1,5 +1,5 @@
 .lpanel > .tutorial_opac_background {
-  width: 219px;
+  width: 240px;
   top: 0;
 }
 .header > .tutorial_opac_background {
@@ -40,7 +40,7 @@
 }
 
 .cpanel_background {
-  left: 219px;
+  left: 240px;
   right: 0;
   top: 41px;
   bottom: 0;
@@ -52,7 +52,7 @@
   overflow-y: hidden;
 }
 .topic-tutorial {
-  left: 220px;
+  left: 240px;
 }
 .chat-tutorial {
   bottom: 70px;
@@ -97,6 +97,8 @@
 .welcome-tutorial .modal-content {
   border-radius: 8px !important;
   background-color: white;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
 .tutorial_inner_container {
@@ -149,7 +151,7 @@
 .skip_tutorial_container:hover,
 .tutorial_bottom_div:hover {
   color: white;
-  background-color: #31c08a;
+  background-color: #00abe6;
 }
 
 #channel_message_container .tutorial_inner_container,
