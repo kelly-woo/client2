@@ -393,14 +393,14 @@
   color: #d7e0e8;
   height: 36px;
   line-height: 36px;
-  /* background-color: #e2e0e3; */
+  background-color: #154a67;
   margin-right: 0;
   margin-top: 1px;
   border: none;
 }
 .rpanel-body-tab-container .nav-tabs > li > a:hover {
-  color: white;
-  background-color: #154a67;
+  color: #333;
+  background-color: #f1f4f8;
   border: none;
 }
 .rpanel-body-tab-container .nav-tabs > li > a:active {
