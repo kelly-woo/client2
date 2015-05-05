@@ -88,6 +88,7 @@ msgstr "追加"
 
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
+#: client/app/modal/integration/integration.html
 #: client/app/modal/password.reset.request.html client/app/modal/rename.html
 #: client/app/modal/share/share.html
 #: client/app/modal/team_change/team.change.html
@@ -116,6 +117,7 @@ msgid "@btn-close"
 msgstr "閉じる"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
@@ -149,7 +151,9 @@ msgstr "招待"
 msgid "@btn-join"
 msgstr "参加"
 
-#: client/app/center/center.html client/app/modal/share/share.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
@@ -164,6 +168,7 @@ msgstr "名前の更新"
 msgid "@btn-update-password"
 msgstr "パスワードの更新"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "アップロード"
@@ -281,6 +286,8 @@ msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "削除されたファイル"
@@ -312,6 +319,7 @@ msgid "@common-dm-invite-to"
 msgstr "へ招待"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@common-download"
@@ -579,6 +587,7 @@ msgstr "非公開"
 msgid "@common-type-public"
 msgstr "公開"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "アップロード"
@@ -686,7 +695,7 @@ msgstr "現在のところ、100MBを超えるファイルはアップロード�
 msgid "@go-to-latest-message-msg"
 msgstr "最新のメッセージに移動"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "新着メッセージがあります"
 
@@ -793,6 +802,7 @@ msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
@@ -916,15 +926,16 @@ msgstr "あなたのチームメンバーをJANDIに招待しましょう！"
 msgid "@modal-upload-title-msg1"
 msgstr "ファイル名検索で使用されます"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "このトピックを作成する"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "このプライベートトピックを作成する"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr "ファイル"
 
@@ -932,35 +943,40 @@ msgstr "ファイル"
 msgid "@msg-help-multiline"
 msgstr "shift+enterで改行"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "が"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr "さんを招待しました"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "さんが参加しました"
 
-#: client/app/center/center.html
+#: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "が退出しました"
 
-#: client/app/center/center.html client/app/right/files/file/file.html
+#: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "元のファイルを開く"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr "共有"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr "非共有"
 
 #: client/app/center/center.html
+#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr "の"
 
@@ -1009,6 +1025,11 @@ msgstr "メールが送信されました"
 #: client/app/password/password.reset.html
 msgid "@password-reset-message"
 msgstr "パスワードをお忘れですか？ 新しいパスワードを入力してください。"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@placeholder-input-message"
+msgstr ""
+"ここにメッセージを記入（Shift + エンターキーでテキストボックス内で改行）"
 
 #: client/app/left/left.html
 msgid "@privateGroup"

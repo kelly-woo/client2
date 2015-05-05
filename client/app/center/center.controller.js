@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, desktopNotificationService, messageSearchHelper, currentSessionHelper, logger, centerService) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, messageSearchHelper, currentSessionHelper, logger, centerService) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
 
@@ -671,6 +671,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           _updateUnreadCount();
         }
 
+
+
       })
       .error(function (response) {
         onHttpRequestError(response);
@@ -744,7 +746,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         }
       })
       .error(function(response) {
-        $state.go('error', {code: response.code, msg: response.msg, referrer: "messageAPIservice.postMessage"});
         $scope.isPosting = false;
       });
   };
@@ -760,7 +761,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   };
   $scope.deleteMessage = function(message) {
-    log("delete: ", message.messageId);
+    //console.log("delete: ", message.messageId);
     messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
       .success(function(response) {
       })
@@ -1186,7 +1187,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var messageLength = $scope.messages.length;
 
     //log(messageLength, systemMessageCount, !_hasMoreOldMessageToLoad())
-    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength <= 1)) return true;
+
+    // For entity whose type is 'users' (1:1 direct message), there is no default message.
+    // While there is a default message for private/public topic.  default for public/private topic is a system event.
+    var numberOfDefaultMessage = entityType === 'users' ? 0 : 1;
+
+    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength <= numberOfDefaultMessage)) return true;
+
 
     return false;
   }
@@ -1286,7 +1293,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
   }
 
-
+// TODO: MOVE TO CENTER SERVICE
   function _getEntityId() {
     var id;
     if (entityType === 'users') {
@@ -1413,6 +1420,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _putNewMarker(memberId, lastLinkId) {
+    //console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
+    if (lastLinkId < 0) return;
     _putLastLinkId(lastLinkId, memberId);
     _putMemberIdToLastLinkId(memberId, lastLinkId);
   }
@@ -1558,6 +1567,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _getCurrentRoomInfo() {
     var currentRoomId = _getEntityId();
+
     messageAPIservice.getRoomInformation(currentRoomId)
       .success(function(response) {
         _initMarkers(response.markers);
