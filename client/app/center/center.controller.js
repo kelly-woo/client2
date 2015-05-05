@@ -670,8 +670,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           lastMessageId = localLastMessageId;
 
           _checkEntityMessageStatus();
-
+          _updateUnreadCount();
         }
+
+
 
       })
       .error(function (response) {
@@ -761,7 +763,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   };
   $scope.deleteMessage = function(message) {
-    log("delete: ", message.messageId);
+    //console.log("delete: ", message.messageId);
     messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
       .success(function(response) {
       })
@@ -1187,7 +1189,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var messageLength = $scope.messages.length;
 
     //log(messageLength, systemMessageCount, !_hasMoreOldMessageToLoad())
-    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength <= 1)) return true;
+
+    // For entity whose type is 'users' (1:1 direct message), there is no default message.
+    // While there is a default message for private/public topic.  default for public/private topic is a system event.
+    var numberOfDefaultMessage = entityType === 'users' ? 0 : 1;
+
+    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength <= numberOfDefaultMessage)) return true;
+
 
     return false;
   }
@@ -1287,7 +1295,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
   }
 
-
+// TODO: MOVE TO CENTER SERVICE
   function _getEntityId() {
     var id;
     if (entityType === 'users') {
@@ -1395,7 +1403,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       lastLinkIdToCount[lastLinkId] = obj;
 
     }
-    console.log('lastLinkId to count ', lastLinkIdToCount[lastLinkId]);
+    //console.log('lastLinkId to count ', lastLinkIdToCount[lastLinkId]);
   }
 
   /**
@@ -1407,7 +1415,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _putMemberIdToLastLinkId(memberId, lastLinkId) {
     memberIdToLastLinkId[memberId] = lastLinkId;
-    console.log('member id to last link ', memberIdToLastLinkId[memberId]);
+    //console.log('member id to last link ', memberIdToLastLinkId[memberId]);
   }
 
   /**
@@ -1418,7 +1426,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _putNewMarker(memberId, lastLinkId) {
-    console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
+    //console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
+    if (lastLinkId < 0) return;
+
     _putLastLinkId(lastLinkId, memberId);
     _putMemberIdToLastLinkId(memberId, lastLinkId);
   }
@@ -1559,6 +1569,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _getCurrentRoomInfo() {
     var currentRoomId = _getEntityId();
+
     messageAPIservice.getRoomInformation(currentRoomId)
       .success(function(response) {
         _initMarkers(response.markers);

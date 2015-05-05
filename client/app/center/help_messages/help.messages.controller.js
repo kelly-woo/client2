@@ -141,7 +141,7 @@
     }
 
     function _openFileUploadModal() {
-      $('#btn-upload-primary').trigger('click');
+      $('#primary_file_button').trigger('click');
     }
 
   }
