@@ -27,7 +27,7 @@
 }
 .invite-enalbed .modal-body .alert-jandi {
   margin: 0;
-  color: #666;
+  color: #9b5050;
 }
 
 .invite-modal-content hr {
@@ -42,6 +42,10 @@
   border-radius: 2px;
   text-align: center;
 }
+.invite-btn:hover,
+.invite-btn:active {
+  background-color: #154a67;
+}
 .add-invite {
   color: #999;
   background-color: #fff;
@@ -50,7 +54,8 @@
 .add-invite:focus,
 .add-invite:hover,
 .add-invite:active {
-  color: #999;
+  color: #154a67;
+  background-color: #d7e0e8;
 }
 .clip-invite,
 .send-invite {
@@ -84,7 +89,7 @@
   padding-bottom: 0;
 }
 .invites .form-horizontal input {
-  color: #999;
+  color: #575757;
 }
 .invites .form-horizontal input.alert {
   border-color: #ff0000;
@@ -104,7 +109,7 @@
   border-top: 0;
 }
 .invite-enalbed .modal-footer.invite-done img{
-  padding-bottom: 45px;
+  padding-bottom: 40px;
 }
 .done-invite {
   color: #fff;
@@ -119,7 +124,7 @@
 .invite-enalbed .modal-footer {
   text-align: center;
   margin: 0;
-  padding-top: 36px;
+  padding-top: 20px;
   border-top: 1px solid #d1d1d1;
 }
 .modal-footer .invite-link-desc {
@@ -139,4 +144,10 @@
 .modal-footer .invite-contact-desc {
   font-size: 12px;
   color: #999;
+}
+.modal-footer .invite-link-copy .btn-ok {
+  color: white;
+}
+.modal-footer .invite-link-copy .btn-ok:hover {
+  background-color: #154a67;
 }
