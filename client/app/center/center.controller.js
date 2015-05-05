@@ -1296,15 +1296,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
   }
 
-// TODO: MOVE TO CENTER SERVICE
   function _getEntityId() {
-    var id;
-    if (entityType === 'users') {
-      id = currentSessionHelper.getCurrentEntity().entityId;
-    } else {
-      id = currentSessionHelper.getCurrentEntity().id;
-    }
-    return id;
+    return centerService.getCurrentEntityId(entityType);
   }
 
   $scope.$on('centerUpdateChatList', function() {

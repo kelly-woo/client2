@@ -18,6 +18,7 @@
     var SCROLL_BOTTOM_THRESHOLD = 700;    // threshold value to show 'scroll to bottom' icon on center panel.
     var hasBrowserFocus = true;           // indicator whether current browser has focus or not.
 
+    this.getCurrentEntityId = getCurrentEntityId;
 
     this.preventChatWithMyself  = preventChatWithMyself;
     this.isIE9  = isIE9;
@@ -32,6 +33,22 @@
     this.isMessageFromMe = isMessageFromMe;
 
 
+    /**
+     * For Chat entities, return 'entityId'
+     * return 'id' for private/public topics.
+     *
+     * @param entityType
+     * @returns {*}
+     */
+    function getCurrentEntityId(entityType) {
+      var id = currentSessionHelper.getCurrentEntity().id;
+
+      if (entityType === 'users') {
+        id = currentSessionHelper.getCurrentEntity().entityId;
+      }
+
+      return id;
+    }
 
     /**
      * Check entityId of entity to be directed to currently signed in member's id.
@@ -64,9 +81,7 @@
      *
      * @returns {boolean}
      */
-    function isChat() {
-      return currentSessionHelper.getCurrentEntityType() === 'users';
-    }
+    function isChat() { return currentSessionHelper.getCurrentEntityType() === 'users'; }
 
     /**
      * Has scroll reached bottom?? or Do I have more room to go down???
@@ -85,18 +100,18 @@
      * Set browser indicator to 'true'
      */
     function setBrowserFocus() { hasBrowserFocus = true; }
+
     /**
      *  Reset browser indicator back to 'false'
      */
     function resetBrowserFocus() { hasBrowserFocus = false; }
+
     /**
      * Check if current browser has focus or not.
      *
      * @returns {boolean|*}
      */
-    function isBrowserHidden() {
-      return !hasBrowserFocus || document.hidden;
-    }
+    function isBrowserHidden() { return !hasBrowserFocus || document.hidden; }
 
     /**
      * Check whether msg is from myself.
@@ -106,8 +121,6 @@
      * @returns {boolean}
      * @private
      */
-    function isMessageFromMe(message) {
-      return message.fromEntity === memberService.getMemberId();
-    }
+    function isMessageFromMe(message) { return message.fromEntity === memberService.getMemberId(); }
   }
 })();
