@@ -126,7 +126,7 @@
 
     // Binds fadeout effect on notification.
     function notificationFadeOut(noti) {
-      setTimeout(noti.close.bind(noti), 3000);
+      setTimeout(noti.close.bind(noti), 5000);
     }
     // Takes user to topic/messages where notification came from.
     function onNotificationClicked(noti) {
