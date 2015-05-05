@@ -493,13 +493,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //log('hasLastMessage: ', localLastMessageId == lastMessageId);
     return localLastMessageId == lastMessageId;
   }
-  function _hasBottomReached() {
-    var element = document.getElementById('msgs-container');
-    var scrollHeight = element.scrollHeight;
-    element = angular.element(element);
-
-    return scrollHeight - (element.outerHeight() + element.scrollTop()) < SCROLL_BOTTOM_THRESHOLD;
-  }
 
   /**
    * Bind an event to 'mousewheel' and prevent web page from scrolling.
@@ -1099,22 +1092,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _isMessageFromMe(msg) {
-    return msg.fromEntity === memberService.getMemberId();
+    return centerService.isMessageFromMe(msg);
   }
   function _hasBrowserFocus() {
-    return !_isBrowserHidden();
+    return !centerService.isBrowserHidden();
   }
-  function _isBrowserHidden() {
-    return document.hidden || !$scope.hasFocus;
-  }
+
   // Callback when window loses its focus.
   window.onblur = function() {
-    $scope.hasFocus = false;
+    centerService.resetBrowserFocus();
   };
 
   // Callback when window gets focused.
   window.onfocus = function() {
-    $scope.hasFocus = true;
+    centerService.setBrowserFocue();
+
     if (_hasBottomReached())
       _clearBadgeCount($scope.currentEntity);
   };
@@ -1238,6 +1230,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _newMsgHelper();
   }
 
+  /**
+   * Reset both new message alert & scroll to bottom icon.
+   * @private
+   */
   function _resetNewMsgHelpers() {
     _resetNewMsgAlert();
     _resetHasScrollToBottom();
@@ -1260,6 +1256,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _resetNewMsgHelpers();
   }
 
+  /**
+   * Decide what to do with current scroll.
+   *
+   * If most recent message has been already loaded, then just scroll to very bottom with animation.
+   * Or just jump to most recent message by refresh current topic.
+   * @private
+   */
   function _newMsgHelper() {
     if (_hasMoreNewMessageToLoad()) {
       // Has more messages to load
@@ -1645,4 +1648,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     });
   });
+
+
+
+  function _hasBottomReached() {
+    return centerService.hasBottomReached();
+  }
 });
