@@ -68,6 +68,7 @@
 .send-invite.disabled {
   color: #999;
   background-color: #ccc;
+  cursor: not-allowed;
 }
 .send-invite.disabled:focus,
 .send-invite.disabled:hover,
