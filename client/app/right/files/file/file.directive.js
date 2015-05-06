@@ -31,7 +31,7 @@
 
           selector = event.currentTarget.className;
           if (selector ==='share-file') {
-            scope.onClickShare(file);
+            scope.onClickShare(scope.file);
           } else if (selector === 'focus-comment-file') {
             scope.setCommentFocus();
           } else if (selector === 'delete-file') {
