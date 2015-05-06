@@ -41,6 +41,14 @@
   padding: 8px 12px 9px 10px;
   border-radius: 2px;
   text-align: center;
+  height: 35px;
+  width: 100%;
+}
+.invite-btn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
 }
 .add-invite {
   color: #999;
@@ -56,6 +64,17 @@
 .send-invite {
   color: #fff;
 }
+.clip-invite {
+  padding-top: 7px;
+  width: inherit;
+  height: 33px;
+}
+.clip-invite.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
 .clip-invite:focus,
 .clip-invite:hover,
 .clip-invite:active,
@@ -64,7 +83,6 @@
 .send-invite:active {
   color: #fff;
 }
-
 .send-invite.disabled {
   color: #999;
   background-color: #ccc;

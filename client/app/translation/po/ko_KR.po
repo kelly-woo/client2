@@ -1015,7 +1015,7 @@ msgstr "파일"
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@msg-help-multiline"
-msgstr "멀티라인 입력: shift+enter"
+msgstr "줄바꿈: shift+enter"
 
 #: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
@@ -1246,9 +1246,8 @@ msgstr "메시지 입력과 파일 업로드 "
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"메시지 입력창을 통해 대화를 나눌 수 있습니다. 파일 업로드를 위해서는 왼쪽 아"
-"이콘을 클릭하거나 간단하게 파일을 메시지 창으로  <b>드래그&드롭</b> 하시면 "
-"됩니다."
+"입력창에서 메시지를 작성하세요. 또 왼쪽 아이콘을 클릭하여 파일들을 업로드하"
+"거나 간단하게  <b>드래그&드롭</b> 하실 수도 있습니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"

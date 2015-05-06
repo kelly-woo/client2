@@ -18,9 +18,21 @@
       var someFail = $filter('translate')('@invitation-some-fail');
 
       var invitation;
-
+      var clipButton;
       if (!scope.inviteDisabled) {
-        clipboard.createInstance(element.find('.clip-invite'), {
+        clipButton = element.find('.clip-invite');
+        clipButton
+          .on('mousedown', function () {
+            clipButton.addClass('active');
+          })
+          .on('mouseup', function () {
+            clipButton.removeClass('active');
+          })
+          .on('mouseleave', function () {
+            clipButton.removeClass('active');
+          });
+
+        clipboard.createInstance( clipButton, {
           getText: function() {
             return element.find('#invite-link').val();
           }
@@ -81,7 +93,7 @@
               footer.html(
                 '<div class="done-content">' +
                   (!!successCnt ? '<img src="' + scope.doneImage + '">' : '') +   // 하나도 성공하지 못함
-                  '<div class="done-invite invite-btn cursor_pointer btn-ok">' +
+                  '<div class="done-invite invite-btn cursor_pointer btn-ok btn">' +
                     '<span translate>' + done +'</span>' +
                   '</div>' +
                 '</div>'

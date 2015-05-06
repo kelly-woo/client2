@@ -1014,7 +1014,7 @@ msgstr "created this private topic."
 #: client/app/center/center.html
 #: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
-msgstr "File"
+msgstr "file"
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@msg-help-multiline"
@@ -1245,9 +1245,9 @@ msgstr "Sending messages and uploading files"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"To send messages, simply type in the text bar and press enter. To upload a "
-"file, click the button to the left and select the desired file path, or drag "
-"and drop the file anywhere in the center messaging pane."
+"To send messages, simply type in the text bar and press enter. To upload "
+"files, click the button to the left and select the desired file paths, or "
+"drag and drop files anywhere in the center messaging pane."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
