@@ -136,7 +136,15 @@
         log('update marker for current entity');
         jndPubSub.pub('centerOnMarkerUpdated', data);
       }
+
+      var memberId = data.marker.memberId;
+
+      if (_isActionFromMe(memberId)) {
+        log('I read something from somewhere');
+        _updateLeftPanelForOtherEntity(room);
+      }
     }
+
 
     /**
      * Member profile update event handler
@@ -145,18 +153,24 @@
       log('member profile updated');
       log(data);
       var member = data.member;
+
       if (_isActionFromMe(member.id)) {
         log('my profile updated');
         memberService.onMemberProfileUpdated();
-      }
-      else {
+      } else {
         log('not my profile updated.');
         _replaceMemberEntityInMemberList(member);
       }
 
     }
 
-
+    /**
+     * Every socket event comes with 'messages'
+     *
+     * @param room
+     * @param writer
+     * @param eventType
+     */
     function messageEventHandler(room, writer, eventType) {
       var roomEntity = _getRoom(room);
       var writer = _getActionOwner(writer);
