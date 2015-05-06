@@ -92,7 +92,9 @@
   var integrationType = {
     'Google Doc': 'application/vnd.google-apps.document',
     'Google Spreadsheet': 'application/vnd.google-apps.spreadsheet',
-    'Google Presentation': 'application/vnd.google-apps.presentation'
+    'Google Presentation': 'application/vnd.google-apps.presentation',
+    'Google Form': 'application/vnd.google-apps.form',
+    'Google Drawing': 'application/vnd.google-apps.drawing'
   };
   // filter에서 integration service인지 판단하는 map
   var integrationMap = {
