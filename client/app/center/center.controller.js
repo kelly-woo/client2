@@ -201,10 +201,34 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _setChildTextFlag(messages) {
     _.each(messages, function(data, index) {
-      if (_isChildTextMsg(index, messages)) {
-        data.message.isChildText = true;
+      if (_isTextMessage(index, messages)) {
+        data.message.isChildText = _isChildTextMsg(index, messages);
+        data.message.hasChildText = _hasChildTextMsg(index, messages);
       }
     });
+  }
+
+  /**
+   * 자식 text message 가 존재하는지 여부를 반환한다.
+   * @param index 확인할 대상 메세지 인덱스
+   * @param messages 전체 메세지 리스트
+   * @returns {boolean}
+   * @private
+   */
+  function _hasChildTextMsg(index, messages) {
+    return _isChildTextMsg(index + 1, messages);
+  }
+
+  /**
+   * text message 인지 여부를 반환한다.
+   * @param index 확인할 대상 메세지 인덱스
+   * @param messages 전체 메세지 리스트
+   * @returns {boolean}
+   * @private
+   */
+  function _isTextMessage(index, messages) {
+    var data = messages[index];
+    return !!(data && data.message && data.message.contentType === 'text');
   }
 
   /**

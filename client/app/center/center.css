@@ -246,6 +246,10 @@ article {
 .msg-item.text {
   margin-top: 13px;
 }
+.msg-item.text-child {
+  margin-top: -13px;
+}
+
 .msg-item.file-upload {
   margin: 13px 0 15px;
 }
@@ -318,12 +322,26 @@ article {
 .msg-item.comment-continue .msg-item-body {
   /*padding-left: 75px;*/
 }
+
+.msg-item-body .tooltip {
+  width: 64px;
+}
+
 .msg-item-body p {
   margin: 0;
   font-size: 16px;
   line-height: 24px;
   color: #333333;
 }
+
+.msg-text-body {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: #333333;
+}
+
+
 .msg-file { min-height: 65px; }
 .msg-file-header {
   font-size: 16px;

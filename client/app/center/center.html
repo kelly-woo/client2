@@ -70,7 +70,8 @@
              data-message-type="{{msg.message.contentType}}"
              data-feedback-id="{{msg.feedbackId}}"
              data-event-type="{{msg.eventType}}"
-             data-ng-class="{ 'text': msg.message.isText,
+             data-ng-class="{ 'text': !msg.message.isChildText,
+                              'text-child': msg.message.isChildText,
                               'file-upload': msg.message.isFile,
                               'comment-title': msg.message.commentOption.isTitle,
                               'comment-continue': msg.message.commentOption.isContinue,
