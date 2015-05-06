@@ -473,6 +473,7 @@
       _open: function() {
         var that = this;
 
+        that._closeIntegrationModal();
         Dropbox.choose({
           success: that._success.bind(that),
           cancel: that._cancel.bind(that),
