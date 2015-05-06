@@ -6,7 +6,7 @@
     .service('integrationService', integrationService);
 
   /* @ngInject */
-  function integrationService($rootScope, $modal, $timeout, fileAPIservice, fileObjectService, accountService, analyticsService) {
+  function integrationService($rootScope, $modal, $timeout, fileAPIservice, fileObjectService, accountService, storageAPIservice, analyticsService) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
@@ -281,10 +281,11 @@
 
         that.options.scope = scope;
 
+
         if (token = gapi.auth.getToken()) {
           that._showPicker();
         } else {
-          that._openIntegrationModal();
+          storageAPIservice.getCookie('integration_' + that.service) !== 'done' ? that._openIntegrationModal() : that._open();
         }
       },
       /**
@@ -409,6 +410,7 @@
               }
             ],
             startIntegration: function() {    // 연동 시작 버튼 핸들러
+              storageAPIservice.setCookie('integration_' + that.service, 'done');
               that._open();
             },
             cInterface: 'confirm'             // modal의 확인 interface 명
@@ -451,8 +453,6 @@
 
           that._open();
         });
-
-        that._open();
       },
       /**
        * dropbox choose object 생성 & 출력
@@ -465,8 +465,7 @@
 
         this.options.scope = scope;
 
-        that._openIntegrationModal();
-        // that._open();
+        storageAPIservice.getCookie('integration_' + that.service) !== 'done' ? that._openIntegrationModal() : that._open();
       },
       /**
        * dropbox의 modal open
@@ -527,7 +526,11 @@
                 txt: '@integration-desc-3'
               }
             ],
-            cInterface: 'alert'   // modal의 확인 interface 명
+            startIntegration: function() {    // 연동 시작 버튼 핸들러
+              storageAPIservice.setCookie('integration_' + that.service, 'done');
+              that._open();
+            },
+            cInterface: 'confirm'   // modal의 확인 interface 명
           }
         );
       }
