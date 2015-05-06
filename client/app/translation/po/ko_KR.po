@@ -40,10 +40,6 @@ msgstr "공유된 대화방이 없습니다"
 msgid "@alert-invalid-password"
 msgstr "비밀번호가 일치하지 않습니다"
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-missing-info"
-msgstr "모든 정보를 입력하세요"
-
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr "검색 결과가 없습니다"
@@ -57,22 +53,6 @@ msgstr "검색 결과가 없습니다"
 msgid "@alert-required"
 msgstr "필수 항목 입니다"
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-fail"
-msgstr "다음 주소로 이메일 보내기를 실패하였습니다"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-invalid"
-msgstr "은(는) 올바르지 않은 이메일 주소입니다"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-success"
-msgstr "정상적으로 초대 이메일을 보냈습니다"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-taken"
-msgstr "은(는) 이미 가입된 이메일입니다"
-
 #: client/app/modal/settings.account.html
 msgid "@alert-update-fail"
 msgstr "업데이트 중 오류가 발생했습니다"
@@ -80,10 +60,6 @@ msgstr "업데이트 중 오류가 발생했습니다"
 #: client/app/modal/settings.account.html
 msgid "@alert-update-success"
 msgstr "정상적으로 변경되었습니다"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@btn-add"
-msgstr "추가"
 
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
@@ -107,7 +83,6 @@ msgstr "새 창에서 보기"
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite_to_team/invite.team.html
 #: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
@@ -122,6 +97,7 @@ msgstr "닫기"
 msgid "@btn-comment"
 msgstr "댓글남기기"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/settings.service.html
 msgid "@btn-confirm"
 msgstr "확인"
@@ -141,14 +117,18 @@ msgstr "삭제하기"
 msgid "@btn-edit"
 msgstr "확인"
 
-#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite_to_team/invite.team.html
+#: client/app/header/header.html client/app/modal/invite.channel.html
+#: client/app/modal/invite.direct.html
 msgid "@btn-invite"
 msgstr "초대하기"
 
 #: client/app/modal/join.html
 msgid "@btn-join"
 msgstr "참여하기"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@btn-send"
+msgstr "보내기"
 
 #: client/app/center/center.html
 #: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
@@ -264,6 +244,10 @@ msgstr ""
 "나가시겠습니까? 1:1 대화를 나가시면 목록에서는 사라지지만 대화 내용은 보관됩"
 "니다."
 
+#: client/app/modal/invitation/invitation.team.html
+msgid "@common-copy"
+msgstr "복사"
+
 #: client/app/modal/create.channel.html client/app/modal/join.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
@@ -313,6 +297,10 @@ msgstr "차단된 멤버입니다. 궁금하신 사항은 팀 관리자에게 �
 msgid "@common-dm-invite-to"
 msgstr "대화방 목록"
 
+#: client/app/modal/invitation/invitation.team.html
+msgid "@common-done"
+msgstr "완료"
+
 #: client/app/center/center.html
 #: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
@@ -327,6 +315,7 @@ msgstr ""
 "이름으로 생성해주세요."
 
 #: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/invitation/invitation.team.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/profile.view.html client/app/signin/signin.html
 msgid "@common-email"
@@ -376,6 +365,22 @@ msgstr "오디오"
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "워드/한글"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-docs"
+msgstr "Google Docs"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-documents"
+msgstr "Google 문서"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-presentations"
+msgstr "Google 프레젠테이션"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-spreadsheets"
+msgstr "Google 스프레드시트"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
@@ -687,6 +692,18 @@ msgstr " "
 msgid "@file-size-too-large-error"
 msgstr "현재 100MB 이상의 파일은 업로드 할 수 없습니다."
 
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-computer"
+msgstr "내 컴퓨터"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-dropbox"
+msgstr "드롭박스"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-google-drive"
+msgstr "구글 드라이브"
+
 #: client/app/center/center.html
 msgid "@go-to-latest-message-msg"
 msgstr "최신 메시지로 가기"
@@ -721,10 +738,6 @@ msgstr "토픽 이름을 입력하세요"
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
 msgstr "비공개 토픽 이름을 입력하세요"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@input-invite-email"
-msgstr "초대할 이메일 주소를 입력하세요"
 
 #: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-20-error"
@@ -776,6 +789,74 @@ msgstr "빈 칸은 포함될 수 없습니다"
 #: client/app/password/password.reset.html
 msgid "@input-user-password-min-length-error"
 msgstr "8자 이상 입력해주세요"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-3"
+msgstr ""
+"브라우저의 팝업이 차단되었을 때는 계정 인증이나 파일 탐색기 실행이 불가능하"
+"므로 <b>꼭 팝업 차단 후 사용하시기 바랍니다.</b>"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-1"
+msgstr ""
+"드롭박스 계정과 연동하여 드롭박스의 파일을 업로드하고 팀원들과 공유하실 수 "
+"있습니다."
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-2"
+msgstr ""
+"드롭박스 파일들은 잔디 내의 다른 파일들과 동일하게 등록되지만, 클릭시에는 드"
+"롭박스의 링크로 이동합니다. "
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-1"
+msgstr "구글 계정과 연동하여 구글 드라이브의 파일을 업로드하실 수 있습니다."
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-2"
+msgstr ""
+"구글 문서, 스프레드시트, 프레젠테이션은 잔디내에서 'Google Docs'로 분류되며 "
+"기타 파일들은 (MS doc, excel, ppt 등) 파일 타입에 따라 분류됩니다. "
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-submit"
+msgstr "연동 시작하기"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-dropbox"
+msgstr "드롭박스에서 파일 업로드하기"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-google-drive"
+msgstr "구글 드라이브에서 파일 업로드하기"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-contact-desc"
+msgstr ""
+"100명 이상의 멤버를 초대하시나요? 저희에게 직접 연락 부탁드립니다: "
+"support@tosslab.com"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-disabled"
+msgstr ""
+"멤버 초대 기능이 관리자에 의해 비활성화 되었습니다. 자세한 내용은 팀 관리자"
+"({{adminName}})에게 문의하세요."
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-invaild-email"
+msgstr "올바른 이메일 주소를 사용해주세요."
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-link-desc"
+msgstr "또는 이 링크를 공유하여 멤버들을 초대하세요."
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-more-email"
+msgstr "+ 이메일 주소 추가"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-some-fail"
+msgstr "일부 이메일 주소로의 초대장 발송이 실패했습니다."
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -915,10 +996,6 @@ msgstr ""
 "팀에 관련한 사항들을 변경할 수 있습니다. 다만 변경 내용은 모든 팀 멤버들에"
 "게 적용되므로 주의하여 주시기 바랍니다."
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@modal-team-invite-msg1"
-msgstr "이메일을 통해 다른 멤버들을 잔디로 초대할 수 있습니다."
-
 #: client/app/modal/upload/upload.html
 msgid "@modal-upload-title-msg1"
 msgstr "파일명으로 파일을 쉽게 검색할 수 있습니다"
@@ -938,7 +1015,7 @@ msgstr "파일"
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@msg-help-multiline"
-msgstr "멀티라인 입력: shift+enter"
+msgstr "줄바꿈: shift+enter"
 
 #: client/app/center/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
@@ -1105,8 +1182,7 @@ msgstr "새로운 팀 이름"
 msgid "@setting-team-title"
 msgstr "팀 세팅"
 
-#: client/app/header/header.html
-#: client/app/modal/invite_to_team/invite.team.html
+#: client/app/modal/invitation/invitation.team.html
 msgid "@team-invite"
 msgstr "멤버 초대"
 
@@ -1170,9 +1246,8 @@ msgstr "메시지 입력과 파일 업로드 "
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"메시지 입력창을 통해 대화를 나눌 수 있습니다. 파일 업로드를 위해서는 왼쪽 아"
-"이콘을 클릭하거나 간단하게 파일을 메시지 창으로  <b>드래그&드롭</b> 하시면 "
-"됩니다."
+"입력창에서 메시지를 작성하세요. 또 왼쪽 아이콘을 클릭하여 파일들을 업로드하"
+"거나 간단하게  <b>드래그&드롭</b> 하실 수도 있습니다."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -1259,6 +1334,42 @@ msgstr " "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
+
+#~ msgid "@alert-missing-info"
+#~ msgstr "모든 정보를 입력하세요"
+
+#~ msgid "@alert-send-mail-fail"
+#~ msgstr "다음 주소로 이메일 보내기를 실패하였습니다"
+
+#~ msgid "@alert-send-mail-invalid"
+#~ msgstr "은(는) 올바르지 않은 이메일 주소입니다"
+
+#~ msgid "@alert-send-mail-success"
+#~ msgstr "정상적으로 초대 이메일을 보냈습니다"
+
+#~ msgid "@alert-send-mail-taken"
+#~ msgstr "은(는) 이미 가입된 이메일입니다"
+
+#~ msgid "@modal-team-invite-msg1"
+#~ msgstr "이메일을 통해 다른 멤버들을 잔디로 초대할 수 있습니다."
+
+#~ msgid "Invite"
+#~ msgstr "초대"
+
+#~ msgid "@btn-add"
+#~ msgstr "추가"
+
+#~ msgid "@input-invite-email"
+#~ msgstr "초대할 이메일 주소를 입력하세요"
+
+#~ msgid "@common-file-type-google-document"
+#~ msgstr "구글 문서"
+
+#~ msgid "@common-file-type-google-presentation"
+#~ msgstr "구글 스프레드시트"
+
+#~ msgid "@common-file-type-google-spreadsheet"
+#~ msgstr "구글 프레젠테이션"
 
 #~ msgid "@ch-menu-delete-confirm"
 #~ msgstr "이 토픽을 정말 삭제하시겠습니까?"
@@ -1601,9 +1712,6 @@ msgstr "JANDI 메시지"
 
 #~ msgid "First Name"
 #~ msgstr "이름"
-
-#~ msgid "Invite"
-#~ msgstr "초대"
 
 #~ msgid "Invite others to team"
 #~ msgstr "새로운 팀원 초대하기"

@@ -10,15 +10,14 @@
       restrict: 'EA',
       scope: true,
       link: link,
-      templateUrl : 'app/right/files/file/file.html',
+      templateUrl: 'app/right/files/file/file.html',
       controller: 'fileCtrl'
     };
 
     function link(scope, element, attrs) {
-      var extendMenu,
-          toggleMenu;
+      var extendMenu = element.find('.file-item-body-title__more');
+      var toggleMenu;
 
-      extendMenu = element.find('.file-item-body-title__more');
       // 파일 공유, 댓글, 다운로드, 삭제 메뉴버튼의 click event handling
       extendMenu
         .on('click', function(event) {

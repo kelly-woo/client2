@@ -1,0 +1,31 @@
+.modal-dialog .invite-channel .help-invite-members {
+	display: inline-block;
+	width: 76px;
+	height: 96px;
+	background-size: 76px 96px;
+	margin-top: 32px;
+  	margin-bottom: 20px;
+}
+
+.invite-channel .invite-channel-full {
+	text-align: center;
+}
+
+.invite-channel .invite-channel-full .modal-body {
+	padding-bottom: 12px;
+}
+
+.invite-channel .invite-channel-full span {
+	display: block;
+}
+
+.invite-channel .invite-channel-full span:first-child {
+	font-size: 16px;
+	color: #333;
+	padding-bottom: 10px;
+}
+
+.invite-channel .invite-channel-full span:last-child {
+	font-size: 14px;
+	color: #666;
+}

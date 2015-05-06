@@ -47,14 +47,16 @@
   </div>
 
   <div class="msgs-inner__border"></div>
+  <!-- 컨테이너 -->
   <article class="msgs" id="msgs-container" when-scrolled="loadMore()" scroll-glue>
+    <!-- 로딩 영역 -->
     <div class="msgs__loading icon-loading"
          ng-show="msgLoadStatus.loading"
          ng-class="{'initial': loadMoreCounter < 1 || forceShowProgress}"></div>
-
+    <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
       <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
-
+        <!--날짜 구분선-->
         <date-divider></date-divider>
 
         <div last-detector=""
@@ -68,7 +70,8 @@
              data-message-type="{{msg.message.contentType}}"
              data-feedback-id="{{msg.feedbackId}}"
              data-event-type="{{msg.eventType}}"
-             data-ng-class="{ 'text': msg.message.isText,
+             data-ng-class="{ 'text': !msg.message.isChildText,
+                              'text-child': msg.message.isChildText,
                               'file-upload': msg.message.isFile,
                               'comment-title': msg.message.commentOption.isTitle,
                               'comment-continue': msg.message.commentOption.isContinue,
@@ -185,22 +188,17 @@
         <div ng-if="msg.message.status != 'archived'">
           <!--    IMAGE THUMBNAIL -->
           <div class="image_wrapper">
-            <img rotate rotate-left-align="true"
-                 class="msg-file-body__img cursor_pointer"
-                 data-ng-show="msg.message.content.filterType.indexOf('image') !== -1"
-                 data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
-              />
+            <img class="msg-file-body__img cursor_pointer" rotate rotate-left-align="true"
+                 ng-if="(msg.message.content | hasPreview)" ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}" />
           </div>
 
-          <div ng-if="msg.message.content.filterType.indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
-               ng-click="onImageRotatorClick($event);">
+          <div class="ie9-image-rotator cursor_pointer" ng-if="(msg.message.content | hasPreview) && isIE9" ng-click="onImageRotatorClick($event);">
             <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
           </div>
 
           <!--    FILE TYPE THUMBNAIL -->
-          <div class="msg-file-body__thumbnail"
-               data-ng-if="msg.message.content.filterType.indexOf('image') == -1">
-            <div class="fileicon fileicon-{{msg.message.content.type | getFileIconImage | lowercase}}" ></div>
+          <div class="msg-file-body__thumbnail" ng-if="!(msg.message.content | hasPreview)">
+            <div class="fileicon fileicon-{{msg.message.content | fileIcon}}" ></div>
 
           </div>
         </div>
@@ -224,7 +222,7 @@
             <!--    TITLE   -->
             <a class="msg-file-meta__title file__name break-word"
                data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
-              {{ msg.message.content.title }}
+              {{ msg.message.content | fileTitle }}
             </a>
 
             <span class="bullet">•</span>
@@ -279,14 +277,14 @@
                   </span>
 
           <!-- OPEN ORIGINAL  -->
-          <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
+          <a class="cursor_pointer" original-file file-url="{{msg.message.content.fileUrl}}">
             <span translate>@msg-open-original</span>
           </a>
 
           <span class="bullet">•</span>
 
           <!--    DOWNLOAD    -->
-          <a class="cursor_pointer" href="{{ server_uploaded +'download/' + msg.message.content.fileUrl }}" download="{{ msg.message.content.title  }}">
+          <a class="cursor_pointer" download-file file-url="{{msg.message.content.fileUrl}}" file-title="{{msg.message.content.title}}">
             <span translate>@common-download</span>
           </a>
 
@@ -326,17 +324,14 @@
         <div ng-if="msg.feedback.status != 'archived'">
           <!--    IMAGE THUMBNAIL -->
           <div class="image_wrapper">
-            <img rotate rotate-left-align="true"
-                 class="msg-file-body__img cursor_pointer"
-                 data-ng-show="msg.feedback.content.filterType.indexOf('image') !== -1 && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'"
-                 data-ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
+            <img class="msg-file-body__img cursor_pointer" rotate rotate-left-align="true"
+                 ng-if="(msg.feedback.content | hasPreview) && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'"
+                 ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
           </div>
 
           <!--    FILE THUMBNAIL  -->
-          <div class="msg-file-body__thumbnail"
-               data-ng-if="msg.feedback.content.filterType.indexOf('image') == -1 && msg.message.commentOption.isTitle">
-            <div class="fileicon fileicon-{{msg.feedback.content.type | getFileIconImage | lowercase}}" ></div>
-
+          <div class="msg-file-body__thumbnail" ng-if="!(msg.feedback.content | hasPreview) && msg.message.commentOption.isTitle">
+            <div class="fileicon fileicon-{{msg.feedback.content | fileIcon}}" ></div>
           </div>
         </div>
 
@@ -358,7 +353,7 @@
           <!--    FILE TITLE/NAME  -->
           <div ng-if="msg.feedback.status != 'archived'">
             <a class="msg-file-meta__title file__name break-word" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
-              {{msg.feedback.content.title || msg.feedback.content.name}}
+              {{msg.feedback.content | fileTitle}}
             </a>
           </div>
 

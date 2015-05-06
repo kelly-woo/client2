@@ -246,6 +246,10 @@ article {
 .msg-item.text {
   margin-top: 13px;
 }
+.msg-item.text-child {
+  margin-top: -13px;
+}
+
 .msg-item.file-upload {
   margin: 13px 0 15px;
 }
@@ -318,12 +322,26 @@ article {
 .msg-item.comment-continue .msg-item-body {
   /*padding-left: 75px;*/
 }
+
+.msg-item-body .tooltip {
+  width: 64px;
+}
+
 .msg-item-body p {
   margin: 0;
   font-size: 16px;
   line-height: 24px;
   color: #333333;
 }
+
+.msg-text-body {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: #333333;
+}
+
+
 .msg-file { min-height: 65px; }
 .msg-file-header {
   font-size: 16px;
@@ -358,7 +376,7 @@ by ysyun 2015.2.25
   width: 15px;
   color: white;
   opacity: 0.8;
-  z-index: 1;
+  /*z-index: 1;  center chat 영역 위에 출력되는 layout이 있을때 comment 이미지가 해당 layout을 침범함*/
   -ms-transform: scaleX(-1); /* IE 9 */
   -webkit-transform: scaleX(-1); /* Chrome, Safari, Opera */
   transform: scaleX(-1);
@@ -642,9 +660,6 @@ by ysyun 2015.2.25
   position: fixed;
   bottom: 30px;
   left: 260px;
-}
-#primary_file_button .icon-upload {
-  line-height: 35px;
 }
 
 /*.msgs {*/

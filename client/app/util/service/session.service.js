@@ -16,10 +16,10 @@
 
   /* @ngInject */
   function currentSessionHelper($state) {
-
     var currentTeam;
     var currentTeamMemberList;
     var currentEntity;
+    var currentTeamAdmin;
 
     var isSocketConnected = false;
 
@@ -51,6 +51,8 @@
     this.getCurrentFileId = getCurrentFileId;
     this.removeCurrentFileId = removeCurrentFileId;
 
+    this.getCurrentTeamAdmin = getCurrentTeamAdmin;
+    this.setCurrentTeamAdmin = setCurrentTeamAdmin;
 
     function getCurrentTeam() { return currentTeam; }
     function setCurrentTeam(team) { currentTeam = team; }
@@ -116,8 +118,12 @@
       currentFileId = -1;
     }
 
+    function getCurrentTeamAdmin() {
+      return currentTeamAdmin;
+    }
 
-
-
+    function setCurrentTeamAdmin(value) {
+      currentTeamAdmin = value;
+    }
   }
 })();

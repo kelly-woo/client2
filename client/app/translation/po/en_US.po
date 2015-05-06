@@ -40,10 +40,6 @@ msgstr "File has not been shared"
 msgid "@alert-invalid-password"
 msgstr "invalid password"
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-missing-info"
-msgstr "Missing Information"
-
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr "No messages found matching"
@@ -57,22 +53,6 @@ msgstr "No matches"
 msgid "@alert-required"
 msgstr "required"
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-fail"
-msgstr "Invitation could not be sent"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-invalid"
-msgstr " is an invalid email address"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-success"
-msgstr "Invitation was sent successfully"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@alert-send-mail-taken"
-msgstr " is already a member of your team"
-
 #: client/app/modal/settings.account.html
 msgid "@alert-update-fail"
 msgstr "Update not successful"
@@ -80,10 +60,6 @@ msgstr "Update not successful"
 #: client/app/modal/settings.account.html
 msgid "@alert-update-success"
 msgstr "Update completed successfully"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@btn-add"
-msgstr "Add"
 
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
@@ -107,8 +83,7 @@ msgstr "Click to view"
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite_to_team/invite.team.html client/app/modal/join.html
-#: client/app/modal/password.reset.request.html
+#: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
 #: client/app/modal/settings.service.html client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
@@ -122,6 +97,7 @@ msgstr "Close"
 msgid "@btn-comment"
 msgstr "Comment"
 
+#: client/app/modal/integration/integration.html
 #: client/app/modal/settings.service.html
 msgid "@btn-confirm"
 msgstr "Confirm"
@@ -141,14 +117,18 @@ msgstr "Delete"
 msgid "@btn-edit"
 msgstr "Submit"
 
-#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
-#: client/app/modal/invite_to_team/invite.team.html
+#: client/app/header/header.html client/app/modal/invite.channel.html
+#: client/app/modal/invite.direct.html
 msgid "@btn-invite"
 msgstr "Invite"
 
 #: client/app/modal/join.html
 msgid "@btn-join"
 msgstr "Join"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@btn-send"
+msgstr "Send"
 
 #: client/app/center/center.html
 #: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
@@ -178,7 +158,7 @@ msgstr "Delete topic"
 
 #: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-invite"
-msgstr "Invite members"
+msgstr "Invite Members to Topic"
 
 #: client/app/center/entity_header/entity.header.html
 msgid "@ch-menu-leave"
@@ -270,6 +250,10 @@ msgstr ""
 "view in the conversation list until you receive a new message or manually "
 "reopen it."
 
+#: client/app/modal/invitation/invitation.team.html
+msgid "@common-copy"
+msgstr "Copy"
+
 #: client/app/modal/create.channel.html client/app/modal/join.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-create-ch"
@@ -321,6 +305,10 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr "Invite to"
 
+#: client/app/modal/invitation/invitation.team.html
+msgid "@common-done"
+msgstr "Done"
+
 #: client/app/center/center.html
 #: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
@@ -333,6 +321,7 @@ msgid "@common-duplicate-name-err"
 msgstr "That topic name is already in use. Please try again."
 
 #: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/invitation/invitation.team.html
 #: client/app/modal/password.reset.request.html
 #: client/app/modal/profile.view.html client/app/signin/signin.html
 msgid "@common-email"
@@ -383,6 +372,22 @@ msgstr "audio"
 #: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr "documents"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-docs"
+msgstr "Google Docs"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-documents"
+msgstr "Google document"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-presentations"
+msgstr "Google presentation"
+
+#: client/app/right/files/files.html
+msgid "@common-file-type-google-spreadsheets"
+msgstr "Google spreadsheet"
 
 #: client/app/right/files/files.html
 msgid "@common-file-type-images"
@@ -697,6 +702,18 @@ msgstr "As of "
 msgid "@file-size-too-large-error"
 msgstr "Currently you cannot upload a file that exceeds 100MB."
 
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-computer"
+msgstr "My Computer"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-dropbox"
+msgstr "Dropbox"
+
+#: client/app/center/center_chat_input_box/center.chat.input.box.html
+msgid "@file-upload-google-drive"
+msgstr "Google Drive"
+
 #: client/app/center/center.html
 msgid "@go-to-latest-message-msg"
 msgstr "Go to the most recent messages"
@@ -732,10 +749,6 @@ msgstr "Enter new topic name"
 #: client/app/modal/create.private.html
 msgid "@input-create-pg"
 msgstr "Enter new private topic name"
-
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@input-invite-email"
-msgstr "Enter email address to invite"
 
 #: client/app/modal/current_member_profile/settings.profile.html
 msgid "@input-max-length-20-error"
@@ -788,6 +801,67 @@ msgstr "Password cannot contain space"
 #: client/app/password/password.reset.html
 msgid "@input-user-password-min-length-error"
 msgstr "Must be 8+ characters"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-3"
+msgstr "<b>Pop-ups must be enabled</b> in order to connect your account"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-1"
+msgstr "Connect your account to share files from Dropbox"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-dropbox-2"
+msgstr ""
+"Dropbox files are categorized (eg Word, Excel, PDF) alongside those on JANDI"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-1"
+msgstr "Connect your account to share files from Google Drive"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-desc-google-drive-2"
+msgstr ""
+"Google Docs are categorized separately from other files on Google Drive or "
+"JANDI (eg Word, Excel, PDF)"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-submit"
+msgstr "Connect"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-dropbox"
+msgstr "Share from Dropbox"
+
+#: client/app/modal/integration/integration.html
+msgid "@integration-title-google-drive"
+msgstr "Share from Google Drive"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-contact-desc"
+msgstr "Inviting over 100 members? Contact us at support@tosslab.com"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-disabled"
+msgstr ""
+"Invitation has been disabled by admin. Please contact your team admin "
+"({{adminName}}) for further detail."
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-invaild-email"
+msgstr "Proper email address formats required"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-link-desc"
+msgstr "Or just send them this link"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-more-email"
+msgstr "+ More"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation-some-fail"
+msgstr "Some invitations could not be sent."
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -925,10 +999,6 @@ msgstr ""
 "Change your team settings here. Please note that any modifications will also "
 "be applied to your teammates."
 
-#: client/app/modal/invite_to_team/invite.team.html
-msgid "@modal-team-invite-msg1"
-msgstr "Invite other team members to JANDI!"
-
 #: client/app/modal/upload/upload.html
 msgid "@modal-upload-title-msg1"
 msgstr "For searches by title"
@@ -944,7 +1014,7 @@ msgstr "created this private topic."
 #: client/app/center/center.html
 #: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
-msgstr "File"
+msgstr "file"
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@msg-help-multiline"
@@ -1113,8 +1183,7 @@ msgstr "New Team Name"
 msgid "@setting-team-title"
 msgstr "Team Settings"
 
-#: client/app/header/header.html
-#: client/app/modal/invite_to_team/invite.team.html
+#: client/app/modal/invitation/invitation.team.html
 msgid "@team-invite"
 msgstr "Invite Other Team Members"
 
@@ -1176,9 +1245,9 @@ msgstr "Sending messages and uploading files"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"To send messages, simply type in the text bar and press enter. To upload a "
-"file, click the button to the left and select the desired file path, or drag "
-"and drop the file anywhere in the center messaging pane."
+"To send messages, simply type in the text bar and press enter. To upload "
+"files, click the button to the left and select the desired file paths, or "
+"drag and drop files anywhere in the center messaging pane."
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -1267,6 +1336,39 @@ msgstr "in "
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@alert-missing-info"
+#~ msgstr "Missing Information"
+
+#~ msgid "@alert-send-mail-fail"
+#~ msgstr "Invitation could not be sent"
+
+#~ msgid "@alert-send-mail-invalid"
+#~ msgstr " is an invalid email address"
+
+#~ msgid "@alert-send-mail-success"
+#~ msgstr "Invitation was sent successfully"
+
+#~ msgid "@alert-send-mail-taken"
+#~ msgstr " is already a member of your team"
+
+#~ msgid "@modal-team-invite-msg1"
+#~ msgstr "Invite other team members to JANDI!"
+
+#~ msgid "@btn-add"
+#~ msgstr "Add"
+
+#~ msgid "@input-invite-email"
+#~ msgstr "Enter email address to invite"
+
+#~ msgid "@common-file-type-google-document"
+#~ msgstr "Google Documents"
+
+#~ msgid "@common-file-type-google-presentation"
+#~ msgstr "Google Spreadsheets"
+
+#~ msgid "@common-file-type-google-spreadsheet"
+#~ msgstr "Google Presentations"
 
 #~ msgid "@ch-menu-delete-confirm"
 #~ msgstr "Are you sure you want to delete this topic?"

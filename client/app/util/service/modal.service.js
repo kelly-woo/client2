@@ -11,7 +11,7 @@
     .service('modalHelper', modalWindowHelper);
 
   /* @ngInject */
-  function modalWindowHelper($modal) {
+  function modalWindowHelper($modal, teamAPIservice) {
 
     var modal;
 
@@ -50,22 +50,40 @@
       modal = _modalOpener(modalOption);
     }
 
+
     function openInviteToCurrentEntityModal() {
       var modalOption = {
-        templateUrl :   'app/modal/invite.channel.html',
-        controller  :   'inviteModalCtrl',
+        templateUrl :   'app/modal/invitation/invitation.channel.html',
+        controller  :   'invitationChannelCtrl',
         size        :   'lg',
-        windowClass :   'allowOverflowY'
+        windowClass :   'allowOverflowY',
+        resolve     : {
+          data      : function() {
+            // 토픽으로 초대 가능한 member의 수
+            // 현재 channel의 유저가 가진 team의 갯수
+            return '';
+          }
+        }
       };
       modal = _modalOpener(modalOption);
     }
     function openInviteToTeamModal() {
-      var modalOption = {
-        templateUrl :   'app/modal/invite_to_team/invite.team.html',
-        controller  :   'inviteUserToTeamCtrl',
-        size        :   'lg'
-      };
-      modal = _modalOpener(modalOption);
+      // modal에 해당 member의 team information을 전달 해야함.
+      teamAPIservice.getTeamInfo()
+        .success(function(res) {
+          var modalOption = {
+            templateUrl :   'app/modal/invitation/invitation.team.html',
+            controller  :   'invitationTeamCtrl',
+            size        :   'lg',
+            resolve: {
+              teamInfo: function() {
+                return res;
+              }
+            }
+          };
+
+          modal = _modalOpener(modalOption);
+        });
     }
 
     function openCurrentMemberModal($scope) {

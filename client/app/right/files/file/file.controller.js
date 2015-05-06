@@ -13,6 +13,7 @@
     $scope.onFileItemClick = onFileItemClick;
     $scope.onFileDeleteClick = onFileDeleteClick;
     $scope.setCommentFocus = setCommentFocus;
+    $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(file.content.serverUrl);
 
     function onFileItemClick() {
       $state.go('files', {userName: file.writer.name, itemId: file.id});

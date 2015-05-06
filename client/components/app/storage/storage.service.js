@@ -30,6 +30,9 @@
     var bearer_type         = 'bearer';
     var refresh_type         = 'refresh_token';
 
+    var INTEGRATE_GOOGLE_DRIVE_MODAL = 'integrate_google_drive_modal';
+    var INTEGRATE_DROPBOX_MODAL = 'integrate_dropbox_modal';
+
     var service = {
       setTokenLocal: setTokenLocal,
 
@@ -111,8 +114,10 @@
 
       getAccessTokenType: bearer_type,
 
-      getTeamName: getTeamName
+      getTeamName: getTeamName,
 
+      setCookie: setCookie,
+      getCookie: getCookie
     };
 
     return service;
@@ -381,6 +386,23 @@
       return localStorageService.get(teamName_key);
 
     return $window.sessionStorage.team_name;
+    }
+
+    /**
+     * set cookie
+     * @param {string} name
+     * @param {string} value
+     */
+    function setCookie(name, value) {
+      localStorageService.cookie.set(name, value);
+    }
+    /**
+     * get cookie
+     * @param {string} name
+     * @returns {string}
+     */
+    function getCookie(name) {
+      return localStorageService.cookie.get(name);
     }
   }
 })();

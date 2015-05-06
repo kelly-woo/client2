@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, messageSearchHelper, currentSessionHelper, logger, centerService, markerService) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
-
+  var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
   var DEFAULT_MESSAGE_UPDATE_COUNT = 20;
@@ -176,47 +176,137 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.msgSearchQuery.type = type;
   }
 
+  /**
+   * 메세지를 날짜로 묶는다.
+   */
   function groupByDate() {
-    messages = {};
-    for (var i in $scope.messages) {
-      var msg = $scope.messages[i];
-
-      var prev = (i == 0) ? null : $scope.messages[i-1];
-      // comment continuous check
-      if ( msg.message.contentType === 'comment' ) {
-
-        msg.message.commentOption = { isTitle: false, isContinue: false };
-
-        if (i == 0) {
-          msg.message.commentOption.isTitle = true;
-        }
-        else {
-          // 파일 아래 바로 해당 파일의 코멘트
-          // 같은 파일에 대한 연속 코멘트
-          if (prev.messageId == msg.feedbackId || prev.feedbackId === msg.feedbackId) {
-            msg.message.commentOption.isContinue = true;
-          }
-          else {
-            msg.message.commentOption.isTitle = true;
-
-          }
-        }
-      } else if (msg.message.contentType === 'file') {
-        msg.message.isFile = true;
-      } else if (msg.message.contentType === 'text') {
-        msg.message.isText = true;
-      }
-
-      messages[msg.id] = {
-        index: i,
-        message: msg
-      };
-    }
-
+    _formatMessages($scope.messages);
     $scope.groupMsgs = [];
     $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
       return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
     });
+    _.each($scope.groupMsgs, function(messages) {
+      _setChildTextFlag(messages);
+    });
+  }
+
+  /**
+   * 메세지 리스트에 isChildText 플래그를 할당한다.
+   * @param {Array} messages
+   * @private
+   */
+  function _setChildTextFlag(messages) {
+    _.each(messages, function(data, index) {
+      if (_isTextMessage(index, messages)) {
+        data.message.isChildText = _isChildTextMsg(index, messages);
+        data.message.hasChildText = _hasChildTextMsg(index, messages);
+      }
+    });
+  }
+
+  /**
+   * 자식 text message 가 존재하는지 여부를 반환한다.
+   * @param index 확인할 대상 메세지 인덱스
+   * @param messages 전체 메세지 리스트
+   * @returns {boolean}
+   * @private
+   */
+  function _hasChildTextMsg(index, messages) {
+    return _isChildTextMsg(index + 1, messages);
+  }
+
+  /**
+   * text message 인지 여부를 반환한다.
+   * @param index 확인할 대상 메세지 인덱스
+   * @param messages 전체 메세지 리스트
+   * @returns {boolean}
+   * @private
+   */
+  function _isTextMessage(index, messages) {
+    var data = messages[index];
+    return !!(data && data.message && data.message.contentType === 'text');
+  }
+
+  /**
+   * 메세지가 child text 인지 여부를 반환한다.
+   * @param {number} index 확인할 대상 메세지 인덱스
+   * @param {array} messages 전체 메세지 리스트
+   * @returns {boolean} child text 인지 여부
+   * @private
+   */
+  function _isChildTextMsg(index, messages) {
+    if (messages[index]) {
+      var msg = messages[index].message;
+      var prevMsg = messages[index - 1] && messages[index - 1].message;
+      var elapsedMin;
+
+      if (prevMsg) {
+        elapsedMin = Math.floor((messages[index].time - messages[index - 1].time) / 60000);
+        if (_isSameWriterTextMsg(msg, prevMsg) && elapsedMin < MAX_MSG_ELAPSED_MINUTES)  {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * 같은 사람이 보낸 메세지인지 여부를 반환한다
+   * @param {object} msg 메세지
+   * @param {object} prevMsg 이전 메세지
+   * @returns {boolean}
+   * @private
+   */
+  function _isSameWriterTextMsg(msg, prevMsg) {
+    if (msg.contentType === 'text' &&
+      msg.contentType === prevMsg.contentType &&
+      msg.writerId  === prevMsg.writerId) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * message 의 기본 포멧을 설정한다.
+   * @param {array} messages 포멧팅할 메세지 리스트
+   * @private
+   */
+  function _formatMessages(messages) {
+    var msg;
+    var contentType;
+
+    _.each(messages, function(data, i) {
+      msg = data.message;
+      contentType = msg.contentType;
+      if (contentType === 'comment')  {
+        msg.commentOption = _getCommentOption(messages[i], messages[i - 1]);
+      } else if (contentType === 'file') {
+        msg.isFile = true;
+      } else if (contentType === 'text') {
+        msg.isText = true;
+      }
+    });
+  }
+
+  /**
+   * comment 메세지에 할당할 comment option 객체를 생성하여 반환한다.
+   * @param {object} message 메세지
+   * @param {object} prevMessage 이전 메세지
+   * @returns {{isTitle: boolean, isContinue: boolean}} comment option 객체
+   * @private
+   */
+  function _getCommentOption(message, prevMessage) {
+    var isTitle = true,
+        feedbackId = message.feedbackId;
+    if (prevMessage &&
+        (prevMessage.messageId == feedbackId || prevMessage.feedbackId === feedbackId)) {
+      isTitle = false;
+    }
+    return {
+      isTitle: isTitle,
+      isContinue: !isTitle
+    };
   }
 
   $scope.loadNewMessages = loadNewMessages;
@@ -886,11 +976,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var fullUrl;        // it could be file, too.
 
     if (message.message.contentType === 'comment') {
-      newThumbnail = $scope.server_uploaded + message.feedback.content.extraInfo.largeThumbnailUrl;
+      newThumbnail = $scope.server_uploaded + (message.feedback.content.extraInfo ? message.feedback.content.extraInfo.largeThumbnailUrl : '');
       fullUrl = $scope.server_uploaded + message.feedback.content.fileUrl;
     }
     else {
-      newThumbnail = $scope.server_uploaded + message.message.content.extraInfo.largeThumbnailUrl;
+      newThumbnail = $scope.server_uploaded + (message.message.content.extraInfo ? message.message.content.extraInfo.largeThumbnailUrl : '');
       fullUrl = $scope.server_uploaded + message.message.content.fileUrl;
     }
 

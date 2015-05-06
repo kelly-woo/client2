@@ -30,6 +30,7 @@
     <!-- injector:css -->
     <link rel="stylesheet" href="app/app.css">
     <link rel="stylesheet" href="app/center/center.css">
+    <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
     <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
     <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
     <link rel="stylesheet" href="app/error/404.css">
@@ -42,6 +43,8 @@
     <link rel="stylesheet" href="app/main.css">
     <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
     <link rel="stylesheet" href="app/modal/integration/integration.css">
+    <link rel="stylesheet" href="app/modal/invitation/invitation.channel.css">
+    <link rel="stylesheet" href="app/modal/invitation/invitation.team.css">
     <link rel="stylesheet" href="app/modal/modal.css">
     <link rel="stylesheet" href="app/modal/team_change/team.change.css">
     <link rel="stylesheet" href="app/modal/team_member_list/team.member.list.css">
@@ -147,6 +150,7 @@
 <script src="app/util/filter/main.filter.js"></script>
 <script src="app/util/service/account.service.js"></script>
 <script src="app/util/service/analytics.service.js"></script>
+<script src="app/util/service/clipboard.service.js"></script>
 <script src="app/util/service/desktop.notification.service.js"></script>
 <script src="app/util/service/entity.service.js"></script>
 <script src="app/util/service/file.object.service.js"></script>
@@ -160,6 +164,7 @@
 <script src="app/util/service/user.service.js"></script>
 <script src="app/center/center.controller.js"></script>
 <script src="app/center/center.directive.js"></script>
+<script src="app/center/center_chat_templates/file_uploaded/file.uploaded.controller.js"></script>
 <script src="app/center/help_messages/help.messages.controller.js"></script>
 <script src="app/center/help_messages/help.messages.directive.js"></script>
 <script src="app/center/services/center.service.js"></script>
@@ -193,7 +198,10 @@
 <script src="app/modal/current_member_profile/settings.profile.controller.js"></script>
 <script src="app/modal/current_member_profile/settings.profile.service.js"></script>
 <script src="app/modal/integration/integration.controller.js"></script>
-<script src="app/modal/invite_to_team/inviteToTeam.controller.js"></script>
+<script src="app/modal/invitation/invitation.channel.controller.js"></script>
+<script src="app/modal/invitation/invitation.team.controller.js"></script>
+<script src="app/modal/invitation/invitation.team.directive.js"></script>
+<script src="app/modal/invitation/invitation.team.service.js"></script>
 <script src="app/modal/modal.controller.js"></script>
 <script src="app/modal/share/share.controller.js"></script>
 <script src="app/modal/team_change/team.change.controller.js"></script>
@@ -204,6 +212,7 @@
 <script src="app/modal/upload/upload.controller.js"></script>
 <script src="app/password/password.controller.js"></script>
 <script src="app/right/file.detail/file.detail.controller.js"></script>
+<script src="app/right/file.detail/file.detail.directive.js"></script>
 <script src="app/right/files/file.filter.js"></script>
 <script src="app/right/files/file.service.js"></script>
 <script src="app/right/files/file/file.controller.js"></script>

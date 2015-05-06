@@ -63,8 +63,10 @@
     }
   });
 
+
+
   /*
-   * @filter      : file type(extension) formatting
+   * map 함수 특정 namespace에 포함되어 util로 사용 가능해야함..
    */
   function createMap(tempMap) {
     var map,
@@ -87,6 +89,19 @@
     return map;
   }
 
+  var integrationType = {
+    'Google Doc': 'application/vnd.google-apps.document',
+    'Google Spreadsheet': 'application/vnd.google-apps.spreadsheet',
+    'Google Presentation': 'application/vnd.google-apps.presentation',
+    'Google Form': 'application/vnd.google-apps.form',
+    'Google Drawing': 'application/vnd.google-apps.drawing'
+  };
+  // filter에서 integration service인지 판단하는 map
+  var integrationMap = {
+    google: 'google-drive',
+    dropbox: 'dropbox'
+  };
+
   /**
    * file을 표현하는 text를 get
    */
@@ -108,14 +123,16 @@
 
     return function(file) {
       var fileTypeTran;
-      return (fileTypeTran = fileTypeTranMap[fileTypeMap[file.mimeType] || file.ext]) ? $filter('translate')(fileTypeTran) : file.ext;
+      return (fileTypeTran = fileTypeTranMap[fileTypeMap[file.type] || file.ext]) ? $filter('translate')(fileTypeTran) : file.ext;
     };
   });
 
   /**
-   *
+   * file을 표현하는 image의 name을 get
+   * fileIcon filter에서 반환된 값이 image icon을 가리키는
+   * class name을 만듬
    */
-  app.filter('getFileIconImage', function() {
+  app.filter('fileIcon', function() {
     var fileIconImageMap = {
           'img': ['image/jpeg', 'image/png', 'image/gif', 'image/vnd.adobe.photoshop'],
           'pdf': ['application/pdf'],
@@ -123,72 +140,44 @@
           'audio': ['audio/mp3', 'audio/mpeg'],
           'zip': ['application/zip'],
           'hwp': ['application/x-hwp'],
-          'TXT': ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-          'EXCEL': ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-          'PPT': ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']
+          'txt': ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+          'excel': ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+          'ppt': ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+          'document': 'application/vnd.google-apps.document',
+          'spreadsheet': 'application/vnd.google-apps.spreadsheet',
+          'presentation': 'application/vnd.google-apps.presentation'
         };
     fileIconImageMap = createMap(fileIconImageMap);
 
-    return function(type) {
-      return fileIconImageMap[type] || 'ETC';
+    return function(content) {
+      var integration;
+
+      return content ? (fileIconImageMap[content.type] || 'etc') + ((integration = integrationMap[content.serverUrl]) ? '-' + integration : '') : 'etc';
     };
-    // return function(type) {
-    //   if (typeof type === 'undefined') return 'undefined';
+  });
 
-    //   var filetype = "";
+  /**
+   * file title을 filtering 함
+   * integration file의 경우 확장자를 표시하지 않음
+   */
+  app.filter('fileTitle', function() {
+    var nonExtMap = createMap(integrationType);
 
-    //   switch(type) {
-    //     // Image
-    //     case 'image/jpeg' : filetype = "img"; break;
-    //     case 'image/png'  : filetype = "img"; break;
-    //     case 'image/gif'  : filetype = "img"; break;
+    return function(content) {
+      var title = content.title || content.name;
 
-    //     // PDF
-    //     case 'application/pdf'  : filetype = "pdf"; break;
+      return content ? integrationMap[content.serverUrl] && !nonExtMap[content.type] ? title.substring(0, title.lastIndexOf('.')) : title : '';
+    };
+  });
 
-    //     // Video
-    //     case 'video/mp4'                :
-    //     case 'video/quicktime'          :
-    //     //case 'application/octet-stream' :
-    //     case 'video/x-matroska' : // mkv
-    //       filetype = "video";
-    //       break;
-
-    //     // Audio
-    //     case 'audio/mp3'  : filetype = "audio"; break;
-    //     case 'audio/mpeg' : filetype = "audio"; break;
-
-    //     // Zip
-    //     case 'application/zip'  : filetype = "zip"; break;
-
-    //     // Hanguel
-    //     case 'application/x-hwp': filetype = "hwp"; break;
-
-    //     // Text
-    //     case 'text/plain'           :
-    //     case 'application/msword'   :    // doc
-    //     case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :    // docx
-    //       filetype = "TXT";
-    //       break;
-
-    //     // Excel
-    //     case 'application/vnd.ms-excel' :          // xls
-    //     case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :          // xlsx
-    //       filetype = "EXCEL";
-    //       break;
-
-    //     // Etc
-    //     case 'application/vnd.ms-powerpoint' :      // ppt
-    //     case 'application/vnd.openxmlformats-officedocument.presentationml.presentation' :  // pptx
-    //       filetype = 'PPT';
-    //       break;
-
-    //     default:
-    //       filetype = "ETC";
-    //       break;
-    //   }
-    //   return filetype;
-    // };
+  /**
+   * preview image를 지원하는지 여부
+   */
+  app.filter('hasPreview', function() {
+    var rImage = /image/i;
+    return function(content) {
+      return !!content && !!content.extraInfo && rImage.test(content.filterType) && !integrationMap[content.serverUrl];
+    };
   });
 
   app.filter('isFileWriter', function() {

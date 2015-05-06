@@ -17,6 +17,7 @@
       mp_account_token    : '@@mp_account_token',
       mp_member_token     : '@@mp_member_token',
       base_url            : '@@base_url',
+      assets_url          : '@@assets_url',
       base_protocol       : '@@base_protocol',
       main_address        : '@@main_address',
       app_store_address   : '@@app_store_address',
@@ -27,7 +28,7 @@
 
   /* @ngInject */
   function run($rootScope, config) {
-    // server address, server api version 
+    // server address, server api version
     config.init($rootScope);
   }
 

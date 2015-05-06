@@ -244,8 +244,9 @@
     }
 
     function isDisabledMember(member) {
-
-      if (isNullOrUndefined(member)) return false;
+      if (member == null) {
+        return false;
+      }
 
       if (_isNumber(member)) {
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member);
@@ -253,7 +254,7 @@
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
       }
 
-      return member.status == 'disabled';
+      return member ? member.status === 'disabled' : true;
     }
 
     function _isNumber(obj) {

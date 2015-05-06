@@ -32,23 +32,17 @@
       <div ng-if="msg.message.status != 'archived'">
         <!--    IMAGE THUMBNAIL -->
         <div class="image_wrapper">
-          <img rotate rotate-left-align="true"
-               class="msg-file-body__img cursor_pointer"
-               data-ng-show="msg.message.content.filterType.indexOf('image') !== -1"
-               data-ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}"
-            />
+          <img class="msg-file-body__img cursor_pointer" rotate rotate-left-align="true"
+               ng-if="(msg.message.content | hasPreview)" ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}" />
         </div>
 
-        <div ng-if="msg.message.content.filterType.indexOf('image') !== -1 &&  isIE9" class="ie9-image-rotator cursor_pointer"
-             ng-click="onImageRotatorClick($event);">
+        <div class="ie9-image-rotator cursor_pointer" ng-if="(msg.message.content | hasPreview) &&  isIE9" ng-click="onImageRotatorClick($event);">
           <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
         </div>
 
         <!--    FILE TYPE THUMBNAIL -->
-        <div class="msg-file-body__thumbnail"
-             data-ng-if="msg.message.content.filterType.indexOf('image') == -1">
-          <div class="fileicon fileicon-{{msg.message.content.type | getFileIconImage | lowercase}}" ></div>
-
+        <div class="msg-file-body__thumbnail" ng-if="!(msg.message.content | hasPreview)">
+          <div class="fileicon fileicon-{{msg.message.content | fileIcon}}" ></div>
         </div>
       </div>
 
@@ -71,15 +65,13 @@
           <!--    TITLE   -->
           <a class="msg-file-meta__title file__name break-word"
              data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
-            {{ msg.message.content.title }}
+            {{ msg.message.content | fileTitle }}
           </a>
 
-          <span class="bullet">•</span>
-
+          <span class="bullet" ng-if="msg.message.content.size > 0">•</span>
           <!--    SIZE AND FILE TYPE  -->
-                  <span class="msg-file-meta-info">
-                    {{msg.message.content.size | bytes }} {{ msg.message.content | fileType }}
-                  </span>
+          <span class="msg-file-meta-info" ng-if="msg.message.content.size > 0">{{ msg.message.content.size | bytes }}</span>
+          <span class="msg-file-meta-info">{{ msg.message.content | fileType }}</span>
         </div>
 
         <!--  ARCHIVED FILE -->
@@ -126,14 +118,14 @@
                   </span>
 
         <!-- OPEN ORIGINAL  -->
-        <a class="cursor_pointer" href="{{ server_uploaded + msg.message.content.fileUrl }}" target="{{ server_uploaded + msg.message.content.fileUrl }}">
+        <a class="cursor_pointer" original-file file-url="{{msg.message.content.fileUrl}}">
           <span translate>@msg-open-original</span>
         </a>
 
         <span class="bullet">•</span>
 
         <!--    DOWNLOAD    -->
-        <a class="cursor_pointer" href="{{ server_uploaded +'download/' + msg.message.content.fileUrl }}" download="{{ msg.message.content.title  }}">
+        <a class="cursor_pointer" ng-if="!isIntegrateFile" download-file file-url="{{msg.message.content.fileUrl}}" file-title="{{msg.message.content.title}}">
           <span translate>@common-download</span>
         </a>
 

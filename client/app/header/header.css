@@ -18,6 +18,13 @@
   vertical-align: top;
 }
 
+.header-navbar>.divider {
+  width: 1px;
+  height: 17px;
+  background-color: #366480;
+  float: left;
+  margin-top: 12px;
+}
 .language-navbar-menu ul {
   min-width: 150px;
 }
@@ -41,10 +48,24 @@
   background: #366480;
   color: #fff;
 }
-.header-navbar__topmenu {
+#team-menu .header-navbar__topmenu {
+  padding: 0 10px 0 14px;
+}
+#invite .header-navbar__topmenu {
+  padding-top: 1px;
+  padding-left: 10px;
+}
+ .header-navbar__topmenu {
   display: block;
   padding: 0 11px 0 14px;
 }
+#invite .icon-invite-fill {
+  font-size: 16px;
+  float: left;
+  padding-top: 12px;
+  padding-right: 4px;
+}
+
 .header-navbar__menu-icon {
   vertical-align: middle;
 
