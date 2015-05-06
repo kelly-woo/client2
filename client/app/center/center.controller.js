@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, messageSearchHelper, currentSessionHelper, logger, centerService) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, messageSearchHelper, currentSessionHelper, logger, centerService, markerService) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
 
@@ -12,8 +12,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var entityType = $state.params.entityType;
   var entityId = $state.params.entityId;
-
-  var SCROLL_BOTTOM_THRESHOLD = 700;
 
   var isLogEnabled = true;
 
@@ -46,16 +44,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var firstMessageId;             // 현재 엔티티가 가지고 있는 가장 위 메세지 아이디.
   var lastMessageId;              // 현재 엔티티가 가지고 있는 가장 아래 메세지 아이디.
-  var localFirstMessageId;        // 메세지들 중 가장 위에 있는 메세지 아이디.
-  var localLastMessageId;         // 메세지들 중 가낭 아래에 있는 메세지 아이디.
+  var localFirstMessageId;        // 로드 된 메세지들 중 가장 위에 있는 메세지 아이디.
+  var localLastMessageId;         // 로드 된 메세지들 중 가낭 아래에 있는 메세지 아이디.
   var loadedFirstMessagedId;      // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
   var loadedLastMessageId;        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
 
   var systemMessageCount;         // system event message의 갯수를 keep track 한다.
 
   var hasRetryGetRoomInfo;        // Indicates that whether current entity has failed getting room info once.
-  var lastLinkIdToCount;
-  var memberIdToLastLinkId;
 
   var messages = {};
 
@@ -1353,73 +1349,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
   function _resetUnreadCounters() {
+    console.log('me resetting')
     hasRetryGetRoomInfo = false;
-    lastLinkIdToCount = {};
-    memberIdToLastLinkId = {};
-  }
-
-
-  /**
-   * Increment count value in 'lastLinkIdToCount'
-   *
-   * If lastLinkIdToCount[lastLinkId] does not exist, set it to 1.
-   *
-   * @param lastLinkId
-   * @private
-   */
-  function _putLastLinkId(lastLinkId, memberId) {
-    if (lastLinkIdToCount[lastLinkId]) {
-      var currentObj = lastLinkIdToCount[lastLinkId];
-
-      if (currentObj.members[memberId]) {
-        // 이미 memberId의 마커 정보가 저장되어있음.
-      } else {
-        // 새로운 마커를 추가.
-        var members = currentObj.members;
-        members[memberId] = true;
-        currentObj.count = currentObj.count + 1;
-
-        lastLinkIdToCount[lastLinkId] = currentObj;
-      }
-    } else {
-      // 기존에 없을 경우 새로 추가.
-      var members = {};
-      members[memberId] = true;
-
-      var obj = {
-        members: members,
-        count: 1
-      };
-
-      lastLinkIdToCount[lastLinkId] = obj;
-    }
-    //console.log('lastLinkId to count ', lastLinkIdToCount[lastLinkId]);
-  }
-
-  /**
-   * Put (memberId, lastLinkId) key-value pair in memberIdToLastLinkId map.
-   *
-   * @param memberId
-   * @param lastLinkId
-   * @private
-   */
-  function _putMemberIdToLastLinkId(memberId, lastLinkId) {
-    memberIdToLastLinkId[memberId] = lastLinkId;
-    //console.log('member id to last link ', memberIdToLastLinkId[memberId]);
-  }
-
-  /**
-   * Put new marker by adding both value to both 'lastLinkIdToCount' and 'memberIdToLastLinkId'.
-   *
-   * @param memberId
-   * @param lastLinkId
-   * @private
-   */
-  function _putNewMarker(memberId, lastLinkId) {
-    //console.log('putting new marker for ', memberId, ' with last link id of', lastLinkId);
-    if (lastLinkId < 0) return;
-    _putLastLinkId(lastLinkId, memberId);
-    _putMemberIdToLastLinkId(memberId, lastLinkId);
+    markerService.init();
   }
 
   /**
@@ -1431,76 +1363,29 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _initMarkers(markers) {
     //console.log('start initializing markers', markers);
 
+    markerService.resetMarkerOffset();
     _.forEach(markers, function(marker) {
-      //console.log(marker)
-      _putNewMarker(marker.memberId, marker.lastLinkId);
+      markerService.putNewMarker(marker.memberId, marker.lastLinkId, localLastMessageId);
     });
 
     _updateUnreadCount();
   }
 
-  function _updateMarker(memberId, lastLinkId) {
-    //console.log('update marker for ', memberId, ' to ', lastLinkId)
-    _removeMarker(memberId);
-    _putNewMarker(memberId, lastLinkId);
-  }
-
-  /**
-   * Remove marker by removing corresponding data from 'lastLinkIdToCount' and 'memberIdToLastLinkId'.
-   *
-   * @param memberId
-   * @private
-   */
-  function _removeMarker(memberId) {
-    var oldLastLinkId = _getLastLinkIdofMemberId(memberId);
-
-    if (publicService.isNullOrUndefined(oldLastLinkId)) return;
-
-    //console.log('decrementing count for ', oldLastLinkId, 'from ', lastLinkIdToCount[oldLastLinkId]);
-
-    var currentMarkerObj = lastLinkIdToCount[oldLastLinkId];
-    // Remove memberId from members.
-    delete currentMarkerObj.members[memberId];
-
-    var newSizeOfMembers = _.size(currentMarkerObj.members);
-
-    if (newSizeOfMembers === 0) {
-      delete lastLinkIdToCount[oldLastLinkId];
-    } else {
-      currentMarkerObj.count = newSizeOfMembers;
-    }
-
-    _removeMemberId(memberId);
-  }
-
-  /**
-   * get lastLinkId of memberId.
-   *
-   * @param memberId
-   * @returns {*}
-   * @private
-   */
-  function _getLastLinkIdofMemberId(memberId) {
-    return memberIdToLastLinkId[memberId];
-  }
-
-  /**
-   * Remove memberId from 'memberIdToLastLinkId'.
-   *
-   * @param memberId
-   * @private
-   */
-  function _removeMemberId(memberId) {
-    delete memberIdToLastLinkId[memberId];
-  }
   function _updateUnreadCount() {
+
+    //console.log('updating unread count');
+
     var globalUnreadCount;
+    var lastLinkIdToCount = markerService.getLastLinkIdToCountMap();
+    var markerOffset = markerService.getMarkerOffset();
+
 
     if (centerService.isChat()) {
-      globalUnreadCount = 2;
+      globalUnreadCount = 1;
     } else {
-      globalUnreadCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity());
+      globalUnreadCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity()) - 1;
     }
+    globalUnreadCount = globalUnreadCount - markerOffset;
 
     _.forEachRight($scope.messages, function(message, index) {
       if (!!lastLinkIdToCount[message.id]) {
@@ -1511,19 +1396,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
 
       if (message.unreadCount === '') {
-        // if message.unreadCount is an 'empty string', then globalUnreadCount for current message has reached to ZERO!!!
-        // There is no way that we need to increment unread count for any type of message.
+        // if message.unreadCount is an 'empty string', then globalUnreadCount for current message has reached ZERO!!!
+        // There is no need to increment unread count for any type of message.
         // So just leave as it is. as ZERO.
         globalUnreadCount = 0;
-      }
-
-      if (message.unreadCount < globalUnreadCount) {
+      } else if (message.unreadCount < globalUnreadCount) {
         globalUnreadCount = message.unreadCount;
       }
 
       if (globalUnreadCount < 0) globalUnreadCount = 0;
+
       message.unreadCount = globalUnreadCount === 0 ? '' : globalUnreadCount;
       $scope.messages[index] = message;
+
     });
 
   }
@@ -1535,17 +1420,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.$on('centerOnMarkerUpdated', function(event, param) {
     log('centerOnMarkerUpdated');
 
-    if (param.marker.memberId != memberService.getMemberId()) {
-      //log('updating individual marker');
-    }
+    markerService.updateMarker(param.marker.memberId, param.marker.lastLinkId);
 
-    _updateMarker(param.marker.memberId, param.marker.lastLinkId);
     _updateUnreadCount();
   });
 
   $scope.$on('centerOnTopicLeave', function(event, param) {
     // Someone left current topic -> update markers
-    _removeMarker(param.writer);
+    markerService.removeMarker(param.writer);
   });
 
   /**

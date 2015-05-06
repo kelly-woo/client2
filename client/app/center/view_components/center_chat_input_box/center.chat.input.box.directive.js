@@ -13,7 +13,7 @@
       scope: false,
       link: link,
       replace: true,
-      templateUrl: 'app/center/center_chat_input_box/center.chat.input.box.html'
+      templateUrl: 'app/center/view_components/center_chat_input_box/center.chat.input.box.html'
     };
 
     function link(scope, element, attrs) {

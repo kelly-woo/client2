@@ -3,14 +3,14 @@
 
   angular
     .module('jandiApp')
-    .directive('fileUploaded', fileUploaded);
+    .directive('dateDivider', dateDivider);
 
-  function fileUploaded() {
+  function dateDivider() {
     return {
       restrict: 'E',
       scope: false,
       link: link,
-      templateUrl: 'app/center/center_chat_templates/file_uploaded/file.uploaded.html'
+      templateUrl: 'app/center/view_components/center_chat_templates/date_divider/date.divider.html'
     };
 
     function link(scope, element, attrs) {

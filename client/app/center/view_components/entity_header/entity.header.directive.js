@@ -9,7 +9,7 @@
     return {
       restrict: 'EA',
       controller: 'entityHeaderCtrl',
-      templateUrl: 'app/center/entity_header/entity.header.html',
+      templateUrl: 'app/center/view_components/entity_header/entity.header.html',
       link: link
 
     };

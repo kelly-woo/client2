@@ -217,6 +217,12 @@
       storageAPIservice.removeLastStateLocal();
     }
 
+    /**
+     * Returns number of member in entity including myself.
+     *
+     * @param entity {entity}
+     * @returns {number} number of member in 'entity'
+     */
     function getMemberLength(entity) {
       if (angular.isUndefined(entity) || entity.type == 'users') {
         return -1;

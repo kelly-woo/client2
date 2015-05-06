@@ -3,14 +3,14 @@
 
   angular
     .module('jandiApp')
-    .directive('titleComment', titleComment);
+    .directive('systemEvent', systemEvent);
 
-  function titleComment() {
+  function systemEvent() {
     return {
       restrict: 'E',
       scope: false,
       link: link,
-      templateUrl: 'app/center/center_chat_templates/title_comment/title.comment.html'
+      templateUrl: 'app/center/view_components/center_chat_templates/system_event/system.event.html'
     };
 
     function link(scope, element, attrs) {

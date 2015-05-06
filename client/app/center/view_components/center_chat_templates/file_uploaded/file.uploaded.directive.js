@@ -3,14 +3,14 @@
 
   angular
     .module('jandiApp')
-    .directive('systemEvent', systemEvent);
+    .directive('fileUploaded', fileUploaded);
 
-  function systemEvent() {
+  function fileUploaded() {
     return {
       restrict: 'E',
       scope: false,
       link: link,
-      templateUrl: 'app/center/center_chat_templates/system_event/system.event.html'
+      templateUrl: 'app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html'
     };
 
     function link(scope, element, attrs) {

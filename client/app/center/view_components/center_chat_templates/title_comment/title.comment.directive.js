@@ -3,14 +3,14 @@
 
   angular
     .module('jandiApp')
-    .directive('dateDivider', dateDivider);
+    .directive('titleComment', titleComment);
 
-  function dateDivider() {
+  function titleComment() {
     return {
       restrict: 'E',
       scope: false,
       link: link,
-      templateUrl: 'app/center/center_chat_templates/date_divider/date.divider.html'
+      templateUrl: 'app/center/view_components/center_chat_templates/title_comment/title.comment.html'
     };
 
     function link(scope, element, attrs) {

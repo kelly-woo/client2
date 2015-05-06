@@ -94,7 +94,7 @@
 
     /**
      * Chat cloase event handler
-      */
+     */
     function chatMessageListEventHandler() {
       _updateMessageList();
     }
@@ -287,10 +287,7 @@
 
       _updateCenterMessage();
       _updateChatList();
-
-      if (!_isActionFromMe(writerEntity.id)) {
-        _sendBrowserNotificationForOtherEntity(_getRoom(room), writerEntity);
-      }
+      _sendBrowserNotificationForOtherEntity(_getRoom(room), writerEntity);
     }
 
     /**
@@ -421,6 +418,8 @@
      * @private
      */
     function _sendBrowserNotificationForOtherEntity(room, writer) {
+      if (_isActionFromMe(writer.id)) return;
+
       if (!_isCurrentEntity(room)) {
         // Non-current entity -> Send notification!!!
         log('Send browser notification');
