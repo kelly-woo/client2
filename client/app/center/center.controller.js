@@ -350,7 +350,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         // 엔티티 메세지 리스트 목록 얻기
         messageAPIservice.getMessages(entityType, entityId, $scope.msgSearchQuery)
           .success(function(response) {
-            //log('  -- loadMore success');
+            // Save entityId of current entity.
+            centerService.setEntityId(response.entityId);
 
             firstMessageId = response.firstLinkId;
             lastMessageId = response.lastLinkId;
@@ -1430,8 +1431,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
   }
 
+
   function _getEntityId() {
-    return centerService.getCurrentEntityId(entityType);
+    return centerService.getEntityId();
   }
 
   $scope.$on('centerUpdateChatList', function() {

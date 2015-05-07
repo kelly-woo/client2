@@ -18,7 +18,8 @@
     var SCROLL_BOTTOM_THRESHOLD = 700;    // threshold value to show 'scroll to bottom' icon on center panel.
     var hasBrowserFocus = true;           // indicator whether current browser has focus or not.
 
-    this.getCurrentEntityId = getCurrentEntityId;
+    var currentEntityId;
+
 
     this.preventChatWithMyself  = preventChatWithMyself;
     this.isIE9  = isIE9;
@@ -32,23 +33,8 @@
 
     this.isMessageFromMe = isMessageFromMe;
 
-
-    /**
-     * For Chat entities, return 'entityId'
-     * return 'id' for private/public topics.
-     *
-     * @param entityType
-     * @returns {*}
-     */
-    function getCurrentEntityId(entityType) {
-      var id = currentSessionHelper.getCurrentEntity().id;
-
-      if (entityType === 'users') {
-        id = currentSessionHelper.getCurrentEntity().entityId;
-      }
-
-      return id;
-    }
+    this.setEntityId = setEntityId;
+    this.getEntityId = getEntityId;
 
     /**
      * Check entityId of entity to be directed to currently signed in member's id.
@@ -122,5 +108,21 @@
      * @private
      */
     function isMessageFromMe(message) { return message.fromEntity === memberService.getMemberId(); }
+
+    /**
+     * For New 1:1 chat entity, there is no entityId info stored locally.
+     * However, new entityId is given as 'entityId' attribute in response of 'loadmore' function.
+     *
+     * Save currentEntityId everytime 'loadmore' gets called.
+     *
+     * @param entityId {number} entityId of current entity
+     *
+     */
+    function setEntityId(entityId) {
+      currentEntityId = entityId;
+    }
+    function getEntityId() {
+      return currentEntityId;
+    }
   }
 })();
