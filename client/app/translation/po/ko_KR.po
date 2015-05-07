@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.7.6\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -82,6 +82,7 @@ msgstr "새 창에서 보기"
 
 #: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/invitation/invitation.channel.html
 #: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 #: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
@@ -91,7 +92,7 @@ msgid "@btn-close"
 msgstr "닫기"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
@@ -117,8 +118,9 @@ msgstr "삭제하기"
 msgid "@btn-edit"
 msgstr "확인"
 
-#: client/app/header/header.html client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html
+#: client/app/header/header.html
+#: client/app/modal/invitation/invitation.channel.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 msgid "@btn-invite"
 msgstr "초대하기"
 
@@ -131,7 +133,7 @@ msgid "@btn-send"
 msgstr "보내기"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
@@ -147,32 +149,31 @@ msgstr "이름 변경하기"
 msgid "@btn-update-password"
 msgstr "비밀번호 변경하기"
 
-#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "업로드"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-delete"
 msgstr "토픽 삭제하기"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-invite"
 msgstr "토픽에 멤버 초대하기"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-leave"
 msgstr "토픽 나가기"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-rename"
 msgstr "토픽 이름 변경하기"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-star"
 msgstr "토픽 즐겨찾기 "
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-un-star"
 msgstr "즐겨찾기 해제 "
 
@@ -233,7 +234,7 @@ msgstr "메일함을 확인해 주세요."
 msgid "@common-comment"
 msgstr "댓글"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr "나가기"
@@ -266,8 +267,8 @@ msgid "@common-customer-service"
 msgstr "고객 센터"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/center/center_chat_templates/title_comment/title.comment.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "삭제된 파일"
@@ -285,7 +286,7 @@ msgstr "데스크탑 알림"
 msgid "@common-direct-messages"
 msgstr "1:1 메시지"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
 msgstr "차단된 멤버입니다"
 
@@ -302,9 +303,7 @@ msgid "@common-done"
 msgstr "완료"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@common-download"
 msgstr "다운로드"
 
@@ -590,7 +589,6 @@ msgstr "비공개"
 msgid "@common-type-public"
 msgstr "공개"
 
-#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "파일 업로드"
@@ -611,15 +609,15 @@ msgstr "으로부터 차단되었습니다. 자세한 사항은 팀 관리자에
 msgid "@current-member-disabled-notice-msg-pre"
 msgstr " "
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-file"
 msgstr "파일 보기"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-invite"
 msgstr "대화방으로 초대하기"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr "프로필 보기"
 
@@ -692,15 +690,15 @@ msgstr " "
 msgid "@file-size-too-large-error"
 msgstr "현재 100MB 이상의 파일은 업로드 할 수 없습니다."
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-computer"
 msgstr "내 컴퓨터"
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-dropbox"
 msgstr "드롭박스"
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-google-drive"
 msgstr "구글 드라이브"
 
@@ -708,7 +706,7 @@ msgstr "구글 드라이브"
 msgid "@go-to-latest-message-msg"
 msgstr "최신 메시지로 가기"
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "새로운 메시지가 있습니다."
 
@@ -765,6 +763,7 @@ msgstr "토픽 이름을 검색하세요"
 msgid "@input-search-file-title"
 msgstr "검색어를 입력하세요"
 
+#: client/app/modal/invitation/invitation.channel.html
 #: client/app/modal/invite.channel.html
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
@@ -881,7 +880,7 @@ msgid "@login-reset-password"
 msgstr "비밀번호 찾기"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/text/text.html
+#: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
@@ -939,6 +938,7 @@ msgid "@modal-dm-invite-msg1"
 msgstr ""
 "1:1 대화 중에 간편하게 해당 멤버를 다른 대화방으로 초대할 수 있습니다."
 
+#: client/app/modal/invitation/invitation.channel.html
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
 msgstr "멤버 초대하기"
@@ -1000,16 +1000,16 @@ msgstr ""
 msgid "@modal-upload-title-msg1"
 msgstr "파일명으로 파일을 쉽게 검색할 수 있습니다"
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "님이 공개 토픽을 생성했습니다."
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "님이 비공개 토픽을 생성했습니다."
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr "파일"
 
@@ -1017,40 +1017,40 @@ msgstr "파일"
 msgid "@msg-help-multiline"
 msgstr "줄바꿈: shift+enter"
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "님이"
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr "님을 초대했습니다"
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "님이 참여했습니다"
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "님이 떠났습니다"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "원본 파일 보기"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr "공유된"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr "공유 해제된"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr "님의"
 
@@ -1100,7 +1100,7 @@ msgstr "이메일이 성공적으로 발송되었습니다"
 msgid "@password-reset-message"
 msgstr "패스워드를 잊으셨나요? 새로운 패스워드를 입력해주세요."
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@placeholder-input-message"
 msgstr ""
 "메시지를 입력하세요 (Shift + Enter를 누르시면 줄바꿈을 하실 수 있습니다)"
@@ -1303,13 +1303,17 @@ msgstr "Welcome to JANDI!"
 msgid "@user"
 msgstr "1:1 대화방"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-star"
 msgstr "유저 즐겨찾기"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-un-star"
 msgstr "즐겨찾기 해제"
+
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-confirm-delete"
+msgstr "이 메시지를 삭제하시겠습니까? 삭제하시면 복구하실 수 없습니다."
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-post"

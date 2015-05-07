@@ -8,6 +8,7 @@
   desktopNotificationService.$inject = ['$rootScope', '$state', '$filter', 'entityAPIservice', 'accountService'];
 
   function desktopNotificationService($rootScope, $state, $filter, entityAPIservice, accountService) {
+    var NOTIFICATION_EXPIRE_TIME = 5000;
     var service = {
       addNotification: addNotification
     };
@@ -126,7 +127,7 @@
 
     // Binds fadeout effect on notification.
     function notificationFadeOut(noti) {
-      setTimeout(noti.close.bind(noti), 5000);
+      setTimeout(noti.close.bind(noti), NOTIFICATION_EXPIRE_TIME);
     }
     // Takes user to topic/messages where notification came from.
     function onNotificationClicked(noti) {

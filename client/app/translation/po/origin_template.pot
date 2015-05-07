@@ -77,6 +77,7 @@ msgstr ""
 #: client/app/modal/create.channel.html
 #: client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/invitation/invitation.channel.html
 #: client/app/modal/invite.channel.html
 #: client/app/modal/invite.direct.html
 #: client/app/modal/join.html
@@ -89,7 +90,7 @@ msgid "@btn-close"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
@@ -117,6 +118,7 @@ msgid "@btn-edit"
 msgstr ""
 
 #: client/app/header/header.html
+#: client/app/modal/invitation/invitation.channel.html
 #: client/app/modal/invite.channel.html
 #: client/app/modal/invite.direct.html
 msgid "@btn-invite"
@@ -131,7 +133,7 @@ msgid "@btn-send"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
@@ -148,32 +150,31 @@ msgstr ""
 msgid "@btn-update-password"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-delete"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-invite"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-leave"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-rename"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-star"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-un-star"
 msgstr ""
 
@@ -229,7 +230,7 @@ msgstr ""
 msgid "@common-comment"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr ""
@@ -261,8 +262,8 @@ msgid "@common-customer-service"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/center/center_chat_templates/title_comment/title.comment.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr ""
@@ -280,7 +281,7 @@ msgstr ""
 msgid "@common-direct-messages"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
 msgstr ""
 
@@ -297,9 +298,7 @@ msgid "@common-done"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@common-download"
 msgstr ""
 
@@ -590,7 +589,6 @@ msgstr ""
 msgid "@common-type-public"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr ""
@@ -611,15 +609,15 @@ msgstr ""
 msgid "@current-member-disabled-notice-msg-pre"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-file"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-invite"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr ""
 
@@ -692,15 +690,15 @@ msgstr ""
 msgid "@file-size-too-large-error"
 msgstr ""
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-computer"
 msgstr ""
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-dropbox"
 msgstr ""
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-google-drive"
 msgstr ""
 
@@ -708,7 +706,7 @@ msgstr ""
 msgid "@go-to-latest-message-msg"
 msgstr ""
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr ""
 
@@ -759,6 +757,7 @@ msgstr ""
 msgid "@input-search-file-title"
 msgstr ""
 
+#: client/app/modal/invitation/invitation.channel.html
 #: client/app/modal/invite.channel.html
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
@@ -861,7 +860,7 @@ msgid "@login-reset-password"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/text/text.html
+#: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
@@ -911,6 +910,7 @@ msgstr ""
 msgid "@modal-dm-invite-msg1"
 msgstr ""
 
+#: client/app/modal/invitation/invitation.channel.html
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
 msgstr ""
@@ -968,16 +968,16 @@ msgstr ""
 msgid "@modal-upload-title-msg1"
 msgstr ""
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr ""
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr ""
 
@@ -985,40 +985,40 @@ msgstr ""
 msgid "@msg-help-multiline"
 msgstr ""
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr ""
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr ""
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr ""
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr ""
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr ""
 
@@ -1068,7 +1068,7 @@ msgstr ""
 msgid "@password-reset-message"
 msgstr ""
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@placeholder-input-message"
 msgstr ""
 
@@ -1233,12 +1233,16 @@ msgstr ""
 msgid "@user"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-star"
 msgstr ""
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-un-star"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-confirm-delete"
 msgstr ""
 
 #: client/app/center/center.html
