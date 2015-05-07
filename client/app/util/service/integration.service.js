@@ -433,8 +433,6 @@
         angular.extend(this.options, options);
         this.options.buttonEle = $(this.options.buttonEle);
 
-        this._on();
-
         return this;
       },
       service: 'dropbox',
@@ -453,6 +451,8 @@
 
           that._open();
         });
+
+        that._open();
       },
       /**
        * dropbox choose object 생성 & 출력
@@ -528,8 +528,9 @@
               }
             ],
             startIntegration: function() {    // 연동 시작 버튼 핸들러
+              that._on();
+
               storageAPIservice.setCookie('integration_' + that.service, 'done');
-              that._open();
             },
             cInterface: 'confirm'   // modal의 확인 interface 명
           }
