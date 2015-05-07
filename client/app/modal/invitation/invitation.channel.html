@@ -1,6 +1,6 @@
 <!-- Modal: Invite to Channel/Group -->
 <div class="modal-header">
-  <button type="button" class="close" data-ng-click="cancel(); clear();"><i class="icon-cancel"></i></button>
+  <button type="button" class="close" ng-click="cancel(); clear();"><i class="icon-cancel"></i></button>
   <h3 class="modal-header__title">
     <span translate>@modal-invite-members</span>
   </h3>
@@ -26,9 +26,9 @@
       <!--    LIST OF USERS WHO WILL BE INVITED WHEN BUTTON IS CLICKED    -->
       <div class="form-invite-body__selected">
         <span class="cursor_pointer"
-              data-ng-repeat="user in userToInviteList = (availableMemberList | filter : {'selected' : true})"
-              data-ng-click="user.selected = false">
-          <span class="form-invite-body__selected-user btn-ok" data-ng-click="user.selected = true;">
+              ng-repeat="user in (availableMemberList | filter : { selected : true })"
+              ng-click="onRemove(user);">
+          <span class="form-invite-body__selected-user btn-ok">
             {{ user | getName }} <span class="fa fa-times"></span>
           </span>
         </span>
@@ -37,28 +37,28 @@
         <span class="input-group-addon"><i class="icon-search"></i></span>
         <input type="text"
           class="form-control green-input-box"
-          data-ng-model="selectedUser"
+          ng-model="selectedUser"
           typeahead="user as user|getName for user in availableMemberList | filter : { selected : false } | userByName:$viewValue"
-          typeahead-on-select="onUserSelected($item); selectedUser=''; $event.stopPropagation();"
+          typeahead-on-select="onSelect($item); selectedUser=''; $event.stopPropagation();"
           typeahead-template-url="customTemplate.html"
           placeholder="{{ '@input-search-user-name' | translate }}" />
       </div>
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-cancel" data-ng-click="cancel(); clear();"><span translate>@btn-close</span></button>
+      <button type="button" class="btn btn-cancel" ng-click="cancel(); clear();"><span translate>@btn-close</span></button>
       <input class="btn btn-ok" type="button" id="private_invite" value="{{ '@btn-invite' | translate }}" ng-click="onInviteClick(currentEntity.type);"/>
     </div>
     <script type="text/ng-template" id="customTemplate.html">
       <a class="match_container">
-        <span data-ng-click="match.model.selected = true" bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
-        <span data-ng-if="isMember(match.model)">check</span>
+        <span ng-click="match.model.selected = true" bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+        <span ng-if="isMember(match.model)">check</span>
       </a>
     </script>
   </div>
 </div>
 
-<div class="loading_container" data-ng-if="isLoading">
+<div class="loading_container" ng-if="isLoading">
   <div class="loading_container_background"></div>
   <div class="loading_bg"></div>
   <div class="loading_bar icon-loading"></div>

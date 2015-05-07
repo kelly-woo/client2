@@ -8,6 +8,7 @@
     .controller('invitationChannelCtrl', invitationChannelCtrl);
 
   function invitationChannelCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, $filter, publicService, analyticsService) {
+    var inviteUsers = [];
     InitInvite();
 
     /*
@@ -50,53 +51,57 @@
     // Below function gets called when 'enter/click' happens in typeahead.
     // This function is buggyyyy
     // TODO : FIX IT!
-    $scope.onUserSelected = function(selectedUser) {
-      selectedUser.selected = true;
+    $scope.onSelect = function(item) {
+      item.selected = true;
+      inviteUsers.push(item);
+    };
+    $scope.onRemove = function(item) {
+      item.selected = false;
+      inviteUsers.splice(inviteUsers.indexOf(item), 1);
     };
 
     $scope.onInviteClick = function(entityType) {
       var guestList = [];
 
-      if (angular.isUndefined($scope.userToInviteList)) return;
+      if (!$scope.isLoading && inviteUsers.length > 0) {
+        $scope.toggleLoading();
 
-      if ($scope.isLoading) return;
-      $scope.toggleLoading();
+        angular.forEach(inviteUsers, function(user) {
+          this.push(user.id);
+        }, guestList);
 
-      angular.forEach($scope.userToInviteList, function(user) {
-        this.push(user.id);
-      }, guestList);
+        entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
+          .success(function(response) {
+            //console.log(response)
+            // analytics
+            var entity_type = "";
+            switch (entityType) {
+              case 'channel':
+                entity_type = "topic";
+                break;
+              case 'privateGroup':
+                entity_type = "private group";
+                break;
+              default:
+                entity_type = "invalid";
+                break;
+            }
 
-      entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
-        .success(function(response) {
-          //console.log(response)
-          // analytics
-          var entity_type = "";
-          switch (entityType) {
-            case 'channel':
-              entity_type = "topic";
-              break;
-            case 'privateGroup':
-              entity_type = "private group";
-              break;
-            default:
-              entity_type = "invalid";
-              break;
-          }
+            analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
 
-          analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
+            // TODO -  ASK JOHN FOR AN API THAT RETRIEVES UPDATED INFO OF SPECIFIC TOPIC/PG.
+            $rootScope.$broadcast('updateLeftPanelCaller');
 
-          // TODO -  ASK JOHN FOR AN API THAT RETRIEVES UPDATED INFO OF SPECIFIC TOPIC/PG.
-          $rootScope.$broadcast('updateLeftPanelCaller');
-
-          $modalInstance.dismiss('success');
-        })
-        .error(function(error) {
-          // TODO - TO JAY, MAYBE WE NEED TO SHOW MESSAGE WHY IT FAILED??
-          console.error('inviteUsers', error.msg );
-        })
-        .finally(function() {
-          $scope.toggleLoading();
-        });
+            $modalInstance.dismiss('success');
+          })
+          .error(function(error) {
+            // TODO - TO JAY, MAYBE WE NEED TO SHOW MESSAGE WHY IT FAILED??
+            console.error('inviteUsers', error.msg );
+          })
+          .finally(function() {
+            $scope.toggleLoading();
+          });
+      }
     };
 
     $scope.cancel = function() {
