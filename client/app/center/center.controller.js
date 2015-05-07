@@ -1485,7 +1485,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
   function _resetUnreadCounters() {
-    console.log('me resetting')
     hasRetryGetRoomInfo = false;
     markerService.init();
   }

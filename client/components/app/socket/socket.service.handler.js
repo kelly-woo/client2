@@ -9,6 +9,8 @@
   function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService,
                               logger, $state, configuration, config, desktopNotificationService) {
 
+    this.newMemberHandler = newMemberHandler;
+
     this.teamNameChangeEventHandler = teamNameChangeEventHandler;
     this.teamDomainChangeEventHandler = teamDomainChangeEventHandler;
 
@@ -53,6 +55,12 @@
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
 
     var chatEntity = 'chat';
+
+
+    function newMemberHandler(data) {
+      _updateLeftPanel();
+      _updateCenterForCurrentEntity(_getRoom(data.room));
+    }
 
     /**
      * Team name change event Handler

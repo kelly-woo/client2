@@ -289,6 +289,15 @@
       if (messageType === MESSAGE_TOPIC_LEAVE) {
         jndWebSocketHelper.messageEventTopicLeaveHandler(data);
       }
+
+      if (messageType === MESSAGE_TOPIC_JOIN) {
+
+        if (currentSessionHelper.getDefaultTopicId() === data.room.id) {
+          // Someone joined 'default topic' -> new member just joined team!!
+          jndWebSocketHelper.newMemberHandler(data);
+          return;
+        }
+      }
       messageType = messageType || _APP_GOT_NEW_MESSAGE;
 
       jndWebSocketHelper.socketEventLogger(messageType, data, false);
