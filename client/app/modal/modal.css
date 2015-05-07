@@ -373,7 +373,8 @@
 }
 .form-horizontal input:active,
 .form-horizontal input:focus {
-  border: 1px solid #d2d2d2;
+  border: 1px solid #154a67;
+  color: #333;
 }
 
 .loading_container {
