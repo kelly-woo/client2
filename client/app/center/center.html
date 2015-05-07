@@ -223,7 +223,7 @@
           <div ng-if="msg.message.status != 'archived'">
             <!--    TITLE   -->
             <a class="msg-file-meta__title file__name break-word"
-               data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+               ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
               {{ msg.message.content.title }}
             </a>
 
@@ -238,7 +238,7 @@
           <!--  ARCHIVED FILE -->
           <div class="archived-file-title" ng-if="msg.message.status == 'archived'">
             <a class="msg-file-meta__title file__name"
-               data-ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+               ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
               <span translate>@common-deleted-file-title</span>
             </a>
 

@@ -5,7 +5,7 @@
     <img rotate rotate-width="65" rotate-height="65" class="cursor_pointer msg-file-body__img"
          data-ng-show="file.content.filterType.indexOf('image') !== -1"
          data-ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"
-         data-ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>
+         ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>
   </div>
 
   <!--    IF NOT IMAGE TYPE, SHOW FILE TYPE PREVIEW   -->
