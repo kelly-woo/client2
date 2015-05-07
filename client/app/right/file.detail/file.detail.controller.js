@@ -7,7 +7,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   //console.info('[enter] fileDetailCtrl');
 
   var fileId = $state.params.itemId;
-
+  var isPostingComment;
   if (_.isUndefined(fileId)) return;
 
   $scope.initialLoaded    = false;
@@ -50,6 +50,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   })();
 
   function _init() {
+    isPostingComment = false;
     getFileDetail();
   }
 
@@ -118,6 +119,10 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   $scope.postComment = function() {
     if (!$scope.comment || !$scope.comment.content) return;
 
+    if (isPostingComment) return;
+
+    isPostingComment = true;
+
     fileAPIservice.postComment(fileId, $scope.comment.content)
       .success(function(response) {
         $scope.glued = true;
@@ -125,7 +130,9 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
         $scope.focusPostComment = true;
       })
       .error(function(err) {
-        $state.go('error', {code: err.code, msg: err.msg, referrer: "fileAPIservice.postComment"});
+      })
+      .finally(function() {
+        isPostingComment = false;
       });
   };
 
