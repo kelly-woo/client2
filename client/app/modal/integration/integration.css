@@ -52,6 +52,10 @@
 	color: #333;
 	line-height: 22px;
 }
+.integration-modal .desc b {
+	font-weight: 700;
+	color: #EC8B00;
+}
 
 .picker.modal-dialog {
 	line-height: 1;
