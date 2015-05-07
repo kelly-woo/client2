@@ -195,14 +195,14 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   fileAPI.generateFileTypeFilter = function() {
     var array = [
       {viewValue: $filter('translate')('@common-file-type-all'), value: 'all'},
+      {viewValue: $filter('translate')('@common-file-type-google-docs'), value: 'googleDocs'},
       {viewValue: $filter('translate')('@common-file-type-documents'), value: 'document'},
       {viewValue: $filter('translate')('@common-file-type-presentations'), value: 'presentation'},
       {viewValue: $filter('translate')('@common-file-type-spreadsheets'), value: 'spreadsheet'},
       {viewValue: $filter('translate')('@common-file-type-pdf'), value: 'pdf'},
       {viewValue: $filter('translate')('@common-file-type-images'), value: 'image'},
       {viewValue: $filter('translate')('@common-file-type-video'), value: 'video'},
-      {viewValue: $filter('translate')('@common-file-type-audio'), value: 'audio'},
-      {viewValue: $filter('translate')('@common-file-type-google-docs'), value: 'googleDocs'}
+      {viewValue: $filter('translate')('@common-file-type-audio'), value: 'audio'}
     ];
     return array;
   };
