@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.7.6\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -64,8 +64,8 @@ msgstr "更新成功完成"
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/integration/integration.html
-#: client/app/modal/password.reset.request.html
-#: client/app/modal/rename.html client/app/modal/share/share.html
+#: client/app/modal/password.reset.request.html client/app/modal/rename.html
+#: client/app/modal/share/share.html
 #: client/app/modal/team_change/team.change.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
@@ -80,21 +80,19 @@ msgstr "更改"
 msgid "@btn-click-to-view"
 msgstr "點擊檢視"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html client/app/modal/join.html
-#: client/app/modal/password.reset.request.html
+#: client/app/modal/invitation/invitation.channel.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
+#: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
-#: client/app/modal/settings.service.html
-#: client/app/modal/settings.team.html
+#: client/app/modal/settings.service.html client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@btn-close"
 msgstr "關閉"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-comment"
@@ -105,8 +103,7 @@ msgstr "留言"
 msgid "@btn-confirm"
 msgstr "確定"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@btn-create"
 msgstr "建立"
@@ -121,8 +118,9 @@ msgstr "刪除"
 msgid "@btn-edit"
 msgstr "提交"
 
-#: client/app/header/header.html client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html
+#: client/app/header/header.html
+#: client/app/modal/invitation/invitation.channel.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 msgid "@btn-invite"
 msgstr "邀請"
 
@@ -135,7 +133,7 @@ msgid "@btn-send"
 msgstr "送出"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
@@ -151,40 +149,39 @@ msgstr "更新姓名"
 msgid "@btn-update-password"
 msgstr "更新密碼"
 
-#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-upload"
 msgstr "上傳"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-delete"
 msgstr "刪除議題"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-invite"
 msgstr "邀請成員至此議題"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-leave"
 msgstr "離開議題"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-rename"
 msgstr "重新命名議題"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-star"
 msgstr "標記議題"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-un-star"
 msgstr "取消標記議題"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
 msgstr ""
-"\"私人群組被更名爲私人議題並整合到議題列表中。私人議題都標有上鎖符號，"
-"並像以前一樣提供僅限邀請機制，僅參與者可以看到所有溝通内容。\""
+"\"私人群組被更名爲私人議題並整合到議題列表中。私人議題都標有上鎖符號，並像以"
+"前一樣提供僅限邀請機制，僅參與者可以看到所有溝通内容。\""
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
@@ -193,9 +190,9 @@ msgstr "直接傳訊的對話現在將根據最新的訊息自動重新排序。
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-3"
 msgstr ""
-"針對直接傳訊，初始設定是如果是已經傳出的訊息將表列出來，但您可以選擇關"
-"閉並隱藏它們。當您收到新的訊息，已關閉的直接傳訊將會自動重新出現（連同"
-"訊息歷史記錄），或者您也可以點擊‘+添加’來啟動對話。"
+"針對直接傳訊，初始設定是如果是已經傳出的訊息將表列出來，但您可以選擇關閉並隱"
+"藏它們。當您收到新的訊息，已關閉的直接傳訊將會自動重新出現（連同訊息歷史記"
+"錄），或者您也可以點擊‘+添加’來啟動對話。"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-title"
@@ -230,12 +227,11 @@ msgstr "直接傳訊"
 msgid "@common-check-email-inbox"
 msgstr "請到您的電子郵件信箱收信。"
 
-#: client/app/modal/share/share.html
-#: client/app/modal/upload/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-comment"
 msgstr "留言"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr "離開"
@@ -243,8 +239,8 @@ msgstr "離開"
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave-confirm"
 msgstr ""
-"您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，"
-"直到您收到新的訊息或以手動方式重新打開它。 "
+"您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直到您"
+"收到新的訊息或以手動方式重新打開它。 "
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@common-copy"
@@ -268,8 +264,8 @@ msgid "@common-customer-service"
 msgstr "客服"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/center/center_chat_templates/title_comment/title.comment.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "已刪除檔案"
@@ -287,7 +283,7 @@ msgstr "桌面通知"
 msgid "@common-direct-messages"
 msgstr "直接傳訊"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
 msgstr "這成員已經被暫時關閉"
 
@@ -304,9 +300,7 @@ msgid "@common-done"
 msgstr "確認"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@common-download"
 msgstr "下載"
 
@@ -417,8 +411,7 @@ msgstr "完成了"
 msgid "@common-file-upload-progress-msg"
 msgstr "上傳中..."
 
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html client/app/right/right.html
 msgid "@common-files"
 msgstr "檔案"
 
@@ -466,8 +459,7 @@ msgstr "發送者是"
 msgid "@common-more"
 msgstr "瀏覽"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
@@ -509,8 +501,7 @@ msgstr "隱私權條款"
 msgid "@common-profile-settings"
 msgstr "簡介設定"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "@common-purpose"
 msgstr "敘述"
 
@@ -534,14 +525,12 @@ msgstr "服務偏好"
 msgid "@common-share-file"
 msgstr "分享檔案"
 
-#: client/app/modal/share/share.html
-#: client/app/modal/upload/upload.html
+#: client/app/modal/share/share.html client/app/modal/upload/upload.html
 msgid "@common-share-in"
 msgstr "分享在"
 
 #: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html
-#: client/app/right/files/files.html
+#: client/app/right/files/file/file.html client/app/right/files/files.html
 msgid "@common-shared-in"
 msgstr "曾經分享在哪個議題下"
 
@@ -560,8 +549,7 @@ msgstr "登出"
 #: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
 msgstr ""
-"您所有直接傳訊的訊息現在是隱藏的。點擊以下按鍵以開始或重新打開一個對"
-"話。"
+"您所有直接傳訊的訊息現在是隱藏的。點擊以下按鍵以開始或重新打開一個對話。"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
@@ -595,7 +583,6 @@ msgstr "私人"
 msgid "@common-type-public"
 msgstr "公開"
 
-#: client/app/modal/integration/integration.html
 #: client/app/modal/upload/upload.html
 msgid "@common-upload-file"
 msgstr "上傳檔案"
@@ -616,15 +603,15 @@ msgstr "使用權限已經暫時被關閉。欲知更多細節，請聯係團隊
 msgid "@current-member-disabled-notice-msg-pre"
 msgstr "您的"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-file"
 msgstr "檢視檔案"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-invite"
 msgstr "邀請此成員加入其它議題"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr "檢視簡介"
 
@@ -697,15 +684,15 @@ msgstr "刪除時間："
 msgid "@file-size-too-large-error"
 msgstr "您目前將無法上傳大於100MB的任何單一檔案。"
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-computer"
 msgstr "我的電腦"
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-dropbox"
 msgstr "Dropbox"
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-google-drive"
 msgstr " Google雲端硬碟"
 
@@ -713,15 +700,15 @@ msgstr " Google雲端硬碟"
 msgid "@go-to-latest-message-msg"
 msgstr "去到最近的訊息"
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "您有新訊息"
 
 #: client/app/modal/upload/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"IE9瀏覽器無法適當支援文件預覽。如果圖像不能正確顯示，別擔心，這不影響"
-"您上傳的檔案。"
+"IE9瀏覽器無法適當支援文件預覽。如果圖像不能正確顯示，別擔心，這不影響您上傳"
+"的檔案。"
 
 #: client/app/modal/upload/upload.html
 msgid "@ie9-please-do-not-use"
@@ -730,8 +717,7 @@ msgstr "爲了達到對JANDI的最佳體驗，請使用最新版本的IE瀏覽�
 #: client/app/modal/current_member_profile/settings.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
-"IE9瀏覽器不支援的簡介照片編輯。請使用IE瀏覽器的最新版本以達到最佳體"
-"驗。"
+"IE9瀏覽器不支援的簡介照片編輯。請使用IE瀏覽器的最新版本以達到最佳體驗。"
 
 #: client/app/modal/create.channel.html
 #: client/app/modal/topic_create/topic.create.html
@@ -768,6 +754,7 @@ msgstr "按名字搜尋議題"
 msgid "@input-search-file-title"
 msgstr "關鍵字搜尋"
 
+#: client/app/modal/invitation/invitation.channel.html
 #: client/app/modal/invite.channel.html
 #: client/app/modal/team_member_list/team.member.list.html
 msgid "@input-search-user-name"
@@ -811,8 +798,8 @@ msgstr "連結你的Google帳戶"
 #: client/app/modal/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
-"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使"
-"用篩選功能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
+"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使用篩選"
+"功能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
 
 #: client/app/modal/integration/integration.html
 msgid "@integration-submit"
@@ -866,13 +853,12 @@ msgstr "在您的桌機上使用JANDI或帶著它到處走動 "
 msgid "@login-invalid"
 msgstr "電子郵件或密碼無效"
 
-#: client/app/modal/password.reset.request.html
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/text/text.html
+#: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
@@ -893,8 +879,8 @@ msgstr "  "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"- 私人議題對未受邀成員不開放- 在私人議題内已分享檔案僅開放給其參與者- "
-"已設定爲公開或私人的議題在建立之後不能被轉換成另一個"
+"- 私人議題對未受邀成員不開放- 在私人議題内已分享檔案僅開放給其參與者- 已設定"
+"爲公開或私人的議題在建立之後不能被轉換成另一個"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -924,6 +910,7 @@ msgstr "邀請成員加入其他議題"
 msgid "@modal-dm-invite-msg1"
 msgstr "您可以邀請此使用者加入議題"
 
+#: client/app/modal/invitation/invitation.channel.html
 #: client/app/modal/invite.channel.html
 msgid "@modal-invite-members"
 msgstr "邀請成員"
@@ -982,16 +969,16 @@ msgstr ""
 msgid "@modal-upload-title-msg1"
 msgstr "按標題搜尋"
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "建立公開議題 "
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "建立私人議題"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr "檔案"
 
@@ -999,40 +986,40 @@ msgstr "檔案"
 msgid "@msg-help-multiline"
 msgstr "Shift鍵加Enter鍵可多行輸入"
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "邀請了"
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr " "
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "已經加入"
 
-#: client/app/center/center_chat_templates/system_event/system.event.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "已經離開"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "打開原始檔案"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr "分享過"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr "未分享過"
 
 #: client/app/center/center.html
-#: client/app/center/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr "的"
 
@@ -1082,7 +1069,7 @@ msgstr "電子郵件已經成功寄出"
 msgid "@password-reset-message"
 msgstr "忘記密碼？重新設定一組新密碼。"
 
-#: client/app/center/center_chat_input_box/center.chat.input.box.html
+#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@placeholder-input-message"
 msgstr "輸入訊息（Shift+Enter 進行換行）"
 
@@ -1094,15 +1081,14 @@ msgstr "私人议题"
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
 msgstr ""
-"搜尋 <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</"
-"span>..."
+"搜尋 <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>..."
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 與 "
-"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 與 <span "
+"class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -1123,8 +1109,8 @@ msgstr "您確定您要更改團隊的網域(URL)？"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-msg"
 msgstr ""
-"您的團隊成員是使用網域(URL)在網頁上登入。請確保您的團隊成員都知道的任"
-"何更改。"
+"您的團隊成員是使用網域(URL)在網頁上登入。請確保您的團隊成員都知道的任何更"
+"改。"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-taken-warning-msg"
@@ -1133,8 +1119,7 @@ msgstr "網域已被別人使用"
 #: client/app/modal/settings.team.html
 msgid "@setting-team-domain-warning-msg"
 msgstr ""
-"網域名稱必須至少有3個字符，並且只能由小寫字母，數字和連字符（ - ）組"
-"成。"
+"網域名稱必須至少有3個字符，並且只能由小寫字母，數字和連字符（ - ）組成。"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-name-change"
@@ -1191,22 +1176,22 @@ msgstr "知道了！"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選"
-"定檔案後，將點擊右邊的「ᵒᵒᵒ」即可。"
+"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定檔案"
+"後，將點擊右邊的「ᵒᵒᵒ」即可。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分"
-"享、曾經分享在哪個議題下”的項目進行搜尋。"
+"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、曾"
+"經分享在哪個議題下”的項目進行搜尋。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」"
-"即可收納搜尋欄。"
+"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即可收"
+"納搜尋欄。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
@@ -1220,8 +1205,8 @@ msgstr "送出訊息及上傳檔案"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側"
-"的按鈕和選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
+"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按鈕"
+"和選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -1234,15 +1219,15 @@ msgstr "TIPS"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
-"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直"
-"接傳訊會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並"
-"隱藏直接傳訊，同時仍然保留訊息歷史直到對話重新啟動。"
+"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳訊"
+"會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳"
+"訊，同時仍然保留訊息歷史直到對話重新啟動。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟"
-"動新的私人議題。"
+"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新的"
+"私人議題。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
@@ -1251,9 +1236,9 @@ msgstr "‘公開議題’、‘私人議題’及‘直接傳訊’有什麽不
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、"
-"午餐的建議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添"
-"加’來建立您自己的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
+"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐的"
+"建議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建立您"
+"自己的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -1262,8 +1247,8 @@ msgstr "繼續 »"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
 msgstr ""
-"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最"
-"重要的提示。"
+"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最重要的"
+"提示。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
@@ -1273,13 +1258,17 @@ msgstr "歡迎使用JANDI!"
 msgid "@user"
 msgstr "一對一"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-star"
 msgstr "標記此成員"
 
-#: client/app/center/entity_header/entity.header.html
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-un-star"
 msgstr "取消標記此成員"
+
+#: client/app/center/center.html
+msgid "@web-notification-body-messages-confirm-delete"
+msgstr "您確定要刪除此訊息嗎？刪除的訊息將無法回復。"
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-post"
@@ -1334,8 +1323,8 @@ msgstr "JANDI 新訊息"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "離開私人議題後，未來希望能夠重新加入，必須先取得其它人的邀請。您確"
-#~ "定要離開嗎？"
+#~ "離開私人議題後，未來希望能夠重新加入，必須先取得其它人的邀請。您確定要離"
+#~ "開嗎？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "沒有上傳檔案"

@@ -8,6 +8,8 @@
 
   /* @ngInject */
   function headerCtrl($scope, $rootScope, $state, $stateParams, $filter, $modal, accountService, memberService, publicService, configuration, language, modalHelper) {
+    var modalMap;
+    var modalOpenMap;
 
     (function() {
       _initRightPanelButtonLabel();
@@ -86,62 +88,62 @@
       publicService.signOut();
     };
 
-    $scope.openModal = function(selector) {
-      switch(selector) {
-        case 'agreement':
-          publicService.openAgreementModal();
-          break;
-        case 'privacy':
-          publicService.openPrivacyModal();
-          break;
-        case 'channel':
-          publicService.openTopicCreateModal($scope);
-          break;
-        case 'private':
-          publicService.openPrivateCreateModal($scope);
-          break;
-        case 'invite':
-          publicService.openInviteToTeamModal($scope);
-          break;
-        case 'team-change':
-          publicService.openTeamChangeModal($scope);
-          break;
-        case 'setting-team':
-          publicService.openTeamSettingModal($scope);
-          break;
-        case 'team-member':
-          modalHelper.openTeamMemberListModal();
-          break;
-        default:
-          break;
-      }
 
-
-      if (selector == 'setting-profile') {
+    modalMap = {
+      'agreement': function() {
+        publicService.openAgreementModal();
+      },
+      'privacy': function() {
+        publicService.openPrivacyModal();
+      },
+      'channel': function() {
+        publicService.openTopicCreateModal($scope);
+      },
+      'private': function() {
+        publicService.openPrivateCreateModal($scope);
+      },
+      'invite': function() {
+        publicService.openInviteToTeamModal($scope);
+      },
+      'team-change': function() {
+        publicService.openTeamChangeModal($scope);
+      },
+      'setting-team': function() {
+        publicService.openTeamSettingModal($scope);
+      },
+      'team-member': function() {
+        modalHelper.openTeamMemberListModal();
+      },
+      'setting-profile': function() {
         $modal.open({
           scope       :   $scope,
           templateUrl :   'app/modal/settings.profile.html',
           controller  :   'profileCtrl',
           size        :   'lg'
         });
-      }
-      else if (selector == 'setting-account') {
+      },
+      'setting-account': function() {
         $modal.open({
           scope       :   $scope,
           templateUrl :   'app/modal/settings.account.html',
           controller  :   'accountController',
           size        :   'lg'
         });
-      }
-      else if (selector === 'setting-service') {
+      },
+      'setting-service': function() {
         $modal.open({
           sopce       : $scope,
           templateUrl : 'app/modal/settings.service.html',
           controller  : 'preferencesController',
-//                windowClass : 'modal-wide',
+//        windowClass : 'modal-wide',
           size        : 'lg'
         });
       }
+    };
+    $scope.openModal = function(selector) {
+      var fn;
+
+      (fn = modalMap[selector]) && fn();
     };
     $scope.toggleLoading = function() {
       $scope.isLoading = !$scope.isLoading;

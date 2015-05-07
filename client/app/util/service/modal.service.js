@@ -67,23 +67,29 @@
       };
       modal = _modalOpener(modalOption);
     }
+    var inviteModalLock;
     function openInviteToTeamModal() {
-      // modal에 해당 member의 team information을 전달 해야함.
-      teamAPIservice.getTeamInfo()
-        .success(function(res) {
-          var modalOption = {
-            templateUrl :   'app/modal/invitation/invitation.team.html',
-            controller  :   'invitationTeamCtrl',
-            size        :   'lg',
-            resolve: {
-              teamInfo: function() {
-                return res;
+      if (!inviteModalLock) {
+        inviteModalLock = true;
+        // modal에 해당 member의 team information을 전달 해야함.
+        teamAPIservice.getTeamInfo()
+          .success(function(res) {
+            var modalOption = {
+              templateUrl :   'app/modal/invitation/invitation.team.html',
+              controller  :   'invitationTeamCtrl',
+              size        :   'lg',
+              resolve: {
+                teamInfo: function() {
+                  return res;
+                }
               }
-            }
-          };
-
-          modal = _modalOpener(modalOption);
-        });
+            };
+            modal = _modalOpener(modalOption);
+          })
+          .finally(function() {
+            inviteModalLock = false;
+          });
+      }
     }
 
     function openCurrentMemberModal($scope) {
