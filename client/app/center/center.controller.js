@@ -887,12 +887,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
   $scope.deleteMessage = function(message) {
     //console.log("delete: ", message.messageId);
-    messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
-      .success(function(response) {
-      })
-      .error(function(response) {
-        updateList();
-      });
+    if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
+      messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
+          .success(function (response) {
+          })
+          .error(function (response) {
+            updateList();
+          });
+    }
   };
   $scope.openModal = function(selector) {
     // OPENING JOIN MODAL VIEW
