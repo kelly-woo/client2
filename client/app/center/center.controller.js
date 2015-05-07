@@ -743,7 +743,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         }
         break;
       case 'archived':
-        isArchived = _spliceMessage(msg) !== -1;
+        isArchived = _spliceMessage(msg);
         break;
       case 'shared':
         msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
