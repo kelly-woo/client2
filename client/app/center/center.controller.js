@@ -636,129 +636,175 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isPolling = true;
 
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
-      .success(function (response) {
-
-        // lastUpdatedId 갱신 --> lastMessageId
-        lastUpdatedLinkId = response.lastLinkId;
-
-        response = response.updateInfo;
-
-        if (response.messageCount) {
-
-          if (!_hasLastMessage()) {
-            _gotNewMessage();
-            return;
-          }
-          // 업데이트 된 메세지 처리
-          if (response.messages.length > 0) {
-            for (var i in response.messages) {
-              var msg = response.messages[i];
-
-              if (localLastMessageId >= msg.id) {
-                // Prevent duplicate messages in center panel.
-                return;
-              }
-
-              if ($scope.isPosting)
-                $scope.isPosting = false;
-
-              // auto focus to textarea
-              $scope.focusPostMessage = true;
-
-              if (msg.status == 'event') {
-                // System Event Message.
-                msg = eventMsgHandler(msg);
-                $scope.messages.push(msg);
-                _handleSystemEventMessage();
-                continue;
-              } else {
-                log('not a system event message ');
-                var isArchived = false;
-
-                // Non System Event Message.
-                switch (msg.status) {
-                  case 'created':
-                    $scope.messages.push(msg);
-                    break;
-                  case 'edited':
-                    var target = _.find($scope.messages, function(m) {
-                      return m.messageId === msg.messageId;
-                    });
-                    if (!_.isUndefined(target)) {
-                      var targetIdx = $scope.messages.indexOf(target);
-                      $scope.messages.splice(targetIdx, 1);
-                      $scope.messages.push(msg);
-                    }
-                    break;
-                  case 'archived':
-
-                    var target = _.find($scope.messages, function(m) {
-                      return m.messageId === msg.messageId;
-                    });
-
-                    if (!_.isUndefined(target)) {
-                      var targetIdx = $scope.messages.indexOf(target);
-                      $scope.messages.splice(targetIdx, 1);
-                      isArchived = true;
-                    }
-
-                    break;
-                  case 'shared':
-                    msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
-                    $scope.messages.push(msg);
-                    break;
-                  case 'unshared':
-                    var target = _.find($scope.messages.reverse(), function(m) {
-                      return m.messageId === msg.messageId;
-                    });
-                    if (!_.isUndefined(target)) {
-                      // 기존 shared message 제거
-                      var targetIdx = $scope.messages.indexOf(target);
-                      $scope.messages.splice(targetIdx, 1);
-                      // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
-                      msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
-                      $scope.messages.push(msg);
-                    }
-                    break;
-                  default:
-                    console.error("!!! unfiltered message", msg);
-                    break;
-                }
-                if (!isArchived)
-                  _newMessageAlertChecker(msg);
-              }
-
-              var safeBody = msg.message.content.body;
-              if (safeBody != undefined && safeBody !== "") {
-                safeBody = $filter('parseAnchor')(safeBody);
-              }
-              msg.message.content.body = $sce.trustAsHtml(safeBody);
-            }
-
-            groupByDate();
-          }
-
-          //  marker 설정
-          updateMessageMarker();
-
-          // When there is a message to update on current topic.
-          localLastMessageId = lastUpdatedLinkId;
-          loadedLastMessageId = localLastMessageId;
-          lastMessageId = localLastMessageId;
-
-          _checkEntityMessageStatus();
-          _updateUnreadCount();
-        }
-
-
-
-      })
+      .success(_onUpdatedMessagesSuccess)
       .error(function (response) {
         onHttpRequestError(response);
       });
 
     // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
     //$scope.promise = $timeout(updateList, updateInterval);
+  }
+
+  /**
+   * 메세지 success 핸들러
+   * @param {object} response 서버 응답
+   * @private
+   */
+  function _onUpdatedMessagesSuccess(response) {
+    // lastUpdatedId 갱신 --> lastMessageId
+    lastUpdatedLinkId = response.lastLinkId;
+    response = response.updateInfo;
+
+    if (response.messageCount) {
+      if (!_hasLastMessage()) {
+        _gotNewMessage();
+      } else {
+        // 업데이트 된 메세지 처리
+        _updateMessages(response.messages);
+        //  marker 설정
+        updateMessageMarker();
+        _checkEntityMessageStatus();
+        _updateUnreadCount();
+      }
+    }
+  }
+
+  /**
+   * messages 를 loop 돌며 업데이트 한다.
+   * @param {array} messages 처리할 메세지 리스트
+   * @private
+   */
+  function _updateMessages(messages) {
+    var length = messages.length;
+    var msg;
+    // Prevent duplicate messages in center panel.
+    if (length && localLastMessageId < messages[0].id) {
+      $scope.isPosting = $scope.isPosting ? false : $scope.isPosting;
+      // auto focus to textarea
+      $scope.focusPostMessage = true;
+
+      for (var i = 0; i < length; i++) {
+        msg = messages[i];
+        if (_isSystemMessage(msg)) {
+          _updateSystemMessage(msg);
+        } else {
+          _updateUserMessage(msg);
+        }
+        _filterContentBody(msg);
+      }
+      groupByDate();
+    }
+  }
+
+  /**
+   * 메세지를 노출하기 알맞게 가공한다.
+   * @param {object} msg 메세지
+   * @private
+   */
+  function _filterContentBody(msg) {
+    var safeBody = msg.message.content.body;
+    if (safeBody != undefined && safeBody !== "") {
+      safeBody = $filter('parseAnchor')(safeBody);
+    }
+    msg.message.content.body = $sce.trustAsHtml(safeBody);
+  }
+
+  /**
+   * 단일 시스템 메세지를 처리한다.
+   * @param {object} msg 메세지
+   * @private
+   */
+  function _updateSystemMessage(msg) {
+    switch (msg.status) {
+      case 'event':
+        $scope.messages.push(eventMsgHandler(msg));
+        _handleSystemEventMessage();
+        break;
+      default:
+        console.error("!!! unfiltered system message", msg);
+        break;
+    }
+  }
+
+  /**
+   * 단일 사용자 메세지를 처리한다.
+   * @param {object} msg 메세지
+   * @private
+   */
+  function _updateUserMessage(msg) {
+    var isArchived = false;
+    switch (msg.status) {
+      case 'created':
+        $scope.messages.push(msg);
+        break;
+      case 'edited':
+        if (_spliceMessage(msg)) {
+          $scope.messages.push(msg);
+        }
+        break;
+      case 'archived':
+        isArchived = _spliceMessage(msg);
+        break;
+      case 'shared':
+        msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
+        $scope.messages.push(msg);
+        break;
+      case 'unshared':
+        if (_spliceMessage(msg)) {
+          msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
+          $scope.messages.push(msg);
+        }
+        break;
+      default:
+        console.error("!!! unfiltered message", msg);
+        break;
+    }
+
+    if (!isArchived) {
+      // When there is a message to update on current topic.
+      lastMessageId = loadedLastMessageId = localLastMessageId = lastUpdatedLinkId;
+      _newMessageAlertChecker(msg);
+    }
+  }
+
+  /**
+   * 시스템 메세지 여부를 반환한다.
+   * @param {object} msg 메세지
+   * @returns {boolean} 시스템 메세지 여부
+   * @private
+   */
+  function _isSystemMessage(msg) {
+    var sysMap = {
+      'event': true
+    };
+    return !!(msg && sysMap[msg.status]);
+  }
+
+  /**
+   * 메세지를 splice 한다.
+   * @param msg
+   * @returns {boolean} splice 수행 여부
+   * @private
+   */
+  function _spliceMessage(msg) {
+    var targetIdx = _getTargetIndex(msg);
+    if (targetIdx !== -1) {
+      $scope.messages.splice(targetIdx, 1);
+    }
+    return targetIdx !== -1;
+  }
+
+  /**
+   * msg 의 index 를 반환한다.
+   * @param {object} msg index를 확인할 메세지
+   * @returns {number} 인덱스. 찾지 못할 경우 -1 반환
+   * @private
+   */
+  function _getTargetIndex(msg) {
+    var target = _.find($scope.messages, function(m) {
+      return m.messageId === msg.messageId;
+    });
+    return _.isUndefined(target) ? -1 : $scope.messages.indexOf(target);
   }
 
   function onHttpRequestError(response) {

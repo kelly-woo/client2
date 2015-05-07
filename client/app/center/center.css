@@ -247,7 +247,7 @@ article {
   margin-top: 13px;
 }
 .msg-item.text-child {
-  margin-top: -13px;
+  margin-top: 0;
 }
 
 .msg-item.file-upload {
