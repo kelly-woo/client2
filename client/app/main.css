@@ -451,7 +451,7 @@ input[type="button"] {
   background-image: url('../assets/images/icon_signout.png');
 }
 .fileicon {
-  background-image: url('../assets/images/fileicons.png');
+  background-image: url('../assets/images/fileicons.png') no-repeat;
   width: 26px;
   height: 31px;
   display: block;
