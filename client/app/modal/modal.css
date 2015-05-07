@@ -646,6 +646,7 @@
   position: absolute;
   width: 65px;
   height: 65px;
+  overflow: hidden;
 }
 .modal-share__file-type__image {
   width: 100%;
