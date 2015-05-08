@@ -17,8 +17,6 @@
       setCurrentEntity: setCurrentEntity,
       getCreatorId: getCreatorId,
       setStarred: setStarred,
-      getTmpSharedMessages: getTmpSharedMessages,
-      setTmpSharedMessages: setTmpSharedMessages,
       isMember: isMember,
       updateBadgeValue: updateBadgeValue,
       setBadgeValue: setBadgeValue,
@@ -237,20 +235,6 @@
 
     function isOwner(entity, memberId) {
       return (entity.ch_creatorId || entity.pg_creatorId) == memberId;
-    }
-
-    /**
-     * center.controller.js 에서 _messageProcessor 실행 시점에 msg.message.shared에 할당되는 값을
-     * msg.message를 가지고 알 수 없으므로(msg.message.shareEntites의 값이 room ID와 user id 혼용으로 인한)
-     * meg.message가 확장되는 시점인 messages.controller에 _generateMessageList 실행에 수행하기 위해
-     * 임시로 process를 가지고 있다 전달하는 역활을 함.
-     */
-    var tmpSharedMessages;
-    function getTmpSharedMessages() {
-      return tmpSharedMessages;
-    }
-    function setTmpSharedMessages(tmp) {
-      tmpSharedMessages = tmp;
     }
   }
 })();
