@@ -123,6 +123,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
         }
 
         break;
+      case '404':
+        event.preventDefault();
+        $state.go('notfound');
+        break;
       default:
         break;
     }

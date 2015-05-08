@@ -109,5 +109,12 @@ app.config(function ($stateProvider) {
       title       : '404',
       templateUrl : 'app/error/404.html',
       controller  : 'errorController'
+    })
+    .state('notfound', {
+      url         : '/lostinjandi',
+      title       : '404',
+      templateUrl : 'app/error/404.html',
+      controller  : 'errorController'
     });
+
 });
