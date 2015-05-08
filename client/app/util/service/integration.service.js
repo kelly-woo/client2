@@ -455,7 +455,7 @@
           that._open();
         });
 
-        that._open();
+        // that._open();
       },
       /**
        * dropbox choose object 생성 & 출력
@@ -550,7 +550,7 @@
 
       if (!googleDriveIntegrationLock) {
         googleDriveIntegrationLock = true;
-        if (!window.googleDriveIntegration) {
+        if (!googleDriveIntegration) {
           $.getScript('https://www.google.com/jsapi?key=' + apiKey)
             .success(function() {
               $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker')
@@ -585,7 +585,7 @@
 
       if (!dropboxIntegrationLock) {
         dropboxIntegrationLock = true;
-        if (!window.dropboxIntegration) {
+        if (!dropboxIntegration) {
           $.getScript('https://www.dropbox.com/static/api/2/dropins.js', function() {
             Dropbox.appKey = apiKey;
 
