@@ -162,9 +162,12 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     var content = fileDetail.content;
 
     // file detail에서 preview image 설정
-    $scope.ImageUrl = $filter('hasPreview')(content) ?
-      $scope.server_uploaded + content.extraInfo.largeThumbnailUrl :
-      (integrationPreviewMap[content.serverUrl] && (configuration.assets_url + integrationPreviewMap[content.serverUrl]));
+    if ($filter('hasPreview')(content)) {
+      $scope.ImageUrl = $scope.server_uploaded + content.extraInfo.largeThumbnailUrl;
+    } else {
+      $scope.ImageUrl = (integrationPreviewMap[content.serverUrl] && (configuration.assets_url + integrationPreviewMap[content.serverUrl]));
+      $scope.cursor = 'pointer';
+    }
   }
 
   $scope.onImageClick = function() {

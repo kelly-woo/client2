@@ -65,6 +65,8 @@
 
     function _generateMessageList(messages) {
       var messageList = [];
+      var sharedMessages;
+      var i, len;
       messages = _.uniq(messages, 'entityId');
       _.each(messages, function(message) {
 
@@ -87,6 +89,11 @@
           messageList.push(entity);
         }
       });
+
+      sharedMessages = entityAPIservice.getTmpSharedMessages();
+      for (i = 0, len = sharedMessages.length; i < len; ++i) {
+        sharedMessages[i]();
+      }
 
       return messageList;
     }
