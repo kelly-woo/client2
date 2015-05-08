@@ -285,7 +285,7 @@
         if (token = gapi.auth.getToken()) {
           that._showPicker();
         } else {
-          storageAPIservice.getCookie('integration_' + that.service) !== 'done' ? that._openIntegrationModal() : that._open();
+          storageAPIservice.getCookie('integration', 'google') !== true ? that._openIntegrationModal() : that._open();
         }
       },
       /**
@@ -410,7 +410,7 @@
               }
             ],
             startIntegration: function() {    // 연동 시작 버튼 핸들러
-              storageAPIservice.setCookie('integration_' + that.service, 'done');
+              storageAPIservice.setCookie('integration', 'google', true);
               that._open();
             },
             cInterface: 'confirm'             // modal의 확인 interface 명
@@ -424,19 +424,23 @@
      */
     var DropBoxIntegration = Integration.create({
       init: function(options) {
-        Integration.init.call(this, options);
+        var that = this;
 
-        this.options = {
+        Integration.init.call(that, options);
+
+        that.options = {
           multiple: true
         };
 
-        angular.extend(this.options, options);
-        this.options.buttonEle = $(this.options.buttonEle);
+        angular.extend(that.options, options);
+        that.options.buttonEle = $(that.options.buttonEle);
 
         // DropboxIntegration object 생성시 cookie에 dropbox integrate cookie가 있다면 바로 Dropbox listener를 button에 등록함.
-        storageAPIservice.getCookie('integration_' + this.service) === 'done' && this._on();
+        storageAPIservice.getCookie('integration', 'dropbox') === true && that._on(function () {
+          that._open();
+        });
 
-        return this;
+        return that;
       },
       service: 'dropbox',
       /**
@@ -445,7 +449,7 @@
        * _on function은 DropBoxIntegration object 생성시 한번 addListener를 사용하여 특정
        * dom element click시 마다 chooser object를 생성하도록 함.
        */
-      _on: function() {
+      _on: function(callback) {
         var that = this;
         var options = that.options;
 
@@ -456,6 +460,8 @@
 
           that._open();
         });
+
+        callback && callback();
       },
       /**
        * dropbox choose object 생성 & 출력
@@ -468,7 +474,7 @@
 
         that.options.scope = scope;
 
-        storageAPIservice.getCookie('integration_' + that.service) !== 'done' ? that._openIntegrationModal() : !that.isOn && that._open();
+        storageAPIservice.getCookie('integration', 'dropbox') !== true ? that._openIntegrationModal() : !that.isOn && that._open();
       },
       /**
        * dropbox의 modal open
@@ -531,9 +537,11 @@
               }
             ],
             startIntegration: function() {    // 연동 시작 버튼 핸들러
-              that._on();
-              storageAPIservice.setCookie('integration_' + that.service, 'done');
-              that._open();
+              storageAPIservice.setCookie('integration', 'dropbox', true);
+
+              that._on(function() {
+                that._open();
+              });
             },
             cInterface: 'confirm'   // modal의 확인 interface 명
           }
