@@ -7,7 +7,7 @@
     .module('jandiApp')
     .controller('invitationChannelCtrl', invitationChannelCtrl);
 
-  function invitationChannelCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, $filter, publicService, analyticsService) {
+  function invitationChannelCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter, publicService, analyticsService) {
     var inviteUsers = [];
     InitInvite();
 
@@ -53,7 +53,7 @@
     // TODO : FIX IT!
     $scope.onSelect = function(item) {
       item.selected = true;
-      inviteUsers.push(item);
+      inviteUsers.indexOf(item) < 0 && inviteUsers.push(item);
     };
     $scope.onRemove = function(item) {
       item.selected = false;

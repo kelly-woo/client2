@@ -413,6 +413,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _messageProcessor(messagesList) {
+    var sharedMessages = [];
 
     messagesList = messagesList.reverse();
 
@@ -422,8 +423,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else {
       _updateMessageIds(messagesList);
     }
-
-
 
     for (var i in messagesList) {
       var msg = messagesList[i];
@@ -439,7 +438,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // shared entities 가 있을 경우
       if ( (msg.status === 'shared' || msg.status === 'unshared') && msg.message.shareEntities.length) {
         // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
-        msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
+
+        // msg.message.shareEntites의 값 중 room id와 user id를 식별가능한 시점에 실행시키기 위해 sharedMessages에 담음
+        sharedMessages.push(
+          (function(msg) {
+            return function() {
+              msg.message.shared = fileAPIservice.getSharedEntities(msg.message, function(sharedEntityId) {
+                return entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId) ||
+                  entityAPIservice.getEntityFromListByEntityId($rootScope.memberList, sharedEntityId);
+              });
+            };
+          }(msg))
+        );
       }
 
       // parse HTML, URL code
@@ -450,8 +460,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       msg.message.content.body = $sce.trustAsHtml(safeBody);
 
       $scope.messages.unshift(msg);
-
     }
+
+    entityAPIservice.setTmpSharedMessages(sharedMessages);
   }
 
   function _isInitialLoad() {

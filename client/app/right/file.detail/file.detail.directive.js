@@ -12,7 +12,16 @@
     };
 
     function link(scope, element) {
-      scope.ImageUrl ? element.show().children('img').attr('src', scope.ImageUrl) : element.hide();
+      var ele;
+
+      if (scope.ImageUrl) {
+        ele = element.show().children('img');
+        ele.attr({ src: scope.ImageUrl });
+
+        scope.cursor && ele.css({ cursor: scope.cursor });
+      } else {
+        element.hide();
+      }
     }
   }
 })();

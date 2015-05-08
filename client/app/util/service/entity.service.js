@@ -17,6 +17,8 @@
       setCurrentEntity: setCurrentEntity,
       getCreatorId: getCreatorId,
       setStarred: setStarred,
+      getTmpSharedMessages: getTmpSharedMessages,
+      setTmpSharedMessages: setTmpSharedMessages,
       isMember: isMember,
       updateBadgeValue: updateBadgeValue,
       setBadgeValue: setBadgeValue,
@@ -26,7 +28,6 @@
       getMemberLength: getMemberLength,
       isDefaultTopic: isDefaultTopic,
       isOwner: isOwner
-
     };
 
     return service;
@@ -45,19 +46,11 @@
      */
     function getEntityFromListByEntityId(list, entityId) {
       entityId = parseInt(entityId);
-
       if (entityId === $rootScope.member.id) return $rootScope.member;
 
-      var returnObj;
-
-      _.forEach(list, function(entity, index) {
-        if (entity.entityId == entityId) {
-          returnObj = entity;
-        }
-      });
-
-      return returnObj;
+      return _getSelectEntity(list, entityId, 'entityId');
     }
+
 
     /**
      * Takes an 'id' of entity as a 'value'
@@ -67,20 +60,25 @@
      * @param value
      * @returns {*}
      */
-    function getEntityFromListById (list, value) {
-      value = parseInt(value);
+    function getEntityFromListById (list, id) {
+      id = parseInt(id);
+      if (id === $rootScope.member.id) return $rootScope.member;
 
-      if (value === $rootScope.member.id) return $rootScope.member;
+      return _getSelectEntity(list, id, 'id');
+    }
 
-      var returnEntity;
+    function _getSelectEntity(list, id, name) {
+      var item;
+      var i;
+      var len;
 
-      _.forEach(list, function(entity, index) {
-        if (entity.id == value) {
-          returnEntity = entity;
+      for (i = 0, len = list.length; i < len; ++i) {
+        item = list[i];
+
+        if (item[name] === id) {
+          return item;
         }
-      });
-
-      return returnEntity;
+      }
     }
 
     /**
@@ -239,6 +237,20 @@
 
     function isOwner(entity, memberId) {
       return (entity.ch_creatorId || entity.pg_creatorId) == memberId;
+    }
+
+    /**
+     * center.controller.js 에서 _messageProcessor 실행 시점에 msg.message.shared에 할당되는 값을
+     * msg.message를 가지고 알 수 없으므로(msg.message.shareEntites의 값이 room ID와 user id 혼용으로 인한)
+     * meg.message가 확장되는 시점인 messages.controller에 _generateMessageList 실행에 수행하기 위해
+     * 임시로 process를 가지고 있다 전달하는 역활을 함.
+     */
+    var tmpSharedMessages;
+    function getTmpSharedMessages() {
+      return tmpSharedMessages;
+    }
+    function setTmpSharedMessages(tmp) {
+      tmpSharedMessages = tmp;
     }
   }
 })();
