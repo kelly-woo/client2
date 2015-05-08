@@ -13,26 +13,23 @@
         <span class="msg-item-header__nameSpace">
           <span ng-if="msg.message.contentType !== 'file'"> {{msg.fromEntity | getName}}</span>
         </span>
-
-        <!--    CREATED TIME    -->
-        <span class="msg-item-header__created">
-          {{msg.time | gethmmaFormat}}
-        </span>
-
-        <span class="badge unread-badge">{{ msg.unreadCount }}</span>
       </span>
-      <!--    DELETE ICON APPEARS ON HOVER    -->
-      <a class="msg-item__action link-remove pull-right cursor_pointer"
-         data-ng-if="member.id === msg.fromEntity"
-         data-ng-click="deleteMessage(msg)"
-         tooltip="{{ '@message-delete' | translate }}">
-        <i class="icon-cancel"></i>
-      </a>
     </div>
     <div class="msg-item-body">
       <!-- TEXT -->
       <div class="msg-text">
-        <p class="msg-text-body keep" data-ng-bind-html="(msg.message.content.body) || ''"></p>
+        <span class="keep msg-text-body" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+        <span class="msg-item-header__created">
+          {{msg.time | gethmmaFormat}}
+        </span>
+        <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+        <!--    DELETE ICON APPEARS ON HOVER    -->
+        <a class="msg-item__action link-remove pull-right cursor_pointer"
+           data-ng-if="member.id === msg.fromEntity"
+           data-ng-click="deleteMessage(msg)"
+           tooltip="{{ '@message-delete' | translate }}">
+          <i class="icon-cancel"></i>
+        </a>
       </div>
     </div>
   </div>

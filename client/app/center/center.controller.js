@@ -1188,6 +1188,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.
   //  listening to 'elastic:resize' and move msg-holder to right position.
   $scope.$on('elastic:resize', function() {
+    if (_isBottomReached()) {
+      _scrollToBottom();
+    }
     $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 30);
   });
 
@@ -1667,5 +1670,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _hasBottomReached() {
     return centerService.hasBottomReached();
+  }
+
+  /**
+   * chat 스크롤이 최 하단에 닿아있는지 여부를 반환한다.
+   * @returns {boolean} 최 하단에 닿아있는지 여부
+   * @private
+   */
+  function _isBottomReached() {
+    return $('#msgs-container')[0].scrollTop + $('#msgs-container').height() >= $('#msgs-holder').outerHeight();
   }
 });
