@@ -433,6 +433,9 @@
         angular.extend(this.options, options);
         this.options.buttonEle = $(this.options.buttonEle);
 
+        // DropboxIntegration object 생성시 cookie에 dropbox integrate cookie가 있다면 바로 Dropbox listener를 button에 등록함.
+        storageAPIservice.getCookie('integration_' + this.service) === 'done' && this._on();
+
         return this;
       },
       service: 'dropbox',
@@ -448,7 +451,7 @@
 
         Dropbox.addListener(options.event.currentTarget, 'click', function(evt) {
           evt.preventDefault();
-
+          console.log('up upupup dropbox ::: ');
           that._open();
         });
 
