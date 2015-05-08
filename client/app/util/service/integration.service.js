@@ -449,13 +449,13 @@
         var that = this;
         var options = that.options;
 
+        that.isOn = true;
+
         Dropbox.addListener(options.event.currentTarget, 'click', function(evt) {
           evt.preventDefault();
-          console.log('up upupup dropbox ::: ');
+
           that._open();
         });
-
-        // that._open();
       },
       /**
        * dropbox choose object 생성 & 출력
@@ -466,9 +466,9 @@
 
         var that = this;
 
-        this.options.scope = scope;
+        that.options.scope = scope;
 
-        storageAPIservice.getCookie('integration_' + that.service) !== 'done' ? that._openIntegrationModal() : that._open();
+        storageAPIservice.getCookie('integration_' + that.service) !== 'done' ? that._openIntegrationModal() : !that.isOn && that._open();
       },
       /**
        * dropbox의 modal open
@@ -532,8 +532,8 @@
             ],
             startIntegration: function() {    // 연동 시작 버튼 핸들러
               that._on();
-
               storageAPIservice.setCookie('integration_' + that.service, 'done');
+              that._open();
             },
             cInterface: 'confirm'   // modal의 확인 interface 명
           }
