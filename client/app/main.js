@@ -88,16 +88,6 @@ app.config(function ($stateProvider) {
       title       : 'ERROR',
       controller  : 'errorController'
     })
-    .state('404', {
-      url         : '/404',
-      title       : '404',
-      views       : {
-        '': {
-          templateUrl : 'app/error/404.html',
-          controller  : 'errorController'
-        }
-      }
-    })
     .state('password', {
       url         : '/passwordreset?token',
       title       : 'Reset Password',
@@ -113,5 +103,11 @@ app.config(function ($stateProvider) {
       url         : '/gongsajung',
       templateUrl : 'app/tpl/503/503.html',
       controller  : 'underConstructionCtrl'
+    })
+    .state('404', {
+      url         : '/404',
+      title       : '404',
+      templateUrl : 'app/error/404.html',
+      controller  : 'errorController'
     });
 });
