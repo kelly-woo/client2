@@ -65,6 +65,7 @@
 
     function _generateMessageList(messages) {
       var messageList = [];
+
       messages = _.uniq(messages, 'entityId');
       _.each(messages, function(message) {
 

@@ -26,7 +26,6 @@
       getMemberLength: getMemberLength,
       isDefaultTopic: isDefaultTopic,
       isOwner: isOwner
-
     };
 
     return service;
@@ -45,19 +44,11 @@
      */
     function getEntityFromListByEntityId(list, entityId) {
       entityId = parseInt(entityId);
-
       if (entityId === $rootScope.member.id) return $rootScope.member;
 
-      var returnObj;
-
-      _.forEach(list, function(entity, index) {
-        if (entity.entityId == entityId) {
-          returnObj = entity;
-        }
-      });
-
-      return returnObj;
+      return _getSelectEntity(list, entityId, 'entityId');
     }
+
 
     /**
      * Takes an 'id' of entity as a 'value'
@@ -67,20 +58,25 @@
      * @param value
      * @returns {*}
      */
-    function getEntityFromListById (list, value) {
-      value = parseInt(value);
+    function getEntityFromListById (list, id) {
+      id = parseInt(id);
+      if (id === $rootScope.member.id) return $rootScope.member;
 
-      if (value === $rootScope.member.id) return $rootScope.member;
+      return _getSelectEntity(list, id, 'id');
+    }
 
-      var returnEntity;
+    function _getSelectEntity(list, id, name) {
+      var item;
+      var i;
+      var len;
 
-      _.forEach(list, function(entity, index) {
-        if (entity.id == value) {
-          returnEntity = entity;
+      for (i = 0, len = list.length; i < len; ++i) {
+        item = list[i];
+
+        if (item[name] === id) {
+          return item;
         }
-      });
-
-      return returnEntity;
+      }
     }
 
     /**

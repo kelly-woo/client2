@@ -129,13 +129,21 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   };
 
   // Populating a list of entities to be displayed as 'shared channel/privateGroup'.
-  fileAPI.getSharedEntities = function(file) {
+  fileAPI.getSharedEntities = function(file, getSharedEntity) {
 
     var sharedEntityArray = [];
     var unique = _.uniq(file.shareEntities);
 
+    // shareEntities의 값 중 DM의 경우 room id와 user id를 전달하는 경우가 나누어 지므로
+    // getEntityFromListById를 수행하고 값이 존재하지 않으면 getEntityFromListByEntityId를 수행함.
+    //
+    // TODO: shareEntities 값 항상 room id로 전달하도록 수정하기로 back-end와 합의봄
+    getSharedEntity = getSharedEntity ? getSharedEntity : function(sharedEntityId) {
+      return entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId);
+    };
+
     _.each(unique, function(sharedEntityId) {
-      var sharedEntity = entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId);
+      var sharedEntity = getSharedEntity(sharedEntityId);
       if (angular.isUndefined(sharedEntity)) {
         // If I don't have it in my 'totalEntities', it means entity is 'archived'.
         // Just return from here;

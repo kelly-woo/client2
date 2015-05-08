@@ -285,7 +285,7 @@
         if (token = gapi.auth.getToken()) {
           that._showPicker();
         } else {
-          storageAPIservice.getCookie('integration_' + that.service) !== 'done' ? that._openIntegrationModal() : that._open();
+          storageAPIservice.getCookie('integration', 'google') !== true ? that._openIntegrationModal() : that._open();
         }
       },
       /**
@@ -410,7 +410,7 @@
               }
             ],
             startIntegration: function() {    // 연동 시작 버튼 핸들러
-              storageAPIservice.setCookie('integration_' + that.service, 'done');
+              storageAPIservice.setCookie('integration', 'google', true);
               that._open();
             },
             cInterface: 'confirm'             // modal의 확인 interface 명
@@ -424,16 +424,23 @@
      */
     var DropBoxIntegration = Integration.create({
       init: function(options) {
-        Integration.init.call(this, options);
+        var that = this;
 
-        this.options = {
+        Integration.init.call(that, options);
+
+        that.options = {
           multiple: true
         };
 
-        angular.extend(this.options, options);
-        this.options.buttonEle = $(this.options.buttonEle);
+        angular.extend(that.options, options);
+        that.options.buttonEle = $(that.options.buttonEle);
 
-        return this;
+        // DropboxIntegration object 생성시 cookie에 dropbox integrate cookie가 있다면 바로 Dropbox listener를 button에 등록함.
+        storageAPIservice.getCookie('integration', 'dropbox') === true && that._on(function () {
+          that._open();
+        });
+
+        return that;
       },
       service: 'dropbox',
       /**
@@ -442,9 +449,11 @@
        * _on function은 DropBoxIntegration object 생성시 한번 addListener를 사용하여 특정
        * dom element click시 마다 chooser object를 생성하도록 함.
        */
-      _on: function() {
+      _on: function(callback) {
         var that = this;
         var options = that.options;
+
+        that.isOn = true;
 
         Dropbox.addListener(options.event.currentTarget, 'click', function(evt) {
           evt.preventDefault();
@@ -452,7 +461,7 @@
           that._open();
         });
 
-        that._open();
+        callback && callback();
       },
       /**
        * dropbox choose object 생성 & 출력
@@ -463,9 +472,9 @@
 
         var that = this;
 
-        this.options.scope = scope;
+        that.options.scope = scope;
 
-        storageAPIservice.getCookie('integration_' + that.service) !== 'done' ? that._openIntegrationModal() : that._open();
+        storageAPIservice.getCookie('integration', 'dropbox') !== true ? that._openIntegrationModal() : !that.isOn && that._open();
       },
       /**
        * dropbox의 modal open
@@ -528,9 +537,11 @@
               }
             ],
             startIntegration: function() {    // 연동 시작 버튼 핸들러
-              that._on();
+              storageAPIservice.setCookie('integration', 'dropbox', true);
 
-              storageAPIservice.setCookie('integration_' + that.service, 'done');
+              that._on(function() {
+                that._open();
+              });
             },
             cInterface: 'confirm'   // modal의 확인 interface 명
           }
@@ -547,7 +558,7 @@
 
       if (!googleDriveIntegrationLock) {
         googleDriveIntegrationLock = true;
-        if (!window.googleDriveIntegration) {
+        if (!googleDriveIntegration) {
           $.getScript('https://www.google.com/jsapi?key=' + apiKey)
             .success(function() {
               $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker')
@@ -582,7 +593,7 @@
 
       if (!dropboxIntegrationLock) {
         dropboxIntegrationLock = true;
-        if (!window.dropboxIntegration) {
+        if (!dropboxIntegration) {
           $.getScript('https://www.dropbox.com/static/api/2/dropins.js', function() {
             Dropbox.appKey = apiKey;
 

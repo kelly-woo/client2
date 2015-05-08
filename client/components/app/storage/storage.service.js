@@ -393,18 +393,37 @@
      * @param {string} name
      * @param {string} value
      */
-    function setCookie(name, value) {
-      localStorageService.cookie.set(name, value);
+    function setCookie(prefix, name, value) {
+      var cookie = _decookie(prefix);
+
+      cookie[name] = value;
+
+      _encookie(prefix, cookie);
     }
     /**
      * get cookie
      * @param {string} name
      * @returns {string}
      */
-    function getCookie(name) {
-      return localStorageService.cookie.get(name);
+    function getCookie(prefix, name) {
+      return _decookie(prefix)[name];
+    }
+
+    function _decookie(prefix) {
+      var cookie;
+
+      cookie = localStorageService.cookie.get(prefix);
+      if (cookie != null) {
+        cookie = JSON.parse(cookie);
+      } else {
+        cookie = {};
+      }
+
+      return cookie;
+    }
+
+    function _encookie(prefix, cookie) {
+      localStorageService.cookie.set(prefix, JSON.stringify(cookie));
     }
   }
 })();
-
-
