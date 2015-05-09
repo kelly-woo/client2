@@ -242,9 +242,11 @@
      */
     var GoogleDriveIntegration = Integration.create({
       init: function(options) {
-        Integration.init.call(this, options);
+        var that = this;
 
-        this.localeMap = {
+        Integration.init.call(that, options);
+
+        that.localeMap = {
           'ko': 'ko',
           'zh-cn': 'zh-CN',
           'zh-tw': 'zh-TW',
@@ -252,21 +254,21 @@
           'en': 'en'
         };
 
-        this.options = {
+        that.options = {
           apiKey: '',
           clientId: '',
           multiple: true
         };
 
-        angular.extend(this.options, options);
-        this.options.buttonEle = $(this.options.buttonEle);
+        angular.extend(that.options, options);
+        that.options.buttonEle = $(that.options.buttonEle);
 
         // Load the drive API
-        gapi.client.setApiKey(this.options.apiKey);
-        gapi.client.load('drive', 'v2', this._driveApiLoaded.bind(this) );
-        google.load('picker', '1', { callback: this._pickerApiLoaded.bind(this) });
+        gapi.client.setApiKey(that.options.apiKey);
+        gapi.client.load('drive', 'v2', that._driveApiLoaded.bind(that) );
+        google.load('picker', '1', { callback: that._pickerApiLoaded.bind(that) });
 
-        return this;
+        return that;
       },
       service: 'google', // server에 전달하는 service type
       /**
@@ -274,10 +276,10 @@
        * token이 존재한다면 picker를 바로 출력하고, 아니면 인증완료후 picker 호출
        */
       open: function(scope) {
-        Integration.open.call(this);
+        var that = this;
+        var token;
 
-        var that = this,
-            token;
+        Integration.open.call(that);
 
         that.options.scope = scope;
 

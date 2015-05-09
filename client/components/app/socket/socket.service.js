@@ -34,6 +34,7 @@
     var MEMBER_PRESENCE_UPDATED = 'member_presence_updated';
 
     var FILE_DELETED = 'file_deleted';
+    var FILE_COMMENT_CREATED = 'file_comment_created';
     var FILE_COMMENT_DELETED = 'file_comment_deleted';
 
     var ROOM_MARKER_UPDATED = 'room_marker_updated';
@@ -126,6 +127,7 @@
 
       socket.on(FILE_DELETED, _onFileDeleted);
 
+      socket.on(FILE_COMMENT_CREATED, _onFileCommentCreated);
       socket.on(FILE_COMMENT_DELETED, _onFileCommentDeleted);
 
       socket.on(ROOM_MARKER_UPDATED, _onRoomMarkerUpdated);
@@ -243,6 +245,11 @@
     function _onFileDeleted(data) {
       jndWebSocketHelper.socketEventLogger(FILE_DELETED, data, false);
       jndWebSocketHelper.fileDeletedHandler(data);
+    }
+
+    function _onFileCommentCreated(data) {
+      jndWebSocketHelper.socketEventLogger(FILE_COMMENT_CREATED, data, false);
+      jndWebSocketHelper.fileCommentCreatedHandler(data);
     }
 
     function _onFileCommentDeleted(data) {

@@ -28,6 +28,11 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     _onFileChanged(param);
   });
 
+  // share된 곳이 없는 file일 경우에도 file_detail 갱신 하도록 함.
+  $scope.$on('rightFileDetailOnFileCommentCreated', function(event, param) {
+    $scope.file_detail && $scope.file_detail.shareEntities.length === 0 && _onFileChanged(param);
+  });
+
   $scope.$on('rightFileDetailOnFileCommentDeleted', function(event, param) {
     _onFileChanged(param);
   });

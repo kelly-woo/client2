@@ -18,6 +18,7 @@
     this.chatMessageListEventHandler = chatMessageListEventHandler;
 
     this.fileDeletedHandler = fileDeletedHandler;
+    this.fileCommentCreatedHandler = fileCommentCreatedHandler;
     this.fileCommentDeletedHandler = fileCommentDeletedHandler;
 
     this.roomMarkerUpdatedHandler = roomMarkerUpdatedHandler;
@@ -116,6 +117,15 @@
       jndPubSub.pub('rightFileOnFileDeleted', data);
       jndPubSub.pub('rightFileDetailOnFileDeleted', data);
       jndPubSub.pub('centerOnFileDeleted', data);
+    }
+
+    /**
+     * File comment created event handler
+     *
+     * @param data
+     */
+    function fileCommentCreatedHandler(data) {
+      jndPubSub.pub('rightFileDetailOnFileCommentCreated', data);
     }
 
     /**
