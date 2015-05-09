@@ -87,14 +87,14 @@
 
         it = files.iterator();
         len = files.size();
-        that._upload(it.currentIndex(), len, it.next(), function callback() {
-          that._upload(it.currentIndex(), len, it.next(), callback);
+        that._upload(it.currentIndex(), len, it.next(), function invoke() {
+          that._upload(it.currentIndex(), len, it.next(), invoke);
         });
       },
       /**
        * file upload
        */
-      _upload: function(index, length, file, callback) {
+      _upload: function(index, length, file, invoke) {
         var that = this;
 
         if (file) {
@@ -147,13 +147,13 @@
               }
 
               // console.log('done', arguments);
-              callback();         // upload success 후 callback 수행
+              invoke();         // upload success 후 callback 수행
             },
             function(error) {     // error
               that._uploadErrorHandler($rootScope);
 
               // console.log('error', arguments);
-              callback();         // upload error 후 callback 수행
+              invoke();         // upload error 후 callback 수행
             },
             function(evt) {       // progress
               // center.html에 표현되는 progress bar의 상태 변경
@@ -436,33 +436,11 @@
         that.options.buttonEle = $(that.options.buttonEle);
 
         // DropboxIntegration object 생성시 cookie에 dropbox integrate cookie가 있다면 바로 Dropbox listener를 button에 등록함.
-        storageAPIservice.getCookie('integration', 'dropbox') === true && that._on(function () {
-          that._open();
-        });
+        storageAPIservice.getCookie('integration', 'dropbox') === true && that._open();
 
         return that;
       },
       service: 'dropbox',
-      /**
-       * Dropbox는 addListener를 사용하여 handler 내에 chooer를 생성하면 popup이 갱신 되는 반면에
-       * addListener를 사용하지 않고 chooser를 생성하면 popup이 갱신되지 않으므로
-       * _on function은 DropBoxIntegration object 생성시 한번 addListener를 사용하여 특정
-       * dom element click시 마다 chooser object를 생성하도록 함.
-       */
-      _on: function(callback) {
-        var that = this;
-        var options = that.options;
-
-        that.isOn = true;
-
-        Dropbox.addListener(options.event.currentTarget, 'click', function(evt) {
-          evt.preventDefault();
-
-          that._open();
-        });
-
-        callback && callback();
-      },
       /**
        * dropbox choose object 생성 & 출력
        * choose object 생성시 options 수정 가능함.
@@ -474,7 +452,7 @@
 
         that.options.scope = scope;
 
-        storageAPIservice.getCookie('integration', 'dropbox') !== true ? that._openIntegrationModal() : !that.isOn && that._open();
+        storageAPIservice.getCookie('integration', 'dropbox') !== true ? that._openIntegrationModal() : that._open();
       },
       /**
        * dropbox의 modal open
@@ -494,11 +472,28 @@
       _success: function(files) {
         var that = this;
 
-        that._closeIntegrationModal();
-        that._fileGetCallback(files);
+        if (!that._successLock) {
+          that._successLock = true;
+          that._closeIntegrationModal();
+          that._fileGetCallback(files);
+        }
       },
       _cancel: function() {
-        this._closeIntegrationModal();
+        var that = this;
+
+        that._closeIntegrationModal();
+      },
+      /**
+       * Dropbox.choose를 수행한 만큼 _success callback 이 수행되므로 _success callback을 한번만
+       * 수행하도록 처리해야 함. 처리 방법으로 _success 수행시 lock을 걸고 _closeProgressBar이 수행될때
+       * lock을 해제 하도록 함.
+       */
+      _closeProgressBar: function() {
+        var that = this;
+
+        Integration._closeProgressBar.call(that);
+
+        that._successLock = false;
       },
       /**
        * file upload시 server로 전달하는 data object 생성
@@ -539,9 +534,7 @@
             startIntegration: function() {    // 연동 시작 버튼 핸들러
               storageAPIservice.setCookie('integration', 'dropbox', true);
 
-              that._on(function() {
-                that._open();
-              });
+              that._open();
             },
             cInterface: 'confirm'   // modal의 확인 interface 명
           }
