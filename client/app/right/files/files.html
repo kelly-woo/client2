@@ -70,11 +70,17 @@
 
       <div ng-if="!isLoading" class="rpanel-alert-msg-container">
 
-        <center-help-message-container ng-if="fileRequest.keyword == ''" status="emptyMessageStateHelper"></center-help-message-container>
+        <center-help-message-container ng-if="!isFiltered();" status="emptyMessageStateHelper"></center-help-message-container>
 
-        <div ng-if="fileRequest.keyword != ''" class="rpanel-alert-msg-container__text">
+        <div ng-if="isFiltered();" class="rpanel-alert-msg-container__text">
           <img class="rpanel-alert-msg-container__img" src="assets/images/file-search-no-result.png">
-          <span translate>@alert-empty-file-search</span>: <span class="searchQuery">{{ fileRequest.keyword }}</span>
+
+          <span translate>@alert-empty-file-search</span>
+
+          <span ng-if="!isSearchQueryEmpty">:
+            <span class="searchQuery">{{ fileRequest.keyword }}</span>
+          </span>
+
         </div>
       </div>
     </div>
