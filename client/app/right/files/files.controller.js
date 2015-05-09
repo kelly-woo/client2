@@ -40,7 +40,6 @@
     //      if null -> meaning searching for all chat rooms.
     //          else -> set to selected value.
     $scope.$watch('sharedEntitySearchQuery', function(newValue, oldValue) {
-      //console.log('sharedEntitySearchQuery', $scope.sharedEntitySearchQuery)
       if (publicService.isNullOrUndefined($scope.sharedEntitySearchQuery)) {
         // 'All'
         $scope.fileRequest.sharedEntityId = -1;
@@ -75,6 +74,7 @@
     $scope.$on('onJoinedTopicListChanged_leftInitDone', function(event, param) {
       logger.log('onJoinedTopicListChanged_leftInitDone');
       _generateShareOptions();
+
     });
 
     $scope.$on('onFileDeleted', function() {
@@ -121,10 +121,14 @@
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
     $scope.$on('onCurrentEntityChanged', function(event, currentEntity) {
+      if (!_hasLocalCurrentEntityChanged(currentEntity)) {
+        return;
+      }
       localCurrentEntity = currentEntity;
       _setSharedInEntity(localCurrentEntity);
       _initSharedByFilter(localCurrentEntity);
     });
+
 
     function _refreshFileList() {
       if (!_isFileTabActive()) return;
@@ -169,8 +173,8 @@
         // In this case, initialize options first then return from here
         return;
       }
-
       _setSharedInEntity(localCurrentEntity);
+
 
       // Checking if initial load has been processed or not.
       // if not, load once.
@@ -213,7 +217,7 @@
     }
 
     function _setSharedInEntity(entity) {
-      //console.log('setting shared in entity to ', entity)
+      console.log('setting shared in entity to ', entity)
       $scope.sharedEntitySearchQuery = entity.id;
     }
     /**
@@ -484,6 +488,10 @@
 
     function _isFileTabActive() {
       return $scope.isFileTabActive;
+    }
+
+    function _hasLocalCurrentEntityChanged(newCurrentEntity) {
+      return localCurrentEntity.id !== newCurrentEntity.id;
     }
   }
 
