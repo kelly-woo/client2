@@ -10,6 +10,9 @@
 .user-thumb-lg  { width: 72px; height: 72px; border-radius: 50%; }
 .user-profile   { display: inline-block; background-size: 100%; background-repeat: no-repeat; }
 
+textarea[disabled] {
+  background-color: #f1f1f1;
+}
 [disabled] {
   cursor: not-allowed !important;
 }

@@ -7,13 +7,13 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   //console.info('[enter] fileDetailCtrl');
 
   var fileId = $state.params.itemId;
-  var isPostingComment;
   if (_.isUndefined(fileId)) return;
 
   $scope.initialLoaded    = false;
   $scope.file_detail      = null;
   $scope.file_comments    = [];
   $scope.glued            = false;
+  $scope.isPostingComment = false;
 
   // configuration for message loading
   $scope.fileLoadStatus = {
@@ -55,7 +55,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   })();
 
   function _init() {
-    isPostingComment = false;
+    $scope.isPostingComment = false;
     getFileDetail();
   }
 
@@ -124,9 +124,9 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   $scope.postComment = function() {
     if (!$scope.comment || !$scope.comment.content) return;
 
-    if (isPostingComment) return;
+    if ($scope.isPostingComment) return;
 
-    isPostingComment = true;
+    $scope.isPostingComment = true;
 
     fileAPIservice.postComment(fileId, $scope.comment.content)
       .success(function(response) {
@@ -137,7 +137,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       .error(function(err) {
       })
       .finally(function() {
-        isPostingComment = false;
+        $scope.isPostingComment = false;
       });
   };
 
@@ -334,6 +334,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   function _isFileDetailActive() {
     return !!$state.params.itemId;
   }
+
 });
 
 app

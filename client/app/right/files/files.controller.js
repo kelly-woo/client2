@@ -218,7 +218,6 @@
     }
 
     function _setSharedInEntity(entity) {
-      console.log('setting shared in entity to ', entity)
       $scope.sharedEntitySearchQuery = entity.id;
     }
 
