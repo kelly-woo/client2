@@ -19,6 +19,26 @@
 
       var invitation;
       var clipButton;
+
+      var tooltipTimeoutId = null;
+
+      /**
+       * show clipboard copy tooltip
+       */
+      function showClipboardCopyTooltip() {
+        angular.element('#clip-invite').trigger('show');
+        clearTimeout(tooltipTimeoutId);
+        tooltipTimeoutId = setTimeout(hideClipboardTooltip, 1000);
+      }
+
+      /**
+       * hide clipboard copy tooltip
+       */
+      function hideClipboardTooltip() {
+        if (angular.element('#clip-invite').scope().tt_isOpen) {
+          angular.element('#clip-invite').trigger('hide');
+        }
+      }
       if (!scope.inviteDisabled) {
         clipButton = element.find('.clip-invite');
         clipButton
@@ -34,6 +54,7 @@
 
         clipboard.createInstance( clipButton, {
           getText: function() {
+            showClipboardCopyTooltip();
             return element.find('#invite-link').val();
           }
         });

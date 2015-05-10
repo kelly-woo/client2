@@ -2,7 +2,11 @@
 
 var app = angular.module('jandiApp');
 
-app.config(function ($stateProvider) {
+app.config(function ($stateProvider, $tooltipProvider) {
+  $tooltipProvider.setTriggers({
+    'show': 'hide'
+  });
+
   $stateProvider
     .state('signin', {
       url         : '/',
