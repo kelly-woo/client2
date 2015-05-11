@@ -193,11 +193,6 @@
       var roomEntity = _getRoom(room);
       var writer = _getActionOwner(writer);
 
-      // if (_isActionFromMe(writer.id)) {
-      //   log('message is from me. Not doing anything here. Waiting for proper other socket event such as room marker updated.');
-      //   return;
-      // }
-
       // message delete.
       if (_isMessageDeleted(eventType)) {
         _updateCenterForCurrentEntity(room);
