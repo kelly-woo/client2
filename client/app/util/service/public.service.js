@@ -14,7 +14,7 @@
   /* @ngInject */
   function publicService($rootScope, $modal, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, modalHelper) {
+                         entityAPIservice, modalHelper, pcAppHelper) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -220,9 +220,7 @@
       jndWebSocket.disconnectTeam();
 
       // PC app function.
-      if (typeof jandipc !== 'undefined') {
-        jandipc.onSignedOut();
-      }
+      pcAppHelper.onSignedOut();
 
       if ( $state.current.name == 'signin') {
         // 현재 state 다시 로드

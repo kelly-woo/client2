@@ -1,3 +1,10 @@
-/**
- * Created by jihoonkim on 5. 11.2015.
- */
+(function() {
+  'use strict';
+
+  angular
+    .module('app.pcApp')
+    .config(config)
+    .run(run);
+
+
+})();

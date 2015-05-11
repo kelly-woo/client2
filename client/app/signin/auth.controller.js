@@ -5,9 +5,8 @@
     .module('jandiApp')
     .controller('authController', authController);
 
-  authController.$inject = ['$scope', '$rootScope', '$state', '$modal', 'authAPIservice', 'analyticsService', 'storageAPIservice', 'accountService', 'memberService', 'publicService'];
-
-  function authController($scope, $rootScope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService) {
+  /* @ngInject */
+  function authController($scope, $rootScope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService, pcAppHelper) {
 
     var vm = this;
 
@@ -232,9 +231,7 @@
     };
 
     function pcAppOnSignedIn() {
-      if (typeof jandipc !== 'undefined') {
-        jandipc.onSignedIn();
-      }
+      pcAppHelper.onSignedIn();
     }
   }
 })();
