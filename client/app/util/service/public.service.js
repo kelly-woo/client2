@@ -219,6 +219,11 @@
       // Disconnect socket connection.
       jndWebSocket.disconnectTeam();
 
+      // PC app function.
+      if (!!jandipc) {
+        jandipc.onSignedOut();
+      }
+
       if ( $state.current.name == 'signin') {
         // 현재 state 다시 로드
         $state.transitionTo($state.current, {}, {
