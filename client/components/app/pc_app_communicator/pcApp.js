@@ -2,9 +2,17 @@
   'use strict';
 
   angular
-    .module('app.pcApp')
+    .module('app.pcApp', [])
     .config(config)
     .run(run);
 
+
+  function config() {
+
+  }
+
+  function run() {
+
+  }
 
 })();
