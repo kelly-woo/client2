@@ -171,11 +171,11 @@
              ng-src="{{ member | getSmallThumbnail }}"
              ng-click="onUserClick(user);"/>
       </div>
-      <form id="comment-form">
+      <form id="comment-form" ng-submit="postComment();">
         <textarea id="file-detail-comment-input"
                   class="comment-input"
                   focus-me="focusPostComment"
-                  message-submit="postComment()"
+                  message-submit="postComment();"
                   data-ng-model="comment.content"
                   autocorrect="off"
                   autocomplete="off"

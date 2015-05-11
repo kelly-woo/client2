@@ -494,8 +494,10 @@
       return $scope.isFileTabActive;
     }
 
+    // _hasLocalCurrentEntityChanged 수행시 localCurrentEntity가 존재하지 않아 error 발생하므로
+    // localCurrentEntity null check code 추가
     function _hasLocalCurrentEntityChanged(newCurrentEntity) {
-      return localCurrentEntity.id !== newCurrentEntity.id;
+      return localCurrentEntity == null || localCurrentEntity.id !== newCurrentEntity.id;
     }
 
 
