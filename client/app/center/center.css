@@ -261,6 +261,11 @@ article {
 .msg-item__action {
   display: none;
 }
+.msg-item__action .icon-cancel {
+  position: absolute;
+  right: -7px;
+  bottom: 4px;
+}
 .msg-item:hover .msg-item__action {
   display: block;
 }
