@@ -27,6 +27,7 @@
         _refreshFileList();
       }
     });
+
     //  fileRequest.fileType - 파일 타입
     $scope.$watch('fileTypeFilter', function(newValue, oldValue) {
       if (newValue != oldValue) {
@@ -35,6 +36,7 @@
         _refreshFileList();
       }
     }, true);
+
     //  when sharedEntitySearchQuery is changed,
     //  1. check if value is null
     //      if null -> meaning searching for all chat rooms.
@@ -495,7 +497,7 @@
     }
 
     function _hasLocalCurrentEntityChanged(newCurrentEntity) {
-      return !!localCurrentEntity && localCurrentEntity.id !== newCurrentEntity.id;
+      return !localCurrentEntity || localCurrentEntity.id !== newCurrentEntity.id;
     }
 
 
