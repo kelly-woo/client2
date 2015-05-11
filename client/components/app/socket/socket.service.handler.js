@@ -60,7 +60,7 @@
 
     function newMemberHandler(data) {
       _updateLeftPanel();
-      _updateCenterForCurrentEntity(_getRoom(data.room));
+      _updateCenterForCurrentEntity(_isCurrentEntity(_getRoom(data.room)));
     }
 
     /**
@@ -150,7 +150,8 @@
      */
     function roomMarkerUpdatedHandler(data) {
       var room = data.room;
-      if (_isCurrentEntity(room)) {
+      var isCurrentEntity = _isCurrentEntity(room);
+      if (isCurrentEntity) {
         log('update marker for current entity');
         jndPubSub.pub('centerOnMarkerUpdated', data);
       }
@@ -159,7 +160,7 @@
 
       if (_isActionFromMe(memberId)) {
         log('I read something from somewhere');
-        _updateLeftPanelForOtherEntity(room);
+        _updateLeftPanelForOtherEntity(isCurrentEntity);
       }
     }
 
@@ -185,35 +186,36 @@
     /**
      * Every socket event comes with 'messages'
      *
-     * @param room
-     * @param writer
-     * @param eventType
+     * @param type
+     * @param data
      */
-    function messageEventHandler(room, writer, eventType) {
+    function messageEventHandler(type, data) {
+      var room = data.room;
       var roomEntity = _getRoom(room);
-      var writer = _getActionOwner(writer);
+      var writer = _getActionOwner(data.writer);
+      var isCurrentEntity = _isCurrentEntity(room);
 
       // message delete.
-      if (_isMessageDeleted(eventType)) {
-        _updateCenterForCurrentEntity(room);
+      if (_isMessageDeleted(type)) {
+        _updateCenterForCurrentEntity(isCurrentEntity);
         // Must update left panel for other room;
-        _updateLeftPanelForOtherEntity(room);
+        _updateLeftPanelForOtherEntity(isCurrentEntity);
         return;
       }
 
       // dm to me.
       if (_isDMToMe(room)) {
-        _messageDMToMeHandler(room, writer);
+        _messageDMToMeHandler(data, roomEntity, writer, isCurrentEntity);
         return;
       }
 
       // Check if message event happened in any related topics.
       if (!_isRelatedEvent(roomEntity, writer)) { return; }
 
-      if (_isSystemEvent(eventType)) {
-        _systemMessageHandler(room);
+      if (_isSystemEvent(type)) {
+        _systemMessageHandler(isCurrentEntity);
       } else {
-        _newMessageHandler(room, writer);
+        _newMessageHandler(data, roomEntity, writer, isCurrentEntity);
       }
     }
 
@@ -232,18 +234,17 @@
       log('file share/unshare event');
 
       _updateCenterForRelatedFile(data.file);
-      _updateLeftPanelForOtherEntity(room);
+      _updateLeftPanelForOtherEntity(_isCurrentEntity(data.room));
       _updateFilesPanelonRight(data);
       _udpateFileDetailPanel(data);
     }
 
     function messageEventTopicLeaveHandler(data) {
       var room = data.room;
-      var writer = data.writer;
-
-
       var roomEntity = _getRoom(room);
-      var writer = _getActionOwner(writer);
+      var isCurrentEntity = _isCurrentEntity(room);
+      var writer = _getActionOwner(data.writer);
+
 
       if (!_isRelatedEvent(roomEntity, writer)) { return; }
 
@@ -251,12 +252,12 @@
 
       log('topic left event');
 
-      if (_isCurrentEntity(room)) {
+      if (isCurrentEntity) {
         jndPubSub.pub('centerOnTopicLeave', data);
         _updateCenterMessage();
       }
 
-      _updateLeftPanelForOtherEntity(room);
+      _updateLeftPanelForOtherEntity(isCurrentEntity);
     }
 
     /**
@@ -300,12 +301,12 @@
      * @param room
      * @private
      */
-    function _messageDMToMeHandler(room, writerEntity) {
+    function _messageDMToMeHandler(data, roomEntity, writer, isCurrentEntity) {
       log('DM to me');
 
       _updateCenterMessage();
       _updateChatList();
-      _sendBrowserNotificationForOtherEntity(_getRoom(room), writerEntity);
+      _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity);
     }
 
     /**
@@ -335,10 +336,10 @@
      * @param room
      * @private
      */
-    function _systemMessageHandler(room) {
+    function _systemMessageHandler(isCurrentEntity) {
       log('system event');
       _updateLeftPanel();
-      _updateCenterForCurrentEntity(room);
+      _updateCenterForCurrentEntity(isCurrentEntity);
     }
 
     /**
@@ -353,12 +354,12 @@
      * @param writer
      * @private
      */
-    function _newMessageHandler(room, writer) {
+    function _newMessageHandler(data, roomEntity, writer, isCurrentEntity) {
       // new message in topic/dm.
       log('new message written');
-      _updateCenterForCurrentEntity(room);
-      _updateLeftPanelForOtherEntity(room);
-      _sendBrowserNotificationForOtherEntity(room, writer);
+      _updateCenterForCurrentEntity(isCurrentEntity);
+      _updateLeftPanelForOtherEntity(isCurrentEntity);
+      _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity);
 
     }
 
@@ -401,8 +402,8 @@
      * @param room
      * @private
      */
-    function _updateCenterForCurrentEntity(room) {
-      if (_isCurrentEntity(room)) {
+    function _updateCenterForCurrentEntity(isCurrentEntity) {
+      if (isCurrentEntity) {
         log('update center for current entity');
         _updateCenterMessage();
       }
@@ -414,8 +415,8 @@
      * @param room
      * @private
      */
-    function _updateLeftPanelForOtherEntity(room) {
-      if (!_isCurrentEntity(room)) {
+    function _updateLeftPanelForOtherEntity(isCurrentEntity) {
+      if (!isCurrentEntity) {
         log('update left panel for other entity');
         _updateLeftPanel();
       }
@@ -435,13 +436,13 @@
      * @param room
      * @private
      */
-    function _sendBrowserNotificationForOtherEntity(room, writer) {
+    function _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity) {
       if (_isActionFromMe(writer.id)) return;
 
-      if (!_isCurrentEntity(room)) {
+      if (!isCurrentEntity) {
         // Non-current entity -> Send notification!!!
         log('Send browser notification');
-        desktopNotificationService.addNotification(writer, _getRoom(room));
+        desktopNotificationService.addNotification(data, writer, roomEntity);
       }
     }
     function _updateLeftPanel() {

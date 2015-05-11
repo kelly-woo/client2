@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -92,7 +92,6 @@ msgstr "表示"
 msgid "@btn-close"
 msgstr "閉じる"
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
@@ -133,7 +132,6 @@ msgstr "参加"
 msgid "@btn-send"
 msgstr "送信"
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
@@ -270,7 +268,6 @@ msgstr "現在のパスワード"
 msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
@@ -307,7 +304,6 @@ msgstr "へ招待"
 msgid "@common-done"
 msgstr "確認"
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@common-download"
 msgstr "ダウンロード"
@@ -885,7 +881,6 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
@@ -1015,7 +1010,6 @@ msgstr "このトピックを作成する"
 msgid "@msg-create-pg"
 msgstr "このプライベートトピックを作成する"
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr "ファイル"
@@ -1040,23 +1034,19 @@ msgstr "さんが参加しました"
 msgid "@msg-left"
 msgstr "が退出しました"
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr "元のファイルを開く"
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr "共有"
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr "非共有"
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr "の"
@@ -1321,28 +1311,23 @@ msgid "@web-notification-body-messages-confirm-delete"
 msgstr "本当に削除しますか？元には戻せません"
 
 #: client/app/center/center.html
-msgid "@web-notification-body-messages-post"
-msgstr "さんからダイレクトメッセージが届きました"
-
-#: client/app/center/center.html
-msgid "@web-notification-body-messages-pre"
-msgstr " "
-
-#: client/app/center/center.html
-msgid "@web-notification-body-topic-mid"
-msgstr "さんが"
-
-#: client/app/center/center.html
-msgid "@web-notification-body-topic-post"
-msgstr "に投稿しました"
-
-#: client/app/center/center.html
-msgid "@web-notification-body-topic-pre"
-msgstr " "
-
-#: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
+
+#~ msgid "@web-notification-body-messages-post"
+#~ msgstr "さんからダイレクトメッセージが届きました"
+
+#~ msgid "@web-notification-body-messages-pre"
+#~ msgstr " "
+
+#~ msgid "@web-notification-body-topic-mid"
+#~ msgstr "さんが"
+
+#~ msgid "@web-notification-body-topic-post"
+#~ msgstr "に投稿しました"
+
+#~ msgid "@web-notification-body-topic-pre"
+#~ msgstr " "
 
 #~ msgid "@alert-missing-info"
 #~ msgstr "必要な情報が入力されていません"

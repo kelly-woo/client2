@@ -89,7 +89,6 @@ msgstr ""
 msgid "@btn-close"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
@@ -132,7 +131,6 @@ msgstr ""
 msgid "@btn-send"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/share/share.html
 #: client/app/right/file.detail/file.detail.html
@@ -261,7 +259,6 @@ msgstr ""
 msgid "@common-customer-service"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
@@ -297,7 +294,6 @@ msgstr ""
 msgid "@common-done"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@common-download"
 msgstr ""
@@ -863,7 +859,6 @@ msgstr ""
 msgid "@login-reset-password"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
@@ -980,7 +975,6 @@ msgstr ""
 msgid "@msg-create-pg"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-file"
 msgstr ""
@@ -1005,23 +999,19 @@ msgstr ""
 msgid "@msg-left"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/files/file/file.html
 msgid "@msg-open-original"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-shared"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-unshared"
 msgstr ""
 
-#: client/app/center/center.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 msgid "@msg-whose"
 msgstr ""
@@ -1247,26 +1237,6 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@web-notification-body-messages-post"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@web-notification-body-messages-pre"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@web-notification-body-topic-mid"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@web-notification-body-topic-post"
-msgstr ""
-
-#: client/app/center/center.html
-msgid "@web-notification-body-topic-pre"
 msgstr ""
 
 #: client/app/center/center.html

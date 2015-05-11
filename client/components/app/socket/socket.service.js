@@ -310,8 +310,7 @@
       jndWebSocketHelper.socketEventLogger(messageType, data, false);
       jndWebSocketHelper.eventStatusLogger(messageType, data);
 
-      jndWebSocketHelper.messageEventHandler(data.room, data.writer, messageType);
-
+      jndWebSocketHelper.messageEventHandler(messageType, data);
     }
 
     /**
@@ -354,7 +353,5 @@
 
       authAPIservice.requestAccessTokenWithRefreshToken();
     }
-
-
   }
 })();

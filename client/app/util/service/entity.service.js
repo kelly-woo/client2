@@ -43,7 +43,7 @@
      * @returns {*}
      */
     function getEntityFromListByEntityId(list, entityId) {
-      entityId = parseInt(entityId);
+      entityId = parseInt(entityId, 10);
       if ($rootScope.member && $rootScope.member.id === entityId) return $rootScope.member;
 
       return _getSelectEntity(list, entityId, 'entityId');
@@ -90,20 +90,30 @@
      * @returns {*}
      */
     function getEntityById (entityType, entityId) {
+      var entity;
       entityType = entityType.toLowerCase();
-      var list = $rootScope.joinedChannelList;
 
       // TODO: ISN'T 'indexOf' fucntion slow?
       // TODO: FIND FASTER/BETTER WAY TO DO THIS.
       if (entityType.indexOf('privategroup') > -1) {
-        list = $rootScope.privateGroupList;
+        entity = $rootScope.privateGroupMap[entityId];
       }
       else if (entityType.indexOf('user') > -1) {
-        list = $rootScope.memberList;
+        if (_isMe(entityType, entityId)) {
+          entity = $rootScope.member;
+        } else {
+          entity = $rootScope.memberMap[entityId]
+        }
+      } else if($rootScope.joinedChannelMap) {
+        entity = $rootScope.joinedChannelMap[entityId];
       }
-      return this.getEntityFromListById(list, entityId);
+      return entity;
     }
 
+    function _isMe(entityType, entityId) {
+      entityId = parseInt(entityId, 10);
+      return !!(entityType.indexOf('user') > -1 && $rootScope.member && $rootScope.member.id === entityId);
+    }
 
     //  return null if 'getEntityById' return nothing.
     function setCurrentEntity (currentEntity) {

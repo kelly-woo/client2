@@ -15,7 +15,7 @@
              ng-class="{'file-detail-disabled-member': isDisabledMember(file_detail.writer)}">
           <div class="file-detail-header__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
-                 ng-src="{{ file_detail.writer | getSmallThumbnail }}"
+                 ng-src="{{ file_detail.writerId | getSmallThumbnail }}"
                  ng-click="onUserClick(file_detail.writer);"/>
           </div>
           <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
@@ -137,7 +137,7 @@
              ng-class="{'file-detail-disabled-member': isDisabledMember(comment.writer)}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
-                 ng-src="{{ comment.writer | getSmallThumbnail }}"
+                 ng-src="{{ comment.writerId | getSmallThumbnail }}"
                  ng-click="onUserClick(comment.writer);"/>
           </div>
           <div class="comment-item-header">
@@ -171,18 +171,16 @@
              ng-src="{{ member | getSmallThumbnail }}"
              ng-click="onUserClick(user);"/>
       </div>
-      <form id="comment-form">
+      <form id="comment-form" data-ng-submit="postComment();">
         <textarea id="file-detail-comment-input"
                   class="comment-input"
                   focus-me="focusPostComment"
-                  message-submit="postComment()"
+                  message-submit="postComment();"
                   data-ng-model="comment.content"
                   autocorrect="off"
                   autocomplete="off"
                   spellcheck="true"
                   ng-disabled="isPostingComment"></textarea>
-
-
         <span class="comment-input__tip pull-left">
           <span translate>@msg-help-multiline</span>
         </span>
@@ -202,7 +200,7 @@
         <div class="file-detail-header-box">
           <div class="file-detail-header__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
-                 ng-src="{{ file_detail.writer | getSmallThumbnail }}"
+                 ng-src="{{ file_detail.writerId | getSmallThumbnail }}"
                  ng-click="onUserClick(file_detail.writer);"/>
           </div>
 
@@ -230,7 +228,7 @@
         <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
-                 ng-src="{{ comment.writer | getSmallThumbnail }}"
+                 ng-src="{{ comment.writerId | getSmallThumbnail }}"
                  ng-click="onUserClick(comment.writer);"/>
           </div>
           <div class="comment-item-header">
