@@ -124,42 +124,10 @@
 
         if (isUser) {
           options.tag = writerEntity.id;
-          options.body = writerEntity.name + ': ' + data.message;
-          // $filter('translate')('@web-notification-body-messages-pre')
-          // + writerEntity.name
-          // + $filter('translate')('@web-notification-body-messages-post');
+          options.body = writerEntity.name + ' : ' + data.message;
         } else {
           options.tag = roomEntity.id;
-          options.body = '[' + roomEntity.name + ']' + writerEntity.name + ': '+ data.message;
-          // var currentLanguage = accountService.getAccountLanguage();
-          // var bodyMessage;
-
-          // switch (currentLanguage) {
-          //   case 'ko' :
-          //     bodyMessage = '[' + roomEntity.name + ']'
-          //     + $filter('translate')('@web-notification-body-topic-mid')
-          //     + writerEntity.name;
-          //     break;
-          //   case 'ja' :
-          //     bodyMessage = writerEntity.name
-          //     + $filter('translate')('@web-notification-body-topic-mid')
-          //     + '[' + roomEntity.name + ']';
-          //     break;
-          //   default :
-          //     bodyMessage = $filter('translate')('@web-notification-body-topic-pre')
-          //     + '[' + roomEntity.name + ']'
-          //     + $filter('translate')('@web-notification-body-topic-mid')
-          //     + writerEntity.name;
-          //     break;
-          // }
-
-          // bodyMessage += '\r\n';
-          // console.log('writerEntity ::: ', writerEntity);
-          // console.log('roomEntity ::: ', roomEntity);
-          // console.log('memberService ::: ', memberService);
-
-          // bodyMessage += $filter('translate')('@web-notification-body-topic-post');
-          // return bodyMessage;
+          options.body = '[' + roomEntity.name + '] ' + writerEntity.name + ' : '+ data.message;
         }
 
         options.icon = $filter('getSmallThumbnail')(writerEntity);
