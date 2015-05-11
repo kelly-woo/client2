@@ -3,7 +3,7 @@
      ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }"
      ng-if="msg.message.commentOption.isTitle">
   <!--    DEFAULT   -->
-  <img on-image-load class="user-profile user-thumb" ng-src="{{ msg.message.writer | getSmallThumbnail }}"/>
+  <img on-image-load class="user-profile user-thumb" ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
 </div>
 
 <!--    HEADER PART -->
