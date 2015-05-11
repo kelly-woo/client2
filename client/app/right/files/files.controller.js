@@ -495,7 +495,7 @@
     }
 
     function _hasLocalCurrentEntityChanged(newCurrentEntity) {
-      return localCurrentEntity.id !== newCurrentEntity.id;
+      return !!localCurrentEntity && localCurrentEntity.id !== newCurrentEntity.id;
     }
 
 
