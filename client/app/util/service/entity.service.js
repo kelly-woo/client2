@@ -44,7 +44,7 @@
      */
     function getEntityFromListByEntityId(list, entityId) {
       entityId = parseInt(entityId);
-      if (entityId === $rootScope.member.id) return $rootScope.member;
+      if ($rootScope.member && $rootScope.member.id === entityId) return $rootScope.member;
 
       return _getSelectEntity(list, entityId, 'entityId');
     }
@@ -60,7 +60,7 @@
      */
     function getEntityFromListById (list, id) {
       id = parseInt(id);
-      if (id === $rootScope.member.id) return $rootScope.member;
+      if ($rootScope.member && $rootScope.member.id === id) return $rootScope.member;
 
       return _getSelectEntity(list, id, 'id');
     }
