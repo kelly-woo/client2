@@ -99,7 +99,7 @@
         entity = $rootScope.privateGroupMap[entityId];
       }
       else if (entityType.indexOf('user') > -1) {
-        if ($rootScope.member && $rootScope.member.id) {
+        if (_isMe(entityType, entityId)) {
           entity = $rootScope.member;
         } else {
           entity = $rootScope.memberMap[entityId]
@@ -110,6 +110,10 @@
       return entity;
     }
 
+    function _isMe(entityType, entityId) {
+      entityId = parseInt(entityId, 10);
+      return !!(entityType.indexOf('user') > -1 && $rootScope.member && $rootScope.member.id === entityId);
+    }
 
     //  return null if 'getEntityById' return nothing.
     function setCurrentEntity (currentEntity) {
