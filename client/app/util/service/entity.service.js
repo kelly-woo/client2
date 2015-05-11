@@ -104,7 +104,7 @@
         } else {
           entity = $rootScope.memberMap[entityId]
         }
-      } else {
+      } else if($rootScope.joinedChannelMap) {
         entity = $rootScope.joinedChannelMap[entityId];
       }
       return entity;
