@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, messageSearchHelper, currentSessionHelper, logger, centerService, markerService) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, messageSearchHelper, currentSessionHelper, logger, centerService, markerService, textbuffer) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
@@ -141,10 +141,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.loadMoreCounter = 0;
     $scope.isInitialLoadingCompleted = false;
   }
+
   function _resetMessages() {
     $scope.groupMsgs = [];
     $scope.messages = [];
     $scope.isMessageSearchJumping = false;
+    $scope.message.content = textbuffer.get();
     messages = {};
   }
 
@@ -1202,6 +1204,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
     $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 30);
   });
+
+  /**
+   * keyUp 이벤트 핸들러
+   * @param {event} $event 키 업 이벤트
+   */
+  $scope.onKeyUp = function($event) {
+    var text = $($event.target).val();
+    textbuffer.set(text);
+  };
 
   $scope.setCommentFocus = function(file) {
     if ($state.params.itemId != file.id) {
