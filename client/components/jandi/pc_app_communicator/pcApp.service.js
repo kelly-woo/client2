@@ -9,6 +9,7 @@
   function pcAppHelper(logger) {
     this.onSignedOut = onSignedOut;
     this.onSignedIn = onSignedIn;
+    this.onAlarmCntChanged = onAlarmCntChanged;
 
     function onSignedOut() {
       if (_isUndefined()) return;
@@ -24,9 +25,17 @@
       jandipc.onSignedIn();
     }
 
+    function onAlarmCntChanged(id, alarmCnt) {
+      if (_isUndefined()) return;
+
+      jandipc.onAlarmCntChanged(id, alarmCnt);
+
+    }
+
     function _isUndefined() {
       return typeof jandipc === 'undefined'
     }
+
   }
 
 })();
