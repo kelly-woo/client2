@@ -41,12 +41,17 @@
   transitionDISABLED:background .1s,border-color .1s,color .1s;
   text-shadow:0 1px 1px white;
 }
-#primary_file_button:hover {
+#primary_file_button:hover:not(.disabled) {
   background:#154a67;
   border-color:#154a67;
   color:white;
   text-decoration:none;
   text-shadow:0 1px 1px rgba(0,0,0,0.2);
+}
+#primary_file_button.disabled {
+  background-color: #EDEDED !important;
+  color: #999999;
+  cursor: not-allowed;
 }
 
 #primary_file_button .icon-upload {
