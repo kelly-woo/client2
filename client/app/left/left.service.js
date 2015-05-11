@@ -39,34 +39,40 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
     }
   };
 
-  leftpanelAPI.getJoinedChannelList = function(array) {
-    var joinedChannelList = [],
-      privateGroupList = [];
+  leftpanelAPI.getJoinedChannelData = function(array) {
+    var joinedChannelList = [];
+    var joinedChannelMap = {};
+    var privateGroupList = [];
+    var privateGroupMap = {};
 
     angular.forEach(array, function(entity, index) {
       var type = entity.type;
-      if (type == "channels")
+      if (type == "channels") {
         joinedChannelList.push(entity);
-      else if (type == "privategroups")
+        joinedChannelMap[entity.id] = entity;
+      } else if (type == "privategroups") {
         privateGroupList.push(entity);
+        privateGroupMap[entity.id] = entity;
+      }
     });
 
-    var returnValue = [];
-
-    returnValue.push(joinedChannelList);
-    returnValue.push(privateGroupList);
-
-    return returnValue;
+    return {
+      joinedChannelList: joinedChannelList,
+      joinedChannelMap: joinedChannelMap,
+      privateGroupList: privateGroupList,
+      privateGroupMap: privateGroupMap
+    };
   };
 
   leftpanelAPI.getDefaultChannel = function(input) {
     return input.team.t_defaultChannelId;
   };
 
-  leftpanelAPI.getGeneralList = function(totalEntities, joinedEntities, currentUserId) {
-    var userList = [],
-      totalChannelList = [],
-      unJoinedChannelList = [];
+  leftpanelAPI.getGeneralData = function(totalEntities, joinedEntities, currentUserId) {
+    var memberList = [];
+    var memberMap = {};
+    var totalChannelList = [];
+    var unJoinedChannelList = [];
 
     angular.forEach(totalEntities, function(entity, index) {
       var entityId = entity.id;
@@ -75,7 +81,8 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
       if (entityType == "users") {
         if (currentUserId != entityId) {
           entity.selected = false;
-          userList.push(entity);
+          memberList.push(entity);
+          memberMap[entityId] = entity;
         }
       }
       else if (entityType == "channels") {
@@ -93,13 +100,13 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
       }
     });
 
-    var returnValue = [];
 
-    returnValue.push(userList);
-    returnValue.push(totalChannelList);
-    returnValue.push(unJoinedChannelList);
-
-    return returnValue;
+    return {
+      memberList: memberList,
+      memberMap: memberMap,
+      totalChannelList: totalChannelList,
+      unJoinedChannelList: unJoinedChannelList
+    };
   };
 
   // TODO: REFACTOR | TO entityAPIservice - LOGIC ONLY.
