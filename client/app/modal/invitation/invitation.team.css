@@ -170,3 +170,7 @@
 .modal-footer .invite-link-copy .btn-ok:hover {
   background-color: #154a67;
 }
+
+.modal-footer .invite-link-message {
+  height: 40px;
+}

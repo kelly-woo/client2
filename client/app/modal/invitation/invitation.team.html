@@ -38,12 +38,11 @@
         </div>
         <div class="invite-link-copy">
           <input id="invite-link" class="invite-public-link form-control invite" type="text" value="{{seedUri}}" readonly="true">
-          <button id="clip-invite" class="clip-invite invite-btn cursor_pointer btn-ok btn"
-                  tooltip-trigger="show"
-                  tooltip="1111">
+          <button id="clip-invite" class="clip-invite invite-btn cursor_pointer btn-ok btn">
             <span translate>@common-copy</span>
           </button>
         </div>
+        <div class="invite-link-message"><span translate ng-if="isCopySuccess">@invitation_success_copy_link</span></div>
         <div class="invite-contact-desc"><span translate>@invitation-contact-desc</span></div>
       </div>
     </div>

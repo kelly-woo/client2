@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.7.6\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -835,6 +835,12 @@ msgstr "Share from Dropbox"
 #: client/app/modal/integration/integration.html
 msgid "@integration-title-google-drive"
 msgstr "Share from Google Drive"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"The team invitation link has been copied to your clipboard. Use it to invite "
+"others to your team."
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-contact-desc"
