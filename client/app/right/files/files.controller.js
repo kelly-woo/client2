@@ -27,6 +27,7 @@
         _refreshFileList();
       }
     });
+
     //  fileRequest.fileType - 파일 타입
     $scope.$watch('fileTypeFilter', function(newValue, oldValue) {
       if (newValue != oldValue) {
@@ -35,6 +36,7 @@
         _refreshFileList();
       }
     }, true);
+
     //  when sharedEntitySearchQuery is changed,
     //  1. check if value is null
     //      if null -> meaning searching for all chat rooms.
@@ -497,7 +499,7 @@
     // _hasLocalCurrentEntityChanged 수행시 localCurrentEntity가 존재하지 않아 error 발생하므로
     // localCurrentEntity null check code 추가
     function _hasLocalCurrentEntityChanged(newCurrentEntity) {
-      return localCurrentEntity == null || localCurrentEntity.id !== newCurrentEntity.id;
+      return !localCurrentEntity || localCurrentEntity.id !== newCurrentEntity.id;
     }
 
 

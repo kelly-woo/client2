@@ -188,16 +188,18 @@ app.controller('leftPanelController1', function(
     //  Separating 'channel' and 'privateGroup'.
     //  joinedChannelList   - List of joined channels.
     //  privateGroupList    - List of joined private groups.
-    var joinedList = leftpanelAPIservice.getJoinedChannelList($scope.joinEntities);
-    $scope.joinedChannelList    = joinedList[0];
-    $scope.privateGroupList     = joinedList[1];
+    var joindData = leftpanelAPIservice.getJoinedChannelData($scope.joinEntities);
 
     // memberList         - List of all users except myself.
     // totalChannelList - All channels including both 'joined' and 'not joined'
-    var generalList = leftpanelAPIservice.getGeneralList($scope.totalEntities, $scope.joinEntities, memberService.getMemberId());
-    $scope.memberList           = generalList[0];
-    $scope.totalChannelList     = generalList[1];
-    $scope.unJoinedChannelList  = generalList[2];
+    var generalData = leftpanelAPIservice.getGeneralData($scope.totalEntities, $scope.joinEntities, memberService.getMemberId());
+
+    _.extend($scope, generalData, joindData);
+
+    //$scope.memberList           = generalData.memberList;
+    //$scope.memberMap           = generalData.memberMap;
+    //$scope.totalChannelList     = generalData.totalChannelList;
+    //$scope.unJoinedChannelList  = generalData.unJoinedChannelList;
 
     //  Adding privateGroups to 'totalEntities' so that 'totalEntities' contains every entities.
     //  totalEntities   - Every entities.
@@ -207,8 +209,11 @@ app.controller('leftPanelController1', function(
 
     $rootScope.totalChannelList     = $scope.totalChannelList;
     $rootScope.joinedChannelList    = $scope.joinedChannelList;
+    $rootScope.joinedChannelMap     = $scope.joinedChannelMap;
     $rootScope.privateGroupList     = $scope.privateGroupList;
+    $rootScope.privateGroupMap      = $scope.privateGroupMap;
     $rootScope.memberList           = $scope.memberList;
+    $rootScope.memberMap            = $scope.memberMap;
     $rootScope.totalEntities        = $scope.totalEntities;
     $rootScope.joinedEntities       = $scope.joinEntities;
     $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
