@@ -37,7 +37,9 @@
                   autocomplete="off"
                   spellcheck="true"
                   placeholder="{{ '@placeholder-input-message' | translate }}"
+                  ng-keyup="onKeyUp($event);"
                   msd-elastic>
+
         </textarea>
     </form>
   </div>
