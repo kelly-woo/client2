@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.7.6\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -828,6 +828,12 @@ msgstr "드롭박스에서 파일 업로드하기"
 #: client/app/modal/integration/integration.html
 msgid "@integration-title-google-drive"
 msgstr "구글 드라이브에서 파일 업로드하기"
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"초대 링크가 클립보드에 복사되었습니다. 초대를 원하시는 멤버에게 이 링크를 보"
+"내세요!"
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-contact-desc"

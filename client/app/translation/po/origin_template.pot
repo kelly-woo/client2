@@ -815,6 +815,10 @@ msgid "@integration-title-google-drive"
 msgstr ""
 
 #: client/app/modal/invitation/invitation.team.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+
+#: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-contact-desc"
 msgstr ""
 
