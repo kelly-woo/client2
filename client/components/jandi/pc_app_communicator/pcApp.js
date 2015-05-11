@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.pcApp', [])
+    .module('jandi.pcApp', [])
     .config(config)
     .run(run);
 

@@ -9,8 +9,7 @@
       'app.language',
       'app.storage',
       'app.socket',
-      'app.pubsub',
-      'app.pcApp'
+      'app.pubsub'
       // 'app.session'
     ])
     .run(run)

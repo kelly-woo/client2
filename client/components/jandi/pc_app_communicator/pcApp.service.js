@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.pcApp')
+    .module('jandi.pcApp')
     .service('pcAppHelper', pcAppHelper);
 
   /* @ngInject */
@@ -13,7 +13,7 @@
     function onSignedOut() {
       if (_isUndefined()) return;
 
-      logger.log('calling onSignedOut');
+      logger.log('callddding onSignedOut');
       jandipc.onSignedOut();
     }
 
