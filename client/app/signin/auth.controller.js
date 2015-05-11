@@ -100,9 +100,8 @@
 
           $state.go('messages.home');
 
-          if (!!jandipc) {
-            jandipc.onSignedIn();
-          }
+          pcAppOnSignedIn();
+
         })
         .error(function(err) {
           //console.log('getMemberInfo bad')
@@ -172,9 +171,8 @@
             return;
           }
 
-          if (!!jandipc) {
-            jandipc.onSignedIn();
-          }
+          pcAppOnSignedIn();
+
           // Store account id, team id, member id in localStorage for analytics usage.
           storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId, signInInfo.teamName);
 
@@ -233,5 +231,10 @@
       }
     };
 
+    function pcAppOnSignedIn() {
+      if (typeof jandipc !== 'undefined') {
+        jandipc.onSignedIn();
+      }
+    }
   }
 })();

@@ -220,7 +220,7 @@
       jndWebSocket.disconnectTeam();
 
       // PC app function.
-      if (!!jandipc) {
+      if (typeof jandipc !== 'undefined') {
         jandipc.onSignedOut();
       }
 
@@ -267,7 +267,7 @@
     }
 
     function isNullOrUndefined(value) {
-      return value === null || angular.isUndefined(value);
+      return typeof value === 'undefined' || value === null || angular.isUndefined(value);
     }
 
     function goToDefaultTopic() {
