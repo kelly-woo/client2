@@ -70,11 +70,13 @@
       var i;
       var len;
 
-      for (i = 0, len = list.length; i < len; ++i) {
-        item = list[i];
+      if (list != null) {
+        for (i = 0, len = list.length; i < len; ++i) {
+          item = list[i];
 
-        if (item[name] === id) {
-          return item;
+          if (item[name] === id) {
+            return item;
+          }
         }
       }
     }
