@@ -557,6 +557,19 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.client %>/components/app/config/'
         }]
       },
+      local_ie9: {
+        options: {
+          patterns: [{
+            json: grunt.file.readJSON('./config/environments/local_ie9.json')
+          }]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: ['./config/config.js'],
+          dest: '<%= yeoman.client %>/components/app/config/'
+        }]
+      },
       development: {
         options: {
           patterns: [{
@@ -632,9 +645,7 @@ module.exports = function (grunt) {
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
-    }
-
-    if (target === 'debug') {
+    } else if (target === 'debug') {
       return grunt.task.run([
         'clean:server',
         'env:all',
@@ -644,20 +655,29 @@ module.exports = function (grunt) {
         'autoprefixer',
         'concurrent:debug'
       ]);
+    } else {
+      var serveTasks = [
+        'clean:server',
+        'env:all',
+        'concurrent:server',
+        'injector',
+        'wiredep',
+        'autoprefixer',
+        'express:dev',
+        'wait',
+        'open',
+        'watch'
+      ];
+      switch (target) {
+        case 'ie9':
+          serveTasks.unshift('replace:local_ie9');
+              break;
+        default:
+          serveTasks.unshift('replace:local');
+              break;
+      }
+      grunt.task.run(serveTasks);
     }
-
-    grunt.task.run([
-      'clean:server',
-      'env:all',
-      'concurrent:server',
-      'injector',
-      'wiredep',
-      'autoprefixer',
-      'express:dev',
-      'wait',
-      'open',
-      'watch'
-    ]);
   });
 
   grunt.registerTask('server', function () {
