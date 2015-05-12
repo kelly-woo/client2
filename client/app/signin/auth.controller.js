@@ -5,9 +5,8 @@
     .module('jandiApp')
     .controller('authController', authController);
 
-  authController.$inject = ['$scope', '$rootScope', '$state', '$modal', 'authAPIservice', 'analyticsService', 'storageAPIservice', 'accountService', 'memberService', 'publicService'];
-
-  function authController($scope, $rootScope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService) {
+  /* @ngInject */
+  function authController($scope, $rootScope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService, pcAppHelper) {
 
     var vm = this;
 
@@ -99,6 +98,9 @@
           setStatics();
 
           $state.go('messages.home');
+
+          pcAppOnSignedIn();
+
         })
         .error(function(err) {
           //console.log('getMemberInfo bad')
@@ -168,6 +170,8 @@
             return;
           }
 
+          pcAppOnSignedIn();
+
           // Store account id, team id, member id in localStorage for analytics usage.
           storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId, signInInfo.teamName);
 
@@ -226,5 +230,8 @@
       }
     };
 
+    function pcAppOnSignedIn() {
+      pcAppHelper.onSignedIn();
+    }
   }
 })();

@@ -6,7 +6,7 @@
     .controller('messageListCtrl', messageListCtrl);
 
   /* @ngInject */
-  function messageListCtrl($scope, $rootScope, storageAPIservice, messageList, entityAPIservice, publicService, $filter, modalHelper, jndPubSub) {
+  function messageListCtrl($scope, storageAPIservice, messageList, entityAPIservice, publicService, $filter, modalHelper, jndPubSub) {
     // okay - okay to go!
     // loading - currently loading.
     // failed - failed to retrieve list from server.

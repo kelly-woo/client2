@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice, jndPubSub,
-                            currentSessionHelper) {
+                            currentSessionHelper, pcAppHelper) {
 
     var service = {
       getEntityByEntityId: getEntityByEntityId,
@@ -122,9 +122,12 @@
       }
 
       currentEntity.alarmCnt = '';
+      pcAppHelper.onAlarmCntChanged(currentEntity.id, 0);
 
       currentSessionHelper.setCurrentEntity(currentEntity);
       jndPubSub.pub('onCurrentEntityChanged', currentEntity);
+
+      //updateBadgeValue(currentEntity, 0);
 
       return currentEntity;
     }
@@ -184,14 +187,18 @@
       if (alarmCount == -1) {
         if (angular.isUndefined(this.getEntityFromListById(list, entity.id).alarmCnt)) {
           this.getEntityFromListById(list, entity.id).alarmCnt = 1;
-        }
-        else {
+        } else {
           this.getEntityFromListById(list, entity.id).alarmCnt++;
         }
+        pcAppHelper.onAlarmCntChanged(entity.id, curEntity.alarmCnt);
         return;
       }
 
+
       this.getEntityFromListById(list, entity.id).alarmCnt = alarmCount;
+      pcAppHelper.onAlarmCntChanged(entity.id, alarmCount);
+
+
     }
 
 

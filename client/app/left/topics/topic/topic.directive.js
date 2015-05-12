@@ -37,5 +37,6 @@
       $scope.tooltip = c.width() <= target.width() ? joinedEntityName : '';
       c.remove();
     };
+
   }
 })();

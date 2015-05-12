@@ -14,7 +14,7 @@
   /* @ngInject */
   function publicService($rootScope, $modal, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, modalHelper) {
+                         entityAPIservice, modalHelper, pcAppHelper) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -219,6 +219,9 @@
       // Disconnect socket connection.
       jndWebSocket.disconnectTeam();
 
+      // PC app function.
+      pcAppHelper.onSignedOut();
+
       if ( $state.current.name == 'signin') {
         // 현재 state 다시 로드
         $state.transitionTo($state.current, {}, {
@@ -262,7 +265,7 @@
     }
 
     function isNullOrUndefined(value) {
-      return value === null || angular.isUndefined(value);
+      return typeof value === 'undefined' || value === null || angular.isUndefined(value);
     }
 
     function goToDefaultTopic() {

@@ -1,6 +1,7 @@
 'use strict';
 
 var app = angular.module('jandiApp', [
+  'jandi.framework',
   'base.framework',
   'app.framework'
 ]);
