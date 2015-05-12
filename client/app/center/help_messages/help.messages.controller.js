@@ -6,8 +6,7 @@
     .controller('HelpMessageCtrl', HelpMessageCtrl);
 
   /* @ngInject */
-  function HelpMessageCtrl($scope, $rootScope, $filter, modalHelper) {
-
+  function HelpMessageCtrl($scope, $rootScope, $filter, $timeout, modalHelper) {
     // TODO: TO CONFIG??
     var NO_MEMBER_IN_TEAM = 'NO_MEMBER_IN_TEAM';
     var NO_MEMBER_IN_TOPIC = 'NO_MEMBER_IN_TOPIC';
@@ -15,12 +14,12 @@
     var NO_CONVERSATION_IN_TOPIC = 'NO_CONVERSATION_IN_TOPIC';
     var EVERYONE_IN_THE_BUILDING = 'EVERYONE_IN_THE_BUILDING';
 
+    var primaryFileButton = $('#primary_file_button');
+
     var currentState;
     (function() {
       _init();
     })();
-
-
 
     /**
      *  If status is changed in center panel,
@@ -52,7 +51,6 @@
     function _init() {
       _getCurrentHelpState();
     }
-
 
     function _getCurrentHelpState() {
       currentState = $scope.currentState;
@@ -109,9 +107,7 @@
           );
           break;
       }
-
     }
-
 
     function _createTemplate(imageClass, heading, message, isButtonRequired, buttonText, actionFunction) {
       var helpMessages = {};
@@ -127,7 +123,6 @@
       $scope.onButtonClicked = actionFunction;
     }
 
-
     function _openInviteToTeamModal() {
       modalHelper.closeModal();
       modalHelper.openInviteToTeamModal();
@@ -141,8 +136,10 @@
     }
 
     function _openFileUploadModal() {
-      $('#primary_file_button').trigger('click');
+      // angular togglemenu의 event error를 처리하기 위해 timeout
+      $timeout(function() {
+        primaryFileButton.trigger('click');
+      });
     }
-
   }
 })();
