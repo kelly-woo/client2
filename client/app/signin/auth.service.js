@@ -47,12 +47,16 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     });
   };
 
+  /**
+   * When signed out, account variable under $rootScope gets deleted.
+   * Thus, when there is account under $rootScope, it means user stays signed in.
+   *
+   * @returns {boolean}
+   */
   authAPI.isSignedIn = function() {
-    if (angular.isDefined(storageAPIservice.getRefreshTokenLocal()) || angular.isDefined(storageAPIservice.getRefreshTokenSession())){
-      return true;
-    }
-    return false;
+    return accountService.hasAccount();
   };
+
 
   authAPI.requestAccessTokenWithRefreshToken = function() {
     //console.log('requestAccessTokenWithRefreshToken')

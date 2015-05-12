@@ -216,6 +216,8 @@
       analyticsService.removeMemberCookieMixpanel();
       analyticsService.removeAccountCookieMixpanel();
 
+      accountService.removeAccount();
+
       // Disconnect socket connection.
       jndWebSocket.disconnectTeam();
 

@@ -16,6 +16,7 @@
       getAccount: getAccount,
       setAccount: setAccount,
       removeAccount: removeAccount,
+      hasAccount: hasAccount,
       getCurrentMemberId: getCurrentMemberId,
       getAccountLanguage: getAccountLanguage,
       validateCurrentPassword: validateCurrentPassword,
@@ -50,6 +51,11 @@
     }
     function removeAccount() {
       $rootScope.account = null;
+    }
+
+    function hasAccount() {
+      console.log($rootScope.account)
+      return !!$rootScope.account;
     }
 
     // TODO: CURRENTLY THIS IS O(N) ALGORITHM.  WHEN FOUND MATCH, BREAK OUT OF FOR LOOP AND RETURN RIGHT AWAY!
