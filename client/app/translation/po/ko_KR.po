@@ -789,7 +789,7 @@ msgstr "8자 이상 입력해주세요"
 msgid "@integration-desc-3"
 msgstr ""
 "브라우저의 팝업이 차단되었을 때는 계정 인증이나 파일 탐색기 실행이 불가능하"
-"므로 <b>꼭 팝업 차단 후 사용하시기 바랍니다.</b>"
+"므로 <b>꼭 팝업 차단을 해제 후 사용하시기 바랍니다.</b>"
 
 #: client/app/modal/integration/integration.html
 msgid "@integration-desc-dropbox-1"
