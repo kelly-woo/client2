@@ -208,7 +208,6 @@
     }
 
     function signOut() {
-      console.log('#signout start 1')
       // There is no need to remove session storage, but still just in case.
       storageAPIservice.removeSession();
       storageAPIservice.removeLocal();
@@ -222,9 +221,8 @@
 
       // PC app function.
       pcAppHelper.onSignedOut();
-      console.log('#signout start 2')
+
       if ( $state.current.name == 'signin') {
-        console.log('$state.current.name', $state.current.name);
         // 현재 state 다시 로드
         $state.transitionTo($state.current, {}, {
           reload: true,
@@ -233,7 +231,6 @@
         });
       }
       else {
-        console.log('$state.current.name else');
         $state.go('signin');
       }
     }
