@@ -262,7 +262,7 @@
 
     /**
      * Handles only 'message -> file_comment'
-     * @param data
+     * @param data {object} object that came through api call.
      */
     function messageEventFileCommentHandler(data) {
       var fileId = data.file.id;
@@ -293,10 +293,11 @@
     }
 
     /**
-     *
-     * 1. Always update center message.
-     * 2. Update messageList(left bottom) only if room is not current entity.
-     * 3. Send browser notification if action is not from me.
+     * Direct messages to me handler
+     * What is does
+     *  1. Always update center message.
+     *  2. Update messageList(left bottom) only if room is not current entity.
+     *  3. Send browser notification if action is not from me.
      *
      * @param room
      * @private
@@ -437,13 +438,10 @@
      * @private
      */
     function _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity) {
-      if (_isActionFromMe(writer.id)) return;
+      if (_isActionFromMe(writer.id) || isCurrentEntity) return;
 
-      if (!isCurrentEntity) {
-        // Non-current entity -> Send notification!!!
-        log('Send browser notification');
-        desktopNotificationService.addNotification(data, writer, roomEntity);
-      }
+      log('Send browser notification');
+      desktopNotificationService.addNotification(data, writer, roomEntity);
     }
     function _updateLeftPanel() {
       log('update left panel');

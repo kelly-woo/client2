@@ -170,8 +170,7 @@
         }
 
         list = $rootScope.joinedChannelList;
-      }
-      else if (entity.type == 'users') {
+      } else if (entity.type == 'users') {
         list = $rootScope.memberList;
       }
 

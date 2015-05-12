@@ -34,6 +34,7 @@
 
         return that;
       },
+
       /**
        * Web Notification show
        * native Notification object 생성하고 event handler를 열결함.
@@ -67,6 +68,7 @@
           options.onClick && options.onClick();
         };
       },
+
       /**
        * Web Notification object 생성시 전달하는 options object 생성
        */
