@@ -86,12 +86,14 @@
     };
 
     analyticsAPI.removeAccountCookieMixpanel= function() {
-      if (angular.isUndefined(mixpanel.account.cookie)) return;
-      mixpanel.account.cookie.clear();
+      if(mixpanel && mixpanel.account.cookie && mixpanel.account.cookie.clear) {
+        mixpanel.account.cookie.clear();
+      }
     };
     analyticsAPI.removeMemberCookieMixpanel= function() {
-      if (angular.isUndefined(mixpanel.cookie)) return;
-      mixpanel.cookie.clear();
+      if(mixpanel && mixpanel.cookie && mixpanel.cookie.clear) {
+        mixpanel.cookie.clear();
+      }
     };
 
     return analyticsAPI;
