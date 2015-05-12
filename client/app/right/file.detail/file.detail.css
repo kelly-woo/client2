@@ -214,6 +214,7 @@
 
 }
 .archived-file-icon-center {
+  display: block;
   width: 45px;
   height: 55px;
   margin: 10px auto;
