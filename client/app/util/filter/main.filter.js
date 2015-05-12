@@ -106,7 +106,7 @@ app.filter('parseAnchor', function() {
     return escape( str.substring( 0, begin ) ) + fn() + escape( str.substring( begin + length ) );
   }
 
-  return function( text ) {
+  return function ( text ) {
     var strs,
         str,
         words,
@@ -122,13 +122,13 @@ app.filter('parseAnchor', function() {
       words = str.split( ' ' );   // 문자열 split시 ' '과 /\s/는 다르게 처리됨. 예) "%E3%80%80(encodeURI 처리된 문자)"
       for ( j = 0, jLen = words.length; j < jLen; ++j ) {
         word = words[ j ];
-        if ( matchs = rEmailAddr.exec( word ) ) {
-          words[ j ] = parse( word, word.indexOf( matchs[ 0 ] ), matchs[ 0 ].length, function () {
-            return decodeUri( '<a href="mailto:' + matchs[ 0 ] + '">' + matchs[ 0 ] + '</a>' );
-          });
-        } else if ( matchs = rWebUrl.exec( word ) ) {
+        if ( matchs = rWebUrl.exec( word ) ) {
           words[ j ] = parse( word, word.indexOf( matchs[ 0 ] ), matchs[ 0 ].length, function () {
             return decodeUri( '<a href="' + ( matchs[ 2 ] ? '' : DEFAULT_PROTO ) + matchs[ 0 ] + '" target="_blank">' + matchs[ 0 ] + '</a>' );
+          });
+        } else if ( matchs = rEmailAddr.exec( word ) ) {
+          words[ j ] = parse( word, word.indexOf( matchs[ 0 ] ), matchs[ 0 ].length, function () {
+            return decodeUri( '<a href="mailto:' + matchs[ 0 ] + '">' + matchs[ 0 ] + '</a>' );
           });
         } else {
           words[ j ] = escape( word );
