@@ -239,7 +239,8 @@ article {
 }
 .msg-item.comment-title,
 .msg-item.comment-continue{
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  margin-top: 4px !important;
 }
 
 
@@ -259,6 +260,11 @@ article {
 }
 .msg-item__action {
   display: none;
+}
+.msg-item__action .icon-cancel {
+  position: absolute;
+  right: -7px;
+  bottom: 4px;
 }
 .msg-item:hover .msg-item__action {
   display: block;
@@ -297,10 +303,11 @@ article {
   font-size: 15px;
 }
 .continue-comment-body {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   display: inline-block;
   max-width: 100%;
+  line-height: 1.6rem;
 }
 .continue-comment-body p {
   margin: 0;
@@ -529,7 +536,7 @@ by ysyun 2015.2.25
 .msg-comment-body p {
   font-size: 14px;
   color: #333;
-  line-height: 1.3rem;
+  line-height: 1.6rem;
 }
 
 .footer {
