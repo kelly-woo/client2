@@ -63,7 +63,7 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
       _signOut();
       return;
     }
-
+    console.log('#requestAccessTokenWithRefreshToken');
     $http({
       method  : "POST",
       url     : $rootScope.server_address + 'token',
@@ -72,10 +72,14 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
         'refresh_token' : refresh_token
       }
     }).success(function(response) {
+      console.log('#requestAccessTokenWithRefreshToken success', response, refresh_token);
       updateAccessToken(response, refresh_token);
+      console.log('#updateAccessToken done');
     }).error(function(err) {
       // bad refresh_token.
+      console.log('#requestAccessTokenWithRefreshToken error', err);
       _signOut();
+      console.log('#requestAccessTokenWithRefreshToken signout done');
     })
   };
 
@@ -155,6 +159,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
         // net::ERR_CONNECTION_REFUSED
         // what should i do?
       } else if (rejection.status === 400) {
+        console.log('#responseError: rejection.status 400', $q, rejection);
         // This is just bad request.
         //console.debug('BAD REQUEST');
         //console.debug(rejection.config.method, rejection.config.url);
