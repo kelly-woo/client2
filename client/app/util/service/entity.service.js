@@ -89,20 +89,19 @@
      * @param entityId
      * @returns {*}
      */
-    function getEntityById (entityType, entityId) {
+    function getEntityById(entityType, entityId) {
       var entity;
       entityType = entityType.toLowerCase();
 
       // TODO: ISN'T 'indexOf' fucntion slow?
       // TODO: FIND FASTER/BETTER WAY TO DO THIS.
-      if (entityType.indexOf('privategroup') > -1) {
+      if ($rootScope.privateGroupMap && entityType.indexOf('privategroup') > -1) {
         entity = $rootScope.privateGroupMap[entityId];
-      }
-      else if (entityType.indexOf('user') > -1) {
+      } else if (entityType.indexOf('user') > -1) {
         if (_isMe(entityType, entityId)) {
           entity = $rootScope.member;
         } else {
-          entity = $rootScope.memberMap[entityId]
+          entity = $rootScope.memberMap[entityId];
         }
       } else if($rootScope.joinedChannelMap) {
         entity = $rootScope.joinedChannelMap[entityId];

@@ -14,8 +14,9 @@
     $scope.doneImage = configuration.assets_url + 'assets/images/invite-done.png';
     $scope.membersImage = configuration.assets_url + 'assets/images/invite-members.png';
 
-    $scope.seedUri = teamInfo.invitationUrl;                            // invite public link
+    $scope.seedUri = teamInfo.invitationUrl || '';                            // invite public link
     $scope.inviteDisalbed = teamInfo.invitationStatus === 'disabled';   // invite status
+    $scope.disableSeedUri = $scope.seedUri === '';
 
     // team의 admin
     currentTeamAdmin = currentSessionHelper.getCurrentTeamAdmin();
