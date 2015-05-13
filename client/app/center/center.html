@@ -59,7 +59,7 @@
              id="{{msg.id}}"
              data-length="{{msgs.length}}"
              class="msg-item"
-             data-ng-repeat="msg in msgs | orderBy: 'time':false"
+             data-ng-repeat="msg in msgs"
              data-link-id="{{ msg.id }}"
              data-link-status="{{msg.status}}"
              data-message-id="{{msg.message.id}}"
