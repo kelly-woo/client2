@@ -47,15 +47,14 @@
             ////TODO: Currently, there is no return value.  How about member object for return???
             memberService.getMemberInfo(memberService.getMemberId())
               .success(function(response) {
-                console.log('name changed good')
                 closeModal();
               })
               .error(function(err){
-                console.log(err)
+                console.log(err);
               })
           })
           .error(function(err) {
-            console.log(err)
+            console.log(err);
           })
           .finally(function() {
             $scope.toggleLoading();
@@ -64,11 +63,10 @@
         // email address changed!!
         memberService.setEmail(memberService.getEmail($scope.curUser))
           .success(function(response) {
-            console.log('email changed good')
             closeModal();
           })
           .error(function(err) {
-            console.log(err)
+            console.log(err);
           })
           .finally(function() {
             $scope.toggleLoading();
@@ -100,7 +98,7 @@
       }
     };
 
- 
+
     //  TODO: ie9에서 프로필 사진 바꾸기 기능이 없음.
     //  IE9에서 blob 읽는 법을 알아서 빨리 하기.
     $scope.onFileSelect = function($files) {
@@ -115,21 +113,21 @@
           if(window.FileReader && file.type.indexOf('image') > -1) {
             $scope.isFileReaderAvailable = true;
             var fileReader = new FileReader();
-            fileReader.readAsDataURL($files[0]);
 
             $scope.isProfilePicSelected = true;
-
             fileReader.onload = function(e) {
-              $scope.croppedProfilePic = '';
-              $scope.profilePic = e.target.result;
+              $scope.$apply(function($scope) {
+                $scope.croppedProfilePic = '';
+                $scope.profilePic = e.target.result;
+              });
             };
+            fileReader.readAsDataURL($files[0]);
           }
         }
       }
     };
 
     $scope.onCropDone = function() {
-
       if ($scope.isLoading) return;
 
       $scope.toggleLoading();
