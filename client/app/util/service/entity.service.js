@@ -95,9 +95,9 @@
 
       // TODO: ISN'T 'indexOf' fucntion slow?
       // TODO: FIND FASTER/BETTER WAY TO DO THIS.
-      if ($rootScope.privateGroupMap && entityType.indexOf('privategroup') > -1) {
+      if (entityType.indexOf('privategroup') > -1 && $rootScope.privateGroupMap) {
         entity = $rootScope.privateGroupMap[entityId];
-      } else if (entityType.indexOf('user') > -1) {
+      } else if (entityType.indexOf('user') > -1 && $rootScope.memberMap) {
         if (_isMe(entityType, entityId)) {
           entity = $rootScope.member;
         } else {
@@ -109,6 +109,13 @@
       return entity;
     }
 
+    /**
+     * 본인 entity 인지 여부를 반환한다.
+     * @param {String} entityType
+     * @param {number|string} entityId
+     * @returns {boolean} 본인 entity 인지 여부
+     * @private
+     */
     function _isMe(entityType, entityId) {
       entityId = parseInt(entityId, 10);
       return !!(entityType.indexOf('user') > -1 && $rootScope.member && $rootScope.member.id === entityId);
