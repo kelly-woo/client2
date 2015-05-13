@@ -28,7 +28,7 @@
     this.hasBottomReached = hasBottomReached;
     this.isBrowserHidden = isBrowserHidden;
 
-    this.setBrowserFocue = setBrowserFocus;
+    this.setBrowserFocus = setBrowserFocus;
     this.resetBrowserFocus = resetBrowserFocus;
 
     this.isMessageFromMe = isMessageFromMe;
