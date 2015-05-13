@@ -128,29 +128,35 @@
     };
 
     $scope.onCropDone = function() {
+      var blob;
+
       if ($scope.isLoading) return;
 
-      $scope.toggleLoading();
+      if ($scope.croppedProfilePic) {
+        $scope.toggleLoading();
 
-      var blob = dataURItoBlob($scope.croppedProfilePic);
+        blob = dataURItoBlob($scope.croppedProfilePic);
 
-      // Since I'm calling 'updateProfilePic' api with blob file,
-      // there might be an image file missing file extension.
-      memberService.updateProfilePic(blob, $scope.isFileReaderAvailable)
-        .success(function(response) {
-          // TODO: Currently, there is no return value.  How about member object for return???
-          memberService.getMemberInfo(memberService.getMemberId())
-            .success(function(response) {
-              memberService.setMember(response);
-            })
-        })
-        .error(function(error) {
-          console.error('onCropDone', error.code, error.msg);
-        })
-        .finally(function() {
-          $scope.toggleLoading();
-          $scope.isProfilePicSelected = false;
-        });
+        // Since I'm calling 'updateProfilePic' api with blob file,
+        // there might be an image file missing file extension.
+        memberService.updateProfilePic(blob, $scope.isFileReaderAvailable)
+          .success(function(response) {
+            // TODO: Currently, there is no return value.  How about member object for return???
+            memberService.getMemberInfo(memberService.getMemberId())
+              .success(function(response) {
+                memberService.setMember(response);
+              })
+          })
+          .error(function(error) {
+            console.error('onCropDone', error.code, error.msg);
+          })
+          .finally(function() {
+            $scope.toggleLoading();
+            $scope.isProfilePicSelected = false;
+          });
+      } else {
+        console.error('profile picture dataURI is invalid');
+      }
     };
 
     function dataURItoBlob (dataURI) {

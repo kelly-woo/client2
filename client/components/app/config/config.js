@@ -26,7 +26,8 @@
       integration: {
         google_drive: {
           client_id: '480258439134-5jutkf7pn2nupra8t0ijj7b1pocbb0ob.apps.googleusercontent.com',
-          api_key: 'AIzaSyDkMnioQdS5UuhX7uw5WNHM3GxgK-nImFY'
+          api_key: 'AIzaSyDkMnioQdS5UuhX7uw5WNHM3GxgK-nImFY',
+          redirect: 'http://oauth.jandi.io:8888/'
         },
         dropbox: '4hbb9l5wu46okhp'
       }

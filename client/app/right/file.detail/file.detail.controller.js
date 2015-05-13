@@ -14,6 +14,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   $scope.file_comments    = [];
   $scope.glued            = false;
   $scope.isPostingComment = false;
+  $scope.hasFileAPIError  = false;
 
   // configuration for message loading
   $scope.fileLoadStatus = {
@@ -101,8 +102,13 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
             //console.log('is deleted file?', $scope.isFileArchived)
           })
           .error(function(err) {
-            console.error(err.msg);
+            $scope.hasFileAPIError = true;
+            $state.go('messages.detail.files.item', $state.params);
+          })
+          .finally(function() {
+
           });
+
 
         $scope.fileLoadStatus.loading = false;
         $('.file-detail-body').addClass('opac_in');
@@ -333,6 +339,15 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
 
   function _isFileDetailActive() {
     return !!$state.params.itemId;
+  }
+
+  /**
+   *
+   * Redirect user back to file list.
+   *
+   */
+  $scope.backToFileList = function() {
+    $state.go('messages.detail.files');
   }
 
 });

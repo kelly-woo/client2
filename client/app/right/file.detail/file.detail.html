@@ -7,7 +7,7 @@
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
 
   <!-- FILE -->
-  <div class="rpanel-body-content file-detail" ng-show="!isFileArchived">
+  <div class="rpanel-body-content file-detail" ng-show="!isFileArchived && !hasFileAPIError">
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 
       <div class="file-detail-header">
@@ -192,8 +192,22 @@
 
 
 
-  <!-- ARCHIVED FILE  -->
-  <div class="rpanel-body-content file-detail archived-file-detail" ng-if="isFileArchived">
+  <!-- ARCHIVED FILE  || FILE API ERROR -->
+  <div class="rpanel-body-content file-detail archived-file-detail" ng-if="isFileArchived || hasFileAPIError">
+
+    <!-- FILE API ERROR -->
+    <div class="file-not-available-container" ng-if="hasFileAPIError">
+      <div class="alert-msg-container cursor_pointer">
+
+        <alert class="warning file-not-available-msg-container" ng-click="backToFileList();">
+          <img class="archived-file-icon-center" ng-src="assets/images/fileicon_unshared.png" src="assets/images/fileicon_unshared.png">
+          <span translate>@file-unshared-no-longer-accessible</span>
+        </alert>
+      </div>
+
+    </div>
+
+    <!-- ARCHIVED FILE  -->
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 
       <div class="file-detail-header">
