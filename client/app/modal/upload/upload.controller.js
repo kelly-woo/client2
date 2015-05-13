@@ -247,12 +247,12 @@
         var index;
 
         fileReader = new window.FileReader();
-        fileReader.readAsDataURL(file);
 
         $scope.dataUrl = '';
         fileReader.onload = function(e) {
             $scope.dataUrl = e.target.result;
         };
+        fileReader.readAsDataURL(file);
       }
 
       $scope.$watch('dataUrl', function(newValue, oldValue){
