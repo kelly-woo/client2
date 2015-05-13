@@ -35,12 +35,14 @@
             clipButton.removeClass('active');
           });
 
-        clipboard.createInstance( clipButton, {
-          getText: function() {
-            scope.isCopySuccess = true;
-            return element.find('#invite-link').val();
-          }
-        });
+        if (!scope.disableSeedUri) {
+          clipboard.createInstance(clipButton, {
+            getText: function() {
+              scope.isCopySuccess = true;
+              return element.find('#invite-link').val();
+            }
+          });
+        }
 
         invitation = scope.invitation = Object.create(invitationService).init(
           element.find('#invites'),

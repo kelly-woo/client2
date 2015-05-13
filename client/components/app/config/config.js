@@ -25,8 +25,8 @@
       last_update_message : '04/06/2014 22:40:00',
       integration: {
         google_drive: {
-          client_id: '720371329165-sripefi3is5k3vlvrjgn5d3onn9na2es.apps.googleusercontent.com',
-          api_key: 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs'
+          client_id: '480258439134-5jutkf7pn2nupra8t0ijj7b1pocbb0ob.apps.googleusercontent.com',
+          api_key: 'AIzaSyDkMnioQdS5UuhX7uw5WNHM3GxgK-nImFY'
         },
         dropbox: '4hbb9l5wu46okhp'
       }
