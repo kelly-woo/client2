@@ -26,7 +26,8 @@
       integration: {
         google_drive: {
           client_id: '@@google_drive_client_id',
-          api_key: '@@google_drive_api_key'
+          api_key: '@@google_drive_api_key',
+          redirect: '@@google_drive_redirect'
         },
         dropbox: '@@dropbox_api_key'
       }
