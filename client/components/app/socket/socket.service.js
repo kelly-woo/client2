@@ -290,11 +290,12 @@
 
       if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
         jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
-
+        return;
       }
 
       if (messageType === MESSAGE_TOPIC_LEAVE) {
         jndWebSocketHelper.messageEventTopicLeaveHandler(data);
+        return;
       }
 
       if (messageType === MESSAGE_TOPIC_JOIN) {
