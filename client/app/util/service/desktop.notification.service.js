@@ -123,22 +123,25 @@
         var isUser = roomEntity.type === 'users';
         var options = {};
         var notification;
+        var message;
 
-        if (isUser) {
-          options.tag = writerEntity.id;
-          options.body = writerEntity.name + ' : ' + data.message;
-        } else {
-          options.tag = roomEntity.id;
-          options.body = '[' + roomEntity.name + '] ' + writerEntity.name + ' : '+ data.message;
+        if (message = data.message) {
+          if (isUser) {
+            options.tag = writerEntity.id;
+            options.body = writerEntity.name + ' : ' + message;
+          } else {
+            options.tag = roomEntity.id;
+            options.body = '[' + roomEntity.name + '] ' + writerEntity.name + ' : '+ message;
+          }
+
+          options.icon = $filter('getSmallThumbnail')(writerEntity);
+          options.data = {
+            id: roomEntity.id,
+            type: roomEntity.type
+          };
+
+          (notification = that.createInstance(options)) && notification.show();
         }
-
-        options.icon = $filter('getSmallThumbnail')(writerEntity);
-        options.data = {
-          id: roomEntity.id,
-          type: roomEntity.type
-        };
-
-        (notification = that.createInstance(options)) && notification.show();
       }
     };
   }

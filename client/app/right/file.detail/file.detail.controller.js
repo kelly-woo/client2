@@ -174,7 +174,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
 
     // file detail에서 preview image 설정
     if ($filter('hasPreview')(content)) {
-      $scope.ImageUrl = $scope.server_uploaded + content.extraInfo.largeThumbnailUrl;
+      $scope.ImageUrl = $scope.server_uploaded + content.fileUrl;
     } else {
       $scope.ImageUrl = (integrationPreviewMap[content.serverUrl] && (configuration.assets_url + integrationPreviewMap[content.serverUrl]));
       $scope.cursor = 'pointer';
