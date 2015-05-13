@@ -63,24 +63,25 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loadingTimer : false // no longer using.
   };
 
+  //viewContent load 시 이벤트 핸들러 바인딩
+  $scope.$on('$viewContentLoaded', _onViewContentLoaded);
+
+  //viewContent unload 시 이벤트 핸들러 바인딩
+  $scope.$on('$destroy', _onDestroy);
+
   (function() {
     _onStartUpCheckList();
-
-
     _init();
 
     if(_hasMessageIdToSearch()) {
       _jumpToMessage();
     } else {
-
       loadMore();
     }
-
     //$scope.promise = $timeout(updateList, updateInterval);
   })();
 
   function _init() {
-
     _resetMessages();
     _resetLoadMoreCounter();
     _setDefaultLoadingScreen();
@@ -154,6 +155,61 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _initLocalVariables();
     _jumpToMessage();
   });
+
+  /**
+   * 컨트롤러의 view content 가 load 되었을 시 이벤트 핸들러 ($viewContentLoaded 이벤트 핸들러)
+   * @private
+   */
+  function _onViewContentLoaded() {
+    _attachEvents();
+  }
+
+  /**
+   * scope 의 $destroy 이벤트 발생 시 이벤트 핸들러
+   * @private
+   */
+  function _onDestroy() {
+    _detachEvents();
+  }
+
+  /**
+   * dom 이벤트를 바인딩한다.
+   * @private
+   */
+  function _attachEvents() {
+    $(window).on('focus', _onWindowFocus);
+    $(window).on('blur', _onWindowBlur);
+  }
+
+  /**
+   * dom 이벤트 바인딩을 해제 한다.
+   * @private
+   */
+  function _detachEvents() {
+    $(window).off('focus', _onWindowFocus);
+    $(window).off('blur', _onWindowBlur);
+  }
+
+  /**
+   * 윈도우 focus 시 이벤트 핸들러
+   * @private
+   */
+  function _onWindowFocus() {
+    centerService.setBrowserFocus();
+    if (_hasBottomReached()) {
+      _clearBadgeCount($scope.currentEntity);
+    }
+  }
+
+  /**
+   * 윈도우 blur 시 이벤트 핸들러
+   * @private
+   */
+  function _onWindowBlur() {
+    centerService.resetBrowserFocus();
+  }
+
+
 
   function _jumpToMessage() {
     var toMessageId = messageSearchHelper.getLinkId();
@@ -1255,19 +1311,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _hasBrowserFocus() {
     return !centerService.isBrowserHidden();
   }
-
-  // Callback when window loses its focus.
-  window.onblur = function() {
-    centerService.resetBrowserFocus();
-  };
-
-  // Callback when window gets focused.
-  window.onfocus = function() {
-    centerService.setBrowserFocue();
-
-    if (_hasBottomReached())
-      _clearBadgeCount($scope.currentEntity);
-  };
 
   $scope.$on('setChatInputFocus', function() {
     _setChatInputFocus();
