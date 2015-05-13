@@ -8,7 +8,6 @@
     .controller('invitationChannelCtrl', invitationChannelCtrl);
 
   function invitationChannelCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter, publicService, analyticsService) {
-    var inviteUsers = [];
     InitInvite();
 
     /*
@@ -21,6 +20,9 @@
       var msg2;
 
       $scope.availableMemberList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 || user.status == 'disabled' });
+      $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
+        return user.selected === false;
+      });
       $scope.inviteChannel = $scope.availableMemberList.length !== 0;
 
       if ($scope.account && $scope.account.memberships.length >= 2) {   // team size >= 2
@@ -53,20 +55,20 @@
     // TODO : FIX IT!
     $scope.onSelect = function(item) {
       item.selected = true;
-      inviteUsers.indexOf(item) < 0 && inviteUsers.push(item);
+      $scope.inviteUsers.indexOf(item) < 0 && $scope.inviteUsers.push(item);
     };
     $scope.onRemove = function(item) {
       item.selected = false;
-      inviteUsers.splice(inviteUsers.indexOf(item), 1);
+      $scope.inviteUsers.splice($scope.inviteUsers.indexOf(item), 1);
     };
 
     $scope.onInviteClick = function(entityType) {
       var guestList = [];
 
-      if (!$scope.isLoading && inviteUsers.length > 0) {
+      if (!$scope.isLoading && $scope.inviteUsers.length > 0) {
         $scope.toggleLoading();
 
-        angular.forEach(inviteUsers, function(user) {
+        angular.forEach($scope.inviteUsers, function(user) {
           this.push(user.id);
         }, guestList);
 
