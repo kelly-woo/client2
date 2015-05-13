@@ -38,7 +38,7 @@
         </div>
         <div class="invite-link-copy">
           <input id="invite-link" class="invite-public-link form-control invite" type="text" value="{{seedUri}}" readonly="true" ng-disabled="{{disableSeedUri}}">
-          <button id="clip-invite" class="clip-invite invite-btn cursor_pointer btn-ok btn">
+          <button id="clip-invite" class="clip-invite invite-btn cursor_pointer btn-ok btn" ng-disabled="{{disableSeedUri}}">
             <span translate>@common-copy</span>
           </button>
         </div>

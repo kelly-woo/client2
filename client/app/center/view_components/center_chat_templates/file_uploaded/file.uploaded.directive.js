@@ -10,7 +10,8 @@
       restrict: 'E',
       scope: false,
       link: link,
-      templateUrl: 'app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html'
+      templateUrl: 'app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html',
+      controller: 'fileUploadedCtrl',
     };
 
     function link(scope, element, attrs) {
