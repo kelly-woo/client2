@@ -250,7 +250,9 @@
 
         $scope.dataUrl = '';
         fileReader.onload = function(e) {
+          $scope.$apply(function($scope) {
             $scope.dataUrl = e.target.result;
+          });
         };
         fileReader.readAsDataURL(file);
       }
