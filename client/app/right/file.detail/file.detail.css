@@ -343,5 +343,9 @@
 
 
 .file-not-available-msg-container {
-
+  margin: 20px;
+  text-align: center;
+  background-color: #f2f2f2;
+  border: none;
+  color: #575757;
 }
