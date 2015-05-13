@@ -125,11 +125,11 @@
         <span class="bullet">•</span>
 
         <!--    DOWNLOAD    -->
-        <a class="cursor_pointer" ng-if="!isIntegrateFile" download-file file-url="{{msg.message.content.fileUrl}}" file-title="{{msg.message.content.title}}">
+        <a class="cursor_pointer" download-file ng-if="!isIntegrateFile" file-url="{{msg.message.content.fileUrl}}" file-title="{{msg.message.content.title}}">
           <span translate>@common-download</span>
         </a>
 
-        <span class="bullet">•</span>
+        <span class="bullet" ng-if="!isIntegrateFile">•</span>
 
         <!--    COMMENT -->
         <a class="cursor_pointer"  data-ng-click="setCommentFocus(msg.message);">
