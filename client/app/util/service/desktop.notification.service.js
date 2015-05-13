@@ -120,12 +120,13 @@
        */
       addNotification: function(data, writerEntity, roomEntity) {
         var that = this;
-        var isUser = roomEntity.type === 'users';
+        var isUser;
         var options = {};
         var notification;
         var message;
 
-        if (message = data.message) {
+        if (data && writerEntity && roomEntity && (message = data.message)) {
+          isUser = roomEntity.type === 'users';
           if (isUser) {
             options.tag = writerEntity.id;
             options.body = writerEntity.name + ' : ' + message;
