@@ -22,7 +22,14 @@
       main_address        : '@@main_address',
       app_store_address   : '@@app_store_address',
       play_store_address  : '@@play_store_address',
-      last_update_message : '@@last_update_message'
+      last_update_message : '@@last_update_message',
+      integration: {
+        google_drive: {
+          client_id: '@@google_drive_client_id',
+          api_key: '@@google_drive_api_key'
+        },
+        dropbox: '@@dropbox_api_key'
+      }
     })
     .run(run);
 

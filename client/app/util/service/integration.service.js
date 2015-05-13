@@ -6,7 +6,7 @@
     .service('integrationService', integrationService);
 
   /* @ngInject */
-  function integrationService($rootScope, $modal, $timeout, fileAPIservice, fileObjectService, accountService, storageAPIservice, analyticsService) {
+  function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice, fileObjectService, accountService, storageAPIservice, analyticsService) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
@@ -548,8 +548,8 @@
     var googleDriveIntegration;
     var googleDriveIntegrationLock;
     function createGoogleDrive($scope, options) {
-      var apiKey = 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs';
-      var clientId = '720371329165-sripefi3is5k3vlvrjgn5d3onn9na2es.apps.googleusercontent.com';
+      var apiKey = configuration.integration.google_drive.api_key;
+      var clientId = configuration.integration.google_drive.client_id;
 
       if (!googleDriveIntegrationLock) {
         googleDriveIntegrationLock = true;
@@ -584,7 +584,7 @@
     var dropboxIntegration;
     var dropboxIntegrationLock;
     function createDropBox($scope, options) {
-      var apiKey = '4hbb9l5wu46okhp';
+      var apiKey = configuration.integration.dropbox;
 
       if (!dropboxIntegrationLock) {
         dropboxIntegrationLock = true;

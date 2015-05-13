@@ -9,8 +9,8 @@
     .module('app.config', [])
     .constant('configuration', {
       name                : 'local',
-      api_address         : 'http://www.jandi.io:8888/',
-      socket_address      : 'http://www.jandi.io:8888/',
+      api_address         : 'http://i1.jandi.io:8888/',
+      socket_address      : 'http://ws.jandi.io:8888/',
       api_version         : '2',
       ga_token            : 'UA-54051037-1',
       ga_token_global     : 'UA-54051037-4',
@@ -22,7 +22,14 @@
       main_address        : 'http://www.jandi.io:8888/main/#/',
       app_store_address   : 'itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8',
       play_store_address  : 'https://play.google.com/store/apps/details?id=com.tosslab.jandi.app',
-      last_update_message : '04/06/2014 22:40:00'
+      last_update_message : '04/06/2014 22:40:00',
+      integration: {
+        google_drive: {
+          client_id: '720371329165-sripefi3is5k3vlvrjgn5d3onn9na2es.apps.googleusercontent.com',
+          api_key: 'AIzaSyAuCfgO2Q-GbGtjWitgBKkaSBTqT2XAjPs'
+        },
+        dropbox: '4hbb9l5wu46okhp'
+      }
     })
     .run(run);
 
