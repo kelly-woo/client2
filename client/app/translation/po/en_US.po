@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -696,6 +696,10 @@ msgstr "As of "
 msgid "@file-size-too-large-error"
 msgstr "Currently you cannot upload a file that exceeds 100MB."
 
+#: client/app/right/file.detail/file.detail.html
+msgid "@file-unshared-no-longer-accessible"
+msgstr "This file has been unshared from this conversation."
+
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-computer"
 msgstr "My Computer"
@@ -833,12 +837,6 @@ msgid "@integration-title-google-drive"
 msgstr "Share from Google Drive"
 
 #: client/app/modal/invitation/invitation.team.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-"The team invitation link has been copied to your clipboard. Use it to invite "
-"others to your team."
-
-#: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-contact-desc"
 msgstr ""
 "Inviting over 100 members? Contact us at <a href=\"mailto:support@tosslab.com"
@@ -865,6 +863,12 @@ msgstr "+ More"
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-some-fail"
 msgstr "Some invitations could not be sent."
+
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"The team invitation link has been copied to your clipboard. Use it to invite "
+"others to your team."
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"

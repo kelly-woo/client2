@@ -192,9 +192,10 @@
 
 
 
-  <!-- ARCHIVED FILE  -->
+  <!-- ARCHIVED FILE  || FILE API ERROR -->
   <div class="rpanel-body-content file-detail archived-file-detail" ng-if="isFileArchived || hasFileAPIError">
 
+    <!-- FILE API ERROR -->
     <div class="file-not-available-container" ng-if="hasFileAPIError">
       <div class="alert-msg-container">
 
@@ -205,6 +206,7 @@
 
     </div>
 
+    <!-- ARCHIVED FILE  -->
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 
       <div class="file-detail-header">

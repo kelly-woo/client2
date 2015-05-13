@@ -341,6 +341,15 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     return !!$state.params.itemId;
   }
 
+  /**
+   *
+   * Redirect user back to file list.
+   *
+   */
+  $scope.backToFileList = function() {
+    $state.go('messages.detail.files');
+  }
+
 });
 
 app

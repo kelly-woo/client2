@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -64,8 +64,8 @@ msgstr "更新成功完成"
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/image.crop.html
 #: client/app/modal/integration/integration.html
-#: client/app/modal/password.reset.request.html
-#: client/app/modal/rename.html client/app/modal/share/share.html
+#: client/app/modal/password.reset.request.html client/app/modal/rename.html
+#: client/app/modal/share/share.html
 #: client/app/modal/team_change/team.change.html
 #: client/app/modal/upload/upload.html
 msgid "@btn-cancel"
@@ -80,16 +80,13 @@ msgstr "更改"
 msgid "@btn-click-to-view"
 msgstr "點擊檢視"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/invitation/invitation.channel.html
-#: client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html client/app/modal/join.html
-#: client/app/modal/password.reset.request.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
+#: client/app/modal/join.html client/app/modal/password.reset.request.html
 #: client/app/modal/settings.account.html
-#: client/app/modal/settings.service.html
-#: client/app/modal/settings.team.html
+#: client/app/modal/settings.service.html client/app/modal/settings.team.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@btn-close"
 msgstr "關閉"
@@ -105,8 +102,7 @@ msgstr "留言"
 msgid "@btn-confirm"
 msgstr "確定"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@btn-create"
 msgstr "建立"
@@ -123,8 +119,7 @@ msgstr "提交"
 
 #: client/app/header/header.html
 #: client/app/modal/invitation/invitation.channel.html
-#: client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html
+#: client/app/modal/invite.channel.html client/app/modal/invite.direct.html
 msgid "@btn-invite"
 msgstr "邀請"
 
@@ -183,8 +178,8 @@ msgstr "取消標記議題"
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
 msgstr ""
-"\"私人群組被更名爲私人議題並整合到議題列表中。私人議題都標有上鎖符號，並"
-"像以前一樣提供僅限邀請機制，僅參與者可以看到所有溝通内容。\""
+"\"私人群組被更名爲私人議題並整合到議題列表中。私人議題都標有上鎖符號，並像以"
+"前一樣提供僅限邀請機制，僅參與者可以看到所有溝通内容。\""
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
@@ -193,9 +188,9 @@ msgstr "直接傳訊的對話現在將根據最新的訊息自動重新排序。
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-3"
 msgstr ""
-"針對直接傳訊，初始設定是如果是已經傳出的訊息將表列出來，但您可以選擇關閉"
-"並隱藏它們。當您收到新的訊息，已關閉的直接傳訊將會自動重新出現（連同訊息"
-"歷史記錄），或者您也可以點擊‘+添加’來啟動對話。"
+"針對直接傳訊，初始設定是如果是已經傳出的訊息將表列出來，但您可以選擇關閉並隱"
+"藏它們。當您收到新的訊息，已關閉的直接傳訊將會自動重新出現（連同訊息歷史記"
+"錄），或者您也可以點擊‘+添加’來啟動對話。"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-title"
@@ -242,8 +237,8 @@ msgstr "離開"
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave-confirm"
 msgstr ""
-"您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直"
-"到您收到新的訊息或以手動方式重新打開它。 "
+"您確定您要離開這個對話？一離開將使這對話在’訊息‘標籤下是隱藏看不到的，直到您"
+"收到新的訊息或以手動方式重新打開它。 "
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@common-copy"
@@ -412,8 +407,7 @@ msgstr "完成了"
 msgid "@common-file-upload-progress-msg"
 msgstr "上傳中..."
 
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html client/app/right/right.html
 msgid "@common-files"
 msgstr "檔案"
 
@@ -461,8 +455,7 @@ msgstr "發送者是"
 msgid "@common-more"
 msgstr "瀏覽"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 #: client/app/modal/current_member_profile/settings.profile.html
 #: client/app/modal/topic_create/topic.create.html
 msgid "@common-name"
@@ -504,8 +497,7 @@ msgstr "隱私權條款"
 msgid "@common-profile-settings"
 msgstr "簡介設定"
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
+#: client/app/modal/create.channel.html client/app/modal/create.private.html
 msgid "@common-purpose"
 msgstr "敘述"
 
@@ -688,6 +680,10 @@ msgstr "刪除時間："
 msgid "@file-size-too-large-error"
 msgstr "無法上傳大於100MB的檔案"
 
+#: client/app/right/file.detail/file.detail.html
+msgid "@file-unshared-no-longer-accessible"
+msgstr "此檔案已經從這個對話中取消分享 "
+
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@file-upload-computer"
 msgstr "我的電腦"
@@ -711,8 +707,8 @@ msgstr "您有新訊息"
 #: client/app/modal/upload/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"IE9瀏覽器無法適當支援檔案預覽。如果圖像不能正確顯示，別擔心，這不影響您上"
-"傳檔案。"
+"IE9瀏覽器無法適當支援檔案預覽。如果圖像不能正確顯示，別擔心，這不影響您上傳檔"
+"案。"
 
 #: client/app/modal/upload/upload.html
 msgid "@ie9-please-do-not-use"
@@ -802,8 +798,8 @@ msgstr "連結你的Google帳戶"
 #: client/app/modal/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
-"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使用篩"
-"選功能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
+"點擊篩選功能的“Google Doc”選項輕鬆搜尋Google 文件、試算表、簡報。而使用篩選功"
+"能的檔案類型，可查詢Word、Excel、PDF等其他格式的檔案。"
 
 #: client/app/modal/integration/integration.html
 msgid "@integration-submit"
@@ -816,10 +812,6 @@ msgstr "從Dropbox上傳"
 #: client/app/modal/integration/integration.html
 msgid "@integration-title-google-drive"
 msgstr "從Google雲端硬碟上傳"
-
-#: client/app/modal/invitation/invitation.team.html
-msgid "@invitation_success_copy_link"
-msgstr "成員邀請的連結已複製到剪貼簿"
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-contact-desc"
@@ -847,6 +839,10 @@ msgstr "＋更多"
 msgid "@invitation-some-fail"
 msgstr "部分邀請信無法寄出"
 
+#: client/app/modal/invitation/invitation.team.html
+msgid "@invitation_success_copy_link"
+msgstr "成員邀請的連結已複製到剪貼簿"
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr "我要保持登入狀態"
@@ -863,8 +859,7 @@ msgstr "在您的桌機上使用JANDI或帶著它到處走動 "
 msgid "@login-invalid"
 msgstr "電子郵件或密碼無效"
 
-#: client/app/modal/password.reset.request.html
-#: client/app/signin/signin.html
+#: client/app/modal/password.reset.request.html client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
@@ -889,8 +884,8 @@ msgstr "  "
 #: client/app/modal/create.channel.html
 msgid "@modal-create-ch-msg3"
 msgstr ""
-"- 私人議題對未受邀成員不開放- 在私人議題内分享的檔案僅開放給其參與者- 已"
-"設定爲公開或私人的議題在建立之後不能被轉換成另一個"
+"- 私人議題對未受邀成員不開放- 在私人議題内分享的檔案僅開放給其參與者- 已設定"
+"爲公開或私人的議題在建立之後不能被轉換成另一個"
 
 #: client/app/modal/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
@@ -972,8 +967,7 @@ msgstr "您可以更改您的語言或通知設定"
 
 #: client/app/modal/settings.team.html
 msgid "@modal-setting-team-msg"
-msgstr ""
-"您可以在這裏變更您的團隊設定。請注意，任何變更也將適用到您的團隊成員。"
+msgstr "您可以在這裏變更您的團隊設定。請注意，任何變更也將適用到您的團隊成員。"
 
 #: client/app/modal/upload/upload.html
 msgid "@modal-upload-title-msg1"
@@ -1086,15 +1080,14 @@ msgstr "私人議題"
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
 msgstr ""
-"搜尋 <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</"
-"span>..."
+"搜尋 <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>..."
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 與 "
-"<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span> 與 <span "
+"class=\"searchQueryKeyword\">{{searchStatus.length}}</span> 符合"
 
 #: client/app/modal/settings.team.html
 msgid "@setting-team-delete"
@@ -1157,8 +1150,7 @@ msgstr "邀請其他團隊成員"
 msgid "@team-members"
 msgstr "團隊成員"
 
-#: client/app/header/header.html
-#: client/app/modal/team_change/team.change.html
+#: client/app/header/header.html client/app/modal/team_change/team.change.html
 msgid "@team-switch"
 msgstr "更換團隊"
 
@@ -1180,22 +1172,22 @@ msgstr "知道了！"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定"
-"檔案後，將點擊右邊的「ᵒᵒᵒ」即可。"
+"所有分享過的檔案都在檔案庫裡。想分享、留言、下載或刪除檔案，只需要在選定檔案"
+"後，將點擊右邊的「ᵒᵒᵒ」即可。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、"
-"曾經分享在哪個議題下”的項目進行搜尋。"
+"想找到封塵已久的檔案，透過鍵入關鍵字或篩選功能中“檔案類別、曾經被誰分享、曾經"
+"分享在哪個議題下”的項目進行搜尋。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即"
-"可收納搜尋欄。"
+"收放搜尋欄好簡單！點擊右上角的「搜尋」開啟關鍵字搜尋功能；點擊「關閉」即可收"
+"納搜尋欄。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
@@ -1209,8 +1201,8 @@ msgstr "送出訊息及上傳檔案"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按"
-"鈕和選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
+"要發送訊息，只需在文字欄中開始打字然後按‘Enter’。要上傳檔案，點擊左側的按鈕和"
+"選擇所需的檔案路徑，或任意拖拽檔案到中間留言板上的任何地方。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -1223,15 +1215,15 @@ msgstr "TIPS"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
-"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接"
-"傳訊會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直"
-"接傳訊，同時仍然保留訊息歷史直到對話重新啟動。"
+"直接傳訊是介於兩位成員之間的私人、一對一的對話。當您收到一個新訊息，直接傳訊"
+"會自動出現，或者您也可以透過點擊‘+添加’啓動對話。您也可以關閉並隱藏直接傳訊，"
+"同時仍然保留訊息歷史直到對話重新啟動。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新"
-"的私人議題。"
+"私人議題是僅限邀請機制，分享的資訊僅對參與者顯示。透過點擊‘+添加’來啟動新的私"
+"人議題。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
@@ -1240,9 +1232,9 @@ msgstr "‘公開議題’、‘私人議題’及‘直接傳訊’有什麽不
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐"
-"的建議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建"
-"立您自己的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
+"’議題‘是以社群爲主的討論及分享任何事物的空間 - 專案、更新、會議行程、午餐的建"
+"議等等。公開議題是開放給您團隊上的任何人來參與。您可以透過‘+添加’來建立您自己"
+"的，或則透過點擊‘☰瀏覽’加入其它現行的公開議題。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -1251,8 +1243,8 @@ msgstr "繼續 »"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
 msgstr ""
-"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最重"
-"要的提示。"
+"JANDI要讓您的團隊溝通更加無縫和緊密。以下您瞭解JANDI而需要知道的三個最重要的"
+"提示。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
@@ -1322,8 +1314,8 @@ msgstr "JANDI 新訊息"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "離開私人議題後，未來希望能夠重新加入，必須先取得其它人的邀請。您確定要"
-#~ "離開嗎？"
+#~ "離開私人議題後，未來希望能夠重新加入，必須先取得其它人的邀請。您確定要離開"
+#~ "嗎？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "沒有上傳檔案"
