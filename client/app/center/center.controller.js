@@ -238,26 +238,33 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 메세지를 날짜로 묶는다.
    */
   function groupByDate() {
-    _formatMessages($scope.messages);
+    _setMessageFlag($scope.messages);
     $scope.groupMsgs = [];
     $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
       return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
     });
     _.each($scope.groupMsgs, function(messages) {
-      _setChildTextFlag(messages);
+      _setMessageDetail(messages);
     });
   }
 
   /**
-   * 메세지 리스트에 isChildText 플래그를 할당한다.
+   * 메세지에 세부 데이터를 할당한다.
    * @param {Array} messages
    * @private
    */
-  function _setChildTextFlag(messages) {
+  function _setMessageDetail(messages) {
     _.each(messages, function(data, index) {
-      if (_isTextMessage(index, messages)) {
-        data.message.isChildText = _isChildTextMsg(index, messages);
-        data.message.hasChildText = _hasChildTextMsg(index, messages);
+      switch (_getContentType(index, messages)) {
+        case 'text':
+          data.message.isChildText = _isChildTextMsg(index, messages);
+          data.message.hasChildText = _hasChildTextMsg(index, messages);
+          break;
+        case 'comment':
+          data.message.commentOption = _getCommentOption(messages[index], messages[index - 1]);
+          break;
+        default:
+          break;
       }
     });
   }
@@ -274,15 +281,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * text message 인지 여부를 반환한다.
+   * 해당 메세지의 content type 을 확인한다.
    * @param index 확인할 대상 메세지 인덱스
    * @param messages 전체 메세지 리스트
-   * @returns {boolean}
+   * @returns {string} 메세지의 contentType
    * @private
    */
-  function _isTextMessage(index, messages) {
+
+  function _getContentType(index, messages) {
     var data = messages[index];
-    return !!(data && data.message && data.message.contentType === 'text');
+    return data && data.message && data.message.contentType;
   }
 
   /**
@@ -326,20 +334,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * message 의 기본 포멧을 설정한다.
+   * message 의 기본 flag를 설정한다.
    * @param {array} messages 포멧팅할 메세지 리스트
    * @private
    */
-  function _formatMessages(messages) {
+  function _setMessageFlag(messages) {
     var msg;
     var contentType;
 
     _.each(messages, function(data, i) {
       msg = data.message;
       contentType = msg.contentType;
-      if (contentType === 'comment')  {
-        msg.commentOption = _getCommentOption(messages[i], messages[i - 1]);
-      } else if (contentType === 'file') {
+      if (contentType === 'file') {
         msg.isFile = true;
       } else if (contentType === 'text') {
         msg.isText = true;
