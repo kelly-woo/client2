@@ -368,7 +368,7 @@
           client_id: this.options.clientId,
           scope: 'https://www.googleapis.com/auth/drive.readonly',
           immediate: immediate,
-          redirect_uri: $rootScope.server_uploaded + 'oauth2/google',
+          redirect_uri: configuration.integration.google_drive.redirect + 'oauth2/google',
           response_type: 'code'
         };
 

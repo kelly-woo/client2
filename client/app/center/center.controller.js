@@ -63,24 +63,25 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loadingTimer : false // no longer using.
   };
 
+  //viewContent load 시 이벤트 핸들러 바인딩
+  $scope.$on('$viewContentLoaded', _onViewContentLoaded);
+
+  //viewContent unload 시 이벤트 핸들러 바인딩
+  $scope.$on('$destroy', _onDestroy);
+
   (function() {
     _onStartUpCheckList();
-
-
     _init();
 
     if(_hasMessageIdToSearch()) {
       _jumpToMessage();
     } else {
-
       loadMore();
     }
-
     //$scope.promise = $timeout(updateList, updateInterval);
   })();
 
   function _init() {
-
     _resetMessages();
     _resetLoadMoreCounter();
     _setDefaultLoadingScreen();
@@ -155,6 +156,61 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _jumpToMessage();
   });
 
+  /**
+   * 컨트롤러의 view content 가 load 되었을 시 이벤트 핸들러 ($viewContentLoaded 이벤트 핸들러)
+   * @private
+   */
+  function _onViewContentLoaded() {
+    _attachEvents();
+  }
+
+  /**
+   * scope 의 $destroy 이벤트 발생 시 이벤트 핸들러
+   * @private
+   */
+  function _onDestroy() {
+    _detachEvents();
+  }
+
+  /**
+   * dom 이벤트를 바인딩한다.
+   * @private
+   */
+  function _attachEvents() {
+    $(window).on('focus', _onWindowFocus);
+    $(window).on('blur', _onWindowBlur);
+  }
+
+  /**
+   * dom 이벤트 바인딩을 해제 한다.
+   * @private
+   */
+  function _detachEvents() {
+    $(window).off('focus', _onWindowFocus);
+    $(window).off('blur', _onWindowBlur);
+  }
+
+  /**
+   * 윈도우 focus 시 이벤트 핸들러
+   * @private
+   */
+  function _onWindowFocus() {
+    centerService.setBrowserFocus();
+    if (_hasBottomReached()) {
+      _clearBadgeCount($scope.currentEntity);
+    }
+  }
+
+  /**
+   * 윈도우 blur 시 이벤트 핸들러
+   * @private
+   */
+  function _onWindowBlur() {
+    centerService.resetBrowserFocus();
+  }
+
+
+
   function _jumpToMessage() {
     var toMessageId = messageSearchHelper.getLinkId();
 
@@ -182,26 +238,33 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 메세지를 날짜로 묶는다.
    */
   function groupByDate() {
-    _formatMessages($scope.messages);
+    _setMessageFlag($scope.messages);
     $scope.groupMsgs = [];
     $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
       return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
     });
     _.each($scope.groupMsgs, function(messages) {
-      _setChildTextFlag(messages);
+      _setMessageDetail(messages);
     });
   }
 
   /**
-   * 메세지 리스트에 isChildText 플래그를 할당한다.
+   * 메세지에 세부 데이터를 할당한다.
    * @param {Array} messages
    * @private
    */
-  function _setChildTextFlag(messages) {
+  function _setMessageDetail(messages) {
     _.each(messages, function(data, index) {
-      if (_isTextMessage(index, messages)) {
-        data.message.isChildText = _isChildTextMsg(index, messages);
-        data.message.hasChildText = _hasChildTextMsg(index, messages);
+      switch (_getContentType(index, messages)) {
+        case 'text':
+          data.message.isChildText = _isChildTextMsg(index, messages);
+          data.message.hasChildText = _hasChildTextMsg(index, messages);
+          break;
+        case 'comment':
+          data.message.commentOption = _getCommentOption(messages[index], messages[index - 1]);
+          break;
+        default:
+          break;
       }
     });
   }
@@ -218,15 +281,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * text message 인지 여부를 반환한다.
+   * 해당 메세지의 content type 을 확인한다.
    * @param index 확인할 대상 메세지 인덱스
    * @param messages 전체 메세지 리스트
-   * @returns {boolean}
+   * @returns {string} 메세지의 contentType
    * @private
    */
-  function _isTextMessage(index, messages) {
+
+  function _getContentType(index, messages) {
     var data = messages[index];
-    return !!(data && data.message && data.message.contentType === 'text');
+    return data && data.message && data.message.contentType;
   }
 
   /**
@@ -270,20 +334,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * message 의 기본 포멧을 설정한다.
+   * message 의 기본 flag를 설정한다.
    * @param {array} messages 포멧팅할 메세지 리스트
    * @private
    */
-  function _formatMessages(messages) {
+  function _setMessageFlag(messages) {
     var msg;
     var contentType;
 
     _.each(messages, function(data, i) {
       msg = data.message;
       contentType = msg.contentType;
-      if (contentType === 'comment')  {
-        msg.commentOption = _getCommentOption(messages[i], messages[i - 1]);
-      } else if (contentType === 'file') {
+      if (contentType === 'file') {
         msg.isFile = true;
       } else if (contentType === 'text') {
         msg.isText = true;
@@ -1255,19 +1317,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _hasBrowserFocus() {
     return !centerService.isBrowserHidden();
   }
-
-  // Callback when window loses its focus.
-  window.onblur = function() {
-    centerService.resetBrowserFocus();
-  };
-
-  // Callback when window gets focused.
-  window.onfocus = function() {
-    centerService.setBrowserFocue();
-
-    if (_hasBottomReached())
-      _clearBadgeCount($scope.currentEntity);
-  };
 
   $scope.$on('setChatInputFocus', function() {
     _setChatInputFocus();
