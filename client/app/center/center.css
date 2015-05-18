@@ -341,6 +341,10 @@ article {
   color: #333333;
 }
 
+.msg-text {
+  word-wrap: break-word;word-break: break-all;
+}
+
 .msg-text-body {
   margin: 0;
   font-size: 16px;
