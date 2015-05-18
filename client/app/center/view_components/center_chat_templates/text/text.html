@@ -27,7 +27,7 @@
         <a class="msg-item__action link-remove pull-right cursor_pointer"
            data-ng-if="member.id === msg.fromEntity"
            data-ng-click="deleteMessage(msg)"
-           tooltip="{{ '@message-delete' | translate }}">
+           tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
           <i class="icon-cancel"></i>
         </a>
       </div>
@@ -47,7 +47,7 @@
         <a class="msg-item__action link-remove pull-right cursor_pointer"
            data-ng-if="member.id === msg.fromEntity"
            data-ng-click="deleteMessage(msg)"
-           tooltip="{{ '@message-delete' | translate }}">
+           tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
           <i class="icon-cancel"></i>
         </a>
       </div>

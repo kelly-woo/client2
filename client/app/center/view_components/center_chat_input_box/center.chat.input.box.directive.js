@@ -17,7 +17,7 @@
     };
 
     function link(scope, element, attrs) {
-      var menu = element.find('#integration-menu');
+      var menu = element.find('#file-upload-menu');
       var primaryFileBtn = element.children('#primary_file_button');
       var uploadMap = {
         'computer': function() {

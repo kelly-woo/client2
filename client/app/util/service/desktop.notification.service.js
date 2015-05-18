@@ -127,6 +127,8 @@
 
         if (data && writerEntity && roomEntity && (message = data.message)) {
           isUser = roomEntity.type === 'users';
+          message = decodeURIComponent(message);
+
           if (isUser) {
             options.tag = writerEntity.id;
             options.body = writerEntity.name + ' : ' + message;

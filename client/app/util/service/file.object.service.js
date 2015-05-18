@@ -22,6 +22,7 @@
 
         // options
         this.options = {
+          validateFileSize: true,
           supportAllFileAPI: !!(window.File && window.FileReader && window.FileList && window.Blob),  // page loading시 한번만 check 해야됨. 특정 네임스페이스에 값 관리 필요함.
           supportFileReader: !!window.FileReader, // page loading시 한번만 check 해야됨. 특정 네임스페이스에 값 관리 필요함.
           isMultiple: true,
@@ -55,12 +56,12 @@
           file = options.createFileObject ? options.createFileObject($files[i]) : $files[i];
 
           // file size check 100MB이상은 upload 하지 않음
-          if (fileAPIservice.isFileTooLarge(file)) {
+          if (options.validateFileSize && fileAPIservice.isFileTooLarge(file)) {
               files.splice(i, 1);
               --i;
               --len;
 
-              alert(options.msgIsLarge + '\r\n' + file.name);
+              alert(options.msgIsLarge + '\r\n' + (file.name || file.title));
               continue;
           }
 

@@ -632,28 +632,28 @@ input[type="button"] {
   background-image: url('../assets/images/dropbox-popup.png');
 }
 
-#integration-menu .icon-notebook {
+#file-upload-menu .icon-notebook {
   font-size: 16px;
 }
-#integration-menu .icon-google-drive {
+#file-upload-menu .icon-google-drive {
   background-image: url('../assets/images/icon_google_drive.png');
   width: 16px;
   height: 16px;
   display: inline-block;
 }
-#integration-menu li:hover .icon-google-drive {
+#file-upload-menu li:hover .icon-google-drive {
   background-image: url('../assets/images/icon_google_drive_white.png');
   width: 16px;
   height: 16px;
   display: inline-block;
 }
-#integration-menu .icon-dropbox {
+#file-upload-menu .icon-dropbox {
   background-image: url('../assets/images/icon_dropbox.png');
   width: 16px;
   height: 16px;
   display: inline-block;
 }
-#integration-menu li:hover .icon-dropbox {
+#file-upload-menu li:hover .icon-dropbox {
   background-image: url('../assets/images/icon_dropbox_white.png');
   width: 16px;
   height: 16px;

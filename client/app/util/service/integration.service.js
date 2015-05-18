@@ -62,6 +62,7 @@
 
         // jandi file object
         fileObject = Object.create(fileObjectService).init(files, {
+          validateFileSize: false,
           createFileObject: that._createFileObject.bind(that)
         });
 
@@ -552,21 +553,23 @@
       var clientId = configuration.integration.google_drive.client_id;
 
       if (!googleDriveIntegrationLock) {
-        googleDriveIntegrationLock = true;
         if (!googleDriveIntegration) {
+          googleDriveIntegrationLock = true;
           $.getScript('https://www.google.com/jsapi?key=' + apiKey)
-            .success(function() {
+            .done(function() {
               $.getScript('https://apis.google.com/js/client.js?onload=_createGDPicker')
-                .complete(function() {
+                .fail(function() {
                   googleDriveIntegrationLock = false;
                 });
             })
-            .error(function(evt) {
+            .fail(function(evt) {
               googleDriveIntegrationLock = false;
               console.error('google dirve integrate error', evt);
             });
 
           window._createGDPicker = function() {
+            googleDriveIntegrationLock = false;
+
             (googleDriveIntegration = window.googleDriveIntegration = Object.create(GoogleDriveIntegration).init({
               apiKey: apiKey,                         // 필수, google dirve api key
               clientId: clientId,                     // 필수, goggle dirve client id
@@ -575,7 +578,6 @@
           };
         } else {
           googleDriveIntegration && googleDriveIntegration.open($scope);
-          googleDriveIntegrationLock = false;
         }
       }
     }
@@ -587,22 +589,22 @@
       var apiKey = configuration.integration.dropbox;
 
       if (!dropboxIntegrationLock) {
-        dropboxIntegrationLock = true;
         if (!dropboxIntegration) {
+          dropboxIntegrationLock = true;
           $.getScript('https://www.dropbox.com/static/api/2/dropins.js', function() {
             Dropbox.appKey = apiKey;
+            dropboxIntegrationLock = false;
 
             (dropboxIntegration = Object.create(DropBoxIntegration).init({
               multiple: options.multiple || true,
               event: options.event
             })).open($scope);
           })
-          .complete(function() {
+          .fail(function() {
             dropboxIntegrationLock = false;
           });
         } else {
           dropboxIntegration && dropboxIntegration.open($scope);
-          dropboxIntegrationLock = false;
         }
       }
     }
