@@ -15,8 +15,7 @@
     $scope.membersImage = configuration.assets_url + 'assets/images/invite-members.png';
 
     $scope.seedUri = teamInfo.invitationUrl || '';                            // invite public link
-    $scope.inviteDisalbed = teamInfo.invitationStatus === 'disabled';   // invite status
-    console.log(teamInfo.invitationStatus, 'invitation status' );
+    $scope.inviteDisabled = teamInfo.invitationStatus === 'disabled';   // invite status
     $scope.disableSeedUri = $scope.seedUri === '';
 
     // team의 admin

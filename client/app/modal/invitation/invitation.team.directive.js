@@ -49,7 +49,7 @@
           {
             inviteFn: teamAPIservice.inviteToTeam,
             templateItem: '<div class="form-horizontal invite-body-form-control" style="position: relative;">' +
-              '<input type="email" class="form-control invite" name="email" placeholder="' + emailPlaceholder + '" ' + (scope.disableSeedUri ? 'disabled' : '') + ' />' +
+              '<input type="email" class="form-control invite" name="email" placeholder="' + emailPlaceholder + '" />' +
             '</div>',
             onInvalidFormat: function(ele) {
               var item = ele.parent();
