@@ -157,6 +157,7 @@
 }
 .modal-footer .invite-link-copy .invite-public-link {
   width: 60%;
+  margin-right: 5px;
 }
 .modal-footer .invite-link-copy>* {
   display: inline-block;
