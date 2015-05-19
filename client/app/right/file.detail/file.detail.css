@@ -187,7 +187,7 @@
 .file_actions:hover {
   text-decoration: none;
 }
-.file_actions .icon-more {
+.file_actions {
   font-size: 21px;
   color: rgb(153, 153, 153);
 }
