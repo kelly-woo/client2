@@ -16,6 +16,7 @@
 
     $scope.seedUri = teamInfo.invitationUrl || '';                            // invite public link
     $scope.inviteDisalbed = teamInfo.invitationStatus === 'disabled';   // invite status
+    console.log(teamInfo.invitationStatus, 'invitation status' );
     $scope.disableSeedUri = $scope.seedUri === '';
 
     // team의 admin
