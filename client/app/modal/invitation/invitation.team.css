@@ -170,8 +170,9 @@
   vertical-align: baseline;
   color: white;
 }
+.modal-footer .invite-link-copy .btn-ok:active,
 .modal-footer .invite-link-copy .btn-ok:hover {
-  background-color: #154a67;
+  background-color: #00abe6;
 }
 
 .modal-footer .invite-link-message {
