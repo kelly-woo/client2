@@ -1,3 +1,7 @@
+/**
+ * @fileoverview 소켓 이벤트에 따라 다른 로직으로 처리하는 곳.
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
@@ -57,19 +61,21 @@
 
     var chatEntity = 'chat';
 
-
+    /**
+     * New Team member join event handler
+     *  1. update left panel to update member list
+     *  2. update center panel for current entity
+     * @param data {object}
+     */
     function newMemberHandler(data) {
       _updateLeftPanel();
       _updateCenterForCurrentEntity(_isCurrentEntity(_getRoom(data.room)));
     }
 
     /**
-     * Team name change event Handler
-     *
-     * What it does
-     *  1. Update team name changing value 'name' in current session to data.team.name
-     *
-     * @param data
+     * Team name change event handler
+     *  1. Update team name to 'data.team.name'
+     * @param data {object}
      */
     function teamNameChangeEventHandler(data) {
       currentSessionHelper.updateCurrentTeamName(data.team.name);
@@ -77,24 +83,21 @@
 
     /**
      * Team domain change event handler
-     *
-     * What it does
      *  1. alert user that domain has changed
      *  2. Re-direct user to new domain
-     *
      * @param data
      */
     function teamDomainChangeEventHandler(data) {
       var newAddress = configuration.base_protocol + data.team.domain + configuration.base_url;
+
+      //TODO: L10N here!!!
       alert('Your team domain address has been changed to ' + newAddress + '. Click \'okay\' to proceed.');
+
       location.href = newAddress;
     }
 
     /**
-     *
-     * Event handler for
-     * ['topic created', 'topic name updated', 'topic starred', 'topic unstarred', 'topic joined']
-     *
+     * Event handler - ['topic created', 'topic name updated', 'topic starred', 'topic unstarred', 'topic joined']
      */
     function topicChangeEventHandler() {
       _onJoinedTopicListChanged();
@@ -102,7 +105,7 @@
     }
 
     /**
-     * Chat cloase event handler
+     * Chat close event handler
      */
     function chatMessageListEventHandler() {
       _updateMessageList();
@@ -110,8 +113,7 @@
 
     /**
      * File delete event handler
-     *
-     * @param data
+     * @param data {object}
      */
     function fileDeletedHandler(data) {
       jndPubSub.pub('rightFileOnFileDeleted', data);
@@ -121,8 +123,7 @@
 
     /**
      * File comment created event handler
-     *
-     * @param data
+     * @param data {object}
      */
     function fileCommentCreatedHandler(data) {
       jndPubSub.pub('rightFileDetailOnFileCommentCreated', data);
@@ -130,8 +131,7 @@
 
     /**
      * File comment deleted event handler
-     *
-     * @param data
+     * @param data {object}
      */
     function fileCommentDeletedHandler(data) {
       jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
@@ -139,14 +139,10 @@
     }
 
     /**
-     * Room marker updated event Handler
-     *
-     * What it does
+     * Room marker updated event handler
      *  1. call proper function in center panel for current entity.
-     *
      * Do nothing for non-current entity.
-     *
-     * @param data
+     * @param data {object}
      */
     function roomMarkerUpdatedHandler(data) {
       var room = data.room;
@@ -167,6 +163,7 @@
 
     /**
      * Member profile update event handler
+     * @param data {object}
      */
     function memberProfileUpdatedHandler(data) {
       log('member profile updated');
@@ -185,9 +182,8 @@
 
     /**
      * Every socket event comes with 'messages'
-     *
-     * @param type
-     * @param data
+     * @param type {string} name of socket event
+     * @param data {object}
      */
     function messageEventHandler(type, data) {
       var room = data.room;
@@ -220,11 +216,7 @@
     }
 
     /**
-     *
-     * ['file share', 'file unshare'] event handler.
-     *
-     *      'message_file_share' and 'message_file_unshare'
-     *
+     * Event handler - ['message_file_share' and 'message_file_unshare']
      * @private
      */
     function messageEventFileShareUnshareHandler(data) {
@@ -239,6 +231,10 @@
       _udpateFileDetailPanel(data);
     }
 
+    /**
+     * Event handler - topic left
+     * @param data {object}
+     */
     function messageEventTopicLeaveHandler(data) {
       var room = data.room;
       var roomEntity = _getRoom(room);
@@ -261,8 +257,8 @@
     }
 
     /**
-     * Handles only 'message -> file_comment'
-     * @param data {object} object that came through api call.
+     * Event handler - 'message -> file_comment'
+     * @param data {object}
      */
     function messageEventFileCommentHandler(data) {
       var fileId = data.file.id;
@@ -293,12 +289,10 @@
     }
 
     /**
-     * Direct messages to me handler
-     * What is does
+     * Direct messages to me.
      *  1. Always update center message.
      *  2. Update messageList(left bottom) only if room is not current entity.
      *  3. Send browser notification if action is not from me.
-     *
      * @param room
      * @private
      */
@@ -312,9 +306,7 @@
 
     /**
      * Update left panel entities.
-     *
      * Re-direct user to default topic if current left current entity.
-     *
      * @param param
      */
     function topicLeaveHandler(param) {
@@ -329,11 +321,8 @@
 
     /**
      * System event message handler
-     *
-     * What it does
      *  1. Update left panel
      *  2. update center panel for current entity only.
-     *
      * @param room
      * @private
      */
@@ -345,12 +334,9 @@
 
     /**
      * New message created handler
-     *
-     * What it does
      *  1. update center for current entity
      *  2. update left panel for non-current entity
      *  3. send browser notification
-     *
      * @param room
      * @param writer
      * @private
@@ -364,6 +350,12 @@
 
     }
 
+    /**
+     * When member profile information has been updated, local memberList must be updated too.
+     *   1. update left panel in order to get new member list
+     * @param member {object} member entity object to replace with. Currently not used, but would need such information eventually.
+     * @private
+     */
     function _replaceMemberEntityInMemberList(member) {
       log('replacing member');
 
@@ -373,22 +365,54 @@
     }
 
 
+    /**
+     * Return true if 'eventType' is message_deleted'.
+     * @param eventType {string} name of event
+     * @returns {boolean}
+     * @private
+     */
     function _isMessageDeleted(eventType) {
       return eventType === MESSAGE_DELETE;
     }
+
+    /**
+     * Return true if 'eventType' is any kind of system event.
+     * @param eventType {string} name of event
+     * @returns {boolean}
+     * @private
+     */
     function _isSystemEvent(eventType) {
       return eventType != _APP_GOT_NEW_MESSAGE;
     }
+
+    /**
+     * 나와 상관있는 방에서 소켓이벤트가 일어났다면 true를 리턴한다.
+     * Check if event has any effect on any related topics.
+     * What are related topics?
+     *   - joined public topic
+     *   - joined private topic
+     *   - 1:1 message
+     * @param roomEntity {object} entity
+     * @param writer {object} socket event owner
+     * @returns {boolean}
+     * @private
+     */
     function _isRelatedEvent(roomEntity, writer) {
       if (_.isUndefined(roomEntity) || _.isUndefined(writer)) {
         log('not related room event');
         return false;
       }
-
       log('related room event');
-
       return true;
     }
+
+    /**
+     * 현재 오른쪽 페널에서 보고 있는 파일 아이디와 비교해서 같으면  true를 리턴한다.
+     *
+     * @param fileId {number} id of file
+     * @returns {boolean}
+     * @private
+     */
     function _isCurrentFile(fileId) {
       return fileId === currentSessionHelper.getCurrentFileId();
     }
@@ -397,9 +421,9 @@
       log('update center for related file');
       jndPubSub.pub('updateCenterForRelatedFile', file);
     }
+
     /**
      * Update center message list only if room is current entity.
-     *
      * @param room
      * @private
      */
@@ -412,7 +436,6 @@
     /**
      * Update left panel entities only if room is NOT current entity.
      * Main purpose is to update badge count on left panel.
-     *
      * @param room
      * @private
      */
@@ -423,14 +446,26 @@
       }
     }
 
+    /**
+     * 파일의 내용이 바뀌었을 경우, 오른쪽 패널에 있는 file controller를 통해 해당 파일을 업데이트한다.
+     * 쉐어/언쉐어의 경우 사용된다.
+     * @param data {object}
+     * @private
+     */
     function _updateFilesPanelonRight(data) {
       log('update right panel file controller');
       jndPubSub.pub('updateFileControllerOnShareUnshare', data)
     }
 
+    /**
+     * 파일의 내용이 바뀌었을 경우, 오른쪽 패널에서도 파일 디테일이 바뀌어야할때  file detail panel을 업데이트한다.
+     * @param data {object}
+     * @private
+     */
     function _udpateFileDetailPanel(data) {
       jndPubSub.pub('updateFileDetailPanel', data)
     }
+
     /**
      * Send browser notification only for non-current entity.
      *
@@ -443,39 +478,66 @@
       log('Send browser notification');
       desktopNotificationService.addNotification(data, writer, roomEntity);
     }
+
+    /**
+     * left panel을 업데이트한다.
+     * @private
+     */
     function _updateLeftPanel() {
       log('update left panel');
       jndPubSub.updateLeftPanel();
     }
+
+    /**
+     * center panel을 업데이트한다.
+     * @private
+     */
     function _updateCenterMessage() {
       log('udpate center message');
       jndPubSub.updateChatList();
     }
+
+    /**
+     * center panel에 message들을 업데이트한다.
+     * @private
+     */
     function _updateMessageList() {
       log('update message list');
       jndPubSub.updateMessageList();
     }
+
+    /**
+     * file detail panel을 업데이트한다.
+     * @private
+     */
     function _updateFileDetailPanel() {
       log('update file detail panel');
       jndPubSub.updateRightFileDetailPanel();
     }
+
+    /**
+     * left에 1:1 chat list를 업데이트한다.
+     * @private
+     */
     function _updateChatList() {
       jndPubSub.updateLeftChatList();
-
     }
+
     /**
      * Broadcast 'onJoinedTopicListChanged' event when user left or joined any topics.
-     *
      * rPanelFileTabCtrl in files.controller is listening.
      * @private
      */
     function _onJoinedTopicListChanged() {
       jndPubSub.pub('onJoinedTopicListChanged', 'onJoinedTopicListChanged_leftInitDone');
     }
+
     /**
-     * Returns entity whose id is room.id.
-     * @param room
-     * @returns {*}
+     * Return entity whose id is room.id.
+     * @param room {object}
+     *  @param type {string} type of room
+     *  @param id {number} id of room
+     * @returns {object} room entity
      * @private
      */
     function _getRoom(room) {
@@ -484,8 +546,9 @@
       }
       return entityAPIservice.getEntityById(room.type, room.id);
     }
+
     /**
-     * Returns member entity whose id is 'writerId'.
+     * Return member entity whose id is 'writerId'.
      * @param writerId
      * @returns {*}
      * @private
@@ -493,10 +556,10 @@
     function _getActionOwner(writerId) {
       return entityAPIservice.getEntityById('users', writerId);
     }
+
     /**
      * Return 'true' if target(room) is a chat entity.
-     *
-     * @param room
+     * @param room {object}
      * @returns {boolean}
      * @private
      */
@@ -521,10 +584,12 @@
       return foundMyself;
 
     }
+
     /**
-     * Checks whether id of current entity(actively looking) is same as room.
-     *
-     * @param room
+     * Check whether id of current entity(actively looking) is same as room.
+     * @param room {object}
+     *  @param type {string} type of room
+     *  @param id {number} id of room
      * @returns {boolean}
      * @private
      */
@@ -533,18 +598,42 @@
       var currentEntity = currentSessionHelper.getCurrentEntity();
 
       return room.type === chatEntity ? roomId == currentEntity.entityId : roomId == currentEntity.id;
-
     }
+
+    /**
+     * writerId가 내 자신 아이디과 같은지 확인한다.
+     * Check if writerId is same as id of currently signed in member(myself).
+     * @param writerId {number} id of socket event owner
+     * @returns {boolean}
+     * @private
+     */
     function _isActionFromMe(writerId) {
       return writerId === memberService.getMemberId();
     }
 
+    /**
+     * 소켓이벤트를 로깅한다.
+     * @param event {string} name of event
+     * @param data {object} param of event
+     * @param isEmitting {boolean} true if event is emitting socket event
+     */
     function socketEventLogger(event, data, isEmitting) {
       logger.socketEventLogger(event, data, isEmitting);
     }
+
+    /**
+     * 그냥 로깅한다.
+     * @param msg {string} text to be logged
+     */
     function log(msg) {
       logger.log(msg);
     }
+
+    /**
+     * 소켓 이벤트를 로기한다.
+     * @param event {string} name of event
+     * @param data {object} param of event
+     */
     function eventStatusLogger(event, data) {
       var room;
       var roomName;
@@ -593,7 +682,6 @@
 
       }
       log(writerName + verb + roomName)
-
     }
 
   }
