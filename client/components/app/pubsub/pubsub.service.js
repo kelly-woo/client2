@@ -1,5 +1,5 @@
 /**
- * @fileoverview $rootScope.$broadCast를 대신해주는 서비스.
+ * @fileoverview $rootScope.$broadcast를 대신해주는 서비스.
  * @author JiHoon Kim <jihoonk@tosslab.com>
  */
 (function() {
@@ -16,7 +16,6 @@
 
     this.updateLeftPanel = updateLeftPanel;
     this.updateChatList = updateChatList;
-    this.updateMessageList = updateMessageList;
     this.updateRightFileDetailPanel = updateRightFileDetailPanel;
 
     this.toDefaultTopic = toDefaultTopic;
@@ -33,6 +32,7 @@
     }
 
     /**
+     *
      * 레프트 패널을 업데이트 하라는 이벤트를 브로드캐스트한다.
      */
     function updateLeftPanel() {
@@ -45,14 +45,6 @@
     function updateChatList() {
       $rootScope.$broadcast('centerUpdateChatList');
     }
-
-    /**
-     * center panel에 있는 message들을 업데이트 하라는 이벤트를 브로드캐스트한다.
-     */
-    function updateMessageList() {
-      $rootScope.$broadcast('updateMessageList');
-    }
-
     /**
      * file detail 패널을 업데이트 하라는 이벤트를 브로드캐스트한다.
      */
@@ -68,12 +60,11 @@
     }
 
     /**
-     * center panel에 있는 message들을 업데이트 하라는 이벤트를 브로드캐스트한다.
+     * left panel 아래에 있는 1:1 chat list를 업데이트 하라는 이벤트를 브로드캐스트한다.
      */
     function updateLeftChatList() {
-      $rootScope.$broadcast('updateMessageList');
+      $rootScope.$broadcast('updateChatList');
     }
-
 
     // TODO: 브로드캐스트하는 이벤트 이름에도 컨벤션이 있으면 좋겠습니다! 이벤트 이름만 보고도 대충 어떤 일이 이뤄지는지 알 수 있는 식의 이름이면 좋겠습니다.
 

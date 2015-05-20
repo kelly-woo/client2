@@ -108,7 +108,7 @@
      * Chat close event handler
      */
     function chatMessageListEventHandler() {
-      _updateMessageList();
+      _updateChatList();
     }
 
     /**
@@ -433,6 +433,7 @@
         _updateCenterMessage();
       }
     }
+
     /**
      * Update left panel entities only if room is NOT current entity.
      * Main purpose is to update badge count on left panel.
@@ -495,15 +496,6 @@
     function _updateCenterMessage() {
       log('udpate center message');
       jndPubSub.updateChatList();
-    }
-
-    /**
-     * center panel에 message들을 업데이트한다.
-     * @private
-     */
-    function _updateMessageList() {
-      log('update message list');
-      jndPubSub.updateMessageList();
     }
 
     /**

@@ -4,7 +4,7 @@
   // FILE SHARE controller
   angular
     .module('jandiApp')
-    .controller('fileShareModalCtrl', function($scope, $rootScope, $modalInstance, $filter, $state, fileAPIservice, analyticsService) {
+    .controller('fileShareModalCtrl', function($scope, $rootScope, $modalInstance, $filter, $state, fileAPIservice, analyticsService, jndPubSub) {
       $scope.file             = $scope.fileToShare;
       $scope.shareChannel     = $scope.currentEntity;
 
@@ -43,7 +43,8 @@
               channelId = $scope.shareChannel.id;
 
               if (channelType === "users") {
-                $rootScope.$broadcast('updateMessageList');
+                jndPubSub.updateLeftChatList();
+                //$rootScope.$broadcast('updateMessageList');
               }
 
               $state.go('archives', {entityType: channelType, entityId: channelId});
