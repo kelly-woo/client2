@@ -36,65 +36,69 @@
     };
 
     $scope.onProfileChangeClick = function() {
-      if ($scope.isLoading) return;
-
-      $scope.toggleLoading();
-
-      if (!_isNamePristine()) {
-        // Name Change!!!
-        memberService.setName(memberService.getName($scope.curUser))
-          .success(function() {
-            ////TODO: Currently, there is no return value.  How about member object for return???
-            memberService.getMemberInfo(memberService.getMemberId())
-              .success(function(response) {
-                closeModal();
-              })
-              .error(function(err){
-                console.log(err);
-              })
-          })
-          .error(function(err) {
-            console.log(err);
-          })
-          .finally(function() {
-            $scope.toggleLoading();
-          });
-      } else if (!_isEmailPristine()) {
-        // email address changed!!
-        memberService.setEmail(memberService.getEmail($scope.curUser))
-          .success(function(response) {
-            closeModal();
-          })
-          .error(function(err) {
-            console.log(err);
-          })
-          .finally(function() {
-            $scope.toggleLoading();
-          });
+      if ($scope.isPristine()) {
+        $scope.cancel();
       } else {
-        memberService.updateProfile($scope.curUser)
-          .success(function(response) {
-            memberService.setMember(response);
-            closeModal();
+        if ($scope.isLoading) return;
 
-            // analytics
-            analyticsService.mixpanelTrack( "Set Profile" );
-            var profile_data = {
+        $scope.toggleLoading();
 
-              "status"    : $scope.curUser.u_statusMessage,
-              "mobile"    : $scope.curUser.u_extraData.phoneNumber,
-              "division"  : $scope.curUser.u_extraData.department,
-              "position"  : $scope.curUser.u_extraData.position
-            };
+        if (!_isNamePristine()) {
+          // Name Change!!!
+          memberService.setName(memberService.getName($scope.curUser))
+            .success(function() {
+              ////TODO: Currently, there is no return value.  How about member object for return???
+              memberService.getMemberInfo(memberService.getMemberId())
+                .success(function(response) {
+                  closeModal();
+                })
+                .error(function(err){
+                  console.log(err);
+                })
+            })
+            .error(function(err) {
+              console.log(err);
+            })
+            .finally(function() {
+              $scope.toggleLoading();
+            });
+        } else if (!_isEmailPristine()) {
+          // email address changed!!
+          memberService.setEmail(memberService.getEmail($scope.curUser))
+            .success(function(response) {
+              closeModal();
+            })
+            .error(function(err) {
+              console.log(err);
+            })
+            .finally(function() {
+              $scope.toggleLoading();
+            });
+        } else {
+          memberService.updateProfile($scope.curUser)
+            .success(function(response) {
+              memberService.setMember(response);
+              closeModal();
 
-            analyticsService.mixpanelPeople( "set", profile_data );
-          })
-          .error(function(error) {
-            console.error('updateUserProfile', error.code, error.msg);
-          })
-          .finally(function() {
-            $scope.toggleLoading();
-          });
+              // analytics
+              analyticsService.mixpanelTrack( "Set Profile" );
+              var profile_data = {
+
+                "status"    : $scope.curUser.u_statusMessage,
+                "mobile"    : $scope.curUser.u_extraData.phoneNumber,
+                "division"  : $scope.curUser.u_extraData.department,
+                "position"  : $scope.curUser.u_extraData.position
+              };
+
+              analyticsService.mixpanelPeople( "set", profile_data );
+            })
+            .error(function(error) {
+              console.error('updateUserProfile', error.code, error.msg);
+            })
+            .finally(function() {
+              $scope.toggleLoading();
+            });
+        }
       }
     };
 
