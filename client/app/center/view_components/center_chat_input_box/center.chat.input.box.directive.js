@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox(integrationService, configuration) {
+  function centerChatInputBox($filter, integrationService, fileAPIservice, configuration, imagePaste) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -45,15 +45,45 @@
           }
         });
 
-      // file upload menu의 각 item image pre-load
-      var iconGoogleDrive = new Image();
-      var iconDropbox = new Image();
+      (function() {
+        // file upload menu의 각 item image pre-load
+        var iconGoogleDrive = new Image();
+        var iconDropbox = new Image();
 
-      iconGoogleDrive.src = configuration.assets_url + '../assets/images/icon_google_drive.png';
-      iconDropbox.src = configuration.assets_url + '../assets/images/icon_dropbox.png';
+        iconGoogleDrive.src = configuration.assets_url + '../assets/images/icon_google_drive.png';
+        iconDropbox.src = configuration.assets_url + '../assets/images/icon_dropbox.png';
 
-      menu.find('.icon-google-drive').css({backgroundImage: iconGoogleDrive.src});
-      menu.find('.icon-dropbox').css({backgroundImage: iconDropbox.src});
+        menu.find('.icon-google-drive').css({backgroundImage: iconGoogleDrive.src});
+        menu.find('.icon-dropbox').css({backgroundImage: iconDropbox.src});
+      }());
+
+      if (configuration.name !== 'staging') {
+        imagePaste.createInstance($('#message-input'), {
+          onImageLoading: function() {
+            scope.isLoading = true;
+          },
+          onImageLoad: function(data) {
+            scope.onFileSelect([data], {
+              createFileObject: function _createFileObject(data) {
+                var blob = fileAPIservice.dataURItoBlob(data);
+
+                // console.log('on image load ::: ', data);
+                return {
+                  name: 'Image_' + $filter('date')((new Date()).getTime(), 'yyyy-MM-dd HH:mm:ss Z') + '.png',
+                  type: 'image/png',
+                  blob: blob,
+                  size: blob.size,
+                  uploadType: 'clipboard',
+                  dataUrl: data
+                };
+              }
+            });
+          },
+          onImageLoaded: function() {
+            scope.isLoading = false;
+          }
+        });
+      }
     }
   }
 })();

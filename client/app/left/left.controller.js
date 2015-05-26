@@ -438,8 +438,8 @@ app.controller('leftPanelController1', function(
     $scope.onFileSelect(files);
   });
   // Callback function from file finder(navigation) for uploading a file.
-  $scope.onFileSelect = function($files) {
-    var fileObject = Object.create(fileObjectService).init($files);
+  $scope.onFileSelect = function($files, options) {
+    var fileObject = Object.create(fileObjectService).init($files, options);
     if (fileObject.size() > 0) {
       $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
       $scope.fileObject = fileObject;

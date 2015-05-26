@@ -1,10 +1,8 @@
 <div class="footer">
-
   <div class="has-new-msg-alert-container cursor_pointer" ng-if="hasNewMsg" ng-click="onHasNewMessageAlertClicked();">
     <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
     <i class="icon-cancel pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
   </div>
-
 
   <div class="tutorial-clicker tutorial-z-index pulse" id="chatTutorial"
        data-ng-click="onTutorialPulseClick($event);"
@@ -39,9 +37,7 @@
                   placeholder="{{ '@placeholder-input-message' | translate }}"
                   ng-keyup="onKeyUp($event);"
                   msd-elastic>
-
         </textarea>
     </form>
   </div>
-
 </div>

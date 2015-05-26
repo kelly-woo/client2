@@ -246,15 +246,24 @@
         var fileReader;
         var index;
 
-        fileReader = new window.FileReader();
-
-        $scope.dataUrl = '';
-        fileReader.onload = function(e) {
-          $scope.$apply(function($scope) {
-            $scope.dataUrl = e.target.result;
+        if (file.dataUrl) {
+          $scope.dataUrl = '';
+          setTimeout(function() {
+            $scope.$apply(function($scope) {
+              $scope.dataUrl = file.dataUrl;
+            });
           });
-        };
-        fileReader.readAsDataURL(file);
+        } else {
+          fileReader = new window.FileReader();
+
+          $scope.dataUrl = '';
+          fileReader.onload = function(e) {
+            $scope.$apply(function($scope) {
+              $scope.dataUrl = e.target.result;
+            });
+          };
+          fileReader.readAsDataURL(file);
+        }
       }
 
       $scope.$watch('dataUrl', function(newValue, oldValue){
