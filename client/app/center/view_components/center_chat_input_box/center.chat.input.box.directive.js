@@ -50,8 +50,8 @@
         var iconGoogleDrive = new Image();
         var iconDropbox = new Image();
 
-        iconGoogleDrive.src = configuration.assets_url + '../assets/images/icon_google_drive.png';
-        iconDropbox.src = configuration.assets_url + '../assets/images/icon_dropbox.png';
+        iconGoogleDrive.src = configuration.assets_url + 'assets/images/icon_google_drive.png';
+        iconDropbox.src = configuration.assets_url + 'assets/images/icon_dropbox.png';
 
         menu.find('.icon-google-drive').css({backgroundImage: iconGoogleDrive.src});
         menu.find('.icon-dropbox').css({backgroundImage: iconDropbox.src});

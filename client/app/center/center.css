@@ -545,8 +545,7 @@ by ysyun 2015.2.25
 
 .footer {
   background: #fff;
-  position: fixed;
-  margin-left: 240px;
+  position: absolute;
   margin-right: 8px;
   left: 0;
   right: 0;

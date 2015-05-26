@@ -7,7 +7,6 @@
   background:-ms-linear-gradient(bottom,#efefef,#fff);
   background:-moz-linear-gradient(center bottom,#efefef 0,#fff 100%);
   background:-o-linear-gradient(#fff,#efefef);
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#efefef',GradientType=0);
   color:#b8b9c0;
   -webkit-border-top-right-radius:0;
   -webkit-border-bottom-right-radius:0;

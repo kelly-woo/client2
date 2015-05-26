@@ -71,14 +71,17 @@
 
 <div class="hpanel non-selectable" ui-view="headerpanel"></div>
 <div class="body" id="client-ui" ui-view=""></div>
-<div class="rpanel non-selectable" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
-<div class="rpanel non-selectable" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
-<div class="rpanel__background" ng-class="{'extend': $state.includes('**.files.**'), 'hidden': !$state.includes('**.files.**')} ">
-    <div class="panel-title-container"></div>
-    <div class="rpanel__background-body">
-        <div class="rpanel__loading" ng-class="{'hidden': !$state.includes('**.files.**')}"></div>
+<div class="rpanel non-selectable" ng-show="$state.includes('**.files.**')">
+    <div class="files" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
+    <div class="file" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
+    <div class="rpanel__background">
+        <div class="panel-title-container"></div>
+        <div class="rpanel__background-body">
+            <div class="rpanel__loading"></div>
+        </div>
     </div>
 </div>
+
 
 <!--[if lte IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
