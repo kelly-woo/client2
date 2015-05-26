@@ -197,8 +197,11 @@
           title: file.name,
           isPrivateFile: false,
           currentEntity: entity || currentEntity,
-          comment: $scope.comment
+          comment: $scope.comment,
+          uploadType: file.uploadType
         };
+
+        delete file.uploadType;
 
         // integration upload에 사용되는 fileInfo Object 생성
         if (file._fileInfo) {
@@ -251,6 +254,8 @@
           setTimeout(function() {
             $scope.$apply(function($scope) {
               $scope.dataUrl = file.dataUrl;
+
+              delete file.dataUrl;
             });
           });
         } else {
