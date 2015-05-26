@@ -19,6 +19,7 @@
     function link(scope, element, attrs) {
       var menu = element.find('#file-upload-menu');
       var primaryFileBtn = element.children('#primary_file_button');
+      var messageInput = $('#message-input');
       var uploadMap = {
         'computer': function() {
           $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
@@ -58,7 +59,7 @@
       }());
 
       if (configuration.name !== 'staging') {
-        imagePaste.createInstance($('#message-input'), {
+        imagePaste.createInstance(messageInput, {
           onImageLoading: function() {
             scope.$apply(function(scope) {
               scope.isLoading = true;
@@ -68,6 +69,9 @@
             scope.onFileSelect([data], {
               createFileObject: function _createFileObject(data) {
                 var blob = fileAPIservice.dataURItoBlob(data);
+                var comment = messageInput.val();
+
+                messageInput.val('');
 
                 return {
                   name: 'Image_' + $filter('date')((new Date()).getTime(), 'yyyy-MM-dd HH:mm:ss') + '.png',
@@ -75,7 +79,9 @@
                   blob: blob,
                   size: blob.size,
                   uploadType: 'clipboard',
-                  dataUrl: data
+                  dataUrl: data,
+
+                  comment: comment
                 };
               }
             });

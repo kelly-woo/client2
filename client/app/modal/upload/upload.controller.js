@@ -34,6 +34,11 @@
       $scope.file = it.next();                                  // 첫 file
       $scope.fileInfo = createFileInfo($scope, $scope.file);    // 첫 file에 대한 file 정보
 
+      if ($scope.file.comment) {
+        $scope.comment = $scope.file.comment;
+        delete $scope.file.comment;
+      }
+
       fileUploadQueue = [];                   // file upload queue
       fileUploadIndex = 0;                    // file upload queue index
       lock = false;                           // file upload queue locker(순차 upload를 위함)
@@ -52,7 +57,13 @@
           fileUploadQueue.push((function($tScope, $cScope, currentIndex, file, fileInfo) {
             fileInfo.share = $scope.fileInfo.currentEntity.id;    // 공유 대화방 id
             fileInfo.comment = $scope.comment;                    // file upload message에 대한 comment
-            $cScope.comment = '';
+
+            if ($scope.file.comment) {
+              $scope.comment = $scope.file.comment;
+              delete $scope.file.comment;
+            } else {
+              $cScope.comment = '';
+            }
 
             return function(callback) {
               var tmpFileInfo = angular.extend({}, fileInfo);
@@ -65,7 +76,12 @@
 
               // progress bar 초기화
               $tScope.curUpload = {};
+              $tScope.curUpload.lFileIndex = lProgressBarIndex;
+              $tScope.curUpload.cFileIndex = cProgressBarIndex;
+
+              $tScope.curUpload.title = file.name;
               $tScope.curUpload.progress = 0;
+              $tScope.curUpload.status = 'initiate';
 
               $tScope.fileQueue = fileAPIservice.upload({
                 files: file,
@@ -73,6 +89,9 @@
                 supportHTML: $scope.supportHtml5,
                 uploadType: tmpFileInfo.uploadType
               });
+
+
+
               $tScope.fileQueue.then(   // success
                 function(response) {
                   if (response == null) {
