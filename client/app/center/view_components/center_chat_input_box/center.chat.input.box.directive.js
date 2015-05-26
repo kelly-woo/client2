@@ -60,16 +60,17 @@
       if (configuration.name !== 'staging') {
         imagePaste.createInstance($('#message-input'), {
           onImageLoading: function() {
-            scope.isLoading = true;
+            scope.$apply(function(scope) {
+              scope.isLoading = true;
+            });
           },
           onImageLoad: function(data) {
             scope.onFileSelect([data], {
               createFileObject: function _createFileObject(data) {
                 var blob = fileAPIservice.dataURItoBlob(data);
 
-                // console.log('on image load ::: ', data);
                 return {
-                  name: 'Image_' + $filter('date')((new Date()).getTime(), 'yyyy-MM-dd HH:mm:ss Z') + '.png',
+                  name: 'Image_' + $filter('date')((new Date()).getTime(), 'yyyy-MM-dd HH:mm:ss') + '.png',
                   type: 'image/png',
                   blob: blob,
                   size: blob.size,
@@ -80,7 +81,9 @@
             });
           },
           onImageLoaded: function() {
-            scope.isLoading = false;
+            scope.$apply(function(scope) {
+              scope.isLoading = false;
+            });
           }
         });
       }
