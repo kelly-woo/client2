@@ -50,7 +50,9 @@
 .member-list-tab li {
   width: 50%;
   text-align: center;
+  cursor: pointer;
 }
+
 .member-list-tab li a:last-child {
   margin-right: 0;
 }
