@@ -1,26 +1,31 @@
 .rpanel {
-  width : 480px;
+  width: 480px;
   position: absolute;
-  right: 0;
   top: 0;
+  right: 0;
   bottom: 0;
-  background-color: #fff;
+}
+.rpanel > div {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.rpanel .files,
+.rpanel .file {
   z-index: 1;
+  background-color: #fff;
   box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
 }
+
 .rpanel.extend {
   background-color: white;
 }
 .rpanel__background {
-  position: absolute;
-  width: 480px;
-  top: 0;
-  right: 0;
-  bottom: 0;
   z-index: 0;
   border-left: 1px solid #e1e1e1;
   border-top: 1px solid #e1e1e1;
-
 }
 .rpanel__background.extend {
   background-color: #f2f2f2;
@@ -43,9 +48,6 @@
   left: 50%;
   margin: -50px 0 0 -50px;
   z-index: 90;
-}
-.rpanel-show .footer {
-  margin-right: 486px;
 }
 .rpanel__background .panel-title-container,
 .rpanel .panel-title-container {
