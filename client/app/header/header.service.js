@@ -37,9 +37,6 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, storageAPIserv
         });
     };
 
-
-
-
     /*
      PARAMS
      entityType  : integer
@@ -77,8 +74,6 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, storageAPIserv
             }
         });
     };
-
-
 
     return entityheaderAPI;
 });

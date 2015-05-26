@@ -22,8 +22,6 @@
       stateParams = toParams;
     });
 
-
-
     $scope.onLanguageClick = onLanguageClick;
 
     function onLanguageClick(lang) {
@@ -75,8 +73,6 @@
       $scope.$emit('updateFileWriterId', userId);
     };
 
-
-
     $scope.toAdmin = function() {
       var teamName = $filter('getName')($scope.team)
       publicService.redirectTo(configuration.main_address + 'admin/' + teamName);
@@ -87,7 +83,6 @@
     $scope.onSignOutClick =function() {
       publicService.signOut();
     };
-
 
     modalMap = {
       'agreement': function() {
@@ -159,12 +154,22 @@
       $rootScope.$broadcast('onTutorialPulseClick', $event);
     };
 
-    $scope.onToggleClick = function() {
+    $scope.onRightPanelToggle = function() {
       if (_isRpanelVisible()) {
         $state.go('messages.detail');
-        return;
+      } else {
+        var viewport = $('.msgs');
+        var content = $('.msgs-holder');
+
+        // scroll to bottom
+        if (viewport.scrollTop() + viewport.height() >= content.height()) {
+          setTimeout(function() {
+            viewport.animate({scrollTop: content.height()}, 200);
+          });
+        }
+
+        $state.go('messages.detail.files');
       }
-      $state.go('messages.detail.files');
     };
 
     function _initRightPanelButtonLabel() {

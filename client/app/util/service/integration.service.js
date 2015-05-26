@@ -369,9 +369,10 @@
           client_id: this.options.clientId,
           scope: 'https://www.googleapis.com/auth/drive.readonly',
           immediate: immediate,
-          redirect_uri: configuration.integration.google_drive.redirect + 'oauth2/google',
           response_type: 'code'
         };
+
+        !immediate && (params.redirect_uri = configuration.integration.google_drive.redirect + 'oauth2/google');
 
         gapi.auth.authorize(params, callback);
       },
