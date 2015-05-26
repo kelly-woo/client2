@@ -371,8 +371,8 @@
 .form-invite-body__selected-user .fa {
   margin-left: 3px;
 }
-.form-horizontal input:active,
-.form-horizontal input:focus {
+.form-horizontal input:not([disabled]):active,
+.form-horizontal input:not([disabled]):focus {
   border: 1px solid #154a67;
   color: #333;
 }
