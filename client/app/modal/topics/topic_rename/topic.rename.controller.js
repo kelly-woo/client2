@@ -3,10 +3,10 @@
 
   angular
     .module('jandiApp')
-    .controller('renameModalCtrl', renameModalCtrl);
+    .controller('TopicRenameCtrl', TopicRenameCtrl);
 
   /* @ngInject */
-  function renameModalCtrl($scope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService, fileAPIservice, jndPubSub) {
+  function TopicRenameCtrl($scope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService, fileAPIservice, jndPubSub) {
 
     var duplicate_name_error = 4000;
 

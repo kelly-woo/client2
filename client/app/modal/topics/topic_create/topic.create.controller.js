@@ -3,9 +3,9 @@
 
   angular
     .module('jandiApp')
-    .controller('createEntityModalCtrl', createEntityModalCtrl);
+    .controller('TopicCreateCtrl', TopicCreateCtrl);
 
-  function createEntityModalCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter) {
+  function TopicCreateCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter) {
     $scope.entityType = 'public';
 
     $scope.cancel = function() {

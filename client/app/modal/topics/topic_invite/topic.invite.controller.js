@@ -1,13 +1,11 @@
-// INVITE USER TO TEAM
 (function() {
   'use strict';
 
-  // PRIVATE_GROUP/CHANNEL INVITE
   angular
     .module('jandiApp')
-    .controller('invitationChannelCtrl', invitationChannelCtrl);
+    .controller('TopicInviteCtrl', TopicInviteCtrl);
 
-  function invitationChannelCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter,
+  function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter,
                                  publicService, analyticsService, modalHelper) {
     InitInvite();
 

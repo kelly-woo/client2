@@ -3,10 +3,10 @@
 
   angular
     .module('jandiApp')
-    .controller('joinModalCtrl', joinModalCtrl);
+    .controller('TopicJoinCtrl', TopicJoinCtrl);
 
   /* @ngInject */
-  function joinModalCtrl($scope, $modalInstance, $state, entityheaderAPIservice, analyticsService, memberService, publicService, jndPubSub) {
+  function TopicJoinCtrl($scope, $modalInstance, $state, entityheaderAPIservice, analyticsService, memberService, publicService, jndPubSub) {
 
     // id of topic to join
     var entityIdToJoin;

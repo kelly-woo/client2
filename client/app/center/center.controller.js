@@ -989,9 +989,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // TODO: REFACTOR TO ENTITY HEADER CONTROLLER.
       modalHelper.openTopicRenameModal($scope);
     } else if (selector == 'invite') {
-      modalHelper.openInviteToCurrentEntityModal($scope);
+      modalHelper.openTopicInviteModal($scope);
     } else if (selector == 'inviteUserToChannel') {
-      modalHelper.openInviteToJoinedEntityModal($scope);
+      modalHelper.openTopicInviteFromDmModal($scope);
     } else if (selector == 'share') {
 
     }
@@ -1004,8 +1004,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
     if (angular.isDefined(targetEntity)) {
       $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
-    }
-    else {
+    } else {
       // Undefined targetEntity means it's an entity that I'm joined.
       // Join topic first and go!
       entityheaderAPIservice.joinChannel(entityId)

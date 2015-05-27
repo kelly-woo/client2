@@ -22,39 +22,6 @@ app.controller('userModalCtrl', function($scope, $modalInstance, $state) {
   };
 });
 
-// WHEN INVITING FROM DIRECT MESSAGE
-app.controller('inviteUsertoChannelCtrl', function($scope, $modalInstance, entityheaderAPIservice, publicService, $rootScope) {
-  $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
-  };
-
-  $scope.inviteOptions = publicService.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList, $scope.currentEntity.id);
-
-  $scope.onInviteClick = function(inviteTo) {
-
-    if ($scope.isLoading) return;
-
-    $scope.toggleLoading();
-
-    var invitedId = [];
-    invitedId.push($scope.currentEntity.id);
-
-    $scope.isLoading = true;
-
-    entityheaderAPIservice.inviteUsers(inviteTo.type, inviteTo.id, invitedId)
-      .success(function(response) {
-        $scope.updateLeftPanelCaller();
-        $modalInstance.dismiss('cancel');
-      })
-      .error(function(error) {
-        console.error(error.code, error.msg);
-      })
-      .finally(function() {
-        $scope.toggleLoading();
-      });
-  }
-});
-
 // PASSWORD RESET CONTROLLER
 app.controller('passwordRequestController', function($rootScope, $scope, $modalInstance, authAPIservice, $filter) {
   $scope.onLoadDone = true;

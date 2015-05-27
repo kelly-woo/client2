@@ -22,17 +22,17 @@
     
 
     that.openTopicCreateModal = openTopicCreateModal;
+    that.openTopicInviteModal = openTopicInviteModal;
+    that.openTopicInviteFromDmModal = openTopicInviteFromDmModal;
     that.openTopicJoinModal = openTopicJoinModal;
     that.openTopicRenameModal = openTopicRenameModal;
 
 
-    that.openInviteToJoinedEntityModal = openInviteToJoinedEntityModal;
 
     that.openMemberProfileModal = openMemberProfileModal;
 
     that.openTeamMemberListModal = openTeamMemberListModal;
 
-    that.openInviteToCurrentEntityModal = openInviteToCurrentEntityModal;
     that.openInviteToTeamModal = openInviteToTeamModal;
 
     that.openCurrentMemberModal = openCurrentMemberModal;
@@ -45,9 +45,43 @@
      */
     function openTopicCreateModal($scope) {
       var modalOption = {
+        scope : $scope,
+        templateUrl : 'app/modal/topics/topic_create/topic.create.html',
+        controller : 'TopicCreateCtrl',
+        size : 'lg'
+      };
+      modal = _modalOpener(modalOption);
+    }
+
+    /**
+     * 현재 토픽으로 초대할 수 있는 모달창을 연다.
+     */
+    function openTopicInviteModal() {
+      var modalOption = {
+        templateUrl : 'app/modal/topics/topic_invite/topic.invite.html',
+        controller : 'TopicInviteCtrl',
+        size : 'lg',
+        windowClass : 'allowOverflowY',
+        resolve : {
+          data : function() {
+            // 토픽으로 초대 가능한 member의 수
+            // 현재 channel의 유저가 가진 team의 갯수
+            return '';
+          }
+        }
+      };
+      modal = _modalOpener(modalOption);
+    }
+
+    /**
+     * 1:1 DM 창에서 상대방을 내가 조인한 토픽에 초대하는 모달창을 연다.
+     * @param $scope
+     */
+    function openTopicInviteFromDmModal($scope) {
+      var modalOption = {
         scope       :   $scope,
-        templateUrl :   'app/modal/topics/topic_create/topic.create.html',
-        controller  :   'createEntityModalCtrl',
+        templateUrl :   'app/modal/topics/topic_invite_from_dm/topic.invite.direct.html',
+        controller  :   'InviteToTopicFromDmCtrl',
         size        :   'lg'
       };
       modal = _modalOpener(modalOption);
@@ -59,10 +93,10 @@
      */
     function openTopicJoinModal($scope) {
       var modalOption = {
-        scope       :   $scope,
-        templateUrl :   'app/modal/topics/topic_join/join.html',
-        controller  :   'joinModalCtrl',
-        size        :   'lg'
+        scope : $scope,
+        templateUrl : 'app/modal/topics/topic_join/topic.join.html',
+        controller : 'TopicJoinCtrl',
+        size : 'lg'
       };
       modal = _modalOpener(modalOption);
     }
@@ -73,27 +107,15 @@
      */
     function openTopicRenameModal($scope) {
       var modalOption = {
-        scope       :   $scope,
-        templateUrl :   'app/modal/topics/topic_rename/topic.rename.html',
-        controller  :   'renameModalCtrl',
-        size        :   'lg'
+        scope : $scope,
+        templateUrl : 'app/modal/topics/topic_rename/topic.rename.html',
+        controller : 'TopicRenameCtrl',
+        size : 'lg'
       };
       modal = _modalOpener(modalOption);
     }
 
-    /**
-     * 1:1 DM 창에서 상대방을 내가 조인한 토픽에 초대하는 모달창을 연다.
-     * @param $scope
-     */
-    function openInviteToJoinedEntityModal($scope) {
-      var modalOption = {
-        scope       :   $scope,
-        templateUrl :   'app/modal/invite.direct.html',
-        controller  :   'inviteUsertoChannelCtrl',
-        size        :   'lg'
-      };
-      modal = _modalOpener(modalOption);
-    }
+
 
     /**
      * 멤버의 간단한 프로필을 보는 모달창을 연다.
@@ -122,26 +144,6 @@
         templateUrl : 'app/modal/team_member_list/team.member.list.html',
         controller  : 'teamMemberListCtrl',
         size        : 'lg'
-      };
-      modal = _modalOpener(modalOption);
-    }
-
-    /**
-     * 현재 토픽으로 초대할 수 있는 모달창을 연다.
-     */
-    function openInviteToCurrentEntityModal() {
-      var modalOption = {
-        templateUrl :   'app/modal/invitation/invitation.channel.html',
-        controller  :   'invitationChannelCtrl',
-        size        :   'lg',
-        windowClass :   'allowOverflowY',
-        resolve     : {
-          data      : function() {
-            // 토픽으로 초대 가능한 member의 수
-            // 현재 channel의 유저가 가진 team의 갯수
-            return '';
-          }
-        }
       };
       modal = _modalOpener(modalOption);
     }
