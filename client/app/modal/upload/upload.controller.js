@@ -4,262 +4,157 @@
   // FILE UPLOAD controller
   angular
     .module('jandiApp')
-    .controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstance, fileAPIservice, analyticsService, $timeout) {
-      var PRIVATE_FILE = 740,   // PRIVATE_FILE code
-          PUBLIC_FILE = 744,    // PUBLIC_FILE code
-          currentEntity,        // 현재 file upload를 수행하는 사용자의 entity
-          fileObject,
-          it,
-          fileUploadQueue,
-          fileUploadIndex,
-          lock,
-          lProgressBarIndex,
-          cProgressBarIndex;
+    .controller('fileUploadModalCtrl', function($rootScope, $scope, $modalInstance, FilesUpload, fileAPIservice, analyticsService, $timeout) {
+      var PUBLIC_FILE = 744;    // PUBLIC_FILE code
+      var filesUpload;
+      var fileObject;
 
       $scope.isLoading = false;
 
       // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 sync가 맞는다.
       $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinEntities, $scope.memberList);
+      $scope.eventHandler = function eventHandler(btnType) {
+        filesUpload.upload(!!btnType);
+      };
 
-      currentEntity = $scope.currentEntity;
       fileObject = $scope.fileObject;
-
-      // file object 반복자
-      it = fileObject.iterator();
-
-      $scope.currentIndex = 1;                // 현재 file index
-      $scope.lastIndex = fileObject.size();   // 마지막 file index
-      $scope.eventHandler = eventHandler;     // file upload btn handler
-
-      $scope.file = it.next();                                  // 첫 file
-      $scope.fileInfo = createFileInfo($scope, $scope.file);    // 첫 file에 대한 file 정보
-
-      if ($scope.file.comment) {
-        $scope.comment = $scope.file.comment;
-        delete $scope.file.comment;
-      }
-
-      fileUploadQueue = [];                   // file upload queue
-      fileUploadIndex = 0;                    // file upload queue index
-      lock = false;                           // file upload queue locker(순차 upload를 위함)
-
-      lProgressBarIndex = cProgressBarIndex = 0;
-
-      function eventHandler(btnType) {
-
-        // upload event 처리
-        if (btnType === 'upload') {
-          // upload 수행 해야할 file이 존재한다면 file에 대한 file 정보 생성
-          // $scope.fileInfo = createFileInfo($scope, $scope.file, $scope.fileInfo.currentEntity);
-
-          lProgressBarIndex++;
-
-          fileUploadQueue.push((function($tScope, $cScope, currentIndex, file, fileInfo) {
-            fileInfo.share = $scope.fileInfo.currentEntity.id;    // 공유 대화방 id
-            fileInfo.comment = $scope.comment;                    // file upload message에 대한 comment
-
-            if ($scope.file.comment) {
-              $scope.comment = $scope.file.comment;
-              delete $scope.file.comment;
-            } else {
-              $cScope.comment = '';
-            }
-
-            return function(callback) {
-              var tmpFileInfo = angular.extend({}, fileInfo);
-
-              delete tmpFileInfo.currentEntity;
-
-              lock = true;
-
-              cProgressBarIndex++;
-
-              // progress bar 초기화
-              $tScope.curUpload = {};
-              $tScope.curUpload.lFileIndex = lProgressBarIndex;
-              $tScope.curUpload.cFileIndex = cProgressBarIndex;
-
-              $tScope.curUpload.title = file.name;
-              $tScope.curUpload.progress = 0;
-              $tScope.curUpload.status = 'initiate';
-
-              $tScope.fileQueue = fileAPIservice.upload({
-                files: file,
-                fileInfo: tmpFileInfo,
-                supportHTML: $scope.supportHtml5,
-                uploadType: tmpFileInfo.uploadType
-              });
-
-
-
-              $tScope.fileQueue.then(   // success
-                function(response) {
-                  if (response == null) {
-                    uploadErrorHandler($tScope);
-                  } else {
-                    $tScope.curUpload.status = 'done';
-                    fileAPIservice.broadcastChangeShared();
-
-                    // analytics
-                    var share_target = "";
-                    switch (currentEntity.type) {
-                      case 'channel':
-                        share_target = "topic";
-                        break;
-                      case 'privateGroup':
-                        share_target = "private group";
-                        break;
-                      case 'user':
-                        share_target = "direct message";
-                        break;
-                      default:
-                        share_target = "invalid";
-                        break;
-                    }
-
-                    var file_meta = (response.data.fileInfo.type).split("/");
-
-                    var upload_data = {
-                      "entity type"   : share_target,
-                      "category"      : file_meta[0],
-                      "extension"     : response.data.fileInfo.ext,
-                      "mime type"     : response.data.fileInfo.type,
-                      "size"          : response.data.fileInfo.size
-                    };
-
-                    analyticsService.mixpanelTrack( "File Upload", upload_data );
-                  }
-
-                  // console.log('done', arguments);
-                  callback();         // upload success 후 callback 수행
-                },
-                function(error) {     // error
-                  uploadErrorHandler($tScope);
-
-                  // console.log('error', arguments);
-                  callback();         // upload error 후 callback 수행
-                },
-                function(evt) {       // progress
-                  // center.html에 표현되는 progress bar의 상태 변경
-                  $tScope.curUpload = {};
-                  // $tScope.curUpload.lFileIndex = $cScope.lastIndex;
-                  // $tScope.curUpload.cFileIndex = currentIndex;
-
-                  $tScope.curUpload.lFileIndex = lProgressBarIndex;
-                  $tScope.curUpload.cFileIndex = cProgressBarIndex;
-
-                  $tScope.curUpload.title = evt.config.file.name;
-                  $tScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
-                  $tScope.curUpload.status = 'uploading';
-                }
-              );
-            };
-          }($rootScope, $scope, $scope.currentIndex, $scope.file, $scope.fileInfo)));
-
-          // lock이 풀려 있다면 다음 file을 upload 시작
-          if (!lock) {
-            fileUploadShifting();
+      filesUpload = FilesUpload.createInstance(fileObject, {
+        // file api 제공 여부
+        supportFileAPI: $scope.supportHtml5,
+        // file object convert
+        convertFile: function(file) {
+          if (file.comment) {
+            $scope.comment = file.comment;
           }
-        } else {
-          fileUploadIndex++;  // fileUploadQueue index 증가
 
-          // 모든 작업이 마무리 되었다면 progress bar 숨기기
-          $scope.lastIndex === fileUploadIndex && closeProgressBar();
-        }
+          return $scope.file = file;
+        },
+        // fileInfo object convert
+        convertFileInfo: function(file) {
+          var fileInfo;
 
-        // upload modal의 현재 진행중인 file의 index 갱신
-        if ($scope.lastIndex > $scope.currentIndex) {
-          $scope.currentIndex = $scope.currentIndex + 1;
-        }
+          if (file.isImage) {
+            createImgEle($scope, file);
+          }
 
-        $scope.file = it.next();
+          fileInfo = {
+            isPrivateFile: false,
+            uploadType: file.uploadType,
+            permission: PUBLIC_FILE,
 
-        if ($scope.file) {
-          // upload 수행 해야할 file이 존재한다면 file에 대한 file 정보 생성
-          $scope.fileInfo = createFileInfo($scope, $scope.file, $scope.fileInfo.currentEntity);
-        } else {
-          // upload 수행 해야할 file이 존재하지 않는다면 upload modal 숨김
+            share: $scope.currentEntity.id,   // file upload시 공유 대화방 수정 가능함.
+            comment: $scope.comment           // file upload시 comment 수정 가능함.
+          };
+
+          // upload modal title 갱신, fileInfo에 title 설정
+          $scope.title = fileInfo.title = file.name;
+
+          // upload modal currentEntity 갱신
+          $scope.currentEntity = $scope.currentEntity;
+
+          $('#file_upload_comment').focus();
+
+          return $scope.fileInfo = fileInfo;
+        },
+        // upload sequence 시작
+        onBegin: function() {
+          $scope.currentIndex = 1;
+          $scope.lastIndex = fileObject.size();
+        },
+        // 하나의 file upload 시작
+        onUpload: function(file, fileInfo) {
+          // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
+          fileInfo.share = $scope.currentEntity.id;
+          fileInfo.comment = $scope.comment;
+
+          // scope comment 초기화
+          $scope.comment = '';
+
+          // progress bar 초기화
+          $rootScope.curUpload = {};
+          $rootScope.curUpload.lFileIndex = filesUpload.lastProgressIndex;
+          $rootScope.curUpload.cFileIndex = filesUpload.currentProgressIndex;
+          $rootScope.curUpload.title = file.name;
+          $rootScope.curUpload.progress = 0;
+          $rootScope.curUpload.status = 'initiate';
+
+          setTimeout(function() {
+            $('.progress-striped').children().addClass('progress-bar');
+          });
+        },
+        // 하나의 file upload 중
+        onProgress: function(evt) {
+          // progress bar의 상태 변경
+          $rootScope.curUpload = {};
+          $rootScope.curUpload.lFileIndex = filesUpload.lastProgressIndex;
+          $rootScope.curUpload.cFileIndex = filesUpload.currentProgressIndex;
+          $rootScope.curUpload.title = evt.config.file.name;
+          $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
+          $rootScope.curUpload.status = 'uploading';
+        },
+        // 하나의 file upload 완료
+        onSuccess: function(response) {
+          $rootScope.curUpload.status = 'done';
+          fileAPIservice.broadcastChangeShared();
+
+          // analytics
+          var share_target = "";
+          switch ($scope.currentEntity.type) {
+            case 'channel':
+              share_target = "topic";
+              break;
+            case 'privateGroup':
+              share_target = "private group";
+              break;
+            case 'user':
+              share_target = "direct message";
+              break;
+            default:
+              share_target = "invalid";
+              break;
+          }
+
+          var file_meta = (response.data.fileInfo.type).split("/");
+
+          var upload_data = {
+            "entity type"   : share_target,
+            "category"      : file_meta[0],
+            "extension"     : response.data.fileInfo.ext,
+            "mime type"     : response.data.fileInfo.type,
+            "size"          : response.data.fileInfo.size
+          };
+
+          analyticsService.mixpanelTrack( "File Upload", upload_data );
+        },
+        // confirm 창에서 upload 선택
+        onConfirmDone: function() {
+          // progress bar 100% 상태에서 다음 file을 upload 위해 progress bar 0%로 변경시
+          // transition style 적용되어 animation 들어가는 것을 방지 하기위해 confirm done
+          // 일때 transition 적용을 잠시 해제함.
+          $('.progress-striped').children().removeClass('progress-bar');
+        },
+        // 하나의 file upload error
+        onError: function() {
+          $rootScope.curUpload.status = 'error';
+          $rootScope.curUpload.hasError = true;
+          $rootScope.curUpload.progress = 0;
+        },
+        // upload confirm end
+        onConfirmEnd: function() {
           $modalInstance.dismiss('cancel');
+        },
+        // upload sequence end
+        onEnd: function() {
+          $('.progress-striped').children().addClass('progress-bar');
+
+          // hide progress bar
+          $timeout(function() {
+            $('.file-upload-progress-container').animate( {'opacity': 0 }, 500, function() {
+              fileAPIservice.clearCurUpload();
+            });
+          }, 2000);
         }
-      }
-
-      /**
-       * fileUploadQueue에서 upload 해야할 file shift
-       */
-      function fileUploadShifting() {
-        var fileUpload;
-
-        if (fileUpload = fileUploadQueue.shift()) {
-          // fileUploadQueue에 upload해야할 file이 존재한다면 file upload 시작
-          fileUpload(function () {
-            fileUploadShifting(); // 다음 file upload 수행
-            lock = false;         // lock 풀기
-            fileUploadIndex++;    // fileUploadQueue index 증가
-
-            // 모든 작업이 마무리 되었다면 progress bar 숨기기
-            $scope.lastIndex === fileUploadIndex && closeProgressBar();
-          });
-        }
-      }
-
-      /**
-       * file에 대한 file 정보(request parameter) object 생성
-       */
-      function createFileInfo($scope, file, entity) {
-        var fileInfo;
-
-        if (file.isImage) {
-          createImgEle($scope, file);
-        }
-
-        fileInfo = {
-          title: file.name,
-          isPrivateFile: false,
-          currentEntity: entity || currentEntity,
-          comment: $scope.comment,
-          uploadType: file.uploadType
-        };
-
-        delete file.uploadType;
-
-        // integration upload에 사용되는 fileInfo Object 생성
-        if (file._fileInfo) {
-          angular.extend(fileInfo, file._fileInfo);
-          delete file._fileInfo;
-        }
-
-        if (fileInfo.isPrivateFile) {   // privategroups
-          fileInfo.permission = PRIVATE_FILE;
-          fileInfo.share = '';
-        } else {                        // channel
-          fileInfo.permission = PUBLIC_FILE;
-          fileInfo.share = fileInfo.currentEntity.id;
-        }
-
-        $('#file_upload_comment').focus();
-
-        return fileInfo;
-      }
-
-      /**
-       * file upload시 error 발생 처리
-       */
-      function uploadErrorHandler($scope) {
-        $scope.curUpload.status = 'error';
-        $scope.curUpload.hasError = true;
-        $scope.curUpload.progress = 0;
-      }
-
-      /**
-       * file upload 완료 후 progress bar 닫음
-       */
-      function closeProgressBar() {
-        $timeout(function() {
-          $('.file-upload-progress-container').animate( {'opacity': 0 }, 500, function() {
-            fileAPIservice.clearCurUpload();
-          });
-        }, 2000);
-      }
+      });
 
       /**
        * image파일 upload시 upload modal에 보여지는 미리보기 용 dataUrl 생성
@@ -273,8 +168,6 @@
           setTimeout(function() {
             $scope.$apply(function($scope) {
               $scope.dataUrl = file.dataUrl;
-
-              delete file.dataUrl;
             });
           });
         } else {
@@ -291,9 +184,9 @@
       }
 
       $scope.$watch('dataUrl', function(newValue, oldValue){
-        var modalUploadImg;
+        var modalUploadImg = $('.modal-upload-img');
 
-        if (modalUploadImg = $('.modal-upload-img')) {
+        if (modalUploadImg.length) {
           modalUploadImg.prop('src', newValue);
         }
       });
