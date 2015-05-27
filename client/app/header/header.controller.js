@@ -7,7 +7,8 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, $stateParams, $filter, $modal, accountService, memberService, publicService, configuration, language, modalHelper) {
+  function headerCtrl($scope, $rootScope, $state, $stateParams, $filter, $modal, accountService,
+                      memberService, publicService, configuration, language, modalHelper) {
     var modalMap;
     var modalOpenMap;
 
@@ -97,13 +98,13 @@
         publicService.openPrivacyModal();
       },
       'channel': function() {
-        publicService.openTopicCreateModal($scope);
+        modalHelper.openTopicCreateModal($scope);
       },
       'private': function() {
         publicService.openPrivateCreateModal($scope);
       },
       'invite': function() {
-        publicService.openInviteToTeamModal($scope);
+        modalHelper.openInviteToTeamModal($scope);
       },
       'team-change': function() {
         publicService.openTeamChangeModal($scope);
@@ -120,23 +121,6 @@
           templateUrl :   'app/modal/settings.profile.html',
           controller  :   'profileCtrl',
           size        :   'lg'
-        });
-      },
-      'setting-account': function() {
-        $modal.open({
-          scope       :   $scope,
-          templateUrl :   'app/modal/settings.account.html',
-          controller  :   'accountController',
-          size        :   'lg'
-        });
-      },
-      'setting-service': function() {
-        $modal.open({
-          sopce       : $scope,
-          templateUrl : 'app/modal/settings.service.html',
-          controller  : 'preferencesController',
-//        windowClass : 'modal-wide',
-          size        : 'lg'
         });
       }
     };

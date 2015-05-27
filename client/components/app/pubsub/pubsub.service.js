@@ -11,16 +11,17 @@
 
   /* @ngInject */
   function jndPubSub($rootScope) {
+    var that = this;
+    
+    that.pub = publish;
 
-    this.pub = publish;
+    that.updateLeftPanel = updateLeftPanel;
+    that.updateChatList = updateChatList;
+    that.updateRightFileDetailPanel = updateRightFileDetailPanel;
 
-    this.updateLeftPanel = updateLeftPanel;
-    this.updateChatList = updateChatList;
-    this.updateRightFileDetailPanel = updateRightFileDetailPanel;
+    that.toDefaultTopic = toDefaultTopic;
 
-    this.toDefaultTopic = toDefaultTopic;
-
-    this.updateLeftChatList = updateLeftChatList;
+    that.updateLeftChatList = updateLeftChatList;
 
     /**
      * $rootScope.$broadcast를 대신한다.
@@ -32,7 +33,6 @@
     }
 
     /**
-     *
      * 레프트 패널을 업데이트 하라는 이벤트를 브로드캐스트한다.
      */
     function updateLeftPanel() {
@@ -45,6 +45,7 @@
     function updateChatList() {
       $rootScope.$broadcast('centerUpdateChatList');
     }
+
     /**
      * file detail 패널을 업데이트 하라는 이벤트를 브로드캐스트한다.
      */
@@ -67,6 +68,7 @@
     }
 
     // TODO: 브로드캐스트하는 이벤트 이름에도 컨벤션이 있으면 좋겠습니다! 이벤트 이름만 보고도 대충 어떤 일이 이뤄지는지 알 수 있는 식의 이름이면 좋겠습니다.
+    // TODO: 
 
   }
 })();

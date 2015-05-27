@@ -7,7 +7,8 @@
     .module('jandiApp')
     .controller('invitationChannelCtrl', invitationChannelCtrl);
 
-  function invitationChannelCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter, publicService, analyticsService) {
+  function invitationChannelCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter,
+                                 publicService, analyticsService, modalHelper) {
     InitInvite();
 
     /*
@@ -39,7 +40,7 @@
 
     $scope.onInviteTeamClick = function() {
       $modalInstance.dismiss('cancel');
-      publicService.openInviteToTeamModal();
+      modalHelper.openInviteToTeamModal();
     };
 
     // See if 'user' is a member of current channel/privateGroup.

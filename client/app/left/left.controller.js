@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub) {
+  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper) {
 
   //console.info('[enter] leftpanelController');
 
@@ -375,19 +375,15 @@ app.controller('leftPanelController1', function(
 
   $scope.openModal = function(selector) {
     if (selector == 'join') {
-      publicService.openJoinModal($scope);
-    }
-    else if (selector == 'channel') {
-      publicService.openTopicCreateModal($scope);
-    }
-    else if (selector == 'private') {
+      modalHelper.openTopicJoinModal($scope);
+    } else if (selector == 'channel') {
+      modalHelper.openTopicCreateModal($scope);
+    } else if (selector == 'private') {
       publicService.openPrivateCreateModal($scope);
-    }
-    else if (selector == 'file') {
+    } else if (selector == 'file') {
       publicService.openFileUploadModal($scope);
-    }
-    else if (selector == 'topic') {
-      publicService.openTopicCreateModal($scope);
+    } else if (selector == 'topic') {
+      modalHelper.openTopicCreateModal($scope);
     }
   };
 
@@ -403,7 +399,7 @@ app.controller('leftPanelController1', function(
     else {
       user = entityAPIservice.getEntityFromListById($scope.memberList, user.id)
     }
-    publicService.openMemberProfileModal($scope, user);
+    modalHelper.openMemberProfileModal($scope, user);
   };
 
   // based on uesr.u_starredEntites, populating starred look-up list.
