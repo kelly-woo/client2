@@ -1702,13 +1702,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * TODO: this is still o(n). make it o(1)!!!!!
    */
   $scope.$on('centerOnFileCommentDeleted', function(event, param) {
-    _.forEach($scope.messages, function(message) {
+    _.forEach($scope.messages, function(message, index) {
       if (message.message.id === param.comment.id) {
-        var commentLinkId = message.id;
-        var angularDomElement = angular.element(document.getElementById(commentLinkId));
-        angularDomElement.addClass('hidden');
+        $scope.messages.splice(index, 1);
       }
     });
+    groupByDate();
   });
 
   /**
