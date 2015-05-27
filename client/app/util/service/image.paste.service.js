@@ -3,9 +3,9 @@
 
   angular
     .module('jandiApp')
-    .factory('imagePaste', imagePaste);
+    .factory('ImagePaste', ImagePaste);
 
-  function imagePaste() {
+  function ImagePaste() {
     var KEY_V = 86;
     var CTRL_KEY_NAME = /win/ig.test(navigator.platform) ? 'ctrlKey' : 'metaKey';
     var TYPE = 'image/png';
@@ -15,6 +15,9 @@
     var array = [];
     var slice = array.slice;
 
+    /**
+     * get selection
+     */
     function getSelection(ele) {
       var start;
       var end;
@@ -36,6 +39,9 @@
       };
     }
 
+    /**
+     * set selection
+     */
     function setSelection(ele, begin, end) {
       var selection;
 
@@ -53,18 +59,30 @@
       }
     }
 
+    /**
+     * image 붙여넣기 command가 수행될 dom element에 대한 처리
+     */
     var PasteImageTarget = {
-      init: function($$ele, wrapper, options) {
+      /**
+       * @contstructor
+       * @param {element} jqEle                     - image 붙여넣기 command 대상 dom element
+       * @param {PasteImage} wrapper                - dom element의 window object의 event를 처리하는 wrapper object
+       * @param {function} options
+       * @param {function} options.onImageLoading   - image loading event callback
+       * @param {function} options.onImageLoad      - image load event callback
+       * @param {function} options.onImageLoaded    - image loaded event callback
+       */
+      init: function(jqEle, wrapper, options) {
         var that = this;
 
-        that.$$ele = $$ele;
+        that.jqEle = jqEle;
         that.options = {
             onImageLoading: function() {},
-            onImageLoaded: function() {},
-            onImageLoad: function() {}
+            onImageLoad: function() {},
+            onImageLoaded: function() {}
         };
 
-        wrapper.addTarget($$ele.data('pasteImageTarget', that));
+        wrapper.addTarget(jqEle.data('pasteImageTarget', that));
 
         jQuery.extend(that.options, options);
 
@@ -78,7 +96,7 @@
         if (evt) {
           that.options.onImageLoad(evt.target.result);
         } else {
-          cData = that.$$editContent;
+          cData = that.jqEditContent;
           items = cData.children('img');
           // console.log(items.length);
           if (items.length) {
@@ -119,33 +137,33 @@
       },
       getClipboardText: function() {
         var that = this;
-        var value = that.$$ele.val();
-        var clipText = that.$$editContent.text();
+        var value = that.jqEle.val();
+        var clipText = that.jqEditContent.text();
         var start = that.contentEditableEvent.start;
         var end = that.contentEditableEvent.end;
 
         // console.log('clipboard text ::: ', that.contentEditableEvent);
         // console.log(value.substr(0, start), clipText, value.substr(end, value.length - 1));
-        // console.log( that.$$ele.val(), start, clipText.length);
+        // console.log( that.jqEle.val(), start, clipText.length);
 
-        that.$$ele.val(value.substr(0, start) + clipText + value.substr(end, value.length - 1));
+        that.jqEle.val(value.substr(0, start) + clipText + value.substr(end, value.length - 1));
 
         that.removeClipboardContent(function() {
-          setSelection(that.$$ele[0], start + clipText.length);
+          setSelection(that.jqEle[0], start + clipText.length);
         });
       },
       createClipboardContent: function(evt) {
         var that = this;
         var options = that.options;
-        var $$ele = that.$$ele;
-        var $$editContent;
+        var jqEle = that.jqEle;
+        var jqEditContent;
         var eventLock = false;
 
-        that.$$editContent = $$editContent = $('<div contentEditable="true" style="position: fixed; top: -50000px; width: 1px; height: 1px;" ></div>').appendTo('body');
-        $$editContent.focus();
+        that.jqEditContent = jqEditContent = $('<div contentEditable="true" style="position: fixed; top: -50000px; width: 1px; height: 1px;" ></div>').appendTo('body');
+        jqEditContent.focus();
 
 
-        $$editContent[0].addEventListener("load", function() {
+        jqEditContent[0].addEventListener("load", function() {
           if (!eventLock) {
             eventLock = true;
 
@@ -154,9 +172,9 @@
           }
         }, true);
 
-        if ($$ele.is(':focus')) {
+        if (jqEle.is(':focus')) {
           setTimeout(function() {
-            $$editContent.focus();
+            jqEditContent.focus();
           });
         }
       },
@@ -171,14 +189,14 @@
       removeClipboardContent: function(callback) {
         var that = this;
 
-        that.$$editContent && that.$$editContent.remove();
-        that.$$ele.focus();
+        that.jqEditContent && that.jqEditContent.remove();
+        that.jqEle.focus();
 
         callback && callback();
       },
       initContentEditableEvent: function() {
         var that = this;
-        var selection = getSelection(that.$$ele[0]);
+        var selection = getSelection(that.jqEle[0]);
 
         that.contentEditableEvent = {
           start: selection.start,
@@ -188,11 +206,14 @@
       }
     };
 
+    /**
+     * image 붙여넣기가 수행된 dom element의 window에 대한 처리
+     */
     var PasteImage = {
       init: function(options) {
         var that = this;
 
-        that.$$window = $(window);
+        that.jqWindow = $(window);
         that.targets = [];
 
         that.options = {};
@@ -203,17 +224,17 @@
 
         return that;
       },
-      addTarget: function($$target) {
+      addTarget: function(jqTarget) {
         var that = this;
 
-        that.targets.push($$target);
+        that.targets.push(jqTarget);
       },
       _on: function() {
         var that = this;
         var pasteImageTargets = [];
         var pasteImageTarget;
 
-        that.$$window.on('keydown', function keydown(evt) {
+        that.jqWindow.on('keydown', function keydown(evt) {
           if ((!document.documentMode || document.documentMode > 10) && that._isPaste(evt)) {
             if (pasteImageTarget = $(evt.target).data('pasteImageTarget')) {
               pasteImageTargets.push(pasteImageTarget);
@@ -225,7 +246,7 @@
           }
         });
 
-        that.$$window.on('paste', function paste(evt) {
+        that.jqWindow.on('paste', function paste(evt) {
           evt = evt.originalEvent;
 
           if (pasteImageTarget = pasteImageTargets.shift()) {
@@ -297,10 +318,10 @@
         return img;
       },
       _isContentEditableImagePaste: function(pasteImageTarget) {
-        return !pasteImageTarget.$$editContent.text();
+        return !pasteImageTarget.jqEditContent.text();
       },
       _isContentEditableTextPaste: function(pasteImageTarget) {
-        return !!pasteImageTarget.$$editContent.text();
+        return !!pasteImageTarget.jqEditContent.text();
       }
     };
 

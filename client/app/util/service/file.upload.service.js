@@ -16,7 +16,6 @@
      */
     var FilesUpload = {
       /**
-       * FileUplado constructor
        * @constructor
        * @param {FileObject} fileObject - upload할 file object를 wrapping한 object
        * @param {object} options

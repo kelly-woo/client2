@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox($filter, integrationService, fileAPIservice, configuration, imagePaste) {
+  function centerChatInputBox($filter, integrationService, fileAPIservice, configuration, ImagePaste) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -59,7 +59,7 @@
       }());
 
       if (configuration.name !== 'staging') {
-        imagePaste.createInstance(messageInput, {
+        ImagePaste.createInstance(messageInput, {
           onImageLoading: function() {
             scope.$apply(function(scope) {
               scope.isLoading = true;
