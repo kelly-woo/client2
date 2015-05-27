@@ -254,7 +254,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _setMessageDetail(messages) {
-    console.log(messages);
     _.each(messages, function(data, index) {
       switch (_getContentType(index, messages)) {
         case 'text':
@@ -305,16 +304,26 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (messages[index]) {
       var msg = messages[index].message;
       var prevMsg = messages[index - 1] && messages[index - 1].message;
-      var elapsedMin;
 
       if (prevMsg) {
-        elapsedMin = Math.floor((messages[index].time - messages[index - 1].time) / 60000);
-        if (_isSameWriterTextMsg(msg, prevMsg) && elapsedMin < MAX_MSG_ELAPSED_MINUTES)  {
+        if (_isSameWriterTextMsg(msg, prevMsg) && !_isElapsed(messages[index - 1].time, messages[index].time))  {
           return true;
         }
       }
     }
     return false;
+  }
+
+  /**
+   * 연속된 메세지로 간주할 시간 허용 범위를 초과하였는지 여부
+   * @param {number} startTime 시작 시간
+   * @param {number} endTime  끝 시간
+   * @returns {boolean} 초과했는지 여부
+   * @private
+   */
+  function _isElapsed(startTime, endTime) {
+    var elapsedMin = Math.floor((endTime - startTime) / 60000);
+    return elapsedMin > MAX_MSG_ELAPSED_MINUTES;
   }
 
   /**
@@ -372,7 +381,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       isTitle = false;
     }
 
-    if (!isTitle && prevMessage.message.writerId === writerId) {
+    if (!isTitle &&
+        prevMessage.message.writerId === writerId &&
+        !_isElapsed(prevMessage.time, message.time)) {
       isChild = true;
     }
 
@@ -654,7 +665,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     element.addClass('last');
     $timeout(function() {
       element.removeClass('last');
-    }, 1000)
+    }, 1000);
   }
 
   function _hasLastMessage() {
@@ -1693,7 +1704,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       if (message.message.contentType === 'comment' && message.message.commentOption.isTitle) {
         if (message.message.feedbackId === deletedFileId) {
-          message.feedback.status = 'archived'
+          message.feedback.status = 'archived';
         }
       }
 
@@ -1712,13 +1723,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * TODO: this is still o(n). make it o(1)!!!!!
    */
   $scope.$on('centerOnFileCommentDeleted', function(event, param) {
-    _.forEach($scope.messages, function(message) {
-      if (message.message.id === param.comment.id) {
-        var commentLinkId = message.id;
-        var angularDomElement = angular.element(document.getElementById(commentLinkId));
-        angularDomElement.addClass('hidden');
+    var isFound = false;
+    _.forEach($scope.messages, function(message, index) {
+      if (message && message.message && (message.message.id === param.comment.id)) {
+        isFound = true;
+        $scope.messages.splice(index, 1);
       }
     });
+    if (isFound) {
+      groupByDate();
+    }
   });
 
   /**
