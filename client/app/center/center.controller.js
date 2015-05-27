@@ -1683,7 +1683,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       if (message.message.contentType === 'comment' && message.message.commentOption.isTitle) {
         if (message.message.feedbackId === deletedFileId) {
-          message.feedback.status = 'archived'
+          message.feedback.status = 'archived';
         }
       }
 
@@ -1702,12 +1702,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * TODO: this is still o(n). make it o(1)!!!!!
    */
   $scope.$on('centerOnFileCommentDeleted', function(event, param) {
+    var isFound = false;
     _.forEach($scope.messages, function(message, index) {
-      if (message.message.id === param.comment.id) {
+      if (message && message.message && (message.message.id === param.comment.id)) {
+        isFound = true;
         $scope.messages.splice(index, 1);
       }
     });
-    groupByDate();
+    if (isFound) {
+      groupByDate();
+    }
   });
 
   /**
