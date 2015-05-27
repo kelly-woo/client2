@@ -1,13 +1,12 @@
 (function () {
-
   'use strict';
 
   angular
     .module('jandiApp')
-    .controller('teamMemberListCtrl', teamMemberListCtrl);
+    .controller('TeamMemberListCtrl', TeamMemberListCtrl);
 
   /* @ngInject */
-  function teamMemberListCtrl($scope, $rootScope, $state, $modalInstance, currentSessionHelper) {
+  function TeamMemberListCtrl($scope, $modalInstance, currentSessionHelper) {
 
     var vm = $scope;
 

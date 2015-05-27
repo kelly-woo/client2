@@ -23,7 +23,6 @@
       openPrivateCreateModal: openPrivateCreateModal,
       openPasswordResetRequestModal: openPasswordResetRequestModal,
       openFileUploadModal: openFileUploadModal,
-      openTeamChangeModal: openTeamChangeModal,
       openTeamSettingModal: openTeamSettingModal,
       closeModal: closeModal,
       getLanguageSetting: getLanguageSetting,
@@ -122,15 +121,6 @@
         controller  : 'fileUploadModalCtrl',
         size        : 'lg',
         backdrop    : 'static'
-      });
-    }
-
-    function openTeamChangeModal($scope) {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/team_change/team.change.html',
-        controller  : 'teamChangeController',
-        size        : 'lg'
       });
     }
 

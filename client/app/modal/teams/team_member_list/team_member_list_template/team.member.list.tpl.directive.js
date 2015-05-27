@@ -10,8 +10,8 @@
       restrict: 'EA',
       scope: true,
       link: link,
-      templateUrl: 'app/modal/team_member_list/team_member_list_template/team.member.list.tpl.html',
-      controller: 'teamMemberListTemplateCtrl'
+      templateUrl: 'app/modal/teams/team_member_list/team_member_list_template/team.member.list.tpl.html',
+      controller: 'TeamMemberListTemplateCtrl'
     };
 
     function link(scope, element, attrs) {

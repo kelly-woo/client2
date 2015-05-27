@@ -33,6 +33,7 @@
 
     that.openTeamMemberListModal = openTeamMemberListModal;
 
+    that.openTeamChangeModal = openTeamChangeModal;
     that.openInviteToTeamModal = openInviteToTeamModal;
 
     that.openCurrentMemberModal = openCurrentMemberModal;
@@ -81,7 +82,7 @@
       var modalOption = {
         scope       :   $scope,
         templateUrl :   'app/modal/topics/topic_invite_from_dm/topic.invite.direct.html',
-        controller  :   'InviteToTopicFromDmCtrl',
+        controller  :   'TopicInviteFromDmCtrl',
         size        :   'lg'
       };
       modal = _modalOpener(modalOption);
@@ -137,12 +138,26 @@
     }
 
     /**
+     * 팀 변환을 위한 현재 사용자가 가입되어있는 팀 리스트를 보여주는 모달창을 연다.
+     * @param $scope
+     */
+    function openTeamChangeModal($scope) {
+      var modalOption = {
+        scope       : $scope,
+        templateUrl : 'app/modal/teams/team_change/team.change.html',
+        controller  : 'TeamChangeController',
+        size        : 'lg'
+      };
+      modal = _modalOpener(modalOption);
+    }
+
+    /**
      * 팀에 소속된 모든 멤버들을 볼 수 있는 모달창을 연댜.
      */
     function openTeamMemberListModal() {
       var modalOption = {
-        templateUrl : 'app/modal/team_member_list/team.member.list.html',
-        controller  : 'teamMemberListCtrl',
+        templateUrl : 'app/modal/teams/team_member_list/team.member.list.html',
+        controller  : 'TeamMemberListCtrl',
         size        : 'lg'
       };
       modal = _modalOpener(modalOption);
@@ -158,8 +173,8 @@
         teamAPIservice.getTeamInfo()
           .success(function(res) {
             var modalOption = {
-              templateUrl :   'app/modal/invitation/invitation.team.html',
-              controller  :   'invitationTeamCtrl',
+              templateUrl :   'app/modal/teams/team_invite/team.invite.html',
+              controller  :   'TeamInviteCtrl',
               size        :   'lg',
               resolve: {
                 teamInfo: function() {

@@ -3,10 +3,10 @@
 
   angular
     .module('jandiApp')
-    .controller('teamMemberListTemplateCtrl', teamMemberListTemplateCtrl);
+    .controller('TeamMemberListTemplateCtrl', TeamMemberListTemplateCtrl);
 
 
-  function teamMemberListTemplateCtrl($scope, $rootScope, $state, jndPubSub) {
+  function TeamMemberListTemplateCtrl($scope, $state, jndPubSub) {
     $scope.onMemberClick = onMemberClick;
     $scope.onStarClick = onStarClick;
 

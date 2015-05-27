@@ -3,10 +3,10 @@
 
   angular
     .module('jandiApp')
-    .controller('InviteToTopicFromDmCtrl', InviteToTopicFromDMCtrl);
+    .controller('TopicInviteFromDmCtrl', TopicInviteFromDmCtrl);
 
   /* @ngInject */
-  function InviteToTopicFromDMCtrl($scope, modalHelper, jndPubSub, entityheaderAPIservice, publicService, $rootScope) {
+  function TopicInviteFromDmCtrl($scope, modalHelper, jndPubSub, entityheaderAPIservice, publicService, $rootScope) {
    // WHEN INVITING FROM DIRECT MESSAGE
 
     $scope.cancel = modalHelper.closeModal;

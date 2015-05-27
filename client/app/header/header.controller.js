@@ -79,7 +79,7 @@
 
 
     $scope.toAdmin = function() {
-      var teamName = $filter('getName')($scope.team)
+      var teamName = $filter('getName')($scope.team);
       publicService.redirectTo(configuration.main_address + 'admin/' + teamName);
     };
     $scope.toTeam = function() {
@@ -107,7 +107,7 @@
         modalHelper.openInviteToTeamModal($scope);
       },
       'team-change': function() {
-        publicService.openTeamChangeModal($scope);
+        modalHelper.openTeamChangeModal($scope);
       },
       'setting-team': function() {
         publicService.openTeamSettingModal($scope);

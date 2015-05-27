@@ -4,10 +4,10 @@
 
   angular
     .module('jandiApp')
-    .controller('invitationTeamCtrl', invitationTeamCtrl);
+    .controller('TeamInviteCtrl', TeamInviteCtrl);
 
   /* @ngInject */
-  function invitationTeamCtrl($scope, $modalInstance, teamInfo, configuration, currentSessionHelper) {
+  function TeamInviteCtrl($scope, $modalInstance, teamInfo, configuration, currentSessionHelper) {
     var currentTeamAdmin;
 
     $scope.disabledImage = configuration.assets_url + 'assets/images/invite-disabled.png';
