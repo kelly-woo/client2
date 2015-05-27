@@ -254,6 +254,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _setMessageDetail(messages) {
+    console.log(messages);
     _.each(messages, function(data, index) {
       switch (_getContentType(index, messages)) {
         case 'text':
@@ -362,12 +363,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _getCommentOption(message, prevMessage) {
     var isTitle = true,
-        feedbackId = message.feedbackId;
+        isChild = false,
+        feedbackId = message.feedbackId,
+        writerId = message.message.writerId;
+
     if (prevMessage &&
         (prevMessage.messageId == feedbackId || prevMessage.feedbackId === feedbackId)) {
       isTitle = false;
     }
+
+    if (!isTitle && prevMessage.message.writerId === writerId) {
+      isChild = true;
+    }
+
     return {
+      isChild: isChild,
       isTitle: isTitle,
       isContinue: !isTitle
     };

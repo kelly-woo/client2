@@ -312,6 +312,9 @@ article {
 .continue-comment-body p {
   margin: 0;
 }
+.continue-comment-body .msg-hidden {
+  visibility: hidden;
+}
 .msg-item-header__created {
   font-size: 10px;
   line-height: 10px;

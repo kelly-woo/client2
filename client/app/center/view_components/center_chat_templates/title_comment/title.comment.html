@@ -31,7 +31,7 @@
       <!--    WRITER  -->
       <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
             ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
-        <span ng-if="msg.message.contentType !== 'file'"> {{msg.fromEntity|getName}} </span>
+        <span ng-if="msg.message.contentType !== 'file'"  ng-class="{'msg-hidden': msg.message.commentOption.isChild}"> {{msg.fromEntity|getName}} </span>
       </span>
 
       <!--    CONTENT(MESSAGE)    -->
