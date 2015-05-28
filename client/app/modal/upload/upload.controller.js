@@ -42,8 +42,10 @@
             uploadType: file.uploadType,
             permission: PUBLIC_FILE,
 
-            share: $scope.currentEntity.id,   // file upload시 공유 대화방 수정 가능함.
-            comment: $scope.comment           // file upload시 comment 수정 가능함.
+            // file upload시 공유 대화방 수정 가능함.
+            share: $scope.currentEntity.id,
+            // file upload시 comment 수정 가능함.
+            comment: $scope.comment
           };
 
           // upload modal title 갱신, fileInfo에 title 설정
