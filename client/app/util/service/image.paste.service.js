@@ -5,7 +5,7 @@
     .module('jandiApp')
     .factory('ImagePaste', ImagePaste);
 
-  function ImagePaste() {
+  function ImagePaste($timeout) {
     var KEY_V = 86; // v key
     var CTRL_KEY_NAME = /win/ig.test(navigator.platform) ? 'ctrlKey' : 'metaKey';
     var TYPE = 'image/png';
@@ -192,7 +192,7 @@
         }, true);
 
         if (jqEle.is(':focus')) {
-          setTimeout(function() {
+          $timeout(function() {
             jqEditContent.focus();
           });
         }
@@ -305,7 +305,7 @@
               // clipboard에서 image data get 가능하지 않아 contentEditable을 사용하여 image/text data get함
 
               // contentEditable element에 focus가 바로 이동하지 않으므로 setTime으로 contentEditable element에 focus가 간 상황 다음에 동작하도록 함
-              setTimeout((function(pasteImageTarget) {
+              $timeout((function(pasteImageTarget) {
                 return function() {
                   if (that._isContentEditableImagePaste(pasteImageTarget)) {
                     pasteImageTarget.getClipboardImage();

@@ -80,7 +80,7 @@
           $rootScope.curUpload.progress = 0;
           $rootScope.curUpload.status = 'initiate';
 
-          setTimeout(function() {
+          $timeout(function() {
             $('.progress-striped').children().addClass('progress-bar');
           });
         },
@@ -167,7 +167,7 @@
 
         if (file.dataUrl) {
           $scope.dataUrl = '';
-          setTimeout(function() {
+          $timeout(function() {
             $scope.$apply(function($scope) {
               $scope.dataUrl = file.dataUrl;
             });
