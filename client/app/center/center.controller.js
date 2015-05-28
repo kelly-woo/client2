@@ -371,10 +371,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _getCommentOption(message, prevMessage) {
-    var isTitle = true,
-        isChild = false,
-        feedbackId = message.feedbackId,
-        writerId = message.message.writerId;
+    var isTitle = true;
+    var isChild = false;
+    var feedbackId = message.feedbackId;
+    var writerId = message.message.writerId;
 
     if (prevMessage &&
         (prevMessage.messageId == feedbackId || prevMessage.feedbackId === feedbackId)) {
