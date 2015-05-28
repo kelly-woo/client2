@@ -108,8 +108,8 @@
        * fileAPIservice 사용하여 upload request 수행함.
        * @param {object} file     - browser file object
        * @param {object} fileInfo - file이 공유될 entity 또는 file property가 추가적으로 가져야할 data
-       * @param {integer} index   - 현재 upload되는 file의 index
-       * @param {integer} length  - upload 하려고 하는 file의 length
+       * @param {number} index   - 현재 upload되는 file의 index
+       * @param {number} length  - upload 하려고 하는 file의 length
        * @param {function} invoke
        */
       _upload: function(file, fileInfo, index, length, invoke) {
@@ -150,8 +150,8 @@
       /**
        * confirm type upload
        * @param {boolean} confirm   - 해당 index의 file upload 수행할지 여부
-       * @param {integer} index
-       * @param {integer} length
+       * @param {number} index
+       * @param {number} length
        */
       _uploadConfirm: function(confirm, index, length) {
         var that = this;
@@ -207,7 +207,7 @@
       },
       /**
        * file upload queue shift 함
-       * @param {integer} length - upload queue length
+       * @param {number} length - upload queue length
        */
       _fileUploadQueueShift: function(length) {
         var that = this;
@@ -240,8 +240,8 @@
       },
       /**
        * 순차적으로 file upload 수행함
-       * @param {integer} index   - upload file index
-       * @param {integer} length  - upload할 file length
+       * @param {number} index   - upload file index
+       * @param {number} length  - upload할 file length
        * @param {object} file     - fileObject의 특정 file object
        * @param {function} invoke
        */
