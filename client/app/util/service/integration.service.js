@@ -12,7 +12,6 @@
      */
 
     // object inherit model
-    // object 상속 model 특정 namespace로 옮겨야 함..
     var Objecz = {
       create: function(prop) {
           var that = this,
