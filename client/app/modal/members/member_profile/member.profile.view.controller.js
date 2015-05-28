@@ -1,12 +1,16 @@
+/**
+ * @fileoverview 다른 멤버들의 프로필을 보는 모달창의 컨트롤러.
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .controller('profileViewerCtrl', profileViewerCtrl);
+    .controller('ProfileViewCtrl', ProfileViewCtrl);
 
   /* @ngInject */
-  function profileViewerCtrl($scope, curUser, $state, modalHelper, jndPubSub) {
+  function ProfileViewCtrl($scope, curUser, $state, modalHelper, jndPubSub) {
 
     (function() {
       init();

@@ -88,12 +88,6 @@ app.config(function ($stateProvider) {
       title       : 'ERROR',
       controller  : 'errorController'
     })
-    .state('password', {
-      url         : '/passwordreset?token',
-      title       : 'Reset Password',
-      templateUrl : 'app/password/password.reset.html',
-      controller  : 'passwordResetController'
-    })
     .state('mobile', {
       url         : '/mobile',
       templateUrl : 'app/mobile/mobile.catcher.html',

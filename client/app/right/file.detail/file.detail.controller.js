@@ -2,7 +2,9 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice, publicService, configuration) {
+app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
+                                          fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
+                                          publicService, configuration, modalHelper) {
 
   //console.info('[enter] fileDetailCtrl');
 
@@ -186,17 +188,19 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     if (integrationPreviewMap[content.serverUrl]) {
       var win = window.open(content.fileUrl, '_blank');
     } else {
-      $modal.open({
-        scope       :   $scope,
-        controller  :   'fullImageCtrl',
-        templateUrl :   'app/modal/fullimage.html',
-        windowClass :   'modal-full fade-only',
-        resolve     :   {
-          photoUrl    : function() {
-            return $scope.ImageUrl;
-          }
-        }
-      });
+      modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
+
+      //$modal.open({
+      //  scope       :   $scope,
+      //  controller  :   'fullImageCtrl',
+      //  templateUrl :   'app/modal/fullimage.html',
+      //  windowClass :   'modal-full fade-only',
+      //  resolve     :   {
+      //    photoUrl    : function() {
+      //      return $scope.ImageUrl;
+      //    }
+      //  }
+      //});
     }
   };
 
@@ -351,41 +355,3 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   }
 
 });
-
-app
-  .controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {
-    $scope.cancel = function() { $modalInstance.dismiss('cancel');}
-    $scope.photoUrl = photoUrl;
-    $scope.onImageRotatorClick = function($event) {
-
-      var sender = angular.element($event.target);
-      var senderID = sender.attr('id');
-
-      var target = '';
-      switch(senderID){
-        case 'fromModal':
-          target = sender.parent().siblings('img.image-background').parent();
-          break;
-        default :
-          break;
-      }
-
-      if (target === '') return;
-      var targetClass = target.attr('class');
-
-      if (targetClass.indexOf('rotate-90') > -1) {
-        target.removeClass('rotate-90');
-        target.addClass('rotate-180');
-      }
-      else if(targetClass.indexOf('rotate-180') > -1) {
-        target.removeClass('rotate-180');
-        target.addClass('rotate-270');
-      }
-      else if(targetClass.indexOf('rotate-270') > -1) {
-        target.removeClass('rotate-270');
-      }
-      else {
-        target.addClass('rotate-90');
-      }
-    };
-  });

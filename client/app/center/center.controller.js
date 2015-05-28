@@ -1112,19 +1112,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     //  bind click event handler to full screen toggler.
     fullScreenToggler.bind('click', function() {
+      modalHelper.openFullScreenImageModal($scope, fullUrl);
+
       //  opening full image modal used in file controller.
       //  passing photo url of image that needs to be displayed in full screen.
-      $modal.open({
-        scope       :   $scope,
-        controller  :   'fullImageCtrl',
-        templateUrl :   'app/modal/fullimage.html',
-        windowClass :   'modal-full',
-        resolve     :   {
-          photoUrl    : function() {
-            return fullUrl;
-          }
-        }
-      });
+      //$modal.open({
+      //  scope       :   $scope,
+      //  controller  :   'fullImageCtrl',
+      //  templateUrl :   'app/modal/fullimage.html',
+      //  windowClass :   'modal-full',
+      //  resolve     :   {
+      //    photoUrl    : function() {
+      //      return fullUrl;
+      //    }
+      //  }
+      //});
     });
 
     // get transform information from original image.

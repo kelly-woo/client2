@@ -18,12 +18,7 @@
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
-      openPrivacyModal: openPrivacyModal,
-      openAgreementModal: openAgreementModal,
-      openPrivateCreateModal: openPrivateCreateModal,
-      openPasswordResetRequestModal: openPasswordResetRequestModal,
       openFileUploadModal: openFileUploadModal,
-      openTeamSettingModal: openTeamSettingModal,
       closeModal: closeModal,
       getLanguageSetting: getLanguageSetting,
       setCurrentLanguage: setCurrentLanguage,
@@ -77,43 +72,6 @@
       return modal;
     }
 
-    function openPrivacyModal() {
-      var privacy = 'app/modal/terms/privacy';
-      privacy = privacy + '_' + accountService.getAccountLanguage() + '.html';
-
-      $modal.open({
-        templateUrl: privacy,
-        size: 'lg'
-      });
-    }
-    function openAgreementModal() {
-      var agreement = 'app/modal/terms/agreement';
-      agreement = agreement + '_' + accountService.getAccountLanguage() + '.html';
-
-      $modal.open({
-        templateUrl: agreement,
-        size: 'lg'
-      });
-    }
-
-    function openPrivateCreateModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/create.private.html',
-        controller  :   'createEntityModalCtrl',
-        size        :   'lg'
-      });
-    }
-
-    function openPasswordResetRequestModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/password.reset.request.html',
-        controller  :   'passwordRequestController',
-        size        :   'lg'
-      });
-    }
-
     function openFileUploadModal($scope) {
       $modal.open({
         scope       : $scope,
@@ -122,16 +80,6 @@
         size        : 'lg',
         backdrop    : 'static'
       });
-    }
-
-    function openTeamSettingModal($scope) {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/settings.team.html',
-        controller  : 'teamSettingController',
-        size        : 'lg'
-      });
-
     }
 
     function closeModal(modalInstance) {

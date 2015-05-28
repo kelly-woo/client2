@@ -59,24 +59,6 @@
       });
 
     }
-    //  Called when header dropdown is clicked.
-    //  Setting fileTypeQuery to clicked value.
-    //  If right panel is not opened yet, open it first.
-    //  right.controller is listening to 'updateFileTypeQuery'.
-    $scope.onFileTypeClick = function(type) {
-      if ($state.current.name != 'messages.detail.files')
-        $state.go('messages.detail.files');
-      $scope.$emit('updateFileTypeQuery', type);
-      $rootScope.$broadcast('setFileTabActive');
-    };
-    //  right controller is listening to 'updateFileWriterId'.
-    $scope.onFileListClick = function(userId) {
-      if ($state.current.name != 'messages.detail.files')
-        $state.go('messages.detail.files');
-      $scope.$emit('updateFileWriterId', userId);
-    };
-
-
 
     $scope.toAdmin = function() {
       var teamName = $filter('getName')($scope.team);
@@ -92,16 +74,13 @@
 
     modalMap = {
       'agreement': function() {
-        publicService.openAgreementModal();
+        modalHelper.openAgreementModal();
       },
       'privacy': function() {
-        publicService.openPrivacyModal();
+        modalHelper.openPrivacyModal();
       },
       'channel': function() {
         modalHelper.openTopicCreateModal($scope);
-      },
-      'private': function() {
-        publicService.openPrivateCreateModal($scope);
       },
       'invite': function() {
         modalHelper.openInviteToTeamModal($scope);
@@ -109,19 +88,8 @@
       'team-change': function() {
         modalHelper.openTeamChangeModal($scope);
       },
-      'setting-team': function() {
-        publicService.openTeamSettingModal($scope);
-      },
       'team-member': function() {
         modalHelper.openTeamMemberListModal();
-      },
-      'setting-profile': function() {
-        $modal.open({
-          scope       :   $scope,
-          templateUrl :   'app/modal/settings.profile.html',
-          controller  :   'profileCtrl',
-          size        :   'lg'
-        });
       }
     };
     $scope.openModal = function(selector) {
