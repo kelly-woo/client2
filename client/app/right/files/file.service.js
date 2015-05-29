@@ -167,7 +167,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   };
 
   fileAPI.broadcastCommentFocus = function() {
-    //$rootScope.$broadcast('setCommentFocus');
+    $rootScope.$broadcast('setCommentFocus');
   };
 
   fileAPI.broadcastFileShare = function(file) {
