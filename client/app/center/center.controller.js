@@ -145,6 +145,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _resetMessages() {
     $scope.groupMsgs = [];
+    $scope.bufferdMsgs = [];
     $scope.messages = [];
     $scope.isMessageSearchJumping = false;
     $scope.message.content = textbuffer.get();

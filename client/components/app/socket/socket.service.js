@@ -6,7 +6,8 @@
     .service('jndWebSocket', jndWebSocket);
 
   /* @ngInject */
-  function jndWebSocket(socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, $injector) {
+  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, $injector, NetInterceptor) {
+    var $scope = $rootScope.$new();
     var socket;
     var isConnected;
 
@@ -97,8 +98,30 @@
         prefix: '_jnd_socket:',
         ioSocket: myIoSocket
       });
+      _bindConnectionEvents(myIoSocket);
     }
 
+    function _bindConnectionEvents(ioSocket) {
+      ioSocket.on('connect', function() {
+        NetInterceptor.setStatus(true);
+        console.log('### socket connect');
+      });
+      ioSocket.on('reconnecting', function() {
+        console.log('### socket reconnecting');
+      });
+      ioSocket.on('disconnect', function() {
+        NetInterceptor.setStatus(false);
+        console.log('### socket disconnect');
+      });
+      $scope.$on('disconnected', function() {
+        console.log('### socket disconnect recieverrr');
+        ioSocket.io.disconnect();
+        ioSocket.io.connect();
+      });
+      $scope.$on('connected', function() {
+        console.log('### socket connect recieverrr');
+      });
+    }
     /**
      * Add all socket event listeners to socket variable.
      * @private

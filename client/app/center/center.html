@@ -81,7 +81,17 @@
         </div>
 
       </div>
-
+      <div ng-if="bufferdMsgs.length" class="msgs-group">
+        <div class="msg-item text"
+             data-ng-repeat="msg in bufferdMsgs"
+             data-link-id="{{ msg.id }}"
+             data-link-status="{{msg.status}}"
+             data-message-id="{{msg.message.id}}"
+             data-message-type="{{msg.message.contentType}}"
+             data-event-type="{{msg.eventType}}">
+          <text></text>
+        </div>
+      </div>
       <!--  WHEN THERE ARE NO MESSAGES OTHER THAN SYSTEM EVENT MESSAGE. -->
       <center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>
     </div>
