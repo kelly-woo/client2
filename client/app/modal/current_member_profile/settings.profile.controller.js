@@ -7,7 +7,7 @@
     .controller('profileCtrl', profileCtrl);
 
   /* @ngInject */
-  function profileCtrl($scope, modalHelper, $filter, analyticsService, memberService, accountService, currentMemberProfileService) {
+  function profileCtrl($scope, modalHelper, $filter, analyticsService, fileAPIservice, memberService, accountService, currentMemberProfileService) {
 
     (function() {
       _setCurrentMember();
@@ -139,7 +139,7 @@
       if ($scope.croppedProfilePic) {
         $scope.toggleLoading();
 
-        blob = dataURItoBlob($scope.croppedProfilePic);
+        blob = fileAPIservice.dataURItoBlob($scope.croppedProfilePic);
 
         // Since I'm calling 'updateProfilePic' api with blob file,
         // there might be an image file missing file extension.
@@ -162,29 +162,6 @@
         console.error('profile picture dataURI is invalid');
       }
     };
-
-    function dataURItoBlob (dataURI) {
-      // convert base64 to raw binary data held in a string
-      // doesn't handle URLEncoded DataURIs
-      var byteString;
-      if (dataURI.split(',')[0].indexOf('base64') >= 0)
-        byteString = atob(dataURI.split(',')[1]);
-      else
-        byteString = unescape(dataURI.split(',')[1]);
-
-      // separate out the mime component
-      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-      // write the bytes of the string to an ArrayBuffer
-      var ab = new ArrayBuffer(byteString.length);
-      var ia = new Uint8Array(ab);
-      for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-
-      // write the ArrayBuffer to a blob, and you're done
-      return new Blob([ab],{type: 'image/png'});
-    }
 
     $scope.onchange = function(temp) {
       $scope.croppedProfilePic = temp;
