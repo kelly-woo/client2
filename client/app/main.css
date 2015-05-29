@@ -357,6 +357,7 @@ input[type="button"] {
 .btn-ok:hover,
 .btn-ok:active {
   color: white;
+  background-color: #154a67;
 }
 .btn-white {
   background-color: #fff;

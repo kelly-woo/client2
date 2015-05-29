@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox(integrationService, configuration) {
+  function centerChatInputBox($filter, integrationService, fileAPIservice, configuration, ImagePaste) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -19,6 +19,7 @@
     function link(scope, element, attrs) {
       var menu = element.find('#file-upload-menu');
       var primaryFileBtn = element.children('#primary_file_button');
+      var messageInput = $('#message-input');
       var uploadMap = {
         'computer': function() {
           $('<input type="file" ' + (multiple ? 'multiple' : '') + ' />')
@@ -34,6 +35,9 @@
           integrationService.createDropBox(scope, {multiple: multiple, event: evt});
         }
       };
+      // file upload menu의 각 item image pre-load
+      var iconGoogleDrive = new Image();
+      var iconDropbox = new Image();
 
       menu
         .on('click', 'li', function(evt) {
@@ -45,15 +49,51 @@
           }
         });
 
-      // file upload menu의 각 item image pre-load
-      var iconGoogleDrive = new Image();
-      var iconDropbox = new Image();
-
-      iconGoogleDrive.src = configuration.assets_url + '../assets/images/icon_google_drive.png';
-      iconDropbox.src = configuration.assets_url + '../assets/images/icon_dropbox.png';
+      iconGoogleDrive.src = configuration.assets_url + 'assets/images/icon_google_drive.png';
+      iconDropbox.src = configuration.assets_url + 'assets/images/icon_dropbox.png';
 
       menu.find('.icon-google-drive').css({backgroundImage: iconGoogleDrive.src});
       menu.find('.icon-dropbox').css({backgroundImage: iconDropbox.src});
+
+      if (configuration.name !== 'staging') {
+        ImagePaste.createInstance(messageInput, {
+          // image data 되기 직전 event handler
+          onImageLoading: function() {
+            scope.$apply(function(scope) {
+              scope.isLoading = true;
+            });
+          },
+          // image load 된 후 event handler
+          onImageLoad: function(data) {
+            scope.onFileSelect([data], {
+              createFileObject: function _createFileObject(data) {
+                var blob = fileAPIservice.dataURItoBlob(data);
+                // message-input에 입력된 text를 file comment로 설정함
+                var comment = messageInput.val();
+
+                messageInput.val('');
+
+                return {
+                  name: 'Image_' + $filter('date')((new Date()).getTime(), 'yyyy-MM-dd HH:mm:ss') + '.png',
+                  type: 'image/png',
+                  blob: blob,
+                  size: blob.size,
+                  uploadType: 'clipboard',
+                  dataUrl: data,
+
+                  comment: comment
+                };
+              }
+            });
+          },
+          // image load 된 후 image load시 변경된 상태가 정리된 후 event handler
+          onImageLoaded: function() {
+            scope.$apply(function(scope) {
+              scope.isLoading = false;
+            });
+          }
+        });
+      }
     }
   }
 })();

@@ -25,7 +25,7 @@
           validateFileSize: true,
           supportAllFileAPI: !!(window.File && window.FileReader && window.FileList && window.Blob),  // page loading시 한번만 check 해야됨. 특정 네임스페이스에 값 관리 필요함.
           supportFileReader: !!window.FileReader, // page loading시 한번만 check 해야됨. 특정 네임스페이스에 값 관리 필요함.
-          isMultiple: true,
+          multiple: true,
           msgIsLarge: $filter('translate')('@file-size-too-large-error')
         };
 
@@ -52,7 +52,7 @@
         // name, type, size
 
         files = [];
-        for (i = 0, len = that.options.isMultiple ? $files.length : 1; i < len; ++i) {
+        for (i = 0, len = that.options.multiple ? $files.length : 1; i < len; ++i) {
           file = options.createFileObject ? options.createFileObject($files[i]) : $files[i];
 
           // file size check 100MB이상은 upload 하지 않음
@@ -78,7 +78,7 @@
       /**
        * file object getter
        */
-      getFiles: function(index) {
+      getFile: function(index) {
         var that = this;
         return (angular.isNumber(index) && (index%1 === 0)) ? that.files[index] : that.files;
       },

@@ -6,13 +6,12 @@
     .service('integrationService', integrationService);
 
   /* @ngInject */
-  function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice, fileObjectService, accountService, storageAPIservice, analyticsService) {
+  function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice, fileObjectService, accountService, storageAPIservice, analyticsService, FilesUpload) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
 
     // object inherit model
-    // object 상속 model 특정 namespace로 옮겨야 함..
     var Objecz = {
       create: function(prop) {
           var that = this,
@@ -42,8 +41,76 @@
      * Integration
      */
     var Integration = Objecz.create({
-      init: function(options) { return this; },
-      uploadType: 'integration',
+      init: function(options) {
+        var that = this;
+
+        // file upload object
+        that.filesUpload = FilesUpload.createInstance(undefined, {
+          sequence: true,
+          uploadType: 'integration',
+          supportFileAPI: true,
+          convertFileInfo: function(file) {
+            that._updateFileObject(file);
+
+            return file;
+          },
+          onSuccess: function(response) {
+            $rootScope.curUpload.status = 'done';
+            // console.log("file upload success ::: ", index, length, file.name);
+
+            // socket 사용으로 삭제 예정
+            fileAPIservice.broadcastChangeShared();
+
+            // analytics
+            var share_target = "";
+            switch (that.options.scope.currentEntity.type) {
+              case 'channel':
+                share_target = "topic";
+                break;
+              case 'privateGroup':
+                share_target = "private group";
+                break;
+              case 'user':
+                share_target = "direct message";
+                break;
+              default:
+                share_target = "invalid";
+                break;
+            }
+
+            var file_meta = (response.data.fileInfo.type).split("/");
+
+            var upload_data = {
+              "entity type"   : share_target,
+              "category"      : file_meta[0],
+              "extension"     : response.data.fileInfo.ext,
+              "mime type"     : response.data.fileInfo.type,
+              "size"          : response.data.fileInfo.size
+            };
+
+            analyticsService.mixpanelTrack( "File Upload", upload_data );
+          },
+          onError: function() {
+            that._uploadErrorHandler($rootScope);
+          },
+          onProgress: function(evt, file, index, length) {
+            // center.html에 표현되는 progress bar의 상태 변경
+            $rootScope.curUpload = {};
+
+            $rootScope.curUpload.lFileIndex = length;
+            $rootScope.curUpload.cFileIndex = index + 1;
+
+            $rootScope.curUpload.title = file.title;
+            $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
+            $rootScope.curUpload.status = 'uploading';
+          },
+          onEnd: function() {
+            that._closeProgressBar();
+          }
+        });
+
+        return that;
+      },
       open: function() {},
       /**
        * addEventListeners
@@ -81,96 +148,11 @@
        * 연속된 file upload
        */
       _fileUploadSequence: function(files) {
-        var that = this,
-            file,
-            it,
-            len;
-
-        it = files.iterator();
-        len = files.size();
-        that._upload(it.currentIndex(), len, it.next(), function invoke() {
-          that._upload(it.currentIndex(), len, it.next(), invoke);
-        });
-      },
-      /**
-       * file upload
-       */
-      _upload: function(index, length, file, invoke) {
         var that = this;
 
-        if (file) {
-          that._updateFileObject(file);
-          // console.log("file ::: ", file);
-          $rootScope.fileQueue = fileAPIservice.upload({
-            fileInfo: file,
-            supportHTML: that.options.scope.supportHtml5,
-            uploadType: file.uploadType
-          });
-          $rootScope.fileQueue.then(   // success
-            function(response) {
-              if (response) {
-                $rootScope.curUpload.status = 'done';
-                // console.log("file upload success ::: ", index, length, file.name);
+        that.filesUpload.setFileObject(files);
 
-                // socket 사용으로 삭제 예정
-                fileAPIservice.broadcastChangeShared();
-
-                // analytics
-                var share_target = "";
-                switch (that.options.scope.currentEntity.type) {
-                  case 'channel':
-                    share_target = "topic";
-                    break;
-                  case 'privateGroup':
-                    share_target = "private group";
-                    break;
-                  case 'user':
-                    share_target = "direct message";
-                    break;
-                  default:
-                    share_target = "invalid";
-                    break;
-                }
-
-                var file_meta = (response.data.fileInfo.type).split("/");
-
-                var upload_data = {
-                  "entity type"   : share_target,
-                  "category"      : file_meta[0],
-                  "extension"     : response.data.fileInfo.ext,
-                  "mime type"     : response.data.fileInfo.type,
-                  "size"          : response.data.fileInfo.size
-                };
-
-                analyticsService.mixpanelTrack( "File Upload", upload_data );
-              } else {
-                that._uploadErrorHandler($rootScope);
-              }
-
-              // console.log('done', arguments);
-              invoke();         // upload success 후 callback 수행
-            },
-            function(error) {     // error
-              that._uploadErrorHandler($rootScope);
-
-              // console.log('error', arguments);
-              invoke();         // upload error 후 callback 수행
-            },
-            function(evt) {       // progress
-              // center.html에 표현되는 progress bar의 상태 변경
-              $rootScope.curUpload = {};
-
-              $rootScope.curUpload.lFileIndex = length;
-              $rootScope.curUpload.cFileIndex = index + 1;
-
-              $rootScope.curUpload.title = file.title;
-              $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
-              $rootScope.curUpload.status = 'uploading';
-            }
-          );
-        } else {
-          that._closeProgressBar();
-        }
+        that.filesUpload.upload();
       },
       /**
        * file upload시 error 처리
@@ -229,6 +211,9 @@
           }
         });
       },
+      /**
+       * modal close
+       */
       _closeIntegrationModal: function() {
         var that = this;
 
@@ -369,9 +354,10 @@
           client_id: this.options.clientId,
           scope: 'https://www.googleapis.com/auth/drive.readonly',
           immediate: immediate,
-          redirect_uri: configuration.integration.google_drive.redirect + 'oauth2/google',
           response_type: 'code'
         };
+
+        !immediate && (params.redirect_uri = configuration.integration.google_drive.redirect + 'oauth2/google');
 
         gapi.auth.authorize(params, callback);
       },
@@ -384,9 +370,7 @@
           link: file.url,
           service: this.service,
           mimeType: file.mimeType,
-          size: file.sizeBytes,
-
-          uploadType: this.uploadType
+          size: file.sizeBytes
         };
       },
       /**
@@ -506,9 +490,7 @@
           title: file.name,
           link: file.link,
           service: this.service,
-          size: file.bytes,
-
-          uploadType: this.uploadType
+          size: file.bytes
         };
       },
       /**

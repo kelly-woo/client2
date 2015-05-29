@@ -71,14 +71,17 @@
 
 <div class="hpanel non-selectable" ui-view="headerpanel"></div>
 <div class="body" id="client-ui" ui-view=""></div>
-<div class="rpanel non-selectable" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
-<div class="rpanel non-selectable" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
-<div class="rpanel__background" ng-class="{'extend': $state.includes('**.files.**'), 'hidden': !$state.includes('**.files.**')} ">
-    <div class="panel-title-container"></div>
-    <div class="rpanel__background-body">
-        <div class="rpanel__loading" ng-class="{'hidden': !$state.includes('**.files.**')}"></div>
+<div class="rpanel non-selectable" ng-show="$state.includes('**.files.**')">
+    <div class="files" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
+    <div class="file" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
+    <div class="rpanel__background">
+        <div class="panel-title-container"></div>
+        <div class="rpanel__background-body">
+            <div class="rpanel__loading"></div>
+        </div>
     </div>
 </div>
+
 
 <!--[if lte IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -142,6 +145,7 @@
 <script src="components/app/app.framework.js"></script>
 <script src="app/app.js"></script>
 <!-- injector:js -->
+<script src="assets/javascripts/core.js"></script>
 <script src="assets/javascripts/detectmobilebrowser.js"></script>
 <script src="assets/javascripts/jquery.highlight.js"></script>
 <script src="app/util/directive/main.directive.js"></script>
@@ -153,7 +157,9 @@
 <script src="app/util/service/desktop.notification.service.js"></script>
 <script src="app/util/service/entity.service.js"></script>
 <script src="app/util/service/file.object.service.js"></script>
+<script src="app/util/service/file.upload.service.js"></script>
 <script src="app/util/service/general.service.js"></script>
+<script src="app/util/service/image.paste.service.js"></script>
 <script src="app/util/service/integration.service.js"></script>
 <script src="app/util/service/member.service.js"></script>
 <script src="app/util/service/public.service.js"></script>
@@ -194,6 +200,7 @@
 <script src="app/left/topics/topics.directive.js"></script>
 <script src="app/main.js"></script>
 <script src="app/mobile/mobile.catcher.controller.js"></script>
+<script src="app/modal/current_member_profile/settings.profile.controller.js"></script>
 <script src="app/modal/images/full_image/full.screen.image.controller.js"></script>
 <script src="app/modal/integration/integration.controller.js"></script>
 <script src="app/modal/members/current_member_profile/current.member.profile.controller.js"></script>
