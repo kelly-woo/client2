@@ -1,6 +1,11 @@
+/**
+ * @fileoverview jnd app에서 사용하는 core library
+ * @author Mark <mark.park@tosslab.com>
+ */
 (function(window) {
   /**
    * jnd library
+   * @namespace
    */
   var jnd = {};
 
