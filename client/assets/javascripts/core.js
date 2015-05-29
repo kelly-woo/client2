@@ -7,12 +7,12 @@
   /**
    * object inheritance pattern을 사용할때 최상위 object
    */
-  jnd.object = {
+  jnd.Object = {
     /**
      * OLOO(objects linked to other objects) style로 inheritance을 위한 object 생성
      * @param {object} prop - object properties
      */
-    make: function(prop) {
+    create: function(prop) {
       var that = this;
       var obj;
 
