@@ -204,24 +204,6 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     }
   };
 
-  $scope.openModal = function(selector) {
-    if (selector == 'share') {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/share/share.html',
-        controller  : 'fileShareModalCtrl',
-        size        : 'lg',
-        resolve: {
-          parameters: function () {
-            return {
-              fileToShare :   $scope.fileToShare
-            };
-          }
-        }
-      });
-    }
-  };
-
   $scope.onClickDownload = function(file) {
     // analytics
     var file_meta = (file.content.type).split("/");
@@ -235,9 +217,9 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   };
 
   $scope.onClickShare = function(file) {
-    $scope.fileToShare = file;
-    this.openModal('share');
+    fileAPIservice.openFileShareModal($scope, file);
   };
+
   $scope.onClickUnshare = function(message, entity) {
     fileAPIservice.unShareEntity(message.id, entity.id)
       .success(function() {

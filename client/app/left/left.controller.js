@@ -379,7 +379,7 @@ app.controller('leftPanelController1', function(
     } else if (selector == 'channel') {
       modalHelper.openTopicCreateModal($scope);
     } else if (selector == 'file') {
-      publicService.openFileUploadModal($scope);
+      modalHelper.openFileUploadModal($scope);
     } else if (selector == 'topic') {
       modalHelper.openTopicCreateModal($scope);
     }

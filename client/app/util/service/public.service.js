@@ -18,7 +18,6 @@
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
-      openFileUploadModal: openFileUploadModal,
       closeModal: closeModal,
       getLanguageSetting: getLanguageSetting,
       setCurrentLanguage: setCurrentLanguage,
@@ -70,16 +69,6 @@
       }
 
       return modal;
-    }
-
-    function openFileUploadModal($scope) {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/upload/upload.html',
-        controller  : 'fileUploadModalCtrl',
-        size        : 'lg',
-        backdrop    : 'static'
-      });
     }
 
     function closeModal(modalInstance) {

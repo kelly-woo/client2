@@ -21,6 +21,10 @@
     var inviteModalLock;
     
 
+    that.openFileUploadModal = openFileUploadModal;
+    that.openFileShareModal = openFileShareModal;
+    that.openFileIntegrationModal = openFileIntegrationModal;
+
     that.openTopicCreateModal = openTopicCreateModal;
     that.openTopicInviteModal = openTopicInviteModal;
     that.openTopicInviteFromDmModal = openTopicInviteFromDmModal;
@@ -43,6 +47,59 @@
 
     that.closeModal = closeModal;
 
+    /**
+     * file 을 upload 하는 모달창을 연다.
+     * @param $scope
+     */
+    function openFileUploadModal($scope) {
+      var modalOption = {
+        scope: $scope,
+        templateUrl: 'app/modal/files/upload/upload.html',
+        controller: 'FileUploadModalCtrl',
+        size: 'lg',
+        backdrop: 'static'
+      };
+      modal = _modalOpener(modalOption);
+    }
+
+    /**
+     * file 을 share 하는 모달창을 연다.
+     * @param $scope
+     */
+    function openFileShareModal($scope, fileToShare) {
+      var modalOption = {
+        scope: $scope,
+        templateUrl: 'app/modal/files/share/share.html',
+        controller: 'FileShareModalCtrl',
+        size: 'lg',
+        resolve: {
+          fileToShare: function () {
+            return fileToShare;
+          }
+        }
+      };
+      modal = _modalOpener(modalOption);
+    }
+
+    /**
+     * file integration 할 수 있는 모달창을 연다.
+     * @param $scope
+     */
+    function openFileIntegrationModal($scope, data) {
+      var modalOption = {
+        scope: $scope,
+        templateUrl: 'app/modal/files/integration/integration.html',
+        controller: 'fileIntegrationModalCtrl',
+        size: 'lg',
+        windowClass: 'integration-modal',
+        resolve: {
+          data: function() {
+            return data;
+          }
+        }
+      };
+      modal = _modalOpener(modalOption);
+    }
     /**
      * topic 을 create 할 수 있는 모달창을 연다.
      * @param $scope
@@ -274,6 +331,10 @@
      * @private
      */
     function _modalOpener(modalOption) {
+      if (!!modal) {
+        closeModal();
+      }
+
       return $modal.open(modalOption);
     }
 

@@ -976,24 +976,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
   $scope.openModal = function(selector) {
     // OPENING JOIN MODAL VIEW
-    if (selector == 'file') {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/upload/upload.html',
-        controller  : 'fileUploadModalCtrl',
-        size        : 'lg',
-        backdrop    : 'static'
-      });
-    } else if (selector == 'rename') {
+    if (selector === 'rename') {
       // Why is center controller calling this function??
       // TODO: REFACTOR TO ENTITY HEADER CONTROLLER.
       modalHelper.openTopicRenameModal($scope);
-    } else if (selector == 'invite') {
+    } else if (selector === 'invite') {
       modalHelper.openTopicInviteModal($scope);
-    } else if (selector == 'inviteUserToChannel') {
+    } else if (selector === 'inviteUserToChannel') {
       modalHelper.openTopicInviteFromDmModal($scope);
-    } else if (selector == 'share') {
-
     }
   };
 
@@ -1005,7 +995,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (angular.isDefined(targetEntity)) {
       $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
     } else {
-      // Undefined targetEntity means it's an entity that I'm joined.
+      // Undefined targetEntity means it's an entity that I'm joined.onShareClick
       // Join topic first and go!
       entityheaderAPIservice.joinChannel(entityId)
         .success(function(response) {
@@ -1298,7 +1288,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
   $scope.onShareClick = function(file) {
-    fileAPIservice.broadcastFileShare(file);
+    fileAPIservice.openFileShareModal($scope, file);
   };
 
   $scope.isDisabledMember = function(member) {
