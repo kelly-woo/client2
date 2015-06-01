@@ -308,16 +308,26 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (messages[index]) {
       var msg = messages[index].message;
       var prevMsg = messages[index - 1] && messages[index - 1].message;
-      var elapsedMin;
 
       if (prevMsg) {
-        elapsedMin = Math.floor((messages[index].time - messages[index - 1].time) / 60000);
-        if (_isSameWriterTextMsg(msg, prevMsg) && elapsedMin < MAX_MSG_ELAPSED_MINUTES)  {
+        if (_isSameWriterTextMsg(msg, prevMsg) && !_isElapsed(messages[index - 1].time, messages[index].time))  {
           return true;
         }
       }
     }
     return false;
+  }
+
+  /**
+   * 연속된 메세지로 간주할 시간 허용 범위를 초과하였는지 여부
+   * @param {number} startTime 시작 시간
+   * @param {number} endTime  끝 시간
+   * @returns {boolean} 초과했는지 여부
+   * @private
+   */
+  function _isElapsed(startTime, endTime) {
+    var elapsedMin = Math.floor((endTime - startTime) / 60000);
+    return elapsedMin > MAX_MSG_ELAPSED_MINUTES;
   }
 
   /**
@@ -365,13 +375,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _getCommentOption(message, prevMessage) {
-    var isTitle = true,
-        feedbackId = message.feedbackId;
+    var isTitle = true;
+    var isChild = false;
+    var feedbackId = message.feedbackId;
+    var writerId = message.message.writerId;
+
     if (prevMessage &&
         (prevMessage.messageId == feedbackId || prevMessage.feedbackId === feedbackId)) {
       isTitle = false;
     }
+
+    if (!isTitle &&
+        prevMessage.message.writerId === writerId &&
+        !_isElapsed(prevMessage.time, message.time)) {
+      isChild = true;
+    }
+
     return {
+      isChild: isChild,
       isTitle: isTitle,
       isContinue: !isTitle
     };
@@ -648,7 +669,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     element.addClass('last');
     $timeout(function() {
       element.removeClass('last');
-    }, 1000)
+    }, 1000);
   }
 
   function _hasLastMessage() {
