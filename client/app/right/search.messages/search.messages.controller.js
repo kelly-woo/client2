@@ -134,6 +134,7 @@
         entityId: ''
       };
     }
+
     /**
      * Reset only 'page' and 'perPage' value.
      * @private
@@ -146,6 +147,7 @@
 
       isLastPage = false;
     }
+
     /**
      * Update 'page' in searchQuery.
      * @param cursor
@@ -162,6 +164,7 @@
     function _isLastPage(cursor) {
       return cursor.page >= cursor.pageCount;
     }
+
     /**
      * Set 'q' in searchQuery.
      * @param keyword
