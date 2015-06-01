@@ -7,8 +7,11 @@
 
   /* @ngInject */
   function FullScreenImageCtrl($scope, modalHelper, photoUrl) {
+    $scope.hasImageLoaded = false;
+
     $scope.cancel = modalHelper.closeModal;
     $scope.photoUrl = photoUrl;
+
     $scope.onImageRotatorClick = function($event) {
 
       var sender = angular.element($event.target);
@@ -42,5 +45,10 @@
         target.addClass('rotate-90');
       }
     };
+
+    $scope.onFullScreenImageLoad = function() {
+      $scope.hasImageLoaded = true;
+    }
   }
+
 })();
