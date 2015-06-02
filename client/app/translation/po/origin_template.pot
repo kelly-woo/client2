@@ -2,6 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -225,6 +226,10 @@ msgstr ""
 #: client/app/modal/share/share.html
 #: client/app/modal/upload/upload.html
 msgid "@common-comment"
+msgstr ""
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@common-connection-retry"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
@@ -814,6 +819,10 @@ msgid "@integration-title-google-drive"
 msgstr ""
 
 #: client/app/modal/invitation/invitation.team.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+
+#: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-contact-desc"
 msgstr ""
 
@@ -837,10 +846,6 @@ msgstr ""
 msgid "@invitation-some-fail"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.team.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr ""
@@ -862,6 +867,7 @@ msgstr ""
 msgid "@login-reset-password"
 msgstr ""
 
+#: client/app/center/view_components/center_chat_templates/text-offline/text.offline.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html

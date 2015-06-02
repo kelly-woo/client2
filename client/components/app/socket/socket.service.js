@@ -6,9 +6,10 @@
     .service('jndWebSocket', jndWebSocket);
 
   /* @ngInject */
-  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, $injector, NetInterceptor) {
+  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, $injector, netInterceptor) {
     var $scope = $rootScope.$new();
     var socket;
+    var ioSocket;
     var isConnected;
 
     var CHECK_CONNECT_TEAM = 'check_connect_team';
@@ -64,13 +65,21 @@
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
 
     this.init = init;
+    this.disconnect = disconnect;
     this.checkSocketConnection = checkSocketConnection;
     this.disconnectTeam = disconnectTeam;
 
     function init() {
-      isConnected = false;
+      disconnect();
     }
 
+    function disconnect() {
+      if (socket && ioSocket) {
+        socket.removeAllListeners();
+        ioSocket.io.disconnect();
+      }
+      isConnected = false;
+    }
     /**
      * Checks current socket connection.
      * If no socket is established, connect new one and add event listeners to it.
@@ -82,7 +91,6 @@
       if (!isConnected || _.isUndefined(socket)) {
         // Socket is not established yet.
         connect();
-        _setSocketEventListener();
       }
     }
 
@@ -91,42 +99,56 @@
      */
     function connect() {
       // When connecting to socket, always force new connection.
-
-      var myIoSocket = io.connect(config.socket_server, {forceNew: true});
-
+      ioSocket = io.connect(config.socket_server, {
+        'forceNew': true,
+        'reconnection': true,
+        'reconnectionDelay': 1000,
+        'reconnectionDelayMax': 1000,
+        'timeout': 100
+      });
       socket = socketFactory({
         prefix: '_jnd_socket:',
-        ioSocket: myIoSocket
+        ioSocket: ioSocket
       });
-      _bindConnectionEvents(myIoSocket);
+      $scope.$on('disconnected', _onDisconnected);
+      _setSocketEventListener();
     }
 
-    function _bindConnectionEvents(ioSocket) {
-      ioSocket.on('connect', function() {
-        NetInterceptor.setStatus(true);
-        console.log('### socket connect');
-      });
-      ioSocket.on('reconnecting', function() {
-        console.log('### socket reconnecting');
-      });
-      ioSocket.on('disconnect', function() {
-        NetInterceptor.setStatus(false);
-        console.log('### socket disconnect');
-      });
-      $scope.$on('disconnected', function() {
-        console.log('### socket disconnect recieverrr');
-        ioSocket.io.disconnect();
-        ioSocket.io.connect();
-      });
-      $scope.$on('connected', function() {
-        console.log('### socket connect recieverrr');
-      });
+    /**
+     * disconnected 이벤트 핸들러
+     * @private
+     */
+    function _onDisconnected() {
+      socket.removeAllListeners();
+      ioSocket.io.disconnect();
+      ioSocket.io.connect();
+      _setSocketEventListener();
     }
+
+    /**
+     * socket connect 이벤트 핸들러
+     * @private
+     */
+    function _onSocketConnect() {
+      _setSocketEventListener();
+      netInterceptor.setStatus(true);
+    }
+
+    /**
+     * socket disconnect 이벤트 핸들러
+     * @private
+     */
+    function _onSocketDisconnect() {
+      netInterceptor.setStatus(false);
+    }
+
     /**
      * Add all socket event listeners to socket variable.
      * @private
      */
     function _setSocketEventListener() {
+      socket.on('connect', _onSocketConnect);
+      socket.on('disconnect', _onSocketDisconnect);
       socket.on(CHECK_CONNECT_TEAM, _onCheckConnectTeam);
       socket.on(CONNECT_TEAM, _onConnectTeam);
       socket.on(ERROR_CONNECT_TEAM, _onErrorConnectTeam);
@@ -147,7 +169,6 @@
 
       socket.on(CHAT_CLOSE, _onChatClose);
 
-
       socket.on(FILE_DELETED, _onFileDeleted);
 
       socket.on(FILE_COMMENT_CREATED, _onFileCommentCreated);
@@ -155,13 +176,9 @@
 
       socket.on(ROOM_MARKER_UPDATED, _onRoomMarkerUpdated);
 
-
       socket.on(MESSAGE, _onMessage);
 
       socket.on(MEMBER_PROFILE_UPDATED, _onMemberProfileUpdated);
-      //socket.on(MEMBER_PRESENCE_UPDATED, _onMemberPresenceUpdated);
-
-
     }
 
 

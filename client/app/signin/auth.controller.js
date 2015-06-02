@@ -6,10 +6,10 @@
     .controller('authController', authController);
 
   /* @ngInject */
-  function authController($scope, $rootScope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService, pcAppHelper) {
+  function authController($scope, $rootScope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService, pcAppHelper, jndWebSocket) {
 
     var vm = this;
-
+    jndWebSocket.disconnect();
     $scope.toggleLoading = function() {
       $scope.isLoading = !$scope.isLoading;
     };

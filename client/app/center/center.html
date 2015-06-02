@@ -81,15 +81,12 @@
         </div>
 
       </div>
-      <div ng-if="bufferdMsgs.length" class="msgs-group">
+      <!-- unsent Message -->
+      <div ng-if="unsentMsgs.length" class="msgs-group">
         <div class="msg-item text"
-             data-ng-repeat="msg in bufferdMsgs"
-             data-link-id="{{ msg.id }}"
-             data-link-status="{{msg.status}}"
-             data-message-id="{{msg.message.id}}"
-             data-message-type="{{msg.message.contentType}}"
-             data-event-type="{{msg.eventType}}">
-          <text></text>
+             data-ng-class="{ 'text-child': $index}"
+             data-ng-repeat="unsentMsg in unsentMsgs">
+          <text-unsent></text-unsent>
         </div>
       </div>
       <!--  WHEN THERE ARE NO MESSAGES OTHER THAN SYSTEM EVENT MESSAGE. -->

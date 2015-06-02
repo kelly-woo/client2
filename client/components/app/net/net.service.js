@@ -1,20 +1,44 @@
+/**
+ * @fileoverview 네트워크 Interceptor
+ * @author Young Park <young.park@tosslab.com>
+ */
+
 (function() {
   'use strict';
 
   angular
     .module('app.net')
-    .service('NetInterceptor', NetInterceptor);
+    .service('netInterceptor', netInterceptor);
 
+  /**
+   * Network Interceptor
+   * @param {Promise} $q $q 객체
+   * @param {object} jndPubSub jndPubSub 서비스
+   * @constructor
+   */
   /* @ngInject */
-  function NetInterceptor($q, $injector, jndPubSub) {
+  function netInterceptor($q, jndPubSub) {
     var that = this;
 
-    this._isConnected = false;
+    this._isConnected = true;
 
-    this.response = response;
-    this.responseError = responseError;
     this.setStatus = setStatus;
+    this.isConnected = isConnected;
 
+    this.responseError = responseError;
+
+    /**
+     * 현재 네트워크 커넥션 상태를 반환한다.
+     * @returns {boolean}
+     */
+    function isConnected() {
+      return that._isConnected;
+    }
+
+    /**
+     * 커넥션 상태를 설정한다.
+     * @param {boolean} isConnected 네트워크 연결상태
+     */
     function setStatus(isConnected) {
       var currentStatus = that._isConnected;
       that._isConnected = isConnected;
@@ -24,6 +48,11 @@
       }
     }
 
+    /**
+     * 연결 상태를 broadcast 한다.
+     * @param {boolean} isConnected
+     * @private
+     */
     function _broadcast(isConnected) {
       if (isConnected) {
         jndPubSub.pub('connected');
@@ -32,25 +61,18 @@
       }
     }
 
-    function response(response) {
-      if (response === '') {
-        setStatus(false);
-        return $q.reject();
-      } else {
-        setStatus(true);
-        return response;
-      }
-    }
-
+    /**
+     * responseError 발생시 status를 설정한다.
+     * @param {object} rejection
+     * @returns {Promise}
+     */
     function responseError(rejection) {
       if (rejection.status === 0) {
-        // net::ERR_CONNECTION_REFUSED
         setStatus(false);
-        return $q.reject(rejection);
       } else {
         setStatus(true);
-        return rejection;
       }
+      return $q.reject(rejection);
     }
   }
 })();

@@ -120,6 +120,9 @@
 
     });
 
+    // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
+    $rootScope.$on('connected', _refreshFileList);
+
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
     $scope.$on('onCurrentEntityChanged', function(event, currentEntity) {
