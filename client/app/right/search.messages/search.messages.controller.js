@@ -26,6 +26,8 @@
         length: ''
       };
 
+      $scope.messageLocation = '';
+
       // Methods
       $scope.searchMessages = searchMessages;
       $scope.updateMessageLocationFilter = updateMessageLocationFilter;
@@ -36,9 +38,9 @@
       _initChatWriterOption();
 
       searchMessages();
-
-      //test();
+      //test()
     })();
+
     $scope.$on('onInitLeftListDone', function() {
       _initChatRoomOption();
     });
@@ -96,6 +98,8 @@
 
       _updateSearchStatusKeyword();
       _showLoading();
+
+      //console.log($scope.searchQuery)
 
       messageSearchHelper.searchMessages($scope.searchQuery)
         .success(function(response) {
@@ -192,11 +196,38 @@
       else
         $scope.messageList = $scope.messageList.concat(response.records);
     }
+
     function _initChatRoomOption() {
-      $scope.chatRoomOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
+      var newOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
+      var newMessageLocation = _getMessageLocation(newOptions);
+
+      $scope.chatRoomOptions = newOptions;
+
+      if (newMessageLocation) {
+        $scope.messageLocation = newMessageLocation;
+      } else {
+        _resetChatRoom();
+      }
     }
+
+    function _getMessageLocation(newOptions) {
+      var messageLocation = $scope.messageLocation;
+
+      var length = newOptions.length;
+      var i;
+
+      if (messageLocation) {
+        for (i = 0; i < length; i++) {
+          if (messageLocation.id === newOptions[i].id) {
+            return newOptions[i];
+          }
+        }
+      }
+    }
+
     function _resetChatRoom() {
       $scope.messageLocation = '';
+      updateMessageLocationFilter();
     }
     function _initChatWriterOption() {
       $scope.chatWriterOptions = fileAPIservice.getShareOptions([$scope.member], $scope.memberList);
@@ -233,14 +264,6 @@
         perPage: DEFAULT_PER_PAGE,
         writerId: '',
         entityId: ''
-      };
-
-      $scope.searchQuery = {
-        q: 'hi',
-        page: DEFAULT_PAGE,
-        perPage: DEFAULT_PER_PAGE,
-        writerId: '',
-        entityId: '494'
       };
 
       searchMessages();
