@@ -5,7 +5,8 @@
     .module('jandiApp')
     .directive('fullScreenImage', fullScreenImage);
 
-  function fullScreenImage() {
+  /* @ngInject */
+  function fullScreenImage(ImagesHelper) {
     var imageElement;
     var displayProperty;
 
@@ -24,12 +25,13 @@
       imageElement = element;
       displayProperty = element.css('display');
 
-      hideImageElement();
+      ImagesHelper.hideImageElement(imageElement);
 
       var xhr = new XMLHttpRequest();
       xhr.open('GET', attrs.imageSrc, true);
       xhr.responseType = 'blob';
       xhr.onload = onload;
+      xhr.onerror = onerror;
       xhr.send();
 
       /**
@@ -58,7 +60,7 @@
 
           });
         } else {
-          showImageElement();
+          ImagesHelper.showImageElement(imageElement, displayProperty);
         }
       }
 
@@ -67,34 +69,15 @@
        * @param img {HTMLElement} 이미지가 들어가 있는 엘레멘트
        */
       function onImageLoad(img) {
-        document.getElementById('full-screen-image').appendChild(img);
-
-        setVerticalCenter(img);
-
-        showImageElement();
-
-        if (!!attrs.onFullScreenImageLoad) {
-          scope.$apply(attrs.onFullScreenImageLoad);
+        if (img.type === 'error') {
+          onImageLoadError();
+          return;
         }
-      }
 
-      /**
-       * 이미지 엘레멘트를 화면에서 숨긴다.
-       * @param imageElement {jQueryElement} 화면에서 숨길 이미지 엘레멘트
-       */
-      function hideImageElement() {
-        // hide image while rotating.
-        imageElement.css('display', 'hidden');
-      }
-
-      /**
-       * 이미지 엘레멘트를 화면에 보여준다.
-       * @param imageElement {jQueryElement} 화면에 보여줄 이미지 엘레멘트
-       * @param displayProperty {object} 본래 엘레멘트가 가지고 있었던 display properties
-       */
-      function showImageElement() {
-        imageElement.addClass('opac-in-fast');
-        imageElement.css(displayProperty);
+        document.getElementById('full-screen-image').appendChild(img);
+        setVerticalCenter(img);
+        ImagesHelper.showImageElement(imageElement, displayProperty);
+        callCallback();
       }
 
       /**
@@ -116,7 +99,21 @@
           var marginTop = (windowHeight - elementHeight) / 2 + 'px';
           jqImageWrapperElement.css('marginTop', marginTop);
         }
-      }  }
+      }
 
+      /**
+       * directive 를 이용하는 controller 에서 사용하는 callback 이 있다면 불러준다.
+       */
+      function callCallback() {
+        if (!!attrs.onFullScreenImageLoad) {
+          scope.$apply(attrs.onFullScreenImageLoad);
+        }
+      }
+
+      function onImageLoadError() {
+
+        callCallback();
+      }
+    }
   }
 })();

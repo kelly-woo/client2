@@ -2,10 +2,11 @@
 
   <!--    IMAGE THUMBNAIL -->
   <div class="image_wrapper pull-left">
-    <img class="cursor_pointer msg-file-body__img" rotate rotate-width="65" rotate-height="65"
+    <div class="cursor_pointer msg-file-body__img background-color-white opac-zero" image-rotator="" rotate-width="65" rotate-height="65"
          ng-if="(file.content | hasPreview)"
-         ng-src="{{ server_uploaded + file.content.extraInfo.smallThumbnailUrl }}"
-         ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>
+         image-src="{{ server_uploaded + file.content.extraInfo.smallThumbnailUrl }}"
+         ui-sref="files({ userName: file.writer.name, itemId: file.id })">
+    </div>
   </div>
 
   <!--    IF NOT IMAGE TYPE, SHOW FILE TYPE PREVIEW   -->
