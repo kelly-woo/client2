@@ -28,40 +28,10 @@
       </div>
 
       <div class="file-detail-body">
-        <div class="image_wrapper" file-detail-preview>
-          <img class="file-detail-body__image" rotate rotate-left-align="false" ng-click="onImageClick();"/>
-        </div>
+        <div class="image_wrapper" ng-click="onImageClick();" image-rotator="" image-src="{{ImageUrl}}" on-image-load="onFileDetailImageLoad();">
+          <div class="loading_bar icon-loading" ng-if="isLoadingImage"></div>
 
-        <div class="file-detail-body__other hidden" ng-if="!(file_detail.content | hasPreview)">
-          <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}">
-            <div class="fileicon fileicon-left fileicon-{{file_detail.content | fileIcon}}"></div>
-          </a>
-
-          <div class="file-detail-body__other-meta file-item-meta__listview">
-            <div class="file-item-meta__size" data-ng-if="file_detail.content.size > 0 && !isFileArchived">{{ file_detail.content.size | bytes }}</div>
-            <div class="file-item-meta__type" data-ng-if="file_detail.content.type && !isFileArchived">{{ file_detail.content | fileType }}</div>
-
-            <div class="delete-item__msg" ng-if="isFileArchived" translate>@common-deleted-file-title</div>
-          </div>
-
-          <div class="file-detail-body__other-action" ng-if="!isFileArchived">
-
-            <!--    PDF FILE    -->
-            <a href="{{ server_uploaded + file_detail.content.fileUrl }}" target="{{ server_uploaded + file_detail.content.fileUrl }}" ng-if="file_detail.content.type.indexOf('pdf') !== -1" >
-              <button type="button" class="btn btn-white" >
-                <span translate>@btn-click-to-view</span>
-              </button>
-            </a>
-
-            <!--    NON-PDF FILE    -->
-            <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" ng-if="file_detail.content.type.indexOf('pdf') == -1">
-              <button type="button" class="btn btn-white" >
-                <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
-              </button>
-            </a>
-
-          </div>
-
+          <!--<img class="file-detail-body__image" rotate rotate-left-align="false" >-->
         </div>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
