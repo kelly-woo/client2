@@ -11,7 +11,7 @@
     .service('pcAppHelper', pcAppHelper);
 
   /* @ngInject */
-  function pcAppHelper(logger) {
+  function pcAppHelper() {
     this.onSignedOut = onSignedOut;
     this.onSignedIn = onSignedIn;
     this.onAlarmCntChanged = onAlarmCntChanged;
@@ -20,36 +20,30 @@
      * Call 'onSignedOut' function in pc application.
      */
     function onSignedOut() {
-      if (_isPcAppUndefined()) {
-        return;
+      if (_isPcApp()) {
+        jandipc.onSignedOut();
       }
-
-      jandipc.onSignedOut();
     }
 
     /**
      * Call 'onSignedIn' function in pc application.
      */
     function onSignedIn() {
-      if (_isPcAppUndefined()) {
-        return;
+      if (_isPcApp()) {
+        jandipc.onSignedIn();
       }
-
-      jandipc.onSignedIn();
     }
 
     /**
      * Call 'onAlarmCntChanged' function in pc application.
-     * @param id {number} id of entity whose alarm count(badge count) just changed.
-     * @param alarmCnt {number} number of alarms that was changed to.
+     * @param {number} id id of entity whose alarm count(badge count) just changed.
+     * @param {number} alarmCnt number of alarms that was changed to.
      */
     function onAlarmCntChanged(id, alarmCnt) {
-      if (_isPcAppUndefined()) {
-        return;
+      if (_isPcApp()) {
+        jandipc.onAlarmCntChanged(id, alarmCnt);
+
       }
-
-      jandipc.onAlarmCntChanged(id, alarmCnt);
-
     }
     /**
      * Return true if 'jandipc' exists as a variable.
@@ -57,8 +51,8 @@
      * @returns {boolean}
      * @private
      */
-    function _isPcAppUndefined() {
-      return typeof jandipc === 'undefined';
+    function _isPcApp() {
+      return typeof jandipc !== 'undefined';
     }
 
   }
