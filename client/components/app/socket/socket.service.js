@@ -1,3 +1,7 @@
+/**
+ * @fileoverview 소켓 이벤트를 받기만하고 소켓 이벤트 핸들러로 넘겨주는 곳. Service that manages(emits and receives) socket event.
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
@@ -39,7 +43,7 @@
 
     var ROOM_MARKER_UPDATED = 'room_marker_updated';
 
-    // Emit only events.
+    // Emit only event
     var DISCONNECT_TEAM = 'disconnect_team';
 
 
@@ -66,16 +70,17 @@
     this.checkSocketConnection = checkSocketConnection;
     this.disconnectTeam = disconnectTeam;
 
+    /**
+     * Initialize variables.
+     */
     function init() {
       isConnected = false;
     }
 
     /**
-     * Checks current socket connection.
-     * If no socket is established, connect new one and add event listeners to it.
-     *
+     * Check current socket connection status.
+     * If no socket connection has been established, connect new one and add event listeners to it.
      * If socket connection is found, WHAT SHOULD I DO? HOW DO I VERIFY CURRENT SOCKET CONNECTION?
-     *
      */
     function checkSocketConnection() {
       if (!isConnected || _.isUndefined(socket)) {
@@ -143,9 +148,8 @@
 
 
     /**
-     * Callback function for SUCCESSFUL socket connection.
+     * Socket event receiver - SUCCESS socket connection.
      *  1. let socket server know of my current TEAM by emitting 'CONNECT_TEAM' event.
-     *
      * @param data
      * @private
      */
@@ -173,15 +177,20 @@
     }
 
 
+    /**
+     * Socket event receiver - connect_team
+     *  1. Update local variable.
+     * @param data {object} data object that comes with socket event
+     * @private
+     */
     function _onConnectTeam(data) {
       jndWebSocketHelper.socketEventLogger(CONNECT_TEAM, data, false);
       isConnected = true;
     }
 
     /**
-     * Callback function for FAILURE in socket connection.
+     * Socket event receiver - error_connect_team
      *  1. Connect to socket server.
-     *
      * @param data
      * @private
      */
@@ -199,64 +208,131 @@
       checkSocketConnection();
     }
 
+    /**
+     * Socket event receiver - team_name_updated
+     * @param data {object}
+     * @private
+     */
     function _onTeamNameUpdated(data) {
       jndWebSocketHelper.socketEventLogger(TEAM_NAME_UPDATED, data, false);
       jndWebSocketHelper.teamNameChangeEventHandler(data);
     }
+
+    /**
+     * Socket event receiver - team_domain_updated
+     * @param data {object]
+     * @private
+     */
     function _onTeamDomainUpdated(data) {
       jndWebSocketHelper.socketEventLogger(TEAM_DOMAIN_UPDATED, data, false);
       jndWebSocketHelper.teamDomainChangeEventHandler(data);
     }
 
+    /**
+     * Socket event receiver - topic_joined
+     * @param data {object}
+     * @private
+     */
     function _onTopicJoined(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_JOINED, data, false);
       jndWebSocketHelper.topicChangeEventHandler(data);
     }
 
+    /**
+     * Socket event receiver - topic_left
+     * @param data {object}
+     * @private
+     */
     function _onTopicLeft(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_LEFT, data, false);
       jndWebSocketHelper.topicLeaveHandler(data);
     }
 
+    /**
+     * Socket event receiver - topic_deleted
+     * @param data {object}
+     * @private
+     */
     function _onTopicLDeleted(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_DELETED, data, false);
       jndWebSocketHelper.topicLeaveHandler(data);
     }
 
+    /**
+     * Socket event receiver - topic_created
+     * @param data {object}
+     * @private
+     */
     function _onTopicLCreated(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_CREATED, data, false);
       jndWebSocketHelper.topicChangeEventHandler(data);
     }
+
+    /**
+     * Socket event receiver - topic_name_updated
+     * @param data {object}
+     * @private
+     */
     function _onTopicLNameUpdated(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_NAME_UPDATED, data, false);
       jndWebSocketHelper.topicChangeEventHandler(data);
     }
 
+    /**
+     * Socket event receiver - topic_starred
+     * @param data {object}
+     * @private
+     */
     function _onStarredEvent(data) {
       jndWebSocketHelper.socketEventLogger(TOPIC_STARRED, data, false);
       jndWebSocketHelper.topicChangeEventHandler(data);
     }
 
+    /**
+     * Socket event receiver - chat_close
+     * @param data {object}
+     * @private
+     */
     function _onChatClose(data) {
       jndWebSocketHelper.socketEventLogger(CHAT_CLOSE, data, false);
       jndWebSocketHelper.chatMessageListEventHandler(data);
     }
 
+    /**
+     * Socket event receiver - file_deleted
+     * @param data {object}
+     * @private
+     */
     function _onFileDeleted(data) {
       jndWebSocketHelper.socketEventLogger(FILE_DELETED, data, false);
       jndWebSocketHelper.fileDeletedHandler(data);
     }
 
+    /**
+     * Socket event receiver - file_comment_created
+     * @param data {object}
+     * @private
+     */
     function _onFileCommentCreated(data) {
       jndWebSocketHelper.socketEventLogger(FILE_COMMENT_CREATED, data, false);
       jndWebSocketHelper.fileCommentCreatedHandler(data);
     }
 
+    /**
+     * Socket event receiver - file_comment_deleted
+     * @param data {object}
+     * @private
+     */
     function _onFileCommentDeleted(data) {
       jndWebSocketHelper.socketEventLogger(FILE_COMMENT_DELETED, data, false);
       jndWebSocketHelper.fileCommentDeletedHandler(data);
     }
 
+    /**
+     * Socket event receiver - room_marker_updated
+     * @param data {object}
+     * @private
+     */
     function _onRoomMarkerUpdated(data) {
       jndWebSocketHelper.socketEventLogger(ROOM_MARKER_UPDATED, data, false);
       jndWebSocketHelper.roomMarkerUpdatedHandler(data);
@@ -264,6 +340,11 @@
 
 
 
+    /**
+     * Socket event receiver - member_profile_updated
+     * @param data {object}
+     * @private
+     */
     function _onMemberProfileUpdated(data) {
       jndWebSocketHelper.socketEventLogger(MEMBER_PROFILE_UPDATED, data, false);
       jndWebSocketHelper.memberProfileUpdatedHandler(data);
@@ -274,8 +355,7 @@
      * List of events comes in through 'message' event.
      *  1. topic join as 'topic_join'
      *  2. topic leave as 'topic_leave'
-     *
-     * @param data
+     * @param data {object}
      * @private
      */
     function _onMessage(data) {
@@ -315,7 +395,7 @@
     }
 
     /**
-     * Disconnect socket connection.
+     * Disconnect socket connection by emitting 'disconnect_team' socket event.
      * Used when user
      *  1. signs out.
      *  2. switches team.
@@ -335,18 +415,21 @@
         isConnected = false;
       }
     }
+
     /**
-     * Wrapper of emit doing basically same thing.
-     *
-     * @param eventName
-     * @param data
+     * Wrapper for emit socket event.
+     * @param eventName {string} name of event to be emitted
+     * @param data {object} object to be attached along with socket event
      */
     function _emit(eventName, data) {
       socket.emit(eventName, data);
       jndWebSocketHelper.socketEventLogger(eventName, data, true);
     }
 
-
+    /**
+     * Update authorization token.
+     * @private
+     */
     function _onInvalidSocketToken() {
       var authAPIservice = $injector.get('authAPIservice');
 

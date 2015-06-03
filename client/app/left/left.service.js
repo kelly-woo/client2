@@ -111,6 +111,8 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
   // TODO: REFACTOR | TO entityAPIservice - LOGIC ONLY.
   //  Initialize correct prefix for 'channel' and 'user'.
+
+  // prefix 는 select dropdown 에서 분류의 목적으로 사용된다.
   leftpanelAPI.setEntityPrefix = function($scope) {
     _.each($scope.totalEntities, function(entity) {
       entity.isStarred = false;

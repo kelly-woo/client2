@@ -2,7 +2,8 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, memberService, entityAPIservice, storageAPIservice) {
+app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $filter,
+                                       memberService, entityAPIservice, storageAPIservice, modalHelper) {
   var fileAPI = {};
 
   fileAPI.upload = function(files, fileInfo, supportHTML, uploadType) {
@@ -176,8 +177,8 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     //$rootScope.$broadcast('setCommentFocus');
   };
 
-  fileAPI.broadcastFileShare = function(file) {
-    $rootScope.$broadcast('openFileShare', file);
+  fileAPI.openFileShareModal = function($scope, file) {
+    modalHelper.openFileShareModal($scope, file);
   };
 
 

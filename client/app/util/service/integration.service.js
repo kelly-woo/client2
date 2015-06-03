@@ -6,7 +6,8 @@
     .service('integrationService', integrationService);
 
   /* @ngInject */
-  function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice, fileObjectService, accountService, storageAPIservice, analyticsService, FilesUpload) {
+  function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice,
+                              fileObjectService, accountService, storageAPIservice, analyticsService, FilesUpload, modalHelper) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
@@ -200,7 +201,7 @@
 
         that.modal = $modal.open({
           scope: that.options.scope,
-          templateUrl: 'app/modal/integration/integration.html',
+          templateUrl: 'app/modal/files/integration/integration.html',
           controller: 'fileIntegrationModalCtrl',
           size: 'lg',
           windowClass: 'integration-modal',
@@ -210,6 +211,8 @@
             }
           }
         });
+
+        //modalHelper.openFileIntegrationModal(that.options.scope, data);
       },
       /**
        * modal close
