@@ -21,13 +21,6 @@
   margin-left: 2px;
 }
 
-span.icon-loading {
-  background-image: url('../../assets/images/icon_loading.gif');
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-}
-
 article {
   padding-bottom: 10px;
 }

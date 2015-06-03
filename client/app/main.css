@@ -590,7 +590,12 @@ input[type="button"] {
   width: 150px;
   height: 150px;
 }
-
+.icon-loading-small {
+    background-image: url('../assets/images/icon_loading.gif');
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
 .image-background {
   background: url('../assets/images/checkered.png');
   min-width: 40px;
