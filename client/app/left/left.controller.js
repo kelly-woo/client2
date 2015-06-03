@@ -35,7 +35,7 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, netInterceptor) {
+  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, NetInterceptor) {
 
   //console.info('[enter] leftpanelController');
 
@@ -345,7 +345,7 @@ app.controller('leftPanelController1', function(
   $scope.onTopicClicked = onTopicClicked;
 
   function onTopicClicked(entityType, entityId) {
-    if (netInterceptor.isConnected()) {
+    if (NetInterceptor.isConnected()) {
       if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
         publicService.goToDefaultTopic();
         return;

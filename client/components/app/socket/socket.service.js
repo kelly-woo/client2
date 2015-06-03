@@ -6,7 +6,7 @@
     .service('jndWebSocket', jndWebSocket);
 
   /* @ngInject */
-  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, $injector, netInterceptor) {
+  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, $injector, NetInterceptor) {
     var $scope = $rootScope.$new();
     var socket;
     var ioSocket;
@@ -135,7 +135,7 @@
      */
     function _onSocketConnect() {
       _setSocketEventListener();
-      netInterceptor.setStatus(true);
+      NetInterceptor.setStatus(true);
     }
 
     /**
@@ -143,7 +143,7 @@
      * @private
      */
     function _onSocketDisconnect() {
-      netInterceptor.setStatus(false);
+      NetInterceptor.setStatus(false);
     }
 
     /**

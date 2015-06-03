@@ -8,7 +8,7 @@
 
   angular
     .module('app.net')
-    .service('netInterceptor', netInterceptor);
+    .service('NetInterceptor', NetInterceptor);
 
   /**
    * Network Interceptor
@@ -17,7 +17,7 @@
    * @constructor
    */
   /* @ngInject */
-  function netInterceptor($q, jndPubSub) {
+  function NetInterceptor($q, jndPubSub) {
     var that = this;
 
     this._isConnected = true;

@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, messageSearchHelper, currentSessionHelper, logger, centerService, markerService, textbuffer, netInterceptor) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, messageSearchHelper, currentSessionHelper, logger, centerService, markerService, textbuffer, NetInterceptor) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
@@ -416,7 +416,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.loadOldMessages = loadOldMessages;
   function loadOldMessages() {
-    if (_hasMoreOldMessageToLoad() && netInterceptor.isConnected()){
+    if (_hasMoreOldMessageToLoad() && NetInterceptor.isConnected()){
       _setMsgSearchQueryLinkId(localFirstMessageId);
       _setMsgSearchQueryType('old');
       loadMore();
@@ -937,7 +937,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       return;
     }
 
-    if (netInterceptor.isConnected()){
+    if (NetInterceptor.isConnected()){
       publicService.goToDefaultTopic();
     }
   }
@@ -1075,7 +1075,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _postMessage(msg) {
     if (msg) {
-      if (netInterceptor.isConnected()) {
+      if (NetInterceptor.isConnected()) {
         log('-- posting message');
         messageAPIservice.postMessage(entityType, entityId, {'content': msg})
           .success(_onPostMessageSuccess)

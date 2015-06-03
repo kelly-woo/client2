@@ -152,7 +152,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
 app.config(function ($urlRouterProvider, $httpProvider) {
 
   $httpProvider.interceptors.push('authInterceptor');
-  $httpProvider.interceptors.push('netInterceptor');
+  $httpProvider.interceptors.push('NetInterceptor');
 
   /* URL routing rule for exception */
   $urlRouterProvider
