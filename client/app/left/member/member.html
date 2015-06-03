@@ -1,10 +1,10 @@
-<div class="lpanel-user cursor_pointer">
+<div class="lpanel-user cursor_pointer" dropdown>
   <div class="lpanel-user__team overflow-ellipsis">
     <i class="icon-group icon"></i>
     <span class="team-name">{{team|getName}}</span>
   </div>
 
-  <div class="lpanel-user__user"data-toggle="dropdown">
+  <div class="lpanel-user__user" dropdown-toggle>
     <i class="icon-setting user-setting-icon" ></i>
 
     <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
