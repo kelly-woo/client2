@@ -12,10 +12,10 @@
   </span>
 
   <!--Title Dropdown-->
-  <span class="panel-title-info">
+  <span class="panel-title-info" dropdown>
 
     <!--    TITLE   -->
-    <span class="panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix" data-toggle="dropdown">
+    <span class="panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix" dropdown-toggle>
       <span class="inline-overflow-ellipsis panel-title-info__name">{{ currentEntity | getName }}
         <i class="fa fa-caret-down header-title-info__more"></i>
       </span>
@@ -105,8 +105,8 @@
   </span>
 
   <!--Member Dropdown-->
-  <span class="panel-title-member">
-    <span class="dropdown-toggle panel-title-member__more" data-toggle="dropdown" data-ng-if="currentEntity.type != 'users'">
+  <span class="panel-title-member" dropdown>
+    <span class="dropdown-toggle panel-title-member__more" dropdown-toggle data-ng-if="currentEntity.type != 'users'">
       <i class="icon-user"></i> <span>{{ currentEntity.ch_members.length || currentEntity.pg_members.length }}</span>
     </span>
     <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
