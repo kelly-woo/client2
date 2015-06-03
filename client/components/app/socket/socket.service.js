@@ -73,6 +73,9 @@
       disconnect();
     }
 
+    /**
+     * socket connection 을 끊는다.
+     */
     function disconnect() {
       if (socket && ioSocket) {
         socket.removeAllListeners();
@@ -80,6 +83,7 @@
       }
       isConnected = false;
     }
+
     /**
      * Checks current socket connection.
      * If no socket is established, connect new one and add event listeners to it.
