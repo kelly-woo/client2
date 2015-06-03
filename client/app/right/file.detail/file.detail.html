@@ -97,8 +97,11 @@
             </div>
           </div>
 
-          <div class="file-item-meta__action dropdown">
-            <i class="icon-more file_actions dropdown-toggle cursor_pointer" tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
+          <div class="file-item-meta__action dropdown" dropdown>
+
+            <i class="icon-more file_actions dropdown-toggle cursor_pointer" dropdown-toggle
+               tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
+
             <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
               <li class="cursor_pointer">
                 <a data-ng-click="onClickShare(file_detail);">
