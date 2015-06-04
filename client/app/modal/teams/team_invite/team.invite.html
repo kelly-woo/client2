@@ -12,7 +12,11 @@
     <div class="modal-body">
       <img src="{{disabledImage}}">
       <div class="disabled-desc">
-        <span translate>@invitation-disabled</span>
+        <span ng-if="isAdmin">
+          <span translate>@invitation-disabled-amdin-prefix</span>
+          <a ng-click="toAdmin();"><span translate>@invitation-disabled-amdin-postfix</span></a>
+        </span>
+        <span ng-if="!isAdmin" translate>@invitation-disabled</span>
       </div>
     </div>
   </div>
