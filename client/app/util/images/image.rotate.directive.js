@@ -1,3 +1,7 @@
+/**
+ * @fileoverview 이미지들을 보여줄 때 exif 정보에 맞춰 rotate 시킨다.
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
@@ -15,9 +19,6 @@
         var imageUrl = attrs.imageSrc;
         var callbackFunction = attrs.onImageLoad;
 
-        // hide image while rotating.
-        ImagesHelper.hideImageElement(jqImageContainer);
-
         var xhr = new XMLHttpRequest();
         xhr.open('GET', imageUrl, true);
         xhr.responseType = 'blob';
@@ -26,21 +27,26 @@
 
         xhr.send();
 
+        // hide image while rotating.
+        ImagesHelper.hideImageElement(jqImageContainer);
+
         /**
          * 처음에 XMLHttpRequest 를 직접 이용해 호출한 콜의 콜백이다.
-         * @param e {event}
+         * @param {event} e
          */
         function onload(e) {
-          if (this.status === 200) {
-            var tempBlob = this.response;
+          var tempBlob;
+          var imageOptions;
 
-            var imageOptions = getImageOptions();
-
+          if (e.status === 200) {
+            tempBlob = this.response;
+            imageOptions = getImageOptions();
 
             loadImage.parseMetaData(tempBlob, function (data) {
+              var currentOrientation;
               if (!!data.exif) {
                 // 필요한 정보가 있을 경우
-                var currentOrientation = getImageOrientation(data);
+                currentOrientation = getImageOrientation(data);
                 imageOptions['orientation'] = currentOrientation - 1;
               }
 
@@ -55,7 +61,7 @@
 
         /**
          * 이미지 다 로드 된 후에 불려지는 콜백.
-         * @param img {HTMLElement} 이미지가 들어가 있는 엘레멘트
+         * @param {HTMLElement} img - 이미지가 들어가 있는 엘레멘트
          */
         function onImageLoad(img) {
           jqImageContainer.append(img);
@@ -102,7 +108,7 @@
 
         /**
          * data 가 들고 있는 정보중에서 orientation 정보다 추출한다.
-         * @param data {object} 'loadImage.parseMetaData'를 이용해서 추출해낸 데이터
+         * @param {object} data - 'loadImage.parseMetaData'를 이용해서 추출해낸 데이터
          * @returns {*}
          */
         function getImageOrientation(data) {
