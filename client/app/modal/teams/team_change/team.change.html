@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <button type="button" class="close" data-ng-click="onModalClose();"><i class="icon-cancel"></i></button>
+  <h3 class="modal-header__title">
+    <span translate>@team-switch</span>
+  </h3>
+</div>
+
+<div class="modal-body">
+  <div class="team-list-container">
+    <div class="email-box cursor_pointer" ng-repeat="team in account.memberships">
+      <a ng-href="{{configuration.base_protocol}}{{team.t_domain}}{{configuration.base_url}}">
+        <div>{{ team.name }}</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <span class="btn btn-white" ng-click="onModalClose();" translate>@btn-cancel</span>
+</div>

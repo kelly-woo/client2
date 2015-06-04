@@ -1,0 +1,16 @@
+<!-- Modal: Full Image -->
+
+<div class="cursor_pointer opac-zero" id="full-screen-image" on-full-screen-image-load="onFullScreenImageLoad();"
+     full-screen-image image-src="{{photoUrl}}"  data-ng-click="cancel();">
+</div>
+
+<div ng-if="(msg.message.content | hasPreview) && isIE9" class="ie9-image-rotator cursor_pointer"
+     ng-click="onImageRotatorClick($event);">
+  <i id="fromModal" class="fa fa-rotate-right"></i>
+</div>
+
+<div class="loading_container" data-ng-if="!hasImageLoaded">
+  <div class="loading_container_background"></div>
+  <div class="loading_bg"></div>
+  <div class="loading_bar icon-loading"></div>
+</div>

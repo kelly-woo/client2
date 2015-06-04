@@ -217,17 +217,8 @@
   font-size: 12px;
   line-height: 20px;
 }
-.modal-full {
-  width: auto;
-  height: auto;
-  display: table;
-  text-align: center;
-}
 .modal-full .modal-dialog {
   width: auto;
-  height: auto;
-  max-width : 90%;
-  max-height: 90%;
   display: table;
 }
 .modal-full .modal-dialog .modal-content {

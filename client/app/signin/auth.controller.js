@@ -6,7 +6,9 @@
     .controller('authController', authController);
 
   /* @ngInject */
-  function authController($scope, $rootScope, $state, $modal, authAPIservice, analyticsService, storageAPIservice, accountService, memberService, publicService, pcAppHelper) {
+  function authController($scope, $rootScope, $state, authAPIservice, analyticsService,
+                          storageAPIservice, accountService, memberService, publicService,
+                          pcAppHelper, modalHelper) {
 
     var vm = this;
 
@@ -219,14 +221,12 @@
 
 
     $scope.openModal = function(selector) {
-      if (selector == 'agreement') {
-        publicService.openAgreementModal();
-      }
-      else if (selector == 'privacy') {
-        publicService.openPrivacyModal();
-      }
-      else if (selector == 'resetPassword') {
-        publicService.openPasswordResetRequestModal($scope);
+      if (selector === 'agreement') {
+        modalHelper.openAgreementModal();
+      } else if (selector === 'privacy') {
+        modalHelper.openPrivacyModal();
+      } else if (selector === 'resetPassword') {
+        modalHelper.openPasswordResetRequestModal($scope);
       }
     };
 

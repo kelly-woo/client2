@@ -14,25 +14,10 @@
   /* @ngInject */
   function publicService($rootScope, $modal, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, modalHelper, pcAppHelper) {
+                         entityAPIservice, pcAppHelper, modalHelper) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
-      openPrivacyModal: openPrivacyModal,
-      openAgreementModal: openAgreementModal,
-      openJoinModal: openJoinModal,
-      openTopicCreateModal: openTopicCreateModal,
-      openPrivateCreateModal: openPrivateCreateModal,
-      openInviteToTeamModal: openInviteToTeamModal,
-      openCurrentMemberModal: openCurrentMemberModal,
-      openInviteToCurrentEntityModal: openInviteToCurrentEntityModal,
-      openInviteToJoinedEntityModal: openInviteToJoinedEntityModal,
-      openMemberProfileModal: openMemberProfileModal,
-      openPasswordResetRequestModal: openPasswordResetRequestModal,
-      openFileUploadModal: openFileUploadModal,
-      openTeamChangeModal: openTeamChangeModal,
-      openTeamSettingModal: openTeamSettingModal,
-      openTeamMemberListModal: openTeamMemberListModal,
       closeModal: closeModal,
       getLanguageSetting: getLanguageSetting,
       setCurrentLanguage: setCurrentLanguage,
@@ -84,108 +69,6 @@
       }
 
       return modal;
-    }
-
-    function openPrivacyModal() {
-      var privacy = 'app/modal/terms/privacy';
-      privacy = privacy + '_' + accountService.getAccountLanguage() + '.html';
-
-      $modal.open({
-        templateUrl: privacy,
-        size: 'lg'
-      });
-    }
-    function openAgreementModal() {
-      var agreement = 'app/modal/terms/agreement';
-      agreement = agreement + '_' + accountService.getAccountLanguage() + '.html';
-
-      $modal.open({
-        templateUrl: agreement,
-        size: 'lg'
-      });
-    }
-
-    function openJoinModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/join.html',
-        controller  :   'joinModalCtrl',
-        size        :   'lg'
-      });
-    }
-    function openTopicCreateModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/topic_create/topic.create.html',
-        controller  :   'createEntityModalCtrl',
-        size        :   'lg'
-      });
-    }
-    function openPrivateCreateModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/create.private.html',
-        controller  :   'createEntityModalCtrl',
-        size        :   'lg'
-      });
-    }
-    function openInviteToTeamModal() {
-      modalHelper.openInviteToTeamModal();
-    }
-    function openCurrentMemberModal($scope) {
-      modalHelper.openCurrentMemberModal($scope);
-
-    }
-    function openInviteToCurrentEntityModal() {
-      modalHelper.openInviteToCurrentEntityModal();
-    }
-    function openInviteToJoinedEntityModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/invite.direct.html',
-        controller  :   'inviteUsertoChannelCtrl',
-        size        :   'lg'
-      });
-    }
-    function openMemberProfileModal($scope, member) {
-      modalHelper.openMemberProfileModal($scope, member);
-    }
-    function openPasswordResetRequestModal($scope) {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/password.reset.request.html',
-        controller  :   'passwordRequestController',
-        size        :   'lg'
-      });
-    }
-    function openFileUploadModal($scope) {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/upload/upload.html',
-        controller  : 'fileUploadModalCtrl',
-        size        : 'lg',
-        backdrop    : 'static'
-      });
-    }
-    function openTeamMemberListModal() {
-      modalHelper.openTeamMemberListModal();
-    }
-    function openTeamChangeModal($scope) {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/team_change/team.change.html',
-        controller  : 'teamChangeController',
-        size        : 'lg'
-      });
-    }
-    function openTeamSettingModal($scope) {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/settings.team.html',
-        controller  : 'teamSettingController',
-        size        : 'lg'
-      });
-
     }
 
     function closeModal(modalInstance) {
