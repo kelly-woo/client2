@@ -32,14 +32,15 @@
 
         /**
          * 처음에 XMLHttpRequest 를 직접 이용해 호출한 콜의 콜백이다.
-         * @param {event} e
          */
-        function onload(e) {
+        function onload() {
+          var that = this;
           var tempBlob;
           var imageOptions;
 
-          if (e.status === 200) {
-            tempBlob = this.response;
+
+          if (that.status === 200) {
+            tempBlob = that.response;
             imageOptions = getImageOptions();
 
             loadImage.parseMetaData(tempBlob, function (data) {
