@@ -377,7 +377,7 @@
       return eventType === MESSAGE_DELETE;
     }
     function _isSystemEvent(eventType) {
-      return eventType != _APP_GOT_NEW_MESSAGE;
+      return eventType !== _APP_GOT_NEW_MESSAGE && eventType !== config.socketEvent.MESSAGE_STICKER_SHARE;
     }
     function _isRelatedEvent(roomEntity, writer) {
       if (_.isUndefined(roomEntity) || _.isUndefined(writer)) {

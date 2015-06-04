@@ -18,7 +18,10 @@
     <div class="msg-item-body">
       <!-- TEXT -->
       <div class="msg-text">
-        <span class="keep msg-text-body" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+        <span ng-if="msg.message.contentType === 'sticker'"><img src="{{msg.message.content.url}}" width="145" height="145"/></span>
+        <span ng-if="msg.message.contentType !== 'sticker'"
+              class="keep msg-text-body"
+              data-ng-bind-html="(msg.message.content.body) || ''"></span>
         <span class="msg-item-header__created">
           {{msg.time | gethmmaFormat}}
         </span>
@@ -38,7 +41,10 @@
     <div class="msg-item-body">
       <!-- TEXT -->
       <div class="msg-text">
-        <span class="keep msg-text-body" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+        <span ng-if="msg.message.contentType === 'sticker'"><img src="{{msg.message.content.url}}" width="145" height="145"/></span>
+        <span ng-if="msg.message.contentType !== 'sticker'"
+              class="keep msg-text-body"
+              data-ng-bind-html="(msg.message.content.body) || ''"></span>
         <span class="msg-item-header__created">
           {{msg.time | gethmmaFormat}}
         </span>

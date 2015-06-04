@@ -10,6 +10,7 @@
       'app.storage',
       'app.socket',
       'app.pubsub',
+      'app.keyCode',
       'app.net'
       // 'app.session'
     ])

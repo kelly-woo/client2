@@ -1,6 +1,6 @@
 {
   "name"                   : "local",
-  "api_address"            : "http://i1.jandi.io:5000/",
+  "api_address"            : "http://i1.jandi.io:8888/",
   "socket_address"         : "http://ws.jandi.io:8888/",
   "api_version"            : 2,
   "ga_token"               : "UA-54051037-1",

@@ -60,7 +60,9 @@
         MESSAGE_FILE_SHARE: 'file_share',
         MESSAGE_FILE_UNSHARE: 'file_unshare',
 
-        MESSAGE_FILE_COMMENT: 'file_comment'
+        MESSAGE_FILE_COMMENT: 'file_comment',
+
+        MESSAGE_STICKER_SHARE: 'STICKER_SHARE'
       };
     }
 

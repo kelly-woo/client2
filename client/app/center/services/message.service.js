@@ -13,6 +13,8 @@
     this.postMessage = postMessage;
     this.editMessage = editMessage;
     this.deleteMessage = deleteMessage;
+    this.deleteSticker = deleteSticker;
+
     this.updateMessageMarker = updateMessageMarker;
 
     this.getRoomInformation = getRoomInformation;
@@ -21,7 +23,7 @@
 
     // get message lists
     function getMessages(entityType, entityId, params) {
-      entityType = entityType || 'channels';
+      entityType = _getParamEntityType(entityType);
 
       params.teamId  = memberService.getTeamId();
 
@@ -34,7 +36,7 @@
 
     // get updated message lists
     function getUpdatedMessages(entityType, entityId, lastUpdatedId) {
-      entityType = entityType || 'channels';
+      entityType = _getParamEntityType(entityType);
       return $http({
         method  : 'GET',
         url     : server_address + entityType + '/' + entityId + '/messages/update/' + lastUpdatedId,
@@ -45,22 +47,71 @@
     }
 
     // post message
-    function postMessage(entityType, entityId, message) {
-      entityType = entityType || 'channels';
+    function postMessage(entityType, entityId, message, sticker) {
+      if (!sticker) {
+        return _postMessage(entityType, entityId, message);
+      } else {
+        return _postSticker(entityType, entityId, message, sticker);
+      }
+    }
+
+    function _postMessage(entityType, entityId, message) {
+      entityType = _getParamEntityType(entityType);
       return $http({
         method  : 'POST',
         url     : server_address + entityType + '/' + entityId + '/message',
-        data    : message,
+        data    : {
+          content: message
+        },
         params  : {
           teamId  : memberService.getTeamId()
         }
-
       });
+    }
+
+    function _postSticker(entityType, entityId, message, sticker) {
+      var data = {
+        stickerId: sticker.id,
+        groupId: sticker.groupId,
+        teamId: memberService.getTeamId(),
+        share: entityId,
+        type: message ? _getParamEntityType(entityType, true): '',
+        content: message
+      };
+
+      return $http({
+        method  : 'POST',
+        url     : 'http://i1.jandi.io:5000/inner-api/stickers',
+        data    : data
+      });
+    }
+    /**
+     * server 로 전달할 entityType 문자열을 반환한다.
+     * @param {string} entityType 전달받은 entityType
+     * @param {boolean} [isSingular=false]
+     * @returns {string}
+     * @private
+     */
+    function _getParamEntityType(entityType, isSingular) {
+      var type = 'channel';
+      
+      if (entityType.indexOf('user') > -1) {
+        type = 'user';
+      } else if (entityType.indexOf('private') > -1) {
+        type = 'privateGroup';
+      } else if (entityType.indexOf('channel') > -1) {
+        type = 'channel';
+      }
+      
+      if (!isSingular) {
+        type += 's';
+      }
+      return type;
     }
 
     // edit message
     function editMessage(entityType, entityId, messageId, message) {
-      entityType = entityType || 'channels';
+      entityType = _getParamEntityType(entityType);
       return $http({
         method  : 'PUT',
         url     : server_address + entityType + '/' + entityId + '/messages/' + messageId,
@@ -74,28 +125,29 @@
 
     // delete message
     function deleteMessage(entityType, entityId, messageId) {
-      entityType = entityType || 'channels';
+      entityType = _getParamEntityType(entityType);
       return $http({
         method  : 'DELETE',
         url     : server_address + entityType + '/' + entityId + '/messages/' + messageId,
         params  : {
           teamId  : memberService.getTeamId()
         }
+      });
+    }
 
+    function deleteSticker(messageId) {
+      return $http({
+        method  : 'DELETE',
+        url     : 'http://i1.jandi.io:5000/inner-api/stickers/messages/' + messageId,
+        params  : {
+          teamId  : memberService.getTeamId()
+        }
       });
     }
 
     //  Updates message marker to 'lastLinkId' for 'entitiyId'
     function updateMessageMarker(entityId, entityType, lastLinkId) {
-      entityType = entityType.toLowerCase().trim();
-
-      // TODO: REFACTOR | TO entityAPIservice - LOGIC ONLY.
-      if (entityType == 'privategroups')
-        entityType = 'privateGroup';
-      else if (entityType == 'channels')
-        entityType = 'channel';
-      else
-        entityType = 'user';
+      entityType = _getParamEntityType(entityType, true);
 
       var data = {
         teamId: memberService.getTeamId(),

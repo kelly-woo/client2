@@ -1,0 +1,71 @@
+
+.sticker_panel {
+    width: 355px;
+    bottom: 30px !important;
+}
+.sticker_panel_wrap {
+    position: absolute;
+    right: 20px;
+    bottom: 8px;
+    z-index:10;
+}
+
+.sticker_panel_btn {
+    opacity: 0.5;
+    font-size: 18px;
+    color: black;
+}
+.sticker_panel_btn:active,
+.sticker_panel_btn:hover {
+    color: #00abe6;
+}
+.sticker_panel_btn.on {
+    color: #00abe6;
+}
+.sticker_panel ul li{overflow:hidden;}
+.sticker_panel_contents {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.sticker_panel_ul {
+    list-style-type: none;
+    padding: 10px;
+}
+.sticker_panel_li {
+    float: left;
+    border-color: transparent!important;
+    width: 65px;
+    height: 65px;
+    margin-left: 10px;
+    text-align: center;
+    line-height: 21px;
+}
+.sticker_panel_li:hover {
+    border: 2px solid #d7e0e8;
+    border-radius: 5px;
+    box-shadow: 0 0 2px rgba( 0, 0, 0, .15);
+}
+.sticker_panel_tab {
+    height: 35px;
+    clear: both;
+    background-color: #f1f4f8;
+    border-top: 1px solid #d7e0e8;
+}
+
+.sticker_layer {
+    z-index:10;
+    min-height: 140px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    position:absolute;
+    bottom: 100%;
+    border: solid #d7e0e8;
+    border-width: 2px 2px 0 2px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.sticker_layer img {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}

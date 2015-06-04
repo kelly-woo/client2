@@ -19,9 +19,9 @@
       </ul>
     </div>
   </div>
-
   <div id="messages-input-container" style="height: 35px;">
     <form id="message-form" style="height: 35px;">
+        <sticker-layer name="center"></sticker-layer>
         <textarea id="message-input"
                   class=""
                   ng-class="{ 'post-loading': isPosting,
@@ -36,9 +36,10 @@
                   spellcheck="true"
                   placeholder="{{ '@placeholder-input-message' | translate }}"
                   ng-keyup="onKeyUp($event);"
+                  ng-keydown="onKeyDown($event);"
                   msd-elastic>
         </textarea>
-      <sticker></sticker>
+        <sticker-panel name="center"></sticker-panel>
     </form>
   </div>
 </div>

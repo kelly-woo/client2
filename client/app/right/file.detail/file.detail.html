@@ -169,15 +169,19 @@
              ng-click="onUserClick(user);"/>
       </div>
       <form id="comment-form" data-ng-submit="postComment();">
-        <textarea id="file-detail-comment-input"
-                  class="comment-input"
-                  focus-me="focusPostComment"
-                  message-submit="postComment();"
-                  data-ng-model="comment.content"
-                  autocorrect="off"
-                  autocomplete="off"
-                  spellcheck="true"
-                  ng-disabled="isPostingComment"></textarea>
+        <sticker-layer name="file" maxWidth="412px" maxHeight="145px"></sticker-layer>
+        <div class="comment-textarea-wrap">
+          <textarea id="file-detail-comment-input"
+                    class="comment-input"
+                    focus-me="focusPostComment"
+                    message-submit="postComment();"
+                    data-ng-model="comment.content"
+                    autocorrect="off"
+                    autocomplete="off"
+                    spellcheck="true"
+                    ng-disabled="isPostingComment"></textarea>
+          <sticker-panel name="file"></sticker-panel>
+        </div>
         <span class="comment-input__tip pull-left">
           <span translate>@msg-help-multiline</span>
         </span>

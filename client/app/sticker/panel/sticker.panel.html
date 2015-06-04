@@ -1,0 +1,27 @@
+<div class="dropup sticker_panel_wrap">
+  <a class="dropdown dropdown-toggle sticker_panel_btn"
+          data-toggle="dropdown"
+          ng-class="{'on': status.isOpen}"
+          on-toggle="onToggled(open);">
+  <i class="fa fa-smile-o"></i> </a>
+
+  <div class="sticker_panel dropdown-menu dropdown-menu-right" role="menu">
+    <div class="sticker_panel_contents">
+      <ul class="sticker_panel_ul">
+        <li class="sticker_panel_li"
+            data-ng-repeat="item in list"
+            ng-click="onClickItem(item)">
+          <img src="{{item.url}}"/>
+        </li>
+      </ul>
+    </div>
+    <div class="sticker_panel_tab">
+      <a>
+        <span ng-click="onClickTabRecent($event)">최신 사용</span>
+      </a>
+      <a>
+        <span ng-click="onClickTabGroup($event)">스티커1</span>
+      </a>
+    </div>
+  </div>
+</div>
