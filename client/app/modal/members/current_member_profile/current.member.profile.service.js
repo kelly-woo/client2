@@ -15,6 +15,7 @@
     that.isPhoneNumberPristine = isPhoneNumberPristine;
     that.isDepartmentPristine = isDepartmentPristine;
     that.isPositionPristine = isPositionPristine;
+    that.replaceProfilePicture = replaceProfilePicture;
 
     function isNamePristine(currentMember) {
       return memberService.getName(currentMember) === memberService.getName(memberService.getMember());
@@ -35,5 +36,12 @@
       return memberService.getPosition(currentMember) === memberService.getPosition(memberService.getMember());
     }
 
+    function replaceProfilePicture(currentMember) {
+      var updatedMember = memberService.getMember();
+      currentMember.u_photoUrl = memberService.getPhotoUrl(updatedMember);
+      currentMember.u_photoThumnailUrl = updatedMember.u_photoThumnailUrl;
+
+      return currentMember;
+    }
   }
 })();

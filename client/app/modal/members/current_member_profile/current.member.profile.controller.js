@@ -10,33 +10,49 @@
     .controller('ProfileSettingCtrl', ProfileSettingCtrl);
 
   /* @ngInject */
-  function ProfileSettingCtrl($scope, modalHelper, $filter, analyticsService, memberService, accountService, CurrentMemberProfile) {
+  function ProfileSettingCtrl($scope, modalHelper, $filter, analyticsService, memberService,
+                              CurrentMemberProfile) {
+
+    $scope.cancel = modalHelper.closeModal;
 
     (function() {
-      _setCurrentMember();
-
-      $scope.lang = accountService.getAccountLanguage();
-
       $scope.hasUpdatedProfilePic = false;
       $scope.isProfilePicSelected = false;
 
       $scope.isFileReaderAvailable = true;
+
+      _setCurrentMember();
     })();
 
+    /**
+     * profile 설정 모달에서 사용되어질 멤버 변수를 초기화한다.
+     * @private
+     */
     function _setCurrentMember() {
-      $scope.curUser = _.cloneDeep(memberService.getMember());
+      if (!!$scope.hasUpdatedProfilePic && !!$scope.curUser) {
+        // profile picture 를 업데이트 한 후에도 모달이 살아있음.
+        // 그럴때 멤버 프로필이 바뀌었다는 소켓 이벤트가 들어옴.
+        // 이 경우에 멤버의 사진관련 정보만 업데이트를 함.
+        // 어차피 다른 정보들은 모달이 닫힐거라 큰 신경을 안써도 됨.
+        $scope.curUser = CurrentMemberProfile.replaceProfilePicture($scope.curUser);
+      } else {
+        $scope.curUser = _.cloneDeep(memberService.getMember());
+      }
 
-      // 서버에서 받은 유저 정보에 extraData가 없는 경우 초기화
+      // 서버에서 받은 유저 정보에 extraData가 없는 경우 공백을 넣는다.
       $scope.curUser.u_extraData.phoneNumber  = memberService.getPhoneNumber($scope.curUser) || "";
       $scope.curUser.u_extraData.department   = memberService.getDepartment($scope.curUser) || "";
       $scope.curUser.u_extraData.position     = memberService.getPosition($scope.curUser) || "";
     }
 
+
+    /**
+     * 현재 멤버의 정보가 바뀌었다는 뜻이므로 locally가지고 있는 멤버의 정보를 최신으로 업데이트한다.
+     */
     $scope.$on('onCurrentMemberChanged', function() {
       _setCurrentMember();
     });
 
-    $scope.cancel = modalHelper.closeModal;
 
     /**
      * 사용자가 프로필을 변경하려 할 때 호출된다.
@@ -154,7 +170,8 @@
           // TODO: Currently, there is no return value.  How about member object for return???
           memberService.getMemberInfo(memberService.getMemberId())
             .success(function(response) {
-              memberService.setMember(response);
+              //memberService.replaceProfilePicture(response);
+              //memberService.setMember(response);
             });
           $scope.hasUpdatedProfilePic = true;
         })
@@ -186,16 +203,7 @@
     function changeProfileName() {
       // Name Change!!!
       memberService.setName(memberService.getName($scope.curUser))
-        .success(function() {
-          ////TODO: Currently, there is no return value.  How about member object for return???
-          memberService.getMemberInfo(memberService.getMemberId())
-            .success(
-            closeModal
-          )
-            .error(function(err){
-              console.log(err);
-            });
-        })
+        .success(closeModal)
         .error(function(err) {
           console.log(err);
         })
@@ -211,8 +219,8 @@
       // email address changed!!
       memberService.setEmail(memberService.getEmail($scope.curUser))
         .success(
-        closeModal
-      )
+          closeModal
+        )
         .error(function(err) {
           console.log(err);
         })
@@ -228,7 +236,6 @@
     function changeProfileOtherInfo() {
       memberService.updateProfile($scope.curUser)
         .success(function(response) {
-          memberService.setMember(response);
           closeModal();
 
           // analytics
