@@ -1,4 +1,6 @@
-
+.background-color-white {
+  background-color: white;
+}
 .file-list__item {
   position: relative;
   clear: both;
@@ -9,6 +11,7 @@
 }
 .file-list__item .pull-left {
   margin-right: 10px;
+  text-align: center;
 }
 .file-list__item:hover {
   background: #f2fbff;

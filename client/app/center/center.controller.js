@@ -2,7 +2,11 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, messageSearchHelper, currentSessionHelper, logger, centerService, markerService, textbuffer) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal,
+                                                 entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice,
+                                                 userAPIservice, analyticsService, leftpanelAPIservice, memberService,
+                                                 publicService, messageSearchHelper, currentSessionHelper, logger,
+                                                 centerService, markerService, textbuffer, modalHelper) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
@@ -993,27 +997,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
   $scope.openModal = function(selector) {
     // OPENING JOIN MODAL VIEW
-    if (selector == 'file') {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/upload/upload.html',
-        controller  : 'fileUploadModalCtrl',
-        size        : 'lg',
-        backdrop    : 'static'
-      });
-    } else if (selector == 'rename') {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/rename.html',
-        controller  :   'renameModalCtrl',
-        size        :   'lg'
-      });
-    } else if (selector == 'invite') {
-      publicService.openInviteToCurrentEntityModal($scope);
-    } else if (selector == 'inviteUserToChannel') {
-      publicService.openInviteToJoinedEntityModal($scope);
-    } else if (selector == 'share') {
-
+    if (selector === 'rename') {
+      // Why is center controller calling this function??
+      // TODO: REFACTOR TO ENTITY HEADER CONTROLLER.
+      modalHelper.openTopicRenameModal($scope);
+    } else if (selector === 'invite') {
+      modalHelper.openTopicInviteModal($scope);
+    } else if (selector === 'inviteUserToChannel') {
+      modalHelper.openTopicInviteFromDmModal($scope);
     }
   };
 
@@ -1024,9 +1015,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
     if (angular.isDefined(targetEntity)) {
       $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
-    }
-    else {
-      // Undefined targetEntity means it's an entity that I'm joined.
+    } else {
+      // Undefined targetEntity means it's an entity that I'm joined.onShareClick
       // Join topic first and go!
       entityheaderAPIservice.joinChannel(entityId)
         .success(function(response) {
@@ -1133,19 +1123,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     //  bind click event handler to full screen toggler.
     fullScreenToggler.bind('click', function() {
+      modalHelper.openFullScreenImageModal($scope, fullUrl);
+
       //  opening full image modal used in file controller.
       //  passing photo url of image that needs to be displayed in full screen.
-      $modal.open({
-        scope       :   $scope,
-        controller  :   'fullImageCtrl',
-        templateUrl :   'app/modal/fullimage.html',
-        windowClass :   'modal-full',
-        resolve     :   {
-          photoUrl    : function() {
-            return fullUrl;
-          }
-        }
-      });
+      //$modal.open({
+      //  scope       :   $scope,
+      //  controller  :   'fullImageCtrl',
+      //  templateUrl :   'app/modal/fullimage.html',
+      //  windowClass :   'modal-full',
+      //  resolve     :   {
+      //    photoUrl    : function() {
+      //      return fullUrl;
+      //    }
+      //  }
+      //});
     });
 
     // get transform information from original image.
@@ -1317,7 +1309,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
   $scope.onShareClick = function(file) {
-    fileAPIservice.broadcastFileShare(file);
+    fileAPIservice.openFileShareModal($scope, file);
   };
 
   $scope.isDisabledMember = function(member) {

@@ -2,7 +2,9 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice, publicService, configuration) {
+app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
+                                          fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
+                                          publicService, configuration, modalHelper) {
 
   //console.info('[enter] fileDetailCtrl');
 
@@ -15,6 +17,8 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   $scope.glued            = false;
   $scope.isPostingComment = false;
   $scope.hasFileAPIError  = false;
+  $scope.isLoadingImage   = true;
+
 
   // configuration for message loading
   $scope.fileLoadStatus = {
@@ -186,35 +190,19 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     if (integrationPreviewMap[content.serverUrl]) {
       var win = window.open(content.fileUrl, '_blank');
     } else {
-      $modal.open({
-        scope       :   $scope,
-        controller  :   'fullImageCtrl',
-        templateUrl :   'app/modal/fullimage.html',
-        windowClass :   'modal-full fade-only',
-        resolve     :   {
-          photoUrl    : function() {
-            return $scope.ImageUrl;
-          }
-        }
-      });
-    }
-  };
+      modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
 
-  $scope.openModal = function(selector) {
-    if (selector == 'share') {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/share/share.html',
-        controller  : 'fileShareModalCtrl',
-        size        : 'lg',
-        resolve: {
-          parameters: function () {
-            return {
-              fileToShare :   $scope.fileToShare
-            };
-          }
-        }
-      });
+      //$modal.open({
+      //  scope       :   $scope,
+      //  controller  :   'fullImageCtrl',
+      //  templateUrl :   'app/modal/fullimage.html',
+      //  windowClass :   'modal-full fade-only',
+      //  resolve     :   {
+      //    photoUrl    : function() {
+      //      return $scope.ImageUrl;
+      //    }
+      //  }
+      //});
     }
   };
 
@@ -231,9 +219,9 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   };
 
   $scope.onClickShare = function(file) {
-    $scope.fileToShare = file;
-    this.openModal('share');
+    fileAPIservice.openFileShareModal($scope, file);
   };
+
   $scope.onClickUnshare = function(message, entity) {
     fileAPIservice.unShareEntity(message.id, entity.id)
       .success(function() {
@@ -348,44 +336,11 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    */
   $scope.backToFileList = function() {
     $state.go('messages.detail.files');
-  }
+  };
+
+
+  $scope.onFileDetailImageLoad = function() {
+    $scope.isLoadingImage = false;
+  };
 
 });
-
-app
-  .controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {
-    $scope.cancel = function() { $modalInstance.dismiss('cancel');}
-    $scope.photoUrl = photoUrl;
-    $scope.onImageRotatorClick = function($event) {
-
-      var sender = angular.element($event.target);
-      var senderID = sender.attr('id');
-
-      var target = '';
-      switch(senderID){
-        case 'fromModal':
-          target = sender.parent().siblings('img.image-background').parent();
-          break;
-        default :
-          break;
-      }
-
-      if (target === '') return;
-      var targetClass = target.attr('class');
-
-      if (targetClass.indexOf('rotate-90') > -1) {
-        target.removeClass('rotate-90');
-        target.addClass('rotate-180');
-      }
-      else if(targetClass.indexOf('rotate-180') > -1) {
-        target.removeClass('rotate-180');
-        target.addClass('rotate-270');
-      }
-      else if(targetClass.indexOf('rotate-270') > -1) {
-        target.removeClass('rotate-270');
-      }
-      else {
-        target.addClass('rotate-90');
-      }
-    };
-  });

@@ -6,7 +6,7 @@
     .controller('currentMemberCtrl', currentMemberCtrl);
 
   /* @ngInject */
-  function currentMemberCtrl($scope, $rootScope, publicService, currentSessionHelper, memberService) {
+  function currentMemberCtrl($scope, publicService, currentSessionHelper, memberService, modalHelper) {
     var vm = $scope;
 
     (function() {
@@ -18,7 +18,7 @@
     vm.onSignOutClick = onSignOutClick;
 
     function onCurrentMemberContainerClick() {
-      publicService.openCurrentMemberModal(vm);
+      modalHelper.openCurrentMemberModal(vm);
     }
 
     function onSignOutClick() {
