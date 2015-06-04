@@ -24,10 +24,12 @@
       });
       $scope.inviteChannel = $scope.availableMemberList.length !== 0;
 
-      if ($scope.account && $scope.account.memberships.length >= 2) {   // team size >= 2
-        msg1 = '@emptyMsg-no-team-member-joined';
+      if ($scope.account && $scope.account.memberships.length >= 2) {
+        // team size >= 2
+        msg1 = '@emptyMsg-everyone-in-current-topic';
         msg2 = '@emptyMsg-invite-not-joined-teammate';
-      } else {        // team size < 2
+      } else {
+        // team size < 2
         msg1 = '@emptyMsg-no-team-member-joined';
         msg2 = '@emptyMsg-click-to-invite-to-current-team';
       }
