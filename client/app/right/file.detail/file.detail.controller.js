@@ -17,6 +17,8 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   $scope.glued            = false;
   $scope.isPostingComment = false;
   $scope.hasFileAPIError  = false;
+  $scope.isLoadingImage   = true;
+
 
   // configuration for message loading
   $scope.fileLoadStatus = {
@@ -334,6 +336,11 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    */
   $scope.backToFileList = function() {
     $state.go('messages.detail.files');
-  }
+  };
+
+
+  $scope.onFileDetailImageLoad = function() {
+    $scope.isLoadingImage = false;
+  };
 
 });

@@ -7,9 +7,18 @@
 
   /* @ngInject */
   function FullScreenImageCtrl($scope, modalHelper, photoUrl) {
+    $scope.hasImageLoaded = false;
+
     $scope.cancel = modalHelper.closeModal;
     $scope.photoUrl = photoUrl;
-    $scope.onImageRotatorClick = function($event) {
+
+    $scope.onImageRotatorClick = onImageRotatorClick;
+
+    /**
+     * 이미지를 로테이트 시킨다.
+     * @param $event {event}
+     */
+    function onImageRotatorClick($event) {
 
       var sender = angular.element($event.target);
       var senderID = sender.attr('id');
@@ -42,5 +51,15 @@
         target.addClass('rotate-90');
       }
     };
+
+    $scope.onFullScreenImageLoad = onFullScreenImageLoad;
+
+    /**
+     * 이미지 로드가 완료되었을 때 호출된다.
+     */
+    function onFullScreenImageLoad() {
+      $scope.hasImageLoaded = true;
+    }
   }
+
 })();
