@@ -1,3 +1,7 @@
+/**
+ * @fileoverview 이미지들을 위한 공통된 로직 집합.
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
@@ -14,7 +18,7 @@
 
     /**
      * 이미지 엘레멘트를 화면에서 숨긴다.
-     * @param imageElement {jQueryElement} 화면에서 숨길 이미지 엘레멘트
+     * @param {jQueryElement} imageElement - 화면에서 숨길 이미지 엘레멘트
      */
     function hideImageElement(imageElement) {
       // hide image while rotating.
@@ -23,8 +27,8 @@
 
     /**
      * 이미지 엘레멘트를 화면에 보여준다.
-     * @param imageElement {jQueryElement} 화면에 보여줄 이미지 엘레멘트
-     * @param displayProperty {object} 본래 엘레멘트가 가지고 있었던 display properties
+     * @param {jQueryElement} imageElement - 화면에 보여줄 이미지 엘레멘트
+     * @param {object} displayProperty - 본래 엘레멘트가 가지고 있었던 display properties
      */
     function showImageElement(imageElement, displayProperty) {
       imageElement.addClass('opac-in-fast');

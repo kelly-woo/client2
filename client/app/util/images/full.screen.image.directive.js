@@ -1,3 +1,7 @@
+/**
+ * @fileoverview 이미지를 full screen으로 보여줄 때 이미지를 로드하고 rotate하고 resize 그리고 re-locate 한다.
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
@@ -22,12 +26,13 @@
     };
 
     function link(scope, element, attrs) {
+      var xhr = new XMLHttpRequest();
+
       imageElement = element;
       displayProperty = element.css('display');
 
       ImagesHelper.hideImageElement(imageElement);
 
-      var xhr = new XMLHttpRequest();
       xhr.open('GET', attrs.imageSrc, true);
       xhr.responseType = 'blob';
       xhr.onload = onload;
@@ -39,22 +44,25 @@
        * @param e {event}
        */
       function onload(e) {
-        if (this.status === 200) {
-          var tempBlob = this.response;
+        var tempBlob;
+        var imageOptions;
 
-          var imageOptions = {
+        if (e.status === 200) {
+          tempBlob = this.response;
+
+          imageOptions = {
             maxWidth: $(window).width() - widthOffset,
             maxHeight: $(window).height() - heightOffset
           };
 
 
           loadImage.parseMetaData(tempBlob, function (data) {
+            var currentOrientation;
             if (!!data.exif) {
               // 필요한 정보가 있을 경우
-              var currentOrientation = data.exif.get('Orientation');
+              currentOrientation = data.exif.get('Orientation');
               imageOptions['orientation'] = currentOrientation - 1;
             }
-
 
             loadImage(tempBlob, onImageLoad, imageOptions);
 
@@ -71,13 +79,12 @@
       function onImageLoad(img) {
         if (img.type === 'error') {
           onImageLoadError();
-          return;
+        } else {
+          document.getElementById('full-screen-image').appendChild(img);
+          setVerticalCenter(img);
+          ImagesHelper.showImageElement(imageElement, displayProperty);
+          callCallback();
         }
-
-        document.getElementById('full-screen-image').appendChild(img);
-        setVerticalCenter(img);
-        ImagesHelper.showImageElement(imageElement, displayProperty);
-        callCallback();
       }
 
       /**
@@ -94,9 +101,11 @@
         // 현재 화면의 높이
         var windowHeight = $(window).height();
 
+        var marginTop;
+
         // 이미지보다 화면이 더 클 경우
         if ((windowHeight - elementHeight) > heightOffset) {
-          var marginTop = (windowHeight - elementHeight) / 2 + 'px';
+          marginTop = (windowHeight - elementHeight) / 2 + 'px';
           jqImageWrapperElement.css('marginTop', marginTop);
         }
       }
@@ -110,8 +119,10 @@
         }
       }
 
+      /**
+       * 이미지 로드할 때 에러가 났을 경우 호출된다.
+       */
       function onImageLoadError() {
-
         callCallback();
       }
     }
