@@ -9,7 +9,7 @@
          data-ng-if="!tutorialStatus.topicTutorial"></div>
 
     <!-- LIST CONTAINER -->
-    <div class="lpanel-list">
+    <div class="lpanel-list" id="lpanel-list-container">
       <!--    HEADER  -->
       <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isTopicsCollapsed = !leftListCollapseStatus.isTopicsCollapsed">
 
@@ -40,7 +40,9 @@
         <messages>
         </messages>
       </div>
-
+      <div ng-if="hasUnreadBelow" class="lpanel-list-help-unread">
+          <button type="button" class="btn btn-danger" ng-click="goUnreadBelow();">아래 읽지 않은 메세지가 있습니다.</button>
+      </div>
     </div>
 
 

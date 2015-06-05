@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper) {
+  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge) {
 
   //console.info('[enter] leftpanelController');
 
@@ -21,6 +21,9 @@ app.controller('leftPanelController1', function(
     broadcastTo: ''
   };
 
+  var hasUnloadTimer;
+  var unreadScrollTop;
+
   // 로딩이 진행되고 있을 경우 true
   $scope.isLoading = false;
 
@@ -28,7 +31,7 @@ app.controller('leftPanelController1', function(
   $scope.leftListCollapseStatus = {
     isTopicsCollapsed: storageAPIservice.isLeftTopicCollapsed() || false
   };
-
+  $scope.hasUnreadBelow = false;
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
   if (!leftPanel) return;
@@ -41,11 +44,57 @@ app.controller('leftPanelController1', function(
     response = leftPanel.data;
   }
 
+  _attachExtraEvents();
+  $scope.$on('$destroy', _onDestroy);
+  $rootScope.$on('onBadgeCountChanged', _onBadgeCountChanged);
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);
   });
+  $scope.goUnreadBelow = goUnreadBelow;
+  function goUnreadBelow() {
+    $('#lpanel-list-container')[0].scrollTop = unreadScrollTop;
+  }
 
+  function _onBadgeCountChanged() {
+    _setHasUnreadBelow();
+  }
+  function _onDestroy() {
+    $timeout.cancel(hasUnloadTimer);
+    _detachExtraEvents();
+  }
+  function _attachExtraEvents() {
+    $(window).on('resize', _onResize);
+    $('#lpanel-list-container').on('scroll', _onScroll);
+  }
+  function _detachExtraEvents() {
+    $(window).off('resize', _onResize);
+    $('#lpanel-list-container').off('scroll', _onScroll);
+  }
+  function _onResize() {
+    _setHasUnreadBelow();
+  }
+  function _onScroll() {
+    _setHasUnreadBelow();
+  }
+
+  function _setHasUnreadBelow() {
+    $timeout.cancel(hasUnloadTimer);
+    hasUnloadTimer = $timeout(function() {
+      $scope.hasUnreadBelow = _hasUnreadBelow();
+    });
+  }
+
+  function _hasUnreadBelow() {
+    var jqContainer = $('#lpanel-list-container');
+    var scrollTop = jqContainer[0].scrollTop;
+    var positionTop = jqContainer.height() + scrollTop + jqContainer.offset().top;
+    var belowPositionList = UnreadBadge.getBelowPositionList(positionTop);
+
+    unreadScrollTop = scrollTop + (belowPositionList[0] - positionTop);
+
+    return !!belowPositionList.length;
+  }
   /**
    * left panel 업데이트 후에 알려줘야 할 컨틀롤러가 있음을 설정한다.
    * @param param {string} broadcast할 이벤트 이름

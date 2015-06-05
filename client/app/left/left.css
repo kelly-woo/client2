@@ -278,3 +278,11 @@
   opacity: 1;
 
 }
+
+.lpanel-list-help-unread {
+    position: fixed;
+    bottom: 0;
+    width: inherit;
+    text-align: center;
+    min-height: 5px;
+}
