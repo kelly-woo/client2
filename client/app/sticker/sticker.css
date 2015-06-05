@@ -22,7 +22,7 @@
 .sticker_panel_btn.on {
     color: #00abe6;
 }
-.sticker_panel ul li{overflow:hidden;}
+.sticker_panel_contents ul li{overflow:hidden;}
 .sticker_panel_contents {
     max-height: 300px;
     overflow-y: auto;
@@ -51,6 +51,37 @@
     clear: both;
     background-color: #f1f4f8;
     border-top: 1px solid #d7e0e8;
+    color: #154a67;
+}
+.sticker_panel_tab ul{
+    display: table;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+.sticker_panel_tab li{
+    vertical-align: middle;
+    display: table-cell;
+    height: 100%;
+    border-right:1px solid #d7e0e8;
+    width: 35px;
+    text-align: center;
+}
+
+.sticker_panel_tab_item {
+}
+.sticker_panel_tab_item.recent {
+    font-size: 20px;
+    opacity: 0.4;
+}
+.sticker_panel_tab_item img {
+    width: 20px;
+    height: 20px;
+}
+.sticker_panel_tab_item.on {
+    background: #ffffff;
+    opacity: 1;
 }
 
 .sticker_layer {

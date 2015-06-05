@@ -16,12 +16,20 @@
       </ul>
     </div>
     <div class="sticker_panel_tab">
-      <a>
-        <span ng-click="onClickTabRecent($event)">최신 사용</span>
-      </a>
-      <a>
-        <span ng-click="onClickTabGroup($event)">스티커1</span>
-      </a>
+      <ul>
+        <li>
+          <a class="sticker_panel_tab_item recent"
+             ng-click="onClickTabRecent($event)">
+            <i class="fa fa-clock-o"></i>
+          </a>
+        </li>
+        <li>
+          <a class="sticker_panel_tab_item"
+             ng-click="onClickTabGroup($event)">
+            <img src="./assets/images/sticker/tab_on.svg"/>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
