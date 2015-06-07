@@ -52,8 +52,9 @@ app.controller('leftPanelController1', function(
     _setAfterLeftInit(param);
   });
   $scope.goUnreadBelow = goUnreadBelow;
-  function goUnreadBelow() {
-    $('#lpanel-list-container')[0].scrollTop = unreadScrollTop;
+  function goUnreadBelow(clickEvent) {
+    var jqTarget = $(clickEvent.target);
+    angular.element('#lpanel-list-container').animate({scrollTop: unreadScrollTop + jqTarget.outerHeight()});
   }
 
   function _onBadgeCountChanged() {
@@ -64,12 +65,12 @@ app.controller('leftPanelController1', function(
     _detachExtraEvents();
   }
   function _attachExtraEvents() {
-    $(window).on('resize', _onResize);
-    $('#lpanel-list-container').on('scroll', _onScroll);
+    angular.element(window).on('resize', _onResize);
+    angular.element('#lpanel-list-container').on('scroll', _onScroll);
   }
   function _detachExtraEvents() {
-    $(window).off('resize', _onResize);
-    $('#lpanel-list-container').off('scroll', _onScroll);
+    angular.element(window).off('resize', _onResize);
+    angular.element('#lpanel-list-container').off('scroll', _onScroll);
   }
   function _onResize() {
     _setHasUnreadBelow();
