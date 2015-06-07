@@ -195,7 +195,8 @@
        */
       _openIntegrationModal: function(data) {
         var that = this;
-
+        var modal;
+        
         // modal이 이미 open된 상태라면 cancel
         that.modal && that.modal.dismiss('cancel');
 
@@ -259,6 +260,7 @@
 
         return that;
       },
+      cInterface: 'alert',
       service: 'google', // server에 전달하는 service type
       /**
        * google drive picker open
@@ -276,7 +278,12 @@
         if (token = gapi.auth.getToken()) {
           that._showPicker();
         } else {
-          storageAPIservice.getCookie('integration', 'google') !== true ? that._openIntegrationModal() : that._open();
+          if (that.cInterface === 'alert') {
+            that._openIntegrationModal();
+            that._open();
+          } else {
+            storageAPIservice.getCookie('integration', 'google') !== true ? that._openIntegrationModal() : that._open();
+          }          
         }
       },
       /**
@@ -403,7 +410,7 @@
               storageAPIservice.setCookie('integration', 'google', true);
               that._open();
             },
-            cInterface: 'confirm'             // modal의 확인 interface 명
+            cInterface: that.cInterface             // modal의 확인 interface 명
           }
         );
       }
@@ -426,10 +433,13 @@
         that.options.buttonEle = $(that.options.buttonEle);
 
         // DropboxIntegration object 생성시 cookie에 dropbox integrate cookie가 있다면 바로 Dropbox listener를 button에 등록함.
-        storageAPIservice.getCookie('integration', 'dropbox') === true && that._open();
+        if (that.cInterface !== 'alert') {
+          storageAPIservice.getCookie('integration', 'dropbox') === true && that._open();  
+        }        
 
         return that;
       },
+      cInterface: 'alert',
       service: 'dropbox',
       /**
        * dropbox choose object 생성 & 출력
@@ -442,7 +452,12 @@
 
         that.options.scope = scope;
 
-        storageAPIservice.getCookie('integration', 'dropbox') !== true ? that._openIntegrationModal() : that._open();
+        if (that.cInterface === 'alert') {
+          that._openIntegrationModal();
+          that._open();
+        } else {
+          storageAPIservice.getCookie('integration', 'dropbox') !== true ? that._openIntegrationModal() : that._open();
+        }
       },
       /**
        * dropbox의 modal open
@@ -524,7 +539,7 @@
 
               that._open();
             },
-            cInterface: 'confirm'   // modal의 확인 interface 명
+            cInterface: that.cInterface   // modal의 확인 interface 명
           }
         );
       }
