@@ -69,7 +69,7 @@
        */
       function _getTop() {
         var scrollTop = $('#lpanel-list-container').scrollTop();
-        return scrollTop + element.offset().top;
+        return scrollTop + el.offset().top;
       }
     }
   }
