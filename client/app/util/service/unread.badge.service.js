@@ -45,7 +45,7 @@
     }
 
     /**
-     * 화면에 노출되지 않은 unread badge 의 포지션 정보를 반환한다.
+     * view-port 에 노출되지 않은 unread badge 의 포지션 정보를 반환한다.
      * @param {number} top 현재 view-port 의 top 값
      * @param {number} bottom 현재 view-port 의 bottom 값
      * @returns {{above: Array, below: Array}}
