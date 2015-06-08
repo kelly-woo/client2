@@ -281,8 +281,15 @@
 
 .lpanel-list-help-unread {
     position: fixed;
-    bottom: 0;
     width: inherit;
     text-align: center;
     min-height: 5px;
+}
+.lpanel-list-help-unread.above {
+    position: fixed;
+    top: 129px;
+}
+
+.lpanel-list-help-unread.below {
+    bottom: 0;
 }

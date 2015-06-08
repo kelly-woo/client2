@@ -22,7 +22,10 @@
       var key = scope.group + '_' + scope.key;
       scope.$watch('content', function(newVal, oldVal) {
         if (newVal > 0) {
-          UnreadBadge.add(key, _getAbsoluteBottom(), scope.entity);
+          UnreadBadge.add(key, {
+            top: _getAbsoluteTop(),
+            bottom: _getAbsoluteTop() + element.parent().height()
+          }, scope.entity);
         } else {
           UnreadBadge.remove(key);
         }
@@ -31,10 +34,11 @@
 
       scope.$on('$destroy', _onDestroy);
 
-      function _getAbsoluteBottom() {
+      function _getAbsoluteTop() {
         var scrollTop = $('#lpanel-list-container').scrollTop();
-        return scrollTop + element.offset().top + element.parent().height();
+        return scrollTop + element.offset().top;
       }
+
       function _onDestroy() {
         UnreadBadge.remove(key);
       }

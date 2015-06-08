@@ -4,49 +4,50 @@
  */
 
 (function() {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('jandiApp')
-        .service('UnreadBadge', UnreadBadge);
+  angular
+    .module('jandiApp')
+    .service('UnreadBadge', UnreadBadge);
 
-    function UnreadBadge($state) {
+  function UnreadBadge($state) {
 
-        var map = {};
+    var map = {};
 
-        this.add = add;
-        this.remove = remove;
-        this.hasBadgeBelow = hasBadgeBelow;
-        this.getBelowPositionList = getBelowPositionList;
-
-        function add(key, top, entity) {
-            map[key] = {
-                top: top,
-                entity: entity
-            }
-        }
-        function hasBadgeBelow(basePosition) {
-            return !!getBelowPositionList(basePosition).length;
-        }
-        function getBelowPositionList(basePosition) {
-            var list = [];
-            var data;
-            var key;
-
-            for(key in map) {
-                data = map[key];
-                if (basePosition < data.top) {
-                    list.push(data.top);
-                }
-            }
-
-            return list.sort();
-        }
-        function remove(key) {
-            if (map[key]) {
-                map[key] = null;
-                delete map[key];
-            }
-        }
+    this.add = add;
+    this.remove = remove;
+    this.getUnreadPos = getUnreadPos;
+    function add(key, pos, entity) {
+      map[key] = {
+        top: pos.top,
+        bottom: pos.bottom,
+        entity: entity
+      };
     }
+    function getUnreadPos(top, bottom) {
+      var unread = {
+        above: [],
+        below: []
+      };
+
+      _.each(map, function(data, key) {
+        if (bottom < data.bottom) {
+          unread.below.push(data.bottom);
+        } else if (data.top < top) {
+          unread.above.push(data.top);
+        }
+      });
+      unread.above.sort();
+      unread.below.sort();
+
+      return unread;
+    }
+
+    function remove(key) {
+      if (map[key]) {
+        map[key] = null;
+        delete map[key];
+      }
+    }
+  }
 })();
