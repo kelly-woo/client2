@@ -2,6 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -11,11 +12,11 @@ msgstr ""
 msgid "@503-will-be-back-msg"
 msgstr ""
 
-#: client/app/modal/join.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-empty-ch-belong"
 msgstr ""
 
-#: client/app/modal/join.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-empty-ch-can-join"
 msgstr ""
 
@@ -28,63 +29,35 @@ msgstr ""
 msgid "@alert-empty-file-shared"
 msgstr ""
 
-#: client/app/modal/settings.account.html
-msgid "@alert-invalid-password"
-msgstr ""
-
 #: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr ""
 
-#: client/app/modal/join.html
-#: client/app/modal/team_member_list/team.member.list.html
+#: client/app/modal/teams/team_member_list/team.member.list.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-no-result"
 msgstr ""
 
-#: client/app/modal/settings.account.html
-msgid "@alert-required"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "@alert-update-fail"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "@alert-update-success"
-msgstr ""
-
-#: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/image.crop.html
-#: client/app/modal/integration/integration.html
-#: client/app/modal/password.reset.request.html
-#: client/app/modal/rename.html
-#: client/app/modal/share/share.html
-#: client/app/modal/team_change/team.change.html
-#: client/app/modal/upload/upload.html
+#: client/app/modal/files/integration/integration.html
+#: client/app/modal/files/share/share.html
+#: client/app/modal/files/upload/upload.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/modal/password/password.reset.request.html
+#: client/app/modal/teams/team_change/team.change.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@btn-cancel"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/image.crop.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@btn-change"
 msgstr ""
 
-#: client/app/right/file.detail/file.detail.html
-msgid "@btn-click-to-view"
-msgstr ""
-
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
-#: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/invitation/invitation.channel.html
-#: client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html
-#: client/app/modal/join.html
-#: client/app/modal/password.reset.request.html
-#: client/app/modal/settings.account.html
-#: client/app/modal/settings.service.html
-#: client/app/modal/settings.team.html
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/modal/password/password.reset.request.html
+#: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_invite/topic.invite.html
+#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@btn-close"
 msgstr ""
 
@@ -94,14 +67,11 @@ msgstr ""
 msgid "@btn-comment"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
-#: client/app/modal/settings.service.html
+#: client/app/modal/files/integration/integration.html
 msgid "@btn-confirm"
 msgstr ""
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@btn-create"
 msgstr ""
 
@@ -109,45 +79,37 @@ msgstr ""
 msgid "@btn-delete"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/password.reset.request.html
-#: client/app/password/password.reset.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/modal/password/password.reset.request.html
 msgid "@btn-edit"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/modal/invitation/invitation.channel.html
-#: client/app/modal/invite.channel.html
-#: client/app/modal/invite.direct.html
+#: client/app/modal/topics/topic_invite/topic.invite.html
+#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@btn-invite"
 msgstr ""
 
-#: client/app/modal/join.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@btn-join"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.team.html
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@btn-send"
 msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/modal/share/share.html
+#: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@btn-share"
 msgstr ""
 
-#: client/app/modal/rename.html
-#: client/app/modal/settings.account.html
-#: client/app/modal/settings.team.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@btn-update-name"
 msgstr ""
 
-#: client/app/modal/settings.account.html
-msgid "@btn-update-password"
-msgstr ""
-
-#: client/app/modal/upload/upload.html
+#: client/app/modal/files/upload/upload.html
 msgid "@btn-upload"
 msgstr ""
 
@@ -195,11 +157,7 @@ msgstr ""
 msgid "@channel"
 msgstr ""
 
-#: client/app/modal/settings.account.html
-msgid "@common-account-settings"
-msgstr ""
-
-#: client/app/modal/team_member_list/team.member.list.html
+#: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
 msgstr ""
 
@@ -214,16 +172,16 @@ msgstr ""
 msgid "@common-api-error-msg"
 msgstr ""
 
-#: client/app/modal/profile.view.html
+#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-chat-dm"
 msgstr ""
 
-#: client/app/modal/password.reset.request.html
+#: client/app/modal/password/password.reset.request.html
 msgid "@common-check-email-inbox"
 msgstr ""
 
-#: client/app/modal/share/share.html
-#: client/app/modal/upload/upload.html
+#: client/app/modal/files/share/share.html
+#: client/app/modal/files/upload/upload.html
 msgid "@common-comment"
 msgstr ""
 
@@ -236,22 +194,13 @@ msgstr ""
 msgid "@common-conversation-leave-confirm"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.team.html
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@common-copy"
 msgstr ""
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/join.html
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@common-create-ch"
-msgstr ""
-
-#: client/app/modal/create.private.html
-msgid "@common-create-pg"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "@common-current-password"
 msgstr ""
 
 #: client/app/tpl/header.tpl.html
@@ -264,13 +213,9 @@ msgstr ""
 msgid "@common-deleted-file-title"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/profile.view.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-department"
-msgstr ""
-
-#: client/app/modal/settings.service.html
-msgid "@common-desktop-noti"
 msgstr ""
 
 #: client/app/left/messages/messages.html
@@ -281,15 +226,15 @@ msgstr ""
 msgid "@common-disabled-member-notice-msg-short"
 msgstr ""
 
-#: client/app/modal/profile.view.html
+#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-disabled-member-profile-msg"
 msgstr ""
 
-#: client/app/modal/invite.direct.html
+#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@common-dm-invite-to"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.team.html
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@common-done"
 msgstr ""
 
@@ -297,14 +242,14 @@ msgstr ""
 msgid "@common-download"
 msgstr ""
 
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-duplicate-name-err"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/invitation/invitation.team.html
-#: client/app/modal/password.reset.request.html
-#: client/app/modal/profile.view.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/modal/members/member_profile/member.profile.view.html
+#: client/app/modal/password/password.reset.request.html
+#: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/signin/signin.html
 msgid "@common-email"
 msgstr ""
@@ -313,7 +258,7 @@ msgstr ""
 msgid "@common-entity-location"
 msgstr ""
 
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-entity-type"
 msgstr ""
 
@@ -321,19 +266,15 @@ msgstr ""
 msgid "@common-faq"
 msgstr ""
 
-#: client/app/modal/settings.team.html
-msgid "@common-feature-not-supported-msg"
-msgstr ""
-
-#: client/app/modal/share/share.html
+#: client/app/modal/files/share/share.html
 msgid "@common-file"
 msgstr ""
 
-#: client/app/modal/profile.view.html
+#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-file-list"
 msgstr ""
 
-#: client/app/modal/share/share.html
+#: client/app/modal/files/share/share.html
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr ""
 
@@ -414,28 +355,20 @@ msgstr ""
 msgid "@common-has-jandi-app"
 msgstr ""
 
-#: client/app/modal/team_member_list/team.member.list.html
+#: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-inactive-member"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@common-info-basic"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@common-info-optional"
 msgstr ""
 
-#: client/app/password/password.reset.html
-msgid "@common-invalid-request"
-msgstr ""
-
-#: client/app/modal/join.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@common-joined"
-msgstr ""
-
-#: client/app/modal/settings.service.html
-msgid "@common-language"
 msgstr ""
 
 #: client/app/right/files/files.html
@@ -454,38 +387,26 @@ msgstr ""
 msgid "@common-more"
 msgstr ""
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
-#: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-name"
 msgstr ""
 
-#: client/app/modal/rename.html
-#: client/app/modal/settings.account.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-new-name"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@common-new-password"
 msgstr ""
 
 #: client/app/signin/signin.html
 msgid "@common-password"
 msgstr ""
 
-#: client/app/modal/settings.team.html
-msgid "@common-pasword-enter"
-msgstr ""
-
-#: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/profile.view.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-phone"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/profile.view.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-position"
 msgstr ""
 
@@ -495,16 +416,11 @@ msgid "@common-privacy-policy"
 msgstr ""
 
 #: client/app/left/member/member.html
-#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@common-profile-settings"
 msgstr ""
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/create.private.html
-msgid "@common-purpose"
-msgstr ""
-
-#: client/app/modal/rename.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-rename"
 msgstr ""
 
@@ -512,20 +428,16 @@ msgstr ""
 msgid "@common-search"
 msgstr ""
 
-#: client/app/modal/profile.view.html
+#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-send-mail"
 msgstr ""
 
-#: client/app/modal/settings.service.html
-msgid "@common-service-settings"
-msgstr ""
-
-#: client/app/modal/share/share.html
+#: client/app/modal/files/share/share.html
 msgid "@common-share-file"
 msgstr ""
 
-#: client/app/modal/share/share.html
-#: client/app/modal/upload/upload.html
+#: client/app/modal/files/share/share.html
+#: client/app/modal/files/upload/upload.html
 msgid "@common-share-in"
 msgstr ""
 
@@ -555,7 +467,7 @@ msgstr ""
 msgid "@common-start-using-mobile"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@common-status-msg"
 msgstr ""
 
@@ -568,7 +480,7 @@ msgstr ""
 msgid "@common-terms-of-service"
 msgstr ""
 
-#: client/app/modal/upload/upload.html
+#: client/app/modal/files/upload/upload.html
 msgid "@common-title"
 msgstr ""
 
@@ -576,24 +488,20 @@ msgstr ""
 msgid "@common-topics"
 msgstr ""
 
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-type-private"
 msgstr ""
 
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-type-public"
 msgstr ""
 
-#: client/app/modal/upload/upload.html
+#: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr ""
 
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@common-warning"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -709,46 +617,40 @@ msgstr ""
 msgid "@has-new-message-alert-msg"
 msgstr ""
 
-#: client/app/modal/upload/upload.html
+#: client/app/modal/files/upload/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
 
-#: client/app/modal/upload/upload.html
+#: client/app/modal/files/upload/upload.html
 msgid "@ie9-please-do-not-use"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
 
-#: client/app/modal/create.channel.html
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@input-create-ch"
 msgstr ""
 
-#: client/app/modal/create.private.html
-msgid "@input-create-pg"
-msgstr ""
-
-#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@input-max-length-20-error"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@input-max-length-60-error"
 msgstr ""
 
-#: client/app/modal/current_member_profile/settings.profile.html
-#: client/app/modal/settings.team.html
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@input-max-length-error"
 msgstr ""
 
-#: client/app/modal/rename.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-rename"
 msgstr ""
 
-#: client/app/modal/join.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@input-search-channel-name"
 msgstr ""
 
@@ -756,9 +658,8 @@ msgstr ""
 msgid "@input-search-file-title"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.channel.html
-#: client/app/modal/invite.channel.html
-#: client/app/modal/team_member_list/team.member.list.html
+#: client/app/modal/teams/team_member_list/team.member.list.html
+#: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@input-search-user-name"
 msgstr ""
 
@@ -766,79 +667,76 @@ msgstr ""
 msgid "@input-to-search"
 msgstr ""
 
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-user-password-error"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-user-password-hasSpace-error"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@input-user-password-min-length-error"
-msgstr ""
-
-#: client/app/modal/integration/integration.html
+#: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
+#: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-dropbox-1"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
+#: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-dropbox-2"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
+#: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-1"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
+#: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
+#: client/app/modal/files/integration/integration.html
 msgid "@integration-submit"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
+#: client/app/modal/files/integration/integration.html
 msgid "@integration-title-dropbox"
 msgstr ""
 
-#: client/app/modal/integration/integration.html
+#: client/app/modal/files/integration/integration.html
 msgid "@integration-title-google-drive"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.team.html
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation-already-member"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-contact-desc"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.team.html
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.team.html
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation-disabled-amdin-postfix"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation-disabled-amdin-prefix"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-invaild-email"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.team.html
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-link-desc"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.team.html
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-more-email"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.team.html
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-some-fail"
-msgstr ""
-
-#: client/app/modal/invitation/invitation.team.html
-msgid "@invitation_success_copy_link"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -857,7 +755,7 @@ msgstr ""
 msgid "@login-invalid"
 msgstr ""
 
-#: client/app/modal/password.reset.request.html
+#: client/app/modal/password/password.reset.request.html
 #: client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr ""
@@ -868,105 +766,55 @@ msgstr ""
 msgid "@message-delete"
 msgstr ""
 
-#: client/app/modal/join.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@modal-browse-ch"
 msgstr ""
 
-#: client/app/modal/create.channel.html
-msgid "@modal-create-ch-msg1"
-msgstr ""
-
-#: client/app/modal/create.channel.html
-msgid "@modal-create-ch-msg2"
-msgstr ""
-
-#: client/app/modal/create.channel.html
-msgid "@modal-create-ch-msg3"
-msgstr ""
-
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@modal-create-entity-title"
 msgstr ""
 
-#: client/app/modal/create.private.html
-msgid "@modal-create-pg-msg1"
-msgstr ""
-
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
 msgstr ""
 
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
 msgstr ""
 
-#: client/app/modal/topic_create/topic.create.html
+#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-3"
 msgstr ""
 
-#: client/app/modal/invite.direct.html
+#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@modal-dm-invite"
 msgstr ""
 
-#: client/app/modal/invite.direct.html
+#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@modal-dm-invite-msg1"
 msgstr ""
 
-#: client/app/modal/invitation/invitation.channel.html
-#: client/app/modal/invite.channel.html
+#: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@modal-invite-members"
 msgstr ""
 
-#: client/app/modal/join.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@modal-join-ch-you-belong"
 msgstr ""
 
-#: client/app/modal/join.html
+#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@modal-join-ch-you-can"
 msgstr ""
 
-#: client/app/modal/team_member_list/team.member.list.html
+#: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@modal-member-list-title"
 msgstr ""
 
-#: client/app/modal/image.crop.html
-msgid "@modal-profile-picture"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "@modal-setting-account-email"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "@modal-setting-account-msg1"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "@modal-setting-account-name"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-msgid "@modal-setting-account-name-msg"
-msgstr ""
-
-#: client/app/modal/settings.account.html
-#: client/app/password/password.reset.html
-msgid "@modal-setting-account-password"
-msgstr ""
-
-#: client/app/modal/current_member_profile/settings.profile.html
+#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@modal-setting-profile-msg1"
 msgstr ""
 
-#: client/app/modal/settings.service.html
-msgid "@modal-setting-service-msg1"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@modal-setting-team-msg"
-msgstr ""
-
-#: client/app/modal/upload/upload.html
+#: client/app/modal/files/upload/upload.html
 msgid "@modal-upload-title-msg1"
 msgstr ""
 
@@ -1029,40 +877,20 @@ msgstr ""
 msgid "@option-all-rooms"
 msgstr ""
 
-#: client/app/modal/invite.direct.html
+#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr ""
 
-#: client/app/modal/settings.service.html
-msgid "@option-noti-all"
-msgstr ""
-
-#: client/app/modal/settings.service.html
-msgid "@option-noti-dm"
-msgstr ""
-
-#: client/app/modal/settings.service.html
-msgid "@option-noti-none"
-msgstr ""
-
-#: client/app/password/password.reset.html
-msgid "@password-reset-done"
-msgstr ""
-
-#: client/app/modal/password.reset.request.html
+#: client/app/modal/password/password.reset.request.html
 msgid "@password-reset-email"
 msgstr ""
 
-#: client/app/modal/password.reset.request.html
+#: client/app/modal/password/password.reset.request.html
 msgid "@password-reset-email-fail"
 msgstr ""
 
-#: client/app/modal/password.reset.request.html
+#: client/app/modal/password/password.reset.request.html
 msgid "@password-reset-email-sent"
-msgstr ""
-
-#: client/app/password/password.reset.html
-msgid "@password-reset-message"
 msgstr ""
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
@@ -1083,59 +911,7 @@ msgstr ""
 msgid "@search-result-summary"
 msgstr ""
 
-#: client/app/modal/settings.team.html
-msgid "@setting-team-delete"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-delete-confirm"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-domain-change"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-domain-confirm"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-domain-msg"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-domain-taken-warning-msg"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-domain-warning-msg"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-name-change"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-name-confirm"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-name-msg"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-new-domain"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-new-name"
-msgstr ""
-
-#: client/app/modal/settings.team.html
-msgid "@setting-team-title"
-msgstr ""
-
-#: client/app/modal/invitation/invitation.team.html
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite"
 msgstr ""
 
@@ -1144,7 +920,7 @@ msgid "@team-members"
 msgstr ""
 
 #: client/app/header/header.html
-#: client/app/modal/team_change/team.change.html
+#: client/app/modal/teams/team_change/team.change.html
 msgid "@team-switch"
 msgstr ""
 
