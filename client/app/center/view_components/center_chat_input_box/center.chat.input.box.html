@@ -19,27 +19,32 @@
       </ul>
     </div>
   </div>
-  <div id="messages-input-container" style="height: 35px;">
-    <form id="message-form" style="height: 35px;">
-        <sticker-layer name="center"></sticker-layer>
-        <textarea id="message-input"
-                  class=""
-                  ng-class="{ 'post-loading': isPosting,
-                              'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
-                  message-submit="postMessage()"
-                  data-ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
-                  data-ng-model="message.content"
-                  maxlength=""
-                  style="overflow-y: hidden; height: 35px;"
-                  autocorrect="off"
-                  autocomplete="off"
-                  spellcheck="true"
-                  placeholder="{{ '@placeholder-input-message' | translate }}"
-                  ng-keyup="onKeyUp($event);"
-                  ng-keydown="onKeyDown($event);"
-                  msd-elastic>
-        </textarea>
-        <sticker-panel name="center"></sticker-panel>
-    </form>
+  <div id="messages-input-container">
+
+      <sticker-layer name="center"></sticker-layer>
+
+      <div class="message-input-wrap">
+        <form id="message-form">
+          <textarea id="message-input"
+                    class=""
+                    ng-class="{ 'post-loading': isPosting,
+                                'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
+                    message-submit="postMessage()"
+                    data-ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
+                    data-ng-model="message.content"
+                    maxlength=""
+                    autocorrect="off"
+                    autocomplete="off"
+                    spellcheck="true"
+                    placeholder="{{ '@placeholder-input-message' | translate }}"
+                    ng-keyup="onKeyUp($event);"
+                    ng-keydown="onKeyDown($event);"
+                    msd-elastic>
+          </textarea>
+      </form>
+      </div>
+
+      <sticker-panel name="center"></sticker-panel>
+
   </div>
 </div>

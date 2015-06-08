@@ -6,7 +6,7 @@
 .sticker_panel_wrap {
     position: absolute;
     right: 20px;
-    bottom: 8px;
+    bottom: 7px;
     z-index:10;
 }
 
@@ -34,12 +34,12 @@
 }
 .sticker_panel_li {
     float: left;
-    border-color: transparent!important;
     width: 65px;
     height: 65px;
     margin-left: 10px;
     text-align: center;
     line-height: 21px;
+    border: 2px solid #FFFFFF;
 }
 .sticker_panel_li:hover {
     border: 2px solid #d7e0e8;

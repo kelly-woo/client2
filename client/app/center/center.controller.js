@@ -1455,7 +1455,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (_isBottomReached()) {
       _scrollToBottom();
     }
-    $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 30);
+    $('.msgs').css('margin-bottom', $('#message-input').outerHeight()-20);
   });
 
   /**
