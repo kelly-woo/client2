@@ -10,7 +10,7 @@
     .module('jandiApp')
     .service('UnreadBadge', UnreadBadge);
 
-  function UnreadBadge($state) {
+  function UnreadBadge() {
     var map = {};
 
     this.add = add;

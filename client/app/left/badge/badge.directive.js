@@ -10,6 +10,7 @@
     .module('jandiApp')
     .directive('badge', badge);
 
+  /* @ngInject */
   function badge(jndPubSub, UnreadBadge) {
     return {
       link: link,
