@@ -1,5 +1,5 @@
 /**
- * @fileoverview 각 토픽 및 direct message 의 input 텍스트를 저장하고 반환하는 서비스
+ * @fileoverview unread badge 의 위치 정보를 담고 있는 service
  * @author Young Park <young.park@tosslab.com>
  */
 
@@ -11,12 +11,20 @@
     .service('UnreadBadge', UnreadBadge);
 
   function UnreadBadge($state) {
-
     var map = {};
 
     this.add = add;
     this.remove = remove;
     this.getUnreadPos = getUnreadPos;
+
+    /**
+     * badge 정보를 추가한다.
+     * @param {string} key  식별자
+     * @param {object} pos  뱃지의 위치 정보
+     *    @param {number} pos.top 뱃지의 top
+     *    @param {number} pos.bottom 뱃지의 bottom
+     * @param {object} entity 뱃지 정보의 원본 데이터 entity
+     */
     function add(key, pos, entity) {
       map[key] = {
         top: pos.top,
@@ -24,6 +32,24 @@
         entity: entity
       };
     }
+
+    /**
+     * badge 정보를 제거한다.
+     * @param {string} key 삭제할 아이템 식별자
+     */
+    function remove(key) {
+      if (map[key]) {
+        map[key] = null;
+        delete map[key];
+      }
+    }
+
+    /**
+     * 화면에 노출되지 않은 unread badge 의 포지션 정보를 반환한다.
+     * @param {number} top 현재 view-port 의 top 값
+     * @param {number} bottom 현재 view-port 의 bottom 값
+     * @returns {{above: Array, below: Array}}
+     */
     function getUnreadPos(top, bottom) {
       var unread = {
         above: [],
@@ -41,13 +67,6 @@
       unread.below.sort();
 
       return unread;
-    }
-
-    function remove(key) {
-      if (map[key]) {
-        map[key] = null;
-        delete map[key];
-      }
     }
   }
 })();

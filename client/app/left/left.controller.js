@@ -21,8 +21,15 @@ app.controller('leftPanelController1', function(
     broadcastTo: ''
   };
 
+  //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
 
+  //unread 위치에 대한 정보
+  $scope.unread = {
+    above: [],
+    below: []
+  };
+  
   // 로딩이 진행되고 있을 경우 true
   $scope.isLoading = false;
 
@@ -31,10 +38,7 @@ app.controller('leftPanelController1', function(
     isTopicsCollapsed: storageAPIservice.isLeftTopicCollapsed() || false
   };
 
-  $scope.unread = {
-    above: [],
-    below: []
-  };
+  
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
@@ -49,8 +53,11 @@ app.controller('leftPanelController1', function(
   }
 
   _attachExtraEvents();
+
+  $rootScope.$on('onBadgeCountChanged', updateUnreadPosition);
+  
   $scope.$on('$destroy', _onDestroy);
-  $rootScope.$on('onBadgeCountChanged', _onBadgeCountChanged);
+  
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);
@@ -59,8 +66,11 @@ app.controller('leftPanelController1', function(
   $scope.goUnreadBelow = goUnreadBelow;
   $scope.goUnreadAbove = goUnreadAbove;
 
+  /**
+   * 아래쪽 unread 로 scroll 이동  
+   * @param {Event} clickEvent
+   */
   function goUnreadBelow(clickEvent) {
-
     var jqTarget = $(clickEvent.target);
     var jqContainer = $('#lpanel-list-container');
     var scrollTop = jqContainer[0].scrollTop;
@@ -70,9 +80,13 @@ app.controller('leftPanelController1', function(
 
     var targetScrollTop = scrollTop + (top - currentBottom);
 
-    angular.element('#lpanel-list-container').animate({scrollTop: targetScrollTop + jqTarget.outerHeight()});
+    jqContainer.animate({scrollTop: targetScrollTop + jqTarget.outerHeight()});
   }
-
+  
+  /**
+   * 위쪽 unread 로 scroll 이동
+   * @param {Event} clickEvent
+   */
   function goUnreadAbove(clickEvent) {
     var jqTarget = $(clickEvent.target);
     var jqContainer = $('#lpanel-list-container');
@@ -82,9 +96,15 @@ app.controller('leftPanelController1', function(
     var top = _getPosUnreadAbove();
 
     var targetScrollTop = scrollTop - (currentTop - top);
-    console.log(jqTarget.outerHeight());
-    angular.element('#lpanel-list-container').animate({scrollTop: targetScrollTop - jqTarget.outerHeight()});
+    
+    jqContainer.animate({scrollTop: targetScrollTop - jqTarget.outerHeight()});
   }
+
+  /**
+   * 위쪽 unread 위치 반환
+   * @returns {number}
+   * @private
+   */
   function _getPosUnreadAbove() {
     var above = $scope.unread.above;
 
@@ -95,42 +115,59 @@ app.controller('leftPanelController1', function(
     }
   }
 
+  /**
+   * 아래쪽 unread 위치 반환
+   * @returns {number}
+   * @private
+   */
   function _getPosUnreadBelow() {
     var below = $scope.unread.below;
-    console.log(below, below[0]);
     return below[0] || 0;
   }
 
-  function _onBadgeCountChanged() {
-    _updateUnreadFlag();
-  }
+  /**
+   * scope 소멸자
+   * @private
+   */
   function _onDestroy() {
     $timeout.cancel(unreadTimer);
     _detachExtraEvents();
   }
+
+  /**
+   * 이벤트 핸들러를 attach 한다.
+   * @private
+   */
   function _attachExtraEvents() {
-    angular.element(window).on('resize', _onResize);
-    angular.element('#lpanel-list-container').on('scroll', _onScroll);
-  }
-  function _detachExtraEvents() {
-    angular.element(window).off('resize', _onResize);
-    angular.element('#lpanel-list-container').off('scroll', _onScroll);
-  }
-  function _onResize() {
-    _updateUnreadFlag();
-  }
-  function _onScroll() {
-    _updateUnreadFlag();
+    $(window).on('resize', updateUnreadPosition);
+    $('#lpanel-list-container').on('scroll', updateUnreadPosition);
   }
 
-  function _updateUnreadFlag() {
+  /**
+   * 이벤트 핸들러 detach 한다.
+   * @private
+   */
+  function _detachExtraEvents() {
+    $(window).off('resize', updateUnreadPosition);
+    $('#lpanel-list-container').off('scroll', updateUnreadPosition);
+  }
+
+  /**
+   * unread position 을 업데이트한다.
+   * 중복 호출에 대한 성능 향상을 위해 timeout 을 사용한다.
+   */
+  function updateUnreadPosition() {
     $timeout.cancel(unreadTimer);
     unreadTimer = $timeout(function() {
-      _updateInvisibles();
-    });
+      _updateUnreadPosition();
+    }, 0);
   }
 
-  function _updateInvisibles() {
+  /**
+   * unread position 을 업데이트한다.
+   * @private
+   */
+  function _updateUnreadPosition() {
     var jqContainer = $('#lpanel-list-container');
     var scrollTop = jqContainer[0].scrollTop;
     var offsetTop = jqContainer.offset().top;
@@ -141,6 +178,7 @@ app.controller('leftPanelController1', function(
 
     $scope.unread = UnreadBadge.getUnreadPos(top, bottom);
   }
+
   /**
    * left panel 업데이트 후에 알려줘야 할 컨틀롤러가 있음을 설정한다.
    * @param param {string} broadcast할 이벤트 이름
