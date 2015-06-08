@@ -15,12 +15,17 @@
       restrict: 'E',
       scope: false,
       controller: 'StickerPanelCtrl',
-      replace: true,
       link: link,
       templateUrl: 'app/sticker/panel/sticker.panel.html'
     };
 
-    function link(scope, element, attrs) {
+    function link(scope, el, attrs, ctrl) {
+      if (attrs.width) {
+        el.find('.sticker_panel').width(attrs.width);
+      }
+      if (attrs.height) {
+        el.find('.sticker_panel_contents').height(attrs.height - el.find('.sticker_panel_tab').height());
+      }
     }
   }
 })();

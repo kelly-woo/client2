@@ -11,7 +11,7 @@
 }
 
 .sticker_panel_btn {
-    opacity: 0.5;
+    opacity: 0.3;
     font-size: 18px;
     color: black;
 }
@@ -84,6 +84,7 @@
     opacity: 1;
 }
 
+
 .sticker_layer {
     z-index:10;
     min-height: 140px;
@@ -99,4 +100,8 @@
 .sticker_layer img {
     margin-left: 20px;
     margin-bottom: 10px;
+}
+.sticker_layer_remove {
+    margin-top: 8px;
+    margin-right: 8px;
 }

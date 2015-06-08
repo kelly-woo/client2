@@ -169,7 +169,7 @@
              ng-click="onUserClick(user);"/>
       </div>
       <form id="comment-form" data-ng-submit="postComment();">
-        <sticker-layer name="file" maxWidth="412px" maxHeight="145px"></sticker-layer>
+        <sticker-layer name="file" height="145"></sticker-layer>
         <div class="comment-textarea-wrap">
           <textarea id="file-detail-comment-input"
                     class="comment-input"
@@ -180,7 +180,7 @@
                     autocomplete="off"
                     spellcheck="true"
                     ng-disabled="isPostingComment"></textarea>
-          <sticker-panel name="file"></sticker-panel>
+          <sticker-panel name="file" width="270" height="154"></sticker-panel>
         </div>
         <span class="comment-input__tip pull-left">
           <span translate>@msg-help-multiline</span>

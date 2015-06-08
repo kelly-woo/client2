@@ -15,12 +15,14 @@
       restrict: 'E',
       scope: false,
       controller: 'StickerLayerCtrl',
-      replace: true,
       link: link,
       templateUrl: 'app/sticker/layer/sticker.layer.html'
     };
 
-    function link(scope, element, attrs) {
+    function link(scope, el, attrs) {
+      if (attrs.height) {
+        el.find('.sticker_layer').height(attrs.height);
+      }
     }
   }
 })();
