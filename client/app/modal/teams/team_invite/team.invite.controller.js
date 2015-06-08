@@ -7,7 +7,7 @@
     .controller('TeamInviteCtrl', TeamInviteCtrl);
 
   /* @ngInject */
-  function TeamInviteCtrl($scope, $modalInstance, teamInfo, configuration, currentSessionHelper) {
+  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, memberService, publicService, currentSessionHelper) {
     var currentTeamAdmin;
 
     $scope.disabledImage = configuration.assets_url + 'assets/images/invite-disabled.png';
@@ -18,9 +18,13 @@
     $scope.inviteDisabled = teamInfo.invitationStatus === 'disabled';   // invite status
     $scope.disableSeedUri = $scope.seedUri === '';
 
+    // current team name
+    $scope.currentTeamName = currentSessionHelper.getCurrentTeam().name;
+
     // team의 admin
     currentTeamAdmin = currentSessionHelper.getCurrentTeamAdmin();
     $scope.adminName = currentTeamAdmin ? currentTeamAdmin.name : '';
+    $scope.isAdmin = currentTeamAdmin.id === memberService.getMemberId();
 
     $scope.add = function() {
       $scope.invitation.add();
@@ -36,5 +40,10 @@
     $scope.toggleLoading = function() {
       $scope.isLoading = !$scope.isLoading;
     }
+
+    $scope.toAdmin = function() {
+      var teamName = $filter('getName')($scope.team);
+      publicService.redirectTo(configuration.main_address + 'admin/' + teamName);
+    };
   }
 })();
