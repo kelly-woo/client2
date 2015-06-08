@@ -80,7 +80,11 @@ app.controller('leftPanelController1', function(
 
     var targetScrollTop = scrollTop + (top - currentBottom);
 
-    jqContainer.animate({scrollTop: targetScrollTop + jqTarget.outerHeight()});
+    if ($scope.unread.below.length > 1) {
+      targetScrollTop += jqTarget.outerHeight();
+    }
+
+    jqContainer.animate({scrollTop: targetScrollTop});
   }
   
   /**
@@ -96,8 +100,12 @@ app.controller('leftPanelController1', function(
     var top = _getPosUnreadAbove();
 
     var targetScrollTop = scrollTop - (currentTop - top);
-    
-    jqContainer.animate({scrollTop: targetScrollTop - jqTarget.outerHeight()});
+
+    if ($scope.unread.above.length > 1) {
+      targetScrollTop -= jqTarget.outerHeight();
+    }
+
+    jqContainer.animate({scrollTop: targetScrollTop});
   }
 
   /**
