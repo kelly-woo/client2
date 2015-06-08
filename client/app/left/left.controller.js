@@ -109,7 +109,7 @@ app.controller('leftPanelController1', function(
   }
 
   /**
-   * 위쪽 unread 위치 반환
+   * 위쪽 unread badge top 위치 반환
    * @returns {number}
    * @private
    */
@@ -124,7 +124,7 @@ app.controller('leftPanelController1', function(
   }
 
   /**
-   * 아래쪽 unread 위치 반환
+   * 아래쪽 unread badge bottom 위치 반환
    * @returns {number}
    * @private
    */
