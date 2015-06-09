@@ -77,11 +77,13 @@ app.controller('leftPanelController1', function(
     var offsetTop = jqContainer.offset().top;
     var currentBottom = scrollTop + offsetTop + jqContainer.height();
     var top = _getPosUnreadBelow();
+    // 아래 여백
+    var space = 9;
 
     var targetScrollTop = scrollTop + (top - currentBottom);
 
     if ($scope.unread.below.length > 1) {
-      targetScrollTop += jqTarget.outerHeight();
+      targetScrollTop += jqTarget.outerHeight() + space;
     }
 
     jqContainer.animate({scrollTop: targetScrollTop});
@@ -98,11 +100,13 @@ app.controller('leftPanelController1', function(
     var offsetTop = jqContainer.offset().top;
     var currentTop = scrollTop + offsetTop;
     var top = _getPosUnreadAbove();
+    //위 여백
+    var space = 7;
 
     var targetScrollTop = scrollTop - (currentTop - top);
 
     if ($scope.unread.above.length > 1) {
-      targetScrollTop -= jqTarget.outerHeight();
+      targetScrollTop -= jqTarget.outerHeight() + space;
     }
 
     jqContainer.animate({scrollTop: targetScrollTop});
