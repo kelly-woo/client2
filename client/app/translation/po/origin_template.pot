@@ -392,10 +392,6 @@ msgstr ""
 msgid "@common-name"
 msgstr ""
 
-#: client/app/left/left.html
-msgid "@common-new-message"
-msgstr ""
-
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-new-name"
 msgstr ""
@@ -708,11 +704,23 @@ msgid "@invitation_success_copy_link"
 msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation-already-member"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-contact-desc"
 msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation-disabled-amdin-postfix"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation-disabled-amdin-prefix"
 msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html

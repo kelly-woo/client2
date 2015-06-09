@@ -18,6 +18,9 @@
       var done = $filter('translate')('@common-done');
       var invalidEmail = $filter('translate')('@invitation-invaild-email');
       var someFail = $filter('translate')('@invitation-some-fail');
+      var alreadyMember = $filter('translate')('@invitation-already-member');
+
+      var hasDuplicate;
 
       var invitation;
       var clipButton;
@@ -87,7 +90,12 @@
 
               // 부분 실패
               if (successCnt !== totalCnt) {
-                msg = someFail;
+                if (totalCnt === 1 && hasDuplicate) {
+                  // 한명분을 팀멤버로 초대하려고 할때 실패한 경우 message
+                  msg = alreadyMember.replace('{{invitedTeamName}}', scope.currentTeamName);
+                } else {
+                  msg = someFail;
+                }
               }
 
               if (msg) {
@@ -118,7 +126,7 @@
               scope.toggleLoading();
             },
             onDuplicate: function(ele) {
-              // console.log('duplicate ::: ', ele);
+              hasDuplicate = true;
             },
             onSuccess: function(ele) {
               // console.log('success ::: ', ele);

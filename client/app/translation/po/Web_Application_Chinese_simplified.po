@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -403,10 +403,6 @@ msgstr "浏览"
 msgid "@common-name"
 msgstr "名称"
 
-#: client/app/left/left.html
-msgid "@common-new-message"
-msgstr "新信息"
-
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-new-name"
 msgstr "新姓名"
@@ -722,6 +718,10 @@ msgid "@invitation_success_copy_link"
 msgstr "成员邀请的链接已复制到剪贴簿"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation-already-member"
+msgstr "此电子邮箱已为 {{invitedTeamName}} 的成员"
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-contact-desc"
 msgstr ""
 "想邀请超过100位成员？ 让我们来协助你！ <a href=\"mailto:support@tosslab.com"
@@ -730,6 +730,14 @@ msgstr ""
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled"
 msgstr "邀请链接已关闭，请联络团队管理员({{adminName}})请求协助。"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation-disabled-amdin-postfix"
+msgstr "可于团队设置中启用"
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation-disabled-amdin-prefix"
+msgstr "邀请链接已关闭。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-invaild-email"
