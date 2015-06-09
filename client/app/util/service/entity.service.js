@@ -190,20 +190,16 @@
 
       //console.log(alarmCount)
       if (alarmCount == -1) {
-        if (angular.isUndefined(this.getEntityFromListById(list, entity.id).alarmCnt)) {
-          this.getEntityFromListById(list, entity.id).alarmCnt = 1;
+        if (angular.isUndefined(curEntity.alarmCnt)) {
+          curEntity.alarmCnt = 1;
         } else {
-          this.getEntityFromListById(list, entity.id).alarmCnt++;
+          curEntity.alarmCnt++;
         }
         pcAppHelper.onAlarmCntChanged(entity.id, curEntity.alarmCnt);
-        return;
+      } else {
+        curEntity.alarmCnt = alarmCount;
+        pcAppHelper.onAlarmCntChanged(entity.id, alarmCount);
       }
-
-
-      this.getEntityFromListById(list, entity.id).alarmCnt = alarmCount;
-      pcAppHelper.onAlarmCntChanged(entity.id, alarmCount);
-
-
     }
 
 

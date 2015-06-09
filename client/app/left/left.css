@@ -278,3 +278,22 @@
   opacity: 1;
 
 }
+
+.lpanel-list-help-unread {
+    position: fixed;
+    width: inherit;
+    text-align: center;
+    min-height: 5px;
+}
+.lpanel-list-help-unread .btn-danger {
+    background-color: #00abe6 !important;
+    font-size: 13px;
+    border-radius: 12px;
+}
+.lpanel-list-help-unread.above {
+    position: fixed;
+    top: 136px;
+}
+.lpanel-list-help-unread.below {
+    bottom: 9px;
+}
