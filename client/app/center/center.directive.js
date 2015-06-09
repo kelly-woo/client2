@@ -40,7 +40,7 @@
     }
   }
 
-  function lastDetector() {
+  function lastDetector(Message) {
     var counter = 0;
     var counterFlag = false;
     return {
@@ -49,6 +49,9 @@
     };
 
     function link (scope, element, attrs, ctrl) {
+      var message = Message.createInstance(element);
+
+      message.attach(scope);
       if (scope.isPolling) {
         //console.log('polling');
         counter++;
