@@ -201,7 +201,7 @@ article {
   bottom: 50px;
   overflow: auto;
   min-width: 260px;
-  margin-bottom: 0;
+  padding-bottom: 0;
 }
 .msgs__loading {
   background-size: 40px 40px !important;
@@ -271,15 +271,17 @@ article {
   margin-bottom: 8px;
 }
 .msg-item__action {
-  display: none;
+
+    display:none;
+    position:absolute;
+    right:-7px;
+    bottom: 4px
 }
 .msg-item__action .icon-cancel {
-  position: absolute;
-  right: -7px;
-  bottom: 4px;
 }
+
 .msg-item:hover .msg-item__action {
-  display: block;
+    display:inline-block;
 }
 .msg-item-float {
   position: absolute;

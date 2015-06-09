@@ -77,7 +77,7 @@
           <system-event ng-if="msg.message.contentType === 'systemEvent'"></system-event>
           <text ng-if="msg.message.isText"></text>
           <file-uploaded ng-if="msg.message.isFile"></file-uploaded>
-          <title-comment ng-if="msg.message.contentType === 'comment'"></title-comment>
+          <title-comment ng-if="msg.message.isComment"></title-comment>
         </div>
 
       </div>

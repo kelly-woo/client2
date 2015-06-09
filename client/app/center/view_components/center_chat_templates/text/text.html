@@ -18,7 +18,9 @@
     <div class="msg-item-body">
       <!-- TEXT -->
       <div class="msg-text">
-        <span ng-if="msg.message.contentType === 'sticker'"><img src="{{msg.message.content.url}}" width="145" height="145"/></span>
+
+        <img ng-if="msg.message.contentType === 'sticker'"  class="sticker size_5" src="{{msg.message.content.url}}"/>
+
         <span ng-if="msg.message.contentType !== 'sticker'"
               class="keep msg-text-body"
               data-ng-bind-html="(msg.message.content.body) || ''"></span>
@@ -27,12 +29,14 @@
         </span>
         <span class="badge unread-badge">{{ msg.unreadCount }}</span>
         <!--    DELETE ICON APPEARS ON HOVER    -->
-        <a class="msg-item__action link-remove pull-right cursor_pointer"
-           data-ng-if="member.id === msg.fromEntity"
-           data-ng-click="deleteMessage(msg)"
-           tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
-          <i class="icon-cancel"></i>
-        </a>
+        <span class="msg-item__action">
+          <a class="link-remove pull-right cursor_pointer"
+             data-ng-if="member.id === msg.fromEntity"
+             data-ng-click="deleteMessage(msg)"
+             tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
+            <i class="icon-cancel"></i>
+          </a>
+        </span>
       </div>
     </div>
   </div>
@@ -41,7 +45,7 @@
     <div class="msg-item-body">
       <!-- TEXT -->
       <div class="msg-text">
-        <span ng-if="msg.message.contentType === 'sticker'"><img src="{{msg.message.content.url}}" width="145" height="145"/></span>
+        <img ng-if="msg.message.contentType === 'sticker'" class="sticker size_5" src="{{msg.message.content.url}}"/>
         <span ng-if="msg.message.contentType !== 'sticker'"
               class="keep msg-text-body"
               data-ng-bind-html="(msg.message.content.body) || ''"></span>
@@ -50,12 +54,14 @@
         </span>
         <span class="badge unread-badge">{{ msg.unreadCount }}</span>
         <!--    DELETE ICON APPEARS ON HOVER    -->
-        <a class="msg-item__action link-remove pull-right cursor_pointer"
-           data-ng-if="member.id === msg.fromEntity"
-           data-ng-click="deleteMessage(msg)"
-           tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
-          <i class="icon-cancel"></i>
-        </a>
+        <span class="msg-item__action">
+          <a class="link-remove pull-right cursor_pointer"
+             data-ng-if="member.id === msg.fromEntity"
+             data-ng-click="deleteMessage(msg)"
+             tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
+            <i class="icon-cancel"></i>
+          </a>
+        </span>
       </div>
     </div>
   </div>

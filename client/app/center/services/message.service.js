@@ -75,7 +75,7 @@
         groupId: sticker.groupId,
         teamId: memberService.getTeamId(),
         share: entityId,
-        type: message ? _getParamEntityType(entityType, true): '',
+        type: message ? _getParamEntityType(entityType): '',
         content: message
       };
 

@@ -146,7 +146,7 @@
               </a>
               <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
                 <li class="cursor_pointer">
-                  <a data-ng-click="deleteComment(comment.id)">
+                  <a data-ng-click="deleteComment(comment.id, comment.isSticker)">
                     <i class="fa fa-times"></i>
                     <span translate>@btn-delete</span>
                   </a>
@@ -155,7 +155,8 @@
             </span>
           </div>
           <div class="comment-item-body">
-            <p class="keep" data-ng-bind-html="(comment.content.body) || ''"></p>
+            <img class="sticker size_5" ng-if="comment.isSticker" src="{{ comment.content.url }}"/>
+            <p ng-if="!comment.isSticker" class="keep" data-ng-bind-html="(comment.content.body) || ''"></p>
           </div>
         </div>
 
@@ -240,7 +241,7 @@
       </div>
 
       <div class="rpanel-detail-body-comment" ng-if="file_comments.length > 0">
-        <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}">
+        <div class="comment-item" data-ng-repeat="comment in file_comments" data-comment-id="{{ comment.id }}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
                  ng-src="{{ comment.writerId | getSmallThumbnail }}"
@@ -255,7 +256,7 @@
               </a>
               <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
                 <li class="cursor_pointer">
-                  <a data-ng-click="deleteComment(comment.id)">
+                  <a data-ng-click="deleteComment(comment.id, comment.isSticker)">
                     <i class="fa fa-times"></i>
                     <span translate>@btn-delete</span>
                   </a>
@@ -264,7 +265,8 @@
             </span>
           </div>
           <div class="comment-item-body">
-            <p class="keep" data-ng-bind-html="(comment.content.body) || ''"></p>
+            <img class="sticker size_5" ng-if="comment.isSticker" src="{{ comment.content.url }}"/>
+            <p ng-if="!comment.isSticker" class="keep" data-ng-bind-html="(comment.content.body) || ''"></p>
           </div>
         </div>
 

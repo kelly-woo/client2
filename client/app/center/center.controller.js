@@ -269,18 +269,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _setMessageDetail(messages) {
+    var contentType;
     _.each(messages, function(data, index) {
-      switch (_getContentType(index, messages)) {
-        case 'sticker':
-        case 'text':
-          data.message.isChildText = _isChildTextMsg(index, messages);
-          data.message.hasChildText = _hasChildTextMsg(index, messages);
-          break;
-        case 'comment':
-          data.message.commentOption = _getCommentOption(messages[index], messages[index - 1]);
-          break;
-        default:
-          break;
+      contentType = _getContentType(index, messages);
+      if (_isTextType(contentType)) {
+        data.message.isChildText = _isChildTextMsg(index, messages);
+        data.message.hasChildText = _hasChildTextMsg(index, messages);
+      } else if (_isCommentType(contentType)) {
+        data.message.commentOption = _getCommentOption(messages[index], messages[index - 1]);
       }
     });
   }
@@ -372,25 +368,44 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       contentType = msg.contentType;
       if (contentType === 'file') {
         msg.isFile = true;
-      } else if (contentType === 'text' || contentType === 'sticker') {
+      } else if (_isTextType(contentType)) {
         msg.isText = true;
+      } else if (_isCommentType(contentType)) {
+        msg.isComment = true;
       }
     });
   }
 
+  /**
+   * content type 이 text type 인지 확인한다.
+   * @param {string} contentType
+   * @returns {boolean}
+   * @private
+   */
   function _isTextType(contentType) {
     return contentType === 'text' || contentType === 'sticker';
+  }
+
+  /**
+   * content type 이 코멘트인지 확인한다.
+   * @param {string} contentType
+   * @returns {boolean}
+   * @private
+   */
+  function _isCommentType(contentType) {
+    return contentType === 'comment' || contentType === 'comment_sticker';
   }
   /**
    * comment 메세지에 할당할 comment option 객체를 생성하여 반환한다.
    * @param {object} message 메세지
    * @param {object} prevMessage 이전 메세지
-   * @returns {{isTitle: boolean, isContinue: boolean}} comment option 객체
+   * @returns @returns {{isSticker: boolean, isChild: boolean, isTitle: boolean, isContinue: boolean}} comment option 객체
    * @private
    */
   function _getCommentOption(message, prevMessage) {
     var isTitle = true;
     var isChild = false;
+    var isSticker = (message.message.contentType === 'comment_sticker');
     var feedbackId = message.feedbackId;
     var writerId = message.message.writerId;
 
@@ -406,6 +421,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     return {
+      isSticker: isSticker,
       isChild: isChild,
       isTitle: isTitle,
       isContinue: !isTitle
@@ -1071,7 +1087,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isPosting = false;
     log('-- posting message success');
     //  reseting position of msgs
-    $('.msgs').css('margin-bottom', 0);
+
     if (!_hasLastMessage()) {
       log('posting - search mode');
       _refreshCurrentTopic();
@@ -1245,7 +1261,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     // comment but not to image file -> return
-    if (message.message.contentType === 'comment'){
+    if (_isCommentType(message.message.contentType)){
       return;
     }
 
@@ -1288,7 +1304,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var newThumbnail;   // large thumbnail address
     var fullUrl;        // it could be file, too.
 
-    if (message.message.contentType === 'comment') {
+    if (_isCommentType(message.message.contentType)) {
       newThumbnail = $scope.server_uploaded + (message.feedback.content.extraInfo ? message.feedback.content.extraInfo.largeThumbnailUrl : '');
       fullUrl = $scope.server_uploaded + message.feedback.content.fileUrl;
     }
@@ -1455,7 +1471,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (_isBottomReached()) {
       _scrollToBottom();
     }
-    $('.msgs').css('margin-bottom', $('#message-input').outerHeight()-20);
+    $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 20);
   });
 
   /**
@@ -1877,7 +1893,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     _.forEach($scope.messages, function(message) {
 
-      if (message.message.contentType === 'comment' && message.message.commentOption.isTitle) {
+      if (_isCommentType(message.message.contentType) && message.message.commentOption.isTitle) {
         if (message.message.feedbackId === deletedFileId) {
           message.feedback.status = 'archived';
         }
