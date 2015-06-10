@@ -392,6 +392,10 @@ msgstr ""
 msgid "@common-name"
 msgstr ""
 
+#: client/app/left/left.html
+msgid "@common-new-message"
+msgstr ""
+
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-new-name"
 msgstr ""
