@@ -6,7 +6,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice,
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
-                                                 centerService, markerService, textbuffer, modalHelper) {
+                                                 centerService, markerService, TextBuffer, modalHelper) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
@@ -151,7 +151,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.groupMsgs = [];
     $scope.messages = [];
     $scope.isMessageSearchJumping = false;
-    $scope.message.content = textbuffer.get();
+    $scope.message.content = TextBuffer.get();
     messages = {};
   }
 
@@ -1286,7 +1286,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   $scope.onKeyUp = function($event) {
     var text = $($event.target).val();
-    textbuffer.set(text);
+    TextBuffer.set(text);
   };
 
   $scope.setCommentFocus = function(file) {
