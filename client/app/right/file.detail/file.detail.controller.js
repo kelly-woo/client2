@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice, publicService, configuration, jndPubSub) {
+app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice, publicService, configuration, jndPubSub, jndKeyCode) {
   var fileId = $state.params.itemId;
   var _sticker = null;
   //file detail에서 integraiton preview로 들어갈 image map
@@ -36,6 +36,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   $scope.backToFileList = backToFileList;
   $scope.onUserClick = onUserClick;
   $scope.onCommentFocusClick = onCommentFocusClick;
+  $scope.onKeyDown = onKeyDown;
 
   _init();
 
@@ -149,6 +150,15 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     }
   }
 
+  /**
+   * keyDown 핸들러
+   * @param keyDownEvent
+   */
+  function onKeyDown(keyDownEvent) {
+    if (jndKeyCode.match('ESC', keyDownEvent.keyCode)) {
+      _hideSticker();
+    }
+  }
   /**
    * user 이미지 클릭시 이벤트 핸들러
    * @param {object} user
