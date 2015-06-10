@@ -99,7 +99,11 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
             $scope.isFileArchived = isFileArchived($scope.file_detail);
 
             if ($scope.file_detail) {
-              setImageUrl($scope.file_detail);    // preview image url 생성
+              if ($scope.file_detail.content && /image/i.test($scope.file_detail.content.type)) {
+                // preview image url 생성
+                setImageUrl($scope.file_detail);
+              }
+
               $scope.isIntegrateFile  = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
             }
             //console.log($scope.file_detail)
@@ -170,17 +174,23 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     google: 'assets/images/web_preview_google.png',
     dropbox: 'assets/images/web_preview_dropbox.png'
   };
+  var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
   /**
    * file detail에서 preview 공간에 들어갈 image의 url을 설정함
    */
   function setImageUrl(fileDetail) {
     var content = fileDetail.content;
+    var integrationImage;
 
     // file detail에서 preview image 설정
     if ($filter('hasPreview')(content)) {
       $scope.ImageUrl = $scope.server_uploaded + content.fileUrl;
     } else {
-      $scope.ImageUrl = (integrationPreviewMap[content.serverUrl] && (configuration.assets_url + integrationPreviewMap[content.serverUrl]));
+      if (integrationImage = integrationPreviewMap[content.serverUrl]) {
+        $scope.ImageUrl = configuration.assets_url + integrationImage;
+      } else {
+        $scope.ImageUrl = configuration.assets_url + noPreviewAvailableImage;
+      }
       $scope.cursor = 'pointer';
     }
   }
