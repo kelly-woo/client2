@@ -1,5 +1,5 @@
 /**
- * @fileoverview 사용자가 입력한 text를 수정하여 center chat에 출력함.
+ * @fileoverview 특정 text에 대한 link 생성 Service
  */
 (function() {
   'use strict';
