@@ -13,7 +13,7 @@
           <i class="icon-private-group" ng-if="joinedEntity.type=='privategroups'"></i>
           {{joinedEntity.name}}
         </span>
-
-    <span class="badge left-panel_badge green_badge pull-right">{{joinedEntity.alarmCnt}}</span>
+    <badge content="{{joinedEntity.alarmCnt}}" group="topic" key="{{joinedEntity.id}}" entity="{{joinedEntity}}"></badge>
+    <!--<span class="badge left-panel_badge green_badge pull-right">{{joinedEntity.alarmCnt}}</span>-->
   </a>
 </li>
