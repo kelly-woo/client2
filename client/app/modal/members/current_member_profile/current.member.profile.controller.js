@@ -218,9 +218,7 @@
     function changeProfileEmail() {
       // email address changed!!
       memberService.setEmail(memberService.getEmail($scope.curUser))
-        .success(
-          closeModal
-        )
+        .success(closeModal)
         .error(function(err) {
           console.log(err);
         })
