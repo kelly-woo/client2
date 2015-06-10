@@ -26,7 +26,7 @@
 
     function link(scope, el, attrs, ctrl) {
       var key = scope.group + '_' + scope.key;
-
+      var jqParent = el.parent();
       scope.$on('$destroy', _onDestroy);
       scope.$watch('content', _onContentChange);
 
@@ -42,7 +42,7 @@
 
         if (newVal > 0) {
           top = _getTop();
-          bottom = top + el.parent().height();
+          bottom = top + jqParent.height();
 
           UnreadBadge.add(key, {
             top: top,
@@ -69,7 +69,7 @@
        */
       function _getTop() {
         var scrollTop = $('#lpanel-list-container').scrollTop();
-        return scrollTop + el.offset().top;
+        return scrollTop + jqParent.offset().top;
       }
     }
   }

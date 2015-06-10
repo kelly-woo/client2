@@ -71,12 +71,14 @@ app.controller('leftPanelController1', function(
    * @param {Event} clickEvent
    */
   function goUnreadBelow(clickEvent) {
-    var jqTarget = $(clickEvent.target);
+    var jqTarget = $(clickEvent.target).closest('.lpanel-list-help-unread ');
     var jqContainer = $('#lpanel-list-container');
     var scrollTop = jqContainer[0].scrollTop;
     var offsetTop = jqContainer.offset().top;
     var currentBottom = scrollTop + offsetTop + jqContainer.height();
     var top = _getPosUnreadBelow();
+
+
     // 아래 여백
     var space = 9;
 
@@ -85,7 +87,6 @@ app.controller('leftPanelController1', function(
     if ($scope.unread.below.length > 1) {
       targetScrollTop += jqTarget.outerHeight() + space;
     }
-
     jqContainer.animate({scrollTop: targetScrollTop});
   }
   
@@ -172,7 +173,7 @@ app.controller('leftPanelController1', function(
     $timeout.cancel(unreadTimer);
     unreadTimer = $timeout(function() {
       _updateUnreadPosition();
-    }, 0);
+    }, 10);
   }
 
   /**
@@ -187,7 +188,6 @@ app.controller('leftPanelController1', function(
 
     var top = scrollTop + offsetTop;
     var bottom = top + height;
-
     $scope.unread = UnreadBadge.getUnreadPos(top, bottom);
   }
 

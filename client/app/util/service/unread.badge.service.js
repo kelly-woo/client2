@@ -27,8 +27,8 @@
      */
     function add(key, pos, entity) {
       map[key] = {
-        top: pos.top,
-        bottom: pos.bottom,
+        top: Math.floor(pos.top),
+        bottom: Math.floor(pos.bottom),
         entity: entity
       };
     }

@@ -280,7 +280,7 @@
 }
 
 .lpanel-list-help-unread {
-    position: fixed;
+    position: absolute;
     width: inherit;
     text-align: center;
     min-height: 5px;
@@ -291,8 +291,7 @@
     border-radius: 12px;
 }
 .lpanel-list-help-unread.above {
-    position: fixed;
-    top: 136px;
+    top: 95px;
 }
 .lpanel-list-help-unread.below {
     bottom: 9px;

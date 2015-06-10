@@ -40,16 +40,13 @@
         <messages>
         </messages>
       </div>
-      <!--<div ng-if="unread.above.length" class="lpanel-list-help-unread above">-->
-        <!--<button type="button" class="btn btn-danger" ng-click="goUnreadAbove($event);">위에 읽지 않은 메세지가 있습니다.</button>-->
-      <!--</div>-->
-      <div ng-if="unread.below.length" class="lpanel-list-help-unread below">
-          <button type="button" class="btn btn-danger" ng-click="goUnreadBelow($event);"><span translate>@common-new-message</span> <i class="fa fa-angle-double-down"></i></button>
-      </div>
     </div>
-
-
-
+    <!--<div ng-if="unread.above.length" class="lpanel-list-help-unread above">-->
+      <!--<button type="button" class="btn btn-danger" ng-click="goUnreadAbove($event);">위에 읽지 않은 메세지가 있습니다.</button>-->
+    <!--</div>-->
+    <div ng-if="unread.below.length" class="lpanel-list-help-unread below">
+      <button type="button" class="btn btn-danger" ng-click="goUnreadBelow($event);"><span translate>@common-new-message</span> <i class="fa fa-angle-double-down"></i></button>
+    </div>
   </aside>
 
   <div ui-view="centerpanel" class="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>
