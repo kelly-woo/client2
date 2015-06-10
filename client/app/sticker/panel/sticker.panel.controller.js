@@ -101,7 +101,7 @@
 
     /**
      * groupId 에 해당하는 스티커를 로드한다.
-     * @param {number} groupId
+     * @param {number} [groupId=100]
      * @private
      */
     function _getList(groupId) {

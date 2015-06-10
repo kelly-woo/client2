@@ -46,7 +46,14 @@
       });
     }
 
-    // post message
+    /**
+     * 메세지를 전송한다.
+     * @param {string} entityType - entity 타입
+     * @param {string} entityId   - entity ID
+     * @param {string} message    - 메세지
+     * @param {object} sticker    - 스티커 객체
+     * @returns {*}
+     */
     function postMessage(entityType, entityId, message, sticker) {
       if (!sticker) {
         return _postMessage(entityType, entityId, message);
@@ -55,6 +62,14 @@
       }
     }
 
+    /**
+     * 메세지를 입력한다.
+     * @param {string} entityType - entity 타입
+     * @param {string} entityId   - entity ID
+     * @param {string} message    - 메세지
+     * @returns {*}
+     * @private
+     */
     function _postMessage(entityType, entityId, message) {
       entityType = _getParamEntityType(entityType);
       return $http({
@@ -69,6 +84,15 @@
       });
     }
 
+    /**
+     * 스티커를 입력한다.
+     * @param {string} entityType - entity 타입
+     * @param {string} entityId   - entity ID
+     * @param {string} message    - 메세지
+     * @param {object} sticker    - 스티커 객체
+     * @returns {*}
+     * @private
+     */
     function _postSticker(entityType, entityId, message, sticker) {
       var data = {
         stickerId: sticker.id,
@@ -88,7 +112,7 @@
     /**
      * server 로 전달할 entityType 문자열을 반환한다.
      * @param {string} entityType 전달받은 entityType
-     * @param {boolean} [isSingular=false]
+     * @param {boolean} [isSingular=false] 단수형인지 복수형인지 여부
      * @returns {string}
      * @private
      */
@@ -123,7 +147,13 @@
       });
     }
 
-    // delete message
+    /**
+     * 메세지를 제거한다.
+     * @param {string} entityType - entity 타입
+     * @param {string} entityId   - entity ID
+     * @param {string} messageId  - 메세지 ID
+     * @returns {*}
+     */
     function deleteMessage(entityType, entityId, messageId) {
       entityType = _getParamEntityType(entityType);
       return $http({
@@ -135,6 +165,11 @@
       });
     }
 
+    /**
+     * 스티커를 제거한다.
+     * @param {string} messageId 메세지 ID
+     * @returns {*}
+     */
     function deleteSticker(messageId) {
       return $http({
         method  : 'DELETE',
