@@ -10,54 +10,90 @@
     .controller('StickerPanelCtrl', StickerPanelCtrl);
 
   function StickerPanelCtrl($scope, $attrs, jndPubSub, Sticker) {
+    // 서버에서 group 리스트 API 완성전에 대비하여 임시로 만든 데이터
+    var groups = [
+      {
+        isRecent: true,
+        isSelected: false
+      },
+      {
+        isRecent: false,
+        isSelected: true
+      }
+    ];
 
-    $scope.name = $attrs.name;
-    $scope.onClickTabRecent = onClickTabRecent;
-    $scope.onClickTabGroup = onClickTabGroup;
+    $scope.onClickGroup = onClickGroup;
     $scope.onClickItem = onClickItem;
     $scope.onToggled = onToggled;
-    $scope.status = {
-      isOpen: false
-    };
 
     init();
 
+    /**
+     * 초기화 메서드
+     */
     function init() {
-      _getList();
+      $scope.groups = groups;
+      $scope.name = $attrs.name;
+      $scope.isRecent = false;
+      $scope.status = {
+        isOpen: false
+      };
+      _select();
     }
 
+    /**
+     * show hide 토글 핸들러
+     * @param {boolean} isOpen 현재 show 되었는지 여부
+     */
     function onToggled(isOpen) {
       $scope.status.isOpen = isOpen;
-      console.log($scope.status.isOpen);
-    }
-
-    function _selectTab(groupId) {
-
-    }
-
-
-    /**
-     * 최근 사용 탭 클릭 시
-     * @param {event} clickEvent
-     */
-    function onClickTabRecent(clickEvent) {
-      clickEvent.stopPropagation();
-      _getRecent();
+      if (isOpen) {
+        _select();
+      }
     }
 
     /**
-     * 스티커 탭 클릭시
-     * @param clickEvent
+     * group 아이콘 클릭시 핸들러
+     * @param {event} clickEvent 클릭 이벤트
+     * @param {object} group 그룹 데이터
      */
-    function onClickTabGroup(clickEvent) {
+    function onClickGroup(clickEvent, group) {
       clickEvent.stopPropagation();
-      _getList();
+      _select(group);
+    }
+
+    /**
+     * 해당 스티커 그룹을 선택한다.
+     * @param {object} group 선택할 그룹
+     * @private
+     */
+    function _select(group) {
+      group = group || $scope.groups[1];
+      _deselectAll();
+      group.isSelected = true;
+      $scope.isRecent = !!group.isRecent;
+      $scope.list = [];
+
+      if (group.isRecent) {
+        _getRecent();
+      } else {
+        _getList();
+      }
+    }
+
+    /**
+     * 모든 group 을 deselect 한다.
+     * @private
+     */
+    function _deselectAll() {
+      _.forEach($scope.groups, function(group) {
+        group.isSelected = false;
+      });
     }
 
     /**
      * 스티커 클릭시
-     * @param clickEvent
-     * @param item
+     * @param {object} item 스티커 아이템
      */
     function onClickItem(item) {
       jndPubSub.pub('selectSticker:' + $scope.name, item);

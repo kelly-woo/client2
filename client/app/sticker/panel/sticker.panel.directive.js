@@ -20,12 +20,13 @@
     };
 
     function link(scope, el, attrs, ctrl) {
-      if (attrs.width) {
-        el.find('.sticker_panel').width(attrs.width);
-      }
-      if (attrs.height) {
-        el.find('.sticker_panel_contents').height(attrs.height - el.find('.sticker_panel_tab').height());
-      }
+      var width = attrs.width || 355;
+      var height = attrs.height || 300;
+      height -= el.find('.sticker_panel_tab').height();
+
+      el.find('.sticker_panel').width(width);
+      el.find('.sticker_panel_contents').width(width).height(height);
+
     }
   }
 })();
