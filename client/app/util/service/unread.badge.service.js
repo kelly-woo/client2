@@ -16,21 +16,32 @@
     this.add = add;
     this.remove = remove;
     this.getUnreadPos = getUnreadPos;
+    this.update = update;
 
     /**
      * badge 정보를 추가한다.
      * @param {string} key  식별자
-     * @param {object} pos  뱃지의 위치 정보
-     *    @param {number} pos.top 뱃지의 top
-     *    @param {number} pos.bottom 뱃지의 bottom
-     * @param {object} entity 뱃지 정보의 원본 데이터 entity
+     * @param {object} data  뱃지의 위치 정보
+     *    @param {number} data.top 뱃지의 top
+     *    @param {number} data.bottom 뱃지의 bottom
+     *    @param {object} data.entity 뱃지 정보의 원본 데이터 entity
+     *    @param {HTMLElement} data.el 뱃지 엘리먼트
      */
-    function add(key, pos, entity) {
-      map[key] = {
-        top: Math.floor(pos.top),
-        bottom: Math.floor(pos.bottom),
-        entity: entity
-      };
+    function add(key, data) {
+      map[key] = data;
+    }
+
+    /**
+     * 정보를 업데이트한다.
+     * @param {string} key  식별자
+     * @param {object} data  뱃지의 위치 정보
+     *    @param {number} data.top 뱃지의 top
+     *    @param {number} data.bottom 뱃지의 bottom
+     *    @param {object} data.entity 뱃지 정보의 원본 데이터 entity
+     *    @param {HTMLElement} data.el 뱃지 엘리먼트
+     */
+    function update(key, data) {
+      map[key] = data;
     }
 
     /**
