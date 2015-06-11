@@ -173,7 +173,7 @@
     function deleteSticker(messageId) {
       return $http({
         method  : 'DELETE',
-        url     : 'http://i1.jandi.io:5000/inner-api/stickers/messages/' + messageId,
+        url     : server_address + 'stickers/messages/' + messageId,
         params  : {
           teamId  : memberService.getTeamId()
         }

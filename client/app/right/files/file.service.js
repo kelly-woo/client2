@@ -151,7 +151,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     return $http({
       method  : 'POST',
-      url     : 'http://i1.jandi.io:5000/inner-api/stickers/comment',
+      url     : $rootScope.server_address + 'stickers/comment',
       data    : data
     });
   }
@@ -164,7 +164,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   function deleteSticker(commentId) {
     return $http({
       method  : 'DELETE',
-      url     : 'http://i1.jandi.io:5000/inner-api/stickers/comments/' + commentId,
+      url     : $rootScope.server_address + 'stickers/comments/' + commentId,
       params  : {
         teamId  : memberService.getTeamId()
       }

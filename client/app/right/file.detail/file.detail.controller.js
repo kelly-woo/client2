@@ -136,7 +136,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    */
   function deleteComment(commentId, isSticker) {
     if (isSticker) {
-      fileAPIservice.deleteSticker(fileId, commentId)
+      fileAPIservice.deleteSticker(commentId)
         .success(_onSuccessDelete)
         .error(function(err) {
           _onErrorDelete(err, 'fileAPIservice.deleteSticker');

@@ -13,7 +13,7 @@
   function Sticker($http, configuration, memberService) {
     var cache = {};
     var server_address = configuration.server_address;
-    server_address = 'http://i1.jandi.io:5000/inner-api/';
+
     this.getList = getList;
     this.getRecentList = getRecentList;
 
