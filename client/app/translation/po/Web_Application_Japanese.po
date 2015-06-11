@@ -1145,14 +1145,37 @@ msgstr "通知"
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr "本当に削除しますか？元には戻せません"
 
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-messages-post"
+msgstr "さんからダイレクトメッセージが届きました"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-messages-pre"
+msgstr " "
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-mid"
+msgstr "さんが"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-post"
+msgstr "に投稿しました"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-pre"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-sample-body-text"
+msgstr " 成功しました！"
+
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
 
-#: client/app/modal/settings/notification/setting.notification.html
 #, fuzzy
-msgid "{{notificationBtnText}}"
-msgstr "JANDI 新着メッセージ通知"
+#~ msgid "{{notificationBtnText | translate}}"
+#~ msgstr "JANDI 新着メッセージ通知"
 
 #~ msgid "@alert-invalid-password"
 #~ msgstr "パスワードが間違っています"
@@ -1313,18 +1336,6 @@ msgstr "JANDI 新着メッセージ通知"
 
 #~ msgid "@setting-team-title"
 #~ msgstr "チーム設定"
-
-#~ msgid "@web-notification-body-messages-post"
-#~ msgstr "さんからダイレクトメッセージが届きました"
-
-#~ msgid "@web-notification-body-messages-pre"
-#~ msgstr " "
-
-#~ msgid "@web-notification-body-topic-post"
-#~ msgstr "に投稿しました"
-
-#~ msgid "@web-notification-body-topic-pre"
-#~ msgstr " "
 
 #~ msgid "@alert-missing-info"
 #~ msgstr "必要な情報が入力されていません"

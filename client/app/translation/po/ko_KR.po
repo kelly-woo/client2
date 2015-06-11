@@ -1140,14 +1140,38 @@ msgstr "알림"
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr "이 메시지를 삭제하시겠습니까? 삭제하시면 복구하실 수 없습니다."
 
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-messages-post"
+msgstr "님으로부터 새 메시지가 도착했습니다."
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-messages-pre"
+msgstr " "
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-mid"
+msgstr "에 "
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-post"
+msgstr "님으로부터 새 메시지가 도착했습니다."
+
+#: client/app/modal/settings/notification/setting.notification.html
+#, fuzzy
+msgid "@web-notification-body-topic-pre"
+msgstr "님으로부터 새 메시지가 도착했습니다."
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-sample-body-text"
+msgstr "잔디 테스트 메시지입니다."
+
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
 
-#: client/app/modal/settings/notification/setting.notification.html
 #, fuzzy
-msgid "{{notificationBtnText}}"
-msgstr "JANDI 메시지"
+#~ msgid "{{notificationBtnText}}"
+#~ msgstr "JANDI 메시지"
 
 #~ msgid "@alert-invalid-password"
 #~ msgstr "비밀번호가 일치하지 않습니다"
@@ -1316,18 +1340,6 @@ msgstr "JANDI 메시지"
 
 #~ msgid "@setting-team-title"
 #~ msgstr "팀 세팅"
-
-#~ msgid "@web-notification-body-messages-post"
-#~ msgstr "님으로부터 새 메시지가 도착했습니다."
-
-#~ msgid "@web-notification-body-messages-pre"
-#~ msgstr " "
-
-#~ msgid "@web-notification-body-topic-post"
-#~ msgstr "님으로부터 새 메시지가 도착했습니다."
-
-#~ msgid "@web-notification-body-topic-pre"
-#~ msgstr " "
 
 #~ msgid "@alert-missing-info"
 #~ msgstr "모든 정보를 입력하세요"

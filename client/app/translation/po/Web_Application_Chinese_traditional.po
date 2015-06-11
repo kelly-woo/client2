@@ -964,9 +964,8 @@ msgid "@setting-notification-show-content-msg"
 msgstr "在推撥通知上顯示訊息內容"
 
 #: client/app/modal/settings/notification/setting.notification.html
-#, fuzzy
 msgid "@setting-notification-turn-off"
-msgstr "JANDI 新訊息"
+msgstr "設置成功"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"
@@ -1106,14 +1105,37 @@ msgstr "通知"
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr "您確定要刪除此訊息嗎？刪除的訊息將無法回復。"
 
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-messages-post"
+msgstr "來的新訊息"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-messages-pre"
+msgstr "有從"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-mid"
+msgstr "裏有從"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-post"
+msgstr "來的新訊息"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-pre"
+msgstr "在"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-sample-body-text"
+msgstr "設置成功"
+
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
 
-#: client/app/modal/settings/notification/setting.notification.html
 #, fuzzy
-msgid "{{notificationBtnText}}"
-msgstr "JANDI 新訊息"
+#~ msgid "{{notificationBtnText}}"
+#~ msgstr "JANDI 新訊息"
 
 #~ msgid "@alert-invalid-password"
 #~ msgstr "密碼無效"
@@ -1268,18 +1290,6 @@ msgstr "JANDI 新訊息"
 
 #~ msgid "@setting-team-title"
 #~ msgstr "團隊設定"
-
-#~ msgid "@web-notification-body-messages-post"
-#~ msgstr "來的新訊息"
-
-#~ msgid "@web-notification-body-messages-pre"
-#~ msgstr "有從"
-
-#~ msgid "@web-notification-body-topic-post"
-#~ msgstr "來的新訊息"
-
-#~ msgid "@web-notification-body-topic-pre"
-#~ msgstr "在"
 
 #~ msgid "@alert-missing-info"
 #~ msgstr "資料不全"

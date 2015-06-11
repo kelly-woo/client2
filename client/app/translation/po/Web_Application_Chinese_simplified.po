@@ -1105,14 +1105,37 @@ msgstr "通知"
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr "您确定要删除此信息吗？删除的信息将无法复原。"
 
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-messages-post"
+msgstr "来的新讯息"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-messages-pre"
+msgstr "有从"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-mid"
+msgstr "里有从"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-post"
+msgstr "来的新讯息"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-pre"
+msgstr "在"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-sample-body-text"
+msgstr "设置成功"
+
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新信息"
 
-#: client/app/modal/settings/notification/setting.notification.html
 #, fuzzy
-msgid "{{notificationBtnText}}"
-msgstr "JANDI 新信息"
+#~ msgid "{{notificationBtnText}}"
+#~ msgstr "JANDI 新信息"
 
 #~ msgid "@alert-invalid-password"
 #~ msgstr "密码无效"
@@ -1267,18 +1290,6 @@ msgstr "JANDI 新信息"
 
 #~ msgid "@setting-team-title"
 #~ msgstr "团队设定"
-
-#~ msgid "@web-notification-body-messages-post"
-#~ msgstr "来的新讯息"
-
-#~ msgid "@web-notification-body-messages-pre"
-#~ msgstr "有从"
-
-#~ msgid "@web-notification-body-topic-post"
-#~ msgstr "来的新讯息"
-
-#~ msgid "@web-notification-body-topic-pre"
-#~ msgstr "在"
 
 #~ msgid "@alert-missing-info"
 #~ msgstr "资料不全"

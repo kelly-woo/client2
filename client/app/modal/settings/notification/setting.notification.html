@@ -17,7 +17,7 @@
             ng-class="{ 'fa-bell': shouldTurnOnNotification,
                         'fa-bell-slash': !shouldTurnOnNotification}"></span>
 
-      <span class="notification-btn-text" translate>{{notificationBtnText | translate}}</span>
+      <span class="notification-btn-text">{{notificationBtnText | translate}}</span>
 
     </div>
     <div class="" ng-if="isNotificationDenied">
@@ -55,6 +55,15 @@
 </div>
 
 <div ng-if="false">
+  <span translate>@web-notification-sample-body-text</span>
   <span translate>@setting-notification-turn-on</span>
   <span translate>@setting-notification-turn-off</span>
+
+  <span translate>@web-notification-body-topic-pre</span>
+  <span translate>@web-notification-body-topic-mid</span>
+  <span translate>@web-notification-body-topic-post</span>
+
+  <span translate>@web-notification-body-messages-pre</span>
+  <span translate>@web-notification-body-messages-post</span>
+
 </div>

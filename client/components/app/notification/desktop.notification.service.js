@@ -6,11 +6,10 @@
     .service('DesktopNotification', DesktopNotification);
 
   /* @ngInject */
-  function DesktopNotification($state, $filter, logger, jndPubSub, localStorage) {
+  function DesktopNotification($state, $filter, logger, jndPubSub, localStorage, accountService) {
     var that = this;
 
     var NOTIFICATION_EXPIRE_TIME = 5000;
-    var NOTIFICATION_TITLE = $filter('translate')('@web-notification-title');
     var NOTIFICATION_PERMISSION = {
       granted: 'granted',
       denied: 'denied',
@@ -167,7 +166,7 @@
     function sendSampleNotification() {
       var options = {
         tag: 'tag',
-        body: 'It\'s working'
+        body: $filter('translate')('@web-notification-sample-body-text')
       };
       var sampleNotification = _createInstance(options);
       sampleNotification.show();
@@ -209,12 +208,20 @@
       _storeLocalNotificationFlag();
     }
 
+    /**
+     * 사용자가 Notification.permission 을 거부했을 때
+     * @private
+     */
     function _onPermissionDenied() {
       setShowNotificationContent(false);
       isNotificationOnLocally = false;
       _storeLocalNotificationFlag();
     }
 
+    /**
+     * 사용자가 Notification.permission 에서 'x' 눌렀을 때
+     * @private
+     */
     function _onPermissionDefault() {
       setShowNotificationContent(false);
     }
@@ -346,18 +353,14 @@
       var message;
 
 
-      if (_validateNotificationParams(data, writerEntity,  roomEntity)) {
+      if (_validateNotificationParams(data, writerEntity, roomEntity)) {
         isUser = roomEntity.type === 'users';
         message = data.message;
         message = decodeURIComponent(message);
 
-        if (isUser) {
-          options.tag = writerEntity.id;
-          options.body = writerEntity.name + ' : ' + message;
-        } else {
-          options.tag = roomEntity.id;
-          options.body = '[' + roomEntity.name + '] ' + writerEntity.name + ' : '+ message;
-        }
+        options.tag = isUser ? writerEntity.id : roomEntity.id;
+
+        options.body = _setOptionBody(isUser, writerEntity, roomEntity, message);
 
         options.icon = $filter('getSmallThumbnail')(writerEntity);
         options.data = {
@@ -367,6 +370,101 @@
 
         (notification = _createInstance(options)) && notification.show();
       }
+    }
+
+    /**
+     * 유져인지 아닌지 확인 후 알맞는 포맷에 맞게 바디를 만든다.
+     * @param {boolean} isUser - 유져인지 아닌지 분별
+     * @param {object} writerEntity - 메세지를 보낸이
+     * @param {object} roomEntity - 메세지가 전공된 곳
+     * @param {string} message - 메세지 내용
+     * @returns {string} body - 바디에 들어갈 내용
+     * @private
+     */
+    function _setOptionBody(isUser, writerEntity, roomEntity, message) {
+      return isShowNotificationContent ?
+        _getBodyWithMessage(isUser, writerEntity, roomEntity, message) : _getBodyWithoutMessage(isUser, writerEntity, roomEntity);
+    }
+
+    /**
+     * 유져인지 아닌지 확인 후, 메세지를 포함한 바디를 맞는 포맷으로 만든다.
+     * @param {boolean} isUser - 유져인지 아닌지 분별
+     * @param {object} writerEntity - 메세지를 보낸이
+     * @param {object} roomEntity - 메세지가 전공된 곳
+     * @param {string} message - 메세지 내용
+     * @returns {string} body - 바디에 들어갈 내용}
+     * @private
+     */
+    function _getBodyWithMessage(isUser, writerEntity, roomEntity, message) {
+      if (isUser) {
+        return writerEntity.name + ' : ' + message;
+      }
+      return '[' + roomEntity.name + '] ' + writerEntity.name + ' : '+ message;
+    }
+
+    /**
+     * 유져인지 아닌지 확인 후, 메세지를 포함하지 않고 바디를 맞는 포맷으로 만든다.
+     * @param {boolean} isUser - 유져인지 아닌지 분별
+     * @param {object} writerEntity - 메세지를 보낸이
+     * @param {object} roomEntity - 메세지가 전공된 곳
+     * @returns {string} body - 바디에 들어갈 내용}
+     * @private
+     */
+    function _getBodyWithoutMessage(isUser, writerEntity, roomEntity) {
+      if (isUser) {
+        return _getBodyForChat(roomEntity);
+      }
+      return _getBodyForTopic(writerEntity, roomEntity);
+    }
+
+    /**
+     * 토픽에서 새로운 메세지가 왔을때, 실제 내용은 보여주지 않고 노티피케이션에 들어갈 메세지를 만든다.
+     * @param {object} fromEntity - 메세지를 보낸 사람
+     * @param {object} toEntity - 메세지가 전송된 토픽
+     * @returns {string}
+     * @private
+     */
+    function _getBodyForTopic(fromEntity, toEntity) {
+      var currentLanguage = accountService.getAccountLanguage();
+
+      var bodyMessage;
+
+      switch (currentLanguage) {
+        case 'ko' :
+          bodyMessage = '[' + toEntity.name + ']' + $filter('translate')('@web-notification-body-topic-mid')
+          + fromEntity.name;
+          break;
+        case 'ja' :
+          bodyMessage = fromEntity.name + $filter('translate')('@web-notification-body-topic-mid')
+          + '[' + toEntity.name + ']';
+          break;
+        case 'en' :
+          bodyMessage = $filter('translate')('@web-notification-body-topic-pre')
+          + '[' + toEntity.name + ']'
+          + $filter('translate')('@web-notification-body-topic-mid')
+          + fromEntity.name;
+          break;
+        default :
+          bodyMessage = $filter('translate')('@web-notification-body-topic-pre')
+          + '[' + toEntity.name + ']'
+          + $filter('translate')('@web-notification-body-topic-mid')
+          + fromEntity.name;
+          break;
+      }
+      bodyMessage += $filter('translate')('@web-notification-body-topic-post');
+      return bodyMessage;
+    }
+
+    /**
+     * 1:1 로 새로운 메세지가 들어왔을때 내용을 보여주지 않고 노티피케이션에 들어갈 메세지를 만든다.
+     * @param {object} fromEntity - 메세지를 보낸 사람
+     * @returns {string}
+     * @private
+     */
+    function _getBodyForChat(fromEntity) {
+      return $filter('translate')('@web-notification-body-messages-pre')
+        + fromEntity.name
+        + $filter('translate')('@web-notification-body-messages-post');
     }
 
     /**
@@ -429,6 +527,9 @@
       var options = that.options;
       var notification;
 
+      // 이것을 맨 위로 글로벌하게 빼고 싶었지만 사용자가 언어를 바꿨을 때 service 다시 호출되질않아서 번역이 안 맞는 경우가 있어서 매번배먼 콜하는 방식으로 바꿈.
+      var NOTIFICATION_TITLE = $filter('translate')('@web-notification-title');
+
       // An actually notification object.
       notification = new Notification(that.options.title || NOTIFICATION_TITLE, that._createOptions());
 
@@ -472,7 +573,7 @@
       return {
         tag: options.tag,
         // body message for notification
-        body: isShowNotificationContent ? options.body : '',
+        body: options.body,
         // User profile picture.
         icon: options.icon
       };

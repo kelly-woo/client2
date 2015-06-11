@@ -160,9 +160,15 @@
       $state.go('archives', {entityType:'channels',  entityId:currentSessionHelper.getDefaultTopicId() });
     }
 
+    /**
+     * 배너의 유무를 판단하여 '.body' 와 '.body-wrapper' 의 높이를 조절한다.
+     * 기본값은 $(window).height() 이지만 배너가 있다면 배너의 높이만큼 작아저야 한다.
+     * @param isBannerUp
+     */
     function adjustBodyWrapperHeight(isBannerUp) {
       var jqBody = $('.body');
       var jqBodyWrapper = $('.body-wrapper');
+      console.log($('.banner').height())
       var heightOffset = isBannerUp ? 40 : 0;
       jqBodyWrapper.height($(window).height() - heightOffset);
       jqBody.height($(window).height() - heightOffset - 40);
@@ -170,12 +176,10 @@
 
 
     function hideTransitionLoading() {
-      console.log('hiding')
       $rootScope.isReady = true;
     }
 
     function showTransitionLoading() {
-      console.log('showing')
       $rootScope.isReady = false;
     }
   }
