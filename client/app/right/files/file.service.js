@@ -273,8 +273,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     return sharedEntityArray;
   }
 
-
-
   function openFileShareModal($scope, file) {
     modalHelper.openFileShareModal($scope, file);
   }

@@ -122,7 +122,11 @@
     function _getRecent() {
       Sticker.getRecentList()
         .success(function(response) {
-          $scope.list = response;
+          if (_.isArray(response)) {
+            $scope.list = response.reverse();
+          } else {
+            $scope.list = [];
+          }
         })
         .error(function() {
           $scope.list = [];
