@@ -273,11 +273,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     return sharedEntityArray;
   }
 
-
-  fileAPI.broadcastCommentFocus = function() {
-    //$rootScope.$broadcast('setCommentFocus');
-  };
-
   function openFileShareModal($scope, file) {
     modalHelper.openFileShareModal($scope, file);
   }

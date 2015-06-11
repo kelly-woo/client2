@@ -770,6 +770,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   var lastUpdatedLinkId = -1;
+
   function updateList() {
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
@@ -778,7 +779,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     $scope.isPolling = true;
-
+    //todo: deprecated 되었으므로 해당 API 제거해야함
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
       .success(_onUpdatedMessagesSuccess)
       .error(function (response) {
@@ -798,7 +799,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // lastUpdatedId 갱신 --> lastMessageId
     lastUpdatedLinkId = response.lastLinkId;
     response = response.updateInfo;
-
+    response.messages = _.sortBy(response.messages, 'id');
     if (response.messageCount) {
       if (!_hasLastMessage()) {
         _gotNewMessage();
