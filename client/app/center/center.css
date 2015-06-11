@@ -940,7 +940,8 @@ by ysyun 2015.2.25
 ********************************************/
 .attachment-message-wrapper {
   position: relative;
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-bottom: 8px;
 }
 .attachment-message-wrapper .attachment-message-bar {
   display: table-cell;
@@ -981,6 +982,11 @@ by ysyun 2015.2.25
   color: #333;
 }
 
+.social-body a {
+  text-decoration: none;
+  color: #333;
+}
+
 .social-body .social-title {
   font-size: 16px;
   line-height: 22px;
@@ -995,7 +1001,7 @@ by ysyun 2015.2.25
   margin-bottom: 25px;
 }
 
-.social-url {
+.social-body .social-domain {
   position: absolute;
   right: 0;
   bottom: 0;

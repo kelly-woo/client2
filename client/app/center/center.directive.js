@@ -49,13 +49,18 @@
     };
 
     function link (scope, element, attrs, ctrl) {
-      var message = Message.createInstance(element);
+      // scope.msg.linkPreview = {
+      //   title: 'lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew ',
+      //   description: 'lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew ',
+      //   linkUrl: 'http://www.daum.net',
+      //   imageUrl: 'assets/images/ld-01.png',
+      //   domain: 'daum'
+      // };
 
-      scope.hasLinkImage = true;
-      scope.linkImageUrl = 'assets/images/web_preview_google.png';
-      // scope.linkImageUrl = 'assets/images/ld-01.png';
+      if (scope.msg && scope.msg.status === 'created' && scope.msg.linkPreview != null) {
+        Message.init(element).attach(scope);
+      }
 
-      message.attach(scope);
       if (scope.isPolling) {
         //console.log('polling');
         counter++;

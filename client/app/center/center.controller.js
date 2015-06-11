@@ -833,6 +833,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _updateUserMessage(msg) {
     var isArchived = false;
     switch (msg.status) {
+      // text writed
       case 'created':
         $scope.messages.push(msg);
         break;
@@ -841,13 +842,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           $scope.messages.push(msg);
         }
         break;
+      // text deleted
       case 'archived':
         isArchived = _spliceMessage(msg);
         break;
+      // file shared
       case 'shared':
         msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
         $scope.messages.push(msg);
         break;
+      // file unshared
       case 'unshared':
         if (_spliceMessage(msg)) {
           msg.message.shared = fileAPIservice.getSharedEntities(msg.message);

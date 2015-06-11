@@ -1,43 +1,55 @@
 /**
- * @fileoverview Message
+ * @fileoverview 입력한 Message에 덧 붙이거나 수정하는 content를 제공함
  */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .factory('Message', Message);
+    .service('Message', Message);
 
   function Message($compile) {
+    // warpping templates
     var wrapper_templates = {
-      attach: '<div class="attachment-message-wrapper">' +
-        '<div class="attachment-message-bar"></div>' +
-        '<div class="attachment-message-content"></div>' +
+      attach: '<div class="attachment-message-wrapper">'  +
+        '<div class="attachment-message-bar"></div>'      +
+        '<div class="attachment-message-content"></div>'  +
       '</div>'
     };
+    // content templates
     var content_templates = {
       social_snippet:
-        '<div class="social-image" ng-if="hasLinkImage">' +
-          '<img ng-src="{{linkImageUrl}}"/>' +
-        '</div>' +
-        '<div class="social-body" style="">' +
-          '<div class="social-title neighbor">qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw </div>' +
-          '<div class="social-desc neighbor">qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw </div>' +
-          '<div class="social-url">www.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.com</div>' +
+        '<div class="social-image" ng-if="!!msg.linkPreview.imageUrl">'               +
+          '<a ng-href="{{msg.linkPreview.linkUrl}}" target="_blank">'                 +
+            '<img ng-src="{{msg.linkPreview.imageUrl}}"/>'                            +
+          '</a>'                                                                      +
+        '</div>'                                                                      +
+        '<div class="social-body">'                                                   +
+          '<div class="social-title neighbor" ng-if="!!msg.linkPreview.title">'       +
+            '<a ng-href="{{msg.linkPreview.linkUrl}}" target="_blank">'               +
+              '<span>{{msg.linkPreview.title}}</span>'                                +
+            '</a>'                                                                    +
+          '</div>'                                                                    +
+          '<div class="social-desc neighbor" ng-if="!!msg.linkPreview.description">'  +
+            '<a ng-href="{{msg.linkPreview.linkUrl}}" target="_blank">'               +
+              '<span>{{msg.linkPreview.description}}</span>'                          +
+            '</a>'                                                                    +
+          '</div>'                                                                    +
+          '<div class="social-domain" ng-if="!!msg.linkPreview.domain">'              +
+            '<span>{{msg.linkPreview.domain}}</span>'                                 +
+          '</div>'                                                                    +
         '</div>'
     };
 
-    var Message = {
-      init: init,
-      attach: attach
-    };
+    this.init = init;
+    this.attach = attach;
 
-    return {
-      createInstance: function(jqEle, options) {
-        return Object.create(Message).init(jqEle, options);
-      }
-    };
-
+    /**
+     * @constructor
+     * @param {object} jqEle - 덧 붙임할 target element
+     * @param {object} options
+     * @param {string} type - 사용할 template
+     */
     function init(jqEle, options) {
       var that = this;
 
@@ -51,6 +63,10 @@
       return that;
     }
 
+    /**
+     * 특정 message에 content 덧 붙임
+     * @param {object} $scope - template $compile시 사용되는 scope
+     */
     function attach($scope) {
       var that = this;
       var options = that.options;
