@@ -6,7 +6,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice,
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
-                                                 centerService, markerService, textbuffer, modalHelper) {
+                                                 centerService, markerService, textbuffer, modalHelper, DeskTopNotificationBanner) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
@@ -91,7 +91,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _setDefaultLoadingScreen();
     _initMsgSearchQuery();
     _initLocalVariables();
+    _checkNotificationBanner();
   }
+
+
+  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
 
   $scope.$on('refreshCurrentTopic', function() {
     _refreshCurrentTopic();
@@ -99,7 +103,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _refreshCurrentTopic() {
     _init();
-
     loadMore();
   }
   /**
@@ -140,6 +143,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _resetUnreadCounters();
 
     _resetNewMsgHelpers();
+  }
+
+  function _checkNotificationBanner() {
+    DeskTopNotificationBanner.checkNotificationBanner('center');
   }
 
   function _resetLoadMoreCounter() {
@@ -467,6 +474,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
             $scope.loadMoreCounter++;
             $scope.isInitialLoadingCompleted = true;
+
+            $rootScope.isReady = true;
 
             _checkEntityMessageStatus();
           })

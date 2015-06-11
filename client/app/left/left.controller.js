@@ -5,7 +5,8 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper) {
+  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, DeskTopNotificationBanner) {
+
 
   //console.info('[enter] leftpanelController');
 
@@ -39,7 +40,15 @@ app.controller('leftPanelController1', function(
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
   } else {
     response = leftPanel.data;
+    _checkNotificationBanner();
   }
+
+
+  function _checkNotificationBanner() {
+    publicService.adjustBodyWrapperHeight();
+    DeskTopNotificationBanner.checkNotificationBanner('left');
+  }
+  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
 
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
@@ -50,7 +59,6 @@ app.controller('leftPanelController1', function(
    * left panel 업데이트 후에 알려줘야 할 컨틀롤러가 있음을 설정한다.
    * @param param {string} broadcast할 이벤트 이름
    * @private
-   *
    * FIXME: SERVICE로 빼시오.
    */
   function _setAfterLeftInit(param) {
@@ -285,7 +293,7 @@ app.controller('leftPanelController1', function(
     if ($state.params.entityId)
       _setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
 
-    $rootScope.isReady = true;
+    //$rootScope.isReady = true;
 
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();

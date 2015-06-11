@@ -4,85 +4,90 @@
 <!--[if IE 8]>         <html lang="{{ preferences.serverLang }}" ng-app="jandiApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="{{ preferences.serverLang }}" ng-app="jandiApp" class="no-js"> <!--<![endif]-->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 
-    <!--<base href="/">-->
-    <title data-ng-if="currentEntity.name" data-ng-bind="(currentEntity.name + ' | ' + team.name)"></title>
+  <!--<base href="/">-->
+  <title data-ng-if="currentEntity.name" data-ng-bind="(currentEntity.name + ' | ' + team.name)"></title>
 
-    <meta name="description" content="JANDI Web application">
-    <meta name="keywords" content="JANDI, 잔디">
-    <meta name="author" content="TossLab">
-    <link rel="shortcut icon" type="image/ico" href="favicon.ico?v=2" />
-    <meta name="viewport" content="width=device-width">
+  <meta name="description" content="JANDI Web application">
+  <meta name="keywords" content="JANDI, 잔디">
+  <meta name="author" content="TossLab">
+  <link rel="shortcut icon" type="image/ico" href="favicon.ico?v=2" />
+  <meta name="viewport" content="width=device-width">
 
-    <!-- build:css(client) app/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/ngImgCrop/compile/minified/ng-img-crop.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
+  <!-- build:css(client) app/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="bower_components/ngImgCrop/compile/minified/ng-img-crop.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
 
-    <!-- build:css({.tmp,client}) app/app.css -->
-    <link rel="stylesheet" href="app/app.css">
-    <!-- injector:css -->
-    <link rel="stylesheet" href="app/app.css">
-    <link rel="stylesheet" href="app/center/center.css">
-    <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
-    <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
-    <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
-    <link rel="stylesheet" href="app/header/header.css">
-    <link rel="stylesheet" href="app/jandi-fonts.css">
-    <link rel="stylesheet" href="app/left/left.css">
-    <link rel="stylesheet" href="app/left/member/member.css">
-    <link rel="stylesheet" href="app/left/messages/messages.css">
-    <link rel="stylesheet" href="app/left/topics/topics.css">
-    <link rel="stylesheet" href="app/main.css">
-    <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
-    <link rel="stylesheet" href="app/modal/files/integration/integration.css">
-    <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
-    <link rel="stylesheet" href="app/modal/modal.css">
-    <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
-    <link rel="stylesheet" href="app/modal/teams/team_invite/team.invite.css">
-    <link rel="stylesheet" href="app/modal/teams/team_member_list/team.member.list.css">
-    <link rel="stylesheet" href="app/modal/terms/terms.css">
-    <link rel="stylesheet" href="app/modal/topics/topic_create/topic.create.css">
-    <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
-    <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
-    <link rel="stylesheet" href="app/right/files/file/file.css">
-    <link rel="stylesheet" href="app/right/files/files.css">
-    <link rel="stylesheet" href="app/right/right.css">
-    <link rel="stylesheet" href="app/right/rpanel_search/rpanel.search.css">
-    <link rel="stylesheet" href="app/right/search.messages/search.message/search.message.css">
-    <link rel="stylesheet" href="app/right/search.messages/search.messages.css">
-    <link rel="stylesheet" href="app/signin/signin.css">
-    <link rel="stylesheet" href="app/tpl/503/503.css">
-    <link rel="stylesheet" href="app/tutorial/tutorial.css">
-    <!-- endinjector -->
-    <!-- endbuild -->
+  <!-- build:css({.tmp,client}) app/app.css -->
+  <link rel="stylesheet" href="app/app.css">
+  <!-- injector:css -->
+  <link rel="stylesheet" href="app/app.css">
+  <link rel="stylesheet" href="app/banner/desktop.notification.banner.css">
+  <link rel="stylesheet" href="app/center/center.css">
+  <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
+  <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
+  <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
+  <link rel="stylesheet" href="app/header/header.css">
+  <link rel="stylesheet" href="app/jandi-common.css">
+  <link rel="stylesheet" href="app/jandi-fonts.css">
+  <link rel="stylesheet" href="app/left/left.css">
+  <link rel="stylesheet" href="app/left/member/member.css">
+  <link rel="stylesheet" href="app/left/messages/messages.css">
+  <link rel="stylesheet" href="app/left/topics/topics.css">
+  <link rel="stylesheet" href="app/main.css">
+  <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
+  <link rel="stylesheet" href="app/modal/files/integration/integration.css">
+  <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
+  <link rel="stylesheet" href="app/modal/modal.css">
+  <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
+  <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
+  <link rel="stylesheet" href="app/modal/teams/team_invite/team.invite.css">
+  <link rel="stylesheet" href="app/modal/teams/team_member_list/team.member.list.css">
+  <link rel="stylesheet" href="app/modal/terms/terms.css">
+  <link rel="stylesheet" href="app/modal/topics/topic_create/topic.create.css">
+  <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
+  <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
+  <link rel="stylesheet" href="app/right/files/file/file.css">
+  <link rel="stylesheet" href="app/right/files/files.css">
+  <link rel="stylesheet" href="app/right/right.css">
+  <link rel="stylesheet" href="app/right/rpanel_search/rpanel.search.css">
+  <link rel="stylesheet" href="app/right/search.messages/search.message/search.message.css">
+  <link rel="stylesheet" href="app/right/search.messages/search.messages.css">
+  <link rel="stylesheet" href="app/signin/signin.css">
+  <link rel="stylesheet" href="app/tpl/503/503.css">
+  <link rel="stylesheet" href="app/tutorial/tutorial.css">
+  <!-- endinjector -->
+  <!-- endbuild -->
 </head>
-<body>
+<body class="content-wrapper opac-zero" ng-class="{'opac-in': isReady}">
 <!--[if lt IE 9]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<!-- Add your site or application content here -->
+<div class="body-wrapper" style="position:relative;">
 
-<div class="hpanel non-selectable" ui-view="headerpanel"></div>
-<div class="body" id="client-ui" ui-view=""></div>
-<div class="rpanel non-selectable" ng-show="$state.includes('**.files.**')">
+  <!-- Add your site or application content here -->
+  <div class="hpanel non-selectable" ui-view="headerpanel"></div>
+  <div class="body" id="client-ui" ui-view=""></div>
+  <div class="rpanel non-selectable" ng-show="$state.includes('**.files.**')">
     <div class="files" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
     <div class="file" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
     <div class="rpanel__background">
-        <div class="panel-title-container"></div>
-        <div class="rpanel__background-body">
-            <div class="rpanel__loading"></div>
-        </div>
+      <div class="panel-title-container"></div>
+      <div class="rpanel__background-body">
+        <div class="rpanel__loading"></div>
+      </div>
     </div>
-</div>
+  </div>
 
+</div>
 
 <!--[if lte IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -90,12 +95,12 @@
 <![endif]-->
 
 <script>
-    FileAPI = {
-        debug   : false,
-        cors    : true,
-        jsUrl   : location.protocol + '//' + location.host + '/javascripts/FileAPI.min.js',
-        flashUrl: location.protocol + '//' + location.host + '/etc/FileAPI.flash.swf'
-    };
+  FileAPI = {
+    debug   : false,
+    cors    : true,
+    jsUrl   : location.protocol + '//' + location.host + '/javascripts/FileAPI.min.js',
+    flashUrl: location.protocol + '//' + location.host + '/etc/FileAPI.flash.swf'
+  };
 </script>
 
 <script src="bower_components/ng-file-upload-shim/angular-file-upload-shim.js"></script>
@@ -141,8 +146,12 @@
 <script src="components/app/config/config.js"></script>
 <script src="components/app/analytics/analytics.js"></script>
 <script src="components/app/language/language.js"></script>
+<script src="components/app/local_storage/local.storage.js"></script>
 <script src="components/app/storage/storage.js"></script>
-<!--<script src="components/app/session/session.js"></script> &ndash;&gt;-->
+<script src="components/app/pubsub/pubsub.js"></script>
+<script src="components/app/notification/desktop.notification.js"></script>
+<script src="components/app/socket/socket.js"></script>
+<!--<script src="components/app/session/session.js"><script> &ndash;&gt;-->
 <script src="components/app/app.framework.js"></script>
 <script src="app/app.js"></script>
 <!-- injector:js -->
@@ -159,7 +168,6 @@
 <script src="app/util/service/account.service.js"></script>
 <script src="app/util/service/analytics.service.js"></script>
 <script src="app/util/service/clipboard.service.js"></script>
-<script src="app/util/service/desktop.notification.service.js"></script>
 <script src="app/util/service/entity.service.js"></script>
 <script src="app/util/service/file.object.service.js"></script>
 <script src="app/util/service/file.upload.service.js"></script>
@@ -172,6 +180,10 @@
 <script src="app/util/service/textbuffer.service.js"></script>
 <script src="app/util/service/urlScheme.service.js"></script>
 <script src="app/util/service/user.service.js"></script>
+<script src="app/banner/desktop.notification.banner.controller.js"></script>
+<script src="app/banner/desktop.notification.banner.directive.js"></script>
+<script src="app/banner/desktop.notification.banner.map.service.js"></script>
+<script src="app/banner/desktop.notification.banner.service.js"></script>
 <script src="app/center/center.controller.js"></script>
 <script src="app/center/center.directive.js"></script>
 <script src="app/center/help_messages/help.messages.controller.js"></script>
@@ -214,6 +226,7 @@
 <script src="app/modal/members/member_profile/member.profile.view.controller.js"></script>
 <script src="app/modal/modal.service.js"></script>
 <script src="app/modal/password/password.reset.request.controller.js"></script>
+<script src="app/modal/settings/notification/setting.notification.controller.js"></script>
 <script src="app/modal/teams/team_change/team.change.controller.js"></script>
 <script src="app/modal/teams/team_invite/team.invite.controller.js"></script>
 <script src="app/modal/teams/team_invite/team.invite.directive.js"></script>
@@ -258,9 +271,9 @@
 <script src="components/app/analytics/libs/custom-mixpanel.js"></script>
 <script src="components/app/config/config.service.js"></script>
 <script src="components/app/language/language.service.js"></script>
-<script src="components/app/pubsub/pubsub.js"></script>
+<script src="components/app/local_storage/local.storage.service.js"></script>
+<script src="components/app/notification/desktop.notification.service.js"></script>
 <script src="components/app/pubsub/pubsub.service.js"></script>
-<script src="components/app/socket/socket.js"></script>
 <script src="components/app/socket/socket.service.handler.js"></script>
 <script src="components/app/socket/socket.service.js"></script>
 <script src="components/app/storage/storage.service.js"></script>

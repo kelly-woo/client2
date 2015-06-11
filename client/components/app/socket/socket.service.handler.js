@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService,
-                              logger, $state, configuration, config, desktopNotificationService) {
+                              logger, $state, configuration, config, DesktopNotification) {
 
     this.newMemberHandler = newMemberHandler;
 
@@ -477,7 +477,7 @@
       if (_isActionFromMe(writer.id) || isCurrentEntity) return;
 
       log('Send browser notification');
-      desktopNotificationService.addNotification(data, writer, roomEntity);
+      DesktopNotification.addNotification(data, writer, roomEntity);
     }
 
     /**

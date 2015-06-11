@@ -27,7 +27,8 @@
       redirectTo: redirectTo,
       isDisabledMember: isDisabledMember,
       isNullOrUndefined: isNullOrUndefined,
-      goToDefaultTopic: goToDefaultTopic
+      goToDefaultTopic: goToDefaultTopic,
+      adjustBodyWrapperHeight: adjustBodyWrapperHeight
     };
 
     return service;
@@ -157,5 +158,10 @@
       $state.go('archives', {entityType:'channels',  entityId:currentSessionHelper.getDefaultTopicId() });
     }
 
+    function adjustBodyWrapperHeight(isBannerUp) {
+      var jqBodyWrapper = $('.body-wrapper');
+      var heightOffset = isBannerUp ? 40 : 0;
+      jqBodyWrapper.height($(window).height() - heightOffset);
+    }
   }
 })();
