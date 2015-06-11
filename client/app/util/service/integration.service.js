@@ -12,36 +12,10 @@
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
 
-    // object inherit model
-    var Objecz = {
-      create: function(prop) {
-          var that = this,
-              obj;
-
-          obj = Object.create(that);
-
-          return that.mixin(prop, obj);
-      },
-      mixin: function(prop, base) {
-        var that = this,
-            e,
-            target;
-
-        target = base || {};
-        for (e in prop) {
-          if (prop.hasOwnProperty(e)) {
-            target[e] = prop[e];
-          }
-        }
-
-        return target;
-      }
-    };
-
     /**
      * Integration
      */
-    var Integration = Objecz.create({
+    var Integration = jnd.Object.create({
       init: function(options) {
         var that = this;
 
@@ -221,7 +195,9 @@
       _closeIntegrationModal: function() {
         var that = this;
 
-        that.modal && that.modal.dismiss('cancel');
+        $timeout(function() {
+          that.modal && that.modal.dismiss('cancel');
+        });
       },
       PRIVATE_FILE: 740,   // PRIVATE_FILE code
       PUBLIC_FILE: 744     // PUBLIC_FILE code
@@ -466,7 +442,6 @@
       _open: function() {
         var that = this;
 
-        that._closeIntegrationModal();
         Dropbox.choose({
           success: that._success.bind(that),
           cancel: that._cancel.bind(that),
