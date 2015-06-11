@@ -41,14 +41,15 @@
     <link rel="stylesheet" href="app/left/topics/topics.css">
     <link rel="stylesheet" href="app/main.css">
     <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
-    <link rel="stylesheet" href="app/modal/integration/integration.css">
-    <link rel="stylesheet" href="app/modal/invitation/invitation.channel.css">
-    <link rel="stylesheet" href="app/modal/invitation/invitation.team.css">
+    <link rel="stylesheet" href="app/modal/files/integration/integration.css">
+    <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
     <link rel="stylesheet" href="app/modal/modal.css">
-    <link rel="stylesheet" href="app/modal/team_change/team.change.css">
-    <link rel="stylesheet" href="app/modal/team_member_list/team.member.list.css">
+    <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
+    <link rel="stylesheet" href="app/modal/teams/team_invite/team.invite.css">
+    <link rel="stylesheet" href="app/modal/teams/team_member_list/team.member.list.css">
     <link rel="stylesheet" href="app/modal/terms/terms.css">
-    <link rel="stylesheet" href="app/modal/topic_create/topic.create.css">
+    <link rel="stylesheet" href="app/modal/topics/topic_create/topic.create.css">
+    <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
     <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
     <link rel="stylesheet" href="app/right/files/file/file.css">
     <link rel="stylesheet" href="app/right/files/files.css">
@@ -152,6 +153,11 @@
 <script src="app/util/directive/main.directive.js"></script>
 <script src="app/util/directive/typeahead.directive.js"></script>
 <script src="app/util/filter/main.filter.js"></script>
+<script src="app/util/filter/txt.filter.js"></script>
+<script src="app/util/images/full.screen.image.directive.js"></script>
+<script src="app/util/images/image.rotate.directive.js"></script>
+<script src="app/util/images/images.service.js"></script>
+<script src="app/util/images/on.image.load.directive.js"></script>
 <script src="app/util/service/account.service.js"></script>
 <script src="app/util/service/analytics.service.js"></script>
 <script src="app/util/service/clipboard.service.js"></script>
@@ -162,12 +168,13 @@
 <script src="app/util/service/general.service.js"></script>
 <script src="app/util/service/image.paste.service.js"></script>
 <script src="app/util/service/integration.service.js"></script>
+<script src="app/util/service/link.txt.service.js"></script>
 <script src="app/util/service/member.service.js"></script>
-<script src="app/util/service/modal.service.js"></script>
 <script src="app/util/service/public.service.js"></script>
 <script src="app/util/service/session.service.js"></script>
 <script src="app/util/service/sticker.service.js"></script>
 <script src="app/util/service/textbuffer.service.js"></script>
+<script src="app/util/service/unread.badge.service.js"></script>
 <script src="app/util/service/urlScheme.service.js"></script>
 <script src="app/util/service/user.service.js"></script>
 <script src="app/center/center.controller.js"></script>
@@ -191,6 +198,7 @@
 <script src="app/error/error.controller.js"></script>
 <script src="app/header/header.controller.js"></script>
 <script src="app/header/header.service.js"></script>
+<script src="app/left/badge/badge.directive.js"></script>
 <script src="app/left/left.controller.js"></script>
 <script src="app/left/left.custom.directive.js"></script>
 <script src="app/left/left.service.js"></script>
@@ -204,23 +212,28 @@
 <script src="app/left/topics/topics.directive.js"></script>
 <script src="app/main.js"></script>
 <script src="app/mobile/mobile.catcher.controller.js"></script>
-<script src="app/modal/current_member_profile/settings.profile.controller.js"></script>
-<script src="app/modal/current_member_profile/settings.profile.service.js"></script>
-<script src="app/modal/integration/integration.controller.js"></script>
-<script src="app/modal/invitation/invitation.channel.controller.js"></script>
-<script src="app/modal/invitation/invitation.channel.directive.js"></script>
-<script src="app/modal/invitation/invitation.team.controller.js"></script>
-<script src="app/modal/invitation/invitation.team.directive.js"></script>
-<script src="app/modal/invitation/invitation.team.service.js"></script>
-<script src="app/modal/modal.controller.js"></script>
-<script src="app/modal/share/share.controller.js"></script>
-<script src="app/modal/team_change/team.change.controller.js"></script>
-<script src="app/modal/team_member_list/team.member.list.controller.js"></script>
-<script src="app/modal/team_member_list/team_member_list_template/team.member.list.tpl.controller.js"></script>
-<script src="app/modal/team_member_list/team_member_list_template/team.member.list.tpl.directive.js"></script>
-<script src="app/modal/topic_create/topic.create.controller.js"></script>
-<script src="app/modal/upload/upload.controller.js"></script>
-<script src="app/password/password.controller.js"></script>
+<script src="app/modal/files/integration/integration.controller.js"></script>
+<script src="app/modal/files/share/share.controller.js"></script>
+<script src="app/modal/files/upload/upload.controller.js"></script>
+<script src="app/modal/images/full_image/full.screen.image.controller.js"></script>
+<script src="app/modal/members/current_member_profile/current.member.profile.controller.js"></script>
+<script src="app/modal/members/current_member_profile/current.member.profile.service.js"></script>
+<script src="app/modal/members/member_profile/member.profile.view.controller.js"></script>
+<script src="app/modal/modal.service.js"></script>
+<script src="app/modal/password/password.reset.request.controller.js"></script>
+<script src="app/modal/teams/team_change/team.change.controller.js"></script>
+<script src="app/modal/teams/team_invite/team.invite.controller.js"></script>
+<script src="app/modal/teams/team_invite/team.invite.directive.js"></script>
+<script src="app/modal/teams/team_invite/team.invite.service.js"></script>
+<script src="app/modal/teams/team_member_list/team.member.list.controller.js"></script>
+<script src="app/modal/teams/team_member_list/team_member_list_template/team.member.list.tpl.controller.js"></script>
+<script src="app/modal/teams/team_member_list/team_member_list_template/team.member.list.tpl.directive.js"></script>
+<script src="app/modal/topics/topic_create/topic.create.controller.js"></script>
+<script src="app/modal/topics/topic_invite/topic.invite.controller.js"></script>
+<script src="app/modal/topics/topic_invite/topic.invite.directive.js"></script>
+<script src="app/modal/topics/topic_invite_from_dm/topic.invite.direct.controller.js"></script>
+<script src="app/modal/topics/topic_join/topic.join.controller.js"></script>
+<script src="app/modal/topics/topic_rename/topic.rename.controller.js"></script>
 <script src="app/right/file.detail/file.detail.controller.js"></script>
 <script src="app/right/file.detail/file.detail.directive.js"></script>
 <script src="app/right/files/file.filter.js"></script>

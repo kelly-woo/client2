@@ -2,7 +2,13 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal, entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice, userAPIservice, analyticsService, leftpanelAPIservice, memberService, publicService, messageSearchHelper, currentSessionHelper, logger, centerService, markerService, textbuffer, NetInterceptor, Sticker, jndPubSub, jndKeyCode) {
+app.controller('centerpanelController', function($scope, $rootScope, $state, $filter, $timeout, $q, $sce, $modal,
+                                                 entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice,
+                                                 userAPIservice, analyticsService, leftpanelAPIservice, memberService,
+                                                 publicService, messageSearchHelper, currentSessionHelper, logger,
+                                                 centerService, markerService, TextBuffer, modalHelper, NetInterceptor, 
+                                                 Sticker, jndPubSub, jndKeyCode) {
+
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
   var CURRENT_ENTITY_ARCHIVED = 2002;
@@ -162,7 +168,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.unsentMsgs = [];
     $scope.messages = [];
     $scope.isMessageSearchJumping = false;
-    $scope.message.content = textbuffer.get();
+    $scope.message.content = TextBuffer.get();
     messages = {};
   }
 
@@ -1179,27 +1185,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
   $scope.openModal = function(selector) {
     // OPENING JOIN MODAL VIEW
-    if (selector == 'file') {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/upload/upload.html',
-        controller  : 'fileUploadModalCtrl',
-        size        : 'lg',
-        backdrop    : 'static'
-      });
-    } else if (selector == 'rename') {
-      $modal.open({
-        scope       :   $scope,
-        templateUrl :   'app/modal/rename.html',
-        controller  :   'renameModalCtrl',
-        size        :   'lg'
-      });
-    } else if (selector == 'invite') {
-      publicService.openInviteToCurrentEntityModal($scope);
-    } else if (selector == 'inviteUserToChannel') {
-      publicService.openInviteToJoinedEntityModal($scope);
-    } else if (selector == 'share') {
-
+    if (selector === 'rename') {
+      // Why is center controller calling this function??
+      // TODO: REFACTOR TO ENTITY HEADER CONTROLLER.
+      modalHelper.openTopicRenameModal($scope);
+    } else if (selector === 'invite') {
+      modalHelper.openTopicInviteModal($scope);
+    } else if (selector === 'inviteUserToChannel') {
+      modalHelper.openTopicInviteFromDmModal($scope);
     }
   };
 
@@ -1210,9 +1203,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
     if (angular.isDefined(targetEntity)) {
       $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
-    }
-    else {
-      // Undefined targetEntity means it's an entity that I'm joined.
+    } else {
+      // Undefined targetEntity means it's an entity that I'm joined.onShareClick
       // Join topic first and go!
       entityheaderAPIservice.joinChannel(entityId)
         .success(function(response) {
@@ -1319,19 +1311,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     //  bind click event handler to full screen toggler.
     fullScreenToggler.bind('click', function() {
+      modalHelper.openFullScreenImageModal($scope, fullUrl);
+
       //  opening full image modal used in file controller.
       //  passing photo url of image that needs to be displayed in full screen.
-      $modal.open({
-        scope       :   $scope,
-        controller  :   'fullImageCtrl',
-        templateUrl :   'app/modal/fullimage.html',
-        windowClass :   'modal-full',
-        resolve     :   {
-          photoUrl    : function() {
-            return fullUrl;
-          }
-        }
-      });
+      //$modal.open({
+      //  scope       :   $scope,
+      //  controller  :   'fullImageCtrl',
+      //  templateUrl :   'app/modal/fullimage.html',
+      //  windowClass :   'modal-full',
+      //  resolve     :   {
+      //    photoUrl    : function() {
+      //      return fullUrl;
+      //    }
+      //  }
+      //});
     });
 
     // get transform information from original image.
@@ -1423,21 +1417,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function eventMsgHandler(msg) {
     var newMsg = msg;
-    newMsg.eventType = '/' + msg.info.eventType;
+    var action = '';
+    var entity;
 
+    newMsg.eventType = '/' + msg.info.eventType;
     newMsg.message = {};
     newMsg.message.contentType = 'systemEvent';
     newMsg.message.content = {};
     newMsg.message.writer = entityAPIservice.getEntityFromListById($scope.memberList, msg.fromEntity);
-    var action = '';
 
     switch(msg.info.eventType) {
       case 'invite':
         action = $filter('translate')('@msg-invited');
         newMsg.message.invites = [];
         _.each(msg.info.inviteUsers, function(element, index, list) {
-          var entity = entityAPIservice.getEntityFromListById($rootScope.memberList, element);
-          newMsg.message.invites.push(entity)
+          entity = entityAPIservice.getEntityFromListById($rootScope.memberList, element);
+          if (!_.isUndefined(entity)) {
+            newMsg.message.invites.push(entity);
+          }
         });
         break;
       case 'join' :
@@ -1480,8 +1477,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   $scope.onKeyUp = function(keyUpEvent) {
     var text = $(keyUpEvent.target).val();
-    textbuffer.set(text);
+    TextBuffer.set(text);
   };
+
+  /**
+   * keyDown 이벤트 핸들러
+   * @param {event} keyDownEvent
+   */
   $scope.onKeyDown = function(keyDownEvent) {
     if (jndKeyCode.match('ESC', keyDownEvent.keyCode)) {
       _hideSticker();
@@ -1508,7 +1510,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
   $scope.onShareClick = function(file) {
-    fileAPIservice.broadcastFileShare(file);
+    fileAPIservice.openFileShareModal($scope, file);
   };
 
   $scope.isDisabledMember = function(member) {

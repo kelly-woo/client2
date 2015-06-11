@@ -2,13 +2,14 @@
 
 var app = angular.module('jandiApp');
 
-app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter, memberService, entityAPIservice, storageAPIservice) {
+app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter,
+                                       memberService, entityAPIservice, storageAPIservice, modalHelper) {
   var fileSizeLimit = 100; // 100MB
   var integrateMap = {
     'google': true,
     'dropbox': true
   };
-
+  
   this.upload = upload;
   this.abort = abort;
   this.getFileList = getFileList;
@@ -29,7 +30,8 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.generateFileTypeFilter = generateFileTypeFilter;
   this.isIntegrateFile = isIntegrateFile;
   this.dataURItoBlob = dataURItoBlob;
-
+  this.openFileShareModal = openFileShareModal;
+  
   //fixme: deprecated. remove this.
   this.broadcastChangeShared = broadcastChangeShared;
   //fixme: deprecated. remove this.
@@ -273,6 +275,9 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
 
 
+  function openFileShareModal($scope, file) {
+    modalHelper.openFileShareModal($scope, file);
+  }
 
   function broadcastFileShare(file) {
     $rootScope.$broadcast('openFileShare', file);

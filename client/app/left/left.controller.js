@@ -1,58 +1,50 @@
-//(function() {
-//    'use strict';
-//
-//    angular
-//        .module('jandiApp')
-//        .controller('leftPanelController', leftPanelController);
-//
-//
-//    function leftPanelController($scope, $rootScope, storageAPIservice, accountService,  leftPanel, leftpanelAPIservice) {
-//        var vm = this;
-//
-//        $rootScope.isDMCollapsed = false || storageAPIservice.isLeftDMCollapsed();
-//        $rootScope.isTopicCollapsed = false || storageAPIservice.isLeftTopicCollapsed();
-//        $rootScope.isPGCollapsed = true || storageAPIservice.isLeftPGCollapsed();
-//
-//        accountService.setMember(leftPanel.data.user);
-//
-//        var joinedList = leftpanelAPIservice.getJoinedChannelList(leftPanel.data.joinEntities);
-//
-//        $scope.joinedChannelList    = joinedList[0];
-//        $scope.privateGroupList     = joinedList[1];
-//
-//
-//        vm.onUserContainerClick = function() {
-//            console.log('mb')
-//        }
-//    }
-//})();
-
 'use strict';
 
 var app = angular.module('jandiApp');
 
-// 사용되지 않는 arguments: $stateParams, $modal, $window, $timeout
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, NetInterceptor) {
+  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge, NetInterceptor) {
 
   //console.info('[enter] leftpanelController');
 
+  /**
+   * @namespace
+   * @property {boolean} hasBroadcast - left panel을 업데이트 한 후 다른 컨트롤러에 broadcast를 통해 알려줘야 할 경우 true
+   * @property {string{ broadcastTo - broadcast 할 이벤트의 이름
+   *
+   * FIXME: SERVICE에서 이 variable과 관련된 모든 펑션들을 관리하는게 더 좋을 것같아요.
+   */
   var afterLeftInit = {
     hasBroadcast: false,
     broadcastTo: ''
   };
 
+  //unread 갱신시 $timeout 에 사용될 타이머
+  var unreadTimer;
 
+  //unread 위치에 대한 정보
+  $scope.unread = {
+    above: [],
+    below: []
+  };
+  
+  // 로딩이 진행되고 있을 경우 true
   $scope.isLoading = false;
 
+  // left panel 에 토픽 리스트가 접혀있는 상태인지 아닌지 확인하는 부분.
   $scope.leftListCollapseStatus = {
     isTopicsCollapsed: storageAPIservice.isLeftTopicCollapsed() || false
   };
 
+  
+
+  // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
   if (!leftPanel) return;
+
+  // leftPanel의 상태가 200이 아닐 경우 에러로 처리.
   if (leftPanel.status != 200) {
     var err = leftPanel.data;
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
@@ -60,26 +52,194 @@ app.controller('leftPanelController1', function(
     response = leftPanel.data;
   }
 
+  _attachExtraEvents();
 
+  $rootScope.$on('onBadgeCountChanged', updateUnreadPosition);
+  
+  $scope.$on('$destroy', _onDestroy);
+  
+  // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);
   });
 
+  $scope.goUnreadBelow = goUnreadBelow;
+  $scope.goUnreadAbove = goUnreadAbove;
+
+  /**
+   * 아래쪽 unread 로 scroll 이동  
+   * @param {Event} clickEvent
+   */
+  function goUnreadBelow(clickEvent) {
+    var jqTarget = $(clickEvent.target).closest('.lpanel-list-help-unread ');
+    var jqContainer = $('#lpanel-list-container');
+    var scrollTop = jqContainer[0].scrollTop;
+    var offsetTop = jqContainer.offset().top;
+    var currentBottom = scrollTop + offsetTop + jqContainer.height();
+    var top = _getPosUnreadBelow();
+
+
+    // 아래 여백
+    var space = 9;
+
+    var targetScrollTop = scrollTop + (top - currentBottom);
+
+    if ($scope.unread.below.length > 1) {
+      targetScrollTop += jqTarget.outerHeight() + space;
+    }
+    jqContainer.animate({scrollTop: targetScrollTop});
+  }
+  
+  /**
+   * 위쪽 unread 로 scroll 이동
+   * @param {Event} clickEvent
+   */
+  function goUnreadAbove(clickEvent) {
+    var jqTarget = $(clickEvent.target);
+    var jqContainer = $('#lpanel-list-container');
+    var scrollTop = jqContainer[0].scrollTop;
+    var offsetTop = jqContainer.offset().top;
+    var currentTop = scrollTop + offsetTop;
+    var top = _getPosUnreadAbove();
+    //위 여백
+    var space = 7;
+
+    var targetScrollTop = scrollTop - (currentTop - top);
+
+    if ($scope.unread.above.length > 1) {
+      targetScrollTop -= jqTarget.outerHeight() + space;
+    }
+
+    jqContainer.animate({scrollTop: targetScrollTop});
+  }
+
+  /**
+   * 위쪽 unread badge top 위치 반환
+   * @returns {number}
+   * @private
+   */
+  function _getPosUnreadAbove() {
+    var above = $scope.unread.above;
+
+    if (above.length) {
+      return above[above.length - 1];
+    } else {
+      return 0;
+    }
+  }
+
+  /**
+   * 아래쪽 unread badge bottom 위치 반환
+   * @returns {number}
+   * @private
+   */
+  function _getPosUnreadBelow() {
+    var below = $scope.unread.below;
+    return below[0] || 0;
+  }
+
+  /**
+   * scope 소멸자
+   * @private
+   */
+  function _onDestroy() {
+    $timeout.cancel(unreadTimer);
+    _detachExtraEvents();
+  }
+
+  /**
+   * 이벤트 핸들러를 attach 한다.
+   * @private
+   */
+  function _attachExtraEvents() {
+    $(window).on('resize', updateUnreadPosition);
+    $('#lpanel-list-container').on('scroll', updateUnreadPosition);
+  }
+
+  /**
+   * 이벤트 핸들러 detach 한다.
+   * @private
+   */
+  function _detachExtraEvents() {
+    $(window).off('resize', updateUnreadPosition);
+    $('#lpanel-list-container').off('scroll', updateUnreadPosition);
+  }
+
+  /**
+   * unread position 을 업데이트한다.
+   * 중복 호출에 대한 성능 향상을 위해 timeout 을 사용한다.
+   */
+  function updateUnreadPosition() {
+    $timeout.cancel(unreadTimer);
+    unreadTimer = $timeout(function() {
+      _updateUnreadPosition();
+    }, 10);
+  }
+
+  /**
+   * unread position 을 업데이트한다.
+   * @private
+   */
+  function _updateUnreadPosition() {
+    var jqContainer = $('#lpanel-list-container');
+    var scrollTop = jqContainer[0].scrollTop;
+    var offsetTop = jqContainer.offset().top;
+    var height = jqContainer.height();
+
+    var top = scrollTop + offsetTop;
+    var bottom = top + height;
+    $scope.unread = UnreadBadge.getUnreadPos(top, bottom);
+  }
+
+  /**
+   * left panel 업데이트 후에 알려줘야 할 컨틀롤러가 있음을 설정한다.
+   * @param param {string} broadcast할 이벤트 이름
+   * @private
+   *
+   * FIXME: SERVICE로 빼시오.
+   */
   function _setAfterLeftInit(param) {
     afterLeftInit.hasBroadcast = true;
     afterLeftInit.broadcastTo = param;
   }
+
+  /**
+   * left panel 업데이트 후에 알려줘야 할 컨트롤러가 없음을 설정한다.
+   * @private
+   *
+   * FIXME: SERVICE로 빼시오.
+   */
   function _resetAfterLeftInit() {
     afterLeftInit.hasBroadcast = false;
   }
+
+  /**
+   * left panel 업데이트 후에 알려줘야 할 컨트롤러가 있는지 없는지 확인한다.
+    * @returns {boolean} true, 있을 경우
+   * @private
+   *
+   * FIXME: SERVICE로 빼시오.
+   */
   function _hasAfterLeftInit() {
     return afterLeftInit.hasBroadcast;
   }
+
+  /**
+   * left panel 업데이트 후 broadcast를 날린다.
+   * @private
+   *
+   * FIXME: SERVICE로 빼시오.
+   */
   function _broadcastAfterLeftInit() {
     jndPubSub.pub(afterLeftInit.broadcastTo);
   }
 
   //  redirecting to default channel.
+  /**
+   * 이 팀의 default topic으로 돌아간다.
+   *
+   * FIXME: Change '$watch' to '$on'.
+   */
   $rootScope.$watch('toDefault', function(newVal, oldVal) {
     if (newVal) {
       $state.go('archives', {entityType:'channels',  entityId:leftpanelAPIservice.getDefaultChannel(response) });
@@ -87,6 +247,9 @@ app.controller('leftPanelController1', function(
     }
   });
 
+  /**
+   * entityId를 항상 주시하고 있다가 바뀔때마나 currentEntity를 바꿔준다.
+   */
   $scope.$watch('$state.params.entityId', function(newEntityId){
     if (!newEntityId) return;
 
@@ -94,6 +257,12 @@ app.controller('leftPanelController1', function(
 
   });
 
+  /**
+   * $rootScope에 있는 currentEntity를 업데이트해준다.
+   * @param entityType {string} 엔티티의 타입
+   * @param entityId {string 혹은 number} 엔티티의 아이디
+   * @private
+   */
   function _setCurrentEntityWithTypeAndId(entityType, entityId) {
     var currentEntity = entityAPIservice.getEntityById(entityType, entityId);
 
@@ -104,7 +273,15 @@ app.controller('leftPanelController1', function(
     $rootScope.currentEntity = entityAPIservice.setCurrentEntity(currentEntity);
   }
 
-  // tutorial status
+  /**
+   * @namespace
+   * @property {boolean} topicTutorial - topic 관련 tutorial 을 봤는지 안 봤는지 알려주는 상태
+   * @property {boolean} chatTutorial - chat 관련 tutorial 을 봤는지 안 봤는지 알려주는 상태
+   * @property {boolean} fileTutorial - file 관련 tutorial 을 봤는지 안 봤는지 알려주는 상태
+   * @property {number} count - 봐야 할 tutorial 의 갯수
+   *
+   * TODO: 튜토리얼 관련 서비스를 만드시오! 거기서 관리하시오! $rootScope에서 나가시오! left controller 에서도 나가시오!
+   */
   $rootScope.tutorialStatus = {
     topicTutorial   : true,
     chatTutorial    : true,
@@ -112,13 +289,23 @@ app.controller('leftPanelController1', function(
     count           : 3
   };
 
+  /**
+   * Tutorial 상태를 초기화 한다.
+   */
   $scope.$on('initTutorialStatus', function() {
     $scope.initTutorialStatus();
   });
 
+  /**
+   * 각 tutorial 의 반짝이는 동그라미가 클릭되었을 경우 반응한다.
+   */
   $scope.$on('onTutorialPulseClick', function(event, $event) {
     $scope.onTutorialPulseClick($event);
   });
+
+  /**
+   * Tutorial 상태를 초기화 한다.
+   */
   $scope.initTutorialStatus = function() {
     // user hasn't seen tutorial yet.
     $scope.tutorialStatus.topicTutorial = false;
@@ -129,19 +316,29 @@ app.controller('leftPanelController1', function(
     openTutorialModal('welcomeTutorial');
   };
 
+  // left panel controller 에 들어오면 항상 호출되어야 한다.
   initLeftList();
 
-  // TODO: MOVE VARIABLES FROM '$rootScope' to 'session.service'
+  /**
+   *  초기에 left panel 에 관련된 모든 정보를 불러온 후 정렬한다.
+   * TODO: MOVE VARIABLES FROM '$rootScope' to 'session.service'
+   */
   function initLeftList () {
+    // 1. 현재 팀의 멤버가 아니거나
+    // 2. 로그인을 해야 하는 상황이 아닌 경우에는
+    // 로그아웃 시키고 sign in page 로 돌아간다.
     if (!storageAPIservice.isValidValue(memberService.getMember()) && !storageAPIservice.shouldAutoSignIn() ) {
       console.log('you are not supposed to be here!');
       publicService.signOut();
     }
 
-
+    // 현재 팀을 세션에 저장한다.
     currentSessionHelper.setCurrentTeam(response.team);
+
+    // 현재 팀을 $rootScope 에 저장한다.
     $rootScope.team = currentSessionHelper.getCurrentTeam();
 
+    // 현재 멤버 정보를 세션에 저장한다.
     memberService.setMember(response.user);
 
     // Check socket status when loading.
@@ -168,8 +365,7 @@ app.controller('leftPanelController1', function(
         .error(function(err) {
           leftpanelAPIservice.toSignin();
         })
-    }
-    else {
+    } else {
       // Still check whether user needs to see tutorial or not.
       _checkUpdateMessageStatus();
     }
@@ -204,7 +400,6 @@ app.controller('leftPanelController1', function(
     //  Adding privateGroups to 'totalEntities' so that 'totalEntities' contains every entities.
     //  totalEntities   - Every entities.
     $scope.totalEntities = $scope.totalEntities.concat($scope.privateGroupList);
-
     ////////////    END OF PARSING      ////////////
 
     $rootScope.totalChannelList     = $scope.totalChannelList;
@@ -226,8 +421,8 @@ app.controller('leftPanelController1', function(
       leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
     }
 
+    // generating starred list.
     if (memberService.getStarredEntities().length > 0) {
-      // generating starred list.
       setStar();
       $rootScope.$broadcast('onSetStarDone');
     }
@@ -241,17 +436,32 @@ app.controller('leftPanelController1', function(
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
     }
+
     $rootScope.$broadcast('onInitLeftListDone');
   }
 
+  /**
+   * Socket connection을 다시 한 번 체크한다.
+   * @private
+   */
   function _checkSocketStatus() {
     jndWebSocket.checkSocketConnection();
   }
+
+  /**
+   * 각 엔티티의 prefix 를 설정해준다.
+   */
   function setEntityPrefix() {
     leftpanelAPIservice.setEntityPrefix($scope);
   }
 
   //  When there is anything to update, call this function and below function will handle properly.
+  /**
+   * left panel topic 의 뱃지 카운트를 업데이트 한다.
+   * Update badge count.
+   * @param alarmInfoCnt {number}
+   * @param alarmsn {array}
+   */
   function leftPanelAlarmHandler(alarmInfoCnt, alarms) {
     _.each(alarms, function(value, key, list) {
       // TODO: 서버님께서 0을 주시는 이유가 궁금합니다.
@@ -268,6 +478,9 @@ app.controller('leftPanelController1', function(
     });
   }
 
+  /**
+   * left panel 에 담겨 있는 모든 정보를 불러온다.
+   */
   function getLeftLists() {
     leftpanelAPIservice.getLists()
       .success(function(data) {
@@ -293,6 +506,9 @@ app.controller('leftPanelController1', function(
 
   // right, detail panel don't have direct access to scope function in left controller.
   // so they emit event through rootscope.
+  /**
+   *
+   */
   $rootScope.$on('updateLeftPanelCaller', function() {
     //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
@@ -304,19 +520,13 @@ app.controller('leftPanelController1', function(
 
   $scope.openModal = function(selector) {
     if (selector == 'join') {
-      publicService.openJoinModal($scope);
-    }
-    else if (selector == 'channel') {
-      publicService.openTopicCreateModal($scope);
-    }
-    else if (selector == 'private') {
-      publicService.openPrivateCreateModal($scope);
-    }
-    else if (selector == 'file') {
-      publicService.openFileUploadModal($scope);
-    }
-    else if (selector == 'topic') {
-      publicService.openTopicCreateModal($scope);
+      modalHelper.openTopicJoinModal($scope);
+    } else if (selector == 'channel') {
+      modalHelper.openTopicCreateModal($scope);
+    } else if (selector == 'file') {
+      modalHelper.openFileUploadModal($scope);
+    } else if (selector == 'topic') {
+      modalHelper.openTopicCreateModal($scope);
     }
   };
 
@@ -332,7 +542,7 @@ app.controller('leftPanelController1', function(
     else {
       user = entityAPIservice.getEntityFromListById($scope.memberList, user.id)
     }
-    publicService.openMemberProfileModal($scope, user);
+    modalHelper.openMemberProfileModal($scope, user);
   };
 
   // based on uesr.u_starredEntites, populating starred look-up list.

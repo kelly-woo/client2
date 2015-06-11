@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $modal, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper, logger) {
+  function rPanelFileTabCtrl($scope, $rootScope, modalHelper, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper, logger) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -410,25 +410,8 @@
       $scope.searchStatus.length = $scope.fileList.length;
     }
 
-
-    $scope.openModal = function(selector) {
-      if (selector == 'share') {
-        $modal.open({
-          scope       : $scope,
-          templateUrl : 'app/modal/share/share.html',
-          controller  : 'fileShareModalCtrl',
-          size        : 'lg'
-        });
-      }
-    };
-
-    $scope.$on('openFileShare', function(event, file) {
-      $scope.onClickShare(file);
-    });
-
     $scope.onClickShare = function(file) {
-      $scope.fileToShare = file;
-      this.openModal('share');
+      fileAPIservice.openFileShareModal($scope, file);
     };
 
     $scope.onClickUnshare = function(message, entity) {

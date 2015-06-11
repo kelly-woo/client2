@@ -7,7 +7,8 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, $stateParams, $filter, $modal, accountService, memberService, publicService, configuration, language, modalHelper) {
+  function headerCtrl($scope, $rootScope, $state, $stateParams, $filter, $modal, accountService,
+                      memberService, publicService, configuration, language, modalHelper) {
     var modalMap;
     var modalOpenMap;
 
@@ -56,27 +57,7 @@
       });
 
     }
-    //  Called when header dropdown is clicked.
-    //  Setting fileTypeQuery to clicked value.
-    //  If right panel is not opened yet, open it first.
-    //  right.controller is listening to 'updateFileTypeQuery'.
-    $scope.onFileTypeClick = function(type) {
-      if ($state.current.name != 'messages.detail.files')
-        $state.go('messages.detail.files');
-      $scope.$emit('updateFileTypeQuery', type);
-      $rootScope.$broadcast('setFileTabActive');
-    };
-    //  right controller is listening to 'updateFileWriterId'.
-    $scope.onFileListClick = function(userId) {
-      if ($state.current.name != 'messages.detail.files')
-        $state.go('messages.detail.files');
-      $scope.$emit('updateFileWriterId', userId);
-    };
 
-    $scope.toAdmin = function() {
-      var teamName = $filter('getName')($scope.team)
-      publicService.redirectTo(configuration.main_address + 'admin/' + teamName);
-    };
     $scope.toTeam = function() {
       publicService.redirectTo(configuration.main_address + 'team');
     };
@@ -86,53 +67,22 @@
 
     modalMap = {
       'agreement': function() {
-        publicService.openAgreementModal();
+        modalHelper.openAgreementModal();
       },
       'privacy': function() {
-        publicService.openPrivacyModal();
+        modalHelper.openPrivacyModal();
       },
       'channel': function() {
-        publicService.openTopicCreateModal($scope);
-      },
-      'private': function() {
-        publicService.openPrivateCreateModal($scope);
+        modalHelper.openTopicCreateModal($scope);
       },
       'invite': function() {
-        publicService.openInviteToTeamModal($scope);
+        modalHelper.openInviteToTeamModal($scope);
       },
       'team-change': function() {
-        publicService.openTeamChangeModal($scope);
-      },
-      'setting-team': function() {
-        publicService.openTeamSettingModal($scope);
+        modalHelper.openTeamChangeModal($scope);
       },
       'team-member': function() {
         modalHelper.openTeamMemberListModal();
-      },
-      'setting-profile': function() {
-        $modal.open({
-          scope       :   $scope,
-          templateUrl :   'app/modal/settings.profile.html',
-          controller  :   'profileCtrl',
-          size        :   'lg'
-        });
-      },
-      'setting-account': function() {
-        $modal.open({
-          scope       :   $scope,
-          templateUrl :   'app/modal/settings.account.html',
-          controller  :   'accountController',
-          size        :   'lg'
-        });
-      },
-      'setting-service': function() {
-        $modal.open({
-          sopce       : $scope,
-          templateUrl : 'app/modal/settings.service.html',
-          controller  : 'preferencesController',
-//        windowClass : 'modal-wide',
-          size        : 'lg'
-        });
       }
     };
     $scope.openModal = function(selector) {

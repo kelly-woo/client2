@@ -2,12 +2,12 @@
 
 <tabset class="rpanel-body-tab-container">
   <!--  FILE TAB  -->
-  <tab active="tabs[0].active" select="onFileTabSelected();" heading="{{'@common-files' | translate}}">
+  <tab active="tabs[0].active" select="onRightPanelTabSelected('file');" heading="{{'@common-files' | translate}}">
     <r-panel-file-tab></r-panel-file-tab>
   </tab>
 
   <!--  MESSAGE TAB -->
-  <tab active="tabs[1].active" select="onMessageTabSelected();" heading="{{'@common-message' | translate}}">
+  <tab active="tabs[1].active" select="onRightPanelTabSelected('message');" heading="{{'@common-message' | translate}}">
     <r-panel-messages-tab></r-panel-messages-tab>
   </tab>
 </tabset>

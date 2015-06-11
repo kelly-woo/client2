@@ -389,19 +389,3 @@ app.directive('teamPrefixDomainChecker', function(teamAPIservice) {
   };
 });
 
-app.directive('onImageLoad',     function onImageLoad() {
-  return {
-    restrict: 'A',
-    link: function(scope, el, attr, ctrl) {
-      el.bind('load', function () {
-        if (attr.onImageLoadOpacParent) {
-          el.parent().css('opacity', 1);
-        }
-        else {
-          el.css('opacity', 1);
-
-        }
-      });
-    }
-  };
-});

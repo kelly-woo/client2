@@ -2,15 +2,21 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice, publicService, configuration, jndPubSub, jndKeyCode) {
-  var fileId = $state.params.itemId;
+app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
+                                          fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
+                                          publicService, configuration, modalHelper, jndPubSub, jndKeyCode) {
+
+  //console.info('[enter] fileDetailCtrl');
   var _sticker = null;
+  
+  var fileId = $state.params.itemId;  
   //file detail에서 integraiton preview로 들어갈 image map
   var integrationPreviewMap = {
     google: 'assets/images/web_preview_google.png',
     dropbox: 'assets/images/web_preview_dropbox.png'
   };
-
+  var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
+    
   $scope.initialLoaded    = false;
   $scope.file_detail      = null;
   $scope.file_comments    = [];
@@ -18,6 +24,9 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   $scope.isPostingComment = false;
   $scope.hasFileAPIError  = false;
   $scope.comment = {};
+  $scope.isLoadingImage   = true;
+
+
   // configuration for message loading
   $scope.fileLoadStatus = {
     loading: false
@@ -26,7 +35,6 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   $scope.deleteComment = deleteComment;
   $scope.postComment = postComment;
   $scope.onImageClick = onImageClick;
-  $scope.openModal = openModal;
   $scope.onClickDownload = onClickDownload;
   $scope.onClickShare = onClickShare;
   $scope.onClickUnshare = onClickUnshare;
@@ -37,7 +45,8 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   $scope.onUserClick = onUserClick;
   $scope.onCommentFocusClick = onCommentFocusClick;
   $scope.onKeyDown = onKeyDown;
-
+  $scope.onFileDetailImageLoad = onFileDetailImageLoad;
+  
   _init();
 
   /**
@@ -159,6 +168,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       _hideSticker();
     }
   }
+  
   /**
    * user 이미지 클릭시 이벤트 핸들러
    * @param {object} user
@@ -175,6 +185,26 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   }
 
   /**
+   * file detail에서 preview 공간에 들어갈 image의 url을 설정함
+   */
+  function setImageUrl(fileDetail) {
+    var content = fileDetail.content;
+    var integrationImage;
+
+    // file detail에서 preview image 설정
+    if ($filter('hasPreview')(content)) {
+      $scope.ImageUrl = $scope.server_uploaded + content.fileUrl;
+    } else {
+      if (integrationImage = integrationPreviewMap[content.serverUrl]) {
+        $scope.ImageUrl = configuration.assets_url + integrationImage;
+      } else {
+        $scope.ImageUrl = configuration.assets_url + noPreviewAvailableImage;
+      }
+      $scope.cursor = 'pointer';
+    }
+  }
+  
+  /**
    * 이미지 클릭시 이벤트 핸들러
    */
   function onImageClick() {
@@ -182,39 +212,19 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     if (integrationPreviewMap[content.serverUrl]) {
       window.open(content.fileUrl, '_blank');
     } else {
-      $modal.open({
-        scope       :   $scope,
-        controller  :   'fullImageCtrl',
-        templateUrl :   'app/modal/fullimage.html',
-        windowClass :   'modal-full fade-only',
-        resolve     :   {
-          photoUrl    : function() {
-            return $scope.ImageUrl;
-          }
-        }
-      });
-    }
-  }
+      modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
 
-  /**
-   * modal 을 open 한다.
-   * @param {string} selector
-   */
-  function openModal(selector) {
-    if (selector == 'share') {
-      $modal.open({
-        scope       : $scope,
-        templateUrl : 'app/modal/share/share.html',
-        controller  : 'fileShareModalCtrl',
-        size        : 'lg',
-        resolve: {
-          parameters: function () {
-            return {
-              fileToShare :   $scope.fileToShare
-            };
-          }
-        }
-      });
+      //$modal.open({
+      //  scope       :   $scope,
+      //  controller  :   'fullImageCtrl',
+      //  templateUrl :   'app/modal/fullimage.html',
+      //  windowClass :   'modal-full fade-only',
+      //  resolve     :   {
+      //    photoUrl    : function() {
+      //      return $scope.ImageUrl;
+      //    }
+      //  }
+      //});
     }
   }
 
@@ -239,8 +249,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    * @param file
    */
   function onClickShare(file) {
-    $scope.fileToShare = file;
-    openModal('share');
+    fileAPIservice.openFileShareModal($scope, file);
   }
 
   /**
@@ -415,7 +424,11 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       $scope.initialLoaded = true;
     }
     if ($scope.file_detail) {
-      setImageUrl($scope.file_detail);    // preview image url 생성
+      if ($scope.file_detail.content && /image/i.test($scope.file_detail.content.type)) {
+        // preview image url 생성
+        setImageUrl($scope.file_detail);
+      }
+
       $scope.isIntegrateFile  = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
     }
   }
@@ -441,6 +454,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
         $scope.file_comments.push(item);
       }
     }
+    
   }
 
   /**
@@ -473,20 +487,6 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   }
 
   /**
-   * file detail에서 preview 공간에 들어갈 image의 url을 설정함
-   */
-  function setImageUrl(fileDetail) {
-    var content = fileDetail.content;
-    // file detail에서 preview image 설정
-    if ($filter('hasPreview')(content)) {
-      $scope.ImageUrl = $scope.server_uploaded + content.fileUrl;
-    } else {
-      $scope.ImageUrl = (integrationPreviewMap[content.serverUrl] && (configuration.assets_url + integrationPreviewMap[content.serverUrl]));
-      $scope.cursor = 'pointer';
-    }
-  }
-
-  /**
    * ?? 잘 모르겠음
    * @returns {boolean}
    * @private
@@ -501,43 +501,8 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   function backToFileList() {
     $state.go('messages.detail.files');
   }
+  
+  function onFileDetailImageLoad() {
+    $scope.isLoadingImage = false;
+  }
 });
-
-//fixme: 아래 controller 는 파일로 분리해야 함
-app
-  .controller('fullImageCtrl', function($scope, $modalInstance, photoUrl) {
-    $scope.cancel = function() { $modalInstance.dismiss('cancel');}
-    $scope.photoUrl = photoUrl;
-    $scope.onImageRotatorClick = function($event) {
-
-      var sender = angular.element($event.target);
-      var senderID = sender.attr('id');
-
-      var target = '';
-      switch(senderID){
-        case 'fromModal':
-          target = sender.parent().siblings('img.image-background').parent();
-          break;
-        default :
-          break;
-      }
-
-      if (target === '') return;
-      var targetClass = target.attr('class');
-
-      if (targetClass.indexOf('rotate-90') > -1) {
-        target.removeClass('rotate-90');
-        target.addClass('rotate-180');
-      }
-      else if(targetClass.indexOf('rotate-180') > -1) {
-        target.removeClass('rotate-180');
-        target.addClass('rotate-270');
-      }
-      else if(targetClass.indexOf('rotate-270') > -1) {
-        target.removeClass('rotate-270');
-      }
-      else {
-        target.addClass('rotate-90');
-      }
-    };
-  });

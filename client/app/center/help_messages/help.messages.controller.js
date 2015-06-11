@@ -128,7 +128,7 @@
       modalHelper.openInviteToTeamModal();
     }
     function _openInviteModal() {
-      modalHelper.openInviteToCurrentEntityModal();
+      modalHelper.openTopicInviteModal();
     }
 
     function _setChatInputBoxFocus() {

@@ -1,0 +1,39 @@
+<!-- Modal: Rename Channel -->
+<div class="modal-header">
+  <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
+  <h3 class="modal-header__title">
+    <span translate>@common-rename</span>
+  </h3>
+</div>
+
+<form name="create_channel_form" data-ng-submit="onRenameClick(newTopicName);">
+  <div class="modal-body">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label class="control-label col-sm-3">
+          <span translate>@common-new-name</span>
+        </label>
+        <div class="col-sm-9">
+          <input type="text"
+                 class="form-control"
+                 name="newTopicName"
+                 data-ng-model="newTopicName"
+                 placeholder="{{ '@input-rename' | translate }}"
+                 maxlength="20"
+                 required/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>@btn-cancel</span></button>
+    <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ '@btn-update-name' | translate }}"
+           ng-disabled="currentEntity.name == newTopicName"/>
+  </div>
+</form>
+
+<div class="loading_container" data-ng-if="isLoading">
+  <div class="loading_container_background"></div>
+  <div class="loading_bg"></div>
+  <div class="loading_bar icon-loading"></div>
+</div>

@@ -35,7 +35,7 @@
       getMessageList();
     });
 
-    $scope.$on('updateMessageList', function() {
+    $scope.$on('updateChatList', function() {
       getMessageList();
     });
 
