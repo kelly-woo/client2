@@ -196,7 +196,7 @@
       _openIntegrationModal: function(data) {
         var that = this;
         var modal;
-        
+
         // modal이 이미 open된 상태라면 cancel
         that.modal && that.modal.dismiss('cancel');
 
@@ -283,7 +283,7 @@
             that._open();
           } else {
             storageAPIservice.getCookie('integration', 'google') !== true ? that._openIntegrationModal() : that._open();
-          }          
+          }
         }
       },
       /**
@@ -306,6 +306,8 @@
         var view = new google.picker.DocsView();
         var picker = that.picker = new google.picker.PickerBuilder();
         var lang = accountService.getAccountLanguage();
+
+        that._closeIntegrationModal();
 
         view.setIncludeFolders(true);
 
@@ -355,7 +357,6 @@
       doAuth: function(token) {
         var that = this;
 
-        that._closeIntegrationModal();
         gapi.auth.setToken(token);
         that._showPicker();
       },
@@ -434,8 +435,8 @@
 
         // DropboxIntegration object 생성시 cookie에 dropbox integrate cookie가 있다면 바로 Dropbox listener를 button에 등록함.
         if (that.cInterface !== 'alert') {
-          storageAPIservice.getCookie('integration', 'dropbox') === true && that._open();  
-        }        
+          storageAPIservice.getCookie('integration', 'dropbox') === true && that._open();
+        }
 
         return that;
       },
