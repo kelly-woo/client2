@@ -1304,8 +1304,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         userName    : file.writer.name,
         itemId      : file.id
       });
-    }
-    else {
+    } else {
       fileAPIservice.broadcastCommentFocus();
     }
   };
