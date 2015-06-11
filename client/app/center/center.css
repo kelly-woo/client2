@@ -961,7 +961,6 @@ by ysyun 2015.2.25
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 10px;
 }
 
 .attachment-message-wrapper .social-image {
@@ -990,8 +989,9 @@ by ysyun 2015.2.25
 .social-body .social-title {
   font-size: 16px;
   line-height: 22px;
-  max-height: 44px;
+  max-height: 42px;
   font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .social-body .social-desc {
