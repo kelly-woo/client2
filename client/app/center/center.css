@@ -940,6 +940,7 @@ by ysyun 2015.2.25
 ********************************************/
 .attachment-message-wrapper {
   position: relative;
+  margin-top: 10px;
 }
 .attachment-message-wrapper .attachment-message-bar {
   display: table-cell;
@@ -953,10 +954,8 @@ by ysyun 2015.2.25
 }
 
 .attachment-message-wrapper .neighbor {
-  max-height: 50px;
   display: -webkit-box;
   max-width: 100%;
-  line-height: 1.5;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -965,31 +964,43 @@ by ysyun 2015.2.25
 }
 
 .attachment-message-wrapper .social-image {
+  display: table-cell;
   float: left;
   margin-right: 12px;
+}
 
+.attachment-message-wrapper img {
+  max-width: 110px;
+  max-height: 110px;
+  border: 1px solid #e1e1e1;
 }
 
 .attachment-message-wrapper .social-body {
+  position: relative;
+  display: table-cell;
   color: #333;
 }
 
 .social-body .social-title {
   font-size: 16px;
   line-height: 22px;
+  max-height: 44px;
   font-weight: 600;
-  margin-bottom: 12px;
 }
 
 .social-body .social-desc {
   font-size: 13px;
   line-height: 18px;
+  max-height: 36px;
+  margin-bottom: 25px;
 }
 
-.social-body .social-url {
+.social-url {
   position: absolute;
-  left: 138px;
+  right: 0;
   bottom: 0;
+  left: 0;
   font-size: 12px;
   color: #999;
+  overflow: hidden;
 }

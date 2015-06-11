@@ -51,6 +51,10 @@
     function link (scope, element, attrs, ctrl) {
       var message = Message.createInstance(element);
 
+      scope.hasLinkImage = true;
+      scope.linkImageUrl = 'assets/images/web_preview_google.png';
+      // scope.linkImageUrl = 'assets/images/ld-01.png';
+
       message.attach(scope);
       if (scope.isPolling) {
         //console.log('polling');

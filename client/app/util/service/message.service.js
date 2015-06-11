@@ -16,11 +16,12 @@
       '</div>'
     };
     var content_templates = {
-      social_snippet: '<div class="social-image" style="border: 1px solid #d7e0e8; width: 110px; height: 110px;">' +
-          '<img style="width: 110px; height: 110px;"/>' +
+      social_snippet:
+        '<div class="social-image" ng-if="hasLinkImage">' +
+          '<img ng-src="{{linkImageUrl}}"/>' +
         '</div>' +
         '<div class="social-body" style="">' +
-          '<div class="social-title neighbor">qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw </div>' +
+          '<div class="social-title neighbor">qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw </div>' +
           '<div class="social-desc neighbor">qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw qwerqwerqw </div>' +
           '<div class="social-url">www.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.comwww.naver.com</div>' +
         '</div>'
