@@ -39,7 +39,7 @@
       if (isBannerUp) {
         //_movePanelDown(panel);
       } else {
-        _movePanelUp(panel);
+        //_movePanelUp(panel);
       }
     }
 
@@ -110,8 +110,6 @@
       var panelClassName = _getPanelClassName(panel);
       var jqPanelElement = _getPanelElement(panelClassName);
       var currentTop = parseInt(jqPanelElement.css('top'), 10);
-
-      console.log(jndMap.get(panel)  === currentTop)
       if (!jndMap.get(panel)) {
         // 한 번 내린 패널은 다시 내리지 않기위해
         jndMap.add(panel, currentTop);
@@ -165,7 +163,7 @@
       if (!isBannerUp) {
         isBannerUp = true;
         jqBanner = angular.element('<div notification-banner></div>');
-        jqBody = $document.find('body').eq(0);
+        jqBody = $document.find('body .body-wrapper').eq(0);
         bannerScope = $rootScope.$new(true);
 
         $compile(jqBanner)(bannerScope);
