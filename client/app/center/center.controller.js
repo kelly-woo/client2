@@ -1229,21 +1229,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function eventMsgHandler(msg) {
     var newMsg = msg;
-    newMsg.eventType = '/' + msg.info.eventType;
+    var action = '';
+    var entity;
 
+    newMsg.eventType = '/' + msg.info.eventType;
     newMsg.message = {};
     newMsg.message.contentType = 'systemEvent';
     newMsg.message.content = {};
     newMsg.message.writer = entityAPIservice.getEntityFromListById($scope.memberList, msg.fromEntity);
-    var action = '';
 
     switch(msg.info.eventType) {
       case 'invite':
         action = $filter('translate')('@msg-invited');
         newMsg.message.invites = [];
         _.each(msg.info.inviteUsers, function(element, index, list) {
-          var entity = entityAPIservice.getEntityFromListById($rootScope.memberList, element);
-          newMsg.message.invites.push(entity)
+          entity = entityAPIservice.getEntityFromListById($rootScope.memberList, element);
+          if (!_.isUndefined(entity)) {
+            newMsg.message.invites.push(entity);
+          }
         });
         break;
       case 'join' :

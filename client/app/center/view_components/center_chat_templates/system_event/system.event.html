@@ -14,7 +14,7 @@
                 <span ng-switch-when="invite">
                   <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
                   <span class="keep" ng-bind-html="(msg.message.content.body) || ''"></span>
-                  <span class="msg-comment_userType" ng-repeat="invitees in msg.message.invites">
+                  <span class="msg-comment_userType" ng-repeat="invitees in msg.message.invites track by $index">
                     <span>{{invitees | getName}}<span style="padding-right: 4px;" ng-if="!$last">,</span></span>
                   </span>
                   <span ng-if="preferences.language === 'ko'">{{ '@msg-invited-postfix' | translate }}</span>
