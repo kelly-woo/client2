@@ -274,6 +274,9 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   }
 
 
+  fileAPI.broadcastCommentFocus = function() {
+    //$rootScope.$broadcast('setCommentFocus');
+  };
 
   function openFileShareModal($scope, file) {
     modalHelper.openFileShareModal($scope, file);
