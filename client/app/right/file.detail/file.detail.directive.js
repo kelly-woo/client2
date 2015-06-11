@@ -5,22 +5,27 @@
     .module('jandiApp')
     .directive('fileDetailPreview', fileDetailPreview);
 
-  function fileDetailPreview() {
+  function fileDetailPreview($rootScope, $timeout) {
     return {
       restrict: 'A',
       link: link
     };
 
-    function link(scope, element) {
-      var ele;
+    function link($scope, jqEle) {
+      if ($rootScope.setFileDetailCommentFocus) {
+        $rootScope.setFileDetailCommentFocus = false;
 
-      if (scope.ImageUrl) {
-        ele = element.show().children('img');
-        ele.attr({ src: scope.ImageUrl });
+        $timeout(function() {
+          $scope.onCommentFocusClick();
+        });
+      }
 
-        scope.cursor && ele.css({ cursor: scope.cursor });
+      if ($scope.ImageUrl) {
+        jqEle = jqEle.show().children('img').attr({ src: $scope.ImageUrl });
+
+        $scope.cursor && jqEle.css({ cursor: $scope.cursor });
       } else {
-        element.hide();
+        jqEle.hide();
       }
     }
   }
