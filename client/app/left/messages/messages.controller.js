@@ -6,7 +6,7 @@
     .controller('messageListCtrl', messageListCtrl);
 
   /* @ngInject */
-  function messageListCtrl($scope, storageAPIservice, messageList, entityAPIservice, publicService, $filter, modalHelper, jndPubSub) {
+  function messageListCtrl($scope, $timeout, storageAPIservice, messageList, entityAPIservice, publicService, $filter, modalHelper, jndPubSub) {
     // okay - okay to go!
     // loading - currently loading.
     // failed - failed to retrieve list from server.
@@ -38,7 +38,15 @@
     $scope.$on('updateChatList', function() {
       getMessageList();
     });
+    $scope.$watch('isMessageListCollapsed', _onCollapseStatusChanged);
 
+    /**
+     * collapse status 변경시 update badge posision 이벤트 트리거한다.
+     * @private
+     */
+    function _onCollapseStatusChanged() {
+      jndPubSub.updateBadgePosition();
+    }
 
     function getMessageList() {
       if ($scope.messageListLoadingStatus == 'loading') return;
