@@ -105,7 +105,7 @@
 
       return $http({
         method  : 'POST',
-        url     : 'http://i1.jandi.io:5000/inner-api/stickers',
+        url     : server_address + 'stickers',
         data    : data
       });
     }
