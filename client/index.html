@@ -66,12 +66,12 @@
   <!-- endinjector -->
   <!-- endbuild -->
 </head>
-<body class="content-wrapper opac-zero" ng-class="{'opac-in': isReady}">
+<body class="content-wrapper">
 <!--[if lt IE 9]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div class="body-wrapper" style="position:relative;">
+<div class="body-wrapper opac-zero" style="position:relative;" ng-class="{'opac-in-fast': isReady}">
 
   <!-- Add your site or application content here -->
   <div class="hpanel non-selectable" ui-view="headerpanel"></div>
@@ -88,6 +88,11 @@
   </div>
 
 </div>
+
+<div class="is-ready-loading" ng-show="!isReady">
+  <div class="loading_bar icon-loading"></div>
+</div>
+
 
 <!--[if lte IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>

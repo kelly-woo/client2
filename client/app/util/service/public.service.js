@@ -28,7 +28,9 @@
       isDisabledMember: isDisabledMember,
       isNullOrUndefined: isNullOrUndefined,
       goToDefaultTopic: goToDefaultTopic,
-      adjustBodyWrapperHeight: adjustBodyWrapperHeight
+      adjustBodyWrapperHeight: adjustBodyWrapperHeight,
+      hideTransitionLoading: hideTransitionLoading,
+      showTransitionLoading: showTransitionLoading
     };
 
     return service;
@@ -159,9 +161,22 @@
     }
 
     function adjustBodyWrapperHeight(isBannerUp) {
+      var jqBody = $('.body');
       var jqBodyWrapper = $('.body-wrapper');
       var heightOffset = isBannerUp ? 40 : 0;
       jqBodyWrapper.height($(window).height() - heightOffset);
+      jqBody.height($(window).height() - heightOffset - 40);
+    }
+
+
+    function hideTransitionLoading() {
+      console.log('hiding')
+      $rootScope.isReady = true;
+    }
+
+    function showTransitionLoading() {
+      console.log('showing')
+      $rootScope.isReady = false;
     }
   }
 })();

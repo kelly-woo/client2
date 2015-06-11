@@ -16,7 +16,7 @@ article {
 
 .cpanel {
   position: absolute;
-  top: 41px;
+  top: 0;
   left: 240px;
   right: 0;
   bottom: 0;

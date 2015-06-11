@@ -45,7 +45,7 @@ app.controller('leftPanelController1', function(
 
 
   function _checkNotificationBanner() {
-    publicService.adjustBodyWrapperHeight();
+    publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
     DeskTopNotificationBanner.checkNotificationBanner('left');
   }
   $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
@@ -292,8 +292,6 @@ app.controller('leftPanelController1', function(
 
     if ($state.params.entityId)
       _setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
-
-    //$rootScope.isReady = true;
 
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();

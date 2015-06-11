@@ -5,7 +5,12 @@
     .module('jandiApp')
     .controller('underConstructionCtrl', underConstructionCtrl);
 
-  function underConstructionCtrl() {
+  /* @ngInject */
+  function underConstructionCtrl(publicService) {
+    _init();
 
+    function _init() {
+      publicService.hideTransitionLoading();
+    }
   }
 })();
