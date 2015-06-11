@@ -55,7 +55,7 @@ app.controller('leftPanelController1', function(
 
   _attachExtraEvents();
 
-  $rootScope.$on('updateBadgePosition', updateUnreadPosition);
+  $scope.$on('updateBadgePosition', updateUnreadPosition);
   
   $scope.$on('$destroy', _onDestroy);
   
@@ -75,6 +75,10 @@ app.controller('leftPanelController1', function(
    */
   function _onCollapseStatusChanged() {
     $timeout.cancel(collapseTimer);
+    /*
+      collapse 가 완료되는 시점을 알 수 없기 때문에 0.8 초 뒤에 position update 를 하도록 한다.
+      todo: collapse 완료 시점을 알 수 있는 방법이 있다면 timeout 을 제거해야함
+     */
     collapseTimer = $timeout(function() {
       jndPubSub.updateBadgePosition();
     }, 800);
