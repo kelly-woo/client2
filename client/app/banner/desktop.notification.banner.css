@@ -9,6 +9,10 @@
   background-color: #f5b800;
 }
 
+.exclamation-in-triangle {
+  vertical-align: baseline;
+}
+
 .desktop-notification-setting-banner.initial-question {
   background-color: #ef4900;
 }

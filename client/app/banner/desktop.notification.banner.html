@@ -3,12 +3,14 @@
 
   <div class="banner-text">
 
-    <div ng-if="isInitialQuestion">
+    <img class="exclamation-in-triangle" src="assets/images/icon-disabled-members-alert.png"/>
+
+    <span ng-if="isInitialQuestion">
       <span translate>@never-miss-a-message</span>
       <span class="jnd-text-underline cursor_pointer" ng-click="turnOnDesktopNotification()" translate>@noti-banner-turn-on</span>
-    </div>
+    </span>
 
-    <div ng-if="!isInitialQuestion">
+    <span ng-if="!isInitialQuestion">
       <span translate>
         @miss-out-important-msg
       </span>
@@ -23,7 +25,7 @@
         @never-ask-me
       </span>
 
-    </div>
+    </span>
   </div>
 
   <!-- x 아이콘 -->
