@@ -7,8 +7,6 @@ app.controller('leftPanelController1', function(
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
   currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge) {
 
-  //console.info('[enter] leftpanelController');
-
   /**
    * @namespace
    * @property {boolean} hasBroadcast - left panel을 업데이트 한 후 다른 컨트롤러에 broadcast를 통해 알려줘야 할 경우 true
@@ -20,6 +18,9 @@ app.controller('leftPanelController1', function(
     hasBroadcast: false,
     broadcastTo: ''
   };
+
+  //collapse 이후 갱신 요청할 timer
+  var collapseTimer;
 
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
@@ -54,7 +55,7 @@ app.controller('leftPanelController1', function(
 
   _attachExtraEvents();
 
-  $rootScope.$on('onBadgeCountChanged', updateUnreadPosition);
+  $scope.$on('updateBadgePosition', updateUnreadPosition);
   
   $scope.$on('$destroy', _onDestroy);
   
@@ -63,8 +64,25 @@ app.controller('leftPanelController1', function(
     _setAfterLeftInit(param);
   });
 
+  $scope.$watch('leftListCollapseStatus.isTopicsCollapsed', _onCollapseStatusChanged);
+
   $scope.goUnreadBelow = goUnreadBelow;
   $scope.goUnreadAbove = goUnreadAbove;
+
+  /**
+   * collapse status 변경시 update badge posision 이벤트 트리거한다.
+   * @private
+   */
+  function _onCollapseStatusChanged() {
+    $timeout.cancel(collapseTimer);
+    /*
+      collapse 가 완료되는 시점을 알 수 없기 때문에 0.8 초 뒤에 position update 를 하도록 한다.
+      todo: collapse 완료 시점을 알 수 있는 방법이 있다면 timeout 을 제거해야함
+     */
+    collapseTimer = $timeout(function() {
+      jndPubSub.updateBadgePosition();
+    }, 800);
+  }
 
   /**
    * 아래쪽 unread 로 scroll 이동  

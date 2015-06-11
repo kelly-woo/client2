@@ -29,6 +29,7 @@
       var jqParent = el.parent();
       scope.$on('$destroy', _onDestroy);
       scope.$watch('content', _onContentChange);
+      scope.$on('updateBadgePosition', _onUpdateBadgePosition);
 
       /**
        * 뱃지 내용 변경 시 핸들러
@@ -37,21 +38,38 @@
        * @private
        */
       function _onContentChange(newVal, oldVal) {
-        var top;
-        var bottom;
-
         if (newVal > 0) {
-          top = _getTop();
-          bottom = top + jqParent.height();
-
-          UnreadBadge.add(key, {
-            top: top,
-            bottom: bottom
-          }, scope.entity);
+          UnreadBadge.add(key, _getBadgeData());
         } else {
           UnreadBadge.remove(key);
         }
-        jndPubSub.pub('onBadgeCountChanged');
+        jndPubSub.updateBadgePosition();
+      }
+
+      /**
+       * badge 위치 데이터를 가공하여 반환한다.
+       * @returns {{top: number, bottom: *, entity: string, el: *}}
+       * @private
+       */
+      function _getBadgeData() {
+        var top = _getTop();
+        var bottom = top + jqParent.height();
+        return {
+          top: top,
+          bottom: bottom,
+          entity: scope.entity,
+          el: el
+        };
+      }
+
+      /**
+       * 뱃지의 위치 정보를 업데이트 한다.
+       * @private
+       */
+      function _onUpdateBadgePosition() {
+        if (scope.content > 0) {
+          UnreadBadge.update(key, _getBadgeData());
+        }
       }
 
       /**
