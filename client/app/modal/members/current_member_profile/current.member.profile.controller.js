@@ -15,20 +15,23 @@
 
     $scope.cancel = modalHelper.closeModal;
 
-    (function() {
+    _init();
+
+    function _init() {
       $scope.hasUpdatedProfilePic = false;
       $scope.isProfilePicSelected = false;
 
       $scope.isFileReaderAvailable = true;
 
       _setCurrentMember();
-    })();
+    }
 
     /**
      * profile 설정 모달에서 사용되어질 멤버 변수를 초기화한다.
      * @private
      */
     function _setCurrentMember() {
+      var userExtraData;
       if (!!$scope.hasUpdatedProfilePic && !!$scope.curUser) {
         // profile picture 를 업데이트 한 후에도 모달이 살아있음.
         // 그럴때 멤버 프로필이 바뀌었다는 소켓 이벤트가 들어옴.
@@ -40,9 +43,10 @@
       }
 
       // 서버에서 받은 유저 정보에 extraData가 없는 경우 공백을 넣는다.
-      $scope.curUser.u_extraData.phoneNumber  = memberService.getPhoneNumber($scope.curUser) || "";
-      $scope.curUser.u_extraData.department   = memberService.getDepartment($scope.curUser) || "";
-      $scope.curUser.u_extraData.position     = memberService.getPosition($scope.curUser) || "";
+      userExtraData = $scope.curUser.u_extraData;
+      userExtraData.phoneNumber = memberService.getPhoneNumber($scope.curUser) || "";
+      userExtraData.department = memberService.getDepartment($scope.curUser) || "";
+      userExtraData.position = memberService.getPosition($scope.curUser) || "";
     }
 
 

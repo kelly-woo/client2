@@ -63,7 +63,7 @@
      * @returns {object}
      */
     function updateCurrentMember() {
-      return this.getMemberInfo(this.getMemberId());
+      return getMemberInfo(this.getMemberId());
     }
 
     /**
@@ -106,8 +106,7 @@
      * @param {object} member 새로 설정되어질 member
      */
     function setMember(member) {
-      currentMember = member;
-      $rootScope.member = member;
+      $rootScope.member = currentMember = member;
       storageAPIservice.setLastEmail(member.u_email);
       jndPubSub.pub('onCurrentMemberChanged');
     }
@@ -195,8 +194,7 @@
      * @returns {string} 이름
      */
     function getName(member) {
-      if (angular.isUndefined(member)) return 'deactivated user';
-      return member.name;
+      return _.isUndefined(member) ? 'deactivated user' : member.name;
     }
 
     /**

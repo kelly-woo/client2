@@ -36,6 +36,11 @@
       return memberService.getPosition(currentMember) === memberService.getPosition(memberService.getMember());
     }
 
+    /**
+     * 현재 맴버와 새로이 서버로부터 받은 멤버 정보중 멤버의 profile 사진에 관련된 정보만 새로운 것으로 교체한다.
+     * @param {object} currentMember - 새로이 서버로부터 받은 멤버 오브젝트
+     * @returns {object} currentMember - 업데이트 된 멤버
+     */
     function replaceProfilePicture(currentMember) {
       var updatedMember = memberService.getMember();
       currentMember.u_photoUrl = memberService.getPhotoUrl(updatedMember);
