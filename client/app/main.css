@@ -590,7 +590,12 @@ input[type="button"] {
   width: 150px;
   height: 150px;
 }
-
+.icon-loading-small {
+    background-image: url('../assets/images/icon_loading.gif');
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
 .image-background {
   background: url('../assets/images/checkered.png');
   min-width: 40px;
@@ -1019,4 +1024,14 @@ input[type="radio"] {
   margin-top: -0.18em;
   display: inline-block;
   margin-left: -16px;
+}
+
+/**
+ * 임시: cdn 에 스티커 그룹 아이콘 이미지 올라가면 제거할 예정임
+ */
+.sticker_panel_tab_item.basic {
+    background-image: url('../assets/images/sticker/tab_off.svg');
+}
+.sticker_panel_tab_item.basic.on {
+    background-image: url('../assets/images/sticker/tab_on.svg');
 }

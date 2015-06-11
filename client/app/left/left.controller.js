@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge) {
+  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge, NetInterceptor) {
 
   /**
    * @namespace
@@ -573,15 +573,17 @@ app.controller('leftPanelController1', function(
   $scope.onTopicClicked = onTopicClicked;
 
   function onTopicClicked(entityType, entityId) {
-    if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
-      publicService.goToDefaultTopic();
-      return;
-    }
+    if (NetInterceptor.isConnected()) {
+      if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
+        publicService.goToDefaultTopic();
+        return;
+      }
 
-    if ($scope.currentEntity.id == entityId) {
-      $rootScope.$broadcast('refreshCurrentTopic');
-    } else {
-      $state.go('archives', { entityType: entityType, entityId: entityId });
+      if ($scope.currentEntity.id == entityId) {
+        $rootScope.$broadcast('refreshCurrentTopic');
+      } else {
+        $state.go('archives', {entityType: entityType, entityId: entityId});
+      }
     }
   }
 

@@ -30,7 +30,7 @@ app.filter('bytes', function() {
     var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'],
       number = Math.floor(Math.log(bytes) / Math.log(1024));
     return (bytes / Math.pow(1024, Math.floor(number))).toFixed(precision) + units[number];
-  }
+  };
 });
 
 // tobe no longer used
@@ -111,12 +111,12 @@ app.filter('userByName', ['$rootScope', function($rootScope) {
       var fullName = member.name.toLowerCase();
 
       if(fullName.indexOf(name) > -1) {
-        returnArray.push(member)
+        returnArray.push(member);
       }
     });
 
     return returnArray;
-  }
+  };
 }
 ]);
 
@@ -131,7 +131,7 @@ app.filter('getName', ['memberService',
       if (input.type != 'user') return input.name;
 
       return memberService.getName(input);
-    }
+    };
   }
 ]);
 
@@ -139,7 +139,7 @@ app.filter('getUserStatusMessage', ['memberService',
   function(memberService) {
     return function(member) {
       return memberService.getStatusMessage(member);
-    }
+    };
   }
 ]);
 
@@ -147,7 +147,7 @@ app.filter('getUserDepartment', ['memberService',
   function(memberService) {
     return function(member) {
       return memberService.getDepartment(member);
-    }
+    };
   }
 ]);
 
@@ -155,7 +155,7 @@ app.filter('getUserPosition', ['memberService',
   function(memberService) {
     return function(member) {
       return memberService.getPosition(member);
-    }
+    };
   }
 ]);
 
@@ -163,7 +163,7 @@ app.filter('getUserPhoneNumber', ['memberService',
   function(memberService) {
     return function(member) {
       return memberService.getPhoneNumber(member);
-    }
+    };
   }
 ]);
 
@@ -171,7 +171,7 @@ app.filter('getUserEmail', ['memberService',
   function(memberService) {
     return function(member) {
       return memberService.getEmail(member);
-    }
+    };
   }
 ]);
 
@@ -179,21 +179,21 @@ app.filter('getSmallThumbnail', ['memberService', 'config',
   function(memberService, config) {
     return function(member) {
       return config.server_uploaded + memberService.getSmallThumbnailUrl(member);
-    }
+    };
   }
 ]);
 app.filter('getMediumThumbnail', ['memberService', 'config',
   function(memberService, config) {
     return function(member) {
       return config.server_uploaded + memberService.getMediumThumbnailUrl(member);
-    }
+    };
   }
 ]);
 app.filter('getlargeThumbnail', ['memberService', 'config',
   function(memberService, config) {
     return function(member) {
       return config.server_uploaded + memberService.getLargeThumbnailUrl(member);
-    }
+    };
   }
 ]);
 
@@ -212,7 +212,7 @@ app.filter('upperFirstCharacter', function() {
     var newChar = input.charAt(0).toUpperCase() + input.slice(1, input.length);
 
     return newChar;
-  }
+  };
 });
 
 /*/
@@ -225,7 +225,7 @@ app.filter('getNameInFileResult', ['userAPIservice', '$rootScope',
       if ( input === $rootScope.user.id || input === 'mine' ) return 'you';
 
       return userAPIservice.getNameFromUserId(input);
-    }
+    };
   }
 ]);
 
@@ -240,19 +240,18 @@ app.filter('getMixPanelFormat', function() {
     // replacing all space with '_'.
     input = input.replace(/ /g, "_");
     return input;
-  }
+  };
 });
 
 app.filter('isDisabledMember', function() {
   return function(member) {
     return member.status == 'disabled';
-  }
+  };
 });
 
 
 app.filter('getMemberList', function() {
   return function(members, status) {
-    console.log(status)
     var enabledMembers = [];
     _.each(members, function(member) {
       if (member.status == status)

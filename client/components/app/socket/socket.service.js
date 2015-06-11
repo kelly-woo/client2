@@ -10,8 +10,10 @@
     .service('jndWebSocket', jndWebSocket);
 
   /* @ngInject */
-  function jndWebSocket(socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, $injector) {
+  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, $injector, NetInterceptor) {
+    var $scope = $rootScope.$new();
     var socket;
+    var ioSocket;
     var isConnected;
 
     var CHECK_CONNECT_TEAM = 'check_connect_team';
@@ -67,6 +69,7 @@
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
 
     this.init = init;
+    this.disconnect = disconnect;
     this.checkSocketConnection = checkSocketConnection;
     this.disconnectTeam = disconnectTeam;
 
@@ -74,6 +77,17 @@
      * Initialize variables.
      */
     function init() {
+      disconnect();
+    }
+
+    /**
+     * socket connection 을 끊는다.
+     */
+    function disconnect() {
+      if (socket && ioSocket) {
+        socket.removeAllListeners();
+        ioSocket.io.disconnect();
+      }
       isConnected = false;
     }
 
@@ -86,7 +100,6 @@
       if (!isConnected || _.isUndefined(socket)) {
         // Socket is not established yet.
         connect();
-        _setSocketEventListener();
       }
     }
 
@@ -95,13 +108,46 @@
      */
     function connect() {
       // When connecting to socket, always force new connection.
-
-      var myIoSocket = io.connect(config.socket_server, {forceNew: true});
-
+      ioSocket = io.connect(config.socket_server, {
+        'forceNew': true,
+        'reconnection': true,
+        'reconnectionDelay': 1000,
+        'reconnectionDelayMax': 1000,
+        'timeout': 100
+      });
       socket = socketFactory({
         prefix: '_jnd_socket:',
-        ioSocket: myIoSocket
+        ioSocket: ioSocket
       });
+      $scope.$on('disconnected', _onDisconnected);
+      _setSocketEventListener();
+    }
+
+    /**
+     * disconnected 이벤트 핸들러
+     * @private
+     */
+    function _onDisconnected() {
+      socket.removeAllListeners();
+      ioSocket.io.disconnect();
+      ioSocket.io.connect();
+      _setSocketEventListener();
+    }
+
+    /**
+     * socket connect 이벤트 핸들러
+     * @private
+     */
+    function _onSocketConnect() {
+      NetInterceptor.setStatus(true);
+    }
+
+    /**
+     * socket disconnect 이벤트 핸들러
+     * @private
+     */
+    function _onSocketDisconnect() {
+      NetInterceptor.setStatus(false);
     }
 
     /**
@@ -109,6 +155,9 @@
      * @private
      */
     function _setSocketEventListener() {
+      console.log('############## socket event attach');
+      socket.on('connect', _onSocketConnect);
+      socket.on('disconnect', _onSocketDisconnect);
       socket.on(CHECK_CONNECT_TEAM, _onCheckConnectTeam);
       socket.on(CONNECT_TEAM, _onConnectTeam);
       socket.on(ERROR_CONNECT_TEAM, _onErrorConnectTeam);
@@ -129,7 +178,6 @@
 
       socket.on(CHAT_CLOSE, _onChatClose);
 
-
       socket.on(FILE_DELETED, _onFileDeleted);
 
       socket.on(FILE_COMMENT_CREATED, _onFileCommentCreated);
@@ -137,13 +185,9 @@
 
       socket.on(ROOM_MARKER_UPDATED, _onRoomMarkerUpdated);
 
-
       socket.on(MESSAGE, _onMessage);
 
       socket.on(MEMBER_PROFILE_UPDATED, _onMemberProfileUpdated);
-      //socket.on(MEMBER_PRESENCE_UPDATED, _onMemberPresenceUpdated);
-
-
     }
 
 
