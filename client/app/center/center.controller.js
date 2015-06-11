@@ -8,7 +8,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
-  var DEFAULT_MESSAGE_UPDATE_COUNT = 40;
+  var DEFAULT_MESSAGE_UPDATE_COUNT = 100;
 
   var entityType = $state.params.entityType;
   var entityId = $state.params.entityId;
@@ -26,7 +26,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.hasFocus = true;
   $scope.hasScrollToBottom = false;
   $scope.hasNewMsg = false;
-
 
   // To be used in directive('lastDetector')
   $scope.loadMoreCounter = 0;
