@@ -10,15 +10,15 @@
     .service('jndPubSub', jndPubSub);
 
   /* @ngInject */
-  function jndPubSub($rootScope) {
+  function jndPubSub($rootScope, $timeout) {
     var that = this;
-    
+    var badgeTimer;
     that.pub = publish;
 
     that.updateLeftPanel = updateLeftPanel;
     that.updateChatList = updateChatList;
     that.updateRightFileDetailPanel = updateRightFileDetailPanel;
-
+    that.updateBadgePosition = updateBadgePosition;
     that.toDefaultTopic = toDefaultTopic;
 
     that.updateLeftChatList = updateLeftChatList;
@@ -33,10 +33,22 @@
     }
 
     /**
+     * unread 뱃지 포지션을 update 한다.
+     * badge position update 비용이 크기 때문에 timeout 을 사용한다.
+     */
+    function updateBadgePosition() {
+      $timeout.cancel(badgeTimer);
+      badgeTimer = $timeout(function() {
+        $rootScope.$broadcast('updateBadgePosition');
+      }, 100);
+    }
+
+    /**
      * 레프트 패널을 업데이트 하라는 이벤트를 브로드캐스트한다.
      */
     function updateLeftPanel() {
       $rootScope.$broadcast('updateLeftPanelCaller');
+      updateBadgePosition();
     }
 
     /**
