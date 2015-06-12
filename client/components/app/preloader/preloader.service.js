@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function Preloader($templateCache, configuration) {
-    var isDev = configuration.name === 'local';
+    var isLocal = configuration.name === 'local';
 
     this.img = img;
     this.template = template;
@@ -23,7 +23,7 @@
      * @private
      */
     function _replacePath(url) {
-      if (!isDev && /^..\//.test(url)) {
+      if (!isLocal && /^..\//.test(url)) {
         url = url.replace('../', '../app/');
       }
       return url;
