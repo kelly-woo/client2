@@ -389,6 +389,9 @@ input[type="button"] {
                     ICON.
 
 ********************************************/
+.no-image-preview-full-screen {
+
+}
 .no-image-preview-square {
   background: url('../assets/images/no_image_available_center.png');
 }

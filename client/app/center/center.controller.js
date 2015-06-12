@@ -1291,23 +1291,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     var tempTargetClass = tempTarget.attr('class');
 
-    if (tempTargetClass.indexOf('msg-file-body__img') > -1) {
+    if (tempTargetClass.indexOf('image-loader-image') > -1) {
+      targetDom = tempTarget.parent();
+    } else if (tempTargetClass.indexOf('msg-file-body__img') > -1) {
       //  Small thumbnail of file type clicked.
       targetDom = tempTarget;
-    }
-    else if (tempTargetClass.indexOf('msg-file-body-float') > -1 ) {
+    } else if (tempTargetClass.indexOf('msg-file-body-float') > -1 ) {
       //  Small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
       //  Its parent is sending an event because of opac overlay layer on top of small thumbnail.
       targetDom = tempTarget.children('.msg-file-body__img');
-    }
-    else if (tempTargetClass.indexOf('image_wrapper') > -1) {
+    } else if (tempTargetClass.indexOf('image_wrapper') > -1) {
       targetDom = tempTarget.children('.msg-file-body__img');
-    }
-    else if (tempTargetClass.indexOf('fa-comment') > -1) {
+    } else if (tempTargetClass.indexOf('fa-comment') > -1) {
       //  Comment image clicked on small image thumbnail.
       targetDom = tempTarget.siblings('.image_wrapper').children('.msg-file-body__img');
-    }
-    else {
+    } else {
       return;
     }
 

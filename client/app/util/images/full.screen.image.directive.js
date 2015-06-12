@@ -95,22 +95,8 @@
        * @param imgElement {HTMLElement} 중앙에 위치시킬 엘레멘트
        */
       function setVerticalCenter(imgElement) {
-        // TODO: 이렇게 DOM ELEMENT 설정할때 이렇게 안하고 다른 곳에서 일괄절으로 한다고 했었나요? 기억이 잘 안나네요....
         var jqImageWrapperElement = $('.modal-full .modal-dialog');
-
-        // 이미지 엘레멘트의 높이
-        var elementHeight = imgElement.getAttribute('height');
-
-        // 현재 화면의 높이
-        var windowHeight = $(window).height();
-
-        var marginTop;
-
-        // 이미지보다 화면이 더 클 경우
-        if ((windowHeight - elementHeight) > heightOffset) {
-          marginTop = (windowHeight - elementHeight) / 2 + 'px';
-          jqImageWrapperElement.css('marginTop', marginTop);
-        }
+        ImagesHelper.setVerticalCenter(imgElement, jqImageWrapperElement, true);
       }
 
       /**

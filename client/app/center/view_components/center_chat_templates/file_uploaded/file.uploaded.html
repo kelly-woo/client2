@@ -31,7 +31,14 @@
       <!--  FILE NOT ARCHIVED -->
       <div ng-if="msg.message.status != 'archived'">
         <!--    IMAGE THUMBNAIL -->
-        <div class="image_wrapper">
+        <div class="image_wrapper msg-file-body__img__background jnd-text-center" ng-if="(msg.message.content | hasPreview)">
+          <div class="opac-zero msg-file-body__img cursor_pointer"
+               image-loader="{{server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl}}"
+               image-max-height="65" image-is-square="true">
+          </div>
+        </div>
+
+        <div class="image_wrapper hidden">
           <img class="msg-file-body__img cursor_pointer" rotate rotate-left-align="true"
                ng-if="(msg.message.content | hasPreview)" ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}" />
         </div>
