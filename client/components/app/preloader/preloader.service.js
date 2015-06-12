@@ -10,11 +10,24 @@
     .service('Preloader', Preloader);
 
   /* @ngInject */
-  function Preloader($templateCache) {
+  function Preloader($templateCache, configuration) {
+    var isDev = configuration.name === 'local';
 
     this.img = img;
     this.template = template;
 
+    /**
+     * local 과 dev 의 url path 가 다르므로..
+     * @param url
+     * @returns {*}
+     * @private
+     */
+    function _replacePath(url) {
+      if (!isDev && /^..\//.test(url)) {
+        url = url.replace('../', '../app/');
+      }
+      return url;
+    }
     /**
      * image template 을 preload 한다.
      * @param {String|Array} data - preload 할 image url. 복수개의 경우 array 를 넘긴다.
@@ -31,7 +44,7 @@
 
       _.forEach(list, function(url) {
         img = new Image();
-        img.src = url;
+        img.src = _replacePath(url);
       });
       return this;
     }
