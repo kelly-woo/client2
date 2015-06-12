@@ -155,7 +155,6 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
    * @private
    */
   function _preload() {
-    var assetUrl = configuration.assets_url;
     Preloader.template([
       'app/disconnect/disconnect.html'
     ]).img([
