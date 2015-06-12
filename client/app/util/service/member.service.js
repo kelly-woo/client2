@@ -339,7 +339,7 @@
      * @private
      */
     function _isNumber(member) {
-      return (typeof member == 'number')
+      return (typeof member === 'number');
     }
   }
 })();
