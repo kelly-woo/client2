@@ -150,9 +150,16 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
 
   _preload();
 
+  /**
+   * preload template & images
+   * @private
+   */
   function _preload() {
+    var assetUrl = configuration.assets_url;
     Preloader.template([
       'app/disconnect/disconnect.html'
+    ]).img([
+      assetUrl + 'assets/images/icon_network_error.png'
     ]);
   }
 });

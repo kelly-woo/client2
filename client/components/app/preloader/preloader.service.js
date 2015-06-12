@@ -18,6 +18,7 @@
     /**
      * image template 을 preload 한다.
      * @param {String|Array} data - preload 할 image url. 복수개의 경우 array 를 넘긴다.
+     * @return {Preloader}
      */
     function img(data) {
       var list = [];
@@ -32,11 +33,13 @@
         img = new Image();
         img.src = url;
       });
+      return this;
     }
 
     /**
      * html template 을 preload 한다.
      * @param {String|Array} data - preload 할 template url. 복수개의 경우 array 를 넘긴다.
+     * @return {Preloader}
      */
     function template(data) {
       var list = [];
@@ -50,6 +53,7 @@
       _.forEach(list, function(url) {
         $templateCache.get(url);
       });
+      return this;
     }
   }
 })();
