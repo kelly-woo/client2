@@ -82,10 +82,13 @@
         } else {
           document.getElementById('full-screen-image').appendChild(img);
           setVerticalCenter(img);
-          ImagesHelper.showImageElement(imageElement, displayProperty);
-          callCallback();
         }
+
+        ImagesHelper.showImageElement(imageElement, displayProperty);
+        callCallback();
+
       }
+
 
       /**
        * 이미지 엘레멘트를 화면 정중앙에 위치시킨다.
@@ -123,7 +126,7 @@
        * 이미지 로드할 때 에러가 났을 경우 호출된다.
        */
       function onImageLoadError() {
-        callCallback();
+        imageElement.addClass('no-image-preview');
       }
     }
   }

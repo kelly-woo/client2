@@ -65,32 +65,48 @@
          * @param {HTMLElement} img - 이미지가 들어가 있는 엘레멘트
          */
         function onImageLoad(img) {
-          jqImageContainer.append(img);
-          
-          ImagesHelper.showImageElement(jqImageContainer, displayProperty);
+          if (img.type === 'error') {
+            onImageLoadError();
+          } else {
+            if (attrs.imageMaxHeight || attrs.imageMaxWidth) {
+              _resizeImage(img);
+            }
+
+            jqImageContainer.append(img);
+
+          }
+
+          _show(jqImageContainer, displayProperty);
 
           if (!!callbackFunction) {
             scope.$apply(callbackFunction);
           }
 
-          /*
+        }
 
-          var imageHeight = img.getAttribute('height');
-          var imageWidth = img.getAttribute('width');
+        /**
+         * image 의 max height 혹은 max width 가 설정되있다면 그에 맞게 이미지 크기를 조정한다.
+         * @param {HTMLElement} img - 이미지 엘레멘트
+         * @private
+         */
+        function _resizeImage(img) {
+          var imageHeight;
+          var imageWidth;
+          var containerHeight;
+
+          imageHeight = parseInt(img.getAttribute('height'), 10);
+          imageWidth = parseInt(img.getAttribute('width'), 10);
 
           if (imageHeight > imageWidth) {
             // 이미지가 새로로 더 길 때
-            //img.style.height = '65px';
-            //img.style.width = 'auto';
+            img.style.height = attrs.imageMaxHeight + 'px';
+            img.style.width = 'auto';
           } else {
-            var containerHeight = jqImageContainer.height();
+            containerHeight = jqImageContainer.height();
             if (containerHeight > imageHeight) {
               img.style.marginTop = (containerHeight - imageHeight) / 2 + 'px';
             }
-            // 이미지가 가로로 더 길 때
-            //img.style.width = '65px';
           }
-           */
         }
 
         /**
@@ -115,6 +131,21 @@
         function getImageOrientation(data) {
           return data.exif.get('Orientation');
         }
+
+        function onImageLoadError() {
+          if (attrs.imageIsSquare) {
+            jqImageContainer.addClass('no-image-preview-square');
+          } else {
+            jqImageContainer.addClass('no-image-preview');
+          }
+
+        }
+
+        function _show(jqImageContainer, displayProperty) {
+          ImagesHelper.showImageElement(jqImageContainer, displayProperty);
+        }
+
+
       }
     }
   }
