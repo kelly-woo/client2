@@ -12,7 +12,7 @@
   </span>
 
   <!--Title Dropdown-->
-  <span class="panel-title-info">
+  <span class="panel-title-info" dropdown>
 
     <!--    TITLE   -->
     <span class="panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix" dropdown-toggle>
@@ -62,7 +62,6 @@
 
     <!--User-->
     <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'users'">
-
       <!--    INVITE  -->
       <li role="presentation" data-ng-if="!isDisabledMember(currentEntity);">
         <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
@@ -98,12 +97,10 @@
           <i class="icon-cancel"></i><span translate>@common-conversation-leave</span>
         </a>
       </li>
-
-
     </ul>
 
   </span>
-  
+
   <!--Member Dropdown-->
   <span class="panel-title-member" dropdown>
     <span class="dropdown-toggle panel-title-member__more" dropdown-toggle data-ng-if="currentEntity.type != 'users'">
