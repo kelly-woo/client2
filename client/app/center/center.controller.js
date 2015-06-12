@@ -6,13 +6,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice,
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
-                                                 centerService, markerService, textbuffer, modalHelper) {
+                                                 centerService, markerService, TextBuffer, modalHelper) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
-  var DEFAULT_MESSAGE_UPDATE_COUNT = 40;
+  var DEFAULT_MESSAGE_UPDATE_COUNT = 100;
 
   var entityType = $state.params.entityType;
   var entityId = $state.params.entityId;
@@ -30,7 +30,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.hasFocus = true;
   $scope.hasScrollToBottom = false;
   $scope.hasNewMsg = false;
-
 
   // To be used in directive('lastDetector')
   $scope.loadMoreCounter = 0;
@@ -151,7 +150,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.groupMsgs = [];
     $scope.messages = [];
     $scope.isMessageSearchJumping = false;
-    $scope.message.content = textbuffer.get();
+    $scope.message.content = TextBuffer.get();
     messages = {};
   }
 
@@ -244,6 +243,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function groupByDate() {
     _setMessageFlag($scope.messages);
     $scope.groupMsgs = [];
+    //todo: 매번 sortBy 하지 않도록 구조개선 필요
     $scope.groupMsgs = _.groupBy($scope.messages, function(msg) {
       return $filter('ordinalDate')(msg.time, "yyyyMMddEEEE, MMMM doo, yyyy");
     });
@@ -479,58 +479,69 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       deferred.reject();
     }
     return deferred.promise;
-
-
   }
 
-  function _updateMessageIds(messagesList) {
-    if (_isLoadingNewMessages()) {
-      _updateLoadedLastMessageId(messagesList[0]);
-    } else {
-      _updateLoadedFirstMessageId(messagesList[messagesList.length - 1]);
-    }
-  }
-  function _updateLoadedFirstMessageId(msg) {
-    localFirstMessageId = msg.id;
-  }
-  function _updateLoadedLastMessageId(msg) {
-    localLastMessageId = msg.id;
-  }
+
   /**
    * Process each element in array handling every cases.
    * @param messagesList
    * @private
    */
   function _messageProcessor(messagesList) {
-    messagesList = messagesList.reverse();
+    messagesList = _.sortBy(messagesList, 'id');
 
-    if (_isInitialLoad()) {
-      _updateLoadedLastMessageId(messagesList[0]);
-      _updateLoadedFirstMessageId(messagesList[messagesList.length - 1]);
+    if (_isLoadingNewMessages()) {
+      _.forEach(messagesList, function(msg) {
+        _formatMessage(msg);
+      });
     } else {
-      _updateMessageIds(messagesList);
+      _.forEachRight(messagesList, function(msg) {
+        _formatMessage(msg);
+      });
     }
+    localFirstMessageId = $scope.messages[0].id;
+    localLastMessageId = $scope.messages[$scope.messages.length - 1].id;
+  }
 
-    for (var i in messagesList) {
-      var msg = messagesList[i];
-      // jihoon
-      if (msg.status == 'event') {
-        // System Message.
-        msg = eventMsgHandler(msg);
-        $scope.messages.unshift(msg);
-        _updateSystemEventMessageCounter();
-        continue;
-      }
+  /**
+   * 공유 관련된 메세지인지 여부를 반환한다.
+   * @param {object} msg 메세지
+   * @returns {boolean}
+   * @private
+   */
+  function _isSharingStatusMassage(msg) {
+    if (msg && (msg.status === 'shared' || msg.status === 'unshared') &&
+      msg.message &&
+      msg.message.shareEntities &&
+      msg.message.shareEntities.length) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-      // shared entities 가 있을 경우
-      if ( (msg.status === 'shared' || msg.status === 'unshared') && msg.message.shareEntities.length) {
-        // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
-        //
-        // center.controller.js 에서 _messageProcessor 실행 시점에 msg.message.shared에 할당되는 값을
-        // msg.message를 가지고 알 수 없으므로(msg.message.shareEntites의 값이 room ID와 user id 혼용으로 인한)
-        // meg.message가 확장되는 시점인 messages.controller에 _generateMessageList 실행에 수행하기 위해
-        // 임시로 process를 가지고 있다 전달하는 역활을 하는 method를 만들어 처리하려고 하였으나, messages.controller가 수행되지 않는
-        // 경우가 발견(jandi page가 load된 상태에서 DM이나 topic으로 접속시)되어 불완전한 timeout을 사용하여 처리함.
+  /**
+   * 메세지를 포멧팅 한다.
+   * @param {object} msg 메세지
+   * @rivate
+   */
+  function _formatMessage(msg) {
+    if (msg.status == 'event') {
+      // System Message.
+      msg = eventMsgHandler(msg);
+      _updateSystemEventMessageCounter();
+    } else {
+      if (_isSharingStatusMassage(msg))  {
+        /*
+         shareEntities 중복 제거 & 각각 상세 entity 정보 주입
+         center.controller.js 에서 _messageProcessor 실행 시점에 msg.message.shared에 할당되는 값을
+         msg.message를 가지고 알 수 없으므로(msg.message.shareEntites의 값이 room ID와 user id 혼용으로 인한)
+         meg.message가 확장되는 시점인 messages.controller에 _generateMessageList 실행에 수행하기 위해
+         임시로 process를 가지고 있다 전달하는 역활을 하는 method를 만들어 처리하려고 하였으나, messages.controller가 수행되지 않는
+         경우가 발견(jandi page가 load된 상태에서 DM이나 topic으로 접속시)되어 불완전한 timeout을 사용하여 처리함.
+
+         - by Mark
+         */
         $timeout((function(msg) {
           return function() {
             msg.message.shared = fileAPIservice.getSharedEntities(msg.message, function(sharedEntityId) {
@@ -540,14 +551,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           };
         }(msg)));
       }
-
       // parse HTML, URL code
-      var safeBody = msg.message.content.body;
-      if (safeBody != undefined && safeBody != "") {
-        safeBody = $filter('parseAnchor')(safeBody);
-      }
-      msg.message.content.body = $sce.trustAsHtml(safeBody);
+      msg.message.content._body = msg.message.content.body;
+      _filterContentBody(msg);
+    }
 
+    if (_isLoadingNewMessages()) {
+      $scope.messages.push(msg);
+    } else {
       $scope.messages.unshift(msg);
     }
   }
@@ -620,16 +631,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
   function _findMessageDomElementById(id) {
     var lastMsg;
+    var targetScrollTop;
 
     // $timeout inside of $timeout????
     $timeout(function() {
-
-      lastMsg = angular.element(document.getElementById(id));
-      var positionTop = lastMsg.position().top;
-
+      lastMsg = angular.element('#'+ id);
+      targetScrollTop = lastMsg.offset().top - angular.element('#msgs-container').offset().top;
       _animateBackgroundColor(lastMsg);
-      document.getElementById('msgs-container').scrollTop = positionTop;
-
+      document.getElementById('msgs-container').scrollTop = targetScrollTop;
       _showContents();
     }, 100);
   }
@@ -1229,21 +1238,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function eventMsgHandler(msg) {
     var newMsg = msg;
-    newMsg.eventType = '/' + msg.info.eventType;
+    var action = '';
+    var entity;
 
+    newMsg.eventType = '/' + msg.info.eventType;
     newMsg.message = {};
     newMsg.message.contentType = 'systemEvent';
     newMsg.message.content = {};
     newMsg.message.writer = entityAPIservice.getEntityFromListById($scope.memberList, msg.fromEntity);
-    var action = '';
 
     switch(msg.info.eventType) {
       case 'invite':
         action = $filter('translate')('@msg-invited');
         newMsg.message.invites = [];
         _.each(msg.info.inviteUsers, function(element, index, list) {
-          var entity = entityAPIservice.getEntityFromListById($rootScope.memberList, element);
-          newMsg.message.invites.push(entity)
+          entity = entityAPIservice.getEntityFromListById($rootScope.memberList, element);
+          if (!_.isUndefined(entity)) {
+            newMsg.message.invites.push(entity);
+          }
         });
         break;
       case 'join' :
@@ -1286,7 +1298,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   $scope.onKeyUp = function($event) {
     var text = $($event.target).val();
-    textbuffer.set(text);
+    TextBuffer.set(text);
   };
 
   $scope.setCommentFocus = function(file) {
@@ -1297,8 +1309,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         userName    : file.writer.name,
         itemId      : file.id
       });
-    }
-    else {
+    } else {
       fileAPIservice.broadcastCommentFocus();
     }
   };
@@ -1596,9 +1607,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _updateUnreadCount() {
-
-    //console.log('updating unread count');
-
     var globalUnreadCount;
     var lastLinkIdToCount = markerService.getLastLinkIdToCountMap();
     var markerOffset = markerService.getMarkerOffset();
@@ -1629,8 +1637,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
 
       if (globalUnreadCount < 0) globalUnreadCount = 0;
-
-      message.unreadCount = globalUnreadCount === 0 ? '' : globalUnreadCount;
+      if (globalUnreadCount === 0) {
+        message.unreadCount = '';
+      } else {
+        message.unreadCount = globalUnreadCount;
+      }
+      //message.unreadCount = globalUnreadCount === 0 ? '' : globalUnreadCount;
       $scope.messages[index] = message;
 
     });

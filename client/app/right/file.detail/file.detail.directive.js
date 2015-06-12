@@ -1,3 +1,7 @@
+/**
+ * @fileoverview file detail page 에서 현재 파일이 이미지일 경우에만 preview 를 보여준다.
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
@@ -5,22 +9,26 @@
     .module('jandiApp')
     .directive('fileDetailPreview', fileDetailPreview);
 
-  function fileDetailPreview() {
+  /* @ngInject */
+  function fileDetailPreview($rootScope, $timeout) {
     return {
       restrict: 'A',
       link: link
     };
 
-    function link(scope, element) {
-      var ele;
+    function link(scope, jqEle) {
+      if ($rootScope.setFileDetailCommentFocus) {
+        $rootScope.setFileDetailCommentFocus = false;
+        $timeout(function() {
+          scope.onCommentFocusClick();
+        });
+      }
 
       if (scope.ImageUrl) {
-        ele = element.show().children('img');
-        ele.attr({ src: scope.ImageUrl });
-
-        scope.cursor && ele.css({ cursor: scope.cursor });
+        jqEle = jqEle.show().children('img').attr({ src: scope.ImageUrl });
+        scope.cursor && jqEle.css({ cursor: scope.cursor });
       } else {
-        element.hide();
+        jqEle.hide();
       }
     }
   }

@@ -46,8 +46,7 @@
           userName    : file.writer.name,
           itemId      : file.id
         });
-      }
-      else {
+      } else {
         fileAPIservice.broadcastCommentFocus();
       }
     }

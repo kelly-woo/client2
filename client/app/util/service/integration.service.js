@@ -12,36 +12,10 @@
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
 
-    // object inherit model
-    var Objecz = {
-      create: function(prop) {
-          var that = this,
-              obj;
-
-          obj = Object.create(that);
-
-          return that.mixin(prop, obj);
-      },
-      mixin: function(prop, base) {
-        var that = this,
-            e,
-            target;
-
-        target = base || {};
-        for (e in prop) {
-          if (prop.hasOwnProperty(e)) {
-            target[e] = prop[e];
-          }
-        }
-
-        return target;
-      }
-    };
-
     /**
      * Integration
      */
-    var Integration = Objecz.create({
+    var Integration = jnd.Object.create({
       init: function(options) {
         var that = this;
 
@@ -196,7 +170,7 @@
       _openIntegrationModal: function(data) {
         var that = this;
         var modal;
-        
+
         // modal이 이미 open된 상태라면 cancel
         that.modal && that.modal.dismiss('cancel');
 
@@ -221,7 +195,9 @@
       _closeIntegrationModal: function() {
         var that = this;
 
-        that.modal && that.modal.dismiss('cancel');
+        $timeout(function() {
+          that.modal && that.modal.dismiss('cancel');
+        });
       },
       PRIVATE_FILE: 740,   // PRIVATE_FILE code
       PUBLIC_FILE: 744     // PUBLIC_FILE code
@@ -283,7 +259,7 @@
             that._open();
           } else {
             storageAPIservice.getCookie('integration', 'google') !== true ? that._openIntegrationModal() : that._open();
-          }          
+          }
         }
       },
       /**
@@ -306,6 +282,8 @@
         var view = new google.picker.DocsView();
         var picker = that.picker = new google.picker.PickerBuilder();
         var lang = accountService.getAccountLanguage();
+
+        that._closeIntegrationModal();
 
         view.setIncludeFolders(true);
 
@@ -355,7 +333,6 @@
       doAuth: function(token) {
         var that = this;
 
-        that._closeIntegrationModal();
         gapi.auth.setToken(token);
         that._showPicker();
       },
@@ -434,8 +411,8 @@
 
         // DropboxIntegration object 생성시 cookie에 dropbox integrate cookie가 있다면 바로 Dropbox listener를 button에 등록함.
         if (that.cInterface !== 'alert') {
-          storageAPIservice.getCookie('integration', 'dropbox') === true && that._open();  
-        }        
+          storageAPIservice.getCookie('integration', 'dropbox') === true && that._open();
+        }
 
         return that;
       },
@@ -465,7 +442,6 @@
       _open: function() {
         var that = this;
 
-        that._closeIntegrationModal();
         Dropbox.choose({
           success: that._success.bind(that),
           cancel: that._cancel.bind(that),

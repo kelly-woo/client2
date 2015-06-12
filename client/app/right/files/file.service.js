@@ -174,7 +174,7 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   };
 
   fileAPI.broadcastCommentFocus = function() {
-    //$rootScope.$broadcast('setCommentFocus');
+    $rootScope.$broadcast('setCommentFocus');
   };
 
   fileAPI.openFileShareModal = function($scope, file) {
