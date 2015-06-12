@@ -159,7 +159,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
     Preloader.template([
       'app/disconnect/disconnect.html'
     ]).img([
-      assetUrl + 'assets/images/icon_network_error.png'
+      '../assets/images/icon_network_error.png'
     ]);
   }
 });
