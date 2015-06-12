@@ -5,8 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, DeskTopNotificationBanner) {
-
+  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
 
   //console.info('[enter] leftpanelController');
 
@@ -22,6 +21,18 @@ app.controller('leftPanelController1', function(
     broadcastTo: ''
   };
 
+  //collapse 이후 갱신 요청할 timer
+  var collapseTimer;
+
+  //unread 갱신시 $timeout 에 사용될 타이머
+  var unreadTimer;
+
+  //unread 위치에 대한 정보
+  $scope.unread = {
+    above: [],
+    below: []
+  };
+  
   // 로딩이 진행되고 있을 경우 true
   $scope.isLoading = false;
 
@@ -29,6 +40,8 @@ app.controller('leftPanelController1', function(
   $scope.leftListCollapseStatus = {
     isTopicsCollapsed: storageAPIservice.isLeftTopicCollapsed() || false
   };
+
+  
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
@@ -43,17 +56,166 @@ app.controller('leftPanelController1', function(
     _checkNotificationBanner();
   }
 
-
   function _checkNotificationBanner() {
     publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
     DeskTopNotificationBanner.checkNotificationBanner('left');
   }
   $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
+  
+  _attachExtraEvents();
 
+  $scope.$on('updateBadgePosition', updateUnreadPosition);
+  
+  $scope.$on('$destroy', _onDestroy);
+  
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);
   });
+
+  $scope.$watch('leftListCollapseStatus.isTopicsCollapsed', _onCollapseStatusChanged);
+
+  $scope.goUnreadBelow = goUnreadBelow;
+  $scope.goUnreadAbove = goUnreadAbove;
+
+  /**
+   * collapse status 변경시 update badge posision 이벤트 트리거한다.
+   * @private
+   */
+  function _onCollapseStatusChanged() {
+    $timeout.cancel(collapseTimer);
+    /*
+      collapse 가 완료되는 시점을 알 수 없기 때문에 0.8 초 뒤에 position update 를 하도록 한다.
+      todo: collapse 완료 시점을 알 수 있는 방법이 있다면 timeout 을 제거해야함
+     */
+    collapseTimer = $timeout(function() {
+      jndPubSub.updateBadgePosition();
+    }, 800);
+  }
+
+  /**
+   * 아래쪽 unread 로 scroll 이동  
+   * @param {Event} clickEvent
+   */
+  function goUnreadBelow(clickEvent) {
+    var jqTarget = $(clickEvent.target).closest('.lpanel-list-help-unread ');
+    var jqContainer = $('#lpanel-list-container');
+    var scrollTop = jqContainer[0].scrollTop;
+    var offsetTop = jqContainer.offset().top;
+    var currentBottom = scrollTop + offsetTop + jqContainer.height();
+    var top = _getPosUnreadBelow();
+
+
+    // 아래 여백
+    var space = 9;
+
+    var targetScrollTop = scrollTop + (top - currentBottom);
+
+    if ($scope.unread.below.length > 1) {
+      targetScrollTop += jqTarget.outerHeight() + space;
+    }
+    jqContainer.animate({scrollTop: targetScrollTop});
+  }
+  
+  /**
+   * 위쪽 unread 로 scroll 이동
+   * @param {Event} clickEvent
+   */
+  function goUnreadAbove(clickEvent) {
+    var jqTarget = $(clickEvent.target);
+    var jqContainer = $('#lpanel-list-container');
+    var scrollTop = jqContainer[0].scrollTop;
+    var offsetTop = jqContainer.offset().top;
+    var currentTop = scrollTop + offsetTop;
+    var top = _getPosUnreadAbove();
+    //위 여백
+    var space = 7;
+
+    var targetScrollTop = scrollTop - (currentTop - top);
+
+    if ($scope.unread.above.length > 1) {
+      targetScrollTop -= jqTarget.outerHeight() + space;
+    }
+
+    jqContainer.animate({scrollTop: targetScrollTop});
+  }
+
+  /**
+   * 위쪽 unread badge top 위치 반환
+   * @returns {number}
+   * @private
+   */
+  function _getPosUnreadAbove() {
+    var above = $scope.unread.above;
+
+    if (above.length) {
+      return above[above.length - 1];
+    } else {
+      return 0;
+    }
+  }
+
+  /**
+   * 아래쪽 unread badge bottom 위치 반환
+   * @returns {number}
+   * @private
+   */
+  function _getPosUnreadBelow() {
+    var below = $scope.unread.below;
+    return below[0] || 0;
+  }
+
+  /**
+   * scope 소멸자
+   * @private
+   */
+  function _onDestroy() {
+    $timeout.cancel(unreadTimer);
+    _detachExtraEvents();
+  }
+
+  /**
+   * 이벤트 핸들러를 attach 한다.
+   * @private
+   */
+  function _attachExtraEvents() {
+    $(window).on('resize', updateUnreadPosition);
+    $('#lpanel-list-container').on('scroll', updateUnreadPosition);
+  }
+
+  /**
+   * 이벤트 핸들러 detach 한다.
+   * @private
+   */
+  function _detachExtraEvents() {
+    $(window).off('resize', updateUnreadPosition);
+    $('#lpanel-list-container').off('scroll', updateUnreadPosition);
+  }
+
+  /**
+   * unread position 을 업데이트한다.
+   * 중복 호출에 대한 성능 향상을 위해 timeout 을 사용한다.
+   */
+  function updateUnreadPosition() {
+    $timeout.cancel(unreadTimer);
+    unreadTimer = $timeout(function() {
+      _updateUnreadPosition();
+    }, 10);
+  }
+
+  /**
+   * unread position 을 업데이트한다.
+   * @private
+   */
+  function _updateUnreadPosition() {
+    var jqContainer = $('#lpanel-list-container');
+    var scrollTop = jqContainer[0].scrollTop;
+    var offsetTop = jqContainer.offset().top;
+    var height = jqContainer.height();
+
+    var top = scrollTop + offsetTop;
+    var bottom = top + height;
+  }
 
   /**
    * left panel 업데이트 후에 알려줘야 할 컨틀롤러가 있음을 설정한다.
@@ -416,15 +578,17 @@ app.controller('leftPanelController1', function(
   $scope.onTopicClicked = onTopicClicked;
 
   function onTopicClicked(entityType, entityId) {
-    if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
-      publicService.goToDefaultTopic();
-      return;
-    }
+    if (NetInterceptor.isConnected()) {
+      if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
+        publicService.goToDefaultTopic();
+        return;
+      }
 
-    if ($scope.currentEntity.id == entityId) {
-      $rootScope.$broadcast('refreshCurrentTopic');
-    } else {
-      $state.go('archives', { entityType: entityType, entityId: entityId });
+      if ($scope.currentEntity.id == entityId) {
+        $rootScope.$broadcast('refreshCurrentTopic');
+      } else {
+        $state.go('archives', {entityType: entityType, entityId: entityId});
+      }
     }
   }
 

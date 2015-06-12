@@ -9,7 +9,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+<<<<<<< HEAD
 "X-Generator: Poedit 1.6.9\n"
+=======
+"X-Generator: Poedit 1.7.6\n"
+>>>>>>> 4487750cf5c82c2b69b2776e4f2367049c107388
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -407,6 +411,10 @@ msgstr "瀏覽"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-name"
 msgstr "名稱"
+
+#: client/app/left/left.html
+msgid "@common-new-message"
+msgstr "新訊息"
 
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-new-name"

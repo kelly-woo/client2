@@ -25,46 +25,47 @@
   <!-- endbower -->
   <!-- endbuild -->
 
-  <!-- build:css({.tmp,client}) app/app.css -->
-  <link rel="stylesheet" href="app/app.css">
-  <!-- injector:css -->
-  <link rel="stylesheet" href="app/app.css">
-  <link rel="stylesheet" href="app/banner/desktop.notification.banner.css">
-  <link rel="stylesheet" href="app/center/center.css">
-  <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
-  <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
-  <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
-  <link rel="stylesheet" href="app/header/header.css">
-  <link rel="stylesheet" href="app/jandi-common.css">
-  <link rel="stylesheet" href="app/jandi-fonts.css">
-  <link rel="stylesheet" href="app/left/left.css">
-  <link rel="stylesheet" href="app/left/member/member.css">
-  <link rel="stylesheet" href="app/left/messages/messages.css">
-  <link rel="stylesheet" href="app/left/topics/topics.css">
-  <link rel="stylesheet" href="app/main.css">
-  <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
-  <link rel="stylesheet" href="app/modal/files/integration/integration.css">
-  <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
-  <link rel="stylesheet" href="app/modal/modal.css">
-  <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
-  <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
-  <link rel="stylesheet" href="app/modal/teams/team_invite/team.invite.css">
-  <link rel="stylesheet" href="app/modal/teams/team_member_list/team.member.list.css">
-  <link rel="stylesheet" href="app/modal/terms/terms.css">
-  <link rel="stylesheet" href="app/modal/topics/topic_create/topic.create.css">
-  <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
-  <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
-  <link rel="stylesheet" href="app/right/files/file/file.css">
-  <link rel="stylesheet" href="app/right/files/files.css">
-  <link rel="stylesheet" href="app/right/right.css">
-  <link rel="stylesheet" href="app/right/rpanel_search/rpanel.search.css">
-  <link rel="stylesheet" href="app/right/search.messages/search.message/search.message.css">
-  <link rel="stylesheet" href="app/right/search.messages/search.messages.css">
-  <link rel="stylesheet" href="app/signin/signin.css">
-  <link rel="stylesheet" href="app/tpl/503/503.css">
-  <link rel="stylesheet" href="app/tutorial/tutorial.css">
-  <!-- endinjector -->
-  <!-- endbuild -->
+    <!-- build:css({.tmp,client}) app/app.css -->
+    <link rel="stylesheet" href="app/app.css">
+    <!-- injector:css -->
+    <link rel="stylesheet" href="app/app.css">
+    <link rel="stylesheet" href="app/banner/desktop.notification.banner.css">
+    <link rel="stylesheet" href="app/center/center.css">
+    <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
+    <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
+    <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
+    <link rel="stylesheet" href="app/header/header.css">
+    <link rel="stylesheet" href="app/jandi-common.css">
+    <link rel="stylesheet" href="app/jandi-fonts.css">
+    <link rel="stylesheet" href="app/left/left.css">
+    <link rel="stylesheet" href="app/left/member/member.css">
+    <link rel="stylesheet" href="app/left/messages/messages.css">
+    <link rel="stylesheet" href="app/left/topics/topics.css">
+    <link rel="stylesheet" href="app/main.css">
+    <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
+    <link rel="stylesheet" href="app/modal/files/integration/integration.css">
+    <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
+    <link rel="stylesheet" href="app/modal/modal.css">
+    <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
+    <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
+    <link rel="stylesheet" href="app/modal/teams/team_invite/team.invite.css">
+    <link rel="stylesheet" href="app/modal/teams/team_member_list/team.member.list.css">
+    <link rel="stylesheet" href="app/modal/terms/terms.css">
+    <link rel="stylesheet" href="app/modal/topics/topic_create/topic.create.css">
+    <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
+    <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
+    <link rel="stylesheet" href="app/right/files/file/file.css">
+    <link rel="stylesheet" href="app/right/files/files.css">
+    <link rel="stylesheet" href="app/right/right.css">
+    <link rel="stylesheet" href="app/right/rpanel_search/rpanel.search.css">
+    <link rel="stylesheet" href="app/right/search.messages/search.message/search.message.css">
+    <link rel="stylesheet" href="app/right/search.messages/search.messages.css">
+    <link rel="stylesheet" href="app/signin/signin.css">
+    <link rel="stylesheet" href="app/sticker/sticker.css">
+    <link rel="stylesheet" href="app/tpl/503/503.css">
+    <link rel="stylesheet" href="app/tutorial/tutorial.css">
+    <!-- endinjector -->
+    <!-- endbuild -->
 </head>
 <body class="content-wrapper">
 <!--[if lt IE 9]>
@@ -166,6 +167,7 @@
 <script src="app/util/directive/main.directive.js"></script>
 <script src="app/util/directive/typeahead.directive.js"></script>
 <script src="app/util/filter/main.filter.js"></script>
+<script src="app/util/filter/txt.filter.js"></script>
 <script src="app/util/images/full.screen.image.directive.js"></script>
 <script src="app/util/images/image.rotate.directive.js"></script>
 <script src="app/util/images/images.service.js"></script>
@@ -179,10 +181,13 @@
 <script src="app/util/service/general.service.js"></script>
 <script src="app/util/service/image.paste.service.js"></script>
 <script src="app/util/service/integration.service.js"></script>
+<script src="app/util/service/link.txt.service.js"></script>
 <script src="app/util/service/member.service.js"></script>
 <script src="app/util/service/public.service.js"></script>
 <script src="app/util/service/session.service.js"></script>
+<script src="app/util/service/sticker.service.js"></script>
 <script src="app/util/service/textbuffer.service.js"></script>
+<script src="app/util/service/unread.badge.service.js"></script>
 <script src="app/util/service/urlScheme.service.js"></script>
 <script src="app/util/service/user.service.js"></script>
 <script src="app/banner/desktop.notification.banner.controller.js"></script>
@@ -201,6 +206,7 @@
 <script src="app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.controller.js"></script>
 <script src="app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/system_event/system.event.directive.js"></script>
+<script src="app/center/view_components/center_chat_templates/text-unsent/text.unsent.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/text/text.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/title_comment/title.comment.directive.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.controller.js"></script>
@@ -209,6 +215,7 @@
 <script src="app/error/error.controller.js"></script>
 <script src="app/header/header.controller.js"></script>
 <script src="app/header/header.service.js"></script>
+<script src="app/left/badge/badge.directive.js"></script>
 <script src="app/left/left.controller.js"></script>
 <script src="app/left/left.custom.directive.js"></script>
 <script src="app/left/left.service.js"></script>
@@ -265,6 +272,10 @@
 <script src="app/right/search.messages/search.messages.service.js"></script>
 <script src="app/signin/auth.controller.js"></script>
 <script src="app/signin/auth.service.js"></script>
+<script src="app/sticker/layer/sticker.layer.controller.js"></script>
+<script src="app/sticker/layer/sticker.layer.directive.js"></script>
+<script src="app/sticker/panel/sticker.panel.controller.js"></script>
+<script src="app/sticker/panel/sticker.panel.directive.js"></script>
 <script src="app/team/team.service.js"></script>
 <script src="app/tpl/503/503.controller.js"></script>
 <script src="app/translation/translation.js"></script>
@@ -275,8 +286,12 @@
 <script src="components/app/analytics/libs/angulartics-ga-custom.js"></script>
 <script src="components/app/analytics/libs/custom-mixpanel.js"></script>
 <script src="components/app/config/config.service.js"></script>
+<script src="components/app/keyCode/keyCode.js"></script>
+<script src="components/app/keyCode/keyCode.service.js"></script>
 <script src="components/app/language/language.service.js"></script>
 <script src="components/app/local_storage/local.storage.service.js"></script>
+<script src="components/app/net/net.js"></script>
+<script src="components/app/net/net.service.js"></script>
 <script src="components/app/notification/desktop.notification.service.js"></script>
 <script src="components/app/pubsub/pubsub.service.js"></script>
 <script src="components/app/socket/socket.service.handler.js"></script>

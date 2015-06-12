@@ -168,7 +168,6 @@
     function adjustBodyWrapperHeight(isBannerUp) {
       var jqBody = $('.body');
       var jqBodyWrapper = $('.body-wrapper');
-      console.log($('.banner').height())
       var heightOffset = isBannerUp ? 40 : 0;
       jqBodyWrapper.height($(window).height() - heightOffset);
       jqBody.height($(window).height() - heightOffset - 40);

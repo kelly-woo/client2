@@ -3,14 +3,18 @@
 
   angular
     .module('app.framework', [
+      'base.framework',
       'app.config',
       'app.analytics',
       'app.language',
       'app.storage',
       'app.local.storage',
       'app.pubsub',
-      'app.desktop.notification',
-      'app.socket'
+      'app.socket',
+      'app.keyCode',
+      'app.net',
+      'app.desktop.notification'
+
       // 'app.session'
     ])
     .run(run)

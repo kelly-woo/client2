@@ -30,114 +30,6 @@ app.filter('bytes', function() {
     var units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'],
       number = Math.floor(Math.log(bytes) / Math.log(1024));
     return (bytes / Math.pow(1024, Math.floor(number))).toFixed(precision) + units[number];
-  }
-});
-
-// Url, Email 식별 정규식
-// http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.0.2_r1/android/util/Patterns.java
-// 참조함
-app.filter('parseAnchor', function() {
-  var DEFAULT_PROTO,
-      GOOD_IRI_CHAR,
-      IRI,
-      GOOD_GTLD_CHAR,
-      GTLD,
-      HOST_NAME,
-      IP_ADDRESS,
-      DOMAIN_NAME,
-      rWebUrl,
-      rEmailAddr,
-      rSplit,
-      escapeMap;
-
-  DEFAULT_PROTO = 'http://';
-
-  GOOD_IRI_CHAR = 'a-zA-Z0-9\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF';
-  IRI = '[' + GOOD_IRI_CHAR + ']([' + GOOD_IRI_CHAR + '\\-]{0,61}[' + GOOD_IRI_CHAR + ']){0,1}';
-  GOOD_GTLD_CHAR = 'a-zA-Z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF';
-  GTLD = '[' + GOOD_GTLD_CHAR + ']{2,63}';
-  HOST_NAME = '(' + IRI + '\\.)+' + GTLD;
-  IP_ADDRESS = '((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[0-9]))';
-  DOMAIN_NAME = '(' + HOST_NAME + '|' + IP_ADDRESS + ')';
-
-  rWebUrl = new RegExp(
-    '((?:(http|https|Http|Https|rtsp|Rtsp):\\/\\/(?:(?:[a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\\'\\(\\)' +
-    '\\,\\;\\?\\&\\=]|(?:\\%[a-fA-F0-9]{2})){1,64}(?:\\:(?:[a-zA-Z0-9\\$\\-\\_' +
-    '\\.\\+\\!\\*\\\'\\(\\)\\,\\;\\?\\&\\=]|(?:\\%[a-fA-F0-9]{2})){1,25})?\\@)?)?' +
-    '(?:' + DOMAIN_NAME + ')' +
-    '(?:\\:\\d{1,5})?)' +                                               // plus option port number
-    '(\\/(?:(?:[' + GOOD_IRI_CHAR + '\\;\\/\\?\\:\\@\\&\\=\\#\\~' +     // plus option query params
-    '\\-\\.\\+\\!\\*\\\'\\(\\)\\,\\_])|(?:\\%[a-fA-F0-9]{2}))*)?' +
-    "(?:\\b|$)"
-  );
-  rEmailAddr = new RegExp(
-    '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}' +
-    '\\@' +
-    '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}' +
-    '(' +
-    '\\.' +
-    '[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}' +
-    ')+'
-  );
-  rSplit = /\s/;
-
-  escapeMap = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    "'": '&#39;',
-    '"': '&quot;'
-  };
-  function escape( str ) {
-    return str.replace(/[&<>'"]/g, function( $1 ) {
-      return escapeMap[ $1 ];
-    });
-  }
-
-  function decodeUri( str ) {
-    try {
-      str = decodeURI( str );
-    } catch( err ) {}
-
-    return str;
-  }
-
-  function parse( str, begin, length, fn  ) {
-    return escape( str.substring( 0, begin ) ) + fn() + escape( str.substring( begin + length ) );
-  }
-
-  return function ( text ) {
-    var strs,
-        str,
-        words,
-        word,
-        i, iLen,
-        j, jLen,
-        matchs;
-
-    strs = text.split( /\r?\n/ );
-
-    for ( i = 0, iLen = strs.length; i < iLen; ++i ) {
-      str = strs[ i ];
-      words = str.split( ' ' );   // 문자열 split시 ' '과 /\s/는 다르게 처리됨. 예) "%E3%80%80(encodeURI 처리된 문자)"
-      for ( j = 0, jLen = words.length; j < jLen; ++j ) {
-        word = words[ j ];
-        if ( matchs = rWebUrl.exec( word ) ) {
-          words[ j ] = parse( word, word.indexOf( matchs[ 0 ] ), matchs[ 0 ].length, function () {
-            return decodeUri( '<a href="' + ( matchs[ 2 ] ? '' : DEFAULT_PROTO ) + matchs[ 0 ] + '" target="_blank">' + matchs[ 0 ] + '</a>' );
-          });
-        } else if ( matchs = rEmailAddr.exec( word ) ) {
-          words[ j ] = parse( word, word.indexOf( matchs[ 0 ] ), matchs[ 0 ].length, function () {
-            return decodeUri( '<a href="mailto:' + matchs[ 0 ] + '">' + matchs[ 0 ] + '</a>' );
-          });
-        } else {
-          words[ j ] = escape( word );
-        }
-      }
-      strs[ i ] = words.join( ' ' );
-    }
-
-    return strs.join( '\r\n' );
   };
 });
 
@@ -219,12 +111,12 @@ app.filter('userByName', ['$rootScope', function($rootScope) {
       var fullName = member.name.toLowerCase();
 
       if(fullName.indexOf(name) > -1) {
-        returnArray.push(member)
+        returnArray.push(member);
       }
     });
 
     return returnArray;
-  }
+  };
 }
 ]);
 
@@ -239,7 +131,7 @@ app.filter('getName', ['memberService',
       if (input.type != 'user') return input.name;
 
       return memberService.getName(input);
-    }
+    };
   }
 ]);
 
@@ -247,7 +139,7 @@ app.filter('getUserStatusMessage', ['memberService',
   function(memberService) {
     return function(member) {
       return memberService.getStatusMessage(member);
-    }
+    };
   }
 ]);
 
@@ -255,7 +147,7 @@ app.filter('getUserDepartment', ['memberService',
   function(memberService) {
     return function(member) {
       return memberService.getDepartment(member);
-    }
+    };
   }
 ]);
 
@@ -263,7 +155,7 @@ app.filter('getUserPosition', ['memberService',
   function(memberService) {
     return function(member) {
       return memberService.getPosition(member);
-    }
+    };
   }
 ]);
 
@@ -271,7 +163,7 @@ app.filter('getUserPhoneNumber', ['memberService',
   function(memberService) {
     return function(member) {
       return memberService.getPhoneNumber(member);
-    }
+    };
   }
 ]);
 
@@ -279,7 +171,7 @@ app.filter('getUserEmail', ['memberService',
   function(memberService) {
     return function(member) {
       return memberService.getEmail(member);
-    }
+    };
   }
 ]);
 
@@ -287,21 +179,21 @@ app.filter('getSmallThumbnail', ['memberService', 'config',
   function(memberService, config) {
     return function(member) {
       return config.server_uploaded + memberService.getSmallThumbnailUrl(member);
-    }
+    };
   }
 ]);
 app.filter('getMediumThumbnail', ['memberService', 'config',
   function(memberService, config) {
     return function(member) {
       return config.server_uploaded + memberService.getMediumThumbnailUrl(member);
-    }
+    };
   }
 ]);
 app.filter('getlargeThumbnail', ['memberService', 'config',
   function(memberService, config) {
     return function(member) {
       return config.server_uploaded + memberService.getLargeThumbnailUrl(member);
-    }
+    };
   }
 ]);
 
@@ -320,7 +212,7 @@ app.filter('upperFirstCharacter', function() {
     var newChar = input.charAt(0).toUpperCase() + input.slice(1, input.length);
 
     return newChar;
-  }
+  };
 });
 
 /*/
@@ -333,7 +225,7 @@ app.filter('getNameInFileResult', ['userAPIservice', '$rootScope',
       if ( input === $rootScope.user.id || input === 'mine' ) return 'you';
 
       return userAPIservice.getNameFromUserId(input);
-    }
+    };
   }
 ]);
 
@@ -348,19 +240,18 @@ app.filter('getMixPanelFormat', function() {
     // replacing all space with '_'.
     input = input.replace(/ /g, "_");
     return input;
-  }
+  };
 });
 
 app.filter('isDisabledMember', function() {
   return function(member) {
     return member.status == 'disabled';
-  }
+  };
 });
 
 
 app.filter('getMemberList', function() {
   return function(members, status) {
-    console.log(status)
     var enabledMembers = [];
     _.each(members, function(member) {
       if (member.status == status)

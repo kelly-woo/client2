@@ -158,6 +158,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $window, $injector, con
       if (rejection.status === 0) {
         // net::ERR_CONNECTION_REFUSED
         // what should i do?
+        return $q.reject(rejection);
       } else if (rejection.status === 400) {
         // This is just bad request.
         //console.debug('BAD REQUEST');
