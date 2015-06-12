@@ -2,6 +2,7 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -461,6 +462,14 @@ msgstr ""
 msgid "@common-name"
 msgstr ""
 
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-body"
+msgstr ""
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-header"
+msgstr ""
+
 #: client/app/modal/rename.html
 #: client/app/modal/settings.account.html
 msgid "@common-new-name"
@@ -814,6 +823,10 @@ msgid "@integration-title-google-drive"
 msgstr ""
 
 #: client/app/modal/invitation/invitation.team.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+
+#: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-contact-desc"
 msgstr ""
 
@@ -835,10 +848,6 @@ msgstr ""
 
 #: client/app/modal/invitation/invitation.team.html
 msgid "@invitation-some-fail"
-msgstr ""
-
-#: client/app/modal/invitation/invitation.team.html
-msgid "@invitation_success_copy_link"
 msgstr ""
 
 #: client/app/signin/signin.html

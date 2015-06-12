@@ -6,7 +6,8 @@ var app = angular.module('jandiApp', [
   'app.framework'
 ]);
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice, publicService, entityAPIservice, fileAPIservice, configuration) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice, publicService, entityAPIservice,
+                 fileAPIservice, configuration, Preloader) {
 
   $rootScope._ = window._;
 
@@ -147,6 +148,13 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
 
   publicService.getBrowserInfo();
 
+  _preload();
+
+  function _preload() {
+    Preloader.template([
+      'app/disconnect/disconnect.html'
+    ]);
+  }
 });
 
 app.config(function ($urlRouterProvider, $httpProvider) {
