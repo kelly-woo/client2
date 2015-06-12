@@ -25,75 +25,75 @@
   <!-- endbower -->
   <!-- endbuild -->
 
-    <!-- build:css({.tmp,client}) app/app.css -->
-    <link rel="stylesheet" href="app/app.css">
-    <!-- injector:css -->
-    <link rel="stylesheet" href="app/app.css">
-    <link rel="stylesheet" href="app/banner/desktop.notification.banner.css">
-    <link rel="stylesheet" href="app/center/center.css">
-    <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
-    <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
-    <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
-    <link rel="stylesheet" href="app/header/header.css">
-    <link rel="stylesheet" href="app/jandi-common.css">
-    <link rel="stylesheet" href="app/jandi-fonts.css">
-    <link rel="stylesheet" href="app/left/left.css">
-    <link rel="stylesheet" href="app/left/member/member.css">
-    <link rel="stylesheet" href="app/left/messages/messages.css">
-    <link rel="stylesheet" href="app/left/topics/topics.css">
-    <link rel="stylesheet" href="app/main.css">
-    <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
-    <link rel="stylesheet" href="app/modal/files/integration/integration.css">
-    <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
-    <link rel="stylesheet" href="app/modal/modal.css">
-    <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
-    <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
-    <link rel="stylesheet" href="app/modal/teams/team_invite/team.invite.css">
-    <link rel="stylesheet" href="app/modal/teams/team_member_list/team.member.list.css">
-    <link rel="stylesheet" href="app/modal/terms/terms.css">
-    <link rel="stylesheet" href="app/modal/topics/topic_create/topic.create.css">
-    <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
-    <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
-    <link rel="stylesheet" href="app/right/files/file/file.css">
-    <link rel="stylesheet" href="app/right/files/files.css">
-    <link rel="stylesheet" href="app/right/right.css">
-    <link rel="stylesheet" href="app/right/rpanel_search/rpanel.search.css">
-    <link rel="stylesheet" href="app/right/search.messages/search.message/search.message.css">
-    <link rel="stylesheet" href="app/right/search.messages/search.messages.css">
-    <link rel="stylesheet" href="app/signin/signin.css">
-    <link rel="stylesheet" href="app/sticker/sticker.css">
-    <link rel="stylesheet" href="app/tpl/503/503.css">
-    <link rel="stylesheet" href="app/tutorial/tutorial.css">
-    <!-- endinjector -->
-    <!-- endbuild -->
+  <!-- build:css({.tmp,client}) app/app.css -->
+  <link rel="stylesheet" href="app/app.css">
+  <!-- injector:css -->
+  <link rel="stylesheet" href="app/app.css">
+  <link rel="stylesheet" href="app/banner/desktop.notification.banner.css">
+  <link rel="stylesheet" href="app/center/center.css">
+  <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
+  <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
+  <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
+  <link rel="stylesheet" href="app/header/header.css">
+  <link rel="stylesheet" href="app/jandi-common.css">
+  <link rel="stylesheet" href="app/jandi-fonts.css">
+  <link rel="stylesheet" href="app/left/left.css">
+  <link rel="stylesheet" href="app/left/member/member.css">
+  <link rel="stylesheet" href="app/left/messages/messages.css">
+  <link rel="stylesheet" href="app/left/topics/topics.css">
+  <link rel="stylesheet" href="app/main.css">
+  <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
+  <link rel="stylesheet" href="app/modal/files/integration/integration.css">
+  <link rel="stylesheet" href="app/modal/images/full_image/full.screen.image.css">
+  <link rel="stylesheet" href="app/modal/modal.css">
+  <link rel="stylesheet" href="app/modal/settings/notification/setting.notification.css">
+  <link rel="stylesheet" href="app/modal/teams/team_change/team.change.css">
+  <link rel="stylesheet" href="app/modal/teams/team_invite/team.invite.css">
+  <link rel="stylesheet" href="app/modal/teams/team_member_list/team.member.list.css">
+  <link rel="stylesheet" href="app/modal/terms/terms.css">
+  <link rel="stylesheet" href="app/modal/topics/topic_create/topic.create.css">
+  <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
+  <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
+  <link rel="stylesheet" href="app/right/files/file/file.css">
+  <link rel="stylesheet" href="app/right/files/files.css">
+  <link rel="stylesheet" href="app/right/right.css">
+  <link rel="stylesheet" href="app/right/rpanel_search/rpanel.search.css">
+  <link rel="stylesheet" href="app/right/search.messages/search.message/search.message.css">
+  <link rel="stylesheet" href="app/right/search.messages/search.messages.css">
+  <link rel="stylesheet" href="app/signin/signin.css">
+  <link rel="stylesheet" href="app/sticker/sticker.css">
+  <link rel="stylesheet" href="app/tpl/503/503.css">
+  <link rel="stylesheet" href="app/tutorial/tutorial.css">
+  <!-- endinjector -->
+  <!-- endbuild -->
 </head>
-<body class="content-wrapper">
+<body>
 <!--[if lt IE 9]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div class="body-wrapper opac-zero" style="position:relative;" ng-class="{'opac-in-fast': isReady}">
-
-  <!-- Add your site or application content here -->
-  <div class="hpanel non-selectable" ui-view="headerpanel"></div>
-  <div class="body" id="client-ui" ui-view=""></div>
-  <div class="rpanel non-selectable" ng-show="$state.includes('**.files.**')">
-    <div class="files" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
-    <div class="file" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
-    <div class="rpanel__background">
-      <div class="panel-title-container"></div>
-      <div class="rpanel__background-body">
-        <div class="rpanel__loading"></div>
+<div class="content-wrapper opac-zero" ng-class="{'opac-in-fast': isReady}">
+  <div class="body-wrapper">
+    <!-- Add your site or application content here -->
+    <div class="hpanel non-selectable" ui-view="headerpanel"></div>
+    <div class="body" id="client-ui" ui-view=""></div>
+    <div class="rpanel non-selectable" ng-show="$state.includes('**.files.**')">
+      <div class="files" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
+      <div class="file" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
+      <div class="rpanel__background">
+        <div class="panel-title-container"></div>
+        <div class="rpanel__background-body">
+          <div class="rpanel__loading"></div>
+        </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>
 
 <div class="is-ready-loading" ng-show="!isReady">
   <div class="loading_bar icon-loading"></div>
 </div>
-
 
 <!--[if lte IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>

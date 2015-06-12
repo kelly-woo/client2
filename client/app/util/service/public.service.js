@@ -168,9 +168,14 @@
     function adjustBodyWrapperHeight(isBannerUp) {
       var jqBody = $('.body');
       var jqBodyWrapper = $('.body-wrapper');
-      var heightOffset = isBannerUp ? 40 : 0;
+
+      var BANNER_HEIGHT = 40;
+      var HEADER_HEIGHT = 40;
+
+      var heightOffset = isBannerUp ? BANNER_HEIGHT : 0;
+
       jqBodyWrapper.height($(window).height() - heightOffset);
-      jqBody.height($(window).height() - heightOffset - 40);
+      jqBody.height($(window).height() - heightOffset - HEADER_HEIGHT);
     }
 
 

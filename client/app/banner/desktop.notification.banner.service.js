@@ -159,16 +159,16 @@
      * @private
      */
     function _prependBannerElement(scope) {
-      var jqBody;
+      var jqContentWrapper;
       if (!isBannerUp) {
         isBannerUp = true;
         jqBanner = angular.element('<div notification-banner></div>');
-        jqBody = $document.find('body .body-wrapper').eq(0);
+        jqContentWrapper = $document.find('body .content-wrapper').eq(0);
         bannerScope = $rootScope.$new(true);
 
         $compile(jqBanner)(bannerScope);
 
-        jqBody.prepend(jqBanner);
+        jqContentWrapper.prepend(jqBanner);
 
         _adjustBodyWrapperHeight();
       }
