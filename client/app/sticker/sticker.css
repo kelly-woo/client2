@@ -1,7 +1,7 @@
 
 .sticker_panel {
     bottom: 30px !important;
-    width: 330px !important;
+    /*width: 330px !important;*/
 }
 .sticker_panel_wrap {
     position: absolute;
