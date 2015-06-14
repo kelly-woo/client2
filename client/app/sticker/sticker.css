@@ -5,8 +5,10 @@
 }
 .sticker_panel_wrap {
     position: absolute;
-    right: 8px;
-    bottom: 8px;
+    right: 20px;
+    bottom: 7px;
+    /*right: 8px;*/
+    /*bottom: 8px;*/
     z-index: 10;
 }
 
@@ -106,12 +108,9 @@
 
 .sticker_panel_tab_item.recent.on {
     opacity: 1;
-    background-color: white;
-    padding: 7px;
 }
 
-.sticker_panel_tab_item.recent.basic.on {
-    opacity: 1;
+.sticker_panel_tab_item.on {
     background-color: white;
     padding: 7px;
 }
