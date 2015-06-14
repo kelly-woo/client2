@@ -26,8 +26,8 @@
 }
 .sticker_panel_contents ul li{overflow:hidden;}
 .sticker_panel_contents {
-    width: 328px !important;
-    height: 292px !important;
+    /*width: 328px !important;
+    height: 292px !important;*/
     max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
