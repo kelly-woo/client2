@@ -69,11 +69,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _setChatInputFocus();
   });
 
-  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
-
-
-
-
   $scope.repostMessage = repostMessage;
   $scope.deleteUnsentMessage = deleteUnsentMessage;
   $scope.postMessage = postMessage;
@@ -101,7 +96,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _setDefaultLoadingScreen();
     _initMsgSearchQuery();
     _initLocalVariables();
-    _checkNotificationBanner();
   }
 
   /**
@@ -160,10 +154,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _resetUnreadCounters();
 
     _resetNewMsgHelpers();
-  }
-
-  function _checkNotificationBanner() {
-    DeskTopNotificationBanner.checkNotificationBanner('center');
   }
 
   function _resetLoadMoreCounter() {
