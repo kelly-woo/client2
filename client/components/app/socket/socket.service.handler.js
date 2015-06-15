@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService,
-                              logger, $state, configuration, config, desktopNotificationService) {
+                              logger, $state, configuration, config, DesktopNotification) {
 
     this.newMemberHandler = newMemberHandler;
 
@@ -382,7 +382,7 @@
      * @private
      */
     function _isSystemEvent(eventType) {
-      return eventType != _APP_GOT_NEW_MESSAGE;
+      return eventType !== _APP_GOT_NEW_MESSAGE && eventType !== config.socketEvent.MESSAGE_STICKER_SHARE;
     }
 
     /**
@@ -477,7 +477,7 @@
       if (_isActionFromMe(writer.id) || isCurrentEntity) return;
 
       log('Send browser notification');
-      desktopNotificationService.addNotification(data, writer, roomEntity);
+      DesktopNotification.addNotification(data, writer, roomEntity);
     }
 
     /**

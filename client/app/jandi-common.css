@@ -1,0 +1,77 @@
+/*****************************************
+
+  common css
+   - that can be used across all projects in Toss lab.
+
+*****************************************/
+.jnd-float-left { float: left; }
+.jnd-float-right { float: right; }
+
+.jnd-cursor-pointer { cursor: pointer; }
+
+.jnd-text-underline { text-decoration: underline; }
+.jnd-text-center { text-align: center; }
+.jnd-text-left { text-align: left !important; }
+.jnd-icon-vertical-text-bottom { vertical-align: text-bottom; }
+
+/*  Underlines text on hover */
+.jnd-underline-on-hover:hover { text-decoration: underline; }
+
+.jnd-disabled-input {
+  pointer-events: none;
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: .65;
+}
+
+.jnd-border-highlight {
+  border-color: #01abe6 !important;
+}
+
+.jnd-blue-question-mark-tooltip {
+  color: #01abe6;
+}
+
+.jnd-white-button:hover,
+.jnd-white-button:active {
+  background-color: #f2fbff;
+  color: #00abe6;
+}
+
+/*****************************************
+
+  Overriding css
+    - All of below css classes overrides original css.
+
+*****************************************/
+.tooltip-inner {
+  padding: 8px;
+  text-align: left;
+}
+.disabled {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor:not-allowed;
+
+}
+input.disabled {
+  background-color: #f1f1f1;
+}
+
+
+
+/*****************************************
+
+  Animation CSS
+
+*****************************************/
+.highlight-border-animation {
+  -webkit-transition : border 500ms ease-out;
+  -moz-transition : border 500ms ease-out;
+  -o-transition : border 500ms ease-out;
+  transition : border 500ms ease-out;
+}

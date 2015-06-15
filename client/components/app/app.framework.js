@@ -8,8 +8,13 @@
       'app.analytics',
       'app.language',
       'app.storage',
+      'app.local.storage',
+      'app.pubsub',
       'app.socket',
-      'app.pubsub'
+      'app.keyCode',
+      'app.net',
+      'app.desktop.notification'
+
       // 'app.session'
     ])
     .run(run)

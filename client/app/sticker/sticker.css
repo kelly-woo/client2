@@ -1,0 +1,143 @@
+
+.sticker_panel {
+    bottom: 30px !important;
+}
+.sticker_panel_wrap {
+    position: absolute;
+    right: 20px;
+    bottom: 7px;
+    z-index:10;
+}
+
+.sticker_panel_btn {
+    opacity: 0.3;
+    font-size: 18px;
+    color: black;
+}
+.sticker_panel_btn:active,
+.sticker_panel_btn:hover {
+    color: #00abe6;
+}
+.sticker_panel_btn.on {
+    color: #00abe6;
+}
+.sticker_panel_contents ul li{overflow:hidden;}
+.sticker_panel_contents {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.sticker_panel_contents.empty {
+    display: table-cell;
+    background: #f1f4f8;
+    color: #154a67;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.sticker_panel_empty_icon {
+    font-size: 46px;
+    opacity: 0.3;
+    margin-bottom: 12px;
+}
+.sticker_panel_empty_text {
+    font-size: 14px;
+
+    opacity: 0.5;
+}
+.sticker_panel_ul {
+    list-style-type: none;
+    padding: 10px;
+}
+.sticker_panel_li {
+    float: left;
+    width: 65px;
+    height: 65px;
+    margin-left: 10px;
+    text-align: center;
+    line-height: 21px;
+    border: 2px solid #FFFFFF;
+}
+.sticker_panel_li:hover {
+    border: 2px solid #d7e0e8;
+    border-radius: 5px;
+    box-shadow: 0 0 2px rgba( 0, 0, 0, .15);
+}
+.sticker_panel_tab {
+    height: 35px;
+    clear: both;
+    background-color: #f1f4f8;
+    border-top: 1px solid #d7e0e8;
+    color: #154a67;
+}
+.sticker_panel_tab ul{
+    display: table;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+.sticker_panel_tab li{
+    vertical-align: middle;
+    display: table-cell;
+    height: 100%;
+    border-right:1px solid #d7e0e8;
+    width: 35px;
+    text-align: center;
+}
+
+.sticker_panel_tab_item {
+    min-height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.sticker_panel_tab_item.recent {
+    font-size: 20px;
+    opacity: 0.4;
+}
+
+.sticker_panel_tab_item.recent.on {
+    opacity: 1;
+}
+
+.sticker_panel_tab_item img {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.sticker_layer {
+    z-index:10;
+    min-height: 140px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    position:absolute;
+    bottom: 100%;
+    border: solid #d7e0e8;
+    border-width: 2px 2px 0 2px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.sticker_layer img {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.sticker_layer_remove {
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+img.sticker {
+    vertical-align: text-bottom;
+}
+
+img.sticker.size_5 {
+    width: 145px;
+    height: 145px;
+}
+img.sticker.size_1 {
+    width: 65px;
+    height: 65px;
+}

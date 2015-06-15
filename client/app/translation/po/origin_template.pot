@@ -38,6 +38,10 @@ msgstr ""
 msgid "@alert-no-result"
 msgstr ""
 
+#: client/app/banner/desktop.notification.banner.html
+msgid "@ask-me-later"
+msgstr ""
+
 #: client/app/modal/files/integration/integration.html
 #: client/app/modal/files/share/share.html
 #: client/app/modal/files/upload/upload.html
@@ -234,6 +238,7 @@ msgstr ""
 msgid "@common-dm-invite-to"
 msgstr ""
 
+#: client/app/modal/settings/notification/setting.notification.html
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@common-done"
 msgstr ""
@@ -704,10 +709,6 @@ msgid "@integration-title-google-drive"
 msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr ""
 
@@ -743,6 +744,10 @@ msgstr ""
 msgid "@invitation-some-fail"
 msgstr ""
 
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr ""
@@ -768,6 +773,10 @@ msgstr ""
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@message-delete"
+msgstr ""
+
+#: client/app/banner/desktop.notification.banner.html
+msgid "@miss-out-important-msg"
 msgstr ""
 
 #: client/app/modal/topics/topic_join/topic.join.html
@@ -871,6 +880,18 @@ msgstr ""
 msgid "@msg-whose"
 msgstr ""
 
+#: client/app/banner/desktop.notification.banner.html
+msgid "@never-ask-me"
+msgstr ""
+
+#: client/app/banner/desktop.notification.banner.html
+msgid "@never-miss-a-message"
+msgstr ""
+
+#: client/app/banner/desktop.notification.banner.html
+msgid "@noti-banner-turn-on"
+msgstr ""
+
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@option-all-members"
@@ -915,6 +936,26 @@ msgstr ""
 msgid "@search-result-summary"
 msgstr ""
 
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@send-test-notification"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@setting-notification-recommendation-msg"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@setting-notification-show-content-msg"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@setting-notification-turn-off"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@setting-notification-turn-on"
+msgstr ""
+
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite"
 msgstr ""
@@ -930,6 +971,10 @@ msgstr ""
 
 #: client/app/header/header.html
 msgid "@to-account-home"
+msgstr ""
+
+#: client/app/banner/desktop.notification.banner.html
+msgid "@turn-on-desktop-notification!"
 msgstr ""
 
 #: client/app/tutorial/tutorial.html
@@ -1018,8 +1063,37 @@ msgstr ""
 msgid "@user-menu-un-star"
 msgstr ""
 
+#: client/app/header/header.html
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification"
+msgstr ""
+
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-messages-post"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-messages-pre"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-mid"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-post"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-topic-pre"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-sample-body-text"
 msgstr ""
 
 #: client/app/center/center.html

@@ -149,9 +149,10 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
 
 });
 
-app.config(function ($urlRouterProvider, $httpProvider) {
+app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider) {
 
   $httpProvider.interceptors.push('authInterceptor');
+  $httpProvider.interceptors.push('NetInterceptor');
 
   /* URL routing rule for exception */
   $urlRouterProvider
@@ -171,4 +172,7 @@ app.config(function ($urlRouterProvider, $httpProvider) {
     }
   });
 
+  $tooltipProvider.setTriggers({
+      'show': 'hide'
+  });
 });

@@ -7,17 +7,21 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, $stateParams, $filter, $modal, accountService,
-                      memberService, publicService, configuration, language, modalHelper) {
+  function headerCtrl($scope, $state, $filter, accountService,
+                      memberService, publicService, configuration,
+                      language, modalHelper, jndPubSub, DeskTopNotificationBanner) {
     var modalMap;
-    var modalOpenMap;
+    var stateParams;
 
-    (function() {
+    _init();
+
+    function _init() {
+      DeskTopNotificationBanner.showNotificationBanner($scope);
+
       _initRightPanelButtonLabel();
       $scope.languageList = language.getLanguageList();
-    })();
+    }
 
-    var stateParams;
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       _initRightPanelButtonLabel();
       stateParams = toParams;
@@ -58,12 +62,19 @@
 
     }
 
-    $scope.toTeam = function() {
+    $scope.toTeam = toTeam;
+
+    /**
+     * 잔디 메인으로 보내면서 팀 리스트 페이지를 연다.
+     */
+    function toTeam() {
       publicService.redirectTo(configuration.main_address + 'team');
-    };
-    $scope.onSignOutClick =function() {
-      publicService.signOut();
-    };
+    }
+
+    /**
+     * 로그아웃 한다.
+     */
+    $scope.onSignOutClick = publicService.signOut;
 
     modalMap = {
       'agreement': function() {
@@ -83,25 +94,32 @@
       },
       'team-member': function() {
         modalHelper.openTeamMemberListModal();
+      },
+      'setting-notifications': function() {
+        modalHelper.openNotificationSettingModal($scope);
       }
+
     };
+
     $scope.openModal = function(selector) {
       var fn;
-
       (fn = modalMap[selector]) && fn();
     };
+
     $scope.toggleLoading = function() {
       $scope.isLoading = !$scope.isLoading;
     };
+
     $scope.isUserAuthorized = function() {
       return memberService.isAuthorized($scope.user);
     };
 
     $scope.onShowTutorialClick = function() {
-      $rootScope.$broadcast('initTutorialStatus');
+      jndPubSub.pub('initTutorialStatus');
     };
+
     $scope.onTutorialPulseClick = function($event) {
-      $rootScope.$broadcast('onTutorialPulseClick', $event);
+      jndPubSub.pub('onTutorialPulseClick', $event);
     };
 
     $scope.onRightPanelToggle = function() {
@@ -134,8 +152,5 @@
     function _isRpanelVisible() {
       return $state.includes('**.files.**');
     }
-
   }
-
-
 })();
