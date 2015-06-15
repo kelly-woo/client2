@@ -11,8 +11,8 @@
   }
 
   /* @ngInject */
-  function run(DesktopNotification) {
-    DesktopNotification.init();
+  function run(DesktopNotification, configuration) {
+    DesktopNotification.init(configuration);
   }
 
 })();

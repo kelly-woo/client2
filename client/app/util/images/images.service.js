@@ -17,6 +17,8 @@
     // 화면에 꽉 찰 수도 있으니 양 옆에 남겨두고 싶은 공간
     var widthOffset = 40;
 
+    that.getImageLoaderElement = getImageLoaderElement;
+
     that.hideImageElement = hideImageElement;
     that.showImageElement = showImageElement;
 
@@ -24,8 +26,17 @@
 
     that.getImageOptionForFullScreen = getImageOptionForFullScreen;
 
-    
-    
+
+    function getImageLoaderElement(newThumbnail) {
+
+      var newImageLoader = '<div class="cursor_pointer opac-zero large-thumbnail"' +
+        'image-loader="' + newThumbnail + '"></div>';
+
+      console.log(newImageLoader)
+      return angular.element(newImageLoader);
+    }
+
+
     /**
      * 이미지 엘레멘트를 화면에서 숨긴다.
      * @param {HTMLElement} imageElement - 화면에서 숨길 이미지 엘레멘트
