@@ -54,6 +54,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.message = {};          // Message to post.
   $scope.isMessageSearchJumping = false;
   $scope.isInitialLoadingCompleted = false;
+  $scope.hasLastMessageRendered = false;
 
 
   //viewContent load 시 이벤트 핸들러 바인딩
@@ -463,6 +464,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       $scope.msgLoadStatus.loading = true;
       $scope.isPolling = false;
 
+      if (!$scope.isInitialLoadingCompleted) {
+        _hideContents();
+        console.log('hiding')
+      }
       //log('-- loadMore');
 
       // simulate an ajax request
@@ -700,7 +705,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _showContents() {
-    $('#msgs-holder').addClass('opac-in-fast');
+    if ($scope.isInitialLoadingCompleted) {
+      $('#msgs-holder').addClass('opac-in-fast');
+      $scope.hasLastMessageRendered = true;
+    }
   }
   function _hideContents() {
     $('#msgs-holder').removeClass('opac-in-fast');

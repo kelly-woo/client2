@@ -417,8 +417,8 @@ by ysyun 2015.2.25
   max-width: 100%;
 }
 .msg-file-body__img {
-  height: 65px;
-  width: 65px;
+  height: 63px;
+  width: 63px;
 }
 .preview-container .msg-file-body__img__background {
   max-width: 700px;
@@ -440,15 +440,16 @@ by ysyun 2015.2.25
 .large-thumbnail {
   max-width: 700px;
 }
-.large-thumbnail-parent:hover .large-thumbnail-full-screen
-{
+.preview-container:hover .large-thumbnail-full-screen {
   display: block;
   -webkit-animation: opacIn-from-0 1s; /* Chrome, Safari, Opera */
   animation: opacIn-from-0 1s;
 }
+
 .large-thumbnail-parent .fa-comment {
   display: none;
 }
+
 .large-thumbnail-full-screen {
   cursor: pointer;
   position: absolute;
