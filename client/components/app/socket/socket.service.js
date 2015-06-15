@@ -57,8 +57,6 @@
     var MESSAGE_TOPIC_LEAVE = config.socketEvent.MESSAGE_TOPIC_LEAVE;
     var MESSAGE_TOPIC_INVITE = config.socketEvent.MESSAGE_TOPIC_INVITE;
 
-    var MESSAGE_DELETE = config.socketEvent.MESSAGE_DELETE;
-
     var MESSAGE_FILE_SHARE = config.socketEvent.MESSAGE_FILE_SHARE;
     var MESSAGE_FILE_UNSHARE = config.socketEvent.MESSAGE_FILE_UNSHARE;
 
@@ -409,33 +407,57 @@
         // File comment event is handled in different handler since its 'rooms' attribute is an array.
         jndWebSocketHelper.socketEventLogger(messageType, data, false);
         jndWebSocketHelper.messageEventFileCommentHandler(data);
-        return;
-      }
-
-      if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
-        jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
-        //return;
-      }
-
-      if (messageType === MESSAGE_TOPIC_LEAVE) {
+      } else if (messageType === MESSAGE_TOPIC_LEAVE) {
         jndWebSocketHelper.messageEventTopicLeaveHandler(data);
-        return;
-      }
-
-      if (messageType === MESSAGE_TOPIC_JOIN) {
-
-        if (currentSessionHelper.getDefaultTopicId() === data.room.id) {
-          // Someone joined 'default topic' -> new member just joined team!!
-          jndWebSocketHelper.newMemberHandler(data);
-          return;
+      } else if (messageType === MESSAGE_TOPIC_JOIN && currentSessionHelper.getDefaultTopicId() === data.room.id) {
+        // Someone joined 'default topic' -> new member just joined team!!
+        jndWebSocketHelper.newMemberHandler(data);
+      } else {
+        if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
+          jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
         }
+
+        messageType = messageType || _APP_GOT_NEW_MESSAGE;
+
+        jndWebSocketHelper.socketEventLogger(messageType, data, false);
+        jndWebSocketHelper.eventStatusLogger(messageType, data);
+
+        jndWebSocketHelper.messageEventHandler(messageType, data);
       }
-      messageType = messageType || _APP_GOT_NEW_MESSAGE;
 
-      jndWebSocketHelper.socketEventLogger(messageType, data, false);
-      jndWebSocketHelper.eventStatusLogger(messageType, data);
+      // var messageType = data.messageType;
 
-      jndWebSocketHelper.messageEventHandler(messageType, data);
+      // if (messageType === MESSAGE_FILE_COMMENT) {
+      //   // File comment event is handled in different handler since its 'rooms' attribute is an array.
+      //   jndWebSocketHelper.socketEventLogger(messageType, data, false);
+      //   jndWebSocketHelper.messageEventFileCommentHandler(data);
+      //   return;
+      // }
+
+      // if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
+      //   jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
+      //   //return;
+      // }
+
+      // if (messageType === MESSAGE_TOPIC_LEAVE) {
+      //   jndWebSocketHelper.messageEventTopicLeaveHandler(data);
+      //   return;
+      // }
+
+      // if (messageType === MESSAGE_TOPIC_JOIN) {
+
+      //   if (currentSessionHelper.getDefaultTopicId() === data.room.id) {
+      //     // Someone joined 'default topic' -> new member just joined team!!
+      //     jndWebSocketHelper.newMemberHandler(data);
+      //     return;
+      //   }
+      // }
+      // messageType = messageType || _APP_GOT_NEW_MESSAGE;
+
+      // jndWebSocketHelper.socketEventLogger(messageType, data, false);
+      // jndWebSocketHelper.eventStatusLogger(messageType, data);
+
+      // jndWebSocketHelper.messageEventHandler(messageType, data);
     }
 
     /**

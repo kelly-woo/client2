@@ -50,6 +50,7 @@
     var MESSAGE_TOPIC_INVITE = config.socketEvent.MESSAGE_TOPIC_INVITE;
 
     var MESSAGE_DELETE = config.socketEvent.MESSAGE_DELETE;
+    var MESSAGE_PREVIEW = config.socketEvent.MESSAGE_PREVIEW;
 
     var MESSAGE_FILE_SHARE = config.socketEvent.MESSAGE_FILE_SHARE;
     var MESSAGE_FILE_UNSHARE = config.socketEvent.MESSAGE_FILE_UNSHARE;
@@ -191,28 +192,58 @@
       var writer = _getActionOwner(data.writer);
       var isCurrentEntity = _isCurrentEntity(room);
 
-      // message delete.
+      console.log('socket service ::::::::: ', type);
       if (_isMessageDeleted(type)) {
+        // message delete.
+
         _updateCenterForCurrentEntity(isCurrentEntity);
         // Must update left panel for other room;
         _updateLeftPanelForOtherEntity(isCurrentEntity);
-        return;
-      }
+      } else if (_isMessagePreview(type)) {
+        // message preview.
 
-      // dm to me.
-      if (_isDMToMe(room)) {
+        _attachMessagePreview(data);
+      } else if (_isDMToMe(room)) {
+        // dm to me.
+
         _messageDMToMeHandler(data, roomEntity, writer, isCurrentEntity);
-        return;
+      } else if (_isRelatedEvent(roomEntity, writer)) {
+        // Check if message event happened in any related topics.
+
+        if (_isSystemEvent(type)) {
+          _systemMessageHandler(isCurrentEntity);
+        } else {
+          _newMessageHandler(data, roomEntity, writer, isCurrentEntity);
+        }
       }
 
-      // Check if message event happened in any related topics.
-      if (!_isRelatedEvent(roomEntity, writer)) { return; }
+      // var room = data.room;
+      // var roomEntity = _getRoom(room);
+      // var writer = _getActionOwner(data.writer);
+      // var isCurrentEntity = _isCurrentEntity(room);
 
-      if (_isSystemEvent(type)) {
-        _systemMessageHandler(isCurrentEntity);
-      } else {
-        _newMessageHandler(data, roomEntity, writer, isCurrentEntity);
-      }
+      // // message delete.
+      // if (_isMessageDeleted(type)) {
+      //   _updateCenterForCurrentEntity(isCurrentEntity);
+      //   // Must update left panel for other room;
+      //   _updateLeftPanelForOtherEntity(isCurrentEntity);
+      //   return;
+      // }
+
+      // // dm to me.
+      // if (_isDMToMe(room)) {
+      //   _messageDMToMeHandler(data, roomEntity, writer, isCurrentEntity);
+      //   return;
+      // }
+
+      // // Check if message event happened in any related topics.
+      // if (!_isRelatedEvent(roomEntity, writer)) { return; }
+
+      // if (_isSystemEvent(type)) {
+      //   _systemMessageHandler(isCurrentEntity);
+      // } else {
+      //   _newMessageHandler(data, roomEntity, writer, isCurrentEntity);
+      // }
     }
 
     /**
@@ -375,6 +406,15 @@
       return eventType === MESSAGE_DELETE;
     }
 
+    /**
+     * Return true if 'eventType' is link_preview_create.
+     * @param {string} eventType - name of event
+     * @returns {boolean}
+     * @private
+     */
+    function _isMessagePreview(eventType) {
+      return eventType === MESSAGE_PREVIEW;
+    }
     /**
      * Return true if 'eventType' is any kind of system event.
      * @param eventType {string} name of event
