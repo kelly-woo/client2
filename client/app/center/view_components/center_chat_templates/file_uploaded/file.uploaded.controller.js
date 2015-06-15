@@ -6,36 +6,73 @@
     .controller('fileUploadedCtrl', fileUploadedCtrl);
 
   /* @ngInject */
-  function fileUploadedCtrl($scope, fileAPIservice, centerService, modalHelper, ImagesHelper, $compile) {
-    var content = $scope.msg.message.content;
+  function fileUploadedCtrl($scope, $filter, fileAPIservice, centerService,
+                            modalHelper, ImagesHelper, $compile, FileUploaded) {
+
+    var jqRootElement;
+    var content;
+
+
+
     var jqSmallThumbnail;
+    var jqLargeThumbnail;
 
-    // integration file 이면 download를 표기하지 않음
-    $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(content.serverUrl);
+    $scope.onSmallThumbnailClick = onSmallThumbnailClick;
+    $scope.onLargeThumbnailClick = onLargeThumbnailClick;
 
-    $scope.onSmallThumbnailClick = onSmallThumbnailClick2;
+    init();
 
-    function onSmallThumbnailClick2() {
-      var jqCurrentSmallThumbnail = $(document.getElementById($scope.msg.id + '-image-preview'));
-      console.log(jqCurrentSmallThumbnail instanceof jQuery)
-      console.log(typeof jqCurrentSmallThumbnail)
-      var jqLargeThumbnail;
-      if (!!jqCurrentSmallThumbnail) {
-        console.log(jqCurrentSmallThumbnail);
-        console.log(jqCurrentSmallThumbnail.attr('image-loader'))
-        console.log(jqCurrentSmallThumbnail.attr('image-loader', _getlargeThumbnail()))
-        console.log(jqCurrentSmallThumbnail.attr('image-loader'))
-        jqCurrentSmallThumbnail.toggleClass('large-thumbnail');
-        jqCurrentSmallThumbnail.attr('image-is-square', false)
-        jqCurrentSmallThumbnail.attr('image-max-height', false)
+    function init() {
+      jqRootElement = $(document.getElementById($scope.msg.id));
 
+      content = _isCommentType($scope.msg.message) ? $scope.msg.feedback.content : $scope.msg.message.content;
+
+      if ($filter('hasPreview')(content)) {
+        // content 가 preview 를 지원 할 경우 -> 이미지.
+        $scope.imageUrlToBeLoaded = $scope.server_uploaded  + FileUploaded.getSmallThumbnailUrl(content);
       }
 
-      //$compile(jqCurrentSmallThumbnail);
-
+      // integration file 이면 download를 표기하지 않음
+      $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(content.serverUrl);
     }
 
-    function _getlargeThumbnail() {
+
+    /**
+     * small thumbnail 이 클릭되었을때 불려진다.
+     */
+    function onSmallThumbnailClick() {
+      jqSmallThumbnail = $(document.getElementById($scope.msg.id + '-image-preview-small'));
+
+      jqLargeThumbnail = _getLargeThumbnailImageLoaderElement();
+
+      _togglePullLeft();
+
+      _compileNewDomElement(jqLargeThumbnail, $scope);
+
+      jqSmallThumbnail.parent().prepend(jqLargeThumbnail);
+      jqSmallThumbnail.remove();
+    }
+
+    /**
+     * large thumbnail 을 가지고 있는 dom element 를 생성해서 return 한다.
+     * @returns {jqElement} jqImageLoaderContainer - large thumbnail을 가지고 있는 컨테이너 엘레멘트
+     * @private
+     */
+    function _getLargeThumbnailImageLoaderElement() {
+      var imageLoaderMarkUp = ImagesHelper.getImageLoaderElement($scope.server_uploaded  + FileUploaded.getLargeThumbnailUrl(content));
+
+      imageLoaderMarkUp.addClass('large-thumbnail');
+      imageLoaderMarkUp.attr({
+        //'image-fit-to-width': true,
+        'image-max-width': 700,
+        'ng-click': 'onLargeThumbnailClick();'
+      });
+
+      var jqImageLoaderContainer = angular.element(imageLoaderMarkUp);
+      jqImageLoaderContainer.attr('id', $scope.msg.id + '-image-preview-large');
+
+      return jqImageLoaderContainer;
+
       var message = $scope.msg;
 
       console.log(message)
@@ -54,6 +91,40 @@
       return newThumbnail;
 
     }
+
+    /**
+     * 현재 컨트롤러가 가지고 있는 element 의 자식중 'preview-container' 클래스를 가진 eleement 를 찾아서
+     * 'pull-left' 를 toggle 시킨다.
+     * @private
+     */
+    function _togglePullLeft() {
+      var jqPreviewContainer = angular.element(jqRootElement.find('.preview-container'));
+      jqPreviewContainer.toggleClass('pull-left');
+    }
+
+    /**
+     * large thumbnail 엘레멘트가 클릭되어졌을 때 불려진다.
+     */
+    function onLargeThumbnailClick() {
+      _compileNewDomElement(jqSmallThumbnail, $scope);
+
+      jqLargeThumbnail.parent().append(jqSmallThumbnail);
+      jqLargeThumbnail.remove();
+
+      _togglePullLeft();
+    }
+
+    /**
+     * 엘레멘트와 스코프를 다시 바인딩 시켜준다.
+     * @param {jqElement} jqElement - 바인딩 시킬 엘레멘트
+     * @param {scope} scope - 바인딩 시킬 스코프
+     * @private
+     */
+    function _compileNewDomElement(jqElement, scope) {
+      // TODO: 솔직히 이거를 펑션으로 따로 빼야하나 의문이 들긴해요.
+      $compile(jqElement)(scope);
+    }
+
 
     function _replaceThumbnail(jqElement) {
       var message = $scope.msg;
@@ -74,7 +145,7 @@
 
       jqElement.attr('image-loader', newThumbnail);
     }
-    function onSmallThumbnailClick($event, message) {
+    function onSmallThumbnailClick1($event, message) {
 
       //  checking type first.
       //  file upload but not image -> return
@@ -208,8 +279,9 @@
       return transform;
     }
 
+
     //  when large thumbnail image is clicked, delete large thumbnail and show original(small thumbnail image).
-    function onLargeThumbnailClick(fullScreenToggler, mirrorDom, originalDom) {
+    function onLargeThumbnailClick1(fullScreenToggler, mirrorDom, originalDom) {
       originalDom.css('display', 'block');
       mirrorDom.parent().removeClass('large-thumbnail-parent').addClass('pull-left');
       mirrorDom.parent().parent().removeClass('large-thumbnail-grand-parent');

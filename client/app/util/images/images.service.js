@@ -29,10 +29,9 @@
 
     function getImageLoaderElement(newThumbnail) {
 
-      var newImageLoader = '<div class="cursor_pointer opac-zero large-thumbnail"' +
+      var newImageLoader = '<div class="cursor_pointer opac-zero"' +
         'image-loader="' + newThumbnail + '"></div>';
 
-      console.log(newImageLoader)
       return angular.element(newImageLoader);
     }
 

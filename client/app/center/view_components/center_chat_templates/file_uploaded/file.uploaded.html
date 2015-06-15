@@ -27,16 +27,16 @@
   <div class="msg-file" ng-cloak>
 
     <!--  FILE PREVIEW IMAGE  -->
-    <div class="msg-file-body-float pull-left" data-ng-click="onSmallThumbnailClick($event, msg);">
+    <div class="msg-file-body-float pull-left preview-container">
       <!--  FILE NOT ARCHIVED -->
       <div ng-if="msg.message.status != 'archived'" >
         <!--    IMAGE THUMBNAIL -->
         <div ng-if="(msg.message.content | hasPreview)">
 
           <div class="image_wrapper msg-file-body__img__background jnd-text-center">
-            <div class="opac-zero msg-file-body__img cursor_pointer" id="{{msg.id}}-image-preview"
-                 image-loader="{{server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl}}"
-                 image-max-height="65" image-is-square="true">
+            <div class="opac-zero msg-file-body__img cursor_pointer" id="{{msg.id}}-image-preview-small"
+                 image-loader="{{imageUrlToBeLoaded}}" image-max-height="65" image-max-width="65" image-is-square="true"
+                 ng-click="onSmallThumbnailClick();">
             </div>
           </div>
         </div>

@@ -22,17 +22,29 @@
       var callbackFunction = attrs.onImageLoad;
       var isFullScreen = !!attrs.isImageFullScreen;
 
-      var displayProperty = element.css('display');
+      // 같은 이미지를 두 번 로드하기 않기위함.
+      var hasImageLoaded = !!attrs.hasImageLoaded;
 
-      var xhr = new XMLHttpRequest();
+      var displayProperty = jqImageContainer.css('display');
 
-      xhr.open('GET', imageUrl, true);
-      xhr.responseType = 'blob';
-      xhr.onload = onload;
+      linkInit();
 
-      xhr.send();
+      function linkInit() {
+        if (!hasImageLoaded) {
+          // 이미지가 로드가 안되어 있을때만.
+          var xhr = new XMLHttpRequest();
 
-      _hide();
+          xhr.open('GET', imageUrl, true);
+          xhr.responseType = 'blob';
+          xhr.onload = onload;
+
+          xhr.send();
+          _hide();
+        }
+      }
+
+
+
 
       /**
        * 처음에 XMLHttpRequest 를 직접 이용해 호출한 콜의 콜백이다.
@@ -72,8 +84,14 @@
           _onImageLoadError();
         } else {
           img.setAttribute('class', 'image-loader-image');
+
           _resizeImage(img);
+
+          // 한 번 로드가 되었다는 표시
+          jqImageContainer.attr('has-image-loaded', true);
+
           jqImageContainer.append(img);
+
         }
 
         _show(jqImageContainer, displayProperty);
@@ -90,23 +108,26 @@
         var imageHeight = parseInt(img.getAttribute('height'), 10);
         var imageWidth = parseInt(img.getAttribute('width'), 10);
 
-
-        if (imageHeight > imageWidth) {
-          // 이미지가 새로로 더 길 때
-
-          if (isFullScreen) {
-            ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
-          } else if (!!attrs.imageMaxHeight) {
-            img.style.maxHeight = attrs.imageMaxHeight + 'px';
-            img.style.width = 'auto';
+        if (!!attrs.imageFitToWidth) {
+          _fitImageToWidth(img);
+          ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
+        } else if (imageHeight > imageWidth) {
+          // 이미지가 새로로 더 길 경우
+          if (!!attrs.imageMaxHeight) {
+            _setMaxHeight(img);
           } else if (!!attrs.imageMaxWidth) {
-            img.style.maxWidth = attrs.imageMaxHeight + 'px';
-            img.style.height = 'auto';
+            _setMaxWidth(img);
           }
-
         } else {
+          // 이미지가 가로로 길 경우
           ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
         }
+
+        if (isFullScreen) {
+          // 이미지가 full screen size 일 경우
+          ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
+        }
+
       }
 
       /**
@@ -119,7 +140,7 @@
         }
 
         return {
-          maxWidth: jqImageContainer.width(),
+          maxWidth: Math.max(jqImageContainer.width(), attrs.imageMaxWidth),
           maxHeight: Math.max($(window).height(), jqImageContainer.height())
         };
       }
@@ -176,6 +197,38 @@
           scope.$apply(callbackFunction);
         }
       }
+
+      /**
+       * img 의  width 를 무조건 100%로 한다.
+       * 이것을 사용하려면 parent div 의 width 가 set 되어져야한다.
+       * @param {HTMLElement} img - width 가 변경될 엘레멘트
+       * @private
+       */
+      function _fitImageToWidth(img) {
+        img.style.width = '100%';
+        img.style.height = 'auto';
+      }
+
+      /**
+       * 이미지의 max-height 를 지정한다.
+       * @param {HTMLElement} img - max-height 를 지정할 엘레멘트
+       * @private
+       */
+      function _setMaxHeight(img) {
+        img.style.maxHeight = attrs.imageMaxHeight + 'px';
+        img.style.width = 'auto';
+      }
+
+      /**
+       * 이미지의 max-width 를 정한다.
+       * @param {HTMLElement} img - max-width 를 지정할 엘레멘트
+       * @private
+       */
+      function _setMaxWidth(img) {
+        img.style.maxWidth = attrs.imageMaxHeight + 'px';
+        img.style.height = 'auto';
+      }
     }
+
   }
 })();

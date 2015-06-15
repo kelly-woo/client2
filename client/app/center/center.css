@@ -420,6 +420,9 @@ by ysyun 2015.2.25
   height: 65px;
   width: 65px;
 }
+.preview-container .msg-file-body__img__background {
+  max-width: 700px;
+}
 .msg-file-body__thumbnail {
   height: 65px;
   width: 65px;
@@ -435,8 +438,7 @@ by ysyun 2015.2.25
   overflow: hidden;
 }
 .large-thumbnail {
-  border: 1px solid #d2d2d2;
-  max-width: 100%;
+  max-width: 700px;
 }
 .large-thumbnail-parent:hover .large-thumbnail-full-screen
 {
