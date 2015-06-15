@@ -33,6 +33,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var messages = {};
   var _sticker = null;
+  var _stickerType = 'chat';
+
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $rootScope.isIE9 = false;
 
@@ -64,7 +66,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.$on('connected', _onConnected);
   $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
-  $scope.$on('onChangeSticker:center',function(angularEvent, item) {
+  $scope.$on('onChangeSticker:' + _stickerType, function(angularEvent, item) {
     _sticker = item;
     _setChatInputFocus();
   });
@@ -1124,7 +1126,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hideSticker() {
-    jndPubSub.pub('deselectSticker:center');
+    jndPubSub.pub('deselectSticker:' +_stickerType);
   }
   /**
    * 보내지지 않음 메세지를 삭제한다.
@@ -1507,7 +1509,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _setStickerPosition() {
     $timeout(function() {
-      jndPubSub.pub('isStickerPosShift:chat', _hasInputScroll());
+      jndPubSub.pub('isStickerPosShift:' + _stickerType, _hasInputScroll());
     }, 0);
   }
 

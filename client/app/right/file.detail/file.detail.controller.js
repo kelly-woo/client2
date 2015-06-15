@@ -8,7 +8,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
 
   //console.info('[enter] fileDetailCtrl');
   var _sticker = null;
-  
+  var _stickerType = 'file';
   var fileId = $state.params.itemId;  
   //file detail에서 integraiton preview로 들어갈 image map
   var integrationPreviewMap = {
@@ -71,7 +71,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     $scope.$on('rightFileDetailOnFileCommentDeleted', _onFileChanged);
     $scope.$on('updateFileDetailPanel', _onFileChanged);
     $scope.$on('setCommentFocus', _focusInput);
-    $scope.$on('onChangeSticker:file',function(event, item) {
+    $scope.$on('onChangeSticker:' + _stickerType, function(event, item) {
       _sticker = item;
       _focusInput();
     });
@@ -378,7 +378,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    */
   function _setStickerPosition() {
     $timeout(function() {
-      jndPubSub.pub('isStickerPosShift:file', _hasInputScroll());
+      jndPubSub.pub('isStickerPosShift:' + _stickerType, _hasInputScroll());
     }, 0);
   }
 
@@ -397,7 +397,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    * @private
    */
   function _hideSticker() {
-    jndPubSub.pub('deselectSticker:file');
+    jndPubSub.pub('deselectSticker:' + _stickerType);
   }
 
   /**
