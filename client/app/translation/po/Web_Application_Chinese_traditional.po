@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -194,6 +194,10 @@ msgstr "請到您的電子郵件信箱收信。"
 #: client/app/modal/files/upload/upload.html
 msgid "@common-comment"
 msgstr "留言"
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@common-connection-retry"
+msgstr "連線中斷。重新連結中..."
 
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
@@ -402,6 +406,14 @@ msgstr "瀏覽"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-name"
 msgstr "名稱"
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-body"
+msgstr "自動重新連結"
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-header"
+msgstr "目前為無網路狀態 JANDI會於連上網路後，"
 
 #: client/app/left/left.html
 msgid "@common-new-message"
@@ -780,6 +792,7 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
+#: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html

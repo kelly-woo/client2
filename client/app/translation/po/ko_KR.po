@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -197,6 +197,10 @@ msgstr "메일함을 확인해 주세요."
 #: client/app/modal/files/upload/upload.html
 msgid "@common-comment"
 msgstr "댓글"
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@common-connection-retry"
+msgstr "인터넷이 연결되어 있지 않습니다. 접속을 재시도 중입니다..."
 
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
@@ -408,6 +412,14 @@ msgstr "더보기"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-name"
 msgstr "이름"
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-body"
+msgstr "네트워크가 복구되면 자동으로 잔디에 접속됩니다."
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-header"
+msgstr "현재 네트워크에 접속되지 않은 것으로 보입니다."
 
 #: client/app/left/left.html
 msgid "@common-new-message"
@@ -801,6 +813,7 @@ msgstr "이메일 또는 비밀번호를 확인해주세요"
 msgid "@login-reset-password"
 msgstr "비밀번호 찾기"
 
+#: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html

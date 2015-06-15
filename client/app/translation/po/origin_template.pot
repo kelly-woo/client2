@@ -186,6 +186,10 @@ msgid "@common-comment"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
+msgid "@common-connection-retry"
+msgstr ""
+
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr ""
@@ -390,6 +394,14 @@ msgstr ""
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-name"
+msgstr ""
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-body"
+msgstr ""
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-header"
 msgstr ""
 
 #: client/app/left/left.html
@@ -764,6 +776,7 @@ msgstr ""
 msgid "@login-reset-password"
 msgstr ""
 
+#: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
