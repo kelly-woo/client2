@@ -78,6 +78,8 @@
     background-color: #f1f4f8;
     border-top: 1px solid #d7e0e8;
     color: #154a67;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 .sticker_panel_tab ul{
     display: table;
@@ -86,13 +88,16 @@
     margin: 0;
     height: 100%;
 }
-.sticker_panel_tab li{
+.sticker_panel_tab li {
     vertical-align: middle;
     display: table-cell;
     height: 100%;
     border-right: 1px solid #d7e0e8;
     width: 35px;
     text-align: center;
+}
+.sticker_panel_tab li.on {
+    background-color: white;
 }
 
 .sticker_panel_tab_item {
@@ -110,10 +115,6 @@
     opacity: 1;
 }
 
-.sticker_panel_tab_item.on {
-    background-color: white;
-    padding: 7px;
-}
 
 .sticker_panel_tab_item img {
     width: 20px;

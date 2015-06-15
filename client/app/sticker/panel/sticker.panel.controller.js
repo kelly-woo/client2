@@ -9,7 +9,7 @@
     .module('jandiApp')
     .controller('StickerPanelCtrl', StickerPanelCtrl);
 
-  function StickerPanelCtrl($scope, $attrs, jndPubSub, Sticker) {
+  function StickerPanelCtrl($scope, $attrs, jndPubSub, Sticker, Preloader) {
     // 서버에서 group 리스트 API 완성전에 대비하여 임시로 만든 데이터
     var groups = [
       {
@@ -108,6 +108,7 @@
       groupId = _.isUndefined(groupId) ? 100 : groupId;
       Sticker.getList(groupId)
         .success(function(response) {
+          Preloader.img(_.pluck(response, 'url'));
           $scope.list = response;
         })
         .error(function() {
@@ -123,6 +124,7 @@
       Sticker.getRecentList()
         .success(function(response) {
           if (_.isArray(response)) {
+            Preloader.img(_.pluck(response, 'url'));
             $scope.list = response.reverse();
           } else {
             $scope.list = [];
