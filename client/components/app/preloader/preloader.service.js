@@ -64,8 +64,9 @@
      * @private
      */
     function _replacePath(url) {
+      var path = configuration.path;
       if (!isLocal && /^..\//.test(url)) {
-        url = url.replace('../', '../app/');
+        url = url.replace('../', '../' + path);
       }
       return url;
     }
