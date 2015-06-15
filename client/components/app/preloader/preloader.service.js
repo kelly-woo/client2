@@ -10,11 +10,24 @@
     .service('Preloader', Preloader);
 
   /* @ngInject */
-  function Preloader($templateCache, configuration) {
-    var isLocal = configuration.name === 'local';
+  function Preloader($templateCache) {
+    var urlInterceptor;
+    var that = this;
 
+    this.initialize = initialize;
     this.img = img;
     this.template = template;
+
+    /**
+     * 초기화 함수
+     * @param {object} [options]
+     *    @param {function} [options.urlInterceptor]  - url interceptor
+     * @return {Preloader}
+     */
+    function initialize(options) {
+      urlInterceptor = options.urlInterceptor;
+      return that;
+    }
 
     /**
      * image template 을 preload 한다.
@@ -24,6 +37,8 @@
     function img(data) {
       var list = [];
       var img;
+      var hasUrlInterceptor = _.isFunction(urlInterceptor);
+
       if (!_.isArray(data)) {
         list.push(data);
       } else {
@@ -31,10 +46,12 @@
       }
 
       _.forEach(list, function(url) {
+        url = hasUrlInterceptor ? urlInterceptor(url) : url;
         img = new Image();
-        img.src = _replacePath(url);
+        img.src = url;
       });
-      return this;
+
+      return that;
     }
 
     /**
@@ -44,6 +61,7 @@
      */
     function template(data) {
       var list = [];
+      var hasUrlInterceptor = _.isFunction(urlInterceptor);
 
       if (!_.isArray(data)) {
         list.push(data);
@@ -52,23 +70,11 @@
       }
 
       _.forEach(list, function(url) {
+        url = hasUrlInterceptor ? urlInterceptor(url) : url;
         $templateCache.get(url);
       });
-      return this;
-    }
 
-    /**
-     * local 과 dev|live 의 url path 가 다르기 때문에 path 를 치환한다.
-     * @param {string} url
-     * @returns {*}
-     * @private
-     */
-    function _replacePath(url) {
-      var path = configuration.path;
-      if (!isLocal && /^..\//.test(url)) {
-        url = url.replace('../', '../' + path);
-      }
-      return url;
+      return that;
     }
   }
 })();
