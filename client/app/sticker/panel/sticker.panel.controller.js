@@ -33,13 +33,33 @@
      * 초기화 메서드
      */
     function init() {
+      $scope.isShift = false;
       $scope.groups = _groups;
       $scope.name = $attrs.name;
       $scope.isRecent = false;
       $scope.status = {
         isOpen: false
       };
+      _initListeners();
       _select();
+    }
+
+    /**
+     * 리스너 바인딩
+     * @private
+     */
+    function _initListeners() {
+      $scope.$on('isStickerPosShift:' + $scope.name, _onStickerShift);
+    }
+
+    /**
+     * sticker 아이콘 위치 shift 이벤트 핸들러
+     * @param {event} angularEvent 이벤트
+     * @param {boolean} isShift shift 할지 여부
+     * @private
+     */
+    function _onStickerShift(angularEvent, isShift) {
+      $scope.isShift = isShift;
     }
 
     /**

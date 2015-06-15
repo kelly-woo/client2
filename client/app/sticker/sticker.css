@@ -5,13 +5,13 @@
 }
 .sticker_panel_wrap {
     position: absolute;
-    right: 20px;
-    bottom: 7px;
-    /*right: 8px;*/
-    /*bottom: 8px;*/
+    right: 8px;
+    bottom: 8px;
     z-index: 10;
 }
-
+.sticker_panel_wrap.shift{
+    right: 20px;
+}
 .sticker_panel_btn {
     opacity: 0.3;
     font-size: 18px;

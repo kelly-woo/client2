@@ -9,7 +9,7 @@
     .module('jandiApp')
     .controller('StickerLayerCtrl', StickerLayerCtrl);
 
-  function StickerLayerCtrl($scope, $rootScope, $attrs, jndPubSub, Sticker) {
+  function StickerLayerCtrl($scope, $attrs, jndPubSub, Sticker) {
     var currentItem;
 
     //Sticker 영역 이름
@@ -37,8 +37,8 @@
         jndPubSub.pub('onChangeSticker:' + $scope.name, currentItem);
       });
 
-      $rootScope.$on('selectSticker:' + $scope.name, _show);
-      $rootScope.$on('deselectSticker:' + $scope.name, hide);
+      $scope.$on('selectSticker:' + $scope.name, _show);
+      $scope.$on('deselectSticker:' + $scope.name, hide);
     }
 
     /**
