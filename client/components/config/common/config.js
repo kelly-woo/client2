@@ -6,7 +6,7 @@
    *  - Month/Dday/Year Hour:Minute:Second
    */
   angular
-    .module('app.config', [])
+    .module('config.common', [])
     .constant('configuration', {
       name                : 'local',
       api_address         : 'http://i1.jandi.io:8888/',

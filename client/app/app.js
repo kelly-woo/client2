@@ -1,12 +1,14 @@
 'use strict';
 
 var app = angular.module('jandiApp', [
+  'config.framework',
   'jandi.framework',
   'base.framework',
   'app.framework'
 ]);
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice, publicService, entityAPIservice, fileAPIservice, configuration) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice, publicService, entityAPIservice,
+                 fileAPIservice, configuration, Preloader) {
 
   $rootScope._ = window._;
 
@@ -147,6 +149,19 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
 
   publicService.getBrowserInfo();
 
+  _preload();
+
+  /**
+   * preload template & images
+   * @private
+   */
+  function _preload() {
+    Preloader.template([
+      'app/disconnect/disconnect.html'
+    ]).img([
+      '../assets/images/icon_network_error.png'
+    ]);
+  }
 });
 
 app.config(function ($urlRouterProvider, $httpProvider) {

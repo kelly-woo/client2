@@ -454,6 +454,9 @@ input[type="button"] {
 .icon_signout.light {
   background-image: url('../assets/images/icon_signout.png');
 }
+.icon_network_error {
+    background-image: url('../assets/images/icon_network_error.png');
+}
 .fileicon {
   background: url('../assets/images/fileicons.png') no-repeat;
   width: 26px;
