@@ -466,7 +466,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       if (!$scope.isInitialLoadingCompleted) {
         _hideContents();
-        console.log('hiding')
       }
       //log('-- loadMore');
 

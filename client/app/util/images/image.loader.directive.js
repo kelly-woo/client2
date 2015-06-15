@@ -105,12 +105,15 @@
        * @private
        */
       function _resizeImage(img) {
+        var imageContainerWidth = jqImageContainer.width();
         var imageHeight = parseInt(img.getAttribute('height'), 10);
         var imageWidth = parseInt(img.getAttribute('width'), 10);
 
         if (!!attrs.imageFitToWidth) {
-          _fitImageToWidth(img);
-          ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
+          // width 에 맞게 이미지를 넓히기위해선 jqImageContainer의 width가 지정되어있어야 한다.
+          if (!!imageContainerWidth && imageWidth >= imageContainerWidth) {
+            _fitImageToWidth(img);
+          }
         } else if (imageHeight > imageWidth) {
           // 이미지가 새로로 더 길 경우
           if (!!attrs.imageMaxHeight) {
