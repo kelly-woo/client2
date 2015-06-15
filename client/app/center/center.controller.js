@@ -1088,10 +1088,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onPostMessageError(content, status, headers, config) {
-    var body = config.data.content;
+    var data = config.data;
     var hasLoading = (status === 0);
+    var hasSticker = !!(data.stickerId && data.groupId);
+    var sticker;
+
+    if (hasSticker) {
+      sticker = {
+        id: data.stickerId,
+        groupId: data.groupId
+      };
+    }
     $scope.isPosting = false;
-    _enqueueUnsentMessage(body, hasLoading);
+
+    _enqueueUnsentMessage(data.content, sticker, hasLoading);
   }
 
   /**
@@ -1146,7 +1156,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function postMessage() {
     var msg = $scope.message.content;
-    _hideSticker();
+
     // prevent duplicate request
     if (msg || _sticker) {
       $scope.isPosting = true;
@@ -1161,6 +1171,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     }
     $scope.message.content = "";
+    _hideSticker();
   }
 
 
