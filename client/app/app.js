@@ -6,7 +6,7 @@ var app = angular.module('jandiApp', [
   'app.framework'
 ]);
 
-app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice, publicService, entityAPIservice, fileAPIservice, configuration) {
+app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice, publicService, entityAPIservice, fileAPIservice, configuration, DeskTopNotificationBanner) {
 
   $rootScope._ = window._;
 
@@ -147,6 +147,14 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
 
   publicService.getBrowserInfo();
 
+  /**
+   * TODO: 우선 여기에 넣어둿는데 어디로 옮기는게 좋을까요?
+   * TODO: 의견 부탁드려요.
+   */
+  $(window).resize(function() {
+    DeskTopNotificationBanner.adjustBodyWrapperHeight();
+  })
+
 });
 
 app.config(function ($urlRouterProvider, $httpProvider) {
@@ -171,5 +179,4 @@ app.config(function ($urlRouterProvider, $httpProvider) {
       return normalized;
     }
   });
-
 });

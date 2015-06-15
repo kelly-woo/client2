@@ -58,7 +58,6 @@ app.controller('leftPanelController1', function(
 
   function _checkNotificationBanner() {
     publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
-    DeskTopNotificationBanner.checkNotificationBanner('left');
   }
   $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
   
