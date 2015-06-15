@@ -3,14 +3,13 @@
 
   angular
     .module('app.framework', [
+      'config.framework',
       'base.framework',
-      'app.config',
       'app.analytics',
       'app.language',
       'app.storage',
       'app.socket',
-      'app.pubsub',
-      'app.preloader'
+      'app.pubsub'
       // 'app.session'
     ])
     .run(run)

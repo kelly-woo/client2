@@ -63,9 +63,9 @@ module.exports = function (grunt) {
           '<%= yeoman.client %>/{app,components}/**/*.js',
           '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
           '!<%= yeoman.client %>/{app,components}/**/*.mock.js',
+          '!<%= yeoman.client %>/components/config/config.framework.js',
           '!<%= yeoman.client %>/components/base/base.framework.js',
           '!<%= yeoman.client %>/components/app/app.framework.js',
-          '!<%= yeoman.client %>/components/app/config/config.js',
           '!<%= yeoman.client %>/components/app/analytics/analytics.js',
           '!<%= yeoman.client %>/components/app/language/language.js',
           '!<%= yeoman.client %>/components/app/storage/storage.js',
@@ -488,9 +488,9 @@ module.exports = function (grunt) {
               '{.tmp,<%= yeoman.client %>}/app/util/**/*.js',
               '{.tmp,<%= yeoman.client %>}/app/util/*.js',
               '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
+              '!{.tmp,<%= yeoman.client %>}/components/config/config.framework.js',
               '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
-              '!{.tmp,<%= yeoman.client %>}/components/app/config/config.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
@@ -554,7 +554,7 @@ module.exports = function (grunt) {
           expand: true,
           flatten: true,
           src: ['./config/config.js'],
-          dest: '<%= yeoman.client %>/components/app/config/'
+          dest: '<%= yeoman.client %>/components/config/common/'
         }]
       },
       local_ie9: {
@@ -567,7 +567,7 @@ module.exports = function (grunt) {
           expand: true,
           flatten: true,
           src: ['./config/config.js'],
-          dest: '<%= yeoman.client %>/components/app/config/'
+          dest: '<%= yeoman.client %>/components/config/common/'
         }]
       },
       development: {
@@ -580,7 +580,7 @@ module.exports = function (grunt) {
           expand: true,
           flatten: true,
           src: ['./config/config.js'],
-          dest: '<%= yeoman.client %>/components/app/config/'
+          dest: '<%= yeoman.client %>/components/config/common/'
         }]
       },
       staging: {
@@ -593,7 +593,7 @@ module.exports = function (grunt) {
           expand: true,
           flatten: true,
           src: ['./config/config.js'],
-          dest: '<%= yeoman.client %>/components/app/config/'
+          dest: '<%= yeoman.client %>/components/config/common/'
         }]
       }
     },

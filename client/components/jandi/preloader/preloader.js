@@ -7,7 +7,7 @@
   'use strict';
 
   angular
-    .module('app.preloader', [])
+    .module('jandi.preloader', [])
     .config(config)
     .run(run);
 

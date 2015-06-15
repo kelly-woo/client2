@@ -2,9 +2,8 @@
   'use strict';
 
   angular
-    .module('jandi.framework', [
-      'jandi.pcApp',
-      'jandi.preloader'
+    .module('config.framework', [
+      'config.common'
     ])
     .run(run)
     .config(config);

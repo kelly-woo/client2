@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.config')
+    .module('config.common')
     .service('config', config);
 
   /* @ngInject */

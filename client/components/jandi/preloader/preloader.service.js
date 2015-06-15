@@ -6,7 +6,7 @@
   'use strict';
 
   angular
-    .module('app.preloader')
+    .module('jandi.preloader')
     .service('Preloader', Preloader);
 
   /* @ngInject */

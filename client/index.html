@@ -137,8 +137,8 @@
 <!-- endbuild -->
 
 <!-- build:js({.tmp,client}) app/app.js -->
+<script src="components/config/config.framework.js"></script>
 <script src="components/base/base.framework.js"></script>
-<script src="components/app/config/config.js"></script>
 <script src="components/app/analytics/analytics.js"></script>
 <script src="components/app/language/language.js"></script>
 <script src="components/app/storage/storage.js"></script>
@@ -246,10 +246,7 @@
 <script src="components/app/analytics/libs/UUID.js"></script>
 <script src="components/app/analytics/libs/angulartics-ga-custom.js"></script>
 <script src="components/app/analytics/libs/custom-mixpanel.js"></script>
-<script src="components/app/config/config.service.js"></script>
 <script src="components/app/language/language.service.js"></script>
-<script src="components/app/preloader/preloader.js"></script>
-<script src="components/app/preloader/preloader.service.js"></script>
 <script src="components/app/pubsub/pubsub.js"></script>
 <script src="components/app/pubsub/pubsub.service.js"></script>
 <script src="components/app/socket/socket.js"></script>
@@ -260,9 +257,13 @@
 <script src="components/base/highlight/highlight.service.js"></script>
 <script src="components/base/logger/logger.js"></script>
 <script src="components/base/logger/logger.service.js"></script>
+<script src="components/config/common/config.js"></script>
+<script src="components/config/common/config.service.js"></script>
 <script src="components/jandi/jandi.framework.js"></script>
 <script src="components/jandi/pc_app_communicator/pcApp.js"></script>
 <script src="components/jandi/pc_app_communicator/pcApp.service.js"></script>
+<script src="components/jandi/preloader/preloader.js"></script>
+<script src="components/jandi/preloader/preloader.service.js"></script>
 <!-- endinjector -->
 <!-- endbuild -->
 </body>

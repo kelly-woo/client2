@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.config')
+    .module('base.highlight')
     .service('highlighter', highlighter);
 
   /* @ngInject */
