@@ -11,7 +11,7 @@
 
   function StickerLayerCtrl($scope, $attrs, jndPubSub, Sticker) {
     var currentItem;
-
+    var _jqImg = $attrs.$$element.find('img');
     //Sticker 영역 이름
     $scope.name = $attrs.name;
     $scope.fileUrl = '';
@@ -58,6 +58,18 @@
     function _show(angularEvent, item) {
       currentItem = item;
       $scope.fileUrl = item.url;
+      _jqImg.css({
+        width: '0px',
+        height: '0px',
+        marginLeft: '73px',
+        marginTop: '73px'
+      }).animate({
+        width: 145,
+        height: 145,
+        marginLeft: 0,
+        marginTop: 0
+      }, 400);
+
     }
   }
 
