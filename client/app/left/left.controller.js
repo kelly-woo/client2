@@ -69,6 +69,8 @@ app.controller('leftPanelController1', function(
 
   $scope.goUnreadBelow = goUnreadBelow;
   $scope.goUnreadAbove = goUnreadAbove;
+  $scope.onDmClicked = onDmClicked;
+  $scope.onTopicClicked = onTopicClicked;
 
   /**
    * collapse status 변경시 update badge posision 이벤트 트리거한다.
@@ -579,10 +581,10 @@ app.controller('leftPanelController1', function(
   //  center and header are calling.
   $scope.onUserClick = function(user) {
     if (angular.isNumber(user)) {
-      user = entityAPIservice.getEntityFromListById($scope.memberList, user)
+      user = entityAPIservice.getEntityFromListById($scope.memberList, user);
     }
     else {
-      user = entityAPIservice.getEntityFromListById($scope.memberList, user.id)
+      user = entityAPIservice.getEntityFromListById($scope.memberList, user.id);
     }
     modalHelper.openMemberProfileModal($scope, user);
   };
@@ -594,9 +596,23 @@ app.controller('leftPanelController1', function(
     });
   }
 
-  $scope.onTopicClicked = onTopicClicked;
+  /**
+   * DM Click 시 이벤트 핸들러
+   * @param {entity} userEntity - 클릭한 user entity
+   */
+  function onDmClicked(userEntity) {
+    userEntity.alarmCnt = '';
+  }
 
-  function onTopicClicked(entityType, entityId) {
+  /**
+   * TOPIC Click 시 이벤트 핸들러
+   * @param {object} entity - 클릭한 토픽 entity
+   */
+  function onTopicClicked(topicEntity) {
+    var entityType = topicEntity.type;
+    var entityId = topicEntity.id;
+
+    topicEntity.alarmCnt = '';
     if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
       publicService.goToDefaultTopic();
       return;
