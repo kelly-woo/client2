@@ -442,8 +442,6 @@
             "size"          : message.content.size
           };
           analyticsService.mixpanelTrack( "File Unshare", share_data );
-
-          fileAPIservice.broadcastChangeShared(message.id);
         })
         .error(function(err) {
           alert(err.msg);

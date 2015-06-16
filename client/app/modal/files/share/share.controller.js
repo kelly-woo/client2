@@ -39,7 +39,6 @@
           var channelType,
             channelId;
 
-          fileAPIservice.broadcastChangeShared($scope.file.id);
           $scope.isLoading = false;
           $modalInstance.dismiss('cancel');
 
