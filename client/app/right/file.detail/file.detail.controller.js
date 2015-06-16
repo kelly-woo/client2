@@ -77,8 +77,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     });
 
     $scope.$on('onChangeShared', function(event, data) {
-      // file detail을 보고 있지 않는 경우에는 무시
-      if (fileId && $state.params.itemId != null && $state.params.itemId !== '') {
+      if (_isFileDetailActive()) {
         if ($scope.file_detail.shareEntities.length === 1 && data && data.type === 'delete' && $scope.file_detail.shareEntities[0] === data.id) {
           // 공유된 곳이 한곳이고 delete event
           $scope.hasTopic = false;
@@ -497,12 +496,13 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   }
 
   /**
-   * ?? 잘 모르겠음
-   * @returns {boolean}
+   * 현재 file detail tab 을 보고있는지 안 보고있는지 알려준다.
+   * @returns {boolean} true - file deatil tab 을 보고 있을 경우
    * @private
    */
   function _isFileDetailActive() {
-    return !!fileId;
+    // file detail을 보고 있지 않는 경우에는 무시
+    return fileId && $state.params.itemId != null && $state.params.itemId !== '';
   }
 
   /**
