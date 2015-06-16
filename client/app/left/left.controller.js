@@ -26,6 +26,7 @@ app.controller('leftPanelController1', function(
 
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
+  var _isBadgeMoveLocked = false;
 
   //unread 위치에 대한 정보
   $scope.unread = {
@@ -98,23 +99,35 @@ app.controller('leftPanelController1', function(
    * @param {Event} clickEvent
    */
   function goUnreadBelow(clickEvent) {
-    var jqTarget = $(clickEvent.target).closest('.lpanel-list-help-unread ');
-    var jqContainer = $('#lpanel-list-container');
-    var scrollTop = jqContainer[0].scrollTop;
-    var offsetTop = jqContainer.offset().top;
-    var currentBottom = scrollTop + offsetTop + jqContainer.height();
-    var top = _getPosUnreadBelow();
+    if (!_isBadgeMoveLocked) {
+      var jqTarget = $(clickEvent.target).closest('.lpanel-list-help-unread ');
+      var jqContainer = $('#lpanel-list-container');
+      var scrollTop = jqContainer[0].scrollTop;
+      var offsetTop = jqContainer.offset().top;
+      var currentBottom = scrollTop + offsetTop + jqContainer.height();
+      var top = _getPosUnreadBelow();
+      var isLast = $scope.unread.below.length === 1;
 
+      // 아래 여백
+      var space = 9;
 
-    // 아래 여백
-    var space = 9;
+      var targetScrollTop = scrollTop + (top - currentBottom);
 
-    var targetScrollTop = scrollTop + (top - currentBottom);
+      if ($scope.unread.below.length > 1) {
+        targetScrollTop += jqTarget.outerHeight() + space;
+      }
 
-    if ($scope.unread.below.length > 1) {
-      targetScrollTop += jqTarget.outerHeight() + space;
+      if (isLast) {
+        $scope.unread.below = [];
+      }
+
+      _isBadgeMoveLocked = true;
+      jqContainer.animate({scrollTop: targetScrollTop}, {
+        done: function () {
+          _isBadgeMoveLocked = false;
+        }
+      });
     }
-    jqContainer.animate({scrollTop: targetScrollTop});
   }
 
   /**
@@ -200,7 +213,7 @@ app.controller('leftPanelController1', function(
     $timeout.cancel(unreadTimer);
     unreadTimer = $timeout(function() {
       _updateUnreadPosition();
-    }, 10);
+    }, 100);
   }
 
   /**

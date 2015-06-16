@@ -74,10 +74,14 @@
           unread.above.push(data.top);
         }
       });
-      unread.above.sort();
-      unread.below.sort();
+      unread.above = unread.above.sort(_sortNum);
+      unread.below = unread.below.sort(_sortNum);
 
       return unread;
+    }
+
+    function _sortNum(a, b) {
+      return a - b;
     }
   }
 })();

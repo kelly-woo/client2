@@ -13,7 +13,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
-  var DEFAULT_MESSAGE_UPDATE_COUNT = 100;
+  var DEFAULT_MESSAGE_UPDATE_COUNT = 50;
+  var DEFAULT_MESSAGE_SEARCH_COUNT = 100;
 
   var entityType = $state.params.entityType;
   var entityId = $state.params.entityId;
@@ -142,10 +143,23 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }, 1000);
   }
 
+  /**
+   * search query 를 생성 시 update count 값을 반환한다.
+   * @returns {number}
+   * @private
+   */
+  function _getUpdateCount() {
+    return _isSearchMode() ? DEFAULT_MESSAGE_SEARCH_COUNT : DEFAULT_MESSAGE_UPDATE_COUNT;
+  }
+
+  /**
+   * search query 를 초기화한다.
+   * @private
+   */
   function _initMsgSearchQuery() {
     //log('initing msgSearchQuery')
     $scope.msgSearchQuery = {
-      count: DEFAULT_MESSAGE_UPDATE_COUNT
+      count: _getUpdateCount()
     };
   }
   function _initLocalVariables() {
@@ -255,7 +269,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _setMsgSearchQueryLinkId(linkId) {
     $scope.msgSearchQuery = {
       linkId: linkId,
-      count: DEFAULT_MESSAGE_UPDATE_COUNT
+      count: _getUpdateCount()
     };
   }
   function _setMsgSearchQueryType(type) {

@@ -6,7 +6,7 @@
    *  - Month/Dday/Year Hour:Minute:Second
    */
   angular
-    .module('app.config', [])
+    .module('config.common', [])
     .constant('configuration', {
       name                : '@@name',
       api_address         : '@@api_address',

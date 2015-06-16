@@ -1,5 +1,6 @@
 {
   "name"                   : "development",
+  "path"                   : "app/",
   "api_address"            : "http://i1.jandi.io:8888/",
   "socket_address"         : "http://ws.jandi.io:8888/",
   "api_version"            : 2,
