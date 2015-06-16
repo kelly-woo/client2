@@ -36,8 +36,9 @@
      */
     function img(data) {
       var list = [];
-      var img;
+      var imgs = [];
       var hasUrlInterceptor = _.isFunction(urlInterceptor);
+      var img;
 
       if (!_.isArray(data)) {
         list.push(data);
@@ -49,6 +50,7 @@
         url = hasUrlInterceptor ? urlInterceptor(url) : url;
         img = new Image();
         img.src = url;
+        imgs.push(img);
       });
 
       return that;

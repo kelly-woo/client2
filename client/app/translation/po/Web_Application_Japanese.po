@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -413,6 +413,14 @@ msgstr "表示"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-name"
 msgstr "名前"
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-body"
+msgstr "ネットワークが復元されると、自動的にジヤンでィーに接続されます"
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-header"
+msgstr "現在ネットワークに接続されていません。"
 
 #: client/app/left/left.html
 msgid "@common-new-message"
