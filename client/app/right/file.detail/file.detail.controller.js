@@ -300,25 +300,32 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    * shared entity 클릭시 이벤트 핸들러
    * @param {string} entityId
    */
-  function onClickSharedEntity(entityId) {
-    var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
+  function onClickSharedEntity(entityId, entityType) {
+    console.log(entityType)
+    if (entityType === 'users') {
+      $state.go('archives', {entityType: entityType, entityId: entityId});
 
-    // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
-    if (angular.isDefined(targetEntity)) {
-      $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
-    }
-    else {
-      // Undefined targetEntity means it's an entity that I'm joined.
-      // Join topic first and go!
-      entityheaderAPIservice.joinChannel(entityId)
-        .success(function(response) {
-          analyticsService.mixpanelTrack( "topic Join" );
-          $rootScope.$emit('updateLeftPanelCaller');
-          $state.go('archives', {entityType: 'channels',  entityId: entityId });
-        })
-        .error(function(err) {
-          alert(err.msg);
-        });
+    } else {
+
+      var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
+
+      // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
+      if (angular.isDefined(targetEntity)) {
+        $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
+      }
+      else {
+        // Undefined targetEntity means it's an entity that I'm joined.
+        // Join topic first and go!
+        entityheaderAPIservice.joinChannel(entityId)
+          .success(function(response) {
+            analyticsService.mixpanelTrack( "topic Join" );
+            $rootScope.$emit('updateLeftPanelCaller');
+            $state.go('archives', {entityType: 'channels',  entityId: entityId });
+          })
+          .error(function(err) {
+            alert(err.msg);
+          });
+      }
     }
   }
 

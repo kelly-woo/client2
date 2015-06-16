@@ -7,19 +7,18 @@
     .controller('FileShareModalCtrl', FileShareModalCtrl);
 
   /* @ngInject */
-  function FileShareModalCtrl($scope, $modalInstance, $filter, $state, fileAPIservice,
-                              analyticsService, jndPubSub, fileToShare) {
+  function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, $timeout,
+                              analyticsService, jndPubSub, fileToShare, modalHelper) {
 
-    $scope.file             = fileToShare;
-    $scope.shareChannel     = $scope.currentEntity;
+    $scope.file = fileToShare;
+    $scope.shareChannel = $scope.currentEntity;
 
     //  removing already shared channels and privategroups but allowing users entitiy to be shared more than once.
     //    var shareOptionsChannels = fileAPIservice.removeSharedEntities($scope.file, $scope.joinedChannelList)
     //    var shareOptionsPrivates = fileAPIservice.removeSharedEntities($scope.file, $scope.privateGroupList)
     //    $scope.selectOptions    = fileAPIservice.getShareOptions(shareOptionsChannels, $scope.userList, shareOptionsPrivates);
 
-    var selectOptions    = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
-
+    var selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
     $scope.selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
 
     // If current channel is one of sharedEntities of 'file',
@@ -28,19 +27,16 @@
       $scope.shareChannel = $scope.selectOptions[0];
     }
 
-    $scope.cancel = function() {
-      $modalInstance.dismiss('cancel');
-    };
+    $scope.cancel = modalHelper.closeModal;
 
     $scope.onFileShareClick = function(shareChannel, comment) {
       $scope.isLoading = true;
       fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
         .success(function() {
-          var channelType,
-            channelId;
+          var channelType;
+          var channelId;
 
           $scope.isLoading = false;
-          $modalInstance.dismiss('cancel');
 
           if (confirm($filter('translate')('@common-file-share-jump-channel-confirm-msg'))) {
             channelType = $scope.shareChannel.type;
@@ -52,6 +48,8 @@
             }
 
             $state.go('archives', {entityType: channelType, entityId: channelId});
+          } else {
+            //modalHelper.closeModal();
           }
 
           // analytics
@@ -84,7 +82,15 @@
           $scope.isLoading = false;
 
           console.log('onFileShareClick', error.code, error.msg);
+        })
+        .finally(function() {
         });
     };
+
+    $scope.$on('$destroy', function() {
+      console.log('destroyed')
+      modalHelper.closeModal();
+    });
   }
+
 }());
