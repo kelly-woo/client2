@@ -70,11 +70,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _setChatInputFocus();
   });
 
-  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
-
-
-
-
   $scope.repostMessage = repostMessage;
   $scope.deleteUnsentMessage = deleteUnsentMessage;
   $scope.postMessage = postMessage;

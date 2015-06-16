@@ -301,12 +301,9 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    * @param {string} entityId
    */
   function onClickSharedEntity(entityId, entityType) {
-    console.log(entityType)
     if (entityType === 'users') {
       $state.go('archives', {entityType: entityType, entityId: entityId});
-
     } else {
-
       var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
 
       // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
