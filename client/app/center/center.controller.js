@@ -6,7 +6,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice,
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
-                                                 centerService, markerService, TextBuffer, modalHelper, NetInterceptor, 
+                                                 centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
@@ -593,10 +593,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
          */
         $timeout((function(msg) {
           return function() {
-            msg.message.shared = fileAPIservice.getSharedEntities(msg.message, function(sharedEntityId) {
-              return entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId) ||
-                entityAPIservice.getEntityFromListByEntityId($rootScope.memberList, sharedEntityId);
-            });
+            msg.message.shared = fileAPIservice.updateShared(msg.message);
           };
         }(msg)));
       }
@@ -1254,8 +1251,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           "size"          : message.content.size
         };
         analyticsService.mixpanelTrack( "File Unshare", share_data );
-
-        fileAPIservice.broadcastChangeShared(message.id);
       })
       .error(function(err) {
         alert(err.msg);

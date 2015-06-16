@@ -93,7 +93,6 @@
       $scope.isDefaultTopic = currentSessionHelper.isDefaultTopic(currentEntity);
     }
 
-
     $scope.onLeaveClick = function() {
       var isLeaveChannel;
 
@@ -124,7 +123,10 @@
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
             updateLeftPanel();
-            fileAPIservice.broadcastChangeShared();
+            fileAPIservice.broadcastChangeShared({
+              type: 'delete',
+              id: $scope.currentEntity.id
+            });
           })
           .error(function(error) {
             alert(error.msg);
