@@ -8,15 +8,15 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
 
   //console.info('[enter] fileDetailCtrl');
   var _sticker = null;
-  
-  var fileId = $state.params.itemId;  
+
+  var fileId = $state.params.itemId;
   //file detail에서 integraiton preview로 들어갈 image map
   var integrationPreviewMap = {
     google: 'assets/images/web_preview_google.png',
     dropbox: 'assets/images/web_preview_dropbox.png'
   };
   var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
-    
+
   $scope.initialLoaded    = false;
   $scope.file_detail      = null;
   $scope.file_comments    = [];
@@ -46,7 +46,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   $scope.onCommentFocusClick = onCommentFocusClick;
   $scope.onKeyDown = onKeyDown;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
-  
+
   _init();
 
   /**
@@ -76,10 +76,15 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       _focusInput();
     });
 
-    $scope.$on('onChangeShared', function() {
-      // 파일리스트 뷰를 보고 있는 경우엔 업데이트 무시
-      if (fileId) {
-        getFileDetail();
+    $scope.$on('onChangeShared', function(event, data) {
+      // file detail을 보고 있지 않는 경우에는 무시
+      if (fileId && $state.params.itemId != null && $state.params.itemId !== '') {
+        if ($scope.file_detail.shareEntities.length === 1 && data && data.type === 'delete' && $scope.file_detail.shareEntities[0] === data.id) {
+          // 공유된 곳이 한곳이고 delete event
+          $scope.hasTopic = false;
+        } else {
+          getFileDetail();
+        }
       }
     });
 
@@ -168,7 +173,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       _hideSticker();
     }
   }
-  
+
   /**
    * user 이미지 클릭시 이벤트 핸들러
    * @param {object} user
@@ -203,7 +208,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
       $scope.cursor = 'pointer';
     }
   }
-  
+
   /**
    * 이미지 클릭시 이벤트 핸들러
    */
@@ -285,8 +290,6 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
           "size"          : message.content.size
         };
         analyticsService.mixpanelTrack( "File Unshare", share_data );
-
-        fileAPIservice.broadcastChangeShared(message.id);
       })
       .error(function(err) {
         alert(err.msg);
@@ -297,25 +300,32 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    * shared entity 클릭시 이벤트 핸들러
    * @param {string} entityId
    */
-  function onClickSharedEntity(entityId) {
-    var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
+  function onClickSharedEntity(entityId, entityType) {
+    console.log(entityType)
+    if (entityType === 'users') {
+      $state.go('archives', {entityType: entityType, entityId: entityId});
 
-    // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
-    if (angular.isDefined(targetEntity)) {
-      $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
-    }
-    else {
-      // Undefined targetEntity means it's an entity that I'm joined.
-      // Join topic first and go!
-      entityheaderAPIservice.joinChannel(entityId)
-        .success(function(response) {
-          analyticsService.mixpanelTrack( "topic Join" );
-          $rootScope.$emit('updateLeftPanelCaller');
-          $state.go('archives', {entityType: 'channels',  entityId: entityId });
-        })
-        .error(function(err) {
-          alert(err.msg);
-        });
+    } else {
+
+      var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
+
+      // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
+      if (angular.isDefined(targetEntity)) {
+        $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
+      }
+      else {
+        // Undefined targetEntity means it's an entity that I'm joined.
+        // Join topic first and go!
+        entityheaderAPIservice.joinChannel(entityId)
+          .success(function(response) {
+            analyticsService.mixpanelTrack( "topic Join" );
+            $rootScope.$emit('updateLeftPanelCaller');
+            $state.go('archives', {entityType: 'channels',  entityId: entityId });
+          })
+          .error(function(err) {
+            alert(err.msg);
+          });
+      }
     }
   }
 
@@ -442,6 +452,9 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     if (item.contentType === 'file') {
       // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
       $scope.file_detail = item;
+
+      $scope.hasTopic = !!$scope.file_detail.shareEntities.length;
+
       $scope.file_detail.shared = fileAPIservice.getSharedEntities(item);
       $scope.isFileArchived = _isFileArchived($scope.file_detail);
     } else if (!_isFileArchived(item)) {
@@ -454,7 +467,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
         $scope.file_comments.push(item);
       }
     }
-    
+
   }
 
   /**
@@ -501,7 +514,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   function backToFileList() {
     $state.go('messages.detail.files');
   }
-  
+
   function onFileDetailImageLoad() {
     $scope.isLoadingImage = false;
   }

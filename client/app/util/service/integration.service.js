@@ -33,9 +33,6 @@
             $rootScope.curUpload.status = 'done';
             // console.log("file upload success ::: ", index, length, file.name);
 
-            // socket 사용으로 삭제 예정
-            fileAPIservice.broadcastChangeShared();
-
             // analytics
             var share_target = "";
             switch (that.options.scope.currentEntity.type) {

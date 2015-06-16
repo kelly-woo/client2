@@ -6,7 +6,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice,
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
-                                                 centerService, markerService, TextBuffer, modalHelper, NetInterceptor, 
+                                                 centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
@@ -70,6 +70,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _setChatInputFocus();
   });
 
+  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
+
+
+
+
   $scope.repostMessage = repostMessage;
   $scope.deleteUnsentMessage = deleteUnsentMessage;
   $scope.postMessage = postMessage;
@@ -83,7 +88,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else {
       loadMore();
     }
-    //$scope.promise = $timeout(updateList, updateInterval);
   })();
 
   /**
@@ -588,10 +592,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
          */
         $timeout((function(msg) {
           return function() {
-            msg.message.shared = fileAPIservice.getSharedEntities(msg.message, function(sharedEntityId) {
-              return entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId) ||
-                entityAPIservice.getEntityFromListByEntityId($rootScope.memberList, sharedEntityId);
-            });
+            msg.message.shared = fileAPIservice.updateShared(msg.message);
           };
         }(msg)));
       }
@@ -1216,28 +1217,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   };
 
-  // TODO rightpanelController 로직 중복 해결 필요
-  $scope.onClickSharedEntity = function(entityId) {
-    var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
-
-    // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
-    if (angular.isDefined(targetEntity)) {
-      $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
-    } else {
-      // Undefined targetEntity means it's an entity that I'm joined.onShareClick
-      // Join topic first and go!
-      entityheaderAPIservice.joinChannel(entityId)
-        .success(function(response) {
-          analyticsService.mixpanelTrack( "topic Join" );
-          $rootScope.$emit('updateLeftPanelCaller');
-          $state.go('archives', {entityType: 'channels',  entityId: entityId });
-        })
-        .error(function(err) {
-          alert(err.msg);
-        });
-    }
-  };
-
   $scope.onClickUnshare = function(message, entity) {
     fileAPIservice.unShareEntity(message.id, entity.id)
       .success(function() {
@@ -1252,8 +1231,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           "size"          : message.content.size
         };
         analyticsService.mixpanelTrack( "File Unshare", share_data );
-
-        fileAPIservice.broadcastChangeShared(message.id);
       })
       .error(function(err) {
         alert(err.msg);

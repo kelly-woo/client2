@@ -107,7 +107,7 @@
                   <span data-ng-if="msg.message.shared.length">
                     <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared) track by $index">
                       <span data-ng-hide="($index === 0)">, </span>
-                      <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                      <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id, sharedEntity.type)">
                         {{ sharedEntity.prefix }}{{ sharedEntity.name }}
                       </span>
                       <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
