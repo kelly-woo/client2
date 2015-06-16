@@ -101,11 +101,9 @@
        * @param {HTMLElement} img - 이미지가 들어가 있는 엘레멘트
        */
       function _onImageLoad(img) {
-
         if (img.type === 'error') {
           _onImageLoadError();
         } else {
-
           img.setAttribute('class', 'image-loader-image');
 
           _resizeImage(img);

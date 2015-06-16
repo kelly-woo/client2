@@ -20,6 +20,7 @@
 
     that.compileImageElementWithScope = compileImageElementWithScope;
 
+    that.getImageLoaderLoadingElement = getImageLoaderLoadingElement;
     that.getImageLoaderElement = getImageLoaderElement;
 
     that.hideImageElement = hideImageElement;
@@ -29,14 +30,29 @@
 
     that.getImageOptionForFullScreen = getImageOptionForFullScreen;
 
+    /**
+     * 엘레멘트와 스코프를 바인딩시킨다.
+     * @param {HTMLElement|jQueryElement} element - 바인딩 시킬 엘레멘트
+     * @param {scope} scope - 바인딩시킬 스코프
+     */
     function compileImageElementWithScope(element, scope) {
       $compile(element)(scope);
     }
 
     /**
+     * background 없는 loading element 를 리턴한다.
+     * @returns {jQueryElement} loadingElement
+     */
+    function getImageLoaderLoadingElement() {
+      var loadingMarkUp = '<div class="loading_bar icon-loading"></div>';
+
+      return angular.element(loadingMarkUp);
+    }
+
+    /**
      * image-loader directive 를 사용할 수 있는 dom element를 생성 리턴한다.
-     * @param {jqElement} newThumbnail - image-loader directive 를 사용하는 element
-     * @returns {*}
+     * @param {jQueryElementt} newThumbnail - image-loader directive 를 사용하는 element
+     * @returns {jQueryElement}
      */
     function getImageLoaderElement(newThumbnail) {
       newThumbnail = !!newThumbnail ? newThumbnail : '';
