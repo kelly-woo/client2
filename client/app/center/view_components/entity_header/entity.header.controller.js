@@ -46,13 +46,14 @@
       var member;
       var entity;
       var i;
-
-      for (i = 0; i < members.length; i++) {
-        member = members[i];
-        entity = entityAPIservice.getEntityFromListById(totalEntities, member);
-        if(!entity || !entity.name) {
-          members.splice(i, 1);
-          i -= 1;
+      if (members && members.length) {
+        for (i = 0; i < members.length; i++) {
+          member = members[i];
+          entity = entityAPIservice.getEntityFromListById(totalEntities, member);
+          if (!entity || !entity.name) {
+            members.splice(i, 1);
+            i -= 1;
+          }
         }
       }
       return currentEntity;
