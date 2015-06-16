@@ -49,6 +49,8 @@
       _.forEach(list, function(url) {
         url = hasUrlInterceptor ? urlInterceptor(url) : url;
         img = new Image();
+        //for ie
+        img.onload = function(){};
         img.src = url;
         imgs.push(img);
       });
