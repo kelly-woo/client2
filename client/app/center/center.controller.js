@@ -7,7 +7,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
-                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner) {
+                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner, ContentAttacher) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
@@ -1987,4 +1987,25 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _isBottomReached() {
     return $('#msgs-container')[0].scrollTop + $('#msgs-container').height() >= $('#msgs-holder').outerHeight();
   }
+
+  /**
+   * 입력된 text가 preview(social snippets)를 제공하는 경우 center controller에서의 handling
+   *
+   * 'attachMessagePreview' event에서 content가 attach되는 message의 식별자를 전달 받아
+   * 해당 식별자로 특정 message를 다시 조회 하여 생성된 content data로 view를 생성하여 text element 자식 element로 append 함
+   */
+  $scope.$on('attachMessagePreview', function(event, data) {
+    messageAPIservice
+      .getMessage(memberService.getTeamId(), data.message.id)
+      .success(function(data) {
+        ContentAttacher.init($('div[data-message-id=' + data.message.id + ']').children('text')).attach(function($scope) {
+          $scope.msg = data;
+        });
+
+        _scrollToBottom();
+      })
+      .error(function(error) {
+        console.log('link preview error', error);
+      });
+  });
 });

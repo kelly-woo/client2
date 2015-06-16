@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function messageAPIservice($http, memberService, configuration, currentSessionHelper) {
-
+    this.getMessage = getMessage;
     this.getMessages = getMessages;
     this.getUpdatedMessages = getUpdatedMessages;
     this.postMessage = postMessage;
@@ -21,6 +21,14 @@
 
     var server_address = configuration.server_address;
 
+    function getMessage(teamId, messageId) {
+      return $http({
+        method  : 'GET',
+        url     : 'http://i1.jandi.io:4000/inner-api/' + 'teams/' + teamId + '/messages/' + messageId
+        // url     : server_address + 'teams/' + teamId + '/messages/' + messageId;
+      });
+    }
+
     // get message lists
     function getMessages(entityType, entityId, params) {
       entityType = _getParamEntityType(entityType);
@@ -29,7 +37,8 @@
 
       return $http({
         method  : 'GET',
-        url     : server_address + entityType + '/' + entityId + '/messages',
+        url     : 'http://i1.jandi.io:4000/inner-api/' + entityType + '/' + entityId + '/messages',
+        // url     : server_address + entityType + '/' + entityId + '/messages',
         params  : params
       });
     }
@@ -74,7 +83,8 @@
       entityType = _getParamEntityType(entityType);
       return $http({
         method  : 'POST',
-        url     : server_address + entityType + '/' + entityId + '/message',
+        url     : 'http://i1.jandi.io:4000/inner-api/' + entityType + '/' + entityId + '/message',
+        // url     : server_address + entityType + '/' + entityId + '/message',
         data    : {
           content: message
         },
@@ -118,7 +128,7 @@
      */
     function _getParamEntityType(entityType, isSingular) {
       var type = 'channel';
-      
+
       if (entityType.indexOf('user') > -1) {
         type = 'user';
       } else if (entityType.indexOf('private') > -1) {
@@ -126,7 +136,7 @@
       } else if (entityType.indexOf('channel') > -1) {
         type = 'channel';
       }
-      
+
       if (!isSingular) {
         type += 's';
       }
@@ -208,6 +218,5 @@
         url: server_address + 'teams/' + teamId + '/rooms/' + roomId
       });
     }
-
   }
 })();

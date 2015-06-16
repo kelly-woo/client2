@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('text', text);
 
-  function text() {
+  function text(ContentAttacher) {
     return {
       restrict: 'E',
       scope: false,
@@ -14,7 +14,10 @@
     };
 
     function link(scope, element, attrs) {
-
+      var msg = scope.msg;
+      if (msg && msg.status === 'created' && msg.message.linkPreview != null) {
+        ContentAttacher.init(element).attach(scope);
+      }
     }
   }
 })();

@@ -10,7 +10,7 @@
     .service('jndWebSocketHelper', jndWebSocketHelper);
 
   /* @ngInject */
-  function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService,
+  function jndWebSocketHelper(jndPubSub, messageAPIservice, entityAPIservice, currentSessionHelper, memberService,
                               logger, $state, configuration, config, DesktopNotification) {
 
     this.newMemberHandler = newMemberHandler;
@@ -199,7 +199,7 @@
         _updateCenterForCurrentEntity(isCurrentEntity);
         // Must update left panel for other room;
         _updateLeftPanelForOtherEntity(isCurrentEntity);
-      } else if (_isMessagePreview(type)) {
+      } else if (_isAttachMessagePreview(type)) {
         // message preview.
 
         _attachMessagePreview(data);
@@ -412,7 +412,7 @@
      * @returns {boolean}
      * @private
      */
-    function _isMessagePreview(eventType) {
+    function _isAttachMessagePreview(eventType) {
       return eventType === MESSAGE_PREVIEW;
     }
     /**
@@ -716,5 +716,11 @@
       log(writerName + verb + roomName)
     }
 
+    /**
+     * attach message preview
+     */
+    function _attachMessagePreview(data) {
+      jndPubSub.attachMessagePreview(data);
+    }
   }
 })();

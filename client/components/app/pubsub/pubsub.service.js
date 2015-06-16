@@ -23,6 +23,8 @@
 
     that.updateLeftChatList = updateLeftChatList;
 
+    that.attachMessagePreview = attachMessagePreview;
+
     /**
      * $rootScope.$broadcast를 대신한다.
      * @param event {string} name of event to be broadcast
@@ -77,6 +79,14 @@
      */
     function updateLeftChatList() {
       $rootScope.$broadcast('updateChatList');
+    }
+
+    /**
+     * message의 preview(social_snippets)를 attach하는 event를 broadcast한다.
+     * @param
+     */
+    function attachMessagePreview(param) {
+      $rootScope.$broadcast('attachMessagePreview', param);
     }
 
     // TODO: 브로드캐스트하는 이벤트 이름에도 컨벤션이 있으면 좋겠습니다! 이벤트 이름만 보고도 대충 어떤 일이 이뤄지는지 알 수 있는 식의 이름이면 좋겠습니다.

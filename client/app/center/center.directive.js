@@ -40,7 +40,7 @@
     }
   }
 
-  function lastDetector(Message) {
+  function lastDetector() {
     var counter = 0;
     var counterFlag = false;
     return {
@@ -49,18 +49,6 @@
     };
 
     function link (scope, element, attrs, ctrl) {
-      // scope.msg.linkPreview = {
-      //   title: 'lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew ',
-      //   description: 'lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew lqew ',
-      //   linkUrl: 'http://www.daum.net',
-      //   imageUrl: 'assets/images/ld-01.png',
-      //   domain: 'daum'
-      // };
-
-      if (scope.msg && scope.msg.status === 'created' && scope.msg.linkPreview != null) {
-        Message.init(element).attach(scope);
-      }
-
       if (scope.isPolling) {
         //console.log('polling');
         counter++;
