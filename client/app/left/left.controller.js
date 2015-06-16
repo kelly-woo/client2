@@ -32,7 +32,7 @@ app.controller('leftPanelController1', function(
     above: [],
     below: []
   };
-  
+
   // 로딩이 진행되고 있을 경우 true
   $scope.isLoading = false;
 
@@ -41,7 +41,7 @@ app.controller('leftPanelController1', function(
     isTopicsCollapsed: storageAPIservice.isLeftTopicCollapsed() || false
   };
 
-  
+
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
@@ -60,13 +60,13 @@ app.controller('leftPanelController1', function(
     publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
   }
   $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
-  
+
   _attachExtraEvents();
 
   $scope.$on('updateBadgePosition', updateUnreadPosition);
-  
+
   $scope.$on('$destroy', _onDestroy);
-  
+
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);
@@ -93,7 +93,7 @@ app.controller('leftPanelController1', function(
   }
 
   /**
-   * 아래쪽 unread 로 scroll 이동  
+   * 아래쪽 unread 로 scroll 이동
    * @param {Event} clickEvent
    */
   function goUnreadBelow(clickEvent) {
@@ -115,7 +115,7 @@ app.controller('leftPanelController1', function(
     }
     jqContainer.animate({scrollTop: targetScrollTop});
   }
-  
+
   /**
    * 위쪽 unread 로 scroll 이동
    * @param {Event} clickEvent
@@ -532,7 +532,7 @@ app.controller('leftPanelController1', function(
    *
    */
   $rootScope.$on('updateLeftPanelCaller', function() {
-    //console.info("[enter] updateLeftPanelCaller");
+    // console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
 

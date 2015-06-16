@@ -100,7 +100,6 @@
       // 하나의 file upload 완료
       onSuccess: function(response) {
         $rootScope.curUpload.status = 'done';
-        fileAPIservice.broadcastChangeShared();
 
         // analytics
         var share_target = "";
