@@ -9,13 +9,16 @@
     .module('jandiApp')
     .service('ImagesHelper', ImagesHelper);
 
-  function ImagesHelper() {
+  /* @ngInject */
+  function ImagesHelper($compile) {
     var that = this;
 
     // 현재 사용하고 있는 모달에서 원래 가지고 있는 margin-top 의 값 * 2 에 10을 그냥 더한 값
     var heightOffset = 50;
     // 화면에 꽉 찰 수도 있으니 양 옆에 남겨두고 싶은 공간
     var widthOffset = 40;
+
+    that.compileImageElementWithScope = compileImageElementWithScope;
 
     that.getImageLoaderElement = getImageLoaderElement;
 
@@ -26,15 +29,22 @@
 
     that.getImageOptionForFullScreen = getImageOptionForFullScreen;
 
+    function compileImageElementWithScope(element, scope) {
+      $compile(element)(scope);
+    }
 
+    /**
+     * image-loader directive 를 사용할 수 있는 dom element를 생성 리턴한다.
+     * @param {jqElement} newThumbnail - image-loader directive 를 사용하는 element
+     * @returns {*}
+     */
     function getImageLoaderElement(newThumbnail) {
-
+      newThumbnail = !!newThumbnail ? newThumbnail : '';
       var newImageLoader = '<div class="cursor_pointer opac-zero"' +
         'image-loader="' + newThumbnail + '"></div>';
 
       return angular.element(newImageLoader);
     }
-
 
     /**
      * 이미지 엘레멘트를 화면에서 숨긴다.

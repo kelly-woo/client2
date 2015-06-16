@@ -25,11 +25,26 @@
       // 같은 이미지를 두 번 로드하기 않기위함.
       var hasImageLoaded = !!attrs.hasImageLoaded;
 
+      // 이미지를 감싸고 있는 엘레멘트가 본래 가지고 있었던 css 값들.
       var displayProperty = jqImageContainer.css('display');
 
-      linkInit();
+      _init();
 
-      function linkInit() {
+      function _init() {
+        if (!!attrs.isblob) {
+          // 로드할 파일이 blob 파일일 경우
+          _loadImage(scope.blobFile);
+        } else {
+          // url 로 이미지를 로드할 경우
+          _openRequest();
+        }
+      }
+
+      /**
+       * XMLHttpRequest를 사용해서 이미지를 로드한다.
+       * @private
+       */
+      function _openRequest() {
         if (!hasImageLoaded) {
           // 이미지가 로드가 안되어 있을때만.
           var xhr = new XMLHttpRequest();
@@ -43,32 +58,14 @@
         }
       }
 
-
-
-
       /**
        * 처음에 XMLHttpRequest 를 직접 이용해 호출한 콜의 콜백이다.
        */
       function onload() {
         var that = this;
-        var tempBlob;
-        var imageOptions;
 
         if (that.status === 200) {
-          tempBlob = that.response;
-          imageOptions = _getImageOptions();
-
-          loadImage.parseMetaData(tempBlob, function (data) {
-            var currentOrientation;
-            if (!!data.exif) {
-              // 필요한 정보가 있을 경우
-              currentOrientation = _getImageOrientation(data);
-              imageOptions['orientation'] = currentOrientation - 1;
-            }
-
-            // 이미지옵션들과 함께 블랍이미지를 이용해서 canvas 를 만든다.
-            loadImage(tempBlob, _onImageLoad, imageOptions);
-          });
+          _loadImage(that.response);
         } else {
           _onImageLoadError();
           _show(jqImageContainer, displayProperty);
@@ -76,13 +73,39 @@
       }
 
       /**
+       * blob 파일을 가지고 'loadImage' library를 사용해서 dom element를 만든다.
+       * @param {blob} blob - 이미지를 가지고 있는 blob 파일
+       * @private
+       */
+      function _loadImage(blob) {
+        var tempBlob;
+        var imageOptions;
+
+        tempBlob = blob;
+        imageOptions = _getImageOptions();
+
+        loadImage.parseMetaData(tempBlob, function (data) {
+          var currentOrientation;
+          if (!!data.exif) {
+            // 필요한 정보가 있을 경우
+            currentOrientation = _getImageOrientation(data);
+            imageOptions['orientation'] = currentOrientation - 1;
+          }
+          // 이미지옵션들과 함께 블랍이미지를 이용해서 canvas 를 만든다.
+          loadImage(tempBlob, _onImageLoad, imageOptions);
+        });
+      }
+
+      /**
        * 이미지 다 로드 된 후에 불려지는 콜백.
        * @param {HTMLElement} img - 이미지가 들어가 있는 엘레멘트
        */
       function _onImageLoad(img) {
+
         if (img.type === 'error') {
           _onImageLoadError();
         } else {
+
           img.setAttribute('class', 'image-loader-image');
 
           _resizeImage(img);
@@ -91,7 +114,6 @@
           jqImageContainer.attr('has-image-loaded', true);
 
           jqImageContainer.append(img);
-
         }
 
         _show(jqImageContainer, displayProperty);
@@ -116,11 +138,8 @@
           }
         } else if (imageHeight > imageWidth) {
           // 이미지가 새로로 더 길 경우
-          if (!!attrs.imageMaxHeight) {
-            _setMaxHeight(img);
-          } else if (!!attrs.imageMaxWidth) {
-            _setMaxWidth(img);
-          }
+          // 아무것도 하지 않는다.
+
         } else {
           // 이미지가 가로로 길 경우
           ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
@@ -130,6 +149,12 @@
           // 이미지가 full screen size 일 경우
           ImagesHelper.setVerticalCenter(img, jqImageContainer, isFullScreen);
         }
+
+        if (!!attrs.imageMaxHeight) {
+          _setMaxHeight(img);
+        }
+
+        _setMaxWidth(img);
 
       }
 
@@ -228,10 +253,9 @@
        * @private
        */
       function _setMaxWidth(img) {
-        img.style.maxWidth = attrs.imageMaxHeight + 'px';
+        img.style.maxWidth = '100%';
         img.style.height = 'auto';
       }
     }
-
   }
 })();

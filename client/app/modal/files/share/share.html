@@ -1,61 +1,63 @@
 <!-- Modal: File Share -->
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
-    <h3 class="modal-header__title">
-        <span translate>@common-share-file</span>
-    </h3>
+  <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
+  <h3 class="modal-header__title">
+    <span translate>@common-share-file</span>
+  </h3>
 </div>
 <form name="file_share_form" data-ng-submit="onFileShareClick(shareChannel, comment);">
-    <div class="modal-body">
-        <div class="form-horizontal">
-            <!-- FILE INFO -->
-            <div class="form-group">
-                <label class="control-label col-sm-3">
-                    <span translate>@common-file</span>
-                </label>
-                <div class="col-sm-9 modal-share__file">
-                    <div class="modal-share__file-type">
-                        <!-- IMAGE -->
-                        <div class="image_wrapper">
-                            <img class="modal-share__file-type__image" rotate rotate-width="65" rotate-height="65" rotate-left-align="false"
-                                 ng-if="(file.content | hasPreview)" ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"/>
-                        </div>
+  <div class="modal-body">
+    <div class="form-horizontal">
+      <!-- FILE INFO -->
+      <div class="form-group">
+        <label class="control-label col-sm-3">
+          <span translate>@common-file</span>
+        </label>
+        <div class="col-sm-9 modal-share__file">
+          <div class="modal-share__file-type">
+            <!-- IMAGE -->
+            <div class="image_wrapper msg-file-body__img__background jnd-text-center" ng-if="(file.content | hasPreview)">
+              <div class="opac-zero msg-file-body__img cursor_pointer"
+                   image-loader="{{server_uploaded+file.content.extraInfo.smallThumbnailUrl}}"
+                   image-max-height="65" image-max-width="65" image-is-square="true">
+              </div>
+            </div>
 
-                        <!-- OTHER TYPE -->
-                        <div class="modal-share__file-type__other" ng-if="!(file.content | hasPreview)">
-                            <div class="fileicon fileicon-{{file.content | fileIcon}}"></div>
-                        </div>
-                    </div>
-                    <div class="modal-share__file-body">
-                        <span class="modal-share__file-body__writer">{{ file.writer|getName }}</span>
-                        <span class="modal-share__file-body__time">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
-                        <div class="modal-share__file-body__title keep">{{ file.content | fileTitle }}</div>
-                        <div class="modal-share__file-body__meta">
+            <!-- OTHER TYPE -->
+            <div class="modal-share__file-type__other" ng-if="!(file.content | hasPreview)">
+              <div class="fileicon fileicon-{{file.content | fileIcon}}"></div>
+            </div>
+          </div>
+          <div class="modal-share__file-body">
+            <span class="modal-share__file-body__writer">{{ file.writer|getName }}</span>
+            <span class="modal-share__file-body__time">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
+            <div class="modal-share__file-body__title keep">{{ file.content | fileTitle }}</div>
+            <div class="modal-share__file-body__meta">
                             <span class="modal-share__file-body__meta-size"
                                   data-ng-if="file.content.size > 0"
                                   data-ng-bind="file.content.size | bytes"></span>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <!-- FILE SHARE OPTION -->
-            <div class="form-group">
-                <label class="control-label col-sm-3">
-                    <span translate>@common-share-in</span>
-                </label>
-                <div class="col-sm-9">
-                    <select class="form-control"
-                            data-ng-model="shareChannel"
-                            data-ng-options="channel as channel|getName group by channel.typeCategory for channel in selectOptions | orderBy: 'name'">
-                    </select>
-                </div>
-            </div>
-            <!-- FILE COMMENT -->
-            <div class="form-group hidden">
-                <label class="control-label col-sm-3">
-                    <span translate>@common-comment</span>
-                </label>
-                <div class="col-sm-9">
+          </div>
+        </div>
+      </div>
+      <!-- FILE SHARE OPTION -->
+      <div class="form-group">
+        <label class="control-label col-sm-3">
+          <span translate>@common-share-in</span>
+        </label>
+        <div class="col-sm-9">
+          <select class="form-control"
+                  data-ng-model="shareChannel"
+                  data-ng-options="channel as channel|getName group by channel.typeCategory for channel in selectOptions | orderBy: 'name'">
+          </select>
+        </div>
+      </div>
+      <!-- FILE COMMENT -->
+      <div class="form-group hidden">
+        <label class="control-label col-sm-3">
+          <span translate>@common-comment</span>
+        </label>
+        <div class="col-sm-9">
                     <textarea class="form-control"
                               name="file_share_comment"
                               rows="3"
@@ -65,19 +67,19 @@
                               style="resize:none;"
                               disabled>
                     </textarea>
-                </div>
-            </div>
         </div>
+      </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-cancel</span></button>
-        <input class="btn btn-ok" type="submit" id="file_share_btn" value="{{ '@btn-share' | translate }}"/>
-    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-cancel</span></button>
+    <input class="btn btn-ok" type="submit" id="file_share_btn" value="{{ '@btn-share' | translate }}"/>
+  </div>
 </form>
 <div class="loading_container" data-ng-if="isLoading">
-    <div class="loading_container_background"></div>
-    <div class="loading_bg"></div>
-    <div class="loading_bar icon-loading"></div>
+  <div class="loading_container_background"></div>
+  <div class="loading_bg"></div>
+  <div class="loading_bar icon-loading"></div>
 </div>
 
 <span ng-if="false" translate>@common-file-share-jump-channel-confirm-msg</span>

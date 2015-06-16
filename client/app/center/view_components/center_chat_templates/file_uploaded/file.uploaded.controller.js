@@ -61,9 +61,11 @@
         jqLargeThumbnail = _getLargeThumbnailImageLoaderElement();
       }
 
-      _compileNewDomElement(jqLargeThumbnail, $scope);
 
       jqThumbnailParent.prepend(jqLargeThumbnail);
+
+      _compileNewDomElement(jqLargeThumbnail, $scope);
+
       _addFullScreenImageViewButton(jqThumbnailParent);
 
       jqSmallThumbnail.remove();
