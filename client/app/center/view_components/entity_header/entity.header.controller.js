@@ -35,12 +35,12 @@
     }
 
     /**
-     * currentEntity 로 부터 deactive member 를 제거한다.
+     * currentEntity 로 부터 deactivate member 를 제거한다.
      * @param {object} currentEntity
      * @returns {object} deactive member 를 제거한 entity
      * @private
      */
-    function _filterDeactiveMembers(currentEntity) {
+    function _filterDeactivateMembers(currentEntity) {
       var members = currentEntity.ch_members || currentEntity.pg_members;
       var totalEntities = $rootScope.totalEntities;
       var member;
@@ -71,7 +71,7 @@
       } else {
         entity = param;
       }
-      entity = _filterDeactiveMembers(entity);
+      entity = _filterDeactivateMembers(entity);
       _setCurrentEntity(entity);
     }
 
