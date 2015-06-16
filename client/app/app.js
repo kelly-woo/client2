@@ -157,7 +157,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
 
 });
 
-app.config(function ($urlRouterProvider, $httpProvider) {
+app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider) {
 
   $httpProvider.interceptors.push('authInterceptor');
   $httpProvider.interceptors.push('NetInterceptor');
@@ -178,5 +178,9 @@ app.config(function ($urlRouterProvider, $httpProvider) {
     if (path !== normalized) {
       return normalized;
     }
+  });
+
+  $tooltipProvider.setTriggers({
+      'show': 'hide'
   });
 });
