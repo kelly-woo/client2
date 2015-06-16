@@ -113,7 +113,9 @@ app.controller('leftPanelController1', function(
       }
 
       _isBadgeMoveLocked = true;
-      jqContainer.animate({scrollTop: targetScrollTop}, {
+      jqContainer.animate({
+        scrollTop: targetScrollTop
+      }, {
         done: function () {
           _isBadgeMoveLocked = false;
         }
@@ -126,22 +128,31 @@ app.controller('leftPanelController1', function(
    * @param {Event} clickEvent
    */
   function goUnreadAbove(clickEvent) {
-    var jqTarget = $(clickEvent.target);
-    var jqContainer = $('#lpanel-list-container');
-    var scrollTop = jqContainer[0].scrollTop;
-    var offsetTop = jqContainer.offset().top;
-    var currentTop = scrollTop + offsetTop;
-    var top = _getPosUnreadAbove();
-    //위 여백
-    var space = 7;
+    if (!_isBadgeMoveLocked) {
+      var jqTarget = $(clickEvent.target);
+      var jqContainer = $('#lpanel-list-container');
+      var scrollTop = jqContainer[0].scrollTop;
+      var offsetTop = jqContainer.offset().top;
+      var currentTop = scrollTop + offsetTop;
+      var top = _getPosUnreadAbove();
+      //위 여백
+      var space = 7;
 
-    var targetScrollTop = scrollTop - (currentTop - top);
+      var targetScrollTop = scrollTop - (currentTop - top);
 
-    if ($scope.unread.above.length > 1) {
-      targetScrollTop -= jqTarget.outerHeight() + space;
+      if ($scope.unread.above.length > 1) {
+        targetScrollTop -= jqTarget.outerHeight() + space;
+      }
+
+      _isBadgeMoveLocked = true;
+      jqContainer.animate({
+        scrollTop: targetScrollTop
+      }, {
+        done: function () {
+          _isBadgeMoveLocked = false;
+        }
+      });
     }
-
-    jqContainer.animate({scrollTop: targetScrollTop});
   }
 
   /**
