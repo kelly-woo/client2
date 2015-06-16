@@ -1,7 +1,7 @@
 <div class="dropup sticker_panel_wrap"
     ng-class="{'shift': isShift}">
   <!-- 스티커 패널 오픈 버튼-->
-  <a class="dropdown dropdown-toggle sticker_panel_btn"
+  <a class="dropdown dropdown-toggle sticker_panel_btn cursor_pointer"
           data-toggle="dropdown"
           ng-class="{'on': status.isOpen}"
           on-toggle="onToggled(open);">
@@ -22,7 +22,7 @@
         </div>
       </div>
       <ul ng-if="list.length" class="sticker_panel_ul">
-        <li class="sticker_panel_li"
+        <li class="sticker_panel_li cursor_pointer"
             data-ng-repeat="item in list"
             ng-click="onClickItem(item)">
           <img class="sticker size_1" src="{{item.url}}?size=65"/>

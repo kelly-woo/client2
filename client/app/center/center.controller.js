@@ -1510,7 +1510,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _setStickerPosition() {
     $timeout(function() {
       jndPubSub.pub('isStickerPosShift:' + _stickerType, _hasInputScroll());
-    }, 0);
+    }, 50);
   }
 
   /**
