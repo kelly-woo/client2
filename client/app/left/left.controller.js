@@ -606,13 +606,14 @@ app.controller('leftPanelController1', function(
 
   /**
    * TOPIC Click 시 이벤트 핸들러
-   * @param {object} entity - 클릭한 토픽 entity
+   * @param {object} topicEntity - 클릭한 토픽 entity
    */
   function onTopicClicked(topicEntity) {
     var entityType = topicEntity.type;
     var entityId = topicEntity.id;
 
     topicEntity.alarmCnt = '';
+
     if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
       publicService.goToDefaultTopic();
       return;

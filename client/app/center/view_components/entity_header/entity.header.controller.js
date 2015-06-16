@@ -6,7 +6,7 @@
     .controller('entityHeaderCtrl', entityHeaderCtrl);
 
   /* @ngInject */
-  function entityHeaderCtrl($scope, $filter, entityHeader, entityAPIservice, memberService, currentSessionHelper,
+  function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, fileAPIservice, analyticsService, modalHelper) {
 
     var currentEntity;
@@ -18,6 +18,7 @@
     })();
 
     $scope.$on('onCurrentEntityChanged', function(event, param) {
+      console.log('####onCurrentEntityChanged');
       _initWithParam(param);
     });
 
@@ -34,6 +35,30 @@
     }
 
     /**
+     * currentEntity 로 부터 deactive member 를 제거한다.
+     * @param {object} currentEntity
+     * @returns {object} deactive member 를 제거한 entity
+     * @private
+     */
+    function _filterDeactiveMembers(currentEntity) {
+      var members = currentEntity.ch_members || currentEntity.pg_members;
+      var totalEntities = $rootScope.totalEntities;
+      var member;
+      var entity;
+      var i;
+
+      for (i = 0; i < members.length; i++) {
+        member = members[i];
+        entity = entityAPIservice.getEntityFromListById(totalEntities, member);
+        if(!entity || !entity.name) {
+          members.splice(i, 1);
+          i -= 1;
+        }
+      }
+      return currentEntity;
+    }
+
+    /**
      * Check parameter and update local variable 'currentEntity'.
      *
      * @param param
@@ -46,6 +71,7 @@
       } else {
         entity = param;
       }
+      entity = _filterDeactiveMembers(entity);
       _setCurrentEntity(entity);
     }
 
