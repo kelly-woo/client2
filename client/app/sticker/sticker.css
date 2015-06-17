@@ -7,7 +7,7 @@
   position: absolute;
   right: 8px;
   bottom: 8px;
-  z-index: 10;
+  z-index: 1;
 }
 .sticker_panel_wrap.shift{
   right: 20px;
