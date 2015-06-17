@@ -18,7 +18,6 @@
     })();
 
     $scope.$on('onCurrentEntityChanged', function(event, param) {
-      console.log('####onCurrentEntityChanged');
       _initWithParam(param);
     });
 
