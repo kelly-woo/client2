@@ -11,8 +11,10 @@
 
   /* @ngInject */
   function Preloader($templateCache) {
-    var urlInterceptor;
     var that = this;
+    var _urlInterceptor;
+    var _imgMap = {};
+    var _jqImgContainer = $('<div>');
 
     this.initialize = initialize;
     this.img = img;
@@ -25,7 +27,8 @@
      * @return {Preloader}
      */
     function initialize(options) {
-      urlInterceptor = options.urlInterceptor;
+      _urlInterceptor = options.urlInterceptor;
+      _appendImgContainer();
       return that;
     }
 
@@ -36,9 +39,7 @@
      */
     function img(data) {
       var list = [];
-      var imgs = [];
-      var hasUrlInterceptor = _.isFunction(urlInterceptor);
-      var img;
+      var hasUrlInterceptor = _.isFunction(_urlInterceptor);
 
       if (!_.isArray(data)) {
         list.push(data);
@@ -47,12 +48,19 @@
       }
 
       _.forEach(list, function(url) {
-        url = hasUrlInterceptor ? urlInterceptor(url) : url;
-        img = new Image();
-        //for ie
-        img.onload = function(){};
-        img.src = url;
-        imgs.push(img);
+        var img;
+        url = hasUrlInterceptor ? _urlInterceptor(url) : url;
+        if (!_imgMap[url]) {
+          img = new Image();
+          img.src = url;
+          $(img).css({
+            width: '1px',
+            height: '1px',
+            visibility: 'hidden'
+          });
+          _imgMap[url] = true;
+          _jqImgContainer.append(img);
+        }
       });
 
       return that;
@@ -65,7 +73,7 @@
      */
     function template(data) {
       var list = [];
-      var hasUrlInterceptor = _.isFunction(urlInterceptor);
+      var hasUrlInterceptor = _.isFunction(_urlInterceptor);
 
       if (!_.isArray(data)) {
         list.push(data);
@@ -74,11 +82,28 @@
       }
 
       _.forEach(list, function(url) {
-        url = hasUrlInterceptor ? urlInterceptor(url) : url;
+        url = hasUrlInterceptor ? _urlInterceptor(url) : url;
         $templateCache.get(url);
       });
 
       return that;
+    }
+
+    /**
+     * img container 를 append 한다.
+     * @private
+     */
+    function _appendImgContainer() {
+      _jqImgContainer.css({
+        zIndex: 0,
+        width: '1px',
+        height: '1px',
+        top: 0,
+        left: 0,
+        position: 'absolute',
+        visibility: 'hidden'
+      });
+      $('body').append(_jqImgContainer);
     }
   }
 })();
