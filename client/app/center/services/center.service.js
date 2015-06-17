@@ -111,7 +111,11 @@
      * @returns {boolean}
      * @private
      */
-    function isMessageFromMe(message) { return message.fromEntity === memberService.getMemberId(); }
+    function isMessageFromMe(message) {
+        var cMemberId = memberService.getMemberId();
+
+        return message.fromEntity === cMemberId || message.writerId === cMemberId;
+    }
 
     /**
      * For New 1:1 chat entity, there is no entityId info stored locally.

@@ -40,6 +40,8 @@
     this.eventStatusLogger = eventStatusLogger;
     this.log = log;
 
+    this.attachMessagePreview = attachMessagePreview;
+
 
 
     // message types
@@ -198,10 +200,6 @@
         _updateCenterForCurrentEntity(isCurrentEntity);
         // Must update left panel for other room;
         _updateLeftPanelForOtherEntity(isCurrentEntity);
-      } else if (_isAttachMessagePreview(type)) {
-        // message preview.
-
-        _attachMessagePreview(data);
       } else if (_isDMToMe(room)) {
         // dm to me.
 
@@ -405,15 +403,6 @@
       return eventType === MESSAGE_DELETE;
     }
 
-    /**
-     * Return true if 'eventType' is link_preview_create.
-     * @param {string} eventType - name of event
-     * @returns {boolean}
-     * @private
-     */
-    function _isAttachMessagePreview(eventType) {
-      return eventType === MESSAGE_PREVIEW;
-    }
     /**
      * Return true if 'eventType' is any kind of system event.
      * @param eventType {string} name of event
@@ -718,7 +707,7 @@
     /**
      * attach message preview
      */
-    function _attachMessagePreview(data) {
+    function attachMessagePreview(data) {
       jndPubSub.attachMessagePreview(data);
     }
   }

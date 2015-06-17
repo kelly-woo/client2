@@ -61,7 +61,7 @@
 
         MESSAGE_DELETE: 'message_delete',
 
-        MESSAGE_PREVIEW: 'link_preview_create',
+        MESSAGE_PREVIEW: 'link_preview_created',
 
         MESSAGE_FILE_SHARE: 'file_share',
         MESSAGE_FILE_UNSHARE: 'file_unshare',

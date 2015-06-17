@@ -32,6 +32,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var hasRetryGetRoomInfo;        // Indicates that whether current entity has failed getting room info once.
 
+  // _scrollToBottom fn timer variable
+  var scrollToBottomTimer;
+  var showContentTimer;
+
   var messages = {};
   var _sticker = null;
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
@@ -701,10 +705,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _scrollToBottom() {
-    $timeout(function() {
+    $timeout.cancel(scrollToBottomTimer);
+    scrollToBottomTimer = $timeout(function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
     }, 200);
-    $timeout(function() {
+    $timeout.cancel(showContentTimer);
+    showContentTimer = $timeout(function() {
       _showContents();
     }, 100);
   }
@@ -1829,12 +1835,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.$on('attachMessagePreview', function(event, data) {
     messageAPIservice
       .getMessage(memberService.getTeamId(), data.message.id)
-      .success(function(data) {
-        ContentAttacher.init($('div[data-message-id=' + data.message.id + ']').children('text')).attach(function($scope) {
-          $scope.msg = data;
+      .success(function(message) {
+        ContentAttacher.init($('div[data-message-id=' + message.id + ']').children('text')).attach(function($scope) {
+          $scope.msg = {
+            message: message
+          };
         });
 
-        if (_isMessageFromMe(data)) {
+        if (_isMessageFromMe(message)) {
           _scrollToBottom();
         }
       })

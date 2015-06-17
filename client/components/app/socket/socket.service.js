@@ -62,6 +62,7 @@
 
     var MESSAGE_FILE_COMMENT = config.socketEvent.MESSAGE_FILE_COMMENT;
 
+    var MESSAGE_PREVIEW = config.socketEvent.MESSAGE_PREVIEW;
 
     // variables with '_APP_' has nothing to do with socket server. Just for internal use.
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
@@ -185,6 +186,8 @@
       socket.on(MESSAGE, _onMessage);
 
       socket.on(MEMBER_PROFILE_UPDATED, _onMemberProfileUpdated);
+
+      socket.on(MESSAGE_PREVIEW, _onMessagePreview);
     }
 
 
@@ -501,6 +504,18 @@
       if (angular.isUndefined(authAPIservice)) return;
 
       authAPIservice.requestAccessTokenWithRefreshToken();
+    }
+
+    /**
+     * Socket event receiver - link_preview_created
+     * @param {object} data
+     * @private
+     */
+    function _onMessagePreview(data) {
+      jndWebSocketHelper.socketEventLogger(data.event, data, false);
+      jndWebSocketHelper.eventStatusLogger(data.event, data);
+
+      jndWebSocketHelper.attachMessagePreview(data);
     }
   }
 })();
