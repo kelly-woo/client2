@@ -54,9 +54,9 @@
 
     // File List clicked on member profile modal view.
     $scope.$on('resetRPanelSearchStatusKeyword', function() {
+      _initMessageSearchQuery();
       _resetChatWriter();
       _resetChatRoom();
-      _initMessageSearchQuery();
       _resetMessageSearchResult();
     });
 
