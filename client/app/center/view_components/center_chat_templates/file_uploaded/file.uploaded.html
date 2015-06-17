@@ -106,7 +106,9 @@
                         {{ sharedEntity.prefix }}{{ sharedEntity.name }}
                       </span>
                       <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
-                        <i class="fa fa-minus-circle"></i>
+                        <i class="fa fa-times-circle"
+                           tooltip="{{ '@file-action-unshare' | translate }}" tooltip-placement="top"></i>
+                        <i ng-if="false" translate>@file-action-unshare</i>
                       </a>
                     </span>
 

@@ -1071,6 +1071,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
 
+  $scope.unsentMsgs = [];
   /**
    * offline 메세지 queue 에 전송되지 않은 메세지를 담는다.
    * @param {string} content 메세지 내용

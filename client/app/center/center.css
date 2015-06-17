@@ -272,17 +272,21 @@ article {
   margin-bottom: 8px;
 }
 .msg-item__action {
-
-    display:none;
-    position:absolute;
-    right:-7px;
-    bottom: 4px
+  display:none;
+  position:absolute;
+  right:-7px;
+  bottom: 4px
 }
-.msg-item__action .icon-cancel {
+.msg-item__action .action-icon {
+  font-size: 16px;
+  color: #c5c5c5;
+}
+.msg-item__action .action-icon:hover {
+  color: #9a9a9a;
 }
 
 .msg-item:hover .msg-item__action {
-    display:inline-block;
+  display:inline-block;
 }
 .msg-item-float {
   position: absolute;
@@ -526,12 +530,8 @@ by ysyun 2015.2.25
   letter-spacing: 0.02em;
 }
 .msg-file-meta-down .file-item-meta__shared {
-  color: #999999;
-  border-bottom: none;
-  margin-right: 2px;
-}
-.msg-file-meta-down .file-item-meta__shared:hover {
-  color: #666;
+  color: #00a5e9;
+  font-size: 12px;
 }
 .msg-file-meta__writer {  }
 .msg-comment { }
@@ -604,26 +604,26 @@ by ysyun 2015.2.25
   /*padding-bottom: 5px;*/
 }
 /*.msg-item.last {*/
-  /*padding-top: 6px;*/
-  /*margin-top: -6px;*/
+/*padding-top: 6px;*/
+/*margin-top: -6px;*/
 /*}*/
 /*.msg-item.last .msg-item-float {*/
-  /*left: 20px;*/
-  /*top: 6px;*/
+/*left: 20px;*/
+/*top: 6px;*/
 /*}*/
 /*.system-event-msg.last {*/
-  /*padding-top: 1px;*/
-  /*margin-top: -6px;*/
+/*padding-top: 1px;*/
+/*margin-top: -6px;*/
 /*}*/
 /*.comment-continue.last {*/
-  /*padding-top: 0;*/
-  /*margin-bottom: 0;*/
-  /*margin-top: 0 !important;*/
-  /*padding-bottom: 15px;*/
+/*padding-top: 0;*/
+/*margin-bottom: 0;*/
+/*margin-top: 0 !important;*/
+/*padding-bottom: 15px;*/
 /*}*/
 /*.last.file-upload {*/
-  /*margin-left: -20px !important;*/
-  /*padding-bottom: 0;*/
+/*margin-left: -20px !important;*/
+/*padding-bottom: 0;*/
 /*}*/
 /* Chrome, Safari, Opera */
 @-webkit-keyframes opacIn {
@@ -685,12 +685,12 @@ by ysyun 2015.2.25
 }
 
 /*.msgs {*/
-  /*border: 5px solid transparent;*/
-  /*border-bottom: 0 !important;*/
+/*border: 5px solid transparent;*/
+/*border-bottom: 0 !important;*/
 /*}*/
 /*.footer {*/
-  /*border: 5px solid transparent;*/
-  /*border-top: 0 !important;*/
+/*border: 5px solid transparent;*/
+/*border-top: 0 !important;*/
 /*}*/
 
 /********************************************
@@ -774,7 +774,7 @@ by ysyun 2015.2.25
 
 .file-upload-progress-abort:hover,
 .file-upload-progress-icon-cancel:hover {
-    opacity: 1;
+  opacity: 1;
 }
 .jandi-file-upload-progress-bar {
   height: 30px;

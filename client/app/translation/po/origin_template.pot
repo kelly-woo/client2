@@ -190,6 +190,10 @@ msgid "@common-comment"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
+msgid "@common-connection-retry"
+msgstr ""
+
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr ""
@@ -397,6 +401,14 @@ msgstr ""
 msgid "@common-name"
 msgstr ""
 
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-body"
+msgstr ""
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-header"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "@common-new-message"
 msgstr ""
@@ -586,6 +598,11 @@ msgstr ""
 msgid "@file-action-more"
 msgstr ""
 
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
+msgid "@file-action-unshare"
+msgstr ""
+
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""
@@ -769,6 +786,7 @@ msgstr ""
 msgid "@login-reset-password"
 msgstr ""
 
+#: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
