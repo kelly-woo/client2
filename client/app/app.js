@@ -8,7 +8,7 @@ var app = angular.module('jandiApp', [
 ]);
 
 app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice, publicService, entityAPIservice,
-                 fileAPIservice, configuration, Preloader) {
+                 fileAPIservice, configuration, DeskTopNotificationBanner) {
 
   $rootScope._ = window._;
 
@@ -149,24 +149,20 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
 
   publicService.getBrowserInfo();
 
-  _preload();
-
   /**
-   * preload template & images
-   * @private
+   * TODO: 우선 여기에 넣어둿는데 어디로 옮기는게 좋을까요?
+   * TODO: 의견 부탁드려요.
    */
-  function _preload() {
-    Preloader.template([
-      'app/disconnect/disconnect.html'
-    ]).img([
-      '../assets/images/icon_network_error.png'
-    ]);
-  }
+  $(window).resize(function() {
+    DeskTopNotificationBanner.adjustBodyWrapperHeight();
+  })
+
 });
 
-app.config(function ($urlRouterProvider, $httpProvider) {
+app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider) {
 
   $httpProvider.interceptors.push('authInterceptor');
+  $httpProvider.interceptors.push('NetInterceptor');
 
   /* URL routing rule for exception */
   $urlRouterProvider
@@ -186,4 +182,7 @@ app.config(function ($urlRouterProvider, $httpProvider) {
     }
   });
 
+  $tooltipProvider.setTriggers({
+      'show': 'hide'
+  });
 });

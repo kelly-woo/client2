@@ -6,7 +6,8 @@
     .directive('dragdownArea', dragdown)
     .directive('lastDetector', lastDetector)
     .directive('whenScrolled', whenScrolled)
-    .directive('unreadCounter', unreadCounter);
+    .directive('unreadCounter', unreadCounter)
+    .directive('onRepeatEnd', onRepeatEnd);
 
   // element에 drag-over-class 속성으로 drag over상태 알려주는 event handler 처리시
   // IE9<에서 blink 현상이 있으므로 code로 직접 handling.
@@ -137,6 +138,24 @@
       console.log(unreadCounter);
       console.log(attrs.unreadCounter);
       console.log(scope.roomMemberLength)
+    }
+  }
+
+  /**
+   * ng-repeat 수행완료 event를 triggering하는 directive
+   */
+  function onRepeatEnd($timeout, jndPubSub) {
+    return {
+      restrict: 'A',
+      link: link
+    };
+
+    function link(scope, el, attrs, ctrl) {
+      if (scope.$last) {
+        $timeout(function() {
+          jndPubSub.pub('onRepeatEnd');
+        });
+      }
     }
   }
 })();

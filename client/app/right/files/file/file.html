@@ -1,14 +1,12 @@
 <div class="file-list__item cursor_pointer" ng-click="onFileItemClick();">
 
   <!--    IMAGE THUMBNAIL -->
-  <div class="image_wrapper pull-left">
-    <div class="cursor_pointer msg-file-body__img background-color-white opac-zero" image-rotator="" rotate-width="65" rotate-height="65"
-         ng-if="(file.content | hasPreview) && false" image-src="{{ server_uploaded + file.content.extraInfo.smallThumbnailUrl }}"
+  <div class="image_wrapper pull-left msg-file-body__img__background" ng-if="(file.content | hasPreview)">
+    <div class="opac-zero cursor_pointer msg-file-body__img"
+         image-loader="{{server_uploaded + file.content.extraInfo.smallThumbnailUrl}}"
+         image-max-height="63" image-max-width="63" image-is-square="true"
          ui-sref="files({ userName: file.writer.name, itemId: file.id })">
     </div>
-    <img class="cursor_pointer msg-file-body__img" rotate rotate-width="65" rotate-height="65"
-         ng-if="(file.content | hasPreview)" ng-src="{{ server_uploaded + file.content.extraInfo.smallThumbnailUrl }}"
-         ui-sref="files({ userName: file.writer.name, itemId: file.id })"/>
   </div>
 
   <!--    IF NOT IMAGE TYPE, SHOW FILE TYPE PREVIEW   -->
@@ -71,7 +69,8 @@
 
   <!--    DROPDOWN MENU   -->
   <div class="file-item-body-title__more" dropdown is-open="status.isopen">
-    <i class="icon-more dropdown-toggle" tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
+    <i class="icon-more dropdown-toggle" dropdown-toggle
+       tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
 
     <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
       <li class="cursor_pointer">

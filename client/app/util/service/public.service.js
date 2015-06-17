@@ -4,17 +4,15 @@
  *         4/9/2015 JiHoon
  *
  */
-
-
 (function() {
   angular
     .module('jandiApp')
     .factory('publicService', publicService);
 
   /* @ngInject */
-  function publicService($rootScope, $modal, accountService, storageAPIservice, jndWebSocket,
+  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, pcAppHelper, modalHelper) {
+                         entityAPIservice, pcAppHelper) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -27,7 +25,10 @@
       redirectTo: redirectTo,
       isDisabledMember: isDisabledMember,
       isNullOrUndefined: isNullOrUndefined,
-      goToDefaultTopic: goToDefaultTopic
+      goToDefaultTopic: goToDefaultTopic,
+      adjustBodyWrapperHeight: adjustBodyWrapperHeight,
+      hideTransitionLoading: hideTransitionLoading,
+      showTransitionLoading: showTransitionLoading
     };
 
     return service;
@@ -157,5 +158,34 @@
       $state.go('archives', {entityType:'channels',  entityId:currentSessionHelper.getDefaultTopicId() });
     }
 
+    /**
+     * 배너의 유무를 판단하여 '.body' 와 '.body-wrapper' 의 높이를 조절한다.
+     * 기본값은 $(window).height() 이지만 배너가 있다면 배너의 높이만큼 작아저야 한다.
+     * @param isBannerUp
+     */
+    function adjustBodyWrapperHeight(isBannerUp) {
+      var bodyWrapperHeight;
+
+      var jqBodyWrapper = $('.body-wrapper');
+      var jqBody = $('.body');
+
+      var BANNER_HEIGHT = 40;
+      var HEADER_HEIGHT = 40;
+
+      var heightOffset = isBannerUp ? BANNER_HEIGHT : 0;
+
+      bodyWrapperHeight = $(window).height() - heightOffset;
+
+      jqBodyWrapper.height(bodyWrapperHeight);
+      jqBody.height(bodyWrapperHeight - HEADER_HEIGHT);
+    }
+
+    function hideTransitionLoading() {
+      $rootScope.isReady = true;
+    }
+
+    function showTransitionLoading() {
+      $rootScope.isReady = false;
+    }
   }
 })();

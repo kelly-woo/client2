@@ -10,8 +10,8 @@
     .service('jndWebSocketHelper', jndWebSocketHelper);
 
   /* @ngInject */
-  function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService,
-                              logger, $state, configuration, config, desktopNotificationService) {
+  function jndWebSocketHelper(jndPubSub, messageAPIservice, entityAPIservice, currentSessionHelper, memberService,
+                              logger, $state, configuration, config, DesktopNotification) {
 
     this.newMemberHandler = newMemberHandler;
 
@@ -40,6 +40,8 @@
     this.eventStatusLogger = eventStatusLogger;
     this.log = log;
 
+    this.attachMessagePreview = attachMessagePreview;
+
 
 
     // message types
@@ -50,6 +52,7 @@
     var MESSAGE_TOPIC_INVITE = config.socketEvent.MESSAGE_TOPIC_INVITE;
 
     var MESSAGE_DELETE = config.socketEvent.MESSAGE_DELETE;
+    var MESSAGE_PREVIEW = config.socketEvent.MESSAGE_PREVIEW;
 
     var MESSAGE_FILE_SHARE = config.socketEvent.MESSAGE_FILE_SHARE;
     var MESSAGE_FILE_UNSHARE = config.socketEvent.MESSAGE_FILE_UNSHARE;
@@ -191,28 +194,53 @@
       var writer = _getActionOwner(data.writer);
       var isCurrentEntity = _isCurrentEntity(room);
 
-      // message delete.
       if (_isMessageDeleted(type)) {
+        // message delete.
+
         _updateCenterForCurrentEntity(isCurrentEntity);
         // Must update left panel for other room;
         _updateLeftPanelForOtherEntity(isCurrentEntity);
-        return;
-      }
+      } else if (_isDMToMe(room)) {
+        // dm to me.
 
-      // dm to me.
-      if (_isDMToMe(room)) {
         _messageDMToMeHandler(data, roomEntity, writer, isCurrentEntity);
-        return;
+      } else if (_isRelatedEvent(roomEntity, writer)) {
+        // Check if message event happened in any related topics.
+
+        if (_isSystemEvent(type)) {
+          _systemMessageHandler(isCurrentEntity);
+        } else {
+          _newMessageHandler(data, roomEntity, writer, isCurrentEntity);
+        }
       }
 
-      // Check if message event happened in any related topics.
-      if (!_isRelatedEvent(roomEntity, writer)) { return; }
+      // var room = data.room;
+      // var roomEntity = _getRoom(room);
+      // var writer = _getActionOwner(data.writer);
+      // var isCurrentEntity = _isCurrentEntity(room);
 
-      if (_isSystemEvent(type)) {
-        _systemMessageHandler(isCurrentEntity);
-      } else {
-        _newMessageHandler(data, roomEntity, writer, isCurrentEntity);
-      }
+      // // message delete.
+      // if (_isMessageDeleted(type)) {
+      //   _updateCenterForCurrentEntity(isCurrentEntity);
+      //   // Must update left panel for other room;
+      //   _updateLeftPanelForOtherEntity(isCurrentEntity);
+      //   return;
+      // }
+
+      // // dm to me.
+      // if (_isDMToMe(room)) {
+      //   _messageDMToMeHandler(data, roomEntity, writer, isCurrentEntity);
+      //   return;
+      // }
+
+      // // Check if message event happened in any related topics.
+      // if (!_isRelatedEvent(roomEntity, writer)) { return; }
+
+      // if (_isSystemEvent(type)) {
+      //   _systemMessageHandler(isCurrentEntity);
+      // } else {
+      //   _newMessageHandler(data, roomEntity, writer, isCurrentEntity);
+      // }
     }
 
     /**
@@ -382,7 +410,7 @@
      * @private
      */
     function _isSystemEvent(eventType) {
-      return eventType != _APP_GOT_NEW_MESSAGE;
+      return eventType !== _APP_GOT_NEW_MESSAGE && eventType !== config.socketEvent.MESSAGE_STICKER_SHARE;
     }
 
     /**
@@ -477,7 +505,7 @@
       if (_isActionFromMe(writer.id) || isCurrentEntity) return;
 
       log('Send browser notification');
-      desktopNotificationService.addNotification(data, writer, roomEntity);
+      DesktopNotification.addNotification(data, writer, roomEntity);
     }
 
     /**
@@ -676,5 +704,11 @@
       log(writerName + verb + roomName)
     }
 
+    /**
+     * attach message preview
+     */
+    function attachMessagePreview(data) {
+      jndPubSub.attachMessagePreview(data);
+    }
   }
 })();

@@ -13,13 +13,33 @@
     var entityId;
     var entityType;
 
+    $scope.isConnected = true;
+
     (function() {
       _init();
     })();
 
+    $scope.$on('connected', _onConnected);
+    $scope.$on('disconnected', _onDisconnected);
     $scope.$on('onCurrentEntityChanged', function(event, param) {
       _initWithParam(param);
     });
+
+    /**
+     * network connect 가 publish 되었을 때
+     * @private
+     */
+    function _onConnected() {
+      $scope.isConnected = true;
+    }
+
+    /**
+     * network disconnect 가 publish 되었을 때
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
+    }
 
     function _init() {
       _initWithParam($scope.currentEntity);
@@ -99,7 +119,6 @@
       $scope.isDefaultTopic = currentSessionHelper.isDefaultTopic(currentEntity);
     }
 
-
     $scope.onLeaveClick = function() {
       var isLeaveChannel;
 
@@ -130,7 +149,10 @@
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
             updateLeftPanel();
-            fileAPIservice.broadcastChangeShared();
+            fileAPIservice.broadcastChangeShared({
+              type: 'delete',
+              id: $scope.currentEntity.id
+            });
           })
           .error(function(error) {
             alert(error.msg);

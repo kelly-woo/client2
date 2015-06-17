@@ -10,8 +10,9 @@
     .controller('rPanelCtrl', rPanelCtrl);
 
   /* ngInject */
-  function rPanelCtrl($scope, jndPubSub) {
+  function rPanelCtrl($scope, jndPubSub, DeskTopNotificationBanner) {
     var fileTab;
+
     var messageTab;
 
     var tabSelectedCallbacks = {
@@ -19,9 +20,8 @@
       file: onFileTabSelected
     };
 
-    (function() {
-      _init();
-    })();
+
+    _init();
 
     /**
      * Default set-up.
@@ -40,6 +40,7 @@
 
       $scope.tabs = [fileTab, messageTab];
     }
+
 
     /**
      * right panel 상단에 있는 search input box 의 값이 없어졌다는 이벤트.

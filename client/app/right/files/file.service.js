@@ -2,11 +2,41 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $filter,
+app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter,
                                        memberService, entityAPIservice, storageAPIservice, modalHelper) {
-  var fileAPI = {};
+  var fileSizeLimit = 100; // 100MB
+  var integrateMap = {
+    'google': true,
+    'dropbox': true
+  };
 
-  fileAPI.upload = function(files, fileInfo, supportHTML, uploadType) {
+  this.upload = upload;
+  this.abort = abort;
+  this.getFileList = getFileList;
+  this.getFileDetail = getFileDetail;
+  this.postComment = postComment;
+  this.deleteComment = deleteComment;
+  this.deleteSticker = deleteSticker;
+  this.addShareEntity = addShareEntity;
+  this.unShareEntity = unShareEntity;
+  this.getShareOptions = getShareOptions;
+  this.removeSharedEntities = removeSharedEntities;
+  this.getSharedEntities = getSharedEntities;
+  this.updateShared = updateShared;
+
+  this.broadcastFileShare = broadcastFileShare;
+  this.isFileTooLarge = isFileTooLarge;
+  this.clearCurUpload = clearCurUpload;
+  this.deleteFile = deleteFile;
+  this.generateFileTypeFilter = generateFileTypeFilter;
+  this.isIntegrateFile = isIntegrateFile;
+  this.dataURItoBlob = dataURItoBlob;
+  this.openFileShareModal = openFileShareModal;
+
+  this.broadcastChangeShared = broadcastChangeShared;
+  this.broadcastCommentFocus = broadcastCommentFocus;
+
+  function upload(files, fileInfo, supportHTML, uploadType) {
     var url,
         flash_url;
 
@@ -40,34 +70,55 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       file: files,
       fileFormDataName: 'userFile'
     });
-  };
+  }
 
-  fileAPI.abort = function(file) {
+
+  function abort(file) {
     file.abort();
-  };
+  }
 
-  fileAPI.getFileList = function(fileRequest) {
+  function getFileList(fileRequest) {
     fileRequest.teamId = memberService.getTeamId();
     return $http({
       method: 'POST',
       url: $rootScope.server_address + 'search',
       data: fileRequest
-    })
-  };
+    });
+  }
 
-  fileAPI.getFileDetail = function(fileId) {
-
+  function getFileDetail(fileId) {
     return $http({
       method  : 'GET',
       url     : $rootScope.server_address + 'messages/' + fileId,
       params  : {
         teamId: memberService.getTeamId()
       }
-    })
-  };
+    });
+  }
 
-  fileAPI.postComment = function(fileId, content) {
+  /**
+   * comment 를 post 한다.
+   * @param {string} fileId 파일 id
+   * @param {string} content post 할 문자열
+   * @param {object} sticker 스티커 객체
+   * @returns {*}
+   */
+  function postComment(fileId, content, sticker) {
+    if (sticker) {
+      return _postSticker(fileId, content, sticker);
+    } else {
+      return _postComment(fileId, content);
+    }
+  }
 
+  /**
+   * comment 를 post 한다.
+   * @param {string} fileId 파일 id
+   * @param {string} content post 할 문자열
+   * @returns {*}
+   * @private
+   */
+  function _postComment(fileId, content) {
     return $http({
       method  : 'POST',
       url     : $rootScope.server_address + 'messages/' + fileId + '/comment',
@@ -75,20 +126,69 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         comment : content,
         teamId  : memberService.getTeamId()
       }
-    })
-  };
+    });
+  }
 
-  fileAPI.deleteComment = function(fileId, commentId) {
+  /**
+   * sticker 를 post 한다.
+   * @param {string} fileId 파일 id
+   * @param {string} content post 할 문자열
+   * @param {object} sticker 스티커 객체
+   * @returns {*}
+   * @private
+   */
+  function _postSticker(fileId, content, sticker) {
+    var data = {
+      stickerId: sticker.id,
+      groupId: sticker.groupId,
+      teamId: memberService.getTeamId(),
+      share: fileId
+    };
+
+    if (content) {
+      data.content = content;
+    }
+
+    return $http({
+      method  : 'POST',
+      url     : $rootScope.server_address + 'stickers/comment',
+      data    : data
+    });
+  }
+
+  /**
+   * 스티커를 제거한다.
+   * @param {string} commentId
+   * @returns {*}
+   */
+  function deleteSticker(commentId) {
+    return $http({
+      method  : 'DELETE',
+      url     : $rootScope.server_address + 'stickers/comments/' + commentId,
+      params  : {
+        teamId  : memberService.getTeamId()
+      }
+    });
+  }
+
+  /**
+   * comment 를 제거한다.
+   * @param {string} fileId
+   * @param {string} commentId
+   * @returns {*}
+   */
+  function deleteComment(fileId, commentId) {
     return $http({
       method  : 'DELETE',
       url     : $rootScope.server_address + 'messages/' + fileId + '/comments/' + commentId,
       params  : {
         teamId  : memberService.getTeamId()
       }
-    })
-  };
+    });
+  }
 
-  fileAPI.addShareEntity = function(fileId, shareEntity) {
+
+  function addShareEntity(fileId, shareEntity) {
     return $http({
       method  : 'PUT',
       url     : $rootScope.server_address + 'messages/' + fileId + '/share',
@@ -96,10 +196,11 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         shareEntity : shareEntity,
         teamId  : memberService.getTeamId()
       }
-    })
-  };
+    });
+  }
 
-  fileAPI.unShareEntity = function(fileId, unShareEntity) {
+
+  function unShareEntity(fileId, unShareEntity) {
     return $http({
       method: 'PUT',
       url: $rootScope.server_address + 'messages/' + fileId + '/unshare',
@@ -107,12 +208,13 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         unshareEntity : unShareEntity,
         teamId  : memberService.getTeamId()
       }
-    })
-  };
+    });
+  }
 
   // Simply putting every channel, user, and private group into one array.
   // No exception.
-  fileAPI.getShareOptions = function(joinedChannelList, memberList) {
+
+  function getShareOptions(joinedChannelList, memberList) {
     var enabledMemberList = [];
 
     _.each(memberList, function(member, index) {
@@ -121,11 +223,12 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     });
 
     return joinedChannelList.concat(enabledMemberList);
-  };
+  }
 
   //  Removes entity that exists in 'file.shareEntities' from 'list'.
   //  Returns new array.
-  fileAPI.removeSharedEntities = function(file, list) {
+
+  function removeSharedEntities(file, list) {
     var returnValue = [];
     angular.forEach(list, function(option, index) {
       if(file.shareEntities.indexOf(option.id) == -1)
@@ -133,10 +236,11 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     }, returnValue);
 
     return returnValue;
-  };
+  }
 
   // Populating a list of entities to be displayed as 'shared channel/privateGroup'.
-  fileAPI.getSharedEntities = function(file, getSharedEntity) {
+
+  function getSharedEntities(file, getSharedEntity) {
 
     var sharedEntityArray = [];
     var unique = _.uniq(file.shareEntities);
@@ -165,39 +269,43 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       }
     });
     return sharedEntityArray;
-  };
+  }
 
-  // Broadcast shareEntities change event to centerpanel, rightpanel, detailpanel
-  fileAPI.broadcastChangeShared = function(id) {
-    //var ret = (id) ? {messageId: id} : null;
-    //$rootScope.$broadcast('onChangeShared', ret);
-  };
+  function updateShared(message) {
+    return getSharedEntities(message, function(sharedEntityId) {
+      return entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId) ||
+        entityAPIservice.getEntityFromListByEntityId($rootScope.memberList, sharedEntityId);
+    });
+  }
 
-  fileAPI.broadcastCommentFocus = function() {
-    $rootScope.$broadcast('setCommentFocus');
-  };
-
-  fileAPI.openFileShareModal = function($scope, file) {
+  function openFileShareModal($scope, file) {
     modalHelper.openFileShareModal($scope, file);
-  };
+  }
+
+  function broadcastFileShare(file) {
+    $rootScope.$broadcast('openFileShare', file);
+  }
 
 
-  var fileSizeLimit = 100; // 100MB
+
 
   // Return true if file size is over 100MB.
-  fileAPI.isFileTooLarge = function(file) {
+  function isFileTooLarge(file) {
     var sizeInMb = file.size/(Math.pow(1024,2));
-    if (sizeInMb > fileSizeLimit)
+    if (sizeInMb > fileSizeLimit) {
       return true;
-    return false;
-  };
+    } else {
+      return false;
+    }
+  }
 
-  fileAPI.clearCurUpload = function() {
+
+  function clearCurUpload() {
     $rootScope.curUpload = {};
+  }
 
-  };
 
-  fileAPI.deleteFile = function(fileId) {
+  function deleteFile(fileId) {
     return $http({
       method: 'DELETE',
       url: $rootScope.server_address + 'files/' + fileId,
@@ -205,9 +313,10 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         teamId: memberService.getTeamId()
       }
     });
-  };
+  }
 
-  fileAPI.generateFileTypeFilter = function() {
+
+  function generateFileTypeFilter() {
     var array = [
       {viewValue: $filter('translate')('@common-file-type-all'), value: 'all'},
       {viewValue: $filter('translate')('@common-file-type-google-docs'), value: 'googleDocs'},
@@ -220,18 +329,14 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       {viewValue: $filter('translate')('@common-file-type-audio'), value: 'audio'}
     ];
     return array;
-  };
+  }
 
-  var integrateMap = {
-    'google': true,
-    'dropbox': true
-  };
-
-  fileAPI.isIntegrateFile = function(serverUrl) {
+  function isIntegrateFile(serverUrl) {
     return !!integrateMap[serverUrl];
-  };
+  }
 
-  fileAPI.dataURItoBlob = function(dataURI) {
+
+  function dataURItoBlob(dataURI) {
     // convert base64 to raw binary data held in a string
     // doesn't handle URLEncoded DataURIs
     var byteString;
@@ -252,7 +357,15 @@ app.factory('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     // write the ArrayBuffer to a blob, and you're done
     return new Blob([ab],{type: 'image/png'});
-  };
+  }
 
-  return fileAPI;
+  // Broadcast shareEntities change event to centerpanel, rightpanel, detailpanel
+  function broadcastChangeShared(data) {
+    $rootScope.$broadcast('onChangeShared', data);
+  }
+
+  // right panel 안에 file detail의 comment input element에 focus가 가도록 broadcast
+  function broadcastCommentFocus() {
+    $rootScope.$broadcast('setCommentFocus');
+  }
 });

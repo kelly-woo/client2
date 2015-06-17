@@ -5,7 +5,9 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge) {
+  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
+
+  //console.info('[enter] leftpanelController');
 
   /**
    * @namespace
@@ -31,7 +33,7 @@ app.controller('leftPanelController1', function(
     above: [],
     below: []
   };
-  
+
   // 로딩이 진행되고 있을 경우 true
   $scope.isLoading = false;
 
@@ -40,7 +42,7 @@ app.controller('leftPanelController1', function(
     isTopicsCollapsed: storageAPIservice.isLeftTopicCollapsed() || false
   };
 
-  
+
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
@@ -52,14 +54,20 @@ app.controller('leftPanelController1', function(
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
   } else {
     response = leftPanel.data;
+    _checkNotificationBanner();
   }
+
+  function _checkNotificationBanner() {
+    publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
+  }
+  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
 
   _attachExtraEvents();
 
   $scope.$on('updateBadgePosition', updateUnreadPosition);
-  
+
   $scope.$on('$destroy', _onDestroy);
-  
+
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);
@@ -88,7 +96,7 @@ app.controller('leftPanelController1', function(
   }
 
   /**
-   * 아래쪽 unread 로 scroll 이동  
+   * 아래쪽 unread 로 scroll 이동
    * @param {Event} clickEvent
    */
   function goUnreadBelow(clickEvent) {
@@ -124,7 +132,7 @@ app.controller('leftPanelController1', function(
       });
     }
   }
-  
+
   /**
    * 위쪽 unread 로 scroll 이동
    * @param {Event} clickEvent
@@ -232,14 +240,12 @@ app.controller('leftPanelController1', function(
 
     var top = scrollTop + offsetTop;
     var bottom = top + height;
-    $scope.unread = UnreadBadge.getUnreadPos(top, bottom);
   }
 
   /**
    * left panel 업데이트 후에 알려줘야 할 컨틀롤러가 있음을 설정한다.
    * @param param {string} broadcast할 이벤트 이름
    * @private
-   *
    * FIXME: SERVICE로 빼시오.
    */
   function _setAfterLeftInit(param) {
@@ -474,8 +480,6 @@ app.controller('leftPanelController1', function(
     if ($state.params.entityId)
       _setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
 
-    $rootScope.isReady = true;
-
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
@@ -554,7 +558,7 @@ app.controller('leftPanelController1', function(
    *
    */
   $rootScope.$on('updateLeftPanelCaller', function() {
-    //console.info("[enter] updateLeftPanelCaller");
+    // console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
 
@@ -611,18 +615,19 @@ app.controller('leftPanelController1', function(
   function onTopicClicked(topicEntity) {
     var entityType = topicEntity.type;
     var entityId = topicEntity.id;
+    
+    if (NetInterceptor.isConnected()) {
+      topicEntity.alarmCnt = '';
+      if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
+        publicService.goToDefaultTopic();
+        return;
+      }
 
-    topicEntity.alarmCnt = '';
-
-    if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
-      publicService.goToDefaultTopic();
-      return;
-    }
-
-    if ($scope.currentEntity.id == entityId) {
-      $rootScope.$broadcast('refreshCurrentTopic');
-    } else {
-      $state.go('archives', { entityType: entityType, entityId: entityId });
+      if ($scope.currentEntity.id == entityId) {
+        $rootScope.$broadcast('refreshCurrentTopic');
+      } else {
+        $state.go('archives', {entityType: entityType, entityId: entityId});
+      }
     }
   }
 

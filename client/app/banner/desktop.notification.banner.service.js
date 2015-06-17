@@ -1,0 +1,156 @@
+(function() {
+  'use strict';
+
+  angular
+    .module('jandiApp')
+    .service('DeskTopNotificationBanner', DeskTopNotificationBanner);
+
+  /* @ngInject */
+  function DeskTopNotificationBanner(DesktopNotification, $document, $compile, jndPubSub, $rootScope, publicService) {
+    var that = this;
+
+    var jqBanner;
+    var bannerScope;
+
+    var isBannerUp = false;
+
+    that.isNotificationBannerUp = isNotificationBannerUp;
+
+    that.shouldHideNotificationBanner = shouldHideNotificationBanner;
+
+    that.showNotificationBanner = showNotificationBanner;
+    that.hideNotificationBanner = hideNotificationBanner;
+
+    that.shouldAskNotificationPermission = shouldAskNotificationPermission;
+    that.shouldAskLocalNotification = shouldAskLocalNotification;
+
+    that.adjustBodyWrapperHeight = adjustBodyWrapperHeight;
+
+    function isNotificationBannerUp() {
+      return isBannerUp;
+    }
+
+    /**
+     * 노티피케이션 배너를 숨겨야하나? 그렇다면 숨긴다.
+     */
+    function shouldHideNotificationBanner() {
+      if (isBannerUp && !_isPermissionDefault()) {
+        hideNotificationBanner();
+      }
+    }
+
+    /**
+     * 배너를 보여줘야 할 상황이면 보여준다.
+     */
+    function showNotificationBanner(scope) {
+      if (_shouldAskNotification()) {
+        _prependBannerElement(scope);
+      }
+    }
+
+    /**
+     * 배너를 숨긴다.
+     */
+    function hideNotificationBanner() {
+      _detachBanner();
+    }
+
+    /**
+     * 배너 엘레멘트를 markup 에서 지운다.
+     * @private
+     */
+    function _detachBanner() {
+      isBannerUp = false;
+
+      jqBanner.remove();
+
+      _adjustBodyWrapperHeight();
+
+      bannerScope.$destroy();
+      jndPubSub.pub('onNotificationBannerDisappear');
+    }
+
+    /**
+     * 배너 엘레멘트를 생성해서 바디(body) 제일 앞에 넣는다.
+     * @private
+     */
+    function _prependBannerElement(scope) {
+      var jqContentWrapper;
+      if (!isBannerUp) {
+        isBannerUp = true;
+        jqBanner = angular.element('<div notification-banner></div>');
+        jqContentWrapper = $document.find('body .content-wrapper').eq(0);
+        bannerScope = $rootScope.$new(true);
+
+        $compile(jqBanner)(bannerScope);
+
+        jqContentWrapper.prepend(jqBanner);
+
+        _adjustBodyWrapperHeight();
+      }
+    }
+
+    /**
+     * Notification.permission 의 값이 default 인지 아닌지 알아본다.
+     * @returns {boolean} isDefault - true, if value is 'default'
+     * @private
+     */
+    function _isPermissionDefault() {
+      var permission = DesktopNotification.getNotificationPermission();
+      return !(permission === 'denied' || permission === 'granted');
+    }
+
+    /**
+     * 노티피케이션을 물어봐야 하는가??
+     * @returns {boolean}
+     * @private
+     */
+    function _shouldAskNotification() {
+      return shouldAskNotificationPermission();
+    }
+
+    /**
+     * Notification.permission 을 물어봐야 하는 단계인가?
+     *   1. Notification.permission 의 값이 'default' 이고
+     *   3. 유져가 배너에서 'never ask me' 를 누르지 않았을 경우
+     * @returns {|boolean}
+     */
+    function shouldAskNotificationPermission() {
+      return _isPermissionDefault() && !_isNeverAskMeFlagUp();
+    }
+
+    /**
+     * 로컬 노티피케이션이 꺼져있는 상태인가?
+     *   1. Notification.permission 의 값은 'granted' 이지만
+     *   2. 사용자가 notification setting modal 에서 설정을 껐을 때
+     * @returns {boolean}
+     */
+    function shouldAskLocalNotification() {
+      var isNotificationPermissionGranted = DesktopNotification.isNotificationPermissionGranted();
+      var isNotificationLocalFlagUp = DesktopNotification.isNotificationLocalFlagUp();
+
+      return isNotificationPermissionGranted && !isNotificationLocalFlagUp;
+    }
+
+    /**
+     * 'never ask me' 를 눌렀는가?
+     * @returns {boolean}
+     * @private
+     */
+    function _isNeverAskMeFlagUp() {
+      return DesktopNotification.isNeverAskFlagUp();
+    }
+
+    /**
+     * 노티피케이션 배너의 유무에 따라 바디의 높이를 조절한다.
+     * @private
+     */
+    function _adjustBodyWrapperHeight() {
+      publicService.adjustBodyWrapperHeight(isBannerUp);
+    }
+
+    function adjustBodyWrapperHeight() {
+      _adjustBodyWrapperHeight();
+    }
+  }
+})();

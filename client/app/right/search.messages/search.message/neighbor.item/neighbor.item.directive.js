@@ -36,6 +36,7 @@
     $scope.isShared = isShared();
     $scope.isUnShared = isUnShared();
     $scope.isComment = isComment();
+    $scope.isSticker = isSticker();
 
     (function() {
       if (!!$scope.query) {
@@ -49,18 +50,45 @@
     function highlightText(text) {
       $timeout(function() {
         $('.current .message-content').highlight(text);
-      }, 50)
+      }, 50);
     }
 
-    function isFile() {
-      return message.type != 'text';
+    /**
+     * sticker 인지 여부 반환
+     * @returns {boolean}
+     */
+    function isSticker() {
+      return message.type === 'sticker';
     }
+
+    /**
+     * file 인지 여부 반환
+     * @returns {boolean}
+     */
+    function isFile() {
+      return message.type !== 'text' && message.type !== 'sticker';
+    }
+
+    /**
+     * 공유되었는이 여부 반환
+     * @returns {boolean}
+     */
     function isShared() {
       return message.status == STATUS_SHARED;
     }
+
+    /**
+     * 공유되지 않았는지 여부 반환
+     * @returns {boolean}
+     */
     function isUnShared() {
       return message.status == STATUS_UNSHARED;
     }
+
+    /**
+     * 파일 코멘트인지 여부 반환
+     * @returns {boolean}
+     */
     function isComment() {
       return message.type == TYPE_COMMENT;
     }
