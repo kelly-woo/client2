@@ -77,8 +77,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     });
 
     $scope.$on('onChangeShared', function(event, data) {
-      // file detail을 보고 있지 않는 경우에는 무시
-      if (fileId && $state.params.itemId != null && $state.params.itemId !== '') {
+      if (_isFileDetailActive()) {
         if ($scope.file_detail.shareEntities.length === 1 && data && data.type === 'delete' && $scope.file_detail.shareEntities[0] === data.id) {
           // 공유된 곳이 한곳이고 delete event
           $scope.hasTopic = false;
@@ -300,25 +299,31 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    * shared entity 클릭시 이벤트 핸들러
    * @param {string} entityId
    */
-  function onClickSharedEntity(entityId) {
-    var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
+  function onClickSharedEntity(entityId, entityType) {
+    if (entityType === 'users') {
+      $state.go('archives', {entityType: entityType, entityId: entityId});
 
-    // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
-    if (angular.isDefined(targetEntity)) {
-      $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
-    }
-    else {
-      // Undefined targetEntity means it's an entity that I'm joined.
-      // Join topic first and go!
-      entityheaderAPIservice.joinChannel(entityId)
-        .success(function(response) {
-          analyticsService.mixpanelTrack( "topic Join" );
-          $rootScope.$emit('updateLeftPanelCaller');
-          $state.go('archives', {entityType: 'channels',  entityId: entityId });
-        })
-        .error(function(err) {
-          alert(err.msg);
-        });
+    } else {
+
+      var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
+
+      // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
+      if (angular.isDefined(targetEntity)) {
+        $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
+      }
+      else {
+        // Undefined targetEntity means it's an entity that I'm joined.
+        // Join topic first and go!
+        entityheaderAPIservice.joinChannel(entityId)
+          .success(function(response) {
+            analyticsService.mixpanelTrack( "topic Join" );
+            $rootScope.$emit('updateLeftPanelCaller');
+            $state.go('archives', {entityType: 'channels',  entityId: entityId });
+          })
+          .error(function(err) {
+            alert(err.msg);
+          });
+      }
     }
   }
 
@@ -493,12 +498,13 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   }
 
   /**
-   * ?? 잘 모르겠음
-   * @returns {boolean}
+   * 현재 file detail tab 을 보고있는지 안 보고있는지 알려준다.
+   * @returns {boolean} true - file deatil tab 을 보고 있을 경우
    * @private
    */
   function _isFileDetailActive() {
-    return !!fileId;
+    // file detail을 보고 있지 않는 경우에는 무시
+    return fileId && $state.params.itemId != null && $state.params.itemId !== '';
   }
 
   /**
