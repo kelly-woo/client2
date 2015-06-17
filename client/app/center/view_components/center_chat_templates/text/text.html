@@ -1,69 +1,69 @@
-  <div ng-if="!msg.message.isChildText">
-    <!--  User Thumbnail -->
-    <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
-         ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
-      <img on-image-load class="user-profile user-thumb"
-           ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
-    </div>
+<div ng-if="!msg.message.isChildText">
+  <!--  User Thumbnail -->
+  <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
+       ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+    <img on-image-load class="user-profile user-thumb"
+         ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
+  </div>
 
-    <div class="msg-item-header"
-         ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
-      <!--    WRITER-->
-      <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
-        <span class="msg-item-header__nameSpace">
-          <span ng-if="msg.message.contentType !== 'file'"> {{msg.fromEntity | getName}}</span>
-        </span>
+  <div class="msg-item-header"
+       ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+    <!--    WRITER-->
+    <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+      <span class="msg-item-header__nameSpace">
+        <span ng-if="msg.message.contentType !== 'file'"> {{msg.fromEntity | getName}}</span>
+      </span>
+    </span>
+  </div>
+  <div class="msg-item-body">
+    <!-- TEXT -->
+    <div class="msg-text">
+
+      <img ng-if="msg.message.contentType === 'sticker'"  class="sticker size_5" src="{{msg.message.content.url}}"/>
+
+      <span ng-if="msg.message.contentType !== 'sticker'"
+            class="keep msg-text-body"
+            data-ng-bind-html="(msg.message.content.body) || ''"></span>
+      <span class="msg-item-header__created">
+        {{msg.time | gethmmaFormat}}
+      </span>
+      <span ng-if="msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
+      <!--    DELETE ICON APPEARS ON HOVER    -->
+      <span class="msg-item__action">
+        <a class="link-remove pull-right cursor_pointer"
+           data-ng-if="member.id === msg.fromEntity"
+           data-ng-click="deleteMessage(msg)"
+           tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
+          <i class="icon-cancel"></i>
+        </a>
       </span>
     </div>
-    <div class="msg-item-body">
-      <!-- TEXT -->
-      <div class="msg-text">
+  </div>
+</div>
 
-        <img ng-if="msg.message.contentType === 'sticker'"  class="sticker size_5" src="{{msg.message.content.url}}"/>
-
-        <span ng-if="msg.message.contentType !== 'sticker'"
-              class="keep msg-text-body"
-              data-ng-bind-html="(msg.message.content.body) || ''"></span>
-        <span class="msg-item-header__created">
-          {{msg.time | gethmmaFormat}}
-        </span>
-        <span ng-if="msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
-        <!--    DELETE ICON APPEARS ON HOVER    -->
-        <span class="msg-item__action">
-          <a class="link-remove pull-right cursor_pointer"
-             data-ng-if="member.id === msg.fromEntity"
-             data-ng-click="deleteMessage(msg)"
-             tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
-            <i class="icon-cancel"></i>
-          </a>
-        </span>
-      </div>
+<div ng-if="msg.message.isChildText">
+  <div class="msg-item-body">
+    <!-- TEXT -->
+    <div class="msg-text">
+      <img ng-if="msg.message.contentType === 'sticker'" class="sticker size_5" src="{{msg.message.content.url}}"/>
+      <span ng-if="msg.message.contentType !== 'sticker'"
+            class="keep msg-text-body"
+            data-ng-bind-html="(msg.message.content.body) || ''"></span>
+      <span class="msg-item-header__created">
+        {{msg.time | gethmmaFormat}}
+      </span>
+      <span ng-if="msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
+      <!--    DELETE ICON APPEARS ON HOVER    -->
+      <span class="msg-item__action">
+        <a class="link-remove pull-right cursor_pointer"
+           data-ng-if="member.id === msg.fromEntity"
+           data-ng-click="deleteMessage(msg)"
+           tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
+          <i class="icon-cancel"></i>
+        </a>
+      </span>
     </div>
   </div>
+</div>
 
-  <div ng-if="msg.message.isChildText">
-    <div class="msg-item-body">
-      <!-- TEXT -->
-      <div class="msg-text">
-        <img ng-if="msg.message.contentType === 'sticker'" class="sticker size_5" src="{{msg.message.content.url}}"/>
-        <span ng-if="msg.message.contentType !== 'sticker'"
-              class="keep msg-text-body"
-              data-ng-bind-html="(msg.message.content.body) || ''"></span>
-        <span class="msg-item-header__created">
-          {{msg.time | gethmmaFormat}}
-        </span>
-        <span ng-if="msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
-        <!--    DELETE ICON APPEARS ON HOVER    -->
-        <span class="msg-item__action">
-          <a class="link-remove pull-right cursor_pointer"
-             data-ng-if="member.id === msg.fromEntity"
-             data-ng-click="deleteMessage(msg)"
-             tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
-            <i class="icon-cancel"></i>
-          </a>
-        </span>
-      </div>
-    </div>
-  </div>
-
-
+<social-snippet ng-if="msg.message.hasLinkPreview"></social-snippet>

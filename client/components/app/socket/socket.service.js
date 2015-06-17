@@ -153,7 +153,6 @@
      * @private
      */
     function _setSocketEventListener() {
-      console.log('############## socket event attach');
       socket.on('connect', _onSocketConnect);
       socket.on('disconnect', _onSocketDisconnect);
       socket.on(CHECK_CONNECT_TEAM, _onCheckConnectTeam);

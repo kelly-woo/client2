@@ -3,14 +3,14 @@
 
   angular
     .module('jandiApp')
-    .directive('text', text);
+    .directive('socialSnippet', socialSnippet);
 
-  function text(ContentAttacher) {
+  function socialSnippet() {
     return {
       restrict: 'E',
       scope: false,
       link: link,
-      templateUrl: 'app/center/view_components/center_chat_templates/text/text.html'
+      templateUrl: 'app/center/view_components/center_chat_templates/content_attacher/social.snippet.html'
     };
 
     function link(scope, element, attrs) {

@@ -286,6 +286,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _.each(messages, function(data, index) {
       contentType = _getContentType(index, messages);
       if (_isTextType(contentType)) {
+        data.message.hasLinkPreview = _hasLinkPreview(index, messages);
         data.message.isChildText = _isChildTextMsg(index, messages);
         data.message.hasChildText = _hasChildTextMsg(index, messages);
       } else if (_isCommentType(contentType)) {
@@ -337,6 +338,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     }
     return false;
+  }
+
+  /**
+   * 메세지에 link preview data를 가지고 있는지 여부
+   * @param {number} index - 확인할 대상 메세지 index
+   * @param {array} messages - 전체 메세지 리스트
+   * @returns {boolean}
+   * @private
+   */
+  function _hasLinkPreview(index, messages) {
+    return !!(messages[index] && !$.isEmptyObject(messages[index].message.linkPreview));
   }
 
   /**
@@ -609,10 +621,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   }
 
-  function _isInitialLoad() {
-    return loadedFirstMessagedId < 0;
-  }
-
   /**
    * Checks if there is no old messages to load.
    * Meaning all previous messages has been loaded and display on web.
@@ -650,11 +658,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _disableScroll();
       _findMessageDomElementById(messageSearchHelper.getLinkId());
       _resetSearchMode();
-      return;
-    }
-
-    if (_isInitialLoad()) {
-      _scrollToBottom();
       return;
     }
 
@@ -1464,7 +1467,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.
   //  listening to 'elastic:resize' and move msg-holder to right position.
   $scope.$on('elastic:resize', function() {
-    if (_isBottomReached()) {
+    // center controller의 content load가 완료 된 상태이고 chat 스크롤이 최 하단에 닿아있을때 scroll도 같이 수정
+    if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
       _scrollToBottom();
     }
     $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 20);
@@ -1967,6 +1971,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
+   * center의 div.msgs-group의 ng-repeat 수행완료 event handling
+   */
+  $scope.$on('onRepeatEnd', function() {
+    _scrollToBottom();
+  });
+
+  /**
    * 입력된 text가 preview(social snippets)를 제공하는 경우 center controller에서의 handling
    *
    * 'attachMessagePreview' event에서 content가 attach되는 message의 식별자를 전달 받아
@@ -1980,7 +1991,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           $scope.msg = data;
         });
 
-        _scrollToBottom();
+        if (_isMessageFromMe(data)) {
+          _scrollToBottom();
+        }
       })
       .error(function(error) {
         console.log('link preview error', error);

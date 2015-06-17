@@ -8,38 +8,14 @@
     .module('jandiApp')
     .service('ContentAttacher', ContentAttacher);
 
-  function ContentAttacher($rootScope, $compile) {
-    // warpping templates
-    var wrapper_templates = {
-      attach: '<div class="attachment-message-wrapper">'  +
-        '<div class="attachment-message-bar"></div>'      +
-        '<div class="attachment-message-content"></div>'  +
-      '</div>'
-    };
-    // content templates
-    var content_templates = {
-      social_snippet:
-        '<div class="social-image" ng-if="!!msg.message.linkPreview.imageUrl">'               +
-          '<a ng-href="{{msg.message.linkPreview.linkUrl}}" target="_blank">'                 +
-            '<img ng-src="{{msg.message.linkPreview.imageUrl}}"/>'                            +
-          '</a>'                                                                              +
-        '</div>'                                                                              +
-        '<div class="social-body">'                                                           +
-          '<div class="social-title neighbor" ng-if="!!msg.message.linkPreview.title">'       +
-            '<a ng-href="{{msg.message.linkPreview.linkUrl}}" target="_blank">'               +
-              '<span>{{msg.message.linkPreview.title}}</span>'                                +
-            '</a>'                                                                            +
-          '</div>'                                                                            +
-          '<div class="social-desc neighbor" ng-if="!!msg.message.linkPreview.description">'  +
-            '<a ng-href="{{msg.message.linkPreview.linkUrl}}" target="_blank">'               +
-              '<span>{{msg.message.linkPreview.description}}</span>'                          +
-            '</a>'                                                                            +
-          '</div>'                                                                            +
-          '<div class="social-domain" ng-if="!!msg.message.linkPreview.domain">'              +
-            '<span>{{msg.message.linkPreview.domain}}</span>'                                 +
-          '</div>'                                                                            +
-        '</div>'
-    };
+  function ContentAttacher($rootScope, $compile, $http) {
+    var content_templates = {};
+
+    $http
+      .get('app/center/view_components/center_chat_templates/content_attacher/social.snippet.html')
+      .then(function(response) {
+        content_templates.social_snippet = response.data;
+      });
 
     this.init = init;
     this.attach = attach;
@@ -81,7 +57,7 @@
       }
 
       if (contentTemplate = content_templates[options.type]) {
-        ele = $compile(wrapper_templates.attach)($scope).children('.attachment-message-content').append($compile(contentTemplate)($scope)).parent();
+        ele = $compile(contentTemplate)($scope);
 
         that.jqEle.append(ele);
       }

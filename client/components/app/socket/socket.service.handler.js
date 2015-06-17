@@ -192,7 +192,6 @@
       var writer = _getActionOwner(data.writer);
       var isCurrentEntity = _isCurrentEntity(room);
 
-      console.log('socket service ::::::::: ', type);
       if (_isMessageDeleted(type)) {
         // message delete.
 
