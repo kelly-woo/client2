@@ -179,7 +179,7 @@ app.controller('leftPanelController1', function(
    */
   function _getPosUnreadBelow() {
     var below = $scope.unread.below;
-    return below[0] || 0;
+    return below[below.length - 1] || 0;
   }
 
   /**
