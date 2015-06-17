@@ -9,7 +9,8 @@
   angular
     .module('jandi.framework', [
       'jandi.pcApp',
-      'jandi.preloader'
+      'jandi.preloader',
+      'jandi.browser'
     ])
     .run(run)
     .config(config);
