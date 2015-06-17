@@ -392,6 +392,14 @@ msgstr ""
 msgid "@common-name"
 msgstr ""
 
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-body"
+msgstr ""
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-header"
+msgstr ""
+
 #: client/app/left/left.html
 msgid "@common-new-message"
 msgstr ""

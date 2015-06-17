@@ -1,6 +1,6 @@
 <li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true"
     ng-class="{active: $state.params.entityId == joinedEntity.id}"
-    data-ng-click="onTopicClicked(joinedEntity.type, joinedEntity.id, joinedEntity);"
+    data-ng-click="onTopicClicked(joinedEntity);"
   class="cursor_pointer">
   <a data-channel-id="{{joinedEntity.id}}">
       {{ joinedEntity.entityId }}

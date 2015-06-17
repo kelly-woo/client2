@@ -975,7 +975,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // prevent duplicate request
     $scope.isPosting = true;
-    var msg = $scope.message.content;
+    var msg = $.trim($('#message-input').val());
     $scope.message.content = "";
 
     messageAPIservice.postMessage(entityType, entityId, {'content': msg})
