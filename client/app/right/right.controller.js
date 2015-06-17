@@ -39,12 +39,8 @@
       };
 
       $scope.tabs = [fileTab, messageTab];
-
-      _checkNotificationBanner();
     }
 
-
-    $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
 
     /**
      * right panel 상단에 있는 search input box 의 값이 없어졌다는 이벤트.
@@ -78,15 +74,6 @@
       // TODO: 이렇게 펑션 불러도 되나요?
       tabSelectedCallbacks[selectedTab]();
     };
-
-
-    /**
-     * 노티피케이션 배너의 상태를 체크한다!
-     * @private
-     */
-    function _checkNotificationBanner() {
-      DeskTopNotificationBanner.checkNotificationBanner('right');
-    }
 
     /**
      * file tab 이 active 되었다는 이벤트.

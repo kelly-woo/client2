@@ -6,7 +6,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice,
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
-                                                 centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
+                                                 centerService, markerService, TextBuffer, modalHelper, NetInterceptor, 
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
@@ -70,11 +70,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _setChatInputFocus();
   });
 
-  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
-
-
-
-
   $scope.repostMessage = repostMessage;
   $scope.deleteUnsentMessage = deleteUnsentMessage;
   $scope.postMessage = postMessage;
@@ -101,8 +96,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _setDefaultLoadingScreen();
     _initMsgSearchQuery();
     _initLocalVariables();
-    _checkNotificationBanner();
-    modalHelper.closeModal();
   }
 
   /**
@@ -174,10 +167,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _resetUnreadCounters();
 
     _resetNewMsgHelpers();
-  }
-
-  function _checkNotificationBanner() {
-    DeskTopNotificationBanner.checkNotificationBanner('center');
   }
 
   function _resetLoadMoreCounter() {
