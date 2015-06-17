@@ -127,19 +127,20 @@
      */
     function _getList(groupId) {
       groupId = _.isUndefined(groupId) ? 100 : groupId;
-      Sticker.getList(groupId)
-        .success(function(response) {
-          if (_cache[groupId]) {
-            $scope.list = _cache[groupId];
-          } else {
+      if (_cache[groupId]) {
+        $scope.list = _cache[groupId];
+      } else {
+        Sticker.getList(groupId)
+          .success(function(response) {
             _cache[groupId] = response;
             Preloader.img(_.pluck(response, 'url'));
             $scope.list = response;
-          }
-        })
-        .error(function() {
-          $scope.list = [];
-        });
+          })
+          .error(function() {
+            $scope.list = [];
+          });
+      }
+
     }
 
     /**

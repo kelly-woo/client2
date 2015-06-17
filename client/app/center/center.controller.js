@@ -1157,7 +1157,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * input 박스에서 메세지를 포스팅 한다.
    */
   function postMessage() {
-    var msg = $scope.message.content;
+    var msg = $.trim($('#message-input').val());
 
     // prevent duplicate request
     if (msg || _sticker) {
