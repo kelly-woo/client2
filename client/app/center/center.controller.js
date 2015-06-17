@@ -10,11 +10,12 @@
                                                    centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                    Sticker, jndPubSub, jndKeyCode) {
 
-    //console.info('[enter] centerpanelController', $scope.currentEntity);
-    var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
-    var CURRENT_ENTITY_ARCHIVED = 2002;
-    var INVALID_SECURITY_TOKEN  = 2000;
-    var DEFAULT_MESSAGE_UPDATE_COUNT = 100;
+  //console.info('[enter] centerpanelController', $scope.currentEntity);
+  var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
+  var CURRENT_ENTITY_ARCHIVED = 2002;
+  var INVALID_SECURITY_TOKEN  = 2000;
+  var DEFAULT_MESSAGE_UPDATE_COUNT = 50;
+  var DEFAULT_MESSAGE_SEARCH_COUNT = 100;
 
     var entityType = $state.params.entityType;
     var entityId = $state.params.entityId;
@@ -141,10 +142,14 @@
       }, 1000);
     }
 
+    /**
+     * search query 를 초기화한다.
+     * @private
+     */
     function _initMsgSearchQuery() {
       //log('initing msgSearchQuery')
       $scope.msgSearchQuery = {
-        count: DEFAULT_MESSAGE_UPDATE_COUNT
+        count: _getUpdateCount()
       };
     }
     function _initLocalVariables() {
@@ -153,14 +158,21 @@
       localFirstMessageId = -1;
       localLastMessageId = -1;
       loadedFirstMessagedId = -1;
-
       systemMessageCount = 0;
-
       _resetUnreadCounters();
-
+      
       _resetNewMsgHelpers();
     }
-
+    
+    /**
+     * search query 를 생성 시 update count 값을 반환한다.
+     * @returns {number}
+     * @private
+     */
+    function _getUpdateCount() {
+      return _isSearchMode() ? DEFAULT_MESSAGE_SEARCH_COUNT : DEFAULT_MESSAGE_UPDATE_COUNT;
+    }
+  
     function _resetLoadMoreCounter() {
       $scope.loadMoreCounter = 0;
       $scope.isInitialLoadingCompleted = false;
@@ -248,16 +260,16 @@
       loadMore();
     }
 
+
     function _setMsgSearchQueryLinkId(linkId) {
       $scope.msgSearchQuery = {
         linkId: linkId,
-        count: DEFAULT_MESSAGE_UPDATE_COUNT
+        count: _getUpdateCount()
       };
     }
     function _setMsgSearchQueryType(type) {
       $scope.msgSearchQuery.type = type;
     }
-
     /**
      * 메세지를 날짜로 묶는다.
      */
