@@ -36,6 +36,10 @@
     this.setEntityId = setEntityId;
     this.getEntityId = getEntityId;
 
+    this.isTextType = isTextType;
+    this.isCommentType = isCommentType;
+
+
     /**
      * Check entityId of entity to be directed to currently signed in member's id.
      * If user is trying to reach himself, re-direct user back to default topic.
@@ -124,5 +128,26 @@
     function getEntityId() {
       return currentEntityId;
     }
+
+    /**
+     * content type 이 text type 인지 확인한다.
+     * @param {string} contentType
+     * @returns {boolean}
+     * @private
+     */
+    function isTextType(contentType) {
+      return contentType === 'text' || contentType === 'sticker';
+    }
+
+    /**
+     * content type 이 코멘트인지 확인한다.
+     * @param {string} contentType
+     * @returns {boolean}
+     * @private
+     */
+    function isCommentType(contentType) {
+      return contentType === 'comment' || contentType === 'comment_sticker';
+    }
+
   }
 })();
