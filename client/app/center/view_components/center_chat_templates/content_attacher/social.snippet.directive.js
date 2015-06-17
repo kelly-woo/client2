@@ -10,6 +10,7 @@
       restrict: 'E',
       scope: false,
       link: link,
+      replace: true,
       templateUrl: 'app/center/view_components/center_chat_templates/content_attacher/social.snippet.html'
     };
 

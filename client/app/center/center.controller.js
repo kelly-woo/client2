@@ -703,7 +703,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _scrollToBottom() {
     $timeout(function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
-    }, 10);
+    }, 200);
     $timeout(function() {
       _showContents();
     }, 100);
