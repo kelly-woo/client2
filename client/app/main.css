@@ -101,6 +101,7 @@ input[type="email"] {
 .opac-zero {
   opacity: 0;
 }
+
 .opac-in {
   opacity: 1;
   -webkit-transition: opacity 0.7s;
@@ -109,6 +110,16 @@ input[type="email"] {
   -o-transition: opacity 0.7s;
   transition: opacity 0.7s;
 }
+
+.opac-out {
+  opacity: 0;
+  -webkit-transition: opacity 0.7s;
+  -moz-transition: opacity 0.7s;
+  -ms-transition: opacity 0.7s;
+  -o-transition: opacity 0.7s;
+  transition: opacity 0.7s;
+}
+
 .opac-in-fast {
   opacity: 1;
   -webkit-transition: opacity 0.3s;
@@ -389,6 +400,17 @@ input[type="button"] {
                     ICON.
 
 ********************************************/
+.no-image-preview-full-screen {
+
+}
+.no-image-preview-square {
+  background: url('../assets/images/no_image_available_center.png');
+}
+.no-image-preview {
+  background: url('../assets/images/no_image_available.png');
+  width: 450px;
+  height: 172px;
+}
 .icon_image {
   position: absolute;
   cursor: pointer;
@@ -457,6 +479,9 @@ input[type="button"] {
 }
 .icon_signout.light {
   background-image: url('../assets/images/icon_signout.png');
+}
+.icon_network_error {
+    background-image: url('../assets/images/icon_network_error.png');
 }
 .fileicon {
   background: url('../assets/images/fileicons.png') no-repeat;

@@ -1,5 +1,6 @@
 {
   "name"                   : "local",
+  "path"                   : "app/",
   "api_address"            : "../proxy/",
   "socket_address"         : "http://ws.jandi.io:8888/",
   "api_version"            : 2,

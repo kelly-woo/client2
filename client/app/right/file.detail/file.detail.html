@@ -28,10 +28,9 @@
       </div>
 
       <div class="file-detail-body">
-        <div class="image_wrapper" ng-click="onImageClick();" image-rotator="" image-src="{{ImageUrl}}" on-image-load="onFileDetailImageLoad();">
+        <div class="image_wrapper" ng-click="onImageClick();" file-detail-preview=""
+             image-loader="{{ImageUrl}}" on-image-load="onFileDetailImageLoad();" image-fit-to-width="true">
           <div class="loading_bar icon-loading" ng-if="isLoadingImage"></div>
-
-          <!--<img class="file-detail-body__image" rotate rotate-left-align="false" >-->
         </div>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">

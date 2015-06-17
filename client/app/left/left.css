@@ -285,6 +285,21 @@
     text-align: center;
     min-height: 5px;
 }
+.lpanel-list-help-unread.ng-enter, .lpanel-list-help-unread.ng-leave {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
+}
+
+.lpanel-list-help-unread.ng-enter,
+.lpanel-list-help-unread.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.lpanel-list-help-unread.ng-leave,
+.lpanel-list-help-unread.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
 .lpanel-list-help-unread .btn-danger {
     background-color: #00abe6 !important;
     font-size: 13px;

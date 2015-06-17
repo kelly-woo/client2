@@ -13,7 +13,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
-  var DEFAULT_MESSAGE_UPDATE_COUNT = 100;
+  var DEFAULT_MESSAGE_UPDATE_COUNT = 50;
+  var DEFAULT_MESSAGE_SEARCH_COUNT = 100;
 
   var entityType = $state.params.entityType;
   var entityId = $state.params.entityId;
@@ -54,6 +55,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.message = {};          // Message to post.
   $scope.isMessageSearchJumping = false;
   $scope.isInitialLoadingCompleted = false;
+  $scope.hasLastMessageRendered = false;
 
 
   //viewContent load 시 이벤트 핸들러 바인딩
@@ -68,11 +70,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _sticker = item;
     _setChatInputFocus();
   });
-
-  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
-
-
-
 
   $scope.repostMessage = repostMessage;
   $scope.deleteUnsentMessage = deleteUnsentMessage;
@@ -100,8 +97,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _setDefaultLoadingScreen();
     _initMsgSearchQuery();
     _initLocalVariables();
-    _checkNotificationBanner();
-    modalHelper.closeModal();
   }
 
   /**
@@ -142,10 +137,23 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }, 1000);
   }
 
+  /**
+   * search query 를 생성 시 update count 값을 반환한다.
+   * @returns {number}
+   * @private
+   */
+  function _getUpdateCount() {
+    return _isSearchMode() ? DEFAULT_MESSAGE_SEARCH_COUNT : DEFAULT_MESSAGE_UPDATE_COUNT;
+  }
+
+  /**
+   * search query 를 초기화한다.
+   * @private
+   */
   function _initMsgSearchQuery() {
     //log('initing msgSearchQuery')
     $scope.msgSearchQuery = {
-      count: DEFAULT_MESSAGE_UPDATE_COUNT
+      count: _getUpdateCount()
     };
   }
   function _initLocalVariables() {
@@ -160,10 +168,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _resetUnreadCounters();
 
     _resetNewMsgHelpers();
-  }
-
-  function _checkNotificationBanner() {
-    DeskTopNotificationBanner.checkNotificationBanner('center');
   }
 
   function _resetLoadMoreCounter() {
@@ -255,7 +259,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _setMsgSearchQueryLinkId(linkId) {
     $scope.msgSearchQuery = {
       linkId: linkId,
-      count: DEFAULT_MESSAGE_UPDATE_COUNT
+      count: _getUpdateCount()
     };
   }
   function _setMsgSearchQueryType(type) {
@@ -408,7 +412,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _isTextType(contentType) {
-    return contentType === 'text' || contentType === 'sticker';
+    return centerService.isTextType(contentType);
+
   }
 
   /**
@@ -418,7 +423,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _isCommentType(contentType) {
-    return contentType === 'comment' || contentType === 'comment_sticker';
+    return centerService.isCommentType(contentType);
   }
   /**
    * comment 메세지에 할당할 comment option 객체를 생성하여 반환한다.
@@ -484,6 +489,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       $scope.msgLoadStatus.loading = true;
       $scope.isPolling = false;
 
+      if (!$scope.isInitialLoadingCompleted) {
+        _hideContents();
+      }
       //log('-- loadMore');
 
       // simulate an ajax request
@@ -709,7 +717,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _showContents() {
-    $('#msgs-holder').addClass('opac-in-fast');
+    if ($scope.isInitialLoadingCompleted) {
+      $('#msgs-holder').addClass('opac-in-fast');
+      $scope.hasLastMessageRendered = true;
+    }
   }
   function _hideContents() {
     $('#msgs-holder').removeClass('opac-in-fast');
@@ -1241,174 +1252,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         alert(err.msg);
       });
   };
-
-
-
-  $scope.onSmallThumbnailClick = function($event, message) {
-
-    //  checking type first.
-    //  file upload but not image -> return
-    if (message.message.contentType === 'file') {
-      if (message.message.content.filterType.indexOf('image') < 0) {
-        return;
-      }
-    }
-
-    // comment but not to image file -> return
-    if (_isCommentType(message.message.contentType)){
-      return;
-    }
-
-    // Image is long but not wide. There may be a white space on each side of an image.
-    // When user clicks on white(blank) space of image, it will do nothing and return.
-    if (angular.isDefined(angular.element($event.target).children('#large-thumbnail-' + message.id).attr('id'))) {
-      return;
-    }
-
-    // checking where event came from.
-    var targetDom;                                      //  Will be small image thumbnail dom element.
-    var tempTarget = angular.element($event.target);    //  dom element that just sent an event.
-
-    var tempTargetClass = tempTarget.attr('class');
-
-    if (tempTargetClass.indexOf('msg-file-body__img') > -1) {
-      //  Small thumbnail of file type clicked.
-      targetDom = tempTarget;
-    }
-    else if (tempTargetClass.indexOf('msg-file-body-float') > -1 ) {
-      //  Small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
-      //  Its parent is sending an event because of opac overlay layer on top of small thumbnail.
-      targetDom = tempTarget.children('.msg-file-body__img');
-    }
-    else if (tempTargetClass.indexOf('image_wrapper') > -1) {
-      targetDom = tempTarget.children('.msg-file-body__img');
-    }
-    else if (tempTargetClass.indexOf('fa-comment') > -1) {
-      //  Comment image clicked on small image thumbnail.
-      targetDom = tempTarget.siblings('.image_wrapper').children('.msg-file-body__img');
-    }
-    else {
-      return;
-    }
-
-    //if (angular.isUndefined(targetDom)) {
-    //    return;
-    //}
-
-    var newThumbnail;   // large thumbnail address
-    var fullUrl;        // it could be file, too.
-
-    if (_isCommentType(message.message.contentType)) {
-      newThumbnail = $scope.server_uploaded + (message.feedback.content.extraInfo ? message.feedback.content.extraInfo.largeThumbnailUrl : '');
-      fullUrl = $scope.server_uploaded + message.feedback.content.fileUrl;
-    }
-    else {
-      newThumbnail = $scope.server_uploaded + (message.message.content.extraInfo ? message.message.content.extraInfo.largeThumbnailUrl : '');
-      fullUrl = $scope.server_uploaded + message.message.content.fileUrl;
-    }
-
-    //  new DOM element for full screen image toggler.
-    // TODO: CONTROLLER IS NOT SUPPOSED TO MANIPULATE DOM ELEMENTS. FIND BETTER WAY TO ADD DOM ELEMENT!!!!!
-    var fullScreenToggler = angular.element('<div class="large-thumbnail-full-screen"><i class="fa fa-arrows-alt"></i></i></div>');
-
-    //  bind click event handler to full screen toggler.
-    fullScreenToggler.bind('click', function() {
-      modalHelper.openFullScreenImageModal($scope, fullUrl);
-
-      //  opening full image modal used in file controller.
-      //  passing photo url of image that needs to be displayed in full screen.
-      //$modal.open({
-      //  scope       :   $scope,
-      //  controller  :   'fullImageCtrl',
-      //  templateUrl :   'app/modal/fullimage.html',
-      //  windowClass :   'modal-full',
-      //  resolve     :   {
-      //    photoUrl    : function() {
-      //      return fullUrl;
-      //    }
-      //  }
-      //});
-    });
-
-    // get transform information from original image.
-    // if image was rotated according to its orientation from exif data, there must be transform value.
-    //
-    // issue : JND-974, by ysyun 2015.2.25
-    //   - if click fa-comment icon, must not working (cause occured error)
-    //   - change id="large-thumbnail" to id="large-thumbnail-' + message.id + '"
-    var transform = getTransformValue(targetDom[0] ? targetDom[0].style: undefined);
-    //  new DOM element for large thumbnail image.
-    var mirrorDom = angular.element('<img id="large-thumbnail-' + message.id + '" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
-
-    // copy and paste of old 'transform' css property from small to large thumbnail.
-    mirrorDom[0].setAttribute('style', transform);
-
-    //  bind click event handler to large thumbnail image.
-    mirrorDom.bind('click', function() {
-      // opening full screen image modal.
-      onLargeThumbnailClick(fullScreenToggler, mirrorDom, targetDom);
-    });
-
-    //  hide small thumbnail image.
-    targetDom.css('display', 'none');
-
-    //  append new dom elements to parent of small thumbnail(original dom).
-    var parent = targetDom.parent().parent();
-
-    // issue : JND-974, by ysyun 2015.2.25
-    //   - change id="large-thumbnail" to id="large-thumbnail-' + message.id + '"
-    if (angular.isDefined(parent.children('#large-thumbnail-' + message.id).attr('id'))) {
-      //  preventing adding multiple large thumbnail dom element to parent.
-      //  if parent already has a child whose id is 'large-thumbnail' which is 'mirrorDom', don't append it and just return.
-      return;
-    }
-
-    parent.append(mirrorDom);
-    parent.append(fullScreenToggler);
-
-    //  change parent's css properties.
-    parent.addClass('large-thumbnail-parent').removeClass('pull-left');
-    parent.parent().addClass('large-thumbnail-grand-parent');
-  };
-
-  // get all style attributes of targetDom
-  // and pick correct 'transform' attribute.
-  // and return exact same property.
-  function getTransformValue(targetDomStyle) {
-
-    if(!targetDomStyle) { return ''; }
-
-    var transform;
-
-    if (targetDomStyle.getPropertyValue('-webkit-transform')) {
-      // webkit
-      transform = '-webkit-transform:' + targetDomStyle.getPropertyValue('-webkit-transform');
-    }
-    else if (targetDomStyle.getPropertyValue('-moz-transform')) {
-      // firefox
-      transform = '-moz-transform:' + targetDomStyle.getPropertyValue('-moz-transform');
-    }
-    else if (targetDomStyle.getPropertyValue('-o-transform')) {
-      // safari
-      transform = '-o-transform:' + targetDomStyle.getPropertyValue('-o-transform');
-    }
-    else {
-      // ie
-      transform = '-ms-transform:' + targetDomStyle.getPropertyValue('-ms-transform');
-    }
-
-    return transform;
-  }
-
-  //  when large thumbnail image is clicked, delete large thumbnail and show original(small thumbnail image).
-  function onLargeThumbnailClick(fullScreenToggler, mirrorDom, originalDom) {
-    originalDom.css('display', 'block');
-    mirrorDom.parent().removeClass('large-thumbnail-parent').addClass('pull-left');
-    mirrorDom.parent().parent().removeClass('large-thumbnail-grand-parent');
-    mirrorDom.remove();
-    fullScreenToggler.remove();
-  }
-
 
   //  right controller is listening to 'updateFileWriterId'.
   $scope.onFileListClick = function(userId) {

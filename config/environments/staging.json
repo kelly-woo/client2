@@ -1,5 +1,6 @@
 {
   "name"                   : "staging",
+  "path"                   : "app/",
   "api_address"            : "../",
   "socket_address"         : "https://ws.jandi.com/",
   "api_version"            : 2,
