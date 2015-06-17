@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('text', text);
 
-  function text(ContentAttacher) {
+  function text() {
     return {
       restrict: 'E',
       scope: false,
