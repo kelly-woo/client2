@@ -54,14 +54,20 @@ app.controller('leftPanelController1', function(
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
   } else {
     response = leftPanel.data;
+    _checkNotificationBanner();
   }
+
+  function _checkNotificationBanner() {
+    publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
+  }
+  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
 
   _attachExtraEvents();
 
   $scope.$on('updateBadgePosition', updateUnreadPosition);
-  
+
   $scope.$on('$destroy', _onDestroy);
-  
+
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);

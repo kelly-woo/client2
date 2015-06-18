@@ -4,17 +4,15 @@
  *         4/9/2015 JiHoon
  *
  */
-
-
 (function() {
   angular
     .module('jandiApp')
     .factory('publicService', publicService);
 
   /* @ngInject */
-  function publicService($rootScope, $modal, accountService, storageAPIservice, jndWebSocket,
+  function publicService($rootScope, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, pcAppHelper, modalHelper) {
+                         entityAPIservice, pcAppHelper) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -166,18 +164,21 @@
      * @param isBannerUp
      */
     function adjustBodyWrapperHeight(isBannerUp) {
-      var jqBody = $('.body');
+      var bodyWrapperHeight;
+
       var jqBodyWrapper = $('.body-wrapper');
+      var jqBody = $('.body');
 
       var BANNER_HEIGHT = 40;
       var HEADER_HEIGHT = 40;
 
       var heightOffset = isBannerUp ? BANNER_HEIGHT : 0;
 
-      jqBodyWrapper.height($(window).height() - heightOffset);
-      jqBody.height($(window).height() - heightOffset - HEADER_HEIGHT);
-    }
+      bodyWrapperHeight = $(window).height() - heightOffset;
 
+      jqBodyWrapper.height(bodyWrapperHeight);
+      jqBody.height(bodyWrapperHeight - HEADER_HEIGHT);
+    }
 
     function hideTransitionLoading() {
       $rootScope.isReady = true;
