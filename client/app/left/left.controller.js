@@ -4,8 +4,9 @@ var app = angular.module('jandiApp');
 
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-  entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge, NetInterceptor) {
+  entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, 
+  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, 
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
 
   /**
    * @namespace
@@ -99,19 +100,19 @@ app.controller('leftPanelController1', function(
       var offsetTop = jqContainer.offset().top;
       var currentBottom = scrollTop + offsetTop + jqContainer.height();
       var top = _getPosUnreadBelow();
-      var isLast = $scope.unread.below.length === 1;
+      // 한번에 마지막 뱃지로 내려가도록 정책 변경
+      //var isLast = $scope.unread.below.length === 1;
+      var isLast = true;
 
       // 아래 여백
       var space = 9;
 
       var targetScrollTop = scrollTop + (top - currentBottom);
 
-      if ($scope.unread.below.length > 1) {
-        targetScrollTop += jqTarget.outerHeight() + space;
-      }
-
       if (isLast) {
         $scope.unread.below = [];
+      } else {
+        targetScrollTop += jqTarget.outerHeight() + space;
       }
 
       _isBadgeMoveLocked = true;
@@ -474,8 +475,6 @@ app.controller('leftPanelController1', function(
     if ($state.params.entityId)
       _setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
 
-    $rootScope.isReady = true;
-
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
@@ -611,7 +610,7 @@ app.controller('leftPanelController1', function(
   function onTopicClicked(topicEntity) {
     var entityType = topicEntity.type;
     var entityId = topicEntity.id;
-    
+
     if (NetInterceptor.isConnected()) {
       topicEntity.alarmCnt = '';
 

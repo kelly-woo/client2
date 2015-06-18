@@ -4,9 +4,9 @@
   <div class="header-navbar cursor_pointer">
 
     <!-- TEAM -->
-    <div class="header-navbar-menu" id="team-menu">
+    <div class="header-navbar-menu" id="team-menu" dropdown>
 
-      <span class="header-navbar__topmenu" data-toggle="dropdown">
+      <span class="header-navbar__topmenu" dropdown-toggle>
         <i class="fa fa-bars"></i>
         <span class="header-navbar__title" translate>@common-team</span>
       </span>
@@ -19,6 +19,16 @@
             <span translate>@team-members</span>
           </a>
         </li>
+
+        <!-- 노티피케이션 -->
+        <li class="" role="presentation">
+          <a data-ng-click="openModal('setting-notifications');" role="menuitem" tabindex="-1">
+            <i class="fa fa-bell"></i>
+            <span translate>@web-notification</span>
+          </a>
+        </li>
+
+        <li class="divider"></li>
 
         <!-- 팀 변경 -->
         <li role="presentation">
@@ -45,13 +55,13 @@
     <div class="header-navbar-menu invite-navbar-menu" id="invite">
       <span class="header-navbar__topmenu" data-ng-click="openModal('invite');">
         <i class="icon-invite-fill header-navbar__menu-icon"></i>
-        <span translate>@btn-invite</span>
+        <span class="header-navbar__title" translate>@btn-invite</span>
       </span>
     </div>  <!--  END OF MENU -->
 
     <!-- LANGUAGE -->
-    <div class="header-navbar-menu language-navbar-menu" id="language">
-      <span class="header-navbar__topmenu" data-toggle="dropdown">
+    <div class="header-navbar-menu language-navbar-menu" dropdown id="language">
+      <span class="header-navbar__topmenu" dropdown-toggle>
         <i class="icon-language header-navbar__menu-icon"></i>
         <i class="fa fa-caret-down"></i>
       </span>
@@ -68,8 +78,9 @@
     </div>  <!--  END OF MENU -->
 
     <!-- Help -->
-    <div class="header-navbar-settings">
-      <span class="header-navbar__topmenu" data-toggle="dropdown">
+    <div class="header-navbar-settings" dropdown>
+
+      <span class="header-navbar__topmenu" dropdown-toggle>
         <i class="fa fa-question-circle"></i>
         <i class="fa fa-caret-down"></i>
       </span>

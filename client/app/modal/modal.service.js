@@ -40,6 +40,8 @@
 
     that.openFullScreenImageModal = openFullScreenImageModal;
 
+    that.openNotificationSettingModal = openNotificationSettingModal;
+
     that.openPasswordResetRequestModal = openPasswordResetRequestModal;
 
     that.openAgreementModal = openAgreementModal;
@@ -274,6 +276,17 @@
             return fileUrl;
           }
         }
+      };
+
+      modal = _modalOpener(modalOption);
+    }
+
+    function openNotificationSettingModal($scope) {
+      var modalOption = {
+        scope: $scope,
+        controller: 'NotificationCtrl',
+        templateUrl: 'app/modal/settings/notification/setting.notification.html',
+        backdrop: 'static'
       };
 
       modal = _modalOpener(modalOption);

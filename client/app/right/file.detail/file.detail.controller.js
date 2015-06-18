@@ -76,10 +76,14 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       _focusInput();
     });
 
-    $scope.$on('onChangeShared', function () {
-      // 파일리스트 뷰를 보고 있는 경우엔 업데이트 무시
-      if (fileId) {
-        getFileDetail();
+    $scope.$on('onChangeShared', function(event, data) {
+      if (_isFileDetailActive()) {
+        if ($scope.file_detail.shareEntities.length === 1 && data && data.type === 'delete' && $scope.file_detail.shareEntities[0] === data.id) {
+          // 공유된 곳이 한곳이고 delete event
+          $scope.hasTopic = false;
+        } else {
+          getFileDetail();
+        }
       }
     });
 
@@ -125,12 +129,12 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.isPostingComment = true;
 
       fileAPIservice.postComment(fileId, content, _sticker)
-        .success(function (response) {
+        .success(function(response) {
           $scope.glued = true;
           $scope.comment.content = "";
           $scope.focusPostComment = true;
         })
-        .error(function (err) {
+        .error(function(err) {
         })
         .finally(function () {
           $scope.isPostingComment = false;
@@ -147,13 +151,13 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (isSticker) {
       fileAPIservice.deleteSticker(commentId)
         .success(_onSuccessDelete)
-        .error(function (err) {
+        .error(function(err) {
           _onErrorDelete(err, 'fileAPIservice.deleteSticker');
         });
     } else {
       fileAPIservice.deleteComment(fileId, commentId)
         .success(_onSuccessDelete)
-        .error(function (err) {
+        .error(function(err) {
           _onErrorDelete(err, 'fileAPIservice.deleteComment');
         });
     }
@@ -260,7 +264,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function onClickUnshare(message, entity) {
     fileAPIservice.unShareEntity(message.id, entity.id)
-      .success(function () {
+      .success(function() {
         // analytics
         var share_target = "";
         switch (entity.type) {
@@ -285,11 +289,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           "mime type": message.content.type,
           "size": message.content.size
         };
-        analyticsService.mixpanelTrack("File Unshare", share_data);
-
-        fileAPIservice.broadcastChangeShared(message.id);
+        analyticsService.mixpanelTrack( "File Unshare", share_data );
       })
-      .error(function (err) {
+      .error(function(err) {
         alert(err.msg);
       });
   }
@@ -298,25 +300,29 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * shared entity 클릭시 이벤트 핸들러
    * @param {string} entityId
    */
-  function onClickSharedEntity(entityId) {
-    var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
+  function onClickSharedEntity(entityId, entityType) {
+    if (entityType === 'users') {
+      $state.go('archives', {entityType: entityType, entityId: entityId});
+    } else {
+      var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
 
-    // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
-    if (angular.isDefined(targetEntity)) {
-      $state.go('archives', {entityType: targetEntity.type, entityId: targetEntity.id});
-    }
-    else {
-      // Undefined targetEntity means it's an entity that I'm joined.
-      // Join topic first and go!
-      entityheaderAPIservice.joinChannel(entityId)
-        .success(function (response) {
-          analyticsService.mixpanelTrack("topic Join");
-          $rootScope.$emit('updateLeftPanelCaller');
-          $state.go('archives', {entityType: 'channels', entityId: entityId});
-        })
-        .error(function (err) {
-          alert(err.msg);
-        });
+      // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
+      if (angular.isDefined(targetEntity)) {
+        $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
+      }
+      else {
+        // Undefined targetEntity means it's an entity that I'm joined.
+        // Join topic first and go!
+        entityheaderAPIservice.joinChannel(entityId)
+          .success(function(response) {
+            analyticsService.mixpanelTrack( "topic Join" );
+            $rootScope.$emit('updateLeftPanelCaller');
+            $state.go('archives', {entityType: 'channels',  entityId: entityId });
+          })
+          .error(function(err) {
+            alert(err.msg);
+          });
+      }
     }
   }
 
@@ -330,11 +336,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     }
 
     fileAPIservice.deleteFile(fileId)
-      .success(function (response) {
+      .success(function(response) {
         getFileDetail();
         $rootScope.$broadcast('onFileDeleted', fileId);
       })
-      .error(function (err) {
+      .error(function(err) {
         console.log(err);
       });
   }
@@ -464,6 +470,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (item.contentType === 'file') {
       // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
       $scope.file_detail = item;
+
+      $scope.hasTopic = !!$scope.file_detail.shareEntities.length;
+
       $scope.file_detail.shared = fileAPIservice.getSharedEntities(item);
       $scope.isFileArchived = _isFileArchived($scope.file_detail);
     } else if (!_isFileArchived(item)) {
@@ -509,12 +518,13 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   }
 
   /**
-   * ?? 잘 모르겠음
-   * @returns {boolean}
+   * 현재 file detail tab 을 보고있는지 안 보고있는지 알려준다.
+   * @returns {boolean} true - file deatil tab 을 보고 있을 경우
    * @private
    */
   function _isFileDetailActive() {
-    return !!fileId;
+    // file detail을 보고 있지 않는 경우에는 무시
+    return fileId && $state.params.itemId != null && $state.params.itemId !== '';
   }
 
   /**

@@ -7,7 +7,7 @@
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
 
   <!-- FILE -->
-  <div class="rpanel-body-content file-detail" ng-show="!isFileArchived && !hasFileAPIError">
+  <div class="rpanel-body-content file-detail" file-detail ng-show="!isFileArchived && !hasFileAPIError">
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 
       <div class="file-detail-header">
@@ -28,10 +28,9 @@
       </div>
 
       <div class="file-detail-body">
-        <div class="image_wrapper" ng-click="onImageClick();" image-rotator="" image-src="{{ImageUrl}}" on-image-load="onFileDetailImageLoad();">
+        <div class="image_wrapper" ng-click="onImageClick();" file-detail-preview=""
+             image-loader="{{ImageUrl}}" on-image-load="onFileDetailImageLoad();" image-fit-to-width="true">
           <div class="loading_bar icon-loading" ng-if="isLoadingImage"></div>
-
-          <!--<img class="file-detail-body__image" rotate rotate-left-align="false" >-->
         </div>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
@@ -46,11 +45,11 @@
             </div>
 
             <div class="file-detail-body__meta-info-down">
-              <span data-ng-if="file_detail.shared.length">
+              <span ng-if="hasTopic">
                 <span translate>@common-shared-in</span>
                 <span ng-repeat="sharedEntity in filteredSharedFile = (file_detail.shared) track by $index">
                   <span data-ng-hide="($index === 0)">, </span>
-                  <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                  <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id, sharedEntity.type)">
                     {{ sharedEntity.prefix }}{{ sharedEntity.name }}
                   </span>
                   <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(file_detail, sharedEntity)">
@@ -61,14 +60,17 @@
                   <!--<span ng-show="filteredSharedFile.length != 0"> and </span>with users.-->
                 </span>
               </span>
-              <span ng-hide="file_detail.shareEntities.length != 0">
+              <span ng-if="!hasTopic">
                 <span translate>@alert-empty-file-shared</span>
               </span>
             </div>
           </div>
 
-          <div class="file-item-meta__action dropdown">
-            <i class="icon-more file_actions dropdown-toggle cursor_pointer" tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
+          <div class="file-item-meta__action" dropdown>
+
+            <i class="icon-more file_actions cursor_pointer" dropdown-toggle
+               tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
+
             <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
               <li class="cursor_pointer">
                 <a data-ng-click="onClickShare(file_detail);">
@@ -110,8 +112,8 @@
           <div class="comment-item-header">
             <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
             <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
-            <span class="comment-item-header__action dropdown pull-right" data-ng-if="( member.id === comment.writer.id )">
-              <a href="#" class="link-dark dropdown-toggle">
+            <div class="comment-item-header__action pull-right" dropdown data-ng-if="( member.id === comment.writer.id )">
+              <a href="#" class="link-dark" dropdown-toggle>
                 <i class="fa fa-cog"></i>
               </a>
               <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
@@ -122,7 +124,7 @@
                   </a>
                 </li>
               </ul>
-            </span>
+            </div>
           </div>
           <div class="comment-item-body">
             <img class="sticker size_5" ng-if="comment.isSticker" src="{{ comment.content.url }}"/>
@@ -221,8 +223,8 @@
           <div class="comment-item-header">
             <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
             <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
-            <span class="comment-item-header__action dropdown pull-right" data-ng-if="( member.id === comment.writer.id )">
-              <a href="#" class="link-dark dropdown-toggle">
+            <div class="comment-item-header__action pull-right" dropdown data-ng-if="( member.id === comment.writer.id )">
+              <a href="#" class="link-dark" dropdown-toggle>
                 <i class="fa fa-cog"></i>
               </a>
               <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
@@ -233,7 +235,7 @@
                   </a>
                 </li>
               </ul>
-            </span>
+            </div>
           </div>
           <div class="comment-item-body">
             <img class="sticker size_5" ng-if="comment.isSticker" src="{{ comment.content.url }}"/>

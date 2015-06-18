@@ -1,0 +1,36 @@
+<div class="desktop-notification-setting-banner jnd-text-center banner"
+      ng-class="{'initial-question': isInitialQuestion}">
+
+  <div class="banner-text">
+
+    <img class="exclamation-in-triangle" src="assets/images/icon-disabled-members-alert.png"/>
+
+    <span ng-if="isInitialQuestion">
+      <span translate>@never-miss-a-message</span>
+      <span class="jnd-text-underline cursor_pointer" ng-click="turnOnDesktopNotification()" translate>@noti-banner-turn-on</span>
+    </span>
+
+    <span ng-if="!isInitialQuestion">
+      <span translate>
+        @miss-out-important-msg
+      </span>
+
+      <span class="cursor_pointer jnd-text-underline second-question" ng-click="turnOnDesktopNotification();" translate>
+        @turn-on-desktop-notification!
+      </span>
+      <span class="in-the-middle cursor_pointer jnd-text-underline second-question" ng-click="askMeLater();" translate>
+        @ask-me-later
+      </span>
+      <span class="cursor_pointer jnd-text-underline second-question" ng-click="neverAskMe();" translate>
+        @never-ask-me
+      </span>
+
+    </span>
+  </div>
+
+  <!-- x 아이콘 -->
+  <div class="banner-cancel-icon pull-right cursor_pointer" ng-click="onCancelIconClick();">
+    <i class="icon-cancel"></i>
+  </div>
+
+</div>

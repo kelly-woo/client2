@@ -7,28 +7,45 @@
 
   angular
     .module('jandiApp')
-    .directive('fileDetailPreview', fileDetailPreview);
+    .directive('fileDetail', fileDetailPreview);
 
   /* @ngInject */
-  function fileDetailPreview($rootScope, $timeout) {
+  function fileDetailPreview($rootScope, $interval) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope, jqEle) {
+      var focusTimer;
+      var imageWrapper;
+
       if ($rootScope.setFileDetailCommentFocus) {
         $rootScope.setFileDetailCommentFocus = false;
-        $timeout(function() {
+
+        // #file-detail-comment-input 이 보여진 다음 focus 이동 됨
+        focusTimer = $interval(function() {
+          var jqEle = $('#file-detail-comment-input');
+          var displays = [];
+
           scope.onCommentFocusClick();
-        });
+
+          jqEle.parents().each(function(index, ele) {
+            displays.push($(ele).css('display'));
+          });
+
+          if (document.activeElement === jqEle[0] && displays.indexOf('none') < 0) {
+            $interval.cancel(focusTimer);
+          }
+        }, 100);
       }
 
+      imageWrapper = jqEle.find('.image_wrapper');
       if (scope.ImageUrl) {
-        jqEle = jqEle.show().children('img').attr({ src: scope.ImageUrl });
+        jqEle = imageWrapper.show().children('img').attr({ src: scope.ImageUrl });
         scope.cursor && jqEle.css({ cursor: scope.cursor });
       } else {
-        jqEle.hide();
+        imageWrapper.hide();
       }
     }
   }

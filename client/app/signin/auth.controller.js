@@ -17,6 +17,8 @@
     };
 
     (function(){
+      publicService.hideTransitionLoading();
+
       // Handling users with token info in localstorage.
       // Move token info from 'local Storage' -> to 'Cookie'
       if (storageAPIservice.hasAccessTokenLocal()) {
@@ -99,7 +101,7 @@
 
           setStatics();
 
-          $state.go('messages.home');
+          _goToMessageHome();
 
           pcAppOnSignedIn();
 
@@ -183,8 +185,7 @@
               memberService.setMember(response);
 
               setStatics();
-
-              $state.go('messages.home');
+              _goToMessageHome();
             })
             .error(function(err) {
               //console.log(err)
@@ -233,5 +234,11 @@
     function pcAppOnSignedIn() {
       pcAppHelper.onSignedIn();
     }
+
+    function _goToMessageHome() {
+      publicService.showTransitionLoading();
+      $state.go('messages.home');
+    }
+
   }
 })();

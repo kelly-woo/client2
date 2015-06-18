@@ -22,6 +22,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.getShareOptions = getShareOptions;
   this.removeSharedEntities = removeSharedEntities;
   this.getSharedEntities = getSharedEntities;
+  this.updateShared = updateShared;
 
   this.broadcastFileShare = broadcastFileShare;
   this.isFileTooLarge = isFileTooLarge;
@@ -32,11 +33,8 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.dataURItoBlob = dataURItoBlob;
   this.openFileShareModal = openFileShareModal;
 
-  //fixme: deprecated. remove this.
   this.broadcastChangeShared = broadcastChangeShared;
-  //fixme: deprecated. remove this.
   this.broadcastCommentFocus = broadcastCommentFocus;
-
 
   function upload(files, fileInfo, supportHTML, uploadType) {
     var url,
@@ -273,6 +271,13 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     return sharedEntityArray;
   }
 
+  function updateShared(message) {
+    return getSharedEntities(message, function(sharedEntityId) {
+      return entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId) ||
+        entityAPIservice.getEntityFromListByEntityId($rootScope.memberList, sharedEntityId);
+    });
+  }
+
   function openFileShareModal($scope, file) {
     modalHelper.openFileShareModal($scope, file);
   }
@@ -354,15 +359,13 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     return new Blob([ab],{type: 'image/png'});
   }
 
-  //fixme: deprecated. remove this.
   // Broadcast shareEntities change event to centerpanel, rightpanel, detailpanel
-  function broadcastChangeShared(id) {
-    //var ret = (id) ? {messageId: id} : null;
-    //$rootScope.$broadcast('onChangeShared', ret);
+  function broadcastChangeShared(data) {
+    $rootScope.$broadcast('onChangeShared', data);
   }
 
-  //fixme: deprecated. remove this.
+  // right panel 안에 file detail의 comment input element에 focus가 가도록 broadcast
   function broadcastCommentFocus() {
-    //$rootScope.$broadcast('setCommentFocus');
+    $rootScope.$broadcast('setCommentFocus');
   }
 });

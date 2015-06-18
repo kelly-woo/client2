@@ -14,6 +14,7 @@
   function logger(config) {
     this.log = log;
     this.socketEventLogger = socketEventLogger;
+    this.desktopNotificationSettingLogger = desktopNotificationSettingLogger;
 
     /**
      * Print msg in console in browser.
@@ -43,12 +44,30 @@
      */
     function socketEventLogger(event, data, isEmitting) {
       if (_isTestingMode()) {
-        console.log("")
-        console.log("======================", isEmitting ? 'EMIT' : 'RECEIVE', "======================  ")
+        console.log("");
+        console.log("======================", isEmitting ? 'EMIT' : 'RECEIVE', "======================  ");
         console.log('event name: ', event);
         console.log('event data: ', data);
         console.log("")
       }
+    }
+
+    function desktopNotificationSettingLogger(isNotificationSupported, notificationPermission, isNotificationOnLocally,shouldSendNotification, isShowNotificationContent) {
+      if (_isTestingMode()) {
+        console.log("");
+        console.log("============  desktop notification setting  ========================");
+        console.log('is notification supported? ', _answerYesOrNoQuestion(isNotificationSupported));
+        console.log("permission: ", notificationPermission);
+        console.log("is browser local notification on? ", _answerYesOrNoQuestion(isNotificationOnLocally));
+        console.log("so Should I send notification? ", _answerYesOrNoQuestion(shouldSendNotification));
+        console.log("show content? ", _answerYesOrNoQuestion(isShowNotificationContent));
+        console.log('');
+      }
+    }
+
+    function _answerYesOrNoQuestion(question) {
+      return question ? 'YES' : 'NO';
+
 
     }
 

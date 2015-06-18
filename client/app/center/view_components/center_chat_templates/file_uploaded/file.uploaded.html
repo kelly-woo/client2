@@ -27,13 +27,18 @@
   <div class="msg-file" ng-cloak>
 
     <!--  FILE PREVIEW IMAGE  -->
-    <div class="msg-file-body-float pull-left" data-ng-click="onSmallThumbnailClick($event, msg);">
+    <div class="msg-file-body-float pull-left preview-container">
       <!--  FILE NOT ARCHIVED -->
-      <div ng-if="msg.message.status != 'archived'">
+      <div ng-if="msg.message.status != 'archived'" >
         <!--    IMAGE THUMBNAIL -->
-        <div class="image_wrapper">
-          <img class="msg-file-body__img cursor_pointer" rotate rotate-left-align="true"
-               ng-if="(msg.message.content | hasPreview)" ng-src="{{ server_uploaded+msg.message.content.extraInfo.smallThumbnailUrl }}" />
+        <div ng-if="(msg.message.content | hasPreview)">
+
+          <div class="image_wrapper msg-file-body__img__background jnd-text-center">
+            <div class="opac-zero msg-file-body__img cursor_pointer" id="{{msg.id}}-image-preview-small"
+                 image-loader="{{imageUrlToBeLoaded}}" image-max-height="65" image-max-width="65" image-is-square="true"
+                 ng-click="onSmallThumbnailClick();">
+            </div>
+          </div>
         </div>
 
         <div class="ie9-image-rotator cursor_pointer" ng-if="(msg.message.content | hasPreview) &&  isIE9" ng-click="onImageRotatorClick($event);">
@@ -102,7 +107,7 @@
                   <span data-ng-if="msg.message.shared.length">
                     <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared) track by $index">
                       <span data-ng-hide="($index === 0)">, </span>
-                      <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id)">
+                      <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id, sharedEntity.type)">
                         {{ sharedEntity.prefix }}{{ sharedEntity.name }}
                       </span>
                       <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
