@@ -7,7 +7,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
-                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner, ContentAttacher) {
+                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
@@ -356,7 +356,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hasLinkPreview(index, messages) {
-    return !!(messages[index] && !$.isEmptyObject(messages[index].message.linkPreview));
+    return !!(messages[index] && !_.isEmpty(messages[index].message.linkPreview));
   }
 
   /**
@@ -594,6 +594,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
+   * 초기 load 되었는지 여부
+   */
+  function _isInitialLoad() {
+    return loadedFirstMessagedId < 0;
+  }
+
+  /**
    * 메세지를 포멧팅 한다.
    * @param {object} msg 메세지
    * @rivate
@@ -673,6 +680,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       return;
     }
 
+    if (_isInitialLoad()) {
+      _scrollToBottom();
+      return;
+    }
+
     if (_isLoadingNewMessages()) {
       //log('-- updateScroll: load new message')
 
@@ -708,7 +720,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $timeout.cancel(scrollToBottomTimer);
     scrollToBottomTimer = $timeout(function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
-    }, 200);
+    }, 10);
     $timeout.cancel(showContentTimer);
     showContentTimer = $timeout(function() {
       _showContents();
@@ -786,6 +798,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _hasMessageIdToSearch() {
     return messageSearchHelper.hasMessageToSearch();
   }
+
+  /**
+   * message serach를 통하여 center가 rendering 되었는지 여부
+   */
+  function _hasMessageSearch() {
+    return $scope.msgSearchQuery && $scope.msgSearchQuery.linkId != null;
+  }
+
   function _setSearchMode() {
     $scope.isMessageSearchJumping = true;
   }
@@ -1820,13 +1840,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * center의 div.msgs-group의 ng-repeat 수행완료 event handling
-   */
-  $scope.$on('onRepeatEnd', function() {
-    _scrollToBottom();
-  });
-
-  /**
    * 입력된 text가 preview(social snippets)를 제공하는 경우 center controller에서의 handling
    *
    * 'attachMessagePreview' event에서 content가 attach되는 message의 식별자를 전달 받아
@@ -1836,13 +1849,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     messageAPIservice
       .getMessage(memberService.getTeamId(), data.message.id)
       .success(function(message) {
-        ContentAttacher.init($('div[data-message-id=' + message.id + ']').children('text')).attach(function($scope) {
-          $scope.msg = {
-            message: message
-          };
-        });
+        var msg;
+        var i;
+        for (i = $scope.messages.length - 1; i > -1; --i) {
+          msg = $scope.messages[i];
+          if (msg.messageId === message.id) {
+            msg.message.hasLinkPreview = true;
 
-        if (_isMessageFromMe(message)) {
+            msg.message.linkPreview = message.linkPreview;
+            break;
+          }
+        }
+
+        if (_isMessageFromMe(message) && _isBottomReached()) {
           _scrollToBottom();
         }
       })

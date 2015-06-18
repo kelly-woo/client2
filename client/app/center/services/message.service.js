@@ -21,10 +21,14 @@
 
     var server_address = configuration.server_address;
 
+    /**
+     * get message item
+     * @param {string} teamId
+     * @param {string} messageId
+     */
     function getMessage(teamId, messageId) {
       return $http({
         method  : 'GET',
-        // url     : 'http://i1.jandi.io:4000/inner-api/' + 'teams/' + teamId + '/messages/' + messageId
         url     : server_address + 'teams/' + teamId + '/messages/' + messageId
       });
     }
@@ -37,7 +41,6 @@
 
       return $http({
         method  : 'GET',
-        // url     : 'http://i1.jandi.io:4000/inner-api/' + entityType + '/' + entityId + '/messages',
         url     : server_address + entityType + '/' + entityId + '/messages',
         params  : params
       });
@@ -83,7 +86,6 @@
       entityType = _getParamEntityType(entityType);
       return $http({
         method  : 'POST',
-        // url     : 'http://i1.jandi.io:4000/inner-api/' + entityType + '/' + entityId + '/message',
         url     : server_address + entityType + '/' + entityId + '/message',
         data    : {
           content: message
