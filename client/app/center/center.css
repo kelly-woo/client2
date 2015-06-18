@@ -976,12 +976,26 @@ by ysyun 2015.2.25
 }
 
 .attachment-content-wrapper .social-image {
+  position: relative;
   display: table-cell;
   float: left;
   margin-right: 12px;
+
+  width: 110px;
+  height: 110px;
+
+  border: 1px solid #e1e1e1;
+  background-color: #F1F4F8;
 }
 
 .attachment-content-wrapper img {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
   max-width: 110px;
   max-height: 110px;
   border: 1px solid #e1e1e1;
@@ -989,6 +1003,7 @@ by ysyun 2015.2.25
 
 .attachment-content-wrapper .social-body {
   position: relative;
+  height: 110px;
   display: table-cell;
   color: #333;
 }
@@ -1018,7 +1033,7 @@ by ysyun 2015.2.25
 .social-body .social-domain {
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: -3px;
   left: 0;
   font-size: 12px;
   color: #999;

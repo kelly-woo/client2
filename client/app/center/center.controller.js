@@ -713,7 +713,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _animateBackgroundColor(lastMsg);
       document.getElementById('msgs-container').scrollTop = targetScrollTop;
       _showContents();
-    }, 100);
+    }, 150);
   }
 
   function _scrollToBottom() {
