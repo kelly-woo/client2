@@ -6,19 +6,16 @@
     .service('DeskTopNotificationBanner', DeskTopNotificationBanner);
 
   /* @ngInject */
-  function DeskTopNotificationBanner(DesktopNotification, $document, $compile, jndPubSub, jndMap, $rootScope, publicService) {
+  function DeskTopNotificationBanner(DesktopNotification, $document, $compile, jndPubSub, $rootScope, publicService) {
     var that = this;
 
-    var jndMap = jndMap;
-    var jqBanner;
+    var _jqBanner;
     var bannerScope;
 
-    var isBannerUp = false;
-    var bannerHeight = 40;
+    var _isBannerUp = false;
 
     that.isNotificationBannerUp = isNotificationBannerUp;
 
-    that.checkNotificationBanner = checkNotificationBanner;
     that.shouldHideNotificationBanner = shouldHideNotificationBanner;
 
     that.showNotificationBanner = showNotificationBanner;
@@ -27,27 +24,17 @@
     that.shouldAskNotificationPermission = shouldAskNotificationPermission;
     that.shouldAskLocalNotification = shouldAskLocalNotification;
 
-    function isNotificationBannerUp() {
-      return isBannerUp;
-    }
+    that.adjustBodyWrapperHeight = adjustBodyWrapperHeight;
 
-    /**
-     * 노티피케이션 배너가 떠있는지 없는지 확인한 후, 패널의 위치를 이동시킨다.
-     * @param {string} panel - 위치 이동 시킬 패널
-     */
-    function checkNotificationBanner(panel) {
-      if (isBannerUp) {
-        //_movePanelDown(panel);
-      } else {
-        //_movePanelUp(panel);
-      }
+    function isNotificationBannerUp() {
+      return _isBannerUp;
     }
 
     /**
      * 노티피케이션 배너를 숨겨야하나? 그렇다면 숨긴다.
      */
     function shouldHideNotificationBanner() {
-      if (isBannerUp && !_isPermissionDefault()) {
+      if (_isBannerUp && !_isPermissionDefault()) {
         hideNotificationBanner();
       }
     }
@@ -73,85 +60,15 @@
      * @private
      */
     function _detachBanner() {
-      isBannerUp = false;
+      _isBannerUp = false;
 
-      jqBanner.remove();
+      _jqBanner.remove();
 
       _adjustBodyWrapperHeight();
+      _addFullScreenClass();
 
       bannerScope.$destroy();
       jndPubSub.pub('onNotificationBannerDisappear');
-    }
-
-    /**
-     * 패널들을 원위치 시킨다.
-     * @param {string} panel - 원위치 시킬 패널 이름.
-     * @private
-     */
-    function _movePanelUp(panel) {
-      var originalTop = jndMap.get(panel);
-
-      if (originalTop >= 0) {
-        var panelClassName = _getPanelClassName(panel);
-        var jqPanelElement = _getPanelElement(panelClassName);
-
-        jndMap.remove(panel);
-
-        jqPanelElement.css('top', originalTop);
-      }
-    }
-
-    /**
-     * 패널의 위치를 아래로 이동시킨다.
-     * @param {string} panel - 아래로 이동시킬 패널.
-     * @private
-     */
-    function _movePanelDown(panel) {
-      var panelClassName = _getPanelClassName(panel);
-      var jqPanelElement = _getPanelElement(panelClassName);
-      var currentTop = parseInt(jqPanelElement.css('top'), 10);
-      if (!jndMap.get(panel)) {
-        // 한 번 내린 패널은 다시 내리지 않기위해
-        jndMap.add(panel, currentTop);
-
-        jqPanelElement.css('top', currentTop + bannerHeight);
-      }
-    }
-
-    /**
-     * 패널의 클래스 이름을 리턴한다.
-     * @param {string} panel - 클래스 이름을 추출할 패널
-     * @returns {*}
-     * @private
-     */
-    function _getPanelClassName(panel) {
-      var panelClassName;
-      switch (panel) {
-        case 'left':
-          panelClassName = '.lpanel';
-          break;
-        case 'center':
-          panelClassName = '.cpanel';
-          break;
-        case 'right':
-          panelClassName = '.rpanel';
-          break;
-        default:
-          panelClassName = '';
-          break;
-      }
-
-      return panelClassName;
-    }
-
-    /**
-     * 해달 클래스의 엘레멘트를 리턴한다.
-     * @param {string} panelClassName - 찰을 엘레멘트의 클래스 이름
-     * @returns {jQueryElement}
-     * @private
-     */
-    function _getPanelElement(panelClassName) {
-      return $document.find(panelClassName).eq(0);
     }
 
     /**
@@ -160,24 +77,25 @@
      */
     function _prependBannerElement(scope) {
       var jqContentWrapper;
-      if (!isBannerUp) {
-        isBannerUp = true;
-        jqBanner = angular.element('<div notification-banner></div>');
+      if (!_isBannerUp) {
+        _isBannerUp = true;
+        _jqBanner = angular.element('<div notification-banner></div>');
         jqContentWrapper = $document.find('body .content-wrapper').eq(0);
         bannerScope = $rootScope.$new(true);
 
-        $compile(jqBanner)(bannerScope);
+        $compile(_jqBanner)(bannerScope);
 
-        jqContentWrapper.prepend(jqBanner);
+        jqContentWrapper.prepend(_jqBanner);
 
         _adjustBodyWrapperHeight();
       }
     }
 
-    function _adjustBodyWrapperHeight() {
-      publicService.adjustBodyWrapperHeight(isBannerUp);
-    }
-
+    /**
+     * Notification.permission 의 값이 default 인지 아닌지 알아본다.
+     * @returns {boolean} isDefault - true, if value is 'default'
+     * @private
+     */
     function _isPermissionDefault() {
       var permission = DesktopNotification.getNotificationPermission();
       return !(permission === 'denied' || permission === 'granted');
@@ -195,13 +113,11 @@
     /**
      * Notification.permission 을 물어봐야 하는 단계인가?
      *   1. Notification.permission 의 값이 'default' 이고
-     *   2. 유져가 배너에서 'ask me later'나 'x'를 눌러서 껐고
      *   3. 유져가 배너에서 'never ask me' 를 누르지 않았을 경우
      * @returns {|boolean}
      */
     function shouldAskNotificationPermission() {
-      return _isPermissionDefault() &&
-        !_hasDeniedPermission() && !_isNeverAskMeFlagUp();
+      return _isPermissionDefault() && !_isNeverAskMeFlagUp();
     }
 
     /**
@@ -218,20 +134,34 @@
     }
 
     /**
-     * 현재 세션에서 'x'를 누르거나 'ask me later' 를 눌렀는가?
-     * @private
-     */
-    function _hasDeniedPermission() {
-      return false;
-    }
-
-    /**
      * 'never ask me' 를 눌렀는가?
      * @returns {boolean}
      * @private
      */
     function _isNeverAskMeFlagUp() {
       return DesktopNotification.isNeverAskFlagUp();
+    }
+
+    /**
+     * 노티피케이션 배너의 유무에 따라 바디의 높이를 조절한다.
+     * @private
+     */
+    function _adjustBodyWrapperHeight() {
+      publicService.adjustBodyWrapperHeight(_isBannerUp);
+    }
+
+    function adjustBodyWrapperHeight() {
+      _adjustBodyWrapperHeight();
+    }
+
+    function _addFullScreenClass() {
+      var jqBodyWrapper = $('.body-wrapper');
+      var jqBody = $('.body');
+
+      jqBodyWrapper.addClass('full-screen');
+      jqBody.addClass('full-screen body-full-screen');
+
+
     }
   }
 })();

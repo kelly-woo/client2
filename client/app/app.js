@@ -149,6 +149,8 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
 
   publicService.getBrowserInfo();
 
+
+
 });
 
 app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider) {

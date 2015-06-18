@@ -32,8 +32,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var hasRetryGetRoomInfo;        // Indicates that whether current entity has failed getting room info once.
 
+  // _scrollToBottom fn timer variable
+  var scrollToBottomTimer;
+  var showContentTimer;
+
   var messages = {};
   var _sticker = null;
+  var _stickerType = 'chat';
+
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $rootScope.isIE9 = false;
 
@@ -55,6 +61,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.message = {};          // Message to post.
   $scope.isMessageSearchJumping = false;
   $scope.isInitialLoadingCompleted = false;
+  $scope.hasLastMessageRendered = false;
 
 
   //viewContent load 시 이벤트 핸들러 바인딩
@@ -65,15 +72,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.$on('connected', _onConnected);
   $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
-  $scope.$on('onChangeSticker:center',function(angularEvent, item) {
+  $scope.$on('onChangeSticker:' + _stickerType, function(angularEvent, item) {
     _sticker = item;
     _setChatInputFocus();
   });
-
-  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
-
-
-
 
   $scope.repostMessage = repostMessage;
   $scope.deleteUnsentMessage = deleteUnsentMessage;
@@ -101,8 +103,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _setDefaultLoadingScreen();
     _initMsgSearchQuery();
     _initLocalVariables();
-    _checkNotificationBanner();
-    modalHelper.closeModal();
   }
 
   /**
@@ -144,15 +144,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * search query 를 생성 시 update count 값을 반환한다.
-   * @returns {number}
-   * @private
-   */
-  function _getUpdateCount() {
-    return _isSearchMode() ? DEFAULT_MESSAGE_SEARCH_COUNT : DEFAULT_MESSAGE_UPDATE_COUNT;
-  }
-
-  /**
    * search query 를 초기화한다.
    * @private
    */
@@ -168,16 +159,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     localFirstMessageId = -1;
     localLastMessageId = -1;
     loadedFirstMessagedId = -1;
-
     systemMessageCount = 0;
-
     _resetUnreadCounters();
 
     _resetNewMsgHelpers();
   }
 
-  function _checkNotificationBanner() {
-    DeskTopNotificationBanner.checkNotificationBanner('center');
+  /**
+   * search query 를 생성 시 update count 값을 반환한다.
+   * @returns {number}
+   * @private
+   */
+  function _getUpdateCount() {
+    return _isSearchMode() ? DEFAULT_MESSAGE_SEARCH_COUNT : DEFAULT_MESSAGE_UPDATE_COUNT;
   }
 
   function _resetLoadMoreCounter() {
@@ -266,6 +260,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loadMore();
   }
 
+
   function _setMsgSearchQueryLinkId(linkId) {
     $scope.msgSearchQuery = {
       linkId: linkId,
@@ -275,7 +270,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _setMsgSearchQueryType(type) {
     $scope.msgSearchQuery.type = type;
   }
-
   /**
    * 메세지를 날짜로 묶는다.
    */
@@ -300,6 +294,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _.each(messages, function(data, index) {
       contentType = _getContentType(index, messages);
       if (_isTextType(contentType)) {
+        data.message.hasLinkPreview = _hasLinkPreview(index, messages);
         data.message.isChildText = _isChildTextMsg(index, messages);
         data.message.hasChildText = _hasChildTextMsg(index, messages);
       } else if (_isCommentType(contentType)) {
@@ -351,6 +346,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     }
     return false;
+  }
+
+  /**
+   * 메세지에 link preview data를 가지고 있는지 여부
+   * @param {number} index - 확인할 대상 메세지 index
+   * @param {array} messages - 전체 메세지 리스트
+   * @returns {boolean}
+   * @private
+   */
+  function _hasLinkPreview(index, messages) {
+    return !!(messages[index] && !_.isEmpty(messages[index].message.linkPreview));
   }
 
   /**
@@ -410,7 +416,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _isTextType(contentType) {
-    return contentType === 'text' || contentType === 'sticker';
+    return centerService.isTextType(contentType);
+
   }
 
   /**
@@ -420,13 +427,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _isCommentType(contentType) {
-    return contentType === 'comment' || contentType === 'comment_sticker';
+    return centerService.isCommentType(contentType);
   }
   /**
    * comment 메세지에 할당할 comment option 객체를 생성하여 반환한다.
    * @param {object} message 메세지
    * @param {object} prevMessage 이전 메세지
-   * @returns @returns {{isSticker: boolean, isChild: boolean, isTitle: boolean, isContinue: boolean}} comment option 객체
+   * @returns {{isSticker: boolean, isChild: boolean, isTitle: boolean, isContinue: boolean}} comment option 객체
    * @private
    */
   function _getCommentOption(message, prevMessage) {
@@ -486,6 +493,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       $scope.msgLoadStatus.loading = true;
       $scope.isPolling = false;
 
+      if (!$scope.isInitialLoadingCompleted) {
+        _hideContents();
+      }
       //log('-- loadMore');
 
       // simulate an ajax request
@@ -584,6 +594,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
+   * 초기 load 되었는지 여부
+   */
+  function _isInitialLoad() {
+    return loadedFirstMessagedId < 0;
+  }
+
+  /**
    * 메세지를 포멧팅 한다.
    * @param {object} msg 메세지
    * @rivate
@@ -621,10 +638,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else {
       $scope.messages.unshift(msg);
     }
-  }
-
-  function _isInitialLoad() {
-    return loadedFirstMessagedId < 0;
   }
 
   /**
@@ -704,10 +717,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _scrollToBottom() {
-    $timeout(function() {
+    $timeout.cancel(scrollToBottomTimer);
+    scrollToBottomTimer = $timeout(function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
     }, 10);
-    $timeout(function() {
+    $timeout.cancel(showContentTimer);
+    showContentTimer = $timeout(function() {
       _showContents();
     }, 100);
   }
@@ -720,7 +735,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _showContents() {
-    $('#msgs-holder').addClass('opac-in-fast');
+    if ($scope.isInitialLoadingCompleted) {
+      $('#msgs-holder').addClass('opac-in-fast');
+      $scope.hasLastMessageRendered = true;
+    }
   }
   function _hideContents() {
     $('#msgs-holder').removeClass('opac-in-fast');
@@ -780,6 +798,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _hasMessageIdToSearch() {
     return messageSearchHelper.hasMessageToSearch();
   }
+
+  /**
+   * message serach를 통하여 center가 rendering 되었는지 여부
+   */
+  function _hasMessageSearch() {
+    return $scope.msgSearchQuery && $scope.msgSearchQuery.linkId != null;
+  }
+
   function _setSearchMode() {
     $scope.isMessageSearchJumping = true;
   }
@@ -903,6 +929,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _updateUserMessage(msg) {
     var isArchived = false;
     switch (msg.status) {
+      // text writed
       case 'created':
         $scope.messages.push(msg);
         break;
@@ -911,13 +938,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           $scope.messages.push(msg);
         }
         break;
+      // text deleted
       case 'archived':
         isArchived = _spliceMessage(msg);
         break;
+      // file shared
       case 'shared':
         msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
         $scope.messages.push(msg);
         break;
+      // file unshared
       case 'unshared':
         if (_spliceMessage(msg)) {
           msg.message.shared = fileAPIservice.getSharedEntities(msg.message);
@@ -1113,10 +1143,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onPostMessageError(content, status, headers, config) {
-    var body = config.data.content;
+    var data = config.data;
     var hasLoading = (status === 0);
+    var hasSticker = !!(data.stickerId && data.groupId);
+    var sticker;
+
+    if (hasSticker) {
+      sticker = {
+        id: data.stickerId,
+        groupId: data.groupId
+      };
+    }
     $scope.isPosting = false;
-    _enqueueUnsentMessage(body, hasLoading);
+
+    _enqueueUnsentMessage(data.content, sticker, hasLoading);
   }
 
   /**
@@ -1139,7 +1179,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hideSticker() {
-    jndPubSub.pub('deselectSticker:center');
+    jndPubSub.pub('deselectSticker:' +_stickerType);
   }
   /**
    * 보내지지 않음 메세지를 삭제한다.
@@ -1170,8 +1210,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * input 박스에서 메세지를 포스팅 한다.
    */
   function postMessage() {
-    var msg = $scope.message.content;
-    _hideSticker();
+    var msg = $.trim($('#message-input').val());
+
     // prevent duplicate request
     if (msg || _sticker) {
       $scope.isPosting = true;
@@ -1186,6 +1226,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     }
     $scope.message.content = "";
+    _hideSticker();
   }
 
 
@@ -1250,174 +1291,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   };
 
-
-
-  $scope.onSmallThumbnailClick = function($event, message) {
-
-    //  checking type first.
-    //  file upload but not image -> return
-    if (message.message.contentType === 'file') {
-      if (message.message.content.filterType.indexOf('image') < 0) {
-        return;
-      }
-    }
-
-    // comment but not to image file -> return
-    if (_isCommentType(message.message.contentType)){
-      return;
-    }
-
-    // Image is long but not wide. There may be a white space on each side of an image.
-    // When user clicks on white(blank) space of image, it will do nothing and return.
-    if (angular.isDefined(angular.element($event.target).children('#large-thumbnail-' + message.id).attr('id'))) {
-      return;
-    }
-
-    // checking where event came from.
-    var targetDom;                                      //  Will be small image thumbnail dom element.
-    var tempTarget = angular.element($event.target);    //  dom element that just sent an event.
-
-    var tempTargetClass = tempTarget.attr('class');
-
-    if (tempTargetClass.indexOf('msg-file-body__img') > -1) {
-      //  Small thumbnail of file type clicked.
-      targetDom = tempTarget;
-    }
-    else if (tempTargetClass.indexOf('msg-file-body-float') > -1 ) {
-      //  Small image thumbnail clicked but its parent(.msg-file-body-float) is sending event.
-      //  Its parent is sending an event because of opac overlay layer on top of small thumbnail.
-      targetDom = tempTarget.children('.msg-file-body__img');
-    }
-    else if (tempTargetClass.indexOf('image_wrapper') > -1) {
-      targetDom = tempTarget.children('.msg-file-body__img');
-    }
-    else if (tempTargetClass.indexOf('fa-comment') > -1) {
-      //  Comment image clicked on small image thumbnail.
-      targetDom = tempTarget.siblings('.image_wrapper').children('.msg-file-body__img');
-    }
-    else {
-      return;
-    }
-
-    //if (angular.isUndefined(targetDom)) {
-    //    return;
-    //}
-
-    var newThumbnail;   // large thumbnail address
-    var fullUrl;        // it could be file, too.
-
-    if (_isCommentType(message.message.contentType)) {
-      newThumbnail = $scope.server_uploaded + (message.feedback.content.extraInfo ? message.feedback.content.extraInfo.largeThumbnailUrl : '');
-      fullUrl = $scope.server_uploaded + message.feedback.content.fileUrl;
-    }
-    else {
-      newThumbnail = $scope.server_uploaded + (message.message.content.extraInfo ? message.message.content.extraInfo.largeThumbnailUrl : '');
-      fullUrl = $scope.server_uploaded + message.message.content.fileUrl;
-    }
-
-    //  new DOM element for full screen image toggler.
-    // TODO: CONTROLLER IS NOT SUPPOSED TO MANIPULATE DOM ELEMENTS. FIND BETTER WAY TO ADD DOM ELEMENT!!!!!
-    var fullScreenToggler = angular.element('<div class="large-thumbnail-full-screen"><i class="fa fa-arrows-alt"></i></i></div>');
-
-    //  bind click event handler to full screen toggler.
-    fullScreenToggler.bind('click', function() {
-      modalHelper.openFullScreenImageModal($scope, fullUrl);
-
-      //  opening full image modal used in file controller.
-      //  passing photo url of image that needs to be displayed in full screen.
-      //$modal.open({
-      //  scope       :   $scope,
-      //  controller  :   'fullImageCtrl',
-      //  templateUrl :   'app/modal/fullimage.html',
-      //  windowClass :   'modal-full',
-      //  resolve     :   {
-      //    photoUrl    : function() {
-      //      return fullUrl;
-      //    }
-      //  }
-      //});
-    });
-
-    // get transform information from original image.
-    // if image was rotated according to its orientation from exif data, there must be transform value.
-    //
-    // issue : JND-974, by ysyun 2015.2.25
-    //   - if click fa-comment icon, must not working (cause occured error)
-    //   - change id="large-thumbnail" to id="large-thumbnail-' + message.id + '"
-    var transform = getTransformValue(targetDom[0] ? targetDom[0].style: undefined);
-    //  new DOM element for large thumbnail image.
-    var mirrorDom = angular.element('<img id="large-thumbnail-' + message.id + '" class="large-thumbnail cursor_pointer image-background" src="'+newThumbnail+'"/>');
-
-    // copy and paste of old 'transform' css property from small to large thumbnail.
-    mirrorDom[0].setAttribute('style', transform);
-
-    //  bind click event handler to large thumbnail image.
-    mirrorDom.bind('click', function() {
-      // opening full screen image modal.
-      onLargeThumbnailClick(fullScreenToggler, mirrorDom, targetDom);
-    });
-
-    //  hide small thumbnail image.
-    targetDom.css('display', 'none');
-
-    //  append new dom elements to parent of small thumbnail(original dom).
-    var parent = targetDom.parent().parent();
-
-    // issue : JND-974, by ysyun 2015.2.25
-    //   - change id="large-thumbnail" to id="large-thumbnail-' + message.id + '"
-    if (angular.isDefined(parent.children('#large-thumbnail-' + message.id).attr('id'))) {
-      //  preventing adding multiple large thumbnail dom element to parent.
-      //  if parent already has a child whose id is 'large-thumbnail' which is 'mirrorDom', don't append it and just return.
-      return;
-    }
-
-    parent.append(mirrorDom);
-    parent.append(fullScreenToggler);
-
-    //  change parent's css properties.
-    parent.addClass('large-thumbnail-parent').removeClass('pull-left');
-    parent.parent().addClass('large-thumbnail-grand-parent');
-  };
-
-  // get all style attributes of targetDom
-  // and pick correct 'transform' attribute.
-  // and return exact same property.
-  function getTransformValue(targetDomStyle) {
-
-    if(!targetDomStyle) { return ''; }
-
-    var transform;
-
-    if (targetDomStyle.getPropertyValue('-webkit-transform')) {
-      // webkit
-      transform = '-webkit-transform:' + targetDomStyle.getPropertyValue('-webkit-transform');
-    }
-    else if (targetDomStyle.getPropertyValue('-moz-transform')) {
-      // firefox
-      transform = '-moz-transform:' + targetDomStyle.getPropertyValue('-moz-transform');
-    }
-    else if (targetDomStyle.getPropertyValue('-o-transform')) {
-      // safari
-      transform = '-o-transform:' + targetDomStyle.getPropertyValue('-o-transform');
-    }
-    else {
-      // ie
-      transform = '-ms-transform:' + targetDomStyle.getPropertyValue('-ms-transform');
-    }
-
-    return transform;
-  }
-
-  //  when large thumbnail image is clicked, delete large thumbnail and show original(small thumbnail image).
-  function onLargeThumbnailClick(fullScreenToggler, mirrorDom, originalDom) {
-    originalDom.css('display', 'block');
-    mirrorDom.parent().removeClass('large-thumbnail-parent').addClass('pull-left');
-    mirrorDom.parent().parent().removeClass('large-thumbnail-grand-parent');
-    mirrorDom.remove();
-    fullScreenToggler.remove();
-  }
-
-
   //  right controller is listening to 'updateFileWriterId'.
   $scope.onFileListClick = function(userId) {
     if ($state.current.name != 'messages.detail.files')
@@ -1475,7 +1348,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   //  when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.
   //  listening to 'elastic:resize' and move msg-holder to right position.
   $scope.$on('elastic:resize', function() {
-    if (_isBottomReached()) {
+    // center controller의 content load가 완료 된 상태이고 chat 스크롤이 최 하단에 닿아있을때 scroll도 같이 수정
+    if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
       _scrollToBottom();
     }
     $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 20);
@@ -1491,10 +1365,32 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
 
   /**
+   * input scroll 이 노출되는 여부를 trigger 한다.
+   * keyDown 이후 정확히 scroll 이 노출되었는지 여부를 확인하기 위해 timeout 을 사용한다.
+   * @private
+   */
+  function _setStickerPosition() {
+    $timeout(function() {
+      jndPubSub.pub('isStickerPosShift:' + _stickerType, _hasInputScroll());
+    }, 50);
+  }
+
+  /**
+   * input scroll 이 존재하는지 반환한다.
+   * @returns {boolean}
+   * @private
+   */
+  function _hasInputScroll() {
+    var input = $('#message-input')[0];
+    return input.scrollHeight > input.clientHeight;
+  }
+
+  /**
    * keyDown 이벤트 핸들러
    * @param {event} keyDownEvent
    */
   $scope.onKeyDown = function(keyDownEvent) {
+    _setStickerPosition();
     if (jndKeyCode.match('ESC', keyDownEvent.keyCode)) {
       _hideSticker();
     }
@@ -1976,4 +1872,36 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _isBottomReached() {
     return $('#msgs-container')[0].scrollTop + $('#msgs-container').height() >= $('#msgs-holder').outerHeight();
   }
+
+  /**
+   * 입력된 text가 preview(social snippets)를 제공하는 경우 center controller에서의 handling
+   *
+   * 'attachMessagePreview' event에서 content가 attach되는 message의 식별자를 전달 받아
+   * 해당 식별자로 특정 message를 다시 조회 하여 생성된 content data로 view를 생성하여 text element 자식 element로 append 함
+   */
+  $scope.$on('attachMessagePreview', function(event, data) {
+    messageAPIservice
+      .getMessage(memberService.getTeamId(), data.message.id)
+      .success(function(message) {
+        var msg;
+        var i;
+        for (i = $scope.messages.length - 1; i > -1; --i) {
+          msg = $scope.messages[i];
+          if (msg.messageId === message.id) {
+            msg.message.hasLinkPreview = true;
+
+            msg.message.linkPreview = message.linkPreview;
+            break;
+          }
+        }
+
+        if (_isMessageFromMe(message) && _isBottomReached()) {
+          _scrollToBottom();
+        }
+      })
+      .error(function(error) {
+        console.log('link preview error', error);
+      });
+  });
 });
+

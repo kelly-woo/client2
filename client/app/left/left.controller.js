@@ -4,10 +4,9 @@ var app = angular.module('jandiApp');
 
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-  entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
-
-  //console.info('[enter] leftpanelController');
+  entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
+  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
 
   /**
    * @namespace
@@ -59,9 +58,7 @@ app.controller('leftPanelController1', function(
 
   function _checkNotificationBanner() {
     publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
-    DeskTopNotificationBanner.checkNotificationBanner('left');
   }
-  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
 
   _attachExtraEvents();
 
@@ -78,6 +75,8 @@ app.controller('leftPanelController1', function(
 
   $scope.goUnreadBelow = goUnreadBelow;
   $scope.goUnreadAbove = goUnreadAbove;
+  $scope.onDmClicked = onDmClicked;
+  $scope.onTopicClicked = onTopicClicked;
 
   /**
    * collapse status 변경시 update badge posision 이벤트 트리거한다.
@@ -86,8 +85,8 @@ app.controller('leftPanelController1', function(
   function _onCollapseStatusChanged() {
     $timeout.cancel(collapseTimer);
     /*
-      collapse 가 완료되는 시점을 알 수 없기 때문에 0.8 초 뒤에 position update 를 하도록 한다.
-      todo: collapse 완료 시점을 알 수 있는 방법이 있다면 timeout 을 제거해야함
+     collapse 가 완료되는 시점을 알 수 없기 때문에 0.8 초 뒤에 position update 를 하도록 한다.
+     todo: collapse 완료 시점을 알 수 있는 방법이 있다면 timeout 을 제거해야함
      */
     collapseTimer = $timeout(function() {
       jndPubSub.updateBadgePosition();
@@ -106,23 +105,25 @@ app.controller('leftPanelController1', function(
       var offsetTop = jqContainer.offset().top;
       var currentBottom = scrollTop + offsetTop + jqContainer.height();
       var top = _getPosUnreadBelow();
-      var isLast = $scope.unread.below.length === 1;
+      // 한번에 마지막 뱃지로 내려가도록 정책 변경
+      //var isLast = $scope.unread.below.length === 1;
+      var isLast = true;
 
       // 아래 여백
       var space = 9;
 
       var targetScrollTop = scrollTop + (top - currentBottom);
 
-      if ($scope.unread.below.length > 1) {
+      if (isLast) {
+        $scope.unread.below = [];
+      } else {
         targetScrollTop += jqTarget.outerHeight() + space;
       }
 
-      if (isLast) {
-        $scope.unread.below = [];
-      }
-
       _isBadgeMoveLocked = true;
-      jqContainer.animate({scrollTop: targetScrollTop}, {
+      jqContainer.animate({
+        scrollTop: targetScrollTop
+      }, {
         done: function () {
           _isBadgeMoveLocked = false;
         }
@@ -135,22 +136,31 @@ app.controller('leftPanelController1', function(
    * @param {Event} clickEvent
    */
   function goUnreadAbove(clickEvent) {
-    var jqTarget = $(clickEvent.target);
-    var jqContainer = $('#lpanel-list-container');
-    var scrollTop = jqContainer[0].scrollTop;
-    var offsetTop = jqContainer.offset().top;
-    var currentTop = scrollTop + offsetTop;
-    var top = _getPosUnreadAbove();
-    //위 여백
-    var space = 7;
+    if (!_isBadgeMoveLocked) {
+      var jqTarget = $(clickEvent.target);
+      var jqContainer = $('#lpanel-list-container');
+      var scrollTop = jqContainer[0].scrollTop;
+      var offsetTop = jqContainer.offset().top;
+      var currentTop = scrollTop + offsetTop;
+      var top = _getPosUnreadAbove();
+      //위 여백
+      var space = 7;
 
-    var targetScrollTop = scrollTop - (currentTop - top);
+      var targetScrollTop = scrollTop - (currentTop - top);
 
-    if ($scope.unread.above.length > 1) {
-      targetScrollTop -= jqTarget.outerHeight() + space;
+      if ($scope.unread.above.length > 1) {
+        targetScrollTop -= jqTarget.outerHeight() + space;
+      }
+
+      _isBadgeMoveLocked = true;
+      jqContainer.animate({
+        scrollTop: targetScrollTop
+      }, {
+        done: function () {
+          _isBadgeMoveLocked = false;
+        }
+      });
     }
-
-    jqContainer.animate({scrollTop: targetScrollTop});
   }
 
   /**
@@ -175,7 +185,7 @@ app.controller('leftPanelController1', function(
    */
   function _getPosUnreadBelow() {
     var below = $scope.unread.below;
-    return below[0] || 0;
+    return below[below.length - 1] || 0;
   }
 
   /**
@@ -228,12 +238,14 @@ app.controller('leftPanelController1', function(
 
     var top = scrollTop + offsetTop;
     var bottom = top + height;
+    $scope.unread = UnreadBadge.getUnreadPos(top, bottom);
   }
 
   /**
    * left panel 업데이트 후에 알려줘야 할 컨틀롤러가 있음을 설정한다.
    * @param param {string} broadcast할 이벤트 이름
    * @private
+   *
    * FIXME: SERVICE로 빼시오.
    */
   function _setAfterLeftInit(param) {
@@ -253,7 +265,7 @@ app.controller('leftPanelController1', function(
 
   /**
    * left panel 업데이트 후에 알려줘야 할 컨트롤러가 있는지 없는지 확인한다.
-    * @returns {boolean} true, 있을 경우
+   * @returns {boolean} true, 있을 경우
    * @private
    *
    * FIXME: SERVICE로 빼시오.
@@ -546,7 +558,7 @@ app.controller('leftPanelController1', function(
    *
    */
   $rootScope.$on('updateLeftPanelCaller', function() {
-    // console.info("[enter] updateLeftPanelCaller");
+    //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
 
@@ -573,10 +585,10 @@ app.controller('leftPanelController1', function(
   //  center and header are calling.
   $scope.onUserClick = function(user) {
     if (angular.isNumber(user)) {
-      user = entityAPIservice.getEntityFromListById($scope.memberList, user)
+      user = entityAPIservice.getEntityFromListById($scope.memberList, user);
     }
     else {
-      user = entityAPIservice.getEntityFromListById($scope.memberList, user.id)
+      user = entityAPIservice.getEntityFromListById($scope.memberList, user.id);
     }
     modalHelper.openMemberProfileModal($scope, user);
   };
@@ -588,10 +600,25 @@ app.controller('leftPanelController1', function(
     });
   }
 
-  $scope.onTopicClicked = onTopicClicked;
+  /**
+   * DM Click 시 이벤트 핸들러
+   * @param {entity} userEntity - 클릭한 user entity
+   */
+  function onDmClicked(userEntity) {
+    userEntity.alarmCnt = '';
+  }
 
-  function onTopicClicked(entityType, entityId) {
+  /**
+   * TOPIC Click 시 이벤트 핸들러
+   * @param {object} topicEntity - 클릭한 토픽 entity
+   */
+  function onTopicClicked(topicEntity) {
+    var entityType = topicEntity.type;
+    var entityId = topicEntity.id;
+
     if (NetInterceptor.isConnected()) {
+      topicEntity.alarmCnt = '';
+
       if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
         publicService.goToDefaultTopic();
         return;

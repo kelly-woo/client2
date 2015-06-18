@@ -9,6 +9,8 @@
   function DesktopNotification($state, $filter, logger, jndPubSub, localStorage, accountService) {
     var that = this;
 
+    var appName;
+
     var NOTIFICATION_EXPIRE_TIME = 5000;
     var NOTIFICATION_PERMISSION = {
       granted: 'granted',
@@ -66,7 +68,9 @@
 
     that.log = log;
 
-    function init() {
+    function init(config) {
+      appName = config.name;
+
       isNotificationSupported = 'Notification' in window;
       _setNotificationPermission();
       _loadLocalNotificationFlag();

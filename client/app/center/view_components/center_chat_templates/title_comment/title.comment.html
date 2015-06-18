@@ -67,15 +67,16 @@
 
     <!--    LEFT PART OF BODY CONTENT
             IMAGE/FILE THUMBNAIL    -->
-    <div class="msg-file-body-float pull-left"
-         data-ng-click="onSmallThumbnailClick($event, msg);">
+    <div class="msg-file-body-float pull-left">
 
       <div ng-if="msg.feedback.status != 'archived'">
         <!--    IMAGE THUMBNAIL -->
-        <div class="image_wrapper">
-          <img class="msg-file-body__img cursor_pointer" rotate rotate-left-align="true"
-               ng-if="(msg.feedback.content | hasPreview) && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'"
-               ng-src="{{ server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl }}"/>
+        <div class="image_wrapper msg-file-body__img__background" ng-if="(msg.feedback.content | hasPreview) && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'">
+
+          <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center"
+               image-loader="{{server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl}}"
+               image-max-height="63" image-max-width="63" image-is-square="true">
+          </div>
         </div>
 
         <!--    FILE THUMBNAIL  -->

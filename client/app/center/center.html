@@ -47,11 +47,11 @@
   <article class="msgs" id="msgs-container" when-scrolled="loadMore()" scroll-glue>
     <!-- 로딩 영역 -->
     <div class="msgs__loading icon-loading"
-         ng-show="msgLoadStatus.loading"
-         ng-class="{'initial': loadMoreCounter < 1 || forceShowProgress}"></div>
+         ng-show="msgLoadStatus.loading || !hasLastMessageRendered"
+         ng-class="{'initial': loadMoreCounter < 1 || !hasLastMessageRendered}"></div>
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs">
+      <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs" on-repeat-end>
         <!--날짜 구분선-->
         <date-divider></date-divider>
 

@@ -51,7 +51,6 @@
      * @private
      */
     function _setSocketMessageEventNames() {
-
       // message types
       self.socketEvent = {
         MESSAGE: 'message',
@@ -62,6 +61,8 @@
 
         MESSAGE_DELETE: 'message_delete',
 
+        MESSAGE_PREVIEW: 'link_preview_created',
+
         MESSAGE_FILE_SHARE: 'file_share',
         MESSAGE_FILE_UNSHARE: 'file_unshare',
 
@@ -70,7 +71,5 @@
         MESSAGE_STICKER_SHARE: 'STICKER_SHARE'
       };
     }
-
   }
-
 })();

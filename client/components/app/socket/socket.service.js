@@ -57,13 +57,12 @@
     var MESSAGE_TOPIC_LEAVE = config.socketEvent.MESSAGE_TOPIC_LEAVE;
     var MESSAGE_TOPIC_INVITE = config.socketEvent.MESSAGE_TOPIC_INVITE;
 
-    var MESSAGE_DELETE = config.socketEvent.MESSAGE_DELETE;
-
     var MESSAGE_FILE_SHARE = config.socketEvent.MESSAGE_FILE_SHARE;
     var MESSAGE_FILE_UNSHARE = config.socketEvent.MESSAGE_FILE_UNSHARE;
 
     var MESSAGE_FILE_COMMENT = config.socketEvent.MESSAGE_FILE_COMMENT;
 
+    var MESSAGE_PREVIEW = config.socketEvent.MESSAGE_PREVIEW;
 
     // variables with '_APP_' has nothing to do with socket server. Just for internal use.
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
@@ -107,6 +106,8 @@
      * Connect to socket server and initialize socket variable.
      */
     function connect() {
+      socket && socket.removeAllListeners();
+
       // When connecting to socket, always force new connection.
       ioSocket = io.connect(config.socket_server, {
         'forceNew': true,
@@ -128,10 +129,13 @@
      * @private
      */
     function _onDisconnected() {
-      socket.removeAllListeners();
-      ioSocket.io.disconnect();
-      ioSocket.io.connect();
-      _setSocketEventListener();
+      if (isConnected) {
+        socket.removeAllListeners();
+        ioSocket.io.disconnect();
+        ioSocket.io.connect();
+        _setSocketEventListener();
+      }
+      isConnected = false;
     }
 
     /**
@@ -139,7 +143,9 @@
      * @private
      */
     function _onSocketConnect() {
+      isConnected = true;
       NetInterceptor.setStatus(true);
+      _setSocketEventListener();
     }
 
     /**
@@ -147,6 +153,7 @@
      * @private
      */
     function _onSocketDisconnect() {
+      isConnected = false;
       NetInterceptor.setStatus(false);
     }
 
@@ -155,7 +162,7 @@
      * @private
      */
     function _setSocketEventListener() {
-      console.log('############## socket event attach');
+      socket.removeAllListeners();
       socket.on('connect', _onSocketConnect);
       socket.on('disconnect', _onSocketDisconnect);
       socket.on(CHECK_CONNECT_TEAM, _onCheckConnectTeam);
@@ -188,6 +195,8 @@
       socket.on(MESSAGE, _onMessage);
 
       socket.on(MEMBER_PROFILE_UPDATED, _onMemberProfileUpdated);
+
+      socket.on(MESSAGE_PREVIEW, _onMessagePreview);
     }
 
 
@@ -409,33 +418,57 @@
         // File comment event is handled in different handler since its 'rooms' attribute is an array.
         jndWebSocketHelper.socketEventLogger(messageType, data, false);
         jndWebSocketHelper.messageEventFileCommentHandler(data);
-        return;
-      }
-
-      if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
-        jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
-        //return;
-      }
-
-      if (messageType === MESSAGE_TOPIC_LEAVE) {
+      } else if (messageType === MESSAGE_TOPIC_LEAVE) {
         jndWebSocketHelper.messageEventTopicLeaveHandler(data);
-        return;
-      }
-
-      if (messageType === MESSAGE_TOPIC_JOIN) {
-
-        if (currentSessionHelper.getDefaultTopicId() === data.room.id) {
-          // Someone joined 'default topic' -> new member just joined team!!
-          jndWebSocketHelper.newMemberHandler(data);
-          return;
+      } else if (messageType === MESSAGE_TOPIC_JOIN && currentSessionHelper.getDefaultTopicId() === data.room.id) {
+        // Someone joined 'default topic' -> new member just joined team!!
+        jndWebSocketHelper.newMemberHandler(data);
+      } else {
+        if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
+          jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
         }
+
+        messageType = messageType || _APP_GOT_NEW_MESSAGE;
+
+        jndWebSocketHelper.socketEventLogger(messageType, data, false);
+        jndWebSocketHelper.eventStatusLogger(messageType, data);
+
+        jndWebSocketHelper.messageEventHandler(messageType, data);
       }
-      messageType = messageType || _APP_GOT_NEW_MESSAGE;
 
-      jndWebSocketHelper.socketEventLogger(messageType, data, false);
-      jndWebSocketHelper.eventStatusLogger(messageType, data);
+      // var messageType = data.messageType;
 
-      jndWebSocketHelper.messageEventHandler(messageType, data);
+      // if (messageType === MESSAGE_FILE_COMMENT) {
+      //   // File comment event is handled in different handler since its 'rooms' attribute is an array.
+      //   jndWebSocketHelper.socketEventLogger(messageType, data, false);
+      //   jndWebSocketHelper.messageEventFileCommentHandler(data);
+      //   return;
+      // }
+
+      // if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
+      //   jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
+      //   //return;
+      // }
+
+      // if (messageType === MESSAGE_TOPIC_LEAVE) {
+      //   jndWebSocketHelper.messageEventTopicLeaveHandler(data);
+      //   return;
+      // }
+
+      // if (messageType === MESSAGE_TOPIC_JOIN) {
+
+      //   if (currentSessionHelper.getDefaultTopicId() === data.room.id) {
+      //     // Someone joined 'default topic' -> new member just joined team!!
+      //     jndWebSocketHelper.newMemberHandler(data);
+      //     return;
+      //   }
+      // }
+      // messageType = messageType || _APP_GOT_NEW_MESSAGE;
+
+      // jndWebSocketHelper.socketEventLogger(messageType, data, false);
+      // jndWebSocketHelper.eventStatusLogger(messageType, data);
+
+      // jndWebSocketHelper.messageEventHandler(messageType, data);
     }
 
     /**
@@ -480,6 +513,18 @@
       if (angular.isUndefined(authAPIservice)) return;
 
       authAPIservice.requestAccessTokenWithRefreshToken();
+    }
+
+    /**
+     * Socket event receiver - link_preview_created
+     * @param {object} data
+     * @private
+     */
+    function _onMessagePreview(data) {
+      jndWebSocketHelper.socketEventLogger(data.event, data, false);
+      jndWebSocketHelper.eventStatusLogger(data.event, data);
+
+      jndWebSocketHelper.attachMessagePreview(data);
     }
   }
 })();

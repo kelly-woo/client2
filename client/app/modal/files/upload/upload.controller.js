@@ -7,7 +7,8 @@
     .controller('FileUploadModalCtrl', FileUploadModalCtrl);
 
   /* @ngInject */
-  function FileUploadModalCtrl($rootScope, $scope, $modalInstance, FilesUpload, fileAPIservice, analyticsService, $timeout) {
+  function FileUploadModalCtrl($rootScope, $scope, $modalInstance, FilesUpload,
+                               fileAPIservice, analyticsService, $timeout, ImagesHelper) {
     var PUBLIC_FILE = 744;    // PUBLIC_FILE code
     var filesUpload;
     var fileObject;
@@ -188,12 +189,39 @@
     }
 
     $scope.$watch('dataUrl', function(newValue, oldValue){
-      var modalUploadImg = $('.modal-upload-img');
-
-      if (modalUploadImg.length) {
-        modalUploadImg.prop('src', newValue);
+      if (!!newValue) {
+        _onNewDataUrl(newValue);
       }
     });
 
+    /**
+     * dataUrl 가 바뀔 때마다 image-loader를 사용해서 dataUrl 의 이미지를 보여준다.
+     * @param {string} newDataUrl - 정확히 string 은 아니고 base64 그놈이다
+     * @private
+     */
+    function _onNewDataUrl(newDataUrl) {
+      var blobFile;
+      var jqImageLoader;
+      var jqImageLoaderContainer;
+
+      blobFile = fileAPIservice.dataURItoBlob(newDataUrl);
+      $scope.blobFile = blobFile;
+
+      jqImageLoader = ImagesHelper.getImageLoaderElement();
+
+      jqImageLoader.attr({
+        'isBlob': true,
+        'image-max-height': 130
+      });
+
+      ImagesHelper.compileImageElementWithScope(jqImageLoader, $scope);
+
+      jqImageLoaderContainer = $('.upload-image-preview');
+      jqImageLoaderContainer.empty();
+
+      if (jqImageLoaderContainer.length) {
+        jqImageLoaderContainer.append(jqImageLoader);
+      }
+    }
   }
 }());
