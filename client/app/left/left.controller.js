@@ -6,7 +6,7 @@ app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor) {
 
   /**
    * @namespace
@@ -53,11 +53,6 @@ app.controller('leftPanelController1', function(
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
   } else {
     response = leftPanel.data;
-    _checkNotificationBanner();
-  }
-
-  function _checkNotificationBanner() {
-    publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
   }
 
   _attachExtraEvents();

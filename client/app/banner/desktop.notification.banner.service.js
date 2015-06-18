@@ -159,7 +159,7 @@
       var jqBody = $('.body');
 
       jqBodyWrapper.addClass('full-screen');
-      jqBody.addClass('full-screen body-full-screen');
+      jqBody.addClass('full-screen');
 
 
     }
