@@ -1,0 +1,116 @@
+.image-carousel-container .image-carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: #000;
+  opacity: 0.5;
+
+  z-index: 10000;
+}
+
+.image-carousel-container .image-carousel-viewer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: 10001;
+}
+
+.image-carousel-viewer .viewer-header {
+  position: absoulte;
+  top: 0;
+  width: 100%;
+  height: 40px;
+
+  background-color: rgba(17, 17, 17, .9);
+}
+
+.viewer-header .options>div {
+  padding-top: 13px;
+}
+.viewer-header .options .info {
+  height: 40px;
+  padding-left: 30px;
+  overflow: hidden;
+}
+
+.viewer-header .info .title {
+  max-width: 70%;
+
+  margin: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: #fff;
+}
+
+.viewer-header .options .actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  padding-right: 20px;
+
+  vertical-align: middle;
+}
+
+.viewer-header .options .actions>div {
+  display: inline;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+.viewer-header .options .actions i {
+  color: #fff;
+}
+
+.image-carousel-viewer .viewer-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.viewer-body button {
+  position: fixed;
+
+  width: 3rem;
+  height: 6rem;
+
+  margin-top: -3rem;
+  border: none;
+
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  font-size: 2rem;
+  line-height: 3.5rem;
+  text-align: center;
+
+  transition: opacity .1s;
+  box-shadow: 0 1px 1px rgba(0,0,0,.3);
+}
+.viewer-body #viewer-prev-btn {
+  top: 50%;
+}
+.viewer-body #viewer-next-btn {
+  top: 50%;
+  right: 0;
+}
+
+.viewer-body .content img {
+  position: absolute;
+  margin: auto;
+  top: 3.5rem;
+  left: 3.5rem;
+  bottom: 3.5rem;
+  right: 3.5rem;
+}
