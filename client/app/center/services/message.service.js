@@ -67,10 +67,10 @@
      * @returns {*}
      */
     function postMessage(entityType, entityId, message, sticker) {
-      if (!sticker) {
-        return _postMessage(entityType, entityId, message);
-      } else {
+      if (sticker && sticker.id && sticker.groupId) {
         return _postSticker(entityType, entityId, message, sticker);
+      } else {
+        return _postMessage(entityType, entityId, message);
       }
     }
 

@@ -9,9 +9,9 @@
     .module('jandiApp')
     .controller('StickerPanelCtrl', StickerPanelCtrl);
 
-  function StickerPanelCtrl($scope, $attrs, jndPubSub, Sticker) {
+  function StickerPanelCtrl($scope, $attrs, jndPubSub, Sticker, Preloader) {
     // 서버에서 group 리스트 API 완성전에 대비하여 임시로 만든 데이터
-    var groups = [
+    var _groups = [
       {
         isRecent: true,
         isSelected: false
@@ -21,6 +21,7 @@
         isSelected: true
       }
     ];
+    var _cache = {};
 
     $scope.onClickGroup = onClickGroup;
     $scope.onClickItem = onClickItem;
@@ -32,13 +33,33 @@
      * 초기화 메서드
      */
     function init() {
-      $scope.groups = groups;
+      $scope.isShift = false;
+      $scope.groups = _groups;
       $scope.name = $attrs.name;
       $scope.isRecent = false;
       $scope.status = {
         isOpen: false
       };
+      _initListeners();
       _select();
+    }
+
+    /**
+     * 리스너 바인딩
+     * @private
+     */
+    function _initListeners() {
+      $scope.$on('isStickerPosShift:' + $scope.name, _onStickerShift);
+    }
+
+    /**
+     * sticker 아이콘 위치 shift 이벤트 핸들러
+     * @param {event} angularEvent 이벤트
+     * @param {boolean} isShift shift 할지 여부
+     * @private
+     */
+    function _onStickerShift(angularEvent, isShift) {
+      $scope.isShift = isShift;
     }
 
     /**
@@ -106,13 +127,20 @@
      */
     function _getList(groupId) {
       groupId = _.isUndefined(groupId) ? 100 : groupId;
-      Sticker.getList(groupId)
-        .success(function(response) {
-          $scope.list = response;
-        })
-        .error(function() {
-          $scope.list = [];
-        });
+      if (_cache[groupId]) {
+        $scope.list = _cache[groupId];
+      } else {
+        Sticker.getList(groupId)
+          .success(function(response) {
+            _cache[groupId] = response;
+            Preloader.img(_.pluck(response, 'url'));
+            $scope.list = response;
+          })
+          .error(function() {
+            $scope.list = [];
+          });
+      }
+
     }
 
     /**
@@ -123,6 +151,7 @@
       Sticker.getRecentList()
         .success(function(response) {
           if (_.isArray(response)) {
+            Preloader.img(_.pluck(response, 'url'));
             $scope.list = response.reverse();
           } else {
             $scope.list = [];

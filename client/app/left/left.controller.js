@@ -4,10 +4,9 @@ var app = angular.module('jandiApp');
 
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-  entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
-
-  //console.info('[enter] leftpanelController');
+  entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
+  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
 
   /**
    * @namespace
@@ -60,7 +59,6 @@ app.controller('leftPanelController1', function(
   function _checkNotificationBanner() {
     publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
   }
-  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
 
   _attachExtraEvents();
 
@@ -87,8 +85,8 @@ app.controller('leftPanelController1', function(
   function _onCollapseStatusChanged() {
     $timeout.cancel(collapseTimer);
     /*
-      collapse 가 완료되는 시점을 알 수 없기 때문에 0.8 초 뒤에 position update 를 하도록 한다.
-      todo: collapse 완료 시점을 알 수 있는 방법이 있다면 timeout 을 제거해야함
+     collapse 가 완료되는 시점을 알 수 없기 때문에 0.8 초 뒤에 position update 를 하도록 한다.
+     todo: collapse 완료 시점을 알 수 있는 방법이 있다면 timeout 을 제거해야함
      */
     collapseTimer = $timeout(function() {
       jndPubSub.updateBadgePosition();
@@ -240,12 +238,14 @@ app.controller('leftPanelController1', function(
 
     var top = scrollTop + offsetTop;
     var bottom = top + height;
+    $scope.unread = UnreadBadge.getUnreadPos(top, bottom);
   }
 
   /**
    * left panel 업데이트 후에 알려줘야 할 컨틀롤러가 있음을 설정한다.
    * @param param {string} broadcast할 이벤트 이름
    * @private
+   *
    * FIXME: SERVICE로 빼시오.
    */
   function _setAfterLeftInit(param) {
@@ -265,7 +265,7 @@ app.controller('leftPanelController1', function(
 
   /**
    * left panel 업데이트 후에 알려줘야 할 컨트롤러가 있는지 없는지 확인한다.
-    * @returns {boolean} true, 있을 경우
+   * @returns {boolean} true, 있을 경우
    * @private
    *
    * FIXME: SERVICE로 빼시오.
@@ -558,7 +558,7 @@ app.controller('leftPanelController1', function(
    *
    */
   $rootScope.$on('updateLeftPanelCaller', function() {
-    // console.info("[enter] updateLeftPanelCaller");
+    //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
 
@@ -615,9 +615,10 @@ app.controller('leftPanelController1', function(
   function onTopicClicked(topicEntity) {
     var entityType = topicEntity.type;
     var entityId = topicEntity.id;
-    
+
     if (NetInterceptor.isConnected()) {
       topicEntity.alarmCnt = '';
+
       if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
         publicService.goToDefaultTopic();
         return;

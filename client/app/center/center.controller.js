@@ -38,6 +38,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var messages = {};
   var _sticker = null;
+  var _stickerType = 'chat';
+
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $rootScope.isIE9 = false;
 
@@ -70,7 +72,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.$on('connected', _onConnected);
   $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
-  $scope.$on('onChangeSticker:center',function(angularEvent, item) {
+  $scope.$on('onChangeSticker:' + _stickerType, function(angularEvent, item) {
     _sticker = item;
     _setChatInputFocus();
   });
@@ -142,15 +144,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * search query 를 생성 시 update count 값을 반환한다.
-   * @returns {number}
-   * @private
-   */
-  function _getUpdateCount() {
-    return _isSearchMode() ? DEFAULT_MESSAGE_SEARCH_COUNT : DEFAULT_MESSAGE_UPDATE_COUNT;
-  }
-
-  /**
    * search query 를 초기화한다.
    * @private
    */
@@ -166,12 +159,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     localFirstMessageId = -1;
     localLastMessageId = -1;
     loadedFirstMessagedId = -1;
-
     systemMessageCount = 0;
-
     _resetUnreadCounters();
 
     _resetNewMsgHelpers();
+  }
+
+  /**
+   * search query 를 생성 시 update count 값을 반환한다.
+   * @returns {number}
+   * @private
+   */
+  function _getUpdateCount() {
+    return _isSearchMode() ? DEFAULT_MESSAGE_SEARCH_COUNT : DEFAULT_MESSAGE_UPDATE_COUNT;
   }
 
   function _resetLoadMoreCounter() {
@@ -260,6 +260,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loadMore();
   }
 
+
   function _setMsgSearchQueryLinkId(linkId) {
     $scope.msgSearchQuery = {
       linkId: linkId,
@@ -269,7 +270,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _setMsgSearchQueryType(type) {
     $scope.msgSearchQuery.type = type;
   }
-
   /**
    * 메세지를 날짜로 묶는다.
    */
@@ -433,7 +433,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * comment 메세지에 할당할 comment option 객체를 생성하여 반환한다.
    * @param {object} message 메세지
    * @param {object} prevMessage 이전 메세지
-   * @returns @returns {{isSticker: boolean, isChild: boolean, isTitle: boolean, isContinue: boolean}} comment option 객체
+   * @returns {{isSticker: boolean, isChild: boolean, isTitle: boolean, isContinue: boolean}} comment option 객체
    * @private
    */
   function _getCommentOption(message, prevMessage) {
@@ -1142,10 +1142,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onPostMessageError(content, status, headers, config) {
-    var body = config.data.content;
+    var data = config.data;
     var hasLoading = (status === 0);
+    var hasSticker = !!(data.stickerId && data.groupId);
+    var sticker;
+
+    if (hasSticker) {
+      sticker = {
+        id: data.stickerId,
+        groupId: data.groupId
+      };
+    }
     $scope.isPosting = false;
-    _enqueueUnsentMessage(body, hasLoading);
+
+    _enqueueUnsentMessage(data.content, sticker, hasLoading);
   }
 
   /**
@@ -1168,7 +1178,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hideSticker() {
-    jndPubSub.pub('deselectSticker:center');
+    jndPubSub.pub('deselectSticker:' +_stickerType);
   }
   /**
    * 보내지지 않음 메세지를 삭제한다.
@@ -1200,7 +1210,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function postMessage() {
     var msg = $.trim($('#message-input').val());
-    _hideSticker();
+
     // prevent duplicate request
     if (msg || _sticker) {
       $scope.isPosting = true;
@@ -1215,6 +1225,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     }
     $scope.message.content = "";
+    _hideSticker();
   }
 
 
@@ -1353,10 +1364,32 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
 
   /**
+   * input scroll 이 노출되는 여부를 trigger 한다.
+   * keyDown 이후 정확히 scroll 이 노출되었는지 여부를 확인하기 위해 timeout 을 사용한다.
+   * @private
+   */
+  function _setStickerPosition() {
+    $timeout(function() {
+      jndPubSub.pub('isStickerPosShift:' + _stickerType, _hasInputScroll());
+    }, 50);
+  }
+
+  /**
+   * input scroll 이 존재하는지 반환한다.
+   * @returns {boolean}
+   * @private
+   */
+  function _hasInputScroll() {
+    var input = $('#message-input')[0];
+    return input.scrollHeight > input.clientHeight;
+  }
+
+  /**
    * keyDown 이벤트 핸들러
    * @param {event} keyDownEvent
    */
   $scope.onKeyDown = function(keyDownEvent) {
+    _setStickerPosition();
     if (jndKeyCode.match('ESC', keyDownEvent.keyCode)) {
       _hideSticker();
     }
@@ -1870,3 +1903,4 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   });
 });
+

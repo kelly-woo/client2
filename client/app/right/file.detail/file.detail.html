@@ -66,9 +66,9 @@
             </div>
           </div>
 
-          <div class="file-item-meta__action dropdown" dropdown>
+          <div class="file-item-meta__action" dropdown>
 
-            <i class="icon-more file_actions dropdown-toggle cursor_pointer" dropdown-toggle
+            <i class="icon-more file_actions cursor_pointer" dropdown-toggle
                tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
 
             <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
@@ -112,8 +112,8 @@
           <div class="comment-item-header">
             <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
             <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
-            <div class="comment-item-header__action dropdown pull-right" dropdown data-ng-if="( member.id === comment.writer.id )">
-              <a href="#" class="link-dark dropdown-toggle" dropdown-toggle>
+            <div class="comment-item-header__action pull-right" dropdown data-ng-if="( member.id === comment.writer.id )">
+              <a href="#" class="link-dark" dropdown-toggle>
                 <i class="fa fa-cog"></i>
               </a>
               <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
@@ -154,7 +154,7 @@
                     spellcheck="true"
                     ng-keydown="onKeyDown($event);"
                     ng-disabled="isPostingComment"></textarea>
-          <sticker-panel name="file" width="270" height="154"></sticker-panel>
+          <sticker-panel name="file" width="265" height="245"></sticker-panel>
         </div>
         <span class="comment-input__tip pull-left">
           <span translate>@msg-help-multiline</span>
@@ -223,8 +223,8 @@
           <div class="comment-item-header">
             <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
             <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
-            <div class="comment-item-header__action dropdown pull-right" dropdown data-ng-if="( member.id === comment.writer.id )">
-              <a href="#" class="link-dark dropdown-toggle" dropdown-toggle>
+            <div class="comment-item-header__action pull-right" dropdown data-ng-if="( member.id === comment.writer.id )">
+              <a href="#" class="link-dark" dropdown-toggle>
                 <i class="fa fa-cog"></i>
               </a>
               <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">

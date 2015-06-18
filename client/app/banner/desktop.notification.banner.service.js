@@ -9,10 +9,10 @@
   function DeskTopNotificationBanner(DesktopNotification, $document, $compile, jndPubSub, $rootScope, publicService) {
     var that = this;
 
-    var jqBanner;
+    var _jqBanner;
     var bannerScope;
 
-    var isBannerUp = false;
+    var _isBannerUp = false;
 
     that.isNotificationBannerUp = isNotificationBannerUp;
 
@@ -27,14 +27,14 @@
     that.adjustBodyWrapperHeight = adjustBodyWrapperHeight;
 
     function isNotificationBannerUp() {
-      return isBannerUp;
+      return _isBannerUp;
     }
 
     /**
      * 노티피케이션 배너를 숨겨야하나? 그렇다면 숨긴다.
      */
     function shouldHideNotificationBanner() {
-      if (isBannerUp && !_isPermissionDefault()) {
+      if (_isBannerUp && !_isPermissionDefault()) {
         hideNotificationBanner();
       }
     }
@@ -60,11 +60,12 @@
      * @private
      */
     function _detachBanner() {
-      isBannerUp = false;
+      _isBannerUp = false;
 
-      jqBanner.remove();
+      _jqBanner.remove();
 
       _adjustBodyWrapperHeight();
+      _addFullScreenClass();
 
       bannerScope.$destroy();
       jndPubSub.pub('onNotificationBannerDisappear');
@@ -76,15 +77,15 @@
      */
     function _prependBannerElement(scope) {
       var jqContentWrapper;
-      if (!isBannerUp) {
-        isBannerUp = true;
-        jqBanner = angular.element('<div notification-banner></div>');
+      if (!_isBannerUp) {
+        _isBannerUp = true;
+        _jqBanner = angular.element('<div notification-banner></div>');
         jqContentWrapper = $document.find('body .content-wrapper').eq(0);
         bannerScope = $rootScope.$new(true);
 
-        $compile(jqBanner)(bannerScope);
+        $compile(_jqBanner)(bannerScope);
 
-        jqContentWrapper.prepend(jqBanner);
+        jqContentWrapper.prepend(_jqBanner);
 
         _adjustBodyWrapperHeight();
       }
@@ -146,11 +147,21 @@
      * @private
      */
     function _adjustBodyWrapperHeight() {
-      publicService.adjustBodyWrapperHeight(isBannerUp);
+      publicService.adjustBodyWrapperHeight(_isBannerUp);
     }
 
     function adjustBodyWrapperHeight() {
       _adjustBodyWrapperHeight();
+    }
+
+    function _addFullScreenClass() {
+      var jqBodyWrapper = $('.body-wrapper');
+      var jqBody = $('.body');
+
+      jqBodyWrapper.addClass('full-screen');
+      jqBody.addClass('full-screen body-full-screen');
+
+
     }
   }
 })();

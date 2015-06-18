@@ -3,10 +3,10 @@
 
   angular
     .module('jandiApp')
-    .controller('fileUploadedCtrl', fileUploadedCtrl);
+    .controller('FileUploadedCtrl', FileUploadedCtrl);
 
   /* @ngInject */
-  function fileUploadedCtrl($scope, $filter, fileAPIservice, centerService,
+  function FileUploadedCtrl($scope, $filter, fileAPIservice, centerService,
                             modalHelper, ImagesHelper, $compile, FileUploaded,
                             $state, entityheaderAPIservice, entityAPIservice) {
 
@@ -24,7 +24,7 @@
 
     var jqThumbnailParent;
 
-    // 서버 주
+    // 서버 주소
     var serverUploaded = $scope.server_uploaded;
 
     $scope.onSmallThumbnailClick = onSmallThumbnailClick;
@@ -34,6 +34,10 @@
 
     init();
 
+    /**
+     * 초기화 펑션이다.
+     * 현재 디렉티브가 물고있는 엘레멘트를 jqRootElement 에 저장한다.
+     */
     function init() {
       jqRootElement = $(document.getElementById($scope.msg.id));
 
@@ -132,6 +136,9 @@
       _togglePullLeft();
     }
 
+    /**
+     * large thumbnail 을 보고 있을 때 full screen으로 볼 수 있는 모달창을 연다.
+     */
     function onFullScreenImageButtonClick() {
       var fullFileUrl = serverUploaded + content.fileUrl;
       modalHelper.openFullScreenImageModal($scope, fullFileUrl);
@@ -156,6 +163,7 @@
     function _isCommentType(contentType) {
       return centerService.isCommentType(contentType);
     }
+
     $scope.$on('onChangeShared', function(event, data) {
       // shared 갱신
       $scope.msg.message.shared = fileAPIservice.updateShared($scope.msg.message);
