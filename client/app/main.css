@@ -71,6 +71,17 @@ input[type="email"] {
 
 ********************************************/
 
+.full-screen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: auto !important;
+}
+.body-full-screen {
+  top: 40px;
+}
 .title__divider {
   width: 90px;
   height: 1px;

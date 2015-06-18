@@ -65,6 +65,7 @@
       _jqBanner.remove();
 
       _adjustBodyWrapperHeight();
+      _addFullScreenClass();
 
       bannerScope.$destroy();
       jndPubSub.pub('onNotificationBannerDisappear');
@@ -151,6 +152,16 @@
 
     function adjustBodyWrapperHeight() {
       _adjustBodyWrapperHeight();
+    }
+
+    function _addFullScreenClass() {
+      var jqBodyWrapper = $('.body-wrapper');
+      var jqBody = $('.body');
+
+      jqBodyWrapper.addClass('full-screen');
+      jqBody.addClass('full-screen body-full-screen');
+
+
     }
   }
 })();
