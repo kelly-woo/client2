@@ -59,9 +59,9 @@ app.controller('leftPanelController1', function(
   _attachExtraEvents();
 
   $scope.$on('updateBadgePosition', updateUnreadPosition);
-  
+
   $scope.$on('$destroy', _onDestroy);
-  
+
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);
@@ -554,7 +554,7 @@ app.controller('leftPanelController1', function(
    *
    */
   $rootScope.$on('updateLeftPanelCaller', function() {
-    // console.info("[enter] updateLeftPanelCaller");
+    //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
 

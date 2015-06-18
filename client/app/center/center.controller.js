@@ -6,7 +6,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  entityheaderAPIservice, messageAPIservice, fileAPIservice, entityAPIservice,
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
-                                                 centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
+                                                 centerService, markerService, TextBuffer, modalHelper, NetInterceptor, 
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);

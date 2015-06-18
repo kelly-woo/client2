@@ -18,10 +18,13 @@
     $scope.neverAskMe = neverAskMe;
 
     $scope.$on('onDesktopNotificationPermissionChanged', _onDesktopNotificationPermissionChanged);
+    $scope.$on('$destroy', _onDestroy);
+
     _init();
 
     function _init() {
       $scope.isInitialQuestion = !DesktopNotification.isNotificationOn();
+      _attachEvent();
     }
 
     /**
@@ -78,8 +81,45 @@
       }
     }
 
+    /**
+     * notification setting modal 창을 열어야 하는가?
+     * @returns {boolean}
+     * @private
+     */
     function _shouldOpenNotificationSettingModal() {
       return !DesktopNotification.isNotificationPermissionGranted() && !isModalOpen;
+    }
+
+    /**
+     * 윈도우가 resize 되었을 경우 호출되는 펑션.
+     * @private
+     */
+    function _onResize() {
+      DeskTopNotificationBanner.adjustBodyWrapperHeight();
+    }
+
+    /**
+     * 스코프가 소멸될 때 호출되는 펑션.
+     * @private
+     */
+    function _onDestroy() {
+      _detachEvent();
+    }
+
+    /**
+     * 윈도우에 이벤트를 붙힌다!
+     * @private
+     */
+    function _attachEvent() {
+      $(window).on('resize', _onResize);
+    }
+
+    /**
+     * 윈도우에 이벤트를 뺀다!
+     * @private
+     */
+    function _detachEvent() {
+      $(window).off('resize', _onResize);
     }
   }
 })();
