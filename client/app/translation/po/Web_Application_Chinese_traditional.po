@@ -208,6 +208,10 @@ msgid "@common-comment"
 msgstr "留言"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+msgid "@common-connection-retry"
+msgstr "連線中斷。重新連結中..."
+
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr "離開"
@@ -801,6 +805,7 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
+#: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html

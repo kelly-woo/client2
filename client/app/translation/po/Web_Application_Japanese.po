@@ -216,6 +216,10 @@ msgid "@common-comment"
 msgstr "コメント"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+msgid "@common-connection-retry"
+msgstr "インターネット接続が切断されました。再接続中..."
+
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr "退出する"
@@ -824,6 +828,7 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
+#: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html

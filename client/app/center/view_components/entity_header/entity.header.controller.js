@@ -188,8 +188,6 @@
       };
 
       jndPubSub.pub('onStarClick', param);
-    }
-
-
+    };
   }
 })();

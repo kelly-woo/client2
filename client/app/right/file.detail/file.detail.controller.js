@@ -2,13 +2,13 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
-                                          fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
-                                          publicService, configuration, modalHelper, jndPubSub, jndKeyCode) {
+app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
+                                           fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
+                                           publicService, configuration, modalHelper, jndPubSub, jndKeyCode) {
 
   //console.info('[enter] fileDetailCtrl');
   var _sticker = null;
-
+  var _stickerType = 'file';
   var fileId = $state.params.itemId;
   //file detail에서 integraiton preview로 들어갈 image map
   var integrationPreviewMap = {
@@ -17,14 +17,14 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   };
   var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
 
-  $scope.initialLoaded    = false;
-  $scope.file_detail      = null;
-  $scope.file_comments    = [];
-  $scope.glued            = false;
+  $scope.initialLoaded = false;
+  $scope.file_detail = null;
+  $scope.file_comments = [];
+  $scope.glued = false;
   $scope.isPostingComment = false;
-  $scope.hasFileAPIError  = false;
+  $scope.hasFileAPIError = false;
   $scope.comment = {};
-  $scope.isLoadingImage   = true;
+  $scope.isLoadingImage = true;
 
 
   // configuration for message loading
@@ -71,7 +71,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     $scope.$on('rightFileDetailOnFileCommentDeleted', _onFileChanged);
     $scope.$on('updateFileDetailPanel', _onFileChanged);
     $scope.$on('setCommentFocus', _focusInput);
-    $scope.$on('onChangeSticker:file',function(event, item) {
+    $scope.$on('onChangeSticker:' + _stickerType, function (event, item) {
       _sticker = item;
       _focusInput();
     });
@@ -88,7 +88,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     });
 
     // share된 곳이 없는 file일 경우에도 file_detail 갱신 하도록 함.
-    $scope.$on('rightFileDetailOnFileCommentCreated', function(event, param) {
+    $scope.$on('rightFileDetailOnFileCommentCreated', function (event, param) {
       if ($scope.file_detail && $scope.file_detail.shareEntities.length === 0) {
         _onFileChanged(event, param);
       }
@@ -103,7 +103,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     var deferred = $q.defer();
     if (!$scope.fileLoadStatus.loading) {
       $scope.fileLoadStatus.loading = true;
-      $timeout(function() {
+      $timeout(function () {
         fileAPIservice.getFileDetail(fileId)
           .success(_onSuccessFileDetail)
           .error(_onErrorFileDetail);
@@ -136,7 +136,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
         })
         .error(function(err) {
         })
-        .finally(function() {
+        .finally(function () {
           $scope.isPostingComment = false;
         });
     }
@@ -168,6 +168,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
    * @param keyDownEvent
    */
   function onKeyDown(keyDownEvent) {
+    _setStickerPosition();
     if (jndKeyCode.match('ESC', keyDownEvent.keyCode)) {
       _hideSticker();
     }
@@ -240,12 +241,12 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     // analytics
     var file_meta = (file.content.type).split("/");
     var download_data = {
-      "category"      : file_meta[0],
-      "extension"     : file.content.ext,
-      "mime type"     : file.content.type,
-      "size"          : file.content.size
+      "category": file_meta[0],
+      "extension": file.content.ext,
+      "mime type": file.content.type,
+      "size": file.content.size
     };
-    analyticsService.mixpanelTrack( "File Download", download_data );
+    analyticsService.mixpanelTrack("File Download", download_data);
   }
 
   /**
@@ -282,11 +283,11 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
         }
         var file_meta = (message.content.type).split("/");
         var share_data = {
-          "entity type"   : share_target,
-          "category"      : file_meta[0],
-          "extension"     : message.content.ext,
-          "mime type"     : message.content.type,
-          "size"          : message.content.size
+          "entity type": share_target,
+          "category": file_meta[0],
+          "extension": message.content.ext,
+          "mime type": message.content.type,
+          "size": message.content.size
         };
         analyticsService.mixpanelTrack( "File Unshare", share_data );
       })
@@ -362,7 +363,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   function _onFileChanged(event, param) {
     if (_isFileDetailActive()) {
       var deletedFileId = param.file.id;
-      if (parseInt(fileId) === deletedFileId) {
+      if (parseInt(fileId, 10) === deletedFileId) {
         getFileDetail();
       }
     }
@@ -377,11 +378,32 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
   }
 
   /**
+   * input scroll 이 노출되는 여부를 trigger 한다.
+   * keyDown 이후 정확히 scroll 이 노출되었는지 여부를 확인하기 위해 timeout 을 사용한다.
+   * @private
+   */
+  function _setStickerPosition() {
+    $timeout(function () {
+      jndPubSub.pub('isStickerPosShift:' + _stickerType, _hasInputScroll());
+    }, 0);
+  }
+
+  /**
+   * input scroll 이 존재하는지 반환한다.
+   * @returns {boolean}
+   * @private
+   */
+  function _hasInputScroll() {
+    var input = $('#file-detail-comment-input')[0];
+    return input.scrollHeight > input.clientHeight;
+  }
+
+  /**
    * 스티커 레이어를 숨긴다.
    * @private
    */
   function _hideSticker() {
-    jndPubSub.pub('deselectSticker:file');
+    jndPubSub.pub('deselectSticker:' + _stickerType);
   }
 
   /**
@@ -435,7 +457,7 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
         setImageUrl($scope.file_detail);
       }
 
-      $scope.isIntegrateFile  = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
+      $scope.isIntegrateFile = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
     }
   }
 
@@ -516,3 +538,4 @@ app.controller('fileDetailCtrl', function($scope, $rootScope, $state, $modal, $s
     $scope.isLoadingImage = false;
   }
 });
+

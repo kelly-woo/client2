@@ -216,6 +216,10 @@ msgid "@common-comment"
 msgstr "Comment"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+msgid "@common-connection-retry"
+msgstr "Connection lost. Reconnecting…"
+
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr "Leave"
@@ -826,6 +830,7 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
+#: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html

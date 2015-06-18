@@ -4,10 +4,9 @@ var app = angular.module('jandiApp');
 
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
-  entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
-
-  //console.info('[enter] leftpanelController');
+  entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, 
+  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, 
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
 
   /**
    * @namespace
@@ -86,8 +85,8 @@ app.controller('leftPanelController1', function(
   function _onCollapseStatusChanged() {
     $timeout.cancel(collapseTimer);
     /*
-      collapse 가 완료되는 시점을 알 수 없기 때문에 0.8 초 뒤에 position update 를 하도록 한다.
-      todo: collapse 완료 시점을 알 수 있는 방법이 있다면 timeout 을 제거해야함
+     collapse 가 완료되는 시점을 알 수 없기 때문에 0.8 초 뒤에 position update 를 하도록 한다.
+     todo: collapse 완료 시점을 알 수 있는 방법이 있다면 timeout 을 제거해야함
      */
     collapseTimer = $timeout(function() {
       jndPubSub.updateBadgePosition();
@@ -266,7 +265,7 @@ app.controller('leftPanelController1', function(
 
   /**
    * left panel 업데이트 후에 알려줘야 할 컨트롤러가 있는지 없는지 확인한다.
-    * @returns {boolean} true, 있을 경우
+   * @returns {boolean} true, 있을 경우
    * @private
    *
    * FIXME: SERVICE로 빼시오.
@@ -617,17 +616,19 @@ app.controller('leftPanelController1', function(
     var entityType = topicEntity.type;
     var entityId = topicEntity.id;
 
-    topicEntity.alarmCnt = '';
+    if (NetInterceptor.isConnected()) {
+      topicEntity.alarmCnt = '';
 
-    if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
-      publicService.goToDefaultTopic();
-      return;
-    }
+      if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
+        publicService.goToDefaultTopic();
+        return;
+      }
 
-    if ($scope.currentEntity.id == entityId) {
-      $rootScope.$broadcast('refreshCurrentTopic');
-    } else {
-      $state.go('archives', { entityType: entityType, entityId: entityId });
+      if ($scope.currentEntity.id == entityId) {
+        $rootScope.$broadcast('refreshCurrentTopic');
+      } else {
+        $state.go('archives', {entityType: entityType, entityId: entityId});
+      }
     }
   }
 

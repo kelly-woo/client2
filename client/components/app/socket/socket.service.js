@@ -107,6 +107,8 @@
      * Connect to socket server and initialize socket variable.
      */
     function connect() {
+      socket && socket.removeAllListeners();
+
       // When connecting to socket, always force new connection.
       ioSocket = io.connect(config.socket_server, {
         'forceNew': true,
@@ -128,10 +130,13 @@
      * @private
      */
     function _onDisconnected() {
-      socket.removeAllListeners();
-      ioSocket.io.disconnect();
-      ioSocket.io.connect();
-      _setSocketEventListener();
+      if (isConnected) {
+        socket.removeAllListeners();
+        ioSocket.io.disconnect();
+        ioSocket.io.connect();
+        _setSocketEventListener();
+      }
+      isConnected = false;
     }
 
     /**
@@ -139,7 +144,9 @@
      * @private
      */
     function _onSocketConnect() {
+      isConnected = true;
       NetInterceptor.setStatus(true);
+      _setSocketEventListener();
     }
 
     /**
@@ -147,6 +154,7 @@
      * @private
      */
     function _onSocketDisconnect() {
+      isConnected = false;
       NetInterceptor.setStatus(false);
     }
 
@@ -156,6 +164,7 @@
      */
     function _setSocketEventListener() {
       console.log('############## socket event attach');
+      socket.removeAllListeners();
       socket.on('connect', _onSocketConnect);
       socket.on('disconnect', _onSocketDisconnect);
       socket.on(CHECK_CONNECT_TEAM, _onCheckConnectTeam);
