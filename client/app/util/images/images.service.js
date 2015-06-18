@@ -14,9 +14,9 @@
     var that = this;
 
     // 현재 사용하고 있는 모달에서 원래 가지고 있는 margin-top 의 값 * 2 에 10을 그냥 더한 값
-    var heightOffset = 50;
+    var HEIGHT_OFFSET = 50;
     // 화면에 꽉 찰 수도 있으니 양 옆에 남겨두고 싶은 공간
-    var widthOffset = 40;
+    var WIDTH_OFFSET = 40;
 
     that.compileImageElementWithScope = compileImageElementWithScope;
 
@@ -94,7 +94,7 @@
 
       if (isFullScreen) {
         var jqFullScreenImageWrapper = $('.modal-full .modal-dialog') || jqParentElement;
-        _setVertical(imageHeight, $(window).height(), jqFullScreenImageWrapper, heightOffset);
+        _setVertical(imageHeight, $(window).height(), jqFullScreenImageWrapper, HEIGHT_OFFSET);
       } else {
         _setVertical(imageHeight, jqParentElement.height(), $(imageElement), 0);
       }
@@ -130,8 +130,8 @@
 
     function getImageOptionForFullScreen() {
       return {
-        maxWidth: $(window).width() - widthOffset,
-        maxHeight: $(window).height() - heightOffset
+        maxWidth: $(window).width() - WIDTH_OFFSET,
+        maxHeight: $(window).height() - HEIGHT_OFFSET
       };
     }
   }

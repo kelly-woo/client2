@@ -30,6 +30,10 @@
 
       _init();
 
+      /**
+       * 파일 형태가 블랍인이 url인지 판단하고 알맞는 다음 스텝을 지정한다.
+       * @private
+       */
       function _init() {
         if (!!attrs.isblob) {
           // 로드할 파일이 blob 파일일 경우
@@ -51,7 +55,7 @@
 
           xhr.open('GET', imageUrl, true);
           xhr.responseType = 'blob';
-          xhr.onload = onload;
+          xhr.onload = _onload;
 
           xhr.send();
           _hide();
@@ -61,7 +65,7 @@
       /**
        * 처음에 XMLHttpRequest 를 직접 이용해 호출한 콜의 콜백이다.
        */
-      function onload() {
+      function _onload() {
         var that = this;
 
         if (that.status === 200) {
