@@ -42,7 +42,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.entityType = entityType;
   $scope.messages = [];
 
-
+  console.log(entityType);
   $scope.message = {};          // Message to post.
 
   var firstMessageId;             // 현재 엔티티가 가지고 있는 가장 위 메세지 아이디.
