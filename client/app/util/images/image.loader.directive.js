@@ -89,11 +89,9 @@
         imageOptions = _getImageOptions();
 
         loadImage.parseMetaData(tempBlob, function (data) {
-          var currentOrientation;
           if (!!data.exif) {
             // 필요한 정보가 있을 경우
-            currentOrientation = _getImageOrientation(data);
-            imageOptions['orientation'] = currentOrientation - 1;
+            imageOptions['orientation'] = _getImageOrientation(data);
           }
           // 이미지옵션들과 함께 블랍이미지를 이용해서 canvas 를 만든다.
           loadImage(tempBlob, _onImageLoad, imageOptions);
