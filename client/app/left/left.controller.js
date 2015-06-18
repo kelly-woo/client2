@@ -54,21 +54,14 @@ app.controller('leftPanelController1', function(
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
   } else {
     response = leftPanel.data;
-    _checkNotificationBanner();
   }
-
-  function _checkNotificationBanner() {
-    publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
-    DeskTopNotificationBanner.checkNotificationBanner('left');
-  }
-  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
 
   _attachExtraEvents();
 
   $scope.$on('updateBadgePosition', updateUnreadPosition);
-
+  
   $scope.$on('$destroy', _onDestroy);
-
+  
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);
@@ -78,6 +71,8 @@ app.controller('leftPanelController1', function(
 
   $scope.goUnreadBelow = goUnreadBelow;
   $scope.goUnreadAbove = goUnreadAbove;
+  $scope.onDmClicked = onDmClicked;
+  $scope.onTopicClicked = onTopicClicked;
 
   /**
    * collapse status 변경시 update badge posision 이벤트 트리거한다.
@@ -106,23 +101,25 @@ app.controller('leftPanelController1', function(
       var offsetTop = jqContainer.offset().top;
       var currentBottom = scrollTop + offsetTop + jqContainer.height();
       var top = _getPosUnreadBelow();
-      var isLast = $scope.unread.below.length === 1;
+      // 한번에 마지막 뱃지로 내려가도록 정책 변경
+      //var isLast = $scope.unread.below.length === 1;
+      var isLast = true;
 
       // 아래 여백
       var space = 9;
 
       var targetScrollTop = scrollTop + (top - currentBottom);
 
-      if ($scope.unread.below.length > 1) {
+      if (isLast) {
+        $scope.unread.below = [];
+      } else {
         targetScrollTop += jqTarget.outerHeight() + space;
       }
 
-      if (isLast) {
-        $scope.unread.below = [];
-      }
-
       _isBadgeMoveLocked = true;
-      jqContainer.animate({scrollTop: targetScrollTop}, {
+      jqContainer.animate({
+        scrollTop: targetScrollTop
+      }, {
         done: function () {
           _isBadgeMoveLocked = false;
         }
@@ -135,22 +132,31 @@ app.controller('leftPanelController1', function(
    * @param {Event} clickEvent
    */
   function goUnreadAbove(clickEvent) {
-    var jqTarget = $(clickEvent.target);
-    var jqContainer = $('#lpanel-list-container');
-    var scrollTop = jqContainer[0].scrollTop;
-    var offsetTop = jqContainer.offset().top;
-    var currentTop = scrollTop + offsetTop;
-    var top = _getPosUnreadAbove();
-    //위 여백
-    var space = 7;
+    if (!_isBadgeMoveLocked) {
+      var jqTarget = $(clickEvent.target);
+      var jqContainer = $('#lpanel-list-container');
+      var scrollTop = jqContainer[0].scrollTop;
+      var offsetTop = jqContainer.offset().top;
+      var currentTop = scrollTop + offsetTop;
+      var top = _getPosUnreadAbove();
+      //위 여백
+      var space = 7;
 
-    var targetScrollTop = scrollTop - (currentTop - top);
+      var targetScrollTop = scrollTop - (currentTop - top);
 
-    if ($scope.unread.above.length > 1) {
-      targetScrollTop -= jqTarget.outerHeight() + space;
+      if ($scope.unread.above.length > 1) {
+        targetScrollTop -= jqTarget.outerHeight() + space;
+      }
+
+      _isBadgeMoveLocked = true;
+      jqContainer.animate({
+        scrollTop: targetScrollTop
+      }, {
+        done: function () {
+          _isBadgeMoveLocked = false;
+        }
+      });
     }
-
-    jqContainer.animate({scrollTop: targetScrollTop});
   }
 
   /**
@@ -175,7 +181,7 @@ app.controller('leftPanelController1', function(
    */
   function _getPosUnreadBelow() {
     var below = $scope.unread.below;
-    return below[0] || 0;
+    return below[below.length - 1] || 0;
   }
 
   /**
@@ -228,12 +234,14 @@ app.controller('leftPanelController1', function(
 
     var top = scrollTop + offsetTop;
     var bottom = top + height;
+    $scope.unread = UnreadBadge.getUnreadPos(top, bottom);
   }
 
   /**
    * left panel 업데이트 후에 알려줘야 할 컨틀롤러가 있음을 설정한다.
    * @param param {string} broadcast할 이벤트 이름
    * @private
+   *
    * FIXME: SERVICE로 빼시오.
    */
   function _setAfterLeftInit(param) {
@@ -546,7 +554,7 @@ app.controller('leftPanelController1', function(
    *
    */
   $rootScope.$on('updateLeftPanelCaller', function() {
-    // console.info("[enter] updateLeftPanelCaller");
+    //console.info("[enter] updateLeftPanelCaller");
     $scope.updateLeftPanelCaller();
   });
 
@@ -573,10 +581,10 @@ app.controller('leftPanelController1', function(
   //  center and header are calling.
   $scope.onUserClick = function(user) {
     if (angular.isNumber(user)) {
-      user = entityAPIservice.getEntityFromListById($scope.memberList, user)
+      user = entityAPIservice.getEntityFromListById($scope.memberList, user);
     }
     else {
-      user = entityAPIservice.getEntityFromListById($scope.memberList, user.id)
+      user = entityAPIservice.getEntityFromListById($scope.memberList, user.id);
     }
     modalHelper.openMemberProfileModal($scope, user);
   };
@@ -588,20 +596,33 @@ app.controller('leftPanelController1', function(
     });
   }
 
-  $scope.onTopicClicked = onTopicClicked;
+  /**
+   * DM Click 시 이벤트 핸들러
+   * @param {entity} userEntity - 클릭한 user entity
+   */
+  function onDmClicked(userEntity) {
+    userEntity.alarmCnt = '';
+  }
 
-  function onTopicClicked(entityType, entityId) {
-    if (NetInterceptor.isConnected()) {
-      if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
-        publicService.goToDefaultTopic();
-        return;
-      }
+  /**
+   * TOPIC Click 시 이벤트 핸들러
+   * @param {object} topicEntity - 클릭한 토픽 entity
+   */
+  function onTopicClicked(topicEntity) {
+    var entityType = topicEntity.type;
+    var entityId = topicEntity.id;
 
-      if ($scope.currentEntity.id == entityId) {
-        $rootScope.$broadcast('refreshCurrentTopic');
-      } else {
-        $state.go('archives', {entityType: entityType, entityId: entityId});
-      }
+    topicEntity.alarmCnt = '';
+
+    if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
+      publicService.goToDefaultTopic();
+      return;
+    }
+
+    if ($scope.currentEntity.id == entityId) {
+      $rootScope.$broadcast('refreshCurrentTopic');
+    } else {
+      $state.go('archives', { entityType: entityType, entityId: entityId });
     }
   }
 

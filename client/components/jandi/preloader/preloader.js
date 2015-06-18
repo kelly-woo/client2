@@ -19,7 +19,7 @@
   /* @ngInject */
   function config(configuration) {
     _isLocal = configuration.name === 'local';
-    _path = configuration._path;
+    _path = configuration.path || '';
     _templateList = [
       'app/disconnect/disconnect.html'
     ];
