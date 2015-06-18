@@ -1,0 +1,42 @@
+.desktop-notification-setting-banner {
+  height: 40px;
+  line-height: 40px;
+
+  position: relative;
+
+  color: white;
+
+  background-color: #f5b800;
+}
+
+.exclamation-in-triangle {
+  vertical-align: baseline;
+}
+
+.desktop-notification-setting-banner.initial-question {
+  background-color: #ef4900;
+}
+
+.second-question {
+  font-weight: 600;
+}
+.second-question.in-the-middle {
+  margin: 0 5px;
+}
+.second-question:hover {
+  color: #000066;
+}
+.banner-cancel-icon {
+  position: absolute;
+  right: 4px;
+  top: 0;
+  height: 100%;
+  opacity: 0.4;
+}
+.banner-cancel-icon:hover {
+  opacity: 1;
+}
+.banner-cancel-icon .icon-cancel {
+  font-size: 25px;
+  line-height: 40px;
+}

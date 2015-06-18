@@ -7,8 +7,20 @@
   padding: 2px 5px 3px 5px;
   font-weight: 700;
   margin-left: 2px;
+  display: inline;
 }
 
+.alert-badge {
+  background-color: #ef6700;
+  border-radius: 16px;
+  font-family: "Helvetica Neue";
+  font-size: 10px;
+  font-weight: bold;
+  color: #FFFFFF;
+  padding: 2px 5px 3px 5px;
+  font-weight: 700;
+  margin-left: 2px;
+}
 
 article {
   padding-bottom: 10px;
@@ -16,7 +28,7 @@ article {
 
 .cpanel {
   position: absolute;
-  top: 41px;
+  top: 0;
   left: 240px;
   right: 0;
   bottom: 0;
@@ -190,6 +202,7 @@ article {
   bottom: 50px;
   overflow: auto;
   min-width: 260px;
+  padding-bottom: 0;
 }
 .msgs__loading {
   background-size: 40px 40px !important;
@@ -259,15 +272,17 @@ article {
   margin-bottom: 8px;
 }
 .msg-item__action {
-  display: none;
+
+    display:none;
+    position:absolute;
+    right:-7px;
+    bottom: 4px
 }
 .msg-item__action .icon-cancel {
-  position: absolute;
-  right: -7px;
-  bottom: 4px;
 }
+
 .msg-item:hover .msg-item__action {
-  display: block;
+    display:inline-block;
 }
 .msg-item-float {
   position: absolute;
@@ -562,12 +577,6 @@ by ysyun 2015.2.25
   color: #154a67;
 }
 
-.footer #message-input {
-  border: 2px solid #d7e0e8;
-  border-radius: 0;
-  line-height: 1.3rem;
-  padding: 5px 5px 5px 8px;
-}
 .post-loading {
   background-color: #f2f2f2 !important;
 }

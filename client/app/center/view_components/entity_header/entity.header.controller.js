@@ -6,20 +6,40 @@
     .controller('entityHeaderCtrl', entityHeaderCtrl);
 
   /* @ngInject */
-  function entityHeaderCtrl($scope, $filter, entityHeader, entityAPIservice, memberService, currentSessionHelper,
+  function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, fileAPIservice, analyticsService, modalHelper) {
 
     var currentEntity;
     var entityId;
     var entityType;
 
+    $scope.isConnected = true;
+
     (function() {
       _init();
     })();
 
+    $scope.$on('connected', _onConnected);
+    $scope.$on('disconnected', _onDisconnected);
     $scope.$on('onCurrentEntityChanged', function(event, param) {
       _initWithParam(param);
     });
+
+    /**
+     * network connect 가 publish 되었을 때
+     * @private
+     */
+    function _onConnected() {
+      $scope.isConnected = true;
+    }
+
+    /**
+     * network disconnect 가 publish 되었을 때
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
+    }
 
     function _init() {
       _initWithParam($scope.currentEntity);
@@ -31,6 +51,31 @@
         _checkOwnership();
         _checkIfDefaultTopic();
       }
+    }
+
+    /**
+     * currentEntity 로 부터 deactivate member 를 제거한다.
+     * @param {object} currentEntity
+     * @returns {object} deactive member 를 제거한 entity
+     * @private
+     */
+    function _filterDeactivateMembers(currentEntity) {
+      var members = currentEntity.ch_members || currentEntity.pg_members;
+      var totalEntities = $rootScope.totalEntities;
+      var member;
+      var entity;
+      var i;
+      if (members && members.length) {
+        for (i = 0; i < members.length; i++) {
+          member = members[i];
+          entity = entityAPIservice.getEntityFromListById(totalEntities, member);
+          if (!entity || !entity.name) {
+            members.splice(i, 1);
+            i -= 1;
+          }
+        }
+      }
+      return currentEntity;
     }
 
     /**
@@ -46,6 +91,7 @@
       } else {
         entity = param;
       }
+      entity = _filterDeactivateMembers(entity);
       _setCurrentEntity(entity);
     }
 
@@ -72,7 +118,6 @@
     function _checkIfDefaultTopic() {
       $scope.isDefaultTopic = currentSessionHelper.isDefaultTopic(currentEntity);
     }
-
 
     $scope.onLeaveClick = function() {
       var isLeaveChannel;
@@ -104,7 +149,10 @@
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
             updateLeftPanel();
-            fileAPIservice.broadcastChangeShared();
+            fileAPIservice.broadcastChangeShared({
+              type: 'delete',
+              id: $scope.currentEntity.id
+            });
           })
           .error(function(error) {
             alert(error.msg);

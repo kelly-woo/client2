@@ -1,4 +1,4 @@
-<div class="panel-title-container non-selectable" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}">
+<div ng-if="isConnected" class="panel-title-container non-selectable" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}">
   <!--    STAR ICON -->
   <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
     <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
@@ -12,11 +12,11 @@
   </span>
 
   <!--Title Dropdown-->
-  <span class="panel-title-info">
+  <span class="panel-title-info" dropdown>
 
     <!--    TITLE   -->
-    <span class="panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix" data-toggle="dropdown">
-      <span class="inline-overflow-ellipsis panel-title-info__name">{{ currentEntity | getName }}
+    <span class="panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix" dropdown-toggle>
+      <span class="inline-overflow-ellipsis panel-title-info__name" ng-bind="currentEntity.name">
         <i class="fa fa-caret-down header-title-info__more"></i>
       </span>
     </span>
@@ -62,7 +62,6 @@
 
     <!--User-->
     <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'users'">
-
       <!--    INVITE  -->
       <li role="presentation" data-ng-if="!isDisabledMember(currentEntity);">
         <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
@@ -98,15 +97,13 @@
           <i class="icon-cancel"></i><span translate>@common-conversation-leave</span>
         </a>
       </li>
-
-
     </ul>
 
   </span>
 
   <!--Member Dropdown-->
-  <span class="panel-title-member">
-    <span class="dropdown-toggle panel-title-member__more" data-toggle="dropdown" data-ng-if="currentEntity.type != 'users'">
+  <span class="panel-title-member" dropdown>
+    <span class="dropdown-toggle panel-title-member__more" dropdown-toggle data-ng-if="currentEntity.type != 'users'">
       <i class="icon-user"></i> <span>{{ currentEntity.ch_members.length || currentEntity.pg_members.length }}</span>
     </span>
     <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
@@ -126,5 +123,12 @@
   <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledMember(currentEntity);">
     <img src="assets/images/icon-disabled-members-alert.png"/>
     <span translate>@common-disabled-member-notice-msg-short</span>
+  </span>
+</div>
+
+<div ng-if='!isConnected' class="panel-title-container non-selectable center-panel-disabled-member">
+  <span class="disabled-member-notice-msg inline-overflow-ellipsis">
+    <img src="assets/images/icon-disabled-members-alert.png"/>
+    <span translate>@common-connection-retry</span>
   </span>
 </div>

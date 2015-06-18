@@ -35,14 +35,23 @@
       </span>
 
       <!--    CONTENT(MESSAGE)    -->
-      <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
-
-      <!--    CREATED TIME    -->
-      <span class="msg-item-header__created">
-        {{msg.time | gethmmaFormat}}
+      <span ng-if="!msg.message.commentOption.isSticker">
+        <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+        <!--    CREATED TIME    -->
+        <span class="msg-item-header__created">
+          {{msg.time | gethmmaFormat}}
+        </span>
+        <span class="badge unread-badge">{{ msg.unreadCount }}</span>
       </span>
-      <span class="badge unread-badge">{{ msg.unreadCount }}</span>
 
+      <div ng-if="msg.message.commentOption.isSticker">
+        <img class="sticker size_5" ng-if="msg.message.commentOption.isSticker" src="{{ msg.message.content.url }}"/>
+        <!--    CREATED TIME    -->
+        <span class="msg-item-header__created">
+          {{msg.time | gethmmaFormat}}
+        </span>
+        <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+      </div>
     </p>
   </span>
 </div>
@@ -113,16 +122,23 @@
           <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
           <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}}</span>
         </span>
+        <span ng-if="!msg.message.commentOption.isSticker">
+          <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+          <span class="msg-item-header__created">
+            {{msg.time | gethmmaFormat}}
+          </span>
 
-        <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
-
-        <span class="msg-item-header__created">
-          {{msg.time | gethmmaFormat}}
+          <span class="badge unread-badge">{{ msg.unreadCount }}</span>
         </span>
+        <div ng-if="msg.message.commentOption.isSticker">
+          <img class="sticker size_5" ng-if="msg.message.commentOption.isSticker" src="{{ msg.message.content.url }}"/>
 
-        <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+          <span class="msg-item-header__created">
+            {{msg.time | gethmmaFormat}}
+          </span>
 
-
+          <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+        </div>
       </p>
 
     </div>

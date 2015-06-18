@@ -5,7 +5,9 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice, analyticsService, tutorialService,
-  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge) {
+  currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket, jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
+
+  //console.info('[enter] leftpanelController');
 
   /**
    * @namespace
@@ -24,13 +26,14 @@ app.controller('leftPanelController1', function(
 
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
+  var _isBadgeMoveLocked = false;
 
   //unread 위치에 대한 정보
   $scope.unread = {
     above: [],
     below: []
   };
-  
+
   // 로딩이 진행되고 있을 경우 true
   $scope.isLoading = false;
 
@@ -39,7 +42,7 @@ app.controller('leftPanelController1', function(
     isTopicsCollapsed: storageAPIservice.isLeftTopicCollapsed() || false
   };
 
-  
+
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
@@ -68,6 +71,8 @@ app.controller('leftPanelController1', function(
 
   $scope.goUnreadBelow = goUnreadBelow;
   $scope.goUnreadAbove = goUnreadAbove;
+  $scope.onDmClicked = onDmClicked;
+  $scope.onTopicClicked = onTopicClicked;
 
   /**
    * collapse status 변경시 update badge posision 이벤트 트리거한다.
@@ -85,50 +90,73 @@ app.controller('leftPanelController1', function(
   }
 
   /**
-   * 아래쪽 unread 로 scroll 이동  
+   * 아래쪽 unread 로 scroll 이동
    * @param {Event} clickEvent
    */
   function goUnreadBelow(clickEvent) {
-    var jqTarget = $(clickEvent.target).closest('.lpanel-list-help-unread ');
-    var jqContainer = $('#lpanel-list-container');
-    var scrollTop = jqContainer[0].scrollTop;
-    var offsetTop = jqContainer.offset().top;
-    var currentBottom = scrollTop + offsetTop + jqContainer.height();
-    var top = _getPosUnreadBelow();
+    if (!_isBadgeMoveLocked) {
+      var jqTarget = $(clickEvent.target).closest('.lpanel-list-help-unread ');
+      var jqContainer = $('#lpanel-list-container');
+      var scrollTop = jqContainer[0].scrollTop;
+      var offsetTop = jqContainer.offset().top;
+      var currentBottom = scrollTop + offsetTop + jqContainer.height();
+      var top = _getPosUnreadBelow();
+      // 한번에 마지막 뱃지로 내려가도록 정책 변경
+      //var isLast = $scope.unread.below.length === 1;
+      var isLast = true;
 
+      // 아래 여백
+      var space = 9;
 
-    // 아래 여백
-    var space = 9;
+      var targetScrollTop = scrollTop + (top - currentBottom);
 
-    var targetScrollTop = scrollTop + (top - currentBottom);
+      if (isLast) {
+        $scope.unread.below = [];
+      } else {
+        targetScrollTop += jqTarget.outerHeight() + space;
+      }
 
-    if ($scope.unread.below.length > 1) {
-      targetScrollTop += jqTarget.outerHeight() + space;
+      _isBadgeMoveLocked = true;
+      jqContainer.animate({
+        scrollTop: targetScrollTop
+      }, {
+        done: function () {
+          _isBadgeMoveLocked = false;
+        }
+      });
     }
-    jqContainer.animate({scrollTop: targetScrollTop});
   }
-  
+
   /**
    * 위쪽 unread 로 scroll 이동
    * @param {Event} clickEvent
    */
   function goUnreadAbove(clickEvent) {
-    var jqTarget = $(clickEvent.target);
-    var jqContainer = $('#lpanel-list-container');
-    var scrollTop = jqContainer[0].scrollTop;
-    var offsetTop = jqContainer.offset().top;
-    var currentTop = scrollTop + offsetTop;
-    var top = _getPosUnreadAbove();
-    //위 여백
-    var space = 7;
+    if (!_isBadgeMoveLocked) {
+      var jqTarget = $(clickEvent.target);
+      var jqContainer = $('#lpanel-list-container');
+      var scrollTop = jqContainer[0].scrollTop;
+      var offsetTop = jqContainer.offset().top;
+      var currentTop = scrollTop + offsetTop;
+      var top = _getPosUnreadAbove();
+      //위 여백
+      var space = 7;
 
-    var targetScrollTop = scrollTop - (currentTop - top);
+      var targetScrollTop = scrollTop - (currentTop - top);
 
-    if ($scope.unread.above.length > 1) {
-      targetScrollTop -= jqTarget.outerHeight() + space;
+      if ($scope.unread.above.length > 1) {
+        targetScrollTop -= jqTarget.outerHeight() + space;
+      }
+
+      _isBadgeMoveLocked = true;
+      jqContainer.animate({
+        scrollTop: targetScrollTop
+      }, {
+        done: function () {
+          _isBadgeMoveLocked = false;
+        }
+      });
     }
-
-    jqContainer.animate({scrollTop: targetScrollTop});
   }
 
   /**
@@ -153,7 +181,7 @@ app.controller('leftPanelController1', function(
    */
   function _getPosUnreadBelow() {
     var below = $scope.unread.below;
-    return below[0] || 0;
+    return below[below.length - 1] || 0;
   }
 
   /**
@@ -191,7 +219,7 @@ app.controller('leftPanelController1', function(
     $timeout.cancel(unreadTimer);
     unreadTimer = $timeout(function() {
       _updateUnreadPosition();
-    }, 10);
+    }, 100);
   }
 
   /**
@@ -448,8 +476,6 @@ app.controller('leftPanelController1', function(
     if ($state.params.entityId)
       _setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
 
-    $rootScope.isReady = true;
-
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
@@ -555,10 +581,10 @@ app.controller('leftPanelController1', function(
   //  center and header are calling.
   $scope.onUserClick = function(user) {
     if (angular.isNumber(user)) {
-      user = entityAPIservice.getEntityFromListById($scope.memberList, user)
+      user = entityAPIservice.getEntityFromListById($scope.memberList, user);
     }
     else {
-      user = entityAPIservice.getEntityFromListById($scope.memberList, user.id)
+      user = entityAPIservice.getEntityFromListById($scope.memberList, user.id);
     }
     modalHelper.openMemberProfileModal($scope, user);
   };
@@ -570,9 +596,24 @@ app.controller('leftPanelController1', function(
     });
   }
 
-  $scope.onTopicClicked = onTopicClicked;
+  /**
+   * DM Click 시 이벤트 핸들러
+   * @param {entity} userEntity - 클릭한 user entity
+   */
+  function onDmClicked(userEntity) {
+    userEntity.alarmCnt = '';
+  }
 
-  function onTopicClicked(entityType, entityId) {
+  /**
+   * TOPIC Click 시 이벤트 핸들러
+   * @param {object} topicEntity - 클릭한 토픽 entity
+   */
+  function onTopicClicked(topicEntity) {
+    var entityType = topicEntity.type;
+    var entityId = topicEntity.id;
+
+    topicEntity.alarmCnt = '';
+
     if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
       publicService.goToDefaultTopic();
       return;

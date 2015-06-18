@@ -7,7 +7,6 @@
 
   /* @ngInject */
   function entityHeader($http, memberService, config) {
-
     var memberId = memberService.getTeamId();
 
     this.leaveEntity = leaveEntity;
@@ -30,10 +29,7 @@
         params: {
           teamId: memberId
         }
-
       });
     }
-
   }
-
 })();
