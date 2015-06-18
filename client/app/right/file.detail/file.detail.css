@@ -266,11 +266,11 @@
   color: #999;
   font-size: 12px;
 }
-.comment-item-header__action .dropdown-toggle {
+.comment-item-header__action .comment-item-header__action__icon {
   display: none;
 }
-.comment-item:hover .comment-item-header__action .dropdown-toggle {
-  display: inline;
+.comment-item:hover .comment-item-header__action .comment-item-header__action__icon {
+  display: block;
 }
 .comment-item-dropdown {
   top: -5px;
