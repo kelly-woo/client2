@@ -54,13 +54,7 @@ app.controller('leftPanelController1', function(
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
   } else {
     response = leftPanel.data;
-    _checkNotificationBanner();
   }
-
-  function _checkNotificationBanner() {
-    publicService.adjustBodyWrapperHeight(DeskTopNotificationBanner.isNotificationBannerUp());
-  }
-  $scope.$on('onNotificationBannerDisappear', _checkNotificationBanner);
 
   _attachExtraEvents();
 

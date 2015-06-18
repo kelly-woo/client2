@@ -16,9 +16,11 @@
         <div class="col-sm-9 modal-share__file">
           <div class="modal-share__file-type">
             <!-- IMAGE -->
-            <div class="image_wrapper">
-              <img class="modal-share__file-type__image" rotate rotate-width="65" rotate-height="65" rotate-left-align="false"
-                   ng-if="(file.content | hasPreview)" ng-src="{{ server_uploaded+file.content.extraInfo.smallThumbnailUrl }}"/>
+            <div class="image_wrapper msg-file-body__img__background jnd-text-center" ng-if="(file.content | hasPreview)">
+              <div class="opac-zero msg-file-body__img cursor_pointer"
+                   image-loader="{{server_uploaded+file.content.extraInfo.smallThumbnailUrl}}"
+                   image-max-height="65" image-max-width="65" image-is-square="true">
+              </div>
             </div>
 
             <!-- OTHER TYPE -->
