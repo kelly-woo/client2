@@ -984,7 +984,7 @@ by ysyun 2015.2.25
   width: 110px;
   height: 110px;
 
-  border: 1px solid #e1e1e1;
+  outline: 1px solid #e1e1e1;
   background-color: #F1F4F8;
 }
 
@@ -998,7 +998,6 @@ by ysyun 2015.2.25
 
   max-width: 110px;
   max-height: 110px;
-  border: 1px solid #e1e1e1;
 }
 
 .attachment-content-wrapper .social-body {
