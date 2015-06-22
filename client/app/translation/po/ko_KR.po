@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -417,6 +417,14 @@ msgstr "더보기"
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@common-name"
 msgstr "이름"
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-body"
+msgstr "네트워크가 복구되면 자동으로 잔디에 접속됩니다."
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-header"
+msgstr "현재 네트워크에 접속되지 않은 것으로 보입니다."
 
 #: client/app/left/left.html
 msgid "@common-new-message"
@@ -988,6 +996,10 @@ msgstr ""
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
 msgstr "테스트 메시지 받기"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@setting-notification-denied"
+msgstr "바탕화면 알림이 비활성화 되어 있습니다."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"
