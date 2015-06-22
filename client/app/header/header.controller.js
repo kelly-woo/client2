@@ -9,7 +9,7 @@
   /* @ngInject */
   function headerCtrl($scope, $state, $filter, accountService,
                       memberService, publicService, configuration,
-                      language, modalHelper, jndPubSub, DeskTopNotificationBanner) {
+                      language, modalHelper, jndPubSub, DeskTopNotificationBanner, pcAppHelper) {
     var modalMap;
     var stateParams;
 
@@ -41,6 +41,8 @@
           accountService.setAccountLanguage(response.lang);
           publicService.getLanguageSetting(accountService.getAccountLanguage());
           publicService.setCurrentLanguage();
+
+          pcAppHelper.onLanguageChanged(lang);
 
           _reloadCurrentPage($state.current, stateParams);
 
