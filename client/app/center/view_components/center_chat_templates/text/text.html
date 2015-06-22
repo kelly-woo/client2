@@ -1,4 +1,5 @@
-<div ng-if="!msg.message.isChildText">
+<!-- main text-->
+<div ng-if="!isChildText($index)">
   <!--  User Thumbnail -->
   <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
        ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
@@ -18,9 +19,7 @@
   <div class="msg-item-body">
     <!-- TEXT -->
     <div class="msg-text">
-
       <img ng-if="msg.message.contentType === 'sticker'"  class="sticker size_5" src="{{msg.message.content.url}}"/>
-
       <span ng-if="msg.message.contentType !== 'sticker'"
             class="keep msg-text-body"
             data-ng-bind-html="(msg.message.content.body) || ''"></span>
@@ -40,8 +39,8 @@
     </div>
   </div>
 </div>
-
-<div ng-if="msg.message.isChildText">
+<!-- child text -->
+<div ng-if="isChildText($index)">
   <div class="msg-item-body">
     <!-- TEXT -->
     <div class="msg-text">
@@ -66,4 +65,4 @@
   </div>
 </div>
 
-<social-snippet ng-if="msg.message.hasLinkPreview"></social-snippet>
+<social-snippet ng-if="hasLinkPreview($index)"></social-snippet>

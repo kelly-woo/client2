@@ -32,6 +32,7 @@
      * @private
      */
     function _isTestingMode() {
+      return false;
       return config.name === 'local' || config.name === 'development';
     }
 
