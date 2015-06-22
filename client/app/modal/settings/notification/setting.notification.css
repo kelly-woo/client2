@@ -4,6 +4,7 @@
 
 .notification-recommendation-msg {
   margin-bottom: 20px;
+  line-height: 1.5;
 }
 
 .notification-switch {
@@ -81,4 +82,15 @@
 
 .notification-show-content-text {
 
+}
+
+.notification-denied-text {
+  text-align: center;
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+  padding-top: 11px;
+  font-size: 15px;
+  height: 40px;
+}
 }
