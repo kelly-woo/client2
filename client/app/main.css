@@ -71,6 +71,17 @@ input[type="email"] {
 
 ********************************************/
 
+.full-screen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: auto !important;
+}
+.body-full-screen {
+  top: 40px;
+}
 .title__divider {
   width: 90px;
   height: 1px;
@@ -400,6 +411,17 @@ input[type="button"] {
                     ICON.
 
 ********************************************/
+.no-image-preview-full-screen {
+
+}
+.no-image-preview-square {
+  background: url('../assets/images/no_image_available_center.png');
+}
+.no-image-preview {
+  background: url('../assets/images/no_image_available.png');
+  width: 450px;
+  height: 172px;
+}
 .icon_image {
   position: absolute;
   cursor: pointer;

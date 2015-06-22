@@ -11,6 +11,9 @@
     .directive('stickerPanel', stickerPanel);
 
   function stickerPanel() {
+    var DEFAULT_WIDTH = 355;
+    var DEFAULT_HEIGHT = 300;
+
     return {
       restrict: 'E',
       scope: false,
@@ -20,8 +23,8 @@
     };
 
     function link(scope, el, attrs, ctrl) {
-      var width = attrs.width || 355;
-      var height = attrs.height || 300;
+      var width = attrs.width || DEFAULT_WIDTH;
+      var height = attrs.height || DEFAULT_HEIGHT;
       height -= el.find('.sticker_panel_tab').height();
 
       el.find('.sticker_panel').width(width);

@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function messageAPIservice($http, memberService, configuration, currentSessionHelper) {
-
+    this.getMessage = getMessage;
     this.getMessages = getMessages;
     this.getUpdatedMessages = getUpdatedMessages;
     this.postMessage = postMessage;
@@ -20,6 +20,18 @@
     this.getRoomInformation = getRoomInformation;
 
     var server_address = configuration.server_address;
+
+    /**
+     * get message item
+     * @param {string} teamId
+     * @param {string} messageId
+     */
+    function getMessage(teamId, messageId) {
+      return $http({
+        method  : 'GET',
+        url     : server_address + 'teams/' + teamId + '/messages/' + messageId
+      });
+    }
 
     // get message lists
     function getMessages(entityType, entityId, params) {
@@ -55,10 +67,10 @@
      * @returns {*}
      */
     function postMessage(entityType, entityId, message, sticker) {
-      if (!sticker) {
-        return _postMessage(entityType, entityId, message);
-      } else {
+      if (sticker && sticker.id && sticker.groupId) {
         return _postSticker(entityType, entityId, message, sticker);
+      } else {
+        return _postMessage(entityType, entityId, message);
       }
     }
 
@@ -118,7 +130,7 @@
      */
     function _getParamEntityType(entityType, isSingular) {
       var type = 'channel';
-      
+
       if (entityType.indexOf('user') > -1) {
         type = 'user';
       } else if (entityType.indexOf('private') > -1) {
@@ -126,7 +138,7 @@
       } else if (entityType.indexOf('channel') > -1) {
         type = 'channel';
       }
-      
+
       if (!isSingular) {
         type += 's';
       }
@@ -208,6 +220,5 @@
         url: server_address + 'teams/' + teamId + '/rooms/' + roomId
       });
     }
-
   }
 })();

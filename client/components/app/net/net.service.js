@@ -18,9 +18,7 @@
    */
   /* @ngInject */
   function NetInterceptor($q, jndPubSub) {
-    var that = this;
-
-    this._isConnected = true;
+    var _isConnected = true;
 
     this.setStatus = setStatus;
     this.isConnected = isConnected;
@@ -32,7 +30,7 @@
      * @returns {boolean}
      */
     function isConnected() {
-      return that._isConnected;
+      return _isConnected;
     }
 
     /**
@@ -40,8 +38,8 @@
      * @param {boolean} isConnected 네트워크 연결상태
      */
     function setStatus(isConnected) {
-      var currentStatus = that._isConnected;
-      that._isConnected = isConnected;
+      var currentStatus = _isConnected;
+      _isConnected = isConnected;
 
       if (currentStatus !== isConnected) {
         _broadcast(isConnected);

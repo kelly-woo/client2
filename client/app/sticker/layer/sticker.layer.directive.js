@@ -20,9 +20,18 @@
     };
 
     function link(scope, el, attrs) {
-      if (attrs.height) {
-        el.find('.sticker_layer').height(attrs.height);
+      _init();
+      /**
+       * 초기화 함수
+       * @private
+       */
+      function _init() {
+        if (attrs.height) {
+          el.find('.sticker_layer').height(attrs.height);
+        }
       }
     }
+
+
   }
 })();
