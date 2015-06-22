@@ -34,13 +34,7 @@
     function init() {
       var isSessionSet = analyticsPersistence.init();
       if (isSessionSet) {
-        track(EVENT.SESSION_START, {
-          userAgent : window.navigator.userAgent,
-          screenHeight: screen.height,
-          screenWidth: screen.width,
-          browserLanguage: window.navigator.language
-        });
-      }
+        track(EVENT.SESSION_START, defaultProperty());      }
       bindTrakcerToWindowFocusEvent();
     }
 
@@ -88,7 +82,22 @@
       return true;
     }
 
-
+    /**
+     * 기본적으로 브라우저에서 얻을수 있는 Default Property를 반환한다.
+     * @return {Object}
+     */
+    function defaultProperty() {
+      var defaultProperty = {};
+      defaultProperty[analyticsConstant.PROPERTY.BROWSER_HEIGHT] = window.innerHeight || document.body.clientHeight;
+      defaultProperty[analyticsConstant.PROPERTY.BROWSER_WIDTH] = window.innerWidth || document.body.clientWidth;
+      defaultProperty[analyticsConstant.PROPERTY.SYSTEM_WIDTH] = screen.width;
+      defaultProperty[analyticsConstant.PROPERTY.SYSTEM_HEIGHT] = screen.height;
+      defaultProperty[analyticsConstant.PROPERTY.USER_AGENT] = window.navigator.userAgent;
+      defaultProperty[analyticsConstant.PROPERTY.REFERRER] = document.referrer;
+      defaultProperty[analyticsConstant.PROPERTY.BROWSER_LANGUAGE] = window.navigator.language;
+      return defaultProperty;
+    }
+    
     /**
      * Analytics 모듈 내부의 Console.error wrapper. Staging 상태가 아닐때에만 에러메세지 출력.
      * @param {String} message - Error
