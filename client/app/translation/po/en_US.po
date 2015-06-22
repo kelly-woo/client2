@@ -9,11 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-<<<<<<< HEAD
-"X-Generator: Poedit 1.6.9\n"
-=======
 "X-Generator: Poedit 1.8.1\n"
->>>>>>> develop
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -212,14 +208,8 @@ msgid "@common-comment"
 msgstr "Comment"
 
 #: client/app/center/view_components/entity_header/entity.header.html
-<<<<<<< HEAD
-#, fuzzy
-msgid "@common-connection-retry"
-msgstr "Leave"
-=======
 msgid "@common-connection-retry"
 msgstr "Connection lost. Reconnecting…"
->>>>>>> develop
 
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/left/messages/messages.html
