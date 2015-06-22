@@ -26,8 +26,16 @@
   color: #ff0000;
 }
 
+.notification-switch.to-on:hover {
+  background-color: #00abe6;
+  color: white;
+}
+
+.notification-switch.to-off:hover {
+  background-color: #F9E1E1;
+}
+
 .notification-switch:hover .notification-btn-text {
-  text-decoration: underline;
 }
 
 .separator {
@@ -73,7 +81,8 @@
   cursor: not-allowed;
 }
 .notification-detail-setting-container.is-enabled .notification-test-button:hover {
-  text-decoration: underline;
+  background-color: #f2fbff;
+  color: #00abe6;
 }
 
 .notification-show-content-checkbox {
@@ -81,7 +90,10 @@
 }
 
 .notification-show-content-text {
-
+  
+}
+.notification-show-content-text:hover {
+  text-decoration: underline;
 }
 
 .notification-denied-text {
