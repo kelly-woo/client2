@@ -1,7 +1,7 @@
 
 <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
      ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }"
-     ng-if="msg.message.commentOption.isTitle">
+     ng-if="isTitleComment($index)">
   <!--    DEFAULT   -->
   <img on-image-load class="user-profile user-thumb" ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
 </div>
@@ -14,7 +14,7 @@
   <!--    WRITER
           IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
   <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
-        ng-hide="!msg.message.commentOption.isTitle">
+        ng-hide="!isTitleComment($index)">
     <span class="msg-item-header__nameSpace">{{msg.fromEntity|getName}}</span>
 
     <!--    CREATED TIME    -->
@@ -25,17 +25,17 @@
   </span>
 
   <!--    CONTINUED COMMENT ON SAME FILE  -->
-  <span class="continue-comment-body" ng-if="!msg.message.commentOption.isTitle">
+  <span class="continue-comment-body" ng-if="!isTitleComment($index)">
     <!--    COMMENT CONTENT -->
     <p>
       <!--    WRITER  -->
-      <span ng-if="!msg.message.commentOption.isChild" class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
+      <span ng-if="!isChildComment($index)" class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
             ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
         <span ng-if="msg.message.contentType !== 'file'"> {{msg.fromEntity|getName}} </span>
       </span>
 
       <!--    CONTENT(MESSAGE)    -->
-      <span ng-if="!msg.message.commentOption.isSticker">
+      <span ng-if="msg.message.contentType !== 'comment_sticker'">
         <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
         <!--    CREATED TIME    -->
         <span class="msg-item-header__created">
@@ -44,8 +44,8 @@
         <span class="badge unread-badge">{{ msg.unreadCount }}</span>
       </span>
 
-      <div ng-if="msg.message.commentOption.isSticker">
-        <img class="sticker size_5" ng-if="msg.message.commentOption.isSticker" src="{{ msg.message.content.url }}"/>
+      <div ng-if="msg.message.contentType === 'comment_sticker'">
+        <img class="sticker size_5" ng-if="msg.message.contentType === 'comment_sticker'" src="{{ msg.message.content.url }}"/>
         <!--    CREATED TIME    -->
         <span class="msg-item-header__created">
           {{msg.time | gethmmaFormat}}
@@ -61,8 +61,8 @@
           최초 댓글
           DISPLAY COMMENT BODY WHEN IT IS TITLE
           IF CURRENT COMMENT IS NOT TITLE, CONTENT GETS DISPLAYED WITHIN HEADER -->
-  <div class="msg-comment" data-ng-if="msg.message.commentOption.isTitle"
-       ng-class="{  'msg-comment-with-thumbnail': msg.message.commentOption.isTitle,
+  <div class="msg-comment" data-ng-if="isTitleComment($index)"
+       ng-class="{  'msg-comment-with-thumbnail': isTitleComment($index),
                               'archived-file-with-comment': msg.feedback.status=='archived'}">
 
     <!--    LEFT PART OF BODY CONTENT
@@ -71,7 +71,7 @@
 
       <div ng-if="msg.feedback.status != 'archived'">
         <!--    IMAGE THUMBNAIL -->
-        <div class="image_wrapper msg-file-body__img__background" ng-if="(msg.feedback.content | hasPreview) && msg.message.commentOption.isTitle && msg.feedback.status != 'archived'">
+        <div class="image_wrapper msg-file-body__img__background" ng-if="(msg.feedback.content | hasPreview) && isTitleComment($index) && msg.feedback.status != 'archived'">
 
           <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center"
                image-loader="{{server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl}}"
@@ -80,7 +80,7 @@
         </div>
 
         <!--    FILE THUMBNAIL  -->
-        <div class="msg-file-body__thumbnail" ng-if="!(msg.feedback.content | hasPreview) && msg.message.commentOption.isTitle">
+        <div class="msg-file-body__thumbnail" ng-if="!(msg.feedback.content | hasPreview) && isTitleComment($index)">
           <div class="fileicon fileicon-{{msg.feedback.content | fileIcon}}" ></div>
         </div>
       </div>
@@ -95,7 +95,7 @@
 
     <!--    RIGHT PART OF BODY CONTENT  -->
     <div class="msg-file-meta">
-      <div class="msg-comment-header" data-ng-if="( msg.message.commentOption.isTitle )">
+      <div class="msg-comment-header" data-ng-if="( isTitleComment($index) )">
         Commented on
 
         <!--    FILE TITLE/NAME  -->
@@ -123,7 +123,7 @@
           <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
           <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}}</span>
         </span>
-        <span ng-if="!msg.message.commentOption.isSticker">
+        <span ng-if="msg.message.contentType !== 'comment_sticker'">
           <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
           <span class="msg-item-header__created">
             {{msg.time | gethmmaFormat}}
@@ -131,8 +131,8 @@
 
           <span class="badge unread-badge">{{ msg.unreadCount }}</span>
         </span>
-        <div ng-if="msg.message.commentOption.isSticker">
-          <img class="sticker size_5" ng-if="msg.message.commentOption.isSticker" src="{{ msg.message.content.url }}"/>
+        <div ng-if="msg.message.contentType === 'comment_sticker'">
+          <img class="sticker size_5" ng-if="msg.message.contentType === 'comment_sticker'" src="{{ msg.message.content.url }}"/>
 
           <span class="msg-item-header__created">
             {{msg.time | gethmmaFormat}}
