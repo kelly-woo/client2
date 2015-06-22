@@ -22,12 +22,14 @@
 }
 
 .image-carousel-viewer .viewer-header {
-  position: absoulte;
+  position: absolute;
   top: 0;
   width: 100%;
   height: 40px;
 
   background-color: rgba(17, 17, 17, .9);
+
+  z-index: 10002;
 }
 
 .viewer-header .options>div {
