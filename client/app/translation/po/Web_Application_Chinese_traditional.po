@@ -986,7 +986,7 @@ msgstr "在推撥通知上顯示訊息內容"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-off"
-msgstr "設置成功"
+msgstr "關閉電腦版的推撥通知"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"

@@ -1012,9 +1012,8 @@ msgid "@setting-notification-show-content-msg"
 msgstr "바탕화면 알림에 메시지 내용 표시하기"
 
 #: client/app/modal/settings/notification/setting.notification.html
-#, fuzzy
 msgid "@setting-notification-turn-off"
-msgstr "JANDI 메시지"
+msgstr "바탕화면 알림 사용하지 않기"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"

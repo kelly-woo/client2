@@ -1017,9 +1017,8 @@ msgid "@setting-notification-show-content-msg"
 msgstr "メッセージの内容をデスクトップ通知で表示する"
 
 #: client/app/modal/settings/notification/setting.notification.html
-#, fuzzy
 msgid "@setting-notification-turn-off"
-msgstr "JANDI 新着メッセージ通知"
+msgstr "デスクトップ通知をオフにする"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"

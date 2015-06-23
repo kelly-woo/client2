@@ -986,7 +986,7 @@ msgstr "在推拨通知上显示信息内容"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-off"
-msgstr "建议开启推拨通知，随时掌握对话、信息"
+msgstr "关闭电脑版的推拨通知"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"

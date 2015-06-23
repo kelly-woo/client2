@@ -1903,4 +1903,3 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   });
 });
-
