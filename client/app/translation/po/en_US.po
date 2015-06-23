@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -427,12 +427,11 @@ msgstr "Name"
 
 #: client/app/disconnect/disconnect.html
 msgid "@common-network-disconnect-body"
-msgstr ""
+msgstr "JANDI will automatically reconnect when it's available."
 
 #: client/app/disconnect/disconnect.html
-#, fuzzy
 msgid "@common-network-disconnect-header"
-msgstr "New Name"
+msgstr "It seems you are not connected to the Internet."
 
 #: client/app/left/left.html
 msgid "@common-new-message"
@@ -1007,6 +1006,10 @@ msgstr ""
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
 msgstr "Send me a test message"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@setting-notification-denied"
+msgstr "Desktop Notifications are currently disabled."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"

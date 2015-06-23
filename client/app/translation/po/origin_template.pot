@@ -726,10 +726,6 @@ msgid "@integration-title-google-drive"
 msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr ""
 
@@ -763,6 +759,10 @@ msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-some-fail"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -956,6 +956,10 @@ msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@setting-notification-denied"
 msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html

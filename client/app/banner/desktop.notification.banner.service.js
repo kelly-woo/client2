@@ -43,10 +43,7 @@
      * 배너를 보여줘야 할 상황이면 보여준다.
      */
     function showNotificationBanner(scope) {
-      console.log('hi')
       if (_shouldAskNotification()) {
-        console.log('adsf' +
-        '')
         _prependBannerElement(scope);
       }
     }
