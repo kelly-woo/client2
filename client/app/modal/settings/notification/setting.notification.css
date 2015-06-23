@@ -4,6 +4,7 @@
 
 .notification-recommendation-msg {
   margin-bottom: 20px;
+  line-height: 1.5;
 }
 
 .notification-switch {
@@ -25,8 +26,16 @@
   color: #ff0000;
 }
 
+.notification-switch.to-on:hover {
+  background-color: #00abe6;
+  color: white;
+}
+
+.notification-switch.to-off:hover {
+  background-color: #F9E1E1;
+}
+
 .notification-switch:hover .notification-btn-text {
-  text-decoration: underline;
 }
 
 .separator {
@@ -72,7 +81,8 @@
   cursor: not-allowed;
 }
 .notification-detail-setting-container.is-enabled .notification-test-button:hover {
-  text-decoration: underline;
+  background-color: #f2fbff;
+  color: #00abe6;
 }
 
 .notification-show-content-checkbox {
@@ -80,5 +90,19 @@
 }
 
 .notification-show-content-text {
+  
+}
+.notification-show-content-text:hover {
+  text-decoration: underline;
+}
 
+.notification-denied-text {
+  text-align: center;
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+  padding-top: 11px;
+  font-size: 15px;
+  height: 40px;
+}
 }

@@ -13,7 +13,7 @@
       templateUrl: 'app/center/view_components/center_chat_templates/text/text.html'
     };
 
-    function link(scope, element, attrs) {
+    function link(scope, el, attrs) {
     }
   }
 })();
