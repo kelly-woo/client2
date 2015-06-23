@@ -6,7 +6,7 @@
 
   color: white;
 
-  background-color: #f5b800;
+  background-color: #F0A80B;
 }
 
 .exclamation-in-triangle {
@@ -24,7 +24,7 @@
   margin: 0 5px;
 }
 .second-question:hover {
-  color: #000066;
+  color: white;
 }
 .banner-cancel-icon {
   position: absolute;

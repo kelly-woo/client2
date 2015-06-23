@@ -13,7 +13,8 @@
 
     var localCurrentEntity;
     var fileIdMap = {};
-
+    //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
+    var _isActivated = true;
     // To be used in directive('centerHelpMessageContainer')
     $scope.emptyMessageStateHelper = 'NO_FILES_UPLOADED';
 
@@ -101,7 +102,12 @@
     }
 
     $scope.$on('onrPanelFileTabSelected', function() {
+      _isActivated = true;
+      $scope.fileRequest.keyword = '';
       _refreshFileList();
+    });
+    $scope.$on('onrPanelMessageTabSelected', function() {
+      _isActivated = false;
     });
 
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
@@ -342,21 +348,23 @@
 
       fileAPIservice.getFileList($scope.fileRequest)
         .success(function(response) {
-          var fileList = [];
-          angular.forEach(response.files, function(entity, index) {
+          if (_isActivated) {
+            var fileList = [];
+            angular.forEach(response.files, function (entity, index) {
 
-            var file = entity;
-            file.shared = fileAPIservice.getSharedEntities(file);
-            if (file.status != 'archived')
-              this.push(file);
+              var file = entity;
+              file.shared = fileAPIservice.getSharedEntities(file);
+              if (file.status != 'archived')
+                this.push(file);
 
-            fileIdMap[file.id] = true;
+              fileIdMap[file.id] = true;
 
-          }, fileList);
+            }, fileList);
 
 
-          generateFileList(fileList, response.fileCount, response.firstIdOfReceivedList);
-          initialLoadDone = true;
+            generateFileList(fileList, response.fileCount, response.firstIdOfReceivedList);
+            initialLoadDone = true;
+          }
         })
         .error(function(response) {
           console.log(response.msg);
