@@ -23,24 +23,29 @@
       var page = attributes.page;
       var title = attributes.title;
       var isValid = validationCheck(page, title);
-      console.log(page, title);
+      
       if (isValid){
         //Send Data to Google Analytics
         GAHelper.pageTrack(page, title);
-
+        console.log(isValid, page, title);
         //Send Data to Log Server
         var property = {};
-        property[analyticsConstant.PROPERTY.PAGE] = analyticsConstant.PAGE[page];
-        property[analyticsConstant.PROPERTY.BROWSER_HEIGHT] = window.innerHeight || document.body.clientHeight;
-        property[analyticsConstant.PROPERTY.BROWSER_WIDTH] = window.innerWidth || document.body.clientWidth;
-        // property[analyticsConstant.PROPERTY.LANGUAGE] = generalService.getServerLang();
-        analyticsHelper.track(analyticsHelper.EVENT.PAGE_VIEWED, property);
+        analyticsHelper.track(analyticsHelper.EVENT.PAGE_VIEWED, setProperty(page));
       } else {
         analyticsHelper.error('PageTracker or PageTracker Undefined. Page: ' + page + ', title: ' + title, 'PageTracker.directive');
       }
     }
-
-
+    /**
+     * page를 포함한 Pageview Event의 Default Property 를 반환한다. 
+     * @params {String} page - page viewEvent의 page
+     * @returns {Boolean} 
+     */
+    function setProperty(page) {
+      var property = {}
+      property[analyticsConstant.PROPERTY.PAGE] = analyticsConstant.PAGE[page];
+      // property[analyticsConstant.PROPERTY.LANGUAGE] = generalService.getDisplayLang();
+      return _.assign(property, analyticsHelper.defaultProperty());
+    }
 
     /**
      * Directive 에 전달된 page 와 title의 유효성을 검사한다. 

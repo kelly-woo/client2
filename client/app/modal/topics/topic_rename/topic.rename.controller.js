@@ -6,7 +6,7 @@
     .controller('TopicRenameCtrl', TopicRenameCtrl);
 
   /* @ngInject */
-  function TopicRenameCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService, fileAPIservice, entityAPIservice, jndPubSub) {
+  function TopicRenameCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService, fileAPIservice, entityAPIservice, jndPubSub, analyticsHelper) {
     var duplicate_name_error = 4000;
 
     $scope.newTopicName = $scope.currentEntity.name;
@@ -25,17 +25,27 @@
           // TODO: REFACTOR -> ANALYTICS SERVICE
           // analytics
           var entity_type = "";
+          var topicType;
           switch ($state.params.entityType) {
             case 'channels':
+              topicType = 'public';
               entity_type = "topic";
               break;
             case 'privategroups':
+              topicType = 'private';
               entity_type = "private group";
               break;
             default:
+              topicType = 'invalid';
               entity_type = "invalid";
               break;
           }
+          //Analtics Tracker. Not Block the Process
+          var property = {};
+          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
+          property[analyticsHelper.PROPERTY.TOPIC_TYPE] = topicType;
+          property[analyticsHelper.PROPERTY.TOPIC_ID] = parseInt($state.params.entityId, 10);
+          analyticsHelper.track(analyticsHelper.EVENT.TOPIC_NAME_CHANGE, property);
           analyticsService.mixpanelTrack( "Entity Name Change", { "type": entity_type } );
 
           // topic name이 변경된 사항을 바로 반영한뒤 boroadcast 하기위해 topic entity를 찾아 바로 수정함
@@ -51,6 +61,14 @@
           $modalInstance.dismiss('cancel');
         })
         .error(function(response) {
+
+          //Analtics Tracker. Not Block the Process
+          var property = {};
+          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
+          property[analyticsHelper.PROPERTY.ERROR_CODE] = response.code;
+          analyticsHelper.track(analyticsHelper.EVENT.TOPIC_NAME_CHANGE, property);
+
+
           _onCreateError(response);
         })
         .finally(function() {

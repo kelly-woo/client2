@@ -36,6 +36,7 @@
       LANGUAGE: 'language'
     };
 
+
     this.PROPERTY = {
       CHANNEL: 'p0',
       BROWSER_HEIGHT: 'p1',
@@ -46,7 +47,22 @@
       SYSTEM_WIDTH: 'p6',
       USER_AGENT: 'p7',
       REFERRER: 'p8',
-      PAGE: 'p9'
+      PAGE: 'p9',
+      BUTTON: 'p10',
+      PREVIOUS_LANGUAGE: 'p11',
+      CURRENT_LANGUAGE: 'p12',
+      RESPONSE_SUCCESS: 'p13',
+      ERROR_CODE: 'p14',
+      CAMPAIGN_NAME: 'p15',
+      CAMPAIGN_SOURCE: 'p16',
+      CAMPAIGN_MEDIUM: 'p17',
+      PROMOTION_CODE: 'p18',
+      EMAIL: 'p19',
+      TEAM_ID: 'p20',
+      MEMBER_ID: 'p21',
+      TOPIC_ID: 'p22',
+      TOPIC_TYPE: 'p23',
+      MEMBER_COUNT: 'p24'
     }
 
     this.IDENTIFY = {
@@ -57,49 +73,46 @@
     }
 
     this.PAGE = {
-      'publictopic': 0,
-      'privatetopic': 1,
-      'directmessage': 2,
-      'filetab' : 3,
-      'messagetab': 4,
-      'profile': 5,
-      'invite member': 6,
-      'switch team': 7,
-      'current member list': 8,
-      'disabled member list': 9
+      'topic/public': 21,
+      'topic/private': 22,
+      'directmessage': 23,
+      'files/files' : 24,
+      'files/messages': 25,
+      'profile': 26,
+      'invite': 27,
+      'switchteams': 28,
+      'currentmembers': 29,
+      'disabledmembers': 30,
+      'notifications': 31,
+      'topic/invite': 32,
+      'files/detail': 33,
+      'files/share': 34,
+      'files/upload': 35,
+      'topic/browse': 36,
+      'topic/create': 37,
+      'terms/service': 38,
+      'private/policy': 39,
+      'topic/profile': 40
     }
 
     //TODO: Event 명 다 바뀔 예정
     this.EVENT = {
       PAGE_VIEWED: 'e0',
-      WINDOW_FOCUS: 'Window Focus',
-      WINDOW_BLUR: 'Window Blur',
-      SESSION_START: 'Start Session',
-      CHANGE_LANGUAGE: 'Change Language',
-      SIGN_OUT: 'Sign Out',
-      DISABLE_MEMBER: 'Disable Member',
-      ENABLE_MEMBER: 'Enable Member',
-      DISABLE_MEMBER_FAIL: 'Disable Member Fail',
-      ENABLE_MEMBER_FAIL: 'Enable Member Fail',
-      CHANGE_TEAM_NAME: 'Change Team Name',
-      CHANGE_TEAM_DOMAIN: 'Change Team Domain',
-      DELETE_TEAM: 'Delete Team',
-      RESET_INVITATION_LINK: 'Reset Invitation Link',
-      RESET_INVITATION_LINK_FAIL: 'Reset Invitation Link Fail',
-      ENABLE_INVITATION_LINK: 'Enable Invitation Link',
-      DISABLE_INVITATION_LINK: 'Disable Invitation Link',
-      ENABLE_INVITATION_LINK_FAIL: 'Enable Invitation Link Fail',
-      DISABLE_INVITATION_LINK_FAIL: 'Disable Invitation Link Fail',
-      SUBMIT_PROMOTION_CODE: 'Submit Promotion Code',
-      CHANGE_ACCOUNT_NAME: 'Change Account Name',
-      CHANGE_ACCOUNT_PRIMARY_EMAIL: 'Change Account Primary Email',
-      CHANGE_ACCOUNT_PASSWORD: 'Change Account Password',
-      REMOVE_ACCOUNT_EMAIL: 'Remove Account Email',
-      REQUEST_VERIFICATION_EMAIL: 'Request Verification Email',
-      ADD_ACCOUNT_EMAIL: 'Add Account Email',
-      LAUNCH_TEAM: 'Launch Team',
-      CREATE_TEAM: 'Create Team',
-      INVITE_MEMBER: 'Invite Member'  
+      BUTTON_CLICK: 'e1',
+      SESSION_START: 'e2',
+      WINDOW_FOCUS: 'e3',
+      WINDOW_BLUR: 'e4',
+      LANGUAGE_CHANGE: 'e5',
+      SIGN_OUT: 'e10',
+      TOPIC_CREATE: 'e29',
+      TOPIC_MEMBER_INVITE: 'e30',
+      TOPIC_STAR: 'e31',
+      TOPIC_UNSTAR: 'e32',
+      TOPIC_NAME_CHANGE: 'e33',
+      TOPIC_LEAVE: 'e34',
+      TOPIC_DELETE: 'e35'
+
+
     }
   }
 })();

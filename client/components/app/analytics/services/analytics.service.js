@@ -18,13 +18,16 @@
 
     var LANGUAGE_SET = analyticsConstant.LANGUAGE_SET;
     var EVENT = analyticsConstant.EVENT;
+    var PROPERTY = analyticsConstant.PROPERTY;
     var LOCAL_STORAGE_KEY = analyticsConstant.LOCAL_STORAGE_KEY;
     var SESSION_STORAGE_KEY = analyticsConstant.SESSION_STORAGE_KEY;
 
     this.EVENT = EVENT;
+    this.PROPERTY = PROPERTY;
 
     this.init = init;
     this.track = track;
+    this.defaultProperty = defaultProperty;
     this.error = error;
 
 
@@ -34,7 +37,8 @@
     function init() {
       var isSessionSet = analyticsPersistence.init();
       if (isSessionSet) {
-        track(EVENT.SESSION_START, defaultProperty());      }
+        track(EVENT.SESSION_START, defaultProperty());
+      }
       bindTrakcerToWindowFocusEvent();
     }
 

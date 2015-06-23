@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
-                            publicService, jndPubSub, fileAPIservice, analyticsService, modalHelper) {
+                            publicService, jndPubSub, fileAPIservice, analyticsService, modalHelper, analyticsHelper) {
 
     var currentEntity;
     var entityId;
@@ -129,11 +129,31 @@
           .success(function(response) {
             // analytics
             var entity_type = analyticsService.getEntityType(entityType);
-
+            var topicType;
+            switch (entity_type) {
+              case 'topic':
+                topicType = 'public';
+                break;
+              case 'private group':
+                topicType = 'private';
+                break;
+              default:
+                topicType = 'invalid';
+                break;
+            }
+            var property = {};
+            property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
+            property[analyticsHelper.PROPERTY.TOPIC_TYPE] = topicType;
+            property[analyticsHelper.PROPERTY.TOPIC_ID] = parseInt(entityId, 10);
+            analyticsHelper.track(analyticsHelper.EVENT.TOPIC_LEAVE, property);
             analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
             updateLeftPanel();
           })
           .error(function(error) {
+            var property = {};
+            property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
+            property[analyticsHelper.PROPERTY.ERROR_CODE] = error.code;
+            analyticsHelper.track(analyticsHelper.EVENT.TOPIC_LEAVE, property);
             alert(error.msg);
           })
       }
@@ -146,6 +166,23 @@
           .success(function() {
             // analytics
             var entity_type = analyticsService.getEntityType(entityType);
+            var topicType;
+            switch (entity_type) {
+              case 'topic':
+                topicType = 'public';
+                break;
+              case 'private group':
+                topicType = 'private';
+                break;
+              default:
+                topicType = 'invalid';
+                break;
+            }
+            var property = {};
+            property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
+            property[analyticsHelper.PROPERTY.TOPIC_TYPE] = topicType;
+            property[analyticsHelper.PROPERTY.TOPIC_ID] = parseInt(entityId, 10);
+            analyticsHelper.track(analyticsHelper.EVENT.TOPIC_DELETE, property);
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
             updateLeftPanel();
@@ -155,6 +192,10 @@
             });
           })
           .error(function(error) {
+            var property = {};
+            property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
+            property[analyticsHelper.PROPERTY.ERROR_CODE] = error.code;
+            analyticsHelper.track(analyticsHelper.EVENT.TOPIC_DELETE, property);
             alert(error.msg);
           });
       }

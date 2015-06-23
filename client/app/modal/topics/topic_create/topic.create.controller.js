@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('TopicCreateCtrl', TopicCreateCtrl);
 
-  function TopicCreateCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter) {
+  function TopicCreateCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter, analyticsHelper) {
     $scope.entityType = 'public';
 
     $scope.cancel = function() {
@@ -25,19 +25,31 @@
 
       entityheaderAPIservice.createEntity(entityType, entityName)
         .success(function(response) {
-          // analytics
+
           var entity_type = "";
+          var topicType;
           switch (entityType) {
             case 'channel':
+              topicType = 'public';
               entity_type = "topic";
               break;
             case 'privateGroup':
+              topicType = 'private';
               entity_type = "private group";
               break;
             default:
+              topicType = 'invalid';
               entity_type = "invalid";
               break;
           }
+
+          //Analtics Tracker. Not Block the Process
+          var property = {};
+          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
+          property[analyticsHelper.PROPERTY.TOPIC_TYPE] = topicType;
+          property[analyticsHelper.PROPERTY.TOPIC_ID] = response.id;
+          analyticsHelper.track(analyticsHelper.EVENT.TOPIC_CREATE, property);
+
           analyticsService.mixpanelTrack( "Entity Create", { "type": entity_type } );
 
           $rootScope.$emit('updateLeftPanelCaller');
@@ -45,6 +57,12 @@
           $modalInstance.dismiss('cancel');
         })
         .error(function(response) {
+          //Analtics Tracker. Not Block the Process
+          var property = {};
+          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
+          property[analyticsHelper.PROPERTY.TOPIC_TYPE] = response.code;
+          analyticsHelper.track(analyticsHelper.EVENT.TOPIC_CREATE, property);
+          
           _onCreateError(response);
         })
         .finally(function() {

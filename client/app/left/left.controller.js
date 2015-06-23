@@ -6,7 +6,7 @@ app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner) {
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, DeskTopNotificationBanner, analyticsHelper) {
 
   /**
    * @namespace
@@ -639,24 +639,63 @@ app.controller('leftPanelController1', function(
 
   $scope.onStarClick = function(entityType, entityId) {
     var entity = entityAPIservice.getEntityById(entityType, entityId);
-
+    var topicType;
+    switch (entityType) {
+      case 'channels':
+        topicType = 'public';
+        break;
+      case 'privategroups':
+        topicType = 'private';
+        break;
+      default:
+        topicType = 'invalid';
+        break;
+    }
     if (entity.isStarred) {
       entityheaderAPIservice.removeStarEntity(entityId)
         .success(function(response) {
+
+          //Analtics Tracker. Not Block the Process
+          var property = {};
+          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
+          property[analyticsHelper.PROPERTY.TOPIC_TYPE] = topicType;
+          property[analyticsHelper.PROPERTY.TOPIC_ID] = entityId;
+          analyticsHelper.track(analyticsHelper.EVENT.TOPIC_UNSTAR, property);
+
           getLeftLists();
           // TODO: UPDATE CURRENT ONLY.
           // TODO: CALL 'setStar()' afterwards.
         })
         .error(function(response) {
+
+          //Analtics Tracker. Not Block the Process
+          var property = {};
+          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
+          property[analyticsHelper.PROPERTY.ERROR_CODE] = response.code; 
+          analyticsHelper.track(analyticsHelper.EVENT.TOPIC_UNSTAR, property);
         });
     }
     else {
       // current entity is not starred entity.
       entityheaderAPIservice.setStarEntity(entityId)
         .success(function(response) {
+
+          //Analtics Tracker. Not Block the Process
+          var property = {};
+          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
+          property[analyticsHelper.PROPERTY.TOPIC_TYPE] = topicType;
+          property[analyticsHelper.PROPERTY.TOPIC_ID] = entityId;
+          analyticsHelper.track(analyticsHelper.EVENT.TOPIC_STAR, property);
+
           getLeftLists();
         })
         .error(function(response) {
+
+          //Analtics Tracker. Not Block the Process
+          var property = {};
+          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
+          property[analyticsHelper.PROPERTY.ERROR_CODE] = response.code; 
+          analyticsHelper.track(analyticsHelper.EVENT.TOPIC_STAR, property);
         });
 
     }

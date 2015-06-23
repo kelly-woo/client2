@@ -9,7 +9,7 @@
   /* @ngInject */
   function headerCtrl($scope, $state, $filter, accountService,
                       memberService, publicService, configuration,
-                      language, modalHelper, jndPubSub, DeskTopNotificationBanner) {
+                      language, modalHelper, jndPubSub, DeskTopNotificationBanner, analyticsHelper) {
     var modalMap;
     var stateParams;
 
@@ -30,7 +30,8 @@
     $scope.onLanguageClick = onLanguageClick;
 
     function onLanguageClick(lang) {
-      if (accountService.getAccountLanguage() == lang) return;
+      var currentLang = accountService.getAccountLanguage();
+      if (currentLang == lang) return;
 
       var languageObj = {
         lang: lang
@@ -38,6 +39,13 @@
 
       accountService.setAccountInfo(languageObj)
         .success(function(response) {
+          //Analtics Tracker. Not Block the Process
+          var property = {};
+          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
+          property[analyticsHelper.PROPERTY.PREVIOUS_LANGUAGE] = currentLang;
+          property[analyticsHelper.PROPERTY.CURRENT_LANGUAGE] = lang;
+          analyticsHelper.track(analyticsHelper.EVENT.LANGUAGE_CHANGE, property);
+
           accountService.setAccountLanguage(response.lang);
           publicService.getLanguageSetting(accountService.getAccountLanguage());
           publicService.setCurrentLanguage();
@@ -46,7 +54,15 @@
 
         })
         .error(function(err) {
-          console.log(err)
+          console.log(err);
+          //Analtics Tracker. Not Block the Process
+          var property = {};
+          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
+          property[analyticsHelper.PROPERTY.ERROR_CODE] = err.code;
+          property[analyticsHelper.PROPERTY.PREVIOUS_LANGUAGE] = currentLang;
+          property[analyticsHelper.PROPERTY.CURRENT_LANGUAGE] = lang;
+          analyticsHelper.track(analyticsHelper.EVENT.LANGUAGE_CHANGE, property);
+
         })
         .finally(function() {
         })
