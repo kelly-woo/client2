@@ -10,7 +10,7 @@
     .controller('rPanelCtrl', rPanelCtrl);
 
   /* ngInject */
-  function rPanelCtrl($scope, jndPubSub, DeskTopNotificationBanner) {
+  function rPanelCtrl($scope, jndPubSub) {
     var fileTab;
 
     var messageTab;

@@ -79,7 +79,7 @@ input[type="email"] {
   bottom: 0;
   height: auto !important;
 }
-.body-full-screen {
+.body.full-screen {
   top: 40px;
 }
 .title__divider {

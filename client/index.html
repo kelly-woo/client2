@@ -76,10 +76,10 @@
 <![endif]-->
 
 <div class="content-wrapper opac-zero" ng-class="{'opac-in-fast': isReady}">
-  <div class="body-wrapper">
+  <div class="body-wrapper full-screen">
     <!-- Add your site or application content here -->
     <div class="hpanel non-selectable" ui-view="headerpanel"></div>
-    <div class="body" id="client-ui" ui-view=""></div>
+    <div class="body full-screen" id="client-ui" ui-view=""></div>
     <div class="rpanel non-selectable" ng-show="$state.includes('**.files.**')">
       <div class="files" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
       <div class="file" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>

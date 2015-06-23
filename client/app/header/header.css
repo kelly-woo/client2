@@ -68,7 +68,7 @@
 
 .header-navbar__menu-icon {
   vertical-align: middle;
-
+  padding-right: 2px;
 }
 .header-navbar__topmenu .fa-question-circle {
   font-size: 19px;

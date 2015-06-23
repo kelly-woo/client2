@@ -43,7 +43,10 @@
      * 배너를 보여줘야 할 상황이면 보여준다.
      */
     function showNotificationBanner(scope) {
+      console.log('hi')
       if (_shouldAskNotification()) {
+        console.log('adsf' +
+        '')
         _prependBannerElement(scope);
       }
     }
@@ -86,6 +89,8 @@
         $compile(_jqBanner)(bannerScope);
 
         jqContentWrapper.prepend(_jqBanner);
+
+        _removeFullScreenClass();
 
         _adjustBodyWrapperHeight();
       }
@@ -163,9 +168,15 @@
       var jqBody = $('.body');
 
       jqBodyWrapper.addClass('full-screen');
-      jqBody.addClass('full-screen body-full-screen');
+      jqBody.addClass('full-screen');
+    }
 
+    function _removeFullScreenClass() {
+      var jqBodyWrapper = $('.body-wrapper');
+      var jqBody = $('.body');
 
+      jqBodyWrapper.removeClass('full-screen');
+      jqBody.removeClass('full-screen');
     }
   }
 })();
