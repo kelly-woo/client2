@@ -7,7 +7,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
-                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner) {
+                                                 Sticker, jndPubSub, jndKeyCode) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
@@ -713,7 +713,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _animateBackgroundColor(lastMsg);
       document.getElementById('msgs-container').scrollTop = targetScrollTop;
       _showContents();
-    }, 100);
+    }, 150);
   }
 
   function _scrollToBottom() {
