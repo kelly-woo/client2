@@ -9,7 +9,8 @@
   /* @ngInject */
   function headerCtrl($scope, $state, $filter, accountService,
                       memberService, publicService, configuration,
-                      language, modalHelper, jndPubSub, DeskTopNotificationBanner, pcAppHelper) {
+                      language, modalHelper, jndPubSub, DeskTopNotificationBanner, pcAppHelper,
+                      Browser) {
     var modalMap;
     var stateParams;
 
@@ -20,7 +21,9 @@
 
       _initRightPanelButtonLabel();
       $scope.languageList = language.getLanguageList();
+      $scope.isIe = Browser.msie;
     }
+
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       _initRightPanelButtonLabel();
