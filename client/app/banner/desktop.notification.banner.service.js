@@ -6,7 +6,7 @@
     .service('DeskTopNotificationBanner', DeskTopNotificationBanner);
 
   /* @ngInject */
-  function DeskTopNotificationBanner(DesktopNotification, $document, $compile, jndPubSub, $rootScope, publicService) {
+  function DeskTopNotificationBanner(DesktopNotification, $document, $compile, jndPubSub, $rootScope, publicService, Browser) {
     var that = this;
 
     var _jqBanner;
@@ -43,10 +43,7 @@
      * 배너를 보여줘야 할 상황이면 보여준다.
      */
     function showNotificationBanner(scope) {
-      console.log('hi')
-      if (_shouldAskNotification()) {
-        console.log('adsf' +
-        '')
+      if (_shouldAskNotification() && !Browser.msie) {
         _prependBannerElement(scope);
       }
     }
