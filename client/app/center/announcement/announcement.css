@@ -30,6 +30,9 @@
   background-color: rgba(215, 224, 232, 1);
 }
 
+.minimized.announcement-container {
+  background-color: rgba(215, 224, 232, 0.3);
+}
 .announcement-container {
   background-color: rgba(215, 224, 232, 0.98);
 
