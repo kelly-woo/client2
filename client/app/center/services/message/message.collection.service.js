@@ -6,8 +6,9 @@
     .service('MessageCollection', MessageCollection);
 
   /* @ngInject */
-  function MessageCollection($filter, $timeout, $sce, entityAPIservice, fileAPIservice, markerService, jndPubSub,
-                             currentSessionHelper, centerService, MessageComment, MessageText, MessageSending) {
+  function MessageCollection($filter, $rootScope, $timeout, $sce, entityAPIservice, fileAPIservice, markerService,
+                             jndPubSub, memberService, currentSessionHelper, centerService, MessageComment, MessageText,
+                             MessageSending) {
 
     var that = this;
 
@@ -244,6 +245,7 @@
       return centerService.isCommentType(contentType) && MessageComment.isTitle(index, that.list);
     }
     function hasLinkPreview(index) {
+      return false;
       return _.isEmpty(that.list[index].linkPreview);
     }
 
@@ -335,7 +337,7 @@
       newMsg.message = {};
       newMsg.message.contentType = 'systemEvent';
       newMsg.message.content = {};
-      newMsg.message.writer = entityAPIservice.getEntityFromListById($scope.memberList, msg.fromEntity);
+      newMsg.message.writer = entityAPIservice.getEntityFromListById($rootScope.memberList, msg.fromEntity);
 
       switch(msg.info.eventType) {
         case 'invite':

@@ -455,7 +455,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _updateScroll() {
     if (_isSearchMode()) {
-      _disableScroll();
+      //_disableScroll();
       _findMessageDomElementById(messageSearchHelper.getLinkId());
       _resetSearchMode();
       return;
@@ -492,9 +492,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       lastMsg = angular.element('#'+ id);
       targetScrollTop = lastMsg.offset().top - angular.element('#msgs-container').offset().top;
       _animateBackgroundColor(lastMsg);
-      document.getElementById('msgs-container').scrollTop = targetScrollTop;
       _showContents();
-    }, 100);
+      /*
+      fixme: 아래 scrollTop 변경 이후 어떤 이유에 의해 scrollTop 이 한번 더 변경하는 현상이 발생하여 timeout 값 800으로 조정함. 원인 불명
+       */
+      document.getElementById('msgs-container').scrollTop = targetScrollTop;
+
+    }, 800);
   }
 
   function _scrollToBottom() {

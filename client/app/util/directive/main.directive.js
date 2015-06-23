@@ -67,7 +67,7 @@ function fakeNgModel(initValue) {
   };
 }
 
-app.directive('scrol2lGlue', function(){
+app.directive('scrollGlue', function(){
   return {
     priority: 1,
     require: ['?ngModel'],
