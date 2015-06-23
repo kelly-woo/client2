@@ -33,7 +33,9 @@
           var that = this;
           var options = angular.extend({
             listCount: isPrev ? 1 : -1,
-            sharedEntityId: entityId,
+            sharedEntityId: that.options.sharedEntityId || entityId,
+            keyword: that.options.keyword || '',
+
             startMessageId: messageId
           }, that.options);
 
@@ -72,8 +74,6 @@
         _on();
       });
 
-
-
       that.pivot(messageId);
     }
 
@@ -102,14 +102,12 @@
       jqModal
         .on('keydown.imageCarousel', function(event) {
           var fn;
-
           event.preventDefault();
           event.stopPropagation();
 
           (fn = keyHandlerMap[event.which]) && fn();
         })
         .on('click.imageCarousel', function(event) {
-          event.preventDefault();
           event.stopPropagation();
 
           console.log('click ::: ');
@@ -145,10 +143,14 @@
       loadImage(src, function(img) {
         jqContent.removeClass('icon-loading loading');
 
-        resize(img);
+        if (img.type && img.type === 'error') {
 
-        jqContent.empty().append(img);
-        callback && callback();
+        } else {
+          resize(img);
+
+          jqContent.empty().append(img);
+          callback && callback();
+        }
       });
     }
 

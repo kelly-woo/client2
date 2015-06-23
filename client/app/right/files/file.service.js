@@ -9,6 +9,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     'google': true,
     'dropbox': true
   };
+  var fileRequest;
 
   this.upload = upload;
   this.abort = abort;
@@ -368,4 +369,18 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   function broadcastCommentFocus() {
     $rootScope.$broadcast('setCommentFocus');
   }
+
+  /**
+   * fileReuqest get하기 전에 한번 저장용 변수 제공함
+   */
+  Object.defineProperty(this, 'tempFileRequest', {
+    get: function() {
+      var temp = fileRequest;
+      fileRequest = undefined;
+      return temp;
+    },
+    set: function(value) {
+      fileRequest = value;
+    }
+  });
 });

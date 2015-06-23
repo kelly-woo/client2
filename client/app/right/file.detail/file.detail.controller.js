@@ -214,10 +214,30 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function onImageClick() {
     var content = $scope.file_detail.content;
+    var fileRequest;
+
     if (integrationPreviewMap[content.serverUrl]) {
       window.open(content.fileUrl, '_blank');
     } else {
-      modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
+      fileRequest = fileAPIservice.tempFileRequest || {};
+
+      console.log('on image click ::: ', fileRequest);
+
+      var fullFileUrl = $scope.ImageUrl;
+      modalHelper.openImageCarouselModal({
+        messageId: $scope.file_detail.id,
+        content: $scope.file_detail.content,
+
+
+        writer: fileRequest.writerId,
+        sharedEntityId: fileRequest.sharedEntityId,
+        keyword: fileRequest.keyword,
+
+        imageUrl: fullFileUrl
+      });
+
+
+      // modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
 
       //$modal.open({
       //  scope       :   $scope,

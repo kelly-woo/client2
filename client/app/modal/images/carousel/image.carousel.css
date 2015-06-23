@@ -77,7 +77,7 @@
   vertical-align: middle;
 }
 
-.viewer-header .options .actions>div {
+.viewer-header .options .actions>* {
   display: inline;
   margin-left: 10px;
   margin-right: 10px;

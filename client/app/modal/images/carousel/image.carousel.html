@@ -4,12 +4,12 @@
     <div class="viewer-header">
       <div class="info">
         <div class="title">
-          <span ng-bind="title"></span>
+          <span ng-bind="fileTitle"></span>
         </div>
       </div>
       <div class="options non-selectable">
         <div class="actions">
-          <div class="downdload" ng-click="download()"><i class="fa fa-download"></i></div>
+          <a class="downdload" ng-click="download()" download-file file-url="{{fileUrl}}" file-title="{{fileTitle}}"><i class="fa fa-download"></i></a>
           <div class="dismiss" ng-click="close()"><i class="fa fa-times"></i></div>
         </div>
       </div>

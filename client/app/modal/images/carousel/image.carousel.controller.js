@@ -14,12 +14,19 @@
     $scope.init = init;
 
     function init() {
-      ImageCarousel.init( data.messageId, {
+      ImageCarousel.init({
+        messageId: data.messageId,
+        writer: data.writer,
+        sharedEntityId: data.sharedEntityId,
+        keyword: data.keyword,
+
         onHide: function() {
           $scope.close();
         }
       });
-      $scope.title = data.title;
+
+      $scope.fileTitle = data.content.title;
+      $scope.fileUrl = data.content.fileUrl;
       ImageCarousel.load(data.imageUrl);
     }
 
@@ -33,8 +40,6 @@
     // imageUrl
     // hasPrev
     // hasNext
-
-
 
   	console.log('image carousel controller loaded ::: ');
     // $scope.photoUrl = 'http://i1.jandi.io:8888/files-private/279/39aa24da719305381c7e7e10e8eda21f.jpg';

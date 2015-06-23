@@ -142,8 +142,9 @@
     function onFullScreenImageButtonClick() {
       var fullFileUrl = serverUploaded + content.fileUrl;
       modalHelper.openImageCarouselModal({
-        title: $scope.msg.message.content.title,
         messageId: $scope.msg.messageId,
+        content: $scope.msg.message.content,
+        writer: $scope.msg.writer,
         imageUrl: fullFileUrl
       });
     }
