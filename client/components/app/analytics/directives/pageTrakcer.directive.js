@@ -24,10 +24,10 @@
       var title = attributes.title;
       var isValid = validationCheck(page, title);
       
-      if (isValid){
+      if (isValid) {
         //Send Data to Google Analytics
         GAHelper.pageTrack(page, title);
-        console.log(isValid, page, title);
+
         //Send Data to Log Server
         var property = {};
         analyticsHelper.track(analyticsHelper.EVENT.PAGE_VIEWED, setProperty(page));

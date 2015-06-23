@@ -12,7 +12,6 @@
     .module('app.analytics')
     .service('analyticsPersistence', analyticsPersistence);
 
-  analyticsPersistence.$inject = ['$rootScope', 'analyticsTranslate', 'analyticsStorage', 'analyticsConstant', 'accountService', 'memberService'];
   /* @ngInject */
   function analyticsPersistence($rootScope, analyticsTranslate, analyticsStorage, analyticsConstant, accountService, memberService) {
 
@@ -69,8 +68,6 @@
      *    session {String} - Session Storage에 저장된 token [세션 구분]
      *    accountId {String} - [account구분] 
      */
-
-
     function getIdentify() {
       var storedProperties = sessionStorageService.get(SESSION_STORAGE_KEY);
       var identify = {};
@@ -87,7 +84,6 @@
       }
       return identify;
     }
-
 
     /**
      * Local Storage에 저장된 Token을 반환한다. 존재하지 않는 경우 새로 만든다.

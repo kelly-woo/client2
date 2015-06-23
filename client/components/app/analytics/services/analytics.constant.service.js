@@ -61,8 +61,10 @@
       TEAM_ID: 'p20',
       MEMBER_ID: 'p21',
       TOPIC_ID: 'p22',
-      TOPIC_TYPE: 'p23',
-      MEMBER_COUNT: 'p24'
+      FILE_ID: 'p23',
+      SEARCH_KEYWORD: 'p24', 
+      AUTO_SIGN_IN: 'p25',
+      MESSAGE_ID: 'p26'
     }
 
     this.IDENTIFY = {
@@ -92,7 +94,8 @@
       'topic/create': 37,
       'terms/service': 38,
       'private/policy': 39,
-      'topic/profile': 40
+      'topic/profile': 40,
+      'signin': 41
     }
 
     //TODO: Event 명 다 바뀔 예정
@@ -103,16 +106,24 @@
       WINDOW_FOCUS: 'e3',
       WINDOW_BLUR: 'e4',
       LANGUAGE_CHANGE: 'e5',
-      SIGN_OUT: 'e10',
-      TOPIC_CREATE: 'e29',
-      TOPIC_MEMBER_INVITE: 'e30',
-      TOPIC_STAR: 'e31',
-      TOPIC_UNSTAR: 'e32',
-      TOPIC_NAME_CHANGE: 'e33',
-      TOPIC_LEAVE: 'e34',
-      TOPIC_DELETE: 'e35'
-
-
+      SIGN_IN: 'e6',
+      SIGN_OUT: 'e12',
+      TOPIC_CREATE: 'e31',
+      TOPIC_MEMBER_INVITE: 'e32',
+      TOPIC_STAR: 'e33',
+      TOPIC_UNSTAR: 'e34',
+      TOPIC_NAME_CHANGE: 'e35',
+      TOPIC_LEAVE: 'e36',
+      TOPIC_DELETE: 'e37',
+      FILE_UPLOAD: 'e38',
+      FILE_DOWNLOAD: 'e39',
+      FILE_SHARE: 'e40',
+      FILE_UNSHARE: 'e41',
+      FILE_DELETE: 'e42',
+      FILE_KEYWORD_SEARCH: 'e43',
+      MESSAGE_POST: 'e44',
+      MESSAGE_KEYWORD_SEARCH: 'e45',
+      MESSAGE_DELETE: 'e46'
     }
   }
 })();

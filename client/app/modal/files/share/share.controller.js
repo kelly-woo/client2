@@ -8,7 +8,7 @@
 
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, $timeout,
-                              analyticsService, jndPubSub, fileToShare, modalHelper) {
+                              analyticsService, jndPubSub, fileToShare, modalHelper, analyticsHelper) {
 
     var _entityType;
     var _entityId;
@@ -48,9 +48,28 @@
 
       $scope.isLoading = true;
       fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
-        .success(_onShareSuccess)
+        .success(function() {
+          
+          var property = {};
+          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+          property[PROPERTY_CONSTANT.TOPIC_ID] = shareChannel.id;
+          property[PROPERTY_CONSTANT.FILE_ID] = $scope.file.id;
+          analyticsHelper.track(analyticsHelper.EVENT.FILE_SHARE, property);
+
+          _onShareSuccess()
+        })
         .error(function(error) {
           $scope.isLoading = false;
+          var property = {};
+          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+
+          //analytics
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+          property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+          analyticsHelper.track(analyticsHelper.EVENT.FILE_SHARE, property);
+
           console.log('onFileShareClick', error.code, error.msg);
         });
     }
@@ -61,6 +80,7 @@
      */
     function _onShareSuccess() {
       $scope.isLoading = false;
+      
 
       _sendAnalytics(_entityType);
 
@@ -84,13 +104,13 @@
       // analytics
       var share_target = "";
       switch (_entityType) {
-        case 'channel':
+        case 'channels':
           share_target = "topic";
           break;
-        case 'privateGroup':
+        case 'privategroups':
           share_target = "private group";
           break;
-        case 'user':
+        case 'users':
           share_target = "direct message";
           break;
         default:

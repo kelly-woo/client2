@@ -12,7 +12,6 @@
     .module('app.analytics')
     .service('analyticsHelper', analyticsHelper);
 
-  analyticsHelper.$inject = ['analyticsPersistence', 'analyticsData', 'analyticsLazyload', 'analyticsConstant', 'config'];
   /* @ngInject */
   function analyticsHelper(analyticsPersistence, analyticsData, analyticsLazyload, analyticsConstant, config) {
 

@@ -7,7 +7,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
-                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner) {
+                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner, analyticsHelper) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
@@ -1162,8 +1162,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * message posting 성공 핸들러
    * @private
    */
-  function _onPostMessageSuccess() {
+  function _onPostMessageSuccess(res) {
     $scope.isPosting = false;
+    var property = {};
+    var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+
+    //analytics
+    property[PROPERTY_CONSTANT.MESSAGE_ID] = res.id;
+    property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+    analyticsHelper.track(analyticsHelper.EVENT.MESSAGE_POST, property);
     log('-- posting message success');
     //  reseting position of msgs
 
@@ -1196,9 +1203,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var unsentMsg = $scope.unsentMsgs[index];
     unsentMsg.hasLoading = true;
     messageAPIservice.postMessage(entityType, entityId, unsentMsg.content, unsentMsg.sticker)
-      .success(function() {
+      .success(function(res) {
         deleteUnsentMessage(index);
-        _onPostMessageSuccess();
+        _onPostMessageSuccess(res);
       })
       .error(function() {
         unsentMsg.hasLoading = false;
@@ -1242,6 +1249,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
 
   $scope.deleteMessage = function(message) {
+    var property = {};
+    var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
     //console.log("delete: ", message.messageId);
     if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
       if (message.message.contentType === 'sticker') {
@@ -1251,7 +1260,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           });
       } else {
         messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
+          .success(function() {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.MESSAGE_ID] = message.messageId;
+            analyticsHelper.track(analyticsHelper.EVENT.MESSAGE_DELETE, property);
+          })
           .error(function (response) {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
+            analyticsHelper.track(analyticsHelper.EVENT.MESSAGE_DELETE, property);
             updateList();
           });
       }
@@ -1273,19 +1290,36 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.onClickUnshare = function(message, entity) {
     fileAPIservice.unShareEntity(message.id, entity.id)
       .success(function() {
-        var share_target = analyticsService.getEntityType($scope.currentEntity.type);
-
+        //곧지워짐
+        var entityType = $scope.currentEntity.type;
+        
         var file_meta = (message.content.type).split("/");
         var share_data = {
-          "entity type"   : share_target,
+          "entity type"   : entityType,
           "category"      : file_meta[0],
           "extension"     : message.content.ext,
           "mime type"     : message.content.type,
           "size"          : message.content.size
         };
         analyticsService.mixpanelTrack( "File Unshare", share_data );
+        //
+
+
+        var property = {};
+        var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+
+        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+        property[PROPERTY_CONSTANT.FILE_ID] = message.id;
+        property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
+        analyticsHelper.track(analyticsHelper.EVENT.FILE_UNSHARE, property);
+
       })
       .error(function(err) {
+
+        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+        property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+        analyticsHelper.track(analyticsHelper.EVENT.FILE_UNSHARE, property);
+
         alert(err.msg);
       });
   };

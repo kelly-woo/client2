@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, modalHelper, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper, logger) {
+  function rPanelFileTabCtrl($scope, $rootScope, modalHelper, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper, logger, analyticsHelper) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -342,9 +342,20 @@
 
       fileAPIservice.getFileList($scope.fileRequest)
         .success(function(response) {
+          
+          var property = {};
+          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
           var fileList = [];
-          angular.forEach(response.files, function(entity, index) {
 
+          //analytics
+          if ($scope.fileRequest.keyword !== "") {
+            property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.fileRequest.keyword;
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true; 
+            analyticsHelper.track(analyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
+          }
+
+
+          angular.forEach(response.files, function(entity, index) {
             var file = entity;
             file.shared = fileAPIservice.getSharedEntities(file);
             if (file.status != 'archived')
@@ -359,6 +370,15 @@
           initialLoadDone = true;
         })
         .error(function(response) {
+          var property = {};
+          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+          //analytics
+          if ($scope.fileRequest.keyword !== "") {
+            property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false; 
+            analyticsHelper.track(analyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
+          }
+
           console.log(response.msg);
         })
         .finally(function() {

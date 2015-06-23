@@ -33,9 +33,9 @@
       data[analyticsConstant.LOG.PLATFORM] = analyticsConstant.PLATFORM;
       data[analyticsConstant.LOG.PROPERTIES] = _.assign(properties, getDefaultProperty());
       data['time'] = new Date().getTime();
-      console.log(data);
+
       var js = JSON.stringify(data);
-      console.log(js);
+
       $http.post(config.analytics_server + 'log/web',{
         footprint: analyticsTranslate.base64Encode(js)
       });

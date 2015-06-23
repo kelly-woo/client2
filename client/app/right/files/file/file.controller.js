@@ -28,10 +28,20 @@
 
       fileAPIservice.deleteFile(fileId)
         .success(function(response) {
+          //analytics
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+          property[PROPERTY_CONSTANT.FILE_ID] = fileId;
+          analyticsHelper.track(analyticsHelper.EVENT.FILE_DELETE, property);
+
           $rootScope.$broadcast('onFileDeleted', fileId);
         })
         .error(function(err) {
           console.log(err);
+
+          //analytics
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+          analyticsHelper.track(analyticsHelper.EVENT.FILE_DELETE, property);
         })
         .finally(function() {
 

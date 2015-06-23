@@ -11,12 +11,11 @@
     .module('app.analytics')
     .service('analyticsLazyload', analyticsLazyload);
 
-  analyticsLazyload.$inject = ['$interval', 'analyticsPersistence', 'analyticsData', 'analyticsConstant']
   /* @ngInject */
   function analyticsLazyload($interval, analyticsPersistence, analyticsData, analyticsConstant) {
     
 
-    var ENQUEUE_REQUEST = false;
+    var isEnqueRequest = false;
     var delayedLogQueue = [];
     var interval;
 
@@ -30,7 +29,7 @@
      */
     function track(event, properties) {
 
-      ENQUEUE_REQUEST = true;
+      isEnqueRequest = true;
 
       delayedLogQueue.push({
         event: event,
@@ -58,14 +57,14 @@
         var isLazyload = _checkLazyloadCondition(event, properties, identify);
 
         if (!isLazyload) {
-          console.log(event,properties)
+
           analyticsData.track(event, properties ,identify);
           delayedLogQueue.shift();
         }
-        console.log('lazylaod cycle');
+
       } else {
-        ENQUEUE_REQUEST = false;
-        console.log('cancel the lazy Load');
+        isEnqueRequest = false;
+
         $interval.cancel(interval);
       }
     }
@@ -81,8 +80,8 @@
      */
     function checkLazyload(event, properties, identify) {
 
-      if (ENQUEUE_REQUEST) {
-        console.log(1);
+      if (isEnqueRequest) {
+
         //현재 LazyLoad가 돌고 있을 경우
         return true;
       } else {
@@ -98,15 +97,30 @@
      * @return {Boolean} 
      */
     function _checkLazyloadCondition(event, properties, identify) {
+      var EVENT = analyticsConstant.EVENT;
+      var PROPERTY = analyticsConstant.PROPERTY;
+      var PAGE = analyticsConstant.PAGE;
       var accountId = identify[analyticsConstant.IDENTIFY.ACCOUNT_ID];
       var memberId = identify[analyticsConstant.IDENTIFY.MEMBER_ID];
-      if (_.isUndefined(accountId)) {
+
+      if (event === EVENT.SESSION_START
+          || event === EVENT.WINDOW_FOCUS
+          || event === EVENT.WINDOW_BLUR) {
+        //Sign Out상태에서도 발생하는 Event들
+        return false;
+      } else if (event === EVENT.PAGE_VIEWED && properties[PROPERTY.PAGE] === PAGE['signin']) {
+        //Sign In page View
+        return false;
+      } else if (event === EVENT.SIGN_IN && properties[PROPERTY.RESPONSE_SUCCESS] === false) {
+        //Sign In 실패시
+        return false;
+      } else if (_.isUndefined(accountId)) {
         //AccountId가  Undefined인 경우(=Sign In이 끝나지 않은 경우)
-        console.log(2);
+
         return true;
       } else if (_.isUndefined(memberId)) {
         //memberId가  Undefined인 경우(=Sign In이 끝나지 않은 경우)
-        console.log(3);
+
         return true;
       }
       return false;

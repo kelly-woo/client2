@@ -400,6 +400,9 @@ app.controller('leftPanelController1', function(
     if (_.isUndefined(accountService.getAccount())) {
       accountService.getAccountInfo()
         .success(function(response) {
+          var property = {};
+          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+
           accountService.setAccount(response);
           publicService.getLanguageSetting();
           publicService.setCurrentLanguage();
@@ -411,8 +414,22 @@ app.controller('leftPanelController1', function(
 
           analyticsService.memberIdentifyMixpanel();
           analyticsService.mixpanelTrack("Sign In");
+          //analytics
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+          property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
+          analyticsHelper.track(analyticsHelper.EVENT.SIGN_IN, property);
         })
         .error(function(err) {
+          var property = {};
+          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+
+          //analytics
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+          property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
+          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+          analyticsHelper.track(analyticsHelper.EVENT.SIGN_IN, property);
+
+
           leftpanelAPIservice.toSignin();
         })
     } else {
