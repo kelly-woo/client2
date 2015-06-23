@@ -1002,9 +1002,12 @@ by ysyun 2015.2.25
 
 .attachment-content-wrapper .social-body {
   position: relative;
-  height: 110px;
   display: table-cell;
   color: #333;
+}
+
+.attachment-content-wrapper .social-body.has-image {
+  height: 110px;
 }
 
 .social-body a {

@@ -6,7 +6,7 @@
         <img ng-src="{{msg.message.linkPreview.imageUrl}}"/>
       </a>
     </div>
-    <div class="social-body">
+    <div class="social-body" ng-class="{'has-image': !!msg.message.linkPreview.imageUrl}">
       <div class="social-title neighbor" ng-if="!!msg.message.linkPreview.title">
         <a ng-href="{{msg.message.linkPreview.linkUrl}}" target="_blank">
           <span>{{msg.message.linkPreview.title}}</span>
