@@ -41,10 +41,9 @@
       var messages = list;
       var message = messages[index];
       var prevMessage = messages[index - 1];
-      var isTitle = isTitle(index);
       var writerId = message.message.writerId;
 
-      if (!isTitle &&
+      if (!isTitle(index, list) &&
         prevMessage.message.writerId === writerId &&
         !centerService.isElapsed(prevMessage.time, message.time)) {
         return true;
