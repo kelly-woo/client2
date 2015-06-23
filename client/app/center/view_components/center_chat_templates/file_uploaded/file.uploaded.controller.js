@@ -6,7 +6,7 @@
     .controller('FileUploadedCtrl', FileUploadedCtrl);
 
   /* @ngInject */
-  function FileUploadedCtrl($scope, $filter, fileAPIservice, centerService,
+  function FileUploadedCtrl($scope, $rootScope, $filter, fileAPIservice, centerService,
                             modalHelper, ImagesHelper, $compile, FileUploaded,
                             $state, entityheaderAPIservice, entityAPIservice) {
 
@@ -141,7 +141,11 @@
      */
     function onFullScreenImageButtonClick() {
       var fullFileUrl = serverUploaded + content.fileUrl;
-      modalHelper.openFullScreenImageModal($scope, fullFileUrl);
+      modalHelper.openImageCarouselModal({
+        title: $scope.msg.message.content.title,
+        messageId: $scope.msg.messageId,
+        imageUrl: fullFileUrl
+      });
     }
 
     /**

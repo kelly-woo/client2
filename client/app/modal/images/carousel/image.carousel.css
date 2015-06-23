@@ -1,3 +1,17 @@
+.image-carousel-modal .modal-dialog {
+  position: static !important;
+  margin: 0 !important;
+  width: 100% !important;
+  -webkit-transform: inherit !important;
+  -ms-transform: inherit !important;
+  -o-transform: inherit !important;
+  transform: inherit !important;
+}
+
+.image-carousel-modal .modal-dialog .modal-content {
+  position: static  !important;
+}
+
 .image-carousel-container .image-carousel-overlay {
   position: absolute;
   top: 0;
@@ -31,11 +45,11 @@
 
   z-index: 10002;
 }
-
+.viewer-header .info,
 .viewer-header .options>div {
   padding-top: 13px;
 }
-.viewer-header .options .info {
+.viewer-header .info {
   height: 40px;
   padding-left: 30px;
   overflow: hidden;
@@ -93,6 +107,7 @@
   margin-top: -3rem;
   border: none;
 
+  display: none;
   background: rgba(0,0,0,0.4);
   color: #fff;
   font-size: 2rem;
@@ -110,11 +125,26 @@
   right: 0;
 }
 
+.viewer-body .content.loading {
+  background-size: 50px;
+  width: 50px;
+  height: 50px;
+}
+
+.viewer-body .content,
 .viewer-body .content img {
   position: absolute;
   margin: auto;
+}
+.viewer-body .content {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.viewer-body .content img {
   top: 56px;
-  left: 56px;
-  bottom: 56px;
   right: 56px;
+  bottom: 56px;
+  left: 56px;
 }
