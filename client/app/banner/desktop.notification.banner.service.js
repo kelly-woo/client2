@@ -154,6 +154,10 @@
       _adjustBodyWrapperHeight();
     }
 
+    /**
+     * notification banner 가 없을 경우 알맞는 css class를 '.body-wrapper'와 '.body'에 넣어준다.
+     * @private
+     */
     function _addFullScreenClass() {
       var jqBodyWrapper = $('.body-wrapper');
       var jqBody = $('.body');

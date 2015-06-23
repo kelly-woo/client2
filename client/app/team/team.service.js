@@ -9,9 +9,13 @@
   function teamAPIservice($http, configuration, accountService, memberService) {
     var team;
 
-    this.setTeam = setTeam;
     this.inviteToTeam = inviteToTeam;
     this.getTeamInfo = getTeamInfo;
+
+    this.setTeam = setTeam;
+    this.getTeam = getTeam;
+
+    this.getTeamId = getTeamId;
 
     function inviteToTeam(receivers) {
       return $http({
@@ -34,6 +38,9 @@
     function setTeam(team) { this.team = team;}
     function getTeam() { return team;}
 
+    function getTeamId() {
+      return team.id;
+    }
     function setTeamName(name) { this.team.name = name; }
   }
 })();

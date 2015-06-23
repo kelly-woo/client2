@@ -1,3 +1,69 @@
-<div class="center-announcement-container">
-  <div class="announcement"
+<div class="center-announcement-container" ng-if="hasAnnouncement">
+  <div class="center-announcement-container__inner">
+
+    <!-- hide 된 announcement  -->
+    <div class="announcement-create-horn jnd-text-center pull-right jnd-cursor-pointer" ng-if="isAnnouncementHided();"
+         ng-click="onHidedAnnouncementClicked();">
+      <i class="icon-bullhorn"></i>
+    </div>
+
+
+    <div class="announcement-container" ng-if="!isAnnouncementHided();"
+         ng-class="{'minimized': isAnnouncmentMinimized()}">
+
+      <!-- minimized의 여부 상관없이 보여지는 부분 -->
+      <div class="announcement-inner common-announcement-size-padding">
+
+        <!-- profile picture thumnbail  -->
+        <div class="announcement-owner__thumbnail pull-left">
+          <div class="" image-loader="{{announcementOwner.profilePic}}"></div>
+        </div>
+
+        <!-- announcement 내용을 감싸고 있는 디브  -->
+        <div class="announcement-wrapper">
+          <!-- announcement header -->
+          <div class="announcement-header">
+            <i class="fa fa-user"></i>
+            <span class="announcement-owner__name">
+              {{announcementOwner.name}}
+            </span>
+            <i class="fa fa-clock-o"></i>
+            <span class="announcement-owner__time">
+              {{announcementOwner.time | gethmmaFormat}}
+            </span>
+          </div>
+
+          <!-- announcement body -->
+          <div class="announcement-body keep" ng-class="{'overflow-ellipsis': isAnnouncmentMinimized()}"
+            ng-bind-html="announcementBody"></div>
+        </div>
+      </div>
+
+      <!-- announcement 오른쪽 위 화살표 -->
+      <div class="announcement-arrow-container jnd-cursor-pointer"
+        ng-click="onAnnouncementArrowClicked();">
+        <i class="announcement-minimize__arrow"
+           ng-class="{'icon-up': !isAnnouncmentMinimized(),
+                      'icon-down': isAnnouncmentMinimized()}"></i>
+      </div>
+      <!-- announcement 옵션들 -->
+      <div class="announcement-option-container common-announcement-size-padding" ng-if="!isAnnouncmentMinimized()">
+        <!-- 최소화하기 -->
+        <div class="announcement-hide-container pull-right jnd-cursor-pointer" ng-click="hideAnnouncement();">
+          <i class="icon-minimize maximized-announcement__icon"></i>
+          <span class="maximized-announcement-icon__text" translate>@announcement-hide</span>
+        </div>
+
+        <!-- 삭제하기 -->
+        <div class="announcement-delete-container pull-right jnd-cursor-pointer" ng-click="deleteAnnouncement();">
+          <i class="fa fa-trash maximized-announcement__icon"></i>
+          <span class="maximized-announcement-icon__text" translate>@announcement-delete</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
