@@ -271,23 +271,6 @@ article {
 .msg-item.comment_continue {
   margin-bottom: 8px;
 }
-.msg-item__action {
-  display:none;
-  position:absolute;
-  right:-7px;
-  bottom: 4px
-}
-.msg-item__action .action-icon {
-  font-size: 16px;
-  color: #c5c5c5;
-}
-.msg-item__action .action-icon:hover {
-  color: #9a9a9a;
-}
-
-.msg-item:hover .msg-item__action {
-  display:inline-block;
-}
 .msg-item-float {
   position: absolute;
   top: 0;

@@ -9,6 +9,7 @@
   function AnnouncementCtrl($scope, Announcement, AnnouncementData, entityAPIservice, memberService, config, currentSessionHelper) {
     var _topicType;
     var _topicId;
+    var _isAnnouncementOpened;
 
     $scope.hasAnnouncement = false;
     $scope.displayStatus = {
@@ -37,13 +38,11 @@
       _topicId = currentSessionHelper.getCurrentEntityId();
       _topicType = currentSessionHelper.getCurrentEntityType();
 
-      console.log(_topicId)
-      console.log(_topicType)
       _attachWindowEvent();
-      //_getAnnouncement();
+      _getAnnouncement();
 
       //test();
-      testWithLink();
+      //testWithLink();
     }
 
     /**
@@ -70,6 +69,14 @@
         $scope.announcementWriter = _getActionOwner(announcement, announcement.writerId, 'writtenAt');
 
         $scope.announcementBody = Announcement.getFilteredContentBody(announcement.content);
+
+        if (memberService.isAnnouncementOpen(_topicId)) {
+          _isAnnouncementOpened = true;
+          minimizeAnnouncement();
+        } else {
+          _isAnnouncementOpened = false;
+          hideAnnouncement();
+        }
 
         _showAnnouncement();
       }
@@ -181,7 +188,6 @@
      * announcement 를 지운다.
      */
     function deleteAnnouncement() {
-      console.log(_topicId)
       AnnouncementData.deleteAnnouncement(_topicId)
         .success(function() {
           _detachAnnouncement();
@@ -191,6 +197,16 @@
         })
     }
 
+    function toggleAnnouncementStatus() {
+      var isCurrentTopicAnnouncementOpen = memberService.isAnnouncementOpen(_topicId);
+      AnnouncementData.createAnnouncement(myId, _topicId, isCurrentTopicAnnouncementOpen)
+        .success(function(response) {
+          console.log(resonse)
+        })
+        .error(function(err) {
+          console.log(err)
+        })
+    }
     /**
      * $(window)에 event listener 를 붙힌다.
      * @private

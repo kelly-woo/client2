@@ -12,6 +12,8 @@
   /* @ngInject */
   function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload, jndPubSub) {
     var noUExtraData = "i dont have u_extraData";
+    var announcementOpenStatusMap = {};
+
     var currentMember;
 
     var service = {
@@ -49,10 +51,11 @@
 
       getNameById: getNameById,
 
-
       onMemberProfileUpdated: onMemberProfileUpdated,
 
-      getDefaultPhotoUrl: getDefaultPhotoUrl
+      getDefaultPhotoUrl: getDefaultPhotoUrl,
+
+      isAnnouncementOpen: isAnnouncementOpen
     };
 
 
@@ -108,7 +111,9 @@
     function setMember(member) {
       $rootScope.member = currentMember = member;
       storageAPIservice.setLastEmail(member.u_email);
+      _setAnnouncementStatusMap(member.u_messageMarkers);
       jndPubSub.pub('onCurrentMemberChanged');
+
     }
 
     /**
@@ -340,6 +345,26 @@
      */
     function _isNumber(member) {
       return (typeof member === 'number');
+    }
+
+    /**
+     * messageMarkers 리스트 전체를 돌면서 entityId - announcementOpened (key:value) pair 를 만든다.
+     * 해당 토픽의 announcement 가 열려있는지 닫혀있는지 체크하기위해 만든다.
+     * @param {array} messageMarkers - member entity 에 있는 u_messageMarkers 필드
+     * @private
+     */
+    function _setAnnouncementStatusMap(messageMarkers) {
+      _.forEach(messageMarkers, function(entity) {
+        var isAnnouncementOpened = entity.announcementOpened;
+
+        if (!!isAnnouncementOpened) {
+          announcementOpenStatusMap[entity.entityId] = isAnnouncementOpened;
+        }
+      });
+    }
+
+    function isAnnouncementOpen(entityId) {
+      return !!announcementOpenStatusMap[entityId];
     }
   }
 })();

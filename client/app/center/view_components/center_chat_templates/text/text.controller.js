@@ -10,11 +10,12 @@
     .controller('TextMessageCtrl', TextMessageCtrl);
 
   /* @ngInject */
-  function TextMessageCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper) {
+  function TextMessageCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, AnnouncementData) {
     // 현재 로그인되어있는 멤버(나)의 아이디
     var myId = memberService.getMemberId();
     // 현재 디렉티브가 가지고 있는 메시지 객체
     var message = $scope.msg;
+    var messageId = message.messageId;
     // 현재 토픽의 타입
     var _entityType = currentSessionHelper.getCurrentEntityType();
     // 현재 토픽의 아이디
@@ -24,6 +25,7 @@
     $scope.isMyMessage = myId === message.fromEntity;
 
     $scope.deleteMessage = deleteMessage;
+    $scope.createAnnouncement = createAnnouncement;
 
     /**
      * 메시지를 삭제한다.
@@ -31,11 +33,21 @@
     function deleteMessage() {
       if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
         if (message.message.contentType === 'sticker') {
-          messageAPIservice.deleteSticker(message.messageId);
+          messageAPIservice.deleteSticker(messageId);
         } else {
-          messageAPIservice.deleteMessage(_entityType, _entityId, message.messageId);
+          messageAPIservice.deleteMessage(_entityType, _entityId, messageId);
         }
       }
+    }
+
+    /**
+     * 현재 메세지를 사용하여 announcement 을 만든다.
+     */
+    function createAnnouncement() {
+      AnnouncementData.createAnnouncement(_entityId, messageId)
+        .error(function(err) {
+          console.log(err)
+        })
     }
   }
 })();

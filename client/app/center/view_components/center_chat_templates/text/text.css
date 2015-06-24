@@ -1,3 +1,21 @@
 .text-delete-background {
   background-color: #f2fbff;
 }
+
+.msg-item__action {
+  display:none;
+  margin-left: 12px;
+  margin-top: 6px;
+}
+
+.msg-item-action-icon {
+  font-size: 16px;
+  color: #c5c5c5;
+}
+.msg-item-action-icon:hover {
+  color: #9a9a9a;
+}
+
+.msg-item:hover .msg-item__action {
+  display:inline-block;
+}
