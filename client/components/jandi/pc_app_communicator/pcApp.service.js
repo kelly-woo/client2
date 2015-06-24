@@ -15,6 +15,7 @@
     this.onSignedOut = onSignedOut;
     this.onSignedIn = onSignedIn;
     this.onAlarmCntChanged = onAlarmCntChanged;
+    this.onLanguageChanged = onLanguageChanged;
 
     /**
      * Call 'onSignedOut' function in pc application.
@@ -42,9 +43,19 @@
     function onAlarmCntChanged(id, alarmCnt) {
       if (_isPcApp()) {
         jandipc.onAlarmCntChanged(id, alarmCnt);
-
       }
     }
+
+    /**
+     * Call 'onLangguageChanged' function in pc application.
+     * @param {string} lang - 현재 설정된 language
+     */
+    function onLanguageChanged(lang) {
+      if (_isPcApp()) {
+        jandipc.onLanguageChanged(lang);
+      }
+    }
+
     /**
      * Return true if 'jandipc' exists as a variable.
      * 'jandipc' id first declared and defined by pc application. so 'jandipc' is defined if and only if when it's running on pc application.

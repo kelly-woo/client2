@@ -1,5 +1,5 @@
 /**
- * @fileoverview 네트워크 오류로 인해 보내지 못한 text 메세지 directive
+ * @fileoverview STICKER LAYER DIRECTIVE
  * @author Young Park <young.park@tosslab.com>
  */
 
@@ -21,6 +21,7 @@
 
     function link(scope, el, attrs) {
       _init();
+
       /**
        * 초기화 함수
        * @private
@@ -31,7 +32,5 @@
         }
       }
     }
-
-
   }
 })();
