@@ -23,7 +23,6 @@
     that.hide = hide;
 
     that.load = load;
-    that.resize = resize;
 
     that.pivot = pivot;
     _.each(['prev', 'next'], function(value) {
@@ -84,7 +83,7 @@
       $timeout.cancel(resizeTimer);
       resizeTimer = $timeout(function() {
         jqWindow.on('resize.imageCarousel', function() {
-          resize();
+          _rePosition();
         });
       }, 300);
 
@@ -146,26 +145,53 @@
         if (img.type && img.type === 'error') {
 
         } else {
-          resize(img);
+          _rePosition(img);
 
-          jqContent.empty().append(img);
+          jqContent.children('img').remove();
+          jqContent.prepend(img);
+
           callback && callback();
         }
       });
     }
 
-    function resize(img) {
+    function _rePosition(img) {
       // image를 정중앙에 출력할때 필요로 하는 여백
       var margin = 56 * 2;
+      var ratio = [];
+      var maxWidth = jqViewerBody.width() - margin;
+      var maxHeight = jqViewerBody.height() - margin;
+      var imageWidth;
+      var imageHeight;
 
-      img = img ? $(img) : jqContent.children();
+      if (img) {
+        img = $(img);
 
-      img[0].removeAttribute('width');
-      img[0].removeAttribute('height');
+        imageWidth = img[0].getAttribute('width');
+        imageHeight = img[0].getAttribute('height');
+
+        img[0].removeAttribute('width');
+        img[0].removeAttribute('height');
+      } else {
+        img = jqContent.children();
+
+        imageWidth = img.width();
+        imageHeight = img.height();
+      }
+
+      if (maxWidth < imageWidth || maxHeight < imageHeight) {
+        // maxWidth, maxHeight 보다 imageWidth, imageHeight가 크다면 비율 조정 필요함.
+        ratio = [maxWidth / imageWidth, maxHeight / imageHeight];
+        ratio = Math.min(ratio[0], ratio[1]);
+      } else {
+        ratio = 1;
+      }
+
+      jqContent.css({marginLeft: (imageWidth * ratio) / 2 * -1, marginTop: (imageHeight * ratio) / 2 * -1});
 
       img.css({
-        maxWidth: jqViewerBody.width() - margin,
-        maxHeight: jqViewerBody.height() - margin
+        maxWidth: maxWidth,
+        maxHeight: maxHeight
       });
     }
 

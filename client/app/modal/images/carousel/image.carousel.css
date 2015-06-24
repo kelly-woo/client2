@@ -133,18 +133,19 @@
 
 .viewer-body .content,
 .viewer-body .content img {
-  position: absolute;
-  margin: auto;
+  /*position: absolute;
+  margin: auto;*/
 }
 .viewer-body .content {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: absolute;
+  top: 50%;
+  /*right: 0;
+  bottom: 0;*/
+  left: 50%;
 }
-.viewer-body .content img {
+/*.viewer-body .content img {
   top: 56px;
   right: 56px;
   bottom: 56px;
   left: 56px;
-}
+}*/
