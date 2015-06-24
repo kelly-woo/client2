@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('TopicCreateCtrl', TopicCreateCtrl);
 
-  function TopicCreateCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter, analyticsHelper) {
+  function TopicCreateCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter, AnalyticsHelper) {
     $scope.entityType = 'public';
 
     $scope.cancel = function() {
@@ -13,7 +13,8 @@
     };
 
     $scope.onCreateClick = function(entityType, entityName) {
-
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if ($scope.isLoading) return;
 
       if (entityType == 'private')
@@ -27,28 +28,22 @@
         .success(function(response) {
 
           var entity_type = "";
-          var topicType;
           switch (entityType) {
             case 'channel':
-              topicType = 'public';
               entity_type = "topic";
               break;
             case 'privateGroup':
-              topicType = 'private';
               entity_type = "private group";
               break;
             default:
-              topicType = 'invalid';
               entity_type = "invalid";
               break;
           }
 
           //Analtics Tracker. Not Block the Process
-          var property = {};
-          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
-          property[analyticsHelper.PROPERTY.TOPIC_TYPE] = topicType;
-          property[analyticsHelper.PROPERTY.TOPIC_ID] = response.id;
-          analyticsHelper.track(analyticsHelper.EVENT.TOPIC_CREATE, property);
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+          property[PROPERTY_CONSTANT.TOPIC_ID] = response.id;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, property);
 
           analyticsService.mixpanelTrack( "Entity Create", { "type": entity_type } );
 
@@ -58,10 +53,9 @@
         })
         .error(function(response) {
           //Analtics Tracker. Not Block the Process
-          var property = {};
-          property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
-          property[analyticsHelper.PROPERTY.TOPIC_TYPE] = response.code;
-          analyticsHelper.track(analyticsHelper.EVENT.TOPIC_CREATE, property);
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+          property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, property);
           
           _onCreateError(response);
         })

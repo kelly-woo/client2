@@ -8,7 +8,7 @@
 
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, $timeout,
-                              analyticsService, jndPubSub, fileToShare, modalHelper, analyticsHelper) {
+                              analyticsService, jndPubSub, fileToShare, modalHelper, AnalyticsHelper) {
 
     var _entityType;
     var _entityId;
@@ -51,24 +51,24 @@
         .success(function() {
           
           var property = {};
-          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
           property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
           property[PROPERTY_CONSTANT.TOPIC_ID] = shareChannel.id;
           property[PROPERTY_CONSTANT.FILE_ID] = $scope.file.id;
-          analyticsHelper.track(analyticsHelper.EVENT.FILE_SHARE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_SHARE, property);
 
           _onShareSuccess()
         })
         .error(function(error) {
           $scope.isLoading = false;
           var property = {};
-          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
           //analytics
           property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
           property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
-          analyticsHelper.track(analyticsHelper.EVENT.FILE_SHARE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_SHARE, property);
 
           console.log('onFileShareClick', error.code, error.msg);
         });

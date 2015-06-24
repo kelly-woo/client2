@@ -6,7 +6,7 @@
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter,
-                                 publicService, analyticsService, modalHelper, analyticsHelper) {
+                                 publicService, analyticsService, modalHelper, AnalyticsHelper) {
     InitInvite();
 
     /*
@@ -65,7 +65,8 @@
 
     $scope.onInviteClick = function(entityType) {
       var guestList = [];
-
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if (!$scope.isLoading && $scope.inviteUsers.length > 0) {
         $scope.toggleLoading();
 
@@ -78,28 +79,22 @@
             //console.log(response)
             // analytics
             var entity_type = "";
-            var topicType;
             switch (entityType) {
               case 'channels':
-                topicType = 'public';
                 entity_type = "topic";
                 break;
               case 'privategroups':
-                topicType = 'private';
                 entity_type = "private group";
                 break;
               default:
-                topicType = 'invalid';
                 entity_type = "invalid";
                 break;
             }
             //Analtics Tracker. Not Block the Process
-            var property = {};
-            property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
-            property[analyticsHelper.PROPERTY.TOPIC_TYPE] = topicType;
-            property[analyticsHelper.PROPERTY.TOPIC_ID] = parseInt($state.params.entityId, 10);
-            property[analyticsHelper.PROPERTY.MEMBER_COUNT] = guestList.length;
-            analyticsHelper.track(analyticsHelper.EVENT.TOPIC_MEMBER_INVITE, property);
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt($state.params.entityId, 10);
+            property[PROPERTY_CONSTANT.MEMBER_COUNT] = guestList.length;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, property);
 
             analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
 
@@ -110,10 +105,9 @@
           })
           .error(function(error) {
             //Analtics Tracker. Not Block the Process
-            var property = {};
-            property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
-            property[analyticsHelper.PROPERTY.ERROR_CODE] = error.code;
-            analyticsHelper.track(analyticsHelper.EVENT.TOPIC_MEMBER_INVITE, property);
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, property);
             // TODO - TO JAY, MAYBE WE NEED TO SHOW MESSAGE WHY IT FAILED??
             console.error('inviteUsers', error.msg );
           })

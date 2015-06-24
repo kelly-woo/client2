@@ -10,16 +10,16 @@
 
   angular
     .module('app.analytics')
-    .service('analyticsHelper', analyticsHelper);
+    .service('AnalyticsHelper', AnalyticsHelper);
 
   /* @ngInject */
-  function analyticsHelper(analyticsPersistence, analyticsData, analyticsLazyload, analyticsConstant, config) {
+  function AnalyticsHelper(AnalyticsPersistence, AnalyticsData, AnalyticsLazyload, AnalyticsConstant, config) {
 
-    var LANGUAGE_SET = analyticsConstant.LANGUAGE_SET;
-    var EVENT = analyticsConstant.EVENT;
-    var PROPERTY = analyticsConstant.PROPERTY;
-    var LOCAL_STORAGE_KEY = analyticsConstant.LOCAL_STORAGE_KEY;
-    var SESSION_STORAGE_KEY = analyticsConstant.SESSION_STORAGE_KEY;
+    var LANGUAGE_SET = AnalyticsConstant.LANGUAGE_SET;
+    var EVENT = AnalyticsConstant.EVENT;
+    var PROPERTY = AnalyticsConstant.PROPERTY;
+    var LOCAL_STORAGE_KEY = AnalyticsConstant.LOCAL_STORAGE_KEY;
+    var SESSION_STORAGE_KEY = AnalyticsConstant.SESSION_STORAGE_KEY;
 
     this.EVENT = EVENT;
     this.PROPERTY = PROPERTY;
@@ -34,7 +34,7 @@
      * Analytics 서비스 시작할때 실행. 모듈 세팅.
      */
     function init() {
-      var isSessionSet = analyticsPersistence.init();
+      var isSessionSet = AnalyticsPersistence.init();
       if (isSessionSet) {
         track(EVENT.SESSION_START, defaultProperty());
       }
@@ -45,22 +45,22 @@
      * Event와 Properties를 받아 로그서버로 전송한다. 
      * Validation Check를 하고 LazyLoad를 해야할 상황이면 LazyLoad서비스로 넘기고, 
      * 아닌경우는 바로 Data를 전송한다.
-     * @param {String} event - Event Name. analyticsConstant.Event에 존재해야한다. 
+     * @param {String} event - Event Name. AnalyticsConstant.Event에 존재해야한다. 
      * @param {String} properties - Event에 종속된 properties.
      */
     function track(event, properties) {
       // try {
         var properties = properties || {};
-        var identify = analyticsPersistence.getIdentify();
+        var identify = AnalyticsPersistence.getIdentify();
 
         var isValid = checkValidation(event, properties);
-        var isLazyload = analyticsLazyload.checkLazyload(event, properties, identify);
+        var isLazyload = AnalyticsLazyload.checkLazyload(event, properties, identify);
 
         if (isValid) {
           if (isLazyload) {
-            analyticsLazyload.track(event, properties);
+            AnalyticsLazyload.track(event, properties);
           } else {
-            analyticsData.track(event, properties, identify);
+            AnalyticsData.track(event, properties, identify);
           }
         } 
       // } catch (e) {
@@ -91,13 +91,13 @@
      */
     function defaultProperty() {
       var defaultProperty = {};
-      defaultProperty[analyticsConstant.PROPERTY.BROWSER_HEIGHT] = window.innerHeight || document.body.clientHeight;
-      defaultProperty[analyticsConstant.PROPERTY.BROWSER_WIDTH] = window.innerWidth || document.body.clientWidth;
-      defaultProperty[analyticsConstant.PROPERTY.SYSTEM_WIDTH] = screen.width;
-      defaultProperty[analyticsConstant.PROPERTY.SYSTEM_HEIGHT] = screen.height;
-      defaultProperty[analyticsConstant.PROPERTY.USER_AGENT] = window.navigator.userAgent;
-      defaultProperty[analyticsConstant.PROPERTY.REFERRER] = document.referrer;
-      defaultProperty[analyticsConstant.PROPERTY.BROWSER_LANGUAGE] = window.navigator.language;
+      defaultProperty[PROPERTY.BROWSER_HEIGHT] = window.innerHeight || document.body.clientHeight;
+      defaultProperty[PROPERTY.BROWSER_WIDTH] = window.innerWidth || document.body.clientWidth;
+      defaultProperty[PROPERTY.SYSTEM_WIDTH] = screen.width;
+      defaultProperty[PROPERTY.SYSTEM_HEIGHT] = screen.height;
+      defaultProperty[PROPERTY.USER_AGENT] = window.navigator.userAgent;
+      defaultProperty[PROPERTY.REFERRER] = document.referrer;
+      defaultProperty[PROPERTY.BROWSER_LANGUAGE] = window.navigator.language;
       return defaultProperty;
     }
     
@@ -121,12 +121,13 @@
      * Window Focus, Blur 이벤트에 트래커를 붙인다.
      */
     function bindTrakcerToWindowFocusEvent() {
-      window.onfocus = function() {
+      $(window)
+      .focus(function() {
         track(EVENT.WINDOW_FOCUS);
-      }
-      window.onblur = function() {
+      })
+      .blur(function() {
         track(EVENT.WINDOW_BLUR);
-      }
+      }); 
     }
   }                                                                                                              
 })();

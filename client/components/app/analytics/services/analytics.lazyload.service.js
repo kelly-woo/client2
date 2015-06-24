@@ -9,10 +9,10 @@
 
   angular
     .module('app.analytics')
-    .service('analyticsLazyload', analyticsLazyload);
+    .service('AnalyticsLazyload', AnalyticsLazyload);
 
   /* @ngInject */
-  function analyticsLazyload($interval, analyticsPersistence, analyticsData, analyticsConstant) {
+  function AnalyticsLazyload($interval, AnalyticsPersistence, AnalyticsData, AnalyticsConstant) {
     
 
     var isEnqueRequest = false;
@@ -53,12 +53,12 @@
 
         var event = delayedLogQueue[0].event;
         var properties = delayedLogQueue[0].properties;
-        var identify = analyticsPersistence.getIdentify();
+        var identify = AnalyticsPersistence.getIdentify();
         var isLazyload = _checkLazyloadCondition(event, properties, identify);
 
         if (!isLazyload) {
 
-          analyticsData.track(event, properties ,identify);
+          AnalyticsData.track(event, properties ,identify);
           delayedLogQueue.shift();
         }
 
@@ -97,11 +97,11 @@
      * @return {Boolean} 
      */
     function _checkLazyloadCondition(event, properties, identify) {
-      var EVENT = analyticsConstant.EVENT;
-      var PROPERTY = analyticsConstant.PROPERTY;
-      var PAGE = analyticsConstant.PAGE;
-      var accountId = identify[analyticsConstant.IDENTIFY.ACCOUNT_ID];
-      var memberId = identify[analyticsConstant.IDENTIFY.MEMBER_ID];
+      var EVENT = AnalyticsConstant.EVENT;
+      var PROPERTY = AnalyticsConstant.PROPERTY;
+      var PAGE = AnalyticsConstant.PAGE;
+      var accountId = identify[AnalyticsConstant.IDENTIFY.ACCOUNT_ID];
+      var memberId = identify[AnalyticsConstant.IDENTIFY.MEMBER_ID];
 
       if (event === EVENT.SESSION_START
           || event === EVENT.WINDOW_FOCUS

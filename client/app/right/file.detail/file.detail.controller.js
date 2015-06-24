@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
-                                           publicService, configuration, modalHelper, jndPubSub, jndKeyCode, analyticsHelper) {
+                                           publicService, configuration, modalHelper, jndPubSub, jndKeyCode, AnalyticsHelper) {
 
   //console.info('[enter] fileDetailCtrl');
   var _sticker = null;
@@ -293,12 +293,12 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         //
 
         var property = {};
-        var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+        var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
         //analytics
         property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
         property[PROPERTY_CONSTANT.FILE_ID] = message.id;
         property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
-        analyticsHelper.track(analyticsHelper.EVENT.FILE_UNSHARE, property);
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
 
 
       })
@@ -348,7 +348,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
     var fileId = fileInfo.id;
     var property = {};
-    var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
     fileAPIservice.deleteFile(fileId)
       .success(function(response) {
@@ -357,7 +357,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         //analytics
         property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
         property[PROPERTY_CONSTANT.FILE_ID] = fileId;
-        analyticsHelper.track(analyticsHelper.EVENT.FILE_DELETE, property);
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
 
         $rootScope.$broadcast('onFileDeleted', fileId);
       })
@@ -367,7 +367,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         //analytics
         property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
         property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-        analyticsHelper.track(analyticsHelper.EVENT.FILE_DELETE, property);
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
       });
   }
 

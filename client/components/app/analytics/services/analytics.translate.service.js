@@ -9,10 +9,10 @@
 
   angular
     .module('app.analytics')
-    .service('analyticsTranslate', analyticsTranslate);
+    .service('AnalyticsTranslate', AnalyticsTranslate);
 
   /* @ngInject */
-  function analyticsTranslate($rootScope) {
+  function AnalyticsTranslate($rootScope) {
 
     this.UUID = UUID;
     this.sessionId = sessionId;

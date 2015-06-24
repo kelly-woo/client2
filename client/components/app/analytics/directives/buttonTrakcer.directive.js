@@ -11,9 +11,8 @@
     .module('app.analytics')
     .directive('buttonTracker', buttonTracker);
 
-  buttonTracker.$inject = ['GAHelper', 'analyticsHelper']
-
-  function buttonTracker(GAHelper, analyticsHelper){
+  /* @ngInject */
+  function buttonTracker(GAHelper, AnalyticsHelper){
     return {
       restrict: 'A',
       link: linkFunc
@@ -31,13 +30,13 @@
           GAHelper.sendEvent('Button Click', tracker, position);
 
           //Send Data to Log Server
-          analyticsHelper.track(analyticsHelper.EVENT.BUTTON_CLICK, {
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.BUTTON_CLICK, {
             button: attributes.buttonTracker,
             position: attributes.buttonPosition
           });
         });
       } else {
-        analyticsHelper.error('ButtonTracker or ButtonTracker Undefined. Tracker: ' + tracker + ', position' + position, 'ButtonTracker.directive');
+        AnalyticsHelper.error('ButtonTracker or ButtonTracker Undefined. Tracker: ' + tracker + ', position' + position, 'ButtonTracker.directive');
       }
     }
   }

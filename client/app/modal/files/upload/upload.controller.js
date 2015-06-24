@@ -8,7 +8,7 @@
 
   /* @ngInject */
   function FileUploadModalCtrl($rootScope, $scope, $modalInstance, FilesUpload,
-                               fileAPIservice, analyticsService, $timeout, ImagesHelper, analyticsHelper) {
+                               fileAPIservice, analyticsService, $timeout, ImagesHelper, AnalyticsHelper) {
     var PUBLIC_FILE = 744;    // PUBLIC_FILE code
     var filesUpload;
     var fileObject;
@@ -107,7 +107,7 @@
         var fileInfo = response.data.fileInfo;
         var topicType;
         var property = {};
-        var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+        var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
         switch ($scope.currentEntity.type) {
           case 'channels':
@@ -131,7 +131,7 @@
         property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
         property[PROPERTY_CONSTANT.TOPIC_ID] = $scope.currentEntity.id;
         property[PROPERTY_CONSTANT.FILE_ID] = response.data.messageId;
-        analyticsHelper.track(analyticsHelper.EVENT.FILE_UPLOAD, property);
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, property);
 
         var file_meta = (response.data.fileInfo.type).split("/");
 
@@ -155,12 +155,12 @@
       // 하나의 file upload error
       onError: function(err) {
         var property = {};
-        var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+        var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
         //analytics
         property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
         property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-        analyticsHelper.track(analyticsHelper.EVENT.FILE_UPLOAD, property);
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, property);
 
         $rootScope.curUpload.status = 'error';
         $rootScope.curUpload.hasError = true;

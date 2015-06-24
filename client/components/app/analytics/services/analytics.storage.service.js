@@ -9,10 +9,10 @@
 
   angular
     .module('app.analytics')
-    .service('analyticsStorage', analyticsStorage);
+    .service('AnalyticsStorage', AnalyticsStorage);
 
   /* @ngInject */
-  function analyticsStorage(analyticsTranslate) {
+  function AnalyticsStorage(AnalyticsTranslate) {
     
    
     this.checkLocalStorageSupported = checkLocalStorageSupported;
@@ -35,7 +35,7 @@
             var item = storage.getItem(name);
             if (!item) { return null};
 
-            var base64Decoded = analyticsTranslate.base64Decode(item);
+            var base64Decoded = AnalyticsTranslate.base64Decode(item);
             var jsonDecoded = JSON.parse(base64Decoded);  
             return jsonDecoded;
           } catch (err) {
@@ -51,7 +51,7 @@
         set: function(name, value) {
           try {
             var jsonEncoded = JSON.stringify(value);
-            var base64Encoded = analyticsTranslate.base64Encode(jsonEncoded);
+            var base64Encoded = AnalyticsTranslate.base64Encode(jsonEncoded);
             storage.setItem(name, JSON.stringify(base64Encoded));
           } catch (err) {
             console.error('Storage error: ' + err);

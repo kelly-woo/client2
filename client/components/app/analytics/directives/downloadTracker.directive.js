@@ -12,9 +12,8 @@
     .module('app.analytics')
     .directive('downloadTracker', downloadTracker);
 
-  downloadTracker.$inject = ['GAHelper', 'analyticsHelper']
-
-  function downloadTracker(GAHelper, analyticsHelper){
+  /* @ngInject */
+  function downloadTracker(GAHelper, AnalyticsHelper){
     return {
       restrict: 'A',
       link: linkFunc
@@ -32,8 +31,8 @@
       element.on('click', function() {
         if (fileId) {
           var property = {};
-          property[analyticsHelper.PROPERTY.FILE_ID] = fileId; 
-          analyticsHelper.track(analyticsHelper.EVENT.FILE_DOWNLOAD, property);
+          property[AnalyticsHelper.PROPERTY.FILE_ID] = fileId; 
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DOWNLOAD, property);
         }
       });
       

@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, modalHelper, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper, logger, analyticsHelper) {
+  function rPanelFileTabCtrl($scope, $rootScope, modalHelper, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper, logger, AnalyticsHelper) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -350,14 +350,14 @@
         .success(function(response) {
           
           var property = {};
-          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
           var fileList = [];
 
           //analytics
           if ($scope.fileRequest.keyword !== "") {
             property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.fileRequest.keyword;
             property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true; 
-            analyticsHelper.track(analyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
           }
 
           if (_isActivated) {
@@ -379,12 +379,12 @@
         })
         .error(function(response) {
           var property = {};
-          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
           //analytics
           if ($scope.fileRequest.keyword !== "") {
             property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
             property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false; 
-            analyticsHelper.track(analyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
           }
 
           console.log(response.msg);

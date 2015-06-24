@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
-                            publicService, jndPubSub, fileAPIservice, analyticsService, modalHelper, analyticsHelper) {
+                            publicService, jndPubSub, fileAPIservice, analyticsService, modalHelper, AnalyticsHelper) {
 
     var currentEntity;
     var entityId;
@@ -121,7 +121,8 @@
 
     $scope.onLeaveClick = function() {
       var isLeaveChannel;
-
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       isLeaveChannel = entityType === 'privategroups' ? confirm($filter('translate')('@ch-menu-leave-private-confirm')) : true;
 
       if (isLeaveChannel) {
@@ -129,31 +130,18 @@
           .success(function(response) {
             // analytics
             var entity_type = analyticsService.getEntityType(entityType);
-            var topicType;
-            switch (entity_type) {
-              case 'topic':
-                topicType = 'public';
-                break;
-              case 'private group':
-                topicType = 'private';
-                break;
-              default:
-                topicType = 'invalid';
-                break;
-            }
-            var property = {};
-            property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
-            property[analyticsHelper.PROPERTY.TOPIC_TYPE] = topicType;
-            property[analyticsHelper.PROPERTY.TOPIC_ID] = parseInt(entityId, 10);
-            analyticsHelper.track(analyticsHelper.EVENT.TOPIC_LEAVE, property);
+
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt(entityId, 10);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, property);
+
             analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
             updateLeftPanel();
           })
           .error(function(error) {
-            var property = {};
-            property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
-            property[analyticsHelper.PROPERTY.ERROR_CODE] = error.code;
-            analyticsHelper.track(analyticsHelper.EVENT.TOPIC_LEAVE, property);
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, property);
             alert(error.msg);
           })
       }
@@ -161,28 +149,19 @@
     };
 
     $scope.onDeleteClick = function() {
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+
       if (confirm($filter('translate')('@ch-menu-delete-confirm'))) {
         entityHeader.deleteEntity(entityType, entityId)
           .success(function() {
-            // analytics
+            
             var entity_type = analyticsService.getEntityType(entityType);
-            var topicType;
-            switch (entity_type) {
-              case 'topic':
-                topicType = 'public';
-                break;
-              case 'private group':
-                topicType = 'private';
-                break;
-              default:
-                topicType = 'invalid';
-                break;
-            }
-            var property = {};
-            property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = true;
-            property[analyticsHelper.PROPERTY.TOPIC_TYPE] = topicType;
-            property[analyticsHelper.PROPERTY.TOPIC_ID] = parseInt(entityId, 10);
-            analyticsHelper.track(analyticsHelper.EVENT.TOPIC_DELETE, property);
+            // analytics
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt(entityId, 10);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, property);
+
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
             updateLeftPanel();
@@ -192,10 +171,11 @@
             });
           })
           .error(function(error) {
-            var property = {};
-            property[analyticsHelper.PROPERTY.RESPONSE_SUCCESS] = false;
-            property[analyticsHelper.PROPERTY.ERROR_CODE] = error.code;
-            analyticsHelper.track(analyticsHelper.EVENT.TOPIC_DELETE, property);
+            // analytics
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, property);
+
             alert(error.msg);
           });
       }

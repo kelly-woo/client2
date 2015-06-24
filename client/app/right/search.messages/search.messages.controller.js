@@ -6,7 +6,7 @@
     .controller('rPanelMessageTabCtrl', rPanelMessageTabCtrl);
 
   /* @ngInject */
-  function rPanelMessageTabCtrl($scope, $rootScope, fileAPIservice, messageSearchHelper, accountService, $filter, analyticsHelper) {
+  function rPanelMessageTabCtrl($scope, $rootScope, fileAPIservice, messageSearchHelper, accountService, $filter, AnalyticsHelper) {
 
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
@@ -107,7 +107,7 @@
      */
     function searchMessages() {
       var property = {};
-      var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
       if (_isLoading() || !$scope.searchQuery.q || isLastPage ) return;
 
@@ -129,7 +129,7 @@
             //analytics
             property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.searchQuery.q;
             property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            analyticsHelper.track(analyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
           }
         })
         .error(function(err) {
@@ -139,7 +139,7 @@
             //analytics
             property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
             property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            analyticsHelper.track(analyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
 
             _onMessageSearchErr(err);
           }

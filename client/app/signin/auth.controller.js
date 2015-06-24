@@ -8,7 +8,7 @@
   /* @ngInject */
   function authController($scope, $rootScope, $state, authAPIservice, analyticsService,
                           storageAPIservice, accountService, memberService, publicService,
-                          pcAppHelper, modalHelper, jndWebSocket, analyticsHelper) {
+                          pcAppHelper, modalHelper, jndWebSocket, AnalyticsHelper) {
 
     var vm = this;
     jndWebSocket.disconnect();
@@ -181,7 +181,7 @@
           memberService.getMemberInfo(signInInfo.memberId)
             .success(function(response) {
               var property = {};
-              var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+              var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
               // Set local member.
               memberService.setMember(response);
@@ -192,11 +192,11 @@
               //analytics
               property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
               property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-              analyticsHelper.track(analyticsHelper.EVENT.SIGN_IN, property);
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
             })
             .error(function(err) {
               var property = {};
-              var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+              var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
               //console.log(err)
               $scope.signInFailed = true;
               storageAPIservice.removeSession();
@@ -210,7 +210,7 @@
               property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
               property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
               property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-              analyticsHelper.track(analyticsHelper.EVENT.SIGN_IN, property);
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
             })
             .finally(function() {
 
@@ -218,7 +218,7 @@
         })
         .error(function(err) {
           var property = {};
-          var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
           $scope.signInFailed = true;
           $scope.toggleLoading();
 
@@ -226,7 +226,7 @@
           property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
           property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
           property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-          analyticsHelper.track(analyticsHelper.EVENT.SIGN_IN, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
         })
         .finally(function() {
         });

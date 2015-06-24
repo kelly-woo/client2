@@ -11,9 +11,8 @@
     .module('app.analytics')
     .directive('pageTracker', pageTracker);
 
-  pageTracker.$inject = ['GAHelper', 'analyticsHelper', 'analyticsConstant']
-
-  function pageTracker(GAHelper, analyticsHelper, analyticsConstant){
+  /* @ngInject */
+  function pageTracker(GAHelper, AnalyticsHelper, AnalyticsConstant){
     return {
       restrict: 'EA',
       link: linkFunc
@@ -30,9 +29,9 @@
 
         //Send Data to Log Server
         var property = {};
-        analyticsHelper.track(analyticsHelper.EVENT.PAGE_VIEWED, setProperty(page));
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.PAGE_VIEWED, setProperty(page));
       } else {
-        analyticsHelper.error('PageTracker or PageTracker Undefined. Page: ' + page + ', title: ' + title, 'PageTracker.directive');
+        AnalyticsHelper.error('PageTracker or PageTracker Undefined. Page: ' + page + ', title: ' + title, 'PageTracker.directive');
       }
     }
     /**
@@ -42,9 +41,9 @@
      */
     function setProperty(page) {
       var property = {}
-      property[analyticsConstant.PROPERTY.PAGE] = analyticsConstant.PAGE[page];
-      // property[analyticsConstant.PROPERTY.LANGUAGE] = generalService.getDisplayLang();
-      return _.assign(property, analyticsHelper.defaultProperty());
+      property[AnalyticsConstant.PROPERTY.PAGE] = AnalyticsConstant.PAGE[page];
+      // property[AnalyticsConstant.PROPERTY.LANGUAGE] = generalService.getDisplayLang();
+      return _.assign(property, AnalyticsHelper.defaultProperty());
     }
 
     /**
@@ -53,13 +52,13 @@
      */
     function validationCheck(page, title) {
       if (_.isUndefined(page)) {
-        analyticsHelper.error('page is undefined', 'pageTracker');
+        AnalyticsHelper.error('page is undefined', 'pageTracker');
         return false;
       } else if (_.isUndefined(title)) {
-        analyticsHelper.error('title is undefined', 'pageTracker');
+        AnalyticsHelper.error('title is undefined', 'pageTracker');
         return false;
-      } else if (_.isUndefined(analyticsConstant.PAGE[page])) {
-        analyticsHelper.error('page is not in Constant Service page='+page, 'pageTracker');
+      } else if (_.isUndefined(AnalyticsConstant.PAGE[page])) {
+        AnalyticsHelper.error('page is not in Constant Service page='+page, 'pageTracker');
         return false;
       }
       return true;

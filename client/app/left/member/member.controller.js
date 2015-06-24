@@ -6,7 +6,7 @@
     .controller('currentMemberCtrl', currentMemberCtrl);
 
   /* @ngInject */
-  function currentMemberCtrl($scope, publicService, currentSessionHelper, memberService, modalHelper, analyticsHelper) {
+  function currentMemberCtrl($scope, publicService, currentSessionHelper, memberService, modalHelper, AnalyticsHelper) {
     var vm = $scope;
 
     (function() {
@@ -23,7 +23,7 @@
 
     function onSignOutClick() {
       //Analtics Tracker. Not Block the Process
-      analyticsHelper.track(analyticsHelper.EVENT.SIGN_OUT);
+      AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_OUT);
 
       publicService.signOut();
     }

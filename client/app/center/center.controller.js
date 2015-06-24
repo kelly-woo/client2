@@ -7,7 +7,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, messageSearchHelper, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
-                                                 Sticker, jndPubSub, jndKeyCode, analyticsHelper) {
+                                                 Sticker, jndPubSub, jndKeyCode, AnalyticsHelper) {
 
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
@@ -1167,12 +1167,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onPostMessageSuccess(res) {
     $scope.isPosting = false;
     var property = {};
-    var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
     //analytics
     property[PROPERTY_CONSTANT.MESSAGE_ID] = res.id;
     property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-    analyticsHelper.track(analyticsHelper.EVENT.MESSAGE_POST, property);
+    AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, property);
+    
     log('-- posting message success');
     //  reseting position of msgs
 
@@ -1252,7 +1253,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.deleteMessage = function(message) {
     var property = {};
-    var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
     //console.log("delete: ", message.messageId);
     if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
       if (message.message.contentType === 'sticker') {
@@ -1265,12 +1266,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           .success(function() {
             property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
             property[PROPERTY_CONSTANT.MESSAGE_ID] = message.messageId;
-            analyticsHelper.track(analyticsHelper.EVENT.MESSAGE_DELETE, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, property);
           })
           .error(function (response) {
             property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
             property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-            analyticsHelper.track(analyticsHelper.EVENT.MESSAGE_DELETE, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, property);
             updateList();
           });
       }
@@ -1308,19 +1309,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
         var property = {};
-        var PROPERTY_CONSTANT = analyticsHelper.PROPERTY;
+        var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
         property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
         property[PROPERTY_CONSTANT.FILE_ID] = message.id;
         property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
-        analyticsHelper.track(analyticsHelper.EVENT.FILE_UNSHARE, property);
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
 
       })
       .error(function(err) {
 
         property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
         property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
-        analyticsHelper.track(analyticsHelper.EVENT.FILE_UNSHARE, property);
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
 
         alert(err.msg);
       });

@@ -9,10 +9,10 @@
 
   angular
     .module('app.analytics')
-    .service('analyticsConstant', analyticsConstant);
+    .service('AnalyticsConstant', AnalyticsConstant);
 
   /* @ngInject */
-  function analyticsConstant() {
+  function AnalyticsConstant() {
     
     this.LOG = {
       EVENT: 'ev',

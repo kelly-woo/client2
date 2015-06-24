@@ -9,10 +9,10 @@
 
   angular
     .module('app.analytics')
-    .service('analyticsData', analyticsData);
+    .service('AnalyticsData', AnalyticsData);
 
   /* @ngInject */
-  function analyticsData($http, analyticsTranslate, config, analyticsConstant) {
+  function AnalyticsData($http, AnalyticsTranslate, config, AnalyticsConstant) {
     
     this.track = track;
 
@@ -28,16 +28,16 @@
      */
     function track(event, properties, identify) {
       var data = {};
-      data[analyticsConstant.LOG.EVENT] = event;
-      data[analyticsConstant.LOG.IDENTIFY] = identify;
-      data[analyticsConstant.LOG.PLATFORM] = analyticsConstant.PLATFORM;
-      data[analyticsConstant.LOG.PROPERTIES] = _.assign(properties, getDefaultProperty());
+      data[AnalyticsConstant.LOG.EVENT] = event;
+      data[AnalyticsConstant.LOG.IDENTIFY] = identify;
+      data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM;
+      data[AnalyticsConstant.LOG.PROPERTIES] = _.assign(properties, getDefaultProperty());
       data['time'] = new Date().getTime();
-
+      console.log(data);
       var js = JSON.stringify(data);
-
+      console.log(js);
       $http.post(config.analytics_server + 'log/web',{
-        footprint: analyticsTranslate.base64Encode(js)
+        footprint: AnalyticsTranslate.base64Encode(js)
       });
     }
 
@@ -47,9 +47,9 @@
      */
     function getDefaultProperty() {
       var defaultProperty = {};
-      var PROPERTY = analyticsConstant.PROPERTY;
+      var PROPERTY = AnalyticsConstant.PROPERTY;
 
-      defaultProperty[PROPERTY.CHANNEL] = analyticsConstant.CHANNEL;
+      defaultProperty[PROPERTY.CHANNEL] = AnalyticsConstant.CHANNEL;
 
       return defaultProperty;
     }
