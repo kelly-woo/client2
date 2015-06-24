@@ -293,7 +293,7 @@
       delete $window.sessionStorage.account_id;
       delete $window.sessionStorage.team_id;
       delete $window.sessionStorage.member_id;
-      $window.sessionStorage.clear();
+      // $window.sessionStorage.clear();
     }
 
 

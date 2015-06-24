@@ -88,7 +88,7 @@
       </li>
 
       <li class="cursor_pointer">
-        <a class="download-file" download-file file-url="{{file.content.fileUrl}}" file-title="{{file.content.title}}">
+        <a class="download-file" download-file download-tracker="{{track(file)}}" file-url="{{file.content.fileUrl}}" file-title="{{file.content.title}}">
           <i class="icon-download"></i>
           <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
         </a>
@@ -96,7 +96,7 @@
 
       <li class="cursor_pointer" ng-if="file | isFileWriter:member">
         <a class="delete-file">
-          <i class="fa fa-minus-circle"></i>
+          <i class="fa fa-trash"></i>
           <span translate>@message-delete</span>
         </a>
       </li>

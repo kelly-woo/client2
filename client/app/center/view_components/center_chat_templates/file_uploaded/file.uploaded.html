@@ -111,7 +111,9 @@
                         {{ sharedEntity.prefix }}{{ sharedEntity.name }}
                       </span>
                       <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
-                        <i class="fa fa-minus-circle"></i>
+                        <i class="fa fa-times-circle"
+                           tooltip="{{ '@file-action-unshare' | translate }}" tooltip-placement="top"></i>
+                        <i ng-if="false" translate>@file-action-unshare</i>
                       </a>
                     </span>
 
@@ -130,7 +132,7 @@
         <span class="bullet">•</span>
 
         <!--    DOWNLOAD    -->
-        <a class="cursor_pointer" download-file ng-if="!isIntegrateFile" file-url="{{msg.message.content.fileUrl}}" file-title="{{msg.message.content.title}}">
+        <a class="cursor_pointer" download-file ng-if="!isIntegrateFile" file-url="{{msg.message.content.fileUrl}}" download-tracker="{{track(msg.message)}}" file-title="{{msg.message.content.title}}">
           <span translate>@common-download</span>
         </a>
 

@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('TopicCreateCtrl', TopicCreateCtrl);
 
-  function TopicCreateCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter) {
+  function TopicCreateCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter, AnalyticsHelper) {
     $scope.entityType = 'public';
 
     $scope.cancel = function() {
@@ -13,7 +13,8 @@
     };
 
     $scope.onCreateClick = function(entityType, entityName) {
-
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if ($scope.isLoading) return;
 
       if (entityType == 'private')
@@ -25,7 +26,7 @@
 
       entityheaderAPIservice.createEntity(entityType, entityName)
         .success(function(response) {
-          // analytics
+
           var entity_type = "";
           switch (entityType) {
             case 'channel':
@@ -38,6 +39,12 @@
               entity_type = "invalid";
               break;
           }
+
+          //Analtics Tracker. Not Block the Process
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+          property[PROPERTY_CONSTANT.TOPIC_ID] = response.id;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, property);
+
           analyticsService.mixpanelTrack( "Entity Create", { "type": entity_type } );
 
           $rootScope.$emit('updateLeftPanelCaller');
@@ -45,6 +52,11 @@
           $modalInstance.dismiss('cancel');
         })
         .error(function(response) {
+          //Analtics Tracker. Not Block the Process
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+          property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, property);
+          
           _onCreateError(response);
         })
         .finally(function() {
