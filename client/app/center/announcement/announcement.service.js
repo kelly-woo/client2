@@ -6,20 +6,12 @@
     .service('Announcement', Announcement);
 
   /* @ngInject */
-  function Announcement($http, memberService, config, $document, $filter, $sce) {
+  function Announcement(memberService, $document, $filter, $sce) {
     var teamId = memberService.getTeamId();
 
-    this.getAnnouncement = getAnnouncement;
     this.removeAnnouncement = removeAnnouncement;
     this.getFilteredContentBody = getFilteredContentBody;
     this.adjustAnnouncementHeight = adjustAnnouncementHeight;
-
-    function getAnnouncement(topicId) {
-      return $http({
-        method: 'GET',
-        url: config.server_address + 'teams/' + teamId + '/topics/' + topicId + '/announcement'
-      });
-    }
 
     function removeAnnouncement() {
       var jqAnnouncementContainer = $document.find('body .center-announcement-container').eq(0);

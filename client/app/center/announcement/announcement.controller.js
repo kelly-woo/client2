@@ -6,7 +6,7 @@
     .controller('AnnouncementCtrl', AnnouncementCtrl);
 
   /* @ngInject */
-  function AnnouncementCtrl($scope, Announcement, entityAPIservice, memberService, config, $document) {
+  function AnnouncementCtrl($scope, Announcement, AnnouncementData, entityAPIservice, memberService, config, currentSessionHelper) {
     var _topicType;
     var _topicId;
 
@@ -26,7 +26,7 @@
     $scope.hideAnnouncement = hideAnnouncement;
 
     $scope.$on('$destroy', _onScopeDestroy);
-    $scope.$on('$viewContentLoaded', _onViewContentLoaded);
+
     _init();
 
     /**
@@ -34,9 +34,11 @@
      * @private
      */
     function _init() {
-      _topicId = $scope.entityId;
-      _topicType = $scope.entityType;
+      _topicId = currentSessionHelper.getCurrentEntityId();
+      _topicType = currentSessionHelper.getCurrentEntityType();
 
+      console.log(_topicId)
+      console.log(_topicType)
       _attachWindowEvent();
       //_getAnnouncement();
 
@@ -49,7 +51,7 @@
      * @private
      */
     function _getAnnouncement() {
-      Announcement.getAnnouncement(_topicId)
+      AnnouncementData.getAnnouncement(_topicId)
         .success(_onGetAnnouncementSuccess)
         .error(_onGetAnnouncementError);
 
@@ -84,7 +86,7 @@
     function _getActionOwner(announcement, entityId, actionType) {
       var memberEntity;
 
-      memberEntity = entityAPIservice.getEntityFromListById($scope.memberList, entityId);
+    memberEntity = entityAPIservice.getEntityFromListById(currentSessionHelper.getCurrentTeamMemberList(), entityId);
 
       return {
         'profilePic':  config.server_uploaded + memberService.getSmallThumbnailUrl(memberEntity),
@@ -179,7 +181,14 @@
      * announcement 를 지운다.
      */
     function deleteAnnouncement() {
-      console.log('delete announcement')
+      console.log(_topicId)
+      AnnouncementData.deleteAnnouncement(_topicId)
+        .success(function() {
+          _detachAnnouncement();
+        })
+        .error(function() {
+
+        })
     }
 
     /**
@@ -214,12 +223,6 @@
      */
     function _onScopeDestroy() {
       _detachWindowEvent();
-    }
-
-    function _onViewContentLoaded() {
-      console.log('hi')
-      Announcement.adjustAnnouncementHeight();
-
     }
 
     function test() {

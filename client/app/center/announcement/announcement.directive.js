@@ -8,7 +8,7 @@
   function announcement() {
     return {
       restrict: 'E',
-      scope: true,
+      scope: {},
       link: link,
       templateUrl: 'app/center/announcement/announcement.html',
       controller: 'AnnouncementCtrl'
