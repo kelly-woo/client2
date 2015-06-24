@@ -607,6 +607,12 @@ msgstr "错误"
 msgid "@file-action-more"
 msgstr "更多"
 
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
+#, fuzzy
+msgid "@file-action-unshare"
+msgstr "更多"
+
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "您确定要删除此文件？ 请注意留言的部分不会被删除。"

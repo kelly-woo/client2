@@ -42,7 +42,9 @@
 
     this.setCurrentEntity = setCurrentEntity;
     this.getCurrentEntity = getCurrentEntity;
+
     this.getCurrentEntityType = getCurrentEntityType;
+    this.getCurrentEntityId = getCurrentEntityId;
 
     this.setSocketConnection = setSocketConnection;
     this.resetSocketConnection = resetSocketConnection;
@@ -95,6 +97,9 @@
     }
     function getCurrentEntityType() {
       return currentEntity.type;
+    }
+    function getCurrentEntityId() {
+      return currentEntity.id;
     }
 
     function setSocketConnection() {

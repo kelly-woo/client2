@@ -29,14 +29,14 @@
       </span>
       <span ng-if="msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
       <!--    DELETE ICON APPEARS ON HOVER    -->
-      <span class="msg-item__action">
-        <a class="link-remove pull-right cursor_pointer"
-           data-ng-if="member.id === msg.fromEntity"
-           data-ng-click="deleteMessage(msg)"
-           tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
-          <i class="icon-cancel"></i>
-        </a>
-      </span>
+       <span class="msg-item__action pull-right cursor_pointer"
+             ng-mouseenter="onMouseEnterOnIcon();"
+             ng-mouseleave="onMouseLeaveOnIcon();"
+             ng-if="isMyMessage"
+             ng-click="deleteMessage(msg)"
+             tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
+            <i class="fa fa-trash action-icon"></i>
+        </span>
     </div>
   </div>
 </div>
@@ -54,14 +54,14 @@
       </span>
       <span ng-if="msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
       <!--    DELETE ICON APPEARS ON HOVER    -->
-      <span class="msg-item__action">
-        <a class="link-remove pull-right cursor_pointer"
-           data-ng-if="member.id === msg.fromEntity"
-           data-ng-click="deleteMessage(msg)"
-           tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
-          <i class="icon-cancel"></i>
-        </a>
-      </span>
+        <span class="msg-item__action pull-right cursor_pointer"
+              ng-mouseenter="onMouseEnterOnIcon();"
+              ng-mouseleave="onMouseLeaveOnIcon();"
+              ng-if="isMyMessage"
+              ng-click="deleteMessage(msg)"
+              tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
+            <i class="fa fa-trash action-icon"></i>
+        </span>
     </div>
   </div>
 </div>
