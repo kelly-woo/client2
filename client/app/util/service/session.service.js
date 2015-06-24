@@ -42,6 +42,7 @@
 
     this.setCurrentEntity = setCurrentEntity;
     this.getCurrentEntity = getCurrentEntity;
+
     this.getCurrentEntityType = getCurrentEntityType;
     this.getCurrentEntityId = getCurrentEntityId;
 

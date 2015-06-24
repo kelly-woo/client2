@@ -1,5 +1,5 @@
 /**
- * @fileoverview 프리로더
+ * @fileoverview 브라우저 정보를 반환하는 서비스
  * @author young.park <young.park@tosslab.com>
  */
 (function() {
