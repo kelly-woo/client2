@@ -19,7 +19,7 @@
     function link(scope, el, attrs) {
       var $scope = scope;
       var messageId = $scope.msg.id;
-      var jqTextContainer = $(el).closest('#'+messageId);
+      var jqTextContainer = $(document.getElementById(messageId));
 
       scope.onMouseEnterOnIcon = _onMouseEnterOnIcon;
       scope.onMouseLeaveOnIcon = _onMouseLeaveOnIcon;
