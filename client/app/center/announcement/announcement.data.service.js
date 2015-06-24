@@ -39,6 +39,7 @@
     }
 
     function toggleAnnouncementStatus(memberId, topicId, isAnnouncementOpened) {
+      topicId = parseInt(topicId, 10);
       return $http({
         method: 'PUT',
         url: config.server_address + 'teams/' + teamId + '/members/' + memberId + '/announcement',

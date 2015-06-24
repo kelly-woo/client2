@@ -45,6 +45,32 @@ msgstr "找不到符合条件的内容"
 msgid "@alert-no-result"
 msgstr "找不到符合条件的内容"
 
+#: client/app/center/view_components/center_chat_templates/text/text.html
+#, fuzzy
+msgid "@announcement-create"
+msgstr "输入新的议题名称"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-create-confirm"
+msgstr "此信息将会取代公告，你确定要继续吗?"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-creator"
+msgstr ""
+
+#: client/app/center/announcement/announcement.html
+#, fuzzy
+msgid "@announcement-delete"
+msgstr "删除议题"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-delete-confirm"
+msgstr "公告将被删除，你确定要继续?"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-hide"
+msgstr "最小化"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@ask-me-later"
 msgstr "稍后再询问"
@@ -998,6 +1024,24 @@ msgstr "关闭电脑版的推拨通知"
 msgid "@setting-notification-turn-on"
 msgstr "开启电脑版的推拨通知"
 
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created"
+msgstr ""
+"{{msg.message.content.actionOwner}} 更新 {{msg.announceWriterName}} 的信息为"
+"公告"
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created-mid"
+msgstr " 更新 "
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created-post"
+msgstr " 的信息为公告"
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-deleted"
+msgstr "{{msg.message.content.actionOwner}} 删除公告"
+
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite"
 msgstr "邀请其他团队成员"
@@ -1341,9 +1385,6 @@ msgstr "JANDI 新信息"
 
 #~ msgid "@input-invite-email"
 #~ msgstr "输入电子邮件地址进行邀请"
-
-#~ msgid "@ch-menu-delete-confirm"
-#~ msgstr "您确定要删除这个议题？"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""

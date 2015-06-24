@@ -1310,6 +1310,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     newMsg.message.writer = entityAPIservice.getEntityFromListById($scope.memberList, msg.fromEntity);
 
     switch(msg.info.eventType) {
+      case 'announcement_created':
+        var announceWriterName = memberService.getNameById(msg.info.eventInfo.writerId);
+        newMsg.announceWriterName = announceWriterName;
+        break;
+      case 'announcement_deleted':
+        action = $filter('translate')('@system-msg-announcement-deleted');
+        break;
       case 'invite':
         action = $filter('translate')('@msg-invited');
         newMsg.message.invites = [];

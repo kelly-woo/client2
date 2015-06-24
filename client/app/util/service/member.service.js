@@ -12,6 +12,8 @@
   /* @ngInject */
   function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload, jndPubSub) {
     var noUExtraData = "i dont have u_extraData";
+
+    // 현재 멤버의 announcement 정보를 {entityId:value} 로 가지고 있다
     var announcementOpenStatusMap = {};
 
     var currentMember;
@@ -55,7 +57,9 @@
 
       getDefaultPhotoUrl: getDefaultPhotoUrl,
 
-      isAnnouncementOpen: isAnnouncementOpen
+      isAnnouncementOpen: isAnnouncementOpen,
+      removeAnnouncementStatus: removeAnnouncementStatus,
+      updateAnnouncementStatus: updateAnnouncementStatus
     };
 
 
@@ -363,8 +367,30 @@
       });
     }
 
+    /**
+     * announcement 가 열려있는지 닫혀있는지 확인값을 리턴한다.
+     * @param {number} entityId - 확인하려는 토픽의 아이디
+     * @returns {*}
+     */
     function isAnnouncementOpen(entityId) {
-      return !!announcementOpenStatusMap[entityId];
+      return announcementOpenStatusMap[entityId];
+    }
+
+    /**
+     * announcementOpenStatusMap 에서 entityId 에 해당하는 값을 지운다.
+     * @param {number} entityId - 지우려는 key 값
+     */
+    function removeAnnouncementStatus(entityId) {
+      delete announcementOpenStatusMap[entityId];
+    }
+
+    /**
+     * announcementOpenStatusMap 에서 값을 바꾼다.
+     * @param {number} entityId - 바꾸려는 키
+     * @param {boolean} toBeValue - 값
+     */
+    function updateAnnouncementStatus(entityId, toBeValue) {
+      announcementOpenStatusMap[entityId] = toBeValue
     }
   }
 })();

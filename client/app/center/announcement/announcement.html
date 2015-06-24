@@ -2,12 +2,12 @@
 
   <!-- hide 된 announcement  -->
   <div class="announcement-horn jnd-text-center pull-right jnd-cursor-pointer" ng-if="isAnnouncementHided();"
-       ng-click="onHidedAnnouncementClicked();">
+       ng-click="toggleAnnouncementStatus();">
     <i class="icon-bullhorn"></i>
   </div>
 
 
-  <div class="announcement-container" ng-if="!isAnnouncementHided();"
+  <div class="announcement-container common-announcement-size-padding" ng-if="!isAnnouncementHided();"
        ng-class="{'minimized': isAnnouncmentMinimized()}">
 
 
@@ -63,22 +63,20 @@
     <!-- announcement 옵션들 -->
     <div class="announcement-option-container common-announcement-size-padding" ng-if="!isAnnouncmentMinimized() && !isAnnouncementHided();">
       <!-- 최소화하기 -->
-      <div class="announcement-hide-container pull-right jnd-cursor-pointer" ng-click="hideAnnouncement();">
+      <div class="announcement-hide-container announcement-option pull-right jnd-cursor-pointer" ng-click="toggleAnnouncementStatus();">
         <i class="icon-minimize maximized-announcement__icon"></i>
         <span class="maximized-announcement-icon__text" translate>@announcement-hide</span>
       </div>
 
       <!-- 삭제하기 -->
-      <div class="announcement-delete-container pull-right jnd-cursor-pointer" ng-click="deleteAnnouncement();">
+      <div class="announcement-delete-container announcement-option pull-right jnd-cursor-pointer" ng-click="deleteAnnouncement();">
         <i class="fa fa-trash maximized-announcement__icon"></i>
-        <span class="maximized-announcement-icon__text" translate>@announcement-delete</span>
+        <span class="maximized-announcement-icon__text" translate>@btn-delete</span>
       </div>
 
     </div>
 
   </div>
-
-
-
-
+  <span ng-if="false" translate>@announcement-create-confirm</span>
+  <span ng-if="false" translate>@announcement-delete-confirm</span>
 </div>

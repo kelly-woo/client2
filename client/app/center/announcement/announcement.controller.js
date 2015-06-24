@@ -6,10 +6,22 @@
     .controller('AnnouncementCtrl', AnnouncementCtrl);
 
   /* @ngInject */
-  function AnnouncementCtrl($scope, Announcement, AnnouncementData, entityAPIservice, memberService, config, currentSessionHelper) {
-    var _topicType;
-    var _topicId;
-    var _isAnnouncementOpened;
+  function AnnouncementCtrl($scope, Announcement, AnnouncementData, memberService, $stateParams,
+                            config, jndPubSub, $filter) {
+    var _topicType = $stateParams.entityType;
+    var _topicId = parseInt($stateParams.entityId, 10);
+
+    var myId = memberService.getMemberId();
+
+    var ANNOUNCEMENT_CREATED = config.socketEvent.announcement.created;
+    var ANNOUNCEMENT_DELETED = config.socketEvent.announcement.deleted;
+    var ANNOUNCEMENT_STATUS_UPDATED = config.socketEvent.announcement.status_updated;
+
+    var eventCallbacks = {
+      ANNOUNCEMENT_CREATED: _getAnnouncement,
+      ANNOUNCEMENT_DELETED: _detachAnnouncement,
+      ANNOUNCEMENT_STATUS_UPDATED: _getAnnouncementStatus
+    };
 
     $scope.hasAnnouncement = false;
     $scope.displayStatus = {
@@ -26,7 +38,13 @@
     $scope.deleteAnnouncement = deleteAnnouncement;
     $scope.hideAnnouncement = hideAnnouncement;
 
+    $scope.toggleAnnouncementStatus = toggleAnnouncementStatus;
+
     $scope.$on('$destroy', _onScopeDestroy);
+
+    $scope.$on(config.socketEvent.announcement.created, _onAnnouncementSocketEvent);
+    $scope.$on(config.socketEvent.announcement.deleted, _onAnnouncementSocketEvent);
+    $scope.$on(config.socketEvent.announcement.status_updated, _onAnnouncementSocketEvent);
 
     _init();
 
@@ -35,14 +53,10 @@
      * @private
      */
     function _init() {
-      _topicId = currentSessionHelper.getCurrentEntityId();
-      _topicType = currentSessionHelper.getCurrentEntityType();
-
       _attachWindowEvent();
       _getAnnouncement();
+      memberService.isAnnouncementOpen(_topicId);
 
-      //test();
-      //testWithLink();
     }
 
     /**
@@ -62,44 +76,35 @@
      * @private
      */
     function _onGetAnnouncementSuccess(announcement) {
-      if (_.isEmpty(announcement)) {
-        console.log('announcement is empty!');
-      } else {
+      if (!_.isEmpty(announcement)) {
         $scope.announcementCreator = _getActionOwner(announcement, announcement.creatorId, 'createdAt');
         $scope.announcementWriter = _getActionOwner(announcement, announcement.writerId, 'writtenAt');
 
         $scope.announcementBody = Announcement.getFilteredContentBody(announcement.content);
 
-        if (memberService.isAnnouncementOpen(_topicId)) {
-          _isAnnouncementOpened = true;
-          minimizeAnnouncement();
-        } else {
-          _isAnnouncementOpened = false;
-          hideAnnouncement();
-        }
-
+        _getAnnouncementStatus();
         _showAnnouncement();
       }
     }
 
+    function _getAnnouncementStatus() {
+      var isAnnouncementOpened = memberService.isAnnouncementOpen(_topicId);
+
+      if (_.isUndefined(isAnnouncementOpened) || isAnnouncementOpened) {
+        memberService.updateAnnouncementStatus(_topicId, true);
+        minimizeAnnouncement();
+      } else {
+        // false 일때만 숨긴.
+        hideAnnouncement();
+      }
+
+    }
     /**
      * announcement 를 가져오는데 실패했을 때
      * @param {object} error - server 로 부터 온 error object
      * @private
      */
     function _onGetAnnouncementError(error) {
-    }
-
-    function _getActionOwner(announcement, entityId, actionType) {
-      var memberEntity;
-
-    memberEntity = entityAPIservice.getEntityFromListById(currentSessionHelper.getCurrentTeamMemberList(), entityId);
-
-      return {
-        'profilePic':  config.server_uploaded + memberService.getSmallThumbnailUrl(memberEntity),
-        'name': memberEntity.name,
-        'time': announcement[actionType]
-      };
     }
 
     /**
@@ -117,8 +122,7 @@
      * 최소화된 공지사항을 클릭했을 경우.
      */
     function onHidedAnnouncementClicked() {
-      console.log('onHidedAnnouncementClicked');
-      maximizeAnnouncement();
+      toggleAnnouncementStatus();
     }
 
     /**
@@ -127,9 +131,7 @@
      */
     function _showAnnouncement() {
       $scope.hasAnnouncement = true;
-
       Announcement.adjustAnnouncementHeight();
-
     }
 
     /**
@@ -137,7 +139,8 @@
      * @private
      */
     function _detachAnnouncement() {
-      Announcement.removeAnnouncement();
+      $scope.hasAnnouncement = false;
+      memberService.removeAnnouncementStatus(_topicId);
     }
 
     /**
@@ -188,25 +191,35 @@
      * announcement 를 지운다.
      */
     function deleteAnnouncement() {
-      AnnouncementData.deleteAnnouncement(_topicId)
-        .success(function() {
-          _detachAnnouncement();
-        })
-        .error(function() {
+      if (confirm($filter('translate')('@announcement-delete-confirm'))) {
+        AnnouncementData.deleteAnnouncement(_topicId)
+          .success(_detachAnnouncement);
+      }
 
-        })
     }
 
     function toggleAnnouncementStatus() {
-      var isCurrentTopicAnnouncementOpen = memberService.isAnnouncementOpen(_topicId);
-      AnnouncementData.createAnnouncement(myId, _topicId, isCurrentTopicAnnouncementOpen)
+      var isCurrentTopicAnnouncementOpen = !memberService.isAnnouncementOpen(_topicId);
+      AnnouncementData.toggleAnnouncementStatus(myId, _topicId, isCurrentTopicAnnouncementOpen)
         .success(function(response) {
-          console.log(resonse)
         })
         .error(function(err) {
           console.log(err)
         })
     }
+
+    /**
+     * actionType 에 따라 알맞는 멤버정보를 리턴한다.
+     * @param {object} announcement - server로 부터 받은 announcement object
+     * @param {number} entityId - 엔티티 아이디
+     * @param {string} actionType - 액션의 종류
+     * @returns {*}
+     * @private
+     */
+    function _getActionOwner(announcement, entityId, actionType) {
+      return Announcement.getActionOwner(announcement, entityId, actionType);
+    }
+
     /**
      * $(window)에 event listener 를 붙힌다.
      * @private
@@ -239,6 +252,36 @@
      */
     function _onScopeDestroy() {
       _detachWindowEvent();
+    }
+
+    function _onAnnouncementSocketEvent(event, data) {
+      if (_isCurrentTopic(data.topicId)) {
+        switch (event.name) {
+          case ANNOUNCEMENT_CREATED:
+            jndPubSub.updateChatList();
+            _getAnnouncement();
+            break;
+          case ANNOUNCEMENT_DELETED:
+            jndPubSub.updateChatList();
+            _detachAnnouncement();
+            break;
+          case ANNOUNCEMENT_STATUS_UPDATED:
+          default:
+            memberService.updateAnnouncementStatus(_topicId, data.status);
+            _getAnnouncementStatus();
+            break;
+        }
+      }
+    }
+
+    /**
+     * 현재 토픽아이디과 같은지 확인한다.
+     * @param {number} eventTopic - topic id
+     * @returns {boolean}
+     * @private
+     */
+    function _isCurrentTopic(eventTopic) {
+      return Announcement.isCurrentTopic(eventTopic, _topicId);
     }
 
     function test() {

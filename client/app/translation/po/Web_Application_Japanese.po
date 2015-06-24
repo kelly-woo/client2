@@ -46,6 +46,34 @@ msgstr "一致するメッセージがありません"
 msgid "@alert-no-result"
 msgstr "登録情報がありません"
 
+#: client/app/center/view_components/center_chat_templates/text/text.html
+#, fuzzy
+msgid "@announcement-create"
+msgstr "新規トピックの名称を入力"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-create-confirm"
+msgstr "登録されている告知をこのメッセージに変更します。変更しますか？"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-creator"
+msgstr ""
+
+#: client/app/center/announcement/announcement.html
+#, fuzzy
+msgid "@announcement-delete"
+msgstr "このトピックを削除"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-delete-confirm"
+msgstr ""
+"この告知を削除しますか？削除時トピック内の他のメンバーたちにもこれからこの告"
+"知が見えますが、元のメッセージは保存されます"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-hide"
+msgstr "最小化"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@ask-me-later"
 msgstr "あとで確認する"
@@ -1029,6 +1057,24 @@ msgstr "デスクトップ通知をオフにする"
 msgid "@setting-notification-turn-on"
 msgstr "デスクトップ通知をオンにする"
 
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created"
+msgstr ""
+"{{msg.message.content.actionOwner}}さんが{{msg.announceWriterName}}さんのメッ"
+"セージを告知に登録しました。"
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created-mid"
+msgstr "さんが"
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created-post"
+msgstr "さんのメッセージを告知に登録しました。"
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-deleted"
+msgstr "{{msg.message.content.actionOwner}}さんが告知を削除しました。"
+
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite"
 msgstr "他のチームメンバーを招待する"
@@ -1384,9 +1430,6 @@ msgstr "JANDI 新着メッセージ通知"
 
 #~ msgid "@input-invite-email"
 #~ msgstr "招待するメールアドレスを入力"
-
-#~ msgid "@ch-menu-delete-confirm"
-#~ msgstr "本当にこのトピックを削除しますか？"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""

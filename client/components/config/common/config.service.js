@@ -21,24 +21,25 @@
       // TODO: SHOULD NOT BE USING $rootScope in this way.
       // TODO: MUST HAVE A SEPARATE SERVICE FOR CONSTANTS.
       // compatibility for current version
-      $rootScope.server_address   = configuration.api_address + "inner-api/";
-      $rootScope.server_uploaded  = configuration.api_address;
-      $rootScope.api_version      = configuration.api_version;
-      $rootScope.configuration    = configuration;
+      $rootScope.server_address = configuration.api_address + "inner-api/";
+      $rootScope.server_uploaded = configuration.api_address;
+      $rootScope.api_version = configuration.api_version;
+      $rootScope.configuration = configuration;
 
       // configuration constant service
-      configuration.server_address  = configuration.api_address + "inner-api/";
+      configuration.server_address = configuration.api_address + "inner-api/";
       configuration.server_uploaded = configuration.api_address;
-      configuration.api_version     = configuration.api_version;
+      configuration.api_version = configuration.api_version;
 
       // config service
-      self.socket_server  = configuration.socket_address;
-      self.server_address  = configuration.api_address + "inner-api/";
+      self.socket_server = configuration.socket_address;
+      self.server_address = configuration.api_address + "inner-api/";
       self.server_uploaded = configuration.api_address;
-      self.api_version     = configuration.api_version;
+      self.api_version = configuration.api_version;
       self.name = configuration.name;
 
       _setSocketMessageEventNames();
+      _setSocketAnnouncementEventNames();
 
       // cut off sub-domain
       window.document.domain = 'jandi.' + /.([a-zA-Z]+)$/.exec(window.document.domain)[1];
@@ -71,5 +72,17 @@
         MESSAGE_STICKER_SHARE: 'STICKER_SHARE'
       };
     }
+
+    function _setSocketAnnouncementEventNames() {
+      // message types
+      self.socketEvent = {
+        announcement: {
+          created: 'announcement_created',
+          deleted: 'announcement_deleted',
+          status_updated: 'announcement_status_updated'
+        }
+      };
+    }
+
   }
 })();

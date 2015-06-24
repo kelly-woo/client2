@@ -6,18 +6,12 @@
     .service('Announcement', Announcement);
 
   /* @ngInject */
-  function Announcement(memberService, $document, $filter, $sce) {
-    var teamId = memberService.getTeamId();
+  function Announcement(memberService, $document, $filter, $sce, currentSessionHelper, config, entityAPIservice) {
 
-    this.removeAnnouncement = removeAnnouncement;
     this.getFilteredContentBody = getFilteredContentBody;
     this.adjustAnnouncementHeight = adjustAnnouncementHeight;
-
-    function removeAnnouncement() {
-      var jqAnnouncementContainer = $document.find('body .center-announcement-container').eq(0);
-      jqAnnouncementContainer.remove();
-    }
-
+    this.getActionOwner = getActionOwner;
+    this.isCurrentTopic = isCurrentTopic;
 
     /**
      * 메세지를 노출하기 알맞게 가공한다.
@@ -32,7 +26,6 @@
       }
       return $sce.trustAsHtml(safeBody);
     }
-
 
     /**
      * announcement 의 body-wrapper element 의 높이를 조절한다.
@@ -56,6 +49,36 @@
       jqAnnouncementBodyWrapper = $document.find('.center-announcement-container .announcement-body-wrapper').eq(0);
 
       jqAnnouncementBodyWrapper.css('max-height', (centerPanelHeight - announcementFooterHeight - announcementHeaderHeight) / 2);
+    }
+
+    /**
+     * actionType 에 따라 알맞는 멤버정보를 리턴한다.
+     * @param {object} announcement - server로 부터 받은 announcement object
+     * @param {number} entityId - 엔티티 아이디
+     * @param {string} actionType - 액션의 종류
+     * @returns {*}
+     * @private
+     */
+    function getActionOwner(announcement, entityId, actionType) {
+      var memberEntity;
+
+      memberEntity = entityAPIservice.getEntityFromListById(currentSessionHelper.getCurrentTeamMemberList(), entityId);
+
+      return {
+        'profilePic':  config.server_uploaded + memberService.getSmallThumbnailUrl(memberEntity),
+        'name': memberEntity.name,
+        'time': announcement[actionType]
+      };
+    }
+
+    /**
+     * 현재 토픽아이디과 같은지 확인한다.
+     * @param {number} eventTopic - topic id
+     * @returns {boolean}
+     * @private
+     */
+    function isCurrentTopic(eventTopicId, currentTopicId) {
+      return eventTopicId === currentTopicId;
     }
   }
 })();

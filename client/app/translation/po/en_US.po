@@ -45,6 +45,34 @@ msgstr "No messages found matching"
 msgid "@alert-no-result"
 msgstr "No matches"
 
+#: client/app/center/view_components/center_chat_templates/text/text.html
+#, fuzzy
+msgid "@announcement-create"
+msgstr "Enter new topic name"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-create-confirm"
+msgstr ""
+"The current announcement will be replaced with this message. Do you wish to "
+"continue?"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-creator"
+msgstr ""
+
+#: client/app/center/announcement/announcement.html
+#, fuzzy
+msgid "@announcement-delete"
+msgstr "Delete topic"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-delete-confirm"
+msgstr "The announcement will be deleted. Do you wish to continue?"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-hide"
+msgstr "Minimize"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@ask-me-later"
 msgstr "Ask me later"
@@ -1029,6 +1057,24 @@ msgstr "Turn off Desktop Notifications"
 msgid "@setting-notification-turn-on"
 msgstr "Turn on Desktop Notifications"
 
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created"
+msgstr ""
+"{{msg.message.content.actionOwner}} has updated {{msg.announceWriterName}}'s "
+"message as the announcement."
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created-mid"
+msgstr " has updated "
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created-post"
+msgstr "'s message as the announcement."
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-deleted"
+msgstr "{{msg.message.content.actionOwner}} has deleted the announcement."
+
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite"
 msgstr "Invite Other Team Members"
@@ -1403,9 +1449,6 @@ msgstr "JANDI Message Received"
 
 #~ msgid "@common-file-type-google-spreadsheet"
 #~ msgstr "Google Presentations"
-
-#~ msgid "@ch-menu-delete-confirm"
-#~ msgstr "Are you sure you want to delete this topic?"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""

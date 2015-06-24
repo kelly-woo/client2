@@ -35,7 +35,7 @@ article {
   min-width: 345px;
 }
 .cpanel .panel-title-container {
-  z-index: 1;
+  z-index: 2;
 }
 .rpanel-show {
   margin-right: 480px;

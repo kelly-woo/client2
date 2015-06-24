@@ -44,10 +44,12 @@
      * 현재 메세지를 사용하여 announcement 을 만든다.
      */
     function createAnnouncement() {
-      AnnouncementData.createAnnouncement(_entityId, messageId)
-        .error(function(err) {
-          console.log(err)
-        })
+      if (confirm($filter('translate')('@announcement-create-confirm'))) {
+        AnnouncementData.createAnnouncement(_entityId, messageId)
+          .error(function(err) {
+            console.log(err)
+          })
+      }
     }
   }
 })();
