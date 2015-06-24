@@ -543,6 +543,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             publicService.hideTransitionLoading();
 
             _checkEntityMessageStatus();
+
+            if (_.isEmpty(messagesList)) {
+              // 모든 과정이 끝난 후, 메시지가 없으면 그냥 보여준다.
+              _showContents();
+            }
+
           })
           .error(function(response) {
             onHttpResponseError(response);
