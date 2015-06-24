@@ -10,6 +10,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
+  var TEXTAREA_MAX_LENGTH = 40000;
   var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
@@ -1396,6 +1397,26 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
   };
 
+  /**
+   * onTextChange 이벤트 핸들러
+   */
+  $scope.onTextChange = function() {
+    _cutTextareaMaxLength();
+  };
+
+  /**
+   * max length 만큼 textarea 의 내용을 자른다.
+   * @private
+   */
+  function _cutTextareaMaxLength() {
+    var text = $('#message-input').val();
+    if (text.length > TEXTAREA_MAX_LENGTH) {
+      text = text.substring(0, TEXTAREA_MAX_LENGTH);
+      $('#message-input').val(text);
+      TextBuffer.set(text);
+    }
+
+  }
   $scope.setCommentFocus = function(file) {
     if ($state.params.itemId != file.id) {
       $rootScope.setFileDetailCommentFocus = true;
