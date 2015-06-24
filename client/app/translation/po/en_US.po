@@ -621,6 +621,11 @@ msgstr "Oops!"
 msgid "@file-action-more"
 msgstr "More"
 
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
+msgid "@file-action-unshare"
+msgstr "Unshare"
+
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""

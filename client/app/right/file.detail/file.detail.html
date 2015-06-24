@@ -55,7 +55,8 @@
                     {{ sharedEntity.prefix }}{{ sharedEntity.name }}
                   </span>
                   <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(file_detail, sharedEntity)">
-                    <i class="fa fa-minus-circle"></i>
+                    <i class="fa fa-times-circle"
+                       tooltip="{{ '@file-action-unshare' | translate }}" tooltip-placement="right"></i>
                   </a>
                 </span>
                 <span ng-show="file_detail.shared.length != filteredSharedFile.length">
@@ -93,8 +94,8 @@
                 </a>
               </li>
               <li class="cursor_pointer" ng-if="file_detail | isFileWriter:member">
-                <a data-ng-click="onFileDeleteClick(file_detail);">
-                  <i class="fa fa-minus-circle"></i>
+                <a data-ng-click="onFileDeleteClick(file_detail.id);">
+                  <i class="fa fa-trash"></i>
                   <span translate>@message-delete</span>
                 </a>
               </li>
