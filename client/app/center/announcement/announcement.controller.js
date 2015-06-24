@@ -6,8 +6,7 @@
     .controller('AnnouncementCtrl', AnnouncementCtrl);
 
   /* @ngInject */
-  function AnnouncementCtrl($scope, Announcement, entityAPIservice, memberService, config) {
-
+  function AnnouncementCtrl($scope, Announcement, entityAPIservice, memberService, config, $document) {
     var _topicType;
     var _topicId;
 
@@ -16,7 +15,6 @@
       hide: false,
       minimized: false
     };
-
 
     $scope.onAnnouncementArrowClicked = onAnnouncementArrowClicked;
     $scope.onHidedAnnouncementClicked = onHidedAnnouncementClicked;
@@ -27,6 +25,8 @@
     $scope.deleteAnnouncement = deleteAnnouncement;
     $scope.hideAnnouncement = hideAnnouncement;
 
+    $scope.$on('$destroy', _onScopeDestroy);
+    $scope.$on('$viewContentLoaded', _onViewContentLoaded);
     _init();
 
     /**
@@ -37,7 +37,8 @@
       _topicId = $scope.entityId;
       _topicType = $scope.entityType;
 
-      _getAnnouncement();
+      _attachWindowEvent();
+      //_getAnnouncement();
 
       //test();
       testWithLink();
@@ -60,20 +61,14 @@
      * @private
      */
     function _onGetAnnouncementSuccess(announcement) {
-      var announcementOwner;
-
       if (_.isEmpty(announcement)) {
         console.log('announcement is empty!');
       } else {
-        announcementOwner = entityAPIservice.getEntityFromListById($scope.memberList, announcement.writerId);
-
-        $scope.announcementOwner = {
-          'profilePic':  config.server_uploaded + memberService.getSmallThumbnailUrl(announcementOwner),
-          'name': announcementOwner.name,
-          'time': announcement.writtenAt
-        };
+        $scope.announcementCreator = _getActionOwner(announcement, announcement.creatorId, 'createdAt');
+        $scope.announcementWriter = _getActionOwner(announcement, announcement.writerId, 'writtenAt');
 
         $scope.announcementBody = Announcement.getFilteredContentBody(announcement.content);
+
         _showAnnouncement();
       }
     }
@@ -84,6 +79,18 @@
      * @private
      */
     function _onGetAnnouncementError(error) {
+    }
+
+    function _getActionOwner(announcement, entityId, actionType) {
+      var memberEntity;
+
+      memberEntity = entityAPIservice.getEntityFromListById($scope.memberList, entityId);
+
+      return {
+        'profilePic':  config.server_uploaded + memberService.getSmallThumbnailUrl(memberEntity),
+        'name': memberEntity.name,
+        'time': announcement[actionType]
+      };
     }
 
     /**
@@ -111,6 +118,9 @@
      */
     function _showAnnouncement() {
       $scope.hasAnnouncement = true;
+
+      Announcement.adjustAnnouncementHeight();
+
     }
 
     /**
@@ -128,6 +138,8 @@
     function maximizeAnnouncement() {
       $scope.displayStatus.hide = false;
       $scope.displayStatus.minimized = false;
+
+      Announcement.adjustAnnouncementHeight();
     }
 
     /**
@@ -139,9 +151,18 @@
       $scope.displayStatus.minimized = true;
     }
 
+    /**
+     * announcement 가 숨겨져있는가?
+     * @returns {boolean}
+     */
     function isAnnouncementHided() {
       return $scope.displayStatus.hide;
     }
+
+    /**
+     * announcement 가 최소화되어있는가?
+     * @returns {boolean}
+     */
     function isAnnouncementMinimized() {
       return $scope.displayStatus.minimized;
     }
@@ -161,6 +182,46 @@
       console.log('delete announcement')
     }
 
+    /**
+     * $(window)에 event listener 를 붙힌다.
+     * @private
+     */
+    function _attachWindowEvent() {
+      $(window).on('resize', _onWindowResize);
+    }
+
+    /**
+     * $(window)에서 event listener 를 분리한다.
+     * @private
+     */
+    function _detachWindowEvent() {
+      $(window).off('resize', _onWindowResize);
+    }
+
+    /**
+     * $(window) 에 resize event listener 를 단다.
+     * @private
+     */
+    function _onWindowResize() {
+      if (!isAnnouncementHided() && !isAnnouncementMinimized()) {
+        Announcement.adjustAnnouncementHeight();
+      }
+    }
+
+    /**
+     * $scope, 현재 스코프가 소멸될 때
+     * @private
+     */
+    function _onScopeDestroy() {
+      _detachWindowEvent();
+    }
+
+    function _onViewContentLoaded() {
+      console.log('hi')
+      Announcement.adjustAnnouncementHeight();
+
+    }
+
     function test() {
       var testResponse = {
         "content": "모바일쪽에서 채팅목록 보여줄때 마지막 스티커를 (sticker) 로 보여주는 기능 개발해서 5000포트에 반영했습니다.",
@@ -169,24 +230,27 @@
         "topicId": 314,
         "teamId": 279,
         "writtenAt": "2015-06-10T03:25:55.194Z",
-        "status": "created"
+        "status": "created",
+        "creatorId": 285,
+        "createdAt": "2015-06-23T04:05:19.275Z"
       };
 
       _onGetAnnouncementSuccess(testResponse);
     }
-
     function testWithLink() {
       var testResponse = {
-        "content": "의자 http://shopping.naver.com/detail/detail.nhn?query=%EB%93%80%EC%98%A4%EB%B0%B1%20%EC%82%AC%EB%AC%B4%EC%9A%A9%EC%9D%98%EC%9E%90&cat_id=50003683&nv_mid=7885019416&frm=NVSCPRO",
+        "content": "의자 http://shopping.naver.com/detail/detail.nhn?query=%EB%93%80%EC%98%A4%EB%B0%B1%20%EC%82%AC%EB%AC%B4%EC%9A%A9%EC%9D%98%EC%9E%90&cat_id=50003683&nv_mid=7885019416&frm=NVSCPRO 모바일쪽에서 채팅목록 보여줄때 마지막 스티커를 (sticker) 로 보여주는 기능 개발해서 5000포트에 반영했습니다.\n\n0 모바일쪽에서 채팅목록 보여줄때 마지막 스티커를 (sticker) 로 보여주는 기능 개발해서 5000포트에 반영했습니다.\n\n\n 모바일쪽에서 채팅목록 보여줄때 마지막 스티커를 (sticker) 로 보여주는 기능 개발해서 5000포트에 반영했습니다1. " +
+        "모바일쪽에서 채팅목록 보여줄때 마지막 스티커를 (sticker) 로 보여주는 기능 개발해서 5000포트에 반영했습니다0",
         "writerId": 296,
         "messageId": 493024,
         "topicId": 314,
         "teamId": 279,
         "writtenAt": "2015-06-10T03:25:55.194Z",
-        "status": "created"
+        "status": "created",
+        "creatorId": 285,
+        "createdAt": "2015-06-23T04:05:19.275Z"
       };
       _onGetAnnouncementSuccess(testResponse);
     }
-
   }
 })();
