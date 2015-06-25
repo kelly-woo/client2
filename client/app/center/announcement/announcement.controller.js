@@ -17,12 +17,6 @@
     var ANNOUNCEMENT_DELETED = config.socketEvent.announcement.deleted;
     var ANNOUNCEMENT_STATUS_UPDATED = config.socketEvent.announcement.status_updated;
 
-    var eventCallbacks = {
-      ANNOUNCEMENT_CREATED: _getAnnouncement,
-      ANNOUNCEMENT_DELETED: _detachAnnouncement,
-      ANNOUNCEMENT_STATUS_UPDATED: _getAnnouncementStatus
-    };
-
     $scope.hasAnnouncement = false;
     $scope.displayStatus = {
       hide: false,
@@ -45,6 +39,9 @@
     $scope.$on(config.socketEvent.announcement.created, _onAnnouncementSocketEvent);
     $scope.$on(config.socketEvent.announcement.deleted, _onAnnouncementSocketEvent);
     $scope.$on(config.socketEvent.announcement.status_updated, _onAnnouncementSocketEvent);
+
+    $scope.$on('createAnnouncement', _createAnnouncement);
+
 
     _init();
 
@@ -105,6 +102,24 @@
      * @private
      */
     function _onGetAnnouncementError(error) {
+    }
+
+    /**
+     * text controller 가 어나운스먼트 만들어주세요! 라고 이벤트를 날리면 호출된다.
+     * @param {object} event - event(angular $broadcast) object
+     * @param {object} param - event 에 해당하는 파라미터들.
+     * @private
+     */
+    function _createAnnouncement(event, param) {
+      var entityId = param.entityId;
+      var messageId = param.messageId;
+
+      if ($scope.hasAnnouncement &&
+        confirm($filter('translate')('@announcement-create-confirm'))) {
+        AnnouncementData.createAnnouncement(entityId, messageId);
+      } else {
+        AnnouncementData.createAnnouncement(entityId, messageId)
+      }
     }
 
     /**

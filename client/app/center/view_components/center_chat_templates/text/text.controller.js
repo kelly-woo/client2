@@ -10,7 +10,7 @@
     .controller('TextMessageCtrl', TextMessageCtrl);
 
   /* @ngInject */
-  function TextMessageCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, AnnouncementData) {
+  function TextMessageCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, jndPubSub) {
     // 현재 로그인되어있는 멤버(나)의 아이디
     var myId = memberService.getMemberId();
     // 현재 디렉티브가 가지고 있는 메시지 객체
@@ -41,15 +41,15 @@
     }
 
     /**
-     * 현재 메세지를 사용하여 announcement 을 만든다.
+     * 현재 메세지를 사용하여 announcement 을 만드는 펑션을 호출하라고 broadcast 한다.
      */
     function createAnnouncement() {
-      if (confirm($filter('translate')('@announcement-create-confirm'))) {
-        AnnouncementData.createAnnouncement(_entityId, messageId)
-          .error(function(err) {
-            console.log(err)
-          })
-      }
+      var param = {
+        'entityId': _entityId,
+        'messageId': messageId
+      };
+
+      jndPubSub.pub('createAnnouncement', param);
     }
   }
 })();
