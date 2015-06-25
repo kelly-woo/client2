@@ -50,7 +50,7 @@
              ng-bind-html="announcementBody"></p>
 
           <div class="announcement-creator jnd-text-right" ng-if="!isAnnouncmentMinimized()">
-            <span translate>@announcement-creator</span>
+            By
             <span class="announcement-creator__name">{{announcementCreator.name}}</span>
             -
             {{announcementCreator.time | getyyyyMMddformat}}
