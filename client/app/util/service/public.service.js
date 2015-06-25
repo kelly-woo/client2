@@ -28,7 +28,8 @@
       goToDefaultTopic: goToDefaultTopic,
       adjustBodyWrapperHeight: adjustBodyWrapperHeight,
       hideTransitionLoading: hideTransitionLoading,
-      showTransitionLoading: showTransitionLoading
+      showTransitionLoading: showTransitionLoading,
+      openNewTab: openNewTab
     };
 
     return service;
@@ -186,6 +187,11 @@
 
     function showTransitionLoading() {
       $rootScope.isReady = false;
+    }
+
+    function openNewTab(url) {
+      var open_link = window.open('', '_blank');
+      open_link.location.href = url;
     }
   }
 })();

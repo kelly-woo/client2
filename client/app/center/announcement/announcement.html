@@ -8,12 +8,13 @@
 
 
   <div class="announcement-container common-announcement-size-padding" ng-if="!isAnnouncementHided();"
-       ng-class="{'minimized': isAnnouncmentMinimized()}">
+       ng-class="{'minimized': isAnnouncmentMinimized()}"
+       ng-click="onAnnouncementBodyClicked($event); $event.preventDefault();">
 
 
     <!-- announcement 오른쪽 위 화살표 -->
     <div class="announcement-arrow-container jnd-cursor-pointer"
-         ng-click="onAnnouncementArrowClicked();">
+         ng-click="onAnnouncementArrowClicked(); $event.stopPropagation();">
       <i class="announcement-minimize__arrow"
          ng-class="{'icon-up': !isAnnouncmentMinimized(),
                       'icon-down': isAnnouncmentMinimized()}"></i>

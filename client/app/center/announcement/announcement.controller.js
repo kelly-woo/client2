@@ -7,7 +7,8 @@
 
   /* @ngInject */
   function AnnouncementCtrl($scope, Announcement, AnnouncementData, memberService, $stateParams,
-                            config, jndPubSub, $filter) {
+                            config, jndPubSub, $filter, publicService) {
+
     var _topicType = $stateParams.entityType;
     var _topicId = parseInt($stateParams.entityId, 10);
 
@@ -25,6 +26,8 @@
 
     $scope.onAnnouncementArrowClicked = onAnnouncementArrowClicked;
     $scope.onHidedAnnouncementClicked = onHidedAnnouncementClicked;
+
+    $scope.onAnnouncementBodyClicked = onAnnouncementBodyClicked;
 
     $scope.isAnnouncementHided = isAnnouncementHided;
     $scope.isAnnouncmentMinimized = isAnnouncementMinimized;
@@ -139,6 +142,18 @@
     function onHidedAnnouncementClicked() {
       toggleAnnouncementStatus();
     }
+
+    function onAnnouncementBodyClicked(event) {
+      var target = event.target;
+
+      if (Announcement.isAnchorElement(target)) {
+        // link clicked, go to link.
+        publicService.openNewTab(target.href);
+      } else if (isAnnouncementMinimized()) {
+        maximizeAnnouncement();
+      }
+    }
+
 
     /**
      * announcement 의 visible status 를 true 로 바꿔준다.

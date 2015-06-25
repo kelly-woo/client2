@@ -13,6 +13,9 @@
     this.getActionOwner = getActionOwner;
     this.isCurrentTopic = isCurrentTopic;
 
+    this.isAnchorElement = isAnchorElement;
+    this.isMinimizedBodyElement = isMinimizedBodyElement;
+
     /**
      * 메세지를 노출하기 알맞게 가공한다.
      * @param {object} msg 메세지
@@ -79,6 +82,14 @@
      */
     function isCurrentTopic(eventTopicId, currentTopicId) {
       return eventTopicId === currentTopicId;
+    }
+
+    function isAnchorElement(element) {
+      return !!element && !!element.href && element.tagName === 'A';
+    }
+
+    function isMinimizedBodyElement(element) {
+
     }
   }
 })();
