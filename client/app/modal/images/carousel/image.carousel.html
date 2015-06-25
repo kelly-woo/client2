@@ -4,23 +4,38 @@
     <div class="viewer-header">
       <div class="info">
         <div class="title">
-          <span ng-bind="fileTitle"></span>
+          <span></span>
         </div>
       </div>
       <div class="options non-selectable">
         <div class="actions">
-          <a class="downdload" ng-click="download()" download-file file-url="{{fileUrl}}" file-title="{{fileTitle}}"><i class="fa fa-download"></i></a>
           <div class="dismiss" ng-click="close()"><i class="fa fa-times"></i></div>
         </div>
       </div>
     </div>
     <div class="viewer-body non-selectable">
-      <button id="viewer-prev-btn" ng-show="hasPrev"><i class="fa fa-angle-left"></i></button>
+      <button id="viewer-prev-btn" ng-hide="!hasPrev"><i class="fa fa-angle-left"></i></button>
       <div class="content">
-        <div class="file-info">
+        <div class="content-footer">
+          <div class="info">
+            <div class="info-1">
+              <span class="user-name" ng-bind="userName"></span>
+              <span class="upload-date" ng-bind="uploadDate"></span>
+            </div>
+            <div class="info-2">
+              <div class="title">
+                <span ng-bind="fileTitle"></span>
+              </div>
+            </div>
+          </div>
+          <div class="options non-selectable">
+            <div class="actions">
+              <a class="downdload" ng-click="download()" download-file file-url="{{fileUrl}}" file-title="{{fileTitle}}"><i class="fa fa-download"></i></a>
+            </div>
+          </div>
         </div>
       </div>
-      <button id="viewer-next-btn" ng-show="hasNext"><i class="fa fa-angle-right"></i></button>
+      <button id="viewer-next-btn" ng-hide="!hasNext"><i class="fa fa-angle-right"></i></button>
     </div>
   </div>
 </div>

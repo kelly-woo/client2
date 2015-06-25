@@ -25,6 +25,10 @@
         }
       });
 
+      $scope.hasPrev = $scope.hasNext = true
+
+      $scope.userName = 'mark.park';
+      $scope.uploadDate = 'lewjrlqwjerljqwr';
       $scope.fileTitle = data.content.title;
       $scope.fileUrl = data.content.fileUrl;
       ImageCarousel.load(data.imageUrl);

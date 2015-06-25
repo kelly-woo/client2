@@ -12,6 +12,9 @@
   function ImageCarousel($rootScope, $state, $timeout, fileAPIservice, jndKeyCode) {
     var that = this;
     var entityId = parseInt($state.params.entityId);
+    var MIN_WIDTH = 400;
+    var MIN_HEIGHT = 400;
+
     var jqWindow;
     var jqModal;
     var jqViewerBody;
@@ -50,7 +53,7 @@
       }(value));
     });
 
-    function init(messageId, options) {
+    function init(options) {
       var that = this;
 
       that.options = {
@@ -73,7 +76,7 @@
         _on();
       });
 
-      that.pivot(messageId);
+      // that.pivot(messageId);
     }
 
     function _on() {
@@ -109,8 +112,7 @@
         .on('click.imageCarousel', function(event) {
           event.stopPropagation();
 
-          console.log('click ::: ');
-          event.target.className === 'content' && hide();
+          event.target.className.indexOf('viewer-body') !== -1 && hide();
         });
     }
 
@@ -138,6 +140,7 @@
     }
 
     function load(src, callback) {
+      jqContent.css({marginLeft: MIN_WIDTH / 2 * -1, marginTop: MIN_HEIGHT / 2 * -1});
       jqContent.addClass('icon-loading loading');
       loadImage(src, function(img) {
         jqContent.removeClass('icon-loading loading');
@@ -161,6 +164,7 @@
       var ratio = [];
       var maxWidth = jqViewerBody.width() - margin;
       var maxHeight = jqViewerBody.height() - margin;
+
       var imageWidth;
       var imageHeight;
 
@@ -173,7 +177,7 @@
         img[0].removeAttribute('width');
         img[0].removeAttribute('height');
       } else {
-        img = jqContent.children();
+        img = jqContent.children('img');
 
         imageWidth = img.width();
         imageHeight = img.height();
@@ -186,8 +190,13 @@
       } else {
         ratio = 1;
       }
+      imageWidth = imageWidth * ratio;
+      imageHeight = imageHeight * ratio;
 
-      jqContent.css({marginLeft: (imageWidth * ratio) / 2 * -1, marginTop: (imageHeight * ratio) / 2 * -1});
+      imageWidth < MIN_WIDTH && (imageWidth = MIN_WIDTH);
+      imageHeight < MIN_HEIGHT && (imageHeight = MIN_HEIGHT);
+
+      jqContent.css({marginLeft: imageWidth / 2 * -1, marginTop: imageHeight / 2 * -1});
 
       img.css({
         maxWidth: maxWidth,
