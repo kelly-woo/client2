@@ -617,6 +617,11 @@ msgstr "エラーが発生しました"
 msgid "@file-action-more"
 msgstr "もっと見る"
 
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
+msgid "@file-action-unshare"
+msgstr "非共有"
+
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "ファイルを削除してよいですか？削除後もコメントは残ります"

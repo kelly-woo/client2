@@ -613,6 +613,11 @@ msgstr ".. 길을 잃었습니다"
 msgid "@file-action-more"
 msgstr "더보기 "
 
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
+msgid "@file-action-unshare"
+msgstr "공유해제"
+
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "이 파일을 삭제하시겠습니까? 파일의 댓글은 삭제되지 않습니다."

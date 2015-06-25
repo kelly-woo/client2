@@ -607,6 +607,11 @@ msgstr "錯誤"
 msgid "@file-action-more"
 msgstr "更多"
 
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
+msgid "@file-action-unshare"
+msgstr "取消分享"
+
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr "您確定要刪除此檔案？ 請注意留言的部分不會被刪除。"

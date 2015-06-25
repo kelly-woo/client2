@@ -396,8 +396,8 @@ app.controller('leftPanelController1', function(
       accountService.getAccountInfo()
         .success(function(response) {
           accountService.setAccount(response);
-          publicService.getLanguageSetting();
-          publicService.setCurrentLanguage();
+
+          publicService.setLanguageConfig();
 
           _checkUpdateMessageStatus();
 
@@ -406,6 +406,10 @@ app.controller('leftPanelController1', function(
 
           analyticsService.memberIdentifyMixpanel();
           analyticsService.mixpanelTrack("Sign In");
+
+          // language를 변경하게 되면 html에 content로 bind된 text는 변경이 되지만 '.js' file내
+          // 변수로 선언된 text는 변경되지 않으므로 '.js' 재수행을 필요로 하므로 page를 reload함.
+          publicService.reloadCurrentPage($state.current, $state.params);
         })
         .error(function(err) {
           leftpanelAPIservice.toSignin();
