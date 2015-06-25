@@ -47,22 +47,24 @@ msgid "@alert-no-result"
 msgstr "登録情報がありません"
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
-#, fuzzy
 msgid "@announcement-create"
-msgstr "新規トピックの名称を入力"
+msgstr "告知に登録する"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-create-confirm"
 msgstr "登録されている告知をこのメッセージに変更します。変更しますか？"
 
 #: client/app/center/announcement/announcement.html
+#, fuzzy
 msgid "@announcement-creator"
-msgstr ""
+msgstr "最小化"
 
 #: client/app/center/announcement/announcement.html
 #, fuzzy
 msgid "@announcement-delete"
-msgstr "このトピックを削除"
+msgstr ""
+"この告知を削除しますか？削除時トピック内の他のメンバーたちにもこれからこの告"
+"知が見えますが、元のメッセージは保存されます"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-delete-confirm"
@@ -1232,8 +1234,9 @@ msgid "@web-notification-body-topic-post"
 msgstr "に投稿しました"
 
 #: client/app/modal/settings/notification/setting.notification.html
+#, fuzzy
 msgid "@web-notification-body-topic-pre"
-msgstr ""
+msgstr " "
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-sample-body-text"

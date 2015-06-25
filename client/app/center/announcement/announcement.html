@@ -64,13 +64,13 @@
     <!-- announcement 옵션들 -->
     <div class="announcement-option-container common-announcement-size-padding" ng-if="!isAnnouncmentMinimized() && !isAnnouncementHided();">
       <!-- 최소화하기 -->
-      <div class="announcement-hide-container announcement-option pull-right jnd-cursor-pointer" ng-click="toggleAnnouncementStatus();">
+      <div class="announcement-hide-container announcement-option pull-right jnd-cursor-pointer" ng-click="toggleAnnouncementStatus(); $event.stopPropagation();">
         <i class="icon-minimize maximized-announcement__icon"></i>
         <span class="maximized-announcement-icon__text" translate>@announcement-hide</span>
       </div>
 
       <!-- 삭제하기 -->
-      <div class="announcement-delete-container announcement-option pull-right jnd-cursor-pointer" ng-click="deleteAnnouncement();">
+      <div class="announcement-delete-container announcement-option pull-right jnd-cursor-pointer" ng-click="deleteAnnouncement(); $event.stopPropagation();">
         <i class="fa fa-trash maximized-announcement__icon"></i>
         <span class="maximized-announcement-icon__text" translate>@btn-delete</span>
       </div>

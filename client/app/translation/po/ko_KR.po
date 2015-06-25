@@ -46,9 +46,8 @@ msgid "@alert-no-result"
 msgstr "검색 결과가 없습니다"
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
-#, fuzzy
 msgid "@announcement-create"
-msgstr "토픽 이름을 입력하세요"
+msgstr "공지로 등록"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-create-confirm"

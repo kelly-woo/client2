@@ -46,9 +46,8 @@ msgid "@alert-no-result"
 msgstr "找不到符合条件的内容"
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
-#, fuzzy
 msgid "@announcement-create"
-msgstr "输入新的议题名称"
+msgstr "发布公告"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-create-confirm"

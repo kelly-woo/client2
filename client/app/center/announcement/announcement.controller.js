@@ -144,13 +144,15 @@
     }
 
     function onAnnouncementBodyClicked(event) {
-      var target = event.target;
+      var jqTarget = $(event.target);
 
-      if (Announcement.isAnchorElement(target)) {
+      if (Announcement.isAnchorElement(jqTarget)) {
         // link clicked, go to link.
-        publicService.openNewTab(target.href);
+        publicService.openNewTab(jqTarget.attr('href'));
       } else if (isAnnouncementMinimized()) {
         maximizeAnnouncement();
+      } else if (Announcement.isOutsideAnnouncementBodyElement(jqTarget)) {
+        minimizeAnnouncement();
       }
     }
 

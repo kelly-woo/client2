@@ -46,9 +46,8 @@ msgid "@alert-no-result"
 msgstr "No matches"
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
-#, fuzzy
 msgid "@announcement-create"
-msgstr "Enter new topic name"
+msgstr "Make an announcement"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-create-confirm"
