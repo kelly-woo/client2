@@ -346,7 +346,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       return;
     }
 
-    var fileId = fileInfo.id;
+    var fileId = fileInfo;
     var property = {};
     var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
