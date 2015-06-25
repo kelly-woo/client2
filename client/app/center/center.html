@@ -51,7 +51,7 @@
          ng-class="{'initial': loadMoreCounter < 1 || !hasLastMessageRendered}"></div>
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <div class="msgs-group" data-ng-repeat="msg in messages">
+      <div class="msgs-group" data-ng-repeat="msg in messages" repeat-done="onRepeatDone()">
         <!--날짜 구분선-->
         <date-divider ng-if="isDayChanged($index)"></date-divider>
 

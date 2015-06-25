@@ -26,7 +26,8 @@
       <span class="msg-item-header__created">
         {{msg.time | gethmmaFormat}}
       </span>
-      <span ng-if="msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
+      <span ng-if="msg.status === 'sending'" class="icon-loading-small"></span>
+      <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
       <!--    DELETE ICON APPEARS ON HOVER    -->
       <span class="msg-item__action">
         <a class="link-remove pull-right cursor_pointer"
@@ -51,7 +52,8 @@
       <span class="msg-item-header__created">
         {{msg.time | gethmmaFormat}}
       </span>
-      <span ng-if="msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
+      <span ng-if="msg.status === 'sending'" class="icon-loading-small"></span>
+      <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
       <!--    DELETE ICON APPEARS ON HOVER    -->
       <span class="msg-item__action">
         <a class="link-remove pull-right cursor_pointer"

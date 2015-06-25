@@ -67,41 +67,48 @@ function fakeNgModel(initValue) {
   };
 }
 
-app.directive('scrollGlue', function(){
-  return {
-    priority: 1,
-    require: ['?ngModel'],
-    restrict: 'A',
-    link: function(scope, $el, attrs, ctrls) {
-      var el = $el[0],
-        ngModel = ctrls[0] || fakeNgModel(true);
-
-      function scrollToBottom() {
-        console.log(scope.loadMoreCounter)
-        //el.scrollTop = el.scrollHeight;
-      }
-
-      function shouldActivateAutoScroll() {
-        // + 1 catches off by one errors in chrome
-        return el.scrollTop + el.clientHeight + 1 >= el.scrollHeight;
-      }
-
-      scope.$watch(function() {
-        if (ngModel.$viewValue) {
-          if (!scope.isMessageSearchJumping) {
-            console.log(scope.isMessageSearchJumping)
-            scrollToBottom();
-
-          }
-        }
-      });
-
-      $el.bind('scroll', function() {
-        var activate = shouldActivateAutoScroll();
-        if (activate !== ngModel.$viewValue) {
-          scope.$apply(ngModel.$setViewValue.bind(ngModel, activate));
-        }
-      });
+//app.directive('scrollGlue', function(){
+//  return {
+//    priority: 1,
+//    require: ['?ngModel'],
+//    restrict: 'A',
+//    link: function(scope, $el, attrs, ctrls) {
+//      var el = $el[0],
+//        ngModel = ctrls[0] || fakeNgModel(true);
+//
+//      function scrollToBottom() {
+//        console.log(scope.loadMoreCounter)
+//        //el.scrollTop = el.scrollHeight;
+//      }
+//
+//      function shouldActivateAutoScroll() {
+//        // + 1 catches off by one errors in chrome
+//        return el.scrollTop + el.clientHeight + 1 >= el.scrollHeight;
+//      }
+//
+//      scope.$watch(function() {
+//        if (ngModel.$viewValue) {
+//          if (!scope.isMessageSearchJumping) {
+//            console.log(scope.isMessageSearchJumping)
+//            scrollToBottom();
+//
+//          }
+//        }
+//      });
+//
+//      $el.bind('scroll', function() {
+//        var activate = shouldActivateAutoScroll();
+//        if (activate !== ngModel.$viewValue) {
+//          scope.$apply(ngModel.$setViewValue.bind(ngModel, activate));
+//        }
+//      });
+//    }
+//  };
+//});
+app.directive('repeatDone', function() {
+  return function(scope, element, attrs) {
+    if (scope.$last) { // all are rendered
+      scope.$eval(attrs.repeatDone);
     }
   };
 });
@@ -115,7 +122,7 @@ app.directive('scrollBottomOn', ['$timeout', function($timeout) {
         });
       }
     });
-  }
+  };
 }]);
 
 app.directive('focusMe', ['$timeout', function($timeout) {

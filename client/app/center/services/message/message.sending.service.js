@@ -11,13 +11,17 @@
     var that = this;
 
     this.queue = [];
+    this.queueMap = {};
+
     this.enqueue = enqueue;
+    this.splice = splice;
     this.reset = reset;
     this.isSending = isSending;
 
     function reset() {
       _sendingKey = 0;
       that.queue = [];
+      that.queueMap = {};
     }
 
     function enqueue(content, sticker) {
@@ -27,7 +31,6 @@
         sticker: _.clone(sticker)
       });
 
-
       if (sticker) {
         messageList.push(_getSticker(sticker));
       }
@@ -36,15 +39,21 @@
       return messageList;
     }
 
+    function splice(startIdx, length) {
+      that.queue.splice(startIdx, length);
+    }
+
     function isSending(msg) {
       return msg.status === 'sending';
     }
+
     function _getBaseSendingMsg() {
       _sendingKey++;
-      var key = 'sending_' + _sendingKey;
+      var key = '_sending_' + _sendingKey;
       var obj = {
         status: 'sending',
         id: key,
+        messageId: key,
         fromEntity: $rootScope.member.id,
         time: (new Date()).getTime(),
         message: {

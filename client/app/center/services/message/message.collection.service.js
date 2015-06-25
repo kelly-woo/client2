@@ -1,3 +1,6 @@
+/**
+ * @fileoverview 메세지 콜렉션
+ */
 (function() {
   'use strict';
 
@@ -9,12 +12,8 @@
   function MessageCollection($filter, $rootScope, $timeout, $sce, entityAPIservice, fileAPIservice, markerService,
                              jndPubSub, memberService, currentSessionHelper, centerService, MessageComment, MessageText,
                              MessageSending) {
-
     var that = this;
-
     var _systemMessageCount = 0;
-    var lastUpdatedLinkId;
-
 
     this.list = [];
     this.reset = reset;
@@ -37,6 +36,8 @@
 
     this.getQueue = getQueue;
     this.enqueue = enqueue;
+    this.spliceQueue = MessageSending.splice;
+
     this.append = append;
     this.prepend = prepend;
     this.remove = remove;
@@ -47,19 +48,34 @@
     this.updateUnreadCount = updateUnreadCount;
     _init();
 
+    /**
+     * 초기화
+     * @private
+     */
     function _init() {
       reset();
     }
-    function forEach(iteratee, context) {
-      _.forEach(that.list, iteratee, context);
-    }
-    
-    
+
+    /**
+     *
+     */
     function reset() {
       _systemMessageCount = 0;
       that.list = [];
     }
 
+    /**
+     *
+     * @param iteratee
+     * @param context
+     */
+    function forEach(iteratee, context) {
+      _.forEach(that.list, iteratee, context);
+    }
+
+    /**
+     *
+     */
     function removeAllSendingMessages() {
       var list = that.list;
       var length = list.length;
@@ -76,16 +92,34 @@
       list.splice(i + 1, count);
     }
 
+    /**
+     * Message Sending 의 queue 를 초기화한다.
+     */
     function clearQueue() {
       MessageSending.reset();
     }
+
+    /**
+     * MessageSending 의 queue 를 반환한다.
+     * @returns {Array}
+     */
     function getQueue() {
       return MessageSending.queue;
     }
-    function enqueue(content, sticker) {
+
+    /**
+     * queue 에 메세지를 추가한다.
+     * @param content
+     * @param sticker
+     * @param isSkipAppend
+     */
+    function enqueue(content, sticker, isSkipAppend) {
       var messageList = MessageSending.enqueue(content, sticker);
-      append(messageList);
+      if (!isSkipAppend) {
+        append(messageList);
+      }
     }
+
     function append(messageList) {
       messageList = _beforeAddMessages(messageList);
       _.forEach(messageList, function(msg) {
@@ -113,6 +147,7 @@
         }
       });
     }
+
     function _updateUserMessage(msg) {
       var isArchived = false;
       var messageId = msg.messageId;
@@ -148,12 +183,11 @@
       if (!isArchived) {
         // When there is a message to update on current topic.
         jndPubSub.pub('newMessageArrived', msg);
-        //lastMessageId = loadedLastMessageId = localLastMessageId = lastUpdatedLinkId;
-        //_newMessageAlertChecker(msg);
       }
     }
-    function remove(messageId) {
-      var targetIdx = at(messageId);
+
+    function remove(messageId, isReversal) {
+      var targetIdx = at(messageId, isReversal);
       if (targetIdx !== -1) {
         that.list.splice(targetIdx, 1);
       }
