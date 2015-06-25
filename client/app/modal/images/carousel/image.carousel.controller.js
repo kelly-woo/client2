@@ -9,29 +9,35 @@
     .controller('ImageCarouselCtrl', imageCarouselCtrl);
 
   /* @ngInject */
-  function imageCarouselCtrl($scope, modalHelper, ImageCarousel, data) {
+  function imageCarouselCtrl($scope, $filter, modalHelper, ImageCarousel, data) {
 
     $scope.init = init;
 
     function init() {
       ImageCarousel.init({
-        messageId: data.messageId,
+        pivot: {
+          messageId: data.messageId,
+          userName: data.userName,
+          uploadDate: data.uploadDate,
+          fileTitle: data.fileTitle,
+          fileUrl: data.fileUrl,
+          imageUrl: data.imageUrl
+        },
+
         writer: data.writer,
         sharedEntityId: data.sharedEntityId,
         keyword: data.keyword,
 
         onHide: function() {
           $scope.close();
+        },
+        onLookUp: function(data) {
+          $scope.userName = data.userName;
+          $scope.uploadDate = $filter('getyyyyMMddformat')(data.uploadDate);
+          $scope.fileTitle = data.fileTitle;
+          $scope.fileUrl = data.fileUrl;
         }
       });
-
-      $scope.hasPrev = $scope.hasNext = true
-
-      $scope.userName = 'mark.park';
-      $scope.uploadDate = 'lewjrlqwjerljqwr';
-      $scope.fileTitle = data.content.title;
-      $scope.fileUrl = data.content.fileUrl;
-      ImageCarousel.load(data.imageUrl);
     }
 
     $scope.close = close;

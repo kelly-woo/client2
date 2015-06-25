@@ -221,19 +221,18 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     } else {
       fileRequest = fileAPIservice.tempFileRequest || {};
 
-      console.log('on image click ::: ', fileRequest);
-
       var fullFileUrl = $scope.ImageUrl;
       modalHelper.openImageCarouselModal({
         messageId: $scope.file_detail.id,
-        content: $scope.file_detail.content,
-
+        userName: $scope.file_detail.writer.name,
+        uploadDate: $scope.file_detail.createTime,
+        fileTitle: $scope.file_detail.content.title,
+        fileUrl: $scope.file_detail.content.fileUrl,
+        imageUrl: fullFileUrl,
 
         writer: fileRequest.writerId,
         sharedEntityId: fileRequest.sharedEntityId,
-        keyword: fileRequest.keyword,
-
-        imageUrl: fullFileUrl
+        keyword: fileRequest.keyword
       });
 
 

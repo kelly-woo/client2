@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="viewer-body non-selectable">
-      <button id="viewer-prev-btn" ng-hide="!hasPrev"><i class="fa fa-angle-left"></i></button>
+      <button id="viewer-prev-btn" ng-show="hasPrev"><i class="fa fa-angle-left"></i></button>
       <div class="content">
         <div class="content-footer">
           <div class="info">
@@ -30,12 +30,12 @@
           </div>
           <div class="options non-selectable">
             <div class="actions">
-              <a class="downdload" ng-click="download()" download-file file-url="{{fileUrl}}" file-title="{{fileTitle}}"><i class="fa fa-download"></i></a>
+              <a class="downdload" ng-click="download()" bind-download-file><i class="fa fa-download"></i></a>
             </div>
           </div>
         </div>
       </div>
-      <button id="viewer-next-btn" ng-hide="!hasNext"><i class="fa fa-angle-right"></i></button>
+      <button id="viewer-next-btn" ng-show="hasNext"><i class="fa fa-angle-right"></i></button>
     </div>
   </div>
 </div>

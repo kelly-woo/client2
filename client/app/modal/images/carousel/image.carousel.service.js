@@ -25,9 +25,6 @@
     that.show = show;
     that.hide = hide;
 
-    that.load = load;
-
-    that.pivot = pivot;
     _.each(['prev', 'next'], function(value) {
       that[value] = (function(value) {
         var isPrev = value === '';
@@ -57,12 +54,15 @@
       var that = this;
 
       that.options = {
+        pivot: {},  // 기준 message
+
         fileType: 'image',
         keyword: '',
         searchType: 'file',
         writerId: 'all',
 
-        onHide: function() {}
+        onHide: function() {},
+        onLookUp: function() {}
       };
       angular.extend(that.options, options);
 
@@ -74,9 +74,9 @@
         jqModal = $('.image-carousel-modal').focus();
 
         _on();
-      });
 
-      // that.pivot(messageId);
+        _load(that.options.pivot);
+      });
     }
 
     function _on() {
@@ -139,10 +139,13 @@
       });
     }
 
-    function load(src, callback) {
+    function _load(pivot) {
       jqContent.css({marginLeft: MIN_WIDTH / 2 * -1, marginTop: MIN_HEIGHT / 2 * -1});
+
+      that.options.onLookUp(pivot);
+
       jqContent.addClass('icon-loading loading');
-      loadImage(src, function(img) {
+      loadImage(pivot.imageUrl, function(img) {
         jqContent.removeClass('icon-loading loading');
 
         if (img.type && img.type === 'error') {
@@ -152,8 +155,6 @@
 
           jqContent.children('img').remove();
           jqContent.prepend(img);
-
-          callback && callback();
         }
       });
     }
@@ -215,112 +216,5 @@
       jqWindow.off('reisze.imageCarousel');
       jqModal.off('keydown.imageCarousel').off('click.imageCarousel');
     }
-
-    // return;
-    // var ImageCarousel = {
-    //   init: function(options) {
-    //     var that = this;
-
-    //     that.$scope = $scope;
-    //     that.options = {
-    //       fileType: 'image',
-    //       keyword: '',
-    //       searchType: 'file',
-    //       writerId: 'all'
-    //     };
-    //     angular.extend(that.options, options);
-
-    //     jqViewerBody = $('.viewer-body');
-    //     jqContent = $('.content');
-
-    //     return that;
-    //   },
-    //   _on: function() {
-    //     var that = this;
-    //     var jqWindow = $(window);
-    //     var keyHandlerMap = {};
-    //     var resizeTimer;
-
-    //     $timeout.cancel(resizeTimer);
-    //     resizeTimer = $timeout(function() {
-    //       jqWindow.on('resize.imageCarousel', function() {
-    //         that._resize();
-    //       });
-    //     }, 300);
-
-    //     keyHandlerMap[jndKeyCode.keyCodeMap.ESC] = function() {
-    //       that.hide();
-    //     };
-    //     keyHandlerMap[jndKeyCode.keyCodeMap.LEFT_ARROW] = function() {
-    //       that.prev();
-    //     };
-    //     keyHandlerMap[jndKeyCode.keyCodeMap.RIGHT_ARROW] = function() {
-    //       that.next();
-    //     };
-    //     jqWindow.on('keydown.imageCarousel', function() {
-    //       var fn;
-
-    //       (fn = keyHandlerMap[event.which]) && fn();
-    //     });
-
-    //     jqWindow.on('click.imageCarousel', function(event) {
-    //       event.target.className === 'image-carousel-overlay' && that.hide();
-    //     });
-    //   },
-    //   _resize: function() {
-    //     var that = this;
-    //     var jqViewerBody = jqViewerBody;
-
-    //     // image를 정중앙에 출력할때 필요로 하는 여백
-    //     var margin = 56 * 2;
-
-    //     jqContent.children().css({
-    //       maxWidth: jqViewerBody.width() - margin,
-    //       maxHeight: jqViewerBody.height() - margin
-    //     });
-    //   },
-    //   show: function(messageId) {
-    //     $rootScope.isShowImageCarousel = true;
-
-
-    //   },
-    //   hide: function() {
-    //     var jqWindow = $(window);
-
-    //     jqWindow.off('reisze.imageCarousel');
-    //     jqWindow.off('keydown.imageCarousel');
-    //     jqWindow.off('click.imageCarousel');
-
-    //     $rootScope.isShowImageCarousel = false;
-    //   },
-    //   setStartMessageId: function(messageId) {
-    //     // this.messageId = ;
-    //   }
-    // };
-
-    // _.each(['prev', 'next'], function(value) {
-    //   ImageCarousel[value] = (function(value) {
-    //     var isPrev = value === '';
-    //     return function() {
-    //       var that = this;
-    //       var options = that.options;
-
-    //       fileAPIservice
-    //         .getFileList(
-    //           angular.extend({
-    //             listCount: isPrev ? 1 : -1,
-    //             sharedEntityId: parseInt($state.params.entityId),
-    //             startMessageId: that.messageId
-    //           }, options)
-    //         )
-    //         .success(function(files) {
-    //           console.log('get a files ::: ', files);
-    //         })
-    //         .error(function() {
-    //           console.log('error for files ::: ');
-    //         });
-    //     };
-    //   }(value));
-    // });
   }
 }());
