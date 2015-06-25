@@ -7,7 +7,7 @@
 
   angular
     .module('jandiApp')
-    .directive('fileDetail', fileDetailPreview);
+    .directive('fileDetailPreview', fileDetailPreview);
 
   /* @ngInject */
   function fileDetailPreview($rootScope, $interval) {
@@ -40,10 +40,9 @@
         }, 100);
       }
 
-      imageWrapper = jqEle.find('.image_wrapper');
+      imageWrapper = jqEle.closest('.image_wrapper');
       if (scope.ImageUrl) {
-        jqEle = imageWrapper.show().children('img').attr({ src: scope.ImageUrl });
-        scope.cursor && jqEle.css({ cursor: scope.cursor });
+        imageWrapper.show();
       } else {
         imageWrapper.hide();
       }
