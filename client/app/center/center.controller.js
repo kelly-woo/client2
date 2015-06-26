@@ -9,9 +9,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner, MessageCollection) {
 
-  //console.info('[enter] centerpanelController', $scope.currentEntity);
   var TEXTAREA_MAX_LENGTH = 40000;
-  //var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
 
@@ -24,7 +22,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var lastMessageId;              // 현재 엔티티가 가지고 있는 가장 아래 메세지 아이디.
   var loadedFirstMessagedId;      // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
   var loadedLastMessageId;        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
-// 주기적으로 업데이트 메세지 리스트 얻기 (polling)
+
+  // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   var lastUpdatedLinkId = -1;
 
   var systemMessageCount;         // system event message의 갯수를 keep track 한다.
@@ -135,14 +134,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       loading: false,
       loadingTimer : false // no longer using.
     };
-
-
     $scope.message.content = TextBuffer.get();
     messages = {};
-
     $scope.loadMoreCounter = 0;
     $scope.isInitialLoadingCompleted = false;
-
     $timeout(function() {
       $scope.msgLoadStatus.loadingTimer = false;
     }, 1000);
@@ -159,7 +154,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //viewContent load 시 이벤트 핸들러 바인딩
     $scope.$on('$destroy', _onDestroy);
     $scope.$on('$viewContentLoaded', _onViewContentLoaded);
-
     $scope.$on('connected', _onConnected);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
@@ -180,7 +174,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     });
   }
 
-
+  /**
+   * 새 메세지를 조회하고 있는지를 반환한다.
+   * @returns {boolean}
+   * @private
+   */
   function _isLoadingNewMessages() {
     return MessageQuery.get('type') === 'new';
   }
@@ -286,22 +284,33 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loadMore();
   }
 
+  /**
+   * 해당 index 가 TextType 인지 여부를 반환한다.
+   * @param index
+   * @returns {*|boolean}
+   */
   function isTextType(index) {
     return centerService.isTextType(MessageCollection.getContentType(index));
   }
 
+  /**
+   * 해당 index 가 CommentType 인지 여부를 반환한다.
+   * @param index
+   * @returns {*|boolean}
+   */
   function isCommentType(index) {
     return centerService.isCommentType(MessageCollection.getContentType(index));
   }
 
 
   function loadNewMessages() {
-    if (!_hasMoreNewMessageToLoad()) return;
-    MessageQuery.set({
-      type: 'new',
-      linkId: MessageCollection.getLastLinkId()
-    });
-    loadMore();
+    if (_hasMoreNewMessageToLoad() && NetInterceptor.isConnected()) {
+      MessageQuery.set({
+        type: 'new',
+        linkId: MessageCollection.getLastLinkId()
+      });
+      loadMore();
+    }
   }
 
   function loadOldMessages() {
@@ -411,15 +420,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hasMoreOldMessageToLoad() {
-    if (lastMessageId == -1) {
+    if (lastMessageId !== -1 &&
+      MessageCollection.getFirstLinkId() == -1 &&
+      MessageCollection.getFirstLinkId() !== firstMessageId) {
+      return true;
+    } else {
       return false;
     }
-
-    if (MessageCollection.getFirstLinkId() == -1) {
-      return true;
-    }
-
-    return MessageCollection.getFirstLinkId() != firstMessageId;
   }
 
   function _hasMoreNewMessageToLoad() {
@@ -439,29 +446,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
       MessageQuery.clearSearchLinkId();
-      return;
-    }
-
-    if (_isInitialLoad()) {
+    } else if(_isInitialLoad()) {
       _scrollToBottom();
-      return;
+    } else if (_isLoadingNewMessages()) {
+      _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
+    } else if (loadedFirstMessagedId !== -1) {
+      _disableScroll();
+      _findMessageDomElementById(loadedFirstMessagedId);
     }
-
-    if (_isLoadingNewMessages()) {
-      //log('-- updateScroll: load new message')
-
-      var temp = angular.element(document.getElementById(MessageCollection.getFirstLinkId()));
-      _animateBackgroundColor(temp);
-      return;
-    }
-
-    if (loadedFirstMessagedId == -1) return;
-
-    //log('-- updateScroll: load old message')
-
-    _disableScroll();
-
-    _findMessageDomElementById(loadedFirstMessagedId);
   }
 
   function _findMessageDomElementById(id) {
@@ -499,7 +491,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $('#msgs-container').animate({scrollTop: height}, duration, 'swing', function() {
       _resetNewMsgHelpers();
     });
-    //$('#msgs-container').scrollTop(height);
   }
 
   function _showContents() {
@@ -508,6 +499,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       $scope.hasLastMessageRendered = true;
     }
   }
+
   function _hideContents() {
     $('#msgs-holder').removeClass('opac-in-fast');
   }
@@ -518,7 +510,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //console.log('this is isAtBottom')
     _clearBadgeCount($scope.currentEntity);
     _resetNewMsgHelpers();
-  };
+  }
 
   function _animateBackgroundColor(element) {
     element.addClass('last');
@@ -720,7 +712,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * post promist 를 반환한다.
+   * post promise 를 반환한다.
    * @param {object} msg
    * @param {boolean} isSuccess
    * @returns {*}
@@ -728,7 +720,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _getPostPromise(msg, isSuccess) {
     isSuccess = _.isBoolean(isSuccess) ? isSuccess : true;
-    if (!isSuccess) {
+    if (!isSuccess && !NetInterceptor.isConnected()) {
       MessageCollection.enqueue(msg.content, msg.sticker, true);
     }
     return messageAPIservice.postMessage(entityType, entityId, msg.content, msg.sticker);
@@ -744,7 +736,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var msg = queue[length - 1];
     $scope.isPosting = false;
     MessageCollection.spliceQueue(0, length);
-    MessageCollection.enqueue(msg.content, msg.sticker, true);
+    if (!NetInterceptor.isConnected()) {
+      MessageCollection.enqueue(msg.content, msg.sticker, true);
+    }
     _onPostMessagesDone();
   }
 
