@@ -6,7 +6,7 @@
     .service('DeskTopNotificationBanner', DeskTopNotificationBanner);
 
   /* @ngInject */
-  function DeskTopNotificationBanner(DesktopNotification, $document, $compile, jndPubSub, $rootScope, publicService) {
+  function DeskTopNotificationBanner(DesktopNotification, $document, $compile, jndPubSub, $rootScope, publicService, Browser) {
     var that = this;
 
     var _jqBanner;
@@ -43,7 +43,7 @@
      * 배너를 보여줘야 할 상황이면 보여준다.
      */
     function showNotificationBanner(scope) {
-      if (_shouldAskNotification()) {
+      if (_shouldAskNotification() && !Browser.msie) {
         _prependBannerElement(scope);
       }
     }
@@ -86,6 +86,8 @@
         $compile(_jqBanner)(bannerScope);
 
         jqContentWrapper.prepend(_jqBanner);
+
+        _removeFullScreenClass();
 
         _adjustBodyWrapperHeight();
       }
@@ -159,9 +161,15 @@
       var jqBody = $('.body');
 
       jqBodyWrapper.addClass('full-screen');
-      jqBody.addClass('full-screen body-full-screen');
+      jqBody.addClass('full-screen');
+    }
 
+    function _removeFullScreenClass() {
+      var jqBodyWrapper = $('.body-wrapper');
+      var jqBody = $('.body');
 
+      jqBodyWrapper.removeClass('full-screen');
+      jqBody.removeClass('full-screen');
     }
   }
 })();

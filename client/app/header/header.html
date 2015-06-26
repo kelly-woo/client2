@@ -7,7 +7,7 @@
     <div class="header-navbar-menu" id="team-menu" dropdown>
 
       <span class="header-navbar__topmenu" dropdown-toggle>
-        <i class="fa fa-bars"></i>
+        <i class="fa fa-bars header-navbar__menu-icon"></i>
         <span class="header-navbar__title" translate>@common-team</span>
       </span>
 
@@ -21,7 +21,7 @@
         </li>
 
         <!-- 노티피케이션 -->
-        <li class="" role="presentation">
+        <li class="" role="presentation" ng-if="!isIe">
           <a data-ng-click="openModal('setting-notifications');" role="menuitem" tabindex="-1">
             <i class="fa fa-bell"></i>
             <span translate>@web-notification</span>

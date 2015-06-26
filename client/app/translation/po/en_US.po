@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -425,6 +425,14 @@ msgstr "Browse"
 msgid "@common-name"
 msgstr "Name"
 
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-body"
+msgstr "JANDI will automatically reconnect when it's available."
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-header"
+msgstr "It seems you are not connected to the Internet."
+
 #: client/app/left/left.html
 msgid "@common-new-message"
 msgstr "New Message"
@@ -612,6 +620,11 @@ msgstr "Oops!"
 #: client/app/right/files/file/file.html
 msgid "@file-action-more"
 msgstr "More"
+
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
+msgid "@file-action-unshare"
+msgstr "Unshare"
 
 #: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
@@ -993,6 +1006,10 @@ msgstr ""
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
 msgstr "Send me a test message"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@setting-notification-denied"
+msgstr "Desktop Notifications are currently disabled."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"

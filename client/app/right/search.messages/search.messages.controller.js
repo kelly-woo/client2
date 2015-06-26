@@ -13,7 +13,8 @@
     var DEFAULT_PER_PAGE = 20;
 
     var isLastPage = false;
-
+    //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
+    var _isActivated = false;
 
     _init();
 
@@ -79,8 +80,12 @@
 
     // When message tab is selected.
     $scope.$on('onrPanelMessageTabSelected', function() {
+      _isActivated = true;
       _refreshSearchQuery();
       searchMessages();
+    });
+    $scope.$on('onrPanelFileTabSelected', function() {
+      _isActivated = false;
     });
 
     // When entity location filter is changed.
@@ -114,14 +119,18 @@
 
       messageAPIservice.searchMessages($scope.searchQuery)
         .success(function(response) {
-          //console.log(response)
-          _updateSearchQueryCursor(response.cursor);
-          _updateMessageList(response);
-          _updateSearchStatusTotalCount(response.cursor.totalCount);
+          if (_isActivated) {
+            //console.log(response)
+            _updateSearchQueryCursor(response.cursor);
+            _updateMessageList(response);
+            _updateSearchStatusTotalCount(response.cursor.totalCount);
+          }
         })
         .error(function(err) {
-          console.log(err);
-          _onMessageSearchErr(err);
+          if (_isActivated) {
+            console.log(err);
+            _onMessageSearchErr(err);
+          }
         })
         .finally(function(){
           _hideLoading();

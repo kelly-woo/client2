@@ -10,6 +10,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner, MessageCollection) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
+  var TEXTAREA_MAX_LENGTH = 40000;
   //var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
@@ -69,7 +70,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.onKeyDown = onKeyDown;
   $scope.onKeyUp = onKeyUp;
-
+  $scope.onTextChange = _cutTextareaMaxLength;
+  
   $scope.setCommentFocus = setCommentFocus;
   $scope.loadMore = loadMore;
   $scope.loadNewMessages = loadNewMessages;
@@ -904,7 +906,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
 
-
+  /**
+   * max length 만큼 textarea 의 내용을 자른다.
+   * @private
+   */
+  function _cutTextareaMaxLength() {
+    var text = $('#message-input').val();
+    if (text.length > TEXTAREA_MAX_LENGTH) {
+      text = text.substring(0, TEXTAREA_MAX_LENGTH);
+      $('#message-input').val(text);
+      TextBuffer.set(text);
+    }
+  }
 
   function onShareClick(file) {
     fileAPIservice.openFileShareModal($scope, file);

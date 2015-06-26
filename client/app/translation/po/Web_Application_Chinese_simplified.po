@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -412,6 +412,14 @@ msgstr "浏览"
 msgid "@common-name"
 msgstr "名称"
 
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-body"
+msgstr "自动重新链接"
+
+#: client/app/disconnect/disconnect.html
+msgid "@common-network-disconnect-header"
+msgstr "目前为无网络状态JANDI会于连上网络后，"
+
 #: client/app/left/left.html
 msgid "@common-new-message"
 msgstr "新信息"
@@ -597,6 +605,12 @@ msgstr "错误"
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@file-action-more"
+msgstr "更多"
+
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
+#, fuzzy
+msgid "@file-action-unshare"
 msgstr "更多"
 
 #: client/app/right/right.html
@@ -965,6 +979,10 @@ msgid "@send-test-notification"
 msgstr "寄送测试信息至我的电子邮箱"
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@setting-notification-denied"
+msgstr "电脑版推拨通知已关闭"
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"
 msgstr "建议开启推拨通知，随时掌握对话、信息"
 
@@ -974,7 +992,7 @@ msgstr "在推拨通知上显示信息内容"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-off"
-msgstr "建议开启推拨通知，随时掌握对话、信息"
+msgstr "关闭电脑版的推拨通知"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"

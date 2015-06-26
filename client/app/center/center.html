@@ -74,7 +74,7 @@
                               'archived-file': msg.message.status === 'archived' }">
 
           <system-event ng-if="msg.message.contentType === 'systemEvent'"></system-event>
-          <text ng-if="msg.message.isText"></text>
+          <text ng-if="msg.message.isText" msg="msg"></text>
           <file-uploaded ng-if="msg.message.isFile"></file-uploaded>
           <title-comment ng-if="msg.message.isComment"></title-comment>
         </div>

@@ -79,7 +79,7 @@ input[type="email"] {
   bottom: 0;
   height: auto !important;
 }
-.body-full-screen {
+.body.full-screen {
   top: 40px;
 }
 .title__divider {
@@ -292,10 +292,11 @@ input[type="email"] {
 }
 
 .link-unshare {
-  font-size: .7rem;
+  font-size: 11px;
+  color: #cccccc !important;
 }
 .link-unshare:hover {
-  color: indianred !important;
+  color: #d62d17 !important;
 }
 .green_badge {
   background-color: #00abe6;
