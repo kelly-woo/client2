@@ -427,8 +427,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hasMoreOldMessageToLoad() {
-    if (lastMessageId !== -1 &&
-      MessageCollection.getFirstLinkId() == -1 &&
+    if (lastMessageId !== -1 ||
+      MessageCollection.getFirstLinkId() == -1 ||
       MessageCollection.getFirstLinkId() !== firstMessageId) {
       return true;
     } else {
@@ -726,17 +726,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _getPostPromise(msg, isSuccess) {
+    console.log(arguments);
     isSuccess = _.isBoolean(isSuccess) ? isSuccess : true;
     if (!isSuccess && !NetInterceptor.isConnected()) {
       MessageCollection.enqueue(msg.content, msg.sticker, true);
     } else {
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-
-      //analytics
-      property[PROPERTY_CONSTANT.MESSAGE_ID] = res.id;
-      property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-      AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, property);
+      //var property = {};
+      //var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+      //
+      ////analytics
+      //property[PROPERTY_CONSTANT.MESSAGE_ID] = res.id;
+      //property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+      //AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, property);
     }
     return messageAPIservice.postMessage(entityType, entityId, msg.content, msg.sticker);
   }
@@ -797,7 +798,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   }
 
-  $scope.deleteMessage = function(message) {
+  function deleteMessage(message) {
     //console.log("delete: ", message.messageId);
     var property = {};
     var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
@@ -837,6 +838,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function onClickUnshare(message, entity) {
+    var property = {};
+    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
     fileAPIservice.unShareEntity(message.id, entity.id)
       .success(function() {
         //곧지워짐
@@ -851,24 +854,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           "size"          : message.content.size
         };
         analyticsService.mixpanelTrack( "File Unshare", share_data );
-        //
-
-
-        var property = {};
-        var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-
         property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
         property[PROPERTY_CONSTANT.FILE_ID] = message.id;
         property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
         AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
-
       })
       .error(function(err) {
-
         property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
         property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
         AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
-
         alert(err.msg);
       });
   }

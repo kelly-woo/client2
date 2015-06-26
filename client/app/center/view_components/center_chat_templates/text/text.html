@@ -1,5 +1,5 @@
 <!-- main text-->
-<div ng-if="!isChildText($index)">
+<div ng-if="!isChildText">
   <!--  User Thumbnail -->
   <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
        ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
@@ -41,7 +41,7 @@
   </div>
 </div>
 <!-- child text -->
-<div ng-if="isChildText($index)">
+<div ng-if="isChildText">
   <div class="msg-item-body">
     <!-- TEXT -->
     <div class="msg-text">
@@ -67,4 +67,4 @@
   </div>
 </div>
 
-<social-snippet ng-if="hasLinkPreview($index)"></social-snippet>
+<social-snippet ng-if="hasLinkPreview"></social-snippet>

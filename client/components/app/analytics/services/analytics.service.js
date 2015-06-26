@@ -15,11 +15,8 @@
   /* @ngInject */
   function AnalyticsHelper(AnalyticsPersistence, AnalyticsData, AnalyticsLazyload, AnalyticsConstant, config) {
 
-    var LANGUAGE_SET = AnalyticsConstant.LANGUAGE_SET;
     var EVENT = AnalyticsConstant.EVENT;
     var PROPERTY = AnalyticsConstant.PROPERTY;
-    var LOCAL_STORAGE_KEY = AnalyticsConstant.LOCAL_STORAGE_KEY;
-    var SESSION_STORAGE_KEY = AnalyticsConstant.SESSION_STORAGE_KEY;
 
     this.EVENT = EVENT;
     this.PROPERTY = PROPERTY;
@@ -36,7 +33,7 @@
     function init() {
       var isSessionSet = AnalyticsPersistence.init();
       if (isSessionSet) {
-        track(EVENT.SESSION_START, defaultProperty());
+        track(EVENT.SESSION_START, getDefaultProperty());
       }
       bindTrakcerToWindowFocusEvent();
     }
@@ -46,11 +43,11 @@
      * Validation Check를 하고 LazyLoad를 해야할 상황이면 LazyLoad서비스로 넘기고, 
      * 아닌경우는 바로 Data를 전송한다.
      * @param {String} event - Event Name. AnalyticsConstant.Event에 존재해야한다. 
-     * @param {String} properties - Event에 종속된 properties.
+     * @param {object} properties - Event에 종속된 properties.
      */
     function track(event, properties) {
       // try {
-        var properties = properties || {};
+        properties = properties || {};
         var identify = AnalyticsPersistence.getIdentify();
 
         var isValid = checkValidation(event, properties);
@@ -62,10 +59,10 @@
           } else {
             AnalyticsData.track(event, properties, identify);
           }
-        } 
+        }
       // } catch (e) {
       //   error(e, 'AnalyticsHelper.track');
-      // }      
+      // }
     }
 
     /**

@@ -279,8 +279,7 @@
       return centerService.isCommentType(contentType) && MessageComment.isTitle(index, that.list);
     }
     function hasLinkPreview(index) {
-      return false;
-      return _.isEmpty(that.list[index].linkPreview);
+      return !_.isEmpty(that.list[index].message.linkPreview);
     }
 
     function isDayChanged(index) {
