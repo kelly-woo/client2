@@ -691,7 +691,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var queue = MessageCollection.getQueue();
     var length = queue.length;
 
-    if (!$scope.isPosting) {
+    if (!$scope.isPosting && length) {
       $scope.isPosting = true;
       _.forEach(queue, function (msg) {
         if (!promise) {
@@ -703,12 +703,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         }
       });
 
+      $scope.isPosting = false;
+
       if (promise) {
         promise.then(
           _.bind(_onSuccessPostMessages, null, length),
           _.bind(_onFailedPostMessages, null, length));
-      } else {
-        $scope.isPosting = false;
       }
     }
   }
@@ -744,7 +744,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onFailedPostMessages(length) {
     var queue = MessageCollection.getQueue();
     var msg = queue[length - 1];
-    $scope.isPosting = false;
     MessageCollection.spliceQueue(0, length);
     if (!NetInterceptor.isConnected()) {
       MessageCollection.enqueue(msg.content, msg.sticker, true);
@@ -759,7 +758,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onSuccessPostMessages(length) {
     var queue = MessageCollection.getQueue();
-    $scope.isPosting = false;
     MessageCollection.spliceQueue(0, length);
     if (queue.length > 0) {
       _postMessages();
