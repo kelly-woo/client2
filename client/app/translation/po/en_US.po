@@ -836,7 +836,7 @@ msgstr "Delete"
 
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
-msgstr "You could miss out important messages."
+msgstr "You may miss important messages if you turn off notifications."
 
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@modal-browse-ch"
@@ -1014,8 +1014,8 @@ msgstr "Desktop Notifications are currently disabled."
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"
 msgstr ""
-"We strongly recommend you to always turn on desktop notifications so that "
-"you can never miss important messages."
+"We strongly recommend you leave desktop notifications on so you never miss "
+"an important message. "
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-show-content-msg"
