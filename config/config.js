@@ -23,6 +23,7 @@
       app_store_address   : '@@app_store_address',
       play_store_address  : '@@play_store_address',
       last_update_message : '@@last_update_message',
+      analytics_server    : '@@analytics_server',
       integration: {
         google_drive: {
           client_id: '@@google_drive_client_id',
