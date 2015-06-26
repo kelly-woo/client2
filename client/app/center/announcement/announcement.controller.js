@@ -14,6 +14,8 @@
 
     var myId = memberService.getMemberId();
 
+    var _announcement;
+
     var ANNOUNCEMENT_CREATED = config.socketEvent.announcement.created;
     var ANNOUNCEMENT_DELETED = config.socketEvent.announcement.deleted;
     var ANNOUNCEMENT_STATUS_UPDATED = config.socketEvent.announcement.status_updated;
@@ -28,6 +30,9 @@
     $scope.onHidedAnnouncementClicked = onHidedAnnouncementClicked;
 
     $scope.onAnnouncementBodyClicked = onAnnouncementBodyClicked;
+
+    $scope.onAnnouncementWriterClicked = onAnnouncementWriterClicked;
+    $scope.onAnnouncementCreatorClicked = onAnnouncementCreatorClicked;
 
     $scope.isAnnouncementHided = isAnnouncementHided;
     $scope.isAnnouncmentMinimized = isAnnouncementMinimized;
@@ -77,6 +82,7 @@
      */
     function _onGetAnnouncementSuccess(announcement) {
       if (!_.isEmpty(announcement)) {
+        _announcement = announcement;
         $scope.announcementCreator = _getActionOwner(announcement, announcement.creatorId, 'createdAt');
         $scope.announcementWriter = _getActionOwner(announcement, announcement.writerId, 'writtenAt');
 
@@ -128,7 +134,8 @@
     /**
      * announcement 우측 상단에 있는 화살표를 눌렀을 경우
      */
-    function onAnnouncementArrowClicked() {
+    function onAnnouncementArrowClicked(event) {
+      _blockEvent(event);
       if (isAnnouncementMinimized()) {
         maximizeAnnouncement();
       } else {
@@ -143,7 +150,13 @@
       toggleAnnouncementStatus();
     }
 
+    /**
+     * announcement 의 이벤트클릭을 받고 있다가 클릭된 부분이 어딘지에 따라 알맞는 펑션을 실행한다.
+     * @param {object} event - click event object
+     */
     function onAnnouncementBodyClicked(event) {
+      _blockEvent(event);
+
       var jqTarget = $(event.target);
 
       if (Announcement.isAnchorElement(jqTarget)) {
@@ -156,6 +169,30 @@
       }
     }
 
+    /**
+     * announcement writer 가 클릭되었을 경우 멤버 프로필 모달을 연다.
+     */
+    function onAnnouncementWriterClicked(event) {
+      _blockEvent(event);
+      _openMemberProfileModal(_announcement.writerId);
+    }
+
+    /**
+     * announcement creator 가 클릭되었을 경우 멤버 프로필 모달을 연다.
+     */
+    function onAnnouncementCreatorClicked(event) {
+      _blockEvent(event);
+      _openMemberProfileModal(_announcement.creatorId);
+    }
+
+    /**
+     * 멤버 프로필 모달을 연다.
+     * @param {number} memberId - 멤버의 아이디
+     * @private
+     */
+    function _openMemberProfileModal (memberId) {
+      jndPubSub.pub('onUserClick', memberId);
+    }
 
     /**
      * announcement 의 visible status 를 true 로 바꿔준다.
@@ -222,7 +259,9 @@
     /**
      * announcement 를 지운다.
      */
-    function deleteAnnouncement() {
+    function deleteAnnouncement(event) {
+      _blockEvent(event);
+
       if (confirm($filter('translate')('@announcement-delete-confirm'))) {
         AnnouncementData.deleteAnnouncement(_topicId)
           .success(_detachAnnouncement);
@@ -230,7 +269,9 @@
 
     }
 
-    function toggleAnnouncementStatus() {
+    function toggleAnnouncementStatus(event) {
+      _blockEvent(event);
+
       var isCurrentTopicAnnouncementOpen = !memberService.isAnnouncementOpen(_topicId);
       AnnouncementData.toggleAnnouncementStatus(myId, _topicId, isCurrentTopicAnnouncementOpen)
         .success(function(response) {
@@ -345,6 +386,11 @@
         "createdAt": "2015-06-23T04:05:19.275Z"
       };
       _onGetAnnouncementSuccess(testResponse);
+    }
+
+    function _blockEvent(event) {
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 })();

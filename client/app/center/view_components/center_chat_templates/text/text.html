@@ -1,4 +1,4 @@
-<div ng-if="!msg.message.isChildText">
+<div class="text-msg-item-container" ng-if="!msg.message.isChildText">
   <!--  User Thumbnail -->
   <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
        ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
@@ -51,7 +51,7 @@
   </div>
 </div>
 
-<div ng-if="msg.message.isChildText">
+<div class="text-msg-item-container" ng-if="msg.message.isChildText">
   <div class="msg-item-body">
     <!-- TEXT -->
     <div class="msg-text">

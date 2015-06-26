@@ -1,3 +1,9 @@
+.text-msg-item-container {
+  z-index: 1;
+}
+.text-msg-item-container .msg-item-body {
+  z-index: 1;
+}
 .text-delete-background {
   background-color: #f2fbff;
 }
