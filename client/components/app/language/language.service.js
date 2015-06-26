@@ -93,7 +93,7 @@
       }
 
       // Choose correct format for both server and translator.
-      if (match = rLang.exec(curLang)) {
+      if (match = regxLang.exec(curLang)) {
           serverLang = match[1] + (match[2] ? '-' + match[2] : '');
           clientLang = langMap[serverLang];
       } else {
