@@ -5,6 +5,7 @@
     .module('jandiApp')
     .controller('TopicCreateCtrl', TopicCreateCtrl);
 
+  /* @ngInject */
   function TopicCreateCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter, AnalyticsHelper) {
     $scope.entityType = 'public';
 

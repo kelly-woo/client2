@@ -58,7 +58,7 @@
           property[PROPERTY_CONSTANT.FILE_ID] = $scope.file.id;
           AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_SHARE, property);
 
-          _onShareSuccess()
+          _onShareSuccess();
         })
         .error(function(error) {
           $scope.isLoading = false;

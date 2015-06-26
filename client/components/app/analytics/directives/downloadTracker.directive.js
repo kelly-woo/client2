@@ -2,7 +2,8 @@
   'use strict';
 
   /**
-  * @desc File Download Event Tracker. Donwload시 Log를 수집한다.
+  * @fileoverview File Download Event Tracker. Donwload시 Log를 수집한다.
+  * @author Kevin Lee  <kevin@tosslab.com>
   * @example <a download-file file-url="{{file_detail.content.fileUrl}}" 
   * file-title="{{file_detail.content.name}}" download-tracker="{{test2(file_detail)}}" 
   * ng-click="onClickDownload(file_detail);">

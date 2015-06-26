@@ -83,7 +83,6 @@
         $rootScope.curUpload.title = file.name;
         $rootScope.curUpload.progress = 0;
         $rootScope.curUpload.status = 'initiate';
-        console.log('test');
         $timeout(function() {
           $('.progress-striped').children().addClass('progress-bar');
         });

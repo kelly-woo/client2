@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('fileCtrl', fileCtrl);
 
-  function fileCtrl($scope, $rootScope, $filter, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice) {
+  function fileCtrl($scope, $rootScope, $filter, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, analyticsHelper) {
     var file;
 
     file = $scope.file;
@@ -20,6 +20,8 @@
     }
 
     function onFileDeleteClick() {
+      var property = {};
+      var PROPERTY_CONSTANT = analyticsHelper;
       var fileId = file.id;
 
       if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
