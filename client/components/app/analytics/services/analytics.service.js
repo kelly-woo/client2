@@ -36,7 +36,7 @@
     function init() {
       var isSessionSet = AnalyticsPersistence.init();
       if (isSessionSet) {
-        track(EVENT.SESSION_START, defaultProperty());
+        track(EVENT.SESSION_START, getDefaultProperty());
       }
       bindTrakcerToWindowFocusEvent();
     }
