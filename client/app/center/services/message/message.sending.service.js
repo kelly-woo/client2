@@ -133,7 +133,7 @@
     function _getSticker(queueItem) {
       var obj = _getBaseSendingMsg(queueItem);
       obj.message.content = {
-        url: data.sticker.url
+        url: queueItem.sticker.url
       };
       obj.message.contentType = 'sticker';
 
@@ -149,7 +149,7 @@
     function _getText(queueItem) {
       var obj = _getBaseSendingMsg(queueItem);
       obj.message.content = {
-        body: data.content
+        body: queueItem.content
       };
       obj.message.contentType = 'text';
       return obj;
