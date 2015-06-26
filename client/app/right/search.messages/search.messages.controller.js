@@ -6,7 +6,8 @@
     .controller('rPanelMessageTabCtrl', rPanelMessageTabCtrl);
 
   /* @ngInject */
-  function rPanelMessageTabCtrl($scope, $rootScope, fileAPIservice, messageSearchHelper, accountService, $filter, AnalyticsHelper) {
+  function rPanelMessageTabCtrl($scope, $rootScope, $filter, fileAPIservice, MessageQuery, messageAPIservice,
+                                accountService, AnalyticsHelper) {
 
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
@@ -118,7 +119,7 @@
 
       //console.log($scope.searchQuery)
 
-      messageSearchHelper.searchMessages($scope.searchQuery)
+      messageAPIservice.searchMessages($scope.searchQuery)
         .success(function(response) {
           if (_isActivated) {
             //console.log(response)
