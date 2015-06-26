@@ -43,7 +43,7 @@
       var property = {}
       property[AnalyticsConstant.PROPERTY.PAGE] = AnalyticsConstant.PAGE[page];
       // property[AnalyticsConstant.PROPERTY.LANGUAGE] = generalService.getDisplayLang();
-      return _.assign(property, AnalyticsHelper.defaultProperty());
+      return _.assign(property, AnalyticsHelper.getDefaultProperty());
     }
 
     /**

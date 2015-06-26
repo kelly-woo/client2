@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('fileCtrl', fileCtrl);
 
-  function fileCtrl($scope, $rootScope, $filter, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, analyticsHelper) {
+  function fileCtrl($scope, $rootScope, $filter, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, AnalyticsHelper) {
     var file;
 
     file = $scope.file;
@@ -21,7 +21,7 @@
 
     function onFileDeleteClick() {
       var property = {};
-      var PROPERTY_CONSTANT = analyticsHelper;
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       var fileId = file.id;
 
       if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
@@ -33,7 +33,7 @@
           //analytics
           property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
           property[PROPERTY_CONSTANT.FILE_ID] = fileId;
-          analyticsHelper.track(analyticsHelper.EVENT.FILE_DELETE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
 
           $rootScope.$broadcast('onFileDeleted', fileId);
         })
@@ -43,7 +43,7 @@
           //analytics
           property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
           property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-          analyticsHelper.track(analyticsHelper.EVENT.FILE_DELETE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
         })
         .finally(function() {
 
