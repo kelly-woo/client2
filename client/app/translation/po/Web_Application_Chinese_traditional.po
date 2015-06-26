@@ -248,7 +248,7 @@ msgstr "此成員權限已被暫時關閉"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-disabled-member-profile-msg"
-msgstr "這成員已經被暫時關閉。欲知更多細節，請聯係團隊管理者。"
+msgstr "此成員權限已被暫時關閉。欲知更多細節，請聯絡團隊管理員。"
 
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@common-dm-invite-to"
@@ -536,7 +536,7 @@ msgstr "造訪首頁"
 
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-post"
-msgstr "使用權限已經暫時被關閉。欲知更多細節，請聯係團隊管理者。"
+msgstr "使用權限已被暫時關閉。欲知更多細節，請聯係團隊管理員。"
 
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-pre"
