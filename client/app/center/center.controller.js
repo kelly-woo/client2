@@ -82,7 +82,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.postMessage = postMessage;
   $scope.editMessage = editMessage;
-  $scope.deleteMessage = deleteMessage;
 
   $scope.openModal = openModal;
 
@@ -231,9 +230,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $(window).on('focus', _onWindowFocus);
     $(window).on('blur', _onWindowBlur);
     $('body').on('dragstart', _onDragStart);
-    $(document.getElementById('msgs-container')).on('scroll', function(scrollEvent) {
-      console.log(scrollEvent.target.scrollTop);
-    });
   }
 
   /**
@@ -477,7 +473,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       fixme: 아래 scrollTop 변경 이후 어떤 이유에 의해 scrollTop 이 한번 더 변경하는 현상이 발생하여 timeout 값 800으로 조정함. 원인 불명
        */
       document.getElementById('msgs-container').scrollTop = targetScrollTop;
-      console.log('test');
     }, 100);
   }
 
@@ -726,7 +721,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _getPostPromise(msg, isSuccess) {
-    console.log(arguments);
     isSuccess = _.isBoolean(isSuccess) ? isSuccess : true;
     if (!isSuccess && !NetInterceptor.isConnected()) {
       MessageCollection.enqueue(msg.content, msg.sticker, true);
@@ -798,32 +792,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   }
 
-  function deleteMessage(message) {
-    //console.log("delete: ", message.messageId);
-    var property = {};
-    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-    if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
-      if (message.message.contentType === 'sticker') {
-        messageAPIservice.deleteSticker(message.messageId)
-          .error(function (response) {
-            updateList();
-          });
-      } else {
-        messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
-          .success(function() {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            property[PROPERTY_CONSTANT.MESSAGE_ID] = message.messageId;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, property);
-          })
-          .error(function (response) {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-            property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, property);
-            updateList();
-          });
-      }
-    }
-  }
+
   function openModal(selector) {
     // OPENING JOIN MODAL VIEW
     if (selector === 'rename') {

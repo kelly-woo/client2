@@ -126,7 +126,6 @@
         msg = _getFormattedMessage(msg);
         that.list.push(msg);
       });
-      console.log(that.list);
     }
     function prepend(messageList) {
       messageList = _beforeAddMessages(messageList);
@@ -134,7 +133,6 @@
         msg = _getFormattedMessage(msg);
         that.list.unshift(msg);
       });
-      console.log(that.list);
     }
     function update(messageList) {
       messageList = _beforeAddMessages(messageList);
@@ -188,7 +186,12 @@
 
     function remove(messageId, isReversal) {
       var targetIdx = at(messageId, isReversal);
+      var msg;
       if (targetIdx !== -1) {
+        msg = that.list[targetIdx];
+        if (msg.status === 'sending') {
+          MessageSending.remove(msg);
+        }
         that.list.splice(targetIdx, 1);
       }
       return targetIdx !== -1;
