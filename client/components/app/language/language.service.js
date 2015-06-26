@@ -38,7 +38,7 @@
       { "value": "zh-tw", "text": "繁體中文" }
     ];
 
-    var rLang = /(ko|en|zh(?=[-_]+(tw|cn))|ja)/;
+    var regxLang = /(ko|en|zh(?=[-_]+(tw|cn))|ja)/;
     var langMap = {
       'ko': 'ko',
       'en': 'en_US',

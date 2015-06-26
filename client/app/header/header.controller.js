@@ -9,8 +9,8 @@
   /* @ngInject */
   function headerCtrl($scope, $state, $filter, accountService,
                       memberService, publicService, configuration,
-                      language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser) {
+                      language, modalHelper, jndPubSub, DeskTopNotificationBanner, pcAppHelper,
+                      Browser, AnalyticsHelper) {
     var modalMap;
     var stateParams;
 
@@ -33,7 +33,10 @@
     $scope.onLanguageClick = onLanguageClick;
 
     function onLanguageClick(lang) {
-      if (accountService.getAccountLanguage() == lang) return;
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+      var currentLang = accountService.getAccountLanguage();
+      if (currentLang === lang) return;
 
       var languageObj = {
         lang: lang
@@ -41,6 +44,13 @@
 
       accountService.setAccountInfo(languageObj)
         .success(function(response) {
+          //Analtics Tracker. Not Block the Process
+
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+          property[PROPERTY_CONSTANT.PREVIOUS_LANGUAGE] = currentLang;
+          property[PROPERTY_CONSTANT.CURRENT_LANGUAGE] = lang;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.LANGUAGE_CHANGE, property);
+
           accountService.setAccountLanguage(response.lang);
 
           publicService.setLanguageConfig(accountService.getAccountLanguage());
@@ -50,7 +60,14 @@
           publicService.reloadCurrentPage($state.current, stateParams);
         })
         .error(function(err) {
-          console.log(err)
+          console.log(err);
+          //Analtics Tracker. Not Block the Process
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+          property[PROPERTY_CONSTANT.PREVIOUS_LANGUAGE] = currentLang;
+          property[PROPERTY_CONSTANT.CURRENT_LANGUAGE] = lang;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.LANGUAGE_CHANGE, property);
+
         })
         .finally(function() {
         })
