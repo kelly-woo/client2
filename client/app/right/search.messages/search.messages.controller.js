@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function rPanelMessageTabCtrl($scope, $rootScope, $filter, fileAPIservice, MessageQuery, messageAPIservice,
-                                accountService) {
+                                accountService, AnalyticsHelper) {
 
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
@@ -107,6 +107,8 @@
      * 메세지를 찾는다.
      */
     function searchMessages() {
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
       if (_isLoading() || !$scope.searchQuery.q || isLastPage ) return;
 
@@ -124,11 +126,22 @@
             _updateSearchQueryCursor(response.cursor);
             _updateMessageList(response);
             _updateSearchStatusTotalCount(response.cursor.totalCount);
+
+            //analytics
+            property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.searchQuery.q;
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
           }
         })
         .error(function(err) {
           if (_isActivated) {
             console.log(err);
+
+            //analytics
+            property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+
             _onMessageSearchErr(err);
           }
         })

@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
-                            publicService, jndPubSub, fileAPIservice, analyticsService, modalHelper) {
+                            publicService, jndPubSub, fileAPIservice, analyticsService, modalHelper, AnalyticsHelper) {
 
     var currentEntity;
     var entityId;
@@ -121,7 +121,8 @@
 
     $scope.onLeaveClick = function() {
       var isLeaveChannel;
-
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       isLeaveChannel = entityType === 'privategroups' ? confirm($filter('translate')('@ch-menu-leave-private-confirm')) : true;
 
       if (isLeaveChannel) {
@@ -130,10 +131,17 @@
             // analytics
             var entity_type = analyticsService.getEntityType(entityType);
 
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt(entityId, 10);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, property);
+
             analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
             updateLeftPanel();
           })
           .error(function(error) {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, property);
             alert(error.msg);
           })
       }
@@ -141,11 +149,19 @@
     };
 
     $scope.onDeleteClick = function() {
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+
       if (confirm($filter('translate')('@ch-menu-delete-confirm'))) {
         entityHeader.deleteEntity(entityType, entityId)
           .success(function() {
-            // analytics
+            
             var entity_type = analyticsService.getEntityType(entityType);
+            // analytics
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt(entityId, 10);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, property);
+
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
             updateLeftPanel();
@@ -155,6 +171,11 @@
             });
           })
           .error(function(error) {
+            // analytics
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, property);
+
             alert(error.msg);
           });
       }

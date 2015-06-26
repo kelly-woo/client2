@@ -38,7 +38,7 @@ app.directive('downloadFile', function() {
     link: function(scope, elem, attrs) {
       var fileUrl = attrs.fileUrl;
       var fileTitle = attrs.fileTitle;
-
+      
       elem
         .attr(
           rHTTP.test(fileUrl) ?

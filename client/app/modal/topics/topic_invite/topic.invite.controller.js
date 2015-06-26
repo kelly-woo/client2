@@ -6,7 +6,7 @@
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter,
-                                 publicService, analyticsService, modalHelper) {
+                                 publicService, analyticsService, modalHelper, AnalyticsHelper) {
     InitInvite();
 
     /*
@@ -65,7 +65,8 @@
 
     $scope.onInviteClick = function(entityType) {
       var guestList = [];
-
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if (!$scope.isLoading && $scope.inviteUsers.length > 0) {
         $scope.toggleLoading();
 
@@ -79,16 +80,21 @@
             // analytics
             var entity_type = "";
             switch (entityType) {
-              case 'channel':
+              case 'channels':
                 entity_type = "topic";
                 break;
-              case 'privateGroup':
+              case 'privategroups':
                 entity_type = "private group";
                 break;
               default:
                 entity_type = "invalid";
                 break;
             }
+            //Analtics Tracker. Not Block the Process
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt($state.params.entityId, 10);
+            property[PROPERTY_CONSTANT.MEMBER_COUNT] = guestList.length;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, property);
 
             analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
 
@@ -98,6 +104,10 @@
             $modalInstance.dismiss('success');
           })
           .error(function(error) {
+            //Analtics Tracker. Not Block the Process
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, property);
             // TODO - TO JAY, MAYBE WE NEED TO SHOW MESSAGE WHY IT FAILED??
             console.error('inviteUsers', error.msg );
           })

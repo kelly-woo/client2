@@ -137,7 +137,7 @@
           },
           // error
           function(error) {
-            that.options.onError();
+            that.options.onError(error);
 
             invoke();
           },
