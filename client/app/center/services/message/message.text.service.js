@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Text Message 서비스
+ */
+
 (function() {
   'use strict';
 

@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Comment Message 서비스
+ */
+
 (function() {
   'use strict';
 
