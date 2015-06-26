@@ -48,8 +48,7 @@
           //console.log('got account info')
           accountService.setAccount(response);
 
-          publicService.getLanguageSetting();
-          publicService.setCurrentLanguage();
+          publicService.setLanguageConfig();
 
           analyticsService.accountIdentifyMixpanel(response);
           analyticsService.accountMixpanelTrack("Sign In");
@@ -145,8 +144,7 @@
           // Set account first.
           accountService.setAccount(response.account);
 
-          publicService.getLanguageSetting();
-          publicService.setCurrentLanguage();
+          publicService.setLanguageConfig();
 
           analyticsService.accountIdentifyMixpanel(response.account);
           analyticsService.accountMixpanelTrack("Sign In");
