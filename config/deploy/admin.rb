@@ -24,6 +24,9 @@ set :deploy_to, '/srv/www/web_admin'
 server '172.31.39.146', user: 'jandi', roles: 'web'
 #server '172.31.39.147', user: 'jandi', roles: 'web'
 server '172.31.39.173', user: 'jandi', roles: 'web'
+server '172.31.39.131', user: 'jandi', roles: 'web'
+server '172.31.39.132', user: 'jandi', roles: 'web'
+
 
 
 
