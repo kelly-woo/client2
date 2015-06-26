@@ -43,6 +43,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _updateListLock = false;
 
   var _taskQueue = [];
+  var _initTimer;
 
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $rootScope.isIE9 = false;
@@ -113,13 +114,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _initializeListeners();
     _reset();
 
+    //fixme: url 진입시 $statusChange 이벤트가 2번 발생하기 때문에, $timeout 사용함.
+    $timeout.cancel(_initTimer);
+    _initTimer = $timeout(_initializeView, 100);
+  }
+
+  function _initializeView() {
     if(MessageQuery.hasSearchLinkId()) {
       _jumpToMessage();
     } else {
       loadMore();
     }
   }
-
   /**
    * 내부 변수를 초기화한다.
    * @private
