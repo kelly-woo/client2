@@ -15,6 +15,9 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.abort = abort;
   this.getFileList = getFileList;
   this.getFileDetail = getFileDetail;
+  this.getImageList = getImageList;
+  this.getImageListOnRoom = getImageListOnRoom;
+
   this.postComment = postComment;
   this.deleteComment = deleteComment;
   this.deleteSticker = deleteSticker;
@@ -95,6 +98,42 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         teamId: memberService.getTeamId()
       }
     });
+  }
+
+  /**
+   * 팀에 공유된 이미지 목록 가져오기
+   * @param {number} teamId - team id
+   * @param {object} params
+   * @param {number} params.messageId - message id
+   * @param {string} [params.q] - 검색 keyword
+   * @param {number} [params.roomId] - room id
+   * @param {number} [params.writerId] - writer id
+   * @param {string} [params.type] - message 보다 오래되거나 새로운 목록대상
+   * @param {number} [params.count] - get할 image count
+   */
+  function getImageList(teamId, params) {
+    return $http({
+      method: 'GET',
+      url: $rootScope.server_address + 'teams/' + teamId + '/images',
+      params: params
+    });
+  }
+
+  /**
+   * 특정 room(topic or DM)에 공유되었던 이미지 목록 가져오기
+   * @param {number} teamId - team id
+   * @param {number} roomId - room id
+   * @param {object} params
+   * @param {number} params.messageId - message id
+   * @param {string} [params.type] - message 보다 오래되거나 새로운 목록대상
+   * @param {number} [params.count] - get할 image count
+   */
+  function getImageListOnRoom(teamId, roomId, params) {
+    return $http({
+      method: 'GET',
+      url: $rootScope.server_address + 'teams/' + teamId + '/rooms/' + roomId + '/images',
+      params: params
+    })
   }
 
   /**

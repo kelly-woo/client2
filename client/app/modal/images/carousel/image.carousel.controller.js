@@ -17,6 +17,7 @@
       ImageCarousel.init({
         pivot: {
           messageId: data.messageId,
+
           userName: data.userName,
           uploadDate: data.uploadDate,
           fileTitle: data.fileTitle,
@@ -24,8 +25,8 @@
           imageUrl: data.imageUrl
         },
 
-        writer: data.writer,
-        sharedEntityId: data.sharedEntityId,
+        roomId: data.roomId,
+        writerId: data.writerId,
         keyword: data.keyword,
 
         onHide: function() {

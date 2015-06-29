@@ -223,16 +223,17 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       var fullFileUrl = $scope.ImageUrl;
       modalHelper.openImageCarouselModal({
-        messageId: $scope.file_detail.id,
+        // image file api data
+        messageId: $scope.file_detail.id
+        roomId: fileRequest.sharedEntityId,
+        writerId: fileRequest.writerId,
+        keyword: fileRequest.keyword,
+        // image carousel view data
         userName: $scope.file_detail.writer.name,
         uploadDate: $scope.file_detail.createTime,
         fileTitle: $scope.file_detail.content.title,
         fileUrl: $scope.file_detail.content.fileUrl,
-        imageUrl: fullFileUrl,
-
-        writer: fileRequest.writerId,
-        sharedEntityId: fileRequest.sharedEntityId,
-        keyword: fileRequest.keyword
+        imageUrl: fullFileUrl
       });
 
 

@@ -54,12 +54,13 @@
       var that = this;
 
       that.options = {
-        pivot: {},  // 기준 message
+        // 기준 message
+        pivot: {},
+        // message id보다 오래되거나 새로운 목록 대상 또는 양방향 item get
+        type: '',
+        // 한번 get시 load할 image item 수
+        count: 20,
 
-        fileType: 'image',
-        keyword: '',
-        searchType: 'file',
-        writerId: 'all',
 
         onHide: function() {},
         onLookUp: function() {}
