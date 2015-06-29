@@ -1,3 +1,4 @@
+
 <div class="panel-title-container file-detail">
   <span class="rpanel-header-heading rpanel-header-heading__back cursor_pointer" data-ui-sref="messages.detail.files">
     <i class="icon-prev"></i> <span translate>@common-files</span>
@@ -5,9 +6,10 @@
 </div>
 
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
-
+  
   <!-- FILE -->
   <div class="rpanel-body-content file-detail" file-detail ng-show="!isFileArchived && !hasFileAPIError">
+    <page-tracker page="files/detail" title="File Detail"></page-tracker>
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
 
       <div class="file-detail-header">
@@ -86,7 +88,7 @@
                 </a>
               </li>
               <li class="cursor_pointer">
-                <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" ng-click="onClickDownload(file_detail);">
+                <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" download-tracker="{{track(file_detail)}}" ng-click="onClickDownload(file_detail);">
                   <i class="icon-download"></i>
                   <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
                 </a>

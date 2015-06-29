@@ -38,7 +38,7 @@
       { "value": "zh-tw", "text": "繁體中文" }
     ];
 
-    var rLang = /(ko|en|zh(?=[-_]+(tw|cn))|ja)/;
+    var regxLang = /(ko|en|zh(?=[-_]+(tw|cn))|ja)/;
     var langMap = {
       'ko': 'ko',
       'en': 'en_US',
@@ -93,7 +93,7 @@
       }
 
       // Choose correct format for both server and translator.
-      if (match = rLang.exec(curLang)) {
+      if (match = regxLang.exec(curLang)) {
           serverLang = match[1] + (match[2] ? '-' + match[2] : '');
           clientLang = langMap[serverLang];
       } else {

@@ -30,6 +30,7 @@
 
       <tabset class="member-list-tab">
         <tab class="enabled-member-list-container tab-title overflow-ellipsis" active="memberListSetting.enabledMemberList.active">
+          <page-tracker ng-if="memberListSetting.enabledMemberList.active" page="currentmembers" title="Member List (Current Members)"></page-tracker>
           <tab-heading>
             <div translate>@common-active-member</div>
           </tab-heading>
@@ -45,6 +46,7 @@
         </tab>  <!-- END OF ENABLED MEMBER LIST -->
 
         <tab class="disabled-member-list-container tab-title tab-title-overflow-ellipsis" active="memberListSetting.disabledMemberList.active" ng-if="hasDisabledMember">
+          <page-tracker ng-if="memberListSetting.disabledMemberList.active" page="disabledmembers" title="Member List (Disabled Members)"></page-tracker>
           <tab-heading>
             <span translate>@common-inactive-member</span>
           </tab-heading>

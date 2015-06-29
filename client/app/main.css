@@ -633,8 +633,10 @@ input[type="button"] {
 }
 .icon-loading-small {
     background-image: url('../assets/images/icon_loading.gif');
-    width: 24px;
-    height: 24px;
+    background-size: 11px 11px;
+    width: 11px;
+    height: 11px;
+  vertical-align: middle;
     display: inline-block;
 }
 .image-background {

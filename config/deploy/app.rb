@@ -19,7 +19,8 @@ set :branch, 'master'
 
 # server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
 server '172.31.39.146', user: 'jandi', roles: 'web'
-server '172.31.39.147', user: 'jandi', roles: 'web'
+#server '172.31.39.147', user: 'jandi', roles: 'web'
+server '172.31.39.173', user: 'jandi', roles: 'web'
 
 
 # Custom SSH Options

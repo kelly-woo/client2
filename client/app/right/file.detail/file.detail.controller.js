@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
-                                           publicService, configuration, modalHelper, jndPubSub, jndKeyCode) {
+                                           publicService, configuration, modalHelper, jndPubSub, jndKeyCode, AnalyticsHelper) {
 
   //console.info('[enter] fileDetailCtrl');
   var _sticker = null;
@@ -284,7 +284,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function onClickUnshare(message, entity) {
     fileAPIservice.unShareEntity(message.id, entity.id)
       .success(function() {
-        // analytics
+        // 곧 지워짐.
         var share_target = "";
         switch (entity.type) {
           case 'channel':
@@ -309,6 +309,17 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           "size": message.content.size
         };
         analyticsService.mixpanelTrack( "File Unshare", share_data );
+        //
+
+        var property = {};
+        var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+        //analytics
+        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+        property[PROPERTY_CONSTANT.FILE_ID] = message.id;
+        property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
+
+
       })
       .error(function(err) {
         alert(err.msg);
@@ -349,18 +360,33 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * file 삭제 클릭시 이벤트 핸들러
    * @param fileId
    */
-  function onFileDeleteClick(fileId) {
+  function onFileDeleteClick(fileInfo) {
     if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
       return;
     }
 
+    var fileId = fileInfo;
+    var property = {};
+    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+
     fileAPIservice.deleteFile(fileId)
       .success(function(response) {
         getFileDetail();
+
+        //analytics
+        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+        property[PROPERTY_CONSTANT.FILE_ID] = fileId;
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
+
         $rootScope.$broadcast('onFileDeleted', fileId);
       })
       .error(function(err) {
         console.log(err);
+
+        //analytics
+        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+        property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
       });
   }
 
