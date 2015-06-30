@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter,
                                        memberService, entityAPIservice, storageAPIservice, modalHelper) {
-  var fileSizeLimit = 100; // 100MB
+  var fileSizeLimit = 300; // 300MB
   var integrateMap = {
     'google': true,
     'dropbox': true
