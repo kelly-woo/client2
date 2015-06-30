@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  <meta name="description" content="JANDI Web application">
+  <meta name="keywords" content="JANDI, 잔디">
+  <meta name="author" content="TossLab">
+  <title>JANDI</title>
+  <link rel="stylesheet" href="css/disconnect.css" />
+</head>
+<body>
+
+<script type="text/template" id="disconnect">
+  <div class="disconnect_wrap">
+    <div class="disconnect_icon icon_network_error"></div>
+    <div class="disconnect_msg">
+      <p class="disconnect_strong">@common-network-disconnect-header</p>
+      <p>@common-network-disconnect-body</p>
+    </div>
+    <div class="disconnect_btn">
+      <button class="btn-white">
+        @common-retry
+      </button>
+    </div>
+  </div>
+</script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/translate.js"></script>
+<script type="text/javascript" src="js/jandi.js"></script>
+<script>
+  JND.run();
+</script>
+</body>
+</html>
