@@ -244,11 +244,11 @@ msgstr "直接傳訊"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
-msgstr "這成員已經被暫時關閉"
+msgstr "此成員權限已被暫時關閉"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-disabled-member-profile-msg"
-msgstr "這成員已經被暫時關閉。欲知更多細節，請聯係團隊管理者。"
+msgstr "此成員權限已被暫時關閉。欲知更多細節，請聯絡團隊管理員。"
 
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@common-dm-invite-to"
@@ -536,7 +536,7 @@ msgstr "造訪首頁"
 
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-post"
-msgstr "使用權限已經暫時被關閉。欲知更多細節，請聯係團隊管理者。"
+msgstr "使用權限已被暫時關閉。欲知更多細節，請聯係團隊管理員。"
 
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-pre"
@@ -811,7 +811,7 @@ msgstr "删除"
 
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
-msgstr "若關閉推撥通知，將不再顯示通知提示和內容摘要"
+msgstr "若關閉推播通知，將不再顯示通知提示和內容摘要"
 
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@modal-browse-ch"
@@ -924,7 +924,7 @@ msgstr "不漏接任何訊息"
 
 #: client/app/banner/desktop.notification.banner.html
 msgid "@noti-banner-turn-on"
-msgstr "開啟電腦版的推撥通知"
+msgstr "開啟電腦版推播通知"
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
@@ -975,23 +975,23 @@ msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
-msgstr "寄送測試訊息至我的電子郵箱"
+msgstr "測試推播通知"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-denied"
-msgstr "電腦版推撥通知已關閉"
+msgstr "電腦版推播通知已關閉"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"
-msgstr "建議開啟推撥通知，隨時掌握對話、訊息"
+msgstr "建議開啟推播通知，隨時掌握對話、訊息"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-show-content-msg"
-msgstr "在推撥通知上顯示訊息內容"
+msgstr "在推播通知上顯示訊息內容"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-off"
-msgstr "關閉電腦版的推撥通知"
+msgstr "關閉電腦版推播通知"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"

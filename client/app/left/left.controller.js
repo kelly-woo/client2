@@ -414,10 +414,6 @@ app.controller('leftPanelController1', function(
           property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
           property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
           AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
-
-          // language를 변경하게 되면 html에 content로 bind된 text는 변경이 되지만 '.js' file내
-          // 변수로 선언된 text는 변경되지 않으므로 '.js' 재수행을 필요로 하므로 page를 reload함.
-          publicService.reloadCurrentPage($state.current, $state.params);
         })
         .error(function(err) {
           var property = {};
