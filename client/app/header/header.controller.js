@@ -11,7 +11,6 @@
                       memberService, publicService, configuration,
                       language, modalHelper, jndPubSub, DeskTopNotificationBanner, pcAppHelper,
                       Browser, AnalyticsHelper) {
-
     var modalMap;
     var stateParams;
 
@@ -31,6 +30,13 @@
       stateParams = toParams;
     });
 
+    /**
+     * language 변경 event handling
+     */
+    $scope.$on('changedLanguage', function() {
+      _initRightPanelButtonLabel();
+    });
+
     $scope.onLanguageClick = onLanguageClick;
 
     function onLanguageClick(lang) {
@@ -46,43 +52,37 @@
       accountService.setAccountInfo(languageObj)
         .success(function(response) {
           //Analtics Tracker. Not Block the Process
-          
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.PREVIOUS_LANGUAGE] = currentLang;
-          property[PROPERTY_CONSTANT.CURRENT_LANGUAGE] = lang;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.LANGUAGE_CHANGE, property);
+          try {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.PREVIOUS_LANGUAGE] = currentLang;
+            property[PROPERTY_CONSTANT.CURRENT_LANGUAGE] = lang;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.LANGUAGE_CHANGE, property);
+          } catch (e) {
+          }
 
           accountService.setAccountLanguage(response.lang);
-          publicService.getLanguageSetting(accountService.getAccountLanguage());
-          publicService.setCurrentLanguage();
 
-          pcAppHelper.onLanguageChanged(lang);
+          publicService.setLanguageConfig(accountService.getAccountLanguage());
 
-          _reloadCurrentPage($state.current, stateParams);
-
+          // language를 변경하게 되면 html에 content로 bind된 text는 변경이 되지만 '.js' file내
+          // 변수로 선언된 text는 변경되지 않으므로 '.js' 재수행을 필요로 하므로 page를 reload함.
+          publicService.reloadCurrentPage($state.current, stateParams);
         })
         .error(function(err) {
           console.log(err);
           //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-          property[PROPERTY_CONSTANT.PREVIOUS_LANGUAGE] = currentLang;
-          property[PROPERTY_CONSTANT.CURRENT_LANGUAGE] = lang;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.LANGUAGE_CHANGE, property);
+          try {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+            property[PROPERTY_CONSTANT.PREVIOUS_LANGUAGE] = currentLang;
+            property[PROPERTY_CONSTANT.CURRENT_LANGUAGE] = lang;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.LANGUAGE_CHANGE, property);
+          } catch (e) {
+          }
 
         })
         .finally(function() {
         })
-    }
-
-    function _reloadCurrentPage(state, stateParams) {
-      // 현재 state 다시 로드
-      $state.transitionTo(state, stateParams, {
-        reload: true,
-        inherit: false,
-        notify: true
-      });
-
     }
 
     $scope.toTeam = toTeam;
@@ -163,6 +163,9 @@
       }
     };
 
+    /**
+     * right panel의 button translate 설정
+     */
     function _initRightPanelButtonLabel() {
       $scope.isRpanelVisible = _isRpanelVisible();
 

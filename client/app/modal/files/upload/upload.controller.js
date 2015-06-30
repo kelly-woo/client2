@@ -83,7 +83,6 @@
         $rootScope.curUpload.title = file.name;
         $rootScope.curUpload.progress = 0;
         $rootScope.curUpload.status = 'initiate';
-        console.log('test');
         $timeout(function() {
           $('.progress-striped').children().addClass('progress-bar');
         });
@@ -127,11 +126,14 @@
             share_target = "invalid";
             break;
         }
-        
-        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-        property[PROPERTY_CONSTANT.TOPIC_ID] = $scope.currentEntity.id;
-        property[PROPERTY_CONSTANT.FILE_ID] = response.data.messageId;
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, property);
+        try {
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+          property[PROPERTY_CONSTANT.TOPIC_ID] = $scope.currentEntity.id;
+          property[PROPERTY_CONSTANT.FILE_ID] = response.data.messageId;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, property);
+        } catch (e) {
+        }
+
 
         var file_meta = (response.data.fileInfo.type).split("/");
 
@@ -158,9 +160,13 @@
         var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
         //analytics
-        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-        property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, property);
+        try {
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, property);
+        } catch (e) {
+
+        }
 
         $rootScope.curUpload.status = 'error';
         $rootScope.curUpload.hasError = true;

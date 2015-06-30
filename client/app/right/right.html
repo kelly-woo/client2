@@ -2,13 +2,13 @@
 
 <tabset class="rpanel-body-tab-container">
   <!--  FILE TAB  -->
-  <tab active="tabs[0].active" select="onRightPanelTabSelected('file');" heading="{{'@common-files' | translate}}">
+  <tab active="tabs[0].active" select="onRightPanelTabSelected('file');" heading="{{ tab1 }}">
   	<page-tracker ng-if="$state.includes('**.files')&&tabs[0].active" page="files/files" title="File Tab"></page-tracker>
     <r-panel-file-tab></r-panel-file-tab>
   </tab>
 
   <!--  MESSAGE TAB -->
-  <tab active="tabs[1].active" select="onRightPanelTabSelected('message');" heading="{{'@common-message' | translate}}">
+  <tab active="tabs[1].active" select="onRightPanelTabSelected('message');" heading="{{ tab2 }}">
   	<page-tracker ng-if="$state.includes('**.files')&&tabs[1].active" page="files/messages" title="Message Tab"></page-tracker>
     <r-panel-messages-tab></r-panel-messages-tab>
   </tab>

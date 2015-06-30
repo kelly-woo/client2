@@ -46,12 +46,14 @@
   </div>
 
   <div class="msgs-inner__border"></div>
+
   <!-- 컨테이너 -->
   <article class="msgs" id="msgs-container" when-scrolled="loadMore()" scroll-glue>
     <!-- 로딩 영역 -->
-    <div class="msgs__loading icon-loading"
+    <div class="msgs__loading icon-loading-img"
          ng-show="msgLoadStatus.loading || !hasLastMessageRendered"
          ng-class="{'initial': loadMoreCounter < 1 || !hasLastMessageRendered}"></div>
+
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
       <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs" on-repeat-end>

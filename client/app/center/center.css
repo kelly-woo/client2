@@ -204,16 +204,15 @@ article {
   min-width: 260px;
   padding-bottom: 0;
 }
-.msgs__loading {
-  background-size: 40px 40px !important;
-  width: 100% !important;
-  height: 60px !important;
-}
 .msgs__loading.initial {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 2px;
+  bottom: 0;
   background-color: #fff;
   background-size: 100px 100px !important;
-  height: 100% !important;
-  z-index: 1;
+  z-index: 5;
 }
 .msgs-intro {
   padding: 1rem 1rem 1rem 1.5rem;
@@ -647,9 +646,6 @@ by ysyun 2015.2.25
   top: 7px;
   left: 70px;
 }
-.msgs__loading {
-  background-size: 30px;
-}
 
 /********************************************
 
@@ -984,6 +980,7 @@ by ysyun 2015.2.25
   width: 110px;
   height: 110px;
 
+  cursor: pointer;
   outline: 1px solid #e1e1e1;
   background-color: #F1F4F8;
 }

@@ -15,15 +15,14 @@
   function AnalyticsData($http, AnalyticsTranslate, config, AnalyticsConstant) {
     
     this.track = track;
-
     /**
      * 로그의 형태를 정형화 시킨 뒤 로그서버로 전송한다. 
      * @param {String} event - Event Name.
      * @param {Object} Identify - Account, Session, Browser
-     *    @param {String} accountId
-     *    @oaram {Number} memberId
-     *    @param {String} token - Browser Local Storage
-     *    @param {String} session - Browser Session Storage
+     *    @param {String} identify.accountId
+     *    @oaram {Number} identify.memberId
+     *    @param {String} identify.token - Browser Local Storage
+     *    @param {String} identify.session - Browser Session Storage
      * @param {Object} Properties
      */
     function track(event, properties, identify) {

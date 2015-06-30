@@ -26,7 +26,7 @@
 
     this.init = init;
     this.track = track;
-    this.defaultProperty = defaultProperty;
+    this.getDefaultProperty = getDefaultProperty;
     this.error = error;
 
 
@@ -36,7 +36,7 @@
     function init() {
       var isSessionSet = AnalyticsPersistence.init();
       if (isSessionSet) {
-        track(EVENT.SESSION_START, defaultProperty());
+        track(EVENT.SESSION_START, getDefaultProperty());
       }
       bindTrakcerToWindowFocusEvent();
     }
@@ -49,7 +49,7 @@
      * @param {String} properties - Event에 종속된 properties.
      */
     function track(event, properties) {
-      // try {
+      try {
         var properties = properties || {};
         var identify = AnalyticsPersistence.getIdentify();
 
@@ -63,9 +63,9 @@
             AnalyticsData.track(event, properties, identify);
           }
         } 
-      // } catch (e) {
-      //   error(e, 'AnalyticsHelper.track');
-      // }      
+      } catch (e) {
+        error(e, 'AnalyticsHelper.track');
+      }      
     }
 
     /**
@@ -89,7 +89,7 @@
      * 기본적으로 브라우저에서 얻을수 있는 Default Property를 반환한다.
      * @return {Object}
      */
-    function defaultProperty() {
+    function getDefaultProperty() {
       var defaultProperty = {};
       defaultProperty[PROPERTY.BROWSER_HEIGHT] = window.innerHeight || document.body.clientHeight;
       defaultProperty[PROPERTY.BROWSER_WIDTH] = window.innerWidth || document.body.clientWidth;
@@ -122,12 +122,21 @@
      */
     function bindTrakcerToWindowFocusEvent() {
       $(window)
-      .focus(function() {
-        track(EVENT.WINDOW_FOCUS);
-      })
-      .blur(function() {
-        track(EVENT.WINDOW_BLUR);
-      }); 
+      .on('focus', _trackFocus)
+      .on('blur', _trackBlur);
+    }
+    
+    /**
+     * Window Focus 이벤트 로그를 수집한다.
+     */
+    function _trackFocus() {
+      track(EVENT.WINDOW_FOCUS);
+    }
+    /**
+     * Window Blur 이벤트 로그를 수집한다.
+     */
+    function _trackBlur() {
+      track(EVENT.WINDOW_BLUR);
     }
   }                                                                                                              
 })();

@@ -48,8 +48,7 @@
           //console.log('got account info')
           accountService.setAccount(response);
 
-          publicService.getLanguageSetting();
-          publicService.setCurrentLanguage();
+          publicService.setLanguageConfig();
 
           analyticsService.accountIdentifyMixpanel(response);
           analyticsService.accountMixpanelTrack("Sign In");
@@ -145,8 +144,7 @@
           // Set account first.
           accountService.setAccount(response.account);
 
-          publicService.getLanguageSetting();
-          publicService.setCurrentLanguage();
+          publicService.setLanguageConfig();
 
           analyticsService.accountIdentifyMixpanel(response.account);
           analyticsService.accountMixpanelTrack("Sign In");
@@ -188,11 +186,13 @@
 
               setStatics();
               _goToMessageHome();
-
-              //analytics
-              property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
-              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+              try {
+                //analytics
+                property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
+                property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+                AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+              } catch (e) {
+              }
             })
             .error(function(err) {
               var property = {};
@@ -205,12 +205,14 @@
               memberService.removeMember();
 
               $scope.toggleLoading();
-
-              //analytics
-              property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
-              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-              property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+              try {
+                //analytics
+                property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
+                property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+                property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+                AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+              } catch (e) {
+              }
             })
             .finally(function() {
 
@@ -221,12 +223,14 @@
           var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
           $scope.signInFailed = true;
           $scope.toggleLoading();
-
-          //analytics
-          property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+          try {
+            //analytics
+            property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+          } catch (e) {
+          }
         })
         .finally(function() {
         });

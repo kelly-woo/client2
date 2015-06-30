@@ -10,11 +10,9 @@
     .service('language', language);
 
   /* @ngInject */
-  function language(accountService, configuration, gettextCatalog, storageAPIservice) {
+  function language(accountService, configuration, gettextCatalog, storageAPIservice, pcAppHelper) {
     this.init = init;
-    this.setLang = setLang;
-    this.getLanguageSetting = getLanguageSetting;
-    this.setCurrentLanguage = setCurrentLanguage;
+    this.setConfig = setConfig;
     this.setDebugMode = setDebugMode;
     this.getLanguageList = getLanguageList;
 
@@ -32,13 +30,22 @@
 
     // constants
     // TODO: THERE MUST BE A SERVICE FOR CONSTANT!!
-    var listLangs = this.listLangs = [
+    var listLangs = [
       { "value": "ko",    "text": "한국어" },
       { "value": "en",    "text": "English" },
       { "value": "ja",    "text": "日本語"},
       { "value": "zh-cn", "text": "简体中文 " },
       { "value": "zh-tw", "text": "繁體中文" }
     ];
+
+    var regxLang = /(ko|en|zh(?=[-_]+(tw|cn))|ja)/;
+    var langMap = {
+      'ko': 'ko',
+      'en': 'en_US',
+      'zh-tw': 'zh_TW',
+      'zh-cn': 'zh_CN',
+      'ja': 'ja'
+    };
 
     /**
      * 언어를 초기 세팅한다.
@@ -50,21 +57,21 @@
      */
     function init() {
       var debugMode = (configuration.name === 'development');
-      setLang(storageAPIservice.getLastLang() || navigator.language || navigator.userLanguage, debugMode);
+      _setLang(storageAPIservice.getLastLang() || navigator.language || navigator.userLanguage, debugMode);
     }
 
     /**
      * 언어를 설정한다.
-     * @param setLang {string} language to set
-     * @param isDebug {boolean} true if it is debug mode
+     * @param {string} setLang - language to set
+     * @param {boolean} isDebug - true if it is debug mode
+     * @private
      */
-    function setLang(setLang, isDebug) {
+    function _setLang(setLang, isDebug) {
       isDebug = isDebug || false;
 
-      getLanguageSetting(setLang);
-
       // 언어 설정 for nggettext(translator)
-      setCurrentLanguage(preferences.language);
+      setConfig(setLang);
+
       setDebugMode(isDebug);
     }
 
@@ -74,62 +81,49 @@
      *
      * Browser/OS may give us slightly different format for same language.
      * In such case, we reformat the language variable so that we can notify 'server' and 'translator' with correct language format.
-     * @param curLang {string} browser 혹은 OS 에서 언어 정보라며 던져준 스트링
+     * @param {string} curLang - browser 혹은 OS 에서 언어 정보라며 던져준 스트링
      */
-    function getLanguageSetting(curLang) {
-      var userLang;
+    function setConfig(curLang) {
       var serverLang;
+      var clientLang;
+      var match;
 
-      if (angular.isUndefined(curLang))
+      if (angular.isUndefined(curLang)) {
         curLang = accountService.getAccountLanguage();
-
-      curLang = curLang.toLowerCase();
-
-      // Choose correct format for both server and translator.
-      if (curLang.indexOf('ko') >= 0) {
-        // korean
-        userLang    = 'ko';
-        serverLang  = 'ko';
-      } else if (curLang.indexOf('en') >= 0) {
-        // english
-        userLang    = 'en_US';
-        serverLang  = 'en';
-      } else if (curLang.indexOf('zh') >= 0) {
-        // chinese
-        if (curLang.indexOf('tw') >= 0) {
-          // main land china
-          userLang    = 'zh_TW';
-          serverLang  = 'zh-tw';
-        } else {
-          userLang    = 'zh_CN';
-          serverLang  = 'zh-cn';
-        }
-      } else if (curLang.indexOf('ja') >= 0) {
-        // japanese
-        userLang    = 'ja';
-        serverLang  = 'ja';
-      } else {
-        // default
-        userLang    = 'en_US';
-        serverLang  = 'en';
       }
 
-      // Save it
-      preferences.language = userLang;
-      preferences.serverLang = serverLang;
+      // Choose correct format for both server and translator.
+      if (match = regxLang.exec(curLang)) {
+          serverLang = match[1] + (match[2] ? '-' + match[2] : '');
+          clientLang = langMap[serverLang];
+      } else {
+        // default
+        serverLang = 'en';
+        clientLang = langMap[serverLang];
+      }
+
+      if (preferences.serverLang !== serverLang) {
+        preferences.serverLang = serverLang;
+        preferences.language = clientLang;
+
+        _setCurrentLanguage();
+      }
     }
 
     /**
      * Setting language for translator, nggettext
+     * @private
      */
-    function setCurrentLanguage() {
+    function _setCurrentLanguage() {
       gettextCatalog.setCurrentLanguage(preferences.language);
       storageAPIservice.setLastLang(preferences.language);
+
+      pcAppHelper.onLanguageChanged(preferences.serverLang);
     }
 
     /**
      * Setting debug mode for translator, nggettext
-     * @param isDebug {boolean} true if it is debug mode
+     * @param {boolean} isDebug - true if it is debug mode
      */
     function setDebugMode(isDebug) {
       gettextCatalog.debug = isDebug;
@@ -140,8 +134,7 @@
      * @returns {Array|$rootScope.listLangs|*|listLangs}
      */
     function getLanguageList() {
-      return this.listLangs;
+      return listLangs;
     }
   }
-
 })();
