@@ -138,19 +138,25 @@
             _updateSearchStatusTotalCount(response.cursor.totalCount);
 
             //analytics
-            property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.searchQuery.q;
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+            try {
+              property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.searchQuery.q;
+              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+            } catch (e) {
+            }
           }
         })
         .error(function(err) {
           if (_isActivated) {
             console.log(err);
 
-            //analytics
-            property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+            try {
+              //analytics
+              property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+            } catch (e) {
+            }
 
             _onMessageSearchErr(err);
           }

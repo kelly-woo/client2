@@ -131,17 +131,23 @@
             // analytics
             var entity_type = analyticsService.getEntityType(entityType);
 
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt(entityId, 10);
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, property);
+            try {
+              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+              property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt(entityId, 10);
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, property);
+            } catch (e) {
+            }
 
             analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
             updateLeftPanel();
           })
           .error(function(error) {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-            property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, property);
+            try {
+              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+              property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_LEAVE, property);
+            } catch (e) {
+            }
             alert(error.msg);
           })
       }
@@ -158,9 +164,13 @@
             
             var entity_type = analyticsService.getEntityType(entityType);
             // analytics
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt(entityId, 10);
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, property);
+            try {
+              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+              property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt(entityId, 10);
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, property);
+            } catch (e) {   
+            }
+
 
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
@@ -172,9 +182,12 @@
           })
           .error(function(error) {
             // analytics
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-            property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, property);
+            try {
+              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+              property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, property);
+            } catch (e) {
+            }
 
             alert(error.msg);
           });
