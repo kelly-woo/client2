@@ -21,7 +21,7 @@ set :deploy_to, '/srv/www/web_landing'
 # used to set extended properties on the server.
 
 # server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
-server '172.31.39.146', user: 'jandi', roles: 'web'
+#server '172.31.39.146', user: 'jandi', roles: 'web'
 #server '172.31.39.147', user: 'jandi', roles: 'web'
 server '172.31.39.173', user: 'jandi', roles: 'web'
 server '172.31.39.131', user: 'jandi', roles: 'web'
