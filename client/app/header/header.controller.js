@@ -30,6 +30,13 @@
       stateParams = toParams;
     });
 
+    /**
+     * language 변경 event handling
+     */
+    $scope.$on('changedLanguage', function() {
+      _initRightPanelButtonLabel();
+    });
+
     $scope.onLanguageClick = onLanguageClick;
 
     function onLanguageClick(lang) {
@@ -151,6 +158,9 @@
       }
     };
 
+    /**
+     * right panel의 button translate 설정
+     */
     function _initRightPanelButtonLabel() {
       $scope.isRpanelVisible = _isRpanelVisible();
 

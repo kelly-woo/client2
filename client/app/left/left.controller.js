@@ -66,6 +66,14 @@ app.controller('leftPanelController1', function(
     _setAfterLeftInit(param);
   });
 
+  /**
+   * language 변경 event handling
+   */
+  $scope.$on('changedLanguage', function() {
+    //  Setting prefix for each entity.
+    setEntityPrefix();
+  });
+
   $scope.$watch('leftListCollapseStatus.isTopicsCollapsed', _onCollapseStatusChanged);
 
   $scope.goUnreadBelow = goUnreadBelow;
@@ -400,7 +408,7 @@ app.controller('leftPanelController1', function(
 
           accountService.setAccount(response);
 
-          publicService.setLanguageConfig();
+          publicService.setLanguageConfig(response.lang);
 
           _checkUpdateMessageStatus();
 
@@ -414,6 +422,10 @@ app.controller('leftPanelController1', function(
           property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
           property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
           AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+
+          // load된 controller, directive, service내 사용중인 translate
+          // variable을 변경하기 위해 changedLanguage event를 broadcast 함
+          jndPubSub.pub('changedLanguage');
         })
         .error(function(err) {
           var property = {};
