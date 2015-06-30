@@ -17,8 +17,7 @@
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
       closeModal: closeModal,
-      getLanguageSetting: getLanguageSetting,
-      setCurrentLanguage: setCurrentLanguage,
+      setLanguageConfig: setLanguageConfig,
       setDebugMode: setDebugMode,
       signOut: signOut,
       getBrowserInfo: getBrowserInfo,
@@ -29,7 +28,9 @@
       adjustBodyWrapperHeight: adjustBodyWrapperHeight,
       hideTransitionLoading: hideTransitionLoading,
       showTransitionLoading: showTransitionLoading,
+      reloadCurrentPage: reloadCurrentPage,
       openNewTab: openNewTab
+
     };
 
     return service;
@@ -79,14 +80,10 @@
 
     // Browser/OS may give us slightly different format for same language.
     // In such case, we reformat the language variable so that we can notify 'server' and 'translator' with correct language format.
-    function getLanguageSetting(curLang) {
-      language.getLanguageSetting(curLang);
+    function setLanguageConfig(curLang) {
+      language.setConfig(curLang);
     }
 
-    // Setting language for translator, nggettext
-    function setCurrentLanguage() {
-      language.setCurrentLanguage();
-    }
     // Setting debug mode for translator, nggettext
     function setDebugMode(isDebug) {
       language.setDebugMode(isDebug);
@@ -187,6 +184,20 @@
 
     function showTransitionLoading() {
       $rootScope.isReady = false;
+    }
+
+    /**
+     * current page reload
+     * @param {object} currentState
+     * @param {object} params
+     */
+    function reloadCurrentPage(currentState, params) {
+      // 현재 state 다시 로드
+      $state.transitionTo(currentState, params, {
+        reload: true,
+        inherit: false,
+        notify: true
+      });
     }
 
     function openNewTab(url) {

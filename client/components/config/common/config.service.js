@@ -37,6 +37,7 @@
       self.server_uploaded = configuration.api_address;
       self.api_version = configuration.api_version;
       self.name = configuration.name;
+      self.analytics_server = configuration.analytics_server;
 
       _setSocketMessageEventNames();
       _setSocketAnnouncementEventNames();

@@ -6,7 +6,7 @@ app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor) {
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper) {
 
   /**
    * @namespace
@@ -395,9 +395,12 @@ app.controller('leftPanelController1', function(
     if (_.isUndefined(accountService.getAccount())) {
       accountService.getAccountInfo()
         .success(function(response) {
+          var property = {};
+          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+
           accountService.setAccount(response);
-          publicService.getLanguageSetting();
-          publicService.setCurrentLanguage();
+
+          publicService.setLanguageConfig();
 
           _checkUpdateMessageStatus();
 
@@ -406,8 +409,23 @@ app.controller('leftPanelController1', function(
 
           analyticsService.memberIdentifyMixpanel();
           analyticsService.mixpanelTrack("Sign In");
+
+          //analytics
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+          property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
         })
         .error(function(err) {
+          var property = {};
+          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+
+          //analytics
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+          property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
+          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+
+
           leftpanelAPIservice.toSignin();
         })
     } else {
@@ -633,25 +651,49 @@ app.controller('leftPanelController1', function(
   });
 
   $scope.onStarClick = function(entityType, entityId) {
+    var property = {};
+    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
     var entity = entityAPIservice.getEntityById(entityType, entityId);
-
     if (entity.isStarred) {
       entityheaderAPIservice.removeStarEntity(entityId)
         .success(function(response) {
+
+          //Analtics Tracker. Not Block the Process
+
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+          property[PROPERTY_CONSTANT.TOPIC_ID] = entityId;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, property);
+
           getLeftLists();
           // TODO: UPDATE CURRENT ONLY.
           // TODO: CALL 'setStar()' afterwards.
         })
         .error(function(response) {
+
+          //Analtics Tracker. Not Block the Process
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+          property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, property);
         });
     }
     else {
       // current entity is not starred entity.
       entityheaderAPIservice.setStarEntity(entityId)
         .success(function(response) {
+
+          //Analtics Tracker. Not Block the Process
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+          property[PROPERTY_CONSTANT.TOPIC_ID] = entityId;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, property);
+
           getLeftLists();
         })
         .error(function(response) {
+
+          //Analtics Tracker. Not Block the Process
+          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+          property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, property);
         });
 
     }

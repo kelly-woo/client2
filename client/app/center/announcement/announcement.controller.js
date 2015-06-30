@@ -26,6 +26,8 @@
       minimized: false
     };
 
+    $scope.blockEvent = blockEvent;
+
     $scope.onAnnouncementArrowClicked = onAnnouncementArrowClicked;
     $scope.onHidedAnnouncementClicked = onHidedAnnouncementClicked;
 
@@ -135,7 +137,7 @@
      * announcement 우측 상단에 있는 화살표를 눌렀을 경우
      */
     function onAnnouncementArrowClicked(event) {
-      _blockEvent(event);
+      //blockEvent(event);
       if (isAnnouncementMinimized()) {
         maximizeAnnouncement();
       } else {
@@ -155,13 +157,13 @@
      * @param {object} event - click event object
      */
     function onAnnouncementBodyClicked(event) {
-      _blockEvent(event);
-
       var jqTarget = $(event.target);
+
+
 
       if (Announcement.isAnchorElement(jqTarget)) {
         // link clicked, go to link.
-        publicService.openNewTab(jqTarget.attr('href'));
+        //publicService.openNewTab(jqTarget.attr('href'));
       } else if (isAnnouncementMinimized()) {
         maximizeAnnouncement();
       } else if (Announcement.isOutsideAnnouncementBodyElement(jqTarget)) {
@@ -173,7 +175,7 @@
      * announcement writer 가 클릭되었을 경우 멤버 프로필 모달을 연다.
      */
     function onAnnouncementWriterClicked(event) {
-      _blockEvent(event);
+      //blockEvent(event);
       _openMemberProfileModal(_announcement.writerId);
     }
 
@@ -181,7 +183,7 @@
      * announcement creator 가 클릭되었을 경우 멤버 프로필 모달을 연다.
      */
     function onAnnouncementCreatorClicked(event) {
-      _blockEvent(event);
+      //blockEvent(event);
       _openMemberProfileModal(_announcement.creatorId);
     }
 
@@ -260,7 +262,7 @@
      * announcement 를 지운다.
      */
     function deleteAnnouncement(event) {
-      _blockEvent(event);
+      //_blockEvent(event);
 
       if (confirm($filter('translate')('@announcement-delete-confirm'))) {
         AnnouncementData.deleteAnnouncement(_topicId)
@@ -270,7 +272,7 @@
     }
 
     function toggleAnnouncementStatus(event) {
-      _blockEvent(event);
+      //_blockEvent(event);
 
       var isCurrentTopicAnnouncementOpen = !memberService.isAnnouncementOpen(_topicId);
       AnnouncementData.toggleAnnouncementStatus(myId, _topicId, isCurrentTopicAnnouncementOpen)
@@ -388,7 +390,7 @@
       _onGetAnnouncementSuccess(testResponse);
     }
 
-    function _blockEvent(event) {
+    function blockEvent(event) {
       event.preventDefault();
       event.stopPropagation();
     }
