@@ -985,6 +985,12 @@ by ysyun 2015.2.25
   background-color: #F1F4F8;
 }
 
+.attachment-content-wrapper .social-image>a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .attachment-content-wrapper img {
   position: absolute;
   margin: auto;
