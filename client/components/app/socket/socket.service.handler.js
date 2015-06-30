@@ -502,7 +502,7 @@
      * @private
      */
     function _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity) {
-      if (_isActionFromMe(writer.id) || isCurrentEntity) return;
+      if (_isActionFromMe(writer.id)) return;
 
       log('Send browser notification');
       DesktopNotification.addNotification(data, writer, roomEntity);
