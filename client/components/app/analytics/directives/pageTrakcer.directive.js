@@ -22,16 +22,18 @@
       var page = attributes.page;
       var title = attributes.title;
       var isValid = validationCheck(page, title);
-      
-      if (isValid) {
-        //Send Data to Google Analytics
-        GAHelper.pageTrack(page, title);
+      try {
+        if (isValid) {
+          //Send Data to Google Analytics
+          GAHelper.pageTrack(page, title);
 
-        //Send Data to Log Server
-        var property = {};
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.PAGE_VIEWED, setProperty(page));
-      } else {
-        AnalyticsHelper.error('PageTracker or PageTracker Undefined. Page: ' + page + ', title: ' + title, 'PageTracker.directive');
+          //Send Data to Log Server
+          var property = {};
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.PAGE_VIEWED, setProperty(page));
+        } else {
+          AnalyticsHelper.error('PageTracker or PageTracker Undefined. Page: ' + page + ', title: ' + title, 'PageTracker.directive');
+        }
+      } catch (e) {
       }
     }
     /**

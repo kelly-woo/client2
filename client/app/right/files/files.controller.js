@@ -355,9 +355,12 @@
 
           //analytics
           if ($scope.fileRequest.keyword !== "") {
-            property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.fileRequest.keyword;
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true; 
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
+            try {
+              property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.fileRequest.keyword;
+              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true; 
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
+            } catch (e) {
+            }
           }
 
           if (_isActivated) {
@@ -382,9 +385,12 @@
           var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
           //analytics
           if ($scope.fileRequest.keyword !== "") {
-            property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false; 
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
+            try {
+              property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
+              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false; 
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
+            } catch (e) {
+            }
           }
 
           console.log(response.msg);
