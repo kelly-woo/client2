@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function AnnouncementCtrl($scope, Announcement, AnnouncementData, memberService, $stateParams,
-                            config, jndPubSub, $filter, publicService) {
+                            config, jndPubSub, $filter) {
 
     var _topicType = $stateParams.entityType;
     var _topicId = parseInt($stateParams.entityId, 10);
@@ -20,13 +20,14 @@
     var ANNOUNCEMENT_DELETED = config.socketEvent.announcement.deleted;
     var ANNOUNCEMENT_STATUS_UPDATED = config.socketEvent.announcement.status_updated;
 
+    var hasOwnEventHandler = false;
+
     $scope.hasAnnouncement = false;
     $scope.displayStatus = {
       hide: false,
       minimized: false
     };
 
-    $scope.blockEvent = blockEvent;
 
     $scope.onAnnouncementArrowClicked = onAnnouncementArrowClicked;
     $scope.onHidedAnnouncementClicked = onHidedAnnouncementClicked;
@@ -136,8 +137,9 @@
     /**
      * announcement 우측 상단에 있는 화살표를 눌렀을 경우
      */
-    function onAnnouncementArrowClicked(event) {
-      //blockEvent(event);
+    function onAnnouncementArrowClicked() {
+      _setHasOwnEventHandler();
+
       if (isAnnouncementMinimized()) {
         maximizeAnnouncement();
       } else {
@@ -154,36 +156,43 @@
 
     /**
      * announcement 의 이벤트클릭을 받고 있다가 클릭된 부분이 어딘지에 따라 알맞는 펑션을 실행한다.
+     * 만약 'hasOwnEventHandler'가 true라면 이미 다른 function에서 이벤트를 핸들하였기때문에 아무것도 하지 않는다.
      * @param {object} event - click event object
      */
     function onAnnouncementBodyClicked(event) {
-      var jqTarget = $(event.target);
+      var jqTarget;
 
+      if (!hasOwnEventHandler) {
 
+        jqTarget = $(event.target);
 
-      if (Announcement.isAnchorElement(jqTarget)) {
-        // link clicked, go to link.
-        //publicService.openNewTab(jqTarget.attr('href'));
-      } else if (isAnnouncementMinimized()) {
-        maximizeAnnouncement();
-      } else if (Announcement.isOutsideAnnouncementBodyElement(jqTarget)) {
-        minimizeAnnouncement();
+        if (Announcement.isAnchorElement(jqTarget)) {
+          // link clicked, go to link.
+          //publicService.openNewTab(jqTarget.attr('href'));
+        } else if (isAnnouncementMinimized()) {
+          maximizeAnnouncement();
+        } else if (Announcement.isOutsideAnnouncementBodyElement(jqTarget)) {
+          minimizeAnnouncement();
+        }
       }
+
+      _resetHasOwnEventHandler();
+
     }
 
     /**
      * announcement writer 가 클릭되었을 경우 멤버 프로필 모달을 연다.
      */
-    function onAnnouncementWriterClicked(event) {
-      //blockEvent(event);
+    function onAnnouncementWriterClicked() {
+      _setHasOwnEventHandler();
       _openMemberProfileModal(_announcement.writerId);
     }
 
     /**
      * announcement creator 가 클릭되었을 경우 멤버 프로필 모달을 연다.
      */
-    function onAnnouncementCreatorClicked(event) {
-      //blockEvent(event);
+    function onAnnouncementCreatorClicked() {
+      _setHasOwnEventHandler();
       _openMemberProfileModal(_announcement.creatorId);
     }
 
@@ -261,23 +270,18 @@
     /**
      * announcement 를 지운다.
      */
-    function deleteAnnouncement(event) {
-      //_blockEvent(event);
-
+    function deleteAnnouncement() {
+      _setHasOwnEventHandler();
       if (confirm($filter('translate')('@announcement-delete-confirm'))) {
         AnnouncementData.deleteAnnouncement(_topicId)
           .success(_detachAnnouncement);
       }
-
     }
 
-    function toggleAnnouncementStatus(event) {
-      //_blockEvent(event);
-
+    function toggleAnnouncementStatus() {
+      _setHasOwnEventHandler();
       var isCurrentTopicAnnouncementOpen = !memberService.isAnnouncementOpen(_topicId);
       AnnouncementData.toggleAnnouncementStatus(myId, _topicId, isCurrentTopicAnnouncementOpen)
-        .success(function(response) {
-        })
         .error(function(err) {
           console.log(err)
         })
@@ -359,40 +363,21 @@
       return Announcement.isCurrentTopic(eventTopic, _topicId);
     }
 
-    function test() {
-      var testResponse = {
-        "content": "모바일쪽에서 채팅목록 보여줄때 마지막 스티커를 (sticker) 로 보여주는 기능 개발해서 5000포트에 반영했습니다.",
-        "writerId": 296,
-        "messageId": 493024,
-        "topicId": 314,
-        "teamId": 279,
-        "writtenAt": "2015-06-10T03:25:55.194Z",
-        "status": "created",
-        "creatorId": 285,
-        "createdAt": "2015-06-23T04:05:19.275Z"
-      };
-
-      _onGetAnnouncementSuccess(testResponse);
-    }
-    function testWithLink() {
-      var testResponse = {
-        "content": "의자 http://shopping.naver.com/detail/detail.nhn?query=%EB%93%80%EC%98%A4%EB%B0%B1%20%EC%82%AC%EB%AC%B4%EC%9A%A9%EC%9D%98%EC%9E%90&cat_id=50003683&nv_mid=7885019416&frm=NVSCPRO 모바일쪽에서 채팅목록 보여줄때 마지막 스티커를 (sticker) 로 보여주는 기능 개발해서 5000포트에 반영했습니다.\n\n0 모바일쪽에서 채팅목록 보여줄때 마지막 스티커를 (sticker) 로 보여주는 기능 개발해서 5000포트에 반영했습니다.\n\n\n 모바일쪽에서 채팅목록 보여줄때 마지막 스티커를 (sticker) 로 보여주는 기능 개발해서 5000포트에 반영했습니다1. " +
-        "모바일쪽에서 채팅목록 보여줄때 마지막 스티커를 (sticker) 로 보여주는 기능 개발해서 5000포트에 반영했습니다0",
-        "writerId": 296,
-        "messageId": 493024,
-        "topicId": 314,
-        "teamId": 279,
-        "writtenAt": "2015-06-10T03:25:55.194Z",
-        "status": "created",
-        "creatorId": 285,
-        "createdAt": "2015-06-23T04:05:19.275Z"
-      };
-      _onGetAnnouncementSuccess(testResponse);
+    /**
+     * hasOwnEventHandler flag를 true로 만든다.
+     * @private
+     */
+    function _setHasOwnEventHandler() {
+      hasOwnEventHandler = true;
     }
 
-    function blockEvent(event) {
-      event.preventDefault();
-      event.stopPropagation();
+    /**
+     * hasOwnEventHandler flag를 false로 만든다.
+     * @private
+     */
+    function _resetHasOwnEventHandler() {
+      hasOwnEventHandler = false;
     }
+
   }
 })();

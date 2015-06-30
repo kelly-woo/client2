@@ -4,7 +4,7 @@
   <!-- hide 된 announcement  -->
   <div class="announcement-horn jnd-text-center pull-right jnd-cursor-pointer"
        ng-if="isAnnouncementHided();"
-       ng-click="toggleAnnouncementStatus($event);">
+       ng-click="toggleAnnouncementStatus();">
     <i class="icon-bullhorn"></i>
   </div>
 
@@ -17,7 +17,7 @@
 
     <!-- announcement 오른쪽 위 화살표 -->
     <div class="announcement-arrow-container jnd-cursor-pointer"
-         ng-click="onAnnouncementArrowClicked($event);">
+         ng-click="onAnnouncementArrowClicked();">
       <i class="announcement-minimize__arrow"
          ng-class="{'icon-up': !isAnnouncmentMinimized(),
                       'icon-down': isAnnouncmentMinimized()}"></i>
@@ -25,7 +25,7 @@
 
     <!-- profile picture thumbnail  -->
     <div class="announcement-owner__thumbnail pull-left jnd-cursor-pointer"
-         ng-click="onAnnouncementWriterClicked($event);">
+         ng-click="onAnnouncementWriterClicked();">
       <div class="" image-loader="{{announcementWriter.profilePic}}"></div>
     </div>
 
@@ -36,7 +36,7 @@
       <div class="announcement-header">
         <i class="fa fa-user"></i>
         <span class="announcement-owner__name jnd-cursor-pointer"
-              ng-click="onAnnouncementWriterClicked($event);">
+              ng-click="onAnnouncementWriterClicked();">
           {{announcementWriter.name}}
         </span>
         <i class="fa fa-clock-o"></i>
@@ -58,7 +58,7 @@
                ng-if="!isAnnouncmentMinimized()">
             By
             <span class="announcement-creator__name jnd-cursor-pointer"
-                  ng-click="onAnnouncementCreatorClicked($event);">
+                  ng-click="onAnnouncementCreatorClicked();">
               {{announcementCreator.name}}
             </span>
             -
@@ -76,7 +76,7 @@
 
       <!-- 최소화하기 -->
       <div class="announcement-hide-container announcement-option pull-right jnd-cursor-pointer"
-           ng-click="toggleAnnouncementStatus($event);">
+           ng-click="toggleAnnouncementStatus();">
         <i class="icon-minimize maximized-announcement__icon"></i>
         <span class="maximized-announcement-icon__text" translate>
           @announcement-hide
@@ -85,7 +85,7 @@
 
       <!-- 삭제하기 -->
       <div class="announcement-delete-container announcement-option pull-right jnd-cursor-pointer"
-           ng-click="deleteAnnouncement($event);">
+           ng-click="deleteAnnouncement();">
         <i class="fa fa-trash maximized-announcement__icon"></i>
         <span class="maximized-announcement-icon__text" translate>
           @btn-delete

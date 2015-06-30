@@ -16,6 +16,8 @@
     this.isAnchorElement = isAnchorElement;
     this.isOutsideAnnouncementBodyElement = isOutsideAnnouncementBodyElement;
 
+    this.getCallbackAttribute = getCallbackAttribute;
+
     /**
      * 메세지를 노출하기 알맞게 가공한다.
      * @param {object} msg 메세지
@@ -100,6 +102,11 @@
      */
     function isOutsideAnnouncementBodyElement(jqElement) {
       return _.isEmpty(jqElement.closest('.announcement-body'));
+    }
+
+
+    function getCallbackAttribute(jqElement) {
+      return jqElement.attr('data-callback-function');
     }
   }
 })();
