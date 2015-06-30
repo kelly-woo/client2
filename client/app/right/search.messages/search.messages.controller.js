@@ -6,7 +6,7 @@
     .controller('rPanelMessageTabCtrl', rPanelMessageTabCtrl);
 
   /* @ngInject */
-  function rPanelMessageTabCtrl($scope, $rootScope, fileAPIservice, messageSearchHelper, accountService, $filter, AnalyticsHelper) {
+  function rPanelMessageTabCtrl($scope, $rootScope, $filter, fileAPIservice, messageSearchHelper, accountService, AnalyticsHelper) {
 
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
@@ -40,6 +40,7 @@
       _initMessageSearchQuery();
       _initChatRoomOption();
       _initChatWriterOption();
+      _setLanguageVariable();
 
       searchMessages();
       //test()
@@ -85,6 +86,16 @@
     });
     $scope.$on('onrPanelFileTabSelected', function() {
       _isActivated = false;
+    });
+
+    /**
+     * language 변경 event handling
+     */
+    $scope.$on('changedLanguage', function() {
+      _setLanguageVariable();
+
+      // messageLocation 초기화 하여 shared entity list를 갱신함.
+      $scope.messageLocation = null;
     });
 
     // When entity location filter is changed.
@@ -385,7 +396,13 @@
 
       searchMessages();
     }
+
+    /**
+     * controller내 사용되는 translate variable 설정
+     */
+    function _setLanguageVariable() {
+      $scope.allRooms = $filter('translate')('@option-all-rooms');
+      $scope.allMembers = $filter('translate')('@option-all-members');
+    }
   }
-
-
 })();

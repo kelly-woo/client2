@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, modalHelper, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper, logger, AnalyticsHelper) {
+  function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, modalHelper, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper, logger, AnalyticsHelper) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -140,6 +140,15 @@
       _initSharedByFilter(localCurrentEntity);
     });
 
+    /**
+     * language 변경 event handling
+     */
+    $scope.$on('changedLanguage', function() {
+      _setLanguageVariable();
+
+      // sharedEntitySearchQuery 초기화 하여 shared entity list를 갱신함.
+      $scope.sharedEntitySearchQuery = null;
+    });
 
     function _refreshFileList() {
       if (!_isFileTabActive()) return;
@@ -173,10 +182,11 @@
 
       fileIdMap = {};
 
-      _initFileTypeFilter();
+
       _initSharedInFilter();
       _initSharedByFilter(localCurrentEntity);
       _setDefaultSharedByFilter();
+      _setLanguageVariable();
 
       localCurrentEntity = currentSessionHelper.getCurrentEntity();
 
@@ -348,7 +358,7 @@
 
       fileAPIservice.getFileList($scope.fileRequest)
         .success(function(response) {
-          
+
           var property = {};
           var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
           var fileList = [];
@@ -356,7 +366,7 @@
           //analytics
           if ($scope.fileRequest.keyword !== "") {
             property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.fileRequest.keyword;
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true; 
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
             AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
           }
 
@@ -383,7 +393,7 @@
           //analytics
           if ($scope.fileRequest.keyword !== "") {
             property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false; 
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
             AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
           }
 
@@ -559,7 +569,15 @@
     function _isFileWriterIdDefault() {
       return $scope.fileRequest.writerId === 'all';
     }
+
+    /**
+     * controller내 사용되는 translate variable 설정
+     */
+    function _setLanguageVariable() {
+      $scope.allRooms = $filter('translate')('@option-all-rooms');
+      $scope.allMembers = $filter('translate')('@option-all-members');
+
+      _initFileTypeFilter();
+    }
   }
-
-
 })();
