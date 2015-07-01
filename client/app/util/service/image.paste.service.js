@@ -1,3 +1,6 @@
+/**
+ * @fileoverview clipboard의 image data를 web-front에서 get하는 service를 제공함.
+ */
 (function() {
   'use strict';
 
@@ -5,13 +8,13 @@
     .module('jandiApp')
     .factory('ImagePaste', ImagePaste);
 
-  function ImagePaste($timeout) {
-    var KEY_V = 86; // v key
+  function ImagePaste($timeout, jndKeyCode, Browser) {
     var CTRL_KEY_NAME = /win/ig.test(navigator.platform) ? 'ctrlKey' : 'metaKey';
     var TYPE = 'image/png';
 
     var regxImage = /image/;
     var regxHTMLImage = /^(?:|<meta (?:[^>]+)>)<img src="([^"]+)"(?:[^\/^>]+)(?:[^>]+)(?:|\/)>(?:|.)$/;
+
     var array = [];
     var slice = array.slice;
 
@@ -62,12 +65,12 @@
     /**
      * image 붙여넣기 command가 수행될 dom element에 대한 처리
      */
-    var PasteImageTarget = {
+    var PasteContentTarget = {
       /**
        * @contstructor
        * @param {element} jqEle                     - image 붙여넣기 command 대상 dom element
-       * @param {PasteImage} wrapper                - dom element의 window object의 event를 처리하는 wrapper object
-       * @param {function} options
+       * @param {PasteContent} wrapper              - dom element의 window object의 event를 처리하는 wrapper object
+       * @param {object} options
        * @param {function} options.onImageLoading   - image loading event handler
        * @param {function} options.onImageLoad      - image load event handler
        * @param {function} options.onImageLoaded    - image loaded event handler
@@ -81,10 +84,9 @@
             onImageLoad: function() {},
             onImageLoaded: function() {}
         };
-
-        wrapper.addTarget(jqEle.data('pasteImageTarget', that));
-
         jQuery.extend(that.options, options);
+
+        jqEle.data('pasteContentTarget', that);
 
         return that;
       },
@@ -152,16 +154,26 @@
       getClipboardText: function() {
         var that = this;
         var value = that.jqEle.val();
-        var clipText = that.jqEditContent.text();
         var start = that.contentEditableEvent.start;
         var end = that.contentEditableEvent.end;
+        var clipText = '';
+        var childNodes;
+        var childNode;
+        var i;
+        var len;
 
-        // console.log('clipboard text ::: ', that.contentEditableEvent);
-        // console.log(value.substr(0, start), clipText, value.substr(end, value.length - 1));
-        // console.log( that.jqEle.val(), start, clipText.length);
+        childNodes = that.jqEditContent[0].childNodes;
+        len = childNodes.length - (Browser.firefox ? 1 : 0);
+        for (i = 0; i < len; ++i) {
+          childNode = childNodes[i];
+          if (childNode.nodeType === 3 && childNode.nodeValue != null) {
+            clipText += childNode.nodeValue;
+          } else {
+            clipText += '\n';
+          }
+        }
 
-        that.jqEle.val(value.substr(0, start) + clipText + value.substr(end, value.length - 1));
-
+        that.jqEle.val(value.substr(0, start) + clipText + value.substr(end, value.length - 1)).trigger('change');
         that.removeClipboardContent(function() {
           // default 붙여넣기 한 것 처럼 text selection을 수정함
           setSelection(that.jqEle[0], start + clipText.length);
@@ -178,7 +190,7 @@
         var jqEditContent;
         var eventLock = false;
 
-        that.jqEditContent = jqEditContent = $('<div contentEditable="true" style="position: fixed; top: -50000px; width: 1px; height: 1px;" ></div>').appendTo('body');
+        that.jqEditContent = jqEditContent = $('<div contentEditable="true" style="position: fixed; top: 50000px; width: 1px; height: 1px;" ></div>').appendTo('body');
         jqEditContent.focus();
 
         // event capture하여 img element 생성 여부 판단
@@ -239,52 +251,38 @@
     /**
      * image 붙여넣기가 수행된 dom element의 window에 대한 처리
      */
-    var PasteImage = {
+    var PasteContent = {
       /**
        * @constructor
        */
-      init: function(options) {
+      init: function() {
         var that = this;
 
         that.jqWindow = $(window);
-        that.targets = [];
-
-        that.options = {};
-
-        jQuery.extend(that.options, options);
 
         that._on();
 
         return that;
       },
       /**
-       * window에서 붙여넣기 command가 사용되어 지는 대상 element 추가
-       * @param {element} jqTarget - 대상 element
-       */
-      addTarget: function(jqTarget) {
-        var that = this;
-
-        that.targets.push(jqTarget);
-      },
-      /**
        * window에 붙여넣기 처리를 위한 event handler 설정함
        */
       _on: function() {
         var that = this;
-        var pasteImageTargets = [];
-        var pasteImageTarget;
+        var pasteContentTargets = [];
+        var pasteContentTarget;
 
         // paste event handler에서 clipboard data를 get 할 수 있다면 keydown handler에서 ctrl+v command인지 확인하지
         // 않아도 되지만 그렇지 않은 상황 처리를 위해 keydown event handler에서 ctrl+v command 인지 확인하여
         // 구라 clipboard인 contentEditable element를 생성함
         that.jqWindow.on('keydown', function keydown(evt) {
-          if ((!document.documentMode || document.documentMode > 10) && that._isPaste(evt)) {
-            if (pasteImageTarget = $(evt.target).data('pasteImageTarget')) {
-              pasteImageTargets.push(pasteImageTarget);
+          if ((!Browser.msie || Browser.version > 10) && that._isPaste(evt)) {
+            if (pasteContentTarget = $(evt.target).data('pasteContentTarget')) {
+              pasteContentTargets.push(pasteContentTarget);
 
               // console.log('is keydown paste', evt);
-              pasteImageTarget.initContentEditableEvent();
-              pasteImageTarget.createClipboardContent(evt);
+              pasteContentTarget.initContentEditableEvent();
+              pasteContentTarget.createClipboardContent(evt);
             }
           }
         });
@@ -292,28 +290,28 @@
         that.jqWindow.on('paste', function paste(evt) {
           evt = evt.originalEvent;
 
-          if (pasteImageTarget = pasteImageTargets.shift()) {
+          if (pasteContentTarget = pasteContentTargets.shift()) {
             if (that._hasClipboardData(evt)) {
               // clipboard에서 image data get 가능
 
               if (that._isImagePaste(evt)) {
-                pasteImageTarget.getClipboardImage(evt);
+                pasteContentTarget.getClipboardImage(evt);
               } else {
-                pasteImageTarget.removeClipboardContent();
+                pasteContentTarget.removeClipboardContent();
               }
             } else {
               // clipboard에서 image data get 가능하지 않아 contentEditable을 사용하여 image/text data get함
 
               // contentEditable element에 focus가 바로 이동하지 않으므로 setTime으로 contentEditable element에 focus가 간 상황 다음에 동작하도록 함
-              $timeout((function(pasteImageTarget) {
+              $timeout((function(pasteContentTarget) {
                 return function() {
-                  if (that._isContentEditableImagePaste(pasteImageTarget)) {
-                    pasteImageTarget.getClipboardImage();
-                  } else if (that._isContentEditableTextPaste(pasteImageTarget)) {
-                    pasteImageTarget.getClipboardText();
+                  if (that._isContentEditableImagePaste(pasteContentTarget)) {
+                    pasteContentTarget.getClipboardImage();
+                  } else if (that._isContentEditableTextPaste(pasteContentTarget)) {
+                    pasteContentTarget.getClipboardText();
                   }
                 };
-              }(pasteImageTarget)));
+              }(pasteContentTarget)));
             }
           }
         });
@@ -330,7 +328,7 @@
        * @param {object} evt
        */
       _isPaste: function(evt) {
-        return evt[CTRL_KEY_NAME] && evt.which === KEY_V;
+        return evt[CTRL_KEY_NAME] && jndKeyCode.match('CHAR_V', evt.which);
       },
       /**
        * image를 붙여넣기 하는지 여부
@@ -381,25 +379,25 @@
       },
       /**
        * contentEditable element에 image 붙여넣기 인지 여부
-       * @param {PasteImageTarget} pasteImageTarget
+       * @param {PasteContentTarget} pasteContentTarget
        */
-      _isContentEditableImagePaste: function(pasteImageTarget) {
-        return !pasteImageTarget.jqEditContent.text();
+      _isContentEditableImagePaste: function(pasteContentTarget) {
+        return !pasteContentTarget.jqEditContent.text();
       },
       /**
        * contentEditable element에 text 붙여넣기 인지 여부
-       * @param {PasteImageTarget} pasteImageTarget
+       * @param {PasteContentTarget} pasteContentTarget
        */
-      _isContentEditableTextPaste: function(pasteImageTarget) {
-        return !!pasteImageTarget.jqEditContent.text();
+      _isContentEditableTextPaste: function(pasteContentTarget) {
+        return !!pasteContentTarget.jqEditContent.text();
       }
     };
 
-    var pasteImage = Object.create(PasteImage).init();
+    var pasteContent = Object.create(PasteContent).init();
 
     return {
       createInstance: function(ele, options) {
-        return Object.create(PasteImageTarget).init(ele, pasteImage, options);
+        return Object.create(PasteContentTarget).init(ele, pasteContent, options);
       }
     };
   }
