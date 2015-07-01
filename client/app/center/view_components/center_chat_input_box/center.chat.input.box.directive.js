@@ -49,9 +49,7 @@
       ImagePaste.createInstance(messageInput, {
         // image data 되기 직전 event handler
         onImageLoading: function() {
-          scope.$apply(function(scope) {
-            scope.isLoading = true;
-          });
+          scope.isLoading = true;
         },
         // image load 된 후 event handler
         onImageLoad: function(data) {
@@ -78,9 +76,7 @@
         },
         // image load 된 후 image load시 변경된 상태가 정리된 후 event handler
         onImageLoaded: function() {
-          scope.$apply(function(scope) {
-            scope.isLoading = false;
-          });
+          scope.isLoading = false;
         }
       });
     }
