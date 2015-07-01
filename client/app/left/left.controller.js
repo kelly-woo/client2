@@ -623,7 +623,7 @@ app.controller('leftPanelController1', function(
     modalHelper.openMemberProfileModal($scope, user);
   };
 
-  // based on uesr.u_starredEntites, populating starred look-up list.
+  // based on uesr.u_starredEntities, populating starred look-up list.
   function setStar() {
     _.forEach(memberService.getStarredEntities(), function(starredEntityId) {
       entityAPIservice.setStarred(starredEntityId);
