@@ -496,20 +496,41 @@
     }
 
     /**
-     * Send browser notification only for non-current entity.
-     *
-     * @param room
+     * Send notification except when current entity has focus.
+     * @param {object} data - data object passed with socket event
+     * @param {object} roomEntity - to entity
+     * @param {object} writer - writer object
+     * @param {boolean} isCurrentEntity - true if notification is to current entity
      * @private
      */
     function _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity) {
-      if (_isActionFromMe(writer.id)) return;
-      if (isCurrentEntity && !currentSessionHelper.isBrowserHidden()) return;
+      if (_shouldSendNotification(writer, isCurrentEntity)) {
+        log('Send browser notification');
+        DesktopNotification.addNotification(data, writer, roomEntity);
+      }
 
-
-      log('Send browser notification');
-      DesktopNotification.addNotification(data, writer, roomEntity);
     }
 
+    /**
+     * 노티피케이션을 보내야하는 상황인지 아닌지 확인한다.
+     * @param {object} writer - 노티를 보낸 사람
+     * @param {boolean} isCurrentEntity - 현재 엔티티인지 아닌지 알려주는 flag
+     * @returns {boolean}
+     * @private
+     */
+    function _shouldSendNotification(writer, isCurrentEntity) {
+      if (_isActionFromMe(writer.id)) {
+        // 내가 보낸 노티일 경우
+        return false;
+      }
+
+      if (isCurrentEntity && !currentSessionHelper.isBrowserHidden()) {
+        // 현재 보고있는 토픽에 노티가 왔는데 브라우져가 focus를 가지고 있을 때
+        return false;
+      }
+
+      return true;
+    }
     /**
      * left panel을 업데이트한다.
      * @private
