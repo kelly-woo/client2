@@ -52,11 +52,13 @@
           
           var property = {};
           var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = shareChannel.id;
-          property[PROPERTY_CONSTANT.FILE_ID] = $scope.file.id;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_SHARE, property);
+          try {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.TOPIC_ID] = shareChannel.id;
+            property[PROPERTY_CONSTANT.FILE_ID] = $scope.file.id;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_SHARE, property);
+          } catch (e) {
+          }
 
           _onShareSuccess();
         })
@@ -66,9 +68,12 @@
           var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
           //analytics
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_SHARE, property);
+          try {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_SHARE, property);
+          } catch (e) {
+          }
 
           console.log('onFileShareClick', error.code, error.msg);
         });

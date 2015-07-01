@@ -41,6 +41,7 @@
       _initMessageSearchQuery();
       _initChatRoomOption();
       _initChatWriterOption();
+      _setLanguageVariable();
 
       searchMessages();
       //test()
@@ -88,6 +89,16 @@
       _isActivated = false;
     });
 
+    /**
+     * language 변경 event handling
+     */
+    $scope.$on('changedLanguage', function() {
+      _setLanguageVariable();
+
+      // messageLocation 초기화 하여 shared entity list를 갱신함.
+      $scope.messageLocation = null;
+    });
+
     // When entity location filter is changed.
     function updateMessageLocationFilter() {
       _refreshSearchQuery();
@@ -128,19 +139,25 @@
             _updateSearchStatusTotalCount(response.cursor.totalCount);
 
             //analytics
-            property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.searchQuery.q;
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+            try {
+              property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.searchQuery.q;
+              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+            } catch (e) {
+            }
           }
         })
         .error(function(err) {
           if (_isActivated) {
             console.log(err);
 
-            //analytics
-            property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+            try {
+              //analytics
+              property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+            } catch (e) {
+            }
 
             _onMessageSearchErr(err);
           }
@@ -386,7 +403,13 @@
 
       searchMessages();
     }
+
+    /**
+     * controller내 사용되는 translate variable 설정
+     */
+    function _setLanguageVariable() {
+      $scope.allRooms = $filter('translate')('@option-all-rooms');
+      $scope.allMembers = $filter('translate')('@option-all-members');
+    }
   }
-
-
 })();
