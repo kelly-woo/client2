@@ -330,7 +330,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function loadMore() {
     var deferred = $q.defer();
 
-    if (!$scope.msgLoadStatus.loading && !$scope.isPosting) {
+    if (!$scope.msgLoadStatus.loading) {
 
       loadedFirstMessagedId = MessageCollection.getFirstLinkId();
       loadedLastMessageId = MessageCollection.getLastLinkId();
@@ -546,7 +546,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateList() {
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
-    if ($scope.msgLoadStatus.loading || $scope.isPosting || _isUpdateListLock) {
+    if ($scope.msgLoadStatus.loading || _isUpdateListLock) {
       return;
     }
     _isUpdateListLock = true;
@@ -599,7 +599,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var msg;
     // Prevent duplicate messages in center panel.
     if (length && MessageCollection.getLastLinkId() < messages[0].id) {
-      $scope.isPosting = $scope.isPosting ? false : $scope.isPosting;
       // auto focus to textarea
       $scope.focusPostMessage = true;
       MessageCollection.removeAllSendingMessages();
@@ -769,7 +768,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isPosting = false;
     var queue = MessageCollection.getQueue();
     MessageCollection.spliceQueue(0, length);
-    console.log('success', length, queue);
     if (queue.length > 0) {
       _postMessages();
     } else {
