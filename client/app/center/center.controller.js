@@ -27,9 +27,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   var lastUpdatedLinkId = -1;
-
   var systemMessageCount;         // system event message의 갯수를 keep track 한다.
-
   var hasRetryGetRoomInfo;        // Indicates that whether current entity has failed getting room info once.
 
   // _scrollToBottom fn timer variable
@@ -87,7 +85,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.isTextType = isTextType;
   $scope.isCommentType = isCommentType;
-  $scope.isDayChanged = MessageCollection.isDayChanged;
+  $scope.isNewDate = MessageCollection.isNewDate;
   $scope.hasLinkPreview = MessageCollection.hasLinkPreview;
 
   $scope.isChildText = MessageCollection.isChildText;
