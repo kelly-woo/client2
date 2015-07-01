@@ -188,15 +188,15 @@
         var options = that.options;
         var jqEle = that.jqEle;
         var jqEditContent;
-        var eventLock = false;
 
+        that.eventLock = false;
         that.jqEditContent = jqEditContent = $('<div contentEditable="true" style="position: fixed; top: 50000px; width: 1px; height: 1px;" ></div>').appendTo('body');
         jqEditContent.focus();
 
         // event capture하여 img element 생성 여부 판단
         jqEditContent[0].addEventListener("load", function() {
-          if (!eventLock) {
-            eventLock = true;
+          if (!that.eventLock) {
+            that.eventLock = true;
 
             that.onImageLoading();
             that._imageLoad();
@@ -309,6 +309,9 @@
                     pasteContentTarget.getClipboardImage();
                   } else if (that._isContentEditableTextPaste(pasteContentTarget)) {
                     pasteContentTarget.getClipboardText();
+                  } else {
+                    pasteContentTarget.eventLock = true;
+                    pasteContentTarget.removeClipboardContent();
                   }
                 };
               }(pasteContentTarget)));
@@ -382,7 +385,8 @@
        * @param {PasteContentTarget} pasteContentTarget
        */
       _isContentEditableImagePaste: function(pasteContentTarget) {
-        return !pasteContentTarget.jqEditContent.text();
+        var img = pasteContentTarget.jqEditContent.children('img');
+        return !pasteContentTarget.jqEditContent.text() && (!img.length || !/^http/.test(img[0].src));
       },
       /**
        * contentEditable element에 text 붙여넣기 인지 여부
