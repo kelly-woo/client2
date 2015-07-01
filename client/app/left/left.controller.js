@@ -66,6 +66,14 @@ app.controller('leftPanelController1', function(
     _setAfterLeftInit(param);
   });
 
+  /**
+   * language 변경 event handling
+   */
+  $scope.$on('changedLanguage', function() {
+    //  Setting prefix for each entity.
+    setEntityPrefix();
+  });
+
   $scope.$watch('leftListCollapseStatus.isTopicsCollapsed', _onCollapseStatusChanged);
 
   $scope.goUnreadBelow = goUnreadBelow;
@@ -400,7 +408,7 @@ app.controller('leftPanelController1', function(
 
           accountService.setAccount(response);
 
-          publicService.setLanguageConfig();
+          publicService.setLanguageConfig(response.lang);
 
           _checkUpdateMessageStatus();
 
@@ -411,20 +419,29 @@ app.controller('leftPanelController1', function(
           analyticsService.mixpanelTrack("Sign In");
 
           //analytics
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+          try {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+          } catch (e) {
+          }
+
+          // load된 controller, directive, service내 사용중인 translate
+          // variable을 변경하기 위해 changedLanguage event를 broadcast 함
+          jndPubSub.pub('changedLanguage');
         })
         .error(function(err) {
           var property = {};
           var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
           //analytics
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
-
+          try {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+          } catch (e) {
+          }
 
           leftpanelAPIservice.toSignin();
         })
@@ -659,10 +676,12 @@ app.controller('leftPanelController1', function(
         .success(function(response) {
 
           //Analtics Tracker. Not Block the Process
-
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = entityId;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, property);
+          try {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.TOPIC_ID] = entityId;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, property);
+          } catch (e) {
+          }
 
           getLeftLists();
           // TODO: UPDATE CURRENT ONLY.
@@ -671,29 +690,38 @@ app.controller('leftPanelController1', function(
         .error(function(response) {
 
           //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, property);
+          try {
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, property);
+          } catch (e) {
+          }
+
         });
     }
     else {
       // current entity is not starred entity.
       entityheaderAPIservice.setStarEntity(entityId)
         .success(function(response) {
-
-          //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = entityId;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, property);
+          try {
+            //Analtics Tracker. Not Block the Process
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+            property[PROPERTY_CONSTANT.TOPIC_ID] = entityId;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, property);
+          } catch (e) {
+          }
 
           getLeftLists();
         })
         .error(function(response) {
+          try {
+            //Analtics Tracker. Not Block the Process
+            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+            property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, property);
+          } catch (e) {
 
-          //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, property);
+          }
         });
 
     }

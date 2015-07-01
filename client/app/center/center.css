@@ -980,8 +980,15 @@ by ysyun 2015.2.25
   width: 110px;
   height: 110px;
 
+  cursor: pointer;
   outline: 1px solid #e1e1e1;
   background-color: #F1F4F8;
+}
+
+.attachment-content-wrapper .social-image>a {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .attachment-content-wrapper img {

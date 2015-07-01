@@ -55,7 +55,7 @@
         for (i = 0, len = that.options.multiple ? $files.length : 1; i < len; ++i) {
           file = options.createFileObject ? options.createFileObject($files[i]) : $files[i];
 
-          // file size check 100MB이상은 upload 하지 않음
+          // file size check 300MB이상은 upload 하지 않음
           if (options.validateFileSize && fileAPIservice.isFileTooLarge(file)) {
               files.splice(i, 1);
               --i;

@@ -10,7 +10,13 @@
     .controller('rPanelSearchCtrl', rPanelSearchCtrl);
 
   /* @ngInject */
-  function rPanelSearchCtrl($scope, jndPubSub) {
+  function rPanelSearchCtrl($scope, $filter, jndPubSub) {
+    _init();
+
+    // First function to be called.
+    function _init() {
+      _setLanguageVariable();
+    }
 
     /**
      * search box 안에 값이 입력이 되고 사용자가 enter 를 눌렀을 경우 실행된다.
@@ -35,6 +41,13 @@
     });
 
     /**
+     * language 변경 event handling
+     */
+    $scope.$on('changedLanguage', function() {
+      _setLanguageVariable();
+    });
+
+    /**
      * 현재 가지고 있는 keyword 를 reset 한다.
      * @private
      */
@@ -50,6 +63,11 @@
       $('#right-panel-search-box').focus();
     }
 
+    /**
+     * controller내 사용되는 translate variable 설정
+     */
+    function _setLanguageVariable() {
+      $scope.placeholder = $filter('translate')('@input-search-file-title');
+    }
   }
 })();
-

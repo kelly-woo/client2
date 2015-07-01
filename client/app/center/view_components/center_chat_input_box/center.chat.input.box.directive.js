@@ -35,9 +35,6 @@
           integrationService.createDropBox(scope, {multiple: multiple, event: evt});
         }
       };
-      // file upload menu의 각 item image pre-load
-      var iconGoogleDrive = new Image();
-      var iconDropbox = new Image();
 
       menu
         .on('click', 'li', function(evt) {
@@ -48,12 +45,6 @@
             fn(evt);
           }
         });
-
-      iconGoogleDrive.src = configuration.assets_url + 'assets/images/icon_google_drive.png';
-      iconDropbox.src = configuration.assets_url + 'assets/images/icon_dropbox.png';
-
-      menu.find('.icon-google-drive').css({backgroundImage: iconGoogleDrive.src});
-      menu.find('.icon-dropbox').css({backgroundImage: iconDropbox.src});
 
       if (configuration.name !== 'staging') {
         ImagePaste.createInstance(messageInput, {
