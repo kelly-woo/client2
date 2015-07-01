@@ -40,8 +40,6 @@
     $scope.onLanguageClick = onLanguageClick;
 
     function onLanguageClick(lang) {
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       var currentLang = accountService.getAccountLanguage();
       if (currentLang === lang) return;
 
@@ -53,10 +51,11 @@
         .success(function(response) {
           //Analtics Tracker. Not Block the Process
           try {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            property[PROPERTY_CONSTANT.PREVIOUS_LANGUAGE] = currentLang;
-            property[PROPERTY_CONSTANT.CURRENT_LANGUAGE] = lang;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.LANGUAGE_CHANGE, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.LANGUAGE_CHANGE, {
+              'RESPONSE_SUCCESS': true,
+              'PREVIOUS_LANGUAGE': currentLang,
+              'CURRENT_LANGUAGE': lang
+            });
           } catch (e) {
           }
 
@@ -72,11 +71,12 @@
           console.log(err);
           //Analtics Tracker. Not Block the Process
           try {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-            property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-            property[PROPERTY_CONSTANT.PREVIOUS_LANGUAGE] = currentLang;
-            property[PROPERTY_CONSTANT.CURRENT_LANGUAGE] = lang;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.LANGUAGE_CHANGE, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.LANGUAGE_CHANGE, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': err.code,
+              'PREVIOUS_LANGUAGE': currentLang,
+              'CURRENT_LANGUAGE': lang
+            });
           } catch (e) {
           }
 

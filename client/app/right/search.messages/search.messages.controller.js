@@ -117,8 +117,6 @@
      * 메세지를 찾는다.
      */
     function searchMessages() {
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
       if (_isLoading() || !$scope.searchQuery.q || isLastPage ) return;
 
@@ -139,9 +137,10 @@
 
             //analytics
             try {
-              property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.searchQuery.q;
-              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, {
+                'RESPONSE_SUCCESS': true,
+                'SEARCH_KEYWORD': $scope.searchQuery.q
+              });
             } catch (e) {
             }
           }
@@ -152,9 +151,10 @@
 
             try {
               //analytics
-              property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, property);
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, {
+                'RESPONSE_SUCCESS': true,
+                'ERROR_CODE': err.code
+              });
             } catch (e) {
             }
 

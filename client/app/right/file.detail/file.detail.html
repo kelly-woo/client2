@@ -9,9 +9,9 @@
 
   <!-- FILE -->
   <div class="rpanel-body-content file-detail" file-detail ng-show="!isFileArchived && !hasFileAPIError">
-    <page-tracker page="files/detail" title="File Detail"></page-tracker>
+    
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
-
+    <page-tracker page="files/detail" title="File Detail"></page-tracker>
       <div class="file-detail-header">
         <div class="file-detail-header-box"
              ng-class="{'file-detail-disabled-member': isDisabledMember(file_detail.writer)}">

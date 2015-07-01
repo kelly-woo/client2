@@ -20,9 +20,14 @@
       PROPERTIES: 'pr',
       PLATFORM: 'pl'
     };
-
-    this.LANGUAGE_SET = ['kr', 'en', 'jp', 'zh-cn', 'zh-tw' ];
     
+    this.LANGUAGE_MAP = {
+      'en_US': 'en',
+      'ko': 'kr',
+      'jp': 'ja',
+      'zh_CN': 'zh-cn',
+      'zh_TW': 'zh-tw'
+    }
     this.PLATFORM = 'web';
     this.CHANNEL = 'app';
 

@@ -1174,12 +1174,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isPosting = false;
 
     try {
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       //analytics
-      property[PROPERTY_CONSTANT.MESSAGE_ID] = res.id;
-      property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-      AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, property);
+      AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
+        'MESSAGE_ID': res.id,
+        'RESPONSE_SUCCESS': true
+      });
     } catch (e) {
     }
     
@@ -1262,8 +1261,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   };
 
   $scope.deleteMessage = function(message) {
-    var property = {};
-    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
     //console.log("delete: ", message.messageId);
     if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
       if (message.message.contentType === 'sticker') {
@@ -1275,18 +1272,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         messageAPIservice.deleteMessage(entityType, entityId, message.messageId)
           .success(function() {
             try {
-              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-              property[PROPERTY_CONSTANT.MESSAGE_ID] = message.messageId;
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, property);
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
+                'MESSAGE_ID': message.messageId,
+                'RESPONSE_SUCCESS': true
+              });
             } catch (e) {
             }
            
           })
           .error(function (response) {
             try {
-              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-              property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, property);
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
+                'RESPONSE_SUCCESS': false,
+                'ERROR_CODE': response.code
+              });
             } catch (e) {
             }
             updateList();
@@ -1324,12 +1323,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         analyticsService.mixpanelTrack( "File Unshare", share_data );
 
         try {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.FILE_ID] = message.id;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
+            'RESPONSE_SUCCESS': true,
+            'FILE_ID': message.id,
+            'TOPIC_ID': entity.id
+          });
         } catch (e) {
         }
 
@@ -1337,11 +1335,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       })
       .error(function(err) {
         try {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
+            'RESPONSE_SUCCESS': false,
+            'ERROR_CODE': error.code
+          });
         } catch (e) {
         }
 
