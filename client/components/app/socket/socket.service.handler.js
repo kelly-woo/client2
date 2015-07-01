@@ -10,7 +10,7 @@
     .service('jndWebSocketHelper', jndWebSocketHelper);
 
   /* @ngInject */
-  function jndWebSocketHelper(jndPubSub, messageAPIservice, entityAPIservice, currentSessionHelper, memberService,
+  function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService,
                               logger, $state, configuration, config, DesktopNotification) {
 
     this.newMemberHandler = newMemberHandler;
@@ -503,6 +503,8 @@
      */
     function _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity) {
       if (_isActionFromMe(writer.id)) return;
+      if (isCurrentEntity && !currentSessionHelper.isBrowserHidden()) return;
+
 
       log('Send browser notification');
       DesktopNotification.addNotification(data, writer, roomEntity);

@@ -21,6 +21,8 @@
     var currentEntity;
     var currentTeamAdmin;
 
+    var hasBrowserFocus = true;
+
     var isSocketConnected = false;
 
     // File id of a file currently selected in right panel.
@@ -55,6 +57,12 @@
 
     this.getCurrentTeamAdmin = getCurrentTeamAdmin;
     this.setCurrentTeamAdmin = setCurrentTeamAdmin;
+
+
+    this.setBrowserFocus = setBrowserFocus;
+    this.resetBrowserFocus = resetBrowserFocus;
+    this.isBrowserHidden = isBrowserHidden;
+
 
     function getCurrentTeam() { return currentTeam; }
     function setCurrentTeam(team) { currentTeam = team; }
@@ -130,5 +138,21 @@
     function setCurrentTeamAdmin(value) {
       currentTeamAdmin = value;
     }
+
+    /**
+     * Set browser indicator to 'true'
+     */
+    function setBrowserFocus() { hasBrowserFocus = true; }
+
+    /**
+     *  Reset browser indicator back to 'false'
+     */
+    function resetBrowserFocus() { hasBrowserFocus = false; }
+
+    /**
+     * Check if current browser has focus or not.
+     * @returns {boolean|*}
+     */
+    function isBrowserHidden() { return !hasBrowserFocus || document.hidden; }
   }
 })();
