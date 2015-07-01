@@ -10,7 +10,7 @@
     .controller('rPanelCtrl', rPanelCtrl);
 
   /* ngInject */
-  function rPanelCtrl($scope, jndPubSub) {
+  function rPanelCtrl($scope, $filter, jndPubSub) {
     var fileTab;
 
     var messageTab;
@@ -39,6 +39,8 @@
       };
 
       $scope.tabs = [fileTab, messageTab];
+
+      _setLanguageVariable();
     }
 
 
@@ -61,6 +63,13 @@
      */
     $scope.$on('setFileTabActive', function() {
       _setFileTabStatus();
+    });
+
+    /**
+     * language 변경 event handling
+     */
+    $scope.$on('changedLanguage', function() {
+      _setLanguageVariable()
     });
 
 
@@ -138,6 +147,12 @@
       return messageTab.active;
     };
 
+    /**
+     * controller내 사용되는 translate variable 설정
+     */
+    function _setLanguageVariable() {
+      $scope.tab1 = $filter('translate')('@common-files');
+      $scope.tab2 = $filter('translate')('@common-message');
+    }
   }
-
 })();

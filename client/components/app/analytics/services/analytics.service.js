@@ -49,7 +49,7 @@
      * @param {String} properties - Event에 종속된 properties.
      */
     function track(event, properties) {
-      // try {
+      try {
         var properties = properties || {};
         var identify = AnalyticsPersistence.getIdentify();
 
@@ -63,9 +63,9 @@
             AnalyticsData.track(event, properties, identify);
           }
         } 
-      // } catch (e) {
-      //   error(e, 'AnalyticsHelper.track');
-      // }      
+      } catch (e) {
+        error(e, 'AnalyticsHelper.track');
+      }      
     }
 
     /**
