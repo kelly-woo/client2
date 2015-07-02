@@ -14,6 +14,7 @@
 
     var regxImage = /image/;
     var regxHTMLImage = /^(?:|<meta (?:[^>]+)>)<img src="([^"]+)"(?:[^\/^>]+)(?:[^>]+)(?:|\/)>(?:|.)$/;
+    var regxImageData = /^data:image\/(png|jpg|jpeg);base64,/;
 
     var array = [];
     var slice = array.slice;
@@ -97,18 +98,16 @@
        */
       _imageLoad: function(evt) {
         var that = this;
-        var cData;
         var items;
 
-        if (evt) {
-          that.options.onImageLoad(evt.target.result);
-        } else {
-          cData = that.jqEditContent;
-          items = cData.children('img');
+        if (evt instanceof jQuery) {
+          items = evt;
           // console.log(items.length);
           if (items.length) {
             that.options.onImageLoad(items[0].src);
           }
+        } else {
+          that.options.onImageLoad(evt.target.result);
         }
 
         // os clipboard 대신 사용된 content 초기화
@@ -189,17 +188,14 @@
         var jqEle = that.jqEle;
         var jqEditContent;
 
-        that.eventLock = false;
-        that.jqEditContent = jqEditContent = $('<div contentEditable="true" style="position: fixed; top: 50000px; width: 1px; height: 1px;" ></div>').appendTo('body');
+        that.jqEditContent = jqEditContent = $('<div contentEditable="true" style="position: fixed; top: -10000px; width: 1px; height: 1px;" ></div>').appendTo('body');
         jqEditContent.focus();
 
         // event capture하여 img element 생성 여부 판단
         jqEditContent[0].addEventListener("load", function() {
-          if (!that.eventLock) {
-            that.eventLock = true;
-
+          if (that.hasImageData()) {
             that.onImageLoading();
-            that._imageLoad();
+            that._imageLoad(jqEditContent.children('img'));
           }
         }, true);
 
@@ -245,6 +241,15 @@
 
           isCalledImageLoading: false
         };
+      },
+      /**
+       * base64 format image data를 가지고 있는지 여부
+       */
+      hasImageData: function() {
+        var that = this;
+        var img = that.jqEditContent.children('img');
+
+        return !!img.length && regxImageData.test(img[0].src);
       }
     };
 
@@ -310,7 +315,6 @@
                   } else if (that._isContentEditableTextPaste(pasteContentTarget)) {
                     pasteContentTarget.getClipboardText();
                   } else {
-                    pasteContentTarget.eventLock = true;
                     pasteContentTarget.removeClipboardContent();
                   }
                 };
@@ -385,8 +389,7 @@
        * @param {PasteContentTarget} pasteContentTarget
        */
       _isContentEditableImagePaste: function(pasteContentTarget) {
-        var img = pasteContentTarget.jqEditContent.children('img');
-        return !pasteContentTarget.jqEditContent.text() && !!img.length && /^data:image\/(png|jpg|jpeg);base64,/.test(img[0].src);
+        return pasteContentTarget.hasImageData();
       },
       /**
        * contentEditable element에 text 붙여넣기 인지 여부
