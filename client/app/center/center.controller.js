@@ -161,6 +161,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('connected', _onConnected);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
+    $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
+
     $scope.$on('jumpToMessageId', _jumpToMessage);
     $scope.$on('elastic:resize', _onElasticResize);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
@@ -185,6 +187,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _isLoadingNewMessages() {
     return MessageQuery.get('type') === 'new';
+  }
+
+  function _isLoadingOldMessages() {
+    return MessageQuery.get('type') === 'old';
   }
 
   /**
@@ -456,10 +462,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _scrollToBottom();
     } else if (_isLoadingNewMessages()) {
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
-    } else if (loadedFirstMessagedId !== -1) {
+    } else if (_isLoadingOldMessages()) {
       _disableScroll();
       _findMessageDomElementById(loadedFirstMessagedId);
     }
+    MessageQuery.reset();
   }
 
   function _findMessageDomElementById(id) {
@@ -574,16 +581,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     response = response.updateInfo;
     response.messages = _.sortBy(response.messages, 'id');
     if (response.messageCount) {
-      if (!_hasLastMessage()) {
-        _gotNewMessage();
-      } else {
-        // 업데이트 된 메세지 처리
-        _updateMessages(response.messages);
-        //  marker 설정
-        updateMessageMarker();
-        _checkEntityMessageStatus();
-        MessageCollection.updateUnreadCount();
-      }
+      // 업데이트 된 메세지 처리
+      _updateMessages(response.messages);
+      //  marker 설정
+      updateMessageMarker();
+      _checkEntityMessageStatus();
+      MessageCollection.updateUnreadCount();
     }
   }
 
@@ -1158,6 +1161,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     }
     _gotNewMessage();
+  }
+
+  /**
+   * on new system message arrived
+   * @private
+   */
+  function _onNewSystemMessageArrived() {
+    //if (_hasLastMessage() && centerService.hasBottomReached()) {
+    if (centerService.hasBottomReached()) {
+      _scrollToBottom();
+    }
   }
 
   function _resetUnreadCounters() {

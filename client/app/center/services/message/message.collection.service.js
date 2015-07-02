@@ -390,8 +390,8 @@
      */
     function _updateSystemMessage(msg) {
       msg = _getFormattedSystemMsg(msg);
-      _systemMessageCount++;
-      return msg;
+      append(msg);
+      jndPubSub.pub('newSystemMessageArrived', msg);
     }
 
     /**
@@ -402,7 +402,7 @@
     function _getFormattedMessage(msg) {
       msg.date = _getDateKey(msg.time);
       if (_isSystemMessage(msg)) {
-        _updateSystemMessage(msg);
+        msg = _getFormattedSystemMsg(msg);
       } else {
         if (_isSharingStatusMassage(msg))  {
 
@@ -501,7 +501,7 @@
 
       newMsg.message.content.actionOwner = memberService.getNameById(msg.fromEntity);
       newMsg.message.content.body = action;
-
+      _systemMessageCount++;
       return newMsg;
     }
 
