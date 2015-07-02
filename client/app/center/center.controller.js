@@ -189,6 +189,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return MessageQuery.get('type') === 'new';
   }
 
+  /**
+   * 이전 메세지를 조회하고 있는지를 반환한다.
+   * @returns {boolean}
+   * @private
+   */
   function _isLoadingOldMessages() {
     return MessageQuery.get('type') === 'old';
   }
