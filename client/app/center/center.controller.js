@@ -1354,7 +1354,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var messageId = file.id;
     var message = MessageCollection.get(messageId);
     if (message) {
-      fileAPIservice.getFileDetaiㅎl(messageId)
+      fileAPIservice.getFileDetail(messageId)
         .success(function (response) {
           _.forEach(response.messageDetails, function(item) {
             if (item.contentType === 'file') {
