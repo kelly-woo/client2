@@ -519,17 +519,18 @@
      * @private
      */
     function _shouldSendNotification(writer, isCurrentEntity) {
+      var returnVal = true;
       if (_isActionFromMe(writer.id)) {
         // 내가 보낸 노티일 경우
-        return false;
+        returnVal = false;
       }
 
       if (isCurrentEntity && !currentSessionHelper.isBrowserHidden()) {
         // 현재 보고있는 토픽에 노티가 왔는데 브라우져가 focus를 가지고 있을 때
-        return false;
+        returnVal = false;
       }
 
-      return true;
+      return returnVal;
     }
     /**
      * left panel을 업데이트한다.

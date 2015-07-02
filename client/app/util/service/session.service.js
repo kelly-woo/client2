@@ -21,7 +21,7 @@
     var currentEntity;
     var currentTeamAdmin;
 
-    var hasBrowserFocus = true;
+    var _hasBrowserFocus = true;
 
     var isSocketConnected = false;
 
@@ -142,17 +142,23 @@
     /**
      * Set browser indicator to 'true'
      */
-    function setBrowserFocus() { hasBrowserFocus = true; }
+    function setBrowserFocus() {
+      _hasBrowserFocus = true;
+    }
 
     /**
      *  Reset browser indicator back to 'false'
      */
-    function resetBrowserFocus() { hasBrowserFocus = false; }
+    function resetBrowserFocus() {
+      _hasBrowserFocus = false;
+    }
 
     /**
      * Check if current browser has focus or not.
      * @returns {boolean|*}
      */
-    function isBrowserHidden() { return !hasBrowserFocus || document.hidden; }
+    function isBrowserHidden() {
+      return !_hasBrowserFocus || document.hidden;
+    }
   }
 })();
