@@ -386,7 +386,7 @@
        */
       _isContentEditableImagePaste: function(pasteContentTarget) {
         var img = pasteContentTarget.jqEditContent.children('img');
-        return !pasteContentTarget.jqEditContent.text() && (!img.length || !/^http/.test(img[0].src));
+        return !pasteContentTarget.jqEditContent.text() && !!img.length && /^data:image\/(png|jpg|jpeg);base64,/.test(img[0].src);
       },
       /**
        * contentEditable element에 text 붙여넣기 인지 여부
