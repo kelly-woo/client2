@@ -25,7 +25,7 @@
     var _writer = _message.message.writer;
 
     // 현재 메시지가 나의 메시지인지 알려주는 flag
-    $scope.isMyMessage = (_myId === message.fromEntity);
+    $scope.isMyMessage = (_myId === _message.fromEntity);
 
     $scope.deleteMessage = deleteMessage;
     $scope.onUserClick = onUserClick;
