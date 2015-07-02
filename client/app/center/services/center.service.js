@@ -89,19 +89,25 @@
     /**
      * Set browser indicator to 'true'
      */
-    function setBrowserFocus() { hasBrowserFocus = true; }
+    function setBrowserFocus() {
+      currentSessionHelper.setBrowserFocus();
+    }
 
     /**
      *  Reset browser indicator back to 'false'
      */
-    function resetBrowserFocus() { hasBrowserFocus = false; }
+    function resetBrowserFocus() {
+      currentSessionHelper.resetBrowserFocus();
+    }
 
     /**
      * Check if current browser has focus or not.
      *
      * @returns {boolean|*}
      */
-    function isBrowserHidden() { return !hasBrowserFocus || document.hidden; }
+    function isBrowserHidden() {
+      return currentSessionHelper.isBrowserHidden();
+    }
 
     /**
      * Check whether msg is from myself.
@@ -112,9 +118,9 @@
      * @private
      */
     function isMessageFromMe(message) {
-        var cMemberId = memberService.getMemberId();
+      var cMemberId = memberService.getMemberId();
 
-        return message.fromEntity === cMemberId || message.writerId === cMemberId;
+      return message.fromEntity === cMemberId || message.writerId === cMemberId;
     }
 
     /**
