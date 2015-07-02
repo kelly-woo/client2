@@ -14,7 +14,7 @@
     this.editMessage = editMessage;
     this.deleteMessage = deleteMessage;
     this.deleteSticker = deleteSticker;
-
+    this.searchMessages = searchMessages;
     this.updateMessageMarker = updateMessageMarker;
 
     this.getRoomInformation = getRoomInformation;
@@ -30,6 +30,14 @@
       return $http({
         method  : 'GET',
         url     : server_address + 'teams/' + teamId + '/messages/' + messageId
+      });
+    }
+
+    function searchMessages(messageSearchQuery) {
+      return $http({
+        method: 'GET',
+        url: server_address + 'teams/' + memberService.getTeamId() + '/search/messages',
+        params: messageSearchQuery
       });
     }
 

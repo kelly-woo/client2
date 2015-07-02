@@ -10,7 +10,8 @@
     .controller('TextMessageCtrl', TextMessageCtrl);
 
   /* @ngInject */
-  function TextMessageCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, jndPubSub) {
+  function TextMessageCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, AnalyticsHelper, 
+                           MessageCollection, jndPubSub) {
     // 현재 로그인되어있는 멤버(나)의 아이디
     var myId = memberService.getMemberId();
     // 현재 디렉티브가 가지고 있는 메시지 객체
@@ -32,11 +33,30 @@
      * 메시지를 삭제한다.
      */
     function deleteMessage() {
+      //console.log("delete: ", message.messageId);
+      var property = {};
+      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
-        if (message.message.contentType === 'sticker') {
-          messageAPIservice.deleteSticker(message.messageId);
+        if (message.status === 'sending') {
+          //MessageCollection.
+          MessageCollection.remove(message.messageId, true);
         } else {
-          messageAPIservice.deleteMessage(_entityType, _entityId, message.messageId);
+          if (message.message.contentType === 'sticker') {
+            messageAPIservice.deleteSticker(message.messageId);
+          } else {
+            messageAPIservice.deleteMessage(_entityType, _entityId, message.messageId)
+              .success(function () {
+                property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
+                property[PROPERTY_CONSTANT.MESSAGE_ID] = message.messageId;
+                AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, property);
+              })
+              .error(function (response) {
+                property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
+                property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
+                AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, property);
+              });
+          }
+
         }
       }
     }
