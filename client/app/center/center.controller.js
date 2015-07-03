@@ -75,7 +75,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.loadMore = loadMore;
   $scope.loadNewMessages = loadNewMessages;
   $scope.loadOldMessages = loadOldMessages;
-  $scope.onLastMessageRendered = onLastMessageRendered;
   $scope.clearNewMessageAlerts = clearNewMessageAlerts;
 
   $scope.postMessage = postMessage;
@@ -128,6 +127,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _reset() {
+    console.log('#reset');
     MessageQuery.reset();
     MessageCollection.reset();
 
@@ -455,10 +455,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return MessageCollection.getLastLinkId() == lastMessageId;
   }
 
-  function onLastMessageRendered() {
-    _updateScroll();
-  }
-
   function _updateScroll() {
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
@@ -524,7 +520,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // TODO: NOT A GOOD NAME. WHEN FUNCTION NAME STARTS WITH 'is' EXPECT IT TO RETURN BOOLEAN VALUE.
   // Current 'isAtBottom' function is not returning boolean. PLEASE CHANGE THE NAME!!
   function clearNewMessageAlerts() {
-    //console.log('this is isAtBottom')
     _clearBadgeCount($scope.currentEntity);
     _resetNewMsgHelpers();
   }
@@ -623,7 +618,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     if (response.code == INVALID_SECURITY_TOKEN) {
-      //console.debug('INVALID SECURITY TOKEN.');
       $state.go('signin');
       return;
     }
@@ -1235,11 +1229,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return $('#msgs-container')[0].scrollTop + $('#msgs-container').height() >= $('#msgs-holder').outerHeight();
   }
 
-
+  /**
+   * 랜더링 repeat 가 끝났을 때 호출되는 함수
+   */
   function onRepeatDone() {
     _updateScroll();
   }
-
 
   /**
    * $scope event listeners
