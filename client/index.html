@@ -30,6 +30,7 @@
   <!-- injector:css -->
   <link rel="stylesheet" href="app/app.css">
   <link rel="stylesheet" href="app/banner/desktop.notification.banner.css">
+  <link rel="stylesheet" href="app/center/announcement/announcement.css">
   <link rel="stylesheet" href="app/center/center.css">
   <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
   <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
@@ -195,13 +196,23 @@
 <script src="app/banner/desktop.notification.banner.controller.js"></script>
 <script src="app/banner/desktop.notification.banner.directive.js"></script>
 <script src="app/banner/desktop.notification.banner.service.js"></script>
+<script src="app/center/announcement/announcement.controller.js"></script>
+<script src="app/center/announcement/announcement.data.service.js"></script>
+<script src="app/center/announcement/announcement.directive.js"></script>
+<script src="app/center/announcement/announcement.service.js"></script>
 <script src="app/center/center.controller.js"></script>
 <script src="app/center/center.directive.js"></script>
 <script src="app/center/help_messages/help.messages.controller.js"></script>
 <script src="app/center/help_messages/help.messages.directive.js"></script>
 <script src="app/center/services/center.service.js"></script>
 <script src="app/center/services/marker.service.js"></script>
+<script src="app/center/services/message.query.service.js"></script>
 <script src="app/center/services/message.service.js"></script>
+<script src="app/center/services/message/message.collection.service.js"></script>
+<script src="app/center/services/message/message.comment.service.js"></script>
+<script src="app/center/services/message/message.file.service.js"></script>
+<script src="app/center/services/message/message.sending.service.js"></script>
+<script src="app/center/services/message/message.text.service.js"></script>
 <script src="app/center/view_components/center_chat_input_box/center.chat.input.box.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/date_divider/date.divider.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.controller.js"></script>
@@ -310,6 +321,7 @@
 <script src="components/app/net/net.service.js"></script>
 <script src="components/app/notification/desktop.notification.service.js"></script>
 <script src="components/app/pubsub/pubsub.service.js"></script>
+<script src="components/app/socket/socket.announcement.service.js"></script>
 <script src="components/app/socket/socket.service.handler.js"></script>
 <script src="components/app/socket/socket.service.js"></script>
 <script src="components/app/storage/storage.service.js"></script>

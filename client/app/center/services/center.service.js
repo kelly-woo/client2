@@ -14,7 +14,7 @@
 
   /* @ngInject */
   function centerService(memberService, publicService, currentSessionHelper) {
-
+    var MAX_MSG_ELAPSED_MINUTES = 5;    //텍스트 메세지를 하나로 묶을 때 기준이 되는 시간 값
     var SCROLL_BOTTOM_THRESHOLD = 700;    // threshold value to show 'scroll to bottom' icon on center panel.
     var hasBrowserFocus = true;           // indicator whether current browser has focus or not.
 
@@ -38,7 +38,7 @@
 
     this.isTextType = isTextType;
     this.isCommentType = isCommentType;
-
+    this.isElapsed = isElapsed;
 
     /**
      * Check entityId of entity to be directed to currently signed in member's id.
@@ -89,19 +89,25 @@
     /**
      * Set browser indicator to 'true'
      */
-    function setBrowserFocus() { hasBrowserFocus = true; }
+    function setBrowserFocus() {
+      currentSessionHelper.setBrowserFocus();
+    }
 
     /**
      *  Reset browser indicator back to 'false'
      */
-    function resetBrowserFocus() { hasBrowserFocus = false; }
+    function resetBrowserFocus() {
+      currentSessionHelper.resetBrowserFocus();
+    }
 
     /**
      * Check if current browser has focus or not.
      *
      * @returns {boolean|*}
      */
-    function isBrowserHidden() { return !hasBrowserFocus || document.hidden; }
+    function isBrowserHidden() {
+      return currentSessionHelper.isBrowserHidden();
+    }
 
     /**
      * Check whether msg is from myself.
@@ -112,9 +118,9 @@
      * @private
      */
     function isMessageFromMe(message) {
-        var cMemberId = memberService.getMemberId();
+      var cMemberId = memberService.getMemberId();
 
-        return message.fromEntity === cMemberId || message.writerId === cMemberId;
+      return message.fromEntity === cMemberId || message.writerId === cMemberId;
     }
 
     /**
@@ -151,6 +157,18 @@
      */
     function isCommentType(contentType) {
       return contentType === 'comment' || contentType === 'comment_sticker';
+    }
+
+    /**
+     * 연속된 메세지로 간주할 시간 허용 범위를 초과하였는지 여부
+     * @param {number} startTime 시작 시간
+     * @param {number} endTime  끝 시간
+     * @returns {boolean} 초과했는지 여부
+     * @private
+     */
+    function isElapsed(startTime, endTime) {
+      var elapsedMin = Math.floor((endTime - startTime) / 60000);
+      return elapsedMin > MAX_MSG_ELAPSED_MINUTES;
     }
 
   }

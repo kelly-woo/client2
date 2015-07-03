@@ -56,31 +56,30 @@
 
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <div class="msgs-group" data-ng-repeat="(day, msgs) in groupMsgs" on-repeat-end>
+      <div class="msgs-group" data-ng-repeat="msg in messages" repeat-done="onRepeatDone()">
         <!--날짜 구분선-->
-        <date-divider></date-divider>
+        <date-divider ng-if="isNewDate($index)"></date-divider>
 
         <div last-detector=""
              id="{{msg.id}}"
-             data-length="{{msgs.length}}"
+             data-length="{{messages.length}}"
              class="msg-item"
-             data-ng-repeat="msg in msgs"
              data-link-id="{{ msg.id }}"
              data-link-status="{{msg.status}}"
              data-message-id="{{msg.message.id}}"
              data-message-type="{{msg.message.contentType}}"
              data-feedback-id="{{msg.feedbackId}}"
              data-event-type="{{msg.eventType}}"
-             data-ng-class="{ 'text': !msg.message.isChildText,
-                              'text-child': msg.message.isChildText,
+             data-ng-class="{ 'text': isTextType($index) && !isChildText($index),
+                              'text-child': isTextType($index) && isChildText($index),
                               'file-upload': msg.message.isFile,
-                              'comment-title': msg.message.commentOption.isTitle,
-                              'comment-continue': msg.message.commentOption.isContinue,
+                              'comment-title': isCommentType($index) && isTitleComment($index),
+                              'comment-continue': isCommentType($index) && !isTitleComment($index),
                               'system-event-msg' : msg.message.contentType === 'systemEvent',
                               'archived-file': msg.message.status === 'archived' }">
 
           <system-event ng-if="msg.message.contentType === 'systemEvent'"></system-event>
-          <text ng-if="msg.message.isText" msg="msg"></text>
+          <text ng-if="msg.message.isText" msg="msg" is-child-text="isChildText($index);" has-link-preview="hasLinkPreview($index);"></text>
           <file-uploaded ng-if="msg.message.isFile"></file-uploaded>
           <title-comment ng-if="msg.message.isComment"></title-comment>
         </div>
