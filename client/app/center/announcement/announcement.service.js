@@ -69,6 +69,7 @@
 
       memberEntity = entityAPIservice.getEntityFromListById(currentSessionHelper.getCurrentTeamMemberList(), entityId);
 
+      console.log(memberEntity)
       return {
         'profilePic':  config.server_uploaded + memberService.getSmallThumbnailUrl(memberEntity),
         'name': memberEntity.name,
