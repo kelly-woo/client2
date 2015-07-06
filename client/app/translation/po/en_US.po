@@ -47,7 +47,9 @@ msgstr "No matches"
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@announcement-create"
-msgstr "Make an announcement"
+msgstr ""
+"The current announcement will be replaced with this message. Are you sure "
+"you want to continue?"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-create-confirm"
@@ -66,11 +68,11 @@ msgstr "Delete topic"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-delete-confirm"
-msgstr "The announcement will be deleted. Do you wish to continue?"
+msgstr "This announcement will be removed. Are you sure you want to continue?"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-hide"
-msgstr "Minimize"
+msgstr "Hide"
 
 #: client/app/banner/desktop.notification.banner.html
 msgid "@ask-me-later"
@@ -1072,7 +1074,7 @@ msgstr "'s message as the announcement."
 
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
-msgstr "{{msg.message.content.actionOwner}} has deleted the announcement."
+msgstr "{{msg.message.content.actionOwner}} deleted the announcement."
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite"
