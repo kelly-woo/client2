@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.8.1\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -1010,7 +1010,7 @@ msgstr "Email was sent successfully"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@placeholder-input-message"
-msgstr "Enter your message here (press Shift+Enter for multiple lines)"
+msgstr "Enter your message (press Shift+Enter for multiple lines)"
 
 #: client/app/left/left.html
 msgid "@privateGroup"
