@@ -10,6 +10,7 @@
   function FileUploadModalCtrl($rootScope, $scope, $modalInstance, FilesUpload,
                                fileAPIservice, analyticsService, $timeout, ImagesHelper, AnalyticsHelper) {
     var PUBLIC_FILE = 744;    // PUBLIC_FILE code
+    var jqProgressBar;
     var filesUpload;
     var fileObject;
 
@@ -83,22 +84,29 @@
         $rootScope.curUpload.title = file.name;
         $rootScope.curUpload.progress = 0;
         $rootScope.curUpload.status = 'initiate';
-        $timeout(function() {
-          $('.progress-striped').children().addClass('progress-bar');
-        });
       },
       // 하나의 file upload 중
-      onProgress: function(evt) {
+      onProgress: function(evt, file) {
+        jqProgressBar && jqProgressBar.removeClass('init-progress-bar');
         // progress bar의 상태 변경
         $rootScope.curUpload = {};
         $rootScope.curUpload.lFileIndex = filesUpload.lastProgressIndex;
         $rootScope.curUpload.cFileIndex = filesUpload.currentProgressIndex;
-        $rootScope.curUpload.title = evt.config.file.name;
+        $rootScope.curUpload.title = file.name;
         $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
         $rootScope.curUpload.status = 'uploading';
       },
       // 하나의 file upload 완료
-      onSuccess: function(response) {
+      onSuccess: function(response, index, length) {
+        jqProgressBar = jqProgressBar || $('.progress-striped').children();
+
+        // progress bar 100% 상태에서 다음 file을 upload 위해 progress bar 0%로 변경시
+        // transition style 적용되어 animation 들어가는 것을 방지 하기위해 confirm done
+        // 일때 transition 적용을 잠시 해제함.
+        if (index !== length) {
+          jqProgressBar.addClass('init-progress-bar').css('width', 0);
+        }
+
         $rootScope.curUpload.status = 'done';
 
         // analytics
@@ -147,15 +155,8 @@
 
         analyticsService.mixpanelTrack( "File Upload", upload_data );
       },
-      // confirm 창에서 upload 선택
-      onConfirmDone: function() {
-        // progress bar 100% 상태에서 다음 file을 upload 위해 progress bar 0%로 변경시
-        // transition style 적용되어 animation 들어가는 것을 방지 하기위해 confirm done
-        // 일때 transition 적용을 잠시 해제함.
-        $('.progress-striped').children().removeClass('progress-bar');
-      },
       // 하나의 file upload error
-      onError: function(err) {
+      onError: function(err, index, length) {
         var property = {};
         var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
@@ -168,6 +169,13 @@
 
         }
 
+        // progress bar 100% 상태에서 다음 file을 upload 위해 progress bar 0%로 변경시
+        // transition style 적용되어 animation 들어가는 것을 방지 하기위해 confirm done
+        // 일때 transition 적용을 잠시 해제함.
+        if (index !== length) {
+          jqProgressBar.addClass('init-progress-bar').css('width', 0);
+        }
+
         $rootScope.curUpload.status = 'error';
         $rootScope.curUpload.hasError = true;
         $rootScope.curUpload.progress = 0;
@@ -178,13 +186,13 @@
       },
       // upload sequence end
       onEnd: function() {
-        $('.progress-striped').children().addClass('progress-bar');
-
         // hide progress bar
         $timeout(function() {
-          $('.file-upload-progress-container').animate( {'opacity': 0 }, 500, function() {
+          $('.file-upload-progress-container').css('opacity', 0);
+          // opacity 0된 후 clear upload info
+          $timeout(function() {
             fileAPIservice.clearCurUpload();
-          });
+          }, 500);
         }, 2000);
       }
     });

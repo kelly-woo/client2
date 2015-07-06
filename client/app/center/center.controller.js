@@ -75,7 +75,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.loadMore = loadMore;
   $scope.loadNewMessages = loadNewMessages;
   $scope.loadOldMessages = loadOldMessages;
-  $scope.onLastMessageRendered = onLastMessageRendered;
   $scope.clearNewMessageAlerts = clearNewMessageAlerts;
 
   $scope.postMessage = postMessage;
@@ -128,6 +127,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _reset() {
+    console.log('#reset');
     MessageQuery.reset();
     MessageCollection.reset();
 
@@ -161,6 +161,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('connected', _onConnected);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
+    $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
+
     $scope.$on('jumpToMessageId', _jumpToMessage);
     $scope.$on('elastic:resize', _onElasticResize);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
@@ -185,6 +187,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _isLoadingNewMessages() {
     return MessageQuery.get('type') === 'new';
+  }
+
+  /**
+   * 이전 메세지를 조회하고 있는지를 반환한다.
+   * @returns {boolean}
+   * @private
+   */
+  function _isLoadingOldMessages() {
+    return MessageQuery.get('type') === 'old';
   }
 
   /**
@@ -444,10 +455,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return MessageCollection.getLastLinkId() == lastMessageId;
   }
 
-  function onLastMessageRendered() {
-    _updateScroll();
-  }
-
   function _updateScroll() {
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
@@ -456,10 +463,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _scrollToBottom();
     } else if (_isLoadingNewMessages()) {
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
-    } else if (loadedFirstMessagedId !== -1) {
+    } else if (_isLoadingOldMessages()) {
       _disableScroll();
       _findMessageDomElementById(loadedFirstMessagedId);
     }
+    MessageQuery.reset();
   }
 
   function _findMessageDomElementById(id) {
@@ -512,7 +520,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // TODO: NOT A GOOD NAME. WHEN FUNCTION NAME STARTS WITH 'is' EXPECT IT TO RETURN BOOLEAN VALUE.
   // Current 'isAtBottom' function is not returning boolean. PLEASE CHANGE THE NAME!!
   function clearNewMessageAlerts() {
-    //console.log('this is isAtBottom')
     _clearBadgeCount($scope.currentEntity);
     _resetNewMsgHelpers();
   }
@@ -574,16 +581,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     response = response.updateInfo;
     response.messages = _.sortBy(response.messages, 'id');
     if (response.messageCount) {
-      if (!_hasLastMessage()) {
-        _gotNewMessage();
-      } else {
-        // 업데이트 된 메세지 처리
-        _updateMessages(response.messages);
-        //  marker 설정
-        updateMessageMarker();
-        _checkEntityMessageStatus();
-        MessageCollection.updateUnreadCount();
-      }
+      // 업데이트 된 메세지 처리
+      _updateMessages(response.messages);
+      //  marker 설정
+      updateMessageMarker();
+      _checkEntityMessageStatus();
+      MessageCollection.updateUnreadCount();
     }
   }
 
@@ -615,7 +618,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     if (response.code == INVALID_SECURITY_TOKEN) {
-      //console.debug('INVALID SECURITY TOKEN.');
       $state.go('signin');
       return;
     }
@@ -1160,6 +1162,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _gotNewMessage();
   }
 
+  /**
+   * on new system message arrived
+   * @private
+   */
+  function _onNewSystemMessageArrived() {
+    //if (_hasLastMessage() && centerService.hasBottomReached()) {
+    if (centerService.hasBottomReached()) {
+      _scrollToBottom();
+    }
+  }
+
   function _resetUnreadCounters() {
     hasRetryGetRoomInfo = false;
     markerService.init();
@@ -1216,11 +1229,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return $('#msgs-container')[0].scrollTop + $('#msgs-container').height() >= $('#msgs-holder').outerHeight();
   }
 
-
+  /**
+   * 랜더링 repeat 가 끝났을 때 호출되는 함수
+   */
   function onRepeatDone() {
     _updateScroll();
   }
-
 
   /**
    * $scope event listeners

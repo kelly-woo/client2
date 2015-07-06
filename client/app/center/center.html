@@ -56,12 +56,11 @@
 
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <div class="msgs-group" data-ng-repeat="msg in messages" repeat-done="onRepeatDone()">
+      <div class="msgs-group" data-ng-repeat="msg in messages" msg-repeat-done="onRepeatDone()">
         <!--날짜 구분선-->
         <date-divider ng-if="isNewDate($index)"></date-divider>
 
-        <div last-detector=""
-             id="{{msg.id}}"
+        <div id="{{msg.id}}"
              data-length="{{messages.length}}"
              class="msg-item"
              data-link-id="{{ msg.id }}"
