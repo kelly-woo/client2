@@ -247,7 +247,7 @@ article {
 }
 .msgs-group:last-of-type > .msg-item {
   margin-bottom: 0;
-  padding-bottom: 5px;
+  padding-bottom: 14px;
 }
 .msg-item.comment-title,
 .msg-item.comment-continue{
@@ -260,7 +260,7 @@ article {
   margin-top: 13px;
 }
 .msg-item.text-child {
-  margin-top: -8px;
+  margin-top: -6px;
 }
 
 .msg-item.file-upload {
@@ -654,6 +654,7 @@ by ysyun 2015.2.25
 ********************************************/
 .system-event-msg {
   min-height: 15px;
+  margin-bottom: 7px;
 }
 .system-event-msg .msg-item-float {
   height: inherit;
