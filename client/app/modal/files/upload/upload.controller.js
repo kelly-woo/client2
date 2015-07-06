@@ -86,13 +86,13 @@
         $rootScope.curUpload.status = 'initiate';
       },
       // 하나의 file upload 중
-      onProgress: function(evt) {
+      onProgress: function(evt, file) {
         jqProgressBar && jqProgressBar.removeClass('init-progress-bar');
         // progress bar의 상태 변경
         $rootScope.curUpload = {};
         $rootScope.curUpload.lFileIndex = filesUpload.lastProgressIndex;
         $rootScope.curUpload.cFileIndex = filesUpload.currentProgressIndex;
-        $rootScope.curUpload.title = evt.config.file.name;
+        $rootScope.curUpload.title = file.name;
         $rootScope.curUpload.progress = parseInt(100.0 * evt.loaded / evt.total);
         $rootScope.curUpload.status = 'uploading';
       },
