@@ -47,15 +47,13 @@ msgstr "No matches"
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@announcement-create"
-msgstr ""
-"The current announcement will be replaced with this message. Are you sure "
-"you want to continue?"
+msgstr "Announce"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-create-confirm"
 msgstr ""
-"The current announcement will be replaced with this message. Do you wish to "
-"continue?"
+"The current announcement will be replaced with this message. Are you sure "
+"you want to continue?"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-creator"
@@ -1061,8 +1059,8 @@ msgstr "Turn on Desktop Notifications"
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
 msgstr ""
-"{{msg.message.content.actionOwner}} has updated {{msg.announceWriterName}}'s "
-"message as the announcement."
+"{{msg.message.content.actionOwner}} posted {{msg.announceWriterName}}'s "
+"message as an announcement."
 
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created-mid"
