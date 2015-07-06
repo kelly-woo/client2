@@ -121,7 +121,7 @@ app.directive('msgRepeatDone', function() {
  */
 app.directive('repeatDone', function() {
   return function(scope, element, attrs) {
-    if (scope.msg.$last) { // all are rendered
+    if (scope.$last) { // all are rendered
       scope.$eval(attrs.repeatDone);
     }
   };
