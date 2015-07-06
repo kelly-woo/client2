@@ -7,7 +7,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, MessageQuery, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
-                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner, 
+                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, AnalyticsHelper) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
@@ -70,7 +70,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.onKeyDown = onKeyDown;
   $scope.onKeyUp = onKeyUp;
   $scope.onTextChange = _cutTextareaMaxLength;
-  
+
   $scope.setCommentFocus = setCommentFocus;
   $scope.loadMore = loadMore;
   $scope.loadNewMessages = loadNewMessages;
@@ -340,9 +340,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var deferred = $q.defer();
 
     if (!$scope.msgLoadStatus.loading) {
-
       loadedFirstMessagedId = MessageCollection.getFirstLinkId();
       loadedLastMessageId = MessageCollection.getLastLinkId();
+
+      // loadMoreCounter가 0 이고 isInitialLoadingCompleted가 true 이면 center controller가
+      // load 된 후 scrolling을 통한 message load 라고 판단하여 상단에 loading gif를 출력한다.
+      // dom element bindingd으로 class 수정시 ie서 깜빡임 보이므로 class 바로 수정
+      if ($scope.loadMoreCounter > 0 && $scope.isInitialLoadingCompleted) {
+        $('.msgs__loading').addClass('load-more-top');
+      } else {
+        $('.msgs__loading').removeClass('load-more-top');
+      }
 
       // TODO: come up with function and name.
       $scope.msgLoadStatus.loading = true;
@@ -820,7 +828,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       .success(function() {
         //곧지워짐
         var entityType = $scope.currentEntity.type;
-        
+
         var file_meta = (message.content.type).split("/");
         var share_data = {
           "entity type"   : entityType,
