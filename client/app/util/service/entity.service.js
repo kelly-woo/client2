@@ -285,9 +285,6 @@
      */
     function getEntityByEntityId(entityId) {
       entityId = _parseInt(entityId);
-      console.log(entityId)
-      console.log(memberEntityIdMap[entityId])
-
       return memberEntityIdMap[entityId];
     }
 
