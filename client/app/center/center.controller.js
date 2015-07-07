@@ -486,7 +486,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       fixme: 아래 scrollTop 변경 이후 어떤 이유에 의해 scrollTop 이 한번 더 변경하는 현상이 발생하여 timeout 값 800으로 조정함. 원인 불명
        */
       document.getElementById('msgs-container').scrollTop = targetScrollTop;
-    }, 100);
+    }, 0);
   }
 
   function _scrollToBottom() {
