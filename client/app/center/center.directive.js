@@ -88,9 +88,12 @@
 
       var messageContainer = angular.element(document.getElementById('msgs-container'));
 
-      elm.bind('scroll', function(event) {
-        var scrollTop = raw.scrollTop;
-        var scrollDiff =  raw.scrollHeight - (raw.scrollTop + messageContainer.outerHeight());
+      elm.on('scroll', function(event) {
+        var scrollTop;
+        var scrollDiff;
+
+        scrollTop = raw.scrollTop;
+        scrollDiff =  raw.scrollHeight - (raw.scrollTop + messageContainer.outerHeight());
 
         if (scrollDiff == 0) {
           // Bottom reached!
@@ -115,8 +118,6 @@
 
       });
     }
-
-
   }
 
   function unreadCounter() {

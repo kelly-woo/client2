@@ -204,15 +204,24 @@ article {
   min-width: 260px;
   padding-bottom: 0;
 }
-.msgs__loading.initial {
+.msgs__loading {
   position: absolute;
   top: 0;
   left: 0;
   right: 2px;
-  bottom: 0;
+  bottom: 2px;
   background-color: #fff;
-  background-size: 100px 100px !important;
-  z-index: 5;
+  z-index: 1;
+}
+.msgs__loading.initial {
+  height: 100%;
+  background-size: 100px 100px;
+}
+.msgs__loading.load-more-top {
+  position: static;
+  height: 60px;
+  background-position: center center;
+  background-size: 60px 60px;
 }
 .msgs-intro {
   padding: 1rem 1rem 1rem 1.5rem;
