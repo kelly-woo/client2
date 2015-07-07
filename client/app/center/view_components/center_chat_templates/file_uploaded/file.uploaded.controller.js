@@ -60,6 +60,15 @@
       _attachEventListener();
     }
 
+    /**
+     * eventListener 를 attach 한다.
+     * @private
+     */
+    function _attachEventListener() {
+      $scope.$on('onChangeShared',_updateSharedList);
+      $scope.$on('onMemberEntityMapCreated', _updateSharedList);
+      $scope.$on('updateCenterForRelatedFile', _onUpdateCenterForRelatedFile);
+    }
 
     /**
      * small thumbnail 이 클릭되었을때 불려진다.
@@ -172,11 +181,10 @@
       return centerService.isCommentType(contentType);
     }
 
-    $scope.$on('onChangeShared', function(event, data) {
-      // shared 갱신
-      _updateSharedList();
-    });
-
+    /**
+     * sharedList 를 업데이트 한다.
+     * @private
+     */
     function _updateSharedList() {
       $scope.msg.message.shared = fileAPIservice.updateShared(message);
     }
@@ -213,21 +221,21 @@
       }
     }
 
-    function _attachEventListener() {
-      $scope.$on('onChangeShared',_updateSharedList);
-      $scope.$on('onMemberEntityMapCreated', _updateSharedList);
-      $scope.$on('updateCenterForRelatedFile', _onUpdateCenterForRelatedFile);
-    }
-
+    /**
+     * share unshare 상태를 업데이트 한다.
+     * @param {object} event
+     * @param {object} file
+     * @private
+     */
     function _onUpdateCenterForRelatedFile(event, file) {
       var fileId = file.id;
-
       if (fileId === _messageId) {
         fileAPIservice.getFileDetail(fileId)
           .success(function (response) {
             _.forEach(response.messageDetails, function(item) {
               if (item.contentType === 'file') {
-                $scope.msg.message.shared = fileAPIservice.getSharedEntities(item);
+                $scope.msg.message.shareEntities = item.shareEntities;
+                _updateSharedList();
               }
             });
           });

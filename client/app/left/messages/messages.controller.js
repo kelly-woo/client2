@@ -68,7 +68,6 @@
         })
         .error(function(err) {
           $scope.messageListLoadingStatus = 'failed';
-          console.log(err)
         })
         .finally(function() {
         });

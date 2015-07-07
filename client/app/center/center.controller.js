@@ -357,6 +357,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // 엔티티 메세지 리스트 목록 얻기
       messageAPIservice.getMessages(entityType, entityId, MessageQuery.get())
         .success(function(response) {
+          $('.msgs__loading').removeClass('load-more-top');
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
 
