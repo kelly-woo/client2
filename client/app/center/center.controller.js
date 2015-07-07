@@ -440,8 +440,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hasMoreOldMessageToLoad() {
-    if (lastMessageId !== -1 ||
-      MessageCollection.getFirstLinkId() == -1 ||
+    if (MessageCollection.getFirstLinkId() == -1 ||
       MessageCollection.getFirstLinkId() !== firstMessageId) {
       return true;
     } else {
@@ -1167,6 +1166,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onNewSystemMessageArrived() {
     //if (_hasLastMessage() && centerService.hasBottomReached()) {
+    lastMessageId = loadedLastMessageId = lastUpdatedLinkId;
     if (centerService.hasBottomReached()) {
       _scrollToBottom();
     }
