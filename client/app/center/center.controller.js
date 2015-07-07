@@ -40,8 +40,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _sticker = null;
   var _isUpdateListLock = false;
 
-  var _initTimer;
-
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $rootScope.isIE9 = false;
   $scope.hasScrollToBottom = false;
@@ -109,10 +107,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     _initializeListeners();
     _reset();
-
-    //fixme: url 진입시 $statusChange 이벤트가 2번 발생하기 때문에, $timeout 사용함.
-    $timeout.cancel(_initTimer);
-    _initTimer = $timeout(_initializeView, 100);
+    _initializeView();
   }
 
   function _initializeView() {
@@ -737,12 +732,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       MessageCollection.enqueue(msg.content, msg.sticker, true);
     } else {
       try {
-        var property = {};
-        var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
         //analytics
-        property[PROPERTY_CONSTANT.MESSAGE_ID] = res.id;
-        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, property);
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
+          'RESPONSE_SUCCESS': true
+        });
       } catch (e) {
       }
     }
@@ -840,12 +833,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         analyticsService.mixpanelTrack( "File Unshare", share_data );
 
         try {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.FILE_ID] = message.id;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
+            'RESPONSE_SUCCESS': true,
+            'FILE_ID': message.id,
+            'TOPIC_ID': entity.id
+          });
         } catch (e) {
         }
 
@@ -853,11 +845,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       })
       .error(function(err) {
         try {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
+            'RESPONSE_SUCCESS': false,
+            'ERROR_CODE': error.code
+          });
         } catch (e) {
         }
 

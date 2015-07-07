@@ -32,7 +32,7 @@
       data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM;
       data[AnalyticsConstant.LOG.PROPERTIES] = _.assign(properties, getDefaultProperty());
       data['time'] = new Date().getTime();
-
+      
       var js = JSON.stringify(data);
 
       $http.post(config.analytics_server + 'log/web',{

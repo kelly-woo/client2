@@ -403,8 +403,6 @@ app.controller('leftPanelController1', function(
     if (_.isUndefined(accountService.getAccount())) {
       accountService.getAccountInfo()
         .success(function(response) {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
           accountService.setAccount(response);
 
@@ -420,9 +418,10 @@ app.controller('leftPanelController1', function(
 
           //analytics
           try {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
+              'RESPONSE_SUCCESS': true,
+              'AUTO_SIGN_IN': true
+            });
           } catch (e) {
           }
 
@@ -431,15 +430,14 @@ app.controller('leftPanelController1', function(
           jndPubSub.pub('changedLanguage');
         })
         .error(function(err) {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
           //analytics
           try {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-            property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
-            property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
+              'RESPONSE_SUCCESS': false,
+              'AUTO_SIGN_IN': true,
+              'ERROR_CODE': err.code
+            });
           } catch (e) {
           }
 
@@ -668,8 +666,6 @@ app.controller('leftPanelController1', function(
   });
 
   $scope.onStarClick = function(entityType, entityId) {
-    var property = {};
-    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
     var entity = entityAPIservice.getEntityById(entityType, entityId);
     if (entity.isStarred) {
       entityheaderAPIservice.removeStarEntity(entityId)
@@ -677,9 +673,10 @@ app.controller('leftPanelController1', function(
 
           //Analtics Tracker. Not Block the Process
           try {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            property[PROPERTY_CONSTANT.TOPIC_ID] = entityId;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, {
+              'RESPONSE_SUCCESS': true,
+              'TOPIC_ID': entityId
+            });
           } catch (e) {
           }
 
@@ -691,9 +688,10 @@ app.controller('leftPanelController1', function(
 
           //Analtics Tracker. Not Block the Process
           try {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-            property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': reponse.code
+            });
           } catch (e) {
           }
 
@@ -705,9 +703,10 @@ app.controller('leftPanelController1', function(
         .success(function(response) {
           try {
             //Analtics Tracker. Not Block the Process
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            property[PROPERTY_CONSTANT.TOPIC_ID] = entityId;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, {
+              'RESPONSE_SUCCESS': true,
+              'TOPIC_ID': entityId
+            });
           } catch (e) {
           }
 
@@ -716,9 +715,10 @@ app.controller('leftPanelController1', function(
         .error(function(response) {
           try {
             //Analtics Tracker. Not Block the Process
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-            property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': reponse.code
+            });
           } catch (e) {
 
           }

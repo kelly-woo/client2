@@ -359,16 +359,15 @@
       fileAPIservice.getFileList($scope.fileRequest)
         .success(function(response) {
 
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
           var fileList = [];
 
           //analytics
           if ($scope.fileRequest.keyword !== "") {
             try {
-              property[PROPERTY_CONSTANT.SEARCH_KEYWORD] = $scope.fileRequest.keyword;
-              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, {
+                'RESPONSE_SUCCESS': true,
+                'SEARCH_KEYWORD': $scope.fileRequest.keyword
+              });
             } catch (e) {
             }
           }
@@ -396,9 +395,10 @@
           //analytics
           if ($scope.fileRequest.keyword !== "") {
             try {
-              property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, property);
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, {
+                'RESPONSE_SUCCESS': false,
+                'ERROR_CODE': response.code
+              });
             } catch (e) {
             }
           }

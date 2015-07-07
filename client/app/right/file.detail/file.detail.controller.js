@@ -296,10 +296,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
         try {
           //analytics
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.FILE_ID] = message.id;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
+            'RESPONSE_SUCCESS': true,
+            'FILE_ID': message.id,
+            'TOPIC_ID': entity.id
+          });
         } catch (e) {
         }
 
@@ -357,9 +358,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         getFileDetail();
         try {
           //analytics
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.FILE_ID] = fileId;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+            'RESPONSE_SUCCESS': true,
+            'FILE_ID': fileId
+          });
         } catch (e) {
         }
 
@@ -369,9 +371,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         console.log(err);
         try {
           //analytics
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+            'RESPONSE_SUCCESS': false,
+            'ERROR_CODE': err.code
+          });
         } catch (e) {
         }
       });

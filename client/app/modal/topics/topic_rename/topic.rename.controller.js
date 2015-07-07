@@ -39,9 +39,10 @@
           }
           try {
             //Analtics Tracker. Not Block the Process
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt($state.params.entityId, 10);
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_NAME_CHANGE, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_NAME_CHANGE, {
+              'RESPONSE_SUCCESS': true,
+              'TOPIC_ID': parseInt($state.params.entityId, 10)
+            });
           } catch (e) {
           }
           analyticsService.mixpanelTrack( "Entity Name Change", { "type": entity_type } );
@@ -61,9 +62,10 @@
         .error(function(response) {
           try {
             //Analtics Tracker. Not Block the Process
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-            property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_NAME_CHANGE, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_NAME_CHANGE, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': response.code
+            });
           } catch (e) {
           }
 

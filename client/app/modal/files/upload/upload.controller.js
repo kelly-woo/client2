@@ -113,8 +113,6 @@
         var share_target = "";
         var fileInfo = response.data.fileInfo;
         var topicType;
-        var property = {};
-        var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
         switch ($scope.currentEntity.type) {
           case 'channels':
@@ -135,10 +133,11 @@
             break;
         }
         try {
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = $scope.currentEntity.id;
-          property[PROPERTY_CONSTANT.FILE_ID] = response.data.messageId;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, {
+            'RESPONSE_SUCCESS': true,
+            'TOPIC_ID': $scope.currentEntity.id,
+            'FILE_ID': response.data.messageId
+          });
         } catch (e) {
         }
 
@@ -162,9 +161,10 @@
 
         //analytics
         try {
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UPLOAD, {
+            'RESPONSE_SUCCESS': false,
+            'ERROR_CODE': err.code
+          });
         } catch (e) {
 
         }
