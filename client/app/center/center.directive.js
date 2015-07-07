@@ -41,37 +41,37 @@
   }
 
   function lastDetector() {
-    var counter = 0;
-    var counterFlag = false;
-    return {
-      restrict: 'A',
-      link: link
-    };
-
-    function link (scope, element, attrs, ctrl) {
-      if (scope.isPolling) {
-        //console.log('polling');
-        counter++;
-        return;
-      }
-      // Switched to new topic.  Reset flag and counter.
-      if (scope.loadMoreCounter == 1) {
-        if (counterFlag) {
-          counter = 0;
-          counterFlag = false;
-        }
-      }
-      counter++;
-      if (counter == scope.messages.length) {
-        //console.log(counter == scope.messages.length)
-        //If it's initial loading, set 'counterFlag' to true.
-        if (scope.loadMoreCounter == 1) {
-          counterFlag = true;
-        }
-
-        scope.onLastMessageRendered();
-      }
-    }
+    //var counter = 0;
+    //var counterFlag = false;
+    //return {
+    //  restrict: 'A',
+    //  link: link
+    //};
+    //
+    //function link (scope, element, attrs, ctrl) {
+    //  if (scope.isPolling) {
+    //    //console.log('polling');
+    //    counter++;
+    //    return;
+    //  }
+    //  // Switched to new topic.  Reset flag and counter.
+    //  if (scope.loadMoreCounter == 1) {
+    //    if (counterFlag) {
+    //      counter = 0;
+    //      counterFlag = false;
+    //    }
+    //  }
+    //  counter++;
+    //  if (counter == scope.messages.length) {
+    //    //console.log(counter == scope.messages.length)
+    //    //If it's initial loading, set 'counterFlag' to true.
+    //    if (scope.loadMoreCounter == 1) {
+    //      counterFlag = true;
+    //    }
+    //
+    //    scope.onLastMessageRendered();
+    //  }
+    //}
   }
 
   function whenScrolled() {

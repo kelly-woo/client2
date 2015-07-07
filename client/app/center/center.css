@@ -245,9 +245,9 @@ article {
   padding: 0 30px 0 67px;
   margin-bottom: 15px;
 }
-.msgs-group > .msg-item:last-child {
+.msgs-group:last-of-type > .msg-item {
   margin-bottom: 0;
-  padding-bottom: 5px;
+  padding-bottom: 14px;
 }
 .msg-item.comment-title,
 .msg-item.comment-continue{
@@ -260,7 +260,7 @@ article {
   margin-top: 13px;
 }
 .msg-item.text-child {
-  margin-top: -15px;
+  margin-top: -6px;
 }
 
 .msg-item.file-upload {
@@ -654,6 +654,7 @@ by ysyun 2015.2.25
 ********************************************/
 .system-event-msg {
   min-height: 15px;
+  margin-bottom: 7px;
 }
 .system-event-msg .msg-item-float {
   height: inherit;
@@ -765,6 +766,12 @@ by ysyun 2015.2.25
   font-size: 16px;
   color: white;
   padding: 0 13px 0 18px;
+
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  -ms-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
 }
 .file-upload-progress-abort,
 .file-upload-progress-icon-cancel {
@@ -785,14 +792,20 @@ by ysyun 2015.2.25
   top: 0;
   z-index: -1;
   border-radius: 0;
-
 }
 .jandi-file-upload-progress-bar .progress-bar {
   background-color: rgba(0, 170, 232, 1);
 }
+.jandi-file-upload-progress-bar .progress-bar.init-progress-bar {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
 .isAborted .jandi-file-upload-progress-bar {
   background-color: rgba(225, 129, 16, 0.8);
-
 }
 .isAborted .jandi-file-upload-progress-bar .progress-bar  {
   background-color: rgba(225, 129, 16, 0.8);
@@ -801,9 +814,6 @@ by ysyun 2015.2.25
   -webkit-animation: none !important;
   animation: none !important;
   background-image: none;
-}
-.file-upload-done {
-
 }
 
 /********************************************
@@ -982,7 +992,7 @@ by ysyun 2015.2.25
 
   cursor: pointer;
   outline: 1px solid #e1e1e1;
-  background-color: #F1F4F8;
+  background-color: #000;
 }
 
 .attachment-content-wrapper .social-image>a {
