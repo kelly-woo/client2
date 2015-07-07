@@ -17,7 +17,7 @@
    * @constructor
    */
   /* @ngInject */
-  function NetInterceptor($q, jndPubSub) {
+  function NetInterceptor($q, configuration, jndPubSub) {
     var _isConnected = true;
 
     this.setStatus = setStatus;
@@ -60,17 +60,30 @@
     }
 
     /**
-     * responseError 발생시 status를 설정한다.
+     * API responseError 발생시 connection status 를 설정한다.
      * @param {object} rejection
      * @returns {Promise}
      */
     function responseError(rejection) {
-      if (rejection.status === 0) {
-        setStatus(false);
-      } else {
-        setStatus(true);
+      if (_isApiUrl(rejection.config.url)) {
+        if (rejection.status === 0) {
+          setStatus(false);
+        } else {
+          setStatus(true);
+        }
       }
       return $q.reject(rejection);
+    }
+
+    /**
+     * API url 인지 여부를 반환한다.
+     * @param {string} url
+     * @returns {boolean}
+     * @private
+     */
+    function _isApiUrl(url) {
+      url = url || '';
+      return url.indexOf(configuration.api_address) !== -1;
     }
   }
 })();
