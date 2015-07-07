@@ -473,20 +473,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _findMessageDomElementById(id) {
-    var lastMsg;
-    var targetScrollTop;
+    var jqTarget = $('#'+ id);
+    var targetScrollTop = jqTarget.offset().top - $('#msgs-container').offset().top;
 
-    // $timeout inside of $timeout????
-    $timeout(function() {
-      lastMsg = angular.element('#'+ id);
-      targetScrollTop = lastMsg.offset().top - angular.element('#msgs-container').offset().top;
-      _animateBackgroundColor(lastMsg);
-      _showContents();
-      /*
-      fixme: 아래 scrollTop 변경 이후 어떤 이유에 의해 scrollTop 이 한번 더 변경하는 현상이 발생하여 timeout 값 800으로 조정함. 원인 불명
-       */
-      document.getElementById('msgs-container').scrollTop = targetScrollTop;
-    }, 0);
+    _animateBackgroundColor(jqTarget);
+    _showContents();
+    $('#msgs-container')[0].scrollTop = targetScrollTop;
   }
 
   function _scrollToBottom() {
