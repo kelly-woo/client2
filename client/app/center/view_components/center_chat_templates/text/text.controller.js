@@ -26,6 +26,7 @@
 
     // 현재 메시지가 나의 메시지인지 알려주는 flag
     $scope.isMyMessage = (_myId === _message.fromEntity);
+    $scope.showAnnouncement = _message.message.contentType !== 'sticker' && _entityType !== 'users';
 
     $scope.deleteMessage = deleteMessage;
     $scope.onUserClick = onUserClick;

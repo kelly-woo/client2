@@ -40,7 +40,7 @@
 
       <!--    ANNOUNCEMENT ICON APPEARS ON HOVER    -->
       <span class="msg-item__action pull-right cursor_pointer icon-bullhorn msg-item-action-icon"
-            ng-if="msg.message.contentType !== 'sticker'"
+            ng-if="showAnnouncement"
             ng-mouseenter="onMouseEnterOnIcon();"  ng-mouseleave="onMouseLeaveOnIcon();"
             ng-click="createAnnouncement()"
             tooltip="{{ '@announcement-create' | translate }}" tooltip-append-to-body="true">
@@ -76,7 +76,7 @@
 
       <!--    ANNOUNCEMENT ICON APPEARS ON HOVER    -->
       <span class="msg-item__action pull-right cursor_pointer icon-bullhorn msg-item-action-icon"
-            ng-if="msg.message.contentType !== 'sticker'"
+            ng-if="showAnnouncement"
             ng-mouseenter="onMouseEnterOnIcon();"  ng-mouseleave="onMouseLeaveOnIcon();"
             ng-click="createAnnouncement()"
             tooltip="{{ '@announcement-create' | translate }}" tooltip-append-to-body="true">
