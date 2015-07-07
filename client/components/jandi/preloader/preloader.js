@@ -15,7 +15,7 @@
   var _path;
   var _templateList;
   var _imgList;
-  
+
   /* @ngInject */
   function config(configuration) {
     _isLocal = configuration.name === 'local';
@@ -24,7 +24,10 @@
       'app/disconnect/disconnect.html'
     ];
     _imgList = [
-      '../assets/images/icon_network_error.png'
+      '../assets/images/icon_network_error.png',
+      // integration icons
+      '../assets/images/icon_google_drive.png',
+      '../assets/images/icon_dropbox.png'
     ];
   }
 

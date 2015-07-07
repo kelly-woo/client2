@@ -90,11 +90,15 @@
                 entity_type = "invalid";
                 break;
             }
-            //Analtics Tracker. Not Block the Process
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt($state.params.entityId, 10);
-            property[PROPERTY_CONSTANT.MEMBER_COUNT] = guestList.length;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, property);
+            try {
+              //Analtics Tracker. Not Block the Process
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, {
+                'RESPONSE_SUCCESS': true,
+                'TOPIC_ID': parseInt($state.params.entityId, 10),
+                'MEMBER_COUNT': guestList.length
+              });
+            } catch (e) {
+            }
 
             analyticsService.mixpanelTrack( "Entity Invite", { "type": entity_type, "count": guestList.length } );
 
@@ -104,10 +108,14 @@
             $modalInstance.dismiss('success');
           })
           .error(function(error) {
-            //Analtics Tracker. Not Block the Process
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-            property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, property);
+            try {
+              //Analtics Tracker. Not Block the Process
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_MEMBER_INVITE, {
+                'RESPONSE_SUCCESS': false,
+                'ERROR_CODE': error.code
+              });
+            } catch (e) {
+            }
             // TODO - TO JAY, MAYBE WE NEED TO SHOW MESSAGE WHY IT FAILED??
             console.error('inviteUsers', error.msg );
           })

@@ -29,7 +29,7 @@
     this.isChildText = isChildText;
     this.isChildComment = isChildComment;
     this.isTitleComment = isTitleComment;
-    this.isDayChanged = isDayChanged;
+    this.isNewDate = isNewDate;
 
     this.isElapsed = isElapsed;
     this.getContentType = getContentType;
@@ -57,7 +57,7 @@
     }
 
     /**
-     *
+     * 번수를 초기화 한다.
      */
     function reset() {
       _systemMessageCount = 0;
@@ -65,16 +65,16 @@
     }
 
     /**
-     *
-     * @param iteratee
-     * @param context
+     * for each
+     * @param {function} iteratee
+     * @param {object} context
      */
     function forEach(iteratee, context) {
       _.forEach(that.list, iteratee, context);
     }
 
     /**
-     *
+     * status 가 sending 인 messages 를 제거한다.
      */
     function removeAllSendingMessages() {
       var list = that.list;
@@ -109,9 +109,9 @@
 
     /**
      * queue 에 메세지를 추가한다.
-     * @param content
-     * @param sticker
-     * @param isSkipAppend
+     * @param {string} content
+     * @param {object} sticker
+     * @param {boolean} isSkipAppend message list 에 append 할 지 여부
      */
     function enqueue(content, sticker, isSkipAppend) {
       var messageList = MessageSending.enqueue(content, sticker);
@@ -120,6 +120,10 @@
       }
     }
 
+    /**
+     * messageList 를 append 한다.
+     * @param {array} messageList
+     */
     function append(messageList) {
       messageList = _beforeAddMessages(messageList);
       _.forEach(messageList, function(msg) {
@@ -127,6 +131,11 @@
         that.list.push(msg);
       });
     }
+
+    /**
+     * messageList 를 prepend 한다.
+     * @param {array} messageList
+     */
     function prepend(messageList) {
       messageList = _beforeAddMessages(messageList);
       _.forEachRight(messageList, function(msg) {
@@ -134,6 +143,72 @@
         that.list.unshift(msg);
       });
     }
+
+    /**
+     * 메세지를 삭제한다.
+     * @param {number|string} messageId 메세지 id
+     * @param {boolean} isReversal  역순으로 순회할지 여부
+     * @returns {boolean} 삭제에 성공했는지 여부
+     */
+    function remove(messageId, isReversal) {
+      var targetIdx = at(messageId, isReversal);
+      var msg;
+      if (targetIdx !== -1) {
+        msg = that.list[targetIdx];
+        if (msg.status === 'sending') {
+          MessageSending.remove(msg);
+        }
+        that.list.splice(targetIdx, 1);
+      }
+      return targetIdx !== -1;
+    }
+
+    /**
+     * messageId 에 해당하는 message 를 반환한다.
+     * @param {number|string} messageId messageId 메세지 id
+     * @param {boolean} isReversal 역순으로 순회할지 여부
+     * @returns {*}
+     */
+    function get(messageId, isReversal) {
+      var target;
+      var list = that.list;
+      var iterator = isReversal ? _.forEachRight : _.forEach;
+
+      iterator(list, function(message) {
+        if (message.messageId === messageId) {
+          target = message;
+          return false;
+        }
+      });
+
+      return target;
+    }
+
+    /**
+     * messageId 에 해당하는 message 가 몇번째 index 인지 반환한다.
+     * @param {number|string} messageId messageId 메세지 id
+     * @param {boolean} isReversal 역순으로 순회할지 여부
+     * @returns {number}
+     */
+    function at(messageId, isReversal) {
+      var targetIdx = -1;
+      var list = that.list;
+      var iterator = isReversal ? _.forEachRight : _.forEach;
+
+      iterator(list, function(message, index) {
+        if (message.messageId === messageId) {
+          targetIdx = index;
+          return false;
+        }
+      });
+
+      return targetIdx;
+    }
+
+    /**
+     * 서버로 부터 update 정보를 받아 해당 메세지들을 업데이트 한다.
+     * @param {array} messageList 업데이트 할 메세지 리스트
+     */
     function update(messageList) {
       messageList = _beforeAddMessages(messageList);
 
@@ -146,6 +221,130 @@
       });
     }
 
+    /**
+     * child text 인지 여부를 반환한다.
+     * @param {number} index
+     * @returns {boolean}
+     */
+    function isChildText(index) {
+      var contentType = getContentType(index);
+      return !!(centerService.isTextType(contentType) && MessageText.isChild(index, that.list));
+    }
+
+    /**
+     * child comment 인지 여부를 반환한다.
+     * @param {number} index
+     * @returns {boolean}
+     */
+    function isChildComment(index) {
+      var contentType = getContentType(index);
+      return !!(centerService.isCommentType(contentType) && MessageComment.isChild(index, that.list));
+    }
+
+    /**
+     * title comment 인지 여부를 반환한다.
+     * @param {number} index
+     * @returns {boolean}
+     */
+    function isTitleComment(index) {
+      var contentType = getContentType(index);
+      return !!(centerService.isCommentType(contentType) && MessageComment.isTitle(index, that.list));
+    }
+
+    /**
+     * link preview 가 존재하는지 여부를 반환한다.
+     * @param {number} index
+     * @returns {boolean}
+     */
+    function hasLinkPreview(index) {
+      return !_.isEmpty(that.list[index].message.linkPreview);
+    }
+
+    /**
+     * 새로운 날짜의 시작인지 여부를 반환한다.
+     * @param {number} index
+     * @returns {boolean}
+     */
+    function isNewDate(index) {
+      var messages = that.list;
+      var prevMsg;
+      var msg = messages[index];
+
+      if (index > 0) {
+        prevMsg = messages[index - 1];
+        if (msg.date !== prevMsg.date) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return true;
+      }
+    }
+
+    /**
+     * 해당 메세지의 content type 을 확인한다.
+     * @param index 확인할 대상 메세지 인덱스
+     * @returns {string} 메세지의 contentType
+     */
+    function getContentType(index) {
+      var data = that.list[index];
+      return data && data.message && data.message.contentType;
+    }
+    function _beforeAddMessages(messageList) {
+      messageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
+      //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
+      messageList[messageList.length - 1]._isLast = true;
+      return messageList;
+    }
+
+    /**
+     * 첫번째 id 를 반환한다.
+     * @returns {number}
+     */
+    function getFirstLinkId() {
+      var linkId = -1;
+      _.forEach(that.list, function(msg) {
+        if (!MessageSending.isSending(msg)) {
+          linkId = msg.id;
+          return false;
+        }
+      });
+      return linkId;
+    }
+
+    /**
+     * 마지막 id 를 반환한다.
+     * @returns {number}
+     */
+    function getLastLinkId() {
+      var linkId = -1;
+      _.forEachRight(that.list, function(msg) {
+        if (!MessageSending.isSending(msg)) {
+          linkId = msg.id;
+          return false;
+        }
+      });
+      return linkId;
+    }
+
+    /**
+     * 연속된 메세지로 간주할 시간 허용 범위를 초과하였는지 여부
+     * @param {number} startTime 시작 시간
+     * @param {number} endTime  끝 시간
+     * @returns {boolean} 초과했는지 여부
+     * @private
+     */
+    function isElapsed(startTime, endTime) {
+      var elapsedMin = Math.floor((endTime - startTime) / 60000);
+      return elapsedMin > MAX_MSG_ELAPSED_MINUTES;
+    }
+
+    /**
+     * user message 를 업데이트 한다.
+     * @param {object} msg 업데이트할 메세지
+     * @private
+     */
     function _updateUserMessage(msg) {
       var isArchived = false;
       var messageId = msg.messageId;
@@ -184,62 +383,27 @@
       }
     }
 
-    function remove(messageId, isReversal) {
-      var targetIdx = at(messageId, isReversal);
-      var msg;
-      if (targetIdx !== -1) {
-        msg = that.list[targetIdx];
-        if (msg.status === 'sending') {
-          MessageSending.remove(msg);
-        }
-        that.list.splice(targetIdx, 1);
-      }
-      return targetIdx !== -1;
-    }
-
-    function get(messageId, isReversal) {
-      var target;
-      var list = that.list;
-      var iterator = isReversal ? _.forEachRight : _.forEach;
-
-      iterator(list, function(message) {
-        if (message.messageId === messageId) {
-          target = message;
-          return false;
-        }
-      });
-
-      return target;
-    }
-    function at(messageId, isReversal) {
-      var targetIdx = -1;
-      var list = that.list;
-      var iterator = isReversal ? _.forEachRight : _.forEach;
-
-      iterator(list, function(message, index) {
-        if (message.messageId === messageId) {
-          targetIdx = index;
-          return false;
-        }
-      });
-
-      return targetIdx;
-    }
-
+    /**
+     * system message 를 업데이트한다.
+     * @param {object} msg 업데이트할 메세지
+     * @returns {*}
+     * @private
+     */
     function _updateSystemMessage(msg) {
       msg = _getFormattedSystemMsg(msg);
-      _systemMessageCount++;
-      return msg;
+      append(msg);
+      jndPubSub.pub('newSystemMessageArrived', msg);
     }
+
     /**
-     *
-     * @param msg
-     * @returns {*}
+     * 기본 메세지에 랜더링에 필요한 추가 정보를 더하여 반환한다.
+     * @param {object} msg
+     * @returns {object}
      */
     function _getFormattedMessage(msg) {
       msg.date = _getDateKey(msg.time);
       if (_isSystemMessage(msg)) {
-        _updateSystemMessage(msg);
+        msg = _getFormattedSystemMsg(msg);
       } else {
         if (_isSharingStatusMassage(msg))  {
 
@@ -269,76 +433,6 @@
       return msg;
     }
 
-    function isChildText(index) {
-      var contentType = getContentType(index);
-      return centerService.isTextType(contentType) && MessageText.isChild(index, that.list);
-    }
-    function isChildComment(index) {
-      var contentType = getContentType(index);
-      return centerService.isCommentType(contentType) && MessageComment.isChild(index, that.list);
-    }
-    function isTitleComment(index) {
-      var contentType = getContentType(index);
-      return centerService.isCommentType(contentType) && MessageComment.isTitle(index, that.list);
-    }
-    function hasLinkPreview(index) {
-      return !_.isEmpty(that.list[index].message.linkPreview);
-    }
-
-    function isDayChanged(index) {
-      var messages = that.list;
-      var prevMsg;
-      var msg = messages[index];
-
-      if (index > 0) {
-        prevMsg = messages[index - 1];
-        if (msg.date !== prevMsg.date) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return true;
-      }
-    }
-    /**
-     * 해당 메세지의 content type 을 확인한다.
-     * @param index 확인할 대상 메세지 인덱스
-     * @returns {string} 메세지의 contentType
-     */
-
-    function getContentType(index) {
-      var data = that.list[index];
-      return data && data.message && data.message.contentType;
-    }
-    function _beforeAddMessages(messageList) {
-      messageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
-
-      return messageList;
-    }
-
-    function getFirstLinkId() {
-      var linkId = -1;
-      _.forEach(that.list, function(msg) {
-        if (!MessageSending.isSending(msg)) {
-          linkId = msg.id;
-          return false;
-        }
-      });
-      return linkId;
-    }
-    
-    function getLastLinkId() {
-      var linkId = -1;
-      _.forEachRight(that.list, function(msg) {
-        if (!MessageSending.isSending(msg)) {
-          linkId = msg.id;
-          return false;
-        }
-      });
-      return linkId;
-    }
-    
     function _getDateKey(time) {
       return $filter('ordinalDate')(time, "yyyyMMddEEEE, MMMM doo, yyyy");
     }
@@ -362,8 +456,13 @@
       return msg;
     }
 
-    
 
+    /**
+     * formatted 된 system message 를 반환한다.
+     * @param {object} msg
+     * @returns {*}
+     * @private
+     */
     function _getFormattedSystemMsg(msg) {
       var newMsg = msg;
       var action = '';
@@ -403,12 +502,12 @@
 
       newMsg.message.content.actionOwner = memberService.getNameById(msg.fromEntity);
       newMsg.message.content.body = action;
-
+      _systemMessageCount++;
       return newMsg;
     }
 
     /**
-     * 시스템 메세지 여부를 반환한다.
+     * 시스템 메세지인지 여부를 반환한다.
      * @param {object} msg 메세지
      * @returns {boolean} 시스템 메세지 여부
      * @private
@@ -421,7 +520,7 @@
     }
 
     /**
-     * 공유 관련된 메세지인지 여부를 반환한다.
+     * 공유/공유해제 메세지인지 여부를 반환한다.
      * @param {object} msg 메세지
      * @returns {boolean}
      * @private
@@ -451,18 +550,8 @@
     }
 
     /**
-     * 연속된 메세지로 간주할 시간 허용 범위를 초과하였는지 여부
-     * @param {number} startTime 시작 시간
-     * @param {number} endTime  끝 시간
-     * @returns {boolean} 초과했는지 여부
-     * @private
+     * unread count 를 업데이트 한다.
      */
-    function isElapsed(startTime, endTime) {
-      var elapsedMin = Math.floor((endTime - startTime) / 60000);
-      return elapsedMin > MAX_MSG_ELAPSED_MINUTES;
-    }
-
-
     function updateUnreadCount() {
       var list = that.list;
       var globalUnreadCount;
@@ -503,7 +592,6 @@
         //message.unreadCount = globalUnreadCount === 0 ? '' : globalUnreadCount;
         list[index] = message;
       });
-
     }
   }
 })();

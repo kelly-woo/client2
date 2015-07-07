@@ -6,12 +6,12 @@
 </div>
 
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
-  
+
   <!-- FILE -->
   <div class="rpanel-body-content file-detail" file-detail ng-show="!isFileArchived && !hasFileAPIError">
-    <page-tracker page="files/detail" title="File Detail"></page-tracker>
+    
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
-
+    <page-tracker page="files/detail" title="File Detail"></page-tracker>
       <div class="file-detail-header">
         <div class="file-detail-header-box"
              ng-class="{'file-detail-disabled-member': isDisabledMember(file_detail.writer)}">
@@ -142,7 +142,7 @@
       <div class="comment-item__thumbnail">
         <img class="user-profile user-thumb-sm cursor_pointer"
              ng-src="{{ member | getSmallThumbnail }}"
-             ng-click="onUserClick(user);"/>
+             ng-click="onUserClick(member);"/>
       </div>
       <form id="comment-form" data-ng-submit="postComment();">
         <sticker-layer name="file" height="145"></sticker-layer>

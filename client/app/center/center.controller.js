@@ -27,9 +27,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   var lastUpdatedLinkId = -1;
-
   var systemMessageCount;         // system event message의 갯수를 keep track 한다.
-
   var hasRetryGetRoomInfo;        // Indicates that whether current entity has failed getting room info once.
 
   // _scrollToBottom fn timer variable
@@ -40,9 +38,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var _stickerType = 'chat';
   var _sticker = null;
-  var _updateListLock = false;
+  var _isUpdateListLock = false;
 
-  var _taskQueue = [];
   var _initTimer;
 
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
@@ -78,7 +75,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.loadMore = loadMore;
   $scope.loadNewMessages = loadNewMessages;
   $scope.loadOldMessages = loadOldMessages;
-  $scope.onLastMessageRendered = onLastMessageRendered;
   $scope.clearNewMessageAlerts = clearNewMessageAlerts;
 
   $scope.postMessage = postMessage;
@@ -88,7 +84,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.isTextType = isTextType;
   $scope.isCommentType = isCommentType;
-  $scope.isDayChanged = MessageCollection.isDayChanged;
+  $scope.isNewDate = MessageCollection.isNewDate;
   $scope.hasLinkPreview = MessageCollection.hasLinkPreview;
 
   $scope.isChildText = MessageCollection.isChildText;
@@ -131,6 +127,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _reset() {
+    console.log('#reset');
     MessageQuery.reset();
     MessageCollection.reset();
 
@@ -164,6 +161,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('connected', _onConnected);
     $scope.$on('refreshCurrentTopic',_refreshCurrentTopic);
     $scope.$on('newMessageArrived', _onNewMessageArrived);
+    $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
+
     $scope.$on('jumpToMessageId', _jumpToMessage);
     $scope.$on('elastic:resize', _onElasticResize);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
@@ -188,6 +187,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _isLoadingNewMessages() {
     return MessageQuery.get('type') === 'new';
+  }
+
+  /**
+   * 이전 메세지를 조회하고 있는지를 반환한다.
+   * @returns {boolean}
+   * @private
+   */
+  function _isLoadingOldMessages() {
+    return MessageQuery.get('type') === 'old';
   }
 
   /**
@@ -331,7 +339,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function loadMore() {
     var deferred = $q.defer();
 
-    if (!$scope.msgLoadStatus.loading && !$scope.isPosting) {
+    if (!$scope.msgLoadStatus.loading) {
 
       loadedFirstMessagedId = MessageCollection.getFirstLinkId();
       loadedLastMessageId = MessageCollection.getLastLinkId();
@@ -447,10 +455,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return MessageCollection.getLastLinkId() == lastMessageId;
   }
 
-  function onLastMessageRendered() {
-    _updateScroll();
-  }
-
   function _updateScroll() {
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
@@ -459,10 +463,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _scrollToBottom();
     } else if (_isLoadingNewMessages()) {
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
-    } else if (loadedFirstMessagedId !== -1) {
+    } else if (_isLoadingOldMessages()) {
       _disableScroll();
       _findMessageDomElementById(loadedFirstMessagedId);
     }
+    MessageQuery.reset();
   }
 
   function _findMessageDomElementById(id) {
@@ -515,7 +520,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // TODO: NOT A GOOD NAME. WHEN FUNCTION NAME STARTS WITH 'is' EXPECT IT TO RETURN BOOLEAN VALUE.
   // Current 'isAtBottom' function is not returning boolean. PLEASE CHANGE THE NAME!!
   function clearNewMessageAlerts() {
-    //console.log('this is isAtBottom')
     _clearBadgeCount($scope.currentEntity);
     _resetNewMsgHelpers();
   }
@@ -547,10 +551,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateList() {
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
-    if ($scope.msgLoadStatus.loading || $scope.isPosting || _updateListLock) {
+    if ($scope.msgLoadStatus.loading || _isUpdateListLock) {
       return;
     }
-    _updateListLock = true;
+    _isUpdateListLock = true;
     $scope.isPolling = true;
     //todo: deprecated 되었으므로 해당 API 제거해야함
     messageAPIservice.getUpdatedMessages(entityType, entityId, lastUpdatedLinkId)
@@ -559,7 +563,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         onHttpResponseError(response);
       })
       .finally(function() {
-        _updateListLock = false;
+        _isUpdateListLock = false;
       });
 
     // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
@@ -577,16 +581,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     response = response.updateInfo;
     response.messages = _.sortBy(response.messages, 'id');
     if (response.messageCount) {
-      if (!_hasLastMessage()) {
-        _gotNewMessage();
-      } else {
-        // 업데이트 된 메세지 처리
-        _updateMessages(response.messages);
-        //  marker 설정
-        updateMessageMarker();
-        _checkEntityMessageStatus();
-        MessageCollection.updateUnreadCount();
-      }
+      // 업데이트 된 메세지 처리
+      _updateMessages(response.messages);
+      //  marker 설정
+      updateMessageMarker();
+      _checkEntityMessageStatus();
+      MessageCollection.updateUnreadCount();
     }
   }
 
@@ -600,7 +600,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var msg;
     // Prevent duplicate messages in center panel.
     if (length && MessageCollection.getLastLinkId() < messages[0].id) {
-      $scope.isPosting = $scope.isPosting ? false : $scope.isPosting;
       // auto focus to textarea
       $scope.focusPostMessage = true;
       MessageCollection.removeAllSendingMessages();
@@ -619,7 +618,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     if (response.code == INVALID_SECURITY_TOKEN) {
-      //console.debug('INVALID SECURITY TOKEN.');
       $state.go('signin');
       return;
     }
@@ -699,6 +697,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     if (!$scope.isPosting && length) {
       $scope.isPosting = true;
+      _isUpdateListLock = true;
       _.forEach(queue, function (msg) {
         if (!promise) {
           promise = _getPostPromise(msg, true);
@@ -708,8 +707,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             _.bind(_getPostPromise, null, msg, false));
         }
       });
-
-      $scope.isPosting = false;
 
       if (promise) {
         promise.then(
@@ -731,13 +728,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (!isSuccess && !NetInterceptor.isConnected()) {
       MessageCollection.enqueue(msg.content, msg.sticker, true);
     } else {
-      //var property = {};
-      //var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-      //
-      ////analytics
-      //property[PROPERTY_CONSTANT.MESSAGE_ID] = res.id;
-      //property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-      //AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, property);
+      try {
+        //analytics
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
+          'RESPONSE_SUCCESS': true
+        });
+      } catch (e) {
+      }
     }
     return messageAPIservice.postMessage(entityType, entityId, msg.content, msg.sticker);
   }
@@ -748,6 +745,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onFailedPostMessages(length) {
+    _isUpdateListLock = false;
+    $scope.isPosting = false;
     var queue = MessageCollection.getQueue();
     var msg = queue[length - 1];
     MessageCollection.spliceQueue(0, length);
@@ -763,6 +762,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onSuccessPostMessages(length) {
+    _isUpdateListLock = false;
+    $scope.isPosting = false;
     var queue = MessageCollection.getQueue();
     MessageCollection.spliceQueue(0, length);
     if (queue.length > 0) {
@@ -827,15 +828,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           "size"          : message.content.size
         };
         analyticsService.mixpanelTrack( "File Unshare", share_data );
-        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-        property[PROPERTY_CONSTANT.FILE_ID] = message.id;
-        property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
+
+        try {
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
+            'RESPONSE_SUCCESS': true,
+            'FILE_ID': message.id,
+            'TOPIC_ID': entity.id
+          });
+        } catch (e) {
+        }
+
+
       })
       .error(function(err) {
-        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-        property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
+        try {
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
+            'RESPONSE_SUCCESS': false,
+            'ERROR_CODE': error.code
+          });
+        } catch (e) {
+        }
+
         alert(err.msg);
       });
   }
@@ -1145,6 +1158,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _gotNewMessage();
   }
 
+  /**
+   * on new system message arrived
+   * @private
+   */
+  function _onNewSystemMessageArrived() {
+    //if (_hasLastMessage() && centerService.hasBottomReached()) {
+    if (centerService.hasBottomReached()) {
+      _scrollToBottom();
+    }
+  }
+
   function _resetUnreadCounters() {
     hasRetryGetRoomInfo = false;
     markerService.init();
@@ -1201,13 +1225,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return $('#msgs-container')[0].scrollTop + $('#msgs-container').height() >= $('#msgs-holder').outerHeight();
   }
 
-
+  /**
+   * 랜더링 repeat 가 끝났을 때 호출되는 함수
+   */
   function onRepeatDone() {
-    while (_taskQueue.length) {
-      _taskQueue.shift()();
-    }
+    _updateScroll();
   }
-
 
   /**
    * $scope event listeners
@@ -1295,7 +1318,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
       _scrollToBottom();
     }
-    $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 20);
+    $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 27);
   }
 
   /**
@@ -1341,7 +1364,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var messageId = file.id;
     var message = MessageCollection.get(messageId);
     if (message) {
-      fileAPIservice.getFileDetaiㅎl(messageId)
+      fileAPIservice.getFileDetail(messageId)
         .success(function (response) {
           _.forEach(response.messageDetails, function(item) {
             if (item.contentType === 'file') {

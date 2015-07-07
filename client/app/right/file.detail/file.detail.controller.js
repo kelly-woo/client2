@@ -314,12 +314,15 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
         var property = {};
         var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-        //analytics
-        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-        property[PROPERTY_CONSTANT.FILE_ID] = message.id;
-        property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
-
+        try {
+          //analytics
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
+            'RESPONSE_SUCCESS': true,
+            'FILE_ID': message.id,
+            'TOPIC_ID': entity.id
+          });
+        } catch (e) {
+        }
 
       })
       .error(function(err) {
@@ -373,21 +376,27 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     fileAPIservice.deleteFile(fileId)
       .success(function(response) {
         getFileDetail();
-
-        //analytics
-        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-        property[PROPERTY_CONSTANT.FILE_ID] = fileId;
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
+        try {
+          //analytics
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+            'RESPONSE_SUCCESS': true,
+            'FILE_ID': fileId
+          });
+        } catch (e) {
+        }
 
         $rootScope.$broadcast('onFileDeleted', fileId);
       })
       .error(function(err) {
         console.log(err);
-
-        //analytics
-        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-        property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
+        try {
+          //analytics
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+            'RESPONSE_SUCCESS': false,
+            'ERROR_CODE': err.code
+          });
+        } catch (e) {
+        }
       });
   }
 

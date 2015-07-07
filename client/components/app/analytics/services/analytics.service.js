@@ -15,8 +15,11 @@
   /* @ngInject */
   function AnalyticsHelper(AnalyticsPersistence, AnalyticsData, AnalyticsLazyload, AnalyticsConstant, config) {
 
+    var LANGUAGE_SET = AnalyticsConstant.LANGUAGE_SET;
     var EVENT = AnalyticsConstant.EVENT;
     var PROPERTY = AnalyticsConstant.PROPERTY;
+    var LOCAL_STORAGE_KEY = AnalyticsConstant.LOCAL_STORAGE_KEY;
+    var SESSION_STORAGE_KEY = AnalyticsConstant.SESSION_STORAGE_KEY;
 
     this.EVENT = EVENT;
     this.PROPERTY = PROPERTY;
@@ -43,26 +46,40 @@
      * Validation Check를 하고 LazyLoad를 해야할 상황이면 LazyLoad서비스로 넘기고, 
      * 아닌경우는 바로 Data를 전송한다.
      * @param {String} event - Event Name. AnalyticsConstant.Event에 존재해야한다. 
-     * @param {object} properties - Event에 종속된 properties.
+     * @param {String} properties - Event에 종속된 properties.
      */
     function track(event, properties) {
-      // try {
-        properties = properties || {};
+      try {
+        var customProperties = properties || {};
+        var parsedProperties = mapProperty(customProperties);
         var identify = AnalyticsPersistence.getIdentify();
-
-        var isValid = checkValidation(event, properties);
-        var isLazyload = AnalyticsLazyload.checkLazyload(event, properties, identify);
+        var isValid = checkValidation(event, parsedProperties);
+        var isLazyload = AnalyticsLazyload.checkLazyload(event, parsedProperties, identify);
 
         if (isValid) {
           if (isLazyload) {
-            AnalyticsLazyload.track(event, properties);
+            AnalyticsLazyload.track(event, parsedProperties);
           } else {
-            AnalyticsData.track(event, properties, identify);
+            AnalyticsData.track(event, parsedProperties, identify);
           }
-        }
-      // } catch (e) {
-      //   error(e, 'AnalyticsHelper.track');
-      // }
+        } 
+      } catch (e) {
+        error(e, 'AnalyticsHelper.track');
+      }      
+    }
+
+    /**
+     * track에서 받은 Property의 Key값들을 Sprinkler Log규약에 맞도록 맵핑한다.
+     * @see analytics.constant.service.js
+     * @see http://wiki.tosslab.com/display/SPRK/Jandi+Track+abbreviation
+     * @example 'CURRENT_LANGUAGE': 'kr' =>  'p12': 'kr'
+     * @param {Object} properties - Event Name. AnalyticsConstant.Event에 존재해야한다. 
+     * @param {Object} properties - Event에 종속된 properties.
+     */
+    function mapProperty(properties) {
+      return _.mapKeys(properties, function(value, key) {
+        return PROPERTY[key];
+      });
     }
 
     /**
@@ -73,6 +90,7 @@
      * @param {String} properties - Event에 종속된 properties.
      */
     function checkValidation(event, properties) {
+
       //TODO: Event 명, property명 Check
       if (_.isUndefined(event)) {
         //Event값이 없을 경우
@@ -87,14 +105,16 @@
      * @return {Object}
      */
     function getDefaultProperty() {
-      var defaultProperty = {};
-      defaultProperty[PROPERTY.BROWSER_HEIGHT] = window.innerHeight || document.body.clientHeight;
-      defaultProperty[PROPERTY.BROWSER_WIDTH] = window.innerWidth || document.body.clientWidth;
-      defaultProperty[PROPERTY.SYSTEM_WIDTH] = screen.width;
-      defaultProperty[PROPERTY.SYSTEM_HEIGHT] = screen.height;
-      defaultProperty[PROPERTY.USER_AGENT] = window.navigator.userAgent;
-      defaultProperty[PROPERTY.REFERRER] = document.referrer;
-      defaultProperty[PROPERTY.BROWSER_LANGUAGE] = window.navigator.language;
+      var defaultProperty = {
+        'BROWSER_HEIGHT': window.innerHeight || document.body.clientHeight,
+        'BROWSER_WIDTH': window.innerWidth || document.body.clientWidth,
+        'SYSTEM_WIDTH': screen.width,
+        'SYSTEM_HEIGHT': screen.height,
+        'USER_AGENT': window.navigator.userAgent,
+        'REFERRER': document.referrer,
+        'BROWSER_LANGUAGE': window.navigator.language
+      };
+      
       return defaultProperty;
     }
     

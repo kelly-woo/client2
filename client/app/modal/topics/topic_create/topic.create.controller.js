@@ -14,8 +14,6 @@
     };
 
     $scope.onCreateClick = function(entityType, entityName) {
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if ($scope.isLoading) return;
 
       if (entityType == 'private')
@@ -42,9 +40,14 @@
           }
 
           //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = response.id;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, property);
+          try {
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, {
+              'RESPONSE_SUCCESS': true,
+              'TOPIC_ID': response.id
+            });
+          } catch (e) {
+
+          }
 
           analyticsService.mixpanelTrack( "Entity Create", { "type": entity_type } );
 
@@ -54,9 +57,13 @@
         })
         .error(function(response) {
           //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, property);
+          try {
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': response.code
+            });
+          } catch (e) {
+          }
           
           _onCreateError(response);
         })

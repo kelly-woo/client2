@@ -128,16 +128,16 @@
           // success
           function(response) {
             if (response) {
-              that.options.onSuccess(response);
+              that.options.onSuccess(response, index, length);
             } else {
-              that.options.onError();
+              that.options.onError(response, index, length);
             }
 
             invoke();
           },
           // error
           function(error) {
-            that.options.onError(error);
+            that.options.onError(error, index, length);
 
             invoke();
           },

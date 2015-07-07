@@ -119,6 +119,20 @@ function fakeNgModel(initValue) {
 //    }
 //  };
 //});
+/**
+ * 메세지의 repeat done detector
+ */
+app.directive('msgRepeatDone', function() {
+  return function(scope, element, attrs) {
+    if (scope.msg._isLast) { // all are rendered
+      scope.$eval(attrs.msgRepeatDone);
+    }
+  };
+});
+
+/**
+ * 범용 repeat done detector
+ */
 app.directive('repeatDone', function() {
   return function(scope, element, attrs) {
     if (scope.$last) { // all are rendered

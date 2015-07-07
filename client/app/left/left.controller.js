@@ -66,6 +66,14 @@ app.controller('leftPanelController1', function(
     _setAfterLeftInit(param);
   });
 
+  /**
+   * language 변경 event handling
+   */
+  $scope.$on('changedLanguage', function() {
+    //  Setting prefix for each entity.
+    setEntityPrefix();
+  });
+
   $scope.$watch('leftListCollapseStatus.isTopicsCollapsed', _onCollapseStatusChanged);
 
   $scope.goUnreadBelow = goUnreadBelow;
@@ -395,12 +403,10 @@ app.controller('leftPanelController1', function(
     if (_.isUndefined(accountService.getAccount())) {
       accountService.getAccountInfo()
         .success(function(response) {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
           accountService.setAccount(response);
 
-          publicService.setLanguageConfig();
+          publicService.setLanguageConfig(response.lang);
 
           _checkUpdateMessageStatus();
 
@@ -411,24 +417,29 @@ app.controller('leftPanelController1', function(
           analyticsService.mixpanelTrack("Sign In");
 
           //analytics
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+          try {
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
+              'RESPONSE_SUCCESS': true,
+              'AUTO_SIGN_IN': true
+            });
+          } catch (e) {
+          }
 
-          // language를 변경하게 되면 html에 content로 bind된 text는 변경이 되지만 '.js' file내
-          // 변수로 선언된 text는 변경되지 않으므로 '.js' 재수행을 필요로 하므로 page를 reload함.
-          publicService.reloadCurrentPage($state.current, $state.params);
+          // load된 controller, directive, service내 사용중인 translate
+          // variable을 변경하기 위해 changedLanguage event를 broadcast 함
+          jndPubSub.pub('changedLanguage');
         })
         .error(function(err) {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
           //analytics
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = true;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
-
+          try {
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
+              'RESPONSE_SUCCESS': false,
+              'AUTO_SIGN_IN': true,
+              'ERROR_CODE': err.code
+            });
+          } catch (e) {
+          }
 
           leftpanelAPIservice.toSignin();
         })
@@ -610,7 +621,7 @@ app.controller('leftPanelController1', function(
     modalHelper.openMemberProfileModal($scope, user);
   };
 
-  // based on uesr.u_starredEntites, populating starred look-up list.
+  // based on uesr.u_starredEntities, populating starred look-up list.
   function setStar() {
     _.forEach(memberService.getStarredEntities(), function(starredEntityId) {
       entityAPIservice.setStarred(starredEntityId);
@@ -655,18 +666,19 @@ app.controller('leftPanelController1', function(
   });
 
   $scope.onStarClick = function(entityType, entityId) {
-    var property = {};
-    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
     var entity = entityAPIservice.getEntityById(entityType, entityId);
     if (entity.isStarred) {
       entityheaderAPIservice.removeStarEntity(entityId)
         .success(function(response) {
 
           //Analtics Tracker. Not Block the Process
-
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = entityId;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, property);
+          try {
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, {
+              'RESPONSE_SUCCESS': true,
+              'TOPIC_ID': entityId
+            });
+          } catch (e) {
+          }
 
           getLeftLists();
           // TODO: UPDATE CURRENT ONLY.
@@ -675,29 +687,41 @@ app.controller('leftPanelController1', function(
         .error(function(response) {
 
           //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, property);
+          try {
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': reponse.code
+            });
+          } catch (e) {
+          }
+
         });
     }
     else {
       // current entity is not starred entity.
       entityheaderAPIservice.setStarEntity(entityId)
         .success(function(response) {
-
-          //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = entityId;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, property);
+          try {
+            //Analtics Tracker. Not Block the Process
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, {
+              'RESPONSE_SUCCESS': true,
+              'TOPIC_ID': entityId
+            });
+          } catch (e) {
+          }
 
           getLeftLists();
         })
         .error(function(response) {
+          try {
+            //Analtics Tracker. Not Block the Process
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': reponse.code
+            });
+          } catch (e) {
 
-          //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_STAR, property);
+          }
         });
 
     }

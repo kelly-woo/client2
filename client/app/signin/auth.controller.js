@@ -178,23 +178,22 @@
 
           memberService.getMemberInfo(signInInfo.memberId)
             .success(function(response) {
-              var property = {};
-              var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
               // Set local member.
               memberService.setMember(response);
 
               setStatics();
               _goToMessageHome();
-
-              //analytics
-              property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
-              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+              try {
+                //analytics
+                AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
+                  'RESPONSE_SUCCESS': true,
+                  'AUTO_SIGN_IN': false
+                });
+              } catch (e) {
+              }
             })
             .error(function(err) {
-              var property = {};
-              var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
               //console.log(err)
               $scope.signInFailed = true;
               storageAPIservice.removeSession();
@@ -203,28 +202,32 @@
               memberService.removeMember();
 
               $scope.toggleLoading();
-
-              //analytics
-              property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
-              property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-              property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+              try {
+                //analytics
+                AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
+                  'RESPONSE_SUCCESS': false,
+                  'AUTO_SIGN_IN': false,
+                  'ERROR_CODE': err.code
+                });
+              } catch (e) {
+              }
             })
             .finally(function() {
 
             });
         })
         .error(function(err) {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
           $scope.signInFailed = true;
           $scope.toggleLoading();
-
-          //analytics
-          property[PROPERTY_CONSTANT.AUTO_SIGN_IN] = false;
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, property);
+          try {
+            //analytics
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': err.code,
+              'AUTO_SIGN_IN': false
+            });
+          } catch (e) {
+          }
         })
         .finally(function() {
         });

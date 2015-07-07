@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter,
                                        memberService, entityAPIservice, storageAPIservice, modalHelper) {
-  var fileSizeLimit = 100; // 100MB
+  var fileSizeLimit = 300; // 300MB
   var integrateMap = {
     'google': true,
     'dropbox': true
@@ -41,8 +41,9 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.broadcastCommentFocus = broadcastCommentFocus;
 
   function upload(files, fileInfo, supportHTML, uploadType) {
-    var url,
-        flash_url;
+    var url;
+    var flash_url;
+    var file;
 
     if (angular.isObject(files)) {
       fileInfo = files.fileInfo;
@@ -67,11 +68,18 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     if(!supportHTML)
       fileInfo.access_token = storageAPIservice.getAccessToken();
 
+    if (fileInfo.uploadType === 'clipboard') {
+      files.blob.name = fileInfo.title;
+      file = files.blob;
+    } else {
+      file = files
+    }
+
     return $upload.upload({
       method: 'POST',
       url: url,
       data: fileInfo,
-      file: files,
+      file: file,
       fileFormDataName: 'userFile'
     });
   }

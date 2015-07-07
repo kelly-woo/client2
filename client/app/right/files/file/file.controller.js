@@ -21,8 +21,6 @@
     }
 
     function onFileDeleteClick() {
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       var fileId = file.id;
 
       if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
@@ -31,20 +29,27 @@
 
       fileAPIservice.deleteFile(fileId)
         .success(function(response) {
-          //analytics
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.FILE_ID] = fileId;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
+          try {
+            //analytics
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+              'RESPONSE_SUCCESS': true,
+              'FILE_ID': fileId
+            });
+          } catch (e) {
+          }
 
           $rootScope.$broadcast('onFileDeleted', fileId);
         })
         .error(function(err) {
           console.log(err);
-
-          //analytics
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = err.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, property);
+          try {
+            //analytics
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': err.code
+            });
+          } catch (e) {
+          }
         })
         .finally(function() {
 

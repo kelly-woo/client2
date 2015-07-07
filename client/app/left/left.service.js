@@ -115,26 +115,26 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
   // prefix 는 select dropdown 에서 분류의 목적으로 사용된다.
   leftpanelAPI.setEntityPrefix = function($scope) {
     _.each($scope.totalEntities, function(entity) {
-      entity.isStarred = false;
-      if (entity.type === 'channel') {
+      entity.isStarred = !!entity.isStarred;
+
+      if (entity.type === 'channel' || entity.type === 'channels') {
         entity.type = 'channels';
         entity.typeCategory = $filter('translate')('@common-topics');
-      } else if (entity.type === 'user') {
+      } else if (entity.type === 'user' || entity.type === 'users') {
         entity.type = 'users';
         entity.typeCategory = $filter('translate')('@user');
-      }
-      else {
+      } else {
         entity.type = 'privategroups';
         entity.typeCategory = $filter('translate')('@common-topics');
       }
     });
 
     _.each($scope.joinEntities, function(entity) {
-      entity.isStarred = false;
-      if (entity.type === 'channel') {
+      entity.isStarred = !!entity.isStarred;
+      if (entity.type === 'channel' || entity.type === 'channels') {
         entity.type = 'channels';
         entity.typeCategory = $filter('translate')('@common-topics');
-      } else if (entity.type === 'user') {
+      } else if (entity.type === 'user' || entity.type === 'users') {
         entity.type = 'users';
         entity.typeCategory = $filter('translate')('@user');
       } else {

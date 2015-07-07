@@ -37,10 +37,14 @@
               entity_type = "invalid";
               break;
           }
-          //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = parseInt($state.params.entityId, 10);
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_NAME_CHANGE, property);
+          try {
+            //Analtics Tracker. Not Block the Process
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_NAME_CHANGE, {
+              'RESPONSE_SUCCESS': true,
+              'TOPIC_ID': parseInt($state.params.entityId, 10)
+            });
+          } catch (e) {
+          }
           analyticsService.mixpanelTrack( "Entity Name Change", { "type": entity_type } );
 
           // topic name이 변경된 사항을 바로 반영한뒤 boroadcast 하기위해 topic entity를 찾아 바로 수정함
@@ -56,11 +60,14 @@
           $modalInstance.dismiss('cancel');
         })
         .error(function(response) {
-
-          //Analtics Tracker. Not Block the Process
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_NAME_CHANGE, property);
+          try {
+            //Analtics Tracker. Not Block the Process
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_NAME_CHANGE, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': response.code
+            });
+          } catch (e) {
+          }
 
 
           _onCreateError(response);

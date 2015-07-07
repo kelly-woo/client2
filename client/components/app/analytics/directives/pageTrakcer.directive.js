@@ -12,7 +12,7 @@
     .directive('pageTracker', pageTracker);
 
   /* @ngInject */
-  function pageTracker(GAHelper, AnalyticsHelper, AnalyticsConstant){
+  function pageTracker(GAHelper, AnalyticsHelper, AnalyticsConstant, gettextCatalog){
     return {
       restrict: 'EA',
       link: linkFunc
@@ -22,27 +22,31 @@
       var page = attributes.page;
       var title = attributes.title;
       var isValid = validationCheck(page, title);
-      
-      if (isValid) {
-        //Send Data to Google Analytics
-        GAHelper.pageTrack(page, title);
+      try {
+        if (isValid) {
+          //Send Data to Google Analytics
+          GAHelper.pageTrack(page, title);
 
-        //Send Data to Log Server
-        var property = {};
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.PAGE_VIEWED, setProperty(page));
-      } else {
-        AnalyticsHelper.error('PageTracker or PageTracker Undefined. Page: ' + page + ', title: ' + title, 'PageTracker.directive');
+          //Send Data to Log Server
+          var property = {};
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.PAGE_VIEWED, setProperty(page));
+        } else {
+          AnalyticsHelper.error('PageTracker or PageTracker Undefined. Page: ' + page + ', title: ' + title, 'PageTracker.directive');
+        }
+      } catch (e) {
       }
     }
+
     /**
      * page를 포함한 Pageview Event의 Default Property 를 반환한다. 
      * @params {String} page - page viewEvent의 page
      * @returns {Boolean} 
      */
     function setProperty(page) {
-      var property = {}
-      property[AnalyticsConstant.PROPERTY.PAGE] = AnalyticsConstant.PAGE[page];
-      // property[AnalyticsConstant.PROPERTY.LANGUAGE] = generalService.getDisplayLang();
+      var property = {
+        'PAGE': AnalyticsConstant.PAGE[page],
+        'LANGUAGE': AnalyticsConstant.LANGUAGE_MAP[gettextCatalog.currentLanguage]
+      };
       return _.assign(property, AnalyticsHelper.getDefaultProperty());
     }
 

@@ -45,6 +45,33 @@ msgstr "검색 결과가 없습니다"
 msgid "@alert-no-result"
 msgstr "검색 결과가 없습니다"
 
+#: client/app/center/view_components/center_chat_templates/text/text.html
+msgid "@announcement-create"
+msgstr "공지로 등록"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-create-confirm"
+msgstr "등록되어 있는 공지를 지금 이 메시지로 변경합니다. 계속할까요?"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-creator"
+msgstr ""
+
+#: client/app/center/announcement/announcement.html
+#, fuzzy
+msgid "@announcement-delete"
+msgstr "토픽 삭제하기"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-delete-confirm"
+msgstr ""
+"이 공지를 삭제하시겠습니까? 삭제시 토픽 내 다른 멤버들 또한 더 이상 이 공지"
+"를 볼 수 없게되며, 원본 메시지는 보존됩니다."
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-hide"
+msgstr "최소화"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@ask-me-later"
 msgstr "나중에 하기"
@@ -978,8 +1005,7 @@ msgstr "이메일이 성공적으로 발송되었습니다"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@placeholder-input-message"
-msgstr ""
-"메시지를 입력하세요 (Shift + Enter를 누르시면 줄바꿈을 하실 수 있습니다)"
+msgstr "메시지를 입력하세요 (Shift + Enter로 줄바꿈이 가능합니다)"
 
 #: client/app/left/left.html
 msgid "@privateGroup"
@@ -1025,6 +1051,24 @@ msgstr "바탕화면 알림 사용하지 않기"
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"
 msgstr "바탕화면 알림 사용하기"
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created"
+msgstr ""
+"{{msg.message.content.actionOwner}}님이  {{msg.announceWriterName}}님의 메시"
+"지를 공지사항으로 게시했습니다."
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created-mid"
+msgstr "님이 "
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created-post"
+msgstr "님의 메시지를 공지사항으로 게시했습니다. "
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-deleted"
+msgstr "{{msg.message.content.actionOwner}}님이 공지사항을 삭제했습니다."
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite"
@@ -1404,9 +1448,6 @@ msgstr "JANDI 메시지"
 
 #~ msgid "@common-file-type-google-spreadsheet"
 #~ msgstr "구글 프레젠테이션"
-
-#~ msgid "@ch-menu-delete-confirm"
-#~ msgstr "이 토픽을 정말 삭제하시겠습니까?"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
