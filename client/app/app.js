@@ -55,9 +55,7 @@ app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice
    * @private
    */
   function _onStateChangeStart(event, toState, toParams, fromState, fromParams) {
-    if (!_isStateChange(toState, toParams, fromState, fromParams)) {
-      event.preventDefault();
-    } else {
+    if (_isStateChange(toState, toParams, fromState, fromParams)) {
       //console.info("==============================[stateChange]==============================");
       //console.info("   from    ", fromState.name, ' / ', fromParams);
       //console.info("    to     ", toState.name, ' / ',toParams);
