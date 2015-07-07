@@ -167,7 +167,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('centerOnTopicLeave',_onCenterOnTopicLeave);
     $scope.$on('centerOnFileDeleted', _onCenterFileDeleted);
     $scope.$on('centerOnFileCommentDeleted', onCenterOnFileCommentDeleted);
-    $scope.$on('updateCenterForRelatedFile', _onUpdateCenterForRelatedFile);
     $scope.$on('attachMessagePreview', _onAttachMessagePreview);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
     $scope.$on('onStageLoadedToCenter', function() {
@@ -1355,26 +1354,4 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   }
 
-  /**
-   * Shared entity is changed to file.
-   *  1. get updated info from server by calling getFileDetail api
-   *  2. Update shared Entity information.
-   * @param event
-   * @param file
-   * @private
-   */
-  function _onUpdateCenterForRelatedFile(event, file) {
-    var messageId = file.id;
-    var message = MessageCollection.get(messageId);
-    if (message) {
-      fileAPIservice.getFileDetail(messageId)
-        .success(function (response) {
-          _.forEach(response.messageDetails, function(item) {
-            if (item.contentType === 'file') {
-              message.message.shared = fileAPIservice.getSharedEntities(item);
-            }
-          });
-        });
-    }
-  }
 });

@@ -82,7 +82,9 @@
     function _generateMessageList(messages) {
       var messageList = [];
 
+      entityAPIservice.resetMemberEntityIdMap();
       messages = _.uniq(messages, 'entityId');
+
       _.each(messages, function(message) {
 
         var entity = entityAPIservice.getEntityFromListById($scope.memberList, message.companionId);
@@ -102,9 +104,11 @@
           // merge message object to entity object so that list can be sorted by 'lastMessageId' attribute in message object.
           $.extend(entity, message);
           messageList.push(entity);
+          entityAPIservice.addToMemberEntityIdMap(message.entityId, entity);
         }
       });
 
+      jndPubSub.pub('onMemberEntityMapCreated');
       return messageList;
     }
 

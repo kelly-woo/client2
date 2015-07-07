@@ -405,26 +405,6 @@
       if (_isSystemMessage(msg)) {
         msg = _getFormattedSystemMsg(msg);
       } else {
-        if (_isSharingStatusMassage(msg))  {
-
-          /*
-           shareEntities 중복 제거 & 각각 상세 entity 정보 주입
-           center.controller.js 에서 _messageProcessor 실행 시점에 msg.message.shared에 할당되는 값을
-           msg.message를 가지고 알 수 없으므로(msg.message.shareEntites의 값이 room ID와 user id 혼용으로 인한)
-           meg.message가 확장되는 시점인 messages.controller에 _generateMessageList 실행에 수행하기 위해
-           임시로 process를 가지고 있다 전달하는 역활을 하는 method를 만들어 처리하려고 하였으나, messages.controller가 수행되지 않는
-           경우가 발견(jandi page가 load된 상태에서 DM이나 topic으로 접속시)되어 불완전한 timeout을 사용하여 처리함.
-
-           - by Mark
-           */
-          $timeout((function(msg) {
-            return function() {
-              msg.message.shared = fileAPIservice.updateShared(msg.message);
-            };
-          }(msg)));
-        } else {
-
-        }
         // parse HTML, URL code
         msg.message.content._body = msg.message.content.body;
         _filterContentBody(msg);
