@@ -346,7 +346,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // loadMoreCounter가 0 이고 isInitialLoadingCompleted가 true 이면 center controller가
       // load 된 후 scrolling을 통한 message load 라고 판단하여 상단에 loading gif를 출력한다.
       // dom element bindingd으로 class 수정시 ie서 깜빡임 보이므로 class 바로 수정
-      if ($scope.loadMoreCounter > 0 && $scope.isInitialLoadingCompleted) {
+      if (_hasMoreOldMessageToLoad() && $scope.loadMoreCounter > 0 && $scope.isInitialLoadingCompleted) {
         $('.msgs__loading').addClass('load-more-top');
       } else {
         $('.msgs__loading').removeClass('load-more-top');
