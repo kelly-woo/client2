@@ -6,7 +6,7 @@
 .center-announcement-container {
   position: relative;
   z-index: 10;
-  padding: 3px;
+  padding: 10px;
   max-height: 50%;
  }
 
@@ -45,8 +45,7 @@
   background-color: rgba(215, 224, 232, 0.9);
 
   border: 1px solid #f1f4f8;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-radius: 10px;
 
   padding-top: 12px;
 

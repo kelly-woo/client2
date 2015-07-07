@@ -689,6 +689,9 @@ by ysyun 2015.2.25
   bottom: 0;
   z-index: 1;
   display: none;
+  border: 5px solid rgba(0, 166, 233, 0.5);
+
+
 }
 .dnd-not-support {
   display: block;
@@ -698,6 +701,7 @@ by ysyun 2015.2.25
 }
 .dnd-hover .dnd-hover-msg {
   display: block;
+
 }
 .dnd-hover .msgs-inner__border {
   display: block;
@@ -708,8 +712,9 @@ by ysyun 2015.2.25
   display: none;
   position: absolute;
   width: 100%;
-  top: 52px;
-  z-index: 1;
+  /* announcement과 겹칠것을 우려해 50%으로 함.*/
+  top: 50%;
+  z-index: 10;
   text-align: center;
 }
 .dnd-hover-msg > span {
