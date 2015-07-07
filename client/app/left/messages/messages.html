@@ -37,7 +37,6 @@
            ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}"
            data-member-id="{{userEntity.id}}"
            data-ng-click="onDmClicked(userEntity);">
-
           <i class="icon-star left-star" ng-class="{'icon-star-fill': userEntity.isStarred}"
              data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
 

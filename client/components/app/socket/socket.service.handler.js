@@ -329,7 +329,7 @@
 
       _updateCenterMessage();
       _updateChatList();
-      _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity);
+      _sendBrowserNotificationForOtherEntity(data, writer, writer, isCurrentEntity);
     }
 
     /**

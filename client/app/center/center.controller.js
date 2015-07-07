@@ -7,7 +7,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  userAPIservice, analyticsService, leftpanelAPIservice, memberService,
                                                  publicService, MessageQuery, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
-                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner, 
+                                                 Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, AnalyticsHelper) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
@@ -40,8 +40,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _sticker = null;
   var _isUpdateListLock = false;
 
-  var _initTimer;
-
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $rootScope.isIE9 = false;
   $scope.hasScrollToBottom = false;
@@ -70,7 +68,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.onKeyDown = onKeyDown;
   $scope.onKeyUp = onKeyUp;
   $scope.onTextChange = _cutTextareaMaxLength;
-  
+
   $scope.setCommentFocus = setCommentFocus;
   $scope.loadMore = loadMore;
   $scope.loadNewMessages = loadNewMessages;
@@ -109,10 +107,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     _initializeListeners();
     _reset();
-
-    //fixme: url 진입시 $statusChange 이벤트가 2번 발생하기 때문에, $timeout 사용함.
-    $timeout.cancel(_initTimer);
-    _initTimer = $timeout(_initializeView, 100);
+    _initializeView();
   }
 
   function _initializeView() {
@@ -172,7 +167,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('centerOnTopicLeave',_onCenterOnTopicLeave);
     $scope.$on('centerOnFileDeleted', _onCenterFileDeleted);
     $scope.$on('centerOnFileCommentDeleted', onCenterOnFileCommentDeleted);
-    $scope.$on('updateCenterForRelatedFile', _onUpdateCenterForRelatedFile);
     $scope.$on('attachMessagePreview', _onAttachMessagePreview);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
     $scope.$on('onStageLoadedToCenter', function() {
@@ -340,9 +334,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var deferred = $q.defer();
 
     if (!$scope.msgLoadStatus.loading) {
-
       loadedFirstMessagedId = MessageCollection.getFirstLinkId();
       loadedLastMessageId = MessageCollection.getLastLinkId();
+
+      // loadMoreCounter가 0 이고 isInitialLoadingCompleted가 true 이면 center controller가
+      // load 된 후 scrolling을 통한 message load 라고 판단하여 상단에 loading gif를 출력한다.
+      // dom element bindingd으로 class 수정시 ie서 깜빡임 보이므로 class 바로 수정
+      if (_hasMoreOldMessageToLoad() && $scope.loadMoreCounter > 0 && $scope.isInitialLoadingCompleted) {
+        $('.msgs__loading').addClass('load-more-top');
+      } else {
+        $('.msgs__loading').removeClass('load-more-top');
+      }
 
       // TODO: come up with function and name.
       $scope.msgLoadStatus.loading = true;
@@ -437,8 +439,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hasMoreOldMessageToLoad() {
-    if (lastMessageId !== -1 ||
-      MessageCollection.getFirstLinkId() == -1 ||
+    if (MessageCollection.getFirstLinkId() == -1 ||
       MessageCollection.getFirstLinkId() !== firstMessageId) {
       return true;
     } else {
@@ -818,7 +819,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       .success(function() {
         //곧지워짐
         var entityType = $scope.currentEntity.type;
-        
+
         var file_meta = (message.content.type).split("/");
         var share_data = {
           "entity type"   : entityType,
@@ -1164,6 +1165,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onNewSystemMessageArrived() {
     //if (_hasLastMessage() && centerService.hasBottomReached()) {
+    lastMessageId = loadedLastMessageId = lastUpdatedLinkId;
     if (centerService.hasBottomReached()) {
       _scrollToBottom();
     }
@@ -1352,26 +1354,4 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   }
 
-  /**
-   * Shared entity is changed to file.
-   *  1. get updated info from server by calling getFileDetail api
-   *  2. Update shared Entity information.
-   * @param event
-   * @param file
-   * @private
-   */
-  function _onUpdateCenterForRelatedFile(event, file) {
-    var messageId = file.id;
-    var message = MessageCollection.get(messageId);
-    if (message) {
-      fileAPIservice.getFileDetail(messageId)
-        .success(function (response) {
-          _.forEach(response.messageDetails, function(item) {
-            if (item.contentType === 'file') {
-              message.message.shared = fileAPIservice.getSharedEntities(item);
-            }
-          });
-        });
-    }
-  }
 });
