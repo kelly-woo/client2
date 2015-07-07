@@ -1,4 +1,6 @@
 (function() {
+
+
   'use strict';
 
   angular
@@ -45,13 +47,13 @@
       var announcementHeaderHeight;
       var jqAnnouncementBodyWrapper;
 
-      centerPanelHeight = $document.find('#msgs-container').eq(0).height();
+      centerPanelHeight = $('#msgs-container').height();
 
       //announcementFooterHeight = $document.find('.center-announcement-container .announcement-option-container').eq(0).height();
       announcementFooterHeight = 50;
-      announcementHeaderHeight = $document.find('.center-announcement-container .announcement-header').eq(0).height();
+      announcementHeaderHeight = $document.find('.center-announcement-container .announcement-header').height();
 
-      jqAnnouncementBodyWrapper = $document.find('.center-announcement-container .announcement-body-wrapper').eq(0);
+      jqAnnouncementBodyWrapper = $document.find('.center-announcement-container .announcement-body-wrapper');
 
       jqAnnouncementBodyWrapper.css('max-height', (centerPanelHeight - announcementFooterHeight - announcementHeaderHeight) / 2);
     }
