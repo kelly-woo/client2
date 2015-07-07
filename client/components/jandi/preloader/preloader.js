@@ -24,6 +24,7 @@
       'app/disconnect/disconnect.html'
     ];
     _imgList = [
+      '../assets/images/icon_loading.gif',
       '../assets/images/icon_network_error.png',
       // integration icons
       '../assets/images/icon_google_drive.png',
