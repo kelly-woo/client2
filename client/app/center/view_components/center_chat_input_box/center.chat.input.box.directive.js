@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox($filter, integrationService, fileAPIservice, configuration, ImagePaste) {
+  function centerChatInputBox($filter, integrationService, fileAPIservice, configuration, ImagePaste, Browser) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -46,39 +46,41 @@
           }
         });
 
-      ImagePaste.createInstance(messageInput, {
-        // image data 되기 직전 event handler
-        onImageLoading: function() {
-          scope.isLoading = true;
-        },
-        // image load 된 후 event handler
-        onImageLoad: function(data) {
-          scope.onFileSelect([data], {
-            createFileObject: function _createFileObject(data) {
-              var blob = fileAPIservice.dataURItoBlob(data);
-              // message-input에 입력된 text를 file comment로 설정함
-              var comment = messageInput.val();
+      if (Browser.chrome) {
+        ImagePaste.createInstance(messageInput, {
+          // image data 되기 직전 event handler
+          onImageLoading: function() {
+            scope.isLoading = true;
+          },
+          // image load 된 후 event handler
+          onImageLoad: function(data) {
+            scope.onFileSelect([data], {
+              createFileObject: function _createFileObject(data) {
+                var blob = fileAPIservice.dataURItoBlob(data);
+                // message-input에 입력된 text를 file comment로 설정함
+                var comment = messageInput.val();
 
-              messageInput.val('').trigger('change');
+                messageInput.val('').trigger('change');
 
-              return {
-                name: 'Image_' + $filter('date')((new Date()).getTime(), 'yyyy-MM-dd HH:mm:ss') + '.png',
-                type: 'image/png',
-                blob: blob,
-                size: blob.size,
-                uploadType: 'clipboard',
-                dataUrl: data,
+                return {
+                  name: 'Image_' + $filter('date')((new Date()).getTime(), 'yyyy-MM-dd HH:mm:ss') + '.png',
+                  type: 'image/png',
+                  blob: blob,
+                  size: blob.size,
+                  uploadType: 'clipboard',
+                  dataUrl: data,
 
-                comment: comment
-              };
-            }
-          });
-        },
-        // image load 된 후 image load시 변경된 상태가 정리된 후 event handler
-        onImageLoaded: function() {
-          scope.isLoading = false;
-        }
-      });
+                  comment: comment
+                };
+              }
+            });
+          },
+          // image load 된 후 image load시 변경된 상태가 정리된 후 event handler
+          onImageLoaded: function() {
+            scope.isLoading = false;
+          }
+        });
+      }
     }
   }
 })();

@@ -12,6 +12,9 @@
     var CTRL_KEY_NAME = /win/ig.test(navigator.platform) ? 'ctrlKey' : 'metaKey';
     var TYPE = 'image/png';
 
+    var regxNewLine = /(<(\/h\d|\/?p|br.*?|\/div)>)/ig;
+    var regxHasTag = /(<([^>]+)>)/i;
+    var regxMultiSpace = /  +/g;
     var regxImage = /image/;
     var regxHTMLImage = /^(?:|<meta (?:[^>]+)>)<img src="([^"]+)"(?:[^\/^>]+)(?:[^>]+)(?:|\/)>(?:|.)$/;
     var regxImageData = /^data:image\/(png|jpg|jpeg);base64,/;
@@ -150,25 +153,46 @@
        * contentEditable element를 clipboard로 사용하는 경우 text 붙여넣기 할때에 contentEditable element에
        * 붙여넣기된 text를 대상 element로 붙여넣기 되는 것 처럼 처리함
        */
-      getClipboardText: function() {
+      getClipboardText: function(data) {
         var that = this;
         var value = that.jqEle.val();
         var start = that.contentEditableEvent.start;
         var end = that.contentEditableEvent.end;
         var clipText = '';
-        var childNodes;
-        var childNode;
+        var texts;
+        var text;
         var i;
         var len;
 
-        childNodes = that.jqEditContent[0].childNodes;
-        len = childNodes.length - (Browser.firefox ? 1 : 0);
-        for (i = 0; i < len; ++i) {
-          childNode = childNodes[i];
-          if (childNode.nodeType === 3 && childNode.nodeValue != null) {
-            clipText += childNode.nodeValue;
+        if (data) {
+          if (data.isPlainText) {
+            // paste event object에서 plain/text type의 text를 get 한 경우 처리
+            clipText = data.text + '\n';
           } else {
-            clipText += '\n';
+            // paste event object에서 text get 하였지만 plain/text가 아닌 경우
+            // html등 tag가 섞여있으므로 plain/text type 처럼 변경하는 작업 필요함
+
+            // new-line(\n)을 담당하는 tag 제거
+            clipText = that.jqEditContent
+              .html()
+              .replace(regxNewLine, '\n')
+
+            if (regxHasTag.test(clipText)) {
+              // new-line(\n)을 담당하는 tag를 제외하고도 tag가 남아 있는경우
+              // plain/text로 사용할 수 없는 text라고 보고 plain/text와 같이 변환
+              clipText = [];
+              texts = data.text.replace(regxMultiSpace, ' ').split('\n');
+              for (i = 0, len = texts.length; i < len; ++i) {
+                text = texts[i].trim();
+                if (text !== '') {
+                  clipText.push(text);
+                }
+              }
+              clipText = clipText.join('\n');
+              clipText += '\n';
+            } else {
+              clipText = data.text + '\n';
+            }
           }
         }
 
@@ -188,7 +212,7 @@
         var jqEle = that.jqEle;
         var jqEditContent;
 
-        that.jqEditContent = jqEditContent = $('<div contentEditable="true" style="position: fixed; top: -10000px; width: 1px; height: 1px;" ></div>').appendTo('body');
+        that.jqEditContent = jqEditContent = $('<div contentEditable="true" style="position: fixed; top: -10000px; width: 1px; height: 1px;"></div>').appendTo('body');
         jqEditContent.focus();
 
         // event capture하여 img element 생성 여부 판단
@@ -308,17 +332,17 @@
               // clipboard에서 image data get 가능하지 않아 contentEditable을 사용하여 image/text data get함
 
               // contentEditable element에 focus가 바로 이동하지 않으므로 setTime으로 contentEditable element에 focus가 간 상황 다음에 동작하도록 함
-              $timeout((function(pasteContentTarget) {
+              $timeout((function(pasteContentTarget, data) {
                 return function() {
                   if (that._isContentEditableImagePaste(pasteContentTarget)) {
                     pasteContentTarget.getClipboardImage();
                   } else if (that._isContentEditableTextPaste(pasteContentTarget)) {
-                    pasteContentTarget.getClipboardText();
+                    pasteContentTarget.getClipboardText(data);
                   } else {
                     pasteContentTarget.removeClipboardContent();
                   }
                 };
-              }(pasteContentTarget)));
+              }(pasteContentTarget, that._getTextData(evt)) ));
             }
           }
         });
@@ -397,6 +421,25 @@
        */
       _isContentEditableTextPaste: function(pasteContentTarget) {
         return !!pasteContentTarget.jqEditContent.text();
+      },
+      _getTextData: function(evt) {
+        var data;
+
+        if (evt && evt.clipboardData && evt.clipboardData.getData) {
+          data = {
+            text: evt.clipboardData.getData('text/plain'),
+            isPlainText: true
+          };
+        } else if (window.clipboardData) {
+          data = {
+            text: window.clipboardData.getData('Text'),
+            isPlainText: false
+          };
+        } else {
+          data = null;
+        }
+
+        return data;
       }
     };
 
