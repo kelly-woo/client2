@@ -293,7 +293,8 @@
     }
     function _beforeAddMessages(messageList) {
       messageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
-
+      //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
+      messageList[messageList.length - 1]._isLast = true;
       return messageList;
     }
 
@@ -390,8 +391,8 @@
      */
     function _updateSystemMessage(msg) {
       msg = _getFormattedSystemMsg(msg);
-      _systemMessageCount++;
-      return msg;
+      append(msg);
+      jndPubSub.pub('newSystemMessageArrived', msg);
     }
 
     /**
@@ -402,7 +403,7 @@
     function _getFormattedMessage(msg) {
       msg.date = _getDateKey(msg.time);
       if (_isSystemMessage(msg)) {
-        _updateSystemMessage(msg);
+        msg = _getFormattedSystemMsg(msg);
       } else {
         if (_isSharingStatusMassage(msg))  {
 
@@ -507,7 +508,7 @@
 
       newMsg.message.content.actionOwner = memberService.getNameById(msg.fromEntity);
       newMsg.message.content.body = action;
-
+      _systemMessageCount++;
       return newMsg;
     }
 

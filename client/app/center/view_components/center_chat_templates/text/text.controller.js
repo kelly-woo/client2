@@ -35,9 +35,6 @@
      * 메시지를 삭제한다.
      */
     function deleteMessage() {
-      //console.log("delete: ", message.messageId);
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
         if (_message.status === 'sending') {
           //MessageCollection.
@@ -48,14 +45,22 @@
           } else {
             messageAPIservice.deleteMessage(_entityType, _entityId, _messageId)
               .success(function () {
-                property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-                property[PROPERTY_CONSTANT.MESSAGE_ID] = _messageId;
-                AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, property);
+                try {
+                  AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
+                    'MESSAGE_ID': message.messageId,
+                    'RESPONSE_SUCCESS': true
+                  });
+                } catch (e) {
+                }
               })
               .error(function (response) {
-                property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-                property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-                AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, property);
+                try {
+                  AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
+                    'RESPONSE_SUCCESS': false,
+                    'ERROR_CODE': response.code
+                  });
+                } catch (e) {
+                }
               });
           }
 

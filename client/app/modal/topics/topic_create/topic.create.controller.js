@@ -14,8 +14,6 @@
     };
 
     $scope.onCreateClick = function(entityType, entityName) {
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if ($scope.isLoading) return;
 
       if (entityType == 'private')
@@ -43,9 +41,10 @@
 
           //Analtics Tracker. Not Block the Process
           try {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-            property[PROPERTY_CONSTANT.TOPIC_ID] = response.id;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, {
+              'RESPONSE_SUCCESS': true,
+              'TOPIC_ID': response.id
+            });
           } catch (e) {
 
           }
@@ -59,9 +58,10 @@
         .error(function(response) {
           //Analtics Tracker. Not Block the Process
           try {
-            property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-            property[PROPERTY_CONSTANT.ERROR_CODE] = response.code;
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, property);
+            AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, {
+              'RESPONSE_SUCCESS': false,
+              'ERROR_CODE': response.code
+            });
           } catch (e) {
           }
           
