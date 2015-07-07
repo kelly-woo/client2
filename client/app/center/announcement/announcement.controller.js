@@ -1,3 +1,7 @@
+/**
+ * @fileoverview announcement를 관리하는 controller
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
@@ -45,14 +49,6 @@
 
     $scope.toggleAnnouncementStatus = toggleAnnouncementStatus;
 
-    $scope.$on('$destroy', _onScopeDestroy);
-
-    $scope.$on(config.socketEvent.announcement.created, _onAnnouncementSocketEvent);
-    $scope.$on(config.socketEvent.announcement.deleted, _onAnnouncementSocketEvent);
-    $scope.$on(config.socketEvent.announcement.status_updated, _onAnnouncementSocketEvent);
-
-    $scope.$on('createAnnouncement', _createAnnouncement);
-
 
     _init();
 
@@ -61,10 +57,24 @@
      * @private
      */
     function _init() {
+      _attachListeners();
       _attachWindowEvent();
       _getAnnouncement();
       memberService.isAnnouncementOpen(_topicId);
+    }
 
+    /**
+     * event listener들을 설정한다.
+     * @private
+     */
+    function _attachListeners() {
+      $scope.$on('$destroy', _onScopeDestroy);
+
+      $scope.$on(config.socketEvent.announcement.created, _onAnnouncementSocketEvent);
+      $scope.$on(config.socketEvent.announcement.deleted, _onAnnouncementSocketEvent);
+      $scope.$on(config.socketEvent.announcement.status_updated, _onAnnouncementSocketEvent);
+
+      $scope.$on('createAnnouncement', _createAnnouncement);
     }
 
     /**
@@ -99,14 +109,12 @@
     function _getAnnouncementStatus() {
       var isAnnouncementOpened = memberService.isAnnouncementOpen(_topicId);
 
-      if (_.isUndefined(isAnnouncementOpened) || isAnnouncementOpened) {
+      if (isAnnouncementOpened === false) {
+        hideAnnouncement();
+      } else {
         memberService.updateAnnouncementStatus(_topicId, true);
         minimizeAnnouncement();
-      } else {
-        // false 일때만 숨긴.
-        hideAnnouncement();
       }
-
     }
     /**
      * announcement 를 가져오는데 실패했을 때
@@ -128,10 +136,8 @@
 
       if ($scope.hasAnnouncement &&
         confirm($filter('translate')('@announcement-create-confirm'))) {
-        AnnouncementData.createAnnouncement(entityId, messageId);
-      } else {
-        AnnouncementData.createAnnouncement(entityId, messageId)
       }
+        AnnouncementData.createAnnouncement(entityId, messageId)
     }
 
     /**
@@ -166,12 +172,12 @@
 
         jqTarget = $(event.target);
 
-        if (Announcement.isAnchorElement(jqTarget)) {
+        if (jqTarget.is('a')) {
           // link clicked, go to link.
           //publicService.openNewTab(jqTarget.attr('href'));
         } else if (isAnnouncementMinimized()) {
           maximizeAnnouncement();
-        } else if (Announcement.isOutsideAnnouncementBodyElement(jqTarget)) {
+        } else if (jqTarget.closest('.announcement-body').length === 0) {
           minimizeAnnouncement();
         }
       }

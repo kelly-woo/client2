@@ -15,11 +15,6 @@
     this.getActionOwner = getActionOwner;
     this.isCurrentTopic = isCurrentTopic;
 
-    this.isAnchorElement = isAnchorElement;
-    this.isOutsideAnnouncementBodyElement = isOutsideAnnouncementBodyElement;
-
-    this.getCallbackAttribute = getCallbackAttribute;
-
     /**
      * 메세지를 노출하기 알맞게 가공한다.
      * @param {object} msg 메세지
@@ -88,27 +83,5 @@
       return eventTopicId === currentTopicId;
     }
 
-    /**
-     * 해당 엘레멘트가 anchor 엘레멘트인지 확인한다.
-     * @param {jQueryElement} jqElement
-     * @returns {*}
-     */
-    function isAnchorElement(jqElement) {
-      return jqElement.is('a');
-    }
-
-    /**
-     * 해당 엘레멘트가 announcement-body 밖에 있는지 없는지 확인한다.
-     * @param {jQueryElement} jqElement
-     * @returns {boolean}
-     */
-    function isOutsideAnnouncementBodyElement(jqElement) {
-      return _.isEmpty(jqElement.closest('.announcement-body'));
-    }
-
-
-    function getCallbackAttribute(jqElement) {
-      return jqElement.attr('data-callback-function');
-    }
   }
 })();

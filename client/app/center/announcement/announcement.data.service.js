@@ -1,3 +1,7 @@
+/**
+ * @fileoverview announcement관련 api 호출을 하는 service
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 

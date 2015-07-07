@@ -1,3 +1,7 @@
+/**
+ * @fileoverview 각 토픽마다 생성되는 announcement directive
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
