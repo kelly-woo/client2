@@ -31,9 +31,9 @@
 
       element.on('click', function() {
         if (fileId) {
-          var property = {};
-          property[AnalyticsHelper.PROPERTY.FILE_ID] = fileId; 
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DOWNLOAD, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DOWNLOAD, {
+            'FILE_ID': fileId
+          });
         }
       });
       

@@ -724,12 +724,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       MessageCollection.enqueue(msg.content, msg.sticker, true);
     } else {
       try {
-        var property = {};
-        var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
         //analytics
-        property[PROPERTY_CONSTANT.MESSAGE_ID] = res.id;
-        property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, property);
+        AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
+          'RESPONSE_SUCCESS': true
+        });
       } catch (e) {
       }
     }
@@ -827,12 +825,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         analyticsService.mixpanelTrack( "File Unshare", share_data );
 
         try {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = true;
-          property[PROPERTY_CONSTANT.FILE_ID] = message.id;
-          property[PROPERTY_CONSTANT.TOPIC_ID] = entity.id;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
+            'RESPONSE_SUCCESS': true,
+            'FILE_ID': message.id,
+            'TOPIC_ID': entity.id
+          });
         } catch (e) {
         }
 
@@ -840,11 +837,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       })
       .error(function(err) {
         try {
-          var property = {};
-          var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
-          property[PROPERTY_CONSTANT.RESPONSE_SUCCESS] = false;
-          property[PROPERTY_CONSTANT.ERROR_CODE] = error.code;
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, property);
+          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_UNSHARE, {
+            'RESPONSE_SUCCESS': false,
+            'ERROR_CODE': error.code
+          });
         } catch (e) {
         }
 
