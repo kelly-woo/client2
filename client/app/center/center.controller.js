@@ -8,7 +8,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  publicService, MessageQuery, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
-                                                 MessageCollection, AnalyticsHelper) {
+                                                 MessageCollection, AnalyticsHelper, Announcement) {
 
   //console.info('[enter] centerpanelController', $scope.currentEntity);
   var TEXTAREA_MAX_LENGTH = 40000;
@@ -122,7 +122,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _reset() {
-    console.log('#reset');
+    $('#msgs-container')[0].scrollTop = 0;
     MessageQuery.reset();
     MessageCollection.reset();
 
@@ -351,7 +351,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function loadMore() {
     var deferred = $q.defer();
-
+    //console.log('loadMore');
     if (!$scope.msgLoadStatus.loading) {
       loadedFirstMessagedId = MessageCollection.getFirstLinkId();
       loadedLastMessageId = MessageCollection.getLastLinkId();
@@ -359,7 +359,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // loadMoreCounter가 0 이고 isInitialLoadingCompleted가 true 이면 center controller가
       // load 된 후 scrolling을 통한 message load 라고 판단하여 상단에 loading gif를 출력한다.
       // dom element bindingd으로 class 수정시 ie서 깜빡임 보이므로 class 바로 수정
-      if (_hasMoreOldMessageToLoad() && $scope.loadMoreCounter > 0 && $scope.isInitialLoadingCompleted) {
+      if (!MessageQuery.hasSearchLinkId() && _hasMoreOldMessageToLoad() && $scope.loadMoreCounter > 0 && $scope.isInitialLoadingCompleted) {
         $('.msgs__loading').addClass('load-more-top');
       } else {
         $('.msgs__loading').removeClass('load-more-top');
@@ -493,11 +493,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _findMessageDomElementById(id) {
     var jqTarget = $('#'+ id);
-    var targetScrollTop = jqTarget.offset().top - $('#msgs-container').offset().top;
+    var targetScrollTop;
 
-    _animateBackgroundColor(jqTarget);
-    _showContents();
-    $('#msgs-container')[0].scrollTop = targetScrollTop;
+    $timeout(function() {
+      targetScrollTop = jqTarget.offset().top - $('#msgs-container').offset().top;
+      if (Announcement.isOpened()) {
+        targetScrollTop -= $('announcement:first > div:first').outerHeight();
+      }
+
+      _animateBackgroundColor(jqTarget);
+      _showContents();
+      $('#msgs-container')[0].scrollTop = targetScrollTop;
+    }, 300);
   }
 
   function _scrollToBottom() {
