@@ -287,7 +287,7 @@ app.filter('getFileUrl', ['config',
   function(config) {
       return function(url) {
           var hasProtocol = /^https?:/.test(url);
-          return hasProtocol ? url : config.server_uploaded + url;
+          return hasProtocol ? url : config.file_address + url;
         };
     }
 ]);
