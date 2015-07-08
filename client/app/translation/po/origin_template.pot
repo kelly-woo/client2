@@ -47,14 +47,6 @@ msgid "@announcement-create-confirm"
 msgstr ""
 
 #: client/app/center/announcement/announcement.html
-msgid "@announcement-creator"
-msgstr ""
-
-#: client/app/center/announcement/announcement.html
-msgid "@announcement-delete"
-msgstr ""
-
-#: client/app/center/announcement/announcement.html
 msgid "@announcement-delete-confirm"
 msgstr ""
 
@@ -103,6 +95,7 @@ msgstr ""
 msgid "@btn-create"
 msgstr ""
 
+#: client/app/center/announcement/announcement.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr ""
@@ -143,6 +136,10 @@ msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-delete"
+msgstr ""
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@ch-menu-delete-confirm"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
@@ -380,7 +377,6 @@ msgid "@common-file-upload-progress-msg"
 msgstr ""
 
 #: client/app/right/file.detail/file.detail.html
-#: client/app/right/right.html
 msgid "@common-files"
 msgstr ""
 
@@ -406,10 +402,6 @@ msgstr ""
 
 #: client/app/right/files/files.html
 msgid "@common-member"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "@common-message"
 msgstr ""
 
 #: client/app/right/search.messages/search.messages.html
@@ -704,10 +696,6 @@ msgstr ""
 msgid "@input-search-channel-name"
 msgstr ""
 
-#: client/app/right/rpanel_search/rpanel.search.html
-msgid "@input-search-file-title"
-msgstr ""
-
 #: client/app/modal/teams/team_member_list/team.member.list.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@input-search-user-name"
@@ -750,6 +738,10 @@ msgid "@integration-title-google-drive"
 msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr ""
 
@@ -783,10 +775,6 @@ msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-some-fail"
-msgstr ""
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
 msgstr ""
 
 #: client/app/signin/signin.html
@@ -934,16 +922,6 @@ msgstr ""
 msgid "@noti-banner-turn-on"
 msgstr ""
 
-#: client/app/right/files/files.html
-#: client/app/right/search.messages/search.messages.html
-msgid "@option-all-members"
-msgstr ""
-
-#: client/app/right/files/files.html
-#: client/app/right/search.messages/search.messages.html
-msgid "@option-all-rooms"
-msgstr ""
-
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr ""
@@ -1004,14 +982,6 @@ msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
-msgstr ""
-
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
-msgid "@system-msg-announcement-created-mid"
-msgstr ""
-
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
-msgid "@system-msg-announcement-created-post"
 msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
