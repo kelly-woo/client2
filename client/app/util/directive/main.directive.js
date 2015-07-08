@@ -107,17 +107,29 @@ function fakeNgModel(initValue) {
 //});
 
 /**
- * 범용 repeat done detector
+ * 메세지의 repeat done detector
  */
-app.directive('repeatDone', function($timeout) {
+app.directive('msgRepeatDone', function($timeout) {
   return function(scope, element, attrs) {
-    if (scope.$last) { // all are rendered
+    if (scope.msg._isLast) { // all are rendered
       $timeout(function() {
-        scope.$eval(attrs.repeatDone);
+        scope.$eval(attrs.msgRepeatDone);
       }, 0);
     }
   };
 });
+
+/**
+ * 범용 repeat done detector
+ */
+app.directive('repeatDone', function() {
+  return function(scope, element, attrs) {
+    if (scope.msg.$last) { // all are rendered
+      scope.$eval(attrs.repeatDone);
+    }
+  };
+});
+
 
 app.directive('scrollBottomOn', ['$timeout', function($timeout) {
   return function(scope, elm, attr) {
