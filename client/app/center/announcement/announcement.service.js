@@ -35,8 +35,8 @@
      *  한 후 나누기 2
      */
     function adjustAnnouncementHeight() {
+      // announcement가 필요한 최소한의 높이
       var minHeight = 42;
-
       // announcement 의 footer height
       var footerHeight = 50;
       // announcement 의 header height
@@ -47,10 +47,10 @@
       var cPanelHeight = $('#msgs-container').height();
       var newHeight = (cPanelHeight - footerHeight - headerHeight) / 2;
 
-      if (newHeight < jqBodyWrapper.height()) {
+      if (newHeight < minHeight) {
         jndPubSub.pub('minimizeAnnouncement');
       } else {
-        jqBodyWrapper.css('max-height', Math.max(newHeight, minHeight));
+        jqBodyWrapper.css('max-height', newHeight);
       }
     }
 
