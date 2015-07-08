@@ -281,7 +281,7 @@
       if (_isNumber(member)) {
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member)
       }
-      return member.u_photoThumbnailUrl.MediumThumbnailUrl || getPhotoUrl(member);
+      return member.u_photoThumbnailUrl.mediumThumbnailUrl || getPhotoUrl(member);
     }
 
     /**

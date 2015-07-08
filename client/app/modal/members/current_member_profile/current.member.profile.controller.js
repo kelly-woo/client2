@@ -37,6 +37,7 @@
         // 그럴때 멤버 프로필이 바뀌었다는 소켓 이벤트가 들어옴.
         // 이 경우에 멤버의 사진관련 정보만 업데이트를 함.
         // 어차피 다른 정보들은 모달이 닫힐거라 큰 신경을 안써도 됨.
+        console.log('me')
         $scope.curUser = CurrentMemberProfile.replaceProfilePicture($scope.curUser);
       } else {
         $scope.curUser = _.cloneDeep(memberService.getMember());
@@ -54,6 +55,7 @@
      * 현재 멤버의 정보가 바뀌었다는 뜻이므로 locally가지고 있는 멤버의 정보를 최신으로 업데이트한다.
      */
     $scope.$on('onCurrentMemberChanged', function() {
+      console.log('onCurrentMemberChanged')
       _setCurrentMember();
     });
 

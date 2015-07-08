@@ -12,6 +12,9 @@
 
     // 현재 컨틀롤러가 가지고 있는 최상위 돔 엘레멘트
     var jqRootElement;
+
+    var message;
+    var _messageId;
     // 현재 컨트롤러가 관리하고 있는 file content
     var content;
 
@@ -40,6 +43,8 @@
      */
     function init() {
       jqRootElement = $(document.getElementById($scope.msg.id));
+      message = $scope.msg.message;
+      _messageId = message.id;
 
       content = _isCommentType($scope.msg.message) ? $scope.msg.feedback.content : $scope.msg.message.content;
 
@@ -50,8 +55,20 @@
 
       // integration file 이면 download를 표기하지 않음
       $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(content.serverUrl);
+
+      _updateSharedList();
+      _attachEventListener();
     }
 
+    /**
+     * eventListener 를 attach 한다.
+     * @private
+     */
+    function _attachEventListener() {
+      $scope.$on('onChangeShared',_updateSharedList);
+      $scope.$on('onMemberEntityMapCreated', _updateSharedList);
+      $scope.$on('updateCenterForRelatedFile', _onUpdateCenterForRelatedFile);
+    }
 
     /**
      * small thumbnail 이 클릭되었을때 불려진다.
@@ -164,15 +181,13 @@
       return centerService.isCommentType(contentType);
     }
 
-    $scope.$on('onChangeShared', function(event, data) {
-      // shared 갱신
-      $scope.msg.message.shared = fileAPIservice.updateShared($scope.msg.message);
-    });
-
-    // integration file 이면 download를 표기하지 않음
-    $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(content.serverUrl);
-
-
+    /**
+     * sharedList 를 업데이트 한다.
+     * @private
+     */
+    function _updateSharedList() {
+      $scope.msg.message.shared = fileAPIservice.updateShared(message);
+    }
 
     /**
      * shared entity 클릭시 이벤트 핸들러
@@ -190,8 +205,7 @@
         // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
         if (angular.isDefined(targetEntity)) {
           $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
-        }
-        else {
+        } else {
           // Undefined targetEntity means it's an entity that I'm joined.
           // Join topic first and go!
           entityheaderAPIservice.joinChannel(entityId)
@@ -206,5 +220,27 @@
         }
       }
     }
+
+    /**
+     * share unshare 상태를 업데이트 한다.
+     * @param {object} event
+     * @param {object} file
+     * @private
+     */
+    function _onUpdateCenterForRelatedFile(event, file) {
+      var fileId = file.id;
+      if (fileId === _messageId) {
+        fileAPIservice.getFileDetail(fileId)
+          .success(function (response) {
+            _.forEach(response.messageDetails, function(item) {
+              if (item.contentType === 'file') {
+                $scope.msg.message.shareEntities = item.shareEntities;
+                _updateSharedList();
+              }
+            });
+          });
+      }
+    }
+
   }
 }());

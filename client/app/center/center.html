@@ -48,7 +48,7 @@
   <div class="msgs-inner__border"></div>
 
   <!-- 컨테이너 -->
-  <article class="msgs" id="msgs-container" when-scrolled="loadMore()" scroll-glue>
+  <article class="msgs" id="msgs-container" when-scrolled="loadMore()">
     <!-- 로딩 영역 -->
     <div class="msgs__loading icon-loading-img"
          ng-show="msgLoadStatus.loading || !hasLastMessageRendered"
@@ -56,7 +56,7 @@
 
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <div class="msgs-group" data-ng-repeat="msg in messages" msg-repeat-done="onRepeatDone()">
+      <div class="msgs-group" data-ng-repeat="msg in messages track by msg.id" msg-repeat-done="onRepeatDone()">
         <!--날짜 구분선-->
         <date-divider ng-if="isNewDate($index)"></date-divider>
 
@@ -82,7 +82,6 @@
           <file-uploaded ng-if="msg.message.isFile"></file-uploaded>
           <title-comment ng-if="msg.message.isComment"></title-comment>
         </div>
-
       </div>
       <!-- unsent Message -->
       <div ng-if="unsentMsgs.length" class="msgs-group">
@@ -95,7 +94,6 @@
       <!--  WHEN THERE ARE NO MESSAGES OTHER THAN SYSTEM EVENT MESSAGE. -->
       <center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>
     </div>
-
   </article>
 
   <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasScrollToBottom && !hasNewMsg" ng-click="onScrollToBottomIconClicked();"
