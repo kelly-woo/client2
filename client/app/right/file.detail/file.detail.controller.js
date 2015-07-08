@@ -110,11 +110,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
     _.forEach(list, function(comment) {
       if (comment.writerId === id) {
-        comment._profileImg = url;
+        comment.exProfileImg = url;
       }
     });
     if ($scope.file_detail.writerId === id) {
-      $scope.file_detail._profileImg = url;
+      $scope.file_detail.exProfileImg = url;
     }
   }
 
@@ -528,7 +528,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (item.contentType === 'file') {
       // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
       $scope.file_detail = item;
-      $scope.file_detail._profileImg = $filter('getSmallThumbnail')(item.writerId);
+      $scope.file_detail.exProfileImg = $filter('getSmallThumbnail')(item.writerId);
       $scope.hasTopic = !!$scope.file_detail.shareEntities.length;
 
       $scope.file_detail.shared = fileAPIservice.getSharedEntities(item);
@@ -550,7 +550,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         item.content.body = _getSafeBody(item.content.body);
       }
       item.isSticker = (contentType === 'comment_sticker');
-      item._profileImg = $filter('getSmallThumbnail')(item.writerId);
+      item.exProfileImg = $filter('getSmallThumbnail')(item.writerId);
       $scope.file_comments.push(item);
     }
   }

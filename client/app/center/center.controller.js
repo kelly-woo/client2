@@ -188,7 +188,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     _.forEach(list, function(msg) {
       if (msg.fromEntity === id) {
-        msg._profileImg = $filter('getSmallThumbnail')(member);
+        msg.exProfileImg = $filter('getSmallThumbnail')(member);
       }
     });
   }

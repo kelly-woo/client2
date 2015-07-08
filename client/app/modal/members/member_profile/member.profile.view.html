@@ -2,7 +2,7 @@
 <!-- Modal: Mini Profile View -->
 <div class="modal-body profile-view-body">
   <div class="profile-view-general-container" ng-class="{'disabled-member-opac-overlay': isUserDisabled}">
-    <img class="user-profile__photo view" data-ng-src="{{ curUser._profileImg }}"/>
+    <img class="user-profile__photo view" data-ng-src="{{ curUser.exProfileImg }}"/>
     <div class="user-profile__fullName">{{ curUser | getName }}</div>
     <div class="user-profile__nickName">{{ curUser | getUserStatusMessage }}</div>
   </div>

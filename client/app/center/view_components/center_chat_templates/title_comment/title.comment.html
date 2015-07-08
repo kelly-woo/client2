@@ -3,7 +3,7 @@
      ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }"
      ng-if="isTitleComment($index)">
   <!--    DEFAULT   -->
-  <img on-image-load class="user-profile user-thumb" ng-src="{{ msg._profileImg }}"/>
+  <img on-image-load class="user-profile user-thumb" ng-src="{{ msg.exProfileImg }}"/>
 </div>
 
 <!--    HEADER PART -->

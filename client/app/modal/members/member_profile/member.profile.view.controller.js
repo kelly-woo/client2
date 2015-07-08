@@ -17,7 +17,7 @@
     })();
 
     function init() {
-      curUser._profileImg = $filter('getSmallThumbnail')(curUser);
+      curUser.exProfileImg = $filter('getSmallThumbnail')(curUser);
       $scope.curUser = curUser;
       $scope.isUserDisabled = _isCurrentUserDisabled();
       $scope.isMyself = _isMyself();
@@ -49,7 +49,7 @@
     function _onUpdateMemberProfile(event, data) {
       var member = data.member;
       if ($scope.curUser.id === member.id) {
-        $scope.curUser._profileImg = $filter('getSmallThumbnail')(member);
+        $scope.curUser.exProfileImg = $filter('getSmallThumbnail')(member);
       }
     }
 
