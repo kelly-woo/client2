@@ -87,7 +87,7 @@
       memberEntity = entityAPIservice.getEntityFromListById(currentSessionHelper.getCurrentTeamMemberList(), entityId);
 
       return {
-        'profilePic':  config.server_uploaded + memberService.getSmallThumbnailUrl(memberEntity),
+        'profilePic':  ($filter)('getSmallThumbnail')(memberEntity),
         'name': memberEntity.name,
         'time': announcement[actionType]
       };
