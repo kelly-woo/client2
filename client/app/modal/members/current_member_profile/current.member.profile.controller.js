@@ -55,7 +55,7 @@
      * @private
      */
     function _setProfileImg() {
-      $scope.profileImg =  $filter('getMediumThumbnail')(memberService.getMember());
+      $scope.profileImg =  $filter('getMediumThumbnail2')($scope.curUser);
     }
 
     /**
