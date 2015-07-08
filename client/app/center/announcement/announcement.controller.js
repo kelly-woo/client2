@@ -75,6 +75,8 @@
       $scope.$on(config.socketEvent.announcement.status_updated, _onAnnouncementSocketEvent);
 
       $scope.$on('createAnnouncement', _createAnnouncement);
+
+      $scope.$on('minimizeAnnouncement', minimizeAnnouncement);
     }
 
     /**
@@ -134,10 +136,9 @@
       var entityId = param.entityId;
       var messageId = param.messageId;
 
-      if ($scope.hasAnnouncement &&
-        confirm($filter('translate')('@announcement-create-confirm'))) {
-      }
+      if (!($scope.hasAnnouncement && !confirm($filter('translate')('@announcement-create-confirm')))) {
         AnnouncementData.createAnnouncement(entityId, messageId)
+      }
     }
 
     /**

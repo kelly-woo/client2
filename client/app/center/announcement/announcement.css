@@ -8,6 +8,7 @@
   z-index: 10;
   padding: 10px;
   max-height: 50%;
+  /*min-height: 132px;*/
  }
 
 .center-announcement-container__inner {
@@ -50,6 +51,7 @@
   padding-top: 12px;
 
   position: relative;
+  /*min-height: 92px;*/
 }
 .announcement-container:hover {
   background-color: rgba(215, 224, 231, 1);
@@ -57,6 +59,7 @@
 
 .announcement-container.minimized {
   padding-bottom: 8px;
+  /*min-height: ;*/
 }
 .announcement-arrow-container {
   position: absolute;

@@ -1,6 +1,4 @@
 (function() {
-
-
   'use strict';
 
   angular
@@ -8,7 +6,7 @@
     .service('Announcement', Announcement);
 
   /* @ngInject */
-  function Announcement(memberService, $document, $filter, $sce, currentSessionHelper, config, entityAPIservice) {
+  function Announcement(memberService, $document, $filter, $sce, currentSessionHelper, config, entityAPIservice, jndPubSub) {
 
     this.getFilteredContentBody = getFilteredContentBody;
     this.adjustAnnouncementHeight = adjustAnnouncementHeight;
@@ -37,20 +35,23 @@
      *  한 후 나누기 2
      */
     function adjustAnnouncementHeight() {
-      var centerPanelHeight;
-      var announcementFooterHeight;
-      var announcementHeaderHeight;
-      var jqAnnouncementBodyWrapper;
+      var minHeight = 42;
 
-      centerPanelHeight = $('#msgs-container').height();
+      // announcement 의 footer height
+      var footerHeight = 50;
+      // announcement 의 header height
+      var headerHeight = $document.find('.center-announcement-container .announcement-header').height();
+      // announcement body의 wrapper
+      var jqBodyWrapper = $document.find('.center-announcement-container .announcement-body-wrapper');
 
-      //announcementFooterHeight = $document.find('.center-announcement-container .announcement-option-container').eq(0).height();
-      announcementFooterHeight = 50;
-      announcementHeaderHeight = $document.find('.center-announcement-container .announcement-header').height();
+      var cPanelHeight = $('#msgs-container').height();
+      var newHeight = (cPanelHeight - footerHeight - headerHeight) / 2;
 
-      jqAnnouncementBodyWrapper = $document.find('.center-announcement-container .announcement-body-wrapper');
-
-      jqAnnouncementBodyWrapper.css('max-height', (centerPanelHeight - announcementFooterHeight - announcementHeaderHeight) / 2);
+      if (newHeight < jqBodyWrapper.height()) {
+        jndPubSub.pub('minimizeAnnouncement');
+      } else {
+        jqBodyWrapper.css('max-height', Math.max(newHeight, minHeight));
+      }
     }
 
     /**
