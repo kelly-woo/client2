@@ -58,7 +58,7 @@
 
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <div class="msgs-group" data-ng-repeat="msg in messages track by $index" msg-repeat-done="onRepeatDone()">
+      <div class="msgs-group" data-ng-repeat="msg in messages track by $index" repeat-done="onRepeatDone()">
         <!--날짜 구분선-->
         <date-divider ng-if="isNewDate($index)"></date-divider>
 
