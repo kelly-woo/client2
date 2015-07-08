@@ -4,6 +4,7 @@
   top: 0px;
   right: 0;
   bottom: 0;
+  z-index: 30;
 }
 .rpanel > div {
   width: 100%;
@@ -397,7 +398,8 @@
   line-height: 36px;
   background-color: #154a67;
   margin-right: 0;
-  margin-top: 1px;
+  margin-top: 0;
+  margin-bottom: 1px;
   border: none;
 }
 .rpanel-body-tab-container .nav-tabs > li > a:hover {

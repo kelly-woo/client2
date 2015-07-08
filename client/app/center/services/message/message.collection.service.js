@@ -291,8 +291,18 @@
       var data = that.list[index];
       return data && data.message && data.message.contentType;
     }
+
+    /**
+     *
+     * @param messageList
+     * @returns {*}
+     * @private
+     */
     function _beforeAddMessages(messageList) {
       messageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
+      _.forEach(messageList, function(msg) {
+        msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
+      });
       //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
       messageList[messageList.length - 1]._isLast = true;
       return messageList;
@@ -455,6 +465,12 @@
       newMsg.message.writer = entityAPIservice.getEntityFromListById($rootScope.memberList, msg.fromEntity);
 
       switch(msg.info.eventType) {
+        case 'announcement_created':
+          newMsg.announceWriterName = memberService.getNameById(msg.info.eventInfo.writerId);
+          break;
+        case 'announcement_deleted':
+          action = $filter('translate')('@system-msg-announcement-deleted');
+          break;
         case 'invite':
           action = $filter('translate')('@msg-invited');
           newMsg.message.invites = [];
