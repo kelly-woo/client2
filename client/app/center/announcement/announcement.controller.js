@@ -77,6 +77,9 @@
       $scope.$on('createAnnouncement', _createAnnouncement);
 
       $scope.$on('minimizeAnnouncement', minimizeAnnouncement);
+
+      $scope.$on('updateMemberProfile', _updateMemberProfile);
+
       $scope.$watch('displayStatus.hide', function(isHided) {
         Announcement.setIsOpened(!isHided);
       });
@@ -389,5 +392,29 @@
       hasOwnEventHandler = false;
     }
 
+    /**
+     * 어떤 멤버의 profile 이 바뀌었다는 socket event를 처리한다.
+     * @param {object} event - $broadcast event obejct
+     * @param {object} data - socket data object
+     * @private
+     */
+    function _updateMemberProfile(event, data) {
+      if (data.member.id === _announcement.writerId) {
+        _updateActionOwner($scope.announcementWriter, data.member);
+      } else if (data.member.id === _announcement.creatorId) {
+        _updateActionOwner($scope.announcementCreator, data.member);
+      }
+    }
+
+    /**
+     * annoucementWriter 혹은  announcementCreator 를 새로 업데이트 된 정보로 바꾼다.
+     * @param {object} target - $scope variable to be updated
+     * @param {object} source - new member entity object
+     * @private
+     */
+    function _updateActionOwner(target, source) {
+      _.extend(target, source);
+      target.profilePic = ($filter)('getSmallThumbnail')(source);
+    }
   }
 })();
