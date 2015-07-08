@@ -10,8 +10,11 @@
 .jnd-cursor-pointer { cursor: pointer; }
 
 .jnd-text-underline { text-decoration: underline; }
+
 .jnd-text-center { text-align: center; }
 .jnd-text-left { text-align: left !important; }
+.jnd-text-right { text-align: right !important; }
+
 .jnd-icon-vertical-text-bottom { vertical-align: text-bottom; }
 
 /*  Underlines text on hover */

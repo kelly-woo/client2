@@ -13,35 +13,38 @@
   function TextMessageCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, AnalyticsHelper, 
                            MessageCollection, jndPubSub) {
     // 현재 로그인되어있는 멤버(나)의 아이디
-    var myId = memberService.getMemberId();
+    var _myId = memberService.getMemberId();
     // 현재 디렉티브가 가지고 있는 메시지 객체
-    var message = $scope.msg;
+    var _message = $scope.msg;
+    var _messageId = _message.messageId;
     // 현재 토픽의 타입
     var _entityType = currentSessionHelper.getCurrentEntityType();
     // 현재 토픽의 아이디
     var _entityId = currentSessionHelper.getCurrentEntityId();
     // text 작성자
-    var writer = message.message.writer;
+    var _writer = _message.message.writer;
 
     // 현재 메시지가 나의 메시지인지 알려주는 flag
-    $scope.isMyMessage = myId === message.fromEntity;
+    $scope.isMyMessage = (_myId === _message.fromEntity);
+    $scope.showAnnouncement = _message.message.contentType !== 'sticker' && _entityType !== 'users';
 
     $scope.deleteMessage = deleteMessage;
     $scope.onUserClick = onUserClick;
+    $scope.createAnnouncement = createAnnouncement;
 
     /**
      * 메시지를 삭제한다.
      */
     function deleteMessage() {
       if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
-        if (message.status === 'sending') {
+        if (_message.status === 'sending') {
           //MessageCollection.
-          MessageCollection.remove(message.messageId, true);
+          MessageCollection.remove(_messageId, true);
         } else {
-          if (message.message.contentType === 'sticker') {
-            messageAPIservice.deleteSticker(message.messageId);
+          if (_message.message.contentType === 'sticker') {
+            messageAPIservice.deleteSticker(_messageId);
           } else {
-            messageAPIservice.deleteMessage(_entityType, _entityId, message.messageId)
+            messageAPIservice.deleteMessage(_entityType, _entityId, _messageId)
               .success(function () {
                 try {
                   AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
@@ -70,7 +73,19 @@
      * user profile event trigger
      */
     function onUserClick() {
-      jndPubSub.pub('onUserClick', writer);
+      jndPubSub.pub('onUserClick', _writer);
+    }
+
+    /**
+     * 현재 메세지를 사용하여 announcement 을 만드는 펑션을 호출하라고 broadcast 한다.
+     */
+    function createAnnouncement() {
+      var param = {
+        'entityId': _entityId,
+        'messageId': _messageId
+      };
+
+      jndPubSub.pub('createAnnouncement', param);
     }
   }
 })();
