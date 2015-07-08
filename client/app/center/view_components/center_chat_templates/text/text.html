@@ -4,7 +4,7 @@
   <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
        ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
     <img on-image-load class="user-profile user-thumb"
-         ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
+         ng-src="{{ msg.exProfileImg }}"/>
   </div>
 
   <div class="msg-item-header"

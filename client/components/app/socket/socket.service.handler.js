@@ -173,6 +173,8 @@
       log(data);
       var member = data.member;
 
+      jndPubSub.pub('updateMemberProfile', data);
+
       if (_isActionFromMe(member.id)) {
         log('my profile updated');
         memberService.onMemberProfileUpdated();

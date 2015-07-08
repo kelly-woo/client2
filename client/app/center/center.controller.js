@@ -169,8 +169,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('centerOnFileCommentDeleted', onCenterOnFileCommentDeleted);
     $scope.$on('attachMessagePreview', _onAttachMessagePreview);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
+    $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
     $scope.$on('onStageLoadedToCenter', function() {
       $('#file-detail-comment-input').focus();
+    });
+  }
+
+  /**
+   * updateMemberProfile 이벤트 발생시 이벤트 핸들러
+   * @param {object} event
+   * @param {{event: object, member: object}} data
+   * @private
+   */
+  function _onUpdateMemberProfile(event, data) {
+    var list = $scope.messages;
+    var member = data.member;
+    var id = member.id;
+
+    _.forEach(list, function(msg) {
+      if (msg.fromEntity === id) {
+        msg.exProfileImg = $filter('getSmallThumbnail')(member);
+      }
     });
   }
 
