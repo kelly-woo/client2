@@ -1312,8 +1312,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onCenterFileDeleted(event, param) {
     var deletedFileId = param.file.id;
+    var isTitle;
     MessageCollection.forEach(function(message) {
-      if (centerService.isCommentType(message.message.contentType) && message.message.commentOption.isTitle) {
+      isTitle = !!(message.message && message.message.commentOption && message.message.commentOption.isTitle);
+      if (centerService.isCommentType(message.message.contentType) && isTitle) {
         if (message.message.feedbackId === deletedFileId) {
           message.feedback.status = 'archived';
         }
