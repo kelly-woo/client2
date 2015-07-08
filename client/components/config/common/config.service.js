@@ -33,6 +33,7 @@
 
       // config service
       self.socket_server  = configuration.socket_address;
+      self.file_address = configuration.file_address;
       self.server_address  = configuration.api_address + "inner-api/";
       self.server_uploaded = configuration.api_address;
       self.api_version     = configuration.api_version;

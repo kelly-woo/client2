@@ -175,24 +175,24 @@ app.filter('getUserEmail', ['memberService',
   }
 ]);
 
-app.filter('getSmallThumbnail', ['memberService', 'config',
-  function(memberService, config) {
+app.filter('getSmallThumbnail', ['$filter', 'memberService', 'config',
+  function($filter, memberService, config) {
     return function(member) {
-      return config.server_uploaded + memberService.getSmallThumbnailUrl(member);
+      return $filter('getFileUrl')(memberService.getSmallThumbnailUrl(member));
     };
   }
 ]);
-app.filter('getMediumThumbnail', ['memberService', 'config',
-  function(memberService, config) {
+app.filter('getMediumThumbnail', ['$filter', 'memberService', 'config',
+  function($filter, memberService, config) {
     return function(member) {
-      return config.server_uploaded + memberService.getMediumThumbnailUrl(member);
+      return $filter('getFileUrl')(memberService.getMediumThumbnailUrl(member));
     };
   }
 ]);
-app.filter('getlargeThumbnail', ['memberService', 'config',
-  function(memberService, config) {
+app.filter('getlargeThumbnail', ['$filter', 'memberService', 'config',
+  function($filter, memberService, config) {
     return function(member) {
-      return config.server_uploaded + memberService.getLargeThumbnailUrl(member);
+      return $filter('getFileUrl')(memberService.getLargeThumbnailUrl(member));
     };
   }
 ]);
@@ -261,3 +261,12 @@ app.filter('getMemberList', function() {
     return enabledMembers;
   };
 });
+
+app.filter('getFileUrl', ['config',
+  function(config) {
+      return function(url) {
+          var hasProtocol = /^https?:/.test(url);
+          return hasProtocol ? url : config.server_uploaded + url;
+        };
+    }
+]);
