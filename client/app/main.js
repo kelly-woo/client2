@@ -4,10 +4,9 @@ var app = angular.module('jandiApp');
 
 app.config(function ($stateProvider) {
   $stateProvider
-    .state('disconnect', {
-      url         : '/disconnect',
-      title       : 'JANDI',
-      templateUrl : 'app/disconnect/disconnect.html',
+    .state('tutorial', {
+      url         : '/tutorial/{step}',
+      templateUrl : 'app/tutorial/popup/step_1.html',
       controller  : 'DisconnectCtrl'
     })
     .state('signin', {
