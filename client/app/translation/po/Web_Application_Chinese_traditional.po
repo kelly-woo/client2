@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -44,6 +44,22 @@ msgstr "找不到符合條件的內容"
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-no-result"
 msgstr "找不到符合條件的內容"
+
+#: client/app/center/view_components/center_chat_templates/text/text.html
+msgid "@announcement-create"
+msgstr "發布公告"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-create-confirm"
+msgstr "此訊息將會取代公告，你確定要繼續嗎?"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-delete-confirm"
+msgstr "公告將被刪除，你確定要繼續?"
+
+#: client/app/center/announcement/announcement.html
+msgid "@announcement-hide"
+msgstr "最小化"
 
 #: client/app/banner/desktop.notification.banner.html
 msgid "@ask-me-later"
@@ -86,6 +102,7 @@ msgstr "確定"
 msgid "@btn-create"
 msgstr "建立"
 
+#: client/app/center/announcement/announcement.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr "刪除"
@@ -127,6 +144,10 @@ msgstr "上傳"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-delete"
 msgstr "刪除議題"
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@ch-menu-delete-confirm"
+msgstr "您確定要刪除這個議題？"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-invite"
@@ -367,7 +388,7 @@ msgstr "完成了"
 msgid "@common-file-upload-progress-msg"
 msgstr "上傳中..."
 
-#: client/app/right/file.detail/file.detail.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@common-files"
 msgstr "檔案"
 
@@ -394,10 +415,6 @@ msgstr "成員"
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "曾經被誰分享"
-
-#: client/app/right/right.html
-msgid "@common-message"
-msgstr "訊息"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
@@ -692,10 +709,6 @@ msgstr "輸入修改的名字"
 msgid "@input-search-channel-name"
 msgstr "按名字搜尋議題"
 
-#: client/app/right/rpanel_search/rpanel.search.html
-msgid "@input-search-file-title"
-msgstr "關鍵字搜尋"
-
 #: client/app/modal/teams/team_member_list/team.member.list.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@input-search-user-name"
@@ -740,6 +753,10 @@ msgid "@integration-title-google-drive"
 msgstr "從Google雲端硬碟上傳"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr "成員邀請的連結已複製到剪貼簿"
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "此電子郵箱已為 {{invitedTeamName}} 的成員"
 
@@ -776,10 +793,6 @@ msgstr "＋更多"
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-some-fail"
 msgstr "部分邀請信無法寄出"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr "成員邀請的連結已複製到剪貼簿"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -926,16 +939,6 @@ msgstr "不漏接任何訊息"
 msgid "@noti-banner-turn-on"
 msgstr "開啟電腦版推播通知"
 
-#: client/app/right/files/files.html
-#: client/app/right/search.messages/search.messages.html
-msgid "@option-all-members"
-msgstr "全部"
-
-#: client/app/right/files/files.html
-#: client/app/right/search.messages/search.messages.html
-msgid "@option-all-rooms"
-msgstr "全部"
-
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr "選擇"
@@ -996,6 +999,16 @@ msgstr "關閉電腦版推播通知"
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"
 msgstr "開啟電腦版的推撥通知"
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-created"
+msgstr ""
+"{{msg.message.content.actionOwner}} 更新 {{msg.announceWriterName}} 的訊息"
+"為公告"
+
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@system-msg-announcement-deleted"
+msgstr "{{msg.message.content.actionOwner}} 刪除公告"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@team-invite"
@@ -1158,6 +1171,28 @@ msgstr "設置成功"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
+
+#, fuzzy
+#~ msgid "@announcement-delete"
+#~ msgstr "刪除議題"
+
+#~ msgid "@common-message"
+#~ msgstr "訊息"
+
+#~ msgid "@input-search-file-title"
+#~ msgstr "關鍵字搜尋"
+
+#~ msgid "@option-all-members"
+#~ msgstr "全部"
+
+#~ msgid "@option-all-rooms"
+#~ msgstr "全部"
+
+#~ msgid "@system-msg-announcement-created-mid"
+#~ msgstr " 更新 "
+
+#~ msgid "@system-msg-announcement-created-post"
+#~ msgstr " 的訊息為公告"
 
 #, fuzzy
 #~ msgid "{{notificationBtnText}}"
@@ -1340,9 +1375,6 @@ msgstr "JANDI 新訊息"
 
 #~ msgid "@input-invite-email"
 #~ msgstr "輸入電子郵件地址進行邀請"
-
-#~ msgid "@ch-menu-delete-confirm"
-#~ msgstr "您確定要刪除這個議題？"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""

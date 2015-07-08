@@ -18,7 +18,6 @@
 
     function link(scope, element, attrs) {
       var jqImageContainer = element;
-      var imageUrl = attrs.imageLoader;
       var callbackFunction = attrs.onImageLoad;
       var isFullScreen = !!attrs.isImageFullScreen;
 
@@ -28,7 +27,9 @@
       // 이미지를 감싸고 있는 엘레멘트가 본래 가지고 있었던 css 값들.
       var displayProperty = jqImageContainer.css('display');
 
-      _init();
+      attrs.$observe('imageLoader', function() {
+        _init();
+      });
 
       /**
        * 파일 형태가 블랍인이 url인지 판단하고 알맞는 다음 스텝을 지정한다.
@@ -52,6 +53,7 @@
         if (!hasImageLoaded) {
           // 이미지가 로드가 안되어 있을때만.
           var xhr = new XMLHttpRequest();
+          var imageUrl = attrs.imageLoader;
 
           xhr.open('GET', imageUrl, true);
           xhr.responseType = 'blob';
@@ -82,11 +84,8 @@
        * @private
        */
       function _loadImage(blob) {
-        var tempBlob;
-        var imageOptions;
-
-        tempBlob = blob;
-        imageOptions = _getImageOptions();
+        var tempBlob = blob;
+        var imageOptions = _getImageOptions();
 
         loadImage.parseMetaData(tempBlob, function (data) {
           if (!!data.exif) {
@@ -112,6 +111,9 @@
 
           // 한 번 로드가 되었다는 표시
           jqImageContainer.attr('has-image-loaded', true);
+
+          // 혹시 이미지가 있을 경우, 삭제한다.
+          jqImageContainer.empty();
 
           jqImageContainer.append(img);
         }

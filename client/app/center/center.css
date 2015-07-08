@@ -35,7 +35,7 @@ article {
   min-width: 345px;
 }
 .cpanel .panel-title-container {
-  z-index: 1;
+  z-index: 20;
 }
 .rpanel-show {
   margin-right: 480px;
@@ -278,23 +278,6 @@ article {
 .msg-item.comment_first,
 .msg-item.comment_continue {
   margin-bottom: 8px;
-}
-.msg-item__action {
-  display:none;
-  position:absolute;
-  right:-7px;
-  bottom: 4px
-}
-.msg-item__action .action-icon {
-  font-size: 16px;
-  color: #c5c5c5;
-}
-.msg-item__action .action-icon:hover {
-  color: #9a9a9a;
-}
-
-.msg-item:hover .msg-item__action {
-  display:inline-block;
 }
 .msg-item-float {
   position: absolute;
@@ -715,6 +698,9 @@ by ysyun 2015.2.25
   bottom: 0;
   z-index: 1;
   display: none;
+  border: 5px solid rgba(0, 166, 233, 0.5);
+
+
 }
 .dnd-not-support {
   display: block;
@@ -724,6 +710,7 @@ by ysyun 2015.2.25
 }
 .dnd-hover .dnd-hover-msg {
   display: block;
+
 }
 .dnd-hover .msgs-inner__border {
   display: block;
@@ -734,8 +721,9 @@ by ysyun 2015.2.25
   display: none;
   position: absolute;
   width: 100%;
-  top: 52px;
-  z-index: 1;
+  /* announcement과 겹칠것을 우려해 50%으로 함.*/
+  top: 50%;
+  z-index: 10;
   text-align: center;
 }
 .dnd-hover-msg > span {

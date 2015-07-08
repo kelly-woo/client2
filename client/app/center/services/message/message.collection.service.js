@@ -455,6 +455,12 @@
       newMsg.message.writer = entityAPIservice.getEntityFromListById($rootScope.memberList, msg.fromEntity);
 
       switch(msg.info.eventType) {
+        case 'announcement_created':
+          newMsg.announceWriterName = memberService.getNameById(msg.info.eventInfo.writerId);
+          break;
+        case 'announcement_deleted':
+          action = $filter('translate')('@system-msg-announcement-deleted');
+          break;
         case 'invite':
           action = $filter('translate')('@msg-invited');
           newMsg.message.invites = [];
