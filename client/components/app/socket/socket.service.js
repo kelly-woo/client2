@@ -10,7 +10,7 @@
     .service('jndWebSocket', jndWebSocket);
 
   /* @ngInject */
-  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, $injector, NetInterceptor) {
+  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, jndWebSocketAnnouncement, $injector, NetInterceptor) {
     var $scope = $rootScope.$new();
     var socket;
     var ioSocket;
@@ -49,6 +49,10 @@
     var DISCONNECT_TEAM = 'disconnect_team';
 
 
+
+    var ANNOUNCEMENT_CREATED =  config.socketEvent.announcement.created;
+    var ANNOUNCEMENT_DELETED = config.socketEvent.announcement.deleted;
+    var ANNOUNCEMENT_STATUS_UPDATED = config.socketEvent.announcement.status_updated;
 
     // message types
     var MESSAGE = config.socketEvent.MESSAGE;
@@ -197,6 +201,10 @@
       socket.on(MEMBER_PROFILE_UPDATED, _onMemberProfileUpdated);
 
       socket.on(MESSAGE_PREVIEW, _onMessagePreview);
+
+      socket.on(ANNOUNCEMENT_CREATED, _onAnnouncement);
+      socket.on(ANNOUNCEMENT_DELETED, _onAnnouncement);
+      socket.on(ANNOUNCEMENT_STATUS_UPDATED, _onAnnouncement);
     }
 
 
@@ -471,6 +479,10 @@
       // jndWebSocketHelper.messageEventHandler(messageType, data);
     }
 
+    function _onAnnouncement(data) {
+      //jndWebSocketHelper.socketEventLogger('ANNOUNCEMENT', data, false);
+      jndWebSocketAnnouncement.onAnnouncementEvent(data);
+    }
     /**
      * Disconnect socket connection by emitting 'disconnect_team' socket event.
      * Used when user
