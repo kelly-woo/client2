@@ -288,7 +288,7 @@ app.filter('getFileUrl', ['config',
       return function(url) {
           var hasProtocol = /^https?:/.test(url);
           //todo: config.file_address 로 추후 변경해야함
-          return hasProtocol ? url : config.server_uploaded + url;
+          return hasProtocol ? url : config.file_address + url;
         };
     }
 ]);
