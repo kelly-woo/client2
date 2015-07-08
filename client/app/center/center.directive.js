@@ -81,42 +81,42 @@
     };
 
     function link(scope, elm, attr) {
-      var threshold = 700;
-      var raw = elm[0];
+      //var threshold = 700;
+      //var raw = elm[0];
+      //
+      //var position = 0;
+      //
+      //var messageContainer = angular.element(document.getElementById('msgs-container'));
+      //
+      //elm.on('scroll', function(event) {
+      //  var scrollTop;
+      //  var scrollDiff;
+      //
+      //  scrollTop = raw.scrollTop;
+      //  scrollDiff =  raw.scrollHeight - (raw.scrollTop + messageContainer.outerHeight());
+      //
+      //  if (scrollDiff == 0) {
+      //    // Bottom reached!
+      //    scope.loadNewMessages();
+      //    scope.clearNewMessageAlerts();
+      //    return;
+      //  } else if (scrollDiff < threshold) {
+      //    scope.hasScrollToBottom = false;
+      //  } else if (scrollDiff > threshold) {
+      //    // Scrolled upward over 200.
+      //    scope.hasScrollToBottom = true;
+      //  }
+      //
+      //  // If scrolling down, Don't worry about loading more of content.
+      //  if (scrollTop > position) return;
+      //
+      //  position = scrollTop;
+      //
+      //  if (raw.scrollTop <= 20 && scope.isInitialLoadingCompleted) {
+      //    scope.loadOldMessages();
+      //  }
 
-      var position = 0;
-
-      var messageContainer = angular.element(document.getElementById('msgs-container'));
-
-      elm.on('scroll', function(event) {
-        var scrollTop;
-        var scrollDiff;
-
-        scrollTop = raw.scrollTop;
-        scrollDiff =  raw.scrollHeight - (raw.scrollTop + messageContainer.outerHeight());
-
-        if (scrollDiff == 0) {
-          // Bottom reached!
-          scope.loadNewMessages();
-          scope.clearNewMessageAlerts();
-          return;
-        } else if (scrollDiff < threshold) {
-          scope.hasScrollToBottom = false;
-        } else if (scrollDiff > threshold) {
-          // Scrolled upward over 200.
-          scope.hasScrollToBottom = true;
-        }
-
-        // If scrolling down, Don't worry about loading more of content.
-        if (scrollTop > position) return;
-
-        position = scrollTop;
-
-        if (raw.scrollTop <= 20 && scope.isInitialLoadingCompleted) {
-          scope.loadOldMessages();
-        }
-
-      });
+      //});
     }
   }
 

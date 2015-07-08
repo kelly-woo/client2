@@ -7,11 +7,30 @@
 
   /* @ngInject */
   function Announcement(memberService, $document, $filter, $sce, currentSessionHelper, config, entityAPIservice, jndPubSub) {
+    var _isOpened = false;
 
     this.getFilteredContentBody = getFilteredContentBody;
     this.adjustAnnouncementHeight = adjustAnnouncementHeight;
     this.getActionOwner = getActionOwner;
     this.isCurrentTopic = isCurrentTopic;
+    this.isOpened = isOpened;
+    this.setIsOpened = setIsOpened;
+
+    /**
+     * Announcement 패널 열림 상태를 저장한다.
+     * @param {boolean} isOpenedFlag
+     */
+    function setIsOpened(isOpenedFlag) {
+      _isOpened = isOpenedFlag;
+    }
+
+    /**
+     * Announcement 패널이 열려있는지 여부를 반환한다.
+     * @returns {boolean}
+     */
+    function isOpened() {
+      return _isOpened;
+    }
 
     /**
      * 메세지를 노출하기 알맞게 가공한다.

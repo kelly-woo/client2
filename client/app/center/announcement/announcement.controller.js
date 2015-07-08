@@ -77,6 +77,9 @@
       $scope.$on('createAnnouncement', _createAnnouncement);
 
       $scope.$on('minimizeAnnouncement', minimizeAnnouncement);
+      $scope.$watch('displayStatus.hide', function(isHided) {
+        Announcement.setIsOpened(!isHided);
+      });
     }
 
     /**
