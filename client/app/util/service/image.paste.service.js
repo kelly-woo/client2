@@ -15,6 +15,7 @@
     var regxNewLine = /(<(\/h\d|\/?p|br.*?|\/div)>)/ig;
     var regxHasTag = /(<([^>]+)>)/i;
     var regxMultiSpace = /  +/g;
+    var regxPlainText = /text\/plain/;
     var regxImage = /image/;
     var regxHTMLImage = /^(?:|<meta (?:[^>]+)>)<img src="([^"]+)"(?:[^\/^>]+)(?:[^>]+)(?:|\/)>(?:|.)$/;
     var regxImageData = /^data:image\/(png|jpg|jpeg);base64,/;
@@ -75,18 +76,18 @@
        * @param {element} jqEle                     - image 붙여넣기 command 대상 dom element
        * @param {PasteContent} wrapper              - dom element의 window object의 event를 처리하는 wrapper object
        * @param {object} options
-       * @param {function} options.onImageLoading   - image loading event handler
-       * @param {function} options.onImageLoad      - image load event handler
-       * @param {function} options.onImageLoaded    - image loaded event handler
+       * @param {function} options.onContentLoading   - image loading event handler
+       * @param {function} options.onContentLoad      - image load event handler
+       * @param {function} options.onContentLoaded    - image loaded event handler
        */
       init: function(jqEle, wrapper, options) {
         var that = this;
 
         that.jqEle = jqEle;
         that.options = {
-            onImageLoading: function() {},
-            onImageLoad: function() {},
-            onImageLoaded: function() {}
+            onContentLoading: function() {},
+            onContentLoad: function() {},
+            onContentLoaded: function() {}
         };
         jQuery.extend(that.options, options);
 
@@ -96,33 +97,38 @@
       },
       /**
        * clipboard data에서 image object를 get하거나 contentEditable에서 image element가 load되었을때 호출되어
-       * contentEditable element를 초기화 하고 onImageLoad와 onImageLoaded event callback을 수행함
-       * @param {object} evt  - FileReader object의 onload event handler에서 전달한 event object
+       * contentEditable element를 초기화 하고 onContentLoad와 onContentLoaded event callback을 수행함
+       * @param {string} type - content type
+       * @param {object} obj  - FileReader object의 onload event handler에서 전달한 object
        */
-      _imageLoad: function(evt) {
+      _contentLoad: function(type, obj) {
         var that = this;
         var items;
 
-        if (evt instanceof jQuery) {
-          items = evt;
-          // console.log(items.length);
-          if (items.length) {
-            that.options.onImageLoad(items[0].src);
+        if (type === 'text') {
+          that.options.onContentLoad(type, obj);
+        } else if (type === 'image') {
+          if (obj instanceof jQuery) {
+            items = obj;
+            // console.log(items.length);
+            if (items.length) {
+              that.options.onContentLoad(type, items[0].src);
+            }
+          } else {
+            that.options.onContentLoad(type, obj.target.result);
           }
-        } else {
-          that.options.onImageLoad(evt.target.result);
         }
 
         // os clipboard 대신 사용된 content 초기화
         that.removeClipboardContent();
 
-        that.options.onImageLoaded();
+        that.options.onContentLoaded();
       },
       /**
-       * clipboard에서 image data를 read하고 onImageLoading event handler를 수행함
+       * clipboard에서 image data를 read하고 onContentLoading event handler를 수행함
        * @param {object} evt - clipboard event object
        */
-      getClipboardImage: function(evt) {
+      getClipboardContent: function(evt) {
         var that = this;
         var cData;
         var items;
@@ -131,17 +137,23 @@
         var i;
         var len;
 
-        that.onImageLoading();
-
         if (evt) {
           cData = evt.clipboardData;
           if (items = cData.items) {
             for (i = 0, len = items.length; i < len && !reader; ++i) {
               item = items[i];
-              if (regxImage.test(item.type)) {
+
+              if (regxPlainText.test(item.type)) {
+                reader = function(str) {
+                  that._contentLoad('text', str);
+                };
+                item.getAsString(reader);
+              } else if (regxImage.test(item.type)) {
+                that.onContentLoading();
+
                 reader = new FileReader();
                 reader.onload = function(evt) {
-                  that._imageLoad(evt);
+                  that._contentLoad('image', evt);
                 };
                 reader.readAsDataURL(item.getAsFile());
               }
@@ -218,8 +230,8 @@
         // event capture하여 img element 생성 여부 판단
         jqEditContent[0].addEventListener("load", function() {
           if (that.hasImageData()) {
-            that.onImageLoading();
-            that._imageLoad(jqEditContent.children('img'));
+            that.onContentLoading();
+            that._contentLoad('image', jqEditContent.children('img'));
           }
         }, true);
 
@@ -232,11 +244,11 @@
       /**
        * browser(IE, firefox etc.) 마다 contentEditable element에 image가 load되는 순서가 달라 맞춰줌
        */
-      onImageLoading: function() {
+      onContentLoading: function() {
         var that = this;
 
         if (!that.contentEditableEvent.isCalledImageLoading) {
-          that.options.onImageLoading();
+          that.options.onContentLoading();
           that.contentEditableEvent.isCalledImageLoading = true;
         }
       },
@@ -324,7 +336,7 @@
               // clipboard에서 image data get 가능
 
               if (that._isImagePaste(evt)) {
-                pasteContentTarget.getClipboardImage(evt);
+                pasteContentTarget.getClipboardContent(evt);
               } else {
                 pasteContentTarget.removeClipboardContent();
               }
@@ -335,7 +347,7 @@
               $timeout((function(pasteContentTarget, data) {
                 return function() {
                   if (that._isContentEditableImagePaste(pasteContentTarget)) {
-                    pasteContentTarget.getClipboardImage();
+                    pasteContentTarget.getClipboardContent();
                   } else if (that._isContentEditableTextPaste(pasteContentTarget)) {
                     pasteContentTarget.getClipboardText(data);
                   } else {
