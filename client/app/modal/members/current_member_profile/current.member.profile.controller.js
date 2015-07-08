@@ -37,7 +37,9 @@
         // 그럴때 멤버 프로필이 바뀌었다는 소켓 이벤트가 들어옴.
         // 이 경우에 멤버의 사진관련 정보만 업데이트를 함.
         // 어차피 다른 정보들은 모달이 닫힐거라 큰 신경을 안써도 됨.
-        $scope.curUser = CurrentMemberProfile.replaceProfilePicture($scope.curUser);
+        //$scope.curUser = CurrentMemberProfile.replaceProfilePicture($scope.curUser);
+        //fixme: 이렇게 해도 문제 없을까요? by young
+        $scope.curUser =  memberService.getMember();
       } else {
         $scope.curUser = _.cloneDeep(memberService.getMember());
       }

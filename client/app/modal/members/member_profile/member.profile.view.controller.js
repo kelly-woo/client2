@@ -10,17 +10,18 @@
     .controller('ProfileViewCtrl', ProfileViewCtrl);
 
   /* @ngInject */
-  function ProfileViewCtrl($scope, curUser, $state, modalHelper, jndPubSub) {
+  function ProfileViewCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub) {
 
     (function() {
       init();
     })();
 
     function init() {
+      curUser._profileImg = $filter('getSmallThumbnail')(curUser);
       $scope.curUser = curUser;
-
       $scope.isUserDisabled = _isCurrentUserDisabled();
       $scope.isMyself = _isMyself();
+      $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
     }
 
     /**
@@ -38,6 +39,19 @@
 
       modalHelper.closeModal();
     };
+
+    /**
+     * updateMemberProfile 이벤트 발생시 이벤트 핸들러
+     * @param {object} event
+     * @param {{event: object, member: object}} data
+     * @private
+     */
+    function _onUpdateMemberProfile(event, data) {
+      var member = data.member;
+      if ($scope.curUser.id === member.id) {
+        $scope.curUser._profileImg = $filter('getSmallThumbnail')(member);
+      }
+    }
 
     /**
      * 해당 유저의 파일리스트를 연다.

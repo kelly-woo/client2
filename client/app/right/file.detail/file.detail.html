@@ -17,7 +17,7 @@
              ng-class="{'file-detail-disabled-member': isDisabledMember(file_detail.writer)}">
           <div class="file-detail-header__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
-                 ng-src="{{ file_detail.writerId | getSmallThumbnail }}"
+                 ng-src="{{ file_detail._profileImg }}"
                  ng-click="onUserClick(file_detail.writer);"/>
           </div>
           <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
@@ -109,7 +109,7 @@
              ng-class="{'file-detail-disabled-member': isDisabledMember(comment.writer)}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
-                 ng-src="{{ comment.writerId | getSmallThumbnail }}"
+                 ng-src="{{ comment._profileImg }}"
                  ng-click="onUserClick(comment.writer);"/>
           </div>
           <div class="comment-item-header">
@@ -192,7 +192,7 @@
         <div class="file-detail-header-box">
           <div class="file-detail-header__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
-                 ng-src="{{ file_detail.writerId | getSmallThumbnail }}"
+                 ng-src="{{ file_detail._profileImg }}"
                  ng-click="onUserClick(file_detail.writer);"/>
           </div>
 
@@ -220,7 +220,7 @@
         <div class="comment-item" data-ng-repeat="comment in file_comments" data-comment-id="{{ comment.id }}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
-                 ng-src="{{ comment.writerId | getSmallThumbnail }}"
+                 ng-src="{{ comment._profileImg }}"
                  ng-click="onUserClick(comment.writer);"/>
           </div>
           <div class="comment-item-header">

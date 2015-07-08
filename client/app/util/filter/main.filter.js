@@ -178,21 +178,39 @@ app.filter('getUserEmail', ['memberService',
 app.filter('getSmallThumbnail', ['$filter', 'memberService', 'config',
   function($filter, memberService, config) {
     return function(member) {
-      return $filter('getFileUrl')(memberService.getSmallThumbnailUrl(member));
+      var url;
+      if (_.isObject(member)) {
+        url = member && member.u_photoThumbnailUrl && member.u_photoThumbnailUrl.smallThumbnailUrl || '';
+      } else {
+        url = memberService.getSmallThumbnailUrl(member);
+      }
+      return $filter('getFileUrl')(url);
     };
   }
 ]);
 app.filter('getMediumThumbnail', ['$filter', 'memberService', 'config',
   function($filter, memberService, config) {
     return function(member) {
-      return $filter('getFileUrl')(memberService.getMediumThumbnailUrl(member));
+      var url;
+      if (_.isObject(member)) {
+        url = member && member.u_photoThumbnailUrl && member.u_photoThumbnailUrl.mediumThumbnailUrl || '';
+      } else {
+        url = memberService.getSmallThumbnailUrl(member);
+      }
+      return $filter('getFileUrl')(url);
     };
   }
 ]);
 app.filter('getlargeThumbnail', ['$filter', 'memberService', 'config',
   function($filter, memberService, config) {
     return function(member) {
-      return $filter('getFileUrl')(memberService.getLargeThumbnailUrl(member));
+      var url;
+      if (_.isObject(member)) {
+        url = member && member.u_photoThumbnailUrl && member.u_photoThumbnailUrl.largeThumbnailUrl || '';
+      } else {
+        url = memberService.getSmallThumbnailUrl(member);
+      }
+      return $filter('getFileUrl')(url);
     };
   }
 ]);
@@ -262,6 +280,9 @@ app.filter('getMemberList', function() {
   };
 });
 
+/**
+ * 프로토콜이 없을 경우 프로토콜을 붙여주는 fileUrl 필터
+ */
 app.filter('getFileUrl', ['config',
   function(config) {
       return function(url) {
