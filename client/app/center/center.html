@@ -10,6 +10,33 @@
 
 <entity-header></entity-header>
 
+<div class="file-upload-progress-container" ng-if="curUpload.status != null"
+     ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
+                'file-upload-done': curUpload.status == 'done'}">
+  <!--    'uploading'     -->
+  <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
+  <!--    'aborted'       -->
+  <span translate ng-if="curUpload.isAborted">@common-file-upload-abort-msg</span>
+  <!--    'done'      -->
+  <span translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
+  <!--    'error'     -->
+  <span translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
+
+
+  <!--    file title  -->
+  <span class="file-upload-progress-title">[{{curUpload.title}}]</span>
+  <!--    progress in percentile  -->
+  <span class="file-upload-progress-completion-percent">{{curUpload.progress}}%</span>
+  <!--    progress file index  -->
+  <span class="file-upload-progress-file-index">({{curUpload.cFileIndex}} of {{curUpload.lFileIndex}})</span>
+  <!--    'cancel'    -->
+  <span class="file-upload-progress-abort pull-right cursor_pointer" ng-click="onFileUploadAbortClick();" data-ng-if="curUpload.status=='uploading'">cancel</span>
+  <!--    'x' icon    -->
+  <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'"><i class="icon-cancel"></i></span>
+
+  <progressbar class="progress-striped jandi-file-upload-progress-bar active" max="100" value="curUpload.progress"></progressbar>
+</div>
+
 <announcement></announcement>
 
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
@@ -17,34 +44,6 @@
   <div class="dnd-hover-msg">
     <span translate>@dnd-file-upload-msg</span>
     <div class="background"></div>
-  </div>
-
-  <div class="file-upload-progress-container" ng-if="curUpload.status != null"
-       ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
-                  'file-upload-done': curUpload.status == 'done'}">
-    <!--    'uploading'     -->
-    <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
-    <!--    'aborted'       -->
-    <span translate ng-if="curUpload.isAborted">@common-file-upload-abort-msg</span>
-    <!--    'done'      -->
-    <span translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
-    <!--    'error'     -->
-    <span translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
-
-
-    <!--    file title  -->
-    <span class="file-upload-progress-title">[{{curUpload.title}}]</span>
-    <!--    progress in percentile  -->
-    <span class="file-upload-progress-completion-percent">{{curUpload.progress}}%</span>
-    <!--    progress file index  -->
-    <span class="file-upload-progress-file-index">({{curUpload.cFileIndex}} of {{curUpload.lFileIndex}})</span>
-    <!--    'cancel'    -->
-    <span class="file-upload-progress-abort pull-right cursor_pointer" ng-click="onFileUploadAbortClick();" data-ng-if="curUpload.status=='uploading'">cancel</span>
-    <!--    'x' icon    -->
-    <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'"><i class="icon-cancel"></i></span>
-
-    <progressbar class="progress-striped jandi-file-upload-progress-bar active" max="100" value="curUpload.progress"></progressbar>
-
   </div>
 
   <div class="msgs-inner__border"></div>
@@ -58,7 +57,7 @@
 
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <div class="msgs-group" data-ng-repeat="msg in messages track by $index" msg-repeat-done="onRepeatDone()">
+      <div class="msgs-group" data-ng-repeat="msg in messages" msg-repeat-done="onRepeatDone()">
         <!--날짜 구분선-->
         <date-divider ng-if="isNewDate($index)"></date-divider>
 

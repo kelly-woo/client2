@@ -376,7 +376,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // 엔티티 메세지 리스트 목록 얻기
       messageAPIservice.getMessages(entityType, entityId, MessageQuery.get())
         .success(function(response) {
-          $('.msgs__loading').removeClass('load-more-top');
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
 
@@ -494,17 +493,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _findMessageDomElementById(id) {
     var jqTarget = $('#'+ id);
     var targetScrollTop;
+    targetScrollTop = jqTarget.offset().top - $('#msgs-container').offset().top;
+    if (Announcement.isOpened()) {
+      targetScrollTop -= $('announcement:first > div:first').outerHeight();
+    }
 
-    $timeout(function() {
-      targetScrollTop = jqTarget.offset().top - $('#msgs-container').offset().top;
-      if (Announcement.isOpened()) {
-        targetScrollTop -= $('announcement:first > div:first').outerHeight();
-      }
-
-      _animateBackgroundColor(jqTarget);
-      _showContents();
-      $('#msgs-container')[0].scrollTop = targetScrollTop;
-    }, 300);
+    _animateBackgroundColor(jqTarget);
+    _showContents();
+    $('#msgs-container')[0].scrollTop = targetScrollTop;
   }
 
   function _scrollToBottom() {
@@ -1315,8 +1311,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onCenterFileDeleted(event, param) {
     var deletedFileId = param.file.id;
+    var isTitle;
     MessageCollection.forEach(function(message) {
-      if (centerService.isCommentType(message.message.contentType) && message.message.commentOption.isTitle) {
+      isTitle = !!(message.message && message.message.commentOption && message.message.commentOption.isTitle);
+      if (centerService.isCommentType(message.message.contentType) && isTitle) {
         if (message.message.feedbackId === deletedFileId) {
           message.feedback.status = 'archived';
         }

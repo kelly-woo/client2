@@ -105,18 +105,13 @@ function fakeNgModel(initValue) {
 //    }
 //  };
 //});
+
 /**
  * 메세지의 repeat done detector
  */
 app.directive('msgRepeatDone', function($timeout) {
   return function(scope, element, attrs) {
     if (scope.msg._isLast) { // all are rendered
-      scope.msg._isLast = null;
-      delete scope.msg._isLast;
-      /*
-       실제 dom rendering 이후 msgRepeatDone 을 호출하기 위해 $timeout 사용.
-       현재까지 research 한 결과로는 best 방법임.
-       */
       $timeout(function() {
         scope.$eval(attrs.msgRepeatDone);
       }, 0);
@@ -129,11 +124,12 @@ app.directive('msgRepeatDone', function($timeout) {
  */
 app.directive('repeatDone', function() {
   return function(scope, element, attrs) {
-    if (scope.$last) { // all are rendered
+    if (scope.msg.$last) { // all are rendered
       scope.$eval(attrs.repeatDone);
     }
   };
 });
+
 
 app.directive('scrollBottomOn', ['$timeout', function($timeout) {
   return function(scope, elm, attr) {
