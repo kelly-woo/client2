@@ -6,7 +6,7 @@
   </h3>
 </div>
 
-<form name="create_channel_form" data-ng-submit="onRenameClick(newTopicName);">
+<form name="topicRenameForm" data-ng-submit="onRenameClick(newTopicName);" novalidate="">
   <div class="modal-body">
     <div class="form-horizontal">
       <div class="form-group">
@@ -19,8 +19,11 @@
                  name="newTopicName"
                  data-ng-model="newTopicName"
                  placeholder="{{ '@input-rename' | translate }}"
-                 maxlength="60"
-                 required/>
+                 ng-maxlength="60"
+                 ng-required/>
+          <alert type="warning" class="profile-settings-body__alert" data-ng-if="topicRenameForm.newTopicName.$error.maxlength">
+            {{ '@input-max-length-error' | translate}}
+          </alert>
         </div>
       </div>
     </div>
