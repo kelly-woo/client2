@@ -104,7 +104,7 @@
         // transition style 적용되어 animation 들어가는 것을 방지 하기위해 confirm done
         // 일때 transition 적용을 잠시 해제함.
         if (index !== length) {
-          jqProgressBar.addClass('init-progress-bar').css('width', 0);
+          jqProgressBar.addClass('init-progress-bar');
         }
 
         $rootScope.curUpload.status = 'done';
