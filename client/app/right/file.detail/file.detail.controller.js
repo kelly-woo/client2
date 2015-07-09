@@ -237,22 +237,35 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function onImageClick() {
     var content = $scope.file_detail.content;
+    var fileRequest;
+
     if (integrationPreviewMap[content.serverUrl]) {
       window.open(content.fileUrl, '_blank');
     } else {
-      modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
+      fileRequest = fileAPIservice.tempFileRequest || {};
 
-      //$modal.open({
-      //  scope       :   $scope,
-      //  controller  :   'fullImageCtrl',
-      //  templateUrl :   'app/modal/fullimage.html',
-      //  windowClass :   'modal-full fade-only',
-      //  resolve     :   {
-      //    photoUrl    : function() {
-      //      return $scope.ImageUrl;
-      //    }
-      //  }
-      //});
+      // roomId가 -1일때 해당 값은 사용하지 않음.
+      fileRequest.roomId === -1 && delete fileRequest.roomId;
+
+      // writerId가 all일때 해당 값은 사용하지 않음.
+      fileRequest.writerId === 'all' && delete fileRequest.writerId;
+
+      modalHelper.openImageCarouselModal({
+        // server api
+        getImage: fileAPIservice.getImageList,
+
+        // image file api data
+        messageId: $scope.file_detail.id,
+        roomId: fileRequest.sharedEntityId,
+        writerId: fileRequest.writerId,
+        keyword: fileRequest.keyword,
+
+        // image carousel view data
+        userName: $scope.file_detail.writer.name,
+        uploadDate: $scope.file_detail.createTime,
+        fileTitle: $scope.file_detail.content.title,
+        fileUrl: $scope.file_detail.content.fileUrl
+      });
     }
   }
 

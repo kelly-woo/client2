@@ -6,7 +6,7 @@
     .controller('FileUploadedCtrl', FileUploadedCtrl);
 
   /* @ngInject */
-  function FileUploadedCtrl($scope, $filter, fileAPIservice, centerService,
+  function FileUploadedCtrl($scope, $rootScope, $filter, fileAPIservice, centerService,
                             modalHelper, ImagesHelper, $compile, FileUploaded,
                             $state, entityheaderAPIservice, entityAPIservice) {
 
@@ -157,8 +157,19 @@
      * large thumbnail 을 보고 있을 때 full screen으로 볼 수 있는 모달창을 연다.
      */
     function onFullScreenImageButtonClick() {
-      var fullFileUrl = serverUploaded + content.fileUrl;
-      modalHelper.openFullScreenImageModal($scope, fullFileUrl);
+      modalHelper.openImageCarouselModal({
+        // server api
+        getImage: fileAPIservice.getImageListOnRoom,
+
+        // image file api data
+        messageId: message.id,
+        roomId: $scope.currentEntity.id,
+        // image carousel view data
+        userName: message.writer.name,
+        uploadDate: message.createTime,
+        fileTitle: message.content.title,
+        fileUrl: message.content.fileUrl
+      });
     }
 
     /**

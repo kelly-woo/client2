@@ -49,6 +49,20 @@ app.directive('downloadFile', function() {
   };
 });
 
+app.directive('bindDownloadFile', function() {
+  return {
+    restrict: 'A',
+    link: function(scope, el, attrs) {
+      scope.$watch('fileUrl', function(value) {
+        el.attr('href', scope.server_uploaded + 'download/' + value);
+      });
+      scope.$watch('fileTitle', function(value) {
+        el.attr('download', value);
+      });
+    }
+  };
+});
+
 app.directive('originFile', function() {
   return {
     restrict: 'A',

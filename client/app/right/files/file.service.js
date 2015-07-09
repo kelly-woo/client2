@@ -9,11 +9,15 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     'google': true,
     'dropbox': true
   };
+  var fileRequest;
 
   this.upload = upload;
   this.abort = abort;
   this.getFileList = getFileList;
   this.getFileDetail = getFileDetail;
+  this.getImageList = getImageList;
+  this.getImageListOnRoom = getImageListOnRoom;
+
   this.postComment = postComment;
   this.deleteComment = deleteComment;
   this.deleteSticker = deleteSticker;
@@ -102,6 +106,43 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         teamId: memberService.getTeamId()
       }
     });
+  }
+
+  /**
+   * 팀에 공유된 이미지 목록 가져오기
+   * @param {object} params
+   * @param {number} params.messageId - message id
+   * @param {number} [params.roomId] - room id
+   * @param {string} [params.type] - message 보다 오래되거나 새로운 목록대상
+   * @param {number} [params.count] - get할 image count
+   * @param {string} [params.q] - 검색 keyword
+   * @param {number} [params.writerId] - writer id
+   */
+  function getImageList(params) {
+    return $http({
+      method: 'GET',
+      url: $rootScope.server_address + 'teams/' + memberService.getTeamId() + '/images',
+      params: params
+    });
+  }
+
+  /**
+   * 특정 room(topic or DM)에 공유되었던 이미지 목록 가져오기
+   * @param {object} params
+   * @param {number} params.messageId - message id
+   * @param {number} params.roomId - room id
+   * @param {string} [params.type] - message 보다 오래되거나 새로운 목록대상
+   * @param {number} [params.count] - get할 image count
+   */
+  function getImageListOnRoom(params) {
+    var roomId = params.roomId;
+    delete params.roomId;
+
+    return $http({
+      method: 'GET',
+      url: $rootScope.server_address + 'teams/' + memberService.getTeamId() + '/rooms/' + roomId + '/images',
+      params: params
+    })
   }
 
   /**
@@ -376,4 +417,18 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   function broadcastCommentFocus() {
     $rootScope.$broadcast('setCommentFocus');
   }
+
+  /**
+   * fileReuqest get하기 전에 한번 저장용 변수 제공함
+   */
+  Object.defineProperty(this, 'tempFileRequest', {
+    get: function() {
+      var temp = fileRequest;
+      fileRequest = undefined;
+      return temp;
+    },
+    set: function(value) {
+      fileRequest = value;
+    }
+  });
 });
