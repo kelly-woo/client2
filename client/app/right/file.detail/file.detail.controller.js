@@ -245,7 +245,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       fileRequest = fileAPIservice.tempFileRequest || {};
 
       // roomId가 -1일때 해당 값은 사용하지 않음.
-      fileRequest.roomId === -1 && delete fileRequest.roomId;
+      fileRequest.roomId == -1 && delete fileRequest.roomId;
 
       // writerId가 all일때 해당 값은 사용하지 않음.
       fileRequest.writerId === 'all' && delete fileRequest.writerId;
