@@ -244,35 +244,22 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     } else {
       fileRequest = fileAPIservice.tempFileRequest || {};
 
-      var fullFileUrl = $scope.ImageUrl;
       modalHelper.openImageCarouselModal({
+        // server api
+        getImage: fileAPIservice.getImageList,
+
         // image file api data
-        messageId: $scope.file_detail.id
+        messageId: $scope.file_detail.id,
         roomId: fileRequest.sharedEntityId,
         writerId: fileRequest.writerId,
         keyword: fileRequest.keyword,
+
         // image carousel view data
         userName: $scope.file_detail.writer.name,
         uploadDate: $scope.file_detail.createTime,
         fileTitle: $scope.file_detail.content.title,
-        fileUrl: $scope.file_detail.content.fileUrl,
-        imageUrl: fullFileUrl
+        fileUrl: $scope.file_detail.content.fileUrl
       });
-
-
-      // modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
-
-      //$modal.open({
-      //  scope       :   $scope,
-      //  controller  :   'fullImageCtrl',
-      //  templateUrl :   'app/modal/fullimage.html',
-      //  windowClass :   'modal-full fade-only',
-      //  resolve     :   {
-      //    photoUrl    : function() {
-      //      return $scope.ImageUrl;
-      //    }
-      //  }
-      //});
     }
   }
 

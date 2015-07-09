@@ -157,12 +157,18 @@
      * large thumbnail 을 보고 있을 때 full screen으로 볼 수 있는 모달창을 연다.
      */
     function onFullScreenImageButtonClick() {
-      var fullFileUrl = serverUploaded + content.fileUrl;
       modalHelper.openImageCarouselModal({
-        messageId: $scope.msg.messageId,
-        content: $scope.msg.message.content,
-        writer: $scope.msg.writer,
-        imageUrl: fullFileUrl
+        // server api
+        getImage: fileAPIservice.getImageListOnRoom,
+
+        // image file api data
+        messageId: message.id,
+        roomId: $scope.currentEntity.id,
+        // image carousel view data
+        userName: message.writer.name,
+        uploadDate: message.createTime,
+        fileTitle: message.content.title,
+        fileUrl: message.content.fileUrl
       });
     }
 

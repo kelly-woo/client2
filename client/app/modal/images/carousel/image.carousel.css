@@ -22,7 +22,7 @@
   background-color: #000;
   opacity: 0.5;
 
-  z-index: 10000;
+  z-index: 9998;
 }
 
 .image-carousel-container .image-carousel-viewer {
@@ -32,7 +32,7 @@
   width: 100%;
   height: 100%;
 
-  z-index: 10001;
+  z-index: 9999;
 }
 
 .image-carousel-viewer .viewer-header {
@@ -40,8 +40,6 @@
   top: 0;
   width: 100%;
   height: 40px;
-
-  z-index: 10002;
 }
 .content-footer .info,
 .content-footer .options>div,
@@ -122,6 +120,11 @@
   transition: opacity .1s;
   box-shadow: 0 1px 1px rgba(0,0,0,.3);
 }
+.viewer-body button.has-prev,
+.viewer-body button.has-next {
+  display: block;
+}
+
 .viewer-body #viewer-prev-btn {
   top: 50%;
 }

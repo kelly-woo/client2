@@ -1,20 +1,8 @@
 <div class="image-carousel-container" ng-init="init()">
   <div class="image-carousel-overlay"></div>
   <div class="image-carousel-viewer">
-    <div class="viewer-header">
-      <div class="info">
-        <div class="title">
-          <span></span>
-        </div>
-      </div>
-      <div class="options non-selectable">
-        <div class="actions">
-          <div class="dismiss" ng-click="close()"><i class="fa fa-times"></i></div>
-        </div>
-      </div>
-    </div>
     <div class="viewer-body non-selectable">
-      <button id="viewer-prev-btn" ng-show="hasPrev"><i class="fa fa-angle-left"></i></button>
+      <button id="viewer-prev-btn" ng-class="{ 'has-prev': hasPrev }"><i class="fa fa-angle-left"></i></button>
       <div class="content">
         <div class="content-footer">
           <div class="info">
@@ -35,7 +23,19 @@
           </div>
         </div>
       </div>
-      <button id="viewer-next-btn" ng-show="hasNext"><i class="fa fa-angle-right"></i></button>
+      <button id="viewer-next-btn" ng-class="{ 'has-next': hasNext }"><i class="fa fa-angle-right"></i></button>
+    </div>
+    <div class="viewer-header">
+      <div class="info">
+        <div class="title">
+          <span></span>
+        </div>
+      </div>
+      <div class="options non-selectable">
+        <div class="actions">
+          <div class="dismiss" ng-click="close()"><i class="fa fa-times"></i></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

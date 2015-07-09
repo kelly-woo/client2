@@ -20,6 +20,11 @@
     var jqViewerBody;
     var jqContent;
 
+    var _pivot;
+    var _next;
+    var _prev;
+
+
     that.init = init;
 
     that.show = show;
@@ -28,39 +33,27 @@
     _.each(['prev', 'next'], function(value) {
       that[value] = (function(value) {
         var isPrev = value === '';
-        return function(messageId) {
-          var that = this;
-          var options = angular.extend({
-            listCount: isPrev ? 1 : -1,
-            sharedEntityId: that.options.sharedEntityId || entityId,
-            keyword: that.options.keyword || '',
+        return function() {
 
-            startMessageId: messageId
-          }, that.options);
-
-          fileAPIservice
-            .getFileList(options)
-            .success(function(files) {
-              console.log('get a files ::: ', files);
-            })
-            .error(function() {
-              console.log('error for files ::: ');
-            });
         };
       }(value));
     });
 
-    function init(options) {
+    function init(pivot, options) {
       var that = this;
 
+      _pivot = pivot;
+      _next = [];
+      _prev = [];
+
       that.options = {
-        // 기준 message
-        pivot: {},
         // message id보다 오래되거나 새로운 목록 대상 또는 양방향 item get
         type: '',
         // 한번 get시 load할 image item 수
         count: 20,
 
+        // image api
+        getImage: null,
 
         onHide: function() {},
         onLookUp: function() {}
@@ -76,7 +69,7 @@
 
         _on();
 
-        _load(that.options.pivot);
+        _load(that.pivot);
       });
     }
 
@@ -117,47 +110,79 @@
         });
     }
 
-    function pivot(messageId) {
-      var that = this;
-      var options = that.options;
-
-      var nextOptions = angular.extend({listCount: 1, sharedEntityId: entityId, startMessageId: messageId}, options);
-      var prevOptions = angular.extend({listCount: -1, sharedEntityId: entityId, startMessageId: messageId}, options);
-
-      // that.images = {
-      //   prev: {},
-      //   curr: {},
-      //   next: {}
-      // };
-      $.when(fileAPIservice.getFileList(nextOptions), fileAPIservice.getFileList(prevOptions)).then(function(next, prev) {
-        next.success(function(data) {
-          console.log('next ::: ', data);
-        });
-
-        prev.success(function(data) {
-          console.log('prev ::: ', data);
-        });
-      });
-    }
 
     function _load(pivot) {
+      // carousel body의 position 초기화
       jqContent.css({marginLeft: MIN_WIDTH / 2 * -1, marginTop: MIN_HEIGHT / 2 * -1});
 
       that.options.onLookUp(pivot);
 
       jqContent.addClass('icon-loading loading');
+
+      // loadImage 전역 변수
       loadImage(pivot.imageUrl, function(img) {
         jqContent.removeClass('icon-loading loading');
 
         if (img.type && img.type === 'error') {
 
         } else {
+          // image의 size에 맞춰 carousel body를 repositioning
           _rePosition(img);
 
           jqContent.children('img').remove();
           jqContent.prepend(img);
         }
       });
+
+      _getImage(
+        function(data) {
+          setStatus(data);
+        },
+        function() {
+
+        }
+      );
+    }
+
+    function setStatus(data) {
+      var message;
+      var i;
+
+      if (data) {
+        for (i = data.length; i > -1; --i) {
+          message = data[i];
+
+          if (message.id === _pivot.messageId) {
+
+          }
+        }
+      }
+    }
+
+    function setButtonStatus(data) {
+      var currentMessageId = that.options.messageId;
+      var message;
+      var i;
+
+      var status = {
+        hasPrev: false,
+        hasNext: false
+      };
+
+      if (data) {
+        for (i = data.length - 1; i > -1; --i) {
+          message = data[i];
+          if (message.id === currentMessageId) {
+            break;
+          }
+        }
+
+        i !== 0 && (status.hasPrev = true);
+        i !== data.length - 1 && (status.hasNext = true);
+      }
+
+      // button 상태 변경
+      that.options.onButtonStatusChange(status);
     }
 
     function _rePosition(img) {
@@ -216,6 +241,23 @@
 
       jqWindow.off('reisze.imageCarousel');
       jqModal.off('keydown.imageCarousel').off('click.imageCarousel');
+    }
+
+    function _getImage(success, error) {
+      return that.options.getImage({
+          roomId: that.options.roomId,
+          messageId: that.options.messageId,
+          // type: null,
+          count: that.options.count,
+          q: that.options.keyword,
+          writerId:that.options.writerId
+        })
+        .success(function(data) {
+          success(data);
+        })
+        .error(function(err) {
+          error(err);
+        });
     }
   }
 }());
