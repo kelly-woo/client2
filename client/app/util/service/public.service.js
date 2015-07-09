@@ -28,7 +28,9 @@
       adjustBodyWrapperHeight: adjustBodyWrapperHeight,
       hideTransitionLoading: hideTransitionLoading,
       showTransitionLoading: showTransitionLoading,
-      reloadCurrentPage: reloadCurrentPage
+      reloadCurrentPage: reloadCurrentPage,
+      openNewTab: openNewTab
+
     };
 
     return service;
@@ -196,6 +198,11 @@
         inherit: false,
         notify: true
       });
+    }
+
+    function openNewTab(url) {
+      var open_link = window.open('', '_blank');
+      open_link.location.href = url;
     }
   }
 })();

@@ -10,6 +10,35 @@
 
 <entity-header></entity-header>
 
+<div class="file-upload-progress-container" ng-if="curUpload.status != null"
+     ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
+                'file-upload-done': curUpload.status == 'done'}">
+  <!--    'uploading'     -->
+  <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
+  <!--    'aborted'       -->
+  <span translate ng-if="curUpload.isAborted">@common-file-upload-abort-msg</span>
+  <!--    'done'      -->
+  <span translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
+  <!--    'error'     -->
+  <span translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
+
+
+  <!--    file title  -->
+  <span class="file-upload-progress-title">[{{curUpload.title}}]</span>
+  <!--    progress in percentile  -->
+  <span class="file-upload-progress-completion-percent">{{curUpload.progress}}%</span>
+  <!--    progress file index  -->
+  <span class="file-upload-progress-file-index">({{curUpload.cFileIndex}} of {{curUpload.lFileIndex}})</span>
+  <!--    'cancel'    -->
+  <span class="file-upload-progress-abort pull-right cursor_pointer" ng-click="onFileUploadAbortClick();" data-ng-if="curUpload.status=='uploading'">cancel</span>
+  <!--    'x' icon    -->
+  <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'"><i class="icon-cancel"></i></span>
+
+  <progressbar class="progress-striped jandi-file-upload-progress-bar active" max="100" value="curUpload.progress"></progressbar>
+</div>
+
+<announcement></announcement>
+
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
 <div dragdown-area ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
   <div class="dnd-hover-msg">
@@ -17,38 +46,10 @@
     <div class="background"></div>
   </div>
 
-  <div class="file-upload-progress-container" ng-if="curUpload.status != null"
-       ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
-                  'file-upload-done': curUpload.status == 'done'}">
-    <!--    'uploading'     -->
-    <span translate ng-if="curUpload.status == 'uploading'">@common-file-upload-progress-msg</span>
-    <!--    'aborted'       -->
-    <span translate ng-if="curUpload.isAborted">@common-file-upload-abort-msg</span>
-    <!--    'done'      -->
-    <span translate ng-if="curUpload.status == 'done'">@common-file-upload-done-msg</span>
-    <!--    'error'     -->
-    <span translate ng-if="curUpload.status == 'error'">@common-api-error-msg</span>
-
-
-    <!--    file title  -->
-    <span class="file-upload-progress-title">[{{curUpload.title}}]</span>
-    <!--    progress in percentile  -->
-    <span class="file-upload-progress-completion-percent">{{curUpload.progress}}%</span>
-    <!--    progress file index  -->
-    <span class="file-upload-progress-file-index">({{curUpload.cFileIndex}} of {{curUpload.lFileIndex}})</span>
-    <!--    'cancel'    -->
-    <span class="file-upload-progress-abort pull-right cursor_pointer" ng-click="onFileUploadAbortClick();" data-ng-if="curUpload.status=='uploading'">cancel</span>
-    <!--    'x' icon    -->
-    <span class="file-upload-progress-icon-cancel pull-right cursor_pointer" data-ng-click="onFileIconCloseClick();" data-ng-if="curUpload.status!='uploading'"><i class="icon-cancel"></i></span>
-
-    <progressbar class="progress-striped jandi-file-upload-progress-bar active" max="100" value="curUpload.progress"></progressbar>
-
-  </div>
-
   <div class="msgs-inner__border"></div>
 
   <!-- 컨테이너 -->
-  <article class="msgs" id="msgs-container" when-scrolled="loadMore()" scroll-glue>
+  <article class="msgs" id="msgs-container" when-scrolled="loadMore()">
     <!-- 로딩 영역 -->
     <div class="msgs__loading icon-loading-img"
          ng-show="msgLoadStatus.loading || !hasLastMessageRendered"
@@ -82,7 +83,6 @@
           <file-uploaded ng-if="msg.message.isFile"></file-uploaded>
           <title-comment ng-if="msg.message.isComment"></title-comment>
         </div>
-
       </div>
       <!-- unsent Message -->
       <div ng-if="unsentMsgs.length" class="msgs-group">
@@ -95,7 +95,6 @@
       <!--  WHEN THERE ARE NO MESSAGES OTHER THAN SYSTEM EVENT MESSAGE. -->
       <center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>
     </div>
-
   </article>
 
   <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasScrollToBottom && !hasNewMsg" ng-click="onScrollToBottomIconClicked();"

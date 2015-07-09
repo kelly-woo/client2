@@ -42,6 +42,7 @@
         $scope.curUser = _.cloneDeep(memberService.getMember());
       }
 
+      _setProfileImg();
       // 서버에서 받은 유저 정보에 extraData가 없는 경우 공백을 넣는다.
       userExtraData = $scope.curUser.u_extraData;
       userExtraData.phoneNumber = memberService.getPhoneNumber($scope.curUser) || "";
@@ -49,6 +50,13 @@
       userExtraData.position = memberService.getPosition($scope.curUser) || "";
     }
 
+    /**
+     * profile img 정보를 설정한다.
+     * @private
+     */
+    function _setProfileImg() {
+      $scope.profileImg =  $filter('getMediumThumbnail')($scope.curUser);
+    }
 
     /**
      * 현재 멤버의 정보가 바뀌었다는 뜻이므로 locally가지고 있는 멤버의 정보를 최신으로 업데이트한다.

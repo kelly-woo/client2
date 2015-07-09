@@ -12,6 +12,10 @@
     var CTRL_KEY_NAME = /win/ig.test(navigator.platform) ? 'ctrlKey' : 'metaKey';
     var TYPE = 'image/png';
 
+    var regxNewLine = /(<(\/h\d|\/?p|br.*?|\/div)>)/ig;
+    var regxHasTag = /(<([^>]+)>)/i;
+    var regxMultiSpace = /  +/g;
+    var regxPlainText = /text\/plain/;
     var regxImage = /image/;
     var regxHTMLImage = /^(?:|<meta (?:[^>]+)>)<img src="([^"]+)"(?:[^\/^>]+)(?:[^>]+)(?:|\/)>(?:|.)$/;
     var regxImageData = /^data:image\/(png|jpg|jpeg);base64,/;
@@ -72,18 +76,18 @@
        * @param {element} jqEle                     - image 붙여넣기 command 대상 dom element
        * @param {PasteContent} wrapper              - dom element의 window object의 event를 처리하는 wrapper object
        * @param {object} options
-       * @param {function} options.onImageLoading   - image loading event handler
-       * @param {function} options.onImageLoad      - image load event handler
-       * @param {function} options.onImageLoaded    - image loaded event handler
+       * @param {function} options.onContentLoading   - image loading event handler
+       * @param {function} options.onContentLoad      - image load event handler
+       * @param {function} options.onContentLoaded    - image loaded event handler
        */
       init: function(jqEle, wrapper, options) {
         var that = this;
 
         that.jqEle = jqEle;
         that.options = {
-            onImageLoading: function() {},
-            onImageLoad: function() {},
-            onImageLoaded: function() {}
+            onContentLoading: function() {},
+            onContentLoad: function() {},
+            onContentLoaded: function() {}
         };
         jQuery.extend(that.options, options);
 
@@ -93,33 +97,38 @@
       },
       /**
        * clipboard data에서 image object를 get하거나 contentEditable에서 image element가 load되었을때 호출되어
-       * contentEditable element를 초기화 하고 onImageLoad와 onImageLoaded event callback을 수행함
-       * @param {object} evt  - FileReader object의 onload event handler에서 전달한 event object
+       * contentEditable element를 초기화 하고 onContentLoad와 onContentLoaded event callback을 수행함
+       * @param {string} type - content type
+       * @param {object} obj  - FileReader object의 onload event handler에서 전달한 object
        */
-      _imageLoad: function(evt) {
+      _contentLoad: function(type, obj) {
         var that = this;
         var items;
 
-        if (evt instanceof jQuery) {
-          items = evt;
-          // console.log(items.length);
-          if (items.length) {
-            that.options.onImageLoad(items[0].src);
+        if (type === 'text') {
+          that.options.onContentLoad(type, obj);
+        } else if (type === 'image') {
+          if (obj instanceof jQuery) {
+            items = obj;
+            // console.log(items.length);
+            if (items.length) {
+              that.options.onContentLoad(type, items[0].src);
+            }
+          } else {
+            that.options.onContentLoad(type, obj.target.result);
           }
-        } else {
-          that.options.onImageLoad(evt.target.result);
         }
 
         // os clipboard 대신 사용된 content 초기화
         that.removeClipboardContent();
 
-        that.options.onImageLoaded();
+        that.options.onContentLoaded();
       },
       /**
-       * clipboard에서 image data를 read하고 onImageLoading event handler를 수행함
+       * clipboard에서 image data를 read하고 onContentLoading event handler를 수행함
        * @param {object} evt - clipboard event object
        */
-      getClipboardImage: function(evt) {
+      getClipboardContent: function(evt) {
         var that = this;
         var cData;
         var items;
@@ -128,17 +137,23 @@
         var i;
         var len;
 
-        that.onImageLoading();
-
         if (evt) {
           cData = evt.clipboardData;
           if (items = cData.items) {
             for (i = 0, len = items.length; i < len && !reader; ++i) {
               item = items[i];
-              if (regxImage.test(item.type)) {
+
+              if (regxPlainText.test(item.type)) {
+                reader = function(str) {
+                  that._contentLoad('text', str);
+                };
+                item.getAsString(reader);
+              } else if (regxImage.test(item.type)) {
+                that.onContentLoading();
+
                 reader = new FileReader();
                 reader.onload = function(evt) {
-                  that._imageLoad(evt);
+                  that._contentLoad('image', evt);
                 };
                 reader.readAsDataURL(item.getAsFile());
               }
@@ -150,25 +165,46 @@
        * contentEditable element를 clipboard로 사용하는 경우 text 붙여넣기 할때에 contentEditable element에
        * 붙여넣기된 text를 대상 element로 붙여넣기 되는 것 처럼 처리함
        */
-      getClipboardText: function() {
+      getClipboardText: function(data) {
         var that = this;
         var value = that.jqEle.val();
         var start = that.contentEditableEvent.start;
         var end = that.contentEditableEvent.end;
         var clipText = '';
-        var childNodes;
-        var childNode;
+        var texts;
+        var text;
         var i;
         var len;
 
-        childNodes = that.jqEditContent[0].childNodes;
-        len = childNodes.length - (Browser.firefox ? 1 : 0);
-        for (i = 0; i < len; ++i) {
-          childNode = childNodes[i];
-          if (childNode.nodeType === 3 && childNode.nodeValue != null) {
-            clipText += childNode.nodeValue;
+        if (data) {
+          if (data.isPlainText) {
+            // paste event object에서 plain/text type의 text를 get 한 경우 처리
+            clipText = data.text + '\n';
           } else {
-            clipText += '\n';
+            // paste event object에서 text get 하였지만 plain/text가 아닌 경우
+            // html등 tag가 섞여있으므로 plain/text type 처럼 변경하는 작업 필요함
+
+            // new-line(\n)을 담당하는 tag 제거
+            clipText = that.jqEditContent
+              .html()
+              .replace(regxNewLine, '\n')
+
+            if (regxHasTag.test(clipText)) {
+              // new-line(\n)을 담당하는 tag를 제외하고도 tag가 남아 있는경우
+              // plain/text로 사용할 수 없는 text라고 보고 plain/text와 같이 변환
+              clipText = [];
+              texts = data.text.replace(regxMultiSpace, ' ').split('\n');
+              for (i = 0, len = texts.length; i < len; ++i) {
+                text = texts[i].trim();
+                if (text !== '') {
+                  clipText.push(text);
+                }
+              }
+              clipText = clipText.join('\n');
+              clipText += '\n';
+            } else {
+              clipText = data.text + '\n';
+            }
           }
         }
 
@@ -188,14 +224,14 @@
         var jqEle = that.jqEle;
         var jqEditContent;
 
-        that.jqEditContent = jqEditContent = $('<div contentEditable="true" style="position: fixed; top: -10000px; width: 1px; height: 1px;" ></div>').appendTo('body');
+        that.jqEditContent = jqEditContent = $('<div contentEditable="true" style="position: fixed; top: -10000px; width: 1px; height: 1px;"></div>').appendTo('body');
         jqEditContent.focus();
 
         // event capture하여 img element 생성 여부 판단
         jqEditContent[0].addEventListener("load", function() {
           if (that.hasImageData()) {
-            that.onImageLoading();
-            that._imageLoad(jqEditContent.children('img'));
+            that.onContentLoading();
+            that._contentLoad('image', jqEditContent.children('img'));
           }
         }, true);
 
@@ -208,11 +244,11 @@
       /**
        * browser(IE, firefox etc.) 마다 contentEditable element에 image가 load되는 순서가 달라 맞춰줌
        */
-      onImageLoading: function() {
+      onContentLoading: function() {
         var that = this;
 
         if (!that.contentEditableEvent.isCalledImageLoading) {
-          that.options.onImageLoading();
+          that.options.onContentLoading();
           that.contentEditableEvent.isCalledImageLoading = true;
         }
       },
@@ -300,7 +336,7 @@
               // clipboard에서 image data get 가능
 
               if (that._isImagePaste(evt)) {
-                pasteContentTarget.getClipboardImage(evt);
+                pasteContentTarget.getClipboardContent(evt);
               } else {
                 pasteContentTarget.removeClipboardContent();
               }
@@ -308,17 +344,17 @@
               // clipboard에서 image data get 가능하지 않아 contentEditable을 사용하여 image/text data get함
 
               // contentEditable element에 focus가 바로 이동하지 않으므로 setTime으로 contentEditable element에 focus가 간 상황 다음에 동작하도록 함
-              $timeout((function(pasteContentTarget) {
+              $timeout((function(pasteContentTarget, data) {
                 return function() {
                   if (that._isContentEditableImagePaste(pasteContentTarget)) {
-                    pasteContentTarget.getClipboardImage();
+                    pasteContentTarget.getClipboardContent();
                   } else if (that._isContentEditableTextPaste(pasteContentTarget)) {
-                    pasteContentTarget.getClipboardText();
+                    pasteContentTarget.getClipboardText(data);
                   } else {
                     pasteContentTarget.removeClipboardContent();
                   }
                 };
-              }(pasteContentTarget)));
+              }(pasteContentTarget, that._getTextData(evt)) ));
             }
           }
         });
@@ -397,6 +433,25 @@
        */
       _isContentEditableTextPaste: function(pasteContentTarget) {
         return !!pasteContentTarget.jqEditContent.text();
+      },
+      _getTextData: function(evt) {
+        var data;
+
+        if (evt && evt.clipboardData && evt.clipboardData.getData) {
+          data = {
+            text: evt.clipboardData.getData('text/plain'),
+            isPlainText: true
+          };
+        } else if (window.clipboardData) {
+          data = {
+            text: window.clipboardData.getData('Text'),
+            isPlainText: false
+          };
+        } else {
+          data = null;
+        }
+
+        return data;
       }
     };
 

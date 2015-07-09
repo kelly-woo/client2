@@ -44,7 +44,7 @@
     function replaceProfilePicture(currentMember) {
       var updatedMember = memberService.getMember();
       currentMember.u_photoUrl = memberService.getPhotoUrl(updatedMember);
-      currentMember.u_photoThumnailUrl = updatedMember.u_photoThumnailUrl;
+      currentMember.u_photoThumbnailUrl = updatedMember.u_photoThumbnailUrl;
 
       return currentMember;
     }

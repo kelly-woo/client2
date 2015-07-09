@@ -173,6 +173,8 @@
       log(data);
       var member = data.member;
 
+      jndPubSub.pub('updateMemberProfile', data);
+
       if (_isActionFromMe(member.id)) {
         log('my profile updated');
         memberService.onMemberProfileUpdated();
@@ -329,7 +331,7 @@
 
       _updateCenterMessage();
       _updateChatList();
-      _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity);
+      _sendBrowserNotificationForOtherEntity(data, writer, writer, isCurrentEntity);
     }
 
     /**

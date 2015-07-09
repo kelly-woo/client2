@@ -241,7 +241,9 @@
         scope: $scope,
         templateUrl: 'app/modal/members/current_member_profile/current.member.profile.html',
         controller: 'ProfileSettingCtrl',
-        size: 'lg'
+        size: 'lg',
+        backdrop: 'static'
+
       };
 
       modal = _modalOpener(modalOption);

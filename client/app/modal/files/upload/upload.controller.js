@@ -87,7 +87,9 @@
       },
       // 하나의 file upload 중
       onProgress: function(evt, file) {
+        // stop transition
         jqProgressBar && jqProgressBar.removeClass('init-progress-bar');
+
         // progress bar의 상태 변경
         $rootScope.curUpload = {};
         $rootScope.curUpload.lFileIndex = filesUpload.lastProgressIndex;
@@ -98,14 +100,7 @@
       },
       // 하나의 file upload 완료
       onSuccess: function(response, index, length) {
-        jqProgressBar = jqProgressBar || $('.progress-striped').children();
-
-        // progress bar 100% 상태에서 다음 file을 upload 위해 progress bar 0%로 변경시
-        // transition style 적용되어 animation 들어가는 것을 방지 하기위해 confirm done
-        // 일때 transition 적용을 잠시 해제함.
-        if (index !== length) {
-          jqProgressBar.addClass('init-progress-bar').css('width', 0);
-        }
+        _setProgressBarStyle('success', index, length);
 
         $rootScope.curUpload.status = 'done';
 
@@ -169,12 +164,7 @@
 
         }
 
-        // progress bar 100% 상태에서 다음 file을 upload 위해 progress bar 0%로 변경시
-        // transition style 적용되어 animation 들어가는 것을 방지 하기위해 confirm done
-        // 일때 transition 적용을 잠시 해제함.
-        if (index !== length) {
-          jqProgressBar.addClass('init-progress-bar').css('width', 0);
-        }
+        _setProgressBarStyle('error', index, length);
 
         $rootScope.curUpload.status = 'error';
         $rootScope.curUpload.hasError = true;
@@ -257,6 +247,27 @@
 
       if (jqImageLoaderContainer.length) {
         jqImageLoaderContainer.append(jqImageLoader);
+      }
+    }
+
+    /**
+     * progress bar의 style을 설정함
+     * @param {string} type - 설정 type
+     * @param {number} index - 현재 upload되는 file의 index
+     * @param {number} length - upload 되는 file의 length
+     */
+    function _setProgressBarStyle(type, index, length) {
+      jqProgressBar = jqProgressBar || $('.progress-striped').children();
+
+      // progress bar 100% 상태에서 다음 file을 upload 위해 progress bar 0%로 변경시
+      // transition style 적용되어 animation 들어가는 것을 방지 하기위해 confirm done
+      // 일때 transition 적용을 잠시 해제함.
+      if (index !== length) {
+        if (type === 'success') {
+          jqProgressBar.addClass('init-progress-bar');
+        } else {
+          jqProgressBar.css('width', 0).addClass('init-progress-bar');
+        }
       }
     }
   }

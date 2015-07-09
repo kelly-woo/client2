@@ -175,24 +175,42 @@ app.filter('getUserEmail', ['memberService',
   }
 ]);
 
-app.filter('getSmallThumbnail', ['memberService', 'config',
-  function(memberService, config) {
+app.filter('getSmallThumbnail', ['$filter', 'memberService', 'config',
+  function($filter, memberService, config) {
     return function(member) {
-      return config.server_uploaded + memberService.getSmallThumbnailUrl(member);
+      var url;
+      if (_.isObject(member)) {
+        url = member && member.u_photoThumbnailUrl && member.u_photoThumbnailUrl.smallThumbnailUrl || '';
+      } else {
+        url = memberService.getSmallThumbnailUrl(member);
+      }
+      return $filter('getFileUrl')(url);
     };
   }
 ]);
-app.filter('getMediumThumbnail', ['memberService', 'config',
-  function(memberService, config) {
+app.filter('getMediumThumbnail', ['$filter', 'memberService', 'config',
+  function($filter, memberService, config) {
     return function(member) {
-      return config.server_uploaded + memberService.getMediumThumbnailUrl(member);
+      var url;
+      if (_.isObject(member)) {
+        url = member && member.u_photoThumbnailUrl && member.u_photoThumbnailUrl.mediumThumbnailUrl || '';
+      } else {
+        url = memberService.getSmallThumbnailUrl(member);
+      }
+      return $filter('getFileUrl')(url);
     };
   }
 ]);
-app.filter('getlargeThumbnail', ['memberService', 'config',
-  function(memberService, config) {
+app.filter('getlargeThumbnail', ['$filter', 'memberService', 'config',
+  function($filter, memberService, config) {
     return function(member) {
-      return config.server_uploaded + memberService.getLargeThumbnailUrl(member);
+      var url;
+      if (_.isObject(member)) {
+        url = member && member.u_photoThumbnailUrl && member.u_photoThumbnailUrl.largeThumbnailUrl || '';
+      } else {
+        url = memberService.getSmallThumbnailUrl(member);
+      }
+      return $filter('getFileUrl')(url);
     };
   }
 ]);
@@ -261,3 +279,16 @@ app.filter('getMemberList', function() {
     return enabledMembers;
   };
 });
+
+/**
+ * 프로토콜이 없을 경우 프로토콜을 붙여주는 fileUrl 필터
+ */
+app.filter('getFileUrl', ['config',
+  function(config) {
+      return function(url) {
+          var hasProtocol = /^https?:/.test(url);
+          //todo: config.file_address 로 추후 변경해야함
+          return hasProtocol ? url : config.file_address + url;
+        };
+    }
+]);

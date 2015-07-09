@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.7.5\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -52,15 +52,6 @@ msgstr "공지로 등록"
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-create-confirm"
 msgstr "등록되어 있는 공지를 지금 이 메시지로 변경합니다. 계속할까요?"
-
-#: client/app/center/announcement/announcement.html
-msgid "@announcement-creator"
-msgstr ""
-
-#: client/app/center/announcement/announcement.html
-#, fuzzy
-msgid "@announcement-delete"
-msgstr "토픽 삭제하기"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-delete-confirm"
@@ -113,6 +104,7 @@ msgstr "확인"
 msgid "@btn-create"
 msgstr "생성하기"
 
+#: client/app/center/announcement/announcement.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr "삭제하기"
@@ -154,6 +146,10 @@ msgstr "업로드"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-delete"
 msgstr "토픽 삭제하기"
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@ch-menu-delete-confirm"
+msgstr "이 토픽을 정말 삭제하시겠습니까?"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-invite"
@@ -400,7 +396,7 @@ msgstr "완료"
 msgid "@common-file-upload-progress-msg"
 msgstr "업로드 중..."
 
-#: client/app/right/file.detail/file.detail.html client/app/right/right.html
+#: client/app/right/file.detail/file.detail.html
 msgid "@common-files"
 msgstr "파일"
 
@@ -427,10 +423,6 @@ msgstr "명 참여중"
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "업로드한 멤버"
-
-#: client/app/right/right.html
-msgid "@common-message"
-msgstr "메시지"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
@@ -728,10 +720,6 @@ msgstr "변경할 이름을 입력하세요"
 msgid "@input-search-channel-name"
 msgstr "토픽 이름을 검색하세요"
 
-#: client/app/right/rpanel_search/rpanel.search.html
-msgid "@input-search-file-title"
-msgstr "검색어를 입력하세요"
-
 #: client/app/modal/teams/team_member_list/team.member.list.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@input-search-user-name"
@@ -782,6 +770,12 @@ msgid "@integration-title-google-drive"
 msgstr "구글 드라이브에서 파일 업로드하기"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"초대 링크가 클립보드에 복사되었습니다. 초대를 원하시는 멤버에게 이 링크를 보"
+"내세요!"
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "이 이메일 주소는 이미 {{invitedTeamName}}의 멤버입니다."
 
@@ -820,12 +814,6 @@ msgstr "+ 이메일 주소 추가"
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-some-fail"
 msgstr "일부 이메일 주소로의 초대장 발송이 실패했습니다."
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-"초대 링크가 클립보드에 복사되었습니다. 초대를 원하시는 멤버에게 이 링크를 보"
-"내세요!"
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -977,16 +965,6 @@ msgstr "메시지 푸쉬 알림을 받으세요!"
 msgid "@noti-banner-turn-on"
 msgstr "바탕화면 알림 사용하기"
 
-#: client/app/right/files/files.html
-#: client/app/right/search.messages/search.messages.html
-msgid "@option-all-members"
-msgstr "모든 멤버"
-
-#: client/app/right/files/files.html
-#: client/app/right/search.messages/search.messages.html
-msgid "@option-all-rooms"
-msgstr "모든 대화방"
-
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr "선택"
@@ -1057,14 +1035,6 @@ msgid "@system-msg-announcement-created"
 msgstr ""
 "{{msg.message.content.actionOwner}}님이  {{msg.announceWriterName}}님의 메시"
 "지를 공지사항으로 게시했습니다."
-
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
-msgid "@system-msg-announcement-created-mid"
-msgstr "님이 "
-
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
-msgid "@system-msg-announcement-created-post"
-msgstr "님의 메시지를 공지사항으로 게시했습니다. "
 
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
@@ -1240,6 +1210,28 @@ msgstr "잔디 테스트 메시지입니다."
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
+
+#, fuzzy
+#~ msgid "@announcement-delete"
+#~ msgstr "토픽 삭제하기"
+
+#~ msgid "@common-message"
+#~ msgstr "메시지"
+
+#~ msgid "@input-search-file-title"
+#~ msgstr "검색어를 입력하세요"
+
+#~ msgid "@option-all-members"
+#~ msgstr "모든 멤버"
+
+#~ msgid "@option-all-rooms"
+#~ msgstr "모든 대화방"
+
+#~ msgid "@system-msg-announcement-created-mid"
+#~ msgstr "님이 "
+
+#~ msgid "@system-msg-announcement-created-post"
+#~ msgstr "님의 메시지를 공지사항으로 게시했습니다. "
 
 #, fuzzy
 #~ msgid "{{notificationBtnText}}"

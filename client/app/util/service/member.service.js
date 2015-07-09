@@ -12,6 +12,10 @@
   /* @ngInject */
   function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload, jndPubSub) {
     var noUExtraData = "i dont have u_extraData";
+
+    // 현재 멤버의 announcement 정보를 {entityId:value} 로 가지고 있다
+    var announcementOpenStatusMap = {};
+
     var currentMember;
 
     var service = {
@@ -49,10 +53,13 @@
 
       getNameById: getNameById,
 
-
       onMemberProfileUpdated: onMemberProfileUpdated,
 
-      getDefaultPhotoUrl: getDefaultPhotoUrl
+      getDefaultPhotoUrl: getDefaultPhotoUrl,
+
+      isAnnouncementOpen: isAnnouncementOpen,
+      removeAnnouncementStatus: removeAnnouncementStatus,
+      updateAnnouncementStatus: updateAnnouncementStatus
     };
 
 
@@ -108,7 +115,9 @@
     function setMember(member) {
       $rootScope.member = currentMember = member;
       storageAPIservice.setLastEmail(member.u_email);
+      _setAnnouncementStatusMap(member.u_messageMarkers);
       jndPubSub.pub('onCurrentMemberChanged');
+
     }
 
     /**
@@ -281,7 +290,7 @@
       if (_isNumber(member)) {
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member)
       }
-      return member.u_photoThumbnailUrl.MediumThumbnailUrl || getPhotoUrl(member);
+      return member.u_photoThumbnailUrl.mediumThumbnailUrl || getPhotoUrl(member);
     }
 
     /**
@@ -340,6 +349,48 @@
      */
     function _isNumber(member) {
       return (typeof member === 'number');
+    }
+
+    /**
+     * messageMarkers 리스트 전체를 돌면서 entityId - announcementOpened (key:value) pair 를 만든다.
+     * 해당 토픽의 announcement 가 열려있는지 닫혀있는지 체크하기위해 만든다.
+     * @param {array} messageMarkers - member entity 에 있는 u_messageMarkers 필드
+     * @private
+     */
+    function _setAnnouncementStatusMap(messageMarkers) {
+      _.forEach(messageMarkers, function(entity) {
+        var isAnnouncementOpened = entity.announcementOpened;
+
+        if (!!isAnnouncementOpened) {
+          announcementOpenStatusMap[entity.entityId] = isAnnouncementOpened;
+        }
+      });
+    }
+
+    /**
+     * announcement 가 열려있는지 닫혀있는지 확인값을 리턴한다.
+     * @param {number} entityId - 확인하려는 토픽의 아이디
+     * @returns {*}
+     */
+    function isAnnouncementOpen(entityId) {
+      return announcementOpenStatusMap[entityId];
+    }
+
+    /**
+     * announcementOpenStatusMap 에서 entityId 에 해당하는 값을 지운다.
+     * @param {number} entityId - 지우려는 key 값
+     */
+    function removeAnnouncementStatus(entityId) {
+      delete announcementOpenStatusMap[entityId];
+    }
+
+    /**
+     * announcementOpenStatusMap 에서 값을 바꾼다.
+     * @param {number} entityId - 바꾸려는 키
+     * @param {boolean} toBeValue - 값
+     */
+    function updateAnnouncementStatus(entityId, toBeValue) {
+      announcementOpenStatusMap[entityId] = toBeValue
     }
   }
 })();

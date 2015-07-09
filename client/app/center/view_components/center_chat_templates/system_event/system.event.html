@@ -7,27 +7,45 @@
   <div class="msg-item-body">
     <div class="msg-text">
       <div class="msg-comment-header" ng-switch="msg.info.eventType">
-                <span ng-switch-default>
-                  <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
-                  <span class="keep" ng-bind-html="(msg.message.content.body) || ''"></span>
-                </span>
-                <span ng-switch-when="invite">
-                  <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
-                  <span class="keep" ng-bind-html="(msg.message.content.body) || ''"></span>
-                  <span class="msg-comment_userType" ng-repeat="invitees in msg.message.invites track by $index">
-                    <span>{{invitees | getName}}<span style="padding-right: 4px;" ng-if="!$last">,</span></span>
-                  </span>
-                  <span ng-if="preferences.language === 'ko'">{{ '@msg-invited-postfix' | translate }}</span>
-                  <span ng-if="preferences.language === 'ja'">{{ '@msg-invited-postfix' | translate }}</span>
-                </span>
-                <span ng-if="false"
-                      msg-join="{{ '@msg-joined' | translate}}"
-                      msg-leave="{{ '@msg-left' | translate }}"
-                      msg-invite="{{ '@msg-invited' | translate }}"
-                      msg-create-channel="{{ '@msg-create-ch' | translate }}"
-                      msg-create-group="{{ '@msg-create-pg' | translate }}"></span>
+
+        <span ng-switch-default>
+          <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+          <span class="keep" ng-bind-html="(msg.message.content.body) || ''"></span>
+        </span>
+
+        <span ng-switch-when="invite">
+          <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+          <span class="keep" ng-bind-html="(msg.message.content.body) || ''"></span>
+          <span class="msg-comment_userType" ng-repeat="invitees in msg.message.invites">
+            <span>{{invitees | getName}}<span style="padding-right: 4px;" ng-if="!$last">,</span></span>
+          </span>
+          <span ng-if="preferences.language === 'ko'">{{ '@msg-invited-postfix' | translate }}</span>
+          <span ng-if="preferences.language === 'ja'">{{ '@msg-invited-postfix' | translate }}</span>
+        </span>
+
+        <span ng-switch-when="announcement_deleted">
+          <span translate>@system-msg-announcement-deleted</span>
+        </span>
+
+        <span ng-switch-when="announcement_created">
+          <span translate>@system-msg-announcement-created</span>
+        </span>
+
         <span class="msg-item-header__created">{{msg.time | gethmmaFormat}}</span>
+
       </div>
     </div>
   </div>
+
+  <span ng-if="false"
+        msg-join="{{ '@msg-joined' | translate}}"
+        msg-leave="{{ '@msg-left' | translate }}"
+        msg-invite="{{ '@msg-invited' | translate }}"
+        msg-create-channel="{{ '@msg-create-ch' | translate }}"
+        msg-create-group="{{ '@msg-create-pg' | translate }}"
+        msg-announcement-deleted = "{{'@system-msg-announcement-deleted' | translate}}">
+        msg-announcement-created = "{{'@system-msg-announcement-created' | translate}}">
+
+  </span>
+
 </div>

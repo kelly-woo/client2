@@ -119,13 +119,16 @@ function fakeNgModel(initValue) {
 //    }
 //  };
 //});
+
 /**
  * 메세지의 repeat done detector
  */
-app.directive('msgRepeatDone', function() {
+app.directive('msgRepeatDone', function($timeout) {
   return function(scope, element, attrs) {
     if (scope.msg._isLast) { // all are rendered
-      scope.$eval(attrs.msgRepeatDone);
+      $timeout(function() {
+        scope.$eval(attrs.msgRepeatDone);
+      }, 0);
     }
   };
 });
@@ -135,11 +138,12 @@ app.directive('msgRepeatDone', function() {
  */
 app.directive('repeatDone', function() {
   return function(scope, element, attrs) {
-    if (scope.$last) { // all are rendered
+    if (scope.msg.$last) { // all are rendered
       scope.$eval(attrs.repeatDone);
     }
   };
 });
+
 
 app.directive('scrollBottomOn', ['$timeout', function($timeout) {
   return function(scope, elm, attr) {

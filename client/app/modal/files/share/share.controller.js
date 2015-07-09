@@ -7,8 +7,8 @@
     .controller('FileShareModalCtrl', FileShareModalCtrl);
 
   /* @ngInject */
-  function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, $timeout,
-                              analyticsService, jndPubSub, fileToShare, modalHelper, AnalyticsHelper) {
+  function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService,
+                              jndPubSub, fileToShare, modalHelper, AnalyticsHelper) {
 
     var _entityType;
     var _entityId;
@@ -97,6 +97,9 @@
 
         callback = _goToSharedEntity;
       }
+
+      modalHelper.closeModal();
+
     }
 
     /**

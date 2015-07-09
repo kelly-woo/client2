@@ -69,6 +69,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     $scope.$on('updateRightFileDetailPanel', _init);
     $scope.$on('rightFileDetailOnFileDeleted', _onFileChanged);
     $scope.$on('rightFileDetailOnFileCommentDeleted', _onFileChanged);
+    $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
     $scope.$on('updateFileDetailPanel', _onFileChanged);
     $scope.$on('setCommentFocus', _focusInput);
     $scope.$on('onChangeSticker:' + _stickerType, function (event, item) {
@@ -93,6 +94,28 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         _onFileChanged(event, param);
       }
     });
+  }
+
+  /**
+   * updateMemberProfile 이벤트 발생시 이벤트 핸들러
+   * @param {object} event
+   * @param {{event: object, member: object}} data
+   * @private
+   */
+  function _onUpdateMemberProfile(event, data) {
+    var list = $scope.file_comments;
+    var member = data.member;
+    var id = member.id;
+    var url = $filter('getSmallThumbnail')(member);
+
+    _.forEach(list, function(comment) {
+      if (comment.writerId === id) {
+        comment.exProfileImg = url;
+      }
+    });
+    if ($scope.file_detail.writerId === id) {
+      $scope.file_detail.exProfileImg = url;
+    }
   }
 
   /**
@@ -525,22 +548,31 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (item.contentType === 'file') {
       // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
       $scope.file_detail = item;
-
+      $scope.file_detail.exProfileImg = $filter('getSmallThumbnail')(item.writerId);
       $scope.hasTopic = !!$scope.file_detail.shareEntities.length;
 
       $scope.file_detail.shared = fileAPIservice.getSharedEntities(item);
       $scope.isFileArchived = _isFileArchived($scope.file_detail);
     } else if (!_isFileArchived(item)) {
-      if (item.contentType === 'comment') {
-        item.content.body = _getSafeBody(item.content.body);
-        item.isSticker = false;
-        $scope.file_comments.push(item);
-      } else if (item.contentType === 'comment_sticker') {
-        item.isSticker = true;
-        $scope.file_comments.push(item);
-      }
+      _appendFileComment(item);
     }
+  }
 
+  /**
+   * file comment 를 포멧에 맞춰 가공 후 추가한다.
+   * @param {object} item
+   * @private
+   */
+  function _appendFileComment(item) {
+    var contentType = item.contentType;
+    if (contentType === 'comment' || contentType === 'comment_sticker') {
+      if (item.content && item.content.body) {
+        item.content.body = _getSafeBody(item.content.body);
+      }
+      item.isSticker = (contentType === 'comment_sticker');
+      item.exProfileImg = $filter('getSmallThumbnail')(item.writerId);
+      $scope.file_comments.push(item);
+    }
   }
 
   /**

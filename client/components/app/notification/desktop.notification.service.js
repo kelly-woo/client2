@@ -356,7 +356,6 @@
       var notification;
       var message;
 
-
       if (_validateNotificationParams(data, writerEntity, roomEntity)) {
         isUser = roomEntity.type === 'users';
         message = data.message;

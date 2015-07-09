@@ -2,7 +2,7 @@
 <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
      ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
   <img on-image-load class="user-profile user-thumb"
-       ng-src="{{ msg.fromEntity | getSmallThumbnail }}"/>
+       ng-src="{{ msg.exProfileImg }}"/>
 </div>
 
 <div class="msg-item-header"
@@ -105,7 +105,7 @@
 
         <!--    SHARED ENTITIES -->
                   <span data-ng-if="msg.message.shared.length">
-                    <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared) track by $index">
+                    <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared)">
                       <span data-ng-hide="($index === 0)">, </span>
                       <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id, sharedEntity.type)">
                         {{ sharedEntity.prefix }}{{ sharedEntity.name }}

@@ -1,12 +1,12 @@
 .unread-badge {
-  background-color: #d7e0e8;
+  background-color: transparent;
   border-radius: 16px;
   font-family: "Helvetica Neue";
   font-size: 10px;
-  color: #366480;
+  color: #00abe6;
   padding: 2px 5px 3px 5px;
-  font-weight: 700;
-  margin-left: 2px;
+  font-weight: 600;
+  margin-left: -3px;
   display: inline;
 }
 
@@ -35,7 +35,7 @@ article {
   min-width: 345px;
 }
 .cpanel .panel-title-container {
-  z-index: 1;
+  z-index: 20;
 }
 .rpanel-show {
   margin-right: 480px;
@@ -204,15 +204,24 @@ article {
   min-width: 260px;
   padding-bottom: 0;
 }
-.msgs__loading.initial {
+.msgs__loading {
   position: absolute;
   top: 0;
   left: 0;
   right: 2px;
-  bottom: 0;
+  bottom: 2px;
   background-color: #fff;
-  background-size: 100px 100px !important;
-  z-index: 5;
+  z-index: 1;
+}
+.msgs__loading.initial {
+  height: 100%;
+  background-size: 100px 100px;
+}
+.msgs__loading.load-more-top {
+  position: static;
+  height: 60px;
+  background-position: center center;
+  background-size: 60px 60px;
 }
 .msgs-intro {
   padding: 1rem 1rem 1rem 1.5rem;
@@ -269,23 +278,6 @@ article {
 .msg-item.comment_first,
 .msg-item.comment_continue {
   margin-bottom: 8px;
-}
-.msg-item__action {
-  display:none;
-  position:absolute;
-  right:-7px;
-  bottom: 4px
-}
-.msg-item__action .action-icon {
-  font-size: 16px;
-  color: #c5c5c5;
-}
-.msg-item__action .action-icon:hover {
-  color: #9a9a9a;
-}
-
-.msg-item:hover .msg-item__action {
-  display:inline-block;
 }
 .msg-item-float {
   position: absolute;
@@ -706,6 +698,9 @@ by ysyun 2015.2.25
   bottom: 0;
   z-index: 1;
   display: none;
+  border: 5px solid rgba(0, 166, 233, 0.5);
+
+
 }
 .dnd-not-support {
   display: block;
@@ -715,6 +710,7 @@ by ysyun 2015.2.25
 }
 .dnd-hover .dnd-hover-msg {
   display: block;
+
 }
 .dnd-hover .msgs-inner__border {
   display: block;
@@ -725,8 +721,9 @@ by ysyun 2015.2.25
   display: none;
   position: absolute;
   width: 100%;
-  top: 52px;
-  z-index: 1;
+  /* announcement과 겹칠것을 우려해 50%으로 함.*/
+  top: 50%;
+  z-index: 10;
   text-align: center;
 }
 .dnd-hover-msg > span {
@@ -762,7 +759,7 @@ by ysyun 2015.2.25
   width: 100%;
   height: 30px;
   line-height: 30px;
-  z-index: 1;
+  z-index: 20;
   font-size: 16px;
   color: white;
   padding: 0 13px 0 18px;

@@ -8,9 +8,9 @@
   /* @ngInject */
   function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice, jndPubSub,
                             currentSessionHelper, pcAppHelper) {
+    var memberEntityIdMap = {};
 
     var service = {
-      getEntityByEntityId: getEntityByEntityId,
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityFromListById: getEntityFromListById,
       getEntityById: getEntityById,
@@ -25,15 +25,14 @@
       removeLastEntityState: removeLastEntityState,
       getMemberLength: getMemberLength,
       isDefaultTopic: isDefaultTopic,
-      isOwner: isOwner
+      isOwner: isOwner,
+      getEntityByEntityId: getEntityByEntityId,
+      addToMemberEntityIdMap: addToMemberEntityIdMap,
+      resetMemberEntityIdMap: resetMemberEntityIdMap
     };
 
     return service;
 
-
-    function getEntityByEntityId(entityId) {
-      return getEntityFromListByEntityId($rootScope.memberList, entityId);
-    }
     /**
      * Takes 'entityId' from entity as an 'entityId'
      * Used to compare with chat room.
@@ -62,6 +61,24 @@
       id = parseInt(id);
       if ($rootScope.member && $rootScope.member.id === id) return $rootScope.member;
 
+      // 만약 list 가
+      //  memberList 면 memberMap
+      //  joinedEntities 면 joinedEntitiesMap
+      //  privateGroups 면 privateGroupsMap으로 보내기.
+      // 그 외 경우에만 getSelectEntitiy 로 보내기.
+      //  아마 totalEntities 밖에 없을 듯.
+      //
+
+      //var entityType;
+      //if (list === $rootScope.memberList) {
+      //  console.log('memberList');
+      //  entityType = 'user';
+      //} else if (list === $rootScope.joinedEntities) {
+      //  entityType = 'joinedEntities';
+      //} else if (list === $rootSCope.totalEntities) {
+      //
+      //}
+
       return _getSelectEntity(list, id, 'id');
     }
 
@@ -83,7 +100,7 @@
 
     /**
      * If entityType is 'channel', look for entityId only in 'joinedChannelList'.
-     * So none-joined topic will be found.
+     * So non-joined topic will be found.
      *
      * @param entityType
      * @param entityId
@@ -255,6 +272,47 @@
 
     function isOwner(entity, memberId) {
       return (entity.ch_creatorId || entity.pg_creatorId) == memberId;
+    }
+
+    /**
+     * 'entityId'를 이용하여 member entity 를 찾아 리턴한다.
+     * 그러므로
+     *  1. 'entityId'를 사용할때만
+     *  2. member entity 를 찾으려 할때만
+     * 사용해야 한다.
+     * @param {*} entityId - entityId to be searched
+     * @returns {object} entity - member entity
+     */
+    function getEntityByEntityId(entityId) {
+      entityId = _parseInt(entityId);
+      return memberEntityIdMap[entityId];
+    }
+
+    /**
+     * (entityId: entity) pair 를 memberEntityIdMap 에 추가한다.
+     * @param {string|number} entityId - key 로 쓰일 entityId
+     * @param {object} entity - value 로 쓰일 member entity
+     */
+    function addToMemberEntityIdMap(entityId, entity) {
+      entityId = _parseInt(entityId);
+      memberEntityIdMap[entityId] = entity;
+    }
+
+    /**
+     * memberEntityIdMap 를 초기화한다.
+     */
+    function resetMemberEntityIdMap() {
+      memberEntityIdMap = {};
+    }
+
+    /**
+     * parseInt 를 해주는 wrapper function.
+     * @param number
+     * @returns {Number|*}
+     * @private
+     */
+    function _parseInt(number) {
+      return parseInt(number, 10);
     }
   }
 })();
