@@ -1,0 +1,103 @@
+.tutorial_guide {
+  position: absolute;
+  background:transparent;
+  z-index: 10;
+  width: 488px;
+}
+
+.tutorial_guide_header {
+
+}
+.tutorial_guide_charactor {
+  float: left;
+  margin-left: 27px;
+}
+.tutorial_guide_btn {
+  float: right;
+  margin-bottom: 9px;
+}
+
+.tutorial_guide_body {
+  float: left;
+  background: #FFFFFF;
+  border-radius: 5px;
+}
+.tutorial_guide_body > div {
+  padding-left: 16px;
+  padding-right:16px;
+}
+.tutorial_guide_body_subject {
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 30px;
+  color: #333333;
+}
+
+.tutorial_guide_body_content {
+  margin-top: 14px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 22px;
+  color: #333333;
+}
+
+.tutorial_guide_body_line {
+  width: 100%;
+  height: 1px;
+  background: #e1e1e1;
+}
+
+.tutorial_guide_body_progress {
+  background-image: url("../../../../assets/images/tutorial/guide/bg_progressbar.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 9px;
+  margin-bottom: 16px;
+  width: 100%;
+  height: 30px;
+}
+.tutorial_guide_body_progress_text {
+  padding: 6px 0 0 8px;
+}
+.tutorial_guide_step:before {
+  background:white;
+  width: 200px;
+}
+.tutorial_guide_step {
+  display: inline-block;
+  height:19px;
+  width: 43px;
+}
+
+.tutorial_guide_step > span{
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  font-size: 11px;
+  padding-top: 4px;
+  text-align: center;
+  font-weight: 800;
+  color:#154a67;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+.tutorial_guide_step.circle {
+  /*background: #FFFFFF;*/
+}
+.tutorial_guide_step.circle > span {
+  color: #00abe6;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+}
+.tutorial_guide_step.circle.on > span {
+  color: #FFFFFF;
+  background-color: #00abe6;
+}
+
+
+.tutorial_guide_step:last-of-type {
+  width: 19px;
+}

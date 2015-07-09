@@ -1,0 +1,16 @@
+.tutorial_dimm {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.tutorial_dimm.full {
+  background: black;
+  opacity: 0.6;
+}
+.tutorial_dimm.step1 {
+  background-image: url("../../../../assets/images/tutorial/dimm/1-1.png");
+}

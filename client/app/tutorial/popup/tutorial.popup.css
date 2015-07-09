@@ -1,0 +1,8 @@
+div.tutorial_popup {
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url("../../../assets/images/tutorial/background/ss_bg_00.jpg");
+}

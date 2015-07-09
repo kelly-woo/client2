@@ -5,9 +5,9 @@ var app = angular.module('jandiApp');
 app.config(function ($stateProvider) {
   $stateProvider
     .state('tutorial', {
-      url         : '/tutorial/{step}',
-      templateUrl : 'app/tutorial/popup/step_1.html',
-      controller  : 'DisconnectCtrl'
+      url         : '/tutorial/{step:[0-9]+}',
+      templateUrl : 'app/tutorial/popup/tutorial.popup.html',
+      controller  : 'tutorialPopupCtrl'
     })
     .state('signin', {
       url         : '/',
