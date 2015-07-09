@@ -110,25 +110,27 @@
   margin-top: -3rem;
   border: none;
 
-  display: none;
   background: rgba(0,0,0,0.4);
   color: #fff;
   font-size: 2rem;
   line-height: 3.5rem;
   text-align: center;
 
+  cursor: default;
+  opacity: 0;
   transition: opacity .1s;
   box-shadow: 0 1px 1px rgba(0,0,0,.3);
 }
 .viewer-body button.has-prev,
 .viewer-body button.has-next {
-  display: block;
+  cursor: pointer;
+  opacity: 1;
 }
 
-.viewer-body #viewer-prev-btn {
+.viewer-body .viewer-prev-btn {
   top: 50%;
 }
-.viewer-body #viewer-next-btn {
+.viewer-body .viewer-next-btn {
   top: 50%;
   right: 0;
 }
@@ -138,11 +140,13 @@
   width: 50px;
   height: 50px;
 }
-
-.viewer-body .content,
 .viewer-body .content img {
-  /*position: absolute;
-  margin: auto;*/
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -ms-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 .viewer-body .content {
   position: absolute;
@@ -169,6 +173,13 @@
   background-color: rgba(17, 17, 17, .9);
   line-height: initial;
   text-align: left;
+
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -ms-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 .content-footer .info {
   height: 50px;
@@ -189,4 +200,8 @@
 
 .content-footer .options>div {
   padding-top: 18px;
+}
+#preload_container_carousel {
+  position: absolute;
+  top: -10000px;
 }

@@ -2,7 +2,6 @@
   <div class="image-carousel-overlay"></div>
   <div class="image-carousel-viewer">
     <div class="viewer-body non-selectable">
-      <button id="viewer-prev-btn" ng-class="{ 'has-prev': hasPrev }"><i class="fa fa-angle-left"></i></button>
       <div class="content">
         <div class="content-footer">
           <div class="info">
@@ -18,12 +17,13 @@
           </div>
           <div class="options non-selectable">
             <div class="actions">
-              <a class="downdload" ng-click="download()" bind-download-file><i class="fa fa-download"></i></a>
+              <a class="downdload" bind-download-file><i class="fa fa-download"></i></a>
             </div>
           </div>
         </div>
       </div>
-      <button id="viewer-next-btn" ng-class="{ 'has-next': hasNext }"><i class="fa fa-angle-right"></i></button>
+      <button id="viewer_prev_btn" class="viewer-prev-btn"><i class="fa fa-angle-left"></i></button>
+      <button id="viewer_next_btn" class="viewer-next-btn"><i class="fa fa-angle-right"></i></button>
     </div>
     <div class="viewer-header">
       <div class="info">
@@ -37,5 +37,6 @@
         </div>
       </div>
     </div>
+    <div id="preload_container_carousel"></div>
   </div>
 </div>
