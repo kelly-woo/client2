@@ -16,6 +16,9 @@
     // 현재 멤버의 announcement 정보를 {entityId:value} 로 가지고 있다
     var announcementOpenStatusMap = {};
 
+    // 현재 멤버의 marker 정보를 {entityId: marker} 로 가지고 있다.
+    var lastMessageReadMarkerMap = {};
+
     var currentMember;
 
     var service = {
@@ -59,7 +62,11 @@
 
       isAnnouncementOpen: isAnnouncementOpen,
       removeAnnouncementStatus: removeAnnouncementStatus,
-      updateAnnouncementStatus: updateAnnouncementStatus
+      updateAnnouncementStatus: updateAnnouncementStatus,
+
+      setLastReadMessageMarker: initLastReadMessageMarkerMap,
+      updateLastReadMessageMarker: updateLastReadMessageMarker,
+      getLastReadMessageMarker: getLastReadMessageMarker
     };
 
 
@@ -391,6 +398,22 @@
      */
     function updateAnnouncementStatus(entityId, toBeValue) {
       announcementOpenStatusMap[entityId] = toBeValue
+    }
+
+
+
+    function initLastReadMessageMarkerMap(markers) {
+      _.forEach(markers, function(marker) {
+        lastMessageReadMarkerMap[marker.entityId] = marker.lastLinkId;
+      });
+    }
+
+    function updateLastReadMessageMarker(entityId, lastLinkId) {
+      lastMessageReadMarkerMap[entityId] = lastLinkId;
+    }
+
+    function getLastReadMessageMarker(entityId) {
+      return lastMessageReadMarkerMap[entityId];
     }
   }
 })();

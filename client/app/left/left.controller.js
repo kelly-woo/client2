@@ -372,6 +372,7 @@ app.controller('leftPanelController1', function(
 
     // 현재 멤버 정보를 세션에 저장한다.
     memberService.setMember(response.user);
+    memberService.setLastReadMessageMarker(response.user.u_messageMarkers);
 
     // Check socket status when loading.
     _checkSocketStatus();
@@ -441,13 +442,13 @@ app.controller('leftPanelController1', function(
     //  Separating 'channel' and 'privateGroup'.
     //  joinedChannelList   - List of joined channels.
     //  privateGroupList    - List of joined private groups.
-    var joindData = leftpanelAPIservice.getJoinedChannelData($scope.joinEntities);
+    var joinedData = leftpanelAPIservice.getJoinedChannelData($scope.joinEntities);
 
     // memberList         - List of all users except myself.
     // totalChannelList - All channels including both 'joined' and 'not joined'
     var generalData = leftpanelAPIservice.getGeneralData($scope.totalEntities, $scope.joinEntities, memberService.getMemberId());
 
-    _.extend($scope, generalData, joindData);
+    _.extend($scope, generalData, joinedData);
 
     //$scope.memberList           = generalData.memberList;
     //$scope.memberMap           = generalData.memberMap;
@@ -491,7 +492,6 @@ app.controller('leftPanelController1', function(
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
     }
-
     $rootScope.$broadcast('onInitLeftListDone');
     _getCachedMessaged();
   }
