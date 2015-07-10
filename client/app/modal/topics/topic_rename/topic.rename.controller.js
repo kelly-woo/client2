@@ -29,12 +29,9 @@
         $scope.isLoading = true;
 
         _body = {
-          name: $scope.topicName
+          name: $scope.topicName,
+          description: !!$scope.topicDescription ? $scope.topicDescription : 'no description'
         };
-
-        if (!!$scope.topicDescription) {
-          _body.description = $scope.topicDescription;
-        }
 
         entityheaderAPIservice.renameEntity(_entityType, _entityId, _body)
           .success(function(response) {
