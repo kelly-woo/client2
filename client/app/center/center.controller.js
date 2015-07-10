@@ -594,7 +594,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onUpdatedMessagesSuccess(response) {
     // lastUpdatedId 갱신 --> lastMessageId
-    lastUpdatedLinkId = response.lastLinkId;
+    lastUpdatedLinkId = lastMessageId = response.lastLinkId;
     response = response.updateInfo;
     response.messages = _.sortBy(response.messages, 'id');
     if (response.messageCount) {
