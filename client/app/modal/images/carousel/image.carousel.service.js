@@ -11,14 +11,21 @@
   /* @ngInject */
   function ImageCarousel($timeout, Preloader, jndKeyCode, config) {
     var that = this;
+
     var MIN_WIDTH = 400;
     var MIN_HEIGHT = 400;
+
+    var INIT = 'init';
+    var PREV = 'prev';
+    var NEXT = 'next';
 
     var jqWindow;
     var jqModal;
     var jqViewerBody;
     var jqContent;
     var jqContentDescription;
+    var jqPrevBtn;
+    var jqNextBtn;
 
     var timerImageLoad;
 
@@ -28,13 +35,16 @@
 
     that.init = init;
     that.hide = hide;
-    _.each(['prev', 'next'], function(value) {
+    _.each([PREV, NEXT], function(value) {
       that[value] = (function(value) {
-        var offset = value === 'prev' ? -1 : 1;
+        var offset = value === PREV ? -1 : 1;
         return function() {
           var currentMessageId = that.options.messageId;
           var messageId;
           var index;
+
+          // button focus
+          value === PREV ? jqPrevBtn.focus() : jqNextBtn.focus();
 
           index = _imageList.indexOf(currentMessageId) + offset;
 
@@ -93,12 +103,15 @@
       jqContent = $('.content');
       jqContentDescription = jqContent.children('.content-footer');
 
+      jqPrevBtn = $('#viewer_prev_btn');
+      jqNextBtn = $('#viewer_next_btn');
+
       $timeout(function() {
         jqModal = $('.image-carousel-modal').focus();
 
         _on();
 
-        _getList('init', function() {
+        _getList(INIT, function() {
           _setButtonStatus();
         });
 
@@ -138,7 +151,7 @@
           var currentTarget = event.currentTarget;
           event.stopPropagation();
 
-          if (currentTarget.className.indexOf('prev') > -1) {
+          if (currentTarget.className.indexOf(PREV) > -1) {
             // prev
             that.prev();
           } else {
@@ -219,10 +232,19 @@
     }
 
     function _getList(type, success) {
+      var searchType = undefined;
+      var count = that.options.count;
+
+      if (type !== INIT) {
+        // messageId 보다 오래된/새로운 목록 대상
+        searchType = type === PREV ? 'old' : 'new';
+        count = Math.ceil(count / 2);
+      }
+
       return that.options.getImage({
           roomId: that.options.roomId,
           messageId: that.options.messageId,
-          // type: null,
+          type: null,
           count: that.options.count,
           q: that.options.keyword,
           writerId:that.options.writerId
@@ -263,15 +285,15 @@
 
     function _pushItem(type, messageId, data) {
       if (_imageList.indexOf(messageId) < 0) {
-        if (type === 'init') {
+        if (type === INIT) {
           _imageList.push(messageId);
         } else {
-          type === 'prev' ? _imageList.unshift(messageId) : _imageList.push(messageId);
+          type === PREV ? _imageList.unshift(messageId) : _imageList.push(messageId);
         }
 
         _imageMap[messageId] = data;
 
-        $(that.options.preloadContainer).append('<img src="' + config.server_uploaded + data.fileUrl + '" style="width: 1px; height: 1px; visibility: false">');
+        // $(that.options.preloadContainer).append('<img src="' + config.server_uploaded + data.fileUrl + '" style="width: 1px; height: 1px; visibility: false">');
       }
     }
 
@@ -295,21 +317,23 @@
 
       // loadImage 전역 변수
       loadImage(fullFileUrl, function(img) {
+        // loadImage 호출시 img가 남아 있음
+        jqContent.children('img').remove();
+
         // loadImage의 callback이 연속적으로 발생했을때 callback을 수행해야 하는 img 제어
-        if (img.src === fullFileUrl) {
+        if (img.type && img.type === 'error') {
+          // file이 존재하지 않음
+          jqContent.removeClass('icon-loading loading');
+          jqContent.prepend('<img src="assets/images/img-error-404.png" style="opacity: 1;" />');
+        } else if (img.src === fullFileUrl) {
           jqContent.removeClass('icon-loading loading');
 
-          if (img.type && img.type === 'error') {
+          // image의 size에 맞춰 carousel body를 repositioning
+          _rePosition(img);
 
-          } else {
-            jqContent.prepend(img);
+          jqContent.prepend(img);
 
-            // image의 size에 맞춰 carousel body를 repositioning
-            _rePosition(img);
-
-            $(img).css('opacity', 1);
-            // img.style.opacity = 1;
-          }
+          $(img).css('opacity', 1);
         }
       });
     }

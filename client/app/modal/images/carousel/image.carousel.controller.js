@@ -46,7 +46,7 @@
             });
           },
           onButtonStatus: function(status) {
-            // ng class로 처리하면 끊김으로 바로 반영하기위해 class 수정
+            // 즉각 처리위해 class 수정
             var jqPrevBtn = $('#viewer_prev_btn');
             var jqNextBtn = $('#viewer_next_btn');
 

@@ -242,30 +242,33 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (integrationPreviewMap[content.serverUrl]) {
       window.open(content.fileUrl, '_blank');
     } else {
-      fileRequest = fileAPIservice.tempFileRequest || {};
+      modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
 
-      // roomId가 -1일때 해당 값은 사용하지 않음.
-      fileRequest.roomId == -1 && delete fileRequest.roomId;
+      // file list에서는 image carousel 사용하지 않으므로 주석 처리함
+      // fileRequest = fileAPIservice.tempFileRequest || {};
 
-      // writerId가 all일때 해당 값은 사용하지 않음.
-      fileRequest.writerId === 'all' && delete fileRequest.writerId;
+      // // roomId가 -1일때 해당 값은 사용하지 않음.
+      // fileRequest.roomId == -1 && delete fileRequest.roomId;
 
-      modalHelper.openImageCarouselModal({
-        // server api
-        getImage: fileAPIservice.getImageList,
+      // // writerId가 all일때 해당 값은 사용하지 않음.
+      // fileRequest.writerId === 'all' && delete fileRequest.writerId;
 
-        // image file api data
-        messageId: $scope.file_detail.id,
-        roomId: fileRequest.sharedEntityId,
-        writerId: fileRequest.writerId,
-        keyword: fileRequest.keyword,
+      // modalHelper.openImageCarouselModal({
+      //   // server api
+      //   getImage: fileAPIservice.getImageList,
 
-        // image carousel view data
-        userName: $scope.file_detail.writer.name,
-        uploadDate: $scope.file_detail.createTime,
-        fileTitle: $scope.file_detail.content.title,
-        fileUrl: $scope.file_detail.content.fileUrl
-      });
+      //   // image file api data
+      //   messageId: $scope.file_detail.id,
+      //   roomId: fileRequest.sharedEntityId,
+      //   writerId: fileRequest.writerId,
+      //   keyword: fileRequest.keyword,
+
+      //   // image carousel view data
+      //   userName: $scope.file_detail.writer.name,
+      //   uploadDate: $scope.file_detail.createTime,
+      //   fileTitle: $scope.file_detail.content.title,
+      //   fileUrl: $scope.file_detail.content.fileUrl
+      // });
     }
   }
 
@@ -618,4 +621,3 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     $scope.isLoadingImage = false;
   }
 });
-
