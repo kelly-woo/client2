@@ -301,7 +301,9 @@
     }
 
     function isJoinedTopic(entity) {
-      return !_.isUndefined(EntityMapManager.get('joined', entity.id));
+
+      return !( _.isUndefined(EntityMapManager.get('joined', entity.id) &&
+                _.isUndefined(EntityMapManager.get('private', entity.id))));
 
     }
   }

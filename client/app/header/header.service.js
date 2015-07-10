@@ -68,14 +68,15 @@ app.factory('entityheaderAPIservice', function($http, $rootScope, storageAPIserv
     });
   };
 
-  entityheaderAPI.createEntity = function(entityType, entityName) {
+  entityheaderAPI.createEntity = function(entityType, _body) {
     return $http({
       method: 'POST',
       url: $rootScope.server_address + entityType,
-      data : {
-        name: entityName,
+      data : _body,
+      params: {
         teamId: memberService.getTeamId()
-      }
+      },
+      version: 3
     });
   };
 
