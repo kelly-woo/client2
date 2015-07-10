@@ -125,10 +125,15 @@
      * @param {array} messageList
      */
     function append(messageList) {
+      var length = that.list.length;
+      var lastId = that.list[length - 1] && that.list[length - 1].id || -1;
+
       messageList = _beforeAddMessages(messageList);
       _.forEach(messageList, function(msg) {
-        msg = _getFormattedMessage(msg);
-        that.list.push(msg);
+        if (MessageSending.isSending(msg) || lastId < msg.id) {
+          msg = _getFormattedMessage(msg);
+          that.list.push(msg);
+        }
       });
     }
 
@@ -137,10 +142,13 @@
      * @param {array} messageList
      */
     function prepend(messageList) {
+      var firstId = that.list[0] && that.list[0].id || -1;
       messageList = _beforeAddMessages(messageList);
       _.forEachRight(messageList, function(msg) {
-        msg = _getFormattedMessage(msg);
-        that.list.unshift(msg);
+        if (firstId === -1 || firstId > msg.id) {
+          msg = _getFormattedMessage(msg);
+          that.list.unshift(msg);
+        }
       });
     }
 

@@ -565,6 +565,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function updateList() {
+
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
     if ($scope.msgLoadStatus.loading || _isUpdateListLock) {
@@ -713,7 +714,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     if (!$scope.isPosting && length) {
       $scope.isPosting = true;
-      _isUpdateListLock = true;
+      //_isUpdateListLock = true;
       _.forEach(queue, function (msg) {
         if (!promise) {
           promise = _getPostPromise(msg, true);
@@ -728,6 +729,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         promise.then(
           _.bind(_onSuccessPostMessages, null, length),
           _.bind(_onFailedPostMessages, null, length));
+      } else {
+        $scope.isPosting = false;
+        //_isUpdateListLock = false;
       }
     }
   }
@@ -761,7 +765,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onFailedPostMessages(length) {
-    _isUpdateListLock = false;
+    //_isUpdateListLock = false;
     $scope.isPosting = false;
     var queue = MessageCollection.getQueue();
     var msg = queue[length - 1];
@@ -778,7 +782,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onSuccessPostMessages(length) {
-    _isUpdateListLock = false;
+    //_isUpdateListLock = false;
     $scope.isPosting = false;
     var queue = MessageCollection.getQueue();
     MessageCollection.spliceQueue(0, length);
