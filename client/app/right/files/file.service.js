@@ -258,7 +258,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     //
     // TODO: shareEntities 값 항상 room id로 전달하도록 수정하기로 back-end와 합의봄
     getSharedEntity = getSharedEntity ? getSharedEntity : function(sharedEntityId) {
-      return entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId);
+      return entityAPIservice.getEntityById('all', sharedEntityId);
     };
 
     _.each(unique, function(sharedEntityId) {
@@ -266,8 +266,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       if (angular.isUndefined(sharedEntity)) {
         // If I don't have it in my 'totalEntities', it means entity is 'archived'.
         // Just return from here;
-      }
-      else {
+      } else {
         if( sharedEntity.type == 'privategroups' && entityAPIservice.isMember(sharedEntity, $rootScope.member) ||
           sharedEntity.type == 'channels' ||
           sharedEntity.type == 'users' )  {
@@ -281,8 +280,8 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   function updateShared(message) {
     return getSharedEntities(message, function(sharedEntityId) {
-      return entityAPIservice.getEntityFromListById($rootScope.totalEntities, sharedEntityId) ||
-        entityAPIservice.getEntityFromListByEntityId($rootScope.memberList, sharedEntityId);
+      return entityAPIservice.getEntityById('all', sharedEntityId) ||
+        entityAPIservice.getEntityByEntityId(sharedEntityId);
     });
   }
 

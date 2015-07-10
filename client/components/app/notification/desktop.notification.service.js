@@ -75,7 +75,6 @@
       _setNotificationPermission();
       _loadLocalNotificationFlag();
       _loadShowNotificationContentFlag();
-      log();
     }
 
 

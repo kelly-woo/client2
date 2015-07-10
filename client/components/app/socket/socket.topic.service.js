@@ -30,19 +30,16 @@
     function _onTopicUpdated(data) {
       console.log('_onTopicUpdated', data);
       var _topic = data.topic;
-      var _topicType = _topic.type;
-      var _topicId = _topic.id;
-      var _topicEntity = entityAPIservice.getEntityById(_topicType, _topicId);
+      var _topicEntity = entityAPIservice.getEntityById(_topic.type, _topic.id);
 
-      _.extend(_topicEntity, _topic);
+      if (!!_topicEntity) {
+        entityAPIservice.extend(_topicEntity, _topic);
+      }
 
-
-      jndPubSub.onChangeShared();
     }
 
     function _onTopicJoined(data) {
       _updateLeftPanel();
-
     }
 
     function _onTopicLeft(data) {
