@@ -486,6 +486,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else if (_isLoadingOldMessages()) {
       _disableScroll();
       _findMessageDomElementById(loadedFirstMessagedId);
+    } else if (MessageCollection.getQueue().length > 0) {
+      _scrollToBottom();
     }
     MessageQuery.reset();
   }
@@ -504,10 +506,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _scrollToBottom() {
-    $timeout.cancel(scrollToBottomTimer);
-    scrollToBottomTimer = $timeout(function() {
-      document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
-    }, 10);
+    document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
     $timeout.cancel(showContentTimer);
     showContentTimer = $timeout(function() {
       _showContents();
@@ -565,7 +564,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function updateList() {
-
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
     if ($scope.msgLoadStatus.loading || _isUpdateListLock) {
