@@ -9,6 +9,7 @@
   function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice, jndPubSub,
                             currentSessionHelper, pcAppHelper) {
     var memberEntityIdMap = {};
+    var totalEntitiesMap = {};
 
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
@@ -28,7 +29,8 @@
       isOwner: isOwner,
       getEntityByEntityId: getEntityByEntityId,
       addToMemberEntityIdMap: addToMemberEntityIdMap,
-      resetMemberEntityIdMap: resetMemberEntityIdMap
+      resetMemberEntityIdMap: resetMemberEntityIdMap,
+      addToTotalEntitiesMap: addToTotalEntitiesMap
     };
 
     return service;
@@ -45,7 +47,7 @@
       entityId = parseInt(entityId, 10);
       if ($rootScope.member && $rootScope.member.id === entityId) return $rootScope.member;
 
-      return _getSelectEntity(list, entityId, 'entityId');
+      return getEntityByEntityId(entityId);
     }
 
 
@@ -60,42 +62,11 @@
     function getEntityFromListById (list, id) {
       id = parseInt(id);
       if ($rootScope.member && $rootScope.member.id === id) return $rootScope.member;
-
-      // 만약 list 가
-      //  memberList 면 memberMap
-      //  joinedEntities 면 joinedEntitiesMap
-      //  privateGroups 면 privateGroupsMap으로 보내기.
-      // 그 외 경우에만 getSelectEntitiy 로 보내기.
-      //  아마 totalEntities 밖에 없을 듯.
-      //
-
-      //var entityType;
-      //if (list === $rootScope.memberList) {
-      //  console.log('memberList');
-      //  entityType = 'user';
-      //} else if (list === $rootScope.joinedEntities) {
-      //  entityType = 'joinedEntities';
-      //} else if (list === $rootSCope.totalEntities) {
-      //
-      //}
-
       return _getSelectEntity(list, id, 'id');
     }
 
     function _getSelectEntity(list, id, name) {
-      var item;
-      var i;
-      var len;
-
-      if (list != null) {
-        for (i = 0, len = list.length; i < len; ++i) {
-          item = list[i];
-
-          if (item[name] === id) {
-            return item;
-          }
-        }
-      }
+      return totalEntitiesMap[_parseInt(id)];
     }
 
     /**
@@ -313,6 +284,11 @@
      */
     function _parseInt(number) {
       return parseInt(number, 10);
+    }
+
+
+    function addToTotalEntitiesMap(entity) {
+      totalEntitiesMap[_parseInt(entity.id)] = entity;
     }
   }
 })();

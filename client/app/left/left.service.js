@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, storageAPIservice, memberService) {
+app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, storageAPIservice, memberService, entityAPIservice) {
   var leftpanelAPI = {};
 
   leftpanelAPI.getLists = function() {
@@ -127,6 +127,8 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
         entity.type = 'privategroups';
         entity.typeCategory = $filter('translate')('@common-topics');
       }
+
+      entityAPIservice.addToTotalEntitiesMap(entity);
     });
 
     _.each($scope.joinEntities, function(entity) {
@@ -141,6 +143,7 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
         entity.type = 'privategroups';
         entity.typeCategory = $filter('translate')('@common-topics');
       }
+      entityAPIservice.addToTotalEntitiesMap(entity);
     });
   };
 
