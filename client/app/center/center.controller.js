@@ -504,17 +504,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
   function _scrollToBottom(isPromptly) {
-    var setScrollTop = function() {
+    var toBottom = function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
     };
     if (isPromptly) {
-      setScrollTop();
-    } else {
-      $timeout.cancel(scrollToBottomTimer);
-      scrollToBottomTimer = $timeout(function() {
-        setScrollTop();
-      }, 0);
+      toBottom();
     }
+
+    $timeout.cancel(scrollToBottomTimer);
+    scrollToBottomTimer = $timeout(function() {
+      toBottom();
+    }, 0);
+
     $timeout.cancel(showContentTimer);
     showContentTimer = $timeout(function() {
       _showContents();
