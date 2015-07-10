@@ -22,7 +22,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var firstMessageId;             // 현재 엔티티(토픽, DM)의 가장 위 메세지 아이디.
   var lastMessageId;              // 현재 엔티티(토픽, DM)의 가장 아래 메세지 아이디.
-  var loadedFirstMessagedId;      // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
+  var loadedFirstMessageId;      // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
   var loadedLastMessageId;        // 스크롤 다운 해서 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디.  새로운 메세지 로든 전 가장 아래 메세지.
 
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
@@ -216,7 +216,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _initLocalVariables() {
     firstMessageId = -1;
     lastMessageId = -1;
-    loadedFirstMessagedId = -1;
+    loadedFirstMessageId = -1;
     systemMessageCount = 0;
     _resetUnreadCounters();
     _resetNewMsgHelpers();
@@ -351,7 +351,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var deferred = $q.defer();
     //console.log('loadMore');
     if (!$scope.msgLoadStatus.loading) {
-      loadedFirstMessagedId = MessageCollection.getFirstLinkId();
+      loadedFirstMessageId = MessageCollection.getFirstLinkId();
       loadedLastMessageId = MessageCollection.getLastLinkId();
 
       // loadMoreCounter가 0 이고 isInitialLoadingCompleted가 true 이면 center controller가
@@ -443,7 +443,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 초기 load 되었는지 여부
    */
   function _isInitialLoad() {
-    return loadedFirstMessagedId < 0;
+    return loadedFirstMessageId < 0;
   }
 
 
@@ -477,11 +477,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       MessageQuery.clearSearchLinkId();
     } else if(_isInitialLoad()) {
       _scrollToBottom();
+      loadedFirstMessageId = MessageCollection.getFirstLinkId();
     } else if (_isLoadingNewMessages()) {
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
     } else if (_isLoadingOldMessages()) {
       _disableScroll();
-      _findMessageDomElementById(loadedFirstMessagedId);
+      _findMessageDomElementById(loadedFirstMessageId);
     } else if (MessageCollection.getQueue().length > 0) {
       _scrollToBottom();
     }
@@ -1170,7 +1171,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onNewMessageArrived(angularEvent, msg) {
     // If message is from me -> I just wrote a message -> Just scroll to bottom.
     if (centerService.isMessageFromMe(msg)) {
-      _scrollToBottom();
+      _scrollToBottom(true);
       return;
     }
 
@@ -1179,7 +1180,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //log('window with focus')
       if (_hasBrowserFocus()) {
         //log('bottom reached and scrolling to bottom');
-        _scrollToBottom();
+        _scrollToBottom(true);
         return;
       }
     }
@@ -1193,7 +1194,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onNewSystemMessageArrived() {
     //if (_hasLastMessage() && centerService.hasBottomReached()) {
     if (centerService.hasBottomReached()) {
-      _scrollToBottom();
+      _scrollToBottom(true);
     }
   }
 
