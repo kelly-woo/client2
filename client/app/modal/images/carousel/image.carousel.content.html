@@ -1,0 +1,20 @@
+<div class="image-item">
+  <div class="image-item-footer">
+    <div class="info">
+      <div class="info-1">
+        <span class="user-name">{{::userName}}</span>
+        <span class="upload-date">{{::uploadDate}}</span>
+      </div>
+      <div class="info-2">
+        <div class="title">
+          <span>{{::fileTitle}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="options non-selectable">
+      <div class="actions">
+        <a class="downdload" bind-download-file file-title="{{::fileTitle}}" file-url="{{::fileUrl}}"><i class="fa fa-download"></i></a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,7 @@
     .service('ImageCarousel', ImageCarousel);
 
   /* @ngInject */
-  function ImageCarousel($timeout, Preloader, jndKeyCode, config) {
+  function ImageCarousel($rootScope, $compile, $timeout, Preloader, jndKeyCode, config) {
     var that = this;
 
     var MIN_WIDTH = 400;
@@ -22,19 +22,22 @@
     var jqWindow;
     var jqModal;
     var jqViewerBody;
-    var jqContent;
-    var jqContentDescription;
+    var jqImageList;
+
     var jqPrevBtn;
     var jqNextBtn;
 
     var timerImageLoad;
 
-    var _pivot;
-    var _imageList;
-    var _imageMap;
+    var lockerGetList;
+
+    var pivot;
+    var imageList;
+    var imageMap;
 
     that.init = init;
     that.hide = hide;
+
     _.each([PREV, NEXT], function(value) {
       that[value] = (function(value) {
         var offset = value === PREV ? -1 : 1;
@@ -46,43 +49,55 @@
           // button focus
           value === PREV ? jqPrevBtn.focus() : jqNextBtn.focus();
 
-          index = _imageList.indexOf(currentMessageId) + offset;
+          index = imageList.indexOf(currentMessageId) + offset;
 
-          if (index > -1 && _imageList[index] != null) {
-            that.options.messageId = messageId = _imageList[index];
+          if (index > -1 && imageList[index] != null) {
+            that.options.messageId = messageId = imageList[index];
+
+            if (currentMessageId != null) {
+              imageMap[currentMessageId].jqElement && imageMap[currentMessageId].jqElement.hide();
+            }
 
             if (timerImageLoad != null) {
               $timeout.cancel(timerImageLoad);
               timerImageLoad = null;
             }
 
-            timerImageLoad = $timeout(function() {
-              _load(messageId, _imageMap[messageId]);
-            }, timerImageLoad == null ? 0 : 500);
+            timerImageLoad = $timeout((function(messageId) {
+              return function() {
+                _load(messageId, imageMap[messageId]);
+              };
+            }(messageId)), timerImageLoad == null ? 0 : 500);
           }
 
           _setButtonStatus();
 
-          if (_isMore(index)) {
+          if (_isMore(index, offset) && !lockerGetList) {
+            // getList transaction begin
+            lockerGetList = true;
+
             _getList(value, function(data) {
               var messageId = that.options.messageId;
-              var index = _imageList.indexOf(messageId) + offset;
+              var index = imageList.indexOf(messageId) + offset;
 
               if (data.hasEndPoint) {
                 _setButtonStatus();
               }
+
+              // getList transaction end
+              lockerGetList = false;
             });
           }
         };
       }(value));
     });
 
-    function init(pivot, options) {
+    function init(target, options) {
       var that = this;
 
-      _pivot = pivot;
-      _imageList = [];
-      _imageMap = {};
+      pivot = target;
+      imageList = [];
+      imageMap = {};
 
       that.options = {
         // message id보다 오래되거나 새로운 목록 대상 또는 양방향 item get
@@ -93,15 +108,13 @@
         // image api
         getImage: null,
 
-        onHide: function() {},
-        onLookUp: function() {}
+        onHide: function() {}
       };
       angular.extend(that.options, options);
 
       jqWindow = $(window);
       jqViewerBody = $('.viewer-body');
-      jqContent = $('.content');
-      jqContentDescription = jqContent.children('.content-footer');
+      jqImageList = $('.image-list');
 
       jqPrevBtn = $('#viewer_prev_btn');
       jqNextBtn = $('#viewer_next_btn');
@@ -111,12 +124,28 @@
 
         _on();
 
+        _pushImage(INIT, that.options.messageId, pivot);
+
         _getList(INIT, function() {
           _setButtonStatus();
         });
 
-        _load(that.options.messageId, _pivot);
+        _load(that.options.messageId, pivot);
       });
+    }
+
+    function hide() {
+      $timeout(function() {
+        that.options.onHide();
+      });
+
+      jqWindow.off('reisze.imageCarousel');
+      jqModal
+        .off('keydown.imageCarousel')
+        .off('click.imageCarousel')
+        .off('mouseleave.imageCarousel')
+        .off('mouseenter.imageCarousel')
+        .off('mouseover.imageCarousel');
     }
 
     function _on() {
@@ -126,7 +155,10 @@
       $timeout.cancel(timerResize);
       timerResize = $timeout(function() {
         jqWindow.on('resize.imageCarousel', function() {
-          _rePosition();
+          var jqImageItem;
+          if (that.options.messageId != null && (jqImageItem = imageMap[that.options.messageId].jqElement)) {
+            _rePosition(jqImageItem);
+          }
         });
       }, 300);
 
@@ -161,27 +193,25 @@
         })
         .on('click.imageCarousel', '.viewer-body', function(event) {
           event.stopPropagation();
-
           event.target.className.indexOf('viewer-body') > -1 && hide();
-        });
-      jqContent
-        .on('mouseleave', function() {
-          jqContentDescription.css('opacity', 0);
         })
-        .on('mouseenter', function() {
-          jqContentDescription.css('opacity', 1);
+        .on('mouseleave.imageCarousel', '.image-item', function(event) {
+          event.stopPropagation();
+          $(event.currentTarget).children('.image-item-footer').css('opacity', 0);
         })
-        .on('mouseover', function() {
-          jqContentDescription.css('opacity', 1);
+        .on('mouseenter.imageCarousel', '.image-item', function(event) {
+          event.stopPropagation();
+          $(event.currentTarget).children('.image-item-footer').css('opacity', 1);
+        })
+        .on('mouseover.imageCarousel', '.image-item', function(event) {
+          event.stopPropagation();
+          $(event.currentTarget).children('.image-item-footer').css('opacity', 1);
         });
     }
 
-    function _rePosition(img) {
+    function _rePosition(jqImageItem, img, maxWidth, maxHeight) {
       // image를 정중앙에 출력할때 필요로 하는 여백
-      var margin = 56 * 2;
       var ratio = [];
-      var maxWidth = jqViewerBody.width() - margin;
-      var maxHeight = jqViewerBody.height() - margin;
 
       var imageWidth;
       var imageHeight;
@@ -192,10 +222,10 @@
         imageWidth = img[0].getAttribute('width');
         imageHeight = img[0].getAttribute('height');
 
-        img[0].removeAttribute('width');
-        img[0].removeAttribute('height');
+        // img[0].removeAttribute('width');
+        // img[0].removeAttribute('height');
       } else {
-        img = jqContent.children('img');
+        img = jqImageItem.children('img');
 
         imageWidth = img.width();
         imageHeight = img.height();
@@ -214,21 +244,17 @@
       imageWidth < MIN_WIDTH && (imageWidth = MIN_WIDTH);
       imageHeight < MIN_HEIGHT && (imageHeight = MIN_HEIGHT);
 
-      jqContent.css({marginLeft: imageWidth / 2 * -1, marginTop: imageHeight / 2 * -1});
+      if (img instanceof jQuery && /img/i.test(img[0].nodeName)) {
+        img[0].setAttribute('width', imageWidth);
+        img[0].setAttribute('height', imageHeight);
+      }
+
+      jqImageItem.css({marginLeft: imageWidth / 2 * -1, marginTop: imageHeight / 2 * -1});
 
       img.css({
         maxWidth: maxWidth,
         maxHeight: maxHeight
       });
-    }
-
-    function hide() {
-      $timeout(function() {
-        that.options.onHide();
-      });
-
-      jqWindow.off('reisze.imageCarousel');
-      jqModal.off('keydown.imageCarousel').off('click.imageCarousel');
     }
 
     function _getList(type, success) {
@@ -244,107 +270,164 @@
       return that.options.getImage({
           roomId: that.options.roomId,
           messageId: that.options.messageId,
-          type: null,
-          count: that.options.count,
+          type: searchType,
+          count: count,
           q: that.options.keyword,
           writerId:that.options.writerId
         })
         .success(function(data) {
           data.records != null && (data = data.records);
 
-          var index = _imageList.indexOf(that.options.messageId);
+          var messageId = that.options.messageId;
+          var index = imageList.indexOf(messageId);
           var hasEndPoint = false;
-          if (index === 0 || index === _imageList.length - 1) {
+          if (index === 0 || index === imageList.length - 1) {
             hasEndPoint = true;
           }
 
-          _pushImages(type, data);
+          _pushImages(messageId, type, data);
           success && success({
             hasEndPoint: hasEndPoint
           });
-        })
-        .error(function(err) {
         });
     }
 
-    function _pushImages(type, data) {
+    function _pushImages(messageId, type, data) {
       var message;
+      var imageItem;
       var i;
+      var cal;
 
       if (data) {
-        for (i = 0; message = data[i++];) {
-          _pushItem(type, message.id, {
-            userName: message.writer.name,
-            uploadDate: message.createTime,
-            fileTitle: message.content.title,
-            fileUrl: message.content.fileUrl
-          });
-        }
-      }
-    }
-
-    function _pushItem(type, messageId, data) {
-      if (_imageList.indexOf(messageId) < 0) {
-        if (type === INIT) {
-          _imageList.push(messageId);
+        if (type === PREV) {
+          i = data.length - 1;
+          cal = -1;
         } else {
-          type === PREV ? _imageList.unshift(messageId) : _imageList.push(messageId);
+          i = 0;
+          cal = 1;
         }
 
-        _imageMap[messageId] = data;
+        for (; message = data[i += cal];) {
+          if (type === INIT && message.id === messageId) {
+            imageList.splice(imageList.indexOf(messageId), 1);
+            imageItem = imageMap[messageId];
+            imageMap[messageId] = undefined;
+          } else {
+            imageItem = {
+              userName: message.writer.name,
+              uploadDate: message.createTime,
+              fileTitle: message.content.title,
+              fileUrl: message.content.fileUrl
+            };
+          }
 
-        // $(that.options.preloadContainer).append('<img src="' + config.server_uploaded + data.fileUrl + '" style="width: 1px; height: 1px; visibility: false">');
+          _pushImage(type, message.id, imageItem);
+        }
       }
     }
 
-    function _isMore(index) {
-      var half = Math.ceil(that.options.count / 2);
-
-      return index / half < 0.5;
+    function _pushImage(type, messageId, data) {
+      if (imageMap[messageId] == null) {
+        type === PREV ? imageList.unshift(messageId) : imageList.push(messageId);
+        imageMap[messageId] = data;
+      }
     }
 
-    function _load(messageId, pivot) {
-      var fullFileUrl = config.server_uploaded + pivot.fileUrl;
+    function _isMore(index, offset) {
+      return (offset === -1 ? index : (imageList.length + index * -1)) < 4;
+    }
 
-      // carousel body의 position 초기화
-      jqContent.children('img').remove();
-      jqContent.css({marginLeft: MIN_WIDTH / 2 * -1, marginTop: MIN_HEIGHT / 2 * -1});
+    function _load(currMessageId, imageItem) {
+      var jqImageItem;
+      var fullFileUrl;
+      var $scope;
 
-      that.options.onLookUp(pivot);
-      that.options.messageId = messageId;
+      if (jqImageItem = imageItem.jqElement) {
+        jqImageItem.show();
+      } else {
 
-      jqContent.addClass('icon-loading loading');
+        that.options.messageId = currMessageId;
 
-      // loadImage 전역 변수
-      loadImage(fullFileUrl, function(img) {
-        // loadImage 호출시 img가 남아 있음
-        jqContent.children('img').remove();
+        $scope = $rootScope.$new(true);
 
-        // loadImage의 callback이 연속적으로 발생했을때 callback을 수행해야 하는 img 제어
-        if (img.type && img.type === 'error') {
-          // file이 존재하지 않음
-          jqContent.removeClass('icon-loading loading');
-          jqContent.prepend('<img src="assets/images/img-error-404.png" style="opacity: 1;" />');
-        } else if (img.src === fullFileUrl) {
-          jqContent.removeClass('icon-loading loading');
+        that.options.onRender($scope, imageItem);
+        jqImageItem = $($compile(that.options.imageItemTemplate)($scope));
+        jqImageItem.css({marginLeft: MIN_WIDTH / 2 * -1, marginTop: MIN_HEIGHT / 2 * -1});
 
-          // image의 size에 맞춰 carousel body를 repositioning
-          _rePosition(img);
+        jqImageList.append(jqImageItem[0]);
 
-          jqContent.prepend(img);
+        jqImageItem.addClass('icon-loading loading');
 
-          $(img).css('opacity', 1);
-        }
-      });
+        fullFileUrl = config.server_uploaded + imageItem.fileUrl;
+
+        _imageLoad(jqImageItem, fullFileUrl);
+
+
+        // jqImageItem cashing
+        imageItem.jqElement = jqImageItem;
+      }
     }
 
     function _setButtonStatus() {
-      var pivotIndex = _imageList.indexOf(that.options.messageId);
+      var pivotIndex = imageList.indexOf(that.options.messageId);
 
       that.options.onButtonStatus({
-        hasPrev: _imageList[pivotIndex - 1] != null,
-        hasNext: _imageList[pivotIndex + 1] != null
+        hasPrev: imageList[pivotIndex - 1] != null,
+        hasNext: imageList[pivotIndex + 1] != null
       });
+    }
+
+    function _imageLoad(jqImageItem, fullFileUrl) {
+      // 이미지가 로드가 안되어 있을때만.
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('GET', fullFileUrl, true);
+      xhr.responseType = 'blob';
+      xhr.onload = function() {
+        var that = this;
+        var blob = that.response;
+
+        if (that.status === 200) {
+          loadImage.parseMetaData(blob, function (data) {
+            var margin = 56 * 2;
+            var maxWidth = jqViewerBody.width() - margin;
+            var maxHeight = jqViewerBody.height() - margin;
+            var imageOptions = {
+              maxWidth: maxWidth,
+              maxHeight: maxHeight
+            };
+
+            if (!!data.exif) {
+              // 필요한 정보가 있을 경우
+              imageOptions['orientation'] = _getImageOrientation(data);
+            }
+
+            // 이미지옵션들과 함께 블랍이미지를 이용해서 canvas 를 만든다.
+            loadImage(blob, function(img) {
+              jqImageItem.removeClass('icon-loading loading');
+              if (img.type === 'error') {
+                jqImageItem.prepend('<img src="assets/images/img-error-404.png" style="opacity: 1;" />');
+              } else {
+                _rePosition(jqImageItem, img, imageOptions.maxWidth, imageOptions.maxHeight);
+
+                jqImageItem.prepend(img);
+                $(img).css('opacity', 1);
+              }
+            }, imageOptions);
+          });
+        }
+      };
+
+      xhr.send();
+    }
+
+    /**
+     * data 가 들고 있는 정보중에서 orientation 정보다 추출한다.
+     * @param {object} data - 'loadImage.parseMetaData'를 이용해서 추출해낸 데이터
+     * @returns {*}
+     */
+    function _getImageOrientation(data) {
+      return data.exif.get('Orientation');
     }
   }
 }());

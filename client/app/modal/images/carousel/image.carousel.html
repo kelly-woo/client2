@@ -1,27 +1,8 @@
-<div class="image-carousel-container" ng-init="init()">
+<div class="image-carousel-container" ng-init="onload()">
   <div class="image-carousel-overlay"></div>
   <div class="image-carousel-viewer">
     <div class="viewer-body non-selectable">
-      <div class="content">
-
-        <div class="content-footer">
-          <div class="info">
-            <div class="info-1">
-              <span class="user-name" ng-bind="userName"></span>
-              <span class="upload-date" ng-bind="uploadDate"></span>
-            </div>
-            <div class="info-2">
-              <div class="title">
-                <span ng-bind="fileTitle"></span>
-              </div>
-            </div>
-          </div>
-          <div class="options non-selectable">
-            <div class="actions">
-              <a class="downdload" bind-download-file><i class="fa fa-download"></i></a>
-            </div>
-          </div>
-        </div>
+      <div class="image-list">
 
       </div>
       <button id="viewer_prev_btn" class="viewer-prev-btn"><i class="fa fa-angle-left"></i></button>

@@ -9,14 +9,32 @@
     .controller('ImageCarouselCtrl', imageCarouselCtrl);
 
   /* @ngInject */
-  function imageCarouselCtrl($scope, $filter, modalHelper, ImageCarousel, data) {
+  function imageCarouselCtrl($scope, $templateRequest, $templateCache, $filter, modalHelper, ImageCarousel, data) {
+    var templateUrl = 'app/modal/images/carousel/image.carousel.content.html';
+    var template;
 
-    $scope.init = init;
+    $scope.onload = onload;
 
-    function init() {
+    function onload() {
       $scope.hasNext = false;
       $scope.hasPrev = false;
 
+      if (template = $templateCache.get(templateUrl)) {
+        _setImageCarousel(template[1]);
+      } else {
+        $templateRequest(templateUrl)
+          .then(function(template) {
+            _setImageCarousel(template);
+          });
+      }
+    }
+
+    $scope.close = close;
+    function close() {
+      modalHelper.closeModal();
+    }
+
+    function _setImageCarousel(imageItemTemplate) {
       ImageCarousel.init({
           userName: data.userName,
           uploadDate: data.uploadDate,
@@ -24,7 +42,7 @@
           fileUrl: data.fileUrl
         },
         {
-          preloadContainer: '#preload_container_carousel',
+          imageItemTemplate: imageItemTemplate,
 
           messageId: data.messageId,
 
@@ -32,18 +50,17 @@
           writerId: data.writerId,
           keyword: data.keyword,
 
+          // server api
           getImage: data.getImage,
 
           onHide: function() {
             $scope.close();
           },
-          onLookUp: function(data) {
-            $scope.$apply(function() {
-              $scope.userName = data.userName;
-              $scope.uploadDate = $filter('getyyyyMMddformat')(data.uploadDate);
-              $scope.fileTitle = data.fileTitle;
-              $scope.fileUrl = data.fileUrl;
-            });
+          onRender: function($itemScope, data) {
+            $itemScope.userName = data.userName;
+            $itemScope.uploadDate = $filter('getyyyyMMddformat')(data.uploadDate);
+            $itemScope.fileTitle = data.fileTitle;
+            $itemScope.fileUrl = data.fileUrl;
           },
           onButtonStatus: function(status) {
             // 즉각 처리위해 class 수정
@@ -54,11 +71,6 @@
             status.hasNext ? jqNextBtn.addClass('has-next') : jqNextBtn.removeClass('has-next');
           }
       });
-    }
-
-    $scope.close = close;
-    function close() {
-      modalHelper.closeModal();
     }
   }
 })();
