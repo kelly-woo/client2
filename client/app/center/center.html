@@ -97,7 +97,7 @@
     </div>
   </article>
 
-  <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasScrollToBottom && !hasNewMsg" ng-click="onScrollToBottomIconClicked();"
+  <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)" ng-click="onScrollToBottomIconClicked();"
        tooltip="{{'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
     <i class="icon-down scroll-to-bottom-icon"></i>
   </div>
