@@ -709,6 +709,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         _postMessages();
       }
     }
+    $scope.message.content = "";
     jqInput.val('');
     _hideSticker();
   }
