@@ -1,3 +1,7 @@
+/**
+ * @fileoverview topic을 생성하는 controller
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
@@ -6,26 +10,30 @@
     .controller('TopicCreateCtrl', TopicCreateCtrl);
 
   /* @ngInject */
-  function TopicCreateCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, analyticsService, $filter, AnalyticsHelper) {
+  function TopicCreateCtrl($scope, entityheaderAPIservice, $state, analyticsService, $filter, AnalyticsHelper, modalHelper) {
     $scope.entityType = 'public';
 
-    $scope.cancel = function() {
-      $modalInstance.dismiss('cancel');
-    };
+    $scope.cancel = modalHelper.closeModal;
 
-    $scope.onCreateClick = function(entityType, entityName) {
+    $scope.onCreateClick = onCreateClick;
+
+    function onCreateClick(entityType, entityName) {
       if ($scope.isLoading) return;
 
-      if (entityType == 'private')
+      if (entityType === 'private') {
         entityType = 'privateGroup';
-      else
+      } else {
         entityType = 'channel';
+      }
 
       $scope.isLoading = true;
 
       entityheaderAPIservice.createEntity(entityType, entityName)
         .success(function(response) {
+          $state.go('archives', {entityType:entityType + 's', entityId:response.id});
+          modalHelper.closeModal();
 
+          // analytics.
           var entity_type = "";
           switch (entityType) {
             case 'channel':
@@ -38,7 +46,6 @@
               entity_type = "invalid";
               break;
           }
-
           //Analtics Tracker. Not Block the Process
           try {
             AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, {
@@ -48,15 +55,10 @@
           } catch (e) {
 
           }
-
           analyticsService.mixpanelTrack( "Entity Create", { "type": entity_type } );
-
-          $rootScope.$emit('updateLeftPanelCaller');
-          $state.go('archives', {entityType:entityType + 's', entityId:response.id});
-          $modalInstance.dismiss('cancel');
         })
         .error(function(response) {
-          //Analtics Tracker. Not Block the Process
+          //Analytics Tracker. Not Block the Process
           try {
             AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_CREATE, {
               'RESPONSE_SUCCESS': false,
@@ -64,18 +66,17 @@
             });
           } catch (e) {
           }
-          
           _onCreateError(response);
         })
         .finally(function() {
           $scope.isLoading = false;
         });
-    };
+    }
 
     // todo: error handling service 필요함
     var duplicate_name_error = 4000;
     function _onCreateError(err) {
-      if (err.code == duplicate_name_error) {
+      if (err.code === duplicate_name_error) {
         // Duplicate name error.
         alert($filter('translate')('@common-duplicate-name-err'));
       }
