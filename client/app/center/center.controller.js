@@ -685,7 +685,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (queue.length) {
       _postMessages();
     } else {
-      _refreshCurrentTopic();
+      updateList();
     }
   }
 
