@@ -627,14 +627,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function onHttpResponseError(response) {
     //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
-    if (response.code == CURRENT_ENTITY_ARCHIVED) {
+    if (response && response.code == CURRENT_ENTITY_ARCHIVED) {
       //log('okay channel archived');
       $scope.updateLeftPanelCaller();
       publicService.goToDefaultTopic();
       return;
     }
 
-    if (response.code == INVALID_SECURITY_TOKEN) {
+    if (response && response.code == INVALID_SECURITY_TOKEN) {
       $state.go('signin');
       return;
     }
