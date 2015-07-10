@@ -6,27 +6,30 @@
     .controller('TopicRenameCtrl', TopicRenameCtrl);
 
   /* @ngInject */
-  function TopicRenameCtrl($scope, $rootScope, $modalInstance, entityheaderAPIservice, $state, $filter, analyticsService, fileAPIservice, entityAPIservice, jndPubSub, AnalyticsHelper) {
+  function TopicRenameCtrl($scope, entityheaderAPIservice, $filter, analyticsService,
+                           AnalyticsHelper, modalHelper, currentSessionHelper) {
     var duplicate_name_error = 4000;
 
-    $scope.newTopicName = $scope.currentEntity.name;
-    $scope.cancel = function() {
-      $modalInstance.dismiss('cancel');
-    };
+    var _currentEntity = currentSessionHelper.getCurrentEntity();
+    var _entityType = _currentEntity.type;
+    var _entityId = _currentEntity.id;
 
-    $scope.onRenameClick = function(newTopicName) {
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+    $scope.topicName = _currentEntity.name;
+    $scope.topicDescription = _currentEntity.description;
+
+    $scope.cancel = modalHelper.closeModal;
+
+    $scope.onRenameClick = onRenameClick;
+
+    function onRenameClick(form) {
       $scope.isLoading = true;
 
-      entityheaderAPIservice.renameEntity($state.params.entityType, $state.params.entityId, newTopicName)
+      entityheaderAPIservice.renameEntity(_entityType, _entityId, $scope.topicName, $scope.topicDescription)
         .success(function(response) {
-          var entity;
-
-          // TODO: REFACTOR -> ANALYTICS SERVICE
-          // analytics 
           var entity_type = "";
-          switch ($state.params.entityType) {
+          // TODO: REFACTOR -> ANALYTICS SERVICE
+          // analytics
+          switch (_entityType) {
             case 'channels':
               entity_type = "topic";
               break;
@@ -41,23 +44,13 @@
             //Analtics Tracker. Not Block the Process
             AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_NAME_CHANGE, {
               'RESPONSE_SUCCESS': true,
-              'TOPIC_ID': parseInt($state.params.entityId, 10)
+              'TOPIC_ID': parseInt(_entityId, 10)
             });
           } catch (e) {
           }
           analyticsService.mixpanelTrack( "Entity Name Change", { "type": entity_type } );
 
-          // topic name이 변경된 사항을 바로 반영한뒤 boroadcast 하기위해 topic entity를 찾아 바로 수정함
-          // 그렇지 않으면 modal에서 topic name을 변경하여도 반영되지 않아 반영되지 않은 값을 갱신할 수 있음
-          if (entity = entityAPIservice.getEntityFromListById($rootScope.totalEntities, $state.params.entityId)) {
-            entity.name = newTopicName;
-          }
-
-          // 변경된 topic 명을 topic 명이 출력되는 곳 모두 수정되도록 boardcast 함.
-          jndPubSub.updateLeftPanel();
-          fileAPIservice.broadcastChangeShared();
-
-          $modalInstance.dismiss('cancel');
+          $scope.cancel();
         })
         .error(function(response) {
           try {
@@ -75,7 +68,7 @@
         .finally(function() {
           $scope.isLoading = false;
         });
-    };
+    }
 
     // TODO: error handling service 필요함
     function _onCreateError(err) {
