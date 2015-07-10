@@ -45,9 +45,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.hasScrollToBottom = false;
   $scope.hasNewMsg = false;
 
-  // To be used in directive('lastDetector')
-  $scope.loadMoreCounter = 0;
-
   // To be used in directive('centerHelpMessageContainer')
   $scope.emptyMessageStateHelper = '';
 
@@ -135,7 +132,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     };
     $scope.message.content = TextBuffer.get();
     messages = {};
-    $scope.loadMoreCounter = 0;
+
     $scope.isInitialLoadingCompleted = false;
     $timeout(function() {
       $scope.msgLoadStatus.loadingTimer = false;
@@ -359,7 +356,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       // loadMoreCounter가 0 이고 isInitialLoadingCompleted가 true 이면 center controller가
       // load 된 후 scrolling을 통한 message load 라고 판단하여 상단에 loading gif를 출력한다.
       // dom element bindingd으로 class 수정시 ie서 깜빡임 보이므로 class 바로 수정
-      if (!MessageQuery.hasSearchLinkId() && _hasMoreOldMessageToLoad() && $scope.loadMoreCounter > 0 && $scope.isInitialLoadingCompleted) {
+      if (!MessageQuery.hasSearchLinkId() && _hasMoreOldMessageToLoad() && $scope.isInitialLoadingCompleted) {
         $('.msgs__loading').addClass('load-more-top');
       } else {
         $('.msgs__loading').removeClass('load-more-top');
@@ -401,8 +398,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
           // auto focus to textarea - CURRENTLY NOT USED.
           $scope.focusPostMessage = true;
-
-          $scope.loadMoreCounter++;
           $scope.isInitialLoadingCompleted = true;
 
 
@@ -505,8 +500,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $('#msgs-container')[0].scrollTop = targetScrollTop;
   }
 
-  function _scrollToBottom() {
-    document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
+
+  function _scrollToBottom(isPromptly) {
+    var setScrollTop = function() {
+      document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
+    };
+    if (isPromptly) {
+      setScrollTop();
+    } else {
+      $timeout.cancel(scrollToBottomTimer);
+      scrollToBottomTimer = $timeout(function() {
+        setScrollTop();
+      }, 0);
+    }
     $timeout.cancel(showContentTimer);
     showContentTimer = $timeout(function() {
       _showContents();
@@ -692,7 +698,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // prevent duplicate request
     if (msg || _sticker) {
       MessageCollection.enqueue(msg, _sticker);
-      _scrollToBottom();
+      _scrollToBottom(true);
       if (NetInterceptor.isConnected()) {
         _postMessages();
       }
@@ -800,7 +806,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _refreshCurrentTopic();
     }
     updateList();
-    _scrollToBottom();
+    _scrollToBottom(true);
   }
 
   function editMessage(messageId, updateContent) {
@@ -1337,7 +1343,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onElasticResize() {
     // center controller의 content load가 완료 된 상태이고 chat 스크롤이 최 하단에 닿아있을때 scroll도 같이 수정
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
-      _scrollToBottom();
+      _scrollToBottom(true);
     }
     $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 27);
   }

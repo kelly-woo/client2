@@ -53,7 +53,7 @@
     <!-- 로딩 영역 -->
     <div class="msgs__loading icon-loading-img"
          ng-show="msgLoadStatus.loading || !hasLastMessageRendered"
-         ng-class="{'initial': loadMoreCounter < 1 || !hasLastMessageRendered}"></div>
+         ng-class="{'initial': !isInitialLoadingCompleted || !hasLastMessageRendered}"></div>
 
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
