@@ -2,6 +2,7 @@ set :application, 'web_server'
 set :repo_url, 'git@github.com:tosslab/web_server.git'
 set :branch, 'master'
 set :deploy_to, '/srv/www/web_server'
+set :linked_dirs, %w{logs node_modules pids}
 
 # Simple Role Syntax
 # ==================
