@@ -1,8 +1,7 @@
-set :application, 'web_admin'
-set :repo_url, 'git@github.com:tosslab/web_admin.git'
-set :branch, ENV['BRANCH'] || 'develop'
-set :password, ask('Server password:', nil)
-set :deploy_to, '/srv/www/web_admin'
+set :application, 'web_server'
+set :repo_url, 'git@github.com:tosslab/web_server.git'
+set :branch, 'master'
+set :deploy_to, '/srv/www/web_server'
 
 # Simple Role Syntax
 # ==================
@@ -21,9 +20,9 @@ set :deploy_to, '/srv/www/web_admin'
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-# server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
-server 'jandi.io', user: 'deploy', port: 2222, password: fetch(:password), roles: 'client'
-
+# server '172.31.39.146', user: 'jandi', roles: 'server'
+# server '172.31.39.147', user: 'jandi', roles: 'server'
+server '172.31.39.207', user: 'jandi', roles: 'server'
 
 # Custom SSH Options
 # ==================

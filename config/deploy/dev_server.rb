@@ -1,8 +1,8 @@
 set :application, 'web_admin'
-set :repo_url, 'git@github.com:tosslab/web_admin.git'
+set :repo_url, 'git@github.com:tosslab/web_server.git'
 set :branch, ENV['BRANCH'] || 'develop'
 set :password, ask('Server password:', nil)
-set :deploy_to, '/srv/www/web_admin'
+set :deploy_to, '/srv/www/web_server'
 
 # Simple Role Syntax
 # ==================
@@ -22,7 +22,7 @@ set :deploy_to, '/srv/www/web_admin'
 # used to set extended properties on the server.
 
 # server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
-server 'jandi.io', user: 'deploy', port: 2222, password: fetch(:password), roles: 'client'
+server 'jandi.io', user: 'deploy', port: 2222, password: fetch(:password), roles: 'server'
 
 
 # Custom SSH Options
