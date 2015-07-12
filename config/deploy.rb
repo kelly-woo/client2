@@ -59,4 +59,12 @@ namespace :deploy do
     end
   end
 
+  after :publishing, :restart do
+    on roles(:server), in: :parallel do
+      within current_path do
+        execute :pm2, 'startOrRestart', 'config/pm2/default.json'
+      end
+    end
+  end
+
 end
