@@ -24,7 +24,7 @@ set :log_level, :info
 
 # Default value for :linked_files is []
 # set :linked_dirs, %w{node_modules}
-set :linked_dirs, %w{node_modules client/bower_components}
+set :linked_dirs, %w{node_modules client/bower_components logs}
 # set :linked_files, %w{config/database.yml}
 
 # Default value for linked_dirs is []
