@@ -5,11 +5,11 @@
   'use strict';
 
   angular
-    .module('jandiApp')
-    .service('ImageCarousel', ImageCarousel);
+      .module('jandiApp')
+      .service('ImageCarousel', ImageCarousel);
 
   /* @ngInject */
-  function ImageCarousel($rootScope, $compile, $timeout, Preloader, jndKeyCode, config) {
+  function ImageCarousel($rootScope, $compile, $timeout, jndKeyCode, config) {
     var that = this;
 
     var MIN_WIDTH = 400;
@@ -77,9 +77,6 @@
             lockerGetList = true;
 
             _getList(value, function(data) {
-              var messageId = that.options.messageId;
-              var index = imageList.indexOf(messageId) + offset;
-
               if (data.hasEndPoint) {
                 _setButtonStatus();
               }
@@ -141,11 +138,11 @@
 
       jqWindow.off('reisze.imageCarousel');
       jqModal
-        .off('keydown.imageCarousel')
-        .off('click.imageCarousel')
-        .off('mouseleave.imageCarousel')
-        .off('mouseenter.imageCarousel')
-        .off('mouseover.imageCarousel');
+          .off('keydown.imageCarousel')
+          .off('click.imageCarousel')
+          .off('mouseleave.imageCarousel')
+          .off('mouseenter.imageCarousel')
+          .off('mouseover.imageCarousel');
     }
 
     function _on() {
@@ -156,8 +153,10 @@
       timerResize = $timeout(function() {
         jqWindow.on('resize.imageCarousel', function() {
           var jqImageItem;
+          var imageMaxSize;
           if (that.options.messageId != null && (jqImageItem = imageMap[that.options.messageId].jqElement)) {
-            _rePosition(jqImageItem);
+            imageMaxSize = _getImageMaxSize();
+            _rePosition(jqImageItem, undefined, imageMaxSize.maxWidth, imageMaxSize.maxHeight);
           }
         });
       }, 300);
@@ -172,41 +171,41 @@
         that.next();
       };
       jqModal
-        .on('keydown.imageCarousel', function(event) {
-          var fn;
-          event.preventDefault();
-          event.stopPropagation();
+          .on('keydown.imageCarousel', function(event) {
+            var fn;
+            event.preventDefault();
+            event.stopPropagation();
 
-          (fn = keyHandlerMap[event.which]) && fn();
-        })
-        .on('click.imageCarousel', 'button', function(event) {
-          var currentTarget = event.currentTarget;
-          event.stopPropagation();
+            (fn = keyHandlerMap[event.which]) && fn();
+          })
+          .on('click.imageCarousel', 'button', function(event) {
+            var currentTarget = event.currentTarget;
+            event.stopPropagation();
 
-          if (currentTarget.className.indexOf(PREV) > -1) {
-            // prev
-            that.prev();
-          } else {
-            // next
-            that.next();
-          }
-        })
-        .on('click.imageCarousel', '.viewer-body', function(event) {
-          event.stopPropagation();
-          event.target.className.indexOf('viewer-body') > -1 && hide();
-        })
-        .on('mouseleave.imageCarousel', '.image-item', function(event) {
-          event.stopPropagation();
-          $(event.currentTarget).children('.image-item-footer').css('opacity', 0);
-        })
-        .on('mouseenter.imageCarousel', '.image-item', function(event) {
-          event.stopPropagation();
-          $(event.currentTarget).children('.image-item-footer').css('opacity', 1);
-        })
-        .on('mouseover.imageCarousel', '.image-item', function(event) {
-          event.stopPropagation();
-          $(event.currentTarget).children('.image-item-footer').css('opacity', 1);
-        });
+            if (currentTarget.className.indexOf(PREV) > -1) {
+              // prev
+              that.prev();
+            } else {
+              // next
+              that.next();
+            }
+          })
+          .on('click.imageCarousel', '.viewer-body', function(event) {
+            event.stopPropagation();
+            event.target.className.indexOf('viewer-body') > -1 && hide();
+          })
+          .on('mouseleave.imageCarousel', '.image-item', function(event) {
+            event.stopPropagation();
+            $(event.currentTarget).children('.image-item-footer').css('opacity', 0);
+          })
+          .on('mouseenter.imageCarousel', '.image-item', function(event) {
+            event.stopPropagation();
+            $(event.currentTarget).children('.image-item-footer').css('opacity', 1);
+          })
+          .on('mouseover.imageCarousel', '.image-item', function(event) {
+            event.stopPropagation();
+            $(event.currentTarget).children('.image-item-footer').css('opacity', 1);
+          });
     }
 
     function _rePosition(jqImageItem, img, maxWidth, maxHeight) {
@@ -215,21 +214,15 @@
 
       var imageWidth;
       var imageHeight;
+      var marginLeft;
+      var marginTop;
+      var minWidth;
+      var minHeight;
+      var lineHeight;
 
-      if (img) {
-        img = $(img);
-
-        imageWidth = img[0].getAttribute('width');
-        imageHeight = img[0].getAttribute('height');
-
-        // img[0].removeAttribute('width');
-        // img[0].removeAttribute('height');
-      } else {
-        img = jqImageItem.children('img');
-
-        imageWidth = img.width();
-        imageHeight = img.height();
-      }
+      img = img ? $(img) : jqImageItem.children(':first-child')
+      imageWidth = parseInt(img[0].getAttribute('width'), 10);
+      imageHeight = parseInt(img[0].getAttribute('height'), 10);
 
       if (maxWidth < imageWidth || maxHeight < imageHeight) {
         // maxWidth, maxHeight 보다 imageWidth, imageHeight가 크다면 비율 조정 필요함.
@@ -238,23 +231,32 @@
       } else {
         ratio = 1;
       }
+
       imageWidth = imageWidth * ratio;
       imageHeight = imageHeight * ratio;
 
       imageWidth < MIN_WIDTH && (imageWidth = MIN_WIDTH);
       imageHeight < MIN_HEIGHT && (imageHeight = MIN_HEIGHT);
 
-      if (img instanceof jQuery && /img/i.test(img[0].nodeName)) {
-        img[0].setAttribute('width', imageWidth);
-        img[0].setAttribute('height', imageHeight);
+      if (maxWidth < MIN_WIDTH) {
+        marginLeft = maxWidth / 2 * -1;
+        minWidth = maxWidth;
+      } else {
+        marginLeft = imageWidth / 2 * -1;
+        minWidth = MIN_WIDTH;
+      }
+      if (maxHeight < MIN_HEIGHT) {
+        marginTop = maxHeight / 2 * -1;
+        minHeight = maxHeight;
+        lineHeight = maxHeight + 'px';
+      } else {
+        marginTop = imageHeight / 2 * -1;
+        minHeight = MIN_HEIGHT;
+        lineHeight = MIN_HEIGHT + 'px';
       }
 
-      jqImageItem.css({marginLeft: imageWidth / 2 * -1, marginTop: imageHeight / 2 * -1});
-
-      img.css({
-        maxWidth: maxWidth,
-        maxHeight: maxHeight
-      });
+      jqImageItem.css({marginLeft: marginLeft, marginTop: marginTop, maxWidth: maxWidth, maxHeight: maxHeight, minWidth: minWidth, minHeight: minHeight, lineHeight: lineHeight});
+      img.css({maxWidth: maxWidth, maxHeight: maxHeight});
     }
 
     function _getList(type, success) {
@@ -268,28 +270,28 @@
       }
 
       return that.options.getImage({
-          roomId: that.options.roomId,
-          messageId: that.options.messageId,
-          type: searchType,
-          count: count,
-          q: that.options.keyword,
-          writerId:that.options.writerId
-        })
-        .success(function(data) {
-          data.records != null && (data = data.records);
+        roomId: that.options.roomId,
+        messageId: that.options.messageId,
+        type: searchType,
+        count: count,
+        q: that.options.keyword,
+        writerId:that.options.writerId
+      })
+          .success(function(data) {
+            data.records != null && (data = data.records);
 
-          var messageId = that.options.messageId;
-          var index = imageList.indexOf(messageId);
-          var hasEndPoint = false;
-          if (index === 0 || index === imageList.length - 1) {
-            hasEndPoint = true;
-          }
+            var messageId = that.options.messageId;
+            var index = imageList.indexOf(messageId);
+            var hasEndPoint = false;
+            if (index === 0 || index === imageList.length - 1) {
+              hasEndPoint = true;
+            }
 
-          _pushImages(messageId, type, data);
-          success && success({
-            hasEndPoint: hasEndPoint
+            _pushImages(messageId, type, data);
+            success && success({
+              hasEndPoint: hasEndPoint
+            });
           });
-        });
     }
 
     function _pushImages(messageId, type, data) {
@@ -340,10 +342,15 @@
     function _load(currMessageId, imageItem) {
       var jqImageItem;
       var fullFileUrl;
+      var imageMaxSize;
       var $scope;
 
       if (jqImageItem = imageItem.jqElement) {
+        imageMaxSize = _getImageMaxSize();
+
         jqImageItem.show();
+        _rePosition(jqImageItem, undefined, imageMaxSize.maxWidth, imageMaxSize.maxHeight);
+
       } else {
 
         that.options.messageId = currMessageId;
@@ -389,14 +396,9 @@
 
         if (that.status === 200) {
           loadImage.parseMetaData(blob, function (data) {
-            var margin = 56 * 2;
-            var maxWidth = jqViewerBody.width() - margin;
-            var maxHeight = jqViewerBody.height() - margin;
-            var imageOptions = {
-              maxWidth: maxWidth,
-              maxHeight: maxHeight
-            };
+            var imageOptions = {canvas: true};
 
+            _.extend(imageOptions, _getImageMaxSize());
             if (!!data.exif) {
               // 필요한 정보가 있을 경우
               imageOptions['orientation'] = _getImageOrientation(data);
@@ -419,6 +421,15 @@
       };
 
       xhr.send();
+    }
+
+    function _getImageMaxSize() {
+      var margin = 56 * 2;
+
+      return {
+        maxWidth: jqViewerBody.width() - margin,
+        maxHeight: jqViewerBody.height() - margin
+      };
     }
 
     /**

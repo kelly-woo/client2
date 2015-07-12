@@ -73,6 +73,7 @@
   top: 0;
   right: 0;
 
+  line-height: normal;
   padding-right: 20px;
 
   vertical-align: middle;
@@ -140,7 +141,12 @@
   width: 50px;
   height: 50px;
 }
+
 .viewer-body .image-item canvas {
+  display: inline-block;
+  vertical-align: middle;
+}
+.viewer-body .image-item canvas{
   opacity: 0;
   -webkit-transition: opacity 0.5s;
   -moz-transition: opacity 0.5s;
@@ -155,7 +161,7 @@
   min-height: 400px;
   min-width: 400px;
 
-  /* canvas 일때 layout 깨짐 */
+  /* canvas layout 깨짐*/
   /*line-height: 400px;*/
 
   margin-top: -200px;
@@ -185,8 +191,9 @@
 }
 .image-item-footer .info {
   height: 50px;
+  line-height: normal;
 
-  padding-top: 7px;
+  padding-top: 9px;
 }
 .image-item-footer .info .info-1 {
   margin-bottom: 3px;
