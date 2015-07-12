@@ -60,6 +60,13 @@ namespace :deploy do
         end
       end
     end
+    on roles(:server) do
+      within release_path do
+        execute :ln, '-s', '/srv/www/web_client/current/dist/public', './public/app'
+        execute :ln, '-s', '/srv/www/web_landing/current/dist/public', './public/landing'
+        execute :ln, '-s', '/srv/www/web_admin/current/dist/public', './public/main'
+      end
+    end
   end
 
   after :publishing, :restart do
