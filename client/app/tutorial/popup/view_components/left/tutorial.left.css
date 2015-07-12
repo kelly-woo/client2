@@ -1,0 +1,14 @@
+.tutorial_left {
+  border: 1px solid black;
+  position: absolute;
+  top: 170px;
+}
+.tutorial_left_topic {
+
+}
+
+.tutorial_left_dm {
+  border: 1px solid black;
+  position: absolute;
+  top: 325px;
+}

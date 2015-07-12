@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 팝업 컨트롤러
+ * @fileoverview 튜토리얼 가이드 컨트롤러
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialGuideCtrl', function ($scope, $rootScope, $state) {
+  app.controller('tutorialModalTeamInvitationCtrl', function ($scope, $rootScope, $state) {
     _init();
 
     /**

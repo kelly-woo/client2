@@ -1,18 +1,18 @@
 /**
- * @fileoverview
+ * @fileoverview 튜토리얼 가이드 레이어 디렉티브
  */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .directive('tutorialDimm', tutorialDimm);
+    .directive('tutorialTop', tutorialTop);
 
-  function tutorialDimm() {
+  function tutorialTop() {
     return {
       link: link,
       replace: true,
-      templateUrl: 'app/tutorial/popup/dimm/tutorial.dimm.html',
+      templateUrl: 'app/tutorial/popup/view_components/top/tutorial.top.html',
       restrict: 'E'
     };
 

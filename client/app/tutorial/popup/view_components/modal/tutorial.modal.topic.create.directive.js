@@ -1,14 +1,14 @@
 /**
- * @fileoverview
+ * @fileoverview 튜토리얼 가이드 레이어 디렉티브
  */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .directive('tutorialGuide', tutorialGuide);
+    .directive('tutorialModalTopicCreate', tutorialModalTopicCreate);
 
-  function tutorialGuide() {
+  function tutorialModalTopicCreate() {
     return {
       link: link,
       scope: {
@@ -20,15 +20,11 @@
         content: '='
       },
       replace: true,
-      templateUrl: 'app/tutorial/popup/guide/tutorial.guide.html',
+      templateUrl: 'app/tutorial/popup/modal/tutorial.modal.topic.create.html',
       restrict: 'E'
     };
 
     function link(scope, element, attrs) {
-      element.css({
-        top: scope.top + 'px',
-        left: scope.left + 'px'
-      });
     }
   }
 })();

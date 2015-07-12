@@ -1,0 +1,10 @@
+<div>
+  <div class="tutorial_dimm"
+      ng-class="{
+        'full': step === 0 || step === 2,
+        'invite': step === 1
+      }">
+  </div>
+  <tutorial-modal-team-invitation
+      ng-if="step === 2"></tutorial-modal-team-invitation>
+</div>
