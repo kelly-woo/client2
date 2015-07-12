@@ -220,7 +220,7 @@
       var minHeight;
       var lineHeight;
 
-      img = img ? $(img) : jqImageItem.children(':first-child')
+      img = img ? $(img) : jqImageItem.children(':first-child');
       imageWidth = parseInt(img[0].getAttribute('width'), 10);
       imageHeight = parseInt(img[0].getAttribute('height'), 10);
 
@@ -396,14 +396,15 @@
 
         if (that.status === 200) {
           loadImage.parseMetaData(blob, function (data) {
-            var imageOptions = {canvas: true};
+            var imageOptions = {
+              canvas: true
+            };
 
             _.extend(imageOptions, _getImageMaxSize());
             if (!!data.exif) {
               // 필요한 정보가 있을 경우
               imageOptions['orientation'] = _getImageOrientation(data);
             }
-
             // 이미지옵션들과 함께 블랍이미지를 이용해서 canvas 를 만든다.
             loadImage(blob, function(img) {
               jqImageItem.removeClass('icon-loading loading');
