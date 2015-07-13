@@ -155,6 +155,12 @@
   height: 25px;
   line-height: 0;
 }
+.panel-title-right-menu:hover {
+  background-color: #d7e0e8;
+}
+.panel-title-right-menu:active {
+  background-color: #d7e0e8;
+}
 .absolute-right-tooltip{
   left: auto !important;
   right: 10px;
