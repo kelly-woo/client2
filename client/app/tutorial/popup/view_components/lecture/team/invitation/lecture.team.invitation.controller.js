@@ -9,6 +9,8 @@
 
   app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
     var TOTAL_STEP = 4;
+    var _messages;
+
     _init();
 
     /**
@@ -17,14 +19,49 @@
      */
     function _init() {
       $scope.step = 0;
+      _initMessages();
+      _initTutor();
+      _attachEvents();
+    }
+
+    /**
+     * message 를 초기화한다.
+     * @private
+     */
+    function _initMessages() {
+      _messages = [
+        {
+          title: '잔디에 오신것을 환영합니다.',
+          content: 'blah blah'
+        },
+        {
+          title: '잔디에 오신것을 환영합니다.',
+          content: 'blah blah'
+        },
+        {
+          title: '',
+          content: '다른 사람을 초대할 수 있써영'
+        },
+        {
+          title: '',
+          content: '초대해 바영'
+        }
+      ];
+    }
+    
+    /**
+     * 튜터를 초기화한다.
+     * @private
+     */
+    function _initTutor() {
+      TutorialTutor.reset();
       TutorialTutor.set({
         top: 200,
         left: 300,
         hasSkip: false,
-        title: '팀 초대',
-        content: 'step 0'
+        title: _messages[0].title,
+        content: _messages[0].content
       });
-      _attachEvents();
     }
 
     /**
@@ -37,29 +74,36 @@
     }
 
     /**
-     * 소멸자
-     * @private
-     */
-    function _onDestroy() {
-
-    }
-
-    /**
      * 다음 버튼 클릭시 이벤트 핸들러
      * @private
      */
     function _onNextStep() {
-      if ($scope.step + 1 === TOTAL_STEP) {
+      var msg;
+      var step = $scope.step;
+      if (step + 1 === TOTAL_STEP) {
         jndPubSub.pub('tutorial:nextLecture');
       } else {
-        $scope.step++;
+        step++;
+        msg = _messages[step];
         TutorialTutor.set({
-          top: TutorialTutor.get('top') + 10,
-          left: TutorialTutor.get('left') + 10,
-          content: 'step' + $scope.step
+          title: msg.title,
+          content: msg.content
         });
-
+        if (step === 3) {
+          TutorialTutor.set({
+            top: 440,
+            left: 510
+          });
+        }
       }
+      $scope.step = step;
+    }
+
+    /**
+     * 소멸자
+     * @private
+     */
+    function _onDestroy() {
     }
   });
 })();

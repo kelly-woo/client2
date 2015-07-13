@@ -11,17 +11,11 @@
   function tutorialModalTopicCreate() {
     return {
       link: link,
-      scope: {
-        top: '=',
-        left: '=',
-        hasSkip: '=',
-        step: '=',
-        title: '=',
-        content: '='
-      },
+      scope: false,
       replace: true,
       templateUrl: 'app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html',
-      restrict: 'E'
+      restrict: 'E',
+      controller: 'tutorialModalTopicCreateCtrl'
     };
 
     function link(scope, element, attrs) {

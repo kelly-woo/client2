@@ -12,9 +12,12 @@
   float: left;
   margin-left: 27px;
 }
+
 .tutorial_tutor_btn {
+  vertical-align: text-bottom;
   float: right;
-  margin-bottom: 9px;
+  padding-right: 7px;
+  margin-top: 83px;
 }
 
 .tutorial_tutor_body {

@@ -7,7 +7,10 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialModalTopicCreateCtrl', function ($scope, $rootScope, $state) {
+  app.controller('tutorialModalTopicCreateCtrl', function ($scope, $rootScope, $state, jndPubSub) {
+    $scope.onClickCreate = onClickCreate;
+    $scope.entityName = '';
+
     _init();
 
     /**
@@ -15,6 +18,16 @@
      * @private
      */
     function _init() {
+    }
+
+    /**
+     *
+     */
+    function onClickCreate() {
+      var entityName = _.trim($scope.entityName);
+      if (entityName.length > 0) {
+        jndPubSub.pub('tutorial:createTopic', entityName);
+      }
     }
 
     /**

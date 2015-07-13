@@ -7,7 +7,8 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, TutorialTutor) {
+  app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, TutorialTutor, currentSessionHelper,
+                                               TutorialData, accountService) {
     var _topicList;
     var _dmList;
     var _lectureList;
@@ -20,14 +21,35 @@
      * @private
      */
     function _init() {
+      var promise = accountService.getAccountInfo()
+        .success(_onSuccessGetAccount)
+        .error(_onFailGetAccount);
+      TutorialData.set('accountPromise', promise);
+    }
+
+    /**
+     * account success 핸들러
+     * @param {object} response
+     * @private
+     */
+    function _onSuccessGetAccount(response) {
+      TutorialData.setAccount(response);
+
       _initVariables();
       $('#client-ui').removeClass('full-screen');
       _attachEvents();
-
       $scope.topicList = _topicList;
       $scope.dmList = _dmList;
       $scope.tutor = TutorialTutor.get();
       $rootScope.isReady = true;
+    }
+
+    /**
+     * account fail 핸들러
+     * @param {object} err
+     * @private
+     */
+    function _onFailGetAccount(err) {
     }
 
     /**
@@ -72,8 +94,38 @@
      * @private
      */
     function _attachEvents() {
+      $rootScope.$on('$stateChangeStart', _onStateChangeStart);
       $scope.$on('$destroy', _onDestroy);
       $scope.$on('tutorial:nextLecture', _onNextLecture);
+    }
+
+    /**
+     * stateName 으로부터 lecture index 를 반환한다.
+     * @param {string} stateName
+     * @returns {number}
+     * @private
+     */
+    function _getLectureIndex(stateName) {
+      var index = -1;
+      _.forEach(_lectureList, function(lectureName, i) {
+        if (lectureName === stateName) {
+          index = i;
+          return false;
+        }
+      });
+      return index;
+    }
+
+    /**
+     * $stateChageStart 이벤트 발생시 핸들러
+     * @param {object} toState
+     * @param {object} toParams
+     * @param {object} fromState
+     * @param {object} fromParams
+     * @private
+     */
+    function _onStateChangeStart(event, toState, toParams, fromState, fromParams) {
+      _currentLectureIdx = _getLectureIndex(toState.name);
     }
 
     /**
