@@ -40,9 +40,9 @@ div.tutorial_bg {
 .tutorial_layer.menu_team {
   position: absolute;
   width: 300px;
-  height: 100px;
-  top: 77px;
-  left: 10px;
+  height: 200px;
+  top: 40px;
+  left: 5px;
   background-image: url("../../../assets/images/tutorial/dropdown/dropdown_menu_team.png");
 }
 
@@ -54,6 +54,7 @@ div.tutorial_bg {
   height: 100%;
   top: 0;
   left: 524px;
+  background-repeat: no-repeat;
 }
 
 .tutorial_right.file_list {

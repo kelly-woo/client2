@@ -7,8 +7,10 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureFileCommentCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
+  app.controller('lectureFileCommentCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
     var TOTAL_STEP = 4;
+    var _tutorDataList;
+
     _init();
 
     /**
@@ -16,15 +18,55 @@
      * @private
      */
     function _init() {
-      $scope.step = 0;
-      TutorialTutor.set({
-        top: 200,
-        left: 300,
-        hasSkip: false,
-        title: '파일 코멘트',
-        content: 'step 0'
+      TutorialData.get('accountPromise').then(function() {
+        $scope.step = 0;
+        _initTutor();
+        _attachEvents();
       });
-      _attachEvents();
+    }
+
+    /**
+     * 튜터를 초기화한다.
+     * @private
+     */
+    function _initTutor() {
+      _tutorDataList = [
+        {
+          title: '자!',
+          content: '써치 아이콘 클릭해서 파일서랍 열어봐바',
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: true
+        },
+        {
+          title: '',
+          content: '파일을 클릭해보',
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: true
+        },
+        {
+          title: '코멘트 남겨보자',
+          content: '코멘트 남겨',
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: true
+        },
+        {
+          title: '잘햇어',
+          content: '다운로드하거나 쉐어할수 잇음',
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: true
+        }
+      ];
+
+      TutorialTutor.reset();
+      TutorialTutor.set(_tutorDataList[0]);
     }
 
     /**
@@ -48,18 +90,15 @@
      * 다음 버튼 클릭시 이벤트 핸들러
      * @private
      */
-    function _onNextStep() {
-      if ($scope.step + 1 === TOTAL_STEP) {
+    function _onNextStep() {;
+      var step = $scope.step;
+      if (step + 1 === TOTAL_STEP) {
         jndPubSub.pub('tutorial:nextLecture');
       } else {
-        $scope.step++;
-        TutorialTutor.set({
-          top: TutorialTutor.get('top') + 10,
-          left: TutorialTutor.get('left') + 10,
-          content: 'step' + $scope.step
-        });
-
+        step++;
+        TutorialTutor.set(_tutorDataList[step]);
       }
+      $scope.step = step;
     }
   });
 })();

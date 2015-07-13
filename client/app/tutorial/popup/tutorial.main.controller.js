@@ -88,7 +88,10 @@
         'tutorial.menu.team',
         'tutorial.menu.help'
       ];
+
+      _currentLectureIdx = _getLectureIndex($state.current.name);
     }
+
     /**
      * attachEvents
      * @private

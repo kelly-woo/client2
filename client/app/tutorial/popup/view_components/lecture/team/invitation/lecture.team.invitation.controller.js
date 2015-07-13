@@ -7,9 +7,9 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
+  app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
     var TOTAL_STEP = 4;
-    var _messages;
+    var _tutorDataList;
 
     _init();
 
@@ -18,50 +18,55 @@
      * @private
      */
     function _init() {
-      $scope.step = 0;
-      _initMessages();
-      _initTutor();
-      _attachEvents();
+      TutorialData.get('accountPromise').then(function() {
+        $scope.step = 0;
+        _initTutor();
+        _attachEvents();
+      });
     }
 
-    /**
-     * message 를 초기화한다.
-     * @private
-     */
-    function _initMessages() {
-      _messages = [
-        {
-          title: '잔디에 오신것을 환영합니다.',
-          content: 'blah blah'
-        },
-        {
-          title: '잔디에 오신것을 환영합니다.',
-          content: 'blah blah'
-        },
-        {
-          title: '',
-          content: '다른 사람을 초대할 수 있써영'
-        },
-        {
-          title: '',
-          content: '초대해 바영'
-        }
-      ];
-    }
-    
     /**
      * 튜터를 초기화한다.
      * @private
      */
     function _initTutor() {
+      _tutorDataList = [
+        {
+          title: '잔디에 오신것을 환영합니다.',
+          content: 'blah blah',
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: true
+        },
+        {
+          title: '잔디에 오신것을 환영합니다.',
+          content: 'blah blah',
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: true
+        },
+        {
+          title: '',
+          content: '다른 사람을 초대할 수 있써영',
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: true
+        },
+        {
+          title: '',
+          content: '초대해 바영',
+          top: 440,
+          left: 510,
+          hasSkip: false,
+          hasNext: true
+        }
+      ];
+
       TutorialTutor.reset();
-      TutorialTutor.set({
-        top: 200,
-        left: 300,
-        hasSkip: false,
-        title: _messages[0].title,
-        content: _messages[0].content
-      });
+      TutorialTutor.set(_tutorDataList[0]);
     }
 
     /**
@@ -78,23 +83,12 @@
      * @private
      */
     function _onNextStep() {
-      var msg;
       var step = $scope.step;
       if (step + 1 === TOTAL_STEP) {
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
-        msg = _messages[step];
-        TutorialTutor.set({
-          title: msg.title,
-          content: msg.content
-        });
-        if (step === 3) {
-          TutorialTutor.set({
-            top: 440,
-            left: 510
-          });
-        }
+        TutorialTutor.set(_tutorDataList[step]);
       }
       $scope.step = step;
     }

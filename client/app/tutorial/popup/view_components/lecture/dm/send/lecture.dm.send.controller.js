@@ -7,8 +7,10 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureDmSendCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
+  app.controller('lectureDmSendCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
     var TOTAL_STEP = 7;
+    var _tutorDataList;
+
     _init();
 
     /**
@@ -16,15 +18,79 @@
      * @private
      */
     function _init() {
-      $scope.step = 0;
-      TutorialTutor.set({
-        top: 200,
-        left: 300,
-        hasSkip: false,
-        title: '다이렉트 메시지',
-        content: 'step 0'
+      TutorialData.get('accountPromise').then(function() {
+        $scope.step = 0;
+        _initTutor();
+        _attachEvents();
       });
-      _attachEvents();
+    }
+
+    /**
+     * 튜터를 초기화한다.
+     * @private
+     */
+    function _initTutor() {
+      _tutorDataList = [
+        {
+          title: '팀 멤버한테 DM 보내봐',
+          content: '눌러서 DM 해봐',
+         top: 200,
+          left: 300,
+          hasSkip: true,
+          hasNext: true
+        },
+        {
+          title: 'Jane 하고 이야기 해봐',
+          content: '',
+          top: 200,
+          left: 300,
+          hasSkip: true,
+          hasNext: true
+        },
+        {
+          title: 'Jane 한테 안녕이라고 해볼래',
+          content: '',
+          top: 200,
+          left: 300,
+          hasSkip: true,
+          hasNext: true
+        },
+        {
+          title: '이렇게 떠',
+          content: '',
+          top: 200,
+          left: 300,
+          hasSkip: true,
+          hasNext: true
+        },
+        {
+          title: '스티카 날려봐',
+          content: '',
+          top: 200,
+          left: 300,
+          hasSkip: true,
+          hasNext: true
+        },
+        {
+          title: '스티카 날려봐',
+          content: '',
+          top: 200,
+          left: 300,
+          hasSkip: true,
+          hasNext: true
+        },
+        {
+          title: '그레이트 팍\n 기억해!',
+          content: '',
+          top: 200,
+          left: 300,
+          hasSkip: true,
+          hasNext: true
+        }
+      ];
+
+      TutorialTutor.reset();
+      TutorialTutor.set(_tutorDataList[0]);
     }
 
     /**
@@ -48,18 +114,15 @@
      * 다음 버튼 클릭시 이벤트 핸들러
      * @private
      */
-    function _onNextStep() {
-      if ($scope.step + 1 === TOTAL_STEP) {
+    function _onNextStep() {;
+      var step = $scope.step;
+      if (step + 1 === TOTAL_STEP) {
         jndPubSub.pub('tutorial:nextLecture');
       } else {
-        $scope.step++;
-        TutorialTutor.set({
-          top: TutorialTutor.get('top') + 10,
-          left: TutorialTutor.get('left') + 10,
-          content: 'step' + $scope.step
-        });
-
+        step++;
+        TutorialTutor.set(_tutorDataList[step]);
       }
+      $scope.step = step;
     }
   });
 })();

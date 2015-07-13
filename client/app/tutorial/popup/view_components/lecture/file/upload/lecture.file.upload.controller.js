@@ -7,8 +7,10 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureFileUploadCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
+  app.controller('lectureFileUploadCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
     var TOTAL_STEP = 3;
+    var _tutorDataList;
+
     _init();
 
     /**
@@ -16,15 +18,47 @@
      * @private
      */
     function _init() {
-      $scope.step = 0;
-      TutorialTutor.set({
-        top: 200,
-        left: 300,
-        hasSkip: false,
-        title: '파일 업로드',
-        content: 'step 0'
+      TutorialData.get('accountPromise').then(function() {
+        $scope.step = 0;
+        _initTutor();
+        _attachEvents();
       });
-      _attachEvents();
+    }
+
+    /**
+     * 튜터를 초기화한다.
+     * @private
+     */
+    function _initTutor() {
+      _tutorDataList = [
+        {
+          title: '아무 토픽에서나 파일 업로드 할 수 있어',
+          content: '눌러서 파일 업로드를 해봐',
+         top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: true
+        },
+        {
+          title: '',
+          content: '여길 눌러서 파일 업로드를 할 수 있어',
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: true
+        },
+        {
+          title: '',
+          content: '업로드하면 이렇게 표시가 돼',
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: true
+        }
+      ];
+
+      TutorialTutor.reset();
+      TutorialTutor.set(_tutorDataList[0]);
     }
 
     /**
@@ -48,16 +82,15 @@
      * 다음 버튼 클릭시 이벤트 핸들러
      * @private
      */
-    function _onNextStep() {
-      if ($scope.step + 1 === TOTAL_STEP) {
+    function _onNextStep() {;
+      var step = $scope.step;
+      if (step + 1 === TOTAL_STEP) {
         jndPubSub.pub('tutorial:nextLecture');
       } else {
-        $scope.step++;
-        TutorialTutor.set({
-          content: 'step' + $scope.step
-        });
-
+        step++;
+        TutorialTutor.set(_tutorDataList[step]);
       }
+      $scope.step = step;
     }
   });
 })();

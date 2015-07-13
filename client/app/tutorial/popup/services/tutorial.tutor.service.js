@@ -68,7 +68,7 @@
     /**
      * query 를 설정한다.
      * @param {string|object} key
-     * @param {string|number} value
+     * @param {string|number} [value]
      * @returns {TutorialTutor}
      */
     function set(key, value) {
