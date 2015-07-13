@@ -123,11 +123,13 @@
 }
 .header-title-member__dropdown > li > a {
   /*padding: 0 !important;*/
+  height: 38px !important;
+  line-height: 38px !important;
 }
 .header-title-member__dropdown__thumb {
   border-radius: 100%;
   position: absolute;
-  top: 6px;
+  top: 8px;
   left: 0.5rem;
   width: 1.5rem;
 }
