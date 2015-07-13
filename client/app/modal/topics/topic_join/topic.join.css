@@ -17,9 +17,9 @@
 
 .join-modal-channel_container {
   border-top: 1px solid #f2f2f2;
-  padding: 12px;
+  padding: 15px 15px;
   position: relative;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1;
 }
 .join-modal-channel_container:hover {
@@ -34,22 +34,23 @@
   border-bottom: 1px solid #d2d2d2;
 }
 .join-modal-channel_title {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .join-modal-channel_title_area {
   color: #333;
-  font-size: 14px;
-  font-weight: 700;
-  max-width: 300px;
+  font-size: 15px;
+  font-weight: 500;
+  max-width: 280px;
 }
 .join-modal-channel_title .fa-clock-o {
   margin-right: 2px;
 }
 .join-modal-channel_container .topic-description {
-  line-height: 20px;
-  max-width: 420px;
-  margin-bottom: 12px;
-  color: #666;
+  line-height: 21px;
+  max-width: 400px;
+  margin-bottom: 8px;
+  color: #575757;
+  font-size: 14px;
 }
 
 .join-modal-channel_container .topic-description:empty {
@@ -57,23 +58,22 @@
 }
 
 .join-modal-channel_container .topic-general-info {
-
 }
 .join-modal-channel_container .topic-general-info .join-button {
   color: #00abe6;
+  font-weight: 500;
 }
 .join-modal-channel_container .topic-general-info .join-button:hover {
   /*border-bottom: 1px solid #00abe6;*/
   font-weight: 700;
-
 }
 
 .join-modal-channel_container .topic-general-info .join-button:hover .icon-next {
   font-weight: 700;
-  padding-left: 3px;
 }
 
 .join-modal-channel_container .topic-general-info .join-button .icon-next {
+  font-weight: 500;
   width: 13px;
   height: 13px;
 }
