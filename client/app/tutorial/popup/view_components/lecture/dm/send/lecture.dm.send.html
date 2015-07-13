@@ -1,0 +1,16 @@
+<div>
+  <div class="tutorial_dimm"
+      ng-class="{
+        'dm_add': step === 0,
+        'member_select': step === 1,
+        'center': step === 2 || step === 6,
+        'center_msg': step === 3,
+        'center_msg_sticker': step === 4 || step === 5,
+      }">
+  </div>
+  <tutorial-modal-member-list
+      ng-if="step === 1"></tutorial-modal-member-list>
+  <div ng-if="step === 5"
+       class="tutorial_layer tutorial_sticker">
+  </div>
+</div>

@@ -10,9 +10,63 @@ div.tutorial_bg {
 
 .tutorial_modal {
   position:absolute;
+  top: 20px;
+  left: 270px;
   z-index: 10;
 }
 
+.tutorial_layer {
+  z-index: 10;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+.tutorial_layer.menu_topic {
+  position: absolute;
+  width: 300px;
+  height: 100px;
+  top: 77px;
+  left: 300px;
+  background-image: url("../../../assets/images/tutorial/dropdown/dropdown_menu_topic.png");
+}
+.tutorial_layer.menu_file_upload {
+  width: 300px;
+  height: 100px;
+  top: 615px;
+  left: 258px;
+  background-image: url("../../../assets/images/tutorial/dropdown/dropdown_menu_fileupload.png");
+}
+
+.tutorial_layer.menu_team {
+  position: absolute;
+  width: 300px;
+  height: 100px;
+  top: 77px;
+  left: 10px;
+  background-image: url("../../../assets/images/tutorial/dropdown/dropdown_menu_team.png");
+}
+
+
+.tutorial_right {
+  position: absolute;
+  z-index: 4;
+  width: 500px;
+  height: 100%;
+  top: 0;
+  left: 524px;
+}
+
+.tutorial_right.file_list {
+  background-image: url("../../../assets/images/tutorial/right/filepanel_filelist.png");
+}
+
+.tutorial_right.file_detail {
+  background-image: url("../../../assets/images/tutorial/right/filepanel_detailview.png");
+}
+
+/**********
+ * DIMMED
+ **********/
 .tutorial_dimm {
   z-index: 5;
   position: absolute;
@@ -53,4 +107,64 @@ div.tutorial_bg {
 
 .tutorial_dimm.topic_join_modal {
   background-image: url("../../../assets/images/tutorial/dimm/3-2.png");
+}
+
+.tutorial_dimm.center_top {
+  background-image: url("../../../assets/images/tutorial/dimm/4-1.png");
+}
+
+.tutorial_dimm.center_top_left {
+  background-image: url("../../../assets/images/tutorial/dimm/4-3.png");
+}
+
+.tutorial_dimm.right_search {
+  background-image: url("../../../assets/images/tutorial/dimm/5-1.png");
+}
+
+.tutorial_dimm.right_file {
+  background-image: url("../../../assets/images/tutorial/dimm/5-2.png");
+}
+
+.tutorial_dimm.right_comment {
+  background-image: url("../../../assets/images/tutorial/dimm/5-3.png");
+}
+
+.tutorial_dimm.right_small_menu {
+  background-image: url("../../../assets/images/tutorial/dimm/5-4.png");
+}
+
+.tutorial_dimm.bottom_file_icon {
+  background-image: url("../../../assets/images/tutorial/dimm/6-1.png");
+}
+
+.tutorial_dimm.center_file_msg {
+  background-image: url("../../../assets/images/tutorial/dimm/6-3.png");
+}
+
+.tutorial_dimm.dm_add {
+  background-image: url("../../../assets/images/tutorial/dimm/7-1.png");
+}
+
+.tutorial_dimm.member_select {
+  background-image: url("../../../assets/images/tutorial/dimm/7-2.png");
+}
+
+.tutorial_dimm.center_msg {
+  background-image: url("../../../assets/images/tutorial/dimm/7-4.png");
+}
+
+.tutorial_dimm.center_msg_sticker {
+  background-image: url("../../../assets/images/tutorial/dimm/7-5.png");
+}
+
+.tutorial_dimm.profile {
+  background-image: url("../../../assets/images/tutorial/dimm/8-1.png");
+}
+
+.tutorial_dimm.menu_team {
+  background-image: url("../../../assets/images/tutorial/dimm/9-1.png");
+}
+
+.tutorial_dimm.menu_help {
+  background-image: url("../../../assets/images/tutorial/dimm/10-1.png");
 }

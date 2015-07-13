@@ -59,7 +59,6 @@
         'tutorial.topic.create',
         'tutorial.topic.join',
         'tutorial.topic.leave',
-        'tutorial.topic.join',
         'tutorial.file.comment',
         'tutorial.file.upload',
         'tutorial.dm.send',

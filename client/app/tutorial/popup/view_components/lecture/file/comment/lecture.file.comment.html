@@ -1,0 +1,17 @@
+<div>
+  <div class="tutorial_dimm"
+      ng-class="{
+        'right_search': step === 0,
+        'right_file': step === 1,
+        'right_comment': step === 2,
+        'right_small_menu': step === 3
+      }">
+  </div>
+  <div ng-if="step > 0"
+       class="tutorial_right"
+       ng-class="{
+        'file_list': step < 2,
+        'file_detail': step >= 2
+      }">
+  </div>
+</div>
