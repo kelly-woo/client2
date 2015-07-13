@@ -12,7 +12,6 @@
     var _topicList;
     var _dmList;
     var _lectureList;
-    var _currentLectureIdx;
 
     _init();
 
@@ -38,6 +37,8 @@
       _initVariables();
       $('#client-ui').removeClass('full-screen');
       _attachEvents();
+      $scope.currentStep = 0;
+      $scope.completedStep = 0;
       $scope.topicList = _topicList;
       $scope.dmList = _dmList;
       $scope.tutor = TutorialTutor.get();
@@ -57,7 +58,6 @@
      * @private
      */
     function _initVariables() {
-      _currentLectureIdx = 0;
       _topicList = [
         {
           name: 'aaaa',
@@ -89,7 +89,7 @@
         'tutorial.menu.help'
       ];
 
-      _currentLectureIdx = _getLectureIndex($state.current.name);
+      $scope.currentStep = _getLectureIndex($state.current.name);
     }
 
     /**
@@ -100,6 +100,11 @@
       $rootScope.$on('$stateChangeStart', _onStateChangeStart);
       $scope.$on('$destroy', _onDestroy);
       $scope.$on('tutorial:nextLecture', _onNextLecture);
+      $scope.$watch('currentStep', function(newVal) {
+        if ($scope.completedStep < newVal - 1) {
+          $scope.completedStep = newVal - 1;
+        }
+      });
     }
 
     /**
@@ -128,7 +133,7 @@
      * @private
      */
     function _onStateChangeStart(event, toState, toParams, fromState, fromParams) {
-      _currentLectureIdx = _getLectureIndex(toState.name);
+      $scope.currentStep = _getLectureIndex(toState.name);
     }
 
     /**
@@ -136,9 +141,9 @@
      * @private
      */
     function _onNextLecture() {
-      _currentLectureIdx++;
-      if (_lectureList[_currentLectureIdx]) {
-        $state.go(_lectureList[_currentLectureIdx]);
+      if (_lectureList[$scope.currentStep + 1]) {
+        $scope.currentStep++;
+        $state.go(_lectureList[$scope.currentStep]);
       }
     }
     /**

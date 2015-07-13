@@ -8,8 +8,10 @@
   var app = angular.module('jandiApp');
 
   app.controller('tutorialTutorCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
+    var MAX_STEP_COUNT = 10;
     $scope.onClickNext = onClickNext;
     $scope.onClickSkip = onClickSkip;
+    $scope.stepList = new Array(MAX_STEP_COUNT);
 
     _init();
 

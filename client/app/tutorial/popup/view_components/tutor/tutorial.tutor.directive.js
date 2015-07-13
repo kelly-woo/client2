@@ -11,7 +11,10 @@
   function tutorialTutor() {
     return {
       link: link,
-      scope: false,
+      scope: {
+        current: '=current',
+        completed: '=completed'
+      },
       replace: true,
       templateUrl: 'app/tutorial/popup/view_components/tutor/tutorial.tutor.html',
       controller: 'tutorialTutorCtrl',

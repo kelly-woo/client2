@@ -25,37 +25,13 @@
     </div>
     <div class="tutorial_tutor_body_progress">
       <div class="tutorial_tutor_body_progress_text">
-        <span class="tutorial_tutor_step circle">
-          <span>1</span>
+        <span class="tutorial_tutor_step" ng-repeat="item in stepList track by $index"
+            ng-class="{
+              'circle': current == $index || $index <= completed,
+              'on': current === $index
+            }">
+          <span>{{ $index + 1 }}</span>
         </span>
-        <span class="tutorial_tutor_step circle">
-          <span>2</span>
-        </span>
-        <span class="tutorial_tutor_step circle">
-          <span>3</span>
-        </span>
-        <span class="tutorial_tutor_step circle">
-          <span>4</span>
-        </span>
-        <span class="tutorial_tutor_step circle">
-          <span>5</span>
-        </span>
-        <span class="tutorial_tutor_step circle">
-          <span>6</span>
-        </span>
-        <span class="tutorial_tutor_step circle">
-          <span>7</span>
-        </span>
-        <span class="tutorial_tutor_step circle">
-          <span>8</span>
-        </span>
-        <span class="tutorial_tutor_step circle">
-          <span>9</span>
-        </span>
-        <span class="tutorial_tutor_step circle">
-          <span>10</span>
-        </span>
-
       </div>
     </div>
   </div>
