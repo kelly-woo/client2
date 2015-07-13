@@ -6,13 +6,15 @@
     .controller('messageListCtrl', messageListCtrl);
 
   /* @ngInject */
-  function messageListCtrl($scope, $timeout, storageAPIservice, messageList, entityAPIservice, publicService, $filter, modalHelper, jndPubSub, EntityMapManager) {
+  function messageListCtrl($scope, $timeout, storageAPIservice, messageList, entityAPIservice,
+                           publicService, $filter, modalHelper, jndPubSub, EntityMapManager, currentSessionHelper) {
     var collapseTimer;
     // okay - okay to go!
     // loading - currently loading.
     // failed - failed to retrieve list from server.
     $scope.messageListLoadingStatus = 'okay';
 
+    $scope.currentEntity = currentSessionHelper.getCurrentEntity();
     $scope.messageList;
     $scope.isMessageListCollapsed = storageAPIservice.isLeftDMCollapsed();
 

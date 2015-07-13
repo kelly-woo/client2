@@ -143,9 +143,18 @@
       return entity.ch_creatorId;
     }
 
+    /**
+     * 아이디로 찾을 수가 없기때문에 undefined일 경우엔 그냥 넘어간다.
+     * @param entityId
+     */
     function setStarred (entityId) {
       var entity = getEntityFromListById('total', entityId);
-      entity.isStarred = true;
+      if (_.isUndefined(entity)) {
+        //console.log(entityId)
+      } else {
+        entity.isStarred = true;
+
+      }
     }
 
     //  Returns true is 'user' is a member of 'entity'

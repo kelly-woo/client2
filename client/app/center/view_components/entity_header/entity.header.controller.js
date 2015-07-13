@@ -56,8 +56,8 @@
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
       $scope.$on('onCurrentEntityChanged', function(event, param) {
-        console.log('ENTITYHEADER:: onCurrentEntityChanged');
         if (_currentEntity !== param) {
+          console.log('ENTITYHEADER:: onCurrentEntityChanged');
           _initWithParam(param);
         }
       });
@@ -291,7 +291,7 @@
 
     $scope.$on('changeEntityHeaderTitle', function(event, param) {
       console.log('chaning', param)
-      $scope.currentEntity = param;
+      $scope.currentEntity = _currentEntity = param;
     });
   }
 })();
