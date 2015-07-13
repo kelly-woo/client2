@@ -14,6 +14,7 @@
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityFromListById: getEntityFromListById,
       getEntityById: getEntityById,
+      setCurrentEntityWithTypeAndId: setCurrentEntityWithTypeAndId,
       setCurrentEntity: setCurrentEntity,
       getCreatorId: getCreatorId,
       setStarred: setStarred,
@@ -138,21 +139,22 @@
       return !!(entityType.indexOf('user') > -1 && $rootScope.member && $rootScope.member.id === entityId);
     }
 
-    //  return null if 'getEntityById' return nothing.
-    function setCurrentEntity (currentEntity) {
-      if (angular.isUndefined(currentEntity)) {
-        return null;
+    function setCurrentEntityWithTypeAndId(entityType, entityId) {
+      console.log('setting current entity')
+      var currentEntity = getEntityById(entityType, entityId);
+
+      if (!angular.isUndefined(currentEntity)) {
+        setCurrentEntity(currentEntity);
       }
 
+    }
+    //  return null if 'getEntityById' return nothing.
+    function setCurrentEntity (currentEntity) {
       currentEntity.alarmCnt = '';
       pcAppHelper.onAlarmCntChanged(currentEntity.id, 0);
 
       currentSessionHelper.setCurrentEntity(currentEntity);
       jndPubSub.pub('onCurrentEntityChanged', currentEntity);
-
-      //updateBadgeValue(currentEntity, 0);
-
-      return currentEntity;
     }
 
     function getCreatorId (entity) {

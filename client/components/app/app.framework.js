@@ -3,9 +3,8 @@
 
   angular
     .module('app.framework', [
-      'config.framework',
-      'base.framework',
       'app.analytics',
+      'app.router',
       'app.language',
       'app.storage',
       'app.local.storage',

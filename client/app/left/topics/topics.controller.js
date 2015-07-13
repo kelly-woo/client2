@@ -12,6 +12,7 @@
       if ($scope.currentEntity.id == entityId) {
         $rootScope.$broadcast('refreshCurrentTopic');
       } else {
+        console.log(entityType, entityId)
         $state.go('archives', { entityType: entityType, entityId: entityId });
       }
     }

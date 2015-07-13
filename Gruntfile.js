@@ -497,6 +497,7 @@ module.exports = function (grunt) {
               '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/router/router.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/local_storage/local.storage.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',

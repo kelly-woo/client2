@@ -10,7 +10,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, AnalyticsHelper, Announcement) {
 
-  //console.info('[enter] centerpanelController', $scope.currentEntity);
+  console.info('[enter] centerpanelController', $scope.currentEntity);
   var TEXTAREA_MAX_LENGTH = 40000;
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
@@ -102,6 +102,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _init() {
+    $scope.currentEntity = currentSessionHelper.getCurrentEntity();
     centerService.preventChatWithMyself(entityId);
     $rootScope.isIE9 = centerService.isIE9();
 

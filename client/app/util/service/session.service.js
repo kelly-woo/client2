@@ -36,7 +36,6 @@
     this.isDefaultTopic = isDefaultTopic;
     this.getDefaultTopicId = getDefaultTopicId;
 
-
     this.getCurrentTeamMemberList = getCurrentTeamMemberList;
     this.setCurrentTeamMemberList = setCurrentTeamMemberList;
 
@@ -62,6 +61,8 @@
     this.setBrowserFocus = setBrowserFocus;
     this.resetBrowserFocus = resetBrowserFocus;
     this.isBrowserHidden = isBrowserHidden;
+
+    this.isMobile = jQuery.browser.mobile;
 
 
     function getCurrentTeam() { return currentTeam; }

@@ -71,6 +71,7 @@
      * default topic 으로 가라는 이벤트를 브로드캐스트한다.
      */
     function toDefaultTopic() {
+      console.log('toDefaultTopic')
       $rootScope.$broadcast('toDefaultTopic');
     }
 

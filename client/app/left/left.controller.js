@@ -290,40 +290,17 @@ app.controller('leftPanelController1', function(
   //  redirecting to default channel.
   /**
    * 이 팀의 default topic으로 돌아간다.
-   *
    * FIXME: Change '$watch' to '$on'.
    */
   $rootScope.$watch('toDefault', function(newVal, oldVal) {
     if (newVal) {
-      $state.go('archives', {entityType:'channels',  entityId:leftpanelAPIservice.getDefaultChannel(response) });
-      $rootScope.toDefault = false;
+      _toDefault();
     }
   });
 
-  /**
-   * entityId를 항상 주시하고 있다가 바뀔때마나 currentEntity를 바꿔준다.
-   */
-  $scope.$watch('$state.params.entityId', function(newEntityId){
-    if (!newEntityId) return;
-
-    _setCurrentEntityWithTypeAndId($state.params.entityType, newEntityId)
-
-  });
-
-  /**
-   * $rootScope에 있는 currentEntity를 업데이트해준다.
-   * @param entityType {string} 엔티티의 타입
-   * @param entityId {string 혹은 number} 엔티티의 아이디
-   * @private
-   */
-  function _setCurrentEntityWithTypeAndId(entityType, entityId) {
-    var currentEntity = entityAPIservice.getEntityById(entityType, entityId);
-
-    if (angular.isUndefined(currentEntity)) {
-      return;
-    }
-
-    $rootScope.currentEntity = entityAPIservice.setCurrentEntity(currentEntity);
+  function _toDefault() {
+    $state.go('archives', {entityType:'channels',  entityId:leftpanelAPIservice.getDefaultChannel(response) });
+    $rootScope.toDefault = false;
   }
 
   /**
@@ -506,7 +483,7 @@ app.controller('leftPanelController1', function(
     }
 
     if ($state.params.entityId)
-      _setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
+      entityAPIservice.setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
 
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();
@@ -643,16 +620,17 @@ app.controller('leftPanelController1', function(
   function onTopicClicked(topicEntity) {
     var entityType = topicEntity.type;
     var entityId = topicEntity.id;
+    var _currentEntity = currentSessionHelper.getCurrentEntity();
 
     if (NetInterceptor.isConnected()) {
       topicEntity.alarmCnt = '';
 
-      if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
+      if (publicService.isNullOrUndefined(_currentEntity) || publicService.isNullOrUndefined(_currentEntity.id)) {
         publicService.goToDefaultTopic();
         return;
       }
 
-      if ($scope.currentEntity.id == entityId) {
+      if (_currentEntity.id == entityId) {
         $rootScope.$broadcast('refreshCurrentTopic');
       } else {
         $state.go('archives', {entityType: entityType, entityId: entityId});
