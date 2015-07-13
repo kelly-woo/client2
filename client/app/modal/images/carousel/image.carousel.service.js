@@ -54,8 +54,9 @@
           if (index > -1 && imageList[index] != null) {
             that.options.messageId = messageId = imageList[index];
 
-            if (currentMessageId != null) {
-              imageMap[currentMessageId].jqElement && imageMap[currentMessageId].jqElement.hide();
+            if (currentMessageId != null && imageMap[currentMessageId].jqElement) {
+              imageMap[currentMessageId].jqElement.hide();
+              imageMap[currentMessageId].jqElement.children('.image-item-footer').css('opacity', 0);
             }
 
             if (timerImageLoad != null) {
@@ -138,28 +139,26 @@
 
       jqWindow.off('reisze.imageCarousel');
       jqModal
-          .off('keydown.imageCarousel')
-          .off('click.imageCarousel')
-          .off('mouseleave.imageCarousel')
-          .off('mouseenter.imageCarousel')
-          .off('mouseover.imageCarousel');
+        .off('keydown.imageCarousel')
+        .off('click.imageCarousel')
+        .off('mouseleave.imageCarousel')
+        .off('mousemove.imageCarousel');
     }
 
     function _on() {
       var keyHandlerMap = {};
       var timerResize;
 
-      $timeout.cancel(timerResize);
-      timerResize = $timeout(function() {
-        jqWindow.on('resize.imageCarousel', function() {
+      jqWindow.on('resize.imageCarousel', function() {
+        $timeout.cancel(timerResize);
+        timerResize = $timeout(function() {
           var jqImageItem;
-          var imageMaxSize;
+
           if (that.options.messageId != null && (jqImageItem = imageMap[that.options.messageId].jqElement)) {
-            imageMaxSize = _getImageMaxSize();
-            _rePosition(jqImageItem, undefined, imageMaxSize.maxWidth, imageMaxSize.maxHeight);
+            _rePosition(jqImageItem);
           }
-        });
-      }, 300);
+        }, 50);
+      });
 
       keyHandlerMap[jndKeyCode.keyCodeMap.ESC] = function() {
         that.hide();
@@ -171,47 +170,46 @@
         that.next();
       };
       jqModal
-          .on('keydown.imageCarousel', function(event) {
-            var fn;
-            event.preventDefault();
-            event.stopPropagation();
+        .on('keydown.imageCarousel', function(event) {
+          var fn;
+          event.preventDefault();
+          event.stopPropagation();
 
-            (fn = keyHandlerMap[event.which]) && fn();
-          })
-          .on('click.imageCarousel', 'button', function(event) {
-            var currentTarget = event.currentTarget;
-            event.stopPropagation();
+          (fn = keyHandlerMap[event.which]) && fn();
+        })
+        .on('click.imageCarousel', 'button', function(event) {
+          var currentTarget = event.currentTarget;
+          event.stopPropagation();
 
-            if (currentTarget.className.indexOf(PREV) > -1) {
-              // prev
-              that.prev();
-            } else {
-              // next
-              that.next();
-            }
-          })
-          .on('click.imageCarousel', '.viewer-body', function(event) {
-            event.stopPropagation();
-            event.target.className.indexOf('viewer-body') > -1 && hide();
-          })
-          .on('mouseleave.imageCarousel', '.image-item', function(event) {
-            event.stopPropagation();
-            $(event.currentTarget).children('.image-item-footer').css('opacity', 0);
-          })
-          .on('mouseenter.imageCarousel', '.image-item', function(event) {
-            event.stopPropagation();
-            $(event.currentTarget).children('.image-item-footer').css('opacity', 1);
-          })
-          .on('mouseover.imageCarousel', '.image-item', function(event) {
-            event.stopPropagation();
-            $(event.currentTarget).children('.image-item-footer').css('opacity', 1);
-          });
+          if (currentTarget.className.indexOf(PREV) > -1) {
+            // prev
+            that.prev();
+          } else {
+            // next
+            that.next();
+          }
+        })
+        .on('click.imageCarousel', '.viewer-body', function(event) {
+          event.stopPropagation();
+          event.target.className.indexOf('viewer-body') > -1 && hide();
+        })
+        .on('mouseleave.imageCarousel', '.image-item', function(event) {
+          event.stopPropagation();
+          $(event.currentTarget).children('.image-item-footer').css('opacity', 0);
+        })
+        .on('mousemove.imageCarousel', '.image-item', function(event) {
+          event.stopPropagation();
+          $(event.currentTarget).children('.image-item-footer').css('opacity', 1);
+        });
     }
 
-    function _rePosition(jqImageItem, img, maxWidth, maxHeight) {
+    function _rePosition(jqImageItem, img) {
       // image를 정중앙에 출력할때 필요로 하는 여백
       var ratio = [];
+      var margin = 56 * 2;
 
+      var maxWidth = jqViewerBody.width() - margin;
+      var maxHeight = jqViewerBody.height() - margin;
       var imageWidth;
       var imageHeight;
       var marginLeft;
@@ -235,14 +233,14 @@
       imageWidth = imageWidth * ratio;
       imageHeight = imageHeight * ratio;
 
-      imageWidth < MIN_WIDTH && (imageWidth = MIN_WIDTH);
-      imageHeight < MIN_HEIGHT && (imageHeight = MIN_HEIGHT);
+      minWidth = imageWidth < MIN_WIDTH ? MIN_WIDTH : imageWidth;
+      minHeight = imageHeight < MIN_HEIGHT ? MIN_HEIGHT : imageHeight;
 
       if (maxWidth < MIN_WIDTH) {
         marginLeft = maxWidth / 2 * -1;
         minWidth = maxWidth;
       } else {
-        marginLeft = imageWidth / 2 * -1;
+        marginLeft = minWidth / 2 * -1;
         minWidth = MIN_WIDTH;
       }
       if (maxHeight < MIN_HEIGHT) {
@@ -250,13 +248,14 @@
         minHeight = maxHeight;
         lineHeight = maxHeight + 'px';
       } else {
-        marginTop = imageHeight / 2 * -1;
+        marginTop = minHeight / 2 * -1;
         minHeight = MIN_HEIGHT;
         lineHeight = MIN_HEIGHT + 'px';
       }
 
-      jqImageItem.css({marginLeft: marginLeft, marginTop: marginTop, maxWidth: maxWidth, maxHeight: maxHeight, minWidth: minWidth, minHeight: minHeight, lineHeight: lineHeight});
-      img.css({maxWidth: maxWidth, maxHeight: maxHeight});
+      jqImageItem.css({marginLeft: marginLeft, marginTop: marginTop, minWidth: minWidth, minHeight: minHeight, lineHeight: lineHeight});
+      //img.css({maxWidth: marginLeft * -2, maxHeight: marginTop * -2});
+      img.css({maxWidth: imageWidth, maxHeight: imageHeight});
     }
 
     function _getList(type, success) {
@@ -270,28 +269,28 @@
       }
 
       return that.options.getImage({
-        roomId: that.options.roomId,
-        messageId: that.options.messageId,
-        type: searchType,
-        count: count,
-        q: that.options.keyword,
-        writerId:that.options.writerId
-      })
-          .success(function(data) {
-            data.records != null && (data = data.records);
+          roomId: that.options.roomId,
+          messageId: that.options.messageId,
+          type: searchType,
+          count: count,
+          q: that.options.keyword,
+          writerId:that.options.writerId
+        })
+        .success(function(data) {
+          data.records != null && (data = data.records);
 
-            var messageId = that.options.messageId;
-            var index = imageList.indexOf(messageId);
-            var hasEndPoint = false;
-            if (index === 0 || index === imageList.length - 1) {
-              hasEndPoint = true;
-            }
+          var messageId = that.options.messageId;
+          var index = imageList.indexOf(messageId);
+          var hasEndPoint = false;
+          if (index === 0 || index === imageList.length - 1) {
+            hasEndPoint = true;
+          }
 
-            _pushImages(messageId, type, data);
-            success && success({
-              hasEndPoint: hasEndPoint
-            });
+          _pushImages(messageId, type, data);
+          success && success({
+            hasEndPoint: hasEndPoint
           });
+        });
     }
 
     function _pushImages(messageId, type, data) {
@@ -342,14 +341,11 @@
     function _load(currMessageId, imageItem) {
       var jqImageItem;
       var fullFileUrl;
-      var imageMaxSize;
       var $scope;
 
       if (jqImageItem = imageItem.jqElement) {
-        imageMaxSize = _getImageMaxSize();
-
         jqImageItem.show();
-        _rePosition(jqImageItem, undefined, imageMaxSize.maxWidth, imageMaxSize.maxHeight);
+        _rePosition(jqImageItem);
 
       } else {
 
@@ -368,7 +364,6 @@
         fullFileUrl = config.server_uploaded + imageItem.fileUrl;
 
         _imageLoad(jqImageItem, fullFileUrl);
-
 
         // jqImageItem cashing
         imageItem.jqElement = jqImageItem;
@@ -397,10 +392,10 @@
         if (that.status === 200) {
           loadImage.parseMetaData(blob, function (data) {
             var imageOptions = {
-              canvas: true
+              canvas: true,
+              maxWidth: '100%'
             };
 
-            _.extend(imageOptions, _getImageMaxSize());
             if (!!data.exif) {
               // 필요한 정보가 있을 경우
               imageOptions['orientation'] = _getImageOrientation(data);
@@ -411,7 +406,7 @@
               if (img.type === 'error') {
                 jqImageItem.prepend('<img src="assets/images/img-error-404.png" style="opacity: 1;" />');
               } else {
-                _rePosition(jqImageItem, img, imageOptions.maxWidth, imageOptions.maxHeight);
+                _rePosition(jqImageItem, img);
 
                 jqImageItem.prepend(img);
                 $(img).css('opacity', 1);
@@ -422,15 +417,6 @@
       };
 
       xhr.send();
-    }
-
-    function _getImageMaxSize() {
-      var margin = 56 * 2;
-
-      return {
-        maxWidth: jqViewerBody.width() - margin,
-        maxHeight: jqViewerBody.height() - margin
-      };
     }
 
     /**
