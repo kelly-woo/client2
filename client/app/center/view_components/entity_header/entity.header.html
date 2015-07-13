@@ -1,38 +1,46 @@
 <div ng-if="isConnected" class="panel-title-container non-selectable" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}">
   <!--    STAR ICON -->
-  <span class="prefix star" data-ng-click="onStarClick(currentEntity.type, currentEntity.id);">
+  <span class="prefix star" ng-click="onStarClick();">
     <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
   </span>
 
   <!--    PREFIX ICON -->
-  <span class="prefix" ng-click="onPrefixIconCicked();">
-    <i data-ng-if="currentEntity.type === 'channels'" class="icon-topic-fill"></i>
-    <i data-ng-if="currentEntity.type === 'privategroups'" class="icon-private-group"></i>
-    <i data-ng-if="currentEntity.type === 'users'" class="icon-user"></i>
+  <span class="prefix" ng-click="onPrefixIconClicked();">
+    <i ng-if="currentEntity.type === 'channels'" class="icon-topic-fill"></i>
+    <i ng-if="currentEntity.type === 'privategroups'" class="icon-private-group"></i>
+    <i ng-if="currentEntity.type === 'users'" class="icon-user"></i>
   </span>
 
-  <!--Title Dropdown-->
-  <span class="panel-title-info" dropdown>
-
-    <!--    TITLE   -->
-    <span class="panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix" dropdown-toggle>
-      <span class="inline-overflow-ellipsis panel-title-info__name">
-        {{ currentEntity | getName}}
-        <i class="fa fa-caret-down header-title-info__more"></i>
-      </span>
+  <!--    TITLE   -->
+  <span class="panel-title-info panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix"
+        ng-click="onEntityTitleClicked();">
+    <span class="inline-overflow-ellipsis panel-title-info__name">
+      {{currentEntity | getName}}
     </span>
+  </span>
+
+  <!--  DESCRIPTION -->
+  <span class="panel-title-topic-description cursor_pointer" ng-if="!isUserType">
+     <i class="fa fa-info-circle" jnd-tooltip="currentEntity" jnd-tooltip-placement="bottom"></i>
+  </span>
+
+  <!-- MORE OPTIONS -->
+  <span class="panel-title-right-menu panel-title-right-menu__more pull-right cursor_pointer" dropdown>
+    <i class="icon-more" dropdown-toggle
+       tooltip="{{'@file-action-more' | translate}}" tooltip-placement="bottom"
+       tooltip-class="panel-title-more-tooltip absolute-right-tooltip"></i>
 
     <!--  TOPICS  -->
-    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" data-ng-if="currentEntity.type === 'channels' || currentEntity.type === 'privategroups'">
+    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" ng-if="!isUserType">
       <!--    INVITE  -->
-      <li role="presentation" data-ng-if="!isDefaultTopic;">
-        <a role="menuitem" tabindex="-1" data-ng-click="openModal('invite')">
+      <li role="presentation" ng-if="!isDefaultTopic">
+        <a role="menuitem" tabindex="-1" ng-click="openInviteModal();">
           <i class="icon-invite-fill"></i><span translate>@ch-menu-invite</span>
         </a>
       </li>
 
       <!--    STAR    -->
-      <li role="presentation" data-ng-click="onStarClick(currentEntity.type, currentEntity.id)">
+      <li role="presentation" ng-click="onStarClick();">
         <a role="menuitem" tabindex="-1">
           <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@ch-menu-un-star</span>
           <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@ch-menu-star</span>
@@ -40,21 +48,21 @@
       </li>
 
       <!--    RENAME  -->
-      <li role="presentation" data-ng-if="isOwner" data-ng-click="openModal('rename')">
+      <li role="presentation" ng-if="isOwner" ng-click="openRenameModal(this);">
         <a role="menuitem" tabindex="-1">
           <i class="icon-edit-fill"></i><span translate>@ch-menu-rename</span>
         </a>
       </li>
 
       <!--    LEAVE   -->
-      <li role="presentation" data-ng-click="onLeaveClick();" data-ng-if="!isDefaultTopic;">
+      <li role="presentation" ng-click="onLeaveClicked();" ng-if="!isDefaultTopic;">
         <a role="menuitem" tabindex="-1">
           <i class="icon-logout"></i><span translate>@ch-menu-leave</span>
         </a>
       </li>
 
       <!--    DELETE  -->
-      <li role="presentation" data-ng-if="isOwner && !isDefaultTopic" data-ng-click="onDeleteClick();">
+      <li role="presentation" ng-if="isOwner && !isDefaultTopic" ng-click="onDeleteClicked();">
         <a role="menuitem" tabindex="-1">
           <i class=" icon-delete-circle-fill "></i><span translate>@ch-menu-delete</span>
         </a>
@@ -63,16 +71,16 @@
     </ul>
 
     <!--User-->
-    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" data-ng-if="currentEntity.type === 'users'">
+    <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" ng-if="isUserType">
       <!--    INVITE  -->
-      <li role="presentation" data-ng-if="!isDisabledMember(currentEntity);">
-        <a role="menuitem" tabindex="-1" data-ng-click="openModal('inviteUserToChannel')">
+      <li role="presentation" ng-if="!isDisabledMember(currentEntity);">
+        <a role="menuitem" tabindex="-1" ng-click="inviteUserToChannel(this);">
           <i class="icon-invite-fill"></i><span translate>@dm-menu-invite</span>
         </a>
       </li>
 
       <!--    STAR    -->
-      <li role="presentation" data-ng-click="onStarClick(currentEntity.type, currentEntity.id)" data-ng-if="!isDisabledMember(currentEntity);">
+      <li role="presentation" ng-click="onStarClick()" ng-if="!isDisabledMember(currentEntity);">
         <a role="menuitem" tabindex="-1">
           <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@user-menu-un-star</span>
           <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@user-menu-star</span>
@@ -81,46 +89,65 @@
 
       <!--    VIEW USER PROFILE   -->
       <li role="presentation">
-        <a role="menuitem" tabindex="-1" data-ng-click="onUserClick(currentEntity.id);">
+        <a role="menuitem" tabindex="-1" ng-click="openMemberModal();">
           <i class="icon-user"></i><span translate>@dm-menu-profile</span>
         </a>
       </li>
 
       <!--    VIEW USER FILE LIST -->
       <li role="presentation">
-        <a role="menuitem" tabindex="-1" data-ng-click="onFileListClick(currentEntity.id);">
+        <a role="menuitem" tabindex="-1" ng-click="onFileListClick(currentEntity.id);">
           <i class="icon-file"></i><span translate>@dm-menu-file</span>
         </a>
       </li>
 
       <!--    LEAVE CHAT -->
       <li role="presentation">
-        <a role="menuitem" tabindex="-1" data-ng-click="onCurrentChatLeave();">
+        <a role="menuitem" tabindex="-1" ng-click="onCurrentChatLeave();">
           <i class="icon-cancel"></i><span translate>@common-conversation-leave</span>
         </a>
       </li>
     </ul>
 
+
   </span>
 
-  <!--Member Dropdown-->
-  <span class="panel-title-member" dropdown>
-    <span class="dropdown-toggle panel-title-member__more" dropdown-toggle data-ng-if="currentEntity.type != 'users'">
-      <i class="icon-user"></i> <span>{{ currentEntity.ch_members.length || currentEntity.pg_members.length }}</span>
+  <!-- RIGHT MENU -->
+  <span class="panel-title-right-menu pull-right" ng-if="!isUserType">
+
+    <span class="panel-title-member panel-title-right-menu__item pull-left" dropdown>
+      <span class="dropdown-toggle panel-title-member__more" dropdown-toggle>
+        <i class="icon icon-user"></i>
+        <span class="panel-title-member__count">{{currentEntity.members.length}}</span>
+        <i class="icon icon-down"></i>
+      </span>
+
+      <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
+        <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.members track by userId">
+          <a ng-if="userId == member.id" ng-click="openMemberModal(member);">
+            <img ng-src="member | getSmallThumbnail">
+            {{member | getName}}
+          </a>
+          <a ng-if="userId != member.id" ng-click="openMemberModal(userId);">
+            <img class="header-title-member__dropdown__thumb" ng-src="{{::userId | getSmallThumbnail}}"/>
+              {{::userId | getName}}
+          </a>
+        </li>
+      </ul>
     </span>
-    <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
-      <li role="presentation" tabindex="-1" data-ng-repeat="userId in currentEntity.ch_members || currentEntity.pg_members track by userId">
-        <a data-ng-if="userId == member.id" data-ng-click="onUserClick(member);">
-          <i class="icon-user2"></i>
-          {{ member | getName }}
-        </a>
-        <a data-ng-if="userId != member.id" data-ng-click="onUserClick(userId);">
-          <i class="icon-user2"></i>
-          {{ userId | getName }}
-        </a>
-      </li>
-    </ul>
+
+    <span class="panel-title-right-menu__separator"></span>
+
+    <span class="panel-title-invite panel-title-right-menu__item icon-invite-fill pull-right cursor_pointer"
+          tooltip="{{'@ch-menu-invite' | translate}}"
+          tooltip-placement="bottom" tooltip-append-to-body="false"
+          tooltip-class="panel-title-invite-tooltip absolute-right-tooltip"
+          ng-click="openInviteModal();">
+    </span>
+
+
   </span>
+
 
   <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledMember(currentEntity);">
     <img src="assets/images/icon-disabled-members-alert.png"/>
@@ -134,3 +161,4 @@
     <span translate>@common-connection-retry</span>
   </span>
 </div>
+<span ng-if="false" translate>@no-topic-description</span>

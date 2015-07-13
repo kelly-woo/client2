@@ -10,7 +10,7 @@
     .service('jndWebSocket', jndWebSocket);
 
   /* @ngInject */
-  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, jndWebSocketAnnouncement, $injector, NetInterceptor) {
+  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, jndWebSocketAnnouncement, $injector, NetInterceptor, jndWebSocketTopic) {
     var $scope = $rootScope.$new();
     var socket;
     var ioSocket;
@@ -27,7 +27,7 @@
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_DELETED = 'topic_deleted';
     var TOPIC_CREATED = 'topic_created';
-    var TOPIC_NAME_UPDATED = 'topic_name_updated';
+    var TOPIC_UPDATED = 'topic_updated';
 
     var TOPIC_STARRED = 'topic_starred';
     var TOPIC_UNSTARRED = 'topic_unstarred';
@@ -176,11 +176,11 @@
       socket.on(TEAM_NAME_UPDATED, _onTeamNameUpdated);
       socket.on(TEAM_DOMAIN_UPDATED, _onTeamDomainUpdated);
 
-      socket.on(TOPIC_JOINED, _onTopicJoined);
-      socket.on(TOPIC_LEFT, _onTopicLeft);
-      socket.on(TOPIC_DELETED, _onTopicLDeleted);
-      socket.on(TOPIC_CREATED, _onTopicLCreated);
-      socket.on(TOPIC_NAME_UPDATED, _onTopicLNameUpdated);
+      //socket.on(TOPIC_JOINED, _onTopicJoined);
+      //socket.on(TOPIC_LEFT, _onTopicLeft);
+      //socket.on(TOPIC_DELETED, _onTopicLDeleted);
+      //socket.on(TOPIC_CREATED, _onTopicLCreated);
+      //socket.on(TOPIC_UPDATED, _onTopicUpdated);
 
       socket.on(TOPIC_STARRED, _onStarredEvent);
       socket.on(TOPIC_UNSTARRED, _onStarredEvent);
@@ -205,6 +205,8 @@
       socket.on(ANNOUNCEMENT_CREATED, _onAnnouncement);
       socket.on(ANNOUNCEMENT_DELETED, _onAnnouncement);
       socket.on(ANNOUNCEMENT_STATUS_UPDATED, _onAnnouncement);
+
+      jndWebSocketTopic.attachSocketEvent(socket);
     }
 
 
@@ -334,10 +336,11 @@
      * @param data {object}
      * @private
      */
-    function _onTopicLNameUpdated(data) {
-      jndWebSocketHelper.socketEventLogger(TOPIC_NAME_UPDATED, data, false);
-      jndWebSocketHelper.topicChangeEventHandler(data);
+    function _onTopicUpdated(data) {
+      jndWebSocketHelper.socketEventLogger(TOPIC_UPDATED, data, false);
+      jndWebSocketHelper.topicUpdateEventHandler(data);
     }
+
 
     /**
      * Socket event receiver - topic_starred
@@ -427,6 +430,7 @@
         jndWebSocketHelper.socketEventLogger(messageType, data, false);
         jndWebSocketHelper.messageEventFileCommentHandler(data);
       } else if (messageType === MESSAGE_TOPIC_LEAVE) {
+        jndWebSocketHelper.socketEventLogger(messageType, data, false);
         jndWebSocketHelper.messageEventTopicLeaveHandler(data);
       } else if (messageType === MESSAGE_TOPIC_JOIN && currentSessionHelper.getDefaultTopicId() === data.room.id) {
         // Someone joined 'default topic' -> new member just joined team!!

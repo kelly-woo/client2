@@ -6,10 +6,8 @@
     .factory('entityAPIservice', entityAPIservice);
 
   /* @ngInject */
-  function entityAPIservice($rootScope, $filter, $state, $window, storageAPIservice, jndPubSub,
+  function entityAPIservice($rootScope, EntityMapManager, $state, $window, storageAPIservice, jndPubSub,
                             currentSessionHelper, pcAppHelper) {
-    var memberEntityIdMap = {};
-
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityFromListById: getEntityFromListById,
@@ -28,8 +26,9 @@
       isDefaultTopic: isDefaultTopic,
       isOwner: isOwner,
       getEntityByEntityId: getEntityByEntityId,
-      addToMemberEntityIdMap: addToMemberEntityIdMap,
-      resetMemberEntityIdMap: resetMemberEntityIdMap
+      extend: extend,
+      isJoinedTopic: isJoinedTopic,
+      getMemberList: getMemberList
     };
 
     return service;
@@ -46,7 +45,7 @@
       entityId = parseInt(entityId, 10);
       if ($rootScope.member && $rootScope.member.id === entityId) return $rootScope.member;
 
-      return _getSelectEntity(list, entityId, 'entityId');
+      return getEntityByEntityId(entityId);
     }
 
 
@@ -58,45 +57,14 @@
      * @param value
      * @returns {*}
      */
-    function getEntityFromListById (list, id) {
+    function getEntityFromListById(list, id) {
       id = parseInt(id);
       if ($rootScope.member && $rootScope.member.id === id) return $rootScope.member;
-
-      // 만약 list 가
-      //  memberList 면 memberMap
-      //  joinedEntities 면 joinedEntitiesMap
-      //  privateGroups 면 privateGroupsMap으로 보내기.
-      // 그 외 경우에만 getSelectEntitiy 로 보내기.
-      //  아마 totalEntities 밖에 없을 듯.
-      //
-
-      //var entityType;
-      //if (list === $rootScope.memberList) {
-      //  console.log('memberList');
-      //  entityType = 'user';
-      //} else if (list === $rootScope.joinedEntities) {
-      //  entityType = 'joinedEntities';
-      //} else if (list === $rootSCope.totalEntities) {
-      //
-      //}
-
       return _getSelectEntity(list, id, 'id');
     }
 
     function _getSelectEntity(list, id, name) {
-      var item;
-      var i;
-      var len;
-
-      if (list != null) {
-        for (i = 0, len = list.length; i < len; ++i) {
-          item = list[i];
-
-          if (item[name] === id) {
-            return item;
-          }
-        }
-      }
+      return EntityMapManager.get('total', id);
     }
 
     /**
@@ -111,19 +79,28 @@
       var entity;
       entityType = entityType.toLowerCase();
 
-      // TODO: ISN'T 'indexOf' fucntion slow?
-      // TODO: FIND FASTER/BETTER WAY TO DO THIS.
-      if (entityType.indexOf('privategroup') > -1 && $rootScope.privateGroupMap) {
-        entity = $rootScope.privateGroupMap[entityId];
-      } else if (entityType.indexOf('user') > -1 && $rootScope.memberMap) {
-        if (_isMe(entityType, entityId)) {
-          entity = $rootScope.member;
-        } else {
-          entity = $rootScope.memberMap[entityId];
-        }
-      } else if($rootScope.joinedChannelMap) {
-        entity = $rootScope.joinedChannelMap[entityId];
+      switch (entityType) {
+        case 'privategroup':
+        case 'privategroups':
+          entity = EntityMapManager.get('private', entityId);
+          break;
+        case 'user':
+        case 'users':
+          if (_isMe(entityType, entityId)) {
+            entity = $rootScope.member;
+          } else {
+            entity = EntityMapManager.get('member', entityId);
+          }
+          break;
+        case 'channel':
+        case 'channels':
+          entity = EntityMapManager.get('joined', entityId);
+          break;
+        default:
+          entity = EntityMapManager.get('total', entityId);
+          break;
       }
+
       return entity;
     }
 
@@ -167,19 +144,16 @@
     }
 
     function setStarred (entityId) {
-      var entity = this.getEntityFromListById($rootScope.joinedChannelList.concat($rootScope.privateGroupList, $rootScope.memberList), entityId);
+      var entity = getEntityFromListById('total', entityId);
       entity.isStarred = true;
     }
 
     //  Returns true is 'user' is a member of 'entity'
     function isMember (entity, user) {
-      //console.log(entity.type)
-      //console.log(entity.pg_members)
-      //console.log(user.id)
       if (entity.type == 'channel')
-        return jQuery.inArray(user.id, entity.ch_members) > -1;
+        return _.indexOf(entity.ch_members, user.id) > -1;
       else
-        return jQuery.inArray(user.id, entity.pg_members) > -1;
+        return _.indexOf(entity.pg_members, user.id) > -1;
     }
 
     //  updating alarmCnt field of 'entity' to 'alarmCount'.
@@ -286,25 +260,7 @@
      * @returns {object} entity - member entity
      */
     function getEntityByEntityId(entityId) {
-      entityId = _parseInt(entityId);
-      return memberEntityIdMap[entityId];
-    }
-
-    /**
-     * (entityId: entity) pair 를 memberEntityIdMap 에 추가한다.
-     * @param {string|number} entityId - key 로 쓰일 entityId
-     * @param {object} entity - value 로 쓰일 member entity
-     */
-    function addToMemberEntityIdMap(entityId, entity) {
-      entityId = _parseInt(entityId);
-      memberEntityIdMap[entityId] = entity;
-    }
-
-    /**
-     * memberEntityIdMap 를 초기화한다.
-     */
-    function resetMemberEntityIdMap() {
-      memberEntityIdMap = {};
+      return EntityMapManager.get('memberEntityId', entityId);
     }
 
     /**
@@ -315,6 +271,29 @@
      */
     function _parseInt(number) {
       return parseInt(number, 10);
+    }
+
+    function extend(target, source) {
+      source.type = source.type.toLowerCase() + 's';
+      _.extend(target, source);
+    }
+
+    function isJoinedTopic(entity) {
+      return !( _.isUndefined(EntityMapManager.get('joined', entity.id) &&
+                _.isUndefined(EntityMapManager.get('private', entity.id))));
+    }
+
+    /**
+     * entity의 type에따라 맞는 member array를 넘겨준다.
+     * @param entity
+     * @returns {array} memberList
+     */
+    function getMemberList(entity) {
+      if (entity.type === 'channels') {
+        return entity.ch_members;
+      } else {
+        return entity.pg_members;
+      }
     }
   }
 })();

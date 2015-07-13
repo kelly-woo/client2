@@ -6,8 +6,8 @@
   </h3>
 </div>
 
-<form name="topicRenameForm" data-ng-submit="onRenameClick(newTopicName);" novalidate="">
-  <div class="modal-body">
+<form name="topicRenameForm" ng-submit="onRenameClick(topicRenameForm);" novalidate="">
+  <div class="modal-body topic-rename">
     <div class="form-horizontal">
       <div class="form-group">
         <label class="control-label col-sm-3">
@@ -17,7 +17,7 @@
           <input type="text"
                  class="form-control"
                  name="newTopicName"
-                 data-ng-model="newTopicName"
+                 ng-model="topicName"
                  placeholder="{{ '@input-rename' | translate }}"
                  ng-maxlength="60"
                  ng-required/>
@@ -27,11 +27,33 @@
         </div>
       </div>
     </div>
+
+    <div class="form-horizontal topic-description-container">
+      <div class="form-group">
+        <label class="control-label col-sm-3">
+          <span translate>@topic-description</span>
+        </label>
+        <div class="col-sm-9">
+          <textarea
+            class="form-control topic-description-input"
+            name="topicDescription"
+            ng-model="topicDescription"
+            ng-maxlength="300"
+            autocorrect="off"
+            autocomplete="off">
+          </textarea>
+          <alert type="warning" class="profile-settings-body__alert" data-ng-if="topicRenameForm.topicDescription.$error.maxlength">
+            {{ '@input-max-length-error' | translate}}
+          </alert>
+        </div>
+      </div>
+    </div>
+
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>@btn-cancel</span></button>
     <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ '@btn-update-name' | translate }}"
-           ng-disabled="currentEntity.name == newTopicName || topicRenameForm.$invalid"/>
+           ng-disabled="hasValueChanged('name') && hasValueChanged('description') || topicRenameForm.$invalid"/>
   </div>
 </form>
 

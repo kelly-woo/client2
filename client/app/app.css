@@ -82,6 +82,7 @@ a:focus {
 }
 
 /* I don't know about user-select options for now. Do we really need this now? */
+.selectable,
 .email,
 p {
   -webkit-user-select: text;

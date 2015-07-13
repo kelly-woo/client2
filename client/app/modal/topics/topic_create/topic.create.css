@@ -1,12 +1,14 @@
-#create-entity-body {
-  padding-bottom: 0;
-  margin-bottom: -19px;
+.topic-create,
+.topic-rename {
+  padding-bottom: 3px;
 }
-#create-entity-body .modal-body__description {
+.topic-create .modal-body__description,
+.topic-rename .modal-body__description {
   margin: 0;
 }
 
-#create-entity-body .modal-body__description-help {
+.topic-create .modal-body__description-help,
+.topic-rename .modal-body__description-help {
   height: auto;
   margin-top: 10px;
 }
@@ -22,4 +24,15 @@
 }
 .entity-type-title:lang(en) {
   padding-right: 15px;
+}
+
+.topic-description-container .control-label {
+  padding-right: 0;
+}
+.topic-description-container .form-group {
+  margin-bottom: 0;
+}
+.topic-description-input {
+  resize: none !important;
+  height: 115px !important;
 }

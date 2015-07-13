@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -635,6 +635,7 @@ msgstr "The page you were looking for could not be found"
 msgid "@error-404-title"
 msgstr "Oops!"
 
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@file-action-more"
@@ -720,6 +721,7 @@ msgstr "You've exceeded the maximum character limit (60)"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit"
 
@@ -739,6 +741,16 @@ msgstr "Search users by name"
 #: client/app/right/search.messages/search.messages.html
 msgid "@input-to-search"
 msgstr "Please type in a keyword to search"
+
+#: client/app/modal/topics/topic_rename/topic.rename.html
+#, fuzzy
+msgid "@input-topic-description"
+msgstr ""
+"Direct Messages are private, one-on-one conversations between two members. "
+"Direct Messages will automatically appear when you receive a new message, or "
+"you can initiate a conversation by clicking + Add. You can also close and "
+"hide Direct Messages while preserving the message history until the "
+"conversation is restarted."
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
@@ -774,12 +786,6 @@ msgstr "Share from Dropbox"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-title-google-drive"
 msgstr "Share from Google Drive"
-
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-"The team invitation link has been copied to your clipboard. Use it to invite "
-"others to your team."
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
@@ -820,6 +826,12 @@ msgstr "+ More"
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-some-fail"
 msgstr "Some invitations could not be sent."
+
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"The team invitation link has been copied to your clipboard. Use it to invite "
+"others to your team."
 
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
@@ -966,6 +978,10 @@ msgstr "Never ask me again"
 msgid "@never-miss-a-message"
 msgstr "Never miss a message!"
 
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@no-topic-description"
+msgstr "(There is no topic description)"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@noti-banner-turn-on"
 msgstr "Turn on Desktop Notifications"
@@ -1060,6 +1076,15 @@ msgstr "Switch Teams"
 #: client/app/header/header.html
 msgid "@to-account-home"
 msgstr "Go to Account Home"
+
+#: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
+msgid "@topic-description"
+msgstr "Topic description"
+
+#: client/app/modal/topics/topic_create/topic.create.html
+msgid "@topic-description-placeholder"
+msgstr "Description (optional)"
 
 #: client/app/banner/desktop.notification.banner.html
 msgid "@turn-on-desktop-notification!"
