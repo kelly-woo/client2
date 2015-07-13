@@ -1,3 +1,7 @@
+/**
+ * @fileoverview topic desciprtion directive
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
