@@ -298,12 +298,13 @@
 
       log('topic left event');
 
-      if (isCurrentEntity) {
-        jndPubSub.pub('centerOnTopicLeave', data);
-        _updateCenterMessage();
-      }
-
-      _updateLeftPanelForOtherEntity(isCurrentEntity);
+      //if (isCurrentEntity) {
+      //  jndPubSub.pub('centerOnTopicLeave', data);
+      //  _updateCenterMessage();
+      //}
+      _updateCenterForCurrentEntity(isCurrentEntity);
+      _updateLeftPanel();
+      //_updateLeftPanelForOtherEntity(isCurrentEntity);
     }
 
     /**

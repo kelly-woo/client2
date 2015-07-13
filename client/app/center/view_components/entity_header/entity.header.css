@@ -1,0 +1,226 @@
+.hide-on-loading {
+  opacity: 0;
+}
+
+/* start of title */
+.panel-title-container {
+  position:relative;
+  height: 35px;
+  line-height: 35px;
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+  padding-left: 20px;
+  padding-right: 10px;
+  background-color: #f1f4f8;
+  border-bottom: 1px solid #e1e1e1;
+  -webkit-transitionDISABLED: .15s .2s ease-out;
+  -moz-transitionDISABLED: .15s .2s ease-out;
+  -o-transitionDISABLED: .15s .2s ease-out;
+  transitionDISABLED: .15s .2s ease-out;
+  -webkit-transitionDISABLED: .15s;
+  -moz-transitionDISABLED: .15s;
+  -o-transitionDISABLED: .15s;
+  transitionDISABLED: .15s;
+}
+.panel-title-info {
+  max-width: 73%;
+}
+.panel-title-info,
+.panel-title-member {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  height: inherit;
+  line-height: 35px;
+}
+.panel-title-info .star {
+  visibility:hidden;
+  color:#9e9ea6;
+  -moz-opacity:1;
+  -khtml-opacity:1;
+  -webkit-opacity:1;
+  opacity:1;
+  -ms-filter:alpha(opacity=100);
+  filter:alpha(opacity=100);
+  display:block;
+  position:absolute;
+  top:.8rem;
+  left:0px;
+  padding:.5rem;
+  text-shadow:none;
+  font-size:.8rem;
+}
+.panel-title-info:hover .star {
+  visibility:visible;
+}
+.panel-title-info .star:hover {
+  color:#fc0;
+}
+.panel-title-info .star.starred {
+  visibility:visible;
+  color:#fc0;
+  -moz-opacity:.5;
+  -khtml-opacity:.5;
+  -webkit-opacity:.5;
+  opacity:.5;
+  -ms-filter:alpha(opacity=50);
+  filter:alpha(opacity=50);
+}
+.panel-title-info:hover .star.starred{
+  visibility:visible;
+  -moz-opacity:1;
+  -khtml-opacity:1;
+  -webkit-opacity:1;
+  opacity:1;
+  -ms-filter:alpha(opacity=100);
+  filter:alpha(opacity=100);
+}
+.header-padding-for-prefix {
+}
+.panel-title-info-name-container {
+  color: #1d1d1d;
+
+  cursor:pointer;
+  display:inline-block;
+  height: inherit;
+}
+.prefix {
+  color:#9e9ea6;
+  padding-right:.1rem;
+  font-weight:500;
+  -webkit-transitionDISABLED:color .15s ease-out;
+  -moz-transitionDISABLED:color .15s ease-out;
+  -o-transitionDISABLED:color .15s ease-out;
+  transitionDISABLED:color .15s ease-out;
+  cursor:pointer;
+  margin-right: 3px;
+  font-size: 16px;
+}
+.prefix.star { margin-right: 0; padding-right: 5px; }
+.prefix .icon-star-fill { color: #f9bb00; }
+.panel-title-info__name {
+  width: 100%;
+  font-weight: 700;
+}
+.header-title-info__more {
+  color:#9e9ea6;
+  -webkit-transitionDISABLED:color .15s ease-out;
+  -moz-transitionDISABLED:color .15s ease-out;
+  -o-transitionDISABLED:color .15s ease-out;
+  transitionDISABLED:color .15s ease-out;
+  cursor:pointer;
+  line-height: inherit;
+  position: absolute;
+  right: 0;
+}
+.header-title-info__more:hover {
+  /*color: #000;*/
+}
+.header-title-info__dropdown {
+  right: 10px !important;
+}
+
+.panel-title-topic-description {
+  position: relative;
+  color: #366480;
+  font-size: 14px;
+}
+.panel-title-topic-description .fa-info-circle {
+  /*
+    :mouseenter, mouseleave event가 안 끊어지게끔하려는 의도.
+  */
+  padding-bottom: 12px;
+}
+
+.topic-description-dropdown {
+  width: 320px;
+  height: 240px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 6px #d1d1d1;
+  line-height: 1.5;
+}
+
+.panel-title-right-menu {
+  background-color: white;
+  border-radius: 5px;
+  margin: 7px 0;
+  height: 21px;
+  line-height: 0;
+}
+.absolute-right-tooltip{
+  left: auto !important;
+  right: 10px;
+}
+.panel-title-invite-tooltip.absolute-right-tooltip .tooltip-arrow {
+  left: auto !important;
+  right: 38px;
+}
+.panel-title-more-tooltip.absolute-right-tooltip .tooltip-arrow {
+  left: auto !important;
+  right: 8px;
+}
+
+.panel-title-right-menu__separator {
+  height: 100%;
+  width: 1px;
+  background-color: #d7e0e8;
+  display: inline-block;
+}
+.panel-title-member {
+  line-height: 0;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 5px;
+}
+
+.panel-title-member__more {
+  position: relative;
+  cursor: pointer;
+}
+.panel-title-member__more .icon-user {
+  font-size: 13px;
+  color: #154a67;
+}
+.panel-title-member__more .panel-title-member__count {
+  font-size: 14px;
+  color: #4b82a1;
+}
+.panel-title-member__more .icon-down {
+  font-size: 9px;
+  color: #154a67;
+}
+.panel-title-member__more:hover {
+  color: #333;
+}
+.header-title-member__dropdown {
+  max-height: 500px;
+  overflow-y: scroll;
+  top: 27px !important;
+  right: 0;
+  left: auto;
+}
+.panel-title-invite {
+  padding-top: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  color: #154a67;
+}
+
+
+.panel-title-right-menu__more {
+  margin-left: 5px;
+  padding-top: 3px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.panel-title-right-menu__more .icon-more {
+  font-size: 16px;
+  color: #154a67;
+}
+
+.header-title-info__dropdown {
+
+}

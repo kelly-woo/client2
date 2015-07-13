@@ -111,6 +111,8 @@
 
         _getAnnouncementStatus();
         _showAnnouncement();
+      } else {
+        //console.log('no announcement')
       }
     }
 
@@ -343,6 +345,7 @@
      * @private
      */
     function _onScopeDestroy() {
+      $scope.hasAnnouncement = false;
       _detachWindowEvent();
     }
 
@@ -399,10 +402,12 @@
      * @private
      */
     function _updateMemberProfile(event, data) {
-      if (data.member.id === _announcement.writerId) {
-        _updateActionOwner($scope.announcementWriter, data.member);
-      } else if (data.member.id === _announcement.creatorId) {
-        _updateActionOwner($scope.announcementCreator, data.member);
+      if ($scope.hasAnnouncement) {
+        if (data.member.id === _announcement.writerId) {
+          _updateActionOwner($scope.announcementWriter, data.member);
+        } else if (data.member.id === _announcement.creatorId) {
+          _updateActionOwner($scope.announcementCreator, data.member);
+        }
       }
     }
 

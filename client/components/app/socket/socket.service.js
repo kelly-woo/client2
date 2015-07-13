@@ -430,6 +430,7 @@
         jndWebSocketHelper.socketEventLogger(messageType, data, false);
         jndWebSocketHelper.messageEventFileCommentHandler(data);
       } else if (messageType === MESSAGE_TOPIC_LEAVE) {
+        jndWebSocketHelper.socketEventLogger(messageType, data, false);
         jndWebSocketHelper.messageEventTopicLeaveHandler(data);
       } else if (messageType === MESSAGE_TOPIC_JOIN && currentSessionHelper.getDefaultTopicId() === data.room.id) {
         // Someone joined 'default topic' -> new member just joined team!!

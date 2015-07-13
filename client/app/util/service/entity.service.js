@@ -8,9 +8,6 @@
   /* @ngInject */
   function entityAPIservice($rootScope, EntityMapManager, $state, $window, storageAPIservice, jndPubSub,
                             currentSessionHelper, pcAppHelper) {
-    var memberEntityIdMap = {};
-    var totalEntitiesMap = {};
-
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityFromListById: getEntityFromListById,
@@ -29,7 +26,8 @@
       isOwner: isOwner,
       getEntityByEntityId: getEntityByEntityId,
       extend: extend,
-      isJoinedTopic: isJoinedTopic
+      isJoinedTopic: isJoinedTopic,
+      getMemberList: getMemberList
     };
 
     return service;
@@ -264,23 +262,6 @@
     }
 
     /**
-     * (entityId: entity) pair 를 memberEntityIdMap 에 추가한다.
-     * @param {string|number} entityId - key 로 쓰일 entityId
-     * @param {object} entity - value 로 쓰일 member entity
-     */
-    function addToMemberEntityIdMap(entityId, entity) {
-      entityId = _parseInt(entityId);
-      memberEntityIdMap[entityId] = entity;
-    }
-
-    /**
-     * memberEntityIdMap 를 초기화한다.
-     */
-    function resetMemberEntityIdMap() {
-      memberEntityIdMap = {};
-    }
-
-    /**
      * parseInt 를 해주는 wrapper function.
      * @param number
      * @returns {Number|*}
@@ -290,21 +271,27 @@
       return parseInt(number, 10);
     }
 
-
-    function addToTotalEntitiesMap(entity) {
-      totalEntitiesMap[_parseInt(entity.id)] = entity;
-    }
-
     function extend(target, source) {
       source.type = source.type.toLowerCase() + 's';
       _.extend(target, source);
     }
 
     function isJoinedTopic(entity) {
-
       return !( _.isUndefined(EntityMapManager.get('joined', entity.id) &&
                 _.isUndefined(EntityMapManager.get('private', entity.id))));
+    }
 
+    /**
+     * entity의 type에따라 맞는 member array를 넘겨준다.
+     * @param entity
+     * @returns {array} memberList
+     */
+    function getMemberList(entity) {
+      if (entity.type === 'channels') {
+        return entity.ch_members;
+      } else {
+        return entity.pg_members;
+      }
     }
   }
 })();

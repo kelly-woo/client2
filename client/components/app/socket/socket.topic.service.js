@@ -61,6 +61,7 @@
 
     function _updateLeftPanel() {
       jndPubSub.updateLeftPanel();
+      jndPubSub.onChangeShared();
     }
   }
 })();

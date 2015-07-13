@@ -10,7 +10,8 @@
       restrict: 'EA',
       controller: 'entityHeaderCtrl',
       templateUrl: 'app/center/view_components/entity_header/entity.header.html',
-      link: link
+      link: link,
+      scope: {}
 
     };
 
