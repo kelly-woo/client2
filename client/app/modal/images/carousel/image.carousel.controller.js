@@ -15,6 +15,9 @@
   function imageCarouselCtrl($scope, $templateRequest, $state, $filter, modalHelper, ImageCarousel, data) {
     $scope.onload = onload;
 
+    /**
+     * image carousel modal의 dom load callback
+     */
     function onload() {
       $scope.hasNext = false;
       $scope.hasPrev = false;
@@ -30,10 +33,19 @@
     }
 
     $scope.close = close;
+
+    /**
+     * modal close
+     */
     function close() {
       modalHelper.closeModal();
     }
 
+    /**
+     * image caoursel 설정
+     * @param {string} imageItemTemplate - image item template
+     * @private
+     */
     function _setImageCarousel(imageItemTemplate) {
       ImageCarousel.init({
           userName: data.userName,
@@ -43,19 +55,17 @@
         },
         {
           imageItemTemplate: imageItemTemplate,
-
           messageId: data.messageId,
-
           entityId: data.entityId,
           writerId: data.writerId,
           keyword: data.keyword,
-
           // server api
           getImage: data.getImage,
-
+          // image carousel close callback
           onClose: function() {
             $scope.close();
           },
+          // image item render callback
           onRender: function($itemScope, messageId, data) {
             $itemScope.messageId = messageId;
 
@@ -72,6 +82,7 @@
               $state.go('messages.detail.files.redirect', {itemId: messageId + '', userName: userName});
             };
           },
+          // image carousel button status callback
           onButtonStatus: function(status) {
             // 즉각 처리위해 class 수정
             var jqPrevBtn = $('#viewer_prev_btn');
