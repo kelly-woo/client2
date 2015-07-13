@@ -136,7 +136,12 @@
 .panel-title-topic-description {
   position: relative;
   color: #366480;
-  font-size: 14px;
+  font-size: 15px;
+  opacity: 0.7;
+  padding-left: 2px;
+}
+.panel-title-topic-description:hover {
+  opacity: 1;
 }
 .panel-title-topic-description .fa-info-circle {
   /*
@@ -157,9 +162,15 @@
 .panel-title-right-menu {
   background-color: white;
   border-radius: 5px;
-  margin: 7px 0;
-  height: 21px;
+  margin: 5px 0;
+  height: 25px;
   line-height: 0;
+}
+.panel-title-right-menu__item:hover {
+  background-color: #d7e0e8;
+}
+.panel-title-right-menu__item:active {
+  background-color: #d7e0e8;
 }
 .absolute-right-tooltip{
   left: auto !important;
@@ -182,9 +193,13 @@
 }
 .panel-title-member {
   line-height: 0;
-  padding-top: 5px;
-  padding-left: 10px;
-  padding-right: 5px;
+
+  padding-top: 6px;
+  padding-left: 12px;
+  padding-right: 7px;
+
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .panel-title-member__more {
@@ -192,12 +207,14 @@
   cursor: pointer;
 }
 .panel-title-member__more .icon-user {
-  font-size: 13px;
+  font-size: 14px;
   color: #154a67;
 }
 .panel-title-member__more .panel-title-member__count {
-  font-size: 14px;
+  font-size: 15px;
   color: #4b82a1;
+  font-weight: 500;
+  margin-left: -2px;
 }
 .panel-title-member__more .icon-down {
   font-size: 9px;
@@ -214,10 +231,18 @@
   left: auto;
 }
 .panel-title-invite {
-  padding-top: 5px;
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-top: 4px;
+  padding-right: 9px;
+  padding-left: 9px;
+
   color: #154a67;
+
+  font-size: 18px;
+
+  height: 100%;
+
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 
@@ -228,7 +253,7 @@
   padding-left: 5px;
 }
 .panel-title-right-menu__more .icon-more {
-  font-size: 16px;
+  font-size: 19px;
   color: #154a67;
 }
 

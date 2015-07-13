@@ -115,7 +115,7 @@
   <!-- RIGHT MENU -->
   <span class="panel-title-right-menu pull-right" ng-if="!isUserType">
 
-    <span class="panel-title-member pull-left" dropdown>
+    <span class="panel-title-member panel-title-right-menu__item pull-left" dropdown>
       <span class="dropdown-toggle panel-title-member__more" dropdown-toggle>
         <i class="icon icon-user"></i>
         <span class="panel-title-member__count">{{currentEntity.members.length}}</span>
@@ -138,7 +138,7 @@
 
     <span class="panel-title-right-menu__separator"></span>
 
-    <span class="panel-title-invite icon-invite-fill pull-right cursor_pointer"
+    <span class="panel-title-invite panel-title-right-menu__item icon-invite-fill pull-right cursor_pointer"
           tooltip="{{'@ch-menu-invite' | translate}}"
           tooltip-placement="bottom" tooltip-append-to-body="false"
           tooltip-class="panel-title-invite-tooltip absolute-right-tooltip"
