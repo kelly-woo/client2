@@ -26,6 +26,9 @@
   padding-right: 15px;
 }
 
+.topic-description-container .control-label {
+  padding-right: 0;
+}
 .topic-description-container .form-group {
   margin-bottom: 0;
 }
