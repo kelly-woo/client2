@@ -146,8 +146,8 @@
 .panel-title-right-menu {
   background-color: white;
   border-radius: 5px;
-  margin: 7px 0;
-  height: 21px;
+  margin: 5px 0;
+  height: 25px;
   line-height: 0;
 }
 .absolute-right-tooltip{
@@ -171,9 +171,9 @@
 }
 .panel-title-member {
   line-height: 0;
-  padding-top: 5px;
-  padding-left: 10px;
-  padding-right: 5px;
+  padding-top: 6px;
+  padding-left: 12px;
+  padding-right: 7px;
 }
 
 .panel-title-member__more {
@@ -181,12 +181,14 @@
   cursor: pointer;
 }
 .panel-title-member__more .icon-user {
-  font-size: 13px;
+  font-size: 14px;
   color: #154a67;
 }
 .panel-title-member__more .panel-title-member__count {
-  font-size: 14px;
+  font-size: 15px;
   color: #4b82a1;
+  font-weight: 500;
+  margin-left: -2px;
 }
 .panel-title-member__more .icon-down {
   font-size: 9px;
@@ -203,10 +205,11 @@
   left: auto;
 }
 .panel-title-invite {
-  padding-top: 5px;
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-top: 4px;
+  padding-right: 9px;
+  padding-left: 9px;
   color: #154a67;
+  font-size: 18px;
 }
 
 
@@ -217,7 +220,7 @@
   padding-left: 5px;
 }
 .panel-title-right-menu__more .icon-more {
-  font-size: 16px;
+  font-size: 19px;
   color: #154a67;
 }
 
