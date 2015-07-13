@@ -11,9 +11,7 @@
   function tutorialTutor() {
     return {
       link: link,
-      scope: {
-        options: '=options'
-      },
+      scope: false,
       replace: true,
       templateUrl: 'app/tutorial/popup/view_components/tutor/tutorial.tutor.html',
       controller: 'tutorialTutorCtrl',

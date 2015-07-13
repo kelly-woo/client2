@@ -4,31 +4,6 @@ var app = angular.module('jandiApp');
 
 app.config(function ($stateProvider) {
   $stateProvider
-    .state('tutorial', {
-      url         : '/tutorial',
-      templateUrl : 'app/tutorial/popup/tutorial.main.html',
-      controller  : 'tutorialMainCtrl'
-    })
-    .state('tutorial.team', {
-      abstract: true,
-      url: '/team',
-      template: '<ui-view/>'
-    })
-    .state('tutorial.team.invitation', {
-      url         : '/invitation',
-      templateUrl : 'app/tutorial/popup/view_components/lecture/team/invitation/lecture.team.invitation.html',
-      controller  : 'lectureTeamInvitationCtrl'
-    })
-    .state('tutorial.topic', {
-      abstract: true,
-      url: '/topic',
-      template: '<ui-view/>'
-    })
-    .state('tutorial.topic.create', {
-      url: '/create',
-      templateUrl: 'app/tutorial/popup/view_components/lecture/topic/create/lecture.topic.create.html',
-      controller: 'lectureTopicCreateCtrl'
-    })
     .state('signin', {
       url         : '/',
       title       : 'Sign In',
@@ -117,6 +92,36 @@ app.config(function ($stateProvider) {
       url         : '/mobile',
       templateUrl : 'app/mobile/mobile.catcher.html',
       controller  : 'mobileCatcherController'
+    })
+    .state('tutorial', {
+      url         : '/tutorial',
+      templateUrl : 'app/tutorial/popup/tutorial.main.html',
+      controller  : 'tutorialMainCtrl'
+    })
+    .state('tutorial.team', {
+      abstract: true,
+      url: '/team',
+      template: '<ui-view/>'
+    })
+    .state('tutorial.team.invitation', {
+      url         : '/invitation',
+      templateUrl : 'app/tutorial/popup/view_components/lecture/team/invitation/lecture.team.invitation.html',
+      controller  : 'lectureTeamInvitationCtrl'
+    })
+    .state('tutorial.topic', {
+      abstract: true,
+      url: '/topic',
+      template: '<ui-view/>'
+    })
+    .state('tutorial.topic.create', {
+      url: '/create',
+      templateUrl: 'app/tutorial/popup/view_components/lecture/topic/create/lecture.topic.create.html',
+      controller: 'lectureTopicCreateCtrl'
+    })
+    .state('tutorial.topic.join', {
+      url: '/join',
+      templateUrl: 'app/tutorial/popup/view_components/lecture/topic/join/lecture.topic.join.html',
+      controller: 'lectureTopicJoinCtrl'
     })
     .state('503', {
       url         : '/gongsajung',

@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialTutorCtrl', function ($scope, $rootScope, jndPubSub) {
+  app.controller('tutorialTutorCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
     $scope.onClickNext = onClickNext;
     $scope.onClickSkip = onClickSkip;
 
@@ -18,7 +18,7 @@
      * @private
      */
     function _init() {
-
+      $scope.options = TutorialTutor.get();
     }
 
     /**

@@ -1,2 +1,12 @@
-<div class="tutorial_dimm full">
+<div>
+  <div class="tutorial_dimm"
+       ng-class="{
+        'topic_list': step === 0,
+        'topic_add': step === 1,
+        'full': step === 2,
+        'center': step === 3
+      }">
+  </div>
+  <tutorial-modal-topic-create
+      ng-if="step === 2"></tutorial-modal-topic-create>
 </div>

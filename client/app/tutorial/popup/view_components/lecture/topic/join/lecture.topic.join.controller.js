@@ -7,8 +7,8 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureTopicCreateCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
-    var TOTAL_STEP = 4;
+  app.controller('lectureTopicJoinCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
+    var TOTAL_STEP = 2;
 
     _init();
 
@@ -22,7 +22,7 @@
         top: 200,
         left: 300,
         hasSkip: false,
-        title: '토픽 생성',
+        title: '토픽 조인',
         content: 'step 0'
       });
       _attachEvents();
@@ -55,8 +55,6 @@
       } else {
         $scope.step++;
         TutorialTutor.set({
-          top: TutorialTutor.get('top') - 10,
-          left: TutorialTutor.get('left') - 10,
           content: 'step' + $scope.step
         });
 

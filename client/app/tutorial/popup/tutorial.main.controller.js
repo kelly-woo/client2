@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state) {
+  app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, TutorialTutor) {
     var _topicList;
     var _dmList;
     var _lectureList;
@@ -26,7 +26,7 @@
 
       $scope.topicList = _topicList;
       $scope.dmList = _dmList;
-
+      $scope.tutor = TutorialTutor.get();
       $rootScope.isReady = true;
     }
 

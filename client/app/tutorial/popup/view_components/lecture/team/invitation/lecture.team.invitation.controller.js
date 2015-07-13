@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 팀 초대 컨트롤러
+ * @fileoverview 튜토리얼 팀 초대
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -7,11 +7,8 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, jndPubSub) {
-    var _layer;
+  app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
     var TOTAL_STEP = 4;
-    $scope.step = 0;
-
     _init();
 
     /**
@@ -19,13 +16,14 @@
      * @private
      */
     function _init() {
-      $scope.$parent.$parent.tutor = {
+      $scope.step = 0;
+      TutorialTutor.set({
         top: 200,
         left: 300,
         hasSkip: false,
-        title: 'Welcome start',
-        content: 'welcome to jandi'
-      };
+        title: '팀 초대',
+        content: 'step 0'
+      });
       _attachEvents();
     }
 
@@ -55,6 +53,12 @@
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         $scope.step++;
+        TutorialTutor.set({
+          top: TutorialTutor.get('top') + 10,
+          left: TutorialTutor.get('left') + 10,
+          content: 'step' + $scope.step
+        });
+
       }
     }
   });

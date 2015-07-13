@@ -6,9 +6,9 @@
 
   angular
     .module('jandiApp')
-    .directive('tutorialModalTopicCreate', tutorialModalTopicCreate);
+    .directive('tutorialModalTopicList', tutorialModalTopicList);
 
-  function tutorialModalTopicCreate() {
+  function tutorialModalTopicList() {
     return {
       link: link,
       scope: {
@@ -20,7 +20,7 @@
         content: '='
       },
       replace: true,
-      templateUrl: 'app/tutorial/popup/modal/tutorial.modal.topic.create.html',
+      templateUrl: 'app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.html',
       restrict: 'E'
     };
 

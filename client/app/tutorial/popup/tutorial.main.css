@@ -5,27 +5,29 @@ div.tutorial_bg {
   left: 0;
   right: 0;
   background-image: url("../../../assets/images/tutorial/background/ss_bg_00.jpg");
+  background-repeat: no-repeat;
 }
 
 .tutorial_modal {
   position:absolute;
-  z-index: 5;
+  z-index: 10;
 }
 
 .tutorial_dimm {
-  z-index: 1;
+  z-index: 5;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  background-repeat: no-repeat;
 }
 
 .tutorial_dimm.full {
   background: black;
   opacity: 0.6;
 }
-.tutorial_dimm.team {
+.tutorial_dimm.team_name {
   background-image: url("../../../assets/images/tutorial/dimm/1-1.png");
 }
 
@@ -47,4 +49,8 @@ div.tutorial_bg {
 
 .tutorial_dimm.topic_join {
   background-image: url("../../../assets/images/tutorial/dimm/3-1.png");
+}
+
+.tutorial_dimm.topic_join_modal {
+  background-image: url("../../../assets/images/tutorial/dimm/3-2.png");
 }
