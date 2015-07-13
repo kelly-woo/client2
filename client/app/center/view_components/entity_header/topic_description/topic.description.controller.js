@@ -1,3 +1,7 @@
+/**
+ * @fileoverview topic description창의 controller
+ * @author JiHoon Kim <jihoonk@tosslab.com>
+ */
 (function(){
   'use strict';
 
