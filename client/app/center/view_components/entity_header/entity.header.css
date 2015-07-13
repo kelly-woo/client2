@@ -125,7 +125,12 @@
 .panel-title-topic-description {
   position: relative;
   color: #366480;
-  font-size: 14px;
+  font-size: 15px;
+  opacity: 0.7;
+  padding-left: 2px;
+}
+.panel-title-topic-description:hover {
+  opacity: 1;
 }
 .panel-title-topic-description .fa-info-circle {
   /*
