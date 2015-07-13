@@ -1,6 +1,4 @@
 <div ng-if="isConnected" class="panel-title-container non-selectable" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}">
-  <div class="hid-on-loading">
-
   <!--    STAR ICON -->
   <span class="prefix star" ng-click="onStarClick();">
     <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
@@ -15,7 +13,7 @@
 
   <!--    TITLE   -->
   <span class="panel-title-info panel-title-info-name-container ng-binding dropdown-toggle header-padding-for-prefix"
-    ng-click="onEntityTitleClicked();">
+        ng-click="onEntityTitleClicked();">
     <span class="inline-overflow-ellipsis panel-title-info__name">
       {{currentEntity | getName}}
     </span>
@@ -29,8 +27,8 @@
   <!-- MORE OPTIONS -->
   <span class="panel-title-right-menu panel-title-right-menu__more pull-right cursor_pointer" dropdown>
     <i class="icon-more" dropdown-toggle
-        tooltip="{{'@file-action-more' | translate}}" tooltip-placement="bottom"
-        tooltip-class="panel-title-more-tooltip absolute-right-tooltip"></i>
+       tooltip="{{'@file-action-more' | translate}}" tooltip-placement="bottom"
+       tooltip-class="panel-title-more-tooltip absolute-right-tooltip"></i>
 
     <!--  TOPICS  -->
     <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" ng-if="!isUserType">
@@ -127,12 +125,12 @@
       <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
         <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.members track by userId">
           <a ng-if="userId == member.id" ng-click="openMemberModal(member);">
-            <i class="icon-user"></i>
+            <img ng-src="member | getSmallThumbnail">
             {{member | getName}}
           </a>
           <a ng-if="userId != member.id" ng-click="openMemberModal(userId);">
-            <i class="icon-user"></i>
-            {{::userId | getName}}
+            <img class="header-title-member__dropdown__thumb" ng-src="{{::userId | getSmallThumbnail}}"/>
+              {{::userId | getName}}
           </a>
         </li>
       </ul>
@@ -150,7 +148,6 @@
 
   </span>
 
-  </div>
 
   <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledMember(currentEntity);">
     <img src="assets/images/icon-disabled-members-alert.png"/>

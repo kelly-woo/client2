@@ -121,7 +121,16 @@
 .header-title-info__dropdown {
   right: 10px !important;
 }
-
+.header-title-member__dropdown > li > a {
+  /*padding: 0 !important;*/
+}
+.header-title-member__dropdown__thumb {
+  border-radius: 100%;
+  position: absolute;
+  top: 6px;
+  left: 0.5rem;
+  width: 1.5rem;
+}
 .panel-title-topic-description {
   position: relative;
   color: #366480;
