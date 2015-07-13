@@ -237,38 +237,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function onImageClick() {
     var content = $scope.file_detail.content;
-    var fileRequest;
 
     if (integrationPreviewMap[content.serverUrl]) {
       window.open(content.fileUrl, '_blank');
     } else {
       modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
-
-      // file list에서는 image carousel 사용하지 않으므로 주석 처리함
-      // fileRequest = fileAPIservice.tempFileRequest || {};
-
-      // // roomId가 -1일때 해당 값은 사용하지 않음.
-      // fileRequest.roomId == -1 && delete fileRequest.roomId;
-
-      // // writerId가 all일때 해당 값은 사용하지 않음.
-      // fileRequest.writerId === 'all' && delete fileRequest.writerId;
-
-      // modalHelper.openImageCarouselModal({
-      //   // server api
-      //   getImage: fileAPIservice.getImageList,
-
-      //   // image file api data
-      //   messageId: $scope.file_detail.id,
-      //   roomId: fileRequest.sharedEntityId,
-      //   writerId: fileRequest.writerId,
-      //   keyword: fileRequest.keyword,
-
-      //   // image carousel view data
-      //   userName: $scope.file_detail.writer.name,
-      //   uploadDate: $scope.file_detail.createTime,
-      //   fileTitle: $scope.file_detail.content.title,
-      //   fileUrl: $scope.file_detail.content.fileUrl
-      // });
     }
   }
 

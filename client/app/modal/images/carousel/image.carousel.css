@@ -48,8 +48,8 @@
 .viewer-header .options>div {
   padding-top: 13px;
 }
-.image-item-footer .info,
-.viewer-header .info {
+.image-item-footer .info
+{
   height: 40px;
   padding-left: 30px;
   overflow: hidden;
@@ -60,11 +60,17 @@
 
   margin: 0;
 
+  cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 13px;
   font-weight: 600;
+  color: #fff;
+}
+
+.image-item-footer .info .title a,
+.image-item-footer .info .title a:hover{
   color: #fff;
 }
 
@@ -155,6 +161,7 @@
   -o-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
+
 .viewer-body .image-item {
   position: absolute;
   top: 50%;
@@ -162,15 +169,15 @@
   min-height: 400px;
   min-width: 400px;
 
-  /* canvas layout 깨짐*/
-  /*line-height: 400px;*/
-
   margin-top: -200px;
   margin-left: -200px;
 
   text-align: center;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .3);
   background-color: rgba(54, 59, 65, .6);
+}
+.viewer-body .image-item.no-image-carousel {
+  line-height: 400px;
 }
 .viewer-body .image-item .image-item-footer {
   position: absolute;

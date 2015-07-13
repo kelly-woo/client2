@@ -163,7 +163,7 @@
 
         // image file api data
         messageId: message.id,
-        roomId: $scope.currentEntity.id,
+        entityId: $scope.currentEntity.entityId || $scope.currentEntity.id,
         // image carousel view data
         userName: message.writer.name,
         uploadDate: message.createTime,

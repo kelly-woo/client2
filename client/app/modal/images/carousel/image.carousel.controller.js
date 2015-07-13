@@ -8,11 +8,11 @@
     .module('jandiApp')
     .controller('ImageCarouselCtrl', imageCarouselCtrl);
 
-  /* @ngInject */
-  function imageCarouselCtrl($scope, $templateRequest, $filter, modalHelper, ImageCarousel, data) {
-    var templateUrl = 'app/modal/images/carousel/image.carousel.content.html';
-    var imageCarouselTemplate;
+  var templateUrl = 'app/modal/images/carousel/image.carousel.content.html';
+  var imageCarouselTemplate;
 
+  /* @ngInject */
+  function imageCarouselCtrl($scope, $templateRequest, $state, $filter, modalHelper, ImageCarousel, data) {
     $scope.onload = onload;
 
     function onload() {
@@ -46,21 +46,31 @@
 
           messageId: data.messageId,
 
-          roomId: data.roomId,
+          entityId: data.entityId,
           writerId: data.writerId,
           keyword: data.keyword,
 
           // server api
           getImage: data.getImage,
 
-          onHide: function() {
+          onClose: function() {
             $scope.close();
           },
-          onRender: function($itemScope, data) {
+          onRender: function($itemScope, messageId, data) {
+            $itemScope.messageId = messageId;
+
             $itemScope.userName = data.userName;
             $itemScope.uploadDate = $filter('getyyyyMMddformat')(data.uploadDate);
             $itemScope.fileTitle = data.fileTitle;
             $itemScope.fileUrl = data.fileUrl;
+
+            // fileDetail 수행
+            $itemScope.fileDetail = function(messageId, userName) {
+              // ImageCarousel 닫고 fileDetail 열기
+
+              ImageCarousel.close();
+              $state.go('messages.detail.files.redirect', {itemId: messageId + '', userName: userName});
+            };
           },
           onButtonStatus: function(status) {
             // 즉각 처리위해 class 수정
