@@ -22,11 +22,7 @@
 
       element
         .on('dragenter', function(event) {
-          console.log('drag enter ::: ', dragging,  event.target.className);
-          if (Browser.firefox && event.target.className.indexOf('msgs-inner__border') > -1) {
-            dragging--;
-          }
-
+          Browser.firefox && event.target.className.indexOf('msgs-inner__border') > -1 && dragging--;
           dragging++;
           element.addClass('dnd-hover');
         })
@@ -34,7 +30,6 @@
           element.addClass('dnd-hover');
         })
         .on('dragleave', function() {
-          console.log('drag leave ::: ', dragging);
           dragging--;
           if (dragging <= 0) {
             element.removeClass('dnd-hover');
@@ -43,9 +38,6 @@
         .on('drop', function() {
           dragging = 0;
           element.removeClass('dnd-hover');
-        })
-        .on('dragend', function() {
-          console.log('dragend ::: ');
         });
     }
   }
