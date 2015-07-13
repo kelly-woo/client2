@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
-  function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter,
+  function TopicInviteCtrl($scope, $rootScope, $modalInstance, currentSessionHelper, entityheaderAPIservice, $state, $filter,
                                  entityAPIservice, analyticsService, modalHelper, AnalyticsHelper) {
     InitInvite();
 
@@ -13,6 +13,7 @@
      Generating list of users that are not in current channel or private group.
      */
     function InitInvite() {
+      $scope.currentEntity = currentSessionHelper.getCurrentEntity();
       var members = entityAPIservice.getMemberList($scope.currentEntity);
       var totalUserList = $scope.memberList;
       var msg1;

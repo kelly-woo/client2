@@ -618,9 +618,14 @@ app.controller('leftPanelController1', function(
    * @param {object} topicEntity - 클릭한 토픽 entity
    */
   function onTopicClicked(topicEntity) {
+    var _currentEntity;
     var entityType = topicEntity.type;
     var entityId = topicEntity.id;
-    var _currentEntity = currentSessionHelper.getCurrentEntity();
+
+
+    jndPubSub.pub('changeEntityHeaderTitle', topicEntity);
+
+    _currentEntity = currentSessionHelper.getCurrentEntity();
 
     if (NetInterceptor.isConnected()) {
       topicEntity.alarmCnt = '';

@@ -13,6 +13,10 @@
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state) {
 
+    console.log('');
+    console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
+    console.log('');
+
 
     var _entityId = $state.params.entityId;
     var _entityType = $state.params.entityType;
@@ -38,6 +42,8 @@
 
 
     (function() {
+      console.log('ENTITYHEADER:: enter');
+
       _initWithParam(_currentEntity);
       _attachEventListeners();
     })();
@@ -50,6 +56,7 @@
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
       $scope.$on('onCurrentEntityChanged', function(event, param) {
+        console.log('ENTITYHEADER:: onCurrentEntityChanged');
         if (_currentEntity !== param) {
           _initWithParam(param);
         }
@@ -58,6 +65,8 @@
 
     function _initWithParam(param) {
       if (!!param) {
+        console.log('ENTITYHEADER:: _initWithParam');
+
         _checkCurrentEntity(param);
         _checkOwnership();
         _checkIfDefaultTopic();
@@ -276,5 +285,13 @@
       $scope.isConnected = false;
     }
 
+    $scope.$on('$destroy', function() {
+      console.log('ENTITYHEADER:: destroy')
+    });
+
+    $scope.$on('changeEntityHeaderTitle', function(event, param) {
+      console.log('chaning', param)
+      $scope.currentEntity = param;
+    });
   }
 })();

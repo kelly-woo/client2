@@ -6,7 +6,7 @@
     .service('Router', Router);
 
   /* @ngInject */
-  function Router($state, entityAPIservice, currentSessionHelper, $rootScope) {
+  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, jndPubSub) {
 
     this.onStateChangeStart = onStateChangeStart;
     this.onRouteChangeError = onRouteChangeError;
@@ -46,6 +46,7 @@
         console.info("=========================================================================");
 
         console.log('onStateChangeStart')
+
         if (currentSessionHelper.isMobile && toState.name != 'mobile') {
           if (toState.name == "password") {
             return;
@@ -116,7 +117,6 @@
             // Direct user to default channel.
             if (!lastState || angular.isUndefined(entityAPIservice.getEntityById(lastState.entityType, lastState.entityId))) {
               entityAPIservice.removeLastEntityState();
-              console.log('me?')
               $rootScope.toDefault = true;
               return;
             }

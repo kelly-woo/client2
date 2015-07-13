@@ -49,7 +49,11 @@
     </div>
   </aside>
 
-  <div ui-view="centerpanel" class="cpanel" id="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>
+  <div class="cpanel" id="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}">
+    <entity-header></entity-header>
+    <div ui-view="centerpanel"></div>
+  </div>
+  <!--<div ui-view="centerpanel" class="cpanel" id="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>-->
 
 </div>
 
