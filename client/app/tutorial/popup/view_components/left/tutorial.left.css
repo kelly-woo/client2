@@ -1,14 +1,25 @@
 .tutorial_left {
-  border: 1px solid black;
   position: absolute;
-  top: 170px;
+  top:128px;
+  width: 237px;
+  height: 100%;
 }
-.tutorial_left_topic {
 
+.tutorial_left_topic {
+  float: left;
+  position: relative !important;
+  min-height: 100px;
+  width: 237px;
+  clear: both;
+  top: auto;
 }
 
 .tutorial_left_dm {
-  border: 1px solid black;
-  position: absolute;
-  top: 325px;
+  float: left;
+  position: relative !important;
+  min-height: 100px;
+  height: 300px;
+  width: 237px;
+  top: auto;
 }
+

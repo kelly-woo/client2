@@ -6,8 +6,8 @@
 }
 
 .tutorial_tutor_header {
-
 }
+
 .tutorial_tutor_charactor {
   float: left;
   margin-left: 27px;
@@ -28,10 +28,12 @@
   border: 1px solid #cbcbcb;
   box-shadow: 0 0 3px #cbcbcb;
 }
+
 .tutorial_tutor_body > div {
   padding-left: 16px;
   padding-right:16px;
 }
+
 .tutorial_tutor_body_subject {
   margin-top: 16px;
   font-size: 20px;

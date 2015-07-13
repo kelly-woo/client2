@@ -1,19 +1,48 @@
 <div class="tutorial_left">
-  <div class="tutorial_left_topic">
-    <li class="cursor_pointer ng-scope" ng-repeat="topic in topicList">
-      <a data-channel-id="11156828" class="ng-binding">
-        <i class="icon-star left-star icon-star-fill"></i>
-        <span class="inline-overflow-ellipsis left-panel__name ng-binding" >{{ topic.name }}</span>
-      </a>
-    </li>
+
+  <!-- TOPIC LIST -->
+  <div class="lpanel-list tutorial_left_topic">
+    <!--    HEADER  -->
+    <div class="lpanel-list__header cursor_pointer">
+      <i class="fa lpanel-collapse-arrow fa-caret-down"></i>
+      <i class="lpanel-list-left icon-topic-fill"></i>
+      <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-topics</span>
+      <div class="lpanel-list-option pull-right">
+        <i class="icon-add"></i>
+      </div>
+      <div class="lpanel-list-option pull-right">
+        <i class="icon-list"></i>
+      </div>
+    </div>
+    <!-- BODY -->
+    <ul class="in">
+      <li class="cursor_pointer" ng-repeat="topic in topicList">
+        <a>
+          <i class="icon-star left-star icon-star-fill"></i>
+          <span class="inline-overflow-ellipsis left-panel__name" >{{ topic.name }}</span>
+        </a>
+      </li>
+    </ul>
   </div>
 
-  <div class="tutorial_left_dm">
-    <li class="cursor_pointer ng-scope" ng-repeat="dm in dmList">
-      <a data-channel-id="11156828" class="ng-binding">
-        <i class="icon-star left-star icon-star-fill"></i>
-        <span class="inline-overflow-ellipsis left-panel__name ng-binding" >{{ dm.name }}</span>
-      </a>
-    </li>
+  <div class="lpanel-list lpanel-list__users tutorial_left_dm">
+    <!-- HEADER -->
+    <div class="lpanel-list__header cursor_pointer">
+      <i class="fa lpanel-collapse-arrow fa-caret-down"></i>
+
+      <i class="lpanel-list-left icon-user"></i>
+      <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-direct-messages</span>
+      <div class="lpanel-list-option pull-right">
+        <i class="icon-add"></i>
+      </div>
+    </div>
+    <ul class="in">
+      <li class="cursor_pointer" ng-repeat="dm in dmList">
+        <a>
+          <i class="icon-star left-star icon-star-fill"></i>
+          <span class="inline-overflow-ellipsis left-panel__name" >{{ dm.name }}</span>
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
