@@ -9,9 +9,9 @@
     .controller('ImageCarouselCtrl', imageCarouselCtrl);
 
   /* @ngInject */
-  function imageCarouselCtrl($scope, $templateRequest, $templateCache, $filter, modalHelper, ImageCarousel, data) {
+  function imageCarouselCtrl($scope, $templateRequest, $filter, modalHelper, ImageCarousel, data) {
     var templateUrl = 'app/modal/images/carousel/image.carousel.content.html';
-    var template;
+    var imageCarouselTemplate;
 
     $scope.onload = onload;
 
@@ -19,12 +19,12 @@
       $scope.hasNext = false;
       $scope.hasPrev = false;
 
-      if (template = $templateCache.get(templateUrl)) {
-        _setImageCarousel(template[1]);
+      if (imageCarouselTemplate) {
+        _setImageCarousel(imageCarouselTemplate);
       } else {
         $templateRequest(templateUrl)
           .then(function(template) {
-            _setImageCarousel(template);
+            _setImageCarousel(imageCarouselTemplate = template);
           });
       }
     }

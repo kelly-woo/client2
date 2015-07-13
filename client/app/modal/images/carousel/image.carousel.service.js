@@ -254,7 +254,6 @@
       }
 
       jqImageItem.css({marginLeft: marginLeft, marginTop: marginTop, minWidth: minWidth, minHeight: minHeight, lineHeight: lineHeight});
-      //img.css({maxWidth: marginLeft * -2, maxHeight: marginTop * -2});
       img.css({maxWidth: imageWidth, maxHeight: imageHeight});
     }
 
@@ -346,9 +345,7 @@
       if (jqImageItem = imageItem.jqElement) {
         jqImageItem.show();
         _rePosition(jqImageItem);
-
       } else {
-
         that.options.messageId = currMessageId;
 
         $scope = $rootScope.$new(true);
