@@ -10,7 +10,7 @@
     .controller('jndTooltipCtrl', jndTooltipCtrl);
 
   /* @ngInject */
-  function jndTooltipCtrl($scope) {
-
+  function jndTooltipCtrl($scope, currentSessionHelper) {
+    $scope.currentEntity = currentSessionHelper.getCurrentEntity();
   }
 })();

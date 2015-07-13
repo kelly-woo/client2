@@ -30,7 +30,7 @@
 
         _body = {
           name: $scope.topicName,
-          description: !!$scope.topicDescription ? $scope.topicDescription : 'no description'
+          description: $scope.topicDescription
         };
 
         entityheaderAPIservice.renameEntity(_entityType, _entityId, _body)

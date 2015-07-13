@@ -14,9 +14,6 @@
     return {
       restrict: 'EA',
       controller: 'jndTooltipCtrl',
-      scope: {
-        currentEntity: '=jndTooltip'
-      },
       templateUrl: 'app/center/view_components/entity_header/topic_description/topic.description.html',
       link: link
     };
