@@ -16,7 +16,6 @@
     $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(file.content.serverUrl);
 
     function onFileItemClick() {
-      fileAPIservice.tempFileRequest = $scope.fileRequest;
       $state.go('files', {userName: file.writer.name, itemId: file.id});
     }
 

@@ -32,7 +32,7 @@ app.directive('originalFile', function() {
   };
 });
 
-app.directive('downloadFile', function() {
+app.directive('downloadFile', function(configuration) {
   return {
     restrict: 'A',
     link: function(scope, elem, attrs) {
@@ -43,22 +43,8 @@ app.directive('downloadFile', function() {
         .attr(
           rHTTP.test(fileUrl) ?
             {href: fileUrl, target: '_blank'} :
-            {href: scope.server_uploaded + 'download/' + fileUrl, download: fileTitle}
+            {href: configuration.api_address + 'download/' + fileUrl, download: fileTitle}
         );
-    }
-  };
-});
-
-app.directive('bindDownloadFile', function() {
-  return {
-    restrict: 'A',
-    link: function(scope, el, attrs) {
-      scope.$watch('fileUrl', function(value) {
-        el.attr('href', scope.server_uploaded + 'download/' + value);
-      });
-      scope.$watch('fileTitle', function(value) {
-        el.attr('download', value);
-      });
     }
   };
 });
