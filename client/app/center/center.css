@@ -723,7 +723,7 @@ by ysyun 2015.2.25
   width: 100%;
   /* announcement과 겹칠것을 우려해 50%으로 함.*/
   top: 50%;
-  z-index: 10;
+  z-index: 1;
   text-align: center;
 }
 .dnd-hover-msg > span {

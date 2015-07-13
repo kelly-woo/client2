@@ -10,7 +10,8 @@
 
   // element에 drag-over-class 속성으로 drag over상태 알려주는 event handler 처리시
   // IE9<에서 blink 현상이 있으므로 code로 직접 handling.
-  function dragdown() {
+  // 아래 event handling은 임시방편이고 수정하고자 한다면 center에 publising된 style을 수정해야함.
+  function dragdown(Browser) {
     return {
       restrict: 'A',
       link: link
@@ -21,6 +22,11 @@
 
       element
         .on('dragenter', function(event) {
+          console.log('drag enter ::: ', dragging,  event.target.className);
+          if (Browser.firefox && event.target.className.indexOf('msgs-inner__border') > -1) {
+            dragging--;
+          }
+
           dragging++;
           element.addClass('dnd-hover');
         })
@@ -28,14 +34,18 @@
           element.addClass('dnd-hover');
         })
         .on('dragleave', function() {
+          console.log('drag leave ::: ', dragging);
           dragging--;
-          if (dragging === 0) {
+          if (dragging <= 0) {
             element.removeClass('dnd-hover');
           }
         })
         .on('drop', function() {
           dragging = 0;
           element.removeClass('dnd-hover');
+        })
+        .on('dragend', function() {
+          console.log('dragend ::: ');
         });
     }
   }
