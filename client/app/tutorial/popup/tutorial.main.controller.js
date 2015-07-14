@@ -8,7 +8,7 @@
   var app = angular.module('jandiApp');
 
   app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, accountService, currentSessionHelper,
-                                               TutorialTutor, TutorialData, TutorialTopics) {
+                                               TutorialTutor, TutorialData, TutorialTopics, TutorialDm) {
     var _topicList;
     var _dmList;
     var _lectureList;
@@ -20,20 +20,14 @@
      * @private
      */
     function _init() {
-      var promise = accountService.getAccountInfo()
-        .success(_onSuccessGetAccount)
-        .error(_onFailGetAccount);
-      TutorialData.set('accountPromise', promise);
+      TutorialData.get('accountPromise').then(_onSuccessGetAccount);
     }
 
     /**
      * account success 핸들러
-     * @param {object} response
      * @private
      */
-    function _onSuccessGetAccount(response) {
-      TutorialData.setAccount(response);
-
+    function _onSuccessGetAccount() {
       _initVariables();
       $('#client-ui').removeClass('full-screen');
       _attachEvents();
@@ -143,6 +137,7 @@
       ];
 
       TutorialTopics.set(_topicList, true);
+      TutorialDm.set(_dmList, true);
     }
 
     /**

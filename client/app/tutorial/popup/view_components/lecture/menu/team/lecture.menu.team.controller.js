@@ -10,6 +10,7 @@
   app.controller('lectureMenuTeamCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
     var TOTAL_STEP = 2;
     var _tutorDataList;
+    var _purseDataList;
 
     _init();
 
@@ -19,9 +20,10 @@
      */
     function _init() {
       TutorialData.get('accountPromise').then(function() {
-        $scope.step = 0;
         _initTutor();
         _attachEvents();
+        $scope.step = 0;
+        $scope.purse =_purseDataList[0];
       });
     }
 
@@ -48,7 +50,18 @@
           hasNext: true
         }
       ];
-
+      _purseDataList = [
+        {
+          isShown: true,
+          top: 0,
+          left: 10
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        }
+      ];
       TutorialTutor.reset();
       TutorialTutor.set(_tutorDataList[0]);
     }
@@ -59,6 +72,7 @@
      */
     function _attachEvents() {
       $scope.$on('tutorial:nextStep', _onNextStep);
+      $scope.$on('tutorial:purseClicked', _onNextStep);
       $scope.$on('$destroy', _onDestroy);
     }
 
@@ -80,6 +94,7 @@
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
+        $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
       }
       $scope.step = step;

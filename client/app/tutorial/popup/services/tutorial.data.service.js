@@ -9,14 +9,14 @@
     .service('TutorialData', TutorialData);
 
   /* @ngInject */
-  function TutorialData() {
+  function TutorialData(accountService, publicService, memberService) {
     var _data;
     var _account;
-
+    var _currentAccount;
     this.get = get;
     this.set = set;
+    this.getCurrentAccount = getCurrentAccount;
     this.getAccount = getAccount;
-    this.setAccount = setAccount;
 
     _init();
 
@@ -26,8 +26,25 @@
      */
     function _init() {
       _data = {};
+      _initAccount();
     }
 
+    function _initAccount() {
+      var promise = accountService.getAccountInfo()
+        .then(
+          function(response) {
+            var signInInfo = accountService.getCurrentMemberId(response.data.memberships);
+            _account = response.data;
+            publicService.setLanguageConfig(_account.lang);
+            return memberService.getMemberInfo(signInInfo.memberId);
+          })
+        .then(
+          function (response) {
+            _currentAccount = response.data;
+          }
+        );
+      set('accountPromise', promise);
+    }
     /**
      * account 정보를 반환한다.
      * @returns {*}
@@ -36,13 +53,8 @@
       return _account;
     }
 
-    /**
-     * account 정보를 설정한다.
-     * @param {object} accountData
-     */
-    function setAccount(accountData) {
-      console.log(accountData);
-      _account = accountData;
+    function getCurrentAccount() {
+      return _currentAccount;
     }
 
     /**

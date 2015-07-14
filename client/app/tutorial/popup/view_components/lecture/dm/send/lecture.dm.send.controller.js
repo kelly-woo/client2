@@ -7,7 +7,8 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureDmSendCtrl', function ($scope, $rootScope, jndPubSub, jndKeyCode, TutorialTutor, TutorialData) {
+  app.controller('lectureDmSendCtrl', function ($scope, $rootScope, jndPubSub, jndKeyCode, TutorialTutor, TutorialData,
+                                                TutorialTopics, TutorialMessages, TutorialEntity, TutorialDm) {
     var TOTAL_STEP = 7;
     var _tutorDataList;
     var _purseDataList;
@@ -155,10 +156,36 @@
       }
     }
 
+    /**
+     * message 를 포스팅한다.
+     * @private
+     */
     function _postMessage() {
-
+      var jqInput = $('#tutorial_text_input');
+      var text = jqInput.val();
+      var message;
+      if (_.trim(text).length > 0){
+        message = TutorialMessages.getBaseMessage('text');
+        message.content = text;
+        TutorialMessages.append(message);
+        jqInput.blur();
+        _onNextStep();
+      }
+      jqInput.val('');
     }
 
+    /**
+     * DM 을 시작한다.
+     * @private
+     */
+    function _startDm() {
+      var list = TutorialDm.get();
+      TutorialEntity.set({
+        name: list[0].name,
+        isStarred: false,
+        memberCount: 0
+      });
+    }
     /**
      * member 클릭시 이벤트 핸들러
      */
@@ -171,14 +198,16 @@
      * @private
      */
     function _onDestroy() {
-
+      TutorialTopics.inactiveAll();
+      TutorialDm.restore();
+      TutorialEntity.restore();
     }
 
     /**
      * 다음 버튼 클릭시 이벤트 핸들러
      * @private
      */
-    function _onNextStep() {;
+    function _onNextStep() {
       var step = $scope.step;
       if (step + 1 === TOTAL_STEP) {
         jndPubSub.pub('tutorial:nextLecture');
@@ -186,6 +215,9 @@
         step++;
         $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
+        if (step === 2) {
+          _startDm();
+        }
       }
       $scope.step = step;
     }

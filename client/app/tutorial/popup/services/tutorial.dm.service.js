@@ -1,15 +1,15 @@
 /**
- * @fileoverview Tutorial 에 필요한 데이터를 담는 저장소. account 정보도 저장한다.
+ * @fileoverview Tutorial DM 저장소
  */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .service('TutorialTopics', TutorialTopics);
+    .service('TutorialDm', TutorialDm);
 
   /* @ngInject */
-  function TutorialTopics() {
+  function TutorialDm() {
     var _list = [];
     var _defaultList = [];
 
@@ -85,28 +85,28 @@
 
     /**
      * topicList 를 앞에 붙인다.
-     * @param {Array|Object} topicList
+     * @param {Array|Object} dmList
      */
-    function prepend(topicList) {
-      topicList = _.isArray(topicList) ? topicList : [topicList];
-      _.forEachRight(topicList, function(topic) {
-        _list.unshift(topic);
+    function prepend(dmList) {
+      dmList = _.isArray(dmList) ? dmList : [dmList];
+      _.forEachRight(dmList, function(dm) {
+        _list.unshift(dm);
       });
     }
 
     /**
-     * topicList 를 뒤에 붙인다.
-     * @param {Array|Object} topicList
+     * dmList 를 뒤에 붙인다.
+     * @param {Array|Object} dmList
      */
-    function append(topicList) {
-      topicList = _.isArray(topicList) ? topicList : [topicList];
-      _.forEach(topicList, function(topic) {
-        _list.push(topic);
+    function append(dmList) {
+      dmList = _.isArray(dmList) ? dmList : [dmList];
+      _.forEach(dmList, function(dm) {
+        _list.push(dm);
       });
     }
 
     /**
-     * topicList 를 default 값으로 되돌린다.
+     * dmList 를 default 값으로 되돌린다.
      */
     function restore() {
       clear();
@@ -129,8 +129,8 @@
      */
     function _set(list) {
       clear();
-      _.forEach(list, function(topic) {
-        _list.push(topic);
+      _.forEach(list, function(dm) {
+        _list.push(dm);
       });
     }
   }

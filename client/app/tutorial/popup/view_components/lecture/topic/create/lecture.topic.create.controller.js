@@ -8,7 +8,7 @@
   var app = angular.module('jandiApp');
 
   app.controller('lectureTopicCreateCtrl', function ($scope, $rootScope, $filter, jndPubSub, TutorialTutor,
-                                                     TutorialData) {
+                                                     TutorialData, TutorialTopics, TutorialEntity) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
     var _purseDataList;
@@ -34,7 +34,7 @@
      * @private
      */
     function _initTutor() {
-      var userName = TutorialData.getAccount().name;
+      var userName = TutorialData.getCurrentAccount().name;
       _tutorDataList = [
         {
           title: '토픽',
@@ -117,6 +117,17 @@
       var tutorData = _tutorDataList[$scope.step + 1];
       $scope.entityName = entityName;
       tutorData.content = tutorData.content.replace('{{entityName}}', $scope.entityName);
+
+      TutorialTopics.append({
+        name: entityName,
+        isStarred: false
+      });
+      TutorialTopics.active(TutorialTopics.get().length - 1);
+      TutorialEntity.set({
+        name: entityName,
+        isStarred: false
+      });
+
       _onNextStep();
     }
 
@@ -125,7 +136,8 @@
      * @private
      */
     function _onDestroy() {
-
+      TutorialTopics.restore();
+      TutorialEntity.restore();
     }
 
     /**

@@ -34,7 +34,14 @@ div.tutorial_bg {
 .tutorial_dropdown {
   z-index: 10;
   position: absolute;
+  box-shadow: 0 0 3px #cbcbcb;
 }
+.tutorial_dropdown ul {
+  margin: 0;
+  padding: 0;
+}
+
+
 .tutorial_dropdown ul li {
   list-style: none;
 }
@@ -74,11 +81,11 @@ div.tutorial_bg {
 }
 
 .tutorial_dropdown li > a > i {
-  width: 2rem;
   text-align: center;
   font-size: 16px;
   line-height: 20px;
-  margin-right: 10px;
+  width: 19px;
+  margin: 0 10px 0 0;
 }
 
 .tutorial_layer.menu_team {

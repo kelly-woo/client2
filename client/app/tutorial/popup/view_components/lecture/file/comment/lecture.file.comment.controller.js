@@ -39,7 +39,7 @@
      * @private
      */
     function _initAccount() {
-      var account = TutorialData.getAccount();
+      var account = TutorialData.getCurrentAccount();
       $scope.name = account.name;
       $scope.profileUrl = $filter('getFileUrl')(account.u_photoThumbnailUrl.smallThumbnailUrl);
     }

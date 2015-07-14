@@ -7,7 +7,8 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureFileUploadCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
+  app.controller('lectureFileUploadCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData,
+                                                    TutorialMessages, TutorialEntity) {
     var TOTAL_STEP = 3;
     var _tutorDataList;
     var _purseDataList;
@@ -96,7 +97,7 @@
      * @private
      */
     function _onDestroy() {
-
+      TutorialMessages.restore();
     }
 
     function onClickUpload() {
@@ -115,8 +116,17 @@
         step++;
         $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
+        if (step === 2) {
+          _postFile();
+        }
       }
+
       $scope.step = step;
+    }
+
+    function _postFile() {
+      var topicName = TutorialEntity.get('name');
+      TutorialMessages.append(TutorialMessages.getBaseMessage('file'));
     }
   });
 })();

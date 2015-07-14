@@ -37,17 +37,15 @@
      * @private
      */
     function _initTopic() {
-      var topicList = TutorialTopics.get();
-      topicList.pop();
-      topicList.splice(1, 0, {
+      TutorialTopics.append({
         name: 'Dinner',
-        isStarred: true,
+        isStarred: false,
         isPrivate: false
       });
-      TutorialTopics.active(1);
+      TutorialTopics.active(TutorialTopics.get().length - 1);
       TutorialEntity.set({
         name: 'Dinner',
-        isStarred: true
+        isStarred: false
       });
     }
 
@@ -143,7 +141,7 @@
      * @private
      */
     function _leaveTopic() {
-      TutorialTopics.remove(1);
+      TutorialTopics.remove(TutorialTopics.get().length - 1);
       TutorialTopics.active(0);
       TutorialEntity.restore();
     }

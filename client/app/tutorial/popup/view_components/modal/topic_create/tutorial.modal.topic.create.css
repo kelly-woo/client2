@@ -7,7 +7,10 @@
   position: absolute;
   top: 40px;
   left: 270px;
-  width: 500px;
+  width: 502px;
+  background-color: #f1f4f8;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 /*.tutorial_topic_create_layer input {*/
   /*width: 380px;*/
