@@ -893,6 +893,7 @@ by ysyun 2015.2.25
 
 ********************************************/
 .scroll-to-bottom-container {
+  z-index:1;
   position: absolute;
   right: 27px;
   bottom: 67px;

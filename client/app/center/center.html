@@ -53,7 +53,7 @@
     <!-- 로딩 영역 -->
     <div class="msgs__loading icon-loading-img"
          ng-show="msgLoadStatus.loading || !hasLastMessageRendered"
-         ng-class="{'initial': loadMoreCounter < 1 || !hasLastMessageRendered}"></div>
+         ng-class="{'initial': !isInitialLoadingCompleted || !hasLastMessageRendered}"></div>
 
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
@@ -97,7 +97,7 @@
     </div>
   </article>
 
-  <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasScrollToBottom && !hasNewMsg" ng-click="onScrollToBottomIconClicked();"
+  <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)" ng-click="onScrollToBottomIconClicked();"
        tooltip="{{'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
     <i class="icon-down scroll-to-bottom-icon"></i>
   </div>
