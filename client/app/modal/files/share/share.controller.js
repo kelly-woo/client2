@@ -8,7 +8,7 @@
 
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService,
-                              jndPubSub, fileToShare, modalHelper, AnalyticsHelper) {
+                              jndPubSub, fileToShare, modalHelper, AnalyticsHelper, currentSessionHelper) {
 
     var _entityType;
     var _entityId;
@@ -19,7 +19,7 @@
     var selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
     $scope.selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
 
-    $scope.shareChannel = $scope.currentEntity;
+    $scope.shareChannel = currentSessionHelper.getCurrentEntity();
 
     $scope.cancel = modalHelper.closeModal;
 

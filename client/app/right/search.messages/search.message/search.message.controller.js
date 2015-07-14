@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('rPanelMessageSearchCardCtrl', rPanelMessageSearchCardCtrl);
 
-  function rPanelMessageSearchCardCtrl($scope, $rootScope, $state, MessageQuery) {
+  function rPanelMessageSearchCardCtrl($scope, $state, MessageQuery, currentSessionHelper) {
     $scope.prev = $scope.message.prev;
     $scope.current = $scope.message.current;
     $scope.next = $scope.message.next;
@@ -23,12 +23,12 @@
       if (!_isToEntityCurrent(toEntityId)) {
         _goTo($scope.entity);
       } else {
-        $rootScope.$broadcast('jumpToMessageId');
+        jndPubSub.pub('jumpToMessageId');
       }
     }
 
     function _isToEntityCurrent(toEntityId) {
-      return $scope.currentEntity.id == toEntityId;
+      return currentSessionHelper.getCurrentEntityId() === toEntityId;
     }
 
     function _goTo(state) {
