@@ -149,11 +149,8 @@
      */
     function setStarred (entityId) {
       var entity = getEntityFromListById('total', entityId);
-      if (_.isUndefined(entity)) {
-        //console.log(entityId)
-      } else {
+      if (!_.isUndefined(entity)) {
         entity.isStarred = true;
-
       }
     }
 

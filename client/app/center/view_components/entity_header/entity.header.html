@@ -130,7 +130,7 @@
           </a>
           <a ng-if="userId != member.id" ng-click="openMemberModal(userId);">
             <img class="header-title-member__dropdown__thumb" ng-src="{{::userId | getSmallThumbnail}}"/>
-              {{::userId | getName}}
+              <span class="overflow-ellipsis">{{::userId | getName}}</span>
           </a>
         </li>
       </ul>
