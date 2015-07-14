@@ -17,7 +17,7 @@
     _setCurrentEntity();
 
     function _setCurrentEntity() {
-      $scope.currentEntity = currentSessionHelper.getCurrentEntity();
+      $scope._currentEntity = currentSessionHelper.getCurrentEntity();
     }
   }
 })();
