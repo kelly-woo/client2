@@ -290,7 +290,7 @@
     });
 
     $scope.$on('changeEntityHeaderTitle', function(event, param) {
-      console.log('chaning', param)
+      console.log('changing', param)
       $scope.currentEntity = _currentEntity = param;
       _initWithParam(param);
     });
