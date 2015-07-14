@@ -8,26 +8,26 @@
     .module('jandiApp')
     .controller('ImageCarouselCtrl', imageCarouselCtrl);
 
-  var templateUrl = 'app/modal/images/carousel/image.carousel.content.html';
-  var imageCarouselTemplate;
+  var IMAGE_CAROUSEL_TEMPLATE_URL = 'app/modal/images/carousel/image.carousel.content.html';
+  var _imageCarouselTemplate;
 
   /* @ngInject */
   function imageCarouselCtrl($scope, $templateRequest, $state, $filter, modalHelper, ImageCarousel, data) {
+    $scope.hasNext = false;
+    $scope.hasPrev = false;
+
     $scope.onload = onload;
 
     /**
      * image carousel modal의 dom load callback
      */
     function onload() {
-      $scope.hasNext = false;
-      $scope.hasPrev = false;
-
-      if (imageCarouselTemplate) {
-        _setImageCarousel(imageCarouselTemplate);
+      if (_imageCarouselTemplate) {
+        _setImageCarousel(_imageCarouselTemplate);
       } else {
-        $templateRequest(templateUrl)
+        $templateRequest(IMAGE_CAROUSEL_TEMPLATE_URL)
           .then(function(template) {
-            _setImageCarousel(imageCarouselTemplate = template);
+            _setImageCarousel(_imageCarouselTemplate = template);
           });
       }
     }

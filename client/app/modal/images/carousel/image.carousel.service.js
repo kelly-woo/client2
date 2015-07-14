@@ -64,8 +64,6 @@
      * @param {number} [options.count=20]         - 한번 get시 load할 image item 수
      */
     function init(target, options) {
-      var that = this;
-
       pivot = target;
       imageList = [];
       imageMap = {};

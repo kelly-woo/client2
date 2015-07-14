@@ -6,9 +6,9 @@
     .controller('FileUploadedCtrl', FileUploadedCtrl);
 
   /* @ngInject */
-  function FileUploadedCtrl($scope, $rootScope, $filter, fileAPIservice, centerService,
+  function FileUploadedCtrl($scope, $filter, fileAPIservice, centerService,
                             modalHelper, ImagesHelper, $compile, FileUploaded,
-                            $state, entityheaderAPIservice, entityAPIservice) {
+                            $state, entityheaderAPIservice, entityAPIservice, jndPubSub) {
 
     // 현재 컨틀롤러가 가지고 있는 최상위 돔 엘레멘트
     var jqRootElement;
@@ -222,7 +222,8 @@
           entityheaderAPIservice.joinChannel(entityId)
             .success(function(response) {
               analyticsService.mixpanelTrack( "topic Join" );
-              $rootScope.$emit('updateLeftPanelCaller');
+
+              jndPubSub.pub('updateLeftPanelCaller');
               $state.go('archives', {entityType: 'channels',  entityId: entityId });
             })
             .error(function(err) {
