@@ -25,29 +25,29 @@
      * @private
      */
     function _init() {
-      reset();
-    }
-
-
-    /**
-     * 값을 초기화 한다.
-     */
-    function reset() {
       _data = {};
     }
 
+    /**
+     * account 정보를 반환한다.
+     * @returns {*}
+     */
     function getAccount() {
       return _account;
     }
 
+    /**
+     * account 정보를 설정한다.
+     * @param {object} accountData
+     */
     function setAccount(accountData) {
-      console.log(accountData)
+      console.log(accountData);
       _account = accountData;
     }
 
     /**
-     *
-     * @param key
+     * 값을 조회한다.
+     * @param {string} [key]
      * @returns {*}
      */
     function get(key) {
@@ -61,7 +61,7 @@
     /**
      * query 를 설정한다.
      * @param {string|object} key
-     * @param {string|number} value
+     * @param {string|number} [value]
      */
     function set(key, value) {
       if (_.isObject(key)) {

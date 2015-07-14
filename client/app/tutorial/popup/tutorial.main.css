@@ -53,6 +53,11 @@ div.tutorial_bg {
   text-decoration: none;
 }
 
+.tutorial_dropdown li > a:hover {
+  background-color: #ddeaf4;
+  color: #fff;
+}
+
 .tutorial_dropdown li > a.enabled:hover {
   background-color: #366480;
   color: #fff;

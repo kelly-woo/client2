@@ -7,8 +7,8 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, TutorialTutor, currentSessionHelper,
-                                               TutorialData, accountService) {
+  app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, accountService, currentSessionHelper,
+                                               TutorialTutor, TutorialData, TutorialTopics) {
     var _topicList;
     var _dmList;
     var _lectureList;
@@ -41,7 +41,7 @@
       $scope.completedStep = 0;
       $scope.currentStep = _getLectureIndex($state.current.name);
 
-      $scope.topicList = _topicList;
+      $scope.topicList = TutorialTopics.get();
       $scope.dmList = _dmList;
       $scope.tutor = TutorialTutor.get();
       $rootScope.isReady = true;
@@ -62,12 +62,62 @@
     function _initVariables() {
       _topicList = [
         {
-          name: 'aaaa',
+          name: '*Notice Board*',
+          isActive: true,
           isStarred: true,
           isPrivate: false
         },
         {
           name: 'bbbb',
+          isActive: false,
+          isStarred: true,
+          isPrivate: false
+        },
+        {
+          name: 'bbbb',
+          isActive: false,
+          isStarred: true,
+          isPrivate: false
+        },
+        {
+          name: 'bbbb',
+          isActive: false,
+          isStarred: true,
+          isPrivate: false
+        },
+        {
+          name: 'bbbb',
+          isActive: false,
+          isStarred: true,
+          isPrivate: false
+        },
+        {
+          name: 'bbbb',
+          isActive: false,
+          isStarred: true,
+          isPrivate: false
+        },
+        {
+          name: 'bbbb',
+          isActive: false,
+          isStarred: true,
+          isPrivate: false
+        },
+        {
+          name: 'bbbb',
+          isActive: false,
+          isStarred: true,
+          isPrivate: false
+        },
+        {
+          name: 'bbbb',
+          isActive: false,
+          isStarred: true,
+          isPrivate: false
+        },
+        {
+          name: 'bbbb',
+          isActive: false,
           isStarred: true,
           isPrivate: false
         }
@@ -75,6 +125,7 @@
       _dmList = [
         {
           name: 'ccc',
+          isActive: false,
           isStarred: true
         }
       ];
@@ -90,6 +141,8 @@
         'tutorial.menu.team',
         'tutorial.menu.help'
       ];
+
+      TutorialTopics.set(_topicList, true);
     }
 
     /**

@@ -8,9 +8,19 @@
         'center_msg_sticker': step === 4 || step === 5,
       }">
   </div>
-  <tutorial-modal-member-list
-      ng-if="step === 1"></tutorial-modal-member-list>
+  <div ng-if="step === 1">
+    <tutorial-modal-member-list></tutorial-modal-member-list>
+    <div class="tutorial_dm_member_item cursor_pointer"
+         ng-click="onClickMember();">
+    </div>
+  </div>
+  <div ng-if="step === 2" class="tutorial_input_center">
+    <input type="text" id="tutorial_text_input" maxlength="200"
+        ng-keydown="onKeyDown($event);"/>
+  </div>
   <div ng-if="step === 5"
        class="tutorial_layer tutorial_sticker">
   </div>
+
+  <tutorial-purse options="purse"></tutorial-purse>
 </div>

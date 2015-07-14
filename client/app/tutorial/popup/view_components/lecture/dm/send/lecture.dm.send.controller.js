@@ -7,9 +7,13 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureDmSendCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
+  app.controller('lectureDmSendCtrl', function ($scope, $rootScope, jndPubSub, jndKeyCode, TutorialTutor, TutorialData) {
     var TOTAL_STEP = 7;
     var _tutorDataList;
+    var _purseDataList;
+
+    $scope.onClickMember = onClickMember;
+    $scope.onKeyDown = onKeyDown;
 
     _init();
 
@@ -19,9 +23,10 @@
      */
     function _init() {
       TutorialData.get('accountPromise').then(function() {
-        $scope.step = 0;
         _initTutor();
         _attachEvents();
+        $scope.step = 0;
+        $scope.purse =_purseDataList[0];
       });
     }
 
@@ -40,18 +45,18 @@
           hasNext: true
         },
         {
-          title: 'Jane 하고 이야기 해봐',
+          title: 'Aaron 하고 이야기 해봐',
           content: '',
-          top: 200,
-          left: 300,
+          top: 400,
+          left: 269,
           hasSkip: true,
           hasNext: true
         },
         {
-          title: 'Jane 한테 안녕이라고 해볼래',
+          title: 'Aaron 한테 안녕이라고 해볼래',
           content: '',
-          top: 200,
-          left: 300,
+          top: 450,
+          left: 520,
           hasSkip: true,
           hasNext: true
         },
@@ -88,7 +93,43 @@
           hasNext: true
         }
       ];
-
+      _purseDataList = [
+        {
+          isShown: true,
+          top: 446,
+          left: 195
+        },
+        {
+          isShown: true,
+          top: 155,
+          left: 260
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        }
+      ];
       TutorialTutor.reset();
       TutorialTutor.set(_tutorDataList[0]);
     }
@@ -99,7 +140,30 @@
      */
     function _attachEvents() {
       $scope.$on('tutorial:nextStep', _onNextStep);
+      $scope.$on('tutorial:purseClicked', _onNextStep);
       $scope.$on('$destroy', _onDestroy);
+    }
+
+    /**
+     * keyDown 이벤트 핸들러
+     * @param {event} keyDownEvent
+     */
+    function onKeyDown(keyDownEvent) {
+      var keyCode = keyDownEvent.keyCode;
+      if (!keyDownEvent.shiftKey && jndKeyCode.match('ENTER', keyCode)) {
+        _postMessage();
+      }
+    }
+
+    function _postMessage() {
+
+    }
+
+    /**
+     * member 클릭시 이벤트 핸들러
+     */
+    function onClickMember() {
+      _onNextStep();
     }
 
     /**
@@ -120,6 +184,7 @@
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
+        $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
       }
       $scope.step = step;

@@ -7,10 +7,15 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureFileCommentCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
+  app.controller('lectureFileCommentCtrl', function ($scope, $rootScope, $filter, jndPubSub, jndKeyCode, TutorialTutor,
+                                                     TutorialData) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
     var _purseDataList;
+
+    $scope.onClickFile = onClickFile;
+    $scope.onClickSubmit = onClickSubmit;
+    $scope.onKeyDown = onKeyDown;
 
     _init();
 
@@ -21,10 +26,22 @@
     function _init() {
       TutorialData.get('accountPromise').then(function() {
         _initTutor();
+        _initAccount();
         _attachEvents();
         $scope.step = 0;
+        $scope.comment = {};
         $scope.purse =_purseDataList[0];
       });
+    }
+
+    /**
+     * 계정 정보를 초기화 한다.
+     * @private
+     */
+    function _initAccount() {
+      var account = TutorialData.getAccount();
+      $scope.name = account.name;
+      $scope.profileUrl = $filter('getFileUrl')(account.u_photoThumbnailUrl.smallThumbnailUrl);
     }
 
     /**
@@ -53,7 +70,7 @@
           title: '코멘트 남겨보자',
           content: '코멘트 남겨',
           top: 200,
-          left: 300,
+          left: 30,
           hasSkip: false,
           hasNext: true
         },
@@ -61,7 +78,7 @@
           title: '잘햇어',
           content: '다운로드하거나 쉐어할수 잇음',
           top: 200,
-          left: 300,
+          left: 30,
           hasSkip: false,
           hasNext: true
         }
@@ -75,8 +92,8 @@
         },
         {
           isShown: true,
-          top: 174,
-          left: 665
+          top: 124,
+          left: 525
         },
         {
           isShown: false,
@@ -101,6 +118,48 @@
       $scope.$on('tutorial:nextStep', _onNextStep);
       $scope.$on('tutorial:purseClicked', _onNextStep);
       $scope.$on('$destroy', _onDestroy);
+    }
+
+    /**
+     * file 영역 클릭시 핸들러
+     */
+    function onClickFile() {
+      _onNextStep();
+    }
+
+    /**
+     * keyDown 이벤트 핸들러
+     * @param {event} keyDownEvent
+     */
+    function onKeyDown(keyDownEvent) {
+      var keyCode = keyDownEvent.keyCode;
+      if (!keyDownEvent.shiftKey && jndKeyCode.match('ENTER', keyCode)) {
+        _postComment();
+      }
+    }
+
+    /**
+     * submit 클릭시 핸들러
+     */
+    function onClickSubmit() {
+      _postComment();
+    }
+
+    /**
+     * comment 를 포스팅 한다.
+     * @private
+     */
+    function _postComment() {
+      var jqInput = $('#file-detail-comment-input');
+      var content = jqInput.val();
+      if ($scope.step === 2 && _.trim(content).length > 0) {
+        $scope.comment = {
+          time: (new Date()).getTime(),
+          content: content
+        };
+        jqInput.blur().val('');
+        _onNextStep();
+      }
     }
 
     /**

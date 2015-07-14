@@ -7,7 +7,8 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureTopicLeaveCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
+  app.controller('lectureTopicLeaveCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData,
+                                                    TutorialEntity, TutorialTopics) {
     var TOTAL_STEP = 3;
     var _tutorDataList;
     var _purseDataList;
@@ -23,11 +24,33 @@
     function _init() {
       TutorialData.get('accountPromise').then(function() {
         _initTutor();
+        _initTopic();
         _attachEvents();
         $scope.step = 0;
         $scope.purse =_purseDataList[0];
+
       });
     }
+
+    /**
+     * topic 데이터를 초기화 한다.
+     * @private
+     */
+    function _initTopic() {
+      var topicList = TutorialTopics.get();
+      topicList.pop();
+      topicList.splice(1, 0, {
+        name: 'Dinner',
+        isStarred: true,
+        isPrivate: false
+      });
+      TutorialTopics.active(1);
+      TutorialEntity.set({
+        name: 'Dinner',
+        isStarred: true
+      });
+    }
+
     /**
      * 튜터를 초기화한다.
      * @private
@@ -103,14 +126,33 @@
      * @private
      */
     function _onDestroy() {
+      _restoreTopic();
+    }
 
+    /**
+     * topic 을 초기화 한다.
+     * @private
+     */
+    function _restoreTopic() {
+      TutorialTopics.restore();
+      TutorialEntity.restore();
+    }
+
+    /**
+     * 현재 topic 에서 나간다.
+     * @private
+     */
+    function _leaveTopic() {
+      TutorialTopics.remove(1);
+      TutorialTopics.active(0);
+      TutorialEntity.restore();
     }
 
     /**
      * 다음 버튼 클릭시 이벤트 핸들러
      * @private
      */
-    function _onNextStep() {;
+    function _onNextStep() {
       var step = $scope.step;
       if (step + 1 === TOTAL_STEP) {
         jndPubSub.pub('tutorial:nextLecture');
@@ -119,6 +161,11 @@
         $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
       }
+
+      if (step === 2) {
+        _leaveTopic();
+      }
+
       $scope.step = step;
     }
   });
