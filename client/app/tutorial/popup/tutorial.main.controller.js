@@ -37,8 +37,10 @@
       _initVariables();
       $('#client-ui').removeClass('full-screen');
       _attachEvents();
-      $scope.currentStep = 0;
+
       $scope.completedStep = 0;
+      $scope.currentStep = _getLectureIndex($state.current.name);
+
       $scope.topicList = _topicList;
       $scope.dmList = _dmList;
       $scope.tutor = TutorialTutor.get();
@@ -88,8 +90,6 @@
         'tutorial.menu.team',
         'tutorial.menu.help'
       ];
-
-      $scope.currentStep = _getLectureIndex($state.current.name);
     }
 
     /**

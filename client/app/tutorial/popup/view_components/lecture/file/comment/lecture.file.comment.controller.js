@@ -10,6 +10,7 @@
   app.controller('lectureFileCommentCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
+    var _purseDataList;
 
     _init();
 
@@ -19,9 +20,10 @@
      */
     function _init() {
       TutorialData.get('accountPromise').then(function() {
-        $scope.step = 0;
         _initTutor();
         _attachEvents();
+        $scope.step = 0;
+        $scope.purse =_purseDataList[0];
       });
     }
 
@@ -41,7 +43,7 @@
         },
         {
           title: '',
-          content: '파일을 클릭해보',
+          content: '파일을 클릭해보자',
           top: 200,
           left: 300,
           hasSkip: false,
@@ -65,6 +67,28 @@
         }
       ];
 
+      _purseDataList = [
+        {
+          isShown: true,
+          top: 0,
+          left: 955
+        },
+        {
+          isShown: true,
+          top: 174,
+          left: 665
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        }
+      ];
       TutorialTutor.reset();
       TutorialTutor.set(_tutorDataList[0]);
     }
@@ -75,6 +99,7 @@
      */
     function _attachEvents() {
       $scope.$on('tutorial:nextStep', _onNextStep);
+      $scope.$on('tutorial:purseClicked', _onNextStep);
       $scope.$on('$destroy', _onDestroy);
     }
 
@@ -90,12 +115,13 @@
      * 다음 버튼 클릭시 이벤트 핸들러
      * @private
      */
-    function _onNextStep() {;
+    function _onNextStep() {
       var step = $scope.step;
       if (step + 1 === TOTAL_STEP) {
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
+        $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
       }
       $scope.step = step;

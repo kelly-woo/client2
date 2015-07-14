@@ -10,6 +10,9 @@
   app.controller('lectureTopicLeaveCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
     var TOTAL_STEP = 3;
     var _tutorDataList;
+    var _purseDataList;
+
+    $scope.onClickLeave = onClickLeave;
 
     _init();
 
@@ -19,9 +22,10 @@
      */
     function _init() {
       TutorialData.get('accountPromise').then(function() {
-        $scope.step = 0;
         _initTutor();
         _attachEvents();
+        $scope.step = 0;
+        $scope.purse =_purseDataList[0];
       });
     }
     /**
@@ -55,6 +59,23 @@
           hasNext: true
         }
       ];
+      _purseDataList = [
+        {
+          isShown: true,
+          top: 33,
+          left: 317
+        },
+        {
+          isShown: true,
+          top: 137,
+          left: 293
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        }
+      ];
       TutorialTutor.reset();
       TutorialTutor.set(_tutorDataList[0]);
     }
@@ -65,7 +86,16 @@
      */
     function _attachEvents() {
       $scope.$on('tutorial:nextStep', _onNextStep);
+      $scope.$on('tutorial:purseClicked', _onNextStep);
+
       $scope.$on('$destroy', _onDestroy);
+    }
+
+    /**
+     * 나가기를 눌렀을 때
+     */
+    function onClickLeave() {
+      _onNextStep();
     }
 
     /**
@@ -86,6 +116,7 @@
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
+        $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
       }
       $scope.step = step;

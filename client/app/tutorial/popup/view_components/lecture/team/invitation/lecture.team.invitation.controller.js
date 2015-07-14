@@ -10,7 +10,7 @@
   app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
-
+    var _purseDataList;
     _init();
 
     /**
@@ -64,6 +64,28 @@
           hasNext: true
         }
       ];
+      _purseDataList = [
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        },
+        {
+          isShown: true,
+          top: 3,
+          left: 100
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        }
+      ];
 
       TutorialTutor.reset();
       TutorialTutor.set(_tutorDataList[0]);
@@ -75,6 +97,7 @@
      */
     function _attachEvents() {
       $scope.$on('tutorial:nextStep', _onNextStep);
+      $scope.$on('tutorial:purseClicked', _onNextStep);
       $scope.$on('$destroy', _onDestroy);
     }
 
@@ -88,6 +111,7 @@
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
+        $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
       }
       $scope.step = step;

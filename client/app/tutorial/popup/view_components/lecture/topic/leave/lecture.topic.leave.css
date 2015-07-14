@@ -1,6 +1,4 @@
-.tutorial_layer_topic {
-  position: absolute;
-  top: 40px;
+.tutorial_dropdown.menu_topic {
+  top: 80px;
   left: 300px;
-  z-index: 10;
 }

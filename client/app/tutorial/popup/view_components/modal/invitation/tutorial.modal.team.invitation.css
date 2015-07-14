@@ -2,3 +2,10 @@
   top: 20px;
   left: 270px;
 }
+.tutorial_modal_invite_wrap {
+  position: absolute;
+  width: 500px;
+  top: 40px;
+  left: 0;
+}
+/*.tutorial_invite_input {}*/

@@ -11,6 +11,7 @@
                                                      TutorialData) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
+    var _purseDataList;
 
     _init();
 
@@ -20,10 +21,11 @@
      */
     function _init() {
       TutorialData.get('accountPromise').then(function() {
-        $scope.step = 0;
-        $scope.entityName = '';
         _initTutor();
         _attachEvents();
+        $scope.step = 0;
+        $scope.entityName = '';
+        $scope.purse =_purseDataList[0];
       });
     }
 
@@ -67,6 +69,28 @@
           hasNext: true
         }
       ];
+      _purseDataList = [
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        },
+        {
+          isShown: true,
+          top: 116,
+          left: 196
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        },
+        {
+          isShown: false,
+          top: 0,
+          left: 0
+        }
+      ];
       TutorialTutor.reset();
       TutorialTutor.set(_tutorDataList[0]);
     }
@@ -77,6 +101,8 @@
      */
     function _attachEvents() {
       $scope.$on('tutorial:nextStep', _onNextStep);
+      $scope.$on('tutorial:purseClicked', _onNextStep);
+
       $scope.$on('tutorial:createTopic', _onCreateTopic);
       $scope.$on('$destroy', _onDestroy);
     }
@@ -112,6 +138,7 @@
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
+        $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
       }
       $scope.step = step;
