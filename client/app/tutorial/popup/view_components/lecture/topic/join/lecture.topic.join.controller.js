@@ -36,11 +36,15 @@
       _tutorDataList = [
         {
           title: '토픽에 조인해보자!',
-          content: '버튼 눌러!'
+          content: '햄버거 버튼 눌러!',
+          hasSkip: false,
+          hasNext: false
         },
         {
           title: '토픽에 조인해보자!',
-          content: '눌러!'
+          content: '참여하기 버튼 눌러!',
+          hasSkip: false,
+          hasNext: false
         }
       ];
       _purseDataList = [

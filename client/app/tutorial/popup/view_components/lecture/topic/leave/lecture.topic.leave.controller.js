@@ -38,13 +38,13 @@
      */
     function _initTopic() {
       TutorialTopics.append({
-        name: 'Dinner',
+        name: 'Lunch',
         isStarred: false,
         isPrivate: false
       });
       TutorialTopics.active(TutorialTopics.get().length - 1);
       TutorialEntity.set({
-        name: 'Dinner',
+        name: 'Lunch',
         isStarred: false
       });
     }
@@ -61,19 +61,19 @@
           top: 200,
           left: 300,
           hasSkip: false,
-          hasNext: true
+          hasNext: false
         },
         {
           title: '',
-          content: '나가!',
+          content: '이제 나가기 눌러서 나가보자!',
           top: 200,
           left: 300,
           hasSkip: false,
-          hasNext: true
+          hasNext: false
         },
         {
-          title: '잘해쓰',
-          content: '나간거 보이지?',
+          title: '잘해써',
+          content: '토픽에서 잘 나왔어 언제든지 join leave 할수 있어.',
           top: 200,
           left: 300,
           hasSkip: false,

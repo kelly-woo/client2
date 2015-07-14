@@ -39,11 +39,11 @@
           top: 200,
           left: 300,
           hasSkip: false,
-          hasNext: true
+          hasNext: false
         },
         {
           title: '',
-          content: 'blah blah blah blahblah blahblah blahblah blah blah blahblah blahblah blahblah blahblah blahblah blahblah blahblah blah',
+          content: '팀메뉴엔 이러이러한 부메뉴들이 있어. 잘 활용해',
           top: 200,
           left: 300,
           hasSkip: false,

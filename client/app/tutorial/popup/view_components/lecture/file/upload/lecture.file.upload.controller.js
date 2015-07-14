@@ -42,7 +42,7 @@
          top: 200,
           left: 300,
           hasSkip: false,
-          hasNext: true
+          hasNext: false
         },
         {
           title: '',
@@ -50,7 +50,7 @@
           top: 200,
           left: 300,
           hasSkip: false,
-          hasNext: true
+          hasNext: false
         },
         {
           title: '',

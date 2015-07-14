@@ -40,10 +40,10 @@
         {
           title: '팀 멤버한테 DM 보내봐',
           content: '눌러서 DM 해봐',
-         top: 200,
+          top: 200,
           left: 300,
           hasSkip: true,
-          hasNext: true
+          hasNext: false
         },
         {
           title: 'Aaron 하고 이야기 해봐',
@@ -51,7 +51,7 @@
           top: 400,
           left: 269,
           hasSkip: true,
-          hasNext: true
+          hasNext: false
         },
         {
           title: 'Aaron 한테 안녕이라고 해볼래',
@@ -59,7 +59,7 @@
           top: 450,
           left: 520,
           hasSkip: true,
-          hasNext: true
+          hasNext: false
         },
         {
           title: '이렇게 떠',
@@ -75,7 +75,7 @@
           top: 200,
           left: 300,
           hasSkip: true,
-          hasNext: true
+          hasNext: false
         },
         {
           title: '스티카 날려봐',
@@ -83,12 +83,12 @@
           top: 200,
           left: 300,
           hasSkip: true,
-          hasNext: true
+          hasNext: false
         },
         {
-          title: '그레이트 팍\n 기억해!',
+          title: '잘했어. 이렇게 재밋게 스티커도 보내고 해봐',
           content: '',
-          top: 200,
+          top: 410,
           left: 300,
           hasSkip: true,
           hasNext: true
@@ -116,14 +116,14 @@
           left: 0
         },
         {
-          isShown: false,
-          top: 0,
-          left: 0
+          isShown: true,
+          top: 695,
+          left: 978
         },
         {
-          isShown: false,
-          top: 0,
-          left: 0
+          isShown: true,
+          top: 645,
+          left: 928
         },
         {
           isShown: false,
@@ -175,6 +175,14 @@
     }
 
     /**
+     * sticker 를 포스팅 한다.
+     * @private
+     */
+    function _postSticker() {
+      TutorialMessages.append(TutorialMessages.getBaseMessage('sticker'));
+    }
+
+    /**
      * DM 을 시작한다.
      * @private
      */
@@ -185,6 +193,8 @@
         isStarred: false,
         memberCount: 0
       });
+      TutorialTopics.inactiveAll();
+      TutorialDm.active(0);
     }
     /**
      * member 클릭시 이벤트 핸들러
@@ -198,9 +208,11 @@
      * @private
      */
     function _onDestroy() {
-      TutorialTopics.inactiveAll();
+      TutorialTopics.restore();
       TutorialDm.restore();
+      TutorialDm.inactiveAll();
       TutorialEntity.restore();
+      TutorialMessages.clear();
     }
 
     /**
@@ -217,6 +229,9 @@
         TutorialTutor.set(_tutorDataList[step]);
         if (step === 2) {
           _startDm();
+        }
+        if (step === 6) {
+          _postSticker();
         }
       }
       $scope.step = step;

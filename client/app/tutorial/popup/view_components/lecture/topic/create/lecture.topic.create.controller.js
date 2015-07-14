@@ -38,7 +38,7 @@
       _tutorDataList = [
         {
           title: '토픽',
-          content: 'blah blah',
+          content: '은 그룹 메세지 하는데야',
           top: 200,
           left: 300,
           hasSkip: false,
@@ -50,7 +50,7 @@
           top: 200,
           left: 300,
           hasSkip: false,
-          hasNext: true
+          hasNext: false
         },
         {
           title: userName + ',',
@@ -61,8 +61,8 @@
           hasNext: false
         },
         {
-          title: '그레이트팍!',
-          content: '{{entityName}} 잘 만들었졍',
+          title: '훌륭해!',
+          content: '잘 만들었어. {{entityName}} 만들었구나?',
           top: 200,
           left: 300,
           hasSkip: false,

@@ -7,8 +7,9 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureMenuHelpCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
+  app.controller('lectureMenuHelpCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
     var TOTAL_STEP = 1;
+    var _tutorDataList;
     _init();
 
     /**
@@ -16,15 +17,30 @@
      * @private
      */
     function _init() {
-      $scope.step = 0;
-      TutorialTutor.set({
-        top: 200,
-        left: 300,
-        hasSkip: false,
-        title: '팀 메뉴',
-        content: 'step 0'
+      TutorialData.get('accountPromise').then(function() {
+        _initTutor();
+        _attachEvents();
+        $scope.step = 0;
       });
-      _attachEvents();
+    }
+
+    /**
+     * 튜터를 초기화한다.
+     * @private
+     */
+    function _initTutor() {
+      _tutorDataList = [
+        {
+          title: '',
+          content: '궁금한 점이 있으면 여기를 누르면 된다는걸 잊지마~!',
+          top: 200,
+          left: 300,
+          hasSkip: true,
+          hasNext: true
+        }
+      ];
+      TutorialTutor.reset();
+      TutorialTutor.set(_tutorDataList[0]);
     }
 
     /**
@@ -49,17 +65,14 @@
      * @private
      */
     function _onNextStep() {
-      if ($scope.step + 1 === TOTAL_STEP) {
+      var step = $scope.step;
+      if (step + 1 === TOTAL_STEP) {
         jndPubSub.pub('tutorial:nextLecture');
       } else {
-        $scope.step++;
-        TutorialTutor.set({
-          top: TutorialTutor.get('top') + 10,
-          left: TutorialTutor.get('left') + 10,
-          content: 'step' + $scope.step
-        });
-
+        step++;
+        TutorialTutor.set(_tutorDataList[step]);
       }
+      $scope.step = step;
     }
   });
 })();

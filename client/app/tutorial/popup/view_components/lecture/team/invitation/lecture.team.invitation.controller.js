@@ -32,24 +32,16 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '잔디에 오신것을 환영합니다.',
-          content: 'blah blah',
+          title: '잔디 튜토리얼에 오신것을 환영합니다.',
+          content: '자 우리함께 튜토리얼을 시작해볼까?',
           top: 200,
           left: 300,
           hasSkip: false,
           hasNext: true
         },
         {
-          title: '잔디에 오신것을 환영합니다.',
-          content: 'blah blah',
-          top: 200,
-          left: 300,
-          hasSkip: false,
-          hasNext: true
-        },
-        {
-          title: '',
-          content: '다른 사람을 초대할 수 있써영',
+          title: '잔디 튜토리얼에 오신것을 환영합니다.',
+          content: '탐은 그룹하고 비슷한거야',
           top: 200,
           left: 300,
           hasSkip: false,
@@ -57,7 +49,15 @@
         },
         {
           title: '',
-          content: '초대해 바영',
+          content: '다른 사람을 초대할 수 있써. <br>초대 클릭해봐',
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: false
+        },
+        {
+          title: '',
+          content: '이렇게 초대할수 있어. 다음 버튼을 눌러봐',
           top: 440,
           left: 510,
           hasSkip: false,

@@ -111,7 +111,6 @@
     function restore() {
       clear();
       _set(_defaultList);
-      active(0);
     }
 
     /**

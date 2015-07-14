@@ -44,7 +44,7 @@
           top: 200,
           left: 300,
           hasSkip: true,
-          hasNext: true
+          hasNext: false
         },
         {
           title: '프로필을 바꺼보쟝!',
@@ -52,13 +52,13 @@
           top: 200,
           left: 300,
           hasSkip: true,
-          hasNext: true
+          hasNext: false
         },
         {
-          title: '잘바꿈 쓰담쓰담',
-          content: '',
-          top: 350,
-          left: 500,
+          title: '',
+          content: '이렇게 프로필을 바꾸는게 중요할때가 있다는걸 잊지마.',
+          top: 340,
+          left: 510,
           hasSkip: true,
           hasNext: true
         }

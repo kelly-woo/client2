@@ -62,63 +62,63 @@
           isPrivate: false
         },
         {
-          name: 'bbbb',
+          name: 'Topic1',
           isActive: false,
           isStarred: true,
           isPrivate: false
         },
         {
-          name: 'bbbb',
+          name: 'Topic2',
           isActive: false,
           isStarred: true,
           isPrivate: false
         },
         {
-          name: 'bbbb',
+          name: 'Topic3',
           isActive: false,
           isStarred: true,
           isPrivate: false
         },
         {
-          name: 'bbbb',
+          name: 'Topic4',
           isActive: false,
           isStarred: true,
           isPrivate: false
         },
         {
-          name: 'bbbb',
+          name: 'Topic5',
           isActive: false,
           isStarred: true,
           isPrivate: false
         },
         {
-          name: 'bbbb',
+          name: 'Topic6',
           isActive: false,
           isStarred: true,
           isPrivate: false
         },
         {
-          name: 'bbbb',
+          name: 'Topic7',
           isActive: false,
           isStarred: true,
           isPrivate: false
         },
         {
-          name: 'bbbb',
+          name: 'Topic8',
           isActive: false,
           isStarred: true,
           isPrivate: false
         },
         {
-          name: 'bbbb',
+          name: 'Topic9',
           isActive: false,
           isStarred: true,
-          isPrivate: false
+          isPrivate: true
         }
       ];
       _dmList = [
         {
-          name: 'ccc',
+          name: 'Aaron',
           isActive: false,
           isStarred: true
         }
