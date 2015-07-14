@@ -497,7 +497,6 @@
           // loadImage library를 사용하여 blob에 포함된 meta data를 긁음
           loadImage.parseMetaData(blob, function (data) {
             var imageOptions = {
-              canvas: true,
               maxWidth: '100%'
             };
 
