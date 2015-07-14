@@ -811,7 +811,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onPostMessagesDone() {
     if (!_hasLastMessage()) {
       _refreshCurrentTopic();
-      console.log(_hasLastMessage());
     }
     updateList();
     _scrollToBottom(true);
