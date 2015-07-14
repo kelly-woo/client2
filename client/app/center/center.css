@@ -700,6 +700,7 @@ by ysyun 2015.2.25
 
 .dnd-over-content {
   display: none;
+  z-index: 10;
 }
 .dnd-over-content .dnd-over-border,
 .dnd-over-content .dnd-over-area,
