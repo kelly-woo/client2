@@ -143,7 +143,9 @@
 
     function setStarred (entityId) {
       var entity = getEntityFromListById('total', entityId);
-      entity.isStarred = true;
+      if (!_.isUndefined(entity)) {
+        entity.isStarred = true;
+      }
     }
 
     //  Returns true is 'user' is a member of 'entity'

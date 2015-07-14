@@ -125,6 +125,7 @@
   /*padding: 0 !important;*/
   height: 38px !important;
   line-height: 38px !important;
+  max-width: 200px;
 }
 .header-title-member__dropdown__thumb {
   border-radius: 100%;
