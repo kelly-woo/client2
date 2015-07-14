@@ -46,6 +46,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.onCommentFocusClick = onCommentFocusClick;
   $scope.onKeyDown = onKeyDown;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
+  $scope.setCreateTime = setCreateTime;
 
   _init();
 
@@ -604,5 +605,26 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function onFileDetailImageLoad() {
     $scope.isLoadingImage = false;
   }
-});
 
+  /**
+   * comment가 작성된 날짜를 설정함.
+   * @param {number} index - current index
+   * @param {object} comment - current comment
+   * @returns {string} comment 작성 날짜
+   */
+  function setCreateTime(index, comment) {
+    var fileComments = $scope.file_comments;
+    var prevComment;
+    var format;
+
+    comment.exCreateTime = new Date(comment.createTime);
+    prevComment = fileComments[index - 1];
+    if (!prevComment || prevComment.exCreateTime.getDate() !== comment.exCreateTime.getDate()) {
+      format = 'h:mm a, d';
+    } else {
+      format = 'h:mm a';
+    }
+
+    return $filter('date')(comment.createTime, format);
+  }
+});

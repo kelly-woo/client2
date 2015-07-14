@@ -114,7 +114,7 @@
           </div>
           <div class="comment-item-header">
             <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
-            <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
+            <span class="comment-item-header__created">{{ setCreateTime($index, comment) }}</span>
             <div class="comment-item-header__action pull-right" dropdown data-ng-if="( member.id === comment.writer.id )">
               <a href="#" class="link-dark comment-item-header__action__icon" dropdown-toggle>
                 <i class="fa fa-cog"></i>
