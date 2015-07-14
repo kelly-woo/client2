@@ -166,7 +166,9 @@
 
     function setStarred (entityId) {
       var entity = this.getEntityFromListById($rootScope.joinedChannelList.concat($rootScope.privateGroupList, $rootScope.memberList), entityId);
-      entity.isStarred = true;
+      if (!_.isUndefined(entity)) {
+        entity.isStarred = true;
+      }
     }
 
     //  Returns true is 'user' is a member of 'entity'
