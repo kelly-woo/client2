@@ -41,12 +41,7 @@
 
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
 <div dragdown-area ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
-  <div class="dnd-hover-msg">
-    <span translate>@dnd-file-upload-msg</span>
-    <div class="background"></div>
-  </div>
 
-  <div class="msgs-inner__border"></div>
 
   <!-- 컨테이너 -->
   <article class="msgs" id="msgs-container" when-scrolled="loadMore()">
