@@ -6,11 +6,11 @@
 
   angular
     .module('app.cache')
-    .service('TopicCacheManager', TopicCacheManager);
+    .service('TopicCache', TopicCache);
 
   /* @ngInject */
-  function TopicCacheManager() {
-    var Cache;
+  function TopicCache() {
+    var topicCacheMap;
 
     this.init = init;
 
@@ -20,23 +20,23 @@
     this.has = has;
 
     function init() {
-      Cache = {};
+      topicCacheMap = {};
     }
 
     function get(key) {
-      return Cache[key];
+      return topicCacheMap[key];
     }
 
     function add(key, value) {
-      Cache[key] = value;
+      topicCacheMap[key] = value;
     }
 
     function remove(key) {
-      delete Cache[key];
+      delete topicCacheMap[key];
     }
 
     function has(key) {
-      return !!Cache[key];
+      return !!topicCacheMap[key];
     }
   }
 })();

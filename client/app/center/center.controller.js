@@ -8,7 +8,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  publicService, MessageQuery, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
-                                                 MessageCollection, AnalyticsHelper, Announcement, Cache, $compile) {
+                                                 MessageCollection, AnalyticsHelper, Announcement, TopicCache) {
 
   console.info('[enter] centerpanelController');
   var TEXTAREA_MAX_LENGTH = 40000;
@@ -113,9 +113,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if(MessageQuery.hasSearchLinkId()) {
       _jumpToMessage();
     } else {
-      if (Cache.has(entityId)) {
+      if (TopicCache.has(entityId)) {
         console.log('has cache');
-        _onHasCache();
+        _displayCache();
       } else {
         console.log('no cache');
         loadMore();
@@ -127,7 +127,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _reset() {
-    Cache.init();
     $('#msgs-container')[0].scrollTop = 0;
     MessageQuery.reset();
     MessageCollection.reset();
@@ -260,8 +259,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       var param = {
         list: MessageCollection.getList(),
         lastMessageId: lastMessageId,
+        globalLastLinkId: globalLastLinkId
       };
-      Cache.add(param);
+      TopicCache.add(entityId, param);
     }
   }
 
@@ -273,8 +273,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _shouldUpdateCache() {
     var _hasLastInCache = false;
-    if (Cache.has()) {
-      var param = Cache.get();
+    if (TopicCache.has(entityId)) {
+      var param = TopicCache.get(entityId);
       _hasLastInCache = lastMessageId === param.lastMessageId;
     }
     return _hasLastMessage() && !_hasLastInCache;
@@ -382,9 +382,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
    * @private
    */
-  function _onHasCache() {
-    MessageCollection.setList(Cache.get().list);
-    lastMessageId = Cache.get().lastMessageId;
+  function _displayCache() {
+    var _item = TopicCache.get(entityId);
+
+    MessageCollection.setList(_item.list);
+    lastMessageId = _item.lastMessageId;
+    globalLastLinkId = _item.globalLastLinkId;
 
     $scope.messages = MessageCollection.list;
 
@@ -621,6 +624,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateList() {
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
+    console.log('updatelist')
     if ($scope.msgLoadStatus.loading || _isUpdateListLock) {
       return;
     }

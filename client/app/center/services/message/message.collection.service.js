@@ -610,7 +610,6 @@
     }
 
     function getList() {
-      console.log(that.list);
       return that.list;
     }
 

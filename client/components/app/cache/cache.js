@@ -11,8 +11,8 @@
     .config(config);
 
   /* @ngInject */
-  function run(TopicCacheManager) {
-    TopicCacheManager.init();
+  function run(TopicCache) {
+    TopicCache.init();
   }
 
   function config() {
