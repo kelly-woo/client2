@@ -58,11 +58,14 @@ div.tutorial_bg {
   background: #FFFFFF;
   white-space: nowrap;
   text-decoration: none;
+  color: #575757;
+}
+.tutorial_dropdown li > a.enabled {
+  color: #333333;
 }
 
 .tutorial_dropdown li > a:hover {
-  background-color: #ddeaf4;
-  color: #fff;
+  color: #999999;
 }
 
 .tutorial_dropdown li > a.enabled:hover {
