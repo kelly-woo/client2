@@ -545,63 +545,51 @@ by ysyun 2015.2.25
                 Drag & Drop
 
 ********************************************/
-.msgs-inner__border {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 35px;
-  bottom: 0;
-  z-index: 1;
-  display: none;
-  border: 5px solid rgba(0, 166, 233, 0.5);
-
-
-}
 .dnd-not-support {
   display: block;
 }
-.dnd-hover {
-  border-top: 1px solid red;
-}
-.dnd-hover .dnd-hover-msg {
-  display: block;
 
-}
-.dnd-hover .msgs-inner__border {
+.dnd-over .dnd-over-content {
   display: block;
+}
+
+.dnd-over-content {
+  display: none;
+  z-index: 10;
+}
+.dnd-over-content .dnd-over-border,
+.dnd-over-content .dnd-over-area,
+.dnd-over-content .dnd-over-msg {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.dnd-over-content .dnd-over-border {
   border: 5px solid rgba(0, 166, 233, 0.5);
 }
 
-.dnd-hover-msg {
-  display: none;
-  position: absolute;
+.dnd-over-content .dnd-over-area {
+  /*background-color: #fff;*/
+  /*opacity: 0.2;*/
+}
+
+.dnd-over-content .dnd-over-msg {
+  margin: auto;
   width: 100%;
-  /* announcement과 겹칠것을 우려해 50%으로 함.*/
-  top: 50%;
-  z-index: 10;
+  height: 0;
   text-align: center;
 }
-.dnd-hover-msg > span {
+.dnd-over-content .dnd-over-msg>span {
   padding: 3px 5px;
   color: white;
   border: 2px solid white;
   border-radius: 5px;
   height: 35px;
   font-size: 16px;
-  position: relative;
   background-color: rgba(21, 74, 103, 0.8);
-}
-.dnd-hover-msg span .background {
-  background-color: #1a9b6a;
-  opacity: 0.8;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom :0;
-  z-index: -1;
 }
 
 /********************************************
@@ -748,6 +736,7 @@ by ysyun 2015.2.25
 
 ********************************************/
 .scroll-to-bottom-container {
+  z-index:1;
   position: absolute;
   right: 27px;
   bottom: 67px;

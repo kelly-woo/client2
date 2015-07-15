@@ -129,10 +129,15 @@
      * @param {array} messageList
      */
     function append(messageList) {
+      var length = that.list.length;
+      var lastId = that.list[length - 1] && that.list[length - 1].id || -1;
+
       messageList = _beforeAddMessages(messageList);
       _.forEach(messageList, function(msg) {
-        msg = _getFormattedMessage(msg);
-        that.list.push(msg);
+        if (MessageSending.isSending(msg) || lastId < msg.id) {
+          msg = _getFormattedMessage(msg);
+          that.list.push(msg);
+        }
       });
     }
 
@@ -141,10 +146,13 @@
      * @param {array} messageList
      */
     function prepend(messageList) {
+      var firstId = that.list[0] && that.list[0].id || -1;
       messageList = _beforeAddMessages(messageList);
       _.forEachRight(messageList, function(msg) {
-        msg = _getFormattedMessage(msg);
-        that.list.unshift(msg);
+        if (firstId === -1 || firstId > msg.id) {
+          msg = _getFormattedMessage(msg);
+          that.list.unshift(msg);
+        }
       });
     }
 
@@ -213,14 +221,14 @@
      * 서버로 부터 update 정보를 받아 해당 메세지들을 업데이트 한다.
      * @param {array} messageList 업데이트 할 메세지 리스트
      */
-    function update(messageList) {
+    function update(messageList, isSkipAppend) {
       messageList = _beforeAddMessages(messageList);
 
       _.forEach(messageList, function(msg) {
         if (_isSystemMessage(msg)) {
-          _updateSystemMessage(msg);
+          _updateSystemMessage(msg, isSkipAppend);
         } else {
-          _updateUserMessage(msg);
+          _updateUserMessage(msg, isSkipAppend);
         }
       });
     }
@@ -359,17 +367,18 @@
      * @param {object} msg 업데이트할 메세지
      * @private
      */
-    function _updateUserMessage(msg) {
+    function _updateUserMessage(msg, isSkipAppend) {
       var isArchived = false;
       var messageId = msg.messageId;
+      var isAppend = false;
       switch (msg.status) {
         // text writed
         case 'created':
-          append(msg);
+          isAppend = true;
           break;
         case 'edited':
           if (remove(messageId)) {
-            append(msg);
+            isAppend = true;
           }
           break;
         // text deleted
@@ -378,17 +387,21 @@
           break;
         // file shared
         case 'shared':
-          append(msg);
+          isAppend = true;
           break;
         // file unshared
         case 'unshared':
           if (remove(messageId)) {
-            append(msg);
+            isAppend = true;
           }
           break;
         default:
           console.error("!!! unfiltered message", msg);
           break;
+      }
+
+      if (isAppend && !isSkipAppend) {
+        append(msg);
       }
 
       if (!isArchived) {
@@ -403,9 +416,11 @@
      * @returns {*}
      * @private
      */
-    function _updateSystemMessage(msg) {
+    function _updateSystemMessage(msg, isSkipAppend) {
       msg = _getFormattedSystemMsg(msg);
-      append(msg);
+      if (!isSkipAppend) {
+        append(msg);
+      }
       jndPubSub.pub('newSystemMessageArrived', msg);
     }
 
