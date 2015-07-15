@@ -328,35 +328,37 @@
       var searchType = undefined;
       var count = that.options.count;
 
-      if (type !== INIT) {
-        // messageId 보다 오래된/새로운 목록 대상
-        searchType = type === PREV ? 'old' : 'new';
-        count = Math.ceil(count / 2);
-      }
-
-      that.options.getImage({
-        entityId: that.options.entityId,
-        messageId: that.options.messageId,
-        type: searchType,
-        count: count,
-        q: that.options.keyword,
-        writerId:that.options.writerId
-      })
-      .success(function(data) {
-        data.records != null && (data = data.records);
-
-        var messageId = that.options.messageId;
-        var index = imageList.indexOf(messageId);
-        var hasEndPoint = false;
-        if (index === 0 || index === imageList.length - 1) {
-          hasEndPoint = true;
+      if (!that.options.isSingle) {
+        if (type !== INIT) {
+          // messageId 보다 오래된/새로운 목록 대상
+          searchType = type === PREV ? 'old' : 'new';
+          count = Math.ceil(count / 2);
         }
 
-        _pushImages(messageId, type, data);
-        success && success({
-          hasEndPoint: hasEndPoint
+        that.options.getImage({
+          entityId: that.options.entityId,
+          messageId: that.options.messageId,
+          type: searchType,
+          count: count,
+          q: that.options.keyword,
+          writerId:that.options.writerId
+        })
+        .success(function(data) {
+          data.records != null && (data = data.records);
+
+          var messageId = that.options.messageId;
+          var index = imageList.indexOf(messageId);
+          var hasEndPoint = false;
+          if (index === 0 || index === imageList.length - 1) {
+            hasEndPoint = true;
+          }
+
+          _pushImages(messageId, type, data);
+          success && success({
+            hasEndPoint: hasEndPoint
+          });
         });
-      });
+      }
     }
 
     /**

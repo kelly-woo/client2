@@ -61,6 +61,8 @@
           keyword: data.keyword,
           // server api
           getImage: data.getImage,
+          // is single
+          isSingle: data.isSingle,
           // image carousel close callback
           onClose: function() {
             $scope.close();

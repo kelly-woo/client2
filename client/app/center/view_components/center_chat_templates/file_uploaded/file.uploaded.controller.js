@@ -166,9 +166,11 @@
         entityId: $scope.currentEntity.entityId || $scope.currentEntity.id,
         // image carousel view data
         userName: message.writer.name,
-        uploadDate: message.createTime,
+        uploadDate: $scope.msg.time,
         fileTitle: message.content.title,
-        fileUrl: message.content.fileUrl
+        fileUrl: message.content.fileUrl,
+        // single file
+        isSingle: $scope.msg.status === 'unshared'
       });
     }
 
