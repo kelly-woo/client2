@@ -7,11 +7,23 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, accountService, currentSessionHelper,
-                                               TutorialTutor, TutorialData, TutorialTopics, TutorialDm) {
+  app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, $urlRouter, accountService,
+                                               currentSessionHelper, TutorialTutor, TutorialData, TutorialTopics,
+                                               TutorialDm) {
     var _topicList;
     var _dmList;
-    var _lectureList;
+    var _lectureList = [
+      'tutorial.team.invitation',
+      'tutorial.topic.create',
+      'tutorial.topic.join',
+      'tutorial.topic.leave',
+      'tutorial.file.comment',
+      'tutorial.file.upload',
+      'tutorial.dm.send',
+      'tutorial.profile.change',
+      'tutorial.menu.team',
+      'tutorial.menu.help'
+    ];
 
     _init();
 
@@ -20,6 +32,7 @@
      * @private
      */
     function _init() {
+      $scope.currentStep = _getLectureIndex($state.current.name);
       TutorialData.get('accountPromise').then(_onSuccessGetAccount);
     }
 
@@ -31,14 +44,33 @@
       _initVariables();
       $('#client-ui').removeClass('full-screen');
       _attachEvents();
+      _initRouter();
 
       $scope.completedStep = 0;
-      $scope.currentStep = _getLectureIndex($state.current.name);
+
 
       $scope.topicList = TutorialTopics.get();
       $scope.dmList = _dmList;
       $scope.tutor = TutorialTutor.get();
       $rootScope.isReady = true;
+    }
+
+    /**
+     *
+     * @private
+     */
+    function _initRouter() {
+      if (_isTutorialStart($state.current.name)) {
+        _routeFirstStep();
+      }
+    }
+
+    function _isTutorialStart(currentName) {
+      return currentName === 'tutorial';
+    }
+
+    function _routeFirstStep() {
+        $state.go(_lectureList[0]);
     }
 
     /**
@@ -123,18 +155,6 @@
           isStarred: true
         }
       ];
-      _lectureList = [
-        'tutorial.team.invitation',
-        'tutorial.topic.create',
-        'tutorial.topic.join',
-        'tutorial.topic.leave',
-        'tutorial.file.comment',
-        'tutorial.file.upload',
-        'tutorial.dm.send',
-        'tutorial.profile.change',
-        'tutorial.menu.team',
-        'tutorial.menu.help'
-      ];
 
       TutorialTopics.set(_topicList, true);
       TutorialDm.set(_dmList, true);
@@ -163,12 +183,14 @@
      */
     function _getLectureIndex(stateName) {
       var index = -1;
+      console.log(stateName);
       _.forEach(_lectureList, function(lectureName, i) {
         if (lectureName === stateName) {
           index = i;
           return false;
         }
       });
+      console.log(index);
       return index;
     }
 
@@ -181,6 +203,9 @@
      * @private
      */
     function _onStateChangeStart(event, toState, toParams, fromState, fromParams) {
+      if (_isTutorialStart(toState.name)) {
+        _routeFirstStep();
+      }
       $scope.currentStep = _getLectureIndex(toState.name);
     }
 

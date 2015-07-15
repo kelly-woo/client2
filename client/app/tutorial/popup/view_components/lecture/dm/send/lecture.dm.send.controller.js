@@ -122,8 +122,8 @@
         },
         {
           isShown: true,
-          top: 645,
-          left: 928
+          top: 395,
+          left: 828
         },
         {
           isShown: false,

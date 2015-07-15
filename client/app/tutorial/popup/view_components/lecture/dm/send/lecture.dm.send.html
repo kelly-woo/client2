@@ -15,11 +15,14 @@
     </div>
   </div>
   <div ng-if="step === 2" class="tutorial_input_center">
-    <input type="text" id="tutorial_text_input" maxlength="200"
+    <input type="text" id="tutorial_text_input" maxlength="50"
         ng-keydown="onKeyDown($event);"/>
   </div>
   <div ng-if="step === 5"
-       class="tutorial_layer tutorial_sticker">
+       class="tutorial_layer tutorial_dm_sticker">
+    <img src="../../../../../assets/images/tutorial/layer/sticker.png">
+    <div class="tutorial_dm_sticker_overlay ">
+    </div>
   </div>
 
   <tutorial-purse options="purse"></tutorial-purse>
