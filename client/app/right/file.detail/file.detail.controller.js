@@ -114,7 +114,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         comment.exProfileImg = url;
       }
     });
-    if ($scope.file_detail.writerId === id) {
+    if ($scope.file_detail && $scope.file_detail.writerId === id) {
       $scope.file_detail.exProfileImg = url;
     }
   }
