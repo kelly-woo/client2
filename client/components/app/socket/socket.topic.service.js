@@ -27,26 +27,54 @@
       socket.on(TOPIC_UPDATED, _onTopicUpdated);
     }
 
+    /**
+     * 내가 토픽을 나갔을 때.
+     * @param data
+     * @private
+     */
     function _onTopicLeft(data) {
       logger.socketEventLogger(TOPIC_LEFT, data);
-      _updateLeftPanel();
+      _updateTopics();
+      jndPubSub.pub('onTopicLeft', data);
+
     }
 
+    /**
+     * 내가 토픽에 조인했을 때.
+     * @param data
+     * @private
+     */
     function _onTopicJoined(data) {
       logger.socketEventLogger(TOPIC_JOINED, data);
-      _updateLeftPanel();
+      _updateTopics();
     }
 
+    /**
+     * 내가 토픽을 지웠을 때.
+     * @param data
+     * @private
+     */
     function _onTopicLDeleted(data) {
       logger.socketEventLogger(TOPIC_DELETED, data);
-      _updateLeftPanel();
+      _updateTopics();
+      jndPubSub.pub('onTopicDeleted', data);
     }
 
+    /**
+     * 누군가가 토픽을 생성했을 때.
+     * @param data
+     * @private
+     */
     function _onTopicLCreated(data) {
       logger.socketEventLogger(TOPIC_CREATED, data);
-      _updateLeftPanel();
+      _updateTopics();
     }
 
+    /**
+     * 토픽이 업데이트되었을 때.
+     * @param data
+     * @private
+     */
     function _onTopicUpdated(data) {
       logger.socketEventLogger(TOPIC_UPDATED, data);
 
@@ -59,7 +87,7 @@
 
     }
 
-    function _updateLeftPanel() {
+    function _updateTopics() {
       jndPubSub.updateLeftPanel();
       jndPubSub.onChangeShared();
     }

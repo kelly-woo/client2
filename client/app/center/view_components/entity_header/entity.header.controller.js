@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
-                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state) {
+                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicCache) {
 
     console.log('');
     console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
@@ -42,8 +42,6 @@
 
 
     (function() {
-      console.log('ENTITYHEADER:: enter');
-
       _initWithParam(_currentEntity);
       _attachEventListeners();
     })();
@@ -55,18 +53,15 @@
     function _attachEventListeners() {
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
-      $scope.$on('onCurrentEntityChanged', function(event, param) {
-        if (_currentEntity !== param) {
-          console.log('ENTITYHEADER:: onCurrentEntityChanged');
-          _initWithParam(param);
-        }
-      });
+      $scope.$on('onCurrentEntityChanged', onCurrentEntityChanged);
+
+      $scope.$on('onTopicDeleted', _onTopicDeleted);
+      $scope.$on('onTopicLeft', _onTopicLeft);
+      $scope.$on('changeEntityHeaderTitle', changeEntityHeaderTitle);
     }
 
     function _initWithParam(param) {
       if (!!param) {
-        console.log('ENTITYHEADER:: _initWithParam');
-
         _checkCurrentEntity(param);
         _checkOwnership();
         _checkIfDefaultTopic();
@@ -172,7 +167,7 @@
             } catch (e) {
             }
             analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
-
+            TopicCache.remove(_entityId);
             publicService.goToDefaultTopic();
           })
           .error(function(error) {
@@ -208,6 +203,7 @@
 
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
+            TopicCache.remove(_entityId);
             publicService.goToDefaultTopic();
           })
           .error(function(error) {
@@ -285,14 +281,44 @@
       $scope.isConnected = false;
     }
 
-    $scope.$on('$destroy', function() {
-      console.log('ENTITYHEADER:: destroy')
-    });
+    function onCurrentEntityChanged(event, param) {
+      if (_currentEntity !== param) {
+        _initWithParam(param);
+      }
+    }
 
-    $scope.$on('changeEntityHeaderTitle', function(event, param) {
-      console.log('changing', param)
+    /**
+     * left에서 토픽이 클릭되었을 때 우선적으로 header의 title을 바꾸세요! 라고 말해준다.
+     * 그 이벤트를 듣고있다가 바꾼다.
+     * @param event
+     * @param param
+     */
+    function changeEntityHeaderTitle(event, param) {
       $scope.currentEntity = _currentEntity = param;
       _initWithParam(param);
-    });
+    }
+
+    /**
+     * 현재 보고있는 토픽이 지워졌을 경우.
+     * @param event
+     * @param data
+     * @private
+     */
+    function _onTopicDeleted(event, data) {
+      if (data.topic.id === _entityId) {
+        TopicCache.remove(_entityId);
+        publicService.goToDefaultTopic();
+      }
+    }
+
+    /**
+     * 현재 보고 있는 토픽을 나갔을 경우.
+     * @param event
+     * @param data
+     * @private
+     */
+    function _onTopicLeft(event, data) {
+      _onTopicDeleted(event, data);
+    }
   }
 })();
