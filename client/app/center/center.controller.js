@@ -20,6 +20,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   var isLogEnabled = true;
 
+  var getMessageDeferredObject;
+
   var firstMessageId;             // 현재 엔티티(토픽, DM)의 가장 위 메세지 아이디.
   var lastMessageId;              // 현재 엔티티(토픽, DM)의 가장 아래 메세지 아이디.
   var loadedFirstMessageId;      // 스크롤 위로 한 후 새로운 메세지를 불러온 후 스크롤 백 투 해야할 메세지 아이디. 새로운 메세지 로드 전 가장 위 메세지.
@@ -220,6 +222,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     systemMessageCount = 0;
     _resetUnreadCounters();
     _resetNewMsgHelpers();
+    _cancelHttpRequest();
   }
 
   /**
@@ -273,7 +276,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _cancelHttpRequest() {
-    getMessageDeferredObject.resolve();
+    if (!_.isUndefined(getMessageDeferredObject)) {
+      getMessageDeferredObject.resolve();
+    }
   }
   /**
    * 윈도우 focus 시 이벤트 핸들러
@@ -355,7 +360,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
 
-  var getMessageDeferredObject;
 
   function loadMore() {
     //console.log('loadMore');
