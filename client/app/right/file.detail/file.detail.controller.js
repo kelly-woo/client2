@@ -46,6 +46,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.onCommentFocusClick = onCommentFocusClick;
   $scope.onKeyDown = onKeyDown;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
+  $scope.getCreateTime = getCreateTime;
 
   _init();
 
@@ -113,7 +114,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         comment.exProfileImg = url;
       }
     });
-    if ($scope.file_detail.writerId === id) {
+    if ($scope.file_detail && $scope.file_detail.writerId === id) {
       $scope.file_detail.exProfileImg = url;
     }
   }
@@ -590,5 +591,29 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function onFileDetailImageLoad() {
     $scope.isLoadingImage = false;
   }
-});
 
+  /**
+   * comment가 작성된 날짜 get
+   * @param {number} index - current index
+   * @param {object} comment - current comment
+   * @returns {string} comment 작성 날짜
+   */
+  function getCreateTime(index, comment) {
+    var fileComments = $scope.file_comments;
+    var prevComment;
+    var createTime;
+
+    comment.exCreateTime = new Date(comment.createTime);
+    prevComment = fileComments[index - 1];
+    if (!prevComment ||
+      prevComment.exCreateTime.getYear() !== comment.exCreateTime.getYear() ||
+      prevComment.exCreateTime.getMonth() !== comment.exCreateTime.getMonth() ||
+      prevComment.exCreateTime.getDate() !== comment.exCreateTime.getDate()) {
+      createTime = $filter('getyyyyMMddformat')(comment.createTime);
+    } else {
+      createTime = $filter('date')(comment.createTime, 'h:mm a');
+    }
+
+    return createTime;
+  }
+});
