@@ -10,7 +10,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, AnalyticsHelper, Announcement) {
 
-  //console.info('[enter] centerpanelController', $scope.currentEntity);
+  //console.info('::[enter] centerpanelController', $state.params.entityId);
   var TEXTAREA_MAX_LENGTH = 40000;
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
@@ -244,9 +244,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onDestroy() {
+    _cancelHttpRequest();
     _detachEvents();
   }
-
+  
   /**
    * dom 이벤트를 바인딩한다.
    * @private
@@ -267,6 +268,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $('body').on('dragstart', _onDragStart);
   }
 
+  /**
+   * 현재 작동하고 있는 getMessages call을 resolve한다.
+   * @private
+   */
+  function _cancelHttpRequest() {
+    getMessageDeferredObject.resolve();
+  }
   /**
    * 윈도우 focus 시 이벤트 핸들러
    * @private
@@ -347,8 +355,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
 
+  var getMessageDeferredObject;
+
   function loadMore() {
-    var deferred = $q.defer();
     //console.log('loadMore');
     if (!$scope.msgLoadStatus.loading) {
       loadedFirstMessageId = MessageCollection.getFirstLinkId();
@@ -370,9 +379,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (!$scope.isInitialLoadingCompleted) {
         _hideContents();
       }
-
+      getMessageDeferredObject = $q.defer();
       // 엔티티 메세지 리스트 목록 얻기
-      messageAPIservice.getMessages(entityType, entityId, MessageQuery.get())
+      messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), getMessageDeferredObject)
         .success(function(response) {
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
@@ -417,12 +426,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         .error(function(response) {
           onHttpResponseError(response);
         });
-      deferred.resolve();
 
     } else {
-      deferred.reject();
     }
-    return deferred.promise;
   }
 
 

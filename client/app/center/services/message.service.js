@@ -42,7 +42,7 @@
     }
 
     // get message lists
-    function getMessages(entityType, entityId, params) {
+    function getMessages(entityType, entityId, params, canceller) {
       entityType = _getParamEntityType(entityType);
 
       params.teamId  = memberService.getTeamId();
@@ -50,7 +50,8 @@
       return $http({
         method  : 'GET',
         url     : server_address + entityType + '/' + entityId + '/messages',
-        params  : params
+        params  : params,
+        timeout : canceller.promise
       });
     }
 
