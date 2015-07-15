@@ -26,7 +26,7 @@
   background: #FFFFFF;
   border-radius: 5px;
   border: 1px solid #cbcbcb;
-  box-shadow: 0 0 3px #cbcbcb;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2)
 }
 
 .tutorial_tutor_body > div {
