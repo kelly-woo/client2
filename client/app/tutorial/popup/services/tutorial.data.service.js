@@ -53,6 +53,10 @@
       return _account;
     }
 
+    /**
+     * 현재 team 에 해당하는 account 정보를 반환한다.
+     * @returns {*}
+     */
     function getCurrentAccount() {
       return _currentAccount;
     }

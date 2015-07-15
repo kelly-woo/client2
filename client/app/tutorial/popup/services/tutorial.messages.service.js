@@ -31,7 +31,7 @@
     function _init() {
       var account;
       TutorialData.get('accountPromise').then(function() {
-        account = TutorialData.getAccount();
+        account = TutorialData.getCurrentAccount();
         _name = account.name;
         _profileUrl = $filter('getFileUrl')(account.u_photoThumbnailUrl.smallThumbnailUrl);
         restore();
