@@ -8,7 +8,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  publicService, MessageQuery, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
-                                                 MessageCollection, AnalyticsHelper, Announcement, TopicCache) {
+                                                 MessageCollection, AnalyticsHelper, Announcement, TopicMessageCache) {
 
   console.info('[enter] centerpanelController');
   var TEXTAREA_MAX_LENGTH = 40000;
@@ -113,7 +113,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if(MessageQuery.hasSearchLinkId()) {
       _jumpToMessage();
     } else {
-      if (TopicCache.has(entityId)) {
+      if (TopicMessageCache.has(entityId)) {
         console.log('has cache');
         _displayCache();
       } else {
@@ -261,7 +261,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         lastMessageId: lastMessageId,
         globalLastLinkId: globalLastLinkId
       };
-      TopicCache.add(entityId, param);
+      TopicMessageCache.add(entityId, param);
     }
   }
 
@@ -273,8 +273,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _shouldUpdateCache() {
     var _hasLastInCache = false;
-    if (TopicCache.has(entityId)) {
-      var param = TopicCache.get(entityId);
+    if (TopicMessageCache.has(entityId)) {
+      var param = TopicMessageCache.get(entityId);
       _hasLastInCache = lastMessageId === param.lastMessageId;
     }
     return _hasLastMessage() && !_hasLastInCache;
@@ -383,7 +383,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _displayCache() {
-    var _item = TopicCache.get(entityId);
+    var _item = TopicMessageCache.get(entityId);
 
     MessageCollection.setList(_item.list);
     lastMessageId = _item.lastMessageId;

@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
-                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicCache) {
+                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache) {
 
     console.log('');
     console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
@@ -167,7 +167,7 @@
             } catch (e) {
             }
             analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
-            TopicCache.remove(_entityId);
+            TopicMessageCache.remove(_entityId);
             publicService.goToDefaultTopic();
           })
           .error(function(error) {
@@ -203,7 +203,7 @@
 
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
-            TopicCache.remove(_entityId);
+            TopicMessageCache.remove(_entityId);
             publicService.goToDefaultTopic();
           })
           .error(function(error) {
@@ -306,7 +306,7 @@
      */
     function _onTopicDeleted(event, data) {
       if (data.topic.id === _entityId) {
-        TopicCache.remove(_entityId);
+        TopicMessageCache.remove(_entityId);
         publicService.goToDefaultTopic();
       }
     }
