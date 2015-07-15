@@ -46,7 +46,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.onCommentFocusClick = onCommentFocusClick;
   $scope.onKeyDown = onKeyDown;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
-  $scope.setCreateTime = setCreateTime;
+  $scope.getCreateTime = getCreateTime;
 
   _init();
 
@@ -607,24 +607,27 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   }
 
   /**
-   * comment가 작성된 날짜를 설정함.
+   * comment가 작성된 날짜 get
    * @param {number} index - current index
    * @param {object} comment - current comment
    * @returns {string} comment 작성 날짜
    */
-  function setCreateTime(index, comment) {
+  function getCreateTime(index, comment) {
     var fileComments = $scope.file_comments;
     var prevComment;
-    var format;
+    var createTime;
 
     comment.exCreateTime = new Date(comment.createTime);
     prevComment = fileComments[index - 1];
-    if (!prevComment || prevComment.exCreateTime.getDate() !== comment.exCreateTime.getDate()) {
-      format = 'h:mm a, d';
+    if (!prevComment ||
+      prevComment.exCreateTime.getYear() !== comment.exCreateTime.getYear() ||
+      prevComment.exCreateTime.getMonth() !== comment.exCreateTime.getMonth() ||
+      prevComment.exCreateTime.getDate() !== comment.exCreateTime.getDate()) {
+      createTime = $filter('getyyyyMMddformat')(comment.createTime);
     } else {
-      format = 'h:mm a';
+      createTime = $filter('date')(comment.createTime, 'h:mm a');
     }
 
-    return $filter('date')(comment.createTime, format);
+    return createTime;
   }
 });
