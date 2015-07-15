@@ -117,13 +117,13 @@
     }
 
     function setCurrentEntityWithTypeAndId(entityType, entityId) {
-      console.log('setting current entity')
-      var currentEntity = getEntityById(entityType, entityId);
-
-      if (!angular.isUndefined(currentEntity)) {
+      var currentEntity;
+      if (!_.isUndefined(entityId)) {
+        currentEntity = EntityMapManager.get('total', entityId);
+      }
+      if (!_.isUndefined(currentEntity)) {
         setCurrentEntity(currentEntity);
       }
-
     }
     //  return null if 'getEntityById' return nothing.
     function setCurrentEntity (currentEntity) {
