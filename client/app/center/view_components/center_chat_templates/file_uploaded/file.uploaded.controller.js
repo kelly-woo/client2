@@ -8,7 +8,7 @@
   /* @ngInject */
   function FileUploadedCtrl($scope, $filter, fileAPIservice, centerService,
                             modalHelper, ImagesHelper, $compile, FileUploaded,
-                            $state, entityheaderAPIservice, entityAPIservice) {
+                            $state, entityheaderAPIservice, entityAPIservice, jndPubSub) {
 
     // 현재 컨틀롤러가 가지고 있는 최상위 돔 엘레멘트
     var jqRootElement;
@@ -157,8 +157,21 @@
      * large thumbnail 을 보고 있을 때 full screen으로 볼 수 있는 모달창을 연다.
      */
     function onFullScreenImageButtonClick() {
-      var fullFileUrl = serverUploaded + content.fileUrl;
-      modalHelper.openFullScreenImageModal($scope, fullFileUrl);
+      modalHelper.openImageCarouselModal({
+        // server api
+        getImage: fileAPIservice.getImageListOnRoom,
+
+        // image file api data
+        messageId: message.id,
+        entityId: $scope.currentEntity.entityId || $scope.currentEntity.id,
+        // image carousel view data
+        userName: message.writer.name,
+        uploadDate: $scope.msg.time,
+        fileTitle: message.content.title,
+        fileUrl: message.content.fileUrl,
+        // single file
+        isSingle: $scope.msg.status === 'unshared'
+      });
     }
 
     /**
@@ -211,7 +224,8 @@
           entityheaderAPIservice.joinChannel(entityId)
             .success(function(response) {
               analyticsService.mixpanelTrack( "topic Join" );
-              $rootScope.$emit('updateLeftPanelCaller');
+
+              jndPubSub.pub('updateLeftPanelCaller');
               $state.go('archives', {entityType: 'channels',  entityId: entityId });
             })
             .error(function(err) {

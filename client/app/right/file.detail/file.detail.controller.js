@@ -238,22 +238,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function onImageClick() {
     var content = $scope.file_detail.content;
+
     if (integrationPreviewMap[content.serverUrl]) {
       window.open(content.fileUrl, '_blank');
     } else {
       modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
-
-      //$modal.open({
-      //  scope       :   $scope,
-      //  controller  :   'fullImageCtrl',
-      //  templateUrl :   'app/modal/fullimage.html',
-      //  windowClass :   'modal-full fade-only',
-      //  resolve     :   {
-      //    photoUrl    : function() {
-      //      return $scope.ImageUrl;
-      //    }
-      //  }
-      //});
     }
   }
 

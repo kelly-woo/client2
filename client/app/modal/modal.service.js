@@ -19,7 +19,7 @@
     var modal;
 
     var inviteModalLock;
-    
+
 
     that.openFileUploadModal = openFileUploadModal;
     that.openFileShareModal = openFileShareModal;
@@ -38,6 +38,7 @@
     that.openCurrentMemberModal = openCurrentMemberModal;
     that.openMemberProfileModal = openMemberProfileModal;
 
+    that.openImageCarouselModal = openImageCarouselModal;
     that.openFullScreenImageModal = openFullScreenImageModal;
 
     that.openNotificationSettingModal = openNotificationSettingModal;
@@ -265,6 +266,28 @@
       };
 
       modal = _modalOpener(modalOption);
+    }
+
+    /**
+     * image-carousel modal open
+     * @param {object} data
+     * @param {string} title - file title
+     * @param {number} messageId - file message id
+     * @param {string} imageUrl - origin image url
+     */
+    function openImageCarouselModal(data) {
+      var modalOptions = {
+        controller: 'ImageCarouselCtrl',
+        templateUrl: 'app/modal/images/carousel/image.carousel.html',
+        windowClass: 'image-carousel-modal',
+        resolve: {
+          data: function() {
+            return data;
+          }
+        }
+      };
+
+      modal = _modalOpener(modalOptions);
     }
 
     function openFullScreenImageModal($scope, fileUrl) {
