@@ -622,9 +622,8 @@ app.controller('leftPanelController1', function(
     var entityType = topicEntity.type;
     var entityId = topicEntity.id;
 
-
     jndPubSub.pub('changeEntityHeaderTitle', topicEntity);
-
+    jndPubSub.pub('showLoadingInCenter');
     _currentEntity = currentSessionHelper.getCurrentEntity();
 
     if (NetInterceptor.isConnected()) {
@@ -635,7 +634,7 @@ app.controller('leftPanelController1', function(
         return;
       }
 
-      if (_currentEntity.id == entityId) {
+      if (_currentEntity.id === entityId) {
         $rootScope.$broadcast('refreshCurrentTopic');
       } else {
         $state.go('archives', {entityType: entityType, entityId: entityId});

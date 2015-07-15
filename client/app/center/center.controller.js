@@ -8,9 +8,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  publicService, MessageQuery, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
-                                                 MessageCollection, AnalyticsHelper, Announcement) {
+                                                 MessageCollection, AnalyticsHelper, Announcement, Cache, $compile) {
 
-  console.info('[enter] centerpanelController', $scope.currentEntity);
+  console.info('[enter] centerpanelController');
   var TEXTAREA_MAX_LENGTH = 40000;
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
@@ -115,7 +115,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if(MessageQuery.hasSearchLinkId()) {
       _jumpToMessage();
     } else {
-      loadMore();
+      if (Cache.has(entityId)) {
+        console.log('has cache');
+        _onHasCache();
+      } else {
+        console.log('no cache');
+        loadMore();
+      }
     }
   }
   /**
@@ -123,6 +129,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _reset() {
+    Cache.init();
     $('#msgs-container')[0].scrollTop = 0;
     MessageQuery.reset();
     MessageCollection.reset();
@@ -177,7 +184,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('showUserFileList', function(event, param) {
       onFileListClick(param);
     });
-
   }
 
   /**
@@ -252,8 +258,29 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onDestroy() {
     _detachEvents();
+    if (_shouldUpdateCache()) {
+      var param = {
+        list: MessageCollection.getList(),
+        lastMessageId: lastMessageId,
+      };
+      Cache.add(param);
+    }
   }
 
+  /**
+   * 캐쉬를 업데이트해야하는 상황인가? 조건은
+   *   2. 현재 토픽의 마지막 메세지를 가지고 있어야 한다.
+   * @returns {*}
+   * @private
+   */
+  function _shouldUpdateCache() {
+    var _hasLastInCache = false;
+    if (Cache.has()) {
+      var param = Cache.get();
+      _hasLastInCache = lastMessageId === param.lastMessageId;
+    }
+    return _hasLastMessage() && !_hasLastInCache;
+  }
   /**
    * dom 이벤트를 바인딩한다.
    * @private
@@ -351,6 +378,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
       loadMore();
     }
+  }
+
+  /**
+   * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
+   * @private
+   */
+  function _onHasCache() {
+    MessageCollection.setList(Cache.get().list);
+    lastMessageId = Cache.get().lastMessageId;
+
+    $scope.messages = MessageCollection.list;
+
+    $scope.isInitialLoadingCompleted = true;
+    publicService.hideTransitionLoading();
   }
 
 
@@ -481,6 +522,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _updateScroll() {
+    console.log('updateScroll')
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
       MessageQuery.clearSearchLinkId();
@@ -509,6 +551,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _scrollToBottom() {
+    console.log('scrollToBottom')
     $timeout.cancel(scrollToBottomTimer);
     scrollToBottomTimer = $timeout(function() {
       document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
@@ -516,7 +559,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $timeout.cancel(showContentTimer);
     showContentTimer = $timeout(function() {
       _showContents();
-    }, 100);
+    }, 10);
   }
 
   function _scrollToBottomWithAnimate(duration) {
@@ -698,7 +741,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // prevent duplicate request
     if (msg || _sticker) {
       MessageCollection.enqueue(msg, _sticker);
-      _scrollToBottom();
       if (NetInterceptor.isConnected()) {
         _postMessages();
       }
@@ -803,7 +845,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _refreshCurrentTopic();
     }
     updateList();
-    _scrollToBottom();
   }
 
   function editMessage(messageId, updateContent) {
@@ -1254,6 +1295,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _updateScroll();
   }
 
+
+
   /**
    * $scope event listeners
    */
@@ -1340,7 +1383,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onElasticResize() {
     // center controller의 content load가 완료 된 상태이고 chat 스크롤이 최 하단에 닿아있을때 scroll도 같이 수정
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
-      _scrollToBottom();
+      //_scrollToBottom();
     }
     $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 27);
   }

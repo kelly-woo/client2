@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('rPanelMessageSearchCardCtrl', rPanelMessageSearchCardCtrl);
 
-  function rPanelMessageSearchCardCtrl($scope, $state, MessageQuery, currentSessionHelper) {
+  function rPanelMessageSearchCardCtrl($scope, $state, MessageQuery, currentSessionHelper, jndPubSub) {
     $scope.prev = $scope.message.prev;
     $scope.current = $scope.message.current;
     $scope.next = $scope.message.next;

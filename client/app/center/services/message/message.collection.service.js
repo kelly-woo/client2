@@ -46,6 +46,10 @@
 
     this.removeAllSendingMessages = removeAllSendingMessages;
     this.updateUnreadCount = updateUnreadCount;
+
+    this.getList = getList;
+    this.setList = setList;
+
     _init();
 
     /**
@@ -589,5 +593,15 @@
         list[index] = message;
       });
     }
+
+    function getList() {
+      console.log(that.list);
+      return that.list;
+    }
+
+    function setList(list) {
+      that.list = list;
+    }
+
   }
 })();

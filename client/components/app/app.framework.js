@@ -4,6 +4,7 @@
   angular
     .module('app.framework', [
       'app.analytics',
+      'app.cache',
       'app.router',
       'app.language',
       'app.storage',

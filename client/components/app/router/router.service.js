@@ -26,7 +26,6 @@
     }
 
     function onLocationChangeSuccess(event) {
-      console.log('onLocationChangeSuccess')
       entityAPIservice.setLastEntityState();
     }
 
@@ -40,12 +39,10 @@
      */
     function onStateChangeStart(event, toState, toParams, fromState, fromParams) {
       if (_isStateChange(toState, toParams, fromState, fromParams)) {
-        console.info("==============================[stateChange]==============================");
-        console.info("   from    ", fromState.name, ' / ', fromParams);
-        console.info("    to     ", toState.name, ' / ',toParams);
-        console.info("=========================================================================");
-
-        console.log('onStateChangeStart')
+        //console.info("==============================[stateChange]==============================");
+        //console.info("   from    ", fromState.name, ' / ', fromParams);
+        //console.info("    to     ", toState.name, ' / ',toParams);
+        //console.info("=========================================================================");
 
         if (currentSessionHelper.isMobile && toState.name != 'mobile') {
           if (toState.name == "password") {
@@ -148,7 +145,6 @@
         }
 
         if (!event.defaultPrevented) {
-          console.log('going')
           _setCurrentEntityWithTypeAndId(toParams.entityType, toParams.entityId);
         }
       }

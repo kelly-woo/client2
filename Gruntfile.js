@@ -502,6 +502,7 @@ module.exports = function (grunt) {
               '!{.tmp,<%= yeoman.client %>}/components/app/local_storage/local.storage.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/net/net.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/cache/cache.js',
 
               '!{.tmp,<%= yeoman.client %>}/components/app/pubsub/pubsub.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/notification/desktop.notification.js',
