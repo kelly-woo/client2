@@ -36,6 +36,7 @@
       'DEL': 46,
       'UNDEFINED': 229
     };
+    this.keyCodeMap = keyCodeMap;
     this.match = match;
 
     function match(keyName, keyCode) {
