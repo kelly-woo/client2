@@ -159,6 +159,7 @@ module.exports = function (grunt) {
         }]
       },
       server: '.tmp',
+      //app: '<%= yeoman.dist %>/public/app/*',
       tmp: '<%= yeoman.dist %>/tmp'
     },
 
@@ -409,8 +410,9 @@ module.exports = function (grunt) {
       },
       assets_path: {
         expand: true,
-        src: '<%= yeoman.dist %>/tmp/*',
-        dest: '<%= yeoman.dist %>/public/app'
+        cwd: '<%= yeoman.dist %>/tmp',
+        src: '*',
+        dest: '<%= yeoman.dist %>/public/app/'
       }
     },
 
@@ -574,7 +576,7 @@ module.exports = function (grunt) {
           expand: true,
           flatten: true,
           src: '<%= yeoman.dist %>/public/app/*.{html,css,js}',
-          dest: '<%= yeoman.dist %>/tmp'
+          dest: '<%= yeoman.dist %>/tmp/'
         }]
       },
       local: {
