@@ -263,6 +263,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       var param = {
         list: MessageCollection.getList(),
         lastMessageId: lastMessageId,
+
         globalLastLinkId: globalLastLinkId
       };
       TopicMessageCache.add(entityId, param);
@@ -406,6 +407,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.isInitialLoadingCompleted = true;
     publicService.hideTransitionLoading();
+
+    messageAPIservice.getUpdatedList(entityId, lastMessageId)
+      .success(_onUpdatedMessagesSuccess)
+      .error(function(err) {
+        console.log(err)
+      });
   }
 
 
