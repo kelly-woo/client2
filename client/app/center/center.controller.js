@@ -36,11 +36,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var scrollToBottomTimer;
   var showContentTimer;
 
-  var messages = {};
-
   var _stickerType = 'chat';
   var _sticker = null;
   var _isUpdateListLock = false;
+
+
+
+  var _startTime;
+  var timer = 0;
+
 
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $rootScope.isIE9 = false;
@@ -102,7 +106,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _init() {
-    $scope.currentEntity = currentSessionHelper.getCurrentEntity();
     centerService.preventChatWithMyself(entityId);
     $rootScope.isIE9 = centerService.isIE9();
 
@@ -115,7 +118,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if(MessageQuery.hasSearchLinkId()) {
       _jumpToMessage();
     } else {
-      if (TopicMessageCache.has(entityId)) {
+      if (TopicMessageCache.contains(entityId)) {
         console.log('has cache');
         _displayCache();
       } else {
@@ -137,16 +140,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isPolling = false;
     // configuration for message loading
     $scope.msgLoadStatus = {
-      loading: false,
-      loadingTimer : false // no longer using.
+      loading: false
     };
     $scope.message.content = TextBuffer.get();
-    messages = {};
 
     $scope.isInitialLoadingCompleted = false;
-    $timeout(function() {
-      $scope.msgLoadStatus.loadingTimer = false;
-    }, 1000);
+
+    $scope.currentEntity = currentSessionHelper.getCurrentEntity();
 
     _initLocalVariables();
   }
@@ -263,10 +263,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       var param = {
         list: MessageCollection.getList(),
         lastMessageId: lastMessageId,
-
         globalLastLinkId: globalLastLinkId
       };
-      TopicMessageCache.add(entityId, param);
+      TopicMessageCache.put(entityId, param);
     }
   }
   
@@ -278,7 +277,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _shouldUpdateCache() {
     var _hasLastInCache = false;
-    if (TopicMessageCache.has(entityId)) {
+    if (TopicMessageCache.contains(entityId)) {
       var param = TopicMessageCache.get(entityId);
       _hasLastInCache = lastMessageId === param.lastMessageId;
     }
@@ -391,7 +390,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       loadMore();
     }
   }
-
   /**
    * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
    * @private
@@ -403,10 +401,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     lastMessageId = _item.lastMessageId;
     globalLastLinkId = _item.globalLastLinkId;
 
+
     $scope.messages = MessageCollection.list;
 
     $scope.isInitialLoadingCompleted = true;
     publicService.hideTransitionLoading();
+    $scope.loadMoreCounter = 1;
 
     messageAPIservice.getUpdatedList(entityId, lastMessageId)
       .success(_onUpdatedMessagesSuccess)
@@ -415,6 +415,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   }
 
+  function consoleTime() {
+    if (_.isUndefined(_startTime)) {
+      _startTime = _.now();
+    }
+    var currentTime = _.now();
+    console.log(timer + ' and ' + (currentTime - _startTime));
+    _startTime = currentTime;
+    timer++;
+  }
 
 
   function loadMore() {
@@ -539,6 +548,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _updateScroll() {
     console.log('updateScroll')
+    consoleTime(_startTime);
+
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
       MessageQuery.clearSearchLinkId();
@@ -554,6 +565,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _scrollToBottom();
     }
     MessageQuery.reset();
+      console.log('done')
+    consoleTime(_startTime);
+
   }
 
   function _findMessageDomElementById(id) {
