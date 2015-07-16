@@ -48,7 +48,7 @@
      * @returns {*}
      */
     function getValue(key, name) {
-      return topicCacheMap[key][name];
+      return !!topicCacheMap[key] && topicCacheMap[key][name];
     }
     /**
      * topicCacheMap 에 key-value pair를 저정한다.
