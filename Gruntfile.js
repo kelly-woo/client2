@@ -806,7 +806,10 @@ module.exports = function (grunt) {
       'cssmin',
       'uglify',
       'rev',
-      'usemin'
+      'usemin',
+      'replace:assets',
+      'copy:assets_path',
+      'clean:tmp'
     ]);
   });
 
