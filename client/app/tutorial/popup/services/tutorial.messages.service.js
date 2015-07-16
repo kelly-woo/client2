@@ -9,7 +9,7 @@
     .service('TutorialMessages', TutorialMessages);
 
   /* @ngInject */
-  function TutorialMessages($filter, TutorialData, TutorialEntity) {
+  function TutorialMessages($filter, TutorialEntity, TutorialAccount) {
     var _list = [];
     var _name;
     var _profileUrl;
@@ -30,8 +30,8 @@
      */
     function _init() {
       var account;
-      TutorialData.get('accountPromise').then(function() {
-        account = TutorialData.getCurrentAccount();
+      TutorialAccount.promise.then(function() {
+        account = TutorialAccount.getCurrent();
         _name = account.name;
         _profileUrl = $filter('getFileUrl')(account.u_photoThumbnailUrl.smallThumbnailUrl);
         restore();

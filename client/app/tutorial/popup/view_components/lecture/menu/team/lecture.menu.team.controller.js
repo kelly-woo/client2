@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureMenuTeamCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
+  app.controller('lectureMenuTeamCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 2;
     var _tutorDataList;
     var _purseDataList;
@@ -19,7 +19,7 @@
      * @private
      */
     function _init() {
-      TutorialData.get('accountPromise').then(function() {
+      TutorialAccount.promise.then(function() {
         _initTutor();
         _attachEvents();
         $scope.step = 0;
@@ -34,11 +34,11 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '팀메뉴 클릭해보셩',
+          title: '팀 메뉴 클릭해!',
           content: '',
           top: 200,
           left: 300,
-          hasSkip: false,
+          hasSkip: true,
           hasNext: false
         },
         {
@@ -46,7 +46,7 @@
           content: '팀메뉴엔 이러이러한 부메뉴들이 있어. 잘 활용해',
           top: 200,
           left: 300,
-          hasSkip: false,
+          hasSkip: true,
           hasNext: true
         }
       ];

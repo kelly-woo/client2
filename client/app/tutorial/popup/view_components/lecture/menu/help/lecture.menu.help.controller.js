@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureMenuHelpCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
+  app.controller('lectureMenuHelpCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 1;
     var _tutorDataList;
     _init();
@@ -17,7 +17,7 @@
      * @private
      */
     function _init() {
-      TutorialData.get('accountPromise').then(function() {
+      TutorialAccount.promise.then(function() {
         _initTutor();
         _attachEvents();
         $scope.step = 0;
@@ -32,10 +32,9 @@
       _tutorDataList = [
         {
           title: '',
-          content: '궁금한 점이 있으면 언제든 여기를 누르면 된다는걸 잊지마~!',
+          content: '궁금한 점이 있으면 언제든 여기를 누르면 된다는걸 잊지마!',
           top: 200,
           left: 300,
-          hasSkip: true,
           hasNext: true
         }
       ];

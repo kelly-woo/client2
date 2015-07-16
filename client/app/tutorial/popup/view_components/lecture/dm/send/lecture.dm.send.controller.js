@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureDmSendCtrl', function ($scope, $rootScope, jndPubSub, jndKeyCode, TutorialTutor, TutorialData,
+  app.controller('lectureDmSendCtrl', function ($scope, $rootScope, jndPubSub, jndKeyCode, TutorialTutor, TutorialAccount,
                                                 TutorialTopics, TutorialMessages, TutorialEntity, TutorialDm) {
     var TOTAL_STEP = 7;
     var _tutorDataList;
@@ -23,7 +23,7 @@
      * @private
      */
     function _init() {
-      TutorialData.get('accountPromise').then(function() {
+      TutorialAccount.promise.then(function() {
         _initTutor();
         _attachEvents();
         $scope.step = 0;
@@ -62,7 +62,7 @@
           hasNext: false
         },
         {
-          title: '이렇게 떠',
+          title: 'Aaron 에게 메세지가 잘 간거 보여?',
           content: '',
           top: 200,
           left: 300,
@@ -70,7 +70,7 @@
           hasNext: true
         },
         {
-          title: '스티카 날려봐',
+          title: '스티커 날려봐',
           content: '',
           top: 200,
           left: 300,
@@ -78,7 +78,7 @@
           hasNext: false
         },
         {
-          title: '스티카 날려봐',
+          title: '스티커 날려봐',
           content: '',
           top: 200,
           left: 300,

@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureTopicLeaveCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData,
+  app.controller('lectureTopicLeaveCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount,
                                                     TutorialEntity, TutorialTopics) {
     var TOTAL_STEP = 3;
     var _tutorDataList;
@@ -22,7 +22,7 @@
      * @private
      */
     function _init() {
-      TutorialData.get('accountPromise').then(function() {
+      TutorialAccount.promise.then(function() {
         _initTutor();
         _initTopic();
         _attachEvents();
@@ -56,8 +56,8 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '잘했쪄',
-          content: '토픽 이름을 클릭해서 메뉴를 불러와봐',
+          title: '훌륭해!',
+          content: '지금 <b>Lunch</b> 토픽에 있는데, 토픽 이름을 클릭해서 메뉴를 불러와봐',
           top: 200,
           left: 300,
           hasSkip: false,

@@ -8,7 +8,7 @@
   var app = angular.module('jandiApp');
 
   app.controller('lectureTopicCreateCtrl', function ($scope, $rootScope, $filter, jndPubSub, TutorialTutor,
-                                                     TutorialData, TutorialTopics, TutorialEntity) {
+                                                     TutorialAccount, TutorialTopics, TutorialEntity) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
     var _purseDataList;
@@ -20,7 +20,7 @@
      * @private
      */
     function _init() {
-      TutorialData.get('accountPromise').then(function() {
+      TutorialAccount.promise.then(function() {
         _initTutor();
         _attachEvents();
         $scope.step = 0;
@@ -34,7 +34,7 @@
      * @private
      */
     function _initTutor() {
-      var userName = TutorialData.getCurrentAccount().name;
+      var userName = TutorialAccount.getCurrent().name;
       _tutorDataList = [
         {
           title: '토픽',
@@ -62,7 +62,7 @@
         },
         {
           title: '훌륭해!',
-          content: '잘 만들었어. {{entityName}} 만들었구나?',
+          content: '잘 만들었어. <b> {{ entityName }} </b> 토픽을 만들었구나?',
           top: 200,
           left: 300,
           hasSkip: false,
@@ -150,6 +150,10 @@
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
+        if (step === 3){
+          _tutorDataList[step].content = '잘 만들었어. <b> ' + $scope.entityName + ' </b> 토픽을 만들었구나?';
+        }
+
         $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
       }

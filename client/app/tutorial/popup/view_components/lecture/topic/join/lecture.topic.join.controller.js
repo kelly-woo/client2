@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureTopicJoinCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
+  app.controller('lectureTopicJoinCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 2;
     var _tutorDataList;
     var _purseDataList;
@@ -19,7 +19,7 @@
      * @private
      */
     function _init() {
-      TutorialData.get('accountPromise').then(function() {
+      TutorialAccount.promise.then(function() {
         _initTutor();
         _attachEvents();
         $scope.step = 0;

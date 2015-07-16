@@ -8,7 +8,7 @@
   var app = angular.module('jandiApp');
 
   app.controller('lectureFileCommentCtrl', function ($scope, $rootScope, $filter, jndPubSub, jndKeyCode, TutorialTutor,
-                                                     TutorialData) {
+                                                     TutorialAccount) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
     var _purseDataList;
@@ -24,7 +24,7 @@
      * @private
      */
     function _init() {
-      TutorialData.get('accountPromise').then(function() {
+      TutorialAccount.promise.then(function() {
         _initTutor();
         _initAccount();
         _attachEvents();
@@ -39,7 +39,7 @@
      * @private
      */
     function _initAccount() {
-      var account = TutorialData.getCurrentAccount();
+      var account = TutorialAccount.getCurrent();
       $scope.name = account.name;
       $scope.profileUrl = $filter('getFileUrl')(account.u_photoThumbnailUrl.smallThumbnailUrl);
     }
@@ -56,7 +56,7 @@
           top: 200,
           left: 300,
           hasSkip: false,
-          hasNext: true
+          hasNext: false
         },
         {
           title: '',
@@ -64,7 +64,7 @@
           top: 200,
           left: 300,
           hasSkip: false,
-          hasNext: true
+          hasNext: false
         },
         {
           title: '코멘트 남겨보자',
@@ -72,11 +72,11 @@
           top: 200,
           left: 30,
           hasSkip: false,
-          hasNext: true
+          hasNext: false
         },
         {
           title: '잘햇어',
-          content: '다운로드하거나 쉐어할수 잇음',
+          content: '저걸 누르면 다운로드하거나 쉐어할수 있음. <b>다음</b> 버튼 눌러.',
           top: 200,
           left: 30,
           hasSkip: false,

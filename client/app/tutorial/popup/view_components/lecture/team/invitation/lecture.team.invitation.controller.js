@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
+  app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
     var _purseDataList;
@@ -18,7 +18,7 @@
      * @private
      */
     function _init() {
-      TutorialData.get('accountPromise').then(function() {
+      TutorialAccount.promise.then(function() {
         $scope.step = 0;
         _initTutor();
         _attachEvents();
@@ -33,7 +33,7 @@
       _tutorDataList = [
         {
           title: '잔디 튜토리얼에 오신것을 환영합니다.',
-          content: '자 우리함께 튜토리얼을 시작해볼까?',
+          content: '자 우리 함께 튜토리얼을 시작해까?',
           top: 200,
           left: 300,
           hasSkip: false,
@@ -41,7 +41,7 @@
         },
         {
           title: '잔디 튜토리얼에 오신것을 환영합니다.',
-          content: '탐은 그룹하고 비슷한거야',
+          content: '탐은 그룹하고 비슷한거야. 한 계정에 여러 팀을 만들수 있음.',
           top: 200,
           left: 300,
           hasSkip: false,
@@ -49,7 +49,7 @@
         },
         {
           title: '',
-          content: '다른 사람을 초대할 수 있써. <br>초대 클릭해봐',
+          content: '다른 사람을 초대할 수 있어. <br>초대 클릭해봐',
           top: 200,
           left: 300,
           hasSkip: false,
@@ -57,7 +57,7 @@
         },
         {
           title: '',
-          content: '이렇게 초대할수 있어. 다음 버튼을 눌러봐',
+          content: '이멜 넣고 요렇게 저렇게 해서 초대할수 있어. <b>다음</b> 버튼을 눌러봐',
           top: 440,
           left: 510,
           hasSkip: false,

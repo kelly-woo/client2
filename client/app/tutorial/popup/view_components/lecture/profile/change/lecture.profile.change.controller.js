@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureProfileChangeCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData) {
+  app.controller('lectureProfileChangeCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 3;
     var _tutorDataList;
     var _purseDataList;
@@ -22,9 +22,8 @@
      */
     function _init() {
       var account;
-      TutorialData.get('accountPromise').then(function() {
-        account = TutorialData.getCurrentAccount();
-
+      TutorialAccount.promise.then(function() {
+        account = TutorialAccount.getCurrent();
         _initTutor();
         _attachEvents();
         $scope.step = 0;
@@ -39,7 +38,7 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '프로필을 바꺼보쟝!',
+          title: '프로필을 바꿔봐!',
           content: '',
           top: 200,
           left: 300,
@@ -47,7 +46,7 @@
           hasNext: false
         },
         {
-          title: '프로필을 바꺼보쟝!',
+          title: '프로필을 바꿔봐!',
           content: '',
           top: 200,
           left: 300,
@@ -56,7 +55,7 @@
         },
         {
           title: '',
-          content: '이렇게 프로필을 바꾸는게 중요할때가 있다는걸 잊지마.',
+          content: '인적사항을 항상 최신으로 업뎃하는게 좋겠지? 전번 바뀌면 곤란하잖어. <b>다음</b>버튼을 눌러',
           top: 340,
           left: 510,
           hasSkip: true,

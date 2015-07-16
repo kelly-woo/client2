@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureFileUploadCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialData,
+  app.controller('lectureFileUploadCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount,
                                                     TutorialMessages, TutorialEntity) {
     var TOTAL_STEP = 3;
     var _tutorDataList;
@@ -22,7 +22,7 @@
      * @private
      */
     function _init() {
-      TutorialData.get('accountPromise').then(function() {
+      TutorialAccount.promise.then(function() {
         _initTutor();
         _attachEvents();
         $scope.step = 0;
@@ -46,7 +46,7 @@
         },
         {
           title: '',
-          content: '여길 눌러서 파일 업로드를 할 수 있어',
+          content: '여길 눌러서 내컴터 드랍박스 구글드라이브 등에서 파일 업로드를 할 수 있어',
           top: 200,
           left: 300,
           hasSkip: false,

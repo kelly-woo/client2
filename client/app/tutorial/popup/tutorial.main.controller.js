@@ -8,10 +8,11 @@
   var app = angular.module('jandiApp');
 
   app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, $urlRouter, accountService,
-                                               currentSessionHelper, TutorialTutor, TutorialData, TutorialTopics,
+                                               currentSessionHelper, TutorialTutor, TutorialAccount, TutorialTopics,
                                                TutorialDm) {
     var _topicList;
     var _dmList;
+
     var _lectureList = [
       'tutorial.team.invitation',
       'tutorial.topic.create',
@@ -24,7 +25,6 @@
       'tutorial.menu.team',
       'tutorial.menu.help'
     ];
-
     _init();
 
     /**
@@ -32,8 +32,7 @@
      * @private
      */
     function _init() {
-      $scope.currentStep = _getLectureIndex($state.current.name);
-      TutorialData.get('accountPromise').then(_onSuccessGetAccount);
+      TutorialAccount.promise.then(_onSuccessGetAccount);
     }
 
     /**
@@ -42,13 +41,11 @@
      */
     function _onSuccessGetAccount() {
       _initVariables();
+      _initRouter();
       $('#client-ui').removeClass('full-screen');
       _attachEvents();
-      _initRouter();
-
+      $scope.currentStep = _getLectureIndex($state.current.name);
       $scope.completedStep = 0;
-
-
       $scope.topicList = TutorialTopics.get();
       $scope.dmList = _dmList;
       $scope.tutor = TutorialTutor.get();
@@ -56,29 +53,33 @@
     }
 
     /**
-     *
+     * routing 을 초기화 한다.
      * @private
      */
     function _initRouter() {
-      if (_isTutorialStart($state.current.name)) {
+      if (_isTutorialFirstStep($state.current.name)) {
         _routeFirstStep();
       }
     }
 
-    function _isTutorialStart(currentName) {
+    /**
+     * 튜토리얼 시작인지 여부 확인
+     * @param {string} currentName
+     * @returns {boolean}
+     * @private
+     */
+    function _isTutorialFirstStep(currentName) {
       return currentName === 'tutorial';
     }
 
-    function _routeFirstStep() {
-        $state.go(_lectureList[0]);
-    }
-
     /**
-     * account fail 핸들러
-     * @param {object} err
+     * 튜토리얼 첫번째 과정인지 여부 반환
      * @private
      */
-    function _onFailGetAccount(err) {
+    function _routeFirstStep() {
+      if (_lectureList && _lectureList[0]) {
+        $state.go(_lectureList[0]);
+      }
     }
 
     /**
@@ -203,7 +204,7 @@
      * @private
      */
     function _onStateChangeStart(event, toState, toParams, fromState, fromParams) {
-      if (_isTutorialStart(toState.name)) {
+      if (_isTutorialFirstStep(toState.name)) {
         _routeFirstStep();
       }
       $scope.currentStep = _getLectureIndex(toState.name);

@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialModalProfileCtrl', function ($scope, $filter, TutorialData) {
+  app.controller('tutorialModalProfileCtrl', function ($scope, $filter, TutorialAccount) {
     _init();
 
     /**
@@ -15,10 +15,9 @@
      * @private
      */
     function _init() {
-      TutorialData.get('accountPromise').then(function() {
-        $scope.curUser = TutorialData.getCurrentAccount();
-        $scope.account = TutorialData.getAccount();
-        console.log('account', $scope.account);
+      TutorialAccount.promise.then(function() {
+        $scope.curUser = TutorialAccount.getCurrent();
+        $scope.account = TutorialAccount.get();
         $scope.profileUrl = $filter('getFileUrl')($scope.curUser.u_photoThumbnailUrl.mediumThumbnailUrl);
       });
     }

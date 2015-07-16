@@ -7,7 +7,8 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialCenterCtrl', function ($scope, $rootScope, $state, $filter, TutorialData, TutorialMessages) {
+  app.controller('tutorialCenterCtrl', function ($scope, $rootScope, $state, $filter, TutorialMessages,
+                                                 TutorialAccount) {
 
     _init();
 
@@ -17,8 +18,8 @@
      */
     function _init() {
       var account;
-      TutorialData.get('accountPromise').then(function() {
-        account = TutorialData.getCurrentAccount();
+      TutorialAccount.promise.then(function() {
+        account = TutorialAccount.getCurrent();
         $scope.name = account.name;
         $scope.profileUrl = $filter('getFileUrl')(account.u_photoThumbnailUrl.smallThumbnailUrl);
 
