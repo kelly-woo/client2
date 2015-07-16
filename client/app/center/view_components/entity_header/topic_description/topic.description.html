@@ -3,5 +3,5 @@
 
   <div class="topic-description__title">{{currentEntity.name}}</div>
 
-  <div class="topic-description__description keep selectable">{{currentEntity.description || '@no-topic-description' | translate}}</div>
+  <div class="topic-description__description keep selectable" ng-class="{'empty-description': !currentEntity.description}">{{currentEntity.description || '@no-topic-description' | translate}}</div>
 </div>
