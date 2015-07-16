@@ -623,7 +623,7 @@ app.controller('leftPanelController1', function(
     var entityId = topicEntity.id;
 
     jndPubSub.pub('changeEntityHeaderTitle', topicEntity);
-    jndPubSub.pub('showLoadingInCenter');
+
     _currentEntity = currentSessionHelper.getCurrentEntity();
 
     if (NetInterceptor.isConnected()) {
