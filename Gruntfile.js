@@ -561,7 +561,7 @@ module.exports = function (grunt) {
 
     // replace
     replace: {
-      assets: {
+      assets_css: {
         options: {
           patterns: [
             {
@@ -575,7 +575,25 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           flatten: true,
-          src: '<%= yeoman.dist %>/public/app/*.{html,css,js}',
+          src: '<%= yeoman.dist %>/public/app/*.css',
+          dest: '<%= yeoman.dist %>/tmp/'
+        }]
+      },
+      assets_js: {
+        options: {
+          patterns: [
+            {
+              match: /(\.\.\/)+assets/g,
+              replacement: function() {
+                return 'assets';
+              }
+            }
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: '<%= yeoman.dist %>/public/app/*.js',
           dest: '<%= yeoman.dist %>/tmp/'
         }]
       },
@@ -788,7 +806,8 @@ module.exports = function (grunt) {
         'uglify',
         'rev',
         'usemin',
-        'replace:assets',
+        'replace:assets_js',
+        'replace:assets_css',
         'copy:assets_path',
         'clean:tmp'
       ]);
@@ -809,7 +828,8 @@ module.exports = function (grunt) {
       'uglify',
       'rev',
       'usemin',
-      'replace:assets',
+      'replace:assets_js',
+      'replace:assets_css',
       'copy:assets_path',
       'clean:tmp'
     ]);
