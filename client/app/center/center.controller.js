@@ -260,14 +260,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _cancelHttpRequest();
     _detachEvents();
     if (_shouldUpdateCache()) {
-      var param = {
-        list: MessageCollection.getList(),
-        lastMessageId: lastMessageId,
-
-        globalLastLinkId: globalLastLinkId
-      };
-      TopicMessageCache.add(entityId, param);
+      _updateCache();
     }
+  }
+
+  function _updateCache() {
+    var param = {
+      list: MessageCollection.getList(),
+      lastMessageId: lastMessageId,
+      globalLastLinkId: globalLastLinkId
+    };
+
+    TopicMessageCache.add(entityId, param);
   }
   
   /**
@@ -396,8 +400,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
    * @private
    */
+  var startTime;
   function _displayCache() {
+    startTime = _.now();
+
+    console.log('displaying cache');
     var _item = TopicMessageCache.get(entityId);
+
+    $scope.isInitialLoadingCompleted = true;
+    publicService.hideTransitionLoading();
 
     MessageCollection.setList(_item.list);
     lastMessageId = _item.lastMessageId;
@@ -405,16 +416,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.messages = MessageCollection.list;
 
-    $scope.isInitialLoadingCompleted = true;
-    publicService.hideTransitionLoading();
+    _getUpdatedList();
+  }
 
+  function _getUpdatedList() {
     messageAPIservice.getUpdatedList(entityId, lastMessageId)
       .success(_onUpdatedMessagesSuccess)
       .error(function(err) {
         console.log(err)
       });
   }
-
 
 
   function loadMore() {
@@ -538,7 +549,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _updateScroll() {
-    console.log('updateScroll')
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
       MessageQuery.clearSearchLinkId();
@@ -586,6 +596,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     showContentTimer = $timeout(function() {
       _showContents();
     }, 10);
+
+    console.log('done scrollToBottom', _.now() - startTime,'ms');
+    startTime = '';
   }
 
   function _scrollToBottomWithAnimate(duration) {

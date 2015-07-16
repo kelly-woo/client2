@@ -19,9 +19,7 @@
     };
 
     function link(scope, el, attrs) {
-      var $scope = scope;
-      var messageId = $scope.msg.id;
-      var jqTextContainer = $(document.getElementById(messageId));
+      var jqTextContainer = el;
 
       scope.onMouseEnterOnIcon = _onMouseEnterOnIcon;
       scope.onMouseLeaveOnIcon = _onMouseLeaveOnIcon;
