@@ -10,7 +10,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, AnalyticsHelper, Announcement, TopicMessageCache) {
 
-  console.info('[enter] centerpanelController');
+  //console.info('::[enter] centerpanelController', $state.params.entityId);
   var TEXTAREA_MAX_LENGTH = 40000;
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
@@ -19,6 +19,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var entityId = $state.params.entityId;
 
   var isLogEnabled = true;
+
+  var getMessageDeferredObject;
 
   var firstMessageId;             // 현재 엔티티(토픽, DM)의 가장 위 메세지 아이디.
   var lastMessageId;              // 현재 엔티티(토픽, DM)의 가장 아래 메세지 아이디.
@@ -230,6 +232,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     systemMessageCount = 0;
     _resetUnreadCounters();
     _resetNewMsgHelpers();
+    _cancelHttpRequest();
   }
 
   /**
@@ -254,6 +257,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onDestroy() {
+    _cancelHttpRequest();
     _detachEvents();
     if (_shouldUpdateCache()) {
       var param = {
@@ -264,7 +268,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       TopicMessageCache.add(entityId, param);
     }
   }
-
+  
   /**
    * 캐쉬를 업데이트해야하는 상황인가? 조건은
    *   2. 현재 토픽의 마지막 메세지를 가지고 있어야 한다.
@@ -299,6 +303,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $('body').on('dragstart', _onDragStart);
   }
 
+  /**
+   * 현재 작동하고 있는 getMessages call을 resolve한다.
+   * @private
+   */
+  function _cancelHttpRequest() {
+    if (!_.isUndefined(getMessageDeferredObject)) {
+      getMessageDeferredObject.resolve();
+    }
+  }
   /**
    * 윈도우 focus 시 이벤트 핸들러
    * @private
@@ -396,8 +409,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
 
+
   function loadMore() {
-    var deferred = $q.defer();
     //console.log('loadMore');
     if (!$scope.msgLoadStatus.loading) {
       loadedFirstMessageId = MessageCollection.getFirstLinkId();
@@ -419,9 +432,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (!$scope.isInitialLoadingCompleted) {
         _hideContents();
       }
-
+      getMessageDeferredObject = $q.defer();
       // 엔티티 메세지 리스트 목록 얻기
-      messageAPIservice.getMessages(entityType, entityId, MessageQuery.get())
+      messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), getMessageDeferredObject)
         .success(function(response) {
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
@@ -466,12 +479,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         .error(function(response) {
           onHttpResponseError(response);
         });
-      deferred.resolve();
 
     } else {
-      deferred.reject();
     }
-    return deferred.promise;
   }
 
 

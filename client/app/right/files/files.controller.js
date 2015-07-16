@@ -402,8 +402,6 @@
             } catch (e) {
             }
           }
-
-          console.log(response.msg);
         })
         .finally(function() {
           _updateSearchStatusTotalCount();

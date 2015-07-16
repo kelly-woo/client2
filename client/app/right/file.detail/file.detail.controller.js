@@ -238,6 +238,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function onImageClick() {
     var content = $scope.file_detail.content;
+
     if (integrationPreviewMap[content.serverUrl]) {
       window.open(content.fileUrl, '_blank');
     } else {
