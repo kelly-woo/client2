@@ -78,3 +78,10 @@ input.disabled {
   -o-transition : border 500ms ease-out;
   transition : border 500ms ease-out;
 }
+
+
+.jnd-three-quarters-loader {
+  -moz-animation: three-quarters-loader 928ms infinite linear !important;
+  -webkit-animation: three-quarters-loader 928ms infinite linear !important;
+  animation: three-quarters-loader 928ms infinite linear !important;
+}

@@ -768,6 +768,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var jqInput = $('#message-input');
     var msg = $.trim(jqInput.val());
 
+    if (msg === 'showloading') {
+      $scope.msgLoadStatus.loading = true;
+      return;
+    }
+
+    if (msg === 'showfullloading') {
+      $scope.msgLoadStatus.loading = true;
+      $scope.hasLastMessageRendered = false;
+      return;
+    }
+
     // prevent duplicate request
     if (msg || _sticker) {
       MessageCollection.enqueue(msg, _sticker);

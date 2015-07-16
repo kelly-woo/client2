@@ -67,6 +67,7 @@ article {
   bottom: 2px;
   background-color: #fff;
   z-index: 1;
+  text-align: center;
 }
 .msgs__loading.initial {
   height: 100%;
@@ -77,6 +78,11 @@ article {
   height: 60px;
   background-position: center center;
   background-size: 60px 60px;
+}
+.msgs__loading .three-quarters-loader {
+  position: absolute;
+  top: 50%;
+  margin-top: -16px;
 }
 .msgs-intro {
   padding: 1rem 1rem 1rem 1.5rem;
