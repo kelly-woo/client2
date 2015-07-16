@@ -7,7 +7,7 @@
 
   angular
     .module('jandiApp')
-    .directive('jndTooltip', jndTooltip);
+    .directive('topicDescription', jndTooltip);
 
   /* @ngInject */
   function jndTooltip($document) {
