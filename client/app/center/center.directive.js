@@ -10,32 +10,34 @@
 
   // element에 drag-over-class 속성으로 drag over상태 알려주는 event handler 처리시
   // IE9<에서 blink 현상이 있으므로 code로 직접 handling.
-  function dragdown() {
+  function dragdown($rootScope, $compile) {
+    var dndTemplate = '<div class="dnd-over-content">' +
+      '<span class="dnd-over-msg">' +
+        '<span translate>@dnd-file-upload-msg</span>' +
+      '</span>' +
+      '<div class="dnd-over-border"></div>' +
+      '<div class="dnd-over-area"></div>' +
+      '</div>';
+
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope, element) {
-      var dragging = 0;
+      var dndContent = $compile(dndTemplate)($rootScope.$new(true));
 
-      element
-        .on('dragenter', function(event) {
-          dragging++;
-          element.addClass('dnd-hover');
-        })
-        .on('dragover', function(event) {
-          element.addClass('dnd-hover');
-        })
-        .on('dragleave', function() {
-          dragging--;
-          if (dragging === 0) {
-            element.removeClass('dnd-hover');
-          }
+      element.on('dragover', function() {
+        element.addClass('dnd-over');
+      });
+
+      dndContent
+        .appendTo(element[0])
+        .on('dragleave', function(event) {
+          element.removeClass('dnd-over');
         })
         .on('drop', function() {
-          dragging = 0;
-          element.removeClass('dnd-hover');
+          element.removeClass('dnd-over');
         });
     }
   }
