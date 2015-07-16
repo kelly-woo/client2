@@ -158,7 +158,8 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: '.tmp',
+      tmp: '<%= yeoman.dist %>/tmp'
     },
 
     // Add vendor prefixed styles
@@ -405,6 +406,11 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.client %>',
         dest: '.tmp/',
         src: ['{app,components}/**/*.css']
+      },
+      assets_path: {
+        expand: true,
+        src: '<%= yeoman.dist %>/tmp/*',
+        dest: '<%= yeoman.dist %>/public/app'
       }
     },
 
@@ -553,6 +559,24 @@ module.exports = function (grunt) {
 
     // replace
     replace: {
+      assets: {
+        options: {
+          patterns: [
+            {
+              match: /(\.\.\/)+assets/g,
+              replacement: function() {
+                return '../assets';
+              }
+            }
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: '<%= yeoman.dist %>/public/app/*.{html,css,js}',
+          dest: '<%= yeoman.dist %>/tmp'
+        }]
+      },
       local: {
         options: {
           patterns: [{
@@ -761,7 +785,10 @@ module.exports = function (grunt) {
         'cssmin',
         'uglify',
         'rev',
-        'usemin'
+        'usemin',
+        'replace:assets',
+        'copy:assets_path',
+        'clean:tmp'
       ]);
     }
     else grunt.task.run([
