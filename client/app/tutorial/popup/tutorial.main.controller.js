@@ -32,6 +32,9 @@
      * @private
      */
     function _init() {
+      _initVariables();
+      _initRouter();
+      _attachEvents();
       TutorialAccount.promise.then(_onSuccessGetAccount);
     }
 
@@ -40,10 +43,9 @@
      * @private
      */
     function _onSuccessGetAccount() {
-      _initVariables();
-      _initRouter();
+
       $('#client-ui').removeClass('full-screen');
-      _attachEvents();
+
       $scope.currentStep = _getLectureIndex($state.current.name);
       $scope.completedStep = 0;
       $scope.topicList = TutorialTopics.get();
@@ -169,6 +171,7 @@
       $rootScope.$on('$stateChangeStart', _onStateChangeStart);
       $scope.$on('$destroy', _onDestroy);
       $scope.$on('tutorial:nextLecture', _onNextLecture);
+      $scope.$on('tutorial:go', _onMoveStep);
       $scope.$watch('currentStep', function(newVal) {
         if ($scope.completedStep < newVal - 1) {
           $scope.completedStep = newVal - 1;
@@ -220,6 +223,19 @@
         $state.go(_lectureList[$scope.currentStep]);
       }
     }
+
+    /**
+     * step 으로 이동한다.
+     * @param {event} event
+     * @param {number} step
+     * @private
+     */
+    function _onMoveStep(event, step) {
+      if (step !== $scope.currentStep && step <= $scope.completedStep) {
+        $state.go(_lectureList[step]);
+      }
+    }
+
     /**
      * 소멸자
      * @private

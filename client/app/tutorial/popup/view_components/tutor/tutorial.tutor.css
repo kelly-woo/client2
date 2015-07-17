@@ -96,10 +96,12 @@
   color: #00abe6;
   background-color: #FFFFFF;
   border-radius: 10px;
+  cursor: pointer;
 }
 .tutorial_tutor_step.circle.on > span {
   color: #FFFFFF;
   background-color: #00abe6;
+  cursor: pointer;
 }
 
 

@@ -11,6 +11,7 @@
     var MAX_STEP_COUNT = 10;
     $scope.onClickNext = onClickNext;
     $scope.onClickSkip = onClickSkip;
+    $scope.onClickMove = onClickMove;
     $scope.stepList = new Array(MAX_STEP_COUNT);
 
     _init();
@@ -36,6 +37,11 @@
     function onClickSkip() {
       jndPubSub.pub('tutorial:skip');
     }
+
+    function onClickMove(index) {
+      jndPubSub.pub('tutorial:go', index);
+    }
+
     /**
      * attachEvents
      * @private
