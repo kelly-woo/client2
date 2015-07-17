@@ -15,6 +15,7 @@ app.directive('jndElastic', function($timeout, Browser, jndPubSub) {
     var _jqMirror;
     var _resizeTimer;
     var _height;
+    var _defaultHeight;
     var _maxHeight;
     var _paddingVertical;
     var _paddingHorizontal;
@@ -68,7 +69,7 @@ app.directive('jndElastic', function($timeout, Browser, jndPubSub) {
         'wordSpacing',
         'textIndent'
       ];
-
+      _defaultHeight = el.css('height');
       _jqMirror = $('<textarea tabindex="-1" ' +
         'style="' + mirrorInitStyle + '"/>');
 
@@ -118,6 +119,8 @@ app.directive('jndElastic', function($timeout, Browser, jndPubSub) {
       height = _jqMirror[0].scrollHeight;
       if (_maxHeight !== 0 && _maxHeight < height) {
         height = _maxHeight;
+      } else if (height < _defaultHeight) {
+        height = _defaultHeight;
       }
       if (_height !== height) {
         el.height(height + _paddingVertical);
