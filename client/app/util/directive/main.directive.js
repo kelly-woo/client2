@@ -30,6 +30,7 @@ app.directive('jndElastic', function($timeout, Browser, jndPubSub) {
       _initializeMirror();
       _attachEvents();
       _attachDomEvents();
+      _resize();
     }
 
     /**
