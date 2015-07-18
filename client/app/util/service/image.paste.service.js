@@ -10,15 +10,23 @@
 
   function ImagePaste($timeout, jndKeyCode, Browser) {
     var CTRL_KEY_NAME = /win/ig.test(navigator.platform) ? 'ctrlKey' : 'metaKey';
-    var TYPE = 'image/png';
 
     var regxNewLine = /(<(\/h\d|\/?p|br.*?|\/div)>)/ig;
     var regxHasTag = /(<([^>]+)>)/i;
     var regxMultiSpace = /  +/g;
     var regxPlainText = /text\/plain/;
     var regxImage = /image/;
-    var regxHTMLImage = /^(?:|<meta (?:[^>]+)>)<img src="([^"]+)"(?:[^\/^>]+)(?:[^>]+)(?:|\/)>(?:|.)$/;
     var regxImageData = /^data:image\/(png|jpg|jpeg);base64,/;
+
+    var regxMsOffice = /excel|powerpoint/i;
+    var msOfficePasteHandlerMap = {
+      excel: function() {
+        return true;
+      },
+      powerpoint: function(hasImage, hasPlainText) {
+        return hasPlainText ? false : hasImage;
+      }
+    };
 
     var array = [];
     var slice = array.slice;
@@ -93,6 +101,10 @@
 
         jqEle.data('pasteContentTarget', that);
 
+        that.contentEditableEvent = {
+          isCalledImageLoading: false
+        };
+
         return that;
       },
       /**
@@ -143,12 +155,7 @@
             for (i = 0, len = items.length; i < len && !reader; ++i) {
               item = items[i];
 
-              if (regxPlainText.test(item.type)) {
-                reader = function(str) {
-                  that._contentLoad('text', str);
-                };
-                item.getAsString(reader);
-              } else if (regxImage.test(item.type)) {
+              if (regxImage.test(item.type)) {
                 that.onContentLoading();
 
                 reader = new FileReader();
@@ -187,7 +194,7 @@
             // new-line(\n)을 담당하는 tag 제거
             clipText = that.jqEditContent
               .html()
-              .replace(regxNewLine, '\n')
+              .replace(regxNewLine, '\n');
 
             if (regxHasTag.test(clipText)) {
               // new-line(\n)을 담당하는 tag를 제외하고도 tag가 남아 있는경우
@@ -220,7 +227,6 @@
        */
       createClipboardContent: function() {
         var that = this;
-        var options = that.options;
         var jqEle = that.jqEle;
         var jqEditContent;
 
@@ -270,13 +276,11 @@
         var that = this;
         var selection = getSelection(that.jqEle[0]);
 
-        that.contentEditableEvent = {
-          // 붙여넣기 한 다음 text selection을 붙여넣기 전과 같이 맞추기 위함
-          start: selection.start,
-          end: selection.end,
+        that.contentEditableEvent.isCalledImageLoading = false;
 
-          isCalledImageLoading: false
-        };
+        // 붙여넣기 한 다음 text selection을 붙여넣기 전과 같이 맞추기 위함
+        that.contentEditableEvent.start = selection.start;
+        that.contentEditableEvent.end = selection.end;
       },
       /**
        * base64 format image data를 가지고 있는지 여부
@@ -313,32 +317,34 @@
         var pasteContentTargets = [];
         var pasteContentTarget;
 
-        // paste event handler에서 clipboard data를 get 할 수 있다면 keydown handler에서 ctrl+v command인지 확인하지
-        // 않아도 되지만 그렇지 않은 상황 처리를 위해 keydown event handler에서 ctrl+v command 인지 확인하여
-        // 구라 clipboard인 contentEditable element를 생성함
-        that.jqWindow.on('keydown', function keydown(evt) {
-          if ((!Browser.msie || Browser.version > 10) && that._isPaste(evt)) {
-            if (pasteContentTarget = $(evt.target).data('pasteContentTarget')) {
-              pasteContentTargets.push(pasteContentTarget);
+        // tobe: cliboardData support object 필요함.
+        if (!Browser.chrome) {
+          // paste event handler에서 clipboard data를 get 할 수 있다면 keydown handler에서 ctrl+v command인지 확인하지
+          // 않아도 되지만 그렇지 않은 상황 처리를 위해 keydown event handler에서 ctrl+v command 인지 확인하여
+          // 구라 clipboard인 contentEditable element를 생성함
+          that.jqWindow.on('keydown', function keydown(evt) {
+            if ((!Browser.msie || Browser.version > 10) && that._isPaste(evt)) {
+              if (pasteContentTarget = $(evt.target).data('pasteContentTarget')) {
+                pasteContentTargets.push(pasteContentTarget);
 
-              // console.log('is keydown paste', evt);
-              pasteContentTarget.initContentEditableEvent();
-              pasteContentTarget.createClipboardContent(evt);
+                // console.log('is keydown paste', evt);
+                pasteContentTarget.initContentEditableEvent();
+                pasteContentTarget.createClipboardContent(evt);
+              }
             }
-          }
-        });
+          });
+        }
 
         that.jqWindow.on('paste', function paste(evt) {
           evt = evt.originalEvent;
 
-          if (pasteContentTarget = pasteContentTargets.shift()) {
+          pasteContentTarget = $(evt.target).data('pasteContentTarget') || pasteContentTargets.shift();
+          if (pasteContentTarget) {
             if (that._hasClipboardData(evt)) {
               // clipboard에서 image data get 가능
-
               if (that._isImagePaste(evt)) {
+                evt.preventDefault();
                 pasteContentTarget.getClipboardContent(evt);
-              } else {
-                pasteContentTarget.removeClipboardContent();
               }
             } else {
               // clipboard에서 image data get 가능하지 않아 contentEditable을 사용하여 image/text data get함
@@ -378,47 +384,50 @@
        * @param {object} evt
        */
       _isImagePaste: function(evt) {
-        var that = this;
-        var isImagePaste = false;
+        var isImagePaste;
+        var hasImage = false;
+        var hasPlainText = false;
         var cData;
         var items;
+        var text;
 
-        if (that._hasClipboardData(evt)) {
+        var regxMetaTag;
+        var meta;
+        var match;
+
           cData = evt.clipboardData;
-          items = slice.call(cData.items || cData.files);
-          $.each(items, function(index, value) {
-            if (regxImage.test(value.type)) {
-              isImagePaste = true;
-              return false;
+
+        items = slice.call(cData.items || cData.files);
+        $.each(items, function(index, value) {
+          if (regxImage.test(value.type)) {
+            hasImage = true;
+          } else if (regxPlainText.test(value.type)) {
+            hasPlainText = true;
+          }
+        });
+
+        // html에 있는 meta tag로 clipboard에 복사된 data 구분하여 처리함.
+        text = cData.getData('text/html');
+        if (hasImage && text) {
+          regxMetaTag = /(<[\s]*meta[\s\S]+?>)/gi;
+
+          while(regxMetaTag.exec(text)) {
+            meta = RegExp.$1;
+
+            if (match = regxMsOffice.exec(meta)) {
+              match = match[0].toLowerCase();
+              isImagePaste = msOfficePasteHandlerMap[match](hasImage, hasPlainText);
+              break;
             }
-          });
+          }
+        }
+
+        // plain text가 우선으로 paste 됨
+        if (isImagePaste == null) {
+          isImagePaste = hasPlainText ? false : hasImage;
         }
 
         return isImagePaste;
-      },
-      /**
-       * img tag 붙여넣기 여부
-       * @param {object} evt
-       */
-      _isHTMLImagePaste: function(evt) {
-        var that = this;
-
-        return !!that._getHTMLImagePaste(evt);
-      },
-      /**
-       * get img tag
-       * @param {object} evt
-       */
-      _getHTMLImagePaste: function(evt) {
-        var cData;
-        var img;
-
-        cData = evt.clipboardData;
-        if (cData && cData.types && slice.call(cData.types).some(function(type) { return type === 'text/html'; })) {
-          img = (regxHTMLImage.exec(cData.getData('text/html')) || [])[1];
-        }
-
-        return img;
       },
       /**
        * contentEditable element에 image 붙여넣기 인지 여부
