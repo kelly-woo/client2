@@ -23,7 +23,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.glued = false;
   $scope.isPostingComment = false;
   $scope.hasFileAPIError = false;
-  $scope.comment = {};
   $scope.isLoadingImage = true;
 
 
@@ -44,7 +43,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.backToFileList = backToFileList;
   $scope.onUserClick = onUserClick;
   $scope.onCommentFocusClick = onCommentFocusClick;
-  $scope.onKeyDown = onKeyDown;
+  $scope.onKeyUp = onKeyUp;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
   $scope.getCreateTime = getCreateTime;
 
@@ -145,7 +144,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * comment 를 posting 한다.
    */
   function postComment() {
-    var content = $scope.comment && $scope.comment.content;
+    var content = $('#file-detail-comment-input').val();
     if (!$scope.isPostingComment &&
       ((content) || _sticker)) {
       _hideSticker();
@@ -153,9 +152,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.isPostingComment = true;
 
       fileAPIservice.postComment(fileId, content, _sticker)
-        .success(function(response) {
+        .success(function() {
           $scope.glued = true;
-          $scope.comment.content = "";
+          $('#file-detail-comment-input').val('');
           $scope.focusPostComment = true;
         })
         .error(function(err) {
@@ -188,11 +187,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   }
 
   /**
-   * keyDown 핸들러
-   * @param keyDownEvent
+   * keyUp 핸들러
+   * @param keyUpEvent
    */
-  function onKeyDown(keyDownEvent) {
-    if (jndKeyCode.match('ESC', keyDownEvent.keyCode)) {
+  function onKeyUp(keyUpEvent) {
+    if (jndKeyCode.match('ESC', keyUpEvent.keyCode)) {
       _hideSticker();
     }
   }
