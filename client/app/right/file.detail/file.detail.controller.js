@@ -43,7 +43,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.backToFileList = backToFileList;
   $scope.onUserClick = onUserClick;
   $scope.onCommentFocusClick = onCommentFocusClick;
-  $scope.onKeyUp = onKeyUp;
+  $scope.onKeyDown = onKeyDown;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
   $scope.getCreateTime = getCreateTime;
 
@@ -187,11 +187,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   }
 
   /**
-   * keyUp 핸들러
-   * @param keyUpEvent
+   * keyDown 핸들러
+   * @param keyDownEvent
    */
-  function onKeyUp(keyUpEvent) {
-    if (jndKeyCode.match('ESC', keyUpEvent.keyCode)) {
+  function onKeyDown(keyDownEvent) {
+    if (jndKeyCode.match('ESC', keyDownEvent.keyCode)) {
       _hideSticker();
     }
   }
