@@ -136,7 +136,7 @@ app.directive('jndElastic', function($timeout, Browser, jndPubSub) {
      */
     function _onChange(keyEvent) {
       $timeout.cancel(_resizeTimer);
-      _resizeTimer = $timeout(_resize, 10);
+      _resizeTimer = $timeout(_resize, 50);
     }
   }
 });
