@@ -112,6 +112,7 @@
   min-height: 35px;
   margin: 0;
   padding-right: 21px;
+  overflow: auto;
 }
 #message-input{
   vertical-align: middle;
