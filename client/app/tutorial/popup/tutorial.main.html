@@ -4,6 +4,7 @@
   <tutorial-profile></tutorial-profile>
   <tutorial-center></tutorial-center>
   <tutorial-left topic-list="topicList" dm-list="dmList"></tutorial-left>
-  <tutorial-tutor current="currentStep" completed="completedStep"></tutorial-tutor>
+  <tutorial-tutor ng-if="!isComplete" current="currentStep" completed="completedStep"></tutorial-tutor>
+  <tutorial-completion ng-if="isComplete"></tutorial-completion>
   <ui-view></ui-view>
 </div>

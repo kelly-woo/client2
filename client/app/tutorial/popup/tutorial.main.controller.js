@@ -25,6 +25,9 @@
       'tutorial.menu.team',
       'tutorial.menu.help'
     ];
+
+    $scope.onClickComplete = onClickComplete;
+
     _init();
 
     /**
@@ -46,6 +49,7 @@
 
       $('#client-ui').removeClass('full-screen');
 
+      $scope.isComplete = false;
       $scope.currentStep = _getLectureIndex($state.current.name);
       $scope.completedStep = 0;
       $scope.topicList = TutorialTopics.get();
@@ -164,6 +168,13 @@
     }
 
     /**
+     *
+     */
+    function onClickComplete() {
+      console.log('onClickComplete');
+    }
+
+    /**
      * attachEvents
      * @private
      */
@@ -211,6 +222,7 @@
         _routeFirstStep();
       }
       $scope.currentStep = _getLectureIndex(toState.name);
+      $scope.isComplete = false;
     }
 
     /**
@@ -218,12 +230,17 @@
      * @private
      */
     function _onNextLecture() {
-      if (_lectureList[$scope.currentStep + 1]) {
+      var length = _lectureList.length;
+      if ($scope.currentStep + 1 >= length) {
+        $scope.completedStep = $scope.currentStep;
+        $scope.isComplete = true;
+      } else if (_lectureList[$scope.currentStep + 1]) {
         $scope.currentStep++;
         $state.go(_lectureList[$scope.currentStep]);
       }
     }
 
+    function _onComplete() {}
     /**
      * step 으로 이동한다.
      * @param {event} event
