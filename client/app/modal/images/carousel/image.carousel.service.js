@@ -46,6 +46,7 @@
 
     that.init = init;
     that.close = close;
+    that.resetPosition = resetPosition;
 
     /**
      * Image Carousel Object 초기 설정자
@@ -187,6 +188,17 @@
     });
 
     /**
+     * reset position
+     */
+    function resetPosition() {
+      var jqImageItem;
+
+      if (that.options.messageId != null && (jqImageItem = imageMap[that.options.messageId].jqElement)) {
+        _setPosition(jqImageItem);
+      }
+    }
+
+    /**
      * event 연결
      * @private
      */
@@ -198,11 +210,7 @@
       jqWindow.on('resize.imageCarousel', function() {
         $timeout.cancel(timerResize);
         timerResize = $timeout(function() {
-          var jqImageItem;
-
-          if (that.options.messageId != null && (jqImageItem = imageMap[that.options.messageId].jqElement)) {
-            _setPosition(jqImageItem);
-          }
+          resetPosition();
         }, 50);
       });
 
@@ -264,22 +272,31 @@
      */
     function _setPosition(jqImageItem, img) {
       // image를 정중앙에 출력할때 필요로 하는 여백
-      var ratio = [];
-      var margin = 56 * 2;
+      var margin = 56;
+      var isVertical;
+      var ratio;
 
-      var maxWidth = jqViewerBody.width() - margin;
-      var maxHeight = jqViewerBody.height() - margin;
+      var maxWidth = jqViewerBody.width() - margin * 2;
+      var maxHeight = jqViewerBody.height() - margin * 2;
       var imageWidth;
       var imageHeight;
-      var marginLeft;
-      var marginTop;
-      var minWidth;
-      var minHeight;
+
+      var top;
+      var height;
+      var left;
+      var width;
       var lineHeight;
 
       img = img ? $(img) : jqImageItem.children(':first-child');
       imageWidth = parseInt(img[0].getAttribute('width'), 10);
       imageHeight = parseInt(img[0].getAttribute('height'), 10);
+
+      if (img.is('.rotate-90, .rotate-270')) {
+        isVertical = true;
+        ratio = imageHeight;
+        imageHeight = imageWidth;
+        imageWidth = ratio;
+      }
 
       if (maxWidth < imageWidth || maxHeight < imageHeight) {
         // maxWidth, maxHeight 보다 imageWidth, imageHeight가 크다면 비율 조정 필요함.
@@ -293,28 +310,35 @@
       imageWidth = imageWidth * ratio;
       imageHeight = imageHeight * ratio;
 
-      // image item element가 가질 수 있는 최소 size
-      minWidth = imageWidth < MIN_WIDTH ? MIN_WIDTH : imageWidth;
-      minHeight = imageHeight < MIN_HEIGHT ? MIN_HEIGHT : imageHeight;
-
-      if (maxWidth < MIN_WIDTH) {
-        marginLeft = maxWidth / 2 * -1;
-        minWidth = maxWidth;
+      if (imageWidth < MIN_WIDTH) {
+        left = Math.round((maxWidth - MIN_WIDTH) / 2) + margin;
+        width = MIN_WIDTH;
       } else {
-        marginLeft = minWidth / 2 * -1;
-        minWidth = MIN_WIDTH;
+        left = Math.round((maxWidth - imageWidth) / 2) + margin;
+        width = imageWidth;
       }
-      if (maxHeight < MIN_HEIGHT) {
-        marginTop = maxHeight / 2 * -1;
-        minHeight = maxHeight;
-        lineHeight = maxHeight + 'px';
-      } else {
-        marginTop = minHeight / 2 * -1;
-        minHeight = MIN_HEIGHT;
+      if (imageHeight < MIN_HEIGHT) {
+        top = Math.round((maxHeight - MIN_HEIGHT) / 2) + margin;
+        height = MIN_HEIGHT;
         lineHeight = MIN_HEIGHT + 'px';
+      } else {
+        top = Math.round((maxHeight - imageHeight) / 2) + margin;
+        height = imageHeight;
       }
 
-      jqImageItem.css({marginLeft: marginLeft, marginTop: marginTop, minWidth: minWidth, minHeight: minHeight, lineHeight: lineHeight});
+      jqImageItem.css({
+        left: left,
+        width: width,
+        top: top,
+        height: height,
+        lineHeight: lineHeight
+      });
+
+      if (isVertical) {
+        ratio = imageHeight;
+        imageHeight = imageWidth;
+        imageWidth = ratio;
+      }
       img.css({maxWidth: imageWidth, maxHeight: imageHeight});
     }
 
@@ -450,9 +474,8 @@
 
         $scope = $rootScope.$new(true);
 
-        that.options.onRender($scope, that.options.messageId, imageItem);
+        that.options.onRender($scope, that.options.messageId, imageItem, $rootScope);
         jqImageItem = $($compile(that.options.imageItemTemplate)($scope));
-        jqImageItem.css({marginLeft: MIN_WIDTH / 2 * -1, marginTop: MIN_HEIGHT / 2 * -1});
 
         jqImageList.append(jqImageItem[0]);
 
@@ -487,7 +510,12 @@
      * @private
      */
     function _imageLoad(jqImageItem, fullFileUrl) {
-      var xhr = new XMLHttpRequest();
+      var imageOptions = {
+        maxWidth: '100%'
+      };
+
+      var xhr;
+      xhr = new XMLHttpRequest();
 
       xhr.open('GET', fullFileUrl, true);
       xhr.responseType = 'blob';
@@ -498,37 +526,37 @@
         if (that.status === 200) {
           // loadImage library를 사용하여 blob에 포함된 meta data를 긁음
           loadImage.parseMetaData(blob, function (data) {
-            var imageOptions = {
-              maxWidth: '100%'
-            };
 
             // 필요한 정보가 있을 경우
             if (!!data.exif) {
               // image 회전
               imageOptions['orientation'] = _getImageOrientation(data);
             }
-
-            // image options와 함께 blob data를 이용해서 canvas element를 만든다.
-            loadImage(blob, function(img) {
-              // image item에 출력된 loading screen 제거
-              jqImageItem.removeClass('icon-loading loading');
-
-              if (img.type === 'error') {
-                // img가 존재하지 않기 때문에 error image 출력
-                jqImageItem.addClass('no-image-carousel').prepend('<img src="assets/images/no_image_available.png" style="opacity: 1;" />');
-              } else {
-                // img position 설정하고 출력
-                _setPosition(jqImageItem, img);
-
-                jqImageItem.prepend(img);
-                $(img).css('opacity', 1);
-              }
-            }, imageOptions);
+            _loadImage(blob, jqImageItem, imageOptions);
           });
         }
       };
 
       xhr.send();
+    }
+
+    function _loadImage(value, jqImageItem, options) {
+      // image options와 함께 blob data를 이용해서 canvas element를 만든다.
+      loadImage(value, function(img) {
+        // image item에 출력된 loading screen 제거
+        jqImageItem.removeClass('icon-loading loading');
+
+        if (img.type === 'error') {
+          // img가 존재하지 않기 때문에 error image 출력
+          jqImageItem.addClass('no-image-carousel').prepend('<img src="assets/images/no_image_available.png" style="opacity: 1;" />');
+        } else {
+          // img position 설정하고 출력
+          _setPosition(jqImageItem, img);
+
+          jqImageItem.prepend(img);
+          $(img).css('opacity', 1);
+        }
+      }, options);
     }
 
     /**
