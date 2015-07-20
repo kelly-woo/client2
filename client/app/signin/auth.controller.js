@@ -8,13 +8,11 @@
   /* @ngInject */
   function authController($scope, $rootScope, $state, authAPIservice, analyticsService,
                           storageAPIservice, accountService, memberService, publicService,
-                          pcAppHelper, modalHelper, jndWebSocket, AnalyticsHelper) {
+                          pcAppHelper, modalHelper, jndWebSocket, AnalyticsHelper, jndPubSub) {
 
     var vm = this;
     jndWebSocket.disconnect();
-    $scope.toggleLoading = function() {
-      $scope.isLoading = !$scope.isLoading;
-    };
+
 
     (function(){
       publicService.hideTransitionLoading();
@@ -41,7 +39,8 @@
       if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) return;
 
       // Auto sign-in using cookie.
-      $scope.toggleLoading();
+      jndPubSub.showLoading();
+
 
       accountService.getAccountInfo()
         .success(function(response) {
@@ -60,7 +59,9 @@
           storageAPIservice.removeLocal();
           storageAPIservice.removeSession();
           storageAPIservice.removeCookie();
-          $scope.toggleLoading();
+
+          jndPubSub.hideLoading();
+
         });
     })();
 
@@ -125,7 +126,7 @@
       if ($scope.isLoading) return;
       user.grant_type = "password";
 
-      $scope.toggleLoading();
+      jndPubSub.showLoading();
 
       // TODO: HAS TO BE BETTER WAY TO DO THIS.
       authAPIservice.signIn(user)
@@ -201,7 +202,8 @@
               accountService.removeAccount();
               memberService.removeMember();
 
-              $scope.toggleLoading();
+              jndPubSub.hideLoading();
+
               try {
                 //analytics
                 AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
@@ -218,7 +220,8 @@
         })
         .error(function(err) {
           $scope.signInFailed = true;
-          $scope.toggleLoading();
+          jndPubSub.hideLoading();
+
           try {
             //analytics
             AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {

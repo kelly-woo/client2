@@ -26,6 +26,9 @@
     that.attachMessagePreview = attachMessagePreview;
     that.onChangeShared = onChangeShared;
 
+    that.showLoading = showLoading;
+    that.hideLoading = hideLoading;
+
     /**
      * $rootScope.$broadcast를 대신한다.
      * @param event {string} name of event to be broadcast
@@ -99,5 +102,20 @@
       $rootScope.$broadcast('onChangeShared');
     }
     // TODO: 브로드캐스트하는 이벤트 이름에도 컨벤션이 있으면 좋겠습니다! 이벤트 이름만 보고도 대충 어떤 일이 이뤄지는지 알 수 있는 식의 이름이면 좋겠습니다.
+
+    function showLoading(scope) {
+      if (!!scope) {
+        scope.$broadcast('showLoading');
+      } else {
+        $rootScope.$broadcast('showLoading');
+      }
+    }
+    function hideLoading(scope) {
+      if (!!scope) {
+        scope.$broadcast('hideLoading');
+      } else {
+        $rootScope.$broadcast('hideLoading');
+      }
+    }
   }
 })();

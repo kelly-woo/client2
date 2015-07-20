@@ -6,7 +6,7 @@
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, currentSessionHelper, entityheaderAPIservice, $state, $filter,
-                                 entityAPIservice, analyticsService, modalHelper, AnalyticsHelper) {
+                                 entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub) {
     InitInvite();
 
     /*
@@ -69,7 +69,8 @@
       var property = {};
       var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if (!$scope.isLoading && $scope.inviteUsers.length > 0) {
-        $scope.toggleLoading();
+
+        jndPubSub.showLoading();
 
         angular.forEach($scope.inviteUsers, function(user) {
           this.push(user.id);
@@ -121,17 +122,13 @@
             console.error('inviteUsers', error.msg );
           })
           .finally(function() {
-            $scope.toggleLoading();
+            jndPubSub.hideLoading();
           });
       }
     };
 
     $scope.cancel = function() {
       $modalInstance.dismiss('cancel');
-    };
-
-    $scope.toggleLoading = function() {
-      $scope.isLoading = !$scope.isLoading;
     };
   }
 })();

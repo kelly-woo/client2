@@ -7,7 +7,7 @@
     .controller('TeamInviteCtrl', TeamInviteCtrl);
 
   /* @ngInject */
-  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, memberService, publicService, currentSessionHelper) {
+  function TeamInviteCtrl($scope, $modalInstance, $filter, teamInfo, configuration, memberService, publicService, currentSessionHelper, jndPubSub) {
     var currentTeamAdmin;
 
     $scope.disabledImage = configuration.assets_url + 'assets/images/invite-disabled.png';
@@ -38,8 +38,13 @@
     };
 
     $scope.toggleLoading = function() {
+      if ($scope.isLoading) {
+        jndPubSub.hideLoading();
+      } else {
+        jndPubSub.showLoading();
+      }
       $scope.isLoading = !$scope.isLoading;
-    }
+    };
 
     $scope.toAdmin = function() {
       var teamName = $filter('getName')($scope.team);
