@@ -39,7 +39,6 @@
      */
     function onStateChangeStart(event, toState, toParams, fromState, fromParams) {
       if (!NetInterceptor.isConnected()) {
-        console.log(NetInterceptor.isConnected());
         event.preventDefault();
       }
 

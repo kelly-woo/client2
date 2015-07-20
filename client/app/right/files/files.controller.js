@@ -351,8 +351,6 @@
         return;
       }
 
-      console.log($scope.isConnected)
-
       if (!$scope.isConnected) return;
 
       $scope.isScrollLoading = true;
