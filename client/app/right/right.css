@@ -5,6 +5,8 @@
   right: 0;
   bottom: 0;
   z-index: 30;
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
+
 }
 .rpanel > div {
   width: 100%;
@@ -17,25 +19,22 @@
 .rpanel .file {
   z-index: 1;
   background-color: #fff;
-  box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
 }
 
 .rpanel.extend {
-  background-color: white;
+  background-color: #fff;
 }
 .rpanel__background {
   z-index: 0;
-  border-left: 1px solid #e1e1e1;
-  border-top: 1px solid #e1e1e1;
 }
 .rpanel__background.extend {
   background-color: #f2f2f2;
 }
 .rpanel__background-body {
   position: absolute;
-  top: 46px;
-  left: 17px;
-  right: 17px;
+  top: 40px;
+  left: 0px;
+  right: 0px;
   bottom: 10px;
   overflow: hidden;
   background: #fff;
@@ -47,12 +46,13 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -50px 0 0 -50px;
-  z-index: 90;
+  margin: -16px 0 0 -16px;
 }
 .rpanel__background .panel-title-container,
 .rpanel .panel-title-container {
   background-color: #366480;
+  height: 41px;
+  line-height: 41px;
 }
 .rpanel-header a { color: #00a6e9; }
 .rpanel-header a:hover { text-decoration: none; color: #31c08a; }
