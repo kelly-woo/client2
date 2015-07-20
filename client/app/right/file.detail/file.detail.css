@@ -125,9 +125,8 @@
 .file-detail-body .image_wrapper img {
   border: 1px solid #F5F5F5;
 }
-.file-detail-body .image_wrapper .icon-loading {
-  width: 150px;
-  height: 150px;
+.file-detail-body .image_wrapper .loading_bar {
+  margin-top: 0;
 }
 .file-item-body-title-author {
   max-width: 76px;

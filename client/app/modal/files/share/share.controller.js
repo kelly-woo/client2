@@ -46,7 +46,8 @@
       _entityId = shareChannel.id;
       _entityType = shareChannel.type;
 
-      $scope.isLoading = true;
+      jndPubSub.showLoading();
+
       fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
         .success(function() {
           try {
@@ -61,7 +62,7 @@
           _onShareSuccess();
         })
         .error(function(error) {
-          $scope.isLoading = false;
+          jndPubSub.hideLoading();
           var property = {};
           var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
@@ -83,8 +84,8 @@
      * @private
      */
     function _onShareSuccess() {
-      $scope.isLoading = false;
-      
+      jndPubSub.hideLoading();
+
 
       _sendAnalytics(_entityType);
 
