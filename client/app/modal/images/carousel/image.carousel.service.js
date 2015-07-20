@@ -9,7 +9,7 @@
       .service('ImageCarousel', ImageCarousel);
 
   /* @ngInject */
-  function ImageCarousel($rootScope, $compile, $timeout, jndKeyCode, config) {
+  function ImageCarousel($rootScope, $compile, $timeout, jndKeyCode, config, Browser) {
     var that = this;
 
     // image item의 최소 크기
@@ -513,31 +513,35 @@
       var imageOptions = {
         maxWidth: '100%'
       };
-
       var xhr;
-      xhr = new XMLHttpRequest();
 
-      xhr.open('GET', fullFileUrl, true);
-      xhr.responseType = 'blob';
-      xhr.onload = function() {
-        var that = this;
-        var blob = that.response;
+      if (Browser.msie && Browser.version === 9) {
+        _loadImage(fullFileUrl, jqImageItem, imageOptions);
+      } else {
+        xhr = new XMLHttpRequest();
 
-        if (that.status === 200) {
-          // loadImage library를 사용하여 blob에 포함된 meta data를 긁음
-          loadImage.parseMetaData(blob, function (data) {
+        xhr.open('GET', fullFileUrl, true);
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+          var that = this;
+          var blob = that.response;
 
-            // 필요한 정보가 있을 경우
-            if (!!data.exif) {
-              // image 회전
-              imageOptions['orientation'] = _getImageOrientation(data);
-            }
-            _loadImage(blob, jqImageItem, imageOptions);
-          });
-        }
-      };
+          if (that.status === 200) {
+            // loadImage library를 사용하여 blob에 포함된 meta data를 긁음
+            loadImage.parseMetaData(blob, function (data) {
 
-      xhr.send();
+              // 필요한 정보가 있을 경우
+              if (!!data.exif) {
+                // image 회전
+                imageOptions['orientation'] = _getImageOrientation(data);
+              }
+              _loadImage(blob, jqImageItem, imageOptions);
+            });
+          }
+        };
+
+        xhr.send();
+      }
     }
 
     /**
