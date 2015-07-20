@@ -71,6 +71,15 @@
 
     }
 
+    function consoleTime() {
+      if (_.isUndefined(_startTime)) {
+        _startTime = _.now();
+      }
+      var currentTime = _.now();
+      console.log(timer + ' and ' + (currentTime - _startTime));
+      _startTime = currentTime;
+      timer++;
+    }
   }
 
 })();

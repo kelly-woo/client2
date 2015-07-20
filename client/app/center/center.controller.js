@@ -40,12 +40,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _sticker = null;
   var _isUpdateListLock = false;
 
-
-
-  var _startTime;
-  var timer = 0;
-
-
   //todo: 초기화 함수에 대한 리펙토링이 필요함.
   $rootScope.isIE9 = false;
   $scope.hasScrollToBottom = false;
@@ -399,10 +393,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
    * @private
    */
-  var startTime;
   function _displayCache() {
-    startTime = _.now();
-
     console.log('displaying cache');
     var _item = TopicMessageCache.get(entityId);
 
@@ -427,16 +418,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       .error(function(err) {
         console.log(err)
       });
-  }
-
-  function consoleTime() {
-    if (_.isUndefined(_startTime)) {
-      _startTime = _.now();
-    }
-    var currentTime = _.now();
-    console.log(timer + ' and ' + (currentTime - _startTime));
-    _startTime = currentTime;
-    timer++;
   }
 
   function loadMore() {
@@ -576,7 +557,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
     MessageQuery.reset();
       console.log('done')
-    consoleTime(_startTime);
 
   }
 
