@@ -42,7 +42,6 @@
        * topic.description.controller에서 $scope 가 $destroy이 될때 호출된다.
        */
       function _detachBasicEventHandler() {
-        console.log('detaching all event handler')
         jqDescriptionContainer.off('mouseenter', _onMouseEnter);
         jqDescriptionContainer.off('mouseleave', _onMouseLeave);
         jqDescriptionContainer.off('mousedown', _onMouseDown);
