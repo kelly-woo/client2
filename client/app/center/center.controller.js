@@ -407,16 +407,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     console.log('displaying cache');
     var _item = TopicMessageCache.get(entityId);
 
-    $scope.isInitialLoadingCompleted = true;
     publicService.hideTransitionLoading();
 
-    MessageCollection.setList(_item.list);
-    lastMessageId = _item.lastMessageId;
-    globalLastLinkId = _item.globalLastLinkId;
+    $timeout(function() {
 
-    $scope.messages = MessageCollection.list;
 
-    _getUpdatedList();
+      MessageCollection.setList(_item.list);
+      lastMessageId = _item.lastMessageId;
+      globalLastLinkId = _item.globalLastLinkId;
+
+      $scope.messages = MessageCollection.list;
+      $scope.isInitialLoadingCompleted = true;
+
+      _getUpdatedList();
+    });
   }
 
   function _getUpdatedList() {
@@ -693,6 +697,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _checkEntityMessageStatus();
       MessageCollection.updateUnreadCount();
       lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
+      jndPubSub.pub('onMessageDeleted');
     }
   }
 
@@ -1339,6 +1344,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 랜더링 repeat 가 끝났을 때 호출되는 함수
    */
   function onRepeatDone() {
+    console.log('onRepeatDone');
     _updateScroll();
   }
 
@@ -1459,6 +1465,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           }
         }
 
+        jndPubSub.pub('toggleLinkPreview', data.message.id);
 
       })
       .error(function(error) {

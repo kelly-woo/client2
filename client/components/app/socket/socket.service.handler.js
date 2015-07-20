@@ -218,7 +218,6 @@
 
       if (_isMessageDeleted(type)) {
         // message delete.
-
         _updateCenterForCurrentEntity(isCurrentEntity);
         // Must update left panel for other room;
         _updateLeftPanelForOtherEntity(isCurrentEntity);

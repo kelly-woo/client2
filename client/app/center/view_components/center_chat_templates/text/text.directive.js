@@ -5,13 +5,14 @@
     .module('jandiApp')
     .directive('text', text);
 
+  /* @ngInject */
   function text() {
     return {
       restrict: 'E',
       scope: {
         msg: '=',
         isChildText: '=',
-        hasLinkPreview: '='
+        index: '='
       },
       link: link,
       templateUrl: 'app/center/view_components/center_chat_templates/text/text.html',
@@ -31,6 +32,7 @@
       function _onMouseLeaveOnIcon() {
         jqTextContainer.removeClass('text-delete-background');
       }
+
     }
   }
 })();

@@ -10,7 +10,7 @@
     .controller('TextMessageCtrl', TextMessageCtrl);
 
   /* @ngInject */
-  function TextMessageCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, AnalyticsHelper, 
+  function TextMessageCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, AnalyticsHelper,
                            MessageCollection, jndPubSub) {
     // 현재 로그인되어있는 멤버(나)의 아이디
     var _myId = memberService.getMemberId();
@@ -28,9 +28,13 @@
     $scope.isMyMessage = (_myId === _message.fromEntity);
     $scope.showAnnouncement = _message.message.contentType !== 'sticker' && _entityType !== 'users';
 
+    $scope.hasLinkPreview = MessageCollection.hasLinkPreview($scope.index);
+
     $scope.deleteMessage = deleteMessage;
     $scope.onUserClick = onUserClick;
     $scope.createAnnouncement = createAnnouncement;
+
+    $scope.$on('toggleLinkPreview', _onAttachMessagePreview);
 
     /**
      * 메시지를 삭제한다.
@@ -86,6 +90,22 @@
       };
 
       jndPubSub.pub('createAnnouncement', param);
+    }
+
+
+    /**
+     * 입력된 text가 preview(social snippets)를 제공하는 경우 center controller에서의 handling
+     *
+     * 'attachMessagePreview' event에서 content가 attach되는 message의 식별자를 전달 받아
+     * 해당 식별자로 특정 message를 다시 조회 하여 생성된 content data로 view를 생성하여 text element 자식 element로 append 함
+     * @param event
+     * @param data
+     * @private
+     */
+    function _onAttachMessagePreview(event, data) {
+      if (data === _messageId) {
+        $scope.hasLinkPreview = MessageCollection.hasLinkPreview($scope.index);
+      }
     }
   }
 })();
