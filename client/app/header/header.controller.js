@@ -138,7 +138,8 @@
     };
 
     $scope.onShowTutorialClick = function() {
-      jndPubSub.pub('initTutorialStatus');
+      //jndPubSub.pub('initTutorialStatus');
+      jndPubSub.pub('tutorial:open');
     };
 
     $scope.onTutorialPulseClick = function($event) {

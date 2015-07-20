@@ -66,7 +66,12 @@
      */
     function _attachEvents() {
       $scope.$on('accountLoaded', _onAccountLoaded);
+      $scope.$on('tutorial:open', _onTutorialOpen);
       $scope.$on('$destroy', _onDestroy);
+    }
+
+    function _onTutorialOpen(event, step) {
+      _openTutorial(step);
     }
 
     function _onAccountLoaded() {
