@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureMenuTeamCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
+  app.controller('lectureMenuTeamCtrl', function ($scope, $rootScope, $filter, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 2;
     var _tutorDataList;
     var _purseDataList;
@@ -34,7 +34,7 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '팀 메뉴 클릭해!',
+          title: _translate('@tutorial_team_click'),
           content: '',
           top: 200,
           left: 300,
@@ -43,7 +43,7 @@
         },
         {
           title: '',
-          content: '팀메뉴엔 이러이러한 부메뉴들이 있어. 잘 활용해',
+          content: _translate('@tutorial_team_desc'),
           top: 200,
           left: 300,
           hasSkip: true,
@@ -82,6 +82,16 @@
      */
     function _onDestroy() {
 
+    }
+
+    /**
+     * key 에 해당하는 L10N 으로 변환한다.
+     * @param {string} key
+     * @returns {string}
+     * @private
+     */
+    function _translate(key) {
+      return $filter('translate')(key);
     }
 
     /**

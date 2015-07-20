@@ -46,8 +46,6 @@
         .then(
         function (response) {
           _currentAccount = response.data;
-
-          console.log( _account, _currentAccount);
         }
       );
 

@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureTopicLeaveCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount,
+  app.controller('lectureTopicLeaveCtrl', function ($scope, $rootScope, $filter, jndPubSub, TutorialTutor, TutorialAccount,
                                                     TutorialEntity, TutorialTopics) {
     var TOTAL_STEP = 3;
     var _tutorDataList;
@@ -56,8 +56,8 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '훌륭해!',
-          content: '지금 <b>Lunch</b> 토픽에 있는데, 토픽 이름을 클릭해서 메뉴를 불러와봐',
+          title: _translate('@tutorial_there_we_go'),
+          content: _translate('@tutorial_leave_click_title'),
           top: 200,
           left: 300,
           hasSkip: false,
@@ -65,15 +65,15 @@
         },
         {
           title: '',
-          content: '이제 나가기 눌러서 나가보자!',
+          content: _translate('@tutorial_leave_lets'),
           top: 200,
           left: 300,
           hasSkip: false,
           hasNext: false
         },
         {
-          title: '잘해써',
-          content: '토픽에서 잘 나왔어 언제든지 join leave 할수 있어.',
+          title: _translate('@tutorial_leave_success'),
+          content: _translate('@tutorial_leave_success_desc'),
           top: 200,
           left: 300,
           hasSkip: false,
@@ -144,6 +144,16 @@
       TutorialTopics.remove(TutorialTopics.get().length - 1);
       TutorialTopics.active(0);
       TutorialEntity.restore();
+    }
+
+    /**
+     * key 에 해당하는 L10N 으로 변환한다.
+     * @param {string} key
+     * @returns {string}
+     * @private
+     */
+    function _translate(key) {
+      return $filter('translate')(key);
     }
 
     /**

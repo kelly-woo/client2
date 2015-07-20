@@ -8,7 +8,7 @@
       <img src="../../../../assets/images/tutorial/tutor/character_top.png" />
     </div>
     <div class="tutorial_tutor_btn">
-      <span ng-if="options.hasSkip" class="btn btn-cancel" ng-click="onClickSkip()">@btn-skip-all</span>
+      <span ng-if="options.hasSkip" class="btn btn-cancel" ng-click="onClickSkip()">@common_skip_all</span>
       <span ng-if="options.hasNext" class="btn btn-ok" ng-click="onClickNext()">@btn-next</span>
     </div>
   </div>
@@ -25,7 +25,7 @@
       <div class="tutorial_tutor_body_progress_text">
         <span class="tutorial_tutor_step" ng-repeat="item in stepList track by $index"
             ng-class="{
-              'circle': current == $index || $index <= completed,
+              'circle': current === $index || $index <= completed,
               'on': current === $index
             }">
           <span ng-click="onClickMove($index);">{{ $index + 1 }}</span>

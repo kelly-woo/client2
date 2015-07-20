@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureDmSendCtrl', function ($scope, $rootScope, jndPubSub, jndKeyCode, TutorialTutor, TutorialAccount,
+  app.controller('lectureDmSendCtrl', function ($scope, $filter, $rootScope, jndPubSub, jndKeyCode, TutorialTutor, TutorialAccount,
                                                 TutorialTopics, TutorialMessages, TutorialEntity, TutorialDm) {
     var TOTAL_STEP = 7;
     var _tutorDataList;
@@ -38,15 +38,15 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '팀 멤버한테 DM 보내봐',
-          content: '눌러서 DM 해봐',
+          title: _translate('@tutorial_dm_try'),
+          content: _translate('@tutorial_dm_click_list'),
           top: 200,
           left: 300,
           hasSkip: true,
           hasNext: false
         },
         {
-          title: 'Aaron 하고 이야기 해봐',
+          title: _translate('@tutorial_dm_talk'),
           content: '',
           top: 400,
           left: 269,
@@ -54,40 +54,40 @@
           hasNext: false
         },
         {
-          title: 'Aaron 한테 안녕이라고 해볼래',
-          content: '',
+          title: '',
+          content: _translate('@tutorial_dm_post'),
           top: 450,
           left: 520,
           hasSkip: true,
           hasNext: false
         },
         {
-          title: 'Aaron 에게 메세지가 잘 간거 보여?',
-          content: '',
+          title: '',
+          content: _translate('@tutorial_dm_success'),
           top: 200,
           left: 300,
           hasSkip: true,
           hasNext: true
         },
         {
-          title: '스티커 날려봐',
-          content: '',
+          title: '',
+          content: _translate('@tutorial_dm_sticker_let'),
           top: 200,
           left: 300,
           hasSkip: true,
           hasNext: false
         },
         {
-          title: '스티커 날려봐',
-          content: '',
+          title: '',
+          content: _translate('@tutorial_dm_sticker_let'),
           top: 200,
           left: 300,
           hasSkip: true,
           hasNext: false
         },
         {
-          title: '잘했어. 이렇게 재밋게 스티커도 보내고 해봐',
-          content: '',
+          title: '',
+          content: _translate('@tutorial_dm_sticker_success'),
           top: 410,
           left: 300,
           hasSkip: true,
@@ -213,6 +213,16 @@
       TutorialDm.inactiveAll();
       TutorialEntity.restore();
       TutorialMessages.clear();
+    }
+
+    /**
+     * key 에 해당하는 L10N 으로 변환한다.
+     * @param {string} key
+     * @returns {string}
+     * @private
+     */
+    function _translate(key) {
+      return $filter('translate')(key);
     }
 
     /**

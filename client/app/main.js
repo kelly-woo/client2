@@ -136,7 +136,7 @@
     function _setTutorialState() {
       $stateProvider
         .state('tutorial', {
-          url: '/tutorial',
+          url: '/tutorial?start',
           templateUrl: 'app/tutorial/popup/tutorial.main.html',
           controller: 'tutorialMainCtrl'
         })

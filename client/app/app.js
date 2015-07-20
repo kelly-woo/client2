@@ -199,7 +199,6 @@ app.config(function ($urlRouterProvider, $httpProvider, $tooltipProvider) {
     .when("/channels/:id/", "/channels/:id")
     .when("/privategroups/:id/", "/privategroups/:id")
     .when("/passwordReset?teamId&token", "/passwordreset?teamId&token")
-    .when("/tutorial/", "/tutorial")
     .otherwise("/404");
 
   /* URL must be lower-case */

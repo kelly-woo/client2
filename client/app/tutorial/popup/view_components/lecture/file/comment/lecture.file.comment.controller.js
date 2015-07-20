@@ -51,8 +51,8 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '자!',
-          content: '써치 아이콘 클릭해서 파일서랍 열어봐바',
+          title: _translate('@tutorial_file_comment_title'),
+          content: '',
           top: 200,
           left: 300,
           hasSkip: false,
@@ -60,23 +60,23 @@
         },
         {
           title: '',
-          content: '파일을 클릭해보자',
+          content: _translate('@tutorial_file_comment_click'),
           top: 200,
           left: 300,
           hasSkip: false,
           hasNext: false
         },
         {
-          title: '코멘트 남겨보자',
-          content: '코멘트 남겨',
+          title: '',
+          content: _translate('@tutorial_file_comment'),
           top: 200,
           left: 30,
           hasSkip: false,
           hasNext: false
         },
         {
-          title: '잘햇어',
-          content: '저걸 누르면 다운로드하거나 쉐어할수 있음. <b>다음</b> 버튼 눌러.',
+          title: _translate('@tutorial_great'),
+          content: _translate('@tutorial_file_download_desc'),
           top: 200,
           left: 30,
           hasSkip: false,
@@ -168,6 +168,16 @@
      */
     function _onDestroy() {
 
+    }
+
+    /**
+     * key 에 해당하는 L10N 으로 변환한다.
+     * @param {string} key
+     * @returns {string}
+     * @private
+     */
+    function _translate(key) {
+      return $filter('translate')(key);
     }
 
     /**

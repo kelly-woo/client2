@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureProfileChangeCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
+  app.controller('lectureProfileChangeCtrl', function ($scope, $filter, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 3;
     var _tutorDataList;
     var _purseDataList;
@@ -38,7 +38,7 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '프로필을 바꿔봐!',
+          title: _translate('@tutorial_profile_setup'),
           content: '',
           top: 200,
           left: 300,
@@ -46,7 +46,7 @@
           hasNext: false
         },
         {
-          title: '프로필을 바꿔봐!',
+          title: _translate('@tutorial_profile_setup'),
           content: '',
           top: 200,
           left: 300,
@@ -55,7 +55,7 @@
         },
         {
           title: '',
-          content: '인적사항을 항상 최신으로 업뎃하는게 좋겠지? 전번 바뀌면 곤란하잖어. <b>다음</b>버튼을 눌러',
+          content: _translate('@tutorial_profile_desc'),
           top: 340,
           left: 510,
           hasSkip: true,
@@ -103,6 +103,16 @@
      */
     function _onDestroy() {
 
+    }
+
+    /**
+     * key 에 해당하는 L10N 으로 변환한다.
+     * @param {string} key
+     * @returns {string}
+     * @private
+     */
+    function _translate(key) {
+      return $filter('translate')(key);
     }
 
     /**

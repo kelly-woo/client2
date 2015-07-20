@@ -37,16 +37,16 @@
       var userName = TutorialAccount.getCurrent().name;
       _tutorDataList = [
         {
-          title: '토픽',
-          content: '은 그룹 메세지 하는데야',
+          title: _translate('@common-topics'),
+          content: _translate('@tutorial_topic_definition'),
           top: 200,
           left: 300,
           hasSkip: false,
           hasNext: true
         },
         {
-          title: '토픽을 만들어봐.',
-          content: '눌러!',
+          title: _translate('@common-topics'),
+          content: _translate('@tutorial_topic_let_create') + '<br />' + _translate('@tutorial_topic_click_plus'),
           top: 200,
           left: 300,
           hasSkip: false,
@@ -54,15 +54,15 @@
         },
         {
           title: userName + ',',
-          content: '자 토픽을 만들어봐.',
+          content: _translate('@tutorial_topic_create_own'),
           top: 255,
           left: 280,
           hasSkip: false,
           hasNext: false
         },
         {
-          title: '훌륭해!',
-          content: '잘 만들었어. <b> {{ entityName }} </b> 토픽을 만들었구나?',
+          title: _translate('@tutorial_awesome'),
+          content: _translate('@tutorial_topic_created'),
           top: 200,
           left: 300,
           hasSkip: false,
@@ -116,7 +116,7 @@
     function _onCreateTopic(event, entityName) {
       var tutorData = _tutorDataList[$scope.step + 1];
       $scope.entityName = entityName;
-      tutorData.content = tutorData.content.replace('{{entityName}}', $scope.entityName);
+      tutorData.content = tutorData.content.replace('{{topicName}}', $scope.entityName);
 
       TutorialTopics.append({
         name: entityName,
@@ -129,6 +129,16 @@
       });
 
       _onNextStep();
+    }
+
+    /**
+     * key 에 해당하는 L10N 으로 변환한다.
+     * @param {string} key
+     * @returns {string}
+     * @private
+     */
+    function _translate(key) {
+      return $filter('translate')(key);
     }
 
     /**

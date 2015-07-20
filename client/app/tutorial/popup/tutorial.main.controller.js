@@ -9,10 +9,10 @@
 
   app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, $urlRouter, accountService,
                                                currentSessionHelper, TutorialTutor, TutorialAccount, TutorialTopics,
-                                               TutorialDm) {
+                                               TutorialDm, TutorialAPI) {
+    var _isComplete;
     var _topicList;
     var _dmList;
-
     var _lectureList = [
       'tutorial.team.invitation',
       'tutorial.topic.create',
@@ -25,7 +25,7 @@
       'tutorial.menu.team',
       'tutorial.menu.help'
     ];
-
+    $scope.currentStep = 0;
     $scope.onClickComplete = onClickComplete;
 
     _init();
@@ -35,9 +35,6 @@
      * @private
      */
     function _init() {
-      _initVariables();
-      _initRouter();
-      _attachEvents();
       TutorialAccount.promise.then(_onSuccessGetAccount);
     }
 
@@ -46,12 +43,22 @@
      * @private
      */
     function _onSuccessGetAccount() {
-
+      var account = TutorialAccount.get();
+      var currentStep;
       $('#client-ui').removeClass('full-screen');
 
-      $scope.isComplete = false;
-      $scope.currentStep = _getLectureIndex($state.current.name);
-      $scope.completedStep = 0;
+      _initVariables();
+      _isComplete = account.tutorialConfirm;
+      $scope.completedStep = account.tutorialStep;
+
+      $scope.isShowComplete = false;
+
+      currentStep =  _getLectureIndex($state.current.name);
+      $scope.currentStep = currentStep > -1 ? currentStep : $scope.currentStep;
+
+      _initRouter();
+      _attachEvents();
+
       $scope.topicList = TutorialTopics.get();
       $scope.dmList = _dmList;
       $scope.tutor = TutorialTutor.get();
@@ -63,8 +70,8 @@
      * @private
      */
     function _initRouter() {
-      if (_isTutorialFirstStep($state.current.name)) {
-        _routeFirstStep();
+      if (_isTutorialMain($state.current.name)) {
+        _autoRoute();
       }
     }
 
@@ -74,7 +81,7 @@
      * @returns {boolean}
      * @private
      */
-    function _isTutorialFirstStep(currentName) {
+    function _isTutorialMain(currentName) {
       return currentName === 'tutorial';
     }
 
@@ -82,10 +89,19 @@
      * 튜토리얼 첫번째 과정인지 여부 반환
      * @private
      */
-    function _routeFirstStep() {
-      if (_lectureList && _lectureList[0]) {
-        $state.go(_lectureList[0]);
+    function _autoRoute() {
+      var start = parseInt($state.params.start, 10) || 0;
+
+      if (start > $scope.completedStep + 1) {
+        start = $scope.completedStep + 1;
+        start = start < 0 ? 0 : start;
       }
+
+      if (!_lectureList || !_lectureList[start]) {
+        start = 0;
+      }
+      $scope.currentStep = start;
+      $state.go(_lectureList[start]);
     }
 
     /**
@@ -184,9 +200,10 @@
       $scope.$on('tutorial:nextLecture', _onNextLecture);
       $scope.$on('tutorial:go', _onMoveStep);
       $scope.$watch('currentStep', function(newVal) {
-        if ($scope.completedStep < newVal - 1) {
-          $scope.completedStep = newVal - 1;
-        }
+        console.log('change:current', newVal);
+      });
+      $scope.$watch('completedStep', function(newVal) {
+        console.log('change:completedStep', newVal);
       });
     }
 
@@ -218,11 +235,18 @@
      * @private
      */
     function _onStateChangeStart(event, toState, toParams, fromState, fromParams) {
-      if (_isTutorialFirstStep(toState.name)) {
-        _routeFirstStep();
-      }
-      $scope.currentStep = _getLectureIndex(toState.name);
-      $scope.isComplete = false;
+      var currentStep;
+      TutorialAccount.promise.then(function() {
+        if (_isTutorialMain(toState.name)) {
+          _autoRoute();
+        } else {
+          currentStep = _getLectureIndex(toState.name);
+          if (currentStep > -1) {
+            $scope.currentStep = currentStep;
+            $scope.isShowComplete = false;
+          }
+        }
+      });
     }
 
     /**
@@ -232,15 +256,31 @@
     function _onNextLecture() {
       var length = _lectureList.length;
       if ($scope.currentStep + 1 >= length) {
-        $scope.completedStep = $scope.currentStep;
-        $scope.isComplete = true;
+        _save($scope.currentStep, true);
+        $scope.isShowComplete = true;
       } else if (_lectureList[$scope.currentStep + 1]) {
+        _save($scope.currentStep, true);
         $scope.currentStep++;
         $state.go(_lectureList[$scope.currentStep]);
       }
+      console.log('_onNextLecture $scope.currentStep', $scope.currentStep);
     }
 
-    function _onComplete() {}
+    function _save(step, isComplete) {
+      isComplete = !!isComplete || false;
+
+      if (isComplete || !_isComplete) {
+        if (step <= $scope.currentStep) {
+          $scope.completedStep = $scope.currentStep;
+          console.log('TutorialAPI.$scope.completedStep', $scope.completedStep);
+          TutorialAPI.set($scope.currentStep,  isComplete);
+        }
+      }
+    }
+
+    function _onComplete() {
+    }
+
     /**
      * step 으로 이동한다.
      * @param {event} event

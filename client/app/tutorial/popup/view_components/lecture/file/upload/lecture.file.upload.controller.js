@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureFileUploadCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount,
+  app.controller('lectureFileUploadCtrl', function ($scope, $filter, $rootScope, jndPubSub, TutorialTutor, TutorialAccount,
                                                     TutorialMessages, TutorialEntity) {
     var TOTAL_STEP = 3;
     var _tutorDataList;
@@ -37,16 +37,8 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '아무 토픽에서나 파일 업로드 할 수 있어',
-          content: '눌러서 파일 업로드를 해봐',
-         top: 200,
-          left: 300,
-          hasSkip: false,
-          hasNext: false
-        },
-        {
-          title: '',
-          content: '여길 눌러서 내컴터 드랍박스 구글드라이브 등에서 파일 업로드를 할 수 있어',
+          title: _translate('@tutorial_upload_title'),
+          content: '',
           top: 200,
           left: 300,
           hasSkip: false,
@@ -54,7 +46,15 @@
         },
         {
           title: '',
-          content: '업로드하면 이렇게 표시가 돼',
+          content: _translate('@tutorial_upload_sources'),
+          top: 200,
+          left: 300,
+          hasSkip: false,
+          hasNext: false
+        },
+        {
+          title: '',
+          content: _translate('@tutorial_upload_preview'),
           top: 200,
           left: 300,
           hasSkip: false,
@@ -98,6 +98,16 @@
      */
     function _onDestroy() {
       TutorialMessages.restore();
+    }
+
+    /**
+     * key 에 해당하는 L10N 으로 변환한다.
+     * @param {string} key
+     * @returns {string}
+     * @private
+     */
+    function _translate(key) {
+      return $filter('translate')(key);
     }
 
     function onClickUpload() {

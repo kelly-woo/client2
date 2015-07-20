@@ -97,6 +97,10 @@
 }
 
 .tutorial_dimm.full {
+  top: 0;
+  left: 0;
+  width: 1024px;
+  height: 768px;
   background: black;
   opacity: 0.6;
 }

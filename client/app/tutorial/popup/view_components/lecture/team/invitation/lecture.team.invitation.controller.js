@@ -7,7 +7,8 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
+  app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, $filter, jndPubSub, TutorialTutor,
+                                                        TutorialAccount) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
     var _purseDataList;
@@ -32,16 +33,16 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '잔디 튜토리얼에 오신것을 환영합니다.',
-          content: '자 우리 함께 튜토리얼을 시작해까?',
+          title: $filter('translate')('@tutorial_team_title'),
+          content: $filter('translate')('@tutorial_team_intro'),
           top: 200,
           left: 300,
           hasSkip: false,
           hasNext: true
         },
         {
-          title: '잔디 튜토리얼에 오신것을 환영합니다.',
-          content: '탐은 그룹하고 비슷한거야. 한 계정에 여러 팀을 만들수 있음.',
+          title: $filter('translate')('@tutorial_team_title'),
+          content: $filter('translate')('@tutorial_team_definition'),
           top: 200,
           left: 300,
           hasSkip: false,
@@ -49,7 +50,7 @@
         },
         {
           title: '',
-          content: '다른 사람을 초대할 수 있어. <br>초대 클릭해봐',
+          content: $filter('translate')('@tutorial_team_click_invite'),
           top: 200,
           left: 300,
           hasSkip: false,
@@ -57,7 +58,7 @@
         },
         {
           title: '',
-          content: '이멜 넣고 요렇게 저렇게 해서 초대할수 있어. <b>다음</b> 버튼을 눌러봐',
+          content: $filter('translate')('@tutorial_team_explain_invitation'),
           top: 440,
           left: 510,
           hasSkip: false,

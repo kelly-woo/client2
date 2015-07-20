@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureTopicJoinCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
+  app.controller('lectureTopicJoinCtrl', function ($scope, $rootScope, $filter, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 2;
     var _tutorDataList;
     var _purseDataList;
@@ -35,14 +35,14 @@
     function _initTutor() {
       _tutorDataList = [
         {
-          title: '토픽에 조인해보자!',
-          content: '햄버거 버튼 눌러!',
+          title: _translate('@tutorial_topic_join'),
+          content: _translate('@tutorial_topic_click_list'),
           hasSkip: false,
           hasNext: false
         },
         {
-          title: '토픽에 조인해보자!',
-          content: '참여하기 버튼 눌러!',
+          title: _translate('@tutorial_topic_join'),
+          content: _translate('@tutorial_topic_click_join'),
           hasSkip: false,
           hasNext: false
         }
@@ -79,6 +79,16 @@
      */
     function _onDestroy() {
 
+    }
+
+    /**
+     * key 에 해당하는 L10N 으로 변환한다.
+     * @param {string} key
+     * @returns {string}
+     * @private
+     */
+    function _translate(key) {
+      return $filter('translate')(key);
     }
 
     /**
