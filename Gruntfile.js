@@ -158,7 +158,9 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: '.tmp',
+      //app: '<%= yeoman.dist %>/public/app/*',
+      tmp: '<%= yeoman.dist %>/tmp'
     },
 
     // Add vendor prefixed styles
@@ -405,6 +407,12 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.client %>',
         dest: '.tmp/',
         src: ['{app,components}/**/*.css']
+      },
+      assets_path: {
+        expand: true,
+        cwd: '<%= yeoman.dist %>/tmp',
+        src: '*',
+        dest: '<%= yeoman.dist %>/public/app/'
       }
     },
 
@@ -555,6 +563,42 @@ module.exports = function (grunt) {
 
     // replace
     replace: {
+      assets_css: {
+        options: {
+          patterns: [
+            {
+              match: /(\.\.\/)+assets/g,
+              replacement: function() {
+                return '../assets';
+              }
+            }
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: '<%= yeoman.dist %>/public/app/*.css',
+          dest: '<%= yeoman.dist %>/tmp/'
+        }]
+      },
+      assets_js: {
+        options: {
+          patterns: [
+            {
+              match: /(\.\.\/)+assets/g,
+              replacement: function() {
+                return 'assets';
+              }
+            }
+          ]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: '<%= yeoman.dist %>/public/app/*.js',
+          dest: '<%= yeoman.dist %>/tmp/'
+        }]
+      },
       local: {
         options: {
           patterns: [{
@@ -763,7 +807,11 @@ module.exports = function (grunt) {
         'cssmin',
         'uglify',
         'rev',
-        'usemin'
+        'usemin',
+        'replace:assets_js',
+        'replace:assets_css',
+        'copy:assets_path',
+        'clean:tmp'
       ]);
     }
     else grunt.task.run([
@@ -781,7 +829,11 @@ module.exports = function (grunt) {
       'cssmin',
       'uglify',
       'rev',
-      'usemin'
+      'usemin',
+      'replace:assets_js',
+      'replace:assets_css',
+      'copy:assets_path',
+      'clean:tmp'
     ]);
   });
 

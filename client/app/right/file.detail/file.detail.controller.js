@@ -236,12 +236,22 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * 이미지 클릭시 이벤트 핸들러
    */
   function onImageClick() {
-    var content = $scope.file_detail.content;
+    var file_detail = $scope.file_detail;
 
-    if (integrationPreviewMap[content.serverUrl]) {
-      window.open(content.fileUrl, '_blank');
+    if (integrationPreviewMap[file_detail.content.serverUrl]) {
+      window.open(file_detail.content.fileUrl, '_blank');
     } else {
-      modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
+      modalHelper.openImageCarouselModal({
+        // image file api data
+        messageId: fileId,
+        // image carousel view data
+        userName: file_detail.writer.name,
+        uploadDate: file_detail.createTime,
+        fileTitle: file_detail.content.title,
+        fileUrl: file_detail.content.fileUrl,
+        // single
+        isSingle: true
+      });
     }
   }
 
