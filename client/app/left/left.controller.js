@@ -6,7 +6,7 @@ app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper) {
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, TopicMessageCache) {
 
   /**
    * @namespace
@@ -491,6 +491,39 @@ app.controller('leftPanelController1', function(
     }
 
     $rootScope.$broadcast('onInitLeftListDone');
+    _getCachedMessaged();
+  }
+
+
+  /**
+   * 읽지않은 메세지가 있는 토픽에한해서 메세지를 우선적으로 가져온다.
+   * @private
+   */
+  function _getCachedMessaged() {
+    leftpanelAPIservice.getMessages()
+      .success(_onGetMessagesSuccess)
+      .error(function() {
+      });
+  }
+
+  /**
+   * 서버로부터 받은 데이터를 TopicMessageCache에 저장한다.
+   * @param {object} response - 서버로부터 받은 데이타
+   * @private
+   */
+  function _onGetMessagesSuccess(response) {
+    console.log(response)
+
+    _.each(response, function(unreadTopic) {
+      console.log(unreadTopic)
+      var _param = {
+        list: unreadTopic.messages,
+        lastMessageId: unreadTopic.lastLinkId,
+        hasProcessed: false
+      };
+
+      TopicMessageCache.put(unreadTopic.entityId, _param);
+    });
   }
 
   /**
@@ -888,5 +921,1263 @@ app.controller('leftPanelController1', function(
     }
   }
 
+  var testResponse = [
+    {
+      "lastLinkId": 325574,
+      "announcementOpened": true,
+      "entityId": 11153645,
+      "entityType": "channel",
+      "unreadCount": 5,
+      "messageIds": [
+        289645,
+        289646,
+        289647,
+        289648,
+        289649
+      ],
+      "messages": [
+        {
+          "id": 289649,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153645
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "g"
+          },
+          "updateTime": 1437374526774,
+          "createTime": 1437374526774,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289648,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153645
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "f"
+          },
+          "updateTime": 1437374526356,
+          "createTime": 1437374526356,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289647,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153645
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "d"
+          },
+          "updateTime": 1437374525870,
+          "createTime": 1437374525870,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289646,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153645
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "s"
+          },
+          "updateTime": 1437374525473,
+          "createTime": 1437374525473,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289645,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153645
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "a"
+          },
+          "updateTime": 1437374525202,
+          "createTime": 1437374525202,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "lastLinkId": 325575,
+      "announcementOpened": true,
+      "entityId": 11153646,
+      "entityType": "channel",
+      "unreadCount": 5,
+      "messageIds": [
+        289650,
+        289651,
+        289652,
+        289653,
+        289654
+      ],
+      "messages": [
+        {
+          "id": 289654,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153646
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "5t"
+          },
+          "updateTime": 1437374536893,
+          "createTime": 1437374536893,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289653,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153646
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "4r"
+          },
+          "updateTime": 1437374535990,
+          "createTime": 1437374535990,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289652,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153646
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "3e"
+          },
+          "updateTime": 1437374535375,
+          "createTime": 1437374535375,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289651,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153646
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "2w"
+          },
+          "updateTime": 1437374534878,
+          "createTime": 1437374534878,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289650,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153646
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "1q"
+          },
+          "updateTime": 1437374534524,
+          "createTime": 1437374534524,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "lastLinkId": 325576,
+      "announcementOpened": true,
+      "entityId": 11153647,
+      "entityType": "channel",
+      "unreadCount": 5,
+      "messageIds": [
+        289640,
+        289641,
+        289642,
+        289643,
+        289644
+      ],
+      "messages": [
+        {
+          "id": 289644,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153647
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "55"
+          },
+          "updateTime": 1437374520979,
+          "createTime": 1437374520979,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289643,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153647
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "44"
+          },
+          "updateTime": 1437374520415,
+          "createTime": 1437374520415,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289642,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153647
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "33"
+          },
+          "updateTime": 1437374519920,
+          "createTime": 1437374519920,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289641,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153647
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "22"
+          },
+          "updateTime": 1437374519426,
+          "createTime": 1437374519426,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289640,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153647
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "11"
+          },
+          "updateTime": 1437374518993,
+          "createTime": 1437374518993,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "lastLinkId": 325577,
+      "announcementOpened": true,
+      "entityId": 11153648,
+      "entityType": "channel",
+      "unreadCount": 10,
+      "messageIds": [
+        289625,
+        289626,
+        289627,
+        289628,
+        289629,
+        289635,
+        289636,
+        289637,
+        289638,
+        289639
+      ],
+      "messages": [
+        {
+          "id": 289639,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153648
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "t"
+          },
+          "updateTime": 1437374515742,
+          "createTime": 1437374515742,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289638,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153648
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "r"
+          },
+          "updateTime": 1437374515422,
+          "createTime": 1437374515422,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289637,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153648
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "e"
+          },
+          "updateTime": 1437374515101,
+          "createTime": 1437374515101,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289636,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153648
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "w"
+          },
+          "updateTime": 1437374514772,
+          "createTime": 1437374514772,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289635,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153648
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "q"
+          },
+          "updateTime": 1437374514467,
+          "createTime": 1437374514467,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289629,
+          "teamId": 11153642,
+          "writerId": 11153643,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153648
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "- FAQ: https://jandi.zendesk.com/hc/ko"
+          },
+          "updateTime": 1437374360713,
+          "createTime": 1437374360713,
+          "writer": {
+            "id": 11153643,
+            "name": "Aiden Jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289628,
+          "teamId": 11153642,
+          "writerId": 11153643,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153648
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "- 잔디 사용 매뉴얼: http://www.slideshare.net/jandihq/jandi-instruction-manual-ko"
+          },
+          "updateTime": 1437374360308,
+          "createTime": 1437374360308,
+          "writer": {
+            "id": 11153643,
+            "name": "Aiden Jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289627,
+          "teamId": 11153642,
+          "writerId": 11153643,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153648
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "- 잔디 페이스북 페이지: https://www.facebook.com/JANDI.SKorea"
+          },
+          "updateTime": 1437374359792,
+          "createTime": 1437374359792,
+          "writer": {
+            "id": 11153643,
+            "name": "Aiden Jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289626,
+          "teamId": 11153642,
+          "writerId": 11153643,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153648
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "- 잔디 블로그: http://blog.jandi.com/ko/"
+          },
+          "updateTime": 1437374359365,
+          "createTime": 1437374359365,
+          "writer": {
+            "id": 11153643,
+            "name": "Aiden Jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289625,
+          "teamId": 11153642,
+          "writerId": 11153643,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153648
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "JANDI 서포트팀을 대신하여 JANDI를 더욱 쉽게 사용할 수 있는 정보들을 팀 생성자님께서 공유합니다."
+          },
+          "updateTime": 1437374359329,
+          "createTime": 1437374359329,
+          "writer": {
+            "id": 11153643,
+            "name": "Aiden Jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "lastLinkId": 0,
+      "entityId": 11153650,
+      "entityType": "chat",
+      "unreadCount": 5,
+      "messageIds": [
+        289655,
+        289656,
+        289657,
+        289658,
+        289659
+      ],
+      "messages": [
+        {
+          "id": 289659,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153650
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "b"
+          },
+          "updateTime": 1437374548178,
+          "createTime": 1437374548178,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289658,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153650
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "v"
+          },
+          "updateTime": 1437374547612,
+          "createTime": 1437374547612,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289657,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153650
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "c"
+          },
+          "updateTime": 1437374547033,
+          "createTime": 1437374547033,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289656,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153650
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "x"
+          },
+          "updateTime": 1437374546566,
+          "createTime": 1437374546566,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        },
+        {
+          "id": 289655,
+          "teamId": 11153642,
+          "writerId": 11153649,
+          "contentType": "text",
+          "permission": 740,
+          "info": {
+            "mention": []
+          },
+          "commentCount": 0,
+          "feedbackId": -1,
+          "shareEntities": [
+            11153650
+          ],
+          "status": "created",
+          "linkPreviewId": null,
+          "content": {
+            "body": "z"
+          },
+          "updateTime": 1437374546094,
+          "createTime": 1437374546094,
+          "writer": {
+            "id": 11153649,
+            "name": "aiden4jo",
+            "u_statusMessage": "",
+            "u_photoUrl": "images/profile_80.png",
+            "type": "user",
+            "u_extraData": {
+              "position": "",
+              "department": "",
+              "phoneNumber": ""
+            },
+            "u_photoThumbnailUrl": {
+              "smallThumbnailUrl": "images/profile_80.png",
+              "mediumThumbnailUrl": "images/profile_180.png",
+              "largeThumbnailUrl": "images/profile_180.png"
+            }
+          }
+        }
+      ]
+    }
+  ];
+
+  //_onGetMessagesSuccess(testResponse);
 });
 

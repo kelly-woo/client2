@@ -50,13 +50,15 @@
     function getValue(key, name) {
       return !!topicCacheMap[key] && topicCacheMap[key][name];
     }
+
     /**
      * topicCacheMap 에 key-value pair를 저정한다.
      * @param {string} key - string to be used as a key, id of a topic
      * @param {object} value
      *    @param {array} list - message list
      *    @param {number} globalLastLinkId - global last link id
-     *    @param {number} lastMessageId - lastMessageId equivalent.
+     *    @param {number} lastMessageId - lastMessageId equivalent
+     *    @param {boolean} hasProcessed - 이미 한 번 messageCollection을 통해 data 들이 정리되었는지 안되었는지 보여주는 flag
      */
     function put(key, value) {
       if (_.size(topicCacheMap) >= MAX_CACHE_ITEM_NUMBER) {

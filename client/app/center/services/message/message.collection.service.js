@@ -44,6 +44,8 @@
     this.update = update;
     this.clearQueue = clearQueue;
 
+    this.prependCachedList = prependCachedList;
+
     this.removeAllSendingMessages = removeAllSendingMessages;
     this.updateUnreadCount = updateUnreadCount;
 
@@ -310,10 +312,16 @@
      * @returns {*}
      * @private
      */
-    function _beforeAddMessages(messageList) {
+    function _beforeAddMessages(messageList, isCachedItem) {
       messageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
+
       _.forEach(messageList, function(msg) {
+        if (isCachedItem) {
+          msg.fromEntity = msg.writerId;
+          msg.message = msg;
+        }
         msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
+
       });
       //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
       messageList[messageList.length - 1]._isLast = true;
@@ -616,6 +624,19 @@
     function setList(list) {
       that.list = list;
     }
+
+    function prependCachedList(messageList) {
+      var firstId = that.list[0] && that.list[0].id || -1;
+      messageList = _beforeAddMessages(messageList, true);
+      _.forEachRight(messageList, function(msg) {
+        if (firstId === -1 || firstId > msg.id) {
+          msg = _getFormattedMessage(msg);
+          that.list.unshift(msg);
+        }
+      });
+
+    }
+
 
   }
 })();
