@@ -11,7 +11,7 @@
       scope: false,
       link: link,
       templateUrl: 'app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html',
-      controller: 'FileUploadedCtrl',
+      controller: 'FileUploadedCtrl'
     };
 
     function link(scope, element, attrs) {
