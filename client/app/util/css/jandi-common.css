@@ -93,6 +93,12 @@ input.disabled {
   OFFLINE
 
 *****************************************/
+.content-wrapper.offline,
+.offline .body-wrapper,
+.offline .jnd-cursor-pointer,
+.offline .cursor_pointer,
+.offline .grey_dropdown > li > a,
+.offline .green_dropdown > li > a,
 .offline input {
   cursor: not-allowed !important;
 }
