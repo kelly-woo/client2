@@ -85,3 +85,14 @@ input.disabled {
   -webkit-animation: three-quarters-loader 928ms infinite linear !important;
   animation: three-quarters-loader 928ms infinite linear !important;
 }
+
+
+
+/*****************************************
+
+  OFFLINE
+
+*****************************************/
+.offline input {
+  cursor: not-allowed !important;
+}

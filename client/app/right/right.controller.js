@@ -41,8 +41,13 @@
       $scope.tabs = [fileTab, messageTab];
 
       _setLanguageVariable();
+
+      $scope.isLoading = false;
+
     }
 
+
+    $scope.$on('connected', _init);
 
     /**
      * right panel 상단에 있는 search input box 의 값이 없어졌다는 이벤트.

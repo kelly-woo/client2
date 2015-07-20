@@ -9,7 +9,7 @@
   /* @ngInject */
   function headerCtrl($scope, $state, $filter, accountService,
                       memberService, publicService, configuration,
-                      language, modalHelper, jndPubSub, DeskTopNotificationBanner, pcAppHelper,
+                      language, modalHelper, jndPubSub, DeskTopNotificationBanner, $rootScope, NetInterceptor,
                       Browser, AnalyticsHelper) {
     var modalMap;
     var stateParams;
@@ -178,5 +178,19 @@
     function _isRpanelVisible() {
       return $state.includes('**.files.**');
     }
+
+    var isTrue = false;
+    $scope.test = function() {
+      if (isTrue) {
+        //$rootScope.$broadcast('connected')
+        NetInterceptor.setStatus(isTrue)
+      } else {
+        //$rootScope.$broadcast('disconnected')
+        NetInterceptor.setStatus(isTrue)
+      }
+      isTrue = !isTrue
+
+    }
+
   }
 })();
