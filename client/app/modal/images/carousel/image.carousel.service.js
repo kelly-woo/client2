@@ -540,6 +540,14 @@
       xhr.send();
     }
 
+    /**
+     * load image
+     * @param {string|object} value        - blob 또는 url
+     * @param {object} jqImageItem         - image element
+     * @param {object} options
+     * @param {number} options.orientation - image rotate
+     * @private
+     */
     function _loadImage(value, jqImageItem, options) {
       // image options와 함께 blob data를 이용해서 canvas element를 만든다.
       loadImage(value, function(img) {
