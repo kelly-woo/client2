@@ -9,7 +9,7 @@
       .service('ImageCarousel', ImageCarousel);
 
   /* @ngInject */
-  function ImageCarousel($rootScope, $compile, $timeout, jndKeyCode, config) {
+  function ImageCarousel($rootScope, $compile, $timeout, jndKeyCode, config, Browser) {
     var that = this;
 
     // image item의 최소 크기
@@ -487,48 +487,65 @@
      * @private
      */
     function _imageLoad(jqImageItem, fullFileUrl) {
-      var xhr = new XMLHttpRequest();
-
-      xhr.open('GET', fullFileUrl, true);
-      xhr.responseType = 'blob';
-      xhr.onload = function() {
-        var that = this;
-        var blob = that.response;
-
-        if (that.status === 200) {
-          // loadImage library를 사용하여 blob에 포함된 meta data를 긁음
-          loadImage.parseMetaData(blob, function (data) {
-            var imageOptions = {
-              maxWidth: '100%'
-            };
-
-            // 필요한 정보가 있을 경우
-            if (!!data.exif) {
-              // image 회전
-              imageOptions['orientation'] = _getImageOrientation(data);
-            }
-
-            // image options와 함께 blob data를 이용해서 canvas element를 만든다.
-            loadImage(blob, function(img) {
-              // image item에 출력된 loading screen 제거
-              jqImageItem.removeClass('icon-loading loading');
-
-              if (img.type === 'error') {
-                // img가 존재하지 않기 때문에 error image 출력
-                jqImageItem.addClass('no-image-carousel').prepend('<img src="assets/images/no_image_available.png" style="opacity: 1;" />');
-              } else {
-                // img position 설정하고 출력
-                _setPosition(jqImageItem, img);
-
-                jqImageItem.prepend(img);
-                $(img).css('opacity', 1);
-              }
-            }, imageOptions);
-          });
-        }
+      var imageOptions = {
+        maxWidth: '100%'
       };
+      var xhr;
 
-      xhr.send();
+      if (Browser.msie && Browser.version === 9) {
+        _loadImage(fullFileUrl, jqImageItem, imageOptions);
+      } else {
+        xhr = new XMLHttpRequest();
+
+        xhr.open('GET', fullFileUrl, true);
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+          var that = this;
+          var blob = that.response;
+
+          if (that.status === 200) {
+            // loadImage library를 사용하여 blob에 포함된 meta data를 긁음
+            loadImage.parseMetaData(blob, function (data) {
+
+              // 필요한 정보가 있을 경우
+              if (!!data.exif) {
+                // image 회전
+                imageOptions['orientation'] = _getImageOrientation(data);
+              }
+              _loadImage(blob, jqImageItem, imageOptions);
+            });
+          }
+        };
+
+        xhr.send();
+      }
+    }
+
+    /**
+     * load image
+     * @param {string|object} value        - blob 또는 url
+     * @param {object} jqImageItem         - image element
+     * @param {object} options
+     * @param {number} options.orientation - image rotate
+     * @private
+     */
+    function _loadImage(value, jqImageItem, options) {
+      // image options와 함께 blob data를 이용해서 canvas element를 만든다.
+      loadImage(value, function(img) {
+        // image item에 출력된 loading screen 제거
+        jqImageItem.removeClass('icon-loading loading');
+
+        if (img.type === 'error') {
+          // img가 존재하지 않기 때문에 error image 출력
+          jqImageItem.addClass('no-image-carousel').prepend('<img src="assets/images/no_image_available.png" style="opacity: 1;" />');
+        } else {
+          // img position 설정하고 출력
+          _setPosition(jqImageItem, img);
+
+          jqImageItem.prepend(img);
+          $(img).css('opacity', 1);
+        }
+      }, options);
     }
 
     /**
