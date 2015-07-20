@@ -7,8 +7,9 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialCompletionCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
+  app.controller('tutorialCompletionCtrl', function ($scope, $rootScope, jndPubSub, TutorialAccount) {
     var MAX_STEP_COUNT = 10;
+
     $scope.onClickNext = onClickNext;
     $scope.onClickSkip = onClickSkip;
     $scope.onClickMove = onClickMove;
@@ -21,7 +22,14 @@
      * @private
      */
     function _init() {
-      $scope.options = TutorialTutor.get();
+      var account;
+      var currentTeam;
+      TutorialAccount.promise.then(function() {
+        account = TutorialAccount.getCurrent();
+        currentTeam = TutorialAccount.getCurrentTeam();
+        $scope.title = _translate('@tutorial_congratulations').replace('{{username}}', account.name);
+        $scope.content = _translate('@tutorial_congratulations_content').replace('{{teamName}}', currentTeam.name);
+      });
     }
 
     /**
@@ -40,6 +48,16 @@
 
     function onClickMove(index) {
       jndPubSub.pub('tutorial:go', index);
+    }
+
+    /**
+     * 번역한 결과를 반환한다.
+     * @param {string} key
+     * @returns {*}
+     * @private
+     */
+    function _translate(key) {
+      return $filter('translate')(key);
     }
 
     /**

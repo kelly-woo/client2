@@ -13,6 +13,19 @@
     var _isComplete;
     var _topicList;
     var _dmList;
+    //향후 lecture step 이 id 가 될 수 있으므로 미리 만들어 놓는다.
+    var _lectureMap = {
+      0: 'tutorial.team.invitation',
+      1: 'tutorial.topic.create',
+      2: 'tutorial.topic.join',
+      3: 'tutorial.topic.leave',
+      4: 'tutorial.file.comment',
+      5: 'tutorial.file.upload',
+      6: 'tutorial.dm.send',
+      7: 'tutorial.profile.change',
+      8: 'tutorial.menu.team',
+      9: 'tutorial.menu.help'
+    };
     var _lectureList = [
       'tutorial.team.invitation',
       'tutorial.topic.create',
@@ -58,6 +71,7 @@
 
       _initRouter();
       _attachEvents();
+      _attachDomEvents();
 
       $scope.topicList = TutorialTopics.get();
       $scope.dmList = _dmList;
@@ -91,9 +105,9 @@
      */
     function _autoRoute() {
       var start = parseInt($state.params.start, 10) || 0;
-
-      if (start > $scope.completedStep + 1) {
-        start = $scope.completedStep + 1;
+      var nextStep = _getNextStep($scope.completedStep);
+      if (start > nextStep) {
+        start = nextStep;
         start = start < 0 ? 0 : start;
       }
 
@@ -104,6 +118,13 @@
       $state.go(_lectureList[start]);
     }
 
+    function _getNextStep(stepId) {
+      var nextStep = stepId + 1;
+      if (nextStep === _lectureList.length) {
+        nextStep = stepId;
+      }
+      return nextStep;
+    }
     /**
      * 변수를 초기화 한다.
      * @private
@@ -187,7 +208,8 @@
      *
      */
     function onClickComplete() {
-      console.log('onClickComplete');
+      TutorialAPI.set($scope.currentStep,  true);
+      _close();
     }
 
     /**
@@ -199,12 +221,43 @@
       $scope.$on('$destroy', _onDestroy);
       $scope.$on('tutorial:nextLecture', _onNextLecture);
       $scope.$on('tutorial:go', _onMoveStep);
-      $scope.$watch('currentStep', function(newVal) {
-        console.log('change:current', newVal);
-      });
-      $scope.$watch('completedStep', function(newVal) {
-        console.log('change:completedStep', newVal);
-      });
+      $scope.$on('tutorial:skip', _onSkipTutorial);
+    }
+
+    /**
+     *
+     * @private
+     */
+    function _attachDomEvents() {
+      $(window).on('unload', _close);
+    }
+
+    /**
+     *
+     * @private
+     */
+    function _detachDomEvents() {
+      $(window).off('unload', _close);
+    }
+    /**
+     *
+     * @private
+     */
+    function _onSkipTutorial() {
+      TutorialAPI.set($scope.completedStep,  true);
+      _close();
+    }
+
+    function _close() {
+      var jqParentEl = window.opener.angular.element('#tutorial_welcome');
+      var scope;
+
+      if (jqParentEl.length) {
+        scope = jqParentEl.scope();
+        scope.$apply(function() {
+          scope.hide();
+        });
+      }
     }
 
     /**
@@ -255,12 +308,13 @@
      */
     function _onNextLecture() {
       var length = _lectureList.length;
-      if ($scope.currentStep + 1 >= length) {
+      var nextStep = $scope.currentStep + 1;
+      if (nextStep == length) {
         _save($scope.currentStep, true);
         $scope.isShowComplete = true;
-      } else if (_lectureList[$scope.currentStep + 1]) {
+      } else if (_lectureList[nextStep]) {
         _save($scope.currentStep, true);
-        $scope.currentStep++;
+        $scope.currentStep = nextStep;
         $state.go(_lectureList[$scope.currentStep]);
       }
       console.log('_onNextLecture $scope.currentStep', $scope.currentStep);
@@ -270,9 +324,8 @@
       isComplete = !!isComplete || false;
 
       if (isComplete || !_isComplete) {
-        if (step <= $scope.currentStep) {
+        if (step <= $scope.currentStep && $scope.completedStep < $scope.currentStep) {
           $scope.completedStep = $scope.currentStep;
-          console.log('TutorialAPI.$scope.completedStep', $scope.completedStep);
           TutorialAPI.set($scope.currentStep,  isComplete);
         }
       }
@@ -299,6 +352,7 @@
      */
     function _onDestroy() {
       $('#client-ui').addClass('full-screen');
+      _detachDomEvents();
     }
   });
 })();

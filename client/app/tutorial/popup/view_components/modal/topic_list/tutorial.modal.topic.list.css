@@ -3,3 +3,33 @@
   left: 270px;
   z-index: 4;
 }
+
+.tutorial_modal_topic_list_name {
+  position: absolute;
+  top: 148px;
+  left: 53px;
+}
+.tutorial_modal_topic_list_name div {
+  color: #000;
+  font-size: 15px;
+  height: 93px;
+}
+.tutorial_modal_topic_list_btn {
+  position: absolute;
+  top: 159px;
+  left: 340px;
+}
+.tutorial_modal_topic_list_btn div {
+  position: relative;
+  min-width: 130px;
+  height: 93px;
+}
+.tutorial_modal_topic_list_btn button {
+  position: absolute;
+  min-width: 100px;
+  top: 0;
+  right: 0;
+}
+.tutorial_modal_topic_list_btn div {
+
+}

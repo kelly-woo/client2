@@ -65,7 +65,9 @@
   /*width: 200px;*/
 /*}*/
 .tutorial_tutor_step {
-  display: inline-block;
+  display:block;
+  float:left;
+  position:relative;
   height:19px;
 }
 .tutorial_tutor_step:nth-child(odd) {
@@ -75,7 +77,7 @@
   width: 47px;
 }
 
-.tutorial_tutor_step > span{
+.tutorial_tutor_step > span.tutorial_tutor_step_num{
   display: inline-block;
   width: 19px;
   height: 19px;
@@ -87,18 +89,20 @@
   line-height: 1;
   white-space: nowrap;
   vertical-align: baseline;
+  position:absolute;
+  z-index: 10;
 }
 
 .tutorial_tutor_step.circle {
   /*background: #FFFFFF;*/
 }
-.tutorial_tutor_step.circle > span {
+.tutorial_tutor_step.circle > span.tutorial_tutor_step_num {
   color: #00abe6;
   background-color: #FFFFFF;
   border-radius: 10px;
   cursor: pointer;
 }
-.tutorial_tutor_step.circle.on > span {
+.tutorial_tutor_step.circle.on > span.tutorial_tutor_step_num {
   color: #FFFFFF;
   background-color: #00abe6;
   cursor: pointer;
@@ -107,4 +111,18 @@
 
 .tutorial_tutor_step:last-of-type {
   width: 19px;
+  left: -2px;
+}
+
+.tutorial_tutor_progress_bar {
+  position: absolute;
+  background: transparent;
+  left: 5px;
+  top: 6px;
+  width: inherit;
+  height: 7px;
+  z-index: 0;
+}
+.tutorial_tutor_progress_bar.complete {
+  background: #FFFFFF;
 }

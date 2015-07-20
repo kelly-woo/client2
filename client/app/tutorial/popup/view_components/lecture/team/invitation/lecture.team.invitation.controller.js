@@ -31,9 +31,11 @@
      * @private
      */
     function _initTutor() {
+      var userName = TutorialAccount.getCurrent().name;
+      var title = $filter('translate')('@tutorial_team_title').replace('{{username}}', userName);
       _tutorDataList = [
         {
-          title: $filter('translate')('@tutorial_team_title'),
+          title: title,
           content: $filter('translate')('@tutorial_team_intro'),
           top: 200,
           left: 300,
@@ -41,7 +43,7 @@
           hasNext: true
         },
         {
-          title: $filter('translate')('@tutorial_team_title'),
+          title: title,
           content: $filter('translate')('@tutorial_team_definition'),
           top: 200,
           left: 300,

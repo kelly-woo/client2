@@ -1,8 +1,11 @@
 <div>
   <div class="tutorial_modal topic_create">
     <img src="../../../../assets/images/tutorial/modal/modal_create.png"/>
+    <div class="tutorial_disable_block"></div>
+    <div class="tutorial_modal_header">
+      <span translate>@common-create-ch</span>
+    </div>
   </div>
-
   <!-- CREATE TOPIC MODAL -->
   <div class="tutorial_topic_create_layer modal-dialog">
     <div class="modal-body" id="create-entity-body">
@@ -16,6 +19,7 @@
                    ng-model="entityName"
                    placeholder="{{ '@input-create-ch' | translate }}"
                    ng-required="true"
+                   ng-keydown="onKeyDown($event);"
                    ng-maxlength="60"/>
           </div>
         </div>

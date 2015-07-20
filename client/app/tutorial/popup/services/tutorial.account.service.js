@@ -18,6 +18,7 @@
     this.getCurrent = getCurrent;
     this.get = get;
     this.isOwner = isOwner;
+    this.getCurrentTeam = getCurrentTeam;
 
     _init();
 
@@ -74,6 +75,22 @@
      */
     function getCurrent() {
       return _currentAccount;
+    }
+
+    /**
+     * 현재 팀 정보를 반환한다.
+     * @returns {*}
+     */
+    function getCurrentTeam() {
+      var currentTeamId = _currentAccount.teamId;
+      var team;
+      _.forEach(_account.memberships, function(item) {
+        if (item.teamId === currentTeamId) {
+          team = item;
+          return false;
+        }
+      });
+      return team;
     }
   }
 })();

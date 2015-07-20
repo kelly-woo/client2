@@ -105,3 +105,23 @@
   opacity: 0.6;
 }
 
+.tutorial_disable_block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  cursor: not-allowed;
+  z-index: 15;
+}
+
+
+.tutorial_modal_header {
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  font-size: 14px;
+  line-height: 1.1;
+  color: #FFFFFF;
+}

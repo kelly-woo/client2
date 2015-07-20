@@ -54,8 +54,8 @@
         },
         {
           title: userName + ',',
-          content: _translate('@tutorial_topic_create_own'),
-          top: 255,
+          content: _translate('@tutorial_topic_create_own').replace('{{username}}', userName),
+          top: 355,
           left: 280,
           hasSkip: false,
           hasNext: false
@@ -160,9 +160,6 @@
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
-        if (step === 3){
-          _tutorDataList[step].content = '잘 만들었어. <b> ' + $scope.entityName + ' </b> 토픽을 만들었구나?';
-        }
 
         $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);

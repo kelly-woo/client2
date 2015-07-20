@@ -7,13 +7,14 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialWelcomeCtrl', function ($scope, accountService, Popup) {
+  app.controller('tutorialWelcomeCtrl', function ($scope, accountService, TutorialAPI, Popup) {
 
     $scope.isComplete = true;
     $scope.completedStep = -1;
     $scope.onClickStart = onClickStart;
     $scope.onClickContinue = onClickContinue;
     $scope.onClickSkip = onClickSkip;
+    $scope.hide = hide;
 
     _init();
 
@@ -30,7 +31,13 @@
     }
 
     function onClickSkip() {
+      TutorialAPI.set($scope.completedStep,  true);
+      hide();
+    }
 
+    function hide() {
+      Popup.close(Popup.get('tutorial'));
+      $scope.isComplete = true;
     }
 
     function onClickContinue() {
@@ -45,33 +52,39 @@
       var url = token[0] + '/#/tutorial';
 
       Popup.open(url, {
+        name: 'tutorial',
         data: {
           start: step
         },
         optionStr: 'width=1024; height=768; scrollbars=yes; resizable=no;'
       });
     }
+
     /**
      * attachEvents
      * @private
      */
     function _attachEvents() {
       $scope.$on('accountLoaded', _onAccountLoaded);
+      $scope.$on('$destroy', _onDestroy);
     }
 
     function _onAccountLoaded() {
       var account = accountService.getAccount();
 
       $scope.isComplete = account.tutorialConfirm;
+      //@fixme: remove isComplete = false; for test
       $scope.isComplete = false;
       $scope.completedStep = account.tutorialStep;
     }
+
 
     /**
      * 소멸자
      * @private
      */
     function _onDestroy() {
+      hide();
     }
   });
 })();
