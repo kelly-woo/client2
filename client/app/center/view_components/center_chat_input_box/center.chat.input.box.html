@@ -31,17 +31,11 @@
                                 'center-panel-disabled-member-input': isDisabledMember(currentEntity)}"
                     message-submit="postMessage()"
                     data-ng-disabled="msgLoadStatus.loading || isDisabledMember(currentEntity)"
-                    data-ng-model="message.content"
                     maxlength=""
-                    autocorrect="off"
-                    autocomplete="off"
-                    spellcheck="true"
-                    placeholder="{{ '@placeholder-input-message' | translate }}"
+                    placeholder="{{::'@placeholder-input-message' | translate }}"
                     ng-keyup="onKeyUp($event);"
                     ng-keydown="onKeyDown($event);"
-                    ng-change="onTextChange();"
-                    msd-elastic>
-          </textarea>
+                    jnd-elastic></textarea>
       </form>
       </div>
 
