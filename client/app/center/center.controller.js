@@ -260,13 +260,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _cancelHttpRequest();
     _detachEvents();
     if (_shouldUpdateCache()) {
-      var param = {
-        list: MessageCollection.getList(),
-        lastMessageId: lastMessageId,
-        globalLastLinkId: globalLastLinkId
-      };
-      TopicMessageCache.put(entityId, param);
+      _updateCache();
     }
+  }
+
+  function _updateCache() {
+    var param = {
+      list: MessageCollection.getList(),
+      lastMessageId: lastMessageId,
+      globalLastLinkId: globalLastLinkId
+    };
+
+    TopicMessageCache.put(entityId, param);
   }
   
   /**
@@ -394,20 +399,29 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
    * @private
    */
+  var startTime;
   function _displayCache() {
+    startTime = _.now();
+
+    console.log('displaying cache');
     var _item = TopicMessageCache.get(entityId);
 
-    MessageCollection.setList(_item.list);
-    lastMessageId = _item.lastMessageId;
-    globalLastLinkId = _item.globalLastLinkId;
-
-
-    $scope.messages = MessageCollection.list;
-
-    $scope.isInitialLoadingCompleted = true;
     publicService.hideTransitionLoading();
-    $scope.loadMoreCounter = 1;
 
+    $timeout(function() {
+
+      MessageCollection.setList(_item.list);
+      lastMessageId = _item.lastMessageId;
+      globalLastLinkId = _item.globalLastLinkId;
+
+      $scope.messages = MessageCollection.list;
+      $scope.isInitialLoadingCompleted = true;
+
+      _getUpdatedList();
+    });
+  }
+
+  function _getUpdatedList() {
     messageAPIservice.getUpdatedList(entityId, lastMessageId)
       .success(_onUpdatedMessagesSuccess)
       .error(function(err) {
@@ -424,7 +438,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _startTime = currentTime;
     timer++;
   }
-
 
   function loadMore() {
     //console.log('loadMore');
@@ -547,9 +560,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _updateScroll() {
-    console.log('updateScroll')
-    consoleTime(_startTime);
-
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
       MessageQuery.clearSearchLinkId();
@@ -600,6 +610,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     showContentTimer = $timeout(function() {
       _showContents();
     }, 10);
+
+    console.log('done scrollToBottom', _.now() - startTime,'ms');
+    startTime = '';
   }
 
   function _scrollToBottomWithAnimate(duration) {
@@ -694,6 +707,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _checkEntityMessageStatus();
       MessageCollection.updateUnreadCount();
       lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
+      jndPubSub.pub('onMessageDeleted');
     }
   }
 
@@ -1351,6 +1365,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 랜더링 repeat 가 끝났을 때 호출되는 함수
    */
   function onRepeatDone() {
+    console.log('onRepeatDone');
     _updateScroll();
   }
 
@@ -1471,6 +1486,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           }
         }
 
+        jndPubSub.pub('toggleLinkPreview', data.message.id);
 
       })
       .error(function(error) {
