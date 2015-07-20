@@ -243,6 +243,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onViewContentLoaded() {
+    $timeout(function() {
+      $('#message-input').val(TextBuffer.get()).trigger('change');
+    });
     _attachEvents();
   }
 
@@ -991,33 +994,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * input scroll 이 노출되는 여부를 trigger 한다.
-   * keyDown 이후 정확히 scroll 이 노출되었는지 여부를 확인하기 위해 timeout 을 사용한다.
-   * @private
-   */
-  function _setStickerPosition() {
-    $timeout(function() {
-      jndPubSub.pub('isStickerPosShift:' + _stickerType, _hasInputScroll());
-    }, 50);
-  }
-
-  /**
-   * input scroll 이 존재하는지 반환한다.
-   * @returns {boolean}
-   * @private
-   */
-  function _hasInputScroll() {
-    var input = $('#message-input')[0];
-    return input.scrollHeight > input.clientHeight;
-  }
-
-  /**
    * keyDown 이벤트 핸들러
    * @param {event} keyDownEvent
    */
   function onKeyDown(keyDownEvent) {
-    _setStickerPosition();
-    if (jndKeyCode.match('ESC', keyDownEvent.keyCode)) {
+    var keyCode = keyDownEvent.keyCode;
+    if (jndKeyCode.match('ESC', keyCode)) {
       _hideSticker();
     }
   }
