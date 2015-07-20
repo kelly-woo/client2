@@ -41,6 +41,11 @@
   transform: rotate(45deg);
 }
 
+.empty-description {
+  color: #a7a7a7 !important;
+  font-size: 14px;
+}
+
 .topic-description__title {
   font-size: 15px;
   font-weight: 600;
@@ -49,5 +54,5 @@
 }
 .topic-description__description {
   /*word-wrap: break-word;*/
-  color: #6d6d6d;
+  color: #575757;
 }

@@ -10,16 +10,20 @@
 
   /* @ngInject */
   function TopicMessageCache() {
-    var MAX_CACHE_ITEM_NUMBER = 3;
+    var MAX_CACHE_ITEM_NUMBER = 15;
 
     var topicCacheMap;
 
     this.init = init;
 
     this.get = get;
-    this.add = add;
+    this.getValue = getValue;
+
+    this.put = put;
+    this.addValue = addValue;
+
     this.remove = remove;
-    this.has = has;
+    this.contains = contains;
 
     /**
      * 초기화.
@@ -38,6 +42,15 @@
     }
 
     /**
+     *  topicCachMap[key]의 object 중에서 name 을 리턴한다.
+     * @param {string} key - topicCacheMap에서 찾을 키(entity의 id)
+     * @param {string|number} name - topicCacheMap내부 object 의 field중 하나
+     * @returns {*}
+     */
+    function getValue(key, name) {
+      return !!topicCacheMap[key] && topicCacheMap[key][name];
+    }
+    /**
      * topicCacheMap 에 key-value pair를 저정한다.
      * @param {string} key - string to be used as a key, id of a topic
      * @param {object} value
@@ -45,15 +58,35 @@
      *    @param {number} globalLastLinkId - global last link id
      *    @param {number} lastMessageId - lastMessageId equivalent.
      */
-    function add(key, value) {
+    function put(key, value) {
       if (_.size(topicCacheMap) >= MAX_CACHE_ITEM_NUMBER) {
         _extractOldValue();
       }
 
-      value.timeStamp = _.now();
-      value.key = key;
+      value = _getDefaultValue(key, value);
 
       topicCacheMap[key] = value;
+    }
+
+    /**
+     * topicCacheMap이 이미 topicCacheMap[key] 를 가지고 있다면 같은 object에 name-value pair 추가한다.
+     * 만약 안가지고 있다면 새로 생성해서 topicCacheMap에 추가한다.
+     * @param {string} key - key to look for in topicCacheMap
+     * @param {string|number} name - new field to be added to topicCachMap[key]
+     * @param {*} value - new value to new name in topicCacheMap[key], allow 'undefined' value
+     */
+    function addValue(key, name, value) {
+      var _tempDefaultValue;
+
+      if (contains(key)) {
+        _tempDefaultValue = get(key);
+      } else {
+        _tempDefaultValue = _getDefaultValue(key);
+      }
+
+      _tempDefaultValue[name] = value;
+
+      put(key, _tempDefaultValue);
     }
 
     /**
@@ -69,7 +102,7 @@
      * @param {string} key - key to look up
      * @returns {boolean}
      */
-    function has(key) {
+    function contains(key) {
       return !!topicCacheMap[key];
     }
 
@@ -79,6 +112,23 @@
      */
     function _extractOldValue() {
       remove(_.sortByOrder(topicCacheMap, 'timeStamp')[0].key);
+    }
+
+    /**
+     * topicCacheMap 에 들어갈 object들은 무조건 기본적으로 가지고 있어야할 field들을 설정한다.
+     * @param {string} key - mostly id of a topic
+     * @param {object} value - value to be added with default fields
+     * @returns {object} value - new value with default fields
+     * @private
+     */
+    function _getDefaultValue(key, value) {
+      if (_.isUndefined(value)) {
+        value = {};
+      }
+
+      value.timeStamp = _.now();
+      value.key = key;
+      return value;
     }
 
   }

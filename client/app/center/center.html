@@ -45,42 +45,24 @@
   <!-- 컨테이너 -->
   <article class="msgs" id="msgs-container" when-scrolled="loadMore()">
     <!-- 로딩 영역 -->
-    <div class="msgs__loading facebook-style-loading"
+    <div class="msgs__loading initial"
          ng-show="msgLoadStatus.loading || !hasLastMessageRendered"
          ng-class="{'initial': !isInitialLoadingCompleted || !hasLastMessageRendered}">
-      <div></div>
-      <div></div>
-      <div></div>
+      <span class="three-quarters-loader jnd-three-quarters-loader"></span>
     </div>
 
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <div class="msgs-group" data-ng-repeat="msg in messages" msg-repeat-done="onRepeatDone()">
+      <div class="msgs-group" data-ng-repeat="msg in messages" msg-repeat-done="onRepeatDone()" ng-switch="msg.message.contentType">
         <!--날짜 구분선-->
         <date-divider ng-if="isNewDate($index)"></date-divider>
 
-        <div id="{{msg.id}}"
-             data-length="{{messages.length}}"
-             class="msg-item"
-             data-link-id="{{ msg.id }}"
-             data-link-status="{{msg.status}}"
-             data-message-id="{{msg.message.id}}"
-             data-message-type="{{msg.message.contentType}}"
-             data-feedback-id="{{msg.feedbackId}}"
-             data-event-type="{{msg.eventType}}"
-             data-ng-class="{ 'text': isTextType($index) && !isChildText($index),
-                              'text-child': isTextType($index) && isChildText($index),
-                              'file-upload': msg.message.isFile,
-                              'comment-title': isCommentType($index) && isTitleComment($index),
-                              'comment-continue': isCommentType($index) && !isTitleComment($index),
-                              'system-event-msg' : msg.message.contentType === 'systemEvent',
-                              'archived-file': msg.message.status === 'archived' }">
-
-          <system-event ng-if="msg.message.contentType === 'systemEvent'"></system-event>
-          <text ng-if="msg.message.isText" msg="msg" is-child-text="isChildText($index);" has-link-preview="hasLinkPreview($index);"></text>
-          <file-uploaded ng-if="msg.message.isFile"></file-uploaded>
-          <title-comment ng-if="msg.message.isComment"></title-comment>
-        </div>
+        <system-event ng-switch-when="systemEvent" id="{{::msg.id}}" class="msg-item system-event-msg"></system-event>
+        <text ng-switch-when="text" msg="msg" id="{{::msg.id}}" class="msg-item text"
+              ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>
+        <file-uploaded ng-switch-when="file" id="{{::msg.id}}" class="msg-item"></file-uploaded>
+        <title-comment ng-switch-when="comment" id="{{::msg.id}}" class="msg-item"
+                          ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
       </div>
       <!-- unsent Message -->
       <div ng-if="unsentMsgs.length" class="msgs-group">

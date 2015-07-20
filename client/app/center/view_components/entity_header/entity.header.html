@@ -21,11 +21,11 @@
 
   <!--  DESCRIPTION -->
   <span class="panel-title-topic-description cursor_pointer" ng-if="!isUserType">
-     <i class="fa fa-info-circle" jnd-tooltip="currentEntity" jnd-tooltip-placement="bottom"></i>
+     <i class="fa fa-info-circle" topic-description></i>
   </span>
 
   <!-- MORE OPTIONS -->
-  <span class="panel-title-right-menu panel-title-right-menu__more pull-right cursor_pointer" dropdown>
+  <span class="panel-title-right-menu panel-title-right-menu__more pull-right cursor_pointer panel-title-right-menu__item" dropdown>
     <i class="icon-more" dropdown-toggle
        tooltip="{{'@file-action-more' | translate}}" tooltip-placement="bottom"
        tooltip-class="panel-title-more-tooltip absolute-right-tooltip"></i>
@@ -145,9 +145,7 @@
           ng-click="openInviteModal();">
     </span>
 
-
   </span>
-
 
   <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledMember(currentEntity);">
     <img src="assets/images/icon-disabled-members-alert.png"/>

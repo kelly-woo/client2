@@ -12,12 +12,12 @@
   /* @ngInject */
   function jndTooltipCtrl($scope, currentSessionHelper) {
 
-    $scope.$on('onCurrentEntityChanged', _setCurrentEntity);
-
     _setCurrentEntity();
 
+    $scope.$on('onCurrentEntityChanged', _setCurrentEntity);
+
     function _setCurrentEntity() {
-      $scope._currentEntity = currentSessionHelper.getCurrentEntity();
+      $scope.currentEntity = currentSessionHelper.getCurrentEntity();
     }
   }
 })();

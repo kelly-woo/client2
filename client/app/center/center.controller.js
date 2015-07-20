@@ -36,8 +36,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var scrollToBottomTimer;
   var showContentTimer;
 
-  var messages = {};
-
   var _stickerType = 'chat';
   var _sticker = null;
   var _isUpdateListLock = false;
@@ -102,7 +100,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _init() {
-    $scope.currentEntity = currentSessionHelper.getCurrentEntity();
     centerService.preventChatWithMyself(entityId);
     $rootScope.isIE9 = centerService.isIE9();
 
@@ -115,7 +112,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if(MessageQuery.hasSearchLinkId()) {
       _jumpToMessage();
     } else {
-      if (TopicMessageCache.has(entityId)) {
+      if (TopicMessageCache.contains(entityId)) {
         console.log('has cache');
         _displayCache();
       } else {
@@ -137,16 +134,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isPolling = false;
     // configuration for message loading
     $scope.msgLoadStatus = {
-      loading: false,
-      loadingTimer : false // no longer using.
+      loading: false
     };
     $scope.message.content = TextBuffer.get();
-    messages = {};
 
     $scope.isInitialLoadingCompleted = false;
-    $timeout(function() {
-      $scope.msgLoadStatus.loadingTimer = false;
-    }, 1000);
+
+    $scope.currentEntity = currentSessionHelper.getCurrentEntity();
 
     _initLocalVariables();
   }
@@ -260,14 +254,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _cancelHttpRequest();
     _detachEvents();
     if (_shouldUpdateCache()) {
-      var param = {
-        list: MessageCollection.getList(),
-        lastMessageId: lastMessageId,
-
-        globalLastLinkId: globalLastLinkId
-      };
-      TopicMessageCache.add(entityId, param);
+      _updateCache();
     }
+  }
+
+  function _updateCache() {
+    var param = {
+      list: MessageCollection.getList(),
+      lastMessageId: lastMessageId,
+      globalLastLinkId: globalLastLinkId
+    };
+
+    TopicMessageCache.put(entityId, param);
   }
   
   /**
@@ -278,7 +276,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _shouldUpdateCache() {
     var _hasLastInCache = false;
-    if (TopicMessageCache.has(entityId)) {
+    if (TopicMessageCache.contains(entityId)) {
       var param = TopicMessageCache.get(entityId);
       _hasLastInCache = lastMessageId === param.lastMessageId;
     }
@@ -391,31 +389,36 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       loadMore();
     }
   }
-
   /**
    * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
    * @private
    */
   function _displayCache() {
+    console.log('displaying cache');
     var _item = TopicMessageCache.get(entityId);
 
-    MessageCollection.setList(_item.list);
-    lastMessageId = _item.lastMessageId;
-    globalLastLinkId = _item.globalLastLinkId;
-
-    $scope.messages = MessageCollection.list;
-
-    $scope.isInitialLoadingCompleted = true;
     publicService.hideTransitionLoading();
 
+    $timeout(function() {
+
+      MessageCollection.setList(_item.list);
+      lastMessageId = _item.lastMessageId;
+      globalLastLinkId = _item.globalLastLinkId;
+
+      $scope.messages = MessageCollection.list;
+      $scope.isInitialLoadingCompleted = true;
+
+      _getUpdatedList();
+    });
+  }
+
+  function _getUpdatedList() {
     messageAPIservice.getUpdatedList(entityId, lastMessageId)
       .success(_onUpdatedMessagesSuccess)
       .error(function(err) {
         console.log(err)
       });
   }
-
-
 
   function loadMore() {
     //console.log('loadMore');
@@ -538,7 +541,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _updateScroll() {
-    console.log('updateScroll')
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
       MessageQuery.clearSearchLinkId();
@@ -554,6 +556,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _scrollToBottom();
     }
     MessageQuery.reset();
+      console.log('done')
+
   }
 
   function _findMessageDomElementById(id) {
@@ -680,6 +684,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _checkEntityMessageStatus();
       MessageCollection.updateUnreadCount();
       lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
+      jndPubSub.pub('onMessageDeleted');
     }
   }
 
@@ -767,6 +772,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function postMessage() {
     var jqInput = $('#message-input');
     var msg = $.trim(jqInput.val());
+
+    if (msg === 'showloading') {
+      $scope.msgLoadStatus.loading = true;
+      return;
+    }
+
+    if (msg === 'showfullloading') {
+      $scope.msgLoadStatus.loading = true;
+      $scope.hasLastMessageRendered = false;
+      return;
+    }
 
     // prevent duplicate request
     if (msg || _sticker) {
@@ -1326,6 +1342,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 랜더링 repeat 가 끝났을 때 호출되는 함수
    */
   function onRepeatDone() {
+    console.log('onRepeatDone');
     _updateScroll();
   }
 
@@ -1446,6 +1463,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           }
         }
 
+        jndPubSub.pub('toggleLinkPreview', data.message.id);
 
       })
       .error(function(error) {

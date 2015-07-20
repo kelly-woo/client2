@@ -61,19 +61,19 @@
 }
 .join-modal-channel_container .topic-general-info .join-button {
   color: #00abe6;
-  font-weight: 500;
+  font-weight: 600;
 }
 .join-modal-channel_container .topic-general-info .join-button:hover {
-  /*border-bottom: 1px solid #00abe6;*/
-  font-weight: 700;
+  border-bottom: 1px solid #00abe6;
+  font-weight: 800;
 }
 
 .join-modal-channel_container .topic-general-info .join-button:hover .icon-next {
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .join-modal-channel_container .topic-general-info .join-button .icon-next {
-  font-weight: 500;
+  font-weight: 600;
   width: 13px;
   height: 13px;
 }
