@@ -15,6 +15,9 @@
     };
 
     function link(scope, element, attrs) {
+      if (scope.msg.message.status === 'archived') {
+        element.addClass('archived-file');
+      }
     }
   }
 })();

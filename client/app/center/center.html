@@ -60,8 +60,7 @@
         <system-event ng-switch-when="systemEvent" id="{{::msg.id}}" class="msg-item system-event-msg"></system-event>
         <text ng-switch-when="text" msg="msg" id="{{::msg.id}}" class="msg-item text"
               ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>
-        <file-uploaded ng-switch-when="file" id="{{::msg.id}}" class="msg-item"
-                       ng-class="{'archived-file': msg.message.status==='archived'}"></file-uploaded>
+        <file-uploaded ng-switch-when="file" id="{{::msg.id}}" class="msg-item"></file-uploaded>
         <title-comment ng-switch-when="comment" id="{{::msg.id}}" class="msg-item"
                           ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
       </div>

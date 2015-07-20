@@ -590,9 +590,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     showContentTimer = $timeout(function() {
       _showContents();
     }, 10);
-
-    console.log('done scrollToBottom', _.now() - startTime,'ms');
-    startTime = '';
   }
 
   function _scrollToBottomWithAnimate(duration) {
