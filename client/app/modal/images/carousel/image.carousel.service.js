@@ -146,24 +146,24 @@
           if (index > -1 && imageList[index] != null) {
             that.options.messageId = messageId = imageList[index];
 
-            // 이전 image item이 출력되어 있다면 숨김
-            if (currentMessageId != null && imageMap[currentMessageId].jqElement) {
-              imageMap[currentMessageId].jqElement.hide();
-              imageMap[currentMessageId].jqElement.children('.image-item-footer').css('opacity', 0);
-            }
-
             // image list에서 이동시 마다 _load를 호출하여
             // image를 출력하는 canvas element 생성을 방지하기 위해서 timeout 사용
             if (timerImageLoad != null) {
               $timeout.cancel(timerImageLoad);
               timerImageLoad = null;
             }
-            timerImageLoad = $timeout((function(messageId) {
+            timerImageLoad = $timeout((function(currentMessageId, messageId) {
               return function() {
                 // image item을 출력함
                 _load(messageId, imageMap[messageId]);
+
+                // 이전 image item이 출력되어 있다면 숨김
+                if (currentMessageId != null && imageMap[currentMessageId].jqElement) {
+                  imageMap[currentMessageId].jqElement.hide();
+                  imageMap[currentMessageId].jqElement.children('.image-item-footer').css('opacity', 0);
+                }
               };
-            }(messageId)), timerImageLoad == null ? 0 : 500);
+            }(currentMessageId, messageId)), timerImageLoad == null ? 0 : 500);
           }
 
           // 출력할 image item 이동 후 prev, next button 상태 설정
