@@ -17,6 +17,11 @@
 
     $scope.onCreateClick = onCreateClick;
 
+    /**
+     * 새로운 토픽을 생성한다.
+     * 디스크립션 정보가 있으면 같이 api에 보내고 없으면 아예 보내지 않는다.
+     * @param form
+     */
     function onCreateClick(form) {
       var _entityType;
       var _body;

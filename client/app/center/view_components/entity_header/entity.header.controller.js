@@ -37,10 +37,16 @@
     $scope.onPrefixIconClicked = onPrefixIconClicked;
 
 
-    (function() {
+    _init();
+
+    /**
+     * 초기화 함수.
+     * @private
+     */
+    function _init() {
       _initWithParam(_currentEntity);
       _attachEventListeners();
-    })();
+    }
 
     /**
      * 현재 $scope에 event listener를 단다.
@@ -71,7 +77,7 @@
      * @private
      */
     function _filterDeactivateMembers(currentEntity) {
-      var members = currentEntity.members;
+      var members = currentEntity && currentEntity.members || [];
       var totalEntities = $rootScope.totalEntities;
       var member;
       var entity;
@@ -223,7 +229,10 @@
       jndPubSub.pub('leaveCurrentChat', _entityId);
     }
 
-
+    /**
+     * 1:1 DM 경우에서 상대방의 파일리스트 보기를 눌렀을 경우.
+     * @param memberId
+     */
     function onFileListClick(memberId) {
       jndPubSub.pub('showUserFileList', memberId);
     }
@@ -245,6 +254,10 @@
       }
     }
 
+    /**
+     *
+     * @param memberId
+     */
     function openMemberModal(memberId) {
       jndPubSub.pub('onUserClick', memberId || _currentEntity);
     }

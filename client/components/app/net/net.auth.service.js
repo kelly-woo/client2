@@ -1,3 +1,6 @@
+/**
+ * @fileoverview http통신을 가로채서 필요한 일들을 수행한다.
+ */
 (function() {
   'use strict';
 

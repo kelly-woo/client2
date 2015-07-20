@@ -19,7 +19,6 @@
     this.teamDomainChangeEventHandler = teamDomainChangeEventHandler;
 
     this.topicChangeEventHandler = topicChangeEventHandler;
-    this.topicUpdateEventHandler = topicUpdateEventHandler;
     this.chatMessageListEventHandler = chatMessageListEventHandler;
 
     this.fileDeletedHandler = fileDeletedHandler;
@@ -34,8 +33,6 @@
     this.messageEventFileCommentHandler = messageEventFileCommentHandler;
     this.messageEventFileShareUnshareHandler = messageEventFileShareUnshareHandler;
     this.messageEventTopicLeaveHandler = messageEventTopicLeaveHandler;
-
-    this.topicLeaveHandler = topicLeaveHandler;
 
     this.socketEventLogger = socketEventLogger;
     this.eventStatusLogger = eventStatusLogger;
@@ -106,25 +103,6 @@
     function topicChangeEventHandler() {
       _onJoinedTopicListChanged();
       _updateLeftPanel();
-    }
-
-    function topicUpdateEventHandler() {
-      _updateLeftPanel();
-      _onJoinedTopicListChanged();
-    }
-    /**
-     * Update left panel entities.
-     * Re-direct user to default topic if current left current entity.
-     * @param param
-     */
-    function topicLeaveHandler(param) {
-      _onJoinedTopicListChanged();
-
-      _updateLeftPanel();
-
-      if (_isCurrentEntity(param.topic)) {
-        $state.go('archives', {entityType:'channels',  entityId:currentSessionHelper.getDefaultTopicId() });
-      }
     }
 
     /**

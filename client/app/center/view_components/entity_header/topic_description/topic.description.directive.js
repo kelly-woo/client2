@@ -7,10 +7,10 @@
 
   angular
     .module('jandiApp')
-    .directive('topicDescription', jndTooltip);
+    .directive('topicDescription', topicDescription);
 
   /* @ngInject */
-  function jndTooltip($document) {
+  function topicDescription($document) {
     return {
       restrict: 'EA',
       controller: 'jndTooltipCtrl',
@@ -22,14 +22,36 @@
       var isRightClicked = false;
       var jqDescriptionContainer = $(el);
 
-      jqDescriptionContainer.on('mouseenter', onMouseEnter);
-      jqDescriptionContainer.on('mouseleave', onMouseLeave);
-      jqDescriptionContainer.on('mousedown', onMouseDown);
+      scope.$on('$destroy', _detachBasicEventHandler);
+
+      _attachBasicEventHandler();
+
+      /**
+       * 디스크립션아이콘이 기본적으로 듣고 있어야 할 이벤트들의 모음이다.
+       * @private
+       */
+      function _attachBasicEventHandler() {
+        jqDescriptionContainer.on('mouseenter', _onMouseEnter);
+        jqDescriptionContainer.on('mouseleave', _onMouseLeave);
+        jqDescriptionContainer.on('mousedown', _onMouseDown);
+
+      }
+
+      /**
+       * 기본적으로 가지고있어야 할 이벤트들을 다시 분리시킨다.
+       * topic.description.controller에서 $scope 가 $destroy이 될때 호출된다.
+       */
+      function _detachBasicEventHandler() {
+        console.log('detaching all event handler')
+        jqDescriptionContainer.off('mouseenter', _onMouseEnter);
+        jqDescriptionContainer.off('mouseleave', _onMouseLeave);
+        jqDescriptionContainer.off('mousedown', _onMouseDown);
+      }
 
       /**
        * mouseevent event handler.
        */
-      function onMouseEnter() {
+      function _onMouseEnter() {
         jqDescriptionContainer.addClass('show-description');
         _attachEventHandler();
       }
@@ -38,7 +60,7 @@
        * mouseleave event handler
        * @param event
        */
-      function onMouseLeave(event) {
+      function _onMouseLeave(event) {
         if (!isRightClicked) {
           jqDescriptionContainer.removeClass('show-description');
           _detachEventHandler();
@@ -53,7 +75,7 @@
        * 우클릭시에에는 mouseleave가 trigger되도 팝업을 닫지 않기 위함.
        * @param event
        */
-      function onMouseDown(event) {
+      function _onMouseDown(event) {
         if (event.which === 3) {
           isRightClicked = true;
         } else {
@@ -75,6 +97,7 @@
        */
       function _detachEventHandler() {
         $document.off('click', onDocumentClick);
+
       }
 
       /**
@@ -82,12 +105,12 @@
        * @param event
        */
       function onDocumentClick(event) {
+        //TODO : IS THIS BEST WAY? -JIHOON
         if (!event.target.closest('.panel-title-topic-description')) {
           jqDescriptionContainer.removeClass('show-description');
         }
       }
     }
-
   }
 
 })();

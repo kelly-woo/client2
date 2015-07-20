@@ -62,6 +62,14 @@
       return _getSelectEntity(list, id, 'id');
     }
 
+    /**
+     *
+     * @param list
+     * @param id
+     * @param name
+     * @returns {*}
+     * @private
+     */
     function _getSelectEntity(list, id, name) {
       return EntityMapManager.get('total', id);
     }
@@ -132,6 +140,11 @@
       return currentEntity;
     }
 
+    /**
+     * 생성자의 아이디를 리턴한다.
+     * @param {object} entity - 생성자를 알고 싶은 토픽(1:1DM이 될 수도 있음).
+     * @returns {*}
+     */
     function getCreatorId (entity) {
       if (entity.type === 'users') return null;
 
@@ -141,6 +154,10 @@
       return entity.ch_creatorId;
     }
 
+    /**
+     * 해당하는 아이디를 가진 토픽(혹은 dm)을 'starred' 처리한다.
+     * @param {number} entityId - star처리 할 토픽(혹은 dm)의 아이디
+     */
     function setStarred (entityId) {
       var entity = getEntityFromListById('total', entityId);
       if (!_.isUndefined(entity)) {
@@ -242,10 +259,21 @@
       return members.length;
     }
 
+    /**
+     * 토픽(혹은 dm)이 현재 팀의 default topic 인지 아닌지 확인한다.
+     * @param {object} entity - 확인하고자하는 토픽
+     * @returns {boolean}
+     */
     function isDefaultTopic(entity) {
       return entity.id == currentSessionHelper.getDefaultTopicId();
     }
 
+    /**
+     * 토픽(혹은 dm)의 생성자인지 아닌지 확인한다.
+     * @param {object} entity - 확인하고자하는 토픽
+     * @param {number} memberId - 확인하고자하는 유저의 아이디
+     * @returns {boolean}
+     */
     function isOwner(entity, memberId) {
       return (entity.ch_creatorId || entity.pg_creatorId) == memberId;
     }
@@ -264,20 +292,20 @@
     }
 
     /**
-     * parseInt 를 해주는 wrapper function.
-     * @param number
-     * @returns {Number|*}
-     * @private
+     * _.extend 와 같은 일을 하지만 source 의 type을 소문자로 바꾼 후 복수형으로 바꾼 다음 extend를 한다.
+     * @param target
+     * @param source
      */
-    function _parseInt(number) {
-      return parseInt(number, 10);
-    }
-
     function extend(target, source) {
       source.type = source.type.toLowerCase() + 's';
       _.extend(target, source);
     }
 
+    /**
+     * 조인되어있는 토픽(공개/비공개)인지 알아본다.
+     * @param {object} entity - 알아보고 싶은 토픽
+     * @returns {boolean}
+     */
     function isJoinedTopic(entity) {
       return !( _.isUndefined(EntityMapManager.get('joined', entity.id) &&
                 _.isUndefined(EntityMapManager.get('private', entity.id))));
