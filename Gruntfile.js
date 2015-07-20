@@ -170,7 +170,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '.tmp/',
-          src: '{,*/}*.css',
+          src: '*.css',
           dest: '.tmp/'
         }]
       }
@@ -257,9 +257,9 @@ module.exports = function (grunt) {
       dist: {
         files: {
           src: [
-            '<%= yeoman.dist %>/public/{,*/}*.js',
-            '<%= yeoman.dist %>/public/{,*/}*.css',
-            '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            '<%= yeoman.dist %>/public/*.js',
+            '<%= yeoman.dist %>/public/*.css',
+            '<%= yeoman.dist %>/public/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.dist %>/public/assets/fonts/*'
           ]
         }
@@ -305,7 +305,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.client %>/assets/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          src: '**/*.{png,jpg,jpeg,gif}',
           dest: '<%= yeoman.dist %>/public/assets/images'
         }]
       }
@@ -316,7 +316,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.client %>/assets/images',
-          src: '{,*/}*.svg',
+          src: '**/*.svg',
           dest: '<%= yeoman.dist %>/public/assets/images'
         }]
       }
@@ -382,7 +382,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             'bower_components/**/*',
-            'assets/images/{,*/}*.{webp}',
+            'assets/images/**/*.{webp}',
             'assets/fonts/**/*',
             'index.html'
           ]

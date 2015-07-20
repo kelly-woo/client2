@@ -192,7 +192,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @param keyDownEvent
    */
   function onKeyDown(keyDownEvent) {
-    _setStickerPosition();
     if (jndKeyCode.match('ESC', keyDownEvent.keyCode)) {
       _hideSticker();
     }
@@ -421,17 +420,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function _focusInput() {
     $('#file-detail-comment-input').focus();
-  }
-
-  /**
-   * input scroll 이 노출되는 여부를 trigger 한다.
-   * keyDown 이후 정확히 scroll 이 노출되었는지 여부를 확인하기 위해 timeout 을 사용한다.
-   * @private
-   */
-  function _setStickerPosition() {
-    $timeout(function () {
-      jndPubSub.pub('isStickerPosShift:' + _stickerType, _hasInputScroll());
-    }, 0);
   }
 
   /**
