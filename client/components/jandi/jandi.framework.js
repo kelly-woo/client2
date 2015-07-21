@@ -10,7 +10,8 @@
     .module('jandi.framework', [
       'jandi.pcApp',
       'jandi.preloader',
-      'jandi.browser'
+      'jandi.browser',
+      'jandi.active.notifier'
     ])
     .run(run)
     .config(config);
