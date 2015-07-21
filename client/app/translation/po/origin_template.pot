@@ -1246,6 +1246,10 @@ msgid "@tutorial_welcome_again_content"
 msgstr ""
 
 #: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_continue"
+msgstr ""
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_welcome_again_new_start"
 msgstr ""
 

@@ -1272,6 +1272,10 @@ msgid "@tutorial_welcome_again_content"
 msgstr ""
 
 #: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_continue"
+msgstr "從上次結束的部分重新開始"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_welcome_again_new_start"
 msgstr "從頭開始"
 

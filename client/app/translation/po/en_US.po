@@ -1324,6 +1324,10 @@ msgid "@tutorial_welcome_again_content"
 msgstr "What works best for you?"
 
 #: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_continue"
+msgstr "Pick up where you left off"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_welcome_again_new_start"
 msgstr "Start over from the beginning"
 

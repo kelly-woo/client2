@@ -133,6 +133,10 @@ msgstr "초대하기"
 msgid "@btn-join"
 msgstr "참여하기"
 
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+msgid "@btn-next"
+msgstr "다음"
+
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@btn-send"
@@ -1158,6 +1162,10 @@ msgstr "팀 멤버를 선택해봅시다."
 msgid "@tutorial_dm_try"
 msgstr "1:1 메시지를 보내봅시다. "
 
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_explore_jandi"
+msgstr ""
+
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_comment"
 msgstr ""
@@ -1314,6 +1322,10 @@ msgid "@tutorial_welcome_again_content"
 msgstr "다시 시작하시겠습니까?"
 
 #: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_continue"
+msgstr "마지막으로 완료한 부분부터 시작하기"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_welcome_again_new_start"
 msgstr "처음부터 다시 시작하기"
 
@@ -1321,7 +1333,7 @@ msgstr "처음부터 다시 시작하기"
 msgid "@tutorial_welcome_again_title"
 msgstr "아직 완료하지 않은 튜토리얼이 남았습니다."
 
-#: client/app/tutorial/welcome/tutorial.welcome.html
+#: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_welcome_title"
 msgstr "{{username}}님, 환영합니다!"
 

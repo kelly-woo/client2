@@ -1329,6 +1329,10 @@ msgid "@tutorial_welcome_again_content"
 msgstr "どうしましょうか？"
 
 #: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_continue"
+msgstr "中断したところから続ける"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_welcome_again_new_start"
 msgstr "最初からやり直す"
 
