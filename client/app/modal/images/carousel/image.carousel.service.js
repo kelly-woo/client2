@@ -9,7 +9,7 @@
       .service('ImageCarousel', ImageCarousel);
 
   /* @ngInject */
-  function ImageCarousel($rootScope, $compile, $timeout, jndKeyCode, config, Browser) {
+  function ImageCarousel($rootScope, $compile, $timeout, jndKeyCode, config, Browser, Loading) {
     var that = this;
 
     // image item의 최소 크기
@@ -43,6 +43,8 @@
     var imageMap;
 
     var slide = {};
+
+    var _jqLoading = Loading.getSimpleTemplate();
 
     that.init = init;
     that.close = close;
@@ -480,7 +482,8 @@
         jqImageList.append(jqImageItem[0]);
 
         // image item element에 loading screen 출력
-        jqImageItem.addClass('icon-loading loading');
+        jqImageItem.addClass('loading');
+        jqImageItem.append(_jqLoading);
 
         fullFileUrl = config.server_uploaded + imageItem.fileUrl;
         _imageLoad(jqImageItem, fullFileUrl);
@@ -556,8 +559,8 @@
       // image options와 함께 blob data를 이용해서 canvas element를 만든다.
       loadImage(value, function(img) {
         // image item에 출력된 loading screen 제거
-        jqImageItem.removeClass('icon-loading loading');
-
+        jqImageItem.removeClass('loading');
+        _jqLoading.remove();
         if (img.type === 'error') {
           // img가 존재하지 않기 때문에 error image 출력
           jqImageItem.addClass('no-image-carousel').prepend('<img src="assets/images/no_image_available.png" style="opacity: 1;" />');
