@@ -108,22 +108,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _initializeView();
   }
 
+  /**
+   * 어떠한 메세지 리스트를 보여줄지 결정한다.
+   * @private
+   */
   function _initializeView() {
     if(MessageQuery.hasSearchLinkId()) {
       _jumpToMessage();
     } else {
-      $timeout(function() {
-        if (TopicMessageCache.contains(entityId)) {
-          console.log('has cache');
-          _displayCache();
-        } else {
-          console.log('no cache');
-          loadMore();
-        }
-      });
-
+      if (TopicMessageCache.contains(entityId)) {
+        console.log('has cache');
+        _displayCache();
+      } else {
+        console.log('no cache');
+        loadMore();
+      }
     }
   }
+
   /**
    * 내부 변수를 초기화한다.
    * @private
@@ -147,7 +149,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     _initLocalVariables();
   }
-
 
   /**
    * scope listener 를 초기화한다.
@@ -401,25 +402,26 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _displayCache() {
-    console.log('displaying cache');
     var _item = TopicMessageCache.get(entityId);
 
     publicService.hideTransitionLoading();
 
-    if (!_item.hasProcessed) {
-      MessageCollection.prependCachedList(_item.list);
-    } else {
-      MessageCollection.setList(_item.list);
-    }
+    $timeout(function() {
+      if (!_item.hasProcessed) {
+        MessageCollection.prependCachedList(_item.list);
+      } else {
+        MessageCollection.setList(_item.list);
+      }
 
-    lastMessageId = _item.lastMessageId;
-    globalLastLinkId = _item.globalLastLinkId;
+      lastMessageId = _item.lastMessageId;
+      globalLastLinkId = _item.globalLastLinkId;
 
-    $scope.messages = MessageCollection.list;
-    $scope.isInitialLoadingCompleted = true;
+      $scope.messages = MessageCollection.list;
+      $scope.isInitialLoadingCompleted = true;
 
-    TopicMessageCache.addValue(entityId, 'hasProcessed', true);
-    _getUpdatedList();
+      TopicMessageCache.addValue(entityId, 'hasProcessed', true);
+      _getUpdatedList();
+    });
   }
 
   function _getUpdatedList() {

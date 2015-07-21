@@ -28,7 +28,10 @@ app.config(function ($stateProvider) {
               return leftpanelAPIservice.getLists()
                 .success(function(response) {
                   return response;
-                });
+                })
+                .error(function() {
+                  publicService.signOut();
+                })
             }
           }
         },
