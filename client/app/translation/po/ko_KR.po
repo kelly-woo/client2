@@ -563,7 +563,7 @@ msgstr "JANDI 앱 열기"
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-status-msg"
-msgstr "오늘의 기분"
+msgstr "상태 메시지"
 
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/top/tutorial.top.html
@@ -1152,7 +1152,7 @@ msgstr "메시지가 성공적으로 전송되었습니다."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_talk"
-msgstr "팀 멤버인 박잔디 님을 선택해봅시다."
+msgstr "팀 멤버를 선택해봅시다."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_try"

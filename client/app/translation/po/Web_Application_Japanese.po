@@ -18,8 +18,8 @@ msgstr "JANDIは現在定期メンテナンス中のためご利用できませ�
 #: client/app/tpl/503/503.html
 msgid "@503-will-be-back-msg"
 msgstr ""
-"定期メンテナンスは数時間で終了の予定です。ご不便をお掛けし申し訳あり"
-"ません。"
+"定期メンテナンスは数時間で終了の予定です。ご不便をお掛けし申し訳あ"
+"りません。"
 
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-empty-ch-belong"
@@ -53,13 +53,14 @@ msgstr "告知に登録する"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-create-confirm"
-msgstr "登録されている告知をこのメッセージに変更します。変更しますか？"
+msgstr ""
+"登録されている告知をこのメッセージに変更します。変更しますか？"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-delete-confirm"
 msgstr ""
-"この告知を削除しますか？削除時トピック内の他のメンバーたちにもこれか"
-"らこの告知が見えますが、元のメッセージは保存されます"
+"この告知を削除しますか？削除時トピック内の他のメンバーたちにもこれ"
+"からこの告知が見えますが、元のメッセージは保存されます"
 
 #: client/app/center/announcement/announcement.html
 msgid "@announcement-hide"
@@ -190,29 +191,30 @@ msgstr "このトピックをお気に入りから削除する"
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
 msgstr ""
-"「プライベートグループ」は「プライベートトピック」と名称が変わり、鍵"
-"のマークのアイコンで「トピックス」タブ内に表示されます。プライベート"
-"トピックはこれまで通り、招待されない限り参加することや、そのトピック"
-"が存在することすらわかりません。"
+"「プライベートグループ」は「プライベートトピック」と名称が変わり、"
+"鍵のマークのアイコンで「トピックス」タブ内に表示されます。プライ"
+"ベートトピックはこれまで通り、招待されない限り参加することや、その"
+"トピックが存在することすらわかりません。"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
 msgstr ""
-"ダイレクトメッセージの表示順が変更され、最新のメッセージから順ひ並ぶ"
-"ようになりました"
+"ダイレクトメッセージの表示順が変更され、最新のメッセージから順ひ並"
+"ぶようになりました"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-3"
 msgstr ""
-"ダイレクトメッセージは会話のあったものだけが表示されるようになりまし"
-"た。会話履歴は閉じることによって非表示にすることができます。同じ相手"
-"と会話を再開すると、再び表示されます。過去の会話履歴も表示されます。"
+"ダイレクトメッセージは会話のあったものだけが表示されるようになりま"
+"した。会話履歴は閉じることによって非表示にすることができます。同じ"
+"相手と会話を再開すると、再び表示されます。過去の会話履歴も表示され"
+"ます。"
 
 #: client/app/modal/change_log/changeLog.html
 msgid "@change-log-title"
 msgstr ""
-"今回のアップデートでは、より良いユーザー体験のため、レイアウトの変更"
-"と、いくつかの便利な機能を実装しました。"
+"今回のアップデートでは、より良いユーザー体験のため、レイアウトの変"
+"更と、いくつかの便利な機能を実装しました。"
 
 #: client/app/left/left.html
 msgid "@channel"
@@ -261,8 +263,8 @@ msgstr "退出する"
 #: client/app/left/messages/messages.html
 msgid "@common-conversation-leave-confirm"
 msgstr ""
-"この会話から退出しますか？メッセージ履歴は非表示になりますが、再開し"
-"た場合にはこれまでの会話履歴は表示されます"
+"この会話から退出しますか？メッセージ履歴は非表示になりますが、再開"
+"した場合にはこれまでの会話履歴は表示されます"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
@@ -303,8 +305,8 @@ msgstr "このメンバーは現在無効化されています"
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-disabled-member-profile-msg"
 msgstr ""
-"このメンバーは現在無効化されています。詳細はチーム管理者にお問い合わ"
-"せ下さい"
+"このメンバーは現在無効化されています。詳細はチーム管理者にお問い合"
+"わせ下さい"
 
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@common-dm-invite-to"
@@ -474,7 +476,8 @@ msgstr "名前"
 
 #: client/app/disconnect/disconnect.html
 msgid "@common-network-disconnect-body"
-msgstr "ネットワークが復元されると、自動的にジヤンでィーに接続されます"
+msgstr ""
+"ネットワークが復元されると、自動的にジヤンでィーに接続されます"
 
 #: client/app/disconnect/disconnect.html
 msgid "@common-network-disconnect-header"
@@ -559,8 +562,8 @@ msgstr "ログアウトする"
 #: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
 msgstr ""
-"メッセージ送ったり、これまでの会話履歴を見るには以下のボタンを押して"
-"ください"
+"メッセージ送ったり、これまでの会話履歴を見るには以下のボタンを押し"
+"てください"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
@@ -610,8 +613,8 @@ msgstr "ホームページを見る"
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-post"
 msgstr ""
-"へのアクセスは現在無効化されています。詳細はチーム管理者にお問い合わ"
-"せ下さい"
+"へのアクセスは現在無効化されています。詳細はチーム管理者にお問い合"
+"わせ下さい"
 
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-pre"
@@ -699,7 +702,8 @@ msgstr " "
 
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
-msgstr "現在のところ、100MBを超えるファイルはアップロードできません。"
+msgstr ""
+"現在のところ、100MBを超えるファイルはアップロードできません。"
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"
@@ -737,14 +741,15 @@ msgstr ""
 #: client/app/modal/files/upload/upload.html
 msgid "@ie9-please-do-not-use"
 msgstr ""
-"最新バージョンのInternet Explorerをお使いいただければ、JANDIの機能を"
-"フルにご利用いただけます"
+"最新バージョンのInternet Explorerをお使いいただければ、JANDIの機能"
+"をフルにご利用いただけます"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
-"Internet Explorer 9では、プロフィール画像の変更機能はサポートされてい"
-"ません。ご利用するには、最新バージョンにアップデートしてください。"
+"Internet Explorer 9では、プロフィール画像の変更機能はサポートされて"
+"いません。ご利用するには、最新バージョンにアップデートしてくださ"
+"い。"
 
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
@@ -785,8 +790,8 @@ msgstr "キーワードを入力して検索してください"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
 msgstr ""
-"アカウントを接続するために、<b>ブラウザのポップアップ表示を許可してく"
-"ださい</b>"
+"アカウントを接続するために、<b>ブラウザのポップアップ表示を許可して"
+"ください</b>"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-dropbox-1"
@@ -795,8 +800,8 @@ msgstr "Dropboxアカウントを追加してファイルを共有"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-dropbox-2"
 msgstr ""
-"Dropboxをファイルの種類(PDF, PPT, Excel)で検索し、Dropboxのウィンドウ"
-"で表示"
+"Dropboxをファイルの種類(PDF, PPT, Excel)で検索し、Dropboxのウィンド"
+"ウで表示"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-1"
@@ -825,8 +830,8 @@ msgstr "Googleドライブからファイルをアップロード"
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation_success_copy_link"
 msgstr ""
-"あなたのチームへの招待リンクがコピーされました。チームに招待したい人"
-"に送りましょう"
+"あなたのチームへの招待リンクがコピーされました。チームに招待したい"
+"人に送りましょう"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
@@ -836,14 +841,14 @@ msgstr "このメールはすでに{{invitedTeamName}}のメンバーです"
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
-"100人以上のメンバーを追加したいですか？ サポートにご連絡はこちらまで "
-"<a href=\"mailto:support@tosslab.com\">support@tosslab.com</a>"
+"100人以上のメンバーを追加したいですか？ サポートにご連絡はこちらま"
+"で <a href=\"mailto:support@tosslab.com\">support@tosslab.com</a>"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled"
 msgstr ""
-"管理者によって招待が取り消されました。詳細は管理者({{adminName}})にお"
-"問い合わせください"
+"管理者によって招待が取り消されました。詳細は管理者({{adminName}})に"
+"お問い合わせください"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled-amdin-postfix"
@@ -882,8 +887,8 @@ msgstr "スマートフォンアプリ"
 #: client/app/mobile/mobile.catcher.html
 msgid "@landing-footer-app-download-desc"
 msgstr ""
-"PCからも、スマートフォンからでもJANDIが使えますPC・スマートフォンアプ"
-"リ対応 "
+"PCからも、スマートフォンからでもJANDIが使えますPC・スマートフォンア"
+"プリ対応 "
 
 #: client/app/signin/signin.html
 msgid "@login-invalid"
@@ -913,25 +918,26 @@ msgstr "トピック一覧"
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@modal-create-entity-title"
-msgstr "トピックを作成した後に、公開・非公開を変更することはできません"
+msgstr ""
+"トピックを作成した後に、公開・非公開を変更することはできません"
 
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
 msgstr ""
-"-プライベートトピックはそのトピックに招待されていないメンバーから見る"
-"ことはできません"
+"-プライベートトピックはそのトピックに招待されていないメンバーから見"
+"ることはできません"
 
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
 msgstr ""
-"-プライベートトピック内で共有されたファイルは、そのトピックを閲覧でき"
-"るメンバーからしかアクセスできません"
+"-プライベートトピック内で共有されたファイルは、そのトピックを閲覧で"
+"きるメンバーからしかアクセスできません"
 
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-3"
 msgstr ""
-"-トピック作成後はプライベートトピックへの変更はできません。その逆もで"
-"きません。"
+"-トピック作成後はプライベートトピックへの変更はできません。その逆も"
+"できません。"
 
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@modal-dm-invite"
@@ -939,7 +945,8 @@ msgstr "このメンバーを他のチャットに招待する"
 
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@modal-dm-invite-msg1"
-msgstr "このメンバーを他のトピックやプライベートグループに招待できます"
+msgstr ""
+"このメンバーを他のトピックやプライベートグループに招待できます"
 
 #: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@modal-invite-members"
@@ -1057,16 +1064,16 @@ msgstr "プライベートグループ "
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-in-progress"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>を"
-"検索しています"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>"
+"を検索しています"
 
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
-"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>の"
-"検索結果が<span class=\"searchQueryKeyword\">{{searchStatus.length}}"
-"</span>件あります"
+"<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>"
+"の検索結果が<span class=\"searchQueryKeyword\">{{searchStatus."
+"length}}</span>件あります"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
@@ -1079,8 +1086,8 @@ msgstr "デスクトップ通知がオフに設定されました"
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"
 msgstr ""
-"重要なメッセージを見落とさないためにも、デスクトップ通知を常時オンに"
-"することを強く推奨します。"
+"重要なメッセージを見落とさないためにも、デスクトップ通知を常時オン"
+"にすることを強く推奨します。"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-show-content-msg"
@@ -1097,12 +1104,13 @@ msgstr "デスクトップ通知をオンにする"
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
 msgstr ""
-"{{msg.message.content.actionOwner}}さんが{{msg.announceWriterName}}さ"
-"んのメッセージを告知に登録しました。"
+"{{msg.message.content.actionOwner}}さんが{{msg.announceWriterName}}"
+"さんのメッセージを告知に登録しました。"
 
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
-msgstr "{{msg.message.content.actionOwner}}さんが告知を削除しました。"
+msgstr ""
+"{{msg.message.content.actionOwner}}さんが告知を削除しました。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
@@ -1136,12 +1144,14 @@ msgstr "おめでとう！"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations"
 msgstr ""
-"おめでとうございます{{username}}さん！チュートリアルを完了しました。"
+"おめでとうございます{{username}}さん！チュートリアルを完了しまし"
+"た。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_congratulations_content"
 msgstr ""
-"これから{{teamName}}チームでメンバー達とジャンディーが使用できます。"
+"これから{{teamName}}チームでメンバー達とジャンディーが使用できま"
+"す。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_click_list"
@@ -1165,7 +1175,7 @@ msgstr "成功！"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_talk"
-msgstr "チームメンバーの山下さんを選択してください。"
+msgstr "チームメンバーを選択してください。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_try"
@@ -1186,8 +1196,8 @@ msgstr "ファイルのリストを確認してみましょう。"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_download_desc"
 msgstr ""
-"ファイルのダウンロードや他のトピックに共有するにはこちをクリックして"
-"ください。"
+"ファイルのダウンロードや他のトピックに共有するにはこちをクリックし"
+"てください。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_get_started"
@@ -1201,8 +1211,8 @@ msgstr "成功！"
 msgid "@tutorial_help_remember"
 msgstr ""
 "そして気になる点やご質問あれば、いつでもこちらをクリックしてくださ"
-"い。그리고 더 궁금한 점이나 도움이 필요하시면 언제라도 이 곳을 클릭하"
-"시면 됩니다."
+"い。그리고 더 궁금한 점이나 도움이 필요하시면 언제라도 이 곳을 클릭"
+"하시면 됩니다."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_click_title"
@@ -1244,21 +1254,21 @@ msgstr "「チーム」とは会社や部署で一緒に協業するグループ
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_team_desc"
 msgstr ""
-"チームメニューでは全体チームメンバー一覧が見られます。そして他のチー"
-"ムへの切り替えやホームに移動することができます。"
+"チームメニューでは全体チームメンバー一覧が見られます。そして他の"
+"チームへの切り替えやホームに移動することができます。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_team_explain_invitation"
 msgstr ""
-"メンバーのメールアドレスを入力するか、チーム招待URLリンクを直接送って"
-"招待することもできます。"
+"メンバーのメールアドレスを入力するか、チーム招待URLリンクを直接送っ"
+"て招待することもできます。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_team_intro"
 msgstr ""
-"ジャンディーでコミュニケーションスタイルを変革し、効率的なワークスタ"
-"イルを経験してみてください。"
+"ジャンディーでコミュニケーションスタイルを変革し、効率的なワークス"
+"タイルを経験してみてください。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_team_title"
@@ -1291,8 +1301,8 @@ msgstr "你成功建立了 {{topicName}}！"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_definition"
 msgstr ""
-"トピックとは現在進行中のプロジェクトからランチのメニューまで、色々な"
-"主題ごとに分けて目的によって使用するグループチャット単位です。"
+"トピックとは現在進行中のプロジェクトからランチのメニューまで、色々"
+"な主題ごとに分けて目的によって使用するグループチャット単位です。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_join"
@@ -1305,14 +1315,14 @@ msgstr "さて、トピックを作成してみましょう。"
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_preview"
 msgstr ""
-"アップロードされたファイルはチャット内容のようにトピック内に表示され"
-"ます。"
+"アップロードされたファイルはチャット内容のようにトピック内に表示さ"
+"れます。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_sources"
 msgstr ""
-"ファイルをマイコンピューターから、またはGoogle DriveやDropboxから直接"
-"アップロードしてください。"
+"ファイルをマイコンピューターから、またはGoogle DriveやDropboxから直"
+"接アップロードしてください。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_title"
@@ -1348,25 +1358,25 @@ msgstr "チュートリアルを終了する"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
-"アップロードされたファイルは全て右カラムのファイル一覧（ファイルドロ"
-"ワー）からアクセスできます。「・・・」ボタンをクリックし、ダウンロー"
-"ドや共有範囲の変更、コメントの追加などができます"
+"アップロードされたファイルは全て右カラムのファイル一覧（ファイルド"
+"ロワー）からアクセスできます。「・・・」ボタンをクリックし、ダウン"
+"ロードや共有範囲の変更、コメントの追加などができます"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"ファイルをキーワードで検索したり、共有範囲、共有したメンバー、ファイ"
-"ルの種類で絞り込むことができます。「メッセージ」タブをクリックするこ"
-"とでメッセージを検索することができます。検索結果をクリックすると、そ"
-"の会話の部分にジャンプすることができます"
+"ファイルをキーワードで検索したり、共有範囲、共有したメンバー、ファ"
+"イルの種類で絞り込むことができます。「メッセージ」タブをクリックす"
+"ることでメッセージを検索することができます。検索結果をクリックする"
+"と、その会話の部分にジャンプすることができます"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
-"「検索」ボタンを押して右パネルを開いたり、「閉じる」ボタンを押して右"
-"パネルを閉じることができます"
+"「検索」ボタンを押して右パネルを開いたり、「閉じる」ボタンを押して"
+"右パネルを閉じることができます"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
@@ -1395,17 +1405,17 @@ msgstr "TIPS"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
-"「ダイレクトメッセージ」は1対1のやりとり用で、他のメンバーは閲覧でき"
-"ません。最新の会話から順に表示されます。会話を閉じると一覧から消えま"
-"すが、会話を再開すると再び表示されます。過去の会話履歴も表示されま"
-"す。"
+"「ダイレクトメッセージ」は1対1のやりとり用で、他のメンバーは閲覧で"
+"きません。最新の会話から順に表示されます。会話を閉じると一覧から消"
+"えますが、会話を再開すると再び表示されます。過去の会話履歴も表示さ"
+"れます。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"「プライベートトピック」は、招待されたメンバーのみ見ることができるト"
-"ピックです。新しいプライベートトピックを作成するには「＋追加」をク"
-"リックしてください。"
+"「プライベートトピック」は、招待されたメンバーのみ見ることができる"
+"トピックです。新しいプライベートトピックを作成するには「＋追加」を"
+"クリックしてください。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
@@ -1417,9 +1427,9 @@ msgstr ""
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
 "「トピック」は特定のテーマごとの部屋、またはスレッドのようなもので"
-"す。会話の内容がイメージできる名前をつけるとよいでしょう。トピックは"
-"「＋追加」で作ったり、「☰ 表示」で既存のトピックを探して参加できま"
-"す。"
+"す。会話の内容がイメージできる名前をつけるとよいでしょう。トピック"
+"は「＋追加」で作ったり、「☰ 表示」で既存のトピックを探して参加でき"
+"ます。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -1428,9 +1438,9 @@ msgstr "続きを見る »"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
 msgstr ""
-"JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコミュ"
-"ニケーションできることを願っています。ここでJANDIをより良く理解するた"
-"めに重要な３点をご紹介します。"
+"JANDIはあなたのチームが、もっとシームレスに、もっと近い距離感でコ"
+"ミュニケーションできることを願っています。ここでJANDIをより良く理解"
+"するために重要な３点をご紹介します。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
@@ -1497,8 +1507,8 @@ msgstr "JANDI 新着メッセージ通知"
 
 #~ msgid "@placeholder-input-message"
 #~ msgstr ""
-#~ "ここにメッセージを記入（Shift + エンターキーでテキストボックス内で"
-#~ "改行"
+#~ "ここにメッセージを記入（Shift + エンターキーでテキストボックス内"
+#~ "で改行"
 
 #, fuzzy
 #~ msgid "@announcement-creator"
@@ -1507,8 +1517,8 @@ msgstr "JANDI 新着メッセージ通知"
 #, fuzzy
 #~ msgid "@announcement-delete"
 #~ msgstr ""
-#~ "この告知を削除しますか？削除時トピック内の他のメンバーたちにもこれ"
-#~ "からこの告知が見えますが、元のメッセージは保存されます"
+#~ "この告知を削除しますか？削除時トピック内の他のメンバーたちにもこ"
+#~ "れからこの告知が見えますが、元のメッセージは保存されます"
 
 #~ msgid "@common-message"
 #~ msgstr "メッセージ "
@@ -1603,15 +1613,16 @@ msgstr "JANDI 新着メッセージ通知"
 
 #~ msgid "@modal-create-ch-msg3"
 #~ msgstr ""
-#~ "-「公開」を選んだ場合でもチームメンバー以外の人が閲覧することはで"
-#~ "きません-プライベートトピック内で共有されたファイルは、そのトピッ"
-#~ "クを閲覧できるメンバーからしかアクセスできません-トピック作成後は"
-#~ "プライベートトピックへの変更はできません。その逆もできません。"
+#~ "-「公開」を選んだ場合でもチームメンバー以外の人が閲覧することは"
+#~ "できません-プライベートトピック内で共有されたファイルは、そのト"
+#~ "ピックを閲覧できるメンバーからしかアクセスできません-トピック作"
+#~ "成後はプライベートトピックへの変更はできません。その逆もできませ"
+#~ "ん。"
 
 #~ msgid "@modal-create-pg-msg1"
 #~ msgstr ""
-#~ "プライベートグループはそのグループのメンバーのみ参加、内容の検索が"
-#~ "できます"
+#~ "プライベートグループはそのグループのメンバーのみ参加、内容の検索"
+#~ "ができます"
 
 #~ msgid "@modal-profile-picture"
 #~ msgstr "プロフィール画像"
@@ -1636,8 +1647,8 @@ msgstr "JANDI 新着メッセージ通知"
 
 #~ msgid "@modal-setting-team-msg"
 #~ msgstr ""
-#~ "チーム設定の変更ができます。ここで変更された内容は、チームメンバー"
-#~ "にも適用されますのでご注意下さい"
+#~ "チーム設定の変更ができます。ここで変更された内容は、チームメン"
+#~ "バーにも適用されますのでご注意下さい"
 
 #~ msgid "@option-noti-all"
 #~ msgstr "全てのメッセージ"
@@ -1650,7 +1661,8 @@ msgstr "JANDI 新着メッセージ通知"
 
 #~ msgid "@password-reset-done"
 #~ msgstr ""
-#~ "パスワードが再設定されました。JANDIのアプリでログインしてください"
+#~ "パスワードが再設定されました。JANDIのアプリでログインしてくださ"
+#~ "い"
 
 #~ msgid "@password-reset-message"
 #~ msgstr ""
@@ -1675,8 +1687,8 @@ msgstr "JANDI 新着メッセージ通知"
 
 #~ msgid "@setting-team-domain-warning-msg"
 #~ msgstr ""
-#~ "ドメイン名は最低３文字必要で、半角英数小文字、ハイフンのみ利用でき"
-#~ "ます"
+#~ "ドメイン名は最低３文字必要で、半角英数小文字、ハイフンのみ利用で"
+#~ "きます"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "チーム名変更"
@@ -1685,7 +1697,8 @@ msgstr "JANDI 新着メッセージ通知"
 #~ msgstr "本当にチーム名を変更してよいですか？"
 
 #~ msgid "@setting-team-name-msg"
-#~ msgstr "チーム名はブラウザーのタブやヘッダーなどに表示されています"
+#~ msgstr ""
+#~ "チーム名はブラウザーのタブやヘッダーなどに表示されています"
 
 #~ msgid "@setting-team-new-domain"
 #~ msgstr "新しいドメイン（URL)"
@@ -1722,9 +1735,9 @@ msgstr "JANDI 新着メッセージ通知"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "プライベートトピックから退出すると、そのプライベートトピックのメン"
-#~ "バーに改めて招待されない限り再び参加することはできません。本当に退"
-#~ "出しますか？"
+#~ "プライベートトピックから退出すると、そのプライベートトピックのメ"
+#~ "ンバーに改めて招待されない限り再び参加することはできません。本当"
+#~ "に退出しますか？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "ファイルがありません"

@@ -3,3 +3,12 @@
   top: 20px;
   left: 263px;
 }
+
+.tutorial_modal_member_name {
+  position: absolute;
+  background: #FFFFFF;
+  top: 167px;
+  left: 57px;
+  width: 100px;
+  height: 23px;
+}

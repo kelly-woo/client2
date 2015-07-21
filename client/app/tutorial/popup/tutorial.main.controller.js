@@ -160,7 +160,7 @@
       ];
       _dmList = [
         {
-          name: 'Aaron',
+          name: 'Dan',
           isActive: false,
           isStarred: true
         }
