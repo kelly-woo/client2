@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 C 패널 elfprxlqm
+ * @fileoverview 튜토리얼 C 패널 디렉티브
  */
 (function() {
   'use strict';
