@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tutor 에 필요한 정보를 담는 저장소
+ * @fileoverview Tutorial Tutor 에 필요한 정보를 담는 저장소
  */
 (function() {
   'use strict';

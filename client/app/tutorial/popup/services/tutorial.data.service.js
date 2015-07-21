@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tutorial 에 필요한 데이터를 담는 저장소.
+ * @fileoverview Tutorial 에 필요한 기타 데이터들을 담는 저장소.
  */
 (function() {
   'use strict';

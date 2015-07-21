@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tutorial Topic 저장소
+ * @fileoverview Tutorial C 패널 메세지 서비스
  */
 (function() {
   'use strict';

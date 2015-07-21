@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tutorial 에 필요한 데이터를 담는 저장소. account 정보도 저장한다.
+ * @fileoverview Tutorial 토픽 리스트 저장소
  */
 (function() {
   'use strict';

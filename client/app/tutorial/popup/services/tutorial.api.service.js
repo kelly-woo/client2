@@ -1,5 +1,5 @@
 /**
- * @fileoverview Tutorial 의 account 정보 저장한다.
+ * @fileoverview Tutorial API 서비스
  */
 (function() {
   'use strict';
