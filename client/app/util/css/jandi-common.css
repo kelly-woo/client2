@@ -85,3 +85,25 @@ input.disabled {
   -webkit-animation: three-quarters-loader 928ms infinite linear !important;
   animation: three-quarters-loader 928ms infinite linear !important;
 }
+
+
+
+/*****************************************
+
+  OFFLINE
+
+*****************************************/
+.content-wrapper.offline,
+.offline .body-wrapper,
+.offline .jnd-cursor-pointer,
+.offline .cursor_pointer,
+.offline input {
+  /*cursor: not-allowed !important;*/
+}
+
+
+.offline .grey_dropdown > li > a,
+.offline .green_dropdown > li > a {
+  cursor: not-allowed !important;
+}
+

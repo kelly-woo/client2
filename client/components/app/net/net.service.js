@@ -54,8 +54,10 @@
     function _broadcast(isConnected) {
       if (isConnected) {
         jndPubSub.pub('connected');
+        $('.content-wrapper').removeClass('offline')
       } else {
         jndPubSub.pub('disconnected');
+        $('.content-wrapper').addClass('offline');
       }
     }
 
