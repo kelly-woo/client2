@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 가이드 컨트롤러
+ * @fileoverview 튜토리얼 프로필 컨트롤러
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -23,20 +23,6 @@
         $scope.position = account.u_extraData.position;
         $scope.profileUrl = $filter('getFileUrl')(account.u_photoThumbnailUrl.smallThumbnailUrl);
       });
-    }
-
-    /**
-     * attachEvents
-     * @private
-     */
-    function _attachEvents() {
-    }
-
-    /**
-     * 소멸자
-     * @private
-     */
-    function _onDestroy() {
     }
   });
 })();

@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 왼쪽 패널 디렉티브
+ * @fileoverview C패널 헤더 디렉티브
  */
 (function() {
   'use strict';

@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 가이드 컨트롤러
+ * @fileoverview 튜토리얼 purse 버튼 컨트롤러
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {

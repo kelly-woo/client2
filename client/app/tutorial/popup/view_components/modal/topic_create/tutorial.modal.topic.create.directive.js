@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 가이드 레이어 디렉티브
+ * @fileoverview 튜토리얼 토픽 생성 모달 디렉티브
  */
 (function() {
   'use strict';

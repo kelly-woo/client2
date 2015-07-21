@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 가이드 컨트롤러
+ * @fileoverview 튜토리얼 가이드 레이어 컨트롤러
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -38,22 +38,12 @@
       jndPubSub.pub('tutorial:skip');
     }
 
+    /**
+     * step 버튼 클릭시
+     * @param {number|string} index
+     */
     function onClickMove(index) {
       jndPubSub.pub('tutorial:go', index);
-    }
-
-    /**
-     * attachEvents
-     * @private
-     */
-    function _attachEvents() {
-    }
-
-    /**
-     * 소멸자
-     * @private
-     */
-    function _onDestroy() {
     }
   });
 })();

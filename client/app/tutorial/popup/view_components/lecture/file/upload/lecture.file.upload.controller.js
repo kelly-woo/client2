@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 팀 초대
+ * @fileoverview 튜토리얼 파일 업로드
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -134,8 +134,11 @@
       $scope.step = step;
     }
 
+    /**
+     * 파일을 posting 한다.
+     * @private
+     */
     function _postFile() {
-      var topicName = TutorialEntity.get('name');
       TutorialMessages.append(TutorialMessages.getBaseMessage('file'));
     }
   });

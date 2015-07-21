@@ -17,7 +17,6 @@
       },
       replace: true,
       templateUrl: 'app/tutorial/popup/view_components/left/tutorial.left.html',
-      controller: 'tutorialLeftCtrl',
       restrict: 'E'
     };
 

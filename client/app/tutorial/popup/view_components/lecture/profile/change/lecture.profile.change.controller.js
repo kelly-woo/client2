@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 팀 초대
+ * @fileoverview 튜토리얼 프로필
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -93,6 +93,9 @@
       $scope.$on('$destroy', _onDestroy);
     }
 
+    /**
+     * 프로필 클릭시 이벤트 핸들러
+     */
     function onClickProfile() {
       _onNextStep();
     }

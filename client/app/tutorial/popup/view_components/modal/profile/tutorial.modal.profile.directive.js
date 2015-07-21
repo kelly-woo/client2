@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 가이드 레이어 디렉티브
+ * @fileoverview 튜토리얼 프로필 모달 디렉티브
  */
 (function() {
   'use strict';

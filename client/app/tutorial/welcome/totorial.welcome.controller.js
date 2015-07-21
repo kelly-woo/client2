@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 가이드 컨트롤러
+ * @fileoverview center 튜토리얼 모달 컨트롤러
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -26,26 +26,43 @@
       _attachEvents();
     }
 
+    /**
+     * tutorial start click 시
+     */
     function onClickStart() {
       _openTutorial();
     }
 
+    /**
+     * tutorial skip click 시
+     */
     function onClickSkip() {
       TutorialAPI.set($scope.completedStep,  true);
       hide();
     }
 
+    /**
+     * hide 한다.
+     */
     function hide() {
       Popup.close(Popup.get('tutorial'));
       $scope.isComplete = true;
     }
 
+    /**
+     * continue 클릭시
+     */
     function onClickContinue() {
       var startStep = $scope.completedStep + 1;
       startStep = startStep < 0 ? 0 : startStep;
       _openTutorial(startStep);
     }
 
+    /**
+     * tutorial 을 open 한다.
+     * @param {string| number} step
+     * @private
+     */
     function _openTutorial(step) {
       step = step || 0;
       var token = location.href.split('/#/');
@@ -70,10 +87,20 @@
       $scope.$on('$destroy', _onDestroy);
     }
 
+    /**
+     * tutorial open 이벤트 핸들러
+     * @param {object} event
+     * @param {string|number} step
+     * @private
+     */
     function _onTutorialOpen(event, step) {
       _openTutorial(step);
     }
 
+    /**
+     * account load 이벤트 핸들러
+     * @private
+     */
     function _onAccountLoaded() {
       var account = accountService.getAccount();
 

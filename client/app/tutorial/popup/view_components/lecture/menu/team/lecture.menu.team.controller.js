@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 팀 초대
+ * @fileoverview 튜토리얼 최상단 team 메뉴
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {

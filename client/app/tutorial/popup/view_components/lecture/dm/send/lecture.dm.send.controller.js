@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 팀 초대
+ * @fileoverview 튜토리얼 DM 컨트롤러
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {

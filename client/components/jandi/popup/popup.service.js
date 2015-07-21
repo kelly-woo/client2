@@ -1,5 +1,5 @@
 /**
- * @fileoverview 팝업 서비스
+ * @fileoverview 팝업 관리 서비스
  * @author young.park <young.park@tosslab.com>
  */
 (function() {
@@ -84,7 +84,7 @@
 
     /**
      * 팝업을 닫는다.
-     * @param {object} popup - close 할 대상 popup
+     * @param {object} [popup] - close 할 대상 popup. 생략시 현재  window
      */
     function close(popup) {
       var target = popup || window;

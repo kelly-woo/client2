@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 토픽 생성 컨트롤러
+ * @fileoverview 튜토리얼 토픽 참가 컨트롤러
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {

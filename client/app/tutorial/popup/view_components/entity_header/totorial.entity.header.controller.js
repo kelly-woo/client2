@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 가이드 컨트롤러
+ * @fileoverview 튜토리얼 C패널 헤더 컨트롤러
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -17,20 +17,6 @@
      */
     function _init() {
       $scope.entity = TutorialEntity.get();
-    }
-
-    /**
-     * attachEvents
-     * @private
-     */
-    function _attachEvents() {
-    }
-
-    /**
-     * 소멸자
-     * @private
-     */
-    function _onDestroy() {
     }
   });
 })();

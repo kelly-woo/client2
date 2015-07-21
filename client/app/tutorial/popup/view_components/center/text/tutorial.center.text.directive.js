@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 프로필 디렉티브
+ * @fileoverview 튜토리얼 C 패널 text msg 디렉티브
  */
 (function() {
   'use strict';

@@ -1,5 +1,5 @@
 /**
- * @fileoverview 튜토리얼 가이드 컨트롤러
+ * @fileoverview 튜토리얼 토픽 생성 모달 컨트롤러
  * @author Young Park <young.park@tosslab.com>
  */
 (function() {
@@ -21,7 +21,7 @@
     }
 
     /**
-     *
+     * 토픽 생성 버튼 클릭시 이벤트 핸들러
      */
     function onClickCreate() {
       _createTopic();
@@ -47,19 +47,6 @@
       if (entityName.length > 0) {
         jndPubSub.pub('tutorial:createTopic', entityName);
       }
-    }
-    /**
-     * attachEvents
-     * @private
-     */
-    function _attachEvents() {
-    }
-
-    /**
-     * 소멸자
-     * @private
-     */
-    function _onDestroy() {
     }
   });
 })();

@@ -9,11 +9,12 @@
 
   app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, $urlRouter, accountService,
                                                currentSessionHelper, TutorialTutor, TutorialAccount, TutorialTopics,
-                                               TutorialDm, TutorialAPI) {
+                                               TutorialDm, TutorialAPI, Popup) {
     var _isComplete;
     var _topicList;
     var _dmList;
-    //향후 lecture step 이 id 가 될 수 있으므로 미리 만들어 놓는다.
+
+    //@todo: 향후 lecture step 이 id 가 될 수 있으므로 미리 만들어 놓는다. 향후 tutorial 추가 혹은 변경시 작업예정.
     var _lectureMap = {
       0: 'tutorial.team.invitation',
       1: 'tutorial.topic.create',
@@ -26,6 +27,7 @@
       8: 'tutorial.menu.team',
       9: 'tutorial.menu.help'
     };
+
     var _lectureList = [
       'tutorial.team.invitation',
       'tutorial.topic.create',
@@ -89,42 +91,6 @@
       }
     }
 
-    /**
-     * 튜토리얼 시작인지 여부 확인
-     * @param {string} currentName
-     * @returns {boolean}
-     * @private
-     */
-    function _isTutorialMain(currentName) {
-      return currentName === 'tutorial';
-    }
-
-    /**
-     * 튜토리얼 첫번째 과정인지 여부 반환
-     * @private
-     */
-    function _autoRoute() {
-      var start = parseInt($state.params.start, 10) || 0;
-      var nextStep = _getNextStep($scope.completedStep);
-      if (start > nextStep) {
-        start = nextStep;
-        start = start < 0 ? 0 : start;
-      }
-
-      if (!_lectureList || !_lectureList[start]) {
-        start = 0;
-      }
-      $scope.currentStep = start;
-      $state.go(_lectureList[start]);
-    }
-
-    function _getNextStep(stepId) {
-      var nextStep = stepId + 1;
-      if (nextStep === _lectureList.length) {
-        nextStep = stepId;
-      }
-      return nextStep;
-    }
     /**
      * 변수를 초기화 한다.
      * @private
@@ -205,7 +171,51 @@
     }
 
     /**
-     *
+     * 튜토리얼 시작인지 여부 확인
+     * @param {string} currentName
+     * @returns {boolean}
+     * @private
+     */
+    function _isTutorialMain(currentName) {
+      return currentName === 'tutorial';
+    }
+
+    /**
+     * 튜토리얼 첫번째 과정인지 여부 반환
+     * @private
+     */
+    function _autoRoute() {
+      var start = parseInt($state.params.start, 10) || 0;
+      var nextStep = _getNextStep($scope.completedStep);
+      if (start > nextStep) {
+        start = nextStep;
+        start = start < 0 ? 0 : start;
+      }
+
+      if (!_lectureList || !_lectureList[start]) {
+        start = 0;
+      }
+      $scope.currentStep = start;
+      $state.go(_lectureList[start]);
+    }
+
+    /**
+     * 다음 step을 가져온다.
+     * @todo: 향후 tutorial step 추가 혹은 변경시 작업 필요
+     * @param {string|number} stepId
+     * @returns {number}
+     * @private
+     */
+    function _getNextStep(stepId) {
+      var nextStep = stepId + 1;
+      if (nextStep === _lectureList.length) {
+        nextStep = stepId;
+      }
+      return nextStep;
+    }
+
+    /**
+     * complete 버튼 클릭시 이벤트 핸들러
      */
     function onClickComplete() {
       TutorialAPI.set($scope.currentStep,  true);
@@ -221,11 +231,12 @@
       $scope.$on('$destroy', _onDestroy);
       $scope.$on('tutorial:nextLecture', _onNextLecture);
       $scope.$on('tutorial:go', _onMoveStep);
+      $scope.$on('tutorial:close', _close);
       $scope.$on('tutorial:skip', _onSkipTutorial);
     }
 
     /**
-     *
+     * dom 이벤트를 바인딩한다.
      * @private
      */
     function _attachDomEvents() {
@@ -233,21 +244,28 @@
     }
 
     /**
-     *
+     * dom 이벤트를 바인딩 해제한다.
      * @private
      */
     function _detachDomEvents() {
       $(window).off('unload', _close);
     }
+
     /**
-     *
+     * skip tutorial 이벤트 핸들러
      * @private
      */
     function _onSkipTutorial() {
-      TutorialAPI.set($scope.completedStep,  true);
-      _close();
+      TutorialAPI.set($scope.completedStep,  true)
+        .then(function() {
+          _close();
+        });
     }
 
+    /**
+     * tutorial 팝업을 닫는다.
+     * @private
+     */
     function _close() {
       var jqParentEl = window.opener.angular.element('#tutorial_welcome');
       var scope;
@@ -256,7 +274,10 @@
         scope = jqParentEl.scope();
         scope.$apply(function() {
           scope.hide();
+          Popup.close();
         });
+      } else {
+        Popup.close();
       }
     }
 
@@ -268,14 +289,12 @@
      */
     function _getLectureIndex(stateName) {
       var index = -1;
-      console.log(stateName);
       _.forEach(_lectureList, function(lectureName, i) {
         if (lectureName === stateName) {
           index = i;
           return false;
         }
       });
-      console.log(index);
       return index;
     }
 
@@ -317,9 +336,14 @@
         $scope.currentStep = nextStep;
         $state.go(_lectureList[$scope.currentStep]);
       }
-      console.log('_onNextLecture $scope.currentStep', $scope.currentStep);
     }
 
+    /**
+     * 현재 step 을 완료 처리한다.
+     * @param {string|number}step
+     * @param {boolean} isComplete
+     * @private
+     */
     function _save(step, isComplete) {
       isComplete = !!isComplete || false;
 
@@ -329,9 +353,6 @@
           TutorialAPI.set($scope.currentStep,  isComplete);
         }
       }
-    }
-
-    function _onComplete() {
     }
 
     /**
