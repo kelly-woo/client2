@@ -26,9 +26,12 @@ app.config(function ($stateProvider) {
           resolve     : {
             leftPanel: function (leftpanelAPIservice, publicService, storageAPIservice) {
               return leftpanelAPIservice.getLists()
-                .error(function(err) {
+                .success(function(response) {
+                  return response;
+                })
+                .error(function() {
                   publicService.signOut();
-                });
+                })
             }
           }
         },

@@ -108,6 +108,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _initializeView();
   }
 
+  /**
+   * 어떠한 메세지 리스트를 보여줄지 결정한다.
+   * @private
+   */
   function _initializeView() {
     if(MessageQuery.hasSearchLinkId()) {
       _jumpToMessage();
@@ -121,6 +125,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     }
   }
+
   /**
    * 내부 변수를 초기화한다.
    * @private
@@ -144,7 +149,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     _initLocalVariables();
   }
-
 
   /**
    * scope listener 를 초기화한다.
@@ -265,12 +269,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var param = {
       list: MessageCollection.getList(),
       lastMessageId: lastMessageId,
-      globalLastLinkId: globalLastLinkId
+      globalLastLinkId: globalLastLinkId,
+      hasProcessed: true
     };
 
     TopicMessageCache.put(entityId, param);
   }
-  
+
   /**
    * 캐쉬를 업데이트해야하는 상황인가? 조건은
    *   2. 현재 토픽의 마지막 메세지를 가지고 있어야 한다.
@@ -397,20 +402,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _displayCache() {
-    console.log('displaying cache');
     var _item = TopicMessageCache.get(entityId);
 
     publicService.hideTransitionLoading();
 
     $timeout(function() {
+      if (!_item.hasProcessed) {
+        MessageCollection.prependCachedList(_item.list);
+      } else {
+        MessageCollection.setList(_item.list);
+      }
 
-      MessageCollection.setList(_item.list);
       lastMessageId = _item.lastMessageId;
       globalLastLinkId = _item.globalLastLinkId;
 
       $scope.messages = MessageCollection.list;
       $scope.isInitialLoadingCompleted = true;
 
+      TopicMessageCache.addValue(entityId, 'hasProcessed', true);
       _getUpdatedList();
     });
   }
@@ -457,7 +466,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           globalLastLinkId = response.globalLastLinkId;
 
           var messagesList = response.records;
-
 
           // When there are messages to update.
           if (messagesList.length) {
@@ -559,7 +567,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _scrollToBottom();
     }
     MessageQuery.reset();
-      console.log('done')
+    console.log('done')
 
   }
 

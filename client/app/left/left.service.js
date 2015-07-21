@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp');
 
 app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, storageAPIservice,
-                                            memberService, EntityMapManager) {
+                                            memberService, EntityMapManager, configuration, currentSessionHelper) {
   var leftpanelAPI = {};
 
   leftpanelAPI.getLists = function() {
@@ -113,7 +113,6 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
   // prefix 는 select dropdown 에서 분류의 목적으로 사용된다.
   leftpanelAPI.setEntityPrefix = function($scope) {
-
     EntityMapManager.reset('total');
 
     _.each($scope.totalEntities, function(entity) {
@@ -147,6 +146,14 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
       }
 
       EntityMapManager.add('total', entity);
+    });
+  };
+
+  leftpanelAPI.getMessages = function() {
+    var _teamId = currentSessionHelper.getCurrentTeam().id;
+    return $http({
+      method: 'GET',
+      url: configuration.server_address + 'teams/' + _teamId + '/messages/cache'
     });
   };
 

@@ -41,7 +41,6 @@
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
 <div dragdown-area ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
 
-
   <!-- 컨테이너 -->
   <article class="msgs" id="msgs-container" when-scrolled="loadMore()">
     <!-- 로딩 영역 -->
@@ -53,14 +52,20 @@
 
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <div class="msgs-group" data-ng-repeat="msg in messages" msg-repeat-done="onRepeatDone()" ng-switch="msg.message.contentType">
+      <div class="msgs-group" data-ng-repeat="msg in messages track by $index" msg-repeat-done="onRepeatDone()" ng-switch="msg.message.contentType">
         <!--날짜 구분선-->
         <date-divider ng-if="isNewDate($index)"></date-divider>
 
         <system-event ng-switch-when="systemEvent" id="{{::msg.id}}" class="msg-item system-event-msg"></system-event>
+
         <text ng-switch-when="text" msg="msg" id="{{::msg.id}}" class="msg-item text"
               ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>
+
+        <text ng-switch-when="sticker" msg="msg" id="{{::msg.id}}" class="msg-item text"
+              ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>
+
         <file-uploaded ng-switch-when="file" id="{{::msg.id}}" class="msg-item"></file-uploaded>
+
         <title-comment ng-switch-when="comment" id="{{::msg.id}}" class="msg-item"
                           ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
       </div>
