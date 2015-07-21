@@ -162,7 +162,7 @@ msgstr "このトピックから退出"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-rename"
-msgstr "このトピックの名称を変更する"
+msgstr " トピック情報を変更"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-star"

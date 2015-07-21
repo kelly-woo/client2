@@ -161,7 +161,7 @@ msgstr "토픽 나가기"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-rename"
-msgstr "토픽 이름 변경하기"
+msgstr "정보 변경하기"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-star"
@@ -451,7 +451,7 @@ msgstr "새 메시지"
 
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-new-name"
-msgstr "변경할 이름"
+msgstr "이름"
 
 #: client/app/signin/signin.html
 msgid "@common-password"

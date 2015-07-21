@@ -159,7 +159,7 @@ msgstr "离开议题"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-rename"
-msgstr "重新命名议题"
+msgstr "编辑议题信息"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-star"

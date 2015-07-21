@@ -161,7 +161,7 @@ msgstr "Leave topic"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-rename"
-msgstr "Rename topic"
+msgstr "Edit Topic Information"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-star"
@@ -458,7 +458,7 @@ msgstr "New Message"
 
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-new-name"
-msgstr "New Name"
+msgstr "Name"
 
 #: client/app/signin/signin.html
 msgid "@common-password"
@@ -1080,7 +1080,7 @@ msgstr "Go to Account Home"
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description"
-msgstr "Topic description"
+msgstr "Description"
 
 #: client/app/modal/topics/topic_create/topic.create.html
 msgid "@topic-description-placeholder"
