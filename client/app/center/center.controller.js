@@ -319,6 +319,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       getMessageDeferredObject.resolve();
     }
   }
+
   /**
    * 윈도우 focus 시 이벤트 핸들러
    * @private

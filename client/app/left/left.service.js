@@ -6,13 +6,14 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
                                             memberService, EntityMapManager, configuration, currentSessionHelper) {
   var leftpanelAPI = {};
 
-  leftpanelAPI.getLists = function() {
+  leftpanelAPI.getLists = function(deferredObject) {
     return $http({
       method: 'GET',
       url: $rootScope.server_address + 'leftSideMenu',
       params: {
         teamId: memberService.getTeamId()
-      }
+      },
+      timeout: !!deferredObject ? deferredObject.promise : ''
     });
   };
 
