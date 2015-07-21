@@ -25,10 +25,12 @@
   </span>
 
   <!-- MORE OPTIONS -->
-  <span class="panel-title-right-menu panel-title-right-menu__more pull-right cursor_pointer panel-title-right-menu__item" dropdown>
-    <i class="icon-more" dropdown-toggle
-       tooltip="{{'@file-action-more' | translate}}" tooltip-placement="bottom"
-       tooltip-class="panel-title-more-tooltip absolute-right-tooltip"></i>
+  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__more panel-title-right-menu__item" dropdown>
+    <div class="panel-title-right-menu__more_icon" dropdown-toggle
+      tooltip="{{::'@file-action-more' | translate}}" tooltip-placement="bottom"
+      tooltip-class="panel-title-more-tooltip absolute-right-tooltip">
+      <i class="icon-more"></i>
+    </div>
 
     <!--  TOPICS  -->
     <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" role="menu" ng-if="!isUserType">
@@ -108,27 +110,21 @@
         </a>
       </li>
     </ul>
-
-
   </span>
 
   <!-- RIGHT MENU -->
-  <span class="panel-title-right-menu pull-right" ng-if="!isUserType">
+  <span class="panel-title-right-menu pull-right cursor_pointer" ng-if="!isUserType">
 
     <span class="panel-title-member panel-title-right-menu__item pull-left" dropdown>
-      <span class="dropdown-toggle panel-title-member__more" dropdown-toggle>
+      <div class="dropdown-toggle panel-title-member__more" dropdown-toggle>
         <i class="icon icon-user"></i>
         <span class="panel-title-member__count">{{currentEntity.members.length}}</span>
         <i class="icon icon-down"></i>
-      </span>
+      </div>
 
       <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
-        <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.members track by userId">
-          <a ng-if="userId == member.id" ng-click="openMemberModal(member);">
-            <img ng-src="member | getSmallThumbnail">
-            {{member | getName}}
-          </a>
-          <a ng-if="userId != member.id" ng-click="openMemberModal(userId);">
+        <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.members track by $index">
+          <a ng-click="openMemberModal(userId);">
             <img class="header-title-member__dropdown__thumb" ng-src="{{::userId | getSmallThumbnail}}"/>
               <span class="overflow-ellipsis">{{::userId | getName}}</span>
           </a>
@@ -139,7 +135,7 @@
     <span class="panel-title-right-menu__separator"></span>
 
     <span class="panel-title-invite panel-title-right-menu__item icon-invite-fill pull-right cursor_pointer"
-          tooltip="{{'@ch-menu-invite' | translate}}"
+          tooltip="{{::'@ch-menu-invite' | translate}}"
           tooltip-placement="bottom" tooltip-append-to-body="false"
           tooltip-class="panel-title-invite-tooltip absolute-right-tooltip"
           ng-click="openInviteModal();">

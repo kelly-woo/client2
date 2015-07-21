@@ -190,18 +190,18 @@
 .panel-title-member {
   line-height: 0;
 
-  padding-top: 6px;
-  padding-left: 12px;
-  padding-right: 7px;
-
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 
 .panel-title-member__more {
   position: relative;
-  cursor: pointer;
+  padding-left: 12px;
+  padding-right: 7px;
+  height: 25px;
+  line-height: 25px;
 }
+
 .panel-title-member__more .icon-user {
   font-size: 14px;
   color: #154a67;
@@ -244,11 +244,19 @@
 
 .panel-title-right-menu__more {
   margin-left: 5px;
-  padding-top: 3px;
-  padding-right: 5px;
-  padding-left: 5px;
 }
+
+.panel-title-right-menu__more_icon {
+  padding: 0 5px;
+
+  height: 25px;
+  line-height: 25px;
+
+  position: relative;
+}
+
 .panel-title-right-menu__more .icon-more {
   font-size: 19px;
   color: #154a67;
+  line-height: 25px;
 }
