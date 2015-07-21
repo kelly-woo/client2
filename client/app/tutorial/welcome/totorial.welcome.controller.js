@@ -79,7 +79,7 @@
 
       $scope.isComplete = account.tutorialConfirm;
       //@fixme: remove isComplete = false; for test
-      $scope.isComplete = false;
+      //$scope.isComplete = false;
       $scope.completedStep = account.tutorialStep;
     }
 

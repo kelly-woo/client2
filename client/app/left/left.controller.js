@@ -809,7 +809,8 @@ app.controller('leftPanelController1', function(
    *********************************************************************/
   function _checkUpdateMessageStatus() {
     if(!accountService.hasSeenTutorial()) {
-      $scope.initTutorialStatus();
+      //@fixme: remove old tutorial logic
+      //$scope.initTutorialStatus();
     }
     else if(accountService.hasChangeLog()) {
       _openChangeLogPopUp();
