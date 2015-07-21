@@ -58,8 +58,14 @@
   padding-top: 10px;
   height: 46px;
 }
+.tutorial_welcome_btn:hover {
+  background-color: #1AB9F0;
+}
 .tutorial_welcome_dark {
   background: #154a67;
+}
+.tutorial_welcome_dark:hover {
+  background: #366480;
 }
 .tutorial_welcome_skip {
   display: inline-block;
