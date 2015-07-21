@@ -124,6 +124,10 @@ msgstr ""
 msgid "@btn-join"
 msgstr ""
 
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+msgid "@btn-next"
+msgstr ""
+
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@btn-send"
@@ -1104,6 +1108,10 @@ msgstr ""
 msgid "@tutorial_dm_try"
 msgstr ""
 
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_explore_jandi"
+msgstr ""
+
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_comment"
 msgstr ""
@@ -1245,7 +1253,7 @@ msgstr ""
 msgid "@tutorial_welcome_again_title"
 msgstr ""
 
-#: client/app/tutorial/welcome/tutorial.welcome.html
+#: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_welcome_title"
 msgstr ""
 

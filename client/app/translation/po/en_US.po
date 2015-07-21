@@ -133,6 +133,10 @@ msgstr "Invite"
 msgid "@btn-join"
 msgstr "Join"
 
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+msgid "@btn-next"
+msgstr "Next"
+
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@btn-send"
@@ -1162,6 +1166,10 @@ msgstr "How about starting a conversation with Dan?"
 msgid "@tutorial_dm_try"
 msgstr "Next let’s try sending direct messages to a team member."
 
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_explore_jandi"
+msgstr ""
+
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_comment"
 msgstr ""
@@ -1325,7 +1333,7 @@ msgstr ""
 "The last time you used JANDI, you were in the middle of completing the "
 "tutorial."
 
-#: client/app/tutorial/welcome/tutorial.welcome.html
+#: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_welcome_title"
 msgstr "Welcome {{username}}!"
 
