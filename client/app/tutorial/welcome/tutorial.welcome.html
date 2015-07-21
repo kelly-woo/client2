@@ -8,33 +8,33 @@
     <div ng-if="completedStep === -2">
       <div class="tutorial_welcome_body">
         <div class="tutorial_welcome_title">
-          @Welcome-to-JANDI
+          {{ title }}
         </div>
         <div class="tutorial_welcome_content">
-          @JANDI-WILL-TRANSFORM-THE-WAY--COMMUNICATE-AND-CONNECT-WITH-PEOPLE-IN-THE-WORKPLACE.LET-ME-SHOW-YOU-HOW.
+          <span translate>@tutorial_team_intro</span>
         </div>
       </div>
       <div class="tutorial_welcome_footer">
-        <span class="btn btn-ok" ng-click="onClickStart()">Explore JANDI</span>
+        <span class="btn btn-ok" ng-click="onClickStart()">@Explore JANDI</span>
       </div>
     </div>
     <!-- user skipped the tutorial last time -->
     <div ng-if="completedStep !== -2">
       <div class="tutorial_welcome_body">
         <div class="tutorial_welcome_title">
-          @The-last-time-you-were-signed-in,
+          <span translate>@tutorial_welcome_again_title</span>
         </div>
         <div class="tutorial_welcome_content">
-          @You-left-in-the-middle-of-the-tutorial
+          <span translate>@tutorial_welcome_again_content</span>
         </div>
       </div>
       <div class="tutorial_welcome_footer">
         <span class="btn btn-ok tutorial_welcome_btn" ng-click="onClickContinue()">
-          @I-want-to-continue-where-I-left-off
+          <span translate>@tutorial_welcome_again_new_start</span>
         </span>
         <span class="btn btn-ok tutorial_welcome_btn tutorial_welcome_dark" ng-click="onClickStart()">I want to start over from the beginning</span>
         <a class="tutorial_welcome_skip cursor_pointer" ng-click="onClickSkip()">
-          @I-want-to-skip-the-entire-tutorial
+          <span translate>@common_skip_all</span>
         </a>
       </div>
     </div>

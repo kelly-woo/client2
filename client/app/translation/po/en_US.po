@@ -219,8 +219,9 @@ msgid "@channel"
 msgstr "Topics "
 
 #: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@common_skip_all"
-msgstr ""
+msgstr "Skip the tutorial"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -1191,6 +1192,10 @@ msgid "@tutorial_great"
 msgstr "Great."
 
 #: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_help_remember"
+msgstr "Remember - you can always click here if you need help!"
+
+#: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_click_title"
 msgstr ""
 "You just joined the Lunch topic. Click on the topic name dropdown to access "
@@ -1243,6 +1248,7 @@ msgstr ""
 "You can send email invitations or simply share the team's invitation link."
 
 #: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_team_intro"
 msgstr ""
 "JANDI will transform the way you communicate and collaborate with your "
@@ -1304,6 +1310,24 @@ msgstr ""
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_title"
 msgstr "You can also upload files directly into a topic. "
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_content"
+msgstr "What works best for you?"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_new_start"
+msgstr "Start over from the beginning"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_title"
+msgstr ""
+"The last time you used JANDI, you were in the middle of completing the "
+"tutorial."
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_title"
+msgstr "Welcome {{username}}!"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"

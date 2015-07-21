@@ -7,7 +7,8 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('lectureMenuHelpCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor, TutorialAccount) {
+  app.controller('lectureMenuHelpCtrl', function ($scope, $rootScope, $filter, jndPubSub, TutorialTutor,
+                                                  TutorialAccount) {
     var TOTAL_STEP = 1;
     var _tutorDataList;
     _init();
@@ -32,7 +33,7 @@
       _tutorDataList = [
         {
           title: '',
-          content: '궁금한 점이 있으면 언제든 여기를 누르면 된다는걸 잊지마!',
+          content: $filter('translate')('@tutorial_help_remember'),
           top: 200,
           left: 300,
           hasNext: true

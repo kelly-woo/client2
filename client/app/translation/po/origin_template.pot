@@ -197,6 +197,7 @@ msgid "@channel"
 msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@common_skip_all"
 msgstr ""
 
@@ -1128,6 +1129,10 @@ msgid "@tutorial_great"
 msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_help_remember"
+msgstr ""
+
+#: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_click_title"
 msgstr ""
 
@@ -1172,6 +1177,7 @@ msgid "@tutorial_team_explain_invitation"
 msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_team_intro"
 msgstr ""
 
@@ -1225,6 +1231,22 @@ msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_title"
+msgstr ""
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_content"
+msgstr ""
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_new_start"
+msgstr ""
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_title"
+msgstr ""
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_title"
 msgstr ""
 
 #: client/app/tutorial/tutorial.html

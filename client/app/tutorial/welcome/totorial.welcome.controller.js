@@ -7,7 +7,7 @@
 
   var app = angular.module('jandiApp');
 
-  app.controller('tutorialWelcomeCtrl', function ($scope, accountService, TutorialAPI, Popup) {
+  app.controller('tutorialWelcomeCtrl', function ($scope, $filter, accountService, TutorialAPI, Popup) {
 
     $scope.isComplete = true;
     $scope.completedStep = -1;
@@ -103,7 +103,7 @@
      */
     function _onAccountLoaded() {
       var account = accountService.getAccount();
-
+      $scope.title = $filter('translate')('@tutorial_welcome_title').replace('{{username}}', account.name);
       $scope.isComplete = account.tutorialConfirm;
       //@fixme: remove isComplete = false; for test
       //$scope.isComplete = false;

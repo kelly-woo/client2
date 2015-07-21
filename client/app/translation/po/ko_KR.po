@@ -214,8 +214,9 @@ msgid "@channel"
 msgstr "토픽 "
 
 #: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@common_skip_all"
-msgstr ""
+msgstr "튜토리얼 모두 건너뛰기"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -1186,6 +1187,12 @@ msgid "@tutorial_great"
 msgstr "성공!"
 
 #: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_help_remember"
+msgstr ""
+"그리고 더 궁금한 점이나 도움이 필요하시면 언제라도 이 곳을 클릭하시면 됩니"
+"다."
+
+#: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_click_title"
 msgstr ""
 "방금 이 점심 메뉴 토픽에 참여하셨어요. 토픽 이름을 클릭하시면 토픽 관련 메뉴"
@@ -1240,6 +1247,7 @@ msgstr ""
 "요."
 
 #: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_team_intro"
 msgstr ""
 "잔디를 사용하시고 완전히 새로워진 팀 커뮤니케이션을 경험해 보세요. 이 테스"
@@ -1300,6 +1308,22 @@ msgstr ""
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_title"
 msgstr "이 업로드 버튼을 통해 파일을 대화창에 올릴 수가 있어요."
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_content"
+msgstr "다시 시작하시겠습니까?"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_new_start"
+msgstr "처음부터 다시 시작하기"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_title"
+msgstr "아직 완료하지 않은 튜토리얼이 남았습니다."
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_title"
+msgstr "{{username}}님, 환영합니다!"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
