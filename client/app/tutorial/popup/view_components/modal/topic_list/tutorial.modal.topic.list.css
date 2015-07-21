@@ -1,7 +1,8 @@
 .tutorial_modal.topic_list {
-  top: 20px;
-  left: 270px;
+  top: 14px;
+  left: 265px;
   z-index: 4;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
 .tutorial_modal_topic_list_name {
