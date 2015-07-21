@@ -9,7 +9,7 @@
   /* @ngInject */
   function headerCtrl($scope, $state, $filter, accountService,
                       memberService, publicService, configuration,
-                      language, modalHelper, jndPubSub, DeskTopNotificationBanner, $rootScope, NetInterceptor,
+                      language, modalHelper, jndPubSub, DeskTopNotificationBanner,
                       Browser, AnalyticsHelper) {
     var modalMap;
     var stateParams;
