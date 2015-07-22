@@ -67,7 +67,7 @@
 
       _initVariables();
       _isComplete = account.tutorialConfirm;
-      $scope.completedStep = account.tutorialStep;
+      $scope.completedStep = parseInt(account.tutorialStep, 10);
       $scope.isShowComplete = false;
       currentStep =  _getLectureIndex($state.current.name);
       $scope.currentStep = currentStep > -1 ? currentStep : $scope.currentStep;
@@ -352,7 +352,7 @@
 
       if (isComplete || !_isComplete) {
         if (step <= $scope.currentStep && $scope.completedStep < $scope.currentStep) {
-          $scope.completedStep = step;
+          $scope.completedStep = parseInt(step, 10);
           TutorialAPI.set(step,  isComplete);
         }
       }
