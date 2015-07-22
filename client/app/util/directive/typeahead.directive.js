@@ -154,11 +154,13 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
 
         //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
         //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
-        modelCtrl.$parsers.unshift(function (inputValue) {
+        modelCtrl.$parsers.unshift(_onViewModelChanged);
 
+        // jihoon
+        function _onViewModelChanged(inputValue) {
           hasFocus = true;
           // jihoon
-          if (!inputValue || inputValue && inputValue.length >= minSearch) {
+          if (inputValue.length >= minSearch) {
             if (waitTime > 0) {
               if (timeoutPromise) {
                 $timeout.cancel(timeoutPromise);//cancel previous timeout
@@ -186,8 +188,8 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
               return undefined;
             }
           }
-        });
 
+        }
         modelCtrl.$formatters.push(function (modelValue) {
 
           var candidateViewValue, emptyViewValue;
@@ -265,11 +267,6 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
           }
         });
 
-        // jihoon
-        element.bind('focus', function(evt) {
-          modelCtrl.$setViewValue(evt.delegateTarget.value);
-        });
-
         element.bind('blur', function (evt) {
           hasFocus = false;
         });
@@ -279,6 +276,10 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
           if (element[0] !== evt.target) {
             resetMatches();
             scope.$digest();
+          } else {
+            //jihoon
+            modelCtrl.$setViewValue(evt.target.value);
+            _onViewModelChanged(modelCtrl.$viewValue);
           }
         };
 
