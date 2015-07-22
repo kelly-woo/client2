@@ -50,6 +50,9 @@
      * @private
      */
     function _init() {
+      $('body').css({
+        overflow: 'auto'
+      });
       TutorialAccount.promise.then(_onSuccessGetAccount);
     }
 
@@ -65,11 +68,11 @@
       _initVariables();
       _isComplete = account.tutorialConfirm;
       $scope.completedStep = account.tutorialStep;
-
       $scope.isShowComplete = false;
-
       currentStep =  _getLectureIndex($state.current.name);
       $scope.currentStep = currentStep > -1 ? currentStep : $scope.currentStep;
+
+      _save($scope.completedStep, _isComplete);
 
       _initRouter();
       _attachEvents();

@@ -73,7 +73,7 @@
         data: {
           start: step
         },
-        optionStr: 'width=1024; height=768; scrollbars=yes; resizable=no;'
+        optionStr: 'width=1024; height=768;'
       });
     }
 
@@ -105,6 +105,7 @@
       var account = accountService.getAccount();
       $scope.title = $filter('translate')('@tutorial_welcome_title').replace('{{username}}', account.name);
       $scope.isComplete = account.tutorialConfirm;
+      $scope.isOpened = account.tutorialOpened;
       //@fixme: remove isComplete = false; for test
       //$scope.isComplete = false;
       $scope.completedStep = account.tutorialStep;

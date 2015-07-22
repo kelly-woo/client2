@@ -5,7 +5,7 @@
       <img src="../../assets/images/tutorial/icon/tutorial-welcome.png" />
     </div>
     <!-- visit first time -->
-    <div ng-if="completedStep === -2">
+    <div ng-if="!isOpened">
       <div class="tutorial_welcome_body">
         <div class="tutorial_welcome_title">
           {{ title }}
@@ -15,11 +15,11 @@
         </div>
       </div>
       <div class="tutorial_welcome_footer">
-        <span class="btn btn-ok" ng-click="onClickStart()" translate>@tutorial_explore_jandi</span>
+        <span class="btn btn-ok" ng-click="onClickStart()" translate>@tutorial_get_started</span>
       </div>
     </div>
     <!-- user skipped the tutorial last time -->
-    <div ng-if="completedStep !== -2">
+    <div ng-if="isOpened">
       <div class="tutorial_welcome_body">
         <div class="tutorial_welcome_title">
           <span translate>@tutorial_welcome_again_title</span>

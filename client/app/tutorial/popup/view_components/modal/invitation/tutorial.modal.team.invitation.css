@@ -6,5 +6,7 @@
   position: absolute;
   width: 500px;
   top: 40px;
+  background: #f1f4f8;
+  border-radius: 5px;
   left: 0;
 }
