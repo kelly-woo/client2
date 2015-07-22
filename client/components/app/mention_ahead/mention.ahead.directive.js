@@ -10,13 +10,6 @@
 
   /* @ngInject */
   function mentionAhead($rootScope, $templateRequest, $compile, jndKeyCode) {
-    var templateUrl = 'components/app/mention_ahead/mention.ahead.html';
-    var mentionAheadTemplate;
-
-    $templateRequest(templateUrl)
-      .then(function(template) {
-        mentionAheadTemplate = template;
-      });
 
     return {
       restrict: 'A',
@@ -26,10 +19,11 @@
         var mentionScope = $rootScope.$new(true);
         var mentionAhead = $compile(
           '<div type="text" style="position: absolute; top: 0; left: 0; width: 100%;" ' +
-            'jandi-typeahead="mention as mention.name for mention in mentionList | filter:{ name: $viewValue }" ' +
+            'jandi-typeahead="mention as mention.name for mention in mentionList | filter:{ exNameMention: $viewValue }" ' +
             'jandi-typeahead-placement="top" ' +
             'jandi-typeahead-append-to-body="true" ' +
             'jandi-typeahead-on-select="onSelect()" ' +
+            'jandi-typeahead-template-name="jandi-mentionahead-popup" ' +
             'ng-model="mentionModel" ></div>'
         );
         var isShowMentionAhead;
@@ -51,7 +45,10 @@
             .on('input', changeHandler)
             .on('keyup', liveHandler);
 
-          _hookMessageSubmit(attrs.messageSubmit);
+          if (attrs.messageSubmit) {
+            _hookMessageSubmit(attrs.messageSubmit);
+          }
+
 
           // text change event handling
           function changeHandler(event) {
@@ -63,25 +60,19 @@
           }
 
           function liveHandler(event) {
-            var selection = mentionCtrl.selection();
-            var mention;
-
-            if (mention = mentionCtrl.getMentionLive(selection.begin)) {
-              isShowMentionAhead = true;
-
-              mentionCtrl.showMentionAhead(mention);
-            } else {
-              isShowMentionAhead = false;
+            mentionCtrl.setMentionLive();
+            if (mentionCtrl.hasMentionLive()) {
+              mentionCtrl.showMentionAhead();
             }
           }
 
           function _hookMessageSubmit(originMessageSubmit) {
+            originMessageSubmit
+
             if (originMessageSubmit) {
               attrs.messageSubmit = function() {
-                if (isShowMentionAhead) {
-                  console.log( 'message submit ::: ', mentionModel.$viewValue );
-                } else {
-                  originMessageSubmit.call(scope);
+                if (!mentionCtrl.hasMentionLive()) {
+                  scope.$eval(originMessageSubmit)
                 }
               };
             }

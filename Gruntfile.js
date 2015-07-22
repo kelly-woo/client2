@@ -475,67 +475,67 @@ module.exports = function (grunt) {
       all: localConfig
     },
 
-    injector: {
-      options: {
-
-      },
-      // Inject application script files into index.html (doesn't include bower)
-      scripts: {
-        options: {
-          transform: function(filePath) {
-            filePath = filePath.replace('/client/', '');
-            filePath = filePath.replace('/.tmp/', '');
-            return '<script src="' + filePath + '"></script>';
-          },
-          starttag: '<!-- injector:js -->',
-          endtag: '<!-- endinjector -->'
-        },
-        files: {
-          '<%= yeoman.client %>/index.html': [
-            [
-              '{.tmp,<%= yeoman.client %>}/assets/javascripts/*.js',
-              '{.tmp,<%= yeoman.client %>}/app/util/**/*.js',
-              '{.tmp,<%= yeoman.client %>}/app/util/*.js',
-              '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-              '!{.tmp,<%= yeoman.client %>}/components/config/config.framework.js',
-
-              '!{.tmp,<%= yeoman.client %>}/components/jnadi/jandi.framework.js',
-              '!{.tmp,<%= yeoman.client %>}/components/jnadi/preloader/preloader.js',
-
-              '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
-              '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
-              '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
-              '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
-              '!{.tmp,<%= yeoman.client %>}/components/app/local_storage/local.storage.js',
-              '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
-              '!{.tmp,<%= yeoman.client %>}/components/app/pubsub/pubsub.js',
-              '!{.tmp,<%= yeoman.client %>}/components/app/notification/desktop.notification.js',
-              '!{.tmp,<%= yeoman.client %>}/components/app/socket/socket.js',
-              '!{.tmp,<%= yeoman.client %>}/app/app.js',
-              '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
-              '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
-          ]
-        }
-      },
-
-      // Inject component css into index.html
-      css: {
-        options: {
-          transform: function(filePath) {
-            filePath = filePath.replace('/client/', '');
-            filePath = filePath.replace('/.tmp/', '');
-            return '<link rel="stylesheet" href="' + filePath + '">';
-          },
-          starttag: '<!-- injector:css -->',
-          endtag: '<!-- endinjector -->'
-        },
-        files: {
-          '<%= yeoman.client %>/index.html': [
-            '<%= yeoman.client %>/{app,components}/**/*.css'
-          ]
-        }
-      }
-    },
+    //injector: {
+    //  options: {
+    //
+    //  },
+    //  // Inject application script files into index.html (doesn't include bower)
+    //  scripts: {
+    //    options: {
+    //      transform: function(filePath) {
+    //        filePath = filePath.replace('/client/', '');
+    //        filePath = filePath.replace('/.tmp/', '');
+    //        return '<script src="' + filePath + '"></script>';
+    //      },
+    //      starttag: '<!-- injector:js -->',
+    //      endtag: '<!-- endinjector -->'
+    //    },
+    //    files: {
+    //      '<%= yeoman.client %>/index.html': [
+    //        [
+    //          '{.tmp,<%= yeoman.client %>}/assets/javascripts/*.js',
+    //          '{.tmp,<%= yeoman.client %>}/app/util/**/*.js',
+    //          '{.tmp,<%= yeoman.client %>}/app/util/*.js',
+    //          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
+    //          '!{.tmp,<%= yeoman.client %>}/components/config/config.framework.js',
+    //
+    //          '!{.tmp,<%= yeoman.client %>}/components/jnadi/jandi.framework.js',
+    //          '!{.tmp,<%= yeoman.client %>}/components/jnadi/preloader/preloader.js',
+    //
+    //          '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
+    //          '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
+    //          '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
+    //          '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
+    //          '!{.tmp,<%= yeoman.client %>}/components/app/local_storage/local.storage.js',
+    //          '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
+    //          '!{.tmp,<%= yeoman.client %>}/components/app/pubsub/pubsub.js',
+    //          '!{.tmp,<%= yeoman.client %>}/components/app/notification/desktop.notification.js',
+    //          '!{.tmp,<%= yeoman.client %>}/components/app/socket/socket.js',
+    //          '!{.tmp,<%= yeoman.client %>}/app/app.js',
+    //          '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
+    //          '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
+    //      ]
+    //    }
+    //  },
+    //
+    //  // Inject component css into index.html
+    //  css: {
+    //    options: {
+    //      transform: function(filePath) {
+    //        filePath = filePath.replace('/client/', '');
+    //        filePath = filePath.replace('/.tmp/', '');
+    //        return '<link rel="stylesheet" href="' + filePath + '">';
+    //      },
+    //      starttag: '<!-- injector:css -->',
+    //      endtag: '<!-- endinjector -->'
+    //    },
+    //    files: {
+    //      '<%= yeoman.client %>/index.html': [
+    //        '<%= yeoman.client %>/{app,components}/**/*.css'
+    //      ]
+    //    }
+    //  }
+    //},
 
     // 다국어 지원이 필요한 .html을 읽어서 원본 origin_template.pot 파일 생성 위치와 파일명 지정
     nggettext_extract: {
@@ -713,7 +713,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
-        'injector',
+        //'injector',
         'wiredep',
         'autoprefixer',
         'express:dev',

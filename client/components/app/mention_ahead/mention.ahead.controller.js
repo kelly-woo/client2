@@ -15,7 +15,7 @@
     var $scope;
     var $model;
 
-    var regxTextMentionMark = /(?:(?:^|\s)(?:[\[]?)(?:[@\uff20])((?:[^ ]|[.,+*?$|#{}()\^\-\[\]\\/!%'"~=<>_:;][^ ]){0,30}))$/;
+    var regxTextMentionMark = /(?:(?:^|\s)(?:[\[]?)([@\uff20]((?:[^ ]|[.,+*?$|#{}()\^\-\[\]\\/!%'"~=<>_:;][^ ]){0,30})))$/;
     var rStrMention = '(?:^|\s)(?:[@\uff20])([^@\uff20 ]{0,30})';
 
     that.init = init;
@@ -25,10 +25,9 @@
 
     that.getMentions = getMentions;
 
-    that.getMentionLive = getMentionLive;
+    that.setMentionLive = setMentionLive;
+    that.hasMentionLive = hasMentionLive;
     that.showMentionAhead = showMentionAhead;
-
-    that.selection = selection;
 
     function init(originScope, mentionScope, mentionTarget, jqEle) {
       $originScope = originScope;
@@ -40,7 +39,7 @@
       $scope.onSelect = onSelect;
       //$scope.mentionTarget = '';
 
-      // current entity change event handler에서 한번 mention list 설정
+      //// current entity change event handler에서 한번 mention list 설정
       $scope.$on('onCurrentEntityChanged', function(event, param) {
         //_setMentionList(originScope.currentEntity);
         _setMentionList(param);
@@ -57,18 +56,19 @@
 
       // 현재 topic의 members
       for (i = 0, len = members.length; i < len; i++) {
-        member = members[i];
-        mentionList.push(_getCurrentTopicMembers(member));
+        member = _getCurrentTopicMembers(members[i]);
+        member.exNameMention = '@' + member.name;
+        mentionList.push(member);
       }
 
-      // 현재 topic에 포함되지 않고 enabled 상태의 members
-      members = $originScope.memberList;
-      for (i = 0, len = members.length; i < len; i++) {
-        member = members[i];
-        if (member.status === 'enabled') {
-          mentionList.push(member);
-        }
-      }
+      //// 현재 topic에 포함되지 않고 enabled 상태의 members
+      //members = $originScope.memberList;
+      //for (i = 0, len = members.length; i < len; i++) {
+      //  member = members[i];
+      //  if (member.status === 'enabled') {
+      //    memberList.push(member);
+      //  }
+      //}
 
       $scope.mentionList = mentionList;
     }
@@ -98,39 +98,52 @@
       }
     }
 
-    function getMentionLive(selectionBegin) {
+    function setMentionLive() {
+      var selectionBegin = _selection().begin;
       var value = getValue();
       var preStr;
       var match;
-      var ret;
+      var mention;
 
       preStr = value.substring(0, selectionBegin);
       if (match = regxTextMentionMark.exec(preStr)) {
-        ret = {
+        mention = {
           preStr: preStr,
           sufStr: value.substring(selectionBegin),
-          match: match[0],
-          offset: selectionBegin - match.length,
+          match: match,
+          offset: selectionBegin - match[1].length,
           length: match.length
         };
       }
 
-      return ret;
+      $scope.mention = mention;
     }
 
-    function showMentionAhead(mention) {
-      $model.$setViewValue(mention.match);
+    function hasMentionLive() {
+      return !!$scope.mention;
+    }
+
+    function showMentionAhead() {
+      var mention = $scope.mention;
+
+      $model.$setViewValue(mention.match[1]);
     }
 
     function onSelect() {
-      var selection = selection();
+      var mention = $scope.mention;
+      var match = mention.match;
+      var mentionTarget = '[@' + $scope.mentionModel.name + ']';
+      var selection;
+      var text;
 
+      selection = mention.offset + mentionTarget.length;
+      text = mention.preStr.replace(new RegExp(match[1] + '$'), mentionTarget) + mention.sufStr;
 
-      $model.$setViewValue('');
-
+      $scope.jqEle.val(text);
+      _selection(selection);
     }
 
-    function selection(begin, end) {
+    function _selection(begin, end) {
       var ele = $scope.jqEle[0];
 
       if (_.isNumber(begin)) {	// set

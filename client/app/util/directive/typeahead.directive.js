@@ -36,7 +36,7 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
 
       var focusFirst = originalScope.$eval(attrs.jandiTypeaheadFocusFirst) !== false;
 
-
+      var templateName = attrs.jandiTypeaheadTemplateName || 'jandi-typeahead-popup';
       //INTERNAL VARIABLES
 
       //model setter executed upon match selection
@@ -63,7 +63,7 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
       });
 
       //pop-up element used to display matches
-      var popUpEl = angular.element('<div typeahead-popup></div>');
+      var popUpEl = angular.element('<div ' + templateName + '></div>');
       popUpEl.attr({
         id: popupId,
         matches: 'matches',
@@ -81,7 +81,6 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
         scope.matches = [];
         scope.activeIdx = -1;
         element.attr('aria-expanded', false);
-        $popup && $popup.addClass('ng-hide');
       };
 
       var getMatchId = function(index) {
@@ -129,11 +128,11 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
 
               //scope.position = appendToBody ? $position.offset(element) : $position.position(element);
               //scope.position.top = scope.position.top + element.prop('offsetHeight');
+              //$popup.css('opacity', 0);
               $timeout(function() {
-                var position = $position.positionElements(element, $popup, placement, appendToBody);
-                $popup.css(position).removeClass('ng-hide');
-
-                element.trigger('input');
+                var css = $position.positionElements(element, $popup, placement, appendToBody);
+                css.opacity = 1;
+                $popup.css(css);
               });
 
               element.attr('aria-expanded', true);
@@ -173,7 +172,6 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
       //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
       //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
       modelCtrl.$parsers.unshift(function (inputValue) {
-        console.log('parse unshift ::: ');
         hasFocus = true;
 
         if (inputValue && inputValue.length >= minSearch) {
@@ -273,11 +271,11 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
         evt.preventDefault();
 
         if (evt.which === 40) {
-          scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
+          scope.selectActive((scope.activeIdx + 1) % scope.matches.length);
           scope.$digest();
 
         } else if (evt.which === 38) {
-          scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
+          scope.selectActive((scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1);
           scope.$digest();
 
         } else if (evt.which === 13 || evt.which === 9) {
@@ -293,6 +291,15 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
           resetMatches();
           scope.$digest();
         }
+      });
+
+      scope.selectActive = function (matchIdx) {
+        scope.activeIdx = matchIdx;
+      };
+
+      // jihoon
+      element.bind('focus', function(evt) {
+        modelCtrl.$setViewValue(evt.delegateTarget.value);
       });
 
       (originalScope.eventCatcher || element).bind('blur', function (evt) {
@@ -327,4 +334,95 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
       }
     }
   };
-}]);
+}]).
+directive('jandiTypeaheadPopup', function () {
+  return {
+    restrict:'EA',
+    scope:{
+      matches:'=',
+      query:'=',
+      active:'=',
+      position:'=',
+      select:'&'
+    },
+    replace:true,
+    templateUrl:'template/typeahead/typeahead-popup.html',
+    link:function (scope, element, attrs) {
+
+      scope.templateUrl = attrs.templateUrl;
+
+      scope.isOpen = function () {
+        return scope.matches.length > 0;
+      };
+
+      scope.isActive = function (matchIdx) {
+        return scope.active == matchIdx;
+      };
+
+      scope.selectActive = function (matchIdx) {
+        scope.active = matchIdx;
+      };
+
+      scope.selectMatch = function (activeIdx) {
+        scope.select({activeIdx:activeIdx});
+      };
+    }
+  };
+}).
+directive('jandiMentionaheadPopup', function ($position) {
+  return {
+    restrict:'EA',
+    scope:{
+      matches:'=',
+      query:'=',
+      active:'=',
+      position:'=',
+      select:'&'
+    },
+    replace:true,
+    templateUrl:'components/app/mention_ahead/mention.ahead.html',
+    link:function (scope, element, attrs) {
+      var $parent = scope.$parent;
+      var originSelectActive = $parent.selectActive;
+
+      $parent.selectActive = function (matchIdx) {
+        var jqMentionItem;
+        var scrollHeight;
+        var height;
+        var position;
+        var compare;
+
+        scrollHeight = element.scrollTop();
+        height = element.height();
+
+        jqMentionItem = element.children().eq(matchIdx);
+        position = $position.position(jqMentionItem);
+
+        compare = position.top + position.height - height;
+        if (compare > 0) {
+          element.scrollTop(compare);
+        }
+
+        originSelectActive.call($parent, matchIdx);
+      };
+
+      scope.templateUrl = attrs.templateUrl;
+
+      scope.isOpen = function () {
+        return scope.matches.length > 0;
+      };
+
+      scope.isActive = function (matchIdx) {
+        return scope.active == matchIdx;
+      };
+
+      scope.selectActive = function(matchIdx) {
+        $parent.selectActive(matchIdx);
+      };
+
+      scope.selectMatch = function (activeIdx) {
+        scope.select({activeIdx:activeIdx});
+      };
+    }
+  };
+});
