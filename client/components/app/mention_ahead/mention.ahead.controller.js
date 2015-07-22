@@ -14,7 +14,7 @@
     var $originScope;
     var $scope;
     var $model;
-
+    ///(?:(?:^|\s)(?:[\[]?)([@\uff20]((?:[^\uffff]|[.,+*?$|#{}()\^\-\[\]\\/!%'"~=<>_:;][^\uffff]){0,30})))$/i
     var regxTextMentionMark = /(?:(?:^|\s)(?:[\[]?)([@\uff20]((?:[^ ]|[.,+*?$|#{}()\^\-\[\]\\/!%'"~=<>_:;][^ ]){0,30})))$/;
     var rStrMention = '(?:^|\s)(?:[@\uff20])([^@\uff20 ]{0,30})';
 
@@ -126,7 +126,11 @@
     function showMentionAhead() {
       var mention = $scope.mention;
 
-      $model.$setViewValue(mention.match[1]);
+      if (mention) {
+        $model.$setViewValue(mention.match[1]);
+      } else {
+        $model.$setViewValue(null);
+      }
     }
 
     function onSelect() {

@@ -61,9 +61,7 @@
 
           function liveHandler(event) {
             mentionCtrl.setMentionLive();
-            if (mentionCtrl.hasMentionLive()) {
-              mentionCtrl.showMentionAhead();
-            }
+            mentionCtrl.showMentionAhead();
           }
 
           function _hookMessageSubmit(originMessageSubmit) {

@@ -387,20 +387,22 @@ directive('jandiMentionaheadPopup', function ($position) {
 
       $parent.selectActive = function (matchIdx) {
         var jqMentionItem;
-        var scrollHeight;
-        var height;
-        var position;
+        var itemPosition;
+        var contPosition;
+        var scrollTop;
         var compare;
 
-        scrollHeight = element.scrollTop();
-        height = element.height();
-
         jqMentionItem = element.children().eq(matchIdx);
-        position = $position.position(jqMentionItem);
+        scrollTop = element.scrollTop();
 
-        compare = position.top + position.height - height;
-        if (compare > 0) {
-          element.scrollTop(compare);
+        itemPosition = $position.offset(jqMentionItem);
+        contPosition = $position.offset(element);
+
+        compare = itemPosition.top - contPosition.top;
+        if (compare < 0) {
+          element.scrollTop(scrollTop + compare);
+        } else if ( compare + itemPosition.height > contPosition.height ) {
+          element.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
         }
 
         originSelectActive.call($parent, matchIdx);
