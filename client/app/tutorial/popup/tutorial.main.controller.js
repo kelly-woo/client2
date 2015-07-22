@@ -352,8 +352,8 @@
 
       if (isComplete || !_isComplete) {
         if (step <= $scope.currentStep && $scope.completedStep < $scope.currentStep) {
-          $scope.completedStep = $scope.currentStep;
-          TutorialAPI.set($scope.currentStep,  isComplete);
+          $scope.completedStep = step;
+          TutorialAPI.set(step,  isComplete);
         }
       }
     }
