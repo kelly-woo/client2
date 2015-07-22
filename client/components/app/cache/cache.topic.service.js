@@ -58,6 +58,7 @@
      *    @param {array} list - message list
      *    @param {number} globalLastLinkId - global last link id
      *    @param {number} lastMessageId - lastMessageId equivalent
+     *    @param {number} lastLinkId - lastLinkId equivalent
      *    @param {boolean} hasProcessed - 이미 한 번 messageCollection을 통해 data 들이 정리되었는지 안되었는지 보여주는 flag
      */
     function put(key, value) {

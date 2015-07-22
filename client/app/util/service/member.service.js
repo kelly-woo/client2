@@ -64,8 +64,8 @@
       removeAnnouncementStatus: removeAnnouncementStatus,
       updateAnnouncementStatus: updateAnnouncementStatus,
 
-      setLastReadMessageMarker: initLastReadMessageMarkerMap,
-      updateLastReadMessageMarker: updateLastReadMessageMarker,
+      initLastReadMessageMarker: initLastReadMessageMarker,
+      setLastReadMessageMarker: setLastReadMessageMarker,
       getLastReadMessageMarker: getLastReadMessageMarker
     };
 
@@ -123,8 +123,9 @@
       $rootScope.member = currentMember = member;
       storageAPIservice.setLastEmail(member.u_email);
       _setAnnouncementStatusMap(member.u_messageMarkers);
-      jndPubSub.pub('onCurrentMemberChanged');
+      initLastReadMessageMarker(member.u_messageMarkers);
 
+      jndPubSub.pub('onCurrentMemberChanged');
     }
 
     /**
@@ -401,19 +402,36 @@
     }
 
 
-
-    function initLastReadMessageMarkerMap(markers) {
+    /**
+     * message markers를 가지고 있는 맵을 생성한다.
+     * @param {array} markers - 유저의 message markers list
+     */
+    function initLastReadMessageMarker(markers) {
       _.forEach(markers, function(marker) {
-        lastMessageReadMarkerMap[marker.entityId] = marker.lastLinkId;
+        setLastReadMessageMarker(marker.entityId, marker.lastLinkId);
       });
     }
 
-    function updateLastReadMessageMarker(entityId, lastLinkId) {
+    /**
+     * 맵에 entityId - lastLinkId pair를 추가한다.
+     * @param {number} entityId - entity의 id
+     * @param {number} lastLinkId - 해당하는 entity의 유져가 가지고 있는 link의 id
+     */
+    function setLastReadMessageMarker(entityId, lastLinkId) {
       lastMessageReadMarkerMap[entityId] = lastLinkId;
     }
 
+    /**
+     * entityId에 해당하는 lastLinkId를 리턴한다.
+     * @param {number} entityId - 찾고싶은 entity의 id
+     * @returns {nubmer} - lastLinkId
+     */
     function getLastReadMessageMarker(entityId) {
-      return lastMessageReadMarkerMap[entityId];
+      if (_.isUndefined(entityId)) {
+        return lastMessageReadMarkerMap;
+      } else {
+        return lastMessageReadMarkerMap[entityId];
+      }
     }
   }
 })();

@@ -372,7 +372,6 @@ app.controller('leftPanelController1', function(
 
     // 현재 멤버 정보를 세션에 저장한다.
     memberService.setMember(response.user);
-    memberService.setLastReadMessageMarker(response.user.u_messageMarkers);
 
     // Check socket status when loading.
     _checkSocketStatus();
@@ -514,16 +513,15 @@ app.controller('leftPanelController1', function(
    * @private
    */
   function _onGetMessagesSuccess(response) {
-    console.log(response)
-
     _.each(response, function(unreadTopic) {
       var _param = {
         list: unreadTopic.messages,
-        lastMessageId: unreadTopic.lastLinkId,
+        lastLinkId: unreadTopic.lastLinkId,
         hasProcessed: false
       };
 
       TopicMessageCache.put(unreadTopic.entityId, _param);
+      memberService.setLastReadMessageMarker(unreadTopic.entityId, unreadTopic.lastLinkId);
     });
   }
 

@@ -18,6 +18,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var entityType = $state.params.entityType;
   var entityId = $state.params.entityId;
 
+  // 처음에 center에 진입할 때, 현재 entityId가 가지고 있는 마지막으로 읽은 message marker를 불러온다.
+  // message marker는 link id와 동일하다. message id 아님.
+  var _initialLastReadMessageMarker = memberService.getLastReadMessageMarker(entityId);
+
+  var _isFromCachedData = false;
+
   var isLogEnabled = true;
 
   var getMessageDeferredObject;
@@ -270,6 +276,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       list: MessageCollection.getList(),
       lastMessageId: lastMessageId,
       globalLastLinkId: globalLastLinkId,
+      lastLinkId: MessageCollection.getLastLinkId(),
       hasProcessed: true
     };
 
@@ -398,18 +405,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       loadMore();
     }
   }
+
   /**
    * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
    * @private
    */
   function _displayCache() {
+    _isFromCachedData = true;
     var _item = TopicMessageCache.get(entityId);
 
-    publicService.hideTransitionLoading();
 
     $timeout(function() {
+
       if (!_item.hasProcessed) {
-        MessageCollection.prependCachedList(_item.list);
+        MessageCollection.prepend(_item.list);
       } else {
         MessageCollection.setList(_item.list);
       }
@@ -418,6 +427,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       globalLastLinkId = _item.globalLastLinkId;
 
       $scope.messages = MessageCollection.list;
+      publicService.hideTransitionLoading();
       $scope.isInitialLoadingCompleted = true;
 
       TopicMessageCache.addValue(entityId, 'hasProcessed', true);
@@ -457,6 +467,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
       getMessageDeferredObject = $q.defer();
       // 엔티티 메세지 리스트 목록 얻기
+
       messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), getMessageDeferredObject)
         .success(function(response) {
           // Save entityId of current entity.
@@ -549,6 +560,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _hasLastMessage() {
+    console.log('what i have: ', MessageCollection.getLastLinkId())
+    console.log('lastMessageId ', lastMessageId)
     return MessageCollection.getLastLinkId() == lastMessageId;
   }
 
@@ -557,8 +570,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _findMessageDomElementById(MessageQuery.get('linkId'));
       MessageQuery.clearSearchLinkId();
     } else if(_isInitialLoad()) {
-      _scrollToBottom();
-      loadedFirstMessageId = MessageCollection.getFirstLinkId();
+      _onInitialLoad();
+
     } else if (_isLoadingNewMessages()) {
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
     } else if (_isLoadingOldMessages()) {
@@ -568,10 +581,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _scrollToBottom();
     }
     MessageQuery.reset();
-    console.log('done')
-
   }
 
+  function _onInitialLoad() {
+    console.log('messageCollection has ', MessageCollection.getLastLinkId(), ' and ' , _initialLastReadMessageMarker);
+
+    if (!!_initialLastReadMessageMarker && _initialLastReadMessageMarker === MessageCollection.getLastLinkId()) {
+      console.log('same! scroll to bottom');
+      _scrollToBottom();
+    } else {
+      console.log('not same!');
+      _insertUnreadBookmark();
+      _findMessageDomElementById(_initialLastReadMessageMarker);
+    }
+
+    loadedFirstMessageId = MessageCollection.getFirstLinkId();
+  }
+
+  function _insertUnreadBookmark() {
+    console.log('inserting bookmark after ', _initialLastReadMessageMarker);
+
+  }
   function _findMessageDomElementById(id) {
     var jqTarget = $('#'+ id);
     var targetScrollTop;
@@ -749,6 +779,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateMessageMarker() {
     messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
       .success(function(response) {
+        memberService.setLastReadMessageMarker(entityId, lastMessageId);
         //log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
       })
       .error(function(response) {
@@ -1333,7 +1364,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 랜더링 repeat 가 끝났을 때 호출되는 함수
    */
   function onRepeatDone() {
-    console.log('onRepeatDone');
     _updateScroll();
   }
 
