@@ -12,7 +12,7 @@
   var _imageCarouselTemplate;
 
   /* @ngInject */
-  function imageCarouselCtrl($scope, $templateRequest, $state, $filter, modalHelper, ImageCarousel, data) {
+  function imageCarouselCtrl($scope, $templateRequest, $state, $filter, modalHelper, ImageCarousel, data, Browser) {
     $scope.hasNext = false;
     $scope.hasPrev = false;
 
@@ -76,13 +76,10 @@
             $itemScope.fileTitle = data.fileTitle;
             $itemScope.fileUrl = data.fileUrl;
 
-            // fileDetail 수행
-            $itemScope.fileDetail = function(messageId, userName) {
-              // ImageCarousel 닫고 fileDetail 열기
+            $itemScope.hasRotater = Browser.msie && Browser.version === 9;
 
-              ImageCarousel.close();
-              $state.go('messages.detail.files.redirect', {itemId: messageId + '', userName: userName});
-            };
+            $itemScope.fileDetail = _fileDetail;
+            $itemScope.imageRotate = _imageRotate;
           },
           // image carousel button status callback
           onButtonStatus: function(status) {
@@ -94,6 +91,48 @@
             status.hasNext ? jqNextBtn.addClass('has-next') : jqNextBtn.removeClass('has-next');
           }
       });
+    }
+
+    /**
+     * fileDetail 수행
+     * @param {string} messageId
+     * @param {string} userName
+     * @private
+     */
+    function _fileDetail(messageId, userName) {
+      // ImageCarousel 닫고 fileDetail 열기
+      ImageCarousel.close();
+
+      if ($state.params.itemId !== messageId) {
+        $state.go('messages.detail.files.redirect', {itemId: messageId + '', userName: userName});
+      }
+    }
+
+    /**
+     * image rotate
+     * @param {object} $event
+     * @private
+     */
+    function _imageRotate($event) {
+      var target =  $($event.currentTarget).parent().children('img,canvas');
+      var targetClass = target.attr('class') || '';
+
+      if (targetClass.indexOf('rotate-90') > -1) {
+        target.removeClass('vertical-image rotate-90');
+        target.addClass('rotate-180');
+      }
+      else if(targetClass.indexOf('rotate-180') > -1) {
+        target.removeClass('rotate-180');
+        target.addClass('vertical-image rotate-270');
+      }
+      else if(targetClass.indexOf('rotate-270') > -1) {
+        target.removeClass('vertical-image rotate-270');
+      }
+      else {
+        target.addClass('vertical-image rotate-90');
+      }
+
+      ImageCarousel.resetPosition();
     }
   }
 })();

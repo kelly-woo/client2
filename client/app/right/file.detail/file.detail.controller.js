@@ -23,7 +23,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.glued = false;
   $scope.isPostingComment = false;
   $scope.hasFileAPIError = false;
-  $scope.comment = {};
   $scope.isLoadingImage = true;
 
 
@@ -145,7 +144,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * comment 를 posting 한다.
    */
   function postComment() {
-    var content = $scope.comment && $scope.comment.content;
+    var content = $('#file-detail-comment-input').val();
     if (!$scope.isPostingComment &&
       ((content) || _sticker)) {
       _hideSticker();
@@ -153,9 +152,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.isPostingComment = true;
 
       fileAPIservice.postComment(fileId, content, _sticker)
-        .success(function(response) {
+        .success(function() {
           $scope.glued = true;
-          $scope.comment.content = "";
+          $('#file-detail-comment-input').val('');
           $scope.focusPostComment = true;
         })
         .error(function(err) {
@@ -236,12 +235,22 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * 이미지 클릭시 이벤트 핸들러
    */
   function onImageClick() {
-    var content = $scope.file_detail.content;
+    var file_detail = $scope.file_detail;
 
-    if (integrationPreviewMap[content.serverUrl]) {
-      window.open(content.fileUrl, '_blank');
+    if (integrationPreviewMap[file_detail.content.serverUrl]) {
+      window.open(file_detail.content.fileUrl, '_blank');
     } else {
-      modalHelper.openFullScreenImageModal($scope, $scope.ImageUrl);
+      modalHelper.openImageCarouselModal({
+        // image file api data
+        messageId: fileId,
+        // image carousel view data
+        userName: file_detail.writer.name,
+        uploadDate: file_detail.createTime,
+        fileTitle: file_detail.content.title,
+        fileUrl: file_detail.content.fileUrl,
+        // single
+        isSingle: true
+      });
     }
   }
 

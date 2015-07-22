@@ -46,6 +46,7 @@
 
     that.init = init;
     that.close = close;
+    that.resetPosition = resetPosition;
 
     /**
      * Image Carousel Object 초기 설정자
@@ -145,24 +146,24 @@
           if (index > -1 && imageList[index] != null) {
             that.options.messageId = messageId = imageList[index];
 
-            // 이전 image item이 출력되어 있다면 숨김
-            if (currentMessageId != null && imageMap[currentMessageId].jqElement) {
-              imageMap[currentMessageId].jqElement.hide();
-              imageMap[currentMessageId].jqElement.children('.image-item-footer').css('opacity', 0);
-            }
-
             // image list에서 이동시 마다 _load를 호출하여
             // image를 출력하는 canvas element 생성을 방지하기 위해서 timeout 사용
             if (timerImageLoad != null) {
               $timeout.cancel(timerImageLoad);
               timerImageLoad = null;
             }
-            timerImageLoad = $timeout((function(messageId) {
+            timerImageLoad = $timeout((function(currentMessageId, messageId) {
               return function() {
                 // image item을 출력함
                 _load(messageId, imageMap[messageId]);
+
+                // 이전 image item이 출력되어 있다면 숨김
+                if (currentMessageId != null && imageMap[currentMessageId].jqElement) {
+                  imageMap[currentMessageId].jqElement.hide();
+                  imageMap[currentMessageId].jqElement.children('.image-item-footer').css('opacity', 0);
+                }
               };
-            }(messageId)), timerImageLoad == null ? 0 : 500);
+            }(currentMessageId, messageId)), timerImageLoad == null ? 0 : 500);
           }
 
           // 출력할 image item 이동 후 prev, next button 상태 설정
@@ -187,6 +188,17 @@
     });
 
     /**
+     * reset position
+     */
+    function resetPosition() {
+      var jqImageItem;
+
+      if (that.options.messageId != null && (jqImageItem = imageMap[that.options.messageId].jqElement)) {
+        _setPosition(jqImageItem);
+      }
+    }
+
+    /**
      * event 연결
      * @private
      */
@@ -198,11 +210,7 @@
       jqWindow.on('resize.imageCarousel', function() {
         $timeout.cancel(timerResize);
         timerResize = $timeout(function() {
-          var jqImageItem;
-
-          if (that.options.messageId != null && (jqImageItem = imageMap[that.options.messageId].jqElement)) {
-            _setPosition(jqImageItem);
-          }
+          resetPosition();
         }, 50);
       });
 
@@ -264,22 +272,31 @@
      */
     function _setPosition(jqImageItem, img) {
       // image를 정중앙에 출력할때 필요로 하는 여백
-      var ratio = [];
-      var margin = 56 * 2;
+      var margin = 56;
+      var isVertical;
+      var ratio;
 
-      var maxWidth = jqViewerBody.width() - margin;
-      var maxHeight = jqViewerBody.height() - margin;
+      var maxWidth = jqViewerBody.width() - margin * 2;
+      var maxHeight = jqViewerBody.height() - margin * 2;
       var imageWidth;
       var imageHeight;
-      var marginLeft;
-      var marginTop;
-      var minWidth;
-      var minHeight;
+
+      var top;
+      var height;
+      var left;
+      var width;
       var lineHeight;
 
       img = img ? $(img) : jqImageItem.children(':first-child');
       imageWidth = parseInt(img[0].getAttribute('width'), 10);
       imageHeight = parseInt(img[0].getAttribute('height'), 10);
+
+      if (img.is('.rotate-90, .rotate-270')) {
+        isVertical = true;
+        ratio = imageHeight;
+        imageHeight = imageWidth;
+        imageWidth = ratio;
+      }
 
       if (maxWidth < imageWidth || maxHeight < imageHeight) {
         // maxWidth, maxHeight 보다 imageWidth, imageHeight가 크다면 비율 조정 필요함.
@@ -293,28 +310,35 @@
       imageWidth = imageWidth * ratio;
       imageHeight = imageHeight * ratio;
 
-      // image item element가 가질 수 있는 최소 size
-      minWidth = imageWidth < MIN_WIDTH ? MIN_WIDTH : imageWidth;
-      minHeight = imageHeight < MIN_HEIGHT ? MIN_HEIGHT : imageHeight;
-
-      if (maxWidth < MIN_WIDTH) {
-        marginLeft = maxWidth / 2 * -1;
-        minWidth = maxWidth;
+      if (imageWidth < MIN_WIDTH) {
+        left = Math.round((maxWidth - MIN_WIDTH) / 2) + margin;
+        width = MIN_WIDTH;
       } else {
-        marginLeft = minWidth / 2 * -1;
-        minWidth = MIN_WIDTH;
+        left = Math.round((maxWidth - imageWidth) / 2) + margin;
+        width = imageWidth;
       }
-      if (maxHeight < MIN_HEIGHT) {
-        marginTop = maxHeight / 2 * -1;
-        minHeight = maxHeight;
-        lineHeight = maxHeight + 'px';
-      } else {
-        marginTop = minHeight / 2 * -1;
-        minHeight = MIN_HEIGHT;
+      if (imageHeight < MIN_HEIGHT) {
+        top = Math.round((maxHeight - MIN_HEIGHT) / 2) + margin;
+        height = MIN_HEIGHT;
         lineHeight = MIN_HEIGHT + 'px';
+      } else {
+        top = Math.round((maxHeight - imageHeight) / 2) + margin;
+        height = imageHeight;
       }
 
-      jqImageItem.css({marginLeft: marginLeft, marginTop: marginTop, minWidth: minWidth, minHeight: minHeight, lineHeight: lineHeight});
+      jqImageItem.css({
+        left: left,
+        width: width,
+        top: top,
+        height: height,
+        lineHeight: lineHeight
+      });
+
+      if (isVertical) {
+        ratio = imageHeight;
+        imageHeight = imageWidth;
+        imageWidth = ratio;
+      }
       img.css({maxWidth: imageWidth, maxHeight: imageHeight});
     }
 
@@ -450,9 +474,8 @@
 
         $scope = $rootScope.$new(true);
 
-        that.options.onRender($scope, that.options.messageId, imageItem);
+        that.options.onRender($scope, that.options.messageId, imageItem, $rootScope);
         jqImageItem = $($compile(that.options.imageItemTemplate)($scope));
-        jqImageItem.css({marginLeft: MIN_WIDTH / 2 * -1, marginTop: MIN_HEIGHT / 2 * -1});
 
         jqImageList.append(jqImageItem[0]);
 
