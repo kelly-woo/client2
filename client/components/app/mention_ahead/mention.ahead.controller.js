@@ -14,8 +14,8 @@
     var $originScope;
     var $scope;
     var $model;
-    ///(?:(?:^|\s)(?:[\[]?)([@\uff20]((?:[^\uffff]|[.,+*?$|#{}()\^\-\[\]\\/!%'"~=<>_:;][^\uffff]){0,30})))$/i
-    var regxTextMentionMark = /(?:(?:^|\s)(?:[\[]?)([@\uff20]((?:[^ ]|[.,+*?$|#{}()\^\-\[\]\\/!%'"~=<>_:;][^ ]){0,30})))$/;
+    ///(?:(?:^|\s)(?:[\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/i
+    var regxTextMentionMark = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
     var rStrMention = '(?:^|\s)(?:[@\uff20])([^@\uff20 ]{0,30})';
 
     that.init = init;
@@ -27,6 +27,8 @@
 
     that.setMentionLive = setMentionLive;
     that.hasMentionLive = hasMentionLive;
+
+    that.isShowMentionAhead = isShowMentionAhead;
     that.showMentionAhead = showMentionAhead;
 
     function init(originScope, mentionScope, mentionTarget, jqEle) {
@@ -85,17 +87,8 @@
       $scope._value = value;
     }
 
-    function getMentions() {
-      var regxMention = new RegExp(rStrMention, 'g');
-      var value = getValue();
-      var mention;
-
-      console.log('getMention ::: ', value);
-      while(regxMention.exec(value)) {
-        mention = RegExp.$1;
-
-        console.log('mention ::: ', mention);
-      }
+    function isShowMentionAhead() {
+      return $model.$viewValue !== null;
     }
 
     function setMentionLive() {
@@ -120,14 +113,14 @@
     }
 
     function hasMentionLive() {
-      return !!$scope.mention;
+      return $model.$viewValue !== null;
     }
 
     function showMentionAhead() {
       var mention = $scope.mention;
 
       if (mention) {
-        $model.$setViewValue(mention.match[1]);
+        $model.$setViewValue(mention.match[2]);
       } else {
         $model.$setViewValue(null);
       }
@@ -136,7 +129,7 @@
     function onSelect() {
       var mention = $scope.mention;
       var match = mention.match;
-      var mentionTarget = '[@' + $scope.mentionModel.name + ']';
+      var mentionTarget = '[@' + $scope.mentionModel.name + '] ';
       var selection;
       var text;
 
@@ -144,7 +137,9 @@
       text = mention.preStr.replace(new RegExp(match[1] + '$'), mentionTarget) + mention.sufStr;
 
       $scope.jqEle.val(text);
+      setValue(text);
       _selection(selection);
+      $model.$setViewValue(null);
     }
 
     function _selection(begin, end) {
@@ -163,5 +158,21 @@
         };
       }
     }
+
+
+
+    function getMentions() {
+      var regxMention = new RegExp(rStrMention, 'g');
+      var value = getValue();
+      var mention;
+
+      console.log('getMention ::: ', value);
+      while(regxMention.exec(value)) {
+        mention = RegExp.$1;
+
+        console.log('mention ::: ', mention);
+      }
+    }
+
   }
 }());

@@ -17,6 +17,7 @@ app.directive('jndElastic', function($timeout, Browser, jndPubSub) {
     var _height;
     var _defaultHeight;
     var _maxHeight;
+    var _minHeight;
     var _paddingVertical;
     var _paddingHorizontal;
 
@@ -79,6 +80,7 @@ app.directive('jndElastic', function($timeout, Browser, jndPubSub) {
       });
 
       _maxHeight = parseInt(el.css('maxHeight'), 10);
+      _minHeight = parseInt(el.css('minHeight'), 10);
       _paddingVertical = parseInt(el.css('paddingBottom'), 10) + parseInt(el.css('paddingTop'), 10);
       _paddingHorizontal = parseInt(el.css('paddingLeft'), 10) + parseInt(el.css('paddingRight'), 10);
 
@@ -120,6 +122,8 @@ app.directive('jndElastic', function($timeout, Browser, jndPubSub) {
       height = _jqMirror[0].scrollHeight;
       if (_maxHeight !== 0 && _maxHeight < height) {
         height = _maxHeight;
+      } else if (_minHeight !== 0 && _minHeight > height) {
+
       } else if (height < _defaultHeight) {
         height = _defaultHeight;
       }
@@ -136,7 +140,7 @@ app.directive('jndElastic', function($timeout, Browser, jndPubSub) {
      */
     function _onChange(keyEvent) {
       $timeout.cancel(_resizeTimer);
-      _resizeTimer = $timeout(_resize, 10);
+      _resizeTimer = $timeout(_resize, 50);
     }
   }
 });
