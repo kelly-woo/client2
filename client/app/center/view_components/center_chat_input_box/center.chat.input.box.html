@@ -19,6 +19,7 @@
       </ul>
     </div>
   </div>
+
   <div id="messages-input-container">
 
       <sticker-layer name="chat"></sticker-layer>
@@ -35,7 +36,8 @@
                     placeholder="{{::'@placeholder-input-message' | translate }}"
                     ng-keyup="onKeyUp($event);"
                     ng-keydown="onKeyDown($event);"
-                    jnd-elastic></textarea>
+                    jnd-elastic
+                    mention-ahead></textarea>
       </form>
       </div>
 
