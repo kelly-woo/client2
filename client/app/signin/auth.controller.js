@@ -15,8 +15,6 @@
 
 
     (function(){
-      publicService.hideTransitionLoading();
-
       // Handling users with token info in localstorage.
       // Move token info from 'local Storage' -> to 'Cookie'
       if (storageAPIservice.hasAccessTokenLocal()) {
@@ -36,33 +34,31 @@
       }
 
 
-      if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) return;
+      if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) {
+        publicService.hideTransitionLoading();
+      } else {
+        // Auto sign-in using cookie.
+        accountService.getAccountInfo()
+          .success(function(response) {
+            //console.log('got account info')
+            accountService.setAccount(response);
 
-      // Auto sign-in using cookie.
-      jndPubSub.showLoading();
+            publicService.setLanguageConfig();
 
+            analyticsService.accountIdentifyMixpanel(response);
+            analyticsService.accountMixpanelTrack("Sign In");
 
-      accountService.getAccountInfo()
-        .success(function(response) {
-          //console.log('got account info')
-          accountService.setAccount(response);
+            getCurrentMember();
+          })
+          .error(function(err) {
+            //console.log('error on getAccountinfo from authController');
+            storageAPIservice.removeLocal();
+            storageAPIservice.removeSession();
+            storageAPIservice.removeCookie();
 
-          publicService.setLanguageConfig();
-
-          analyticsService.accountIdentifyMixpanel(response);
-          analyticsService.accountMixpanelTrack("Sign In");
-
-          getCurrentMember();
-        })
-        .error(function(err) {
-          //console.log('error on getAccountinfo from authController');
-          storageAPIservice.removeLocal();
-          storageAPIservice.removeSession();
-          storageAPIservice.removeCookie();
-
-          jndPubSub.hideLoading();
-
-        });
+            jndPubSub.hideLoading();
+          });
+      }
     })();
 
     function getCurrentMember(memberId) {
