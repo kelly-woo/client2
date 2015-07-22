@@ -5,9 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('TutorialEntityHeaderCtrl', TutorialEntityHeaderCtrl);
 
-  app.controller('tutorialEntityHeaderCtrl', function ($scope, TutorialEntity) {
+  function TutorialEntityHeaderCtrl($scope, TutorialEntity) {
 
     _init();
 
@@ -18,5 +20,5 @@
     function _init() {
       $scope.entity = TutorialEntity.get();
     }
-  });
+  }
 })();

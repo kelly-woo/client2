@@ -138,7 +138,7 @@
         .state('tutorial', {
           url: '/tutorial?start',
           templateUrl: 'app/tutorial/popup/tutorial.main.html',
-          controller: 'tutorialMainCtrl'
+          controller: 'TutorialMainCtrl'
         })
         .state('tutorial.team', {
           abstract: true,
@@ -148,7 +148,7 @@
         .state('tutorial.team.invitation', {
           url: '/invitation',
           templateUrl: 'app/tutorial/popup/view_components/lecture/team/invitation/lecture.team.invitation.html',
-          controller: 'lectureTeamInvitationCtrl'
+          controller: 'LectureTeamInvitationCtrl'
         })
         .state('tutorial.topic', {
           abstract: true,
@@ -158,17 +158,17 @@
         .state('tutorial.topic.create', {
           url: '/create',
           templateUrl: 'app/tutorial/popup/view_components/lecture/topic/create/lecture.topic.create.html',
-          controller: 'lectureTopicCreateCtrl'
+          controller: 'LectureTopicCreateCtrl'
         })
         .state('tutorial.topic.join', {
           url: '/join',
           templateUrl: 'app/tutorial/popup/view_components/lecture/topic/join/lecture.topic.join.html',
-          controller: 'lectureTopicJoinCtrl'
+          controller: 'LectureTopicJoinCtrl'
         })
         .state('tutorial.topic.leave', {
           url: '/leave',
           templateUrl: 'app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html',
-          controller: 'lectureTopicLeaveCtrl'
+          controller: 'LectureTopicLeaveCtrl'
         })
         .state('tutorial.file', {
           abstract: true,
@@ -178,12 +178,12 @@
         .state('tutorial.file.comment', {
           url: '/comment',
           templateUrl: 'app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html',
-          controller: 'lectureFileCommentCtrl'
+          controller: 'LectureFileCommentCtrl'
         })
         .state('tutorial.file.upload', {
           url: '/upload',
           templateUrl: 'app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html',
-          controller: 'lectureFileUploadCtrl'
+          controller: 'LectureFileUploadCtrl'
         })
         .state('tutorial.dm', {
           abstract: true,
@@ -193,7 +193,7 @@
         .state('tutorial.dm.send', {
           url: '/send',
           templateUrl: 'app/tutorial/popup/view_components/lecture/dm/send/lecture.dm.send.html',
-          controller: 'lectureDmSendCtrl'
+          controller: 'LectureDmSendCtrl'
         })
         .state('tutorial.profile', {
           abstract: true,
@@ -203,7 +203,7 @@
         .state('tutorial.profile.change', {
           url: '/change',
           templateUrl: 'app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html',
-          controller: 'lectureProfileChangeCtrl'
+          controller: 'LectureProfileChangeCtrl'
         })
         .state('tutorial.menu', {
           abstract: true,
@@ -213,12 +213,12 @@
         .state('tutorial.menu.team', {
           url: '/team',
           templateUrl: 'app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html',
-          controller: 'lectureMenuTeamCtrl'
+          controller: 'LectureMenuTeamCtrl'
         })
         .state('tutorial.menu.help', {
           url: '/help',
           templateUrl: 'app/tutorial/popup/view_components/lecture/menu/help/lecture.menu.help.html',
-          controller: 'lectureMenuHelpCtrl'
+          controller: 'LectureMenuHelpCtrl'
         });
     }
   });

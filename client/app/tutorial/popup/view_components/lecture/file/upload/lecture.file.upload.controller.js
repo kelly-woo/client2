@@ -5,10 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('LectureFileUploadCtrl', LectureFileUploadCtrl);
 
-  app.controller('lectureFileUploadCtrl', function ($scope, $filter, $rootScope, jndPubSub, TutorialTutor, TutorialAccount,
-                                                    TutorialMessages, TutorialEntity) {
+  function LectureFileUploadCtrl($scope, $filter, jndPubSub, TutorialTutor, TutorialAccount, TutorialMessages) {
     var TOTAL_STEP = 3;
     var _tutorDataList;
     var _purseDataList;
@@ -141,5 +142,5 @@
     function _postFile() {
       TutorialMessages.append(TutorialMessages.getBaseMessage('file'));
     }
-  });
+  }
 })();

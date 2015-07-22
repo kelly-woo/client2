@@ -5,9 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('TutorialModalProfileCtrl', TutorialModalProfileCtrl);
 
-  app.controller('tutorialModalProfileCtrl', function ($scope, $filter, TutorialAccount) {
+  function TutorialModalProfileCtrl($scope, $filter, TutorialAccount) {
     _init();
 
     /**
@@ -21,5 +23,5 @@
         $scope.profileUrl = $filter('getFileUrl')($scope.curUser.u_photoThumbnailUrl.mediumThumbnailUrl);
       });
     }
-  });
+  }
 })();

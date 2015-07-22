@@ -5,9 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('TutorialWelcomeCtrl', TutorialWelcomeCtrl);
 
-  app.controller('tutorialWelcomeCtrl', function ($scope, $filter, accountService, TutorialAPI, Popup) {
+  function TutorialWelcomeCtrl($scope, $filter, accountService, TutorialAPI, Popup) {
 
     $scope.isComplete = true;
     $scope.completedStep = -1;
@@ -119,5 +121,5 @@
     function _onDestroy() {
       hide();
     }
-  });
+  }
 })();

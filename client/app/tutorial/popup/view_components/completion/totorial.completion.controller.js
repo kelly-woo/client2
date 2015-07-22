@@ -5,9 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('TutorialCompletionCtrl', TutorialCompletionCtrl);
 
-  app.controller('tutorialCompletionCtrl', function ($scope, $rootScope, $filter, jndPubSub, TutorialAccount) {
+  function TutorialCompletionCtrl($scope, $filter, TutorialAccount) {
 
     _init();
 
@@ -35,5 +37,5 @@
     function _translate(key) {
       return $filter('translate')(key);
     }
-  });
+  }
 })();

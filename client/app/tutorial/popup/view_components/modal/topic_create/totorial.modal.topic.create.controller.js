@@ -5,9 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('TutorialModalTopicCreateCtrl', TutorialModalTopicCreateCtrl);
 
-  app.controller('tutorialModalTopicCreateCtrl', function ($scope, $rootScope, $state, jndPubSub, jndKeyCode) {
+  function TutorialModalTopicCreateCtrl($scope, jndPubSub, jndKeyCode) {
     $scope.onClickCreate = onClickCreate;
     $scope.entityName = '';
     $scope.onKeyDown = onKeyDown;
@@ -48,5 +50,5 @@
         jndPubSub.pub('tutorial:createTopic', entityName);
       }
     }
-  });
+  }
 })();

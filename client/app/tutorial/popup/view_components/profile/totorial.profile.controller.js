@@ -5,9 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('TutorialProfileCtrl', TutorialProfileCtrl);
 
-  app.controller('tutorialProfileCtrl', function ($scope, $rootScope, $state, $filter, TutorialAccount) {
+  function TutorialProfileCtrl($scope, $filter, TutorialAccount) {
 
     _init();
 
@@ -24,5 +26,5 @@
         $scope.profileUrl = $filter('getFileUrl')(account.u_photoThumbnailUrl.smallThumbnailUrl);
       });
     }
-  });
+  }
 })();

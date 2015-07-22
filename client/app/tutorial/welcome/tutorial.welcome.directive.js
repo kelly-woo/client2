@@ -13,7 +13,7 @@
       link: link,
       replace: true,
       templateUrl: 'app/tutorial/welcome/tutorial.welcome.html',
-      controller: 'tutorialWelcomeCtrl',
+      controller: 'TutorialWelcomeCtrl',
       restrict: 'E'
     };
 

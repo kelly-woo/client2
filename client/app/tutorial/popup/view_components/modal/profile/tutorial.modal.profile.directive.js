@@ -12,7 +12,7 @@
     return {
       link: link,
       replace: true,
-      controller: 'tutorialModalProfileCtrl',
+      controller: 'TutorialModalProfileCtrl',
       templateUrl: 'app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html'
     };
 

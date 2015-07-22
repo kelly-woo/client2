@@ -5,10 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('LectureTeamInvitationCtrl', LectureTeamInvitationCtrl);
 
-  app.controller('lectureTeamInvitationCtrl', function ($scope, $rootScope, $filter, jndPubSub, TutorialTutor,
-                                                        TutorialAccount) {
+  function LectureTeamInvitationCtrl($scope, $filter, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
     var _purseDataList;
@@ -126,5 +127,5 @@
      */
     function _onDestroy() {
     }
-  });
+  }
 })();

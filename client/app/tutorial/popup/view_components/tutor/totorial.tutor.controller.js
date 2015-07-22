@@ -5,9 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('TutorialTutorCtrl', TutorialTutorCtrl);
 
-  app.controller('tutorialTutorCtrl', function ($scope, $rootScope, jndPubSub, TutorialTutor) {
+  function TutorialTutorCtrl($scope, jndPubSub, TutorialTutor) {
     var MAX_STEP_COUNT = 10;
     $scope.onClickNext = onClickNext;
     $scope.onClickSkip = onClickSkip;
@@ -45,5 +47,5 @@
     function onClickMove(index) {
       jndPubSub.pub('tutorial:go', index);
     }
-  });
+  }
 })();

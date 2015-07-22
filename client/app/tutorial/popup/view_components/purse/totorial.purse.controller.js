@@ -5,13 +5,15 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('TutorialPurseCtrl', TutorialPurseCtrl);
 
-  app.controller('tutorialPurseCtrl', function ($scope, jndPubSub) {
+  function TutorialPurseCtrl($scope, jndPubSub) {
     $scope.onClickPurse = onClickPurse;
 
     function onClickPurse() {
       jndPubSub.pub('tutorial:purseClicked');
     }
-  });
+  }
 })();

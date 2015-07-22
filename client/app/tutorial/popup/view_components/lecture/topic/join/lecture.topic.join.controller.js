@@ -5,9 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('LectureTopicJoinCtrl', LectureTopicJoinCtrl);
 
-  app.controller('lectureTopicJoinCtrl', function ($scope, $rootScope, $filter, jndPubSub, TutorialTutor, TutorialAccount) {
+  function LectureTopicJoinCtrl($scope, $filter, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 2;
     var _tutorDataList;
     var _purseDataList;
@@ -106,5 +108,5 @@
       }
       $scope.step = step;
     }
-  });
+  }
 })();

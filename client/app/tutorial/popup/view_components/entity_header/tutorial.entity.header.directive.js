@@ -14,7 +14,7 @@
       scope: false,
       replace: true,
       templateUrl: 'app/tutorial/popup/view_components/entity_header/tutorial.entity.header.html',
-      controller: 'tutorialEntityHeaderCtrl',
+      controller: 'TutorialEntityHeaderCtrl',
       restrict: 'E'
     };
 

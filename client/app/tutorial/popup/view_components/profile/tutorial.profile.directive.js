@@ -14,7 +14,7 @@
       scope: false,
       replace: true,
       templateUrl: 'app/tutorial/popup/view_components/profile/tutorial.profile.html',
-      controller: 'tutorialProfileCtrl',
+      controller: 'TutorialProfileCtrl',
       restrict: 'E'
     };
 

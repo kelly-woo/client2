@@ -14,7 +14,7 @@
       scope: {
         options: '=options'
       },
-      controller: 'tutorialPurseCtrl',
+      controller: 'TutorialPurseCtrl',
       templateUrl: 'app/tutorial/popup/view_components/purse/tutorial.purse.html',
       restrict: 'E'
     };

@@ -5,10 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('LectureFileCommentCtrl', LectureFileCommentCtrl);
 
-  app.controller('lectureFileCommentCtrl', function ($scope, $rootScope, $filter, jndPubSub, jndKeyCode, TutorialTutor,
-                                                     TutorialAccount) {
+  function LectureFileCommentCtrl($scope, $filter, jndPubSub, jndKeyCode, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 4;
     var _tutorDataList;
     var _purseDataList;
@@ -195,5 +196,5 @@
       }
       $scope.step = step;
     }
-  });
+  }
 })();

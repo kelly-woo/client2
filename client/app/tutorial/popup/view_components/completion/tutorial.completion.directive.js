@@ -13,7 +13,7 @@
       link: link,
       replace: true,
       templateUrl: 'app/tutorial/popup/view_components/completion/tutorial.completion.html',
-      controller: 'tutorialCompletionCtrl',
+      controller: 'TutorialCompletionCtrl',
       restrict: 'E'
     };
 

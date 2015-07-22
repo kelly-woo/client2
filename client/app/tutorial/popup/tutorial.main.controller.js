@@ -5,11 +5,12 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('TutorialMainCtrl', TutorialMainCtrl);
 
-  app.controller('tutorialMainCtrl', function ($scope, $rootScope, $state, $urlRouter, accountService,
-                                               currentSessionHelper, TutorialTutor, TutorialAccount, TutorialTopics,
-                                               TutorialDm, TutorialAPI, Popup) {
+  function TutorialMainCtrl($scope, $rootScope, $state, TutorialTutor, TutorialAccount, TutorialTopics, TutorialDm,
+                            TutorialAPI, Popup) {
     var _isComplete;
     var _topicList;
     var _dmList;
@@ -380,5 +381,5 @@
       $('#client-ui').addClass('full-screen');
       _detachDomEvents();
     }
-  });
+  }
 })();

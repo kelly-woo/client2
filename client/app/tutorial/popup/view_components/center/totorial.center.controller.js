@@ -5,10 +5,11 @@
 (function() {
   'use strict';
 
-  var app = angular.module('jandiApp');
+  angular
+    .module('jandiApp')
+    .controller('TutorialCenterCtrl', TutorialCenterCtrl);
 
-  app.controller('tutorialCenterCtrl', function ($scope, $rootScope, $state, $filter, TutorialMessages,
-                                                 TutorialAccount) {
+  function TutorialCenterCtrl($scope, $filter, TutorialMessages, TutorialAccount) {
 
     _init();
 
@@ -26,5 +27,5 @@
         $scope.messages = TutorialMessages.get();
       });
     }
-  });
+  }
 })();
