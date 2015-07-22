@@ -335,7 +335,7 @@
         _save($scope.currentStep, true);
         $scope.isShowComplete = true;
       } else if (_lectureList[nextStep]) {
-        _save($scope.currentStep, true);
+        _save($scope.currentStep, _isComplete);
         $scope.currentStep = nextStep;
         $state.go(_lectureList[$scope.currentStep]);
       }
@@ -350,12 +350,14 @@
     function _save(step, isComplete) {
       isComplete = !!isComplete || false;
 
-      if (isComplete || !_isComplete) {
-        if (step <= $scope.currentStep && $scope.completedStep < $scope.currentStep) {
-          $scope.completedStep = parseInt(step, 10);
-          TutorialAPI.set(step,  isComplete);
-        }
+      if (step <= $scope.currentStep && $scope.completedStep < $scope.currentStep) {
+        $scope.completedStep = parseInt(step, 10);
+        TutorialAPI.set(step,  isComplete);
+      } else if (isComplete !== _isComplete) {
+        _isComplete = isComplete;
+        TutorialAPI.set($scope.completedStep,  _isComplete);
       }
+
     }
 
     /**

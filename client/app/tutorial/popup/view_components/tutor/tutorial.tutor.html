@@ -29,7 +29,7 @@
               'on': current === $index
             }">
           <div ng-if="$index < stepList.length - 1" class="tutorial_tutor_progress_bar" ng-class="{
-            'complete': ($index < completed || (index === completed && $index < current)) && $index < stepList.length
+            'complete': ($index < completed || ($index === completed && $index < current)) && $index < stepList.length
           }"></div>
           <span class='tutorial_tutor_step_num' ng-click="onClickMove($index);">{{ $index + 1 }}</span>
         </div>
