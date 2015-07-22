@@ -28,9 +28,6 @@
       }
     };
 
-    var array = [];
-    var slice = array.slice;
-
     /**
      * get selection
      */
@@ -397,8 +394,7 @@
 
           cData = evt.clipboardData;
 
-        items = slice.call(cData.items || cData.files);
-        $.each(items, function(index, value) {
+        _.forEach(cData.items || cData.files, function(value) {
           if (regxImage.test(value.type)) {
             hasImage = true;
           } else if (regxPlainText.test(value.type)) {
