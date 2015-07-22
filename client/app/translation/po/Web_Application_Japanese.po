@@ -1149,7 +1149,7 @@ msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_click_list"
-msgstr ""
+msgstr "\"+\" ボタンをクリックして1:1メッセージを始めましょう。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_post"
@@ -1209,8 +1209,7 @@ msgstr "成功！"
 msgid "@tutorial_help_remember"
 msgstr ""
 "そして気になる点やご質問あれば、いつでもこちらをクリックしてくださ"
-"い。그리고 더 궁금한 점이나 도움이 필요하시면 언제라도 이 곳을 클릭하"
-"시면 됩니다."
+"い。"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_click_title"

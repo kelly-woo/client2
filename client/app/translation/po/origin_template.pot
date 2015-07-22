@@ -201,6 +201,7 @@ msgid "@channel"
 msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
 #: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@common_skip_all"
 msgstr ""
@@ -1108,10 +1109,6 @@ msgstr ""
 msgid "@tutorial_dm_try"
 msgstr ""
 
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_explore_jandi"
-msgstr ""
-
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_comment"
 msgstr ""
@@ -1129,6 +1126,7 @@ msgid "@tutorial_file_download_desc"
 msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_get_started"
 msgstr ""
 
