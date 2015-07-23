@@ -31,7 +31,7 @@
        * @private
        */
       function _init() {
-        _delay = $scope.delay || DEFAULT_DELAY;
+        _delay = scope.delay || DEFAULT_DELAY;
         _messages = scope.animateText;
         el.text(_messages[_index]);
         _attachEvents();
