@@ -448,13 +448,13 @@ app.controller('leftPanelController1', function(
     //  Separating 'channel' and 'privateGroup'.
     //  joinedChannelList   - List of joined channels.
     //  privateGroupList    - List of joined private groups.
-    var joindData = leftpanelAPIservice.getJoinedChannelData($scope.joinEntities);
+    var joinedData = leftpanelAPIservice.getJoinedChannelData($scope.joinEntities);
 
     // memberList         - List of all users except myself.
     // totalChannelList - All channels including both 'joined' and 'not joined'
     var generalData = leftpanelAPIservice.getGeneralData($scope.totalEntities, $scope.joinEntities, memberService.getMemberId());
 
-    _.extend($scope, generalData, joindData);
+    _.extend($scope, generalData, joinedData);
 
     //$scope.memberList           = generalData.memberList;
     //$scope.memberMap           = generalData.memberMap;
@@ -498,11 +498,12 @@ app.controller('leftPanelController1', function(
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
     }
-
     $rootScope.$broadcast('onInitLeftListDone');
-    _getCachedMessaged();
   }
 
+
+
+  _getCachedMessaged();
 
   /**
    * 읽지않은 메세지가 있는 토픽에한해서 메세지를 우선적으로 가져온다.
@@ -521,16 +522,19 @@ app.controller('leftPanelController1', function(
    * @private
    */
   function _onGetMessagesSuccess(response) {
-    console.log(response)
-
     _.each(response, function(unreadTopic) {
+      if (unreadTopic.entityId === 11162232) {
+        console.log(unreadTopic.messages)
+      }
       var _param = {
         list: unreadTopic.messages,
-        lastMessageId: unreadTopic.lastLinkId,
+        lastLinkId: unreadTopic.lastLinkId,
+        unreadCount: unreadTopic.unreadCount,
         hasProcessed: false
       };
 
       TopicMessageCache.put(unreadTopic.entityId, _param);
+      memberService.setLastReadMessageMarker(unreadTopic.entityId, unreadTopic.lastLinkId);
     });
   }
 

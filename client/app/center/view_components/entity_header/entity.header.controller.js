@@ -13,10 +13,7 @@
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
                             publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache) {
 
-    console.log('');
-    console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
-    console.log('');
-
+    //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
 
     var _entityId = $state.params.entityId;
     var _entityType = $state.params.entityType;

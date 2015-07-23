@@ -16,6 +16,9 @@
     // 현재 멤버의 announcement 정보를 {entityId:value} 로 가지고 있다
     var announcementOpenStatusMap = {};
 
+    // 현재 멤버의 marker 정보를 {entityId: marker} 로 가지고 있다.
+    var lastMessageReadMarkerMap = {};
+
     var currentMember;
 
     var service = {
@@ -59,7 +62,11 @@
 
       isAnnouncementOpen: isAnnouncementOpen,
       removeAnnouncementStatus: removeAnnouncementStatus,
-      updateAnnouncementStatus: updateAnnouncementStatus
+      updateAnnouncementStatus: updateAnnouncementStatus,
+
+      initLastReadMessageMarker: initLastReadMessageMarker,
+      setLastReadMessageMarker: setLastReadMessageMarker,
+      getLastReadMessageMarker: getLastReadMessageMarker
     };
 
 
@@ -116,8 +123,9 @@
       $rootScope.member = currentMember = member;
       storageAPIservice.setLastEmail(member.u_email);
       _setAnnouncementStatusMap(member.u_messageMarkers);
-      jndPubSub.pub('onCurrentMemberChanged');
+      initLastReadMessageMarker(member.u_messageMarkers);
 
+      jndPubSub.pub('onCurrentMemberChanged');
     }
 
     /**
@@ -391,6 +399,39 @@
      */
     function updateAnnouncementStatus(entityId, toBeValue) {
       announcementOpenStatusMap[entityId] = toBeValue
+    }
+
+
+    /**
+     * message markers를 가지고 있는 맵을 생성한다.
+     * @param {array} markers - 유저의 message markers list
+     */
+    function initLastReadMessageMarker(markers) {
+      _.forEach(markers, function(marker) {
+        setLastReadMessageMarker(marker.entityId, marker.lastLinkId);
+      });
+    }
+
+    /**
+     * 맵에 entityId - lastLinkId pair를 추가한다.
+     * @param {number} entityId - entity의 id
+     * @param {number} lastLinkId - 해당하는 entity의 유져가 가지고 있는 link의 id
+     */
+    function setLastReadMessageMarker(entityId, lastLinkId) {
+      lastMessageReadMarkerMap[entityId] = lastLinkId;
+    }
+
+    /**
+     * entityId에 해당하는 lastLinkId를 리턴한다.
+     * @param {number} entityId - 찾고싶은 entity의 id
+     * @returns {nubmer} - lastLinkId
+     */
+    function getLastReadMessageMarker(entityId) {
+      if (_.isUndefined(entityId)) {
+        return lastMessageReadMarkerMap;
+      } else {
+        return lastMessageReadMarkerMap[entityId];
+      }
     }
   }
 })();
