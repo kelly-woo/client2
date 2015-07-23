@@ -485,12 +485,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           _setChatInputFocus();
           $scope.isInitialLoadingCompleted = true;
 
-
-          // isReady 가 false 이면 아무런 컨텐트가 보이지 않는다.
-          // 이 부분은 center 의 initial load 가 guarantee 되는 공간이기때문에 처음에 불려졌을 때,
-          // isReady flag 를 true 로 바꿔준다!
-          publicService.hideTransitionLoading();
-
           _checkEntityMessageStatus();
 
           if (_.isEmpty(messagesList)) {
@@ -1335,6 +1329,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function onRepeatDone() {
     console.log('onRepeatDone');
     _updateScroll();
+    if (!$rootScope.isReady) {
+      $timeout(function () {
+        publicService.hideTransitionLoading();
+      }, 500);
+    }
   }
 
 
