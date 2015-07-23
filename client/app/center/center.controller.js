@@ -20,7 +20,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   // 처음에 center에 진입할 때, 현재 entityId가 가지고 있는 마지막으로 읽은 message marker를 불러온다.
   // message marker는 link id와 동일하다. message id 아님.
-  var _initialLastReadMessageMarker = memberService.getLastReadMessageMarker(entityId);
+  var _lastReadMessageMarker;
+  var _shouldDisplayBookmarkFlag = false;
+  var _shouldUpdateScrollToBookmark = false;
 
   var _isFromCachedData = false;
 
@@ -150,8 +152,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.message.content = TextBuffer.get();
 
     $scope.isInitialLoadingCompleted = false;
-
     $scope.currentEntity = currentSessionHelper.getCurrentEntity();
+
+    _lastReadMessageMarker = memberService.getLastReadMessageMarker(entityId);
 
     _initLocalVariables();
   }
@@ -414,23 +417,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _isFromCachedData = true;
     var _item = TopicMessageCache.get(entityId);
 
-
     $timeout(function() {
 
       if (!_item.hasProcessed) {
+        //MessageCollection.prependCachedItem(_item.list, _item.lastLinkId);
         MessageCollection.prepend(_item.list);
       } else {
         MessageCollection.setList(_item.list);
       }
 
+      $scope.messages = MessageCollection.list;
+
       lastMessageId = _item.lastMessageId;
       globalLastLinkId = _item.globalLastLinkId;
 
-      $scope.messages = MessageCollection.list;
       publicService.hideTransitionLoading();
       $scope.isInitialLoadingCompleted = true;
 
       TopicMessageCache.addValue(entityId, 'hasProcessed', true);
+
+      _updateUnreadBookmarkFlag();
+
       _getUpdatedList();
     });
   }
@@ -441,6 +448,29 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       .error(function(err) {
         console.log(err)
       });
+  }
+
+  function _onUpdatedMessagesSuccess(response) {
+    $timeout(function() {
+      if (!!response.updateInfo) {
+        console.log('okay!')
+
+        _shouldDisplayBookmarkFlag = true;
+        _shouldUpdateScrollToBookmark = true;
+
+        var updateInfo = response.updateInfo;
+
+        lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
+
+        MessageCollection.append(updateInfo.messages);
+
+        globalLastLinkId = response.lastLinkId;
+        updateMessageMarker();
+        _checkEntityMessageStatus();
+        MessageCollection.updateUnreadCount();
+      }
+    });
+
   }
 
   function loadMore() {
@@ -481,6 +511,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
           // When there are messages to update.
           if (messagesList.length) {
+            console.log
+            (messagesList)
             _messageProcessor(messagesList);
             //groupByDate();
           }
@@ -508,6 +540,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             // 모든 과정이 끝난 후, 메시지가 없으면 그냥 보여준다.
             _showContents();
           }
+
         })
         .error(function(response) {
           onHttpResponseError(response);
@@ -560,23 +593,28 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _hasLastMessage() {
-    console.log('what i have: ', MessageCollection.getLastLinkId())
-    console.log('lastMessageId ', lastMessageId)
     return MessageCollection.getLastLinkId() == lastMessageId;
   }
 
   function _updateScroll() {
+    console.log('updatescroll')
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
       MessageQuery.clearSearchLinkId();
     } else if(_isInitialLoad()) {
+      console.log('::initial');
       _onInitialLoad();
-
     } else if (_isLoadingNewMessages()) {
+      console.log('::loading new')
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
     } else if (_isLoadingOldMessages()) {
+      console.log('::loading old')
       _disableScroll();
       _findMessageDomElementById(loadedFirstMessageId);
+    } else if (_shouldUpdateScrollToBookmark) {
+      console.log('::_shouldUpdateScrollToBookmark')
+      _toBookmark();
+      _shouldUpdateScrollToBookmark = false;
     } else if (MessageCollection.getQueue().length > 0) {
       _scrollToBottom();
     }
@@ -584,35 +622,50 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _onInitialLoad() {
-    console.log('messageCollection has ', MessageCollection.getLastLinkId(), ' and ' , _initialLastReadMessageMarker);
+    console.log('messageCollection has ', MessageCollection.getLastLinkId(), ' and ' , _lastReadMessageMarker);
 
-    if (!!_initialLastReadMessageMarker && _initialLastReadMessageMarker === MessageCollection.getLastLinkId()) {
-      console.log('same! scroll to bottom');
-      _scrollToBottom();
+    _updateUnreadBookmarkFlag();
+
+    if (_shouldDisplayBookmarkFlag) {
+      console.log('to bookmark!');
+      $timeout(function() {
+        _findMessageDomElementById('unread-bookmark');
+      });
+
     } else {
-      console.log('not same!');
-      _insertUnreadBookmark();
-      _findMessageDomElementById(_initialLastReadMessageMarker);
+      console.log('scroll to bottom');
+      _scrollToBottom();
     }
 
     loadedFirstMessageId = MessageCollection.getFirstLinkId();
   }
 
-  function _insertUnreadBookmark() {
-    console.log('inserting bookmark after ', _initialLastReadMessageMarker);
-
+  function _toBookmark() {
+    _animateBackgroundColor($('#unread-bookmark'));
+    $('#msgs-container').animate({scrollTop: $('#msgs-container').scrollTop() + 300}, 328, 'swing', function() {
+      _resetNewMsgHelpers();
+    });
   }
-  function _findMessageDomElementById(id) {
-    var jqTarget = $('#'+ id);
-    var targetScrollTop;
-    targetScrollTop = jqTarget.offset().top - $('#msgs-container').offset().top;
-    if (Announcement.isOpened()) {
-      targetScrollTop -= $('announcement:first > div:first').outerHeight();
-    }
 
-    _animateBackgroundColor(jqTarget);
-    _showContents();
-    $('#msgs-container')[0].scrollTop = targetScrollTop;
+  function _findMessageDomElementById(id) {
+    console.log(id)
+    var jqTarget = $('#'+id);
+    console.log(jqTarget)
+
+    var targetScrollTop;
+    if (_.isUndefined(jqTarget.offset())) {
+      _scrollToBottom(true);
+    } else {
+      targetScrollTop = jqTarget.offset().top - $('#msgs-container').offset().top;
+
+      if (Announcement.isOpened()) {
+        targetScrollTop -= $('announcement:first > div:first').outerHeight();
+      }
+
+      $('#msgs-container').scrollTop(targetScrollTop);
+      _animateBackgroundColor(jqTarget);
+      _showContents();
+    }
   }
 
   function _scrollToBottom(isPromptly) {
@@ -695,7 +748,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isPolling = true;
     //todo: deprecated 되었으므로 해당 API 제거해야함
     messageAPIservice.getUpdatedMessages(entityType, entityId, globalLastLinkId)
-      .success(_onUpdatedMessagesSuccess)
+      .success(_onUpdateListSuccess)
       .error(function (response) {
         onHttpResponseError(response);
       })
@@ -712,22 +765,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @param {object} response 서버 응답
    * @private
    */
-  function _onUpdatedMessagesSuccess(response) {
+  function _onUpdateListSuccess(response) {
+
     var updateInfo = response.updateInfo;
+    if (!_.isUndefined(updateInfo)) {
 
-    globalLastLinkId = response.lastLinkId;
-    updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
+      globalLastLinkId = response.lastLinkId;
+      updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
 
-    if (updateInfo.messageCount) {
-      // 업데이트 된 메세지 처리
-      _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
-      //  marker 설정
-      updateMessageMarker();
-      _checkEntityMessageStatus();
-      MessageCollection.updateUnreadCount();
-      lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
-      jndPubSub.pub('onMessageDeleted');
+      if (updateInfo.messageCount) {
+
+        // 업데이트 된 메세지 처리
+        _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
+        //  marker 설정
+        updateMessageMarker();
+        _checkEntityMessageStatus();
+        MessageCollection.updateUnreadCount();
+        lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
+        jndPubSub.pub('onMessageDeleted');
+      }
     }
+
   }
 
   /**
@@ -1492,4 +1550,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   }
 
+  $scope.isLastReadMarker = isLastReadMarker;
+
+  function isLastReadMarker(linkId) {
+    return linkId === _lastReadMessageMarker && shouldDisplayUnreadMarker(linkId);
+  }
+
+
+  function shouldDisplayUnreadMarker(linkId) {
+    //return _shouldDisplayBookmarkFlag;
+    return linkId !== MessageCollection.getLastLinkId() && _shouldDisplayBookmarkFlag;
+  }
+
+  function setUnreadBookmarkFlag(value) {
+    _shouldDisplayBookmarkFlag = value;
+  }
+
+  function _updateUnreadBookmarkFlag() {
+    if (_lastReadMessageMarker !== MessageCollection.getLastLinkId()) {
+      setUnreadBookmarkFlag(true);
+    } else {
+      setUnreadBookmarkFlag(false);
+    }
+  }
 });

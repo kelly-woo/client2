@@ -23,7 +23,7 @@
       <span ng-if="msg.message.contentType !== 'sticker'"
             class="keep msg-text-body"
             data-ng-bind-html="(msg.message.content.body) || ''"></span>
-      {{msg.id}}
+      ({{msg.id}})
       <span class="msg-item-header__created">
         {{msg.time | gethmmaFormat}}
       </span>

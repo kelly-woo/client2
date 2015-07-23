@@ -14,6 +14,7 @@
                              MessageSending) {
     var that = this;
     var _systemMessageCount = 0;
+    var _hasBookmark = false;
 
     this.list = [];
     this.reset = reset;
@@ -22,10 +23,10 @@
     this.forEach = forEach;
 
     this.getLastLinkId = getLastLinkId;
-    this.getFirstLinkId = getFirstLinkId; 
+    this.getFirstLinkId = getFirstLinkId;
 
     this.hasLinkPreview = hasLinkPreview;
-    
+
     this.isChildText = isChildText;
     this.isChildComment = isChildComment;
     this.isTitleComment = isTitleComment;
@@ -44,13 +45,13 @@
     this.update = update;
     this.clearQueue = clearQueue;
 
-    this.prependCachedList = prependCachedList;
-
     this.removeAllSendingMessages = removeAllSendingMessages;
     this.updateUnreadCount = updateUnreadCount;
 
     this.getList = getList;
     this.setList = setList;
+    this.prependCachedItem = prependCachedItem;
+    this.insertLastReadBookmark = insertLastReadBookmark;
 
     _init();
 
@@ -68,6 +69,7 @@
     function reset() {
       _systemMessageCount = 0;
       that.list = [];
+      _hasBookmark = false;
     }
 
     /**
@@ -312,17 +314,13 @@
      * @returns {*}
      * @private
      */
-    function _beforeAddMessages(messageList, isCachedItem) {
+    function _beforeAddMessages(messageList) {
       messageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
 
       _.forEach(messageList, function(msg) {
-        if (isCachedItem) {
-          msg.fromEntity = msg.writerId;
-          msg.message = msg;
-        }
         msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
-
       });
+
       //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
       messageList[messageList.length - 1]._isLast = true;
       return messageList;
@@ -521,6 +519,10 @@
             action = $filter('translate')('@msg-create-pg');
           }
           break;
+        case 'bookmark':
+          action = '여기까지 읽음.';
+          break;
+
       }
 
       newMsg.message.content.actionOwner = memberService.getNameById(msg.fromEntity);
@@ -625,16 +627,81 @@
       that.list = list;
     }
 
-    function prependCachedList(messageList) {
-      var firstId = that.list[0] && that.list[0].id || -1;
-      messageList = _beforeAddMessages(messageList, true);
+    function prependCachedItem(messageList, lastLinkId) {
+      console.log('prependCachedItem')
+      messageList = _beforeAddCachedMessages(messageList, lastLinkId);
       _.forEachRight(messageList, function(msg) {
-        if (firstId === -1 || firstId > msg.id) {
-          msg = _getFormattedMessage(msg);
-          that.list.unshift(msg);
-        }
+        msg = _getFormattedMessage(msg);
+        that.list.unshift(msg);
+      });
+    }
+    /**
+     *
+     * @param messageList
+     * @returns {*}
+     * @private
+     */
+    function _beforeAddCachedMessages(messageList, lastLinkId) {
+      var _tempMessageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
+
+      console.log(messageList)
+      _.forEach(messageList, function(msg) {
+        msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
+        _tempMessageList.push(msg);
+
+        //if (msg.id === lastLinkId) {
+        //  _tempMessageList.push(_getBookmarkMessage(msg));
+        //}
       });
 
+      //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
+      _tempMessageList[_tempMessageList.length - 1]._isLast = true;
+      return _tempMessageList;
+    }
+
+    function insertLastReadBookmark(lastLinkId) {
+      if (!_hasBookmark) {
+
+        console.log('hello this is insertLastReadBookmark in message.collection', lastLinkId);
+        var _templist = [];
+
+        _.each(that.list, function(msg) {
+          _templist.push(msg);
+          if (msg.id === lastLinkId) {
+            var tempObject = _getBookmarkMessage(msg);
+            console.log(tempObject)
+            _templist.push(tempObject);
+          }
+        });
+
+        console.log(that.list)
+        console.log(_templist);
+
+        that.list = _templist;
+      }
+
+    }
+
+    function _getBookmarkMessage(msg) {
+      var tempMsg = _.cloneDeep(msg);
+      var bookmarkObject = {
+        id: 'unread-bookmark',
+        status: 'event',
+        message: {
+          contentType: 'systemEvent',
+          content: {
+            body: '여기까지 읽었습니다.'
+          }
+        },
+        info: {
+          eventType: 'bookmark'
+        }
+      };
+
+      console.log(msg)
+      console.log(_.extend(_.cloneDeep(msg), bookmarkObject));
+      _hasBookmark = true;
+      return _.extend(_.cloneDeep(msg), bookmarkObject);
     }
 
 

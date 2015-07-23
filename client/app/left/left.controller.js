@@ -492,9 +492,11 @@ app.controller('leftPanelController1', function(
       _resetAfterLeftInit();
     }
     $rootScope.$broadcast('onInitLeftListDone');
-    _getCachedMessaged();
   }
 
+
+
+  _getCachedMessaged();
 
   /**
    * 읽지않은 메세지가 있는 토픽에한해서 메세지를 우선적으로 가져온다.
@@ -514,9 +516,13 @@ app.controller('leftPanelController1', function(
    */
   function _onGetMessagesSuccess(response) {
     _.each(response, function(unreadTopic) {
+      if (unreadTopic.entityId === 11162232) {
+        console.log(unreadTopic.messages)
+      }
       var _param = {
         list: unreadTopic.messages,
         lastLinkId: unreadTopic.lastLinkId,
+        unreadCount: unreadTopic.unreadCount,
         hasProcessed: false
       };
 

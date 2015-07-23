@@ -56,18 +56,21 @@
         <!--날짜 구분선-->
         <date-divider ng-if="isNewDate($index)"></date-divider>
 
-        <system-event ng-switch-when="systemEvent" id="{{::msg.id}}" class="msg-item system-event-msg"></system-event>
+        <system-event ng-switch-when="systemEvent" id="{{msg.id}}" class="msg-item system-event-msg"></system-event>
 
-        <text ng-switch-when="text" msg="msg" id="{{::msg.id}}" class="msg-item text"
+        <text ng-switch-when="text" msg="msg" id="{{msg.id}}" class="msg-item text"
               ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>
 
-        <text ng-switch-when="sticker" msg="msg" id="{{::msg.id}}" class="msg-item text"
+        <text ng-switch-when="sticker" msg="msg" id="{{msg.id}}" class="msg-item text"
               ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>
 
-        <file-uploaded ng-switch-when="file" id="{{::msg.id}}" class="msg-item"></file-uploaded>
+        <file-uploaded ng-switch-when="file" id="{{msg.id}}" class="msg-item"></file-uploaded>
 
-        <title-comment ng-switch-when="comment" id="{{::msg.id}}" class="msg-item"
+        <title-comment ng-switch-when="comment" id="{{msg.id}}" class="msg-item"
                           ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
+
+        <div class="msg-item msg-unread-bookmark" id="unread-bookmark" ng-if="isLastReadMarker(msg.id);">여기까지 읽었음</div>
+
       </div>
       <!-- unsent Message -->
       <div ng-if="unsentMsgs.length" class="msgs-group">
