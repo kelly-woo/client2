@@ -28,6 +28,8 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
         //a callback executed when a match is selected
         var onSelectCallback = $parse(attrs.jandiTypeaheadOnSelect);
 
+        var onMatchesCallback = $parse(attrs.jandiTypeaheadOnMatches);
+
         var placement = attrs.jandiTypeaheadPlacement || 'top';
 
         var inputFormatter = attrs.jandiTypeaheadInputFormatter ? $parse(attrs.jandiTypeaheadInputFormatter) : undefined;
@@ -101,11 +103,14 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
           var locals = {$viewValue: inputValue};
           isLoadingSetter(originalScope, true);
           $q.when(parserResult.source(originalScope, locals)).then(function(matches) {
-
             //it might happen that several async queries were in progress if a user were typing fast
             //but we are interested only in responses that correspond to the current view value
             var onCurrentRequest = (inputValue === modelCtrl.$viewValue);
             if (onCurrentRequest && hasFocus) {
+              onMatchesCallback(scope, {
+                $matches: matches
+              });
+
               if (matches && matches.length > 0) {
 
                 scope.activeIdx = focusFirst ? 0 : -1;
@@ -177,7 +182,6 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
         function _onViewModelChanged(inputValue) {
           hasFocus = true;
 
-          console.log('input ::: ', inputValue);
           // jihoon
           if (inputValue != null && inputValue.length >= minSearch) {
             if (waitTime > 0) {

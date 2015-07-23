@@ -20,9 +20,9 @@
         var mentionAhead = $compile(
           '<div type="text" style="position: absolute; top: 0; left: 0; width: 100%;" ' +
             'jandi-typeahead="mention as mention.name for mention in mentionList | userByName: $viewValue" ' +
-            'jandi-typeahead-placement="top" ' +
-            'jandi-typeahead-append-to-body="true" ' +
-            'jandi-typeahead-on-select="onSelect()" ' +
+            'jandi-typeahead-placement="top-left" ' +
+            'jandi-typeahead-on-select="onSelect($item)" ' +
+            'jandi-typeahead-on-matches="onMatches($matches)" ' +
             'jandi-typeahead-template-name="jandi-mentionahead-popup" ' +
             'jandi-typeahead-min-Length="0" ' +
             'ng-model="mentionModel" ></div>'

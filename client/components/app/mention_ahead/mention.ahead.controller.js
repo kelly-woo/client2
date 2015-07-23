@@ -39,6 +39,7 @@
       $scope.jqEle = jqEle;
       $scope.mentionList = [];
       $scope.onSelect = onSelect;
+      $scope.onMatches = onMatches;
       //$scope.mentionTarget = '';
 
       //// current entity change event handler에서 한번 mention list 설정
@@ -122,23 +123,33 @@
       if (mention) {
         $model.$setViewValue(mention.match[2]);
       } else {
-        $model.$setViewValue(null);
+        _resetMention();
       }
     }
 
-    function onSelect() {
+    function onSelect($item) {
       var mention = $scope.mention;
-      var match = mention.match;
-      var mentionTarget = '[@' + $scope.mentionModel.name + '] ';
-      var selection;
+      var mentionTarget = '[@' + $item.name + '] ';
       var text;
+      var selection;
 
-      selection = mention.offset + mentionTarget.length;
-      text = mention.preStr.replace(new RegExp(match[1] + '$'), mentionTarget) + mention.sufStr;
-
+      text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + mention.sufStr;
       $scope.jqEle.val(text);
       setValue(text);
+
+      selection = mention.offset + mentionTarget.length;
       _selection(selection);
+
+      _resetMention();
+    }
+
+    function onMatches(matches) {
+      if (!matches.length) {
+        _resetMention();
+      }
+    }
+
+    function _resetMention() {
       $model.$setViewValue(null);
     }
 
