@@ -427,9 +427,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         MessageCollection.setList(_item.list);
       }
 
+      lastMessageId = MessageCollection.getLastLinkId();
+
       $scope.messages = MessageCollection.list;
 
-      lastMessageId = _item.lastMessageId;
       globalLastLinkId = _item.globalLastLinkId;
 
       publicService.hideTransitionLoading();
@@ -454,22 +455,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onUpdatedMessagesSuccess(response) {
     $timeout(function() {
       if (!!response.updateInfo) {
-        console.log('okay!')
 
         _shouldDisplayBookmarkFlag = true;
         _shouldUpdateScrollToBookmark = true;
 
-        var updateInfo = response.updateInfo;
-
-        lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
-
-        MessageCollection.append(updateInfo.messages);
-
-        globalLastLinkId = response.lastLinkId;
+        _onUpdateListSuccess(response);
+      } else {
+        //response.updateInfo가 없어도 response 가 200일 경우에 messageMarker를 업데이트해야한다.
         updateMessageMarker();
-        _checkEntityMessageStatus();
-        MessageCollection.updateUnreadCount();
       }
+
     });
 
   }
@@ -512,8 +507,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
           // When there are messages to update.
           if (messagesList.length) {
-            console.log
-            (messagesList)
             _messageProcessor(messagesList);
             //groupByDate();
           }
@@ -674,6 +667,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         targetScrollTop -= $('announcement:first > div:first').outerHeight();
       }
 
+      targetScrollTop -= $('#msgs-container').height()/3;
+
       $('#msgs-container').scrollTop(targetScrollTop);
       _animateBackgroundColor(jqTarget);
       _showContents();
@@ -788,7 +783,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
 
       if (updateInfo.messageCount) {
-
         // 업데이트 된 메세지 처리
         _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
         //  marker 설정
