@@ -79,7 +79,7 @@ article {
   background-position: center center;
   background-size: 60px 60px;
 }
-.msgs__loading .three-quarters-loader.center {
+.msgs__loading .three-quarters-loader {
   position: absolute;
   top: 50%;
   margin-top: -16px;

@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('animateText', animateText);
 
-  function animateText($interval) {
+  function animateText($timeout) {
     return {
       restrict: 'A',
       link: link,
@@ -18,7 +18,7 @@
       }
     };
     function link(scope, el, attr)  {
-      var DEFAULT_DELAY = 800;
+      var DEFAULT_DELAY = 400;
       var _messages;
       var _index = 0;
       var _delay;
@@ -60,7 +60,7 @@
        */
       function _start() {
         _stop();
-        _timer = $interval(_animate, _delay);
+        _timer = $timeout(_animate, _delay);
       }
 
       /**
@@ -74,6 +74,7 @@
           _index++;
         }
         el.text(_messages[_index]);
+        _timer = $timeout(_animate, _delay);
       }
 
       /**
@@ -81,7 +82,7 @@
        * @private
        */
       function _stop() {
-        $interval.cancel(_timer);
+        $timeout.cancel(_timer);
         _index = 0;
       }
     }
