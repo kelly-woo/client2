@@ -28,7 +28,10 @@
       'zh_CN': 'zh-cn',
       'zh_TW': 'zh-tw'
     }
-    this.PLATFORM = 'web';
+    this.PLATFORM = {
+      WEB: 'web',
+      WIN_APP: 'winapp'
+    };
     this.CHANNEL = 'app';
 
     this.LOCAL_STORAGE_KEY = '_jd_.analytics';
