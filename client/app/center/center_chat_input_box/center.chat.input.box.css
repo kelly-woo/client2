@@ -137,3 +137,82 @@
 #message-input.with-emoji-menu{padding:9px 30px 9px 8px}
 #message-input:focus{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}
 #message-input.offline{background-color:#fdf1c1}
+
+
+/********************************************
+
+            HAS NEW MESSAGE
+
+********************************************/
+.has-new-msg-alert-container {
+  background-color: rgba(94, 94, 94, 0.8);
+  color: white;
+  padding-left: 14px;
+  margin-bottom: -20px;
+
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  bottom: 0;
+
+  -webkit-transition: top 428ms;
+  -moz-transition: top 428ms;
+  -ms-transition: top 428ms;
+  -o-transition: top 428ms;
+  transition: top 428ms;
+}
+#has-new-msg-banner.show .has-new-msg-alert-container {
+  top: 0;
+}
+.has-new-msg-alert-container:hover .has-new-msg-alert-container-text {
+  text-decoration: underline;
+}
+.has-new-msg-alert-container-text {
+  line-height: 36px;
+}
+.has-new-msg-alert-container-close {
+  padding-top: 8px;
+  padding-right: 8px;
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+}
+
+.has-new-msg-alert-container-close:hover {
+  color: white;
+}
+
+.has-new-msg-banner-container {
+  position: absolute;
+  left: 66px;
+  right: 10px;
+  bottom: 100%;
+
+  height: 36px;
+
+  font-size: 16px;
+
+  z-index: 10;
+
+  overflow: hidden;
+}
+
+#has-new-msg-banner {
+}
+
+
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes slide-from-bottom {
+  from {margin-top: 36px;}
+  to {margin-top: 0;  }
+}
+/* Standard syntax */
+@keyframes slide-from-bottom {
+  from {margin-top: 36px;}
+  to {margin-top: 0;}
+}

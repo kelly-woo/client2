@@ -1,0 +1,21 @@
+.msg-unread-bookmark {
+  color: #00abe6;
+}
+.msg-unread-bookmark .msg-item-float img {
+  background-color: #00abe6;
+}
+
+.msg-unread-bookmark .fa-check {
+  font-weight: 400;
+}
+
+
+.msg-unread-bookmark.system-event-msg .msg-item-body {
+  font-size: 14px;
+  color: #00abe6;
+}
+
+.msg-unread-bookmark.system-event-msg .msg-item-body span {
+
+  font-weight: 600;
+}

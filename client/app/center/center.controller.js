@@ -23,6 +23,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _lastReadMessageMarker;
   var _shouldDisplayBookmarkFlag = false;
   var _shouldUpdateScrollToBookmark = false;
+  var _bookmarkAnimationDuration = 428;
 
   var _isFromCachedData = false;
 
@@ -641,18 +642,29 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _toBookmark() {
+    var jqMsgsContainer = $('#msgs-container');
+    var extraScrollHeight = (jqMsgsContainer.height()/3) * 2;
+
+    var _msgsContainerScrollHeight = jqMsgsContainer.prop('scrollHeight');
+    var _currentScrollTop = jqMsgsContainer.scrollTop();
+
+    // 새로운 메세지들이 밑에 붙은 후의 scrollHeight와 현재 스크롤 위치의 차이에 현재 컨테이너의 높이를 뺐을 때,
+    // 가장 높이 올라갈 수 있는 스크롤의 값(extraScrollHeight)보다 많으면 검은색 메세지 알림창을 보여준다.
+    if (_msgsContainerScrollHeight - _currentScrollTop - jqMsgsContainer.height() > extraScrollHeight) {
+      _showNewMessageAlertBanner();
+    }
+
     _animateBackgroundColor($('#unread-bookmark'));
-    $('#msgs-container').animate({scrollTop: $('#msgs-container').scrollTop() + 300}, 328, 'swing', function() {
-      _resetNewMsgHelpers();
-    });
+    $('#msgs-container')
+      .animate(
+        {scrollTop: $('#msgs-container').scrollTop() + extraScrollHeight},
+        _bookmarkAnimationDuration, 'swing', function() {});
   }
 
   function _findMessageDomElementById(id) {
-    console.log(id)
     var jqTarget = $('#'+id);
-    console.log(jqTarget)
-
     var targetScrollTop;
+
     if (_.isUndefined(jqTarget.offset())) {
       _scrollToBottom(true);
     } else {
@@ -716,7 +728,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _animateBackgroundColor(element) {
     element.addClass('last');
     $timeout(function() {
-      element.removeClass('last');
+      element.animate({'backgroundColor': 'white'}, 428, 'swing', function() {
+        element.removeClass('last');
+      });
     }, 1000);
   }
 
@@ -1256,11 +1270,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _resetNewMsgAlert();
     _resetHasScrollToBottom();
   }
+
   function _resetNewMsgAlert() {
-    $timeout(function() {
-      $scope.hasNewMsg = false;
-    });
+    _hideNewMessageAlertBanner();
   }
+
   function _resetHasScrollToBottom() {
     $timeout(function() {
       $scope.hasScrollToBottom = false;
@@ -1310,7 +1324,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _gotNewMessage() {
     log('_gotNewMessage')
-    $scope.hasNewMsg = true;
+    _showNewMessageAlertBanner();
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
   }
 
@@ -1558,7 +1572,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
 
   function shouldDisplayUnreadMarker(linkId) {
-    //return _shouldDisplayBookmarkFlag;
     return linkId !== MessageCollection.getLastLinkId() && _shouldDisplayBookmarkFlag;
   }
 
@@ -1572,5 +1585,22 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else {
       setUnreadBookmarkFlag(false);
     }
+  }
+
+
+  /**
+   * 채팅 입력창 바로 위에 검은색 배너를 노출시킨다.
+   * @private
+   */
+  function _showNewMessageAlertBanner() {
+    $('#has-new-msg-banner').addClass('show');
+  }
+
+  /**
+   * 채팅 입력창 바로 위에 검은색 배너를 숨킨다.
+   * @private
+   */
+  function _hideNewMessageAlertBanner() {
+    $('#has-new-msg-banner').removeClass('show');
   }
 });

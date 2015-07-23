@@ -15,6 +15,7 @@
     var that = this;
     var _systemMessageCount = 0;
     var _hasBookmark = false;
+    var _lastMessage;
 
     this.list = [];
     this.reset = reset;
@@ -70,6 +71,8 @@
       _systemMessageCount = 0;
       that.list = [];
       _hasBookmark = false;
+      //_lastMessage = {};
+
     }
 
     /**
@@ -322,10 +325,22 @@
       });
 
       //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
-      messageList[messageList.length - 1]._isLast = true;
+      //_lastMessage =
+        messageList[messageList.length - 1]._isLast = true;
+      //_updateLastMessage(messageList);
+
       return messageList;
     }
 
+    function _updateLastMessage(messageList) {
+      if (!!_lastMessage) {
+        _lastMessage._isLast = false;
+      }
+
+      _lastMessage = messageList[messageList.length - 1];
+      //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
+      _lastMessage._isLast = true;
+    }
     /**
      * 첫번째 id 를 반환한다.
      * @returns {number}
@@ -624,6 +639,7 @@
     }
 
     function setList(list) {
+      _updateLastMessage(list);
       that.list = list;
     }
 

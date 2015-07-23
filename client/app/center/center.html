@@ -69,7 +69,7 @@
         <title-comment ng-switch-when="comment" id="{{msg.id}}" class="msg-item"
                           ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
 
-        <div class="msg-item msg-unread-bookmark" id="unread-bookmark" ng-if="isLastReadMarker(msg.id);">여기까지 읽었음</div>
+        <unread-bookmark class="msg-item" id="unread-bookmark" ng-if="isLastReadMarker(msg.id);"></unread-bookmark>
 
       </div>
       <!-- unsent Message -->

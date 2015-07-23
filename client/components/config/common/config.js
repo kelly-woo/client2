@@ -9,7 +9,7 @@
     .module('config.common', [])
     .constant('configuration', {
       name                : 'local',
-      api_address         : 'http://i1.jandi.io:4000/',
+      api_address         : 'http://i1.jandi.io:8888/',
       socket_address      : 'http://ws.jandi.io:8888/',
       file_address        : 'http://files.jandi.io:8888/',
       api_version         : '2',
