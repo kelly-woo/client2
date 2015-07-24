@@ -9,7 +9,7 @@
     .module('jandiApp')
     .controller('TutorialWelcomeCtrl', TutorialWelcomeCtrl);
 
-  function TutorialWelcomeCtrl($scope, $filter, accountService, TutorialAPI, Popup) {
+  function TutorialWelcomeCtrl($scope, $filter, accountService, TutorialAPI, Popup, pcAppHelper) {
 
     $scope.isComplete = true;
     $scope.completedStep = -1;
@@ -25,7 +25,9 @@
      * @private
      */
     function _init() {
-      _attachEvents();
+      if (!pcAppHelper.isPcApp()) {
+        _attachEvents();
+      }
     }
 
     /**

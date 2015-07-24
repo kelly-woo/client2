@@ -6,7 +6,7 @@ app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper) {
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, pcAppHelper) {
 
   /**
    * @namespace
@@ -811,6 +811,9 @@ app.controller('leftPanelController1', function(
     if(!accountService.hasSeenTutorial()) {
       //@fixme: remove old tutorial logic
       //$scope.initTutorialStatus();
+      if (pcAppHelper.isPcApp()) {
+        jndPubSub.pub('initTutorialStatus');
+      }
     }
     else if(accountService.hasChangeLog()) {
       _openChangeLogPopUp();

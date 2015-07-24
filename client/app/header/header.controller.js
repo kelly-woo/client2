@@ -138,8 +138,12 @@
     };
 
     $scope.onShowTutorialClick = function() {
-      //jndPubSub.pub('initTutorialStatus');
-      jndPubSub.pub('tutorial:open');
+      //@fixme: remove old tutorial logic
+      if (pcAppHelper.isPcApp()) {
+        jndPubSub.pub('initTutorialStatus');
+      } else {
+        jndPubSub.pub('tutorial:open');
+      }
     };
 
     $scope.onTutorialPulseClick = function($event) {
