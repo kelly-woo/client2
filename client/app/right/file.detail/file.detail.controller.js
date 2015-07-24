@@ -46,6 +46,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.onKeyDown = onKeyDown;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
   $scope.getCreateTime = getCreateTime;
+  $scope.watchFileDetail = watchFileDetail;
 
   _init();
 
@@ -615,5 +616,44 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     }
 
     return createTime;
+  }
+
+  /**
+   * file_detail이 변경되면 mentionList 갱신
+   * @param {object} $mentionScope
+   */
+  function watchFileDetail($mentionScope) {
+    $scope.$watch('file_detail', function(value) {
+      var sharedEntities;
+      var entity;
+      var members;
+      var member;
+      var i;
+      var iLen;
+      var j;
+      var jLen
+
+      var mentionList = [];
+
+      if (value) {
+        sharedEntities = value.shareEntities;
+        for (i = 0, iLen = sharedEntities.length; i < iLen; i++) {
+          entity = entityAPIservice.getEntityFromListById($scope.totalEntities, sharedEntities[i]);
+          if (entity && /channels|privategroups/.test(entity.type)) {
+            members = (entity.ch_members || entity.pg_members);
+            if (members) {
+              for (j = 0, jLen = members.length; j < jLen; j++) {
+                member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
+                if (member && member.status === 'enabled') {
+                  mentionList.push(member);
+                }
+              }
+            }
+          }
+        }
+
+        $mentionScope.mentionList = mentionList.length > 0 ? _.chain(mentionList).uniq('id').sortBy('name').value() : mentionList;
+      }
+    });
   }
 });

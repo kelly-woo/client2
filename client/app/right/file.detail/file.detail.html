@@ -155,7 +155,9 @@
                     autocomplete="off"
                     spellcheck="true"
                     ng-keydown="onKeyDown($event)"
-                    ng-disabled="isPostingComment"></textarea>
+                    ng-disabled="isPostingComment"
+                    mentionahead
+                    mentionahead-data="watchFileDetail($mentionScope)"></textarea>
           <sticker-panel name="file" width="265" height="245"></sticker-panel>
         </div>
         <span class="comment-input__tip pull-left">

@@ -6,17 +6,18 @@
 
   angular
     .module('app.mention')
-    .controller('MentionAheadController', MentionAheadController);
+    .controller('MentionaheadCtrl', MentionaheadCtrl);
 
   /* @ngInject */
-  function MentionAheadController(entityAPIservice) {
+  function MentionaheadCtrl($parse, entityAPIservice) {
     var that = this;
     var $originScope;
     var $scope;
     var $model;
-    ///(?:(?:^|\s)(?:[\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/i
-    var regxTextMentionMark = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
-    var rStrMention = '(?:^|\s)(?:[@\uff20])([^@\uff20 ]{0,30})';
+
+    // /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/; 특수문자 노 상관이므로 아래거
+    var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|.[^ ]){0,30})))$/;
+    var rStrContSearchTextMentionMarkDown = '\[\]';
 
     that.init = init;
 
@@ -24,30 +25,39 @@
     that.setValue = setValue;
 
     that.getMentions = getMentions;
+    that.resetMention = resetMention;
 
     that.setMentionLive = setMentionLive;
     that.hasMentionLive = hasMentionLive;
 
-    that.isShowMentionAhead = isShowMentionAhead;
-    that.showMentionAhead = showMentionAhead;
+    that.isShowMentionahead = isShowMentionahead;
+    that.showMentionahead = showMentionahead;
 
-    function init(originScope, mentionScope, mentionTarget, jqEle) {
-      $originScope = originScope;
-      $scope = mentionScope;
-      $model = mentionTarget;
+    function init(options) {
+      var fn;
 
-      $scope.jqEle = jqEle;
-      $scope.mentionList = [];
+      $originScope = options.originScope;
+      $scope = options.mentionScope;
+      $model = options.mentionModel;
+      $scope.jqEle = options.jqEle;
+
       $scope.onSelect = onSelect;
       $scope.onMatches = onMatches;
-      //$scope.mentionTarget = '';
 
-      //// current entity change event handler에서 한번 mention list 설정
-      $scope.$on('onCurrentEntityChanged', function(event, param) {
-        //_setMentionList(originScope.currentEntity);
-        _setMentionList(param);
-      });
-      _setMentionList(originScope.currentEntity);
+      fn = options.attrs.mentionaheadData && $parse(options.attrs.mentionaheadData);
+      if (fn) {
+        $scope.mentionList = fn($originScope, {
+          $mentionScope: $scope
+        });
+      } else {
+        // current entity change event handler에서 한번 mention list 설정
+        $scope.$on('onCurrentEntityChanged', function(event, param) {
+          //_setMentionList(originScope.currentEntity);
+          _setMentionList(param);
+        });
+
+        _setMentionList($originScope.currentEntity);
+      }
     }
 
     function _setMentionList(currentEntity) {
@@ -60,20 +70,13 @@
       // 현재 topic의 members
       for (i = 0, len = members.length; i < len; i++) {
         member = _getCurrentTopicMembers(members[i]);
-        member.exNameMention = '@' + member.name;
-        mentionList.push(member);
+        if (member && member.status === 'enabled') {
+          member.exNameMention = '@' + member.name;
+          mentionList.push(member);
+        }
       }
 
-      //// 현재 topic에 포함되지 않고 enabled 상태의 members
-      //members = $originScope.memberList;
-      //for (i = 0, len = members.length; i < len; i++) {
-      //  member = members[i];
-      //  if (member.status === 'enabled') {
-      //    memberList.push(member);
-      //  }
-      //}
-
-      $scope.mentionList = mentionList;
+      $scope.mentionList = _.sortBy(mentionList, 'name');
     }
 
     function _getCurrentTopicMembers(member) {
@@ -88,7 +91,7 @@
       $scope._value = value;
     }
 
-    function isShowMentionAhead() {
+    function isShowMentionahead() {
       return $model.$viewValue !== null;
     }
 
@@ -99,15 +102,20 @@
       var match;
       var mention;
 
-      preStr = value.substring(0, selectionBegin);
-      if (match = regxTextMentionMark.exec(preStr)) {
-        mention = {
-          preStr: preStr,
-          sufStr: value.substring(selectionBegin),
-          match: match,
-          offset: selectionBegin - match[1].length,
-          length: match.length
-        };
+      if (value != null) {
+        //console.log('selection begin ::: ', selectionBegin);
+        preStr = value.substring(0, selectionBegin);
+        //console.log('selection value ::: ', preStr);
+        if (match = regxLiveSearchTextMentionMarkDown.exec(preStr)) {
+          //console.log('mention ::: ', match);
+          mention = {
+            preStr: preStr,
+            sufStr: value.substring(selectionBegin),
+            match: match,
+            offset: selectionBegin - match[1].length,
+            length: match.length
+          };
+        }
       }
 
       $scope.mention = mention;
@@ -117,39 +125,18 @@
       return $model.$viewValue !== null;
     }
 
-    function showMentionAhead() {
+    function showMentionahead() {
       var mention = $scope.mention;
 
       if (mention) {
+        //console.log('show mention ahead ::: ', mention.match[2], $model.$viewValue);
         $model.$setViewValue(mention.match[2]);
       } else {
-        _resetMention();
+        resetMention();
       }
     }
 
-    function onSelect($item) {
-      var mention = $scope.mention;
-      var mentionTarget = '[@' + $item.name + '] ';
-      var text;
-      var selection;
-
-      text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + mention.sufStr;
-      $scope.jqEle.val(text);
-      setValue(text);
-
-      selection = mention.offset + mentionTarget.length;
-      _selection(selection);
-
-      _resetMention();
-    }
-
-    function onMatches(matches) {
-      if (!matches.length) {
-        _resetMention();
-      }
-    }
-
-    function _resetMention() {
+    function resetMention() {
       $model.$setViewValue(null);
     }
 
@@ -168,9 +155,7 @@
           end: end
         };
       }
-    }
-
-
+    originSelectActive.call($parent, matchIdx);
 
     function getMentions() {
       var regxMention = new RegExp(rStrMention, 'g');
@@ -185,5 +170,26 @@
       }
     }
 
+    function onSelect($item) {
+      var mention = $scope.mention;
+      var mentionTarget = '[@' + $item.name + '] ';
+      var text;
+      var selection;
+
+      text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + mention.sufStr;
+      $scope.jqEle.val(text);
+      setValue(text);
+
+      selection = mention.offset + mentionTarget.length;
+      _selection(selection);
+
+      resetMention();
+    }
+
+    function onMatches(matches) {
+      if (!matches.length) {
+        resetMention();
+      }
+    }
   }
 }());

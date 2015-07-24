@@ -6,18 +6,18 @@
 
   angular
     .module('app.mention')
-    .directive('mentionAhead', mentionAhead);
+    .directive('mentionahead', mentionahead);
 
   /* @ngInject */
-  function mentionAhead($rootScope, $templateRequest, $compile, jndKeyCode) {
+  function mentionahead($rootScope, $compile) {
 
     return {
       restrict: 'A',
-      require: ['mentionAhead'],
-      controller: 'MentionAheadController',
-      compile: function(target) {
+      require: ['mentionahead'],
+      controller: 'MentionaheadCtrl',
+      compile: function() {
         var mentionScope = $rootScope.$new(true);
-        var mentionAhead = $compile(
+        var mentionahead = $compile(
           '<div type="text" style="position: absolute; top: 0; left: 0; width: 100%;" ' +
             'jandi-typeahead="mention as mention.name for mention in mentionList | userByName: $viewValue" ' +
             'jandi-typeahead-placement="top-left" ' +
@@ -27,29 +27,36 @@
             'jandi-typeahead-min-Length="0" ' +
             'ng-model="mentionModel" ></div>'
         );
-        var isShowMentionAhead;
 
         return function(scope, el, attrs, ctrls) {
           var mentionCtrl = ctrls[0];
-          var jqMentionAhead;
-          var mentionModel;
+          var jqMentionahead;
 
           mentionScope.eventCatcher = el;
-          jqMentionAhead = mentionAhead(mentionScope, function(jqMentionAhead) {
-            el.parent().append(jqMentionAhead);
+          jqMentionahead = mentionahead(mentionScope, function(jqMentionahead) {
+            el.parent().append(jqMentionahead);
           });
-          mentionModel = jqMentionAhead.data('$ngModelController');
 
-          mentionCtrl.init(scope, mentionScope, mentionModel, el);
+          mentionCtrl.init({
+            originScope: scope,
+            mentionScope: mentionScope,
+            mentionModel: jqMentionahead.data('$ngModelController'),
+            jqEle: el,
+            attrs: attrs
+          });
 
           el
             .on('input', changeHandler)
-            .on('keyup', liveHandler);
+            .on('click', function(event) {
+              event.stopPropagation();
+              liveSearchHandler();
+            })
+            .on('blur', mentionCtrl.resetMention)
+            .on('keyup', liveSearchHandler);
 
           if (attrs.messageSubmit) {
             _hookMessageSubmit(attrs.messageSubmit);
           }
-
 
           // text change event handling
           function changeHandler(event) {
@@ -60,28 +67,20 @@
             }
           }
 
-          function liveHandler() {
-            //if (mentionCtrl.isShowMentionAhead()) {
-            console.log('viewvalue ::: ', mentionModel.$viewValue);
-              mentionCtrl.setMentionLive();
-              mentionCtrl.showMentionAhead();
-
-            //}
+          function liveSearchHandler() {
+            mentionCtrl.setMentionLive();
+            mentionCtrl.showMentionahead();
           }
 
           function _hookMessageSubmit(originMessageSubmit) {
-            originMessageSubmit
-
             if (originMessageSubmit) {
               attrs.messageSubmit = function() {
                 if (!mentionCtrl.hasMentionLive()) {
-                  scope.$eval(originMessageSubmit)
+                  scope.$eval(originMessageSubmit);
                 }
               };
             }
           }
-
-
         }
       }
     };

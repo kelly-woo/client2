@@ -1,19 +1,24 @@
 .mentionahead {
+  position: absolute;
+
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-.mentionahead .mention-item {
+.mentionahead a.mention-item {
   height: 44px;
+  border-top-right-radius: 0;
 }
 
 .mentionahead .profile-img {
   -webkit-border-radius: 37px;
   -moz-border-radius: 37px;
   border-radius: 37px;
+  min-width: 37px;
   width: 37px;
+  min-height: 37px;
   height: 37px;
   margin-right: 9px;
 }

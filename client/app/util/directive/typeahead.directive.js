@@ -83,6 +83,7 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
           scope.matches = [];
           scope.activeIdx = -1;
           element.attr('aria-expanded', false);
+          $popup && $popup.css({opacity: 0});
         };
 
         var getMatchId = function(index) {
@@ -130,15 +131,15 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
                 //position pop-up with matches - we need to re-calculate its position each time we are opening a window
                 //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
                 //due to other elements being rendered
-
                 //scope.position = appendToBody ? $position.offset(element) : $position.position(element);
                 //scope.position.top = scope.position.top + element.prop('offsetHeight');
-                //$popup.css('opacity', 0);
+
                 $timeout(function() {
                   var css = $position.positionElements(element, $popup, placement, appendToBody);
                   css.opacity = 1;
                   $popup.css(css);
                 });
+                $popup && $popup.css({top: -10000});
 
                 element.attr('aria-expanded', true);
               } else {
