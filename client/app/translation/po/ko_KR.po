@@ -1144,7 +1144,7 @@ msgstr "안녕하세요 라고 입력을 해보세요."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_sticker_let"
-msgstr "스티커도 한 번 보내봅시다."
+msgstr "스티커도 보내실 수가 있어요."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_sticker_success"
@@ -1160,7 +1160,7 @@ msgstr "팀 멤버를 선택해봅시다."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_try"
-msgstr "1:1 메시지를 보내봅시다. "
+msgstr "1:1 메시지를 한 번 보내보세요. "
 
 #: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_explore_jandi"
