@@ -713,10 +713,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function postMessage() {
     var jqInput = $('#message-input');
     var msg = $.trim(jqInput.val());
+    var content;
+    var mentions;
 
     // prevent duplicate request
     if (msg || _sticker) {
-      MessageCollection.enqueue(msg, _sticker);
+      if ($scope.getMentionAllForText) {
+        if (content = $scope.getMentionAllForText()) {
+          msg = content.msg;
+          mentions = content.mentions;
+        }
+      }
+
+      MessageCollection.enqueue(msg, _sticker, mentions);
       _scrollToBottom(true);
       if (NetInterceptor.isConnected()) {
         _postMessages();
@@ -770,7 +779,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _getPostPromise(msg, isSuccess) {
     isSuccess = _.isBoolean(isSuccess) ? isSuccess : true;
     if (!isSuccess && !NetInterceptor.isConnected()) {
-      MessageCollection.enqueue(msg.content, msg.sticker, true);
+      MessageCollection.enqueue(msg.content, msg.sticker, msg.mentions, true);
     } else {
       try {
         //analytics
@@ -780,7 +789,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       } catch (e) {
       }
     }
-    return messageAPIservice.postMessage(entityType, entityId, msg.content, msg.sticker);
+    return messageAPIservice.postMessage(entityType, entityId, msg.content, msg.sticker, msg.mentions);
   }
 
   /**
@@ -795,7 +804,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var msg = queue[length - 1];
     MessageCollection.spliceQueue(0, length);
     if (!NetInterceptor.isConnected()) {
-      MessageCollection.enqueue(msg.content, msg.sticker, true);
+      MessageCollection.enqueue(msg.content, msg.sticker, msg.mentions, true);
     }
     _onPostMessagesDone();
   }

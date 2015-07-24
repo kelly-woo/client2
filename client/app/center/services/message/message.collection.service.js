@@ -111,10 +111,11 @@
      * queue 에 메세지를 추가한다.
      * @param {string} content
      * @param {object} sticker
+     * @param {array} mentions
      * @param {boolean} isSkipAppend message list 에 append 할 지 여부
      */
-    function enqueue(content, sticker, isSkipAppend) {
-      var messageList = MessageSending.enqueue(content, sticker);
+    function enqueue(content, sticker, mentions, isSkipAppend) {
+      var messageList = MessageSending.enqueue(content, sticker, mentions);
       if (!isSkipAppend) {
         append(messageList);
       }

@@ -9,23 +9,28 @@
     .controller('MentionaheadCtrl', MentionaheadCtrl);
 
   /* @ngInject */
-  function MentionaheadCtrl($parse, entityAPIservice) {
+  function MentionaheadCtrl($state, $parse, entityAPIservice, configuration) {
     var that = this;
-    var $originScope;
-    var $scope;
-    var $model;
 
     // /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/; 특수문자 노 상관이므로 아래거
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|.[^ ]){0,30})))$/;
-    var rStrContSearchTextMentionMarkDown = '\[\]';
+    var rStrContSearchTextMentionMarkDown = '\\[(@([^\\[]|.[^\\[]{0,30}))\\]';
+
+    var MENTION_ALL = 'ALL';
+    var MENTION_ALL_VIEW_NAME = MENTION_ALL + '@';
+    var entityId = $state.params.entityId;
+
+    var $originScope;
+    var $scope;
+    var $model;
 
     that.init = init;
 
     that.getValue = getValue;
     that.setValue = setValue;
 
-    that.getMentions = getMentions;
-    that.resetMention = resetMention;
+    that.setMentions = setMentions;
+    that.clearMention = clearMention;
 
     that.setMentionLive = setMentionLive;
     that.hasMentionLive = hasMentionLive;
@@ -37,6 +42,8 @@
       var fn;
 
       $originScope = options.originScope;
+      $originScope.getMentionAllForText = getMentionAllForText;
+
       $scope = options.mentionScope;
       $model = options.mentionModel;
       $scope.jqEle = options.jqEle;
@@ -47,7 +54,8 @@
       fn = options.attrs.mentionaheadData && $parse(options.attrs.mentionaheadData);
       if (fn) {
         $scope.mentionList = fn($originScope, {
-          $mentionScope: $scope
+          $mentionScope: $scope,
+          $mentionCtrl: that
         });
       } else {
         // current entity change event handler에서 한번 mention list 설정
@@ -57,6 +65,10 @@
         });
 
         _setMentionList($originScope.currentEntity);
+      }
+
+      if (options.attrs.messageSubmit) {
+        _hookMessageSubmit(options.attrs, options.attrs.messageSubmit);
       }
     }
 
@@ -71,12 +83,54 @@
       for (i = 0, len = members.length; i < len; i++) {
         member = _getCurrentTopicMembers(members[i]);
         if (member && member.status === 'enabled') {
-          member.exNameMention = '@' + member.name;
+          member.exViewName = '[@' + member.name + ']',
+          member.exSearchName = member.name;
           mentionList.push(member);
         }
       }
 
-      $scope.mentionList = _.sortBy(mentionList, 'name');
+      setMentions(mentionList, function() {
+        if (mentionList && mentionList.length > 1) {
+          mentionList.push({
+            // mention item 출력용 text
+            name: MENTION_ALL + ' - Notify all members in this topic',
+            // mention target에 출력용 text
+            exViewName : '[@' + MENTION_ALL_VIEW_NAME + ']',
+            // mention search text
+            exSearchName: 'topic',
+            u_photoThumbnailUrl: {
+              smallThumbnailUrl: configuration.assets_url + 'assets/images/mention_profile_all.png'
+            },
+            id: entityId,
+            type: 'room'
+          });
+        }
+
+        return _.sortBy(mentionList, 'exSearchName');
+      });
+    }
+
+    function setMentions(mentionList, fn) {
+      var mentionMap = {};
+      var mentionItem;
+      var duplicateNameMentions = [];
+      var i;
+      var len;
+
+      mentionList = fn ? fn(mentionList): mentionList;
+
+      for (i = 0, len = mentionList.length; i < len; ++i) {
+        mentionItem = mentionList[i];
+        if (duplicateNameMentions.indexOf(mentionItem.exViewName) < 0) {
+          mentionMap[mentionItem.exViewName] = mentionItem;
+          duplicateNameMentions.push(mentionItem.exViewName);
+        } else {
+          delete mentionMap[mentionItem.exViewName];
+        }
+      }
+
+      $scope._mentionMap = mentionMap;
+      $scope.mentionList = mentionList;
     }
 
     function _getCurrentTopicMembers(member) {
@@ -132,11 +186,11 @@
         //console.log('show mention ahead ::: ', mention.match[2], $model.$viewValue);
         $model.$setViewValue(mention.match[2]);
       } else {
-        resetMention();
+        clearMention();
       }
     }
 
-    function resetMention() {
+    function clearMention() {
       $model.$setViewValue(null);
     }
 
@@ -155,24 +209,56 @@
           end: end
         };
       }
-    originSelectActive.call($parent, matchIdx);
+    }
 
-    function getMentions() {
-      var regxMention = new RegExp(rStrMention, 'g');
+    function getMentionAllForText() {
+      var regxMention = new RegExp(rStrContSearchTextMentionMarkDown, 'g');
       var value = getValue();
+      var msg = '';
+      var preStr;
+      var match;
+      var mentions = [];
       var mention;
+      var data;
+      var beginIndex = 0;
+      var lastIndex;
+      var offset = 0;
 
-      console.log('getMention ::: ', value);
-      while(regxMention.exec(value)) {
-        mention = RegExp.$1;
+      while(match = regxMention.exec(value)) {
+        lastIndex = regxMention.lastIndex;
 
-        console.log('mention ::: ', mention);
+        preStr = value.substring(beginIndex, lastIndex).replace(new RegExp( '\\[' + match[1]+ '\\]' + '$'), match[1]);
+        msg = msg + preStr;
+
+        beginIndex = lastIndex;
+        data = {
+          offset: lastIndex - match[0].length - offset,
+          length: match[1].length
+        };
+        offset += match[0].length - match[1].length;
+
+        if (match[2] === MENTION_ALL_VIEW_NAME) {
+          data.id = parseInt(entityId, 10);
+          data.type = 'room';
+        } else {
+          data.id = parseInt($scope._mentionMap[match[0]].id, 10);
+          data.type = 'member';
+        }
+
+        mentions.push(data);
+      }
+
+      if (mentions.length > 0) {
+        return {
+          msg: msg + value.substring(beginIndex),
+          mentions: mentions
+        };
       }
     }
 
     function onSelect($item) {
       var mention = $scope.mention;
-      var mentionTarget = '[@' + $item.name + '] ';
+      var mentionTarget = $item.exViewName;
       var text;
       var selection;
 
@@ -183,13 +269,22 @@
       selection = mention.offset + mentionTarget.length;
       _selection(selection);
 
-      resetMention();
+      clearMention();
     }
 
     function onMatches(matches) {
       if (!matches.length) {
-        resetMention();
+        clearMention();
       }
     }
+
+    function _hookMessageSubmit(attrs, originMessageSubmit) {
+      attrs.messageSubmit = function() {
+        if (!that.hasMentionLive()) {
+          $originScope.$eval(originMessageSubmit);
+        }
+      };
+    }
+
   }
 }());

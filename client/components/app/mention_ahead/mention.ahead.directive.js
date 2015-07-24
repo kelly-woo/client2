@@ -51,12 +51,8 @@
               event.stopPropagation();
               liveSearchHandler();
             })
-            .on('blur', mentionCtrl.resetMention)
+            .on('blur', mentionCtrl.clearMention)
             .on('keyup', liveSearchHandler);
-
-          if (attrs.messageSubmit) {
-            _hookMessageSubmit(attrs.messageSubmit);
-          }
 
           // text change event handling
           function changeHandler(event) {
@@ -70,16 +66,6 @@
           function liveSearchHandler() {
             mentionCtrl.setMentionLive();
             mentionCtrl.showMentionahead();
-          }
-
-          function _hookMessageSubmit(originMessageSubmit) {
-            if (originMessageSubmit) {
-              attrs.messageSubmit = function() {
-                if (!mentionCtrl.hasMentionLive()) {
-                  scope.$eval(originMessageSubmit);
-                }
-              };
-            }
           }
         }
       }

@@ -145,14 +145,23 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * comment 를 posting 한다.
    */
   function postComment() {
-    var content = $('#file-detail-comment-input').val();
-    if (!$scope.isPostingComment &&
-      ((content) || _sticker)) {
+    var msg = $('#file-detail-comment-input').val();
+    var content;
+    var mentions;
+
+    if (!$scope.isPostingComment && (msg || _sticker)) {
       _hideSticker();
 
       $scope.isPostingComment = true;
 
-      fileAPIservice.postComment(fileId, content, _sticker)
+      if ($scope.getMentionAllForText) {
+        if (content = $scope.getMentionAllForText()) {
+          msg = content.msg;
+          mentions = content.mentions;
+        }
+      }
+
+      fileAPIservice.postComment(fileId, msg, _sticker, mentions)
         .success(function() {
           $scope.glued = true;
           $('#file-detail-comment-input').val('');
@@ -622,7 +631,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * file_detail이 변경되면 mentionList 갱신
    * @param {object} $mentionScope
    */
-  function watchFileDetail($mentionScope) {
+  function watchFileDetail($mentionScope, $mentionCtrl) {
     $scope.$watch('file_detail', function(value) {
       var sharedEntities;
       var entity;
@@ -645,6 +654,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
               for (j = 0, jLen = members.length; j < jLen; j++) {
                 member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
                 if (member && member.status === 'enabled') {
+                  member.exViewName = '[@' + member.name + ']';
+                  member.exSearchName = member.name;
                   mentionList.push(member);
                 }
               }
@@ -652,7 +663,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           }
         }
 
-        $mentionScope.mentionList = mentionList.length > 0 ? _.chain(mentionList).uniq('id').sortBy('name').value() : mentionList;
+        $mentionCtrl.setMentions(mentionList, function() {
+          return _.chain(mentionList).uniq('id').sortBy('name').value();
+        });
       }
     });
   }
