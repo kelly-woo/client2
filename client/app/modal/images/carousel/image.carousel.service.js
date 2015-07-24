@@ -180,8 +180,15 @@
             // getList transaction begin
             lockerGetList = true;
 
-            _getList(name, function(data) {
-              if (data.hasEndPoint) {
+            _getList(name, function() {
+              var messageId = that.options.messageId;
+              var index = imageList.indexOf(messageId);
+              var hasEndPoint = false;
+              if (index === 0 || index === imageList.length - 1) {
+                hasEndPoint = true;
+              }
+
+              if (hasEndPoint) {
                 _setButtonStatus();
               }
 
@@ -354,7 +361,7 @@
      * @param {function} success - success callback
      * @private
      */
-    function _getList(type, success) {
+    function _getList(type, fn) {
       var searchType = undefined;
       var count = that.options.count;
 
@@ -374,19 +381,14 @@
           writerId:that.options.writerId
         })
         .success(function(data) {
-          data.records != null && (data = data.records);
-
           var messageId = that.options.messageId;
-          var index = imageList.indexOf(messageId);
-          var hasEndPoint = false;
-          if (index === 0 || index === imageList.length - 1) {
-            hasEndPoint = true;
-          }
-
+          data.records != null && (data = data.records);
           _pushImages(messageId, type, data);
-          success && success({
-            hasEndPoint: hasEndPoint
-          });
+
+          fn && fn();
+        })
+        .error(function() {
+          fn && fn();
         });
       }
     }
