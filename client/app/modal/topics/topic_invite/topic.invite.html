@@ -43,6 +43,7 @@
           typeahead="user as user|getName for user in availableMemberList | filter : { selected : false } | userByName:$viewValue"
           typeahead-on-select="onSelect($item); selectedUser=''; $event.stopPropagation();"
           typeahead-template-url="customTemplate.html"
+          typeahead-min-length="0"
           placeholder="{{ '@input-search-user-name' | translate }}" />
       </div>
     </div>
