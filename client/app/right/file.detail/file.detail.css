@@ -189,6 +189,9 @@
   top: 5px;
   right: 0px;
 }
+.file-item-meta__action:hover {
+  color: #333;
+}
 .file-item-meta__action__dropdown {
   top: 28px;
 }
@@ -197,7 +200,6 @@
 }
 .file_actions {
   font-size: 21px;
-  color: rgb(153, 153, 153);
 }
 .fileicon-left {
   float: left;

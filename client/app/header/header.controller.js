@@ -19,22 +19,12 @@
     function _init() {
       DeskTopNotificationBanner.showNotificationBanner($scope);
 
-      _initRightPanelButtonLabel();
       $scope.languageList = language.getLanguageList();
       $scope.isIe = Browser.msie;
     }
 
-
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      _initRightPanelButtonLabel();
       stateParams = toParams;
-    });
-
-    /**
-     * language 변경 event handling
-     */
-    $scope.$on('changedLanguage', function() {
-      _initRightPanelButtonLabel();
     });
 
     $scope.onLanguageClick = onLanguageClick;
@@ -145,7 +135,7 @@
       jndPubSub.pub('onTutorialPulseClick', $event);
     };
 
-    $scope.onRightPanelToggle = function() {
+    $scope.openRightPanel = function() {
       if (_isRpanelVisible()) {
         $state.go('messages.detail');
       } else {
@@ -163,18 +153,6 @@
       }
     };
 
-    /**
-     * right panel의 button translate 설정
-     */
-    function _initRightPanelButtonLabel() {
-      $scope.isRpanelVisible = _isRpanelVisible();
-
-      if ($scope.isRpanelVisible) {
-        $scope.rPanelButtonLabel = $filter('translate')('@btn-close');
-      } else {
-        $scope.rPanelButtonLabel = $filter('translate')('@common-search');
-      }
-    }
     function _isRpanelVisible() {
       return $state.includes('**.files.**');
     }
