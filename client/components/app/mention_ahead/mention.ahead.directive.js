@@ -51,7 +51,7 @@
               event.stopPropagation();
               liveSearchHandler();
             })
-            .on('blur', mentionCtrl.clearMention)
+            //.on('blur', mentionCtrl.clearMention)
             .on('keyup', liveSearchHandler);
 
           // text change event handling
