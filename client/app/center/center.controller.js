@@ -40,6 +40,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // 첫 스크롤 업데이트가 끝났는지 안 끝났는지
   var _hasInitialScrollUpdateDone = false;
 
+  var _InitialLoadDeferredObj;
+  var _InitialLoadPromise;
+
+
   var isLogEnabled = true;
 
   var getMessageDeferredObject;
@@ -139,7 +143,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if(MessageQuery.hasSearchLinkId()) {
       _jumpToMessage();
     } else {
-      if (TopicMessageCache.contains(entityId)) {
+      if (TopicMessageCache.contains(_getEntityId())) {
         _displayCache();
       } else {
         loadMore();
@@ -167,7 +171,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.isInitialLoadingCompleted = false;
     $scope.currentEntity = currentSessionHelper.getCurrentEntity();
 
-    _lastReadMessageMarker = memberService.getLastReadMessageMarker(entityId);
+    centerService.setEntityId(centerService.isChat() ? currentSessionHelper.getCurrentEntity().entityId : entityId);
+    _lastReadMessageMarker = memberService.getLastReadMessageMarker(_getEntityId());
 
     _initLocalVariables();
   }
@@ -250,6 +255,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     lastMessageId = -1;
     loadedFirstMessageId = -1;
     systemMessageCount = 0;
+
+    _InitialLoadDeferredObj = $q.defer();
+    _InitialLoadPromise = _InitialLoadDeferredObj.promise;
+
     _resetUnreadCounters();
     _resetNewMsgHelpers();
     _cancelHttpRequest();
@@ -296,7 +305,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       hasProcessed: true
     };
 
-    TopicMessageCache.put(entityId, param);
+    TopicMessageCache.put(_getEntityId(), param);
   }
 
   /**
@@ -431,10 +440,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     console.log(_testCounter++, '::_displayCache');
 
-    var _item = TopicMessageCache.get(entityId);
+    var _item = TopicMessageCache.get(_getEntityId());
 
     $timeout(function() {
-
       if (!_item.hasProcessed) {
         MessageCollection.append(_item.list);
         console.log('::append');
@@ -446,12 +454,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       $scope.messages = MessageCollection.list;
 
-      globalLastLinkId = _item.globalLastLinkId;
-
+      globalLastLinkId = _item.globalLastLinkId || lastMessageId;
       publicService.hideTransitionLoading();
       $scope.isInitialLoadingCompleted = true;
 
-      TopicMessageCache.addValue(entityId, 'hasProcessed', true);
+      TopicMessageCache.addValue(_getEntityId(), 'hasProcessed', true);
 
       _updateUnreadBookmarkFlag();
 
@@ -461,39 +468,52 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _getUpdatedList() {
     console.log(_testCounter++, '::_getUpdatedList');
-    messageAPIservice.getUpdatedList(entityId, lastMessageId)
+
+
+    messageAPIservice.getUpdatedList(_getEntityId(), lastMessageId)
       .success(_onUpdatedMessagesSuccess)
       .error(function(err) {
         console.log(err)
         _scrollLock = false;
       })
-      .finally(_getCurrentRoomInfo);
+      .finally();
   }
 
   function _onUpdatedMessagesSuccess(response) {
-    console.log(_testCounter++, '::_onUpdatedMessagesSuccess')
-    if (!!response.updateInfo) {
+    console.log(_testCounter++, '::_onUpdatedMessagesSuccess', response);
 
-      if (_hasInitialScrollUpdateDone) {
-        // 첫 스크롤 업데이트가 이미 끝낫다면 스크롤를 락한다.
-        _scrollLock = true;
+    _InitialLoadPromise.then(
+      function() {
+        console.log('::processing updated list');
+        if (!!response.updateInfo.messageCount > 0) {
+
+          if (_hasInitialScrollUpdateDone) {
+            // 첫 스크롤 업데이트가 이미 끝낫다면 스크롤를 락한다.
+            // promise를 사용함으로써 이 조건은 항상 보장된다.
+            _scrollLock = true;
+          }
+
+          _hasNewMessageFromCache = true;
+
+          console.log(_testCounter++, '::_update messages', _hasInitialScrollUpdateDone, _scrollLock)
+
+          _shouldDisplayBookmarkFlag = true;
+          _shouldUpdateScrollToBookmark = true;
+
+          _onUpdateListSuccess(response);
+        } else {
+          console.log(_testCounter++, '::no messages to update');
+          //response.updateInfo가 없어도 response 가 200일 경우에 messageMarker를 업데이트해야한다.
+          updateMessageMarker();
+          _hasNewMessageFromCache = false;
+        }
+      },
+      function(err) {
+
       }
-
-      _hasNewMessageFromCache = true;
-
-      console.log(_testCounter++, '::_update messages', _hasInitialScrollUpdateDone, _scrollLock)
-
-      _shouldDisplayBookmarkFlag = true;
-      _shouldUpdateScrollToBookmark = true;
-
-      _onUpdateListSuccess(response);
-    } else {
-      console.log(_testCounter++, '::no messages to update');
-      //response.updateInfo가 없어도 response 가 200일 경우에 messageMarker를 업데이트해야한다.
-      updateMessageMarker();
-      _hasNewMessageFromCache = false;
-    }
+    );
   }
+
   function loadMore() {
     console.log('::loadMore');
     if (!$scope.msgLoadStatus.loading) {
@@ -638,31 +658,42 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     MessageQuery.reset();
   }
 
+
+
   function _onInitialLoad() {
     console.log(_testCounter++, '::_onInitialLoad')
 
-    _updateUnreadBookmarkFlag();
 
-    if (_shouldDisplayBookmarkFlag) {
-      if (!_hasNewMessageFromCache) {
-        console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
-        $timeout(function() {
-          // bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
+
+    $timeout(function() {
+      _updateUnreadBookmarkFlag();
+
+      if (_shouldDisplayBookmarkFlag) {
+        if (!_hasNewMessageFromCache) {
+          console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
+          $timeout(function() {
+            // bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
+            _findMessageDomElementById('unread-bookmark');
+          });
+        } else {
+          console.log('::_cache too fast');
+          // cache data가 너무 빨리 들어왔음. 그럴땐 bookmark로 우선 간다.
           _findMessageDomElementById('unread-bookmark');
-        });
+          _toBookmark();
+        }
+
       } else {
-        // cache data가 너무 빨리 들어왔음. 그럴땐 bookmark로 우선 간다.
-        _findMessageDomElementById('unread-bookmark');
-        _toBookmark();
+        console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
+        _InitialLoadDeferredObj.notify('::_no bookmark to show. scroll to bottom' + document.getElementById('msgs-container').scrollHeight)
+        // _scrollToBottom(true) 라는 걸 써봤지만 그래도 스크롤바를 내릴때, 현재 이 시점에서 원하는 곳보다 더 내려가는 현상이 있었음.
+        // 그랬을 경우, 여기서 바로 호출을 해버리면 그런 경우가 사라져서 부득이하게 이러헥 함. - JiHoon
+        //_scrollToBottom();
+        _scrollTo(document.getElementById('msgs-container').scrollHeight);
+        _showContents();
       }
 
-    } else {
-      console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
-      // _scrollToBottom(true) 라는 걸 써봤지만 그래도 스크롤바를 내릴때, 현재 이 시점에서 원하는 곳보다 더 내려가는 현상이 있었음.
-      // 그랬을 경우, 여기서 바로 호출을 해버리면 그런 경우가 사라져서 부득이하게 이러헥 함. - JiHoon
-      _scrollTo(document.getElementById('msgs-container').scrollHeight);
-      _showContents();
-    }
+      _InitialLoadDeferredObj.resolve();
+    });
 
     // 첫 스크로 업데이트가 끝났다고 알려준다.
     _hasInitialScrollUpdateDone = true;
@@ -671,6 +702,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _scrollLock = _hasNewMessageFromCache;
 
     loadedFirstMessageId = MessageCollection.getFirstLinkId();
+
+    _InitialLoadPromise = _InitialLoadDeferredObj.promise;
   }
 
   function _toBookmark() {
@@ -768,11 +801,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }, 0);
   }
   function _scrollToBottomWithAnimate(duration) {
-    duration = duration || 500;
-    var height = document.getElementById('msgs-container').scrollHeight;
-    $('#msgs-container').animate({scrollTop: height}, duration, 'swing', function() {
-      _resetNewMsgHelpers();
-    });
+    if (!_scrollLock) {
+      duration = duration || 500;
+      var height = document.getElementById('msgs-container').scrollHeight;
+      $('#msgs-container').animate({scrollTop: height}, duration, 'swing', function() {
+        _resetNewMsgHelpers();
+      });
+    }
+
   }
 
   function _showContents() {
@@ -888,6 +924,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function onHttpResponseError(response) {
+    console.log('::response', response)
     $scope.msgLoadStatus.loading = false;
     //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
     if (response && response.code == CURRENT_ENTITY_ARCHIVED) {
@@ -919,7 +956,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateMessageMarker() {
     messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
       .success(function(response) {
-        memberService.setLastReadMessageMarker(entityId, lastMessageId);
+        memberService.setLastReadMessageMarker(_getEntityId(), lastMessageId);
         //log('----------- successfully updated message marker for entity name ' + $scope.currentEntity.name + ' to ' + lastMessageId);
       })
       .error(function(response) {
@@ -955,19 +992,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function postMessage() {
     var jqInput = $('#message-input');
     var msg = $.trim(jqInput.val());
-
-    if (msg === 'showloading') {
-      $scope.msgLoadStatus.loading = true;
-      return;
-    }
-
-    if (msg === 'showfullloading') {
-      $scope.msgLoadStatus.loading = true;
-      $scope.hasLastMessageRendered = false;
-      return;
-    }
-
-    // prevent duplicate request
     if (msg || _sticker) {
       MessageCollection.enqueue(msg, _sticker);
       _scrollToBottom(true);
@@ -1418,9 +1442,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     console.log('::_onNewMessageArrived', _scrollLock, _hasInitialScrollUpdateDone, _hasNewMessageFromCache);
 
-    if (!_hasInitialScrollUpdateDone && _hasNewMessageFromCache) {
-      return;
-    }
     // If message is from me -> I just wrote a message -> Just scroll to bottom.
     if (centerService.isMessageFromMe(msg)) {
       _scrollToBottomWithAnimate();
