@@ -22,7 +22,7 @@ set :deploy_to, '/srv/www/web_landing'
 # used to set extended properties on the server.
 
 # server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
-server 'jandi.io', user: 'deploy', port: 2222, password: fetch(:password), roles: 'app'
+server 'jandi.io', user: 'deploy', port: 2222, password: fetch(:password), roles: 'client'
 
 
 # Custom SSH Options

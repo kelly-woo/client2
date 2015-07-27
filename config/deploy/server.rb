@@ -1,7 +1,8 @@
-set :application, 'web_landing'
-set :repo_url, 'git@github.com:tosslab/web_landing.git'
+set :application, 'web_server'
+set :repo_url, 'git@github.com:tosslab/web_server.git'
 set :branch, 'master'
-set :deploy_to, '/srv/www/web_landing'
+set :deploy_to, '/srv/www/web_server'
+set :linked_dirs, %w{logs node_modules pids}
 
 # Simple Role Syntax
 # ==================
@@ -20,8 +21,8 @@ set :deploy_to, '/srv/www/web_landing'
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '172.31.39.146', user: 'jandi', roles: 'client'
-server '172.31.39.147', user: 'jandi', roles: 'client'
+server '172.31.39.146', user: 'jandi', roles: 'server'
+server '172.31.39.147', user: 'jandi', roles: 'server'
 
 # Custom SSH Options
 # ==================
