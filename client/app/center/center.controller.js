@@ -622,7 +622,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _findMessageDomElementById(MessageQuery.get('linkId'));
       MessageQuery.clearSearchLinkId();
     } else if(_isInitialLoad()) {
-        _onInitialLoad();
+      _onInitialLoad();
     } else if (_isLoadingNewMessages()) {
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
     } else if (_isLoadingOldMessages()) {
@@ -653,9 +653,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       } else {
         // cache data가 너무 빨리 들어왔음. 그럴땐 bookmark로 우선 간다.
         _findMessageDomElementById('unread-bookmark');
-        $timeout(function() {
-          _toBookmark();
-        }, 2000)
+        _toBookmark();
       }
 
     } else {
@@ -685,17 +683,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     console.log(_testCounter, '::_toBookmark', jqMsgsContainer.height(), _bookmarkOffset)
     if (_bookmarkOffset > jqMsgsContainer.height()) {
 
-    var extraScrollHeight = (jqMsgsContainer.height()/3) * 2;
-    var _msgsContainerScrollHeight = jqMsgsContainer.prop('scrollHeight');
-    var _currentScrollTop = jqMsgsContainer.scrollTop();
+      var extraScrollHeight = (jqMsgsContainer.height()/3) * 2;
+      var _msgsContainerScrollHeight = jqMsgsContainer.prop('scrollHeight');
+      var _currentScrollTop = jqMsgsContainer.scrollTop();
 
-    console.log(_testCounter, '::_toBookmark', _scrollLock, _currentScrollTop, _msgsContainerScrollHeight-jqMsgsContainer.height());
+      console.log(_testCounter, '::_toBookmark', _scrollLock, _currentScrollTop, _msgsContainerScrollHeight-jqMsgsContainer.height());
 
-    console.log('::', $('#unread-bookmark').offset().top)
+      console.log('::', $('#unread-bookmark').offset().top)
 
-    _animateBackgroundColor($('#unread-bookmark'));
+      _animateBackgroundColor($('#unread-bookmark'));
 
-    $timeout(function() {
       $('#msgs-container')
         .animate(
         {scrollTop: $('#msgs-container').scrollTop() + extraScrollHeight},
@@ -704,13 +701,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           console.log('animate done')
         }
       );
-    }, 0);
 
-    // 새로운 메세지들이 밑에 붙은 후의 scrollHeight와 현재 스크롤 위치의 차이에 현재 컨테이너의 높이를 뺐을 때,
-    // 가장 높이 올라갈 수 있는 스크롤의 값(extraScrollHeight)보다 많으면 검은색 메세지 알림창을 보여준다.
-    if (_msgsContainerScrollHeight - _currentScrollTop - jqMsgsContainer.height() > extraScrollHeight) {
-      _showNewMessageAlertBanner();
-    }
+      // 새로운 메세지들이 밑에 붙은 후의 scrollHeight와 현재 스크롤 위치의 차이에 현재 컨테이너의 높이를 뺐을 때,
+      // 가장 높이 올라갈 수 있는 스크롤의 값(extraScrollHeight)보다 많으면 검은색 메세지 알림창을 보여준다.
+      if (_msgsContainerScrollHeight - _currentScrollTop - jqMsgsContainer.height() > extraScrollHeight) {
+        _showNewMessageAlertBanner();
+      }
     }
 
   }
@@ -771,7 +767,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _showContents();
     }, 0);
   }
-
   function _scrollToBottomWithAnimate(duration) {
     duration = duration || 500;
     var height = document.getElementById('msgs-container').scrollHeight;
@@ -1428,7 +1423,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
     // If message is from me -> I just wrote a message -> Just scroll to bottom.
     if (centerService.isMessageFromMe(msg)) {
-      _scrollToBottom(true);
+      _scrollToBottomWithAnimate();
       return;
     }
 
@@ -1437,7 +1432,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       //log('window with focus')
       if (_hasBrowserFocus()) {
         //log('bottom reached and scrolling to bottom');
-        _scrollToBottom(true);
+        _scrollToBottomWithAnimate();
         return;
       }
     }
@@ -1455,7 +1450,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onNewSystemMessageArrived() {
     //if (_hasLastMessage() && centerService.hasBottomReached()) {
     if (centerService.hasBottomReached()) {
-      _scrollToBottom(true);
+      _scrollToBottomWithAnimate();
     }
   }
 
