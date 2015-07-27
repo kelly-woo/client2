@@ -71,6 +71,34 @@
 
         <unread-bookmark class="msg-item" id="unread-bookmark" ng-if="isLastReadMarker(msg.id);"></unread-bookmark>
 
+        <!--날짜 구분선-->
+        <!--<date-divider ng-if="isNewDate($index)"></date-divider>-->
+
+        <!--<div id="{{msg.id}}"-->
+             <!--data-length="{{messages.length}}"-->
+             <!--class="msg-item"-->
+             <!--data-link-id="{{ msg.id }}"-->
+             <!--data-link-status="{{msg.status}}"-->
+             <!--data-message-id="{{msg.message.id}}"-->
+             <!--data-message-type="{{msg.message.contentType}}"-->
+             <!--data-feedback-id="{{msg.feedbackId}}"-->
+             <!--data-event-type="{{msg.eventType}}"-->
+             <!--data-ng-class="{ 'text': isTextType($index) && !isChildText($index),-->
+                              <!--'text-child': isTextType($index) && isChildText($index),-->
+                              <!--'file-upload': msg.message.isFile,-->
+                              <!--'comment-title': isCommentType($index) && isTitleComment($index),-->
+                              <!--'comment-continue': isCommentType($index) && !isTitleComment($index),-->
+                              <!--'system-event-msg' : msg.message.contentType === 'systemEvent',-->
+                              <!--'archived-file': msg.message.status === 'archived' }">-->
+
+          <!--<system-event ng-if="msg.message.contentType === 'systemEvent'"></system-event>-->
+          <!--<text ng-if="msg.message.isText" msg="msg" is-child-text="isChildText($index);" has-link-preview="hasLinkPreview($index);"></text>-->
+          <!--<file-uploaded ng-if="msg.message.isFile"></file-uploaded>-->
+          <!--<title-comment ng-if="msg.message.isComment"></title-comment>-->
+          <!--<unread-bookmark class="msg-item" id="unread-bookmark" ng-if="isLastReadMarker(msg.id);"></unread-bookmark>-->
+
+        <!--</div>-->
+
       </div>
       <!-- unsent Message -->
       <div ng-if="unsentMsgs.length" class="msgs-group">

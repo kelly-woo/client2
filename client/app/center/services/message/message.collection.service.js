@@ -51,8 +51,6 @@
 
     this.getList = getList;
     this.setList = setList;
-    this.prependCachedItem = prependCachedItem;
-    this.insertLastReadBookmark = insertLastReadBookmark;
 
     _init();
 
@@ -71,7 +69,7 @@
       _systemMessageCount = 0;
       that.list = [];
       _hasBookmark = false;
-      //_lastMessage = {};
+      _lastMessage = {};
 
     }
 
@@ -229,8 +227,6 @@
      * @param {array} messageList 업데이트 할 메세지 리스트
      */
     function update(messageList, isSkipAppend) {
-      messageList = _beforeAddMessages(messageList);
-
       _.forEach(messageList, function(msg) {
         if (_isSystemMessage(msg)) {
           _updateSystemMessage(msg, isSkipAppend);
@@ -324,22 +320,24 @@
         msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
       });
 
-      //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
-      //_lastMessage =
-        messageList[messageList.length - 1]._isLast = true;
-      //_updateLastMessage(messageList);
+      _updateLastMessage(messageList);
+      //messageList[messageList.length - 1]._isLast = true;
 
       return messageList;
     }
 
     function _updateLastMessage(messageList) {
-      if (!!_lastMessage) {
-        _lastMessage._isLast = false;
-      }
+      var _tempLastMessage = messageList[messageList.length - 1];
+      _tempLastMessage._isLast = true;
 
-      _lastMessage = messageList[messageList.length - 1];
-      //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
-      _lastMessage._isLast = true;
+      if (!_.isEmpty(_lastMessage)) {
+        if (_lastMessage.id < _tempLastMessage.id) {
+          _lastMessage._isLast = false;
+          _lastMessage = _tempLastMessage;
+        }
+      } else {
+        _lastMessage = _tempLastMessage;
+      }
     }
     /**
      * 첫번째 id 를 반환한다.
@@ -642,84 +640,5 @@
       _updateLastMessage(list);
       that.list = list;
     }
-
-    function prependCachedItem(messageList, lastLinkId) {
-      console.log('prependCachedItem')
-      messageList = _beforeAddCachedMessages(messageList, lastLinkId);
-      _.forEachRight(messageList, function(msg) {
-        msg = _getFormattedMessage(msg);
-        that.list.unshift(msg);
-      });
-    }
-    /**
-     *
-     * @param messageList
-     * @returns {*}
-     * @private
-     */
-    function _beforeAddCachedMessages(messageList, lastLinkId) {
-      var _tempMessageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
-
-      console.log(messageList)
-      _.forEach(messageList, function(msg) {
-        msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
-        _tempMessageList.push(msg);
-
-        //if (msg.id === lastLinkId) {
-        //  _tempMessageList.push(_getBookmarkMessage(msg));
-        //}
-      });
-
-      //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
-      _tempMessageList[_tempMessageList.length - 1]._isLast = true;
-      return _tempMessageList;
-    }
-
-    function insertLastReadBookmark(lastLinkId) {
-      if (!_hasBookmark) {
-
-        console.log('hello this is insertLastReadBookmark in message.collection', lastLinkId);
-        var _templist = [];
-
-        _.each(that.list, function(msg) {
-          _templist.push(msg);
-          if (msg.id === lastLinkId) {
-            var tempObject = _getBookmarkMessage(msg);
-            console.log(tempObject)
-            _templist.push(tempObject);
-          }
-        });
-
-        console.log(that.list)
-        console.log(_templist);
-
-        that.list = _templist;
-      }
-
-    }
-
-    function _getBookmarkMessage(msg) {
-      var tempMsg = _.cloneDeep(msg);
-      var bookmarkObject = {
-        id: 'unread-bookmark',
-        status: 'event',
-        message: {
-          contentType: 'systemEvent',
-          content: {
-            body: '여기까지 읽었습니다.'
-          }
-        },
-        info: {
-          eventType: 'bookmark'
-        }
-      };
-
-      console.log(msg)
-      console.log(_.extend(_.cloneDeep(msg), bookmarkObject));
-      _hasBookmark = true;
-      return _.extend(_.cloneDeep(msg), bookmarkObject);
-    }
-
-
   }
 })();

@@ -21,11 +21,24 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // 처음에 center에 진입할 때, 현재 entityId가 가지고 있는 마지막으로 읽은 message marker를 불러온다.
   // message marker는 link id와 동일하다. message id 아님.
   var _lastReadMessageMarker;
+
+  // 북마커를 보여줘야할지 말아야 할지
   var _shouldDisplayBookmarkFlag = false;
+
+  // 북마크로 스크롤을 해야할지 말아야 할지
   var _shouldUpdateScrollToBookmark = false;
+
+  // 북마크까지 가는데 걸리는 에니메이션 시간
   var _bookmarkAnimationDuration = 428;
 
-  var _isFromCachedData = false;
+  // 스크롤 락을 할 것인지 말 것인지
+  var _scrollLock = false;
+
+  // 캐시를 보여준 후 업데이트해야할 메세지가 있는지 없는지
+  var _hasNewMessageFromCache = false;
+
+  // 첫 스크롤 업데이트가 끝났는지 안 끝났는지
+  var _hasInitialScrollUpdateDone = false;
 
   var isLogEnabled = true;
 
@@ -104,6 +117,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   _init();
 
+  var _testCounter = 0;
   /**
    * 생성자 함수
    * @private
@@ -126,10 +140,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _jumpToMessage();
     } else {
       if (TopicMessageCache.contains(entityId)) {
-        console.log('has cache');
         _displayCache();
       } else {
-        console.log('no cache');
         loadMore();
       }
     }
@@ -396,6 +408,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         type: 'new',
         linkId: MessageCollection.getLastLinkId()
       });
+      console.log(MessageCollection.get())
       loadMore();
     }
   }
@@ -415,14 +428,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _displayCache() {
-    _isFromCachedData = true;
+
+    console.log(_testCounter++, '::_displayCache');
+
     var _item = TopicMessageCache.get(entityId);
 
     $timeout(function() {
 
       if (!_item.hasProcessed) {
-        //MessageCollection.prependCachedItem(_item.list, _item.lastLinkId);
-        MessageCollection.prepend(_item.list);
+        MessageCollection.append(_item.list);
+        console.log('::append');
       } else {
         MessageCollection.setList(_item.list);
       }
@@ -445,32 +460,42 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _getUpdatedList() {
+    console.log(_testCounter++, '::_getUpdatedList');
     messageAPIservice.getUpdatedList(entityId, lastMessageId)
       .success(_onUpdatedMessagesSuccess)
       .error(function(err) {
         console.log(err)
-      });
+        _scrollLock = false;
+      })
+      .finally(_getCurrentRoomInfo);
   }
 
   function _onUpdatedMessagesSuccess(response) {
-    $timeout(function() {
-      if (!!response.updateInfo) {
+    console.log(_testCounter++, '::_onUpdatedMessagesSuccess')
+    if (!!response.updateInfo) {
 
-        _shouldDisplayBookmarkFlag = true;
-        _shouldUpdateScrollToBookmark = true;
-
-        _onUpdateListSuccess(response);
-      } else {
-        //response.updateInfo가 없어도 response 가 200일 경우에 messageMarker를 업데이트해야한다.
-        updateMessageMarker();
+      if (_hasInitialScrollUpdateDone) {
+        // 첫 스크롤 업데이트가 이미 끝낫다면 스크롤를 락한다.
+        _scrollLock = true;
       }
 
-    });
+      _hasNewMessageFromCache = true;
 
+      console.log(_testCounter++, '::_update messages', _hasInitialScrollUpdateDone, _scrollLock)
+
+      _shouldDisplayBookmarkFlag = true;
+      _shouldUpdateScrollToBookmark = true;
+
+      _onUpdateListSuccess(response);
+    } else {
+      console.log(_testCounter++, '::no messages to update');
+      //response.updateInfo가 없어도 response 가 200일 경우에 messageMarker를 업데이트해야한다.
+      updateMessageMarker();
+      _hasNewMessageFromCache = false;
+    }
   }
-
   function loadMore() {
-    //console.log('loadMore');
+    console.log('::loadMore');
     if (!$scope.msgLoadStatus.loading) {
       loadedFirstMessageId = MessageCollection.getFirstLinkId();
       loadedLastMessageId = MessageCollection.getLastLinkId();
@@ -496,6 +521,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), getMessageDeferredObject)
         .success(function(response) {
+          console.log('::getMessageSuccess');
+
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
 
@@ -565,7 +592,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return loadedFirstMessageId < 0;
   }
 
-
   /**
    * Checks if there is no old messages to load.
    * Meaning all previous messages has been loaded and display on web.
@@ -591,24 +617,21 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _updateScroll() {
-    console.log('updatescroll')
+    console.log('::updateScroll')
     if (MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'));
       MessageQuery.clearSearchLinkId();
     } else if(_isInitialLoad()) {
-      console.log('::initial');
-      _onInitialLoad();
+        _onInitialLoad();
     } else if (_isLoadingNewMessages()) {
-      console.log('::loading new')
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
     } else if (_isLoadingOldMessages()) {
-      console.log('::loading old')
       _disableScroll();
       _findMessageDomElementById(loadedFirstMessageId);
     } else if (_shouldUpdateScrollToBookmark) {
-      console.log('::_shouldUpdateScrollToBookmark')
       _toBookmark();
       _shouldUpdateScrollToBookmark = false;
+      _scrollLock = false;
     } else if (MessageCollection.getQueue().length > 0) {
       _scrollToBottom();
     }
@@ -616,82 +639,137 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _onInitialLoad() {
-    console.log('messageCollection has ', MessageCollection.getLastLinkId(), ' and ' , _lastReadMessageMarker);
+    console.log(_testCounter++, '::_onInitialLoad')
 
     _updateUnreadBookmarkFlag();
 
     if (_shouldDisplayBookmarkFlag) {
-      console.log('to bookmark!');
-      $timeout(function() {
+      if (!_hasNewMessageFromCache) {
+        console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
+        $timeout(function() {
+          // bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
+          _findMessageDomElementById('unread-bookmark');
+        });
+      } else {
+        // cache data가 너무 빨리 들어왔음. 그럴땐 bookmark로 우선 간다.
         _findMessageDomElementById('unread-bookmark');
-      });
+        $timeout(function() {
+          _toBookmark();
+        }, 2000)
+      }
 
     } else {
-      console.log('scroll to bottom');
-      _scrollToBottom();
+      console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
+      // _scrollToBottom(true) 라는 걸 써봤지만 그래도 스크롤바를 내릴때, 현재 이 시점에서 원하는 곳보다 더 내려가는 현상이 있었음.
+      // 그랬을 경우, 여기서 바로 호출을 해버리면 그런 경우가 사라져서 부득이하게 이러헥 함. - JiHoon
+      _scrollTo(document.getElementById('msgs-container').scrollHeight);
+      _showContents();
     }
+
+    // 첫 스크로 업데이트가 끝났다고 알려준다.
+    _hasInitialScrollUpdateDone = true;
+
+    // 끝난 후 그 사이에 캐시의 업데이트 메세지가 들어왔을 경우 스크롤를 락한다.
+    _scrollLock = _hasNewMessageFromCache;
 
     loadedFirstMessageId = MessageCollection.getFirstLinkId();
   }
 
   function _toBookmark() {
-    var jqMsgsContainer = $('#msgs-container');
-    var extraScrollHeight = (jqMsgsContainer.height()/3) * 2;
 
+    _testCounter++;
+
+    var jqMsgsContainer = $('#msgs-container');
+    var _bookmarkOffset = $('#unread-bookmark').offset().top;
+
+    console.log(_testCounter, '::_toBookmark', jqMsgsContainer.height(), _bookmarkOffset)
+    if (_bookmarkOffset > jqMsgsContainer.height()) {
+
+    var extraScrollHeight = (jqMsgsContainer.height()/3) * 2;
     var _msgsContainerScrollHeight = jqMsgsContainer.prop('scrollHeight');
     var _currentScrollTop = jqMsgsContainer.scrollTop();
+
+    console.log(_testCounter, '::_toBookmark', _scrollLock, _currentScrollTop, _msgsContainerScrollHeight-jqMsgsContainer.height());
+
+    console.log('::', $('#unread-bookmark').offset().top)
+
+    _animateBackgroundColor($('#unread-bookmark'));
+
+    $timeout(function() {
+      $('#msgs-container')
+        .animate(
+        {scrollTop: $('#msgs-container').scrollTop() + extraScrollHeight},
+        _bookmarkAnimationDuration, 'swing',
+        function() {
+          console.log('animate done')
+        }
+      );
+    }, 0);
 
     // 새로운 메세지들이 밑에 붙은 후의 scrollHeight와 현재 스크롤 위치의 차이에 현재 컨테이너의 높이를 뺐을 때,
     // 가장 높이 올라갈 수 있는 스크롤의 값(extraScrollHeight)보다 많으면 검은색 메세지 알림창을 보여준다.
     if (_msgsContainerScrollHeight - _currentScrollTop - jqMsgsContainer.height() > extraScrollHeight) {
       _showNewMessageAlertBanner();
     }
+    }
 
-    _animateBackgroundColor($('#unread-bookmark'));
-    $('#msgs-container')
-      .animate(
-        {scrollTop: $('#msgs-container').scrollTop() + extraScrollHeight},
-        _bookmarkAnimationDuration, 'swing', function() {});
   }
 
   function _findMessageDomElementById(id) {
+    console.log('::_findMessageDomElementById', id);
+
     var jqTarget = $('#'+id);
     var targetScrollTop;
 
-    if (_.isUndefined(jqTarget.offset())) {
-      _scrollToBottom(true);
-    } else {
-      targetScrollTop = jqTarget.offset().top - $('#msgs-container').offset().top;
+    if (!_scrollLock) {
 
-      if (Announcement.isOpened()) {
-        targetScrollTop -= $('announcement:first > div:first').outerHeight();
+      if (_.isUndefined(jqTarget.offset())) {
+        console.log('::_no jqTarget')
+        _scrollToBottom(true);
+      } else {
+        console.log('::Yes jqTarget')
+        targetScrollTop = jqTarget.offset().top - $('#msgs-container').offset().top;
+
+        if (Announcement.isOpened()) {
+          targetScrollTop -= $('announcement:first > div:first').outerHeight();
+        }
+
+        targetScrollTop -= $('#msgs-container').height()/3;
+
+        $('#msgs-container').scrollTop(targetScrollTop);
+        _animateBackgroundColor(jqTarget);
       }
-
-      targetScrollTop -= $('#msgs-container').height()/3;
-
-      $('#msgs-container').scrollTop(targetScrollTop);
-      _animateBackgroundColor(jqTarget);
-      _showContents();
     }
+
+    _showContents();
   }
 
+  function _scrollTo(scrollHeight) {
+    document.getElementById('msgs-container').scrollTop = scrollHeight;
+  }
   function _scrollToBottom(isPromptly) {
-    var toBottom = function() {
-      document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
-    };
-    if (isPromptly) {
-      toBottom();
-    }
+    console.log('::_scrollToBottom ', _scrollLock)
 
-    $timeout.cancel(scrollToBottomTimer);
-    scrollToBottomTimer = $timeout(function() {
-      toBottom();
-    }, 0);
+    if (!_scrollLock) {
+
+      var toBottom = function() {
+        document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
+      };
+
+      if (isPromptly) {
+        toBottom();
+      }
+
+      $timeout.cancel(scrollToBottomTimer);
+      scrollToBottomTimer = $timeout(function() {
+        toBottom();
+      }, 0);
+    }
 
     $timeout.cancel(showContentTimer);
     showContentTimer = $timeout(function() {
       _showContents();
-    }, 10);
+    }, 0);
   }
 
   function _scrollToBottomWithAnimate(duration) {
@@ -721,6 +799,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _animateBackgroundColor(element) {
+    console.log('::_animateBackgroundColor');
     element.addClass('last');
     $timeout(function() {
       element.animate({'backgroundColor': 'white'}, 428, 'swing', function() {
@@ -1341,6 +1420,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onNewMessageArrived(angularEvent, msg) {
+
+    console.log('::_onNewMessageArrived', _scrollLock, _hasInitialScrollUpdateDone, _hasNewMessageFromCache);
+
+    if (!_hasInitialScrollUpdateDone && _hasNewMessageFromCache) {
+      return;
+    }
     // If message is from me -> I just wrote a message -> Just scroll to bottom.
     if (centerService.isMessageFromMe(msg)) {
       _scrollToBottom(true);
@@ -1356,7 +1441,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         return;
       }
     }
-    _gotNewMessage();
+
+    if (!_scrollLock) {
+      // 스크롤이 lock일 경우에 밑에 배너를 보여줄 필요도 없다.
+      _gotNewMessage();
+    }
   }
 
   /**
@@ -1430,14 +1519,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 랜더링 repeat 가 끝났을 때 호출되는 함수
    */
   function onRepeatDone() {
+    console.log('::onRepeatDone');
     _updateScroll();
   }
-
-
-
-  /**
-   * $scope event listeners
-   */
 
   /**
    * file comment delete handler.
@@ -1450,6 +1534,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function onCenterOnFileCommentDeleted(event, param) {
     MessageCollection.remove(param.comment.id);
   }
+
   /**
    * Someone left current topic -> update markers
    * @param event
@@ -1564,23 +1649,31 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return linkId === _lastReadMessageMarker && shouldDisplayUnreadMarker(linkId);
   }
 
-
+  /**
+   * unread bookmark를 보여줘야할지 말지 결정한다.
+   * 1. 현재의 link아이디가 리스트가 가지고 있는 마지막 아이디어야 한다.
+   * 2. _shouldDisplayBookmarkFlage 가 true 로 올러와야한다.
+   * @param {number} linkId - link id to check
+   * @returns {boolean}
+   */
   function shouldDisplayUnreadMarker(linkId) {
     return linkId !== MessageCollection.getLastLinkId() && _shouldDisplayBookmarkFlag;
   }
 
-  function setUnreadBookmarkFlag(value) {
-    _shouldDisplayBookmarkFlag = value;
-  }
-
+  /**
+   * _shouldDisplayBookmarkFlag의 값을 다시 체크한다.
+   * _lastReadMessageMarker 가 현재 리스트의 마지막 링크아이디와 같은지 체크한다.
+   * @private
+   */
   function _updateUnreadBookmarkFlag() {
+    console.log('::_updateUnreadBookmarkFlag', _lastReadMessageMarker, MessageCollection.getLastLinkId());
+
     if (_lastReadMessageMarker !== MessageCollection.getLastLinkId()) {
-      setUnreadBookmarkFlag(true);
+      _shouldDisplayBookmarkFlag = true;
     } else {
-      setUnreadBookmarkFlag(false);
+      _shouldDisplayBookmarkFlag = false;
     }
   }
-
 
   /**
    * 채팅 입력창 바로 위에 검은색 배너를 노출시킨다.
