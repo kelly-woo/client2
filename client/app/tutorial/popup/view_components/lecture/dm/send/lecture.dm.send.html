@@ -3,9 +3,10 @@
       ng-class="{
         'dm_add': step === 0,
         'member_select': step === 1,
-        'center': step === 2 || step === 6,
-        'center_msg': step === 3,
-        'center_msg_sticker': step === 4 || step === 5,
+        'full': step === 2,
+        'center': step === 3 || step === 7,
+        'center_msg': step === 4,
+        'center_msg_sticker': step === 5 || step === 6
       }">
   </div>
   <div ng-if="step === 1">
@@ -14,11 +15,11 @@
          ng-click="onClickMember();">
     </div>
   </div>
-  <div ng-if="step === 2" class="tutorial_input_center">
+  <div ng-if="step === 3" class="tutorial_input_center">
     <input type="text" id="tutorial_text_input" maxlength="50"
         ng-keydown="onKeyDown($event);"/>
   </div>
-  <div ng-if="step === 5"
+  <div ng-if="step === 6"
        class="tutorial_layer tutorial_dm_sticker">
     <img src="../../../../../assets/images/tutorial/layer/sticker.png">
     <div class="tutorial_dm_sticker_overlay ">

@@ -12,6 +12,8 @@
   function LectureMenuHelpCtrl($scope, $filter, jndPubSub, TutorialTutor, TutorialAccount) {
     var TOTAL_STEP = 1;
     var _tutorDataList;
+    var _purseDataList;
+
     _init();
 
     /**
@@ -23,6 +25,7 @@
         _initTutor();
         _attachEvents();
         $scope.step = 0;
+        $scope.purse =_purseDataList[0];
       });
     }
 
@@ -40,6 +43,13 @@
           hasNext: true
         }
       ];
+      _purseDataList = [
+        {
+          isShown: true,
+          top: 0,
+          left: 100
+        }
+      ];
       TutorialTutor.reset();
       TutorialTutor.set(_tutorDataList[0]);
     }
@@ -50,6 +60,7 @@
      */
     function _attachEvents() {
       $scope.$on('tutorial:nextStep', _onNextStep);
+      $scope.$on('tutorial:purseClicked', _onNextStep);
       $scope.$on('$destroy', _onDestroy);
     }
 
@@ -71,6 +82,7 @@
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
+        $scope.purse = _purseDataList[step];
         TutorialTutor.set(_tutorDataList[step]);
       }
       $scope.step = step;

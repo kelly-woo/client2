@@ -9,9 +9,9 @@
     .module('jandiApp')
     .controller('LectureDmSendCtrl', LectureDmSendCtrl);
 
-  function LectureDmSendCtrl($scope, $filter, jndPubSub, jndKeyCode, TutorialTutor, TutorialAccount, TutorialTopics,
-                             TutorialMessages, TutorialEntity, TutorialDm) {
-    var TOTAL_STEP = 7;
+  function LectureDmSendCtrl($scope, $filter, $timeout, jndPubSub, jndKeyCode, TutorialTutor, TutorialAccount,
+                             TutorialTopics, TutorialMessages, TutorialEntity, TutorialDm) {
+    var TOTAL_STEP = 8;
     var _tutorDataList;
     var _purseDataList;
 
@@ -44,7 +44,7 @@
           content: _translate('@tutorial_dm_click_list'),
           top: 200,
           left: 300,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: false
         },
         {
@@ -52,7 +52,7 @@
           content: '',
           top: 400,
           left: 269,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: false
         },
         {
@@ -60,7 +60,15 @@
           content: _translate('@tutorial_dm_post'),
           top: 450,
           left: 520,
-          hasSkip: true,
+          hasSkip: false,
+          hasNext: false
+        },
+        {
+          title: '',
+          content: _translate('@tutorial_dm_post'),
+          top: 450,
+          left: 520,
+          hasSkip: false,
           hasNext: false
         },
         {
@@ -68,7 +76,7 @@
           content: _translate('@tutorial_dm_success'),
           top: 200,
           left: 300,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: true
         },
         {
@@ -76,7 +84,7 @@
           content: _translate('@tutorial_dm_sticker_let'),
           top: 200,
           left: 300,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: false
         },
         {
@@ -84,7 +92,7 @@
           content: _translate('@tutorial_dm_sticker_let'),
           top: 200,
           left: 300,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: false
         },
         {
@@ -92,7 +100,7 @@
           content: _translate('@tutorial_dm_sticker_success'),
           top: 410,
           left: 300,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: true
         }
       ];
@@ -108,9 +116,14 @@
           left: 260
         },
         {
+          isShown: true,
+          top: 693,
+          left: 290
+        },
+        {
           isShown: false,
-          top: 0,
-          left: 0
+          top: 693,
+          left: 290
         },
         {
           isShown: false,
@@ -241,8 +254,11 @@
         TutorialTutor.set(_tutorDataList[step]);
         if (step === 2) {
           _startDm();
-        }
-        if (step === 6) {
+        } else if (step === 3) {
+          $timeout(function() {
+            $('#tutorial_text_input').focus();
+          }, 50);
+        } else if (step === 7) {
           _postSticker();
         }
       }

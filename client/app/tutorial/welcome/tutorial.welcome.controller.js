@@ -77,7 +77,7 @@
         data: {
           start: step
         },
-        optionStr: 'width=1024; height=768;'
+        optionStr: 'resizable=no, scrollbars=1, toolbar=no, menubar=no, status=no, directories=no, width=1024, height=768'
       });
     }
 

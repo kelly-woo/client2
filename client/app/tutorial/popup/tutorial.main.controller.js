@@ -9,8 +9,8 @@
     .module('jandiApp')
     .controller('TutorialMainCtrl', TutorialMainCtrl);
 
-  function TutorialMainCtrl($scope, $rootScope, $state, TutorialTutor, TutorialAccount, TutorialTopics, TutorialDm,
-                            TutorialAPI, Popup) {
+  function TutorialMainCtrl($scope, $rootScope, $state, $timeout, TutorialTutor, TutorialAccount, TutorialTopics,
+                            TutorialDm, TutorialAPI, Popup) {
     var _isComplete;
     var _topicList;
     var _dmList;
@@ -52,7 +52,8 @@
      */
     function _init() {
       $('body').css({
-        overflow: 'auto'
+        overflow: 'auto',
+        background: '#666666'
       });
       TutorialAccount.promise.then(_onSuccessGetAccount);
     }
@@ -78,11 +79,24 @@
       _initRouter();
       _attachEvents();
       _attachDomEvents();
+      //_resize();
 
       $scope.topicList = TutorialTopics.get();
       $scope.dmList = _dmList;
       $scope.tutor = TutorialTutor.get();
       $rootScope.isReady = true;
+    }
+
+    /**
+     * popup 윈도우를 resize 한다.
+     * @private
+     */
+    function _resize() {
+
+      $timeout(function() {
+        window.resizeTo(1024, 768);
+      }, 1000);
+
     }
 
     /**

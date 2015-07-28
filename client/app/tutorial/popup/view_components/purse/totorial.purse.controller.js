@@ -13,7 +13,9 @@
     $scope.onClickPurse = onClickPurse;
 
     function onClickPurse() {
-      jndPubSub.pub('tutorial:purseClicked');
+      if (_.isUndefined($scope.options.isClickable) || $scope.options.isClickable === true) {
+        jndPubSub.pub('tutorial:purseClicked');
+      }
     }
   }
 })();

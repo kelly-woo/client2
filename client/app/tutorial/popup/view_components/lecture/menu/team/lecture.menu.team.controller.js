@@ -40,7 +40,7 @@
           content: '',
           top: 200,
           left: 300,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: false
         },
         {
@@ -48,7 +48,7 @@
           content: _translate('@tutorial_team_desc'),
           top: 200,
           left: 300,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: true
         }
       ];

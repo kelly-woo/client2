@@ -1140,7 +1140,7 @@ msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_click_list"
-msgstr "Click on the + button to start a 1:1 conversation."
+msgstr "Click on the (+) button to start a 1:1 conversation."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_post"
@@ -1156,7 +1156,7 @@ msgstr "Great. He loved it! "
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_success"
-msgstr "Great. The message sent successfully."
+msgstr "Great. The message was sent successfully."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_dm_talk"
@@ -1173,9 +1173,8 @@ msgstr ""
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_comment"
 msgstr ""
-"From here, you can view previous comments and provide new feedback that stay "
-"attached to the file. Type “fix typos” to let your coworker know to revise "
-"the document."
+"From here, you can view and add comments that stay attached to the file. Try "
+"entering “fix typos” to let your coworker know to revise the document."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_file_comment_click"
@@ -1189,7 +1188,7 @@ msgstr "Now let’s take a look at your JANDI file drawer. "
 msgid "@tutorial_file_download_desc"
 msgstr ""
 "If you want to download the file or share it to another topic, simply click "
-"here."
+"the More (...) menu."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_get_started"
@@ -1201,17 +1200,18 @@ msgstr "Great."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_help_remember"
-msgstr "Remember - you can always click here if you need help!"
+msgstr ""
+"Remember - you can always click the Help (?) menu if you have any questions!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_click_title"
 msgstr ""
-"You just joined the Lunch topic. Click on the topic name dropdown to access "
-"more options."
+"You just joined the 'Lunch' topic. Click on the dropdown menu next to the "
+"topic name to access more options."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_lets"
-msgstr "Let’s leave the topic for now."
+msgstr "Let’s leave the 'Lunch' topic for now."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_success"
@@ -1219,7 +1219,7 @@ msgstr "Perfect. You left the topic. "
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_success_desc"
-msgstr "Remember that you can freely join and leave public topics."
+msgstr "Remember you can freely join and leave any public topic."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_profile_desc"
@@ -1236,13 +1236,13 @@ msgstr "Check out the Team menu."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_team_click_invite"
-msgstr "Click on Invite to tell your members to join the team."
+msgstr "Click on 'Invite' to bring coworkers to your JANDI team."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_team_definition"
 msgstr ""
-"A \"team\" is a closed group where you and your coworkers can share, "
-"discuss, and organize content."
+"A \"team\" is a closed group where you and your coworkers can hold "
+"discussions, share files, and organize content."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_team_desc"
@@ -1253,7 +1253,8 @@ msgstr ""
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_team_explain_invitation"
 msgstr ""
-"You can send email invitations or simply share the team's invitation link."
+"Send individual invitations by email, or copy and share the team's link to "
+"invite large groups at once."
 
 #: client/app/tutorial/popup/tutorial.main.html
 #: client/app/tutorial/welcome/tutorial.welcome.html
@@ -1268,37 +1269,39 @@ msgstr "Welcome to the JANDI Trial Team!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_there_we_go"
-msgstr "There we go!"
+msgstr "There you go!"
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_click_join"
-msgstr "Click 'Join' to participate in the conversation."
+msgstr ""
+"If you're not already a member of a topic, click 'Join' to jump into the "
+"conversation."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_click_list"
-msgstr "Click on the button to see the list of all topics."
+msgstr "Click on the (☰) button to see the list of all topics."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_click_plus"
-msgstr "Click on the + button to create your own."
+msgstr "Click on the (+) button to create your own."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_create_own"
-msgstr "Let’s create a public topic for your department. "
+msgstr "Try creating a topic for your department."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_created"
-msgstr "You successfully created the {{topicName}} topic."
+msgstr "You successfully created the '{{topicName}}' topic."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_definition"
 msgstr ""
-"Use Topics to organize your group conversations and files around projects "
-"and departments."
+"\"Topics\" are spaces for you to organize conversations and files around "
+"projects and departments."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_join"
-msgstr "Now, let's try browsing for existing topics."
+msgstr "Let's browse the list of ongoing topics."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_topic_let_create"
@@ -1306,8 +1309,7 @@ msgstr "Let’s try creating a topic. "
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_preview"
-msgstr ""
-"The file, along with a preview, will be shared with members on the topic. "
+msgstr "The uploaded file will be shared with members in the topic. "
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_sources"
@@ -1317,7 +1319,7 @@ msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_upload_title"
-msgstr "You can also upload files directly into a topic. "
+msgstr "You can upload files directly into a topic. "
 
 #: client/app/tutorial/welcome/tutorial.welcome.html
 msgid "@tutorial_welcome_again_content"

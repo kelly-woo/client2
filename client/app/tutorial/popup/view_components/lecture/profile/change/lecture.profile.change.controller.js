@@ -44,7 +44,7 @@
           content: '',
           top: 200,
           left: 300,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: false
         },
         {
@@ -52,7 +52,7 @@
           content: '',
           top: 200,
           left: 300,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: false
         },
         {
@@ -60,7 +60,7 @@
           content: _translate('@tutorial_profile_desc'),
           top: 340,
           left: 510,
-          hasSkip: true,
+          hasSkip: false,
           hasNext: true
         }
       ];
