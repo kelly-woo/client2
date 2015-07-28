@@ -31,18 +31,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   // 북마크로 스크롤을 해야할지 말아야 할지
   var _shouldUpdateScrollToBookmark = false;
 
+  var _isFromCache = false;
+
   // 북마크까지 가는데 걸리는 에니메이션 시간
   var _bookmarkAnimationDuration = 428;
-
-
-  // 스크롤 락을 할 것인지 말 것인지
-  var _scrollLock = false;
-
-  // 이니셜로드 $timeout의 defer() 값
-  var _InitialLoadDeferredObj;
-  // 위의 .promise 속성
-  var _InitialLoadPromise;
-
 
   var isLogEnabled = true;
 
@@ -256,8 +248,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     loadedFirstMessageId = -1;
     systemMessageCount = 0;
 
-    _InitialLoadDeferredObj = $q.defer();
-    _InitialLoadPromise = _InitialLoadDeferredObj.promise;
+    _isFromCache = false;
 
     _resetUnreadCounters();
     _resetNewMsgHelpers();
@@ -421,7 +412,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return centerService.isCommentType(MessageCollection.getContentType(index));
   }
 
-
   function loadNewMessages() {
     if (hasMoreNewMessageToLoad() && NetInterceptor.isConnected()) {
       MessageQuery.set({
@@ -447,8 +437,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
    * @private
    */
-  function _displayCache() {
-
+  function _displayCache2() {
 
     var _item = TopicMessageCache.get(_getEntityId());
     console.log(_testCounter++, '::_displayCache', _item.list.length);
@@ -463,8 +452,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       lastMessageId = MessageCollection.getLastLinkId();
 
-      $scope.messages = MessageCollection.list;
-
       globalLastLinkId = _item.globalLastLinkId || lastMessageId;
       publicService.hideTransitionLoading();
       $scope.isInitialLoadingCompleted = true;
@@ -477,46 +464,58 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     });
   }
 
+  function _displayCache() {
+    console.log(_testCounter++, '::_displayCache');
+
+    var _cachedItem = TopicMessageCache.get(_getEntityId());
+
+    _isFromCache = true;
+
+    if (!_cachedItem.hasProcessed) {
+      MessageCollection.append(_cachedItem.list);
+    } else {
+      MessageCollection.setList(_cachedItem.list);
+    }
+
+    lastMessageId = MessageCollection.getLastLinkId();
+    globalLastLinkId = _cachedItem.globalLastLinkId || lastMessageId;
+
+    $scope.isInitialLoadingCompleted = true;
+
+    TopicMessageCache.addValue(_getEntityId(), 'hasProcessed', true);
+
+    _updateUnreadBookmarkFlag();
+
+    _getUpdatedList();
+  }
+
   function _getUpdatedList() {
     console.log(_testCounter++, '::_getUpdatedList');
-
 
     messageAPIservice.getUpdatedList(_getEntityId(), lastMessageId)
       .success(_onUpdatedMessagesSuccess)
       .error(function(err) {
         console.log(err)
-        _scrollLock = false;
-      })
-      .finally();
+      });
   }
 
   function _onUpdatedMessagesSuccess(response) {
     console.log(_testCounter++, '::_onUpdatedMessagesSuccess', response);
 
-    _InitialLoadPromise.then(
-      function() {
-        console.log('::processing updated list');
-        if (!!response.updateInfo.messageCount > 0) {
+    console.log('::processing updated list');
+    if (response.updateInfo.messageCount > 0) {
+      console.log(_testCounter++, '::_update messages');
 
-          // 첫 스크롤 업데이트가 이미 끝났으니 스크롤를 락한다.
-          _scrollLock = true;
+      _shouldDisplayBookmarkFlag = true;
+      _shouldUpdateScrollToBookmark = true;
 
-          console.log(_testCounter++, '::_update messages',  _scrollLock)
-
-          _shouldDisplayBookmarkFlag = true;
-          _shouldUpdateScrollToBookmark = true;
-
-          _onUpdateListSuccess(response);
-        } else {
-          console.log(_testCounter++, '::no messages to update');
-          //response.updateInfo가 없어도 response 가 200일 경우에 messageMarker를 업데이트해야한다.
-          updateMessageMarker();
-        }
-      },
-      function(err) {
-
-      }
-    );
+      _onUpdateListSuccess(response);
+    } else {
+      console.log(_testCounter++, '::no messages to update');
+      //response.updateInfo가 없어도 response 가 200일 경우에 messageMarker를 업데이트해야한다.
+      updateMessageMarker();
+      $scope.messages = MessageCollection.getList();
+    }
   }
 
   function loadMore() {
@@ -656,7 +655,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else if (_shouldUpdateScrollToBookmark) {
       _toBookmark();
       _shouldUpdateScrollToBookmark = false;
-      _scrollLock = false;
     } else if (MessageCollection.getQueue().length > 0) {
       _scrollToBottom();
     }
@@ -668,32 +666,27 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onInitialLoad() {
     console.log(_testCounter++, '::_onInitialLoad')
 
-    // initialLoad 가 끝났을 때 resolve로 알려줘야하기때문에 $timeout에 걸었음.
-    $timeout(function() {
-      _updateUnreadBookmarkFlag();
+    _updateUnreadBookmarkFlag();
 
-      if (_shouldDisplayBookmarkFlag) {
-        console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
-        $timeout(function() {
-          // bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
-          _findMessageDomElementById('unread-bookmark');
-        });
-      } else {
-        console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
-        _InitialLoadDeferredObj.notify('::_no bookmark to show. scroll to bottom' + document.getElementById('msgs-container').scrollHeight)
-        // _scrollToBottom(true) 라는 걸 써봤지만 그래도 스크롤바를 내릴때, 현재 이 시점에서 원하는 곳보다 더 내려가는 현상이 있었음.
-        // 그랬을 경우, 여기서 바로 호출을 해버리면 그런 경우가 사라져서 부득이하게 이러헥 함. - JiHoon
-        //_scrollToBottom();
-        _scrollTo(document.getElementById('msgs-container').scrollHeight);
-        _showContents();
-      }
+    if (_shouldDisplayBookmarkFlag) {
+      console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
+      $timeout(function() {
+        // bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
+        _findMessageDomElementById('unread-bookmark');
+      });
+    }
+    else {
+      console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
+      _scrollToBottom();
+    }
 
-      _InitialLoadDeferredObj.resolve();
-    });
+    if (_isFromCache) {
+      _isFromCache = false;
 
-    loadedFirstMessageId = MessageCollection.getFirstLinkId();
+      loadedFirstMessageId = MessageCollection.getFirstLinkId();
+      loadedLastMessageId = MessageCollection.getLastLinkId();
+    }
 
-    _InitialLoadPromise = _InitialLoadDeferredObj.promise;
   }
 
   function _toBookmark() {
@@ -710,7 +703,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       var _msgsContainerScrollHeight = jqMsgsContainer.prop('scrollHeight');
       var _currentScrollTop = jqMsgsContainer.scrollTop();
 
-      console.log(_testCounter, '::_toBookmark', _scrollLock, _currentScrollTop, _msgsContainerScrollHeight-jqMsgsContainer.height());
+      console.log(_testCounter, '::_toBookmark', _currentScrollTop, _msgsContainerScrollHeight-jqMsgsContainer.height());
 
       console.log('::', $('#unread-bookmark').offset().top)
 
@@ -738,67 +731,70 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     console.log('::_findMessageDomElementById', id);
 
     var jqTarget = $('#'+id);
-    var targetScrollTop;
+    var jqContainer = $('#msgs-container');
+    var targetScrollTop = jqContainer.scrollTop();
 
-    if (!_scrollLock) {
 
-      if (_.isUndefined(jqTarget.offset())) {
-        console.log('::_no jqTarget')
-        _scrollToBottom(true);
-      } else {
-        console.log('::Yes jqTarget')
-        targetScrollTop = jqTarget.offset().top - $('#msgs-container').offset().top;
 
-        if (Announcement.isOpened()) {
-          targetScrollTop -= $('announcement:first > div:first').outerHeight();
-        }
+    if (_.isUndefined(jqTarget.offset())) {
+      console.log('::_no jqTarget')
+      _scrollToBottom(true);
+    } else {
+      console.log('::Yes jqTarget', targetScrollTop);
 
-        targetScrollTop -= $('#msgs-container').height()/3;
+      targetScrollTop += jqTarget.offset().top;
+      targetScrollTop -= jqTarget.height();
+      targetScrollTop -= jqContainer.offset().top;
 
-        $('#msgs-container').scrollTop(targetScrollTop);
-        _animateBackgroundColor(jqTarget);
+      if (Announcement.isOpened()) {
+        targetScrollTop -= $('announcement:first > div:first').outerHeight();
       }
-    }
 
-    _showContents();
+      targetScrollTop -= jqContainer.height()/3;
+
+      console.log('::Scroll to ', targetScrollTop);
+      _scrollTo(targetScrollTop);
+
+      // _scrollTo 가 다 끝날때까지 기다린 후 _showcontent 를 한다.
+      $timeout(function() {
+        _animateBackgroundColor(jqTarget);
+        _showContents();
+      }, 10);
+    }
   }
 
   function _scrollTo(scrollHeight) {
     document.getElementById('msgs-container').scrollTop = scrollHeight;
   }
+
   function _scrollToBottom(isPromptly) {
-    console.log('::_scrollToBottom ', _scrollLock)
+    console.log('::_scrollToBottom ');
 
-    if (!_scrollLock) {
+    var toBottom = function() {
+      document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
+    };
 
-      var toBottom = function() {
-        document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
-      };
-
-      if (isPromptly) {
-        toBottom();
-      }
-
-      $timeout.cancel(scrollToBottomTimer);
-      scrollToBottomTimer = $timeout(function() {
-        toBottom();
-      }, 0);
+    if (isPromptly) {
+      toBottom();
     }
+
+    $timeout.cancel(scrollToBottomTimer);
+    scrollToBottomTimer = $timeout(function() {
+      toBottom();
+    }, 0);
 
     $timeout.cancel(showContentTimer);
     showContentTimer = $timeout(function() {
       _showContents();
     }, 0);
   }
-  function _scrollToBottomWithAnimate(duration) {
-    if (!_scrollLock) {
-      duration = duration || 500;
-      var height = document.getElementById('msgs-container').scrollHeight;
-      $('#msgs-container').animate({scrollTop: height}, duration, 'swing', function() {
-        _resetNewMsgHelpers();
-      });
-    }
 
+  function _scrollToBottomWithAnimate(duration) {
+    duration = duration || 500;
+    var height = document.getElementById('msgs-container').scrollHeight;
+    $('#msgs-container').animate({scrollTop: height}, duration, 'swing', function() {
+      _resetNewMsgHelpers();
+    });
   }
 
   function _showContents() {
@@ -894,6 +890,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     }
 
+    if (_isFromCache) {
+      $scope.messages = MessageCollection.getList();
+    }
   }
 
   /**
@@ -1429,12 +1428,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onNewMessageArrived(angularEvent, msg) {
-
-    console.log('::_onNewMessageArrived', _scrollLock);
+    console.log('::_onNewMessageArrived');
 
     // If message is from me -> I just wrote a message -> Just scroll to bottom.
     if (centerService.isMessageFromMe(msg)) {
-      _scrollToBottomWithAnimate();
+      _scrollToBottom(true);
       return;
     }
 
@@ -1442,16 +1440,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (centerService.hasBottomReached()) {
       //log('window with focus')
       if (_hasBrowserFocus()) {
-        //log('bottom reached and scrolling to bottom');
-        _scrollToBottomWithAnimate();
+        _scrollToBottom(true);
         return;
       }
     }
 
-    if (!_scrollLock) {
-      // 스크롤이 lock일 경우에 밑에 배너를 보여줄 필요도 없다.
-      _gotNewMessage();
-    }
+    _gotNewMessage();
   }
 
   /**
