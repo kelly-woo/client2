@@ -9,11 +9,16 @@
     .controller('MentionaheadCtrl', MentionaheadCtrl);
 
   /* @ngInject */
-  function MentionaheadCtrl($state, $parse, entityAPIservice, configuration) {
+  function MentionaheadCtrl($state, $parse, entityAPIservice, memberService, configuration) {
     var that = this;
-
+      //
+    // /([@])([a-zA-Z0-9_ ]{0,30})$/.exec('@mark @park park @qweqwe @wfkwelfj @서 포트')
+    ///????-?/.exec()
+    ///(^|\s([@\uff20]((.){0,30})))$/.exec('@qwe @mark @qweqwe');
+    ///(?:^|[^a-zA-Z0-9_!#$%&*@＠]|(?:^|[^a-zA-Z0-9_+~.-])(?:rt|RT|rT|Rt):?)([@])([a-zA-Z0-9_ ]{1,20})(\/[a-zA-Z][a-zA-Z0-9_\-]{0,24})?$/.exec('@mark @park park @qweqwe')
+    ///(^|\s)([^\[])([@\uff20]((?:[a-z ]){0,30}))$/.exec('[@mark [@park park @qweqwe @wfkwel@fj')
     // /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/; 특수문자 노 상관이므로 아래거
-    var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|.[^ ]){0,30})))$/;
+    var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
     var rStrContSearchTextMentionMarkDown = '\\[(@([^\\[]|.[^\\[]{0,30}))\\]';
 
     var MENTION_ALL = 'ALL';
@@ -74,6 +79,7 @@
 
     function _setMentionList(currentEntity) {
       var mentionList = [];
+      var currentMemberId = memberService.getMemberId();
       var members = currentEntity.ch_members || currentEntity.pg_members;
       var member;
       var i;
@@ -82,7 +88,7 @@
       // 현재 topic의 members
       for (i = 0, len = members.length; i < len; i++) {
         member = _getCurrentTopicMembers(members[i]);
-        if (member && member.status === 'enabled') {
+        if (member && currentMemberId !== member.id && member.status === 'enabled') {
           member.exViewName = '[@' + member.name + ']',
           member.exSearchName = member.name;
           mentionList.push(member);
@@ -90,7 +96,7 @@
       }
 
       setMentions(mentionList, function() {
-        if (mentionList && mentionList.length > 1) {
+        if (mentionList && mentionList.length > 0) {
           mentionList.push({
             // mention item 출력용 text
             name: MENTION_ALL + ' - Notify all members in this topic',
@@ -218,7 +224,6 @@
       var preStr;
       var match;
       var mentions = [];
-      var mention;
       var data;
       var beginIndex = 0;
       var lastIndex;

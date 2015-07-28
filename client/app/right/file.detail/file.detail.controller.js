@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
-                                           publicService, configuration, modalHelper, jndPubSub, jndKeyCode, AnalyticsHelper) {
+                                           memberService, publicService, configuration, modalHelper, jndPubSub, jndKeyCode, AnalyticsHelper) {
 
   //console.info('[enter] fileDetailCtrl');
   var _sticker = null;
@@ -632,6 +632,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @param {object} $mentionScope
    */
   function watchFileDetail($mentionScope, $mentionCtrl) {
+    var currentMemberId = memberService.getMemberId();
+
     $scope.$watch('file_detail', function(value) {
       var sharedEntities;
       var entity;
@@ -653,7 +655,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
             if (members) {
               for (j = 0, jLen = members.length; j < jLen; j++) {
                 member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
-                if (member && member.status === 'enabled') {
+                if (member && currentMemberId !== member.id && member.status === 'enabled') {
                   member.exViewName = '[@' + member.name + ']';
                   member.exSearchName = member.name;
                   mentionList.push(member);

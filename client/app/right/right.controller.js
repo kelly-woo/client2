@@ -10,17 +10,7 @@
     .controller('rPanelCtrl', rPanelCtrl);
 
   /* ngInject */
-  function rPanelCtrl($scope, $filter, jndPubSub) {
-    var fileTab;
-
-    var messageTab;
-
-    var tabSelectedCallbacks = {
-      message: onMessageTabSelected,
-      file: onFileTabSelected
-    };
-
-
+  function rPanelCtrl($scope, $state, jndPubSub) {
     _init();
 
     /**
@@ -30,19 +20,21 @@
     function _init() {
       $scope.isSearchQueryEmpty = true;
 
-      fileTab = {
-        active: true
+      $scope.tabs = {
+        file: {
+          active: true
+        },
+        message: {
+          active: false
+        },
+        star: {
+          active: false
+        },
+        mention: {
+          active: false
+        }
       };
-
-      messageTab = {
-        active: false
-      };
-
-      $scope.tabs = [fileTab, messageTab];
-
-      _setLanguageVariable();
     }
-
 
     /**
      * right panel 상단에 있는 search input box 의 값이 없어졌다는 이벤트.
@@ -66,23 +58,28 @@
     });
 
     /**
-     * language 변경 event handling
+     * right panel이 on 되었다는 event handling
      */
-    $scope.$on('changedLanguage', function() {
-      _setLanguageVariable()
+    $scope.$on('onRightPanel', function($event, type) {
+      var tab;
+
+      if (tab = $scope.tabs[type]) {
+        tab.active = true;
+      }
+      $state.go('messages.detail.files');
     });
 
 
-    /**
-     * file tab 이나 message tab 이 선택되어졌을 때 항상 호출된다.
-     * @param selectedTab {string} 선택된 tab 의 이름.
-     */
-    $scope.onRightPanelTabSelected = function(selectedTab) {
-      // search input box 의 값을 reset 시켜준다.
-      jndPubSub.pub('resetRPanelSearchStatusKeyword');
-      // TODO: 이렇게 펑션 불러도 되나요?
-      tabSelectedCallbacks[selectedTab]();
-    };
+    ///**
+    // * file tab 이나 message tab 이 선택되어졌을 때 항상 호출된다.
+    // * @param selectedTab {string} 선택된 tab 의 이름.
+    // */
+    //$scope.onRightPanelTabSelected = function(selectedTab) {
+    //  // search input box 의 값을 reset 시켜준다.
+    //  jndPubSub.pub('resetRPanelSearchStatusKeyword');
+    //  // TODO: 이렇게 펑션 불러도 되나요?
+    //  tabSelectedCallbacks[selectedTab]();
+    //};
 
     /**
      * file tab 이 active 되었다는 이벤트.
@@ -111,7 +108,7 @@
      * @private
      */
     function _setFileTabStatus() {
-      fileTab.active = true;
+      $scope.tabs.file.active = true;
     }
 
     /**
@@ -119,7 +116,7 @@
      * @private
      */
     function _setMessageTabStatus() {
-      messageTab.active = true;
+      $scope.tabs.message.active = true;
     }
 
     // TODO: REFACTOR
@@ -147,12 +144,8 @@
       return messageTab.active;
     };
 
-    /**
-     * controller내 사용되는 translate variable 설정
-     */
-    function _setLanguageVariable() {
-      $scope.tab1 = $filter('translate')('@common-files');
-      $scope.tab2 = $filter('translate')('@common-message');
-    }
+    $scope.closeRightPanel = function() {
+
+    };
   }
 })();

@@ -1,0 +1,31 @@
+<div class="rpanel-header">
+  <i class="icon-cancel"></i>
+  <span>Mention</span>
+</div>
+<div class="rpanel-body">
+  <div class="mention-card">
+    <div class="mention-card-header">
+      <div class="mention-profile">
+        <img>
+      </div>
+      <div class="mention-meta">
+        <div class="mention-title">
+          <span class="mention-talker"></span>
+          <span class="mention-date"></span>
+        </div>
+        <div class="mention-start">
+          <a></a>
+        </div>
+      </div>
+    </div>
+    <div class="mention-card-body">
+      <span></span>
+    </div>
+  </div>
+  <!--<mention-card ng-repeat="mention in mentionList"></mention-card>-->
+  <div class="file-list__item loading" ng-if="isSearching && mentionList.length > 0">
+    <div class="loading_container_background scroll_loading_container_background"></div>
+    <div class="loading_bg scroll_loading_bg"></div>
+    <div class="loading_bar icon-loading scroll_loading_bar"></div>
+  </div>
+</div>

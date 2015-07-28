@@ -172,7 +172,9 @@
   display: none;
 }
 
+.rpanel__background-header,
 .rpanel-header {
+  position: relative;
   text-align: center;
   height: 40px;
   line-height: 40px;
@@ -181,7 +183,8 @@
   box-shadow: 0 2px 2px #e1e1e1;
 }
 .rpanel-header > i {
-  float: left;
+  position: absolute;
+  display: block;
   color: #154a67;
   font-size: 24px;
   margin-top: 10px;
@@ -189,8 +192,13 @@
   cursor: pointer;
 }
 .rpanel-header > span {
+  display: inline-block;
+  width: 300px;
   vertical-align: middle;
   font-size: 16px;
   color: #333;
   font-weight: 500;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

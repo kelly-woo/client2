@@ -13,6 +13,7 @@
                       Browser, AnalyticsHelper) {
     var modalMap;
     var stateParams;
+    var currentRightPanel = $state.includes('**.files') ? 'file' : null;
 
     _init();
 
@@ -135,8 +136,9 @@
       jndPubSub.pub('onTutorialPulseClick', $event);
     };
 
-    $scope.openRightPanel = function() {
-      if (_isRpanelVisible()) {
+    $scope.openRightPanel = function(type) {
+      if (currentRightPanel === type) {
+        currentRightPanel = null;
         $state.go('messages.detail');
       } else {
         var viewport = $('.msgs');
@@ -149,7 +151,8 @@
           });
         }
 
-        $state.go('messages.detail.files');
+        currentRightPanel = type;
+        jndPubSub.pub('onRightPanel', currentRightPanel);
       }
     };
 

@@ -517,25 +517,25 @@ module.exports = function (grunt) {
     //      ]
     //    }
     //  },
-    //
-    //  // Inject component css into index.html
-    //  css: {
-    //    options: {
-    //      transform: function(filePath) {
-    //        filePath = filePath.replace('/client/', '');
-    //        filePath = filePath.replace('/.tmp/', '');
-    //        return '<link rel="stylesheet" href="' + filePath + '">';
-    //      },
-    //      starttag: '<!-- injector:css -->',
-    //      endtag: '<!-- endinjector -->'
-    //    },
-    //    files: {
-    //      '<%= yeoman.client %>/index.html': [
-    //        '<%= yeoman.client %>/{app,components}/**/*.css'
-    //      ]
-    //    }
-    //  }
-    //},
+
+      // Inject component css into index.html
+      css: {
+        options: {
+          transform: function(filePath) {
+            filePath = filePath.replace('/client/', '');
+            filePath = filePath.replace('/.tmp/', '');
+            return '<link rel="stylesheet" href="' + filePath + '">';
+          },
+          starttag: '<!-- injector:css -->',
+          endtag: '<!-- endinjector -->'
+        },
+        files: {
+          '<%= yeoman.client %>/index.html': [
+            '<%= yeoman.client %>/{app,components}/**/*.css'
+          ]
+        }
+      }
+    },
 
     // 다국어 지원이 필요한 .html을 읽어서 원본 origin_template.pot 파일 생성 위치와 파일명 지정
     nggettext_extract: {
@@ -703,7 +703,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
-        'injector',
+        //'injector',
         'wiredep',
         'autoprefixer',
         'concurrent:debug'

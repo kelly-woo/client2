@@ -60,10 +60,14 @@
   <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
   <link rel="stylesheet" href="app/right/files/file/file.css">
   <link rel="stylesheet" href="app/right/files/files.css">
+  <link rel="stylesheet" href="app/right/mentions/mention/mention.css">
+  <link rel="stylesheet" href="app/right/mentions/mentions.css">
   <link rel="stylesheet" href="app/right/right.css">
   <link rel="stylesheet" href="app/right/rpanel_search/rpanel.search.css">
   <link rel="stylesheet" href="app/right/search.messages/search.message/search.message.css">
   <link rel="stylesheet" href="app/right/search.messages/search.messages.css">
+  <link rel="stylesheet" href="app/right/stars/star/star.css">
+  <link rel="stylesheet" href="app/right/stars/stars.css">
   <link rel="stylesheet" href="app/signin/signin.css">
   <link rel="stylesheet" href="app/sticker/sticker.css">
   <link rel="stylesheet" href="app/tpl/503/503.css">
@@ -86,7 +90,7 @@
       <div class="files" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
       <div class="file" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
       <div class="rpanel__background">
-        <div class="panel-title-container"></div>
+        <div class="rpanel__background-header"></div>
         <div class="rpanel__background-body">
           <div class="rpanel__loading"></div>
         </div>
@@ -280,6 +284,11 @@
 <script src="app/right/files/file/file.directive.js"></script>
 <script src="app/right/files/files.controller.js"></script>
 <script src="app/right/files/files.directive.js"></script>
+<script src="app/right/mentions/mention/mention.controller.js"></script>
+<script src="app/right/mentions/mention/mention.directive.js"></script>
+<script src="app/right/mentions/mentions.controller.js"></script>
+<script src="app/right/mentions/mentions.directive.js"></script>
+<script src="app/right/mentions/mentions.service.js"></script>
 <script src="app/right/right.controller.js"></script>
 <script src="app/right/right.directvie.js"></script>
 <script src="app/right/rpanel_search/rpanel.search.controller.js"></script>
@@ -290,6 +299,11 @@
 <script src="app/right/search.messages/search.messages.controller.js"></script>
 <script src="app/right/search.messages/search.messages.directive.js"></script>
 <script src="app/right/search.messages/search.messages.service.js"></script>
+<script src="app/right/stars/star/star.controller.js"></script>
+<script src="app/right/stars/star/star.directive.js"></script>
+<script src="app/right/stars/stars.controller.js"></script>
+<script src="app/right/stars/stars.directive.js"></script>
+<script src="app/right/stars/stars.service.js"></script>
 <script src="app/signin/auth.controller.js"></script>
 <script src="app/signin/auth.service.js"></script>
 <script src="app/sticker/layer/sticker.layer.controller.js"></script>
@@ -323,6 +337,7 @@
 <script src="components/app/local_storage/local.storage.service.js"></script>
 <script src="components/app/mention_ahead/mention.ahead.controller.js"></script>
 <script src="components/app/mention_ahead/mention.ahead.directive.js"></script>
+<script src="components/app/mention_ahead/mention.ahead.js"></script>
 <script src="components/app/net/net.js"></script>
 <script src="components/app/net/net.service.js"></script>
 <script src="components/app/notification/desktop.notification.service.js"></script>

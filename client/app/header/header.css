@@ -139,6 +139,7 @@
   font-size: 20px;
 }
 .header-toolbar .info-tool:hover {
+  border-color: #000;
   background-color: #000;
   text-decoration: none;
 }
@@ -153,7 +154,7 @@
 }
 .header-toolbar .info-tool.mention-tool > i {
   top: 5px;
-  left: 5px;
+  left: 6px;
 }
 
 @media (max-width: 825px) {

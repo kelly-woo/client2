@@ -5,7 +5,7 @@
     .module('jandiApp')
     .controller('fileCtrl', fileCtrl);
 
-  function fileCtrl($scope, $rootScope, $filter, $timeout, $state, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, AnalyticsHelper) {
+  function fileCtrl($scope, $rootScope, $filter, $state, fileAPIservice, AnalyticsHelper) {
     var file;
 
     file = $scope.file;
