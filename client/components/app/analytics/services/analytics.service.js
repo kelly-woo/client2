@@ -1,7 +1,6 @@
 /**
  * @fileoverview Analytics Service. Analytics 모듈 중 다른 모듈의 Controller에서 Internal Analtics System으로 
  *                 접근할 때 사용
- *               
  * @author Kevin Lee <kevin@tosslab.com>
  */
 
@@ -39,6 +38,7 @@
         track(EVENT.SESSION_START, getDefaultProperty());
       }
       bindTrakcerToWindowFocusEvent();
+      bindTrackerToWindowCloseEvent();
     }
 
     /**
@@ -47,9 +47,11 @@
      * 아닌경우는 바로 Data를 전송한다.
      * @param {String} event - Event Name. AnalyticsConstant.Event에 존재해야한다. 
      * @param {String} properties - Event에 종속된 properties.
+     * @param {Boolean} async - Event 로그 전송 방식. { true = async, false = sync }
      */
-    function track(event, properties) {
+    function track(event, properties, async) {
       try {
+        var isAsync = (!_.isUndefined(async)) ? async : true;
         var customProperties = properties || {};
         var parsedProperties = mapProperty(customProperties);
         var identify = AnalyticsPersistence.getIdentify();
@@ -60,7 +62,11 @@
           if (isLazyload) {
             AnalyticsLazyload.track(event, parsedProperties);
           } else {
-            AnalyticsData.track(event, parsedProperties, identify);
+            if (isAsync) {
+              AnalyticsData.track(event, parsedProperties, identify);
+            } else {
+              AnalyticsData.track(event, parsedProperties, identify, isAsync);
+            }
           }
         } 
       } catch (e) {
@@ -154,6 +160,17 @@
      */
     function _trackBlur() {
       track(EVENT.WINDOW_BLUR);
+    }
+
+    /**
+     * Window Close 이벤트에 트래커를 붙인다.
+     * beforeunload -> blur -> unload 순으로 이벤트가 발생해서
+     * unload 이벤트를 붙임
+     */
+    function bindTrackerToWindowCloseEvent() {
+      $(window).on('unload', function() {
+        track(EVENT.WINDOW_CLOSE, null, false);
+      });
     }
   }                                                                                                              
 })();
