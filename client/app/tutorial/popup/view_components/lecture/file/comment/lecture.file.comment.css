@@ -1,0 +1,31 @@
+.tutorial_right_file_item {
+  z-index: 16;
+  width: 480px;
+  height: 86px;
+  position: absolute;
+  top: 149px;
+  left: 543px;
+}
+
+.tutorial_input_right {
+  z-index: 6;
+  width: 480px;
+  height: 562px;
+  position: absolute;
+  overflow: hidden;
+  top: 206px;
+  left: 544px;
+}
+
+.tutorial_input_right.disabled {
+  z-index: 4;
+}
+
+.tutorial_sticker_icon {
+  position:absolute;
+  bottom: 53px;
+  right: 4px;
+  opacity: 0.3;
+  font-size: 18px;
+  color: #000;
+}

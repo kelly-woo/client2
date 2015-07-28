@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -78,6 +78,7 @@ msgid "@btn-cancel"
 msgstr "Cancel"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@btn-change"
 msgstr "Change"
 
@@ -87,12 +88,16 @@ msgstr "Change"
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 #: client/app/modal/topics/topic_join/topic.join.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@btn-close"
 msgstr "Close"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
+#: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@btn-comment"
 msgstr "Comment"
 
@@ -101,6 +106,7 @@ msgid "@btn-confirm"
 msgstr "Confirm"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@btn-create"
 msgstr "Create"
 
@@ -111,20 +117,28 @@ msgstr "Delete"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/password/password.reset.request.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@btn-edit"
 msgstr "Submit"
 
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
+#: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@btn-invite"
 msgstr "Invite"
 
 #: client/app/modal/topics/topic_join/topic.join.html
+#: client/app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.html
 msgid "@btn-join"
 msgstr "Join"
 
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+msgid "@btn-next"
+msgstr "Next"
+
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@btn-send"
 msgstr "Send"
 
@@ -132,6 +146,7 @@ msgstr "Send"
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@btn-share"
 msgstr "Share"
 
@@ -152,10 +167,12 @@ msgid "@ch-menu-delete-confirm"
 msgstr "Are you sure you want to delete this topic?"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+#: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-invite"
 msgstr "Invite Members to Topic"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+#: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
 msgstr "Leave topic"
 
@@ -164,6 +181,7 @@ msgid "@ch-menu-rename"
 msgstr "Rename topic"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+#: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-star"
 msgstr "Star topic "
 
@@ -203,6 +221,11 @@ msgstr ""
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "Topics "
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "Skip the tutorial"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -247,11 +270,13 @@ msgstr ""
 "reopen it."
 
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@common-copy"
 msgstr "Copy"
 
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/modal/topics/topic_join/topic.join.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-create-ch"
 msgstr "Create Topic"
 
@@ -267,10 +292,12 @@ msgstr "Deleted File"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-department"
 msgstr "Department"
 
 #: client/app/left/messages/messages.html
+#: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-direct-messages"
 msgstr "Direct Messages"
 
@@ -294,6 +321,7 @@ msgid "@common-done"
 msgstr "Done"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@common-download"
 msgstr "Download"
 
@@ -306,6 +334,8 @@ msgstr "That topic name is already in use. Please try again."
 #: client/app/modal/password/password.reset.request.html
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/signin/signin.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-email"
 msgstr "Email"
 
@@ -314,6 +344,7 @@ msgid "@common-entity-location"
 msgstr "Sent in"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-entity-type"
 msgstr "Type"
 
@@ -416,10 +447,12 @@ msgid "@common-inactive-member"
 msgstr "Disabled Members"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-info-basic"
 msgstr "Basic Information"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-info-optional"
 msgstr "Additional Information"
 
@@ -441,6 +474,8 @@ msgstr "Browse"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-name"
 msgstr "Name"
 
@@ -466,11 +501,13 @@ msgstr "Password"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-phone"
 msgstr "Mobile #"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-position"
 msgstr "Position"
 
@@ -480,6 +517,8 @@ msgstr "Privacy Policy"
 
 #: client/app/left/member/member.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-profile-settings"
 msgstr "Profile"
 
@@ -488,6 +527,7 @@ msgid "@common-rename"
 msgstr "Rename"
 
 #: client/app/header/header.html
+#: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@common-search"
 msgstr "Search"
 
@@ -518,6 +558,7 @@ msgid "@common-sign-in"
 msgstr "Sign In"
 
 #: client/app/left/member/member.html
+#: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
 msgid "@common-sign-out"
 msgstr "Sign Out"
 
@@ -530,10 +571,12 @@ msgid "@common-start-using-mobile"
 msgstr "Launch the JANDI app"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-status-msg"
 msgstr "Status"
 
 #: client/app/header/header.html
+#: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@common-team"
 msgstr "Team"
 
@@ -546,14 +589,17 @@ msgid "@common-title"
 msgstr "Title"
 
 #: client/app/left/left.html
+#: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "Topics"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-type-private"
 msgstr "Private"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-type-public"
 msgstr "Public"
 
@@ -586,10 +632,6 @@ msgstr "Invite to a topic"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr "View Profile"
-
-#: client/app/center/center.html
-msgid "@dnd-file-upload-msg"
-msgstr "Drag and drop your file here to upload"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
@@ -668,14 +710,17 @@ msgid "@file-unshared-no-longer-accessible"
 msgstr "This file has been unshared from this conversation."
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
+#: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-computer"
 msgstr "My Computer"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
+#: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-dropbox"
 msgstr "Dropbox"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
+#: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-google-drive"
 msgstr "Google Drive"
 
@@ -707,6 +752,7 @@ msgstr ""
 "version of Internet Explorer for the optimal experience."
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@input-create-ch"
 msgstr "Enter new topic name"
 
@@ -720,6 +766,7 @@ msgstr "You've exceeded the maximum character limit (60)"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit"
 
@@ -786,6 +833,7 @@ msgid "@invitation-already-member"
 msgstr "This email is already a member of {{invitedTeamName}}."
 
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
 "Inviting over 100 members? Contact us at <a href=\"mailto:support@tosslab.com"
@@ -810,10 +858,12 @@ msgid "@invitation-invaild-email"
 msgstr "Proper email address formats required"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "Or just send them this link"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-more-email"
 msgstr "+ More"
 
@@ -854,10 +904,12 @@ msgid "@miss-out-important-msg"
 msgstr "You may miss important messages if you turn off notifications."
 
 #: client/app/modal/topics/topic_join/topic.join.html
+#: client/app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.html
 msgid "@modal-browse-ch"
 msgstr "Browse Topics"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@modal-create-entity-title"
 msgstr ""
 "Topic type cannot be switched between public and private after creation"
@@ -898,10 +950,12 @@ msgid "@modal-join-ch-you-can"
 msgstr "Other Available Topics"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
+#: client/app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.html
 msgid "@modal-member-list-title"
 msgstr "Member List"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@modal-setting-profile-msg1"
 msgstr "Set the personal information that other members see"
 
@@ -918,10 +972,12 @@ msgid "@msg-create-pg"
 msgstr "created this private topic."
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@msg-file"
 msgstr "file"
 
 #: client/app/right/file.detail/file.detail.html
+#: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@msg-help-multiline"
 msgstr "shift+enter to multiline"
 
@@ -943,10 +999,12 @@ msgstr "has left"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/files/file/file.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@msg-open-original"
 msgstr "Open original"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@msg-shared"
 msgstr "Shared"
 
@@ -955,6 +1013,7 @@ msgid "@msg-unshared"
 msgstr "Unshared"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@msg-whose"
 msgstr "'s"
 
@@ -985,10 +1044,6 @@ msgstr "Your password reset email could not be sent. Please try again."
 #: client/app/modal/password/password.reset.request.html
 msgid "@password-reset-email-sent"
 msgstr "Email was sent successfully"
-
-#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
-msgid "@placeholder-input-message"
-msgstr "Enter your message (press Shift+Enter for multiple lines)"
 
 #: client/app/left/left.html
 msgid "@privateGroup"
@@ -1045,25 +1100,248 @@ msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} deleted the announcement."
 
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite"
 msgstr "Invite Other Team Members"
 
 #: client/app/header/header.html
+#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@team-members"
 msgstr "Team Members"
 
 #: client/app/header/header.html
 #: client/app/modal/teams/team_change/team.change.html
+#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@team-switch"
 msgstr "Switch Teams"
 
 #: client/app/header/header.html
+#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@to-account-home"
 msgstr "Go to Account Home"
 
 #: client/app/banner/desktop.notification.banner.html
 msgid "@turn-on-desktop-notification!"
 msgstr "Turn on Desktop Notifications"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_awesome"
+msgstr "Awesome!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_congratulations"
+msgstr "CONGRATULATIONS {{username}}!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_congratulations_content"
+msgstr ""
+"You completed the tutorial! We'll move you to {{teamName}} now so you can "
+"start using JANDI with your team members!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_click_list"
+msgstr "Click on the (+) button to start a 1:1 conversation."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_post"
+msgstr "Say hello to Dan"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_sticker_let"
+msgstr "Let's send him a sticker as well just for fun."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_sticker_success"
+msgstr "Great. He loved it! "
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_success"
+msgstr "Great. The message was sent successfully."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_talk"
+msgstr "How about starting a conversation with Dan?"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_try"
+msgstr "Next let’s try sending direct messages to a team member."
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_explore_jandi"
+msgstr ""
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_comment"
+msgstr ""
+"From here, you can view and add comments that stay attached to the file. Try "
+"entering “fix typos” to let your coworker know to revise the document."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_comment_click"
+msgstr "Try clicking on the first file."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_comment_title"
+msgstr "Now let’s take a look at your JANDI file drawer. "
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_download_desc"
+msgstr ""
+"If you want to download the file or share it to another topic, simply click "
+"the More (...) menu."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_get_started"
+msgstr "Get Started"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_great"
+msgstr "Great."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_help_remember"
+msgstr ""
+"Remember - you can always click the Help (?) menu if you have any questions!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_click_title"
+msgstr ""
+"You just joined the 'Lunch' topic. Click on the dropdown menu next to the "
+"topic name to access more options."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_lets"
+msgstr "Let’s leave the 'Lunch' topic for now."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_success"
+msgstr "Perfect. You left the topic. "
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_success_desc"
+msgstr "Remember you can freely join and leave any public topic."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_profile_desc"
+msgstr ""
+"Keep your team members in the loop with your latest profile information."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_profile_setup"
+msgstr "Now let’s setup your profile. "
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_click"
+msgstr "Check out the Team menu."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_click_invite"
+msgstr "Click on 'Invite' to bring coworkers to your JANDI team."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_definition"
+msgstr ""
+"A \"team\" is a closed group where you and your coworkers can hold "
+"discussions, share files, and organize content."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_desc"
+msgstr ""
+"In your Team menu, you'll find a full list of members as well as options to "
+"switch teams or jump to your Account Home."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_explain_invitation"
+msgstr ""
+"Send individual invitations by email, or copy and share the team's link to "
+"invite large groups at once."
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_team_intro"
+msgstr ""
+"JANDI will transform the way you communicate and collaborate with your "
+"coworkers. Let us show you how."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_title"
+msgstr "Welcome to the JANDI Trial Team!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_there_we_go"
+msgstr "There you go!"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_click_join"
+msgstr ""
+"If you're not already a member of a topic, click 'Join' to jump into the "
+"conversation."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_click_list"
+msgstr "Click on the (☰) button to see the list of all topics."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_click_plus"
+msgstr "Click on the (+) button to create your own."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_create_own"
+msgstr "Try creating a topic for your department."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_created"
+msgstr "You successfully created the '{{topicName}}' topic."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_definition"
+msgstr ""
+"\"Topics\" are spaces for you to organize conversations and files around "
+"projects and departments."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_join"
+msgstr "Let's browse the list of ongoing topics."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_let_create"
+msgstr "Let’s try creating a topic. "
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_upload_preview"
+msgstr "The uploaded file will be shared with members in the topic. "
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_upload_sources"
+msgstr ""
+"Upload files from your computer or share directly from Google Drive and "
+"Dropbox."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_upload_title"
+msgstr "You can upload files directly into a topic. "
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_content"
+msgstr "What works best for you?"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_continue"
+msgstr "Pick up where you left off"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_new_start"
+msgstr "Start over from the beginning"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_title"
+msgstr ""
+"The last time you used JANDI, you were in the middle of completing the "
+"tutorial."
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_welcome_title"
+msgstr "Welcome {{username}}!"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
@@ -1181,6 +1459,7 @@ msgstr "Unstar user"
 
 #: client/app/header/header.html
 #: client/app/modal/settings/notification/setting.notification.html
+#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@web-notification"
 msgstr "Notifications"
 
@@ -1215,6 +1494,15 @@ msgstr "It's working!"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@tutorial_congratulation"
+#~ msgstr "CONGRATULATIONS {{username}}!"
+
+#~ msgid "@dnd-file-upload-msg"
+#~ msgstr "Drag and drop your file here to upload"
+
+#~ msgid "@placeholder-input-message"
+#~ msgstr "Enter your message (press Shift+Enter for multiple lines)"
 
 #, fuzzy
 #~ msgid "@announcement-delete"
