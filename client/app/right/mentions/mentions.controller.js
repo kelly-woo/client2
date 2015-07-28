@@ -10,12 +10,17 @@
 
   /* @ngInject */
   function RightPanelMentionsTabCtrl($scope, $rootScope, $filter, fileAPIservice, MessageQuery, messageAPIservice,
-                                accountService, AnalyticsHelper) {
+                                accountService, MentionsAPI) {
     _init();
 
     // First function to be called.
     function _init() {
       $scope.mentionList = [];
+
+      MentionsAPI.getMentionList()
+        .success(function(data) {
+          console.log('mention list ::: ', data);
+        })
     }
   }
 })();

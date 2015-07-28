@@ -157,7 +157,8 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         comment : content,
         teamId  : memberService.getTeamId(),
         mentions: mentions
-      }
+      },
+      version: 3
     });
   }
 

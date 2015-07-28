@@ -104,7 +104,8 @@
         },
         params  : {
           teamId  : memberService.getTeamId()
-        }
+        },
+        version: 3
       });
     }
 
