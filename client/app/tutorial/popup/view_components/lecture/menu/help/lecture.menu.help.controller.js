@@ -79,6 +79,7 @@
     function _onNextStep() {
       var step = $scope.step;
       if (step + 1 === TOTAL_STEP) {
+        $scope.purse.isShown = false;
         jndPubSub.pub('tutorial:nextLecture');
       } else {
         step++;
