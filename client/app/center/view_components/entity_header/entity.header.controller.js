@@ -159,6 +159,7 @@
      */
     function _checkNotificationStatus() {
       $scope.isTopicNotificationOn = memberService.isTopicNotificationOn(_entityId);
+      $scope.topicNotificationBellTooltipMsg = $scope.isTopicNotificationOn ? '현재 토픽 알람 끄기' : '현재 토픽 알람 켜기';
     }
 
     /**
@@ -271,8 +272,6 @@
      * 토픽별 노티피케이션 설정 아이콘을 클릭했을 때 호출된다.
      */
     function onTopicNotificationBellClicked() {
-      console.log('onTopicNotificationBellClicked');
-
       entityHeader.toggleTopicNotification(_entityId, !$scope.isTopicNotificationOn);
     }
 

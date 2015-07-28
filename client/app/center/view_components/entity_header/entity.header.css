@@ -168,7 +168,7 @@
 .panel-title-right-menu__item:active {
   background-color: #d7e0e8;
 }
-.absolute-right-tooltip{
+.absolute-right-tooltip {
   left: auto !important;
   right: 10px;
 }
@@ -245,7 +245,6 @@
 .panel-title-right-menu__more {
   margin-left: 5px;
 }
-
 .panel-title-right-menu__more_icon {
   padding: 0 5px;
 
@@ -267,4 +266,9 @@
 .panel-title-right-menu__notification_bell {
   font-size: 16px;
   margin-right: 5px;
+  text-align: center;
+  width: 28px;
+}
+.panel-title-right-menu__notification_bell .panel-title-right-menu__more_icon {
+  /*padding: 3px 5px;*/
 }
