@@ -143,6 +143,13 @@
 
   </span>
 
+  <!-- TOPIC NOTIFICATION INDICATOR -->
+  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__item panel-title-right-menu__notification_bell" ng-if="!isUserType">
+    <span class="panel-title-right-menu__more_icon" ng-click="onTopicNotificationBellClicked();">
+      <i class="fa" ng-class="{'fa-bell-o': isTopicNotificationOn, 'fa-bell-slash-o': !isTopicNotificationOn}"></i>
+    </span>
+  </span>
+
   <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledMember(currentEntity);">
     <img src="assets/images/icon-disabled-members-alert.png"/>
     <span translate>@common-disabled-member-notice-msg-short</span>

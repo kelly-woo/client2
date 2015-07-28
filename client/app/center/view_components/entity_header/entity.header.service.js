@@ -7,17 +7,18 @@
 
   /* @ngInject */
   function entityHeader($http, memberService, config) {
-    var memberId = memberService.getTeamId();
+    var teamId = memberService.getTeamId();
 
     this.leaveEntity = leaveEntity;
     this.deleteEntity = deleteEntity;
+    this.toggleTopicNotification = toggleTopicNotification;
 
     function leaveEntity(entityType, entityId) {
       return $http({
         method: 'PUT',
         url: config.server_address + entityType + '/' + entityId + '/leave',
         data: {
-          teamId: memberId
+          teamId: teamId
         }
       });
     }
@@ -27,7 +28,17 @@
         method: 'DELETE',
         url: config.server_address + entityType + '/' + entityId,
         params: {
-          teamId: memberId
+          teamId: teamId
+        }
+      });
+    }
+
+    function toggleTopicNotification(entityId, toBeValue) {
+      return $http({
+        method: 'PUT',
+        url: config.server_address + 'teams/' + teamId + '/rooms/' + entityId + '/subscribe',
+        data: {
+          subscribe: toBeValue
         }
       });
     }

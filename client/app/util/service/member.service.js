@@ -62,7 +62,7 @@
       removeAnnouncementStatus: removeAnnouncementStatus,
       updateAnnouncementStatus: updateAnnouncementStatus,
 
-      getTopicNotificationStatus: getTopicNotificationStatus,
+      isTopicNotificationOn: isTopicNotificationOn,
       setTopicNotificationStatus: setTopicNotificationStatus
     };
 
@@ -383,12 +383,22 @@
       _addToMessageMarkerMap(entityId, toBeValue, _announcementOpened);
     }
 
-    function getTopicNotificationStatus(entityId) {
+    /**
+     * entityId 의 토픽의 notification setting 이 true 인지 아닌지 확인한다.
+     * @param {number} entityId - 확인하고싶은 토픽의 아이디
+     * @returns {boolean}
+     */
+    function isTopicNotificationOn(entityId) {
       return _getBooleanValue(entityId, _subscribe);
     }
 
+    /**
+     * entityId를 가진 토픽의 subscribe field를 'toBeValue'로 바꾼다.
+     * @param {number} entityId - 바꾸고싶은 토픽의 아이이
+     * @param {boolean} toBeValue - 덮어쓰고싶은 value
+     */
     function setTopicNotificationStatus(entityId, toBeValue) {
-      _addToMessageMarkerMap(entityId, toBeValuee, _subscribe);
+      _addToMessageMarkerMap(entityId, toBeValue, _subscribe);
     }
 
     /**
@@ -412,15 +422,19 @@
      * @private
      */
     function _addToMessageMarkerMap(entityId, toBeValue, field) {
-      var _tempObj = _messageMarkers[entityId];
+      if (_hasValidArguments(arguments)) {
 
-      if (_.isUndefined(_tempObj)) {
-        _tempObj = {};
+        var _tempObj = _messageMarkers[entityId];
+
+        if (_.isUndefined(_tempObj)) {
+          _tempObj = {};
+        }
+
+        _tempObj[field] = toBeValue;
+
+        _messageMarkers[entityId] = _tempObj;
       }
 
-      _tempObj[field] = toBeValue;
-
-      _messageMarkers[entityId] = _tempObj;
     }
 
     /**
@@ -439,6 +453,24 @@
         }
       }
       return false;
+    }
+
+    /**
+     * args안에 있는 element들중 undefined 가 있는지 없는지만 체크한다.
+     * @param {array} args - 체크할 엘레멘트들의 array
+     * @returns {boolean}
+     * @private
+     */
+    function _hasValidArguments(args) {
+      var _foundUndefined = true;
+      _.forEach(args, function(arg) {
+        if (_.isUndefined(arg)) {
+          _foundUndefined = false;
+          return false;
+        }
+      });
+
+      return _foundUndefined;
     }
   }
 })();

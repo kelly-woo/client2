@@ -36,6 +36,8 @@
     $scope.openMemberModal =  openMemberModal;
     $scope.onPrefixIconClicked = onPrefixIconClicked;
 
+    $scope.onTopicNotificationBellClicked = onTopicNotificationBellClicked;
+
 
     _init();
 
@@ -60,6 +62,8 @@
           _initWithParam(param);
         }
       });
+
+      $scope.$on('onTopicSubscriptionChanged'+_entityId, _checkNotificationStatus);
     }
 
     function _initWithParam(param) {
@@ -67,6 +71,7 @@
         _checkCurrentEntity(param);
         _checkOwnership();
         _checkIfDefaultTopic();
+        _checkNotificationStatus();
       }
     }
 
@@ -146,6 +151,14 @@
      */
     function _checkIfDefaultTopic() {
       $scope.isDefaultTopic = currentSessionHelper.isDefaultTopic(_currentEntity);
+    }
+
+    /**
+     * 현재 토픽의 notification setting을 체크한다.
+     * @private
+     */
+    function _checkNotificationStatus() {
+      $scope.isTopicNotificationOn = memberService.isTopicNotificationOn(_entityId);
     }
 
     /**
@@ -252,6 +265,15 @@
       if (_entityType === 'users') {
         openMemberModal();
       }
+    }
+
+    /**
+     * 토픽별 노티피케이션 설정 아이콘을 클릭했을 때 호출된다.
+     */
+    function onTopicNotificationBellClicked() {
+      console.log('onTopicNotificationBellClicked');
+
+      entityHeader.toggleTopicNotification(_entityId, !$scope.isTopicNotificationOn);
     }
 
     /**

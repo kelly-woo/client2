@@ -10,7 +10,7 @@
     .service('jndWebSocketTopic', TopicSocket);
 
   /* @ngInject */
-  function TopicSocket(jndPubSub, entityAPIservice, logger) {
+  function TopicSocket(jndPubSub, entityAPIservice, memberService, logger) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';
@@ -18,6 +18,8 @@
     var TOPIC_UPDATED = 'topic_updated';
     var TOPIC_STARRED = 'topic_starred';
     var TOPIC_UNSTARRED = 'topic_unstarred';
+
+    var ROOM_SUBSCRIBE = 'room_subscribe';
 
     this.attachSocketEvent = attachSocketEvent;
 
@@ -29,6 +31,8 @@
       socket.on(TOPIC_UPDATED, _onTopicUpdated);
       socket.on(TOPIC_STARRED, _onTopicStarChanged);
       socket.on(TOPIC_UNSTARRED, _onTopicStarChanged);
+
+      socket.on(ROOM_SUBSCRIBE, _onTopicSubscriptionChanged);
     }
 
     /**
@@ -85,9 +89,37 @@
       if (!!_topicEntity) {
         entityAPIservice.extend(_topicEntity, _topic);
       }
-
     }
 
+    /**
+     * 'room_subscribe' EVENT HANDLER
+     * @param {object} data - socket event parameter
+     * @private
+     */
+    function _onTopicSubscriptionChanged(data) {
+      logger.socketEventLogger(data.event, data);
+
+      _test(data.data);
+      return;
+
+      var _data = data.data;
+
+      memberService.setTopicNotificationStatus(_data.roomId, _data.subscribe);
+      jndPubSub.pub('onTopicSubscriptionChanged', data);
+    }
+
+    function _test(data) {
+      var _data = {
+        roomId: 11162233,
+        subscribe: data.subscribe
+      };
+
+      var _eventName = 'onTopicSubscriptionChanged' + _data.roomId;
+
+      memberService.setTopicNotificationStatus(_data.roomId, _data.subscribe);
+      jndPubSub.pub(_eventName, _data);
+
+    }
     /**
      * 'topic_starred', 'topic_unstarred' EVENT HANDLER
      * @param {object} data - socket event parameter

@@ -253,10 +253,18 @@
   line-height: 25px;
 
   position: relative;
+
+  color: #154a67;
 }
+
 
 .panel-title-right-menu__more .icon-more {
   font-size: 19px;
   color: #154a67;
   line-height: 25px;
+}
+
+.panel-title-right-menu__notification_bell {
+  font-size: 16px;
+  margin-right: 5px;
 }
