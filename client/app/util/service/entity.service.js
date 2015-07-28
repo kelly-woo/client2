@@ -28,10 +28,30 @@
       isOwner: isOwner,
       getEntityByEntityId: getEntityByEntityId,
       addToMemberEntityIdMap: addToMemberEntityIdMap,
-      resetMemberEntityIdMap: resetMemberEntityIdMap
+      resetMemberEntityIdMap: resetMemberEntityIdMap,
+      getUserEntity: getUserEntity,
+      getTopicEntity: getTopicEntity
     };
 
     return service;
+
+    /**
+     * User entity 정보를 반환한다.
+     * @param {String|Number} id
+     * @returns {Object}
+     */
+    function getUserEntity(id) {
+      return $rootScope.totalUserMap[id];
+    }
+
+    /**
+     * 토픽 entity 정보를 반환한다.
+     * @param {String|Number} id
+     * @returns {Object}
+     */
+    function getTopicEntity(id) {
+      return $rootScope.totalTopicMap[id];
+    }
 
     /**
      * Takes 'entityId' from entity as an 'entityId'

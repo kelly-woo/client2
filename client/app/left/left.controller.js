@@ -491,6 +491,9 @@ app.controller('leftPanelController1', function(
     $rootScope.joinedEntities       = $scope.joinEntities;
     $rootScope.unJoinedChannelList  = $scope.unJoinedChannelList;
 
+    $rootScope.totalUserMap  = $scope.totalUserMap;
+    $rootScope.totalTopicMap  = $scope.totalTopicMap;
+
     currentSessionHelper.setCurrentTeam(response.team);
     currentSessionHelper.setCurrentTeamMemberList($scope.memberList);
 

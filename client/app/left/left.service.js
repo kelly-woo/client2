@@ -73,6 +73,8 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
     var memberMap = {};
     var totalChannelList = [];
     var unJoinedChannelList = [];
+    var totalUserMap = {};
+    var totalTopicMap = {};
 
     angular.forEach(totalEntities, function(entity, index) {
       var entityId = entity.id;
@@ -84,6 +86,7 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
           memberList.push(entity);
           memberMap[entityId] = entity;
         }
+        totalUserMap[entityId] = entity;
       }
       else if (entityType == "channels") {
         var found = false;
@@ -96,7 +99,7 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
         }
 
         totalChannelList.push(entity);
-
+        totalTopicMap[entityId] = entity;
       }
     });
 
@@ -105,7 +108,9 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
       memberList: memberList,
       memberMap: memberMap,
       totalChannelList: totalChannelList,
-      unJoinedChannelList: unJoinedChannelList
+      unJoinedChannelList: unJoinedChannelList,
+      totalUserMap: totalUserMap,
+      totalTopicMap: totalTopicMap
     };
   };
 
