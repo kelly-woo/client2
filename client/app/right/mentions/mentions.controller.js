@@ -9,18 +9,29 @@
     .controller('RightPanelMentionsTabCtrl', RightPanelMentionsTabCtrl);
 
   /* @ngInject */
-  function RightPanelMentionsTabCtrl($scope, $rootScope, $filter, fileAPIservice, MessageQuery, messageAPIservice,
-                                accountService, MentionsAPI) {
+  function RightPanelMentionsTabCtrl($scope, MentionsAPI) {
     _init();
 
     // First function to be called.
     function _init() {
-      $scope.mentionList = [];
+      $scope.records = [];
 
+      _getMentionList();
+    }
+
+    function _getMentionList() {
       MentionsAPI.getMentionList()
         .success(function(data) {
-          console.log('mention list ::: ', data);
-        })
+          if (data && data.records && data.records.length) {
+            $scope.records = data.records;
+          } else {
+            // empty
+
+            $scope.records = [];
+          }
+
+          console.log('mentions ::: ', data);
+        });
     }
   }
 })();

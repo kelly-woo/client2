@@ -2,6 +2,7 @@
   position: relative;
   padding: 16px 15px 14px 14px;
   border-bottom: 1px solid #e1e1e1;
+  cursor: pointer;
 }
 .mention-card:hover {
   background-color: #f2fbff;
@@ -16,7 +17,7 @@
   font-size: 14px;
   color: #333;
   display: inline-block;
-  max-width: 229px;
+  max-width: 197px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -51,6 +52,8 @@
 }
 .mention-card .mention-card-body p {
   margin: 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .mention-card-body .mention-highlight {

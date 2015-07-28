@@ -88,8 +88,9 @@
       // ÇöÀç topicÀÇ members
       for (i = 0, len = members.length; i < len; i++) {
         member = _getCurrentTopicMembers(members[i]);
-        if (member && currentMemberId !== member.id && member.status === 'enabled') {
-          member.exViewName = '[@' + member.name + ']',
+        //if (member && currentMemberId !== member.id && member.status === 'enabled') {
+        if (member && member.status === 'enabled') {
+          member.exViewName = '[@' + member.name + ']';
           member.exSearchName = member.name;
           mentionList.push(member);
         }

@@ -1,0 +1,19 @@
+<div class="mention-card" ng-click="onMentionCardClick($event)">
+  <div class="mention-card-header">
+    <div class="mention-profile">
+      <img class="cursor_pointer" ng-src="{{::profileImage }}">
+    </div>
+    <div class="mention-meta">
+      <div class="mention-title">
+        <span class="mention-talker">{{::writerName}}</span>
+        <span class="mention-date">{{::updateDate}}</span>
+      </div>
+      <div class="mention-start">
+        <a>{{startPoint}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="mention-card-body break-word">
+    <p data-ng-bind-html="content"></p>
+  </div>
+</div>

@@ -351,17 +351,15 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     } else {
       var targetEntity = entityAPIservice.getEntityFromListById($scope.joinedEntities, entityId);
 
-      // If 'targetEntity' is defined, it means I had it on my 'joinedEntities'.  So just go!
-      if (angular.isDefined(targetEntity)) {
+      if (entityAPIservice.isJoinedTopic(targetEntity)) {
+        // joined topic.
         $state.go('archives', { entityType: targetEntity.type, entityId: targetEntity.id });
-      }
-      else {
-        // Undefined targetEntity means it's an entity that I'm joined.
+      } else {
         // Join topic first and go!
         entityheaderAPIservice.joinChannel(entityId)
           .success(function(response) {
-            analyticsService.mixpanelTrack( "topic Join" );
-            $rootScope.$emit('updateLeftPanelCaller');
+            //analyticsService.mixpanelTrack( "topic Join" );
+            //$rootScope.$emit('updateLeftPanelCaller');
             $state.go('archives', {entityType: 'channels',  entityId: entityId });
           })
           .error(function(err) {
@@ -655,7 +653,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
             if (members) {
               for (j = 0, jLen = members.length; j < jLen; j++) {
                 member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
-                if (member && currentMemberId !== member.id && member.status === 'enabled') {
+                //if (member && currentMemberId !== member.id && member.status === 'enabled') {
+                if (member && member.status === 'enabled') {
                   member.exViewName = '[@' + member.name + ']';
                   member.exSearchName = member.name;
                   mentionList.push(member);

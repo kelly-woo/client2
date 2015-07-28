@@ -475,48 +475,51 @@ module.exports = function (grunt) {
       all: localConfig
     },
 
-    //injector: {
-    //  options: {
-    //
-    //  },
-    //  // Inject application script files into index.html (doesn't include bower)
-    //  scripts: {
-    //    options: {
-    //      transform: function(filePath) {
-    //        filePath = filePath.replace('/client/', '');
-    //        filePath = filePath.replace('/.tmp/', '');
-    //        return '<script src="' + filePath + '"></script>';
-    //      },
-    //      starttag: '<!-- injector:js -->',
-    //      endtag: '<!-- endinjector -->'
-    //    },
-    //    files: {
-    //      '<%= yeoman.client %>/index.html': [
-    //        [
-    //          '{.tmp,<%= yeoman.client %>}/assets/javascripts/*.js',
-    //          '{.tmp,<%= yeoman.client %>}/app/util/**/*.js',
-    //          '{.tmp,<%= yeoman.client %>}/app/util/*.js',
-    //          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-    //          '!{.tmp,<%= yeoman.client %>}/components/config/config.framework.js',
-    //
-    //          '!{.tmp,<%= yeoman.client %>}/components/jnadi/jandi.framework.js',
-    //          '!{.tmp,<%= yeoman.client %>}/components/jnadi/preloader/preloader.js',
-    //
-    //          '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
-    //          '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
-    //          '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
-    //          '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
-    //          '!{.tmp,<%= yeoman.client %>}/components/app/local_storage/local.storage.js',
-    //          '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
-    //          '!{.tmp,<%= yeoman.client %>}/components/app/pubsub/pubsub.js',
-    //          '!{.tmp,<%= yeoman.client %>}/components/app/notification/desktop.notification.js',
-    //          '!{.tmp,<%= yeoman.client %>}/components/app/socket/socket.js',
-    //          '!{.tmp,<%= yeoman.client %>}/app/app.js',
-    //          '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
-    //          '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
-    //      ]
-    //    }
-    //  },
+    injector: {
+      options: {
+
+      },
+      // Inject application script files into index.html (doesn't include bower)
+      scripts: {
+        options: {
+          transform: function(filePath) {
+            filePath = filePath.replace('/client/', '');
+            filePath = filePath.replace('/.tmp/', '');
+            return '<script src="' + filePath + '"></script>';
+          },
+          starttag: '<!-- injector:js -->',
+          endtag: '<!-- endinjector -->'
+        },
+        files: {
+          '<%= yeoman.client %>/index.html': [
+            [
+              '{.tmp,<%= yeoman.client %>}/assets/javascripts/*.js',
+              '{.tmp,<%= yeoman.client %>}/app/util/**/*.js',
+              '{.tmp,<%= yeoman.client %>}/app/util/*.js',
+              '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
+              '!{.tmp,<%= yeoman.client %>}/components/config/config.framework.js',
+
+              '!{.tmp,<%= yeoman.client %>}/components/jnadi/jandi.framework.js',
+              '!{.tmp,<%= yeoman.client %>}/components/jnadi/preloader/preloader.js',
+
+              '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/local_storage/local.storage.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/mention_ahead/mention.ahead.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/net/net.js',
+
+              '!{.tmp,<%= yeoman.client %>}/components/app/pubsub/pubsub.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/notification/desktop.notification.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/socket/socket.js',
+              '!{.tmp,<%= yeoman.client %>}/app/app.js',
+              '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
+              '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
+          ]
+        }
+      },
 
       // Inject component css into index.html
       css: {

@@ -1,0 +1,99 @@
+
+.join-modal-heading {
+  padding: 15px 0 10px;
+}
+
+.join-modal-search {
+
+}
+.join-modal-search .input-group-addon {
+  padding: 2px 0px 0px 9px;
+  font-size: 20px;
+  color: #999;
+}
+.join-modal-search .form-control {
+  padding: 6px 4px;
+}
+
+.join-modal-channel_container {
+  border-top: 1px solid #f2f2f2;
+  padding: 15px 15px;
+  position: relative;
+  font-size: 13px;
+  line-height: 1;
+}
+.join-modal-channel_container:hover {
+  background: #f2fbff;
+}
+
+
+#is_member_container .join-modal-channel_container {
+  border-top: 1px solid #d2d2d2;
+}
+#is_member_container  {
+  border-bottom: 1px solid #d2d2d2;
+}
+.join-modal-channel_title {
+  margin-bottom: 10px;
+}
+.join-modal-channel_title_area {
+  color: #333;
+  font-size: 15px;
+  font-weight: 500;
+  max-width: 280px;
+}
+.join-modal-channel_title .fa-clock-o {
+  margin-right: 2px;
+}
+.join-modal-channel_container .topic-description {
+  line-height: 21px;
+  max-width: 400px;
+  margin-bottom: 8px;
+  color: #575757;
+  font-size: 14px;
+}
+
+.join-modal-channel_container .topic-description:empty {
+  display: none;
+}
+
+.join-modal-channel_container .topic-general-info {
+}
+.join-modal-channel_container .topic-general-info .join-button {
+  color: #00abe6;
+  font-weight: 600;
+}
+.join-modal-channel_container .topic-general-info .join-button:hover {
+  border-bottom: 1px solid #00abe6;
+  font-weight: 800;
+}
+
+.join-modal-channel_container .topic-general-info .join-button:hover .icon-next {
+  font-weight: 800;
+}
+
+.join-modal-channel_container .topic-general-info .join-button .icon-next {
+  font-weight: 600;
+  width: 13px;
+  height: 13px;
+}
+.join-modal-channel_title:hover {
+  /*text-decoration: none;*/
+  /*color: black;*/
+}
+
+.join-modal-channel_creator {
+}
+
+.create_channel_on_top {
+  float: right;
+  color: white;
+  margin-right: 15px;
+  cursor: pointer;
+  padding: 3px 5px;
+  margin-top: -4px;
+}
+
+.create_channel_on_top:hover {
+  text-decoration: underline;
+}

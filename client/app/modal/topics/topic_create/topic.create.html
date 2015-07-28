@@ -7,8 +7,8 @@
   </h3>
 </div>
 
-<form name="entityCreateForm" data-ng-submit="onCreateClick(entityType, entityName)" novalidate="">
-  <div class="modal-body" id="create-entity-body">
+<form name="entityCreateForm" ng-submit="onCreateClick(entityCreateForm);" novalidate="">
+  <div class="modal-body topic-create">
 
     <!--  TOPIC TITLE  -->
     <div class="form-horizontal">
@@ -18,7 +18,7 @@
           <input type="text"
                  class="form-control"
                  name="entityName"
-                 data-ng-model="entityName"
+                 data-ng-model="topicName"
                  placeholder="{{ '@input-create-ch' | translate }}"
                  ng-required="true"
                  ng-maxlength="60"/>
@@ -54,6 +54,28 @@
       </div>
     </div>
 
+    <!-- TOPIC DESCRIPTION  -->
+    <div class="form-horizontal topic-description-container">
+      <div class="form-group">
+        <label class="control-label col-sm-2">
+          <span translate>@topic-description</span>
+        </label>
+        <div class="col-sm-10">
+          <textarea
+            class="form-control topic-description-input"
+            name="topicDescription"
+            ng-model="topicDescription"
+            placeholder="{{ '@topic-description-placeholder' | translate }}"
+            ng-maxlength="300"
+            autocorrect="off"
+            autocomplete="off">
+          </textarea>
+          <alert type="warning" class="profile-settings-body__alert" data-ng-if="entityCreateForm.topicDescription.$error.maxlength">
+            {{ '@input-max-length-error' | translate}}
+          </alert>
+        </div>
+      </div>
+    </div>
 
 
   </div>
