@@ -32,6 +32,9 @@ set :linked_dirs, %w{node_modules client/bower_components}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, {
+  'NODE_ENV' => 'production'
+}
 
 # Default value for keep_releases is 5
 set :keep_releases, 10
@@ -41,18 +44,35 @@ namespace :deploy do
   before :updated, :npm_install do
     on roles(:all) do
       within release_path do
+        execute :npm, 'install', '--quiet'
+      end
+    end
+    on roles(:client) do
+      within release_path do
+        execute :bower, 'prune', '--quiet'
+        execute :bower, 'install', '--quiet'
+
         if fetch(:stage).to_s.start_with? 'dev'
-          execute :npm, 'install', '--quiet'
-          execute :bower, 'prune', '--quiet'
-          execute :bower, 'install', '--quiet'
           execute :grunt, 'development'
           execute :grunt, 'build'
         else
-          execute :npm, 'install', '--quiet'
-          execute :bower, 'prune', '--quiet'
-          execute :bower, 'install', '--quiet'
           execute :grunt, 'deploy'
         end
+      end
+    end
+    on roles(:server) do
+      within release_path do
+        execute :ln, '-s', '/srv/www/web_client/current/dist/public', './public/app'
+        execute :ln, '-s', '/srv/www/web_landing/current/dist/public', './public/landing'
+        execute :ln, '-s', '/srv/www/web_admin/current/dist/public', './public/main'
+      end
+    end
+  end
+
+  after :publishing, :restart do
+    on roles(:server), in: :parallel do
+      within current_path do
+        execute :pm2, 'startOrRestart', 'config/pm2/default.json'
       end
     end
   end
