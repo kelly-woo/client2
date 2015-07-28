@@ -553,11 +553,14 @@
      * @private
      */
     function _filterContentBody(msg) {
-      var safeBody = msg.message.content.body;
-      if (safeBody !== undefined && safeBody !== "") {
-        safeBody = $filter('parseAnchor')(safeBody);
+      var body = msg.message.content.body;
+
+      if (body !== undefined && body !== "") {
+        body = $filter('mention')(body, msg.message.mentions);
+        body = $filter('parseAnchor')(body);
+        body = $filter('mentionHtmlDecode')(body);
       }
-      msg.message.content.body = $sce.trustAsHtml(safeBody);
+      msg.message.content.body = body;
     }
 
     /**
