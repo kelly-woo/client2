@@ -13,11 +13,16 @@
   function ProfileSettingCtrl($scope, modalHelper, $filter, analyticsService, memberService,
                               CurrentMemberProfile) {
 
+    // 바뀐 정보가 몇개있지 추적.
+    var _changedValue;
+
     $scope.cancel = modalHelper.closeModal;
 
     _init();
 
     function _init() {
+      _changedValue = 0;
+
       $scope.hasUpdatedProfilePic = false;
       $scope.isProfilePicSelected = false;
 
@@ -201,12 +206,20 @@
      */
     function updateProfile() {
       if (!_isNamePristine()) {
+        _changedValue++;
         changeProfileName();
-      } else if (!_isEmailPristine()) {
+      }
+
+      if (!_isEmailPristine()) {
+        _changedValue++;
         changeProfileEmail();
-      } else {
+      }
+
+      if (!_isOtherInfoPristine()) {
+        _changedValue++;
         changeProfileOtherInfo();
       }
+
     }
 
     /**
@@ -219,9 +232,6 @@
         .error(function(err) {
           console.log(err);
         })
-        .finally(function() {
-          $scope.toggleLoading();
-        });
     }
 
     /**
@@ -234,9 +244,6 @@
         .error(function(err) {
           console.log(err);
         })
-        .finally(function() {
-          $scope.toggleLoading();
-        });
     }
 
     /**
@@ -263,9 +270,6 @@
         .error(function(error) {
           console.error('updateUserProfile', error.code, error.msg);
         })
-        .finally(function() {
-          $scope.toggleLoading();
-        });
     }
 
     /**
@@ -310,7 +314,12 @@
      * 모달창을 닫는다!!!
      */
     function closeModal() {
-      modalHelper.closeModal('cancel');
+      _changedValue--;
+
+      if (_changedValue === 0 || _changedValue < 0) {
+        $scope.toggleLoading();
+        modalHelper.closeModal('cancel');
+      }
     }
   }
 })();

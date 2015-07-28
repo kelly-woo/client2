@@ -23,7 +23,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.glued = false;
   $scope.isPostingComment = false;
   $scope.hasFileAPIError = false;
-  $scope.comment = {};
   $scope.isLoadingImage = true;
 
 
@@ -145,7 +144,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * comment 를 posting 한다.
    */
   function postComment() {
-    var content = $scope.comment && $scope.comment.content;
+    var content = $('#file-detail-comment-input').val();
     if (!$scope.isPostingComment &&
       ((content) || _sticker)) {
       _hideSticker();
@@ -153,9 +152,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.isPostingComment = true;
 
       fileAPIservice.postComment(fileId, content, _sticker)
-        .success(function(response) {
+        .success(function() {
           $scope.glued = true;
-          $scope.comment.content = "";
+          $('#file-detail-comment-input').val('');
           $scope.focusPostComment = true;
         })
         .error(function(err) {
