@@ -16,12 +16,13 @@
     this.onSignedIn = onSignedIn;
     this.onAlarmCntChanged = onAlarmCntChanged;
     this.onLanguageChanged = onLanguageChanged;
+    this.isPcApp = isPcApp;
 
     /**
      * Call 'onSignedOut' function in pc application.
      */
     function onSignedOut() {
-      if (_isPcApp()) {
+      if (isPcApp()) {
         jandipc.onSignedOut();
       }
     }
@@ -30,7 +31,7 @@
      * Call 'onSignedIn' function in pc application.
      */
     function onSignedIn() {
-      if (_isPcApp()) {
+      if (isPcApp()) {
         jandipc.onSignedIn();
       }
     }
@@ -41,7 +42,7 @@
      * @param {number} alarmCnt number of alarms that was changed to.
      */
     function onAlarmCntChanged(id, alarmCnt) {
-      if (_isPcApp()) {
+      if (isPcApp()) {
         jandipc.onAlarmCntChanged(id, alarmCnt);
       }
     }
@@ -51,7 +52,7 @@
      * @param {string} lang - 현재 설정된 language
      */
     function onLanguageChanged(lang) {
-      if (_isPcApp()) {
+      if (isPcApp()) {
         jandipc.onLanguageChanged(lang);
       }
     }
@@ -62,7 +63,7 @@
      * @returns {boolean}
      * @private
      */
-    function _isPcApp() {
+    function isPcApp() {
       return typeof jandipc !== 'undefined';
     }
 

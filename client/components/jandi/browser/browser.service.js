@@ -36,14 +36,8 @@
       var nav = window.navigator;
       var appName = nav.appName.replace(/\s/g, '_');
       var userAgent = nav.userAgent;
-      var browser = {
-        chrome: false,
-        firefox: false,
-        safari: false,
-        msie: false,
-        others: false,
-        version: 0
-      };
+      var platformName = nav.platform;
+
       var regxIE = /MSIE\s([0-9]+[.0-9]*)/;
       var regxIE11 = /Trident.*rv:11\./;
       var regxVer = {
@@ -51,10 +45,39 @@
         'chrome': /Chrome\/(\d+)\./,
         'safari': /Version\/([\d\.]+)\sSafari\/(\d+)/
       };
+      var regxMac = /Mac/;
+      var regxWin = /Win/;
+      var regxLinux = /Linux/;
 
       var key;
       var tmp;
       var isDetacted = false;
+
+      var browser = {
+        chrome: false,
+        firefox: false,
+        safari: false,
+        msie: false,
+        others: false,
+        version: 0,
+        platform: {
+          isMac: false,
+          isWin: false,
+          isLinux: false,
+          isOthers: false,
+          name: platformName
+        }
+      };
+
+      if (regxMac.test(platformName)) {
+        browser.platform.isMac = true;
+      } else if (regxWin.test(platformName)) {
+        browser.platform.isWin = true;
+      } else if(regxLinux.test(platformName)) {
+        browser.platform.isLinux = true;
+      } else {
+        browser.platform.isOthers = true;
+      }
 
       if (appName === 'Microsoft_Internet_Explorer') {
         // ie8 ~ ie10
@@ -80,6 +103,7 @@
           }
         }
       }
+
 
       // 브라우저 검출 실패 시 others로 표기
       if (!isDetacted) {

@@ -54,6 +54,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var scrollToBottomTimer;
   var showContentTimer;
 
+  var messages = {};
+  var _jqContainer;
   var _stickerType = 'chat';
   var _sticker = null;
   var _isUpdateListLock = false;
@@ -269,6 +271,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onViewContentLoaded() {
+    _jqContainer = $('.msgs');
     $timeout(function() {
       $('#message-input').val(TextBuffer.get()).trigger('change');
     });
@@ -418,7 +421,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         type: 'new',
         linkId: MessageCollection.getLastLinkId()
       });
-      console.log(MessageCollection.get())
       loadMore();
     }
   }
@@ -654,7 +656,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _findMessageDomElementById(loadedFirstMessageId);
     } else if (_shouldUpdateScrollToBookmark) {
       _toBookmark();
-      _shouldUpdateScrollToBookmark = false;
     } else if (MessageCollection.getQueue().length > 0) {
       _scrollToBottom();
     }
@@ -680,13 +681,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _scrollToBottom();
     }
 
-    if (_isFromCache) {
-      _isFromCache = false;
-
-      loadedFirstMessageId = MessageCollection.getFirstLinkId();
-      loadedLastMessageId = MessageCollection.getLastLinkId();
-    }
-
+    _isFromCache = false;
+    loadedFirstMessageId = MessageCollection.getFirstLinkId();
+    loadedLastMessageId = MessageCollection.getLastLinkId();
   }
 
   function _toBookmark() {
@@ -725,6 +722,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       }
     }
 
+    _shouldUpdateScrollToBookmark = false;
   }
 
   function _findMessageDomElementById(id) {
@@ -1604,11 +1602,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onElasticResize() {
+    var jqInput = $('#message-input');
     // center controller의 content load가 완료 된 상태이고 chat 스크롤이 최 하단에 닿아있을때 scroll도 같이 수정
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
       //_scrollToBottom();
     }
-    $('.msgs').css('margin-bottom', $('#message-input').outerHeight() - 27);
+    _jqContainer.css('margin-bottom', jqInput.outerHeight() - 27);
   }
 
   /**

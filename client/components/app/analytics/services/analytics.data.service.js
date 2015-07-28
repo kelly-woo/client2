@@ -12,7 +12,7 @@
     .service('AnalyticsData', AnalyticsData);
 
   /* @ngInject */
-  function AnalyticsData($http, AnalyticsTranslate, config, AnalyticsConstant) {
+  function AnalyticsData($http, AnalyticsTranslate, config, AnalyticsConstant, pcAppHelper) {
     
     this.track = track;
     /**
@@ -29,7 +29,11 @@
       var data = {};
       data[AnalyticsConstant.LOG.EVENT] = event;
       data[AnalyticsConstant.LOG.IDENTIFY] = identify;
-      data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM;
+      if (pcAppHelper.isPcApp()) {
+        data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM.WIN_APP;
+      } else {
+        data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM.WEB;
+      }
       data[AnalyticsConstant.LOG.PROPERTIES] = _.assign(properties, getDefaultProperty());
       data['time'] = new Date().getTime();
       

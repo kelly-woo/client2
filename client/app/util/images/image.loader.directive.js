@@ -10,7 +10,7 @@
     .directive('imageLoader', imageLoader);
 
   /* @ngInject */
-  function imageLoader(ImagesHelper) {
+  function imageLoader(ImagesHelper, Browser) {
     return {
       restrict: 'A',
       link: link
@@ -41,7 +41,12 @@
           _loadImage(scope.blobFile);
         } else {
           // url 로 이미지를 로드할 경우
-          _openRequest();
+          if (Browser.msie && Browser.version === 9){
+            // ie9일 경우
+            loadImage(attrs.imageLoader, _onImageLoad);
+          } else {
+            _openRequest();
+          }
         }
       }
 
