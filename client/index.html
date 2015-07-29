@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/text/text.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
+  <link rel="stylesheet" href="app/center/view_components/entity_header/topic_description/topic.description.css">
   <link rel="stylesheet" href="app/disconnect/disconnect.css">
   <link rel="stylesheet" href="app/header/header.css">
   <link rel="stylesheet" href="app/jandi-common.css">
@@ -57,6 +58,7 @@
   <link rel="stylesheet" href="app/modal/terms/terms.css">
   <link rel="stylesheet" href="app/modal/topics/topic_create/topic.create.css">
   <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
+  <link rel="stylesheet" href="app/modal/topics/topic_join/topic.join.css">
   <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
   <link rel="stylesheet" href="app/right/files/file/file.css">
   <link rel="stylesheet" href="app/right/files/files.css">
@@ -67,7 +69,28 @@
   <link rel="stylesheet" href="app/signin/signin.css">
   <link rel="stylesheet" href="app/sticker/sticker.css">
   <link rel="stylesheet" href="app/tpl/503/503.css">
+  <link rel="stylesheet" href="app/tutorial/popup/tutorial.main.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/center/tutorial.center.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/completion/tutorial.completion.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/entity_header/tutorial.entity.header.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/dm/send/lecture.dm.send.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/left/tutorial.left.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/profile/tutorial.profile.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/purse/tutorial.purse.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/top/tutorial.top.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/tutor/tutorial.tutor.css">
   <link rel="stylesheet" href="app/tutorial/tutorial.css">
+  <link rel="stylesheet" href="app/tutorial/welcome/tutorial.welcome.css">
   <!-- endinjector -->
   <!-- endbuild -->
 </head>
@@ -91,6 +114,7 @@
         </div>
       </div>
     </div>
+    <tutorial-welcome></tutorial-welcome>
   </div>
 </div>
 
@@ -157,6 +181,7 @@
 <script src="components/app/language/language.js"></script>
 <script src="components/app/local_storage/local.storage.js"></script>
 <script src="components/app/storage/storage.js"></script>
+<script src="components/app/net/net.js"></script>
 <script src="components/app/pubsub/pubsub.js"></script>
 <script src="components/app/notification/desktop.notification.js"></script>
 <script src="components/app/socket/socket.js"></script>
@@ -184,6 +209,7 @@
 <script src="app/util/service/analytics.service.js"></script>
 <script src="app/util/service/clipboard.service.js"></script>
 <script src="app/util/service/entity.service.js"></script>
+<script src="app/util/service/entityMap.service.js"></script>
 <script src="app/util/service/file.object.service.js"></script>
 <script src="app/util/service/file.upload.service.js"></script>
 <script src="app/util/service/general.service.js"></script>
@@ -232,6 +258,8 @@
 <script src="app/center/view_components/entity_header/entity.header.controller.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.directive.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.service.js"></script>
+<script src="app/center/view_components/entity_header/topic_description/topic.description.controller.js"></script>
+<script src="app/center/view_components/entity_header/topic_description/topic.description.directive.js"></script>
 <script src="app/disconnect/disconnect.controller.js"></script>
 <script src="app/error/error.controller.js"></script>
 <script src="app/header/header.controller.js"></script>
@@ -303,8 +331,53 @@
 <script src="app/team/team.service.js"></script>
 <script src="app/tpl/503/503.controller.js"></script>
 <script src="app/translation/translation.js"></script>
+<script src="app/tutorial/popup/services/tutorial.account.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.api.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.data.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.dm.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.entity.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.messages.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.topics.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.tutor.service.js"></script>
+<script src="app/tutorial/popup/tutorial.main.controller.js"></script>
+<script src="app/tutorial/popup/view_components/center/date/tutorial.center.date.directive.js"></script>
+<script src="app/tutorial/popup/view_components/center/file/tutorial.center.file.directive.js"></script>
+<script src="app/tutorial/popup/view_components/center/text/tutorial.center.text.directive.js"></script>
+<script src="app/tutorial/popup/view_components/center/totorial.center.controller.js"></script>
+<script src="app/tutorial/popup/view_components/center/tutorial.center.directive.js"></script>
+<script src="app/tutorial/popup/view_components/completion/totorial.completion.controller.js"></script>
+<script src="app/tutorial/popup/view_components/completion/tutorial.completion.directive.js"></script>
+<script src="app/tutorial/popup/view_components/entity_header/totorial.entity.header.controller.js"></script>
+<script src="app/tutorial/popup/view_components/entity_header/tutorial.entity.header.directive.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/dm/send/lecture.dm.send.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/menu/help/lecture.menu.help.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/team/invitation/lecture.team.invitation.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/topic/create/lecture.topic.create.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/topic/join/lecture.topic.join.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.controller.js"></script>
+<script src="app/tutorial/popup/view_components/left/tutorial.left.directive.js"></script>
+<script src="app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.directive.js"></script>
+<script src="app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.directive.js"></script>
+<script src="app/tutorial/popup/view_components/modal/profile/totorial.modal.profile.controller.js"></script>
+<script src="app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.directive.js"></script>
+<script src="app/tutorial/popup/view_components/modal/topic_create/totorial.modal.topic.create.controller.js"></script>
+<script src="app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.directive.js"></script>
+<script src="app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.directive.js"></script>
+<script src="app/tutorial/popup/view_components/profile/totorial.profile.controller.js"></script>
+<script src="app/tutorial/popup/view_components/profile/tutorial.profile.directive.js"></script>
+<script src="app/tutorial/popup/view_components/purse/totorial.purse.controller.js"></script>
+<script src="app/tutorial/popup/view_components/purse/tutorial.purse.directive.js"></script>
+<script src="app/tutorial/popup/view_components/top/tutorial.top.directive.js"></script>
+<script src="app/tutorial/popup/view_components/tutor/totorial.tutor.controller.js"></script>
+<script src="app/tutorial/popup/view_components/tutor/tutorial.tutor.directive.js"></script>
 <script src="app/tutorial/tutorial.controller.js"></script>
 <script src="app/tutorial/tutorial.service.js"></script>
+<script src="app/tutorial/welcome/tutorial.welcome.controller.js"></script>
+<script src="app/tutorial/welcome/tutorial.welcome.directive.js"></script>
 <script src="components/app/analytics/analyticsv1.service.js"></script>
 <script src="components/app/analytics/directives/buttonTrakcer.directive.js"></script>
 <script src="components/app/analytics/directives/downloadTracker.directive.js"></script>
@@ -325,13 +398,15 @@
 <script src="components/app/keyCode/keyCode.service.js"></script>
 <script src="components/app/language/language.service.js"></script>
 <script src="components/app/local_storage/local.storage.service.js"></script>
-<script src="components/app/net/net.js"></script>
+<script src="components/app/net/net.auth.service.js"></script>
 <script src="components/app/net/net.service.js"></script>
 <script src="components/app/notification/desktop.notification.service.js"></script>
 <script src="components/app/pubsub/pubsub.service.js"></script>
 <script src="components/app/socket/socket.announcement.service.js"></script>
 <script src="components/app/socket/socket.service.handler.js"></script>
 <script src="components/app/socket/socket.service.js"></script>
+<script src="components/app/socket/socket.topic.service.js"></script>
+<script src="components/app/socket/socket.util.service.js"></script>
 <script src="components/app/storage/storage.service.js"></script>
 <script src="components/base/highlight/highlight.js"></script>
 <script src="components/base/highlight/highlight.service.js"></script>
@@ -344,6 +419,8 @@
 <script src="components/jandi/jandi.framework.js"></script>
 <script src="components/jandi/pc_app_communicator/pcApp.js"></script>
 <script src="components/jandi/pc_app_communicator/pcApp.service.js"></script>
+<script src="components/jandi/popup/popup.js"></script>
+<script src="components/jandi/popup/popup.service.js"></script>
 <script src="components/jandi/preloader/preloader.js"></script>
 <script src="components/jandi/preloader/preloader.service.js"></script>
 <!-- endinjector -->

@@ -343,6 +343,7 @@
      * @private
      */
     function _onScopeDestroy() {
+      $scope.hasAnnouncement = false;
       _detachWindowEvent();
     }
 

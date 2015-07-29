@@ -24,6 +24,7 @@
     that.updateLeftChatList = updateLeftChatList;
 
     that.attachMessagePreview = attachMessagePreview;
+    that.onChangeShared = onChangeShared;
 
     /**
      * $rootScope.$broadcast를 대신한다.
@@ -89,6 +90,13 @@
       $rootScope.$broadcast('attachMessagePreview', param);
     }
 
+    /**
+     * file 자체의 shareEntities가 바뀐게 아니라 topic들 정보가 바뀌었을 때
+     * shared entities를 보여주는 부분들이 업데이트 되어야하기때문에 호출한다.
+     */
+    function onChangeShared() {
+      $rootScope.$broadcast('onChangeShared');
+    }
     // TODO: 브로드캐스트하는 이벤트 이름에도 컨벤션이 있으면 좋겠습니다! 이벤트 이름만 보고도 대충 어떤 일이 이뤄지는지 알 수 있는 식의 이름이면 좋겠습니다.
   }
 })();

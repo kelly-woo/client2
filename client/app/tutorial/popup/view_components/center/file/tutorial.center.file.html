@@ -1,0 +1,102 @@
+<div class="msg-item file-upload">
+  <!--  User Thumbnail -->
+  <div class="msg-item-float cursor_pointer">
+    <img class="user-profile user-thumb" ng-src="{{ msg.profileUrl }}">
+  </div>
+  <div class="msg-item-header">
+    <!--    WRITER-->
+    <span class="msg-item-header__name cursor_pointer">
+      <span class="msg-item-header__nameSpace ng-binding">{{ msg.name }}</span>
+      <!--    CREATED TIME    -->
+      <span class="msg-item-header__created ng-binding">{{msg.time | gethmmaFormat}}</span>
+      <span class="badge unread-badge ng-binding"></span>
+    </span>
+  </div>
+  <div class="msg-item-body">
+    <!-- FILE -->
+    <div class="msg-file">
+      <!--  FILE PREVIEW IMAGE  -->
+      <div class="msg-file-body-float pull-left preview-container">
+        <!--  FILE NOT ARCHIVED -->
+        <div>
+          <div class="msg-file-body__thumbnail ng-scope">
+            <div class="fileicon fileicon-{{msg.content | fileIcon}}"></div>
+          </div>
+        </div>
+      </div>
+      <!--  FILE INFO -->
+      <div class="msg-file-meta">
+
+        <div class="msg-file-meta-up">
+
+          <!--  NOT ARCHIVED FILE -->
+          <div>
+            <!--    TITLE   -->
+            <a class="msg-file-meta__title file__name break-word">
+              {{ msg.content.title }}
+            </a>
+
+            <span class="bullet">•</span>
+            <!--    SIZE AND FILE TYPE  -->
+            <span class="msg-file-meta-info">{{ msg.content.size | bytes }}</span>
+            <span class="msg-file-meta-info">{{ msg.content | fileType }}</span>
+          </div>
+        </div>
+        <div class="msg-file-meta-down">
+          <!--    SHARED MESSAGE  -->
+          <span class="msg-file-meta-info">
+            <span>
+              <a class="msg-file-meta__writer file__owner">{{ msg.name }}</a>
+              <span translate>@msg-whose</span>
+            </span>
+            <span translate>@msg-shared</span>
+            <span translate>@msg-file</span>
+          </span>
+          <span class="bullet">•</span>
+
+          <!--    SHARED ENTITIES -->
+          <span data-ng-if="msg.shared.length">
+            <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.shared)">
+              <span data-ng-hide="($index === 0)">, </span>
+              <span class="file-item-meta__shared cursor_pointer">
+                {{ sharedEntity.name }}
+              </span>
+              <a class="link-remove link-unshare cursor_pointer">
+                <i class="fa fa-times-circle"></i>
+              </a>
+            </span>
+            <span class="bullet">•</span>
+          </span>
+
+          <!-- OPEN ORIGINAL  -->
+          <a class="cursor_pointer">
+            <span translate>@msg-open-original</span>
+          </a>
+
+          <span class="bullet">•</span>
+
+          <!--    DOWNLOAD    -->
+          <a class="cursor_pointer">
+            <span translate>@common-download</span>
+          </a>
+
+          <span class="bullet">•</span>
+
+          <!--    COMMENT -->
+          <a class="cursor_pointer">
+            <span translate>@btn-comment</span>
+          </a>
+
+          <span class="bullet">•</span>
+
+          <!--    SHARE   -->
+          <a class="cursor_pointer">
+            <span translate>@btn-share</span>
+          </a>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

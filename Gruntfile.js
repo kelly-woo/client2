@@ -259,8 +259,8 @@ module.exports = function (grunt) {
       dist: {
         files: {
           src: [
-            '<%= yeoman.dist %>/public/*.js',
-            '<%= yeoman.dist %>/public/*.css',
+            '<%= yeoman.dist %>/public/app/*.js',
+            '<%= yeoman.dist %>/public/app/*.css',
             '<%= yeoman.dist %>/public/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.dist %>/public/assets/fonts/*'
           ]
@@ -508,6 +508,8 @@ module.exports = function (grunt) {
               '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/local_storage/local.storage.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/net/net.js',
+
               '!{.tmp,<%= yeoman.client %>}/components/app/pubsub/pubsub.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/notification/desktop.notification.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/socket/socket.js',
