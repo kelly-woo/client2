@@ -49,13 +49,17 @@ module.exports = function(config) {
       'client/components/config/config.framework.js',
       'client/components/base/**/*.js',
       'client/components/base/base.framework.js',
+
       'client/components/app/analytics/analytics.js',
+      'client/components/app/keyCode/keyCode.js',
       'client/components/app/language/language.js',
       'client/components/app/local_storage/local.storage.js',
-      'client/components/app/storage/storage.js',
-      'client/components/app/pubsub/pubsub.js',
+      'client/components/app/net/net.js',
       'client/components/app/notification/desktop.notification.js',
+      'client/components/app/pubsub/pubsub.js',
       'client/components/app/socket/socket.js',
+      'client/components/app/storage/storage.js',
+
       'client/components/app/app.framework.js',
       'client/app/app.js',
 
