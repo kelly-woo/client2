@@ -16,6 +16,8 @@
     var TOPIC_DELETED = 'topic_deleted';
     var TOPIC_CREATED = 'topic_created';
     var TOPIC_UPDATED = 'topic_updated';
+    var TOPIC_STARRED = 'topic_starred';
+    var TOPIC_UNSTARRED = 'topic_unstarred';
 
     this.attachSocketEvent = attachSocketEvent;
 
@@ -25,58 +27,57 @@
       socket.on(TOPIC_DELETED, _onTopicLDeleted);
       socket.on(TOPIC_CREATED, _onTopicLCreated);
       socket.on(TOPIC_UPDATED, _onTopicUpdated);
+      socket.on(TOPIC_STARRED, _onTopicStarChanged);
+      socket.on(TOPIC_UNSTARRED, _onTopicStarChanged);
     }
 
     /**
-     * 내가 토픽을 나갔을 때.
-     * @param data
+     * 'topic_left' EVENT HANDLER
+     * @param {object} data - socket event parameter
      * @private
      */
     function _onTopicLeft(data) {
-      logger.socketEventLogger(TOPIC_LEFT, data);
-      _updateTopics();
-      jndPubSub.pub('onTopicLeft', data);
-
+      logger.socketEventLogger(data.event, data);
+      _updateLeftPanel();
     }
 
     /**
-     * 내가 토픽에 조인했을 때.
-     * @param data
+     * 'topic_joined' EVENT HANDLER
+     * @param {object} data - socket event parameter
      * @private
      */
     function _onTopicJoined(data) {
-      logger.socketEventLogger(TOPIC_JOINED, data);
-      _updateTopics();
+      logger.socketEventLogger(data.event, data);
+      _updateLeftPanel();
     }
 
     /**
-     * 내가 토픽을 지웠을 때.
-     * @param data
+     * 'topic_deleted' EVENT HANDLER
+     * @param {object} data - socket event parameter
      * @private
      */
     function _onTopicLDeleted(data) {
-      logger.socketEventLogger(TOPIC_DELETED, data);
-      _updateTopics();
-      jndPubSub.pub('onTopicDeleted', data);
+      logger.socketEventLogger(data.event, data);
+      _updateLeftPanel();
     }
 
     /**
-     * 누군가가 토픽을 생성했을 때.
-     * @param data
+     * 'topic_created' EVENT HANDLER
+     * @param {object} data - socket event parameter
      * @private
      */
     function _onTopicLCreated(data) {
-      logger.socketEventLogger(TOPIC_CREATED, data);
-      _updateTopics();
+      logger.socketEventLogger(data.event, data);
+      _updateLeftPanel();
     }
 
     /**
-     * 토픽이 업데이트되었을 때.
-     * @param data
+     * 'topic_updated' EVENT HANDLER
+     * @param {object} data - socket event parameter
      * @private
      */
     function _onTopicUpdated(data) {
-      logger.socketEventLogger(TOPIC_UPDATED, data);
+      logger.socketEventLogger(data.event, data);
 
       var _topic = data.topic;
       var _topicEntity = entityAPIservice.getEntityById(_topic.type, _topic.id);
@@ -87,7 +88,18 @@
 
     }
 
-    function _updateTopics() {
+    /**
+     * 'topic_starred', 'topic_unstarred' EVENT HANDLER
+     * @param {object} data - socket event parameter
+     * @private
+     */
+    function _onTopicStarChanged(data) {
+      logger.socketEventLogger(data.event, data);
+      _updateLeftPanel();
+
+    }
+
+    function _updateLeftPanel() {
       jndPubSub.updateLeftPanel();
       jndPubSub.onChangeShared();
     }

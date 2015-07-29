@@ -79,6 +79,7 @@ msgid "@btn-cancel"
 msgstr "キャンセル"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@btn-change"
 msgstr "変更"
 
@@ -88,12 +89,16 @@ msgstr "変更"
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 #: client/app/modal/topics/topic_join/topic.join.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@btn-close"
 msgstr "閉じる"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
+#: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@btn-comment"
 msgstr "コメント"
 
@@ -102,6 +107,7 @@ msgid "@btn-confirm"
 msgstr "確認"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@btn-create"
 msgstr "作成"
 
@@ -112,20 +118,28 @@ msgstr "削除"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/password/password.reset.request.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@btn-edit"
 msgstr "送信"
 
 #: client/app/header/header.html
 #: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
+#: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@btn-invite"
 msgstr "招待"
 
 #: client/app/modal/topics/topic_join/topic.join.html
+#: client/app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.html
 msgid "@btn-join"
 msgstr "参加"
 
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+msgid "@btn-next"
+msgstr "次へ"
+
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@btn-send"
 msgstr "送信"
 
@@ -133,12 +147,9 @@ msgstr "送信"
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@btn-share"
 msgstr "共有"
-
-#: client/app/modal/topics/topic_rename/topic.rename.html
-msgid "@btn-update-name"
-msgstr "名前の更新"
 
 #: client/app/modal/files/upload/upload.html
 msgid "@btn-upload"
@@ -153,18 +164,17 @@ msgid "@ch-menu-delete-confirm"
 msgstr "本当にこのトピックを削除しますか？"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+#: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-invite"
 msgstr "このトピックに招待"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+#: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
 msgstr "このトピックから退出"
 
 #: client/app/center/view_components/entity_header/entity.header.html
-msgid "@ch-menu-rename"
-msgstr "このトピックの名称を変更する"
-
-#: client/app/center/view_components/entity_header/entity.header.html
+#: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-star"
 msgstr "このトピックをお気に入りに追加する"
 
@@ -245,11 +255,13 @@ msgstr ""
 "はこれまでの会話履歴は表示されます"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@common-copy"
 msgstr "コピー"
 
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/modal/topics/topic_join/topic.join.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-create-ch"
 msgstr "新規トピックを作成する"
 
@@ -265,10 +277,12 @@ msgstr "削除されたファイル"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-department"
 msgstr "部署"
 
 #: client/app/left/messages/messages.html
+#: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-direct-messages"
 msgstr "ダイレクトメッセージ一覧"
 
@@ -287,10 +301,12 @@ msgstr "へ招待"
 
 #: client/app/modal/settings/notification/setting.notification.html
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-done"
 msgstr "確認"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@common-download"
 msgstr "ダウンロード"
 
@@ -303,6 +319,8 @@ msgstr "このトピック名は既に使用されています"
 #: client/app/modal/password/password.reset.request.html
 #: client/app/modal/teams/team_invite/team.invite.html
 #: client/app/signin/signin.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-email"
 msgstr "メールアドレス"
 
@@ -311,6 +329,7 @@ msgid "@common-entity-location"
 msgstr "送信先"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-entity-type"
 msgstr "公開/非公開"
 
@@ -411,10 +430,12 @@ msgid "@common-inactive-member"
 msgstr "ブロックされたメンバー"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-info-basic"
 msgstr "基本情報"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-info-optional"
 msgstr "追加情報"
 
@@ -436,6 +457,8 @@ msgstr "表示"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-name"
 msgstr "名前"
 
@@ -461,11 +484,13 @@ msgstr "パスワード"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-phone"
 msgstr "携帯番号"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/members/member_profile/member.profile.view.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-position"
 msgstr "役職"
 
@@ -475,6 +500,8 @@ msgstr "プライバシーポリシー"
 
 #: client/app/left/member/member.html
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-profile-settings"
 msgstr "プロファイル設定"
 
@@ -483,6 +510,7 @@ msgid "@common-rename"
 msgstr "リネーム"
 
 #: client/app/header/header.html
+#: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@common-search"
 msgstr "検索"
 
@@ -513,6 +541,7 @@ msgid "@common-sign-in"
 msgstr "ログインする"
 
 #: client/app/left/member/member.html
+#: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
 msgid "@common-sign-out"
 msgstr "ログアウトする"
 
@@ -526,10 +555,12 @@ msgid "@common-start-using-mobile"
 msgstr "アプリを開く"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-status-msg"
 msgstr "今の気分"
 
 #: client/app/header/header.html
+#: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@common-team"
 msgstr "チーム"
 
@@ -542,14 +573,17 @@ msgid "@common-title"
 msgstr "タイトル"
 
 #: client/app/left/left.html
+#: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "トピック"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-type-private"
 msgstr "非公開"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-type-public"
 msgstr "公開"
 
@@ -560,6 +594,12 @@ msgstr "アップロード"
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr "ホームページを見る"
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "チュートリアルをスキップ"
 
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-post"
@@ -582,9 +622,9 @@ msgstr "このメンバーを別のチャットに招待する"
 msgid "@dm-menu-profile"
 msgstr "プロファイルを表示する"
 
-#: client/app/center/center.html
-msgid "@dnd-file-upload-msg"
-msgstr "ファイルをドラッグ＆ドロップして共有"
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@edit-topic-information"
+msgstr "トピック情報を変更"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
@@ -631,7 +671,6 @@ msgstr "お探しのページは見つかりませんでした"
 msgid "@error-404-title"
 msgstr "エラーが発生しました"
 
-#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/files/file/file.html
 msgid "@file-action-more"
@@ -663,14 +702,17 @@ msgid "@file-unshared-no-longer-accessible"
 msgstr "このファイルは非共有化されました"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
+#: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-computer"
 msgstr "マイコンピューター"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
+#: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-dropbox"
 msgstr "Dropboxからインポート"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
+#: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-google-drive"
 msgstr "Googleドライブ"
 
@@ -701,6 +743,7 @@ msgstr ""
 "ご利用するには、最新バージョンにアップデートしてください。"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@input-create-ch"
 msgstr "新規トピックの名称を入力"
 
@@ -734,14 +777,6 @@ msgstr "メンバー名で検索"
 #: client/app/right/search.messages/search.messages.html
 msgid "@input-to-search"
 msgstr "キーワードを入力して検索してください"
-
-#: client/app/modal/topics/topic_rename/topic.rename.html
-#, fuzzy
-msgid "@input-topic-description"
-msgstr ""
-"「ダイレクトメッセージ」は1対1のやりとり用で、他のメンバーは閲覧できません。"
-"最新の会話から順に表示されます。会話を閉じると一覧から消えますが、会話を再開"
-"すると再び表示されます。過去の会話履歴も表示されます。"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
@@ -786,6 +821,7 @@ msgid "@invitation-already-member"
 msgstr "このメールはすでに{{invitedTeamName}}のメンバーです"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
 "100人以上のメンバーを追加したいですか？ サポートにご連絡はこちらまで <a href="
@@ -810,10 +846,12 @@ msgid "@invitation-invaild-email"
 msgstr "正しいメールアドレスの形式を入力してください"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr "またはリンクを送信"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-more-email"
 msgstr "+ さらに追加"
 
@@ -861,10 +899,12 @@ msgid "@miss-out-important-msg"
 msgstr "重要なメッセージを見落とすかもしれません"
 
 #: client/app/modal/topics/topic_join/topic.join.html
+#: client/app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.html
 msgid "@modal-browse-ch"
 msgstr "トピック一覧"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@modal-create-entity-title"
 msgstr "トピックを作成した後に、公開・非公開を変更することはできません"
 
@@ -907,10 +947,12 @@ msgid "@modal-join-ch-you-can"
 msgstr "参加可能なトピック一覧"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
+#: client/app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.html
 msgid "@modal-member-list-title"
 msgstr "メッセージの送信相手を選択"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
+#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@modal-setting-profile-msg1"
 msgstr "他のメンバーに公開するプロフィールを設定できます"
 
@@ -927,10 +969,12 @@ msgid "@msg-create-pg"
 msgstr "このプライベートトピックを作成する"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@msg-file"
 msgstr "ファイル"
 
 #: client/app/right/file.detail/file.detail.html
+#: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@msg-help-multiline"
 msgstr "shift+enterで改行"
 
@@ -952,10 +996,12 @@ msgstr "が退出しました"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/files/file/file.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@msg-open-original"
 msgstr "元のファイルを開く"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@msg-shared"
 msgstr "共有"
 
@@ -964,6 +1010,7 @@ msgid "@msg-unshared"
 msgstr "非共有"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@msg-whose"
 msgstr "の"
 
@@ -998,10 +1045,6 @@ msgstr "パスワード再設定メールが送信されませんでした"
 #: client/app/modal/password/password.reset.request.html
 msgid "@password-reset-email-sent"
 msgstr "メールが送信されました"
-
-#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
-msgid "@placeholder-input-message"
-msgstr "ここにメッセージを記入（Shift + エンターキーでテキストボックス内で改行"
 
 #: client/app/left/left.html
 msgid "@privateGroup"
@@ -1058,19 +1101,23 @@ msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}}さんが告知を削除しました。"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite"
 msgstr "他のチームメンバーを招待する"
 
 #: client/app/header/header.html
+#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@team-members"
 msgstr "チームメンバー"
 
 #: client/app/header/header.html
 #: client/app/modal/teams/team_change/team.change.html
+#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@team-switch"
 msgstr "チーム切替"
 
 #: client/app/header/header.html
+#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@to-account-home"
 msgstr "ホームに戻る"
 
@@ -1080,6 +1127,7 @@ msgid "@topic-description"
 msgstr "トピック説明"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description-placeholder"
 msgstr "トピックの説明（選択）"
 
@@ -1185,6 +1233,209 @@ msgstr ""
 msgid "@tutorial-welcome-title"
 msgstr "JANDIへようこそ!!"
 
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_awesome"
+msgstr "おめでとう！"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_congratulations"
+msgstr "おめでとうございます{{username}}さん！チュートリアルを完了しました。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_congratulations_content"
+msgstr "これから{{teamName}}チームでメンバー達とジャンディーが使用できます。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_click_list"
+msgstr "\"+\" ボタンをクリックして1:1メッセージを始めましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_post"
+msgstr "「こんにちは」と言ってみましょうか？"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_sticker_let"
+msgstr "スタンプを送ってみてください。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_sticker_success"
+msgstr "送信成功！かわいいね～"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_success"
+msgstr "成功！"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_talk"
+msgstr "チームメンバーを選択してください。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_dm_try"
+msgstr "チームメンバーにダイレクトメッセージを送っていみましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_comment"
+msgstr "コメントを作成してフィードバックを与えてみましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_comment_click"
+msgstr "一番上のファイルをクリックしてください。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_comment_title"
+msgstr "ファイルのリストを確認してみましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_file_download_desc"
+msgstr ""
+"ファイルのダウンロードや他のトピックに共有するにはこちをクリックしてくださ"
+"い。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_get_started"
+msgstr "ジャンディーの操作方法を学ぶ"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_great"
+msgstr "成功！"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_help_remember"
+msgstr "そして気になる点やご質問あれば、いつでもこちらをクリックしてください。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_click_title"
+msgstr "トピック名をクリックすれば、トピック関連メニューが表示されます。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_lets"
+msgstr "今回はトピックを退出してみましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_success"
+msgstr "トピックを成功的に退出しました！"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_leave_success_desc"
+msgstr "公開トピックは自由に参加と退出することが可能です。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_profile_desc"
+msgstr "気に入る写真と最新のプロフィール情報を記入してください。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_profile_setup"
+msgstr "では、プロフィールを修正してみましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_click"
+msgstr "チームメニューをクリックしてみましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_click_invite"
+msgstr "コラボレーションするメンバー達を招待してみましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_definition"
+msgstr "「チーム」とは会社や部署で一緒に協業するグループです。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_desc"
+msgstr ""
+"チームメニューでは全体チームメンバー一覧が見られます。そして他のチームへの切"
+"り替えやホームに移動することができます。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_explain_invitation"
+msgstr ""
+"メンバーのメールアドレスを入力するか、チーム招待URLリンクを直接送って招待する"
+"こともできます。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_team_intro"
+msgstr ""
+"ジャンディーでコミュニケーションスタイルを変革し、効率的なワークスタイルを経"
+"験してみてください。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_team_title"
+msgstr "{{username}}さん、ジャンディーテストチームへようこそ！"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_there_we_go"
+msgstr "おめでとう！「ランチ」トピックに入りました。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_click_join"
+msgstr "「参加」をクリックして会話に参加しましょう"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_click_list"
+msgstr "このアイコンをクリックしてトピック一覧を確認してください。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_click_plus"
+msgstr "「+」ボタンをクリックして新規トピックを作成してみましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_create_own"
+msgstr "{{username}}さんの部署のトピックを作成してみましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_created"
+msgstr "{{topicName}}が成功的に作成されました！"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_definition"
+msgstr ""
+"トピックとは現在進行中のプロジェクトからランチのメニューまで、色々な主題ごと"
+"に分けて目的によって使用するグループチャット単位です。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_join"
+msgstr "すでに作成されているトピックに参加してみましょう"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_topic_let_create"
+msgstr "さて、トピックを作成してみましょう。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_upload_preview"
+msgstr ""
+"アップロードされたファイルはチャット内容のようにトピック内に表示されます。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_upload_sources"
+msgstr ""
+"ファイルをマイコンピューターから、またはGoogle DriveやDropboxから直接アップ"
+"ロードしてください。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_upload_title"
+msgstr "トピック内に直接ファイルがアップロードできます。"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_content"
+msgstr "どうしましょうか？"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_continue"
+msgstr "中断したところから続ける"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_new_start"
+msgstr "最初からやり直す"
+
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@tutorial_welcome_again_title"
+msgstr "まだジャンディーのチュートリアルをやり通していません。"
+
+#: client/app/tutorial/popup/tutorial.main.html
+msgid "@tutorial_welcome_title"
+msgstr "ようこそ{{username}}さん！"
+
 #: client/app/left/left.html
 msgid "@user"
 msgstr "ダイレクトメッセージ"
@@ -1199,6 +1450,7 @@ msgstr "お気に入りから削除する"
 
 #: client/app/header/header.html
 #: client/app/modal/settings/notification/setting.notification.html
+#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@web-notification"
 msgstr "通知"
 
@@ -1234,6 +1486,23 @@ msgstr " 成功しました！"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
+
+#~ msgid "@ch-menu-rename"
+#~ msgstr "このトピックの名称を変更する"
+
+#~ msgid "@btn-update-name"
+#~ msgstr "名前の更新"
+
+#~ msgid "@tutorial_congratulation"
+#~ msgstr ""
+#~ "おめでとうございます{{username}}さん！チュートリアルを完了しました。"
+
+#~ msgid "@dnd-file-upload-msg"
+#~ msgstr "ファイルをドラッグ＆ドロップして共有"
+
+#~ msgid "@placeholder-input-message"
+#~ msgstr ""
+#~ "ここにメッセージを記入（Shift + エンターキーでテキストボックス内で改行"
 
 #, fuzzy
 #~ msgid "@announcement-creator"

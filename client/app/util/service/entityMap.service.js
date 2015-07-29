@@ -1,3 +1,6 @@
+/**
+ * @fileoverview 모든 entity들을 관리하는 map을 관리하는 service
+ */
 (function() {
   'use strict';
 

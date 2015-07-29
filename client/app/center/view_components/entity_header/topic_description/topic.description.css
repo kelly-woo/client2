@@ -3,21 +3,20 @@
   position: absolute;
 
   width: 320px;
-  max-height: 240px;
-
   background-color: white;
 
   border-radius: 5px;
 
   box-shadow: 0 0 6px #d1d1d1;
 
-  padding: 15px;
   top: 24px;
   left: -25px;
 
   line-height: 1.5;
 
   cursor: auto;
+
+  z-index: 1;
 }
 
 .show-description .description-container {
@@ -39,8 +38,18 @@
   -ms-transform: rotate(45deg); /* IE 9 */
   -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
   transform: rotate(45deg);
-}
 
+  z-index: -1;
+}
+.description-content-container {
+  overflow-y: auto;
+  max-height: 210px;
+
+  padding: 0 15px;
+
+  z-index: 1;
+
+}
 .empty-description {
   color: #a7a7a7 !important;
   font-size: 14px;
@@ -51,8 +60,9 @@
   font-weight: 600;
   color: #333333;
   margin-bottom: 12px;
+  margin-top: 15px;
 }
 .topic-description__description {
-  /*word-wrap: break-word;*/
   color: #575757;
+  margin-bottom: 15px;
 }

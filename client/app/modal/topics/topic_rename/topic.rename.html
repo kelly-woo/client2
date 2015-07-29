@@ -11,7 +11,7 @@
     <div class="form-horizontal">
       <div class="form-group">
         <label class="control-label col-sm-3">
-          <span translate>@common-new-name</span>
+          <span translate>@common-name</span>
         </label>
         <div class="col-sm-9">
           <input type="text"
@@ -37,6 +37,7 @@
           <textarea
             class="form-control topic-description-input"
             name="topicDescription"
+            placeholder="{{ '@topic-description-placeholder' | translate }}"
             ng-model="topicDescription"
             ng-maxlength="300"
             autocorrect="off"
@@ -52,7 +53,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>@btn-cancel</span></button>
-    <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ '@btn-update-name' | translate }}"
+    <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ '@common-done' | translate }}"
            ng-disabled="hasValueChanged('name') && hasValueChanged('description') || topicRenameForm.$invalid"/>
   </div>
 </form>

@@ -111,8 +111,6 @@
 
         _getAnnouncementStatus();
         _showAnnouncement();
-      } else {
-        //console.log('no announcement')
       }
     }
 

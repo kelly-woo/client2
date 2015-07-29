@@ -29,6 +29,7 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
 
   leftpanelAPI.toSignin = function() {
+    currentSessionHelper.clear();
     storageAPIservice.removeLocal();
     storageAPIservice.removeSession();
 

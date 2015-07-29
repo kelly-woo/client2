@@ -309,6 +309,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       lastLinkId: MessageCollection.getLastLinkId(),
       hasProcessed: true
     };
+
+    console.log(param);
+
     TopicMessageCache.put(_getEntityId(), param);
   }
 
@@ -418,6 +421,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function loadNewMessages() {
+    console.log('loadNewMessages')
     if (hasMoreNewMessageToLoad() && NetInterceptor.isConnected()) {
       MessageQuery.set({
         type: 'new',
@@ -450,11 +454,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     if (!_cachedItem.hasProcessed) {
       MessageCollection.append(_cachedItem.list);
+      lastMessageId = MessageCollection.getLastLinkId();
     } else {
       MessageCollection.setList(_cachedItem.list);
+      lastMessageId = _cachedItem.lastMessageId;
     }
 
-    lastMessageId = MessageCollection.getLastLinkId();
+    console.log('::', lastMessageId)
     globalLastLinkId = _cachedItem.globalLastLinkId || lastMessageId;
 
     $scope.isInitialLoadingCompleted = true;
@@ -530,6 +536,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), getMessageDeferredObject)
         .success(function(response) {
           console.log('::getMessageSuccess');
+          console.log(response)
 
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
@@ -641,8 +648,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
     MessageQuery.reset();
   }
-
-
 
   function _onInitialLoad() {
     console.log(_testCounter++, '::_onInitialLoad')
@@ -824,12 +829,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (updateInfo.messageCount) {
         // 업데이트 된 메세지 처리
         _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
+        MessageCollection.updateUnreadCount();
+        lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
+        console.log('::_onUpdateListSuccess', lastMessageId);
+        jndPubSub.pub('onMessageDeleted');
         //  marker 설정
         updateMessageMarker();
         _checkEntityMessageStatus();
-        MessageCollection.updateUnreadCount();
-        lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
-        jndPubSub.pub('onMessageDeleted');
       }
     }
 
@@ -886,6 +892,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   //  Updating message marker for current entity.
   function updateMessageMarker() {
+    console.log('::updateMessageMarker', lastMessageId);
     messageAPIservice.updateMessageMarker(entityId, entityType, lastMessageId)
       .success(function(response) {
         memberService.setLastReadMessageMarker(_getEntityId(), lastMessageId);

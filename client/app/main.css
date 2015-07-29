@@ -635,12 +635,12 @@ input[type="button"] {
   height: 15px;
 }
 .icon-loading {
-  background: url('../assets/images/loading.gif') center center no-repeat;
+  background: url('../assets/images/jd_loading.gif') center center no-repeat;
   width: 150px;
   height: 150px;
 }
 .icon-loading-img {
-  background: url('../assets/images/loading.gif') center center no-repeat;
+  background: url('../assets/images/jd_loading.gif') center center no-repeat;
 }
 .icon-loading-small {
     background-image: url('../assets/images/icon_loading.gif');
