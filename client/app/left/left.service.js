@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp');
 
 app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, storageAPIservice,
-                                            memberService, EntityMapManager) {
+                                            memberService, EntityMapManager, currentSessionHelper) {
   var leftpanelAPI = {};
 
   leftpanelAPI.getLists = function() {
@@ -28,6 +28,7 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
 
   leftpanelAPI.toSignin = function() {
+    currentSessionHelper.clear();
     storageAPIservice.removeLocal();
     storageAPIservice.removeSession();
 

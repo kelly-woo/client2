@@ -36,7 +36,7 @@
 
       <!--    CONTENT(MESSAGE)    -->
       <span ng-if="msg.message.contentType !== 'comment_sticker'">
-        <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+        <span class="keep" compile="(msg.message.content.body) || ''"></span>
         <!--    CREATED TIME    -->
         <span class="msg-item-header__created">
           {{msg.time | gethmmaFormat}}
@@ -124,7 +124,7 @@
           <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}}</span>
         </span>
         <span ng-if="msg.message.contentType !== 'comment_sticker'">
-          <span class="keep" data-ng-bind-html="(msg.message.content.body) || ''"></span>
+          <span class="keep" compile="(msg.message.content.body) || ''"></span>
           <span class="msg-item-header__created">
             {{msg.time | gethmmaFormat}}
           </span>

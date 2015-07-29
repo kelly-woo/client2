@@ -46,6 +46,7 @@
   <link rel="stylesheet" href="app/left/messages/messages.css">
   <link rel="stylesheet" href="app/left/topics/topics.css">
   <link rel="stylesheet" href="app/main.css">
+  <link rel="stylesheet" href="app/mention/mention.view.css">
   <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
   <link rel="stylesheet" href="app/modal/files/integration/integration.css">
   <link rel="stylesheet" href="app/modal/images/carousel/image.carousel.css">
@@ -73,7 +74,28 @@
   <link rel="stylesheet" href="app/signin/signin.css">
   <link rel="stylesheet" href="app/sticker/sticker.css">
   <link rel="stylesheet" href="app/tpl/503/503.css">
+  <link rel="stylesheet" href="app/tutorial/popup/tutorial.main.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/center/tutorial.center.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/completion/tutorial.completion.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/entity_header/tutorial.entity.header.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/dm/send/lecture.dm.send.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/left/tutorial.left.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/profile/tutorial.profile.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/purse/tutorial.purse.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/top/tutorial.top.css">
+  <link rel="stylesheet" href="app/tutorial/popup/view_components/tutor/tutorial.tutor.css">
   <link rel="stylesheet" href="app/tutorial/tutorial.css">
+  <link rel="stylesheet" href="app/tutorial/welcome/tutorial.welcome.css">
   <link rel="stylesheet" href="components/app/mention_ahead/mention.ahead.css">
   <!-- endinjector -->
   <!-- endbuild -->
@@ -98,6 +120,7 @@
         </div>
       </div>
     </div>
+    <tutorial-welcome></tutorial-welcome>
   </div>
 </div>
 
@@ -176,10 +199,15 @@
 <script src="assets/javascripts/core.js"></script>
 <script src="assets/javascripts/detectmobilebrowser.js"></script>
 <script src="assets/javascripts/jquery.highlight.js"></script>
+<script src="app/util/directive/jnd.elastic.directive.js"></script>
 <script src="app/util/directive/main.directive.js"></script>
 <script src="app/util/directive/scaleup.directive.js"></script>
 <script src="app/util/directive/typeahead.directive.js"></script>
+<script src="app/util/filter/html.decode.filter.js"></script>
+<script src="app/util/filter/html.encode.filter.js"></script>
 <script src="app/util/filter/main.filter.js"></script>
+<script src="app/util/filter/mention.filter.js"></script>
+<script src="app/util/filter/mention.html.decode.filter.js"></script>
 <script src="app/util/filter/txt.filter.js"></script>
 <script src="app/util/images/image.loader.directive.js"></script>
 <script src="app/util/images/images.service.js"></script>
@@ -256,6 +284,7 @@
 <script src="app/left/topics/topics.controller.js"></script>
 <script src="app/left/topics/topics.directive.js"></script>
 <script src="app/main.js"></script>
+<script src="app/mention/mention.view.directive.js"></script>
 <script src="app/mobile/mobile.catcher.controller.js"></script>
 <script src="app/modal/files/integration/integration.controller.js"></script>
 <script src="app/modal/files/share/share.controller.js"></script>
@@ -319,8 +348,53 @@
 <script src="app/team/team.service.js"></script>
 <script src="app/tpl/503/503.controller.js"></script>
 <script src="app/translation/translation.js"></script>
+<script src="app/tutorial/popup/services/tutorial.account.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.api.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.data.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.dm.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.entity.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.messages.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.topics.service.js"></script>
+<script src="app/tutorial/popup/services/tutorial.tutor.service.js"></script>
+<script src="app/tutorial/popup/tutorial.main.controller.js"></script>
+<script src="app/tutorial/popup/view_components/center/date/tutorial.center.date.directive.js"></script>
+<script src="app/tutorial/popup/view_components/center/file/tutorial.center.file.directive.js"></script>
+<script src="app/tutorial/popup/view_components/center/text/tutorial.center.text.directive.js"></script>
+<script src="app/tutorial/popup/view_components/center/totorial.center.controller.js"></script>
+<script src="app/tutorial/popup/view_components/center/tutorial.center.directive.js"></script>
+<script src="app/tutorial/popup/view_components/completion/totorial.completion.controller.js"></script>
+<script src="app/tutorial/popup/view_components/completion/tutorial.completion.directive.js"></script>
+<script src="app/tutorial/popup/view_components/entity_header/totorial.entity.header.controller.js"></script>
+<script src="app/tutorial/popup/view_components/entity_header/tutorial.entity.header.directive.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/dm/send/lecture.dm.send.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/menu/help/lecture.menu.help.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/team/invitation/lecture.team.invitation.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/topic/create/lecture.topic.create.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/topic/join/lecture.topic.join.controller.js"></script>
+<script src="app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.controller.js"></script>
+<script src="app/tutorial/popup/view_components/left/tutorial.left.directive.js"></script>
+<script src="app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.directive.js"></script>
+<script src="app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.directive.js"></script>
+<script src="app/tutorial/popup/view_components/modal/profile/totorial.modal.profile.controller.js"></script>
+<script src="app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.directive.js"></script>
+<script src="app/tutorial/popup/view_components/modal/topic_create/totorial.modal.topic.create.controller.js"></script>
+<script src="app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.directive.js"></script>
+<script src="app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.directive.js"></script>
+<script src="app/tutorial/popup/view_components/profile/totorial.profile.controller.js"></script>
+<script src="app/tutorial/popup/view_components/profile/tutorial.profile.directive.js"></script>
+<script src="app/tutorial/popup/view_components/purse/totorial.purse.controller.js"></script>
+<script src="app/tutorial/popup/view_components/purse/tutorial.purse.directive.js"></script>
+<script src="app/tutorial/popup/view_components/top/tutorial.top.directive.js"></script>
+<script src="app/tutorial/popup/view_components/tutor/totorial.tutor.controller.js"></script>
+<script src="app/tutorial/popup/view_components/tutor/tutorial.tutor.directive.js"></script>
 <script src="app/tutorial/tutorial.controller.js"></script>
 <script src="app/tutorial/tutorial.service.js"></script>
+<script src="app/tutorial/welcome/tutorial.welcome.controller.js"></script>
+<script src="app/tutorial/welcome/tutorial.welcome.directive.js"></script>
 <script src="components/app/analytics/analyticsv1.service.js"></script>
 <script src="components/app/analytics/directives/buttonTrakcer.directive.js"></script>
 <script src="components/app/analytics/directives/downloadTracker.directive.js"></script>
@@ -364,6 +438,8 @@
 <script src="components/jandi/jandi.framework.js"></script>
 <script src="components/jandi/pc_app_communicator/pcApp.js"></script>
 <script src="components/jandi/pc_app_communicator/pcApp.service.js"></script>
+<script src="components/jandi/popup/popup.js"></script>
+<script src="components/jandi/popup/popup.service.js"></script>
 <script src="components/jandi/preloader/preloader.js"></script>
 <script src="components/jandi/preloader/preloader.service.js"></script>
 <!-- endinjector -->

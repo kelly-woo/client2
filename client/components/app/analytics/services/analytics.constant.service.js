@@ -114,6 +114,7 @@
       SESSION_START: 'e2',
       WINDOW_FOCUS: 'e3',
       WINDOW_BLUR: 'e4',
+      WINDOW_CLOSE: 'e52',
       LANGUAGE_CHANGE: 'e5',
       SIGN_IN: 'e6',
       SIGN_OUT: 'e12',
