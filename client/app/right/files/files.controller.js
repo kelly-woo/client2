@@ -101,18 +101,23 @@
       return data.room.id === $scope.fileRequest.sharedEntityId;
     }
 
-    $scope.$on('onrPanelFileTabSelected', function() {
-      _isActivated = true;
-      $scope.fileRequest.keyword = '';
-      _refreshFileList();
-    });
-    $scope.$on('onrPanelMessageTabSelected', function() {
-      _isActivated = false;
+    $scope.$on('onRightPanel', function($event, type, hasList) {
+      if (type === 'file') {
+        _isActivated = true;
+        if (!hasList) {
+          $scope.fileRequest.keyword = '';
+          _refreshFileList();
+        }
+      } else {
+        _isActivated = false;
+      }
     });
 
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
-      $scope.fileRequest.keyword = keyword;
-      _refreshFileList();
+      if (_isActivated) {
+        $scope.fileRequest.keyword = keyword;
+        _refreshFileList();
+      }
     });
 
     //  From profileViewerCtrl
@@ -145,9 +150,6 @@
      */
     $scope.$on('changedLanguage', function() {
       _setLanguageVariable();
-
-      // sharedEntitySearchQuery 초기화 하여 shared entity list를 갱신함.
-      $scope.sharedEntitySearchQuery = null;
     });
 
     function _refreshFileList() {
@@ -519,7 +521,7 @@
     }
 
     function _isFileTabActive() {
-      return $scope.isFileTabActive;
+      return _isActivated;
     }
 
     // _hasLocalCurrentEntityChanged 수행시 localCurrentEntity가 존재하지 않아 error 발생하므로

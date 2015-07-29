@@ -59,6 +59,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       _initListeners();
       $scope.isPostingComment = false;
       getFileDetail();
+      jndPubSub.pub('onHeaderAcitveTab', 'file');
     }
   }
 
@@ -593,6 +594,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * Redirect user back to file list.
    */
   function backToFileList() {
+    jndPubSub.pub('onHeaderAcitveTab', 'file');
     $state.go('messages.detail.files');
   }
 
@@ -653,8 +655,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
             if (members) {
               for (j = 0, jLen = members.length; j < jLen; j++) {
                 member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
-                //if (member && currentMemberId !== member.id && member.status === 'enabled') {
-                if (member && member.status === 'enabled') {
+                if (member && currentMemberId !== member.id && member.status === 'enabled') {
                   member.exViewName = '[@' + member.name + ']';
                   member.exSearchName = member.name;
                   mentionList.push(member);

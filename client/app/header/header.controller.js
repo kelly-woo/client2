@@ -30,11 +30,30 @@
         star: false,
         mention: false
       };
+
+      if (_isRpanelVisible()) {
+        $scope.toolbar.file = true;
+      }
     }
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       stateParams = toParams;
     });
+
+    $scope.$on('onRightPanel', function($event, type) {
+      _setTabStatus(currentRightPanel, false);
+      _setTabStatus(type, true);
+    });
+
+    $scope.$on('onHeaderAcitveTab', function($event, type) {
+      _setTabStatus(currentRightPanel, false);
+      _setTabStatus(type, true);
+    });
+
+    $scope.$on('closeRightPanel', function() {
+      _closeRightPanel();
+    });
+
 
     $scope.onLanguageClick = onLanguageClick;
 
@@ -120,7 +139,6 @@
       'setting-notifications': function() {
         modalHelper.openNotificationSettingModal($scope);
       }
-
     };
 
     $scope.openModal = function(selector) {
@@ -150,21 +168,13 @@
     };
 
     $scope.openRightPanel = function(type) {
-      var toolbar = $scope.toolbar;
-      if (toolbar[type]) {
-        currentRightPanel = null;
-        toolbar[type] = false;
-        $state.go('messages.detail');
+      if ($scope.toolbar[type] && currentRightPanel === type) {
+        _closeRightPanel();
       } else {
         _autoScroll();
+        _setTabStatus(currentRightPanel, false);
 
-        if (toolbar[currentRightPanel]) {
-          toolbar[currentRightPanel] = false;
-        }
-
-        toolbar[type] = true;
-        currentRightPanel = type;
-        jndPubSub.pub('onRightPanel', currentRightPanel);
+        jndPubSub.pub('onRightPanel', type);
       }
     };
 
@@ -178,6 +188,21 @@
           viewport.animate({scrollTop: content.height()}, 200);
         });
       }
+    }
+
+    function _setTabStatus(type, value) {
+      $scope.toolbar[type] = value;
+      currentRightPanel = type;
+    }
+
+    function _closeRightPanel() {
+      $scope.toolbar[currentRightPanel] = false;
+      currentRightPanel = null;
+      $state.go('messages.detail');
+    }
+
+    function _isRpanelVisible() {
+      return $state.includes('**.files.**');
     }
   }
 })();

@@ -29,18 +29,7 @@
     }
 
     function _getContent(record) {
-      var content = record.content;
-      var mentions = record.mentions;
-      var mention;
-      var i;
-
-      for (i = mentions.length - 1; i > -1; --i) {
-        mention = mentions[i];
-
-        content = content;
-      }
-
-      return content;
+      return $filter('mention')(record.content, record.mentions);
     }
 
     function _getMentionStartPoint(record) {
@@ -54,24 +43,6 @@
       }
 
       return startPoint;
-    }
-
-    function _isPrivateTopicLeaved() {
-      var result = false;
-      var topic = $scope.topic;
-      var currentMemberId;
-      var members;
-
-      if (topic && topic.type === 'privategroups') {
-        currentMemberId = memberService.getMemberId();
-        if (members = topic.pg_members) {
-          if (members.indexOf(currentMemberId) < 0) {
-            result = true;
-          }
-        }
-      }
-
-      return result;
     }
 
     /**
@@ -90,12 +61,32 @@
       if (record.contentType === 'comment') {
         _goToFileDetail(record, writer);
       } else {
-        if (_isPrivateTopicLeaved()) {
+        if (_isPrivateTopicLeaved(record)) {
           alert('현재 삭제되거나 나간 토픽이므로 원본을 확인할 수 없습니다.');
         } else {
           _goToTopic(record);
         }
       }
+    }
+
+    function _isPrivateTopicLeaved(record) {
+      var result = false;
+      var topic = $scope.topic;
+      var currentMemberId = memberService.getMemberId();
+      var members;
+
+      if (record.roomType === 'privateGroup') {
+        if (topic) {
+          members = topic.pg_members;
+          if (members.indexOf(currentMemberId) < 0) {
+            result = true;
+          }
+        } else {
+          result = true;
+        }
+      }
+
+      return result;
     }
 
     function _goToFileDetail(record, writer) {
@@ -111,7 +102,7 @@
       if (_isToEntityCurrent(toEntityId)) {
         jndPubSub.pub('jumpToMessageId');
       } else {
-        $state.go('archives', {entityType: $scope.topic.type, entityId: toEntityId});
+        $state.go('archives', {entityType: record.roomType + 's', entityId: toEntityId});
       }
     }
 

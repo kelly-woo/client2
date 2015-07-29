@@ -10,7 +10,7 @@
     .controller('rPanelCtrl', rPanelCtrl);
 
   /* ngInject */
-  function rPanelCtrl($scope, $state, jndPubSub) {
+  function rPanelCtrl($scope, $state, $filter, jndPubSub) {
     _init();
 
     /**
@@ -22,18 +22,24 @@
 
       $scope.tabs = {
         file: {
+          name: $filter('translate')('@common-files'),
           active: true
         },
         message: {
+          name: $filter('translate')('@common-message'),
           active: false
         },
         star: {
+          name: 'star',
           active: false
         },
         mention: {
+          name: 'mention',
           active: false
         }
       };
+
+      $scope.activeTabName = $scope.tabs.file.name;
     }
 
     /**
@@ -51,13 +57,6 @@
     });
 
     /**
-     * file tab 이 active 되었다는 이벤트.
-     */
-    $scope.$on('setFileTabActive', function() {
-      _setFileTabStatus();
-    });
-
-    /**
      * right panel이 on 되었다는 event handling
      */
     $scope.$on('onRightPanel', function($event, type) {
@@ -65,34 +64,13 @@
 
       if (tab = $scope.tabs[type]) {
         tab.active = true;
+        $scope.activeTabName = tab.name;
+
+        // reset input element
+        jndPubSub.pub('resetRPanelSearchStatusKeyword');
       }
       $state.go('messages.detail.files');
     });
-
-
-    ///**
-    // * file tab 이나 message tab 이 선택되어졌을 때 항상 호출된다.
-    // * @param selectedTab {string} 선택된 tab 의 이름.
-    // */
-    //$scope.onRightPanelTabSelected = function(selectedTab) {
-    //  // search input box 의 값을 reset 시켜준다.
-    //  jndPubSub.pub('resetRPanelSearchStatusKeyword');
-    //  // TODO: 이렇게 펑션 불러도 되나요?
-    //  tabSelectedCallbacks[selectedTab]();
-    //};
-
-    /**
-     * file tab 이 active 되었다는 이벤트.
-     */
-    function onFileTabSelected() {
-      jndPubSub.pub('onrPanelFileTabSelected');
-    }
-    /**
-     * message tab 이 active 되었다는 이벤트.
-     */
-    function onMessageTabSelected() {
-      jndPubSub.pub('onrPanelMessageTabSelected');
-    }
 
     /**
      * keyword 가 비어있는 상태인지 아닌지 알아본다.
@@ -101,22 +79,6 @@
      */
     function _updateSearchQueryEmptyStatus(keyword) {
       $scope.isSearchQueryEmpty =  !keyword;
-    }
-
-    /**
-     * 임의로 file tab 의 status 를 active 로 바꾼다.
-     * @private
-     */
-    function _setFileTabStatus() {
-      $scope.tabs.file.active = true;
-    }
-
-    /**
-     * 임의로 message tab 의 status 를 active 로 바꾼다.
-     * @private
-     */
-    function _setMessageTabStatus() {
-      $scope.tabs.message.active = true;
     }
 
     // TODO: REFACTOR
@@ -129,23 +91,10 @@
     };
 
     /**
-     * file tab 이 active 인지 알아본다.
-     * @returns {*} {boolean}
+     * close right panel
      */
-    $scope.isFileTabActive = function() {
-      return fileTab.active;
-    };
-
-    /**
-     * file tab 이 active 인지 알아본다.
-     @returns {*} {boolean}
-     */
-    $scope.isMessageTabActive = function() {
-      return messageTab.active;
-    };
-
     $scope.closeRightPanel = function() {
-
+      jndPubSub.pub('closeRightPanel');
     };
   }
 })();

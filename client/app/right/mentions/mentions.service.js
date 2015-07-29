@@ -21,11 +21,10 @@
       return $http({
         method: 'GET',
         url: $rootScope.server_address + 'teams/' + memberService.getTeamId() + '/messages/mentioned',
-        data: {
+        params: {
           page: data.page || 1
         }
       });
     }
   }
-
 })();
