@@ -1103,19 +1103,3 @@ input[type="radio"] {
   top: 0;
   z-index: 1000;
 }
-
-
-/********************************************
-                 멘션
-********************************************/
-a.mention {
-  color: #1C6C88;
-  /*background-color: #00a8ff;*/
-  /*border-radius: 3px;*/
-  padding: 2px;
-}
-
-a.mention:hover {
-  /*background-color: #178ae3;*/
-  text-decoration: underline;
-}

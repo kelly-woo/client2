@@ -12,7 +12,7 @@
    *
    * @returns {{restrict: string, scope: {src: string}, link: link}}
    */
-  function mentionView(EntityMapManager, jndPubSub) {
+  function mentionView(EntityMapManager, memberService, jndPubSub) {
 
     return {
       restrict: 'A',
@@ -33,11 +33,25 @@
         _type = attrs.mentionType;
         _id = attrs.mentionView;
 
+        _initElement();
+        _attachEvents();
+        _attachDomEvents();
+      }
+
+      /**
+       * 엘리먼트를 초기화 한다
+       * @private
+       */
+      function _initElement() {
+        var myId = memberService.getMemberId();
         el.addClass('mention')
           .addClass('cursor_pointer');
 
-        _attachEvents();
-        _attachDomEvents();
+        if (parseInt(_id, 10) === parseInt(myId, 10)) {
+          el.addClass('me');
+        } else if (_type === 'room') {
+          el.addClass('all');
+        }
       }
 
       /**
