@@ -113,6 +113,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   $scope.onRepeatDone = onRepeatDone;
 
+  $scope.isLastReadMarker = isLastReadMarker;
+
   _init();
 
   var _testCounter = 0;
@@ -439,33 +441,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
    * @private
    */
-  function _displayCache2() {
-
-    var _item = TopicMessageCache.get(_getEntityId());
-    console.log(_testCounter++, '::_displayCache', _item.list.length);
-
-
-    $timeout(function() {
-      if (!_item.hasProcessed) {
-        MessageCollection.append(_item.list);
-      } else {
-        MessageCollection.setList(_item.list);
-      }
-
-      lastMessageId = MessageCollection.getLastLinkId();
-
-      globalLastLinkId = _item.globalLastLinkId || lastMessageId;
-      publicService.hideTransitionLoading();
-      $scope.isInitialLoadingCompleted = true;
-
-      TopicMessageCache.addValue(_getEntityId(), 'hasProcessed', true);
-
-      _updateUnreadBookmarkFlag();
-
-      _getUpdatedList();
-    });
-  }
-
   function _displayCache() {
     console.log(_testCounter++, '::_displayCache');
 
@@ -491,20 +466,28 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _getUpdatedList();
   }
 
+  /**
+   * 캐쉬된 이후로 업데이트된 것이 있는지 물어본다.
+   * @private
+   */
   function _getUpdatedList() {
     console.log(_testCounter++, '::_getUpdatedList');
-
     messageAPIservice.getUpdatedList(_getEntityId(), lastMessageId)
       .success(_onUpdatedMessagesSuccess)
       .error(function(err) {
-        console.log(err)
+        console.log(err);
+        $scope.messages = MessageCollection.getList();
       });
   }
 
+  /**
+   * 업데이트 api가 정상적으로 들어왔을 경우
+   * @param {object} response - server로부터 들어온 정보
+   * @private
+   */
   function _onUpdatedMessagesSuccess(response) {
     console.log(_testCounter++, '::_onUpdatedMessagesSuccess', response);
 
-    console.log('::processing updated list');
     if (response.updateInfo.messageCount > 0) {
       console.log(_testCounter++, '::_update messages');
 
@@ -645,7 +628,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _updateScroll() {
     console.log('::updateScroll')
     if (MessageQuery.hasSearchLinkId()) {
-      _findMessageDomElementById(MessageQuery.get('linkId'));
+      _findMessageDomElementById(MessageQuery.get('linkId'), true);
       MessageQuery.clearSearchLinkId();
     } else if(_isInitialLoad()) {
       _onInitialLoad();
@@ -673,7 +656,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
       $timeout(function() {
         // bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
-        _findMessageDomElementById('unread-bookmark');
+        _findMessageDomElementById('unread-bookmark', true);
       });
     }
     else {
@@ -725,14 +708,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _shouldUpdateScrollToBookmark = false;
   }
 
-  function _findMessageDomElementById(id) {
+  function _findMessageDomElementById(id, withOffset) {
     console.log('::_findMessageDomElementById', id);
 
     var jqTarget = $('#'+id);
     var jqContainer = $('#msgs-container');
     var targetScrollTop = jqContainer.scrollTop();
-
-
 
     if (_.isUndefined(jqTarget.offset())) {
       console.log('::_no jqTarget')
@@ -741,14 +722,15 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       console.log('::Yes jqTarget', targetScrollTop);
 
       targetScrollTop += jqTarget.offset().top;
-      targetScrollTop -= jqTarget.height();
       targetScrollTop -= jqContainer.offset().top;
 
       if (Announcement.isOpened()) {
         targetScrollTop -= $('announcement:first > div:first').outerHeight();
       }
 
-      targetScrollTop -= jqContainer.height()/3;
+      if (withOffset) {
+        targetScrollTop -= jqContainer.height()/3;
+      }
 
       console.log('::Scroll to ', targetScrollTop);
       _scrollTo(targetScrollTop);
@@ -1642,8 +1624,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       });
   }
 
-  $scope.isLastReadMarker = isLastReadMarker;
-
+  /**
+   * 마지막으로 읽은 마커와 같은지 안 같은지 확인 후 unread bookmark를 보여줘야할지와 함께 연산해서 결과값을 리턴한다.
+   * @param {number} linkId - 체크하고싶은 link id
+   * @returns {boolean}
+   */
   function isLastReadMarker(linkId) {
     return linkId === _lastReadMessageMarker && shouldDisplayUnreadMarker(linkId);
   }
