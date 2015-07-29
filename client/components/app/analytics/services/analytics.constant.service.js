@@ -27,10 +27,14 @@
       'jp': 'ja',
       'zh_CN': 'zh-cn',
       'zh_TW': 'zh-tw'
-    }
-    this.PLATFORM = 'web';
-    this.CHANNEL = 'app';
+    };
 
+    this.PLATFORM = {
+      WEB: 'web',
+      WIN_APP: 'winapp'
+    };
+
+    this.CHANNEL = 'app';
     this.LOCAL_STORAGE_KEY = '_jd_.analytics';
     this.SESSION_STORAGE_KEY = '_jd_.analytics_session';
 
@@ -70,14 +74,14 @@
       SEARCH_KEYWORD: 'p24', 
       AUTO_SIGN_IN: 'p25',
       MESSAGE_ID: 'p26'
-    }
+    };
 
     this.IDENTIFY = {
       ACCOUNT_ID: 'a',
       SESSION: 's',
       TOKEN: 't',
       MEMBER_ID: 'm'
-    }
+    };
 
     this.PAGE = {
       'topic/public': 21,
@@ -101,7 +105,7 @@
       'private/policy': 39,
       'topic/profile': 40,
       'signin': 41
-    }
+    };
 
     //TODO: Event 명 다 바뀔 예정
     this.EVENT = {
@@ -110,6 +114,7 @@
       SESSION_START: 'e2',
       WINDOW_FOCUS: 'e3',
       WINDOW_BLUR: 'e4',
+      WINDOW_CLOSE: 'e52',
       LANGUAGE_CHANGE: 'e5',
       SIGN_IN: 'e6',
       SIGN_OUT: 'e12',
@@ -129,6 +134,6 @@
       MESSAGE_POST: 'e44',
       MESSAGE_KEYWORD_SEARCH: 'e45',
       MESSAGE_DELETE: 'e46'
-    }
+    };
   }
 })();

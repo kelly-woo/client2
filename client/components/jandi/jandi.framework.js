@@ -10,6 +10,7 @@
     .module('jandi.framework', [
       'jandi.pcApp',
       'jandi.preloader',
+      'jandi.popup',
       'jandi.browser',
       'jandi.active.notifier'
     ])
