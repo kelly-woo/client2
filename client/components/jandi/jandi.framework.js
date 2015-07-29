@@ -11,8 +11,7 @@
       'jandi.pcApp',
       'jandi.preloader',
       'jandi.popup',
-      'jandi.browser',
-      'jandi.active.notifier'
+      'jandi.browser'
     ])
     .run(run)
     .config(config);
