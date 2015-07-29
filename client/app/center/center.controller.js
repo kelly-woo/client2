@@ -443,9 +443,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _displayCache() {
     console.log(_testCounter++, '::_displayCache');
-
     var _cachedItem = TopicMessageCache.get(_getEntityId());
 
+    $scope.messages = [];
     _isFromCache = true;
 
     if (!_cachedItem.hasProcessed) {
@@ -462,7 +462,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     TopicMessageCache.addValue(_getEntityId(), 'hasProcessed', true);
 
     _updateUnreadBookmarkFlag();
-
     _getUpdatedList();
   }
 
@@ -637,8 +636,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else if (_isLoadingOldMessages()) {
       _disableScroll();
       _findMessageDomElementById(loadedFirstMessageId);
-    } else if (_shouldUpdateScrollToBookmark) {
-      _toBookmark();
     } else if (MessageCollection.getQueue().length > 0) {
       _scrollToBottom();
     }
@@ -654,10 +651,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     if (_shouldDisplayBookmarkFlag) {
       console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
-      $timeout(function() {
-        // bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
-        _findMessageDomElementById('unread-bookmark', true);
-      });
+      //$timeout(function() {
+      // bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
+      _findMessageDomElementById('unread-bookmark', true);
+      //});
     }
     else {
       console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
@@ -665,47 +662,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     _isFromCache = false;
+
     loadedFirstMessageId = MessageCollection.getFirstLinkId();
     loadedLastMessageId = MessageCollection.getLastLinkId();
-  }
-
-  function _toBookmark() {
-
-    _testCounter++;
-
-    var jqMsgsContainer = $('#msgs-container');
-    var _bookmarkOffset = $('#unread-bookmark').offset().top;
-
-    console.log(_testCounter, '::_toBookmark', jqMsgsContainer.height(), _bookmarkOffset)
-    if (_bookmarkOffset > jqMsgsContainer.height()) {
-
-      var extraScrollHeight = (jqMsgsContainer.height()/3) * 2;
-      var _msgsContainerScrollHeight = jqMsgsContainer.prop('scrollHeight');
-      var _currentScrollTop = jqMsgsContainer.scrollTop();
-
-      console.log(_testCounter, '::_toBookmark', _currentScrollTop, _msgsContainerScrollHeight-jqMsgsContainer.height());
-
-      console.log('::', $('#unread-bookmark').offset().top)
-
-      _animateBackgroundColor($('#unread-bookmark'));
-
-      $('#msgs-container')
-        .animate(
-        {scrollTop: $('#msgs-container').scrollTop() + extraScrollHeight},
-        _bookmarkAnimationDuration, 'swing',
-        function() {
-          console.log('animate done')
-        }
-      );
-
-      // 새로운 메세지들이 밑에 붙은 후의 scrollHeight와 현재 스크롤 위치의 차이에 현재 컨테이너의 높이를 뺐을 때,
-      // 가장 높이 올라갈 수 있는 스크롤의 값(extraScrollHeight)보다 많으면 검은색 메세지 알림창을 보여준다.
-      if (_msgsContainerScrollHeight - _currentScrollTop - jqMsgsContainer.height() > extraScrollHeight) {
-        _showNewMessageAlertBanner();
-      }
-    }
-
-    _shouldUpdateScrollToBookmark = false;
   }
 
   function _findMessageDomElementById(id, withOffset) {
@@ -735,9 +694,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       console.log('::Scroll to ', targetScrollTop);
       _scrollTo(targetScrollTop);
 
+      _animateBackgroundColor(jqTarget);
+
       // _scrollTo 가 다 끝날때까지 기다린 후 _showcontent 를 한다.
       $timeout(function() {
-        _animateBackgroundColor(jqTarget);
         _showContents();
       }, 10);
     }
@@ -798,11 +758,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _animateBackgroundColor(element) {
     console.log('::_animateBackgroundColor');
     element.addClass('last');
+
     $timeout(function() {
-      element.animate({'backgroundColor': 'white'}, 428, 'swing', function() {
+      element.addClass('last-out');
+      $timeout(function() {
         element.removeClass('last');
-      });
-    }, 1000);
+        element.removeClass('last-out');
+      }, 517)
+    }, 500);
   }
 
   /**
@@ -1410,22 +1373,23 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onNewMessageArrived(angularEvent, msg) {
     console.log('::_onNewMessageArrived');
 
-    // If message is from me -> I just wrote a message -> Just scroll to bottom.
-    if (centerService.isMessageFromMe(msg)) {
-      _scrollToBottom(true);
-      return;
-    }
-
-    // Message is not from me -> Someone just wrote a message.
-    if (centerService.hasBottomReached()) {
-      //log('window with focus')
-      if (_hasBrowserFocus()) {
+    if (!_isFromCache) {
+      // If message is from me -> I just wrote a message -> Just scroll to bottom.
+      if (centerService.isMessageFromMe(msg)) {
         _scrollToBottom(true);
         return;
       }
-    }
 
-    _gotNewMessage();
+      // Message is not from me -> Someone just wrote a message.
+      if (centerService.hasBottomReached()) {
+        //log('window with focus')
+        if (_hasBrowserFocus()) {
+          _scrollToBottom(true);
+          return;
+        }
+      }
+      _gotNewMessage();
+    }
   }
 
   /**

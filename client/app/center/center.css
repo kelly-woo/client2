@@ -446,42 +446,17 @@ by ysyun 2015.2.25
   margin-right: 90px;
 }
 
+/*
+  animation을 사용해봤으나 효과가 매끄럽지 못해 부득이하게 클래스 2개를 사용해서 효과를 줬음. -jihoon
+*/
 .last {
   background-color: #f2fbff;
-  /*margin-left: -20px;*/
-  /*padding-left: 67px;*/
-
-  /*-webkit-animation: backgroundcolor-to-white 0.928s;*//*Chrome, Safari, Opera*/
-  /*animation: backgroundcolor-to-white 0.928s;*/
-  /*margin-right: -10px;*/
-  /*margin-top: -13px !important;*/
-  /*padding-top: 13px;*/
-  /*margin-bottom: 8px;*/
-  /*padding-bottom: 5px;*/
+  /*animation: backgroundcolor-to-white  1510ms linear;*/
 }
-/*.msg-item.last {*/
-/*padding-top: 6px;*/
-/*margin-top: -6px;*/
-/*}*/
-/*.msg-item.last .msg-item-float {*/
-/*left: 20px;*/
-/*top: 6px;*/
-/*}*/
-/*.system-event-msg.last {*/
-/*padding-top: 1px;*/
-/*margin-top: -6px;*/
-/*}*/
-/*.comment-continue.last {*/
-/*padding-top: 0;*/
-/*margin-bottom: 0;*/
-/*margin-top: 0 !important;*/
-/*padding-bottom: 15px;*/
-/*}*/
-/*.last.file-upload {*/
-/*margin-left: -20px !important;*/
-/*padding-bottom: 0;*/
-/*}*/
-/* Chrome, Safari, Opera */
+.last-out {
+  background-color: white;
+  transition: background-color 517ms linear;
+}
 @-webkit-keyframes opacIn {
   from {opacity: 0;}
   to {opacity: 1;}
