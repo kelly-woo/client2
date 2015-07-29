@@ -10,6 +10,10 @@
 
   /* @ngInject */
   function RightPanelMentionsTabCtrl($scope, MentionsAPI) {
+    var mentionListData = {
+      page: 1
+    };
+
     _init();
 
     // First function to be called.
@@ -20,18 +24,28 @@
     }
 
     function _getMentionList() {
-      MentionsAPI.getMentionList()
+      MentionsAPI.getMentionList(mentionListData)
         .success(function(data) {
-          if (data && data.records && data.records.length) {
-            $scope.records = data.records;
-          } else {
-            // empty
 
-            $scope.records = [];
+          if (data) {
+            _updatePage(data.cursor);
+
+            if (data.records && data.records.length) {
+              $scope.records = data.records;
+            } else {
+              // empty
+
+              $scope.records = [];
+            }
           }
+
 
           console.log('mentions ::: ', data);
         });
+    }
+
+    function _updatePage(cursor) {
+      mentionListData.page = cursor.page + 1;
     }
   }
 })();

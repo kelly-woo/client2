@@ -9,11 +9,11 @@
         <span class="mention-date">{{::updateDate}}</span>
       </div>
       <div class="mention-start">
-        <a>{{startPoint}}</a>
+        <img class="file-icon" src="assets/images/fileicon_etc.png" ng-if="isComment"><span class="{{isComment ? 'comment-start' : 'topic-start'}}">{{startPoint}}</span>
       </div>
     </div>
   </div>
-  <div class="mention-card-body break-word">
-    <p data-ng-bind-html="content"></p>
+  <div class="mention-card-body">
+    <span data-ng-bind-html="content"></span>
   </div>
 </div>

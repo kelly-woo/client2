@@ -254,7 +254,7 @@
         return -1;
       }
 
-      var members = entity.ch_members || entity.pg_members;
+      var members = getMemberList(entity);
 
       return members.length;
     }

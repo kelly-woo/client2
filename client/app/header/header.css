@@ -138,9 +138,11 @@
 .header-toolbar li:last-child .info-tool {
   font-size: 20px;
 }
-.header-toolbar .info-tool:hover {
+.header-toolbar .info-tool.active {
   border-color: #000;
   background-color: #000;
+}
+.header-toolbar .info-tool:hover {
   text-decoration: none;
 }
 .header-toolbar .info-tool > i {

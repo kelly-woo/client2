@@ -34,9 +34,24 @@
   overflow: hidden;
   white-space: nowrap;
 }
-.mention-meta .mention-start a:hover {
-  text-decoration: none;
+.mention-meta .mention-start .topic-start {
+  font-size: 12px;
+  color: #00a4e6;
+  text-decoration: underline;
 }
+.mention-meta .mention-start .comment-start {
+  font-size: 12px;
+  color: #333;
+  font-weight: 700;
+}
+.mention-meta .mention-start .comment-start:hover {
+  text-decoration: underline;
+}
+.mention-meta .mention-start .file-icon {
+  width: 8px;
+  margin-right: 5px;
+}
+
 .mention-card .mention-profile img {
   width: 28px;
   height: 28px;
@@ -45,15 +60,15 @@
 
 .mention-card .mention-card-body {
   margin-top: 10px;
-  font-size: 16px;
-  color: #333;
-  line-height: 24px;
-  max-width: 100%;
 }
-.mention-card .mention-card-body p {
-  margin: 0;
+.mention-card .mention-card-body span {
+  max-width: 100%;
   word-wrap: break-word;
   white-space: pre-wrap;
+  display: block;
+  color: #333;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .mention-card-body .mention-highlight {

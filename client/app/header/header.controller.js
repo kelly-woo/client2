@@ -22,6 +22,14 @@
 
       $scope.languageList = language.getLanguageList();
       $scope.isIe = Browser.msie;
+
+
+      $scope.toolbar = {
+        file: false,
+        message: false,
+        star: false,
+        mention: false
+      };
     }
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
@@ -137,27 +145,34 @@
     };
 
     $scope.openRightPanel = function(type) {
-      if (currentRightPanel === type) {
+      var toolbar = $scope.toolbar;
+      if (toolbar[type]) {
         currentRightPanel = null;
+        toolbar[type] = false;
         $state.go('messages.detail');
       } else {
-        var viewport = $('.msgs');
-        var content = $('.msgs-holder');
+        _autoScroll();
 
-        // scroll to bottom
-        if (viewport.scrollTop() + viewport.height() >= content.height()) {
-          setTimeout(function() {
-            viewport.animate({scrollTop: content.height()}, 200);
-          });
+        if (toolbar[currentRightPanel]) {
+          toolbar[currentRightPanel] = false;
         }
 
+        toolbar[type] = true;
         currentRightPanel = type;
         jndPubSub.pub('onRightPanel', currentRightPanel);
       }
     };
 
-    function _isRpanelVisible() {
-      return $state.includes('**.files.**');
+    function _autoScroll() {
+      var viewport = $('.msgs');
+      var content = $('.msgs-holder');
+
+      // scroll to bottom
+      if (viewport.scrollTop() + viewport.height() >= content.height()) {
+        setTimeout(function() {
+          viewport.animate({scrollTop: content.height()}, 200);
+        });
+      }
     }
   }
 })();

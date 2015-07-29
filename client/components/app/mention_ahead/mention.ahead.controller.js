@@ -80,7 +80,7 @@
     function _setMentionList(currentEntity) {
       var mentionList = [];
       var currentMemberId = memberService.getMemberId();
-      var members = currentEntity.ch_members || currentEntity.pg_members;
+      var members = entityAPIservice.getMemberList(currentEntity);
       var member;
       var i;
       var len;
@@ -291,6 +291,5 @@
         }
       };
     }
-
   }
 }());

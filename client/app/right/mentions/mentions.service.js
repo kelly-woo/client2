@@ -13,15 +13,16 @@
 
     /**
      * get mention list
-     * @param {number} page list page;
+     * @param {object} data;
+     * @param {number} [data.page=1] - list page
      * @returns {*}
      */
-    function getMentionList(page) {
+    function getMentionList(data) {
       return $http({
         method: 'GET',
         url: $rootScope.server_address + 'teams/' + memberService.getTeamId() + '/messages/mentioned',
         data: {
-          page: page || 1
+          page: data.page || 1
         }
       });
     }

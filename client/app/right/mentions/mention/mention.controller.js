@@ -17,18 +17,15 @@
       var record = $scope.record;
 
       $scope.writer = EntityMapManager.get('total', record.writerId);
+      $scope.topic = EntityMapManager.get('total', record.roomId);
 
       $scope.writerName = $scope.writer.name;
       $scope.profileImage = $filter('getSmallThumbnail')($scope.writer);
       $scope.updateDate = $filter('getyyyyMMddformat')(record.updatedAt);
       $scope.startPoint = _getMentionStartPoint(record);
-
       $scope.content = _getContent(record);
 
       $scope.onMentionCardClick = onMentionCardClick;
-      //console.log('mention ::: ', record);
-      //console.log('member ::: ', $scope.writer);
-      //console.log('profile ::: ', $filter('getSmallThumbnail')($scope.writer));
     }
 
     function _getContent(record) {
@@ -47,23 +44,27 @@
     }
 
     function _getMentionStartPoint(record) {
+      var startPoint;
+
       if (record.contentType === 'comment') {
-        //$state.go('files', {userName: file.writer.name, itemId: file.id});
+        $scope.isComment = true;
+        startPoint = record.feedbackTitle;
       } else {
-        _getTopicPoint(record);
+        startPoint =  record.roomName || 'unknown topic';
       }
+
+      return startPoint;
     }
 
-    function _isPrivateTopicLeaved(record) {
+    function _isPrivateTopicLeaved() {
       var result = false;
-      var topic = EntityMapManager.get('total', record.roomId);
+      var topic = $scope.topic;
       var currentMemberId;
       var members;
 
-
-      if (topic) {
+      if (topic && topic.type === 'privategroups') {
         currentMemberId = memberService.getMemberId();
-        if (members = topic.ch_members || topic.pg_members) {
+        if (members = topic.pg_members) {
           if (members.indexOf(currentMemberId) < 0) {
             result = true;
           }
@@ -89,21 +90,12 @@
       if (record.contentType === 'comment') {
         _goToFileDetail(record, writer);
       } else {
-        var toEntityId = record.roomId;
-        var toLinkId = record.linkId;
-        _isPrivateTopicLeaved
-        MessageQuery.setSearchLinkId(toLinkId);
-
-        if (!_isToEntityCurrent(toEntityId)) {
-          _goToTopic(record);
+        if (_isPrivateTopicLeaved()) {
+          alert('현재 삭제되거나 나간 토픽이므로 원본을 확인할 수 없습니다.');
         } else {
-          jndPubSub.pub('jumpToMessageId');
+          _goToTopic(record);
         }
       }
-    }
-
-    function _isToEntityCurrent(toEntityId) {
-      return $scope.currentEntity.id === toEntityId;
     }
 
     function _goToFileDetail(record, writer) {
@@ -111,7 +103,20 @@
     }
 
     function _goToTopic(record) {
-      $state.go('archives', {entityType: record.type + 's', entityId: record.toLinkId});
+      var toEntityId = record.roomId;
+      var toLinkId = record.linkId;
+
+      MessageQuery.setSearchLinkId(toLinkId);
+
+      if (_isToEntityCurrent(toEntityId)) {
+        jndPubSub.pub('jumpToMessageId');
+      } else {
+        $state.go('archives', {entityType: $scope.topic.type, entityId: toEntityId});
+      }
+    }
+
+    function _isToEntityCurrent(toEntityId) {
+      return $scope.currentEntity.id === toEntityId;
     }
 
     function _isProfileImage(event) {

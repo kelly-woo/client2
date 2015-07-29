@@ -649,7 +649,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         for (i = 0, iLen = sharedEntities.length; i < iLen; i++) {
           entity = entityAPIservice.getEntityFromListById($scope.totalEntities, sharedEntities[i]);
           if (entity && /channels|privategroups/.test(entity.type)) {
-            members = (entity.ch_members || entity.pg_members);
+            members = entityAPIservice.getMemberList(entity);
             if (members) {
               for (j = 0, jLen = members.length; j < jLen; j++) {
                 member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
