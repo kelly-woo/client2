@@ -159,7 +159,12 @@
      */
     function _checkNotificationStatus() {
       $scope.isTopicNotificationOn = memberService.isTopicNotificationOn(_entityId);
-      $scope.topicNotificationBellTooltipMsg = $scope.isTopicNotificationOn ? '현재 토픽 알람 끄기' : '현재 토픽 알람 켜기';
+
+      if ($scope.isTopicNotificationOn) {
+        $scope.topicNotificationBellTooltipMsg = $filter('translate')('@turn-off-topic-alarm');
+      } else {
+        $scope.topicNotificationBellTooltipMsg = $filter('translate')('@turn-on-topic-alarm');
+      }
     }
 
     /**
