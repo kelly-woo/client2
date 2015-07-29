@@ -1101,13 +1101,13 @@ input[type="radio"] {
                  멘션
 ********************************************/
 a.mention {
-  color: #FFFFFF;
-  background-color: #00a8ff;
-  border-radius: 3px;
+  color: #1C6C88;
+  /*background-color: #00a8ff;*/
+  /*border-radius: 3px;*/
   padding: 2px;
 }
 
 a.mention:hover {
-  background-color: #178ae3;
-  text-decoration: none;
+  /*background-color: #178ae3;*/
+  text-decoration: underline;
 }
