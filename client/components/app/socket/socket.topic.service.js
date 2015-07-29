@@ -19,7 +19,7 @@
     var TOPIC_STARRED = 'topic_starred';
     var TOPIC_UNSTARRED = 'topic_unstarred';
 
-    var ROOM_SUBSCRIBE = 'room_subscribe';
+    var ROOM_SUBSCRIBE = 'room_subscription_updated';
 
     this.attachSocketEvent = attachSocketEvent;
 
@@ -99,27 +99,12 @@
     function _onTopicSubscriptionChanged(data) {
       logger.socketEventLogger(data.event, data);
 
-      _test(data.data);
-      return;
-
       var _data = data.data;
-
-      memberService.setTopicNotificationStatus(_data.roomId, _data.subscribe);
-      jndPubSub.pub('onTopicSubscriptionChanged', data);
-    }
-
-    function _test(data) {
-      var _data = {
-        roomId: 11162233,
-        subscribe: data.subscribe
-      };
-
       var _eventName = 'onTopicSubscriptionChanged' + _data.roomId;
-
       memberService.setTopicNotificationStatus(_data.roomId, _data.subscribe);
-      jndPubSub.pub(_eventName, _data);
-
+      jndPubSub.pub(_eventName, data);
     }
+
     /**
      * 'topic_starred', 'topic_unstarred' EVENT HANDLER
      * @param {object} data - socket event parameter

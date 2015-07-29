@@ -91,6 +91,7 @@
 
     function signOut() {
       // There is no need to remove session storage, but still just in case.
+      currentSessionHelper.clear();
       storageAPIservice.removeSession();
       storageAPIservice.removeLocal();
       storageAPIservice.removeCookie();
