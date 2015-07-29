@@ -12,7 +12,7 @@
    *
    * @returns {{restrict: string, scope: {src: string}, link: link}}
    */
-  function mentionView(entityAPIservice, jndPubSub) {
+  function mentionView(EntityMapManager, jndPubSub) {
 
     return {
       restrict: 'A',
@@ -79,12 +79,11 @@
       function _onClick() {
         var entity;
         if (_type === 'member') {
-          entity = entityAPIservice.getUserEntity(_id);
+          entity = EntityMapManager.get('total', _id);
           jndPubSub.pub('onUserClick', entity);
         } else if (_type === 'room') {
           //entity = entityAPIservice.getTopicEntity(_id);
         }
-
       }
     }
   }
