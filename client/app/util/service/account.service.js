@@ -5,9 +5,8 @@
     .module('jandiApp')
     .factory('accountService', accountService);
 
-  accountService.$inject = ['$location', 'configuration', '$http', '$rootScope', 'storageAPIservice'];
-
-  function accountService($location, configuration, $http, $rootScope) {
+  /* @ngInject */
+  function accountService($location, configuration, $http, $rootScope, jndPubSub) {
     var accountLanguage;
 
     var service = {
@@ -48,6 +47,7 @@
     function setAccount(account) {
       $rootScope.account = account;
       accountLanguage = account.lang;
+      jndPubSub.pub('accountLoaded');
     }
     function removeAccount() {
       $rootScope.account = null;

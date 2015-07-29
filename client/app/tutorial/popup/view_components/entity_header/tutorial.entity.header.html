@@ -1,0 +1,26 @@
+<div class="tutorial_topic_entity_header">
+  <div class="panel-title-container">
+    <span class="prefix star">
+      <i class="icon-star" ng-class="{'icon-star-fill starred-on' : entity.isStarred}"></i>
+    </span>
+    <span class="prefix">
+      <i ng-class="{
+      'icon-topic-fill': entity.type === 'channels',
+      'icon-private-group': entity.type === 'privategroups',
+      'icon-user': entity.type === 'users'
+      }"></i>
+    </span>
+    <span class="panel-title-info">
+      <span class="inline-overflow-ellipsis panel-title-info__name">
+        {{ entity.name }}
+        <i class="fa fa-caret-down header-title-info__more"></i>
+      </span>
+    </span>
+    <span ng-if="entity.memberCount" class="panel-title-member">
+      <span class="panel-title-member__more">
+        <i class="icon-user"></i>
+        <span>{{ entity.memberCount }}</span>
+      </span>
+    </span>
+  </div>
+</div>

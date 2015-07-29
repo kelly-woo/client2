@@ -28,6 +28,8 @@
     // File id of a file currently selected in right panel.
     var currentFileId = -1;
 
+    this.clear = clear;
+    this.isLoggedIn = isLoggedIn;
     this.getCurrentTeam = getCurrentTeam;
     this.setCurrentTeam = setCurrentTeam;
 
@@ -63,6 +65,36 @@
     this.resetBrowserFocus = resetBrowserFocus;
     this.isBrowserHidden = isBrowserHidden;
 
+    _init();
+
+    /**
+     * 초기화 함수
+     * @private
+     */
+    function _init() {
+      clear();
+    }
+
+    /**
+     * session 값을 초기화 한다.
+     */
+    function clear() {
+      currentTeam = null;
+      currentTeamMemberList = null;
+      currentEntity = null;
+      currentTeamAdmin = null;
+      _hasBrowserFocus = true;
+      isSocketConnected = false;
+      currentFileId = -1;
+    }
+
+    /**
+     * login 하였는지 여부를 반환한다.
+     * @returns {boolean}
+     */
+    function isLoggedIn() {
+      return currentTeam !== null || currentEntity !== null;
+    }
 
     function getCurrentTeam() { return currentTeam; }
     function setCurrentTeam(team) { currentTeam = team; }
