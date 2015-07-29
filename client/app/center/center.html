@@ -54,7 +54,7 @@
     <div class="msgs-holder opac-zero" id="msgs-holder">
       <div class="msgs-group" data-ng-repeat="msg in messages track by $index" msg-repeat-done="onRepeatDone()" ng-switch="msg.message.contentType">
         <!--날짜 구분선-->
-        <date-divider ng-if="isNewDate($index)"></date-divider>
+        <date-divider index="{{::$index}}"></date-divider>
 
         <system-event ng-switch-when="systemEvent" id="{{msg.id}}" class="msg-item system-event-msg"></system-event>
 
@@ -69,7 +69,8 @@
         <title-comment ng-switch-when="comment" id="{{msg.id}}" class="msg-item"
                        ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
 
-        <unread-bookmark class="msg-item" id="unread-bookmark" ng-if="isLastReadMarker(msg.id);"></unread-bookmark>
+        <unread-bookmark class="msg-item" id="unread-bookmark" link-id="{{::msg.id}}"></unread-bookmark>
+
       </div>
 
       <!-- unsent Message -->
@@ -86,7 +87,7 @@
   </article>
 
   <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)" ng-click="onScrollToBottomIconClicked();"
-       tooltip="{{'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
+       tooltip="{{::'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
     <i class="icon-down scroll-to-bottom-icon"></i>
   </div>
 

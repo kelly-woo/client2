@@ -11,10 +11,13 @@
 
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
-                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache) {
+                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache, watcher) {
 
     //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
 
+$scope.getWatchCount = function() {
+  return watcher.getWatchCount();
+};
     var _entityId = $state.params.entityId;
     var _entityType = $state.params.entityType;
     var _currentEntity = currentSessionHelper.getCurrentEntity();

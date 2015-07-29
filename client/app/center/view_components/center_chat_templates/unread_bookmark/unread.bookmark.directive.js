@@ -5,6 +5,7 @@
     .module('jandiApp')
     .directive('unreadBookmark', unreadBookmark);
 
+  /* @ngInject */
   function unreadBookmark() {
     return {
       restrict: 'E',
@@ -14,7 +15,11 @@
     };
 
     function link(scope, element, attrs) {
-
+      if (scope.isLastReadMarker(attrs.linkId)) {
+        element.show();
+      } else {
+        element.remove();
+      }
     }
   }
 })();

@@ -27,6 +27,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   // 북마크를 보여줘야할지 말아야 할지
   var _shouldDisplayBookmarkFlag = false;
+  $scope.shouldDisplayBookmarkFlag = _shouldDisplayBookmarkFlag;
 
   // 북마크로 스크롤을 해야할지 말아야 할지
   var _shouldUpdateScrollToBookmark = false;
@@ -467,7 +468,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     TopicMessageCache.addValue(_getEntityId(), 'hasProcessed', true);
 
-    _updateUnreadBookmarkFlag();
     _getUpdatedList();
   }
 
@@ -481,7 +481,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       .success(_onUpdatedMessagesSuccess)
       .error(function(err) {
         console.log(err);
-        $scope.messages = MessageCollection.getList();
+        _setMessagesAfterCache();
       });
   }
 
@@ -504,8 +504,18 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       console.log(_testCounter++, '::no messages to update');
       //response.updateInfo가 없어도 response 가 200일 경우에 messageMarker를 업데이트해야한다.
       updateMessageMarker();
-      $scope.messages = MessageCollection.getList();
+      _setMessagesAfterCache();
     }
+  }
+
+  /**
+   * cache를 보여줄 때 더이상 messages list에 변화가 없을때 이 함수를 호출해서
+   * ng-repeat을 시작하게끔한다.
+   * @private
+   */
+  function _setMessagesAfterCache() {
+    $scope.messages = MessageCollection.getList();
+    _updateUnreadBookmarkFlag();
   }
 
   function loadMore() {
@@ -652,16 +662,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onInitialLoad() {
     console.log(_testCounter++, '::_onInitialLoad')
 
-    _updateUnreadBookmarkFlag();
-
     if (_shouldDisplayBookmarkFlag) {
       console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
-      //$timeout(function() {
-      // bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
+      $timeout(function() {
+      //bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
       _findMessageDomElementById('unread-bookmark', true);
-      //});
-    }
-    else {
+      });
+    } else {
       console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
       _scrollToBottom();
     }
@@ -840,7 +847,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     }
 
     if (_isFromCache) {
-      $scope.messages = MessageCollection.getList();
+      _setMessagesAfterCache();
     }
   }
 
@@ -1471,6 +1478,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function onRepeatDone() {
     console.log('::onRepeatDone');
+    jndPubSub.pub('onRepeatDone');
+
     _updateScroll();
   }
 
@@ -1601,6 +1610,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @returns {boolean}
    */
   function isLastReadMarker(linkId) {
+    linkId = parseInt(linkId, 10);
     return linkId === _lastReadMessageMarker && shouldDisplayUnreadMarker(linkId);
   }
 
