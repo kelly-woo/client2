@@ -20,7 +20,6 @@
     function link(scope, element, attrs) {
       if (scope.isLastReadMarker(attrs.linkId)) {
         element.removeClass('hidden');
-        element.show();
       } else {
         element.remove();
       }
