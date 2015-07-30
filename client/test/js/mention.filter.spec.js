@@ -7,45 +7,62 @@
 
   describe('mention.filter', function() {
     var $filter;
+    var mentionFilter;
+    var message;
 
     beforeEach(module('jandiApp'));
     beforeEach(inject(function(_$filter_) {
       $filter = _$filter_;
+      mentionFilter = $filter('mention');
     }));
 
-    it('mention 을 적절한 html 스트링으로 잘 변환되는지 확인한다.', function() {
-      var mentionFilter = $filter('mention');
-      var message1 = {
-        content: '@Young Park Check this out, @Hugo, @JiHoon,@mak pak!important!',
-        mentions: [
-          {
-            id: 3017772,
-            type: 'member',
-            offset: 43,
-            length: 8
-          },
-          {
-            id: 291,
-            type: 'member',
-            offset: 35,
-            length: 7
-          },
-          {
-            id: 11153801,
-            type: 'member',
-            offset: 0,
-            length: 11
-          }
-        ],
-        expect: '<a mention-view="11153801" mention-type="member">@Young Park</a> Check this out, @Hugo, <a mention-view="291" mention-type="member">@JiHoon</a>,<a mention-view="3017772" mention-type="member">@mak pak</a>!important!'
-      };
-      var message2 = {
-        content: '@Young Park Check this out, @Hugo, @JiHoon,@mak pak!important!',
-        expect: '@Young Park Check this out, @Hugo, @JiHoon,@mak pak!important!'
-      };
+    describe('mention 리스트가 있는 경우 hasEventHandler 옵션에 따른 동작 확인', function() {
 
-      expect(mentionFilter(message1.content, message1.mentions)).toEqual(message1.expect);
-      expect(mentionFilter(message2.content, message2.mentions)).toEqual(message2.expect);
+      beforeEach(function() {
+        message = {
+          content: '@Young Park Check this out, @Hugo, @JiHoon,@mak pak!important!',
+          mentions: [
+            {
+              id: 3017772,
+              type: 'member',
+              offset: 43,
+              length: 8
+            },
+            {
+              id: 291,
+              type: 'member',
+              offset: 35,
+              length: 7
+            },
+            {
+              id: 11153801,
+              type: 'member',
+              offset: 0,
+              length: 11
+            }
+          ]
+        };
+      });
+      it('hasEventHandler 옵션이 true 일 경우 정상 동작 확인.', function() {
+        var expectStr = '<a mention-view="11153801" mention-type="member">@Young Park</a> Check this out, @Hugo, <a mention-view="291" mention-type="member">@JiHoon</a>,<a mention-view="3017772" mention-type="member">@mak pak</a>!important!';
+        expect(mentionFilter(message.content, message.mentions)).toEqual(expectStr);
+        expect(mentionFilter(message.content, message.mentions, true)).toEqual(expectStr);
+      });
+      it('hasEventHandler 옵션이 false 일 경우 정상 동작 확인.', function() {
+        var expectStr = '<a mention-view="11153801" mention-type="member" disabled>@Young Park</a> Check this out, @Hugo, <a mention-view="291" mention-type="member" disabled>@JiHoon</a>,<a mention-view="3017772" mention-type="member" disabled>@mak pak</a>!important!';
+        expect(mentionFilter(message.content, message.mentions, false)).toEqual(expectStr);
+      });
     });
+    describe('mention 리스트가 없는 경우 동작 확인', function() {
+      it('hasEventHandler 옵션을 주었을 경우(true) 정상 동작 확인.', function() {
+        message = {
+          content: '@Young Park Check this out, @Hugo, @JiHoon,@mak pak!important!',
+          expect: '@Young Park Check this out, @Hugo, @JiHoon,@mak pak!important!'
+        };
+        expect(mentionFilter(message.content, message.mentions)).toEqual(message.expect);
+      });
+    });
+
+
   });
 })();

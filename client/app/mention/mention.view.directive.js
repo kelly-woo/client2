@@ -10,7 +10,9 @@
 
   /**
    *
-   * @returns {{restrict: string, scope: {src: string}, link: link}}
+   * @example
+
+   <a mention-view="{{id}}" mention-type="member"
    */
   function mentionView(EntityMapManager, memberService, jndPubSub) {
 
@@ -35,7 +37,10 @@
 
         _initElement();
         _attachEvents();
-        _attachDomEvents();
+
+        if (!attrs.disabled) {
+          _attachDomEvents();
+        }
       }
 
       /**
