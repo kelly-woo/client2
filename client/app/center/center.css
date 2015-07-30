@@ -676,7 +676,7 @@ by ysyun 2015.2.25
 .center-panel-disabled-member .msg-item-header__nameSpace,
 .center-panel-disabled-member.msg-item-header__name {
   text-decoration: line-through;
-  opacity: 0.4;
+  opacity: 0.4 !important;
 }
 .center-panel-disabled-member-input {
   background-color: #EDEDED !important;

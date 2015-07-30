@@ -69,6 +69,9 @@ $scope.getWatchCount = function() {
     function _initWithParam(param) {
       if (!!param) {
         _checkCurrentEntity(param);
+        _filterDeactivateMembers();
+        _checkDisabledMember();
+
         _checkOwnership();
         _checkIfDefaultTopic();
       }
@@ -80,8 +83,8 @@ $scope.getWatchCount = function() {
      * @returns {object} deactive member 를 제거한 entity
      * @private
      */
-    function _filterDeactivateMembers(currentEntity) {
-      var members = currentEntity && currentEntity.members || [];
+    function _filterDeactivateMembers() {
+      var members = _currentEntity && _currentEntity.members || [];
       var totalEntities = $rootScope.totalEntities;
       var member;
       var entity;
@@ -97,8 +100,6 @@ $scope.getWatchCount = function() {
           }
         }
       }
-
-      //$scope.members = members;
     }
 
     /**
@@ -114,9 +115,7 @@ $scope.getWatchCount = function() {
         entity = param;
       }
 
-
       _setCurrentEntity(entity);
-      _filterDeactivateMembers(entity);
     }
 
     /**
@@ -152,6 +151,17 @@ $scope.getWatchCount = function() {
       $scope.isDefaultTopic = currentSessionHelper.isDefaultTopic(_currentEntity);
     }
 
+    /**
+     * 현재 entity 가 disabled된 상태인지 아닌지 확인한다.
+     * @private
+     */
+    function _checkDisabledMember() {
+      if (publicService.isDisabledMember(_currentEntity)) {
+        $scope.isDisabledEntity = true;
+      } else {
+        $scope.isDisabledEntity = false;
+      }
+    }
     /**
      * 현재 entity(topic)를 떠난다.
      */

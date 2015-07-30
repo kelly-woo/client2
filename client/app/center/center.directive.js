@@ -153,8 +153,11 @@
     };
 
     function link(scope, el, attrs) {
-      if (publicService.isDisabledMember(scope.msg.fromEntity)) {
+      var _currentEntity = (scope.msg && scope.msg.fromEntity) || scope.currentEntity;
+      if (publicService.isDisabledMember(_currentEntity)) {
         el.addClass(attrs.disabledMemberDetector);
+      } else {
+        el.removeClass(attrs.disabledMemberDetector);
       }
 
     }
