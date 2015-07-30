@@ -221,7 +221,7 @@
           // Join topic first and go!
           entityheaderAPIservice.joinChannel(entityId)
             .success(function(response) {
-              analyticsService.mixpanelTrack( "topic Join" );
+              //analyticsService.mixpanelTrack( "topic Join" );
               $state.go('archives', {entityType: 'channels',  entityId: entityId });
             })
             .error(function(err) {
