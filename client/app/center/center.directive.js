@@ -6,7 +6,8 @@
     .directive('dragdownArea', dragdown)
     .directive('lastDetector', lastDetector)
     .directive('whenScrolled', whenScrolled)
-    .directive('unreadCounter', unreadCounter);
+    .directive('unreadCounter', unreadCounter)
+    .directive('disabledMemberDetector', disabledMemberDetector);
 
   // element에 drag-over-class 속성으로 drag over상태 알려주는 event handler 처리시
   // IE9<에서 blink 현상이 있으므로 code로 직접 handling.
@@ -142,4 +143,21 @@
       console.log(scope.roomMemberLength)
     }
   }
+
+  /* @ngInject */
+  function disabledMemberDetector(publicService) {
+    return {
+      restrict: 'A',
+      link: link,
+      scope: false
+    };
+
+    function link(scope, el, attrs) {
+      if (publicService.isDisabledMember(scope.msg.fromEntity)) {
+        el.addClass(attrs.disabledMemberDetector);
+      }
+
+    }
+  }
+
 })();

@@ -1,33 +1,36 @@
 <!-- main text-->
 <div class="text-msg-item-container">
   <!--  User Thumbnail -->
-  <div class="msg-item-float cursor_pointer" ng-if="!isChildText" data-ng-click="onUserClick(msg.fromEntity);"
-       ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+  <div class="msg-item-float cursor_pointer" ng-if="!isChildText" data-ng-click="onUserClick();"
+       disabled-member-detector="center-panel-disabled-member">
     <img on-image-load class="user-profile user-thumb"
          ng-src="{{ msg.exProfileImg }}"/>
   </div>
 
   <div class="msg-item-header"  ng-if="!isChildText"
-       ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+       disabled-member-detector="center-panel-disabled-member">
     <!--    WRITER-->
-    <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+    <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick();">
       <span class="msg-item-header__nameSpace">
-        <span ng-if="msg.message.contentType !== 'file'"> {{msg.fromEntity | getName}}</span>
+        <span ng-if="msg.message.contentType !== 'file'"> {{msg.extWriterName}}</span>
       </span>
     </span>
   </div>
   <div class="msg-item-body">
     <!-- TEXT -->
     <div class="msg-text">
-      <img ng-if="msg.message.contentType === 'sticker'"  class="sticker size_5" src="{{msg.message.content.url}}"/>
+      <img ng-if="msg.message.contentType === 'sticker'"  class="sticker size_5" src="{{::msg.message.content.url}}"/>
       <span ng-if="msg.message.contentType !== 'sticker'"
             class="keep msg-text-body"
             data-ng-bind-html="(msg.message.content.body) || ''"></span>
-      <span class="msg-item-header__created">
-        {{msg.time | gethmmaFormat}}
-        {{msg._isLast}} / {{msg.id}}
-      </span>
+
+      <!--  TIME  -->
+      <span class="msg-item-header__created"> {{::msg.time}} </span>
+
+      <!--  SENDING STATUS SPINNING WHEEL -->
       <span ng-if="msg.status === 'sending'" class="icon-loading-small"></span>
+
+      <!--  UNREAD COUNT  -->
       <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
       <!--    DELETE ICON APPEARS ON HOVER    -->
       <span class="msg-item__action pull-right cursor_pointer"

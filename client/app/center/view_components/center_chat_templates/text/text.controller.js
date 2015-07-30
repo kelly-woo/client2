@@ -11,30 +11,58 @@
 
   /* @ngInject */
   function TextMessageCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, AnalyticsHelper,
-                           MessageCollection, jndPubSub) {
+                           MessageCollection, jndPubSub, entityAPIservice) {
     // 현재 로그인되어있는 멤버(나)의 아이디
-    var _myId = memberService.getMemberId();
+    var _myId;
     // 현재 디렉티브가 가지고 있는 메시지 객체
-    var _message = $scope.msg;
-    var _messageId = _message.messageId;
+    var _message;
+    var _messageId;
     // 현재 토픽의 타입
-    var _entityType = currentSessionHelper.getCurrentEntityType();
+    var _entityType;
     // 현재 토픽의 아이디
-    var _entityId = currentSessionHelper.getCurrentEntityId();
+    var _entityId;
     // text 작성자
-    var _writer = _message.message.writer;
-
-    // 현재 메시지가 나의 메시지인지 알려주는 flag
-    $scope.isMyMessage = (_myId === _message.fromEntity);
-    $scope.showAnnouncement = _message.message.contentType !== 'sticker' && _entityType !== 'users';
-
-    //$scope.hasLinkPreview = MessageCollection.hasLinkPreview($scope.index);
+    var _writer;
 
     $scope.deleteMessage = deleteMessage;
     $scope.onUserClick = onUserClick;
     $scope.createAnnouncement = createAnnouncement;
 
-    $scope.$on('toggleLinkPreview', _onAttachMessagePreview);
+    _init();
+
+    /**
+     * 초기화 함수
+     * @private
+     */
+    function _init() {
+      _initLocalVariables();
+      _initScopeVariables();
+      _formatTextMessage();
+
+      $scope.$on('toggleLinkPreview', _onAttachMessagePreview);
+    }
+
+    /**
+     * local variable들을 새로 세팅한다.
+     * @private
+     */
+    function _initLocalVariables() {
+      _myId = memberService.getMemberId();
+      _message = $scope.msg;
+      _messageId = _message.messageId;
+      _entityType = currentSessionHelper.getCurrentEntityType();
+      _entityId = currentSessionHelper.getCurrentEntityId();
+    }
+
+    /**
+     * $scope에 들어가있는 variable들을 세팅한다.
+     * @private
+     */
+    function _initScopeVariables() {
+      // 현재 메시지가 나의 메시지인지 알려주는 flag
+      $scope.isMyMessage = (_myId === _message.fromEntity);
+      $scope.showAnnouncement = _message.message.contentType !== 'sticker' && _entityType !== 'users';
+    }
 
     /**
      * 메시지를 삭제한다.
@@ -92,7 +120,6 @@
       jndPubSub.pub('createAnnouncement', param);
     }
 
-
     /**
      * 입력된 text가 preview(social snippets)를 제공하는 경우 center controller에서의 handling
      *
@@ -106,6 +133,20 @@
       if (data === _messageId) {
         $scope.hasLinkPreview = MessageCollection.hasLinkPreview($scope.index);
       }
+    }
+
+    /**
+     * mark-up에서 사용하기쉽게 msg object를 가공한다.
+     * @private
+     */
+    function _formatTextMessage() {
+      var fromEntityId = _message.fromEntity;
+      _writer = entityAPIservice.getEntityById('user', fromEntityId);
+
+      $scope.msg.extFromEntityId = fromEntityId;
+      $scope.msg.extWriter = _writer;
+      $scope.msg.extWriterName = $filter('getName')(_writer);
+      $scope.msg.time = $filter('gethmmaFormat')(_message.time);
     }
   }
 })();
