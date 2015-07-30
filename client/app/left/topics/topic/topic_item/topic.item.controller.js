@@ -58,7 +58,7 @@
       target = $( event.target );
       c = target
         .clone()
-        .css( {display: 'block', width: 'auto', visibility: 'hidden'} )
+        .css( {display: 'block', width: '100%', visibility: 'hidden'} )
         .appendTo(target.parent());
 
       if (c.width() <= target.width()) {
