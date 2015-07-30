@@ -459,6 +459,8 @@
       } else if (centerService.isCommentType(contentType)) {
         message.isComment = true;
       }
+      //todo: remove this (for test)
+      msg.isStarred = false;
       return msg;
     }
 

@@ -4,14 +4,13 @@
 .text-msg-item-container .msg-item-body {
   /*z-index: 1;*/
 }
-.text-delete-background {
+.text-highlight-background {
   background-color: #f2fbff;
 }
 
 .msg-item__action {
   display:none;
-  margin-left: 12px;
-  margin-top: 6px;
+  float:right;
 }
 
 .msg-item-action-icon {
@@ -24,4 +23,44 @@
 
 .msg-item:hover .msg-item__action {
   display:inline-block;
+}
+
+/********************
+       RIGHT ICONS
+********************/
+.msg-item-icon {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+}
+.msg-item-circle {
+  border-radius: 10px;
+}
+
+.msg-item-star {
+  margin-right:7px;
+  padding: 3px 0 0 3px;
+  font-size:14px;
+  color: #f9bb00;
+  background: transparent;
+}
+
+.msg-item-star.off {
+  padding: 3px 0 0 3px;
+  color: #ffffff;
+  background: #d7e0e8;
+}
+.msg-item-star.off:hover {
+  background: #f9bb00;
+}
+
+.msg-item-more {
+  padding: 1px 0 0 1px;
+  font-size:18px;
+  color: #FFFFFF;
+  background: #d7e0e8;
+}
+
+.msg-item-more:hover {
+  background: #366480;
 }

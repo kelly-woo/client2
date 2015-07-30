@@ -27,11 +27,11 @@
       scope.onMouseLeaveOnIcon = _onMouseLeaveOnIcon;
 
       function _onMouseEnterOnIcon() {
-        jqTextContainer.addClass('text-delete-background');
+        jqTextContainer.addClass('text-highlight-background');
       }
 
       function _onMouseLeaveOnIcon() {
-        jqTextContainer.removeClass('text-delete-background');
+        jqTextContainer.removeClass('text-highlight-background');
       }
     }
   }
