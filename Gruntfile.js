@@ -499,8 +499,8 @@ module.exports = function (grunt) {
               '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
               '!{.tmp,<%= yeoman.client %>}/components/config/config.framework.js',
 
-              '!{.tmp,<%= yeoman.client %>}/components/jnadi/jandi.framework.js',
-              '!{.tmp,<%= yeoman.client %>}/components/jnadi/preloader/preloader.js',
+              '!{.tmp,<%= yeoman.client %>}/components/jandi/jandi.framework.js',
+              '!{.tmp,<%= yeoman.client %>}/components/jandi/preloader/preloader.js',
 
               '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
