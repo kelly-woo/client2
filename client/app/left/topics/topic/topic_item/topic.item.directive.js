@@ -11,7 +11,8 @@
       controller: 'TopicItemCtrl',
       templateUrl: 'app/left/topics/topic/topic_item/topic.item.html',
       scope: false,
-      link: link
+      link: link,
+      replace: true
     };
 
     function link(scope, element, attrs) {
