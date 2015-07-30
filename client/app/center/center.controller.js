@@ -310,7 +310,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       hasProcessed: true
     };
 
-    console.log(param);
+    console.log('::storing', param);
+    console.log(':::::::::::::::::::::::::::::::::::::::::::::::::::::::::')
 
     TopicMessageCache.put(_getEntityId(), param);
   }
@@ -459,7 +460,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       lastMessageId = _cachedItem.lastMessageId;
     }
 
-    console.log('::', lastMessageId)
     globalLastLinkId = _cachedItem.globalLastLinkId || lastMessageId;
 
     $scope.isInitialLoadingCompleted = true;
@@ -551,6 +551,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             _messageProcessor(messagesList);
             //groupByDate();
           }
+
+          // 마지막으로 읽은 메세지 이후에 더 있는지 없는지 확인
+          _updateUnreadBookmarkFlag();
 
           //  marker 설정
           updateMessageMarker();
