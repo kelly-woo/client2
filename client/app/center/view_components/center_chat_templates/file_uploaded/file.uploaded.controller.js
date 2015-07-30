@@ -60,6 +60,11 @@
       // integration file 이면 download를 표기하지 않음
       $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(_content.serverUrl);
 
+      $scope.msg.message.content.extHasPreview = $filter('hasPreview')($scope.msg.message.content);
+      $scope.msg.message.content.extFileTitle = $filter('fileTitle')($scope.msg.message.content);
+      $scope.msg.message.content.extFileSize = $filter('bytes')($scope.msg.message.content.size);
+      $scope.msg.message.content.extFileType = $filter('fileType')($scope.msg.message.content);
+
       _updateSharedList();
       _attachEventListener();
     }
