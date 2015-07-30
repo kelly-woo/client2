@@ -173,6 +173,10 @@ msgid "@ch-menu-leave"
 msgstr "Leave topic"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+msgid "@ch-menu-rename"
+msgstr "Rename topic"
+
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-star"
 msgstr "Star topic "
@@ -626,10 +630,6 @@ msgstr "Invite to a topic"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr "View Profile"
-
-#: client/app/center/view_components/entity_header/entity.header.html
-msgid "@edit-topic-information"
-msgstr "Edit Topic Information"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
@@ -1132,9 +1132,17 @@ msgstr "Description"
 msgid "@topic-description-placeholder"
 msgstr "Description (optional)"
 
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@turn-off-topic-alarm"
+msgstr "Turn off topic notification"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@turn-on-desktop-notification!"
 msgstr "Turn on Desktop Notifications"
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@turn-on-topic-alarm"
+msgstr "Turn on topic notification"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
@@ -1504,11 +1512,12 @@ msgstr "It's working!"
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
 
-#~ msgid "@ch-menu-rename"
-#~ msgstr "Rename topic"
-
 #~ msgid "@btn-update-name"
 #~ msgstr "Update Name"
+
+#, fuzzy
+#~ msgid "@tutorial_explore_jandi"
+#~ msgstr "Welcome to JANDI!"
 
 #~ msgid "@tutorial_congratulation"
 #~ msgstr "CONGRATULATIONS {{username}}!"

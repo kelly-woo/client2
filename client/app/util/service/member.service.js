@@ -13,8 +13,9 @@
   function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload, jndPubSub) {
     var noUExtraData = "i dont have u_extraData";
 
-    // 현재 멤버의 announcement 정보를 {entityId:value} 로 가지고 있다
-    var announcementOpenStatusMap = {};
+    var _messageMarkers = {};
+    var _announcementOpened = 'announcementOpened';
+    var _subscribe = 'subscribe';
 
     // 현재 멤버의 marker 정보를 {entityId: marker} 로 가지고 있다.
     var lastMessageReadMarkerMap = {};
@@ -66,7 +67,10 @@
 
       initLastReadMessageMarker: initLastReadMessageMarker,
       setLastReadMessageMarker: setLastReadMessageMarker,
-      getLastReadMessageMarker: getLastReadMessageMarker
+      getLastReadMessageMarker: getLastReadMessageMarker,
+      
+      isTopicNotificationOn: isTopicNotificationOn,
+      setTopicNotificationStatus: setTopicNotificationStatus
     };
 
 
@@ -122,10 +126,13 @@
     function setMember(member) {
       $rootScope.member = currentMember = member;
       storageAPIservice.setLastEmail(member.u_email);
-      _setAnnouncementStatusMap(member.u_messageMarkers);
+
+
+      _initMessageMarkersMap(member.u_messageMarkers);
       initLastReadMessageMarker(member.u_messageMarkers);
 
       jndPubSub.pub('onCurrentMemberChanged');
+
     }
 
     /**
@@ -360,28 +367,13 @@
     }
 
     /**
-     * messageMarkers 리스트 전체를 돌면서 entityId - announcementOpened (key:value) pair 를 만든다.
-     * 해당 토픽의 announcement 가 열려있는지 닫혀있는지 체크하기위해 만든다.
-     * @param {array} messageMarkers - member entity 에 있는 u_messageMarkers 필드
-     * @private
-     */
-    function _setAnnouncementStatusMap(messageMarkers) {
-      _.forEach(messageMarkers, function(entity) {
-        var isAnnouncementOpened = entity.announcementOpened;
-
-        if (!!isAnnouncementOpened) {
-          announcementOpenStatusMap[entity.entityId] = isAnnouncementOpened;
-        }
-      });
-    }
-
-    /**
      * announcement 가 열려있는지 닫혀있는지 확인값을 리턴한다.
+     * 'undefined'도 true로 리턴한다.
      * @param {number} entityId - 확인하려는 토픽의 아이디
      * @returns {*}
      */
     function isAnnouncementOpen(entityId) {
-      return announcementOpenStatusMap[entityId];
+      return _getBooleanValue(entityId, _announcementOpened);
     }
 
     /**
@@ -389,7 +381,7 @@
      * @param {number} entityId - 지우려는 key 값
      */
     function removeAnnouncementStatus(entityId) {
-      delete announcementOpenStatusMap[entityId];
+      delete _messageMarkers[entityId][_announcementOpened];
     }
 
     /**
@@ -398,7 +390,97 @@
      * @param {boolean} toBeValue - 값
      */
     function updateAnnouncementStatus(entityId, toBeValue) {
-      announcementOpenStatusMap[entityId] = toBeValue
+      _addToMessageMarkerMap(entityId, toBeValue, _announcementOpened);
+    }
+
+    /**
+     * entityId 의 토픽의 notification setting 이 true 인지 아닌지 확인한다.
+     * @param {number} entityId - 확인하고싶은 토픽의 아이디
+     * @returns {boolean}
+     */
+    function isTopicNotificationOn(entityId) {
+      return _getBooleanValue(entityId, _subscribe);
+    }
+
+    /**
+     * entityId를 가진 토픽의 subscribe field를 'toBeValue'로 바꾼다.
+     * @param {number} entityId - 바꾸고싶은 토픽의 아이이
+     * @param {boolean} toBeValue - 덮어쓰고싶은 value
+     */
+    function setTopicNotificationStatus(entityId, toBeValue) {
+      _addToMessageMarkerMap(entityId, toBeValue, _subscribe);
+    }
+
+    /**
+     * leftSideMenu api call에서 받은 response 중 'user' field 중 'u_messageMarkers'를 Map 형태로 바꾼다.
+     *
+     * @param u_messageMarkers
+     * @private
+     */
+    function _initMessageMarkersMap(messageMarkersList) {
+      _messageMarkers = {};
+      _.forEach(messageMarkersList, function(messageMarker) {
+        _messageMarkers[messageMarker.entityId] = messageMarker;
+      });
+    }
+
+    /**
+     * _messageMarkers map에 새로 추가하거나 기존 값을 update한다.
+     * @param entityId
+     * @param toBeValue
+     * @param field
+     * @private
+     */
+    function _addToMessageMarkerMap(entityId, toBeValue, field) {
+      if (_hasValidArguments(arguments)) {
+
+        var _tempObj = _messageMarkers[entityId];
+
+        if (_.isUndefined(_tempObj)) {
+          _tempObj = {};
+        }
+
+        _tempObj[field] = toBeValue;
+
+        _messageMarkers[entityId] = _tempObj;
+      }
+
+    }
+
+    /**
+     * entityId object를 찾아서 field의 값을 리턴한다.
+     * 'undefined'도 true로 리턴한다.
+     * @param {number} entityId - 찾으려하는 엔티티의 아이디
+     * @param {string} field - 찾으려는 오브젝트의 field 값
+     * @returns {boolean}
+     * @private
+     */
+    function _getBooleanValue(entityId, field) {
+      if (_messageMarkers[entityId]) {
+        var _tempMessageMarker = _messageMarkers[entityId][field];
+        if (_.isUndefined(_tempMessageMarker) || !!_tempMessageMarker) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    /**
+     * args안에 있는 element들중 undefined 가 있는지 없는지만 체크한다.
+     * @param {array} args - 체크할 엘레멘트들의 array
+     * @returns {boolean}
+     * @private
+     */
+    function _hasValidArguments(args) {
+      var _foundUndefined = true;
+      _.forEach(args, function(arg) {
+        if (_.isUndefined(arg)) {
+          _foundUndefined = false;
+          return false;
+        }
+      });
+
+      return _foundUndefined;
     }
 
 

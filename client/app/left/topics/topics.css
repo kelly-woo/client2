@@ -19,3 +19,17 @@
   box-shadow: 0px 0px 4px #cbcbcb;
   max-width: none;
 }
+
+.off-topic-notification-indicator {
+  font-size: 10px;
+  color: black;
+  opacity: 0.3;
+  margin-left: 3px !important;
+}
+
+.topic-setting-icon {
+  float: left;
+  line-height: 28px;
+  height: 28px;
+  margin-left: 2px;
+}

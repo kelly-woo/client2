@@ -40,6 +40,8 @@ $scope.getWatchCount = function() {
     $scope.openMemberModal =  openMemberModal;
     $scope.onPrefixIconClicked = onPrefixIconClicked;
 
+    $scope.onTopicNotificationBellClicked = onTopicNotificationBellClicked;
+
 
     _init();
 
@@ -59,11 +61,17 @@ $scope.getWatchCount = function() {
     function _attachEventListeners() {
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
-      $scope.$on('onCurrentEntityChanged', onCurrentEntityChanged);
-
       $scope.$on('onTopicDeleted', _onTopicDeleted);
       $scope.$on('onTopicLeft', _onTopicLeft);
       $scope.$on('changeEntityHeaderTitle', changeEntityHeaderTitle);
+
+      $scope.$on('onCurrentEntityChanged', function(event, param) {
+        if (_currentEntity !== param) {
+          _initWithParam(param);
+        }
+      });
+
+      $scope.$on('onTopicSubscriptionChanged'+_entityId, _checkNotificationStatus);
     }
 
     function _initWithParam(param) {
@@ -74,6 +82,7 @@ $scope.getWatchCount = function() {
 
         _checkOwnership();
         _checkIfDefaultTopic();
+        _checkNotificationStatus();
       }
     }
 
@@ -162,6 +171,21 @@ $scope.getWatchCount = function() {
         $scope.isDisabledEntity = false;
       }
     }
+
+    /**
+     * 현재 토픽의 notification setting을 체크한다.
+     * @private
+     */
+    function _checkNotificationStatus() {
+      $scope.isTopicNotificationOn = memberService.isTopicNotificationOn(_entityId);
+
+      if ($scope.isTopicNotificationOn) {
+        $scope.topicNotificationBellTooltipMsg = $filter('translate')('@turn-off-topic-alarm');
+      } else {
+        $scope.topicNotificationBellTooltipMsg = $filter('translate')('@turn-on-topic-alarm');
+      }
+    }
+
     /**
      * 현재 entity(topic)를 떠난다.
      */
@@ -270,6 +294,13 @@ $scope.getWatchCount = function() {
     }
 
     /**
+     * 토픽별 노티피케이션 설정 아이콘을 클릭했을 때 호출된다.
+     */
+    function onTopicNotificationBellClicked() {
+      entityHeader.toggleTopicNotification(_entityId, !$scope.isTopicNotificationOn);
+    }
+
+    /**
      *
      * @param memberId
      */
@@ -302,12 +333,6 @@ $scope.getWatchCount = function() {
      */
     function _onDisconnected() {
       $scope.isConnected = false;
-    }
-
-    function onCurrentEntityChanged(event, param) {
-      if (_currentEntity !== param) {
-        _initWithParam(param);
-      }
     }
 
     /**

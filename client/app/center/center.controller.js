@@ -199,9 +199,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('attachMessagePreview', _onAttachMessagePreview);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
     $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
+
     $scope.$on('onStageLoadedToCenter', function() {
       $('#file-detail-comment-input').focus();
     });
+
     $scope.$on('showUserFileList', function(event, param) {
       onFileListClick(param);
     });

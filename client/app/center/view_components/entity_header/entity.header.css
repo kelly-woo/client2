@@ -168,7 +168,7 @@
 .panel-title-right-menu__item:active {
   background-color: #d7e0e8;
 }
-.absolute-right-tooltip{
+.absolute-right-tooltip {
   left: auto !important;
   right: 10px;
 }
@@ -227,9 +227,9 @@
   left: auto;
 }
 .panel-title-invite {
-  padding-top: 4px;
-  padding-right: 9px;
-  padding-left: 9px;
+  padding-top: 3px;
+  padding-right: 8px;
+  padding-left: 8px;
 
   color: #154a67;
 
@@ -245,7 +245,6 @@
 .panel-title-right-menu__more {
   margin-left: 5px;
 }
-
 .panel-title-right-menu__more_icon {
   padding: 0 5px;
 
@@ -253,10 +252,23 @@
   line-height: 25px;
 
   position: relative;
+
+  color: #154a67;
 }
+
 
 .panel-title-right-menu__more .icon-more {
   font-size: 19px;
   color: #154a67;
   line-height: 25px;
+}
+
+.panel-title-right-menu__notification_bell {
+  font-size: 15px;
+  margin-right: 5px;
+  text-align: center;
+  width: 33px;
+}
+.panel-title-right-menu__notification_bell .panel-title-right-menu__more_icon {
+  /*padding: 3px 5px;*/
 }

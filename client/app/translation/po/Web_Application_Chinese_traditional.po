@@ -171,6 +171,10 @@ msgid "@ch-menu-leave"
 msgstr "離開議題"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+msgid "@ch-menu-rename"
+msgstr "重新命名議題"
+
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-star"
 msgstr "標記議題"
@@ -610,10 +614,6 @@ msgstr "邀請此成員加入其它議題"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr "檢視簡介"
-
-#: client/app/center/view_components/entity_header/entity.header.html
-msgid "@edit-topic-information"
-msgstr "編輯議題資訊"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
@@ -1098,9 +1098,17 @@ msgstr "議題內容"
 msgid "@topic-description-placeholder"
 msgstr "說明 (選項)"
 
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@turn-off-topic-alarm"
+msgstr "關閉議題推播通知"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@turn-on-desktop-notification!"
 msgstr "開啟電腦版的推撥通知"
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@turn-on-topic-alarm"
+msgstr "開啟議題推播通知"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
@@ -1437,9 +1445,6 @@ msgstr "設置成功"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
-
-#~ msgid "@ch-menu-rename"
-#~ msgstr "編輯議題資訊"
 
 #~ msgid "@btn-update-name"
 #~ msgstr "更新姓名"

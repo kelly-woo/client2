@@ -116,6 +116,7 @@
   <!-- RIGHT MENU -->
   <span class="panel-title-right-menu pull-right cursor_pointer" ng-if="!isUserType">
 
+    <!--  JOINED MEMBER LIST  -->
     <span class="panel-title-member panel-title-right-menu__item pull-left" dropdown>
       <div class="dropdown-toggle panel-title-member__more" dropdown-toggle>
         <i class="icon icon-user"></i>
@@ -135,6 +136,7 @@
 
     <span class="panel-title-right-menu__separator"></span>
 
+    <!--  INVITE OPTION -->
     <span class="panel-title-invite panel-title-right-menu__item icon-invite-fill pull-right cursor_pointer"
           tooltip="{{::'@ch-menu-invite' | translate}}"
           tooltip-placement="bottom" tooltip-append-to-body="false"
@@ -145,7 +147,16 @@
   </span>
   {{ getWatchCount() }}
 
-  <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledEntity">
+  <!-- TOPIC NOTIFICATION INDICATOR -->
+  <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__item panel-title-right-menu__notification_bell" ng-if="!isUserType">
+    <div class="panel-title-right-menu__more_icon" ng-click="onTopicNotificationBellClicked();"
+      tooltip="{{topicNotificationBellTooltipMsg}}" tooltip-placement="bottom"
+      tooltip-class="panel-title-bell-tooltip">
+      <i class="fa" ng-class="{'fa-bell-o': isTopicNotificationOn, 'fa-bell-slash-o': !isTopicNotificationOn}"></i>
+    </div>
+  </span>
+
+  <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledMember(currentEntity);">
     <img src="assets/images/icon-disabled-members-alert.png"/>
     <span translate>@common-disabled-member-notice-msg-short</span>
   </span>
@@ -158,3 +169,5 @@
   </span>
 </div>
 <span ng-if="false" translate>@no-topic-description</span>
+<span ng-if="false" translate>@turn-off-topic-alarm</span>
+<span ng-if="false" translate>@turn-on-topic-alarm</span>
