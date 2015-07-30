@@ -422,7 +422,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function loadNewMessages() {
-    console.log('loadNewMessages')
     if (hasMoreNewMessageToLoad() && NetInterceptor.isConnected()) {
       MessageQuery.set({
         type: 'new',
