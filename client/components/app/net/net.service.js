@@ -67,25 +67,8 @@
      * @returns {Promise}
      */
     function responseError(rejection) {
-      if (_isApiUrl(rejection.config.url)) {
-        if (!window.navigator.onLine && rejection.status === 0) {
-          setStatus(false);
-        } else {
-          setStatus(true);
-        }
-      }
+      setStatus(window.navigator.onLine);
       return $q.reject(rejection);
-    }
-
-    /**
-     * API url 인지 여부를 반환한다.
-     * @param {string} url
-     * @returns {boolean}
-     * @private
-     */
-    function _isApiUrl(url) {
-      url = url || '';
-      return url.indexOf(configuration.api_address) !== -1;
     }
   }
 })();
