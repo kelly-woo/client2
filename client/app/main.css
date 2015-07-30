@@ -37,6 +37,14 @@ textarea[disabled] {
 
 .inline-overflow-ellipsis { display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap; }
 
+.display-2-lines {
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  word-wrap: break-word;
+}
 .bullet {
   color: #ddd;
   margin: 0 -2px;

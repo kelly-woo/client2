@@ -6,7 +6,7 @@
     .controller('TopicJoinCtrl', TopicJoinCtrl);
 
   /* @ngInject */
-  function TopicJoinCtrl($scope, $modalInstance, $state, entityheaderAPIservice, analyticsService, memberService, publicService, jndPubSub) {
+  function TopicJoinCtrl($scope, $modalInstance, $state, entityheaderAPIservice, analyticsService, memberService, publicService, modalHelper) {
 
     // id of topic to join
     var entityIdToJoin;
@@ -27,16 +27,14 @@
     /**
      * 모달을 닫는다.
      */
-    $scope.cancel = function() {
-      publicService.closeModal($modalInstance);
-    };
+    $scope.cancel = modalHelper.closeModal;
 
     /**
      * 토픽을 만드는 모달을 열고 현재 열려있는 조인 모달은 닫는다.
      */
     $scope.newChannel = function() {
-      $scope.openModal('channel');
-      this.cancel();
+      $scope.cancel();
+      modalHelper.openTopicCreateModal();
     };
 
 
@@ -72,12 +70,12 @@
       // analytics
       analyticsService.mixpanelTrack( "topic Join" );
 
-      jndPubSub.updateLeftPanel();
+      //jndPubSub.updateLeftPanel();
 
       // TODO: REFACTOR -> ROUTE SERVICE
       $state.go('archives', {entityType: 'channels', entityId: entityIdToJoin});
 
-      publicService.closeModal($modalInstance);
+      $scope.cancel();
     }
   }
 })();
