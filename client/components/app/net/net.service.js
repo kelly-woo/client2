@@ -66,7 +66,7 @@
      */
     function responseError(rejection) {
       if (_isApiUrl(rejection.config.url)) {
-        if (rejection.status === 0) {
+        if (!window.navigator.onLine && rejection.status === 0) {
           setStatus(false);
         } else {
           setStatus(true);
