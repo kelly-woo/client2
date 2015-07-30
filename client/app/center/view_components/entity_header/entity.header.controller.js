@@ -22,6 +22,8 @@ $scope.getWatchCount = function() {
     var _entityType = $state.params.entityType;
     var _currentEntity = currentSessionHelper.getCurrentEntity();
 
+    $scope._currentEntity = _currentEntity;
+    
     $scope.isConnected = true;
     $scope.isUserType;
 
