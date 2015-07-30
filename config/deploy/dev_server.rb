@@ -5,6 +5,12 @@ set :password, ask('Server password:', nil)
 set :deploy_to, '/srv/www/web_server'
 set :linked_dirs, %w{logs node_modules pids}
 
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, {
+  'NODE_ENV' => 'development'
+}
+
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary server in each group
