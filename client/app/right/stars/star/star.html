@@ -1,19 +1,75 @@
 <div class="star-card">
-  <div class="star-card-header">
-    <div class="star-profile">
-      <img>
+  <div class="star-card-message">
+    <div class="star-card-header">
+      <div class="star-profile">
+        <img>
+      </div>
+      <div class="star-meta">
+        <div class="star-title">
+          <span class="star-writer"></span>
+          <span class="star-date"></span>
+        </div>
+        <div class="star-start">
+          <a></a>
+        </div>
+      </div>
     </div>
-    <div class="star-meta">
-      <div class="star-title">
-        <span class="star-talker"></span>
-        <span class="star-date"></span>
-      </div>
-      <div class="star-start">
-        <a></a>
-      </div>
+    <div class="star-card-body">
+      <span></span>
     </div>
   </div>
-  <div class="star-card-body">
-    <span></span>
+
+  <div class="star-card-file">
+    <div class="file-card-header">
+      <div class="file-profile">
+
+      </div>
+      <div class="file-meta">
+        <div class="file-title">
+          <span class="file-writer"></span>
+          <span class="file-date"></span>
+          <span class="file-comments">
+            <i></i>
+            <span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="file-card-body">
+      <div class="file-name">
+        <span></span>
+      </div>
+
+      <!--    DROPDOWN MENU   -->
+      <div class="file-menu" dropdown is-open="status.isopen">
+        <i class="icon-more" dropdown-toggle tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
+        <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
+          <li class="cursor_pointer">
+            <a class="share-file">
+              <i class="icon-share"></i>
+              <span translate>@btn-share</span>
+            </a>
+          </li>
+          <li class="cursor_pointer">
+            <a class="focus-comment-file">
+              <i class="fa fa-comment-o"></i>
+              <span translate>@btn-comment</span>
+            </a>
+          </li>
+          <li class="cursor_pointer">
+            <a class="download-file" download-file download-tracker="{{track(file)}}" file-url="{{file.content.fileUrl}}" file-title="{{file.content.title}}">
+              <i class="icon-download"></i>
+              <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
+            </a>
+          </li>
+          <li class="cursor_pointer" ng-if="file | isFileWriter:member">
+            <a class="delete-file">
+              <i class="fa fa-trash"></i>
+              <span translate>@message-delete</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

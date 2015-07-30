@@ -75,7 +75,7 @@
       var currentMemberId = memberService.getMemberId();
       var members;
 
-      if (record.roomType === 'privateGroup') {
+      if (record.room.type === 'privateGroup') {
         if (topic) {
           members = topic.pg_members;
           if (members.indexOf(currentMemberId) < 0) {
@@ -94,7 +94,7 @@
     }
 
     function _goToTopic(record) {
-      var toEntityId = record.roomId;
+      var toEntityId = record.room.id;
       var toLinkId = record.linkId;
 
       MessageQuery.setSearchLinkId(toLinkId);
@@ -102,7 +102,7 @@
       if (_isToEntityCurrent(toEntityId)) {
         jndPubSub.pub('jumpToMessageId');
       } else {
-        $state.go('archives', {entityType: record.roomType + 's', entityId: toEntityId});
+        $state.go('archives', {entityType: record.room.type + 's', entityId: toEntityId});
       }
     }
 

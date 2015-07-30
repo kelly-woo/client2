@@ -2,14 +2,17 @@
   <div class="search-result-container" ng-if="isLoading">
     <div class="search-result-summary-ing"><span translate>@search-in-progress</span></div>
   </div>
+  <div>
+
+  </div>
   <tabset class="infinite-scroll-bottom-list">
-      <!--  ALL TAB  -->
+    <!--  ALL TAB  -->
     <tab active="tabs.all.active" heading="All">
       <star ng-repeat="record in records"></star>
     </tab>
     <!--  FILES TAB -->
     <tab active="tabs.files.active" heading="Files">
-      <star ng-repeat="record in records"></star>
+      <file ng-repeat="record in records"></file>
     </tab>
   </tabset>
   <div class="file-list__item loading" ng-if="isSearching && starList.length > 0">
