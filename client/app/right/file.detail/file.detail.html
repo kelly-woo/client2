@@ -18,7 +18,8 @@
           </div>
           <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
           <div class="file-detail-header__title">
-            <a original-file file-url="{{file_detail.content.fileUrl}}" ng-if="!isFileArchived">
+            <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}"
+               download-tracker="{{track(file_detail)}}" ng-click="onClickDownload(file_detail);" ng-if="!isFileArchived">
               {{ file_detail.content | fileTitle }}
             </a>
           </div>

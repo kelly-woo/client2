@@ -307,8 +307,8 @@
      * @returns {boolean}
      */
     function isJoinedTopic(entity) {
-      return !( _.isUndefined(EntityMapManager.get('joined', entity.id) &&
-                _.isUndefined(EntityMapManager.get('private', entity.id))));
+      return  EntityMapManager.contains('joined', entity.id) ||
+              EntityMapManager.contains('private', entity.id);
     }
 
     /**
