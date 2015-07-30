@@ -94,11 +94,7 @@
           break;
         case 'user':
         case 'users':
-          if (_isMe(entityType, entityId)) {
-            entity = $rootScope.member;
-          } else {
-            entity = EntityMapManager.get('member', entityId);
-          }
+          entity = EntityMapManager.get('member', entityId);
           break;
         case 'channel':
         case 'channels':

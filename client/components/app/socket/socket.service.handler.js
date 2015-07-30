@@ -171,16 +171,16 @@
       log(data);
       var member = data.member;
 
+      _replaceMemberEntityInMemberList(member);
 
       if (_isActionFromMe(member.id)) {
         log('my profile updated');
         memberService.onMemberProfileUpdated();
       } else {
         log('not my profile updated.');
-
-        _replaceMemberEntityInMemberList(member);
       }
 
+      console.log(EntityMapManager.get('member', member.id));
       jndPubSub.pub('updateMemberProfile', data);
 
     }

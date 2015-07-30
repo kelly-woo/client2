@@ -82,11 +82,9 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
       var entityType = entity.type;
 
       if (entityType == "users") {
-        if (currentUserId != entityId) {
-          entity.selected = false;
-          memberList.push(entity);
-          EntityMapManager.add('member', entity);
-        }
+        entity.selected = false;
+        memberList.push(entity);
+        EntityMapManager.add('member', entity);
       } else if (entityType == "channels") {
         var found = false;
         _.each(joinedEntities, function(element, index, list) {
