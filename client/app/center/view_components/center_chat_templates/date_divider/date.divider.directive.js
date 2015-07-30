@@ -18,8 +18,11 @@
       function _setDate() {
         if (!MessageCollection.isNewDate(attrs.index)) {
           element.remove();
+        } else {
+          element.removeClass('hidden');
         }
       }
+
       scope.$on('onRepeatDone', _setDate);
     }
   }

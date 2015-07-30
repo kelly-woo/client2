@@ -1,3 +1,6 @@
+/**
+ * @fileoverview center message중에서 unread-bookmark 관린하는 디렉티브
+ */
 (function() {
   'use strict';
 
@@ -16,6 +19,7 @@
 
     function link(scope, element, attrs) {
       if (scope.isLastReadMarker(attrs.linkId)) {
+        element.removeClass('hidden');
         element.show();
       } else {
         element.remove();
