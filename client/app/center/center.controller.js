@@ -218,10 +218,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var member = data.member;
     var id = member.id;
 
-
     _.forEach(list, function(msg) {
       if (msg.extFromEntityId === id) {
-        console.log(id, msg.extFromEntityId)
         MessageCollection.manipulateMessage(msg);
       }
     });

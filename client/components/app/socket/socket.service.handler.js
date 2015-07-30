@@ -176,13 +176,9 @@
       if (_isActionFromMe(member.id)) {
         log('my profile updated');
         memberService.onMemberProfileUpdated();
-      } else {
-        log('not my profile updated.');
       }
 
-      console.log(EntityMapManager.get('member', member.id));
       jndPubSub.pub('updateMemberProfile', data);
-
     }
 
     /**
