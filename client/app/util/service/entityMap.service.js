@@ -35,6 +35,7 @@
 
     this.add = add;
     this.get = get;
+    this.contains = contains;
     this.reset = reset;
 
     /**
@@ -60,6 +61,16 @@
       return maps[mapType][key];
     }
 
+    /**
+     * 특정 map이 key를 가지고 있는지 안가지고 있는지만 확인한다.
+     * @param {string} mapType - 특정맵을 지칭하는
+     * @param key
+     * @returns {boolean|*}
+     */
+    function contains(mapType, key) {
+      key = parseInt(key, 10);
+      return maps[mapType].hasOwnProperty(key);
+    }
     /**
      *  해당하는 map을 초기화한다.
      * @param {string} mapType - 초기화할 map의 키워
