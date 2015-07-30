@@ -51,12 +51,10 @@
      */
     function _toMention(text, mention, hasEventHandler) {
       hasEventHandler = _.isBoolean(hasEventHandler) ? hasEventHandler : true;
-
+      var activeStatus = hasEventHandler ? 'on' : 'off';
       var mentionStr = '<a mention-view="' + mention.id + '" mention-type="' + mention.type + '"';
-      if (!hasEventHandler) {
-        mentionStr += ' disabled';
-      }
-      mentionStr += '>' + text + '</a>';
+      mentionStr += ' mention-active="' + activeStatus + '">';
+      mentionStr += text + '</a>';
 
       return mentionStr;
     }
