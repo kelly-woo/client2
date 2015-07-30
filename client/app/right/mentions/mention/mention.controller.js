@@ -16,12 +16,12 @@
     function _init() {
       var record = $scope.record;
 
-      $scope.writer = EntityMapManager.get('total', record.writerId);
-      $scope.topic = EntityMapManager.get('total', record.roomId);
+      $scope.writer = EntityMapManager.get('total', record.message.writerId);
+      $scope.topic = EntityMapManager.get('total', record.room.id);
 
       $scope.writerName = $scope.writer.name;
       $scope.profileImage = $filter('getSmallThumbnail')($scope.writer);
-      $scope.updateDate = $filter('getyyyyMMddformat')(record.updatedAt);
+      $scope.updateDate = $filter('getyyyyMMddformat')(record.message.createdAt);
       $scope.startPoint = _getMentionStartPoint(record);
       $scope.content = _getContent(record);
 
@@ -29,17 +29,17 @@
     }
 
     function _getContent(record) {
-      return $filter('mention')(record.content, record.mentions);
+      return $filter('mention')(record.message.contentBody, record.message.mentions, false);
     }
 
     function _getMentionStartPoint(record) {
       var startPoint;
 
-      if (record.contentType === 'comment') {
+      if (record.message.contentType === 'file') {
         $scope.isComment = true;
-        startPoint = record.feedbackTitle;
+        startPoint = record.message.contentTitle;
       } else {
-        startPoint =  record.roomName || 'unknown topic';
+        startPoint =  record.room.name || 'unknown topic';
       }
 
       return startPoint;
@@ -58,7 +58,7 @@
     }
 
     function _redirect(record, writer) {
-      if (record.contentType === 'comment') {
+      if (record.message.contentType === 'file') {
         _goToFileDetail(record, writer);
       } else {
         if (_isPrivateTopicLeaved(record)) {

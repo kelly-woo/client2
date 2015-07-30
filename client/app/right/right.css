@@ -168,7 +168,7 @@
   padding: 27px;
 }
 
-.rpanel-body-tab-container .nav-tabs {
+.rpanel-body-tab-container > .nav-tabs {
   display: none;
 }
 
