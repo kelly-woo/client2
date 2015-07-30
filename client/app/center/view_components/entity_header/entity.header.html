@@ -1,4 +1,5 @@
-<div ng-if="isConnected" class="panel-title-container non-selectable" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}">
+<div ng-if="isConnected" class="panel-title-container non-selectable"
+     ng-class="{'center-panel-disabled-member': isDisabledEntity}">
   <!--    STAR ICON -->
   <span class="prefix star" ng-click="onStarClick();">
     <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
@@ -75,14 +76,14 @@
     <!--User-->
     <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" ng-if="isUserType">
       <!--    INVITE  -->
-      <li role="presentation" ng-if="!isDisabledMember(currentEntity);">
+      <li role="presentation" ng-if="!isDisabledEntity">
         <a role="menuitem" tabindex="-1" ng-click="inviteUserToChannel(this);">
           <i class="icon-invite-fill"></i><span translate>@dm-menu-invite</span>
         </a>
       </li>
 
       <!--    STAR    -->
-      <li role="presentation" ng-click="onStarClick()" ng-if="!isDisabledMember(currentEntity);">
+      <li role="presentation" ng-click="onStarClick()" ng-if="!isDisabledEntity">
         <a role="menuitem" tabindex="-1">
           <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@user-menu-un-star</span>
           <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@user-menu-star</span>
@@ -142,8 +143,9 @@
     </span>
 
   </span>
+  {{ getWatchCount() }}
 
-  <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledMember(currentEntity);">
+  <span class="disabled-member-notice-msg pull-right inline-overflow-ellipsis" ng-if="isDisabledEntity">
     <img src="assets/images/icon-disabled-members-alert.png"/>
     <span translate>@common-disabled-member-notice-msg-short</span>
   </span>

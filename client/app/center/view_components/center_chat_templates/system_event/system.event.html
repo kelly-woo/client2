@@ -1,12 +1,11 @@
 <!-- SYSTEM EVENT -->
-<div>
-  <div class="msg-item-float cursor_pointer">
-    <img class="user-profile user-thumb"/>
-  </div>
+<div class="msg-item-float cursor_pointer">
+  <img class="user-profile user-thumb"/>
+</div>
 
-  <div class="msg-item-body">
-    <div class="msg-text">
-      <div class="msg-comment-header" ng-switch="msg.info.eventType">
+<div class="msg-item-body">
+  <div class="msg-text">
+    <div class="msg-comment-header" ng-switch="msg.info.eventType">
 
         <span ng-switch-default>
           <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
@@ -31,21 +30,18 @@
           <span translate>@system-msg-announcement-created</span>
         </span>
 
-        <span class="msg-item-header__created">{{msg.time | gethmmaFormat}}</span>
+      <span class="msg-item-header__created">{{::msg.extTime}}</span>
 
-      </div>
     </div>
   </div>
-
-  <span ng-if="false"
-        msg-join="{{ '@msg-joined' | translate}}"
-        msg-leave="{{ '@msg-left' | translate }}"
-        msg-invite="{{ '@msg-invited' | translate }}"
-        msg-create-channel="{{ '@msg-create-ch' | translate }}"
-        msg-create-group="{{ '@msg-create-pg' | translate }}"
-        msg-announcement-deleted = "{{'@system-msg-announcement-deleted' | translate}}">
-        msg-announcement-created = "{{'@system-msg-announcement-created' | translate}}">
-
-  </span>
-
 </div>
+
+<span ng-if="false"
+      msg-join="{{ '@msg-joined' | translate}}"
+      msg-leave="{{ '@msg-left' | translate }}"
+      msg-invite="{{ '@msg-invited' | translate }}"
+      msg-create-channel="{{ '@msg-create-ch' | translate }}"
+      msg-create-group="{{ '@msg-create-pg' | translate }}"
+      msg-announcement-deleted="{{'@system-msg-announcement-deleted' | translate}}"
+      msg-announcement-created="{{'@system-msg-announcement-created' | translate}}">
+</span>

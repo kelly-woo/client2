@@ -1,3 +1,6 @@
+/**
+ * @fileoverview center message중에서 unread-bookmark 관린하는 디렉티브
+ */
 (function() {
   'use strict';
 
@@ -5,6 +8,7 @@
     .module('jandiApp')
     .directive('unreadBookmark', unreadBookmark);
 
+  /* @ngInject */
   function unreadBookmark() {
     return {
       restrict: 'E',
@@ -14,7 +18,11 @@
     };
 
     function link(scope, element, attrs) {
-
+      if (scope.isLastReadMarker(attrs.linkId)) {
+        element.removeClass('hidden');
+      } else {
+        element.remove();
+      }
     }
   }
 })();

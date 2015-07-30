@@ -299,7 +299,9 @@
      * @param source
      */
     function extend(target, source) {
-      source.type = source.type.toLowerCase() + 's';
+      if (!!source.type) {
+        source.type = source.type.toLowerCase() + 's';
+      }
       _.extend(target, source);
     }
 

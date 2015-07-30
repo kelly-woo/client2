@@ -33,3 +33,28 @@
     }
   }
 })();
+
+(function() {
+  'use strict';
+
+  angular
+    .module('jandiApp')
+    .service('watcher', getWatchers);
+
+
+  function getWatchers() {
+    this.getWatchCount = getWatchCount;
+
+    function getWatchCount() {
+      var total = 0;
+
+      angular.element('.ng-scope').each(function() {
+        var scope = $(this).scope();
+
+        total += scope.$$watchers ? scope.$$watchers.length : 0;
+      });
+
+      return total;
+    }
+  }
+})();

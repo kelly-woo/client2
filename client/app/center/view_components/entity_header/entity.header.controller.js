@@ -11,10 +11,13 @@
 
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
-                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache) {
+                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache, watcher) {
 
     //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
 
+$scope.getWatchCount = function() {
+  return watcher.getWatchCount();
+};
     var _entityId = $state.params.entityId;
     var _entityType = $state.params.entityType;
     var _currentEntity = currentSessionHelper.getCurrentEntity();
@@ -66,6 +69,9 @@
     function _initWithParam(param) {
       if (!!param) {
         _checkCurrentEntity(param);
+        _filterDeactivateMembers();
+        _checkDisabledMember();
+
         _checkOwnership();
         _checkIfDefaultTopic();
       }
@@ -77,8 +83,8 @@
      * @returns {object} deactive member 를 제거한 entity
      * @private
      */
-    function _filterDeactivateMembers(currentEntity) {
-      var members = currentEntity && currentEntity.members || [];
+    function _filterDeactivateMembers() {
+      var members = _currentEntity && _currentEntity.members || [];
       var totalEntities = $rootScope.totalEntities;
       var member;
       var entity;
@@ -94,8 +100,6 @@
           }
         }
       }
-
-      //$scope.members = members;
     }
 
     /**
@@ -111,9 +115,7 @@
         entity = param;
       }
 
-
       _setCurrentEntity(entity);
-      _filterDeactivateMembers(entity);
     }
 
     /**
@@ -149,6 +151,17 @@
       $scope.isDefaultTopic = currentSessionHelper.isDefaultTopic(_currentEntity);
     }
 
+    /**
+     * 현재 entity 가 disabled된 상태인지 아닌지 확인한다.
+     * @private
+     */
+    function _checkDisabledMember() {
+      if (publicService.isDisabledMember(_currentEntity)) {
+        $scope.isDisabledEntity = true;
+      } else {
+        $scope.isDisabledEntity = false;
+      }
+    }
     /**
      * 현재 entity(topic)를 떠난다.
      */
