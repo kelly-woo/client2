@@ -44,12 +44,12 @@
         };
       });
       it('hasEventHandler 옵션이 true 일 경우 정상 동작 확인.', function() {
-        var expectStr = '<a mention-view="11153801" mention-type="member">@Young Park</a> Check this out, @Hugo, <a mention-view="291" mention-type="member">@JiHoon</a>,<a mention-view="3017772" mention-type="member">@mak pak</a>!important!';
+        var expectStr = '<a mention-view="11153801" mention-type="member" mention-active="on">@Young Park</a> Check this out, @Hugo, <a mention-view="291" mention-type="member" mention-active="on">@JiHoon</a>,<a mention-view="3017772" mention-type="member" mention-active="on">@mak pak</a>!important!';
         expect(mentionFilter(message.content, message.mentions)).toEqual(expectStr);
         expect(mentionFilter(message.content, message.mentions, true)).toEqual(expectStr);
       });
       it('hasEventHandler 옵션이 false 일 경우 정상 동작 확인.', function() {
-        var expectStr = '<a mention-view="11153801" mention-type="member" disabled>@Young Park</a> Check this out, @Hugo, <a mention-view="291" mention-type="member" disabled>@JiHoon</a>,<a mention-view="3017772" mention-type="member" disabled>@mak pak</a>!important!';
+        var expectStr = '<a mention-view="11153801" mention-type="member" mention-active="off">@Young Park</a> Check this out, @Hugo, <a mention-view="291" mention-type="member" mention-active="off">@JiHoon</a>,<a mention-view="3017772" mention-type="member" mention-active="off">@mak pak</a>!important!';
         expect(mentionFilter(message.content, message.mentions, false)).toEqual(expectStr);
       });
     });

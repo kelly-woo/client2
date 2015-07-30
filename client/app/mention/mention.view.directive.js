@@ -24,6 +24,7 @@
     function link(scope, el, attrs) {
       var _id;
       var _type;
+      var _isActive;
 
       _init();
 
@@ -34,11 +35,12 @@
       function _init() {
         _type = attrs.mentionType;
         _id = attrs.mentionView;
+        _isActive = attrs.mentionActive === 'on';
 
         _initElement();
         _attachEvents();
 
-        if (!attrs.disabled) {
+        if (_isActive) {
           _attachDomEvents();
         }
       }
@@ -49,8 +51,14 @@
        */
       function _initElement() {
         var myId = memberService.getMemberId();
-        el.addClass('mention')
-          .addClass('cursor_pointer');
+
+        el.addClass('mention');
+
+        if (_isActive) {
+          el.addClass('cursor_pointer');
+        } else {
+          el.addClass('inactive');
+        }
 
         if (parseInt(_id, 10) === parseInt(myId, 10)) {
           el.addClass('me');

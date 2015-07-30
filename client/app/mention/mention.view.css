@@ -19,3 +19,7 @@
   color: #333333;
   background-color: #CEF8FF;
 }
+
+.mention.inactive:hover {
+  text-decoration: none;
+}
