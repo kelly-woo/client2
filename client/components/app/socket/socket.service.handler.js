@@ -34,8 +34,6 @@
     this.messageEventFileShareUnshareHandler = messageEventFileShareUnshareHandler;
     this.messageEventTopicLeaveHandler = messageEventTopicLeaveHandler;
 
-    this.topicLeaveHandler = topicLeaveHandler;
-
     this.socketEventLogger = socketEventLogger;
     this.eventStatusLogger = eventStatusLogger;
     this.log = log;
@@ -278,12 +276,13 @@
 
       log('topic left event');
 
-      if (isCurrentEntity) {
-        jndPubSub.pub('centerOnTopicLeave', data);
-        _updateCenterMessage();
-      }
-
-      _updateLeftPanelForOtherEntity(isCurrentEntity);
+      //if (isCurrentEntity) {
+      //  jndPubSub.pub('centerOnTopicLeave', data);
+      //  _updateCenterMessage();
+      //}
+      _updateCenterForCurrentEntity(isCurrentEntity);
+      _updateLeftPanel();
+      //_updateLeftPanelForOtherEntity(isCurrentEntity);
     }
 
     /**
@@ -332,21 +331,6 @@
       _updateCenterMessage();
       _updateChatList();
       _sendBrowserNotificationForOtherEntity(data, writer, writer, isCurrentEntity);
-    }
-
-    /**
-     * Update left panel entities.
-     * Re-direct user to default topic if current left current entity.
-     * @param param
-     */
-    function topicLeaveHandler(param) {
-      _onJoinedTopicListChanged();
-
-      _updateLeftPanel();
-
-      if (_isCurrentEntity(param.topic)) {
-        $state.go('archives', {entityType:'channels',  entityId:currentSessionHelper.getDefaultTopicId() });
-      }
     }
 
     /**

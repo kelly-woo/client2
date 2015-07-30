@@ -2,8 +2,8 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, storageAPIservice, memberService,
-                                            currentSessionHelper) {
+app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, storageAPIservice,
+                                            memberService, EntityMapManager, currentSessionHelper) {
   var leftpanelAPI = {};
 
   leftpanelAPI.getLists = function() {
@@ -43,26 +43,25 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
   leftpanelAPI.getJoinedChannelData = function(array) {
     var joinedChannelList = [];
-    var joinedChannelMap = {};
     var privateGroupList = [];
-    var privateGroupMap = {};
+
+    EntityMapManager.reset('private');
+    EntityMapManager.reset('joined');
 
     angular.forEach(array, function(entity, index) {
       var type = entity.type;
       if (type == "channels") {
         joinedChannelList.push(entity);
-        joinedChannelMap[entity.id] = entity;
+        EntityMapManager.add('joined', entity);
       } else if (type == "privategroups") {
         privateGroupList.push(entity);
-        privateGroupMap[entity.id] = entity;
+        EntityMapManager.add('private', entity);
       }
     });
 
     return {
       joinedChannelList: joinedChannelList,
-      joinedChannelMap: joinedChannelMap,
-      privateGroupList: privateGroupList,
-      privateGroupMap: privateGroupMap
+      privateGroupList: privateGroupList
     };
   };
 
@@ -72,9 +71,10 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
   leftpanelAPI.getGeneralData = function(totalEntities, joinedEntities, currentUserId) {
     var memberList = [];
-    var memberMap = {};
     var totalChannelList = [];
     var unJoinedChannelList = [];
+
+    EntityMapManager.reset('member');
 
     angular.forEach(totalEntities, function(entity, index) {
       var entityId = entity.id;
@@ -84,10 +84,9 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
         if (currentUserId != entityId) {
           entity.selected = false;
           memberList.push(entity);
-          memberMap[entityId] = entity;
+          EntityMapManager.add('member', entity);
         }
-      }
-      else if (entityType == "channels") {
+      } else if (entityType == "channels") {
         var found = false;
         _.each(joinedEntities, function(element, index, list) {
           if (!found && element.id == entityId) found = true;
@@ -105,7 +104,6 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
     return {
       memberList: memberList,
-      memberMap: memberMap,
       totalChannelList: totalChannelList,
       unJoinedChannelList: unJoinedChannelList
     };
@@ -116,6 +114,9 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
   // prefix 는 select dropdown 에서 분류의 목적으로 사용된다.
   leftpanelAPI.setEntityPrefix = function($scope) {
+
+    EntityMapManager.reset('total');
+
     _.each($scope.totalEntities, function(entity) {
       entity.isStarred = !!entity.isStarred;
 
@@ -129,6 +130,8 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
         entity.type = 'privategroups';
         entity.typeCategory = $filter('translate')('@common-topics');
       }
+
+      EntityMapManager.add('total', entity);
     });
 
     _.each($scope.joinEntities, function(entity) {
@@ -143,6 +146,8 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
         entity.type = 'privategroups';
         entity.typeCategory = $filter('translate')('@common-topics');
       }
+
+      EntityMapManager.add('total', entity);
     });
   };
 

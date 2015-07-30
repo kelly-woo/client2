@@ -6,14 +6,14 @@
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter,
-                                 publicService, analyticsService, modalHelper, AnalyticsHelper) {
+                                 entityAPIservice, analyticsService, modalHelper, AnalyticsHelper) {
     InitInvite();
 
     /*
      Generating list of users that are not in current channel or private group.
      */
     function InitInvite() {
-      var members = $scope.currentEntity.ch_members || $scope.currentEntity.pg_members;
+      var members = entityAPIservice.getMemberList($scope.currentEntity);
       var totalUserList = $scope.memberList;
       var msg1;
       var msg2;
