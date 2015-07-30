@@ -126,8 +126,8 @@
       <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
         <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.members track by $index">
           <a ng-click="openMemberModal(userId);">
-            <img class="header-title-member__dropdown__thumb" ng-src="{{::userId | getSmallThumbnail}}"/>
-              <span class="overflow-ellipsis">{{::userId | getName}}</span>
+            <img class="header-title-member__dropdown__thumb" ng-src="{{userId | getSmallThumbnail}}"/>
+              <span class="overflow-ellipsis">{{userId | getName}}</span>
           </a>
         </li>
       </ul>
