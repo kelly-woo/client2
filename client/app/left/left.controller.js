@@ -29,6 +29,13 @@ app.controller('leftPanelController1', function(
   var unreadTimer;
   var _isBadgeMoveLocked = false;
 
+  $scope.loadingTextList = [
+    'Loading',
+    'Loading.',
+    'Loading..',
+    'Loading...'
+  ];
+
   //unread 위치에 대한 정보
   $scope.unread = {
     above: [],

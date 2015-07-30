@@ -1,6 +1,11 @@
-<r-panel-search></r-panel-search>
-
-<tabset class="rpanel-body-tab-container">
+<div class="rpanel-search add-on-group">
+  <r-panel-search class="opac-zero" ng-class="{
+  'opac-in': isReady
+  }"></r-panel-search>
+</div>
+<tabset class="rpanel-body-tab-container opac-zero" ng-class="{
+  'opac-in': isReady
+  }">
   <!--  FILE TAB  -->
   <tab active="tabs[0].active" select="onRightPanelTabSelected('file');" heading="{{ tab1 }}">
   	<page-tracker ng-if="$state.includes('**.files')&&tabs[0].active" page="files/files" title="File Tab"></page-tracker>

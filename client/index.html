@@ -101,12 +101,14 @@
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div class="content-wrapper opac-zero" ng-class="{'opac-in-fast': isReady}">
+<div class="content-wrapper opac-in-fast">
   <div class="body-wrapper full-screen">
     <!-- Add your site or application content here -->
     <div class="hpanel non-selectable" ui-view="headerpanel"></div>
     <div class="body full-screen" id="client-ui" ui-view=""></div>
-    <div class="rpanel non-selectable" ng-show="$state.includes('**.files.**')">
+    <div class="rpanel non-selectable"
+         ng-class="{ 'shadow': $state.includes('**.files.**') }"
+         ng-show="$state.includes('**.files.**')">
       <div class="files" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
       <div class="file" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
       <div class="rpanel__background">
@@ -120,13 +122,14 @@
     </div>
     <tutorial-welcome></tutorial-welcome>
   </div>
+  <div ng-if="!isReady" class="full-screen z-index-top"></div>
 </div>
 
-<div class="is-ready-loading" ng-show="!isReady">
-  <div class="loading_bar">
-    <span class="three-quarters-loader jnd-three-quarters-loader"></span>
-  </div>
-</div>
+<!--<div class="is-ready-loading" ng-show="!isReady">-->
+  <!--<div class="loading_bar">-->
+    <!--<span class="three-quarters-loader jnd-three-quarters-loader"></span>-->
+  <!--</div>-->
+<!--</div>-->
 
 <!--[if lte IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -200,6 +203,7 @@
 <script src="assets/javascripts/core.js"></script>
 <script src="assets/javascripts/detectmobilebrowser.js"></script>
 <script src="assets/javascripts/jquery.highlight.js"></script>
+<script src="app/util/directive/animate.text.directive.js"></script>
 <script src="app/util/directive/main.directive.js"></script>
 <script src="app/util/directive/scaleup.directive.js"></script>
 <script src="app/util/directive/typeahead.directive.js"></script>
