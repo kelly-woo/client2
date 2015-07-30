@@ -7,7 +7,7 @@
     .controller('FileShareModalCtrl', FileShareModalCtrl);
 
   /* @ngInject */
-  function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService,
+  function FileShareModalCtrl($scope, $rootScope, $filter, $state, fileAPIservice, analyticsService,
                               jndPubSub, fileToShare, modalHelper, AnalyticsHelper) {
 
     var _entityType;
@@ -16,7 +16,7 @@
 
     $scope.file = fileToShare;
 
-    var selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
+    var selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
     $scope.selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
 
     $scope.shareChannel = $scope.currentEntity;
@@ -34,6 +34,11 @@
       // then select first entity in list.
       if ($scope.selectOptions.indexOf($scope.shareChannel) === -1 ) {
         $scope.shareChannel = $scope.selectOptions[0];
+      }
+
+      $scope.hasPreview = $scope.file.hasPreview == null ? $filter('hasPreview')($scope.file.content) : $scope.file.hasPreview;
+      if ($scope.hasPreview) {
+        $scope.thumbnailImage = $rootScope.server_uploaded + $scope.file.content.extraInfo.smallThumbnailUrl;
       }
     }
 
@@ -85,8 +90,10 @@
     function _onShareSuccess() {
       $scope.isLoading = false;
       
+      try {
+        _sendAnalytics(_entityType);
+      } catch(e) {}
 
-      _sendAnalytics(_entityType);
 
       if (confirm($filter('translate')('@common-file-share-jump-channel-confirm-msg'))) {
         if (_entityType === "users") {

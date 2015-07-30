@@ -3,7 +3,7 @@
     <div class="search-result-summary-ing"><span translate>@search-in-progress</span></div>
   </div>
   <div class="infinite-scroll-bottom-list">
-    <mention ng-repeat="record in records"></mention>
+    <message message-data="record" message-type="messageType" ng-repeat="record in records"></message>
   </div>
   <!--<mention-card ng-repeat="mention in mentionList"></mention-card>-->
   <div class="file-list__item loading" ng-if="isScrollLoading && records.length > 0">

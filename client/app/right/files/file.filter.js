@@ -180,12 +180,12 @@
     };
   });
 
-  app.filter('isFileWriter', function() {
-    return function(input, member) {
+  app.filter('isFileWriter', function(memberService) {
+    return function(input) {
       var fileWriterId = input.writerId;
-      var memberId = member.id;
+      var member = memberService.getMember();
 
-      return fileWriterId == memberId;
+      return fileWriterId == member.id;
     }
   });
 

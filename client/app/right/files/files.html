@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    <file ng-repeat="file in fileList track by file.id"></file>
+    <file file-data="file" file-type="fileType" ng-repeat="file in fileList track by file.id"></file>
     <div class="file-list__item loading" ng-if="isScrollLoading && fileList.length > 0">
       <div class="loading_container_background scroll_loading_container_background"></div>
       <div class="loading_bg scroll_loading_bg"></div>

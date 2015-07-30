@@ -17,20 +17,20 @@
         <div class="col-sm-9 modal-share__file">
           <div class="modal-share__file-type">
             <!-- IMAGE -->
-            <div class="image_wrapper msg-file-body__img__background jnd-text-center" ng-if="(file.content | hasPreview)">
+            <div class="image_wrapper msg-file-body__img__background jnd-text-center" ng-if="hasPreview">
               <div class="opac-zero msg-file-body__img cursor_pointer"
-                   image-loader="{{server_uploaded+file.content.extraInfo.smallThumbnailUrl}}"
+                   image-loader="{{::thumbnailImage}}"
                    image-max-height="65" image-max-width="65" image-is-square="true">
               </div>
             </div>
 
             <!-- OTHER TYPE -->
-            <div class="modal-share__file-type__other" ng-if="!(file.content | hasPreview)">
+            <div class="modal-share__file-type__other" ng-if="!hasPreview">
               <div class="fileicon fileicon-{{file.content | fileIcon}}"></div>
             </div>
           </div>
           <div class="modal-share__file-body">
-            <span class="modal-share__file-body__writer">{{ file.writer|getName }}</span>
+            <span class="modal-share__file-body__writer">{{ file.extWriter|getName }}</span>
             <span class="modal-share__file-body__time">{{ file.createTime | date: 'yyyy/MM/dd h:mm a' }}</span>
             <div class="modal-share__file-body__title keep">{{ file.content | fileTitle }}</div>
             <div class="modal-share__file-body__meta">
