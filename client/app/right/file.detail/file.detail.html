@@ -9,9 +9,9 @@
 
   <!-- FILE -->
   <div class="rpanel-body-content file-detail" file-detail ng-show="!isFileArchived && !hasFileAPIError">
-    
+
     <div class="file-detail-body-container" data-ng-if="initialLoaded && file_detail">
-    <page-tracker page="files/detail" title="File Detail"></page-tracker>
+      <page-tracker page="files/detail" title="File Detail"></page-tracker>
       <div class="file-detail-header">
         <div class="file-detail-header-box"
              ng-class="{'file-detail-disabled-member': isDisabledMember(file_detail.writer)}">
@@ -22,7 +22,8 @@
           </div>
           <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
           <div class="file-detail-header__title">
-            <a original-file file-url="{{file_detail.content.fileUrl}}" ng-if="!isFileArchived">
+            <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}"
+               download-tracker="{{track(file_detail)}}" ng-click="onClickDownload(file_detail);" ng-if="!isFileArchived">
               {{ file_detail.content | fileTitle }}
             </a>
           </div>
@@ -137,24 +138,23 @@
       </div>
     </div>
 
-    <div class="comment-input-box" data-ng-show="initialLoaded && file_detail">
+    <div class="comment-input-box" ng-show="initialLoaded && file_detail">
       <div class="comment-item__thumbnail">
         <img class="user-profile user-thumb-sm cursor_pointer"
              ng-src="{{ member | getSmallThumbnail }}"
              ng-click="onUserClick(member);"/>
       </div>
-      <form id="comment-form" data-ng-submit="postComment();">
+      <form id="comment-form" ng-submit="postComment()">
         <sticker-layer name="file" height="145"></sticker-layer>
         <div class="comment-textarea-wrap">
           <textarea id="file-detail-comment-input"
                     class="comment-input"
                     focus-me="focusPostComment"
-                    message-submit="postComment();"
-                    data-ng-model="comment.content"
+                    message-submit="postComment()"
                     autocorrect="off"
                     autocomplete="off"
                     spellcheck="true"
-                    ng-keydown="onKeyDown($event);"
+                    ng-keydown="onKeyDown($event)"
                     ng-disabled="isPostingComment"></textarea>
           <sticker-panel name="file" width="265" height="245"></sticker-panel>
         </div>

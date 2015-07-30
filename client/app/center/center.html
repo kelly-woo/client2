@@ -67,11 +67,11 @@
         <file-uploaded ng-switch-when="file" id="{{msg.id}}" class="msg-item"></file-uploaded>
 
         <title-comment ng-switch-when="comment" id="{{msg.id}}" class="msg-item"
-                          ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
+                       ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
 
         <unread-bookmark class="msg-item" id="unread-bookmark" ng-if="isLastReadMarker(msg.id);"></unread-bookmark>
-
       </div>
+
       <!-- unsent Message -->
       <div ng-if="unsentMsgs.length" class="msgs-group">
         <div class="msg-item text"

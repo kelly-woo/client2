@@ -25,6 +25,7 @@
             data-ng-bind-html="(msg.message.content.body) || ''"></span>
       <span class="msg-item-header__created">
         {{msg.time | gethmmaFormat}}
+        {{msg._isLast}} / {{msg.id}}
       </span>
       <span ng-if="msg.status === 'sending'" class="icon-loading-small"></span>
       <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>

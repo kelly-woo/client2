@@ -28,7 +28,7 @@
     $scope.isMyMessage = (_myId === _message.fromEntity);
     $scope.showAnnouncement = _message.message.contentType !== 'sticker' && _entityType !== 'users';
 
-    $scope.hasLinkPreview = MessageCollection.hasLinkPreview($scope.index);
+    //$scope.hasLinkPreview = MessageCollection.hasLinkPreview($scope.index);
 
     $scope.deleteMessage = deleteMessage;
     $scope.onUserClick = onUserClick;

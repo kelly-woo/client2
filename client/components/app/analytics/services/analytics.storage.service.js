@@ -1,6 +1,5 @@
 /**
  * @fileoverview Local, Session storage 관련 Service
- *               
  * @author Kevin Lee <kevin@tosslab.com>
  */
 

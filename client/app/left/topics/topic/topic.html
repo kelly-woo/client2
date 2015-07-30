@@ -1,4 +1,4 @@
-<li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true track by joinedEntity.id"
+<li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true track by $index"
     ng-class="{active: $state.params.entityId == joinedEntity.id}"
     data-ng-click="onTopicClicked(joinedEntity);"
   class="cursor_pointer">
