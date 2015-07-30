@@ -93,7 +93,7 @@
         <!--    SHARED MESSAGE  -->
         <span class="msg-file-meta-info">
           <span data-ng-if="( msg.id !== msg.message.writer.id )">
-            <a class="msg-file-meta__writer file__owner">{{msg.extWriterName}}</a>
+            <a class="msg-file-meta__writer file__owner">{{msg.message.extFileOwnerName}}</a>
             <span translate>@msg-whose</span>
           </span>
           <span ng-if="msg.status == 'shared'" translate>@msg-shared</span>

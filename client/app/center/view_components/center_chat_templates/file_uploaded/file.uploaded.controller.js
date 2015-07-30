@@ -65,6 +65,8 @@
       $scope.msg.message.content.extFileSize = $filter('bytes')($scope.msg.message.content.size);
       $scope.msg.message.content.extFileType = $filter('fileType')($scope.msg.message.content);
 
+      $scope.msg.message.extFileOwnerName = $filter('getName')($scope.msg.message.writerId);
+
       _updateSharedList();
       _attachEventListener();
     }
