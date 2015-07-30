@@ -18,6 +18,8 @@
     var _entityType = $state.params.entityType;
     var _currentEntity = entityAPIservice.getEntityById(_entityType, _entityId);
 
+    $scope._currentEntity = _currentEntity;
+    
     $scope.isConnected = true;
     $scope.isUserType;
 

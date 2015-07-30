@@ -86,6 +86,7 @@
         entityAPIservice.extend(_topicEntity, _topic);
       }
 
+      jndPubSub.pub('topicUpdated', data.topic);
     }
 
     /**

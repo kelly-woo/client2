@@ -10,22 +10,23 @@
     .controller('jndTooltipCtrl', jndTooltipCtrl);
 
   /* @ngInject */
-  function jndTooltipCtrl($scope, currentSessionHelper, $filter) {
+  function jndTooltipCtrl($scope, $filter) {
 
     _setCurrentEntity();
 
     $scope.$on('onCurrentEntityChanged', _setCurrentEntity);
+    $scope.$on('topicUpdated', function(event, topic) {
+        if (topic.id === $scope.currentEntity.id) {
+          _setCurrentEntity();
+        }
+    });
 
     function _setCurrentEntity() {
-      $scope.currentEntity = currentSessionHelper.getCurrentEntity();
-
       if (!!$scope.currentEntity.description) {
         $scope.topicDescription = $scope.currentEntity.description;
       } else {
         $scope.topicDescription = $filter('translate')('@no-topic-description');
       }
     }
-
-
   }
 })();
