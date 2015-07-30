@@ -1,12 +1,8 @@
-
-<div class="panel-title-container file-detail">
-  <span class="rpanel-header-heading rpanel-header-heading__back cursor_pointer" data-ui-sref="messages.detail.files">
-    <i class="icon-prev"></i> <span translate>@common-files</span>
-  </span>
+<div class="rpanel-header">
+  <i class="icon-prev" ng-click="backToFileList()"></i>
+  <span class="file-detail-title">{{:: file_detail.content.title}}</span>
 </div>
-
 <div class="rpanel-body" scroll-glue data-ng-model="glued">
-
   <!-- FILE -->
   <div class="rpanel-body-content file-detail" file-detail ng-show="!isFileArchived && !hasFileAPIError">
 
@@ -26,6 +22,55 @@
                download-tracker="{{track(file_detail)}}" ng-click="onClickDownload(file_detail);" ng-if="!isFileArchived">
               {{ file_detail.content | fileTitle }}
             </a>
+          </div>
+        </div>
+        <div class="file-item-meta__action">
+          <div class="action-star cursor_pointer">
+            <a class="file_action opac-in-fast">
+              <i ng-class="hasStar ? 'icon-star-fill' : 'icon-star'"></i>
+            </a>
+          </div>
+          <div class="action-download cursor_pointer">
+            <a class="file_action opac-in-fast" download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" download-tracker="{{track(file_detail)}}" ng-click="onClickDownload(file_detail);">
+              <i class="icon-download"></i>
+            </a>
+          </div>
+          <div class="action-more" dropdown>
+            <a class="file_action opac-in-fast">
+              <i class="icon-more" dropdown-toggle tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
+            </a>
+            <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
+              <li class="cursor_pointer">
+                <a ng-click="onClickShare(file_detail);">
+                  <i class="icon-share"></i>
+                  <span translate>@btn-share</span>
+                </a>
+              </li>
+              <li class="cursor_pointer">
+                <a ng-click="onCommentFocusClick();">
+                  <i class="fa fa-comment-o"></i>
+                  <span translate>@btn-comment</span>
+                </a>
+              </li>
+              <li class="cursor_pointer">
+                <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" download-tracker="{{track(file_detail)}}" ng-click="onClickDownload(file_detail);">
+                  <i class="icon-download"></i>
+                  <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
+                </a>
+              </li>
+              <li class="cursor_pointer">
+                <a ng-click="">
+                  <i class="icon-star"></i>
+                  <span translate>@btn-comment</span>
+                </a>
+              </li>
+              <li class="cursor_pointer" ng-if="file_detail | isFileWriter:member">
+                <a ng-click="onFileDeleteClick(file_detail.id);">
+                  <i class="fa fa-trash"></i>
+                  <span translate>@message-delete</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -69,39 +114,6 @@
               </span>
             </div>
           </div>
-
-          <div class="file-item-meta__action" dropdown>
-
-            <i class="icon-more file_actions cursor_pointer" dropdown-toggle
-               tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
-
-            <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
-              <li class="cursor_pointer">
-                <a data-ng-click="onClickShare(file_detail);">
-                  <i class="icon-share"></i>
-                  <span translate>@btn-share</span>
-                </a>
-              </li>
-              <li class="cursor_pointer">
-                <a data-ng-click="onCommentFocusClick();">
-                  <i class="fa fa-comment-o"></i>
-                  <span translate>@btn-comment</span>
-                </a>
-              </li>
-              <li class="cursor_pointer">
-                <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" download-tracker="{{track(file_detail)}}" ng-click="onClickDownload(file_detail);">
-                  <i class="icon-download"></i>
-                  <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
-                </a>
-              </li>
-              <li class="cursor_pointer" ng-if="file_detail | isFileWriter:member">
-                <a data-ng-click="onFileDeleteClick(file_detail.id);">
-                  <i class="fa fa-trash"></i>
-                  <span translate>@message-delete</span>
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
 
@@ -116,18 +128,25 @@
           <div class="comment-item-header">
             <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
             <span class="comment-item-header__created">{{ getCreateTime($index, comment) }}</span>
-            <div class="comment-item-header__action pull-right" dropdown data-ng-if="( member.id === comment.writer.id )">
-              <a href="#" class="link-dark comment-item-header__action__icon" dropdown-toggle>
-                <i class="fa fa-cog"></i>
-              </a>
-              <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
-                <li class="cursor_pointer">
-                  <a data-ng-click="deleteComment(comment.id, comment.isSticker)">
-                    <i class="fa fa-times"></i>
-                    <span translate>@btn-delete</span>
-                  </a>
-                </li>
-              </ul>
+            <div class="comment-item-header__action pull-right">
+              <div class="comment-item-action">
+                <a class="link-dark cursor_pointer">
+                  <i ng-class="comment.hasStar ? 'icon-star-fill' : 'icon-star'"></i>
+                </a>
+              </div>
+              <div class="comment-item-action comment-item-action-more" dropdown ng-if="( member.id === comment.writer.id )">
+                <a href="#" class="link-dark" dropdown-toggle>
+                  <i class="fa fa-cog"></i>
+                </a>
+                <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+                  <li class="cursor_pointer">
+                    <a ng-click="deleteComment(comment.id, comment.isSticker)">
+                      <i class="fa fa-times"></i>
+                      <span translate>@btn-delete</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <div class="comment-item-body">
@@ -156,7 +175,9 @@
                     autocomplete="off"
                     spellcheck="true"
                     ng-keydown="onKeyDown($event)"
-                    ng-disabled="isPostingComment"></textarea>
+                    ng-disabled="isPostingComment"
+                    mentionahead
+                    mentionahead-data="watchFileDetail($mentionScope, $mentionCtrl)"></textarea>
           <sticker-panel name="file" width="265" height="245"></sticker-panel>
         </div>
         <span class="comment-input__tip pull-left">

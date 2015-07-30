@@ -77,12 +77,28 @@
 .file-item-meta {
   text-align: left;
 }
+.file-item-body-title__star {
+  position: absolute;
+  top: 12px;
+  right: 8px;
+  color: #999;
+  font-size: 20px;
+}
+.file-item-body-title__star:hover {
+  color: #154a67;
+}
+.file-item-body-title__star .icon-star-fill{
+  color: #f9bb00;
+}
 
 .file-item-body-title__more {
   position: absolute;
-  top: 26px;
+  top: 40px;
   right: 8px;
-  color:#999;
+  color: #999;
+}
+.file-item-body-title__more:hover {
+  color: #1b4a67;
 }
 .file-item-body-title__more .icon-more {
   font-size: 21px;
@@ -94,6 +110,11 @@
   float: none;
 }
 
-.no-preview {
-
+.file-item-meta-open__public {
+  color: #31c08a;
+}
+.file-item-meta-open__public:hover {
+  text-decoration: none;
+  color: #31c08a;
+  border-bottom: 1px solid #31c08a;
 }

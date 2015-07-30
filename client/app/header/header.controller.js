@@ -13,29 +13,47 @@
                       Browser, AnalyticsHelper) {
     var modalMap;
     var stateParams;
+    var currentRightPanel = $state.includes('**.files') ? 'file' : null;
 
     _init();
 
     function _init() {
       DeskTopNotificationBanner.showNotificationBanner($scope);
 
-      _initRightPanelButtonLabel();
       $scope.languageList = language.getLanguageList();
       $scope.isIe = Browser.msie;
+
+
+      $scope.toolbar = {
+        file: false,
+        message: false,
+        star: false,
+        mention: false
+      };
+
+      if (_isRpanelVisible()) {
+        $scope.toolbar.file = true;
+      }
     }
 
-
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-      _initRightPanelButtonLabel();
       stateParams = toParams;
     });
 
-    /**
-     * language 변경 event handling
-     */
-    $scope.$on('changedLanguage', function() {
-      _initRightPanelButtonLabel();
+    $scope.$on('onRightPanel', function($event, type) {
+      _setTabStatus(currentRightPanel, false);
+      _setTabStatus(type, true);
     });
+
+    $scope.$on('onHeaderAcitveTab', function($event, type) {
+      _setTabStatus(currentRightPanel, false);
+      _setTabStatus(type, true);
+    });
+
+    $scope.$on('closeRightPanel', function() {
+      _closeRightPanel();
+    });
+
 
     $scope.onLanguageClick = onLanguageClick;
 
@@ -121,7 +139,6 @@
       'setting-notifications': function() {
         modalHelper.openNotificationSettingModal($scope);
       }
-
     };
 
     $scope.openModal = function(selector) {
@@ -150,36 +167,40 @@
       jndPubSub.pub('onTutorialPulseClick', $event);
     };
 
-    $scope.onRightPanelToggle = function() {
-      if (_isRpanelVisible()) {
-        $state.go('messages.detail');
+    $scope.openRightPanel = function(type) {
+      if ($scope.toolbar[type] && currentRightPanel === type) {
+        _closeRightPanel();
       } else {
-        var viewport = $('.msgs');
-        var content = $('.msgs-holder');
+        _autoScroll();
+        _setTabStatus(currentRightPanel, false);
 
-        // scroll to bottom
-        if (viewport.scrollTop() + viewport.height() >= content.height()) {
-          setTimeout(function() {
-            viewport.animate({scrollTop: content.height()}, 200);
-          });
-        }
-
-        $state.go('messages.detail.files');
+        jndPubSub.pub('onRightPanel', type);
       }
     };
 
-    /**
-     * right panel의 button translate 설정
-     */
-    function _initRightPanelButtonLabel() {
-      $scope.isRpanelVisible = _isRpanelVisible();
+    function _autoScroll() {
+      var viewport = $('.msgs');
+      var content = $('.msgs-holder');
 
-      if ($scope.isRpanelVisible) {
-        $scope.rPanelButtonLabel = $filter('translate')('@btn-close');
-      } else {
-        $scope.rPanelButtonLabel = $filter('translate')('@common-search');
+      // scroll to bottom
+      if (viewport.scrollTop() + viewport.height() >= content.height()) {
+        setTimeout(function() {
+          viewport.animate({scrollTop: content.height()}, 200);
+        });
       }
     }
+
+    function _setTabStatus(type, value) {
+      $scope.toolbar[type] = value;
+      currentRightPanel = type;
+    }
+
+    function _closeRightPanel() {
+      $scope.toolbar[currentRightPanel] = false;
+      currentRightPanel = null;
+      $state.go('messages.detail');
+    }
+
     function _isRpanelVisible() {
       return $state.includes('**.files.**');
     }

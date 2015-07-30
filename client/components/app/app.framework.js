@@ -9,6 +9,7 @@
       'app.language',
       'app.storage',
       'app.local.storage',
+      'app.mention',
       'app.pubsub',
       'app.socket',
       'app.keyCode',

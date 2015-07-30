@@ -130,13 +130,14 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
    * @param {string} fileId 파일 id
    * @param {string} content post 할 문자열
    * @param {object} sticker 스티커 객체
+   * @param {array} mentions
    * @returns {*}
    */
-  function postComment(fileId, content, sticker) {
+  function postComment(fileId, content, sticker, mentions) {
     if (sticker) {
-      return _postSticker(fileId, content, sticker);
+      return _postSticker(fileId, content, sticker, mentions);
     } else {
-      return _postComment(fileId, content);
+      return _postComment(fileId, content, mentions);
     }
   }
 
@@ -144,17 +145,20 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
    * comment 를 post 한다.
    * @param {string} fileId 파일 id
    * @param {string} content post 할 문자열
+   * @param {array} mentions
    * @returns {*}
    * @private
    */
-  function _postComment(fileId, content) {
+  function _postComment(fileId, content, mentions) {
     return $http({
       method  : 'POST',
       url     : $rootScope.server_address + 'messages/' + fileId + '/comment',
       data    : {
         comment : content,
-        teamId  : memberService.getTeamId()
-      }
+        teamId  : memberService.getTeamId(),
+        mentions: mentions
+      },
+      version: 3
     });
   }
 
@@ -163,20 +167,19 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
    * @param {string} fileId 파일 id
    * @param {string} content post 할 문자열
    * @param {object} sticker 스티커 객체
+   * @param {array} mentions
    * @returns {*}
    * @private
    */
-  function _postSticker(fileId, content, sticker) {
+  function _postSticker(fileId, content, sticker, mentions) {
     var data = {
       stickerId: sticker.id,
       groupId: sticker.groupId,
       teamId: memberService.getTeamId(),
-      share: fileId
+      share: fileId,
+      content: content,
+      mentions: mentions
     };
-
-    if (content) {
-      data.content = content;
-    }
 
     return $http({
       method  : 'POST',

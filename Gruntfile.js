@@ -507,6 +507,7 @@ module.exports = function (grunt) {
               '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/local_storage/local.storage.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/mention_ahead/mention.ahead.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/net/net.js',
 
@@ -705,7 +706,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
-        'injector',
+        //'injector',
         'wiredep',
         'autoprefixer',
         'concurrent:debug'
@@ -715,7 +716,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
-        'injector',
+        //'injector',
         'wiredep',
         'autoprefixer',
         'express:dev',
