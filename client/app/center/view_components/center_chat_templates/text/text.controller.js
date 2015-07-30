@@ -37,7 +37,6 @@
     function _init() {
       _initLocalVariables();
       _initScopeVariables();
-      _formatTextMessage();
 
       $scope.$on('toggleLinkPreview', _onAttachMessagePreview);
     }
@@ -133,20 +132,6 @@
       if (data === _messageId) {
         $scope.hasLinkPreview = MessageCollection.hasLinkPreview($scope.index);
       }
-    }
-
-    /**
-     * mark-up에서 사용하기쉽게 msg object를 가공한다.
-     * @private
-     */
-    function _formatTextMessage() {
-      var fromEntityId = _message.fromEntity;
-      _writer = entityAPIservice.getEntityById('user', fromEntityId);
-
-      $scope.msg.extFromEntityId = fromEntityId;
-      $scope.msg.extWriter = _writer;
-      $scope.msg.extWriterName = $filter('getName')(_writer);
-      $scope.msg.time = $filter('gethmmaFormat')(_message.time);
     }
   }
 })();

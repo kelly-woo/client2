@@ -25,7 +25,7 @@
             data-ng-bind-html="(msg.message.content.body) || ''"></span>
 
       <!--  TIME  -->
-      <span class="msg-item-header__created"> {{::msg.time}} </span>
+      <span class="msg-item-header__created"> {{::msg.extTime}} </span>
 
       <!--  SENDING STATUS SPINNING WHEEL -->
       <span ng-if="msg.status === 'sending'" class="icon-loading-small"></span>
