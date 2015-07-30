@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/text/text.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
+  <link rel="stylesheet" href="app/center/view_components/entity_header/topic_description/topic.description.css">
   <link rel="stylesheet" href="app/disconnect/disconnect.css">
   <link rel="stylesheet" href="app/header/header.css">
   <link rel="stylesheet" href="app/jandi-common.css">
@@ -57,6 +58,7 @@
   <link rel="stylesheet" href="app/modal/terms/terms.css">
   <link rel="stylesheet" href="app/modal/topics/topic_create/topic.create.css">
   <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
+  <link rel="stylesheet" href="app/modal/topics/topic_join/topic.join.css">
   <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
   <link rel="stylesheet" href="app/right/files/file/file.css">
   <link rel="stylesheet" href="app/right/files/files.css">
@@ -184,6 +186,7 @@
 <script src="components/app/language/language.js"></script>
 <script src="components/app/local_storage/local.storage.js"></script>
 <script src="components/app/storage/storage.js"></script>
+<script src="components/app/net/net.js"></script>
 <script src="components/app/pubsub/pubsub.js"></script>
 <script src="components/app/notification/desktop.notification.js"></script>
 <script src="components/app/socket/socket.js"></script>
@@ -207,6 +210,7 @@
 <script src="app/util/service/analytics.service.js"></script>
 <script src="app/util/service/clipboard.service.js"></script>
 <script src="app/util/service/entity.service.js"></script>
+<script src="app/util/service/entityMap.service.js"></script>
 <script src="app/util/service/file.object.service.js"></script>
 <script src="app/util/service/file.upload.service.js"></script>
 <script src="app/util/service/general.service.js"></script>
@@ -255,6 +259,8 @@
 <script src="app/center/view_components/entity_header/entity.header.controller.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.directive.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.service.js"></script>
+<script src="app/center/view_components/entity_header/topic_description/topic.description.controller.js"></script>
+<script src="app/center/view_components/entity_header/topic_description/topic.description.directive.js"></script>
 <script src="app/disconnect/disconnect.controller.js"></script>
 <script src="app/error/error.controller.js"></script>
 <script src="app/header/header.controller.js"></script>
@@ -392,13 +398,15 @@
 <script src="components/app/keyCode/keyCode.service.js"></script>
 <script src="components/app/language/language.service.js"></script>
 <script src="components/app/local_storage/local.storage.service.js"></script>
-<script src="components/app/net/net.js"></script>
+<script src="components/app/net/net.auth.service.js"></script>
 <script src="components/app/net/net.service.js"></script>
 <script src="components/app/notification/desktop.notification.service.js"></script>
 <script src="components/app/pubsub/pubsub.service.js"></script>
 <script src="components/app/socket/socket.announcement.service.js"></script>
 <script src="components/app/socket/socket.service.handler.js"></script>
 <script src="components/app/socket/socket.service.js"></script>
+<script src="components/app/socket/socket.topic.service.js"></script>
+<script src="components/app/socket/socket.util.service.js"></script>
 <script src="components/app/storage/storage.service.js"></script>
 <script src="components/base/highlight/highlight.js"></script>
 <script src="components/base/highlight/highlight.service.js"></script>

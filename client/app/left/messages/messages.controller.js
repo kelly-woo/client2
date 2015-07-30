@@ -6,7 +6,7 @@
     .controller('messageListCtrl', messageListCtrl);
 
   /* @ngInject */
-  function messageListCtrl($scope, $timeout, storageAPIservice, messageList, entityAPIservice, publicService, $filter, modalHelper, jndPubSub) {
+  function messageListCtrl($scope, $timeout, storageAPIservice, messageList, entityAPIservice, publicService, $filter, modalHelper, jndPubSub, EntityMapManager) {
     var collapseTimer;
     // okay - okay to go!
     // loading - currently loading.
@@ -81,7 +81,7 @@
     function _generateMessageList(messages) {
       var messageList = [];
 
-      entityAPIservice.resetMemberEntityIdMap();
+      EntityMapManager.reset('memberEntityId');
       messages = _.uniq(messages, 'entityId');
 
       _.each(messages, function(message) {
@@ -103,7 +103,7 @@
           // merge message object to entity object so that list can be sorted by 'lastMessageId' attribute in message object.
           $.extend(entity, message);
           messageList.push(entity);
-          entityAPIservice.addToMemberEntityIdMap(message.entityId, entity);
+          EntityMapManager.add('memberEntityId', entity);
         }
       });
 

@@ -63,7 +63,8 @@
         url     : server_address + entityType + '/' + entityId + '/messages/update/' + lastUpdatedId,
         params  : {
           teamId  : memberService.getTeamId()
-        }
+        },
+        version: 3
       });
     }
 

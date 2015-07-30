@@ -1,89 +1,109 @@
-<page-tracker page="topic/browse" title="Browse Topics">
+<page-tracker page="topic/browse" title="Browse Topics"></page-tracker>
 <!-- Modal: Join Channel -->
 <div class="modal-header">
-    <button type="button" class="close" data-ng-click="cancel()"><i class="icon-cancel"></i></button>
+  <button type="button" class="close" data-ng-click="cancel()"><i class="icon-cancel"></i></button>
     <span class="create_channel_on_top" data-ng-click="newChannel();">
         <span translate>@common-create-ch</span>
     </span>
-    <h3 class="modal-header__title">
-        <span translate>@modal-browse-ch</span>
-    </h3>
+  <h3 class="modal-header__title">
+    <span translate>@modal-browse-ch</span>
+  </h3>
 </div>
 
 <div class="modal-body">
 
-    <div class="join-modal-search">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="icon-search"></i></span>
-            <input type="text"
-                   class="form-control green-input-box"
-                   placeholder="{{ '@input-search-channel-name' | translate }}"
-                   data-ng-model="channelTitleQuery">
-        </div>
+  <div class="join-modal-search">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="icon-search"></i></span>
+      <input type="text"
+             class="form-control green-input-box"
+             placeholder="{{ '@input-search-channel-name' | translate }}"
+             data-ng-model="channelTitleQuery">
+    </div>
+  </div>
+
+  <div id="non_member_container">
+    <div class="join-modal-heading">
+      <span translate>@modal-join-ch-you-can</span>
+    </div>
+    <div class="join-modal-channel_container file-item-meta__listview is_not_member white_background"
+         data-ng-repeat="channel in filtered = (unJoinedChannelList | filter:{'name': channelTitleQuery}) | orderBy: ['name']">
+
+      <div class="join-modal-channel_title">
+        <span class="join-modal-channel_title_area inline-overflow-ellipsis cursor_pointer"
+              ng-click="onJoinClick(channel.id);">
+          <i class="icon-topic-fill"></i> {{ ::channel | getName }}
+        </span>
+        <span class="pull-right">
+          <i class="fa fa-clock-o"></i>{{ ::channel.ch_createTime | getyyyyMMddformat }}
+        </span>
+      </div>
+
+      <div class="topic-description display-2-lines">{{::channel.description}}</div>
+
+      <div class="topic-general-info">
+        <i class="icon-group"></i>
+        <span class="join-modal-channel_creator"> {{ ::channel.ch_creatorId | getName }}</span>
+        <span class="bullet"> • </span>
+
+        {{::channel.ch_members.length}}<span translate>@common-joined</span>
+
+        <span class="join-button pull-right cursor_pointer" ng-click="onJoinClick(channel.id);">
+          <span translate>@btn-join</span>
+          <i class="pull-right icon-next"></i>
+        </span>
+      </div>
+    </div>
+    <h5 data-ng-show="filtered.length == 0">
+      <span translate>@alert-empty-ch-can-join</span>
+    </h5>
+  </div>
+
+  <div id="is_member_container">
+    <div class="join-modal-heading">
+      <span translate>@modal-join-ch-you-belong</span>
+    </div>
+    <div class="join-modal-channel_container file-item-meta__listview cursor_pointer"
+         id="is_not_member"
+         data-ng-repeat="joinedChannel in joinFiltered = (joinedChannelList | filter:{'name':channelTitleQuery})"
+         data-ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})"
+         data-ng-click="cancel();">
+
+      <div class="join-modal-channel_title">
+        <span class="join-modal-channel_title_area inline-overflow-ellipsis cursor_pointer">
+          <i class="icon-topic-fill"></i> {{::joinedChannel.name}}
+        </span>
+        <span class="pull-right">
+          <i class="fa fa-clock-o"></i>{{ ::joinedChannel.ch_createTime | getyyyyMMddformat }}
+        </span>
+      </div>
+
+      <div class="topic-description display-2-lines">{{::joinedChannel.description}}</div>
+
+      <div class="topic-general-info">
+        <i class="icon-group"></i>
+        <span class="join-modal-channel_creator"> {{ ::joinedChannel.ch_creatorId | getName }}</span>
+        <span class="bullet"> • </span>
+
+        {{::joinedChannel.ch_members.length}}<span translate>@common-joined</span>
+
+      </div>
+
     </div>
 
-    <div id="non_member_container">
-        <div class="join-modal-heading">
-            <span translate>@modal-join-ch-you-can</span>
-        </div>
-        <div class="join-modal-channel_container file-item-meta__listview is_not_member white_background"
-             data-ng-repeat="channel in filtered = (unJoinedChannelList | filter:{'name': channelTitleQuery})">
-            <div class="join-modal-channel_title cursor_pointer overflow-ellipsis" ng-click="onJoinClick(channel.id);">
-                <i class="icon-topic-fill"></i> {{ channel | getName }}</div>
-            <div>
-                <i class="icon-group"></i>
-                <span class="join-modal-channel_creator"> {{ channel.ch_creatorId | getName }}</span>
-                <span class="bullet"> • </span>
-                <span>{{ channel.ch_members.length }}</span><!--
-                --><span translate>@common-joined</span>
-                <br/>
-                <i class="fa fa-clock-o"></i>
-                <span>{{ channel.ch_createTime | ordinalDate: 'EEE, MMM doo' }} at {{ channel.ch_createTime | date: 'h:mm a' }}</span>
-            </div>
-            <button type="button" class="btn btn-white btn-top-right" data-ng-click="onJoinClick(channel.id)">
-                <span translate>@btn-join</span>
-            </button>
-        </div>
-        <h5 data-ng-show="filtered.length == 0">
-            <span translate>@alert-empty-ch-can-join</span>
-        </h5>
-    </div>
-
-    <div id="is_member_container">
-        <div class="join-modal-heading">
-            <span translate>@modal-join-ch-you-belong</span>
-        </div>
-        <div class="join-modal-channel_container file-item-meta__listview cursor_pointer"
-             id="is_not_member"
-             data-ng-repeat="joinedChannel in joinFiltered = (joinedChannelList | filter:{'name':channelTitleQuery})"
-             data-ui-sref="archives({entityType:'channels',entityId:joinedChannel.id})"
-             data-ng-click="cancel();">
-            <div class="join-modal-channel_title cursor_pointer overflow-ellipsis">
-                <i class="icon-topic-fill"></i> {{joinedChannel.name}}</div>
-            <div>
-                <i class="icon-group"></i>
-                <span class="join-modal-channel_creator">{{ getName(joinedChannel.ch_creatorId) }}</span>
-                <span class="bullet"> • </span>
-                <span>{{ joinedChannel.ch_members.length }}</span><!--
-                --><span translate>@common-joined</span>
-                <br/>
-                <i class="fa fa-clock-o"></i>
-                <span>{{ joinedChannel.ch_createTime | ordinalDate: 'EEE, MMM doo' }} at {{ joinedChannel.ch_createTime | date: 'h:mm a' }}</span>
-            </div>
-        </div>
-        <h5 data-ng-show="joinedChannelList.length == 0">
-            <span translate>@alert-empty-ch-belong</span>
-        </h5>
-        <h5 data-ng-show="joinFiltered.length == 0 && joinedChannelList.length != 0">
-            <span translate>@alert-no-result</span>
-        </h5>
-    </div>
+    <h5 data-ng-show="joinedChannelList.length == 0">
+      <span translate>@alert-empty-ch-belong</span>
+    </h5>
+    <h5 data-ng-show="joinFiltered.length == 0 && joinedChannelList.length != 0">
+      <span translate>@alert-no-result</span>
+    </h5>
+  </div>
 
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>@btn-close</span></button>
-    <a class="new_channel_btn btn btn-ok " data-ng-click="newChannel();"><span translate>@common-create-ch</span></a>
+  <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>@btn-close</span></button>
+  <a class="new_channel_btn btn btn-ok " data-ng-click="newChannel();"><span translate>@common-create-ch</span></a>
 </div>
 
 <div ng-include="templates.loading"></div>
