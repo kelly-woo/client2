@@ -52,6 +52,7 @@
     this.getList = getList;
     this.setList = setList;
 
+    this.manipulateMessage = manipulateMessage;
     _init();
 
     /**
@@ -317,7 +318,7 @@
       messageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
 
       _.forEach(messageList, function(msg) {
-        _manipulateMessage(msg);
+        manipulateMessage(msg);
       });
 
       _updateLastMessage(messageList);
@@ -330,15 +331,15 @@
      * mark-up에서 사용하기쉽게 msg object를 가공한다.
      * @private
      */
-    function _manipulateMessage(msg) {
+    function manipulateMessage(msg) {
       var fromEntityId = msg.fromEntity;
       var writer = entityAPIservice.getEntityById('user', fromEntityId);
 
       msg.extFromEntityId = fromEntityId;
       msg.extWriter = writer;
       msg.extWriterName = $filter('getName')(writer);
-      msg.extTime = $filter('gethmmaFormat')(msg.time);
       msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
+      msg.extTime = $filter('gethmmaFormat')(msg.time);
     }
 
     function _updateLastMessage(messageList) {

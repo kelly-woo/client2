@@ -218,9 +218,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var member = data.member;
     var id = member.id;
 
+
     _.forEach(list, function(msg) {
-      if (msg.fromEntity === id) {
-        msg.exProfileImg = $filter('getSmallThumbnail')(member);
+      if (msg.extFromEntityId === id) {
+        MessageCollection.manipulateMessage(msg);
       }
     });
   }

@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService,
-                              logger, $state, configuration, config, DesktopNotification) {
+                              logger, $state, configuration, config, DesktopNotification, EntityMapManager) {
 
     this.newMemberHandler = newMemberHandler;
 
@@ -171,15 +171,17 @@
       log(data);
       var member = data.member;
 
-      jndPubSub.pub('updateMemberProfile', data);
 
       if (_isActionFromMe(member.id)) {
         log('my profile updated');
         memberService.onMemberProfileUpdated();
       } else {
         log('not my profile updated.');
+
         _replaceMemberEntityInMemberList(member);
       }
+
+      jndPubSub.pub('updateMemberProfile', data);
 
     }
 
@@ -371,6 +373,12 @@
      */
     function _replaceMemberEntityInMemberList(member) {
       log('replacing member');
+
+      entityAPIservice.extend(EntityMapManager.get('member', member.id), member);
+
+      if (EntityMapManager.contains('memberEntityId', member.entityId)) {
+        entityAPIservice.extend(EntityMapManager.get('memberEntityId', member.id), member);
+      }
 
       // TODO: I think it is too much to update whole left panel when only memberlist needs to be updates.
       _updateLeftPanel();
