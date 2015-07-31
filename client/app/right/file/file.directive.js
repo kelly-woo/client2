@@ -24,13 +24,6 @@
 
     function link(scope, el) {
       var extendMenu = el.find('.file-menu');
-      var toggleMenu;
-
-      el.on('click', function(event) {
-        if (event.target.className.indexOf('star') < 0) {
-          scope.onFileCardClick();
-        }
-      });
 
       // 파일 공유, 댓글, 다운로드, 삭제 메뉴버튼의 click event handling
       extendMenu
@@ -48,8 +41,6 @@
           } else if (selector === 'delete-file') {
             scope.onFileDeleteClick();
           }
-
-          toggleMenu = true;
         });
     }
   }

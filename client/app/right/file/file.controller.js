@@ -38,7 +38,7 @@
       fileAPIservice.openFileShareModal($scope, $scope.file);
     }
 
-    function onFileCardClick($event) {
+    function onFileCardClick() {
       $state.go('files', {userName: $scope.writerName, itemId: $scope.file.id});
     }
 

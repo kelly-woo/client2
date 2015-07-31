@@ -53,6 +53,7 @@
         data.feedbackTitle = messageData.message.feedbackTitle;
         data.linkId = messageData.linkId;
 
+        data.id = messageData.message.id;
         if (type === 'star') {
           data.hasStar = true;
           data.isStarred = true;
