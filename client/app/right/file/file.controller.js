@@ -24,7 +24,7 @@
       $scope.commentCount = file.commentCount;
       $scope.contentTitle = file.contentTitle;
 
-      $scope.isStarred = false;
+      $scope.isStarred = file.isStarred || false;
 
       $scope.onFileCardClick = onFileCardClick;
 

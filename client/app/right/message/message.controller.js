@@ -25,6 +25,7 @@
       $scope.startPoint = _getMessageStartPoint(message);
       $scope.content = _getContent(message);
 
+      $scope.hasStar = message.hasStar || false;
       $scope.isStarred = message.isStarred || false;
 
       $scope.onMessageCardClick = onMessageCardClick;
@@ -47,7 +48,7 @@
         $scope.isComment = true;
         startPoint = message.feedbackTitle;
       } else {
-        startPoint =  message.contentTitle || 'unknown topic';
+        startPoint =  message.roomName || 'unknown topic';
       }
 
       return startPoint;

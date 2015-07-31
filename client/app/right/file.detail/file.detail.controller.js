@@ -470,14 +470,21 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
   /**
    * safeBody 를 반환한다.
-   * @param {String} body
+   * @param {object} item
    * @returns {*}
    * @private
    */
-  function _getSafeBody(body) {
-    if (body) {
+  function _getSafeBody(item) {
+    var body = item.content.body;
+
+    if (item.mentions && item.mentions.length > 0) {
+      body = $filter('mention')(body, item.mentions);
+      body = $filter('parseAnchor')(body);
+      body = $filter('mentionHtmlDecode')(body);
+    } else {
       body = $filter('parseAnchor')(body);
     }
+
     return $sce.trustAsHtml(body);
   }
 
@@ -558,7 +565,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var contentType = item.contentType;
     if (contentType === 'comment' || contentType === 'comment_sticker') {
       if (item.content && item.content.body) {
-        item.content.body = _getSafeBody(item.content.body);
+        item.content.body = _getSafeBody(item);
       }
       item.isSticker = (contentType === 'comment_sticker');
       item.exProfileImg = $filter('getSmallThumbnail')(item.writerId);
@@ -670,7 +677,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
             if (members) {
               for (j = 0, jLen = members.length; j < jLen; j++) {
                 member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
-                if (member && currentMemberId !== member.id && member.status === 'enabled') {
+                //if (member && currentMemberId !== member.id && member.status === 'enabled') {
+                if (member && member.status === 'enabled') {
                   member.exViewName = '[@' + member.name + ']';
                   member.exSearchName = member.name;
                   mentionList.push(member);
