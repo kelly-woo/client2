@@ -472,14 +472,21 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
   /**
    * safeBody 를 반환한다.
-   * @param {String} body
+   * @param {object} item
    * @returns {*}
    * @private
    */
-  function _getSafeBody(body) {
-    if (body) {
+  function _getSafeBody(item) {
+    var body = item.content.body;
+
+    if (item.mentions && item.mentions.length > 0) {
+      body = $filter('mention')(body, item.mentions);
+      body = $filter('parseAnchor')(body);
+      body = $filter('mentionHtmlDecode')(body);
+    } else {
       body = $filter('parseAnchor')(body);
     }
+
     return $sce.trustAsHtml(body);
   }
 
@@ -502,8 +509,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var i = messageDetails && messageDetails.length - 1 || 0;
     var item;
 
-    $scope.isStarred = false;
-
     // 일단 polling이 없으니 업데이트가 있을때마다 새로 갱신
     $scope.file_comments = [];
 
@@ -519,6 +524,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.initialLoaded = true;
     }
     if ($scope.file_detail) {
+      // isStarred
+      $scope.isStarred = $scope.file_detail.isStarred;
+
       if ($scope.file_detail.content && /image/i.test($scope.file_detail.content.type)) {
         // preview image url 생성
         setImageUrl($scope.file_detail);
@@ -560,7 +568,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var contentType = item.contentType;
     if (contentType === 'comment' || contentType === 'comment_sticker') {
       if (item.content && item.content.body) {
-        item.content.body = _getSafeBody(item.content.body);
+        item.content.body = _getSafeBody(item);
       }
       item.isSticker = (contentType === 'comment_sticker');
       item.exProfileImg = $filter('getSmallThumbnail')(item.writerId);

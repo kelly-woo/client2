@@ -16,14 +16,22 @@
 
     /**
      * star 된 아이템의 리스트를 조회한다.
+     * @param {Number|String} page
+     * @param {Number|String} perPage
+     * @param {String} type
      * @param {Number|String} [teamId=_teamId]
      * @returns {*}
      */
-    function get(teamId) {
+    function get(page, perPage, type, teamId) {
       teamId = teamId || _teamId;
       return $http({
-        method  : 'GET',
-        url     : _server_address + 'teams/' + teamId + '/messages/starred'
+        method: 'GET',
+        url: _server_address + 'teams/' + teamId + '/messages/starred',
+        params: {
+          page: page,
+          perPage: perPage,
+          type: type
+        }
       });
     }
 

@@ -56,6 +56,8 @@
       $scope.onSelect = onSelect;
       $scope.onMatches = onMatches;
 
+      $scope.members = options.members;
+
       fn = options.attrs.mentionaheadData && $parse(options.attrs.mentionaheadData);
       if (fn) {
         $scope.mentionList = fn($originScope, {
@@ -65,11 +67,10 @@
       } else {
         // current entity change event handler에서 한번 mention list 설정
         $scope.$on('onCurrentEntityChanged', function(event, param) {
-          //_setMentionList(originScope.currentEntity);
           _setMentionList(param);
         });
 
-        _setMentionList($originScope.currentEntity);
+        _setMentionList();
       }
 
       if (options.attrs.messageSubmit) {
@@ -77,10 +78,10 @@
       }
     }
 
-    function _setMentionList(currentEntity) {
+    function _setMentionList() {
       var mentionList = [];
       var currentMemberId = memberService.getMemberId();
-      var members = entityAPIservice.getMemberList(currentEntity);
+      var members = $scope.members;
       var member;
       var i;
       var len;
@@ -89,7 +90,6 @@
       for (i = 0, len = members.length; i < len; i++) {
         member = _getCurrentTopicMembers(members[i]);
         if (member && currentMemberId !== member.id && member.status === 'enabled') {
-        //if (member && member.status === 'enabled') {
           member.exViewName = '[@' + member.name + ']';
           member.exSearchName = member.name;
           mentionList.push(member);
