@@ -37,11 +37,7 @@
       teamId = teamId || _teamId;
       return $http({
         method  : 'POST',
-        url     : _server_address + 'teams/' + teamId + '/messages/' + messageId + '/starred',
-        data  : {
-          teamId: parseInt(teamId, 10),
-          messageId: parseInt(messageId, 10)
-        }
+        url     : _server_address + 'teams/' + teamId + '/messages/' + messageId + '/starred'
       });
     }
 
@@ -55,11 +51,7 @@
       teamId = teamId || _teamId;
       return $http({
         method  : 'DELETE',
-        url     : _server_address + 'teams/' + teamId + '/messages/' + messageId,
-        params  : {
-          teamId: parseInt(teamId, 10),
-          messageId: parseInt(messageId, 10)
-        }
+        url     : _server_address + 'teams/' + teamId + '/messages/' + messageId + '/starred'
       });
     }
   }

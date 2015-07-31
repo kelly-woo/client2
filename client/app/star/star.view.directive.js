@@ -28,7 +28,6 @@
     };
 
     function link(scope, el, attrs) {
-      var _teamId = parseInt(memberService.getTeamId(), 10);
 
       _init();
 
@@ -37,8 +36,7 @@
        * @private
        */
       function _init() {
-        scope.messageId = parseInt(scope.messageId, 10);
-        scope.teamId = parseInt(scope.teamId || memberService.getTeamId(), 10);
+        scope.teamId = scope.teamId || memberService.getTeamId();
         _attachEvents();
         _attachDomEvents();
       }
@@ -85,12 +83,13 @@
       /**
        * socket 에서 starred 이벤트 발생시
        * @param {Object} event - angular 이벤트
-       * @param {Number|String} teamId - team id
-       * @param {Number|String} messageId - message id
+       * @param {Object} param
+       *     @param {Number|String} param.teamId - team id
+       *     @param {Number|String} param.messageId - message id
        * @private
        */
-      function _onStarred(event, teamId, messageId) {
-        if (_isMyId(teamId, messageId)) {
+      function _onStarred(event, param) {
+        if (_isMyId(param)) {
           scope.isStarred = true;
         }
       }
@@ -98,25 +97,28 @@
       /**
        * socket 에서 un-starred 이벤트 발생시
        * @param {Object} event - angular 이벤트
-       * @param {Number|String} teamId - team id
-       * @param {Number|String} messageId - message id
+       * @param {Object} param
+       *     @param {Number|String} param.teamId - team id
+       *     @param {Number|String} param.messageId - message id
        * @private
        */
-      function _onUnStarred(event, teamId, messageId) {
-        if (_isMyId(teamId, messageId)) {
+      function _onUnStarred(event, param) {
+        if (_isMyId(param)) {
           scope.isStarred = false;
         }
       }
 
       /**
        * 현재 directive 에 해당하는 id 인지 여부를 반환한다.
-       * @param {Number|String} teamId - team id
-       * @param {Number|String} messageId - message id
+       * @param {Object} param
+       * @param {Number|String} param.teamId - team id
+       * @param {Number|String} param.messageId - message id
        * @returns {boolean}
        * @private
        */
-      function _isMyId(teamId, messageId) {
-        return (scope.messageId === parseInt(messageId, 10) && scope.teamId === parseInt(teamId, 10));
+      function _isMyId(param) {
+        return (parseInt(scope.messageId, 10) === parseInt(param.messageId, 10) &&
+        parseInt(scope.teamId, 10) === parseInt(param.teamId, 10));
       }
 
       /**
