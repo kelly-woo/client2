@@ -1,80 +1,80 @@
-.mention-card {
+.message-card {
   position: relative;
   padding: 16px 15px 14px 14px;
   border-bottom: 1px solid #e1e1e1;
   cursor: pointer;
+  color: #333;
 }
-.mention-card:hover {
+.message-card:hover {
   background-color: #f2fbff;
 }
-.mention-card .mention-profile {
+.message-card .message-profile {
   position: absolute;
 }
-.mention-card .mention-meta {
+.message-card .message-meta {
   padding-left: 36px;
 }
-.mention-meta .mention-writer {
+.message-meta .message-writer {
   font-size: 14px;
-  color: #333;
   display: inline-block;
   max-width: 197px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-.mention-meta .mention-date {
+.message-meta .message-date {
   display: inline-block;
   overflow: hidden;
   font-size: 12px;
   color: #999;
 }
-.mention-meta .mention-start {
+.message-meta .message-start {
   font-size: 12px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-.mention-meta .mention-start .topic-start {
+.message-meta .message-start .topic-start {
   font-size: 12px;
   color: #00a4e6;
   text-decoration: underline;
 }
-.mention-meta .mention-start .comment-start {
+.message-meta .message-start .comment-start {
   font-size: 12px;
-  color: #333;
   font-weight: 700;
 }
-.mention-meta .mention-start .comment-start:hover {
+.message-meta .message-start .comment-start:hover {
   text-decoration: underline;
 }
-.mention-meta .mention-start .file-icon {
+.message-meta .message-start .file-icon {
   width: 8px;
   margin-right: 5px;
 }
 
-.mention-card .mention-profile img {
+.message-card .message-profile img {
   width: 28px;
   height: 28px;
   border-radius: 50%;
 }
 
-.mention-card .mention-card-body {
+.message-card .message-card-body {
   margin-top: 10px;
 }
-.mention-card .mention-card-body span {
+.message-card .message-card-body span {
   max-width: 100%;
   word-wrap: break-word;
   white-space: pre-wrap;
-  display: block;
-  color: #333;
   font-size: 16px;
   line-height: 24px;
 }
 
-.mention-card-body .mention-highlight {
-  cursor: pointer;
-  color: #fff;
-  background-color: #00a8ff;
-  border-radius: 3px;
-  padding: 2px;
+.message-card .message-star {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 20px;
+}
+
+.message-card .icon-star-fill {
+  color: #f9bb00;
 }

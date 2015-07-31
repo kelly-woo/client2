@@ -415,3 +415,11 @@
   border: none;
   color: #575757;
 }
+/********************************************
+
+                 STAR
+
+********************************************/
+.rpanel-body-content.file-detail .icon-star-fill {
+  color: #f9bb00;
+}

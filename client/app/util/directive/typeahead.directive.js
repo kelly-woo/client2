@@ -14,7 +14,12 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
         //SUPPORTED ATTRIBUTES (OPTIONS)
 
         //minimal no of characters that needs to be entered before typeahead kicks-in
-        var minSearch = attrs.jandiTypeaheadMinLength ? originalScope.$eval(attrs.jandiTypeaheadMinLength) : 1;
+        //var minSearch = attrs.jandiTypeaheadMinLength != null ? originalScope.$eval(attrs.jandiTypeaheadMinLength) : 1;
+        var minSearch;
+        if (attrs.jandiTypeaheadMinLength == 0)
+          minSearch = 0;
+        else
+          minSearch = originalScope.$eval(attrs.jandiTypeaheadMinLength) || 1;
 
         //minimal wait time after last character typed before typeahead kicks-in
         var waitTime = originalScope.$eval(attrs.jandiTypeaheadWaitMs) || 0;
@@ -30,7 +35,7 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
 
         var onMatchesCallback = $parse(attrs.jandiTypeaheadOnMatches);
 
-        var placement = attrs.jandiTypeaheadPlacement || 'top';
+        var placement = attrs.jandiTypeaheadPlacement;
 
         var inputFormatter = attrs.jandiTypeaheadInputFormatter ? $parse(attrs.jandiTypeaheadInputFormatter) : undefined;
 
@@ -83,7 +88,9 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
           scope.matches = [];
           scope.activeIdx = -1;
           element.attr('aria-expanded', false);
-          $popup && $popup.css({opacity: 0});
+          if (placement) {
+            $popup && $popup.css({opacity: 0});
+          }
         };
 
         var getMatchId = function(index) {
@@ -128,18 +135,20 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
                 }
 
                 scope.query = inputValue;
-                //position pop-up with matches - we need to re-calculate its position each time we are opening a window
-                //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
-                //due to other elements being rendered
-                //scope.position = appendToBody ? $position.offset(element) : $position.position(element);
-                //scope.position.top = scope.position.top + element.prop('offsetHeight');
-
-                $timeout(function() {
-                  var css = $position.positionElements(element, $popup, placement, appendToBody);
-                  css.opacity = 1;
-                  $popup.css(css);
-                });
-                $popup && $popup.css({top: -10000});
+                if (placement) {
+                  $timeout(function() {
+                    var css = $position.positionElements(element, $popup, placement, appendToBody);
+                    css.opacity = 1;
+                    $popup.css(css);
+                  });
+                  $popup && $popup.css({top: -10000});
+                } else {
+                  //position pop-up with matches - we need to re-calculate its position each time we are opening a window
+                  //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
+                  //due to other elements being rendered
+                  scope.position = appendToBody ? $position.offset(element) : $position.position(element);
+                  scope.position.top = scope.position.top + element.prop('offsetHeight');
+                }
 
                 element.attr('aria-expanded', true);
               } else {
@@ -307,11 +316,6 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
           scope.activeIdx = matchIdx;
         };
 
-        // jihoon
-        element.bind('focus', function(evt) {
-          modelCtrl.$setViewValue(evt.delegateTarget.value);
-        });
-
         (originalScope.eventCatcher || element).bind('blur', function (evt) {
           hasFocus = false;
         });
@@ -324,8 +328,7 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
           } else {
             //jihoon
             modelCtrl.$setViewValue(evt.target.value);
-            scope.$digest();
-            //_onViewModelChanged(modelCtrl.$viewValue);
+            _onViewModelChanged(modelCtrl.$viewValue);
           }
         };
 

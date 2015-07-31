@@ -18,6 +18,13 @@
 
     _init();
 
+    // First function to be called.
+    function _init() {
+      $scope.loadMore = loadMore;
+      $scope.messageType = 'mention';
+      _initMentionListData();
+    }
+
     $scope.$on('onRightPanel', function($event, type) {
       if (type === 'mention') {
         isActivated = true;
@@ -28,13 +35,6 @@
         isActivated = false;
       }
     });
-
-    // First function to be called.
-    function _init() {
-      $scope.loadMore = loadMore;
-
-      _initMentionListData();
-    }
 
     function loadMore() {
       if (!($scope.isScrollLoading || isEndOfList)) {

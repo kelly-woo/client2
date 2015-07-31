@@ -1,19 +1,25 @@
-<div class="rpanel-search-message-card" ng-click="onMessageCardClick();">
+<!--<div class="rpanel-search-message-card" ng-click="onMessageCardClick();">-->
 
-  <div class="entity">
-    <i class="entity-icon" ng-class="{ 'icon-user': entity.type == 'user',
-                                          'icon-topic-fill': entity.type == 'channel',
-                                          'icon-private-group': entity.type == 'privateGroup'}">
+  <!--<div class="entity">-->
+    <!--<i class="entity-icon" ng-class="{ 'icon-user': entity.type == 'user',-->
+                                          <!--'icon-topic-fill': entity.type == 'channel',-->
+                                          <!--'icon-private-group': entity.type == 'privateGroup'}">-->
 
-    </i>
-    <span class="title">{{ message.entity.name }}</span>
-    <span class="time pull-right">{{ message.current.time | getyyyyMMddformat }}</span>
-  </div>
+    <!--</i>-->
+    <!--<span class="title">{{ message.entity.name }}</span>-->
+    <!--<span class="time pull-right">{{ message.current.time | getyyyyMMddformat }}</span>-->
+  <!--</div>-->
 
-  <neighbor-item message="prev" ng-if="prev" class="neighbor"></neighbor-item>
+  <!--<neighbor-item message="prev" ng-if="prev" class="neighbor"></neighbor-item>-->
 
-  <neighbor-item message="current" query="searchQuery.q" ng-if="current" class="current search-container break-word" id="search-current"></neighbor-item>
+  <!--<neighbor-item message="current" query="searchQuery.q" ng-if="current" class="current search-container break-word" id="search-current"></neighbor-item>-->
 
-  <neighbor-item message="next" ng-if="next" class="neighbor"></neighbor-item>
+  <!--<neighbor-item message="next" ng-if="next" class="neighbor"></neighbor-item>-->
 
+<!--</div>-->
+<div class="rpanel-search-message-card" ng-click="onMessageCardClick($event)">
+  <!--<message class="sub-message-card" ng-if="prev" message-data="prev" message-type="messageType"></message>-->
+  <message ng-if="current" message-data="current" message-type="messageType" message-query="searchQuery.q"></message>
+  <!--<message class="sub-message-card" ng-if="next" message-data="next" message-type="messageType"></message>-->
 </div>
+

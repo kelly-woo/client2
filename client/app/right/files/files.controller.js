@@ -171,6 +171,7 @@
       $scope.isLoading = false;
       $scope.isScrollLoading = false;
 
+      $scope.fileType = 'file';
       $scope.fileList = [];
       $scope.fileTitleQuery   = '';
 
