@@ -1,14 +1,14 @@
 .rpanel {
   width: 400px;
   position: absolute;
-  top: 40px;
+  top: 41px;
   right: 0;
   bottom: 0;
   z-index: 30;
 }
 
 .rpanel.shadow {
-  box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
 .rpanel > div {
@@ -177,40 +177,12 @@
   display: none;
 }
 
-
-.rpanel-body-tab-container {
-  position: absolute;;
-  top: 40px;
-  bottom: 0;
-  width: 100%;
-}
-.rpanel-body-tab-container .nav-tabs {
-  cursor: pointer;
-  border-bottom: 0;
-  background-color: #366480;
-}
-.rpanel-body-tab-container .nav-tabs > li > a {
-  border-radius: 0;
-  padding: 0;
-  text-align: center;
-  width: 102px;
-  font-size: 14px;
-  color: #d7e0e8;
-  height: 36px;
-  line-height: 36px;
-  background-color: #154a67;
-  margin-right: 0;
-  margin-top: 0;
-  margin-bottom: 1px;
-  border: none;
-}
-
 .rpanel__background-header,
 .rpanel-header {
   position: relative;
   text-align: center;
-  height: 40px;
-  line-height: 40px;
+  height: 35px;
+  line-height: 35px;
   background-color: #f1f4f8;
   border-bottom: 1px solid #e1e1e1;
   box-shadow: 0 2px 2px #e1e1e1;
@@ -221,7 +193,7 @@
   display: block;
   color: #154a67;
   font-size: 24px;
-  margin-top: 10px;
+  margin-top: 7px;
   margin-left: 13px;
   cursor: pointer;
 }

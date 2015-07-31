@@ -164,8 +164,12 @@
     var nonExtMap = createMap(integrationType);
 
     return function(content) {
-      var title = content.title || content.name;
+      var title
 
+      if (content == null) {
+        return 'unshared file';
+      }
+      title = content.title || content.name;
       return content ? integrationMap[content.serverUrl] && !nonExtMap[content.type] ? title.substring(0, title.lastIndexOf('.')) : title : '';
     };
   });
