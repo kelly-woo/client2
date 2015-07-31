@@ -32,7 +32,7 @@
 
 <div class="rpanel-body-content" infinite-scroll-bottom="loadMore();">
   <div class="search-result-container">
-    <div class="search-result-summary-ing" ng-if="isLoading"><span translate>@search-in-progress</span></div>
+    <div class="search-result-summary-ing" ng-if="!isSearchQueryEmpty && isLoading"><span translate>@search-in-progress</span></div>
     <div class="search-result-summary" ng-if="!isLoading && fileList.length > 0 && !isSearchQueryEmpty">
       <span translate>@search-result-summary</span>
     </div>
