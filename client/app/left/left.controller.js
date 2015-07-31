@@ -307,6 +307,7 @@ app.controller('leftPanelController1', function(
     }
   });
 
+  $scope.$on('toDefaultTopic', _toDefault);
   function _toDefault() {
     $state.go('archives', {entityType:'channels',  entityId:leftpanelAPIservice.getDefaultChannel(response) });
     $rootScope.toDefault = false;

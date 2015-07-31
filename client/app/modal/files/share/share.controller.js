@@ -7,7 +7,7 @@
     .controller('FileShareModalCtrl', FileShareModalCtrl);
 
   /* @ngInject */
-  function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService,
+  function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService, $rootScope,
                               jndPubSub, fileToShare, modalHelper, AnalyticsHelper, currentSessionHelper) {
 
     var _entityType;

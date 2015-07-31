@@ -12,6 +12,7 @@
   /* @ngInject */
   function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice,
                         jndWebSocketHelper, jndWebSocketAnnouncement, $injector, NetInterceptor, jndWebSocketTopic,
+                        jndWebSocketMessage,
                         jndPubSub) {
     var $scope = $rootScope.$new();
     var socket;
@@ -50,22 +51,7 @@
     var ANNOUNCEMENT_DELETED = config.socketEvent.announcement.deleted;
     var ANNOUNCEMENT_STATUS_UPDATED = config.socketEvent.announcement.status_updated;
 
-    // message types
-    var MESSAGE = config.socketEvent.MESSAGE;
-
-    var MESSAGE_TOPIC_JOIN = config.socketEvent.MESSAGE_TOPIC_JOIN;
-    var MESSAGE_TOPIC_LEAVE = config.socketEvent.MESSAGE_TOPIC_LEAVE;
-    var MESSAGE_TOPIC_INVITE = config.socketEvent.MESSAGE_TOPIC_INVITE;
-
-    var MESSAGE_FILE_SHARE = config.socketEvent.MESSAGE_FILE_SHARE;
-    var MESSAGE_FILE_UNSHARE = config.socketEvent.MESSAGE_FILE_UNSHARE;
-
-    var MESSAGE_FILE_COMMENT = config.socketEvent.MESSAGE_FILE_COMMENT;
-
     var MESSAGE_PREVIEW = config.socketEvent.MESSAGE_PREVIEW;
-
-    // variables with '_APP_' has nothing to do with socket server. Just for internal use.
-    var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
 
     this.init = init;
     this.disconnect = disconnect;
@@ -184,8 +170,6 @@
 
       socket.on(ROOM_MARKER_UPDATED, _onRoomMarkerUpdated);
 
-      socket.on(MESSAGE, _onMessage);
-
       socket.on(MEMBER_PROFILE_UPDATED, _onMemberProfileUpdated);
 
       socket.on(MESSAGE_PREVIEW, _onMessagePreview);
@@ -196,7 +180,9 @@
 
       socket.on(MESSAGE_STARRED, _onMessageStarred);
       socket.on(MESSAGE_UNSTARRED, _onMessageUnStarred);
+
       jndWebSocketTopic.attachSocketEvent(socket);
+      jndWebSocketMessage.attachSocketEvent(socket);
     }
 
     /**
@@ -378,75 +364,6 @@
     function _onMemberProfileUpdated(data) {
       jndWebSocketHelper.socketEventLogger(MEMBER_PROFILE_UPDATED, data, false);
       jndWebSocketHelper.memberProfileUpdatedHandler(data);
-    }
-
-
-    /**
-     * List of events comes in through 'message' event.
-     *  1. topic join as 'topic_join'
-     *  2. topic leave as 'topic_leave'
-     * @param data {object}
-     * @private
-     */
-    function _onMessage(data) {
-      var messageType = data.messageType;
-
-      if (messageType === MESSAGE_FILE_COMMENT) {
-        // File comment event is handled in different handler since its 'rooms' attribute is an array.
-        jndWebSocketHelper.socketEventLogger(messageType, data, false);
-        jndWebSocketHelper.messageEventFileCommentHandler(data);
-      } else if (messageType === MESSAGE_TOPIC_LEAVE) {
-        jndWebSocketHelper.socketEventLogger(messageType, data, false);
-        jndWebSocketHelper.messageEventTopicLeaveHandler(data);
-      } else if (messageType === MESSAGE_TOPIC_JOIN && currentSessionHelper.getDefaultTopicId() === data.room.id) {
-        // Someone joined 'default topic' -> new member just joined team!!
-        jndWebSocketHelper.newMemberHandler(data);
-      } else {
-        if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
-          jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
-        }
-
-        messageType = messageType || _APP_GOT_NEW_MESSAGE;
-
-        jndWebSocketHelper.socketEventLogger(messageType, data, false);
-        jndWebSocketHelper.eventStatusLogger(messageType, data);
-
-        jndWebSocketHelper.messageEventHandler(messageType, data);
-      }
-
-      // var messageType = data.messageType;
-
-      // if (messageType === MESSAGE_FILE_COMMENT) {
-      //   // File comment event is handled in different handler since its 'rooms' attribute is an array.
-      //   jndWebSocketHelper.socketEventLogger(messageType, data, false);
-      //   jndWebSocketHelper.messageEventFileCommentHandler(data);
-      //   return;
-      // }
-
-      // if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
-      //   jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
-      //   //return;
-      // }
-
-      // if (messageType === MESSAGE_TOPIC_LEAVE) {
-      //   jndWebSocketHelper.messageEventTopicLeaveHandler(data);
-      //   return;
-      // }
-
-      // if (messageType === MESSAGE_TOPIC_JOIN) {
-
-      //   if (currentSessionHelper.getDefaultTopicId() === data.room.id) {
-      //     // Someone joined 'default topic' -> new member just joined team!!
-      //     jndWebSocketHelper.newMemberHandler(data);
-      //     return;
-      //   }
-      // }
-      // messageType = messageType || _APP_GOT_NEW_MESSAGE;
-
-      // jndWebSocketHelper.socketEventLogger(messageType, data, false);
-      // jndWebSocketHelper.eventStatusLogger(messageType, data);
-
-      // jndWebSocketHelper.messageEventHandler(messageType, data);
     }
 
     function _onAnnouncement(data) {

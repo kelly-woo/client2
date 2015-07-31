@@ -13,8 +13,6 @@
   function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService,
                               logger, $state, configuration, config, DesktopNotification, EntityMapManager) {
 
-    this.newMemberHandler = newMemberHandler;
-
     this.teamNameChangeEventHandler = teamNameChangeEventHandler;
     this.teamDomainChangeEventHandler = teamDomainChangeEventHandler;
 
@@ -28,11 +26,6 @@
     this.roomMarkerUpdatedHandler = roomMarkerUpdatedHandler;
 
     this.memberProfileUpdatedHandler = memberProfileUpdatedHandler;
-
-    this.messageEventHandler = messageEventHandler;
-    this.messageEventFileCommentHandler = messageEventFileCommentHandler;
-    this.messageEventFileShareUnshareHandler = messageEventFileShareUnshareHandler;
-    this.messageEventTopicLeaveHandler = messageEventTopicLeaveHandler;
 
     this.socketEventLogger = socketEventLogger;
     this.eventStatusLogger = eventStatusLogger;
@@ -61,17 +54,6 @@
     var _APP_GOT_NEW_MESSAGE = 'app_got_new_message';
 
     var chatEntity = 'chat';
-
-    /**
-     * New Team member join event handler
-     *  1. update left panel to update member list
-     *  2. update center panel for current entity
-     * @param data {object}
-     */
-    function newMemberHandler(data) {
-      _updateLeftPanel();
-      _updateCenterForCurrentEntity(_isCurrentEntity(_getRoom(data.room)));
-    }
 
     /**
      * Team name change event handler
@@ -181,188 +163,6 @@
       jndPubSub.pub('updateMemberProfile', data);
     }
 
-    /**
-     * Every socket event comes with 'messages'
-     * @param type {string} name of socket event
-     * @param data {object}
-     */
-    function messageEventHandler(type, data) {
-      var room = data.room;
-      var roomEntity = _getRoom(room);
-      var writer = _getActionOwner(data.writer);
-      var isCurrentEntity = _isCurrentEntity(room);
-
-      if (_isMessageDeleted(type)) {
-        // message delete.
-        _updateCenterForCurrentEntity(isCurrentEntity);
-        // Must update left panel for other room;
-        _updateLeftPanelForOtherEntity(isCurrentEntity);
-      } else if (_isDMToMe(room)) {
-        // dm to me.
-
-        _messageDMToMeHandler(data, roomEntity, writer, isCurrentEntity);
-      } else if (_isRelatedEvent(roomEntity, writer)) {
-        // Check if message event happened in any related topics.
-
-        if (_isSystemEvent(type)) {
-          _systemMessageHandler(isCurrentEntity);
-        } else {
-          _newMessageHandler(data, roomEntity, writer, isCurrentEntity);
-        }
-      }
-
-      // var room = data.room;
-      // var roomEntity = _getRoom(room);
-      // var writer = _getActionOwner(data.writer);
-      // var isCurrentEntity = _isCurrentEntity(room);
-
-      // // message delete.
-      // if (_isMessageDeleted(type)) {
-      //   _updateCenterForCurrentEntity(isCurrentEntity);
-      //   // Must update left panel for other room;
-      //   _updateLeftPanelForOtherEntity(isCurrentEntity);
-      //   return;
-      // }
-
-      // // dm to me.
-      // if (_isDMToMe(room)) {
-      //   _messageDMToMeHandler(data, roomEntity, writer, isCurrentEntity);
-      //   return;
-      // }
-
-      // // Check if message event happened in any related topics.
-      // if (!_isRelatedEvent(roomEntity, writer)) { return; }
-
-      // if (_isSystemEvent(type)) {
-      //   _systemMessageHandler(isCurrentEntity);
-      // } else {
-      //   _newMessageHandler(data, roomEntity, writer, isCurrentEntity);
-      // }
-    }
-
-    /**
-     * Event handler - ['message_file_share' and 'message_file_unshare']
-     * @private
-     */
-    function messageEventFileShareUnshareHandler(data) {
-      var room = data.room;
-      var writer = data.writer;
-
-      log('file share/unshare event');
-
-      _updateCenterForRelatedFile(data.file);
-      _updateLeftPanelForOtherEntity(_isCurrentEntity(data.room));
-      _updateFilesPanelonRight(data);
-      _udpateFileDetailPanel(data);
-    }
-
-    /**
-     * Event handler - topic left
-     * @param data {object}
-     */
-    function messageEventTopicLeaveHandler(data) {
-      var room = data.room;
-      var roomEntity = _getRoom(room);
-      var isCurrentEntity = _isCurrentEntity(room);
-      var writer = _getActionOwner(data.writer);
-
-
-      if (!_isRelatedEvent(roomEntity, writer)) { return; }
-
-      if (_isActionFromMe(data.writer)) return;
-
-      log('topic left event');
-
-      //if (isCurrentEntity) {
-      //  jndPubSub.pub('centerOnTopicLeave', data);
-      //  _updateCenterMessage();
-      //}
-      _updateCenterForCurrentEntity(isCurrentEntity);
-      _updateLeftPanel();
-      //_updateLeftPanelForOtherEntity(isCurrentEntity);
-    }
-
-    /**
-     * Event handler - 'message -> file_comment'
-     * @param data {object}
-     */
-    function messageEventFileCommentHandler(data) {
-      var fileId = data.file.id;
-      log('file comment event');
-
-      var rooms = data.rooms;
-
-      var foundCurrentRoom = false;
-      var hasRelatedRoom = false;
-
-      _.forEach(rooms, function(room) {
-        foundCurrentRoom = _isCurrentEntity(room) || foundCurrentRoom;
-        hasRelatedRoom = _isRelatedEvent(_getRoom(room), _getActionOwner(data.writer)) || hasRelatedRoom;
-      });
-
-      if (!hasRelatedRoom) return;
-
-      if (foundCurrentRoom) {
-        _updateCenterMessage();
-      }
-
-      _updateLeftPanel();
-
-      // Update Right panel - file detail
-      if (_isCurrentFile(fileId)) {
-        _updateFileDetailPanel();
-      }
-    }
-
-    /**
-     * Direct messages to me.
-     *  1. Always update center message.
-     *  2. Update messageList(left bottom) only if room is not current entity.
-     *  3. Send browser notification if action is not from me.
-     * @param room
-     * @private
-     */
-    function _messageDMToMeHandler(data, roomEntity, writer, isCurrentEntity) {
-      log('DM to me');
-
-      _updateCenterMessage();
-      _updateChatList();
-      _sendBrowserNotificationForOtherEntity(data, writer, writer, isCurrentEntity);
-    }
-
-    /**
-     * System event message handler
-     *  1. Update left panel
-     *  2. update center panel for current entity only.
-     * @param room
-     * @private
-     */
-    function _systemMessageHandler(isCurrentEntity) {
-      log('system event');
-      _updateLeftPanel();
-      _updateCenterForCurrentEntity(isCurrentEntity);
-    }
-
-    /**
-     * New message created handler
-     *  1. update center for current entity
-     *  2. update left panel for non-current entity
-     *  3. send browser notification
-     * @param room
-     * @param writer
-     * @private
-     */
-    function _newMessageHandler(data, roomEntity, writer, isCurrentEntity) {
-      // new message in topic.
-      log('new message written');
-      _updateCenterForCurrentEntity(isCurrentEntity);
-      _updateLeftPanelForOtherEntity(isCurrentEntity);
-
-      if (memberService.isTopicNotificationOn(roomEntity.id)) {
-        _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity);
-      }
-
-    }
 
     /**
      * When member profile information has been updated, local memberList must be updated too.
@@ -384,63 +184,6 @@
 
     }
 
-
-    /**
-     * Return true if 'eventType' is message_deleted'.
-     * @param eventType {string} name of event
-     * @returns {boolean}
-     * @private
-     */
-    function _isMessageDeleted(eventType) {
-      return eventType === MESSAGE_DELETE;
-    }
-
-    /**
-     * Return true if 'eventType' is any kind of system event.
-     * @param eventType {string} name of event
-     * @returns {boolean}
-     * @private
-     */
-    function _isSystemEvent(eventType) {
-      return eventType !== _APP_GOT_NEW_MESSAGE && eventType !== config.socketEvent.MESSAGE_STICKER_SHARE;
-    }
-
-    /**
-     * 나와 상관있는 방에서 소켓이벤트가 일어났다면 true를 리턴한다.
-     * Check if event has any effect on any related topics.
-     * What are related topics?
-     *   - joined public topic
-     *   - joined private topic
-     *   - 1:1 message
-     * @param roomEntity {object} entity
-     * @param writer {object} socket event owner
-     * @returns {boolean}
-     * @private
-     */
-    function _isRelatedEvent(roomEntity, writer) {
-      if (_.isUndefined(roomEntity) || _.isUndefined(writer)) {
-        log('not related room event');
-        return false;
-      }
-      log('related room event');
-      return true;
-    }
-
-    /**
-     * 현재 오른쪽 페널에서 보고 있는 파일 아이디와 비교해서 같으면  true를 리턴한다.
-     *
-     * @param fileId {number} id of file
-     * @returns {boolean}
-     * @private
-     */
-    function _isCurrentFile(fileId) {
-      return fileId === currentSessionHelper.getCurrentFileId();
-    }
-
-    function _updateCenterForRelatedFile(file) {
-      log('update center for related file');
-      jndPubSub.pub('updateCenterForRelatedFile', file);
-    }
 
     /**
      * Update center message list only if room is current entity.
@@ -468,63 +211,6 @@
     }
 
     /**
-     * 파일의 내용이 바뀌었을 경우, 오른쪽 패널에 있는 file controller를 통해 해당 파일을 업데이트한다.
-     * 쉐어/언쉐어의 경우 사용된다.
-     * @param data {object}
-     * @private
-     */
-    function _updateFilesPanelonRight(data) {
-      log('update right panel file controller');
-      jndPubSub.pub('updateFileControllerOnShareUnshare', data)
-    }
-
-    /**
-     * 파일의 내용이 바뀌었을 경우, 오른쪽 패널에서도 파일 디테일이 바뀌어야할때  file detail panel을 업데이트한다.
-     * @param data {object}
-     * @private
-     */
-    function _udpateFileDetailPanel(data) {
-      jndPubSub.pub('updateFileDetailPanel', data)
-    }
-
-    /**
-     * Send notification except when current entity has focus.
-     * @param {object} data - data object passed with socket event
-     * @param {object} roomEntity - to entity
-     * @param {object} writer - writer object
-     * @param {boolean} isCurrentEntity - true if notification is to current entity
-     * @private
-     */
-    function _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity) {
-      if (_shouldSendNotification(writer, isCurrentEntity)) {
-        log('Send browser notification');
-        DesktopNotification.addNotification(data, writer, roomEntity);
-      }
-
-    }
-
-    /**
-     * 노티피케이션을 보내야하는 상황인지 아닌지 확인한다.
-     * @param {object} writer - 노티를 보낸 사람
-     * @param {boolean} isCurrentEntity - 현재 엔티티인지 아닌지 알려주는 flag
-     * @returns {boolean}
-     * @private
-     */
-    function _shouldSendNotification(writer, isCurrentEntity) {
-      var returnVal = true;
-      if (_isActionFromMe(writer.id)) {
-        // 내가 보낸 노티일 경우
-        returnVal = false;
-      }
-
-      if (isCurrentEntity && !currentSessionHelper.isBrowserHidden()) {
-        // 현재 보고있는 토픽에 노티가 왔는데 브라우져가 focus를 가지고 있을 때
-        returnVal = false;
-      }
-
-      return returnVal;
-    }
-    /**
      * left panel을 업데이트한다.
      * @private
      */
@@ -540,15 +226,6 @@
     function _updateCenterMessage() {
       log('udpate center message');
       jndPubSub.updateChatList();
-    }
-
-    /**
-     * file detail panel을 업데이트한다.
-     * @private
-     */
-    function _updateFileDetailPanel() {
-      log('update file detail panel');
-      jndPubSub.updateRightFileDetailPanel();
     }
 
     /**
@@ -569,65 +246,13 @@
     }
 
     /**
-     * Return entity whose id is room.id.
-     * @param room {object}
-     *  @param type {string} type of room
-     *  @param id {number} id of room
-     * @returns {object} room entity
-     * @private
-     */
-    function _getRoom(room) {
-      if (room.type === chatEntity) {
-        return entityAPIservice.getEntityByEntityId(room.id);
-      }
-      return entityAPIservice.getEntityById(room.type, room.id);
-    }
-
-    /**
-     * Return member entity whose id is 'writerId'.
-     * @param writerId
-     * @returns {*}
-     * @private
-     */
-    function _getActionOwner(writerId) {
-      return entityAPIservice.getEntityById('users', writerId);
-    }
-
-    /**
-     * Return 'true' if target(room) is a chat entity.
-     * @param room {object}
-     * @returns {boolean}
-     * @private
-     */
-    function _isDMToMe(room) {
-
-      if (room.type != chatEntity) {
-        return false;
-      }
-
-      var memberList = room.members;
-      if (_.isUndefined(memberList)) return false;
-
-      var foundMyself = false;
-
-      _.forEach(memberList, function(member) {
-        if (member === memberService.getMemberId()) {
-          foundMyself = true;
-          return false;
-        }
-      });
-
-      return foundMyself;
-
-    }
-
-    /**
      * Check whether id of current entity(actively looking) is same as room.
      * @param room {object}
      *  @param type {string} type of room
      *  @param id {number} id of room
      * @returns {boolean}
      * @private
+     * moved to jndWebSocketCommen
      */
     function _isCurrentEntity(room) {
       var roomId = room.id;

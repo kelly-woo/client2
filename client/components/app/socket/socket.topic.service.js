@@ -10,7 +10,7 @@
     .service('jndWebSocketTopic', TopicSocket);
 
   /* @ngInject */
-  function TopicSocket(jndPubSub, entityAPIservice, memberService, logger) {
+  function TopicSocket(jndPubSub, entityAPIservice, memberService, logger, jndWebSocketCommon) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';
@@ -42,7 +42,11 @@
      */
     function _onTopicLeft(data) {
       logger.socketEventLogger(data.event, data);
-      _updateLeftPanel();
+      if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
+        jndPubSub.toDefaultTopic();
+      } else {
+        _updateLeftPanel();
+      }
     }
 
     /**
@@ -62,7 +66,11 @@
      */
     function _onTopicLDeleted(data) {
       logger.socketEventLogger(data.event, data);
-      _updateLeftPanel();
+      if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
+        jndPubSub.toDefaultTopic();
+      } else {
+        _updateLeftPanel();
+      }
     }
 
     /**

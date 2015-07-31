@@ -16,6 +16,7 @@
     that.pub = publish;
 
     that.updateLeftPanel = updateLeftPanel;
+    that.updateCenterPanel = updateCenterPanel;
     that.updateChatList = updateChatList;
     that.updateRightFileDetailPanel = updateRightFileDetailPanel;
     that.updateBadgePosition = updateBadgePosition;
@@ -57,6 +58,12 @@
       updateBadgePosition();
     }
 
+    /**
+     * updateChatList보다 좀 더 명시적인 이름을 주기위해서 만듬.
+     */
+    function updateCenterPanel() {
+      updateChatList();
+    }
     /**
      * 센터 패널을 업데이트 하라는 이벤트를 브로드캐스트한다.
      */
