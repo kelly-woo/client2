@@ -231,27 +231,29 @@
       var offset = 0;
 
       while(match = regxMention.exec(value)) {
-        lastIndex = regxMention.lastIndex;
+        if ($scope._mentionMap[match[0]]) {
+          lastIndex = regxMention.lastIndex;
 
-        preStr = value.substring(beginIndex, lastIndex).replace(new RegExp( '\\[' + match[1]+ '\\]' + '$'), match[1]);
-        msg = msg + preStr;
+          preStr = value.substring(beginIndex, lastIndex).replace(new RegExp( '\\[' + match[1]+ '\\]' + '$'), match[1]);
+          msg = msg + preStr;
 
-        beginIndex = lastIndex;
-        data = {
-          offset: lastIndex - match[0].length - offset,
-          length: match[1].length
-        };
-        offset += match[0].length - match[1].length;
+          beginIndex = lastIndex;
+          data = {
+            offset: lastIndex - match[0].length - offset,
+            length: match[1].length
+          };
+          offset += match[0].length - match[1].length;
 
-        if (match[2] === MENTION_ALL_VIEW_NAME) {
-          data.id = parseInt(entityId, 10);
-          data.type = 'room';
-        } else {
-          data.id = parseInt($scope._mentionMap[match[0]].id, 10);
-          data.type = 'member';
+          if (match[2] === MENTION_ALL_VIEW_NAME) {
+            data.id = parseInt(entityId, 10);
+            data.type = 'room';
+          } else {
+            data.id = parseInt($scope._mentionMap[match[0]].id, 10);
+            data.type = 'member';
+          }
+
+          mentions.push(data);
         }
-
-        mentions.push(data);
       }
 
       if (mentions.length > 0) {

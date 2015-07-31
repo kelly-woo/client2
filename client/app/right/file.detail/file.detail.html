@@ -10,13 +10,13 @@
       <page-tracker page="files/detail" title="File Detail"></page-tracker>
       <div class="file-detail-header">
         <div class="file-detail-header-box"
-             ng-class="{'file-detail-disabled-member': isDisabledMember(file_detail.writer)}">
+             ng-class="{'file-detail-disabled-member': isDisabledMember(file_detail.extWriter)}">
           <div class="file-detail-header__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
                  ng-src="{{ file_detail.exProfileImg }}"
-                 ng-click="onUserClick(file_detail.writer);"/>
+                 ng-click="onUserClick(file_detail.extWriter);"/>
           </div>
-          <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
+          <div class="file-detail-header__writer">{{ file_detail.writerId | getName }}</div>
           <div class="file-detail-header__title">
             <a download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}"
                download-tracker="{{track(file_detail)}}" ng-click="onClickDownload(file_detail);" ng-if="!isFileArchived">
@@ -26,9 +26,7 @@
         </div>
         <div class="file-item-meta__action">
           <div class="action-star cursor_pointer">
-            <a class="file_action opac-in-fast">
-              <i ng-class="hasStar ? 'icon-star-fill' : 'icon-star'"></i>
-            </a>
+            <i class="file_action star-btn" ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{ file.id }}"></i>
           </div>
           <div class="action-download cursor_pointer">
             <a class="file_action opac-in-fast" download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" download-tracker="{{track(file_detail)}}" ng-click="onClickDownload(file_detail);">
@@ -59,9 +57,9 @@
                 </a>
               </li>
               <li class="cursor_pointer">
-                <a ng-click="">
+                <a ng-click="onStarClick();">
                   <i class="icon-star"></i>
-                  <span translate>@btn-comment</span>
+                  <span translate>star</span>
                 </a>
               </li>
               <li class="cursor_pointer" ng-if="file_detail | isFileWriter:member">
@@ -119,22 +117,22 @@
 
       <div class="rpanel-detail-body-comment">
         <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}"
-             ng-class="{'file-detail-disabled-member': isDisabledMember(comment.writer)}">
+             ng-class="{'file-detail-disabled-member': isDisabledMember(comment.writerId)}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
                  ng-src="{{ comment.exProfileImg }}"
-                 ng-click="onUserClick(comment.writer);"/>
+                 ng-click="onUserClick(comment.writerId);"/>
           </div>
           <div class="comment-item-header">
-            <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
+            <span class="comment-item-header__name">{{ comment.writerId | getName }}</span>
             <span class="comment-item-header__created">{{ getCreateTime($index, comment) }}</span>
             <div class="comment-item-header__action pull-right">
               <div class="comment-item-action">
                 <a class="link-dark cursor_pointer">
-                  <i ng-class="comment.hasStar ? 'icon-star-fill' : 'icon-star'"></i>
+                  <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
                 </a>
               </div>
-              <div class="comment-item-action comment-item-action-more" dropdown ng-if="( member.id === comment.writer.id )">
+              <div class="comment-item-action comment-item-action-more" dropdown ng-if="(member.id === comment.writerId)">
                 <a href="#" class="link-dark" dropdown-toggle>
                   <i class="fa fa-cog"></i>
                 </a>
@@ -214,10 +212,10 @@
           <div class="file-detail-header__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
                  ng-src="{{ file_detail.exProfileImg }}"
-                 ng-click="onUserClick(file_detail.writer);"/>
+                 ng-click="onUserClick(file_detail.extWriter);"/>
           </div>
 
-          <div class="file-detail-header__writer">{{ file_detail.writer | getName }}</div>
+          <div class="file-detail-header__writer">{{ file_detail.writerId | getName }}</div>
 
           <div class="file-detail-header__title archived-file__title">
             <a original-file file-url="{{file_detail.content.fileUrl}}" ng-if="!isFileArchived">
@@ -242,12 +240,12 @@
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"
                  ng-src="{{ comment.exProfileImg }}"
-                 ng-click="onUserClick(comment.writer);"/>
+                 ng-click="onUserClick(comment.writerId);"/>
           </div>
           <div class="comment-item-header">
-            <span class="comment-item-header__name">{{ comment.writer | getName }}</span>
+            <span class="comment-item-header__name">{{ comment.writerId | getName }}</span>
             <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
-            <div class="comment-item-header__action pull-right" dropdown data-ng-if="( member.id === comment.writer.id )">
+            <div class="comment-item-header__action pull-right" dropdown data-ng-if="( member.id === comment.writerId )">
               <a href="#" class="link-dark comment-item-header__action__icon" dropdown-toggle>
                 <i class="fa fa-cog"></i>
               </a>

@@ -24,6 +24,7 @@
 }
 
 .file-card .file-card-body {
+  width: 333px;
   min-height: 65px;
   padding-left: 77px;
 }
@@ -59,10 +60,31 @@
   font-weight: 500;
 }
 
+.file-card-body .file-extend {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #999;
+}
+
+.file-card-body .file-star {
+  position: relative;
+  left: -1px;
+  font-size: 20px;
+}
+
+.file-card-body .file-star .icon-star:hover {
+  color: #154a67;
+}
+
+.file-card-body .file-star .icon-star-fill {
+  color: #f9bb00;
+}
+
 .file-card-body .file-menu {
   position: absolute;
-  top: 40px;
-  right: 8px;
+  top: 24px;
+  right: 0px;
   color: #999;
 }
 
@@ -74,3 +96,9 @@
   font-size: 21px;
 }
 
+.file_action_dropdown {
+  left: auto;
+  right: 0;
+  top: 14px;
+  float: none;
+}

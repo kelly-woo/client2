@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
-                                           memberService, publicService, configuration, modalHelper, jndPubSub, jndKeyCode, AnalyticsHelper) {
+                                           memberService, publicService, configuration, modalHelper, jndPubSub, jndKeyCode, AnalyticsHelper, EntityMapManager) {
 
   //console.info('[enter] fileDetailCtrl');
   var _sticker = null;
@@ -45,6 +45,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.onCommentFocusClick = onCommentFocusClick;
   $scope.onKeyDown = onKeyDown;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
+  $scope.onStarClick = onStarClick;
   $scope.getCreateTime = getCreateTime;
   $scope.watchFileDetail = watchFileDetail;
 
@@ -58,6 +59,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (!_.isUndefined(fileId)) {
       _initListeners();
       $scope.isPostingComment = false;
+
       getFileDetail();
       jndPubSub.pub('onHeaderAcitveTab', 'file');
     }
@@ -212,6 +214,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @param {object} user
    */
   function onUserClick(user) {
+    if (_.isNumber(user)) {
+      user = EntityMapManager.get('member', user);
+    }
     $scope.$emit('onUserClick', user);
   }
 
@@ -416,6 +421,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @returns {*}
    */
   function isDisabledMember(member) {
+    if (_.isNumber(member)) {
+      member = EntityMapManager.get('member', member);
+    }
     return publicService.isDisabledMember(member);
   }
 
@@ -491,6 +499,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var messageDetails = response && response.messageDetails;
     var i = messageDetails && messageDetails.length - 1 || 0;
     var item;
+
+    $scope.isStarred = false;
+
     // 일단 polling이 없으니 업데이트가 있을때마다 새로 갱신
     $scope.file_comments = [];
 
@@ -511,6 +522,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         setImageUrl($scope.file_detail);
       }
 
+      // writer
+      $scope.file_detail.extWriter = EntityMapManager.get('member', $scope.file_detail.writerId);
+
+      // integrate file
       $scope.isIntegrateFile = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
     }
   }
@@ -669,6 +684,15 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           return _.chain(mentionList).uniq('id').sortBy('name').value();
         });
       }
+    });
+  }
+
+  /**
+   * star click trigger
+   */
+  function onStarClick() {
+    $timeout(function() {
+      $('.file-detail').find('.star-btn').trigger('click');
     });
   }
 });

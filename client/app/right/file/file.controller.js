@@ -24,6 +24,8 @@
       $scope.commentCount = file.commentCount;
       $scope.contentTitle = file.contentTitle;
 
+      $scope.isStarred = false;
+
       $scope.onFileCardClick = onFileCardClick;
 
       $scope.onClickShare = onClickShare;
@@ -36,7 +38,7 @@
       fileAPIservice.openFileShareModal($scope, $scope.file);
     }
 
-    function onFileCardClick() {
+    function onFileCardClick($event) {
       $state.go('files', {userName: $scope.writerName, itemId: $scope.file.id});
     }
 
