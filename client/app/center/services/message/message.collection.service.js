@@ -460,7 +460,7 @@
         message.isComment = true;
       }
       //todo: remove this (for test)
-      msg.isStarred = false;
+      message.isStarred = message.isStarred || false;
       return msg;
     }
 

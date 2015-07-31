@@ -68,10 +68,10 @@
 
       <!-- Star -->
       <span class="cursor_pointer pull-right msg-item-star msg-item-icon msg-item-circle"
-            ng-class="{'off msg-item__action': !msg.isStarred}"
+            ng-class="{'off msg-item__action': !msg.message.isStarred}"
             ng-mouseenter="onMouseEnterOnIcon();"
             ng-mouseleave="onMouseLeaveOnIcon();"
-            star-view="msg.isStarred"
+            star-view="msg.message.isStarred"
             message-id="{{ msg.message.id }}">
         <i class="icon-star-fill"></i>
       </span>
@@ -153,10 +153,10 @@
 
       <!-- Star -->
       <span class="cursor_pointer pull-right msg-item-star msg-item-icon msg-item-circle"
-            ng-class="{'off msg-item__action': !msg.isStarred}"
+            ng-class="{'off msg-item__action': !msg.message.isStarred}"
             ng-mouseenter="onMouseEnterOnIcon();"
             ng-mouseleave="onMouseLeaveOnIcon();"
-            star-view="msg.isStarred"
+            star-view="msg.message.isStarred"
             message-id="{{ msg.message.id }}">
         <i class="icon-star-fill"></i>
       </span>
