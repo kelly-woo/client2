@@ -6,6 +6,11 @@
   bottom: 0;
   z-index: 30;
 }
+
+.rpanel.shadow {
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
+}
+
 .rpanel > div {
   width: 100%;
   position: absolute;
@@ -24,42 +29,42 @@
 .rpanel .file {
   z-index: 1;
   background-color: #fff;
-  box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
 }
 
 .rpanel.extend {
-  background-color: white;
+  background-color: #fff;
 }
 .rpanel__background {
-  z-index: 0;
-  border-left: 1px solid #e1e1e1;
-  border-top: 1px solid #e1e1e1;
+}
+
+.rpanel__background .panel-title-container {
+  border: none;
 }
 .rpanel__background.extend {
   background-color: #f2f2f2;
 }
 .rpanel__background-body {
   position: absolute;
-  top: 46px;
-  left: 17px;
-  right: 17px;
+  top: 40px;
+  left: 0px;
+  right: 0px;
   bottom: 10px;
   overflow: hidden;
   background: #fff;
 }
 .rpanel__loading {
-  background: url(../../assets/images/jd_loading.gif) 100% / 100px no-repeat;
   width: 100px;
   height: 100px;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -50px 0 0 -50px;
-  z-index: 90;
+  margin: -16px 0 0 -16px;
 }
 .rpanel__background .panel-title-container,
 .rpanel .panel-title-container {
   background-color: #366480;
+  height: 41px;
+  line-height: 41px;
 }
 .rpanel-header a { color: #00a6e9; }
 .rpanel-header a:hover { text-decoration: none; color: #31c08a; }
@@ -91,7 +96,7 @@
 
 .scroll_loading_bar {
   left: auto;
-  margin: auto !important;
+  margin: 8px auto !important;
 }
 
 .loading_container.file {
@@ -172,6 +177,34 @@
   display: none;
 }
 
+
+.rpanel-body-tab-container {
+  position: absolute;;
+  top: 40px;
+  bottom: 0;
+  width: 100%;
+}
+.rpanel-body-tab-container .nav-tabs {
+  cursor: pointer;
+  border-bottom: 0;
+  background-color: #366480;
+}
+.rpanel-body-tab-container .nav-tabs > li > a {
+  border-radius: 0;
+  padding: 0;
+  text-align: center;
+  width: 102px;
+  font-size: 14px;
+  color: #d7e0e8;
+  height: 36px;
+  line-height: 36px;
+  background-color: #154a67;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 1px;
+  border: none;
+}
+
 .rpanel__background-header,
 .rpanel-header {
   position: relative;
@@ -182,6 +215,7 @@
   border-bottom: 1px solid #e1e1e1;
   box-shadow: 0 2px 2px #e1e1e1;
 }
+
 .rpanel-header > i {
   position: absolute;
   display: block;

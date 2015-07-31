@@ -96,11 +96,13 @@
 }
 
 #messages-input-container{
-    font-size: .9rem;
-    position: absolute;
-    bottom: 19px;
-    left: 64px;
-    right: 10px;
+  font-size: .9rem;
+  position: absolute;
+  bottom: 19px;
+  left: 64px;
+  right: 10px;
+  min-height:35px;
+  z-index: 20;
 }
 #message-form{
   margin: 0;
@@ -132,3 +134,59 @@
 #message-input.with-emoji-menu{padding:9px 30px 9px 8px}
 #message-input:focus{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}
 #message-input.offline{background-color:#fdf1c1}
+
+
+/********************************************
+
+            HAS NEW MESSAGE
+
+********************************************/
+#has-new-msg-banner.show {
+  top: -36px;
+}
+#has-new-msg-banner:hover .has-new-msg-alert-container-text {
+  text-decoration: underline;
+}
+.has-new-msg-alert-container-text {
+  line-height: 36px;
+}
+.has-new-msg-alert-container-close {
+  padding-top: 8px;
+  padding-right: 8px;
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+}
+
+.has-new-msg-alert-container-close:hover {
+  color: white;
+}
+
+#has-new-msg-banner {
+
+  position: absolute;
+  left: 66px;
+  right: 10px;
+  bottom: 100%;
+  top: 0;
+
+  font-size: 16px;
+
+  z-index: 10;
+
+  overflow: hidden;
+
+  background-color: rgba(94, 94, 94, 0.8);
+
+  color: white;
+
+  padding-left: 14px;
+
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+
+  -webkit-transition: top 428ms;
+  -moz-transition: top 428ms;
+  -ms-transition: top 428ms;
+  -o-transition: top 428ms;
+  transition: top 428ms;
+}

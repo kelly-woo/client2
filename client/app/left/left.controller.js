@@ -6,7 +6,7 @@ app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, pcAppHelper) {
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, pcAppHelper, TopicMessageCache, $q) {
 
   /**
    * @namespace
@@ -23,9 +23,18 @@ app.controller('leftPanelController1', function(
   //collapse 이후 갱신 요청할 timer
   var collapseTimer;
 
+  var _getLeftListDeferredObject;
+
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
   var _isBadgeMoveLocked = false;
+
+  $scope.loadingTextList = [
+    'Loading',
+    'Loading.',
+    'Loading..',
+    'Loading...'
+  ];
 
   //unread 위치에 대한 정보
   $scope.unread = {
@@ -290,40 +299,17 @@ app.controller('leftPanelController1', function(
   //  redirecting to default channel.
   /**
    * 이 팀의 default topic으로 돌아간다.
-   *
    * FIXME: Change '$watch' to '$on'.
    */
   $rootScope.$watch('toDefault', function(newVal, oldVal) {
     if (newVal) {
-      $state.go('archives', {entityType:'channels',  entityId:leftpanelAPIservice.getDefaultChannel(response) });
-      $rootScope.toDefault = false;
+      _toDefault();
     }
   });
 
-  /**
-   * entityId를 항상 주시하고 있다가 바뀔때마나 currentEntity를 바꿔준다.
-   */
-  $scope.$watch('$state.params.entityId', function(newEntityId){
-    if (!newEntityId) return;
-
-    _setCurrentEntityWithTypeAndId($state.params.entityType, newEntityId)
-
-  });
-
-  /**
-   * $rootScope에 있는 currentEntity를 업데이트해준다.
-   * @param entityType {string} 엔티티의 타입
-   * @param entityId {string 혹은 number} 엔티티의 아이디
-   * @private
-   */
-  function _setCurrentEntityWithTypeAndId(entityType, entityId) {
-    var currentEntity = entityAPIservice.getEntityById(entityType, entityId);
-
-    if (angular.isUndefined(currentEntity)) {
-      return;
-    }
-
-    $rootScope.currentEntity = entityAPIservice.setCurrentEntity(currentEntity);
+  function _toDefault() {
+    $state.go('archives', {entityType:'channels',  entityId:leftpanelAPIservice.getDefaultChannel(response) });
+    $rootScope.toDefault = false;
   }
 
   /**
@@ -462,13 +448,13 @@ app.controller('leftPanelController1', function(
     //  Separating 'channel' and 'privateGroup'.
     //  joinedChannelList   - List of joined channels.
     //  privateGroupList    - List of joined private groups.
-    var joindData = leftpanelAPIservice.getJoinedChannelData($scope.joinEntities);
+    var joinedData = leftpanelAPIservice.getJoinedChannelData($scope.joinEntities);
 
     // memberList         - List of all users except myself.
     // totalChannelList - All channels including both 'joined' and 'not joined'
     var generalData = leftpanelAPIservice.getGeneralData($scope.totalEntities, $scope.joinEntities, memberService.getMemberId());
 
-    _.extend($scope, generalData, joindData);
+    _.extend($scope, generalData, joinedData);
 
     //$scope.memberList           = generalData.memberList;
     //$scope.memberMap           = generalData.memberMap;
@@ -509,14 +495,50 @@ app.controller('leftPanelController1', function(
     }
 
     if ($state.params.entityId)
-      _setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
+      entityAPIservice.setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
 
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
     }
-
     $rootScope.$broadcast('onInitLeftListDone');
+  }
+
+
+
+  _getCachedMessaged();
+
+  /**
+   * 읽지않은 메세지가 있는 토픽에한해서 메세지를 우선적으로 가져온다.
+   * @private
+   */
+  function _getCachedMessaged() {
+    leftpanelAPIservice.getMessages()
+      .success(_onGetMessagesSuccess)
+      .error(function() {
+      });
+  }
+
+  /**
+   * 서버로부터 받은 데이터를 TopicMessageCache에 저장한다.
+   * @param {object} response - 서버로부터 받은 데이타
+   * @private
+   */
+  function _onGetMessagesSuccess(response) {
+    _.each(response, function(unreadTopic) {
+      if (unreadTopic.entityId === 11162232) {
+        console.log(unreadTopic.messages)
+      }
+      var _param = {
+        list: unreadTopic.messages,
+        lastLinkId: unreadTopic.lastLinkId,
+        unreadCount: unreadTopic.unreadCount,
+        hasProcessed: false
+      };
+
+      TopicMessageCache.put(unreadTopic.entityId, _param);
+      memberService.setLastReadMessageMarker(unreadTopic.entityId, unreadTopic.lastLinkId);
+    });
   }
 
   /**
@@ -561,7 +583,12 @@ app.controller('leftPanelController1', function(
    * left panel 에 담겨 있는 모든 정보를 불러온다.
    */
   function getLeftLists() {
-    leftpanelAPIservice.getLists()
+    if (!_.isUndefined(_getLeftListDeferredObject)) {
+      _getLeftListDeferredObject.resolve();
+    }
+
+    _getLeftListDeferredObject = $q.defer();
+    leftpanelAPIservice.getLists(_getLeftListDeferredObject)
       .success(function(data) {
         response = data;
         //console.log('-- getLeft good')
@@ -644,18 +671,23 @@ app.controller('leftPanelController1', function(
    * @param {object} topicEntity - 클릭한 토픽 entity
    */
   function onTopicClicked(topicEntity) {
+    var _currentEntity;
     var entityType = topicEntity.type;
     var entityId = topicEntity.id;
+
+    jndPubSub.pub('changeEntityHeaderTitle', topicEntity);
+
+    _currentEntity = currentSessionHelper.getCurrentEntity();
 
     if (NetInterceptor.isConnected()) {
       topicEntity.alarmCnt = '';
 
-      if (publicService.isNullOrUndefined($scope.currentEntity) || publicService.isNullOrUndefined($scope.currentEntity.id)) {
+      if (publicService.isNullOrUndefined(_currentEntity) || publicService.isNullOrUndefined(_currentEntity.id)) {
         publicService.goToDefaultTopic();
         return;
       }
 
-      if ($scope.currentEntity.id == entityId) {
+      if (_currentEntity.id === entityId) {
         $rootScope.$broadcast('refreshCurrentTopic');
       } else {
         $state.go('archives', {entityType: entityType, entityId: entityId});
@@ -674,6 +706,7 @@ app.controller('leftPanelController1', function(
       entityheaderAPIservice.removeStarEntity(entityId)
         .success(function(response) {
 
+          console.log(response)
           //Analtics Tracker. Not Block the Process
           try {
             AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, {
@@ -682,10 +715,6 @@ app.controller('leftPanelController1', function(
             });
           } catch (e) {
           }
-
-          getLeftLists();
-          // TODO: UPDATE CURRENT ONLY.
-          // TODO: CALL 'setStar()' afterwards.
         })
         .error(function(response) {
 
@@ -712,8 +741,6 @@ app.controller('leftPanelController1', function(
             });
           } catch (e) {
           }
-
-          getLeftLists();
         })
         .error(function(response) {
           try {
@@ -912,6 +939,5 @@ app.controller('leftPanelController1', function(
       }
     }
   }
-
 });
 

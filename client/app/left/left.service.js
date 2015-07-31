@@ -3,16 +3,17 @@
 var app = angular.module('jandiApp');
 
 app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, storageAPIservice,
-                                            memberService, EntityMapManager, currentSessionHelper) {
+                                            memberService, EntityMapManager, configuration, currentSessionHelper) {
   var leftpanelAPI = {};
 
-  leftpanelAPI.getLists = function() {
+  leftpanelAPI.getLists = function(deferredObject) {
     return $http({
       method: 'GET',
       url: $rootScope.server_address + 'leftSideMenu',
       params: {
         teamId: memberService.getTeamId()
-      }
+      },
+      timeout: !!deferredObject ? deferredObject.promise : ''
     });
   };
 
@@ -81,11 +82,9 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
       var entityType = entity.type;
 
       if (entityType == "users") {
-        if (currentUserId != entityId) {
-          entity.selected = false;
-          memberList.push(entity);
-          EntityMapManager.add('member', entity);
-        }
+        entity.selected = false;
+        memberList.push(entity);
+        EntityMapManager.add('member', entity);
       } else if (entityType == "channels") {
         var found = false;
         _.each(joinedEntities, function(element, index, list) {
@@ -114,7 +113,6 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
 
   // prefix 는 select dropdown 에서 분류의 목적으로 사용된다.
   leftpanelAPI.setEntityPrefix = function($scope) {
-
     EntityMapManager.reset('total');
 
     _.each($scope.totalEntities, function(entity) {
@@ -148,6 +146,14 @@ app.factory('leftpanelAPIservice', function($http, $rootScope, $state, $filter, 
       }
 
       EntityMapManager.add('total', entity);
+    });
+  };
+
+  leftpanelAPI.getMessages = function() {
+    var _teamId = currentSessionHelper.getCurrentTeam().id;
+    return $http({
+      method: 'GET',
+      url: configuration.server_address + 'teams/' + _teamId + '/messages/cache'
     });
   };
 

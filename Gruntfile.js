@@ -499,17 +499,19 @@ module.exports = function (grunt) {
               '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
               '!{.tmp,<%= yeoman.client %>}/components/config/config.framework.js',
 
-              '!{.tmp,<%= yeoman.client %>}/components/jnadi/jandi.framework.js',
-              '!{.tmp,<%= yeoman.client %>}/components/jnadi/preloader/preloader.js',
+              '!{.tmp,<%= yeoman.client %>}/components/jandi/jandi.framework.js',
+              '!{.tmp,<%= yeoman.client %>}/components/jandi/preloader/preloader.js',
 
               '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/router/router.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/language/language.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/local_storage/local.storage.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/mention_ahead/mention.ahead.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/net/net.js',
+              '!{.tmp,<%= yeoman.client %>}/components/app/cache/cache.js',
 
               '!{.tmp,<%= yeoman.client %>}/components/app/pubsub/pubsub.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/notification/desktop.notification.js',

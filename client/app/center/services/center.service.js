@@ -40,6 +40,7 @@
     this.isCommentType = isCommentType;
     this.isElapsed = isElapsed;
 
+    this.getLastReadMessageMarker = getLastReadMessageMarker;
     /**
      * Check entityId of entity to be directed to currently signed in member's id.
      * If user is trying to reach himself, re-direct user back to default topic.
@@ -171,5 +172,13 @@
       return elapsedMin > MAX_MSG_ELAPSED_MINUTES;
     }
 
+    /**
+     * entityId에 해당하는 토픽에서 현재 사용자가 마지막으로 읽은 link id를 리턴한다.
+     * @param {number} entityId - 알고싶은 토픽의 entity id
+     * @returns {number} lastLinkId - 사용자가 마지막으로 읽은 메세지의 link id
+     */
+    function getLastReadMessageMarker(entityId) {
+      return memberService.getLastReadMessageMarker(entityId);
+    }
   }
 })();

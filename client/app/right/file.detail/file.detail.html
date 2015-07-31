@@ -76,7 +76,9 @@
       <div class="file-detail-body">
         <div class="image_wrapper" ng-click="onImageClick();" file-detail-preview=""
              image-loader="{{ImageUrl}}" on-image-load="onFileDetailImageLoad();" image-fit-to-width="true">
-          <div class="loading_bar icon-loading" ng-if="isLoadingImage"></div>
+          <div class="loading_bar" ng-if="isLoadingImage || true">
+            <span class="three-quarters-loader jnd-three-quarters-loader"></span>
+          </div>
         </div>
 
         <div class="file-detail-body__meta file-item-meta__listview" ng-if="!isFileArchived">
@@ -102,9 +104,6 @@
                     <i class="fa fa-times-circle"
                        tooltip="{{ '@file-action-unshare' | translate }}" tooltip-placement="right"></i>
                   </a>
-                </span>
-                <span ng-show="file_detail.shared.length != filteredSharedFile.length">
-                  <!--<span ng-show="filteredSharedFile.length != 0"> and </span>with users.-->
                 </span>
               </span>
               <span ng-if="!hasTopic">

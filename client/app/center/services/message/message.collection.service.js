@@ -14,6 +14,8 @@
                              MessageSending) {
     var that = this;
     var _systemMessageCount = 0;
+    var _hasBookmark = false;
+    var _lastMessage;
 
     this.list = [];
     this.reset = reset;
@@ -22,10 +24,10 @@
     this.forEach = forEach;
 
     this.getLastLinkId = getLastLinkId;
-    this.getFirstLinkId = getFirstLinkId; 
+    this.getFirstLinkId = getFirstLinkId;
 
     this.hasLinkPreview = hasLinkPreview;
-    
+
     this.isChildText = isChildText;
     this.isChildComment = isChildComment;
     this.isTitleComment = isTitleComment;
@@ -46,6 +48,11 @@
 
     this.removeAllSendingMessages = removeAllSendingMessages;
     this.updateUnreadCount = updateUnreadCount;
+
+    this.getList = getList;
+    this.setList = setList;
+
+    this.manipulateMessage = manipulateMessage;
     _init();
 
     /**
@@ -62,6 +69,9 @@
     function reset() {
       _systemMessageCount = 0;
       that.list = [];
+      _hasBookmark = false;
+      _lastMessage = {};
+
     }
 
     /**
@@ -219,8 +229,6 @@
      * @param {array} messageList 업데이트 할 메세지 리스트
      */
     function update(messageList, isSkipAppend) {
-      messageList = _beforeAddMessages(messageList);
-
       _.forEach(messageList, function(msg) {
         if (_isSystemMessage(msg)) {
           _updateSystemMessage(msg, isSkipAppend);
@@ -309,14 +317,45 @@
      */
     function _beforeAddMessages(messageList) {
       messageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
+
       _.forEach(messageList, function(msg) {
-        msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
+        manipulateMessage(msg);
       });
-      //msgRepeatDone 디렉티브에서 사용하기 위해 필요한 마지막 랜더링 아이템 정보 설정
-      messageList[messageList.length - 1]._isLast = true;
+
+      _updateLastMessage(messageList);
+      //messageList[messageList.length - 1]._isLast = true;
+
       return messageList;
     }
 
+    /**
+     * mark-up에서 사용하기쉽게 msg object를 가공한다.
+     * @private
+     */
+    function manipulateMessage(msg) {
+      var fromEntityId = msg.fromEntity;
+      var writer = entityAPIservice.getEntityById('user', fromEntityId);
+
+      msg.extFromEntityId = fromEntityId;
+      msg.extWriter = writer;
+      msg.extWriterName = $filter('getName')(writer);
+      msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
+      msg.extTime = $filter('gethmmaFormat')(msg.time);
+    }
+
+    function _updateLastMessage(messageList) {
+      var _tempLastMessage = messageList[messageList.length - 1];
+      _tempLastMessage._isLast = true;
+
+      if (!_.isEmpty(_lastMessage)) {
+        if (_lastMessage.id < _tempLastMessage.id) {
+          _lastMessage._isLast = false;
+          _lastMessage = _tempLastMessage;
+        }
+      } else {
+        _lastMessage = _tempLastMessage;
+      }
+    }
     /**
      * 첫번째 id 를 반환한다.
      * @returns {number}
@@ -512,6 +551,10 @@
             action = $filter('translate')('@msg-create-pg');
           }
           break;
+        case 'bookmark':
+          action = '여기까지 읽음.';
+          break;
+
       }
 
       newMsg.message.content.actionOwner = memberService.getNameById(msg.fromEntity);
@@ -609,6 +652,15 @@
         //message.unreadCount = globalUnreadCount === 0 ? '' : globalUnreadCount;
         list[index] = message;
       });
+    }
+
+    function getList() {
+      return that.list;
+    }
+
+    function setList(list) {
+      _updateLastMessage(list);
+      that.list = list;
     }
   }
 })();

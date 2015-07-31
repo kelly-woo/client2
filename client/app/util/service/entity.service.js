@@ -12,6 +12,7 @@
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityFromListById: getEntityFromListById,
       getEntityById: getEntityById,
+      setCurrentEntityWithTypeAndId: setCurrentEntityWithTypeAndId,
       setCurrentEntity: setCurrentEntity,
       getCreatorId: getCreatorId,
       setStarred: setStarred,
@@ -93,11 +94,7 @@
           break;
         case 'user':
         case 'users':
-          if (_isMe(entityType, entityId)) {
-            entity = $rootScope.member;
-          } else {
-            entity = EntityMapManager.get('member', entityId);
-          }
+          entity = EntityMapManager.get('member', entityId);
           break;
         case 'channel':
         case 'channels':
@@ -123,21 +120,22 @@
       return !!(entityType.indexOf('user') > -1 && $rootScope.member && $rootScope.member.id === entityId);
     }
 
+    function setCurrentEntityWithTypeAndId(entityType, entityId) {
+      var currentEntity;
+      if (!_.isUndefined(entityId)) {
+        currentEntity = EntityMapManager.get('total', entityId);
+      }
+      if (!_.isUndefined(currentEntity)) {
+        setCurrentEntity(currentEntity);
+      }
+    }
     //  return null if 'getEntityById' return nothing.
     function setCurrentEntity (currentEntity) {
-      if (angular.isUndefined(currentEntity)) {
-        return null;
-      }
-
       currentEntity.alarmCnt = '';
       pcAppHelper.onAlarmCntChanged(currentEntity.id, 0);
 
       currentSessionHelper.setCurrentEntity(currentEntity);
       jndPubSub.pub('onCurrentEntityChanged', currentEntity);
-
-      //updateBadgeValue(currentEntity, 0);
-
-      return currentEntity;
     }
 
     /**
@@ -297,7 +295,9 @@
      * @param source
      */
     function extend(target, source) {
-      source.type = source.type.toLowerCase() + 's';
+      if (!!source.type) {
+        source.type = source.type.toLowerCase() + 's';
+      }
       _.extend(target, source);
     }
 

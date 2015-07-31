@@ -5,13 +5,15 @@
     .module('jandiApp')
     .directive('text', text);
 
+  /* @ngInject */
   function text() {
     return {
       restrict: 'E',
       scope: {
         msg: '=',
         isChildText: '=',
-        hasLinkPreview: '='
+        index: '=',
+        'hasLinkPreview': '='
       },
       link: link,
       templateUrl: 'app/center/view_components/center_chat_templates/text/text.html',
@@ -19,9 +21,7 @@
     };
 
     function link(scope, el, attrs) {
-      var $scope = scope;
-      var messageId = $scope.msg.id;
-      var jqTextContainer = $(document.getElementById(messageId));
+      var jqTextContainer = el;
 
       scope.onMouseEnterOnIcon = _onMouseEnterOnIcon;
       scope.onMouseLeaveOnIcon = _onMouseLeaveOnIcon;
@@ -33,6 +33,7 @@
       function _onMouseLeaveOnIcon() {
         jqTextContainer.removeClass('text-highlight-background');
       }
+
     }
   }
 })();

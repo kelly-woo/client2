@@ -1,6 +1,6 @@
 
 <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
-     ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }"
+     disabled-member-detector="center-panel-disabled-member"
      ng-if="isTitleComment($index)">
   <!--    DEFAULT   -->
   <img on-image-load class="user-profile user-thumb" ng-src="{{ msg.exProfileImg }}"/>
@@ -10,16 +10,16 @@
 <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->
 <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->
 <div class="msg-item-header"
-     ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
-  <!--    WRITER
-          IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
+     disabled-member-detector="center-panel-disabled-member">
+
+  <!--    WRITER, IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
   <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
         ng-hide="!isTitleComment($index)">
-    <span class="msg-item-header__nameSpace">{{msg.fromEntity|getName}}</span>
+    <span class="msg-item-header__nameSpace">{{msg.extWriterName}}</span>
 
     <!--    CREATED TIME    -->
     <span class="msg-item-header__created">
-      {{msg.time | gethmmaFormat }}
+      {{::msg.extTime}}
     </span>
 
   </span>
@@ -30,8 +30,8 @@
     <p>
       <!--    WRITER  -->
       <span ng-if="!isChildComment($index)" class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
-            ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
-        <span ng-if="msg.message.contentType !== 'file'"> {{msg.fromEntity|getName}} </span>
+            disabled-member-detector="center-panel-disabled-member">
+        <span ng-if="msg.message.contentType !== 'file'"> {{msg.extWriterName}} </span>
       </span>
 
       <!--    CONTENT(MESSAGE)    -->
@@ -39,7 +39,7 @@
         <span class="keep" compile="(msg.message.content.body) || ''"></span>
         <!--    CREATED TIME    -->
         <span class="msg-item-header__created">
-          {{msg.time | gethmmaFormat}}
+          {{::msg.extTime}}
         </span>
         <span class="badge unread-badge">{{ msg.unreadCount }}</span>
       </span>
@@ -48,7 +48,7 @@
         <img class="sticker size_5" ng-if="msg.message.contentType === 'comment_sticker'" src="{{ msg.message.content.url }}"/>
         <!--    CREATED TIME    -->
         <span class="msg-item-header__created">
-          {{msg.time | gethmmaFormat}}
+          {{::msg.extTime}}
         </span>
         <span class="badge unread-badge">{{ msg.unreadCount }}</span>
       </div>
@@ -74,14 +74,14 @@
         <div class="image_wrapper msg-file-body__img__background" ng-if="(msg.feedback.content | hasPreview) && isTitleComment($index) && msg.feedback.status != 'archived'">
 
           <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center"
-               image-loader="{{server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl}}"
+               image-loader="{{::server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl}}"
                image-max-height="63" image-max-width="63" image-is-square="true">
           </div>
         </div>
 
         <!--    FILE THUMBNAIL  -->
         <div class="msg-file-body__thumbnail" ng-if="!(msg.feedback.content | hasPreview) && isTitleComment($index)">
-          <div class="fileicon fileicon-{{msg.feedback.content | fileIcon}}" ></div>
+          <div class="fileicon fileicon-{{::msg.feedback.content | fileIcon}}" ></div>
         </div>
       </div>
 
@@ -101,7 +101,7 @@
         <!--    FILE TITLE/NAME  -->
         <div ng-if="msg.feedback.status != 'archived'">
           <a class="msg-file-meta__title file__name break-word" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
-            {{msg.feedback.content | fileTitle}}
+            {{::msg.feedback.content | fileTitle}}
           </a>
         </div>
 
@@ -119,14 +119,17 @@
       <p>
         <!--    WRITER  -->
         <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
-              ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.message.writer) || isDisabledMember(msg.fromEntity) }">
-          <span ng-if="msg.message.contentType !== 'file'"> {{msg.message.writer|getName}} </span>
-          <span ng-if="msg.message.contentType === 'file'"> {{msg.fromEntity|getName}}</span>
+              disabled-member-detector="center-panel-disabled-member">
+
+          <!-- TODO: WHAT IS THIS??   정책상 항상 댓글의 작성자가 다 보여야 한다면 extWriterName을 그냥 무조건 사용합시다. -->
+          <span ng-if="msg.message.contentType !== 'file'"> {{msg.extWriterName}} </span>
+          <span ng-if="msg.message.contentType === 'file'"> {{msg.extWriterName}}</span>
         </span>
+
         <span ng-if="msg.message.contentType !== 'comment_sticker'">
           <span class="keep" compile="(msg.message.content.body) || ''"></span>
           <span class="msg-item-header__created">
-            {{msg.time | gethmmaFormat}}
+            {{::msg.extTime}}
           </span>
 
           <span class="badge unread-badge">{{ msg.unreadCount }}</span>
@@ -135,7 +138,7 @@
           <img class="sticker size_5" ng-if="msg.message.contentType === 'comment_sticker'" src="{{ msg.message.content.url }}"/>
 
           <span class="msg-item-header__created">
-            {{msg.time | gethmmaFormat}}
+            {{::msg.extTime}}
           </span>
 
           <span class="badge unread-badge">{{ msg.unreadCount }}</span>

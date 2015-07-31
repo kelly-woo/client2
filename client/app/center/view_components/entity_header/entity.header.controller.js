@@ -11,13 +11,19 @@
 
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
-                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state) {
+                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache, watcher) {
 
+    //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
 
+$scope.getWatchCount = function() {
+  return watcher.getWatchCount();
+};
     var _entityId = $state.params.entityId;
     var _entityType = $state.params.entityType;
-    var _currentEntity = entityAPIservice.getEntityById(_entityType, _entityId);
+    var _currentEntity = currentSessionHelper.getCurrentEntity();
 
+    $scope._currentEntity = _currentEntity;
+    
     $scope.isConnected = true;
     $scope.isUserType;
 
@@ -35,6 +41,8 @@
 
     $scope.openMemberModal =  openMemberModal;
     $scope.onPrefixIconClicked = onPrefixIconClicked;
+
+    $scope.onTopicNotificationBellClicked = onTopicNotificationBellClicked;
 
 
     _init();
@@ -55,18 +63,28 @@
     function _attachEventListeners() {
       $scope.$on('connected', _onConnected);
       $scope.$on('disconnected', _onDisconnected);
+      $scope.$on('onTopicDeleted', _onTopicDeleted);
+      $scope.$on('onTopicLeft', _onTopicLeft);
+      $scope.$on('changeEntityHeaderTitle', changeEntityHeaderTitle);
+
       $scope.$on('onCurrentEntityChanged', function(event, param) {
         if (_currentEntity !== param) {
           _initWithParam(param);
         }
       });
+
+      $scope.$on('onTopicSubscriptionChanged'+_entityId, _checkNotificationStatus);
     }
 
     function _initWithParam(param) {
       if (!!param) {
         _checkCurrentEntity(param);
+        _filterDeactivateMembers();
+        _checkDisabledMember();
+
         _checkOwnership();
         _checkIfDefaultTopic();
+        _checkNotificationStatus();
       }
     }
 
@@ -76,8 +94,8 @@
      * @returns {object} deactive member 를 제거한 entity
      * @private
      */
-    function _filterDeactivateMembers(currentEntity) {
-      var members = currentEntity && currentEntity.members || [];
+    function _filterDeactivateMembers() {
+      var members = _currentEntity && _currentEntity.members || [];
       var totalEntities = $rootScope.totalEntities;
       var member;
       var entity;
@@ -93,8 +111,6 @@
           }
         }
       }
-
-      //$scope.members = members;
     }
 
     /**
@@ -110,9 +126,7 @@
         entity = param;
       }
 
-
       _setCurrentEntity(entity);
-      _filterDeactivateMembers(entity);
     }
 
     /**
@@ -149,6 +163,32 @@
     }
 
     /**
+     * 현재 entity 가 disabled된 상태인지 아닌지 확인한다.
+     * @private
+     */
+    function _checkDisabledMember() {
+      if (publicService.isDisabledMember(_currentEntity)) {
+        $scope.isDisabledEntity = true;
+      } else {
+        $scope.isDisabledEntity = false;
+      }
+    }
+
+    /**
+     * 현재 토픽의 notification setting을 체크한다.
+     * @private
+     */
+    function _checkNotificationStatus() {
+      $scope.isTopicNotificationOn = memberService.isTopicNotificationOn(_entityId);
+
+      if ($scope.isTopicNotificationOn) {
+        $scope.topicNotificationBellTooltipMsg = $filter('translate')('@turn-off-topic-alarm');
+      } else {
+        $scope.topicNotificationBellTooltipMsg = $filter('translate')('@turn-on-topic-alarm');
+      }
+    }
+
+    /**
      * 현재 entity(topic)를 떠난다.
      */
     function leaveCurrentEntity() {
@@ -169,7 +209,7 @@
             } catch (e) {
             }
             analyticsService.mixpanelTrack("Entity Leave", {'type': entity_type} );
-
+            TopicMessageCache.remove(_entityId);
             publicService.goToDefaultTopic();
           })
           .error(function(error) {
@@ -205,6 +245,7 @@
 
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
+            TopicMessageCache.remove(_entityId);
             publicService.goToDefaultTopic();
           })
           .error(function(error) {
@@ -255,6 +296,13 @@
     }
 
     /**
+     * 토픽별 노티피케이션 설정 아이콘을 클릭했을 때 호출된다.
+     */
+    function onTopicNotificationBellClicked() {
+      entityHeader.toggleTopicNotification(_entityId, !$scope.isTopicNotificationOn);
+    }
+
+    /**
      *
      * @param memberId
      */
@@ -289,5 +337,38 @@
       $scope.isConnected = false;
     }
 
+    /**
+     * left에서 토픽이 클릭되었을 때 우선적으로 header의 title을 바꾸세요! 라고 말해준다.
+     * 그 이벤트를 듣고있다가 바꾼다.
+     * @param event
+     * @param param
+     */
+    function changeEntityHeaderTitle(event, param) {
+      $scope.currentEntity = _currentEntity = param;
+      _initWithParam(param);
+    }
+
+    /**
+     * 현재 보고있는 토픽이 지워졌을 경우.
+     * @param event
+     * @param data
+     * @private
+     */
+    function _onTopicDeleted(event, data) {
+      if (data.topic.id === _entityId) {
+        TopicMessageCache.remove(_entityId);
+        publicService.goToDefaultTopic();
+      }
+    }
+
+    /**
+     * 현재 보고 있는 토픽을 나갔을 경우.
+     * @param event
+     * @param data
+     * @private
+     */
+    function _onTopicLeft(event, data) {
+      _onTopicDeleted(event, data);
+    }
   }
 })();

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'jandi-light';
-  src:url('../assets/fonts/jandi-light.eot?-2ufb4c');
-  src:url('../assets/fonts/jandi-light.eot?#iefix-2ufb4c') format('embedded-opentype'),
-  url('../assets/fonts/jandi-light.woff?-2ufb4c') format('woff'),
-  url('../assets/fonts/jandi-light.ttf?-2ufb4c') format('truetype'),
-  url('../assets/fonts/jandi-light.svg?-2ufb4c#jandi-light') format('svg');
+  src:url('../../../assets/fonts/jandi-light.eot?-2ufb4c');
+  src:url('../../../assets/fonts/jandi-light.eot?#iefix-2ufb4c') format('embedded-opentype'),
+  url('../../../assets/fonts/jandi-light.woff?-2ufb4c') format('woff'),
+  url('../../../assets/fonts/jandi-light.ttf?-2ufb4c') format('truetype'),
+  url('../../../assets/fonts/jandi-light.svg?-2ufb4c#jandi-light') format('svg');
   font-weight: normal;
   font-style: normal;
 }

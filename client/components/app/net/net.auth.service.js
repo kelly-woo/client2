@@ -12,6 +12,7 @@
   function AuthInterceptor($q, $injector, configuration, storageAPIservice) {
 
     this.request = request;
+    this.requestError = requestError;
     this.responseError = responseError;
 
     function request(config) {
@@ -30,6 +31,9 @@
       return config.version || configuration.api_version;
     }
 
+    function requestError(rejection) {
+      console.log(rejection)
+    }
     function responseError(rejection) {
       if (rejection.status === 0) {
         // net::ERR_CONNECTION_REFUSED

@@ -7,21 +7,16 @@
 
   /* @ngInject */
   function TopicInviteFromDmCtrl($scope, modalHelper, jndPubSub, entityheaderAPIservice, publicService, $rootScope) {
-   // WHEN INVITING FROM DIRECT MESSAGE
-
+    // WHEN INVITING FROM DIRECT MESSAGE
     $scope.cancel = modalHelper.closeModal;
 
     $scope.inviteOptions = publicService.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList, $scope.currentEntity.id);
 
     $scope.onInviteClick = function(inviteTo) {
-      if ($scope.isLoading) return;
-
-      $scope.toggleLoading();
-
       var invitedId = [];
       invitedId.push($scope.currentEntity.id);
 
-      $scope.isLoading = true;
+      jndPubSub.showLoading();
 
       entityheaderAPIservice.inviteUsers(inviteTo.type, inviteTo.id, invitedId)
         .success(function(response) {
@@ -32,7 +27,7 @@
           console.error(error.code, error.msg);
         })
         .finally(function() {
-          $scope.toggleLoading();
+          jndPubSub.hideLoading();
         });
     }
   }

@@ -542,7 +542,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.file_detail.exProfileImg = $filter('getSmallThumbnail')(item.writerId);
       $scope.hasTopic = !!$scope.file_detail.shareEntities.length;
 
-      $scope.file_detail.shared = fileAPIservice.getSharedEntities(item);
+      $scope.file_detail.shared = fileAPIservice.updateShared(item);
       $scope.isFileArchived = _isFileArchived($scope.file_detail);
     } else if (!_isFileArchived(item)) {
       _appendFileComment(item);

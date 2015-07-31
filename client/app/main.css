@@ -87,8 +87,16 @@ input[type="email"] {
   bottom: 0;
   height: auto !important;
 }
+.z-index-top {
+  z-index: 9999;
+}
+
+.z-index-bottom {
+  z-index: 0;
+}
+
 .body.full-screen {
-  top: 40px;
+  top: 41px;
 }
 .title__divider {
   width: 90px;
@@ -123,6 +131,15 @@ input[type="email"] {
 
 .opac-in {
   opacity: 1;
+  -webkit-transition: opacity 0.7s;
+  -moz-transition: opacity 0.7s;
+  -ms-transition: opacity 0.7s;
+  -o-transition: opacity 0.7s;
+  transition: opacity 0.7s;
+}
+
+.opac-out {
+  opacity: 0;
   -webkit-transition: opacity 0.7s;
   -moz-transition: opacity 0.7s;
   -ms-transition: opacity 0.7s;
@@ -1103,3 +1120,63 @@ input[type="radio"] {
   top: 0;
   z-index: 1000;
 }
+
+
+.facebook-style-loading {
+  line-height: 40px;
+  text-align: center;
+}
+.facebook-style-loading div{
+  height: 15px;
+  width: 5px;
+  display:inline-block;
+  background-color: #00abe6;
+  margin: 12px 2px;
+
+  -webkit-animation:facebook_loader 1.3s linear infinite;
+  animation:facebook_loader 1.3s linear infinite;
+
+  -webkit-transform: scale(0.91);
+  transform: scale(0.91);
+}
+
+.initial.facebook-style-loading div{
+  height: 35px;
+  margin-top: 48%;
+}
+.facebook-style-loading div:nth-child(1){
+  -webkit-animation-delay:0.39s;
+  animation-delay:0.39s;
+}
+.facebook-style-loading div:nth-child(2){
+  -webkit-animation-delay:0.52s;
+  animation-delay:0.52s;
+}
+.facebook-style-loading div:nth-child(3){
+  -webkit-animation-delay:0.65s;
+  animation-delay:0.65s;
+}
+@-webkit-keyframes facebook_loader{
+  0%{
+    -webkit-transform:scale(1.2);
+    opacity:1
+  }
+
+  100%{
+    -webkit-transform:scale(0.7);
+    opacity:0.1
+  }
+}
+
+@keyframes facebook_loader {
+  0% {
+    transform: scale(1.2);
+    opacity: 1
+  }
+
+  100% {
+    transform: scale(0.7);
+    opacity: 0.1
+  }
+}
+

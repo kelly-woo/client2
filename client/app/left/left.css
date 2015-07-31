@@ -169,6 +169,10 @@
 
 .left-panel__name {
   max-width: 80%;
+  float: left;
+}
+.left-panel__name.with-bell {
+  max-width: 69%;
 }
 .private-topic-icon {
   width: 9px;
@@ -310,4 +314,28 @@
 }
 .lpanel-list-help-unread.below {
     bottom: 9px;
+}
+
+.dummy_initial_wrap{
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 50%;
+  margin-top: -30px;
+}
+
+.dummy_initial_text {
+  position: absolute;
+  left: 50%;
+  margin-left: -38px;
+  margin-top: -12px;
+  width: 200px;
+  text-align: left;
+}
+
+.dummy_initial_text h3 {
+  color: #d1d1d1;
+  font-size: 20px;
+  /*color: #000000;*/
+  /*font-size: 30px;*/
 }

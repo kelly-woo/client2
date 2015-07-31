@@ -38,9 +38,12 @@
           active: false
         }
       };
-
+      $scope.isLoading = false;
       $scope.activeTabName = $scope.tabs.file.name;
     }
+
+
+    $scope.$on('connected', _init);
 
     /**
      * right panel 상단에 있는 search input box 의 값이 없어졌다는 이벤트.

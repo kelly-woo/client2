@@ -1,21 +1,21 @@
 <!--  User Thumbnail -->
 <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
-     ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+     disabled-member-detector="center-panel-disabled-member">
   <img on-image-load class="user-profile user-thumb"
        ng-src="{{ msg.exProfileImg }}"/>
 </div>
 
 <div class="msg-item-header"
-     ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+     disabled-member-detector="center-panel-disabled-member">
   <!--    WRITER-->
     <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
       <span class="msg-item-header__nameSpace">
-        {{msg.fromEntity | getName}}
+        {{msg.extWriterName}}
       </span>
 
       <!--    CREATED TIME    -->
       <span class="msg-item-header__created">
-        {{msg.time | gethmmaFormat}}
+        {{::msg.extTime}}
       </span>
 
       <span class="badge unread-badge">{{ msg.unreadCount }}</span>
@@ -31,23 +31,23 @@
       <!--  FILE NOT ARCHIVED -->
       <div ng-if="msg.message.status != 'archived'" >
         <!--    IMAGE THUMBNAIL -->
-        <div ng-if="(msg.message.content | hasPreview)">
+        <div ng-if="msg.message.content.extHasPreview">
 
           <div class="image_wrapper msg-file-body__img__background jnd-text-center">
-            <div class="opac-zero msg-file-body__img cursor_pointer" id="{{msg.id}}-image-preview-small"
-                 image-loader="{{imageUrlToBeLoaded}}" image-max-height="65" image-max-width="65" image-is-square="true"
+            <div class="opac-zero msg-file-body__img cursor_pointer" id="{{::msg.id}}-image-preview-small"
+                 image-loader="{{::imageUrlToBeLoaded}}" image-max-height="65" image-max-width="65" image-is-square="true"
                  ng-click="onSmallThumbnailClick();">
             </div>
           </div>
         </div>
 
-        <div class="ie9-image-rotator cursor_pointer" ng-if="(msg.message.content | hasPreview) &&  isIE9" ng-click="onImageRotatorClick($event);">
+        <div class="ie9-image-rotator cursor_pointer" ng-if="msg.message.content.extHasPreview &&  isIE9" ng-click="onImageRotatorClick($event);">
           <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
         </div>
 
         <!--    FILE TYPE THUMBNAIL -->
-        <div class="msg-file-body__thumbnail" ng-if="!(msg.message.content | hasPreview)">
-          <div class="fileicon fileicon-{{msg.message.content | fileIcon}}" ></div>
+        <div class="msg-file-body__thumbnail" ng-if="!msg.message.content.extHasPreview">
+          <div class="fileicon fileicon-{{::msg.message.content | fileIcon}}" ></div>
         </div>
       </div>
 
@@ -70,13 +70,13 @@
           <!--    TITLE   -->
           <a class="msg-file-meta__title file__name break-word"
              ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
-            {{ msg.message.content | fileTitle }}
+            {{ ::msg.message.content.extFileTitle }}
           </a>
 
           <span class="bullet" ng-if="msg.message.content.size > 0">•</span>
           <!--    SIZE AND FILE TYPE  -->
-          <span class="msg-file-meta-info" ng-if="msg.message.content.size > 0">{{ msg.message.content.size | bytes }}</span>
-          <span class="msg-file-meta-info">{{ msg.message.content | fileType }}</span>
+          <span class="msg-file-meta-info" ng-if="msg.message.content.size > 0">{{::msg.message.content.extFileSize}}</span>
+          <span class="msg-file-meta-info">{{ ::msg.message.content.extFileType }}</span>
         </div>
 
         <!--  ARCHIVED FILE -->
@@ -91,48 +91,44 @@
 
       <div ng-if="msg.message.status != 'archived'" class="msg-file-meta-down">
         <!--    SHARED MESSAGE  -->
-                  <span class="msg-file-meta-info">
-                    <span data-ng-if="( msg.id !== msg.message.writer.id )">
-                      <a class="msg-file-meta__writer file__owner">{{msg.message.writer|getName}}</a>
-                      <span translate>@msg-whose</span>
-                    </span>
-                    <span ng-if="msg.status == 'shared'" translate>@msg-shared</span>
-                    <span ng-if="msg.status == 'unshared'" translate>@msg-unshared</span>
-                    <span translate>@msg-file</span>
-                  </span>
+        <span class="msg-file-meta-info">
+          <span data-ng-if="( msg.id !== msg.message.writer.id )">
+            <a class="msg-file-meta__writer file__owner">{{msg.message.extFileOwnerName}}</a>
+            <span translate>@msg-whose</span>
+          </span>
+          <span ng-if="msg.status == 'shared'" translate>@msg-shared</span>
+          <span ng-if="msg.status == 'unshared'" translate>@msg-unshared</span>
+          <span translate>@msg-file</span>
+        </span>
 
         <span class="bullet">•</span>
 
         <!--    SHARED ENTITIES -->
-                  <span data-ng-if="msg.message.shared.length">
-                    <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared)">
-                      <span data-ng-hide="($index === 0)">, </span>
-                      <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id, sharedEntity.type)">
-                        {{ sharedEntity.prefix }}{{ sharedEntity.name }}
-                      </span>
-                      <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
-                        <i class="fa fa-times-circle"
-                           tooltip="{{ '@file-action-unshare' | translate }}" tooltip-placement="top"></i>
-                        <i ng-if="false" translate>@file-action-unshare</i>
-                      </a>
-                    </span>
+        <span data-ng-if="msg.message.shared.length">
+          <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared)">
+            <span data-ng-hide="($index === 0)">, </span>
+            <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id, sharedEntity.type)">
+              {{ sharedEntity.name }}
+            </span>
+            <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
+              <i class="fa fa-times-circle"
+                 tooltip="{{ '@file-action-unshare' | translate }}" tooltip-placement="top"></i>
+              <i ng-if="false" translate>@file-action-unshare</i>
+            </a>
+          </span>
 
-                    <span ng-show="msg.message.shared.length != filteredSharedFile.length" ng-if="false">
-                      <span ng-show="filteredSharedFile.length != 0"> and </span>with users
-                    </span>
-
-                    <span class="bullet">•</span>
-                  </span>
+          <span class="bullet">•</span>
+        </span>
 
         <!-- OPEN ORIGINAL  -->
-        <a class="cursor_pointer" original-file file-url="{{msg.message.content.fileUrl}}">
+        <a class="cursor_pointer" original-file file-url="{{::msg.message.content.fileUrl}}">
           <span translate>@msg-open-original</span>
         </a>
 
         <span class="bullet">•</span>
 
         <!--    DOWNLOAD    -->
-        <a class="cursor_pointer" download-file ng-if="!isIntegrateFile" file-url="{{msg.message.content.fileUrl}}" download-tracker="{{track(msg.message)}}" file-title="{{msg.message.content.title}}">
+        <a class="cursor_pointer" download-file ng-if="!isIntegrateFile" file-url="{{::msg.message.content.fileUrl}}" download-tracker="{{track(msg.message)}}" file-title="{{::msg.message.content.title}}">
           <span translate>@common-download</span>
         </a>
 

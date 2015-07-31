@@ -10,7 +10,7 @@
     .controller('TopicCreateCtrl', TopicCreateCtrl);
 
   /* @ngInject */
-  function TopicCreateCtrl($scope, entityheaderAPIservice, $state, analyticsService, $filter, AnalyticsHelper, modalHelper) {
+  function TopicCreateCtrl($scope, entityheaderAPIservice, $state, analyticsService, $filter, AnalyticsHelper, modalHelper, jndPubSub) {
     $scope.entityType = 'public';
 
     $scope.cancel = modalHelper.closeModal;
@@ -36,7 +36,7 @@
           _body.description = $scope.topicDescription;
         }
 
-        $scope.isLoading = true;
+        jndPubSub.showLoading();
 
         entityheaderAPIservice.createEntity(_entityType, _body)
           .success(function(response) {
@@ -81,7 +81,7 @@
             _onCreateError(response);
           })
           .finally(function() {
-            $scope.isLoading = false;
+            jndPubSub.hideLoading();
           });
       }
 

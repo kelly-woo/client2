@@ -54,7 +54,7 @@ article {
   top: 35px;
   left: 0;
   right: 0;
-  bottom: 50px;
+  bottom: 55px;
   overflow: auto;
   min-width: 260px;
   padding-bottom: 0;
@@ -67,6 +67,7 @@ article {
   bottom: 2px;
   background-color: #fff;
   z-index: 1;
+  text-align: center;
 }
 .msgs__loading.initial {
   height: 100%;
@@ -77,6 +78,11 @@ article {
   height: 60px;
   background-position: center center;
   background-size: 60px 60px;
+}
+.msgs__loading .three-quarters-loader {
+  position: absolute;
+  top: 50%;
+  margin-top: -16px;
 }
 .msgs-intro {
   padding: 1rem 1rem 1rem 1.5rem;
@@ -108,6 +114,7 @@ article {
   /*padding: 0 20px 0 47px;*/
   padding: 0 15px 0 67px;
   margin-bottom: 15px;
+  display: block;
 }
 .msgs-group:last-of-type > .msg-item {
   margin-bottom: 0;
@@ -439,42 +446,17 @@ by ysyun 2015.2.25
   margin-right: 90px;
 }
 
+/*
+  animation을 사용해봤으나 효과가 매끄럽지 못해 부득이하게 클래스 2개를 사용해서 효과를 줬음. -jihoon
+*/
 .last {
   background-color: #f2fbff;
-  /*margin-left: -20px;*/
-  /*padding-left: 67px;*/
-
-  -webkit-animation: opacIn 0.8s;  /* Chrome, Safari, Opera*/
-  animation: opacIn 0.8s;
-  /*margin-right: -10px;*/
-  /*margin-top: -13px !important;*/
-  /*padding-top: 13px;*/
-  /*margin-bottom: 8px;*/
-  /*padding-bottom: 5px;*/
+  /*animation: backgroundcolor-to-white  1510ms linear;*/
 }
-/*.msg-item.last {*/
-/*padding-top: 6px;*/
-/*margin-top: -6px;*/
-/*}*/
-/*.msg-item.last .msg-item-float {*/
-/*left: 20px;*/
-/*top: 6px;*/
-/*}*/
-/*.system-event-msg.last {*/
-/*padding-top: 1px;*/
-/*margin-top: -6px;*/
-/*}*/
-/*.comment-continue.last {*/
-/*padding-top: 0;*/
-/*margin-bottom: 0;*/
-/*margin-top: 0 !important;*/
-/*padding-bottom: 15px;*/
-/*}*/
-/*.last.file-upload {*/
-/*margin-left: -20px !important;*/
-/*padding-bottom: 0;*/
-/*}*/
-/* Chrome, Safari, Opera */
+.last-out {
+  background-color: white;
+  transition: background-color 517ms linear;
+}
 @-webkit-keyframes opacIn {
   from {opacity: 0;}
   to {opacity: 1;}
@@ -484,7 +466,14 @@ by ysyun 2015.2.25
   from {opacity: 0;}
   to {opacity: 1;}
 }
-
+@-webkit-keyframes backgroundcolor-to-white {
+  from { background-color: #f2fbff; }
+  to { background-color: white; }
+}
+@keyframes backgroundcolor-to-white {
+  from { background-color: #f2fbff; }
+  to { background-color: white; }
+}
 .post-message {
   height: 30px;
   width: 30px;
@@ -687,7 +676,7 @@ by ysyun 2015.2.25
 .center-panel-disabled-member .msg-item-header__nameSpace,
 .center-panel-disabled-member.msg-item-header__name {
   text-decoration: line-through;
-  opacity: 0.4;
+  opacity: 0.4 !important;
 }
 .center-panel-disabled-member-input {
   background-color: #EDEDED !important;
@@ -755,43 +744,6 @@ by ysyun 2015.2.25
   color: #00abe6;
 }
 
-
-/********************************************
-
-            HAS NEW MESSAGE
-
-********************************************/
-.has-new-msg-alert-container {
-  position: absolute;
-  left: 66px;
-  right: 10px;
-  bottom: 100%;
-  height: 36px;
-  background-color: rgba(94, 94, 94, 0.8);
-  color: white;
-  font-size: 16px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  padding-left: 14px;
-  z-index: 10;
-}
-
-.has-new-msg-alert-container:hover .has-new-msg-alert-container-text {
-  text-decoration: underline;
-}
-.has-new-msg-alert-container-text {
-  line-height: 36px;
-}
-.has-new-msg-alert-container-close {
-  padding-top: 8px;
-  padding-right: 8px;
-  font-size: 18px;
-  color: rgba(255,255,255,0.7);
-}
-
-.has-new-msg-alert-container-close:hover {
-  color: white;
-}
 
 /********************************************
 

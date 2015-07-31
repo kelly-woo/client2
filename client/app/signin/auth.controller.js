@@ -8,17 +8,13 @@
   /* @ngInject */
   function authController($scope, $rootScope, $state, authAPIservice, analyticsService,
                           storageAPIservice, accountService, memberService, publicService,
-                          pcAppHelper, modalHelper, jndWebSocket, AnalyticsHelper) {
+                          pcAppHelper, modalHelper, jndWebSocket, AnalyticsHelper, jndPubSub) {
 
     var vm = this;
     jndWebSocket.disconnect();
-    $scope.toggleLoading = function() {
-      $scope.isLoading = !$scope.isLoading;
-    };
+
 
     (function(){
-      publicService.hideTransitionLoading();
-
       // Handling users with token info in localstorage.
       // Move token info from 'local Storage' -> to 'Cookie'
       if (storageAPIservice.hasAccessTokenLocal()) {
@@ -38,30 +34,31 @@
       }
 
 
-      if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) return;
+      if (!storageAPIservice.shouldAutoSignIn() && !storageAPIservice.getAccessToken()) {
+        publicService.hideTransitionLoading();
+      } else {
+        // Auto sign-in using cookie.
+        accountService.getAccountInfo()
+          .success(function(response) {
+            //console.log('got account info')
+            accountService.setAccount(response);
 
-      // Auto sign-in using cookie.
-      $scope.toggleLoading();
+            publicService.setLanguageConfig();
 
-      accountService.getAccountInfo()
-        .success(function(response) {
-          //console.log('got account info')
-          accountService.setAccount(response);
+            analyticsService.accountIdentifyMixpanel(response);
+            analyticsService.accountMixpanelTrack("Sign In");
 
-          publicService.setLanguageConfig();
+            getCurrentMember();
+          })
+          .error(function(err) {
+            //console.log('error on getAccountinfo from authController');
+            storageAPIservice.removeLocal();
+            storageAPIservice.removeSession();
+            storageAPIservice.removeCookie();
 
-          analyticsService.accountIdentifyMixpanel(response);
-          analyticsService.accountMixpanelTrack("Sign In");
-
-          getCurrentMember();
-        })
-        .error(function(err) {
-          //console.log('error on getAccountinfo from authController');
-          storageAPIservice.removeLocal();
-          storageAPIservice.removeSession();
-          storageAPIservice.removeCookie();
-          $scope.toggleLoading();
-        });
+            jndPubSub.hideLoading();
+          });
+      }
     })();
 
     function getCurrentMember(memberId) {
@@ -125,7 +122,7 @@
       if ($scope.isLoading) return;
       user.grant_type = "password";
 
-      $scope.toggleLoading();
+      jndPubSub.showLoading();
 
       // TODO: HAS TO BE BETTER WAY TO DO THIS.
       authAPIservice.signIn(user)
@@ -201,7 +198,8 @@
               accountService.removeAccount();
               memberService.removeMember();
 
-              $scope.toggleLoading();
+              jndPubSub.hideLoading();
+
               try {
                 //analytics
                 AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {
@@ -218,7 +216,8 @@
         })
         .error(function(err) {
           $scope.signInFailed = true;
-          $scope.toggleLoading();
+          jndPubSub.hideLoading();
+
           try {
             //analytics
             AnalyticsHelper.track(AnalyticsHelper.EVENT.SIGN_IN, {

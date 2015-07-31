@@ -164,6 +164,10 @@ msgid "@ch-menu-leave"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
+msgid "@ch-menu-rename"
+msgstr ""
+
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-star"
 msgstr ""
@@ -599,10 +603,6 @@ msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
-msgstr ""
-
-#: client/app/center/view_components/entity_header/entity.header.html
-msgid "@edit-topic-information"
 msgstr ""
 
 #: client/app/center/help_messages/help.messages.html
@@ -1076,8 +1076,16 @@ msgstr ""
 msgid "@topic-description-placeholder"
 msgstr ""
 
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@turn-off-topic-alarm"
+msgstr ""
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@turn-on-desktop-notification!"
+msgstr ""
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@turn-on-topic-alarm"
 msgstr ""
 
 #: client/app/tutorial/tutorial.html

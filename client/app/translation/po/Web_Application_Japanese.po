@@ -174,6 +174,10 @@ msgid "@ch-menu-leave"
 msgstr "このトピックから退出"
 
 #: client/app/center/view_components/entity_header/entity.header.html
+msgid "@ch-menu-rename"
+msgstr "このトピックの名称を変更する"
+
+#: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-star"
 msgstr "このトピックをお気に入りに追加する"
@@ -621,10 +625,6 @@ msgstr "このメンバーを別のチャットに招待する"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr "プロファイルを表示する"
-
-#: client/app/center/view_components/entity_header/entity.header.html
-msgid "@edit-topic-information"
-msgstr "トピック情報を変更"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
@@ -1131,9 +1131,17 @@ msgstr "トピック説明"
 msgid "@topic-description-placeholder"
 msgstr "トピックの説明（選択）"
 
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@turn-off-topic-alarm"
+msgstr "通知をオフにする"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@turn-on-desktop-notification!"
 msgstr "デスクトップ通知をオンにする"
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@turn-on-topic-alarm"
+msgstr "通知をオンにする"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
@@ -1487,11 +1495,12 @@ msgstr " 成功しました！"
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
 
-#~ msgid "@ch-menu-rename"
-#~ msgstr "このトピックの名称を変更する"
-
 #~ msgid "@btn-update-name"
 #~ msgstr "名前の更新"
+
+#, fuzzy
+#~ msgid "@tutorial_explore_jandi"
+#~ msgstr "初めてJANDIをご利用ですか？"
 
 #~ msgid "@tutorial_congratulation"
 #~ msgstr ""

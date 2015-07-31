@@ -6,7 +6,7 @@
     .controller('rPanelMessageSearchCardCtrl', rPanelMessageSearchCardCtrl);
 
   /* @ngInject  */
-  function rPanelMessageSearchCardCtrl($scope, $rootScope, $state, MessageQuery) {
+  function rPanelMessageSearchCardCtrl($scope, $rootScope, $state, MessageQuery, currentSessionHelper, jndPubSub) {
     _init();
 
     function _init() {
@@ -44,7 +44,7 @@
         if (!_isToEntityCurrent(toEntityId)) {
           _goTo($scope.entity);
         } else {
-          $rootScope.$broadcast('jumpToMessageId');
+          jndPubSub.pub('jumpToMessageId');
         }
       } else {
         $event.stopPropagation();
@@ -52,7 +52,7 @@
     }
 
     function _isToEntityCurrent(toEntityId) {
-      return $scope.currentEntity.id == toEntityId;
+      return currentSessionHelper.getCurrentEntityId() === toEntityId;
     }
 
     function _goTo(state) {

@@ -9,7 +9,7 @@
   /* @ngInject */
   function headerCtrl($scope, $state, $filter, accountService,
                       memberService, publicService, configuration,
-                      language, modalHelper, jndPubSub, DeskTopNotificationBanner, pcAppHelper,
+                      language, modalHelper, jndPubSub, DeskTopNotificationBanner,
                       Browser, AnalyticsHelper) {
     var modalMap;
     var stateParams;
@@ -109,7 +109,9 @@
      * 잔디 메인으로 보내면서 팀 리스트 페이지를 연다.
      */
     function toTeam() {
-      publicService.redirectTo(configuration.main_address + 'team');
+      if ($scope.isConnected) {
+        publicService.redirectTo(configuration.main_address + 'team');
+      }
     }
 
     /**

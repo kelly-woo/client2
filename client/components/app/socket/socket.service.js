@@ -129,7 +129,7 @@
      * @private
      */
     function _onDisconnected() {
-      if (isConnected) {
+      if (isConnected && false) {
         socket.removeAllListeners();
         ioSocket.io.disconnect();
         ioSocket.io.connect();

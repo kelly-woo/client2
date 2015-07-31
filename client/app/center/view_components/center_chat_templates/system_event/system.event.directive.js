@@ -5,7 +5,8 @@
     .module('jandiApp')
     .directive('systemEvent', systemEvent);
 
-  function systemEvent() {
+  /* @ngInject */
+  function systemEvent($filter) {
     return {
       restrict: 'E',
       scope: false,
@@ -14,7 +15,7 @@
     };
 
     function link(scope, element, attrs) {
-
+      scope.msg.extTime = $filter('gethmmaFormat')(scope.msg.time);
     }
   }
 })();

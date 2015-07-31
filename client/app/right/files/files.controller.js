@@ -18,6 +18,8 @@
     // To be used in directive('centerHelpMessageContainer')
     $scope.emptyMessageStateHelper = 'NO_FILES_UPLOADED';
 
+    $scope.isConnected = true;
+
     //  fileRequest.writerId - 작성자
     $scope.$watch('fileRequest.writerId', function(newValue, oldValue) {
       if ($scope.fileRequest.writerId === null) {
@@ -132,7 +134,8 @@
     });
 
     // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
-    $rootScope.$on('connected', _refreshFileList);
+    $scope.$on('connected', _onConnected);
+    $scope.$on('disconnected', _onDisconnected);
 
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
@@ -153,9 +156,10 @@
     });
 
     function _refreshFileList() {
-      if (!_isFileTabActive()) return;
-      preLoadingSetup();
-      getFileList();
+      if (_isFileTabActive() && $scope.isConnected) {
+        preLoadingSetup();
+        getFileList();
+      }
     }
 
     (function() {
@@ -349,6 +353,9 @@
         // No search result.
         return;
       }
+
+      if (!$scope.isConnected) return;
+
       $scope.isScrollLoading = true;
       $scope.fileRequest.startMessageId = startMessageId;
 
@@ -585,6 +592,23 @@
       $scope.allMembers = $filter('translate')('@option-all-members');
 
       _initFileTypeFilter();
+    }
+
+    /**
+     * 네트워크가 활성화되었을 때
+     * @private
+     */
+    function _onConnected() {
+      $scope.isConnected = true;
+      _refreshFileList();
+    }
+
+    /**
+     * 네크워크가 비황성화되었을 때
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
     }
   }
 })();

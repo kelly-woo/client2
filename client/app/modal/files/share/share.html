@@ -77,10 +77,7 @@
     <input class="btn btn-ok" type="submit" id="file_share_btn" value="{{ '@btn-share' | translate }}"/>
   </div>
 </form>
-<div class="loading_container" data-ng-if="isLoading">
-  <div class="loading_container_background"></div>
-  <div class="loading_bg"></div>
-  <div class="loading_bar icon-loading"></div>
-</div>
+
+<jnd-loading></jnd-loading>
 
 <span ng-if="false" translate>@common-file-share-jump-channel-confirm-msg</span>

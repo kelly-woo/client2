@@ -19,6 +19,8 @@
 
     this.getRoomInformation = getRoomInformation;
 
+    this.getUpdatedList = getUpdatedList;
+
     var server_address = configuration.server_address;
 
     /**
@@ -229,11 +231,28 @@
       });
     }
 
+    /**
+     * 방의 정보(mostly marker)를 얻는다.
+     * @param roomId
+     * @returns {*}
+     */
     function getRoomInformation(roomId) {
       var teamId = currentSessionHelper.getCurrentTeam().id;
       return $http({
         method: 'GET',
         url: server_address + 'teams/' + teamId + '/rooms/' + roomId
+      });
+    }
+
+    function getUpdatedList(roomId, linkId) {
+      var teamId = currentSessionHelper.getCurrentTeam().id;
+
+      return $http({
+        method: 'GET',
+        url: server_address + 'teams/' + teamId + '/rooms/' + roomId + '/messages/updatedList',
+        params : {
+          linkId: linkId
+        }
       });
     }
   }
