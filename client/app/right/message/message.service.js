@@ -1,3 +1,6 @@
+/**
+ * @fileoverview message controller에서 사용가능하도록 message data convert
+ */
 (function() {
   'use strict';
 
@@ -17,6 +20,7 @@
       if (type === 'message') {
         data.roomId = messageData.id;
         data.roomType = messageData.extContentType;
+        data.roomName = messageData.name;
 
         data.writerId = messageData.memberId;
         data.createdAt = messageData.time;
@@ -29,11 +33,14 @@
         data.linkId = messageData.linkId;
 
         data.id = messageData.messageId;
-        data.hasStar = messageData.hasStar;
         data.preventRedirect = true;
-      } else if (type === 'mention') {
+
+        data.hasStar = messageData.hasStar;
+        data.isStarred = messageData.isStarred;
+      } else if (type === 'mention' || type === 'star') {
         data.roomId = messageData.room.id;
         data.roomType = messageData.room.type;
+        data.roomName = messageData.room.name;
 
         data.writerId = messageData.message.writerId;
         data.createdAt = messageData.message.createdAt;
@@ -45,6 +52,11 @@
         data.feedbackId = messageData.message.feedbackId;
         data.feedbackTitle = messageData.message.feedbackTitle;
         data.linkId = messageData.linkId;
+
+        if (type === 'star') {
+          data.hasStar = true;
+          data.isStarred = true;
+        }
       }
 
       return data;
