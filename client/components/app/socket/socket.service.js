@@ -12,7 +12,7 @@
   /* @ngInject */
   function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice,
                         jndWebSocketHelper, jndWebSocketAnnouncement, $injector, NetInterceptor, jndWebSocketTopic,
-                        jndWebSocketMessage,
+                        jndWebSocketMessage, jndWebSocketFile,
                         jndPubSub) {
     var $scope = $rootScope.$new();
     var socket;
@@ -34,10 +34,6 @@
 
     var MEMBER_PROFILE_UPDATED = 'member_profile_updated';
     var MEMBER_PRESENCE_UPDATED = 'member_presence_updated';
-
-    var FILE_DELETED = 'file_deleted';
-    var FILE_COMMENT_CREATED = 'file_comment_created';
-    var FILE_COMMENT_DELETED = 'file_comment_deleted';
 
     var ROOM_MARKER_UPDATED = 'room_marker_updated';
 
@@ -159,11 +155,6 @@
 
       socket.on(CHAT_CLOSE, _onChatClose);
 
-      socket.on(FILE_DELETED, _onFileDeleted);
-
-      socket.on(FILE_COMMENT_CREATED, _onFileCommentCreated);
-      socket.on(FILE_COMMENT_DELETED, _onFileCommentDeleted);
-
       socket.on(ROOM_MARKER_UPDATED, _onRoomMarkerUpdated);
 
       socket.on(MEMBER_PROFILE_UPDATED, _onMemberProfileUpdated);
@@ -176,6 +167,7 @@
       jndWebSocketTopic.attachSocketEvent(socket);
       jndWebSocketMessage.attachSocketEvent(socket);
       jndWebSocketAnnouncement.attachSocketEvent(socket);
+      jndWebSocketFile.attachSocketEvent(socket);
     }
 
     /**
@@ -308,36 +300,6 @@
     }
 
     /**
-     * Socket event receiver - file_deleted
-     * @param data {object}
-     * @private
-     */
-    function _onFileDeleted(data) {
-      jndWebSocketHelper.socketEventLogger(FILE_DELETED, data, false);
-      jndWebSocketHelper.fileDeletedHandler(data);
-    }
-
-    /**
-     * Socket event receiver - file_comment_created
-     * @param data {object}
-     * @private
-     */
-    function _onFileCommentCreated(data) {
-      jndWebSocketHelper.socketEventLogger(FILE_COMMENT_CREATED, data, false);
-      jndWebSocketHelper.fileCommentCreatedHandler(data);
-    }
-
-    /**
-     * Socket event receiver - file_comment_deleted
-     * @param data {object}
-     * @private
-     */
-    function _onFileCommentDeleted(data) {
-      jndWebSocketHelper.socketEventLogger(FILE_COMMENT_DELETED, data, false);
-      jndWebSocketHelper.fileCommentDeletedHandler(data);
-    }
-
-    /**
      * Socket event receiver - room_marker_updated
      * @param data {object}
      * @private
@@ -346,8 +308,6 @@
       jndWebSocketHelper.socketEventLogger(ROOM_MARKER_UPDATED, data, false);
       jndWebSocketHelper.roomMarkerUpdatedHandler(data);
     }
-
-
 
     /**
      * Socket event receiver - member_profile_updated

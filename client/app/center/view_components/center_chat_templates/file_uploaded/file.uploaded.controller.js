@@ -79,6 +79,8 @@
       $scope.$on('onChangeShared',_updateSharedList);
       $scope.$on('onMemberEntityMapCreated', _updateSharedList);
       $scope.$on('updateCenterForRelatedFile', _onUpdateCenterForRelatedFile);
+      $scope.$on('centerOnFileDeleted', _onFileDeleted);
+
     }
 
     /**
@@ -264,5 +266,18 @@
       }
     }
 
+    /**
+     * file delete 시 이벤트 핸들러
+     * @param event
+     * @param param
+     * @private
+     */
+    function _onFileDeleted(event, param) {
+      var deletedFileId = parseInt(param.file.id, 10);
+
+      if (_messageId === deletedFileId) {
+        _message.status = 'archived';
+      }
+    }
   }
 }());

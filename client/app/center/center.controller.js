@@ -194,7 +194,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('centerUpdateChatList', updateList);
     $scope.$on('centerOnMarkerUpdated', _onCenterMarkerUpdated);
     $scope.$on('centerOnTopicLeave',_onCenterOnTopicLeave);
-    $scope.$on('centerOnFileDeleted', _onCenterFileDeleted);
     $scope.$on('centerOnFileCommentDeleted', onCenterOnFileCommentDeleted);
     $scope.$on('attachMessagePreview', _onAttachMessagePreview);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
@@ -1555,6 +1554,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onCenterFileDeleted(event, param) {
+    return;
     var deletedFileId = param.file.id;
     var isTitle;
     MessageCollection.forEach(function(message) {

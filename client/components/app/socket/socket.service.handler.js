@@ -11,17 +11,13 @@
 
   /* @ngInject */
   function jndWebSocketHelper(jndPubSub, entityAPIservice, currentSessionHelper, memberService,
-                              logger, $state, configuration, config, DesktopNotification, EntityMapManager) {
+                              logger, configuration, config, EntityMapManager) {
 
     this.teamNameChangeEventHandler = teamNameChangeEventHandler;
     this.teamDomainChangeEventHandler = teamDomainChangeEventHandler;
 
     this.topicChangeEventHandler = topicChangeEventHandler;
     this.chatMessageListEventHandler = chatMessageListEventHandler;
-
-    this.fileDeletedHandler = fileDeletedHandler;
-    this.fileCommentCreatedHandler = fileCommentCreatedHandler;
-    this.fileCommentDeletedHandler = fileCommentDeletedHandler;
 
     this.roomMarkerUpdatedHandler = roomMarkerUpdatedHandler;
 
@@ -95,33 +91,6 @@
     }
 
     /**
-     * File delete event handler
-     * @param data {object}
-     */
-    function fileDeletedHandler(data) {
-      jndPubSub.pub('rightFileOnFileDeleted', data);
-      jndPubSub.pub('rightFileDetailOnFileDeleted', data);
-      jndPubSub.pub('centerOnFileDeleted', data);
-    }
-
-    /**
-     * File comment created event handler
-     * @param data {object}
-     */
-    function fileCommentCreatedHandler(data) {
-      jndPubSub.pub('rightFileDetailOnFileCommentCreated', data);
-    }
-
-    /**
-     * File comment deleted event handler
-     * @param data {object}
-     */
-    function fileCommentDeletedHandler(data) {
-      jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
-      jndPubSub.pub('centerOnFileCommentDeleted', data);
-    }
-
-    /**
      * Room marker updated event handler
      *  1. call proper function in center panel for current entity.
      * Do nothing for non-current entity.
@@ -184,19 +153,6 @@
 
     }
 
-
-    /**
-     * Update center message list only if room is current entity.
-     * @param room
-     * @private
-     */
-    function _updateCenterForCurrentEntity(isCurrentEntity) {
-      if (isCurrentEntity) {
-        log('update center for current entity');
-        _updateCenterMessage();
-      }
-    }
-
     /**
      * Update left panel entities only if room is NOT current entity.
      * Main purpose is to update badge count on left panel.
@@ -219,14 +175,6 @@
       jndPubSub.updateLeftPanel();
     }
 
-    /**
-     * center panel을 업데이트한다.
-     * @private
-     */
-    function _updateCenterMessage() {
-      log('udpate center message');
-      jndPubSub.updateChatList();
-    }
 
     /**
      * left에 1:1 chat list를 업데이트한다.
