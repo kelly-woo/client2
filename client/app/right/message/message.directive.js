@@ -15,7 +15,8 @@
       scope: {
         messageType: '=',
         messageData: '=',
-        messageQuery: '='
+        messageQuery: '=',
+        messageHasStar: '='
       },
       link: link,
       templateUrl : 'app/right/message/message.html',

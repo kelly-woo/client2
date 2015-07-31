@@ -28,6 +28,8 @@
         data.feedbackTitle = messageData.file ? messageData.file.title : '';
         data.linkId = messageData.linkId;
 
+        data.id = messageData.messageId;
+        data.hasStar = messageData.hasStar;
         data.preventRedirect = true;
       } else if (type === 'mention') {
         data.roomId = messageData.room.id;

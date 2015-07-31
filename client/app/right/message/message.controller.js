@@ -14,38 +14,40 @@
 
     // First function to be called.
     function _init() {
-      var data = $scope.data = MessageData.convert($scope.messageType, $scope.messageData);
+      var message = $scope.message = MessageData.convert($scope.messageType, $scope.messageData);
 
-      $scope.writer = EntityMapManager.get('total', data.writerId);
-      $scope.topic = EntityMapManager.get('total', data.roomId);
+      $scope.writer = EntityMapManager.get('total', message.writerId);
+      $scope.topic = EntityMapManager.get('total', message.roomId);
 
       $scope.writerName = $scope.writer.name;
       $scope.profileImage = $filter('getSmallThumbnail')($scope.writer);
-      $scope.createDate = $filter('getyyyyMMddformat')(data.createdAt);
-      $scope.startPoint = _getMessageStartPoint(data);
-      $scope.content = _getContent(data);
+      $scope.createDate = $filter('getyyyyMMddformat')(message.createdAt);
+      $scope.startPoint = _getMessageStartPoint(message);
+      $scope.content = _getContent(message);
+
+      $scope.isStarred = message.isStarred || false;
 
       $scope.onMessageCardClick = onMessageCardClick;
     }
 
-    function _getContent(data) {
-      var content = data.contentBody;
+    function _getContent(message) {
+      var content = message.contentBody;
 
-      if (data.mentions) {
-        content = $filter('mention')(content, data.mentions, false);
+      if (message.mentions) {
+        content = $filter('mention')(content, message.mentions, false);
       }
 
       return content;
     }
 
-    function _getMessageStartPoint(data) {
+    function _getMessageStartPoint(message) {
       var startPoint;
 
-      if (data.contentType === 'comment') {
+      if (message.contentType === 'comment') {
         $scope.isComment = true;
-        startPoint = data.feedbackTitle;
+        startPoint = message.feedbackTitle;
       } else {
-        startPoint =  data.contentTitle || 'unknown topic';
+        startPoint =  message.contentTitle || 'unknown topic';
       }
 
       return startPoint;
@@ -56,35 +58,35 @@
      * @param {object} user
      */
     function onMessageCardClick(event) {
-      var data = $scope.data;
+      var message = $scope.message;
 
       if (_isProfileImage(event)) {
         event.stopPropagation();
         jndPubSub.pub('onUserClick', $scope.writer);
-      } else if (!data.preventRedirect) {
-        _redirect(data, $scope.writer);
+      } else if (!message.preventRedirect) {
+        _redirect(message, $scope.writer);
       }
     }
 
-    function _redirect(data, writer) {
-      if (data.contentType === 'comment' && data.feedbackId > 0) {
-        _goToFileDetail(data, writer);
+    function _redirect(message, writer) {
+      if (message.contentType === 'comment' && message.feedbackId > 0) {
+        _goToFileDetail(message, writer);
       } else {
-        if (_isPrivateTopicLeaved(data)) {
+        if (_isPrivateTopicLeaved(message)) {
           alert('현재 삭제되거나 나간 토픽이므로 원본을 확인할 수 없습니다.');
         } else {
-          _goToTopic(data);
+          _goToTopic(message);
         }
       }
     }
 
-    function _isPrivateTopicLeaved(data) {
+    function _isPrivateTopicLeaved(message) {
       var result = false;
       var topic = $scope.topic;
       var currentMemberId = memberService.getMemberId();
       var members;
 
-      if (data.roomType === 'privateGroup') {
+      if (message.roomType === 'privateGroup') {
         if (topic) {
           members = topic.pg_members;
           if (members.indexOf(currentMemberId) < 0) {
@@ -98,20 +100,20 @@
       return result;
     }
 
-    function _goToFileDetail(data, writer) {
-      $state.go('files', {userName: writer.name, itemId: data.feedbackId});
+    function _goToFileDetail(message, writer) {
+      $state.go('files', {userName: writer.name, itemId: message.feedbackId});
     }
 
-    function _goToTopic(data) {
-      var toEntityId = data.roomId;
-      var toLinkId = data.linkId;
+    function _goToTopic(message) {
+      var toEntityId = message.roomId;
+      var toLinkId = message.linkId;
 
       MessageQuery.setSearchLinkId(toLinkId);
 
       if (_isToEntityCurrent(toEntityId)) {
         jndPubSub.pub('jumpToMessageId');
       } else {
-        $state.go('archives', {entityType: data.roomType + 's', entityId: toEntityId});
+        $state.go('archives', {entityType: message.roomType + 's', entityId: toEntityId});
       }
     }
 

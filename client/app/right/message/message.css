@@ -67,3 +67,14 @@
   font-size: 16px;
   line-height: 24px;
 }
+
+.message-card .message-star {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 20px;
+}
+
+.message-card .icon-star-fill {
+  color: #f9bb00;
+}

@@ -16,4 +16,7 @@
   <div class="message-card-body">
     <span compile="content || ''" ></span>
   </div>
+  <div class="message-star" ng-if="message.hasStar">
+    <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{ message.id }}"></i>
+  </div>
 </div>

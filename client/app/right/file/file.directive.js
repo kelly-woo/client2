@@ -36,9 +36,6 @@
       extendMenu
         .on('click', function(event) {
           event.stopPropagation();
-
-          toggleMenu = !toggleMenu;
-          toggleMenu ? extendMenu.addClass('open') : extendMenu.removeClass('open');
         })
         .on('click', 'a.share-file,a.focus-comment-file,a.download-file,a.delete-file', function(event) {
           var selector;
