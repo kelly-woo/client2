@@ -356,11 +356,14 @@
      * @private
      */
     function _newMessageHandler(data, roomEntity, writer, isCurrentEntity) {
-      // new message in topic/dm.
+      // new message in topic.
       log('new message written');
       _updateCenterForCurrentEntity(isCurrentEntity);
       _updateLeftPanelForOtherEntity(isCurrentEntity);
-      _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity);
+
+      if (memberService.isTopicNotificationOn(roomEntity.id)) {
+        _sendBrowserNotificationForOtherEntity(data, roomEntity, writer, isCurrentEntity);
+      }
 
     }
 
