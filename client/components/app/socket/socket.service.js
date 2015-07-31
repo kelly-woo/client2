@@ -47,10 +47,6 @@
     var MESSAGE_STARRED = 'message_starred';
     var MESSAGE_UNSTARRED = 'message_unstarred';
 
-    var ANNOUNCEMENT_CREATED =  config.socketEvent.announcement.created;
-    var ANNOUNCEMENT_DELETED = config.socketEvent.announcement.deleted;
-    var ANNOUNCEMENT_STATUS_UPDATED = config.socketEvent.announcement.status_updated;
-
     var MESSAGE_PREVIEW = config.socketEvent.MESSAGE_PREVIEW;
 
     this.init = init;
@@ -174,15 +170,12 @@
 
       socket.on(MESSAGE_PREVIEW, _onMessagePreview);
 
-      socket.on(ANNOUNCEMENT_CREATED, _onAnnouncement);
-      socket.on(ANNOUNCEMENT_DELETED, _onAnnouncement);
-      socket.on(ANNOUNCEMENT_STATUS_UPDATED, _onAnnouncement);
-
       socket.on(MESSAGE_STARRED, _onMessageStarred);
       socket.on(MESSAGE_UNSTARRED, _onMessageUnStarred);
 
       jndWebSocketTopic.attachSocketEvent(socket);
       jndWebSocketMessage.attachSocketEvent(socket);
+      jndWebSocketAnnouncement.attachSocketEvent(socket);
     }
 
     /**
@@ -366,10 +359,6 @@
       jndWebSocketHelper.memberProfileUpdatedHandler(data);
     }
 
-    function _onAnnouncement(data) {
-      //jndWebSocketHelper.socketEventLogger('ANNOUNCEMENT', data, false);
-      jndWebSocketAnnouncement.onAnnouncementEvent(data);
-    }
     /**
      * Disconnect socket connection by emitting 'disconnect_team' socket event.
      * Used when user

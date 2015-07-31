@@ -10,29 +10,19 @@
     .service('jndWebSocketAnnouncement', jndWebSocketAnnouncement);
 
   /* @ngInject */
-  function jndWebSocketAnnouncement(jndPubSub, messageAPIservice, entityAPIservice, currentSessionHelper, memberService,
-                              logger, $state, configuration, config, DesktopNotification) {
+  function jndWebSocketAnnouncement(jndPubSub, config) {
 
     var ANNOUNCEMENT_CREATED =  config.socketEvent.announcement.created;
     var ANNOUNCEMENT_DELETED = config.socketEvent.announcement.deleted;
     var ANNOUNCEMENT_STATUS_UPDATED = config.socketEvent.announcement.status_updated;
 
-    this.onAnnouncementEvent = onAnnouncementEvent;
+    this.attachSocketEvent = attachSocketEvent;
 
-    function onAnnouncementEvent(data) {
-      switch (data.event) {
-        case ANNOUNCEMENT_CREATED:
-          _onAnnouncementCreated(data);
-          break;
-        case ANNOUNCEMENT_DELETED:
-          _onAnnouncementDeleted(data);
-          break;
-        case ANNOUNCEMENT_STATUS_UPDATED:
-        default:
-          _onAnnouncementStatusUpdated(data);
-          break;
-      }
-      _announcementLogger(data);
+    function attachSocketEvent(socket) {
+      socket.on(ANNOUNCEMENT_CREATED, _onAnnouncementCreated);
+      socket.on(ANNOUNCEMENT_DELETED, _onAnnouncementDeleted);
+      socket.on(ANNOUNCEMENT_STATUS_UPDATED, _onAnnouncementStatusUpdated);
+
     }
 
     /**
@@ -41,6 +31,7 @@
      * @private
      */
     function _onAnnouncementCreated(data) {
+      logger.socketEventLogger(data.event, data);
       jndPubSub.pub(config.socketEvent.announcement.created, data.data);
     }
 
@@ -50,6 +41,7 @@
      * @private
      */
     function _onAnnouncementDeleted(data) {
+      logger.socketEventLogger(data.event, data);
       jndPubSub.pub(config.socketEvent.announcement.deleted, data.data);
     }
 
@@ -59,8 +51,8 @@
      * @private
      */
     function _onAnnouncementStatusUpdated(data) {
+      logger.socketEventLogger(data.event, data);
       jndPubSub.pub(config.socketEvent.announcement.status_updated, data.data);
-
     }
 
     function _announcementLogger(data) {
