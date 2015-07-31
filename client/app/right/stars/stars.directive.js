@@ -17,7 +17,7 @@
       controller: 'RightPanelStarsTabCtrl'
     };
 
-    function link(scope, element, attrs) {
+    function link(scope, el, attrs) {
     }
   }
 })();
