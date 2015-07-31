@@ -1,52 +1,85 @@
 <!-- main text-->
 <div class="text-msg-item-container" ng-if="!isChildText">
   <!--  User Thumbnail -->
-  <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
-       ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+  <div class="msg-item-float cursor_pointer" data-ng-click="onUserClick();"
+       disabled-member-detector="center-panel-disabled-member">
     <img on-image-load class="user-profile user-thumb"
          ng-src="{{ msg.exProfileImg }}"/>
   </div>
 
-  <div class="msg-item-header"
-       ng-class="{'center-panel-disabled-member' : isDisabledMember(msg.fromEntity) }">
+  <div class="msg-item-header"  ng-if="!isChildText"
+       disabled-member-detector="center-panel-disabled-member">
     <!--    WRITER-->
-    <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);">
+    <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick();">
       <span class="msg-item-header__nameSpace">
-        <span ng-if="msg.message.contentType !== 'file'"> {{msg.fromEntity | getName}}</span>
+        <span ng-if="msg.message.contentType !== 'file'"> {{msg.extWriterName}}</span>
       </span>
     </span>
   </div>
   <div class="msg-item-body">
     <!-- TEXT -->
     <div class="msg-text">
-      <img ng-if="msg.message.contentType === 'sticker'"  class="sticker size_5" src="{{msg.message.content.url}}"/>
+      <img ng-if="msg.message.contentType === 'sticker'"  class="sticker size_5" src="{{::msg.message.content.url}}"/>
       <span ng-if="msg.message.contentType !== 'sticker'"
             class="keep msg-text-body"
-            data-ng-bind-html="(msg.message.content.body) || ''"></span>
-      <span class="msg-item-header__created">
-        {{msg.time | gethmmaFormat}}
-      </span>
+            compile="(msg.message.content.body) || ''"></span>
+
+
+      <!--  TIME  -->
+      <span class="msg-item-header__created"> {{::msg.extTime}} </span>
+
+      <!--  SENDING STATUS SPINNING WHEEL -->
       <span ng-if="msg.status === 'sending'" class="icon-loading-small"></span>
+
+      <!--  UNREAD COUNT  -->
       <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
-      <!--    DELETE ICON APPEARS ON HOVER    -->
-      <span class="msg-item__action pull-right cursor_pointer"
+      
+      <!-- More -->
+      <span class="pull-right msg-item-icon">
+        <span class=""
+              dropdown
+              dropdown-toggle="true">
+          <i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"
+             ng-mouseenter="onMouseEnterOnIcon();"
+             ng-mouseleave="onMouseLeaveOnIcon();"></i>
+          <!--DROP-DOWN-->
+          <ul class="dropdown-menu grey_dropdown dropdown-menu-right" role="menu">
+            <li role="presentation" tabindex="-1"
+                ng-if="::showAnnouncement"
+                ng-click="createAnnouncement()">
+              <a role="menuitem" tabindex="-1">
+                <i class="icon-bullhorn"></i>
+                <span translate>@announcement-create</span>
+              </a>
+            </li>
+            <li role="presentation" tabindex="-1"
+                ng-click="createAnnouncement()">
+              <a role="menuitem" tabindex="-1">
+                <i class="icon-star"></i>
+                <span translate>@즐겨찾기로-추가</span>
+              </a>
+            </li>
+            <li role="presentation" tabindex="-1"
+                ng-if="::isMyMessage"
+                ng-click="deleteMessage()">
+              <a role="menuitem" tabindex="-1">
+                <i class="fa fa-trash msg-item-action-icon"></i>
+                <span translate>@message-delete</span>
+              </a>
+            </li>
+          </ul>
+        </span>
+      </span>
+
+      <!-- Star -->
+      <span class="cursor_pointer pull-right msg-item-star msg-item-icon msg-item-circle"
+            ng-class="{'off msg-item__action': !msg.message.isStarred}"
             ng-mouseenter="onMouseEnterOnIcon();"
             ng-mouseleave="onMouseLeaveOnIcon();"
-            ng-if="isMyMessage"
-            ng-click="deleteMessage()"
-            tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
-        <i class="fa fa-trash msg-item-action-icon"></i>
+            star-view="msg.message.isStarred"
+            message-id="{{ msg.message.id }}">
+        <i class="icon-star-fill"></i>
       </span>
-
-      <!--    ANNOUNCEMENT ICON APPEARS ON HOVER    -->
-      <span class="msg-item__action pull-right cursor_pointer icon-bullhorn msg-item-action-icon"
-            ng-if="showAnnouncement"
-            ng-mouseenter="onMouseEnterOnIcon();"  ng-mouseleave="onMouseLeaveOnIcon();"
-            ng-click="createAnnouncement()"
-            tooltip="{{ '@announcement-create' | translate }}" tooltip-append-to-body="true">
-      </span>
-
-
     </div>
   </div>
 </div>
@@ -58,28 +91,63 @@
       <img ng-if="msg.message.contentType === 'sticker'" class="sticker size_5" src="{{msg.message.content.url}}"/>
       <span ng-if="msg.message.contentType !== 'sticker'"
             class="keep msg-text-body"
-            data-ng-bind-html="(msg.message.content.body) || ''"></span>
-      <span class="msg-item-header__created">
-        {{msg.time | gethmmaFormat}}
-      </span>
+            compile="(msg.message.content.body) || ''"></span>
+      
+      <!--  TIME  -->
+      <span class="msg-item-header__created"> {{::msg.extTime}} </span>
+
+      <!--  SENDING STATUS SPINNING WHEEL -->
       <span ng-if="msg.status === 'sending'" class="icon-loading-small"></span>
+
+      <!--  UNREAD COUNT  -->
       <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
-      <!--    DELETE ICON APPEARS ON HOVER    -->
-      <span class="msg-item__action pull-right cursor_pointer"
-            ng-mouseenter="onMouseEnterOnIcon();"
-            ng-mouseleave="onMouseLeaveOnIcon();"
-            ng-if="isMyMessage"
-            ng-click="deleteMessage()"
-            tooltip="{{ '@message-delete' | translate }}" tooltip-append-to-body="true">
-        <i class="fa fa-trash msg-item-action-icon"></i>
+
+
+      <!-- More -->
+      <span class="pull-right msg-item-icon">
+        <span class=""
+              dropdown
+              dropdown-toggle="true">
+          <i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"
+             ng-mouseenter="onMouseEnterOnIcon();"
+             ng-mouseleave="onMouseLeaveOnIcon();"></i>
+          <!--DROP-DOWN-->
+          <ul class="dropdown-menu grey_dropdown dropdown-menu-right" role="menu">
+            <li role="presentation" tabindex="-1"
+                ng-if="::showAnnouncement"
+                ng-click="createAnnouncement()">
+              <a role="menuitem" tabindex="-1">
+                <i class="icon-bullhorn"></i>
+                <span translate>@announcement-create</span>
+              </a>
+            </li>
+            <li role="presentation" tabindex="-1"
+                ng-click="createAnnouncement()">
+              <a role="menuitem" tabindex="-1">
+                <i class="icon-star"></i>
+                <span translate>@즐겨찾기로-추가</span>
+              </a>
+            </li>
+            <li role="presentation" tabindex="-1"
+                ng-if="::isMyMessage"
+                ng-click="deleteMessage()">
+              <a role="menuitem" tabindex="-1">
+                <i class="fa fa-trash msg-item-action-icon"></i>
+                <span translate>@message-delete</span>
+              </a>
+            </li>
+          </ul>
+        </span>
       </span>
 
-      <!--    ANNOUNCEMENT ICON APPEARS ON HOVER    -->
-      <span class="msg-item__action pull-right cursor_pointer icon-bullhorn msg-item-action-icon"
-            ng-if="showAnnouncement"
-            ng-mouseenter="onMouseEnterOnIcon();"  ng-mouseleave="onMouseLeaveOnIcon();"
-            ng-click="createAnnouncement()"
-            tooltip="{{ '@announcement-create' | translate }}" tooltip-append-to-body="true">
+      <!-- Star -->
+      <span class="cursor_pointer pull-right msg-item-star msg-item-icon msg-item-circle"
+            ng-class="{'off msg-item__action': !msg.message.isStarred}"
+            ng-mouseenter="onMouseEnterOnIcon();"
+            ng-mouseleave="onMouseLeaveOnIcon();"
+            star-view="msg.message.isStarred"
+            message-id="{{ msg.message.id }}">
+        <i class="icon-star-fill"></i>
       </span>
     </div>
   </div>

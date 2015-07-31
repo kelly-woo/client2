@@ -63,13 +63,15 @@
      * enqueue 한다.
      * @param {string} content
      * @param {object} sticker
+     * @param {array} mentions
      * @returns {Array}
      */
-    function enqueue(content, sticker) {
+    function enqueue(content, sticker, mentions) {
       var messageList = [];
       var queueItem = {
         content: content,
-        sticker: _.clone(sticker)
+        sticker: _.clone(sticker),
+        mentions: mentions
       };
       that.queue.push(queueItem);
 

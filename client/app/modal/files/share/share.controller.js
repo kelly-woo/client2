@@ -8,7 +8,7 @@
 
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService,
-                              jndPubSub, fileToShare, modalHelper, AnalyticsHelper) {
+                              jndPubSub, fileToShare, modalHelper, AnalyticsHelper, currentSessionHelper) {
 
     var _entityType;
     var _entityId;
@@ -16,10 +16,10 @@
 
     $scope.file = fileToShare;
 
-    var selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
+    var selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
     $scope.selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
 
-    $scope.shareChannel = $scope.currentEntity;
+    $scope.shareChannel = currentSessionHelper.getCurrentEntity();
 
     $scope.cancel = modalHelper.closeModal;
 
@@ -35,6 +35,11 @@
       if ($scope.selectOptions.indexOf($scope.shareChannel) === -1 ) {
         $scope.shareChannel = $scope.selectOptions[0];
       }
+
+      $scope.hasPreview = $scope.file.hasPreview == null ? $filter('hasPreview')($scope.file.content) : $scope.file.hasPreview;
+      if ($scope.hasPreview) {
+        $scope.thumbnailImage = $rootScope.server_uploaded + $scope.file.content.extraInfo.smallThumbnailUrl;
+      }
     }
 
 
@@ -46,7 +51,8 @@
       _entityId = shareChannel.id;
       _entityType = shareChannel.type;
 
-      $scope.isLoading = true;
+      jndPubSub.showLoading();
+
       fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
         .success(function() {
           try {
@@ -61,7 +67,7 @@
           _onShareSuccess();
         })
         .error(function(error) {
-          $scope.isLoading = false;
+          jndPubSub.hideLoading();
           var property = {};
           var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
 
@@ -83,10 +89,12 @@
      * @private
      */
     function _onShareSuccess() {
-      $scope.isLoading = false;
-      
+      jndPubSub.hideLoading();
 
-      _sendAnalytics(_entityType);
+
+      try {
+        _sendAnalytics(_entityType);
+      } catch(e) {}
 
       if (confirm($filter('translate')('@common-file-share-jump-channel-confirm-msg'))) {
         if (_entityType === "users") {

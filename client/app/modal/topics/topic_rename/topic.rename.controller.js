@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function TopicRenameCtrl($scope, entityheaderAPIservice, $filter, analyticsService,
-                           AnalyticsHelper, modalHelper, currentSessionHelper) {
+                           AnalyticsHelper, modalHelper, currentSessionHelper, jndPubSub) {
     var duplicate_name_error = 4000;
 
     var _currentEntity = currentSessionHelper.getCurrentEntity();
@@ -26,13 +26,14 @@
     function onRenameClick(form) {
       var _body;
       if (!form.$invalid) {
-        $scope.isLoading = true;
+        jndPubSub.showLoading();
 
         if ($scope.topicName !== _currentEntity.name) {
           _body = {
             name: $scope.topicName
           };
         }
+
         if ($scope.topicDescription !== _currentEntity.description) {
           _body = {
             description: $scope.topicDescription
@@ -81,7 +82,7 @@
             _onCreateError(response);
           })
           .finally(function() {
-            $scope.isLoading = false;
+            jndPubSub.hideLoading();
           });
       }
     }

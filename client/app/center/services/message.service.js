@@ -19,6 +19,8 @@
 
     this.getRoomInformation = getRoomInformation;
 
+    this.getUpdatedList = getUpdatedList;
+
     var server_address = configuration.server_address;
 
     /**
@@ -74,13 +76,14 @@
      * @param {string} entityId   - entity ID
      * @param {string} message    - 메세지
      * @param {object} sticker    - 스티커 객체
+     * @param {array} mentions    - mentions
      * @returns {*}
      */
-    function postMessage(entityType, entityId, message, sticker) {
+    function postMessage(entityType, entityId, message, sticker, mentions) {
       if (sticker && sticker.id && sticker.groupId) {
-        return _postSticker(entityType, entityId, message, sticker);
+        return _postSticker(entityType, entityId, message, sticker, mentions);
       } else {
-        return _postMessage(entityType, entityId, message);
+        return _postMessage(entityType, entityId, message, mentions);
       }
     }
 
@@ -89,20 +92,23 @@
      * @param {string} entityType - entity 타입
      * @param {string} entityId   - entity ID
      * @param {string} message    - 메세지
+     * @param {array} mentions    - mentions
      * @returns {*}
      * @private
      */
-    function _postMessage(entityType, entityId, message) {
+    function _postMessage(entityType, entityId, message, mentions) {
       entityType = _getParamEntityType(entityType);
       return $http({
         method  : 'POST',
         url     : server_address + entityType + '/' + entityId + '/message',
         data    : {
-          content: message
+          content: message,
+          mentions: mentions
         },
         params  : {
           teamId  : memberService.getTeamId()
-        }
+        },
+        version: 3
       });
     }
 
@@ -112,17 +118,19 @@
      * @param {string} entityId   - entity ID
      * @param {string} message    - 메세지
      * @param {object} sticker    - 스티커 객체
+     * @param {array} mentions    - mentions
      * @returns {*}
      * @private
      */
-    function _postSticker(entityType, entityId, message, sticker) {
+    function _postSticker(entityType, entityId, message, sticker, mentions) {
       var data = {
         stickerId: sticker.id,
         groupId: sticker.groupId,
         teamId: memberService.getTeamId(),
         share: entityId,
         type: message ? _getParamEntityType(entityType): '',
-        content: message
+        content: message,
+        mentions: mentions
       };
 
       return $http({
@@ -223,11 +231,28 @@
       });
     }
 
+    /**
+     * 방의 정보(mostly marker)를 얻는다.
+     * @param roomId
+     * @returns {*}
+     */
     function getRoomInformation(roomId) {
       var teamId = currentSessionHelper.getCurrentTeam().id;
       return $http({
         method: 'GET',
         url: server_address + 'teams/' + teamId + '/rooms/' + roomId
+      });
+    }
+
+    function getUpdatedList(roomId, linkId) {
+      var teamId = currentSessionHelper.getCurrentTeam().id;
+
+      return $http({
+        method: 'GET',
+        url: server_address + 'teams/' + teamId + '/rooms/' + roomId + '/messages/updatedList',
+        params : {
+          linkId: linkId
+        }
       });
     }
   }

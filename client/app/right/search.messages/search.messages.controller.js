@@ -65,28 +65,31 @@
 
     // When value of search input box(at the top of right panel) changed.
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
-      _setSearchQueryQ(keyword);
+      if (_isActivated) {
+        _setSearchQueryQ(keyword);
 
-      if (!keyword) {
-        _resetMessageSearchResult();
-        return;
+        if (!keyword) {
+          _resetMessageSearchResult();
+          return;
+        }
+
+        if (!_isMessageTabActive()) return;
+
+        _refreshSearchQuery();
+        searchMessages();
       }
-
-      if (!_isMessageTabActive()) return;
-
-      _refreshSearchQuery();
-      searchMessages();
-
     });
 
-    // When message tab is selected.
-    $scope.$on('onrPanelMessageTabSelected', function() {
-      _isActivated = true;
-      _refreshSearchQuery();
-      searchMessages();
-    });
-    $scope.$on('onrPanelFileTabSelected', function() {
-      _isActivated = false;
+    $scope.$on('onRightPanel', function($event, type) {
+      if (type === 'message') {
+        _isActivated = true;
+        $scope.searchQuery.q = '';
+
+        _refreshSearchQuery();
+        searchMessages();
+      } else {
+        _isActivated = false;
+      }
     });
 
     /**
@@ -355,7 +358,7 @@
      * @private
      */
     function _isMessageTabActive() {
-      return $scope.isMessageTabActive;
+      return _isActivated;
     }
 
     /**

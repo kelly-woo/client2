@@ -1,4 +1,4 @@
-<div class="header" ng-class="{'rpanel-show': $state.includes('**.files.**')}">
+<div class="header">
 
   <!-- Navbar -->
   <div class="header-navbar cursor_pointer">
@@ -116,28 +116,30 @@
         </li>
       </ul>
     </div>
-
   </div>
 
-  <div class="header-toolbar pull-right">
-    <div class="tutorial-clicker tutorial-z-index pulse" id="fileTutorial"
-         data-ng-click="onTutorialPulseClick($event);"
-         data-ng-if="!tutorialStatus.fileTutorial"></div>
-
-    <!-- Toggle -->
-    <div class="header-toolbar-toggle cursor_pointer"
-         data-ng-click="onRightPanelToggle();">
-
-      <span class="icon-search toggle-icon" ng-if="!isRpanelVisible"></span>
-
-      <span class="header-navbar__title">
-        {{ rPanelButtonLabel }}
-      </span>
-
-      <span ng-if="false" translate>@common-search</span>
-      <span class="icon-next toggle-icon" ng-if="isRpanelVisible"></span>
-    </div>  <!--  END OF TOGGLE -->
-
+  <div class="info-tools header-toolbar pull-right">
+    <ul>
+      <li>
+        <a class="info-tool file-tool" ng-class="{active: toolbar.file}" ng-click="openRightPanel('file')">
+          <i class="icon-file"></i>
+        </a>
+      </li>
+      <li>
+        <a class="info-tool message-tool" ng-class="{active: toolbar.message}" ng-click="openRightPanel('message')">
+          <i class="icon-chat"></i>
+        </a>
+      </li>
+      <li>
+        <a class="info-tool star-tool" ng-class="{active: toolbar.star}" ng-click="openRightPanel('star')">
+          <i class="icon-star"></i>
+        </a>
+      </li>
+      <li>
+        <a class="info-tool mention-tool" ng-class="{active: toolbar.mention}" ng-click="openRightPanel('mention')">
+          <i class="fa fa-at"></i>
+        </a>
+      </li>
+    </ul>
   </div>  <!-- END OF HEADER-TOOLBAR  -->
-
 </div>

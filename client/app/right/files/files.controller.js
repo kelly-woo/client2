@@ -18,6 +18,8 @@
     // To be used in directive('centerHelpMessageContainer')
     $scope.emptyMessageStateHelper = 'NO_FILES_UPLOADED';
 
+    $scope.isConnected = true;
+
     //  fileRequest.writerId - 작성자
     $scope.$watch('fileRequest.writerId', function(newValue, oldValue) {
       if ($scope.fileRequest.writerId === null) {
@@ -101,18 +103,23 @@
       return data.room.id === $scope.fileRequest.sharedEntityId;
     }
 
-    $scope.$on('onrPanelFileTabSelected', function() {
-      _isActivated = true;
-      $scope.fileRequest.keyword = '';
-      _refreshFileList();
-    });
-    $scope.$on('onrPanelMessageTabSelected', function() {
-      _isActivated = false;
+    $scope.$on('onRightPanel', function($event, type, hasList) {
+      if (type === 'file') {
+        _isActivated = true;
+        if (!hasList) {
+          $scope.fileRequest.keyword = '';
+          _refreshFileList();
+        }
+      } else {
+        _isActivated = false;
+      }
     });
 
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
-      $scope.fileRequest.keyword = keyword;
-      _refreshFileList();
+      if (_isActivated) {
+        $scope.fileRequest.keyword = keyword;
+        _refreshFileList();
+      }
     });
 
     //  From profileViewerCtrl
@@ -127,7 +134,8 @@
     });
 
     // 컨넥션이 끊어졌다 연결되었을 때, refreshFileList 를 호출한다.
-    $rootScope.$on('connected', _refreshFileList);
+    $scope.$on('connected', _onConnected);
+    $scope.$on('disconnected', _onDisconnected);
 
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
@@ -145,15 +153,13 @@
      */
     $scope.$on('changedLanguage', function() {
       _setLanguageVariable();
-
-      // sharedEntitySearchQuery 초기화 하여 shared entity list를 갱신함.
-      $scope.sharedEntitySearchQuery = null;
     });
 
     function _refreshFileList() {
-      if (!_isFileTabActive()) return;
-      preLoadingSetup();
-      getFileList();
+      if (_isFileTabActive() && $scope.isConnected) {
+        preLoadingSetup();
+        getFileList();
+      }
     }
 
     (function() {
@@ -169,6 +175,7 @@
       $scope.isLoading = false;
       $scope.isScrollLoading = false;
 
+      $scope.fileType = 'file';
       $scope.fileList = [];
       $scope.fileTitleQuery   = '';
 
@@ -346,6 +353,9 @@
         // No search result.
         return;
       }
+
+      if (!$scope.isConnected) return;
+
       $scope.isScrollLoading = true;
       $scope.fileRequest.startMessageId = startMessageId;
 
@@ -519,7 +529,7 @@
     }
 
     function _isFileTabActive() {
-      return $scope.isFileTabActive;
+      return _isActivated;
     }
 
     // _hasLocalCurrentEntityChanged 수행시 localCurrentEntity가 존재하지 않아 error 발생하므로
@@ -582,6 +592,23 @@
       $scope.allMembers = $filter('translate')('@option-all-members');
 
       _initFileTypeFilter();
+    }
+
+    /**
+     * 네트워크가 활성화되었을 때
+     * @private
+     */
+    function _onConnected() {
+      $scope.isConnected = true;
+      _refreshFileList();
+    }
+
+    /**
+     * 네크워크가 비황성화되었을 때
+     * @private
+     */
+    function _onDisconnected() {
+      $scope.isConnected = false;
     }
   }
 })();

@@ -112,48 +112,51 @@
   top: 11px;
   left: 17px;
 }
-.header-toolbar-toggle,
-.header-toolbar-search {
-  display: inline-block;
-  vertical-align: top;
+.header-toolbar > ul {
+  height: 40px;
+  list-style: none;
 }
-.header-toolbar-search {
-  padding: 0 10px;
+.header-toolbar > ul > li {
+  float: left;
+  margin-top: 4px;
+  margin-right: 9px;
 }
-.header-toolbar-toggle {
-  font-size: 14px;
-  width: 80px;
-  text-align: center;
+.header-toolbar > ul > li:last-child {
+  margin-right: 12px;
 }
-.header-toolbar-toggle:hover {
-  color: rgba(255,255,255,0.7);
+.header-toolbar li .info-tool {
+  position: relative;
+  width: 31px;
+  height: 31px;
+  display: table-cell;
+  font-size: 24px;
+  color: #fff;
+  border: 1px solid #fff;
+  cursor: pointer;
+  border-radius: 20px;
+}
+.header-toolbar li:last-child .info-tool {
+  font-size: 20px;
+}
+.header-toolbar .info-tool.active {
+  border-color: #000;
+  background-color: #000;
+}
+.header-toolbar .info-tool:hover {
   text-decoration: none;
 }
-
-.header-toolbar-toggle .toggle-icon {
-  vertical-align: middle;
-  font-size: 16px;
+.header-toolbar .info-tool > i {
+  position: absolute;
+  top: 3px;
+  left: 2.5px;
 }
-.header-toolbar-toggle .icon-filebox {
-  font-size: 16px;
-  vertical-align: text-bottom;
+.header-toolbar .info-tool.file-tool > i,
+.header-toolbar .info-tool.message-tool > i {
+  top: 4px;
 }
-
-#fileTutorial {
-  position: fixed;
-  right: 85px;
-  top: 15px;
-}
-
-@media (max-width: 880px) {
-  .header-toolbar-toggle {
-    border-left: 0;
-    width: auto;
-    margin-right: 7px;
-  }
-  .header-toolbar-toggle .header-navbar__title {
-    display: none;
-  }
+.header-toolbar .info-tool.mention-tool > i {
+  top: 5px;
+  left: 6px;
 }
 
 @media (max-width: 825px) {

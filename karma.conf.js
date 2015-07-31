@@ -12,50 +12,74 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'client/bower_components/jquery/dist/jquery.js',
-      'client/bower_components/jquery-ui/jquery-ui.js',
-      'client/bower_components/jquery-waypoints/waypoints.js',
-      'client/bower_components/jquery.lazyload/jquery.lazyload.js',
-      'client/bower_components/es5-shim/es5-shim.js',
-      'client/bower_components/json3/lib/json3.js',
       'client/bower_components/angular/angular.js',
-      'client/bower_components/angular-animate/angular-animate.js',
-      'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-      'client/bower_components/angular-elastic/elastic.js',
-      'client/bower_components/angular-gettext/dist/angular-gettext.js',
-      'client/bower_components/angular-loader/angular-loader.js',
-      'client/bower_components/angular-local-storage/angular-local-storage.js',
-      'client/bower_components/angular-mocks/angular-mocks.js',
-      'client/bower_components/angular-resource/angular-resource.js',
-      'client/bower_components/angular-socket-io/socket.js',
-      'client/bower_components/angular-ui-router/release/angular-ui-router.js',
-      'client/bower_components/angular-xeditable/dist/js/xeditable.js',
-      'client/bower_components/angulartics/src/angulartics.js',
-      'client/bower_components/angular-elastic/elastic.js',
-      'client/bower_components/blueimp-load-image/js/load-image.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'client/bower_components/ng-file-upload/angular-file-upload.js',
       'client/bower_components/bootstrap/dist/js/bootstrap.js',
+      'client/bower_components/angular-loader/angular-loader.js',
+      'client/bower_components/angular-resource/angular-resource.js',
       'client/bower_components/angular-cookies/angular-cookies.js',
       'client/bower_components/angular-sanitize/angular-sanitize.js',
-      'client/bower_components/lodash/dist/lodash.compat.js',
-      'client/bower_components/ng-file-upload/angular-file-upload.js',
-      'client/bower_components/ng-file-upload-shim/angular-file-upload-shim.js',
-      'client/bower_components/ngImgCrop/compile/unminified/ng-img-crop.js',
+      'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'client/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'client/bower_components/angular-xeditable/dist/js/xeditable.js',
+      'client/bower_components/angular-socket-io/socket.js',
+      'client/bower_components/angular-animate/angular-animate.js',
+      'client/bower_components/angular-local-storage/angular-local-storage.js',
+      'client/bower_components/lodash/lodash.js',
+      'client/bower_components/jquery.lazyload/jquery.lazyload.js',
+      'client/bower_components/jquery.lazyload/jquery.scrollstop.js',
+      'client/bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
+      'client/bower_components/angular-gettext/dist/angular-gettext.js',
+      'client/bower_components/jquery-waypoints/waypoints.js',
       'client/bower_components/SHA-1/sha1.js',
-      'client/assets/javascripts/detectmobilebrowser.js',
+      'client/bower_components/angulartics/src/angulartics.js',
+      'client/bower_components/angular-elastic/elastic.js',
+      'client/bower_components/jquery-ui/jquery-ui.js',
+      'client/bower_components/blueimp-load-image/js/load-image.js',
+      'client/bower_components/blueimp-load-image/js/load-image-ios.js',
+      'client/bower_components/blueimp-load-image/js/load-image-orientation.js',
+      'client/bower_components/blueimp-load-image/js/load-image-meta.js',
+      'client/bower_components/blueimp-load-image/js/load-image-exif.js',
+      'client/bower_components/blueimp-load-image/js/load-image-exif-map.js',
+
+      'client/components/jandi/**/*.js',
+      'client/components/config/common/**/*.js',
+
+      'client/components/config/config.framework.js',
       'client/components/base/**/*.js',
-      // 'client/components/app/session/session.js',
+      'client/components/base/base.framework.js',
+
       'client/components/app/analytics/analytics.js',
-      'client/components/app/config/config.js',
+      'client/components/app/keyCode/keyCode.js',
       'client/components/app/language/language.js',
+      'client/components/app/local_storage/local.storage.js',
+      'client/components/app/net/net.js',
+      'client/components/app/notification/desktop.notification.js',
+      'client/components/app/pubsub/pubsub.js',
+      'client/components/app/socket/socket.js',
       'client/components/app/storage/storage.js',
-      'client/components/app/**/*.js',
+
+      'client/components/app/app.framework.js',
       'client/app/app.js',
-      'client/app/**/*.js' //,
-      //'client/app/**/*.html'
+
+      'client/app/**/*.js',
+      'client/assets/**/*.js',
+      'client/components/**/*.js',
+
+      //jasmine-jquery
+      'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
+
+      // test codes
+      'client/test/**/*.spec.js',
+
+      // fixtures
+      {pattern: 'client/test/**/*.json', watched: true, served: true, included: false}
     ],
 
     preprocessors: {
       //'**/*.html': 'html2js',
-      'client/**/*.js': ['coverage']
+      'client/**/*.js': ['coverage', 'ngannotate']
     },
 
     // ngHtml2JsPreprocessor: {

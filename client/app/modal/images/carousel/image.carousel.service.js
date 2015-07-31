@@ -9,7 +9,7 @@
       .service('ImageCarousel', ImageCarousel);
 
   /* @ngInject */
-  function ImageCarousel($rootScope, $compile, $timeout, jndKeyCode, config, Browser) {
+  function ImageCarousel($rootScope, $compile, $timeout, jndKeyCode, config, Browser, Loading) {
     var that = this;
 
     // image item의 최소 크기
@@ -43,6 +43,10 @@
     var imageMap;
 
     var slide = {};
+
+    var prevLoadedItems = [];
+
+    var _jqLoading = Loading.getSimpleTemplate();
 
     that.init = init;
     that.close = close;
@@ -152,18 +156,22 @@
               $timeout.cancel(timerImageLoad);
               timerImageLoad = null;
             }
-            timerImageLoad = $timeout((function(currentMessageId, messageId) {
+            timerImageLoad = $timeout((function(messageId) {
               return function() {
+                var prevLoadedItem;
+
                 // image item을 출력함
                 _load(messageId, imageMap[messageId]);
 
-                // 이전 image item이 출력되어 있다면 숨김
-                if (currentMessageId != null && imageMap[currentMessageId].jqElement) {
-                  imageMap[currentMessageId].jqElement.hide();
-                  imageMap[currentMessageId].jqElement.children('.image-item-footer').css('opacity', 0);
+                while(prevLoadedItem = prevLoadedItems.pop()) {
+                  // 이전 image item이 출력되어 있다면 숨김
+                  if (prevLoadedItem != null && imageMap[prevLoadedItem].jqElement) {
+                    imageMap[prevLoadedItem].jqElement.hide().children('.image-item-footer').css('opacity', 0);
+                  }
                 }
               };
-            }(currentMessageId, messageId)), timerImageLoad == null ? 0 : 500);
+            }(messageId)), timerImageLoad == null ? 0 : 500);
+            prevLoadedItems.push(currentMessageId);
           }
 
           // 출력할 image item 이동 후 prev, next button 상태 설정
@@ -174,8 +182,15 @@
             // getList transaction begin
             lockerGetList = true;
 
-            _getList(name, function(data) {
-              if (data.hasEndPoint) {
+            _getList(name, function() {
+              var messageId = that.options.messageId;
+              var index = imageList.indexOf(messageId);
+              var hasEndPoint = false;
+              if (index === 0 || index === imageList.length - 1) {
+                hasEndPoint = true;
+              }
+
+              if (hasEndPoint) {
                 _setButtonStatus();
               }
 
@@ -348,7 +363,7 @@
      * @param {function} success - success callback
      * @private
      */
-    function _getList(type, success) {
+    function _getList(type, fn) {
       var searchType = undefined;
       var count = that.options.count;
 
@@ -368,19 +383,14 @@
           writerId:that.options.writerId
         })
         .success(function(data) {
-          data.records != null && (data = data.records);
-
           var messageId = that.options.messageId;
-          var index = imageList.indexOf(messageId);
-          var hasEndPoint = false;
-          if (index === 0 || index === imageList.length - 1) {
-            hasEndPoint = true;
-          }
-
+          data.records != null && (data = data.records);
           _pushImages(messageId, type, data);
-          success && success({
-            hasEndPoint: hasEndPoint
-          });
+
+          fn && fn();
+        })
+        .error(function() {
+          fn && fn();
         });
       }
     }
@@ -480,7 +490,8 @@
         jqImageList.append(jqImageItem[0]);
 
         // image item element에 loading screen 출력
-        jqImageItem.addClass('icon-loading loading');
+        jqImageItem.addClass('loading');
+        jqImageItem.append(_jqLoading);
 
         fullFileUrl = config.server_uploaded + imageItem.fileUrl;
         _imageLoad(jqImageItem, fullFileUrl);
@@ -555,12 +566,18 @@
     function _loadImage(value, jqImageItem, options) {
       // image options와 함께 blob data를 이용해서 canvas element를 만든다.
       loadImage(value, function(img) {
-        // image item에 출력된 loading screen 제거
-        jqImageItem.removeClass('icon-loading loading');
+        var jqImg;
 
+        // image item에 출력된 loading screen 제거
+        jqImageItem.removeClass('loading');
+        _jqLoading.remove();
         if (img.type === 'error') {
           // img가 존재하지 않기 때문에 error image 출력
-          jqImageItem.addClass('no-image-carousel').prepend('<img src="assets/images/no_image_available.png" style="opacity: 1;" />');
+          jqImg = $('<img src="assets/images/no_image_available.png" style="opacity: 0;" width="400" height="153"/>');
+          _setPosition(jqImageItem, jqImg[0]);
+
+          jqImageItem.addClass('no-image-carousel').prepend(jqImg[0]);
+          jqImg.css('opacity', 1);
         } else {
           // img position 설정하고 출력
           _setPosition(jqImageItem, img);

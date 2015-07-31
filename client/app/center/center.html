@@ -8,7 +8,6 @@
   <span translate>@web-notification-body-messages-confirm-delete</span>
 </div>
 
-<entity-header></entity-header>
 
 <div class="file-upload-progress-container" ng-if="curUpload.status != null"
      ng-class="{'isAborted':curUpload.isAborted || curUpload.hasError,
@@ -42,43 +41,38 @@
 <!--    WRAPPING DIV FOR FILE DRAG&DROP -->
 <div dragdown-area ng-file-drop="onFileSelect($files);" hide-on-drop-not-available="false" ng-multiple="true">
 
-
   <!-- 컨테이너 -->
   <article class="msgs" id="msgs-container" when-scrolled="loadMore()">
     <!-- 로딩 영역 -->
-    <div class="msgs__loading icon-loading-img"
+    <div class="msgs__loading initial"
          ng-show="msgLoadStatus.loading || !hasLastMessageRendered"
-         ng-class="{'initial': !isInitialLoadingCompleted || !hasLastMessageRendered}"></div>
+         ng-class="{'initial': !isInitialLoadingCompleted || !hasLastMessageRendered}">
+      <span class="three-quarters-loader jnd-three-quarters-loader center"></span>
+    </div>
 
     <!-- 메세지 wrapper -->
     <div class="msgs-holder opac-zero" id="msgs-holder">
-      <div class="msgs-group" data-ng-repeat="msg in messages" msg-repeat-done="onRepeatDone()">
+      <div class="msgs-group" data-ng-repeat="msg in messages track by $index" msg-repeat-done="onRepeatDone()" ng-switch="msg.message.contentType">
         <!--날짜 구분선-->
-        <date-divider ng-if="isNewDate($index)"></date-divider>
+        <date-divider class="hidden" index="{{::$index}}"></date-divider>
 
-        <div id="{{msg.id}}"
-             data-length="{{messages.length}}"
-             class="msg-item"
-             data-link-id="{{ msg.id }}"
-             data-link-status="{{msg.status}}"
-             data-message-id="{{msg.message.id}}"
-             data-message-type="{{msg.message.contentType}}"
-             data-feedback-id="{{msg.feedbackId}}"
-             data-event-type="{{msg.eventType}}"
-             data-ng-class="{ 'text': isTextType($index) && !isChildText($index),
-                              'text-child': isTextType($index) && isChildText($index),
-                              'file-upload': msg.message.isFile,
-                              'comment-title': isCommentType($index) && isTitleComment($index),
-                              'comment-continue': isCommentType($index) && !isTitleComment($index),
-                              'system-event-msg' : msg.message.contentType === 'systemEvent',
-                              'archived-file': msg.message.status === 'archived' }">
+        <system-event ng-switch-when="systemEvent" id="{{msg.id}}" class="msg-item system-event-msg"></system-event>
 
-          <system-event ng-if="msg.message.contentType === 'systemEvent'"></system-event>
-          <text ng-if="msg.message.isText" msg="msg" is-child-text="isChildText($index);" has-link-preview="hasLinkPreview($index);"></text>
-          <file-uploaded ng-if="msg.message.isFile"></file-uploaded>
-          <title-comment ng-if="msg.message.isComment"></title-comment>
-        </div>
+        <text ng-switch-when="text" msg="msg" id="{{msg.id}}" class="msg-item text"
+              ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>
+
+        <text ng-switch-when="sticker" msg="msg" id="{{msg.id}}" class="msg-item text"
+              ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>
+
+        <file-uploaded ng-switch-when="file" id="{{msg.id}}" class="msg-item"></file-uploaded>
+
+        <title-comment ng-switch-when="comment" id="{{msg.id}}" class="msg-item"
+                       ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
+
+        <unread-bookmark class="msg-item hidden" id="unread-bookmark" link-id="{{::msg.id}}"></unread-bookmark>
+
       </div>
+
       <!-- unsent Message -->
       <div ng-if="unsentMsgs.length" class="msgs-group">
         <div class="msg-item text"
@@ -93,16 +87,10 @@
   </article>
 
   <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)" ng-click="onScrollToBottomIconClicked();"
-       tooltip="{{'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
+       tooltip="{{::'@go-to-latest-message-msg' | translate}}" tooltip-placement="left">
     <i class="icon-down scroll-to-bottom-icon"></i>
   </div>
 
   <!-- chat input box -->
   <center-chat-input-box></center-chat-input-box>
-
-  <div class="loading_container" data-ng-if="isLoading">
-      <div class="loading_container_background"></div>
-      <div class="loading_bg"></div>
-      <div class="loading_bar icon-loading"></div>
-  </div>
 </div>

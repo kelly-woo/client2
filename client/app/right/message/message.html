@@ -1,0 +1,22 @@
+<div class="message-card" ng-click="onMessageCardClick($event)">
+  <div class="message-card-header">
+    <div class="message-profile">
+      <img class="cursor_pointer" ng-src="{{::profileImage }}">
+    </div>
+    <div class="message-meta">
+      <div class="message-title">
+        <span class="message-writer">{{::writerName}}</span>
+        <span class="message-date">{{::createDate}}</span>
+      </div>
+      <div class="message-start">
+        <img class="file-icon" src="assets/images/fileicon_etc.png" ng-if="isComment"><span class="{{isComment ? 'comment-start' : 'topic-start'}}">{{::startPoint}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="message-card-body">
+    <span compile="content || ''" ></span>
+  </div>
+  <div class="message-star" ng-if="message.hasStar">
+    <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{ message.id }}"></i>
+  </div>
+</div>

@@ -8,27 +8,31 @@
   /* @ngInject */
   function FileUploadedCtrl($scope, $filter, fileAPIservice, centerService,
                             modalHelper, ImagesHelper, $compile, FileUploaded,
-                            $state, entityheaderAPIservice, entityAPIservice, jndPubSub) {
+                            $state, entityheaderAPIservice, entityAPIservice, config) {
 
     // 현재 컨틀롤러가 가지고 있는 최상위 돔 엘레멘트
     var jqRootElement;
+    var _jqPreviewContainer;
 
-    var message;
+    var _message;
     var _messageId;
+
     // 현재 컨트롤러가 관리하고 있는 file content
-    var content;
+    var _content;
 
     // small thumbnail 을 가지고 있는 dom element
-    var jqSmallThumbnail;
+    var _jqSmallThumbnail;
     // large thumbnail 을 가지고 있는 dom element
-    var jqLargeThumbnail;
+    var _jqLargeThumbnail;
 
-    var jqFullScreenToggleButton;
+    // large thumbnail 왼쪽위에 있는 버튼 dom element
+    var _jqFullScreenToggleButton;
 
-    var jqThumbnailParent;
+    // preview를 들고 있는 dom element
+    var _jqThumbnailParent;
 
     // 서버 주소
-    var serverUploaded = $scope.server_uploaded;
+    var _serverUploaded = config.server_uploaded;
 
     $scope.onSmallThumbnailClick = onSmallThumbnailClick;
     $scope.onLargeThumbnailClick = onLargeThumbnailClick;
@@ -43,18 +47,25 @@
      */
     function init() {
       jqRootElement = $(document.getElementById($scope.msg.id));
-      message = $scope.msg.message;
-      _messageId = message.id;
+      _message = $scope.msg.message;
+      _messageId = _message.id;
 
-      content = _isCommentType($scope.msg.message) ? $scope.msg.feedback.content : $scope.msg.message.content;
+      _content = _isCommentType(_message) ? $scope.msg.feedback.content : _message.content;
 
-      if ($filter('hasPreview')(content)) {
+      if ($filter('hasPreview')(_content)) {
         // content 가 preview 를 지원 할 경우 -> 이미지.
-        $scope.imageUrlToBeLoaded = serverUploaded  + FileUploaded.getSmallThumbnailUrl(content);
+        $scope.imageUrlToBeLoaded = _serverUploaded  + FileUploaded.getSmallThumbnailUrl(_content);
       }
 
       // integration file 이면 download를 표기하지 않음
-      $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(content.serverUrl);
+      $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(_content.serverUrl);
+
+      $scope.msg.message.content.extHasPreview = $filter('hasPreview')($scope.msg.message.content);
+      $scope.msg.message.content.extFileTitle = $filter('fileTitle')($scope.msg.message.content);
+      $scope.msg.message.content.extFileSize = $filter('bytes')($scope.msg.message.content.size);
+      $scope.msg.message.content.extFileType = $filter('fileType')($scope.msg.message.content);
+
+      $scope.msg.message.extFileOwnerName = $filter('getName')($scope.msg.message.writerId);
 
       _updateSharedList();
       _attachEventListener();
@@ -74,24 +85,26 @@
      * small thumbnail 이 클릭되었을때 불려진다.
      */
     function onSmallThumbnailClick() {
-      jqSmallThumbnail = $(document.getElementById($scope.msg.id + '-image-preview-small'));
+      _jqSmallThumbnail = $(document.getElementById($scope.msg.id + '-image-preview-small'));
 
-      if (!jqThumbnailParent) {
-        jqThumbnailParent = jqSmallThumbnail.parent();
+      if (!_jqThumbnailParent) {
+        _jqThumbnailParent = _jqSmallThumbnail.parent();
       }
 
-      if (!jqLargeThumbnail) {
-        jqLargeThumbnail = _getLargeThumbnailImageLoaderElement();
+      if (!_jqLargeThumbnail) {
+        _jqLargeThumbnail = _getLargeThumbnailImageLoaderElement();
       }
 
 
-      jqThumbnailParent.prepend(jqLargeThumbnail);
+      _jqThumbnailParent.prepend(_jqLargeThumbnail);
 
-      _compileNewDomElement(jqLargeThumbnail, $scope);
+      _compileNewDomElement(_jqLargeThumbnail, $scope);
 
-      _addFullScreenImageViewButton(jqThumbnailParent);
+      _addFullScreenImageViewButton(_jqThumbnailParent);
 
-      jqSmallThumbnail.remove();
+      _jqSmallThumbnail.remove();
+
+      _jqPreviewContainer = _jqThumbnailParent.closest('.preview-container');
       _togglePullLeft();
     }
 
@@ -101,13 +114,13 @@
      * @private
      */
     function _addFullScreenImageViewButton(jqElement) {
-      if (!jqFullScreenToggleButton) {
-        jqFullScreenToggleButton = angular.element('<div class="large-thumbnail-full-screen" ng-click="onFullScreenImageButtonClick();"><i class="fa fa-arrows-alt"></i></i></div>');
+      if (!_jqFullScreenToggleButton) {
+        _jqFullScreenToggleButton = angular.element('<div class="large-thumbnail-full-screen" ng-click="onFullScreenImageButtonClick();"><i class="fa fa-arrows-alt"></i></i></div>');
       }
 
-      _compileNewDomElement(jqFullScreenToggleButton, $scope);
+      _compileNewDomElement(_jqFullScreenToggleButton, $scope);
 
-      jqElement.append(jqFullScreenToggleButton);
+      jqElement.append(_jqFullScreenToggleButton);
     }
 
     /**
@@ -117,7 +130,7 @@
      */
     function _getLargeThumbnailImageLoaderElement() {
       var jqImageLoaderContainer;
-      var imageLoaderMarkUp = ImagesHelper.getImageLoaderElement(serverUploaded  + FileUploaded.getLargeThumbnailUrl(content));
+      var imageLoaderMarkUp = ImagesHelper.getImageLoaderElement(_serverUploaded  + FileUploaded.getLargeThumbnailUrl(_content));
 
       imageLoaderMarkUp.addClass('large-thumbnail');
       imageLoaderMarkUp.attr({
@@ -137,19 +150,18 @@
      * @private
      */
     function _togglePullLeft() {
-      var jqPreviewContainer = angular.element(jqRootElement.find('.preview-container'));
-      jqPreviewContainer.toggleClass('pull-left');
+      _jqPreviewContainer.toggleClass('pull-left')
     }
 
     /**
      * large thumbnail 엘레멘트가 클릭되어졌을 때 불려진다.
      */
     function onLargeThumbnailClick() {
-      _compileNewDomElement(jqSmallThumbnail, $scope);
+      _compileNewDomElement(_jqSmallThumbnail, $scope);
 
-      jqThumbnailParent.append(jqSmallThumbnail);
-      jqLargeThumbnail.remove();
-      jqFullScreenToggleButton.remove();
+      _jqThumbnailParent.append(_jqSmallThumbnail);
+      _jqLargeThumbnail.remove();
+      _jqFullScreenToggleButton.remove();
       _togglePullLeft();
     }
 
@@ -162,13 +174,13 @@
         getImage: fileAPIservice.getImageListOnRoom,
 
         // image file api data
-        messageId: message.id,
+        messageId: _message.id,
         entityId: $scope.currentEntity.entityId || $scope.currentEntity.id,
         // image carousel view data
-        userName: message.writer.name,
+        userName: _message.writer.name,
         uploadDate: $scope.msg.time,
-        fileTitle: message.content.title,
-        fileUrl: message.content.fileUrl,
+        fileTitle: _content.title,
+        fileUrl: _content.fileUrl,
         // single file
         isSingle: $scope.msg.status === 'unshared'
       });
@@ -199,7 +211,7 @@
      * @private
      */
     function _updateSharedList() {
-      $scope.msg.message.shared = fileAPIservice.updateShared(message);
+      $scope.msg.message.shared = fileAPIservice.updateShared(_message);
     }
 
     /**

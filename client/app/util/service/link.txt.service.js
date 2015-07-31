@@ -236,7 +236,14 @@
       ')'
     , 'gi');
     txt.regexen.urlHasProtocol = /^https?:\/\//i;
-
+    txt.regexen.validMentionPrecedingChars = /(?:^|[^a-zA-Z0-9_!#$%&*@＠]|(?:^|[^a-zA-Z0-9_+~.-])(?:rt|RT|rT|Rt):?)/;
+    txt.regexen.atSigns = /[@＠]/;
+    txt.regexen.validMentionOrList = regexSupplant(
+      '(#{validMentionPrecedingChars})' +  // $1: Preceding character
+      '(#{atSigns})' +                     // $2: At mark
+      '([a-zA-Z0-9_]{1,20})' +             // $3: Screen name
+      '(\/[a-zA-Z][a-zA-Z0-9_\-]{0,24})?'  // $4: List (optional)
+      , 'g');
     txt.extractUrlsWithIndices = function(text, options) {
       var urls = [];
       var before;

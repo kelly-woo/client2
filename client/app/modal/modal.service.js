@@ -11,7 +11,7 @@
     .service('modalHelper', modalWindowHelper);
 
   /* @ngInject */
-  function modalWindowHelper($modal, teamAPIservice, accountService) {
+  function modalWindowHelper($modal, teamAPIservice, accountService, NetInterceptor) {
 
     var that = this;
 
@@ -373,7 +373,9 @@
         closeModal();
       }
 
-      return $modal.open(modalOption);
+      if (NetInterceptor.isConnected()) {
+        return $modal.open(modalOption);
+      }
     }
 
     /**

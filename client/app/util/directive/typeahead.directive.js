@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
+app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
   function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser) {
 
     var HOT_KEYS = [9, 13, 27, 38, 40];
@@ -14,37 +14,43 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
         //SUPPORTED ATTRIBUTES (OPTIONS)
 
         //minimal no of characters that needs to be entered before typeahead kicks-in
-
-        //jihoon
+        //var minSearch = attrs.jandiTypeaheadMinLength != null ? originalScope.$eval(attrs.jandiTypeaheadMinLength) : 1;
         var minSearch;
-        if (attrs.typeaheadMinLength == 0)
+        if (attrs.jandiTypeaheadMinLength == 0)
           minSearch = 0;
         else
-          minSearch = originalScope.$eval(attrs.typeaheadMinLength) || 1;
+          minSearch = originalScope.$eval(attrs.jandiTypeaheadMinLength) || 1;
 
-        //minimal wait time after last character typed before typehead kicks-in
-        var waitTime = originalScope.$eval(attrs.typeaheadWaitMs) || 0;
+        //minimal wait time after last character typed before typeahead kicks-in
+        var waitTime = originalScope.$eval(attrs.jandiTypeaheadWaitMs) || 0;
 
         //should it restrict model values to the ones selected from the popup only?
-        var isEditable = originalScope.$eval(attrs.typeaheadEditable) !== false;
+        var isEditable = originalScope.$eval(attrs.jandiTypeaheadEditable) !== false;
 
         //binding to a variable that indicates if matches are being retrieved asynchronously
-        var isLoadingSetter = $parse(attrs.typeaheadLoading).assign || angular.noop;
+        var isLoadingSetter = $parse(attrs.jandiTypeaheadLoading).assign || angular.noop;
 
         //a callback executed when a match is selected
-        var onSelectCallback = $parse(attrs.typeaheadOnSelect);
+        var onSelectCallback = $parse(attrs.jandiTypeaheadOnSelect);
 
-        var inputFormatter = attrs.typeaheadInputFormatter ? $parse(attrs.typeaheadInputFormatter) : undefined;
+        var onMatchesCallback = $parse(attrs.jandiTypeaheadOnMatches);
 
-        var appendToBody =  attrs.typeaheadAppendToBody ? originalScope.$eval(attrs.typeaheadAppendToBody) : false;
+        var placement = attrs.jandiTypeaheadPlacement;
 
+        var inputFormatter = attrs.jandiTypeaheadInputFormatter ? $parse(attrs.jandiTypeaheadInputFormatter) : undefined;
+
+        var appendToBody =  attrs.jandiTypeaheadAppendToBody ? originalScope.$eval(attrs.jandiTypeaheadAppendToBody) : false;
+
+        var focusFirst = originalScope.$eval(attrs.jandiTypeaheadFocusFirst) !== false;
+
+        var templateName = attrs.jandiTypeaheadTemplateName || 'jandi-typeahead-popup';
         //INTERNAL VARIABLES
 
         //model setter executed upon match selection
         var $setModelValue = $parse(attrs.ngModel).assign;
 
         //expressions used by typeahead
-        var parserResult = typeaheadParser.parse(attrs.typeahead);
+        var parserResult = typeaheadParser.parse(attrs.jandiTypeahead);
 
         var hasFocus;
 
@@ -64,7 +70,7 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
         });
 
         //pop-up element used to display matches
-        var popUpEl = angular.element('<div typeahead-popup></div>');
+        var popUpEl = angular.element('<div ' + templateName + '></div>');
         popUpEl.attr({
           id: popupId,
           matches: 'matches',
@@ -74,14 +80,17 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
           position: 'position'
         });
         //custom item template
-        if (angular.isDefined(attrs.typeaheadTemplateUrl)) {
-          popUpEl.attr('template-url', attrs.typeaheadTemplateUrl);
+        if (angular.isDefined(attrs.jandiTypeaheadTemplateUrl)) {
+          popUpEl.attr('template-url', attrs.jandiTypeaheadTemplateUrl);
         }
 
         var resetMatches = function() {
           scope.matches = [];
           scope.activeIdx = -1;
           element.attr('aria-expanded', false);
+          if (placement) {
+            $popup && $popup.css({opacity: 0});
+          }
         };
 
         var getMatchId = function(index) {
@@ -99,18 +108,20 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
         });
 
         var getMatchesAsync = function(inputValue) {
-
           var locals = {$viewValue: inputValue};
           isLoadingSetter(originalScope, true);
           $q.when(parserResult.source(originalScope, locals)).then(function(matches) {
-
             //it might happen that several async queries were in progress if a user were typing fast
             //but we are interested only in responses that correspond to the current view value
             var onCurrentRequest = (inputValue === modelCtrl.$viewValue);
             if (onCurrentRequest && hasFocus) {
-              if (matches.length > 0) {
+              onMatchesCallback(scope, {
+                $matches: matches
+              });
 
-                scope.activeIdx = 0;
+              if (matches && matches.length > 0) {
+
+                scope.activeIdx = focusFirst ? 0 : -1;
                 scope.matches.length = 0;
 
                 //transform labels
@@ -124,11 +135,20 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
                 }
 
                 scope.query = inputValue;
-                //position pop-up with matches - we need to re-calculate its position each time we are opening a window
-                //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
-                //due to other elements being rendered
-                scope.position = appendToBody ? $position.offset(element) : $position.position(element);
-                scope.position.top = scope.position.top + element.prop('offsetHeight');
+                if (placement) {
+                  $timeout(function() {
+                    var css = $position.positionElements(element, $popup, placement, appendToBody);
+                    css.opacity = 1;
+                    $popup.css(css);
+                  });
+                  $popup && $popup.css({top: -10000});
+                } else {
+                  //position pop-up with matches - we need to re-calculate its position each time we are opening a window
+                  //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
+                  //due to other elements being rendered
+                  scope.position = appendToBody ? $position.offset(element) : $position.position(element);
+                  scope.position.top = scope.position.top + element.prop('offsetHeight');
+                }
 
                 element.attr('aria-expanded', true);
               } else {
@@ -152,6 +172,18 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
         //Declare the timeout promise var outside the function scope so that stacked calls can be cancelled later
         var timeoutPromise;
 
+        var scheduleSearchWithTimeout = function(inputValue) {
+          timeoutPromise = $timeout(function () {
+            getMatchesAsync(inputValue);
+          }, waitTime);
+        };
+
+        var cancelPreviousTimeout = function() {
+          if (timeoutPromise) {
+            $timeout.cancel(timeoutPromise);
+          }
+        };
+
         //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
         //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
         modelCtrl.$parsers.unshift(_onViewModelChanged);
@@ -159,20 +191,18 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
         // jihoon
         function _onViewModelChanged(inputValue) {
           hasFocus = true;
+
           // jihoon
-          if (inputValue.length >= minSearch) {
+          if (inputValue != null && inputValue.length >= minSearch) {
             if (waitTime > 0) {
-              if (timeoutPromise) {
-                $timeout.cancel(timeoutPromise);//cancel previous timeout
-              }
-              timeoutPromise = $timeout(function () {
-                getMatchesAsync(inputValue);
-              }, waitTime);
+              cancelPreviousTimeout();
+              scheduleSearchWithTimeout(inputValue);
             } else {
               getMatchesAsync(inputValue);
             }
           } else {
             isLoadingSetter(originalScope, false);
+            cancelPreviousTimeout();
             resetMatches();
           }
 
@@ -188,16 +218,23 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
               return undefined;
             }
           }
-
         }
+
         modelCtrl.$formatters.push(function (modelValue) {
 
           var candidateViewValue, emptyViewValue;
           var locals = {};
 
+          // The validity may be set to false via $parsers (see above) if
+          // the model is restricted to selected values. If the model
+          // is set manually it is considered to be valid.
+          if (!isEditable) {
+            modelCtrl.$setValidity('editable', true);
+          }
+
           if (inputFormatter) {
 
-            locals['$model'] = modelValue;
+            locals.$model = modelValue;
             return inputFormatter(originalScope, locals);
 
           } else {
@@ -222,6 +259,7 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
           model = parserResult.modelMapper(originalScope, locals);
           $setModelValue(originalScope, model);
           modelCtrl.$setValidity('editable', true);
+          modelCtrl.$setValidity('parse', true);
 
           onSelectCallback(originalScope, {
             $item: item,
@@ -237,24 +275,31 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
         };
 
         //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
-        element.bind('keydown', function (evt) {
+        (originalScope.eventCatcher || element).bind('keydown', function (evt) {
 
           //typeahead is open and an "interesting" key was pressed
           if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
             return;
           }
 
+          // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
+          if (scope.activeIdx == -1 && (evt.which === 13 || evt.which === 9)) {
+            return;
+          }
+
           evt.preventDefault();
 
           if (evt.which === 40) {
-            scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
+            scope.selectActive((scope.activeIdx + 1) % scope.matches.length);
             scope.$digest();
 
           } else if (evt.which === 38) {
-            scope.activeIdx = (scope.activeIdx ? scope.activeIdx : scope.matches.length) - 1;
+            scope.selectActive((scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1);
             scope.$digest();
 
           } else if (evt.which === 13 || evt.which === 9) {
+            evt.stopPropagation();
+
             scope.$apply(function () {
               scope.select(scope.activeIdx);
             });
@@ -267,7 +312,11 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
           }
         });
 
-        element.bind('blur', function (evt) {
+        scope.selectActive = function (matchIdx) {
+          scope.activeIdx = matchIdx;
+        };
+
+        (originalScope.eventCatcher || element).bind('blur', function (evt) {
           hasFocus = false;
         });
 
@@ -287,15 +336,113 @@ app.directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document',
 
         originalScope.$on('$destroy', function(){
           $document.unbind('click', dismissClickHandler);
+          if (appendToBody) {
+            $popup.remove();
+          }
+          // Prevent jQuery cache memory leak
+          popUpEl.remove();
         });
 
         var $popup = $compile(popUpEl)(scope);
-        if ( appendToBody ) {
+
+        if (appendToBody) {
           $document.find('body').append($popup);
         } else {
           element.after($popup);
         }
       }
     };
+  }]).
+  directive('jandiTypeaheadPopup', function () {
+    return {
+      restrict:'EA',
+      scope:{
+        matches:'=',
+        query:'=',
+        active:'=',
+        position:'=',
+        select:'&'
+      },
+      replace:true,
+      templateUrl:'template/typeahead/typeahead-popup.html',
+      link:function (scope, element, attrs) {
 
-  }])
+        scope.templateUrl = attrs.templateUrl;
+
+        scope.isOpen = function () {
+          return scope.matches.length > 0;
+        };
+
+        scope.isActive = function (matchIdx) {
+          return scope.active == matchIdx;
+        };
+
+        scope.selectActive = function (matchIdx) {
+          scope.active = matchIdx;
+        };
+
+        scope.selectMatch = function (activeIdx) {
+          scope.select({activeIdx:activeIdx});
+        };
+      }
+    };
+  }).
+  directive('jandiMentionaheadPopup', function ($position) {
+    return {
+      restrict:'EA',
+      scope:{
+        matches:'=',
+        query:'=',
+        active:'=',
+        position:'=',
+        select:'&'
+      },
+      replace:true,
+      templateUrl:'components/app/mention_ahead/mention.ahead.html',
+      link:function (scope, element, attrs) {
+        var $parent = scope.$parent;
+        var originSelectActive = $parent.selectActive;
+
+        $parent.selectActive = function (matchIdx) {
+          var jqMentionItem;
+          var itemPosition;
+          var contPosition;
+          var scrollTop;
+          var compare;
+
+          jqMentionItem = element.children().eq(matchIdx);
+          scrollTop = element.scrollTop();
+
+          itemPosition = $position.offset(jqMentionItem);
+          contPosition = $position.offset(element);
+
+          compare = itemPosition.top - contPosition.top;
+          if (compare < 0) {
+            element.scrollTop(scrollTop + compare);
+          } else if ( compare + itemPosition.height > contPosition.height ) {
+            element.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
+          }
+
+          originSelectActive.call($parent, matchIdx);
+        };
+
+        scope.templateUrl = attrs.templateUrl;
+
+        scope.isOpen = function () {
+          return scope.matches.length > 0;
+        };
+
+        scope.isActive = function (matchIdx) {
+          return scope.active == matchIdx;
+        };
+
+        scope.selectActive = function(matchIdx) {
+          $parent.selectActive(matchIdx);
+        };
+
+        scope.selectMatch = function (activeIdx) {
+          scope.select({activeIdx:activeIdx});
+        };
+      }
+    };
+  });

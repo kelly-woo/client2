@@ -3,12 +3,13 @@
 
   angular
     .module('app.framework', [
-      'config.framework',
-      'base.framework',
       'app.analytics',
+      'app.cache',
+      'app.router',
       'app.language',
       'app.storage',
       'app.local.storage',
+      'app.mention',
       'app.pubsub',
       'app.socket',
       'app.keyCode',

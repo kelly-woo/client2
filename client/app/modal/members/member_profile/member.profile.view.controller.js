@@ -64,7 +64,7 @@
       }
 
       jndPubSub.pub('updateFileWriterId', userId);
-      jndPubSub.pub('setFileTabActive');
+      jndPubSub.pub('onRightPanel', 'file');
     }
 
     /**

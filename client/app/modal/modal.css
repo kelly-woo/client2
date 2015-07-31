@@ -341,14 +341,11 @@
   height: 100%;
 }
 .loading_bar {
-  background-position: center center;
-  vertical-align: middle;
   position: relative;
-  width: 40px;
-  height: 40px;
-  margin: -20px auto auto;
+  width: 32px;
+  height: 32px;
+  margin: -16px auto auto;
   top: 50%;
-  background-size: 40px;
 }
 
 .modal-noti-block {

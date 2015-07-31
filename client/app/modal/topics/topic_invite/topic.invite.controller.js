@@ -5,14 +5,15 @@
     .module('jandiApp')
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
-  function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, entityheaderAPIservice, $state, $filter,
-                                 entityAPIservice, analyticsService, modalHelper, AnalyticsHelper) {
+  function TopicInviteCtrl($scope, $rootScope, $modalInstance, currentSessionHelper, entityheaderAPIservice, $state, $filter,
+                                 entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub) {
     InitInvite();
 
     /*
      Generating list of users that are not in current channel or private group.
      */
     function InitInvite() {
+      $scope.currentEntity = currentSessionHelper.getCurrentEntity();
       var members = entityAPIservice.getMemberList($scope.currentEntity);
       var totalUserList = $scope.memberList;
       var msg1;
@@ -68,7 +69,8 @@
       var property = {};
       var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if (!$scope.isLoading && $scope.inviteUsers.length > 0) {
-        $scope.toggleLoading();
+
+        jndPubSub.showLoading();
 
         angular.forEach($scope.inviteUsers, function(user) {
           this.push(user.id);
@@ -120,17 +122,13 @@
             console.error('inviteUsers', error.msg );
           })
           .finally(function() {
-            $scope.toggleLoading();
+            jndPubSub.hideLoading();
           });
       }
     };
 
     $scope.cancel = function() {
       $modalInstance.dismiss('cancel');
-    };
-
-    $scope.toggleLoading = function() {
-      $scope.isLoading = !$scope.isLoading;
     };
   }
 })();

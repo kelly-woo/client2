@@ -7,7 +7,6 @@
 
   angular
     .module('base.framework', [
-      'ui.router',
       'ui.bootstrap',
       'angularFileUpload',
       'ngResource',

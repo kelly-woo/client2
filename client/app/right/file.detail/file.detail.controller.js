@@ -4,7 +4,7 @@ var app = angular.module('jandiApp');
 
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
-                                           publicService, configuration, modalHelper, jndPubSub, jndKeyCode, AnalyticsHelper) {
+                                           memberService, publicService, configuration, modalHelper, jndPubSub, jndKeyCode, AnalyticsHelper, EntityMapManager) {
 
   //console.info('[enter] fileDetailCtrl');
   var _sticker = null;
@@ -45,7 +45,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.onCommentFocusClick = onCommentFocusClick;
   $scope.onKeyDown = onKeyDown;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
+  $scope.onStarClick = onStarClick;
   $scope.getCreateTime = getCreateTime;
+  $scope.watchFileDetail = watchFileDetail;
 
   _init();
 
@@ -57,7 +59,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (!_.isUndefined(fileId)) {
       _initListeners();
       $scope.isPostingComment = false;
+
       getFileDetail();
+      jndPubSub.pub('onHeaderAcitveTab', 'file');
     }
   }
 
@@ -144,14 +148,23 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * comment 를 posting 한다.
    */
   function postComment() {
-    var content = $('#file-detail-comment-input').val();
-    if (!$scope.isPostingComment &&
-      ((content) || _sticker)) {
+    var msg = $('#file-detail-comment-input').val();
+    var content;
+    var mentions;
+
+    if (!$scope.isPostingComment && (msg || _sticker)) {
       _hideSticker();
 
       $scope.isPostingComment = true;
 
-      fileAPIservice.postComment(fileId, content, _sticker)
+      if ($scope.getMentionAllForText) {
+        if (content = $scope.getMentionAllForText()) {
+          msg = content.msg;
+          mentions = content.mentions;
+        }
+      }
+
+      fileAPIservice.postComment(fileId, msg, _sticker, mentions)
         .success(function() {
           $scope.glued = true;
           $('#file-detail-comment-input').val('');
@@ -201,6 +214,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @param {object} user
    */
   function onUserClick(user) {
+    if (_.isNumber(user)) {
+      user = EntityMapManager.get('member', user);
+    }
     $scope.$emit('onUserClick', user);
   }
 
@@ -405,6 +421,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @returns {*}
    */
   function isDisabledMember(member) {
+    if (_.isNumber(member)) {
+      member = EntityMapManager.get('member', member);
+    }
     return publicService.isDisabledMember(member);
   }
 
@@ -480,6 +499,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var messageDetails = response && response.messageDetails;
     var i = messageDetails && messageDetails.length - 1 || 0;
     var item;
+
+    $scope.isStarred = false;
+
     // 일단 polling이 없으니 업데이트가 있을때마다 새로 갱신
     $scope.file_comments = [];
 
@@ -500,6 +522,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         setImageUrl($scope.file_detail);
       }
 
+      // writer
+      $scope.file_detail.extWriter = EntityMapManager.get('member', $scope.file_detail.writerId);
+
+      // integrate file
       $scope.isIntegrateFile = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
     }
   }
@@ -516,7 +542,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.file_detail.exProfileImg = $filter('getSmallThumbnail')(item.writerId);
       $scope.hasTopic = !!$scope.file_detail.shareEntities.length;
 
-      $scope.file_detail.shared = fileAPIservice.getSharedEntities(item);
+      $scope.file_detail.shared = fileAPIservice.updateShared(item);
       $scope.isFileArchived = _isFileArchived($scope.file_detail);
     } else if (!_isFileArchived(item)) {
       _appendFileComment(item);
@@ -583,6 +609,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * Redirect user back to file list.
    */
   function backToFileList() {
+    jndPubSub.pub('onHeaderAcitveTab', 'file');
     $state.go('messages.detail.files');
   }
 
@@ -613,5 +640,59 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     }
 
     return createTime;
+  }
+
+  /**
+   * file_detail이 변경되면 mentionList 갱신
+   * @param {object} $mentionScope
+   */
+  function watchFileDetail($mentionScope, $mentionCtrl) {
+    var currentMemberId = memberService.getMemberId();
+
+    $scope.$watch('file_detail', function(value) {
+      var sharedEntities;
+      var entity;
+      var members;
+      var member;
+      var i;
+      var iLen;
+      var j;
+      var jLen
+
+      var mentionList = [];
+
+      if (value) {
+        sharedEntities = value.shareEntities;
+        for (i = 0, iLen = sharedEntities.length; i < iLen; i++) {
+          entity = entityAPIservice.getEntityFromListById($scope.totalEntities, sharedEntities[i]);
+          if (entity && /channels|privategroups/.test(entity.type)) {
+            members = entityAPIservice.getMemberList(entity);
+            if (members) {
+              for (j = 0, jLen = members.length; j < jLen; j++) {
+                member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
+                if (member && currentMemberId !== member.id && member.status === 'enabled') {
+                  member.exViewName = '[@' + member.name + ']';
+                  member.exSearchName = member.name;
+                  mentionList.push(member);
+                }
+              }
+            }
+          }
+        }
+
+        $mentionCtrl.setMentions(mentionList, function() {
+          return _.chain(mentionList).uniq('id').sortBy('name').value();
+        });
+      }
+    });
+  }
+
+  /**
+   * star click trigger
+   */
+  function onStarClick() {
+    $timeout(function() {
+      $('.file-detail').find('.star-btn').trigger('click');
+    });
   }
 });

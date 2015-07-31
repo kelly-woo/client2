@@ -1,4 +1,8 @@
-<div ng-if="isConnected" class="panel-title-container non-selectable" ng-class="{'center-panel-disabled-member': isDisabledMember(currentEntity)}"> <!--    STAR ICON --> <span class="prefix star" ng-click="onStarClick();"> <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
+<div ng-if="isConnected" class="panel-title-container non-selectable"
+     ng-class="{'center-panel-disabled-member': isDisabledEntity}">
+  <!--    STAR ICON -->
+  <span class="prefix star" ng-click="onStarClick();">
+    <i class="icon-star" ng-class="{'icon-star-fill starred-on' : currentEntity.isStarred}"></i>
   </span>
 
   <!--    PREFIX ICON -->
@@ -72,14 +76,14 @@
     <!--User-->
     <ul class="dropdown-menu grey_dropdown header-title-info__dropdown" ng-if="isUserType">
       <!--    INVITE  -->
-      <li role="presentation" ng-if="!isDisabledMember(currentEntity);">
+      <li role="presentation" ng-if="!isDisabledEntity">
         <a role="menuitem" tabindex="-1" ng-click="inviteUserToChannel(this);">
           <i class="icon-invite-fill"></i><span translate>@dm-menu-invite</span>
         </a>
       </li>
 
       <!--    STAR    -->
-      <li role="presentation" ng-click="onStarClick()" ng-if="!isDisabledMember(currentEntity);">
+      <li role="presentation" ng-click="onStarClick()" ng-if="!isDisabledEntity">
         <a role="menuitem" tabindex="-1">
           <i ng-if="currentEntity.isStarred" class="icon-star"></i><span ng-if="currentEntity.isStarred" translate>@user-menu-un-star</span>
           <i ng-if="!currentEntity.isStarred" class="icon-star-fill"></i><span ng-if="!currentEntity.isStarred" translate>@user-menu-star</span>
@@ -123,8 +127,8 @@
       <ul class="dropdown-menu grey_dropdown header-title-member__dropdown" role="menu">
         <li role="presentation" tabindex="-1" ng-repeat="userId in currentEntity.members track by $index">
           <a ng-click="openMemberModal(userId);">
-            <img class="header-title-member__dropdown__thumb" ng-src="{{::userId | getSmallThumbnail}}"/>
-              <span class="overflow-ellipsis">{{::userId | getName}}</span>
+            <img class="header-title-member__dropdown__thumb" ng-src="{{userId | getSmallThumbnail}}"/>
+              <span class="overflow-ellipsis">{{userId | getName}}</span>
           </a>
         </li>
       </ul>
@@ -141,6 +145,7 @@
     </span>
 
   </span>
+  {{ getWatchCount() }}
 
   <!-- TOPIC NOTIFICATION INDICATOR -->
   <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__item panel-title-right-menu__notification_bell" ng-if="!isUserType">

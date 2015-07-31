@@ -10,7 +10,9 @@
     .service('jndWebSocket', jndWebSocket);
 
   /* @ngInject */
-  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice, jndWebSocketHelper, jndWebSocketAnnouncement, $injector, NetInterceptor, jndWebSocketTopic) {
+  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice,
+                        jndWebSocketHelper, jndWebSocketAnnouncement, $injector, NetInterceptor, jndWebSocketTopic,
+                        jndPubSub) {
     var $scope = $rootScope.$new();
     var socket;
     var ioSocket;
@@ -41,7 +43,8 @@
     // Emit only event
     var DISCONNECT_TEAM = 'disconnect_team';
 
-
+    var MESSAGE_STARRED = 'message_starred';
+    var MESSAGE_UNSTARRED = 'message_unstarred';
 
     var ANNOUNCEMENT_CREATED =  config.socketEvent.announcement.created;
     var ANNOUNCEMENT_DELETED = config.socketEvent.announcement.deleted;
@@ -126,7 +129,7 @@
      * @private
      */
     function _onDisconnected() {
-      if (isConnected) {
+      if (isConnected && false) {
         socket.removeAllListeners();
         ioSocket.io.disconnect();
         ioSocket.io.connect();
@@ -191,9 +194,37 @@
       socket.on(ANNOUNCEMENT_DELETED, _onAnnouncement);
       socket.on(ANNOUNCEMENT_STATUS_UPDATED, _onAnnouncement);
 
+      socket.on(MESSAGE_STARRED, _onMessageStarred);
+      socket.on(MESSAGE_UNSTARRED, _onMessageUnStarred);
       jndWebSocketTopic.attachSocketEvent(socket);
     }
 
+    /**
+     * starred message 이벤트 핸들러
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onMessageStarred(socketEvent) {
+      var data = socketEvent.data;
+      jndWebSocketHelper.socketEventLogger(MESSAGE_STARRED, socketEvent, false);
+
+      if (parseInt(memberService.getMemberId(), 10) === parseInt(data.memberId, 10)) {
+        jndPubSub.pub('starred', data);
+      }
+    }
+
+    /**
+     * unStarred message 이벤트 핸들러
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onMessageUnStarred(socketEvent) {
+      var data = socketEvent.data;
+      jndWebSocketHelper.socketEventLogger(MESSAGE_UNSTARRED, socketEvent, false);
+      if (parseInt(memberService.getMemberId(), 10) === parseInt(data.memberId, 10)) {
+        jndPubSub.pub('unStarred', data);
+      }
+    }
 
     /**
      * Socket event receiver - SUCCESS socket connection.

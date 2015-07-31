@@ -1,3 +1,6 @@
+/**
+ * @fileoverview file directive
+ */
 (function() {
   'use strict';
 
@@ -8,30 +11,38 @@
   function file() {
     return {
       restrict: 'EA',
-      scope: true,
+      replace: true,
+      scope: {
+        fileType: '=',
+        fileData: '=',
+        fileQuery: '='
+      },
       link: link,
-      templateUrl: 'app/right/files/file/file.html',
-      controller: 'fileCtrl'
+      templateUrl : 'app/right/file/file.html',
+      controller: 'FileCtrl'
     };
 
-    function link(scope, element, attrs) {
-      var extendMenu = element.find('.file-item-body-title__more');
+    function link(scope, el) {
+      var extendMenu = el.find('.file-menu');
       var toggleMenu;
 
-      // íŒŒì¼ ê³µìœ , ëŒ“ê¸€, ë‹¤ìš´ë¡œë“œ, ì‚­ì œ ë©”ë‰´ë²„íŠ¼ì˜ click event handling
+      el.on('click', function(event) {
+        if (event.target.className.indexOf('star') < 0) {
+          scope.onFileCardClick();
+        }
+      });
+
+      // ÆÄÀÏ °øÀ¯, ´ñ±Û, ´Ù¿î·Îµå, »èÁ¦ ¸Ş´º¹öÆ°ÀÇ click event handling
       extendMenu
         .on('click', function(event) {
           event.stopPropagation();
-
-          toggleMenu = !toggleMenu;
-          toggleMenu ? extendMenu.addClass('open') : extendMenu.removeClass('open');
         })
         .on('click', 'a.share-file,a.focus-comment-file,a.download-file,a.delete-file', function(event) {
           var selector;
 
           selector = event.currentTarget.className;
           if (selector ==='share-file') {
-            scope.onClickShare(scope.file);
+            scope.onClickShare();
           } else if (selector === 'focus-comment-file') {
             scope.setCommentFocus();
           } else if (selector === 'delete-file') {

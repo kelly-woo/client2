@@ -6,7 +6,8 @@
     .controller('TopicJoinCtrl', TopicJoinCtrl);
 
   /* @ngInject */
-  function TopicJoinCtrl($scope, $modalInstance, $state, entityheaderAPIservice, analyticsService, memberService, publicService, modalHelper) {
+  function TopicJoinCtrl($scope, $state, entityheaderAPIservice, analyticsService, memberService,
+                         jndPubSub, modalHelper) {
 
     // id of topic to join
     var entityIdToJoin;
@@ -45,7 +46,7 @@
     $scope.onJoinClick = function(entityId) {
       if ($scope.isLoading) return;
 
-      $scope.toggleLoading();
+      jndPubSub.showLoading();
 
       entityIdToJoin = entityId;
 
@@ -57,7 +58,7 @@
           console.log('onJoinClick', error.msg);
         })
         .finally(function() {
-          $scope.toggleLoading();
+          jndPubSub.hideLoading();
         });
     };
 

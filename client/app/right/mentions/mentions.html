@@ -1,0 +1,14 @@
+<div class="rpanel-body mention-list" infinite-scroll-bottom="loadMore();">
+  <div class="search-result-container" ng-if="isLoading">
+    <div class="search-result-summary-ing"><span translate>@search-in-progress</span></div>
+  </div>
+  <div class="infinite-scroll-bottom-list">
+    <message message-data="record" message-type="messageType" ng-repeat="record in records"></message>
+  </div>
+  <!--<mention-card ng-repeat="mention in mentionList"></mention-card>-->
+  <div class="file-list__item loading" ng-if="isScrollLoading && records.length > 0">
+    <div class="loading_container_background scroll_loading_container_background"></div>
+    <div class="loading_bg scroll_loading_bg"></div>
+    <div class="loading_bar icon-loading scroll_loading_bar"></div>
+  </div>
+</div>

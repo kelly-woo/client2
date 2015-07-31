@@ -35,17 +35,17 @@
   <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
   <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/text/text.css">
+  <link rel="stylesheet" href="app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/topic_description/topic.description.css">
   <link rel="stylesheet" href="app/disconnect/disconnect.css">
   <link rel="stylesheet" href="app/header/header.css">
-  <link rel="stylesheet" href="app/jandi-common.css">
-  <link rel="stylesheet" href="app/jandi-fonts.css">
   <link rel="stylesheet" href="app/left/left.css">
   <link rel="stylesheet" href="app/left/member/member.css">
   <link rel="stylesheet" href="app/left/messages/messages.css">
   <link rel="stylesheet" href="app/left/topics/topics.css">
   <link rel="stylesheet" href="app/main.css">
+  <link rel="stylesheet" href="app/mention/mention.view.css">
   <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
   <link rel="stylesheet" href="app/modal/files/integration/integration.css">
   <link rel="stylesheet" href="app/modal/images/carousel/image.carousel.css">
@@ -60,12 +60,15 @@
   <link rel="stylesheet" href="app/modal/topics/topic_invite/topic.invite.css">
   <link rel="stylesheet" href="app/modal/topics/topic_join/topic.join.css">
   <link rel="stylesheet" href="app/right/file.detail/file.detail.css">
-  <link rel="stylesheet" href="app/right/files/file/file.css">
+  <link rel="stylesheet" href="app/right/file/file.css">
   <link rel="stylesheet" href="app/right/files/files.css">
+  <link rel="stylesheet" href="app/right/mentions/mentions.css">
+  <link rel="stylesheet" href="app/right/message/message.css">
   <link rel="stylesheet" href="app/right/right.css">
   <link rel="stylesheet" href="app/right/rpanel_search/rpanel.search.css">
   <link rel="stylesheet" href="app/right/search.messages/search.message/search.message.css">
   <link rel="stylesheet" href="app/right/search.messages/search.messages.css">
+  <link rel="stylesheet" href="app/right/stars/stars.css">
   <link rel="stylesheet" href="app/signin/signin.css">
   <link rel="stylesheet" href="app/sticker/sticker.css">
   <link rel="stylesheet" href="app/tpl/503/503.css">
@@ -91,36 +94,47 @@
   <link rel="stylesheet" href="app/tutorial/popup/view_components/tutor/tutorial.tutor.css">
   <link rel="stylesheet" href="app/tutorial/tutorial.css">
   <link rel="stylesheet" href="app/tutorial/welcome/tutorial.welcome.css">
+  <link rel="stylesheet" href="app/util/css/jandi-common.css">
+  <link rel="stylesheet" href="app/util/css/jandi-fonts.css">
+  <link rel="stylesheet" href="app/util/css/spinners.css">
+  <link rel="stylesheet" href="components/app/mention_ahead/mention.ahead.css">
   <!-- endinjector -->
   <!-- endbuild -->
 </head>
-<body>
+<body active-notifier="">
 <!--[if lt IE 9]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div class="content-wrapper opac-zero" ng-class="{'opac-in-fast': isReady}">
+<div class="content-wrapper opac-in-fast">
   <div class="body-wrapper full-screen">
     <!-- Add your site or application content here -->
     <div class="hpanel non-selectable" ui-view="headerpanel"></div>
     <div class="body full-screen" id="client-ui" ui-view=""></div>
-    <div class="rpanel non-selectable" ng-show="$state.includes('**.files.**')">
+    <div class="rpanel non-selectable"
+         ng-class="{ 'shadow': $state.includes('**.files.**') }"
+         ng-show="$state.includes('**.files.**')">
       <div class="files" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
       <div class="file" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
       <div class="rpanel__background">
-        <div class="panel-title-container"></div>
+        <div class="rpanel__background-header"></div>
         <div class="rpanel__background-body">
-          <div class="rpanel__loading"></div>
+          <div class="rpanel__loading">
+            <span class="three-quarters-loader jnd-three-quarters-loader"></span>
+          </div>
         </div>
       </div>
     </div>
     <tutorial-welcome></tutorial-welcome>
   </div>
+  <div ng-if="!isReady" class="full-screen z-index-top"></div>
 </div>
 
-<div class="is-ready-loading" ng-show="!isReady">
-  <div class="loading_bar icon-loading"></div>
-</div>
+<!--<div class="is-ready-loading" ng-show="!isReady">-->
+  <!--<div class="loading_bar">-->
+    <!--<span class="three-quarters-loader jnd-three-quarters-loader"></span>-->
+  <!--</div>-->
+<!--</div>-->
 
 <!--[if lte IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -177,11 +191,19 @@
 <!-- build:js({.tmp,client}) app/app.js -->
 <script src="components/config/config.framework.js"></script>
 <script src="components/base/base.framework.js"></script>
+<script src="components/jandi/jandi.framework.js"></script>
+<script src="components/jandi/pc_app_communicator/pcApp.js"></script>
+<script src="components/jandi/preloader/preloader.js"></script>
+<script src="components/jandi/browser/browser.js"></script>
+
 <script src="components/app/analytics/analytics.js"></script>
+<script src="components/app/router/router.js"></script>
 <script src="components/app/language/language.js"></script>
 <script src="components/app/local_storage/local.storage.js"></script>
+<script src="components/app/mention_ahead/mention.ahead.js"></script>
 <script src="components/app/storage/storage.js"></script>
 <script src="components/app/net/net.js"></script>
+<script src="components/app/cache/cache.js"></script>
 <script src="components/app/pubsub/pubsub.js"></script>
 <script src="components/app/notification/desktop.notification.js"></script>
 <script src="components/app/socket/socket.js"></script>
@@ -192,10 +214,17 @@
 <script src="assets/javascripts/core.js"></script>
 <script src="assets/javascripts/detectmobilebrowser.js"></script>
 <script src="assets/javascripts/jquery.highlight.js"></script>
+<script src="app/util/directive/active.notifier.directive.js"></script>
+<script src="app/util/directive/animate.text.directive.js"></script>
+<script src="app/util/directive/jnd.elastic.directive.js"></script>
 <script src="app/util/directive/main.directive.js"></script>
 <script src="app/util/directive/scaleup.directive.js"></script>
 <script src="app/util/directive/typeahead.directive.js"></script>
+<script src="app/util/filter/html.decode.filter.js"></script>
+<script src="app/util/filter/html.encode.filter.js"></script>
 <script src="app/util/filter/main.filter.js"></script>
+<script src="app/util/filter/mention.filter.js"></script>
+<script src="app/util/filter/mention.html.decode.filter.js"></script>
 <script src="app/util/filter/txt.filter.js"></script>
 <script src="app/util/images/image.loader.directive.js"></script>
 <script src="app/util/images/images.service.js"></script>
@@ -250,6 +279,7 @@
 <script src="app/center/view_components/center_chat_templates/text/text.controller.js"></script>
 <script src="app/center/view_components/center_chat_templates/text/text.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/title_comment/title.comment.directive.js"></script>
+<script src="app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.directive.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.controller.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.directive.js"></script>
 <script src="app/center/view_components/entity_header/entity.header.service.js"></script>
@@ -275,6 +305,7 @@
 <script src="app/left/topics/topics.controller.js"></script>
 <script src="app/left/topics/topics.directive.js"></script>
 <script src="app/main.js"></script>
+<script src="app/mention/mention.view.directive.js"></script>
 <script src="app/mobile/mobile.catcher.controller.js"></script>
 <script src="app/modal/files/integration/integration.controller.js"></script>
 <script src="app/modal/files/share/share.controller.js"></script>
@@ -303,12 +334,19 @@
 <script src="app/modal/topics/topic_rename/topic.rename.controller.js"></script>
 <script src="app/right/file.detail/file.detail.controller.js"></script>
 <script src="app/right/file.detail/file.detail.directive.js"></script>
+<script src="app/right/file/file.controller.js"></script>
+<script src="app/right/file/file.directive.js"></script>
+<script src="app/right/file/file.service.js"></script>
 <script src="app/right/files/file.filter.js"></script>
 <script src="app/right/files/file.service.js"></script>
-<script src="app/right/files/file/file.controller.js"></script>
-<script src="app/right/files/file/file.directive.js"></script>
 <script src="app/right/files/files.controller.js"></script>
 <script src="app/right/files/files.directive.js"></script>
+<script src="app/right/mentions/mentions.controller.js"></script>
+<script src="app/right/mentions/mentions.directive.js"></script>
+<script src="app/right/mentions/mentions.service.js"></script>
+<script src="app/right/message/message.controller.js"></script>
+<script src="app/right/message/message.directive.js"></script>
+<script src="app/right/message/message.service.js"></script>
 <script src="app/right/right.controller.js"></script>
 <script src="app/right/right.directvie.js"></script>
 <script src="app/right/rpanel_search/rpanel.search.controller.js"></script>
@@ -319,14 +357,22 @@
 <script src="app/right/search.messages/search.messages.controller.js"></script>
 <script src="app/right/search.messages/search.messages.directive.js"></script>
 <script src="app/right/search.messages/search.messages.service.js"></script>
+<script src="app/right/stars/stars.controller.js"></script>
+<script src="app/right/stars/stars.directive.js"></script>
+<script src="app/right/stars/stars.service.js"></script>
 <script src="app/signin/auth.controller.js"></script>
 <script src="app/signin/auth.service.js"></script>
+<script src="app/star/star.api.service.js"></script>
+<script src="app/star/star.view.directive.js"></script>
 <script src="app/sticker/layer/sticker.layer.controller.js"></script>
 <script src="app/sticker/layer/sticker.layer.directive.js"></script>
 <script src="app/sticker/panel/sticker.panel.controller.js"></script>
 <script src="app/sticker/panel/sticker.panel.directive.js"></script>
 <script src="app/team/team.service.js"></script>
 <script src="app/tpl/503/503.controller.js"></script>
+<script src="app/tpl/loading/loading.controller.js"></script>
+<script src="app/tpl/loading/loading.directive.js"></script>
+<script src="app/tpl/loading/loading.service.js"></script>
 <script src="app/translation/translation.js"></script>
 <script src="app/tutorial/popup/services/tutorial.account.service.js"></script>
 <script src="app/tutorial/popup/services/tutorial.api.service.js"></script>
@@ -391,14 +437,18 @@
 <script src="components/app/analytics/services/analytics.translate.service.js"></script>
 <script src="components/app/analytics/services/google.analytics.service.js"></script>
 <script src="components/app/analytics/services/mixpanel.analytics.service.js"></script>
+<script src="components/app/cache/cache.topic.service.js"></script>
 <script src="components/app/keyCode/keyCode.js"></script>
 <script src="components/app/keyCode/keyCode.service.js"></script>
 <script src="components/app/language/language.service.js"></script>
 <script src="components/app/local_storage/local.storage.service.js"></script>
+<script src="components/app/mention_ahead/mention.ahead.controller.js"></script>
+<script src="components/app/mention_ahead/mention.ahead.directive.js"></script>
 <script src="components/app/net/net.auth.service.js"></script>
 <script src="components/app/net/net.service.js"></script>
 <script src="components/app/notification/desktop.notification.service.js"></script>
 <script src="components/app/pubsub/pubsub.service.js"></script>
+<script src="components/app/router/router.service.js"></script>
 <script src="components/app/socket/socket.announcement.service.js"></script>
 <script src="components/app/socket/socket.service.handler.js"></script>
 <script src="components/app/socket/socket.service.js"></script>
@@ -413,12 +463,10 @@
 <script src="components/config/common/config.service.js"></script>
 <script src="components/jandi/browser/browser.js"></script>
 <script src="components/jandi/browser/browser.service.js"></script>
-<script src="components/jandi/jandi.framework.js"></script>
 <script src="components/jandi/pc_app_communicator/pcApp.js"></script>
 <script src="components/jandi/pc_app_communicator/pcApp.service.js"></script>
 <script src="components/jandi/popup/popup.js"></script>
 <script src="components/jandi/popup/popup.service.js"></script>
-<script src="components/jandi/preloader/preloader.js"></script>
 <script src="components/jandi/preloader/preloader.service.js"></script>
 <!-- endinjector -->
 <!-- endbuild -->
