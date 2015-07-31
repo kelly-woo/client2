@@ -69,15 +69,17 @@
 
       /**
        * click 이벤트 리스너
+       * @param {Event} clickEvent
        * @private
        */
-      function _onClick() {
+      function _onClick(clickEvent) {
         if (scope.isStarred) {
           StarAPIService.unStar(scope.messageId, scope.teamId);
         } else {
           StarAPIService.star(scope.messageId, scope.teamId);
         }
         scope.isStarred = !scope.isStarred;
+        clickEvent.stopPropagation();
       }
 
       /**
