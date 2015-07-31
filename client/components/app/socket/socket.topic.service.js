@@ -89,6 +89,7 @@
       if (!!_topicEntity) {
         entityAPIservice.extend(_topicEntity, _topic);
       }
+      jndPubSub.pub('topicUpdated', data.topic);
     }
 
     /**
@@ -101,6 +102,7 @@
 
       var _data = data.data;
       var _eventName = 'onTopicSubscriptionChanged' + _data.roomId;
+
       memberService.setTopicNotificationStatus(_data.roomId, _data.subscribe);
       jndPubSub.pub(_eventName, data);
     }
