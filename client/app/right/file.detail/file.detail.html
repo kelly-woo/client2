@@ -26,7 +26,7 @@
         </div>
         <div class="file-item-meta__action">
           <div class="action-star cursor_pointer">
-            <i class="file_action star-btn" ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{ file.id }}"></i>
+            <i class="file_action star-btn" ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{ file_detail.id }}"></i>
           </div>
           <div class="action-download cursor_pointer">
             <a class="file_action opac-in-fast" download-file file-url="{{file_detail.content.fileUrl}}" file-title="{{file_detail.content.name}}" download-tracker="{{track(file_detail)}}" ng-click="onClickDownload(file_detail);">

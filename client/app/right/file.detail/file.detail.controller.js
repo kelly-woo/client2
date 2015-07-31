@@ -507,8 +507,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var i = messageDetails && messageDetails.length - 1 || 0;
     var item;
 
-    $scope.isStarred = false;
-
     // 일단 polling이 없으니 업데이트가 있을때마다 새로 갱신
     $scope.file_comments = [];
 
@@ -524,6 +522,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.initialLoaded = true;
     }
     if ($scope.file_detail) {
+      // isStarred
+      $scope.isStarred = $scope.file_detail.isStarred;
+
       if ($scope.file_detail.content && /image/i.test($scope.file_detail.content.type)) {
         // preview image url 생성
         setImageUrl($scope.file_detail);
@@ -677,8 +678,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
             if (members) {
               for (j = 0, jLen = members.length; j < jLen; j++) {
                 member = entityAPIservice.getEntityFromListById($scope.totalEntities, members[j]);
-                //if (member && currentMemberId !== member.id && member.status === 'enabled') {
-                if (member && member.status === 'enabled') {
+                if (member && currentMemberId !== member.id && member.status === 'enabled') {
                   member.exViewName = '[@' + member.name + ']';
                   member.exSearchName = member.name;
                   mentionList.push(member);
