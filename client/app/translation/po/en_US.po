@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -32,7 +32,6 @@ msgid "@alert-empty-file-search"
 msgstr "No files found matching"
 
 #: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html
 msgid "@alert-empty-file-shared"
 msgstr "File has not been shared"
 
@@ -95,7 +94,7 @@ msgstr "Close"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html
+#: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 #: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@btn-comment"
@@ -145,7 +144,7 @@ msgstr "Send"
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html
+#: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@btn-share"
 msgstr "Share"
@@ -171,10 +170,6 @@ msgstr "Invite Members to Topic"
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
 msgstr "Leave topic"
-
-#: client/app/center/view_components/entity_header/entity.header.html
-msgid "@ch-menu-rename"
-msgstr "Rename topic"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 #: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
@@ -217,6 +212,12 @@ msgstr ""
 #: client/app/left/left.html
 msgid "@channel"
 msgstr "Topics "
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
+msgstr "Skip the tutorial"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
@@ -426,10 +427,6 @@ msgstr "Finished"
 msgid "@common-file-upload-progress-msg"
 msgstr "Uploading..."
 
-#: client/app/right/file.detail/file.detail.html
-msgid "@common-files"
-msgstr "Files"
-
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "Already have the JANDI app for mobile?"
@@ -466,6 +463,7 @@ msgstr "Browse"
 
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 #: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-name"
@@ -482,10 +480,6 @@ msgstr "It seems you are not connected to the Internet."
 #: client/app/left/left.html
 msgid "@common-new-message"
 msgstr "New Message"
-
-#: client/app/modal/topics/topic_rename/topic.rename.html
-msgid "@common-new-name"
-msgstr "New Name"
 
 #: client/app/signin/signin.html
 msgid "@common-password"
@@ -518,7 +512,6 @@ msgstr "Profile"
 msgid "@common-rename"
 msgstr "Rename"
 
-#: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@common-search"
 msgstr "Search"
@@ -537,7 +530,7 @@ msgid "@common-share-in"
 msgstr "Share in"
 
 #: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html client/app/right/files/files.html
+#: client/app/right/files/files.html
 msgid "@common-shared-in"
 msgstr "Shared in"
 
@@ -603,12 +596,6 @@ msgstr "Upload File"
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
 
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr "Skip the tutorial"
-
 #: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-post"
 msgstr ""
@@ -630,6 +617,10 @@ msgstr "Invite to a topic"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr "View Profile"
+
+#: client/app/center/view_components/entity_header/entity.header.html
+msgid "@edit-topic-information"
+msgstr ""
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
@@ -676,7 +667,7 @@ msgid "@error-404-title"
 msgstr "Oops!"
 
 #: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html
+#: client/app/right/file/file.html
 msgid "@file-action-more"
 msgstr "More"
 
@@ -721,10 +712,6 @@ msgstr "Dropbox"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-google-drive"
 msgstr "Google Drive"
-
-#: client/app/center/center.html
-msgid "@go-to-latest-message-msg"
-msgstr "Go to the most recent messages"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
@@ -821,6 +808,12 @@ msgid "@integration-title-google-drive"
 msgstr "Share from Google Drive"
 
 #: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+"The team invitation link has been copied to your clipboard. Use it to invite "
+"others to your team."
+
+#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr "This email is already a member of {{invitedTeamName}}."
 
@@ -863,12 +856,6 @@ msgstr "+ More"
 msgid "@invitation-some-fail"
 msgstr "Some invitations could not be sent."
 
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-"The team invitation link has been copied to your clipboard. Use it to invite "
-"others to your team."
-
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr "Keep me logged in"
@@ -893,7 +880,7 @@ msgstr "Forgot Your Password?"
 #: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/file/file.html
+#: client/app/right/file/file.html
 msgid "@message-delete"
 msgstr "Delete"
 
@@ -996,7 +983,6 @@ msgid "@msg-left"
 msgstr "has left"
 
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/right/files/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@msg-open-original"
 msgstr "Open original"
@@ -1051,8 +1037,9 @@ msgstr "Email was sent successfully"
 msgid "@privateGroup"
 msgstr "Private Topics"
 
-#: client/app/right/files/files.html
+#: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
+#: client/app/right/stars/stars.html
 msgid "@search-in-progress"
 msgstr ""
 "Searching <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</"
@@ -1090,6 +1077,14 @@ msgstr "Turn off Desktop Notifications"
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"
 msgstr "Turn on Desktop Notifications"
+
+#: client/app/center/view_components/center_chat_templates/text/text.html
+msgid "@star-add"
+msgstr "Star"
+
+#: client/app/center/view_components/center_chat_templates/text/text.html
+msgid "@star-remove"
+msgstr "Unstar"
 
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
@@ -1143,108 +1138,6 @@ msgstr "Turn on Desktop Notifications"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-on-topic-alarm"
 msgstr "Turn on topic notification"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr "Click on the pulsing marks to check them out!"
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr "Got it!"
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-"All of the files you've shared and that have been shared with you can be "
-"found in your JANDI file drawer. Use the menu button (ᵒᵒᵒ) to download, "
-"share, or comment on a file. "
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-"To find an older file, search by keyword(s) and use our flexible filters to "
-"sort by file type, uploader, or conversation in which it was shared. You can "
-"also click over to the Messages tab to search through your conversation "
-"history and jump back to specific points in the discussion for more context. "
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-"Toggle the view by using the Search and Close buttons to open and minimize "
-"the right panel."
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr "Your file drawer and search panel"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr "Sending messages and uploading files"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-"To send messages, simply type in the text bar and press enter. To upload "
-"files, click the button to the left and select the desired file paths, or "
-"drag and drop files anywhere in the center messaging pane."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr "Skip tutorial"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr "TIPS"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-"Direct Messages are private, one-on-one conversations between two members. "
-"Direct Messages will automatically appear when you receive a new message, or "
-"you can initiate a conversation by clicking + Add. You can also close and "
-"hide Direct Messages while preserving the message history until the "
-"conversation is restarted."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-"Private Topics are available on an invite-only basis and the information "
-"shared is only visible to the participants. Start a new Private Topic by "
-"clicking + Add."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr ""
-"What’s the difference between Public Topics, Private Topics, and Direct "
-"Messages?"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-"Topics are group-oriented forums for discussing and sharing anything you "
-"want – project updates, meeting schedules, ideas for lunch, and more. Public "
-"Topics are open for anybody on your team to participate. You can create your "
-"own with + Add, or join other active Public Topics by clicking ☰ BROWSE."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr "Continue »"
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-"JANDI wants to transform the way you communicate and connect with people in "
-"the workplace. Here are 3 important tips to help you get started."
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
-msgstr "Welcome to JANDI! "
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_awesome"
@@ -1462,6 +1355,108 @@ msgstr ""
 msgid "@tutorial_welcome_title"
 msgstr "Welcome {{username}}!"
 
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr "Click on the pulsing marks to check them out!"
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr "Got it!"
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+"All of the files you've shared and that have been shared with you can be "
+"found in your JANDI file drawer. Use the menu button (ᵒᵒᵒ) to download, "
+"share, or comment on a file. "
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+"To find an older file, search by keyword(s) and use our flexible filters to "
+"sort by file type, uploader, or conversation in which it was shared. You can "
+"also click over to the Messages tab to search through your conversation "
+"history and jump back to specific points in the discussion for more context. "
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+"Toggle the view by using the Search and Close buttons to open and minimize "
+"the right panel."
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr "Your file drawer and search panel"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr "Sending messages and uploading files"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+"To send messages, simply type in the text bar and press enter. To upload "
+"files, click the button to the left and select the desired file paths, or "
+"drag and drop files anywhere in the center messaging pane."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr "Skip tutorial"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr "TIPS"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+"Direct Messages are private, one-on-one conversations between two members. "
+"Direct Messages will automatically appear when you receive a new message, or "
+"you can initiate a conversation by clicking + Add. You can also close and "
+"hide Direct Messages while preserving the message history until the "
+"conversation is restarted."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+"Private Topics are available on an invite-only basis and the information "
+"shared is only visible to the participants. Start a new Private Topic by "
+"clicking + Add."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr ""
+"What’s the difference between Public Topics, Private Topics, and Direct "
+"Messages?"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+"Topics are group-oriented forums for discussing and sharing anything you "
+"want – project updates, meeting schedules, ideas for lunch, and more. Public "
+"Topics are open for anybody on your team to participate. You can create your "
+"own with + Add, or join other active Public Topics by clicking ☰ BROWSE."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr "Continue »"
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+"JANDI wants to transform the way you communicate and connect with people in "
+"the workplace. Here are 3 important tips to help you get started."
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
+msgstr "Welcome to JANDI! "
+
 #: client/app/left/left.html
 msgid "@user"
 msgstr "Direct Messages"
@@ -1511,6 +1506,22 @@ msgstr "It's working!"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#: client/app/right/file.detail/file.detail.html
+msgid "star"
+msgstr ""
+
+#~ msgid "@ch-menu-rename"
+#~ msgstr "Rename topic"
+
+#~ msgid "@common-files"
+#~ msgstr "Files"
+
+#~ msgid "@common-new-name"
+#~ msgstr "New Name"
+
+#~ msgid "@go-to-latest-message-msg"
+#~ msgstr "Go to the most recent messages"
 
 #~ msgid "@btn-update-name"
 #~ msgstr "Update Name"

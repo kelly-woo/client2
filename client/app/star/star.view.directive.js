@@ -10,24 +10,34 @@
 
   /**
    * star-view 디렉티브
+   * attribute 설졍
+   *
+   *  star-view={Boolean}
+   *  message-id="1000231"
+   * [event-bubble='off']
+   *
    * @example
-   <span star-view="{{isStared}}" message-id="123123"></span>
+   <span star-view="{{isStarred}}" message-id="123123"></span>
    <!--or-->
-   <span star-view="{{isStared}}" message-id="123123" team-id="11240124"></span>
+   <span star-view="{{isStarred}}" message-id="123123" team-id="11240124"></span>
+   <span star-view="{{isStarred}}" message-id="123123" team-id="11240124" event-bubble="on"></span>
+
+
    */
   function starView(StarAPIService, memberService) {
-
     return {
       restrict: 'A',
       scope: {
         isStarred: '=starView',
         messageId: '@',
-        teamId: '@'
+        teamId: '@',
+        eventBubble: '@'
       },
       link: link
     };
 
     function link(scope, el, attrs) {
+      var _hasStopPropagation;
 
       _init();
 
@@ -36,9 +46,17 @@
        * @private
        */
       function _init() {
-        scope.teamId = scope.teamId || memberService.getTeamId();
+        _initScopVariables();
         _attachEvents();
         _attachDomEvents();
+      }
+
+      /**
+       * scope variable 들을 초기화 한다.
+       */
+      function _initScopVariables() {
+        scope.teamId = scope.teamId || memberService.getTeamId();
+        _hasStopPropagation = scope.eventBubble !== 'on';
       }
 
       /**
@@ -79,7 +97,10 @@
           StarAPIService.star(scope.messageId, scope.teamId);
         }
         scope.isStarred = !scope.isStarred;
-        clickEvent.stopPropagation();
+
+        if (_hasStopPropagation) {
+          clickEvent.stopPropagation();
+        }
       }
 
       /**

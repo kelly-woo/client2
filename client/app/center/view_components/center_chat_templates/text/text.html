@@ -38,7 +38,7 @@
       <span class="pull-right msg-item-icon">
         <span class=""
               dropdown
-              dropdown-toggle="true">
+              dropdown-toggle>
           <i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"
              ng-mouseenter="onMouseEnterOnIcon();"
              ng-mouseleave="onMouseLeaveOnIcon();"></i>
@@ -53,10 +53,13 @@
               </a>
             </li>
             <li role="presentation" tabindex="-1"
-                ng-click="createAnnouncement()">
+                star-view="msg.message.isStarred"
+                event-bubble="on"
+                message-id="{{ ::msg.message.id }}">
               <a role="menuitem" tabindex="-1">
                 <i class="icon-star"></i>
-                <span translate>@즐겨찾기로-추가</span>
+                <span ng-if="!msg.message.isStarred" translate>@star-add</span>
+                <span ng-if="msg.message.isStarred" translate>@star-remove</span>
               </a>
             </li>
             <li role="presentation" tabindex="-1"
@@ -107,7 +110,7 @@
       <span class="pull-right msg-item-icon">
         <span class=""
               dropdown
-              dropdown-toggle="true">
+              dropdown-toggle>
           <i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"
              ng-mouseenter="onMouseEnterOnIcon();"
              ng-mouseleave="onMouseLeaveOnIcon();"></i>
@@ -122,10 +125,13 @@
               </a>
             </li>
             <li role="presentation" tabindex="-1"
-                ng-click="createAnnouncement()">
+                star-view="msg.message.isStarred"
+                event-bubble="on"
+                message-id="{{ ::msg.message.id }}">
               <a role="menuitem" tabindex="-1">
                 <i class="icon-star"></i>
-                <span translate>@즐겨찾기로-추가</span>
+                <span ng-if="!msg.message.isStarred" translate>@star-add</span>
+                <span ng-if="msg.message.isStarred" translate>@star-remove</span>
               </a>
             </li>
             <li role="presentation" tabindex="-1"
@@ -146,7 +152,7 @@
             ng-mouseenter="onMouseEnterOnIcon();"
             ng-mouseleave="onMouseLeaveOnIcon();"
             star-view="msg.message.isStarred"
-            message-id="{{ msg.message.id }}">
+            message-id="{{ ::msg.message.id }}">
         <i class="icon-star-fill"></i>
       </span>
     </div>
