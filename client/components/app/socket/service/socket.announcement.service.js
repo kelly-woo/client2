@@ -10,7 +10,7 @@
     .service('jndWebSocketAnnouncement', jndWebSocketAnnouncement);
 
   /* @ngInject */
-  function jndWebSocketAnnouncement(jndPubSub, config) {
+  function jndWebSocketAnnouncement(jndPubSub, config, logger) {
 
     var ANNOUNCEMENT_CREATED =  config.socketEvent.announcement.created;
     var ANNOUNCEMENT_DELETED = config.socketEvent.announcement.deleted;
