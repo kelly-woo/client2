@@ -332,7 +332,7 @@ msgstr " 公开/私人"
 msgid "@common-faq"
 msgstr "常见问题"
 
-#: client/app/modal/files/share/share.html
+#: client/app/modal/files/share/share.html client/app/right/right.html
 msgid "@common-file"
 msgstr "文件"
 
@@ -411,10 +411,6 @@ msgstr "完成了"
 #: client/app/center/center.html
 msgid "@common-file-upload-progress-msg"
 msgstr "上传中..."
-
-#: client/app/right/right.html
-msgid "@common-files"
-msgstr "文件"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
@@ -1491,6 +1487,9 @@ msgstr "JANDI 新信息"
 #: client/app/right/file.detail/file.detail.html
 msgid "star"
 msgstr ""
+
+#~ msgid "@common-files"
+#~ msgstr "文件"
 
 #~ msgid "@ch-menu-rename"
 #~ msgstr "重新命名议题"

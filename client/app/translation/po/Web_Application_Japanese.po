@@ -344,7 +344,7 @@ msgstr "公開/非公開"
 msgid "@common-faq"
 msgstr "FAQ"
 
-#: client/app/modal/files/share/share.html
+#: client/app/modal/files/share/share.html client/app/right/right.html
 msgid "@common-file"
 msgstr "ファイル"
 
@@ -423,10 +423,6 @@ msgstr "完了しました"
 #: client/app/center/center.html
 msgid "@common-file-upload-progress-msg"
 msgstr "アップロード中..."
-
-#: client/app/right/right.html
-msgid "@common-files"
-msgstr "ファイル"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
@@ -1551,6 +1547,9 @@ msgstr "JANDI 新着メッセージ通知"
 #: client/app/right/file.detail/file.detail.html
 msgid "star"
 msgstr ""
+
+#~ msgid "@common-files"
+#~ msgstr "ファイル"
 
 #~ msgid "@ch-menu-rename"
 #~ msgstr "このトピックの名称を変更する"

@@ -345,7 +345,7 @@ msgstr "Type"
 msgid "@common-faq"
 msgstr "FAQ"
 
-#: client/app/modal/files/share/share.html
+#: client/app/modal/files/share/share.html client/app/right/right.html
 msgid "@common-file"
 msgstr "File"
 
@@ -426,10 +426,6 @@ msgstr "Finished"
 #: client/app/center/center.html
 msgid "@common-file-upload-progress-msg"
 msgstr "Uploading..."
-
-#: client/app/right/right.html
-msgid "@common-files"
-msgstr "Files"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
@@ -1556,6 +1552,9 @@ msgstr "JANDI Message Received"
 #: client/app/right/file.detail/file.detail.html
 msgid "star"
 msgstr ""
+
+#~ msgid "@common-files"
+#~ msgstr "Files"
 
 #~ msgid "@ch-menu-rename"
 #~ msgstr "Rename topic"

@@ -339,7 +339,7 @@ msgstr "공개 여부"
 msgid "@common-faq"
 msgstr "FAQ"
 
-#: client/app/modal/files/share/share.html
+#: client/app/modal/files/share/share.html client/app/right/right.html
 msgid "@common-file"
 msgstr "파일"
 
@@ -419,10 +419,6 @@ msgstr "완료"
 #: client/app/center/center.html
 msgid "@common-file-upload-progress-msg"
 msgstr "업로드 중..."
-
-#: client/app/right/right.html
-msgid "@common-files"
-msgstr "파일"
 
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
@@ -1550,6 +1546,9 @@ msgstr "JANDI 메시지"
 #: client/app/right/file.detail/file.detail.html
 msgid "star"
 msgstr ""
+
+#~ msgid "@common-files"
+#~ msgstr "파일"
 
 #~ msgid "@ch-menu-rename"
 #~ msgstr "토픽 이름 변경하기"

@@ -321,6 +321,7 @@ msgid "@common-faq"
 msgstr ""
 
 #: client/app/modal/files/share/share.html
+#: client/app/right/right.html
 msgid "@common-file"
 msgstr ""
 
@@ -398,10 +399,6 @@ msgstr ""
 
 #: client/app/center/center.html
 msgid "@common-file-upload-progress-msg"
-msgstr ""
-
-#: client/app/right/right.html
-msgid "@common-files"
 msgstr ""
 
 #: client/app/mobile/mobile.catcher.html
