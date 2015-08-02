@@ -412,6 +412,10 @@ msgstr "完成了"
 msgid "@common-file-upload-progress-msg"
 msgstr "上傳中..."
 
+#: client/app/right/right.html
+msgid "@common-files"
+msgstr "檔案"
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "已經在您的行動裝置上有JANDI的應用程式了嗎？"
@@ -437,6 +441,14 @@ msgstr "成員"
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "曾經被誰分享"
+
+#: client/app/right/right.html
+msgid "@common-mention"
+msgstr "提及"
+
+#: client/app/right/right.html
+msgid "@common-message"
+msgstr "訊息"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
@@ -531,6 +543,10 @@ msgstr "登入"
 #: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
 msgid "@common-sign-out"
 msgstr "登出"
+
+#: client/app/right/right.html
+msgid "@common-star"
+msgstr "已標示"
 
 #: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
@@ -850,6 +866,19 @@ msgstr "電子郵件或密碼無效"
 msgid "@login-reset-password"
 msgstr "忘了密碼？"
 
+#: client/app/right/right.html
+msgid "@mention-all"
+msgstr "@all (議題成員)"
+
+#: client/app/right/right.html
+msgid "@mention-all-confirm"
+msgstr ""
+"你確定要提及在 {{topicName}} 裡的 {{topicParticipantsCount}} 位成員嗎？"
+
+#: client/app/right/mentions/mentions.html
+msgid "@mention-empty"
+msgstr "還沒有人提到你"
+
 #: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
@@ -1047,6 +1076,22 @@ msgstr "開啟電腦版的推撥通知"
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@star-add"
 msgstr "標示"
+
+#: client/app/right/stars/stars.html
+msgid "@star-all"
+msgstr "全部類別"
+
+#: client/app/right/stars/stars.html
+msgid "@star-all-empty"
+msgstr "沒有標示訊息或檔案"
+
+#: client/app/right/stars/stars.html
+msgid "@star-files"
+msgstr "檔案類別"
+
+#: client/app/right/stars/stars.html
+msgid "@star-files-empty"
+msgstr "沒有標示檔案"
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@star-remove"
@@ -1448,9 +1493,6 @@ msgstr ""
 #~ msgid "@ch-menu-rename"
 #~ msgstr "重新命名議題"
 
-#~ msgid "@common-files"
-#~ msgstr "檔案"
-
 #~ msgid "@common-new-name"
 #~ msgstr "新姓名"
 
@@ -1472,9 +1514,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "@announcement-delete"
 #~ msgstr "刪除議題"
-
-#~ msgid "@common-message"
-#~ msgstr "訊息"
 
 #~ msgid "@input-search-file-title"
 #~ msgstr "關鍵字搜尋"

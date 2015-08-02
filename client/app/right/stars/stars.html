@@ -1,11 +1,12 @@
 <div class="rpanel-body star-list">
   <tabset>
     <!--  ALL TAB  -->
-    <tab active="tabs.all.active" heading="All" select="onTabSelect('all');">
+    <tab active="tabs.all.active" heading="{{tabs.all.name}}" select="onTabSelect('all');">
       <div class="tab-contents" infinite-scroll-bottom="loadMore();">
         <div class="infinite-scroll-bottom-list">
-          <div class="search-result-container" ng-if="isLoading">
-            <div class="search-result-summary-ing"><span translate>@search-in-progress</span></div>
+          <div class="search-result-container" ng-if="isLoading || isAllEmpty">
+            <div class="search-result-summary-ing" ng-if="isLoading"><span translate>@search-in-progress</span></div>
+            <div class="search-result-summary-ing" ng-if="isAllEmpty"><span translate>@star-all-empty</span></div>
           </div>
           <div ng-repeat="item in all">
             <message ng-if="item.message.contentType !== 'file'"  message-data="item" message-type="messageType"></message>
@@ -15,11 +16,12 @@
       </div>
     </tab>
     <!--  FILES TAB -->
-    <tab active="tabs.files.active" heading="Files" select="onTabSelect('files');">
+    <tab active="tabs.files.active" heading="{{tabs.files.name}}" select="onTabSelect('files');">
       <div class="tab-contents" infinite-scroll-bottom="loadMore();">
         <div class="infinite-scroll-bottom-list">
-          <div class="search-result-container" ng-if="isLoading">
-            <div class="search-result-summary-ing"><span translate>@search-in-progress</span></div>
+          <div class="search-result-container" ng-if="isLoading || isFilesEmpty">
+            <div class="search-result-summary-ing" ng-if="isLoading"><span translate>@search-in-progress</span></div>
+            <div class="search-result-summary-ing" ng-if="isFilesEmpty"><span translate>@star-files-empty</span></div>
           </div>
           <div ng-repeat="file in files">
             <file file-data="file" file-type="fileType"></file>
@@ -34,4 +36,8 @@
       <span class="three-quarters-loader jnd-three-quarters-loader"></span>
     </div>
   </div>
+</div>
+<div ng-if="false">
+  <span translate>@star-all</span>
+  <span translate>@star-files</span>
 </div>

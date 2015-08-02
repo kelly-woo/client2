@@ -1,6 +1,7 @@
 <div class="rpanel-body mention-list" infinite-scroll-bottom="loadMore();">
-  <div class="search-result-container" ng-if="isLoading">
-    <div class="search-result-summary-ing"><span translate>@search-in-progress</span></div>
+  <div class="search-result-container" ng-if="isLoading || isMentionEmpty">
+    <div class="search-result-summary-ing" ng-if="isLoading"><span translate>@search-in-progress</span></div>
+    <div class="search-result-summary-ing" ng-if="isMentionEmpty"><span translate>@mention-empty</span></div>
   </div>
   <div class="infinite-scroll-bottom-list">
     <message message-data="record" message-type="messageType" ng-repeat="record in records"></message>

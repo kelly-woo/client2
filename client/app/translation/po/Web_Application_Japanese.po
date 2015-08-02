@@ -424,6 +424,10 @@ msgstr "完了しました"
 msgid "@common-file-upload-progress-msg"
 msgstr "アップロード中..."
 
+#: client/app/right/right.html
+msgid "@common-files"
+msgstr "ファイル"
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "既にJANDIのアプリをお持ちですか？"
@@ -449,6 +453,14 @@ msgstr "メンバー"
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "共有したメンバー"
+
+#: client/app/right/right.html
+msgid "@common-mention"
+msgstr "メンション"
+
+#: client/app/right/right.html
+msgid "@common-message"
+msgstr "メッセージ "
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
@@ -543,6 +555,10 @@ msgstr "ログインする"
 #: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
 msgid "@common-sign-out"
 msgstr "ログアウトする"
+
+#: client/app/right/right.html
+msgid "@common-star"
+msgstr "お気に入り"
 
 #: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
@@ -880,6 +896,20 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "@login-reset-password"
 msgstr "パスワードを忘れた場合"
 
+#: client/app/right/right.html
+msgid "@mention-all"
+msgstr "@all（トピック内）"
+
+#: client/app/right/right.html
+msgid "@mention-all-confirm"
+msgstr ""
+"「@all」機能で現在{{topicName}}に参加している{{topicParticipantsCount}}名"
+"のメンバーにスマートフォンやウェブ通知が届きます。"
+
+#: client/app/right/mentions/mentions.html
+msgid "@mention-empty"
+msgstr "メンションされたことがありません"
+
 #: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
@@ -1088,6 +1118,22 @@ msgstr "デスクトップ通知をオンにする"
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@star-add"
 msgstr "お気に入りに追加する"
+
+#: client/app/right/stars/stars.html
+msgid "@star-all"
+msgstr "全ての種類"
+
+#: client/app/right/stars/stars.html
+msgid "@star-all-empty"
+msgstr "お気に入りのメッセージやファイルがありません"
+
+#: client/app/right/stars/stars.html
+msgid "@star-files"
+msgstr "ファイルの種類"
+
+#: client/app/right/stars/stars.html
+msgid "@star-files-empty"
+msgstr "お気に入り付きファイルなし"
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@star-remove"
@@ -1509,9 +1555,6 @@ msgstr ""
 #~ msgid "@ch-menu-rename"
 #~ msgstr "このトピックの名称を変更する"
 
-#~ msgid "@common-files"
-#~ msgstr "ファイル"
-
 #~ msgid "@common-new-name"
 #~ msgstr "新しい名前"
 
@@ -1545,9 +1588,6 @@ msgstr ""
 #~ msgstr ""
 #~ "この告知を削除しますか？削除時トピック内の他のメンバーたちにもこれから"
 #~ "この告知が見えますが、元のメッセージは保存されます"
-
-#~ msgid "@common-message"
-#~ msgstr "メッセージ "
 
 #~ msgid "@input-search-file-title"
 #~ msgstr "キーワードで検索"

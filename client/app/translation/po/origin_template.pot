@@ -400,6 +400,10 @@ msgstr ""
 msgid "@common-file-upload-progress-msg"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@common-files"
+msgstr ""
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr ""
@@ -424,6 +428,14 @@ msgstr ""
 
 #: client/app/right/files/files.html
 msgid "@common-member"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-mention"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-message"
 msgstr ""
 
 #: client/app/right/search.messages/search.messages.html
@@ -519,6 +531,10 @@ msgstr ""
 #: client/app/left/member/member.html
 #: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
 msgid "@common-sign-out"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@common-star"
 msgstr ""
 
 #: client/app/left/messages/messages.html
@@ -832,6 +848,18 @@ msgstr ""
 msgid "@login-reset-password"
 msgstr ""
 
+#: client/app/right/right.html
+msgid "@mention-all"
+msgstr ""
+
+#: client/app/right/right.html
+msgid "@mention-all-confirm"
+msgstr ""
+
+#: client/app/right/mentions/mentions.html
+msgid "@mention-empty"
+msgstr ""
+
 #: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
@@ -1026,6 +1054,22 @@ msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@star-add"
+msgstr ""
+
+#: client/app/right/stars/stars.html
+msgid "@star-all"
+msgstr ""
+
+#: client/app/right/stars/stars.html
+msgid "@star-all-empty"
+msgstr ""
+
+#: client/app/right/stars/stars.html
+msgid "@star-files"
+msgstr ""
+
+#: client/app/right/stars/stars.html
+msgid "@star-files-empty"
 msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/text/text.html

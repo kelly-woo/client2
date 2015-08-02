@@ -46,6 +46,7 @@
 
     function _initGetMentionList() {
       $scope.isLoading = true;
+      $scope.isMentionEmpty = false;
       _getMentionList();
     }
 
@@ -67,6 +68,9 @@
             }
           }
           $scope.isLoading = $scope.isScrollLoading = false;
+        })
+        .finally(function() {
+          $scope.isMentionEmpty = $scope.records.length === 0;
         });
     }
 

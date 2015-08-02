@@ -420,6 +420,10 @@ msgstr "완료"
 msgid "@common-file-upload-progress-msg"
 msgstr "업로드 중..."
 
+#: client/app/right/right.html
+msgid "@common-files"
+msgstr "파일"
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "이미 JANDI 모바일 앱이 있으십니까?"
@@ -445,6 +449,14 @@ msgstr "명 참여중"
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "업로드한 멤버"
+
+#: client/app/right/right.html
+msgid "@common-mention"
+msgstr "멘션"
+
+#: client/app/right/right.html
+msgid "@common-message"
+msgstr "메시지"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
@@ -539,6 +551,10 @@ msgstr "로그인"
 #: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
 msgid "@common-sign-out"
 msgstr "로그아웃"
+
+#: client/app/right/right.html
+msgid "@common-star"
+msgstr "즐겨찾기"
 
 #: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
@@ -873,6 +889,21 @@ msgstr "이메일 또는 비밀번호를 확인해주세요"
 msgid "@login-reset-password"
 msgstr "비밀번호 찾기"
 
+#: client/app/right/right.html
+msgid "@mention-all"
+msgstr "@all (모든 토픽 멤버)"
+
+#: client/app/right/right.html
+msgid "@mention-all-confirm"
+msgstr ""
+"'@all' 기능을 사용하시면 현재 {{topicName}} 토픽에 참여하고 있는 "
+"{{topicParticipantsCount}}명의 멤버에게 모바일 기기 또는 웹으로 푸쉬 알림을 "
+"하게 됩니다. 전송하시겠습니까?"
+
+#: client/app/right/mentions/mentions.html
+msgid "@mention-empty"
+msgstr "아직 다른 팀 멤버로부터 받은 멘션이 없습니다."
+
 #: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
@@ -1077,6 +1108,22 @@ msgstr "바탕화면 알림 사용하기"
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@star-add"
 msgstr "즐겨찾기 "
+
+#: client/app/right/stars/stars.html
+msgid "@star-all"
+msgstr "모든 타입"
+
+#: client/app/right/stars/stars.html
+msgid "@star-all-empty"
+msgstr "즐겨찾기 한 메시지나 파일이 없습니다."
+
+#: client/app/right/stars/stars.html
+msgid "@star-files"
+msgstr "파일 타입"
+
+#: client/app/right/stars/stars.html
+msgid "@star-files-empty"
+msgstr "즐겨찾기 한 파일이 없습니다."
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@star-remove"
@@ -1507,9 +1554,6 @@ msgstr ""
 #~ msgid "@ch-menu-rename"
 #~ msgstr "토픽 이름 변경하기"
 
-#~ msgid "@common-files"
-#~ msgstr "파일"
-
 #~ msgid "@common-new-name"
 #~ msgstr "변경할 이름"
 
@@ -1531,9 +1575,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "@announcement-delete"
 #~ msgstr "토픽 삭제하기"
-
-#~ msgid "@common-message"
-#~ msgstr "메시지"
 
 #~ msgid "@input-search-file-title"
 #~ msgstr "검색어를 입력하세요"

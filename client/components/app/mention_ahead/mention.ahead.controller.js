@@ -9,7 +9,7 @@
     .controller('MentionaheadCtrl', MentionaheadCtrl);
 
   /* @ngInject */
-  function MentionaheadCtrl($state, $parse, entityAPIservice, memberService, configuration) {
+  function MentionaheadCtrl($state, $parse, $filter, $window, entityAPIservice, memberService, currentSessionHelper, configuration) {
     var that = this;
       //
     // /([@])([a-zA-Z0-9_ ]{0,30})$/.exec('@mark @park park @qweqwe @wfkwelfj @서 포트')
@@ -17,12 +17,12 @@
     ///(^|\s([@\uff20]((.){0,30})))$/.exec('@qwe @mark @qweqwe');
     ///(?:^|[^a-zA-Z0-9_!#$%&*@＠]|(?:^|[^a-zA-Z0-9_+~.-])(?:rt|RT|rT|Rt):?)([@])([a-zA-Z0-9_ ]{1,20})(\/[a-zA-Z][a-zA-Z0-9_\-]{0,24})?$/.exec('@mark @park park @qweqwe')
     ///(^|\s)([^\[])([@\uff20]((?:[a-z ]){0,30}))$/.exec('[@mark [@park park @qweqwe @wfkwel@fj')
-    // /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/; 특수문자 노 상관이므로 아래거
+    // /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
     var rStrContSearchTextMentionMarkDown = '\\[(@([^\\[]|.[^\\[]{0,30}))\\]';
 
     var MENTION_ALL = 'ALL';
-    var MENTION_ALL_VIEW_NAME = MENTION_ALL + '@';
+    var MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
     var entityId = $state.params.entityId;
 
     var $originScope;
@@ -100,9 +100,9 @@
         if (mentionList && mentionList.length > 0) {
           mentionList.push({
             // mention item 출력용 text
-            name: MENTION_ALL + ' - Notify all members in this topic',
+            name: MENTION_ALL_ITEM_TEXT,
             // mention target에 출력용 text
-            exViewName : '[@' + MENTION_ALL_VIEW_NAME + ']',
+            exViewName : '[@' + MENTION_ALL + ']',
             // mention search text
             exSearchName: 'topic',
             u_photoThumbnailUrl: {
@@ -244,7 +244,7 @@
           };
           offset += match[0].length - match[1].length;
 
-          if (match[2] === MENTION_ALL_VIEW_NAME) {
+          if (match[2] === MENTION_ALL) {
             data.id = parseInt(entityId, 10);
             data.type = 'room';
           } else {
@@ -265,6 +265,26 @@
     }
 
     function onSelect($item) {
+      var currentEntity;
+      var msg;
+
+      if ($item.name === MENTION_ALL_ITEM_TEXT) {
+        currentEntity = currentSessionHelper.getCurrentEntity();
+        msg = $filter('translate')('@mention-all-confirm');
+
+        msg = msg
+          .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
+          .replace('{{topicParticipantsCount}}', entityAPIservice.getMemberLength(currentEntity));
+
+        if ($window.confirm(msg)) {
+          _onSelect($item);
+        }
+      } else {
+        _onSelect($item);
+      }
+    }
+
+    function _onSelect($item) {
       var mention = $scope.mention;
       var mentionTarget = $item.exViewName;
       var text;

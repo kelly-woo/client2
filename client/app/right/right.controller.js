@@ -30,11 +30,11 @@
           active: false
         },
         star: {
-          name: 'star',
+          name: $filter('translate')('@common-star'),
           active: false
         },
         mention: {
-          name: 'mention',
+          name: $filter('translate')('@common-mention'),
           active: false
         }
       };

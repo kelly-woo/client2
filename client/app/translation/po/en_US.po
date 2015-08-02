@@ -427,6 +427,10 @@ msgstr "Finished"
 msgid "@common-file-upload-progress-msg"
 msgstr "Uploading..."
 
+#: client/app/right/right.html
+msgid "@common-files"
+msgstr "Files"
+
 #: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr "Already have the JANDI app for mobile?"
@@ -452,6 +456,14 @@ msgstr " members"
 #: client/app/right/files/files.html
 msgid "@common-member"
 msgstr "Shared by"
+
+#: client/app/right/right.html
+msgid "@common-mention"
+msgstr "Mentions"
+
+#: client/app/right/right.html
+msgid "@common-message"
+msgstr "Messages"
 
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
@@ -546,6 +558,10 @@ msgstr "Sign In"
 #: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
 msgid "@common-sign-out"
 msgstr "Sign Out"
+
+#: client/app/right/right.html
+msgid "@common-star"
+msgstr "Stars"
 
 #: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
@@ -877,6 +893,20 @@ msgstr "Invalid email or password"
 msgid "@login-reset-password"
 msgstr "Forgot Your Password?"
 
+#: client/app/right/right.html
+msgid "@mention-all"
+msgstr "@all (topic members)"
+
+#: client/app/right/right.html
+msgid "@mention-all-confirm"
+msgstr ""
+"Are you sure you want to mention all {{topicParticipantsCount}} members in "
+"{{topicName}}?"
+
+#: client/app/right/mentions/mentions.html
+msgid "@mention-empty"
+msgstr "No mentions"
+
 #: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/center/view_components/center_chat_templates/text/text.html
 #: client/app/right/file.detail/file.detail.html
@@ -1081,6 +1111,22 @@ msgstr "Turn on Desktop Notifications"
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@star-add"
 msgstr "Star"
+
+#: client/app/right/stars/stars.html
+msgid "@star-all"
+msgstr "All"
+
+#: client/app/right/stars/stars.html
+msgid "@star-all-empty"
+msgstr "No starred messages or files"
+
+#: client/app/right/stars/stars.html
+msgid "@star-files"
+msgstr "Files"
+
+#: client/app/right/stars/stars.html
+msgid "@star-files-empty"
+msgstr "No starred files"
 
 #: client/app/center/view_components/center_chat_templates/text/text.html
 msgid "@star-remove"
@@ -1514,9 +1560,6 @@ msgstr ""
 #~ msgid "@ch-menu-rename"
 #~ msgstr "Rename topic"
 
-#~ msgid "@common-files"
-#~ msgstr "Files"
-
 #~ msgid "@common-new-name"
 #~ msgstr "New Name"
 
@@ -1542,9 +1585,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "@announcement-delete"
 #~ msgstr "Delete topic"
-
-#~ msgid "@common-message"
-#~ msgstr "Messages"
 
 #~ msgid "@input-search-file-title"
 #~ msgstr "Search by keyword(s)"

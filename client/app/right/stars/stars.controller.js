@@ -9,7 +9,7 @@
     .controller('RightPanelStarsTabCtrl', RightPanelStarsTabCtrl);
 
   /* @ngInject */
-  function RightPanelStarsTabCtrl($scope, StarAPIService) {
+  function RightPanelStarsTabCtrl($scope, $filter, StarAPIService) {
     var starListData = {
       page: 1
     };
@@ -25,15 +25,15 @@
 
       $scope.tabs = {
         all: {
-          name: 'all',
+          name: $filter('translate')('@star-all'),
           active: true
         },
         files: {
-          name: 'files',
+          name: $filter('translate')('@star-files'),
           active: false
         }
       };
-      $scope.activeTabName = $scope.tabs.all.name;
+      $scope.activeTabName = 'all';
 
       $scope.loadMore = loadMore;
       $scope.messageType = $scope.fileType = 'star';
@@ -64,7 +64,7 @@
     function onTabSelect(type) {
       if (isActivated) {
         $scope.tabs[type].active = true;
-        $scope.activeTabName = $scope.tabs[type].name;
+        $scope.activeTabName = type;
 
         _initStarListData();
         _initGetStarList();
@@ -73,6 +73,8 @@
   
     function _initGetStarList() {
       $scope.isLoading = true;
+
+      $scope.isAllEmpty = $scope.isFilesEmpty = false;
       _getStarList($scope.activeTabName);
     }
   
@@ -83,8 +85,8 @@
       $scope.isLoading = $scope.isScrollLoading = false;
     }
   
-    function _getStarList() {
-      StarAPIService.get(starListData.page, 20, $scope.activeTabName)
+    function _getStarList(activeTabName) {
+      StarAPIService.get(starListData.page, 20, activeTabName)
         .success(function(data) {
           if (data) {
             _updateCursor(data.cursor);
@@ -94,6 +96,15 @@
             }
           }
           $scope.isLoading = $scope.isScrollLoading = false;
+        })
+        .finally(function() {
+          var isEmpty = $scope[activeTabName].length === 0;
+
+          if (activeTabName === 'all') {
+            $scope.isAllEmpty = isEmpty;
+          } else {
+            $scope.isFilesEmpty = isEmpty;
+          }
         });
     }
   
