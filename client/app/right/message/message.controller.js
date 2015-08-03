@@ -47,7 +47,6 @@
       if (message.contentType === 'text') {
         startPoint =  message.roomName || 'unknown topic';
       } else {
-        $scope.isFile = message.contentType === 'file';
         startPoint = message.feedbackTitle;
       }
 

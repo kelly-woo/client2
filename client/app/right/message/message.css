@@ -3,6 +3,7 @@
   padding: 16px 15px 14px 14px;
   cursor: pointer;
   color: #333;
+  border-bottom: 1px solid #ebebeb;
 }
 .message-card:hover {
   background-color: #f2fbff;
@@ -21,9 +22,9 @@
   overflow: hidden;
   white-space: nowrap;
 }
-.message-meta .message-writer.message-simple {
+.message-meta .message-writer.message-writer-highlight {
   font-size: 18px;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .message-meta .message-date {
@@ -77,10 +78,15 @@
 }
 
 .message-card .message-star {
+  display: none;
   position: absolute;
   top: 15px;
   right: 15px;
   font-size: 20px;
+}
+
+.message-card:hover .message-star {
+  display: block;
 }
 
 .message-card .icon-star-fill {

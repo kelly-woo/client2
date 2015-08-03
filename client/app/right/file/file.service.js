@@ -51,7 +51,7 @@
         data.contentFileUrl = '';
 
         data.content = {};
-        data.shareEntities = {};
+        data.shareEntities = fileData.message.shareEntities;
         data.createTime = data.createdAt;
 
         data.isStarred = true;

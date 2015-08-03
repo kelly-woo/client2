@@ -16,6 +16,7 @@
 
 .rpanel-search-message-card .message-card {
   padding: 4px 15px 4px 14px;
+  border: 0;
 }
 
 .rpanel-search-message-card .message-card .message-card-body {
@@ -23,10 +24,14 @@
   font-size: 14px;
 }
 
-.rpanel-search-message-card .message-meta .message-writer.message-simple {
-  font-size: 18px;
-  margin-top: 2px;
+.rpanel-search-message-card:hover .message-star {
+  display: none;
 }
+
+.rpanel-search-message-card:hover .message-star {
+  display: block;
+}
+
 
 .rpanel-search-message-card .sub-message-card .message-card-body > span {
   max-height: 24px;

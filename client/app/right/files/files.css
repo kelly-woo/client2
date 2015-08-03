@@ -54,3 +54,6 @@
   background: white;
 }
 
+.rpanel-body-content .file-list {
+  margin-top: -20px;
+}

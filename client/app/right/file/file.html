@@ -22,7 +22,7 @@
       <span>{{::file.contentTitle}}</span>
     </div>
     <div class="file-extend">
-      <div class="file-star">
+      <div class="file-star" ng-class="{'show': isStarred}">
         <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{ file.id }}"></i>
       </div>
       <!--    DROPDOWN MENU   -->

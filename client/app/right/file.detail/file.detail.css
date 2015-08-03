@@ -18,7 +18,7 @@
 }
 
 .rpanel-body-content.file-detail {
-  top: 41px;
+  top: 34px;
 }
 .file__name {
   font-weight: 900;
@@ -290,9 +290,13 @@
   font-size: 12px;
 }
 
-.comment-item-header__action .comment-item-action {
+.comment-item .comment-item-action {
+  display: none;
+}
+.comment-item:hover .comment-item-action {
   display: inline-block;
 }
+
 .comment-item-header__action .comment-item-action > a {
   text-decoration: none;
 }

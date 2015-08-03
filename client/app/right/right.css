@@ -213,3 +213,10 @@
   margin: 10px 0 20px 40px;
   color: #999999;
 }
+
+.show {
+  display: block !important;
+}
+.show-inline-block {
+  display: inline-block !important;
+}

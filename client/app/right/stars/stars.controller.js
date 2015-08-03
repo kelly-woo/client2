@@ -86,7 +86,7 @@
     }
   
     function _getStarList(activeTabName) {
-      StarAPIService.get(starListData.page, 20, activeTabName)
+      StarAPIService.get(starListData.page, 20, (activeTabName === 'files' ? 'file' : undefined))
         .success(function(data) {
           if (data) {
             _updateCursor(data.cursor);
@@ -111,7 +111,7 @@
     function _pushStarList(records) {
       var i;
       var len;
-    
+
       for (i = 0, len = records.length; i < len; i++) {
         $scope[$scope.activeTabName].push(records[i]);
       }
