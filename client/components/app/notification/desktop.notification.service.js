@@ -169,7 +169,8 @@
     function sendSampleNotification() {
       var options = {
         tag: 'tag',
-        body: $filter('translate')('@web-notification-sample-body-text')
+        body: $filter('translate')('@web-notification-sample-body-text'),
+        icon: 'assets/images/jandi-logo-200x200.png'
       };
       var sampleNotification = _createInstance(options);
       sampleNotification.show();

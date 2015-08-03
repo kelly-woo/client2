@@ -29,7 +29,9 @@
       '../assets/images/icon-disabled-members-alert.png',
       // integration icons
       '../assets/images/icon_google_drive.png',
-      '../assets/images/icon_dropbox.png'
+      '../assets/images/icon_dropbox.png',
+      // Sample notification icon
+      '../assets/images/jandi-logo-200x200.png'
     ];
   }
 
