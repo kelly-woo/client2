@@ -15,11 +15,14 @@
       restrict: 'A',
       require: ['mentionahead'],
       controller: 'MentionaheadCtrl',
-      compile: function() {
+      link: function(scope, el, attrs, ctrls) {
         var currentEntity = currentSessionHelper.getCurrentEntity();
         var members = entityAPIservice.getMemberList(currentEntity);
         var mentionScope;
         var mentionahead;
+
+        var mentionCtrl;
+        var jqMentionahead;
 
         if (members && members.length > 0) {
           mentionScope = $rootScope.$new(true);
@@ -35,51 +38,46 @@
           );
         }
 
-        return function(scope, el, attrs, ctrls) {
-          var mentionCtrl;
-          var jqMentionahead;
+        // text change event handling
+        function changeHandler(event) {
+          var value = event.target.value;
 
-          // text change event handling
-          function changeHandler(event) {
-            var value = event.target.value;
-
-            if (value !== mentionCtrl.getValue()) {
-              mentionCtrl.setValue(value);
-            }
+          if (value !== mentionCtrl.getValue()) {
+            mentionCtrl.setValue(value);
           }
+        }
 
-          function liveSearchHandler() {
-            mentionCtrl.setMentionLive();
-            mentionCtrl.showMentionahead();
-          }
+        function liveSearchHandler() {
+          mentionCtrl.setMentionLive();
+          mentionCtrl.showMentionahead();
+        }
 
-          if (mentionScope && mentionahead) {
-            mentionCtrl = ctrls[0];
-            mentionScope.eventCatcher = el;
-            jqMentionahead = mentionahead(mentionScope, function(jqMentionahead) {
-              el.parent().append(jqMentionahead);
-            });
+        if (mentionScope && mentionahead) {
+          mentionCtrl = ctrls[0];
+          mentionScope.eventCatcher = el;
+          jqMentionahead = mentionahead(mentionScope, function(jqMentionahead) {
+            el.parent().append(jqMentionahead);
+          });
 
-            mentionCtrl.init({
-              originScope: scope,
-              mentionScope: mentionScope,
-              mentionModel: jqMentionahead.data('$ngModelController'),
-              jqEle: el,
-              attrs: attrs,
-              members: members
-            });
+          mentionCtrl.init({
+            originScope: scope,
+            mentionScope: mentionScope,
+            mentionModel: jqMentionahead.data('$ngModelController'),
+            jqEle: el,
+            attrs: attrs,
+            members: members
+          });
 
-            el
-              .on('input', changeHandler)
-              .on('click', function(event) {
-                event.stopPropagation();
-                liveSearchHandler();
-              })
-              .on('blur', mentionCtrl.clearMention)
-              .on('keyup', liveSearchHandler);
+          el
+            .on('input', changeHandler)
+            .on('click', function(event) {
+              event.stopPropagation();
+              liveSearchHandler();
+            })
+            .on('blur', mentionCtrl.clearMention)
+            .on('keyup', liveSearchHandler);
 
 
-          }
         }
       }
     };
