@@ -1,6 +1,6 @@
 .advanced-search-option-container {
   padding: 5px 0 12px 11px;
-  background-color: white;
+  background-color: #F9F9F9;
 }
 .advanced-search-option__category {
   width: 120px;
@@ -40,10 +40,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  top: 143px;
+  top: 136px;
   overflow-y: auto;
   overflow-x: hidden;
-  border-top: 1px solid #e1e1e1;
 }
 
 .rpanel-body-content__result-msg {

@@ -12,7 +12,7 @@
   position: absolute;
 }
 .message-card .message-meta {
-  padding-left: 36px;
+  padding-left: 38px;
 }
 .message-meta .message-writer {
   font-size: 14px;
@@ -25,7 +25,6 @@
 }
 .message-meta .message-writer.message-writer-highlight {
   font-size: 14px;
-  margin-top: 3px;
   font-weight: 600;
 }
 .message-meta .message-date {
@@ -39,7 +38,9 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  padding-top: 2px;
+  padding-top: 4px;
+  padding-bottom: 1px;
+  color: #999;
 }
 .message-meta .message-start .topic-start {
   font-size: 12px;
@@ -55,7 +56,8 @@
 }
 .message-meta .message-start .file-icon {
   width: 8px;
-  margin-right: 5px;
+  margin-right: 2px;
+  margin-bottom: 3px;
 }
 
 .message-card .message-profile img {
@@ -65,7 +67,6 @@
 }
 
 .message-card .message-card-body {
-  margin-top: 0px;
   font-size: 16px;
 }
 .message-card .message-card-body.message-simple {
@@ -93,4 +94,8 @@
 
 .message-card .icon-star-fill {
   color: #f9bb00;
+}
+
+.sub-message-card .message-card {
+  margin-bottom: 2px;
 }
