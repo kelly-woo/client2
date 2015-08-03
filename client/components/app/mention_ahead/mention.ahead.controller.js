@@ -11,7 +11,7 @@
   /* @ngInject */
   function MentionaheadCtrl($state, $parse, $filter, $window, entityAPIservice, memberService, currentSessionHelper, configuration) {
     var that = this;
-      //
+
     // /([@])([a-zA-Z0-9_ ]{0,30})$/.exec('@mark @park park @qweqwe @wfkwelfj @¼­ Æ÷Æ®')
     ///????-?/.exec()
     ///(^|\s([@\uff20]((.){0,30})))$/.exec('@qwe @mark @qweqwe');

@@ -95,7 +95,6 @@
               _pushStarList(data.records);
             }
           }
-          $scope.isLoading = $scope.isScrollLoading = false;
         })
         .finally(function() {
           var isEmpty = $scope[activeTabName].length === 0;
@@ -105,6 +104,7 @@
           } else {
             $scope.isFilesEmpty = isEmpty;
           }
+          $scope.isLoading = $scope.isScrollLoading = false;
         });
     }
   
