@@ -6,22 +6,30 @@
   cursor: pointer;
 }
 
-.rpanel-search-message-card:hover {
-  background: #f2fbff;
+.rpanel-search-message-card .message-card .message-card-body {
+  margin-left: 36px;
+  font-size: 14px;
 }
-
+.rpanel-search-message-card .main-message-card.message-card .message-card-body {
+  font-size: 16px;
+}
+.rpanel-search-message-card .main-message-card.message-card .message-writer {
+  font-size: 16px;
+}
+.rpanel-search-message-card .main-message-card.message-card .message-writer-highlight {
+  font-size: 16px;
+}
 .rpanel-search-message-card .sub-message-card.message-card {
   color: #999;
+}
+
+.rpanel-search-message-card:hover {
+  background: #f2fbff;
 }
 
 .rpanel-search-message-card .message-card {
   padding: 4px 15px 4px 14px;
   border: 0;
-}
-
-.rpanel-search-message-card .message-card .message-card-body {
-  margin-left: 36px;
-  font-size: 14px;
 }
 
 .rpanel-search-message-card:hover .message-star {
