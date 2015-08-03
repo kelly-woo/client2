@@ -98,7 +98,7 @@
     }
 
     function _isExtendMenu(event) {
-      return /i/i.test(event.target.nodeName);
+      return /^i$/i.test(event.target.nodeName);
     }
   }
 })();
