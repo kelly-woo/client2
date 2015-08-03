@@ -114,8 +114,8 @@
     <div class="rpanel non-selectable"
          ng-class="{ 'shadow': $state.includes('**.files.**') }"
          ng-show="$state.includes('**.files.**')">
-      <div class="files" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
-      <div class="file" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
+      <div class="files scroll_gray" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
+      <div class="file scroll_gray" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
       <div class="rpanel__background">
         <div class="rpanel__background-header"></div>
         <div class="rpanel__background-body">

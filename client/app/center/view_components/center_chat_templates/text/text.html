@@ -29,7 +29,7 @@
       <span class="msg-item-header__created"> {{::msg.extTime}} </span>
 
       <!--  SENDING STATUS SPINNING WHEEL -->
-      <span ng-if="msg.status === 'sending'" class="icon-loading-small"></span>
+      <span ng-if="msg.status === 'sending'" class="icon-sending-indicator"></span>
 
       <!--  UNREAD COUNT  -->
       <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
@@ -100,7 +100,7 @@
       <span class="msg-item-header__created"> {{::msg.extTime}} </span>
 
       <!--  SENDING STATUS SPINNING WHEEL -->
-      <span ng-if="msg.status === 'sending'" class="icon-loading-small"></span>
+      <span ng-if="msg.status === 'sending'" class="icon-sending-indicator"></span>
 
       <!--  UNREAD COUNT  -->
       <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
