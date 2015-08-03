@@ -1,3 +1,6 @@
+/**
+ * @filevoerview left left 밑에 있는  1:1 dm 부분을 control하는 controller
+ */
 (function() {
   'use strict';
 
