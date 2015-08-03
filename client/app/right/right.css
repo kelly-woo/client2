@@ -87,7 +87,7 @@
 }
 
 .scroll_loading_container_background {
-  background-color: #f2fbff;
+  background-color: transparent;
   opacity: 1;
 }
 .scroll_loading_bg {

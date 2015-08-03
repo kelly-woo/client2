@@ -24,7 +24,6 @@
 
         data.writerId = messageData.memberId;
         //data.createdAt = messageData.time;
-        console.log('message type ::: ', messageData);
         data.contentType = messageData.type;
         data.contentTitle = messageData.name;
         data.contentBody = messageData.type.indexOf('sticker') > -1 ? '(sticker)' : messageData.text;
