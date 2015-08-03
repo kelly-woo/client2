@@ -6,7 +6,7 @@
     .service('DesktopNotification', DesktopNotification);
 
   /* @ngInject */
-  function DesktopNotification($state, $filter, logger, jndPubSub, localStorage, accountService) {
+  function DesktopNotification($state, $filter, logger, jndPubSub, localStorage, accountService, RouterHelper) {
     var that = this;
 
     var appName;
@@ -386,7 +386,8 @@
         tag: data.file.id,
         data: {
           id: data.file.id,
-          type: 'file_comment'
+          type: 'file_comment',
+          commentId: data.comment.id
         }
       };
     }
@@ -517,13 +518,13 @@
     function _getBodyForFileComment(data, writerEntity) {
       var _body;
 
-
       if (isShowNotificationContent) {
-        _body = writerEntity.name + ' left a comment ' + data.message + '  at ' + data.file.title;
-
+        _body = '<' + data.file.title + '> ' + writerEntity.name + ' : ' + data.message;
       } else {
-        _body = writerEntity.name + ' left a comment at ' + data.file.title;
-
+        _body = writerEntity.name
+              + $filter('translate')('@web-notification-body-message-file-comment-mid')
+              + '<'+data.file.title+'>'
+              + $filter('translate')('@web-notification-body-message-file-comment-post');
       }
 
       return _body;
@@ -618,6 +619,7 @@
 
         if (!!targetEntity) {
           if (targetEntity.type === 'file_comment') {
+            RouterHelper.setCommentToScroll(targetEntity.commentId);
             $state.go('files', {itemId: targetEntity.id});
           } else {
             $state.go('archives', {entityType: targetEntity.type, entityId: targetEntity.id});

@@ -1,11 +1,7 @@
 /**
- *
- *
  * Keep tracks of every information that is bounded to current session!!!!
  *
  * Let's move things to here from $rootScope
- *
- *
  */
 (function() {
   'use strict';

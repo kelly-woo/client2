@@ -4,12 +4,15 @@ var app = angular.module('jandiApp');
 
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
-                                           memberService, publicService, configuration, modalHelper, jndPubSub, jndKeyCode, AnalyticsHelper, EntityMapManager) {
+                                           memberService, publicService, configuration, modalHelper, jndPubSub,
+                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper) {
 
   //console.info('[enter] fileDetailCtrl');
   var _sticker = null;
   var _stickerType = 'file';
   var fileId = $state.params.itemId;
+  var _commentIdToScroll;
+
   //file detail에서 integraiton preview로 들어갈 image map
   var integrationPreviewMap = {
     google: 'assets/images/web_preview_google.png',
@@ -62,6 +65,11 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       getFileDetail();
       jndPubSub.pub('onHeaderAcitveTab', 'file');
+
+      if (RouterHelper.hasCommentToScroll()) {
+        _commentIdToScroll = RouterHelper.getCommentIdToScroll();
+        RouterHelper.resetCommentIdToScroll();
+      }
     }
   }
 
