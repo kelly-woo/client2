@@ -16,6 +16,7 @@
 }
 .message-meta .message-writer {
   font-size: 14px;
+  font-weight: 600;
   display: inline-block;
   max-width: 197px;
   text-overflow: ellipsis;
@@ -23,10 +24,10 @@
   white-space: nowrap;
 }
 .message-meta .message-writer.message-writer-highlight {
-  font-size: 18px;
+  font-size: 14px;
   margin-top: 3px;
+  font-weight: 600;
 }
-
 .message-meta .message-date {
   display: inline-block;
   overflow: hidden;
@@ -38,6 +39,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  padding-top: 2px;
 }
 .message-meta .message-start .topic-start {
   font-size: 12px;
@@ -63,7 +65,7 @@
 }
 
 .message-card .message-card-body {
-  margin-top: 10px;
+  margin-top: 0px;
   font-size: 16px;
 }
 .message-card .message-card-body.message-simple {
