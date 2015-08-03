@@ -1177,14 +1177,14 @@ input[type="radio"] {
                  스크롤바
 ********************************************/
 .scroll_blue {
-  background-color: #fff;
-  scrollbar-shadow-color: #fff;
-  scrollbar-highlight-color: #fff;
-  scrollbar-face-color: #fff;
-  scrollbar-3dlight-color: #fff;
-  scrollbar-darkshadow-color: #fff;
-  scrollbar-track-color: #fff;
-  scrollbar-arrow-color: #fff;
+  /*background-color: #fff;*/
+  /*scrollbar-shadow-color: #fff;*/
+  /*scrollbar-highlight-color: #fff;*/
+  /*scrollbar-face-color: #fff;*/
+  /*scrollbar-3dlight-color: #fff;*/
+  /*scrollbar-darkshadow-color: #fff;*/
+  /*scrollbar-track-color: #fff;*/
+  /*scrollbar-arrow-color: #fff;*/
 }
 .scroll_blue ::-webkit-scrollbar{
   -webkit-appearance: none;
@@ -1207,14 +1207,14 @@ input[type="radio"] {
 }
 
 .scroll_gray {
-  background-color: #fff;
-  scrollbar-shadow-color: #fff;
-  scrollbar-highlight-color: #fff;
-  scrollbar-face-color: #fff;
-  scrollbar-3dlight-color: #fff;
-  scrollbar-darkshadow-color: #fff;
-  scrollbar-track-color: #fff;
-  scrollbar-arrow-color: #fff;
+  /*background-color: #fff;*/
+  /*scrollbar-shadow-color: #fff;*/
+  /*scrollbar-highlight-color: #fff;*/
+  /*scrollbar-face-color: #fff;*/
+  /*scrollbar-3dlight-color: #fff;*/
+  /*scrollbar-darkshadow-color: #fff;*/
+  /*scrollbar-track-color: #fff;*/
+  /*scrollbar-arrow-color: #fff;*/
 }
 
 .scroll_gray ::-webkit-scrollbar{
