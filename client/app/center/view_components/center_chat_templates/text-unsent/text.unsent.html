@@ -22,7 +22,7 @@
          <span class="msg-item-header__created">
           {{unsentMsg.time | gethmmaFormat}}
         </span>
-      <span ng-if="unsentMsg.hasLoading" class="icon-loading-small"></span>
+      <span ng-if="unsentMsg.hasLoading" class="icon-sending-indicator"></span>
       <span ng-if="!unsentMsg.hasLoading" class="badge alert-badge">!</span>
       <a ng-if="!unsentMsg.hasLoading" class="cursor_pointer"  data-ng-click="repostMessage($index);">
         <span class="msg-item-header__created">Retry</span>
@@ -45,7 +45,7 @@
       <span class="msg-item-header__created">
         {{unsentMsg.time | gethmmaFormat}}
       </span>
-      <span ng-if="unsentMsg.hasLoading" class="icon-loading-small"></span>
+      <span ng-if="unsentMsg.hasLoading" class="icon-sending-indicator"></span>
       <span ng-if="!unsentMsg.hasLoading" class="badge alert-badge">!</span>
       <a ng-if="!unsentMsg.hasLoading" class="cursor_pointer"  data-ng-click="repostMessage($index);">
         <span class="msg-item-header__created">Retry</span>
