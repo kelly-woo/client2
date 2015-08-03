@@ -1,11 +1,11 @@
 .rpanel-search-message-card {
-  border: 1px solid #e1e1e1;
-  border-radius: 5px;
-  margin: 10px 15px 10px 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e1e1e1;
   background-color: white;
   font-size: 16px;
   cursor: pointer;
 }
+
 .rpanel-search-message-card:hover {
   background: #f2fbff;
 }
@@ -13,6 +13,26 @@
 .rpanel-search-message-card .sub-message-card.message-card {
   color: #999;
 }
+
+.rpanel-search-message-card .message-card {
+  padding: 4px 15px 4px 14px;
+  border: 0;
+}
+
+.rpanel-search-message-card .message-card .message-card-body {
+  margin-left: 36px;
+  font-size: 14px;
+}
+
+.rpanel-search-message-card:hover .message-star {
+  display: none;
+}
+
+.rpanel-search-message-card:hover .message-star {
+  display: block;
+}
+
+
 .rpanel-search-message-card .sub-message-card .message-card-body > span {
   max-height: 24px;
   display: block;
@@ -24,6 +44,22 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.search-message-footer {
+  margin-left: 36px;
+  padding: 13px 15px 0 14px;
+  font-size: 12px;
+}
+.search-message-footer .search-message-title {
+  display: inline-block;
+  max-width: 200px;
+  color: #00a4e6;
+  text-decoration: underline;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 /*.rpanel-search-message-card .entity {*/
   /*margin-bottom: 16px;*/
 /*}*/

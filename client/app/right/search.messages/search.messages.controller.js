@@ -395,18 +395,6 @@
       $scope.apiError = true;
     }
 
-    function test() {
-      $scope.searchQuery = {
-        q: 'JJ에이치',
-        page: DEFAULT_PAGE,
-        perPage: DEFAULT_PER_PAGE,
-        writerId: '',
-        entityId: ''
-      };
-
-      searchMessages();
-    }
-
     /**
      * controller내 사용되는 translate variable 설정
      */

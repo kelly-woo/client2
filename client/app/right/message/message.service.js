@@ -20,11 +20,12 @@
       if (type === 'message') {
         data.roomId = messageData.id;
         data.roomType = messageData.extContentType;
-        data.roomName = messageData.name;
+        //data.roomName = messageData.name;
 
         data.writerId = messageData.memberId;
-        data.createdAt = messageData.time;
-        data.contentType = messageData.file != null ? 'comment' : 'text' ;
+        //data.createdAt = messageData.time;
+        console.log('message type ::: ', messageData);
+        data.contentType = messageData.type;
         data.contentTitle = messageData.name;
         data.contentBody = messageData.type.indexOf('sticker') > -1 ? '(sticker)' : messageData.text;
 
@@ -37,6 +38,8 @@
 
         data.hasStar = messageData.hasStar;
         data.isStarred = messageData.isStarred;
+
+        data.isSimple = true;
       } else if (type === 'mention' || type === 'star') {
         data.roomId = messageData.room.id;
         data.roomType = messageData.room.type;

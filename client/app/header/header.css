@@ -118,7 +118,7 @@
 }
 .header-toolbar > ul > li {
   float: left;
-  margin-top: 4px;
+  margin-top: 6px;
   margin-right: 9px;
 }
 .header-toolbar > ul > li:last-child {
@@ -126,29 +126,34 @@
 }
 .header-toolbar li .info-tool {
   position: relative;
-  width: 31px;
-  height: 31px;
+  width: 29px;
+  height: 29px;
   display: table-cell;
-  font-size: 24px;
+  font-size: 20px;
   color: #fff;
-  border: 1px solid #fff;
+  border: 1px solid rgba(255,255,255,0.2);
   cursor: pointer;
   border-radius: 20px;
 }
 .header-toolbar li:last-child .info-tool {
-  font-size: 20px;
+  font-size: 18px;
 }
 .header-toolbar .info-tool.active {
-  border-color: #000;
-  background-color: #000;
+  border-color: #0D3952;
+  background-color: #062F46;
 }
 .header-toolbar .info-tool:hover {
   text-decoration: none;
+  background-color: #326682;
+}
+.header-toolbar .info-tool.active:hover {
+  border-color: #0D3952;
+  background-color: #062F46;
 }
 .header-toolbar .info-tool > i {
   position: absolute;
   top: 3px;
-  left: 2.5px;
+  left: 3.5px;
 }
 .header-toolbar .info-tool.file-tool > i,
 .header-toolbar .info-tool.message-tool > i {

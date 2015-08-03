@@ -42,8 +42,8 @@
      * search box 안에 값이 입력이 되고 사용자가 enter 를 눌렀을 경우 실행된다.
      * 현재 가지고 있는 keyword 와 함게 이벤트를 broadcast 한다.
      */
-    $scope.onFileTitleQueryEnter = function() {
-      jndPubSub.pub('onrPanelFileTitleQueryChanged', $scope.keyword);
+    $scope.onFileTitleQueryEnter = function(value) {
+      jndPubSub.pub('onrPanelFileTitleQueryChanged', value);
     };
 
     /**
@@ -51,7 +51,7 @@
      * @private
      */
     function _resetKeyword() {
-      $scope.keyword = '';
+      $('#right-panel-search-box').val('');
     }
 
     /**

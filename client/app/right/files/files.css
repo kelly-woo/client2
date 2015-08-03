@@ -1,6 +1,5 @@
 .advanced-search-option-container {
   padding: 5px 0 12px 11px;
-  border-bottom: 1px solid #e1e1e1;
   background-color: white;
 }
 .advanced-search-option__category {
@@ -41,14 +40,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  top: 138px;
+  top: 143px;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-.file-list {
-  background: none;
-  margin-top: -20px;
+  border-top: 1px solid #e1e1e1;
 }
 
 .rpanel-body-content__result-msg {
@@ -59,3 +54,6 @@
   background: white;
 }
 
+.rpanel-body-content .file-list {
+  margin-top: -20px;
+}

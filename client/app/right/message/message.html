@@ -5,18 +5,19 @@
     </div>
     <div class="message-meta">
       <div class="message-title">
-        <span class="message-writer">{{::writerName}}</span>
-        <span class="message-date">{{::createDate}}</span>
+        <span class="message-writer" ng-class="{'message-writer-highlight': (message.isSimple && message.contentType === 'text')}">{{::writerName}}</span>
+        <span class="message-date" ng-if="!message.isSimple">{{::createDate}}</span>
       </div>
       <div class="message-start">
-        <img class="file-icon" src="assets/images/fileicon_etc.png" ng-if="isComment"><span class="{{isComment ? 'comment-start' : 'topic-start'}}">{{::startPoint}}</span>
+        <img class="file-icon" src="assets/images/fileicon_etc.png" ng-if="message.contentType !== 'text'">
+        <span class="{{message.contentType !== 'text' ? 'comment-start' : 'topic-start'}}" ng-if="!message.isSimple || message.contentType !== 'text'">{{::startPoint}}</span>
       </div>
     </div>
   </div>
   <div class="message-card-body">
     <span compile="content || ''" ></span>
   </div>
-  <div class="message-star" ng-if="hasStar">
+  <div class="message-star" ng-class="{'show': isStarred}" ng-if="hasStar">
     <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{message.id}}"></i>
   </div>
 </div>

@@ -22,4 +22,5 @@
 
 .mention.inactive:hover {
   text-decoration: none;
+  color: #1C6C88;
 }

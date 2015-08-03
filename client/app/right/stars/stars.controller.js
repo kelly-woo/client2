@@ -86,7 +86,7 @@
     }
   
     function _getStarList(activeTabName) {
-      StarAPIService.get(starListData.page, 20, activeTabName)
+      StarAPIService.get(starListData.page, 20, (activeTabName === 'files' ? 'file' : undefined))
         .success(function(data) {
           if (data) {
             _updateCursor(data.cursor);
@@ -95,7 +95,6 @@
               _pushStarList(data.records);
             }
           }
-          $scope.isLoading = $scope.isScrollLoading = false;
         })
         .finally(function() {
           var isEmpty = $scope[activeTabName].length === 0;
@@ -105,13 +104,14 @@
           } else {
             $scope.isFilesEmpty = isEmpty;
           }
+          $scope.isLoading = $scope.isScrollLoading = false;
         });
     }
   
     function _pushStarList(records) {
       var i;
       var len;
-    
+
       for (i = 0, len = records.length; i < len; i++) {
         $scope[$scope.activeTabName].push(records[i]);
       }

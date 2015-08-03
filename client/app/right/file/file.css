@@ -60,39 +60,51 @@
   font-weight: 500;
 }
 
-.file-card-body .file-extend {
+.file-card .file-extend {
   position: absolute;
   top: 15px;
   right: 15px;
   color: #999;
 }
 
-.file-card-body .file-star {
+.file-card .file-star {
+  display: none;
   position: relative;
   left: -1px;
   font-size: 20px;
 }
+.file-card:hover .file-star {
+  display: block;
+}
 
-.file-card-body .file-star .icon-star:hover {
+.file-card .file-star .icon-star:hover {
   color: #154a67;
 }
 
-.file-card-body .file-star .icon-star-fill {
+.file-card .file-star .icon-star-fill {
   color: #f9bb00;
 }
 
-.file-card-body .file-menu {
+.file-card .file-menu {
+  display: none;
   position: absolute;
-  top: 24px;
+  top: 31px;
   right: 0px;
   color: #999;
 }
-
-.file-card-body .file-menu {
+.file-card .file-menu:hover {
   color: #1b4a67;
 }
 
-.file-card-body .file-menu .icon-more {
+.file-card:hover .file-menu {
+  display: block;
+}
+
+.file-card .file-menu {
+  color: #1b4a67;
+}
+
+.file-card .file-menu .icon-more {
   font-size: 21px;
 }
 

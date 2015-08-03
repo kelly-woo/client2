@@ -126,11 +126,6 @@
             <span class="comment-item-header__name">{{ comment.writerId | getName }}</span>
             <span class="comment-item-header__created">{{ getCreateTime($index, comment) }}</span>
             <div class="comment-item-header__action pull-right">
-              <div class="comment-item-action">
-                <a class="link-dark cursor_pointer">
-                  <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
-                </a>
-              </div>
               <div class="comment-item-action comment-item-action-more" dropdown ng-if="(member.id === comment.writerId)">
                 <a href="#" class="link-dark" dropdown-toggle>
                   <i class="fa fa-cog"></i>
@@ -143,6 +138,11 @@
                     </a>
                   </li>
                 </ul>
+              </div>
+              <div class="comment-item-action comment-star" ng-class="{'show-inline-block': comment.isStarred}">
+                <a class="link-dark cursor_pointer">
+                  <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -183,10 +183,7 @@
         <input type="submit" class="btn comment-btn" value="{{ '@btn-comment' | translate }}">
       </form>
     </div>
-
   </div>
-
-
 
   <!-- ARCHIVED FILE  || FILE API ERROR -->
   <div class="rpanel-body-content file-detail archived-file-detail" ng-if="isFileArchived || hasFileAPIError">
@@ -263,10 +260,7 @@
             <p ng-if="!comment.isSticker" class="keep" data-ng-bind-html="(comment.content.body) || ''"></p>
           </div>
         </div>
-
       </div>
     </div>
-
   </div>
-
 </div>
