@@ -1,7 +1,6 @@
 <div class="rpanel-message-search">
   <!--    ADVANCED SEARCH OPTION  -->
   <div class="advanced-search-option-container">
-
     <!--   장소  -->
     <div class="advanced-search-option__category">
       <div class="advanced-search-option__title">
@@ -13,7 +12,6 @@
               ng-change="updateMessageLocationFilter();">
         <option value="">{{ allRooms }}</option>
       </select>
-
     </div>  <!--  END OF 장소 -->
 
     <!--   작성자  -->
@@ -27,12 +25,35 @@
               ng-change="updateMessageWriterFilter();">
         <option value="">{{ allMembers }}</option>
       </select>
-
     </div>  <!-- END OF FILE 작성자 -->
-
   </div>  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
   <div class="rpanel-body-content" infinite-scroll-bottom="searchMessages();">
+    <div ng-if="!isSearchQueryEmpty">
+      <div class="search-status-container">
+        <span class="search-result-summary-ing" ng-if="isSearching"><span translate>@search-in-progress</span></span>
+
+        <div class="search-result-summary" ng-if="!isSearching && messageList.length > 0">
+          <span translate>@search-result-summary</span>
+        </div>
+      </div>
+
+      <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
+      <div class="break-word rpanel-alert-msg-container" ng-if="messageList.length==0 && !isSearching">
+        <img class="rpanel-alert-msg-container__img" src="assets/images/message-search-no-result.png">
+
+        <div class="rpanel-alert-msg-container__text">
+          <div ng-if="!apiError">
+            <span translate>@alert-no-messages-found</span>:
+            <span class="searchQuery">{{searchQuery.q}}</span>
+          </div>
+
+          <div ng-if="apiError">
+            <span translate>@common-api-error-msg</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="rpanel-alert-msg-container no-search-input-container" ng-if="isSearchQueryEmpty" ng-click="setSearchInputFocus();">
       <i class="icon-search"></i>
@@ -42,36 +63,6 @@
     </div>
 
     <div class="rpanel-message-list infinite-scroll-bottom-list">
-
-      <div ng-if="!isSearchQueryEmpty">
-        <div class="search-status-container">
-          <span class="search-result-summary-ing" ng-if="isSearching"><span translate>@search-in-progress</span></span>
-
-          <div class="search-result-summary" ng-if="!isSearching && messageList.length > 0">
-            <span translate>@search-result-summary</span>
-          </div>
-        </div>
-
-        <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
-        <div class="break-word rpanel-alert-msg-container" ng-if="messageList.length==0 && !isSearching">
-          <img class="rpanel-alert-msg-container__img" src="assets/images/message-search-no-result.png">
-
-          <div class="rpanel-alert-msg-container__text">
-            <div ng-if="!apiError">
-              <span translate>@alert-no-messages-found</span>:
-              <span class="searchQuery">{{searchQuery.q}}</span>
-            </div>
-
-            <div ng-if="apiError">
-              <span translate>@common-api-error-msg</span>
-            </div>
-          </div>
-
-
-        </div>
-
-      </div>
-
       <message-search-card ng-repeat="message in messageList"></message-search-card>
 
       <div class="file-list__item loading" ng-if="isSearching && messageList.length > 0">
@@ -79,11 +70,7 @@
         <div class="loading_bar scroll_loading_bar">
           <span class="three-quarters-loader jnd-three-quarters-loader"></span>
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>

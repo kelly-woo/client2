@@ -24,7 +24,7 @@
       var data;
 
       if (messageData != null) {
-        data = _.extend({}, $scope.message.entity, messageData);
+        data = _.extend({}, messageData);
       }
 
       hasStar && (data.hasStar = true);

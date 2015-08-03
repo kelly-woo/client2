@@ -30,6 +30,8 @@
   </div>  <!-- END OF FILE TYPE -->
 </div>  <!-- END OF ADVANDCE FILE SEARCH OPTION -->
 
+
+
 <div class="rpanel-body-content" infinite-scroll-bottom="loadMore();">
   <div class="search-result-container">
     <div class="search-result-summary-ing" ng-if="!isSearchQueryEmpty && isLoading"><span translate>@search-in-progress</span></div>
@@ -37,6 +39,7 @@
       <span translate>@search-result-summary</span>
     </div>
   </div>
+
   <div class="file-list infinite-scroll-bottom-list">
     <!--    MESSAGE WHEN THERE IS NO ITEM TO SHOW   -->
     <div class="break-word" ng-if="fileList.length==0">

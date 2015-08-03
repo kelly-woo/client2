@@ -1,7 +1,6 @@
 .message-card {
   position: relative;
   padding: 16px 15px 14px 14px;
-  border-bottom: 1px solid #e1e1e1;
   cursor: pointer;
   color: #333;
 }
@@ -22,6 +21,11 @@
   overflow: hidden;
   white-space: nowrap;
 }
+.message-meta .message-writer.message-simple {
+  font-size: 18px;
+  margin-top: 2px;
+}
+
 .message-meta .message-date {
   display: inline-block;
   overflow: hidden;
@@ -59,12 +63,16 @@
 
 .message-card .message-card-body {
   margin-top: 10px;
+  font-size: 16px;
+}
+.message-card .message-card-body.message-simple {
+  margin-left: 36px;
+  font-size: 14px;
 }
 .message-card .message-card-body span {
   max-width: 100%;
   word-wrap: break-word;
   white-space: pre-wrap;
-  font-size: 16px;
   line-height: 24px;
 }
 

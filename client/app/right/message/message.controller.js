@@ -44,11 +44,11 @@
     function _getMessageStartPoint(message) {
       var startPoint;
 
-      if (message.contentType === 'comment') {
-        $scope.isComment = true;
-        startPoint = message.feedbackTitle;
-      } else {
+      if (message.contentType === 'text') {
         startPoint =  message.roomName || 'unknown topic';
+      } else {
+        $scope.isFile = message.contentType === 'file';
+        startPoint = message.feedbackTitle;
       }
 
       return startPoint;

@@ -6,10 +6,11 @@
     <div class="message-meta">
       <div class="message-title">
         <span class="message-writer">{{::writerName}}</span>
-        <span class="message-date">{{::createDate}}</span>
+        <span class="message-date" ng-if="!message.isSimple">{{::createDate}}</span>
       </div>
       <div class="message-start">
-        <img class="file-icon" src="assets/images/fileicon_etc.png" ng-if="isComment"><span class="{{isComment ? 'comment-start' : 'topic-start'}}">{{::startPoint}}</span>
+        <img class="file-icon" src="assets/images/fileicon_etc.png" ng-if="isComment">
+        <span class="{{isComment ? 'comment-start' : 'topic-start'}}" ng-if="isComment || !message.isSimple">{{::startPoint}}</span>
       </div>
     </div>
   </div>
