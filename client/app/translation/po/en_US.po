@@ -636,7 +636,7 @@ msgstr "View Profile"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@edit-topic-information"
-msgstr ""
+msgstr "Edit Topic Information"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
@@ -1520,6 +1520,19 @@ msgstr "Unstar user"
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@web-notification"
 msgstr "Notifications"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-mid"
+msgstr " added a comment to "
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-post"
+msgstr "."
+
+#: client/app/modal/settings/notification/setting.notification.html
+#, fuzzy
+msgid "@web-notification-body-message-file-comment-pre"
+msgstr "from "
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"

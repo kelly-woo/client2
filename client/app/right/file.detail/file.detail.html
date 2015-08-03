@@ -115,7 +115,7 @@
       </div>
 
       <div class="rpanel-detail-body-comment">
-        <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" data-comment-id="{{ comment.id }}"
+        <div class="comment-item" data-ng-repeat="comment in file_comments | orderBy: 'createTime':false" id="{{ comment.id }}"
              ng-class="{'file-detail-disabled-member': isDisabledMember(comment.writerId)}">
           <div class="comment-item__thumbnail">
             <img class="user-profile user-thumb-sm cursor_pointer"

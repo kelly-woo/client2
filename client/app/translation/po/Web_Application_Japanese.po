@@ -631,7 +631,7 @@ msgstr "プロファイルを表示する"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@edit-topic-information"
-msgstr ""
+msgstr "トピック情報を変更"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
@@ -1503,6 +1503,19 @@ msgstr "お気に入りから削除する"
 msgid "@web-notification"
 msgstr "通知"
 
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-mid"
+msgstr "さんが"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-post"
+msgstr "にコメントしました"
+
+#: client/app/modal/settings/notification/setting.notification.html
+#, fuzzy
+msgid "@web-notification-body-message-file-comment-pre"
+msgstr " "
+
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr "本当に削除しますか？元には戻せません"
@@ -1537,8 +1550,9 @@ msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
 
 #: client/app/right/file.detail/file.detail.html
+#, fuzzy
 msgid "star"
-msgstr ""
+msgstr "このチャネルから退出"
 
 #~ msgid "@common-more"
 #~ msgstr "表示"

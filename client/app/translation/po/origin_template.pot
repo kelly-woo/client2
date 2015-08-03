@@ -1409,6 +1409,18 @@ msgstr ""
 msgid "@web-notification"
 msgstr ""
 
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-mid"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-post"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-pre"
+msgstr ""
+
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr ""

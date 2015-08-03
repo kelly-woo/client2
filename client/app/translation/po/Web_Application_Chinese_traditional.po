@@ -620,7 +620,7 @@ msgstr "檢視簡介"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@edit-topic-information"
-msgstr ""
+msgstr "編輯議題資訊"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
@@ -1453,6 +1453,19 @@ msgstr "取消標記此成員"
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@web-notification"
 msgstr "通知"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-mid"
+msgstr " 在 "
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-post"
+msgstr " 檔案留下新留言"
+
+#: client/app/modal/settings/notification/setting.notification.html
+#, fuzzy
+msgid "@web-notification-body-message-file-comment-pre"
+msgstr "有從"
 
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"

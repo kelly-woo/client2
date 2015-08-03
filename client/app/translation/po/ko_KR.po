@@ -628,7 +628,7 @@ msgstr "프로필 보기"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@edit-topic-information"
-msgstr ""
+msgstr "정보 변경하기"
 
 #: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
@@ -1510,6 +1510,19 @@ msgstr "즐겨찾기 해제"
 msgid "@web-notification"
 msgstr "알림"
 
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-mid"
+msgstr "님이 "
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-message-file-comment-post"
+msgstr "에 코멘트를 남겼습니다."
+
+#: client/app/modal/settings/notification/setting.notification.html
+#, fuzzy
+msgid "@web-notification-body-message-file-comment-pre"
+msgstr "{{"
+
 #: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr "이 메시지를 삭제하시겠습니까? 삭제하시면 복구하실 수 없습니다."
@@ -1533,7 +1546,7 @@ msgstr "님으로부터 새 메시지가 도착했습니다."
 #: client/app/modal/settings/notification/setting.notification.html
 #, fuzzy
 msgid "@web-notification-body-topic-pre"
-msgstr "님으로부터 새 메시지가 도착했습니다."
+msgstr " "
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-sample-body-text"
