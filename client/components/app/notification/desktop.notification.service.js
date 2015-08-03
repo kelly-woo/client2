@@ -349,7 +349,7 @@
      * @param {object} writerEntity - message 작성한 작성자의 entity
      * @param {object} roomEntity - message 전달한 room의 entity
      */
-    function addNotification(data, writerEntity, roomEntity) {
+    function addNotification(data, writerEntity, roomEntity, isFileComment) {
       var isUser;
       var options = {};
       var notification;
@@ -360,19 +360,57 @@
         message = data.message;
         message = decodeURIComponent(message);
 
-        options.tag = isUser ? writerEntity.id : roomEntity.id;
 
-        options.body = _setOptionBody(isUser, writerEntity, roomEntity, message);
+        if (isFileComment) {
+          options = _getOptionsForFileComment(data, writerEntity);
+        } else {
+          options = _getOptionsForMessage(isUser, writerEntity, roomEntity, message);
+        }
 
         options.icon = $filter('getSmallThumbnail')(writerEntity);
-        options.data = {
-          id: roomEntity.id,
-          type: roomEntity.type
-        };
 
         (notification = _createInstance(options)) && notification.show();
       }
     }
+
+    /**
+     * options에 들어갈 정보들을 file comment case에 맞춰서 재설정한다.
+     * @param {object} data - socket으로부터 받은 param과 동일
+     * @param {object} writerEntity - 작성자 entity
+     * @returns {{body: *, tag: *, data: {id: *, type: string}}}
+     * @private
+     */
+    function _getOptionsForFileComment(data, writerEntity) {
+      return {
+        body: _getBodyForFileComment(data, writerEntity),
+        tag: data.file.id,
+        data: {
+          id: data.file.id,
+          type: 'file_comment'
+        }
+      };
+    }
+
+    /**
+     * options에 들어갈 정보들을 message case에 맞춰서 재설정한다.
+     * @param {boolean} isUser - 1:1 dm인지 아닌지 알려주는 flag
+     * @param {object} writerEntity - 작성자 entity
+     * @param {object} roomEntity - 메세지가 작성된 방의 entity
+     * @param {text} message - 작성된 message의 내용
+     * @returns {{body: string, tag: *, data: {id: *, type: *}}}
+     * @private
+     */
+    function _getOptionsForMessage(isUser, writerEntity, roomEntity, message) {
+      return {
+        body: _getOptionsBody(isUser, writerEntity, roomEntity, message),
+        tag: isUser ? writerEntity.id : roomEntity.id,
+        data: {
+          id: roomEntity.id,
+          type: roomEntity.type
+        }
+      };
+    }
+
 
     /**
      * 유져인지 아닌지 확인 후 알맞는 포맷에 맞게 바디를 만든다.
@@ -383,7 +421,7 @@
      * @returns {string} body - 바디에 들어갈 내용
      * @private
      */
-    function _setOptionBody(isUser, writerEntity, roomEntity, message) {
+    function _getOptionsBody(isUser, writerEntity, roomEntity, message) {
       return isShowNotificationContent ?
         _getBodyWithMessage(isUser, writerEntity, roomEntity, message) : _getBodyWithoutMessage(isUser, writerEntity, roomEntity);
     }
@@ -467,6 +505,28 @@
       return $filter('translate')('@web-notification-body-messages-pre')
         + fromEntity.name
         + $filter('translate')('@web-notification-body-messages-post');
+    }
+
+    /**
+     * file에 comment가 달렸을 때 보여지는 notification이다.
+     * @param {object} data - socket으로부터 들어온 object과 동일하다.
+     * @param {object} writerEntity - comment를 작성한 사람의 엔티티
+     * @returns {*}
+     * @private
+     */
+    function _getBodyForFileComment(data, writerEntity) {
+      var _body;
+
+
+      if (isShowNotificationContent) {
+        _body = writerEntity.name + ' left a comment ' + data.message + '  at ' + data.file.title;
+
+      } else {
+        _body = writerEntity.name + ' left a comment at ' + data.file.title;
+
+      }
+
+      return _body;
     }
 
     /**
@@ -554,10 +614,14 @@
       function onNotificationClick() {
         // Decides what to do when notification click.
         // Takes user to topic/messages where notification came from.
-        var roomEntity = that.options.data;
+        var targetEntity = that.options.data;
 
-        if (!!roomEntity) {
-          $state.go('archives', {entityType: roomEntity.type, entityId: roomEntity.id});
+        if (!!targetEntity) {
+          if (targetEntity.type === 'file_comment') {
+            $state.go('files', {itemId: targetEntity.id});
+          } else {
+            $state.go('archives', {entityType: targetEntity.type, entityId: targetEntity.id});
+          }
         }
 
         window.focus();

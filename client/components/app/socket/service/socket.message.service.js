@@ -79,15 +79,28 @@
     function _onFileComment(data) {
       logger.socketEventLogger(data.event, data);
 
-      _.forEach(data.rooms, function(room, index) {
+      var _hasNotificationOn = false;
+      var _currentRoom;
+
+      _.forEach(data.rooms, function(room) {
+        _hasNotificationOn = _hasNotificationOn || memberService.isTopicNotificationOn(room.id);
+
         if (jndWebSocketCommon.isCurrentEntity(room)) {
+          _currentRoom = room;
           jndPubSub.updateCenterPanel();
-          return false;
         }
       });
 
       // badge count를 올리기 위함이요.
       jndPubSub.updateLeftPanel();
+
+      if (_hasNotificationOn) {
+        if (_.isUndefined(_currentRoom)) {
+          _currentRoom = data.rooms[0];
+        }
+        data.room = _currentRoom;
+        _sendBrowserNotification(data, true);
+      }
     }
 
     /**
@@ -171,6 +184,7 @@
       } else {
         jndPubSub.updateLeftPanel();
       }
+
       if (memberService.isTopicNotificationOn(data.room.id)) {
         _sendBrowserNotification(data);
       }
@@ -235,9 +249,9 @@
      * @param data
      * @private
      */
-    function _sendBrowserNotification(data) {
+    function _sendBrowserNotification(data, isFileComment) {
       if (_shouldSendNotification(data)) {
-        DesktopNotification.addNotification(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room));
+        DesktopNotification.addNotification(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room), !!isFileComment);
       }
     }
 
