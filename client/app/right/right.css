@@ -192,20 +192,21 @@
   display: block;
   color: #154a67;
   font-size: 24px;
-  margin-top: 7px;
-  margin-left: 13px;
+  margin-top: 6px;
+  margin-left: 10px;
   cursor: pointer;
 }
 .rpanel-header > span {
   display: inline-block;
   width: 300px;
   vertical-align: middle;
-  font-size: 16px;
+  font-size: 15px;
   color: #333;
   font-weight: 500;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  margin-top: -2px;
 }
 
 /* search result */

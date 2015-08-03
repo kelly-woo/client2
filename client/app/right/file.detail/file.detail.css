@@ -195,15 +195,15 @@
 }
 .file-item-meta__action {
   position: absolute;
-  top: 15px;
+  top: 18px;
   right: 0px;
 }
 .file-item-meta__action > div {
   display: inline-block;
-  margin-right: 2px;
+  margin-right: 5px;
 }
 .file-item-meta__action > div:last-child {
-  margin-right: 6px;
+  margin-right: 12px;
 }
 .file-item-meta__action:hover {
   color: #333;
@@ -213,14 +213,13 @@
 }
 .file_action {
   cursor:pointer;
-  color: #154a67;
-  font-size: 22px;
-  opacity: .7;
+  color: #1C6C88;
+  font-size: 20px;
 }
 .file_action:focus,
 .file_action:hover {
   text-decoration: none;
-  opacity: 1;
+  color: #154a67;
 }
 .fileicon-left {
   float: left;

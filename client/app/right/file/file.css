@@ -88,9 +88,12 @@
 .file-card .file-menu {
   display: none;
   position: absolute;
-  top: 24px;
+  top: 31px;
   right: 0px;
   color: #999;
+}
+.file-card .file-menu:hover {
+  color: #1b4a67;
 }
 
 .file-card:hover .file-menu {

@@ -26,7 +26,7 @@
         <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{ file.id }}"></i>
       </div>
       <!--    DROPDOWN MENU   -->
-      <div class="file-menu" dropdown is-open="status.isopen">
+      <div class="file-menu" dropdown is-open="status.isopen" ng-if="file.type === 'file'">
         <i class="icon-more" dropdown-toggle tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
         <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
           <li class="cursor_pointer">

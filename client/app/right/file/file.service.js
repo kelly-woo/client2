@@ -18,6 +18,7 @@
       var data = {};
 
       if (type === 'file') {
+        data.type = 'file';
         data.id = fileData.id;
 
         data.hasPreview = $filter('hasPreview')(fileData.content);
@@ -39,6 +40,7 @@
 
         data.isStarred = fileData.isStarred;
       } else if (type === 'star') {
+        data.type = 'star';
         data.id = fileData.message.id;
 
         data.hasPreview = false;
