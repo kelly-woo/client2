@@ -73,7 +73,11 @@ $scope.getWatchCount = function() {
         }
       });
 
-      $scope.$on('onTopicSubscriptionChanged'+_entityId, _checkNotificationStatus);
+      $scope.$on('onTopicSubscriptionChanged', function(event, data) {
+        if (data.data.roomId === parseInt(_entityId, 10)) {
+          _checkNotificationStatus();
+        }
+      });
     }
 
     function _initWithParam(param) {

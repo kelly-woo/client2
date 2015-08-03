@@ -109,7 +109,7 @@
       logger.socketEventLogger(data.event, data);
 
       var _data = data.data;
-      var _eventName = 'onTopicSubscriptionChanged' + _data.roomId;
+      var _eventName = 'onTopicSubscriptionChanged';
 
       memberService.setTopicNotificationStatus(_data.roomId, _data.subscribe);
       jndPubSub.pub(_eventName, data);
