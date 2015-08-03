@@ -31,11 +31,11 @@
       <!--    WRITER  -->
       <span ng-if="!isChildComment($index)" class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
             disabled-member-detector="center-panel-disabled-member">
-        <span ng-if="msg.message.contentType !== 'file'"> {{msg.extWriterName}} </span>
+        <span ng-if="::msg.message.contentType !== 'file'"> {{msg.extWriterName}} </span>
       </span>
 
       <!--    CONTENT(MESSAGE)    -->
-      <span ng-if="msg.message.contentType !== 'comment_sticker'">
+      <span ng-if="::msg.message.contentType !== 'comment_sticker'">
         <span class="keep" compile="(msg.message.content.body) || ''"></span>
         <!--    CREATED TIME    -->
         <span class="msg-item-header__created">
@@ -44,8 +44,8 @@
         <span class="badge unread-badge">{{ msg.unreadCount }}</span>
       </span>
 
-      <div ng-if="msg.message.contentType === 'comment_sticker'">
-        <img class="sticker size_5" ng-if="msg.message.contentType === 'comment_sticker'" src="{{ msg.message.content.url }}"/>
+      <div ng-if="::msg.message.contentType === 'comment_sticker'">
+        <img class="sticker size_5" ng-if="::msg.message.contentType === 'comment_sticker'" src="{{ msg.message.content.url }}"/>
         <!--    CREATED TIME    -->
         <span class="msg-item-header__created">
           {{::msg.extTime}}
@@ -122,11 +122,11 @@
               disabled-member-detector="center-panel-disabled-member">
 
           <!-- TODO: WHAT IS THIS??   정책상 항상 댓글의 작성자가 다 보여야 한다면 extWriterName을 그냥 무조건 사용합시다. -->
-          <span ng-if="msg.message.contentType !== 'file'"> {{msg.extWriterName}} </span>
-          <span ng-if="msg.message.contentType === 'file'"> {{msg.extWriterName}}</span>
+          <span ng-if="::msg.message.contentType !== 'file'"> {{msg.extWriterName}} </span>
+          <span ng-if="::msg.message.contentType === 'file'"> {{msg.extWriterName}}</span>
         </span>
 
-        <span ng-if="msg.message.contentType !== 'comment_sticker'">
+        <span ng-if="::msg.message.contentType !== 'comment_sticker'">
           <span class="keep" compile="(msg.message.content.body) || ''"></span>
           <span class="msg-item-header__created">
             {{::msg.extTime}}
@@ -134,8 +134,8 @@
 
           <span class="badge unread-badge">{{ msg.unreadCount }}</span>
         </span>
-        <div ng-if="msg.message.contentType === 'comment_sticker'">
-          <img class="sticker size_5" ng-if="msg.message.contentType === 'comment_sticker'" src="{{ msg.message.content.url }}"/>
+        <div ng-if="::msg.message.contentType === 'comment_sticker'">
+          <img class="sticker size_5" ng-if="::msg.message.contentType === 'comment_sticker'" src="{{ ::msg.message.content.url }}"/>
 
           <span class="msg-item-header__created">
             {{::msg.extTime}}
