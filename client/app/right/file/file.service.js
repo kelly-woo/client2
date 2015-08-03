@@ -23,7 +23,7 @@
 
         data.hasPreview = $filter('hasPreview')(fileData.content);
         if (data.hasPreview) {
-          data.imageUrl = configuration.server_uploaded + fileData.content.extraInfo.smallThumbnailUrl;
+          data.imageUrl = _getThumbnailUrl(fileData.content.extraInfo.smallThumbnailUrl);
         } else {
           data.icon = $filter('fileIcon')(fileData.content);
         }
@@ -43,8 +43,16 @@
         data.type = 'star';
         data.id = fileData.message.id;
 
-        data.hasPreview = false;
-        data.icon = 'etc';
+        if (fileData.message.thumbnailUrlSmall) {
+          data.hasPreview = true;
+
+          data.imageUrl = _getThumbnailUrl(fileData.message.thumbnailUrlSmall);
+        } else {
+          data.icon = $filter('fileIcon')({
+            type: fileData.message.thumbnailUrlSmall ? 'image' : 'file',
+            serverUrl: fileData.message.contentServer
+          });
+        }
 
         data.writerId = fileData.message.writerId;
         data.createdAt = fileData.message.createdAt;
@@ -52,7 +60,6 @@
         data.contentTitle = fileData.message.contentTitle;
         data.contentFileUrl = '';
 
-        data.content = {};
         data.shareEntities = fileData.message.shareEntities;
         data.createTime = data.createdAt;
 
@@ -60,6 +67,10 @@
       }
 
       return data;
+    }
+
+    function _getThumbnailUrl(url) {
+      return (/^http/.test(url) ? '' : configuration.server_uploaded) + url;
     }
   }
 })();

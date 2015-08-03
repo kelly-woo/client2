@@ -38,8 +38,10 @@
       fileAPIservice.openFileShareModal($scope, $scope.file);
     }
 
-    function onFileCardClick() {
-      $state.go('files', {userName: $scope.writerName, itemId: $scope.file.id});
+    function onFileCardClick($event) {
+      if (!_isExtendMenu($event)) {
+        $state.go('files', {userName: $scope.writerName, itemId: $scope.file.id});
+      }
     }
 
     function isDisabledMember() {
@@ -93,6 +95,10 @@
       } else {
         fileAPIservice.broadcastCommentFocus();
       }
+    }
+
+    function _isExtendMenu(event) {
+      return /i/i.test(event.target.nodeName);
     }
   }
 })();
