@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('rPanelSearch', rPanelSearch);
 
-  function rPanelSearch() {
+  function rPanelSearch($timeout) {
     return {
       restrict: 'EA',
       scope: true,
@@ -16,7 +16,24 @@
       controller: 'rPanelSearchCtrl'
     };
 
-    function link(scope, element, attrs) {
+    function link(scope, element) {
+      var timerSearch;
+
+      element
+        .find('#right-panel-search-box')
+        .on('keyup', function() {
+          var target = this;
+
+          $timeout.cancel(timerSearch);
+
+          timerSearch = $timeout(function() {
+            scope.onFileTitleQueryEnter(target.value);
+          }, 500);
+        });
+
+      element.on('$destroy', function() {
+          $timeout.cancel(timerSearch);
+        });
     }
   }
 })();
