@@ -109,9 +109,7 @@
      * 잔디 메인으로 보내면서 팀 리스트 페이지를 연다.
      */
     function toTeam() {
-      if ($scope.isConnected) {
-        publicService.redirectTo(configuration.main_address + 'team');
-      }
+      publicService.redirectTo(configuration.main_address + 'team');
     }
 
     /**

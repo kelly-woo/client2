@@ -1492,7 +1492,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (!$rootScope.isReady) {
       $timeout(function () {
         publicService.hideTransitionLoading();
-      }, 500);
+      }, 100);
     }
   }
 

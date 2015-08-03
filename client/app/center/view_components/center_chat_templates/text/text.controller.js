@@ -24,9 +24,7 @@
     // text 작성자
     var _writer;
 
-    $scope.deleteMessage = deleteMessage;
     $scope.onUserClick = onUserClick;
-    $scope.createAnnouncement = createAnnouncement;
 
     _init();
 
@@ -47,6 +45,7 @@
     function _initLocalVariables() {
       _myId = memberService.getMemberId();
       _message = $scope.msg;
+      _writer = _message.extWriter;
       _messageId = _message.messageId;
       _entityType = currentSessionHelper.getCurrentEntityType();
       _entityId = currentSessionHelper.getCurrentEntityId();
@@ -64,59 +63,10 @@
     }
 
     /**
-     * 메시지를 삭제한다.
-     */
-    function deleteMessage() {
-      if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
-        if (_message.status === 'sending') {
-          //MessageCollection.
-          MessageCollection.remove(_messageId, true);
-        } else {
-          if (_message.message.contentType === 'sticker') {
-            messageAPIservice.deleteSticker(_messageId);
-          } else {
-            messageAPIservice.deleteMessage(_entityType, _entityId, _messageId)
-              .success(function () {
-                try {
-                  AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
-                    'MESSAGE_ID': message.messageId,
-                    'RESPONSE_SUCCESS': true
-                  });
-                } catch (e) {
-                }
-              })
-              .error(function (response) {
-                try {
-                  AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
-                    'RESPONSE_SUCCESS': false,
-                    'ERROR_CODE': response.code
-                  });
-                } catch (e) {
-                }
-              });
-          }
-
-        }
-      }
-    }
-
-    /**
      * user profile event trigger
      */
     function onUserClick() {
       jndPubSub.pub('onUserClick', _writer);
-    }
-
-    /**
-     * 현재 메세지를 사용하여 announcement 을 만드는 펑션을 호출하라고 broadcast 한다.
-     */
-    function createAnnouncement() {
-      var param = {
-        'entityId': _entityId,
-        'messageId': _messageId
-      };
-
-      jndPubSub.pub('createAnnouncement', param);
     }
 
     /**
