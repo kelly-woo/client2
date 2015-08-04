@@ -316,7 +316,7 @@
 
     function _hookMessageSubmit(attrs, originMessageSubmit) {
       attrs.messageSubmit = function() {
-        if (!that.hasMentionLive()) {
+        if (!that.hasMentionLive() || !$scope.hasOn) {
           $originScope.$eval(originMessageSubmit);
         }
       };

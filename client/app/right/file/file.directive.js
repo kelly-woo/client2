@@ -25,21 +25,32 @@
     function link(scope, el) {
       var extendMenu = el.find('.file-menu');
 
+      el.on('click', function() {
+        scope.onFileCardClick();
+      });
+
       // 파일 공유, 댓글, 다운로드, 삭제 메뉴버튼의 click event handling
       extendMenu
-        .on('click', function(event) {
-          event.stopPropagation();
-        })
-        .on('click', 'a.share-file,a.focus-comment-file,a.download-file,a.delete-file', function(event) {
+        .on('click', 'i,a.star-file,a.share-file,a.focus-comment-file,a.download-file,a.delete-file', function(event) {
           var selector;
 
+          event.stopPropagation();
+
           selector = event.currentTarget.className;
-          if (selector ==='share-file') {
+          if (selector === 'star-file') {
+            scope.status.isopen = false;
+            el.find('.file-star i').trigger('click');
+          } else if (selector ==='share-file') {
+            scope.status.isopen = false;
             scope.onClickShare();
           } else if (selector === 'focus-comment-file') {
+            scope.status.isopen = false;
             scope.setCommentFocus();
           } else if (selector === 'delete-file') {
+            scope.status.isopen = false;
             scope.onFileDeleteClick();
+          } else if (selector === 'download-file') {
+            scope.status.isopen = false;
           }
         });
     }

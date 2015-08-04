@@ -58,8 +58,8 @@
               </li>
               <li class="cursor_pointer">
                 <a ng-click="onStarClick();">
-                  <i class="icon-star"></i>
-                  <span translate>star</span>
+                  <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'"></i>
+                  <span><span ng-if="isStarred" translate>@star-un</span><span ng-if="!isStarred" translate>@star</span></span>
                 </a>
               </li>
               <li class="cursor_pointer" ng-if="file_detail | isFileWriter:member">
@@ -131,6 +131,12 @@
                   <i class="fa fa-cog"></i>
                 </a>
                 <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+                  <li class="cursor_pointer">
+                    <a ng-click="starComment($event)">
+                      <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'"></i>
+                      <span><span ng-if="comment.isStarred" translate>@star-un</span><span ng-if="!comment.isStarred" translate>@star</span></span>
+                    </a>
+                  </li>
                   <li class="cursor_pointer">
                     <a ng-click="deleteComment(comment.id, comment.isSticker)">
                       <i class="fa fa-times"></i>
@@ -240,19 +246,32 @@
           </div>
           <div class="comment-item-header">
             <span class="comment-item-header__name">{{ comment.writerId | getName }}</span>
-            <span class="comment-item-header__created">{{ comment.createTime | date: 'h:mm a' }}</span>
-            <div class="comment-item-header__action pull-right" dropdown data-ng-if="( member.id === comment.writerId )">
-              <a href="#" class="link-dark comment-item-header__action__icon" dropdown-toggle>
-                <i class="fa fa-cog"></i>
-              </a>
-              <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
-                <li class="cursor_pointer">
-                  <a data-ng-click="deleteComment(comment.id, comment.isSticker)">
-                    <i class="fa fa-times"></i>
-                    <span translate>@btn-delete</span>
-                  </a>
-                </li>
-              </ul>
+            <span class="comment-item-header__created">{{ getCreateTime($index, comment) }}</span>
+            <div class="comment-item-header__action pull-right">
+              <div class="comment-item-action comment-item-action-more" dropdown ng-if="(member.id === comment.writerId)">
+                <a href="#" class="link-dark" dropdown-toggle>
+                  <i class="fa fa-cog"></i>
+                </a>
+                <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
+                  <li class="cursor_pointer">
+                    <a ng-click="starComment($event)">
+                      <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'"></i>
+                      <span><span ng-if="comment.isStarred" translate>@star-un</span><span ng-if="!comment.isStarred" translate>@star</span></span>
+                    </a>
+                  </li>
+                  <li class="cursor_pointer">
+                    <a ng-click="deleteComment(comment.id, comment.isSticker)">
+                      <i class="fa fa-times"></i>
+                      <span translate>@btn-delete</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="comment-item-action comment-star" ng-class="{'show-inline-block': comment.isStarred}">
+                <a class="link-dark cursor_pointer">
+                  <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="comment-item-body">
