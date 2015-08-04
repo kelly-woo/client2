@@ -3,10 +3,12 @@
 }
 
 .rpanel-message-search .search-status-container {
-  margin-left: 40px;
+  padding-left: 17px;
   color: #999999;
   font-size: 14px;
-  margin-top: 10px;
+  margin-top: 11px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #e1e1e1;
 }
 
 .searchQueryKeyword {

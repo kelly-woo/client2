@@ -14,6 +14,7 @@
     var modalMap;
     var stateParams;
     var currentRightPanel = $state.includes('**.files') ? 'file' : null;
+    var prevRightPanel;
 
     _init();
 
@@ -46,6 +47,11 @@
     });
 
     $scope.$on('onHeaderAcitveTab', function($event, type) {
+      if (type === 'file.detail') {
+        type = prevRightPanel;
+      }
+      prevRightPanel = currentRightPanel;
+
       _setTabStatus(currentRightPanel, false);
       _setTabStatus(type, true);
     });
@@ -109,9 +115,7 @@
      * 잔디 메인으로 보내면서 팀 리스트 페이지를 연다.
      */
     function toTeam() {
-      if ($scope.isConnected) {
-        publicService.redirectTo(configuration.main_address + 'team');
-      }
+      publicService.redirectTo(configuration.main_address + 'team');
     }
 
     /**

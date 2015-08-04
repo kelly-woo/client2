@@ -25,20 +25,26 @@
 
 .file-card .file-card-body {
   width: 333px;
-  min-height: 65px;
-  padding-left: 77px;
+  min-height: 64px;
+  padding-left: 75px;
 }
 
 .file-card-body .file-name {
   position: relative;
   word-wrap: break-word;
-  margin: 4px 0;
+  margin: 0;
   font-size: 15px;
+  line-height: 1.5em;
 }
 
 .file-card-body .file-title {
   height: 30px;
   line-height: 30px;
+}
+
+.file-card-body .file-writer {
+  font-weight: 700;
+  padding-right: 2px;
 }
 
 .file-card-body .file-title .file-date {
@@ -55,9 +61,24 @@
   background-repeat: no-repeat;
 }
 
+.file-card-body .file-title .file-writer {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 110px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
+.file-card-body .file-title .file-info {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .file-card-body .file-name > span {
   padding-bottom: 2px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .file-card .file-extend {
@@ -117,4 +138,8 @@
   right: 0;
   top: 14px;
   float: none;
+}
+.image_wrapper.msg-file-body__img__background {
+  border: 1px solid #e1e1e1;
+  background-color: #f1f4f8;
 }

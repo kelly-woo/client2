@@ -6,10 +6,13 @@
 .center-announcement-container {
   position: relative;
   z-index: 10;
-  padding: 10px;
+  margin: 10px 15px 10px 10px;
   max-height: 50%;
   /*min-height: 132px;*/
  }
+.rpanel-show .scroll-gray .center-announcement-container {
+  margin-right: 24px;
+}
 
 .center-announcement-container__inner {
 

@@ -56,7 +56,8 @@
       $scope.onSelect = onSelect;
       $scope.onMatches = onMatches;
 
-      $scope.members = options.members;
+      $scope.hasOn = false;
+      $scope.on = options.on;
 
       fn = options.attrs.mentionaheadData && $parse(options.attrs.mentionaheadData);
       if (fn) {
@@ -79,9 +80,10 @@
     }
 
     function _setMentionList() {
-      var mentionList = [];
+      var currentEntity = currentSessionHelper.getCurrentEntity();
+      var members = entityAPIservice.getMemberList(currentEntity);
       var currentMemberId = memberService.getMemberId();
-      var members = $scope.members;
+      var mentionList = [];
       var member;
       var i;
       var len;
@@ -97,7 +99,7 @@
       }
 
       setMentions(mentionList, function() {
-        if (mentionList && mentionList.length > 0) {
+        if (mentionList && mentionList.length > 1) {
           mentionList.push({
             // mention item 출력용 text
             name: MENTION_ALL_ITEM_TEXT,
@@ -138,6 +140,12 @@
 
       $scope._mentionMap = mentionMap;
       $scope.mentionList = mentionList;
+
+      // mentionahead에 출력할 item이 존재하고 on 되지 않았다면 on함
+      if (!$scope.hasOn && mentionList.length > 0) {
+        $scope.hasOn = true;
+        $scope.on();
+      }
     }
 
     function _getCurrentTopicMembers(member) {
@@ -308,7 +316,7 @@
 
     function _hookMessageSubmit(attrs, originMessageSubmit) {
       attrs.messageSubmit = function() {
-        if (!that.hasMentionLive()) {
+        if (!that.hasMentionLive() || !$scope.hasOn) {
           $originScope.$eval(originMessageSubmit);
         }
       };

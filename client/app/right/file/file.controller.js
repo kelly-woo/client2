@@ -9,7 +9,7 @@
     .controller('FileCtrl', FileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData) {
+  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData, jndPubSub) {
     _init();
 
     // First function to be called.
@@ -38,10 +38,9 @@
       fileAPIservice.openFileShareModal($scope, $scope.file);
     }
 
-    function onFileCardClick($event) {
-      if (!_isExtendMenu($event)) {
+    function onFileCardClick() {
+        jndPubSub.pub('onHeaderAcitveTab', 'file');
         $state.go('files', {userName: $scope.writerName, itemId: $scope.file.id});
-      }
     }
 
     function isDisabledMember() {
@@ -98,7 +97,7 @@
     }
 
     function _isExtendMenu(event) {
-      return /i/i.test(event.target.nodeName);
+      return /^i$/i.test(event.target.nodeName);
     }
   }
 })();

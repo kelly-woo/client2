@@ -49,6 +49,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.onKeyDown = onKeyDown;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
   $scope.onStarClick = onStarClick;
+  $scope.starComment = starComment;
   $scope.getCreateTime = getCreateTime;
   $scope.watchFileDetail = watchFileDetail;
 
@@ -64,7 +65,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.isPostingComment = false;
 
       getFileDetail();
-      jndPubSub.pub('onHeaderAcitveTab', 'file');
 
       if (RouterHelper.hasCommentToScroll()) {
         _commentIdToScroll = RouterHelper.getCommentIdToScroll();
@@ -627,7 +627,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * Redirect user back to file list.
    */
   function backToFileList() {
-    jndPubSub.pub('onHeaderAcitveTab', 'file');
+    jndPubSub.pub('onHeaderAcitveTab', 'file.detail');
     $state.go('messages.detail.files');
   }
 
@@ -711,6 +711,16 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function onStarClick() {
     $timeout(function() {
       $('.file-detail').find('.star-btn').trigger('click');
+    });
+  }
+
+
+  /**
+   * comment 를 즐겨찾기함
+   */
+  function starComment(event) {
+    $timeout(function() {
+      $(event.target).parents('.comment-item-header__action').find('.comment-star i').trigger('click');
     });
   }
 });

@@ -244,7 +244,14 @@
       });
     }
 
-    function getUpdatedList(roomId, linkId) {
+    /**
+     * update 된 메세지 리스트를 받아온다.
+     * @param {Number|String} roomId
+     * @param {Number|String} linkId
+     * @param {Object} canceller
+     * @returns {*}
+     */
+    function getUpdatedList(roomId, linkId, canceller) {
       var teamId = currentSessionHelper.getCurrentTeam().id;
 
       return $http({
@@ -252,7 +259,8 @@
         url: server_address + 'teams/' + teamId + '/rooms/' + roomId + '/messages/updatedList',
         params : {
           linkId: linkId
-        }
+        },
+        timeout : canceller.promise
       });
     }
   }

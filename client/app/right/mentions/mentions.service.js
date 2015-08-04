@@ -22,7 +22,8 @@
         method: 'GET',
         url: $rootScope.server_address + 'teams/' + memberService.getTeamId() + '/messages/mentioned',
         params: {
-          page: data.page || 1
+          messageId: data.messageId,
+          count: 20
         }
       });
     }

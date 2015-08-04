@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="app/center/center.css">
   <link rel="stylesheet" href="app/center/center_chat_input_box/center.chat.input.box.css">
   <link rel="stylesheet" href="app/center/help_messages/help.messages.css">
+  <link rel="stylesheet" href="app/center/view_components/center_chat_templates/dropdown/center.item.dropdown.layer.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/text/text.css">
   <link rel="stylesheet" href="app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.css">
   <link rel="stylesheet" href="app/center/view_components/entity_header/entity.header.css">
@@ -44,6 +45,7 @@
   <link rel="stylesheet" href="app/left/member/member.css">
   <link rel="stylesheet" href="app/left/messages/messages.css">
   <link rel="stylesheet" href="app/left/topics/topics.css">
+  <link rel="stylesheet" href="app/loading/loading.center.css">
   <link rel="stylesheet" href="app/main.css">
   <link rel="stylesheet" href="app/mention/mention.view.css">
   <link rel="stylesheet" href="app/mobile/mobile.catcher.css">
@@ -114,7 +116,11 @@
     <div class="rpanel non-selectable"
          ng-class="{ 'shadow': $state.includes('**.files.**') }"
          ng-show="$state.includes('**.files.**')">
-      <div class="files scroll_gray" ui-view="rightpanel" ng-class="{'opacOut_hidden': !$state.includes('**.files'), 'opac_in extend': $state.includes('**.files')}"></div>
+      <div class="files scroll_gray" ui-view="rightpanel" ng-class="{
+        'scroll_gray': !browser.platform.isMac,
+        'opacOut_hidden': !$state.includes('**.files'),
+        'opac_in extend': $state.includes('**.files')
+      }"></div>
       <div class="file scroll_gray" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
       <div class="rpanel__background">
         <div class="rpanel__background-header"></div>
@@ -270,6 +276,9 @@
 <script src="app/center/services/message/message.text.service.js"></script>
 <script src="app/center/view_components/center_chat_input_box/center.chat.input.box.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/date_divider/date.divider.directive.js"></script>
+<script src="app/center/view_components/center_chat_templates/dropdown/center.item.dropdown.directive.js"></script>
+<script src="app/center/view_components/center_chat_templates/dropdown/center.item.dropdown.layer.controller.js"></script>
+<script src="app/center/view_components/center_chat_templates/dropdown/center.item.dropdown.layer.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.controller.js"></script>
 <script src="app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.directive.js"></script>
 <script src="app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.service.js"></script>
@@ -305,6 +314,7 @@
 <script src="app/left/topics/topic/topic_item/topic.item.directive.js"></script>
 <script src="app/left/topics/topics.controller.js"></script>
 <script src="app/left/topics/topics.directive.js"></script>
+<script src="app/loading/loading.center.directive.js"></script>
 <script src="app/main.js"></script>
 <script src="app/mention/mention.view.directive.js"></script>
 <script src="app/mobile/mobile.catcher.controller.js"></script>

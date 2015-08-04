@@ -1,6 +1,6 @@
 <li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true track by $index"
-    ng-class="{active: $state.params.entityId == joinedEntity.id}"
-    data-ng-click="onTopicClicked(joinedEntity);"
+    ng-class="{active: entityId == joinedEntity.id}"
+    data-ng-click="enterEntity(joinedEntity);"
   class="cursor_pointer">
   <topic-item></topic-item>
 </li>

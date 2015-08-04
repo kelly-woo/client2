@@ -477,7 +477,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _getUpdatedList() {
     console.log(_testCounter++, '::_getUpdatedList');
-    messageAPIservice.getUpdatedList(_getEntityId(), lastMessageId)
+    getMessageDeferredObject = $q.defer();
+    messageAPIservice.getUpdatedList(_getEntityId(), lastMessageId, getMessageDeferredObject)
       .success(_onUpdatedMessagesSuccess)
       .error(function(err) {
         console.log(err);
@@ -1487,12 +1488,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function onRepeatDone() {
     console.log('::onRepeatDone');
     jndPubSub.pub('onRepeatDone');
-
+    jndPubSub.pub('centerLoading:hide');
     _updateScroll();
     if (!$rootScope.isReady) {
       $timeout(function () {
         publicService.hideTransitionLoading();
-      }, 500);
+      }, 100);
     }
   }
 

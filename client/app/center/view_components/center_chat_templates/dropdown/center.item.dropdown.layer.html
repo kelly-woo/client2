@@ -1,0 +1,29 @@
+<ul class="dropdown-menu grey_dropdown center-item-dropdown-layer" role="menu">
+  <li role="presentation" tabindex="-1"
+      ng-if="showAnnouncement"
+      ng-click="createAnnouncement()">
+    <a role="menuitem" tabindex="-1">
+      <i class="icon-bullhorn"></i>
+      <span translate>@announcement-create</span>
+    </a>
+  </li>
+  <li ng-if="msg.message.contentType !== 'sticker'"
+      role="presentation" tabindex="-1"
+      star-view="msg.message.isStarred"
+      event-bubble="on"
+      message-id="{{ msg.message.id }}">
+    <a role="menuitem" tabindex="-1">
+      <i class="icon-star"></i>
+      <span ng-if="!msg.message.isStarred" translate>@star-add</span>
+      <span ng-if="msg.message.isStarred" translate>@star-remove</span>
+    </a>
+  </li>
+  <li role="presentation" tabindex="-1"
+      ng-if="isMyMessage"
+      ng-click="deleteMessage()">
+    <a role="menuitem" tabindex="-1">
+      <i class="fa fa-trash msg-item-action-icon"></i>
+      <span translate>@message-delete</span>
+    </a>
+  </li>
+</ul>

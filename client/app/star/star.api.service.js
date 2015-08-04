@@ -22,14 +22,14 @@
      * @param {Number|String} [teamId=_teamId]
      * @returns {*}
      */
-    function get(page, perPage, type, teamId) {
+    function get(messageId, count, type, teamId) {
       teamId = teamId || _teamId;
       return $http({
         method: 'GET',
         url: _server_address + 'teams/' + teamId + '/messages/starred',
         params: {
-          page: page,
-          perPage: perPage,
+          messageId: messageId,
+          count: count,
           type: type
         }
       });

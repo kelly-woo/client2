@@ -87,7 +87,7 @@
 }
 
 .scroll_loading_container_background {
-  background-color: #f2fbff;
+  background-color: transparent;
   opacity: 1;
 }
 .scroll_loading_bg {
@@ -96,7 +96,7 @@
 
 .scroll_loading_bar {
   left: auto;
-  margin: 8px auto !important;
+  margin: 15px auto !important;
 }
 
 .loading_container.file {
@@ -213,6 +213,9 @@
 .search-result-container {
   margin: 10px 0 20px 40px;
   color: #999999;
+}
+.search-result-container .search-result-summary-ing {
+  margin-top: 10px;
 }
 
 .show {

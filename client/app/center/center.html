@@ -44,7 +44,7 @@
   <!-- 컨테이너 -->
   <article class="msgs" id="msgs-container" when-scrolled="loadMore()">
     <!-- 로딩 영역 -->
-    <div class="msgs__loading initial"
+    <div class="msgs__loading"
          ng-show="msgLoadStatus.loading || !hasLastMessageRendered"
          ng-class="{'initial': !isInitialLoadingCompleted || !hasLastMessageRendered}">
       <span class="three-quarters-loader jnd-three-quarters-loader center"></span>
@@ -84,6 +84,7 @@
       <!--  WHEN THERE ARE NO MESSAGES OTHER THAN SYSTEM EVENT MESSAGE. -->
       <center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>
     </div>
+    <center-item-dropdown-layer></center-item-dropdown-layer>
   </article>
 
   <div class="scroll-to-bottom-container cursor_pointer" ng-if="hasMoreNewMessageToLoad() || (hasScrollToBottom && !hasNewMsg)" ng-click="onScrollToBottomIconClicked();"

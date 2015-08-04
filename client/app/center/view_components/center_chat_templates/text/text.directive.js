@@ -22,17 +22,50 @@
     function link(scope, el, attrs) {
       var jqTextContainer = el;
 
-      scope.onMouseEnterOnIcon = _onMouseEnterOnIcon;
-      scope.onMouseLeaveOnIcon = _onMouseLeaveOnIcon;
+      _init();
 
-      function _onMouseEnterOnIcon() {
-        jqTextContainer.addClass('text-highlight-background');
+      /**
+       * 초기화
+       * @private
+       */
+      function _init() {
+        _attachDomEvents();
       }
 
-      function _onMouseLeaveOnIcon() {
-        jqTextContainer.removeClass('text-highlight-background');
+      /**
+       * dom 이벤트를 바인딩한다.
+       * @private
+       */
+      function _attachDomEvents() {
+        el.on('mouseover', _onMouseOver);
+        el.on('mouseout', _onMouseOut);
       }
 
+      /**
+       * mouse over 시 이벤트 핸들러
+       * (ng-mouseenter, ng-mouseleave 가 느리다는 포스팅이 있어, 적용해 봄)
+       * @param {Event} mouseOverEvent
+       * @private
+       */
+      function _onMouseOver(mouseOverEvent) {
+        var jqTarget = $(mouseOverEvent.target);
+        if (jqTarget.hasClass('msg-item-icon')) {
+          jqTextContainer.addClass('text-highlight-background');
+        }
+      }
+
+      /**
+       * mouse over 시 이벤트 핸들러
+       * (ng-mouseenter, ng-mouseleave 가 느리다는 포스팅이 있어, 적용해 봄)
+       * @param {Event} mouseOutEvent
+       * @private
+       */
+      function _onMouseOut(mouseOutEvent) {
+        var jqTarget = $(mouseOutEvent.target);
+        if (jqTarget.hasClass('msg-item-icon')) {
+          jqTextContainer.removeClass('text-highlight-background');
+        }
+      }
     }
   }
 })();

@@ -8,10 +8,10 @@ var app = angular.module('jandiApp', [
 ]);
 
 app.run(function($rootScope, $state, $stateParams, $urlRouter, storageAPIservice, publicService, entityAPIservice,
-                 fileAPIservice, configuration) {
+                 fileAPIservice, configuration, Browser) {
 
   $rootScope._ = window._;
-
+  $rootScope.browser = Browser;
   $rootScope.$state       = $state;
   $rootScope.$stateParams = $stateParams;
 

@@ -24,7 +24,6 @@
 
         data.writerId = messageData.memberId;
         //data.createdAt = messageData.time;
-        console.log('message type ::: ', messageData);
         data.contentType = messageData.type;
         data.contentTitle = messageData.name;
         data.contentBody = messageData.type.indexOf('sticker') > -1 ? '(sticker)' : messageData.text;
@@ -49,8 +48,8 @@
         data.createdAt = messageData.message.createdAt;
         data.mentions = messageData.message.mentions;
         data.contentType = messageData.message.contentType;
-        data.contentTitle = messageData.message.contentTitle;
-        data.contentBody = messageData.message.contentBody;
+        data.contentTitle = messageData.message.content.title;
+        data.contentBody = messageData.message.content.body;
 
         data.feedbackId = messageData.message.feedbackId;
         data.feedbackTitle = messageData.message.feedbackTitle;

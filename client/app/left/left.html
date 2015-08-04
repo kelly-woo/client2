@@ -26,7 +26,10 @@
     </div>
   </div>
 
-  <aside class="lpanel scroll_blue non-selectable opac-zero" ng-class="{'opac-in': isReady}">
+  <aside class="lpanel non-selectable opac-zero" ng-class="{
+    'opac-in': isReady,
+    'scroll_blue': !browser.platform.isMac
+  }">
     <!-- USER INFO CONTAINER -->
     <current-user></current-user>
 
@@ -72,12 +75,14 @@
       <button type="button" class="btn btn-danger" ng-click="goUnreadBelow($event);"><span translate>@common-new-message</span> <i class="fa fa-angle-double-down"></i></button>
     </div>
   </aside>
-  <div class="cpanel scroll_gray opac-zero" id="cpanel"
+  <div class="cpanel opac-zero" id="cpanel"
        ng-class="{
+       'scroll_gray': !browser.platform.isMac,
        'rpanel-show': $state.includes('**.files.**'),
        'opac-in': isReady
        }">
     <entity-header></entity-header>
+    <div loading-center="isCenterLoading"></div>
     <div ui-view="centerpanel"></div>
   </div>
   <!--<div ui-view="centerpanel" class="cpanel" id="cpanel" ng-class="{'rpanel-show': $state.includes('**.files.**')}"></div>-->
