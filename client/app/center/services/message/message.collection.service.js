@@ -344,16 +344,18 @@
     }
 
     function _updateLastMessage(messageList) {
-      var _tempLastMessage = messageList[messageList.length - 1];
-      _tempLastMessage._isLast = true;
+      if (messageList && messageList.length) {
+        var _tempLastMessage = messageList[messageList.length - 1];
+        _tempLastMessage._isLast = true;
 
-      if (!_.isEmpty(_lastMessage)) {
-        if (_lastMessage.id < _tempLastMessage.id) {
-          _lastMessage._isLast = false;
+        if (!_.isEmpty(_lastMessage)) {
+          if (_lastMessage.id < _tempLastMessage.id) {
+            _lastMessage._isLast = false;
+            _lastMessage = _tempLastMessage;
+          }
+        } else {
           _lastMessage = _tempLastMessage;
         }
-      } else {
-        _lastMessage = _tempLastMessage;
       }
     }
     /**

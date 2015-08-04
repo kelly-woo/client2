@@ -168,9 +168,9 @@
      * unload 이벤트를 붙임
      */
     function bindTrackerToWindowCloseEvent() {
-      $(window).on('unload', function() {
-        track(EVENT.WINDOW_CLOSE, null, false);
-      });
+      //$(window).on('unload', function() {
+      //  track(EVENT.WINDOW_CLOSE, null, false);
+      //});
     }
   }                                                                                                              
 })();

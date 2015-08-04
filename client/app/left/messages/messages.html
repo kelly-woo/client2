@@ -28,13 +28,12 @@
     <div ng-if="messageList.length > 0">
       <li class="member cursor_pointer"
           ng-repeat="userEntity in messageList track by userEntity.id"
-          ng-class="{'active': $state.params.entityId == userEntity.id,
+          ng-class="{'active': entityId == userEntity.id,
                     'messages-list-disabled-member': isDisabledMember(userEntity)}">
 
-        <a ui-sref="archives({entityType:'users',entityId: userEntity.id})"
-           ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}"
+        <a ng-class="{'has-unread-msg': userEntity.alarmCnt > 0}"
            data-member-id="{{userEntity.id}}"
-           data-ng-click="onDmClicked(userEntity);">
+           data-ng-click="enterEntity(userEntity);">
           <i class="icon-star left-star" ng-class="{'icon-star-fill': userEntity.isStarred}"
              data-ng-click="onStarClick(userEntity.type, userEntity.id); $event.preventDefault(); $event.stopPropagation();"></i>
 

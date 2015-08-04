@@ -28,14 +28,22 @@ app.controller('leftPanelController1', function(
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
   var _isBadgeMoveLocked = false;
+  $scope.entityId = $state.params.entityId;
 
+  //todo: refactoring 시 main view 의 property로 로 분리해야 함.
+  $scope.isCenterLoading = false;
   $scope.loadingTextList = [
     'Loading',
     'Loading.',
     'Loading..',
     'Loading...'
   ];
-
+  $scope.$on('centerLoading:show', function() {
+    $scope.isCenterLoading = true;
+  });
+  $scope.$on('centerLoading:hide', function() {
+    $scope.isCenterLoading = false;
+  });
   //unread 위치에 대한 정보
   $scope.unread = {
     above: [],
@@ -87,8 +95,7 @@ app.controller('leftPanelController1', function(
 
   $scope.goUnreadBelow = goUnreadBelow;
   $scope.goUnreadAbove = goUnreadAbove;
-  $scope.onDmClicked = onDmClicked;
-  $scope.onTopicClicked = onTopicClicked;
+  $scope.enterEntity = enterEntity;
 
   /**
    * collapse status 변경시 update badge posision 이벤트 트리거한다.
@@ -207,6 +214,7 @@ app.controller('leftPanelController1', function(
   function _onDestroy() {
     $timeout.cancel(unreadTimer);
     _detachExtraEvents();
+    $scope.isCenterLoading = false;
   }
 
   /**
@@ -659,43 +667,30 @@ app.controller('leftPanelController1', function(
     });
   }
 
-  /**
-   * DM Click 시 이벤트 핸들러
-   * @param {entity} userEntity - 클릭한 user entity
-   */
-  function onDmClicked(userEntity) {
-    userEntity.alarmCnt = '';
-  }
-
-  /**
-   * TOPIC Click 시 이벤트 핸들러
-   * @param {object} topicEntity - 클릭한 토픽 entity
-   */
-  function onTopicClicked(topicEntity) {
-    var _currentEntity;
-    var entityType = topicEntity.type;
-    var entityId = topicEntity.id;
-
-    jndPubSub.pub('changeEntityHeaderTitle', topicEntity);
-
-    _currentEntity = currentSessionHelper.getCurrentEntity();
-
-    if (NetInterceptor.isConnected()) {
-      topicEntity.alarmCnt = '';
-
-      if (publicService.isNullOrUndefined(_currentEntity) || publicService.isNullOrUndefined(_currentEntity.id)) {
-        publicService.goToDefaultTopic();
-        return;
-      }
-
-      if (_currentEntity.id === entityId) {
-        $rootScope.$broadcast('refreshCurrentTopic');
-      } else {
-        $state.go('archives', {entityType: entityType, entityId: entityId});
-      }
+  function enterEntity(entity) {
+    if (!$scope.isCenterLoading && NetInterceptor.isConnected()) {
+      entity.alarmCnt = '';
+      $scope.isCenterLoading = true;
+      $scope.entityId = entity.id;
+      jndPubSub.pub('changeEntityHeaderTitle', entity);
+      $timeout(_.bind(_doEnter, this, entity), 50);
     }
   }
 
+  function _doEnter(entity) {
+    var entityType = entity.type;
+    var entityId = entity.id;
+    var currentEntity = currentSessionHelper.getCurrentEntity();
+    if (publicService.isNullOrUndefined(currentEntity) || publicService.isNullOrUndefined(currentEntity.id)) {
+      publicService.goToDefaultTopic();
+      return;
+    }
+    if (currentEntity.id === entityId) {
+      $rootScope.$broadcast('refreshCurrentTopic');
+    } else {
+      $state.go('archives', {entityType: entityType, entityId: entityId});
+    }
+  }
 
   $scope.$on('onStarClick', function(event, params) {
     $scope.onStarClick(params.entityType, params.entityId)
