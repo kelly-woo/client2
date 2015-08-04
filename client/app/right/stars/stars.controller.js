@@ -13,7 +13,6 @@
     var starListData = {
       messageId: null
     };
-    var isEndOfList;
     var isActivated;
   
     _init();
@@ -26,11 +25,15 @@
       $scope.tabs = {
         all: {
           name: $filter('translate')('@star-all'),
-          active: true
+          active: true,
+          endOfList: false,
+          empty: false
         },
         files: {
           name: $filter('translate')('@star-files'),
-          active: false
+          active: false,
+          endOfList: false,
+          empty: false
         }
       };
       $scope.activeTabName = 'all';
@@ -54,7 +57,7 @@
     });
   
     function loadMore() {
-      if (!($scope.isScrollLoading || isEndOfList)) {
+      if (!($scope.isScrollLoading || $scope.tabs[$scope.activeTabName].endOfList)) {
         $scope.isScrollLoading = true;
       
         _getStarList($scope.activeTabName);
@@ -73,37 +76,30 @@
   
     function _initGetStarList() {
       $scope.isLoading = true;
-
-      $scope.isAllEmpty = $scope.isFilesEmpty = false;
+      $scope.tabs[$scope.activeTabName].empty = false;
       _getStarList($scope.activeTabName);
     }
   
     function _initStarListData() {
-      starListData.page = 1;
-    
+      starListData.messageId = null;
+
       $scope[$scope.activeTabName] = [];
-      $scope.isLoading = $scope.isScrollLoading = false;
+      $scope.tabs[$scope.activeTabName].endOfList = $scope.isLoading = $scope.isScrollLoading = false;
     }
   
     function _getStarList(activeTabName) {
       StarAPIService.get(starListData.messageId, 20, (activeTabName === 'files' ? 'file' : undefined))
         .success(function(data) {
           if (data) {
-            _updateCursor(data);
-          
             if (data.records && data.records.length) {
               _pushStarList(data.records);
             }
+
+            _updateCursor(data);
           }
         })
         .finally(function() {
-          var isEmpty = $scope[activeTabName].length === 0;
-
-          if (activeTabName === 'all') {
-            $scope.isAllEmpty = isEmpty;
-          } else {
-            $scope.isFilesEmpty = isEmpty;
-          }
+          $scope.tabs[$scope.activeTabName].empty = $scope[activeTabName].length === 0;
           $scope.isLoading = $scope.isScrollLoading = false;
         });
     }
@@ -118,11 +114,13 @@
     }
   
     function _updateCursor(data) {
-      if (data.record && data.record.length > 0) {
+      if (data.records && data.records.length > 0) {
         starListData.messageId = data.records[data.records.length - 1].message.id;
       }
 
-      isEndOfList = !data.hasMore;
+      if ($scope[$scope.activeTabName] && $scope[$scope.activeTabName].length > 0) {
+        $scope.tabs[$scope.activeTabName].endOfList = !data.hasMore;
+      }
     }
   }
 })();

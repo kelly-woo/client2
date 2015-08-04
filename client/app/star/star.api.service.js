@@ -28,7 +28,7 @@
         method: 'GET',
         url: _server_address + 'teams/' + teamId + '/messages/starred',
         params: {
-          messageId: messageId,
+          starredId: messageId,
           count: count,
           type: type
         }

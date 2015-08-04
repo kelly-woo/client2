@@ -24,7 +24,7 @@
 }
 
 .file-card .file-card-body {
-  width: 333px;
+  width: 350px;
   min-height: 64px;
   padding-left: 75px;
 }
@@ -68,7 +68,6 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  margin-right: 5px;
 }
 
 .file-card-body .file-title .file-info {

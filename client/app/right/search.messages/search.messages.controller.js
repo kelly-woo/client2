@@ -12,7 +12,6 @@
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
 
-    var isLastPage = false;
     //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
     var _isActivated = false;
 
@@ -22,6 +21,7 @@
     // First function to be called.
     function _init() {
       $scope.isSearching = false;
+      $scope.isEndOfList = false;
       $scope.apiError = false;
 
       $scope.messageList;
@@ -122,7 +122,7 @@
      */
     function searchMessages() {
 
-      if (_isLoading() || !$scope.searchQuery.q || isLastPage ) return;
+      if (_isLoading() || !$scope.searchQuery.q || $scope.isEndOfList ) return;
 
       $scope.apiError = false;
 
@@ -135,9 +135,9 @@
         .success(function(response) {
           if (_isActivated) {
             //console.log(response)
-            _updateSearchQueryCursor(response.cursor);
             _updateMessageList(response);
             _updateSearchStatusTotalCount(response.cursor.totalCount);
+            _updateSearchQueryCursor(response.cursor);
 
             //analytics
             try {
@@ -221,7 +221,7 @@
       $scope.searchQuery.page = DEFAULT_PAGE;
       $scope.searchQuery.perPage = DEFAULT_PER_PAGE;
 
-      isLastPage = false;
+      $scope.isEndOfList = false;
     }
 
     /**
@@ -232,8 +232,8 @@
     function _updateSearchQueryCursor(cursor) {
       $scope.searchQuery.page = cursor.page + 1;
 
-      if(_isLastPage(cursor)) {
-        isLastPage = true;
+      if(_isLastPage(cursor) && $scope.messageList.length > 0) {
+        $scope.isEndOfList = true;
       }
     }
 

@@ -174,6 +174,7 @@
 
       $scope.isLoading = false;
       $scope.isScrollLoading = false;
+      $scope.isEndOfList = false;
 
       $scope.fileType = 'file';
       $scope.fileList = [];
@@ -339,15 +340,13 @@
 
     function preLoadingSetup() {
       $scope.fileRequest.startMessageId   = -1;
-      isEndOfList = false;
+      $scope.isEndOfList = false;
       $scope.isLoading = true;
       $scope.fileList = [];
     }
 
-    var isEndOfList = false;
-
     $scope.loadMore = function() {
-      if (isEndOfList || $scope.isScrollLoading) return;
+      if ($scope.isEndOfList || $scope.isScrollLoading) return;
 
       if ($scope.fileList.length==0 && $scope.fileRequest.keyword != '') {
         // No search result.
@@ -419,25 +418,13 @@
     }
 
     function generateFileList(fileList, fileCount, firstIdOfReceivedList) {
-
-      if (fileCount === 0 && $scope.isScrollLoading) {
-        $('.file-list__item.loading').addClass('opac_out');
-
-        $scope.isScrollLoading = false;
-        isEndOfList = true;
-        return;
-      }
-
       startMessageId = firstIdOfReceivedList;
 
       if($scope.fileRequest.startMessageId === -1) {
         //  Not loading more.
         //  Replace current fileList with new fileList.
-//            $('.file-list__item').addClass('opac_out');
         $scope.fileList = fileList;
-
-      }
-      else {
+      } else {
         //  Loading more.
         //  Append fileList to current fileList
         _.forEach(fileList, function(item) {
@@ -446,8 +433,12 @@
       }
       $scope.isScrollLoading = false;
       $scope.isLoading = false;
-    }
 
+      if ($scope.fileList.length > 0 && fileCount < $scope.fileRequest.listCount) {
+        $('.file-list__item.loading').addClass('opac_out');
+        $scope.isEndOfList = true;
+      }
+    }
 
     function _resetSearchStatusKeyword() {
       $scope.fileRequest.keyword = '';
