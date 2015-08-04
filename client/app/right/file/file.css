@@ -55,6 +55,21 @@
   background-repeat: no-repeat;
 }
 
+.file-card-body .file-title .file-writer {
+  display: inline-block;
+  float: left;
+  max-width: 110px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
+.file-card-body .file-title .file-info {
+  display: inline-block;
+  float: left;
+}
+
 .file-card-body .file-name > span {
   padding-bottom: 2px;
   font-weight: 500;
@@ -117,4 +132,8 @@
   right: 0;
   top: 14px;
   float: none;
+}
+.image_wrapper.msg-file-body__img__background {
+  border: 1px solid #e1e1e1;
+  background-color: #f1f4f8;
 }
