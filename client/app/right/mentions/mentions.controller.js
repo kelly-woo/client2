@@ -11,7 +11,7 @@
   /* @ngInject */
   function RightPanelMentionsTabCtrl($scope, MentionsAPI) {
     var mentionListData = {
-      page: 1
+      messageId: null
     };
     var isEndOfList;
     var isActivated;

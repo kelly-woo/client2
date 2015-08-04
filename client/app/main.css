@@ -388,6 +388,7 @@ input[type="button"] {
 .btn:focus,
 .btn:active:focus {
   outline: 0;
+  color: white;
 }
 .btn-cancel {
   background-color: white;
@@ -779,7 +780,7 @@ input[type="button"] {
 }
 .right-align {
   left: auto;
-  right: 0;
+  right: 10px;
 }
 
 .grey_dropdown > li > a,

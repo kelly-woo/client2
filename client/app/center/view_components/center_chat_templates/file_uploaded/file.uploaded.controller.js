@@ -117,7 +117,7 @@
      */
     function _addFullScreenImageViewButton(jqElement) {
       if (!_jqFullScreenToggleButton) {
-        _jqFullScreenToggleButton = angular.element('<div class="large-thumbnail-full-screen" ng-click="onFullScreenImageButtonClick();"><i class="fa fa-arrows-alt"></i></i></div>');
+        _jqFullScreenToggleButton = angular.element('<div class="large-thumbnail-full-screen" ng-click="onFullScreenImageButtonClick();"><i class="fa fa-expand"></i></i></div>');
       }
 
       _compileNewDomElement(_jqFullScreenToggleButton, $scope);

@@ -153,7 +153,7 @@
 .file-item-meta__listview {
   color: #999;
   font-size: 12px;
-  line-height: 20px;
+  line-height: 19px;
 }
 .modal-full .modal-dialog {
   width: auto;
@@ -342,8 +342,8 @@
 }
 .loading_bar {
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   margin: -16px auto auto;
   top: 50%;
 }
@@ -639,6 +639,9 @@
   top: 0;
 }
 .user-profile__fullName {
+  max-width: 270px;
+  text-overflow: ellipsis;
+  overflow: hidden;
   margin-bottom: 10px;
   font-size: 18px;
   font-weight: 700;

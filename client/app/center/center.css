@@ -319,10 +319,11 @@ by ysyun 2015.2.25
   top: 10px;
   left: 10px;
   display: none;
-  padding: 5px;
-  background-color: #666666;
-  border-radius: 5px;
-  color: #e0e0e0;
+  padding: 7px;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 3px;
+  color: #ECECEC;
+  font-size: 22px;
 }
 .large-thumbnail-full-screen:hover {
   color: white;
