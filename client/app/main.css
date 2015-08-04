@@ -1221,9 +1221,13 @@ input[type="radio"] {
   -webkit-appearance: none;
   width:10px;
   height:10px;
-  background-color: #f3f4f9;
+  background-color: transparent;
   border-radius: 10px;
 }
+.scroll_gray ::-webkit-scrollbar:hover{
+  background-color: #f3f4f9;
+}
+
 .scroll_gray ::-webkit-scrollbar-thumb{
   background-color:#d0cfd4;
   border:1px solid transparent;
