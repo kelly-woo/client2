@@ -63,7 +63,7 @@
 
 .file-card-body .file-title .file-writer {
   display: inline-block;
-  float: left;
+  vertical-align: middle;
   max-width: 110px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -73,7 +73,7 @@
 
 .file-card-body .file-title .file-info {
   display: inline-block;
-  float: left;
+  vertical-align: middle;
 }
 
 .file-card-body .file-name > span {

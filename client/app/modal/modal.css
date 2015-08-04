@@ -639,6 +639,9 @@
   top: 0;
 }
 .user-profile__fullName {
+  max-width: 270px;
+  text-overflow: ellipsis;
+  overflow: hidden;
   margin-bottom: 10px;
   font-size: 18px;
   font-weight: 700;
