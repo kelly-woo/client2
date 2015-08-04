@@ -90,62 +90,71 @@
       </div>
 
       <div ng-if="msg.message.status != 'archived'" class="msg-file-meta-down">
-        <!--    SHARED MESSAGE  -->
-        <span class="msg-file-meta-info">
-          <span data-ng-if="( msg.id !== msg.message.writer.id )">
-            <a class="msg-file-meta__writer file__owner">{{msg.message.extFileOwnerName}}</a>
-            <span translate>@msg-whose</span>
-          </span>
-          <span ng-if="msg.status == 'shared'" translate>@msg-shared</span>
-          <span ng-if="msg.status == 'unshared'" translate>@msg-unshared</span>
-          <span translate>@msg-file</span>
+        <!--  DOWNLOAD  -->
+        <span class="file-uploaded-download" ng-if="!isIntegrateFile">
+          <a download-file file-url="{{::msg.message.content.fileUrl}}"
+             download-tracker="{{track(msg.message)}}" file-title="{{::msg.message.content.title}}">
+            <i class="icon-download cursor_pointer file-action"
+               tooltip="{{'@common-download' | translate}}" tooltip-placement="top" append-to-body="true"></i>
+          </a>
+
         </span>
 
-        <span class="bullet">•</span>
+        <span class="separator" ng-if="!isIntegrateFile"></span>
 
-        <!--    SHARED ENTITIES -->
-        <span data-ng-if="msg.message.shared.length">
-          <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.message.shared)">
-            <span data-ng-hide="($index === 0)">, </span>
-            <span class="file-item-meta__shared cursor_pointer" data-ng-click="onClickSharedEntity(sharedEntity.id, sharedEntity.type)">
-              {{ sharedEntity.name }}
-            </span>
-            <a class="link-remove link-unshare cursor_pointer" data-ng-click="onClickUnshare(msg.message, sharedEntity)">
-              <i class="fa fa-times-circle"
-                 tooltip="{{ '@file-action-unshare' | translate }}" tooltip-placement="top"></i>
-              <i ng-if="false" translate>@file-action-unshare</i>
-            </a>
-          </span>
+        <!--  SHARE -->
+        <i class="icon-share cursor_pointer file-action" ng-click="onShareClick(msg.message);"
+           tooltip="{{'@btn-share' | translate}}" tooltip-placement="top" append-to-body="true"></i>
 
-          <span class="bullet">•</span>
+        <span class="separator"></span>
+
+        <!--  MORE  -->
+        <span class="file-uploaded-more" dropdown
+              tooltip="{{'@file-action-more' | translate}}" tooltip-placement="top" append-to-body="true">
+
+          <i class="fa fa-cog cursor_pointer file-action" dropdown-toggle></i>
+
+          <ul class="dropdown-menu grey_dropdown" role="menu">
+            <!--  SHARE -->
+            <li class="cursor_pointer" ng-click="onShareClick(msg.message);">
+              <a class="share-file">
+                <i class="icon-share"></i>
+                <span translate>@btn-share</span>
+              </a>
+            </li>
+
+            <!--    DOWNLOAD    -->
+            <li class="cursor_pointer" ng-if="!isIntegrateFile">
+              <a class="cursor_pointer" download-file file-url="{{::msg.message.content.fileUrl}}" download-tracker="{{track(msg.message)}}" file-title="{{::msg.message.content.title}}">
+                <i class="icon-download"></i>
+                <span translate>@common-download</span>
+              </a>
+            </li>
+
+            <!-- COMMENT  -->
+            <li class="cursor_pointer">
+              <a class="focus-comment-file" ng-click="setCommentFocus(msg.message);">
+                <i class="fa fa-comment-o"></i>
+                <span translate>@btn-comment</span>
+              </a>
+            </li>
+
+            <!-- OPEN ORIGINAL  -->
+            <li class="cursor_pointer">
+              <a class="cursor_pointer" original-file file-url="{{::msg.message.content.fileUrl}}">
+                <i class="fa fa-external-link"></i>
+                <span translate>@msg-open-original</span>
+              </a>
+            </li>
+
+            <li class="cursor_pointer" ng-if="msg.message.extIsFileOwner" ng-click="onFileDeleteClick();">
+              <a class="delete-file">
+                <i class="fa fa-trash"></i>
+                <span translate>@message-delete</span>
+              </a>
+            </li>
+          </ul>
         </span>
-
-        <!-- OPEN ORIGINAL  -->
-        <a class="cursor_pointer" original-file file-url="{{::msg.message.content.fileUrl}}">
-          <span translate>@msg-open-original</span>
-        </a>
-
-        <span class="bullet">•</span>
-
-        <!--    DOWNLOAD    -->
-        <a class="cursor_pointer" download-file ng-if="!isIntegrateFile" file-url="{{::msg.message.content.fileUrl}}" download-tracker="{{track(msg.message)}}" file-title="{{::msg.message.content.title}}">
-          <span translate>@common-download</span>
-        </a>
-
-        <span class="bullet" ng-if="!isIntegrateFile">•</span>
-
-        <!--    COMMENT -->
-        <a class="cursor_pointer"  data-ng-click="setCommentFocus(msg.message);">
-          <span translate>@btn-comment</span>
-        </a>
-
-        <span class="bullet">•</span>
-
-        <!--    SHARE   -->
-        <a class="cursor_pointer" data-ng-click="onShareClick(msg.message);">
-          <span translate>@btn-share</span>
-        </a>
-
 
       </div>
     </div>

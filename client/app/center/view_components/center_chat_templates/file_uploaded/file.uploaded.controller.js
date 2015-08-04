@@ -8,7 +8,7 @@
   /* @ngInject */
   function FileUploadedCtrl($scope, $filter, fileAPIservice, centerService,
                             modalHelper, ImagesHelper, $compile, FileUploaded,
-                            $state, entityheaderAPIservice, entityAPIservice, config) {
+                            $state, entityheaderAPIservice, entityAPIservice, config, memberService) {
 
     // 현재 컨틀롤러가 가지고 있는 최상위 돔 엘레멘트
     var jqRootElement;
@@ -66,6 +66,7 @@
       $scope.msg.message.content.extFileType = $filter('fileType')($scope.msg.message.content);
 
       $scope.msg.message.extFileOwnerName = $filter('getName')($scope.msg.message.writerId);
+      $scope.msg.message.extIsFileOwner = $scope.msg.message.writerId === memberService.getMemberId();
 
       _updateSharedList();
       _attachEventListener();

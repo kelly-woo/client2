@@ -212,7 +212,6 @@ article {
 }
 
 .msg-item-body .tooltip {
-  width: 64px;
 }
 
 .msg-item-body p {
@@ -389,8 +388,8 @@ by ysyun 2015.2.25
   letter-spacing: 0.02em;
 }
 .msg-file-meta-down a {
-  color:#999999 !important;
-  letter-spacing: 0.02em;
+  /*color:#999999 !important;*/
+  /*letter-spacing: 0.02em;*/
 }
 .msg-file-meta-down .file-item-meta__shared {
   color: #00a5e9;

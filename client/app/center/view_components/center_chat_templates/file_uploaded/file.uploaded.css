@@ -1,0 +1,17 @@
+.file-action {
+  line-height: 19px !important;
+  font-size: 19px;
+  color: #575859;
+}
+
+.msg-file-meta-down .separator {
+  width: 1px;
+  height: 19px;
+  background-color: #e2e2e2;
+  margin: 0 5px;
+  display: inline-block;
+}
+
+.file-uploaded-more {
+  position: relative;
+}
