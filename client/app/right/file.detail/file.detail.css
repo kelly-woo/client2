@@ -102,8 +102,8 @@
 }
 .file-detail-header-box {
   position: relative;
-  width: 300px;
-  padding: 0px 10px 0px 38px;
+  width: 290px;
+  padding: 0px 20px 0px 38px;
 }
 .file-detail-header__thumbnail {
   position: absolute;
@@ -111,11 +111,14 @@
   top: 3px;
 }
 .file-detail-header__writer {
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 3px;
+  color: #333;
+  font-weight: 700;
 }
 .file-detail-header__title {
   word-wrap: break-word;
+  line-height: 1.5em;
 }
 .file-detail-header__title > a {
   color: #333;
@@ -129,7 +132,7 @@
 
 .file-detail-body .image_wrapper {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   cursor: -webkit-zoom-in;
 }
 .file-detail-body .image_wrapper img {
@@ -257,7 +260,7 @@
 
 .rpanel-detail-body-comment {
   background-color: white;
-  padding: 15px;
+  padding: 12px;
 }
 .archived-file-detail .rpanel-detail-body-comment {
   padding: 8px;
@@ -363,6 +366,7 @@
   letter-spacing: 0.05em;
 }
 .comment-btn:hover{
+  background-color: #26688C;
   color: white;
 }
 .comment-item__profile {
