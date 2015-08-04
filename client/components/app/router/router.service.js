@@ -6,7 +6,7 @@
     .service('Router', Router);
 
   /* @ngInject */
-  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration, NetInterceptor) {
+  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration, NetInterceptor, storageAPIservice) {
 
     this.onStateChangeStart = onStateChangeStart;
     this.onRouteChangeError = onRouteChangeError;

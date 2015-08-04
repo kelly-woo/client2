@@ -13,7 +13,6 @@
     var mentionListData = {
       messageId: null
     };
-    var isEndOfList;
     var isActivated;
 
     _init();
@@ -37,7 +36,7 @@
     });
 
     function loadMore() {
-      if (!($scope.isScrollLoading || isEndOfList)) {
+      if (!($scope.isScrollLoading || $scope.isEndOfList)) {
         $scope.isScrollLoading = true;
 
         _getMentionList();
@@ -51,26 +50,26 @@
     }
 
     function _initMentionListData() {
-      mentionListData.page = 1;
+      mentionListData.messageId = null;
 
       $scope.records = [];
-      $scope.isLoading = $scope.isScrollLoading = false;
+      $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
     }
 
     function _getMentionList() {
       MentionsAPI.getMentionList(mentionListData)
         .success(function(data) {
           if (data) {
-            _updateCursor(data);
-
             if (data.records && data.records.length) {
               _pushMentionList(data.records);
             }
+
+            _updateCursor(data);
           }
-          $scope.isLoading = $scope.isScrollLoading = false;
         })
         .finally(function() {
           $scope.isMentionEmpty = $scope.records.length === 0;
+          $scope.isLoading = $scope.isScrollLoading = false;
         });
     }
 
@@ -84,11 +83,13 @@
     }
 
     function _updateCursor(data) {
-      if (data.record && data.record.length > 0) {
+      if (data.records && data.records.length > 0) {
         mentionListData.messageId = data.records[data.records.length - 1].message.id;
       }
 
-      isEndOfList = !data.hasMore;
+      if ($scope.records && $scope.records.length > 0 ) {
+        $scope.isEndOfList = !data.hasMore;
+      }
     }
   }
 })();
