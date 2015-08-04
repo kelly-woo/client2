@@ -43,15 +43,11 @@
         data.type = 'star';
         data.id = fileData.message.id;
 
-        if (fileData.message.thumbnailUrlSmall) {
-          data.hasPreview = true;
-
+        data.hasPreview = $filter('hasPreview')(fileData.message.content);
+        if (data.hasPreview) {
           data.imageUrl = _getThumbnailUrl(fileData.message.content.extraInfo.smallThumbnailUrl);
         } else {
-          data.icon = $filter('fileIcon')({
-            type: $filter('fileIcon')(fileData.message.content),
-            serverUrl: fileData.message.content.serverUrl
-          });
+          data.icon = $filter('fileIcon')(fileData.message.content);
         }
 
         data.writerId = fileData.message.writerId;
