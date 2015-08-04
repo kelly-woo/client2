@@ -30,12 +30,6 @@
         <i class="icon-more" dropdown-toggle tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
         <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
           <li class="cursor_pointer">
-            <a class="star-file">
-              <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'"></i>
-              <span><span ng-if="isStarred" translate>unstar</span><span ng-if="!isStarred" translate>star</span></span>
-            </a>
-          </li>
-          <li class="cursor_pointer">
             <a class="share-file">
               <i class="icon-share"></i>
               <span translate>@btn-share</span>
@@ -51,6 +45,12 @@
             <a class="download-file" download-file download-tracker="{{track(file)}}" file-url="{{file.contentFileUrl}}" file-title="{{file.contentTitle}}">
               <i class="icon-download"></i>
               <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
+            </a>
+          </li>
+          <li class="cursor_pointer">
+            <a class="star-file">
+              <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'"></i>
+              <span><span ng-if="isStarred" translate>@star-un</span><span ng-if="!isStarred" translate>@star</span></span>
             </a>
           </li>
           <li class="cursor_pointer" ng-if="file | isFileWriter:writer">
