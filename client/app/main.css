@@ -780,7 +780,7 @@ input[type="button"] {
 }
 .right-align {
   left: auto;
-  right: 0;
+  right: 10px;
 }
 
 .grey_dropdown > li > a,
