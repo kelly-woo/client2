@@ -388,6 +388,7 @@ input[type="button"] {
 .btn:focus,
 .btn:active:focus {
   outline: 0;
+  color: white;
 }
 .btn-cancel {
   background-color: white;
