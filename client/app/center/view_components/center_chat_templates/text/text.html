@@ -7,12 +7,12 @@
          ng-src="{{ msg.exProfileImg }}"/>
   </div>
 
-  <div class="msg-item-header"  ng-if="!isChildText"
+  <div class="msg-item-header"
        disabled-member-detector="center-panel-disabled-member">
     <!--    WRITER-->
     <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick();">
       <span class="msg-item-header__nameSpace">
-        <span ng-if="::msg.message.contentType !== 'file'"> {{msg.extWriterName}}</span>
+        <span ng-if="::msg.message.contentType !== 'file'" ng-bind="msg.extWriterName"></span>
       </span>
     </span>
   </div>
@@ -25,14 +25,14 @@
             compile="(msg.message.content.body) || ''"></span>
 
       <!--  TIME  -->
-      <span class="msg-item-header__created"> {{::msg.extTime}} </span>
+      <span class="msg-item-header__created" ng-bind="msg.extTime"></span>
 
       <!--  SENDING STATUS SPINNING WHEEL -->
       <span ng-if="msg.status === 'sending'" class="icon-sending-indicator"></span>
 
       <!--  UNREAD COUNT  -->
-      <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
-      
+      <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge" ng-bind="msg.unreadCount"></span>
+
       <!-- More -->
       <span class="pull-right msg-item-icon">
         <span center-item-dropdown>
@@ -61,15 +61,15 @@
       <span ng-if="::msg.message.contentType !== 'sticker'"
             class="keep msg-text-body"
             compile="(msg.message.content.body) || ''"></span>
-      
+
       <!--  TIME  -->
-      <span class="msg-item-header__created"> {{::msg.extTime}} </span>
+      <span class="msg-item-header__created" ng-bind="msg.extTime"></span>
 
       <!--  SENDING STATUS SPINNING WHEEL -->
       <span ng-if="msg.status === 'sending'" class="icon-sending-indicator"></span>
 
       <!--  UNREAD COUNT  -->
-      <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge">{{ msg.unreadCount }}</span>
+      <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge" ng-bind="msg.unreadCount"></span>
 
       <!-- More -->
       <span class="pull-right msg-item-icon">
