@@ -55,7 +55,8 @@ article {
   left: 0;
   right: 0;
   bottom: 55px;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   min-width: 260px;
   padding-bottom: 0;
 }

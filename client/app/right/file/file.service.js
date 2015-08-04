@@ -43,21 +43,17 @@
         data.type = 'star';
         data.id = fileData.message.id;
 
-        if (fileData.message.thumbnailUrlSmall) {
-          data.hasPreview = true;
-
-          data.imageUrl = _getThumbnailUrl(fileData.message.thumbnailUrlSmall);
+        data.hasPreview = $filter('hasPreview')(fileData.message.content);
+        if (data.hasPreview) {
+          data.imageUrl = _getThumbnailUrl(fileData.message.content.extraInfo.smallThumbnailUrl);
         } else {
-          data.icon = $filter('fileIcon')({
-            type: fileData.message.thumbnailUrlSmall ? 'image' : 'file',
-            serverUrl: fileData.message.contentServer
-          });
+          data.icon = $filter('fileIcon')(fileData.message.content);
         }
 
         data.writerId = fileData.message.writerId;
         data.createdAt = fileData.message.createdAt;
-        data.commentCount = fileData.message.commentCount;;
-        data.contentTitle = fileData.message.contentTitle;
+        data.commentCount = fileData.message.commentCount;
+        data.contentTitle = fileData.message.content.title;
         data.contentFileUrl = '';
 
         data.shareEntities = fileData.message.shareEntities;
