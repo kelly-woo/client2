@@ -14,6 +14,7 @@
     var modalMap;
     var stateParams;
     var currentRightPanel = $state.includes('**.files') ? 'file' : null;
+    var prevRightPanel;
 
     _init();
 
@@ -46,6 +47,11 @@
     });
 
     $scope.$on('onHeaderAcitveTab', function($event, type) {
+      if (type === 'file.detail') {
+        type = prevRightPanel;
+      }
+      prevRightPanel = currentRightPanel;
+
       _setTabStatus(currentRightPanel, false);
       _setTabStatus(type, true);
     });

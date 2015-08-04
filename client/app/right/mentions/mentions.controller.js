@@ -61,7 +61,7 @@
       MentionsAPI.getMentionList(mentionListData)
         .success(function(data) {
           if (data) {
-            _updateCursor(data.cursor);
+            _updateCursor(data);
 
             if (data.records && data.records.length) {
               _pushMentionList(data.records);
@@ -83,9 +83,12 @@
       }
     }
 
-    function _updateCursor(cursor) {
-      mentionListData.page = cursor.page + 1;
-      isEndOfList = cursor.page >= cursor.pageCount;
+    function _updateCursor(data) {
+      if (data.record && data.record.length > 0) {
+        mentionListData.messageId = data.records[data.records.length - 1].message.id;
+      }
+
+      isEndOfList = !data.hasMore;
     }
   }
 })();

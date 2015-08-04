@@ -1,4 +1,4 @@
-<div class="file-card" ng-click="onFileCardClick($event);">
+<div class="file-card">
   <div class="file-card-header">
     <div class="file-image">
       <div class="image_wrapper pull-left" ng-if="file.hasPreview">
@@ -26,9 +26,15 @@
         <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{ file.id }}"></i>
       </div>
       <!--    DROPDOWN MENU   -->
-      <div class="file-menu" dropdown is-open="status.isopen" ng-if="file.type === 'file'">
+      <div class="file-menu" dropdown is-open="status.isopen" ng-show="file.type === 'file'">
         <i class="icon-more" dropdown-toggle tooltip="{{ '@file-action-more' | translate }}" tooltip-placement="left"></i>
         <ul class="dropdown-menu grey_dropdown file_action_dropdown" role="menu">
+          <li class="cursor_pointer">
+            <a class="star-file">
+              <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'"></i>
+              <span><span ng-if="isStarred" translate>unstar</span><span ng-if="!isStarred" translate>star</span></span>
+            </a>
+          </li>
           <li class="cursor_pointer">
             <a class="share-file">
               <i class="icon-share"></i>
