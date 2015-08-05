@@ -53,6 +53,8 @@
     this.setList = setList;
 
     this.manipulateMessage = manipulateMessage;
+    this.getLastActiveLinkId = getLastActiveLinkId;
+
     _init();
 
     /**
@@ -664,5 +666,22 @@
       _updateLastMessage(list);
       that.list = list;
     }
+
+    /**
+     * system event들을 제외하고 맨 마지막 메세지의 link id를 리턴한다.
+     * 리턴값이 -1 일때는 file share/unshare 혹은 message created 가 없을때이다.
+     * @returns {number}
+     */
+    function getLastActiveLinkId() {
+      var linkId = -1;
+      _.forEachRight(that.list, function(msg) {
+        if (!MessageSending.isSending(msg) && msg.status !== 'event') {
+          linkId = msg.id;
+          return false;
+        }
+      });
+      return linkId;
+    }
+
   }
 })();
