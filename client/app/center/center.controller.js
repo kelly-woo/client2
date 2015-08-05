@@ -143,7 +143,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if(MessageQuery.hasSearchLinkId()) {
       _jumpToMessage();
     } else {
-      if (TopicMessageCache.contains(_getEntityId())) {
+      if (TopicMessageCache.contains(_getEntityId()) && false) {
+      // TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
         _displayCache();
       } else {
         loadMore();
@@ -292,11 +293,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _onDestroy() {
     _cancelHttpRequest();
     _detachEvents();
-    _updateCache();
+
+    // TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
+    //_updateCache();
   }
 
   /**
    * 새로운 param을 만들어서 value 로 사용하고 현재 entity의 id(혹은 entityId, chat일 경우) 를 key로 사용하여 Cache를 업데이트한다.
+   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
    * @private
    */
   function _updateCache() {
@@ -326,6 +330,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    *   1. 현재 토픽의 마지막 메세지를 캐싀가 가지고 있지 않아야한다.
    *   2. 현재 토픽의 마지막 메세지를 가지고 있어야 한다.
    * 7/27/2015 시점에는 사용되지않는다.
+   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
    * @returns {*}
    * @private
    */
@@ -448,6 +453,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   /**
    * 현재 topic에 해당하는 cache 가 있으므로 우선 cache 된 data를 보여준다.
+   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
    * @private
    */
   function _displayCache() {
@@ -476,6 +482,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   /**
    * 캐쉬된 이후로 업데이트된 것이 있는지 물어본다.
+   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
    * @private
    */
   function _getUpdatedList() {
@@ -491,6 +498,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   /**
    * 업데이트 api가 정상적으로 들어왔을 경우
+   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
    * @param {object} response - server로부터 들어온 정보
    * @private
    */
@@ -514,6 +522,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   /**
    * cache를 보여줄 때 더이상 messages list에 변화가 없을때 이 함수를 호출해서
+   * TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
    * ng-repeat을 시작하게끔한다.
    * @private
    */
@@ -676,8 +685,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     _isFromCache = false;
 
-    loadedFirstMessageId = MessageCollection.getFirstLinkId();
-    loadedLastMessageId = MessageCollection.getLastLinkId();
+    // TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
+    //loadedFirstMessageId = MessageCollection.getFirstLinkId();
+    //loadedLastMessageId = MessageCollection.getLastLinkId();
   }
 
   function _findMessageDomElementById(id, withOffset) {
