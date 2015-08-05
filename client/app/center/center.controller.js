@@ -1488,13 +1488,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function onRepeatDone() {
     console.log('::onRepeatDone');
     jndPubSub.pub('onRepeatDone');
-    jndPubSub.pub('centerLoading:hide');
     _updateScroll();
-    if (!$rootScope.isReady) {
-      $timeout(function () {
+    $timeout(function() {
+      jndPubSub.pub('centerLoading:hide');
+      if (!$rootScope.isReady) {
         publicService.hideTransitionLoading();
-      }, 100);
-    }
+      }
+    },0);
   }
 
   /**
