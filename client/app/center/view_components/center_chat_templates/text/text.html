@@ -32,9 +32,11 @@
 
       <!--  UNREAD COUNT  -->
       <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge" ng-bind="msg.unreadCount"></span>
-
+    </div>
+    <div class="msg-extra">
       <!-- More -->
-      <span class="pull-right msg-item-icon">
+      <span ng-if="::msg.message.contentType !== 'sticker' || isMyMessage"
+            class="msg-item-icon">
         <span center-item-dropdown>
           <i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"></i>
         </span>
@@ -42,7 +44,7 @@
 
       <!-- Star -->
       <span ng-if="::msg.message.contentType !== 'sticker'"
-            class="cursor_pointer pull-right msg-item-star msg-item-icon msg-item-circle"
+            class="cursor_pointer msg-item-star msg-item-icon msg-item-circle"
             ng-class="{'off msg-item__action': !msg.message.isStarred}"
             star-view="msg.message.isStarred"
             event-bubble="on"
@@ -70,17 +72,18 @@
 
       <!--  UNREAD COUNT  -->
       <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge" ng-bind="msg.unreadCount"></span>
-
+    </div>
+    <div class="msg-extra">
       <!-- More -->
-      <span class="pull-right msg-item-icon">
+      <span ng-if="::msg.message.contentType !== 'sticker' || isMyMessage"
+            class="msg-item-icon">
         <span class="" center-item-dropdown>
           <i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"></i>
         </span>
       </span>
-
       <!-- Star -->
       <span ng-if="::msg.message.contentType !== 'sticker'"
-            class="cursor_pointer pull-right msg-item-star msg-item-icon msg-item-circle"
+            class="cursor_pointer msg-item-star msg-item-icon msg-item-circle"
             ng-class="{'off msg-item__action': !msg.message.isStarred}"
             star-view="msg.message.isStarred"
             event-bubble="on"

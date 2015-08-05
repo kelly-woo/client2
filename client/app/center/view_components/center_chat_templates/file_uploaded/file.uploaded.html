@@ -115,6 +115,16 @@
 
       </div>
     </div>
+    <!-- Star -->
+    <div class="msg-extra file-uploaded-extra">
+      <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle"
+            ng-class="{'off msg-item__action': !msg.message.isStarred}"
+            star-view="msg.message.isStarred"
+            event-bubble="on"
+            message-id="{{ ::msg.message.id }}">
+        <i class="icon-star-fill"></i>
+      </span>
+    </div>
   </div>
 
 </div>

@@ -7,8 +7,67 @@
     .directive('lastDetector', lastDetector)
     .directive('whenScrolled', whenScrolled)
     .directive('unreadCounter', unreadCounter)
+    .directive('centerEventDelegater', centerEventDelegater)
     .directive('disabledMemberDetector', disabledMemberDetector);
 
+  /**
+   * center 에서 일어난 DOM 이벤트 중
+   * delegate 로 처리할 이벤트를 아래 directive 로 등록한다.
+   * @returns {{restrict: string, link: link}}
+   */
+  function centerEventDelegater() {
+    return {
+      restrict: 'A',
+      link: link
+    };
+
+    function link(scope, el, attrs) {
+      _init();
+
+      /**
+       * 초기화
+       * @private
+       */
+      function _init() {
+        _attachDomEvents();
+      }
+
+      /**
+       * dom 이벤트를 바인딩한다.
+       * @private
+       */
+      function _attachDomEvents() {
+        el.on('mouseover', _onMouseOver);
+        el.on('mouseout', _onMouseOut);
+      }
+
+      /**
+       * mouse over 시 이벤트 핸들러
+       * (ng-mouseenter, ng-mouseleave 가 느리다는 포스팅이 있어, 적용해 봄)
+       * @param {Event} mouseOverEvent
+       * @private
+       */
+      function _onMouseOver(mouseOverEvent) {
+        var jqTarget = $(mouseOverEvent.target);
+        if (jqTarget.closest('.msg-item-icon').length) {
+          jqTarget.closest('.msg-item').addClass('text-highlight-background');
+        }
+      }
+
+      /**
+       * mouse over 시 이벤트 핸들러
+       * (ng-mouseenter, ng-mouseleave 가 느리다는 포스팅이 있어, 적용해 봄)
+       * @param {Event} mouseOutEvent
+       * @private
+       */
+      function _onMouseOut(mouseOutEvent) {
+        var jqTarget = $(mouseOutEvent.target);
+        if (jqTarget.closest('.msg-item-icon').length) {
+          jqTarget.closest('.msg-item').removeClass('text-highlight-background');
+        }
+      }
+    }
+  }
   // element에 drag-over-class 속성으로 drag over상태 알려주는 event handler 처리시
   // IE9<에서 blink 현상이 있으므로 code로 직접 handling.
   function dragdown($rootScope, $compile) {

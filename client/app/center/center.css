@@ -96,6 +96,7 @@ article {
 }
 .msgs-holder {
   /*padding: 0 10px 0 20px;*/
+  padding-bottom:20px;
 }
 .msgs-group {
 
@@ -122,10 +123,10 @@ article {
   margin-bottom: 15px;
   display: block;
 }
-.msgs-group:last-of-type > .msg-item {
-  margin-bottom: 0;
-  padding-bottom: 14px;
-}
+/*.msgs-group:last-of-type > .msg-item {*/
+  /*margin-bottom: 0;*/
+  /*padding-bottom: 14px;*/
+/*}*/
 .msg-item.comment-title,
 .msg-item.comment-continue{
   margin-bottom: 4px;
@@ -163,7 +164,7 @@ article {
 }
 
 .msg-item.comment-continue .msg-item-header {
-  padding: 0;
+  padding: 0 45px 0 0;
 }
 
 /* continued comment writer name */
@@ -223,8 +224,15 @@ article {
 
 .msg-text {
   word-wrap: break-word;
+  margin-right:50px;
 }
-
+.msg-extra {
+  position: absolute;
+  bottom: 3px;
+  right: 0;
+  width: 50px;
+  vertical-align:text-bottom;
+}
 .msg-text-body {
   margin: 0;
   font-size: 16px;

@@ -105,8 +105,8 @@
         var offset = target.offset();
         var parentOffset = _jqTarget.parent().offset();
         // 조금 더 아름답게 노출하기 위해 왼쪽에서 보정값 20을 더하고 위에서 보정값 3을 뺀다.
-        var left = offset.left + target.outerWidth() - _jqTarget.outerWidth() - parentOffset.left + 20;
-        var top = offset.top - _jqTarget.outerHeight() + $('#msgs-container').scrollTop() - parentOffset.top - 3;
+        var left = offset.left + target.width() - _jqTarget.outerWidth() - parentOffset.left;
+        var top = offset.top - _jqTarget.outerHeight() + $('#msgs-container').scrollTop() - parentOffset.top + 3;
 
         top = top < 0 ? 0 : top;
 

@@ -10,7 +10,6 @@
 
 .msg-item__action {
   display:none;
-  float:right;
 }
 
 .msg-item-action-icon {
@@ -32,6 +31,7 @@
   width: 20px;
   height: 20px;
   background: transparent;
+  float: right;
 }
 .msg-item-circle {
   border-radius: 10px;
@@ -39,15 +39,15 @@
 
 .msg-item-star {
   margin-right: 5px;
-  padding: 1px 0 0 1.5px;
-  font-size:18px;
+  padding: 1px 0 0 1.5px !important;
+  font-size:18px !important;
   color: #f9bb00;
   background: transparent;
 }
 
 .msg-item-star.off {
-  padding: 1.5px 0 0 2px;
-  font-size: 16px;
+  padding: 1.5px 0 0 2px !important;
+  font-size: 16px !important;
   color: #ffffff;
   background: #d7e0e8;
 }

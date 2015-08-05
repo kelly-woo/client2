@@ -9,23 +9,24 @@
 <!--    HEADER PART -->
 <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->
 <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->
-<div class="msg-item-header"
+<div ng-if="!isTitleComment($index)"
+     class="msg-item-header"
      disabled-member-detector="center-panel-disabled-member">
 
-  <!--    WRITER, IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    -->
-  <span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"
-        ng-hide="!isTitleComment($index)">
-    <span class="msg-item-header__nameSpace">{{msg.extWriterName}}</span>
+  <!--&lt;!&ndash;    WRITER, IF IT IS TITLE COMMENT, HIDE WRITER NAME FROM HEADER    &ndash;&gt;-->
+  <!--<span class="msg-item-header__name cursor_pointer" data-ng-click="onUserClick(msg.fromEntity);"-->
+        <!--ng-hide="!isTitleComment($index)">-->
+    <!--<span class="msg-item-header__nameSpace">{{msg.extWriterName}}</span>-->
 
-    <!--    CREATED TIME    -->
-    <span class="msg-item-header__created">
-      {{::msg.extTime}}
-    </span>
+    <!--&lt;!&ndash;    CREATED TIME    &ndash;&gt;-->
+    <!--<span class="msg-item-header__created">-->
+      <!--{{::msg.extTime}}-->
+    <!--</span>-->
 
-  </span>
+  <!--</span>-->
 
   <!--    CONTINUED COMMENT ON SAME FILE  -->
-  <span class="continue-comment-body" ng-if="!isTitleComment($index)">
+  <span class="continue-comment-body">
     <!--    COMMENT CONTENT -->
     <p>
       <!--    WRITER  -->
@@ -54,6 +55,17 @@
       </div>
     </p>
   </span>
+  <!-- Star -->
+  <div class="msg-extra msg-extra-comment-continue">
+      <span ng-if="::msg.message.contentType !== 'comment_sticker'"
+            class="cursor_pointer msg-item-star msg-item-icon msg-item-circle"
+            ng-class="{'off msg-item__action': !msg.message.isStarred}"
+            star-view="msg.message.isStarred"
+            event-bubble="on"
+            message-id="{{ ::msg.message.id }}">
+        <i class="icon-star-fill"></i>
+      </span>
+  </div>
 </div>
 <div class="msg-item-body">
 
@@ -144,7 +156,17 @@
           <span class="badge unread-badge">{{ msg.unreadCount }}</span>
         </div>
       </p>
-
+      <!-- Star -->
+      <div class="msg-extra msg-extra-comment-title">
+        <span ng-if="::msg.message.contentType !== 'comment_sticker'"
+              class="cursor_pointer msg-item-star msg-item-icon msg-item-circle"
+              ng-class="{'off msg-item__action': !msg.message.isStarred}"
+              star-view="msg.message.isStarred"
+              event-bubble="on"
+              message-id="{{ ::msg.message.id }}">
+          <i class="icon-star-fill"></i>
+        </span>
+      </div>
     </div>
 
   </div>
