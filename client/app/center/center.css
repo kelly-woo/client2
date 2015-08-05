@@ -391,6 +391,9 @@ by ysyun 2015.2.25
   /*color:#999999 !important;*/
   /*letter-spacing: 0.02em;*/
 }
+.msg-file-meta-down a:hover {
+  text-decoration: none;
+}
 .msg-file-meta-down .file-item-meta__shared {
   color: #00a5e9;
   font-size: 12px;
