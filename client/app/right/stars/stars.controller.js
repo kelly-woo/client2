@@ -22,6 +22,7 @@
       $scope.all = [];
       $scope.files = [];
 
+      // °¢ tabÀ» °¢°¢ÀÇ controller·Î ÂÉ°³¾ßµÊ
       $scope.tabs = {
         all: {
           isLoading: false,
@@ -71,26 +72,39 @@
       }
     });
 
-    $scope.$on('removeStarredItem', function($event, item) {
-      var tab = $scope.tabs[item.activeTabName];
+    $scope.$on('removeStarredItem', function($event, type, item) {
+      var activeTabName = item.activeTabName;
+      var tab = $scope.tabs[activeTabName];
       var removeItems = tab.removeItems;
-      var list = $scope[item.activeTabName];
+      var list = $scope[activeTabName];
 
-      removeItems.push(item);
-      $timeout.cancel(tab.timerRemoveItems);
-      tab.timerRemoveItems = $timeout((function(removeItems, list) {
-        return function() {
-          var item;
-          var index;
+      if (type === 'add') {
+        removeItems.push(item);
+        $timeout.cancel(tab.timerRemoveItems);
+        tab.timerRemoveItems = $timeout((function(activeTabName, removeItems, list) {
+          return function() {
+            var item;
+            var index;
 
-          for (;item = removeItems.pop();) {
-            index = list.indexOf(item);
-            if(index > -1) {
-              list.splice(index, 1);
+            for (;item = removeItems.pop();) {
+              index = list.indexOf(item);
+              if (index > -1) {
+                list.splice(index, 1);
+              }
             }
-          }
-        };
-      }(removeItems, list)), 3000);
+
+            if (list.length === 0) {
+              $scope.tabs[activeTabName].empty = true;
+              $scope.tabs[activeTabName].endOfList = false;
+            }
+          };
+        }(activeTabName, removeItems, list)), 2000);
+      } else if (type === 'remove') {
+        index = list.indexOf(item);
+        if (index > -1) {
+          list.splice(index, 1);
+        }
+      }
     });
 
     function loadMore() {

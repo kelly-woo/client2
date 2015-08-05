@@ -25,8 +25,6 @@
     };
 
     function link(scope, el) {
-     var timerStarredItemRemover;
-
       el.on('click', function () {
         scope.onFileCardClick();
       });
@@ -60,13 +58,11 @@
         el.find('.file-star i')
           .on('click', function() {
             if (scope.isStarred) {
-              el.parent().css('opacity', .5);
-              timerStarredItemRemover = $timeout(function() {
-                scope.$emit('removeStarredItem', scope.fileData);
-              }, STARRED_ITEM_REMOVE_DELAY);
+              el.parent().css('opacity', .8);
+              scope.$emit('removeStarredItem', 'add', scope.fileData);
             } else {
               el.parent().css('opacity', 1);
-              $timeout.cancel(timerStarredItemRemover);
+              scope.$emit('removeStarredItem', 'remove', scope.messageData);
             }
           });
       }

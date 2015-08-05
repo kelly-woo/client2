@@ -39,7 +39,12 @@
     }
 
     function onFileCardClick() {
-        $state.go('files', {userName: $scope.writerName, itemId: $scope.file.id});
+      $state.go('messages.detail.files.item', {
+        //entityType: $state.params.entityType,
+        //entityId: $state.params.entityId,
+        //userName: $scope.writerName,
+        itemId: $scope.file.id
+      });
     }
 
     function isDisabledMember() {

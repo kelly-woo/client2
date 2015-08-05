@@ -26,8 +26,6 @@
     };
 
     function link(scope, el) {
-      var timerStarredItemRemover;
-
       if (scope.messageQuery) {
         $timeout(function() {
           el.find('.message-card-body').children().highlight(scope.messageQuery);
@@ -38,13 +36,11 @@
         el.find('.message-star i')
           .on('click', function() {
             if (scope.isStarred) {
-              el.parent().css('opacity', .5);
-              timerStarredItemRemover = $timeout(function() {
-                scope.$emit('removeStarredItem', scope.messageData);
-              }, STARRED_ITEM_REMOVE_DELAY);
+              el.parent().css('opacity', .8);
+              scope.$emit('removeStarredItem', 'add', scope.messageData);
             } else {
               el.parent().css('opacity', 1);
-              $timeout.cancel(timerStarredItemRemover);
+              scope.$emit('removeStarredItem', 'remove', scope.messageData);
             }
           });
       }

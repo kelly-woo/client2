@@ -41,7 +41,8 @@
   border-right: 0;
 }
 
-.star-list .infinite-scroll-bottom-list > div {
+.star-list .file-card,
+.star-list .message-card {
   opacity: 1;
   transition: opacity 0.7s;
 }
