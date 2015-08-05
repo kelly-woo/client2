@@ -9,7 +9,18 @@
 
   <!--    DOWNLOAD    -->
   <li class="cursor_pointer" ng-if="!isIntegrateFile">
-    <a class="cursor_pointer" download-file file-url="{{msg.message.content.fileUrl}}" download-tracker="{{track(msg.message)}}" file-title="{{msg.message.content.title}}">
+    <a ng-if="hasProtocol"
+       class="cursor_pointer"
+       download-tracker="{{track(msg.message)}}"
+       href="{{downloadUrl}}"
+       target="_blank">
+      <i class="icon-download"></i>
+      <span translate>@common-download</span>
+    </a>
+    <a ng-if="!hasProtocol"
+       class="cursor_pointer"
+       download-tracker="{{track(msg.message)}}"
+       href="{{downloadUrl}}">
       <i class="icon-download"></i>
       <span translate>@common-download</span>
     </a>
@@ -25,7 +36,9 @@
 
   <!-- OPEN ORIGINAL  -->
   <li class="cursor_pointer">
-    <a class="cursor_pointer" original-file file-url="{{msg.message.content.fileUrl}}">
+    <a class="cursor_pointer"
+        href="{{originalUrl}}"
+        target="_blank">
       <i class="fa fa-external-link"></i>
       <span translate>@msg-open-original</span>
     </a>

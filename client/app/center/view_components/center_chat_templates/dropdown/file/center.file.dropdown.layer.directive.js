@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerFileDropdownLayer', centerFileDropdownLayer);
 
-  function centerFileDropdownLayer($timeout) {
+  function centerFileDropdownLayer($timeout, configuration) {
     return {
       restrict: 'E',
       controller: 'CenterFileDropdownLayerCtrl',
@@ -19,6 +19,8 @@
       var _jqTarget;
       var _timerWrap;
       var _timer;
+      var _regxHTTP = /^[http|https]/i;
+
       _init();
 
       /**
@@ -57,11 +59,25 @@
        * @private
        */
       function _onShow(angularEvent, data) {
+        var fileUrl = data.msg.message.content.fileUrl;
+        var fileTitle = data.msg.message.content.title;
         _onHide();
+
         scope.target = data.target;
         scope.msg = data.msg;
         scope.isIntegrateFile = data.isIntegrateFile;
         scope.isShown = true;
+
+        scope.hasProtocol = _regxHTTP.test(fileUrl);
+
+        if (scope.hasProtocol) {
+          scope.downloadUrl = fileUrl;
+          scope.originalUrl = fileUrl;
+        } else {
+          scope.downloadUrl = configuration.api_address + 'download/' + fileUrl;
+          scope.originalUrl = configuration.server_uploaded + fileUrl;
+        }
+
         /*
         fixme: 현재 파악하지 못한 이유로 인해 1회의 timeout 으로는 우선순위가 뒤로 밀려, rendering 시점을 알 수 없음.
         따라서 현 시점에서는 비 정상적으로 2회의 timeout 을 사용함.
