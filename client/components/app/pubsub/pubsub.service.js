@@ -17,6 +17,8 @@
 
     that.updateLeftPanel = updateLeftPanel;
     that.updateCenterPanel = updateCenterPanel;
+    that.updateRightPanel = updateRightPanel;
+
     that.updateChatList = updateChatList;
     that.updateRightFileDetailPanel = updateRightFileDetailPanel;
     that.updateBadgePosition = updateBadgePosition;
@@ -64,6 +66,11 @@
     function updateCenterPanel() {
       updateChatList();
     }
+
+    function updateRightPanel(data) {
+      $rootScope.$broadcast('updateRightPanelCaller', data);
+    }
+
     /**
      * 센터 패널을 업데이트 하라는 이벤트를 브로드캐스트한다.
      */

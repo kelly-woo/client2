@@ -101,7 +101,6 @@
     }
 
     function _goToFileDetail(message, writer) {
-      jndPubSub.pub('onHeaderAcitveTab', 'file');
       $state.go('files', {userName: writer.name, itemId: message.feedbackId});
     }
 
