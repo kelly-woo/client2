@@ -19,12 +19,11 @@
 
     // First function to be called.
     function _init() {
-      $scope.all = [];
-      $scope.files = [];
-
       // °¢ tabÀ» °¢°¢ÀÇ controller·Î ÂÉ°³¾ßµÊ
       $scope.tabs = {
         all: {
+          list: [],
+          map: {},
           isLoading: false,
           isScrollLoading: false,
           removeItems: [],
@@ -35,6 +34,8 @@
           empty: false
         },
         files: {
+          list: [],
+          map: {},
           isLoading: false,
           isScrollLoading: false,
           removeItems: [],
@@ -72,13 +73,64 @@
       }
     });
 
-    $scope.$on('removeStarredItem', function($event, type, item) {
-      var activeTabName = item.activeTabName;
-      var tab = $scope.tabs[activeTabName];
-      var removeItems = tab.removeItems;
-      var list = $scope[activeTabName];
+    //$scope.$on('removeStarredItem', function($event, type, item) {
+      //var activeTabName = item.activeTabName;
+      //var tab = $scope.tabs[activeTabName];
+      //var removeItems = tab.removeItems;
+      //var list = scope.tabs[activeTabName].list;
+      //var index;
+      //
+      //if (type === 'add') {
+      //  removeItems.push(item);
+      //  $timeout.cancel(tab.timerRemoveItems);
+      //  tab.timerRemoveItems = $timeout((function(activeTabName, removeItems, list) {
+      //    return function() {
+      //      var item;
+      //
+      //      for (;item = removeItems.pop();) {
+      //        index = list.indexOf(item);
+      //        if (index > -1) {
+      //          list.splice(index, 1);
+      //        }
+      //      }
+      //
+      //      if (list.length === 0) {
+      //        $scope.tabs[activeTabName].empty = true;
+      //        $scope.tabs[activeTabName].endOfList = false;
+      //      }
+      //    };
+      //  }(activeTabName, removeItems, list)), 1000);
+      //} else if (type === 'remove') {
+      //  index = removeItems.indexOf(item);
+      //  if (index > -1) {
+      //    removeItems.splice(index, 1);
+      //  }
+      //}
+    //});
 
-      if (type === 'add') {
+    // starred event handler
+    $scope.$on('starred', function($event, data) {
+      var tab = $scope.tabs[$scope.activeTabName];
+      var item = tab.map[data.messageId];
+      var removeItems = tab.removeItems;
+      var index;
+
+      index = removeItems.indexOf(item);
+      if (index > -1) {
+        removeItems.splice(index, 1);
+      }
+    });
+
+    // unstarred event handler
+    $scope.$on('unStarred', function($event, data) {
+      var activeTabName = $scope.activeTabName;
+      var tab = $scope.tabs[activeTabName];
+      var messageId = data.messageId;
+      var list = tab.list;
+      var removeItems = tab.removeItems;
+      var item;
+
+      if (item = tab.map[messageId]) {
         removeItems.push(item);
         $timeout.cancel(tab.timerRemoveItems);
         tab.timerRemoveItems = $timeout((function(activeTabName, removeItems, list) {
@@ -90,6 +142,7 @@
               index = list.indexOf(item);
               if (index > -1) {
                 list.splice(index, 1);
+                delete tab.map[item.message.id];
               }
             }
 
@@ -99,11 +152,6 @@
             }
           };
         }(activeTabName, removeItems, list)), 2000);
-      } else if (type === 'remove') {
-        index = list.indexOf(item);
-        if (index > -1) {
-          list.splice(index, 1);
-        }
       }
     });
 
@@ -136,7 +184,8 @@
     function _initStarListData(activeTabName) {
       starListData.messageId = null;
 
-      $scope[activeTabName] = [];
+      $scope.tabs[activeTabName].list = [];
+      $scope.tabs[activeTabName].map = {};
 
       $scope.tabs[activeTabName].endOfList = $scope.tabs[activeTabName].isLoading = $scope.tabs[activeTabName].isScrollLoading = false;
     }
@@ -154,7 +203,7 @@
             }
           })
           .finally(function() {
-            $scope.tabs[activeTabName].empty = $scope[activeTabName].length === 0;
+            $scope.tabs[activeTabName].empty = $scope.tabs[activeTabName].list.length === 0;
             $scope.tabs[activeTabName].isLoading = $scope.tabs[activeTabName].isScrollLoading = false;
           });
       }
@@ -169,7 +218,8 @@
         record = records[i];
 
         record.activeTabName = activeTabName;
-        $scope[activeTabName].push(records[i]);
+        $scope.tabs[activeTabName].list.push(record);
+        $scope.tabs[activeTabName].map[record.message.id] = record;
       }
     }
 
@@ -178,7 +228,7 @@
         starListData.messageId = data.records[data.records.length - 1].starredId;
       }
 
-      if ($scope[activeTabName] && $scope[activeTabName].length > 0) {
+      if ($scope.tabs[activeTabName].list && $scope.tabs[activeTabName].list.length > 0) {
         $scope.tabs[activeTabName].endOfList = !data.hasMore;
       }
     }
