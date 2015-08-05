@@ -41,6 +41,11 @@
       stateParams = toParams;
     });
 
+    $scope.$on('onActiveHeaderTab', function($event, type) {
+      _setTabStatus(currentRightPanel, false);
+      _setTabStatus(type, true);
+    });
+
     $scope.$on('onRightPanel', function($event, type) {
       $rootScope.isOpenRightPanel = true;
 

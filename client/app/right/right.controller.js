@@ -43,7 +43,7 @@
 
       $scope.isLoading = false;
       if (activeTabName = Router.getActiveRightTabName($state.current)) {
-        jndPubSub.pub('onRightPanel', activeTabName);
+        //jndPubSub.pub('onRightPanel', activeTabName);
 
         $scope.tabs[activeTabName].active = true;
         $scope.activeTabName = $scope.tabs[activeTabName].name;

@@ -39,7 +39,10 @@
     }
 
     function onFileCardClick() {
-        $state.go('files', {userName: $scope.writerName, itemId: $scope.file.id});
+      $state.go('files', {
+        userName: $scope.writerName,
+        itemId: $scope.file.id
+      });
     }
 
     function isDisabledMember() {

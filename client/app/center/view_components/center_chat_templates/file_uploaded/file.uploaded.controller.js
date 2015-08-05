@@ -38,6 +38,7 @@
     $scope.onLargeThumbnailClick = onLargeThumbnailClick;
     $scope.onFullScreenImageButtonClick = onFullScreenImageButtonClick;
     $scope.onClickSharedEntity = onClickSharedEntity;
+    $scope.onFileDetail = onFileDetail;
 
     init();
 
@@ -278,6 +279,11 @@
       if (_messageId === deletedFileId) {
         _message.status = 'archived';
       }
+    }
+
+    function onFileDetail(data) {
+
+      console.log('clicked file detail ::: ', data);
     }
   }
 }());

@@ -18,6 +18,8 @@
       var data = {};
 
       if (type === 'message') {
+        data.type = type;
+
         data.roomId = messageData.id;
         data.roomType = messageData.extContentType;
         //data.roomName = messageData.name;
@@ -40,6 +42,8 @@
 
         data.isSimple = true;
       } else if (type === 'mention' || type === 'star') {
+        data.type = type;
+
         data.roomId = messageData.room.id;
         data.roomType = messageData.room.type;
         data.roomName = messageData.room.name;
