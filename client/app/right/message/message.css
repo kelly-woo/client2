@@ -4,7 +4,6 @@
   cursor: pointer;
   color: #333;
   border-bottom: 1px solid #ebebeb;
-  background-color: #fff;
 }
 .message-card:hover {
   background-color: #f2fbff;

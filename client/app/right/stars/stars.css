@@ -43,6 +43,7 @@
 
 .star-list .file-card,
 .star-list .message-card {
+  background-color: #fff;
   opacity: 1;
   transition: opacity 0.7s;
 }
