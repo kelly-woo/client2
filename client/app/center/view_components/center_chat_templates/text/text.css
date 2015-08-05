@@ -15,10 +15,10 @@
 
 .msg-item-action-icon {
   font-size: 16px;
-  color: #c5c5c5;
+  /*color: #c5c5c5;*/
 }
 .msg-item-action-icon:hover {
-  color: #9a9a9a;
+  /*color: #9a9a9a;*/
 }
 
 .msg-item:hover .msg-item__action {
