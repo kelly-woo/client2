@@ -36,9 +36,20 @@
     }
 
     function _attachEventListener() {
-      $scope.$on('onTopicSubscriptionChanged' + _roomId, _checkTopicNotificationSetting);
+      $scope.$on('onTopicSubscriptionChanged', _onTopicSubscriptionChanged);
     }
 
+    /**
+     * 해당 토픽의 subscribe field 가 변경되었을 때
+     * @param {object} event - angular event object
+     * @param {object} data - socket으로부터 온 param object
+     * @private
+     */
+    function _onTopicSubscriptionChanged(event, data) {
+      if (data.data.roomId === _roomId) {
+        _checkTopicNotificationSetting();
+      }
+    }
     /**
      * 현재 joinedEntity의 notification setting 이 켜져있는지 꺼져있는지 확인한다.
      * @private
