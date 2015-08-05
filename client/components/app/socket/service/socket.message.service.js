@@ -19,8 +19,6 @@
     function _onMessage(data) {
       var messageType = data.messageType || 'new_message';
 
-      console.log(messageType);
-
       switch (messageType) {
         case 'file_comment':
           _onFileComment(data);
