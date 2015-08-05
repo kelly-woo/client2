@@ -692,9 +692,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     _isFromCache = false;
 
-    // TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
-    //loadedFirstMessageId = MessageCollection.getFirstLinkId();
-    //loadedLastMessageId = MessageCollection.getLastLinkId();
+    loadedFirstMessageId = MessageCollection.getFirstLinkId();
+    loadedLastMessageId = MessageCollection.getLastLinkId();
   }
 
   function _findMessageDomElementById(id, withOffset) {

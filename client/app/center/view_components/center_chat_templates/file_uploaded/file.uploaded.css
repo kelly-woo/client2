@@ -1,17 +1,26 @@
 .file-action {
-  line-height: 19px !important;
-  font-size: 19px;
-  color: #575859;
+  line-height: 16px !important;
+  font-size: 16px;
+  color: #575757;
+  margin-top: 7px;
+}
+.file-action:hover {
+  color: #154a67;
+  text-decoration: none !important;
 }
 
 .msg-file-meta-down .separator {
-  width: 1px;
-  height: 19px;
-  background-color: #e2e2e2;
-  margin: 0 5px;
-  display: inline-block;
+   width: 1px;
+   height: 17px;
+   background-color: #e2e2e2;
+   margin: 0px 4px -3px 4px;
+   display: inline-block;
 }
 
 .file-uploaded-more {
   position: relative;
+}
+.file-uploaded-more .fa-cog{
+  font-size: 15px;
+  padding-left: 2px;
 }
