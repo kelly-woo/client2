@@ -42,7 +42,10 @@
         <div class="form-group">
           <label class="profile-body__label control-label col-sm-3"><span translate>@common-name</span></label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="name" data-ng-model="curUser.name"/>
+            <input type="text" class="form-control" name="name" data-ng-model="curUser.name" ng-maxlength="30"/>
+            <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.name.$error.maxlength">
+              {{ '@input-max-length-error' | translate}}
+            </alert>
           </div>
         </div>
 
@@ -116,7 +119,7 @@
   <div class="modal-footer profile-footer">
     <div ng-if="!isProfilePicSelected">
       <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>
-      <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}" ng-disabled="isPristine() && !hasUpdatedProfilePic"/>
+      <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}" ng-disabled="isPristine() && !hasUpdatedProfilePic || profileForm.$invalid"/>
     </div>
 
     <div ng-if="isProfilePicSelected">
