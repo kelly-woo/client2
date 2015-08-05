@@ -28,6 +28,7 @@ app.controller('leftPanelController1', function(
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
   var _isBadgeMoveLocked = false;
+  console.log('######LEFT INIT');
   $scope.entityId = $state.params.entityId;
 
   //todo: refactoring 시 main view 의 property로 로 분리해야 함.
@@ -75,9 +76,8 @@ app.controller('leftPanelController1', function(
   _attachExtraEvents();
 
   $scope.$on('updateBadgePosition', updateUnreadPosition);
-
+  $scope.$on('$stateChangeSuccess', _onStateChangeSuccess);
   $scope.$on('$destroy', _onDestroy);
-
   // 사용자가 참여한 topic의 리스트가 바뀌었을 경우 호출된다.
   $scope.$on('onJoinedTopicListChanged', function(event, param) {
     _setAfterLeftInit(param);
@@ -110,6 +110,19 @@ app.controller('leftPanelController1', function(
     collapseTimer = $timeout(function() {
       jndPubSub.updateBadgePosition();
     }, 800);
+  }
+
+  /**
+   * state change 이벤트 핸들러
+   * @param {Object} event
+   * @param {Object} toState
+   * @param {Object} toParams
+   * @param {Object} fromState
+   * @param {Object} fromParams
+   * @private
+   */
+  function _onStateChangeSuccess(event, toState, toParams, fromState, fromParams) {
+    $scope.entityId = toParams.entityId;
   }
 
   /**
