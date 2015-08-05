@@ -24,7 +24,7 @@
       app_store_address   : 'itms-apps://itunes.apple.com/us/app/jandi/id904895208?mt=8',
       play_store_address  : 'https://play.google.com/store/apps/details?id=com.tosslab.jandi.app',
       last_update_message : '04/06/2014 22:40:00',
-      analytics_server    : 'http://192.168.0.10:6224/',
+      analytics_server    : '/',
       integration: {
         google_drive: {
           client_id: '480258439134-5jutkf7pn2nupra8t0ijj7b1pocbb0ob.apps.googleusercontent.com',

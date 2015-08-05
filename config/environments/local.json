@@ -20,5 +20,5 @@
   "google_drive_api_key"   : "AIzaSyDkMnioQdS5UuhX7uw5WNHM3GxgK-nImFY",
   "google_drive_redirect"  : "http://i1.jandi.io:8888/",
   "dropbox_api_key"        : "4hbb9l5wu46okhp",
-  "analytics_server"       : "http://192.168.0.10:6224/"
+  "analytics_server"       : "/"
 }
