@@ -9,6 +9,8 @@
     .directive('message', message);
 
   function message($timeout) {
+    var STARRED_ITEM_REMOVE_DELAY = 3000;
+
     return {
       restrict: 'EA',
       replace: true,
@@ -24,10 +26,27 @@
     };
 
     function link(scope, el) {
+      var timerStarredItemRemover;
+
       if (scope.messageQuery) {
         $timeout(function() {
           el.find('.message-card-body').children().highlight(scope.messageQuery);
         },50);
+      }
+
+      if (scope.message.type === 'star' && scope.hasStar) {
+        el.find('.message-star i')
+          .on('click', function() {
+            if (scope.isStarred) {
+              el.parent().css('opacity', .5);
+              timerStarredItemRemover = $timeout(function() {
+                scope.$emit('removeStarredItem', scope.messageData);
+              }, STARRED_ITEM_REMOVE_DELAY);
+            } else {
+              el.parent().css('opacity', 1);
+              $timeout.cancel(timerStarredItemRemover);
+            }
+          });
       }
     }
   }

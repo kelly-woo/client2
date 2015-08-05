@@ -109,6 +109,7 @@
               return;
             } else {
               event.preventDefault();
+              jndPubSub.pub('onActiveHeaderTab', 'files');
               $state.transitionTo('messages.detail.files.redirect', _.extend(fromParams, toParams), {});
             }
             break;

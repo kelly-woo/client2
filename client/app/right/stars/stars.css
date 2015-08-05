@@ -40,3 +40,8 @@
 .star-list .nav-tabs > li:last-child > a:hover {
   border-right: 0;
 }
+
+.star-list .infinite-scroll-bottom-list > div {
+  opacity: 1;
+  transition: opacity 0.7s;
+}
