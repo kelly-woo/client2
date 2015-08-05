@@ -6,8 +6,8 @@
     .controller('rPanelMessageTabCtrl', rPanelMessageTabCtrl);
 
   /* @ngInject */
-  function rPanelMessageTabCtrl($scope, $rootScope, $filter, fileAPIservice, MessageQuery, messageAPIservice,
-                                accountService, AnalyticsHelper) {
+  function rPanelMessageTabCtrl($scope, $rootScope, $filter, $state, Router, fileAPIservice,
+                                messageAPIservice, AnalyticsHelper) {
 
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
@@ -38,13 +38,16 @@
       $scope.updateMessageLocationFilter = updateMessageLocationFilter;
       $scope.updateMessageWriterFilter = updateMessageWriterFilter;
 
+      if (Router.getActiveRightTabName($state.current) === 'messages') {
+        _isActivated = true;
+      }
+
       _initMessageSearchQuery();
       _initChatRoomOption();
       _initChatWriterOption();
       _setLanguageVariable();
 
       searchMessages();
-      //test()
     }
 
     /**
@@ -81,7 +84,7 @@
     });
 
     $scope.$on('onRightPanel', function($event, type) {
-      if (type === 'message') {
+      if (type === 'messages') {
         _isActivated = true;
         $scope.searchQuery.q = '';
 

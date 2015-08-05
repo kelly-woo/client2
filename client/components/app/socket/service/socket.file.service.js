@@ -14,9 +14,7 @@
     var FILE_COMMENT_CREATED = 'file_comment_created';
     var FILE_COMMENT_DELETED = 'file_comment_deleted';
 
-
     this.attachSocketEvent = attachSocketEvent;
-
 
     function attachSocketEvent(socket) {
       socket.on(FILE_DELETED, _onFileDeleted);

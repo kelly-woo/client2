@@ -133,6 +133,7 @@
     function _onTopicFileShareStatusChange(data) {
       logger.socketEventLogger(data.event, data);
       _updateCenterForCurrentEntity(data);
+      _updateRight(data);
     }
 
     /**
@@ -216,6 +217,15 @@
       if (jndWebSocketCommon.isCurrentEntity(data.room)) {
         jndPubSub.updateCenterPanel();
       }
+    }
+
+    /**
+     * right panel에 update 정보를 전달한다.
+     * @param data
+     * @private
+     */
+    function _updateRight(data) {
+      jndPubSub.updateRightPanel(data);
     }
 
     /**

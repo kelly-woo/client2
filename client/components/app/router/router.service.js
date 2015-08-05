@@ -6,12 +6,14 @@
     .service('Router', Router);
 
   /* @ngInject */
-  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration, NetInterceptor, storageAPIservice) {
+  function Router($state, entityAPIservice, currentSessionHelper, $rootScope, fileAPIservice, configuration, NetInterceptor, storageAPIservice, jndPubSub) {
 
     this.onStateChangeStart = onStateChangeStart;
     this.onRouteChangeError = onRouteChangeError;
     this.onStateNotFound = onStateNotFound;
     this.onLocationChangeSuccess = onLocationChangeSuccess;
+
+    this.getActiveRightTabName = getActiveRightTabName;
 
     function onRouteChangeError(event, current, previous, rejection) {
       $state.go('messages.home');
@@ -140,6 +142,12 @@
             }
 
             break;
+          case 'messages.detail.files':
+          case 'messages.detail.messages':
+          case 'messages.detail.stars':
+          case 'messages.detail.mentions':
+            jndPubSub.pub('onRightPanel', getActiveRightTabName(toState));
+            break;
           case '404':
             event.preventDefault();
             $state.go('notfound');
@@ -190,6 +198,10 @@
     function _setCurrentEntityWithTypeAndId(entityType, entityId) {
       entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
     }
-  }
 
+    function getActiveRightTabName(state) {
+      var match = /\/([a-z]+)/i.exec(state.url);
+      return match && match[1];
+    }
+  }
 })();

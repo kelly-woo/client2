@@ -115,12 +115,12 @@
     <div class="hpanel non-selectable" ui-view="headerpanel"></div>
     <div class="body full-screen" id="client-ui" ui-view=""></div>
     <div class="rpanel non-selectable"
-         ng-class="{ 'shadow': $state.includes('**.files.**') }"
-         ng-show="$state.includes('**.files.**')">
+         ng-class="{ 'shadow': isOpenRightPanel }"
+         ng-show="isOpenRightPanel">
       <div class="files scroll_gray" ui-view="rightpanel" ng-class="{
         'scroll_gray': !browser.platform.isMac,
-        'opacOut_hidden': !$state.includes('**.files'),
-        'opac_in extend': $state.includes('**.files')
+        'opacOut_hidden': !isOpenRightPanel,
+        'opac_in extend': isOpenRightPanel
       }"></div>
       <div class="file scroll_gray" ui-view="detailpanel" ng-class="{'hidden': !$state.includes('messages.detail.files.item'), 'opac_in extend': $state.includes('**.files.item')}"></div>
       <div class="rpanel__background">
