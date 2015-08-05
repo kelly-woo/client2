@@ -40,3 +40,9 @@
 .star-list .nav-tabs > li:last-child > a:hover {
   border-right: 0;
 }
+
+.star-list .file-card,
+.star-list .message-card {
+  opacity: 1;
+  transition: opacity 0.7s;
+}
