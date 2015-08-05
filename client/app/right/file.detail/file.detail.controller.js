@@ -121,14 +121,14 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var member = data.member;
     var id = member.id;
     var url = $filter('getSmallThumbnail')(member);
-
+    console.log('filedetail: ', member);
     _.forEach(list, function(comment) {
       if (comment.writerId === id) {
-        comment.exProfileImg = url;
+        _addExtraData(comment, comment.writerId);
       }
     });
     if ($scope.file_detail && $scope.file_detail.writerId === id) {
-      $scope.file_detail.exProfileImg = url;
+      _addExtraData($scope.file_detail, $scope.file_detail.writerId);
     }
   }
 
@@ -557,7 +557,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (item.contentType === 'file') {
       // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
       $scope.file_detail = item;
-      $scope.file_detail.exProfileImg = $filter('getSmallThumbnail')(item.writerId);
+      _addExtraData($scope.file_detail, item.writerId);
       $scope.hasTopic = !!$scope.file_detail.shareEntities.length;
 
       $scope.file_detail.shared = fileAPIservice.updateShared(item);
@@ -567,6 +567,20 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     }
   }
 
+  /**
+   * Object에 추가 데이터를 가공하여 덧붙인다.
+   * @param {object} target - 덧붙일 대상 object
+   * @param {number|string} writerId - 작성자 ID
+   * @private
+   */
+  function _addExtraData(target, writerId) {
+    var writer = entityAPIservice.getEntityById('user', writerId);
+    if (_.isObject(target)) {
+      target.extWriter = writer;
+      target.extWriterName = $filter('getName')(writer);
+      target.extProfileImg = $filter('getSmallThumbnail')(writerId);
+    }
+  }
   /**
    * file comment 를 포멧에 맞춰 가공 후 추가한다.
    * @param {object} item
@@ -579,7 +593,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         item.content.body = _getSafeBody(item);
       }
       item.isSticker = (contentType === 'comment_sticker');
-      item.exProfileImg = $filter('getSmallThumbnail')(item.writerId);
+      _addExtraData(item, item.writerId);
       $scope.file_comments.push(item);
     }
   }
