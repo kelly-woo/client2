@@ -7,7 +7,7 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, accountService,
+  function headerCtrl($scope, $rootScope, $state, accountService, pcAppHelper,
                       memberService, publicService, configuration,
                       language, modalHelper, jndPubSub, DeskTopNotificationBanner,
                       Browser, AnalyticsHelper, Router) {
