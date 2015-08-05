@@ -10,7 +10,7 @@
     .controller('rPanelCtrl', rPanelCtrl);
 
   /* ngInject */
-  function rPanelCtrl($scope, $state, $filter, jndPubSub) {
+  function rPanelCtrl($scope, $state, $filter, jndPubSub, Router) {
     _init();
 
     /**
@@ -18,30 +18,37 @@
      * @private
      */
     function _init() {
+      var activeTabName;
+
       $scope.isSearchQueryEmpty = true;
 
       $scope.tabs = {
-        file: {
+        files: {
           name: $filter('translate')('@common-files'),
-          active: true
+          active: false
         },
-        message: {
+        messages: {
           name: $filter('translate')('@common-message'),
           active: false
         },
-        star: {
+        stars: {
           name: $filter('translate')('@common-star'),
           active: false
         },
-        mention: {
+        mentions: {
           name: $filter('translate')('@common-mention'),
           active: false
         }
       };
-      $scope.isLoading = false;
-      $scope.activeTabName = $scope.tabs.file.name;
-    }
 
+      $scope.isLoading = false;
+      if (activeTabName = Router.getActiveRightTabName($state.current)) {
+        jndPubSub.pub('onRightPanel', activeTabName);
+
+        $scope.tabs[activeTabName].active = true;
+        $scope.activeTabName = $scope.tabs[activeTabName].name;
+      }
+    }
 
     $scope.$on('connected', _init);
 
@@ -72,7 +79,7 @@
         // reset input element
         jndPubSub.pub('resetRPanelSearchStatusKeyword');
       }
-      $state.go('messages.detail.files');
+      //$state.go('messages.detail.' + type);
     });
 
     /**

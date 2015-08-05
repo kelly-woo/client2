@@ -7,33 +7,33 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $state, $filter, accountService,
+  function headerCtrl($scope, $rootScope, $state, accountService,
                       memberService, publicService, configuration,
                       language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser, AnalyticsHelper) {
+                      Browser, AnalyticsHelper, Router) {
     var modalMap;
     var stateParams;
-    var currentRightPanel = $state.includes('**.files') ? 'file' : null;
-    var prevRightPanel;
+    var currentRightPanel;
 
     _init();
 
     function _init() {
+      $rootScope.isOpenRightPanel = _getIsOpenRightPanel();
+
       DeskTopNotificationBanner.showNotificationBanner($scope);
 
       $scope.languageList = language.getLanguageList();
       $scope.isIe = Browser.msie;
 
-
       $scope.toolbar = {
-        file: false,
-        message: false,
-        star: false,
-        mention: false
+        files: false,
+        messages: false,
+        stars: false,
+        mentions: false
       };
 
-      if (_isRpanelVisible()) {
-        $scope.toolbar.file = true;
+      if (currentRightPanel = Router.getActiveRightTabName($state.current)) {
+        $scope.toolbar[currentRightPanel] = true;
       }
     }
 
@@ -42,15 +42,7 @@
     });
 
     $scope.$on('onRightPanel', function($event, type) {
-      _setTabStatus(currentRightPanel, false);
-      _setTabStatus(type, true);
-    });
-
-    $scope.$on('onHeaderAcitveTab', function($event, type) {
-      if (type === 'file.detail') {
-        type = prevRightPanel;
-      }
-      prevRightPanel = currentRightPanel;
+      $rootScope.isOpenRightPanel = true;
 
       _setTabStatus(currentRightPanel, false);
       _setTabStatus(type, true);
@@ -59,7 +51,6 @@
     $scope.$on('closeRightPanel', function() {
       _closeRightPanel();
     });
-
 
     $scope.onLanguageClick = onLanguageClick;
 
@@ -180,7 +171,7 @@
         _autoScroll();
         _setTabStatus(currentRightPanel, false);
 
-        jndPubSub.pub('onRightPanel', type);
+        $state.go('messages.detail.' + type);
       }
     };
 
@@ -202,13 +193,20 @@
     }
 
     function _closeRightPanel() {
+      $rootScope.isOpenRightPanel = false;
+
       $scope.toolbar[currentRightPanel] = false;
       currentRightPanel = null;
       $state.go('messages.detail');
     }
 
-    function _isRpanelVisible() {
-      return $state.includes('**.files.**');
+    /**
+     * right panel open 여부를 전달함
+     * @returns {boolean}
+     * @private
+     */
+    function _getIsOpenRightPanel() {
+      return /files|messages|stars|mentions/.test($state.current.url);
     }
   }
 })();

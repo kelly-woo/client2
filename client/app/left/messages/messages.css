@@ -1,7 +1,9 @@
 .empty-message-list-container {
-  padding: 10px 24px 10px 24px;
+  padding: 10px 30px 10px 30px;
   text-align: center;
-  color: #999999;
+  color: #777;
+  font-size: 13.5px;
+  line-height: 1.6em;
 }
 .empty-message-list-container:hover .empty-message-list__new-message {
   text-decoration: underline;

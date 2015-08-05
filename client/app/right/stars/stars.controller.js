@@ -9,7 +9,7 @@
     .controller('RightPanelStarsTabCtrl', RightPanelStarsTabCtrl);
 
   /* @ngInject */
-  function RightPanelStarsTabCtrl($scope, $filter, StarAPIService) {
+  function RightPanelStarsTabCtrl($scope, $filter, $state, Router, StarAPIService) {
     var starListData = {
       messageId: null
     };
@@ -42,11 +42,18 @@
       $scope.messageType = $scope.fileType = 'star';
 
       $scope.onTabSelect = onTabSelect;
+
       _initStarListData();
+
+      if (Router.getActiveRightTabName($state.current) === 'stars') {
+        isActivated = true;
+
+        _initGetStarList();
+      }
     }
   
     $scope.$on('onRightPanel', function($event, type) {
-      if (type === 'star') {
+      if (type === 'stars') {
         isActivated = true;
   
         _initStarListData();
@@ -115,7 +122,7 @@
   
     function _updateCursor(data) {
       if (data.records && data.records.length > 0) {
-        starListData.messageId = data.records[data.records.length - 1].message.id;
+        starListData.messageId = data.records[data.records.length - 1].starredId;
       }
 
       if ($scope[$scope.activeTabName] && $scope[$scope.activeTabName].length > 0) {

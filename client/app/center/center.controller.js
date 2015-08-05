@@ -38,9 +38,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _isFromCache = false;
   var _isFromSearch = false;
 
-  // 북마크까지 가는데 걸리는 에니메이션 시간
-  var _bookmarkAnimationDuration = 428;
-
   var isLogEnabled = true;
 
   var getMessageDeferredObject;
@@ -1579,34 +1576,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
-   * center file delete 시 이벤트 핸들러
-   *
-   * Listen to file delete event.
-   * Find deleted file id from current list($scope.messages).
-   * If current list contains deleted file, change its status to 'archived'.
-   * TODO: Still o(n) algorithm.  too bad!! very bad!!! make it o(1) by using map.
-   * @param event
-   * @param param
-   * @private
-   */
-  function _onCenterFileDeleted(event, param) {
-    return;
-    var deletedFileId = param.file.id;
-    var isTitle;
-    MessageCollection.forEach(function(message) {
-      isTitle = !!(message.message && message.message.commentOption && message.message.commentOption.isTitle);
-      if (centerService.isCommentType(message.message.contentType) && isTitle) {
-        if (message.message.feedbackId === deletedFileId) {
-          message.feedback.status = 'archived';
-        }
-      }
-      if (message.message.id === deletedFileId) {
-        message.message.status = 'archived';
-      }
-    });
-  }
-
-  /**
    * elastic resize 시 이벤트 핸들러
    *
    * when textarea gets resized, msd-elastic -> adjust function emits 'elastic:resize'.
@@ -1681,9 +1650,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _updateUnreadBookmarkFlag() {
-    console.log('::_updateUnreadBookmarkFlag', _lastReadMessageMarker, MessageCollection.getLastLinkId());
+    console.log('::_updateUnreadBookmarkFlag', _lastReadMessageMarker, MessageCollection.getLastActiveLinkId());
 
-    if (_lastReadMessageMarker !== MessageCollection.getLastLinkId()) {
+    if (_lastReadMessageMarker !== MessageCollection.getLastActiveLinkId() && MessageCollection.getLastActiveLinkId() !== -1) {
       _shouldDisplayBookmarkFlag = true;
     } else {
       _shouldDisplayBookmarkFlag = false;

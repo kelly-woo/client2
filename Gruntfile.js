@@ -708,7 +708,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
-        //'injector',
+        'injector',
         'wiredep',
         'autoprefixer',
         'concurrent:debug'
@@ -718,7 +718,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
-        //'injector',
+        'injector',
         'wiredep',
         'autoprefixer',
         'express:dev',

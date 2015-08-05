@@ -93,6 +93,18 @@
             }
           }
         })
+        .state('messages.detail.messages', {
+          url: '/messages',
+          title: 'MESSAGE LIST'
+        })
+        .state('messages.detail.stars', {
+          url: '/stars',
+          title: 'STAR LIST'
+        })
+        .state('messages.detail.mentions', {
+          url: '/mentions',
+          title: 'MENTION LIST'
+        })
         .state('archives', {
           url: '/archives/{entityType}/{entityId}'
         })
