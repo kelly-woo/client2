@@ -58,11 +58,9 @@
         el.find('.file-star i')
           .on('click', function() {
             if (scope.isStarred) {
-              el.parent().css('opacity', .8);
-              scope.$emit('removeStarredItem', 'add', scope.fileData);
+              el.parent().css('opacity', .6);
             } else {
               el.parent().css('opacity', 1);
-              scope.$emit('removeStarredItem', 'remove', scope.messageData);
             }
           });
       }
