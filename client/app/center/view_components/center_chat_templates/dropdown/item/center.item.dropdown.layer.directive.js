@@ -9,7 +9,7 @@
     return {
       restrict: 'E',
       controller: 'CenterItemDropdownLayerCtrl',
-      templateUrl: 'app/center/view_components/center_chat_templates/dropdown/center.item.dropdown.layer.html',
+      templateUrl: 'app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html',
       replace: true,
       link: link,
       scope: true

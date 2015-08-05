@@ -36,6 +36,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _shouldUpdateScrollToBookmark = false;
 
   var _isFromCache = false;
+  var _isFromSearch = false;
 
   var isLogEnabled = true;
 
@@ -138,13 +139,20 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _initializeView() {
     if(MessageQuery.hasSearchLinkId()) {
+      _isFromSearch = true;
       _jumpToMessage();
     } else {
       if (TopicMessageCache.contains(_getEntityId()) && false) {
       // TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
         _displayCache();
       } else {
-        loadMore();
+        if (_lastReadMessageMarker) {
+          MessageQuery.setSearchLinkId(_lastReadMessageMarker);
+          _jumpToMessage();
+        } else {
+          loadMore();
+        }
+
       }
     }
   }
@@ -650,11 +658,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _updateScroll() {
     console.log('::updateScroll')
-    if (MessageQuery.hasSearchLinkId()) {
+    if (_isFromSearch && MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'), true);
       MessageQuery.clearSearchLinkId();
+      _isFromSearch = false;
     } else if(_isInitialLoad()) {
       _onInitialLoad();
+      MessageQuery.clearSearchLinkId();
     } else if (_isLoadingNewMessages()) {
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
     } else if (_isLoadingOldMessages()) {
@@ -1578,7 +1588,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
       //_scrollToBottom();
     }
-    _jqContainer.css('margin-bottom', jqInput.outerHeight() - 27);
+    _jqContainer.css('margin-bottom', jqInput.height() - 29);
   }
 
   /**
