@@ -864,8 +864,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (length && MessageCollection.getLastLinkId() < messages[0].id) {
       MessageCollection.removeAllSendingMessages();
       MessageCollection.update(messages, isSkipAppend);
-      // auto focus to textarea
-      _setChatInputFocus();
     }
   }
 
