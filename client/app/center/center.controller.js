@@ -11,6 +11,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  MessageCollection, AnalyticsHelper, Announcement, TopicMessageCache) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
+  var _hasScroll = false;
+  var _hasNewMessage = false;
+
   var TEXTAREA_MAX_LENGTH = 40000;
   var CURRENT_ENTITY_ARCHIVED = 2002;
   var INVALID_SECURITY_TOKEN  = 2000;
@@ -1371,8 +1374,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _gotNewMessage() {
     log('_gotNewMessage')
-    _showNewMessageAlertBanner();
+    if (_hasScroll) {
+      _showNewMessageAlertBanner();
+    }
     entityAPIservice.updateBadgeValue($scope.currentEntity, -1);
+    _hasNewMessage = false;
   }
 
 
@@ -1411,7 +1417,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           return;
         }
       }
-      _gotNewMessage();
+      /*
+      rendering 끝난 시점에 scrollbar 유무에 따라 new message banner 를 보여줄지 판단해야 하기 때문에
+      _hasNewMessage flag 만 설정하고, _getNewMessage 는 onRepeatDone 에서 수행한다.
+       */
+      _hasNewMessage = true;
+      //_gotNewMessage();
     }
   }
 
@@ -1493,6 +1504,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       jndPubSub.pub('centerLoading:hide');
       if (!$rootScope.isReady) {
         publicService.hideTransitionLoading();
+      }
+      if (!_hasScroll) {
+        _hasScroll = $('#msgs-holder').height() > $('#msgs-container').height();
+      }
+      if (_hasNewMessage) {
+        _gotNewMessage();
       }
     },0);
   }
