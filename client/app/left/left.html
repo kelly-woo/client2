@@ -13,7 +13,7 @@
     </aside>
     <div ng-if="!isReady" class="cpanel"
          ng-class="{
-         'rpanel-show': $state.includes('**.files.**')
+         'rpanel-show': isOpenRightPanel
         }">
       <div class="msgs__loading initial">
         <div class="dummy_initial_wrap">
@@ -78,7 +78,7 @@
   <div class="cpanel opac-zero" id="cpanel"
        ng-class="{
        'scroll_gray': !browser.platform.isMac,
-       'rpanel-show': $state.includes('**.files.**'),
+       'rpanel-show': isOpenRightPanel,
        'opac-in': isReady
        }">
     <entity-header></entity-header>

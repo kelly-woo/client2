@@ -39,7 +39,6 @@
     }
 
     function onFileCardClick() {
-        jndPubSub.pub('onHeaderAcitveTab', 'file');
         $state.go('files', {userName: $scope.writerName, itemId: $scope.file.id});
     }
 

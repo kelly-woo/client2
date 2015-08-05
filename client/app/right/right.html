@@ -3,25 +3,25 @@
     <i class="icon-cancel" ng-click="closeRightPanel()"></i>
     <span>{{activeTabName}}</span>
   </div>
-  <r-panel-search ng-if="tabs.file.active || tabs.message.active"></r-panel-search>
+  <r-panel-search ng-if="tabs.files.active || tabs.messages.active"></r-panel-search>
   <tabset class="rpanel-body-tab-container">
     <!--  FILE TAB  -->
-    <tab active="tabs.file.active">
+    <tab active="tabs.files.active">
       <page-tracker ng-if="$state.includes('**.files') && tabs.file.active" page="files/files" title="File Tab"></page-tracker>
       <r-panel-file-tab></r-panel-file-tab>
     </tab>
     <!--  MESSAGE TAB -->
-    <tab active="tabs.message.active">
+    <tab active="tabs.messages.active">
       <page-tracker ng-if="$state.includes('**.files') && tabs.message.active" page="files/messages" title="Message Tab"></page-tracker>
       <r-panel-messages-tab></r-panel-messages-tab>
     </tab>
     <!--  STAR TAB -->
-    <tab active="tabs.star.active">
+    <tab active="tabs.stars.active">
       <!--<page-tracker ng-if="$state.includes('**.files') && tabs.star.active" page="files/star" title="Star Tab"></page-tracker>-->
       <r-panel-star-tab></r-panel-star-tab>
     </tab>
     <!--  MENTION TAB -->
-    <tab active="tabs.mention.active">
+    <tab active="tabs.mentions.active">
       <!--<page-tracker ng-if="$state.includes('**.files') && tabs.mention.active" page="files/mention" title="Mention Tab"></page-tracker>-->
       <r-panel-mention-tab></r-panel-mention-tab>
     </tab>

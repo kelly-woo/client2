@@ -641,7 +641,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * Redirect user back to file list.
    */
   function backToFileList() {
-    jndPubSub.pub('onHeaderAcitveTab', 'file.detail');
     $state.go('messages.detail.files');
   }
 

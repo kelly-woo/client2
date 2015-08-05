@@ -5,7 +5,9 @@
     .module('jandiApp')
     .controller('rPanelFileTabCtrl', rPanelFileTabCtrl);
 
-  function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, modalHelper, entityheaderAPIservice, fileAPIservice, analyticsService, publicService, entityAPIservice, currentSessionHelper, logger, AnalyticsHelper) {
+  function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, Router, entityheaderAPIservice,
+                             fileAPIservice, analyticsService, publicService, entityAPIservice,
+                             currentSessionHelper, logger, AnalyticsHelper) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -14,11 +16,64 @@
     var localCurrentEntity;
     var fileIdMap = {};
     //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
-    var _isActivated = true;
-    // To be used in directive('centerHelpMessageContainer')
-    $scope.emptyMessageStateHelper = 'NO_FILES_UPLOADED';
+    var _isActivated;
 
-    $scope.isConnected = true;
+    _init();
+
+    function _init() {
+      $scope.searchStatus = {
+        keyword: '',
+        length: ''
+      };
+
+      $scope.isLoading = false;
+      $scope.isScrollLoading = false;
+      $scope.isEndOfList = false;
+
+      $scope.fileType = 'file';
+      $scope.fileList = [];
+      $scope.fileTitleQuery   = '';
+
+      $scope.fileRequest      = {
+        searchType: 'file',
+        sharedEntityId: parseInt($state.params.entityId),
+        startMessageId: -1,
+        listCount: 10,
+        keyword: ''
+      };
+
+      fileIdMap = {};
+
+      // To be used in directive('centerHelpMessageContainer')
+      $scope.emptyMessageStateHelper = 'NO_FILES_UPLOADED';
+
+      $scope.isConnected = true;
+
+      if (Router.getActiveRightTabName($state.current) === 'files') {
+        _isActivated = true;
+      }
+
+      _initSharedInFilter();
+      _initSharedByFilter(localCurrentEntity);
+      _setDefaultSharedByFilter();
+      _setLanguageVariable();
+
+      localCurrentEntity = currentSessionHelper.getCurrentEntity();
+
+      if (publicService.isNullOrUndefined(localCurrentEntity)) {
+        // This may happen because file controller may be called before current entity is defined.
+        // In this case, initialize options first then return from here
+        return;
+      }
+
+      _setSharedInEntity(localCurrentEntity);
+
+      // Checking if initial load has been processed or not.
+      // if not, load once.
+      if (!initialLoadDone) {
+        _refreshFileList();
+      }
+    }
 
     //  fileRequest.writerId - 작성자
     $scope.$watch('fileRequest.writerId', function(newValue, oldValue) {
@@ -86,9 +141,13 @@
       _refreshFileList();
     });
 
-    $scope.$on('updateFileControllerOnShareUnshare', function(event, param) {
-      if (_isFileStatusChangedOnCurrentFilter(param)) {
-        _refreshFileList();
+    $scope.$on('updateRightPanelCaller', function(event, data) {
+      if (data.messageType === 'file_share') {
+        // 'file_share' socket event에 대한 right panel 처리
+
+        if (_isFileStatusChangedOnCurrentFilter(data)) {
+          _refreshFileList();
+        }
       }
     });
 
@@ -104,7 +163,7 @@
     }
 
     $scope.$on('onRightPanel', function($event, type, hasList) {
-      if (type === 'file') {
+      if (type === 'files') {
         _isActivated = true;
         if (!hasList) {
           $scope.fileRequest.keyword = '';
@@ -160,58 +219,6 @@
         preLoadingSetup();
         getFileList();
       }
-    }
-
-    (function() {
-      _init();
-    })();
-
-    function _init() {
-      $scope.searchStatus = {
-        keyword: '',
-        length: ''
-      };
-
-      $scope.isLoading = false;
-      $scope.isScrollLoading = false;
-      $scope.isEndOfList = false;
-
-      $scope.fileType = 'file';
-      $scope.fileList = [];
-      $scope.fileTitleQuery   = '';
-
-      $scope.fileRequest      = {
-        searchType: 'file',
-        sharedEntityId: parseInt($state.params.entityId),
-        startMessageId: -1,
-        listCount: 10,
-        keyword: ''
-      };
-
-      fileIdMap = {};
-
-
-      _initSharedInFilter();
-      _initSharedByFilter(localCurrentEntity);
-      _setDefaultSharedByFilter();
-      _setLanguageVariable();
-
-      localCurrentEntity = currentSessionHelper.getCurrentEntity();
-
-      if (publicService.isNullOrUndefined(localCurrentEntity)) {
-        // This may happen because file controller may be called before current entity is defined.
-        // In this case, initialize options first then return from here
-        return;
-      }
-
-      _setSharedInEntity(localCurrentEntity);
-
-      // Checking if initial load has been processed or not.
-      // if not, load once.
-      if (!initialLoadDone) {
-        _refreshFileList();
-      }
-
     }
 
     /**
