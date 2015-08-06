@@ -133,6 +133,7 @@
         }
         if (_height !== height) {
           el.height(height + _paddingVertical);
+          _height = height;
           jndPubSub.pub('elastic:resize');
         }
       }

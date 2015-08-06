@@ -10,8 +10,7 @@
 
   /* @ngInject */
   function MessageCollection($filter, $rootScope, $timeout, $sce, entityAPIservice, fileAPIservice, markerService,
-                             jndPubSub, memberService, currentSessionHelper, centerService, MessageComment, MessageText,
-                             MessageSending) {
+                             jndPubSub, memberService, currentSessionHelper, centerService, MessageComment, MessageText) {
     var that = this;
     var _systemMessageCount = 0;
     var _hasBookmark = false;
@@ -36,15 +35,15 @@
     this.isElapsed = isElapsed;
     this.getContentType = getContentType;
 
-    this.getQueue = getQueue;
-    this.enqueue = enqueue;
-    this.spliceQueue = MessageSending.splice;
 
+    this.enqueue = enqueue;
     this.append = append;
     this.prepend = prepend;
     this.remove = remove;
     this.update = update;
-    this.clearQueue = clearQueue;
+
+    this.beforeAddMessages = beforeAddMessages;
+    this.getFormattedMessage = getFormattedMessage;
 
     this.removeAllSendingMessages = removeAllSendingMessages;
     this.updateUnreadCount = updateUnreadCount;
@@ -105,32 +104,22 @@
     }
 
     /**
-     * Message Sending 의 queue 를 초기화한다.
-     */
-    function clearQueue() {
-      MessageSending.reset();
-    }
-
-    /**
-     * MessageSending 의 queue 를 반환한다.
-     * @returns {Array}
-     */
-    function getQueue() {
-      return MessageSending.queue;
-    }
-
-    /**
      * queue 에 메세지를 추가한다.
      * @param {string} content
      * @param {object} sticker
      * @param {array} mentions
-     * @param {boolean} isSkipAppend message list 에 append 할 지 여부
      */
-    function enqueue(content, sticker, mentions, isSkipAppend) {
+    function enqueue(content, sticker, mentions) {
       var messageList = MessageSending.enqueue(content, sticker, mentions);
-      if (!isSkipAppend) {
-        append(messageList);
-      }
+      var list = [];
+      messageList = beforeAddMessages(messageList);
+      _.forEach(messageList, function(msg) {
+        if (MessageSending.isSending(msg)) {
+          msg = getFormattedMessage(msg);
+          list.push(msg);
+        }
+      });
+      return list;
     }
 
     /**
@@ -141,10 +130,10 @@
       var length = that.list.length;
       var lastId = that.list[length - 1] && that.list[length - 1].id || -1;
 
-      messageList = _beforeAddMessages(messageList);
+      messageList = beforeAddMessages(messageList);
       _.forEach(messageList, function(msg) {
-        if (MessageSending.isSending(msg) || lastId < msg.id) {
-          msg = _getFormattedMessage(msg);
+        if (lastId < msg.id) {
+          msg = getFormattedMessage(msg);
           that.list.push(msg);
         }
       });
@@ -156,10 +145,10 @@
      */
     function prepend(messageList) {
       var firstId = that.list[0] && that.list[0].id || -1;
-      messageList = _beforeAddMessages(messageList);
+      messageList = beforeAddMessages(messageList);
       _.forEachRight(messageList, function(msg) {
         if (firstId === -1 || firstId > msg.id) {
-          msg = _getFormattedMessage(msg);
+          msg = getFormattedMessage(msg);
           that.list.unshift(msg);
         }
       });
@@ -175,10 +164,6 @@
       var targetIdx = at(messageId, isReversal);
       var msg;
       if (targetIdx !== -1) {
-        msg = that.list[targetIdx];
-        if (msg.status === 'sending') {
-          MessageSending.remove(msg);
-        }
         that.list.splice(targetIdx, 1);
       }
       return targetIdx !== -1;
@@ -231,11 +216,14 @@
      * @param {array} messageList 업데이트 할 메세지 리스트
      */
     function update(messageList, isSkipAppend) {
+      var lastLinkId = getLastLinkId();
       _.forEach(messageList, function(msg) {
-        if (_isSystemMessage(msg)) {
-          _updateSystemMessage(msg, isSkipAppend);
-        } else {
-          _updateUserMessage(msg, isSkipAppend);
+        if (lastLinkId < msg.id) {
+          if (_isSystemMessage(msg)) {
+            _updateSystemMessage(msg, isSkipAppend);
+          } else {
+            _updateUserMessage(msg, isSkipAppend);
+          }
         }
       });
     }
@@ -317,7 +305,7 @@
      * @returns {*}
      * @private
      */
-    function _beforeAddMessages(messageList) {
+    function beforeAddMessages(messageList) {
       messageList = _.isArray(messageList) ? _.sortBy(messageList, 'id') : [messageList];
 
       _.forEach(messageList, function(msg) {
@@ -345,18 +333,24 @@
       msg.extTime = $filter('gethmmaFormat')(msg.time);
     }
 
+    function _isSending(msg) {
+      return msg.status === 'sending';
+    }
+
     function _updateLastMessage(messageList) {
       if (messageList && messageList.length) {
         var _tempLastMessage = messageList[messageList.length - 1];
-        _tempLastMessage._isLast = true;
+        if (!_isSending(_tempLastMessage)) {
+          _tempLastMessage._isLast = true;
 
-        if (!_.isEmpty(_lastMessage)) {
-          if (_lastMessage.id < _tempLastMessage.id) {
-            _lastMessage._isLast = false;
+          if (!_.isEmpty(_lastMessage)) {
+            if (_lastMessage.id < _tempLastMessage.id) {
+              _lastMessage._isLast = false;
+              _lastMessage = _tempLastMessage;
+            }
+          } else {
             _lastMessage = _tempLastMessage;
           }
-        } else {
-          _lastMessage = _tempLastMessage;
         }
       }
     }
@@ -366,12 +360,9 @@
      */
     function getFirstLinkId() {
       var linkId = -1;
-      _.forEach(that.list, function(msg) {
-        if (!MessageSending.isSending(msg)) {
-          linkId = msg.id;
-          return false;
-        }
-      });
+      if (that.list.length) {
+        linkId = that.list[0].id;
+      }
       return linkId;
     }
 
@@ -381,12 +372,9 @@
      */
     function getLastLinkId() {
       var linkId = -1;
-      _.forEachRight(that.list, function(msg) {
-        if (!MessageSending.isSending(msg)) {
-          linkId = msg.id;
-          return false;
-        }
-      });
+      if (that.list.length) {
+        linkId = that.list[that.list.length - 1].id;
+      }
       return linkId;
     }
 
@@ -469,7 +457,7 @@
      * @param {object} msg
      * @returns {object}
      */
-    function _getFormattedMessage(msg) {
+    function getFormattedMessage(msg) {
       msg.date = _getDateKey(msg.time);
       if (_isSystemMessage(msg)) {
         msg = _getFormattedSystemMsg(msg);
@@ -675,7 +663,7 @@
     function getLastActiveLinkId() {
       var linkId = -1;
       _.forEachRight(that.list, function(msg) {
-        if (!MessageSending.isSending(msg) && msg.status !== 'event') {
+        if (msg.status !== 'event') {
           linkId = msg.id;
           return false;
         }

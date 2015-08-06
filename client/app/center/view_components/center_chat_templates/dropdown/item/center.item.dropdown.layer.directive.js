@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Center 아이템 dropdown 레이어 디렉티브
+ * @author Young Park <jihoonk@tosslab.com>
+ */
 (function() {
   'use strict';
 
@@ -62,6 +66,7 @@
         scope.msg = data.msg;
         scope.isMyMessage = data.isMyMessage;
         scope.showAnnouncement = data.showAnnouncement;
+        scope.hasStar = _.isBoolean(data.hasStar) ? data.hasStar : data.msg.message.contentType !== 'sticker';
         scope.isShown = true;
         /*
         fixme: 현재 파악하지 못한 이유로 인해 1회의 timeout 으로는 우선순위가 뒤로 밀려, rendering 시점을 알 수 없음.

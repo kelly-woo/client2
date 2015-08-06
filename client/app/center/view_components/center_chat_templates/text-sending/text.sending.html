@@ -1,0 +1,32 @@
+<div class="text-msg-item-container">
+  <div class="msg-item-body">
+    <!-- TEXT -->
+    <div class="msg-text">
+      <img ng-if="::msg.message.contentType === 'sticker'" class="sticker size_5" src="{{msg.message.content.url}}"/>
+      <span ng-if="::msg.message.contentType !== 'sticker'"
+            class="keep msg-text-body msg-text-sending"
+            ng-bind-html="(msg.message.content.body) || ''"></span>
+      <!--  TIME  -->
+      <span class="msg-item-header__created" ng-bind="msg.extTime"></span>
+
+      <!--  SENDING STATUS SPINNING WHEEL -->
+      <span ng-if="!msg.unreadCount">
+        <span ng-if="msg.status === 'sending'" class="icon-sending-indicator"></span>
+        <span ng-if="msg.status === 'failed'" >
+          <span class="badge alert-badge">!</span>
+          <a class="cursor_pointer">
+            <span class="msg-item-header__created" ng-click="retry()">Retry</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="msg-extra">
+      <!-- More -->
+      <span class="msg-item-icon">
+        <span class="" center-item-dropdown>
+          <i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"></i>
+        </span>
+      </span>
+    </div>
+  </div>
+</div>

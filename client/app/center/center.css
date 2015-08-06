@@ -96,7 +96,7 @@ article {
 }
 .msgs-holder {
   /*padding: 0 10px 0 20px;*/
-  padding-bottom:20px;
+  padding-bottom:10px;
 }
 .msgs-group {
 
@@ -241,7 +241,10 @@ article {
 }
 
 
-.msg-file { min-height: 65px; }
+.msg-file {
+  min-height: 65px;
+  margin-bottom: 5px;
+}
 .msg-file-header {
   font-size: 16px;
   font-weight: 700;
@@ -254,7 +257,6 @@ by ysyun 2015.2.25
 */
 .msg-file-body-float {
   margin-right: 10px;
-  margin-bottom: 10px;
   position: relative;
 }
 /* opac layer over image thumbnail  */
@@ -867,10 +869,11 @@ by ysyun 2015.2.25
 }
 
 .icon-sending-indicator {
-  background-image: url('../../../assets/images/icon_chat_indicator.png');
-  background-size: 10px 10px;
-  width: 10px;
-  height: 10px;
+  /*background-image: url('../../../assets/images/icon_chat_indicator.png');*/
+  background-image: url('../../../assets/images/icon_loading.gif');
+  background-size: 11px 11px;
+  width: 11px;
+  height: 11px;
   vertical-align: text-bottom;
   margin-left: 3px;
   display: inline-block;

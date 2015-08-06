@@ -27,13 +27,10 @@
       <!--  TIME  -->
       <span class="msg-item-header__created" ng-bind="msg.extTime"></span>
 
-      <!--  SENDING STATUS SPINNING WHEEL -->
-      <span ng-if="msg.status === 'sending'" class="icon-sending-indicator"></span>
-
       <!--  UNREAD COUNT  -->
-      <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge" ng-bind="msg.unreadCount"></span>
+      <span ng-if="msg.unreadCount" class="badge unread-badge" ng-bind="msg.unreadCount"></span>
     </div>
-    <div class="msg-extra">
+    <div class="msg-text-extra">
       <!-- More -->
       <span ng-if="::msg.message.contentType !== 'sticker' || isMyMessage"
             class="msg-item-icon">
@@ -67,11 +64,10 @@
       <!--  TIME  -->
       <span class="msg-item-header__created" ng-bind="msg.extTime"></span>
 
-      <!--  SENDING STATUS SPINNING WHEEL -->
-      <span ng-if="msg.status === 'sending'" class="icon-sending-indicator"></span>
-
       <!--  UNREAD COUNT  -->
-      <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge" ng-bind="msg.unreadCount"></span>
+      <span ng-if="msg.unreadCount"
+            class="badge unread-badge" ng-bind="msg.unreadCount">
+      </span>
     </div>
     <div class="msg-extra">
       <!-- More -->

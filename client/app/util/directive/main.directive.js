@@ -152,10 +152,12 @@ app.directive('msgRepeatDone', function($timeout) {
 /**
  * 범용 repeat done detector
  */
-app.directive('repeatDone', function() {
+app.directive('repeatDone', function($timeout) {
   return function(scope, element, attrs) {
-    if (scope.msg.$last) { // all are rendered
-      scope.$eval(attrs.repeatDone);
+    if (scope.$last) { // all are rendered
+      $timeout(function() {
+       scope.$eval(attrs.repeatDone);
+      }, 0);
     }
   };
 });

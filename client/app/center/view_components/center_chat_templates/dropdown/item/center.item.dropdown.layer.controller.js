@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function CenterItemDropdownLayerCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, AnalyticsHelper,
-                           MessageCollection, jndPubSub, entityAPIservice) {
+                                       MessageSendingCollection, jndPubSub, entityAPIservice) {
     // 현재 로그인되어있는 멤버(나)의 아이디
     var _myId;
     // 현재 토픽의 타입
@@ -57,9 +57,9 @@
     function deleteMessage() {
       _resetLocalVariables();
       if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
-        if ($scope.msg.status === 'sending') {
+        if ($scope.msg.status === 'sending' || $scope.msg.status === 'failed') {
           //MessageCollection.
-          MessageCollection.remove($scope.msg.messageId, true);
+          MessageSendingCollection.remove($scope.msg);
         } else {
           if ($scope.msg.message.contentType === 'sticker') {
             messageAPIservice.deleteSticker($scope.msg.messageId);

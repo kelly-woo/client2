@@ -7,7 +7,7 @@
       <span translate>@announcement-create</span>
     </a>
   </li>
-  <li ng-if="msg.message.contentType !== 'sticker'"
+  <li ng-if="hasStar"
       role="presentation" tabindex="-1"
       star-view="msg.message.isStarred"
       event-bubble="on"

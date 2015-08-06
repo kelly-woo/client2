@@ -8,9 +8,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  publicService, MessageQuery, currentSessionHelper, logger,
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
-                                                 MessageCollection, AnalyticsHelper, Announcement, TopicMessageCache) {
+                                                 MessageCollection, MessageSendingCollection, AnalyticsHelper,
+                                                 Announcement, TopicMessageCache) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
+  var _updateRetryCnt = 0;
+  var _hasUpdate = false;
   var _hasScroll = false;
   var _hasNewMessage = false;
 
@@ -74,6 +77,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.entityType = entityType;
 
   $scope.messages = MessageCollection.list;
+  $scope.sendingMessages = MessageSendingCollection.list;
   $scope.message = {};          // Message to post.
   $scope.isInitialLoadingCompleted = false;
   $scope.hasLastMessageRendered = false;
@@ -94,6 +98,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.loadOldMessages = loadOldMessages;
   $scope.clearNewMessageAlerts = clearNewMessageAlerts;
 
+  $scope.post = post;
   $scope.postMessage = postMessage;
   $scope.editMessage = editMessage;
 
@@ -114,6 +119,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.onHasNewMessageAlertCloseClicked = onHasNewMessageAlertCloseClicked;
 
   $scope.onRepeatDone = onRepeatDone;
+  $scope.onSendingRepeatDone = onSendingRepeatDone;
 
   $scope.isLastReadMarker = isLastReadMarker;
 
@@ -165,8 +171,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $('#msgs-container')[0].scrollTop = 0;
     MessageQuery.reset();
     MessageCollection.reset();
+    MessageSendingCollection.reset();
 
     $scope.messages = MessageCollection.list;
+    $scope.sendingMessages = MessageSendingCollection.list;
+
     $scope.isPolling = false;
     // configuration for message loading
     $scope.msgLoadStatus = {
@@ -264,7 +273,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     systemMessageCount = 0;
 
     _isFromCache = false;
-
+    _updateRetryCnt = 0;
     _resetUnreadCounters();
     _resetNewMsgHelpers();
     _cancelHttpRequest();
@@ -603,9 +612,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           }
 
         })
-        .error(function(response) {
-          onHttpResponseError(response);
-        });
+        .error(onHttpResponseError);
 
     } else {
     }
@@ -649,7 +656,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function hasMoreNewMessageToLoad() {
     //log('localLastMessageId: ', localLastMessageId, 'lastMessageId: ', lastMessageId, 'Has more newer message: ', localLastMessageId < lastMessageId)
-    return MessageCollection.getLastLinkId() < lastMessageId;
+    return !$scope.isPosting && MessageCollection.getLastLinkId() < lastMessageId;
   }
 
   function _hasLastMessage() {
@@ -657,7 +664,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _updateScroll() {
-    console.log('::updateScroll')
+    console.log('::updateScroll');
     if (_isFromSearch && MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'), true);
       MessageQuery.clearSearchLinkId();
@@ -670,8 +677,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else if (_isLoadingOldMessages()) {
       _disableScroll();
       _findMessageDomElementById(loadedFirstMessageId);
-    } else if (MessageCollection.getQueue().length > 0) {
-      _scrollToBottom();
     }
     MessageQuery.reset();
   }
@@ -817,8 +822,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function updateList() {
     //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
     //  In such case, don't update list and just return it.
-    console.log('updatelist')
-    if ($scope.msgLoadStatus.loading || _isUpdateListLock) {
+    if (!_hasUpdate && ($scope.msgLoadStatus.loading || _isUpdateListLock)) {
+      _hasUpdate = true;
       return;
     }
     _isUpdateListLock = true;
@@ -826,23 +831,30 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //todo: deprecated 되었으므로 해당 API 제거해야함
     messageAPIservice.getUpdatedMessages(entityType, entityId, globalLastLinkId)
       .success(_onUpdateListSuccess)
-      .error(function (response) {
-        onHttpResponseError(response);
-      })
-      .finally(function() {
-        _isUpdateListLock = false;
-      });
+      .error(_onUpdateListError);
+
 
     // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
     //$scope.promise = $timeout(updateList, updateInterval);
   }
-
+  function _onUpdateListError(response) {
+    _isUpdateListLock = false;
+    if (_updateRetryCnt === 0) {
+      _updateRetryCnt++;
+      updateList();
+    } else {
+      _updateRetryCnt = 0;
+      MessageSendingCollection.clearSentMessages();
+      onHttpResponseError(response);
+    }
+  }
   /**
    * 메세지 success 핸들러
    * @param {object} response 서버 응답
    * @private
    */
   function _onUpdateListSuccess(response) {
+    _isUpdateListLock = false;
 
     var updateInfo = response.updateInfo;
     if (!_.isUndefined(updateInfo)) {
@@ -853,18 +865,28 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (updateInfo.messageCount) {
         // 업데이트 된 메세지 처리
         _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
+        MessageSendingCollection.clearSentMessages();
         MessageCollection.updateUnreadCount();
         lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
         console.log('::_onUpdateListSuccess', lastMessageId);
-        jndPubSub.pub('onMessageDeleted');
+
         //  marker 설정
         updateMessageMarker();
         _checkEntityMessageStatus();
+
+        if (_isBottomReached()) {
+          _scrollToBottom();
+        }
       }
     }
 
     if (_isFromCache) {
       _setMessagesAfterCache();
+    }
+
+    if (_hasUpdate) {
+      updateList();
+      _hasUpdate = false;
     }
   }
 
@@ -877,14 +899,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     var length = messages.length;
     var msg;
     // Prevent duplicate messages in center panel.
-    if (length && MessageCollection.getLastLinkId() < messages[0].id) {
-      MessageCollection.removeAllSendingMessages();
+    if (length) {
       MessageCollection.update(messages, isSkipAppend);
     }
   }
 
   function onHttpResponseError(response) {
-    console.log('::response', response)
+    console.log('::response', response);
     $scope.msgLoadStatus.loading = false;
     //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
     if (response && response.code == CURRENT_ENTITY_ARCHIVED) {
@@ -939,9 +960,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onConnected() {
-    var queue = MessageCollection.getQueue();
-    if (queue.length) {
-      _postMessages();
+    if (MessageSendingCollection.queue.length) {
+      _requestPostMessages();
     } else {
       updateList();
     }
@@ -964,105 +984,47 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           mentions = content.mentions;
         }
       }
-
-      MessageCollection.enqueue(msg, _sticker, mentions);
-      _scrollToBottom(true);
-      if (NetInterceptor.isConnected()) {
-        _postMessages();
-      }
+      post(msg, _sticker, mentions);
     }
     $scope.message.content = "";
     jqInput.val('');
     _hideSticker();
   }
 
+  function post(msg, sticker, mentions) {
+    MessageSendingCollection.enqueue(msg, sticker, mentions);
+    _scrollToBottom(true);
+    _requestPostMessages();
+  }
+
   /**
    * queue 에 있는 메세지들을 전부 posting 한다.
    * @private
    */
-  function _postMessages() {
-    var promise;
-    var queue = MessageCollection.getQueue();
-    var length = queue.length;
-
-    if (!$scope.isPosting && length) {
-      $scope.isPosting = true;
-      //_isUpdateListLock = true;
-      _.forEach(queue, function (msg) {
-        if (!promise) {
-          promise = _getPostPromise(msg, true);
-        } else {
-          promise = promise.then(
-            _.bind(_getPostPromise, null, msg, true),
-            _.bind(_getPostPromise, null, msg, false));
-        }
-      });
-
-      if (promise) {
-        promise.then(
-          _.bind(_onSuccessPostMessages, null, length),
-          _.bind(_onFailedPostMessages, null, length));
-      } else {
-        $scope.isPosting = false;
-        //_isUpdateListLock = false;
+  function _requestPostMessages(isForce) {
+    var queue = MessageSendingCollection.queue;
+    var payload;
+    if (isForce || (NetInterceptor.isConnected() && !$scope.isPosting)) {
+      if (queue.length) {
+        $scope.isPosting = true;
+        payload = queue.shift();
+        messageAPIservice.postMessage(entityType, entityId, payload.content, payload.sticker, payload.mentions)
+          .success(function () {
+            MessageSendingCollection.sent(payload, true);
+          })
+          .error(function () {
+            MessageSendingCollection.sent(payload, false);
+          })
+          .finally(function () {
+            console.log(MessageSendingCollection.queue.length);
+            if (NetInterceptor.isConnected() && MessageSendingCollection.queue.length) {
+              _requestPostMessages(true);
+            } else {
+              $scope.isPosting = false;
+              _onPostMessagesDone();
+            }
+          });
       }
-    }
-  }
-
-  /**
-   * post promise 를 반환한다.
-   * @param {object} msg
-   * @param {boolean} isSuccess
-   * @returns {*}
-   * @private
-   */
-  function _getPostPromise(msg, isSuccess) {
-    isSuccess = _.isBoolean(isSuccess) ? isSuccess : true;
-    if (!isSuccess && !NetInterceptor.isConnected()) {
-      MessageCollection.enqueue(msg.content, msg.sticker, msg.mentions, true);
-    } else {
-      try {
-        //analytics
-        AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
-          'RESPONSE_SUCCESS': true
-        });
-      } catch (e) {
-      }
-    }
-    return messageAPIservice.postMessage(entityType, entityId, msg.content, msg.sticker, msg.mentions);
-  }
-
-  /**
-   * post message fail 핸들러
-   * @param {number} length
-   * @private
-   */
-  function _onFailedPostMessages(length) {
-    //_isUpdateListLock = false;
-    $scope.isPosting = false;
-    var queue = MessageCollection.getQueue();
-    var msg = queue[length - 1];
-    MessageCollection.spliceQueue(0, length);
-    if (!NetInterceptor.isConnected()) {
-      MessageCollection.enqueue(msg.content, msg.sticker, msg.mentions, true);
-    }
-    _onPostMessagesDone();
-  }
-
-  /**
-   * post message 전부 성공시 핸들러
-   * @param {number} length
-   * @private
-   */
-  function _onSuccessPostMessages(length) {
-    //_isUpdateListLock = false;
-    $scope.isPosting = false;
-    var queue = MessageCollection.getQueue();
-    MessageCollection.spliceQueue(0, length);
-    if (queue.length > 0) {
-      _postMessages();
-    } else {
-      _onPostMessagesDone();
     }
   }
 
@@ -1075,7 +1037,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       _refreshCurrentTopic();
     }
     updateList();
-    _scrollToBottom(true);
+    //_scrollToBottom(true);
   }
 
   function editMessage(messageId, updateContent) {
@@ -1419,7 +1381,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (!_isFromCache) {
       // If message is from me -> I just wrote a message -> Just scroll to bottom.
       if (centerService.isMessageFromMe(msg)) {
-        _scrollToBottom(true);
+        //_scrollToBottom(true);
+        //return;
         return;
       }
 
@@ -1529,6 +1492,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   /**
+   * sending 메세지의 repeatDone 이벤트 핸들러
+   */
+  function onSendingRepeatDone() {
+    _scrollToBottom(true);
+  }
+
+  /**
    * file comment delete handler.
    * Loop through messages list and find matching file comment.
    *
@@ -1587,7 +1557,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if ($scope.isInitialLoadingCompleted && _isBottomReached()) {
       _scrollToBottom();
     }
-    _jqContainer.css('margin-bottom', jqInput.height() - 29);
+    _jqContainer.css('margin-bottom', jqInput.height() - 28);
   }
 
   /**

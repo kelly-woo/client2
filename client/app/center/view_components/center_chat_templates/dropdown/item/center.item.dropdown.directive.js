@@ -60,6 +60,7 @@
         jndPubSub.pub('show:center-item-dropdown', {
           target: el,
           msg: scope.msg,
+          hasStar: scope.hasStar,
           isMyMessage: scope.isMyMessage,
           showAnnouncement: scope.showAnnouncement
         });
