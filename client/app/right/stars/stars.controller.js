@@ -110,7 +110,7 @@
 
             $scope.tabs.all.list.length === 0 && _setEmptyTab('all', true);
             $scope.tabs.files.list.length === 0 && _setEmptyTab('files', true);
-        }, 2000);
+        }, 0);
       }
     });
 
@@ -222,7 +222,7 @@
 
     function _setEmptyTab(activeTabName, value) {
       $scope.tabs[activeTabName].empty = value;
-      //$scope.tabs[activeTabName].endOfList = !value;
+      $scope.tabs[activeTabName].endOfList = !value;
     }
 
     function _updateCursor(data, activeTabName) {

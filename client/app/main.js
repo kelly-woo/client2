@@ -76,17 +76,13 @@
             }
           }
         })
-
         .state('messages.detail.files', {
           url: '/files',
           title: 'FILE LIST'
         })
         .state('messages.detail.files.item', {
           url: '/:itemId',
-          title: 'FILE DETAIL'
-        })
-        .state('messages.detail.files.redirect', {
-          params: ['entityType', 'entityId', 'userName', 'itemId'],
+          title: 'FILE DETAIL',
           views: {
             'detailpanel@': {
               templateUrl: 'app/right/file.detail/file.detail.html',
@@ -94,6 +90,19 @@
             }
           }
         })
+        //.state('messages.detail.files.item', {
+        //  url: '/:itemId',
+        //  title: 'FILE DETAIL'
+        //})
+        //.state('messages.detail.files.redirect', {
+        //  params: ['entityType', 'entityId', 'userName', 'itemId', 'tail'],
+        //  views: {
+        //    'detailpanel': {
+        //      templateUrl: 'app/right/file.detail/file.detail.html',
+        //      controller: 'fileDetailCtrl'
+        //    }
+        //  }
+        //})
         .state('messages.detail.messages', {
           url: '/messages',
           title: 'MESSAGE LIST'
