@@ -286,7 +286,7 @@
      * @private
      */
     function _addToSharedByOption(member) {
-      $scope.selectOptionsUsers = fileAPIservice.getShareOptions([member], $scope.memberList);
+      $scope.selectOptionsUsers = fileAPIservice.getShareOptions($scope.memberList);
     }
 
     /**

@@ -1,11 +1,11 @@
 <div class="modal_team_member_container cursor_pointer"
      ng-click="onMemberClick(member.id);">
-  <img on-image-load="" class="modal_team_member_profile_pic_thumbnail" ng-src="{{ member | getSmallThumbnail }}"/>
+  <img on-image-load="" class="modal_team_member_profile_pic_thumbnail" ng-src="{{ memberSmallProfilePic}}"/>
 
-  <div class="modal_team_member_name">{{ member | getName }}</div>
+  <div class="modal_team_member_name">{{ memberName }}</div>
 
   <i class="icon-star right-star opac-zero" ng-class="{ 'icon-star-fill': member.isStarred }"
      data-ng-click="onStarClick('users', member.id); $event.preventDefault(); $event.stopPropagation();"
-     data-ng-if="!(member | isDisabledMember)"></i>
+     data-ng-if="!isDisabledMember && !isMySelf"></i>
 
 </div>

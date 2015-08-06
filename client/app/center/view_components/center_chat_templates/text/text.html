@@ -72,6 +72,8 @@
 
       <!--  UNREAD COUNT  -->
       <span ng-if="msg.status !== 'sending' && msg.unreadCount" class="badge unread-badge" ng-bind="msg.unreadCount"></span>
+      {{msg.message.id}}
+
     </div>
     <div class="msg-extra">
       <!-- More -->
