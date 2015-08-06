@@ -104,7 +104,7 @@
       ImageCarousel.close();
 
       if ($state.params.itemId !== messageId) {
-        $state.go('messages.detail.files.redirect', {itemId: messageId + '', userName: userName});
+        $state.go('messages.detail.files.item', {itemId: messageId + '', userName: userName});
       }
     }
 

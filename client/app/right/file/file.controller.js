@@ -40,7 +40,8 @@
 
     function onFileCardClick() {
       $state.go('files', {itemId: $scope.file.id});
-      //$state.go('messages.detail.files.item', _.extend($state.params, {itemId: $scope.file.id}));
+      //jndPubSub.updateRightFileDetailPanel();
+      //$state.go('messages.detail.filedetail', _.extend( {},$state.params, {userName: $scope.writerName, itemId: $scope.file.id, tail: $scope.file.type + 's'}));
     }
 
     function isDisabledMember() {

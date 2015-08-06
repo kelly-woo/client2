@@ -9,7 +9,7 @@
     .directive('mentionahead', mentionahead);
 
   /* @ngInject */
-  function mentionahead($rootScope, $compile, currentSessionHelper, entityAPIservice) {
+  function mentionahead($rootScope, $compile, $timeout) {
 
     return {
       restrict: 'A',
@@ -49,6 +49,9 @@
               jqEle: el,
               attrs: attrs,
               on: function() {
+                var LIVE_SEARCH_DELAY = 50;
+                var timerLiveSearch;
+
                 // text change event handling
                 function changeHandler(event) {
                   var value = event.target.value;
@@ -59,8 +62,11 @@
                 }
 
                 function liveSearchHandler() {
-                  mentionCtrl.setMentionLive();
-                  mentionCtrl.showMentionahead();
+                  $timeout.cancel(timerLiveSearch);
+                  timerLiveSearch = $timeout(function() {
+                    mentionCtrl.setMentionLive();
+                    mentionCtrl.showMentionahead();
+                  }, LIVE_SEARCH_DELAY);
                 }
 
                 el

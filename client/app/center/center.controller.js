@@ -84,7 +84,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.onShareClick = onShareClick;
   $scope.isDisabledMember = publicService.isDisabledMember;
 
-  $scope.onKeyDown = onKeyDown;
   $scope.onKeyUp = onKeyUp;
   $scope.onTextChange = _cutTextareaMaxLength;
 
@@ -1164,18 +1163,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @param {event} keyUpEvent 키 업 이벤트
    */
   function onKeyUp(keyUpEvent) {
-    var text = $(keyUpEvent.target).val();
-    TextBuffer.set(text);
-  }
+    var keyCode = keyUpEvent.keyCode;
 
-  /**
-   * keyDown 이벤트 핸들러
-   * @param {event} keyDownEvent
-   */
-  function onKeyDown(keyDownEvent) {
-    var keyCode = keyDownEvent.keyCode;
     if (jndKeyCode.match('ESC', keyCode)) {
       _hideSticker();
+    } else {
+      TextBuffer.set($(keyUpEvent.target).val());
     }
   }
 
