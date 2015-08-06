@@ -8,7 +8,7 @@
             <div class="search-result-summary-ing" ng-if="isLoading"><span translate>@search-in-progress</span></div>
             <div class="search-result-summary-ing" ng-if="tabs.all.empty"><span translate>@star-all-empty</span></div>
           </div>
-          <div ng-repeat="item in tabs.all.list">
+          <div ng-repeat="item in tabs.all.list track by item.message.id">
             <message ng-if="item.message.contentType !== 'file'"  message-data="item" message-type="messageType"></message>
             <file ng-if="item.message.contentType === 'file'" file-data="item" file-type="fileType"></file>
           </div>
@@ -32,7 +32,7 @@
             <div class="search-result-summary-ing" ng-if="isLoading"><span translate>@search-in-progress</span></div>
             <div class="search-result-summary-ing" ng-if="tabs.files.empty"><span translate>@star-files-empty</span></div>
           </div>
-          <div ng-repeat="file in tabs.files.list">
+          <div ng-repeat="file in tabs.files.list track by file.message.id">
             <file file-data="file" file-type="fileType"></file>
           </div>
           <div class="file-list__item loading" ng-if="isScrollLoading && tabs.files.list.length > 0">

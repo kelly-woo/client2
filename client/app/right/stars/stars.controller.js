@@ -15,6 +15,9 @@
     };
     var isActivated;
 
+    var removeItems = [];
+    var timerRemoveItems;
+
     _init();
 
     // First function to be called.
@@ -26,24 +29,22 @@
           map: {},
           isLoading: false,
           isScrollLoading: false,
-          removeItems: [],
-          timerRemoveItems: null,
           name: $filter('translate')('@star-all'),
           active: true,
           endOfList: false,
-          empty: false
+          empty: false,
+          hasFirstLoad: false
         },
         files: {
           list: [],
           map: {},
           isLoading: false,
           isScrollLoading: false,
-          removeItems: [],
-          timerRemoveItems: null,
           name: $filter('translate')('@star-files'),
           active: false,
           endOfList: false,
-          empty: false
+          empty: false,
+          hasFirstLoad: false
         }
       };
       $scope.activeTabName = 'all';
@@ -58,6 +59,7 @@
       if (Router.getActiveRightTabName($state.current) === 'stars') {
         isActivated = true;
 
+        // onTabSelect가 바로 수행되기 때문에 여기서 수행하지 않음
         //_initGetStarList();
       }
     }
@@ -73,85 +75,40 @@
       }
     });
 
-    //$scope.$on('removeStarredItem', function($event, type, item) {
-      //var activeTabName = item.activeTabName;
-      //var tab = $scope.tabs[activeTabName];
-      //var removeItems = tab.removeItems;
-      //var list = scope.tabs[activeTabName].list;
-      //var index;
-      //
-      //if (type === 'add') {
-      //  removeItems.push(item);
-      //  $timeout.cancel(tab.timerRemoveItems);
-      //  tab.timerRemoveItems = $timeout((function(activeTabName, removeItems, list) {
-      //    return function() {
-      //      var item;
-      //
-      //      for (;item = removeItems.pop();) {
-      //        index = list.indexOf(item);
-      //        if (index > -1) {
-      //          list.splice(index, 1);
-      //        }
-      //      }
-      //
-      //      if (list.length === 0) {
-      //        $scope.tabs[activeTabName].empty = true;
-      //        $scope.tabs[activeTabName].endOfList = false;
-      //      }
-      //    };
-      //  }(activeTabName, removeItems, list)), 1000);
-      //} else if (type === 'remove') {
-      //  index = removeItems.indexOf(item);
-      //  if (index > -1) {
-      //    removeItems.splice(index, 1);
-      //  }
-      //}
-    //});
-
     // starred event handler
     $scope.$on('starred', function($event, data) {
-      var tab = $scope.tabs[$scope.activeTabName];
-      var item = tab.map[data.messageId];
-      var removeItems = tab.removeItems;
       var index;
 
-      index = removeItems.indexOf(item);
+      index = removeItems.indexOf(data.messageId);
       if (index > -1) {
         removeItems.splice(index, 1);
+      } else {
+        _getStarItem(data.messageId);
       }
     });
 
     // unstarred event handler
     $scope.$on('unStarred', function($event, data) {
-      var activeTabName = $scope.activeTabName;
-      var tab = $scope.tabs[activeTabName];
       var messageId = data.messageId;
-      var list = tab.list;
-      var removeItems = tab.removeItems;
-      var item;
 
-      if (item = tab.map[messageId]) {
-        removeItems.push(item);
-        $timeout.cancel(tab.timerRemoveItems);
-        tab.timerRemoveItems = $timeout((function(activeTabName, removeItems, list) {
-          return function() {
-            var item;
-            var index;
+      if ($scope.tabs.all.map[messageId]) {
+        removeItems.push(messageId);
 
-            for (;item = removeItems.pop();) {
-              index = list.indexOf(item);
-              if (index > -1) {
-                list.splice(index, 1);
-                delete tab.map[item.message.id];
+        $timeout.cancel(timerRemoveItems);
+        timerRemoveItems = $timeout(function() {
+            var messageId;
+
+            for (;messageId = removeItems.pop();) {
+              if ($scope.tabs.files.map[messageId]) {
+                _removeStarItem('files', messageId);
               }
+
+              _removeStarItem('all', messageId);
             }
 
-            if (list.length === 0) {
-              $scope.tabs[activeTabName].empty = true;
-              $scope.tabs[activeTabName].endOfList = false;
-            }
-          };
-        }(activeTabName, removeItems, list)), 2000);
+            $scope.tabs.all.list.length === 0 && _setEmptyTab('all', true);
+            $scope.tabs.files.list.length === 0 && _setEmptyTab('files', true);
+        }, 2000);
       }
     });
 
@@ -170,15 +127,11 @@
         $scope.tabs[type].active = true;
         $scope.activeTabName = type;
 
-        _initStarListData($scope.activeTabName);
-        _initGetStarList($scope.activeTabName);
+        if (!$scope.tabs[type].hasFirstLoad) {
+          _initStarListData($scope.activeTabName);
+          _initGetStarList($scope.activeTabName);
+        }
       }
-    }
-
-    function _initGetStarList(activeTabName) {
-      $scope.tabs[activeTabName].isLoading = true;
-      $scope.tabs[activeTabName].empty = false;
-      _getStarList(activeTabName);
     }
 
     function _initStarListData(activeTabName) {
@@ -190,9 +143,16 @@
       $scope.tabs[activeTabName].endOfList = $scope.tabs[activeTabName].isLoading = $scope.tabs[activeTabName].isScrollLoading = false;
     }
 
+    function _initGetStarList(activeTabName) {
+      $scope.tabs[activeTabName].isLoading = true;
+      $scope.tabs[activeTabName].empty = false;
+
+      _getStarList(activeTabName);
+    }
+
     function _getStarList(activeTabName) {
       if (!$scope.tabs[activeTabName].isLoading || !$scope.tabs[activeTabName].isScrollLoading) {
-        StarAPIService.get(starListData.messageId, 20, (activeTabName === 'files' ? 'file' : undefined))
+        StarAPIService.get(starListData.messageId, 40, (activeTabName === 'files' ? 'file' : undefined))
           .success(function(data) {
             if (data) {
               if (data.records && data.records.length) {
@@ -203,10 +163,27 @@
             }
           })
           .finally(function() {
-            $scope.tabs[activeTabName].empty = $scope.tabs[activeTabName].list.length === 0;
+            $scope.tabs[activeTabName].hasFirstLoad = true;
             $scope.tabs[activeTabName].isLoading = $scope.tabs[activeTabName].isScrollLoading = false;
+
+            $scope.tabs[activeTabName].list.length === 0 && _setEmptyTab(activeTabName, true);
           });
       }
+    }
+
+    function _getStarItem(messageId) {
+      StarAPIService.getItem(messageId)
+        .success(function(data) {
+          if (data) {
+            _addStarItem('all', data, true);
+            _setEmptyTab('all', false);
+
+            if (data.message.contentType === 'file') {
+              _addStarItem('files', data, true);
+              _setEmptyTab('files', false);
+            }
+          }
+        })
     }
 
     function _pushStarList(records, activeTabName) {
@@ -218,9 +195,32 @@
         record = records[i];
 
         record.activeTabName = activeTabName;
-        $scope.tabs[activeTabName].list.push(record);
-        $scope.tabs[activeTabName].map[record.message.id] = record;
+        _addStarItem(activeTabName, record);
       }
+    }
+
+    function _addStarItem(activeTabName, data, isUnShift) {
+      if ($scope.tabs[activeTabName].map[data.message.id] == null) {
+        $scope.tabs[activeTabName].list[isUnShift ? 'unshift' : 'push'](data);
+        $scope.tabs[activeTabName].map[data.message.id] = data;
+      }
+    }
+
+    function _removeStarItem(activeTabName, messageId) {
+      var list = $scope.tabs[activeTabName].list;
+      var map = $scope.tabs[activeTabName].map;
+      var index;
+
+      index = list.indexOf(map[messageId]);
+      if (index > -1) {
+        list.splice(index, 1);
+        delete map[messageId];
+      }
+    }
+
+    function _setEmptyTab(activeTabName, value) {
+      $scope.tabs[activeTabName].empty = value;
+      //$scope.tabs[activeTabName].endOfList = !value;
     }
 
     function _updateCursor(data, activeTabName) {

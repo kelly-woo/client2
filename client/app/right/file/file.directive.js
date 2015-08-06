@@ -8,9 +8,7 @@
     .module('jandiApp')
     .directive('file', file);
 
-  function file($rootScope, $timeout) {
-    var STARRED_ITEM_REMOVE_DELAY = 3000;
-
+  function file() {
     return {
       restrict: 'EA',
       replace: true,
@@ -52,15 +50,6 @@
               scope.onFileDeleteClick();
             } else if (selector === 'download-file') {
               scope.status.isopen = false;
-            }
-          });
-      } else if (scope.file.type === 'star') {
-        el.find('.file-star i')
-          .on('click', function() {
-            if (scope.isStarred) {
-              el.parent().css('opacity', .6);
-            } else {
-              el.parent().css('opacity', 1);
             }
           });
       }

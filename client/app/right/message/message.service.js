@@ -44,9 +44,11 @@
       } else if (type === 'mention' || type === 'star') {
         data.type = type;
 
-        data.roomId = messageData.room.id;
-        data.roomType = messageData.room.type;
-        data.roomName = messageData.room.name;
+        if (messageData.room) {
+          data.roomId = messageData.room.id;
+          data.roomType = messageData.room.type;
+          data.roomName = messageData.room.name;
+        }
 
         data.writerId = messageData.message.writerId;
         data.createdAt = messageData.message.createdAt;
