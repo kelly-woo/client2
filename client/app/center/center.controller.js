@@ -13,6 +13,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _updateRetryCnt = 0;
+  var _isDestroyed = false;
   var _hasUpdate = false;
   var _hasScroll = false;
   var _hasNewMessage = false;
@@ -42,8 +43,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _isFromSearch = false;
 
   var isLogEnabled = true;
-
-  var getMessageDeferredObject;
+  
+  var deferredObject = {
+    getMessage: null,
+    postMessage: null,
+    updateMessage: null
+  };
 
   var firstMessageId;             // 현재 엔티티(토픽, DM)의 가장 위 메세지 아이디.
   var lastMessageId;              // 현재 엔티티(토픽, DM)의 가장 아래 메세지 아이디.
@@ -304,6 +309,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onDestroy() {
+    _isDestroyed = true;
+    _reset();
     _cancelHttpRequest();
     _detachEvents();
 
@@ -381,9 +388,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _cancelHttpRequest() {
-    if (!_.isUndefined(getMessageDeferredObject)) {
-      getMessageDeferredObject.resolve();
-    }
+    _.each(deferredObject, function(deferred) {
+      if (deferred && _.isFunction(deferred.resolve)) {
+        deferred.resolve();
+      }
+    });
   }
 
   /**
@@ -500,8 +509,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _getUpdatedList() {
     //console.log(_testCounter++, '::_getUpdatedList');
-    getMessageDeferredObject = $q.defer();
-    messageAPIservice.getUpdatedList(_getEntityId(), lastMessageId, getMessageDeferredObject)
+    deferredObject.updateList = $q.defer();
+    messageAPIservice.getUpdatedList(_getEntityId(), lastMessageId, deferredObject.updateList)
       .success(_onUpdatedMessagesSuccess)
       .error(function(err) {
         console.log(err);
@@ -566,10 +575,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (!$scope.isInitialLoadingCompleted) {
         _hideContents();
       }
-      getMessageDeferredObject = $q.defer();
+      deferredObject.getMessage = $q.defer();
       // 엔티티 메세지 리스트 목록 얻기
 
-      messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), getMessageDeferredObject)
+      messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), deferredObject.getMessage)
         .success(function(response) {
           //console.log('::getMessageSuccess');
 
@@ -818,32 +827,37 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function updateList() {
-    //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
-    //  In such case, don't update list and just return it.
-    if (!_hasUpdate && ($scope.msgLoadStatus.loading || _isUpdateListLock)) {
-      _hasUpdate = true;
-      return;
+    if (!_isDestroyed) {
+      //  when 'updateList' gets called, there may be a situation where 'getMessages' is still in progress.
+      //  In such case, don't update list and just return it.
+      if (!_hasUpdate && ($scope.msgLoadStatus.loading || _isUpdateListLock)) {
+        _hasUpdate = true;
+        return;
+      }
+      _isUpdateListLock = true;
+      $scope.isPolling = true;
+      //todo: deprecated 되었으므로 해당 API 제거해야함
+      deferredObject.updateMessages = $q.defer();
+      messageAPIservice.getUpdatedMessages(entityType, entityId, globalLastLinkId, deferredObject.updateMessages)
+        .success(_onUpdateListSuccess)
+        .error(_onUpdateListError);
+
+
+      // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
+      //$scope.promise = $timeout(updateList, updateInterval);
     }
-    _isUpdateListLock = true;
-    $scope.isPolling = true;
-    //todo: deprecated 되었으므로 해당 API 제거해야함
-    messageAPIservice.getUpdatedMessages(entityType, entityId, globalLastLinkId)
-      .success(_onUpdateListSuccess)
-      .error(_onUpdateListError);
-
-
-    // TODO: async 호출이 보다 안정적이므로 callback에서 추후 처리 필요
-    //$scope.promise = $timeout(updateList, updateInterval);
   }
   function _onUpdateListError(response) {
     _isUpdateListLock = false;
-    if (_updateRetryCnt === 0) {
-      _updateRetryCnt++;
-      updateList();
-    } else {
-      _updateRetryCnt = 0;
-      MessageSendingCollection.clearSentMessages();
-      onHttpResponseError(response);
+    if (!_isDestroyed) {
+      if (_updateRetryCnt === 0) {
+        _updateRetryCnt++;
+        updateList();
+      } else {
+        _updateRetryCnt = 0;
+        MessageSendingCollection.clearSentMessages();
+        onHttpResponseError(response);
+      }
     }
   }
   /**
@@ -852,39 +866,41 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _onUpdateListSuccess(response) {
-    _isUpdateListLock = false;
+    if (!_isDestroyed) {
+      _isUpdateListLock = false;
 
-    var updateInfo = response.updateInfo;
-    if (!_.isUndefined(updateInfo)) {
+      var updateInfo = response.updateInfo;
+      if (!_.isUndefined(updateInfo)) {
 
-      globalLastLinkId = response.lastLinkId;
-      updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
+        globalLastLinkId = response.lastLinkId;
+        updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
 
-      if (updateInfo.messageCount) {
-        // 업데이트 된 메세지 처리
-        _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
-        MessageSendingCollection.clearSentMessages();
-        MessageCollection.updateUnreadCount();
-        lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
-        console.log('::_onUpdateListSuccess', lastMessageId);
-        jndPubSub.pub('onMessageDeleted');
-        //  marker 설정
-        updateMessageMarker();
-        _checkEntityMessageStatus();
+        if (updateInfo.messageCount) {
+          // 업데이트 된 메세지 처리
+          _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
+          MessageSendingCollection.clearSentMessages();
+          MessageCollection.updateUnreadCount();
+          lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
+          console.log('::_onUpdateListSuccess', lastMessageId);
+          jndPubSub.pub('onMessageDeleted');
+          //  marker 설정
+          updateMessageMarker();
+          _checkEntityMessageStatus();
 
-        if (_isBottomReached()) {
-          _scrollToBottom();
+          if (_isBottomReached()) {
+            _scrollToBottom();
+          }
         }
       }
-    }
 
-    if (_isFromCache) {
-      _setMessagesAfterCache();
-    }
+      if (_isFromCache) {
+        _setMessagesAfterCache();
+      }
 
-    if (_hasUpdate) {
-      updateList();
-      _hasUpdate = false;
+      if (_hasUpdate) {
+        updateList();
+        _hasUpdate = false;
+      }
     }
   }
 
@@ -904,30 +920,32 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function onHttpResponseError(response) {
     //console.log('::response', response)
-    $scope.msgLoadStatus.loading = false;
-    //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
-    if (response && response.code == CURRENT_ENTITY_ARCHIVED) {
-      //log('okay channel archived');
-      $scope.updateLeftPanelCaller();
-      publicService.goToDefaultTopic();
-      return;
-    }
+    if (!_isDestroyed) {
+      $scope.msgLoadStatus.loading = false;
+      //  SOMEONE OR ME FROM OTHER DEVICE DELETED CURRENT ENTITY.
+      if (response && response.code == CURRENT_ENTITY_ARCHIVED) {
+        //log('okay channel archived');
+        $scope.updateLeftPanelCaller();
+        publicService.goToDefaultTopic();
+        return;
+      }
 
-    if (response && response.code == INVALID_SECURITY_TOKEN) {
-      $state.go('signin');
-      return;
-    }
+      if (response && response.code == INVALID_SECURITY_TOKEN) {
+        $state.go('signin');
+        return;
+      }
 
-    if (response === 'Unauthorized') {
-      // It is 401 error.
-      // 401 error should be handled in 'auth.service'.
-      // Let go of 401 error.
-      // Catch and handle 403 error instead.
-      return;
-    }
+      if (response === 'Unauthorized') {
+        // It is 401 error.
+        // 401 error should be handled in 'auth.service'.
+        // Let go of 401 error.
+        // Catch and handle 403 error instead.
+        return;
+      }
 
-    if (NetInterceptor.isConnected()){
-      publicService.goToDefaultTopic();
+      if (NetInterceptor.isConnected()) {
+        publicService.goToDefaultTopic();
+      }
     }
   }
 
@@ -1006,7 +1024,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (queue.length) {
         $scope.isPosting = true;
         payload = queue.shift();
-        messageAPIservice.postMessage(entityType, entityId, payload.content, payload.sticker, payload.mentions)
+        deferredObject.postMessage = $q.defer();
+        messageAPIservice.postMessage(entityType, entityId,
+          payload.content, payload.sticker, payload.mentions, deferredObject.postMessage)
           .success(function () {
             MessageSendingCollection.sent(payload, true);
           })
@@ -1014,12 +1034,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             MessageSendingCollection.sent(payload, false);
           })
           .finally(function () {
-            console.log(MessageSendingCollection.queue.length);
-            if (NetInterceptor.isConnected() && MessageSendingCollection.queue.length) {
-              _requestPostMessages(true);
-            } else {
-              $scope.isPosting = false;
-              _onPostMessagesDone();
+            if (!_isDestroyed) {
+              if (NetInterceptor.isConnected() && MessageSendingCollection.queue.length) {
+                _requestPostMessages(true);
+              } else {
+                $scope.isPosting = false;
+                _onPostMessagesDone();
+              }
             }
           });
       }

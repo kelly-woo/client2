@@ -691,7 +691,7 @@ app.controller('leftPanelController1', function(
       $scope.isCenterLoading = true;
       $scope.entityId = entity.id;
       jndPubSub.pub('changeEntityHeaderTitle', entity);
-      $timeout(_.bind(_doEnter, this, entity), 50);
+      _doEnter(entity);
     }
   }
 

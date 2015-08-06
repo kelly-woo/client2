@@ -58,7 +58,7 @@
     }
 
     // get updated message lists
-    function getUpdatedMessages(entityType, entityId, lastUpdatedId) {
+    function getUpdatedMessages(entityType, entityId, lastUpdatedId, canceller) {
       entityType = _getParamEntityType(entityType);
       return $http({
         method  : 'GET',
@@ -66,7 +66,8 @@
         params  : {
           teamId  : memberService.getTeamId()
         },
-        version: 3
+        version: 3,
+        timeout : canceller.promise
       });
     }
 
@@ -79,11 +80,11 @@
      * @param {array} mentions    - mentions
      * @returns {*}
      */
-    function postMessage(entityType, entityId, message, sticker, mentions) {
+    function postMessage(entityType, entityId, message, sticker, mentions, canceller) {
       if (sticker && sticker.id && sticker.groupId) {
-        return _postSticker(entityType, entityId, message, sticker, mentions);
+        return _postSticker(entityType, entityId, message, sticker, mentions, canceller);
       } else {
-        return _postMessage(entityType, entityId, message, mentions);
+        return _postMessage(entityType, entityId, message, mentions, canceller);
       }
     }
 
@@ -96,7 +97,7 @@
      * @returns {*}
      * @private
      */
-    function _postMessage(entityType, entityId, message, mentions) {
+    function _postMessage(entityType, entityId, message, mentions, canceller) {
       entityType = _getParamEntityType(entityType);
       return $http({
         method  : 'POST',
@@ -108,6 +109,7 @@
         params  : {
           teamId  : memberService.getTeamId()
         },
+        timeout : canceller.promise,
         version: 3
       });
     }
@@ -122,7 +124,7 @@
      * @returns {*}
      * @private
      */
-    function _postSticker(entityType, entityId, message, sticker, mentions) {
+    function _postSticker(entityType, entityId, message, sticker, mentions, canceller) {
       var data = {
         stickerId: sticker.id,
         groupId: sticker.groupId,
@@ -136,7 +138,8 @@
       return $http({
         method  : 'POST',
         url     : server_address + 'stickers',
-        data    : data
+        data    : data,
+        timeout : canceller.promise
       });
     }
     /**
