@@ -39,10 +39,8 @@
     }
 
     function onFileCardClick() {
-      $state.go('files', {
-        userName: $scope.writerName,
-        itemId: $scope.file.id
-      });
+      $state.go('files', {itemId: $scope.file.id});
+      //$state.go('messages.detail.files.item', _.extend($state.params, {itemId: $scope.file.id}));
     }
 
     function isDisabledMember() {
