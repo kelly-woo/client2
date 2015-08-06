@@ -23,7 +23,7 @@
         url: $rootScope.server_address + 'teams/' + memberService.getTeamId() + '/messages/mentioned',
         params: {
           messageId: data.messageId,
-          count: 20
+          count: 40
         }
       });
     }

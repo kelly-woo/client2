@@ -69,7 +69,6 @@
       $scope.msg.message.extFileOwnerName = $filter('getName')($scope.msg.message.writerId);
       $scope.msg.message.extIsFileOwner = $scope.msg.message.writerId === memberService.getMemberId();
 
-      _updateSharedList();
       _attachEventListener();
     }
 
@@ -78,11 +77,8 @@
      * @private
      */
     function _attachEventListener() {
-      $scope.$on('onChangeShared',_updateSharedList);
-      $scope.$on('onMemberEntityMapCreated', _updateSharedList);
       $scope.$on('updateCenterForRelatedFile', _onUpdateCenterForRelatedFile);
       $scope.$on('centerOnFileDeleted', _onFileDeleted);
-
     }
 
     /**
@@ -210,14 +206,6 @@
     }
 
     /**
-     * sharedList 를 업데이트 한다.
-     * @private
-     */
-    function _updateSharedList() {
-      $scope.msg.message.shared = fileAPIservice.updateShared(_message);
-    }
-
-    /**
      * shared entity 클릭시 이벤트 핸들러
      * @param {string} entityId
      */
@@ -260,7 +248,6 @@
             _.forEach(response.messageDetails, function(item) {
               if (item.contentType === 'file') {
                 $scope.msg.message.shareEntities = item.shareEntities;
-                _updateSharedList();
               }
             });
           });

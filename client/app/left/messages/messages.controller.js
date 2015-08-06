@@ -112,7 +112,6 @@
         }
       });
 
-      jndPubSub.pub('onMemberEntityMapCreated');
       return messageList;
     }
 

@@ -202,7 +202,7 @@
      * @private
      */
     function _updateRight(data) {
-      jndPubSub.updateRightPanel(data);
+      jndPubSub.pub('onChangeShared', data);
     }
 
     /**

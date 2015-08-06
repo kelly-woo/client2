@@ -76,6 +76,7 @@
             }
           }
         })
+
         .state('messages.detail.files', {
           url: '/files',
           title: 'FILE LIST'
