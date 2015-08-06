@@ -297,15 +297,18 @@
     function _onSelect($item) {
       var mention = $scope.mention;
       var mentionTarget = $item.exViewName;
+      var extraText = ' ';
       var text;
       var selection;
 
-      text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + mention.sufStr;
+      text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + extraText + mention.sufStr;
       $scope.jqEle.val(text);
       setValue(text);
 
-      selection = mention.offset + mentionTarget.length;
-      _selection(selection);
+      selection = mention.offset + mentionTarget.length + extraText.length;
+      setTimeout(function() {
+        _selection(selection);
+      }, 10);
 
       clearMention();
     }

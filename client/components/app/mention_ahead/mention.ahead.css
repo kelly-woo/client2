@@ -25,6 +25,7 @@
 }
 
 .mentionahead a.mention-item {
+  background-color: #fff;
   height: 32px;
   padding: 5px 10px 5px 10px;
   cursor: pointer;
