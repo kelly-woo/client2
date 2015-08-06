@@ -10,7 +10,9 @@
       restrict: 'E',
       controller: 'TopicItemCtrl',
       templateUrl: 'app/left/topics/topic/topic_item/topic.item.html',
-      scope: false,
+      scope: {
+        currentRoom: '='
+      },
       link: link,
       replace: true
     };

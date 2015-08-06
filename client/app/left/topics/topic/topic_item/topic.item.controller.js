@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function TopicItemCtrl($scope, memberService, $timeout) {
-    var _joinedEntity;
+    var _currentRoom;
     var _roomId;
 
     $scope.isNotificationOff = false;
@@ -18,7 +18,9 @@
     $scope.onTooltipShow = onTooltipShow;
     $scope.onTooltipHide = onTooltipHide;
 
-    _init();
+    $scope.$watch('currentRoom', function() {
+      _init();
+    });
 
     /**
      * 초기화함수이다.
@@ -31,8 +33,8 @@
     }
 
     function _initLocalVariables() {
-      _joinedEntity = $scope.joinedEntity;
-      _roomId = _joinedEntity.id;
+      _currentRoom = $scope.currentRoom;
+      _roomId = _currentRoom.id;
     }
 
     function _attachEventListener() {

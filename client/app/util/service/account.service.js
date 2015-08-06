@@ -71,11 +71,11 @@
 
       if (configuration.name == 'local') {
         if (prefix == 'local') {
-          prefix = 'tosslab';
+          //prefix = 'tosslab';
           //prefix = 'pcapp';
           //prefix = 'jihoontesting';
           //prefix = 'asdfqwer';
-          ////prefix = 'jihoonk11';
+          prefix = 'jihoonk';
         }
       }
 
