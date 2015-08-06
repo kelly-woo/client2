@@ -96,7 +96,7 @@ article {
 }
 .msgs-holder {
   /*padding: 0 10px 0 20px;*/
-  padding-bottom:20px;
+  padding-bottom: 14px
 }
 .msgs-group {
 
@@ -108,7 +108,7 @@ article {
   color: #192d3e;
   display: table;
   padding: 5px 6px;
-  margin: 12px 0 15px 66px;
+  margin: 10px 0 10px 66px;
 }
 .msgs-group__divider-label {
   display: inline-block;
@@ -119,8 +119,8 @@ article {
   height: 100%;
   position: relative;
   /*padding: 0 20px 0 47px;*/
-  padding: 0 15px 0 67px;
-  margin-bottom: 15px;
+  padding: 5px 15px 5px 67px;
+  margin-bottom: 5px;
   display: block;
 }
 /*.msgs-group:last-of-type > .msg-item {*/
@@ -129,13 +129,14 @@ article {
 /*}*/
 .msg-item.comment-title,
 .msg-item.comment-continue{
-  margin-bottom: 4px;
-  margin-top: 4px !important;
+  margin-bottom: 0px;
+  margin-top: -1px !important;
+  padding: 3px 15px 3px 67px;
 }
 
 
 .msg-item.text {
-  margin-top: 13px;
+  margin-top: 5px;
 }
 .msg-item.text-child {
   margin-top: -6px;
@@ -150,11 +151,11 @@ article {
 }
 .msg-item-float {
   position: absolute;
-  top: 0;
-  left: 20px;
+  top: 7px;
+  left: 23px;
 }
 .msg-item-header {
-  padding: 2px 0 5px;
+  padding: 1px 0 6px;
   font-size: 15px;
   font-weight: 700;
   line-height: 1.3rem;
@@ -224,7 +225,7 @@ article {
 
 .msg-text {
   word-wrap: break-word;
-  margin-right:50px;
+  margin-right: 55px;
 }
 .msg-extra {
   position: absolute;
@@ -364,7 +365,7 @@ by ysyun 2015.2.25
   width: 100%;
 }
 .msg-file-meta-up {
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 .archived-msg-file-meta__title {
   color: #b7b7b7;
@@ -507,7 +508,7 @@ by ysyun 2015.2.25
 ********************************************/
 .system-event-msg {
   min-height: 15px;
-  margin-bottom: 7px;
+  margin-bottom: 0px;
 }
 .system-event-msg .msg-item-float {
   height: inherit;

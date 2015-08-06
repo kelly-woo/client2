@@ -6,7 +6,7 @@
 }
 
 .lpanel-user .lpanel-user__team {
-  padding: 8px 15px;
+  padding: 9px 15px;
   background-color: #366480;
   color: white;
 }
@@ -25,6 +25,7 @@
 }
 .lpanel-user__team .icon {
   font-size: 16px;
+  vertical-align: text-top;
 }
 
 .lpanel-user__team .team-name {
