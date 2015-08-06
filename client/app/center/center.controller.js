@@ -149,8 +149,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _initializeView() {
     if(MessageQuery.hasSearchLinkId()) {
-      _isFromSearch = true;
-      _jumpToMessage();
+      _searchJumpToMessageId();
     } else {
       if (TopicMessageCache.contains(_getEntityId()) && false) {
       // TODO: 8/5/2015 - CACHE를 사용하기않는 정책으로인해 현재는 사용하지 않기로 함.
@@ -209,7 +208,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('newMessageArrived', _onNewMessageArrived);
     $scope.$on('newSystemMessageArrived', _onNewSystemMessageArrived);
 
-    $scope.$on('jumpToMessageId', _jumpToMessage);
+    $scope.$on('jumpToMessageId', _searchJumpToMessageId);
     $scope.$on('elastic:resize', _onElasticResize);
     $scope.$on('setChatInputFocus', _setChatInputFocus);
     $scope.$on('onInitLeftListDone', _checkEntityMessageStatus);
@@ -287,9 +286,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 현재 topic 을 새로고침한다.
    * @private
    */
-  function _refreshCurrentTopic() {
+  function _refreshCurrentTopic(isSkipBookmark) {
     _reset();
-    loadMore();
+    loadMore(isSkipBookmark);
   }
 
   /**
@@ -425,6 +424,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return false;
   }
 
+  function _searchJumpToMessageId() {
+    _isFromSearch = true;
+    _jumpToMessage();
+  }
+
   /**
    * 해당 메세지로 이동한다.
    * @private
@@ -553,7 +557,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     _updateUnreadBookmarkFlag();
   }
 
-  function loadMore() {
+  function loadMore(isSkipBookmark) {
     //console.log('::loadMore');
     if (!$scope.msgLoadStatus.loading) {
       loadedFirstMessageId = MessageCollection.getFirstLinkId();
@@ -598,7 +602,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           }
 
           // 마지막으로 읽은 메세지 이후에 더 있는지 없는지 확인
-          _updateUnreadBookmarkFlag();
+          if (isSkipBookmark) {
+            _updateUnreadBookmarkFlag(isSkipBookmark);
+          }
+
 
           //  marker 설정
           updateMessageMarker();
@@ -1008,8 +1015,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function post(msg, sticker, mentions) {
-    MessageSendingCollection.enqueue(msg, sticker, mentions);
-    _scrollToBottom(true);
+    var hasNew = hasMoreNewMessageToLoad();
+    MessageSendingCollection.enqueue(msg, sticker, mentions, hasNew);
+    if (!hasNew) {
+      _scrollToBottom(true);
+    }
     _requestPostMessages();
   }
 
@@ -1053,7 +1063,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onPostMessagesDone() {
     if (!_hasLastMessage()) {
-      _refreshCurrentTopic();
+      _refreshCurrentTopic(true);
     }
     updateList();
     //_scrollToBottom(true);
@@ -1631,13 +1641,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * _lastReadMessageMarker 가 현재 리스트의 마지막 링크아이디와 같은지 체크한다.
    * @private
    */
-  function _updateUnreadBookmarkFlag() {
+  function _updateUnreadBookmarkFlag(isSkipBookmark) {
     //console.log('::_updateUnreadBookmarkFlag', _lastReadMessageMarker, MessageCollection.getLastActiveLinkId());
-
-    if (_lastReadMessageMarker !== MessageCollection.getLastActiveLinkId() && MessageCollection.getLastActiveLinkId() !== -1) {
-      _shouldDisplayBookmarkFlag = true;
-    } else {
+    if (isSkipBookmark) {
       _shouldDisplayBookmarkFlag = false;
+    } else {
+      if (_lastReadMessageMarker !== MessageCollection.getLastActiveLinkId() && MessageCollection.getLastActiveLinkId() !== -1) {
+        _shouldDisplayBookmarkFlag = true;
+      } else {
+        _shouldDisplayBookmarkFlag = false;
+      }
     }
   }
 

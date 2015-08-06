@@ -196,10 +196,12 @@
      * @param {object} sticker
      * @param {array} mentions
      */
-    function enqueue(content, sticker, mentions) {
+    function enqueue(content, sticker, mentions, isSkipAppend) {
       var payload = _getPayload(content, sticker, mentions);
       that.queue.push(payload);
-      _append(payload);
+      if (!isSkipAppend) {
+        _append(payload);
+      }
     }
 
     function _getPayload(content, sticker, mentions) {
