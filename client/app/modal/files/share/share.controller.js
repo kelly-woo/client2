@@ -96,14 +96,17 @@
         _sendAnalytics(_entityType);
       } catch(e) {}
 
-      if (confirm($filter('translate')('@common-file-share-jump-channel-confirm-msg'))) {
-        if (_entityType === "users") {
-          jndPubSub.updateLeftChatList();
-          //$rootScope.$broadcast('updateMessageList');
-        }
-        modalHelper.closeModal();
+      if (_entityId !== currentSessionHelper.getCurrentEntityId()) {
 
-        callback = _goToSharedEntity;
+        if (confirm($filter('translate')('@common-file-share-jump-channel-confirm-msg'))) {
+          if (_entityType === "users") {
+            jndPubSub.updateLeftChatList();
+            //$rootScope.$broadcast('updateMessageList');
+          }
+          modalHelper.closeModal();
+
+          callback = _goToSharedEntity;
+        }
       }
 
       modalHelper.closeModal();
@@ -153,7 +156,7 @@
 
     /**
      * 현재 scope 가 없어질 때 호출된다.
-      * @private
+     * @private
      */
     function _onScopeDestroy() {
       if (!!callback) {
