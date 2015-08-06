@@ -68,8 +68,10 @@
       if (type === 'stars') {
         isActivated = true;
 
-        _initStarListData($scope.activeTabName);
-        _initGetStarList($scope.activeTabName);
+        if (!$scope.tabs[$scope.activeTabName].hasFirstLoad) {
+          _initStarListData($scope.activeTabName);
+          _initGetStarList($scope.activeTabName);
+        }
       } else {
         isActivated = false;
       }
