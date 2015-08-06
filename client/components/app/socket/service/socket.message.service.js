@@ -6,7 +6,7 @@
     .service('jndWebSocketMessage', jndWebSocketMessage);
 
   /* @ngInject */
-  function jndWebSocketMessage(logger, jndWebSocketCommon, jndPubSub,
+  function jndWebSocketMessage(logger, jndWebSocketCommon, jndPubSub, entityAPIservice,
                                memberService, currentSessionHelper, DesktopNotification) {
 
     var MESSAGE = 'message';
@@ -41,30 +41,6 @@
           _onNewMessage(data);
           break;
       }
-
-      //if (messageType === MESSAGE_FILE_COMMENT) {
-      //  // File comment event is handled in different handler since its 'rooms' attribute is an array.
-      //  jndWebSocketHelper.socketEventLogger(messageType, data, false);
-      //  jndWebSocketHelper.messageEventFileCommentHandler(data);
-      //} else if (messageType === MESSAGE_TOPIC_LEAVE) {
-      //  jndWebSocketHelper.socketEventLogger(messageType, data, false);
-      //  jndWebSocketHelper.messageEventTopicLeaveHandler(data);
-      //} else if (messageType === MESSAGE_TOPIC_JOIN && currentSessionHelper.getDefaultTopicId() === data.room.id) {
-      //  // Someone joined 'default topic' -> new member just joined team!!
-      //  jndWebSocketHelper.newMemberHandler(data);
-      //} else {
-      //  if (messageType === MESSAGE_FILE_SHARE || messageType === MESSAGE_FILE_UNSHARE) {
-      //    jndWebSocketHelper.messageEventFileShareUnshareHandler(data);
-      //  }
-      //
-      //  messageType = messageType || _APP_GOT_NEW_MESSAGE;
-      //
-      //  jndWebSocketHelper.socketEventLogger(messageType, data, false);
-      //  jndWebSocketHelper.eventStatusLogger(messageType, data);
-      //
-      //  jndWebSocketHelper.messageEventHandler(messageType, data);
-      //}
-
     }
 
     /**
@@ -83,6 +59,12 @@
       _.forEach(data.rooms, function(room) {
         _hasNotificationOn = _hasNotificationOn || memberService.isTopicNotificationOn(room.id);
 
+        if (entityAPIservice.isJoinedTopic(room) && _.isUndefined(_currentRoom)) {
+          // 바로 아래 있는 if loop에서 설정한 값을 덮어쓰지 않기위해서 _currentRoom이 undefined일 때만 설정.
+          // 굳이 설정을 해야하는 이유는 notification 에서 항상 data.room을 확인/체크하기때문임.
+          _currentRoom= room;
+        }
+
         if (jndWebSocketCommon.isCurrentEntity(room)) {
           _currentRoom = room;
           jndPubSub.updateCenterPanel();
@@ -93,9 +75,6 @@
       jndPubSub.updateLeftPanel();
 
       if (_hasNotificationOn) {
-        if (_.isUndefined(_currentRoom)) {
-          _currentRoom = data.rooms[0];
-        }
         data.room = _currentRoom;
         _sendBrowserNotification(data, true);
       }

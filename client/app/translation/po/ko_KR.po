@@ -1524,7 +1524,7 @@ msgstr "님이 "
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-post"
-msgstr "에 코멘트를 남겼습니다."
+msgstr "에 댓글을 남겼습니다."
 
 #: client/app/modal/settings/notification/setting.notification.html
 #, fuzzy
