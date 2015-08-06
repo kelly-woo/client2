@@ -4,8 +4,6 @@
 ********************************************/
 .mention {
   color: #1C6C88;
-  padding: 2px;
-  font-size: 15.5px;
 }
 
 .mention:hover {
@@ -13,14 +11,13 @@
 }
 
 .mention.me {
+  padding: 2px;
   background-color: #CEF8FF;
 }
 
 .mention.all {
   color: #1C6C88;
   background-color: #CEF8FF;
-  padding: 2px 3px;
-  margin: 0 2px;
 }
 .mention.all:hover {
   text-decoration: none;

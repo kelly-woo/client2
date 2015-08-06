@@ -713,9 +713,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           }
         }
 
-        $mentionCtrl.setMentions(mentionList, function() {
-          return _.chain(mentionList).uniq('id').sortBy('name').value();
-        });
+        $mentionCtrl.setMentions(_.chain(mentionList).uniq('id').sortBy('name').value());
       }
     });
   }

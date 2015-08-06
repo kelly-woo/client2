@@ -21,7 +21,7 @@
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
     var rStrContSearchTextMentionMarkDown = '\\[(@([^\\[]|.[^\\[]{0,30}))\\]';
 
-    var MENTION_ALL = 'ALL';
+    var MENTION_ALL = 'all';
     var MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
     var entityId = $state.params.entityId;
 
@@ -99,36 +99,34 @@
           }
         }
 
-        setMentions(mentionList, function() {
-          if (mentionList && mentionList.length > 1) {
-            mentionList.push({
-              // mention item 출력용 text
-              name: MENTION_ALL_ITEM_TEXT,
-              // mention target에 출력용 text
-              exViewName : '[@' + MENTION_ALL + ']',
-              // mention search text
-              exSearchName: 'topic',
-              u_photoThumbnailUrl: {
-                smallThumbnailUrl: configuration.assets_url + 'assets/images/mention_profile_all.png'
-              },
-              id: entityId,
-              type: 'room'
-            });
-          }
+        if (mentionList && mentionList.length > 1) {
+          mentionList = _.sortBy(mentionList, 'exSearchName');
 
-          return _.sortBy(mentionList, 'exSearchName');
-        });
+          mentionList.unshift({
+            // mention item 출력용 text
+            name: MENTION_ALL_ITEM_TEXT,
+            // mention target에 출력용 text
+            exViewName : '[@' + MENTION_ALL + ']',
+            // mention search text
+            exSearchName: 'topic',
+            u_photoThumbnailUrl: {
+              smallThumbnailUrl: configuration.assets_url + 'assets/images/mention_profile_all.png'
+            },
+            id: entityId,
+            type: 'room'
+          });
+        }
+
+        setMentions(mentionList);
       }
     }
 
-    function setMentions(mentionList, fn) {
+    function setMentions(mentionList) {
       var mentionMap = {};
       var mentionItem;
       var duplicateNameMentions = [];
       var i;
       var len;
-
-      mentionList = fn ? fn(mentionList): mentionList;
 
       for (i = 0, len = mentionList.length; i < len; ++i) {
         mentionItem = mentionList[i];
