@@ -13,18 +13,22 @@
    width: 1px;
    height: 17px;
    background-color: #e2e2e2;
-   margin: 0px 4px -3px 4px;
+   margin: 0px 4px -3px 3px;
    display: inline-block;
 }
 
 .file-uploaded-more {
   position: relative;
 }
-.file-uploaded-more .fa-cog{
+.msg-file-meta-down .fa-cog{
   font-size: 15px;
-  padding-left: 2px;
+  padding-left: 0px;
+}
+.msg-file-meta-down .icon-share{
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .file-uploaded-extra {
-  margin-right:20px
+  margin-right: 20px;
 }

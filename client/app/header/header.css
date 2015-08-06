@@ -62,7 +62,7 @@
 #invite .icon-invite-fill {
   font-size: 16px;
   float: left;
-  padding-top: 12px;
+  padding-top: 13px;
   padding-right: 4px;
 }
 
@@ -73,7 +73,7 @@
 .header-navbar__topmenu .fa-question-circle {
   font-size: 19px;
   vertical-align: middle;
-  margin-right: 2px;
+  padding-right: 3px;
 }
 .header-navbar__topmenu .icon-language {
   font-size: 20px;

@@ -21,7 +21,7 @@
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
     var rStrContSearchTextMentionMarkDown = '\\[(@([^\\[]|.[^\\[]{0,30}))\\]';
 
-    var MENTION_ALL = 'ALL';
+    var MENTION_ALL = 'all';
     var MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
     var entityId = $state.params.entityId;
 
@@ -89,18 +89,20 @@
       var len;
 
       // 현재 topic의 members
-      for (i = 0, len = members.length; i < len; i++) {
-        member = _getCurrentTopicMembers(members[i]);
-        if (member && currentMemberId !== member.id && member.status === 'enabled') {
-          member.exViewName = '[@' + member.name + ']';
-          member.exSearchName = member.name;
-          mentionList.push(member);
+      if (members) {
+        for (i = 0, len = members.length; i < len; i++) {
+          member = _getCurrentTopicMembers(members[i]);
+          if (member && currentMemberId !== member.id && member.status === 'enabled') {
+            member.exViewName = '[@' + member.name + ']';
+            member.exSearchName = member.name;
+            mentionList.push(member);
+          }
         }
-      }
 
-      setMentions(mentionList, function() {
         if (mentionList && mentionList.length > 1) {
-          mentionList.push({
+          mentionList = _.sortBy(mentionList, 'exSearchName');
+
+          mentionList.unshift({
             // mention item 출력용 text
             name: MENTION_ALL_ITEM_TEXT,
             // mention target에 출력용 text
@@ -115,18 +117,16 @@
           });
         }
 
-        return _.sortBy(mentionList, 'exSearchName');
-      });
+        setMentions(mentionList);
+      }
     }
 
-    function setMentions(mentionList, fn) {
+    function setMentions(mentionList) {
       var mentionMap = {};
       var mentionItem;
       var duplicateNameMentions = [];
       var i;
       var len;
-
-      mentionList = fn ? fn(mentionList): mentionList;
 
       for (i = 0, len = mentionList.length; i < len; ++i) {
         mentionItem = mentionList[i];
@@ -295,15 +295,18 @@
     function _onSelect($item) {
       var mention = $scope.mention;
       var mentionTarget = $item.exViewName;
+      var extraText = ' ';
       var text;
       var selection;
 
-      text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + mention.sufStr;
+      text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + extraText + mention.sufStr;
       $scope.jqEle.val(text);
       setValue(text);
 
-      selection = mention.offset + mentionTarget.length;
-      _selection(selection);
+      selection = mention.offset + mentionTarget.length + extraText.length;
+      setTimeout(function() {
+        _selection(selection);
+      }, 10);
 
       clearMention();
     }

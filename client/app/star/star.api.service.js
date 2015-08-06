@@ -11,27 +11,42 @@
     var _teamId = memberService.getTeamId();
 
     this.get = get;
+    this.getItem = getItem;
     this.star = star;
     this.unStar = unStar;
 
     /**
      * star 된 아이템의 리스트를 조회한다.
-     * @param {Number|String} page
-     * @param {Number|String} perPage
+     * @param {Number|String} starredId
+     * @param {Number|String} count
      * @param {String} type
      * @param {Number|String} [teamId=_teamId]
      * @returns {*}
      */
-    function get(messageId, count, type, teamId) {
+    function get(starredId, count, type, teamId) {
       teamId = teamId || _teamId;
       return $http({
         method: 'GET',
         url: _server_address + 'teams/' + teamId + '/messages/starred',
         params: {
-          starredId: messageId,
+          starredId: starredId,
           count: count,
           type: type
         }
+      });
+    }
+
+    /**
+     * star 된 특정 아이템을 조회한다.
+     * @param {Number|String} starredId
+     * @param {Number|String} [teamId=_teamId]
+     * @returns {*}
+     */
+    function getItem(messageId, teamId) {
+      teamId = teamId || _teamId;
+      return $http({
+        method: 'GET',
+        url: _server_address + 'teams/' + teamId + '/messages/' + messageId + '/starred'
       });
     }
 

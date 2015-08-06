@@ -9,16 +9,19 @@
     .controller('TopicItemCtrl', TopicItemCtrl);
 
   /* @ngInject */
-  function TopicItemCtrl($scope, memberService, $timeout) {
-    var _joinedEntity;
+  function TopicItemCtrl($scope, memberService, $timeout, jndPubSub) {
+    var _currentRoom;
     var _roomId;
 
     $scope.isNotificationOff = false;
 
+    $scope.onStarClick = onStarClick;
     $scope.onTooltipShow = onTooltipShow;
     $scope.onTooltipHide = onTooltipHide;
 
-    _init();
+    $scope.$watch('currentRoom', function() {
+      _init();
+    });
 
     /**
      * 초기화함수이다.
@@ -31,8 +34,8 @@
     }
 
     function _initLocalVariables() {
-      _joinedEntity = $scope.joinedEntity;
-      _roomId = _joinedEntity.id;
+      _currentRoom = $scope.currentRoom;
+      _roomId = _currentRoom.id;
     }
 
     function _attachEventListener() {
@@ -58,10 +61,25 @@
       $scope.isNotificationOff = !memberService.isTopicNotificationOn(_roomId);
     }
 
+
+    /**
+     * 토픽 이름 옆에 별표를 눌렀을 때 호출된다.
+     * @param {string} type - 눌린 토픽의 타입
+     * @param {number} id - 토픽의 아이디
+     */
+    function onStarClick(type, id) {
+      var params = {
+        entityType: type,
+        entityId: id
+      };
+
+      jndPubSub.pub('onStarClick', params);
+    }
+
     // topic title에 mouseenter시 tooltip의 출력 여부 설정하는 function
     // angular ui tooltip에 '' 문자열을 입력하면 tooltip을 출력하지 않음
     function onTooltipShow(event, joinedEntityName) {
-      var target;
+      var target
       var c;
 
       $scope.tooltip = joinedEntityName;

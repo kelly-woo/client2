@@ -24,9 +24,11 @@
   -o-transitionDISABLED: .15s;
   transitionDISABLED: .15s;
 }
+
 .panel-title-info {
   max-width: 73%;
 }
+
 .panel-title-info,
 .panel-title-member {
   display: inline-block;
@@ -271,4 +273,40 @@
 }
 .panel-title-right-menu__notification_bell .panel-title-right-menu__more_icon {
   /*padding: 3px 5px;*/
+}
+
+@media (max-width: 1374px) {
+  .rpanel-show .panel-title-info {
+    max-width: 60%;
+  }
+}
+@media (max-width: 1259px) {
+  .rpanel-show .panel-title-info {
+    max-width: 50%;
+  }
+}
+@media (max-width: 1144px) {
+  .rpanel-show .panel-title-info {
+    max-width: 37%;
+  }
+}
+@media (max-width: 980px) {
+  .panel-title-info {
+    max-width: 60%;
+  }
+}
+@media (max-width: 850px) {
+  .panel-title-info {
+    max-width: 55%;
+  }
+}
+@media (max-width: 787px) {
+  .panel-title-info {
+    max-width: 45%;
+  }
+}
+@media (max-width: 693px) {
+  .panel-title-info {
+    max-width: 37%;
+  }
 }

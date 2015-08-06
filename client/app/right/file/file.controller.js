@@ -9,7 +9,7 @@
     .controller('FileCtrl', FileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData, jndPubSub) {
+  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData) {
     _init();
 
     // First function to be called.
@@ -39,10 +39,9 @@
     }
 
     function onFileCardClick() {
-      $state.go('files', {
-        userName: $scope.writerName,
-        itemId: $scope.file.id
-      });
+      $state.go('files', {itemId: $scope.file.id});
+      //jndPubSub.updateRightFileDetailPanel();
+      //$state.go('messages.detail.filedetail', _.extend( {},$state.params, {userName: $scope.writerName, itemId: $scope.file.id, tail: $scope.file.type + 's'}));
     }
 
     function isDisabledMember() {
@@ -96,10 +95,6 @@
       } else {
         fileAPIservice.broadcastCommentFocus();
       }
-    }
-
-    function _isExtendMenu(event) {
-      return /^i$/i.test(event.target.nodeName);
     }
   }
 })();

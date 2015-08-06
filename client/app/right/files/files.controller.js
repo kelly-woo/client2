@@ -141,13 +141,11 @@
       _refreshFileList();
     });
 
-    $scope.$on('updateRightPanelCaller', function(event, data) {
-      if (data.messageType === 'file_share') {
+    $scope.$on('onChangeShared', function(event, data) {
+      if (data && _isFileStatusChangedOnCurrentFilter(data)) {
         // 'file_share' socket event에 대한 right panel 처리
 
-        if (_isFileStatusChangedOnCurrentFilter(data)) {
-          _refreshFileList();
-        }
+        _refreshFileList();
       }
     });
 
@@ -159,7 +157,7 @@
      * @private
      */
     function _isFileStatusChangedOnCurrentFilter(data) {
-      return data.room.id === $scope.fileRequest.sharedEntityId;
+      return data.room && data.room.id === $scope.fileRequest.sharedEntityId;
     }
 
     $scope.$on('onRightPanel', function($event, type, hasList) {
@@ -286,7 +284,7 @@
      * @private
      */
     function _addToSharedByOption(member) {
-      $scope.selectOptionsUsers = fileAPIservice.getShareOptions([member], $scope.memberList);
+      $scope.selectOptionsUsers = fileAPIservice.getShareOptions($scope.memberList);
     }
 
     /**

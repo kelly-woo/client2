@@ -35,7 +35,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.dataURItoBlob = dataURItoBlob;
   this.openFileShareModal = openFileShareModal;
 
-  this.broadcastChangeShared = broadcastChangeShared;
   this.broadcastCommentFocus = broadcastCommentFocus;
 
   function upload(files, fileInfo, supportHTML, uploadType) {
@@ -263,7 +262,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   function removeSharedEntities(file, list) {
     var returnValue = [];
     angular.forEach(list, function(option, index) {
-      if(file.shareEntities.indexOf(option.id) == -1)
+      if(file.shareEntities.indexOf(option.id) == -1 && option.id !== memberService.getMemberId())
         this.push(option);
     }, returnValue);
 
@@ -388,11 +387,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
     // write the ArrayBuffer to a blob, and you're done
     return new Blob([ab],{type: 'image/png'});
-  }
-
-  // Broadcast shareEntities change event to centerpanel, rightpanel, detailpanel
-  function broadcastChangeShared(data) {
-    $rootScope.$broadcast('onChangeShared', data);
   }
 
   // right panel 안에 file detail의 comment input element에 focus가 가도록 broadcast

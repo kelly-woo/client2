@@ -54,7 +54,6 @@
     }
 
     function hasAccount() {
-      console.log($rootScope.account)
       return !!$rootScope.account;
     }
 
@@ -71,11 +70,11 @@
 
       if (configuration.name == 'local') {
         if (prefix == 'local') {
+          //prefix = 'jihoonk';
           prefix = 'tosslab';
           //prefix = 'pcapp';
           //prefix = 'jihoontesting';
           //prefix = 'asdfqwer';
-          ////prefix = 'jihoonk11';
         }
       }
 

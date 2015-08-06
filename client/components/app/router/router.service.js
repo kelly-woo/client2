@@ -110,7 +110,7 @@
             } else {
               event.preventDefault();
               jndPubSub.pub('onActiveHeaderTab', 'files');
-              $state.transitionTo('messages.detail.files.redirect', _.extend(fromParams, toParams), {});
+              $state.transitionTo('messages.detail.files.item', _.extend(fromParams, toParams));
             }
             break;
           case 'messages' :
@@ -161,8 +161,6 @@
           _setCurrentEntityWithTypeAndId(toParams.entityType, toParams.entityId);
         }
       }
-
-
     }
 
     /**
@@ -189,7 +187,6 @@
       return !(fromState.name === toState.name && _.isEqual(fromParams, toParams));
     }
 
-
     /**
      * $rootScope에 있는 currentEntity를 업데이트해준다.
      * @param entityType {string} 엔티티의 타입
@@ -200,6 +197,11 @@
       entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
     }
 
+    /**
+     * state로 active 되야할 right panel의 tab name을 전달함.
+     * @param {object} state
+     * @returns {Array|{index: number, input: string}|*}
+     */
     function getActiveRightTabName(state) {
       var match = /\/([a-z]+)/i.exec(state.url);
       return match && match[1];

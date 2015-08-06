@@ -2,7 +2,7 @@
 
 var app = angular.module('jandiApp');
 
-app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q,
+app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, $window,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
                                            memberService, publicService, configuration, modalHelper, jndPubSub,
                                            jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper) {
@@ -46,7 +46,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   $scope.backToFileList = backToFileList;
   $scope.onUserClick = onUserClick;
   $scope.onCommentFocusClick = onCommentFocusClick;
-  $scope.onKeyDown = onKeyDown;
+  $scope.onKeyUp = onKeyUp;
   $scope.onFileDetailImageLoad = onFileDetailImageLoad;
   $scope.onStarClick = onStarClick;
   $scope.starComment = starComment;
@@ -61,6 +61,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    */
   function _init() {
     if (!_.isUndefined(fileId)) {
+      jndPubSub.pub('onActiveHeaderTab', 'files');
+
       _initListeners();
       $scope.isPostingComment = false;
 
@@ -211,10 +213,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
   /**
    * keyDown 핸들러
-   * @param keyDownEvent
+   * @param keyUpEvent
    */
-  function onKeyDown(keyDownEvent) {
-    if (jndKeyCode.match('ESC', keyDownEvent.keyCode)) {
+  function onKeyUp(keyUpEvent) {
+    if (jndKeyCode.match('ESC', keyUpEvent.keyCode)) {
       _hideSticker();
     }
   }
@@ -641,7 +643,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * Redirect user back to file list.
    */
   function backToFileList() {
-    $state.go('messages.detail.files');
+    $window.history.back();
   }
 
   function onFileDetailImageLoad() {
@@ -711,9 +713,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           }
         }
 
-        $mentionCtrl.setMentions(mentionList, function() {
-          return _.chain(mentionList).uniq('id').sortBy('name').value();
-        });
+        $mentionCtrl.setMentions(_.chain(mentionList).uniq('id').sortBy('name').value());
       }
     });
   }
@@ -726,7 +726,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $('.file-detail').find('.star-btn').trigger('click');
     });
   }
-
 
   /**
    * comment 를 즐겨찾기함
