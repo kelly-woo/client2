@@ -299,7 +299,6 @@
      * 토픽별 노티피케이션 설정 아이콘을 클릭했을 때 호출된다.
      */
     function onTopicNotificationBellClicked() {
-      console.log('toggling notification for ', _entityId);
       entityHeader.toggleTopicNotification(_entityId, !$scope.isTopicNotificationOn);
     }
 

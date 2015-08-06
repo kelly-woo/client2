@@ -656,7 +656,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _updateScroll() {
-    console.log('::updateScroll')
+    //console.log('::updateScroll')
     if (_isFromSearch && MessageQuery.hasSearchLinkId()) {
       _findMessageDomElementById(MessageQuery.get('linkId'), true);
       MessageQuery.clearSearchLinkId();
@@ -1510,7 +1510,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * 랜더링 repeat 가 끝났을 때 호출되는 함수
    */
   function onRepeatDone() {
-    console.log('::onRepeatDone');
+    //console.log('::onRepeatDone');
     jndPubSub.pub('onRepeatDone');
     _updateScroll();
     $timeout(function() {
