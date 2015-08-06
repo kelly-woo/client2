@@ -8,7 +8,7 @@
   function topics() {
     return {
       restrict: 'EA',
-      scope: true,
+      scope: false,
       controller: 'topicsCtrl',
       link: link,
       transclude: true,
