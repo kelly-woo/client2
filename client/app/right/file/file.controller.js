@@ -9,7 +9,7 @@
     .controller('FileCtrl', FileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData, jndPubSub) {
+  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData) {
     _init();
 
     // First function to be called.
@@ -95,10 +95,6 @@
       } else {
         fileAPIservice.broadcastCommentFocus();
       }
-    }
-
-    function _isExtendMenu(event) {
-      return /^i$/i.test(event.target.nodeName);
     }
   }
 })();

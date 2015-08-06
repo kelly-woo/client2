@@ -28,7 +28,8 @@
       getEntityByEntityId: getEntityByEntityId,
       extend: extend,
       isJoinedTopic: isJoinedTopic,
-      getMemberList: getMemberList
+      getMemberList: getMemberList,
+      isLeavedTopic: isLeavedTopic
     };
 
     return service;
@@ -322,6 +323,28 @@
       } else {
         return entity.pg_members;
       }
+    }
+
+    /**
+     * topic에 포함되지 않은 member인지 여부
+     * @param {object} topic
+     * @param {number} memberId
+     * @returns {boolean}
+     */
+    function isLeavedTopic(entity, memberId) {
+      var result = false;
+      var members;
+      
+      if (entity) {
+        members = getMemberList(entity);
+        if (members && members.indexOf(memberId) < 0) {
+          result = true;
+        }
+      } else {
+        result = true;
+      }
+
+      return result;
     }
   }
 })();

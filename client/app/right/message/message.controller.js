@@ -9,7 +9,7 @@
     .controller('MessageCtrl', MessageCtrl);
 
   /* @ngInject */
-  function MessageCtrl($scope, $state, $filter, EntityMapManager, memberService, MessageQuery, jndPubSub, MessageData, currentSessionHelper) {
+  function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData, currentSessionHelper, entityAPIservice, memberService) {
     _init();
 
     // First function to be called.
@@ -17,7 +17,6 @@
       var message = $scope.message = MessageData.convert($scope.messageType, $scope.messageData);
 
       $scope.writer = EntityMapManager.get('total', message.writerId);
-      $scope.topic = EntityMapManager.get('total', message.roomId);
 
       $scope.writerName = $scope.writer.name;
       $scope.profileImage = $filter('getSmallThumbnail')($scope.writer);
@@ -72,32 +71,12 @@
       if (message.contentType === 'comment' && message.feedbackId > 0) {
         _goToFileDetail(message, writer);
       } else {
-        if (_isPrivateTopicLeaved(message)) {
-          alert('현재 삭제되거나 나간 토픽이므로 원본을 확인할 수 없습니다.');
+        if (entityAPIservice.isLeavedTopic(EntityMapManager.get('total', message.roomId), memberService.getMemberId())) {
+          alert($filter('translate')('@common-leaved-topic'));
         } else {
           _goToTopic(message);
         }
       }
-    }
-
-    function _isPrivateTopicLeaved(message) {
-      var result = false;
-      var topic = $scope.topic;
-      var currentMemberId = memberService.getMemberId();
-      var members;
-
-      if (message.roomType === 'privateGroup') {
-        if (topic) {
-          members = topic.pg_members;
-          if (members.indexOf(currentMemberId) < 0) {
-            result = true;
-          }
-        } else {
-          result = true;
-        }
-      }
-
-      return result;
     }
 
     function _goToFileDetail(message, writer) {
