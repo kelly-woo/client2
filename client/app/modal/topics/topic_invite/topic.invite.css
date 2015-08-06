@@ -1,10 +1,10 @@
 .modal-dialog .invite-channel .help-invite-members {
 	display: inline-block;
-	width: 76px;
-	height: 96px;
-	background-size: 76px 96px;
-	margin-top: 32px;
-  	margin-bottom: 20px;
+    width: 76px;
+    height: 89px;
+    background-size: 76px 89px;
+    margin-top: 32px;
+    margin-bottom: 20px;
 }
 
 .invite-channel .invite-channel-full {
