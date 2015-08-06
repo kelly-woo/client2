@@ -89,34 +89,36 @@
       var len;
 
       // 현재 topic의 members
-      for (i = 0, len = members.length; i < len; i++) {
-        member = _getCurrentTopicMembers(members[i]);
-        if (member && currentMemberId !== member.id && member.status === 'enabled') {
-          member.exViewName = '[@' + member.name + ']';
-          member.exSearchName = member.name;
-          mentionList.push(member);
+      if (members) {
+        for (i = 0, len = members.length; i < len; i++) {
+          member = _getCurrentTopicMembers(members[i]);
+          if (member && currentMemberId !== member.id && member.status === 'enabled') {
+            member.exViewName = '[@' + member.name + ']';
+            member.exSearchName = member.name;
+            mentionList.push(member);
+          }
         }
+
+        setMentions(mentionList, function() {
+          if (mentionList && mentionList.length > 1) {
+            mentionList.push({
+              // mention item 출력용 text
+              name: MENTION_ALL_ITEM_TEXT,
+              // mention target에 출력용 text
+              exViewName : '[@' + MENTION_ALL + ']',
+              // mention search text
+              exSearchName: 'topic',
+              u_photoThumbnailUrl: {
+                smallThumbnailUrl: configuration.assets_url + 'assets/images/mention_profile_all.png'
+              },
+              id: entityId,
+              type: 'room'
+            });
+          }
+
+          return _.sortBy(mentionList, 'exSearchName');
+        });
       }
-
-      setMentions(mentionList, function() {
-        if (mentionList && mentionList.length > 1) {
-          mentionList.push({
-            // mention item 출력용 text
-            name: MENTION_ALL_ITEM_TEXT,
-            // mention target에 출력용 text
-            exViewName : '[@' + MENTION_ALL + ']',
-            // mention search text
-            exSearchName: 'topic',
-            u_photoThumbnailUrl: {
-              smallThumbnailUrl: configuration.assets_url + 'assets/images/mention_profile_all.png'
-            },
-            id: entityId,
-            type: 'room'
-          });
-        }
-
-        return _.sortBy(mentionList, 'exSearchName');
-      });
     }
 
     function setMentions(mentionList, fn) {
