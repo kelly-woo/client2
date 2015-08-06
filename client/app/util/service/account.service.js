@@ -54,7 +54,6 @@
     }
 
     function hasAccount() {
-      console.log($rootScope.account)
       return !!$rootScope.account;
     }
 
