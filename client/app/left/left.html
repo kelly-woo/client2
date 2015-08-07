@@ -78,7 +78,7 @@
   <div class="cpanel opac-zero" id="cpanel"
        ng-class="{
        'scroll_gray': !browser.platform.isMac,
-       'rpanel-show': $state.includes('**.files.**') || isOpenRightPanel,
+       'rpanel-show': $state.includes('**.files.**') || $state.includes('**.stars.**') || isOpenRightPanel,
        'opac-in': isReady
        }">
     <entity-header></entity-header>

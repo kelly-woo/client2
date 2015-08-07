@@ -27,7 +27,7 @@
         scope.onFileCardClick();
       });
 
-      if (scope.file.type === 'text') {
+      if (scope.file.type === 'file') {
         // 파일 공유, 댓글, 다운로드, 삭제 메뉴버튼의 click event handling
         el.find('.file-menu')
           .on('click', 'i,a.star-file,a.share-file,a.focus-comment-file,a.download-file,a.delete-file', function (event) {

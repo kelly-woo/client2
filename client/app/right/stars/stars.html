@@ -4,15 +4,15 @@
     <tab active="tabs.all.active" heading="{{tabs.all.name}}" select="onTabSelect('all');">
       <div class="tab-contents" infinite-scroll-bottom="loadMore();">
         <div class="infinite-scroll-bottom-list">
-          <div class="search-result-container" ng-if="isLoading || tabs.all.empty">
-            <div class="search-result-summary-ing" ng-if="isLoading"><span translate>@search-in-progress</span></div>
+          <div class="search-result-container" ng-if="tabs.all.isLoading || tabs.all.empty">
+            <div class="search-result-summary-ing" ng-if="tabs.all.isLoading"><span translate>@search-in-progress</span></div>
             <div class="search-result-summary-ing" ng-if="tabs.all.empty"><span translate>@star-all-empty</span></div>
           </div>
           <div ng-repeat="item in tabs.all.list track by item.message.id">
             <message ng-if="item.message.contentType !== 'file'"  message-data="item" message-type="messageType"></message>
             <file ng-if="item.message.contentType === 'file'" file-data="item" file-type="fileType"></file>
           </div>
-          <div class="file-list__item loading" ng-if="isScrollLoading && tabs.all.list.length > 0">
+          <div class="file-list__item loading" ng-if="tabs.all.isScrollLoading && tabs.all.list.length > 0">
             <div class="loading_container_background scroll_loading_container_background"></div>
             <div class="loading_bar scroll_loading_bar">
               <span class="three-quarters-loader jnd-three-quarters-loader"></span>
@@ -28,14 +28,14 @@
     <tab active="tabs.files.active" heading="{{tabs.files.name}}" select="onTabSelect('files');">
       <div class="tab-contents" infinite-scroll-bottom="loadMore();">
         <div class="infinite-scroll-bottom-list">
-          <div class="search-result-container" ng-if="isLoading || tabs.files.empty">
-            <div class="search-result-summary-ing" ng-if="isLoading"><span translate>@search-in-progress</span></div>
+          <div class="search-result-container" ng-if="tabs.files.isLoading || tabs.files.empty">
+            <div class="search-result-summary-ing" ng-if="tabs.files.isLoading"><span translate>@search-in-progress</span></div>
             <div class="search-result-summary-ing" ng-if="tabs.files.empty"><span translate>@star-files-empty</span></div>
           </div>
           <div ng-repeat="file in tabs.files.list track by file.message.id">
             <file file-data="file" file-type="fileType"></file>
           </div>
-          <div class="file-list__item loading" ng-if="isScrollLoading && tabs.files.list.length > 0">
+          <div class="file-list__item loading" ng-if="tabs.files.isScrollLoading && tabs.files.list.length > 0">
             <div class="loading_container_background scroll_loading_container_background"></div>
             <div class="loading_bar scroll_loading_bar">
               <span class="three-quarters-loader jnd-three-quarters-loader"></span>

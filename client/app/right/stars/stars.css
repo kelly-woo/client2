@@ -24,7 +24,6 @@
 
 .star-list .nav-tabs > li > a:hover {
   color: #333;
-  background-color: #fff;
   border: 0;
 }
 
@@ -46,4 +45,9 @@
   background-color: #fff;
   opacity: 1;
   transition: opacity 0.7s;
+}
+
+.star-list .file-card:hover,
+.star-list .message-card:hover {
+  background-color: #f2fbff;
 }

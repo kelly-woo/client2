@@ -82,7 +82,10 @@
         })
         .state('messages.detail.files.item', {
           url: '/:itemId',
-          title: 'FILE DETAIL',
+          title: 'FILE DETAIL'
+        })
+        .state('messages.detail.files.redirect', {
+          params: ['entityType', 'entityId', 'userName', 'itemId', 'tail'],
           views: {
             'detailpanel@': {
               templateUrl: 'app/right/file.detail/file.detail.html',
@@ -90,19 +93,6 @@
             }
           }
         })
-        //.state('messages.detail.files.item', {
-        //  url: '/:itemId',
-        //  title: 'FILE DETAIL'
-        //})
-        //.state('messages.detail.files.redirect', {
-        //  params: ['entityType', 'entityId', 'userName', 'itemId', 'tail'],
-        //  views: {
-        //    'detailpanel': {
-        //      templateUrl: 'app/right/file.detail/file.detail.html',
-        //      controller: 'fileDetailCtrl'
-        //    }
-        //  }
-        //})
         .state('messages.detail.messages', {
           url: '/messages',
           title: 'MESSAGE LIST'
@@ -110,6 +100,19 @@
         .state('messages.detail.stars', {
           url: '/stars',
           title: 'STAR LIST'
+        })
+        .state('messages.detail.stars.item', {
+          url: '/:itemId',
+          title: 'STAR DETAIL'
+        })
+        .state('messages.detail.stars.redirect', {
+          params: ['entityType', 'entityId', 'userName', 'itemId', 'tail'],
+          views: {
+            'detailpanel@': {
+              templateUrl: 'app/right/file.detail/file.detail.html',
+              controller: 'fileDetailCtrl'
+            }
+          }
         })
         .state('messages.detail.mentions', {
           url: '/mentions',
@@ -120,6 +123,10 @@
         })
         .state('files', {
           url: '/files/{userName}/{itemId}',
+          controller: ''
+        })
+        .state('stars', {
+          url: '/stars/{userName}/{itemId}',
           controller: ''
         })
         .state('error', {
