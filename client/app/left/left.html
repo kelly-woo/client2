@@ -17,7 +17,7 @@
         }">
       <div class="msgs__loading initial">
         <div class="dummy_initial_wrap">
-          <span class="three-quarters-loader jnd-three-quarters-loader"></span>
+          <span ng-if='!browser.msie' class="three-quarters-loader jnd-three-quarters-loader"></span>
           <div class="dummy_initial_text">
             <h3 animate-text="loadingTextList">Loading</h3>
           </div>
