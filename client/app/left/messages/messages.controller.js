@@ -122,7 +122,8 @@
 
       messageList.leaveCurrentMessage(entityId)
         .success(function(response) {
-          if (entityId == $scope.currentEntity.id) {
+          //if (entityId == $scope.currentEntity.id) {
+          if (entityId == currentSessionHelper.getCurrentEntity().id) {
             publicService.goToDefaultTopic();
           }
         })
