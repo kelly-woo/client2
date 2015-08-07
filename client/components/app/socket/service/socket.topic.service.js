@@ -45,7 +45,7 @@
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
       } else {
-        _updateLeftPanel();
+        _updateLeftPanel(data);
       }
     }
 
@@ -56,7 +56,7 @@
      */
     function _onTopicJoined(data) {
       logger.socketEventLogger(data.event, data);
-      _updateLeftPanel();
+      _updateLeftPanel(data);
     }
 
     /**
@@ -80,7 +80,7 @@
      */
     function _onTopicLCreated(data) {
       logger.socketEventLogger(data.event, data);
-      _updateLeftPanel();
+      _updateLeftPanel(data);
     }
 
     /**
