@@ -1038,6 +1038,12 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           payload.content, payload.sticker, payload.mentions, deferredObject.postMessage)
           .success(function () {
             MessageSendingCollection.sent(payload, true);
+            try {
+              //analytics
+              AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_POST, {
+                'RESPONSE_SUCCESS': true
+              });
+            } catch (e) {}
           })
           .error(function () {
             MessageSendingCollection.sent(payload, false);
