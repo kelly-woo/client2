@@ -76,6 +76,7 @@
         var that = this;
 
         if (that.status === 200) {
+          _onImageLoadSuccess();
           _loadImage(that.response);
         } else {
           _onImageLoadError();
@@ -110,6 +111,7 @@
         if (img.type === 'error') {
           _onImageLoadError();
         } else {
+          _onImageLoadSuccess();
           img.setAttribute('class', 'image-loader-image');
 
           _resizeImage(img);
@@ -203,7 +205,15 @@
             ImagesHelper.setVerticalCenter(jqImageContainer, jqImageContainer.parent(), isFullScreen);
           }
         }
+      }
 
+      /**
+       * 이미지 로드에 한번이라도 성공했을 경우.
+       * @private
+       */
+      function _onImageLoadSuccess() {
+        jqImageContainer.removeClass('no-image-preview-square');
+        jqImageContainer.removeClass('no-image-preview');
       }
 
       /**
