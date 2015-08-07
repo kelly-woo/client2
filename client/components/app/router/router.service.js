@@ -210,7 +210,7 @@
      */
     function getActiveRightTabName(state) {
       var match = /\/([a-z]+)/i.exec(state.url);
-      return match && match[1];
+      return match ? match[1] : (state.url === '/:itemId' && 'files');
     }
   }
 })();

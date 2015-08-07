@@ -187,7 +187,7 @@
   border-bottom: 1px solid #e1e1e1;
 }
 
-.rpanel-header > i {
+.rpanel-header i {
   position: absolute;
   display: block;
   color: #154a67;
@@ -196,7 +196,7 @@
   margin-left: 10px;
   cursor: pointer;
 }
-.rpanel-header > span {
+.rpanel-header span {
   display: inline-block;
   width: 300px;
   vertical-align: middle;
