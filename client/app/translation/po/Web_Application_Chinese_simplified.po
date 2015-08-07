@@ -1562,6 +1562,9 @@ msgstr "JANDI 新信息"
 #~ msgid "@input-search-file-title"
 #~ msgstr "关键词搜索"
 
+#~ msgid "@option-all-members"
+#~ msgstr "全部"
+
 #~ msgid "@option-all-rooms"
 #~ msgstr "全部"
 

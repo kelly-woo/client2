@@ -1632,6 +1632,9 @@ msgstr "JANDI Message Received"
 #~ msgid "@input-search-file-title"
 #~ msgstr "Search by keyword(s)"
 
+#~ msgid "@option-all-members"
+#~ msgstr "All"
+
 #~ msgid "@option-all-rooms"
 #~ msgstr "All"
 

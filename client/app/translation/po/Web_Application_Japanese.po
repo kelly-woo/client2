@@ -1627,6 +1627,9 @@ msgstr "JANDI 新着メッセージ通知"
 #~ msgid "@input-search-file-title"
 #~ msgstr "キーワードで検索"
 
+#~ msgid "@option-all-members"
+#~ msgstr "全てのメンバー"
+
 #~ msgid "@option-all-rooms"
 #~ msgstr "全トピック"
 

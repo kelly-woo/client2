@@ -1618,6 +1618,9 @@ msgstr "JANDI 메시지"
 #~ msgid "@input-search-file-title"
 #~ msgstr "검색어를 입력하세요"
 
+#~ msgid "@option-all-members"
+#~ msgstr "모든 멤버"
+
 #~ msgid "@option-all-rooms"
 #~ msgstr "모든 대화방"
 
