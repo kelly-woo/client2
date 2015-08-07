@@ -6,7 +6,8 @@
     .service('DesktopNotification', DesktopNotification);
 
   /* @ngInject */
-  function DesktopNotification($state, $filter, logger, jndPubSub, localStorage, accountService, RouterHelper) {
+  function DesktopNotification($state, $filter, logger, jndPubSub, localStorage,
+                               accountService, RouterHelper, memberService) {
     var that = this;
 
     var appName;
@@ -62,6 +63,8 @@
     that.addNotification = addNotification;
 
     that.canSendNotification = shouldSendNotification;
+
+    that.sendMentionNotification = sendMentionNotification;
 
     that.setNeverAskFlag = setNeverAskFlag;
     that.isNeverAskFlagUp = isNeverAskFlagUp;
@@ -413,7 +416,6 @@
       };
     }
 
-
     /**
      * 유져인지 아닌지 확인 후 알맞는 포맷에 맞게 바디를 만든다.
      * @param {boolean} isUser - 유져인지 아닌지 분별
@@ -532,6 +534,31 @@
     }
 
     /**
+     * mention 의 notification을 위한 내용이다.
+     * @param {object} writerEntity - 나를 멘션한 사람
+     * @param {object} roomEntity - 나를 멘션한 곳
+     * @param {string} message - 멘션이 포함된 메세지
+     * @returns {string}
+     * @private
+     */
+    function _getBodyForMentionWithMessage(writerEntity, roomEntity, message) {
+      var myName = memberService.getMember().name;
+      return '@' + myName + ' [' + roomEntity.name + '] ' + writerEntity.name + ': ' + message;
+    }
+
+    /**
+     * mention의 notification을 위한 내용이다. 메세지는 보여주지 않는다.
+     * @param {object} writerEntity - 나를 멘션한 사람
+     * @param {object} roomEntity - 나를 멘션한 곳
+     * @returns {string}
+     * @private
+     */
+    function _getBodyForMentionWithoutMessage(writerEntity, roomEntity) {
+      return writerEntity.name + ' mentioned you in ' + roomEntity.name;
+
+    }
+
+    /**
      * addNotification function 에서 필요한 validation 이다.
      * 정확한 내용은 나도 잘 모른다.
      * @param {object} data - data
@@ -553,6 +580,32 @@
       return isNotificationPermissionGranted() && isNotificationOnLocally;
     }
 
+
+    function sendMentionNotification(data, writerEntity, roomEntity) {
+      var options = {};
+      var notification;
+      var message;
+      var isUser = roomEntity.type === 'users';
+
+      if (_validateNotificationParams(data, writerEntity, roomEntity)) {
+        options.icon = $filter('getSmallThumbnail')(writerEntity);
+        message = decodeURIComponent(data.message);
+
+        if (isShowNotificationContent) {
+          options.body = _getBodyForMentionWithMessage(writerEntity, roomEntity, message);
+        } else {
+          options.body = _getBodyWithoutMessage(isUser, writerEntity, roomEntity);
+        }
+
+        options.tag = isUser ? writerEntity.id : roomEntity.id;
+        options.data = {
+          id: roomEntity.id,
+          type: roomEntity.type
+        };
+
+        (notification = _createInstance(options)) && notification.show();
+      }
+    }
 
 
     /**
