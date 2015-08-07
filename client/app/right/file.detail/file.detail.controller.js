@@ -473,15 +473,15 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     $('#file-detail-comment-input').focus();
   }
 
-  /**
-   * input scroll 이 존재하는지 반환한다.
-   * @returns {boolean}
-   * @private
-   */
-  function _hasInputScroll() {
-    var input = $('#file-detail-comment-input')[0];
-    return input.scrollHeight > input.clientHeight;
-  }
+  ///**
+  // * input scroll 이 존재하는지 반환한다.
+  // * @returns {boolean}
+  // * @private
+  // */
+  //function _hasInputScroll() {
+  //  var input = $('#file-detail-comment-input')[0];
+  //  return input.scrollHeight > input.clientHeight;
+  //}
 
   /**
    * 스티커 레이어를 숨긴다.
@@ -539,9 +539,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       _setFileDetail(item);
     }
 
-    if (!$scope.initialLoaded) {
-      $scope.initialLoaded = true;
-    }
     if ($scope.file_detail) {
       // isStarred
       $scope.isStarred = $scope.file_detail.isStarred;
@@ -556,6 +553,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       // integrate file
       $scope.isIntegrateFile = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
+    }
+
+    if (!$scope.initialLoaded) {
+      $scope.initialLoaded = true;
     }
   }
 
