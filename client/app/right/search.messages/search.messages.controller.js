@@ -140,7 +140,7 @@
             try {
               AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_KEYWORD_SEARCH, {
                 'RESPONSE_SUCCESS': true,
-                'SEARCH_KEYWORD': $scope.searchQuery.q
+                'SEARCH_KEYWORD': encodeURIComponent($scope.searchQuery.q)
               });
             } catch (e) {
             }
