@@ -6,52 +6,14 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
                                            memberService, publicService, configuration, modalHelper, jndPubSub,
                                            jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper) {
-
-  //console.info('[enter] fileDetailCtrl');
-  var _sticker = null;
-  var _stickerType = 'file';
-  var fileId = $state.params.itemId;
+  var _sticker;
+  var _stickerType;
+  var fileId;
   var _commentIdToScroll;
 
   //file detail에서 integraiton preview로 들어갈 image map
-  var integrationPreviewMap = {
-    google: 'assets/images/web_preview_google.png',
-    dropbox: 'assets/images/web_preview_dropbox.png'
-  };
-  var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
-
-  $scope.initialLoaded = false;
-  $scope.file_detail = null;
-  $scope.file_comments = [];
-  $scope.glued = false;
-  $scope.isPostingComment = false;
-  $scope.hasFileAPIError = false;
-  $scope.isLoadingImage = true;
-
-
-  // configuration for message loading
-  $scope.fileLoadStatus = {
-    loading: false
-  };
-
-  $scope.deleteComment = deleteComment;
-  $scope.postComment = postComment;
-  $scope.onImageClick = onImageClick;
-  $scope.onClickDownload = onClickDownload;
-  $scope.onClickShare = onClickShare;
-  $scope.onClickUnshare = onClickUnshare;
-  $scope.onClickSharedEntity = onClickSharedEntity;
-  $scope.onFileDeleteClick = onFileDeleteClick;
-  $scope.isDisabledMember = isDisabledMember;
-  $scope.backToFileList = backToFileList;
-  $scope.onUserClick = onUserClick;
-  $scope.onCommentFocusClick = onCommentFocusClick;
-  $scope.onKeyUp = onKeyUp;
-  $scope.onFileDetailImageLoad = onFileDetailImageLoad;
-  $scope.onStarClick = onStarClick;
-  $scope.starComment = starComment;
-  $scope.getCreateTime = getCreateTime;
-  $scope.watchFileDetail = watchFileDetail;
+  var integrationPreviewMap;
+  var noPreviewAvailableImage;
 
   _init();
 
@@ -60,17 +22,66 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _init() {
-    if (!_.isUndefined(fileId)) {
-      jndPubSub.pub('onActiveHeaderTab', 'files');
+    if (/redirect/.test($state.current.name)) {
+      // 왼쪽 상단에 표시되는 back to list해야되는 target
+      if ($state.params.tail != null) {
+        RouterHelper.setRightPanelTail($state.params.tail);
+      }
 
-      _initListeners();
-      $scope.isPostingComment = false;
+      $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files') + '.item', $state.params);
+    } else {
+      _stickerType = 'file';
+      fileId = $state.params.itemId;
+      integrationPreviewMap = {
+        google: 'assets/images/web_preview_google.png',
+        dropbox: 'assets/images/web_preview_dropbox.png'
+      };
+      noPreviewAvailableImage = 'assets/images/no_preview_available.png';
 
-      getFileDetail();
+      if (!_.isUndefined(fileId)) {
+        $scope.initialLoaded = false;
+        $scope.file_detail = null;
+        $scope.file_comments = [];
+        $scope.glued = false;
+        $scope.isPostingComment = false;
+        $scope.hasFileAPIError = false;
+        $scope.isLoadingImage = true;
+        $scope.tail = 'file';
 
-      if (RouterHelper.hasCommentToScroll()) {
-        _commentIdToScroll = RouterHelper.getCommentIdToScroll();
-        RouterHelper.resetCommentIdToScroll();
+
+        // configuration for message loading
+        $scope.fileLoadStatus = {
+          loading: false
+        };
+
+        $scope.deleteComment = deleteComment;
+        $scope.postComment = postComment;
+        $scope.onImageClick = onImageClick;
+        $scope.onClickDownload = onClickDownload;
+        $scope.onClickShare = onClickShare;
+        $scope.onClickUnshare = onClickUnshare;
+        $scope.onClickSharedEntity = onClickSharedEntity;
+        $scope.onFileDeleteClick = onFileDeleteClick;
+        $scope.isDisabledMember = isDisabledMember;
+        $scope.backToFileList = backToFileList;
+        $scope.onUserClick = onUserClick;
+        $scope.onCommentFocusClick = onCommentFocusClick;
+        $scope.onKeyUp = onKeyUp;
+        $scope.onFileDetailImageLoad = onFileDetailImageLoad;
+        $scope.onStarClick = onStarClick;
+        $scope.starComment = starComment;
+        $scope.getCreateTime = getCreateTime;
+        $scope.watchFileDetail = watchFileDetail;
+
+        _initListeners();
+        $scope.isPostingComment = false;
+
+        getFileDetail();
+
+        if (RouterHelper.hasCommentToScroll()) {
+          _commentIdToScroll = RouterHelper.getCommentIdToScroll();
+          RouterHelper.resetCommentIdToScroll();
+        }
       }
     }
   }
@@ -122,8 +133,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var list = $scope.file_comments;
     var member = data.member;
     var id = member.id;
-    var url = $filter('getSmallThumbnail')(member);
-    console.log('filedetail: ', member);
+    //var url = $filter('getSmallThumbnail')(member);
+    //console.log('filedetail: ', member);
     _.forEach(list, function(comment) {
       if (comment.writerId === id) {
         _addExtraData(comment, comment.writerId);
@@ -528,8 +539,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       _setFileDetail(item);
     }
 
-    $state.go('messages.detail.files.item', $state.params);
-
     if (!$scope.initialLoaded) {
       $scope.initialLoaded = true;
     }
@@ -643,7 +652,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * Redirect user back to file list.
    */
   function backToFileList() {
-    $window.history.back();
+    $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files'));
   }
 
   function onFileDetailImageLoad() {

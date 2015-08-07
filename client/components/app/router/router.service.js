@@ -65,15 +65,16 @@
           case 'signin':
             break;
           case 'archives':
-            event.preventDefault();
+            var archivesListType;
 
-            if (fromState.name.indexOf("files") !== -1) {
+            event.preventDefault();
+            if (archivesListType = /messages.detail.([a-z]+)/i.exec(fromState.name)) {
               if (fromParams.itemId) {
                 // file detail view
-                $state.go('messages.detail.files.item', _.extend(toParams, {"itemId": fromParams.itemId}));
+                $state.go('messages.detail.' + archivesListType[1] + '.item', _.extend(toParams, {"itemId": fromParams.itemId}));
               } else {
                 // file list view
-                $state.go('messages.detail.files', toParams);
+                $state.go('messages.detail.' + archivesListType[1], toParams);
               }
             } else {
               $state.go('messages.detail', toParams);
@@ -110,8 +111,13 @@
             } else {
               event.preventDefault();
               jndPubSub.pub('onActiveHeaderTab', 'files');
-              $state.transitionTo('messages.detail.files.item', _.extend(fromParams, toParams));
+              $state.transitionTo('messages.detail.files.redirect', _.extend({tail: 'files'}, fromParams, toParams));
             }
+            break;
+          case 'stars':
+            event.preventDefault();
+            jndPubSub.pub('onActiveHeaderTab', 'stars');
+            $state.transitionTo('messages.detail.stars.redirect', _.extend({tail: 'stars'}, fromParams, toParams));
             break;
           case 'messages' :
           case 'messages.home' :
