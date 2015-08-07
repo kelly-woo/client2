@@ -181,7 +181,6 @@
       var foundMentionToMe = false;
       _.each(mentionList, function(mentionObj) {
         if (mentionObj.id === memberService.getMemberId()) {
-          console.log('::mention to me!!');
           foundMentionToMe = true;
           return false;
         }
