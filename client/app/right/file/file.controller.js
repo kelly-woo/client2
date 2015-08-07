@@ -39,7 +39,7 @@
     }
 
     function onFileCardClick() {
-      $state.go('files', {itemId: $scope.file.id});
+      $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
       //jndPubSub.updateRightFileDetailPanel();
       //$state.go('messages.detail.filedetail', _.extend( {},$state.params, {userName: $scope.writerName, itemId: $scope.file.id, tail: $scope.file.type + 's'}));
     }
