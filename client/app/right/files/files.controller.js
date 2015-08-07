@@ -380,7 +380,7 @@
             try {
               AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_KEYWORD_SEARCH, {
                 'RESPONSE_SUCCESS': true,
-                'SEARCH_KEYWORD': $scope.fileRequest.keyword
+                'SEARCH_KEYWORD': encodeURIComponent($scope.fileRequest.keyword)
               });
             } catch (e) {
             }
