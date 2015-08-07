@@ -120,6 +120,7 @@
   float: left;
   margin-top: 6px;
   margin-right: 9px;
+  position: relative;
 }
 .header-toolbar > ul > li:last-child {
   margin-right: 12px;
@@ -134,6 +135,7 @@
   border: 1px solid rgba(255,255,255,0.2);
   cursor: pointer;
   border-radius: 20px;
+
 }
 .header-toolbar li:last-child .info-tool {
   font-size: 18px;
@@ -184,4 +186,8 @@
 }
 .flag.flag-zh-tw {
   background-position: -64px -154px;
+}
+.header-info-tool.absolute-right-tooltip .tooltip-arrow {
+  right: 12px;
+  left: auto;
 }

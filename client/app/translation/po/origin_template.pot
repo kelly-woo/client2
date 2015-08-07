@@ -196,18 +196,8 @@ msgstr ""
 msgid "@channel"
 msgstr ""
 
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr ""
-
 #: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
-msgstr ""
-
-#: client/app/left/messages/messages.html
-msgid "@common-add"
 msgstr ""
 
 #: client/app/center/center.html
@@ -294,6 +284,7 @@ msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/right/file.detail/file.detail.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@common-download"
 msgstr ""
@@ -428,7 +419,7 @@ msgstr ""
 msgid "@common-joined"
 msgstr ""
 
-#: client/app/right/message/message.html
+#: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr ""
 
@@ -442,6 +433,10 @@ msgstr ""
 
 #: client/app/right/right.html
 msgid "@common-message"
+msgstr ""
+
+#: client/app/header/header.html
+msgid "@common-message-search"
 msgstr ""
 
 #: client/app/right/search.messages/search.messages.html
@@ -587,6 +582,12 @@ msgstr ""
 
 #: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
+msgstr ""
+
+#: client/app/tutorial/popup/tutorial.main.html
+#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
+#: client/app/tutorial/welcome/tutorial.welcome.html
+msgid "@common_skip_all"
 msgstr ""
 
 #: client/app/left/left.html
@@ -791,10 +792,6 @@ msgid "@integration-title-google-drive"
 msgstr ""
 
 #: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr ""
 
@@ -833,6 +830,10 @@ msgstr ""
 msgid "@invitation-some-fail"
 msgstr ""
 
+#: client/app/modal/teams/team_invite/team.invite.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+
 #: client/app/signin/signin.html
 msgid "@keep-me-logged-in"
 msgstr ""
@@ -868,7 +869,6 @@ msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/text-unsent/text.unsent.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@message-delete"
@@ -932,6 +932,10 @@ msgstr ""
 
 #: client/app/modal/files/upload/upload.html
 msgid "@modal-upload-title-msg1"
+msgstr ""
+
+#: client/app/left/messages/messages.html
+msgid "@more-dm-list"
 msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
@@ -1126,6 +1130,10 @@ msgid "@topic-description-placeholder"
 msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
+msgid "@topic-joined-member"
+msgstr ""
+
+#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-off-topic-alarm"
 msgstr ""
 
@@ -1135,6 +1143,80 @@ msgstr ""
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-on-topic-alarm"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-click-blink"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.html
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-done"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg1"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg2"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-msg3"
+msgstr ""
+
+#: client/app/modal/change_log/changeLog.msg.search.html
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-file-title"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-message-file-title"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-msg-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-skip"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tips"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-dm-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-group-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-title"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-topic-topic-explanation"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-tour"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-intro"
+msgstr ""
+
+#: client/app/tutorial/tutorial.html
+msgid "@tutorial-welcome-title"
 msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
@@ -1325,80 +1407,6 @@ msgstr ""
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_welcome_title"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-click-blink"
-msgstr ""
-
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-done"
-msgstr ""
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg1"
-msgstr ""
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg2"
-msgstr ""
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-msg3"
-msgstr ""
-
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-file-title"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-message-file-title"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-msg-explanation"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-skip"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tips"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-dm-explanation"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-group-explanation"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-title"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-topic-topic-explanation"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-tour"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-intro"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
-msgid "@tutorial-welcome-title"
 msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html

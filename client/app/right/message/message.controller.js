@@ -9,7 +9,7 @@
     .controller('MessageCtrl', MessageCtrl);
 
   /* @ngInject */
-  function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData, currentSessionHelper, entityAPIservice, memberService) {
+  function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData, currentSessionHelper, entityAPIservice, memberService, messageAPIservice) {
     _init();
 
     // First function to be called.
@@ -69,14 +69,35 @@
 
     function _redirect(message, writer) {
       if (message.contentType === 'comment' && message.feedbackId > 0) {
-        _goToFileDetail(message, writer);
+        _goTo(function() {
+          _goToFileDetail(message, writer);
+        });
       } else {
-        if (entityAPIservice.isLeavedTopic(EntityMapManager.get('total', message.roomId), memberService.getMemberId())) {
-          alert($filter('translate')('@common-leaved-topic'));
+        if (!entityAPIservice.isLeavedTopic(EntityMapManager.get('total', message.roomId), memberService.getMemberId())) {
+          _goTo(function() {
+            _goToTopic(message);
+          });
         } else {
-          _goToTopic(message);
+          alert($filter('translate')('@common-leaved-topic'));
         }
       }
+    }
+
+    function _goTo(fn) {
+      var hasStateChange;
+
+      messageAPIservice.getMessage($scope.messageData.teamId, $scope.message.id)
+        .success(function(message) {
+          if (message.status === 'created') {
+            hasStateChange = true;
+            fn();
+          }
+        })
+        .finally(function() {
+          if (!hasStateChange) {
+            alert($filter('translate')('@common-remove-origin'));
+          }
+        });
     }
 
     function _goToFileDetail(message, writer) {
