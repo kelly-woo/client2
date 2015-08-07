@@ -55,25 +55,18 @@
       <div class="msgs-group"
            ng-repeat="msg in messages track by msg.id"
            msg-repeat-done="onRepeatDone()"
-           ng-switch="msg.message.contentType">
+           ng-switch="msg.message.contentType"
+           date-divider>
         <!--날짜 구분선-->
-        <date-divider class="hidden" index="{{$index}}"></date-divider>
-
         <system-event ng-switch-when="systemEvent" id="{{::msg.id}}" class="msg-item system-event-msg"></system-event>
-
         <text ng-switch-when="text" msg="msg" id="{{::msg.id}}" class="msg-item text"
               ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>
-
         <text ng-switch-when="sticker" msg="msg" id="{{::msg.id}}" class="msg-item text"
               ng-class="{'text-child' : isChildText($index)}" index="$index" is-child-text="isChildText($index);"></text>
-
         <file-uploaded ng-switch-when="file" id="{::{msg.id}}" class="msg-item"></file-uploaded>
-
         <title-comment ng-switch-when="comment" id="{{::msg.id}}" class="msg-item"
                        ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
-
         <unread-bookmark class="msg-item hidden" id="unread-bookmark" link-id="{{::msg.id}}"></unread-bookmark>
-
       </div>
 
       <!-- unsent Message -->

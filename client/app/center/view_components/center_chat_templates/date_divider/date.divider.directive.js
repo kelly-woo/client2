@@ -8,22 +8,15 @@
   /* @ngInject */
   function dateDivider(MessageCollection) {
     return {
-      restrict: 'E',
-      link: link,
-      templateUrl: 'app/center/view_components/center_chat_templates/date_divider/date.divider.html'
+      restrict: 'A',
+      link: link
     };
 
-    function link(scope, element, attrs) {
-      _setDate();
-      function _setDate() {
-        if (!MessageCollection.isNewDate(attrs.index)) {
-          element.remove();
-        } else {
-          element.removeClass('hidden');
-        }
+    function link(scope, el, attrs) {
+      var msg = scope.msg;
+      if (MessageCollection.isNewDate(scope.$index)) {
+        el.prepend('<div class="msgs-group__divider">' + msg.date.substr(8) + '</div>');
       }
-
-      scope.$on('onRepeatDone', _setDate);
     }
   }
 })();
