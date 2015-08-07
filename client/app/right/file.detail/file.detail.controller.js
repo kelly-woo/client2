@@ -286,7 +286,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function onImageClick() {
     var file_detail = $scope.file_detail;
 
-    if (file_detail.content.serverUrl !== 's3') {
+    if ($filter('isIntegrationContent')(file_detail.content)) {
       window.open(file_detail.content.fileUrl, '_blank');
     } else {
       modalHelper.openImageCarouselModal({

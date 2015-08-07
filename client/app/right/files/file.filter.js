@@ -204,6 +204,19 @@
     };
   });
 
+  /**
+   * integration content 인지 여부
+   */
+  app.filter('isIntegrationContent', function() {
+    var integrationMap = {
+      'google': true,
+      'dropbox': true
+    };
+    return function(content) {
+      return !!integrationMap[content.serverUrl];
+    };
+  });
+
   app.filter('isFileWriter', function(memberService) {
     return function(input) {
       var fileWriterId = input.writerId;
