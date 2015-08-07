@@ -43,18 +43,23 @@
   max-width: 280px;
 }
 .join-modal-channel_title .fa-clock-o {
-  margin-right: 2px;
+  margin-right: 4px;
 }
 .join-modal-channel_container .topic-description {
   line-height: 21px;
   max-width: 400px;
-  margin-bottom: 8px;
+  margin-bottom: 13px;
   color: #575757;
   font-size: 14px;
+  padding-left: 19px;
 }
 
 .join-modal-channel_container .topic-description:empty {
   display: none;
+}
+.join-modal-channel_container .icon-group {
+  padding-right: 2px;
+  padding-left: 1px;
 }
 
 .join-modal-channel_container .topic-general-info {

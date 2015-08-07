@@ -28,6 +28,7 @@
 
 .topic-description-container .control-label {
   padding-right: 0;
+  line-height: 24px;
 }
 .topic-description-container .form-group {
   margin-bottom: 0;

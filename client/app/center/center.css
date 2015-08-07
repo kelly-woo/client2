@@ -232,7 +232,14 @@ article {
   bottom: 3px;
   right: 0;
   width: 50px;
-  vertical-align:text-bottom;
+  vertical-align: text-bottom;
+}
+.msg-text-extra {
+  position: absolute;
+  bottom: 3px;
+  right: 0;
+  width: 50px;
+  vertical-align: text-bottom;
 }
 .msg-text-body {
   margin: 0;
