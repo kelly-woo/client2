@@ -95,13 +95,13 @@
         })
         .finally(function() {
           if (!hasStateChange) {
-            alert($filter('translate')('@common-remove-origin'));
+            alert($filter('translate')('@common-removed-origin'));
           }
         });
     }
 
     function _goToFileDetail(message, writer) {
-      $state.go('files', {userName: writer.name, itemId: message.feedbackId});
+      $state.go($scope.message.type === 'star' ? 'stars' : 'files', {userName: writer.name, itemId: message.feedbackId});
     }
 
     function _goToTopic(message) {

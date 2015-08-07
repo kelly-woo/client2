@@ -50,7 +50,7 @@
         })
         .finally(function() {
           if (!hasStateChange) {
-            alert($filter('translate')('@common-remove-origin'));
+            alert($filter('translate')('@common-removed-origin'));
           }
         });
 
