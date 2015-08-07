@@ -1277,12 +1277,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     return false;
   }
 
-
+  /**
+   * 나 혼자만의 팀인지 아닌지 확인한다.
+   * @returns {boolean}
+   * @private
+   */
   function _isSoloTeam() {
-    var activeMemberCount = currentSessionHelper.getCurrentTeamMemberCount();
-    //log('this is _isSoloTeam ', activeMemberCount, ' returning ', activeMemberCount == 0);
-
-    return activeMemberCount == 0;
+    return currentSessionHelper.getCurrentTeamMemberCount() == 1;
   }
 
   function _isFullRoom() {
