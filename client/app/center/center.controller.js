@@ -309,7 +309,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onDestroy() {
     _isDestroyed = true;
-    _reset();
     _cancelHttpRequest();
     _detachEvents();
 
