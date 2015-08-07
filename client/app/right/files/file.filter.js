@@ -184,6 +184,26 @@
     };
   });
 
+  /**
+   * filter type의 preview
+   */
+  app.filter('getFilterTypePreview', function() {
+    var filterTypePreviewMap = {
+      pdf: 'assets/images/preview_pdf.png',
+      video:'assets/images/preview_video.png',
+      audio: 'assets/images/preview_audio.png',
+      document: 'assets/images/preview_document.png',
+      spreadsheet: 'assets/images/preview_spreadsheet.png',
+      presentation: 'assets/images/preview_presentation.png',
+      googleDocs: 'assets/images/preview_google_docs.png',
+      dropbox: 'assets/images/preview_dropbox.png'
+    };
+    var noPreviewAvailableImage = 'assets/images/no_preview_available.png';
+    return function(content) {
+      return filterTypePreviewMap[content.filterType] || filterTypePreviewMap[content.serverUrl] || noPreviewAvailableImage;
+    };
+  });
+
   app.filter('isFileWriter', function(memberService) {
     return function(input) {
       var fileWriterId = input.writerId;

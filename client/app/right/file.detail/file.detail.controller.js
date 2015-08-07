@@ -12,7 +12,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   var _commentIdToScroll;
 
   //file detail에서 integraiton preview로 들어갈 image map
-  var integrationPreviewMap;
   var noPreviewAvailableImage;
 
   _init();
@@ -32,11 +31,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     } else {
       _stickerType = 'file';
       fileId = $state.params.itemId;
-      integrationPreviewMap = {
-        google: 'assets/images/web_preview_google.png',
-        dropbox: 'assets/images/web_preview_dropbox.png'
-      };
-      noPreviewAvailableImage = 'assets/images/no_preview_available.png';
+
 
       if (!_.isUndefined(fileId)) {
         $scope.initialLoaded = false;
@@ -276,20 +271,12 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   /**
    * file detail에서 preview 공간에 들어갈 image의 url을 설정함
    */
-  function setImageUrl(fileDetail) {
-    var content = fileDetail.content;
-    var integrationImage;
-
+  function setImageUrl(content) {
     // file detail에서 preview image 설정
     if ($filter('hasPreview')(content)) {
       $scope.ImageUrl = $scope.server_uploaded + content.fileUrl;
     } else {
-      if (integrationImage = integrationPreviewMap[content.serverUrl]) {
-        $scope.ImageUrl = configuration.assets_url + integrationImage;
-      } else {
-        $scope.ImageUrl = configuration.assets_url + noPreviewAvailableImage;
-      }
-      $scope.cursor = 'pointer';
+      $scope.ImageUrl = configuration.assets_url + $filter('getFilterTypePreview')(content);
     }
   }
 
@@ -299,7 +286,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function onImageClick() {
     var file_detail = $scope.file_detail;
 
-    if (integrationPreviewMap[file_detail.content.serverUrl]) {
+    if (file_detail.content.serverUrl !== 's3') {
       window.open(file_detail.content.fileUrl, '_blank');
     } else {
       modalHelper.openImageCarouselModal({
@@ -566,9 +553,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       // isStarred
       $scope.isStarred = $scope.file_detail.isStarred;
 
-      if ($scope.file_detail.content && /image/i.test($scope.file_detail.content.type)) {
+      if ($scope.file_detail.content) {
         // preview image url 생성
-        setImageUrl($scope.file_detail);
+        setImageUrl($scope.file_detail.content);
       }
 
       // writer

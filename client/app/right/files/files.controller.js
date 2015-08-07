@@ -7,12 +7,13 @@
 
   function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, Router, entityheaderAPIservice,
                              fileAPIservice, analyticsService, publicService, entityAPIservice,
-                             currentSessionHelper, logger, AnalyticsHelper) {
+                             currentSessionHelper, logger, AnalyticsHelper, EntityMapManager) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
     var disabledMemberAddedOnSharedBy = false;
 
+    var localCreatedTopicId;
     var localCurrentEntity;
     var fileIdMap = {};
     //TODO: 활성화 된 상태 관리에 대한 리펙토링 필요
@@ -89,7 +90,6 @@
     //  fileRequest.fileType - 파일 타입
     $scope.$watch('fileTypeFilter', function(newValue, oldValue) {
       if (newValue != oldValue) {
-        //console.log(newValue)
         $scope.fileRequest.fileType = newValue.value;
         _refreshFileList();
       }
@@ -142,12 +142,36 @@
     });
 
     $scope.$on('onChangeShared', function(event, data) {
-      if (data && _isFileStatusChangedOnCurrentFilter(data)) {
-        // 'file_share' socket event에 대한 right panel 처리
+      if (data) {
+        if (data.event === 'topic_deleted' || data.event === 'topic_left') {
+          // topic_deleted 또는 topic_left의 경우 해당 topic을 selectOptions에서 제거한다.
+          _matchSelectOption(EntityMapManager.get('total', data.topic.id), function(index) {
+            $scope.selectOptions.splice(index, 1);
+          });
+        } else if (data.event === 'topic_created' || data.event === 'topic_joined') {
+          // topic_created 또는 topic_joined의 경우 해당 topic을 selectOptions에 추가해야 한다
+          // 그러나 onChangeShared에서는 처리할 수 없으므로 onCurrentEntityChanged에서 처리하기
+          // 위하여 event data만 변수에 저장한다.
+          localCreatedTopicId = data.topic.id;
+        } else if (_isFileStatusChangedOnCurrentFilter(data)) {
+          // 'file_share' socket event에 대한 right panel 처리
 
-        _refreshFileList();
+          _refreshFileList();
+        }
       }
     });
+
+    function _matchSelectOption(target, fn) {
+      var options = $scope.selectOptions;
+
+      if (target) {
+        _.forEach(options, function(item, index) {
+          if (item && item.id === target.id) {
+            fn(index, item);
+          }
+        });
+      }
+    }
 
     /**
      * Check if data.room.id(an id of entity where file is shared/unshared) is same as currently selected filter.
@@ -165,7 +189,7 @@
         _isActivated = true;
         if (!hasList) {
           $scope.fileRequest.keyword = '';
-          _refreshFileList();
+          //_refreshFileList();
         }
       } else {
         _isActivated = false;
@@ -197,12 +221,31 @@
     // Watching joinEntities in parent scope so that currentEntity can be automatically updated.
     //  advanced search option 중 'Shared in'/ 을 변경하는 부분.
     $scope.$on('onCurrentEntityChanged', function(event, currentEntity) {
-      if (!_hasLocalCurrentEntityChanged(currentEntity)) {
-        return;
+      var target;
+      var hasMatchItem;
+
+      if (_hasLocalCurrentEntityChanged(currentEntity)) {
+        //// 변경된 entity가 selectionOptions filter에 포함되지 않았다면 추가함.
+        //$scope.selectOptions.indexOf(currentEntity) < 0 && $scope.selectOptions.push(currentEntity);
+
+        localCurrentEntity = currentEntity;
+        _setSharedInEntity(localCurrentEntity);
+        _initSharedByFilter(localCurrentEntity);
       }
-      localCurrentEntity = currentEntity;
-      _setSharedInEntity(localCurrentEntity);
-      _initSharedByFilter(localCurrentEntity);
+
+      if (localCreatedTopicId) {
+        target = EntityMapManager.get('total', localCreatedTopicId);
+        hasMatchItem = false;
+        _matchSelectOption(target, function() {
+          hasMatchItem = true;
+        });
+
+        if (!hasMatchItem) {
+          $scope.selectOptions.push(target)
+        }
+        localCreatedTopicId = false;
+      }
+
     });
 
     /**
@@ -344,10 +387,10 @@
     }
 
     function preLoadingSetup() {
-      $scope.fileRequest.startMessageId   = -1;
-      $scope.isEndOfList = false;
-      $scope.isLoading = true;
-      $scope.fileList = [];
+        $scope.fileRequest.startMessageId   = -1;
+        $scope.isEndOfList = false;
+        $scope.isLoading = true;
+        $scope.fileList = [];
     }
 
     $scope.loadMore = function() {
