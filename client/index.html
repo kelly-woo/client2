@@ -120,13 +120,14 @@
     <div class="rpanel non-selectable"
          ng-class="{ 'shadow': $state.includes('**.files.**') || $state.includes('**.stars.**') || isOpenRightPanel}"
          ng-show="$state.includes('**.files.**') || $state.includes('**.stars.**') || isOpenRightPanel">
-      <div class="files scroll_gray" ui-view="rightpanel" ng-class="{
+      <div class="files" ui-view="rightpanel" ng-class="{
         'scroll_gray': !browser.platform.isMac,
         'opacOut_hidden': !isOpenRightPanel,
         'opac_in extend': isOpenRightPanel
       }"></div>
-      <div class="file scroll_gray" ui-view="detailpanel"
+      <div class="file" ui-view="detailpanel"
            ng-class="{'hidden': !$state.includes('messages.detail.files.item') && !$state.includes('messages.detail.stars.item'),
+                      'scroll_gray': !browser.platform.isMac,
                       'opac_in extend': $state.includes('**.files.item') || $state.includes('**.stars.item')}">
       </div>
       <div class="rpanel__background">
