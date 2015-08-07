@@ -163,9 +163,14 @@
         jndPubSub.updateLeftPanel();
       }
 
-      if (memberService.isTopicNotificationOn(data.room.id)) {
+      console.log('::', data)
+      if (memberService.isTopicNotificationOn(data.room.id) || _hasMention(data)) {
         _sendBrowserNotification(data);
       }
+    }
+
+    function _hasMention(data) {
+      return false;
     }
 
     /**
