@@ -69,7 +69,7 @@
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
       } else {
-        _updateLeftPanel();
+        _updateLeftPanel(data);
       }
     }
 
@@ -126,9 +126,9 @@
 
     }
 
-    function _updateLeftPanel() {
+    function _updateLeftPanel(data) {
       jndPubSub.updateLeftPanel();
-      jndPubSub.onChangeShared();
+      jndPubSub.onChangeShared(data);
     }
   }
 })();
