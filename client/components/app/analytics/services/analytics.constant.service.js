@@ -73,7 +73,8 @@
       FILE_ID: 'p23',
       SEARCH_KEYWORD: 'p24', 
       AUTO_SIGN_IN: 'p25',
-      MESSAGE_ID: 'p26'
+      MESSAGE_ID: 'p26',
+      MEMBER_COUNT: 'p39'
     };
 
     this.IDENTIFY = {
