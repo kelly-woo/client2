@@ -117,7 +117,8 @@
   <span class="panel-title-right-menu pull-right cursor_pointer" ng-if="!isUserType">
 
     <!--  JOINED MEMBER LIST  -->
-    <span class="panel-title-member panel-title-right-menu__item pull-left" dropdown>
+    <span class="panel-title-member panel-title-right-menu__item pull-left" dropdown
+          tooltip="{{::'@topic-joined-member' | translate}}" tooltip-placement="bottom">
       <div class="dropdown-toggle panel-title-member__more" dropdown-toggle>
         <i class="icon icon-user"></i>
         <span class="panel-title-member__count">{{currentEntity.members.length}}</span>
@@ -170,3 +171,4 @@
 <span ng-if="false" translate>@no-topic-description</span>
 <span ng-if="false" translate>@turn-off-topic-alarm</span>
 <span ng-if="false" translate>@turn-on-topic-alarm</span>
+<span ng-if="false" translate>@topic-joined-member</span>
