@@ -117,7 +117,6 @@
     function getCurrentTeamMemberCount() {
       var activeMemberCount = 0;
       _.forEach(currentTeamMemberList, function(member, index) {
-        //console.log(currentTeamMemberList)
         if (member.status == 'enabled') activeMemberCount++;
       });
 
