@@ -298,7 +298,9 @@
 .comment-item:hover .comment-item-action {
   display: inline-block;
 }
-
+.comment-item-action.comment-item-action-more {
+  padding-right: 3px;
+}
 .comment-item-header__action .comment-item-action > a {
   text-decoration: none;
 }

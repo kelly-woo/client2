@@ -136,6 +136,9 @@
   padding-bottom: 10px;
   height: 38px;
 }
+.lpanel-list__users ul li:last-child {
+  height: 47px;
+}
 /*  every element in list */
 .lpanel-list ul li {
   font-size: 14px;
@@ -183,7 +186,7 @@
 .left-panel_badge {
   margin-top: 5px;
   color: white !important;
-  max-width: 19%;
+  max-width: 22%;
 }
 
 .left-panel__name {
