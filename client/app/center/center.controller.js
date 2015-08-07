@@ -601,10 +601,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           }
 
           // 마지막으로 읽은 메세지 이후에 더 있는지 없는지 확인
-          if (isSkipBookmark) {
-            _updateUnreadBookmarkFlag(isSkipBookmark);
-          }
-
+          _updateUnreadBookmarkFlag(isSkipBookmark);
 
           //  marker 설정
           updateMessageMarker();
