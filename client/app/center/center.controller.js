@@ -171,7 +171,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _reset() {
-    $('#msgs-container')[0].scrollTop = 0;
+    //$('#msgs-container')[0].scrollTop = 0;
     MessageQuery.reset();
     MessageCollection.reset();
     MessageSendingCollection.reset();
