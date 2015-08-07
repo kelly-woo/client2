@@ -276,7 +276,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if ($filter('hasPreview')(content)) {
       $scope.ImageUrl = $scope.server_uploaded + content.fileUrl;
     } else {
-      $scope.ImageUrl = configuration.assets_url + $filter('getFilterTypePreview')(content);
+      $scope.ImageUrl = $filter('getFilterTypePreview')(content);
     }
   }
 
