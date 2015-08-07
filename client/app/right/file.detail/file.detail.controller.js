@@ -103,14 +103,37 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     });
 
     $scope.$on('onChangeShared', function(event, data) {
-      if (_isFileDetailActive()) {
-        if ($scope.file_detail.shareEntities.length === 1 && data && data.type === 'delete' && $scope.file_detail.shareEntities[0] === data.id) {
-          // 공유된 곳이 한곳이고 delete event
-          $scope.hasTopic = false;
-        } else {
-          getFileDetail();
-        }
+      var shareEntities = $scope.file_detail.shareEntities;
+
+      if (_isFileDetailActive() && data && shareEntities.length === 1 &&
+          ((data.event === "topic_deleted" && shareEntities[0] === data.topic.id) || (data.type === 'delete' && shareEntities[0] === data.id))) {
+        // archived file 이고 event type이 'topic_deleted' 또는 shared 'delete' 일때
+        // 마지막으로 shared topic이 삭제되는 것이라면 topic을 가지지 않은 것으로 표기함
+        $scope.hasTopic = false;
+      } else {
+        getFileDetail();
       }
+
+      //if (_isFileDetailActive() && data) {
+      //  if (data.event === "topic_deleted" ) {
+      //    // topic delete event handler
+      //    if ($scope.file_detail.shareEntities.length === 1 && $scope.file_detail.shareEntities[0] === data.topic.id) {
+      //      $scope.hasTopic = false;
+      //    } else {
+      //      getFileDetail();
+      //    }
+      //  } else if (data.type === 'delete'){
+      //    // file share/unshare event handler
+      //    if ($scope.file_detail.shareEntities.length === 1 && $scope.file_detail.shareEntities[0] === data.id) {
+      //      // 공유된 곳이 한곳이고 delete event
+      //      $scope.hasTopic = false;
+      //    } else {
+      //      getFileDetail();
+      //    }
+      //  }
+      //} else {
+      //  getFileDetail();
+      //}
     });
 
     // share된 곳이 없는 file일 경우에도 file_detail 갱신 하도록 함.
