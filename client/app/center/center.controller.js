@@ -884,7 +884,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           MessageSendingCollection.clearSentMessages();
           MessageCollection.updateUnreadCount();
           lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
-          console.log('::_onUpdateListSuccess', lastMessageId);
+          //console.log('::_onUpdateListSuccess', lastMessageId);
           jndPubSub.pub('onMessageDeleted');
           //  marker 설정
           updateMessageMarker();
