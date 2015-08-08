@@ -239,10 +239,11 @@
       var offset = 0;
 
       while(match = regxMention.exec(value)) {
+        //console.log('mention match ::: ', match);
         if ($scope._mentionMap[match[0]]) {
           lastIndex = regxMention.lastIndex;
 
-          preStr = value.substring(beginIndex, lastIndex).replace(new RegExp( '\\[' + match[1]+ '\\]' + '$'), match[1]);
+          preStr = value.substring(beginIndex, lastIndex).replace(match[0] , match[1]);
           msg = msg + preStr;
 
           beginIndex = lastIndex;
