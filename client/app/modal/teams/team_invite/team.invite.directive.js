@@ -5,13 +5,13 @@
     .module('jandiApp')
     .directive('invitationModal', invitationModal);
 
-  function invitationModal($http, $filter, invitationService, teamAPIservice, configuration, memberService, clipboard) {
+  function invitationModal($filter, $timeout, invitationService, teamAPIservice, clipboard) {
     return {
       restrict: 'A',
       link: link
     };
 
-    function link(scope, element, attrs) {
+    function link(scope, element) {
       scope.isCopySuccess = false;
 
       var emailPlaceholder = $filter('translate')('@common-email');
@@ -81,6 +81,7 @@
             onAfterSend: function(ele, successCnt, totalCnt) {
               var body = ele.parent();
               var footer = body.parent().children('.modal-footer');
+              var jqDoneInvite;
               var msg;
               var emptys;
               var i, len;
@@ -107,14 +108,19 @@
               footer.html(
                 '<div class="done-content">' +
                   (!!successCnt ? '<img src="' + scope.doneImage + '">' : '') +   // 하나도 성공하지 못함
-                  '<div class="done-invite invite-btn cursor_pointer btn-ok btn">' +
+                  '<button class="done-invite invite-btn cursor_pointer btn-ok btn">' +
                     '<span translate>' + done +'</span>' +
-                  '</div>' +
+                  '</button>' +
                 '</div>'
               );
 
-              footer.find('.done-invite').on('click', function() {
+              jqDoneInvite = footer.find('.done-invite');
+              jqDoneInvite.on('click', function() {
                 scope.cancel();
+              });
+
+              $timeout(function() {
+                jqDoneInvite.focus();
               });
 
               if (emptys = invitation.getEmptyInputBox()) {

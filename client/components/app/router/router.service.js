@@ -119,6 +119,11 @@
             jndPubSub.pub('onActiveHeaderTab', 'stars');
             $state.transitionTo('messages.detail.stars.redirect', _.extend({tail: 'stars'}, fromParams, toParams));
             break;
+          case 'mentions':
+            event.preventDefault();
+            jndPubSub.pub('onActiveHeaderTab', 'mentions');
+            $state.transitionTo('messages.detail.mentions.redirect', _.extend({tail: 'mentions'}, fromParams, toParams));
+            break;
           case 'messages' :
           case 'messages.home' :
             var lastState = entityAPIservice.getLastEntityState();
@@ -209,12 +214,12 @@
 
     /**
      * state로 active 되야할 right panel의 tab name을 전달함.
-     * @param {object} state
+     * @param {object} currentState
      * @returns {Array|{index: number, input: string}|*}
      */
-    function getActiveRightTabName(state) {
-      var match = /\/([a-z]+)/i.exec(state.url);
-      return match ? match[1] : (state.url === '/:itemId' && 'files');
+    function getActiveRightTabName(currentState) {
+      var match = /messages.detail.([a-z]+)/i.exec(currentState.name);
+      return match && match[1];
     }
   }
 })();

@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, $window,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
                                            memberService, publicService, configuration, modalHelper, jndPubSub,
-                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper) {
+                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router) {
   var _sticker;
   var _stickerType;
   var fileId;
@@ -21,6 +21,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _init() {
+    var activeMenu;
+
     if (/redirect/.test($state.current.name)) {
       // 왼쪽 상단에 표시되는 back to list해야되는 target
       if ($state.params.tail != null) {
@@ -29,9 +31,12 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       $state.go('messages.detail.' + (RouterHelper.getRightPanelTail() || 'files') + '.item', $state.params);
     } else {
+      if (activeMenu = Router.getActiveRightTabName($state.current)) {
+        RouterHelper.setRightPanelTail(activeMenu);
+      }
+
       _stickerType = 'file';
       fileId = $state.params.itemId;
-
 
       if (!_.isUndefined(fileId)) {
         $scope.initialLoaded = false;

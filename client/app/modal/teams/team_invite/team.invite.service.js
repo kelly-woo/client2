@@ -6,7 +6,7 @@
     .service('invitationService', invitationService);
 
   /* @ngInject */
-  function invitationService(analyticsService) {
+  function invitationService(analyticsService, jndKeyCode) {
     var rEmail = new RegExp(
       '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}'+
       '\\@' +
@@ -120,23 +120,42 @@
         var prevValue;
 
         that.ele
+          .on('keydown', 'input', function(event) {
+            var target = this;
+            if (jndKeyCode.match('ENTER', event.which)) {
+              event.preventDefault();
+
+              that._checkValue(this, prevValue, function() {
+                var $ele = $(target).parent().next();
+                if (target.value !== '' && $ele.length) {
+                  $ele.children().focus();
+                }
+              });
+
+              prevValue = this.value || EMPTY_VALUE;
+            }
+          })
           .on('focus', 'input', function() {
             prevValue = this.value || EMPTY_VALUE;
           })
           .on('blur', 'input', function() {
-            var value = this.value || EMPTY_VALUE;
-            var ele;
-
-            that._removeMapItem(prevValue, this);
-
-            ele = $(this);
-            if (!rEmail.test(value) && this.value !== '') {
-              that.options.onInvalidFormat(ele);
-            } else {
-              that._addMapItem(value, this);
-              that.options.onValidFormat(ele);
-            }
+            that._checkValue(this, prevValue);
           });
+      },
+      _checkValue: function(ele, prevValue, fn) {
+        var that = this;
+        var $ele = $(ele);
+        var value = ele.value || EMPTY_VALUE;
+
+        that._removeMapItem(prevValue, ele);
+        if (!rEmail.test(value) && ele.value !== '') {
+          that.options.onInvalidFormat($ele);
+        } else {
+          that._addMapItem(value, ele);
+          that.options.onValidFormat($ele, ele.value);
+
+          fn && fn();
+        }
       },
       add: function() {
         var that = this;
@@ -163,9 +182,6 @@
           map.splice(map.indexOf(ele), 1);
           map.length === 0 && delete that.emailMap[value];
         }
-      },
-      _isEmail: function(value) {
-        return rEmail.test(value);
       },
       getEmptyInputBox: function() {
         var that = this;
