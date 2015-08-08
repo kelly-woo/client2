@@ -1,4 +1,7 @@
 <div class="center-announcement-container overflow-ellipsis"
+     ng-class="{
+      'center-announcement-container-hide': isAnnouncementHided()
+     }"
      ng-if="hasAnnouncement">
 
   <!-- hide 된 announcement  -->

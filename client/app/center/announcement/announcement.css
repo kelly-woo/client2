@@ -9,7 +9,13 @@
   margin: 10px 15px 10px 10px;
   max-height: 50%;
   /*min-height: 132px;*/
- }
+}
+
+.center-announcement-container.center-announcement-container-hide {
+  position: absolute;
+  right: 0;
+}
+
 .rpanel-show .scroll-gray .center-announcement-container {
   margin-right: 24px;
 }
