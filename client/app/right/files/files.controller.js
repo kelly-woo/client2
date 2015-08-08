@@ -184,12 +184,16 @@
       return data.room && data.room.id === $scope.fileRequest.sharedEntityId;
     }
 
-    $scope.$on('onRightPanel', function($event, type, hasList) {
-      if (type === 'files') {
+    $scope.$on('onRightPanel', function($event, data) {
+      if (data.type === 'files') {
         _isActivated = true;
-        if (!hasList) {
-          $scope.fileRequest.keyword = '';
-          //_refreshFileList();
+        $scope.fileRequest.keyword = '';
+
+        // files uri에서 files uri로 변경시 'onRightPanel'에서 file list refresh 하지 않음
+        // 'onCurrentEntityChanged'에서 file list refresh 함
+        if (!data.toUrl || !data.fromUrl || (data.toUrl !== data.fromUrl)) {
+
+          _refreshFileList();
         }
       } else {
         _isActivated = false;
