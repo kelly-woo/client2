@@ -18,9 +18,9 @@
           <input type="text"
                  class="form-control"
                  name="entityName"
-                 data-ng-model="topicName"
+                 jnd-input-model="topicName"
+                 jnd-is-trim="on"
                  placeholder="{{ '@input-create-ch' | translate }}"
-                 ng-required="true"
                  ng-maxlength="60"/>
           <alert type="warning" class="profile-settings-body__alert" data-ng-if="entityCreateForm.entityName.$error.maxlength">
             {{ '@input-max-length-error' | translate}}
@@ -64,7 +64,8 @@
           <textarea
             class="form-control topic-description-input"
             name="topicDescription"
-            ng-model="topicDescription"
+            jnd-input-model="topicDescription"
+            jnd-is-trim="on"
             placeholder="{{ '@topic-description-placeholder' | translate }}"
             ng-maxlength="300"
             autocorrect="off"
@@ -83,7 +84,7 @@
 
   <div class="modal-footer">
     <span class="btn btn-cancel" data-ng-click="cancel();" translate>@btn-close</span>
-    <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ '@btn-create' | translate }}" ng-disabled="entityCreateForm.$invalid" />
+    <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ '@btn-create' | translate }}" ng-disabled="!topicName.length" />
   </div>
 </form>
 

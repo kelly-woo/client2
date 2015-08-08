@@ -11,6 +11,8 @@
 
   /* @ngInject */
   function TopicCreateCtrl($scope, entityheaderAPIservice, $state, analyticsService, $filter, AnalyticsHelper, modalHelper, jndPubSub) {
+    $scope.topicName = '';
+    $scope.topicDescription = '';
     $scope.entityType = 'public';
 
     $scope.cancel = modalHelper.closeModal;
@@ -88,7 +90,7 @@
     }
 
     // todo: error handling service 필요함
-    var duplicate_name_error = 4000;
+    var duplicate_name_error = 40008;
     function _onCreateError(err) {
       if (err.code === duplicate_name_error) {
         // Duplicate name error.
