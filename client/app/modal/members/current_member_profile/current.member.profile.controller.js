@@ -13,9 +13,37 @@
   function ProfileSettingCtrl($scope, modalHelper, $filter, analyticsService, memberService,
                               CurrentMemberProfile) {
 
+    /**
+     * 유효성 검사 룰
+     * @type {{curUser.name: {maxLength: number, isValid: boolean}, curUser.u_statusMessage: {maxLength: number, isValid: boolean}, curUser.u_extraData.phoneNumber: {maxLength: number, isValid: boolean}, curUser.u_extraData.department: {maxLength: number, isValid: boolean}, curUser.u_extraData.position: {maxLength: number, isValid: boolean}}}
+     */
+    var VALIDATION_RULE = {
+      'curUser.name': {
+        maxLength: 30,
+        isValid: false
+      },
+      'curUser.u_statusMessage': {
+        maxLength: 60,
+        isValid: false
+      },
+      'curUser.u_extraData.phoneNumber': {
+        maxLength: 20,
+        isValid: false
+      },
+      'curUser.u_extraData.department': {
+        maxLength: 60,
+        isValid: false
+      },
+      'curUser.u_extraData.position': {
+        maxLength: 60,
+        isValid: false
+      }
+    };
+
     // 바뀐 정보가 몇개있지 추적.
     var _changedValue;
 
+    $scope.validate = validate;
     $scope.cancel = modalHelper.closeModal;
 
     _init();
@@ -27,7 +55,7 @@
       $scope.isProfilePicSelected = false;
 
       $scope.isFileReaderAvailable = true;
-
+      $scope.isValid = validate();
       _setCurrentMember();
     }
 
@@ -320,6 +348,71 @@
         $scope.toggleLoading();
         modalHelper.closeModal('cancel');
       }
+    }
+
+    /**
+     * 유효성 검사
+     * @param {string} [namespace] - 유효성 검사 할 필드 명 'curUser.u_extraData.phoneNumber'. 생략시 모든 필드 검사.
+     * @returns {boolean}
+     */
+    function validate(namespace) {
+      var target;
+      var isValid = true;
+      if (namespace && VALIDATION_RULE[namespace]) {
+        target = _getTarget(namespace);
+        if (target) {
+          if (target.parent[target.key].length > VALIDATION_RULE[namespace].maxLength) {
+            isValid = false;
+          }
+        }
+      } else {
+        _.each(VALIDATION_RULE, function(rule, name) {
+          if (!validate(name)) {
+            isValid = false;
+            return false;
+          }
+        });
+        $scope.isValid = isValid;
+      }
+      return isValid;
+    }
+
+    /**
+     * $scope 에서 namespace 에 해당하는 프로퍼티의 바로 상의 parent 와 parent 로 부터의 property name 을 반환한다.
+     * @param {string} namespace - 찾을 namespace
+     * @returns {{parent: *, key: *}}
+     * @private
+     * @example
+     *
+     $scope.curUser.extra.name = 'My Name';
+     _getTarget('curUser.extra.name');
+     =>
+     {
+       parent: {
+         name: 'MyName'
+       },
+       key: 'name'
+     }
+     *
+     */
+    function _getTarget(namespace) {
+      var keys = namespace.split('.');
+      var i = 0;
+      var lastIdx = keys.length - 1;
+      var target = $scope;
+      var key;
+
+      for (; i < lastIdx; i++) {
+        key = keys[i];
+        target = target[key];
+        if (_.isUndefined(target)) {
+          return;
+        }
+      }
+      return {
+        parent: target,
+        key: keys[lastIdx]
+      };
     }
   }
 })();

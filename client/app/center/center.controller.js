@@ -191,7 +191,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     centerService.setEntityId(centerService.isChat() ? currentSessionHelper.getCurrentEntity().entityId : entityId);
     _lastReadMessageMarker = memberService.getLastReadMessageMarker(_getEntityId());
-
+    modalHelper.closeModal('cancel');
     _initLocalVariables();
   }
 
@@ -309,6 +309,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onDestroy() {
     _isDestroyed = true;
+    modalHelper.closeModal('cancel');
     _cancelHttpRequest();
     _detachEvents();
 

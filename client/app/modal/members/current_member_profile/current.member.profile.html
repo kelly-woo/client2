@@ -42,8 +42,11 @@
         <div class="form-group">
           <label class="profile-body__label control-label col-sm-3"><span translate>@common-name</span></label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="name" data-ng-model="curUser.name" ng-maxlength="30"/>
-            <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.name.$error.maxlength">
+            <input type="text" class="form-control" name="name"
+                   jnd-input-model="curUser.name"
+                   jnd-is-trim="on"
+                   jnd-on-change="validate()"/>
+            <alert ng-if="!validate('curUser.name')" type="warning" class="profile-settings-body__alert">
               {{ '@input-max-length-error' | translate}}
             </alert>
           </div>
@@ -63,8 +66,11 @@
         <div class="form-group">
           <label class="profile-body__label control-label col-sm-3"><span translate>@common-status-msg</span></label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="nickName" data-ng-model="curUser.u_statusMessage" ng-maxlength="60"/>
-            <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.nickName.$error.maxlength">
+            <input type="text" class="form-control" name="nickName"
+                   jnd-input-model="curUser.u_statusMessage"
+                   jnd-is-trim="on"
+                   jnd-on-change="validate()"/>
+            <alert ng-if="!validate('curUser.u_statusMessage')" type="warning" class="profile-settings-body__alert">
               {{ '@input-max-length-error' | translate}}
             </alert>
           </div>
@@ -81,8 +87,11 @@
         <div class="form-group">
           <label class="profile-body__label control-label col-sm-3"><span translate>@common-phone</span></label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="phoneNumber" data-ng-model="curUser.u_extraData.phoneNumber" ng-maxlength="20"/>
-            <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.phoneNumber.$error.maxlength">
+            <input type="text" class="form-control" name="phoneNumber"
+                   jnd-input-model="curUser.u_extraData.phoneNumber"
+                   jnd-is-trim="on"
+                   jnd-on-change="validate()"/>
+            <alert ng-if="!validate('curUser.u_extraData.phoneNumber')" type="warning" class="profile-settings-body__alert">
               {{ '@input-max-length-error' | translate}}
             </alert>
           </div>
@@ -92,8 +101,11 @@
         <div class="form-group">
           <label class="profile-body__label control-label col-sm-3"><span translate>@common-department</span></label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="department" data-ng-model="curUser.u_extraData.department" ng-maxlength="60"/>
-            <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.department.$error.maxlength">
+            <input type="text" class="form-control" name="department"
+                   jnd-input-model="curUser.u_extraData.department"
+                   jnd-is-trim="on"
+                   jnd-on-change="validate()"/>
+            <alert ng-if="!validate('curUser.u_extraData.department')" type="warning" class="profile-settings-body__alert">
               {{ '@input-max-length-error' | translate}}
             </alert>
           </div>
@@ -103,8 +115,11 @@
         <div class="form-group">
           <label class="profile-body__label control-label col-sm-3"><span translate>@common-position</span></label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" name="position" data-ng-model="curUser.u_extraData.position" ng-maxlength="60"/>
-            <alert type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.position.$error.maxlength">
+            <input type="text" class="form-control" name="position"
+                   jnd-input-model="curUser.u_extraData.position"
+                   jnd-is-trim="on"
+                   jnd-on-change="validate()"/>
+            <alert ng-if="!validate('curUser.u_extraData.position')" type="warning" class="profile-settings-body__alert" data-ng-if="profileForm.position.$error.maxlength">
               {{ '@input-max-length-error' | translate}}
             </alert>
           </div>
@@ -119,7 +134,7 @@
   <div class="modal-footer profile-footer">
     <div ng-if="!isProfilePicSelected">
       <button type="button" class="btn btn-cancel" data-ng-click="cancel();"><span translate>@btn-close</span></button>
-      <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}" ng-disabled="isPristine() && !hasUpdatedProfilePic || profileForm.$invalid"/>
+      <input class="btn btn-ok" type="submit" id="change_profile" value="{{ '@btn-edit' | translate }}" ng-disabled="!isValid || (isPristine() && !hasUpdatedProfilePic)"/>
     </div>
 
     <div ng-if="isProfilePicSelected">

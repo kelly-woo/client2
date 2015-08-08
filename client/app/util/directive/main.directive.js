@@ -4,8 +4,14 @@ var app = angular.module('jandiApp');
 
 /**
  * input 모델 바인딩 디렉티브
+ * @exmple
+ <input type="text"
+    jnd-input-model="curUser.name"
+    jnd-is-trim="on"
+    jnd-on-change="onChange()"
+ />
  */
-app.directive('jndInputModel', function($timeout) {
+app.directive('jndInputModel', function($timeout, jndPubSub) {
   return {
     restrict: 'A',
     link: function(scope, el, attrs) {
@@ -21,21 +27,24 @@ app.directive('jndInputModel', function($timeout) {
        * @private
        */
       function _init() {
-        if (_.isString(attrs.jndInputModel)) {
-          _keys = attrs.jndInputModel.split('.');
+        _key = attrs.jndInputModel;
+        if (_.isString(_key)) {
+          _keys = _key.split('.');
           _isTrimEnable = attrs.jndIsTrim === 'on';
           _attachDomEvents();
-          el.val(scope[_key] || '');
-          scope.$on('$destroy', _onDestroy);
+          _attachEvents();
+          el.val(_getValue());
         }
       }
 
-      /**
-       * value 를 set 한다.
-       * @param {string} value
-       * @private
-       */
-      function _setValue(value) {
+      function _attachEvents() {
+        scope.$on('$destroy', _onDestroy);
+        scope.$watch(_key, function(newVal) {
+          el.val(newVal);
+        });
+      }
+
+      function _getObject() {
         var i = 0;
         var lastIdx = _keys.length - 1;
         var key;
@@ -47,7 +56,24 @@ app.directive('jndInputModel', function($timeout) {
             return;
           }
         }
-        target[_keys[lastIdx]] = _isTrimEnable ? _.trim(value) : value;
+        return target;
+      }
+
+      function _getValue() {
+        var target = _getObject();
+        var key = _keys[_keys.length - 1];
+        return _.isUndefined(target) ? target : target[key];
+      }
+
+      /**
+       * value 를 set 한다.
+       * @param {string} value
+       * @private
+       */
+      function _setValue(value) {
+        var target = _getObject();
+        var key = _keys[_keys.length - 1];
+        target[key] = _isTrimEnable ? _.trim(value) : value;
       }
 
       /**
@@ -93,6 +119,7 @@ app.directive('jndInputModel', function($timeout) {
       function _apply(value) {
         scope.$apply(function() {
           _setValue(value);
+          scope.$eval(attrs.jndOnChange);
         });
       }
     }
