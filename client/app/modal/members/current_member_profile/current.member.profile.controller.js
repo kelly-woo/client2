@@ -255,11 +255,13 @@
      */
     function changeProfileName() {
       // Name Change!!!
-      memberService.setName(memberService.getName($scope.curUser))
-        .success(closeModal)
-        .error(function(err) {
-          console.log(err);
-        })
+      if (!isPristine() && $scope.isValid) {
+        memberService.setName(memberService.getName($scope.curUser))
+          .success(closeModal)
+          .error(function (err) {
+            console.log(err);
+          });
+      }
     }
 
     /**
@@ -267,11 +269,13 @@
      */
     function changeProfileEmail() {
       // email address changed!!
-      memberService.setEmail(memberService.getEmail($scope.curUser))
-        .success(closeModal)
-        .error(function(err) {
-          console.log(err);
-        })
+      if (!isPristine() && $scope.isValid) {
+        memberService.setEmail(memberService.getEmail($scope.curUser))
+          .success(closeModal)
+          .error(function (err) {
+            console.log(err);
+          });
+      }
     }
 
     /**
@@ -279,34 +283,39 @@
      *   - 오늘의 기분, 전화번호, 부서, 그리고 직책
      */
     function changeProfileOtherInfo() {
-      memberService.updateProfile($scope.curUser)
-        .success(function(response) {
-          closeModal();
+      if (!isPristine() && $scope.isValid) {
+        memberService.updateProfile($scope.curUser)
+          .success(function(response) {
+            closeModal();
 
-          // analytics
-          analyticsService.mixpanelTrack( "Set Profile" );
-          var profile_data = {
+            // analytics
+            analyticsService.mixpanelTrack( "Set Profile" );
+            var profile_data = {
 
-            "status"    : $scope.curUser.u_statusMessage,
-            "mobile"    : $scope.curUser.u_extraData.phoneNumber,
-            "division"  : $scope.curUser.u_extraData.department,
-            "position"  : $scope.curUser.u_extraData.position
-          };
+              "status"    : $scope.curUser.u_statusMessage,
+              "mobile"    : $scope.curUser.u_extraData.phoneNumber,
+              "division"  : $scope.curUser.u_extraData.department,
+              "position"  : $scope.curUser.u_extraData.position
+            };
 
-          analyticsService.mixpanelPeople( "set", profile_data );
-        })
-        .error(function(error) {
-          console.error('updateUserProfile', error.code, error.msg);
-        })
+            analyticsService.mixpanelPeople( "set", profile_data );
+          })
+          .error(function(error) {
+            console.error('updateUserProfile', error.code, error.msg);
+          });
+      }
     }
+
+
+    $scope.isPristine = isPristine;
 
     /**
      * 현재 보고 있는 프로필의 정보중 바뀐 곳이 있는지 없는지 확인하다.
      * @returns {*}
      */
-    $scope.isPristine = function() {
+    function isPristine () {
       return _isNamePristine() && _isEmailPristine() && _isOtherInfoPristine();
-    };
+    }
 
     /**
      * 이름이 바뀌었는지 안 바뀌었는지 확인한다.
