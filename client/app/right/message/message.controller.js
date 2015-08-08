@@ -99,7 +99,7 @@
     }
 
     function _goToFileDetail(message, writer) {
-      $state.go($scope.message.type === 'star' ? 'stars' : 'files', {userName: writer.name, itemId: message.feedbackId});
+      $state.go($scope.message.type === 'message' ? 'files' : $scope.message.type + 's', {userName: writer.name, itemId: message.feedbackId});
     }
 
     function _goToTopic(message) {

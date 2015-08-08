@@ -31,8 +31,7 @@
   cursor: pointer;
 }
 
-.mentionahead .active a.mention-item,
-.mentionahead a.mention-item:hover {
+.mentionahead .active a.mention-item {
   color: #fff;
   background-color: #154a67;
 }

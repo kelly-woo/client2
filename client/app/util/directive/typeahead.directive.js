@@ -402,6 +402,7 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
       link:function (scope, element, attrs) {
         var $parent = scope.$parent;
         var originSelectActive = $parent.selectActive;
+        var prevMousePoint;
 
         $parent.selectActive = function (matchIdx) {
           var jqMentionItem;
@@ -436,8 +437,15 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
           return scope.active == matchIdx;
         };
 
-        scope.selectActive = function(matchIdx) {
-          $parent.selectActive(matchIdx);
+        scope.selectActive = function(matchIdx, $event) {
+          if (!prevMousePoint || prevMousePoint.x != $event.clientX && prevMousePoint.y != $event.clientY) {
+            // 화면에서 mouse point가 움직였을때만 'mouseenter' event로 activeIdx 변경
+            $parent.selectActive(matchIdx);
+          }
+          prevMousePoint = {
+            x: $event.clientX,
+            y: $event.clientY
+          };
         };
 
         scope.selectMatch = function (activeIdx) {
