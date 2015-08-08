@@ -118,6 +118,19 @@
           url: '/mentions',
           title: 'MENTION LIST'
         })
+        .state('messages.detail.mentions.item', {
+          url: '/:itemId',
+          title: 'MENTION DETAIL'
+        })
+        .state('messages.detail.mentions.redirect', {
+          params: ['entityType', 'entityId', 'userName', 'itemId', 'tail'],
+          views: {
+            'detailpanel@': {
+              templateUrl: 'app/right/file.detail/file.detail.html',
+              controller: 'fileDetailCtrl'
+            }
+          }
+        })
         .state('archives', {
           url: '/archives/{entityType}/{entityId}'
         })
@@ -127,6 +140,10 @@
         })
         .state('stars', {
           url: '/stars/{userName}/{itemId}',
+          controller: ''
+        })
+        .state('mentions', {
+          url: '/mentions/{userName}/{itemId}',
           controller: ''
         })
         .state('error', {
