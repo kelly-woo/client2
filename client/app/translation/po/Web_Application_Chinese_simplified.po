@@ -218,6 +218,10 @@ msgstr "省略使用教学"
 msgid "@common-active-member"
 msgstr "现行成员"
 
+#: client/app/modal/files/share/share.html
+msgid "@common-all-shared"
+msgstr "文件已分享于所有你加入的议题中"
+
 #: client/app/center/center.html client/app/left/left.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"

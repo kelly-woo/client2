@@ -206,6 +206,10 @@ msgstr ""
 msgid "@common-active-member"
 msgstr ""
 
+#: client/app/modal/files/share/share.html
+msgid "@common-all-shared"
+msgstr ""
+
 #: client/app/center/center.html
 #: client/app/left/left.html
 #: client/app/right/search.messages/search.messages.html

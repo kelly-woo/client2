@@ -228,6 +228,10 @@ msgstr "チュートリアルをスキップ"
 msgid "@common-active-member"
 msgstr "有効なメンバー"
 
+#: client/app/modal/files/share/share.html
+msgid "@common-all-shared"
+msgstr "このファイルは既に参加されているすべてのトピックに共有されています"
+
 #: client/app/center/center.html client/app/left/left.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"

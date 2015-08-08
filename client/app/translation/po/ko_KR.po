@@ -223,6 +223,10 @@ msgstr "튜토리얼 모두 건너뛰기"
 msgid "@common-active-member"
 msgstr "멤버"
 
+#: client/app/modal/files/share/share.html
+msgid "@common-all-shared"
+msgstr "이미 참여중인 모든 토픽에 공유된 파일입니다."
+
 #: client/app/center/center.html client/app/left/left.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
