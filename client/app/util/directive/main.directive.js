@@ -2,6 +2,79 @@
 
 var app = angular.module('jandiApp');
 
+/**
+ * input 모델 바인딩 디렉티브
+ */
+app.directive('jndInputModel', function($timeout) {
+  return {
+    restrict: 'A',
+    link: function(scope, el, attrs) {
+      var _key;
+      var _isTrimEnable;
+      var _timer;
+
+      _init();
+
+      /**
+       * 생성자 함수
+       * @private
+       */
+      function _init() {
+        _key = attrs.jndInputModel;
+        _isTrimEnable = attrs.jndIsTrim === 'on';
+        _attachDomEvents();
+        el.val(scope[_key] || '');
+        scope.$on('$destroy', _onDestroy);
+      }
+
+      /**
+       * dom event 바인딩
+       * @private
+       */
+      function _attachDomEvents() {
+        el.on('propertychange change click keyup input paste', _onChange);
+      }
+
+      /**
+       * dom event 바인딩 해제
+       * @private
+       */
+      function _detachDomEvents() {
+        el.off('propertychange change click keyup input paste', _onChange);
+      }
+
+      /**
+       * 소멸자
+       * @private
+       */
+      function _onDestroy() {
+        _detachDomEvents();
+      }
+
+      /**
+       * change 이벤트 핸들러
+       * @param {object} changeEvent
+       * @private
+       */
+      function _onChange(changeEvent) {
+        var value = $(changeEvent.target).val();
+        $timeout.cancel(_timer);
+        _timer = $timeout(_.bind(_apply, this, value), 10);
+      }
+
+      /**
+       * apply scope model
+       * @param {string} value
+       * @private
+       */
+      function _apply(value) {
+        scope.$apply(function() {
+          scope[_key] = _isTrimEnable ? _.trim(value) : value;
+        });
+      }
+    }
+  };
+});
 
 /**
  * compile 디렉티브
@@ -87,54 +160,6 @@ app.directive('originFile', function() {
     }
   };
 });
-
-function fakeNgModel(initValue) {
-  return {
-    $setViewValue: function(value) {
-      this.$viewValue = value;
-    },
-    $viewValue: initValue
-  };
-}
-
-//app.directive('scrollGlue', function(){
-//  return {
-//    priority: 1,
-//    require: ['?ngModel'],
-//    restrict: 'A',
-//    link: function(scope, $el, attrs, ctrls) {
-//      var el = $el[0],
-//        ngModel = ctrls[0] || fakeNgModel(true);
-//
-//      function scrollToBottom() {
-//        console.log(scope.loadMoreCounter)
-//        //el.scrollTop = el.scrollHeight;
-//      }
-//
-//      function shouldActivateAutoScroll() {
-//        // + 1 catches off by one errors in chrome
-//        return el.scrollTop + el.clientHeight + 1 >= el.scrollHeight;
-//      }
-//
-//      scope.$watch(function() {
-//        if (ngModel.$viewValue) {
-//          if (!scope.isMessageSearchJumping) {
-//            console.log(scope.isMessageSearchJumping)
-//            scrollToBottom();
-//
-//          }
-//        }
-//      });
-//
-//      $el.bind('scroll', function() {
-//        var activate = shouldActivateAutoScroll();
-//        if (activate !== ngModel.$viewValue) {
-//          scope.$apply(ngModel.$setViewValue.bind(ngModel, activate));
-//        }
-//      });
-//    }
-//  };
-//});
 
 /**
  * 메세지의 repeat done detector
