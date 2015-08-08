@@ -53,7 +53,7 @@
         {
           isShown: true,
           top: 117,
-          left: 175
+          left: 162
         },
         {
           isShown: true,
