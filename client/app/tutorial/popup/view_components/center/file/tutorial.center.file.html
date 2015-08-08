@@ -3,13 +3,18 @@
   <div class="msg-item-float cursor_pointer">
     <img class="user-profile user-thumb" ng-src="{{ msg.profileUrl }}">
   </div>
-  <div class="msg-item-header">
+  <div class="msg-item-header"
+       disabled-member-detector="center-panel-disabled-member">
     <!--    WRITER-->
     <span class="msg-item-header__name cursor_pointer">
-      <span class="msg-item-header__nameSpace ng-binding">{{ msg.name }}</span>
+      <span class="msg-item-header__nameSpace">
+        {{ msg.name }}
+      </span>
+
       <!--    CREATED TIME    -->
-      <span class="msg-item-header__created ng-binding">{{msg.time | gethmmaFormat}}</span>
-      <span class="badge unread-badge ng-binding"></span>
+      <span class="msg-item-header__created">
+        {{msg.time | gethmmaFormat}}
+      </span>
     </span>
   </div>
   <div class="msg-item-body">
@@ -43,59 +48,26 @@
           </div>
         </div>
         <div class="msg-file-meta-down">
-          <!--    SHARED MESSAGE  -->
-          <span class="msg-file-meta-info">
-            <span>
-              <a class="msg-file-meta__writer file__owner">{{ msg.name }}</a>
-              <span translate>@msg-whose</span>
-            </span>
-            <span translate>@msg-shared</span>
-            <span translate>@msg-file</span>
-          </span>
-          <span class="bullet">•</span>
-
-          <!--    SHARED ENTITIES -->
-          <span data-ng-if="msg.shared.length">
-            <span data-ng-repeat="sharedEntity in filteredSharedFile = (msg.shared)">
-              <span data-ng-hide="($index === 0)">, </span>
-              <span class="file-item-meta__shared cursor_pointer">
-                {{ sharedEntity.name }}
-              </span>
-              <a class="link-remove link-unshare cursor_pointer">
-                <i class="fa fa-times-circle"></i>
-              </a>
-            </span>
-            <span class="bullet">•</span>
-          </span>
-
-          <!-- OPEN ORIGINAL  -->
-          <a class="cursor_pointer">
-            <span translate>@msg-open-original</span>
+          <!--  DOWNLOAD  -->
+        <span class="file-uploaded-download" ng-if="!isIntegrateFile">
+          <a>
+            <i class="icon-download cursor_pointer file-action"
+               tooltip="{{'@common-download' | translate}}" tooltip-placement="top" append-to-body="true"></i>
           </a>
+        </span>
 
-          <span class="bullet">•</span>
+          <span class="separator" ng-if="!isIntegrateFile"></span>
 
-          <!--    DOWNLOAD    -->
-          <a class="cursor_pointer">
-            <span translate>@common-download</span>
-          </a>
+          <!--  SHARE -->
+          <i class="icon-share cursor_pointer file-action"
+             tooltip="{{'@btn-share' | translate}}" tooltip-placement="top" append-to-body="true"></i>
 
-          <span class="bullet">•</span>
+          <span class="separator"></span>
 
-          <!--    COMMENT -->
-          <a class="cursor_pointer">
-            <span translate>@btn-comment</span>
-          </a>
-
-          <span class="bullet">•</span>
-
-          <!--    SHARE   -->
-          <a class="cursor_pointer">
-            <span translate>@btn-share</span>
-          </a>
-
-
-        </div>
+          <!--  MORE  -->
+        <span class="file-uploaded-more" tooltip="{{'@file-action-more' | translate}}" tooltip-placement="top" append-to-body="true">
+          <i class="fa fa-cog cursor_pointer file-action"></i>
+        </span>
       </div>
     </div>
   </div>

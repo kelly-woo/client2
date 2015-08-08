@@ -56,7 +56,7 @@
         {
           title: '',
           content: _translate('@tutorial_upload_preview'),
-          top: 200,
+          top: 240,
           left: 300,
           hasSkip: false,
           hasNext: true
