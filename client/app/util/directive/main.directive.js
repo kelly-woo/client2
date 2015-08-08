@@ -43,6 +43,9 @@ app.directive('jndInputModel', function($timeout) {
         for (; i < lastIdx; i++) {
           key = _keys[i];
           target = target[key];
+          if (_.isUndefined(target)) {
+            return;
+          }
         }
         target[_keys[lastIdx]] = _isTrimEnable ? _.trim(value) : value;
       }
