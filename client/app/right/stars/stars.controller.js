@@ -64,8 +64,8 @@
       }
     }
 
-    $scope.$on('onRightPanel', function($event, type) {
-      if (type === 'stars') {
+    $scope.$on('onRightPanel', function($event, data) {
+      if (data.type === 'stars') {
         isActivated = true;
 
         if (!$scope.tabs[$scope.activeTabName].hasFirstLoad) {

@@ -163,9 +163,29 @@
         jndPubSub.updateLeftPanel();
       }
 
-      if (memberService.isTopicNotificationOn(data.room.id)) {
+      if (_hasMention(data)) {
+        _sendMentionNotification(data);
+      } else if (memberService.isTopicNotificationOn(data.room.id)) {
         _sendBrowserNotification(data);
       }
+    }
+
+    /**
+     * 나에대한 mention이 있는지 없는지 확인한다.
+     * @param data
+     * @returns {boolean}
+     * @private
+     */
+    function _hasMention(data) {
+      var mentionList = data.mentions;
+      var foundMentionToMe = false;
+      _.each(mentionList, function(mentionObj) {
+        if (mentionObj.id === memberService.getMemberId()) {
+          foundMentionToMe = true;
+          return false;
+        }
+      });
+      return foundMentionToMe;
     }
 
     /**
@@ -242,6 +262,16 @@
       }
     }
 
+    /**
+     * mention용 browser notification을 보낸다.
+     * @param {object} data - message socket event를 통해서 들어온 data
+     * @private
+     */
+    function _sendMentionNotification(data) {
+      if (_shouldSendNotification(data)) {
+        DesktopNotification.sendMentionNotification(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room));
+      }
+    }
     /**
      * 노티피케이션을 보내야하는 상황인지 아닌지 확인한다.
      * @param {object} writer - 노티를 보낸 사람

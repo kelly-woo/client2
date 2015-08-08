@@ -9,7 +9,8 @@
     .controller('MessageCtrl', MessageCtrl);
 
   /* @ngInject */
-  function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData, currentSessionHelper, entityAPIservice, memberService, messageAPIservice) {
+  function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData,
+                       currentSessionHelper, entityAPIservice, memberService, messageAPIservice) {
     _init();
 
     // First function to be called.
@@ -84,24 +85,21 @@
     }
 
     function _goTo(fn) {
-      var hasStateChange;
-
       messageAPIservice.getMessage($scope.messageData.teamId, $scope.message.id)
         .success(function(message) {
           if (message.status === 'created') {
-            hasStateChange = true;
             fn();
+          } else {
+            alert($filter('translate')('@common-removed-origin'));
           }
         })
-        .finally(function() {
-          if (!hasStateChange) {
-            alert($filter('translate')('@common-remove-origin'));
-          }
+        .error(function() {
+          alert($filter('translate')('@common-leaved-topic'));
         });
     }
 
     function _goToFileDetail(message, writer) {
-      $state.go('files', {userName: writer.name, itemId: message.feedbackId});
+      $state.go($scope.message.type === 'star' ? 'stars' : 'files', {userName: writer.name, itemId: message.feedbackId});
     }
 
     function _goToTopic(message) {

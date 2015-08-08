@@ -46,11 +46,11 @@
       _setTabStatus(type, true);
     });
 
-    $scope.$on('onRightPanel', function($event, type) {
+    $scope.$on('onRightPanel', function($event, data) {
       $rootScope.isOpenRightPanel = true;
 
       _setTabStatus(currentRightPanel, false);
-      _setTabStatus(type, true);
+      _setTabStatus(data.type, true);
     });
 
     $scope.$on('closeRightPanel', function() {

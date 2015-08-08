@@ -69,17 +69,16 @@
     /**
      * right panel이 on 되었다는 event handling
      */
-    $scope.$on('onRightPanel', function($event, type) {
+    $scope.$on('onRightPanel', function($event, data) {
       var tab;
 
-      if (tab = $scope.tabs[type]) {
+      if (tab = $scope.tabs[data.type]) {
         tab.active = true;
         $scope.activeTabName = tab.name;
 
         // reset input element
         jndPubSub.pub('resetRPanelSearchStatusKeyword');
       }
-      //$state.go('messages.detail.' + type);
     });
 
     /**

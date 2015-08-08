@@ -26,18 +26,15 @@
     function onRenameClick(form) {
       var _body;
       if (!form.$invalid) {
+        _body = {};
         jndPubSub.showLoading();
 
         if ($scope.topicName !== _currentEntity.name) {
-          _body = {
-            name: $scope.topicName
-          };
+          _.extend(_body, {name: $scope.topicName});
         }
 
         if ($scope.topicDescription !== _currentEntity.description) {
-          _body = {
-            description: $scope.topicDescription
-          };
+          _.extend(_body, {description: $scope.topicDescription});
         }
 
         entityheaderAPIservice.renameEntity(_entityType, _entityId, _body)

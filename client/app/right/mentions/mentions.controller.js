@@ -30,8 +30,8 @@
       }
     }
 
-    $scope.$on('onRightPanel', function($event, type) {
-      if (type === 'mentions') {
+    $scope.$on('onRightPanel', function($event, data) {
+      if (data.type === 'mentions') {
         isActivated = true;
 
         _initMentionListData();

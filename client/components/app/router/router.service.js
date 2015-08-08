@@ -153,7 +153,11 @@
           case 'messages.detail.messages':
           case 'messages.detail.stars':
           case 'messages.detail.mentions':
-            jndPubSub.pub('onRightPanel', getActiveRightTabName(toState));
+            jndPubSub.pub('onRightPanel', {
+              type: getActiveRightTabName(toState),
+              toUrl: toState.url,
+              fromUrl: fromState.url
+            });
             break;
           case '404':
             event.preventDefault();

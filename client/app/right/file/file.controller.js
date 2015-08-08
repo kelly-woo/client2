@@ -9,7 +9,7 @@
     .controller('FileCtrl', FileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData, messageAPIservice) {
+  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData, messageAPIservice, memberService) {
     _init();
 
     // First function to be called.
@@ -39,23 +39,19 @@
     }
 
     function onFileCardClick() {
-      var hasStateChange;
+      var memberId = memberService.getMemberId();
 
-      messageAPIservice.getMessage($scope.fileData.teamId, $scope.file.id)
-        .success(function(file) {
-          if (file.status === 'created') {
-            hasStateChange = true;
+      if ($scope.file.writerId === memberId) {
+        $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
+      } else {
+        messageAPIservice.getMessage($scope.fileData.teamId, $scope.file.id)
+          .success(function() {
             $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
-          }
-        })
-        .finally(function() {
-          if (!hasStateChange) {
-            alert($filter('translate')('@common-remove-origin'));
-          }
-        });
-
-      //jndPubSub.updateRightFileDetailPanel();
-      //$state.go('messages.detail.filedetail', _.extend( {},$state.params, {userName: $scope.writerName, itemId: $scope.file.id, tail: $scope.file.type + 's'}));
+          })
+          .error(function() {
+            alert($filter('translate')('@common-leaved-topic'));
+          })
+      }
     }
 
     function isDisabledMember() {

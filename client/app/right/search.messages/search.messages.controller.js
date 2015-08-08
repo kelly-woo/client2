@@ -83,8 +83,8 @@
       }
     });
 
-    $scope.$on('onRightPanel', function($event, type) {
-      if (type === 'messages') {
+    $scope.$on('onRightPanel', function($event, data) {
+      if (data.type === 'messages') {
         _isActivated = true;
         $scope.searchQuery.q = '';
 
