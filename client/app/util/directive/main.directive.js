@@ -10,6 +10,7 @@ app.directive('jndInputModel', function($timeout) {
     restrict: 'A',
     link: function(scope, el, attrs) {
       var _key;
+      var _keys;
       var _isTrimEnable;
       var _timer;
 
@@ -20,11 +21,30 @@ app.directive('jndInputModel', function($timeout) {
        * @private
        */
       function _init() {
-        _key = attrs.jndInputModel;
-        _isTrimEnable = attrs.jndIsTrim === 'on';
-        _attachDomEvents();
-        el.val(scope[_key] || '');
-        scope.$on('$destroy', _onDestroy);
+        if (_.isString(attrs.jndInputModel)) {
+          _keys = attrs.jndInputModel.split('.');
+          _isTrimEnable = attrs.jndIsTrim === 'on';
+          _attachDomEvents();
+          el.val(scope[_key] || '');
+          scope.$on('$destroy', _onDestroy);
+        }
+      }
+
+      /**
+       * value 를 set 한다.
+       * @param {string} value
+       * @private
+       */
+      function _setValue(value) {
+        var i = 0;
+        var lastIdx = _keys.length - 1;
+        var key;
+        var target = scope;
+        for (; i < lastIdx; i++) {
+          key = _keys[i];
+          target = target[key];
+        }
+        target[_keys[lastIdx]] = _isTrimEnable ? _.trim(value) : value;
       }
 
       /**
@@ -69,7 +89,7 @@ app.directive('jndInputModel', function($timeout) {
        */
       function _apply(value) {
         scope.$apply(function() {
-          scope[_key] = _isTrimEnable ? _.trim(value) : value;
+          _setValue(value);
         });
       }
     }
