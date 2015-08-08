@@ -261,8 +261,10 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   function removeSharedEntities(file, list) {
     var returnValue = [];
+    var entityId;
     angular.forEach(list, function(option, index) {
-      if(file.shareEntities.indexOf(option.id) == -1 && option.id !== memberService.getMemberId())
+      entityId = option.type === 'users' ? option.entityId : option.id;
+      if(file.shareEntities.indexOf(entityId) == -1 && option.id !== memberService.getMemberId())
         this.push(option);
     }, returnValue);
 

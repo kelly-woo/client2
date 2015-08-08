@@ -9,15 +9,16 @@
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService, $rootScope,
                               jndPubSub, fileToShare, modalHelper, AnalyticsHelper, currentSessionHelper) {
-
-    var _entityType;
     var _entityId;
+    var _entityType;
+    var _targetId;
     var callback;
 
     $scope.file = fileToShare;
-
+    console.log('fileToShare.shareEntities', fileToShare.shareEntities);
     var selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
     $scope.selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
+    console.log($scope.selectOptions);
 
     $scope.shareChannel = currentSessionHelper.getCurrentEntity();
 
@@ -48,13 +49,14 @@
      * @param {object} shareChannel - share 할 entity
      */
     function onFileShareClick(shareChannel) {
-      _entityId = shareChannel.id;
+      _targetId = shareChannel.id;
       _entityType = shareChannel.type;
-
+      _entityId = (_entityType.indexOf('user') !== -1) ? shareChannel.entityId : _targetId;
       jndPubSub.showLoading();
+      console.log('shareChannel', shareChannel);
 
       fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
-        .success(function() {
+        .success(function(response) {
           try {
             AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_SHARE, {
               'RESPONSE_SUCCESS': true,
@@ -63,7 +65,6 @@
             });
           } catch (e) {
           }
-
           _onShareSuccess();
         })
         .error(function(error) {
@@ -91,12 +92,13 @@
     function _onShareSuccess() {
       jndPubSub.hideLoading();
 
-
+      $scope.file.shareEntities.push(_entityId);
+      console.log('$scope.file.shareEntities', $scope.file.shareEntities, _entityId);
       try {
         _sendAnalytics(_entityType);
       } catch(e) {}
 
-      if (_entityId !== currentSessionHelper.getCurrentEntityId()) {
+      if (_targetId !== currentSessionHelper.getCurrentEntityId()) {
 
         if (confirm($filter('translate')('@common-file-share-jump-channel-confirm-msg'))) {
           if (_entityType === "users") {
@@ -151,7 +153,7 @@
      * @private
      */
     function _goToSharedEntity() {
-      $state.go('archives', {entityType: _entityType, entityId: _entityId});
+      $state.go('archives', {entityType: _entityType, entityId: _targetId});
     }
 
     /**

@@ -47,10 +47,14 @@
           <span translate>@common-share-in</span>
         </label>
         <div class="col-sm-9">
-          <select class="form-control"
+          <select ng-if="selectOptions.length"
+                  class="form-control"
                   data-ng-model="shareChannel"
                   data-ng-options="channel as channel|getName group by channel.typeCategory for channel in selectOptions | orderBy: 'name'">
           </select>
+          <span ng-if="!selectOptions.length"
+                class="modal-share-span"
+                translate>@common-all-shared</span>
         </div>
       </div>
       <!-- FILE COMMENT -->
