@@ -9,7 +9,8 @@
     .controller('MessageCtrl', MessageCtrl);
 
   /* @ngInject */
-  function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData, currentSessionHelper, entityAPIservice, memberService, messageAPIservice) {
+  function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData,
+                       currentSessionHelper, entityAPIservice, memberService, messageAPIservice) {
     _init();
 
     // First function to be called.
@@ -84,19 +85,16 @@
     }
 
     function _goTo(fn) {
-      var hasStateChange;
-
       messageAPIservice.getMessage($scope.messageData.teamId, $scope.message.id)
         .success(function(message) {
           if (message.status === 'created') {
-            hasStateChange = true;
             fn();
-          }
-        })
-        .finally(function() {
-          if (!hasStateChange) {
+          } else {
             alert($filter('translate')('@common-removed-origin'));
           }
+        })
+        .error(function() {
+          alert($filter('translate')('@common-leaved-topic'));
         });
     }
 
