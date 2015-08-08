@@ -10,13 +10,13 @@
       'icon-user': entity.type === 'users'
       }"></i>
     </span>
-    <span class="panel-title-info">
+    <span class="panel-title-info panel-title-info-tutorial">
       <span class="inline-overflow-ellipsis panel-title-info__name">
         {{ entity.name }}
         <i class="fa fa-caret-down header-title-info__more"></i>
       </span>
     </span>
-    <span ng-if="entity.memberCount" class="panel-title-member">
+    <span ng-if="entity.memberCount" class="panel-title-member panel-title-member-tutorial">
       <span class="panel-title-member__more">
         <i class="icon-user"></i>
         <span>{{ entity.memberCount }}</span>

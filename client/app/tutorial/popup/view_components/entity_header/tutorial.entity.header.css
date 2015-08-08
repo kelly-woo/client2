@@ -2,5 +2,13 @@
   position: absolute;
   top: 41px;
   left: 240px;
-  max-width:300px;
+  max-width:400px;
+}
+
+.panel-title-info-tutorial {
+  padding-right: 10px;
+}
+
+.panel-title-member-tutorial {
+  padding-top: 6px;
 }
