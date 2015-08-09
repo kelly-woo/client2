@@ -24,6 +24,7 @@
 
     this.getLastLinkId = getLastLinkId;
     this.getFirstLinkId = getFirstLinkId;
+    this.getSystemMessageCount = getSystemMessageCount;
 
     this.hasLinkPreview = hasLinkPreview;
 
@@ -378,6 +379,13 @@
       return linkId;
     }
 
+    /**
+     * 현재 messages중 system message가 몇 개 있는지 리턴한다.
+     * @returns {number}
+     */
+    function getSystemMessageCount() {
+      return _systemMessageCount;
+    }
     /**
      * 연속된 메세지로 간주할 시간 허용 범위를 초과하였는지 여부
      * @param {number} startTime 시작 시간
