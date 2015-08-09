@@ -40,6 +40,7 @@
 
       var regxIE = /MSIE\s([0-9]+[.0-9]*)/;
       var regxIE11 = /Trident.*rv:11\./;
+      var regxEdge = /Edge\/(\d+)\./;
       var regxVer = {
         'firefox': /Firefox\/(\d+)\./,
         'chrome': /Chrome\/(\d+)\./,
@@ -58,6 +59,7 @@
         firefox: false,
         safari: false,
         msie: false,
+        edge: false,
         others: false,
         version: 0,
         platform: {
@@ -89,6 +91,9 @@
           // ie11
           browser.msie = true;
           browser.version = 11;
+        } else if (regxEdge.exec(userAgent)) {
+          browser.msie = true;
+          browser.edge = true;
         } else {
           // chrome, firefox, safari, others
           for (key in regxVer) {

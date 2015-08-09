@@ -411,7 +411,9 @@
           break;
         // text deleted
         case 'archived':
-          isArchived = remove(messageId);
+          if (msg.message.contentType !== 'file') {
+            isArchived = remove(messageId);
+          }
           break;
         // file shared
         case 'shared':

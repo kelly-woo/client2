@@ -10,6 +10,8 @@
 
   /* @ngInject */
   function jndWebSocketFile(jndPubSub, logger) {
+    var FILE_CREATED = 'file_created';
+    var FILE_SHARED = 'file_shared';
     var FILE_DELETED = 'file_deleted';
     var FILE_COMMENT_CREATED = 'file_comment_created';
     var FILE_COMMENT_DELETED = 'file_comment_deleted';
@@ -17,11 +19,21 @@
     this.attachSocketEvent = attachSocketEvent;
 
     function attachSocketEvent(socket) {
+      socket.on(FILE_CREATED, _onFileCreated);
+      socket.on(FILE_SHARED, _onFileShared);
       socket.on(FILE_DELETED, _onFileDeleted);
       socket.on(FILE_COMMENT_CREATED, _onFileCommentCreated);
       socket.on(FILE_COMMENT_DELETED, _onFileCommentDeleted);
     }
 
+    function _onFileCreated(data) {
+      logger.socketEventLogger(data.event, data);
+    }
+
+
+    function _onFileShared(data) {
+      logger.socketEventLogger(data.event, data);
+    }
     /**
      * 파일이 지워졌을 때
      * @param data

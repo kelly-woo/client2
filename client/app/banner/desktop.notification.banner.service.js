@@ -43,7 +43,7 @@
      * 배너를 보여줘야 할 상황이면 보여준다.
      */
     function showNotificationBanner(scope) {
-      if (_shouldAskNotification() && !Browser.msie && !Browser.others) {
+      if (_shouldAskNotification() && (!Browser.msie || !Browser.edge)&& !Browser.others) {
         _prependBannerElement(scope);
       }
     }
