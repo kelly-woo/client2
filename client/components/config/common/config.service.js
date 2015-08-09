@@ -66,7 +66,7 @@
      * @private
      */
     function _setCors() {
-      if (Browser.msie && browser.version === 9) {
+      if (Browser.msie && Browser.version === 9) {
         _.each(configuration.cors, function(value, name) {
           configuration[name] = value;
         });
