@@ -66,6 +66,8 @@
         <file-uploaded ng-switch-when="file" id="{::{msg.id}}" class="msg-item"></file-uploaded>
         <title-comment ng-switch-when="comment" id="{{::msg.id}}" class="msg-item"
                        ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
+        <title-comment ng-switch-when="comment_sticker" id="{{::msg.id}}" class="msg-item"
+                       ng-class="{'comment-title': isTitleComment($index), 'comment-continue': !isTitleComment($index)}"></title-comment>
         <unread-bookmark class="msg-item hidden" id="unread-bookmark" link-id="{{::msg.id}}"></unread-bookmark>
       </div>
 
