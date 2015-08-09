@@ -57,7 +57,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   // 주기적으로 업데이트 메세지 리스트 얻기 (polling)
   var globalLastLinkId = -1;      // 전체 엔티티(토픽, DM)의 가장 마지막 ID
-  var systemMessageCount;         // system event message의 갯수를 keep track 한다.
   var hasRetryGetRoomInfo;        // Indicates that whether current entity has failed getting room info once.
 
   // _scrollToBottom fn timer variable
@@ -273,7 +272,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     firstMessageId = -1;
     lastMessageId = -1;
     loadedFirstMessageId = -1;
-    systemMessageCount = 0;
 
     _isFromCache = false;
     _updateRetryCnt = 0;
@@ -1257,9 +1255,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _amIAlone() {
-    var memberCount = entityAPIservice.getMemberLength($rootScope.currentEntity);
+    var memberCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity());
 
-    //log('this is _alIAlone ', memberCount, ' returning ', memberCount == 1)
+    //console.log()
+    //console.log('this is _alIAlone ', memberCount, ' returning ', memberCount == 1)
 
     return memberCount == 1;
   }
@@ -1273,8 +1272,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // While there is a default message for private/public topic.  default for public/private topic is a system event.
     var numberOfDefaultMessage = entityType === 'users' ? 0 : 1;
 
-    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength <= numberOfDefaultMessage)) return true;
+    var systemMessageCount = MessageCollection.getSystemMessageCount();
 
+    if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength <= numberOfDefaultMessage)) return true;
 
     return false;
   }
@@ -1290,17 +1290,16 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function _isFullRoom() {
 
-    var currentEntityMemberCount = entityAPIservice.getMemberLength($rootScope.currentEntity);
+    var currentEntityMemberCount = entityAPIservice.getMemberLength(currentSessionHelper.getCurrentEntity());
 
-    // $scope.memberList does not include myself.
-    var totalTeamMemberCount = currentSessionHelper.getCurrentTeamMemberCount() + 1;
+    var totalTeamMemberCount = currentSessionHelper.getCurrentTeamMemberCount();
 
-    //log('this is _isFullRoom ', totalTeamMemberCount,' and ', currentEntityMemberCount, ' returning ', currentEntityMemberCount == totalTeamMemberCount);
+    //console.log('this is _isFullRoom ', totalTeamMemberCount,' and ', currentEntityMemberCount, ' returning ', currentEntityMemberCount == totalTeamMemberCount);
     return currentEntityMemberCount == totalTeamMemberCount;
   }
 
   function _isDefaultTopic() {
-    return currentSessionHelper.isDefaultTopic($rootScope.currentEntity);
+    return currentSessionHelper.isDefaultTopic(currentSessionHelper.getCurrentEntity());
   }
 
   /********************************************
