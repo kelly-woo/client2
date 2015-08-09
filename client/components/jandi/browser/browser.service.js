@@ -114,7 +114,6 @@
       if (!isDetacted) {
         browser.others = true;
       }
-      console.log('::', browser);
       return browser;
     }
   }
