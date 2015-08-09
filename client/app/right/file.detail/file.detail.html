@@ -95,8 +95,8 @@
             <div class="file-detail-body__meta-info-up">
               <span class="file-item-meta__createtime">{{ file_detail.createTime | getyyyyMMddformat }}</span>
               <span class="bullet">•</span>
-              <span class="file-item-meta__size" ng-if="file_detail.content.size > 0">{{ file_detail.content.size | bytes }}</span>
-              <span class="file-item-meta__type" ng-if="file_detail.content.type">{{ file_detail.content | fileType }}</span>
+              <span class="file-item-meta__size" ng-if="::file_detail.content.size > 0">{{:: file_detail.content.size | bytes }}</span>
+              <span class="file-item-meta__type" ng-if="::file_detail.content.type">{{:: file_detail.content | fileType }}</span>
             </div>
 
             <div class="file-detail-body__meta-info-down">
@@ -133,12 +133,12 @@
             <span class="comment-item-header__name">{{ comment.extWriterName }}</span>
             <span class="comment-item-header__created">{{ getCreateTime($index, comment) }}</span>
             <div class="comment-item-header__action pull-right">
-              <div class="comment-item-action comment-item-action-more" dropdown ng-if="(member.id === comment.writerId)">
+              <div class="comment-item-action comment-item-action-more" dropdown ng-if="::(member.id === comment.writerId)">
                 <a href="#" class="link-dark" dropdown-toggle>
                   <i class="fa fa-cog"></i>
                 </a>
                 <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
-                  <li class="cursor_pointer">
+                  <li class="cursor_pointer" ng-if="::!comment.isSticker">
                     <a ng-click="starComment($event)">
                       <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'"></i>
                       <span><span ng-if="comment.isStarred" translate>@star-un</span><span ng-if="!comment.isStarred" translate>@star</span></span>
@@ -152,7 +152,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="comment-item-action comment-star" ng-class="{'show-inline-block': comment.isStarred}">
+              <div class="comment-item-action comment-star" ng-class="{'show-inline-block': comment.isStarred}" ng-if="::!comment.isSticker">
                 <a class="link-dark cursor_pointer">
                   <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
                 </a>
@@ -160,8 +160,8 @@
             </div>
           </div>
           <div class="comment-item-body">
-            <img class="sticker size_5" ng-if="comment.isSticker" src="{{ comment.content.url }}"/>
-            <p ng-if="!comment.isSticker" class="keep" ng-bind-html="(comment.content.body) || ''"></p>
+            <img class="sticker size_5" ng-if="::comment.isSticker" src="{{ comment.content.url }}"/>
+            <p ng-if="::!comment.isSticker" class="keep" ng-bind-html="(comment.content.body) || ''"></p>
           </div>
         </div>
 
@@ -255,12 +255,12 @@
             <span class="comment-item-header__name">{{ comment.extWriterName }}</span>
             <span class="comment-item-header__created">{{ getCreateTime($index, comment) }}</span>
             <div class="comment-item-header__action pull-right">
-              <div class="comment-item-action comment-item-action-more" dropdown ng-if="(member.id === comment.writerId)">
+              <div class="comment-item-action comment-item-action-more" dropdown ng-if="::(member.id === comment.writerId)">
                 <a href="#" class="link-dark" dropdown-toggle>
                   <i class="fa fa-cog"></i>
                 </a>
                 <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
-                  <li class="cursor_pointer">
+                  <li class="cursor_pointer" ng-if="::!comment.isSticker">
                     <a ng-click="starComment($event)">
                       <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'"></i>
                       <span><span ng-if="comment.isStarred" translate>@star-un</span><span ng-if="!comment.isStarred" translate>@star</span></span>
@@ -274,7 +274,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="comment-item-action comment-star" ng-class="{'show-inline-block': comment.isStarred}">
+              <div class="comment-item-action comment-star" ng-class="{'show-inline-block': comment.isStarred}" ng-if="::!comment.isSticker">
                 <a class="link-dark cursor_pointer">
                   <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
                 </a>
@@ -282,8 +282,8 @@
             </div>
           </div>
           <div class="comment-item-body">
-            <img class="sticker size_5" ng-if="comment.isSticker" src="{{ comment.content.url }}"/>
-            <p ng-if="!comment.isSticker" class="keep" ng-bind-html="(comment.content.body) || ''"></p>
+            <img class="sticker size_5" ng-if="::comment.isSticker" src="{{ comment.content.url }}"/>
+            <p ng-if="::!comment.isSticker" class="keep" ng-bind-html="(comment.content.body) || ''"></p>
           </div>
         </div>
       </div>

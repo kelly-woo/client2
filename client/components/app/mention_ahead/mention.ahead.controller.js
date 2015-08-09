@@ -238,6 +238,7 @@
       var lastIndex;
       var offset = 0;
 
+      value && (value = value.trim());
       while(match = regxMention.exec(value)) {
         //console.log('mention match ::: ', match);
         if ($scope._mentionMap[match[0]]) {
