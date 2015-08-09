@@ -111,7 +111,7 @@
       logger.socketEventLogger(data.event, data);
 
       // 현재 토픽이라면 센터를 업데이트하고 아니라면 왼쪽을 업데이트한다
-      if (jndWebSocketCommon.isCurrentEntity(data)) {
+      if (jndWebSocketCommon.isCurrentEntity(data.room)) {
         jndPubSub.updateCenterPanel();
       } else {
         jndPubSub.updateLeftPanel();
