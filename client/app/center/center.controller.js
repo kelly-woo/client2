@@ -980,7 +980,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _onConnected() {
     if (MessageSendingCollection.queue.length) {
-      _requestPostMessages();
+      _requestPostMessages(true);
     } else {
       updateList();
     }

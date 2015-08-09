@@ -12,7 +12,6 @@
   function TextSendingCtrl($scope, MessageSendingCollection) {
     $scope.retry = retry;
 
-    console.log('TextSendingCtrl', this);
     /**
      * retry 버튼 눌렀을 경우 재 전송을 시도한다.
      */
