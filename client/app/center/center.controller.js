@@ -879,10 +879,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         globalLastLinkId = response.lastLinkId;
         updateInfo.messages = _.sortBy(updateInfo.messages, 'id');
 
+        MessageSendingCollection.clearSentMessages();
+
         if (updateInfo.messageCount) {
           // 업데이트 된 메세지 처리
           _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
-          MessageSendingCollection.clearSentMessages();
           MessageCollection.updateUnreadCount();
           lastMessageId = updateInfo.messages[updateInfo.messages.length - 1].id;
           //console.log('::_onUpdateListSuccess', lastMessageId);

@@ -10,8 +10,9 @@
     .controller('TextSendingCtrl', TextSendingCtrl);
 
   function TextSendingCtrl($scope, MessageSendingCollection) {
-    this.retry = retry;
+    $scope.retry = retry;
 
+    console.log('TextSendingCtrl', this);
     /**
      * retry 버튼 눌렀을 경우 재 전송을 시도한다.
      */
@@ -30,9 +31,8 @@
         sticker = null;
       }
 
-      $scope.post(content, sticker, mentions);
+      $scope.$parent.post(content, sticker, mentions);
       MessageSendingCollection.remove(msg);
-
     }
   }
 })();
