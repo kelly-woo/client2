@@ -10,17 +10,17 @@
     .service('config', config);
 
   /* @ngInject */
-  function config(configuration) {
+  function config(configuration, Browser) {
 
     // TODO WHY DID YOU USE self?
     var self = this;
 
     this.init = init;
-
     function init($rootScope) {
       // TODO: SHOULD NOT BE USING $rootScope in this way.
       // TODO: MUST HAVE A SEPARATE SERVICE FOR CONSTANTS.
       // compatibility for current version
+      _setCors();
       $rootScope.server_address = configuration.api_address + "inner-api/";
       $rootScope.server_uploaded = configuration.api_address;
       $rootScope.api_version = configuration.api_version;
@@ -61,5 +61,16 @@
       //window.document.domain = 'jandi.' + /.([a-zA-Z]+)$/.exec(window.document.domain)[1];
     }
 
+    /**
+     * IE 9 일때만 적용되는 CORS 관련 설정
+     * @private
+     */
+    function _setCors() {
+      if (Browser.msie && browser.version === 9) {
+        _.each(configuration.cors, function(value, name) {
+          configuration[name] = value;
+        });
+      }
+    }
   }
 })();

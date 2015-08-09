@@ -32,6 +32,10 @@
           redirect: '@@google_drive_redirect'
         },
         dropbox: '@@dropbox_api_key'
+      },
+      cors: {
+        api_address: '@@cors_api_address',
+        file_address: '@@cors_file_address'
       }
     })
     .run(run);
