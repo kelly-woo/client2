@@ -6,7 +6,7 @@
     <span translate>@common-share-file</span>
   </h3>
 </div>
-<form name="file_share_form" data-ng-submit="onFileShareClick(shareChannel, comment);">
+<form name="file_share_form" data-ng-submit="onFileShareClick();">
   <div class="modal-body">
     <div class="form-horizontal">
       <!-- FILE INFO -->
@@ -48,9 +48,10 @@
         </label>
         <div class="col-sm-9">
           <select ng-if="selectOptions.length"
+                  id="_modalShareEntitySelect"
                   class="form-control"
-                  data-ng-model="shareChannel"
-                  data-ng-options="channel as channel|getName group by channel.typeCategory for channel in selectOptions | orderBy: 'name'">
+                  ng-model="selected.data"
+                  ng-options="channel as channel|getName group by channel.typeCategory for channel in selectOptions | orderBy: 'name'">
           </select>
           <span ng-if="!selectOptions.length"
                 class="modal-share-span"

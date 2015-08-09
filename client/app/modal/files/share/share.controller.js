@@ -13,19 +13,12 @@
     var _entityType;
     var _targetId;
     var callback;
-
+    $scope.selected = {
+      data: null
+    };
     $scope.file = fileToShare;
-    console.log('fileToShare.shareEntities', fileToShare.shareEntities);
-    var selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
-    $scope.selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
-    console.log($scope.selectOptions);
-
-    $scope.shareChannel = currentSessionHelper.getCurrentEntity();
-
     $scope.cancel = modalHelper.closeModal;
-
     $scope.onFileShareClick = onFileShareClick;
-
     $scope.$on('$destroy', _onScopeDestroy);
 
     _init();
@@ -33,27 +26,64 @@
     function _init() {
       // If current channel is one of sharedEntities of 'file',
       // then select first entity in list.
-      if ($scope.selectOptions.indexOf($scope.shareChannel) === -1 ) {
-        $scope.shareChannel = $scope.selectOptions[0];
-      }
-
+      _initSelectOptions();
+      _initDefaultSelected();
       $scope.hasPreview = $scope.file.hasPreview == null ? $filter('hasPreview')($scope.file.content) : $scope.file.hasPreview;
       if ($scope.hasPreview) {
         $scope.thumbnailImage = $rootScope.server_uploaded + $scope.file.content.extraInfo.smallThumbnailUrl;
       }
     }
 
+    /**
+     * select options 를 초기화 한다.
+     * @private
+     */
+    function _initSelectOptions() {
+      var selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
+      selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
+      $scope.selectOptions = selectOptions;
+    }
 
+    /**
+     * default select options 을 설정한다.
+     * @private
+     */
+    function _initDefaultSelected() {
+      //set default select
+      var tempOptions;
+      var groupOptions;
+      var selectOptions = $scope.selectOptions;
+      var currentIndex = selectOptions.indexOf(currentSessionHelper.getCurrentEntity());
+
+      if (currentIndex === -1) {
+        if ($scope.selectOptions.length) {
+          groupOptions = _.groupBy(selectOptions, 'typeCategory');
+          if (groupOptions['토픽'] && groupOptions['토픽'].length) {
+            tempOptions = groupOptions['토픽'];
+          } else if (groupOptions['1:1 대화방'] && groupOptions['1:1 대화방'].length){
+            tempOptions = groupOptions['1:1 대화방'];
+          }
+          if (tempOptions) {
+            tempOptions = $filter('orderBy')(tempOptions, 'name');
+            $scope.selected.data = tempOptions[0];
+          }
+        }
+      } else {
+        $scope.selected.data = $scope.selectOptions[currentIndex];
+      }
+
+    }
     /**
      * 파일을 다른 곳으로 쉐어한다.
      * @param {object} shareChannel - share 할 entity
      */
-    function onFileShareClick(shareChannel) {
+    function onFileShareClick() {
+      var shareChannel = $scope.selected.data;
       _targetId = shareChannel.id;
       _entityType = shareChannel.type;
       _entityId = (_entityType.indexOf('user') !== -1) ? shareChannel.entityId : _targetId;
       jndPubSub.showLoading();
-      console.log('shareChannel', shareChannel);
+
 
       fileAPIservice.addShareEntity($scope.file.id, shareChannel.id)
         .success(function(response) {
