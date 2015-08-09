@@ -194,7 +194,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * comment 를 posting 한다.
    */
   function postComment() {
-    var msg = $('#file-detail-comment-input').val();
+    var msg = $('#file-detail-comment-input').val().trim();
     var content;
     var mentions;
 

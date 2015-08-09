@@ -138,7 +138,7 @@
                   <i class="fa fa-cog"></i>
                 </a>
                 <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
-                  <li class="cursor_pointer">
+                  <li class="cursor_pointer" ng-if="!comment.isSticker">
                     <a ng-click="starComment($event)">
                       <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'"></i>
                       <span><span ng-if="comment.isStarred" translate>@star-un</span><span ng-if="!comment.isStarred" translate>@star</span></span>
@@ -152,7 +152,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="comment-item-action comment-star" ng-class="{'show-inline-block': comment.isStarred}">
+              <div class="comment-item-action comment-star" ng-class="{'show-inline-block': comment.isStarred}" ng-if="!comment.isSticker">
                 <a class="link-dark cursor_pointer">
                   <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
                 </a>
