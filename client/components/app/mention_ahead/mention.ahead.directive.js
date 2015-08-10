@@ -61,6 +61,7 @@
                   }
                 }
 
+                // 실시간 mention 입력 확인
                 function liveSearchHandler() {
                   $timeout.cancel(timerLiveSearch);
                   timerLiveSearch = $timeout(function() {

@@ -1,5 +1,6 @@
 /**
- * @fileoverview message directive
+ * @fileoverview message dicrective
+ * message search와 star, mention에서 사용함
  */
 (function() {
   'use strict';

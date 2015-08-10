@@ -15,6 +15,8 @@
 
     // First function to be called.
     function _init() {
+      // message controller에 전달되는 data가 message search, star, mention에서 각각 다르므로 message data를
+      // message controller에서 사용가능한 data format으로 convert함
       var message = $scope.message = MessageData.convert($scope.messageType, $scope.messageData);
 
       $scope.writer = EntityMapManager.get('total', message.writerId);
@@ -31,22 +33,37 @@
       $scope.onMessageCardClick = onMessageCardClick;
     }
 
+    /**
+     * message content 전달
+     * @param {object} message
+     * @returns {*}
+     * @private
+     */
     function _getContent(message) {
       var content = message.contentBody;
 
-      if (message.mentions) {
+      if (message.mentions && message.mentions.length > 0) {
+        // mentions가 존재한다면 mentions parse하여 content 설정
         content = $filter('mention')(content, message.mentions, false);
       }
 
       return content;
     }
 
+    /**
+     *
+     * @param message
+     * @returns {*}
+     * @private
+     */
     function _getMessageStartPoint(message) {
       var startPoint;
 
       if (message.contentType === 'text') {
+        // type이 text라면 topic 명으로 설정함
         startPoint =  message.roomName || 'unknown topic';
       } else {
+        // type이 text가 아니라면 file 명으로 설정함
         startPoint = message.feedbackTitle;
       }
 
@@ -55,7 +72,7 @@
 
     /**
      * message card click 이벤트 핸들러
-     * @param {object} user
+     * @param {object} event
      */
     function onMessageCardClick(event) {
       var message = $scope.message;
@@ -64,7 +81,12 @@
         event.stopPropagation();
         jndPubSub.pub('onUserClick', $scope.writer);
       } else if (!message.preventRedirect) {
-        _redirect(message, $scope.writer);
+        if (message.type !== 'message') {
+          // message type이 'message'라면 상위 scope에서 handling함
+
+          // message가 작성된 곳으로 redirect
+          _redirect(message, $scope.writer);
+        }
       }
     }
 

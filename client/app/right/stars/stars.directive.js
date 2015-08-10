@@ -1,5 +1,5 @@
 /**
- * @fileoverview mentions directive
+ * @fileoverview stars directive
  */
 (function() {
   'use strict';

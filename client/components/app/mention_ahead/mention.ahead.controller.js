@@ -6,7 +6,7 @@
 
   angular
     .module('app.mention')
-    .controller('MentionParser', MentionaheadCtrl);
+    .controller('MentionaheadCtrl', MentionaheadCtrl);
 
   /* @ngInject */
   function MentionaheadCtrl($state, $parse, $filter, $window, entityAPIservice, memberService, currentSessionHelper, configuration, MentionExtractor) {

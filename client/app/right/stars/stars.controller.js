@@ -1,5 +1,5 @@
 /**
- * @fileoverview mentions controller
+ * @fileoverview stars controller
  */
 (function() {
   'use strict';
@@ -27,12 +27,19 @@
         all: {
           list: [],
           map: {},
+          // tab의 loading 상태 여부
           isLoading: false,
+          // tab의 scroll loading 상태 여부
           isScrollLoading: false,
+          // tab name
           name: $filter('translate')('@star-all'),
+          // tab 활성화 여부
           active: true,
+          // tab list 전체가 load 되었는지 여부
           endOfList: false,
+          // tab 비어있는지 여부
           empty: false,
+          // tab 첫 load가 되었는지 여부
           hasFirstLoad: false
         },
         files: {
@@ -64,11 +71,15 @@
       }
     }
 
+    /**
+     * open right panel event handler
+     */
     $scope.$on('onRightPanel', function($event, data) {
       if (data.type === 'stars') {
         isActivated = true;
 
         if (!$scope.tabs[$scope.activeTabName].hasFirstLoad) {
+          // 'onRightPanel' event 발생시 tab(all, file)이 최초로 로드되는 시점에만 star list를 호출한다
           _initStarListData($scope.activeTabName);
           _initGetStarList($scope.activeTabName);
         }
@@ -77,25 +88,36 @@
       }
     });
 
-    // starred event handler
+    /**
+     * starred event handler
+     */
     $scope.$on('starred', function($event, data) {
       var index;
 
       index = removeItems.indexOf(data.messageId);
       if (index > -1) {
+        // starred된 item이 삭제목록에 존재한다면 삭제 목록에서 제거
+
         removeItems.splice(index, 1);
       } else {
+        // star된 item을 star list에 추가
+
         _getStarItem(data.messageId);
       }
     });
 
-    // unstarred event handler
+    /**
+     * unstarred event handler
+     */
     $scope.$on('unStarred', function($event, data) {
       var messageId = data.messageId;
 
       if ($scope.tabs.all.map[messageId]) {
+        // unstar된 item이 star list에 존재한다면 삭제 목록에 추가함
+
         removeItems.push(messageId);
 
+        // 일정 시간이 흐른 후 unstarred된 star list를 한번에 제거함
         $timeout.cancel(timerRemoveItems);
         timerRemoveItems = $timeout(function() {
             var messageId;
@@ -114,6 +136,9 @@
       }
     });
 
+    /**
+     * scrolling시 star list 불러오기
+     */
     function loadMore() {
       var activeTabName = $scope.activeTabName;
 
@@ -124,6 +149,10 @@
       }
     }
 
+    /**
+     * tab(all,file) select event handler
+     * @param {string} type
+     */
     function onTabSelect(type) {
       if (isActivated) {
         $scope.tabs[type].active = true;
@@ -136,6 +165,11 @@
       }
     }
 
+    /**
+     * tab(all,file) star list 초기화
+     * @param {string} activeTabName
+     * @private
+     */
     function _initStarListData(activeTabName) {
       starListData.messageId = null;
 
@@ -145,6 +179,11 @@
       $scope.tabs[activeTabName].endOfList = $scope.tabs[activeTabName].isLoading = $scope.tabs[activeTabName].isScrollLoading = false;
     }
 
+    /**
+     * tab(all,file) starlist 초기화
+     * @param {string} activeTabName
+     * @private
+     */
     function _initGetStarList(activeTabName) {
       $scope.tabs[activeTabName].isLoading = true;
       $scope.tabs[activeTabName].empty = false;
@@ -152,6 +191,11 @@
       _getStarList(activeTabName);
     }
 
+    /**
+     * star list 전달
+     * @param {string} activeTabName
+     * @private
+     */
     function _getStarList(activeTabName) {
       if (!$scope.tabs[activeTabName].isLoading || !$scope.tabs[activeTabName].isScrollLoading) {
         StarAPIService.get(starListData.messageId, 40, (activeTabName === 'files' ? 'file' : undefined))
@@ -161,7 +205,8 @@
                 _pushStarList(data.records, activeTabName);
               }
 
-              _updateCursor(data, activeTabName);
+              // 다음 getStarList를 위한 param 갱신
+              _updateCursor(activeTabName, data);
             }
           })
           .finally(function() {
@@ -173,6 +218,11 @@
       }
     }
 
+    /**
+     * 특정 star item 전달
+     * @param {string} messageId
+     * @private
+     */
     function _getStarItem(messageId) {
       StarAPIService.getItem(messageId)
         .success(function(data) {
@@ -181,13 +231,20 @@
             _setEmptyTab('all', false);
 
             if (data.message.contentType === 'file') {
+              // star item이 file type이라면 files list에도 추가함
               _addStarItem('files', data, true);
               _setEmptyTab('files', false);
             }
           }
-        })
+        });
     }
 
+    /**
+     * tab(all,file)의 list를 설정
+     * @param {object} records
+     * @param {string} activeTabName
+     * @private
+     */
     function _pushStarList(records, activeTabName) {
       var record;
       var i;
@@ -201,6 +258,13 @@
       }
     }
 
+    /**
+     * tab(all,file)의 item을 추가
+     * @param {string} activeTabName
+     * @param {object} data
+     * @param {boolean} isUnShift - unshift 또는 push 처리 여부
+     * @private
+     */
     function _addStarItem(activeTabName, data, isUnShift) {
       if ($scope.tabs[activeTabName].map[data.message.id] == null) {
         $scope.tabs[activeTabName].list[isUnShift ? 'unshift' : 'push'](data);
@@ -208,6 +272,12 @@
       }
     }
 
+    /**
+     * tab(all,file)의 item을 제거
+     * @param {string} activeTabName
+     * @param {number} messageId
+     * @private
+     */
     function _removeStarItem(activeTabName, messageId) {
       var list = $scope.tabs[activeTabName].list;
       var map = $scope.tabs[activeTabName].map;
@@ -220,17 +290,30 @@
       }
     }
 
+    /**
+     * 비어있는 tab(all, file)으로 설정
+     * @param {string} activeTabName
+     * @param {boolean} value
+     * @private
+     */
     function _setEmptyTab(activeTabName, value) {
       $scope.tabs[activeTabName].empty = value;
       $scope.tabs[activeTabName].endOfList = !value;
     }
 
-    function _updateCursor(data, activeTabName) {
+    /**
+     * 다음 star list를 얻어오는 param과 tab(all, file)의 상태 갱신
+     * @param {string} activeTabName
+     * @param {object} data
+     * @private
+     */
+    function _updateCursor(activeTabName, data) {
       if (data.records && data.records.length > 0) {
         starListData.messageId = data.records[data.records.length - 1].starredId;
       }
 
       if ($scope.tabs[activeTabName].list && $scope.tabs[activeTabName].list.length > 0) {
+        // 더이상 star list가 존재하지 않으므로 endOfList 처리함
         $scope.tabs[activeTabName].endOfList = !data.hasMore;
       }
     }
