@@ -64,7 +64,7 @@
                 function liveSearchHandler() {
                   $timeout.cancel(timerLiveSearch);
                   timerLiveSearch = $timeout(function() {
-                    mentionCtrl.setMentionLive();
+                    mentionCtrl.setMentionOnLive();
                     mentionCtrl.showMentionahead();
                   }, LIVE_SEARCH_DELAY);
                 }

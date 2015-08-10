@@ -6,20 +6,11 @@
 
   angular
     .module('app.mention')
-    .controller('MentionaheadCtrl', MentionaheadCtrl);
+    .controller('MentionParser', MentionaheadCtrl);
 
   /* @ngInject */
-  function MentionaheadCtrl($state, $parse, $filter, $window, entityAPIservice, memberService, currentSessionHelper, configuration) {
+  function MentionaheadCtrl($state, $parse, $filter, $window, entityAPIservice, memberService, currentSessionHelper, configuration, MentionExtractor) {
     var that = this;
-
-    // /([@])([a-zA-Z0-9_ ]{0,30})$/.exec('@mark @park park @qweqwe @wfkwelfj @서 포트')
-    ///????-?/.exec()
-    ///(^|\s([@\uff20]((.){0,30})))$/.exec('@qwe @mark @qweqwe');
-    ///(?:^|[^a-zA-Z0-9_!#$%&*@＠]|(?:^|[^a-zA-Z0-9_+~.-])(?:rt|RT|rT|Rt):?)([@])([a-zA-Z0-9_ ]{1,20})(\/[a-zA-Z][a-zA-Z0-9_\-]{0,24})?$/.exec('@mark @park park @qweqwe')
-    ///(^|\s)([^\[])([@\uff20]((?:[a-z ]){0,30}))$/.exec('[@mark [@park park @qweqwe @wfkwel@fj')
-    // /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
-    var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
-    var rStrContSearchTextMentionMarkDown = '\\[(@([^\\[]|.[^\\[]{0,30}))\\]';
 
     var MENTION_ALL = 'all';
     var MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
@@ -37,9 +28,9 @@
     that.setMentions = setMentions;
     that.clearMention = clearMention;
 
-    that.setMentionLive = setMentionLive;
-    that.hasMentionLive = hasMentionLive;
+    that.setMentionOnLive = setMentionOnLive;
 
+    that.isInputMention = isInputMention;
     that.isShowMentionahead = isShowMentionahead;
     that.showMentionahead = showMentionahead;
 
@@ -47,7 +38,7 @@
       var fn;
 
       $originScope = options.originScope;
-      $originScope.getMentionAllForText = getMentionAllForText;
+      $originScope.getMentions = getMentions;
 
       $scope = options.mentionScope;
       $model = options.mentionModel;
@@ -59,7 +50,9 @@
       $scope.hasOn = false;
       $scope.on = options.on;
 
+      // mention list를 생성 option
       fn = options.attrs.mentionaheadData && $parse(options.attrs.mentionaheadData);
+
       if (fn) {
         $scope.mentionList = fn($originScope, {
           $mentionScope: $scope,
@@ -74,11 +67,16 @@
         _setMentionList();
       }
 
+      // message를 submit하는 method
       if (options.attrs.messageSubmit) {
         _hookMessageSubmit(options.attrs, options.attrs.messageSubmit);
       }
     }
 
+    /**
+     * default mention list 설정함.
+     * @private
+     */
     function _setMentionList() {
       var currentEntity = currentSessionHelper.getCurrentEntity();
       var members = entityAPIservice.getMemberList(currentEntity);
@@ -88,18 +86,25 @@
       var i;
       var len;
 
-      // 현재 topic의 members
       if (members) {
+        // 현재 topic의 members
+
         for (i = 0, len = members.length; i < len; i++) {
-          member = _getCurrentTopicMembers(members[i]);
+          member = _getCurrentTopicMember(members[i]);
           if (member && currentMemberId !== member.id && member.status === 'enabled') {
+            // mention 입력시 text 입력 화면에 보여지게 될 text
             member.exViewName = '[@' + member.name + ']';
+
+            // member 검색시 사용될 text
             member.exSearchName = member.name;
             mentionList.push(member);
           }
         }
 
         if (mentionList && mentionList.length > 1) {
+          // mention 전달이 가능한 member가 2명 이상이라면
+          // 2명이상의 member 전체에게 mention 하는 all을 제공함
+
           mentionList = _.sortBy(mentionList, 'exSearchName');
 
           mentionList.unshift({
@@ -121,10 +126,36 @@
       }
     }
 
+    /**
+     * mention ahead list 설정함.
+     * @param mentionList
+     */
     function setMentions(mentionList) {
       var mentionMap = {};
-      var mentionItem;
+
+      // 중복 user name에 대한 처리
+      _removeDuplicateMentionItem(mentionList, mentionMap);
+
+      $scope.mentionList = mentionList;
+      $scope._mentionMap = mentionMap;
+
+      if (!$scope.hasOn && mentionList.length > 0) {
+        // mention ahead에 출력할 item이 존재하고 event listener가 연결되지 않았다면 연결함
+        $scope.hasOn = true;
+        $scope.on();
+      }
+    }
+
+    /**
+     * mention list에 user name이 중복되는 member가 존재한다면 mention list에서는 존재하지만
+     * mention은 전달하지 않도록 mention map에서 삭제함.
+     * @param mentionList
+     * @param mentionMap
+     * @private
+     */
+    function _removeDuplicateMentionItem(mentionList, mentionMap) {
       var duplicateNameMentions = [];
+      var mentionItem;
       var i;
       var len;
 
@@ -137,148 +168,131 @@
           delete mentionMap[mentionItem.exViewName];
         }
       }
-
-      $scope._mentionMap = mentionMap;
-      $scope.mentionList = mentionList;
-
-      // mentionahead에 출력할 item이 존재하고 on 되지 않았다면 on함
-      if (!$scope.hasOn && mentionList.length > 0) {
-        $scope.hasOn = true;
-        $scope.on();
-      }
     }
 
-    function _getCurrentTopicMembers(member) {
-      return entityAPIservice.getEntityFromListById($originScope.totalEntities, member);
+    /**
+     * 현재 topic의 member object를 전달함.
+     * @param {number} memberId
+     * @returns {*}
+     * @private
+     */
+    function _getCurrentTopicMember(memberId) {
+      return entityAPIservice.getEntityFromListById($originScope.totalEntities, memberId);
     }
 
+    /**
+     * mention 입력인지 처리할 value를 전달함.
+     * @returns {*}
+     */
     function getValue() {
       return $scope._value;
     }
 
+    /**
+     * mention 입력인지 처리할 value를 설정함.
+     * @param {string} value
+     */
     function setValue(value) {
       $scope._value = value;
     }
 
+    /**
+     * mention ahead가 출력중인지 여부.
+     * @returns {boolean}
+     */
     function isShowMentionahead() {
       return $model.$viewValue !== null;
     }
 
-    function setMentionLive() {
-      var selectionBegin = _selection().begin;
+    /**
+     * element의 cursor 기준으로 mention을 설정함.
+     */
+    function setMentionOnLive() {
       var value = getValue();
-      var preStr;
-      var match;
-      var mention;
+      var selectionBegin = _getSelection().begin;
 
-      if (value != null) {
-        //console.log('selection begin ::: ', selectionBegin);
-        preStr = value.substring(0, selectionBegin);
-        //console.log('selection value ::: ', preStr);
-        if (match = regxLiveSearchTextMentionMarkDown.exec(preStr)) {
-          //console.log('mention ::: ', match);
-          mention = {
-            preStr: preStr,
-            sufStr: value.substring(selectionBegin),
-            match: match,
-            offset: selectionBegin - match[1].length,
-            length: match.length
-          };
-        }
-      }
-
-      $scope.mention = mention;
+      $scope.mention = MentionExtractor.getMentionOnCursor(value, selectionBegin);
     }
 
-    function hasMentionLive() {
+    /**
+     * text 전체를 확인하여 mention 입력인 object를 전달함
+     * @returns {{msg: string, mentions: Array}}
+     */
+    function getMentions() {
+      var value = getValue();
+
+      return MentionExtractor.getMentionAllForText(value, $scope._mentionMap);
+    }
+
+    /**
+     * mention 입력인지 여부
+     * @returns {boolean}
+     */
+    function isInputMention() {
       return $model.$viewValue !== null;
     }
 
+    /**
+     * mentionahead를 출력함
+     */
     function showMentionahead() {
       var mention = $scope.mention;
 
       if (mention) {
-        //console.log('show mention ahead ::: ', mention.match[2], $model.$viewValue);
         $model.$setViewValue(mention.match[2]);
       } else {
+        // mention이 존재하지 않는다면 mentionahead를 출력하지 않음
         clearMention();
       }
     }
 
+    /**
+     * mention 입력을 clear함.
+     */
     function clearMention() {
       $model.$setViewValue(null);
     }
 
-    function _selection(begin, end) {
+    /**
+     * element의 selection을 전달함.
+     * @returns {{begin: Number, end: Number}}
+     * @private
+     */
+    function _getSelection() {
       var ele = $scope.jqEle[0];
 
-      if (_.isNumber(begin)) {	// set
-        end == null && (end = begin);
-        ele.setSelectionRange(begin, end);
-      } else {		// get{
-        begin = ele.selectionStart;
-        end = ele.selectionEnd;
-
-        return {
-          begin: begin,
-          end: end
-        };
-      }
+      return {
+        begin: ele.selectionStart,
+        end : ele.selectionEnd
+      };
     }
 
-    function getMentionAllForText() {
-      var regxMention = new RegExp(rStrContSearchTextMentionMarkDown, 'g');
-      var value = getValue();
-      var msg = '';
-      var preStr;
-      var match;
-      var mentions = [];
-      var data;
-      var beginIndex = 0;
-      var lastIndex;
-      var offset = 0;
+    /**
+     * element의 slection을 설정함.
+     * @param {string|number} begin
+     * @param {string|number} end
+     * @private
+     */
+    function _setSelection(begin, end) {
+      var ele = $scope.jqEle[0];
 
-      value && (value = value.trim());
-      while(match = regxMention.exec(value)) {
-        //console.log('mention match ::: ', match);
-        if ($scope._mentionMap[match[0]]) {
-          lastIndex = regxMention.lastIndex;
-
-          preStr = value.substring(beginIndex, lastIndex).replace(match[0] , match[1]);
-          msg = msg + preStr;
-
-          beginIndex = lastIndex;
-          data = {
-            offset: lastIndex - match[0].length - offset,
-            length: match[1].length
-          };
-          offset += match[0].length - match[1].length;
-
-          if (match[2] === MENTION_ALL) {
-            data.id = parseInt(entityId, 10);
-            data.type = 'room';
-          } else {
-            data.id = parseInt($scope._mentionMap[match[0]].id, 10);
-            data.type = 'member';
-          }
-
-          mentions.push(data);
-        }
-      }
-
-      if (mentions.length > 0) {
-        return {
-          msg: msg + value.substring(beginIndex),
-          mentions: mentions
-        };
-      }
+      end === null && (end = begin);
+      ele.setSelectionRange(begin, end);
     }
 
+
+
+    /**
+     * mentionahead에서 특정 mention 선택 event callback
+     * @param {object} $item
+     */
     function onSelect($item) {
       var currentEntity;
       var msg;
 
       if ($item.name === MENTION_ALL_ITEM_TEXT) {
+        // 모든 member에게 mention
+
         currentEntity = currentSessionHelper.getCurrentEntity();
         msg = $filter('translate')('@mention-all-confirm');
 
@@ -294,6 +308,11 @@
       }
     }
 
+    /**
+     * mentionahead에서 특정 mention 선택 event callback
+     * @param {object} $item
+     * @private
+     */
     function _onSelect($item) {
       var mention = $scope.mention;
       var mentionTarget = $item.exViewName;
@@ -301,27 +320,44 @@
       var text;
       var selection;
 
+      // mention 입력 후 text 재설정
       text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + extraText + mention.sufStr;
       $scope.jqEle.val(text);
       setValue(text);
 
       selection = mention.offset + mentionTarget.length + extraText.length;
+
+      // mention 입력 후 element selection 위치 설정
       setTimeout(function() {
-        _selection(selection);
+        _setSelection(selection);
       }, 10);
 
+      // mention clear
       clearMention();
     }
 
+    /**
+     * mentionahead중 입력한 값과 match event callback
+     * @param matches
+     */
     function onMatches(matches) {
       if (!matches.length) {
+        // 입력값에 match 되는 item이 존재하지 않는다면 mention clear
         clearMention();
       }
     }
 
+    /**
+     * hook message 전달 함수
+     * message 입력하는 element에서 입력한 값을 mention ahead에서 처리하므로
+     * mention 입력하는 동안에는 message submit 수행되지 않도록 함.
+     * @param attrs
+     * @param originMessageSubmit
+     * @private
+     */
     function _hookMessageSubmit(attrs, originMessageSubmit) {
       attrs.messageSubmit = function() {
-        if (!that.hasMentionLive() || !$scope.hasOn) {
+        if (!that.isInputMention() || !$scope.hasOn) {
           $originScope.$eval(originMessageSubmit);
         }
       };

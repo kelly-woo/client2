@@ -997,8 +997,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // prevent duplicate request
     if (msg || _sticker) {
-      if ($scope.getMentionAllForText) {
-        if (content = $scope.getMentionAllForText()) {
+      if ($scope.getMentions) {
+        if (content = $scope.getMentions()) {
           msg = content.msg;
           mentions = content.mentions;
         }

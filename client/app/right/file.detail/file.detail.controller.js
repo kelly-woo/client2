@@ -203,8 +203,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       $scope.isPostingComment = true;
 
-      if ($scope.getMentionAllForText) {
-        if (content = $scope.getMentionAllForText()) {
+      if ($scope.getMentions) {
+        if (content = $scope.getMentions()) {
           msg = content.msg;
           mentions = content.mentions;
         }
