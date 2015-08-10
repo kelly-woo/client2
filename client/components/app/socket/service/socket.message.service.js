@@ -152,9 +152,9 @@
     function _onDm(data) {
       if (jndWebSocketCommon.isCurrentEntity(data.room)) {
         jndPubSub.updateCenterPanel();
-      } else {
-        jndPubSub.updateLeftChatList();
       }
+
+      jndPubSub.pub('updateChatList');
       _sendBrowserNotification(data);
     }
 
