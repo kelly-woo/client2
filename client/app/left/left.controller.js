@@ -28,7 +28,7 @@ app.controller('leftPanelController1', function(
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
   var _isBadgeMoveLocked = false;
-  console.log('######LEFT INIT');
+
   $scope.entityId = $state.params.entityId;
 
   //todo: refactoring 시 main view 의 property로 로 분리해야 함.

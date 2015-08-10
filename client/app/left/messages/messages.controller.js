@@ -17,7 +17,9 @@
     // failed - failed to retrieve list from server.
     $scope.messageListLoadingStatus = 'okay';
 
+    // no longer used in this controller. ready to remove?
     $scope.currentEntity = currentSessionHelper.getCurrentEntity();
+
     $scope.messageList;
     $scope.isMessageListCollapsed = storageAPIservice.isLeftDMCollapsed();
 
@@ -85,6 +87,7 @@
 
     function _generateMessageList(messages) {
       var messageList = [];
+      var _currentEntity;
 
       EntityMapManager.reset('memberEntityId');
       messages = _.uniq(messages, 'entityId');
@@ -99,7 +102,11 @@
             // In this case, message list still needs to be updated because entity may not be on the list.
             // However, I don't need to update/increment badge count for current entity.
             // Thus, update badge count for entities that I'm not viewing.
-            if (!$scope.currentEntity || message.companionId != $scope.currentEntity.id) {
+
+            _currentEntity = currentSessionHelper.getCurrentEntity();
+
+            if (message.companionId != _currentEntity.id) {
+              console.log('updating badge')
               entityAPIservice.updateBadgeValue(entity, message.unread);
             }
 

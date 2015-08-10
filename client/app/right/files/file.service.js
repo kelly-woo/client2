@@ -253,6 +253,9 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
         enabledMemberList.push(member);
     });
 
+    joinedChannelList = _orderByName(joinedChannelList);
+    enabledMemberList = _orderByName(enabledMemberList);
+
     return joinedChannelList.concat(enabledMemberList);
   }
 
@@ -394,5 +397,15 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   // right panel 안에 file detail의 comment input element에 focus가 가도록 broadcast
   function broadcastCommentFocus() {
     $rootScope.$broadcast('setCommentFocus');
+  }
+
+  /**
+   * list를 name을 기준으로 정렬한다.
+   * @param {array} list - 정렬하려는 리스트
+   * @returns {*}
+   * @private
+   */
+  function _orderByName(list) {
+    return $filter('orderBy')(list, 'name');
   }
 });

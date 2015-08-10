@@ -8,7 +8,7 @@
       </div>
 
       <select ng-model="messageLocation"
-              ng-options="channel as channel|orderBy: 'name'|getName group by channel.typeCategory for channel in chatRoomOptions"
+              ng-options="channel as channel|getName group by channel.typeCategory for channel in chatRoomOptions"
               ng-change="updateMessageLocationFilter();">
         <option value="">{{ allRooms }}</option>
       </select>
