@@ -890,7 +890,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           updateMessageMarker();
           _checkEntityMessageStatus();
 
-          if (_isBottomReached()) {
+          if (_isBottomReached() && _hasBrowserFocus()) {
             _scrollToBottom();
           }
         }
