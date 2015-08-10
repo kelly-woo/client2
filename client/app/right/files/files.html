@@ -6,7 +6,7 @@
       <span translate>@common-shared-in</span>
     </div>
     <select ng-model="sharedEntitySearchQuery"
-            ng-options="channel.id as channel | orderBy: 'name' | getName  group by channel.typeCategory for channel in selectOptions">
+            ng-options="channel.id as channel.name group by channel.typeCategory for channel in selectOptions">
       <option value="">{{ allRooms }}</option>
     </select>
   </div>  <!--  END OF CHAT ROOM  -->
@@ -16,7 +16,7 @@
       <span translate>@common-member</span>
     </div>
     <select ng-model="fileRequest.writerId"
-            ng-options="user.id as user | getName for user in selectOptionsUsers | orderBy: 'name'">
+            ng-options="user.id as user | getName for user in selectOptionsUsers">
       <option value="">{{ allMembers }}</option>
     </select>
   </div>  <!-- END OF FILE WRTIER -->
