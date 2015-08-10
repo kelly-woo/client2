@@ -189,7 +189,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.currentEntity = currentSessionHelper.getCurrentEntity();
 
     centerService.setEntityId(centerService.isChat() ? currentSessionHelper.getCurrentEntity().entityId : entityId);
-    _lastReadMessageMarker = memberService.getLastReadMessageMarker(_getEntityId());
+    _lastReadMessageMarker = _getEntityId() ? memberService.getLastReadMessageMarker(_getEntityId()) : null;
     modalHelper.closeModal('cancel');
     _initLocalVariables();
   }
@@ -890,7 +890,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           updateMessageMarker();
           _checkEntityMessageStatus();
 
-          if (_isBottomReached()) {
+          if (_isBottomReached() && _hasBrowserFocus()) {
             _scrollToBottom();
           }
         }

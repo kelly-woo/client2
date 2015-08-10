@@ -49,7 +49,8 @@ module.exports = function(config) {
       'client/components/config/config.framework.js',
       'client/components/base/**/*.js',
       'client/components/base/base.framework.js',
-
+      'client/components/app/mention_ahead/mention.ahead.js',
+      'client/components/app/router/router.js',
       'client/components/app/analytics/analytics.js',
       'client/components/app/keyCode/keyCode.js',
       'client/components/app/language/language.js',
@@ -119,7 +120,7 @@ module.exports = function(config) {
     reporters: ['coverage', 'junit', 'progress'],
     junitReporter: {
       outputFile: 'test-junit-results.xml'
-    }, 
+    },
 
     // code coverage report
     coverageReporter: {

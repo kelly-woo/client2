@@ -1,9 +1,9 @@
 {
   "name"                   : "staging",
   "path"                   : "app/",
-  "api_address"            : "../",
+  "api_address"            : "https://i1.jandi.com/",
   "socket_address"         : "https://ws.jandi.com/",
-  "file_address"           : "../",
+  "file_address"           : "https://files.jandi.com/",
   "api_version"            : 2,
   "ga_token"               : "UA-53634725-1",
   "ga_token_global"        : "UA-53634725-4",
@@ -20,5 +20,7 @@
   "google_drive_api_key"   : "AIzaSyAarJcX7VfgOiuYzl0ShapunGh5B7amAxA",
   "google_drive_redirect"  : "https://i1.jandi.com/",
   "dropbox_api_key"        : "sce84hy9tjy3o6v",
-  "analytics_server"       : "https://track.jandi.com/"
+  "analytics_server"       : "https://track.jandi.com/",
+  "cors_api_address"       : "../",
+  "cors_file_address"      : "../"
 }

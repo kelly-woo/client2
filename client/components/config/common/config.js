@@ -32,6 +32,10 @@
           redirect: 'http://i1.jandi.io:8888/'
         },
         dropbox: '4hbb9l5wu46okhp'
+      },
+      cors: {
+        api_address: '../proxy/',
+        file_address: 'http://files.jandi.io:8888/'
       }
     })
     .run(run);
