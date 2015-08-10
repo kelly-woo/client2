@@ -8,12 +8,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 
   <!--<base href="/">-->
-  <title data-ng-if="currentEntity.name" data-ng-bind="(currentEntity.name + ' | ' + team.name)"></title>
+  <title data-ng-bind="'Welcome to JANDI'"></title>
 
   <meta name="description" content="JANDI Web application">
   <meta name="keywords" content="JANDI, 잔디">
   <meta name="author" content="TossLab">
-  <link rel="shortcut icon" type="image/ico" href="favicon.ico?v=2" />
   <meta name="viewport" content="width=device-width">
 
   <!-- build:css(client) app/vendor.css -->
@@ -108,7 +107,7 @@
   <!-- endinjector -->
   <!-- endbuild -->
 </head>
-<body active-notifier="">
+<body active-notifier="" window-title-manager="">
 <!--[if lt IE 9]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
@@ -235,6 +234,7 @@
 <script src="app/util/directive/main.directive.js"></script>
 <script src="app/util/directive/scaleup.directive.js"></script>
 <script src="app/util/directive/typeahead.directive.js"></script>
+<script src="app/util/directive/window.title.directive.js"></script>
 <script src="app/util/filter/html.decode.filter.js"></script>
 <script src="app/util/filter/html.encode.filter.js"></script>
 <script src="app/util/filter/main.filter.js"></script>
@@ -256,6 +256,7 @@
 <script src="app/util/service/integration.service.js"></script>
 <script src="app/util/service/link.txt.service.js"></script>
 <script src="app/util/service/member.service.js"></script>
+<script src="app/util/service/notification.service.js"></script>
 <script src="app/util/service/public.service.js"></script>
 <script src="app/util/service/session.service.js"></script>
 <script src="app/util/service/sticker.service.js"></script>
