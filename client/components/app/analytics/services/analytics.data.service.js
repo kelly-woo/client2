@@ -46,9 +46,9 @@
         method: 'POST',
         data: {footprint: AnalyticsTranslate.base64Encode(js)},
         url: config.analytics_server + 'log/web',
-        async: isAsync
-        //timeout: 500,
-        //dataType: 'jsonp'
+        async: isAsync,
+        timeout: 500,
+        dataType: 'jsonp'
       });
     }
 
