@@ -276,7 +276,7 @@
     function _setSelection(begin, end) {
       var ele = $scope.jqEle[0];
 
-      end === null && (end = begin);
+      end == null && (end = begin);
       ele.setSelectionRange(begin, end);
     }
 
