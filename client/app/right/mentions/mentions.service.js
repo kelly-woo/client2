@@ -13,8 +13,9 @@
 
     /**
      * get mention list
-     * @param {object} data;
-     * @param {number} [data.page=1] - list page
+     * @param {object} data
+     * @param {number} data.messageId
+     * @param {number} [data.count=40]
      * @returns {*}
      */
     function getMentionList(data) {

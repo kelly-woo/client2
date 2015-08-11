@@ -42,15 +42,12 @@
           <!--<span class="badge left-panel_badge green_badge pull-right">{{userEntity.alarmCnt}}</span>-->
           <span class="left-panel_leave pull-right"
                 ng-click="onMeesageLeaveClick(userEntity.id); $event.preventDefault(); $event.stopPropagation();"
-                tooltip="{{'@common-conversation-leave' | translate}}" tooltip-append-to-body="bottom">
+                tooltip="{{'@common-conversation-leave' | translate}}" tooltip-append-to-body="true">
             <i class="icon-cancel"></i>
           </span>
-
         </a>
-
       </li>
     </div>
-
   </ul>
 
   <div class="clear-both"></div>

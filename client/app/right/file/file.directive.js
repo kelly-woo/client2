@@ -41,7 +41,7 @@
               el.find('.file-star i').trigger('click');
             } else if (selector === 'share-file') {
               scope.status.isopen = false;
-              scope.onClickShare();
+              scope.onOpenShareModal();
             } else if (selector === 'focus-comment-file') {
               scope.status.isopen = false;
               scope.setCommentFocus();

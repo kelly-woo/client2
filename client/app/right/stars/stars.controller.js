@@ -180,7 +180,7 @@
     }
 
     /**
-     * tab(all,file) starlist 초기화
+     * tab(all,file) star list 초기 load
      * @param {string} activeTabName
      * @private
      */
@@ -205,7 +205,7 @@
                 _pushStarList(data.records, activeTabName);
               }
 
-              // 다음 getStarList를 위한 param 갱신
+              // 다음 getStarList에 전달할 param 갱신
               _updateCursor(activeTabName, data);
             }
           })
@@ -313,7 +313,7 @@
       }
 
       if ($scope.tabs[activeTabName].list && $scope.tabs[activeTabName].list.length > 0) {
-        // 더이상 star list가 존재하지 않으므로 endOfList 처리함
+        // 더이상 star list가 존재하지 않으므로 endOfList로 처리함
         $scope.tabs[activeTabName].endOfList = !data.hasMore;
       }
     }

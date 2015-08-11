@@ -38,6 +38,7 @@
         data.shareEntities = fileData.shareEntities;
         data.createTime = data.createdAt;
 
+        // file type인 경우 starred 상태 설정
         data.isStarred = fileData.isStarred;
       } else if (type === 'star') {
         data.type = 'star';
@@ -59,6 +60,7 @@
         data.shareEntities = fileData.message.shareEntities;
         data.createTime = data.createdAt;
 
+        // star type 경우 항상 starred 상태
         data.isStarred = true;
       }
 
