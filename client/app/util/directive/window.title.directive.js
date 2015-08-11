@@ -31,6 +31,7 @@
         scope.$on('onCurrentEntityChanged', _updateTitle);
         scope.$on('addAsteriskToTitle', _setTitleWithAsterisk);
         scope.$on('updateWindowTitle', _updateTitle);
+        scope.$on('onBadgeCountChanged', _updateTitle);
       }
 
       /**
@@ -46,9 +47,7 @@
           _setTitle(_topicName);
           _hasAsterisk = false;
         }
-
         _setFavicon();
-
       }
 
       /**
@@ -68,7 +67,7 @@
         console.log('::_addAsterisk', _hasAsterisk);
         if (!_hasAsterisk) {
           _topicName = _getCurrentName();
-          _setTitle('*' + _topicName);
+          _setTitle('* ' + _topicName);
           _hasAsterisk = true;
         }
       }
@@ -101,11 +100,8 @@
        * @private
        */
       function _setFavicon() {
-        var link = document.createElement('link');
-        link.type = 'image/ico';
-        link.rel = 'shortcut icon';
+        var link = document.getElementsByTagName('link')[0];
         link.href = NotificationManager.hasNotification() ? 'favicon_noti.ico?v=3' : 'favicon.ico?v=3';
-        document.getElementsByTagName('head')[0].appendChild(link);
       }
 
     }
