@@ -113,11 +113,26 @@
       } else {
         // center로
 
-        if (!entityAPIservice.isLeavedTopic(EntityMapManager.get('total', message.roomId), memberService.getMemberId())) {
+        if (message.roomType === 'chat') {
+          _goTo(function() {
+            var members = message.roomName.split(':');
+
+            // DM 이라면 나를 제외한 한명의 id가 id로 사용됨
+            _goToTopic({
+              type: 'user',
+              id: members[0] == memberService.getMemberId() ? members[1] : members[0],
+              linkId: message.linkId
+            });
+          });
+        } else if (!entityAPIservice.isLeavedTopic(EntityMapManager.get('total', message.roomId), memberService.getMemberId())) {
           // 해당 topic의 member 라면
 
           _goTo(function() {
-            _goToTopic(message);
+            _goToTopic({
+              type: message.roomType,
+              id: message.roomId,
+              linkId: message.linkId
+            });
           });
         } else {
           alert($filter('translate')('@common-leaved-topic'));
@@ -162,16 +177,16 @@
      * @private
      */
     function _goToTopic(message) {
-      var toEntityId = message.roomId;
-      var toLinkId = message.linkId;
+      var id = message.id;
+      var linkId = message.linkId;
 
       // set link id
-      MessageQuery.setSearchLinkId(toLinkId);
+      MessageQuery.setSearchLinkId(linkId);
 
-      if (_isToEntityCurrent(toEntityId)) {
+      if (_isToEntityCurrent(id)) {
         jndPubSub.pub('jumpToMessageId');
       } else {
-        $state.go('archives', {entityType: message.roomType + 's', entityId: toEntityId});
+        $state.go('archives', {entityType: message.type + 's', entityId: id});
       }
     }
 
