@@ -61,7 +61,7 @@
                   }
                 }
 
-                // ½Ç½Ã°£ mention ÀÔ·Â È®ÀÎ
+                // ì‹¤ì‹œê°„ mention ì…ë ¥ í™•ì¸
                 function liveSearchHandler() {
                   $timeout.cancel(timerLiveSearch);
                   timerLiveSearch = $timeout(function() {

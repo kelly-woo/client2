@@ -13,14 +13,14 @@
     var len;
 
     $scope.close = function() {
-      $modalInstance.dismiss('cancel');
+      data.closeIntegration ? data.closeIntegration() : $modalInstance.dismiss('cancel');
     };
+
     $scope.integrate = function() {
       data.startIntegration && data.startIntegration();
     };
 
     $scope[data.cInterface] = true;
-
     $scope.title = $filter('translate')(data.title);
     for (i = 0, len = descs.length; i < len; ++i) {
       $scope['descClassName' + (i + 1)] = descs[i].className;

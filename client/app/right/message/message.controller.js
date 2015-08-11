@@ -15,8 +15,8 @@
 
     // First function to be called.
     function _init() {
-      // message controller¿¡ Àü´ŞµÇ´Â data°¡ tab(message search, star, mention)¸¶´Ù °¢°¢ ´Ù¸£¹Ç·Î message data¸¦
-      // message controller¿¡¼­ »ç¿ë°¡´ÉÇÑ data formatÀ¸·Î convertÇÔ
+      // message controllerì— ì „ë‹¬ë˜ëŠ” dataê°€ tab(message search, star, mention)ë§ˆë‹¤ ê°ê° ë‹¤ë¥´ë¯€ë¡œ message dataë¥¼
+      // message controllerì—ì„œ ì‚¬ìš©ê°€ëŠ¥í•œ data formatìœ¼ë¡œ convertí•¨
       var message = $scope.message = MessageData.convert($scope.messageType, $scope.messageData);
 
       $scope.writer = EntityMapManager.get('total', message.writerId);
@@ -34,7 +34,7 @@
     }
 
     /**
-     * message content Àü´Ş
+     * message content ì „ë‹¬
      * @param {object} message
      * @returns {*}
      * @private
@@ -43,7 +43,7 @@
       var content = message.contentBody;
 
       if (message.mentions && message.mentions.length > 0) {
-        // mentions°¡ Á¸ÀçÇÑ´Ù¸é mentions parseÇÏ¿© content ¼³Á¤
+        // mentionsê°€ ì¡´ì¬í•œë‹¤ë©´ mentions parseí•˜ì—¬ content ì„¤ì •
         content = $filter('mention')(content, message.mentions, false);
       }
 
@@ -60,16 +60,16 @@
       var startPoint;
 
       if (message.contentType === 'text') {
-        // typeÀÌ text¶ó¸é topic ¸íÀ¸·Î ¼³Á¤ÇÔ
+        // typeì´ textë¼ë©´ topic ëª…ìœ¼ë¡œ ì„¤ì •í•¨
         if (message.roomType === 'chat') {
-          // DMÀÇ °æ¿ì roomName¿¡ ÀÛ¼ºÀÚ¿Í ´ë»óÀÚÀÇ id°¡ Àü´ŞµÇ¹Ç·Î entity manager¿¡¼­ member Á¶È¸ ÇØ¾ßµÊ
+          // DMì˜ ê²½ìš° roomNameì— ì‘ì„±ìì™€ ëŒ€ìƒìì˜ idê°€ ì „ë‹¬ë˜ë¯€ë¡œ entity managerì—ì„œ member ì¡°íšŒ í•´ì•¼ë¨
 
           startPoint = EntityMapManager.get('total', message.roomName.split(':')[1]).name;
         } else {
           startPoint = message.roomName || 'unknown topic';
         }
       } else {
-        // typeÀÌ text°¡ ¾Æ´Ï¶ó¸é file ¸íÀ¸·Î ¼³Á¤ÇÔ
+        // typeì´ textê°€ ì•„ë‹ˆë¼ë©´ file ëª…ìœ¼ë¡œ ì„¤ì •í•¨
         startPoint = message.feedbackTitle;
       }
 
@@ -90,7 +90,7 @@
         jndPubSub.pub('onUserClick', $scope.writer);
       } else if (!message.preventRedirect) {
         if (message.type !== 'message') {
-          // message typeÀÌ 'message'¶ó¸é »óÀ§ scope¿¡¼­ event handlingÇÔ
+          // message typeì´ 'message'ë¼ë©´ ìƒìœ„ scopeì—ì„œ event handlingí•¨
 
           _onMessageCardClick(message, $scope.writer);
         }
@@ -98,23 +98,23 @@
     }
 
     /**
-     * message card click ÀÌº¥Æ® ÇÚµé·¯
+     * message card click ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬
      * @param {object} message
      * @param {object} writer
      * @private
      */
     function _onMessageCardClick(message, writer) {
       if (message.contentType === 'comment' && message.feedbackId > 0) {
-        // file detail·Î
+        // file detailë¡œ
 
         _goTo(function() {
           _goToFileDetail(message, writer);
         });
       } else {
-        // center·Î
+        // centerë¡œ
 
         if (!entityAPIservice.isLeavedTopic(EntityMapManager.get('total', message.roomId), memberService.getMemberId())) {
-          // ÇØ´ç topicÀÇ member ¶ó¸é
+          // í•´ë‹¹ topicì˜ member ë¼ë©´
 
           _goTo(function() {
             _goToTopic(message);
@@ -126,7 +126,7 @@
     }
 
     /**
-     * Æ¯Á¤ state ·Î ÀÌµ¿
+     * íŠ¹ì • state ë¡œ ì´ë™
      * @param {function} fn
      * @private
      */
@@ -134,7 +134,7 @@
       messageAPIservice.getMessage($scope.messageData.teamId, $scope.message.id)
         .success(function(message) {
           if (message.status === 'created') {
-            // »èÁ¦µÈ message°¡ ¾Æ´Ï¶ó¸é
+            // ì‚­ì œëœ messageê°€ ì•„ë‹ˆë¼ë©´
 
             fn();
           } else {
@@ -176,7 +176,7 @@
     }
 
     /**
-     * ÇöÀç center¿¡ ³ëÃâµÈ topic °ú °°Àº topicÀÎÁö ¿©ºÎ
+     * í˜„ì¬ centerì— ë…¸ì¶œëœ topic ê³¼ ê°™ì€ topicì¸ì§€ ì—¬ë¶€
      * @param {number} toEntityId
      * @returns {boolean}
      * @private
@@ -186,7 +186,7 @@
     }
 
     /**
-     * element°¡ profile imageÀÎÁö ¿©ºÎ
+     * elementê°€ profile imageì¸ì§€ ì—¬ë¶€
      * @param {object} event
      * @returns {boolean}
      * @private

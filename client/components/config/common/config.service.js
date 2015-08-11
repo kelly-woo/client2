@@ -56,9 +56,6 @@
           status_updated: 'announcement_status_updated'
         }
       };
-
-      // google drive popup 연동을 위해 domain 수정
-      window.document.domain = 'jandi.' + /.([a-zA-Z]+)$/.exec(window.document.domain)[1];
     }
 
     /**

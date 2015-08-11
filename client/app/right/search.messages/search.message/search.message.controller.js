@@ -26,7 +26,7 @@
     }
 
     /**
-     * message data¿Í entity data¸¦ mergeÇÏ¿© Àü´Ş
+     * message dataì™€ entity dataë¥¼ mergeí•˜ì—¬ ì „ë‹¬
      * @param {object} messageData
      * @param {object} hasStar
      * @returns {*}
@@ -62,7 +62,7 @@
     }
 
     /**
-     * entity id°¡ center¿¡ Ãâ·ÂÁßÀÎ entityÀÎÁö ¿©ºÎ
+     * entity idê°€ centerì— ì¶œë ¥ì¤‘ì¸ entityì¸ì§€ ì—¬ë¶€
      * @param {number} toEntityId
      * @returns {boolean}
      * @private
@@ -74,7 +74,7 @@
     /**
      * go archive state
      * @param {object} state
-     * @param {string} state.type - channel ¶Ç´Â privategroup
+     * @param {string} state.type - channel ë˜ëŠ” privategroup
      * @param {number} state.id
      * @private
      */

@@ -14,8 +14,8 @@
 
     // First function to be called.
     function _init() {
-      // file controller¿¡ Àü´ŞµÇ´Â data°¡ tab(file, star, mention)¸¶´Ù °¢°¢ ´Ù¸£¹Ç·Î message data¸¦
-      // file controller¿¡¼­ »ç¿ë°¡´ÉÇÑ data formatÀ¸·Î convertÇÔ
+      // file controllerì— ì „ë‹¬ë˜ëŠ” dataê°€ tab(file, star, mention)ë§ˆë‹¤ ê°ê° ë‹¤ë¥´ë¯€ë¡œ message dataë¥¼
+      // file controllerì—ì„œ ì‚¬ìš©ê°€ëŠ¥í•œ data formatìœ¼ë¡œ convertí•¨
       var file = $scope.file = FileData.convert($scope.fileType, $scope.fileData);
 
       $scope.file.extWriter = $scope.writer = EntityMapManager.get('total', file.writerId);
@@ -50,13 +50,13 @@
       var memberId = memberService.getMemberId();
 
       if ($scope.file.writerId === memberId) {
-        // º»ÀÎÀÌ ÀÛ¼ºÇÑ file ÀÌ¶ó¸é Ç×»ó Á¶È¸ °¡´É
+        // ë³¸ì¸ì´ ì‘ì„±í•œ file ì´ë¼ë©´ í•­ìƒ ì¡°íšŒ ê°€ëŠ¥
 
         $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
       } else {
         messageAPIservice.getMessage($scope.fileData.teamId, $scope.file.id)
           .success(function() {
-            // ÇØ´ç file¿¡ Á¢±Ù±ÇÇÑÀÌ Á¸Àç
+            // í•´ë‹¹ fileì— ì ‘ê·¼ê¶Œí•œì´ ì¡´ì¬
 
             $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
           })
@@ -67,7 +67,7 @@
     }
 
     /**
-     * disabled member ¿©ºÎ
+     * disabled member ì—¬ë¶€
      * @returns {*|boolean|*}
      */
     function isDisabledMember() {

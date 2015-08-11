@@ -15,12 +15,14 @@
     var regxLiveSearchTextMentionMarkDown = /(?:(?:^|\s)(?:[^\[]?)([@\uff20]((?:[^@\uff20]|[\!'#%&'\(\)*\+,\\\-\.\/:;<=>\?\[\]\^_{|}~\$][^ ]){0,30})))$/;
     var rStrContSearchTextMentionMarkDown = '\\[(@([^\\[]|.[^\\[]{0,30}))\\]';
 
+    that.MENTION_ALL = 'all';
     that.getMentionOnCursor = getMentionOnCursor;
     that.getMentionAllForText = getMentionAllForText;
+
     /**
-     * cursor ±âÁØÀ¸·Î mention data¸¦ Ã£¾Æ Àü´ŞÇÔ.
+     * cursor ê¸°ì¤€ìœ¼ë¡œ mention dataë¥¼ ì°¾ì•„ ì „ë‹¬í•¨.
      * @param {string} fullText
-     * @param {number} begin - cursor ½ÃÀÛÁ¡
+     * @param {number} begin - cursor ì‹œì‘ì 
      * @returns {*}
      */
     function getMentionOnCursor(fullText, begin) {
@@ -30,7 +32,7 @@
 
       if (fullText != null) {
 
-        // cursor ±âÁØ ¾Õ¿¡ ÀÔ·ÂµÈ text¸¦ check
+        // cursor ê¸°ì¤€ ì•ì— ì…ë ¥ëœ textë¥¼ check
         preStr = fullText.substring(0, begin);
 
         if (match = regxLiveSearchTextMentionMarkDown.exec(preStr)) {
@@ -39,7 +41,7 @@
             sufStr: fullText.substring(begin),
             match: match,
             offset: begin - match[1].length,
-            length: match.length
+            length: match[1].length
           };
         }
       }
@@ -48,9 +50,9 @@
     }
 
     /**
-     * text ÀüÃ¼¸¦ È®ÀÎÇÏ¿© mention ÀÔ·ÂÀÎ object¸¦ Àü´ŞÇÔ
+     * text ì „ì²´ë¥¼ í™•ì¸í•˜ì—¬ mention ì…ë ¥ì¸ objectë¥¼ ì „ë‹¬í•¨
      * @param {string} fullText
-     * @param {object} mentionMap - mention °¡´É member name
+     * @param {object} mentionMap - mention ê°€ëŠ¥ member name
      * @returns {{msg: string, mentions: Array}}
      */
     function getMentionAllForText(fullText, mentionMap) {
@@ -64,7 +66,7 @@
       var lastIndex;
       var offset = 0;
 
-      // ÀÔ·Â°ª trim
+      // ì…ë ¥ê°’ trim
       fullText && (fullText = fullText.trim());
 
       while(match = regxMention.exec(fullText)) {
@@ -81,13 +83,13 @@
           };
           offset += match[0].length - match[1].length;
 
-          if (match[2] === MENTION_ALL) {
-            // ¸ğµç member¿¡°Ô mention
+          if (match[2] === that.MENTION_ALL) {
+            // ëª¨ë“  memberì—ê²Œ mention
 
             data.id = parseInt(entityId, 10);
             data.type = 'room';
           } else {
-            // Æ¯Á¤ member¿¡°Ô mention
+            // íŠ¹ì • memberì—ê²Œ mention
 
             data.id = parseInt(mentionMap[match[0]].id, 10);
             data.type = 'member';

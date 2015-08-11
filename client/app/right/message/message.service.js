@@ -1,5 +1,5 @@
 /**
- * @fileoverview message controller¿¡¼­ »ç¿ë°¡´ÉÇÏµµ·Ï message data convert
+ * @fileoverview message controllerì—ì„œ ì‚¬ìš©ê°€ëŠ¥í•˜ë„ë¡ message data convert
  */
 (function() {
   'use strict';

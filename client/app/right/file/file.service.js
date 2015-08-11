@@ -1,5 +1,5 @@
 /**
- * @fileoverview file controller¿¡¼­ »ç¿ë°¡´ÉÇÏµµ·Ï file data convert
+ * @fileoverview file controllerì—ì„œ ì‚¬ìš©ê°€ëŠ¥í•˜ë„ë¡ file data convert
  */
 (function() {
   'use strict';
@@ -38,7 +38,7 @@
         data.shareEntities = fileData.shareEntities;
         data.createTime = data.createdAt;
 
-        // file typeÀÎ °æ¿ì starred »óÅÂ ¼³Á¤
+        // file typeì¸ ê²½ìš° starred ìƒíƒœ ì„¤ì •
         data.isStarred = fileData.isStarred;
       } else if (type === 'star') {
         data.type = 'star';
@@ -60,7 +60,7 @@
         data.shareEntities = fileData.message.shareEntities;
         data.createTime = data.createdAt;
 
-        // star type °æ¿ì Ç×»ó starred »óÅÂ
+        // star type ê²½ìš° í•­ìƒ starred ìƒíƒœ
         data.isStarred = true;
       }
 

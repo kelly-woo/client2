@@ -1,3 +1,6 @@
+/**
+ * @fileoverview mentions api
+ */
 (function() {
   'use strict';
 

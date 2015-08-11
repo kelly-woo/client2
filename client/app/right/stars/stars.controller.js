@@ -22,24 +22,24 @@
 
     // First function to be called.
     function _init() {
-      // °¢ tabÀ» °¢°¢ÀÇ controller·Î ÂÉ°³¾ßµÊ
+      // ê° tabì„ ê°ê°ì˜ controllerë¡œ ìª¼ê°œì•¼ë¨
       $scope.tabs = {
         all: {
           list: [],
           map: {},
-          // tabÀÇ loading »óÅÂ ¿©ºÎ
+          // tabì˜ loading ìƒíƒœ ì—¬ë¶€
           isLoading: false,
-          // tabÀÇ scroll loading »óÅÂ ¿©ºÎ
+          // tabì˜ scroll loading ìƒíƒœ ì—¬ë¶€
           isScrollLoading: false,
           // tab name
           name: $filter('translate')('@star-all'),
-          // tab È°¼ºÈ­ ¿©ºÎ
+          // tab í™œì„±í™” ì—¬ë¶€
           active: true,
-          // tab list ÀüÃ¼°¡ load µÇ¾ú´ÂÁö ¿©ºÎ
+          // tab list ì „ì²´ê°€ load ë˜ì—ˆëŠ”ì§€ ì—¬ë¶€
           endOfList: false,
-          // tab ºñ¾îÀÖ´ÂÁö ¿©ºÎ
+          // tab ë¹„ì–´ìˆëŠ”ì§€ ì—¬ë¶€
           empty: false,
-          // tab Ã¹ load°¡ µÇ¾ú´ÂÁö ¿©ºÎ
+          // tab ì²« loadê°€ ë˜ì—ˆëŠ”ì§€ ì—¬ë¶€
           hasFirstLoad: false
         },
         files: {
@@ -66,7 +66,7 @@
       if (Router.getActiveRightTabName($state.current) === 'stars') {
         isActivated = true;
 
-        // onTabSelect°¡ ¹Ù·Î ¼öÇàµÇ±â ¶§¹®¿¡ ¿©±â¼­ ¼öÇàÇÏÁö ¾ÊÀ½
+        // onTabSelectê°€ ë°”ë¡œ ìˆ˜í–‰ë˜ê¸° ë•Œë¬¸ì— ì—¬ê¸°ì„œ ìˆ˜í–‰í•˜ì§€ ì•ŠìŒ
         //_initGetStarList();
       }
     }
@@ -79,7 +79,7 @@
         isActivated = true;
 
         if (!$scope.tabs[$scope.activeTabName].hasFirstLoad) {
-          // 'onRightPanel' event ¹ß»ı½Ã tab(all, file)ÀÌ ÃÖÃÊ·Î ·ÎµåµÇ´Â ½ÃÁ¡¿¡¸¸ star list¸¦ È£ÃâÇÑ´Ù
+          // 'onRightPanel' event ë°œìƒì‹œ tab(all, file)ì´ ìµœì´ˆë¡œ ë¡œë“œë˜ëŠ” ì‹œì ì—ë§Œ star listë¥¼ í˜¸ì¶œí•œë‹¤
           _initStarListData($scope.activeTabName);
           _initGetStarList($scope.activeTabName);
         }
@@ -96,11 +96,11 @@
 
       index = removeItems.indexOf(data.messageId);
       if (index > -1) {
-        // starredµÈ itemÀÌ »èÁ¦¸ñ·Ï¿¡ Á¸ÀçÇÑ´Ù¸é »èÁ¦ ¸ñ·Ï¿¡¼­ Á¦°Å
+        // starredëœ itemì´ ì‚­ì œëª©ë¡ì— ì¡´ì¬í•œë‹¤ë©´ ì‚­ì œ ëª©ë¡ì—ì„œ ì œê±°
 
         removeItems.splice(index, 1);
       } else {
-        // starµÈ itemÀ» star list¿¡ Ãß°¡
+        // starëœ itemì„ star listì— ì¶”ê°€
 
         _getStarItem(data.messageId);
       }
@@ -113,31 +113,31 @@
       var messageId = data.messageId;
 
       if ($scope.tabs.all.map[messageId]) {
-        // unstarµÈ itemÀÌ star list¿¡ Á¸ÀçÇÑ´Ù¸é »èÁ¦ ¸ñ·Ï¿¡ Ãß°¡ÇÔ
+        // unstarëœ itemì´ star listì— ì¡´ì¬í•œë‹¤ë©´ ì‚­ì œ ëª©ë¡ì— ì¶”ê°€í•¨
 
         removeItems.push(messageId);
 
-        // ÀÏÁ¤ ½Ã°£ÀÌ Èå¸¥ ÈÄ unstarredµÈ star list¸¦ ÇÑ¹ø¿¡ Á¦°ÅÇÔ
+        // ì¼ì • ì‹œê°„ì´ íë¥¸ í›„ unstarredëœ star listë¥¼ í•œë²ˆì— ì œê±°í•¨
         $timeout.cancel(timerRemoveItems);
         timerRemoveItems = $timeout(function() {
-            var messageId;
+          var messageId;
 
-            for (;messageId = removeItems.pop();) {
-              if ($scope.tabs.files.map[messageId]) {
-                _removeStarItem('files', messageId);
-              }
-
-              _removeStarItem('all', messageId);
+          for (;messageId = removeItems.pop();) {
+            if ($scope.tabs.files.map[messageId]) {
+              _removeStarItem('files', messageId);
             }
 
-            $scope.tabs.all.list.length === 0 && _setEmptyTab('all', true);
-            $scope.tabs.files.list.length === 0 && _setEmptyTab('files', true);
+            _removeStarItem('all', messageId);
+          }
+
+          $scope.tabs.all.list.length === 0 && _setEmptyTab('all', true);
+          $scope.tabs.files.list.length === 0 && _setEmptyTab('files', true);
         }, 0);
       }
     });
 
     /**
-     * scrolling½Ã star list ºÒ·¯¿À±â
+     * scrollingì‹œ star list ë¶ˆëŸ¬ì˜¤ê¸°
      */
     function loadMore() {
       var activeTabName = $scope.activeTabName;
@@ -166,7 +166,7 @@
     }
 
     /**
-     * tab(all,file) star list ÃÊ±âÈ­
+     * tab(all,file) star list ì´ˆê¸°í™”
      * @param {string} activeTabName
      * @private
      */
@@ -180,7 +180,7 @@
     }
 
     /**
-     * tab(all,file) star list ÃÊ±â load
+     * tab(all,file) star list ì´ˆê¸° load
      * @param {string} activeTabName
      * @private
      */
@@ -192,7 +192,7 @@
     }
 
     /**
-     * star list Àü´Ş
+     * star list ì „ë‹¬
      * @param {string} activeTabName
      * @private
      */
@@ -205,7 +205,7 @@
                 _pushStarList(data.records, activeTabName);
               }
 
-              // ´ÙÀ½ getStarList¿¡ Àü´ŞÇÒ param °»½Å
+              // ë‹¤ìŒ getStarListì— ì „ë‹¬í•  param ê°±ì‹ 
               _updateCursor(activeTabName, data);
             }
           })
@@ -219,7 +219,7 @@
     }
 
     /**
-     * Æ¯Á¤ star item Àü´Ş
+     * íŠ¹ì • star item ì „ë‹¬
      * @param {string} messageId
      * @private
      */
@@ -231,7 +231,7 @@
             _setEmptyTab('all', false);
 
             if (data.message.contentType === 'file') {
-              // star itemÀÌ file typeÀÌ¶ó¸é files list¿¡µµ Ãß°¡ÇÔ
+              // star itemì´ file typeì´ë¼ë©´ files listì—ë„ ì¶”ê°€í•¨
               _addStarItem('files', data, true);
               _setEmptyTab('files', false);
             }
@@ -240,7 +240,7 @@
     }
 
     /**
-     * tab(all,file)ÀÇ list¸¦ ¼³Á¤
+     * tab(all,file)ì˜ listë¥¼ ì„¤ì •
      * @param {object} records
      * @param {string} activeTabName
      * @private
@@ -259,10 +259,10 @@
     }
 
     /**
-     * tab(all,file)ÀÇ itemÀ» Ãß°¡
+     * tab(all,file)ì˜ itemì„ ì¶”ê°€
      * @param {string} activeTabName
      * @param {object} data
-     * @param {boolean} isUnShift - unshift ¶Ç´Â push Ã³¸® ¿©ºÎ
+     * @param {boolean} isUnShift - unshift ë˜ëŠ” push ì²˜ë¦¬ ì—¬ë¶€
      * @private
      */
     function _addStarItem(activeTabName, data, isUnShift) {
@@ -273,7 +273,7 @@
     }
 
     /**
-     * tab(all,file)ÀÇ itemÀ» Á¦°Å
+     * tab(all,file)ì˜ itemì„ ì œê±°
      * @param {string} activeTabName
      * @param {number} messageId
      * @private
@@ -291,7 +291,7 @@
     }
 
     /**
-     * ºñ¾îÀÖ´Â tab(all, file)À¸·Î ¼³Á¤
+     * ë¹„ì–´ìˆëŠ” tab(all, file)ìœ¼ë¡œ ì„¤ì •
      * @param {string} activeTabName
      * @param {boolean} value
      * @private
@@ -302,7 +302,7 @@
     }
 
     /**
-     * ´ÙÀ½ star list¸¦ ¾ò¾î¿À´Â param°ú tab(all, file)ÀÇ »óÅÂ °»½Å
+     * ë‹¤ìŒ star listë¥¼ ì–»ì–´ì˜¤ëŠ” paramê³¼ tab(all, file)ì˜ ìƒíƒœ ê°±ì‹ 
      * @param {string} activeTabName
      * @param {object} data
      * @private
@@ -313,7 +313,7 @@
       }
 
       if ($scope.tabs[activeTabName].list && $scope.tabs[activeTabName].list.length > 0) {
-        // ´õÀÌ»ó star list°¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¹Ç·Î endOfList·Î Ã³¸®ÇÔ
+        // ë”ì´ìƒ star listê°€ ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ endOfListë¡œ ì²˜ë¦¬í•¨
         $scope.tabs[activeTabName].endOfList = !data.hasMore;
       }
     }

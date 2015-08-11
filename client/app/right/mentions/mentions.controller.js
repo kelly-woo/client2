@@ -45,7 +45,7 @@
     });
 
     /**
-     * scrolling½Ã mention list ºÒ·¯¿À±â
+     * scrollingì‹œ mention list ë¶ˆëŸ¬ì˜¤ê¸°
      */
     function loadMore() {
       if (!($scope.isScrollLoading || $scope.isEndOfList)) {
@@ -56,7 +56,7 @@
     }
 
     /**
-     * mention list ÃÊ±âÈ­
+     * mention list ì´ˆê¸°í™”
      * @private
      */
     function _initMentionListData() {
@@ -67,7 +67,7 @@
     }
 
     /**
-     * mention list ÃÊ±â load
+     * mention list ì´ˆê¸° load
      * @private
      */
     function _initGetMentionList() {
@@ -78,7 +78,7 @@
     }
 
     /**
-     * mention list Àü´Ş
+     * mention list ì „ë‹¬
      * @private
      */
     function _getMentionList() {
@@ -89,7 +89,7 @@
               _pushMentionList(data.records);
             }
 
-            // ´ÙÀ½ getMentionList¿¡ Àü´ŞÇÒ param °»½Å
+            // ë‹¤ìŒ getMentionListì— ì „ë‹¬í•  param ê°±ì‹ 
             _updateCursor(data);
           }
         })
@@ -100,7 +100,7 @@
     }
 
     /**
-     * mentionÀÇ list¸¦ ¼³Á¤
+     * mentionì˜ listë¥¼ ì„¤ì •
      * @param {object} records
      * @private
      */
@@ -114,7 +114,7 @@
     }
 
     /**
-     * ´ÙÀ½ mention list¸¦ ¾ò¾î¿À´Â param°ú mention listÀÇ »óÅÂ °»½Å
+     * ë‹¤ìŒ mention listë¥¼ ì–»ì–´ì˜¤ëŠ” paramê³¼ mention listì˜ ìƒíƒœ ê°±ì‹ 
      * @param {object} data
      * @private
      */
@@ -124,7 +124,7 @@
       }
 
       if ($scope.records && $scope.records.length > 0 ) {
-        // ´õ ÀÌ»ó mention list°¡ Á¸ÀçÇÏÁö ¾ÊÀ¸¹Ç·Î endOfList·Î Ã³¸®ÇÔ
+        // ë” ì´ìƒ mention listê°€ ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ endOfListë¡œ ì²˜ë¦¬í•¨
         $scope.isEndOfList = !data.hasMore;
       }
     }

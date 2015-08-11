@@ -9,10 +9,10 @@
     .controller('MentionaheadCtrl', MentionaheadCtrl);
 
   /* @ngInject */
-  function MentionaheadCtrl($state, $parse, $filter, $window, entityAPIservice, memberService, currentSessionHelper, configuration, MentionExtractor) {
+  function MentionaheadCtrl($state, $parse, $filter, $window, entityAPIservice, memberService,
+                            currentSessionHelper, configuration, MentionExtractor) {
     var that = this;
 
-    var MENTION_ALL = 'all';
     var MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
     var entityId = $state.params.entityId;
 
@@ -50,7 +50,7 @@
       $scope.hasOn = false;
       $scope.on = options.on;
 
-      // mention list¸¦ »ı¼º option
+      // mention listë¥¼ ìƒì„± option
       fn = options.attrs.mentionaheadData && $parse(options.attrs.mentionaheadData);
 
       if (fn) {
@@ -59,7 +59,7 @@
           $mentionCtrl: that
         });
       } else {
-        // current entity change event handler¿¡¼­ ÇÑ¹ø mention list ¼³Á¤
+        // current entity change event handlerì—ì„œ í•œë²ˆ mention list ì„¤ì •
         $scope.$on('onCurrentEntityChanged', function(event, param) {
           _setMentionList(param);
         });
@@ -67,14 +67,14 @@
         _setMentionList();
       }
 
-      // message¸¦ submitÇÏ´Â method
+      // messageë¥¼ submití•˜ëŠ” method
       if (options.attrs.messageSubmit) {
         _hookMessageSubmit(options.attrs, options.attrs.messageSubmit);
       }
     }
 
     /**
-     * default mention list ¼³Á¤ÇÔ.
+     * default mention list ì„¤ì •í•¨.
      * @private
      */
     function _setMentionList() {
@@ -87,31 +87,31 @@
       var len;
 
       if (members) {
-        // ÇöÀç topicÀÇ members
+        // í˜„ì¬ topicì˜ members
 
         for (i = 0, len = members.length; i < len; i++) {
           member = _getCurrentTopicMember(members[i]);
           if (member && currentMemberId !== member.id && member.status === 'enabled') {
-            // mention ÀÔ·Â½Ã text ÀÔ·Â È­¸é¿¡ º¸¿©Áö°Ô µÉ text
+            // mention ì…ë ¥ì‹œ text ì…ë ¥ í™”ë©´ì— ë³´ì—¬ì§€ê²Œ ë  text
             member.exViewName = '[@' + member.name + ']';
 
-            // member °Ë»ö½Ã »ç¿ëµÉ text
+            // member ê²€ìƒ‰ì‹œ ì‚¬ìš©ë  text
             member.exSearchName = member.name;
             mentionList.push(member);
           }
         }
 
         if (mentionList && mentionList.length > 1) {
-          // mention Àü´ŞÀÌ °¡´ÉÇÑ member°¡ 2¸í ÀÌ»óÀÌ¶ó¸é
-          // 2¸íÀÌ»óÀÇ member ÀüÃ¼¿¡°Ô mention ÇÏ´Â allÀ» Á¦°øÇÔ
+          // mention ì „ë‹¬ì´ ê°€ëŠ¥í•œ memberê°€ 2ëª… ì´ìƒì´ë¼ë©´
+          // 2ëª…ì´ìƒì˜ member ì „ì²´ì—ê²Œ mention í•˜ëŠ” allì„ ì œê³µí•¨
 
           mentionList = _.sortBy(mentionList, 'exSearchName');
 
           mentionList.unshift({
-            // mention item Ãâ·Â¿ë text
+            // mention item ì¶œë ¥ìš© text
             name: MENTION_ALL_ITEM_TEXT,
-            // mention target¿¡ Ãâ·Â¿ë text
-            exViewName : '[@' + MENTION_ALL + ']',
+            // mention targetì— ì¶œë ¥ìš© text
+            exViewName : '[@' + MentionExtractor.MENTION_ALL + ']',
             // mention search text
             exSearchName: 'topic',
             u_photoThumbnailUrl: {
@@ -127,28 +127,28 @@
     }
 
     /**
-     * mention ahead list ¼³Á¤ÇÔ.
+     * mention ahead list ì„¤ì •í•¨.
      * @param mentionList
      */
     function setMentions(mentionList) {
       var mentionMap = {};
 
-      // Áßº¹ user name¿¡ ´ëÇÑ Ã³¸®
+      // ì¤‘ë³µ user nameì— ëŒ€í•œ ì²˜ë¦¬
       _removeDuplicateMentionItem(mentionList, mentionMap);
 
       $scope.mentionList = mentionList;
       $scope._mentionMap = mentionMap;
 
       if (!$scope.hasOn && mentionList.length > 0) {
-        // mention ahead¿¡ Ãâ·ÂÇÒ itemÀÌ Á¸ÀçÇÏ°í event listener°¡ ¿¬°áµÇÁö ¾Ê¾Ò´Ù¸é ¿¬°áÇÔ
+        // mention aheadì— ì¶œë ¥í•  itemì´ ì¡´ì¬í•˜ê³  event listenerê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ë‹¤ë©´ ì—°ê²°í•¨
         $scope.hasOn = true;
         $scope.on();
       }
     }
 
     /**
-     * mention list¿¡ user nameÀÌ Áßº¹µÇ´Â member°¡ Á¸ÀçÇÑ´Ù¸é mention list¿¡¼­´Â Á¸ÀçÇÏÁö¸¸
-     * mentionÀº Àü´ŞÇÏÁö ¾Êµµ·Ï mention map¿¡¼­ »èÁ¦ÇÔ.
+     * mention listì— user nameì´ ì¤‘ë³µë˜ëŠ” memberê°€ ì¡´ì¬í•œë‹¤ë©´ mention listì—ì„œëŠ” ì¡´ì¬í•˜ì§€ë§Œ
+     * mentionì€ ì „ë‹¬í•˜ì§€ ì•Šë„ë¡ mention mapì—ì„œ ì‚­ì œí•¨.
      * @param mentionList
      * @param mentionMap
      * @private
@@ -171,7 +171,7 @@
     }
 
     /**
-     * ÇöÀç topicÀÇ member object¸¦ Àü´ŞÇÔ.
+     * í˜„ì¬ topicì˜ member objectë¥¼ ì „ë‹¬í•¨.
      * @param {number} memberId
      * @returns {*}
      * @private
@@ -181,7 +181,7 @@
     }
 
     /**
-     * mention ÀÔ·ÂÀÎÁö Ã³¸®ÇÒ value¸¦ Àü´ŞÇÔ.
+     * mention ì…ë ¥ì¸ì§€ ì²˜ë¦¬í•  valueë¥¼ ì „ë‹¬í•¨.
      * @returns {*}
      */
     function getValue() {
@@ -189,7 +189,7 @@
     }
 
     /**
-     * mention ÀÔ·ÂÀÎÁö Ã³¸®ÇÒ value¸¦ ¼³Á¤ÇÔ.
+     * mention ì…ë ¥ì¸ì§€ ì²˜ë¦¬í•  valueë¥¼ ì„¤ì •í•¨.
      * @param {string} value
      */
     function setValue(value) {
@@ -197,7 +197,7 @@
     }
 
     /**
-     * mention ahead°¡ Ãâ·ÂÁßÀÎÁö ¿©ºÎ.
+     * mention aheadê°€ ì¶œë ¥ì¤‘ì¸ì§€ ì—¬ë¶€.
      * @returns {boolean}
      */
     function isShowMentionahead() {
@@ -205,7 +205,7 @@
     }
 
     /**
-     * elementÀÇ cursor ±âÁØÀ¸·Î mentionÀ» ¼³Á¤ÇÔ.
+     * elementì˜ cursor ê¸°ì¤€ìœ¼ë¡œ mentionì„ ì„¤ì •í•¨.
      */
     function setMentionOnLive() {
       var value = getValue();
@@ -215,7 +215,7 @@
     }
 
     /**
-     * text ÀüÃ¼¸¦ È®ÀÎÇÏ¿© mention ÀÔ·ÂÀÎ object¸¦ Àü´ŞÇÔ
+     * text ì „ì²´ë¥¼ í™•ì¸í•˜ì—¬ mention ì…ë ¥ì¸ objectë¥¼ ì „ë‹¬í•¨
      * @returns {{msg: string, mentions: Array}}
      */
     function getMentions() {
@@ -225,7 +225,7 @@
     }
 
     /**
-     * mention ÀÔ·ÂÀÎÁö ¿©ºÎ
+     * mention ì…ë ¥ì¸ì§€ ì—¬ë¶€
      * @returns {boolean}
      */
     function isInputMention() {
@@ -233,7 +233,7 @@
     }
 
     /**
-     * mentionahead¸¦ Ãâ·ÂÇÔ
+     * mentionaheadë¥¼ ì¶œë ¥í•¨
      */
     function showMentionahead() {
       var mention = $scope.mention;
@@ -241,20 +241,20 @@
       if (mention) {
         $model.$setViewValue(mention.match[2]);
       } else {
-        // mentionÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é mentionahead¸¦ Ãâ·ÂÇÏÁö ¾ÊÀ½
+        // mentionì´ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ mentionaheadë¥¼ ì¶œë ¥í•˜ì§€ ì•ŠìŒ
         clearMention();
       }
     }
 
     /**
-     * mention ÀÔ·ÂÀ» clearÇÔ.
+     * mention ì…ë ¥ì„ clearí•¨.
      */
     function clearMention() {
       $model.$setViewValue(null);
     }
 
     /**
-     * elementÀÇ selectionÀ» Àü´ŞÇÔ.
+     * elementì˜ selectionì„ ì „ë‹¬í•¨.
      * @returns {{begin: Number, end: Number}}
      * @private
      */
@@ -268,7 +268,7 @@
     }
 
     /**
-     * elementÀÇ slectionÀ» ¼³Á¤ÇÔ.
+     * elementì˜ slectionì„ ì„¤ì •í•¨.
      * @param {string|number} begin
      * @param {string|number} end
      * @private
@@ -283,7 +283,7 @@
 
 
     /**
-     * mentionahead¿¡¼­ Æ¯Á¤ mention ¼±ÅÃ event callback
+     * mentionaheadì—ì„œ íŠ¹ì • mention ì„ íƒ event callback
      * @param {object} $item
      */
     function onSelect($item) {
@@ -291,7 +291,7 @@
       var msg;
 
       if ($item.name === MENTION_ALL_ITEM_TEXT) {
-        // ¸ğµç member¿¡°Ô mention
+        // ëª¨ë“  memberì—ê²Œ mention
 
         currentEntity = currentSessionHelper.getCurrentEntity();
         msg = $filter('translate')('@mention-all-confirm');
@@ -309,7 +309,7 @@
     }
 
     /**
-     * mentionahead¿¡¼­ Æ¯Á¤ mention ¼±ÅÃ event callback
+     * mentionaheadì—ì„œ íŠ¹ì • mention ì„ íƒ event callback
      * @param {object} $item
      * @private
      */
@@ -320,14 +320,14 @@
       var text;
       var selection;
 
-      // mention ÀÔ·Â ÈÄ text Àç¼³Á¤
+      // mention ì…ë ¥ í›„ text ì¬ì„¤ì •
       text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + extraText + mention.sufStr;
       $scope.jqEle.val(text);
       setValue(text);
 
       selection = mention.offset + mentionTarget.length + extraText.length;
 
-      // mention ÀÔ·Â ÈÄ element selection À§Ä¡ ¼³Á¤
+      // mention ì…ë ¥ í›„ element selection ìœ„ì¹˜ ì„¤ì •
       setTimeout(function() {
         _setSelection(selection);
       }, 10);
@@ -337,20 +337,20 @@
     }
 
     /**
-     * mentionaheadÁß ÀÔ·ÂÇÑ °ª°ú match event callback
+     * mentionaheadì¤‘ ì…ë ¥í•œ ê°’ê³¼ match event callback
      * @param matches
      */
     function onMatches(matches) {
       if (!matches.length) {
-        // ÀÔ·Â°ª¿¡ match µÇ´Â itemÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é mention clear
+        // ì…ë ¥ê°’ì— match ë˜ëŠ” itemì´ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ mention clear
         clearMention();
       }
     }
 
     /**
-     * hook message Àü´Ş ÇÔ¼ö
-     * message ÀÔ·ÂÇÏ´Â element¿¡¼­ ÀÔ·ÂÇÑ °ªÀ» mention ahead¿¡¼­ Ã³¸®ÇÏ¹Ç·Î
-     * mention ÀÔ·ÂÇÏ´Â µ¿¾È¿¡´Â message submit ¼öÇàµÇÁö ¾Êµµ·Ï ÇÔ.
+     * hook message ì „ë‹¬ í•¨ìˆ˜
+     * message ì…ë ¥í•˜ëŠ” elementì—ì„œ ì…ë ¥í•œ ê°’ì„ mention aheadì—ì„œ ì²˜ë¦¬í•˜ë¯€ë¡œ
+     * mention ì…ë ¥í•˜ëŠ” ë™ì•ˆì—ëŠ” message submit ìˆ˜í–‰ë˜ì§€ ì•Šë„ë¡ í•¨.
      * @param attrs
      * @param originMessageSubmit
      * @private

@@ -1,6 +1,6 @@
 /**
  * @fileoverview message dicrective
- * message search¿Í star, mention¿¡¼­ »ç¿ëÇÔ
+ * message searchì™€ star, mentionì—ì„œ ì‚¬ìš©í•¨
  */
 (function() {
   'use strict';
