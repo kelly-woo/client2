@@ -43,9 +43,18 @@
      * 배너를 보여줘야 할 상황이면 보여준다.
      */
     function showNotificationBanner(scope) {
-      if (_shouldAskNotification() && (!Browser.msie || !Browser.edge)&& !Browser.others) {
+      if (_shouldAskNotification() && !_isInternetExplorer() && !Browser.others) {
         _prependBannerElement(scope);
       }
+    }
+
+    /**
+     * 인터넷 익스플로러인지(edge 포함) 아닌지 확인 후 리턴한다.
+     * @returns {browser.msie|*|boolean|n.msie|browser.edge}
+     * @private
+     */
+    function _isInternetExplorer() {
+      return Browser.msie || Browser.edge;
     }
 
     /**

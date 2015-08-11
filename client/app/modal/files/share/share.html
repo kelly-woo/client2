@@ -51,7 +51,7 @@
                   id="_modalShareEntitySelect"
                   class="form-control"
                   ng-model="selected.data"
-                  ng-options="channel as channel|orderBy: 'name'|getName group by channel.typeCategory for channel in selectOptions ">
+                  ng-options="channel as channel|getName group by channel.typeCategory for channel in selectOptions">
           </select>
           <span ng-if="!selectOptions.length"
                 class="modal-share-span"

@@ -40,7 +40,11 @@ app.directive('jndInputModel', function($timeout, jndPubSub) {
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
         scope.$watch(_key, function(newVal) {
-          el.val(newVal);
+          var val = el.val();
+          val = _isTrimEnable ? _.trim(val) : val;
+          if (newVal !== val) {
+            el.val(newVal);
+          }
         });
       }
 

@@ -12,7 +12,7 @@
   /* @ngInject */
   function publicService($rootScope, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, pcAppHelper) {
+                         entityAPIservice, pcAppHelper, $filter) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -48,7 +48,7 @@
           this.push(entity);
       }, list);
 
-      return list;
+      return $filter('orderBy')(list, 'name');
     }
 
     function openTutorialModal(tutorialId) {
