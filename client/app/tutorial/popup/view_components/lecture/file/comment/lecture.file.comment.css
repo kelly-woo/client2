@@ -1,20 +1,22 @@
 .tutorial_right_file_item {
   z-index: 16;
-  width: 480px;
+  background:red;
+  opacity:0;
+  width: 398px;
   height: 86px;
   position: absolute;
-  top: 149px;
-  left: 543px;
+  top: 182px;
+  right: 0;
 }
 
 .tutorial_input_right {
   z-index: 6;
-  width: 480px;
+  width: 398px;
   height: 562px;
   position: absolute;
   overflow: hidden;
-  top: 206px;
-  left: 544px;
+  top: 375px;
+  left: 626px;
 }
 
 .tutorial_input_right.disabled {
