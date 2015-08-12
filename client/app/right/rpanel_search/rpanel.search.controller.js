@@ -11,7 +11,6 @@
 
   /* @ngInject */
   function rPanelSearchCtrl($scope, $filter, jndPubSub) {
-    $scope.isConnected;
     _init();
 
     // First function to be called.
@@ -69,10 +68,18 @@
       $scope.placeholder = $filter('translate')('@input-search-file-title');
     }
 
+    /**
+     * socket disconnection handler
+     * @private
+     */
     function _onDisconnected() {
       $scope.isConnected = false;
     }
 
+    /**
+     * socket connection handler
+     * @private
+     */
     function _onConnected() {
       $scope.isConnected = true;
     }

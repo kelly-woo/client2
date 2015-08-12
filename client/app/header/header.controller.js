@@ -11,7 +11,29 @@
                       memberService, publicService, configuration,
                       language, modalHelper, jndPubSub, DeskTopNotificationBanner,
                       Browser, AnalyticsHelper, Router) {
-    var modalMap;
+    var modalMap = {
+      'agreement': function() {
+        modalHelper.openAgreementModal();
+      },
+      'privacy': function() {
+        modalHelper.openPrivacyModal();
+      },
+      'channel': function() {
+        modalHelper.openTopicCreateModal($scope);
+      },
+      'invite': function() {
+        modalHelper.openInviteToTeamModal($scope);
+      },
+      'team-change': function() {
+        modalHelper.openTeamChangeModal($scope);
+      },
+      'team-member': function() {
+        modalHelper.openTeamMemberListModal();
+      },
+      'setting-notifications': function() {
+        modalHelper.openNotificationSettingModal($scope);
+      }
+    };
     var stateParams;
     var currentRightPanel;
 
@@ -25,6 +47,19 @@
       $scope.languageList = language.getLanguageList();
       $scope.isIe = Browser.msie;
 
+      // sign out
+      $scope.onSignOutClick = publicService.signOut;
+
+      $scope.onLanguageClick = onLanguageClick;
+      $scope.toTeam = toTeam;
+
+      $scope.openModal = openModal;
+      $scope.toggleLoading = toggleLoading;
+      $scope.isUserAuthorized = isUserAuthorized;
+      $scope.onShowTutorialClick = onShowTutorialClick;
+      $scope.onTutorialPulseClick = onTutorialPulseClick;
+      $scope.openRightPanel = openRightPanel;
+
       $scope.toolbar = {
         files: false,
         messages: false,
@@ -33,19 +68,22 @@
       };
 
       if (currentRightPanel = Router.getActiveRightTabName($state.current)) {
+        // active된 right panel에 따라 header icon 활성화 여부를 설정한다.
         $scope.toolbar[currentRightPanel] = true;
       }
     }
 
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
       stateParams = toParams;
     });
 
+    // header icon의 active event handler
     $scope.$on('onActiveHeaderTab', function($event, type) {
       _setTabStatus(currentRightPanel, false);
       _setTabStatus(type, true);
     });
 
+    // right panel의 open event handler
     $scope.$on('onRightPanel', function($event, data) {
       $rootScope.isOpenRightPanel = true;
 
@@ -53,12 +91,15 @@
       _setTabStatus(data.type, true);
     });
 
+    // right panel의 close event handler
     $scope.$on('closeRightPanel', function() {
       _closeRightPanel();
     });
 
-    $scope.onLanguageClick = onLanguageClick;
-
+    /**
+     * change language event handler
+     * @param {string} lang
+     */
     function onLanguageClick(lang) {
       var currentLang = accountService.getAccountLanguage();
       if (currentLang === lang) return;
@@ -105,8 +146,6 @@
         })
     }
 
-    $scope.toTeam = toTeam;
-
     /**
      * 잔디 메인으로 보내면서 팀 리스트 페이지를 연다.
      */
@@ -115,61 +154,54 @@
     }
 
     /**
-     * 로그아웃 한다.
+     * open modal
+     * @param {string} selector
      */
-    $scope.onSignOutClick = publicService.signOut;
-
-    modalMap = {
-      'agreement': function() {
-        modalHelper.openAgreementModal();
-      },
-      'privacy': function() {
-        modalHelper.openPrivacyModal();
-      },
-      'channel': function() {
-        modalHelper.openTopicCreateModal($scope);
-      },
-      'invite': function() {
-        modalHelper.openInviteToTeamModal($scope);
-      },
-      'team-change': function() {
-        modalHelper.openTeamChangeModal($scope);
-      },
-      'team-member': function() {
-        modalHelper.openTeamMemberListModal();
-      },
-      'setting-notifications': function() {
-        modalHelper.openNotificationSettingModal($scope);
-      }
-    };
-
-    $scope.openModal = function(selector) {
+    function openModal(selector) {
       var fn;
       (fn = modalMap[selector]) && fn();
-    };
+    }
 
-    $scope.toggleLoading = function() {
+    /**
+     * toggle loading screen
+     */
+    function toggleLoading() {
       $scope.isLoading = !$scope.isLoading;
-    };
+    }
 
-    $scope.isUserAuthorized = function() {
+    /**
+     * 권한 인증된 user 인지 여부
+     * @returns {boolean}
+     */
+    function isUserAuthorized() {
       return memberService.isAuthorized($scope.user);
-    };
+    }
 
-    $scope.onShowTutorialClick = function() {
+    /**
+     * click show tutorial
+     */
+    function onShowTutorialClick() {
       //@fixme: remove old tutorial logic
       if (pcAppHelper.isPcApp()) {
         jndPubSub.pub('initTutorialStatus');
       } else {
         jndPubSub.pub('tutorial:open');
       }
-    };
+    }
 
-    $scope.onTutorialPulseClick = function($event) {
+    /**
+     * click tutorial pulse event handler
+     * @param {object} $event
+     */
+    function onTutorialPulseClick($event) {
       jndPubSub.pub('onTutorialPulseClick', $event);
-    };
+    }
 
-    $scope.openRightPanel = function(type) {
+    /**
+     * open right panel event handler
+     * @param {string} type - open tab type
+     */
+    function openRightPanel(type) {
       if ($scope.toolbar[type] && currentRightPanel === type) {
         _closeRightPanel();
       } else {
@@ -180,6 +212,10 @@
       }
     };
 
+    /**
+     * right panel의 scoll을 bottom으로 이동함.
+     * @private
+     */
     function _autoScroll() {
       var viewport = $('.msgs');
       var content = $('.msgs-holder');
@@ -192,11 +228,21 @@
       }
     }
 
+    /**
+     * set tab status
+     * @param {string} type
+     * @param {boolean} value
+     * @private
+     */
     function _setTabStatus(type, value) {
       $scope.toolbar[type] = value;
       currentRightPanel = type;
     }
 
+    /**
+     * close right panel
+     * @private
+     */
     function _closeRightPanel() {
       $rootScope.isOpenRightPanel = false;
 
@@ -206,7 +252,7 @@
     }
 
     /**
-     * right panel open 여부를 전달함
+     * right panel open 여부를 전달함.
      * @returns {boolean}
      * @private
      */

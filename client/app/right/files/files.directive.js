@@ -1,3 +1,6 @@
+/**
+ * @fileoverview files directive
+ */
 (function() {
   'use strict';
 

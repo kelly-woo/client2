@@ -56,9 +56,6 @@
           status_updated: 'announcement_status_updated'
         }
       };
-
-      // cut off sub-domain
-      window.document.domain = 'jandi.' + /.([a-zA-Z]+)$/.exec(window.document.domain)[1];
     }
 
     /**

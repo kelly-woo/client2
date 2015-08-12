@@ -75,7 +75,7 @@
 
           return invite(list)
             .success(function(response) {
-              _.forEach(response, function(value, index) {
+              _.forEach(response, function(value) {
                 var email = value.email;
                 var fn;
                 var icon;
@@ -86,8 +86,12 @@
                   ++successCnt;
                   fn = options.onSuccess;
                   icon = options.templateCheck;
-                } else {
+                } else if (value.code != 40004) {
+                  // client의 email 식별식이랑 server의 email 식별식이 상이하여 code로 구분
+
                   fn = options.onDuplicate;
+                  icon = options.templateTime;
+                } else {
                   icon = options.templateTime;
                 }
 
@@ -96,7 +100,7 @@
                   if (options.checkIcon) {
                     ele.parent().append($(icon)).children('i:not(:last-child)').remove();
                   }
-                  fn(ele);
+                  fn && fn(ele);
                 }
               });
 

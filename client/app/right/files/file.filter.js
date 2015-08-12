@@ -157,7 +157,7 @@
   });
 
   /**
-   * file title을 filtering 함
+   * file title을 filtering
    * integration file의 경우 확장자를 표시하지 않음
    */
   app.filter('fileTitle', function() {

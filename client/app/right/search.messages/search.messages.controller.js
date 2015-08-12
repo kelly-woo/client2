@@ -1,3 +1,6 @@
+/**
+ * @fileoverview search messages controller
+ */
 (function() {
   'use strict';
 
@@ -8,7 +11,6 @@
   /* @ngInject */
   function rPanelMessageTabCtrl($scope, $rootScope, $filter, $state, Router, fileAPIservice,
                                 messageAPIservice, AnalyticsHelper) {
-
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
 
@@ -16,7 +18,6 @@
     var _isActivated = false;
 
     _init();
-
 
     // First function to be called.
     function _init() {
@@ -57,8 +58,9 @@
       _initChatRoomOption();
     });
 
-
-    // File List clicked on member profile modal view.
+    /**
+     * File List clicked on member profile modal view.
+     */
     $scope.$on('resetRPanelSearchStatusKeyword', function() {
       _initMessageSearchQuery();
       _resetChatWriter();
@@ -66,7 +68,9 @@
       _resetMessageSearchResult();
     });
 
-    // When value of search input box(at the top of right panel) changed.
+    /**
+     * When value of search input box(at the top of right panel) changed.
+     */
     $scope.$on('onrPanelFileTitleQueryChanged', function(event, keyword) {
       if (_isActivated) {
         _setSearchQueryQ(keyword);
@@ -83,13 +87,19 @@
       }
     });
 
+    /**
+     * open right panel event handler
+     */
     $scope.$on('onRightPanel', function($event, data) {
       if (data.type === 'messages') {
         _isActivated = true;
-        $scope.searchQuery.q = '';
 
-        _refreshSearchQuery();
-        searchMessages();
+        if ($scope.messageList.length < 1) {
+          // mention list가 존재하지 않음
+          $scope.searchQuery.q = '';
+          _refreshSearchQuery();
+          searchMessages();
+        }
       } else {
         _isActivated = false;
       }
@@ -105,20 +115,23 @@
       $scope.messageLocation = null;
     });
 
-    // When entity location filter is changed.
+    /**
+     * When entity location filter is changed.
+     */
     function updateMessageLocationFilter() {
       _refreshSearchQuery();
       $scope.searchQuery.entityId = !!$scope.messageLocation ? $scope.messageLocation.id : '';
       searchMessages();
     }
 
-    // When writer filter is changed.
+    /**
+     * When writer filter is changed.
+     */
     function updateMessageWriterFilter() {
       _refreshSearchQuery();
       $scope.searchQuery.writerId = $scope.messageWriter || '';
       searchMessages();
     }
-
 
     /**
      * 메세지를 찾는다.
@@ -131,8 +144,6 @@
 
       _updateSearchStatusKeyword();
       _showLoading();
-
-      //console.log($scope.searchQuery)
 
       messageAPIservice.searchMessages($scope.searchQuery)
         .success(function(response) {

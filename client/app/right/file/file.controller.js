@@ -9,11 +9,13 @@
     .controller('FileCtrl', FileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData, messageAPIservice, memberService) {
+  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData, memberService) {
     _init();
 
     // First function to be called.
     function _init() {
+      // file controller에 전달되는 data가 tab(file, star, mention)마다 각각 다르므로 message data를
+      // file controller에서 사용가능한 data format으로 convert함
       var file = $scope.file = FileData.convert($scope.fileType, $scope.fileData);
 
       $scope.file.extWriter = $scope.writer = EntityMapManager.get('total', file.writerId);
@@ -21,43 +23,60 @@
       $scope.writerName = $scope.writer.name;
       $scope.profileImage = $filter('getSmallThumbnail')($scope.writer);
       $scope.createDate = $filter('getyyyyMMddformat')(file.createdAt);
-      $scope.commentCount = file.commentCount;
       $scope.contentTitle = file.contentTitle;
 
       $scope.isStarred = file.isStarred || false;
 
       $scope.onFileCardClick = onFileCardClick;
 
-      $scope.onClickShare = onClickShare;
+      $scope.onOpenShareModal = onOpenShareModal;
       $scope.isDisabledMember = isDisabledMember;
       $scope.onFileDeleteClick = onFileDeleteClick;
       $scope.setCommentFocus = setCommentFocus;
     }
 
-    function onClickShare() {
+    /**
+     * open share modal
+     */
+    function onOpenShareModal() {
       fileAPIservice.openFileShareModal($scope, $scope.file);
     }
 
+    /**
+     * file card click event handler
+     */
     function onFileCardClick() {
       var memberId = memberService.getMemberId();
 
       if ($scope.file.writerId === memberId) {
+        // 본인이 작성한 file 이라면 항상 조회 가능
+
         $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
       } else {
-        messageAPIservice.getMessage($scope.fileData.teamId, $scope.file.id)
-          .success(function() {
+        fileAPIservice.getFileDetail($scope.file.id)
+          .success(function(response) {
+            // 해당 file에 접근권한이 존재
+            fileAPIservice.dualFileDetail = response;
+
             $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
           })
           .error(function() {
             alert($filter('translate')('@common-leaved-topic'));
-          })
+          });
       }
     }
 
+    /**
+     * disabled member 여부
+     * @returns {*|boolean|*}
+     */
     function isDisabledMember() {
       return publicService.isDisabledMember($scope.file.extWriter);
     }
 
+    /**
+     * delete file click event handler
+     */
     function onFileDeleteClick() {
       var fileId = $scope.file.id;
 
@@ -66,7 +85,7 @@
       }
 
       fileAPIservice.deleteFile(fileId)
-        .success(function(response) {
+        .success(function() {
           try {
             //analytics
             AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
@@ -88,12 +107,12 @@
             });
           } catch (e) {
           }
-        })
-        .finally(function() {
-
         });
     }
 
+    /**
+     * focus to comment area
+     */
     function setCommentFocus() {
       if ($state.params.itemId != $scope.file.id) {
         $rootScope.setFileDetailCommentFocus = true;

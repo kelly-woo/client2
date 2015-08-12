@@ -15,6 +15,8 @@
 
     // First function to be called.
     function _init() {
+      // message controller에 전달되는 data가 tab(message search, star, mention)마다 각각 다르므로 message data를
+      // message controller에서 사용가능한 data format으로 convert함
       var message = $scope.message = MessageData.convert($scope.messageType, $scope.messageData);
 
       $scope.writer = EntityMapManager.get('total', message.writerId);
@@ -31,22 +33,43 @@
       $scope.onMessageCardClick = onMessageCardClick;
     }
 
+    /**
+     * message content 전달
+     * @param {object} message
+     * @returns {*}
+     * @private
+     */
     function _getContent(message) {
       var content = message.contentBody;
 
-      if (message.mentions) {
+      if (message.mentions && message.mentions.length > 0) {
+        // mentions가 존재한다면 mentions parse하여 content 설정
         content = $filter('mention')(content, message.mentions, false);
       }
 
       return content;
     }
 
+    /**
+     *
+     * @param message
+     * @returns {*}
+     * @private
+     */
     function _getMessageStartPoint(message) {
       var startPoint;
 
       if (message.contentType === 'text') {
-        startPoint =  message.roomName || 'unknown topic';
+        // type이 text라면 topic 명으로 설정함
+        if (message.roomType === 'chat') {
+          // DM의 경우 roomName에 작성자와 대상자의 id가 전달되므로 entity manager에서 member 조회 해야됨
+
+          startPoint = EntityMapManager.get('total', message.roomName.split(':')[1]).name;
+        } else {
+          startPoint = message.roomName || 'unknown topic';
+        }
       } else {
+        // type이 text가 아니라면 file 명으로 설정함
         startPoint = message.feedbackTitle;
       }
 
@@ -54,29 +77,62 @@
     }
 
     /**
-     * message card click �̺�Ʈ �ڵ鷯
-     * @param {object} user
+     * message card click event handler
+     * @param {object} event
      */
     function onMessageCardClick(event) {
       var message = $scope.message;
 
       if (_isProfileImage(event)) {
+        // open user profile
+
         event.stopPropagation();
         jndPubSub.pub('onUserClick', $scope.writer);
       } else if (!message.preventRedirect) {
-        _redirect(message, $scope.writer);
+        if (message.type !== 'message') {
+          // message type이 'message'라면 상위 scope에서 event handling함
+
+          _onMessageCardClick(message, $scope.writer);
+        }
       }
     }
 
-    function _redirect(message, writer) {
+    /**
+     * message card click 이벤트 핸들러
+     * @param {object} message
+     * @param {object} writer
+     * @private
+     */
+    function _onMessageCardClick(message, writer) {
       if (message.contentType === 'comment' && message.feedbackId > 0) {
+        // file detail로
+
         _goTo(function() {
           _goToFileDetail(message, writer);
         });
       } else {
-        if (!entityAPIservice.isLeavedTopic(EntityMapManager.get('total', message.roomId), memberService.getMemberId())) {
+        // center로
+
+        if (message.roomType === 'chat') {
           _goTo(function() {
-            _goToTopic(message);
+            var members = message.roomName.split(':');
+
+            // DM 이라면 나를 제외한 한명의 id가 id로 사용됨
+            _goToTopic({
+              type: 'user',
+              id: members[0] == memberService.getMemberId() ? members[1] : members[0],
+              linkId: message.linkId
+            });
+          });
+        } else if (!entityAPIservice.isLeavedTopic(EntityMapManager.get('total', message.roomId), memberService.getMemberId())) {
+          // 해당 topic의 member 라면
+
+          _goTo(function() {
+            _goToTopic({
+              type: message.roomType,
+              id: message.roomId,
+              linkId: message.linkId
+            });
           });
         } else {
           alert($filter('translate')('@common-leaved-topic'));
@@ -84,10 +140,17 @@
       }
     }
 
+    /**
+     * 특정 state 로 이동
+     * @param {function} fn
+     * @private
+     */
     function _goTo(fn) {
       messageAPIservice.getMessage($scope.messageData.teamId, $scope.message.id)
         .success(function(message) {
           if (message.status === 'created') {
+            // 삭제된 message가 아니라면
+
             fn();
           } else {
             alert($filter('translate')('@common-removed-origin'));
@@ -98,27 +161,51 @@
         });
     }
 
+    /**
+     * go to file detail
+     * @param {object} message
+     * @param {object} writer
+     * @private
+     */
     function _goToFileDetail(message, writer) {
       $state.go($scope.message.type === 'message' ? 'files' : $scope.message.type + 's', {userName: writer.name, itemId: message.feedbackId});
     }
 
+    /**
+     * go to topic
+     * @param {object} message
+     * @private
+     */
     function _goToTopic(message) {
-      var toEntityId = message.roomId;
-      var toLinkId = message.linkId;
+      var id = message.id;
+      var linkId = message.linkId;
 
-      MessageQuery.setSearchLinkId(toLinkId);
+      // set link id
+      MessageQuery.setSearchLinkId(linkId);
 
-      if (_isToEntityCurrent(toEntityId)) {
+      if (_isToEntityCurrent(id)) {
         jndPubSub.pub('jumpToMessageId');
       } else {
-        $state.go('archives', {entityType: message.roomType + 's', entityId: toEntityId});
+        $state.go('archives', {entityType: message.type + 's', entityId: id});
       }
     }
 
+    /**
+     * 현재 center에 노출된 topic 과 같은 topic인지 여부
+     * @param {number} toEntityId
+     * @returns {boolean}
+     * @private
+     */
     function _isToEntityCurrent(toEntityId) {
       return currentSessionHelper.getCurrentEntity().id === toEntityId;
     }
 
+    /**
+     * element가 profile image인지 여부
+     * @param {object} event
+     * @returns {boolean}
+     * @private
+     */
     function _isProfileImage(event) {
       return /img/i.test(event.target.nodeName);
     }
