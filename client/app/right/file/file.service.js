@@ -30,13 +30,17 @@
 
         data.writerId = fileData.writerId;
         data.createdAt = fileData.createTime;
-        data.commentCount = fileData.commentCount;
         data.contentTitle = fileData.content.title || fileData.content.name;
         data.contentFileUrl = fileData.content.fileUrl;
 
         data.content = fileData.content;
         data.shareEntities = fileData.shareEntities;
         data.createTime = data.createdAt;
+
+        // static comment count
+        fileData.message = {
+          commentCount: fileData.commentCount
+        };
 
         // file type인 경우 starred 상태 설정
         data.isStarred = fileData.isStarred;
@@ -53,7 +57,6 @@
 
         data.writerId = fileData.message.writerId;
         data.createdAt = fileData.message.createdAt;
-        data.commentCount = fileData.message.commentCount;
         data.contentTitle = fileData.message.content.title;
         data.contentFileUrl = '';
 

@@ -137,6 +137,53 @@
     });
 
     /**
+     * create comment socket event
+     */
+    $scope.$on('rightFileDetailOnFileCommentCreated', function($event, data) {
+      _updateComment(data, 1);
+    });
+
+    /**
+     * delete comment socket event
+     */
+    $scope.$on('rightFileDetailOnFileCommentDeleted', function($event, data) {
+      _updateComment(data, -1);
+    });
+
+    /**
+     * comment 갱신
+     * @param {object} data
+     * @param {number} offset
+     * @private
+     */
+    function _updateComment(data, offset) {
+      var fileId;
+
+      if (data.file) {
+        fileId =  data.file.id;
+
+        _updateCommentCount('all', fileId, offset);
+        _updateCommentCount('files', fileId, offset);
+      }
+    }
+
+    /**
+     * comment count 갱신
+     * @param {string} activeTabName
+     * @param {number} fileId
+     * @param {number} offset
+     * @private
+     */
+    function _updateCommentCount(activeTabName, fileId, offset) {
+      var item;
+      if (item = $scope.tabs[activeTabName].map[fileId]) {
+        $scope.$apply(function() {
+          item.message.commentCount += offset;
+        });
+      }
+    }
+
+    /**
      * scrolling시 star list 불러오기
      */
     function loadMore() {

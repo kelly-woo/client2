@@ -159,9 +159,19 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (!$scope.fileLoadStatus.loading) {
       $scope.fileLoadStatus.loading = true;
       $timeout(function () {
-        fileAPIservice.getFileDetail(fileId)
-          .success(_onSuccessFileDetail)
-          .error(_onErrorFileDetail);
+        var fileDetail = fileAPIservice.dualFileDetail;
+
+        if (fileDetail) {
+          // 미리 조회된 file detail object가 존재한다면 fileApi로 request 안 보내고
+          // 저장된 file detail을 그대로 사용함
+
+          _onSuccessFileDetail(fileDetail);
+        } else {
+          fileAPIservice.getFileDetail(fileId)
+            .success(_onSuccessFileDetail)
+            .error(_onErrorFileDetail);
+        }
+
         $scope.fileLoadStatus.loading = false;
         $('.file-detail-body').addClass('opac_in');
         deferred.resolve();

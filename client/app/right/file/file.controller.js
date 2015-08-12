@@ -9,7 +9,7 @@
     .controller('FileCtrl', FileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData, messageAPIservice, memberService) {
+  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData, memberService) {
     _init();
 
     // First function to be called.
@@ -23,7 +23,6 @@
       $scope.writerName = $scope.writer.name;
       $scope.profileImage = $filter('getSmallThumbnail')($scope.writer);
       $scope.createDate = $filter('getyyyyMMddformat')(file.createdAt);
-      $scope.commentCount = file.commentCount;
       $scope.contentTitle = file.contentTitle;
 
       $scope.isStarred = file.isStarred || false;
@@ -54,15 +53,16 @@
 
         $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
       } else {
-        messageAPIservice.getMessage($scope.fileData.teamId, $scope.file.id)
-          .success(function() {
+        fileAPIservice.getFileDetail($scope.file.id)
+          .success(function(response) {
             // 해당 file에 접근권한이 존재
+            fileAPIservice.dualFileDetail = response;
 
             $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
           })
           .error(function() {
             alert($filter('translate')('@common-leaved-topic'));
-          })
+          });
       }
     }
 
