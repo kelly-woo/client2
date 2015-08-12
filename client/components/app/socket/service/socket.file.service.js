@@ -5,7 +5,7 @@
   'use strict';
 
   angular
-    .module('jandiApp')
+    .module('app.socket')
     .service('jndWebSocketFile', jndWebSocketFile);
 
   /* @ngInject */

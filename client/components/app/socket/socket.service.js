@@ -12,7 +12,7 @@
   /* @ngInject */
   function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice,
                         jndWebSocketHelper, jndWebSocketAnnouncement, $injector, NetInterceptor, jndWebSocketTopic,
-                        jndWebSocketMessage, jndWebSocketFile,
+                        jndWebSocketMessage, jndWebSocketFile, jndWebSocketMember,
                         jndPubSub) {
     var $scope = $rootScope.$new();
     var socket;
@@ -29,11 +29,8 @@
     var TOPIC_STARRED = 'topic_starred';
 
     var CHAT_CLOSE = 'chat_close';
-    var MEMBER_STARRED = 'member_starred';
-    var MEMBER_UNSTARRED = 'member_unstarred';
 
     var MEMBER_PROFILE_UPDATED = 'member_profile_updated';
-    var MEMBER_PRESENCE_UPDATED = 'member_presence_updated';
 
     var ROOM_MARKER_UPDATED = 'room_marker_updated';
 
@@ -150,9 +147,6 @@
       socket.on(TEAM_NAME_UPDATED, _onTeamNameUpdated);
       socket.on(TEAM_DOMAIN_UPDATED, _onTeamDomainUpdated);
 
-      socket.on(MEMBER_STARRED, _onStarredEvent);
-      socket.on(MEMBER_UNSTARRED, _onStarredEvent);
-
       socket.on(CHAT_CLOSE, _onChatClose);
 
       socket.on(ROOM_MARKER_UPDATED, _onRoomMarkerUpdated);
@@ -164,6 +158,8 @@
       socket.on(MESSAGE_STARRED, _onMessageStarred);
       socket.on(MESSAGE_UNSTARRED, _onMessageUnStarred);
 
+
+      jndWebSocketMember.attachSocketEvent(socket);
       jndWebSocketTopic.attachSocketEvent(socket);
       jndWebSocketMessage.attachSocketEvent(socket);
       jndWebSocketAnnouncement.attachSocketEvent(socket);
@@ -285,8 +281,8 @@
      * @private
      */
     function _onStarredEvent(data) {
-      jndWebSocketHelper.socketEventLogger(TOPIC_STARRED, data, false);
-      jndWebSocketHelper.topicChangeEventHandler(data);
+      //jndWebSocketHelper.socketEventLogger(TOPIC_STARRED, data, false);
+      //jndWebSocketHelper.topicChangeEventHandler(data);
     }
 
     /**
@@ -315,8 +311,8 @@
      * @private
      */
     function _onMemberProfileUpdated(data) {
-      jndWebSocketHelper.socketEventLogger(MEMBER_PROFILE_UPDATED, data, false);
-      jndWebSocketHelper.memberProfileUpdatedHandler(data);
+      //jndWebSocketHelper.socketEventLogger(MEMBER_PROFILE_UPDATED, data, false);
+      //jndWebSocketHelper.memberProfileUpdatedHandler(data);
     }
 
     /**

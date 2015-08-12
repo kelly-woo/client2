@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('jandiApp')
+    .module('app.socket')
     .service('jndWebSocketCommon', jndWebSocketCommon);
 
   /* @ngInject */
@@ -11,13 +11,17 @@
 
     var _chatEntity = 'chat';
 
-    this.updateLeft = updateLeft;
+
+    this.isCurrentFile = isCurrentFile;
     this.isCurrentEntity = isCurrentEntity;
     this.isRelatedEvent = isRelatedEvent;
     this.getActionOwner = getActionOwner;
     this.getRoom = getRoom;
+
+    this.updateLeft = updateLeft;
     this.updateCenterMessage = updateCenterMessage;
-    this.isCurrentFile = isCurrentFile;
+    this.updateDmList = updateDmList;
+
     this.updateFileDetailPanel = updateFileDetailPanel;
     this.isActionFromMe = isActionFromMe;
 
@@ -99,6 +103,14 @@
     }
 
     /**
+     * left에 1:1 chat list를 업데이트한다.
+     * @private
+     */
+    function updateDmList() {
+      jndPubSub.updateLeftChatList();
+    }
+
+    /**
      * 현재 오른쪽 페널에서 보고 있는 파일 아이디와 비교해서 같으면  true를 리턴한다.
      *
      * @param fileId {number} id of file
@@ -127,10 +139,6 @@
      */
     function isActionFromMe(writerId) {
       return writerId === memberService.getMemberId();
-    }
-
-    function updateCenterPanel() {
-
     }
   }
 })();

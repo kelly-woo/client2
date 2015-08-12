@@ -79,7 +79,7 @@
      * Event handler - ['topic created', 'topic name updated', 'topic starred', 'topic unstarred', 'topic joined']
      */
     function topicChangeEventHandler() {
-      _onJoinedTopicListChanged();
+      //_onJoinedTopicListChanged();
       _updateLeftPanel();
     }
 
