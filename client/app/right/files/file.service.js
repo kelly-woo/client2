@@ -391,7 +391,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     }
 
     // write the ArrayBuffer to a blob, and you're done
-    return new Blob([ab],{type: 'image/png'});
+    return new Blob([ab],{type: 'image/jpeg'});
   }
 
   // right panel 안에 file detail의 comment input element에 focus가 가도록 broadcast
