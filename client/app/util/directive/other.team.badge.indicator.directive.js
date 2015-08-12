@@ -9,7 +9,7 @@
     .directive('otherTeamBadgeIndicator', otherTeamBadgeIndicator);
 
   /* @ngInject */
-  function otherTeamBadgeIndicator(TeamBadgeManager) {
+  function otherTeamBadgeIndicator(OtherTeamBadgeManager) {
     return {
       restrict: 'A',
       controller: false,
@@ -18,6 +18,7 @@
 
     function link(scope, el, attrs) {
       var _jqDotElement;
+      var _isDotAttached = false;
 
       _attachEvents();
 
@@ -37,7 +38,7 @@
        * @private
        */
       function _onAccountLoaded() {
-        TeamBadgeManager.updateTotalBadgeCount();
+        OtherTeamBadgeManager.updateTotalBadgeCount();
       }
 
       /**
@@ -45,11 +46,9 @@
        * @private
        */
       function _updateBadge() {
-        console.log('::updateBadge');
-        console.log(':: ', TeamBadgeManager.getTotalBadgeCount());
-        console.log(':: ', TeamBadgeManager.hasBadgeInOtherTeams());
+        console.log('::updateBadge count: ', OtherTeamBadgeManager.getTotalBadgeCount(), ' so ' ,OtherTeamBadgeManager.hasBadgeInOtherTeams());
 
-        if (TeamBadgeManager.hasBadgeInOtherTeams()) {
+        if (OtherTeamBadgeManager.hasBadgeInOtherTeams()) {
           _attachDotIndicator();
         } else {
           _detachDotIndicator();
@@ -61,8 +60,11 @@
        * @private
        */
       function _attachDotIndicator() {
-        _jqDotElement = angular.element('<div class="dot"></div>');
-        el.prepend(_jqDotElement);
+        if (!_isDotAttached) {
+          _jqDotElement = angular.element('<div class="dot"></div>');
+          el.prepend(_jqDotElement);
+          _isDotAttached = true;
+        }
       }
 
       /**
@@ -71,6 +73,7 @@
        */
       function _detachDotIndicator() {
         _jqDotElement && _jqDotElement.remove();
+        _isDotAttached = false;
       }
     }
   }

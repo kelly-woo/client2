@@ -10,10 +10,10 @@
     .service('jndWebSocket', jndWebSocket);
 
   /* @ngInject */
-  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService, storageAPIservice,
-                        jndWebSocketHelper, jndWebSocketAnnouncement, $injector, NetInterceptor, jndWebSocketTopic,
-                        jndWebSocketMessage, jndWebSocketFile, jndWebSocketMember,
-                        jndPubSub) {
+  function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService,
+                        storageAPIservice, jndWebSocketHelper, $injector, NetInterceptor,
+                        jndWebSocketServiceHelper, logger, jndWebSocketEmitter, jndWebSocketOtherTeamManager) {
+
     var $scope = $rootScope.$new();
     var socket;
     var ioSocket;
@@ -23,24 +23,10 @@
     var CONNECT_TEAM = 'connect_team';
     var ERROR_CONNECT_TEAM = 'error_connect_team';
 
-    var TEAM_NAME_UPDATED = 'team_name_updated';
-    var TEAM_DOMAIN_UPDATED = 'team_domain_updated';
-
-    var TOPIC_STARRED = 'topic_starred';
-
-    var CHAT_CLOSE = 'chat_close';
-
-    var MEMBER_PROFILE_UPDATED = 'member_profile_updated';
-
-    var ROOM_MARKER_UPDATED = 'room_marker_updated';
-
     // Emit only event
     var DISCONNECT_TEAM = 'disconnect_team';
 
-    var MESSAGE_STARRED = 'message_starred';
-    var MESSAGE_UNSTARRED = 'message_unstarred';
-
-    var MESSAGE_PREVIEW = config.socketEvent.MESSAGE_PREVIEW;
+    var handlers = {};
 
     this.init = init;
     this.disconnect = disconnect;
@@ -96,6 +82,7 @@
         ioSocket: ioSocket
       });
       $scope.$on('disconnected', _onDisconnected);
+      jndWebSocketEmitter.setSocket(socket);
       _setSocketEventListener();
     }
 
@@ -137,6 +124,8 @@
      * @private
      */
     function _setSocketEventListener() {
+      handlers = {};
+
       socket.removeAllListeners();
       socket.on('connect', _onSocketConnect);
       socket.on('disconnect', _onSocketDisconnect);
@@ -144,53 +133,54 @@
       socket.on(CONNECT_TEAM, _onConnectTeam);
       socket.on(ERROR_CONNECT_TEAM, _onErrorConnectTeam);
 
-      socket.on(TEAM_NAME_UPDATED, _onTeamNameUpdated);
-      socket.on(TEAM_DOMAIN_UPDATED, _onTeamDomainUpdated);
-
-      socket.on(CHAT_CLOSE, _onChatClose);
-
-      socket.on(ROOM_MARKER_UPDATED, _onRoomMarkerUpdated);
-
-      socket.on(MEMBER_PROFILE_UPDATED, _onMemberProfileUpdated);
-
-      socket.on(MESSAGE_PREVIEW, _onMessagePreview);
-
-      socket.on(MESSAGE_STARRED, _onMessageStarred);
-      socket.on(MESSAGE_UNSTARRED, _onMessageUnStarred);
-
-
-      jndWebSocketMember.attachSocketEvent(socket);
-      jndWebSocketTopic.attachSocketEvent(socket);
-      jndWebSocketMessage.attachSocketEvent(socket);
-      jndWebSocketAnnouncement.attachSocketEvent(socket);
-      jndWebSocketFile.attachSocketEvent(socket);
+      _attachSocketService();
     }
 
     /**
-     * starred message 이벤트 핸들러
-     * @param {object} socketEvent
+     * 각각의 서비스들을 $injector로 주입받아 그 서비스들이 handle하는 event들을
+     * 소켓 오브젝트에 추가시킨다.
      * @private
      */
-    function _onMessageStarred(socketEvent) {
-      var data = socketEvent.data;
-      jndWebSocketHelper.socketEventLogger(MESSAGE_STARRED, socketEvent, false);
+    function _attachSocketService() {
+      var servicesList = jndWebSocketServiceHelper.getServices();
+      var eventsList;
 
-      if (parseInt(memberService.getMemberId(), 10) === parseInt(data.memberId, 10)) {
-        jndPubSub.pub('starred', data);
+      _.forEach(servicesList, function(serviceName) {
+        eventsList = $injector.get(serviceName).getEvents();
+
+        _.forEach(eventsList, function(obj) {
+          socket.on(obj.name, _onSocketEvent);
+          handlers[obj.name] = obj.handler;
+        });
+      });
+    }
+
+    /**
+     * 모든 소켓이벤트에 발생된다. 현재팀에 관한 이벤트인지 아닌지 확인 후 dispatch한다.
+     * @param {object} socketEvent - socket event
+     * @private
+     */
+    function _onSocketEvent(socketEvent) {
+      logger.socketEventLogger(socketEvent.event, socketEvent);
+      if (_isCurrentTeamEvent(socketEvent)) {
+        handlers[socketEvent.event](socketEvent);
+      } else {
+        jndWebSocketOtherTeamManager.onSocketEvent(socketEvent);
       }
     }
 
     /**
-     * unStarred message 이벤트 핸들러
-     * @param {object} socketEvent
+     * 현재 팀의 소켓이벤트인지 확인한다.
+     * @param {object} socketEvent - socket event
+     * @returns {boolean}
      * @private
      */
-    function _onMessageUnStarred(socketEvent) {
-      var data = socketEvent.data;
-      jndWebSocketHelper.socketEventLogger(MESSAGE_UNSTARRED, socketEvent, false);
-      if (parseInt(memberService.getMemberId(), 10) === parseInt(data.memberId, 10)) {
-        jndPubSub.pub('unStarred', data);
-      }
+    function _isCurrentTeamEvent(socketEvent) {
+      var currentTeamId = currentSessionHelper.getCurrentTeam().id;
+
+      return socketEvent.teamId === currentTeamId ||
+             !!socketEvent.team && socketEvent.team.id === currentTeamId ||
+             !!socketEvent.data && !!socketEvent.data.teamId && socketEvent.data.teamId === currentTeamId;
     }
 
     /**
@@ -222,7 +212,6 @@
 
     }
 
-
     /**
      * Socket event receiver - connect_team
      *  1. Update local variable.
@@ -252,67 +241,6 @@
       }
 
       checkSocketConnection();
-    }
-
-    /**
-     * Socket event receiver - team_name_updated
-     * @param data {object}
-     * @private
-     */
-    function _onTeamNameUpdated(data) {
-      jndWebSocketHelper.socketEventLogger(TEAM_NAME_UPDATED, data, false);
-      jndWebSocketHelper.teamNameChangeEventHandler(data);
-    }
-
-    /**
-     * Socket event receiver - team_domain_updated
-     * @param data {object]
-     * @private
-     */
-    function _onTeamDomainUpdated(data) {
-      jndWebSocketHelper.socketEventLogger(TEAM_DOMAIN_UPDATED, data, false);
-      jndWebSocketHelper.teamDomainChangeEventHandler(data);
-    }
-
-
-    /**
-     * Socket event receiver - topic_starred
-     * @param data {object}
-     * @private
-     */
-    function _onStarredEvent(data) {
-      //jndWebSocketHelper.socketEventLogger(TOPIC_STARRED, data, false);
-      //jndWebSocketHelper.topicChangeEventHandler(data);
-    }
-
-    /**
-     * Socket event receiver - chat_close
-     * @param data {object}
-     * @private
-     */
-    function _onChatClose(data) {
-      jndWebSocketHelper.socketEventLogger(CHAT_CLOSE, data, false);
-      jndWebSocketHelper.chatMessageListEventHandler(data);
-    }
-
-    /**
-     * Socket event receiver - room_marker_updated
-     * @param data {object}
-     * @private
-     */
-    function _onRoomMarkerUpdated(data) {
-      jndWebSocketHelper.socketEventLogger(ROOM_MARKER_UPDATED, data, false);
-      jndWebSocketHelper.roomMarkerUpdatedHandler(data);
-    }
-
-    /**
-     * Socket event receiver - member_profile_updated
-     * @param data {object}
-     * @private
-     */
-    function _onMemberProfileUpdated(data) {
-      //jndWebSocketHelper.socketEventLogger(MEMBER_PROFILE_UPDATED, data, false);
-      //jndWebSocketHelper.memberProfileUpdatedHandler(data);
     }
 
     /**
@@ -357,18 +285,6 @@
       if (angular.isUndefined(authAPIservice)) return;
 
       authAPIservice.requestAccessTokenWithRefreshToken();
-    }
-
-    /**
-     * Socket event receiver - link_preview_created
-     * @param {object} data
-     * @private
-     */
-    function _onMessagePreview(data) {
-      jndWebSocketHelper.socketEventLogger(data.event, data, false);
-      jndWebSocketHelper.eventStatusLogger(data.event, data);
-
-      jndWebSocketHelper.attachMessagePreview(data);
     }
   }
 })();

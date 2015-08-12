@@ -51,11 +51,11 @@
 .header-navbar-menu .dot{
   position: absolute;
 
-  left: 23px;
-  top: 12px;
+  left: 22px;
+  top: 14px;
 
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 
   background-color: #00ABE6;
 
@@ -128,7 +128,7 @@
 }
 
 .header-navbar__dropdown > li > a > .badge {
-  margin-top: 8px;
+  margin-top: 10px;
 }
 .header-toolbar > ul {
   height: 40px;

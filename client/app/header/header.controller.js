@@ -10,7 +10,7 @@
   function headerCtrl($scope, $rootScope, $state, accountService, pcAppHelper,
                       memberService, publicService, configuration,
                       language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser, AnalyticsHelper, Router, TeamBadgeManager) {
+                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager) {
     var modalMap;
     var stateParams;
     var currentRightPanel;
@@ -56,6 +56,8 @@
     $scope.$on('closeRightPanel', function() {
       _closeRightPanel();
     });
+
+    $scope.$on('updateTeamBadgeCount', updateTeamBadge);
 
     $scope.onLanguageClick = onLanguageClick;
 
@@ -120,7 +122,7 @@
      * 메뉴 중 '팀' -> '팀 전환하기' 옆에 다른 팀의 badge count를 업데이트한다.
      */
     function updateTeamBadge() {
-      $scope.otherTeamBadgeCount = TeamBadgeManager.getTotalBadgeCount();
+      $scope.otherTeamBadgeCount = OtherTeamBadgeManager.getTotalBadgeCount();
       $scope.hasBadgeOnOtherTeam = $scope.otherTeamBadgeCount > 0;
     }
 

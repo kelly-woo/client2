@@ -9,45 +9,52 @@
     .service('jndWebSocketMember', jndWebSocketMember);
 
   /* @ngInject */
-  function jndWebSocketMember(jndWebSocketCommon, logger, memberService, jndPubSub,
+  function jndWebSocketMember(jndWebSocketCommon, memberService, jndPubSub,
                               entityAPIservice, EntityMapManager) {
     var MEMBER_STARRED = 'member_starred';
     var MEMBER_UNSTARRED = 'member_unstarred';
     var MEMBER_PROFILE_UPDATED = 'member_profile_updated';
     var MEMBER_PRESENCE_UPDATED = 'member_presence_updated';
 
-    this.attachSocketEvent = attachSocketEvent;
+    var events = [
+      {
+        name: MEMBER_STARRED,
+        handler: _onMemberStarred
+      },
+      {
+        name: MEMBER_UNSTARRED,
+        handler: _onMemberUnStarred
+      },
+      {
+        name: MEMBER_PROFILE_UPDATED,
+        handler: _onMemberProfileUpdated
+      },
+      {
+        name: MEMBER_PRESENCE_UPDATED,
+        handler: _onMemberPresenceUpdated
+      }
+    ];
 
-    function attachSocketEvent(socket) {
-      socket.on(MEMBER_STARRED, _onMemberStarred);
-      socket.on(MEMBER_UNSTARRED, _onMemberUnStarred);
-      socket.on(MEMBER_PROFILE_UPDATED, _onMemberProfileUpdated);
-      socket.on(MEMBER_PRESENCE_UPDATED, _onMemberPresenceUpdated);
+    this.getEvents = getEvents;
+
+    function getEvents() {
+      return events;
     }
 
     function _onMemberStarred(socketEvent) {
-      logger.socketEventLogger(socketEvent.event, socketEvent);
-
       jndWebSocketCommon.updateLeft();
     }
 
     function _onMemberUnStarred(socketEvent) {
-      logger.socketEventLogger(socketEvent.event, socketEvent);
-
       jndWebSocketCommon.updateLeft();
     }
 
     function _onMemberProfileUpdated(socketEvent) {
-      logger.log('member profile updated');
-      logger.log(socketEvent);
-      logger.socketEventLogger(socketEvent.event, socketEvent);
-
       var member = socketEvent.member;
 
       _replaceMemberEntityInMemberList(member);
 
       if (jndWebSocketCommon.isActionFromMe(member.id)) {
-        logger.log('my profile updated');
         memberService.onMemberProfileUpdated();
       }
 
@@ -67,8 +74,6 @@
      * @private
      */
     function _replaceMemberEntityInMemberList(member) {
-      logger.log('replacing member');
-
       entityAPIservice.extend(EntityMapManager.get('member', member.id), member);
 
       if (EntityMapManager.contains('memberEntityId', member.entityId)) {

@@ -22,7 +22,8 @@
       setAccountLanguage: setAccountLanguage,
       hasChangeLog: hasChangeLog,
       hasSeenTutorial: hasSeenTutorial,
-      updateAccountTutoredTime: updateAccountTutoredTime
+      updateAccountTutoredTime: updateAccountTutoredTime,
+      updateCurrentAccount: updateCurrentAccount
     };
 
     return service;
@@ -134,6 +135,13 @@
       if (!account) return;
 
       account.tutoredAt = updatedTime;
+    }
+
+    function updateCurrentAccount() {
+      getAccountInfo()
+        .success(function(response) {
+          setAccount(response);
+        })
     }
   }
 })();

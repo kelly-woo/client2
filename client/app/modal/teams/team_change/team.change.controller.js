@@ -12,7 +12,6 @@
   function TeamChangeController($scope, modalHelper, accountService) {
     // 우선적으로 보여줄 팀
     $scope.teamList;
-
     $scope.onModalClose = modalHelper.closeModal;
 
     _init();
@@ -24,6 +23,15 @@
     function _init() {
       $scope.teamList = accountService.getAccount().memberships;
       _updateAccount();
+      _attachEventListener();
+    }
+
+    /**
+     * 현재 스코프가 듣고 싶은 이벤트들.
+     * @private
+     */
+    function _attachEventListener() {
+      $scope.$on('updateTeamBadgeCount', _updateTeamBadgeCount);
     }
 
     /**
@@ -45,6 +53,14 @@
       var account = response;
       accountService.setAccount(account);
       $scope.teamList = account.memberships;
+    }
+
+    /**
+     * 어카운트를 새로 가져와서 memberships를 갈아치운다!
+     * @private
+     */
+    function _updateTeamBadgeCount() {
+      $scope.teamList = accountService.getAccount().memberships;
     }
 
     /**

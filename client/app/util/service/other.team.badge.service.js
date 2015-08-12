@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .service('TeamBadgeManager', TeamBadgeManager);
+    .service('OtherTeamBadgeManager', OtherTeamBadgeManager);
 
   /* @ngInject */
-  function TeamBadgeManager(accountService, currentSessionHelper, jndPubSub) {
+  function OtherTeamBadgeManager(accountService, currentSessionHelper, jndPubSub) {
     // 현재 팀을 제외한 팀들의 badge count의 총합
     var _totalBadgeCount;
 
@@ -62,8 +62,6 @@
         }
       });
 
-      console.log('::getTotalBadgeCount', _totalBadgeCount);
-
       return _totalBadgeCount;
     }
 
@@ -83,7 +81,7 @@
 
       getTotalBadgeCount();
 
-      if (_totalBadgeCount > 0) {
+      if (_totalBadgeCount >= 0) {
         jndPubSub.pub('updateTeamBadgeCount', _totalBadgeCount);
       }
     }
