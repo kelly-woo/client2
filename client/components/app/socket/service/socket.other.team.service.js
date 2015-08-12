@@ -9,11 +9,12 @@
     .service('jndWebSocketOtherTeamManager', jndWebSocketOtherTeamManager);
 
   /* @ngInject */
-  function jndWebSocketOtherTeamManager($timeout, accountService) {
+  function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification) {
     var _timeoutCaller;
 
     // 연속된 api call를 방지하기위해 기다리는 시간
-    var paddingTime = 5000;
+    //var paddingTime = 5000;
+    var paddingTime = 0;
 
     this.onSocketEvent = onSocketEvent;
 
@@ -30,6 +31,8 @@
         $timeout.cancel(_timeoutCaller);
         _timeoutCaller = $timeout(function() {
           accountService.updateCurrentAccount();
+          //DesktopNotification.addOtherTeamNotification(socketEvent);
+          OtherTeamNotification.addNotification(socketEvent);
         }, paddingTime);
       }
 
