@@ -10,13 +10,14 @@
     .directive('activeNotifier', activeNotifier);
 
   /* @ngInject */
-  function activeNotifier($timeout, $http, config, logger) {
+  function activeNotifier($timeout, $http, configuration) {
     return {
       restrict: 'A',
       link: link
     };
 
     function link(scope, el, attrs) {
+      var _isSignedIn = true;
       var PLATFORM = 'web';
 
       // 주기적으로 체크하는 간격 in ms
@@ -43,16 +44,48 @@
         _detachEventListener();
         _lastActiveTime = _.now();
         _attachEventListener();
-        _startTimer();
-        scope.$on('$destroy', _detachEventListener);
+        _checkStatus();
+        scope.$on('$destroy', _onDestroy);
+        scope.$on('signIn', _onSignIn);
+        scope.$on('signOut', _onSignOut);
       }
 
+      /**
+       *
+       * @private
+       */
+      function _onSignIn() {
+        _isSignedIn = true;
+        _notify(true);
+      }
+
+      /**
+       *
+       * @private
+       */
+      function _onSignOut() {
+        _isSignedIn = false;
+        _notify(false);
+      }
       /**
        * $(window)에 이벤트 listener들을 추가한다.
        * @private
        */
       function _attachEventListener() {
         el.on(_EVENTS);
+        $(window).on('beforeunload', _onBeforeUnload);
+      }
+
+      function _onDestroy() {
+        _notify(false);
+        _detachEventListener();
+      }
+      /**
+       * beforeunload 시 active 상태를 해제한다.
+       * @private
+       */
+      function _onBeforeUnload() {
+        _notify(false);
       }
 
       /**
@@ -61,6 +94,7 @@
        */
       function _detachEventListener() {
         el.off(_EVENTS);
+        $(window).off('beforeunload', _onBeforeUnload);
       }
 
       /**
@@ -84,8 +118,6 @@
         _notify(_isActive);
 
         _startTimer();
-
-        logger.log('is he active?' + _isActive);
       }
 
       /**
@@ -94,9 +126,13 @@
        * @private
        */
       function _notify(isActive) {
+        if (!_isSignedIn) {
+          isActive = false;
+        }
+
         $http({
           method: 'PUT',
-          url: config.server_address + 'platform/active',
+          url: configuration.api_address + 'platform/active',
           data: {
             platform: PLATFORM,
             active: isActive
