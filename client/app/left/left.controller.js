@@ -6,7 +6,7 @@ app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, pcAppHelper, TopicMessageCache, $q) {
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, pcAppHelper, TopicMessageCache, $q, NotificationManager) {
 
   /**
    * @namespace
@@ -687,6 +687,7 @@ app.controller('leftPanelController1', function(
 
   function enterEntity(entity) {
     if (!$scope.isCenterLoading && NetInterceptor.isConnected()) {
+      NotificationManager.set(entity, 0);
       entity.alarmCnt = '';
       $scope.isCenterLoading = true;
       $scope.entityId = entity.id;
