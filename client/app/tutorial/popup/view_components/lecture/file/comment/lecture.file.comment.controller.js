@@ -79,7 +79,7 @@
           title: _translate('@tutorial_great'),
           content: _translate('@tutorial_file_download_desc'),
           top: 200,
-          left: 30,
+          left: 80,
           hasSkip: false,
           hasNext: true
         }
