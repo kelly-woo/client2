@@ -9,7 +9,7 @@
     .module('jandiApp')
     .controller('TeamChangeController', TeamChangeController);
 
-  function TeamChangeController($scope, modalHelper, accountService) {
+  function TeamChangeController($scope, modalHelper, accountService, currentSessionHelper) {
     // 우선적으로 보여줄 팀
     $scope.teamList;
     $scope.onModalClose = modalHelper.closeModal;
@@ -21,7 +21,9 @@
      * @private
      */
     function _init() {
-      $scope.teamList = accountService.getAccount().memberships;
+      $scope.isListReady = false;
+      $scope.currentTeamId = currentSessionHelper.getCurrentTeam().id;
+      $scope.teamList = _setTeamList(accountService.getAccount().memberships);
       _updateAccount();
       _attachEventListener();
     }
@@ -52,7 +54,7 @@
     function _onUpdateAccountSuccess(response) {
       var account = response;
       accountService.setAccount(account);
-      $scope.teamList = account.memberships;
+      _setTeamList(account.memberships);
     }
 
     /**
@@ -60,9 +62,27 @@
      * @private
      */
     function _updateTeamBadgeCount() {
-      $scope.teamList = accountService.getAccount().memberships;
+      _setTeamList(accountService.getAccount().memberships);
     }
 
+    /**
+     * @param memberships
+     * @private
+     */
+    function _setTeamList(memberships) {
+      $scope.isListReady = false;
+      //var tempList = [];
+      //var currentTeamId = currentSessionHelper.getCurrentTeam().id;
+      //
+      //_.forEach(memberships, function(team) {
+      //  if (team.teamId !== currentTeamId) {
+      //    tempList.push(team);
+      //  }
+      //});
+
+      $scope.teamList = memberships;
+      $scope.isListReady = true;
+    }
     /**
      * 애석하게도 업데이트할때 오류가 났다.
      * @param {object} err - error object from server
