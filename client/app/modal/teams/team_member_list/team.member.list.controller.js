@@ -6,7 +6,7 @@
     .controller('TeamMemberListCtrl', TeamMemberListCtrl);
 
   /* @ngInject */
-  function TeamMemberListCtrl($scope, $modalInstance, currentSessionHelper) {
+  function TeamMemberListCtrl($scope, $modalInstance, currentSessionHelper, memberService) {
 
     var vm = $scope;
 
@@ -42,7 +42,9 @@
         if (member.status == DISABLED_MEMBER_STATUS) {
           disabledMemberList.push(member);
         } else {
-          enabledMemberList.push(member);
+          if (memberService.getMemberId() !== member.id) {
+            enabledMemberList.push(member);
+          }
         }
 
       });

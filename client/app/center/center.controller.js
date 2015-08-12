@@ -9,7 +9,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  centerService, markerService, TextBuffer, modalHelper, NetInterceptor,
                                                  Sticker, jndPubSub, jndKeyCode, DeskTopNotificationBanner,
                                                  MessageCollection, MessageSendingCollection, AnalyticsHelper,
-                                                 Announcement, TopicMessageCache) {
+                                                 Announcement, TopicMessageCache, NotificationManager) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
   var _updateRetryCnt = 0;
@@ -401,6 +401,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     if (centerService.hasBottomReached()) {
       _clearBadgeCount($scope.currentEntity);
     }
+    NotificationManager.resetNotificationCountOnFocus();
   }
 
   /**
@@ -997,8 +998,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     // prevent duplicate request
     if (msg || _sticker) {
-      if ($scope.getMentionAllForText) {
-        if (content = $scope.getMentionAllForText()) {
+      if ($scope.getMentions) {
+        if (content = $scope.getMentions()) {
           msg = content.msg;
           mentions = content.mentions;
         }

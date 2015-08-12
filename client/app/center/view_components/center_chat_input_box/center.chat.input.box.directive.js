@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerChatInputBox', centerChatInputBox);
 
-  function centerChatInputBox($filter, integrationService, fileAPIservice, configuration, ImagePaste, Browser) {
+  function centerChatInputBox($filter, integrationService, fileAPIservice, ImagePaste, Browser) {
     var multiple = true;    // multiple upload 여부
 
     return {
@@ -16,9 +16,8 @@
       templateUrl: 'app/center/view_components/center_chat_input_box/center.chat.input.box.html'
     };
 
-    function link(scope, element, attrs) {
+    function link(scope, element) {
       var menu = element.find('#file-upload-menu');
-      var primaryFileBtn = element.children('#primary_file_button');
       var messageInput = $('#message-input');
       var uploadMap = {
         'computer': function() {

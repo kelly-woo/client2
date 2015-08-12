@@ -1,5 +1,5 @@
 /**
- * @fileoverview file controller���� ��밡���ϵ��� file data convert
+ * @fileoverview file controller에서 사용가능하도록 file data convert
  */
 (function() {
   'use strict';
@@ -30,7 +30,6 @@
 
         data.writerId = fileData.writerId;
         data.createdAt = fileData.createTime;
-        data.commentCount = fileData.commentCount;
         data.contentTitle = fileData.content.title || fileData.content.name;
         data.contentFileUrl = fileData.content.fileUrl;
 
@@ -38,6 +37,12 @@
         data.shareEntities = fileData.shareEntities;
         data.createTime = data.createdAt;
 
+        // static comment count
+        fileData.message = {
+          commentCount: fileData.commentCount
+        };
+
+        // file type인 경우 starred 상태 설정
         data.isStarred = fileData.isStarred;
       } else if (type === 'star') {
         data.type = 'star';
@@ -52,13 +57,13 @@
 
         data.writerId = fileData.message.writerId;
         data.createdAt = fileData.message.createdAt;
-        data.commentCount = fileData.message.commentCount;
         data.contentTitle = fileData.message.content.title;
         data.contentFileUrl = '';
 
         data.shareEntities = fileData.message.shareEntities;
         data.createTime = data.createdAt;
 
+        // star type 경우 항상 starred 상태
         data.isStarred = true;
       }
 

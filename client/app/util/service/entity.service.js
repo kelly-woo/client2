@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function entityAPIservice($rootScope, EntityMapManager, $state, $window, storageAPIservice, jndPubSub,
-                            currentSessionHelper, pcAppHelper) {
+                            currentSessionHelper, pcAppHelper, NotificationManager) {
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityFromListById: getEntityFromListById,
@@ -190,6 +190,8 @@
       }
 
       this.setBadgeValue(list, entity, alarmCount);
+
+      NotificationManager.set(entity, alarmCount);
     }
 
     //  TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.

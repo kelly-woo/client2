@@ -1,5 +1,5 @@
 /**
- * @fileoverview message controller¿¡¼­ »ç¿ë°¡´ÉÇÏµµ·Ï message data convert
+ * @fileoverview message controllerì—ì„œ ì‚¬ìš©ê°€ëŠ¥í•˜ë„ë¡ message data convert
  */
 (function() {
   'use strict';
@@ -22,10 +22,8 @@
 
         data.roomId = messageData.id;
         data.roomType = messageData.extContentType;
-        //data.roomName = messageData.name;
 
         data.writerId = messageData.memberId;
-        //data.createdAt = messageData.time;
         data.contentType = messageData.type;
         data.contentTitle = messageData.name;
         data.contentBody = messageData.type.indexOf('sticker') > -1 ? '(sticker)' : messageData.text;

@@ -22,6 +22,10 @@
 
       $scope.isSearchQueryEmpty = true;
 
+      $scope.showLoading = showLoading;
+      $scope.hideLoading = hideLoading;
+      $scope.closeRightPanel = closeRightPanel;
+
       $scope.tabs = {
         files: {
           name: $filter('translate')('@common-files'),
@@ -77,7 +81,7 @@
         $scope.activeTabName = tab.name;
 
         // reset input element
-        jndPubSub.pub('resetRPanelSearchStatusKeyword');
+        //jndPubSub.pub('resetRPanelSearchStatusKeyword');
       }
     });
 
@@ -90,20 +94,25 @@
       $scope.isSearchQueryEmpty =  !keyword;
     }
 
-    // TODO: REFACTOR
-    $scope.showLoading = function() {
+    /**
+     * show loading screen
+     */
+    function showLoading() {
       $scope.isLoading = true;
-    };
-    // TODO: REFACTOR
-    $scope.hideLoading = function() {
-      $scope.isLoading = false;
-    };
+    }
 
     /**
-     * close right panel
+     * hide loading screen
      */
-    $scope.closeRightPanel = function() {
+    function hideLoading() {
+      $scope.isLoading = false;
+    }
+
+    /**
+     * close right panel publish
+     */
+    function closeRightPanel() {
       jndPubSub.pub('closeRightPanel');
-    };
+    }
   }
 })();

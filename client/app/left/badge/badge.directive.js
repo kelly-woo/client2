@@ -11,7 +11,7 @@
     .directive('badge', badge);
 
   /* @ngInject */
-  function badge(jndPubSub, UnreadBadge) {
+  function badge(jndPubSub, UnreadBadge, NotificationManager) {
     return {
       link: link,
       scope: {
@@ -38,11 +38,13 @@
        * @private
        */
       function _onContentChange(newVal, oldVal) {
-        if (newVal > 0) {
-          UnreadBadge.add(key, _getBadgeData());
-        } else {
+        if (newVal <= 0 || _.isUndefined(newVal)) {
           UnreadBadge.remove(key);
+          NotificationManager.remove(scope.key);
+        } else {
+          UnreadBadge.add(key, _getBadgeData());
         }
+
         jndPubSub.updateBadgePosition();
       }
 

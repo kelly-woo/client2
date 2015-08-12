@@ -102,6 +102,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       _focusInput();
     });
 
+    /**
+     * 공유 된 topic 변경 event handler
+     */
     $scope.$on('onChangeShared', function(event, data) {
       var shareEntities = $scope.file_detail.shareEntities;
 
@@ -113,27 +116,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       } else {
         getFileDetail();
       }
-
-      //if (_isFileDetailActive() && data) {
-      //  if (data.event === "topic_deleted" ) {
-      //    // topic delete event handler
-      //    if ($scope.file_detail.shareEntities.length === 1 && $scope.file_detail.shareEntities[0] === data.topic.id) {
-      //      $scope.hasTopic = false;
-      //    } else {
-      //      getFileDetail();
-      //    }
-      //  } else if (data.type === 'delete'){
-      //    // file share/unshare event handler
-      //    if ($scope.file_detail.shareEntities.length === 1 && $scope.file_detail.shareEntities[0] === data.id) {
-      //      // 공유된 곳이 한곳이고 delete event
-      //      $scope.hasTopic = false;
-      //    } else {
-      //      getFileDetail();
-      //    }
-      //  }
-      //} else {
-      //  getFileDetail();
-      //}
     });
 
     // share된 곳이 없는 file일 경우에도 file_detail 갱신 하도록 함.
@@ -177,9 +159,19 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if (!$scope.fileLoadStatus.loading) {
       $scope.fileLoadStatus.loading = true;
       $timeout(function () {
-        fileAPIservice.getFileDetail(fileId)
-          .success(_onSuccessFileDetail)
-          .error(_onErrorFileDetail);
+        var fileDetail = fileAPIservice.dualFileDetail;
+
+        if (fileDetail) {
+          // 미리 조회된 file detail object가 존재한다면 fileApi로 request 안 보내고
+          // 저장된 file detail을 그대로 사용함
+
+          _onSuccessFileDetail(fileDetail);
+        } else {
+          fileAPIservice.getFileDetail(fileId)
+            .success(_onSuccessFileDetail)
+            .error(_onErrorFileDetail);
+        }
+
         $scope.fileLoadStatus.loading = false;
         $('.file-detail-body').addClass('opac_in');
         deferred.resolve();
@@ -203,8 +195,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       $scope.isPostingComment = true;
 
-      if ($scope.getMentionAllForText) {
-        if (content = $scope.getMentionAllForText()) {
+      if ($scope.getMentions) {
+        if (content = $scope.getMentions()) {
           msg = content.msg;
           mentions = content.mentions;
         }
@@ -280,8 +272,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     // file detail에서 preview image 설정
     if ($filter('hasPreview')(content)) {
       $scope.ImageUrl = $scope.server_uploaded + content.fileUrl;
+      $scope.hasZoomIn = true;
     } else {
       $scope.ImageUrl = $filter('getFilterTypePreview')(content);
+      $scope.hasZoomIn = $filter('isIntegrationContent')(content);
     }
   }
 
@@ -294,17 +288,19 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     if ($filter('isIntegrationContent')(file_detail.content)) {
       window.open(file_detail.content.fileUrl, '_blank');
     } else {
-      modalHelper.openImageCarouselModal({
-        // image file api data
-        messageId: fileId,
-        // image carousel view data
-        userName: file_detail.writer.name,
-        uploadDate: file_detail.createTime,
-        fileTitle: file_detail.content.title,
-        fileUrl: file_detail.content.fileUrl,
-        // single
-        isSingle: true
-      });
+      if ($scope.hasZoomIn) {
+        modalHelper.openImageCarouselModal({
+          // image file api data
+          messageId: fileId,
+          // image carousel view data
+          userName: file_detail.writer.name,
+          uploadDate: file_detail.createTime,
+          fileTitle: file_detail.content.title,
+          fileUrl: file_detail.content.fileUrl,
+          // single
+          isSingle: true
+        });
+      }
     }
   }
 
@@ -488,16 +484,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     $('#file-detail-comment-input').focus();
   }
 
-  ///**
-  // * input scroll 이 존재하는지 반환한다.
-  // * @returns {boolean}
-  // * @private
-  // */
-  //function _hasInputScroll() {
-  //  var input = $('#file-detail-comment-input')[0];
-  //  return input.scrollHeight > input.clientHeight;
-  //}
-
   /**
    * 스티커 레이어를 숨긴다.
    * @private
@@ -585,9 +571,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       // shareEntities 중복 제거 & 각각 상세 entity 정보 주입
       $scope.file_detail = item;
       _addExtraData($scope.file_detail, item.writerId);
-      $scope.hasTopic = !!$scope.file_detail.shareEntities.length;
 
       $scope.file_detail.shared = fileAPIservice.updateShared(item);
+      $scope.hasTopic = !!$scope.file_detail.shared.length;
       $scope.isFileArchived = _isFileArchived($scope.file_detail);
     } else if (!_isFileArchived(item)) {
       _appendFileComment(item);
@@ -707,6 +693,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function watchFileDetail($mentionScope, $mentionCtrl) {
     var currentMemberId = memberService.getMemberId();
 
+    // file_detail 변경시 마다 mention list 변경
     $scope.$watch('file_detail', function(value) {
       var sharedEntities;
       var entity;

@@ -1,3 +1,6 @@
+/**
+ * @fileoverview message directive
+ */
 (function() {
   'use strict';
 

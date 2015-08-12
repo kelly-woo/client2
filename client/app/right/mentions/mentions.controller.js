@@ -21,8 +21,8 @@
     function _init() {
       $scope.loadMore = loadMore;
       $scope.messageType = 'mention';
-      _initMentionListData();
 
+      _initMentionListData();
       if (Router.getActiveRightTabName($state.current) === 'mentions') {
         isActivated = true;
 
@@ -30,6 +30,9 @@
       }
     }
 
+    /**
+     * open right panel event handler
+     */
     $scope.$on('onRightPanel', function($event, data) {
       if (data.type === 'mentions') {
         isActivated = true;
@@ -41,6 +44,9 @@
       }
     });
 
+    /**
+     * scrolling시 mention list 불러오기
+     */
     function loadMore() {
       if (!($scope.isScrollLoading || $scope.isEndOfList)) {
         $scope.isScrollLoading = true;
@@ -49,12 +55,10 @@
       }
     }
 
-    function _initGetMentionList() {
-      $scope.isLoading = true;
-      $scope.isMentionEmpty = false;
-      _getMentionList();
-    }
-
+    /**
+     * mention list 초기화
+     * @private
+     */
     function _initMentionListData() {
       mentionListData.messageId = null;
 
@@ -62,6 +66,21 @@
       $scope.isEndOfList = $scope.isLoading = $scope.isScrollLoading = false;
     }
 
+    /**
+     * mention list 초기 load
+     * @private
+     */
+    function _initGetMentionList() {
+      $scope.isLoading = true;
+      $scope.isMentionEmpty = false;
+
+      _getMentionList();
+    }
+
+    /**
+     * mention list 전달
+     * @private
+     */
     function _getMentionList() {
       MentionsAPI.getMentionList(mentionListData)
         .success(function(data) {
@@ -70,6 +89,7 @@
               _pushMentionList(data.records);
             }
 
+            // 다음 getMentionList에 전달할 param 갱신
             _updateCursor(data);
           }
         })
@@ -79,6 +99,11 @@
         });
     }
 
+    /**
+     * mention의 list를 설정
+     * @param {object} records
+     * @private
+     */
     function _pushMentionList(records) {
       var i;
       var len;
@@ -88,12 +113,18 @@
       }
     }
 
+    /**
+     * 다음 mention list를 얻어오는 param과 mention list의 상태 갱신
+     * @param {object} data
+     * @private
+     */
     function _updateCursor(data) {
       if (data.records && data.records.length > 0) {
         mentionListData.messageId = data.records[data.records.length - 1].message.id;
       }
 
       if ($scope.records && $scope.records.length > 0 ) {
+        // 더 이상 mention list가 존재하지 않으므로 endOfList로 처리함
         $scope.isEndOfList = !data.hasMore;
       }
     }

@@ -28,7 +28,7 @@
       });
 
       if (scope.file.type === 'file') {
-        // ÆÄÀÏ °øÀ¯, ´ñ±Û, ´Ù¿î·Îµå, »èÁ¦ ¸Ş´º¹öÆ°ÀÇ click event handling
+        // íŒŒì¼ ê³µìœ , ëŒ“ê¸€, ë‹¤ìš´ë¡œë“œ, ì‚­ì œ ë©”ë‰´ë²„íŠ¼ì˜ click event handling
         el.find('.file-menu')
           .on('click', 'i,a.star-file,a.share-file,a.focus-comment-file,a.download-file,a.delete-file', function (event) {
             var selector;
@@ -41,7 +41,7 @@
               el.find('.file-star i').trigger('click');
             } else if (selector === 'share-file') {
               scope.status.isopen = false;
-              scope.onClickShare();
+              scope.onOpenShareModal();
             } else if (selector === 'focus-comment-file') {
               scope.status.isopen = false;
               scope.setCommentFocus();

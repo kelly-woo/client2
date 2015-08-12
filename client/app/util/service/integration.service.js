@@ -189,8 +189,10 @@
       /**
        * modal close
        */
-      _closeIntegrationModal: function() {
+      _closeIntegrationModal: function(fn) {
         var that = this;
+
+        fn && fn();
 
         $timeout(function() {
           that.modal && that.modal.dismiss('cancel');
@@ -199,6 +201,7 @@
       PRIVATE_FILE: 740,   // PRIVATE_FILE code
       PUBLIC_FILE: 744     // PUBLIC_FILE code
     });
+
 
     /**
      * GoogleDrive Integration
@@ -247,7 +250,6 @@
 
         that.options.scope = scope;
 
-
         if (token = gapi.auth.getToken()) {
           that._showPicker();
         } else {
@@ -264,6 +266,10 @@
        */
       _open: function() {
         var that = this;
+
+        // google drive popup 연동을 위해 domain 수정
+        that.originalDomain = window.document.domain;
+        window.document.domain = 'jandi.' + /.([a-zA-Z]+)$/.exec(window.document.domain)[1];
 
         that._doAuth(false, function(token) {
           that._showPicker();
@@ -357,6 +363,13 @@
           size: file.sizeBytes
         };
       },
+      _closeIntegrationModal: function() {
+        var that = this;
+
+        Integration._closeIntegrationModal.call(that, function() {
+          window.document.domain = that.originalDomain;
+        });
+      },
       /**
        * google drive integration modal open
        */
@@ -383,6 +396,9 @@
             startIntegration: function() {    // 연동 시작 버튼 핸들러
               storageAPIservice.setCookie('integration', 'google', true);
               that._open();
+            },
+            closeIntegration: function() {
+              that._closeIntegrationModal();
             },
             cInterface: that.cInterface             // modal의 확인 interface 명
           }
@@ -511,6 +527,9 @@
               storageAPIservice.setCookie('integration', 'dropbox', true);
 
               that._open();
+            },
+            closeIntegration: function() {
+              that._cancel();
             },
             cInterface: that.cInterface   // modal의 확인 interface 명
           }
