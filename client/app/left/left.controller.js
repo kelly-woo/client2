@@ -719,8 +719,6 @@ app.controller('leftPanelController1', function(
     if (entity.isStarred) {
       entityheaderAPIservice.removeStarEntity(entityId)
         .success(function(response) {
-
-          console.log(response)
           //Analtics Tracker. Not Block the Process
           try {
             AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, {
