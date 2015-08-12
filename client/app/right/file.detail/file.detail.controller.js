@@ -501,6 +501,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function _getSafeBody(item) {
     var body = item.content.body;
 
+    if (_.isObject(body)) {
+      body = body.valueOf();
+    }
+
     if (item.mentions && item.mentions.length > 0) {
       body = $filter('mention')(body, item.mentions);
       body = $filter('parseAnchor')(body);
