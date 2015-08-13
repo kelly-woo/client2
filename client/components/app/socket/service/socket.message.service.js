@@ -128,6 +128,7 @@
     function _onTopicMessageDelete(data) {
       logger.socketEventLogger(data.event, data);
       _updateCenterForCurrentEntity(data);
+      jndPubSub.pub('topicMessageDelete', data);
     }
 
     /**

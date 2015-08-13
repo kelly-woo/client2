@@ -83,7 +83,7 @@
     $scope.$on('rightFileDetailOnFileCommentDeleted', _rightFileDetailOnFileCommentDeleted);
 
     // delete message/file
-    $scope.$on('centerMessageDelete', _centerMessageDelete);
+    $scope.$on('topicMessageDelete', _topicMessageDelete);
     $scope.$on('rightFileDetailOnFileDeleted', _rightFileOnFileDeleted);
 
     /**
@@ -166,7 +166,7 @@
      * @param {object} data
      * @private
      */
-    function _centerMessageDelete($event, data) {
+    function _topicMessageDelete($event, data) {
       _removeStarItem('all', data.messageId);
       _removeStarItem('files', data.messageId);
     }
