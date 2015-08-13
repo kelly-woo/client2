@@ -316,6 +316,7 @@
         DesktopNotification.sendMentionNotification(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room));
       }
     }
+
     /**
      * 노티피케이션을 보내야하는 상황인지 아닌지 확인한다.
      * @param {object} writer - 노티를 보낸 사람

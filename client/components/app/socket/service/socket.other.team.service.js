@@ -12,54 +12,57 @@
   function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification,
                                         EntityMapManager, memberService) {
     var _timeoutCaller;
+    var _isWaiting = false;
+    var _waitingMap = {};
+
+    var _teamStatusMap = {};
+
 
     var OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP = 'other_team_topic_status';
 
-    // 다른 팀의 토픽들의 subscription setting을 저장한다.
-    var _otherTeamSubscriptionMap = {};
-
-
     // 연속된 api call를 방지하기위해 기다리는 시간
     //var paddingTime = 5000;
-    var paddingTime = 0;
+    var paddingTime = 3000;
 
     this.onSocketEvent = onSocketEvent;
 
     /**
-     * 다른 팀에 소켓이벤트가 왔을 때, 최대 10초 기다렸다가
-     * 현재 어카운트 정보를 업데이트한다.
+     * 다른 팀에 소켓이벤트가 왔을 때.
      * @param socketEvent
      */
     function onSocketEvent(socketEvent) {
-      console.log(socketEvent)
-      var _teamId;
       if (_isNewMessage(socketEvent) && !!socketEvent.teamId) {
-
         // 처리하려는 소켓이벤트는 무조건 팀아이디와 방의 정보가 있어야한다.
-        _teamId = socketEvent.teamId;
 
-        console.log(';;', _hasNotificationOn(socketEvent))
-        if (_hasNotificationOn(socketEvent)) {
+        // file_comment 일 경우 방의 정보가 rooms로 넘어오기때문에 처리한다.
+        _getNotificationOnRoom(socketEvent);
+
+        if (socketEvent.extFoundRoom) {
+          // 방의 정보가 있다는 것, 노티를 보내도 된다는 것.
           _sendBrowserNotification(socketEvent);
         }
       }
     }
 
     /**
-     * socketEvent가 새로운 메세지 혹은 파일 커맨트에 관련된 이벤트인지 아닌지 확인한다.
-     * @param {object} socketEvent - socket event object
-     * @returns {boolean}
+     * 방의 정보가 어레이로 넘어올때, 그 중 노티가 켜져있는 방이 있는지 없는지 확인한다.
+     * @param rooms
+     * @param teamId
+     * @returns {*}
      * @private
      */
-    function _isNewMessage(socketEvent) {
-      if (socketEvent.event === 'message') {
-        console.log(';;', socketEvent.messageType === 'file_comment');
-        console.log(';;', _.isUndefined(socketEvent.messageType));
-        if (socketEvent.messageType === 'file_comment' || _.isUndefined(socketEvent.messageType)) {
-          return true;
+    function _getNotificationOnRoom(socketEvent) {
+      var rooms = socketEvent.rooms || [socketEvent.room];
+
+      socketEvent.extFoundRoom = false;
+
+      _.forEach(rooms, function(room) {
+        socketEvent.room = room;
+        if (_hasNotificationOn(socketEvent)) {
+          socketEvent.extFoundRoom = true;
+          return false;
         }
-      }
-      return false;
+      });
     }
 
     /**
@@ -68,19 +71,30 @@
      * @private
      */
     function _hasNotificationOn(socketEvent) {
-      console.log(socketEvent)
       var teamId = socketEvent.teamId;
-      var roomId = socketEvent.room.id;
 
       if (!_hasTeamMessageMarkers(teamId)) {
         // 해당 팀의 정보가 전혀 없을 때
-        return _getTeamMessageMarkers(teamId, roomId, socketEvent);
-      } else {
-        return _isSubscriptionOn(teamId, roomId);
+        if (!_isWaitingOnTeamId(teamId)) {
+          // 여러번 호출 되는 것을 방지
+          _getTeamMessageMarkers(teamId, socketEvent);
+        }
+        return false;
       }
+
+      return _isSubscriptionOn(teamId, socketEvent.room.id);
     }
 
-    function _getTeamMessageMarkers(teamId, roomId, socketEvent) {
+    /**
+     * 서버에 해당팀의 message markers를 요청한 후 roomId를 찾는다.
+     * @param {number} teamId - message markers를 가지고 싶은 팀의 아이디
+     * @param {number} roomId - subscribe 상태를 알고 싶은 방의 아이디
+     * @param socketEvent
+     * @private
+     */
+    function _getTeamMessageMarkers(teamId, socketEvent) {
+      _setWaiting(teamId, true);
+
       var memberId;
 
       // 해당 팀의 정보가 전혀 없을 때
@@ -88,20 +102,16 @@
 
       memberId = _getMemberId((teamId));
 
-      console.log(memberId);
       memberService.getMemberInfo(memberId)
         .success(function(response) {
-          console.log(response);
-          var messageMarkers = _getMessageMarkersMap(response.u_messageMarkers);
-          EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, messageMarkers);
-          if (_isSubscriptionOn(teamId, roomId)) {
-            _sendBrowserNotification(socketEvent);
-          }
-        })
-        .error(function(err) {
-          return false;
+          EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, _getMessageMarkersMap(response.u_messageMarkers));
+
+          _setWaiting(teamId, false);
+
+          onSocketEvent(socketEvent);
         });
     }
+
     /**
      * local에 팀의 message markers를 들고 있는지 없는지 확인한다.
      * @param {number} teamId - 알고 싶은 팀의 아이디
@@ -158,26 +168,101 @@
      */
     function _isSubscriptionOn(teamId, roomId) {
       var messageMarkersMap = EntityMapManager.get(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId);
-      console.log(messageMarkersMap)
       if (_.isUndefined(messageMarkersMap[roomId])) {
         return _getTeamMessageMarkers(teamId, roomId);
       }
-      console.log(messageMarkersMap[roomId].subscribe)
 
       return messageMarkersMap[roomId].subscribe;
 
     }
 
-
+    /**
+     * socketEvent으로 browser notification를 날린다.
+     * @param {object} socketEvent - socket event
+     * @private
+     */
     function _sendBrowserNotification(socketEvent) {
-      console.log(';;_sendBrowserNotification')
-      $timeout.cancel(_timeoutCaller);
-      _timeoutCaller = $timeout(function() {
+      var teamId = socketEvent.teamId;
+      var timeoutCaller;
+
+      if (_hasTimeoutCaller(teamId)) {
+        timeoutCaller = _getTimeoutCaller(teamId);
+        $timeout.cancel(timeoutCaller);
+      }
+
+      timeoutCaller = $timeout(function() {
         accountService.updateCurrentAccount();
         //DesktopNotification.addOtherTeamNotification(socketEvent);
 
         OtherTeamNotification.addNotification(socketEvent);
       }, paddingTime);
+
+      _setTimeoutCaller(teamId, timeoutCaller);
+
+    }
+
+    /**
+     * 해당 팀아이디의 정보를 호출하고 있는지 확인한다.
+     * @param {number} teamId - 확인해보고 싶은 팀의 아이디
+     * @returns {boolean}
+     * @private
+     */
+    function _isWaitingOnTeamId(teamId) {
+      return !!_teamStatusMap[teamId] && _teamStatusMap[teamId]['isWaiting'];
+    }
+
+    /**
+     * 해당 팀의 정보를 얻고있다는 flag를 설정한다.
+     * @param {number} teamId - 설정하려는 플래그의 팀의 아이디
+     * @param {boolean} value - 설정하려는 값
+     * @private
+     */
+    function _setWaiting(teamId, value) {
+      _waitingMap[teamId] = value;
+
+      var curValue = _teamStatusMap[teamId];
+
+      if (_.isUndefined(curValue)) {
+        _teamStatusMap[teamId] = {
+          isWaiting: value
+        };
+      } else {
+        curValue.isWaiting = value;
+      }
+    }
+
+    function _hasTimeoutCaller(teamId) {
+      return !!_teamStatusMap[teamId] && _teamStatusMap[teamId]['timeoutCaller'];
+    }
+
+    function _setTimeoutCaller(teamId, caller) {
+      var curValue = _teamStatusMap[teamId];
+
+      if (_.isUndefined(curValue)) {
+        _teamStatusMap[teamId] = {
+          timeoutCaller: caller
+        }
+      } else {
+        curValue.timeoutCaller = caller;
+      }
+    }
+    function _getTimeoutCaller(teamId) {
+      return _teamStatusMap[teamId]['timeoutCaller'];
+
+    }
+    /**
+     * socketEvent가 새로운 메세지 혹은 파일 커맨트에 관련된 이벤트인지 아닌지 확인한다.
+     * @param {object} socketEvent - socket event object
+     * @returns {boolean}
+     * @private
+     */
+    function _isNewMessage(socketEvent) {
+      if (socketEvent.event === 'message') {
+        if (socketEvent.messageType === 'file_comment' || _.isUndefined(socketEvent.messageType)) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 })();
