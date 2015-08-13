@@ -71,10 +71,28 @@
       }
     }
 
+    // open right panel
+    $scope.$on('onRightPanel', _onRightPanel);
+
+    // star / unstar
+    $scope.$on('starred', _starred);
+    $scope.$on('unStarred', _unStarred);
+
+    // create/delete comment
+    $scope.$on('rightFileDetailOnFileCommentCreated', _rightFileDetailOnFileCommentCreated);
+    $scope.$on('rightFileDetailOnFileCommentDeleted', _rightFileDetailOnFileCommentDeleted);
+
+    // delete message/file
+    $scope.$on('topicMessageDelete', _topicMessageDelete);
+    $scope.$on('rightFileDetailOnFileDeleted', _rightFileOnFileDeleted);
+
     /**
      * open right panel event handler
+     * @param {object} $event
+     * @param {object} data
+     * @private
      */
-    $scope.$on('onRightPanel', function($event, data) {
+    function _onRightPanel($event, data) {
       if (data.type === 'stars') {
         isActivated = true;
 
@@ -86,12 +104,15 @@
       } else {
         isActivated = false;
       }
-    });
+    }
 
     /**
      * starred event handler
+     * @param {object} $event
+     * @param {object} data
+     * @private
      */
-    $scope.$on('starred', function($event, data) {
+    function _starred($event, data) {
       var index;
 
       index = removeItems.indexOf(data.messageId);
@@ -104,12 +125,15 @@
 
         _getStarItem(data.messageId);
       }
-    });
+    }
 
     /**
      * unstarred event handler
+     * @param {object} $event
+     * @param {object} data
+     * @private
      */
-    $scope.$on('unStarred', function($event, data) {
+    function _unStarred($event, data) {
       var messageId = data.messageId;
 
       if ($scope.tabs.all.map[messageId]) {
@@ -134,33 +158,68 @@
           $scope.tabs.files.list.length === 0 && _setEmptyTab('files', true);
         }, 0);
       }
-    });
+    }
+
+    /**
+     * delete message socket event
+     * @param {object} $event
+     * @param {object} data
+     * @private
+     */
+    function _topicMessageDelete($event, data) {
+      _removeStarItem('all', data.messageId);
+      _removeStarItem('files', data.messageId);
+    }
+
+    /**
+     * delete file socket event
+     * @param {object} $event
+     * @param {object} data
+     * @private
+     */
+    function _rightFileOnFileDeleted($event, data) {
+      _removeStarItem('all', data.file.id);
+      _removeStarItem('files', data.file.id);
+    }
 
     /**
      * create comment socket event
      */
-    $scope.$on('rightFileDetailOnFileCommentCreated', function($event, data) {
-      _updateComment(data, 1);
-    });
+    function _rightFileDetailOnFileCommentCreated($event, data) {
+      _updateComment('create', data);
+    }
 
     /**
      * delete comment socket event
-     */
-    $scope.$on('rightFileDetailOnFileCommentDeleted', function($event, data) {
-      _updateComment(data, -1);
-    });
-
-    /**
-     * comment 갱신
+     * @param {object} $event
      * @param {object} data
-     * @param {number} offset
      * @private
      */
-    function _updateComment(data, offset) {
+    function _rightFileDetailOnFileCommentDeleted($event, data) {
+      _updateComment('delete', data);
+    }
+
+    /**
+     * comment item 갱신
+     * @param {string} type
+     * @param {object} data
+     * @private
+     */
+    function _updateComment(type, data) {
       var fileId;
+      var offset;
 
       if (data.file) {
         fileId =  data.file.id;
+        if (type === 'create') {
+          offset = 1;
+        } else if (type === 'delete') {
+          offset = -1;
+
+          // 삭제된 comment가 tabs의 item으로 존재한다면 해당 item 삭제
+          _removeStarItem('all', data.comment.id);
+          _removeStarItem('files', data.comment.id);
+        }
 
         _updateCommentCount('all', fileId, offset);
         _updateCommentCount('files', fileId, offset);
@@ -177,9 +236,11 @@
     function _updateCommentCount(activeTabName, fileId, offset) {
       var item;
       if (item = $scope.tabs[activeTabName].map[fileId]) {
-        $scope.$apply(function() {
-          item.message.commentCount += offset;
-        });
+        $scope.$apply((function(item) {
+          return function() {
+            item.message.commentCount += offset;
+          };
+        }(item)));
       }
     }
 
