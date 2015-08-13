@@ -26,10 +26,6 @@
 
       var options;
 
-      console.log(accountService.getAccount())
-      console.log(memberService.getMember())
-      console.log(memberService.isTopicNotificationOn(socketEvent.room.id))
-
       if (!_.isUndefined(teamName)) {
         options = {
           tag: 'tag',

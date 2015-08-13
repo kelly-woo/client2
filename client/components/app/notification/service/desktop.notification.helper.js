@@ -54,8 +54,6 @@
       // An actual notification object.
       notification = new Notification(that.options.title || NOTIFICATION_TITLE, that._createOptions());
 
-      console.log(that.options);
-
       notification.onshow = onNotificationShow;
       notification.onclick = onNotificationClick;
 

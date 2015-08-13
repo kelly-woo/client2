@@ -46,8 +46,6 @@
        * @private
        */
       function _updateBadge() {
-        console.log('::updateBadge count: ', OtherTeamBadgeManager.getTotalBadgeCount(), ' so ' ,OtherTeamBadgeManager.hasBadgeInOtherTeams());
-
         if (OtherTeamBadgeManager.hasBadgeInOtherTeams()) {
           _attachDotIndicator();
         } else {

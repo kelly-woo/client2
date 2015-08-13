@@ -34,9 +34,12 @@
     };
 
     this.add = add;
+    this.set = set;
+
     this.get = get;
     this.contains = contains;
     this.reset = reset;
+    this.create = create;
 
     /**
      * entity 를 mapType에 해당하 맵에 entity의 id(or entityId)를 이용해서 넣어준다.
@@ -51,6 +54,16 @@
     }
 
     /**
+     * key 와 value를 사용해서 mapType에 넣어준다.
+     * @param {string} mapType - 사용하고 싶은 맵의 타입
+     * @param {*} key - key로 사용되어질 값
+     * @param {&} value - value로 사용되어질 값
+     */
+    function set(mapType, key, value) {
+      maps[mapType][key] = value;
+    }
+
+    /**
      * 특정 map에서 key를 가져온다.
      * @param {string} mapType - maps에서 look-up할 mapType의 value
      * @param {number|string} key - 가져오고싶은 entity의 key value
@@ -58,7 +71,7 @@
      */
     function get(mapType, key) {
       key = parseInt(key, 10);
-      return maps[mapType][key];
+      return !!maps[mapType] && maps[mapType][key];
     }
 
     /**
@@ -69,7 +82,7 @@
      */
     function contains(mapType, key) {
       key = parseInt(key, 10);
-      return maps[mapType].hasOwnProperty(key);
+      return !!maps[mapType] && maps[mapType].hasOwnProperty(key);
     }
     /**
      *  해당하는 map을 초기화한다.
@@ -77,6 +90,11 @@
      */
     function reset(mapType) {
       maps[mapType] = {};
+    }
+
+    function create(type) {
+      maps[type] = {};
+      return maps[type];
     }
   }
 })();
