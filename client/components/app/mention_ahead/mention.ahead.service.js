@@ -53,9 +53,10 @@
      * text 전체를 확인하여 mention 입력인 object를 전달함
      * @param {string} fullText
      * @param {object} mentionMap - mention 가능 member name
+     * @param {number} entityId
      * @returns {{msg: string, mentions: Array}}
      */
-    function getMentionAllForText(fullText, mentionMap) {
+    function getMentionAllForText(fullText, mentionMap, entityId) {
       var regxMention = new RegExp(rStrContSearchTextMentionMarkDown, 'g');
       var msg = '';
       var preStr;

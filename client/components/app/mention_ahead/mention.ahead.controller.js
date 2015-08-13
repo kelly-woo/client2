@@ -221,7 +221,7 @@
     function getMentions() {
       var value = getValue();
 
-      return MentionExtractor.getMentionAllForText(value, $scope._mentionMap);
+      return MentionExtractor.getMentionAllForText(value, $scope._mentionMap, entityId);
     }
 
     /**
