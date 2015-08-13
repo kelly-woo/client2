@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.8.2\n"
 "X-Poedit-Bookmarks: -1,328,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: client/app/tpl/503/503.html
@@ -1380,8 +1380,8 @@ msgstr ""
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_click_title"
 msgstr ""
-"You just joined the 'Lunch' topic. Click on the dropdown menu next to the "
-"topic name to access more options."
+"You just joined the 'Lunch' topic. Click on the topic menu button to access "
+"more options."
 
 #: client/app/tutorial/popup/tutorial.main.html
 msgid "@tutorial_leave_lets"

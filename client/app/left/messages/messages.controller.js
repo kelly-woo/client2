@@ -106,7 +106,6 @@
             _currentEntity = currentSessionHelper.getCurrentEntity();
 
             if (message.companionId != _currentEntity.id) {
-              console.log('updating badge')
               entityAPIservice.updateBadgeValue(entity, message.unread);
             }
 

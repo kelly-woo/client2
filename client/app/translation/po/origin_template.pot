@@ -502,10 +502,6 @@ msgstr ""
 msgid "@common-rename"
 msgstr ""
 
-#: client/app/tutorial/popup/view_components/top/tutorial.top.html
-msgid "@common-search"
-msgstr ""
-
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-send-mail"
 msgstr ""

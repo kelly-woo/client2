@@ -9,6 +9,7 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     'google': true,
     'dropbox': true
   };
+  var fileDetail;
 
   this.upload = upload;
   this.abort = abort;
@@ -321,9 +322,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     $rootScope.$broadcast('openFileShare', file);
   }
 
-
-
-
   // Return true if file size is over 100MB.
   function isFileTooLarge(file) {
     var sizeInMb = file.size/(Math.pow(1024,2));
@@ -334,11 +332,9 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     }
   }
 
-
   function clearCurUpload() {
     $rootScope.curUpload = {};
   }
-
 
   function deleteFile(fileId) {
     return $http({
@@ -349,7 +345,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       }
     });
   }
-
 
   function generateFileTypeFilter() {
     var array = [
@@ -369,7 +364,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   function isIntegrateFile(serverUrl) {
     return !!integrateMap[serverUrl];
   }
-
 
   function dataURItoBlob(dataURI) {
     // convert base64 to raw binary data held in a string
@@ -408,4 +402,19 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   function _orderByName(list) {
     return $filter('orderBy')(list, 'name');
   }
+
+  /**
+   * file detail 임시 저장용 property
+   * file detail 접근 확인하기 위해 files에서 조회한 file object를 file.detail로 전달
+   */
+  Object.defineProperty(this, 'dualFileDetail', {
+    get: function() {
+      var temp = fileDetail;
+      fileDetail = null;
+      return temp;
+    },
+    set: function(value) {
+      fileDetail = value;
+    }
+  });
 });

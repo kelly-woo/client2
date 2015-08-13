@@ -76,10 +76,10 @@
 .tutorial_right {
   position: absolute;
   z-index: 4;
-  width: 500px;
+  width: 420px;
   height: 100%;
   top: 0;
-  left: 524px;
+  left: 604px;
   background-repeat: no-repeat;
 }
 

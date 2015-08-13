@@ -64,7 +64,7 @@
        * @private
        */
       function _setTitleWithAsterisk() {
-        console.log('::_addAsterisk', _hasAsterisk);
+        //console.log('::_addAsterisk', _hasAsterisk);
         if (!_hasAsterisk) {
           _topicName = _getCurrentName();
           _setTitle('* ' + _topicName);
@@ -101,7 +101,8 @@
        */
       function _setFavicon() {
         var link = document.getElementsByTagName('link')[0];
-        link.href = NotificationManager.hasNotification() ? 'favicon_noti.ico?v=3' : 'favicon.ico?v=3';
+        //link.href = NotificationManager.hasNotification() ? 'favicon_noti.ico?v=3' : 'favicon.ico?v=3';
+        link.href = 'favicon.ico?v=3';
       }
 
     }
