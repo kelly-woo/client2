@@ -64,7 +64,6 @@
        * @private
        */
       function _setTitleWithAsterisk() {
-        console.log('::_addAsterisk', _hasAsterisk);
         if (!_hasAsterisk) {
           _topicName = _getCurrentName();
           _setTitle('* ' + _topicName);
@@ -78,7 +77,7 @@
        * @private
        */
       function _getCurrentName() {
-        return currentSessionHelper.getCurrentEntity().name;
+        return !!currentSessionHelper.getCurrentEntity() && currentSessionHelper.getCurrentEntity().name;
       }
 
       /**

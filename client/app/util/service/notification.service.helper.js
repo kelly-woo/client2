@@ -9,7 +9,7 @@
     .service('NotificationHelper', NotificationHelper);
 
   /* @ngInject */
-  function NotificationHelper(logger) {
+  function NotificationHelper() {
     var _notificationMap;
     var _notificationAfterFocusMap;
 
@@ -81,6 +81,15 @@
     }
 
     /**
+     * TODO: 현재 getCount가 호출될때마다 맵을 쭈욱 돌아서 값을 게산한다. O(n)이란 소리.
+     * TODO: 개선이 필요함.
+     * TODO: 1. 값이 추가될때마다 해당하는 아이디의 에전 값을 맵에서 찾은 후,
+     * TODO: 2. 현재 토탈카운트에서 빼준후,
+     * TODO: 3. 새로운 값을 맵에 세팅하고
+     * TODO: 4. 토탈카운트에 더하는 방식으로 가야함.
+     * TODO: - TO BE DONE BY JIHOON
+     */
+    /**
      * 해당하는 맵을 쭈욱 돈 후 각각의 value들의 총합을 리턴한다.
      * @param {string} type - type of a map to iterate
      * @returns {number}
@@ -92,8 +101,6 @@
       _.each(map, function(notification) {
         totalCount += notification;
       });
-
-      logger.log(':: ' + type +  ' count ' + totalCount);
 
       return totalCount;
     }
