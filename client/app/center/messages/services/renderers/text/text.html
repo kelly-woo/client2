@@ -1,0 +1,48 @@
+<div id="{{id}}" class="msg-item text">
+  <div class="text-msg-item-container">
+    <!--  User Thumbnail -->
+    <div class="msg-item-float cursor_pointer">
+      <img class="user-profile user-thumb" src="{{ exProfileImg }}"/>
+    </div>
+
+    <div class="msg-item-header">
+      <!--    WRITER-->
+      <span class="msg-item-header__name cursor_pointer">
+        <span class="msg-item-header__nameSpace">
+          <span> {{extWriterName}}</span>
+        </span>
+      </span>
+    </div>
+    <div class="msg-item-body">
+      <!-- TEXT -->
+      <div class="msg-text">
+        <span class="keep msg-text-body"> {{message.content.body}}</span>
+
+        <!--  TIME  -->
+        <span class="msg-item-header__created">{{extTime}}</span>
+
+        <!--  UNREAD COUNT  -->
+        <span class="badge unread-badge">{{unreadCount}}</span>
+      </div>
+      <div class="msg-text-extra">
+        <!-- More -->
+        <!--<span ng-if="::message.contentType !== 'sticker' || isMyMessage"-->
+        <!--class="msg-item-icon">-->
+        <!--<span center-item-dropdown>-->
+        <!--<i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"></i>-->
+        <!--</span>-->
+        <!--</span>-->
+
+        <!-- Star -->
+        <!--<span ng-if="::message.contentType !== 'sticker'"-->
+        <!--class="cursor_pointer msg-item-star msg-item-icon msg-item-circle"-->
+        <!--ng-class="{'off msg-item__action': !message.isStarred}"-->
+        <!--star-view="message.isStarred"-->
+        <!--event-bubble="on"-->
+        <!--message-id="{{ message.id }}">-->
+        <!--<i class="icon-star-fill"></i>-->
+        <!--</span>-->
+      </div>
+    </div>
+  </div>
+</div>

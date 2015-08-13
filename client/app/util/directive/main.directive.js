@@ -37,6 +37,10 @@ app.directive('jndInputModel', function($timeout, jndPubSub) {
         }
       }
 
+      /**
+       * event 를 attach 한다.
+       * @private
+       */
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
         scope.$watch(_key, function(newVal) {
@@ -48,6 +52,11 @@ app.directive('jndInputModel', function($timeout, jndPubSub) {
         });
       }
 
+      /**
+       * model target property 의 reference 가 될 수 있는 object 를 반환한다.
+       * @returns {*}
+       * @private
+       */
       function _getObject() {
         var i = 0;
         var lastIdx = _keys.length - 1;
@@ -63,6 +72,11 @@ app.directive('jndInputModel', function($timeout, jndPubSub) {
         return target;
       }
 
+      /**
+       * model target property 를 반환한다.
+       * @returns {*}
+       * @private
+       */
       function _getValue() {
         var target = _getObject();
         var key = _keys[_keys.length - 1];

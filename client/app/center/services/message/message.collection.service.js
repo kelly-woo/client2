@@ -73,7 +73,7 @@
       that.list = [];
       _hasBookmark = false;
       _lastMessage = {};
-
+      jndPubSub.pub('messages:reset');
     }
 
     /**
@@ -130,14 +130,16 @@
     function append(messageList) {
       var length = that.list.length;
       var lastId = that.list[length - 1] && that.list[length - 1].id || -1;
-
+      var appendList = [];
       messageList = beforeAddMessages(messageList);
       _.forEach(messageList, function(msg) {
         if (lastId < msg.id) {
           msg = getFormattedMessage(msg);
           that.list.push(msg);
+          appendList.push(msg);
         }
       });
+      jndPubSub.pub('messages:append', appendList);
     }
 
     /**
@@ -146,13 +148,16 @@
      */
     function prepend(messageList) {
       var firstId = that.list[0] && that.list[0].id || -1;
+      var prependList = [];
       messageList = beforeAddMessages(messageList);
       _.forEachRight(messageList, function(msg) {
         if (firstId === -1 || firstId > msg.id) {
           msg = getFormattedMessage(msg);
           that.list.unshift(msg);
+          prependList.unshift(msg);
         }
       });
+      jndPubSub.pub('messages:prepend', prependList);
     }
 
     /**
@@ -165,6 +170,7 @@
       var targetIdx = at(messageId, isReversal);
       var msg;
       if (targetIdx !== -1) {
+        jndPubSub.pub('messages:remove', targetIdx);
         that.list.splice(targetIdx, 1);
       }
       return targetIdx !== -1;
@@ -663,6 +669,7 @@
     function setList(list) {
       _updateLastMessage(list);
       that.list = list;
+      jndPubSub.pub('messages:set', list);
     }
 
     /**
