@@ -7,7 +7,7 @@
           ng-class="{'has-unread-msg': currentRoom.alarmCnt > 0, 'with-bell': isNotificationOff}"
           ng-mouseenter="onTooltipShow($event, currentRoom.name)"
           ng-mouseleave="onTooltipHide($event)"
-          tooltip="{{::tooltip}}"
+          tooltip="{{tooltip}}"
           tooltip-placement="right-center-topic-title"
           tooltip-append-to-body="true"
           tooltip-trigger="show">

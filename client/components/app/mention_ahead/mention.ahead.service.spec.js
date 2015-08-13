@@ -9,12 +9,12 @@
 
 
     beforeEach(module('jandiApp'));
-    beforeEach(inject(function (_MentionExtractor_) {
+    beforeEach(inject(function(_MentionExtractor_) {
       MentionExtractor = _MentionExtractor_;
     }));
 
-    describe('mention 입력 판별자 확인', function () {
-      it('"@"가 mention 입력인지 확인한다.', function () {
+    describe('mention 입력 판별자 확인', function() {
+      it('"@"가 mention 입력인지 확인한다.', function() {
         var fullText = '@';
         var begin = fullText.length;
         var mention;
@@ -32,7 +32,7 @@
         expect(mention).toEqual(mentionExpect);
       });
 
-      it('"@mark"가 mention 입력인지 확인한다.', function () {
+      it('"@mark"가 mention 입력인지 확인한다.', function() {
         var fullText = '@mark';
         var begin = fullText.length;
         var mention;
@@ -51,7 +51,7 @@
       });
 
 
-      it('"@850912"가 mention 입력인지 확인한다.', function () {
+      it('"@850912"가 mention 입력인지 확인한다.', function() {
         var fullText = '@850912';
         var begin = fullText.length;
         var mention;
@@ -69,7 +69,7 @@
         expect(mention).toEqual(mentionExpect);
       });
 
-      it('"@`!@#$%^&*()_+~-=[];\',.{}|:"<>?"가 mention 입력인지 확인한다.', function () {
+      it('"@`!@#$%^&*()_+~-=[];\',.{}|:"<>?"가 mention 입력인지 확인한다.', function() {
         var fullText = '@`!@#$%^&*()_+~-=[];\',.{}|:"<>?';
         var begin = fullText.length;
         var mention;
@@ -87,7 +87,7 @@
         expect(mention).toEqual(mentionExpect);
       });
 
-      it('"@mark @park"가 "@park" mention 입력인지 확인한다.', function () {
+      it('"@mark @park"가 "@park" mention 입력인지 확인한다.', function() {
         var fullText = '@mark @park';
         var begin = fullText.length;
         var mention;
@@ -106,7 +106,7 @@
       });
 
 
-      it('"@mark park"가 mention 입력인지 확인한다.', function () {
+      it('"@mark park"가 mention 입력인지 확인한다.', function() {
         var fullText = '@mark park';
         var begin = fullText.length;
         var mention;
@@ -124,7 +124,7 @@
         expect(mention).toEqual(mentionExpect);
       });
 
-      it('"@박현진"가 mention 입력인지 확인한다.', function () {
+      it('"@박현진"가 mention 입력인지 확인한다.', function() {
         var fullText = '@박현진';
         var begin = fullText.length;
         var mention;
@@ -142,7 +142,7 @@
         expect(mention).toEqual(mentionExpect);
       });
 
-      it('"@박 현진"가 mention 입력인지 확인한다.', function () {
+      it('"@박 현진"가 mention 입력인지 확인한다.', function() {
         var fullText = '@박 현진';
         var begin = fullText.length;
         var mention;
@@ -160,7 +160,7 @@
         expect(mention).toEqual(mentionExpect);
       });
 
-      it('"@mark(박 현진)"가 mention 입력인지 확인한다.', function () {
+      it('"@mark(박 현진)"가 mention 입력인지 확인한다.', function() {
         var fullText = '@mark(박 현진)';
         var begin = fullText.length;
         var mention;
@@ -178,7 +178,7 @@
         expect(mention).toEqual(mentionExpect);
       });
 
-      it('30자 넘는 문자열이 mention 입력인지 확인한다.', function () {
+      it('30자 넘는 문자열이 mention 입력인지 확인한다.', function() {
         var fullText = '@0123456789012345678901234567890';
         var begin = fullText.length;
         var mention;
@@ -189,7 +189,7 @@
       });
 
 
-      it('"qwe@"가 mention 입력인지 확인한다.', function () {
+      it('"qwe@"가 mention 입력인지 확인한다.', function() {
         var fullText = 'qwe@';
         var begin = fullText.length;
         var mention;
@@ -199,7 +199,7 @@
         expect(mention).toEqual(undefined);
       });
 
-      it('"qwe qwe@"가 mention 입력인지 확인한다.', function () {
+      it('"qwe qwe@"가 mention 입력인지 확인한다.', function() {
         var fullText = 'qwe qwe@';
         var begin = fullText.length;
         var mention;
@@ -209,7 +209,7 @@
         expect(mention).toEqual(undefined);
       });
 
-      it('"qwe [@"가 mention 입력인지 확인한다.', function () {
+      it('"qwe [@"가 mention 입력인지 확인한다.', function() {
         var fullText = 'qwe qwe@';
         var begin = fullText.length;
         var mention;
@@ -220,14 +220,48 @@
       });
     });
 
-    describe('markdown text에서 모든 mention 입력 검출 확인', function () {
+    describe('markdown text에서 모든 mention 입력 검출 확인', function() {
       var mentionsMap = {
+        '[@all]': {},
         '[@park]': {id: 1},
         '[@hyun]': {id: 2},
         '[@jin]': {id: 3}
       };
 
-      it('"qweqwe [@park] qweqwe"의 mentions 입력을 확인한다.', function () {
+      it('"[@park]"의 mentions 입력을 확인한다.', function() {
+        var fullText = '[@park]';
+        var mentions;
+        var mentionsExpect;
+
+        mentions = MentionExtractor.getMentionAllForText(fullText, mentionsMap, 1);
+        mentionsExpect = {
+          msg: '@park',
+          mentions: [
+            {offset : 0, length: 5, id: 1, type: 'member' }
+          ]
+        };
+
+        expect(mentions).toEqual(mentionsExpect)
+      });
+
+      it('"[@all]"의 mentions 입력을 확인한다.', function() {
+        var fullText = '[@all]';
+        var entityId = 1234567890;
+        var mentions;
+        var mentionsExpect;
+
+        mentions = MentionExtractor.getMentionAllForText(fullText, mentionsMap, entityId);
+        mentionsExpect = {
+          msg: '@all',
+          mentions: [
+            {offset : 0, length: 4, id: entityId, type: 'room' }
+          ]
+        };
+
+        expect(mentions).toEqual(mentionsExpect)
+      });
+
+      it('"qweqwe [@park] qweqwe"의 mentions 입력을 확인한다.', function() {
         var fullText = 'qweqwe [@park] qweqwe';
         var mentions;
         var mentionsExpect;
@@ -243,7 +277,7 @@
         expect(mentions).toEqual(mentionsExpect);
       });
 
-      it('"[@park] [@mark]"의 mentions 입력을 확인한다.', function () {
+      it('"[@park] [@mark]"의 mentions 입력을 확인한다.', function() {
         var fullText = '[@park]';
         var mentions;
         var mentionsExpect;
@@ -257,7 +291,7 @@
         expect(mentions).toEqual(mentionsExpect);
       });
 
-      it('"qweqwe [@park] \r\n[@hyun] qweqwe [@jin] qweqwe"의 mentions 입력을 확인한다.', function () {
+      it('"qweqwe [@park] \r\n[@hyun] qweqwe [@jin] qweqwe"의 mentions 입력을 확인한다.', function() {
         var fullText = 'qweqwe [@park] \r\n[@hyun] qweqwe [@jin] qweqwe';
         var mentions;
         var mentionsExpect;
