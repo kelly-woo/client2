@@ -236,9 +236,11 @@
     function _updateCommentCount(activeTabName, fileId, offset) {
       var item;
       if (item = $scope.tabs[activeTabName].map[fileId]) {
-        $scope.$apply(function() {
-          item.message.commentCount += offset;
-        });
+        $scope.$apply((function(item) {
+          return function() {
+            item.message.commentCount += offset;
+          };
+        }(item)));
       }
     }
 
