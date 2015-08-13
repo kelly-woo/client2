@@ -90,7 +90,6 @@ msgstr ""
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
-#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 #: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@btn-comment"
 msgstr ""
@@ -509,10 +508,6 @@ msgstr ""
 msgid "@common-rename"
 msgstr ""
 
-#: client/app/tutorial/popup/view_components/top/tutorial.top.html
-msgid "@common-search"
-msgstr ""
-
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-send-mail"
 msgstr ""
@@ -673,6 +668,7 @@ msgstr ""
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
+#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@file-action-more"
 msgstr ""
 
@@ -954,10 +950,6 @@ msgstr ""
 msgid "@msg-create-pg"
 msgstr ""
 
-#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
-msgid "@msg-file"
-msgstr ""
-
 #: client/app/right/file.detail/file.detail.html
 #: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@msg-help-multiline"
@@ -980,16 +972,7 @@ msgid "@msg-left"
 msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@msg-open-original"
-msgstr ""
-
-#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
-msgid "@msg-shared"
-msgstr ""
-
-#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
-msgid "@msg-whose"
 msgstr ""
 
 #: client/app/banner/desktop.notification.banner.html
