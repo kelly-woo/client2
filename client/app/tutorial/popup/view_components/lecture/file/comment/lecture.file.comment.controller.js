@@ -79,7 +79,7 @@
           title: _translate('@tutorial_great'),
           content: _translate('@tutorial_file_download_desc'),
           top: 200,
-          left: 30,
+          left: 80,
           hasSkip: false,
           hasNext: true
         }
@@ -88,13 +88,13 @@
       _purseDataList = [
         {
           isShown: true,
-          top: 0,
-          left: 955
+          top: -5,
+          left: 856
         },
         {
           isShown: true,
-          top: 124,
-          left: 525
+          top: 164,
+          left: 605
         },
         {
           isShown: false,

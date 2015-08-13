@@ -86,12 +86,12 @@
         {
           isShown: true,
           top: 33,
-          left: 317
+          left: 970
         },
         {
           isShown: true,
           top: 137,
-          left: 293
+          left: 823
         },
         {
           isShown: false,
