@@ -1,6 +1,7 @@
 /**
  * web_app에서 socket으로 일어나는 update들을 관리하기 위한 중앙 service
  */
+
 (function() {
   'use strict';
 
@@ -46,8 +47,9 @@
 
       if (currentSessionHelper.isBrowserHidden()) {
         NotificationHelper.add('focus', entity, value);
-        jndPubSub.pub('addAsteriskToTitle');
       }
+
+      jndPubSub.pub('updateWindowTitle');
     }
 
     /**
