@@ -132,7 +132,7 @@
 
         $http({
           method: 'PUT',
-          url: configuration.api_address + 'platform/active',
+          url: configuration.api_address + 'inner-api/platform/active',
           data: {
             platform: PLATFORM,
             active: isActive
