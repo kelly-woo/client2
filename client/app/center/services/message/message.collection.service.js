@@ -16,10 +16,17 @@
     var _hasBookmark = false;
     var _lastMessage;
 
+    var _map = {
+      messageId: {},
+      id: {}
+    };
+
+
     this.list = [];
     this.reset = reset;
     this.at = at;
-    this.get = get;
+    this.get = get
+    this.getByMessageId = getByMessageId;
     this.forEach = forEach;
 
     this.getLastLinkId = getLastLinkId;
@@ -73,7 +80,12 @@
       that.list = [];
       _hasBookmark = false;
       _lastMessage = {};
+      _map = {
+        messageId: {},
+        id: {}
+      };
       jndPubSub.pub('messages:reset');
+
     }
 
     /**
@@ -139,9 +151,20 @@
           appendList.push(msg);
         }
       });
+      _addIndexMap(appendList);
       jndPubSub.pub('messages:append', appendList);
     }
 
+    function _addIndexMap(list) {
+      _map.id = _.extend(_map.id, _.indexBy(list, 'id'));
+      _map.messageId = _.extend(_map.messageId, _.indexBy(list, 'messageId'));
+    }
+    function _removeIndexMap(msg) {
+      _map.id[msg.id] = null;
+      delete _map.id[msg.id];
+      _map.messageId[msg.messageId] = null;
+      delete _map.messageId[msg.messageId]
+    }
     /**
      * messageList 를 prepend 한다.
      * @param {array} messageList
@@ -157,6 +180,7 @@
           prependList.unshift(msg);
         }
       });
+      _addIndexMap(prependList);
       jndPubSub.pub('messages:prepend', prependList);
     }
 
@@ -170,9 +194,13 @@
       var targetIdx = at(messageId, isReversal);
       var msg;
       if (targetIdx !== -1) {
-        jndPubSub.pub('messages:remove', targetIdx);
+        jndPubSub.pub('messages:beforeRemove', targetIdx);
+        _removeIndexMap(getByMessageId(messageId));
         that.list.splice(targetIdx, 1);
+        jndPubSub.pub('messages:remove', targetIdx);
       }
+
+
       return targetIdx !== -1;
     }
 
@@ -182,19 +210,18 @@
      * @param {boolean} isReversal 역순으로 순회할지 여부
      * @returns {*}
      */
-    function get(messageId, isReversal) {
-      var target;
-      var list = that.list;
-      var iterator = isReversal ? _.forEachRight : _.forEach;
+    function getByMessageId(messageId, isReversal) {
+      return _map.messageId[messageId];
+    }
 
-      iterator(list, function(message) {
-        if (message.messageId === messageId) {
-          target = message;
-          return false;
-        }
-      });
-
-      return target;
+    /**
+     * id 에 해당하는 message 를 반환한다.
+     * @param {number|string} id 메세지 id
+     * @param {boolean} isReversal 역순으로 순회할지 여부
+     * @returns {*}
+     */
+    function get(id, isReversal) {
+      return _map.id[id];
     }
 
     /**
@@ -209,7 +236,7 @@
       var iterator = isReversal ? _.forEachRight : _.forEach;
 
       iterator(list, function(message, index) {
-        if (message.messageId === messageId) {
+        if (message.messageId.toString() === messageId.toString()) {
           targetIdx = index;
           return false;
         }
@@ -677,6 +704,7 @@
     function setList(list) {
       _updateLastMessage(list);
       that.list = list;
+      _addIndexMap(list);
       jndPubSub.pub('messages:set', list);
     }
 

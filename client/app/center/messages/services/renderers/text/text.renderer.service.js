@@ -9,15 +9,17 @@
     .service('TextRenderer', TextRenderer);
 
   /* @ngInject */
-  function TextRenderer($templateRequest, memberService, MessageCollection) {
+  function TextRenderer($templateRequest, memberService, MessageCollection, currentSessionHelper, jndPubSub) {
     var TEMPLATE_URL = 'app/center/messages/services/renderers/text/text.html';
     var TEMPLATE_URL_CHILD = 'app/center/messages/services/renderers/text/text.child.html';
 
     var _template;
     var _templateChild;
-    var _myId;
 
     this.render = render;
+    this.delegateHandler = {
+      'click': _onClick
+    };
 
     _init();
 
@@ -26,7 +28,6 @@
      * @private
      */
     function _init() {
-      _myId = memberService.getMemberId();
       $templateRequest(TEMPLATE_URL_CHILD).then(function(template) {
         _templateChild =  Handlebars.compile(template);
       });
@@ -37,7 +38,30 @@
 
 
     function _onClick(clickEvent) {
+      var msg;
+      var jqTarget = $(clickEvent.target);
+      var id = jqTarget.closest('.msgs-group').attr('id');
+      if (jqTarget.hasClass('_textStar')) {
 
+      } else if (jqTarget.hasClass('_textMore')) {
+        _showMore(jqTarget, MessageCollection.get(id));
+      }
+    }
+
+    function _showMore(jqTarget, msg) {
+      var entityType = currentSessionHelper.getCurrentEntityType();
+      var showAnnouncement = (msg.message.contentType !== 'sticker' && entityType !== 'users');
+      jndPubSub.pub('show:center-item-dropdown', {
+        target: jqTarget,
+        msg: msg,
+        hasStar: msg.hasStar,
+        isMyMessage: _isMyMessage(msg),
+        showAnnouncement: showAnnouncement
+      });
+    }
+
+    function _isMyMessage(msg) {
+      return (memberService.getMemberId() === msg.fromEntity);
     }
 
     function render(index) {
@@ -45,10 +69,13 @@
       var isChild = MessageCollection.isChildText(index);
       var template = isChild ? _templateChild : _template;
       var isSticker = msg.message.contentType === 'sticker';
-      var isMyMessage = (_myId === msg.fromEntity);
-      var hasStar = !isSticker && isMyMessage;
+      var hasStar = !isSticker;
+      var hasMore = !isSticker || _isMyMessage(msg);
+      var starClass = msg.message.isStarred ? '' : 'off msg-item__action';
 
       return template({
+        starClass: starClass,
+        hasMore: hasMore,
         hasStar: hasStar,
         isSticker: isSticker,
         isChild: isChild,

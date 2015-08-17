@@ -25,7 +25,6 @@
      */
     function _init() {
       $templateRequest(TEMPLATE_URL_TITLE).then(function(template) {
-        console.log(template);
         _templateTitle =  Handlebars.compile(template);
       });
       $templateRequest(TEMPLATE_URL).then(function(template) {

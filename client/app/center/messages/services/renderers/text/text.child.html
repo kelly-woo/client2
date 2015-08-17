@@ -6,7 +6,7 @@
         {{#if isSticker}}
           <img ng-if="::msg.message.contentType === 'sticker'"  class="sticker size_5" src="{{msg.message.content.url}}"/>
         {{else}}
-          <span class="keep msqg-text-body"> {{{ msg.message.content.body }}}</span>
+          <span class="keep msqg-text-body"  data-toggle="tooltip" data-placement="top" title="Tooltip on top"> {{{ msg.message.content.body }}}</span>
         {{/if}}
         <!--  TIME  -->
         <span class="msg-item-header__created">{{ msg.extTime }}</span>
@@ -15,6 +15,18 @@
         <span class="badge unread-badge">{{ msg.unreadCount }}</span>
       </div>
       <div class="msg-extra">
+        <!--More -->
+        {{#if hasMore}}
+          <span class="msg-item-icon _textMore">
+            <i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer _textMore"></i>
+          </span>
+        {{/if}}
+        <!--Star -->
+        {{#if hasStar}}
+          <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _textStar {{starClass}}">
+            <i class="icon-star-fill _textStar"></i>
+          </span>
+        {{/if}}
       </div>
     </div>
   </div>

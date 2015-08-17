@@ -1603,7 +1603,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       .success(function(response) {
         var messageId = response.id;
         var linkPreview = response.linkPreview;
-        var message = MessageCollection.get(messageId, true);
+        var message = MessageCollection.getByMessageId(messageId, true);
 
         if (message) {
           message.message.linkPreview = linkPreview;
