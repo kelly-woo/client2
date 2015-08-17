@@ -13,25 +13,33 @@
     var TEMPLATE_URL = 'app/center/messages/services/center.html';
     var _template = '';
 
-    this.renderMessage = renderMessage;
+    this.render = render;
 
     _init();
 
     function _init() {
       $templateRequest(TEMPLATE_URL).then(function(template) {
-        _template = template;
+        _template =  Handlebars.compile(template);
       });
     }
 
-    function render(type) {
+    function render(index, type) {
+      var hasId = _.isUndefined(type);
+      var msg = MessageCollection.list[index];
+      var contentType = type || msg.message.contentType;
+      var renderer = CenterRendererFactory.get(contentType);
+      var content = renderer ? renderer.render(index) : '';
 
-    }
-
-    function renderMessage(index) {
-      var mapper = {
-        content: CenterRendererFactory.render(index)
+      var context = {
+        content: content,
+        contentType: contentType
       };
-      return $filter('template')(_template, mapper);
+
+      if (hasId) {
+        context.id = msg.id;
+      }
+
+      return _template(context);
     }
   }
 })();

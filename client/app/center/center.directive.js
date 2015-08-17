@@ -37,8 +37,13 @@
        * @private
        */
       function _attachDomEvents() {
+        el.on('click', _onMouseClick);
         el.on('mouseover', _onMouseOver);
         el.on('mouseout', _onMouseOut);
+      }
+
+      function _onMouseClick(mouseClickEvent) {
+
       }
 
       /**

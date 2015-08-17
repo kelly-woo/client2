@@ -1,0 +1,51 @@
+<div class="msg-item">
+  <!--    HEADER PART -->
+  <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->
+  <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->
+  <div class="msg-item-header"
+       disabled-member-detector="center-panel-disabled-member">
+    <!--    CONTINUED COMMENT ON SAME FILE  -->
+    <span class="continue-comment-body">
+      <!--    COMMENT CONTENT -->
+      <p>
+        {{#if isChild}}
+        <!--    WRITER  -->
+        <span class="msg-item-header__name cursor_pointer"
+              disabled-member-detector="center-panel-disabled-member">
+          <span> {{ msg.extWriterName }} </span>
+        </span>
+        {{/if}}
+        {{#if isSticker}}
+        <div>
+          <img class="sticker size_5" src="{{ msg.message.content.url }}"/>
+          <!--    CREATED TIME    -->
+          <span class="msg-item-header__created">
+            {{ msg.extTime }}
+          </span>
+          <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+        </div>
+        {{else}}
+        <!--    CONTENT(MESSAGE)    -->
+        <span>
+          <span class="keep"> {{ msg.message.content.body }}</span>
+          <!--    CREATED TIME    -->
+          <span class="msg-item-header__created">
+            {{ msg.extTime }}
+          </span>
+          <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+        </span>
+        {{/if}}
+      </p>
+    </span>
+    <!-- Star -->
+    <div class="msg-extra msg-extra-comment-continue">
+        {{#unless isSticker}}
+        <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle off msg-item__action">
+          <i class="icon-star-fill"></i>
+        </span>
+        {{/unless}}
+    </div>
+  </div>
+  <div class="msg-item-body">
+  </div>
+</div>

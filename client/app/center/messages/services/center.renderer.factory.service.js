@@ -9,9 +9,9 @@
     .service('CenterRendererFactory', CenterRendererFactory);
 
   /* @ngInject */
-  function CenterRendererFactory(MessageCollection, TextRenderer) {
+  function CenterRendererFactory(FileRenderer, TextRenderer, FileCommentRenderer, SystemEventRenderer,
+                                 DateRenderer) {
     this.get = get;
-    this.render = render;
     _init();
 
     function _init() {
@@ -21,38 +21,26 @@
       var renderer;
       switch (type) {
         case 'file':
+          renderer = FileRenderer;
           break;
         case 'text':
+        case 'sticker':
           renderer = TextRenderer;
           break;
-        case 'sticker':
-          break;
         case 'comment':
-          break;
         case 'comment_sticker':
+          renderer = FileCommentRenderer;
           break;
         case 'systemEvemt':
+          renderer = SystemEventRenderer;
           break;
         case 'date':
+          renderer = DateRenderer;
           break;
         case 'unreadBookmark':
           break;
       }
       return renderer;
-    }
-
-    function render(index) {
-      var message = MessageCollection.list[index];
-      var contentType;
-      var renderer;
-      if (message) {
-        contentType = message.message.contentType;
-        renderer = get(contentType);
-        if (renderer) {
-          return renderer.render(index);
-        }
-      }
-      return '';
     }
   }
 })();

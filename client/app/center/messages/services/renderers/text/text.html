@@ -1,47 +1,49 @@
-<div id="{{id}}" class="msg-item text">
+<div class="msg-item text">
   <div class="text-msg-item-container">
     <!--  User Thumbnail -->
     <div class="msg-item-float cursor_pointer">
-      <img class="user-profile user-thumb" src="{{ exProfileImg }}"/>
+      <img class="user-profile user-thumb" src="{{ msg.exProfileImg }}"/>
     </div>
 
     <div class="msg-item-header">
       <!--    WRITER-->
       <span class="msg-item-header__name cursor_pointer">
         <span class="msg-item-header__nameSpace">
-          <span> {{extWriterName}}</span>
+          <span> {{ msg.extWriterName }}</span>
         </span>
       </span>
     </div>
     <div class="msg-item-body">
       <!-- TEXT -->
       <div class="msg-text">
-        <span class="keep msg-text-body"> {{message.content.body}}</span>
-
+        {{#if isSticker}}
+          <img class="sticker size_5" src="{{msg.message.content.url}}"/>
+        {{else}}
+          <span class="keep msqg-text-body"> {{{ msg.message.content.body }}}</span>
+        {{/if}}
         <!--  TIME  -->
-        <span class="msg-item-header__created">{{extTime}}</span>
+        <span class="msg-item-header__created">{{ msg.extTime }}</span>
 
         <!--  UNREAD COUNT  -->
-        <span class="badge unread-badge">{{unreadCount}}</span>
+        <span class="badge unread-badge">{{ msg.unreadCount }}</span>
       </div>
       <div class="msg-text-extra">
-        <!-- More -->
-        <!--<span ng-if="::message.contentType !== 'sticker' || isMyMessage"-->
-        <!--class="msg-item-icon">-->
-        <!--<span center-item-dropdown>-->
-        <!--<i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"></i>-->
-        <!--</span>-->
-        <!--</span>-->
-
-        <!-- Star -->
-        <!--<span ng-if="::message.contentType !== 'sticker'"-->
-        <!--class="cursor_pointer msg-item-star msg-item-icon msg-item-circle"-->
-        <!--ng-class="{'off msg-item__action': !message.isStarred}"-->
-        <!--star-view="message.isStarred"-->
-        <!--event-bubble="on"-->
-        <!--message-id="{{ message.id }}">-->
-        <!--<i class="icon-star-fill"></i>-->
-        <!--</span>-->
+         <!--More -->
+        {{#if hasStar}}
+          <span ng-if="::message.contentType !== 'sticker' || isMyMessage"
+          class="msg-item-icon">
+            <span center-item-dropdown>
+              <i class="icon-more-fill msg-item__action msg-item-circle msg-item-more cursor_pointer"></i>
+            </span>
+          </span>
+        {{/if}}
+         <!--Star -->
+        {{#unless isSticker}}
+          <span ng-if="::message.contentType !== 'sticker'"
+          class="cursor_pointer msg-item-star msg-item-icon msg-item-circle off msg-item__action">
+            <i class="icon-star-fill"></i>
+          </span>
+        {{/unless}}
       </div>
     </div>
   </div>

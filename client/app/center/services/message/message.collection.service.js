@@ -625,7 +625,7 @@
       var globalUnreadCount;
       var lastLinkIdToCount = markerService.getLastLinkIdToCountMap();
       var markerOffset = markerService.getMarkerOffset();
-
+      var currentUnread;
 
       if (centerService.isChat()) {
         globalUnreadCount = 1;
@@ -635,6 +635,8 @@
       globalUnreadCount = globalUnreadCount - markerOffset;
 
       _.forEachRight(list, function(message, index) {
+        currentUnread = message.unreadCount;
+
         if (!!lastLinkIdToCount[message.id]) {
           var currentObj = lastLinkIdToCount[message.id];
           var currentObjCount = currentObj.count;
@@ -656,6 +658,12 @@
           message.unreadCount = '';
         } else {
           message.unreadCount = globalUnreadCount;
+        }
+        if (currentUnread !== message.unreadCount) {
+          jndPubSub.pub('messages:updateUnread', {
+            msg: message,
+            index: index
+          });
         }
         //message.unreadCount = globalUnreadCount === 0 ? '' : globalUnreadCount;
         list[index] = message;

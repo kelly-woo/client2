@@ -9,7 +9,7 @@
     .module('jandiApp')
     .directive('centerMessagesDirective', centerMessagesDirective);
 
-  function centerMessagesDirective(CenterRenderer, MessageCollection) {
+  function centerMessagesDirective($compile, CenterRenderer, MessageCollection) {
     return {
       restrict: 'E',
       link: link
@@ -31,32 +31,57 @@
         scope.$on('messages:prepend', _onPrepend);
         scope.$on('messages:remove', _onRemove);
         scope.$on('messages:set', _renderAll);
+
+        scope.$on('messages:updateUnread', _onUpdateUnread);
       }
 
+      function _onUpdateUnread(angularEvent, data) {
+        $('#' + data.msg.id).replaceWith(CenterRenderer.render(data.index));
+      }
+
+      /**
+       * message append 이벤트 핸들러
+       * @param {Object} angularEvent
+       * @param {Array} list
+       * @private
+       */
       function _onAppend(angularEvent, list) {
         var length = list.length;
         var htmlList = [];
         var index = MessageCollection.list.length - length;
         _.forEach(list, function(message) {
           if (MessageCollection.isNewDate(index)) {
-
+            htmlList.push(CenterRenderer.render(index, 'date'));
           }
-          htmlList.push(CenterRenderer.renderMessage(index));
+          htmlList.push(CenterRenderer.render(index));
           index++;
         });
         el.append(htmlList.join(''));
+
+
       }
+
+      /**
+       * prepend 이벤트 핸들러
+       * @param {Object} angularEvent
+       * @param {Array} list
+       * @private
+       */
       function _onPrepend(angularEvent, list) {
-        console.log('_onPrepend', list);
+        var start = new Date();
         var htmlList = [];
         _.forEach(list, function(message, index) {
           if (MessageCollection.isNewDate(index)) {
-
+            htmlList.push(CenterRenderer.render(index, 'date'));
           }
-          console.log(index);
-          htmlList.push(CenterRenderer.renderMessage(index));
+          htmlList.push(CenterRenderer.render(index));
         });
         el.prepend(htmlList.join(''));
+
+        //$compile(el.contents())(scope);
+        //var end = new Date();
+        //var elapsed = end - start;
+        //alert(elapsed);
       }
       function _onRemove(angularEvent, index) {
 

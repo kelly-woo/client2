@@ -44,13 +44,13 @@
   <!-- 컨테이너 -->
   <article class="msgs" id="msgs-container" when-scrolled="loadMore()">
     <!-- 로딩 영역 -->
-    <div class="msgs__loading"
-         ng-show="msgLoadStatus.loading || !hasLastMessageRendered"
-         ng-class="{'initial': !isInitialLoadingCompleted || !hasLastMessageRendered}">
-      <span class="three-quarters-loader jnd-three-quarters-loader center"></span>
-    </div>
+    <!--<div class="msgs__loading"-->
+         <!--ng-show="msgLoadStatus.loading || !hasLastMessageRendered"-->
+         <!--ng-class="{'initial': !isInitialLoadingCompleted || !hasLastMessageRendered}">-->
+      <!--<span class="three-quarters-loader jnd-three-quarters-loader center"></span>-->
+    <!--</div>-->
 
-    <!-- 메세지 wrapper -->
+     <!--메세지 wrapper-->
     <!--<div class="msgs-holder opac-zero" id="msgs-holder" center-event-delegater>-->
       <!--<div class="msgs-group"-->
            <!--ng-repeat="msg in messages track by msg.id"-->
@@ -87,8 +87,8 @@
       <!--<center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>-->
     <!--</div>-->
 
-    <div class="msgs-holder">
-      <center-messages-directive></center-messages-directive>
+    <div class="msgs-holder" id="msgs-holder">
+      <center-messages-directive center-event-delegater></center-messages-directive>
     </div>
     <center-item-dropdown-layer></center-item-dropdown-layer>
     <center-file-dropdown-layer></center-file-dropdown-layer>

@@ -1,0 +1,123 @@
+<div id="{{msg.id}}"></div>
+  <!--  User Thumbnail -->
+  <div class="msg-item-float cursor_pointer"
+       disabled-member-detector="center-panel-disabled-member">
+    <img on-image-load class="user-profile user-thumb"
+         ng-src="{{ msg.exProfileImg }}"/>
+  </div>
+
+  <div class="msg-item-header"
+       disabled-member-detector="center-panel-disabled-member">
+    <!--    WRITER-->
+      <span class="msg-item-header__name cursor_pointer">
+        <span class="msg-item-header__nameSpace">
+          {{ msg.extWriterName }}
+        </span>
+
+        <!--    CREATED TIME    -->
+        <span class="msg-item-header__created">
+          {{ msg.extTime }}
+        </span>
+
+        <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+      </span>
+  </div>
+
+  <div class="msg-item-body">
+    <!-- FILE -->
+    <div class="msg-file" ng-cloak>
+
+      <!--  FILE PREVIEW IMAGE  -->
+      <div class="msg-file-body-float pull-left preview-container">
+        {{#if isArchived}}
+        <!--  ARCHIVED FILE -->
+        <div>
+          <!--    FILE TYPE THUMBNAIL -->
+          <div class="msg-file-body__thumbnail">
+            <img class="fileicon" ng-src="assets/images/fileicon_archived.png"/>
+          </div>
+        </div>
+        {{else}}
+        <div>
+          {{#if msg.message.content.extHasPreview}}
+          <!--    IMAGE THUMBNAIL -->
+          <div>
+            <div class="image_wrapper msg-file-body__img__background jnd-text-center">
+              <div class="opac-zero msg-file-body__img cursor_pointer">
+              </div>
+            </div>
+          </div>
+            {{#if isIE9}}
+            <div class="ie9-image-rotator cursor_pointer">
+              <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
+            </div>
+            {{/if}}
+          {{else}}
+          <!--    FILE TYPE THUMBNAIL -->
+          <div class="msg-file-body__thumbnail">
+            <div class="fileicon fileicon-{{ fileIcon }}" ></div>
+          </div>
+          {{/if}}
+        </div>
+        {{/if}}
+      </div>
+
+      <!--  FILE INFO -->
+      <div class="msg-file-meta">
+        {{#unless isArchived}}
+        <div class="msg-file-meta-up">
+          <!--  NOT ARCHIVED FILE -->
+          <div>
+            <!--    TITLE   -->
+            <a class="msg-file-meta__title file__name break-word"
+               ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
+              {{ msg.message.content.extFileTitle }}
+            </a>
+            {{#if msg.message.content.size}}
+            <span class="bullet">•</span>
+            <!--    SIZE AND FILE TYPE  -->
+            <span class="msg-file-meta-info">{{ msg.message.content.extFileSize }}</span>
+            {{/if}}
+            <span class="msg-file-meta-info">{{ msg.message.content.extFileType }}</span>
+          </div>
+        </div>
+        <div class="msg-file-meta-down">
+          <!--  DOWNLOAD  -->
+          <span class="file-uploaded-download" ng-if="!isIntegrateFile">
+            <a download-file file-url="{{ msg.message.content.fileUrl }}"
+               download-tracker="track(msg.message)" file-title="{{msg.message.content.title}}">
+              <i class="icon-download cursor_pointer file-action"></i>
+            </a>
+
+          </span>
+          {{#unless isIntegrateFile}}
+          <span class="separator" ng-if="!isIntegrateFile"></span>
+          {{/unless}}
+          <!--  SHARE -->
+          <i class="icon-share cursor_pointer file-action" ng-click="onShareClick(msg.message);"></i>
+
+          <span class="separator"></span>
+
+          <!--  MORE  -->
+          <span class="file-uploaded-more">
+            <i class="fa fa-cog cursor_pointer file-action" center-file-dropdown></i>
+          </span>
+
+        </div>
+        {{/unless}}
+      </div>
+      {{#unless isArchived}}
+      <!-- Star -->
+      <div class="msg-extra file-uploaded-extra">
+        <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle"
+              ng-class="{'off msg-item__action': !msg.message.isStarred}"
+              star-view="msg.message.isStarred"
+              event-bubble="on"
+              message-id="{{ msg.message.id }}">
+          <i class="icon-star-fill"></i>
+        </span>
+      </div>
+      {{/unless}}
+    </div>
+
+  </div>
