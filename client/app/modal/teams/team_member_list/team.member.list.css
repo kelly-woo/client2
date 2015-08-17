@@ -75,6 +75,11 @@
   border: 0;
 }
 
+.member-list-tab .member-list {
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
 .member-list-tab .nav-tabs > li > a:hover {
   border-bottom-color: rgba(0,0,0,0);
 }
@@ -85,7 +90,4 @@
   border-color: rgba(0,0,0,0);
   color: #333333;
 
-}
-
-.no-result-container {
 }

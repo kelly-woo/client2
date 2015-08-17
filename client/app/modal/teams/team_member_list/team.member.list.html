@@ -22,12 +22,11 @@
         <input type="text"
                class="form-control green-input-box"
                placeholder="{{ '@input-search-user-name' | translate }}"
-               data-ng-model="memberNameQuery">
+               jnd-input-model="memberNameQuery">
       </div>
     </div>  <!-- END OF SEARCH BOX  -->
 
     <div class="modal_team_member_list">
-
       <tabset class="member-list-tab">
         <tab class="enabled-member-list-container tab-title overflow-ellipsis" active="memberListSetting.enabledMemberList.active">
           <page-tracker ng-if="memberListSetting.enabledMemberList.active" page="currentmembers" title="Member List (Current Members)"></page-tracker>
@@ -35,14 +34,17 @@
             <div translate>@common-active-member</div>
           </tab-heading>
 
-          <team-member-list-template
-            ng-repeat="member in filtered = (enabledMemberList | orderBy: ['!isStarred', 'name'] | userByName: memberNameQuery)">
-          </team-member-list-template>
+          <member-list selector="#invite-member-filter" list="availableMemberList" onSelect="onMemberClick"></member-list>
+
+          <div class="member-list">
+            <team-member-list-template
+              ng-repeat="member in filtered = (enabledMemberList | orderBy: ['!isStarred', 'name'] | userByName: memberNameQuery)">
+            </team-member-list-template>
+          </div>
 
           <div class="no-result-container" ng-if="filtered.length == 0">
             <div translate>@alert-no-result</div>
           </div>
-
         </tab>  <!-- END OF ENABLED MEMBER LIST -->
 
         <tab class="disabled-member-list-container tab-title tab-title-overflow-ellipsis" active="memberListSetting.disabledMemberList.active" ng-if="hasDisabledMember">
@@ -51,22 +53,21 @@
             <span translate>@common-inactive-member</span>
           </tab-heading>
 
-          <team-member-list-template
-            ng-repeat="member in filtered = (disabledMemberList | orderBy: ['!isStarred', 'name'] | userByName: memberNameQuery)">
-          </team-member-list-template>
+          <div class="member-list">
+            <team-member-list-template
+              ng-repeat="member in filtered = (disabledMemberList | orderBy: ['!isStarred', 'name'] | userByName: memberNameQuery)">
+            </team-member-list-template>
+          </div>
 
           <div class="no-result-container" ng-if="filtered.length == 0">
             <span translate>@alert-no-result</span>
           </div>
-
         </tab>  <!-- END OF DISABLED MEMBER LIST  -->
       </tabset> <!--  END OF TABSET -->
-
     </div>
-
   </div>  <!-- END OF MEMBER LIST -->
-
 </div>  <!-- END OF MODAL BODY  -->
-
-<div ng-if="false" translate>@common-inactive-member</div>
-<div ng-if="false" translate>@common-active-member</div>
+<div ng-if="false">
+  <span translate>@common-inactive-member</span>
+  <span translate>@common-active-member</span>
+</div>

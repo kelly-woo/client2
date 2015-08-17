@@ -29,3 +29,9 @@
 	font-size: 14px;
 	color: #666;
 }
+
+.invite-channel .invite-channel-extra .member-list {
+	margin-top: 20px;
+	max-height: 55vh;
+	overflow-y: auto;
+}
