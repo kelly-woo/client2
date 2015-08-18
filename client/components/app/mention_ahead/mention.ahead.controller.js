@@ -101,9 +101,9 @@
           }
         }
 
-        if (mentionList && mentionList.length > 1) {
-          // mention 전달이 가능한 member가 2명 이상이라면
-          // 2명이상의 member 전체에게 mention 하는 all을 제공함
+        if (mentionList && mentionList.length > 0) {
+          // mention 전달이 가능한 member가 1명 이상이라면
+          // 1명이상의 member 전체에게 mention 하는 all을 제공함
 
           mentionList = _.sortBy(mentionList, 'exSearchName');
 
