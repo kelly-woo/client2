@@ -126,8 +126,13 @@
      * @private
      */
     function _onTopicMessageDelete(data) {
-      logger.socketEventLogger(data.event, data);
-      _updateCenterForCurrentEntity(data);
+      if (jndWebSocketCommon.isCurrentEntity(data.room)) {
+        jndPubSub.updateCenterPanel();
+      } else {
+        jndPubSub.updateLeftPanel();
+      }
+
+      jndPubSub.pub('topicMessageDelete', data);
     }
 
     /**
