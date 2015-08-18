@@ -10,7 +10,7 @@
 
 </div>  <!-- END OF MODAL-HEADER  -->
 
-<div class="modal-body modal_team_member_list_body">
+<div class="modal-body modal_team_member_list_body non-selectable">
 
   <center-help-message-container class="team-member-empty-list" ng-if="!hasMember" status="emptyMessageStateHelper"></center-help-message-container>
   <div class="tab-container" ng-if="hasMember">
@@ -19,8 +19,9 @@
     <div class="modal_team_member_search_box">
       <div class="input-group">
         <span class="input-group-addon"><i class="icon-search"></i></span>
-        <input type="text"
-               class="form-control green-input-box"
+        <input class="form-control green-input-box"
+               id="team-member-filter"
+               type="text"
                placeholder="{{ '@input-search-user-name' | translate }}"
                jnd-input-model="memberNameQuery">
       </div>
@@ -34,13 +35,12 @@
             <div translate>@common-active-member</div>
           </tab-heading>
 
-          <member-list selector="#invite-member-filter" list="availableMemberList" onSelect="onMemberClick"></member-list>
-
-          <div class="member-list">
-            <team-member-list-template
-              ng-repeat="member in filtered = (enabledMemberList | orderBy: ['!isStarred', 'name'] | userByName: memberNameQuery)">
-            </team-member-list-template>
-          </div>
+          <member-list disabled="!memberListSetting.enabledMemberList.active"
+                       selector="#team-member-filter"
+                       list="filteredEnableMembers"
+                       repeat="member in filteredEnableMembers = (enabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
+                       on-select="onMemberClick">
+          </member-list>
 
           <div class="no-result-container" ng-if="filtered.length == 0">
             <div translate>@alert-no-result</div>
@@ -53,11 +53,12 @@
             <span translate>@common-inactive-member</span>
           </tab-heading>
 
-          <div class="member-list">
-            <team-member-list-template
-              ng-repeat="member in filtered = (disabledMemberList | orderBy: ['!isStarred', 'name'] | userByName: memberNameQuery)">
-            </team-member-list-template>
-          </div>
+          <member-list disabled="!memberListSetting.disabledMemberList.active"
+                       selector="#team-member-filter"
+                       list="filteredDisableMembers"
+                       repeat="member in filteredDisableMembers = (disabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
+                       on-select="onMemberClick">
+          </member-list>
 
           <div class="no-result-container" ng-if="filtered.length == 0">
             <span translate>@alert-no-result</span>

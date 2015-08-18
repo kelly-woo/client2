@@ -1,12 +1,5 @@
 <div class="member-list">
-  <div class="member-item cursor_pointer" ng-class="{active: isActive($index)}"
-       ng-repeat="member in selectingMembers = (_memberList | filter : { selected : false } | userByName: selectedUser)"
-       ng-click="onSelect(member);"
-       ng-mouseenter="selectActive($index, $event);"
-       ng-mousedown="selectMatch($index);">
-    <img class="profile-image" on-image-load ng-src="{{::member | getSmallThumbnail}}"/>
-    <span class="modal_team_member_name">{{::member.name}}</span>
-  </div>
+  <!-- member-item -->
   <div class="no-result-container" ng-if="selectingMembers.length === 0">
     <span translate>@alert-no-result</span>
   </div>

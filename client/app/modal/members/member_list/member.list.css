@@ -1,3 +1,10 @@
+.modal-body .member-list {
+  margin-top: 20px;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+.modal-body .no-result-container,
 .modal-body .member-item {
   padding: 9px 9px 0 9px;
   background-color: white;
@@ -6,13 +13,6 @@
   border-bottom: 1px solid #f2f2f2;
 }
 
-.modal-body .member-item.active {
-  background-color: #f2fbff;
-}
-
-.modal-body .member-item .profile-image {
-  display: inline-block;
-  width: 25px;
-  border-radius: 25px;
-  vertical-align: middle;
+.modal-body .member-item:hover .icon-star {
+  opacity: 1;
 }

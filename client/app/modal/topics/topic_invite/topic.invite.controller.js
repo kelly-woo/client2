@@ -8,9 +8,8 @@
     .module('jandiApp')
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
-  function TopicInviteCtrl($scope, $rootScope, $modalInstance, currentSessionHelper, entityheaderAPIservice, $state, $filter,
+  function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
                            entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub) {
-    var totalUserList = $scope.memberList;
     var members;
     var msg1;
     var msg2;
@@ -23,12 +22,8 @@
     function _init() {
       $scope.currentEntity = currentSessionHelper.getCurrentEntity();
 
-      members = entityAPIservice.getMemberList($scope.currentEntity)
-      $scope.availableMemberList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 || user.status == 'disabled' });
-      $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
-        return user.selected === false;
-      });
-      $scope.inviteChannel = $scope.availableMemberList.length !== 0;
+      generateMemberList();
+      $scope.selectedUser = '';
 
       if ($scope.account && $scope.account.memberships.length >= 2) {
         // team size >= 2
@@ -50,6 +45,44 @@
       $scope.cancel = cancel;
     }
 
+    $scope.$on('onSetStarDone', _onSetStarDone);
+
+    /**
+     * member starred event handler
+     * @private
+     */
+    function _onSetStarDone() {
+      generateMemberList();
+    }
+
+    /**
+     * set member list
+     */
+    function generateMemberList() {
+      var prevAvailableMemberMap;
+
+      prevAvailableMemberMap = $scope.availableMemberMap;
+
+      members = entityAPIservice.getMemberList($scope.currentEntity);
+
+      $scope.availableMemberMap = {};
+      $scope.availableMemberList = _.reject($scope.memberList, function(user) {
+        if (prevAvailableMemberMap && prevAvailableMemberMap[user.id]) {
+          user.selected = prevAvailableMemberMap[user.id].selected;
+        }
+
+        $scope.availableMemberMap[user.id] = user;
+
+        return members.indexOf(user.id) > -1 || user.status == 'disabled';
+      });
+
+
+      $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
+        return user.selected === false;
+      });
+      $scope.inviteChannel = $scope.availableMemberList.length !== 0;
+    }
+
     /**
      * insert selected member
      */
@@ -65,6 +98,10 @@
     function onRemove(item) {
       item.selected = false;
       $scope.inviteUsers.splice($scope.inviteUsers.indexOf(item), 1);
+
+      $timeout(function() {
+        $('#invite-member-filter').focus();
+      });
     }
 
     /**

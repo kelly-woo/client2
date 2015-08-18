@@ -8,7 +8,7 @@
     .module('jandiApp')
     .directive('memberList', memberList);
 
-  function memberList($timeout, $position, jndKeyCode) {
+  function memberList($timeout, $position, $compile, jndKeyCode) {
     return {
       restrict: 'E',
       replace: true,
@@ -20,35 +20,61 @@
 
     function link(scope, el, attrs) {
       var target = $(attrs.selector);
-      var memberList = scope.$eval(attrs.list);
-      var onSelect = scope.$eval(attrs.onSelect);
+      var list = attrs.list;
+      var model = attrs.model;
+      var repeat = attrs.repeat;
+      var originOnSelect;
+      var jqMemberItem;
 
       if (target.length) {
-        scope._memberList = memberList;
-        scope._onSelect = onSelect;
+        scope.list = list;
+        originOnSelect = scope.$eval(attrs.onSelect);
 
         $timeout(function() {
           target.focus();
         });
 
-        scope.activeIndex = -1;
         target.on('keydown', function(event) {
           var which = event.which;
+          var members = scope[list];
 
-          if (jndKeyCode.match('UP_ARROW', which)) {
-            event.preventDefault();
-            scope.selectActive((scope.activeIndex > 0 ? scope.activeIndex : scope.selectingMembers.length) - 1);
-            scope.$digest();
-          } else if (jndKeyCode.match('DOWN_ARROW', which)) {
-            event.preventDefault();
-            scope.selectActive((scope.activeIndex + 1) % scope.selectingMembers.length);
-            scope.$digest();
-          } else if (jndKeyCode.match('ENTER', which)) {
-
+          if (!scope.$eval(attrs.disabled)) {
+            if (jndKeyCode.match('UP_ARROW', which)) {
+              event.preventDefault();
+              scope.focusItem((scope.activeIndex > 0 ? scope.activeIndex : members.length) - 1);
+              scope.$digest();
+            } else if (jndKeyCode.match('DOWN_ARROW', which)) {
+              event.preventDefault();
+              scope.focusItem((scope.activeIndex + 1) % members.length);
+              scope.$digest();
+            } else if (jndKeyCode.match('ENTER', which)) {
+              scope.select(scope.activeIndex);
+            } else {
+              scope.setActiveIndex(0);
+            }
           }
         });
 
-        scope.selectActive = function(matchIndex) {
+        /**
+         * item select event handler
+         * @param {object} member
+         */
+        scope.onSelect = function(member) {
+          originOnSelect(member);
+          $timeout(function() {
+            // clear & focus input box
+            model && (scope[model] = '');
+            target.val('').focus();
+          }, 30);
+        };
+
+        /**
+         * focus item
+         * list에서 item이 focus된 상태를 표현함. focus된 item이 list에서
+         * 보여지지 않는다면 보이도록 list의 scoll을 조정함.
+         * @param {number} matchIndex
+         */
+        scope.focusItem = function(matchIndex) {
           var jqMentionItem;
           var itemPosition;
           var contPosition;
@@ -56,24 +82,31 @@
           var compare;
 
           jqMentionItem = el.children().eq(matchIndex);
-          scrollTop = el.scrollTop();
+          if (jqMentionItem.length) {
+            scrollTop = el.scrollTop();
 
-          itemPosition = $position.offset(jqMentionItem);
-          contPosition = $position.offset(el);
+            itemPosition = $position.offset(jqMentionItem);
+            contPosition = $position.offset(el);
 
-          compare = itemPosition.top - contPosition.top;
-          if (compare < 0) {
-            el.scrollTop(scrollTop + compare);
-          } else if ( compare + itemPosition.height > contPosition.height ) {
-            el.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
+            compare = itemPosition.top - contPosition.top;
+            if (compare < 0) {
+              el.scrollTop(scrollTop + compare);
+            } else if ( compare + itemPosition.height > contPosition.height ) {
+              el.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
+            }
+
+            scope.setActiveIndex(matchIndex);
           }
-
-          scope.activeIndex = matchIndex;
         };
 
-        scope.isActive = function(matchIndex) {
-          return scope.activeIndex == matchIndex;
-        };
+        // create repeat member item
+        jqMemberItem = angular.element('<member-item></member-item>');
+        jqMemberItem.attr({
+          'ng-repeat': repeat
+        });
+        jqMemberItem = $compile(jqMemberItem)(scope);
+
+        el.prepend(jqMemberItem);
       }
     }
   }

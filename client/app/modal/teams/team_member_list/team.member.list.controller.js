@@ -9,16 +9,13 @@
     .controller('TeamMemberListCtrl', TeamMemberListCtrl);
 
   /* @ngInject */
-  function TeamMemberListCtrl($scope, $modalInstance, currentSessionHelper, memberService) {
+  function TeamMemberListCtrl($scope, $modalInstance, $state, currentSessionHelper, memberService, modalHelper) {
     var DISABLED_MEMBER_STATUS = 'disabled';
 
     _init();
 
     function _init() {
       $scope.emptyMessageStateHelper = 'NO_MEMBER_IN_TEAM';
-
-      $scope.cancel = cancel;
-
       $scope.memberListSetting = {
         enabledMemberList: {
           active: true
@@ -27,6 +24,9 @@
           active: false
         }
       };
+
+      $scope.onMemberClick = onMemberClick;
+      $scope.cancel = cancel;
 
       generateMemberList();
     }
@@ -39,6 +39,25 @@
      */
     function _onSetStarDone() {
       generateMemberList();
+    }
+
+    /**
+     * member click event handler
+     * @param {object} member
+     */
+    function onMemberClick(member) {
+      var memberId = member.id;
+
+      if (memberId !== memberService.getMemberId()) {
+        // go to DM
+
+        $state.go('archives', {entityType: 'users', entityId: memberId});
+        $scope.cancel();
+      } else {
+        // open profile modal
+
+        modalHelper.openCurrentMemberModal();
+      }
     }
 
     /**
@@ -56,7 +75,6 @@
             enabledMemberList.push(member);
           }
         }
-
       });
 
       $scope.hasMember = currentSessionHelper.getCurrentTeamMemberCount() > 0;

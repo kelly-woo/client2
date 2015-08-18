@@ -6,7 +6,7 @@
     <span translate>@modal-invite-members</span>
   </h3>
 </div>
-<div class="modal-container invite-channel">
+<div class="modal-container invite-channel non-selectable">
   <div class="invite-channel-full" ng-if="!inviteChannel">
     <div class="modal-body form-invite-body">
       <div class="image help-invite-members"></div>
@@ -42,7 +42,13 @@
                type="text"
                placeholder="{{'@input-search-user-name' | translate}}" />
       </div>
-      <member-list selector="#invite-member-filter" list="availableMemberList" onSelect="onMemberClick"></member-list>
+
+      <member-list selector="#invite-member-filter"
+                   list="selectingMembers"
+                   model="selectedUser"
+                   repeat="member in selectingMembers = (availableMemberList | filter : { selected : false } | userByName: selectedUser | orderBy: ['!isStarred', 'name'])"
+                   on-select="onMemberClick">
+      </member-list>
     </div>
 
     <div class="modal-footer">
