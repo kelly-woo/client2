@@ -9,7 +9,7 @@
     .service('TextRenderer', TextRenderer);
 
   /* @ngInject */
-  function TextRenderer($templateRequest, memberService, MessageCollection, currentSessionHelper, jndPubSub) {
+  function TextRenderer($templateRequest, MessageCollection, currentSessionHelper, jndPubSub, RendererUtil) {
     var TEMPLATE_URL = 'app/center/messages/services/renderers/text/text.html';
     var TEMPLATE_URL_CHILD = 'app/center/messages/services/renderers/text/text.child.html';
 
@@ -50,34 +50,28 @@
 
     function _showMore(jqTarget, msg) {
       var entityType = currentSessionHelper.getCurrentEntityType();
-      var showAnnouncement = (msg.message.contentType !== 'sticker' && entityType !== 'users');
+      var showAnnouncement = (RendererUtil.isSticker(msg) && entityType !== 'users');
       jndPubSub.pub('show:center-item-dropdown', {
         target: jqTarget,
         msg: msg,
         hasStar: msg.hasStar,
-        isMyMessage: _isMyMessage(msg),
+        isMyMessage: RendererUtil.isMyMessage(msg),
         showAnnouncement: showAnnouncement
       });
-    }
-
-    function _isMyMessage(msg) {
-      return (memberService.getMemberId() === msg.fromEntity);
     }
 
     function render(index) {
       var msg = MessageCollection.list[index];
       var isChild = MessageCollection.isChildText(index);
       var template = isChild ? _templateChild : _template;
-      var isSticker = msg.message.contentType === 'sticker';
-      var hasStar = !isSticker;
-      var hasMore = !isSticker || _isMyMessage(msg);
-      var starClass = msg.message.isStarred ? '' : 'off msg-item__action';
 
       return template({
-        starClass: starClass,
-        hasMore: hasMore,
-        hasStar: hasStar,
-        isSticker: isSticker,
+        css: {
+          star: RendererUtil.getStarCssClass(msg)
+        },
+        hasMore: RendererUtil.hasMore(msg),
+        hasStar: RendererUtil.hasStar(msg),
+        isSticker: RendererUtil.isSticker(msg),
         isChild: isChild,
         msg: msg
       });

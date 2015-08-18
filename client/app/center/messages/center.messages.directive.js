@@ -9,7 +9,8 @@
     .module('jandiApp')
     .directive('centerMessagesDirective', centerMessagesDirective);
 
-  function centerMessagesDirective($compile, CenterRenderer, CenterRendererFactory, MessageCollection, memberService, StarAPIService) {
+  function centerMessagesDirective($compile, CenterRenderer, CenterRendererFactory, MessageCollection, memberService,
+                                   StarAPIService, jndPubSub) {
     return {
       restrict: 'E',
       link: link
@@ -18,48 +19,23 @@
     function link(scope, el, attrs) {
       var _teamId;
 
-      //CenterRenderer.
       _init();
+
+      /**
+       * 생성자
+       * @private
+       */
       function _init() {
         _teamId = memberService.getTeamId();
         _attachEvents();
-        _attachDelegatedDomEvents();
+        _attachDomEvents();
         _renderAll();
       }
 
-      function _attachDelegatedDomEvents() {
-        var renderers = CenterRendererFactory.getAll();
-        _.forEach(renderers, function(renderer) {
-          if (renderer.delegateHandler) {
-            _attachEachHandler(renderer.delegateHandler);
-          }
-        });
-      }
-
-      function _attachEachHandler(handlers) {
-        _.each(handlers, function(handler, eventName) {
-          el.on(eventName, handler);
-        });
-        el.on('click', _onClick);
-      }
-
-      function _onClick(clickEvent) {
-        var jqTarget = $(clickEvent.target);
-        var id = jqTarget.closest('.msgs-group').attr('id');
-        var msg = MessageCollection.get(id);
-        var index;
-        if (jqTarget.hasClass('_textStar')) {
-          msg.message.isStarred = !msg.message.isStarred;
-          index = MessageCollection.at(msg.messageId);
-          _refresh(msg.id, index);
-          if (msg.message.isStarred) {
-            StarAPIService.star(msg.messageId, _teamId);
-          } else {
-            StarAPIService.unStar(msg.messageId, _teamId);
-          }
-        }
-      }
-
+      /**
+       * angular event 를 바인딩한다.
+       * @private
+       */
       function _attachEvents() {
         scope.$on('messages:reset', _renderAll);
         scope.$on('messages:append', _onAppend);
@@ -72,6 +48,77 @@
 
         scope.$on('starred', _onStarred);
         scope.$on('unStarred', _onUnStarred);
+      }
+
+      /**
+       * dom event 를 바인딩한다.
+       * @private
+       */
+      function _attachDomEvents() {
+        _attachDelegateDomHandlers();
+        el.on('click', _onClick);
+      }
+
+      /**
+       * delegate 로 처리할 dom event handler 를 추가한다.
+       * @private
+       */
+      function _attachDelegateDomHandlers() {
+        var renderers = CenterRendererFactory.getAll();
+        _.forEach(renderers, function(renderer) {
+          if (renderer.delegateHandler) {
+            _attachEachDelegateHandler(renderer.delegateHandler);
+          }
+        });
+      }
+
+      /**
+       * 각각의 dom event handler 를 추가한다.
+       * @param {Object} handlers
+       * @private
+       */
+      function _attachEachDelegateHandler(handlers) {
+        _.each(handlers, function(handler, eventName) {
+          el.on(eventName, handler);
+        });
+      }
+
+      /**
+       * 공통 click 이벤트 핸들러
+       * @param {Event} clickEvent
+       * @private
+       */
+      function _onClick(clickEvent) {
+        var jqTarget = $(clickEvent.target);
+        var id = jqTarget.closest('.msgs-group').attr('id');
+        var msg = MessageCollection.get(id);
+
+        //star 클릭 시
+        if (jqTarget.hasClass('_star')) {
+          _onStarClick(msg);
+        } else if (jqTarget.closest('._user').length) {
+          _onUserClick(msg);
+        }
+      }
+
+      /**
+       * star click 핸들러
+       * @param msg
+       * @private
+       */
+      function _onStarClick(msg) {
+        var index = MessageCollection.at(msg.messageId);
+        msg.message.isStarred = !msg.message.isStarred;
+        _refresh(msg.id, index);
+        if (msg.message.isStarred) {
+          StarAPIService.star(msg.messageId, _teamId);
+        } else {
+          StarAPIService.unStar(msg.messageId, _teamId);
+        }
+      }
+
+      function _onUserClick(msg) {
+        jndPubSub.pub('onUserClick', msg.extWriter);
       }
 
       /**
@@ -140,8 +187,17 @@
         //$compile(el.contents())(scope);
       }
 
+      /**
+       * id 에 해당하는 dom 을 갱신한다.
+       * @param id
+       * @param index
+       * @private
+       */
       function _refresh(id, index) {
-        $('#' + id).replaceWith(CenterRenderer.render(index));
+        var jqTarget = $('#' + id);
+        if (jqTarget.length) {
+          jqTarget.replaceWith(CenterRenderer.render(index));
+        }
       }
 
 
@@ -164,12 +220,24 @@
         //$compile(el.contents())(scope);
       }
 
+      /**
+       * 실제 remove 가 발생하기 전 이벤트 핸들러
+       * @param angularEvent
+       * @param index
+       * @private
+       */
       function _onBeforeRemove(angularEvent, index) {
         var msg = MessageCollection.list[index];
         var jqTarget = $('#' + msg.id);
         jqTarget.remove();
       }
 
+      /**
+       * remove 이벤트 핸들러
+       * @param angularEvent
+       * @param index
+       * @private
+       */
       function _onRemove(angularEvent, index) {
         var msg = MessageCollection.list[index];
         _refresh(msg.id, index);
@@ -191,6 +259,5 @@
       }
       scope.onRepeatDone();
     }
-
   }
 })();

@@ -1,11 +1,11 @@
 <div class="msg-item text">
   <div class="text-msg-item-container">
     <!--  User Thumbnail -->
-    <div class="msg-item-float cursor_pointer">
+    <div class="msg-item-float cursor_pointer _user">
       <img class="user-profile user-thumb" src="{{ msg.exProfileImg }}"/>
     </div>
 
-    <div class="msg-item-header">
+    <div class="msg-item-header _user">
       <!--    WRITER-->
       <span class="msg-item-header__name cursor_pointer">
         <span class="msg-item-header__nameSpace" data-toggle="tooltip" data-placement="top" title="Tooltip on left">
@@ -38,8 +38,8 @@
         {{/if}}
          <!--Star -->
         {{#if hasStar}}
-          <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle off msg-item__action _textStar">
-            <i class="icon-star-fill _textStar"></i>
+          <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _star {{css.star}}">
+            <i class="icon-star-fill _star"></i>
           </span>
         {{/if}}
       </div>
