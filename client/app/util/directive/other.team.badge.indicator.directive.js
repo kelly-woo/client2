@@ -9,7 +9,7 @@
     .directive('otherTeamBadgeIndicator', otherTeamBadgeIndicator);
 
   /* @ngInject */
-  function otherTeamBadgeIndicator(OtherTeamBadgeManager) {
+  function otherTeamBadgeIndicator(OtherTeamBadgeManager, $timeout) {
     return {
       restrict: 'A',
       controller: false,
@@ -30,6 +30,7 @@
         scope.$on('accountLoaded', _onAccountLoaded);
         scope.$on('onOtherTeamNotification', _updateBadge);
         scope.$on('updateTeamBadgeCount', _updateBadge);
+        scope.$on('blinkDotIndicator', _blinkDotIndicator);
       }
 
 
@@ -59,7 +60,7 @@
        */
       function _attachDotIndicator() {
         if (!_isDotAttached) {
-          _jqDotElement = angular.element('<div class="dot"></div>');
+          _jqDotElement = angular.element('<div class="dot blink"></div>');
           el.prepend(_jqDotElement);
           _isDotAttached = true;
         }
@@ -72,6 +73,19 @@
       function _detachDotIndicator() {
         _jqDotElement && _jqDotElement.remove();
         _isDotAttached = false;
+      }
+
+      /**
+       * '쩜' 엘레멘트를 점멸시킨다.
+       * @private
+       */
+      function _blinkDotIndicator() {
+        if (!_.isUndefined(_jqDotElement)) {
+          _jqDotElement.removeClass('blink');
+          $timeout(function() {
+            _jqDotElement.addClass('blink');
+          }, 10);
+        }
       }
     }
   }

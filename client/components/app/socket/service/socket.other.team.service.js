@@ -9,7 +9,7 @@
     .service('jndWebSocketOtherTeamManager', jndWebSocketOtherTeamManager);
 
   /* @ngInject */
-  function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification,
+  function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification, jndPubSub,
                                         EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper) {
 
     var OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP = 'other_team_topic_status';
@@ -46,6 +46,7 @@
           // 방의 정보가 있다는 것, 노티를 보내도 된다는 것.
           _sendBrowserNotification(socketEvent);
         }
+
       }
     }
 
@@ -227,6 +228,8 @@
      * @private
      */
     function _afterNotificationSent(teamId, socketEvent) {
+
+      jndPubSub.pub('blinkDotIndicator');
 
       _updateOtherTeamUnreadAlert();
 
