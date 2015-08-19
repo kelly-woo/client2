@@ -23,7 +23,7 @@
 
         data.hasPreview = $filter('hasPreview')(fileData.content);
         if (data.hasPreview) {
-          data.imageUrl = _getThumbnailUrl(fileData.content.extraInfo.smallThumbnailUrl);
+          data.imageUrl = $filter('getFileUrl')(fileData.content.extraInfo.smallThumbnailUrl);
         } else {
           data.icon = $filter('fileIcon')(fileData.content);
         }
@@ -50,7 +50,7 @@
 
         data.hasPreview = $filter('hasPreview')(fileData.message.content);
         if (data.hasPreview) {
-          data.imageUrl = _getThumbnailUrl(fileData.message.content.extraInfo.smallThumbnailUrl);
+          data.imageUrl = $filter('getFileUrl')(fileData.message.content.extraInfo.smallThumbnailUrl);
         } else {
           data.icon = $filter('fileIcon')(fileData.message.content);
         }
@@ -68,10 +68,6 @@
       }
 
       return data;
-    }
-
-    function _getThumbnailUrl(url) {
-      return (/^http/.test(url) ? '' : configuration.server_uploaded) + url;
     }
   }
 })();

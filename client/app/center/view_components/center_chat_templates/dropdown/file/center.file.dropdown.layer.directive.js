@@ -69,13 +69,13 @@
         scope.isShown = true;
 
         scope.hasProtocol = _regxHTTP.test(fileUrl);
-
+        fileUrl = $filter('getFileUrl')(fileUrl);
         if (scope.hasProtocol) {
           scope.downloadUrl = fileUrl;
           scope.originalUrl = fileUrl;
         } else {
-          scope.downloadUrl = configuration.api_address + 'download/' + fileUrl;
-          scope.originalUrl = configuration.server_uploaded + fileUrl;
+          scope.downloadUrl = fileUrl + '/download';
+          scope.originalUrl = fileUrl;
         }
 
         /*

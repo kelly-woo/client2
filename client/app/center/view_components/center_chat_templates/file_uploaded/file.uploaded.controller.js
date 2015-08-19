@@ -31,9 +31,6 @@
     // preview를 들고 있는 dom element
     var _jqThumbnailParent;
 
-    // 서버 주소
-    var _serverUploaded = config.server_uploaded;
-
     $scope.onSmallThumbnailClick = onSmallThumbnailClick;
     $scope.onLargeThumbnailClick = onLargeThumbnailClick;
     $scope.onFullScreenImageButtonClick = onFullScreenImageButtonClick;
