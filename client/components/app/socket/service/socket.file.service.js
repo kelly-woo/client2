@@ -78,6 +78,8 @@
      * @private
      */
     function _onFileCommentDeleted(data) {
+      // badge count update 하기 위함이로소.
+      jndPubSub.updateLeftPanel();
       jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
       jndPubSub.pub('centerOnFileCommentDeleted', data);
     }
