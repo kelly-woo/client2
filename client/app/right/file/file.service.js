@@ -9,7 +9,7 @@
     .service('FileData', FileData);
 
   /* @ngInject */
-  function FileData($filter, configuration) {
+  function FileData($filter, fileAPIservice, configuration) {
     var that = this;
 
     that.convert = convert;
@@ -20,6 +20,8 @@
       if (type === 'file') {
         data.type = 'file';
         data.id = fileData.id;
+
+        data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.content.serverUrl);
 
         data.hasPreview = $filter('hasPreview')(fileData.content);
         if (data.hasPreview) {
@@ -47,6 +49,8 @@
       } else if (type === 'star') {
         data.type = 'star';
         data.id = fileData.message.id;
+
+        data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.message.content.serverUrl);
 
         data.hasPreview = $filter('hasPreview')(fileData.message.content);
         if (data.hasPreview) {
