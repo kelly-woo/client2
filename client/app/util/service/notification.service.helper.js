@@ -93,8 +93,6 @@
         totalCount += notification;
       });
 
-      logger.log(':: ' + type +  ' count ' + totalCount);
-
       return totalCount;
     }
 

@@ -5,34 +5,51 @@
   'use strict';
 
   angular
-    .module('jandiApp')
+    .module('app.socket')
     .service('jndWebSocketFile', jndWebSocketFile);
 
   /* @ngInject */
-  function jndWebSocketFile(jndPubSub, logger) {
+  function jndWebSocketFile(jndPubSub) {
     var FILE_CREATED = 'file_created';
     var FILE_SHARED = 'file_shared';
     var FILE_DELETED = 'file_deleted';
     var FILE_COMMENT_CREATED = 'file_comment_created';
     var FILE_COMMENT_DELETED = 'file_comment_deleted';
 
-    this.attachSocketEvent = attachSocketEvent;
+    var events = [
+      {
+        name: FILE_CREATED,
+        handler: _onFileCreated
+      },
+      {
+        name: FILE_SHARED,
+        handler: _onFileShared
+      },
+      {
+        name: FILE_DELETED,
+        handler: _onFileDeleted
+      },
+      {
+        name: FILE_COMMENT_CREATED,
+        handler: _onFileCommentCreated
+      },
+      {
+        name: FILE_COMMENT_DELETED,
+        handler: _onFileCommentDeleted
+      }
+    ];
 
-    function attachSocketEvent(socket) {
-      socket.on(FILE_CREATED, _onFileCreated);
-      socket.on(FILE_SHARED, _onFileShared);
-      socket.on(FILE_DELETED, _onFileDeleted);
-      socket.on(FILE_COMMENT_CREATED, _onFileCommentCreated);
-      socket.on(FILE_COMMENT_DELETED, _onFileCommentDeleted);
+    this.getEvents = getEvents;
+
+    function getEvents() {
+      return events;
     }
 
     function _onFileCreated(data) {
-      logger.socketEventLogger(data.event, data);
     }
 
 
     function _onFileShared(data) {
-      logger.socketEventLogger(data.event, data);
     }
     /**
      * 파일이 지워졌을 때
@@ -40,7 +57,6 @@
      * @private
      */
     function _onFileDeleted(data) {
-      logger.socketEventLogger(data.event, data);
 
       jndPubSub.pub('rightFileOnFileDeleted', data);
       jndPubSub.pub('rightFileDetailOnFileDeleted', data);
@@ -53,8 +69,6 @@
      * @private
      */
     function _onFileCommentCreated(data) {
-      logger.socketEventLogger(data.event, data);
-
       jndPubSub.pub('rightFileDetailOnFileCommentCreated', data);
     }
 
@@ -64,8 +78,6 @@
      * @private
      */
     function _onFileCommentDeleted(data) {
-      logger.socketEventLogger(data.event, data);
-
       jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
       jndPubSub.pub('centerOnFileCommentDeleted', data);
     }

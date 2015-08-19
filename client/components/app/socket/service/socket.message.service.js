@@ -2,18 +2,62 @@
   'use strict';
 
   angular
-    .module('jandiApp')
+    .module('app.socket')
     .service('jndWebSocketMessage', jndWebSocketMessage);
 
   /* @ngInject */
-  function jndWebSocketMessage(logger, jndWebSocketCommon, jndPubSub, entityAPIservice,
+  function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, entityAPIservice,
                                memberService, currentSessionHelper, DesktopNotification) {
 
     var MESSAGE = 'message';
-    this.attachSocketEvent = attachSocketEvent;
 
-    function attachSocketEvent(socket) {
-      socket.on(MESSAGE, _onMessage);
+    var MESSAGE_STARRED = 'message_starred';
+    var MESSAGE_UNSTARRED = 'message_unstarred';
+
+    var events = [
+      {
+        name: MESSAGE,
+        handler: _onMessage
+      },
+      {
+        name: MESSAGE_STARRED,
+        handler: _onMessageStarred
+      },
+      {
+        name: MESSAGE_UNSTARRED,
+        handler: _onMessageUnStarred
+      }
+    ];
+
+    this.getEvents = getEvents;
+
+    function getEvents() {
+      return events;
+    }
+
+    /**
+     * starred message 이벤트 핸들러
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onMessageStarred(socketEvent) {
+      var data = socketEvent.data;
+
+      if (parseInt(memberService.getMemberId(), 10) === parseInt(data.memberId, 10)) {
+        jndPubSub.pub('starred', data);
+      }
+    }
+
+    /**
+     * unStarred message 이벤트 핸들러
+     * @param {object} socketEvent
+     * @private
+     */
+    function _onMessageUnStarred(socketEvent) {
+      var data = socketEvent.data;
+      if (parseInt(memberService.getMemberId(), 10) === parseInt(data.memberId, 10)) {
+        jndPubSub.pub('unStarred', data);
+      }
     }
 
     function _onMessage(data) {
@@ -51,8 +95,6 @@
      * @private
      */
     function _onFileComment(data) {
-      logger.socketEventLogger(data.event, data);
-
       var _hasNotificationOn = false;
       var _currentRoom;
 
@@ -88,7 +130,6 @@
      * @private
      */
     function _onTopicLeave(data) {
-      logger.socketEventLogger(data.event, data);
       _updateCenterPanelFromOthers(data);
     }
 
@@ -98,7 +139,6 @@
      * @private
      */
     function _onTopicJoin(data) {
-      logger.socketEventLogger(data.event, data);
       _updateCenterPanelFromOthers(data);
     }
 
@@ -108,7 +148,6 @@
      * @private
      */
     function _onTopicFileShareStatusChange(data) {
-      logger.socketEventLogger(data.event, data);
 
       // 현재 토픽이라면 센터를 업데이트하고 아니라면 왼쪽을 업데이트한다
       if (jndWebSocketCommon.isCurrentEntity(data.room)) {
@@ -126,7 +165,6 @@
      * @private
      */
     function _onTopicMessageDelete(data) {
-      logger.socketEventLogger(data.event, data);
       _updateCenterForCurrentEntity(data);
       jndPubSub.pub('topicMessageDelete', data);
     }
@@ -137,7 +175,6 @@
      * @private
      */
     function _onNewMessage(data) {
-      logger.socketEventLogger(data.event, data);
       if (_isDmToMe(data)) {
         _onDm(data);
       } else {
@@ -280,6 +317,7 @@
         DesktopNotification.sendMentionNotification(data, jndWebSocketCommon.getActionOwner(data.writer), jndWebSocketCommon.getRoom(data.room));
       }
     }
+
     /**
      * 노티피케이션을 보내야하는 상황인지 아닌지 확인한다.
      * @param {object} writer - 노티를 보낸 사람

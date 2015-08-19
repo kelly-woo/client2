@@ -788,7 +788,7 @@ input[type="button"] {
   line-height: 33px;
   height: 33px;
   cursor: pointer;
-  padding: 0 1.4rem 0 2.5rem;
+  padding: 0 .65rem 0 2.5rem;
 }
 .grey_dropdown > li > a:empty,
 .green_dropdown > li > a:empty {
