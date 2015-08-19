@@ -9,15 +9,15 @@
     .controller('MentionaheadCtrl', MentionaheadCtrl);
 
   /* @ngInject */
-  function MentionaheadCtrl($state, $parse, $filter, $window, entityAPIservice, memberService,
+  function MentionaheadCtrl($scope, $state, $parse, $filter, $window, $timeout, entityAPIservice, memberService,
                             currentSessionHelper, configuration, MentionExtractor) {
     var that = this;
 
     var MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
     var entityId = $state.params.entityId;
+    var timerUpdateMentionAhead;
 
     var $originScope;
-    var $scope;
     var $model;
 
     that.init = init;
@@ -40,7 +40,6 @@
       $originScope = options.originScope;
       $originScope.getMentions = getMentions;
 
-      $scope = options.mentionScope;
       $model = options.mentionModel;
       $scope.jqEle = options.jqEle;
 
@@ -60,17 +59,29 @@
         });
       } else {
         // current entity change event handler에서 한번 mention list 설정
-        $scope.$on('onCurrentEntityChanged', function(event, param) {
-          _setMentionList(param);
-        });
+        $scope.$on('centerUpdateChatList', _centerUpdateChatList);
 
-        _setMentionList();
+        $timeout.cancel(timerUpdateMentionAhead);
+        timerUpdateMentionAhead = $timeout(function() {
+          _setMentionList();
+        }, 200);
       }
 
       // message를 submit하는 method
       if (options.attrs.messageSubmit) {
         _hookMessageSubmit(options.attrs, options.attrs.messageSubmit);
       }
+    }
+
+    /**
+     * current entity changed event handler
+     * @private
+     */
+    function _centerUpdateChatList() {
+      $timeout.cancel(timerUpdateMentionAhead);
+      timerUpdateMentionAhead = $timeout(function() {
+        _setMentionList();
+      }, 200);
     }
 
     /**
@@ -101,26 +112,26 @@
           }
         }
 
-        if (mentionList && mentionList.length > 1) {
-          // mention 전달이 가능한 member가 2명 이상이라면
-          // 2명이상의 member 전체에게 mention 하는 all을 제공함
+        //if (mentionList && mentionList.length > 0) {
+        //  // mention 전달이 가능한 member가 2명 이상이라면
+        //  // 2명이상의 member 전체에게 mention 하는 all을 제공함
 
-          mentionList = _.sortBy(mentionList, 'exSearchName');
+        mentionList = _.sortBy(mentionList, 'exSearchName');
 
-          mentionList.unshift({
-            // mention item 출력용 text
-            name: MENTION_ALL_ITEM_TEXT,
-            // mention target에 출력용 text
-            exViewName : '[@' + MentionExtractor.MENTION_ALL + ']',
-            // mention search text
-            exSearchName: 'topic',
-            u_photoThumbnailUrl: {
-              smallThumbnailUrl: configuration.assets_url + 'assets/images/mention_profile_all.png'
-            },
-            id: entityId,
-            type: 'room'
-          });
-        }
+        mentionList.unshift({
+          // mention item 출력용 text
+          name: MENTION_ALL_ITEM_TEXT,
+          // mention target에 출력용 text
+          exViewName : '[@' + MentionExtractor.MENTION_ALL + ']',
+          // mention search text
+          exSearchName: 'topic',
+          u_photoThumbnailUrl: {
+            smallThumbnailUrl: configuration.assets_url + 'assets/images/mention_profile_all.png'
+          },
+          id: entityId,
+          type: 'room'
+        });
+        //}
 
         setMentions(mentionList);
       }
