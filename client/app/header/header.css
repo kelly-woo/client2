@@ -130,7 +130,9 @@
 }
 
 .header-navbar__dropdown > li > a > .badge {
-  margin-top: 8px;
+  position: absolute;
+  right: 10px;
+  top: 8px;
 }
 .header-toolbar > ul {
   height: 40px;
