@@ -49,8 +49,13 @@
               scope.$digest();
             } else if (jndKeyCode.match('ENTER', which)) {
               scope.select(scope.activeIndex);
+
+              // filtering selection이면 focus를 0번째 item으로 이동
+              if (!!target.val()) {
+                scope.focusItem(0);
+              }
             } else {
-              scope.setActiveIndex(0);
+              scope.focusItem(0);
             }
           }
         });
