@@ -705,7 +705,7 @@ msgstr "删除时间："
 
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
-msgstr "无法上传大於100MB的文件"
+msgstr "无法上传大於300MB的文件"
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"
@@ -733,8 +733,8 @@ msgstr "您有新信息"
 #: client/app/modal/files/upload/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
-"IE9浏览器无法适当支援文件预览。如果图像不能正确显示，别担心，这不影响您上传"
-"文件。"
+"IE9浏览器无法适当支援文件预览。如果图像不能正确显示，别担心，这不影响您上"
+"传文件。"
 
 #: client/app/modal/files/upload/upload.html
 msgid "@ie9-please-do-not-use"
@@ -800,8 +800,8 @@ msgstr "串联你的Google帐户"
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
-"点击筛选功能的“Google Doc”选项轻松搜寻Google 文件、电子表格、简报。而使用筛"
-"选功能的文件类型，可查询Word、Excel、PDF等其他格式的档案。"
+"点击筛选功能的“Google Doc”选项轻松搜寻Google 文件、电子表格、简报。而使用"
+"筛选功能的文件类型，可查询Word、Excel、PDF等其他格式的档案。"
 
 #: client/app/modal/files/integration/integration.html
 msgid "@integration-submit"
@@ -827,8 +827,8 @@ msgstr "此电子邮箱已为 {{invitedTeamName}} 的成员"
 #: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
-"想邀请超过100位成员？ 让我们来协助你！ <a href=\"mailto:support@tosslab.com"
-"\">support@tosslab.com</a>"
+"想邀请超过100位成员？ 让我们来协助你！ <a href=\"mailto:support@tosslab."
+"com\">support@tosslab.com</a>"
 
 #: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled"
@@ -1047,7 +1047,8 @@ msgstr "电子邮件已经成功寄出"
 msgid "@privateGroup"
 msgstr "私人议题"
 
-#: client/app/right/files/files.html client/app/right/mentions/mentions.html
+#: client/app/right/files/files.html
+#: client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
 msgid "@search-in-progress"
@@ -1392,8 +1393,8 @@ msgstr ""
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
-"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、曾"
-"经分享在哪个议题下”的项目进行搜索。"
+"想找到封尘已久的文件，透过键入关键词或筛选功能中“文件类别、曾经被谁分享、"
+"曾经分享在哪个议题下”的项目进行搜索。"
 
 #: client/app/modal/change_log/changeLog.msg.search.html
 #: client/app/tutorial/tutorial.html
@@ -1414,8 +1415,8 @@ msgstr "送出信息及上传文件"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
-"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传文件，点击左侧的按钮"
-"和选择所需的路径，或任意拖拽文件到中间留言板上的任何地方。"
+"要发送信息，只需在文字栏中开始打字然后按'Enter'。要上传文件，点击左侧的按"
+"钮和选择所需的路径，或任意拖拽文件到中间留言板上的任何地方。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
@@ -1429,14 +1430,14 @@ msgstr "TIPS"
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
 "直接传讯是介于两位成员之间的私人、一对一的对话。当您收到一个新讯息，直接传"
-"讯会自动出现，或者您也可以透过点击'+添加'启动对话。您也可以关闭并隐藏直接传"
-"讯，同时仍然保留讯息历史直到对话重新启动。"
+"讯会自动出现，或者您也可以透过点击'+添加'启动对话。您也可以关闭并隐藏直接"
+"传讯，同时仍然保留讯息历史直到对话重新启动。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
-"私人议题是仅限邀请机制，分享的资讯仅对参与者显示。透过点击'+添加'来启动新的"
-"私人议题。"
+"私人议题是仅限邀请机制，分享的资讯仅对参与者显示。透过点击'+添加'来启动新"
+"的私人议题。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
@@ -1445,9 +1446,9 @@ msgstr "'公开议题'、'私人议题'及'直接传讯'有什么不同？"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
-"议题'是以社群为主的讨论及分享任何事物的空间- 专案、更新、会议行程、午餐的建"
-"议等等。公开议题是开放给您团队上的任何人来参与。您可以透过'+添加'来建立您自"
-"己的，或则透过点击'☰浏览'加入其它现行的公开议题。"
+"议题'是以社群为主的讨论及分享任何事物的空间- 专案、更新、会议行程、午餐的"
+"建议等等。公开议题是开放给您团队上的任何人来参与。您可以透过'+添加'来建立"
+"您自己的，或则透过点击'☰浏览'加入其它现行的公开议题。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
@@ -1456,8 +1457,8 @@ msgstr "继续 »"
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
 msgstr ""
-"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重要"
-"的提示。"
+"JANDI要让您的团队沟通更加无缝和紧密。 以下您了解JANDI而需要知道的三个最重"
+"要的提示。"
 
 #: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
@@ -1657,8 +1658,8 @@ msgstr "JANDI 新信息"
 
 #~ msgid "@modal-create-ch-msg3"
 #~ msgstr ""
-#~ "- 私人议题对未受邀成员不开放- 在私人议题内分享的文件仅开放给其参与者- 已"
-#~ "设定为公开或私人的议题在建立之后不能被转换成另一个"
+#~ "- 私人议题对未受邀成员不开放- 在私人议题内分享的文件仅开放给其参与者- "
+#~ "已设定为公开或私人的议题在建立之后不能被转换成另一个"
 
 #~ msgid "@modal-create-pg-msg1"
 #~ msgstr "私人议题仅向其成员显示，且仅其成员可以阅读或搜索其内容。"
@@ -1720,7 +1721,8 @@ msgstr "JANDI 新信息"
 
 #~ msgid "@setting-team-domain-warning-msg"
 #~ msgstr ""
-#~ "网域名称必须至少有3个字符，并且只能由小写字母，数字和连字符（ - ）组成。"
+#~ "网域名称必须至少有3个字符，并且只能由小写字母，数字和连字符（ - ）组"
+#~ "成。"
 
 #~ msgid "@setting-team-name-change"
 #~ msgstr "更改团队名称"
@@ -1766,8 +1768,8 @@ msgstr "JANDI 新信息"
 
 #~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "离开私人议题后，未来希望能够重新加入，必须先取得其它人的邀请。您确定要离"
-#~ "开吗？"
+#~ "离开私人议题后，未来希望能够重新加入，必须先取得其它人的邀请。您确定要"
+#~ "离开吗？"
 
 #~ msgid "@alert-empty-file"
 #~ msgstr "没有上传档案"

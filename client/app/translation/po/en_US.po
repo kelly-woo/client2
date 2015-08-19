@@ -724,7 +724,7 @@ msgstr "As of "
 
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
-msgstr "Currently you cannot upload a file that exceeds 100MB."
+msgstr "Currently you cannot upload a file that exceeds 300MB."
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"
