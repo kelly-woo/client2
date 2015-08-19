@@ -10,7 +10,7 @@
     .directive('centerMessagesDirective', centerMessagesDirective);
 
   function centerMessagesDirective($compile, CenterRenderer, CenterRendererFactory, MessageCollection, memberService,
-                                   StarAPIService, jndPubSub) {
+                                   StarAPIService, jndPubSub, RendererUtil) {
     return {
       restrict: 'E',
       link: link
@@ -48,6 +48,7 @@
 
         scope.$on('starred', _onStarred);
         scope.$on('unStarred', _onUnStarred);
+
         scope.$on('$destroy', _onDestroy);
       }
 
@@ -100,6 +101,7 @@
       }
 
       function _onDestroy() {
+        _destroyCompiledScope(el);
         el.remove();
       }
       /**
@@ -113,7 +115,7 @@
         var msg = MessageCollection.get(id);
 
         //star 클릭 시
-        if (jqTarget.hasClass('_star')) {
+        if (jqTarget.closest('._star').length) {
           _onStarClick(msg);
         } else if (jqTarget.closest('._user').length) {
           _onUserClick(msg);
@@ -128,7 +130,7 @@
       function _onStarClick(msg) {
         var index = MessageCollection.at(msg.messageId);
         msg.message.isStarred = !msg.message.isStarred;
-        _refresh(msg.id, index);
+        _refreshStar(msg);
         if (msg.message.isStarred) {
           StarAPIService.star(msg.messageId, _teamId);
         } else {
@@ -153,11 +155,8 @@
         var index;
 
         if (_teamId.toString() === param.teamId.toString()) {
-          if (!msg.message.isStarred) {
-            msg.message.isStarred = true;
-            index = MessageCollection.at(msg.messageId);
-            _refresh(msg.id, index);
-          }
+          msg.message.isStarred = true;
+          _refreshStar(msg);
         }
       }
 
@@ -173,10 +172,17 @@
         var msg = MessageCollection.getByMessageId(param.messageId);
         var index;
         if (_teamId.toString() === param.teamId.toString()) {
+          msg.message.isStarred = false;
+          _refreshStar(msg);
+        }
+      }
+      function _refreshStar(msg) {
+        var jqTarget = $('#' + msg.id).find('._star');
+        if (jqTarget.length) {
           if (msg.message.isStarred) {
-            msg.message.isStarred = false;
-            index = MessageCollection.at(msg.messageId);
-            _refresh(msg.id, index);
+            jqTarget.removeClass('off').removeClass('msg-item__action');
+          } else {
+            jqTarget.addClass('off msg-item__action');
           }
         }
       }
@@ -186,43 +192,6 @@
         var jqTarget = $('#' + msg.id);
         if (jqTarget.length) {
           jqTarget.find('.unread-badge').text(msg.unreadCount);
-        }
-      }
-
-      /**
-       * message append 이벤트 핸들러
-       * @param {Object} angularEvent
-       * @param {Array} list
-       * @private
-       */
-      function _onAppend(angularEvent, list) {
-        var length = list.length;
-        var htmlList = [];
-        var index = MessageCollection.list.length - length;
-        _.forEach(list, function(message) {
-          if (MessageCollection.isNewDate(index)) {
-            htmlList.push(CenterRenderer.render(index, 'date'));
-          }
-          htmlList.push(CenterRenderer.render(index));
-          index++;
-        });
-        el.append(_getCompiledEl(htmlList.join('')));
-        //$compile(el.contents())(scope);
-      }
-
-      /**
-       * id 에 해당하는 dom 을 갱신한다.
-       * @param id
-       * @param index
-       * @private
-       */
-      function _refresh(id, index) {
-        var jqTarget = $('#' + id);
-        if (jqTarget.length) {
-          if (!_isDateRendered(id, index)) {
-            jqTarget.before(_getCompiledEl(CenterRenderer.render(index, 'date')));
-          }
-          jqTarget.replaceWith(_getCompiledEl(CenterRenderer.render(index)));
         }
       }
 
@@ -253,27 +222,93 @@
       function _onPrepend(angularEvent, list) {
         var start = new Date();
         var htmlList = [];
+        var headMsg = MessageCollection.list[list.length];
+
         _.forEach(list, function(message, index) {
           if (MessageCollection.isNewDate(index)) {
             htmlList.push(CenterRenderer.render(index, 'date'));
           }
           htmlList.push(CenterRenderer.render(index));
         });
+
+        if (headMsg) {
+          _refresh(headMsg.id, list.length);
+        }
+
         el.prepend(_getCompiledEl(htmlList.join('')));
         var end = new Date();
         console.log('!!!elapsed', end - start);
-        document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
+        scope.onRepeatDone();
+      }
+      /**
+       * message append 이벤트 핸들러
+       * @param {Object} angularEvent
+       * @param {Array} list
+       * @private
+       */
+      function _onAppend(angularEvent, list) {
+        var length = list.length;
+        var htmlList = [];
+        var index = MessageCollection.list.length - length;
+        _.forEach(list, function(message) {
+          if (MessageCollection.isNewDate(index)) {
+            htmlList.push(CenterRenderer.render(index, 'date'));
+          }
+          htmlList.push(CenterRenderer.render(index));
+          index++;
+        });
+        el.append(_getCompiledEl(htmlList.join('')));
+        scope.onRepeatDone();
+        //$compile(el.contents())(scope);
+      }
+
+      /**
+       * id 에 해당하는 dom 을 갱신한다.
+       * @param id
+       * @param index
+       * @private
+       */
+      function _refresh(id, index) {
+        var jqTarget = $('#' + id);
+        var jqPrev = jqTarget.prev();
+
+        if (jqTarget.length) {
+          //Date 를 갱신하기 위해 기존 date 를 제거한다.
+          if (jqPrev.attr('content-type') === 'date') {
+            _destroyCompiledScope(jqPrev);
+            jqPrev.remove();
+          }
+          if (!_isDateRendered(id, index)) {
+            jqTarget.before(_getCompiledEl(CenterRenderer.render(index, 'date')));
+          }
+          _destroyCompiledScope(jqTarget);
+          jqTarget.replaceWith(_getCompiledEl(CenterRenderer.render(index)));
+        }
       }
 
       function _getCompiledEl(htmlStr) {
         var jqDummy = $('<div></div>');
-
+        var newScope;
         jqDummy.html(htmlStr);
-        _.forEach(jqDummy.find('._compile'), function(jqEl) {
-          $compile(jqEl)(scope);
+        _.forEach(jqDummy.find('._compile'), function(targetEl) {
+          newScope = scope.$new();
+          $(targetEl).data('scope', newScope);
+          $compile(targetEl)(newScope);
         });
         return jqDummy.contents();
       }
+
+      function _destroyCompiledScope(jqTarget) {
+        var jqCompiledList = jqTarget.find('._compile');
+        var targetScope;
+        _.forEach(jqCompiledList, function(targetEl) {
+          targetScope = $(targetEl).data('scope');
+          if (targetScope) {
+            targetScope.$destroy();
+          }
+        });
+      }
+
       /**
        * 실제 remove 가 발생하기 전 이벤트 핸들러
        * @param angularEvent
@@ -288,8 +323,10 @@
         //Date 를 갱신하기 위해 기존 date 를 제거한다.
         if (jqTarget.length) {
           if (jqPrev.attr('content-type') === 'date') {
+            _destroyCompiledScope(jqPrev);
             jqPrev.remove();
           }
+          _destroyCompiledScope(jqTarget);
           jqTarget.remove();
         }
       }
@@ -317,11 +354,10 @@
           }
           htmlList.push(CenterRenderer.renderMsg(index));
         });
+        _destroyCompiledScope(el);
         el.empty().html(_getCompiledEl(htmlList.join('')));
         //$compile(el.contents())(scope);
-        scope.onRepeatDone();
       }
-      scope.onRepeatDone();
     }
   }
 })();

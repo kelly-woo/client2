@@ -39,11 +39,11 @@
     </span>
     <!-- Star -->
     <div class="msg-extra msg-extra-comment-continue">
-        {{#unless isSticker}}
-        <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle off msg-item__action">
+      {{#if hasStar}}
+        <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _star {{css.star}}">
           <i class="icon-star-fill"></i>
         </span>
-        {{/unless}}
+      {{/if}}
     </div>
   </div>
   <div class="msg-item-body">

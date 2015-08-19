@@ -76,7 +76,8 @@
 
       function _onShow(angularEvent, data) {
         var position;
-        el.html(_template(data)).show();
+        el.children().stop( true, true).empty();
+        el.show().html(_template(data));
 
         position = _getPosition(data.target);
 
@@ -96,7 +97,7 @@
         var offset = jqTarget.offset();
         switch(direction) {
           case 'top':
-            offset.top -= (el.children().outerHeight());
+            offset.top -= (el.children().height());
             offset.left = Math.ceil(offset.left - (0.5 * el.children().width()) + (0.5 * jqTarget.width()));
             break;
           case 'left':
@@ -110,7 +111,7 @@
 
       }
       function _onHide(angularEvent) {
-        el.children().animate({
+        el.children().stop( true, true ).animate({
           opacity: 0
         }, function() {
           el.children().hide();

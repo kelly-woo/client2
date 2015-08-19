@@ -9,7 +9,7 @@
     .service('FileCommentRenderer', FileCommentRenderer);
 
   /* @ngInject */
-  function FileCommentRenderer($templateRequest, $filter, config, MessageCollection) {
+  function FileCommentRenderer($templateRequest, $filter, config, MessageCollection, RendererUtil) {
     var TEMPLATE_URL_TITLE = 'app/center/messages/services/renderers/file-comment/file.comment.title.html';
     var TEMPLATE_URL = 'app/center/messages/services/renderers/file-comment/file.comment.html';
     var _templateTitle = '';
@@ -38,13 +38,12 @@
       var isArchived = (msg.feedback.status === 'archived');
       var isChild = MessageCollection.isChildComment(index);
       var isTitle = MessageCollection.isTitleComment(index);
-      var isSticker = (msg.message.contentType === 'comment_sticker');
-
 
       var template = isTitle ? _templateTitle : _template;
 
       return template({
         css: {
+          star: RendererUtil.getStarCssClass(msg),
           wrapper: isTitle ? 'comment-title' : 'comment-continue',
           archived: isArchived ? 'archived-file-with-comment' : ''
         },
@@ -54,7 +53,8 @@
           imageUrl: _getImageUrl(msg),
           hasPreview: $filter('hasPreview')(content)
         },
-        isSticker: isSticker,
+        hasStar: RendererUtil.hasStar(msg),
+        isSticker: RendererUtil.isSticker(msg),
         isChild: isChild,
         isTitle: isTitle,
         isArchived: isArchived,

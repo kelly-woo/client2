@@ -1505,7 +1505,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //console.log('::onRepeatDone');
     jndPubSub.pub('onRepeatDone');
     _updateScroll();
-    $timeout(function() {
+    //$timeout(function() {
       jndPubSub.pub('centerLoading:hide');
       if (!$rootScope.isReady) {
         publicService.hideTransitionLoading();
@@ -1516,7 +1516,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (_hasNewMessage) {
         _gotNewMessage();
       }
-    },0);
+    //},0);
   }
 
   /**

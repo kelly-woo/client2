@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function FileRenderer($templateRequest, $filter, config, MessageCollection, FileUploaded, memberService, centerService,
-                        fileAPIservice, jndPubSub) {
+                        RendererUtil, fileAPIservice, jndPubSub) {
     var TEMPLATE_URL = 'app/center/messages/services/renderers/file/file.html';
     var _template = '';
 
@@ -28,22 +28,7 @@
         _template =  Handlebars.compile(template);
       });
     }
-    function _onMouseOver(mouseEvent) {
-      var jqTarget = $(mouseEvent.target);
-      if (jqTarget.hasClass('_tooltip')) {
-        jndPubSub.pub('tooltip:show', {
-          content: '테스트',
-          direction: 'top',
-          target: jqTarget
-        });
-      }
-    }
-    function _onMouseOut(mouseEvent) {
-      var jqTarget = $(mouseEvent.target);
-      if (jqTarget.hasClass('_tooltip')) {
-        jndPubSub.pub('tooltip:hide');
-      }
-    }
+
     function render(index) {
       var msg = MessageCollection.list[index];
       var content = msg.message.content;
@@ -51,7 +36,8 @@
 
       return _template({
         css: {
-          wrapper: isArchived ? ' archived-file': ''
+          wrapper: isArchived ? ' archived-file': '',
+          star: RendererUtil.getStarCssClass(msg)
         },
         file: {
           icon: $filter('fileIcon')(content),
