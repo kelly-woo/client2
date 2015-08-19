@@ -72,32 +72,40 @@
         // active된 right panel에 따라 header icon 활성화 여부를 설정한다.
         $scope.toolbar[currentRightPanel] = true;
       }
+
+      _attachLEventListeners();
     }
 
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
-      stateParams = toParams;
-    });
+    /**
+     * 현재 스코프가 들어야할 이벤트들을 추가한다.
+     * @private
+     */
+    function _attachLEventListeners() {
+      $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
+        stateParams = toParams;
+      });
 
-    // header icon의 active event handler
-    $scope.$on('onActiveHeaderTab', function($event, type) {
-      _setTabStatus(currentRightPanel, false);
-      _setTabStatus(type, true);
-    });
+      // header icon의 active event handler
+      $scope.$on('onActiveHeaderTab', function($event, type) {
+        _setTabStatus(currentRightPanel, false);
+        _setTabStatus(type, true);
+      });
 
-    // right panel의 open event handler
-    $scope.$on('onRightPanel', function($event, data) {
-      $rootScope.isOpenRightPanel = true;
+      // right panel의 open event handler
+      $scope.$on('onRightPanel', function($event, data) {
+        $rootScope.isOpenRightPanel = true;
 
-      _setTabStatus(currentRightPanel, false);
-      _setTabStatus(data.type, true);
-    });
+        _setTabStatus(currentRightPanel, false);
+        _setTabStatus(data.type, true);
+      });
 
-    // right panel의 close event handler
-    $scope.$on('closeRightPanel', function() {
-      _closeRightPanel();
-    });
+      // right panel의 close event handler
+      $scope.$on('closeRightPanel', function() {
+        _closeRightPanel();
+      });
 
-    $scope.$on('updateTeamBadgeCount', updateTeamBadge);
+      $scope.$on('updateTeamBadgeCount', updateTeamBadge);
+    }
 
     $scope.onLanguageClick = onLanguageClick;
 

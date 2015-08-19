@@ -70,11 +70,11 @@
      * @private
      */
     function _setTeamList(memberships) {
-      $scope.isListReady = false;
       $scope.teamList = memberships;
       $scope.isListReady = true;
       $('.team-list-container').addClass('opac-in-fast');
     }
+
     /**
      * 애석하게도 업데이트할때 오류가 났다.
      * @param {object} err - error object from server
