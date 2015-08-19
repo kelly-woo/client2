@@ -70,12 +70,8 @@
 
       if (configuration.name == 'local') {
         if (prefix == 'local') {
-          //prefix = '12345qwer';
           prefix = 'jihoonk';
           //prefix = 'tosslab';
-          //prefix = 'pcapp';
-          //prefix = 'jihoontesting';
-          //prefix = 'asdfqwer';
         }
       }
 

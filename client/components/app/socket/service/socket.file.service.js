@@ -66,6 +66,8 @@
     function _onFileCommentDeleted(data) {
       logger.socketEventLogger(data.event, data);
 
+      // badge count update 하기 위함이로소.
+      jndPubSub.updateLeftPanel();
       jndPubSub.pub('rightFileDetailOnFileCommentDeleted', data);
       jndPubSub.pub('centerOnFileCommentDeleted', data);
     }
