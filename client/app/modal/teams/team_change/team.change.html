@@ -7,6 +7,12 @@
 </div>
 
 <div class="modal-body">
+  <div class="facebook-style-loading jnd-text-center" ng-if="!isListReady">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
   <div class="team-list-container opac-zero" ng-if="isListReady">
 
     <div class="email-box cursor_pointer" ng-repeat="team in teamList"  ng-if="team.teamId !== currentTeamId">
