@@ -10,7 +10,7 @@
     .service('FileUploaded', FileUploaded);
 
   /* @ngInject */
-  function FileUploaded() {
+  function FileUploaded($filter) {
     this.getSmallThumbnailUrl = getSmallThumbnailUrl;
     this.getLargeThumbnailUrl = getLargeThumbnailUrl;
 
@@ -20,7 +20,7 @@
      * @returns {*}
      */
     function getSmallThumbnailUrl(content) {
-      return content.extraInfo.smallThumbnailUrl;
+      return $filter('getFileUrl')(content.extraInfo.smallThumbnailUrl);
     }
 
     /**
@@ -29,7 +29,7 @@
      * @returns {*}
      */
     function getLargeThumbnailUrl(content) {
-      return content.extraInfo.largeThumbnailUrl;
+      return $filter('getFileUrl')(content.extraInfo.largeThumbnailUrl);
     }
   }
 })();

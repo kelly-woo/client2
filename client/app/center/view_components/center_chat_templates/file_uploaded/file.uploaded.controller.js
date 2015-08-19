@@ -55,7 +55,7 @@
 
       if ($filter('hasPreview')(_content)) {
         // content 가 preview 를 지원 할 경우 -> 이미지.
-        $scope.imageUrlToBeLoaded = _serverUploaded  + FileUploaded.getSmallThumbnailUrl(_content);
+        $scope.imageUrlToBeLoaded = FileUploaded.getSmallThumbnailUrl(_content);
       }
 
       // integration file 이면 download를 표기하지 않음
@@ -130,7 +130,7 @@
      */
     function _getLargeThumbnailImageLoaderElement() {
       var jqImageLoaderContainer;
-      var imageLoaderMarkUp = ImagesHelper.getImageLoaderElement(_serverUploaded  + FileUploaded.getLargeThumbnailUrl(_content));
+      var imageLoaderMarkUp = ImagesHelper.getImageLoaderElement(FileUploaded.getLargeThumbnailUrl(_content));
 
       imageLoaderMarkUp.addClass('large-thumbnail');
       imageLoaderMarkUp.attr({
