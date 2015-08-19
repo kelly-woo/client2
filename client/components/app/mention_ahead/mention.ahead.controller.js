@@ -280,8 +280,6 @@
       ele.setSelectionRange(begin, end);
     }
 
-
-
     /**
      * mentionahead에서 특정 mention 선택 event callback
      * @param {object} $item
@@ -338,7 +336,7 @@
 
     /**
      * mentionahead중 입력한 값과 match event callback
-     * @param matches
+     * @param {array} matches
      */
     function onMatches(matches) {
       if (!matches.length) {
@@ -351,14 +349,17 @@
      * hook message 전달 함수
      * message 입력하는 element에서 입력한 값을 mention ahead에서 처리하므로
      * mention 입력하는 동안에는 message submit 수행되지 않도록 함.
-     * @param attrs
-     * @param originMessageSubmit
+     * @param {object} attrs
+     * @param {function} originMessageSubmit
      * @private
      */
     function _hookMessageSubmit(attrs, originMessageSubmit) {
       attrs.messageSubmit = function() {
         if (!that.isInputMention() || !$scope.hasOn) {
           $originScope.$eval(originMessageSubmit);
+
+          // submit 후 value 초기화
+          setValue(null);
         }
       };
     }
