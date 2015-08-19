@@ -9,7 +9,7 @@
     .service('jndWebSocketOtherTeamManager', jndWebSocketOtherTeamManager);
 
   /* @ngInject */
-  function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification, jndPubSub,
+  function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification, jndPubSub, jndWebSocketCommon,
                                         EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper) {
 
     var OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP = 'other_team_topic_status';
@@ -19,6 +19,7 @@
     var TIMEOUT_CALLER = 'timeout_caller';
     var IS_WAITING = 'is_waiting';
     var MEMBER_ID = 'member_id';
+    var LAST_LINK_ID = 'last_link_id';
 
     // 연속된 api call를 방지하기위해 기다리는 시간
     //var paddingTime = 5000;
@@ -36,9 +37,8 @@
         _updateOtherTeamUnreadAlert();
       } else if (_isRoomSubscriptionUpdated(socketEvent)) {
         _onRoomSubscriptionUpdated(socketEvent);
-      } else if (_isNewMessage(socketEvent) && !!socketEvent.teamId) {
+      } else if (_shouldBeNotified(socketEvent) && !!socketEvent.teamId) {
         // 처리하려는 소켓이벤트는 무조건 팀아이디와 방의 정보가 있어야한다.
-
         // file_comment 일 경우 방의 정보가 rooms로 넘어오기때문에 처리한다.
         _getNotificationOnRoom(socketEvent);
 
@@ -46,12 +46,14 @@
           // 방의 정보가 있다는 것, 노티를 보내도 된다는 것.
           _sendBrowserNotification(socketEvent);
         }
-
       }
+
+      _setLastLinkId(socketEvent);
     }
 
     /**
      * 다른 팀의 토픽들중 하나의 subscription status가 변경되었을 때 호출된다.
+     * socketEvent에 해당하는 방의 notification status를 업데이트한다.
      * @param {object} socketEvent - socket event로 들어온 parameter
      * @private
      */
@@ -59,10 +61,12 @@
       var messageMarkersMap;
 
       var data = socketEvent.data;
-
       var teamId = data.teamId;
       var roomId = data.roomId;
       var newValue = data.subscribe;
+
+      var tempMessageMarkerObj;
+
 
       if (_hasTeamMessageMarkers(teamId)) {
         // 팀에 대한 정보가 있을때
@@ -81,8 +85,10 @@
 
         messageMarkersMap[roomId] = roomInfo;
       } else {
-        // 팀에 대한 정보가 없을 때
-        var tempMessageMarkerObj = {
+        // 해당 팀의 정보가 전혀 없을 때
+        EntityMapManager.create(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP);
+
+        tempMessageMarkerObj = {
           roomId: {
             subscribe: newValue
           }
@@ -94,9 +100,6 @@
         //_getTeamMessageMarkers(teamId, socketEvent);
 
       }
-
-
-
     }
 
     /**
@@ -126,7 +129,7 @@
      * @private
      */
     function _hasNotificationOn(socketEvent) {
-      var teamId = socketEvent.teamId;
+      var teamId = _getTeamId(socketEvent);
 
       if (!_hasTeamMessageMarkers(teamId)) {
         // 해당 팀의 정보가 전혀 없을 때
@@ -349,6 +352,16 @@
     }
 
     /**
+     * 현재 소켓이벤트를 browser notification으로 날려야할지 말지 알아보자.
+     * @param {object} socketEvent - socket event param
+     * @returns {boolean}
+     * @private
+     */
+    function _shouldBeNotified(socketEvent) {
+      return _isNewMessage(socketEvent);
+    }
+
+    /**
      * socketEvent가 새로운 메세지 혹은 파일 커맨트에 관련된 이벤트인지 아닌지 확인한다.
      * @param {object} socketEvent - socket event object
      * @returns {boolean}
@@ -356,7 +369,7 @@
      */
     function _isNewMessage(socketEvent) {
       if (socketEvent.event === 'message') {
-        if (socketEvent.messageType === 'file_comment' || socketEvent.messageType === 'file_share' || _.isUndefined(socketEvent.messageType)) {
+        if (socketEvent.messageType === 'file_comment' || socketEvent.messageType === 'file_share' || socketEvent.messageType === 'message_delete' || _.isUndefined(socketEvent.messageType)) {
           return true;
         }
       }
@@ -370,6 +383,51 @@
     function _updateOtherTeamUnreadAlert() {
       accountService.updateCurrentAccount();
     }
+
+    /**
+     * socketEvent에 해당하는 팀의 lastLinkId를 설정한다.
+     * @param {object} socketEvent - socket event param
+     * @private
+     */
+    function _setLastLinkId(socketEvent) {
+      var teamId = _getTeamId(socketEvent);
+      var result = jndWebSocketCommon.getLastLinkId(socketEvent);
+
+      jndWebSocketOtherTeamManagerHelper.set(teamId, LAST_LINK_ID, result.value);
+
+    }
+
+    /**
+     * TODO: 추후에 고도화 작업할때 LAST LINK ID를 보고 업데이트 할지 안할지 결정할 것. -JIHOON
+     * socketEvent에 해당하는 팀의 lastLinkId를 가져온다.
+     * @param {object} socketEvent - socket event param
+     * @returns {*}
+     * @private
+     */
+    function _getLastLinkId(socketEvent) {
+      return jndWebSocketOtherTeamManagerHelper.get(_getTeamId(socketEvent), LAST_LINK_ID);
+    }
+
+    /**
+     * socketEvent에 해당하는 팀이 lastLinkId를 가지고 있는지 없는지 확인한다.
+     * @param {object} socketEvent - socket event param
+     * @returns {boolean}
+     * @private
+     */
+    function _hasLastLinkId(socketEvent) {
+      return jndWebSocketOtherTeamManagerHelper.hasLastLinkId(_getTeamId(socketEvent));
+    }
+
+    /**
+     * socketEvent에서 teamId를 추출해낸다(원시적인 방법으로).
+     * @param {object} socketEvent - socket event param
+     * @returns {*}
+     * @private
+     */
+    function _getTeamId(socketEvent) {
+      return socketEvent.teamId || socketEvent.data.teamId;
+    }
+
 
   }
 })();

@@ -25,6 +25,10 @@
     this.updateFileDetailPanel = updateFileDetailPanel;
     this.isActionFromMe = isActionFromMe;
 
+    this.hasLastLinkId = hasLastLinkId;
+    this.getLastLinkId = getLastLinkId;
+
+
     function updateLeft() {
       jndPubSub.updateLeftPanel();
     }
@@ -139,6 +143,51 @@
      */
     function isActionFromMe(writerId) {
       return writerId === memberService.getMemberId();
+    }
+
+    function hasLastLinkId(socketEvent) {
+    }
+
+    /**
+     * object에 'lastLinkId'나 'linkId'라는 property가 있는지 없는지 확인하고 있으면 값까지 리턴한다.
+     * @param {object} object - 어떠한 오브젝트가 될 수 있음
+     * @returns {{hasFound: boolean, value: number}}
+     * @private
+     */
+    function _findLastLinkId(object) {
+      var found = false;
+      var returnObj = {
+        hasFound: false,
+        value: -1
+      };
+
+      if (_.isUndefined(object)) {
+        return returnObj;
+      }
+
+      found = _.has(object, 'lastLinkId') || _.has(object, 'linkId');
+
+      if (!found) {
+        _.each(object, function(property) {
+          if (_.isObject(property)) {
+            returnObj = _findLastLinkId(property)
+          }
+        });
+      } else {
+        returnObj.value = _.get(object, 'lastLinkId') || _.get(object, 'linkId');
+        returnObj.hasFound = found;
+      }
+
+      return returnObj;
+    }
+
+    /**
+     * socketEvent에서 'lastLinkId'나 'linkId'를 찾아서 리턴한다.
+     * @param {object} socketEvent - socket parameter
+     * @returns {{hasFound: boolean, value: number}}
+     */
+    function getLastLinkId(socketEvent) {
+      return _findLastLinkId(socketEvent);
     }
   }
 })();
