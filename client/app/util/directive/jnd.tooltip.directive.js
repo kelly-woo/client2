@@ -24,16 +24,17 @@
    end-height="100" />
 
    */
-  function jndTooltip() {
+  function jndTooltip($templateRequest) {
     return {
       restrict: 'E',
-      templateUrl: 'app/util/directive/tootip.html',
       scope: {},
+      replace: true,
       link: link
     };
 
     function link(scope, el, attrs) {
-
+      var TEMPLATE_URL = 'app/util/directive/jnd.tooltip.html';
+      var _template;
 
       _init();
 
@@ -42,6 +43,10 @@
        * @private
        */
       function _init() {
+        $templateRequest(TEMPLATE_URL).then(function(template) {
+          _template =  Handlebars.compile(template);
+        });
+        _attachEvents();
       }
 
       /**
@@ -67,6 +72,49 @@
        */
       function _detachEvents() {
 
+      }
+
+      function _onShow(angularEvent, data) {
+        var position;
+        el.html(_template(data)).show();
+
+        position = _getPosition(data.target);
+
+        scope.direction = data.direction || 'top';
+        scope.content = data.content;
+
+        el.children().css({
+            left: position.left + 'px',
+            top: position.top + 'px'
+          }).animate({
+          opacity: 1
+        });
+      }
+
+      function _getPosition(jqTarget) {
+        var direction = scope.direction;
+        var offset = jqTarget.offset();
+        switch(direction) {
+          case 'top':
+            offset.top -= (el.children().outerHeight());
+            offset.left = Math.ceil(offset.left - (0.5 * el.children().width()) + (0.5 * jqTarget.width()));
+            break;
+          case 'left':
+            break;
+          case 'right':
+            break;
+          case 'bottom':
+            break;
+        }
+        return offset;
+
+      }
+      function _onHide(angularEvent) {
+        el.children().animate({
+          opacity: 0
+        }, function() {
+          el.children().hide();
+        });
       }
     }
   }

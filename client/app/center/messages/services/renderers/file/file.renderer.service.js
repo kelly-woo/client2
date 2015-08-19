@@ -9,12 +9,13 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($templateRequest, $filter, MessageCollection) {
+  function FileRenderer($templateRequest, $filter, config, MessageCollection, FileUploaded, memberService, centerService,
+                        fileAPIservice, jndPubSub) {
     var TEMPLATE_URL = 'app/center/messages/services/renderers/file/file.html';
-    var _templateTitle = '';
     var _template = '';
 
     this.render = render;
+    
 
     _init();
 
@@ -27,35 +28,60 @@
         _template =  Handlebars.compile(template);
       });
     }
-
+    function _onMouseOver(mouseEvent) {
+      var jqTarget = $(mouseEvent.target);
+      if (jqTarget.hasClass('_tooltip')) {
+        jndPubSub.pub('tooltip:show', {
+          content: '테스트',
+          direction: 'top',
+          target: jqTarget
+        });
+      }
+    }
+    function _onMouseOut(mouseEvent) {
+      var jqTarget = $(mouseEvent.target);
+      if (jqTarget.hasClass('_tooltip')) {
+        jndPubSub.pub('tooltip:hide');
+      }
+    }
     function render(index) {
-      var message = MessageCollection.list[index];
-      var status = message && message.feedback && message.feedback.status;
-      var content = message && message.feedback && message.feedback.content;
-      var isArchived = (status === 'archived');
-      var isChild = MessageCollection.isChildComment(index);
-      var isTitle = MessageCollection.isTitleComment(index);
-      var isSticker = (message.message.contentType !== 'comment_sticker');
-      var isIntegrateFile = false;
+      var msg = MessageCollection.list[index];
+      var content = msg.message.content;
+      var isArchived = (msg.message.status === 'archived');
 
-      var template = isTitle ? _templateTitle : _template;
-
-      return template({
-        isIntegrateFile: isIntegrateFile,
-        isSticker: isSticker,
-        isChild: isChild,
-        isTitle: isTitle,
-        fileTitle: $filter('fileTitle')(content),
-        hasPreview: $filter('hasPreview')(content),
+      return _template({
+        css: {
+          wrapper: isArchived ? ' archived-file': ''
+        },
+        file: {
+          icon: $filter('fileIcon')(content),
+          imageUrl: _getImageUrl(msg),
+          hasPreview: $filter('hasPreview')(content),
+          title: $filter('fileTitle')(content),
+          type: $filter('fileType')(content),
+          size: $filter('bytes')(content.size),
+          isFileOwner: _isFileOwner(msg),
+          ownerName: $filter('getName')(msg.message.writerId),
+          isIntegrateFile: _isIntegrateFile(msg)
+        },
         isArchived: isArchived,
-        className: {
-          archived: 'archived-file-with-comment'
-        },
-        translate: {
-
-        },
-        msg: message
+        msg: msg
       });
+    }
+    function _getFeedbackContent(msg) {
+      return centerService.isCommentType(msg.message.contentType) ? msg.feedback.content : msg.message.content;
+    }
+    function _getImageUrl(msg) {
+      var content = _getFeedbackContent(msg);
+      var hasPreview = $filter('hasPreview')(content);
+      return hasPreview ? config.server_uploaded + FileUploaded.getSmallThumbnailUrl(_getFeedbackContent(msg)) : '';
+    }
+    function _isFileOwner(msg) {
+      return msg.message.writerId === memberService.getMemberId();
+    }
+    function _isIntegrateFile(msg) {
+      var content = _getFeedbackContent(msg);
+      return fileAPIservice.isIntegrateFile(content.serverUrl);
     }
   }
 })();

@@ -48,6 +48,7 @@
 
         scope.$on('starred', _onStarred);
         scope.$on('unStarred', _onUnStarred);
+        scope.$on('$destroy', _onDestroy);
       }
 
       /**
@@ -83,6 +84,24 @@
         });
       }
 
+      function _attachRendererHandler(jqTarget, renderer) {
+        if (renderer.eventHandler) {
+          _.each(renderer.eventHandler, function(handler, name) {
+            var tmp = name.split(' '),
+              eventName = tmp[0],
+              selector = tmp[1] || '';
+
+            if (selector) {
+              jqTarget = jqTarget.find(selector);
+            }
+            jqTarget.on(eventName, handler);
+          });
+        }
+      }
+
+      function _onDestroy() {
+        el.remove();
+      }
       /**
        * 공통 click 이벤트 핸들러
        * @param {Event} clickEvent
@@ -163,7 +182,11 @@
       }
 
       function _onUpdateUnread(angularEvent, data) {
-        _refresh(data.msg.id, data.index);
+        var msg = data.msg;
+        var jqTarget = $('#' + msg.id);
+        if (jqTarget.length) {
+          jqTarget.find('.unread-badge').text(msg.unreadCount);
+        }
       }
 
       /**
@@ -183,7 +206,7 @@
           htmlList.push(CenterRenderer.render(index));
           index++;
         });
-        el.append(htmlList.join(''));
+        el.append(_getCompiledEl(htmlList.join('')));
         //$compile(el.contents())(scope);
       }
 
@@ -196,8 +219,28 @@
       function _refresh(id, index) {
         var jqTarget = $('#' + id);
         if (jqTarget.length) {
-          jqTarget.replaceWith(CenterRenderer.render(index));
+          if (!_isDateRendered(id, index)) {
+            jqTarget.before(_getCompiledEl(CenterRenderer.render(index, 'date')));
+          }
+          jqTarget.replaceWith(_getCompiledEl(CenterRenderer.render(index)));
         }
+      }
+
+      /**
+       * refresh 할 때, 날짜 구분선이 이미 랜더링 되었는지 확인한다.
+       * @param id
+       * @param index
+       * @returns {boolean}
+       * @private
+       */
+      function _isDateRendered(id, index) {
+        var jqTarget = $('#' + id);
+        if (jqTarget.length) {
+          if (MessageCollection.isNewDate(index) && jqTarget.prev().attr('content-type') !== 'date') {
+            return false;
+          }
+        }
+        return true;
       }
 
 
@@ -216,10 +259,21 @@
           }
           htmlList.push(CenterRenderer.render(index));
         });
-        el.prepend(htmlList.join(''));
-        //$compile(el.contents())(scope);
+        el.prepend(_getCompiledEl(htmlList.join('')));
+        var end = new Date();
+        console.log('!!!elapsed', end - start);
+        document.getElementById('msgs-container').scrollTop = document.getElementById('msgs-container').scrollHeight;
       }
 
+      function _getCompiledEl(htmlStr) {
+        var jqDummy = $('<div></div>');
+
+        jqDummy.html(htmlStr);
+        _.forEach(jqDummy.find('._compile'), function(jqEl) {
+          $compile(jqEl)(scope);
+        });
+        return jqDummy.contents();
+      }
       /**
        * 실제 remove 가 발생하기 전 이벤트 핸들러
        * @param angularEvent
@@ -229,7 +283,15 @@
       function _onBeforeRemove(angularEvent, index) {
         var msg = MessageCollection.list[index];
         var jqTarget = $('#' + msg.id);
-        jqTarget.remove();
+        var jqPrev = jqTarget.prev();
+
+        //Date 를 갱신하기 위해 기존 date 를 제거한다.
+        if (jqTarget.length) {
+          if (jqPrev.attr('content-type') === 'date') {
+            jqPrev.remove();
+          }
+          jqTarget.remove();
+        }
       }
 
       /**
@@ -240,7 +302,9 @@
        */
       function _onRemove(angularEvent, index) {
         var msg = MessageCollection.list[index];
-        _refresh(msg.id, index);
+        if (msg) {
+          _refresh(msg.id, index);
+        }
       }
 
 
@@ -253,7 +317,7 @@
           }
           htmlList.push(CenterRenderer.renderMsg(index));
         });
-        el.html(htmlList.join(''));
+        el.empty().html(_getCompiledEl(htmlList.join('')));
         //$compile(el.contents())(scope);
         scope.onRepeatDone();
       }

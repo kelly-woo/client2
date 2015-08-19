@@ -9,28 +9,30 @@
             최초 댓글
             DISPLAY COMMENT BODY WHEN IT IS TITLE
             IF CURRENT COMMENT IS NOT TITLE, CONTENT GETS DISPLAYED WITHIN HEADER -->
-    <div class="msg-comment msg-comment-with-thumbnail {{ className.archived }}">
+    <div class="msg-comment msg-comment-with-thumbnail {{ css.archived }}">
       <!--    LEFT PART OF BODY CONTENT
               IMAGE/FILE THUMBNAIL    -->
       <div class="msg-file-body-float pull-left">
         {{#if isArchived }}
+        <div class="msg-file-body__thumbnail">
+          <img class="fileicon" src="assets/images/fileicon_archived.png"/>
+        </div>
+        {{else}}
         <div>
+          {{#if file.hasPreview}}
           <!--    IMAGE THUMBNAIL -->
-          {{#if hasPreview}}
           <div class="image_wrapper msg-file-body__img__background">
-            <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center">
+            <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile"
+                 image-loader="{{file.imageUrl}}"
+                 image-max-height="63" image-max-width="63" image-is-square="true">
             </div>
           </div>
           {{else}}
           <!--    FILE THUMBNAIL  -->
           <div class="msg-file-body__thumbnail">
-            <div class="fileicon fileicon-{{ fileIcon }}" ></div>
+            <div class="fileicon fileicon-{{ file.icon }}" ></div>
           </div>
           {{/if}}
-        </div>
-        {{else}}
-        <div class="msg-file-body__thumbnail">
-          <img class="fileicon" src="assets/images/fileicon_archived.png"/>
         </div>
         {{/if}}
         <!--    COMMENT ICON    -->
@@ -45,15 +47,15 @@
 
           {{#if isArchived}}
           <div>
-            <a class="archived-msg-file-meta__title" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
-              <span translate>@common-deleted-file-title</span>
+            <a class="archived-msg-file-meta__title _compile" ui-sref="files({ userName: '{{ msg.feedback.writer.name }}', itemId: '{{msg.feedback.id}}' })">
+              <span class="_compile" translate>@common-deleted-file-title</span>
             </a>
           </div>
           {{else}}
           <!--    FILE TITLE/NAME  -->
           <div>
-            <a class="msg-file-meta__title file__name break-word" ui-sref="files({ userName: msg.feedback.writer.name, itemId: msg.feedback.id })">
-              {{ fileTitle }}
+            <a class="msg-file-meta__title file__name break-word _compile" ui-sref="files({ userName: '{{msg.feedback.writer.name}}', itemId: '{{msg.feedback.id}}' })">
+              {{ file.title }}
             </a>
           </div>
           {{/if}}

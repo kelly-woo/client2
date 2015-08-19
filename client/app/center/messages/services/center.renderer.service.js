@@ -25,7 +25,6 @@
     }
 
     function _initHandlebarsHelper() {
-      var filter = $filter('translate');
       Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 
         switch (operator) {
@@ -50,7 +49,7 @@
         }
       });
       Handlebars.registerHelper('translate', function(key) {
-        return filter(key);
+        return $filter('translate')(key);
       });
     }
 

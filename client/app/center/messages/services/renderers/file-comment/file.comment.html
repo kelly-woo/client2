@@ -1,4 +1,4 @@
-<div class="msg-item">
+<div class="msg-item {{ css.wrapper }}">
   <!--    HEADER PART -->
   <!--    DISPLAYS WRITER WHEN IT IS NOT TITLE COMMENT    -->
   <!--    WHEN IT IS TITLE COMMENT, APPLIES DIFFERENT CSS FORMAT  -->
@@ -8,13 +8,13 @@
     <span class="continue-comment-body">
       <!--    COMMENT CONTENT -->
       <p>
-        {{#if isChild}}
+        {{#unless isChild}}
         <!--    WRITER  -->
         <span class="msg-item-header__name cursor_pointer"
               disabled-member-detector="center-panel-disabled-member">
           <span> {{ msg.extWriterName }} </span>
         </span>
-        {{/if}}
+        {{/unless}}
         {{#if isSticker}}
         <div>
           <img class="sticker size_5" src="{{ msg.message.content.url }}"/>
@@ -27,7 +27,7 @@
         {{else}}
         <!--    CONTENT(MESSAGE)    -->
         <span>
-          <span class="keep"> {{ msg.message.content.body }}</span>
+          <span class="keep"> {{{ msg.message.content.body }}}</span>
           <!--    CREATED TIME    -->
           <span class="msg-item-header__created">
             {{ msg.extTime }}

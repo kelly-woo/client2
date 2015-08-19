@@ -32,14 +32,18 @@
         case 'invite':
           status.isInvite = true;
           break;
-        case 'isAnnouncementDeleted':
+        case 'announcement_deleted':
           status.isAnnouncementDeleted = true;
           break;
-        case 'isAnnouncementCreated':
+        case 'announcement_created':
           status.isAnnouncementCreated = true;
           break;
       }
       return status;
+    }
+
+    function _getPreTranslate(key, mapper) {
+      return $filter('template')($filter('translate')(key), mapper);
     }
 
     function render(index) {
@@ -60,6 +64,16 @@
       });
 
       return _template({
+        text: {
+          announcement:  {
+            deleted: _getPreTranslate('@system-msg-announcement-deleted', {
+              msg: msg
+            }),
+            created: _getPreTranslate('@system-msg-announcement-created', {
+              msg: msg
+            })
+          }
+        },
         status: status,
         hasPostfix: hasPostfix,
         msg: msg,

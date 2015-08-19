@@ -9,7 +9,7 @@
     .service('FileCommentRenderer', FileCommentRenderer);
 
   /* @ngInject */
-  function FileCommentRenderer($templateRequest, $filter, MessageCollection) {
+  function FileCommentRenderer($templateRequest, $filter, config, MessageCollection) {
     var TEMPLATE_URL_TITLE = 'app/center/messages/services/renderers/file-comment/file.comment.title.html';
     var TEMPLATE_URL = 'app/center/messages/services/renderers/file-comment/file.comment.html';
     var _templateTitle = '';
@@ -33,28 +33,40 @@
     }
 
     function render(index) {
-      var message = MessageCollection.list[index];
-      var feedback = message.feedback;
-      var isArchived = (message.feedback.status === 'archived');
+      var msg = MessageCollection.list[index];
+      var content = msg.feedback.content;
+      var isArchived = (msg.feedback.status === 'archived');
       var isChild = MessageCollection.isChildComment(index);
       var isTitle = MessageCollection.isTitleComment(index);
-      var isSticker = (message.message.contentType !== 'comment_sticker');
+      var isSticker = (msg.message.contentType === 'comment_sticker');
+
+
       var template = isTitle ? _templateTitle : _template;
 
       return template({
+        css: {
+          wrapper: isTitle ? 'comment-title' : 'comment-continue',
+          archived: isArchived ? 'archived-file-with-comment' : ''
+        },
+        file: {
+          icon: $filter('fileIcon')(content),
+          title: $filter('fileTitle')(content),
+          imageUrl: _getImageUrl(msg),
+          hasPreview: $filter('hasPreview')(content)
+        },
         isSticker: isSticker,
         isChild: isChild,
         isTitle: isTitle,
-        fileTitle: $filter('fileTitle')(feedback.content),
-        hasPreview: $filter('hasPreview')(feedback.content),
         isArchived: isArchived,
-        className: {
-          archived: 'archived-file-with-comment'
-        },
         translate: {
         },
-        msg: message
+        msg: msg
       });
+    }
+    function _getImageUrl(msg) {
+      var content = msg.feedback.content;
+      var uri = content && content.extraInfo && content.extraInfo.smallThumbnailUrl;
+      return config.server_uploaded + uri;
     }
   }
 })();

@@ -1,9 +1,7 @@
-<div id="{{msg.id}}"></div>
+<div id="{{msg.id}}" class="msg-item {{css.wrapper}}">
   <!--  User Thumbnail -->
-  <div class="msg-item-float cursor_pointer"
-       disabled-member-detector="center-panel-disabled-member">
-    <img on-image-load class="user-profile user-thumb"
-         ng-src="{{ msg.exProfileImg }}"/>
+  <div class="msg-item-float cursor_pointer _user">
+    <img class="user-profile user-thumb" src="{{ msg.exProfileImg }}"/>
   </div>
 
   <div class="msg-item-header"
@@ -25,7 +23,7 @@
 
   <div class="msg-item-body">
     <!-- FILE -->
-    <div class="msg-file" ng-cloak>
+    <div class="msg-file">
 
       <!--  FILE PREVIEW IMAGE  -->
       <div class="msg-file-body-float pull-left preview-container">
@@ -39,11 +37,13 @@
         </div>
         {{else}}
         <div>
-          {{#if msg.message.content.extHasPreview}}
+          {{#if file.hasPreview}}
           <!--    IMAGE THUMBNAIL -->
           <div>
             <div class="image_wrapper msg-file-body__img__background jnd-text-center">
-              <div class="opac-zero msg-file-body__img cursor_pointer">
+              <div class="opac-zero msg-file-body__img cursor_pointer _compile"
+                  id="{{msg.id}}-image-preview-small"
+                  image-loader="{{file.imageUrl}}" image-max-height="65" image-max-width="65" image-is-square="true">
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@
           {{else}}
           <!--    FILE TYPE THUMBNAIL -->
           <div class="msg-file-body__thumbnail">
-            <div class="fileicon fileicon-{{ fileIcon }}" ></div>
+            <div class="fileicon fileicon-{{ file.icon }}" ></div>
           </div>
           {{/if}}
         </div>
@@ -69,38 +69,45 @@
           <!--  NOT ARCHIVED FILE -->
           <div>
             <!--    TITLE   -->
-            <a class="msg-file-meta__title file__name break-word"
-               ui-sref="files({ userName: msg.message.writer.name, itemId: msg.message.id })">
-              {{ msg.message.content.extFileTitle }}
+            <a class="msg-file-meta__title file__name break-word _compile"
+               ui-sref="files({ userName: '{{msg.message.writer.name}}', itemId: '{{msg.message.id}}' })">
+              {{ file.title }}
             </a>
-            {{#if msg.message.content.size}}
+            {{#if file.size}}
             <span class="bullet">•</span>
             <!--    SIZE AND FILE TYPE  -->
-            <span class="msg-file-meta-info">{{ msg.message.content.extFileSize }}</span>
+            <span class="msg-file-meta-info">{{ file.size }}</span>
             {{/if}}
-            <span class="msg-file-meta-info">{{ msg.message.content.extFileType }}</span>
+            <span class="msg-file-meta-info">{{ file.type }}</span>
           </div>
         </div>
         <div class="msg-file-meta-down">
           <!--  DOWNLOAD  -->
-          <span class="file-uploaded-download" ng-if="!isIntegrateFile">
-            <a download-file file-url="{{ msg.message.content.fileUrl }}"
+          <span class="file-uploaded-download" ng-if="!file.isIntegrateFile">
+            <a data-toggle="tooltip" data-placement="top" title="Tooltip on top"
+                download-file file-url="{{ msg.message.content.fileUrl }}"
                download-tracker="track(msg.message)" file-title="{{msg.message.content.title}}">
-              <i class="icon-download cursor_pointer file-action"></i>
+              <i class="icon-download cursor_pointer file-action _compile"
+                 jnd-tooltip-trigger="다운"
+                 data-direction="top"></i>
             </a>
 
           </span>
-          {{#unless isIntegrateFile}}
-          <span class="separator" ng-if="!isIntegrateFile"></span>
+          {{#unless file.isIntegrateFile}}
+          <span class="separator"></span>
           {{/unless}}
           <!--  SHARE -->
-          <i class="icon-share cursor_pointer file-action" ng-click="onShareClick(msg.message);"></i>
+          <i class="icon-share cursor_pointer file-action _compile"
+             jnd-tooltip-trigger="쉐어"
+             data-direction="top"></i>
 
           <span class="separator"></span>
 
           <!--  MORE  -->
           <span class="file-uploaded-more">
-            <i class="fa fa-cog cursor_pointer file-action" center-file-dropdown></i>
+            <i class="fa fa-cog cursor_pointer file-action _compile"
+               jnd-tooltip-trigger="모어"
+               data-direction="top"></i>
           </span>
 
         </div>
@@ -121,3 +128,4 @@
     </div>
 
   </div>
+</div>

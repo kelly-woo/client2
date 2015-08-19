@@ -8,6 +8,7 @@
     <div class="msg-text">
       <div class="msg-comment-header">
           {{#if status.isInvite}}
+        <!--1-->
             <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
             <span class="keep">{{{msg.message.content.body}}}</span>
             {{#each invitees}}
@@ -23,12 +24,12 @@
             <span>{{translate '@msg-invited-postfix'}}</span>
             {{/if}}
           {{else if status.isAnnouncementDeleted}}
-            <span>{{translate '@system-msg-announcement-deleted'}}</span>
+            <span>{{ text.announcement.deleted }}</span>
           {{else if status.isAnnouncementCreated}}
-            <span>{{translate '@system-msg-announcement-created'}}</span>
+            <span>{{ text.announcement.created }}</span>
           {{else}}
-                <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
-                <span class="keep">{{{msg.message.content.body}}}</span>
+            <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+            <span class="keep">{{{msg.message.content.body}}}</span>
           {{/if}}
         <span class="msg-item-header__created">{{msg.extTime}}</span>
       </div>
