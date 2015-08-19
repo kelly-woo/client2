@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function integrationService($rootScope, $modal, $timeout, configuration, fileAPIservice,
-                              fileObjectService, accountService, storageAPIservice, analyticsService, FilesUpload, modalHelper) {
+                              fileObjectService, accountService, storageAPIservice, analyticsService, FilesUpload) {
     /**
      * integration service를 추가 하기를 원한다면 Integration object를 확장하여 구현해야 한다.
      */
@@ -267,10 +267,6 @@
       _open: function() {
         var that = this;
 
-        // google drive popup 연동을 위해 domain 수정
-        that.originalDomain = window.document.domain;
-        window.document.domain = 'jandi.' + /.([a-zA-Z]+)$/.exec(window.document.domain)[1];
-
         that._doAuth(false, function(token) {
           that._showPicker();
         }.bind(that));
@@ -363,18 +359,12 @@
           size: file.sizeBytes
         };
       },
-      _closeIntegrationModal: function() {
-        var that = this;
-
-        Integration._closeIntegrationModal.call(that, function() {
-          window.document.domain = that.originalDomain;
-        });
-      },
       /**
        * google drive integration modal open
        */
       _openIntegrationModal: function() {
         var that = this;
+        var originalDomain = window.document.domain;
 
         Integration._openIntegrationModal.call(that,
           {
@@ -395,12 +385,23 @@
             ],
             startIntegration: function() {    // 연동 시작 버튼 핸들러
               storageAPIservice.setCookie('integration', 'google', true);
+
               that._open();
             },
             closeIntegration: function() {
               that._closeIntegrationModal();
             },
             cInterface: that.cInterface             // modal의 확인 interface 명
+          }
+        );
+
+        // google drive popup 연동을 위해 domain 일시적 수정함
+        // modal close될때 original domain으로 변경함
+        window.document.domain = 'jandi.' + /.([a-zA-Z]+)$/.exec(window.document.domain)[1];
+        that.modal.result.then(
+          function() {},
+          function() {
+            window.document.domain = originalDomain;
           }
         );
       }

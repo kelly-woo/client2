@@ -22,7 +22,8 @@
       setAccountLanguage: setAccountLanguage,
       hasChangeLog: hasChangeLog,
       hasSeenTutorial: hasSeenTutorial,
-      updateAccountTutoredTime: updateAccountTutoredTime
+      updateAccountTutoredTime: updateAccountTutoredTime,
+      updateCurrentAccount: updateCurrentAccount
     };
 
     return service;
@@ -70,8 +71,8 @@
 
       if (configuration.name == 'local') {
         if (prefix == 'local') {
-          prefix = 'jihoonk';
-          //prefix = 'tosslab';
+          //prefix = 'jihoonk';
+          prefix = 'tosslab';
         }
       }
 
@@ -130,6 +131,13 @@
       if (!account) return;
 
       account.tutoredAt = updatedTime;
+    }
+
+    function updateCurrentAccount() {
+      getAccountInfo()
+        .success(function(response) {
+          setAccount(response);
+        })
     }
   }
 })();

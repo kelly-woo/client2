@@ -4,9 +4,9 @@
   <div class="header-navbar cursor_pointer">
 
     <!-- TEAM -->
-    <div class="header-navbar-menu" id="team-menu" dropdown>
+    <div class="header-navbar-menu" id="team-menu" dropdown other-team-badge-indicator>
 
-      <span class="header-navbar__topmenu" dropdown-toggle>
+      <span class="header-navbar__topmenu" dropdown-toggle ng-click="updateTeamBadge();">
         <i class="fa fa-bars header-navbar__menu-icon"></i>
         <span class="header-navbar__title" translate>@common-team</span>
       </span>
@@ -35,6 +35,7 @@
           <a data-ng-click="openModal('team-change');" role="menuitem" tabindex="-1">
             <i class="icon-switch"></i>
             <span translate>@team-switch</span>
+            <span class="badge green_badge pull-right" ng-if="hasBadgeOnOtherTeam">{{otherTeamBadgeCount}}</span>
           </a>
         </li>
 

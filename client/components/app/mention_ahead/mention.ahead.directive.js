@@ -9,17 +9,16 @@
     .directive('mentionahead', mentionahead);
 
   /* @ngInject */
-  function mentionahead($rootScope, $compile, $timeout) {
+  function mentionahead($compile, $timeout) {
 
     return {
       restrict: 'A',
+      scope: true,
       require: ['mentionahead'],
       controller: 'MentionaheadCtrl',
       compile: function() {
-        var mentionScope;
         var mentionahead;
 
-        mentionScope = $rootScope.$new(true);
         mentionahead = $compile(
           '<div type="text" style="position: absolute; top: 0; left: 0; width: 100%;" ' +
           'jandi-typeahead="mention as mention.name for mention in mentionList | userByName: $viewValue" ' +
@@ -36,15 +35,14 @@
           var jqMentionahead;
 
           mentionCtrl = ctrls[0];
-          mentionScope.eventCatcher = el;
-          jqMentionahead = mentionahead(mentionScope, function (jqMentionahead) {
+          scope.eventCatcher = el;
+          jqMentionahead = mentionahead(scope, function (jqMentionahead) {
             el.parent().append(jqMentionahead);
           });
 
           mentionCtrl
             .init({
-              originScope: scope,
-              mentionScope: mentionScope,
+              originScope: scope.$parent,
               mentionModel: jqMentionahead.data('$ngModelController'),
               jqEle: el,
               attrs: attrs,

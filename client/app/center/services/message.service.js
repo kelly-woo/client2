@@ -7,8 +7,6 @@
 
   /* @ngInject */
   function messageAPIservice($http, memberService, configuration, currentSessionHelper) {
-    var fileDetail;
-
     this.getMessage = getMessage;
     this.getMessages = getMessages;
     this.getUpdatedMessages = getUpdatedMessages;
@@ -268,19 +266,5 @@
         timeout : canceller.promise
       });
     }
-
-    /**
-     * 한번 get하면 값 삭제하는 file detail 임시 저장용 property
-     */
-    Object.defineProperty(this, 'dualFileDetail', {
-      get: function() {
-        var temp = fileDetail;
-        fileDetail = null;
-        return temp;
-      },
-      set: function(value) {
-        fileDetail = value;
-      }
-    });
   }
 })();

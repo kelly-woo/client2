@@ -100,7 +100,8 @@
        */
       function _setFavicon() {
         var link = document.getElementsByTagName('link')[0];
-        link.href = NotificationManager.hasNotification() ? 'favicon_noti.ico?v=3' : 'favicon.ico?v=3';
+        //link.href = NotificationManager.hasNotification() ? 'favicon_noti.ico?v=3' : 'favicon.ico?v=3';
+        link.href = 'favicon.ico?v=3';
       }
 
     }

@@ -48,14 +48,29 @@
   background: #366480;
   color: #fff;
 }
+.header-navbar-menu .dot{
+  position: absolute;
+
+  left: 22px;
+  top: 14px;
+
+  width: 7px;
+  height: 7px;
+
+  background-color: #00ABE6;
+
+  border-radius: 100%;
+  z-index: 101;
+}
 #team-menu .header-navbar__topmenu {
   padding: 0 10px 0 14px;
+  z-index: 100;
 }
 #invite .header-navbar__topmenu {
   /*padding-top: 1px;*/
   padding-left: 10px;
 }
- .header-navbar__topmenu {
+.header-navbar__topmenu {
   display: block;
   padding: 0 11px 0 14px;
 }
@@ -97,6 +112,7 @@
   left: 12px;
   min-width: 200px;
 }
+
 .header-navbar__dropdown .icon_signout {
   position: absolute;
   top: 8px;
@@ -112,6 +128,12 @@
   top: 11px;
   left: 17px;
 }
+
+.header-navbar__dropdown > li > a > .badge {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+}
 .header-toolbar > ul {
   height: 40px;
   list-style: none;
@@ -125,6 +147,7 @@
 .header-toolbar > ul > li:last-child {
   margin-right: 12px;
 }
+
 .header-toolbar li .info-tool {
   position: relative;
   width: 29px;
