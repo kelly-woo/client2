@@ -153,7 +153,7 @@
     /**
      * 서버에 해당팀의 message markers를 요청한 후 roomId를 찾는다.
      * @param {number} teamId - message markers를 가지고 싶은 팀의 아이디
-     * @param {number} roomId - subscribe 상태를 알고 싶은 방의 아이디
+     * @param {object} socketEvent - socket event parameter
      * @param socketEvent
      * @private
      */
