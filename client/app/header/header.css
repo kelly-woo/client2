@@ -60,9 +60,11 @@
   background-color: #00ABE6;
 
   border-radius: 100%;
+  z-index: 101;
 }
 #team-menu .header-navbar__topmenu {
   padding: 0 10px 0 14px;
+  z-index: 100;
 }
 #invite .header-navbar__topmenu {
   /*padding-top: 1px;*/
