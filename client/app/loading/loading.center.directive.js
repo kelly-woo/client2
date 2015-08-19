@@ -13,8 +13,7 @@
    * @example
    *
    */
-  function loadingCenter() {
-
+  function loadingCenter(Browser) {
     return {
       restrict: 'EA',
       scope: {
@@ -25,6 +24,13 @@
     };
 
     function link(scope, el, attrs) {
+      scope.browser = Browser;
+      scope.loadingTextList = [
+        'Loading',
+        'Loading.',
+        'Loading..',
+        'Loading...'
+      ];
     }
   }
 })();
