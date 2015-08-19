@@ -141,18 +141,14 @@
      * @private
      */
     function _setFileDownLoad(isIntegrateFile, contentTitle, contentFileUrl) {
-      $scope.hasProtocol = _regxHTTP.test(contentFileUrl);
-      if ($scope.hasProtocol) {
-        $scope.originalUrl = $scope.downloadUrl = contentFileUrl;
-      } else {
-        $scope.downloadUrl = configuration.api_address + 'download/' + contentFileUrl;
-        $scope.originalUrl = configuration.server_uploaded + contentFileUrl;
-      }
+      var value;
 
       $scope.isIntegrateFile = isIntegrateFile;
-      if (!$scope.isIntegrateFile) {
-        $scope.originalUrl += '/' + encodeURIComponent(contentTitle);
-      }
+      value = $filter('downloadFile')(isIntegrateFile, contentTitle, contentFileUrl);
+
+      $scope.hasProtocol = value.hasProtocol;
+      $scope.downloadUrl = value.downloadUrl;
+      $scope.originalUrl = value.originalUrl;
     }
   }
 })();

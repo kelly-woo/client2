@@ -48,7 +48,7 @@
             } else if (selector === 'delete-file') {
               scope.status.isopen = false;
               scope.onFileDeleteClick();
-            } else if (selector === 'download-file' || selector === 'original-file') {
+            } else if (event.currentTarget.nodeName.toLowerCase() !== 'i'){
               scope.status.isopen = false;
             }
           });

@@ -10,7 +10,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   var _stickerType;
   var fileId;
   var _commentIdToScroll;
-  var _regxHTTP = /^[http|https]/i;
 
   //file detail에서 integraiton preview로 들어갈 image map
   var noPreviewAvailableImage;
@@ -571,21 +570,14 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _setFileDownLoad(fileDetail) {
-    var fileUrl = fileDetail.content.fileUrl;
+    var value;
 
-    $scope.hasProtocol = _regxHTTP.test(fileUrl);
-    if ($scope.hasProtocol) {
-      $scope.downloadUrl = $scope.originalUrl = fileUrl;
-    } else {
-      $scope.downloadUrl = configuration.api_address + 'download/' + fileUrl;
-      $scope.originalUrl = configuration.server_uploaded + fileUrl;
-    }
-
-    // integrate file
     $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(fileDetail.content.serverUrl);
-    if ($scope.isIntegrateFile) {
-      $scope.originalUrl += '/' + encodeURIComponent(fileDetail.content.name);
-    }
+    value = $filter('downloadFile')($scope.isIntegrateFile, fileDetail.content.name, fileDetail.content.fileUrl);
+
+    $scope.hasProtocol = value.hasProtocol;
+    $scope.downloadUrl = value.downloadUrl;
+    $scope.originalUrl = value.originalUrl;
   }
 
   /**

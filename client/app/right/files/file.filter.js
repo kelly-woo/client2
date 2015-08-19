@@ -254,4 +254,36 @@
       return date;
     }
   });
+
+  /**
+   * file download에 필요한 data를 전달함
+   */
+  app.filter('downloadFile', function(configuration) {
+    var regxHTTP = /^[http|https]/i;
+
+    return function(isIntegrateFile, title, url) {
+      var hasProtocol;
+      var downloadUrl;
+      var originalUrl;
+
+      hasProtocol = regxHTTP.test(url);
+      if (hasProtocol) {
+        downloadUrl = originalUrl = url;
+      } else {
+        downloadUrl = configuration.api_address + 'download/' + url;
+        originalUrl = configuration.server_uploaded + url;
+      }
+
+      // integrate file이 아닌경우 원본보기시 file upload시 사용되었던 name을 유지함
+      if (!isIntegrateFile) {
+        originalUrl += '/' + encodeURIComponent(title);
+      }
+
+      return {
+        hasProtocol: hasProtocol,
+        downloadUrl: downloadUrl,
+        originalUrl: originalUrl
+      };
+    };
+  });
 }());
