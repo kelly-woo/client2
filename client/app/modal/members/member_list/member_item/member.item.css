@@ -3,10 +3,10 @@
 }
 
 .modal-body .member-item .member-profile-image {
-  display: inline-block;
+  display: block;
   width: 25px;
   border-radius: 25px;
-  vertical-align: middle;
+  float: left;
 }
 
 .modal-body .member-item .right-star {
@@ -20,7 +20,8 @@
 }
 .modal-body .member-item .member-name {
   line-height: 25px;
-  margin-left: 5px;
+  margin-left: 7px;
+  width: 350px;
 }
 
 .modal-body .member-item.active {

@@ -2,7 +2,7 @@
      ng-click="onSelect(member);"
      ng-mouseenter="focusItem($index, $event);">
   <img class="member-profile-image" on-image-load ng-src="{{::profileImage}}"/>
-  <span class="member-name">{{::name}}</span>
+  <span class="member-name inline-overflow-ellipsis">{{::name}}</span>
   <i class="icon-star right-star opac-zero" ng-class="{'icon-star-fill': member.isStarred}"
      ng-click="onStarClick('users', member); $event.preventDefault(); $event.stopPropagation();"
      ng-if="!isDisabledMember && !isMySelf"></i>
