@@ -121,7 +121,7 @@ input.disabled {
   100% { opacity: 1.0; }
 }
 .spinner {
-  margin: 0 auto;
+  margin: -20px auto 0 auto;
   width: 77px;
   height: 36px;
   text-align: center;
