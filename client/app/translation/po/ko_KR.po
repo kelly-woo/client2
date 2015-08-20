@@ -709,7 +709,7 @@ msgstr " "
 
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
-msgstr "현재 100MB 이상의 파일은 업로드 할 수 없습니다."
+msgstr "현재 300MB 이상의 파일은 업로드 할 수 없습니다."
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"

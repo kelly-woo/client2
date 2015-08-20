@@ -196,7 +196,7 @@ app.directive('originalFile', function() {
     restrict: 'A',
     link: function(scope, elem, attrs) {
       var fileUrl = attrs.fileUrl;
-      var url = rHTTP.test(fileUrl) ? fileUrl : scope.server_uploaded + fileUrl;
+      var url = $filter('getFileUrl')(fileUrl);
 
       elem.attr({href: url, target: '_blank'});
     }
