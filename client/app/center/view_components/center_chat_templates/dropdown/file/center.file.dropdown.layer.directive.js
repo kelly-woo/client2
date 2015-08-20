@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerFileDropdownLayer', centerFileDropdownLayer);
 
-  function centerFileDropdownLayer($timeout, configuration) {
+  function centerFileDropdownLayer($timeout, $filter) {
     return {
       restrict: 'E',
       controller: 'CenterFileDropdownLayerCtrl',
