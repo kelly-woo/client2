@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function OtherTeamNotification(desktopNotificationHelper, accountService, configuration,
-                                 memberService, $filter) {
+                                 memberService, pcAppHelper,  $filter) {
     this.addNotification = addNotification;
 
     /**
@@ -46,23 +46,28 @@
      * @private
      */
     function _otherTeamNotificationCallbackFn(param) {
-      // 기본적으로 /app/# 까지 포함한 주소를 만든다.
-      var url = configuration.base_protocol + param['teamDomain'] + configuration.base_url + '/app/#';
+      if (!pcAppHelper.isPcApp()) {
+        // 기본적으로 /app/# 까지 포함한 주소를 만든다.
+        var url = configuration.base_protocol + param['teamDomain'] + configuration.base_url + '/app/#';
 
-      var type = param.room.type.toLowerCase();
-      var roomId = param.room.id;
+        var type = param.room.type.toLowerCase();
+        var roomId = param.room.id;
 
-      if (type === 'chat') {
-        type = 'user';
-        // chat 일 경우, 방 url이 roomId(혹은 entityId)로 되어있지 않고 user의 id로 되어있기에 그 값을 설정한다.
-        roomId = param.marker.memberId;
+        if (type === 'chat') {
+          type = 'user';
+          roomId = param.writer;
+        }
+
+        // url 뒤에 가고 싶은 방의 타입과 주소를 설정한다.
+        url += '/' + type + 's/' + roomId;
+
+        if (!!param.messageType && param.messageType === 'file_comment') {
+          url += '/files/' + param.file.id;
+        }
+
+        var open_link = window.open('', '_blank');
+        open_link.location.href = url;
       }
-
-      // url 뒤에 가고 싶은 방의 타입과 주소를 설정한다.
-      url += '/' + type + 's/' + roomId;
-
-      var open_link = window.open('', '_blank');
-      open_link.location.href = url;
     }
 
     /**
