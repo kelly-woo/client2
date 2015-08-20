@@ -33,12 +33,17 @@
      */
     function onSocketEvent(socketEvent) {
       if (_isRoomMarkerUpdatedByMe(socketEvent)) {
-        console.log('room marker updated by me!!');
         _updateOtherTeamUnreadAlert();
       } else if (_isRoomSubscriptionUpdated(socketEvent)) {
         _onRoomSubscriptionUpdated(socketEvent);
       } else if (_shouldBeNotified(socketEvent) && !!socketEvent.teamId) {
         // 처리하려는 소켓이벤트는 무조건 팀아이디와 방의 정보가 있어야한다.
+
+        if (_.isUndefined(socketEvent.extHasProcessedOnce)) {
+          // 한 번 처리한 소켓이벤트를 다시 처리하지 않기위함이다.
+          socketEvent.extHasProcessedOnce = false;
+        }
+
         // file_comment 일 경우 방의 정보가 rooms로 넘어오기때문에 처리한다.
         _getNotificationOnRoom(socketEvent);
 
@@ -158,7 +163,9 @@
      * @private
      */
     function _getTeamMessageMarkers(teamId, socketEvent) {
-      if (!_isWaitingOnTeamId(teamId)) {
+
+      if (!_isWaitingOnTeamId(teamId) && !socketEvent.extHasProcessedOnce) {
+
         // 여러번 호출 되는 것을 방지
         _setWaiting(teamId, true);
 
@@ -175,6 +182,8 @@
 
             _setWaiting(teamId, false);
 
+            //같은 소켓이벤트로 계속 불리는 것을 방지하기 위함이다.
+            socketEvent.extHasProcessedOnce = true;
             onSocketEvent(socketEvent);
           });
       }
@@ -191,9 +200,13 @@
     function _isSubscriptionOn(teamId, socketEvent) {
       var messageMarkersMap = EntityMapManager.get(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId);
       var roomId = socketEvent.room.id;
+
       if (_.isUndefined(messageMarkersMap[roomId])) {
-        // 방에대한 정보가 없을 때.
-        _getTeamMessageMarkers(teamId, socketEvent);
+        if (socketEvent.room.type !== 'channel') {
+          // 방에대한 정보가 없을 때. 방의 타입이 channel이라면 그 것은 조인되어있지 않는 채널! 그럴땐 무시한다.
+          // 방의 타입이 채널이 아닐 경우는 1. privateGroup 혹은 2. direct message 일때이다.
+          _getTeamMessageMarkers(teamId, socketEvent);
+        }
         return false;
       }
 
@@ -426,9 +439,7 @@
      * @private
      */
     function _getTeamId(socketEvent) {
-      return socketEvent.teamId || socketEvent.data.teamId;
+      return socketEvent.teamId || (!!socketEvent.data && socketEvent.data.teamId) || (!!socketEvent.team && socketEvent.team.id);
     }
-
-
   }
 })();
