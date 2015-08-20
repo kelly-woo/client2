@@ -42,7 +42,7 @@
           var signInInfo = accountService.getCurrentMemberId(response.data.memberships);
           _account = response.data;
           publicService.setLanguageConfig(_account.lang);
-          return memberService.getMemberInfo(signInInfo.memberId);
+          return memberService.getMemberInfo(signInInfo.memberId, 'tutorial');
         })
         .then(
         function (response) {

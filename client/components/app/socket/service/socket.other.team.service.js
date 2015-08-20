@@ -170,7 +170,7 @@
 
       memberId = _getMemberId((teamId));
 
-      memberService.getMemberInfo(memberId)
+      memberService.getMemberInfo(memberId, 'socket_team_marker')
         .success(function(response) {
           EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, _getMessageMarkersMap(response.u_messageMarkers));
 
