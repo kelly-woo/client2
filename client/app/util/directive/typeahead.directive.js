@@ -439,7 +439,7 @@ app.directive('jandiTypeahead', ['$compile', '$parse', '$q', '$timeout', '$docum
 
         scope.selectActive = function(matchIdx, $event) {
           if (!prevMousePoint || prevMousePoint.x != $event.clientX && prevMousePoint.y != $event.clientY) {
-            // È­¸é¿¡¼­ mouse point°¡ ¿òÁ÷¿´À»¶§¸¸ 'mouseenter' event·Î activeIdx º¯°æ
+            // í™”ë©´ì—ì„œ mouse pointê°€ ì›€ì§ì˜€ì„ë•Œë§Œ 'mouseenter' eventë¡œ activeIdx ë³€ê²½
             $parent.selectActive(matchIdx);
           }
           prevMousePoint = {

@@ -307,10 +307,12 @@
 
         msg = msg
           .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
-          .replace('{{topicParticipantsCount}}', entityAPIservice.getMemberLength(currentEntity));
+          .replace('{{topicParticipantsCount}}', parseInt(entityAPIservice.getMemberLength(currentEntity), 10) - 1);
 
         if ($window.confirm(msg)) {
           _onSelect($item);
+        } else {
+          _onSelect($item, false);
         }
       } else {
         _onSelect($item);
@@ -320,21 +322,28 @@
     /**
      * mentionahead에서 특정 mention 선택 event callback
      * @param {object} $item
+     * @param {boolean} [confirm=true]
      * @private
      */
-    function _onSelect($item) {
+    function _onSelect($item, confirm) {
       var mention = $scope.mention;
       var mentionTarget = $item.exViewName;
       var extraText = ' ';
       var text;
       var selection;
 
-      // mention 입력 후 text 재설정
-      text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + extraText + mention.sufStr;
+      if (confirm === false) {
+        // mention 입력 취소
+        text = mention.preStr + mention.sufStr;
+        selection = mention.offset + mention.length;
+      } else {
+        // mention 입력 후 text 재설정
+        text = mention.preStr.replace(new RegExp(mention.match[1] + '$'), mentionTarget) + extraText + mention.sufStr;
+        selection = mention.offset + mentionTarget.length + extraText.length;
+      }
+
       $scope.jqEle.val(text);
       setValue(text);
-
-      selection = mention.offset + mentionTarget.length + extraText.length;
 
       // mention 입력 후 element selection 위치 설정
       setTimeout(function() {
