@@ -503,6 +503,7 @@ module.exports = function (grunt) {
               '!{.tmp,<%= yeoman.client %>}/components/jandi/preloader/preloader.js',
 
               '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
+
               '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/router/router.js',
@@ -512,11 +513,11 @@ module.exports = function (grunt) {
               '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/net/net.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/cache/cache.js',
-
               '!{.tmp,<%= yeoman.client %>}/components/app/pubsub/pubsub.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/notification/desktop.notification.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/socket/socket.js',
               '!{.tmp,<%= yeoman.client %>}/app/app.js',
+
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
           ]

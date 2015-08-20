@@ -9,10 +9,9 @@
     .module('jandiApp')
     .controller('TeamChangeController', TeamChangeController);
 
-  function TeamChangeController($scope, modalHelper, accountService) {
+  function TeamChangeController($scope, modalHelper, accountService, currentSessionHelper) {
     // 우선적으로 보여줄 팀
     $scope.teamList;
-
     $scope.onModalClose = modalHelper.closeModal;
 
     _init();
@@ -22,8 +21,19 @@
      * @private
      */
     function _init() {
-      $scope.teamList = accountService.getAccount().memberships;
+      $scope.isListReady = false;
+      $scope.currentTeamId = currentSessionHelper.getCurrentTeam().id;
+      $scope.teamList = _setTeamList(accountService.getAccount().memberships);
       _updateAccount();
+      _attachEventListener();
+    }
+
+    /**
+     * 현재 스코프가 듣고 싶은 이벤트들.
+     * @private
+     */
+    function _attachEventListener() {
+      $scope.$on('updateTeamBadgeCount', _updateTeamBadgeCount);
     }
 
     /**
@@ -44,7 +54,25 @@
     function _onUpdateAccountSuccess(response) {
       var account = response;
       accountService.setAccount(account);
-      $scope.teamList = account.memberships;
+      _setTeamList(account.memberships);
+    }
+
+    /**
+     * 어카운트를 새로 가져와서 memberships를 갈아치운다!
+     * @private
+     */
+    function _updateTeamBadgeCount() {
+      _setTeamList(accountService.getAccount().memberships);
+    }
+
+    /**
+     * @param memberships
+     * @private
+     */
+    function _setTeamList(memberships) {
+      $scope.teamList = memberships;
+      $scope.isListReady = true;
+      $('.team-list-container').addClass('opac-in-fast');
     }
 
     /**

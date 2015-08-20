@@ -134,6 +134,7 @@
     function setCurrentEntity (currentEntity) {
       currentEntity.alarmCnt = '';
       pcAppHelper.onAlarmCntChanged(currentEntity.id, 0);
+      NotificationManager.remove(currentEntity);
 
       currentSessionHelper.setCurrentEntity(currentEntity);
       jndPubSub.pub('onCurrentEntityChanged', currentEntity);
