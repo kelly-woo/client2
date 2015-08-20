@@ -133,10 +133,7 @@
 
       if (!_hasTeamMessageMarkers(teamId)) {
         // 해당 팀의 정보가 전혀 없을 때
-        if (!_isWaitingOnTeamId(teamId)) {
-          // 여러번 호출 되는 것을 방지
-          _getTeamMessageMarkers(teamId, socketEvent);
-        }
+        _getTeamMessageMarkers(teamId, socketEvent);
         return false;
       }
 
@@ -161,24 +158,28 @@
      * @private
      */
     function _getTeamMessageMarkers(teamId, socketEvent) {
-      _setWaiting(teamId, true);
+      if (!_isWaitingOnTeamId(teamId)) {
+        // 여러번 호출 되는 것을 방지
+        _setWaiting(teamId, true);
 
-      var memberId;
+        var memberId;
 
-      // 해당 팀의 정보가 전혀 없을 때
-      EntityMapManager.create(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP);
+        // 해당 팀의 정보가 전혀 없을 때
+        EntityMapManager.create(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP);
 
-      memberId = _getMemberId((teamId));
+        memberId = _getMemberId((teamId));
 
-      memberService.getMemberInfo(memberId)
-        .success(function(response) {
-          EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, _getMessageMarkersMap(response.u_messageMarkers));
+        memberService.getMemberInfo(memberId)
+          .success(function(response) {
+            EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, _getMessageMarkersMap(response.u_messageMarkers));
 
-          _setWaiting(teamId, false);
+            _setWaiting(teamId, false);
 
-          onSocketEvent(socketEvent);
-        });
+            onSocketEvent(socketEvent);
+          });
+      }
     }
+
 
     /**
      * teamId에 해당하는 팀에 있는 방들 중 roomId를 가진 방의 subscibe 값을 리턴한다.
