@@ -1,4 +1,4 @@
-<div class="msg-item text">
+<text class="msg-item text">
   <div class="text-msg-item-container">
     <!--  User Thumbnail -->
     <div class="msg-item-float cursor_pointer _user">
@@ -9,7 +9,7 @@
       <!--    WRITER-->
       <span class="msg-item-header__name cursor_pointer">
         <span class="msg-item-header__nameSpace" data-toggle="tooltip" data-placement="top" title="Tooltip on left">
-          <span> {{ msg.extWriterName }}</span>
+          <span>{{ msg.extWriterName }}</span>
         </span>
       </span>
     </div>
@@ -19,7 +19,7 @@
         {{#if isSticker}}
           <img class="sticker size_5" src="{{msg.message.content.url}}"/>
         {{else}}
-          <span class="keep msqg-text-body"> {{{ msg.message.content.body }}}</span>
+          <span class="keep msg-text-body _compile">{{{ msg.message.content.body }}}</span>
         {{/if}}
         <!--  TIME  -->
         <span class="msg-item-header__created">{{ msg.extTime }}</span>
@@ -45,4 +45,4 @@
       </div>
     </div>
   </div>
-</div>
+</text>

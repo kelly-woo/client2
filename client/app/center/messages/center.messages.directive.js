@@ -10,9 +10,10 @@
     .directive('centerMessagesDirective', centerMessagesDirective);
 
   function centerMessagesDirective($compile, CenterRenderer, CenterRendererFactory, MessageCollection, memberService,
-                                   StarAPIService, jndPubSub, RendererUtil) {
+                                   StarAPIService, jndPubSub, RendererUtil, AnalyticsHelper) {
     return {
       restrict: 'E',
+      replace: true,
       link: link
     };
 
@@ -116,10 +117,16 @@
 
         //star 클릭 시
         if (jqTarget.closest('._star').length) {
-          _onStarClick(msg);
+          _onClickStar(msg);
         } else if (jqTarget.closest('._user').length) {
-          _onUserClick(msg);
+          _onClickUser(msg);
+        } else if (jqTarget.closest('._fileShare').length) {
+          _onClickFileShare(msg);
         }
+      }
+
+      function _onClickFileShare(msg) {
+        scope.onShareClick(msg.message);
       }
 
       /**
@@ -127,7 +134,7 @@
        * @param msg
        * @private
        */
-      function _onStarClick(msg) {
+      function _onClickStar(msg) {
         var index = MessageCollection.at(msg.messageId);
         msg.message.isStarred = !msg.message.isStarred;
         _refreshStar(msg);
@@ -138,7 +145,7 @@
         }
       }
 
-      function _onUserClick(msg) {
+      function _onClickUser(msg) {
         jndPubSub.pub('onUserClick', msg.extWriter);
       }
 
@@ -356,6 +363,7 @@
         });
         _destroyCompiledScope(el);
         el.empty().html(_getCompiledEl(htmlList.join('')));
+        scope.onRepeatDone();
         //$compile(el.contents())(scope);
       }
     }

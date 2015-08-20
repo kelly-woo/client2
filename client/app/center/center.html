@@ -87,8 +87,22 @@
       <!--<center-help-message-container ng-if="hasNoMessage" status="emptyMessageStateHelper"></center-help-message-container>-->
     <!--</div>-->
 
-    <div class="msgs-holder" id="msgs-holder">
+    <div class="msgs-holder opac-zero" id="msgs-holder">
       <center-messages-directive center-event-delegater></center-messages-directive>
+      <!-- unsent Message -->
+      <div ng-if="sendingMessages.length"
+           class="msgs-group"
+           ng-repeat="msg in sendingMessages"
+           repeat-done="onSendingRepeatDone()"
+           ng-switch="msg.message.contentType">
+        <text-sending ng-switch-when="text" class="msg-item text"
+                      index="$index"
+                      msg="msg" entity-id="entityId" entityType="entityType"></text-sending>
+
+        <text-sending ng-switch-when="sticker" class="msg-item text"
+                      index="$index"
+                      msg="msg" entity-id="entityId" entityType="entityType" ></text-sending>
+      </div>
     </div>
     <center-item-dropdown-layer></center-item-dropdown-layer>
     <center-file-dropdown-layer></center-file-dropdown-layer>

@@ -6,7 +6,7 @@
         {{#if isSticker}}
           <img ng-if="::msg.message.contentType === 'sticker'"  class="sticker size_5" src="{{msg.message.content.url}}"/>
         {{else}}
-          <span class="keep msqg-text-body"  data-toggle="tooltip" data-placement="top" title="Tooltip on top"> {{{ msg.message.content.body }}}</span>
+          <span class="keep msg-text-body _compile">{{{ msg.message.content.body }}}</span>
         {{/if}}
         <!--  TIME  -->
         <span class="msg-item-header__created">{{ msg.extTime }}</span>

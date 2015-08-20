@@ -82,29 +82,26 @@
           </div>
         </div>
         <div class="msg-file-meta-down">
+          {{#unless file.isIntegrateFile}}
           <!--  DOWNLOAD  -->
-          <span class="file-uploaded-download" ng-if="!file.isIntegrateFile">
-            <a data-toggle="tooltip" data-placement="top" title="Tooltip on top"
-                download-file file-url="{{ msg.message.content.fileUrl }}"
-               download-tracker="track(msg.message)" file-title="{{msg.message.content.title}}">
+          <span class="file-uploaded-download">
+            <a class="_fileDownload" {{{ attrs.download }}}>
               <i class="icon-download cursor_pointer file-action _compile"
                  jnd-tooltip-trigger="다운"
                  data-direction="top"></i>
             </a>
-
           </span>
-          {{#unless file.isIntegrateFile}}
           <span class="separator"></span>
           {{/unless}}
           <!--  SHARE -->
-          <i class="icon-share cursor_pointer file-action _compile"
+          <i class="icon-share cursor_pointer file-action _compile _fileShare"
              jnd-tooltip-trigger="쉐어"
              data-direction="top"></i>
 
           <span class="separator"></span>
 
           <!--  MORE  -->
-          <span class="file-uploaded-more">
+          <span class="file-uploaded-more _fileMore">
             <i class="fa fa-cog cursor_pointer file-action _compile"
                jnd-tooltip-trigger="모어"
                data-direction="top"></i>
