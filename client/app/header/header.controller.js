@@ -10,7 +10,7 @@
   function headerCtrl($scope, $rootScope, $state, accountService, pcAppHelper,
                       memberService, publicService, configuration,
                       language, modalHelper, jndPubSub, DeskTopNotificationBanner,
-                      Browser, AnalyticsHelper, Router) {
+                      Browser, AnalyticsHelper, Router, OtherTeamBadgeManager) {
     var modalMap = {
       'agreement': function() {
         modalHelper.openAgreementModal();
@@ -34,6 +34,7 @@
         modalHelper.openNotificationSettingModal($scope);
       }
     };
+
     var stateParams;
     var currentRightPanel;
 
@@ -71,30 +72,42 @@
         // active된 right panel에 따라 header icon 활성화 여부를 설정한다.
         $scope.toolbar[currentRightPanel] = true;
       }
+
+      _attachLEventListeners();
     }
 
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
-      stateParams = toParams;
-    });
+    /**
+     * 현재 스코프가 들어야할 이벤트들을 추가한다.
+     * @private
+     */
+    function _attachLEventListeners() {
+      $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
+        stateParams = toParams;
+      });
 
-    // header icon의 active event handler
-    $scope.$on('onActiveHeaderTab', function($event, type) {
-      _setTabStatus(currentRightPanel, false);
-      _setTabStatus(type, true);
-    });
+      // header icon의 active event handler
+      $scope.$on('onActiveHeaderTab', function($event, type) {
+        _setTabStatus(currentRightPanel, false);
+        _setTabStatus(type, true);
+      });
 
-    // right panel의 open event handler
-    $scope.$on('onRightPanel', function($event, data) {
-      $rootScope.isOpenRightPanel = true;
+      // right panel의 open event handler
+      $scope.$on('onRightPanel', function($event, data) {
+        $rootScope.isOpenRightPanel = true;
 
-      _setTabStatus(currentRightPanel, false);
-      _setTabStatus(data.type, true);
-    });
+        _setTabStatus(currentRightPanel, false);
+        _setTabStatus(data.type, true);
+      });
 
-    // right panel의 close event handler
-    $scope.$on('closeRightPanel', function() {
-      _closeRightPanel();
-    });
+      // right panel의 close event handler
+      $scope.$on('closeRightPanel', function() {
+        _closeRightPanel();
+      });
+
+      $scope.$on('updateTeamBadgeCount', updateTeamBadge);
+    }
+
+    $scope.onLanguageClick = onLanguageClick;
 
     /**
      * change language event handler
@@ -151,6 +164,16 @@
      */
     function toTeam() {
       publicService.redirectTo(configuration.main_address + 'team');
+    }
+
+    $scope.updateTeamBadge = updateTeamBadge;
+
+    /**
+     * 메뉴 중 '팀' -> '팀 전환하기' 옆에 다른 팀의 badge count를 업데이트한다.
+     */
+    function updateTeamBadge() {
+      $scope.otherTeamBadgeCount = OtherTeamBadgeManager.getTotalBadgeCount();
+      $scope.hasBadgeOnOtherTeam = $scope.otherTeamBadgeCount > 0;
     }
 
     /**
