@@ -1,6 +1,7 @@
 <div class="member-item cursor_pointer" ng-class="{active: isActive($index)}"
      ng-click="onSelect(member);"
-     ng-mouseenter="focusItem($index, $event);">
+     ng-mouseenter="focusItem($index, $event);"
+     repeat-done="repeatDone();">
   <img class="member-profile-image" on-image-load ng-src="{{::profileImage}}"/>
   <span class="member-name inline-overflow-ellipsis">{{::name}}</span>
   <i class="icon-star right-star opac-zero" ng-class="{'icon-star-fill': member.isStarred}"

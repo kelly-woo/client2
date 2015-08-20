@@ -19,6 +19,9 @@
     };
 
     function link(scope, el, attrs) {
+      if (scope.$last) {
+        scope.$eval(attrs.repeatDone);
+      }
     }
   }
 })();

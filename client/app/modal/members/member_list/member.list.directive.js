@@ -21,7 +21,6 @@
     function link(scope, el, attrs) {
       var target = $(attrs.selector);
       var list = attrs.list;
-      var model = attrs.model;
       var repeat = attrs.repeat;
       var originOnSelect;
       var jqMemberItem;
@@ -49,11 +48,7 @@
               scope.$digest();
             } else if (jndKeyCode.match('ENTER', which)) {
               scope.select(scope.activeIndex);
-
-              // filtering selection이면 focus를 0번째 item으로 이동
-              if (!!target.val()) {
-                scope.focusItem(0);
-              }
+              target.val('').focus();
             } else {
               scope.focusItem(0);
             }
@@ -61,16 +56,22 @@
         });
 
         /**
+         * repeat done event handler
+         */
+        scope.repeatDone = function() {
+          if (!target.val()) {
+            // target의 value가 존재하지 않는다면 첫번째 item을 focus
+            scope.focusItem(0);
+          }
+        };
+
+        /**
          * item select event handler
          * @param {object} member
          */
         scope.onSelect = function(member) {
           originOnSelect(member);
-          $timeout(function() {
-            // clear & focus input box
-            model && (scope[model] = '');
-            target.val('').focus();
-          }, 30);
+          target.focus();
         };
 
         /**
