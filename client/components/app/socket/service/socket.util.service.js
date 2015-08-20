@@ -28,6 +28,7 @@
     this.hasLastLinkId = hasLastLinkId;
     this.getLastLinkId = getLastLinkId;
 
+    this.shouldSendNotification = shouldSendNotification;
 
     function updateLeft() {
       jndPubSub.updateLeftPanel();
@@ -188,6 +189,27 @@
      */
     function getLastLinkId(socketEvent) {
       return _findLastLinkId(socketEvent);
+    }
+
+    /**
+     * 노티피케이션을 보내야하는 상황인지 아닌지 확인한다.
+     * @param {object} writer - 노티를 보낸 사람
+     * @param {boolean} isCurrentEntity - 현재 엔티티인지 아닌지 알려주는 flag
+     * @returns {boolean}
+     * @private
+     */
+    function shouldSendNotification(data) {
+      var returnVal = true;
+      if (isActionFromMe(data.writer)) {
+        // 내가 보낸 노티일 경우
+        returnVal = false;
+      }
+
+      if (isCurrentEntity(data.room) && !currentSessionHelper.isBrowserHidden()) {
+        // 현재 보고있는 토픽에 노티가 왔는데 브라우져가 focus를 가지고 있을 때
+        returnVal = false;
+      }
+      return returnVal;
     }
   }
 })();

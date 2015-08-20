@@ -47,7 +47,7 @@
         // file_comment 일 경우 방의 정보가 rooms로 넘어오기때문에 처리한다.
         _getNotificationOnRoom(socketEvent);
 
-        if (socketEvent.extFoundRoom) {
+        if (socketEvent.extFoundRoom || _hasMention(socketEvent)) {
           // 방의 정보가 있다는 것, 노티를 보내도 된다는 것.
           _sendBrowserNotification(socketEvent);
         }
@@ -271,7 +271,27 @@
       return _messageMarkers;
     }
 
+    /**
+     * socket event 가 나를 향한 멘션을 들고 있는지 없는지 확인한다.
+     * @param {object} socketEvent - socket event param
+     * @returns {boolean}
+     * @private
+     */
+    function _hasMention(socketEvent) {
+      var _foundMentionToMe = false;
+      var _teamId = _getTeamId(socketEvent);
+      var _myId = _getMemberId(_teamId);
 
+      if (!!socketEvent.mentions) {
+        _.forEach(socketEvent.mentions, function(mention) {
+          if (mention.id === _myId) {
+            _foundMentionToMe = true;
+            return false;
+          }
+        });
+      }
+      return _foundMentionToMe;
+    }
 
 
 
