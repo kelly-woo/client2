@@ -9,7 +9,7 @@
     .module('jandiApp')
     .controller('TeamChangeController', TeamChangeController);
 
-  function TeamChangeController($scope, modalHelper, accountService, currentSessionHelper) {
+  function TeamChangeController($scope, modalHelper, accountService, currentSessionHelper, $timeout) {
     // 우선적으로 보여줄 팀
     $scope.teamList;
     $scope.onModalClose = modalHelper.closeModal;
@@ -71,8 +71,12 @@
      */
     function _setTeamList(memberships) {
       $scope.teamList = memberships;
-      $scope.isListReady = true;
-      $('.team-list-container').addClass('opac-in-fast');
+
+      $timeout(function() {
+        $scope.isListReady = true;
+        $('.team-list-container').addClass('opac-in-fast');
+      }, 500);
+
     }
 
     /**
