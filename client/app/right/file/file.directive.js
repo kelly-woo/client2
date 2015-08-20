@@ -48,8 +48,10 @@
             } else if (selector === 'delete-file') {
               scope.status.isopen = false;
               scope.onFileDeleteClick();
-            } else if (event.currentTarget.nodeName.toLowerCase() !== 'i'){
-              scope.status.isopen = false;
+            } else if (selector === 'download-file' || selector === 'original-file') {
+              scope.$apply(function() {
+                scope.status.isopen = false;
+              });
             }
           });
       }

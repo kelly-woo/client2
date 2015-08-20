@@ -57,20 +57,9 @@
                 </a>
               </li>
               <li ng-if="!isIntegrateFile">
-                <a class="cursor_pointer"
-                   ng-if="hasProtocol"
+                <a class="cursor_pointer" href="{{::downloadUrl}}"
                    ng-click="onClickDownload(file_detail);"
-                   download-tracker="{{track(file_detail)}}"
-                   href="{{::downloadUrl}}"
-                   target="_blank">
-                  <i class="icon-download"></i>
-                  <span translate>@common-download</span>
-                </a>
-                <a class="cursor_pointer"
-                   ng-if="!hasProtocol"
-                   ng-click="onClickDownload(file_detail);"
-                   download-tracker="{{track(file_detail)}}"
-                   href="{{::downloadUrl}}">
+                   download-tracker="{{track(file_detail)}}">
                   <i class="icon-download"></i>
                   <span translate>@common-download</span>
                 </a>
