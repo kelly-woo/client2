@@ -10,6 +10,7 @@
 
   /* @ngInject */
   function windowTitleManager(currentSessionHelper, NotificationManager) {
+
     return {
       restrict: 'A',
       scope: false,
@@ -20,6 +21,7 @@
       var _teamName;
       var _topicName;
       var _hasAsterisk = false;
+      var _hasNotificationFavicon = false;
 
       _attachEventListener();
 
@@ -100,8 +102,22 @@
        */
       function _setFavicon() {
         var link = document.getElementsByTagName('link')[0];
-        link.href = NotificationManager.hasNotification() ? '../assets/images/favicon/favicon_noti.png' : '../assets/images/favicon/favicon.png';
+
+        if (NotificationManager.hasNotification()) {
+          // 새로운 노티피케이션(뱃지카운트)가 있을 때
+          if (!_hasNotificationFavicon) {
+            link.href ='../assets/images/favicon/favicon_noti.png';
+            _hasNotificationFavicon = true;
+          }
+        } else {
+          // 새로운 노티피케이션(뱃지카운트)가 없을 때
+          if(_hasNotificationFavicon) {
+            link.href = '../assets/images/favicon/favicon.png';
+            _hasNotificationFavicon = false;
+          }
+        }
       }
+
     }
   }
 })();
