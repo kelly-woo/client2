@@ -12,7 +12,7 @@
             <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
             <span class="keep">{{{msg.message.content.body}}}</span>
             {{#each invitees}}
-                    <span class="msg-comment_userType" ng-repeat="invitees in msg.message.invites">
+                    <span class="msg-comment_userType">
                       <span>{{name}}
                         {{#unless isLast}}
                         <span style="padding-right: 4px;">,</span>

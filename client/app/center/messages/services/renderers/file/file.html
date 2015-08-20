@@ -32,7 +32,7 @@
         <div>
           <!--    FILE TYPE THUMBNAIL -->
           <div class="msg-file-body__thumbnail">
-            <img class="fileicon" ng-src="assets/images/fileicon_archived.png"/>
+            <img class="fileicon" src="assets/images/fileicon_archived.png"/>
           </div>
         </div>
         {{else}}
@@ -40,18 +40,15 @@
           {{#if file.hasPreview}}
           <!--    IMAGE THUMBNAIL -->
           <div>
+            <!-- thumbnail parent -->
             <div class="image_wrapper msg-file-body__img__background jnd-text-center">
+              <!-- large thumbnail add-->
               <div class="opac-zero msg-file-body__img cursor_pointer _compile"
-                  id="{{msg.id}}-image-preview-small"
-                  image-loader="{{file.imageUrl}}" image-max-height="65" image-max-width="65" image-is-square="true">
+                  image-loader="{{file.imageUrl}}" image-max-height="65" image-max-width="65" image-is-square="true"
+                  jnd-thumbnail-scale-up>
               </div>
             </div>
           </div>
-            {{#if isIE9}}
-            <div class="ie9-image-rotator cursor_pointer">
-              <i id="fromCenterLargeThumbnail" class="fa fa-rotate-right"></i>
-            </div>
-            {{/if}}
           {{else}}
           <!--    FILE TYPE THUMBNAIL -->
           <div class="msg-file-body__thumbnail">
@@ -64,8 +61,15 @@
 
       <!--  FILE INFO -->
       <div class="msg-file-meta">
-        {{#unless isArchived}}
         <div class="msg-file-meta-up">
+          {{#if isArchived}}
+          <div class="archived-file-title">
+            <a class="msg-file-meta__title file__name _compile"
+               ui-sref="files({ userName: '{{msg.message.writer.name}}', itemId: '{{msg.message.id}}' })">
+              <span>{{translate '@common-deleted-file-title'}}</span>
+            </a>
+          </div>
+          {{else}}
           <!--  NOT ARCHIVED FILE -->
           <div>
             <!--    TITLE   -->
@@ -87,7 +91,7 @@
           <span class="file-uploaded-download">
             <a class="_fileDownload" {{{ attrs.download }}}>
               <i class="icon-download cursor_pointer file-action _compile"
-                 jnd-tooltip-trigger="다운"
+                 jnd-tooltip-trigger="{{translate '@common-download'}}"
                  data-direction="top"></i>
             </a>
           </span>
@@ -95,7 +99,7 @@
           {{/unless}}
           <!--  SHARE -->
           <i class="icon-share cursor_pointer file-action _compile _fileShare"
-             jnd-tooltip-trigger="쉐어"
+             jnd-tooltip-trigger="{{translate '@btn-share'}}"
              data-direction="top"></i>
 
           <span class="separator"></span>
@@ -103,12 +107,12 @@
           <!--  MORE  -->
           <span class="file-uploaded-more _fileMore">
             <i class="fa fa-cog cursor_pointer file-action _compile"
-               jnd-tooltip-trigger="모어"
+               jnd-tooltip-trigger="{{translate '@file-action-more'}}"
                data-direction="top"></i>
           </span>
 
         </div>
-        {{/unless}}
+        {{/if}}
       </div>
       {{#unless isArchived}}
       <!-- Star -->
@@ -122,3 +126,10 @@
 
   </div>
 </div>
+
+{{#if false}}
+<span translate>@common-download</span>
+<span translate>@btn-share</span>
+<span translate>@file-action-more</span>
+<span translate>@common-deleted-file-title</span>
+{{/if}}

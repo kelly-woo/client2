@@ -1,5 +1,5 @@
 /**
- * @fileoverview FILE renderer 서비스
+ * @fileoverview Date divider
  */
 (function() {
   'use strict';
@@ -18,7 +18,7 @@
     _init();
 
     /**
-     *
+     * 생성자
      * @private
      */
     function _init() {
@@ -27,6 +27,11 @@
       });
     }
 
+    /**
+     * index 에 해당하는 메세지를 랜더링한다.
+     * @param {number} index
+     * @returns {*}
+     */
     function render(index) {
       var msg = MessageCollection.list[index];
       return _template({

@@ -1,5 +1,5 @@
 /**
- * @fileoverview FILE renderer 서비스
+ * @fileoverview FILE Comment renderer 서비스
  */
 (function() {
   'use strict';
@@ -20,7 +20,7 @@
     _init();
 
     /**
-     *
+     * 생성자 함수
      * @private
      */
     function _init() {
@@ -32,6 +32,11 @@
       });
     }
 
+    /**
+     * index 에 해당하는 메세지를 랜더링한다.
+     * @param {number} index
+     * @returns {*}
+     */
     function render(index) {
       var msg = MessageCollection.list[index];
       var content = msg.feedback.content;
@@ -63,10 +68,17 @@
         msg: msg
       });
     }
+
+    /**
+     * image url 을 반환한다.
+     * @param {object} msg
+     * @returns {*}
+     * @private
+     */
     function _getImageUrl(msg) {
       var content = msg.feedback.content;
-      var uri = content && content.extraInfo && content.extraInfo.smallThumbnailUrl;
-      return config.server_uploaded + uri;
+      var url = content && content.extraInfo && content.extraInfo.smallThumbnailUrl;
+      return $filter('getFileUrl')(url);
     }
   }
 })();

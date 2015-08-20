@@ -17,6 +17,10 @@
 
     _init();
 
+    /**
+     * 생성자
+     * @private
+     */
     function _init() {
       _initHandlebarsHelper();
       $templateRequest(TEMPLATE_URL).then(function(template) {
@@ -24,9 +28,12 @@
       });
     }
 
+    /**
+     * Handlebars 템플릿 엔진의 helper 를 등록 한다.
+     * @private
+     */
     function _initHandlebarsHelper() {
       Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
-
         switch (operator) {
           case '==':
             return (v1 == v2) ? options.fn(this) : options.inverse(this);
@@ -53,6 +60,11 @@
       });
     }
 
+    /**
+     * index 에 해당하는 메세지를 랜더링한다.
+     * @param {number} index
+     * @returns {*}
+     */
     function render(index, type) {
       var hasId = _.isUndefined(type);
       var msg = MessageCollection.list[index];

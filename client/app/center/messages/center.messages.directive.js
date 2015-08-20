@@ -10,7 +10,7 @@
     .directive('centerMessagesDirective', centerMessagesDirective);
 
   function centerMessagesDirective($compile, CenterRenderer, CenterRendererFactory, MessageCollection, memberService,
-                                   StarAPIService, jndPubSub, RendererUtil, AnalyticsHelper) {
+                                   StarAPIService, jndPubSub, fileAPIservice) {
     return {
       restrict: 'E',
       replace: true,
@@ -51,6 +51,50 @@
         scope.$on('unStarred', _onUnStarred);
 
         scope.$on('$destroy', _onDestroy);
+
+        scope.$on('updateCenterForRelatedFile', _onFileUpdated);
+        scope.$on('centerOnFileDeleted', _onFileDeleted);
+      }
+
+      /**
+       * file 의 공유 상황이 update 되었을 때 이벤트 핸들러
+       * @param {object} angularEvent
+       * @param {object} file
+       * @private
+       */
+      function _onFileUpdated(angularEvent, file) {
+        var fileId = file.id;
+        fileAPIservice.getFileDetail(fileId)
+          .success(function() {
+            var shareEntities;
+            _.forEach(response.messageDetails, function(item) {
+              if (item.contentType === 'file') {
+                shareEntities = item.shareEntities;
+              }
+            });
+            _.forEach(MessageCollection.list, function(msg, index) {
+              if (msg.message.id === fileId) {
+                msg.message.shareEntities = shareEntities;
+                _refresh(msg.id, index);
+              }
+            });
+          });
+      }
+
+      /**
+       * file 삭제 이벤트 핸들러
+       * @param {object} angularEvent
+       * @param {object} param
+       * @private
+       */
+      function _onFileDeleted(angularEvent, param) {
+        var deletedFileId = parseInt(param.file.id, 10);
+        _.forEach(MessageCollection.list, function(msg, index) {
+          if (msg.message.id === deletedFileId) {
+            msg.message.status = 'archived';
+            _refresh(msg.id, index);
+          }
+        });
       }
 
       /**
@@ -86,6 +130,15 @@
         });
       }
 
+      /**
+       * delegation 을 사용하지 않고,
+       * 각각의 Renderer 에 설정된 이벤트 핸들러를 바인딩 한다.
+       * (현재 사용하지 않는 함수. 추후 사용 가능성 있음.)
+       * @param {object} jqTarget
+       * @param {object} renderer
+       * @private
+       * @deprecated
+       */
       function _attachRendererHandler(jqTarget, renderer) {
         if (renderer.eventHandler) {
           _.each(renderer.eventHandler, function(handler, name) {
@@ -101,12 +154,17 @@
         }
       }
 
+      /**
+       * 소멸자
+       * @private
+       */
       function _onDestroy() {
         _destroyCompiledScope(el);
         el.remove();
       }
+
       /**
-       * 공통 click 이벤트 핸들러
+       * 모든 랜더러 공통 click 이벤트 핸들러
        * @param {Event} clickEvent
        * @private
        */
@@ -127,6 +185,8 @@
 
       function _onClickFileShare(msg) {
         scope.onShareClick(msg.message);
+        //fixme: 알 수 없는 이유로 digest cycle 이 수행되지 않기 때문에 apply 를 수행함
+        scope.$apply();
       }
 
       /**
@@ -146,7 +206,9 @@
       }
 
       function _onClickUser(msg) {
-        jndPubSub.pub('onUserClick', msg.extWriter);
+        jndPubSub.pub('onUserClick', msg.extWriter.id);
+        //fixme: 알 수 없는 이유로 digest cycle 이 수행되지 않기 때문에 apply 를 수행함
+        scope.$apply();
       }
 
       /**

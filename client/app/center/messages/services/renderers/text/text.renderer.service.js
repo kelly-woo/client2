@@ -24,7 +24,7 @@
     _init();
 
     /**
-     *
+     * 생성자
      * @private
      */
     function _init() {
@@ -37,13 +37,16 @@
     }
 
 
+    /**
+     * click 이벤트 핸들러
+     * @param clickEvent
+     * @private
+     */
     function _onClick(clickEvent) {
-      var msg;
       var jqTarget = $(clickEvent.target);
       var id = jqTarget.closest('.msgs-group').attr('id');
-      if (jqTarget.hasClass('_textStar')) {
 
-      } else if (jqTarget.hasClass('_textMore')) {
+      if (jqTarget.hasClass('_textMore')) {
         _showMore(jqTarget, MessageCollection.get(id));
       }
     }

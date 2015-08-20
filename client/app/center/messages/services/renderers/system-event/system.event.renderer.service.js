@@ -1,5 +1,5 @@
 /**
- * @fileoverview FILE renderer 서비스
+ * @fileoverview System 이벤트를 랜더링한다.
  */
 (function() {
   'use strict';
@@ -18,7 +18,7 @@
     _init();
 
     /**
-     *
+     * 생성자
      * @private
      */
     function _init() {
@@ -26,6 +26,13 @@
         _template =  Handlebars.compile(template);
       });
     }
+
+    /**
+     * Event type 에 따른 rendering 시 사용할 key 값을 반환한다.
+     * @param {object} msg
+     * @returns {{}}
+     * @private
+     */
     function _getEventTypeStatus(msg) {
       var status = {};
       switch (msg.info.eventType) {
@@ -42,10 +49,22 @@
       return status;
     }
 
-    function _getPreTranslate(key, mapper) {
+    /**
+     * Translation 한 결과값을 반환한다.
+     * @param {String} key - L10N Key 값
+     * @param {Object} mapper - 변환할 Map 값
+     * @returns {*}
+     * @private
+     */
+    function _getPreTranslation(key, mapper) {
       return $filter('template')($filter('translate')(key), mapper);
     }
 
+    /**
+     * index 에 해당하는 메세지를 랜더링한다.
+     * @param {number} index
+     * @returns {*}
+     */
     function render(index) {
 
       var msg = MessageCollection.list[index];
@@ -66,10 +85,10 @@
       return _template({
         text: {
           announcement:  {
-            deleted: _getPreTranslate('@system-msg-announcement-deleted', {
+            deleted: _getPreTranslation('@system-msg-announcement-deleted', {
               msg: msg
             }),
-            created: _getPreTranslate('@system-msg-announcement-created', {
+            created: _getPreTranslation('@system-msg-announcement-created', {
               msg: msg
             })
           }
