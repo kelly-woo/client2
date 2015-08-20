@@ -108,8 +108,34 @@
   <!-- endbuild -->
 </head>
 <body active-notifier window-title-manager>
-<!--[if lt IE 9]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<!--[if lte IE 9]>
+<script>
+  var origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+
+  function getLang(navLang) {
+    var regxLang = /(ko|en|zh(?=[-_]+(tw|cn))|ja)/;
+    var langMap = {
+      'ko': 'ko',
+      'en': 'en_US',
+      'zh-tw': 'zh_TW',
+      'zh-cn': 'zh_CN',
+      'ja': 'ja'
+    };
+    var match;
+    var lang;
+
+    if (match = regxLang.exec(navLang)) {
+      lang = langMap[match[1] + (match[2] ? '-' + match[2] : '')];
+    } else {
+      // default
+      lang = langMap.en;
+    }
+
+    return lang;
+  }
+
+  location.replace(origin + '/landing/static/outdated/index.html#' + getLang(navigator.language || navigator.userLanguage));
+</script>
 <![endif]-->
 
 <div class="content-wrapper opac-in-fast">
