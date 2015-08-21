@@ -881,6 +881,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         MessageSendingCollection.clearSentMessages();
 
         if (updateInfo.messageCount) {
+          if (_isBottomReached() && _hasBrowserFocus()) {
+            _scrollToBottom();
+          }
           // 업데이트 된 메세지 처리
           _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
           MessageCollection.updateUnreadCount();
@@ -890,10 +893,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           //  marker 설정
           updateMessageMarker();
           _checkEntityMessageStatus();
-
-          if (_isBottomReached() && _hasBrowserFocus()) {
-            _scrollToBottom();
-          }
         }
       }
 
