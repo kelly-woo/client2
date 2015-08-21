@@ -49,6 +49,9 @@
                    repeat="member in selectingMembers = (availableMemberList | filter : { selected : false } | userByName: selectedUser | orderBy: ['!isStarred', 'name'])"
                    on-select="onMemberClick">
       </member-list>
+      <div class="no-result-container" ng-show="selectingMembers.length === 0">
+        <span translate>@alert-no-result</span>
+      </div>
     </div>
 
     <div class="modal-footer">

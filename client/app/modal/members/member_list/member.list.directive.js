@@ -88,9 +88,6 @@
                 scope.focusItem(0);
               }
             }
-          })
-          .on('keyup', function() {
-            scope.isNoResult = scope[scope.list] && scope[scope.list].length > 0 ? false: true;
           });
       }
 

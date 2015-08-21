@@ -35,15 +35,15 @@
             <div translate>@common-active-member</div>
           </tab-heading>
 
-          <member-list disabled="!memberListSetting.enabledMemberList.active"
+          <member-list ng-show="filteredEnableMembers.length !== 0"
+                       disabled="!memberListSetting.enabledMemberList.active"
                        selector="#team-member-filter"
                        list="filteredEnableMembers"
                        repeat="member in filteredEnableMembers = (enabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
                        on-select="onMemberClick">
           </member-list>
-
-          <div class="no-result-container" ng-if="filtered.length == 0">
-            <div translate>@alert-no-result</div>
+          <div class="no-result-container" ng-show="filteredEnableMembers.length === 0">
+            <span translate>@alert-no-result</span>
           </div>
         </tab>  <!-- END OF ENABLED MEMBER LIST -->
 
@@ -53,14 +53,14 @@
             <span translate>@common-inactive-member</span>
           </tab-heading>
 
-          <member-list disabled="!memberListSetting.disabledMemberList.active"
+          <member-list ng-show="filteredDisableMembers.length !== 0"
+                       disabled="!memberListSetting.disabledMemberList.active"
                        selector="#team-member-filter"
                        list="filteredDisableMembers"
                        repeat="member in filteredDisableMembers = (disabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
                        on-select="onMemberClick">
           </member-list>
-
-          <div class="no-result-container" ng-if="filtered.length == 0">
+          <div class="no-result-container" ng-show="filteredDisableMembers.length === 0">
             <span translate>@alert-no-result</span>
           </div>
         </tab>  <!-- END OF DISABLED MEMBER LIST  -->
