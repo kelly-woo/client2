@@ -36,7 +36,7 @@
           </tab-heading>
 
           <member-list ng-show="filteredEnableMembers.length !== 0"
-                       disabled="!memberListSetting.enabledMemberList.active"
+                       activeted="!memberListSetting.enabledMemberList.active"
                        selector="#team-member-filter"
                        list="filteredEnableMembers"
                        repeat="member in filteredEnableMembers = (enabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
@@ -54,7 +54,7 @@
           </tab-heading>
 
           <member-list ng-show="filteredDisableMembers.length !== 0"
-                       disabled="!memberListSetting.disabledMemberList.active"
+                       activeted="!memberListSetting.disabledMemberList.active"
                        selector="#team-member-filter"
                        list="filteredDisableMembers"
                        repeat="member in filteredDisableMembers = (disabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"

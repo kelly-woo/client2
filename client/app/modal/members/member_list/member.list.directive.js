@@ -72,7 +72,7 @@
             var which = event.which;
             var members = scope[list];
 
-            if (!scope.$eval(attrs.disabled)) {
+            if (!scope.$eval(attrs.activeted)) {
               if (jndKeyCode.match('UP_ARROW', which)) {
                 event.preventDefault();
                 scope.focusItem((scope.activeIndex > 0 ? scope.activeIndex : members.length) - 1);
