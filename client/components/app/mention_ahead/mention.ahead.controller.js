@@ -59,7 +59,7 @@
         });
       } else {
         // current entity change event handler에서 한번 mention list 설정
-        $scope.$on('centerUpdateChatList', _centerUpdateChatList);
+        $scope.$on('onCurrentEntityChanged', _onCurrentEntityChanged);
 
         $timeout.cancel(timerUpdateMentionAhead);
         timerUpdateMentionAhead = $timeout(function() {
@@ -77,7 +77,7 @@
      * current entity changed event handler
      * @private
      */
-    function _centerUpdateChatList() {
+    function _onCurrentEntityChanged() {
       $timeout.cancel(timerUpdateMentionAhead);
       timerUpdateMentionAhead = $timeout(function() {
         _setMentionList();
