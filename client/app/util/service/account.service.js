@@ -72,7 +72,7 @@
       if (configuration.name == 'local') {
         if (prefix == 'local') {
           //prefix = 'jihoonk';
-          prefix = 'test-team123';
+          prefix = 'tosslab';
         }
       }
 
