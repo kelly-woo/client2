@@ -67,27 +67,31 @@
        * @private
        */
       function _on() {
-        target.on('keydown', function (event) {
-          var which = event.which;
-          var members = scope[list];
+        target
+          .on('keydown', function (event) {
+            var which = event.which;
+            var members = scope[list];
 
-          if (!scope.$eval(attrs.disabled)) {
-            if (jndKeyCode.match('UP_ARROW', which)) {
-              event.preventDefault();
-              scope.focusItem((scope.activeIndex > 0 ? scope.activeIndex : members.length) - 1);
-              scope.$digest();
-            } else if (jndKeyCode.match('DOWN_ARROW', which)) {
-              event.preventDefault();
-              scope.focusItem((scope.activeIndex + 1) % members.length);
-              scope.$digest();
-            } else if (jndKeyCode.match('ENTER', which)) {
-              scope.select(scope.activeIndex);
-              target.val('').focus();
-            } else {
-              scope.focusItem(0);
+            if (!scope.$eval(attrs.disabled)) {
+              if (jndKeyCode.match('UP_ARROW', which)) {
+                event.preventDefault();
+                scope.focusItem((scope.activeIndex > 0 ? scope.activeIndex : members.length) - 1);
+                scope.$digest();
+              } else if (jndKeyCode.match('DOWN_ARROW', which)) {
+                event.preventDefault();
+                scope.focusItem((scope.activeIndex + 1) % members.length);
+                scope.$digest();
+              } else if (jndKeyCode.match('ENTER', which)) {
+                scope.select(scope.activeIndex);
+                target.val('').focus();
+              } else {
+                scope.focusItem(0);
+              }
             }
-          }
-        });
+          })
+          .on('keyup', function() {
+            scope.isNoResult = scope[scope.list] && scope[scope.list].length > 0 ? false: true;
+          });
       }
 
       /**

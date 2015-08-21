@@ -51,7 +51,6 @@
 .member-list-tab .member-list {
   max-height: 55vh;
   overflow-y: auto;
-  min-height: inherit;
 }
 
 .member-list-tab .nav-tabs > li > a:hover {
