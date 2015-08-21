@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerFileDropdownLayer', centerFileDropdownLayer);
 
-  function centerFileDropdownLayer($timeout, $filter) {
+  function centerFileDropdownLayer($timeout, $filter, memberService) {
     return {
       restrict: 'E',
       controller: 'CenterFileDropdownLayerCtrl',
@@ -67,6 +67,8 @@
         scope.msg = data.msg;
         scope.isIntegrateFile = data.isIntegrateFile;
         scope.isShown = true;
+
+        scope.isAdmin = memberService.isAdmin();
 
         scope.hasProtocol = _regxHTTP.test(fileUrl);
         fileUrl = $filter('getFileUrl')(fileUrl);

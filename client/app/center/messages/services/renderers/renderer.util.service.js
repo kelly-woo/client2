@@ -48,9 +48,9 @@
      * more (...) 버튼의 존재 여부를 반환한다.
      * @param {object} msg
      * @returns {boolean|*}
-     */
+    */
     function hasMore(msg) {
-      return isSticker(msg) || isMyMessage(msg);
+      return isSticker(msg) || isMyMessage(msg) || memberService.isAdmin();
     }
 
     /**

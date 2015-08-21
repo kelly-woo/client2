@@ -1,11 +1,11 @@
 <div class="file-card">
   <div class="file-card-header">
     <div class="file-image">
-      <div class="image_wrapper pull-left msg-file-body__img__background" ng-if="file.hasPreview">
+      <div class="image_wrapper pull-left msg-file-body__img__background" ng-if="::file.hasPreview">
         <div class="opac-zero cursor-pointer msg-file-body__img" image-loader="{{::file.imageUrl}}" image-max-height="63" image-max-width="63" image-is-square="true"
              ui-sref="files({userName: writerName, itemId: file.id})"></div>
       </div>
-      <div class="icon-wrapper pull-left" ng-if="!file.hasPreview">
+      <div class="icon-wrapper pull-left" ng-if="::!file.hasPreview">
         <div class="fileicon fileicon-{{::file.icon}}"></div>
       </div>
     </div>
@@ -14,7 +14,7 @@
     <div class="file-meta">
       <div class="file-title">
         <div class="file-writer">
-          <span ng-class="{'right-panel-disabled-member': isDisabledMember()}">{{::writerName}}</span>
+          <span ng-class="::{'right-panel-disabled-member': isDisabledMember()}">{{::writerName}}</span>
         </div>
         <div class="file-info">
           <span class="file-date">{{::createDate}}</span>
@@ -28,7 +28,7 @@
     <div class="file-extend">
       <div class="file-star" ng-class="{'show': isStarred}"
             tooltip="{{::'@common-star' | translate}}" tooltip-placement="left">
-        <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{ file.id }}"></i>
+        <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{file.id}}"></i>
       </div>
       <!--    DROPDOWN MENU   -->
       <div class="file-menu" dropdown is-open="status.isopen" ng-show="file.type === 'file'">
@@ -47,9 +47,9 @@
             </a>
           </li>
           <li class="cursor_pointer">
-            <a class="download-file" download-file download-tracker="{{track(file)}}" file-url="{{file.contentFileUrl}}" file-title="{{file.contentTitle}}">
+            <a class="download-file" download-file download-tracker="{{track(file)}}" file-url="{{::file.contentFileUrl}}" file-title="{{::file.contentTitle}}">
               <i class="icon-download"></i>
-              <span>{{ (isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
+              <span>{{::(isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
             </a>
           </li>
           <li class="cursor_pointer">
@@ -58,7 +58,7 @@
               <span><span ng-if="isStarred" translate>@star-un</span><span ng-if="!isStarred" translate>@star</span></span>
             </a>
           </li>
-          <li class="cursor_pointer" ng-if="file | isFileWriter:writer">
+          <li class="cursor_pointer" ng-if="::(isFileOwner || isAdmin)">
             <a class="delete-file">
               <i class="fa fa-trash"></i>
               <span translate>@message-delete</span>

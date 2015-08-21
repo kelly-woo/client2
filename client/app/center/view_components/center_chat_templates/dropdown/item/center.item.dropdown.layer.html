@@ -19,7 +19,7 @@
     </a>
   </li>
   <li role="presentation" tabindex="-1"
-      ng-if="isMyMessage"
+      ng-if="::(isMyMessage || isAdmin)"
       ng-click="deleteMessage()">
     <a role="menuitem" tabindex="-1">
       <i class="fa fa-trash msg-item-action-icon"></i>

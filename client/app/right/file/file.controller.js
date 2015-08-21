@@ -33,6 +33,9 @@
       $scope.isDisabledMember = isDisabledMember;
       $scope.onFileDeleteClick = onFileDeleteClick;
       $scope.setCommentFocus = setCommentFocus;
+
+      $scope.isFileOwner = $filter('isFileWriter')(file);
+      $scope.isAdmin = memberService.isAdmin();
     }
 
     /**

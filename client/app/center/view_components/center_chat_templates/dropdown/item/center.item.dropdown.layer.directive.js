@@ -9,7 +9,7 @@
     .module('jandiApp')
     .directive('centerItemDropdownLayer', centerTextDropdownLayer);
 
-  function centerTextDropdownLayer($timeout) {
+  function centerTextDropdownLayer($timeout, memberService) {
     return {
       restrict: 'E',
       controller: 'CenterItemDropdownLayerCtrl',
@@ -68,6 +68,9 @@
         scope.showAnnouncement = data.showAnnouncement;
         scope.hasStar = _.isBoolean(data.hasStar) ? data.hasStar : data.msg.message.contentType !== 'sticker';
         scope.isShown = true;
+
+        scope.isAdmin = memberService.isAdmin();
+
         /*
         fixme: 현재 파악하지 못한 이유로 인해 1회의 timeout 으로는 우선순위가 뒤로 밀려, rendering 시점을 알 수 없음.
         따라서 현 시점에서는 비 정상적으로 2회의 timeout 을 사용함.
