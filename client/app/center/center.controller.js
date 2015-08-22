@@ -12,6 +12,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Announcement, TopicMessageCache, NotificationManager) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
+  var _scrollHeightBefore;
   var _updateRetryCnt = 0;
   var _isDestroyed = false;
   var _hasUpdate = false;
@@ -468,6 +469,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function loadOldMessages() {
     if (_hasMoreOldMessageToLoad() && NetInterceptor.isConnected()){
+      var container = document.getElementById('msgs-container');
+      _scrollHeightBefore = container.scrollHeight;
       MessageQuery.set({
         type: 'old',
         linkId: MessageCollection.getFirstLinkId()
@@ -685,10 +688,19 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else if (_isLoadingNewMessages()) {
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
     } else if (_isLoadingOldMessages()) {
-      _disableScroll();
-      _findMessageDomElementById(loadedFirstMessageId);
+      _onLoadingOldMessages();
+      //_disableScroll();
+      //_findMessageDomElementById(loadedFirstMessageId);
     }
     MessageQuery.reset();
+  }
+
+  function _onLoadingOldMessages() {
+    var container = document.getElementById('msgs-container');
+    if (_scrollHeightBefore) {
+      var scrollTop = container.scrollTop;
+      container.scrollTop = scrollTop + container.scrollHeight - _scrollHeightBefore;
+    }
   }
 
   function _onInitialLoad() {

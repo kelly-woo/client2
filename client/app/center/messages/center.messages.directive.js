@@ -427,7 +427,9 @@
         });
         _destroyCompiledScope(el);
         el.empty().html(_getCompiledEl(htmlList.join('')));
-        scope.onRepeatDone();
+        if (list.length) {
+          scope.onRepeatDone();
+        }
         //$compile(el.contents())(scope);
       }
 
