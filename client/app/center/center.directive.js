@@ -160,7 +160,7 @@
         var scrollDiff;
 
         scrollTop = raw.scrollTop;
-        scrollDiff =  raw.scrollHeight - (raw.scrollTop + messageContainer.outerHeight());
+        scrollDiff =  raw.scrollHeight - (scrollTop + messageContainer.outerHeight());
         if (scrollDiff === 0) {
           // Bottom reached!
           scope.clearNewMessageAlerts();
@@ -173,7 +173,6 @@
           // Scrolled upward over 200.
           scope.hasScrollToBottom = true;
         }
-        console.log('hasScrollToBottom', scope.hasScrollToBottom);
         //console.log(scope.hasScrollToBottom);
         // If scrolling down, Don't worry about loading more of content.
         //if (scrollTop > position) return;
@@ -181,7 +180,7 @@
         //position = scrollTop;
         //console.log('raw.scrollTop', raw.scrollTop);
 
-        if (raw.scrollTop <= 2000 && scope.isInitialLoadingCompleted) {
+        if (scrollTop <= 2000 && scope.isInitialLoadingCompleted) {
           scope.loadOldMessages();
         }
       });
