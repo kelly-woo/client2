@@ -10,7 +10,6 @@
 
   /* @ngInject */
   function DateRenderer($templateRequest, $filter, MessageCollection) {
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/date/date.mustache.html';
     var _template = '';
 
     this.render = render;
@@ -22,9 +21,7 @@
      * @private
      */
     function _init() {
-      $templateRequest(TEMPLATE_URL).then(function(template) {
-        _template =  Handlebars.compile(template);
-      });
+      _template = Handlebars.templates['center.date'];
     }
 
     /**

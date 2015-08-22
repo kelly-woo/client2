@@ -107,6 +107,10 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
+      handlebars: {
+        files: ['<%= yeoman.client %>/{app,components}/**/*.hbs'],
+        tasks: ['handlebars:compile']
+      },
       express: {
         files: [
           'server/**/*.{js,json}'
@@ -115,6 +119,23 @@ module.exports = function (grunt) {
         options: {
           livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
+        }
+      }
+    },
+    handlebars: {
+      compile: {
+        options: {
+          // configure a namespace for your templates
+          namespace: 'Handlebars.templates',
+          // convert file path into a function name
+          // in this example, I convert grab just the filename without the extension
+          processName: function(filePath) {
+            var pieces = filePath.split('/');
+            return pieces[pieces.length - 1].replace('.hbs', '');
+          }
+        },
+        files: {
+          '<%= yeoman.client %>/assets/javascripts/handlebars.templates.js': '<%= yeoman.client %>/{app,components}/**/*.hbs'
         }
       }
     },
@@ -363,7 +384,7 @@ module.exports = function (grunt) {
       },
       tmp: {
         cwd: '.tmp',
-        src: [
+        src: [!
           '{app,components}/**/*.html',
           '!{app,components}/**/*.mustache.html'
         ],
@@ -715,6 +736,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
+        'handlebars',
         'injector',
         'wiredep',
         'autoprefixer',
@@ -725,6 +747,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'concurrent:server',
+        'handlebars',
         'injector',
         'wiredep',
         'autoprefixer',
@@ -806,9 +829,11 @@ module.exports = function (grunt) {
         'clean:dist',
         'concurrent:dist',
         'injector',
+        'handlebars',
         'wiredep',
         'useminPrepare',
         'autoprefixer',
+        'handlebars',
         'ngtemplates',
         'concat',
         'ngAnnotate',
@@ -828,6 +853,7 @@ module.exports = function (grunt) {
       'clean:dist',
       'concurrent:dist',
       'injector',
+      'handlebars',
       'wiredep',
       'useminPrepare',
       'autoprefixer',

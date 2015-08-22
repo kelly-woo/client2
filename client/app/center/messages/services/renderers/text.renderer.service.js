@@ -30,16 +30,9 @@
      * @private
      */
     function _init() {
-      $templateRequest(TEMPLATE_URL_CHILD).then(function(template) {
-        _templateChild =  Handlebars.compile(template);
-      });
-      $templateRequest(TEMPLATE_URL).then(function(template) {
-        _template =  Handlebars.compile(template);
-      });
-      $templateRequest(TEMPLATE_URL_LINKPREVIEW).then(function(template) {
-        _templateLinkPreview =  Handlebars.compile(template);
-      });
-
+      _templateChild = Handlebars.templates['center.text.child'];
+      _template = Handlebars.templates['center.text'];
+      _templateLinkPreview = Handlebars.templates['center.text.link.preview'];
     }
 
 

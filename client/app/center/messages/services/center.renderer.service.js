@@ -10,7 +10,6 @@
 
   /* @ngInject */
   function CenterRenderer($templateRequest, $filter, MessageCollection, CenterRendererFactory) {
-    var TEMPLATE_URL = 'app/center/messages/services/center.html';
     var _template = '';
 
     this.render = render;
@@ -23,9 +22,7 @@
      */
     function _init() {
       _initHandlebarsHelper();
-      $templateRequest(TEMPLATE_URL).then(function(template) {
-        _template =  Handlebars.compile(template);
-      });
+      _template = Handlebars.templates['center.main'];
     }
 
     /**
