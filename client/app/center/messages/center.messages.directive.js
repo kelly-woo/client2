@@ -360,7 +360,6 @@
         var newScope;
         jqDummy.html(htmlStr);
         _.forEach(jqDummy.find('._compile'), function(targetEl) {
-          $(targetEl).data('scope', _listScope);
           $compile(targetEl)(_listScope);
         });
         return jqDummy.contents();
