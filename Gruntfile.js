@@ -10,7 +10,6 @@ module.exports = function (grunt) {
 
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
-    handlebars: 'grunt-contrib-handlebars',
     express: 'grunt-express-server',
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
@@ -828,7 +827,6 @@ module.exports = function (grunt) {
         'useminPrepare',
         'autoprefixer',
         'ngtemplates',
-        'handlebars',
         'concat',
         'ngAnnotate',
         'copy:dist',
@@ -851,7 +849,6 @@ module.exports = function (grunt) {
       'useminPrepare',
       'autoprefixer',
       'ngtemplates',
-      'handlebars',
       'concat',
       'ngAnnotate',
       'copy:dist',
