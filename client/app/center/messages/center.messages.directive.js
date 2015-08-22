@@ -54,6 +54,8 @@
 
         scope.$on('updateCenterForRelatedFile', _onFileUpdated);
         scope.$on('centerOnFileDeleted', _onFileDeleted);
+
+        scope.$on('toggleLinkPreview', _onAttachMessagePreview);
       }
 
       /**
@@ -427,6 +429,15 @@
         el.empty().html(_getCompiledEl(htmlList.join('')));
         scope.onRepeatDone();
         //$compile(el.contents())(scope);
+      }
+
+      function _onAttachMessagePreview(angularEvent, messageId) {
+        console.log('_onAttachMessagePreview', messageId);
+        MessageCollection.forEach(function(msg, index) {
+          if (messageId === (msg.message && msg.message.id)) {
+            _refresh(msg.id, index);
+          }
+        });
       }
     }
   }

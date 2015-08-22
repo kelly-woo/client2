@@ -91,7 +91,7 @@
     /**
      * for each
      * @param {function} iteratee
-     * @param {object} context
+     * @param {object} [context]
      */
     function forEach(iteratee, context) {
       _.forEach(that.list, iteratee, context);

@@ -1605,12 +1605,13 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         var message = MessageCollection.getByMessageId(messageId, true);
 
         if (message) {
+          console.log('hasMessage', message);
           message.message.linkPreview = linkPreview;
           if (centerService.isMessageFromMe(message) && _isBottomReached()) {
             _scrollToBottom();
           }
         }
-
+        console.log(MessageCollection.list[MessageCollection.list.length - 1]);
         jndPubSub.pub('toggleLinkPreview', data.message.id);
 
       })

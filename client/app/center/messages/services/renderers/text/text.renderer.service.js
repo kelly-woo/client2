@@ -12,9 +12,11 @@
   function TextRenderer($templateRequest, MessageCollection, currentSessionHelper, jndPubSub, RendererUtil) {
     var TEMPLATE_URL = 'app/center/messages/services/renderers/text/text.html';
     var TEMPLATE_URL_CHILD = 'app/center/messages/services/renderers/text/text.child.html';
+    var TEMPLATE_URL_LINKPREVIEW = 'app/center/messages/services/renderers/text/text.link.preview.html';
 
     var _template;
     var _templateChild;
+    var _templateLinkPreview;
 
     this.render = render;
     this.delegateHandler = {
@@ -34,6 +36,10 @@
       $templateRequest(TEMPLATE_URL).then(function(template) {
         _template =  Handlebars.compile(template);
       });
+      $templateRequest(TEMPLATE_URL_LINKPREVIEW).then(function(template) {
+        _templateLinkPreview =  Handlebars.compile(template);
+      });
+
     }
 
 
@@ -66,9 +72,15 @@
     function render(index) {
       var msg = MessageCollection.list[index];
       var isChild = MessageCollection.isChildText(index);
+      var hasLinkPreview = MessageCollection.hasLinkPreview(index);
+      var linkPreview = hasLinkPreview ? _templateLinkPreview({msg: msg}) : '';
       var template = isChild ? _templateChild : _template;
 
+      //console.log('hasLinkPreview', hasLinkPreview, msg);
       return template({
+        html: {
+          linkPreview: linkPreview
+        },
         css: {
           star: RendererUtil.getStarCssClass(msg)
         },
