@@ -107,6 +107,10 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
+      handlebars: {
+        files: ['<%= yeoman.client %>/{app,components}/**/*.hbs'],
+        tasks: ['handlebars:compile']
+      },
       express: {
         files: [
           'server/**/*.{js,json}'
