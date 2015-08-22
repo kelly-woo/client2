@@ -19,7 +19,7 @@
 
     function link(scope, el, attrs) {
       var _teamId;
-
+      var _listScope = scope.$new();
       _init();
 
       /**
@@ -346,13 +346,11 @@
         if (jqTarget.length) {
           //Date 를 갱신하기 위해 기존 date 를 제거한다.
           if (jqPrev.attr('content-type') === 'date') {
-            _destroyCompiledScope(jqPrev);
             jqPrev.remove();
           }
           if (!_isDateRendered(id, index)) {
             jqTarget.before(_getCompiledEl(CenterRenderer.render(index, 'date')));
           }
-          _destroyCompiledScope(jqTarget);
           jqTarget.replaceWith(_getCompiledEl(CenterRenderer.render(index)));
         }
       }
@@ -362,22 +360,14 @@
         var newScope;
         jqDummy.html(htmlStr);
         _.forEach(jqDummy.find('._compile'), function(targetEl) {
-          newScope = scope.$new();
-          $(targetEl).data('scope', newScope);
-          $compile(targetEl)(newScope);
+          $(targetEl).data('scope', _listScope);
+          $compile(targetEl)(_listScope);
         });
         return jqDummy.contents();
       }
 
-      function _destroyCompiledScope(jqTarget) {
-        var jqCompiledList = jqTarget.find('._compile');
-        var targetScope;
-        _.forEach(jqCompiledList, function(targetEl) {
-          targetScope = $(targetEl).data('scope');
-          if (targetScope) {
-            targetScope.$destroy();
-          }
-        });
+      function _destroyCompiledScope() {
+        _listScope.$destroy();
       }
 
       /**
@@ -394,10 +384,8 @@
         //Date 를 갱신하기 위해 기존 date 를 제거한다.
         if (jqTarget.length) {
           if (jqPrev.attr('content-type') === 'date') {
-            _destroyCompiledScope(jqPrev);
             jqPrev.remove();
           }
-          _destroyCompiledScope(jqTarget);
           jqTarget.remove();
         }
       }
@@ -425,7 +413,7 @@
           }
           htmlList.push(CenterRenderer.renderMsg(index));
         });
-        _destroyCompiledScope(el);
+        _destroyCompiledScope();
         el.empty().html(_getCompiledEl(htmlList.join('')));
         if (list.length) {
           scope.onRepeatDone();
