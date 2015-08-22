@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function DateRenderer($templateRequest, $filter, MessageCollection) {
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/date/date.html';
+    var TEMPLATE_URL = 'app/center/messages/services/renderers/date/date.mustache.html';
     var _template = '';
 
     this.render = render;

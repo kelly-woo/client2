@@ -10,9 +10,9 @@
 
   /* @ngInject */
   function TextRenderer($templateRequest, MessageCollection, currentSessionHelper, jndPubSub, RendererUtil) {
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/text/text.html';
-    var TEMPLATE_URL_CHILD = 'app/center/messages/services/renderers/text/text.child.html';
-    var TEMPLATE_URL_LINKPREVIEW = 'app/center/messages/services/renderers/text/text.link.preview.html';
+    var TEMPLATE_URL = 'app/center/messages/services/renderers/text/text.mustache.html';
+    var TEMPLATE_URL_CHILD = 'app/center/messages/services/renderers/text/text.child.mustache.html';
+    var TEMPLATE_URL_LINKPREVIEW = 'app/center/messages/services/renderers/text/text.link.preview.mustache.html';
 
     var _template;
     var _templateChild;

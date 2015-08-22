@@ -11,7 +11,7 @@
   /* @ngInject */
   function FileRenderer($templateRequest, $filter, modalHelper, MessageCollection, FileUploaded, memberService, centerService,
                         RendererUtil, fileAPIservice, jndPubSub, configuration, AnalyticsHelper, currentSessionHelper) {
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/file/file.html';
+    var TEMPLATE_URL = 'app/center/messages/services/renderers/file/file.mustache.html';
     var _template = '';
     var _regxHTTP = /^[http|https]/i;
 

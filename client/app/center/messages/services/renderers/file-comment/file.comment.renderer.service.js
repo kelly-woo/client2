@@ -10,8 +10,8 @@
 
   /* @ngInject */
   function FileCommentRenderer($templateRequest, $filter, config, MessageCollection, RendererUtil) {
-    var TEMPLATE_URL_TITLE = 'app/center/messages/services/renderers/file-comment/file.comment.title.html';
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/file-comment/file.comment.html';
+    var TEMPLATE_URL_TITLE = 'app/center/messages/services/renderers/file-comment/file.comment.title.mustache.html';
+    var TEMPLATE_URL = 'app/center/messages/services/renderers/file-comment/file.comment.mustache.html';
     var _templateTitle = '';
     var _template = '';
 

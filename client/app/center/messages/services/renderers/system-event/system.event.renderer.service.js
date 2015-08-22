@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function SystemEventRenderer($templateRequest, $filter, MessageCollection, language) {
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/system-event/system.event.html';
+    var TEMPLATE_URL = 'app/center/messages/services/renderers/system-event/system.event.mustache.html';
     var _template = '';
 
     this.render = render;
