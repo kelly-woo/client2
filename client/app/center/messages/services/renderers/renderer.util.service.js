@@ -50,7 +50,7 @@
      * @returns {boolean|*}
      */
     function hasMore(msg) {
-      return isSticker(msg) || isMyMessage(msg);
+      return !isSticker(msg) || isMyMessage(msg);
     }
 
     /**
