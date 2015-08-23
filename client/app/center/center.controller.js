@@ -218,7 +218,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('centerOnFileCommentDeleted', onCenterOnFileCommentDeleted);
     $scope.$on('attachMessagePreview', _onAttachMessagePreview);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
-    $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
 
     $scope.$on('onStageLoadedToCenter', function() {
       $('#file-detail-comment-input').focus();
@@ -226,24 +225,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.$on('showUserFileList', function(event, param) {
       onFileListClick(param);
-    });
-  }
-
-  /**
-   * updateMemberProfile 이벤트 발생시 이벤트 핸들러
-   * @param {object} event
-   * @param {{event: object, member: object}} data
-   * @private
-   */
-  function _onUpdateMemberProfile(event, data) {
-    var list = $scope.messages;
-    var member = data.member;
-    var id = member.id;
-
-    _.forEach(list, function(msg) {
-      if (msg.extFromEntityId === id) {
-        MessageCollection.manipulateMessage(msg);
-      }
     });
   }
 
@@ -1622,13 +1603,11 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         var message = MessageCollection.getByMessageId(messageId, true);
 
         if (message) {
-          console.log('hasMessage', message);
           message.message.linkPreview = linkPreview;
           if (centerService.isMessageFromMe(message) && _isBottomReached()) {
             _scrollToBottom();
           }
         }
-        console.log(MessageCollection.list[MessageCollection.list.length - 1]);
         jndPubSub.pub('toggleLinkPreview', data.message.id);
 
       })
@@ -1644,7 +1623,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function isLastReadMarker(linkId) {
     linkId = parseInt(linkId, 10);
-    console.log(linkId, _lastReadMessageMarker, shouldDisplayUnreadMarker(linkId));
     return linkId === _lastReadMessageMarker && shouldDisplayUnreadMarker(linkId);
   }
 

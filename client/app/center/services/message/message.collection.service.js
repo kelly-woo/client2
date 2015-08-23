@@ -363,7 +363,7 @@
       msg.extFromEntityId = fromEntityId;
       msg.extWriter = writer;
       msg.extWriterName = $filter('getName')(writer);
-      msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
+      msg.exProfileImg = $filter('getSmallThumbnail')(writer);
       msg.extTime = $filter('gethmmaFormat')(msg.time);
     }
 

@@ -68,8 +68,6 @@
       var hasLinkPreview = MessageCollection.hasLinkPreview(index);
       var linkPreview = hasLinkPreview ? _templateLinkPreview({msg: msg}) : '';
       var template = isChild ? _templateChild : _template;
-
-      //console.log('hasLinkPreview', hasLinkPreview, msg);
       return template({
         html: {
           linkPreview: linkPreview

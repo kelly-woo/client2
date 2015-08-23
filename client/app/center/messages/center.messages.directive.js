@@ -56,6 +56,7 @@
         scope.$on('centerOnFileDeleted', _onFileDeleted);
 
         scope.$on('toggleLinkPreview', _onAttachMessagePreview);
+        scope.$on('updateMemberProfile', _onUpdateMemberProfile);
       }
 
       /**
@@ -106,6 +107,27 @@
       function _attachDomEvents() {
         _attachDelegateDomHandlers();
         el.on('click', _onClick);
+      }
+
+      /**
+       * updateMemberProfile 이벤트 발생시 이벤트 핸들러
+       * @param {object} event
+       * @param {{event: object, member: object}} data
+       * @private
+       */
+      function _onUpdateMemberProfile(event, data) {
+        console.log(data);
+        var list = MessageCollection.list;
+        var member = data.member;
+        var id = member.id;
+
+        _.forEach(list, function(msg, index) {
+          if (msg.extFromEntityId === id) {
+            console.log(msg);
+            MessageCollection.manipulateMessage(msg);
+            _refresh(msg.id, index);
+          }
+        });
       }
 
       /**
