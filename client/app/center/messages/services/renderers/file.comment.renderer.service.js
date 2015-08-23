@@ -9,7 +9,7 @@
     .service('FileCommentRenderer', FileCommentRenderer);
 
   /* @ngInject */
-  function FileCommentRenderer($templateRequest, $filter, config, MessageCollection, RendererUtil) {
+  function FileCommentRenderer($filter, MessageCollection, RendererUtil) {
     var _templateTitle = '';
     var _template = '';
 

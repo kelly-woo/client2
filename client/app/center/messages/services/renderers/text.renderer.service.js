@@ -9,11 +9,7 @@
     .service('TextRenderer', TextRenderer);
 
   /* @ngInject */
-  function TextRenderer($templateRequest, MessageCollection, currentSessionHelper, jndPubSub, RendererUtil) {
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/text/text.mustache.html';
-    var TEMPLATE_URL_CHILD = 'app/center/messages/services/renderers/text/text.child.mustache.html';
-    var TEMPLATE_URL_LINKPREVIEW = 'app/center/messages/services/renderers/text/text.link.preview.mustache.html';
-
+  function TextRenderer(MessageCollection, currentSessionHelper, jndPubSub, RendererUtil) {
     var _template;
     var _templateChild;
     var _templateLinkPreview;
@@ -46,11 +42,17 @@
       var id = jqTarget.closest('.msgs-group').attr('id');
 
       if (jqTarget.hasClass('_textMore')) {
-        _showMore(jqTarget, MessageCollection.get(id));
+        _showMoreDropdown(jqTarget, MessageCollection.get(id));
       }
     }
 
-    function _showMore(jqTarget, msg) {
+    /**
+     * '더보기' dropdown 을 노출한다.
+     * @param {object} jqTarget
+     * @param {object} msg
+     * @private
+     */
+    function _showMoreDropdown(jqTarget, msg) {
       var entityType = currentSessionHelper.getCurrentEntityType();
       var showAnnouncement = (!RendererUtil.isSticker(msg) && entityType !== 'users');
       jndPubSub.pub('show:center-item-dropdown', {
@@ -62,6 +64,11 @@
       });
     }
 
+    /**
+     * index 에 해당하는 메세지를 rendering 한다.
+     * @param {number} index
+     * @returns {*}
+     */
     function render(index) {
       var msg = MessageCollection.list[index];
       var isChild = MessageCollection.isChildText(index);

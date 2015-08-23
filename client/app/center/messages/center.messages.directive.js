@@ -298,7 +298,7 @@
       function _isDateRendered(id, index) {
         var jqTarget = $('#' + id);
         if (jqTarget.length) {
-          if (MessageCollection.isNewDate(index) && jqTarget.prev().attr('content-type') !== 'date') {
+          if (MessageCollection.isNewDate(index) && jqTarget.prev().attr('content-type') !== 'dateDivider') {
             return false;
           }
         }
@@ -340,7 +340,7 @@
        */
       function _pushMarkup(htmlList, message, index) {
         if (MessageCollection.isNewDate(index)) {
-          htmlList.push(CenterRenderer.render(index, 'date'));
+          htmlList.push(CenterRenderer.render(index, 'dateDivider'));
         }
         htmlList.push(CenterRenderer.render(index));
 
@@ -381,11 +381,11 @@
 
         if (jqTarget.length) {
           //Date 를 갱신하기 위해 기존 date 를 제거한다.
-          if (jqPrev.attr('content-type') === 'date') {
+          if (jqPrev.attr('content-type') === 'dateDivider') {
             jqPrev.remove();
           }
           if (!_isDateRendered(id, index)) {
-            jqTarget.before(_getCompiledEl(CenterRenderer.render(index, 'date')));
+            jqTarget.before(_getCompiledEl(CenterRenderer.render(index, 'dateDivider')));
           }
           jqTarget.replaceWith(_getCompiledEl(CenterRenderer.render(index)));
         }
@@ -417,7 +417,7 @@
 
         //Date 를 갱신하기 위해 기존 date 를 제거한다.
         if (jqTarget.length) {
-          if (jqPrev.attr('content-type') === 'date') {
+          if (jqPrev.attr('content-type') === 'dateDivider') {
             jqPrev.remove();
           }
           jqTarget.remove();

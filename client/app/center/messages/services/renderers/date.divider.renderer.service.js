@@ -6,10 +6,10 @@
 
   angular
     .module('jandiApp')
-    .service('DateRenderer', DateRenderer);
+    .service('DateDividerRenderer', DateDividerRenderer);
 
   /* @ngInject */
-  function DateRenderer($templateRequest, $filter, MessageCollection) {
+  function DateDividerRenderer(MessageCollection) {
     var _template = '';
 
     this.render = render;
@@ -21,7 +21,7 @@
      * @private
      */
     function _init() {
-      _template = Handlebars.templates['center.date'];
+      _template = Handlebars.templates['center.date.divider'];
     }
 
     /**

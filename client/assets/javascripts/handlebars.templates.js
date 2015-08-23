@@ -1,7 +1,7 @@
 this["Handlebars"] = this["Handlebars"] || {};
 this["Handlebars"]["templates"] = this["Handlebars"]["templates"] || {};
 
-this["Handlebars"]["templates"]["center.date"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+this["Handlebars"]["templates"]["center.date.divider"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var helper;
 
   return "<div class=\"msgs-group__divider\">\n  "

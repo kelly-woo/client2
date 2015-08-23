@@ -10,13 +10,13 @@
 
   /* @ngInject */
   function CenterRendererFactory($injector, FileRenderer, TextRenderer, FileCommentRenderer, SystemEventRenderer,
-                                 DateRenderer, UnreadBookmarkRenderer) {
+                                 DateDividerRenderer, UnreadBookmarkRenderer) {
     var _renderers = [
       'FileRenderer',
       'TextRenderer',
       'FileCommentRenderer',
       'SystemEventRenderer',
-      'DateRenderer',
+      'DateDividerRenderer',
       'UnreadBookmarkRenderer'
     ];
 
@@ -71,8 +71,8 @@
         case 'systemEvent':
           renderer = SystemEventRenderer;
           break;
-        case 'date':
-          renderer = DateRenderer;
+        case 'dateDivider':
+          renderer = DateDividerRenderer;
           break;
         case 'unreadBookmark':
           renderer = UnreadBookmarkRenderer;

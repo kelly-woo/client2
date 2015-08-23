@@ -9,7 +9,7 @@
     .service('CenterRenderer', CenterRenderer);
 
   /* @ngInject */
-  function CenterRenderer($templateRequest, $filter, MessageCollection, CenterRendererFactory) {
+  function CenterRenderer($filter, MessageCollection, CenterRendererFactory) {
     var _template = '';
 
     this.render = render;
