@@ -704,18 +704,23 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function _onInitialLoad() {
-    //console.log(_testCounter++, '::_onInitialLoad')
-
-    if (_shouldDisplayBookmarkFlag) {
-      //console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
-      $timeout(function() {
-      //bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
+    if ($('#unread-bookmark').length) {
       _findMessageDomElementById('unread-bookmark', true);
-      });
     } else {
-      //console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
       _scrollToBottom();
     }
+    //console.log(_testCounter++, '::_onInitialLoad')
+    //
+    //if (_shouldDisplayBookmarkFlag) {
+    //  //console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
+    //  $timeout(function() {
+    //  //bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
+    //  _findMessageDomElementById('unread-bookmark', true);
+    //  });
+    //} else {
+    //  //console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
+    //  _scrollToBottom();
+    //}
 
     _isFromCache = false;
 
@@ -1639,6 +1644,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function isLastReadMarker(linkId) {
     linkId = parseInt(linkId, 10);
+    console.log(linkId, _lastReadMessageMarker, shouldDisplayUnreadMarker(linkId));
     return linkId === _lastReadMessageMarker && shouldDisplayUnreadMarker(linkId);
   }
 
@@ -1650,7 +1656,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @returns {boolean}
    */
   function shouldDisplayUnreadMarker(linkId) {
-    return linkId !== MessageCollection.getLastLinkId() && _shouldDisplayBookmarkFlag;
+    return linkId !== MessageCollection.getLastLinkId();
+    //return linkId !== MessageCollection.getLastLinkId() && _shouldDisplayBookmarkFlag;
   }
 
   /**

@@ -296,10 +296,7 @@
         var headMsg = MessageCollection.list[list.length];
 
         _.forEach(list, function(message, index) {
-          if (MessageCollection.isNewDate(index)) {
-            htmlList.push(CenterRenderer.render(index, 'date'));
-          }
-          htmlList.push(CenterRenderer.render(index));
+          _pushMarkup(htmlList, message, index);
         });
 
         if (headMsg) {
@@ -311,6 +308,25 @@
         console.log('!!!elapsed', end - start);
         scope.onRepeatDone();
       }
+
+      /**
+       * markup 을 생성한다.
+       * @param {Array} htmlList - 생성할 Markup array
+       * @param {Object} message
+       * @param {Number} index - 해당 message 의 index
+       * @private
+       */
+      function _pushMarkup(htmlList, message, index) {
+        if (MessageCollection.isNewDate(index)) {
+          htmlList.push(CenterRenderer.render(index, 'date'));
+        }
+        htmlList.push(CenterRenderer.render(index));
+
+        if (scope.isLastReadMarker(message.id)) {
+          htmlList.push(CenterRenderer.render(index, 'unreadBookmark'));
+        }
+      }
+
       /**
        * message append 이벤트 핸들러
        * @param {Object} angularEvent
@@ -321,11 +337,9 @@
         var length = list.length;
         var htmlList = [];
         var index = MessageCollection.list.length - length;
+
         _.forEach(list, function(message) {
-          if (MessageCollection.isNewDate(index)) {
-            htmlList.push(CenterRenderer.render(index, 'date'));
-          }
-          htmlList.push(CenterRenderer.render(index));
+          _pushMarkup(htmlList, message, index);
           index++;
         });
         el.append(_getCompiledEl(htmlList.join('')));
@@ -357,7 +371,6 @@
 
       function _getCompiledEl(htmlStr) {
         var jqDummy = $('<div></div>');
-        var newScope;
         jqDummy.html(htmlStr);
         _.forEach(jqDummy.find('._compile'), function(targetEl) {
           $compile(targetEl)(_listScope);
@@ -406,18 +419,14 @@
       function _renderAll() {
         var htmlList = [];
         var list = MessageCollection.list;
-        _.forEach(list, function(message, index) {
-          if (MessageCollection.isNewDate(index)) {
-            htmlList.push(CenterRenderer.render(index, 'date'));
-          }
-          htmlList.push(CenterRenderer.renderMsg(index));
-        });
         _destroyCompiledScope();
+        _.forEach(list, function(message, index) {
+          _pushMarkup(htmlList, message, index);
+        });
         el.empty().html(_getCompiledEl(htmlList.join('')));
         if (list.length) {
           scope.onRepeatDone();
         }
-        //$compile(el.contents())(scope);
       }
 
       function _onAttachMessagePreview(angularEvent, messageId) {
