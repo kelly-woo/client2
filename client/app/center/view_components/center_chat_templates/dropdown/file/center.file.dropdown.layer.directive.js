@@ -68,6 +68,7 @@
 
         scope.target = data.target;
         scope.msg = data.msg;
+        scope.isFileOwner = msg.message.writerId === memberService.getMemberId();
         scope.isIntegrateFile = data.isIntegrateFile;
         scope.isShown = true;
 
