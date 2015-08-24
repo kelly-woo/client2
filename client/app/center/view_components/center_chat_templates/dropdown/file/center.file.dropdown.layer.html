@@ -9,16 +9,7 @@
 
   <!--    DOWNLOAD    -->
   <li class="cursor_pointer" ng-if="!isIntegrateFile">
-    <a ng-if="hasProtocol"
-       class="cursor_pointer"
-       download-tracker="{{track(msg.message)}}"
-       href="{{downloadUrl}}"
-       target="_blank">
-      <i class="icon-download"></i>
-      <span translate>@common-download</span>
-    </a>
-    <a ng-if="!hasProtocol"
-       class="cursor_pointer"
+    <a class="cursor_pointer"
        download-tracker="{{track(msg.message)}}"
        href="{{downloadUrl}}">
       <i class="icon-download"></i>
