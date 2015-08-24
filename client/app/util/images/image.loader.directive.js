@@ -10,7 +10,7 @@
     .directive('imageLoader', imageLoader);
 
   /* @ngInject */
-  function imageLoader(ImagesHelper, Browser) {
+  function imageLoader($timeout, ImagesHelper, Browser) {
     return {
       restrict: 'A',
       link: link
@@ -45,7 +45,7 @@
             // ie9일 경우
             loadImage(attrs.imageLoader, _onImageLoad);
           } else {
-            _openRequest();
+            $timeout(_openRequest, 0);
           }
         }
       }

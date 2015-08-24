@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('centerFileDropdownLayer', centerFileDropdownLayer);
 
-  function centerFileDropdownLayer($timeout, $filter) {
+  function centerFileDropdownLayer($timeout, $filter, memberService) {
     return {
       restrict: 'E',
       controller: 'CenterFileDropdownLayerCtrl',
@@ -68,6 +68,7 @@
 
         scope.target = data.target;
         scope.msg = data.msg;
+        scope.isFileOwner = msg.message.writerId === memberService.getMemberId();
         scope.isIntegrateFile = data.isIntegrateFile;
         scope.isShown = true;
 
