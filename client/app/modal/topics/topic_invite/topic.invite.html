@@ -26,7 +26,7 @@
       <!--    LIST OF USERS WHO WILL BE INVITED WHEN BUTTON IS CLICKED    -->
       <div class="form-invite-body__selected">
         <span class="cursor_pointer"
-              ng-repeat="user in selectedMember = (availableMemberList | filter : { selected : true })"
+              ng-repeat="user in inviteUsers"
               ng-click="onRemove(user);">
           <span class="form-invite-body__selected-user btn-ok">
             {{ user | getName }} <span class="fa fa-times"></span>
@@ -43,7 +43,8 @@
                placeholder="{{'@input-search-user-name' | translate}}" />
       </div>
 
-      <member-list selector="#invite-member-filter"
+      <member-list ng-show="selectingMembers.length !== 0"
+                   selector="#invite-member-filter"
                    list="selectingMembers"
                    model="selectedUser"
                    repeat="member in selectingMembers = (availableMemberList | filter : { selected : false } | userByName: selectedUser | orderBy: ['!isStarred', 'name'])"

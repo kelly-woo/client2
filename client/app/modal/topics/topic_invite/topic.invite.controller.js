@@ -76,7 +76,6 @@
         return members.indexOf(user.id) > -1 || user.status == 'disabled';
       });
 
-
       $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
         return user.selected === false;
       });
@@ -111,7 +110,7 @@
       var inviteUsers = $scope.inviteUsers;
 
       member.selected = true;
-      inviteUsers.indexOf(member) < 0 && inviteUsers.push(member);
+      inviteUsers.indexOf(member) < 0 && inviteUsers.unshift(member);
     }
 
     /**
