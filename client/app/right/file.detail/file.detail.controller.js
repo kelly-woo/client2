@@ -575,7 +575,6 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(fileDetail.content.serverUrl);
     value = $filter('downloadFile')($scope.isIntegrateFile, fileDetail.content.name, fileDetail.content.fileUrl);
 
-    $scope.hasProtocol = value.hasProtocol;
     $scope.downloadUrl = value.downloadUrl;
     $scope.originalUrl = value.originalUrl;
   }
