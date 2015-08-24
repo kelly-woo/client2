@@ -1270,8 +1270,14 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     // While there is a default message for private/public topic.  default for public/private topic is a system event.
     var numberOfDefaultMessage = entityType === 'users' ? 0 : 1;
 
-    var systemMessageCount = MessageCollection.getSystemMessageCount();
-
+    var systemMessageCount = 0;
+    MessageCollection.forEach(function(msg) {
+      if (msg.message.contentType !== 'systemEvent') {
+        return false;
+      } else {
+        systemMessageCount++;
+      }
+    });
     if (!_hasMoreOldMessageToLoad() && (messageLength == systemMessageCount || messageLength <= numberOfDefaultMessage)) return true;
 
     return false;
