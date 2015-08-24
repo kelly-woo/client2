@@ -178,21 +178,12 @@
      */
     function _getFileDownloadAttrs(msg) {
       var fileUrl = msg.message.content.fileUrl;
-      var hasProtocol = _regxHTTP.test(fileUrl);
-
-      var downloadUrl;
-      var originalUrl;
       var attrList = [];
-      if (hasProtocol) {
-        downloadUrl = fileUrl;
-        originalUrl = fileUrl;
-        attrList.push('target="_blank"');
-      } else {
-        downloadUrl = configuration.api_address + 'download/' + fileUrl;
-        originalUrl = configuration.server_uploaded + fileUrl;
-        attrList.push('download="' + msg.message.content.title + '"');
-      }
-      attrList.push('href="' + downloadUrl + '"');
+      var urlObj = $filter('downloadFile')(_isIntegrateFile(msg), msg.message.content.title, fileUrl);
+
+      attrList.push('download="' + msg.message.content.title + '"');
+      attrList.push('href="' + urlObj.downloadUrl + '"');
+
       return attrList.join(' ');
     }
 

@@ -46,10 +46,18 @@
               <span translate>@btn-comment</span>
             </a>
           </li>
-          <li class="cursor_pointer">
-            <a class="download-file" download-file download-tracker="{{track(file)}}" file-url="{{::file.contentFileUrl}}" file-title="{{::file.contentTitle}}">
+          <li ng-if="!isIntegrateFile">
+            <a class="download-file" href="{{::downloadUrl}}"
+               ng-click="onClickDownload(file_detail);"
+               download-tracker="{{track(file)}}">
               <i class="icon-download"></i>
-              <span>{{::(isIntegrateFile ? '@msg-open-original' : '@common-download') | translate }}</span>
+              <span translate>@common-download</span>
+            </a>
+          </li>
+          <li class="cursor_pointer">
+            <a class="original-file" href="{{::originalUrl}}" target="_blank">
+              <i class="fa fa-external-link"></i>
+              <span translate>@msg-open-original</span>
             </a>
           </li>
           <li class="cursor_pointer">

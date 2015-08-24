@@ -560,11 +560,29 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       $scope.isFileOwner = $filter('isFileWriter')($scope.file_detail);
       $scope.isAdmin = memberService.isAdmin();
+
+      _setFileDownLoad($scope.file_detail);
     }
 
     if (!$scope.initialLoaded) {
       $scope.initialLoaded = true;
     }
+  }
+
+  /**
+   * file download 설정
+   * @param {object} fileDetail
+   * @private
+   */
+  function _setFileDownLoad(fileDetail) {
+    var value;
+
+    $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(fileDetail.content.serverUrl);
+    value = $filter('downloadFile')($scope.isIntegrateFile, fileDetail.content.name, fileDetail.content.fileUrl);
+
+    $scope.hasProtocol = value.hasProtocol;
+    $scope.downloadUrl = value.downloadUrl;
+    $scope.originalUrl = value.originalUrl;
   }
 
   /**
