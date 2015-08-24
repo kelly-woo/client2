@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function SystemEventRenderer($templateRequest, $filter, MessageCollection, language) {
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/system-event/system.event.html';
+
     var _template = '';
 
     this.render = render;
@@ -22,9 +22,7 @@
      * @private
      */
     function _init() {
-      $templateRequest(TEMPLATE_URL).then(function(template) {
-        _template =  Handlebars.compile(template);
-      });
+      _template = Handlebars.templates['center.system.event'];
     }
 
     /**

@@ -9,12 +9,10 @@
     .service('TextRenderer', TextRenderer);
 
   /* @ngInject */
-  function TextRenderer($templateRequest, MessageCollection, currentSessionHelper, jndPubSub, RendererUtil) {
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/text/text.html';
-    var TEMPLATE_URL_CHILD = 'app/center/messages/services/renderers/text/text.child.html';
-
+  function TextRenderer(MessageCollection, currentSessionHelper, jndPubSub, RendererUtil) {
     var _template;
     var _templateChild;
+    var _templateLinkPreview;
 
     this.render = render;
     this.delegateHandler = {
@@ -28,12 +26,9 @@
      * @private
      */
     function _init() {
-      $templateRequest(TEMPLATE_URL_CHILD).then(function(template) {
-        _templateChild =  Handlebars.compile(template);
-      });
-      $templateRequest(TEMPLATE_URL).then(function(template) {
-        _template =  Handlebars.compile(template);
-      });
+      _templateChild = Handlebars.templates['center.text.child'];
+      _template = Handlebars.templates['center.text'];
+      _templateLinkPreview = Handlebars.templates['center.text.link.preview'];
     }
 
 
@@ -47,13 +42,19 @@
       var id = jqTarget.closest('.msgs-group').attr('id');
 
       if (jqTarget.hasClass('_textMore')) {
-        _showMore(jqTarget, MessageCollection.get(id));
+        _showMoreDropdown(jqTarget, MessageCollection.get(id));
       }
     }
 
-    function _showMore(jqTarget, msg) {
+    /**
+     * '더보기' dropdown 을 노출한다.
+     * @param {object} jqTarget
+     * @param {object} msg
+     * @private
+     */
+    function _showMoreDropdown(jqTarget, msg) {
       var entityType = currentSessionHelper.getCurrentEntityType();
-      var showAnnouncement = (RendererUtil.isSticker(msg) && entityType !== 'users');
+      var showAnnouncement = (!RendererUtil.isSticker(msg) && entityType !== 'users');
       jndPubSub.pub('show:center-item-dropdown', {
         target: jqTarget,
         msg: msg,
@@ -63,12 +64,21 @@
       });
     }
 
+    /**
+     * index 에 해당하는 메세지를 rendering 한다.
+     * @param {number} index
+     * @returns {*}
+     */
     function render(index) {
       var msg = MessageCollection.list[index];
       var isChild = MessageCollection.isChildText(index);
+      var hasLinkPreview = MessageCollection.hasLinkPreview(index);
+      var linkPreview = hasLinkPreview ? _templateLinkPreview({msg: msg}) : '';
       var template = isChild ? _templateChild : _template;
-
       return template({
+        html: {
+          linkPreview: linkPreview
+        },
         css: {
           star: RendererUtil.getStarCssClass(msg)
         },

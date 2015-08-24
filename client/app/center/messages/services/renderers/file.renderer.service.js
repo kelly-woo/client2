@@ -9,9 +9,8 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($templateRequest, $filter, ImagesHelper, MessageCollection, FileUploaded, memberService, centerService,
-                        RendererUtil, fileAPIservice, jndPubSub, configuration, AnalyticsHelper) {
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/file/file.html';
+  function FileRenderer($filter, modalHelper, MessageCollection, FileUploaded, memberService, centerService,
+                        RendererUtil, fileAPIservice, jndPubSub, configuration, AnalyticsHelper, currentSessionHelper) {
     var _template = '';
     var _regxHTTP = /^[http|https]/i;
 
@@ -32,9 +31,7 @@
      * @private
      */
     function _init() {
-      $templateRequest(TEMPLATE_URL).then(function(template) {
-        _template =  Handlebars.compile(template);
-      });
+      _template = Handlebars.templates['center.file'];
     }
 
     /**
@@ -51,11 +48,68 @@
         _onClickFileDownload(msg);
       } else if (jqTarget.closest('._fileMore').length) {
         _onClickFileMore(msg, jqTarget);
+      } else if (jqTarget.closest('._fileSmallThumb').length) {
+        _onClickSmallThumb(msg, jqTarget);
+      } else if (jqTarget.closest('._fileExpand').length) {
+        _onClickExpand(msg, jqTarget);
+      } else if (jqTarget.closest('._fileLargeThumb').length) {
+        _onClickLargeThumb(msg, jqTarget);
       }
     }
 
     /**
-     * file download 이벤트 핸들러
+     * 작은 thumbnail click 이벤트 핸들러
+     * @param {object} msg
+     * @param {object} jqTarget
+     * @private
+     */
+    function _onClickSmallThumb(msg, jqTarget) {
+      jqTarget.closest('._fileSmallThumb').hide();
+      jqTarget.closest('.preview-container').removeClass('pull-left');
+      $('#' + msg.id).find('._fileLargeThumb').show();
+    }
+
+    /**
+     * 큰 thumbnail click 이벤트 핸들러
+     * @param {object} msg
+     * @param {object} jqTarget
+     * @private
+     */
+    function _onClickLargeThumb(msg, jqTarget) {
+      jqTarget.closest('._fileLargeThumb').hide();
+      jqTarget.closest('.preview-container').addClass('pull-left');
+      $('#' + msg.id).find('._fileSmallThumb').show();
+    }
+
+    /**
+     * 큰 thumbnail 의 확대 버튼 클릭 핸들러
+     * @param {object} msg
+     * @param {object} jqTarget
+     * @private
+     */
+    function _onClickExpand(msg, jqTarget) {
+      var message = msg.message;
+      var content = _getFeedbackContent(msg);
+      var currentEntity = currentSessionHelper.getCurrentEntity();
+      modalHelper.openImageCarouselModal({
+        // server api
+        getImage: fileAPIservice.getImageListOnRoom,
+
+        // image file api data
+        messageId: message.id,
+        entityId: currentEntity.entityId || currentEntity.id,
+        // image carousel view data
+        userName: message.writer.name,
+        uploadDate: msg.time,
+        fileTitle: content.title,
+        fileUrl: content.fileUrl,
+        // single file
+        isSingle: msg.status === 'unshared'
+      });
+    }
+
+    /**
+     * file download 클릭 이벤트 핸들러
      * @param {object} msg
      * @private
      */
@@ -99,7 +153,10 @@
         },
         file: {
           icon: $filter('fileIcon')(content),
-          imageUrl: _getImageUrl(msg),
+          imageUrl: {
+            small: _getSmallThumbnailUrl(msg),
+            large: _getLargeThumbnailUrl(msg)
+          },
           hasPreview: $filter('hasPreview')(content),
           title: $filter('fileTitle')(content),
           type: $filter('fileType')(content),
@@ -155,10 +212,16 @@
      * @returns {*}
      * @private
      */
-    function _getImageUrl(msg) {
+    function _getSmallThumbnailUrl(msg) {
       var content = _getFeedbackContent(msg);
       var hasPreview = $filter('hasPreview')(content);
       return hasPreview ? FileUploaded.getSmallThumbnailUrl(_getFeedbackContent(msg)) : '';
+    }
+
+    function _getLargeThumbnailUrl(msg) {
+      var content = _getFeedbackContent(msg);
+      var hasPreview = $filter('hasPreview')(content);
+      return hasPreview ? FileUploaded.getLargeThumbnailUrl(_getFeedbackContent(msg)) : '';
     }
 
     /**

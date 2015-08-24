@@ -9,9 +9,7 @@
     .service('FileCommentRenderer', FileCommentRenderer);
 
   /* @ngInject */
-  function FileCommentRenderer($templateRequest, $filter, config, MessageCollection, RendererUtil) {
-    var TEMPLATE_URL_TITLE = 'app/center/messages/services/renderers/file-comment/file.comment.title.html';
-    var TEMPLATE_URL = 'app/center/messages/services/renderers/file-comment/file.comment.html';
+  function FileCommentRenderer($filter, MessageCollection, RendererUtil) {
     var _templateTitle = '';
     var _template = '';
 
@@ -24,12 +22,8 @@
      * @private
      */
     function _init() {
-      $templateRequest(TEMPLATE_URL_TITLE).then(function(template) {
-        _templateTitle =  Handlebars.compile(template);
-      });
-      $templateRequest(TEMPLATE_URL).then(function(template) {
-        _template =  Handlebars.compile(template);
-      });
+      _templateTitle = Handlebars.templates['center.file.comment.title'];
+      _template = Handlebars.templates['center.file.comment'];
     }
 
     /**

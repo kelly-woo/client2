@@ -7,7 +7,7 @@
   <div class="msg-item-header"
        disabled-member-detector="center-panel-disabled-member">
     <!--    WRITER-->
-      <span class="msg-item-header__name cursor_pointer">
+      <span class="msg-item-header__name cursor_pointer _user">
         <span class="msg-item-header__nameSpace">
           {{ msg.extWriterName }}
         </span>
@@ -43,9 +43,23 @@
             <!-- thumbnail parent -->
             <div class="image_wrapper msg-file-body__img__background jnd-text-center">
               <!-- large thumbnail add-->
-              <div class="opac-zero msg-file-body__img cursor_pointer _compile"
-                  image-loader="{{file.imageUrl}}" image-max-height="65" image-max-width="65" image-is-square="true"
-                  jnd-thumbnail-scale-up>
+              <div class="_fileSmallThumb">
+                <div class="opac-zero msg-file-body__img cursor_pointer _compile"
+                    image-loader="{{file.imageUrl.small}}"
+                     image-max-height="65"
+                     image-max-width="65"
+                     image-is-square="true"
+                    jnd-thumbnail-scale-up>
+                </div>
+              </div>
+              <div class="_fileLargeThumb" style="display:none">
+                <div class="cursor_pointer opac-zero large-thumbnail _compile"
+                  image-loader="{{file.imageUrl.large}}"
+                  image-max-width="700">
+                </div>
+                <div class="large-thumbnail-full-screen _fileExpand">
+                  <i class="fa fa-expand"></i>
+                </div>
               </div>
             </div>
           </div>

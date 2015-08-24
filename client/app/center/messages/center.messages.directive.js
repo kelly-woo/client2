@@ -19,7 +19,7 @@
 
     function link(scope, el, attrs) {
       var _teamId;
-
+      var _listScope = scope.$new();
       _init();
 
       /**
@@ -54,6 +54,9 @@
 
         scope.$on('updateCenterForRelatedFile', _onFileUpdated);
         scope.$on('centerOnFileDeleted', _onFileDeleted);
+
+        scope.$on('toggleLinkPreview', _onAttachMessagePreview);
+        scope.$on('updateMemberProfile', _onUpdateMemberProfile);
       }
 
       /**
@@ -104,6 +107,27 @@
       function _attachDomEvents() {
         _attachDelegateDomHandlers();
         el.on('click', _onClick);
+      }
+
+      /**
+       * updateMemberProfile 이벤트 발생시 이벤트 핸들러
+       * @param {object} event
+       * @param {{event: object, member: object}} data
+       * @private
+       */
+      function _onUpdateMemberProfile(event, data) {
+        console.log(data);
+        var list = MessageCollection.list;
+        var member = data.member;
+        var id = member.id;
+
+        _.forEach(list, function(msg, index) {
+          if (msg.extFromEntityId === id) {
+            console.log(msg);
+            MessageCollection.manipulateMessage(msg);
+            _refresh(msg.id, index);
+          }
+        });
       }
 
       /**
@@ -274,7 +298,7 @@
       function _isDateRendered(id, index) {
         var jqTarget = $('#' + id);
         if (jqTarget.length) {
-          if (MessageCollection.isNewDate(index) && jqTarget.prev().attr('content-type') !== 'date') {
+          if (MessageCollection.isNewDate(index) && jqTarget.prev().attr('content-type') !== 'dateDivider') {
             return false;
           }
         }
@@ -294,10 +318,7 @@
         var headMsg = MessageCollection.list[list.length];
 
         _.forEach(list, function(message, index) {
-          if (MessageCollection.isNewDate(index)) {
-            htmlList.push(CenterRenderer.render(index, 'date'));
-          }
-          htmlList.push(CenterRenderer.render(index));
+          _pushMarkup(htmlList, message, index);
         });
 
         if (headMsg) {
@@ -309,6 +330,25 @@
         console.log('!!!elapsed', end - start);
         scope.onRepeatDone();
       }
+
+      /**
+       * markup 을 생성한다.
+       * @param {Array} htmlList - 생성할 Markup array
+       * @param {Object} message
+       * @param {Number} index - 해당 message 의 index
+       * @private
+       */
+      function _pushMarkup(htmlList, message, index) {
+        if (MessageCollection.isNewDate(index)) {
+          htmlList.push(CenterRenderer.render(index, 'dateDivider'));
+        }
+        htmlList.push(CenterRenderer.render(index));
+
+        if (scope.isLastReadMarker(message.id)) {
+          htmlList.push(CenterRenderer.render(index, 'unreadBookmark'));
+        }
+      }
+
       /**
        * message append 이벤트 핸들러
        * @param {Object} angularEvent
@@ -319,11 +359,9 @@
         var length = list.length;
         var htmlList = [];
         var index = MessageCollection.list.length - length;
+
         _.forEach(list, function(message) {
-          if (MessageCollection.isNewDate(index)) {
-            htmlList.push(CenterRenderer.render(index, 'date'));
-          }
-          htmlList.push(CenterRenderer.render(index));
+          _pushMarkup(htmlList, message, index);
           index++;
         });
         el.append(_getCompiledEl(htmlList.join('')));
@@ -343,39 +381,27 @@
 
         if (jqTarget.length) {
           //Date 를 갱신하기 위해 기존 date 를 제거한다.
-          if (jqPrev.attr('content-type') === 'date') {
-            _destroyCompiledScope(jqPrev);
+          if (jqPrev.attr('content-type') === 'dateDivider') {
             jqPrev.remove();
           }
           if (!_isDateRendered(id, index)) {
-            jqTarget.before(_getCompiledEl(CenterRenderer.render(index, 'date')));
+            jqTarget.before(_getCompiledEl(CenterRenderer.render(index, 'dateDivider')));
           }
-          _destroyCompiledScope(jqTarget);
           jqTarget.replaceWith(_getCompiledEl(CenterRenderer.render(index)));
         }
       }
 
       function _getCompiledEl(htmlStr) {
         var jqDummy = $('<div></div>');
-        var newScope;
         jqDummy.html(htmlStr);
         _.forEach(jqDummy.find('._compile'), function(targetEl) {
-          newScope = scope.$new();
-          $(targetEl).data('scope', newScope);
-          $compile(targetEl)(newScope);
+          $compile(targetEl)(_listScope);
         });
         return jqDummy.contents();
       }
 
-      function _destroyCompiledScope(jqTarget) {
-        var jqCompiledList = jqTarget.find('._compile');
-        var targetScope;
-        _.forEach(jqCompiledList, function(targetEl) {
-          targetScope = $(targetEl).data('scope');
-          if (targetScope) {
-            targetScope.$destroy();
-          }
-        });
+      function _destroyCompiledScope() {
+        _listScope.$destroy();
       }
 
       /**
@@ -391,11 +417,9 @@
 
         //Date 를 갱신하기 위해 기존 date 를 제거한다.
         if (jqTarget.length) {
-          if (jqPrev.attr('content-type') === 'date') {
-            _destroyCompiledScope(jqPrev);
+          if (jqPrev.attr('content-type') === 'dateDivider') {
             jqPrev.remove();
           }
-          _destroyCompiledScope(jqTarget);
           jqTarget.remove();
         }
       }
@@ -417,16 +441,23 @@
       function _renderAll() {
         var htmlList = [];
         var list = MessageCollection.list;
+        _destroyCompiledScope();
         _.forEach(list, function(message, index) {
-          if (MessageCollection.isNewDate(index)) {
-            htmlList.push(CenterRenderer.render(index, 'date'));
-          }
-          htmlList.push(CenterRenderer.renderMsg(index));
+          _pushMarkup(htmlList, message, index);
         });
-        _destroyCompiledScope(el);
         el.empty().html(_getCompiledEl(htmlList.join('')));
-        scope.onRepeatDone();
-        //$compile(el.contents())(scope);
+        if (list.length) {
+          scope.onRepeatDone();
+        }
+      }
+
+      function _onAttachMessagePreview(angularEvent, messageId) {
+        console.log('_onAttachMessagePreview', messageId);
+        MessageCollection.forEach(function(msg, index) {
+          if (messageId === (msg.message && msg.message.id)) {
+            _refresh(msg.id, index);
+          }
+        });
       }
     }
   }
