@@ -9,7 +9,7 @@
     .controller('TeamMemberListCtrl', TeamMemberListCtrl);
 
   /* @ngInject */
-  function TeamMemberListCtrl($scope, $modalInstance, $state, currentSessionHelper, memberService, modalHelper) {
+  function TeamMemberListCtrl($scope, $modalInstance, $state, $timeout, currentSessionHelper, memberService, modalHelper) {
     var DISABLED_MEMBER_STATUS = 'disabled';
 
     _init();
@@ -26,6 +26,7 @@
       };
 
       $scope.onMemberClick = onMemberClick;
+      $scope.onMemberListClick = onMemberListClick;
       $scope.cancel = cancel;
 
       generateMemberList();
@@ -39,6 +40,15 @@
      */
     function _onSetStarDone() {
       generateMemberList();
+    }
+
+    /**
+     * member list click event handler
+     */
+    function onMemberListClick() {
+      $timeout(function() {
+        $('#team-member-filter').focus();
+      });
     }
 
     /**
