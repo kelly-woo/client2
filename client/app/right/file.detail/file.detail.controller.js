@@ -271,7 +271,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function setImageUrl(content) {
     // file detail에서 preview image 설정
     if ($filter('hasPreview')(content)) {
-      $scope.ImageUrl = $scope.server_uploaded + content.fileUrl;
+      $scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
       $scope.hasZoomIn = true;
     } else {
       $scope.ImageUrl = $filter('getFilterTypePreview')(content);

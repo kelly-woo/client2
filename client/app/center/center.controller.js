@@ -12,6 +12,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
                                                  Announcement, TopicMessageCache, NotificationManager) {
 
   //console.info('::[enter] centerpanelController', $state.params.entityId);
+  var _scrollHeightBefore;
   var _updateRetryCnt = 0;
   var _isDestroyed = false;
   var _hasUpdate = false;
@@ -217,7 +218,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.$on('centerOnFileCommentDeleted', onCenterOnFileCommentDeleted);
     $scope.$on('attachMessagePreview', _onAttachMessagePreview);
     $scope.$on('onChangeSticker:' + _stickerType, _onChangeSticker);
-    $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
 
     $scope.$on('onStageLoadedToCenter', function() {
       $('#file-detail-comment-input').focus();
@@ -225,24 +225,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
     $scope.$on('showUserFileList', function(event, param) {
       onFileListClick(param);
-    });
-  }
-
-  /**
-   * updateMemberProfile 이벤트 발생시 이벤트 핸들러
-   * @param {object} event
-   * @param {{event: object, member: object}} data
-   * @private
-   */
-  function _onUpdateMemberProfile(event, data) {
-    var list = $scope.messages;
-    var member = data.member;
-    var id = member.id;
-
-    _.forEach(list, function(msg) {
-      if (msg.extFromEntityId === id) {
-        MessageCollection.manipulateMessage(msg);
-      }
     });
   }
 
@@ -468,6 +450,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
   function loadOldMessages() {
     if (_hasMoreOldMessageToLoad() && NetInterceptor.isConnected()){
+      var container = document.getElementById('msgs-container');
+      _scrollHeightBefore = container.scrollHeight;
       MessageQuery.set({
         type: 'old',
         linkId: MessageCollection.getFirstLinkId()
@@ -685,25 +669,39 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     } else if (_isLoadingNewMessages()) {
       _animateBackgroundColor($('#' + MessageCollection.getFirstLinkId()));
     } else if (_isLoadingOldMessages()) {
-      _disableScroll();
-      _findMessageDomElementById(loadedFirstMessageId);
+      _onLoadingOldMessages();
+      //_disableScroll();
+      //_findMessageDomElementById(loadedFirstMessageId);
     }
     MessageQuery.reset();
   }
 
-  function _onInitialLoad() {
-    //console.log(_testCounter++, '::_onInitialLoad')
+  function _onLoadingOldMessages() {
+    var container = document.getElementById('msgs-container');
+    if (_scrollHeightBefore) {
+      var scrollTop = container.scrollTop;
+      container.scrollTop = scrollTop + container.scrollHeight - _scrollHeightBefore;
+    }
+  }
 
-    if (_shouldDisplayBookmarkFlag) {
-      //console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
-      $timeout(function() {
-      //bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
+  function _onInitialLoad() {
+    if ($('#unread-bookmark').length) {
       _findMessageDomElementById('unread-bookmark', true);
-      });
     } else {
-      //console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
       _scrollToBottom();
     }
+    //console.log(_testCounter++, '::_onInitialLoad')
+    //
+    //if (_shouldDisplayBookmarkFlag) {
+    //  //console.log(_testCounter++, '::_shouldDisplayBookmarkFlag');
+    //  $timeout(function() {
+    //  //bookmark 바로 위 단계에서 생길 수 있으니 이후 코드는 $timeout 에 묶었음.
+    //  _findMessageDomElementById('unread-bookmark', true);
+    //  });
+    //} else {
+    //  //console.log(_testCounter++, '::_no bookmark to show. scroll to bottom', document.getElementById('msgs-container').scrollHeight);
+    //  _scrollToBottom();
+    //}
 
     _isFromCache = false;
 
@@ -881,6 +879,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         MessageSendingCollection.clearSentMessages();
 
         if (updateInfo.messageCount) {
+          if (_isBottomReached() && _hasBrowserFocus()) {
+            _scrollToBottom();
+          }
           // 업데이트 된 메세지 처리
           _updateMessages(updateInfo.messages, hasMoreNewMessageToLoad());
           MessageCollection.updateUnreadCount();
@@ -890,10 +891,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           //  marker 설정
           updateMessageMarker();
           _checkEntityMessageStatus();
-
-          if (_isBottomReached() && _hasBrowserFocus()) {
-            _scrollToBottom();
-          }
         }
       }
 
@@ -1505,7 +1502,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     //console.log('::onRepeatDone');
     jndPubSub.pub('onRepeatDone');
     _updateScroll();
-    $timeout(function() {
+    //$timeout(function() {
       jndPubSub.pub('centerLoading:hide');
       if (!$rootScope.isReady) {
         publicService.hideTransitionLoading();
@@ -1516,7 +1513,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       if (_hasNewMessage) {
         _gotNewMessage();
       }
-    },0);
+    //},0);
   }
 
   /**
@@ -1603,7 +1600,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
       .success(function(response) {
         var messageId = response.id;
         var linkPreview = response.linkPreview;
-        var message = MessageCollection.get(messageId, true);
+        var message = MessageCollection.getByMessageId(messageId, true);
 
         if (message) {
           message.message.linkPreview = linkPreview;
@@ -1611,7 +1608,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
             _scrollToBottom();
           }
         }
-
         jndPubSub.pub('toggleLinkPreview', data.message.id);
 
       })
@@ -1638,7 +1634,8 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @returns {boolean}
    */
   function shouldDisplayUnreadMarker(linkId) {
-    return linkId !== MessageCollection.getLastLinkId() && _shouldDisplayBookmarkFlag;
+    return linkId !== MessageCollection.getLastLinkId();
+    //return linkId !== MessageCollection.getLastLinkId() && _shouldDisplayBookmarkFlag;
   }
 
   /**

@@ -6,11 +6,11 @@
   'use strict';
 
   angular
-    .module('jandiApp')
+    .module('app.socket')
     .service('jndWebSocketTopic', TopicSocket);
 
   /* @ngInject */
-  function TopicSocket(jndPubSub, entityAPIservice, memberService, logger, jndWebSocketCommon) {
+  function TopicSocket(jndPubSub, entityAPIservice, memberService, jndWebSocketCommon) {
     var TOPIC_LEFT = 'topic_left';
     var TOPIC_JOINED = 'topic_joined';
     var TOPIC_DELETED = 'topic_deleted';
@@ -21,18 +21,45 @@
 
     var ROOM_SUBSCRIBE = 'room_subscription_updated';
 
-    this.attachSocketEvent = attachSocketEvent;
+    var events = [
+      {
+        name: 'topic_left',
+        handler: _onTopicLeft
+      },
+      {
+        name: 'topic_joined',
+        handler: _onTopicJoined
+      },
+      {
+        name: 'topic_deleted',
+        handler: _onTopicLDeleted
+      },
+      {
+        name: 'topic_created',
+        handler: _onTopicLCreated
+      },
+      {
+        name: 'topic_updated',
+        handler: _onTopicUpdated
+      },
+      {
+        name: 'topic_starred',
+        handler: _onTopicStarChanged
+      },
+      {
+        name: 'topic_unstarred',
+        handler: _onTopicStarChanged
+      },
+      {
+        name: 'room_subscription_updated',
+        handler: _onTopicSubscriptionChanged
+      }
+    ];
 
-    function attachSocketEvent(socket) {
-      socket.on(TOPIC_LEFT, _onTopicLeft);
-      socket.on(TOPIC_JOINED, _onTopicJoined);
-      socket.on(TOPIC_DELETED, _onTopicLDeleted);
-      socket.on(TOPIC_CREATED, _onTopicLCreated);
-      socket.on(TOPIC_UPDATED, _onTopicUpdated);
-      socket.on(TOPIC_STARRED, _onTopicStarChanged);
-      socket.on(TOPIC_UNSTARRED, _onTopicStarChanged);
+    this.getEvents = getEvents;
 
-      socket.on(ROOM_SUBSCRIBE, _onTopicSubscriptionChanged);
+    function getEvents() {
+      return events;
     }
 
     /**
@@ -41,7 +68,6 @@
      * @private
      */
     function _onTopicLeft(data) {
-      logger.socketEventLogger(data.event, data);
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
       } else {
@@ -55,7 +81,6 @@
      * @private
      */
     function _onTopicJoined(data) {
-      logger.socketEventLogger(data.event, data);
       _updateLeftPanel(data);
     }
 
@@ -65,7 +90,6 @@
      * @private
      */
     function _onTopicLDeleted(data) {
-      logger.socketEventLogger(data.event, data);
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
       } else {
@@ -79,7 +103,6 @@
      * @private
      */
     function _onTopicLCreated(data) {
-      logger.socketEventLogger(data.event, data);
       _updateLeftPanel(data);
     }
 
@@ -89,8 +112,6 @@
      * @private
      */
     function _onTopicUpdated(data) {
-      logger.socketEventLogger(data.event, data);
-
       var _topic = data.topic;
       var _topicEntity = entityAPIservice.getEntityById(_topic.type, _topic.id);
 
@@ -106,8 +127,6 @@
      * @private
      */
     function _onTopicSubscriptionChanged(data) {
-      logger.socketEventLogger(data.event, data);
-
       var _data = data.data;
       var _eventName = 'onTopicSubscriptionChanged';
 
@@ -121,9 +140,7 @@
      * @private
      */
     function _onTopicStarChanged(data) {
-      logger.socketEventLogger(data.event, data);
       _updateLeftPanel();
-
     }
 
     function _updateLeftPanel(data) {

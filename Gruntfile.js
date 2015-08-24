@@ -107,6 +107,10 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
+      handlebars: {
+        files: ['<%= yeoman.client %>/{app,components}/**/*.hbs'],
+        tasks: ['handlebars:compile']
+      },
       express: {
         files: [
           'server/**/*.{js,json}'
@@ -364,6 +368,23 @@ module.exports = function (grunt) {
         dest: '.tmp/tmp-templates.js'
       }
     },
+    handlebars: {
+      compile: {
+        options: {
+          // configure a namespace for your templates
+          namespace: 'Handlebars.templates',
+          // convert file path into a function name
+          // in this example, I convert grab just the filename without the extension
+          processName: function(filePath) {
+            var pieces = filePath.split('/');
+            return pieces[pieces.length - 1].replace('.hbs', '');
+          }
+        },
+        files: {
+          '<%= yeoman.client %>/assets/javascripts/handlebars.templates.js': '<%= yeoman.client %>/{app,components}/**/*.hbs'
+        }
+      }
+    },
 
     // Replace Google CDN references
     cdnify: {
@@ -503,6 +524,7 @@ module.exports = function (grunt) {
               '!{.tmp,<%= yeoman.client %>}/components/jandi/preloader/preloader.js',
 
               '!{.tmp,<%= yeoman.client %>}/components/base/base.framework.js',
+
               '!{.tmp,<%= yeoman.client %>}/components/app/app.framework.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/analytics/analytics.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/router/router.js',
@@ -512,11 +534,11 @@ module.exports = function (grunt) {
               '!{.tmp,<%= yeoman.client %>}/components/app/storage/storage.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/net/net.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/cache/cache.js',
-
               '!{.tmp,<%= yeoman.client %>}/components/app/pubsub/pubsub.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/notification/desktop.notification.js',
               '!{.tmp,<%= yeoman.client %>}/components/app/socket/socket.js',
               '!{.tmp,<%= yeoman.client %>}/app/app.js',
+
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
           ]
@@ -662,7 +684,7 @@ module.exports = function (grunt) {
         repository: 'https://github.com/tosslab/web_client.git',
         version: require('./package.json').version
       }
-    }, 
+    },
 
     bump: {
       options: {
@@ -709,6 +731,7 @@ module.exports = function (grunt) {
         'env:all',
         'concurrent:server',
         'injector',
+        'handlebars',
         'wiredep',
         'autoprefixer',
         'concurrent:debug'
@@ -719,6 +742,7 @@ module.exports = function (grunt) {
         'env:all',
         'concurrent:server',
         'injector',
+        'handlebars',
         'wiredep',
         'autoprefixer',
         'express:dev',
@@ -729,10 +753,10 @@ module.exports = function (grunt) {
       switch (target) {
         case 'ie9':
           serveTasks.unshift('replace:local_ie9');
-              break;
+          break;
         default:
           serveTasks.unshift('replace:local');
-              break;
+          break;
       }
       grunt.task.run(serveTasks);
     }

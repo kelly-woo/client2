@@ -664,6 +664,7 @@ app.controller('leftPanelController1', function(
   };
 
   $rootScope.$on('onUserClick', function(event, user) {
+    console.log('root onUserClick');
     $scope.onUserClick(user);
   });
   //  Add 'onUserClick' to redirect to direct message to 'user'
@@ -720,8 +721,6 @@ app.controller('leftPanelController1', function(
     if (entity.isStarred) {
       entityheaderAPIservice.removeStarEntity(entityId)
         .success(function(response) {
-
-          console.log(response)
           //Analtics Tracker. Not Block the Process
           try {
             AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_UNSTAR, {

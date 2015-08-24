@@ -1,0 +1,43 @@
+<div class="msg-item system-event-msg">
+  <!-- SYSTEM EVENT -->
+  <div class="msg-item-float cursor_pointer">
+    <img class="user-profile user-thumb"/>
+  </div>
+
+  <div class="msg-item-body">
+    <div class="msg-text">
+      <div class="msg-comment-header">
+          {{#if status.isInvite}}
+        <!--1-->
+            <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+            <span class="keep">{{{msg.message.content.body}}}</span>
+            {{#each invitees}}
+                    <span class="msg-comment_userType">
+                      <span>{{name}}{{#unless isLast}}<span style="padding-right: 4px;">, </span>{{/unless}}</span>
+                    </span>
+            {{/each}}
+            {{#if hasPostfix}}
+            <span>{{translate '@msg-invited-postfix'}}</span>
+            {{/if}}
+          {{else if status.isAnnouncementDeleted}}
+            <span>{{ text.announcement.deleted }}</span>
+          {{else if status.isAnnouncementCreated}}
+            <span>{{ text.announcement.created }}</span>
+          {{else}}
+            <span class="msg-comment_userType">{{msg.message.content.actionOwner}}</span>
+            <span class="keep">{{{msg.message.content.body}}}</span>
+          {{/if}}
+        <span class="msg-item-header__created">{{msg.extTime}}</span>
+      </div>
+    </div>
+  </div>
+  {{#if false}}
+    <span translate>@msg-joined</span>
+    <span translate>@msg-left</span>
+    <span translate>@msg-invited</span>
+    <span translate>@msg-create-ch</span>
+    <span translate>@msg-create-pg</span>
+    <span translate>@system-msg-announcement-deleted</span>
+    <span translate>@system-msg-announcement-created</span>
+  {{/if}}
+</div>
