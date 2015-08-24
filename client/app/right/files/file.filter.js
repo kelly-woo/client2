@@ -70,9 +70,9 @@
    */
   function createMap(tempMap) {
     var map,
-        value,
-        e,
-        i, len;
+      value,
+      e,
+      i, len;
 
     map = {};
     for (e in tempMap) {
@@ -134,19 +134,19 @@
    */
   app.filter('fileIcon', function() {
     var fileIconImageMap = {
-          'img': ['image/jpeg', 'image/png', 'image/gif', 'image/vnd.adobe.photoshop'],
-          'pdf': ['application/pdf'],
-          'video': ['video/mp4', 'video/quicktime', 'video/x-matroska'],
-          'audio': ['audio/mp3', 'audio/mpeg'],
-          'zip': ['application/zip'],
-          'hwp': ['application/x-hwp'],
-          'txt': ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
-          'excel': ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-          'ppt': ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'],
-          'document': 'application/vnd.google-apps.document',
-          'spreadsheet': 'application/vnd.google-apps.spreadsheet',
-          'presentation': 'application/vnd.google-apps.presentation'
-        };
+      'img': ['image/jpeg', 'image/png', 'image/gif', 'image/vnd.adobe.photoshop'],
+      'pdf': ['application/pdf'],
+      'video': ['video/mp4', 'video/quicktime', 'video/x-matroska'],
+      'audio': ['audio/mp3', 'audio/mpeg'],
+      'zip': ['application/zip'],
+      'hwp': ['application/x-hwp'],
+      'txt': ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+      'excel': ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+      'ppt': ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+      'document': 'application/vnd.google-apps.document',
+      'spreadsheet': 'application/vnd.google-apps.spreadsheet',
+      'presentation': 'application/vnd.google-apps.presentation'
+    };
     fileIconImageMap = createMap(fileIconImageMap);
 
     return function(content) {
@@ -253,5 +253,32 @@
       var date = $filter('date')(input, 'h:mm a');
       return date;
     }
+  });
+
+  /**
+   * file download에 필요한 data를 전달함
+   */
+  app.filter('downloadFile', function($filter) {
+    return function(isIntegrateFile, title, url) {
+      var downloadUrl;
+      var originalUrl;
+
+      url = $filter('getFileUrl')(url);
+
+      // '/download/' 빠지면 정상 동작안함
+      downloadUrl = url + '/download/';
+
+      originalUrl = url;
+
+      // integrate file이 아닌경우 원본보기시 file upload시 사용되었던 name을 유지함
+      if (!isIntegrateFile) {
+        originalUrl += '/' + encodeURIComponent(title);
+      }
+
+      return {
+        downloadUrl: downloadUrl,
+        originalUrl: originalUrl
+      };
+    };
   });
 }());
