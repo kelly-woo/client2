@@ -95,6 +95,7 @@
 
       function _getPosition(jqTarget) {
         var direction = scope.direction;
+        var bodyOffset = $('.body-wrapper').offset();
         var offset = jqTarget.offset();
         switch(direction) {
           case 'top':
@@ -108,6 +109,8 @@
           case 'bottom':
             break;
         }
+        offset.top -= bodyOffset.top;
+        offset.left -= bodyOffset.left;
         return offset;
 
       }

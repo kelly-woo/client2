@@ -116,14 +116,12 @@
        * @private
        */
       function _onUpdateMemberProfile(event, data) {
-        console.log(data);
         var list = MessageCollection.list;
         var member = data.member;
         var id = member.id;
 
         _.forEach(list, function(msg, index) {
           if (msg.extFromEntityId === id) {
-            console.log(msg);
             MessageCollection.manipulateMessage(msg);
             _refresh(msg.id, index);
           }
@@ -316,7 +314,6 @@
         var start = new Date();
         var htmlList = [];
         var headMsg = MessageCollection.list[list.length];
-
         _.forEach(list, function(message, index) {
           _pushMarkup(htmlList, message, index);
         });
@@ -359,7 +356,6 @@
         var length = list.length;
         var htmlList = [];
         var index = MessageCollection.list.length - length;
-
         _.forEach(list, function(message) {
           _pushMarkup(htmlList, message, index);
           index++;
@@ -452,7 +448,6 @@
       }
 
       function _onAttachMessagePreview(angularEvent, messageId) {
-        console.log('_onAttachMessagePreview', messageId);
         MessageCollection.forEach(function(msg, index) {
           if (messageId === (msg.message && msg.message.id)) {
             _refresh(msg.id, index);

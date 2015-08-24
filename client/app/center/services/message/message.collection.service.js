@@ -15,7 +15,10 @@
     var _systemMessageCount = 0;
     var _hasBookmark = false;
     var _lastMessage;
-
+    var _linkId = {
+      first: -1,
+      last: -1
+    };
     var _map = {
       messageId: {},
       id: {}
@@ -84,6 +87,10 @@
         messageId: {},
         id: {}
       };
+      _linkId = {
+        first: -1,
+        last: -1
+      };
       jndPubSub.pub('messages:reset');
 
     }
@@ -151,6 +158,7 @@
           appendList.push(msg);
         }
       });
+      _setLinkId(appendList);
       _addIndexMap(appendList);
       jndPubSub.pub('messages:append', appendList);
     }
@@ -180,6 +188,7 @@
           prependList.unshift(msg);
         }
       });
+      _setLinkId(prependList);
       _addIndexMap(prependList);
       jndPubSub.pub('messages:prepend', prependList);
     }
@@ -260,6 +269,7 @@
           }
         }
       });
+      _setLinkId(messageList);
     }
 
     /**
@@ -346,7 +356,7 @@
         manipulateMessage(msg);
       });
 
-      _updateLastMessage(messageList);
+      //_updateLastMessage(messageList);
       //messageList[messageList.length - 1]._isLast = true;
 
       return messageList;
@@ -371,33 +381,34 @@
       return msg.status === 'sending';
     }
 
-    function _updateLastMessage(messageList) {
-      if (messageList && messageList.length) {
-        var _tempLastMessage = messageList[messageList.length - 1];
-        if (!_isSending(_tempLastMessage)) {
-          _tempLastMessage._isLast = true;
-
-          if (!_.isEmpty(_lastMessage)) {
-            if (_lastMessage.id < _tempLastMessage.id) {
-              _lastMessage._isLast = false;
-              _lastMessage = _tempLastMessage;
-            }
-          } else {
-            _lastMessage = _tempLastMessage;
-          }
-        }
-      }
-    }
+    //function _updateLastMessage(messageList) {
+    //  if (messageList && messageList.length) {
+    //    var _tempLastMessage = messageList[messageList.length - 1];
+    //    if (!_isSending(_tempLastMessage)) {
+    //      _tempLastMessage._isLast = true;
+    //
+    //      if (!_.isEmpty(_lastMessage)) {
+    //        if (_lastMessage.id < _tempLastMessage.id) {
+    //          _lastMessage._isLast = false;
+    //          _lastMessage = _tempLastMessage;
+    //        }
+    //      } else {
+    //        _lastMessage = _tempLastMessage;
+    //      }
+    //    }
+    //  }
+    //}
     /**
      * 첫번째 id 를 반환한다.
      * @returns {number}
      */
     function getFirstLinkId() {
-      var linkId = -1;
-      if (that.list.length) {
-        linkId = that.list[0].id;
-      }
-      return linkId;
+      //var linkId = -1;
+      //if (that.list.length) {
+      //  linkId = that.list[0].id;
+      //}
+      //return linkId;
+      return _linkId.first;
     }
 
     /**
@@ -405,11 +416,12 @@
      * @returns {number}
      */
     function getLastLinkId() {
-      var linkId = -1;
-      if (that.list.length) {
-        linkId = that.list[that.list.length - 1].id;
-      }
-      return linkId;
+      //var linkId = -1;
+      //if (that.list.length) {
+      //  linkId = that.list[that.list.length - 1].id;
+      //}
+      //return linkId;
+      return _linkId.last;
     }
 
     /**
@@ -702,10 +714,26 @@
     }
 
     function setList(list) {
-      _updateLastMessage(list);
+      //_updateLastMessage(list);
       that.list = list;
+      _setLinkId(list);
       _addIndexMap(list);
       jndPubSub.pub('messages:set', list);
+    }
+
+    function _setLinkId(list) {
+      var messageList = that.list;
+      var first = messageList.length ? messageList[0].id : -1;
+      var last = messageList.length ? messageList[messageList.length - 1].id : -1;
+      if (list.length) {
+        first = list[0].id < first ? list[0].id : first;
+        last = list[list.length - 1].id > last ? list[list.length - 1].id : last;
+      }
+
+      _linkId = {
+        first: first,
+        last: last
+      };
     }
 
     /**
