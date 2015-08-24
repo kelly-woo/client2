@@ -219,7 +219,7 @@
         }
 
         $timeout.cancel(timerUpdateComment);
-        $timeout((function(fileId) {
+        timerUpdateComment = $timeout((function(fileId) {
           return function() {
             fileAPIservice
               .getFileDetail(fileId)
@@ -237,7 +237,7 @@
                 }
               });
           };
-        }(fileId)), 1000);
+        }(fileId)), 500);
       }
     }
 
