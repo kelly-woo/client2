@@ -640,6 +640,7 @@
 }
 .user-profile__fullName {
   max-width: 270px;
+  height: 20px;
   text-overflow: ellipsis;
   overflow: hidden;
   margin-bottom: 10px;
