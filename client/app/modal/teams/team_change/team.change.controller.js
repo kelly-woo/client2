@@ -9,10 +9,7 @@
     .module('jandiApp')
     .controller('TeamChangeController', TeamChangeController);
 
-  function TeamChangeController($scope, modalHelper, accountService, currentSessionHelper) {
-    // 우선적으로 보여줄 팀
-    $scope.teamList;
-    $scope.onModalClose = modalHelper.closeModal;
+  function TeamChangeController($scope, $timeout, modalHelper, accountService, currentSessionHelper) {
 
     _init();
 
@@ -21,9 +18,15 @@
      * @private
      */
     function _init() {
+      // 우선적으로 보여줄 팀
+      $scope.teamList;
+
+      $scope.showLoadingBar = false;
       $scope.isListReady = false;
+
       $scope.currentTeamId = currentSessionHelper.getCurrentTeam().id;
-      $scope.teamList = _setTeamList(accountService.getAccount().memberships);
+
+      $scope.onModalClose = modalHelper.closeModal;
       _updateAccount();
       _attachEventListener();
     }
@@ -41,9 +44,17 @@
      * @private
      */
     function _updateAccount() {
+      // 1000ms후 loadingbar 출력
+      $timeout(function() {
+        if (!$scope.isListReady) {
+          $scope.showLoadingBar = true;
+        }
+      }, 1000);
+
       accountService.getAccountInfo()
         .success(_onUpdateAccountSuccess)
-        .error(_onUpdateAccountError);
+        .error(_onUpdateAccountError)
+        .finally(_onUpdateAccountFinally);
     }
 
     /**
@@ -70,9 +81,9 @@
      * @private
      */
     function _setTeamList(memberships) {
-      $scope.teamList = memberships;
-      $scope.isListReady = true;
-      $('.team-list-container').addClass('opac-in-fast');
+      $scope.teamList = _.reject(memberships, function(membership) {
+        return membership.teamId === $scope.currentTeamId;
+      });
     }
 
     /**
@@ -80,8 +91,21 @@
      * @param {object} err - error object from server
      * @private
      */
-    function _onUpdateAccountError(err) {
+    function _onUpdateAccountError() {
 
+    }
+
+    /**
+     * 어카운트와 관련된 팀 정보들을 업데이트 finally
+     * @private
+     */
+    function _onUpdateAccountFinally() {
+      if ($scope.teamList == null) {
+        $scope.teamList = _setTeamList(accountService.getAccount().memberships);
+      }
+
+      $scope.showLoadingBar = false;
+      $scope.isListReady = true;
     }
   }
 })();

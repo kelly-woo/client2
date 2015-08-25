@@ -6,19 +6,18 @@
   </h3>
 </div>
 
-<div class="modal-body">
-  <div class="facebook-style-loading jnd-text-center" ng-if="!isListReady">
+<div class="modal-body team-list-body">
+  <div class="facebook-style-loading jnd-text-center" ng-show="showLoadingBar">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
-  <div class="team-list-container opac-zero" ng-if="isListReady">
-
-    <div class="email-box cursor_pointer" ng-repeat="team in teamList"  ng-if="team.teamId !== currentTeamId">
+  <div class="team-list-container" ng-show="isListReady">
+    <div class="email-box cursor_pointer" ng-repeat="team in teamList">
       <a ng-href="{{::configuration.base_protocol}}{{::team.t_domain}}{{::configuration.base_url}}">
         <span class="team-name inline-overflow-ellipsis">{{ ::team.name }}</span>
-        <span class="badge green_badge pull-right" ng-if="team.unread > 0">{{team.unread}}</span>
+        <span class="badge green_badge pull-right" ng-if="::(team.unread > 0)">{{::team.unread}}</span>
       </a>
     </div>
   </div>
