@@ -1,5 +1,5 @@
 /**
- * @fileoverview scale up animation 을 수행하는 directive
+ * @fileoverview jandi tooltip directive
  */
 (function() {
   'use strict';
@@ -9,20 +9,23 @@
     .directive('jndTooltip', jndTooltip);
 
   /**
-   * on-load-scale-up directive
-   * on load 이벤트 발생시 scale up 에니메이션을 수행한다.
+   * jnd-tooltip directive
+   *
+   * tooltip:show
+   * tooltip:hide
+   *
+   * 이벤트를 사용하여 툴팁을 노출한다.
    *
    * @returns {{restrict: string, scope: {src: string}, link: link}}
    * @example
 
-   <img src="xxx.com"
-   on-load-scale-up
-   duration="300"
-   start-width="30"
-   start-height="30"
-   end-width="100"
-   end-height="100" />
+   $rootScope.$broadcast('tooltip:show', {
+    direction: 'top',
+    content: '더보기',
+    target: jqTarget
+   });
 
+   $rootScope.$broadcast('tooltip:hide');
    */
   function jndTooltip($templateRequest) {
     return {
@@ -74,6 +77,15 @@
 
       }
 
+      /**
+       * show 이벤트 핸들러
+       * @param {object} angularEvent
+       * @param {object} data
+       *    @param {string} [data.direction=top]  - top|bottom|left|right
+       *    @param {string} data.content  - '더보기'
+       *    @param {string} data.target - jquery 엘리먼트
+       * @private
+       */
       function _onShow(angularEvent, data) {
         var position;
         data.direction = data.direction || 'top';
@@ -93,6 +105,12 @@
         });
       }
 
+      /**
+       * tooltip 을 노출할 position 을 계산한다.
+       * @param {element} jqTarget
+       * @returns {*}
+       * @private
+       */
       function _getPosition(jqTarget) {
         var direction = scope.direction;
         var bodyOffset = $('.body-wrapper').offset();
@@ -112,8 +130,13 @@
         offset.top -= bodyOffset.top;
         offset.left -= bodyOffset.left;
         return offset;
-
       }
+
+      /**
+       * hide 이벤트 핸들러
+       * @param {object} angularEvent
+       * @private
+       */
       function _onHide(angularEvent) {
         el.children().stop( true, true ).animate({
           opacity: 0
