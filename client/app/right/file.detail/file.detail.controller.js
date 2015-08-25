@@ -521,7 +521,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _onErrorFileDetail() {
-    $scope.hasFileAPIError = true;
+    $scope.initialLoaded = $scope.hasFileAPIError = true;
     $state.go('messages.detail.files.item', $state.params);
   }
 
