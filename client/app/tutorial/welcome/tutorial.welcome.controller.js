@@ -35,7 +35,7 @@
      */
     function onClickStart() {
       _openTutorial();
-    }매
+    }
 
     /**
      * tutorial skip click 시
