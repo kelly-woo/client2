@@ -82,7 +82,7 @@
         }
       };
       modal = _modalOpener(modalOption);
-      $scope.apply();
+      $scope.$apply();
     }
 
     /**
