@@ -205,8 +205,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       fileAPIservice.postComment(fileId, msg, _sticker, mentions)
         .success(function() {
           $scope.glued = true;
-          $('#file-detail-comment-input').val('');
-          $scope.focusPostComment = true;
+          $timeout(function() {
+            $('#file-detail-comment-input').val('').focus();
+          });
         })
         .error(function(err) {
         })
