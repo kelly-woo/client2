@@ -16,7 +16,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   var _updateRetryCnt = 0;
   var _isDestroyed = false;
   var _hasUpdate = false;
-  var _hasScroll = false;
   var _hasNewMessage = false;
 
   var TEXTAREA_MAX_LENGTH = 40000;
@@ -775,7 +774,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _scrollToBottomWithAnimate(duration) {
     duration = duration || 500;
     var height = document.getElementById('msgs-container').scrollHeight;
-    $('#msgs-container').animate({scrollTop: height}, duration, 'swing', function() {
+    $('#msgs-container').stop().animate({scrollTop: height}, duration, 'swing', function() {
       _resetNewMsgHelpers();
     });
   }
