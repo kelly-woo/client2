@@ -18,11 +18,22 @@
     var _topicName = $scope.topicName = _currentEntity.name;
     var _topicDescription = $scope.topicDescription = _currentEntity.description;
 
-    $scope.cancel = modalHelper.closeModal;
+    _init();
 
-    $scope.onRenameClick = onRenameClick;
-    $scope.hasValueChanged = hasValueChanged;
+    function _init() {
+      $scope.nameMaxLength = 60;
+      $scope.descMaxLength = 300;
 
+      $scope.cancel = modalHelper.closeModal;
+
+      $scope.onRenameClick = onRenameClick;
+      $scope.isInvalid = isInvalid;
+    }
+
+    /**
+     * rename click event handler
+     * @param {object} form
+     */
     function onRenameClick(form) {
       var _body;
       if (!form.$invalid) {
@@ -84,7 +95,11 @@
       }
     }
 
-    // TODO: error handling service 필요함
+    /**
+     * rename request에 대한 error handler
+     * @param {object} err
+     * @private
+     */
     function _onCreateError(err) {
       if (err.code === duplicate_name_error) {
         // Duplicate name error.
@@ -93,16 +108,12 @@
     }
 
     /**
-     * 값이 변화했는지 안했는지 체크한다.
-     * @param {string} field - 체크하고 싶은 값의 field 이름
+     * 값이 타당하지 않은지 여부
      * @returns {boolean}
      */
-    function hasValueChanged(field) {
-      if (field === 'name') {
-        return $scope.topicName === _topicName;
-      } else if (field === 'description') {
-        return $scope.topicDescription === _topicDescription;
-      }
+    function isInvalid() {
+      return ($scope.topicName === _topicName && $scope.topicDescription === _topicDescription) ||
+        $scope.topicName.length > $scope.nameMaxLength || $scope.topicDescription.length > $scope.descMaxLength;
     }
   }
 })();

@@ -1,9 +1,9 @@
 <page-tracker page="topic/create" title="Create Topic"></page-tracker>
 <!-- Modal: Create Topic -->
 <div class="modal-header">
-  <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
+  <button type="button" class="close" ng-click="cancel();"><i class="icon-cancel"></i></button>
   <h3 class="modal-header__title">
-    <span translate>@common-create-ch</span>
+    <span>{{ ::'@common-create-ch' | translate }}</span>
   </h3>
 </div>
 
@@ -13,19 +13,17 @@
     <!--  TOPIC TITLE  -->
     <div class="form-horizontal">
       <div class="form-group">
-        <label class="control-label col-sm-2"><span translate>@common-name</span></label>
+        <label class="control-label col-sm-2"><span>{{ ::'@common-name' | translate }}</span></label>
         <div class="col-sm-10">
           <input type="text"
                  class="form-control"
                  name="entityName"
                  jnd-input-model="topicName"
                  jnd-is-trim="on"
-                 placeholder="{{ '@input-create-ch' | translate }}"
-                 ng-maxlength="60"/>
-          <alert type="warning" class="profile-settings-body__alert" data-ng-if="entityCreateForm.entityName.$error.maxlength">
-            {{ '@input-max-length-error' | translate}}
+                 placeholder="{{ ::'@input-create-ch' | translate }}"/>
+          <alert type="warning" class="profile-settings-body__alert" ng-if="topicName.length > 60">
+            {{ ::'@input-max-length-error' | translate}}
           </alert>
-
         </div>
       </div>
     </div>
@@ -33,23 +31,22 @@
     <!--  TOPIC TYPE  -->
     <div class="form-horizontal">
       <div class="form-group">
-        <label class="control-label col-sm-2 entity-type-title"><span translate>@common-entity-type</span></label>
+        <label class="control-label col-sm-2 entity-type-title"><span>{{ ::'@common-entity-type' | translate }}</span></label>
         <div class="col-sm-10">
           <div class="radio-container">
-            <input type="radio" ng-model="entityType" value="public"/><span class="radio-title" translate>@common-type-public</span>
-            <input type="radio" ng-model="entityType" value="private"/><span class="radio-title" translate>@common-type-private</span>
+            <input type="radio" ng-model="entityType" value="public"/><span class="radio-title">{{ ::'@common-type-public' | translate }}</span>
+            <input type="radio" ng-model="entityType" value="private"/><span class="radio-title">{{ ::'@common-type-private' | translate }}</span>
           </div>
           <!-- TOPIC TYPE HELP MESSAGE  -->
           <div class="modal-body-type-container">
-            <span translate>@modal-create-entity-title</span>
+            <span>{{ ::'@modal-create-entity-title' | translate }}</span>
 
-            <div class="private-topic-help-msg-container modal-body__description-help" ng-if="entityType == 'private'">
-              <div translate>@modal-create-private-topic-help-msg-1</div>
-              <div translate>@modal-create-private-topic-help-msg-2</div>
-              <div translate>@modal-create-private-topic-help-msg-3</div>
+            <div class="private-topic-help-msg-container modal-body__description-help" ng-if="entityType === 'private'">
+              <div>{{ ::'@modal-create-private-topic-help-msg-1' | translate }}</div>
+              <div>{{ ::'@modal-create-private-topic-help-msg-2' | translate }}</div>
+              <div>{{ ::'@modal-create-private-topic-help-msg-3' | translate }}</div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -58,7 +55,7 @@
     <div class="form-horizontal topic-description-container">
       <div class="form-group">
         <label class="control-label col-sm-2">
-          <span translate>@topic-description</span>
+          <span translate>{{ ::'@topic-description' | translate }}</span>
         </label>
         <div class="col-sm-10">
           <textarea
@@ -66,29 +63,39 @@
             name="topicDescription"
             jnd-input-model="topicDescription"
             jnd-is-trim="on"
-            placeholder="{{ '@topic-description-placeholder' | translate }}"
-            ng-maxlength="300"
+            placeholder="{{ ::'@topic-description-placeholder' | translate }}"
             autocorrect="off"
             autocomplete="off">
           </textarea>
-          <alert type="warning" class="profile-settings-body__alert" data-ng-if="entityCreateForm.topicDescription.$error.maxlength">
-            {{ '@input-max-length-error' | translate}}
+          <alert type="warning" class="profile-settings-body__alert" ng-if="topicDescription.length > 300">
+            {{ ::'@input-max-length-error' | translate}}
           </alert>
         </div>
       </div>
     </div>
-
-
   </div>
-
 
   <div class="modal-footer">
-    <span class="btn btn-cancel" data-ng-click="cancel();" translate>@btn-close</span>
-    <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ '@btn-create' | translate }}" ng-disabled="!topicName.length" />
+    <span class="btn btn-cancel" ng-click="cancel();">{{ ::'@btn-close' | translate }}</span>
+    <input class="btn btn-ok" type="submit" id="create_new_channel" value="{{ ::'@btn-create' | translate }}" ng-disabled="!topicName.length" />
   </div>
 </form>
-
-<span ng-if="false" translate>@common-duplicate-name-err</span>
-
 <jnd-loading></jnd-loading>
-
+<div ng-if="false">
+  <span translate>@common-create-ch</span>
+  <span translate>@common-name</span>
+  <span translate>@input-create-ch</span>
+  <span translate>@input-max-length-error</span>
+  <span translate>@common-entity-type</span>
+  <span translate>@common-type-public</span>
+  <span translate>@common-type-private</span>
+  <span translate>@modal-create-entity-title</span>
+  <span translate>@modal-create-private-topic-help-msg-1</span>
+  <span translate>@modal-create-private-topic-help-msg-2</span>
+  <span translate>@modal-create-private-topic-help-msg-3</span>
+  <span translate>@topic-description</span>
+  <span translate>@topic-description-placeholder</span>
+  <span translate>@btn-close</span>
+  <span translate>@btn-create</span>
+  <span translate>@common-duplicate-name-err</span>
+</div>
