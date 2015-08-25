@@ -182,7 +182,6 @@
        */
       function _onDestroy() {
         _destroyCompiledScope(el);
-        el.remove();
       }
 
       /**
@@ -205,15 +204,18 @@
         }
       }
 
+      /**
+       * file share click 이벤트 핸들러
+       * @param {object} msg
+       * @private
+       */
       function _onClickFileShare(msg) {
         scope.onShareClick(msg.message);
-        //fixme: 알 수 없는 이유로 digest cycle 이 수행되지 않기 때문에 apply 를 수행함
-        scope.$apply();
       }
 
       /**
        * star click 핸들러
-       * @param msg
+       * @param {object} msg
        * @private
        */
       function _onClickStar(msg) {
@@ -227,10 +229,13 @@
         }
       }
 
+      /**
+       * user 클릭 이벤트 핸들러
+       * @param {object} msg
+       * @private
+       */
       function _onClickUser(msg) {
         jndPubSub.pub('onUserClick', msg.extWriter.id);
-        //fixme: 알 수 없는 이유로 digest cycle 이 수행되지 않기 때문에 apply 를 수행함
-        scope.$apply();
       }
 
       /**
@@ -252,7 +257,7 @@
       }
 
       /**
-       * socket 에서 un-starred 이벤트 발생시
+       * socket 에서 un-starred 이벤트 발생시 이벤트 핸들러
        * @param {Object} event - angular 이벤트
        * @param {Object} param
        *     @param {Number|String} param.teamId - team id
@@ -267,6 +272,12 @@
           _refreshStar(msg);
         }
       }
+
+      /**
+       * star 의 상태를 변경한다.
+       * @param {object} msg
+       * @private
+       */
       function _refreshStar(msg) {
         var jqTarget = $('#' + msg.id).find('._star');
         if (jqTarget.length) {
@@ -278,6 +289,12 @@
         }
       }
 
+      /**
+       * unread marker 를 업데이트 한다.
+       * @param {object} angularEvent
+       * @param {object} data
+       * @private
+       */
       function _onUpdateUnread(angularEvent, data) {
         var msg = data.msg;
         var jqTarget = $('#' + msg.id);
@@ -387,6 +404,12 @@
         }
       }
 
+      /**
+       * 필요한 부분은 compile 하여 element 를 반환한다.
+       * @param {string} htmlStr - html 스트링
+       * @returns {*}
+       * @private
+       */
       function _getCompiledEl(htmlStr) {
         var jqDummy = $('<div></div>');
         jqDummy.html(htmlStr);
@@ -396,6 +419,10 @@
         return jqDummy.contents();
       }
 
+      /**
+       * 컴파일 된 scope 를 제거한다.
+       * @private
+       */
       function _destroyCompiledScope() {
         _listScope.$destroy();
       }
@@ -433,7 +460,10 @@
         }
       }
 
-
+      /**
+       * 모든 메세지 리스트를 랜더링 한다.
+       * @private
+       */
       function _renderAll() {
         var htmlList = [];
         var list = MessageCollection.list;
@@ -447,6 +477,12 @@
         }
       }
 
+      /**
+       * preview 이벤트 핸들러
+       * @param {object} angularEvent
+       * @param {number|string} messageId
+       * @private
+       */
       function _onAttachMessagePreview(angularEvent, messageId) {
         MessageCollection.forEach(function(msg, index) {
           if (messageId === (msg.message && msg.message.id)) {
