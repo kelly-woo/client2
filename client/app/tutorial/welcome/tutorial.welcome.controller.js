@@ -40,7 +40,8 @@
     /**
      * tutorial skip click 시
      */
-    function onClickSkip() {
+    function onClickSkip(clickEvent) {
+      clickEvent.preventDefault();
       TutorialAPI.set($scope.completedStep,  true);
       hide();
     }
