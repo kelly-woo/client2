@@ -21,7 +21,7 @@
                  jnd-input-model="topicName"
                  jnd-is-trim="on"
                  placeholder="{{ ::'@input-create-ch' | translate }}"/>
-          <alert type="warning" class="profile-settings-body__alert" ng-if="topicName.length > 60">
+          <alert type="warning" class="profile-settings-body__alert" ng-if="topicName.length > nameMaxLength">
             {{ ::'@input-max-length-error' | translate}}
           </alert>
         </div>
@@ -67,7 +67,7 @@
             autocorrect="off"
             autocomplete="off">
           </textarea>
-          <alert type="warning" class="profile-settings-body__alert" ng-if="topicDescription.length > 300">
+          <alert type="warning" class="profile-settings-body__alert" ng-if="topicDescription.length > descMaxLength">
             {{ ::'@input-max-length-error' | translate}}
           </alert>
         </div>
