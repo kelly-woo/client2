@@ -640,13 +640,13 @@
 }
 .user-profile__fullName {
   max-width: 270px;
-  height: 20px;
   text-overflow: ellipsis;
   overflow: hidden;
   margin-bottom: 10px;
   font-size: 18px;
   font-weight: 700;
   color: #333;
+  height: 20px;
 }
 .user-profile__nickName {
   font-size: 14px;
