@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function OtherTeamNotification(desktopNotificationHelper, accountService, configuration,
-                                 memberService, $filter) {
+                                 DesktopNotificationUtil, $filter) {
     this.addNotification = addNotification;
 
     /**
@@ -31,7 +31,7 @@
           tag: 'tag',
           body: _getBody(teamName),
           icon: 'assets/images/jandi-logo-200x200.png',
-          callbackFn: _otherTeamNotificationCallbackFn,
+          callbackFn: _onNotificationClicked,
           callbackParam: _.extend(socketEvent, {teamDomain: teamDomain})
 
         };
@@ -45,17 +45,17 @@
      * @param {object} param - socket event
      * @private
      */
-    function _otherTeamNotificationCallbackFn(param) {
+    function _onNotificationClicked(param) {
       // 기본적으로 /app/# 까지 포함한 주소를 만든다.
       var url = configuration.base_protocol + param['teamDomain'] + configuration.base_url + '/app/#';
 
       var type = param.room.type.toLowerCase();
       var roomId = param.room.id;
 
-      if (type === 'chat') {
+      if (DesktopNotificationUtil.isChatType(param)) {
         type = 'user';
         // chat 일 경우, 방 url이 roomId(혹은 entityId)로 되어있지 않고 user의 id로 되어있기에 그 값을 설정한다.
-        roomId = param.marker.memberId;
+        roomId = param.writer;
       }
 
       // url 뒤에 가고 싶은 방의 타입과 주소를 설정한다.

@@ -71,12 +71,9 @@
        * 노티피케이션이 클릭되었을 경우 호출된다.
        */
       function onNotificationClick() {
+        var fn;
         if (_.isFunction(that.options.callbackFn)) {
-
-          var fn = that.options.callbackFn;
-
-          console.log('has callback!! ', that.options.callbackParam);
-
+          fn = that.options.callbackFn;
           if (!_.isUndefined(that.options.callbackParam)) {
             fn(that.options.callbackParam);
           } else {

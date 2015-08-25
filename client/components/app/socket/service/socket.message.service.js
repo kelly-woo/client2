@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, entityAPIservice,
-                               memberService, currentSessionHelper, DesktopNotification) {
+                               memberService, currentSessionHelper, DesktopNotification, FileShareDesktopNotification) {
 
     var MESSAGE = 'message';
 
@@ -74,6 +74,9 @@
           _onTopicJoin(data);
           break;
         case 'file_share':
+          _onFileShared(data);
+          _onTopicFileShareStatusChange(data);
+          break;
         case 'file_unshare':
           _onTopicFileShareStatusChange(data);
           break;
@@ -140,6 +143,19 @@
      */
     function _onTopicJoin(data) {
       _updateCenterPanelFromOthers(data);
+    }
+
+    /**
+     * message -> file_share 일때
+     * @param {object} data - socket event parameter
+     * @private
+     */
+    function _onFileShared(data) {
+      if (_shouldSendNotification(data)) {
+        if (memberService.isTopicNotificationOn(data.room.id)) {
+          FileShareDesktopNotification.addNotification(data);
+        }
+      }
     }
 
     /**

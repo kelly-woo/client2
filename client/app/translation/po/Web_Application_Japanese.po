@@ -1517,6 +1517,10 @@ msgid "@web-notification"
 msgstr "通知"
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-file-share"
+msgstr "さんがファイルを共有しました"
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr "さんが"
 
@@ -1562,6 +1566,11 @@ msgstr "に投稿しました"
 #, fuzzy
 msgid "@web-notification-body-topic-pre"
 msgstr " "
+
+#: client/app/modal/settings/notification/setting.notification.html
+#, fuzzy
+msgid "@web-notification-file-share"
+msgstr "JANDI 新着メッセージ通知"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-sample-body-text"

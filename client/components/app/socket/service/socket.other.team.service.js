@@ -33,7 +33,6 @@
      */
     function onSocketEvent(socketEvent) {
       if (_isRoomMarkerUpdatedByMe(socketEvent)) {
-        console.log('room marker updated by me!!');
         _updateOtherTeamUnreadAlert();
       } else if (_isRoomSubscriptionUpdated(socketEvent)) {
         _onRoomSubscriptionUpdated(socketEvent);
