@@ -640,6 +640,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    */
   function _hasMoreOldMessageToLoad() {
     if (MessageCollection.list.length &&
+      firstMessageId !== -1 &&
       (MessageCollection.getFirstLinkId() == -1 ||
       MessageCollection.getFirstLinkId() !== firstMessageId)) {
       $scope.hasOldMessageToLoad = true;
