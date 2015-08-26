@@ -44,7 +44,8 @@
         css: {
           star: RendererUtil.getStarCssClass(msg),
           wrapper: isTitle ? 'comment-title' : 'comment-continue',
-          archived: isArchived ? 'archived-file-with-comment' : ''
+          archived: isArchived ? 'archived-file-with-comment' : '',
+          disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
         },
         file: {
           icon: $filter('fileIcon')(content),

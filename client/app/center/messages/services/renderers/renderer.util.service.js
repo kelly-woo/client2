@@ -16,7 +16,7 @@
     this.isDisabledMember = isDisabledMember;
     this.isMyMessage = isMyMessage;
     this.getStarCssClass = getStarCssClass;
-
+    this.getDisabledMemberCssClass = getDisabledMemberCssClass;
     _init();
 
     /**
@@ -77,8 +77,12 @@
      * @returns {*|*|boolean|*|boolean|*}
      */
     function isDisabledMember(msg) {
-      var currentEntity = (msg.fromEntity) || currentSessionHelper.getCurrentEntity();
+      var currentEntity = (msg && msg.fromEntity) || currentSessionHelper.getCurrentEntity();
       return publicService.isDisabledMember(currentEntity);
+    }
+
+    function getDisabledMemberCssClass(msg) {
+      return isDisabledMember(msg) ? ' center-panel-disabled-member' : '';
     }
   }
 })();

@@ -10,10 +10,12 @@ this["Handlebars"]["templates"]["center.date.divider"] = Handlebars.template({"c
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.file.comment"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-    var stack1;
+    var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "        <!--    WRITER  -->\n        <span class=\"msg-item-header__name cursor_pointer _user\">\n          <span> "
-    + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extWriterName : stack1), depth0))
+  return "        <!--    WRITER  -->\n        <span class=\"msg-item-header__name cursor_pointer "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
+    + " _user\">\n          <span> "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extWriterName : stack1), depth0))
     + " </span>\n        </span>\n";
 },"3":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
@@ -123,7 +125,9 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "<div class=\"msg-item\">\n  <div class=\"msg-item-float cursor_pointer\">\n    <!--    DEFAULT   -->\n    <img class=\"user-profile user-thumb _user\" src=\""
+  return "<div class=\"msg-item\">\n  <div class=\"msg-item-float cursor_pointer "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
+    + "\">\n    <!--    DEFAULT   -->\n    <img class=\"user-profile user-thumb _user\" src=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.exProfileImg : stack1), depth0))
     + "\"/>\n  </div>\n\n  <div class=\"msg-item-body\">\n    <!--    COMMENT\n            최초 댓글\n            DISPLAY COMMENT BODY WHEN IT IS TITLE\n            IF CURRENT COMMENT IS NOT TITLE, CONTENT GETS DISPLAYED WITHIN HEADER -->\n    <div class=\"msg-comment msg-comment-with-thumbnail "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.archived : stack1), depth0))
@@ -131,7 +135,9 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "        <!--    COMMENT ICON    -->\n        <i class=\"fa fa-comment\"></i>\n      </div>\n\n\n      <!--    RIGHT PART OF BODY CONTENT  -->\n      <div class=\"msg-file-meta\">\n        <div class=\"msg-comment-header\">\n          Commented on\n\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.program(10, data, 0),"data":data})) != null ? stack1 : "")
-    + "        </div>\n      </div>\n\n      <!--    COMMENT MESSAGE -->\n      <div class=\"msg-comment-body\">\n\n        <p>\n          <!--    WRITER  -->\n          <span class=\"msg-item-header__name cursor_pointer _user\">\n            <!-- TODO: WHAT IS THIS??   정책상 항상 댓글의 작성자가 다 보여야 한다면 extWriterName을 그냥 무조건 사용합시다. -->\n            <span> "
+    + "        </div>\n      </div>\n\n      <!--    COMMENT MESSAGE -->\n      <div class=\"msg-comment-body\">\n\n        <p>\n          <!--    WRITER  -->\n          <span class=\"msg-item-header__name cursor_pointer "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
+    + " _user\">\n            <!-- TODO: WHAT IS THIS??   정책상 항상 댓글의 작성자가 다 보여야 한다면 extWriterName을 그냥 무조건 사용합시다. -->\n            <span> "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extWriterName : stack1), depth0))
     + " </span>\n          </span>\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isSticker : depth0),{"name":"if","hash":{},"fn":this.program(12, data, 0),"inverse":this.program(14, data, 0),"data":data})) != null ? stack1 : "")
@@ -219,9 +225,13 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.id : stack1), depth0))
     + "\" class=\"msg-item "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.wrapper : stack1), depth0))
-    + "\">\n  <!--  User Thumbnail -->\n  <div class=\"msg-item-float cursor_pointer _user\">\n    <img class=\"user-profile user-thumb\" src=\""
+    + "\">\n  <!--  User Thumbnail -->\n  <div class=\"msg-item-float cursor_pointer "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
+    + " _user\">\n    <img class=\"user-profile user-thumb\" src=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.exProfileImg : stack1), depth0))
-    + "\"/>\n  </div>\n\n  <div class=\"msg-item-header\"\n       disabled-member-detector=\"center-panel-disabled-member\">\n    <!--    WRITER-->\n      <span class=\"msg-item-header__name cursor_pointer _user\">\n        <span class=\"msg-item-header__nameSpace\">\n          "
+    + "\"/>\n  </div>\n\n  <div class=\"msg-item-header "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
+    + "\">\n    <!--    WRITER-->\n      <span class=\"msg-item-header__name cursor_pointer _user\">\n        <span class=\"msg-item-header__nameSpace\">\n          "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extWriterName : stack1), depth0))
     + "\n        </span>\n\n        <!--    CREATED TIME    -->\n        <span class=\"msg-item-header__created\">\n          "
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extTime : stack1), depth0))
@@ -370,9 +380,13 @@ this["Handlebars"]["templates"]["center.text"] = Handlebars.template({"1":functi
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
-  return "<div class=\"msg-item text\">\n  <div class=\"text-msg-item-container\">\n    <!--  User Thumbnail -->\n    <div class=\"msg-item-float cursor_pointer _user\">\n      <img class=\"user-profile user-thumb\" src=\""
+  return "<div class=\"msg-item text\">\n  <div class=\"text-msg-item-container\">\n    <!--  User Thumbnail -->\n    <div class=\"msg-item-float cursor_pointer "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
+    + " _user\">\n      <img class=\"user-profile user-thumb\" src=\""
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.exProfileImg : stack1), depth0))
-    + "\"/>\n    </div>\n\n    <div class=\"msg-item-header\">\n      <!--    WRITER-->\n      <span class=\"msg-item-header__name cursor_pointer\">\n        <span class=\"msg-item-header__nameSpace _user\">\n          <span>"
+    + "\"/>\n    </div>\n\n    <div class=\"msg-item-header "
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.disabledMember : stack1), depth0))
+    + "\">\n      <!--    WRITER-->\n      <span class=\"msg-item-header__name cursor_pointer\">\n        <span class=\"msg-item-header__nameSpace _user\">\n          <span>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extWriterName : stack1), depth0))
     + "</span>\n        </span>\n      </span>\n    </div>\n    <div class=\"msg-item-body\">\n      <!-- TEXT -->\n      <div class=\"msg-text\">\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isSticker : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(3, data, 0),"data":data})) != null ? stack1 : "")

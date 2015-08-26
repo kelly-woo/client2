@@ -1,5 +1,5 @@
 <div class="msg-item">
-  <div class="msg-item-float cursor_pointer">
+  <div class="msg-item-float cursor_pointer {{css.disabledMember}}">
     <!--    DEFAULT   -->
     <img class="user-profile user-thumb _user" src="{{ msg.exProfileImg }}"/>
   </div>
@@ -67,7 +67,7 @@
 
         <p>
           <!--    WRITER  -->
-          <span class="msg-item-header__name cursor_pointer _user">
+          <span class="msg-item-header__name cursor_pointer {{css.disabledMember}} _user">
             <!-- TODO: WHAT IS THIS??   정책상 항상 댓글의 작성자가 다 보여야 한다면 extWriterName을 그냥 무조건 사용합시다. -->
             <span> {{ msg.extWriterName }} </span>
           </span>

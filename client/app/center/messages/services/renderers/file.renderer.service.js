@@ -146,7 +146,8 @@
       return _template({
         css: {
           wrapper: isArchived ? ' archived-file': '',
-          star: RendererUtil.getStarCssClass(msg)
+          star: RendererUtil.getStarCssClass(msg),
+          disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
         },
         attrs: {
           download: _getFileDownloadAttrs(msg)

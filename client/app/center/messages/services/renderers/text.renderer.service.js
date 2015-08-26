@@ -80,7 +80,8 @@
           linkPreview: linkPreview
         },
         css: {
-          star: RendererUtil.getStarCssClass(msg)
+          star: RendererUtil.getStarCssClass(msg),
+          disabledMember: RendererUtil.getDisabledMemberCssClass(msg)
         },
         hasMore: RendererUtil.hasMore(msg),
         hasStar: RendererUtil.hasStar(msg),
