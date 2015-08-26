@@ -6,8 +6,7 @@
     <span translate>@modal-invite-members</span>
   </h3>
 </div>
-
-<div class="invite-channel">
+<div class="modal-container invite-channel non-selectable">
   <div class="invite-channel-full" ng-if="!inviteChannel">
     <div class="modal-body form-invite-body cursor_pointer"  ng-click="onInviteTeamClick();">
       <div class="image help-invite-members"></div>
@@ -27,41 +26,39 @@
       <!--    LIST OF USERS WHO WILL BE INVITED WHEN BUTTON IS CLICKED    -->
       <div class="form-invite-body__selected">
         <span class="cursor_pointer"
-              ng-repeat="user in (availableMemberList | filter : { selected : true })"
+              ng-repeat="user in inviteUsers"
               ng-click="onRemove(user);">
           <span class="form-invite-body__selected-user btn-ok">
             {{ user | getName }} <span class="fa fa-times"></span>
           </span>
         </span>
       </div>
+
       <div class="input-group custom-typeahead form-invite-body__list">
         <span class="input-group-addon"><i class="icon-search"></i></span>
-        <input type="text"
-          class="form-control green-input-box"
-          ng-model="selectedUser"
-          invitation-channel
-          jandi-typeahead="user as user|getName for user in availableMemberList | filter : { selected : false } | userByName:$viewValue"
-          jandi-typeahead-on-select="onSelect($item); selectedUser=''; $event.stopPropagation();"
-          jandi-typeahead-template-url="customTemplate.html"
-          jandi-typeahead-min-length="0"
-          placeholder="{{ '@input-search-user-name' | translate }}" />
+        <input class="form-control green-input-box"
+               id="invite-member-filter"
+               jnd-input-model="selectedUser"
+               type="text"
+               placeholder="{{'@input-search-user-name' | translate}}" />
+      </div>
+
+      <member-list ng-show="selectingMembers.length !== 0"
+                   selector="#invite-member-filter"
+                   list="selectingMembers"
+                   model="selectedUser"
+                   repeat="member in selectingMembers = (availableMemberList | filter : { selected : false } | userByName: selectedUser | orderBy: ['!isStarred', 'name'])"
+                   on-select="onMemberClick">
+      </member-list>
+      <div class="no-result-container" ng-show="selectingMembers.length === 0">
+        <span translate>@alert-no-result</span>
       </div>
     </div>
 
     <div class="modal-footer">
       <button type="button" class="btn btn-cancel" ng-click="cancel(); clear();"><span translate>@btn-close</span></button>
-      <input class="btn btn-ok" type="button" id="private_invite" value="{{ '@btn-invite' | translate }}" ng-click="onInviteClick(currentEntity.type);"/>
+      <input class="btn btn-ok send-invite" ng-class="{'disabled': inviteUsers.length === 0}" type="button" id="private_invite" value="{{ '@btn-invite' | translate }}" ng-click="onInviteClick(currentEntity.type);"/>
     </div>
-    <script type="text/ng-template" id="customTemplate.html">
-      <a class="match_container">
-        <span ng-click="match.model.selected = true" bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
-        <span ng-if="isMember(match.model)">check</span>
-      </a>
-    </script>
   </div>
 </div>
-
 <jnd-loading></jnd-loading>
-<div ng-if="false">
-  <span></span>
-</div>

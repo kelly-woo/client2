@@ -1,26 +1,13 @@
-.tab-title-overflow-ellipsis {
-
+.modal-body .modal_team_member_list .member-list {
+  margin-top: 0;
 }
+
 .modal_team_member_list_body {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 .modal_team_member_list {
   margin-top: 20px;
-}
-.no-result-container,
-.modal_team_member_container {
-  padding: 9px 9px 0 9px;
-  background-color: white;
-  width: 100%;
-  height: 44px;
-  border-bottom: 1px solid #f2f2f2;
-}
-.modal_team_member_container:hover {
-  background-color: #f2fbff;
-}
-.modal_team_member_container:hover .icon-star {
-  opacity: 1;
 }
 
 .modal_team_member_profile_pic_thumbnail,
@@ -31,20 +18,6 @@
   width: 25px;
   border-radius: 25px;
   vertical-align: middle;
-}
-
-.modal_team_member_list .right-star {
-  float: right;
-  line-height: 25px;
-}
-
-.modal_team_member_list .icon-star-fill {
-  color: #f9bb00;
-  opacity: 1;
-}
-.modal_team_member_name {
-  line-height: 25px;
-  margin-left: 5px;
 }
 
 .member-list-tab li {
@@ -75,6 +48,11 @@
   border: 0;
 }
 
+.member-list-tab .member-list {
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
 .member-list-tab .nav-tabs > li > a:hover {
   border-bottom-color: rgba(0,0,0,0);
 }
@@ -84,8 +62,4 @@
 .member-list-tab .nav-tabs > li.active > a:focus {
   border-color: rgba(0,0,0,0);
   color: #333333;
-
-}
-
-.no-result-container {
 }
