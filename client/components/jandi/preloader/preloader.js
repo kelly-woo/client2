@@ -31,7 +31,10 @@
       '../assets/images/icon_google_drive.png',
       '../assets/images/icon_dropbox.png',
       // Sample notification icon
-      '../assets/images/jandi-logo-200x200.png'
+      '../assets/images/jandi-logo-200x200.png',
+      // Favicons
+      '../assets/images/favicon/favicon.png',
+      '../assets/images/favicon/favicon_noti.png'
     ];
   }
 
