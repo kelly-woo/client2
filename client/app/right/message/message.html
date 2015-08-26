@@ -17,7 +17,8 @@
   <div class="message-card-body">
     <span compile="content || ''" ></span>
   </div>
-  <div class="message-star" ng-class="{'show': isStarred}" ng-show="hasStar">
+  <div class="message-star" ng-class="{'show': isStarred}" ng-show="hasStar"
+       tooltip="{{::'@common-star' | translate}}" tooltip-placement="left">
     <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{message.id}}"></i>
   </div>
 </div>
