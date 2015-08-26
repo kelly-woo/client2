@@ -88,7 +88,7 @@
 
       //console.log('getting member from server')
       // Now get member information for current team.
-      memberService.getMemberInfo(curMemberId, 'auth_get_member')
+      memberService.getMemberInfo(curMemberId)
         .success(function(response) {
           //console.log('getMemberInfo good')
           //console.log(response)
