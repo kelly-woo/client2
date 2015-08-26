@@ -48,7 +48,7 @@
           {{#if isArchived}}
           <div>
             <a class="archived-msg-file-meta__title _compile" ui-sref="files({ userName: '{{ msg.feedback.writer.name }}', itemId: '{{msg.feedback.id}}' })">
-              <span class="_compile" translate>@common-deleted-file-title</span>
+              <span>{{translate '@common-deleted-file-title'}}</span>
             </a>
           </div>
           {{else}}
