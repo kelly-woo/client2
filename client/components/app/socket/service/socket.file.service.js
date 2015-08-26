@@ -12,6 +12,7 @@
   function jndWebSocketFile(jndPubSub) {
     var FILE_CREATED = 'file_created';
     var FILE_SHARED = 'file_shared';
+    var FILE_UNSHARED = 'file_unshared';
     var FILE_DELETED = 'file_deleted';
     var FILE_COMMENT_CREATED = 'file_comment_created';
     var FILE_COMMENT_DELETED = 'file_comment_deleted';
@@ -24,6 +25,10 @@
       {
         name: FILE_SHARED,
         handler: _onFileShared
+      },
+      {
+        name: FILE_UNSHARED,
+        handler: _onFileUnshared
       },
       {
         name: FILE_DELETED,
@@ -50,7 +55,18 @@
 
 
     function _onFileShared(data) {
+      jndPubSub.pub('fileShared', data);
     }
+
+    /**
+     * 파일이 공유되었을때
+     * @param data
+     * @private
+     */
+    function _onFileUnshared(data) {
+      jndPubSub.pub('fileUnshared', data);
+    }
+
     /**
      * 파일이 지워졌을 때
      * @param data

@@ -102,7 +102,7 @@
             <div class="file-detail-body__meta-info-down">
               <span ng-if="hasTopic">
                 <span translate>@common-shared-in</span>
-                <span ng-repeat="sharedEntity in filteredSharedFile = (file_detail.shared)">
+                <span ng-repeat="sharedEntity in file_detail.extShared">
                   <span ng-hide="($index === 0)">, </span>
                   <span class="file-item-meta__shared cursor_pointer" ng-click="onClickSharedEntity(sharedEntity.id, sharedEntity.type)">
                     {{ sharedEntity.prefix }}{{ sharedEntity.name }}
