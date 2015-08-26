@@ -190,45 +190,6 @@ app.directive('messageSubmit', function() {
   };
 });
 
-var rHTTP = /^[http|https]/i;
-app.directive('originalFile', function() {
-  return {
-    restrict: 'A',
-    link: function(scope, elem, attrs) {
-      var fileUrl = attrs.fileUrl;
-      var url = $filter('getFileUrl')(fileUrl);
-
-      elem.attr({href: url, target: '_blank'});
-    }
-  };
-});
-
-app.directive('downloadFile', function(configuration) {
-  return {
-    restrict: 'A',
-    link: function(scope, elem, attrs) {
-      var fileUrl = attrs.fileUrl;
-      var fileTitle = attrs.fileTitle;
-      
-      elem
-        .attr(
-          rHTTP.test(fileUrl) ?
-            {href: fileUrl, target: '_blank'} :
-            {href: configuration.api_address + 'download/' + fileUrl, download: fileTitle}
-        );
-    }
-  };
-});
-
-app.directive('originFile', function() {
-  return {
-    restrict: 'A',
-    link: function(scope, elem) {
-
-    }
-  };
-});
-
 /**
  * 메세지의 repeat done detector
  */

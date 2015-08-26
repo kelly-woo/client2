@@ -146,7 +146,6 @@
       $scope.isIntegrateFile = isIntegrateFile;
       value = $filter('downloadFile')(isIntegrateFile, contentTitle, contentFileUrl);
 
-      $scope.hasProtocol = value.hasProtocol;
       $scope.downloadUrl = value.downloadUrl;
       $scope.originalUrl = value.originalUrl;
     }
