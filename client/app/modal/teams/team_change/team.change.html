@@ -7,14 +7,14 @@
 </div>
 
 <div class="modal-body">
-  <div class="facebook-style-loading jnd-text-center" ng-if="!isListReady">
-    <div></div>
-    <div></div>
-    <div></div>
+
+  <div class="spinner" ng-if="!isListReady">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
   </div>
 
-  <div class="team-list-container opac-zero" ng-if="isListReady">
-
+  <div class="team-list-container opac-zero">
     <div class="email-box cursor_pointer" ng-repeat="team in teamList"  ng-if="team.teamId !== currentTeamId">
       <a ng-href="{{::configuration.base_protocol}}{{::team.t_domain}}{{::configuration.base_url}}">
         <span class="team-name inline-overflow-ellipsis">{{ ::team.name }}</span>
@@ -22,6 +22,7 @@
       </a>
     </div>
   </div>
+
 </div>
 
 <div class="modal-footer">

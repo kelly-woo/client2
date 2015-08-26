@@ -213,11 +213,11 @@
       memberService.updateProfilePic(blob, $scope.isFileReaderAvailable)
         .success(function(response) {
           // TODO: Currently, there is no return value.  How about member object for return???
-          memberService.getMemberInfo(memberService.getMemberId())
-            .success(function(response) {
-              //memberService.replaceProfilePicture(response);
-              //memberService.setMember(response);
-            });
+          //memberService.getMemberInfo(memberService.getMemberId())
+          //  .success(function(response) {
+          //    //memberService.replaceProfilePicture(response);
+          //    //memberService.setMember(response);
+          //  });
           $scope.hasUpdatedProfilePic = true;
         })
         .error(function(error) {
