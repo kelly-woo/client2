@@ -75,11 +75,29 @@
 
       /**
        * 현재 팀의 이름을 가져온다.
+       * 토픽 이름이 없으면 팀 이름을
+       * 팀 이름이 없으면  Toss Lab Inc. 를 리턴한다.
        * @returns {Window.name|*}
        * @private
        */
       function _getCurrentName() {
-        return !!currentSessionHelper.getCurrentEntity() && currentSessionHelper.getCurrentEntity().name;
+        var _currentTopicName;
+        var _currentTeam;
+        var _currentEntity = currentSessionHelper.getCurrentEntity();
+
+        if (!!_currentEntity) {
+          _currentTopicName = _currentEntity.name;
+        } else {
+          _currentTeam = currentSessionHelper.getCurrentTeam();
+
+          if (!!_currentTeam) {
+            _currentTopicName = _currentTeam.name;
+          } else {
+            _currentTopicName = 'Toss Lab Inc.';
+          }
+        }
+
+        return _currentTopicName;
       }
 
       /**
