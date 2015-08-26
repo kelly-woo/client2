@@ -230,7 +230,7 @@
       var teamId = socketEvent.teamId;
       var timeoutCaller;
 
-      if (jndWebSocketOtherTeamManagerHelper.hasTimeoutCaller(teamId, TIMEOUT_CALLER)) {
+      if (jndWebSocketOtherTeamManagerHelper.has(teamId, TIMEOUT_CALLER)) {
         timeoutCaller = _getTimeoutCaller(teamId);
         $timeout.cancel(timeoutCaller);
       }
@@ -344,7 +344,7 @@
 
       var memberId;
 
-      if (!jndWebSocketOtherTeamManagerHelper.hasMemberId(teamId, MEMBER_ID)) {
+      if (!jndWebSocketOtherTeamManagerHelper.has(teamId, MEMBER_ID)) {
         _findMemberId(accountService.getAccount().memberships, teamId);
       }
 
@@ -457,7 +457,7 @@
      * @private
      */
     function _hasLastLinkId(socketEvent) {
-      return jndWebSocketOtherTeamManagerHelper.hasLastLinkId(_getTeamId(socketEvent));
+      return jndWebSocketOtherTeamManagerHelper.has(_getTeamId(socketEvent), LAST_LINK_ID);
     }
 
     /**
