@@ -37,7 +37,6 @@
       }
 
       function onCurrentEntityChanged() {
-        console.log('current entity Changed!!')
         _updateTitle();
       }
       /**

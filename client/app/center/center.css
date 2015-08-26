@@ -80,7 +80,8 @@ article {
   background-size: 100px 100px;
 }
 .msgs__loading.load-more-top {
-  position: static;
+  position: absolute;
+  top: 0;
   height: 60px;
   background-position: center center;
   background-size: 60px 60px;
