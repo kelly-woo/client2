@@ -125,7 +125,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   $scope.onSendingRepeatDone = onSendingRepeatDone;
 
   $scope.isLastReadMarker = isLastReadMarker;
-
+  $scope.hasOldMessageToLoad = true;
   _init();
 
   var _testCounter = 0;
@@ -642,8 +642,10 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   function _hasMoreOldMessageToLoad() {
     if (MessageCollection.getFirstLinkId() == -1 ||
       MessageCollection.getFirstLinkId() !== firstMessageId) {
+      $scope.hasOldMessageToLoad = true;
       return true;
     } else {
+      $scope.hasOldMessageToLoad = false;
       return false;
     }
   }

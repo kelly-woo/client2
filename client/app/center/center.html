@@ -88,6 +88,10 @@
     <!--</div>-->
 
     <div class="msgs-holder opac-zero" id="msgs-holder">
+      <!-- 로딩 영역 -->
+      <div ng-show="hasOldMessageToLoad" class="msgs__loading">
+        <span class="three-quarters-loader jnd-three-quarters-loader center"></span>
+      </div>
       <center-messages-directive center-event-delegater></center-messages-directive>
       <!-- unsent Message -->
       <div ng-if="sendingMessages.length"
