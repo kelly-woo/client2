@@ -30,12 +30,16 @@
        * @private
        */
       function _attachEventListener() {
-        scope.$on('onCurrentEntityChanged', _updateTitle);
+        scope.$on('onCurrentEntityChanged', onCurrentEntityChanged);
         scope.$on('addAsteriskToTitle', _setTitleWithAsterisk);
         scope.$on('updateWindowTitle', _updateTitle);
         scope.$on('onBadgeCountChanged', _updateTitle);
       }
 
+      function onCurrentEntityChanged() {
+        console.log('current entity Changed!!')
+        _updateTitle();
+      }
       /**
        * 타이틀을 업데이트한다.
        * @private
