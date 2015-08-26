@@ -208,7 +208,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           .success(function() {
             $scope.glued = true;
             $timeout(function() {
-              jqCommentInput.val('').focus();
+              jqCommentInput.val('').focus()[0].removeAttribute('style');
             });
           })
           .error(function(err) {
@@ -218,7 +218,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           });
       } else if (msg === '') {
         $timeout(function() {
-          jqCommentInput.val('').focus();
+          jqCommentInput.val('').focus()[0].removeAttribute('style');
         });
       }
     }
