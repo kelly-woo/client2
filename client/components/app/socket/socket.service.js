@@ -91,7 +91,7 @@
      * @private
      */
     function _onDisconnected() {
-      if (isConnected && false) {
+      if (isConnected) {
         socket.removeAllListeners();
         ioSocket.io.disconnect();
         ioSocket.io.connect();

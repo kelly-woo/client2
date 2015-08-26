@@ -10,20 +10,30 @@
     .module('jandiApp')
     .directive('textSending', textSending);
 
-  function textSending() {
+  function textSending(MessageCollection, MessageText) {
     return {
       restrict: 'E',
       link: link,
       scope: {
         msg: '=',
         entityId: '@',
-        entityType: '@'
+        entityType: '@',
+        index: '='
       },
       controller: 'TextSendingCtrl',
       templateUrl: 'app/center/view_components/center_chat_templates/text-sending/text.sending.html'
     };
 
-    function link(scope, element, attrs) {
+    function link(scope, el, attrs) {
+      var lastMsg = MessageCollection.list[MessageCollection.list.length - 1];
+      var hasProfile = false;
+      if (!scope.index) {
+        hasProfile = !MessageText.isChild(1, [lastMsg, scope.msg]);
+      }
+      if (!hasProfile) {
+        el.addClass('text-child');
+      }
+      scope.hasProfile = hasProfile;
       scope.showAnnouncement = false;
       scope.isMyMessage = true;
       scope.hasStar = false;

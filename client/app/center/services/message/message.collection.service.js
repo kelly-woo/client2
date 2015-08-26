@@ -15,11 +15,21 @@
     var _systemMessageCount = 0;
     var _hasBookmark = false;
     var _lastMessage;
+    var _linkId = {
+      first: -1,
+      last: -1
+    };
+    var _map = {
+      messageId: {},
+      id: {}
+    };
+
 
     this.list = [];
     this.reset = reset;
     this.at = at;
-    this.get = get;
+    this.get = get
+    this.getByMessageId = getByMessageId;
     this.forEach = forEach;
 
     this.getLastLinkId = getLastLinkId;
@@ -73,13 +83,22 @@
       that.list = [];
       _hasBookmark = false;
       _lastMessage = {};
+      _map = {
+        messageId: {},
+        id: {}
+      };
+      _linkId = {
+        first: -1,
+        last: -1
+      };
+      jndPubSub.pub('messages:reset');
 
     }
 
     /**
      * for each
      * @param {function} iteratee
-     * @param {object} context
+     * @param {object} [context]
      */
     function forEach(iteratee, context) {
       _.forEach(that.list, iteratee, context);
@@ -130,29 +149,48 @@
     function append(messageList) {
       var length = that.list.length;
       var lastId = that.list[length - 1] && that.list[length - 1].id || -1;
-
+      var appendList = [];
       messageList = beforeAddMessages(messageList);
       _.forEach(messageList, function(msg) {
         if (lastId < msg.id) {
           msg = getFormattedMessage(msg);
           that.list.push(msg);
+          appendList.push(msg);
         }
       });
+      _setLinkId(appendList);
+      _addIndexMap(appendList);
+      jndPubSub.pub('messages:append', appendList);
     }
 
+    function _addIndexMap(list) {
+      _map.id = _.extend(_map.id, _.indexBy(list, 'id'));
+      _map.messageId = _.extend(_map.messageId, _.indexBy(list, 'messageId'));
+    }
+    function _removeIndexMap(msg) {
+      _map.id[msg.id] = null;
+      delete _map.id[msg.id];
+      _map.messageId[msg.messageId] = null;
+      delete _map.messageId[msg.messageId]
+    }
     /**
      * messageList 를 prepend 한다.
      * @param {array} messageList
      */
     function prepend(messageList) {
       var firstId = that.list[0] && that.list[0].id || -1;
+      var prependList = [];
       messageList = beforeAddMessages(messageList);
       _.forEachRight(messageList, function(msg) {
         if (firstId === -1 || firstId > msg.id) {
           msg = getFormattedMessage(msg);
           that.list.unshift(msg);
+          prependList.unshift(msg);
         }
       });
+      _setLinkId(prependList);
+      _addIndexMap(prependList);
+      jndPubSub.pub('messages:prepend', prependList);
     }
 
     /**
@@ -165,8 +203,13 @@
       var targetIdx = at(messageId, isReversal);
       var msg;
       if (targetIdx !== -1) {
+        jndPubSub.pub('messages:beforeRemove', targetIdx);
+        _removeIndexMap(getByMessageId(messageId));
         that.list.splice(targetIdx, 1);
+        jndPubSub.pub('messages:remove', targetIdx);
       }
+
+
       return targetIdx !== -1;
     }
 
@@ -176,19 +219,18 @@
      * @param {boolean} isReversal 역순으로 순회할지 여부
      * @returns {*}
      */
-    function get(messageId, isReversal) {
-      var target;
-      var list = that.list;
-      var iterator = isReversal ? _.forEachRight : _.forEach;
+    function getByMessageId(messageId, isReversal) {
+      return _map.messageId[messageId];
+    }
 
-      iterator(list, function(message) {
-        if (message.messageId === messageId) {
-          target = message;
-          return false;
-        }
-      });
-
-      return target;
+    /**
+     * id 에 해당하는 message 를 반환한다.
+     * @param {number|string} id 메세지 id
+     * @param {boolean} isReversal 역순으로 순회할지 여부
+     * @returns {*}
+     */
+    function get(id, isReversal) {
+      return _map.id[id];
     }
 
     /**
@@ -203,7 +245,7 @@
       var iterator = isReversal ? _.forEachRight : _.forEach;
 
       iterator(list, function(message, index) {
-        if (message.messageId === messageId) {
+        if (message.messageId.toString() === messageId.toString()) {
           targetIdx = index;
           return false;
         }
@@ -227,6 +269,7 @@
           }
         }
       });
+      _setLinkId(messageList);
     }
 
     /**
@@ -313,7 +356,7 @@
         manipulateMessage(msg);
       });
 
-      _updateLastMessage(messageList);
+      //_updateLastMessage(messageList);
       //messageList[messageList.length - 1]._isLast = true;
 
       return messageList;
@@ -330,7 +373,7 @@
       msg.extFromEntityId = fromEntityId;
       msg.extWriter = writer;
       msg.extWriterName = $filter('getName')(writer);
-      msg.exProfileImg = $filter('getSmallThumbnail')(msg.fromEntity);
+      msg.exProfileImg = $filter('getSmallThumbnail')(writer);
       msg.extTime = $filter('gethmmaFormat')(msg.time);
     }
 
@@ -338,33 +381,34 @@
       return msg.status === 'sending';
     }
 
-    function _updateLastMessage(messageList) {
-      if (messageList && messageList.length) {
-        var _tempLastMessage = messageList[messageList.length - 1];
-        if (!_isSending(_tempLastMessage)) {
-          _tempLastMessage._isLast = true;
-
-          if (!_.isEmpty(_lastMessage)) {
-            if (_lastMessage.id < _tempLastMessage.id) {
-              _lastMessage._isLast = false;
-              _lastMessage = _tempLastMessage;
-            }
-          } else {
-            _lastMessage = _tempLastMessage;
-          }
-        }
-      }
-    }
+    //function _updateLastMessage(messageList) {
+    //  if (messageList && messageList.length) {
+    //    var _tempLastMessage = messageList[messageList.length - 1];
+    //    if (!_isSending(_tempLastMessage)) {
+    //      _tempLastMessage._isLast = true;
+    //
+    //      if (!_.isEmpty(_lastMessage)) {
+    //        if (_lastMessage.id < _tempLastMessage.id) {
+    //          _lastMessage._isLast = false;
+    //          _lastMessage = _tempLastMessage;
+    //        }
+    //      } else {
+    //        _lastMessage = _tempLastMessage;
+    //      }
+    //    }
+    //  }
+    //}
     /**
      * 첫번째 id 를 반환한다.
      * @returns {number}
      */
     function getFirstLinkId() {
-      var linkId = -1;
-      if (that.list.length) {
-        linkId = that.list[0].id;
-      }
-      return linkId;
+      //var linkId = -1;
+      //if (that.list.length) {
+      //  linkId = that.list[0].id;
+      //}
+      //return linkId;
+      return _linkId.first;
     }
 
     /**
@@ -372,11 +416,12 @@
      * @returns {number}
      */
     function getLastLinkId() {
-      var linkId = -1;
-      if (that.list.length) {
-        linkId = that.list[that.list.length - 1].id;
-      }
-      return linkId;
+      //var linkId = -1;
+      //if (that.list.length) {
+      //  linkId = that.list[that.list.length - 1].id;
+      //}
+      //return linkId;
+      return _linkId.last;
     }
 
     /**
@@ -619,7 +664,7 @@
       var globalUnreadCount;
       var lastLinkIdToCount = markerService.getLastLinkIdToCountMap();
       var markerOffset = markerService.getMarkerOffset();
-
+      var currentUnread;
 
       if (centerService.isChat()) {
         globalUnreadCount = 1;
@@ -629,6 +674,8 @@
       globalUnreadCount = globalUnreadCount - markerOffset;
 
       _.forEachRight(list, function(message, index) {
+        currentUnread = message.unreadCount;
+
         if (!!lastLinkIdToCount[message.id]) {
           var currentObj = lastLinkIdToCount[message.id];
           var currentObjCount = currentObj.count;
@@ -651,6 +698,12 @@
         } else {
           message.unreadCount = globalUnreadCount;
         }
+        if (currentUnread !== message.unreadCount) {
+          jndPubSub.pub('messages:updateUnread', {
+            msg: message,
+            index: index
+          });
+        }
         //message.unreadCount = globalUnreadCount === 0 ? '' : globalUnreadCount;
         list[index] = message;
       });
@@ -661,8 +714,26 @@
     }
 
     function setList(list) {
-      _updateLastMessage(list);
+      //_updateLastMessage(list);
       that.list = list;
+      _setLinkId(list);
+      _addIndexMap(list);
+      jndPubSub.pub('messages:set', list);
+    }
+
+    function _setLinkId(list) {
+      var messageList = that.list;
+      var first = messageList.length ? messageList[0].id : -1;
+      var last = messageList.length ? messageList[messageList.length - 1].id : -1;
+      if (list.length) {
+        first = list[0].id < first ? list[0].id : first;
+        last = list[list.length - 1].id > last ? list[list.length - 1].id : last;
+      }
+
+      _linkId = {
+        first: first,
+        last: last
+      };
     }
 
     /**

@@ -86,7 +86,7 @@
         <div class="image_wrapper msg-file-body__img__background" ng-if="(msg.feedback.content | hasPreview) && isTitleComment($index) && msg.feedback.status != 'archived'">
 
           <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center"
-               image-loader="{{::server_uploaded+msg.feedback.content.extraInfo.smallThumbnailUrl}}"
+               image-loader="{{::msg.feedback.content.extraInfo.smallThumbnailUrl | getFileUrl}}"
                image-max-height="63" image-max-width="63" image-is-square="true">
           </div>
         </div>

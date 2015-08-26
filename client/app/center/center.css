@@ -329,6 +329,7 @@ by ysyun 2015.2.25
   overflow: hidden;
 }
 .large-thumbnail {
+  min-height: 50px;
   max-width: 700px;
 }
 .preview-container:hover .large-thumbnail-full-screen {

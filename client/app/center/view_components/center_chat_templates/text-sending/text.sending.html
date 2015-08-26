@@ -1,4 +1,18 @@
 <div class="text-msg-item-container">
+  <!--  User Thumbnail -->
+  <div ng-if="hasProfile" class="msg-item-float cursor_pointer _user">
+    <img class="user-profile user-thumb" src="{{ msg.exProfileImg }}"/>
+  </div>
+
+  <div ng-if="hasProfile" class="msg-item-header _user">
+    <!--    WRITER-->
+      <span class="msg-item-header__name cursor_pointer">
+        <span class="msg-item-header__nameSpace">
+          <span>{{ msg.extWriterName }}</span>
+        </span>
+      </span>
+  </div>
+
   <div class="msg-item-body">
     <!-- TEXT -->
     <div class="msg-text">

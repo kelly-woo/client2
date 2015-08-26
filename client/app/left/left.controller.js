@@ -664,6 +664,7 @@ app.controller('leftPanelController1', function(
   };
 
   $rootScope.$on('onUserClick', function(event, user) {
+    console.log('root onUserClick');
     $scope.onUserClick(user);
   });
   //  Add 'onUserClick' to redirect to direct message to 'user'

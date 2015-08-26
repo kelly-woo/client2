@@ -103,6 +103,7 @@
   <link rel="stylesheet" href="app/util/css/jandi-common.css">
   <link rel="stylesheet" href="app/util/css/jandi-fonts.css">
   <link rel="stylesheet" href="app/util/css/spinners.css">
+  <link rel="stylesheet" href="app/util/directive/jnd.tooltip.css">
   <link rel="stylesheet" href="components/app/mention_ahead/mention.ahead.css">
   <!-- endinjector -->
   <!-- endbuild -->
@@ -139,6 +140,7 @@
         </div>
       </div>
     </div>
+    <jnd-tooltip></jnd-tooltip>
     <tutorial-welcome></tutorial-welcome>
   </div>
   <div ng-if="!isReady" class="full-screen z-index-top"></div>
@@ -199,6 +201,7 @@
 <script src="bower_components/blueimp-load-image/js/load-image-meta.js"></script>
 <script src="bower_components/blueimp-load-image/js/load-image-exif.js"></script>
 <script src="bower_components/blueimp-load-image/js/load-image-exif-map.js"></script>
+<script src="bower_components/handlebars/handlebars.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -227,9 +230,12 @@
 <!-- injector:js -->
 <script src="assets/javascripts/core.js"></script>
 <script src="assets/javascripts/detectmobilebrowser.js"></script>
+<script src="assets/javascripts/handlebars.templates.js"></script>
 <script src="assets/javascripts/jquery.highlight.js"></script>
 <script src="app/util/directive/animate.text.directive.js"></script>
 <script src="app/util/directive/jnd.elastic.directive.js"></script>
+<script src="app/util/directive/jnd.tooltip.directive.js"></script>
+<script src="app/util/directive/jnd.tooltip.trigger.directive.js"></script>
 <script src="app/util/directive/main.directive.js"></script>
 <script src="app/util/directive/other.team.badge.indicator.directive.js"></script>
 <script src="app/util/directive/scaleup.directive.js"></script>
@@ -240,6 +246,7 @@
 <script src="app/util/filter/main.filter.js"></script>
 <script src="app/util/filter/mention.filter.js"></script>
 <script src="app/util/filter/mention.html.decode.filter.js"></script>
+<script src="app/util/filter/template.filter.js"></script>
 <script src="app/util/filter/txt.filter.js"></script>
 <script src="app/util/images/image.loader.directive.js"></script>
 <script src="app/util/images/images.service.js"></script>
@@ -277,6 +284,16 @@
 <script src="app/center/center.directive.js"></script>
 <script src="app/center/help_messages/help.messages.controller.js"></script>
 <script src="app/center/help_messages/help.messages.directive.js"></script>
+<script src="app/center/messages/center.messages.directive.js"></script>
+<script src="app/center/messages/services/center.renderer.factory.service.js"></script>
+<script src="app/center/messages/services/center.renderer.service.js"></script>
+<script src="app/center/messages/services/renderers/date.divider.renderer.service.js"></script>
+<script src="app/center/messages/services/renderers/file.comment.renderer.service.js"></script>
+<script src="app/center/messages/services/renderers/file.renderer.service.js"></script>
+<script src="app/center/messages/services/renderers/renderer.util.service.js"></script>
+<script src="app/center/messages/services/renderers/system.event.renderer.service.js"></script>
+<script src="app/center/messages/services/renderers/text.renderer.service.js"></script>
+<script src="app/center/messages/services/renderers/unread.bookmark.renderer.service.js"></script>
 <script src="app/center/services/center.service.js"></script>
 <script src="app/center/services/marker.service.js"></script>
 <script src="app/center/services/message.query.service.js"></script>
