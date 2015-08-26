@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 "X-Poedit-Bookmarks: -1,328,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: client/app/tpl/503/503.html
@@ -724,7 +724,7 @@ msgstr "As of "
 
 #: client/app/left/left.html
 msgid "@file-size-too-large-error"
-msgstr "Currently you cannot upload a file that exceeds 100MB."
+msgstr "Currently you cannot upload a file that exceeds 300MB."
 
 #: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"
