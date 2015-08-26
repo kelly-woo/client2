@@ -37,6 +37,9 @@
       $scope.onFileDeleteClick = onFileDeleteClick;
       $scope.setCommentFocus = setCommentFocus;
 
+      $scope.isFileOwner = $filter('isFileWriter')(file);
+      $scope.isAdmin = memberService.isAdmin();
+
       if (file.contentFileUrl) {
         _setFileDownLoad(file.isIntegrateFile, file.contentTitle, file.contentFileUrl);
       }

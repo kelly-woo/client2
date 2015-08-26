@@ -78,7 +78,7 @@
                   <span><span ng-if="isStarred" translate>@star-un</span><span ng-if="!isStarred" translate>@star</span></span>
                 </a>
               </li>
-              <li class="cursor_pointer" ng-if="file_detail | isFileWriter:member">
+              <li class="cursor_pointer" ng-if="::(isFileOwner || isAdmin)">
                 <a ng-click="onFileDeleteClick(file_detail.id);">
                   <i class="fa fa-trash"></i>
                   <span translate>@message-delete</span>
@@ -142,7 +142,7 @@
             <span class="comment-item-header__name">{{ comment.extWriterName }}</span>
             <span class="comment-item-header__created">{{ getCreateTime($index, comment) }}</span>
             <div class="comment-item-header__action pull-right">
-              <div class="comment-item-action comment-item-action-more" dropdown ng-if="::(member.id === comment.writerId)">
+              <div class="comment-item-action comment-item-action-more" dropdown ng-if="::(member.id === comment.writerId || isAdmin) ">
                 <a href="#" class="link-dark" dropdown-toggle>
                   <i class="fa fa-cog"></i>
                 </a>

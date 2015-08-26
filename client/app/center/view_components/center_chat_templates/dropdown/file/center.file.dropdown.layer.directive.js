@@ -72,6 +72,8 @@
         scope.isIntegrateFile = data.isIntegrateFile;
         scope.isShown = true;
 
+        scope.isAdmin = memberService.isAdmin();
+
         scope.hasProtocol = _regxHTTP.test(fileUrl);
         scope.downloadUrl = urlObj.downloadUrl;
         scope.originalUrl = urlObj.originalUrl;

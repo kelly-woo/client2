@@ -143,8 +143,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var list = $scope.file_comments;
     var member = data.member;
     var id = member.id;
-    //var url = $filter('getSmallThumbnail')(member);
-    //console.log('filedetail: ', member);
+
     _.forEach(list, function(comment) {
       if (comment.writerId === id) {
         _addExtraData(comment, comment.writerId);
@@ -592,6 +591,12 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       // writer
       $scope.file_detail.extWriter = EntityMapManager.get('member', $scope.file_detail.writerId);
+
+      // integrate file
+      $scope.isIntegrateFile = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
+
+      $scope.isFileOwner = $filter('isFileWriter')($scope.file_detail);
+      $scope.isAdmin = memberService.isAdmin();
 
       _setFileDownLoad($scope.file_detail);
     }

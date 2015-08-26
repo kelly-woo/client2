@@ -10,7 +10,8 @@
     .factory('memberService', memberService);
 
   /* @ngInject */
-  function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload, jndPubSub) {
+  function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload,
+                         jndPubSub, currentSessionHelper) {
     var noUExtraData = "i dont have u_extraData";
 
     var _messageMarkers = {};
@@ -70,7 +71,9 @@
       getLastReadMessageMarker: getLastReadMessageMarker,
       
       isTopicNotificationOn: isTopicNotificationOn,
-      setTopicNotificationStatus: setTopicNotificationStatus
+      setTopicNotificationStatus: setTopicNotificationStatus,
+
+      isAdmin: isAdmin
     };
 
 
@@ -514,6 +517,14 @@
       } else {
         return lastMessageReadMarkerMap[entityId];
       }
+    }
+
+    /**
+     * admin 여부를 반환한다.
+     */
+    function isAdmin() {
+      var admin = currentSessionHelper.getCurrentTeamAdmin();
+      return admin && (admin.id === getMemberId());
     }
   }
 })();

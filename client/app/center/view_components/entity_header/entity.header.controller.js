@@ -152,6 +152,7 @@
      */
     function _checkOwnership() {
       $scope.isOwner = entityAPIservice.isOwner(_currentEntity, memberService.getMemberId());
+      $scope.isAdmin = memberService.isAdmin();
     }
 
     /**
