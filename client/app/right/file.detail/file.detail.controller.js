@@ -186,33 +186,41 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * comment 를 posting 한다.
    */
   function postComment() {
-    var msg = $('#file-detail-comment-input').val().trim();
+    var jqCommentInput = $('#file-detail-comment-input');
+    var msg = jqCommentInput.val().trim();
     var content;
     var mentions;
 
-    if (!$scope.isPostingComment && (msg || _sticker)) {
-      _hideSticker();
+    if (!$scope.isPostingComment) {
+      if (msg || _sticker) {
+        _hideSticker();
 
-      $scope.isPostingComment = true;
+        $scope.isPostingComment = true;
 
-      if ($scope.getMentions) {
-        if (content = $scope.getMentions()) {
-          msg = content.msg;
-          mentions = content.mentions;
+        if ($scope.getMentions) {
+          if (content = $scope.getMentions()) {
+            msg = content.msg;
+            mentions = content.mentions;
+          }
         }
-      }
 
-      fileAPIservice.postComment(fileId, msg, _sticker, mentions)
-        .success(function() {
-          $scope.glued = true;
-          $('#file-detail-comment-input').val('');
-          $scope.focusPostComment = true;
-        })
-        .error(function(err) {
-        })
-        .finally(function () {
-          $scope.isPostingComment = false;
+        fileAPIservice.postComment(fileId, msg, _sticker, mentions)
+          .success(function() {
+            $scope.glued = true;
+            $timeout(function() {
+              jqCommentInput.val('').focus()[0].removeAttribute('style');
+            });
+          })
+          .error(function(err) {
+          })
+          .finally(function () {
+            $scope.isPostingComment = false;
+          });
+      } else if (msg === '') {
+        $timeout(function() {
+          jqCommentInput.val('').focus()[0].removeAttribute('style');
         });
+      }
     }
   }
 
