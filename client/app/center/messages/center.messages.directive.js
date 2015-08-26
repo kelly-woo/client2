@@ -343,7 +343,6 @@
        * @private
        */
       function _onPrepend(angularEvent, list) {
-        var start = new Date();
         var htmlList = [];
         var headMsg = MessageCollection.list[list.length];
         _.forEach(list, function(message, index) {
@@ -355,8 +354,6 @@
         }
 
         el.prepend(_getCompiledEl(htmlList.join('')));
-        var end = new Date();
-        console.log('!!!elapsed', end - start);
         scope.onRepeatDone();
       }
 
