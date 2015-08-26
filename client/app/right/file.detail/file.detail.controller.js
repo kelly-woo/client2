@@ -181,7 +181,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         $scope.fileLoadStatus.loading = false;
         $('.file-detail-body').addClass('opac_in');
         deferred.resolve();
-      }, 800);
+      }, timerGetFileDetail == null ? 0 : 800);
     } else {
       deferred.reject();
     }
