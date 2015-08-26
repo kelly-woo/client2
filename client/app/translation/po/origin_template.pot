@@ -33,6 +33,7 @@ msgid "@alert-no-messages-found"
 msgstr ""
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
+#: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-no-result"
 msgstr ""
@@ -135,6 +136,7 @@ msgstr ""
 msgid "@btn-send"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
@@ -250,6 +252,7 @@ msgstr ""
 msgid "@common-customer-service"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
@@ -285,14 +288,17 @@ msgstr ""
 msgid "@common-done"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
+#: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@common-download"
 msgstr ""
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr ""
 
@@ -665,6 +671,7 @@ msgstr ""
 msgid "@error-404-title"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -744,10 +751,6 @@ msgstr ""
 #: client/app/modal/topics/topic_create/topic.create.html
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
-msgstr ""
-
-#: client/app/modal/topics/topic_rename/topic.rename.html
-msgid "@input-rename"
 msgstr ""
 
 #: client/app/modal/topics/topic_join/topic.join.html
@@ -942,10 +945,12 @@ msgstr ""
 msgid "@more-dm-list"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr ""
@@ -955,23 +960,29 @@ msgstr ""
 msgid "@msg-help-multiline"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr ""
 
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
+#: client/app/right/file.detail/file.detail.html
+#: client/app/right/file/file.html
 msgid "@msg-open-original"
 msgstr ""
 
@@ -1072,6 +1083,10 @@ msgstr ""
 msgid "@star-files-empty"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@star-forbidden"
+msgstr ""
+
 #: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 msgid "@star-remove"
 msgstr ""
@@ -1081,10 +1096,12 @@ msgstr ""
 msgid "@star-un"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
 msgstr ""
@@ -1400,6 +1417,7 @@ msgstr ""
 msgid "@tutorial_welcome_title"
 msgstr ""
 
+#: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr ""

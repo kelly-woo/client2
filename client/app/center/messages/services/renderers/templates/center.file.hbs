@@ -1,0 +1,142 @@
+<div id="{{msg.id}}" class="msg-item {{css.wrapper}}">
+  <!--  User Thumbnail -->
+  <div class="msg-item-float cursor_pointer {{css.disabledMember}} _user">
+    <img class="user-profile user-thumb" src="{{ msg.exProfileImg }}"/>
+  </div>
+
+  <div class="msg-item-header {{css.disabledMember}}">
+    <!--    WRITER-->
+      <span class="msg-item-header__name cursor_pointer _user">
+        <span class="msg-item-header__nameSpace">
+          {{ msg.extWriterName }}
+        </span>
+
+        <!--    CREATED TIME    -->
+        <span class="msg-item-header__created">
+          {{ msg.extTime }}
+        </span>
+
+        <span class="badge unread-badge">{{ msg.unreadCount }}</span>
+      </span>
+  </div>
+
+  <div class="msg-item-body">
+    <!-- FILE -->
+    <div class="msg-file">
+
+      <!--  FILE PREVIEW IMAGE  -->
+      <div class="msg-file-body-float pull-left preview-container">
+        {{#if isArchived}}
+        <!--  ARCHIVED FILE -->
+        <div>
+          <!--    FILE TYPE THUMBNAIL -->
+          <div class="msg-file-body__thumbnail">
+            <img class="fileicon" src="assets/images/fileicon_archived.png"/>
+          </div>
+        </div>
+        {{else}}
+        <div>
+          {{#if file.hasPreview}}
+          <!--    IMAGE THUMBNAIL -->
+          <div>
+            <!-- thumbnail parent -->
+            <div class="image_wrapper msg-file-body__img__background jnd-text-center">
+              <!-- large thumbnail add-->
+              <div class="_fileSmallThumb">
+                <div class="opac-zero msg-file-body__img cursor_pointer _compile"
+                    image-loader="{{file.imageUrl.small}}"
+                     image-max-height="65"
+                     image-max-width="65"
+                     image-is-square="true"
+                    jnd-thumbnail-scale-up>
+                </div>
+              </div>
+              <div class="_fileLargeThumb" style="display:none">
+                <div class="cursor_pointer opac-zero large-thumbnail _compile"
+                  image-loader="{{file.imageUrl.large}}"
+                  image-max-width="700">
+                </div>
+                <div class="large-thumbnail-full-screen _fileExpand">
+                  <i class="fa fa-expand"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{else}}
+          <!--    FILE TYPE THUMBNAIL -->
+          <div class="msg-file-body__thumbnail">
+            <div class="fileicon fileicon-{{ file.icon }}" ></div>
+          </div>
+          {{/if}}
+        </div>
+        {{/if}}
+      </div>
+
+      <!--  FILE INFO -->
+      <div class="msg-file-meta">
+        <div class="msg-file-meta-up">
+          {{#if isArchived}}
+          <div class="archived-file-title">
+            <a class="msg-file-meta__title file__name _compile"
+               ui-sref="files({ userName: '{{msg.message.writer.name}}', itemId: '{{msg.message.id}}' })">
+              <span>{{translate '@common-deleted-file-title'}}</span>
+            </a>
+          </div>
+          {{else}}
+          <!--  NOT ARCHIVED FILE -->
+          <div>
+            <!--    TITLE   -->
+            <a class="msg-file-meta__title file__name break-word _compile"
+               ui-sref="files({ userName: '{{msg.message.writer.name}}', itemId: '{{msg.message.id}}' })">
+              {{ file.title }}
+            </a>
+            {{#if file.size}}
+            <span class="bullet">•</span>
+            <!--    SIZE AND FILE TYPE  -->
+            <span class="msg-file-meta-info">{{ file.size }}</span>
+            {{/if}}
+            <span class="msg-file-meta-info">{{ file.type }}</span>
+          </div>
+        </div>
+        <div class="msg-file-meta-down">
+          {{#unless file.isIntegrateFile}}
+          <!--  DOWNLOAD  -->
+          <span class="file-uploaded-download">
+            <a class="_fileDownload" {{{ attrs.download }}}>
+              <i class="icon-download cursor_pointer file-action _compile"
+                 jnd-tooltip-trigger="{{translate '@common-download'}}"
+                 data-direction="top"></i>
+            </a>
+          </span>
+          <span class="separator"></span>
+          {{/unless}}
+          <!--  SHARE -->
+          <i class="icon-share cursor_pointer file-action _compile _fileShare"
+             jnd-tooltip-trigger="{{translate '@btn-share'}}"
+             data-direction="top"></i>
+
+          <span class="separator"></span>
+
+          <!--  MORE  -->
+          <span class="file-uploaded-more _fileMore">
+            <i class="fa fa-cog cursor_pointer file-action _compile"
+               jnd-tooltip-trigger="{{translate '@file-action-more'}}"
+               data-direction="top"></i>
+          </span>
+
+        </div>
+        {{/if}}
+      </div>
+      {{#unless isArchived}}
+      <!-- Star -->
+      <div class="msg-extra file-uploaded-extra">
+        <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _star {{css.star}}">
+          <i class="icon-star-fill"></i>
+        </span>
+      </div>
+      {{/unless}}
+    </div>
+
+  </div>
+</div>
+

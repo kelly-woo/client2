@@ -10,6 +10,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   var _stickerType;
   var fileId;
   var _commentIdToScroll;
+  var timerGetFileDetail;
 
   //file detail에서 integraiton preview로 들어갈 image map
   var noPreviewAvailableImage;
@@ -97,6 +98,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
     $scope.$on('updateFileDetailPanel', _onFileChanged);
     $scope.$on('setCommentFocus', _focusInput);
+
+    $scope.$on('fileShared', _fileShared);
+    $scope.$on('fileUnshared', _fileUnshared);
+
     $scope.$on('onChangeSticker:' + _stickerType, function (event, item) {
       _sticker = item;
       _focusInput();
@@ -138,8 +143,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var list = $scope.file_comments;
     var member = data.member;
     var id = member.id;
-    //var url = $filter('getSmallThumbnail')(member);
-    //console.log('filedetail: ', member);
+
     _.forEach(list, function(comment) {
       if (comment.writerId === id) {
         _addExtraData(comment, comment.writerId);
@@ -158,7 +162,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     var deferred = $q.defer();
     if (!$scope.fileLoadStatus.loading) {
       $scope.fileLoadStatus.loading = true;
-      $timeout(function () {
+      $timeout.cancel(timerGetFileDetail);
+      timerGetFileDetail = $timeout(function () {
         var fileDetail = fileAPIservice.dualFileDetail;
 
         if (fileDetail) {
@@ -175,7 +180,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         $scope.fileLoadStatus.loading = false;
         $('.file-detail-body').addClass('opac_in');
         deferred.resolve();
-      }, 0);
+      }, timerGetFileDetail == null ? 0 : 800);
     } else {
       deferred.reject();
     }
@@ -186,33 +191,41 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * comment 를 posting 한다.
    */
   function postComment() {
-    var msg = $('#file-detail-comment-input').val().trim();
+    var jqCommentInput = $('#file-detail-comment-input');
+    var msg = jqCommentInput.val().trim();
     var content;
     var mentions;
 
-    if (!$scope.isPostingComment && (msg || _sticker)) {
-      _hideSticker();
+    if (!$scope.isPostingComment) {
+      if (msg || _sticker) {
+        _hideSticker();
 
-      $scope.isPostingComment = true;
+        $scope.isPostingComment = true;
 
-      if ($scope.getMentions) {
-        if (content = $scope.getMentions()) {
-          msg = content.msg;
-          mentions = content.mentions;
+        if ($scope.getMentions) {
+          if (content = $scope.getMentions()) {
+            msg = content.msg;
+            mentions = content.mentions;
+          }
         }
-      }
 
-      fileAPIservice.postComment(fileId, msg, _sticker, mentions)
-        .success(function() {
-          $scope.glued = true;
-          $('#file-detail-comment-input').val('');
-          $scope.focusPostComment = true;
-        })
-        .error(function(err) {
-        })
-        .finally(function () {
-          $scope.isPostingComment = false;
+        fileAPIservice.postComment(fileId, msg, _sticker, mentions)
+          .success(function() {
+            $scope.glued = true;
+            $timeout(function() {
+              jqCommentInput.val('').focus()[0].removeAttribute('style');
+            });
+          })
+          .error(function(err) {
+          })
+          .finally(function () {
+            $scope.isPostingComment = false;
+          });
+      } else if (msg === '') {
+        $timeout(function() {
+          jqCommentInput.val('').focus()[0].removeAttribute('style');
         });
+      }
     }
   }
 
@@ -271,7 +284,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   function setImageUrl(content) {
     // file detail에서 preview image 설정
     if ($filter('hasPreview')(content)) {
-      $scope.ImageUrl = $scope.server_uploaded + content.fileUrl;
+      $scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
       $scope.hasZoomIn = true;
     } else {
       $scope.ImageUrl = $filter('getFilterTypePreview')(content);
@@ -374,11 +387,34 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           });
         } catch (e) {
         }
-
       })
       .error(function(err) {
         alert(err.msg);
       });
+  }
+
+  /**
+   * file shared event handler
+   * @param {object} $event
+   * @param {object} data
+   * @private
+   */
+  function _fileShared($event, data) {
+    if (data.file.id == fileId) {
+      getFileDetail();
+    }
+  }
+
+  /**
+   * file unshared event handler
+   * @param {object} $event
+   * @param {object} data
+   * @private
+   */
+  function _fileUnshared($event, data) {
+    if (data.file.id == fileId) {
+      getFileDetail();
+    }
   }
 
   /**
@@ -521,7 +557,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _onErrorFileDetail() {
-    $scope.hasFileAPIError = true;
+    $scope.initialLoaded = $scope.hasFileAPIError = true;
     $state.go('messages.detail.files.item', $state.params);
   }
 
@@ -558,11 +594,31 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
 
       // integrate file
       $scope.isIntegrateFile = fileAPIservice.isIntegrateFile($scope.file_detail.content.serverUrl); // integrate file 여부
+
+      $scope.isFileOwner = $filter('isFileWriter')($scope.file_detail);
+      $scope.isAdmin = memberService.isAdmin();
+
+      _setFileDownLoad($scope.file_detail);
     }
 
     if (!$scope.initialLoaded) {
       $scope.initialLoaded = true;
     }
+  }
+
+  /**
+   * file download 설정
+   * @param {object} fileDetail
+   * @private
+   */
+  function _setFileDownLoad(fileDetail) {
+    var value;
+
+    $scope.isIntegrateFile = fileAPIservice.isIntegrateFile(fileDetail.content.serverUrl);
+    value = $filter('downloadFile')($scope.isIntegrateFile, fileDetail.content.name, fileDetail.content.fileUrl);
+
+    $scope.downloadUrl = value.downloadUrl;
+    $scope.originalUrl = value.originalUrl;
   }
 
   /**
@@ -576,8 +632,8 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
       $scope.file_detail = item;
       _addExtraData($scope.file_detail, item.writerId);
 
-      $scope.file_detail.shared = fileAPIservice.updateShared(item);
-      $scope.hasTopic = !!$scope.file_detail.shared.length;
+      _setShared();
+
       $scope.isFileArchived = _isFileArchived($scope.file_detail);
     } else if (!_isFileArchived(item)) {
       _appendFileComment(item);
@@ -750,5 +806,13 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     $timeout(function() {
       $(event.target).parents('.comment-item-header__action').find('.comment-star i').trigger('click');
     });
+  }
+
+  /**
+   * file이 공유된 topic명 설정
+   */
+  function _setShared() {
+    $scope.file_detail.extShared = fileAPIservice.updateShared($scope.file_detail);
+    $scope.hasTopic = !!$scope.file_detail.extShared.length;
   }
 });

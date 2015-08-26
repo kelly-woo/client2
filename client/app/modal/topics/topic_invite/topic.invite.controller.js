@@ -1,3 +1,6 @@
+/**
+ * @fileoverview invite topic controller
+ */
 (function() {
   'use strict';
 
@@ -5,25 +8,22 @@
     .module('jandiApp')
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
-  function TopicInviteCtrl($scope, $rootScope, $modalInstance, currentSessionHelper, entityheaderAPIservice, $state, $filter,
-                                 entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub) {
-    InitInvite();
+  function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
+                           entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub) {
+    var members;
+    var msg1;
+    var msg2;
+
+    _init();
 
     /*
      Generating list of users that are not in current channel or private group.
      */
-    function InitInvite() {
+    function _init() {
       $scope.currentEntity = currentSessionHelper.getCurrentEntity();
-      var members = entityAPIservice.getMemberList($scope.currentEntity);
-      var totalUserList = $scope.memberList;
-      var msg1;
-      var msg2;
 
-      $scope.availableMemberList = _.reject(totalUserList, function(user) { return members.indexOf(user.id) > -1 || user.status == 'disabled' });
-      $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
-        return user.selected === false;
-      });
-      $scope.inviteChannel = $scope.availableMemberList.length !== 0;
+      generateMemberList();
+      $scope.selectedUser = '';
 
       if ($scope.account && $scope.account.memberships.length >= 2) {
         // team size >= 2
@@ -37,34 +37,87 @@
 
       $scope.inviteTeamMsg1 = $filter('translate')(msg1);
       $scope.inviteTeamMsg2 = $filter('translate')(msg2);
+
+      $scope.onInviteTeamClick = onInviteTeamClick;
+      $scope.onRemove = onRemove;
+      $scope.onMemberClick = onMemberClick;
+      $scope.onInviteClick = onInviteClick;
+      $scope.cancel = cancel;
     }
 
-    $scope.onInviteTeamClick = function() {
+    $scope.$on('onSetStarDone', _onSetStarDone);
+
+    /**
+     * member starred event handler
+     * @private
+     */
+    function _onSetStarDone() {
+      generateMemberList();
+    }
+
+    /**
+     * set member list
+     */
+    function generateMemberList() {
+      var prevAvailableMemberMap;
+
+      prevAvailableMemberMap = $scope.availableMemberMap;
+
+      members = entityAPIservice.getMemberList($scope.currentEntity);
+
+      $scope.availableMemberMap = {};
+      $scope.availableMemberList = _.reject($scope.memberList, function(user) {
+        if (prevAvailableMemberMap && prevAvailableMemberMap[user.id]) {
+          user.selected = prevAvailableMemberMap[user.id].selected;
+        }
+
+        $scope.availableMemberMap[user.id] = user;
+
+        return members.indexOf(user.id) > -1 || user.status == 'disabled';
+      });
+
+      $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
+        return user.selected === false;
+      });
+      $scope.inviteChannel = $scope.availableMemberList.length !== 0;
+    }
+
+    /**
+     * insert selected member
+     */
+    function onInviteTeamClick() {
       $modalInstance.dismiss('cancel');
       modalHelper.openInviteToTeamModal();
-    };
+    }
 
-    // See if 'user' is a member of current channel/privateGroup.
-    $scope.isMember = function(user, entityType) {
-      if (entityType == 'channel')
-        return jQuery.inArray(user.id, $scope.currentEntity.ch_members) >  -1;
-
-      return jQuery.inArray(user.id, $scope.currentEntity.pg_members) >  -1;
-    };
-
-    // Below function gets called when 'enter/click' happens in typeahead.
-    // This function is buggyyyy
-    // TODO : FIX IT!
-    $scope.onSelect = function(item) {
-      item.selected = true;
-      $scope.inviteUsers.indexOf(item) < 0 && $scope.inviteUsers.push(item);
-    };
-    $scope.onRemove = function(item) {
+    /**
+     * remove selected member
+     * @param {object} item
+     */
+    function onRemove(item) {
       item.selected = false;
       $scope.inviteUsers.splice($scope.inviteUsers.indexOf(item), 1);
-    };
 
-    $scope.onInviteClick = function(entityType) {
+      $timeout(function() {
+        $('#invite-member-filter').focus();
+      });
+    }
+
+    /**
+     * member click event handler
+     */
+    function onMemberClick(member) {
+      var inviteUsers = $scope.inviteUsers;
+
+      member.selected = true;
+      inviteUsers.indexOf(member) < 0 && inviteUsers.unshift(member);
+    }
+
+    /**
+     * invite member
+     * @param {string} entityType - channel or privategroup
+     */
+    function onInviteClick(entityType) {
       var guestList = [];
       var property = {};
       var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
@@ -125,12 +178,13 @@
             jndPubSub.hideLoading();
           });
       }
-    };
+    }
 
-    $scope.cancel = function() {
+    /**
+     * close modal
+     */
+    function cancel() {
       $modalInstance.dismiss('cancel');
-    };
+    }
   }
 })();
-
-

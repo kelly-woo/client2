@@ -9,7 +9,10 @@
     .controller('FileCtrl', FileCtrl);
 
   /* @ngInject */
-  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService, fileAPIservice, FileData, memberService) {
+  function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService,
+                    fileAPIservice, FileData, memberService, configuration) {
+    var _regxHTTP = /^[http|https]/i;
+
     _init();
 
     // First function to be called.
@@ -33,6 +36,13 @@
       $scope.isDisabledMember = isDisabledMember;
       $scope.onFileDeleteClick = onFileDeleteClick;
       $scope.setCommentFocus = setCommentFocus;
+
+      $scope.isFileOwner = $filter('isFileWriter')(file);
+      $scope.isAdmin = memberService.isAdmin();
+
+      if (file.contentFileUrl) {
+        _setFileDownLoad(file.isIntegrateFile, file.contentTitle, file.contentFileUrl);
+      }
     }
 
     /**
@@ -124,6 +134,23 @@
       } else {
         fileAPIservice.broadcastCommentFocus();
       }
+    }
+
+    /**
+     * file download 설정
+     * @param {boolean} isIntegrateFile
+     * @param {string} contentTitle
+     * @param {string} contentFileUrl
+     * @private
+     */
+    function _setFileDownLoad(isIntegrateFile, contentTitle, contentFileUrl) {
+      var value;
+
+      $scope.isIntegrateFile = isIntegrateFile;
+      value = $filter('downloadFile')(isIntegrateFile, contentTitle, contentFileUrl);
+
+      $scope.downloadUrl = value.downloadUrl;
+      $scope.originalUrl = value.originalUrl;
     }
   }
 })();

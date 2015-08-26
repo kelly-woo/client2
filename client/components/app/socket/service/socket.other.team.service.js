@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification, jndPubSub, jndWebSocketCommon,
-                                        EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper) {
+                                        EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper, DesktopNotification) {
 
     var OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP = 'other_team_topic_status';
     var ROOM_SUBSCRIPTION_UPDATED = 'room_subscription_updated';
@@ -38,16 +38,29 @@
         _onRoomSubscriptionUpdated(socketEvent);
       } else if (_shouldBeNotified(socketEvent) && !!socketEvent.teamId) {
         // 처리하려는 소켓이벤트는 무조건 팀아이디와 방의 정보가 있어야한다.
-        // file_comment 일 경우 방의 정보가 rooms로 넘어오기때문에 처리한다.
-        _getNotificationOnRoom(socketEvent);
+        _notificationSender(socketEvent);
+      }
+      _setLastLinkId(socketEvent);
+    }
 
-        if (socketEvent.extFoundRoom) {
-          // 방의 정보가 있다는 것, 노티를 보내도 된다는 것.
-          _sendBrowserNotification(socketEvent);
-        }
+    /**
+     * 노티피케이션을 보내기 전에 확인해야할 것들과 추가해야하는 부분들을 추가한다.
+     * @param {object} socketEvent - socket event parameter
+     * @private
+     */
+    function _notificationSender(socketEvent) {
+      if (_.isUndefined(socketEvent.extHasProcessedOnce)) {
+        // 한 번 처리한 소켓이벤트를 다시 처리하지 않기위함이다.
+        socketEvent.extHasProcessedOnce = false;
       }
 
-      _setLastLinkId(socketEvent);
+      // file_comment 일 경우 방의 정보가 rooms로 넘어오기때문에 처리한다.
+      _getNotificationOnRoom(socketEvent);
+
+      if (socketEvent.extFoundRoom || _hasMention(socketEvent)) {
+        // 방의 정보가 있다는 것, 노티를 보내도 된다는 것.
+        _sendBrowserNotification(socketEvent);
+      }
     }
 
     /**
@@ -132,10 +145,7 @@
 
       if (!_hasTeamMessageMarkers(teamId)) {
         // 해당 팀의 정보가 전혀 없을 때
-        if (!_isWaitingOnTeamId(teamId)) {
-          // 여러번 호출 되는 것을 방지
-          _getTeamMessageMarkers(teamId, socketEvent);
-        }
+        _getTeamMessageMarkers(teamId, socketEvent);
         return false;
       }
 
@@ -160,24 +170,32 @@
      * @private
      */
     function _getTeamMessageMarkers(teamId, socketEvent) {
-      _setWaiting(teamId, true);
 
-      var memberId;
+      if (!_isWaitingOnTeamId(teamId) && !socketEvent.extHasProcessedOnce) {
 
-      // 해당 팀의 정보가 전혀 없을 때
-      EntityMapManager.create(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP);
+        // 여러번 호출 되는 것을 방지
+        _setWaiting(teamId, true);
 
-      memberId = _getMemberId((teamId));
+        var memberId;
 
-      memberService.getMemberInfo(memberId)
-        .success(function(response) {
-          EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, _getMessageMarkersMap(response.u_messageMarkers));
+        // 해당 팀의 정보가 전혀 없을 때
+        EntityMapManager.create(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP);
 
-          _setWaiting(teamId, false);
+        memberId = _getMemberId((teamId));
 
-          onSocketEvent(socketEvent);
-        });
+        memberService.getMemberInfo(memberId, 'socket_team_marker')
+          .success(function(response) {
+            EntityMapManager.set(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId, _getMessageMarkersMap(response.u_messageMarkers));
+
+            _setWaiting(teamId, false);
+
+            //같은 소켓이벤트로 계속 불리는 것을 방지하기 위함이다.
+            socketEvent.extHasProcessedOnce = true;
+            onSocketEvent(socketEvent);
+          });
+      }
     }
+
 
     /**
      * teamId에 해당하는 팀에 있는 방들 중 roomId를 가진 방의 subscibe 값을 리턴한다.
@@ -189,9 +207,13 @@
     function _isSubscriptionOn(teamId, socketEvent) {
       var messageMarkersMap = EntityMapManager.get(OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP, teamId);
       var roomId = socketEvent.room.id;
+
       if (_.isUndefined(messageMarkersMap[roomId])) {
-        // 방에대한 정보가 없을 때.
-        _getTeamMessageMarkers(teamId, socketEvent);
+        if (socketEvent.room.type !== 'channel') {
+          // 방에대한 정보가 없을 때. 방의 타입이 channel이라면 그 것은 조인되어있지 않는 채널! 그럴땐 무시한다.
+          // 방의 타입이 채널이 아닐 경우는 1. privateGroup 혹은 2. direct message 일때이다.
+          _getTeamMessageMarkers(teamId, socketEvent);
+        }
         return false;
       }
 
@@ -208,14 +230,15 @@
       var teamId = socketEvent.teamId;
       var timeoutCaller;
 
-      if (jndWebSocketOtherTeamManagerHelper.hasTimeoutCaller(teamId, TIMEOUT_CALLER)) {
+      if (jndWebSocketOtherTeamManagerHelper.has(teamId, TIMEOUT_CALLER)) {
         timeoutCaller = _getTimeoutCaller(teamId);
         $timeout.cancel(timeoutCaller);
       }
 
       timeoutCaller = $timeout(function() {
-
-        OtherTeamNotification.addNotification(socketEvent);
+        if (DesktopNotification.canSendNotification()) {
+          OtherTeamNotification.addNotification(socketEvent);
+        }
 
         _afterNotificationSent(teamId, socketEvent);
       }, paddingTime);
@@ -256,7 +279,27 @@
       return _messageMarkers;
     }
 
+    /**
+     * socket event 가 나를 향한 멘션을 들고 있는지 없는지 확인한다.
+     * @param {object} socketEvent - socket event param
+     * @returns {boolean}
+     * @private
+     */
+    function _hasMention(socketEvent) {
+      var _foundMentionToMe = false;
+      var _teamId = _getTeamId(socketEvent);
+      var _myId = _getMemberId(_teamId);
 
+      if (!!socketEvent.mentions) {
+        _.forEach(socketEvent.mentions, function(mention) {
+          if (mention.id === _myId) {
+            _foundMentionToMe = true;
+            return false;
+          }
+        });
+      }
+      return _foundMentionToMe;
+    }
 
 
 
@@ -300,12 +343,13 @@
      */
     function _getMemberId(teamId) {
 
-      var memberId = jndWebSocketOtherTeamManagerHelper.get(teamId, MEMBER_ID);
+      var memberId;
 
-      if (_.isUndefined(memberId)) {
+      if (!jndWebSocketOtherTeamManagerHelper.has(teamId, MEMBER_ID)) {
         _findMemberId(accountService.getAccount().memberships, teamId);
-        memberId = jndWebSocketOtherTeamManagerHelper.get(teamId, MEMBER_ID);
       }
+
+      memberId = jndWebSocketOtherTeamManagerHelper.get(teamId, MEMBER_ID);
 
       return memberId;
     }
@@ -414,7 +458,7 @@
      * @private
      */
     function _hasLastLinkId(socketEvent) {
-      return jndWebSocketOtherTeamManagerHelper.hasLastLinkId(_getTeamId(socketEvent));
+      return jndWebSocketOtherTeamManagerHelper.has(_getTeamId(socketEvent), LAST_LINK_ID);
     }
 
     /**
@@ -424,9 +468,7 @@
      * @private
      */
     function _getTeamId(socketEvent) {
-      return socketEvent.teamId || socketEvent.data.teamId;
+      return socketEvent.teamId || (!!socketEvent.data && socketEvent.data.teamId) || (!!socketEvent.team && socketEvent.team.id);
     }
-
-
   }
 })();

@@ -173,7 +173,7 @@
           // Store account id, team id, member id in localStorage for analytics usage.
           storageAPIservice.setAccountInfoLocal(response.account.id, signInInfo.teamId, signInInfo.memberId, signInInfo.teamName);
 
-          memberService.getMemberInfo(signInInfo.memberId)
+          memberService.getMemberInfo(signInInfo.memberId, 'auth_signin')
             .success(function(response) {
 
               // Set local member.

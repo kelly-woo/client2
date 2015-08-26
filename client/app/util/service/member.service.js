@@ -10,7 +10,8 @@
     .factory('memberService', memberService);
 
   /* @ngInject */
-  function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload, jndPubSub) {
+  function memberService($http, $rootScope, storageAPIservice, entityAPIservice, $upload,
+                         jndPubSub, currentSessionHelper) {
     var noUExtraData = "i dont have u_extraData";
 
     var _messageMarkers = {};
@@ -70,7 +71,9 @@
       getLastReadMessageMarker: getLastReadMessageMarker,
       
       isTopicNotificationOn: isTopicNotificationOn,
-      setTopicNotificationStatus: setTopicNotificationStatus
+      setTopicNotificationStatus: setTopicNotificationStatus,
+
+      isAdmin: isAdmin
     };
 
 
@@ -190,10 +193,10 @@
      * @param {number} memberId - id
      * @returns {object} member - member entity
      */
-    function getMemberInfo(memberId) {
+    function getMemberInfo(memberId, code) {
       return $http({
         method: 'GET',
-        url: $rootScope.server_address + 'account/members/' + memberId
+        url: $rootScope.server_address + 'account/members/' + memberId + '?code=' + code
       });
     }
 
@@ -342,7 +345,7 @@
      * 현재 멤버의 프로필이 변경됐다는 소켓이벤트가 오면 호출된다.
      */
     function onMemberProfileUpdated() {
-      getMemberInfo(getMemberId())
+      getMemberInfo(getMemberId(), 'member_profile_update')
         .success(function(response) {
           setMember(response);
         })
@@ -514,6 +517,14 @@
       } else {
         return lastMessageReadMarkerMap[entityId];
       }
+    }
+
+    /**
+     * admin 여부를 반환한다.
+     */
+    function isAdmin() {
+      var admin = currentSessionHelper.getCurrentTeamAdmin();
+      return admin && (admin.id === getMemberId());
     }
   }
 })();

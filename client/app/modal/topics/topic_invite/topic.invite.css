@@ -29,3 +29,7 @@
 	font-size: 14px;
 	color: #666;
 }
+
+.invite-channel .no-result-container {
+	margin-top: 20px;
+}

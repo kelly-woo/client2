@@ -71,7 +71,7 @@
      */
     function openFileShareModal($scope, fileToShare) {
       var modalOption = {
-        scope: $scope,
+        scope: $scope.$new(),
         templateUrl: 'app/modal/files/share/share.html',
         controller: 'FileShareModalCtrl',
         size: 'lg',
@@ -82,6 +82,7 @@
         }
       };
       modal = _modalOpener(modalOption);
+      $scope.$apply();
     }
 
     /**
@@ -256,7 +257,7 @@
      */
     function openMemberProfileModal($scope, member) {
       var modalOption = {
-        scope: $scope,
+        scope: $scope.$new(),
         templateUrl: 'app/modal/members/member_profile/member.profile.view.html',
         controller: 'ProfileViewCtrl',
         windowClass: 'profile-view-modal',
@@ -266,6 +267,7 @@
       };
 
       modal = _modalOpener(modalOption);
+      $scope.$apply();
     }
 
     /**

@@ -51,7 +51,7 @@
       </li>
 
       <!--    RENAME  -->
-      <li role="presentation" ng-if="isOwner" ng-click="openRenameModal(this);">
+      <li role="presentation" ng-if="isOwner || isAdmin" ng-click="openRenameModal(this);">
         <a role="menuitem" tabindex="-1">
           <i class="icon-edit-fill"></i><span translate>@edit-topic-information</span>
         </a>
@@ -65,7 +65,7 @@
       </li>
 
       <!--    DELETE  -->
-      <li role="presentation" ng-if="isOwner && !isDefaultTopic" ng-click="onDeleteClicked();">
+      <li role="presentation" ng-if="(isOwner || isAdmin) && !isDefaultTopic" ng-click="onDeleteClicked();">
         <a role="menuitem" tabindex="-1">
           <i class=" icon-delete-circle-fill "></i><span translate>@ch-menu-delete</span>
         </a>

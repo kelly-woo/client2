@@ -9,7 +9,7 @@
     .controller('RightPanelStarsTabCtrl', RightPanelStarsTabCtrl);
 
   /* @ngInject */
-  function RightPanelStarsTabCtrl($scope, $filter, $state, $timeout, Router, StarAPIService) {
+  function RightPanelStarsTabCtrl($scope, $filter, $state, $timeout, Router, StarAPIService, fileAPIservice) {
     var starListData = {
       messageId: null
     };
@@ -17,6 +17,7 @@
 
     var removeItems = [];
     var timerRemoveItems;
+    var timerUpdateComment;
 
     _init();
 
@@ -207,22 +208,36 @@
      */
     function _updateComment(type, data) {
       var fileId;
-      var offset;
 
       if (data.file) {
         fileId =  data.file.id;
-        if (type === 'create') {
-          offset = 1;
-        } else if (type === 'delete') {
-          offset = -1;
 
+        if (type === 'delete') {
           // 삭제된 comment가 tabs의 item으로 존재한다면 해당 item 삭제
           _removeStarItem('all', data.comment.id);
           _removeStarItem('files', data.comment.id);
         }
 
-        _updateCommentCount('all', fileId, offset);
-        _updateCommentCount('files', fileId, offset);
+        $timeout.cancel(timerUpdateComment);
+        timerUpdateComment = $timeout((function(fileId) {
+          return function() {
+            fileAPIservice
+              .getFileDetail(fileId)
+              .success(function (data) {
+                var count = 0;
+                if (data && data.messageDetails) {
+                  _.forEach(data.messageDetails, function(value) {
+                    if (value.contentType === 'comment' && value.status === 'created') {
+                      count++;
+                    }
+                  });
+
+                  _updateCommentCount('all', fileId, count);
+                  _updateCommentCount('files', fileId, count);
+                }
+              });
+          };
+        }(fileId)), 500);
       }
     }
 
@@ -230,17 +245,13 @@
      * comment count 갱신
      * @param {string} activeTabName
      * @param {number} fileId
-     * @param {number} offset
+     * @param {number} count
      * @private
      */
-    function _updateCommentCount(activeTabName, fileId, offset) {
+    function _updateCommentCount(activeTabName, fileId, count) {
       var item;
       if (item = $scope.tabs[activeTabName].map[fileId]) {
-        $scope.$apply((function(item) {
-          return function() {
-            item.message.commentCount += offset;
-          };
-        }(item)));
+        item.message.commentCount = count;
       }
     }
 

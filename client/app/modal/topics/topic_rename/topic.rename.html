@@ -1,8 +1,8 @@
 <!-- Modal: Rename Channel -->
 <div class="modal-header">
-  <button type="button" class="close" data-ng-click="cancel();"><i class="icon-cancel"></i></button>
+  <button type="button" class="close" ng-click="cancel();"><i class="icon-cancel"></i></button>
   <h3 class="modal-header__title">
-    <span translate>@common-rename</span>
+    <span>{{ ::'@common-rename' | translate }}</span>
   </h3>
 </div>
 
@@ -11,18 +11,18 @@
     <div class="form-horizontal">
       <div class="form-group">
         <label class="control-label col-sm-3">
-          <span translate>@common-name</span>
+          <span>{{ ::'@common-name' | translate }}</span>
         </label>
         <div class="col-sm-9">
           <input type="text"
                  class="form-control"
                  name="newTopicName"
-                 ng-model="topicName"
-                 placeholder="{{ '@input-rename' | translate }}"
-                 ng-maxlength="60"
+                 jnd-input-model="topicName"
+                 jnd-is-trim="on"
+                 placeholder="{{ ::'@input-rename' | translate }}"
                  ng-required/>
-          <alert type="warning" class="profile-settings-body__alert" data-ng-if="topicRenameForm.newTopicName.$error.maxlength">
-            {{ '@input-max-length-error' | translate}}
+          <alert type="warning" class="profile-settings-body__alert" ng-if="topicName.length > nameMaxLength">
+            {{ ::'@input-max-length-error' | translate }}
           </alert>
         </div>
       </div>
@@ -31,20 +31,20 @@
     <div class="form-horizontal topic-description-container">
       <div class="form-group">
         <label class="control-label col-sm-3">
-          <span translate>@topic-description</span>
+          <span>{{ ::'@topic-description' | translate }}</span>
         </label>
         <div class="col-sm-9">
           <textarea
             class="form-control topic-description-input"
             name="topicDescription"
-            placeholder="{{ '@topic-description-placeholder' | translate }}"
-            ng-model="topicDescription"
-            ng-maxlength="300"
+            jnd-input-model="topicDescription"
+            jnd-is-trim="on"
+            placeholder="{{ ::'@topic-description-placeholder' | translate }}"
             autocorrect="off"
             autocomplete="off">
           </textarea>
-          <alert type="warning" class="profile-settings-body__alert" data-ng-if="topicRenameForm.topicDescription.$error.maxlength">
-            {{ '@input-max-length-error' | translate}}
+          <alert type="warning" class="profile-settings-body__alert" ng-if="topicDescription.length > descMaxLength">
+            {{ ::'@input-max-length-error' | translate }}
           </alert>
         </div>
       </div>
@@ -52,10 +52,19 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>@btn-cancel</span></button>
-    <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ '@common-done' | translate }}"
-           ng-disabled="hasValueChanged('name') && hasValueChanged('description') || topicRenameForm.$invalid"/>
+    <button type="button" class="btn btn-cancel" ng-click="cancel()"><span>{{ ::'@btn-cancel' | translate }}</span></button>
+    <input class="btn btn-ok" type="submit" id="rename_channel" value="{{ ::'@common-done' | translate }}"
+           ng-disabled="isInvalid()"/>
   </div>
 </form>
-
 <jnd-loading></jnd-loading>
+<div ng-if="false">
+  <span translate>@common-rename</span>
+  <span translate>@common-name</span>
+  <span translate>@input-max-length-error</span>
+  <span translate>@topic-description</span>
+  <span translate>@topic-description-placeholder</span>
+  <span translate>@btn-cancel</span>
+  <span translate>@common-done</span>
+  <span translate>@common-duplicate-name-err</span>
+</div>

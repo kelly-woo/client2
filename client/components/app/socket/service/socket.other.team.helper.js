@@ -15,19 +15,49 @@
 
     this.get = get;
     this.set = set;
+    this.has = has;
 
-    this.hasTimeoutCaller = hasTimeoutCaller;
     this.isWaitingOnTeamId = isWaitingOnTeamId;
-    this.hasLastLinkId = hasLastLinkId;
-
 
     /**
-     * 해당 팀아이디에 $timeout promise 객체가 있는지 없는지 확인한다.
+     * _teamStatusMap에 teamId에 해당하는 obect에 key-value pair를 추가한다.
+     * @param {number} teamId - 추가하고 싶은 팀의 아이디
+     * @param {string|number} key - 추가하고 싶은 pair의 key
+     * @param {*} value - 추가하고 싶은 pair의 value
+     * @private
+     */
+    function set(teamId, key, value) {
+      var currentTeamInfo;
+
+      if (_hasTeamInfo(teamId)) {
+        currentTeamInfo = _getTeamInfo(teamId);
+      } else {
+        currentTeamInfo = {};
+      }
+
+      currentTeamInfo[key] = value;
+
+      _setTeamInfo(teamId, currentTeamInfo);
+    }
+
+    /**
+     * _teamStatusMap에서 teamId에 해당하는 오브젝트 중 key의 정보를 리턴한다.
+     * @param {number} teamId - 찾으려는 팀의 아이디
+     * @param {number|string} key - 찾으려는 key
+     * @returns {*}
+     * @private
+     */
+    function get(teamId, key) {
+      return _teamStatusMap[teamId][key];
+    }
+
+    /**
+     * 해당 팀의 정보와 fieldName의 정보가 있는지 확인한다.
      * @param {number} teamId - 찾으려는 팀의 아이디
      * @param {string|number} fieldName - 찾으려는 field의 아이디
      * @returns {boolean}
      */
-    function hasTimeoutCaller(teamId, fieldName) {
+    function has(teamId, fieldName) {
       return _hasTeamInfo(teamId) && _hasField(teamId, fieldName);
     }
 
@@ -41,9 +71,6 @@
       return _hasTeamInfo(teamId) && _hasField(teamId, fieldName) && get(teamId, fieldName);
     }
 
-    function hasLastLinkId(teamId, fieldName) {
-      return _hasTeamInfo(teamId) && _hasField(teamId, fieldName);
-    }
     /**
      * 해당 팀 아이디의 정보에 fieldName이라는 field가 있는지 없는지 리턴한다.
      * @param {number} teamId - 찾으려는 팀의 아이디
@@ -83,38 +110,6 @@
      */
     function _hasTeamInfo(teamId) {
       return !!_teamStatusMap[teamId];
-    }
-
-    /**
-     * _teamStatusMap에 teamId에 해당하는 obect에 key-value pair를 추가한다.
-     * @param {number} teamId - 추가하고 싶은 팀의 아이디
-     * @param {string|number} key - 추가하고 싶은 pair의 key
-     * @param {*} value - 추가하고 싶은 pair의 value
-     * @private
-     */
-    function set(teamId, key, value) {
-      var currentTeamInfo;
-
-      if (_hasTeamInfo(teamId)) {
-        currentTeamInfo = _getTeamInfo(teamId);
-      } else {
-        currentTeamInfo = {};
-      }
-
-      currentTeamInfo[key] = value;
-
-      _setTeamInfo(teamId, currentTeamInfo);
-    }
-
-    /**
-     * _teamStatusMap에서 teamId에 해당하는 오브젝트 중 key의 정보를 리턴한다.
-     * @param {number} teamId - 찾으려는 팀의 아이디
-     * @param {number|string} key - 찾으려는 key
-     * @returns {*}
-     * @private
-     */
-    function get(teamId, key) {
-      return _teamStatusMap[teamId][key];
     }
   }
 })();

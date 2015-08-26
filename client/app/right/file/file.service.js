@@ -9,7 +9,7 @@
     .service('FileData', FileData);
 
   /* @ngInject */
-  function FileData($filter, configuration) {
+  function FileData($filter, fileAPIservice, configuration) {
     var that = this;
 
     that.convert = convert;
@@ -21,9 +21,11 @@
         data.type = 'file';
         data.id = fileData.id;
 
+        data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.content.serverUrl);
+
         data.hasPreview = $filter('hasPreview')(fileData.content);
         if (data.hasPreview) {
-          data.imageUrl = _getThumbnailUrl(fileData.content.extraInfo.smallThumbnailUrl);
+          data.imageUrl = $filter('getFileUrl')(fileData.content.extraInfo.smallThumbnailUrl);
         } else {
           data.icon = $filter('fileIcon')(fileData.content);
         }
@@ -48,9 +50,11 @@
         data.type = 'star';
         data.id = fileData.message.id;
 
+        data.isIntegrateFile = fileAPIservice.isIntegrateFile(fileData.message.content.serverUrl);
+
         data.hasPreview = $filter('hasPreview')(fileData.message.content);
         if (data.hasPreview) {
-          data.imageUrl = _getThumbnailUrl(fileData.message.content.extraInfo.smallThumbnailUrl);
+          data.imageUrl = $filter('getFileUrl')(fileData.message.content.extraInfo.smallThumbnailUrl);
         } else {
           data.icon = $filter('fileIcon')(fileData.message.content);
         }
@@ -68,10 +72,6 @@
       }
 
       return data;
-    }
-
-    function _getThumbnailUrl(url) {
-      return (/^http/.test(url) ? '' : configuration.server_uploaded) + url;
     }
   }
 })();

@@ -344,11 +344,10 @@
   -moz-box-shadow:none;
   box-shadow:none;
   outline:0;
-  height:80px !important;
+  min-height:80px;
   padding:9px 30px 9px 8px;
-  max-height:10rem;
   overflow-y:auto !important;
-  resize:none !important;
+  resize:vertical !important;
 }
 .comment-input:focus { -webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none; }
 .comment-input.offline { background-color:#fdf1c1; }

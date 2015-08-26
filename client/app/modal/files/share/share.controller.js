@@ -30,7 +30,7 @@
       _initDefaultSelected();
       $scope.hasPreview = $scope.file.hasPreview == null ? $filter('hasPreview')($scope.file.content) : $scope.file.hasPreview;
       if ($scope.hasPreview) {
-        $scope.thumbnailImage = $rootScope.server_uploaded + $scope.file.content.extraInfo.smallThumbnailUrl;
+        $scope.thumbnailImage = $filter('getFileUrl')($scope.file.content.extraInfo.smallThumbnailUrl);
       }
     }
 

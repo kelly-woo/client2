@@ -211,7 +211,7 @@
 }
 .modal-lg {
   width: 500px;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
   margin: 20px auto;
   max-height: 93%;
 }
@@ -640,12 +640,12 @@
 }
 .user-profile__fullName {
   max-width: 270px;
-  text-overflow: ellipsis;
-  overflow: hidden;
   margin-bottom: 10px;
   font-size: 18px;
+  line-height: 22px;
   font-weight: 700;
   color: #333;
+  height: 20px;
 }
 .user-profile__nickName {
   font-size: 14px;
@@ -788,4 +788,24 @@
 }
 .private-topic-help-msg-container.opac-in {
   height: 17px;
+}
+
+/*
+    SEND INVITE
+*/
+.send-invite,
+.send-invite:focus,
+.send-invite:hover,
+.send-invite:active {
+  color: #fff;
+}
+.send-invite.disabled {
+  color: #999;
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.send-invite.disabled:focus,
+.send-invite.disabled:hover,
+.send-invite.disabled:active {
+  color: #999;
 }

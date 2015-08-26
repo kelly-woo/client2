@@ -37,6 +37,10 @@ app.directive('jndInputModel', function($timeout, jndPubSub) {
         }
       }
 
+      /**
+       * event 를 attach 한다.
+       * @private
+       */
       function _attachEvents() {
         scope.$on('$destroy', _onDestroy);
         scope.$watch(_key, function(newVal) {
@@ -48,6 +52,11 @@ app.directive('jndInputModel', function($timeout, jndPubSub) {
         });
       }
 
+      /**
+       * model target property 의 reference 가 될 수 있는 object 를 반환한다.
+       * @returns {*}
+       * @private
+       */
       function _getObject() {
         var i = 0;
         var lastIdx = _keys.length - 1;
@@ -63,6 +72,11 @@ app.directive('jndInputModel', function($timeout, jndPubSub) {
         return target;
       }
 
+      /**
+       * model target property 를 반환한다.
+       * @returns {*}
+       * @private
+       */
       function _getValue() {
         var target = _getObject();
         var key = _keys[_keys.length - 1];
@@ -172,45 +186,6 @@ app.directive('messageSubmit', function() {
           }
         }
       });
-    }
-  };
-});
-
-var rHTTP = /^[http|https]/i;
-app.directive('originalFile', function() {
-  return {
-    restrict: 'A',
-    link: function(scope, elem, attrs) {
-      var fileUrl = attrs.fileUrl;
-      var url = rHTTP.test(fileUrl) ? fileUrl : scope.server_uploaded + fileUrl;
-
-      elem.attr({href: url, target: '_blank'});
-    }
-  };
-});
-
-app.directive('downloadFile', function(configuration) {
-  return {
-    restrict: 'A',
-    link: function(scope, elem, attrs) {
-      var fileUrl = attrs.fileUrl;
-      var fileTitle = attrs.fileTitle;
-      
-      elem
-        .attr(
-          rHTTP.test(fileUrl) ?
-            {href: fileUrl, target: '_blank'} :
-            {href: configuration.api_address + 'download/' + fileUrl, download: fileTitle}
-        );
-    }
-  };
-});
-
-app.directive('originFile', function() {
-  return {
-    restrict: 'A',
-    link: function(scope, elem) {
-
     }
   };
 });

@@ -9,7 +9,7 @@
       .service('ImageCarousel', ImageCarousel);
 
   /* @ngInject */
-  function ImageCarousel($rootScope, $compile, $timeout, jndKeyCode, config, Browser, Loading) {
+  function ImageCarousel($rootScope, $filter, $compile, $timeout, jndKeyCode, config, Browser, Loading) {
     var that = this;
 
     // image item의 최소 크기
@@ -493,7 +493,7 @@
         jqImageItem.addClass('loading');
         jqImageItem.append(_jqLoading);
 
-        fullFileUrl = config.server_uploaded + imageItem.fileUrl;
+        fullFileUrl = $filter('getFileUrl')(imageItem.fileUrl);
         _imageLoad(jqImageItem, fullFileUrl);
 
         // jqImageItem cashing

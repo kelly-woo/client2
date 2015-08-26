@@ -10,7 +10,7 @@
 
 </div>  <!-- END OF MODAL-HEADER  -->
 
-<div class="modal-body modal_team_member_list_body">
+<div class="modal-body modal_team_member_list_body non-selectable">
 
   <center-help-message-container class="team-member-empty-list" ng-if="!hasMember" status="emptyMessageStateHelper"></center-help-message-container>
   <div class="tab-container" ng-if="hasMember">
@@ -19,15 +19,15 @@
     <div class="modal_team_member_search_box">
       <div class="input-group">
         <span class="input-group-addon"><i class="icon-search"></i></span>
-        <input type="text"
-               class="form-control green-input-box"
+        <input class="form-control green-input-box"
+               id="team-member-filter"
+               type="text"
                placeholder="{{ '@input-search-user-name' | translate }}"
-               data-ng-model="memberNameQuery">
+               jnd-input-model="memberNameQuery">
       </div>
     </div>  <!-- END OF SEARCH BOX  -->
 
-    <div class="modal_team_member_list">
-
+    <div class="modal_team_member_list" ng-click="onMemberListClick();">
       <tabset class="member-list-tab">
         <tab class="enabled-member-list-container tab-title overflow-ellipsis" active="memberListSetting.enabledMemberList.active">
           <page-tracker ng-if="memberListSetting.enabledMemberList.active" page="currentmembers" title="Member List (Current Members)"></page-tracker>
@@ -35,14 +35,16 @@
             <div translate>@common-active-member</div>
           </tab-heading>
 
-          <team-member-list-template
-            ng-repeat="member in filtered = (enabledMemberList | orderBy: ['!isStarred', 'name'] | userByName: memberNameQuery)">
-          </team-member-list-template>
-
-          <div class="no-result-container" ng-if="filtered.length == 0">
-            <div translate>@alert-no-result</div>
+          <member-list ng-show="filteredEnableMembers.length !== 0"
+                       activeted="!memberListSetting.enabledMemberList.active"
+                       selector="#team-member-filter"
+                       list="filteredEnableMembers"
+                       repeat="member in filteredEnableMembers = (enabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
+                       on-select="onMemberClick">
+          </member-list>
+          <div class="no-result-container" ng-show="filteredEnableMembers.length === 0">
+            <span translate>@alert-no-result</span>
           </div>
-
         </tab>  <!-- END OF ENABLED MEMBER LIST -->
 
         <tab class="disabled-member-list-container tab-title tab-title-overflow-ellipsis" active="memberListSetting.disabledMemberList.active" ng-if="hasDisabledMember">
@@ -51,22 +53,22 @@
             <span translate>@common-inactive-member</span>
           </tab-heading>
 
-          <team-member-list-template
-            ng-repeat="member in filtered = (disabledMemberList | orderBy: ['!isStarred', 'name'] | userByName: memberNameQuery)">
-          </team-member-list-template>
-
-          <div class="no-result-container" ng-if="filtered.length == 0">
+          <member-list ng-show="filteredDisableMembers.length !== 0"
+                       activeted="!memberListSetting.disabledMemberList.active"
+                       selector="#team-member-filter"
+                       list="filteredDisableMembers"
+                       repeat="member in filteredDisableMembers = (disabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
+                       on-select="onMemberClick">
+          </member-list>
+          <div class="no-result-container" ng-show="filteredDisableMembers.length === 0">
             <span translate>@alert-no-result</span>
           </div>
-
         </tab>  <!-- END OF DISABLED MEMBER LIST  -->
       </tabset> <!--  END OF TABSET -->
-
     </div>
-
   </div>  <!-- END OF MEMBER LIST -->
-
 </div>  <!-- END OF MODAL BODY  -->
-
-<div ng-if="false" translate>@common-inactive-member</div>
-<div ng-if="false" translate>@common-active-member</div>
+<div ng-if="false">
+  <span translate>@common-inactive-member</span>
+  <span translate>@common-active-member</span>
+</div>

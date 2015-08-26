@@ -40,7 +40,7 @@
     /**
      * tutorial skip click 시
      */
-    function onClickSkip() {
+    function onClickSkip(clickEvent) {
       TutorialAPI.set($scope.completedStep,  true);
       hide();
     }
@@ -49,7 +49,9 @@
      * hide 한다.
      */
     function hide() {
-      Popup.close(Popup.get('tutorial'));
+      if (Popup.get('tutorial')) {
+        Popup.close();
+      }
       $scope.isComplete = true;
     }
 
