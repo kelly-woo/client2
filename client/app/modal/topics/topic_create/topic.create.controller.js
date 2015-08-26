@@ -11,13 +11,21 @@
 
   /* @ngInject */
   function TopicCreateCtrl($scope, entityheaderAPIservice, $state, analyticsService, $filter, AnalyticsHelper, modalHelper, jndPubSub) {
-    $scope.topicName = '';
-    $scope.topicDescription = '';
-    $scope.entityType = 'public';
 
-    $scope.cancel = modalHelper.closeModal;
+    _init();
 
-    $scope.onCreateClick = onCreateClick;
+    function _init() {
+      $scope.topicName = '';
+      $scope.topicDescription = '';
+      $scope.entityType = 'public';
+
+      $scope.nameMaxLength = 60;
+      $scope.descMaxLength = 300;
+
+      $scope.cancel = modalHelper.closeModal;
+
+      $scope.onCreateClick = onCreateClick;
+    }
 
     /**
      * 새로운 토픽을 생성한다.
@@ -86,7 +94,6 @@
             jndPubSub.hideLoading();
           });
       }
-
     }
 
     // todo: error handling service 필요함
