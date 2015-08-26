@@ -38,22 +38,29 @@
         _onRoomSubscriptionUpdated(socketEvent);
       } else if (_shouldBeNotified(socketEvent) && !!socketEvent.teamId) {
         // 처리하려는 소켓이벤트는 무조건 팀아이디와 방의 정보가 있어야한다.
+        _notificationSender(socketEvent);
+      }
+      _setLastLinkId(socketEvent);
+    }
 
-        if (_.isUndefined(socketEvent.extHasProcessedOnce)) {
-          // 한 번 처리한 소켓이벤트를 다시 처리하지 않기위함이다.
-          socketEvent.extHasProcessedOnce = false;
-        }
-
-        // file_comment 일 경우 방의 정보가 rooms로 넘어오기때문에 처리한다.
-        _getNotificationOnRoom(socketEvent);
-
-        if (socketEvent.extFoundRoom || _hasMention(socketEvent)) {
-          // 방의 정보가 있다는 것, 노티를 보내도 된다는 것.
-          _sendBrowserNotification(socketEvent);
-        }
+    /**
+     * 노티피케이션을 보내기 전에 확인해야할 것들과 추가해야하는 부분들을 추가한다.
+     * @param {object} socketEvent - socket event parameter
+     * @private
+     */
+    function _notificationSender(socketEvent) {
+      if (_.isUndefined(socketEvent.extHasProcessedOnce)) {
+        // 한 번 처리한 소켓이벤트를 다시 처리하지 않기위함이다.
+        socketEvent.extHasProcessedOnce = false;
       }
 
-      _setLastLinkId(socketEvent);
+      // file_comment 일 경우 방의 정보가 rooms로 넘어오기때문에 처리한다.
+      _getNotificationOnRoom(socketEvent);
+
+      if (socketEvent.extFoundRoom || _hasMention(socketEvent)) {
+        // 방의 정보가 있다는 것, 노티를 보내도 된다는 것.
+        _sendBrowserNotification(socketEvent);
+      }
     }
 
     /**
@@ -145,7 +152,7 @@
       return _isSubscriptionOn(teamId, socketEvent);
     }
 
-    /**jjjjjjjjjj
+    /**
      * local에 팀의 message markers를 들고 있는지 없는지 확인한다.
      * @param {number} teamId - 알고 싶은 팀의 아이디
      * @returns {*}
