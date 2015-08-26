@@ -38,7 +38,7 @@
         _bodyMessage = DesktopNotificationUtil.getSenderContentFormat(_writerName, _fileTitle);
         //_bodyMessage = _writerName + ': ' + $filter('translate')('web-notification-body-file-share') + ': ' + _fileTitle;
 
-        if (DesktopNotificationUtil.isChatType(socketEvent)) {
+        if (!DesktopNotificationUtil.isChatType(socketEvent)) {
           // 1:1 창이 아닐 경우 토픽이름을 추가한다.
           _bodyMessage = DesktopNotificationUtil.getRoomFormat(entityAPIservice.getEntityById('total', socketEvent.room.id).name) + _bodyMessage;
         }

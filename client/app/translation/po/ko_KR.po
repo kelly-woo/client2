@@ -1524,6 +1524,10 @@ msgid "@web-notification"
 msgstr "알림"
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-file-share"
+msgstr "님이 공유한 파일"
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr "님이 "
 
@@ -1568,6 +1572,10 @@ msgstr "님으로부터 새 메시지가 도착했습니다."
 #, fuzzy
 msgid "@web-notification-body-topic-pre"
 msgstr " "
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-file-share"
+msgstr "새 파일이 공유되었습니다."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-sample-body-text"

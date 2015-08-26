@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.6.9\n"
 "X-Poedit-Bookmarks: -1,328,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: client/app/tpl/503/503.html
@@ -528,10 +528,6 @@ msgstr "The starred item was deleted."
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-rename"
 msgstr "Rename"
-
-#: client/app/tutorial/popup/view_components/top/tutorial.top.html
-msgid "@common-search"
-msgstr "Search"
 
 #: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-send-mail"
@@ -1540,6 +1536,10 @@ msgid "@web-notification"
 msgstr "Notifications"
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-file-share"
+msgstr " shared a file"
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr " added a comment to "
 
@@ -1586,12 +1586,19 @@ msgid "@web-notification-body-topic-pre"
 msgstr "in "
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-file-share"
+msgstr "A new file has been shared."
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-sample-body-text"
 msgstr "It's working!"
 
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@common-search"
+#~ msgstr "Search"
 
 #~ msgid "@msg-file"
 #~ msgstr "file"
