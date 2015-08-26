@@ -81,7 +81,9 @@ this["Handlebars"]["templates"]["center.file.comment.title"] = Handlebars.templa
     + alias2(alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.feedback : stack1)) != null ? stack1.writer : stack1)) != null ? stack1.name : stack1), depth0))
     + "', itemId: '"
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.feedback : stack1)) != null ? stack1.id : stack1), depth0))
-    + "' })\">\n              <span class=\"_compile\" translate>@common-deleted-file-title</span>\n            </a>\n          </div>\n";
+    + "' })\">\n              <span>"
+    + alias2((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@common-deleted-file-title",{"name":"translate","hash":{},"data":data}))
+    + "</span>\n            </a>\n          </div>\n";
 },"10":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
@@ -210,8 +212,6 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
   return "      <!-- Star -->\n      <div class=\"msg-extra file-uploaded-extra\">\n        <span class=\"cursor_pointer msg-item-star msg-item-icon msg-item-circle _star "
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.css : depth0)) != null ? stack1.star : stack1), depth0))
     + "\">\n          <i class=\"icon-star-fill\"></i>\n        </span>\n      </div>\n";
-},"17":function(depth0,helpers,partials,data) {
-    return "<span translate>@common-download</span>\n<span translate>@btn-share</span>\n<span translate>@file-action-more</span>\n<span translate>@common-deleted-file-title</span>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
@@ -233,8 +233,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"if","hash":{},"fn":this.program(8, data, 0),"inverse":this.program(10, data, 0),"data":data})) != null ? stack1 : "")
     + "      </div>\n"
     + ((stack1 = helpers.unless.call(depth0,(depth0 != null ? depth0.isArchived : depth0),{"name":"unless","hash":{},"fn":this.program(15, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\n\n  </div>\n</div>\n\n"
-    + ((stack1 = helpers['if'].call(depth0,false,{"name":"if","hash":{},"fn":this.program(17, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
+    + "    </div>\n\n  </div>\n</div>\n\n";
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.main"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -300,8 +299,6 @@ this["Handlebars"]["templates"]["center.system.event"] = Handlebars.template({"1
     + "</span>\n            <span class=\"keep\">"
     + ((stack1 = alias1(((stack1 = ((stack1 = ((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.message : stack1)) != null ? stack1.content : stack1)) != null ? stack1.body : stack1), depth0)) != null ? stack1 : "")
     + "</span>\n          ";
-},"15":function(depth0,helpers,partials,data) {
-    return "    <span translate>@msg-joined</span>\n    <span translate>@msg-left</span>\n    <span translate>@msg-invited</span>\n    <span translate>@msg-create-ch</span>\n    <span translate>@msg-create-pg</span>\n    <span translate>@system-msg-announcement-deleted</span>\n    <span translate>@system-msg-announcement-created</span>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1;
 
@@ -309,9 +306,7 @@ this["Handlebars"]["templates"]["center.system.event"] = Handlebars.template({"1
     + ((stack1 = helpers['if'].call(depth0,((stack1 = (depth0 != null ? depth0.status : depth0)) != null ? stack1.isInvite : stack1),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(7, data, 0),"data":data})) != null ? stack1 : "")
     + "        <span class=\"msg-item-header__created\">"
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.msg : depth0)) != null ? stack1.extTime : stack1), depth0))
-    + "</span>\n      </div>\n    </div>\n  </div>\n"
-    + ((stack1 = helpers['if'].call(depth0,false,{"name":"if","hash":{},"fn":this.program(15, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "</div>\n";
+    + "</span>\n      </div>\n    </div>\n  </div>\n</div>\n\n";
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.text.child"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
@@ -446,5 +441,7 @@ this["Handlebars"]["templates"]["center.text.link.preview"] = Handlebars.templat
 },"useData":true});
 
 this["Handlebars"]["templates"]["center.unread.bookmark"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    return "<!-- UNREAD BOOKMARK  -->\n<div class=\"msg-item\" id=\"unread-bookmark\">\n  <div class=\" msg-unread-bookmark system-event-msg\">\n    <div class=\"msg-item-float cursor_pointer\">\n      <img class=\"user-profile user-thumb\"/>\n    </div>\n\n    <div class=\"msg-item-body _compile\">\n      <span translate>@unread-bookmark-message</span>\n    </div>\n  </div>\n</div>";
+    return "<!-- UNREAD BOOKMARK  -->\n<div class=\"msg-item\" id=\"unread-bookmark\">\n  <div class=\" msg-unread-bookmark system-event-msg\">\n    <div class=\"msg-item-float cursor_pointer\">\n      <img class=\"user-profile user-thumb\"/>\n    </div>\n\n    <div class=\"msg-item-body\">\n      <span>"
+    + this.escapeExpression((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@unread-bookmark-message",{"name":"translate","hash":{},"data":data}))
+    + "</span>\n    </div>\n  </div>\n</div>";
 },"useData":true});

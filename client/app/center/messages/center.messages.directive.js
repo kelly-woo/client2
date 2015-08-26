@@ -9,8 +9,8 @@
     .module('jandiApp')
     .directive('centerMessagesDirective', centerMessagesDirective);
 
-  function centerMessagesDirective($compile, CenterRenderer, CenterRendererFactory, MessageCollection, memberService,
-                                   StarAPIService, jndPubSub, fileAPIservice) {
+  function centerMessagesDirective($compile, $filter, CenterRenderer, CenterRendererFactory, MessageCollection,
+                                   StarAPIService, jndPubSub, fileAPIservice, memberService) {
     return {
       restrict: 'E',
       replace: true,
@@ -20,6 +20,8 @@
     function link(scope, el, attrs) {
       var _teamId;
       var _listScope = scope.$new();
+      var that = this;
+
       _init();
 
       /**
@@ -223,10 +225,23 @@
         msg.message.isStarred = !msg.message.isStarred;
         _refreshStar(msg);
         if (msg.message.isStarred) {
-          StarAPIService.star(msg.messageId, _teamId);
+          StarAPIService.star(msg.messageId, _teamId)
+            .error(_.bind(_onStarRequestError, that, msg));
         } else {
-          StarAPIService.unStar(msg.messageId, _teamId);
+          StarAPIService.unStar(msg.messageId, _teamId)
+            .error(_.bind(_onStarRequestError, that, msg));
         }
+      }
+
+      /**
+       * star 오류 핸들러
+       * @param {object} msg
+       * @private
+       */
+      function _onStarRequestError(msg) {
+        msg.message.isStarred = !msg.message.isStarred;
+        _refreshStar(msg);
+        alert($filter('translate')('@star-forbidden'));
       }
 
       /**
