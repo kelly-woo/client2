@@ -1,18 +1,18 @@
 .email-box {
-    text-align: start;
-    margin: 5px 0;
-    position: relative;
-    border: 1px solid #e1e1e1;
-    background-color: white;
+  text-align: start;
+  margin: 5px 0;
+  position: relative;
+  border: 1px solid #e1e1e1;
+  background-color: white;
 }
 
 .email-box:hover {
-    border-color: #d1d1d1;
+  border-color: #d1d1d1;
 }
 .email-box a {
-    display: block;
-    padding: 11px;
-    color: #1d1d1d;
+  display: block;
+  padding: 11px;
+  color: #1d1d1d;
 }
 
 .team-name {

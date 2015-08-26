@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function jndWebSocketOtherTeamManager($timeout, accountService, OtherTeamNotification, jndPubSub, jndWebSocketCommon,
-                                        EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper) {
+                                        EntityMapManager, memberService, jndWebSocketOtherTeamManagerHelper, DesktopNotification) {
 
     var OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP = 'other_team_topic_status';
     var ROOM_SUBSCRIPTION_UPDATED = 'room_subscription_updated';
@@ -236,8 +236,9 @@
       }
 
       timeoutCaller = $timeout(function() {
-
-        OtherTeamNotification.addNotification(socketEvent);
+        if (DesktopNotification.canSendNotification()) {
+          OtherTeamNotification.addNotification(socketEvent);
+        }
 
         _afterNotificationSent(teamId, socketEvent);
       }, paddingTime);
