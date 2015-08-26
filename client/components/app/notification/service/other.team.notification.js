@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function OtherTeamNotification(desktopNotificationHelper, accountService, configuration,
-                                 memberService, $filter) {
+                                 jndWebSocketCommon, pcAppHelper,  $filter, DesktopNotification) {
     this.addNotification = addNotification;
 
     /**
@@ -18,26 +18,49 @@
      * @param socketEvent
      */
     function addNotification(socketEvent) {
-      var notification;
-
-      var teamInfo = _getTeamInfo(socketEvent.teamId);
-      var teamName = teamInfo.teamName;
-      var teamDomain = teamInfo.teamDomain;
+      var teamInfo;
+      var teamName;
+      var teamDomain;
 
       var options;
+      var notification;
 
-      if (!_.isUndefined(teamName)) {
-        options = {
-          tag: 'tag',
-          body: _getBody(teamName),
-          icon: 'assets/images/jandi-logo-200x200.png',
-          callbackFn: _otherTeamNotificationCallbackFn,
-          callbackParam: _.extend(socketEvent, {teamDomain: teamDomain})
+      if (_isGoodtoSendNotification(socketEvent)) {
+        teamInfo = _getTeamInfo(socketEvent.teamId);
+        teamName = teamInfo.teamName;
+        teamDomain = teamInfo.teamDomain;
 
-        };
+        if (!_.isUndefined(teamName)) {
+          options = {
+            tag: 'tag',
+            body: _getBody(teamName),
+            icon: 'assets/images/jandi-logo-200x200.png',
+            callbackFn: _otherTeamNotificationCallbackFn,
+            callbackParam: _.extend(socketEvent, {teamDomain: teamDomain})
 
-        (notification = _createInstance(options)) && notification.show();
+          };
+
+          (notification = _createInstance(options)) && notification.show();
+        }
       }
+
+    }
+
+    /**
+     * browser notification을 날려도 되는 상황인지 아닌지 확인/리턴한다.
+     * @param {object} socketEvent - sockt event param
+     * @returns {boolean}
+     * @private
+     */
+    function _isGoodtoSendNotification(socketEvent) {
+      if (DesktopNotification.canSendNotification()) {
+        // 우선 시스템상에서 브라우져 노티가 켜져있어야 함
+        if (jndWebSocketCommon.shouldSendNotification(socketEvent)) {
+          // socket event가 나로부터 온게 아니어야 함.
+          return true;
+        }
+      }
+      return false;
     }
 
     /**
@@ -46,23 +69,29 @@
      * @private
      */
     function _otherTeamNotificationCallbackFn(param) {
-      // 기본적으로 /app/# 까지 포함한 주소를 만든다.
-      var url = configuration.base_protocol + param['teamDomain'] + configuration.base_url + '/app/#';
+      if (!pcAppHelper.isPcApp()) {
+        // 기본적으로 /app/# 까지 포함한 주소를 만든다.
+        var url = configuration.base_protocol + param['teamDomain'] + configuration.base_url + '/app/#';
 
-      var type = param.room.type.toLowerCase();
-      var roomId = param.room.id;
+        var type = param.room.type.toLowerCase();
+        var roomId = param.room.id;
 
-      if (type === 'chat') {
-        type = 'user';
-        // chat 일 경우, 방 url이 roomId(혹은 entityId)로 되어있지 않고 user의 id로 되어있기에 그 값을 설정한다.
-        roomId = param.marker.memberId;
+        if (type === 'chat') {
+          type = 'user';
+          roomId = param.writer;
+        }
+
+        // url 뒤에 가고 싶은 방의 타입과 주소를 설정한다.
+        url += '/' + type + 's/' + roomId;
+
+        if (!!param.messageType && param.messageType === 'file_comment') {
+          // file comment socket event일 때
+          url += '/files/' + param.file.id;
+        }
+
+        var open_link = window.open('', '_blank');
+        open_link.location.href = url;
       }
-
-      // url 뒤에 가고 싶은 방의 타입과 주소를 설정한다.
-      url += '/' + type + 's/' + roomId;
-
-      var open_link = window.open('', '_blank');
-      open_link.location.href = url;
     }
 
     /**
