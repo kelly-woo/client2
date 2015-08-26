@@ -342,12 +342,13 @@
      */
     function _getMemberId(teamId) {
 
-      var memberId = jndWebSocketOtherTeamManagerHelper.get(teamId, MEMBER_ID);
+      var memberId;
 
-      if (_.isUndefined(memberId)) {
+      if (!jndWebSocketOtherTeamManagerHelper.hasMemberId(teamId, MEMBER_ID)) {
         _findMemberId(accountService.getAccount().memberships, teamId);
-        memberId = jndWebSocketOtherTeamManagerHelper.get(teamId, MEMBER_ID);
       }
+
+      memberId = jndWebSocketOtherTeamManagerHelper.get(teamId, MEMBER_ID);
 
       return memberId;
     }

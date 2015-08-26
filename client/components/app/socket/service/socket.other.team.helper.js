@@ -19,6 +19,7 @@
     this.hasTimeoutCaller = hasTimeoutCaller;
     this.isWaitingOnTeamId = isWaitingOnTeamId;
     this.hasLastLinkId = hasLastLinkId;
+    this.hasMemberId = hasMemberId;
 
 
     /**
@@ -41,8 +42,24 @@
       return _hasTeamInfo(teamId) && _hasField(teamId, fieldName) && get(teamId, fieldName);
     }
 
+    /**
+     * teamId에 해당하는 팀에 last link id 정보가 있는지 없는지 확인한다.
+     * @param {number} teamId - 팀의 아이디
+     * @param {string|number} fieldName - 찾으려는 field의 아이디
+     * @returns {boolean}
+     */
     function hasLastLinkId(teamId, fieldName) {
       return _hasTeamInfo(teamId) && _hasField(teamId, fieldName);
+    }
+
+    /**
+     * teamId에 해당하는 팀에 member id 정보가 있는지 없는지 확인한다.
+     * @param {number} teamId - 찾으려는 팀의 아이디
+     * @param {string|number} fieldName - 찾으려는 field의 아이디
+     * @returns {boolean}
+     */
+    function hasMemberId(teamId, fieldName) {
+      return _hasTeamInfo(teamId) && _hasField(fieldName);
     }
     /**
      * 해당 팀 아이디의 정보에 fieldName이라는 field가 있는지 없는지 리턴한다.
