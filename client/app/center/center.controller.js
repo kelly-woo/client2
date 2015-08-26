@@ -598,7 +598,6 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
           $scope.isInitialLoadingCompleted = true;
 
           _checkEntityMessageStatus();
-
           if (_.isEmpty(messagesList)) {
             // 모든 과정이 끝난 후, 메시지가 없으면 그냥 보여준다.
             _showContents();
@@ -640,8 +639,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * @private
    */
   function _hasMoreOldMessageToLoad() {
-    if (MessageCollection.getFirstLinkId() == -1 ||
-      MessageCollection.getFirstLinkId() !== firstMessageId) {
+    if (MessageCollection.list.length &&
+      (MessageCollection.getFirstLinkId() == -1 ||
+      MessageCollection.getFirstLinkId() !== firstMessageId)) {
       $scope.hasOldMessageToLoad = true;
       return true;
     } else {
