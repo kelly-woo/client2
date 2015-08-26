@@ -393,7 +393,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _fileShared($event, data) {
-    if (data.file.id == $scope.file_detail.id) {
+    if (data.file.id == fileId) {
       getFileDetail();
     }
   }
@@ -405,7 +405,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _fileUnshared($event, data) {
-    if (data.file.id == $scope.file_detail.id) {
+    if (data.file.id == fileId) {
       getFileDetail();
     }
   }
