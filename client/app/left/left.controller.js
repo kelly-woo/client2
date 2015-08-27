@@ -463,6 +463,7 @@ app.controller('leftPanelController1', function(
 
     $scope.joinEntityCount  = response.joinEntityCount;
     $scope.joinEntities     = response.joinEntities;
+    console.log('###response', response);
 
     //  Setting prefix for each entity.
     setEntityPrefix();
