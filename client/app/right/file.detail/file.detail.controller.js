@@ -285,10 +285,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
     // file detail에서 preview image 설정
     if ($filter('hasPreview')(content)) {
       $scope.ImageUrl = $filter('getFileUrl')(content.fileUrl);
-      $scope.hasZoomIn = true;
+      $scope.previewCursor = 'zoom-in';
     } else {
       $scope.ImageUrl = $filter('getFilterTypePreview')(content);
-      $scope.hasZoomIn = $filter('isIntegrationContent')(content);
+      $scope.previewCursor = $filter('isIntegrationContent')(content) ? 'pointer' : 'default';
     }
   }
 

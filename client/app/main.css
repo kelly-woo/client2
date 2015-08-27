@@ -445,9 +445,11 @@ input[type="button"] {
   background: url('../assets/images/no_image_available_center.png');
 }
 .no-image-preview {
-  background: url('../assets/images/no_image_available.png');
-  width: 450px;
+  background-image: url('../assets/images/no_image_available.png');
+  background-size: 370px 172px;
+  width: 370px;
   height: 172px;
+  display: inline-block;
 }
 .icon_image {
   position: absolute;
