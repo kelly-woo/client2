@@ -822,8 +822,8 @@ input[type="button"] {
   line-height: 20px;
 }
 .grey_dropdown > li > a:hover {
-  background-color: #366480;
-  color: #fff;
+  background-color: #e8f3f9
+  color: #262626;
 }
 .grey_dropdown > li > label {
   height: 28px;
