@@ -185,9 +185,10 @@
     function _onTopicMessageDelete(data) {
       if (jndWebSocketCommon.isCurrentEntity(data.room)) {
         jndPubSub.updateCenterPanel();
-      } else {
-        jndPubSub.updateLeftPanel();
       }
+
+      // 뱃지를 업데이트하기 위함이요.
+      jndPubSub.updateLeftPanel();
 
       jndPubSub.pub('topicMessageDelete', data);
     }
