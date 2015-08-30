@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function MentionaheadCtrl($scope, $state, $parse, $filter, $window, $timeout, entityAPIservice, memberService,
-                            currentSessionHelper, configuration, MentionExtractor) {
+                            currentSessionHelper, configuration, MentionExtractor, Dialog) {
     var that = this;
 
     var MENTION_ALL_ITEM_TEXT = $filter('translate')('@mention-all');
@@ -309,11 +309,11 @@
           .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
           .replace('{{topicParticipantsCount}}', parseInt(entityAPIservice.getMemberLength(currentEntity), 10) - 1);
 
-        if ($window.confirm(msg)) {
-          _onSelect($item);
-        } else {
-          _onSelect($item, false);
-        }
+        Dialog.toast('info', {
+          title: msg
+        });
+
+        _onSelect($item);
       } else {
         _onSelect($item);
       }

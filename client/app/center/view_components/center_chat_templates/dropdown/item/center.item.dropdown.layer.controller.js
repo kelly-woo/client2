@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function CenterItemDropdownLayerCtrl($scope, memberService, $filter, messageAPIservice, currentSessionHelper, AnalyticsHelper,
-                                       MessageSendingCollection, jndPubSub, entityAPIservice) {
+                                       MessageSendingCollection, jndPubSub, Dialog) {
     // 현재 로그인되어있는 멤버(나)의 아이디
     var _myId;
     // 현재 토픽의 타입
@@ -56,37 +56,42 @@
      */
     function deleteMessage() {
       _resetLocalVariables();
-      if (confirm($filter('translate')('@web-notification-body-messages-confirm-delete'))) {
-        if ($scope.msg.status === 'sending' || $scope.msg.status === 'failed') {
-          //MessageCollection.
-          MessageSendingCollection.remove($scope.msg);
-        } else {
-          if ($scope.msg.message.contentType === 'sticker') {
-            messageAPIservice.deleteSticker($scope.msg.messageId);
-          } else {
-            messageAPIservice.deleteMessage(_entityType, _entityId, $scope.msg.messageId)
-              .success(function () {
-                try {
-                  AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
-                    'MESSAGE_ID': message.messageId,
-                    'RESPONSE_SUCCESS': true
-                  });
-                } catch (e) {
-                }
-              })
-              .error(function (response) {
-                try {
-                  AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
-                    'RESPONSE_SUCCESS': false,
-                    'ERROR_CODE': response.code
-                  });
-                } catch (e) {
-                }
-              });
-          }
 
+      Dialog.confirm({
+        body: $filter('translate')('@web-notification-body-messages-confirm-delete'),
+        onClose: function(result) {
+          if (result === 'okay') {
+            if ($scope.msg.status === 'sending' || $scope.msg.status === 'failed') {
+              //MessageCollection.
+              MessageSendingCollection.remove($scope.msg);
+            } else {
+              if ($scope.msg.message.contentType === 'sticker') {
+                messageAPIservice.deleteSticker($scope.msg.messageId);
+              } else {
+                messageAPIservice.deleteMessage(_entityType, _entityId, $scope.msg.messageId)
+                  .success(function () {
+                    try {
+                      AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
+                        'MESSAGE_ID': message.messageId,
+                        'RESPONSE_SUCCESS': true
+                      });
+                    } catch (e) {
+                    }
+                  })
+                  .error(function (response) {
+                    try {
+                      AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
+                        'RESPONSE_SUCCESS': false,
+                        'ERROR_CODE': response.code
+                      });
+                    } catch (e) {
+                    }
+                  });
+              }
+            }
+          }
         }
-      }
+      });
     }
 
     /**

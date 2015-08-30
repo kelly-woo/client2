@@ -1196,7 +1196,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
   }
 
   function onShareClick(file) {
-    fileAPIservice.openFileShareModal($scope, file);
+    modalHelper.openFileShareModal($scope, file);
   }
 
   function _hasBrowserFocus() {

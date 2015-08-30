@@ -10,8 +10,7 @@
 
   /* @ngInject */
   function FileCtrl($scope, $rootScope, $state, $filter, EntityMapManager, publicService,
-                    fileAPIservice, FileData, memberService, configuration) {
-    var _regxHTTP = /^[http|https]/i;
+                    fileAPIservice, modalHelper, FileData, memberService, Dialog) {
 
     _init();
 
@@ -49,7 +48,7 @@
      * open share modal
      */
     function onOpenShareModal() {
-      fileAPIservice.openFileShareModal($scope, $scope.file);
+      modalHelper.openFileShareModal($scope, $scope.file);
     }
 
     /**
@@ -71,7 +70,9 @@
             $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
           })
           .error(function() {
-            alert($filter('translate')('@common-leaved-topic'));
+            Dialog.toast('error', {
+              title: $filter('translate')('@common-leaved-topic')
+            });
           });
       }
     }
@@ -88,36 +89,41 @@
      * delete file click event handler
      */
     function onFileDeleteClick() {
-      var fileId = $scope.file.id;
+      Dialog.confirm({
+        body: $filter('translate')('@file-delete-confirm-msg'),
+        onClose: function(result) {
+          var fileId;
 
-      if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
-        return;
-      }
+          if (result === 'okay') {
+            fileId = $scope.file.id;
 
-      fileAPIservice.deleteFile(fileId)
-        .success(function() {
-          try {
-            //analytics
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
-              'RESPONSE_SUCCESS': true,
-              'FILE_ID': fileId
-            });
-          } catch (e) {
+            fileAPIservice.deleteFile(fileId)
+              .success(function() {
+                try {
+                  //analytics
+                  AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+                    'RESPONSE_SUCCESS': true,
+                    'FILE_ID': fileId
+                  });
+                } catch (e) {
+                }
+
+                $rootScope.$broadcast('onFileDeleted', fileId);
+              })
+              .error(function(err) {
+                console.log(err);
+                try {
+                  //analytics
+                  AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+                    'RESPONSE_SUCCESS': false,
+                    'ERROR_CODE': err.code
+                  });
+                } catch (e) {
+                }
+              });
           }
-
-          $rootScope.$broadcast('onFileDeleted', fileId);
-        })
-        .error(function(err) {
-          console.log(err);
-          try {
-            //analytics
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
-              'RESPONSE_SUCCESS': false,
-              'ERROR_CODE': err.code
-            });
-          } catch (e) {
-          }
-        });
+        }
+      });
     }
 
     /**

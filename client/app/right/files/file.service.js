@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp');
 
 app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter,
-                                       memberService, entityAPIservice, storageAPIservice, modalHelper) {
+                                       memberService, entityAPIservice, storageAPIservice) {
   var fileSizeLimit = 300; // 300MB
   var integrateMap = {
     'google': true,
@@ -34,7 +34,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.generateFileTypeFilter = generateFileTypeFilter;
   this.isIntegrateFile = isIntegrateFile;
   this.dataURItoBlob = dataURItoBlob;
-  this.openFileShareModal = openFileShareModal;
 
   this.broadcastCommentFocus = broadcastCommentFocus;
 
@@ -312,10 +311,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       return entityAPIservice.getEntityById('all', sharedEntityId) ||
         entityAPIservice.getEntityByEntityId(sharedEntityId);
     });
-  }
-
-  function openFileShareModal($scope, file) {
-    modalHelper.openFileShareModal($scope, file);
   }
 
   function broadcastFileShare(file) {

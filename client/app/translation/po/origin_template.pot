@@ -33,6 +33,7 @@ msgid "@alert-no-messages-found"
 msgstr ""
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
+#: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-no-result"
 msgstr ""
@@ -303,6 +304,7 @@ msgid "@common-download"
 msgstr ""
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr ""
 
@@ -751,10 +753,6 @@ msgstr ""
 msgid "@input-max-length-error"
 msgstr ""
 
-#: client/app/modal/topics/topic_rename/topic.rename.html
-msgid "@input-rename"
-msgstr ""
-
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@input-search-channel-name"
 msgstr ""
@@ -869,7 +867,7 @@ msgid "@mention-all"
 msgstr ""
 
 #: client/app/right/right.html
-msgid "@mention-all-confirm"
+msgid "@mention-all-toast"
 msgstr ""
 
 #: client/app/right/mentions/mentions.html

@@ -9,7 +9,7 @@
    * fileObjectService는 jandiApp에서 제공하는 file object이다.
    */
   /* @ngInject */
-  function fileObjectService($filter, fileAPIservice) {
+  function fileObjectService($filter, fileAPIservice, Dialog) {
     var rImage;
 
     rImage = /image/;
@@ -40,35 +40,43 @@
       /**
        * file object setter
        */
-      setFiles: function($files, fileObject) {
-        var that = this,
-            options = that.options,
-            files,
-            file,
-            fileReader,
-            i, len;
+      setFiles: function($files) {
+        var that = this;
+        var options = that.options;
+        var files = [];
+        var alerts = [];
+        var file;
+        var i, len;
 
-        // fileObject format
-        // name, type, size
-
-        files = [];
         for (i = 0, len = that.options.multiple ? $files.length : 1; i < len; ++i) {
           file = options.createFileObject ? options.createFileObject($files[i]) : $files[i];
 
           // file size check 300MB이상은 upload 하지 않음
           if (options.validateFileSize && fileAPIservice.isFileTooLarge(file)) {
-              files.splice(i, 1);
-              --i;
-              --len;
+            alerts.push(options.msgIsLarge + '\r\n' + (file.name || file.title));
+          } else {
+            // image file 여부
+            file.isImage = (options.supportFileReader && rImage.test(file.type));
 
-              alert(options.msgIsLarge + '\r\n' + (file.name || file.title));
-              continue;
+            files.push(file);
           }
+        }
 
-          // image file 여부
-          file.isImage = (options.supportFileReader && rImage.test(file.type));
-
-          files.push(file);
+        if (alerts.length > 0) {
+          Dialog.alert({
+            body: alerts[0],
+            onClose: (function _onClose(i) {
+              return function () {
+                i++;
+                if (alerts[i]) {
+                  Dialog.alert({
+                    body: alerts[i],
+                    onClose: _onClose(i)
+                  });
+                }
+              };
+            }(0))
+          });
         }
 
         that.files = files;

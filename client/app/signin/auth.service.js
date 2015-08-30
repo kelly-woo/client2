@@ -2,7 +2,8 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, $filter, configuration, publicService) {
+app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice,
+                                       accountService, $filter, configuration, publicService, Dialog) {
   var authAPI = {};
 
   authAPI.signIn = function(userdata) {
@@ -125,13 +126,15 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
     var mainTeamAddr = configuration.main_address+'team';
 
     var disabledMsg = $filter('translate')('@current-member-disabled-notice-msg-pre') +
-      teamName +
+      teamName + ' ' +
       $filter('translate')('@current-member-disabled-notice-msg-post');
 
-    confirm(disabledMsg);
-
-    location.href = mainTeamAddr;
-
+    Dialog.toast('warning', {
+      title: disabledMsg,
+      onClose: function() {
+        location.href = mainTeamAddr;
+      }
+    });
   };
 
   return authAPI;

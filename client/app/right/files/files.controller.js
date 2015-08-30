@@ -10,7 +10,7 @@
 
   function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, Router, entityheaderAPIservice,
                              fileAPIservice, analyticsService, publicService, entityAPIservice,
-                             currentSessionHelper, logger, AnalyticsHelper, EntityMapManager) {
+                             currentSessionHelper, logger, AnalyticsHelper, EntityMapManager, modalHelper) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -595,7 +595,7 @@
      * @param file
      */
     function onClickShare(file) {
-      fileAPIservice.openFileShareModal($scope, file);
+      modalHelper.openFileShareModal($scope, file);
     }
 
     /**

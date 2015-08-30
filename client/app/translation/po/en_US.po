@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 "X-Poedit-Bookmarks: -1,328,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: client/app/tpl/503/503.html
@@ -41,6 +41,7 @@ msgid "@alert-no-messages-found"
 msgstr "No messages found matching"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
+#: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-no-result"
 msgstr "No matches"
@@ -330,6 +331,7 @@ msgid "@common-download"
 msgstr "Download"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr "That topic name is already in use. Please try again."
 
@@ -788,10 +790,6 @@ msgstr "You've exceeded the maximum character limit (60)"
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit"
 
-#: client/app/modal/topics/topic_rename/topic.rename.html
-msgid "@input-rename"
-msgstr "Enter name to change"
-
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@input-search-channel-name"
 msgstr "Search topics by name"
@@ -915,10 +913,10 @@ msgid "@mention-all"
 msgstr "@all (topic members)"
 
 #: client/app/right/right.html
-msgid "@mention-all-confirm"
+msgid "@mention-all-toast"
 msgstr ""
-"Are you sure you want to mention all {{topicParticipantsCount}} members in "
-"{{topicName}}?"
+"You are going to mention all {{topicParticipantsCount}} members in "
+"{{topicName}}."
 
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
@@ -1608,6 +1606,14 @@ msgstr "It's working!"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@input-rename"
+#~ msgstr "Enter name to change"
+
+#~ msgid "@mention-all-confirm"
+#~ msgstr ""
+#~ "Are you sure you want to mention all {{topicParticipantsCount}} members "
+#~ "in {{topicName}}?"
 
 #~ msgid "@common-search"
 #~ msgstr "Search"

@@ -1,0 +1,58 @@
+.toast-top-center {
+  top: 16px;
+  left: 50%;
+  right: initial;
+  transform: translateX(-50%) !important;
+
+  width: initial;
+  max-width: 670px;
+  min-width: 370px;
+}
+
+#toast-container.toast-top-center .toast {
+  width: 100%;
+  margin: 0;
+  padding: 14px 34px 14px 50px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .45);
+  opacity: .9;
+  color: white;
+}
+#toast-container .toast:before {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-size: 20px;
+}
+
+#toast-container > div {
+  padding-right: 40px;
+}
+
+#toast-container .close-btn {
+  position: absolute;
+  top: 14px;
+  right: 8px;
+  font-size: 20px;
+}
+
+#toast-container .c-toast-info {
+  background-color: #00a6e9;
+}
+#toast-container .c-toast-warning {
+  background-color: #f9bb00;
+}
+#toast-container .c-toast-error {
+  background-color: #e34f4f;
+}
+
+#toast-container .toast-title,
+#toast-container .toast-message {
+  line-height: 26px;
+}
+#toast-container .toast-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+#toast-container .toast-message {
+  font-size: 13px;
+}

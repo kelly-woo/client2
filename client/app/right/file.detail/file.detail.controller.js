@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $sce, $filter, $timeout, $q, $window,
                                            fileAPIservice, entityheaderAPIservice, analyticsService, entityAPIservice,
                                            memberService, publicService, configuration, modalHelper, jndPubSub,
-                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router) {
+                                           jndKeyCode, AnalyticsHelper, EntityMapManager, RouterHelper, Router, Dialog) {
   var _sticker;
   var _stickerType;
   var fileId;
@@ -339,7 +339,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @param file
    */
   function onClickShare(file) {
-    fileAPIservice.openFileShareModal($scope, file);
+    modalHelper.openFileShareModal($scope, file);
   }
 
   /**
@@ -451,39 +451,42 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @param fileId
    */
   function onFileDeleteClick(fileInfo) {
-    if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
-      return;
-    }
+    Dialog.confirm({
+      body: $filter('translate')('@file-delete-confirm-msg'),
+      onClose: function(result) {
+        var fileId;
 
-    var fileId = fileInfo;
-    var property = {};
-    var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
+        if (result === 'okay') {
+          fileId = fileInfo;
 
-    fileAPIservice.deleteFile(fileId)
-      .success(function(response) {
-        getFileDetail();
-        try {
-          //analytics
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
-            'RESPONSE_SUCCESS': true,
-            'FILE_ID': fileId
-          });
-        } catch (e) {
+          fileAPIservice.deleteFile(fileId)
+            .success(function(response) {
+              getFileDetail();
+              try {
+                //analytics
+                AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+                  'RESPONSE_SUCCESS': true,
+                  'FILE_ID': fileId
+                });
+              } catch (e) {
+              }
+
+              $rootScope.$broadcast('onFileDeleted', fileId);
+            })
+            .error(function(err) {
+              console.log(err);
+              try {
+                //analytics
+                AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+                  'RESPONSE_SUCCESS': false,
+                  'ERROR_CODE': err.code
+                });
+              } catch (e) {
+              }
+            });
         }
-
-        $rootScope.$broadcast('onFileDeleted', fileId);
-      })
-      .error(function(err) {
-        console.log(err);
-        try {
-          //analytics
-          AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
-            'RESPONSE_SUCCESS': false,
-            'ERROR_CODE': err.code
-          });
-        } catch (e) {
-        }
-      });
+      }
+    });
   }
 
   /**
