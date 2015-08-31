@@ -12,11 +12,13 @@
   
   /* @ngInject */
   function pcAppHelper() {
-    this.onSignedOut = onSignedOut;
-    this.onSignedIn = onSignedIn;
-    this.onAlarmCntChanged = onAlarmCntChanged;
-    this.onLanguageChanged = onLanguageChanged;
-    this.isHybridApp = isHybridApp;
+    var that = this;
+
+    that.onSignedOut = onSignedOut;
+    that.onSignedIn = onSignedIn;
+    that.onAlarmCntChanged = onAlarmCntChanged;
+    that.onLanguageChanged = onLanguageChanged;
+    that.isHybridApp = isHybridApp;
 
     /**
      * Call 'onSignedOut' function in pc application.
@@ -66,6 +68,5 @@
     function isHybridApp() {
       return typeof jandipc !== 'undefined';
     }
-    
   }
 })();

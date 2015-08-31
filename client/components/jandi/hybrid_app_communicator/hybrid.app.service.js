@@ -12,16 +12,45 @@
   
   /* @ngInject */
   function hybridAppHelper(macAppHelper, pcAppHelper) {
-    var that = this;
+    var delegator = this;
 
     _init();
 
     function _init() {
-      var appHelper = false ? pcAppHelper : macAppHelper;
+      var appHelper = pcAppHelper.isHybridApp() ? pcAppHelper : macAppHelper;
+      var interfas = [
+        'connect',
+        'onSignedOut',
+        'onSignedIn',
+        'onAlarmCntChanged',
+        'onLanguageChanged',
+        'isHybridApp'
+      ];
 
-      _.extend(that, appHelper);
+      _implement.call(appHelper, interfas);
+      _.extend(delegator, appHelper);
 
-      that.init && that.init();
+      // hybrid(pc, mac) app°ú connect
+      delegator.connect();
+    }
+
+    /**
+     * delegatorÀÇ method implements
+     * @param {array} interfas
+     * @private
+     */
+    function _implement(interfas) {
+      var appHelper = this;
+      var i;
+      var len;
+
+      for(i = 0, len = interfas.length; i < len; i++) {
+        delegator[interfas[i]] = (function(key) {
+          return function() {
+            appHelper[key] && appHelper[key].apply(appHelper, arguments);
+          };
+        }(interfas[i]));
+      }
     }
   }
 })();

@@ -12,9 +12,11 @@
   
   /* @ngInject */
   function pcAppHelper() {
-    this.init = init;
+    var that = this;
 
-    function init() {
+    that.connect = connect;
+
+    function connect() {
       _connectWebViewJavascriptBridge(function(bridge) {
         bridge.init(function(message, responseCallback) {
           alert('received message ::: ' + message);
