@@ -17,15 +17,9 @@
     _init();
 
     function _init() {
-      if (window.jandimac) {
-        window.jandimac.triggerNotification("heelo");
-      } else {
-        alert('saldkfjlsakdjf');
-      }
-
       var appHelper;
       var interfas = [
-        'connect',
+        'trigger',
         'onSignedOut',
         'onSignedIn',
         'onAlarmCntChanged',
@@ -40,14 +34,11 @@
       }
 
       _implement(appHelper, interfas);
-
-      // hybrid(pc, mac) app°ú connect
-      delegator.connect();
     }
 
     /**
-     * delegatorÀÇ method implements
-     * @param {object} appHelper - pcAppHelper ¶Ç´Â macAppHelper
+     * delegatorì˜ method implements
+     * @param {object} appHelper - pcAppHelper ë˜ëŠ” macAppHelper
      * @param {array} interfas
      * @private
      */

@@ -12,37 +12,17 @@
   function macAppHelper() {
     var that = this;
 
-    that.connect = connect;
+    that.trigger = trigger;
     that.isHybridApp = isHybridApp;
 
     /**
-     * WebViewJavascriptBridge connect
-     *
-     * WebViewJavascriptBridge¶õ?
-     * An iOS/OSX bridge for sending messages between Obj-C and JavaScript in UIWebViews/WebViews.
-     * Âü°í: https://github.com/marcuswestin/WebViewJavascriptBridge
+     * app event trigger
+     * @param {string} type
+     * @param {string|object} data
      */
-    function connect() {
-      _connectWebViewJavascriptBridge(function(bridge) {
-        bridge.init(function(message, responseCallback) {
-          alert('received message ::: ' + message);
-
-          responseCallback && responseCallback();
-        });
-      });
-    }
-
-    /**
-     * WebViewJavascriptBridge ready
-     * @private
-     */
-    function _connectWebViewJavascriptBridge() {
-      if (window.WebViewJavascriptBridge) {
-        callback(WebViewJavascriptBridge);
-      } else {
-        document.addEventListener('WebViewJavascriptBridgeReady', function() {
-          callback(WebViewJavascriptBridge);
-        }, false);
+    function trigger(type, data) {
+      if (isHybridApp()) {
+        window.jandimac.trigger(type, data);
       }
     }
 

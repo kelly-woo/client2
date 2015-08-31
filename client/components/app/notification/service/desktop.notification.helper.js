@@ -9,7 +9,7 @@
     .service('desktopNotificationHelper', desktopNotificationHelper);
 
   /* @ngInject */
-  function desktopNotificationHelper($filter, RouterHelper, $state) {
+  function desktopNotificationHelper($filter, $state, RouterHelper, hybridAppHelper) {
     var NOTIFICATION_EXPIRE_TIME = 5000;
 
     /**
@@ -50,12 +50,17 @@
 
       // 이것을 맨 위로 글로벌하게 빼고 싶었지만 사용자가 언어를 바꿨을 때 service 다시 호출되질않아서 번역이 안 맞는 경우가 있어서 매번배먼 콜하는 방식으로 바꿈.
       var NOTIFICATION_TITLE = $filter('translate')('@web-notification-title');
+      var title = that.options.title || NOTIFICATION_TITLE;
 
       // An actual notification object.
-      notification = new Notification(that.options.title || NOTIFICATION_TITLE, that._createOptions());
+      notification = new Notification(title, that._createOptions());
 
       notification.onshow = onNotificationShow;
       notification.onclick = onNotificationClick;
+
+      if (hybridAppHelper.isHybridApp()) {
+        hybridAppHelper.trigger('notification', _.extend({title: title}, options));
+      }
 
       /**
        * 노티피케이션이 보여지면 호출되어진다.

@@ -8,10 +8,8 @@
 
 
   function config() {
-
   }
 
-  function run(hybridAppHelper) {
-    console.log('hybridAppHelper called :: ', hybridAppHelper);
+  function run() {
   }
 })();
