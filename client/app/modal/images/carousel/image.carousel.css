@@ -247,8 +247,19 @@
 .image-item-footer .info .info-1 {
   margin-bottom: 3px;
   font-size: 12px;
+  line-height: 13px;
+  vertical-align: middle;
 }
+.image-item-footer .info .info-1 > span {
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .image-item-footer .info .user-name {
+  max-width: 50%;
   margin-right: 7px;
   color: #fff;
 }
