@@ -18,10 +18,10 @@
     _.merge(toastrConfig, {
       positionClass: 'toast-top-center',
       iconClasses: {
-        error: 'icon-error',
-        info: 'icon-info',
-        success: 'icon-ok',
-        warning: 'icon-warning'
+        success: 'c-toast-success',
+        info: 'c-toast-info',
+        warning: 'c-toast-warning',
+        error: 'c-toast-error'
       },
       templates: {
         toast: 'components/jandi/dialog/toast/toast.html'

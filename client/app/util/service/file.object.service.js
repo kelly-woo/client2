@@ -9,7 +9,7 @@
    * fileObjectService는 jandiApp에서 제공하는 file object이다.
    */
   /* @ngInject */
-  function fileObjectService($filter, fileAPIservice, Dialog) {
+  function fileObjectService($filter, $q, fileAPIservice, Dialog) {
     var rImage;
 
     rImage = /image/;
@@ -19,7 +19,6 @@
        * object 생성자
        */
       init: function($files, options) {
-
         // options
         this.options = {
           validateFileSize: true,
@@ -33,7 +32,7 @@
         angular.extend(this.options, options);
 
         // files setting
-        this.setFiles(this.files = $files);
+        this.promise = this.setFiles($files);
 
         return this;
       },
@@ -41,6 +40,7 @@
        * file object setter
        */
       setFiles: function($files) {
+        var deferred = $q.defer();
         var that = this;
         var options = that.options;
         var files = [];
@@ -73,15 +73,19 @@
                     body: alerts[i],
                     onClose: _onClose(i)
                   });
+                } else {
+                  that.files = files;
+                  deferred.resolve(files);
                 }
               };
             }(0))
           });
+        } else {
+          that.files = files;
+          deferred.resolve(files);
         }
 
-        that.files = files;
-
-        return that;
+        return deferred.promise;
       },
       /**
        * file object getter

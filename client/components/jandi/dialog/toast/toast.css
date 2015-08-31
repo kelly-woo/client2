@@ -17,7 +17,7 @@
   opacity: .9;
   color: white;
 }
-#toast-container .toast:before {
+#toast-container .toast > i {
   position: absolute;
   top: 14px;
   left: 16px;

@@ -14,7 +14,7 @@
   /* @ngInject */
   function Toast(toastr) {
     var that = this;
-    var singleToast = false;
+    var singleToast = true;
     var toastInstance;
 
     _init();
@@ -22,6 +22,7 @@
     function _init() {
       that.show = show;
 
+      that.success = success;
       that.info = info;
       that.warning = warning;
       that.error = error;
@@ -46,6 +47,17 @@
     }
 
     /**
+     * success toast open
+     * @param {string} title
+     * @param {string} body
+     * @param {object} options
+     * @returns {*}
+     */
+    function success(title, body, options) {
+      return toastr.success(title, body, options);
+    }
+
+    /**
      * info toast open
      * @param {string} title
      * @param {string} body
@@ -53,8 +65,6 @@
      * @returns {*}
      */
     function info(title, body, options) {
-      options.toastClass = 'toast c-toast-info icon-ok';
-
       return toastr.info(title, body, options);
     }
 
@@ -66,8 +76,6 @@
      * @returns {*}
      */
     function warning(title, body, options) {
-      options.toastClass = 'toast c-toast-warning icon-warning';
-
       return toastr.warning(title, body, options);
     }
 
@@ -79,8 +87,6 @@
      * @returns {*}
      */
     function error(title, body, options) {
-      options.toastClass = 'toast c-toast-error icon-error';
-
       return toastr.error(title, body, options);
     }
 

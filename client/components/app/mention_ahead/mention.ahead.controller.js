@@ -303,7 +303,7 @@
         // 모든 member에게 mention
 
         currentEntity = currentSessionHelper.getCurrentEntity();
-        msg = $filter('translate')('@mention-all-confirm');
+        msg = $filter('translate')('@mention-all-toast');
 
         msg = msg
           .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
