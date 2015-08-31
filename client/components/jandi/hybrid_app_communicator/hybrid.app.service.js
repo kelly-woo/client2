@@ -17,6 +17,12 @@
     _init();
 
     function _init() {
+      if (window.jandimac) {
+        window.jandimac.triggerNotification("heelo");
+      } else {
+        alert('saldkfjlsakdjf');
+      }
+
       var appHelper;
       var interfas = [
         'connect',
