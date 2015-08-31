@@ -10,7 +10,7 @@
     .service('language', language);
 
   /* @ngInject */
-  function language(accountService, configuration, gettextCatalog, storageAPIservice, pcAppHelper) {
+  function language(accountService, configuration, gettextCatalog, storageAPIservice, hybridAppHelper) {
     this.init = init;
     this.setConfig = setConfig;
     this.setDebugMode = setDebugMode;
@@ -118,7 +118,7 @@
       gettextCatalog.setCurrentLanguage(preferences.language);
       storageAPIservice.setLastLang(preferences.language);
 
-      pcAppHelper.onLanguageChanged(preferences.serverLang);
+      hybridAppHelper.onLanguageChanged(preferences.serverLang);
     }
 
     /**

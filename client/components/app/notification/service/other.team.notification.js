@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function OtherTeamNotification(desktopNotificationHelper, accountService, configuration,
-                                 jndWebSocketCommon, pcAppHelper,  $filter, DesktopNotification) {
+                                 jndWebSocketCommon, hybridAppHelper,  $filter, DesktopNotification) {
     this.addNotification = addNotification;
 
     /**
@@ -69,7 +69,7 @@
      * @private
      */
     function _otherTeamNotificationCallbackFn(param) {
-      if (!pcAppHelper.isPcApp()) {
+      if (!hybridAppHelper.isHybridApp()) {
         // 기본적으로 /app/# 까지 포함한 주소를 만든다.
         var url = configuration.base_protocol + param['teamDomain'] + configuration.base_url + '/app/#';
 

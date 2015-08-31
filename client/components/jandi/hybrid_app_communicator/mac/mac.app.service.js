@@ -6,10 +6,10 @@
   
   angular
     .module('jandi.hybridApp')
-    .service('macAppHelper', pcAppHelper);
+    .service('macAppHelper', macAppHelper);
   
   /* @ngInject */
-  function pcAppHelper() {
+  function macAppHelper() {
     var that = this;
 
     that.connect = connect;

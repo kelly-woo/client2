@@ -7,7 +7,7 @@
     .controller('headerCtrl',headerCtrl);
 
   /* @ngInject */
-  function headerCtrl($scope, $rootScope, $state, accountService, pcAppHelper,
+  function headerCtrl($scope, $rootScope, $state, accountService, hybridAppHelper,
                       memberService, publicService, configuration,
                       language, modalHelper, jndPubSub, DeskTopNotificationBanner,
                       Browser, AnalyticsHelper, Router, OtherTeamBadgeManager) {
@@ -205,7 +205,7 @@
      */
     function onShowTutorialClick() {
       //@fixme: remove old tutorial logic
-      if (pcAppHelper.isPcApp()) {
+      if (hybridAppHelper.isHybridApp()) {
         jndPubSub.pub('initTutorialStatus');
       } else {
         jndPubSub.pub('tutorial:open');
