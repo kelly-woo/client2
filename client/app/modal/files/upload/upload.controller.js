@@ -239,7 +239,7 @@
 
       jqImageLoader.attr({
         'isBlob': true,
-        'image-max-height': 130
+        'image-max-height': 172
       });
 
       ImagesHelper.compileImageElementWithScope(jqImageLoader, $scope);

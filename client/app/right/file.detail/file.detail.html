@@ -90,7 +90,7 @@
       </div>
 
       <div class="file-detail-body">
-        <div class="image_wrapper" ng-class="::hasZoomIn && 'zoom-in'" ng-click="onImageClick();" file-detail-preview
+        <div class="image_wrapper" style="cursor: {{::previewCursor}};" ng-click="onImageClick();" file-detail-preview
              image-loader="{{ImageUrl}}" on-image-load="onFileDetailImageLoad();" image-fit-to-width="true">
           <div class="loading_bar" ng-if="isLoadingImage || true">
             <span class="three-quarters-loader jnd-three-quarters-loader"></span>
