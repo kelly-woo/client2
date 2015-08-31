@@ -50,7 +50,7 @@
       for(i = 0, len = interfas.length; i < len; i++) {
         delegator[interfas[i]] = (function(key) {
           return function() {
-            appHelper[key] && appHelper[key].apply(appHelper, arguments);
+            return appHelper[key] && appHelper[key].apply(appHelper, arguments);
           };
         }(interfas[i]));
       }

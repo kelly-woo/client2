@@ -22,6 +22,7 @@
      */
     function trigger(type, data) {
       if (isHybridApp()) {
+        window.jandimac.triggerNotification('asldfjaslkdfjlwef');
         window.jandimac.trigger(type, data);
       }
     }
