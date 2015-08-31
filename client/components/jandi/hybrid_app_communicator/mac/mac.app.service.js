@@ -17,7 +17,7 @@
     function init() {
       _connectWebViewJavascriptBridge(function(bridge) {
         bridge.init(function(message, responseCallback) {
-          console.log('received message ::: ', arguments);
+          alert('received message ::: ' + message);
 
           responseCallback && responseCallback();
         });
