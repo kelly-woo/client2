@@ -6,7 +6,8 @@ app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, pcAppHelper, TopicMessageCache, $q, NotificationManager) {
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, pcAppHelper, TopicMessageCache, $q,
+  NotificationManager, topicFolderList, topicEntityList, TopicFolderModel) {
 
   /**
    * @namespace
@@ -63,7 +64,7 @@ app.controller('leftPanelController1', function(
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
-  if (!leftPanel) return;
+  if (!leftPanel || !topicFolderList || !topicEntityList) return;
 
   // leftPanel의 상태가 200이 아닐 경우 에러로 처리.
   if (leftPanel.status != 200) {
@@ -71,6 +72,12 @@ app.controller('leftPanelController1', function(
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
   } else {
     response = leftPanel.data;
+    TopicFolderModel.set({
+      folderList: topicFolderList.data,
+      entityList: topicEntityList.data
+    });
+
+    console.log('topicFolderList, topicEntityList', topicFolderList, topicEntityList);
   }
 
   _attachExtraEvents();

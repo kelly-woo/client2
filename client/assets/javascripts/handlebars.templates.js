@@ -459,3 +459,11 @@ this["Handlebars"]["templates"]["center.unread.bookmark"] = Handlebars.template(
     + this.escapeExpression((helpers.translate || (depth0 && depth0.translate) || helpers.helperMissing).call(depth0,"@unread-bookmark-message",{"name":"translate","hash":{},"data":data}))
     + "</span>\n    </div>\n  </div>\n</div>";
 },"useData":true});
+
+this["Handlebars"]["templates"]["topic.draggable"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div class=\"topic-draggable\">\n  "
+    + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.currentRoom : depth0)) != null ? stack1.name : stack1), depth0))
+    + "\n</div>";
+},"useData":true});

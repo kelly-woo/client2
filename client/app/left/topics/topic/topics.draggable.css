@@ -1,0 +1,7 @@
+.topic-draggable {
+  position: absolute;
+  z-index: 710;
+  background: black;
+  font-weight: bold;
+  color: #ffffff;
+}

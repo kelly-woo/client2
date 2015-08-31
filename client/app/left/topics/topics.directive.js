@@ -16,8 +16,20 @@
       templateUrl: 'app/left/topics/topics.html'
     };
 
-    function link(scope, element, attrs) {
+    function link(scope, el, attrs) {
 
+      el.on('dragover', _onDragOver);
+      el.on('drop', _onDrop);
+
+      function _onDragOver(dragEvent) {
+        console.log('onDragOver', dragEvent);
+      }
+
+      function _onDrop(dragEvent) {
+        console.log('onDrop', dragEvent);
+      }
     }
+
+
   }
 })();

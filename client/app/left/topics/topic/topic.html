@@ -1,4 +1,4 @@
-<a data-channel-id="{{currentRoom.id}}" id="topic{{currentRoom.id}}">
+<a data-channel-id="{{currentRoom.id}}" id="topic{{currentRoom.id}}" topic-draggable>
   <i class="icon-star left-star" ng-class="{'icon-star-fill': currentRoom.isStarred}"
      data-ng-click="onStarClick(currentRoom.type, currentRoom.id);
                           $event.preventDefault(); $event.stopPropagation();"></i>

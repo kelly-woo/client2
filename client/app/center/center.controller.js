@@ -399,9 +399,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
    * window의 drag start event cancel
    */
   function _onDragStart(dragEvent) {
-    dragEvent.preventDefault();
-    dragEvent.stopPropagation();
-    return false;
+    //dragEvent.preventDefault();
+    //dragEvent.stopPropagation();
+    //return false;
   }
 
   function _searchJumpToMessageId() {

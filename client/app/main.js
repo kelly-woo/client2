@@ -40,6 +40,18 @@
                     .error(function (err) {
                       publicService.signOut();
                     });
+                },
+                topicFolderList: function(publicService, TopicFolderAPI) {
+                  return TopicFolderAPI.getFolders()
+                    .error(function (err) {
+                      publicService.signOut();
+                    });
+                },
+                topicEntityList: function(publicService, TopicFolderAPI) {
+                  return TopicFolderAPI.getEntities()
+                    .error(function (err) {
+                      publicService.signOut();
+                    });
                 }
               }
             },
