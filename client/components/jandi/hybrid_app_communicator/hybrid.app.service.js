@@ -17,7 +17,7 @@
     _init();
 
     function _init() {
-      var appHelper = pcAppHelper.isHybridApp() ? pcAppHelper : macAppHelper;
+      var appHelper;
       var interfas = [
         'connect',
         'onSignedOut',
@@ -27,8 +27,13 @@
         'isHybridApp'
       ];
 
-      _implement.call(appHelper, interfas);
-      _.extend(delegator, appHelper);
+      if (window.jandipc != null) {
+        appHelper = pcAppHelper;
+      } else if (window.jandimac != null) {
+        appHelper = macAppHelper;
+      }
+
+      _implement(appHelper, interfas);
 
       // hybrid(pc, mac) app과 connect
       delegator.connect();
@@ -36,14 +41,15 @@
 
     /**
      * delegator의 method implements
+     * @param {object} appHelper - pcAppHelper 또는 macAppHelper
      * @param {array} interfas
      * @private
      */
-    function _implement(interfas) {
-      var appHelper = this;
+    function _implement(appHelper, interfas) {
       var i;
       var len;
 
+      appHelper = appHelper || {};
       for(i = 0, len = interfas.length; i < len; i++) {
         delegator[interfas[i]] = (function(key) {
           return function() {
