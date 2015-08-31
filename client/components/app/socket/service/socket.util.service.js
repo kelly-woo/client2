@@ -7,28 +7,24 @@
 
   /* @ngInject */
   function jndWebSocketCommon(jndPubSub, currentSessionHelper, entityAPIservice,
-                              logger, memberService) {
+                              logger, memberService, accountService) {
 
     var _chatEntity = 'chat';
 
 
-    this.isCurrentFile = isCurrentFile;
     this.isCurrentEntity = isCurrentEntity;
-    this.isRelatedEvent = isRelatedEvent;
     this.getActionOwner = getActionOwner;
     this.getRoom = getRoom;
 
     this.updateLeft = updateLeft;
-    this.updateCenterMessage = updateCenterMessage;
-    this.updateDmList = updateDmList;
 
     this.updateFileDetailPanel = updateFileDetailPanel;
     this.isActionFromMe = isActionFromMe;
 
-    this.hasLastLinkId = hasLastLinkId;
     this.getLastLinkId = getLastLinkId;
 
     this.shouldSendNotification = shouldSendNotification;
+    this.getTeamId = getTeamId;
 
     function updateLeft() {
       jndPubSub.updateLeftPanel();
@@ -200,7 +196,8 @@
      */
     function shouldSendNotification(data) {
       var returnVal = true;
-      if (isActionFromMe(data.writer)) {
+
+      if (isSocketEventFromMe(data)) {
         // 내가 보낸 노티일 경우
         returnVal = false;
       }
@@ -209,7 +206,48 @@
         // 현재 보고있는 토픽에 노티가 왔는데 브라우져가 focus를 가지고 있을 때
         returnVal = false;
       }
+
       return returnVal;
+    }
+
+    /**
+     * socketEvent가 나로부터 온 이벤트인지 아닌지 확인한다.
+     * @param {object} socketEvent - socket event parameter
+     * @returns {boolean}
+     */
+    function isSocketEventFromMe(socketEvent) {
+      var _teamId = getTeamId(socketEvent);
+      var _writer = socketEvent.writer;
+
+      if (_teamId > 0) {
+        return accountService.getMemberId(_teamId) === _writer;
+      }
+
+      return false;
+    }
+
+    /**
+     * 들어온 소켓이벤트에서 teamId 값을 추출한다.(멍청한 방법으로)
+     * @param {object} socketEvent - socket event parameter
+     * @returns {number}
+     * @private
+     */
+    function getTeamId(socketEvent) {
+      var _teamId = -1;
+
+      if (!!socketEvent.teamId) {
+        _teamId = socketEvent.teamId;
+      }
+
+      if (!!socketEvent.team && socketEvent.team.id) {
+        _teamId = socketEvent.team.id;
+      }
+
+      if (!!socketEvent.data && !!socketEvent.data.teamId && socketEvent.data.teamId) {
+        _teamId = socketEvent.data.teamId;
+      }
+
+      return _teamId;
     }
   }
 })();
