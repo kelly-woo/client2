@@ -37,6 +37,7 @@
 
       delegator.isPcApp = isPcApp;
       delegator.isMacApp = isMacApp;
+      delegator.isNativeApp = isNativeApp;
     }
 
     /**
@@ -65,6 +66,10 @@
 
     function isPcApp() {
       return pcAppHelper.isHybridApp();
+    }
+
+    function isNativeApp() {
+      return isMacApp() || isPcApp();
     }
   }
 })();
