@@ -37,7 +37,6 @@
 
       delegator.isPcApp = isPcApp;
       delegator.isMacApp = isMacApp;
-      delegator.isNativeApp = isNativeApp;
     }
 
     /**
@@ -74,14 +73,6 @@
      */
     function isPcApp() {
       return pcAppHelper.isHybridApp();
-    }
-
-    /**
-     * 네이티브 앱인지 아닌지 확인한다.
-     * @returns {*}
-     */
-    function isNativeApp() {
-      return isMacApp() || isPcApp();
     }
   }
 })();

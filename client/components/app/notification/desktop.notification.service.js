@@ -74,7 +74,7 @@
       appName = config.name;
 
       isNotificationSupported = 'Notification' in window;
-      if (hybridAppHelper.isNativeApp()) {
+      if (hybridAppHelper.isHybridApp()) {
         // 네이티브 앱 일 경우
         _initNativeSetting();
       } else {
