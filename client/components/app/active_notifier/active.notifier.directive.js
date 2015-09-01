@@ -1,5 +1,6 @@
 /**
- * @fileoverview 유져의 행동을 감지해 서버에 active 상태인지 아닌지 알려주는 곳
+ * @fileoverview 유져의 행동을 감지해 서버에 active 상태인지 아닌지 알려주는 directive
+ *  web_admin 과 공용으로 사용한다.
  * @author JiHoon Kim <jihoonk@tosslab.com>
  */
 (function() {
@@ -41,6 +42,10 @@
        * 초기화 함수.
        */
       function _init() {
+        //live 서버에서 console 로 version 체크하기 위함.
+        var jandi = window.JANDI= window.JANDI || {};
+        jandi.version = configuration.version;
+
         _detachEventListener();
         _lastActiveTime = _.now();
         _attachEventListener();
@@ -137,7 +142,78 @@
             platform: PLATFORM,
             active: isActive
           }
-        });
+        }).success(_onSuccessNotify);
+      }
+
+      /**
+       * 응답을 성공적으로 받은 경우 핸들러
+       * @param {object} response
+       * @private
+       */
+      function _onSuccessNotify(response) {
+        var latestVersion = response && response.lastestWebVersion;
+        if (_hasToUpdate(latestVersion)) {
+          window.location.reload();
+        }
+      }
+
+      /**
+       * 업데이트 해야되는지 여부를 반환한다.
+       * @param {string} latestVersion - 서버에 저장된 가장 최신 버전 정보
+       * @returns {boolean}
+       * @private
+       */
+      function _hasToUpdate(latestVersion) {
+        var latest;
+        var current;
+        var hasToUpdate = false;
+        if (_.isString(latestVersion)) {
+          latest = _parseVersion(latestVersion);
+          current = _parseVersion(configuration.version);
+          _.forEach(latest, function(latestNum, index) {
+            if (latestNum > current[index]) {
+              hasToUpdate = true;
+              return false;
+            } else if (current[index] > latestNum) {
+              return false;
+            }
+          });
+        }
+        return hasToUpdate;
+      }
+
+      /**
+       * version 정보를 parsing 하여 version string 으로 반홚나다.
+       * @param {string} versionStr
+       * @returns {string[]}
+       * @private
+       */
+      function _parseVersion(versionStr) {
+        var versionArr;
+        var version = ['0', '0', '0'];
+        if (_.isString(versionStr)) {
+          versionArr = versionStr.split('.');
+          version[0] = _getNumber(versionArr[0]) || version[0];
+          version[1] = _getNumber(versionArr[1]) || version[1];
+          version[2] = _getNumber(versionArr[2]) || version[2];
+        }
+        return version;
+      }
+
+      /**
+       * version 정보 중 숫자만 추출하여 반환한다.
+       * @param {string} version
+       * @returns {*}
+       * @private
+       */
+      function _getNumber(version) {
+        if (_.isString(version)) {
+          var index = version.search(/[^0-9]/);
+          if (index !== -1) {
+            version = version.substring(0, index) || '0';
+          }
+        }
+        return version;
       }
 
       /**
