@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('topics', topics);
 
-  function topics() {
+  function topics(TopicFolderModel) {
     return {
       restrict: 'EA',
       scope: false,
@@ -17,19 +17,11 @@
     };
 
     function link(scope, el, attrs) {
-
-      el.on('dragover', _onDragOver);
-      el.on('drop', _onDrop);
-
-      function _onDragOver(dragEvent) {
-        console.log('onDragOver', dragEvent);
-      }
-
-      function _onDrop(dragEvent) {
-        console.log('onDrop', dragEvent);
-      }
+      scope.folderData = TopicFolderModel.getFolderData();
+      scope.$on('topic-folder:update', function(e, folderData) {
+        scope.folderData = folderData;
+      });
+      //console.log('scope.folderData', scope.folderData);
     }
-
-
   }
 })();

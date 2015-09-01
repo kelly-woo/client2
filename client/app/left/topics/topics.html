@@ -1,8 +1,5 @@
-<ul id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">
-  <li ng-repeat="joinedEntity in joinEntities | orderBy: ['isStarred', '-name']: true track by $index"
-      ng-class="{active: entityId == joinedEntity.id}"
-      data-ng-click="enterEntity(joinedEntity);"
-      class="cursor_pointer">
-    <topic current-room="joinedEntity"></topic>
-  </li>
-</ul>
+<div id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">
+  <div ng-repeat="folder in folderData.folderList">
+    <topic-folder></topic-folder>
+  </div>
+</div>

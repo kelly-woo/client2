@@ -149,6 +149,7 @@
 
 /*  text in element */
 .lpanel-list ul li a {
+  border: 1px solid transparent;
   color: #666;
   line-height: inherit;
   height: inherit;

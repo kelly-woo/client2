@@ -1,0 +1,19 @@
+<div>
+  <div ng-if="hasEmptyArea" style="height: 30px;">
+
+  </div>
+  <div ng-if="folder.id !== -1" class="topic-folder">
+    <i class="fa fa-folder-open-o"></i>
+      <span class="_folderName">{{folder.name}}</span>
+    <i class="fa fa-pencil" ng-click="rename();"></i>
+    <i class="fa fa-trash-o" ng-click="remove();"></i>
+  </div>
+  <ul>
+    <li ng-repeat="joinedEntity in folder.entityList | orderBy: ['isStarred', '-name']: true track by $index"
+        ng-class="{active: entityId == joinedEntity.id}"
+        data-ng-click="enterEntity(joinedEntity);"
+        class="cursor_pointer">
+      <topic current-room="joinedEntity"></topic>
+    </li>
+  </ul>
+</div>

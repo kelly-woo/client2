@@ -10,7 +10,7 @@
     .module('jandiApp')
     .service('TopicFolderAPI', TopicFolderAPI);
 
-  function TopicFolderAPI($http, configuration, memberService) {
+  function TopicFolderAPI($q, $http, configuration, memberService) {
     var server_address = configuration.server_address;
 
     this.getFolders = getFolders;
@@ -21,6 +21,7 @@
     this.pop = pop;
     this.modify = modify;
 
+    this.merge = merge;
     /**
      * folder 정보를 받아온다.
      * @param [teamId]
@@ -62,6 +63,16 @@
       });
     }
 
+    function merge(teamId, name, entityId1, entityId2) {
+      return create(teamId, name).then(function(result) {
+        var folderId = result.data.folderId;
+        return $q.all([
+          push(teamId, folderId, entityId1),
+          push(teamId, folderId, entityId2)
+        ]);
+      });
+    }
+
     /**
      * folder 를 삭제한다.
      * @param {number} teamId
@@ -82,13 +93,17 @@
      * @param {number} entityId
      */
     function push(teamId, folderId, entityId) {
-      return $http({
-        method: 'POST',
-        url: server_address + 'teams/' + teamId + '/folders/' + folderId + '/items',
-        data: {
-          itemId: entityId
-        }
-      });
+      if (folderId === -1) {
+        return pop(teamId, folderId, entityId);
+      } else {
+        return $http({
+          method: 'POST',
+          url: server_address + 'teams/' + teamId + '/folders/' + folderId + '/items',
+          data: {
+            itemId: entityId
+          }
+        });
+      }
     }
 
     /**

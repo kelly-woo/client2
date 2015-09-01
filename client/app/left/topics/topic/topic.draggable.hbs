@@ -1,3 +1,21 @@
-<div class="topic-draggable">
-  {{currentRoom.name}}
+<div class="lpanel-list topic-draggable">
+  <ul>
+    <li>
+      <a>
+        <i class="icon-star left-star {{css.star}}"></i>
+          <span class="inline-overflow-ellipsis left-panel__name {{css.unread}} {{css.bell}}">
+            {{currentRoom.name}}
+          </span>
+        {{#if isPrivate}}
+        <i class="icon-private-group topic-setting-icon"></i>
+        {{/if}}
+        {{#if isNotificationOff}}
+        <i class="off-topic-notification-indicator fa fa-bell-slash-o topic-setting-icon"></i>
+        {{/if}}
+        {{#if currentRoom.alarmCnt}}
+          <span class="badge left-panel_badge green_badge pull-right">{{currentRoom.alarmCnt}}</span>
+        {{/if}}
+      </a>
+    </li>
+  </ul>
 </div>

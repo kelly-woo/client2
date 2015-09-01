@@ -11,7 +11,7 @@
   /**
    *
    */
-  function topicDraggable(jndPubSub) {
+  function topicDraggable(jndPubSub, memberService, TopicFolderModel, TopicFolderAPI) {
 
 
     return {
@@ -29,6 +29,7 @@
       var _height;
       var _jqDraggable;
       var _cursor;
+      var _teamId;
       _init();
 
       /**
@@ -36,19 +37,24 @@
        * @private
        */
       function _init() {
+        _teamId = memberService.getTeamId();
         _template = Handlebars.templates['topic.draggable'];
         _attachEvents();
         _attachDomEvents();
       }
 
       function _attachEvents() {
-        scope.$on('topic:drag', _onDrag);
+        scope.$on('topic:drag', _onDragStatusChange);
       }
 
-      function _onDrag(angularEvent, draggingScope) {
+      function _onDragStatusChange(angularEvent, draggingScope) {
+        if (_draggingScope === scope) {
+
+        }
+
         _draggingScope = draggingScope;
         if (!_draggingScope) {
-          el.css('background', 'transparent');
+          el.removeClass('topic-merge');
         }
       }
 
@@ -60,25 +66,32 @@
       }
 
       function _onMouseUp(mouseEvent) {
-        if (scope === _draggingScope) {
-          console.log('###yes');
-          mouseEvent.preventDefault();
-          mouseEvent.stopPropagation();
-          //_onWindowMouseUp();
-        } else {
-          console.log('###no');
+        if (_isMergeable()) {
+          if (scope === _draggingScope) {
+            //todo: click 이벤트 발생하지 않도록 막아야함.
+          } else {
+            //todo: make folder
+            TopicFolderAPI.merge(_teamId, (new Date()).getTime(), scope.currentRoom.id, _draggingScope.currentRoom.id)
+              .then(function() {
+                TopicFolderModel.reload();
+              });
+          }
         }
       }
-      
+
+      function _isTopic(scope) {
+        return true;
+      }
+
       function _onMouseOver() {
-        if (_draggingScope) {
-          el.css('background', 'red');
+        if (_isMergeable()) {
+          el.addClass('topic-merge');
         }
       }
 
       function _onMouseOut() {
-        if (_draggingScope) {
-          el.css('background', 'transparent');
+        if (_isMergeable()) {
+          el.removeClass('topic-merge');
         }
       }
 
@@ -92,6 +105,15 @@
         _pageY = mouseEvent.pageY;
       }
 
+      function _isMergeable() {
+        if (_draggingScope && _draggingScope !== scope) {
+          if (!_draggingScope.currentRoom.extHasFolder && !scope.currentRoom.extHasFolder) {
+            return true;
+          }
+        }
+        return false;
+      }
+
       function _startDrag(mouseEvent) {
         jndPubSub.pub('topic:drag', scope);
         _cursor = $('#lpanel-list-container').css('cursor');
@@ -100,14 +122,25 @@
       }
 
       function _endDrag() {
-        jndPubSub.pub('topic:drag', scope);
-        $('#lpanel-list-container').css('cursor', _cursor);
-        _hideDraggable();
+        if (_draggingScope) {
+          jndPubSub.pub('topic:drag', null);
+          $('#lpanel-list-container').css('cursor', _cursor);
+          _hideDraggable();
+        }
       }
 
       function _showDraggable(mouseEvent) {
+        var currentRoom = scope.currentRoom;
+        var isNotificationOff = scope.isNotificationOff;
         _jqDraggable = $(_template({
-          currentRoom: scope.currentRoom
+          isNotificationOff: isNotificationOff,
+          isPrivate: currentRoom.type === 'privategroups',
+          css: {
+            star: currentRoom.isStarred ? 'icon-star-fill': '',
+            unread: currentRoom.alarmCnt ? 'has-unread-msg': '',
+            bell: isNotificationOff ? 'with-bell' : ''
+          },
+          currentRoom: currentRoom
         }));
         $('body').append(_jqDraggable);
         _width = _jqDraggable.width();
@@ -116,7 +149,7 @@
       }
 
       function _setDraggablePosition(mouseEvent) {
-        var top = mouseEvent.pageY;
+        var top = mouseEvent.pageY + 3;
         var left = mouseEvent.pageX + 3;
         _jqDraggable.css({
           top: top + 'px',
@@ -169,7 +202,7 @@
           _setDraggablePosition(mouseEvent);
           var targetScope = angular.element(mouseEvent.target).scope();
           if (targetScope.currentRoom) {
-            console.log(targetScope.currentRoom);
+            //console.log(targetScope.currentRoom);
           }
         } else {
           if (_getDistance(mouseEvent) > 10) {

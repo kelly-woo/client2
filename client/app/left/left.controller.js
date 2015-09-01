@@ -7,7 +7,7 @@ app.controller('leftPanelController1', function(
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
   jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, pcAppHelper, TopicMessageCache, $q,
-  NotificationManager, topicFolderList, topicEntityList, TopicFolderModel) {
+  NotificationManager, topicFolder, TopicFolderModel) {
 
   /**
    * @namespace
@@ -64,7 +64,7 @@ app.controller('leftPanelController1', function(
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
-  if (!leftPanel || !topicFolderList || !topicEntityList) return;
+  if (!leftPanel || !topicFolder) return;
 
   // leftPanel의 상태가 200이 아닐 경우 에러로 처리.
   if (leftPanel.status != 200) {
@@ -72,12 +72,6 @@ app.controller('leftPanelController1', function(
     $state.go('error', {code: err.code, msg: err.msg, referrer: "leftpanelAPIservice.getLists"});
   } else {
     response = leftPanel.data;
-    TopicFolderModel.set({
-      folderList: topicFolderList.data,
-      entityList: topicEntityList.data
-    });
-
-    console.log('topicFolderList, topicEntityList', topicFolderList, topicEntityList);
   }
 
   _attachExtraEvents();
@@ -531,6 +525,7 @@ app.controller('leftPanelController1', function(
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
     }
+    TopicFolderModel.update();
     $rootScope.$broadcast('onInitLeftListDone');
   }
 
@@ -623,15 +618,17 @@ app.controller('leftPanelController1', function(
     }
 
     _getLeftListDeferredObject = $q.defer();
-    leftpanelAPIservice.getLists(_getLeftListDeferredObject)
-      .success(function(data) {
-        response = data;
-        //console.log('-- getLeft good')
-        initLeftList();
-      })
-      .error(function(err) {
-        console.log(err);
-      });
+    TopicFolderModel.load().then(function() {
+      leftpanelAPIservice.getLists(_getLeftListDeferredObject)
+        .success(function (data) {
+          response = data;
+          //console.log('-- getLeft good')
+          initLeftList();
+        })
+        .error(function (err) {
+          console.log(err);
+        });
+    });
   }
 
   // User pressed an enter key from invite modal view in private group.
