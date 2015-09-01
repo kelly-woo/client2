@@ -140,9 +140,11 @@
     <!--  INVITE OPTION -->
     <span class="panel-title-invite panel-title-right-menu__item icon-invite-fill pull-right cursor_pointer"
           tooltip="{{::'@ch-menu-invite' | translate}}"
-          tooltip-placement="bottom" tooltip-append-to-body="false"
-          tooltip-class="panel-title-invite-tooltip absolute-right-tooltip"
-          ng-click="openInviteModal();">
+          tooltip-placement="bottom"
+          tooltip-class="panel-title-invite-tooltip"
+          tooltip-trigger="click"
+      >
+               <!--ng-click="openInviteModal();"-->
     </span>
 
   </span>
