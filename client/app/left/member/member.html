@@ -1,11 +1,10 @@
 <div class="lpanel-user cursor_pointer" dropdown>
   <div class="lpanel-user__team overflow-ellipsis">
-    <i class="icon-group icon"></i>
     <span class="team-name">{{team|getName}}</span>
   </div>
 
   <div class="lpanel-user__user" dropdown-toggle>
-    <i class="icon-setting user-setting-icon" ></i>
+    <i class="icon-cog-fill user-setting-icon" ></i>
 
     <img class="lpanel-user__avatar opac-zero" on-image-load data-ng-src="{{ member | getSmallThumbnail }}">
 
@@ -20,7 +19,7 @@
   <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu" id="current-user-dropdown">
     <li class="" role="presentation">
       <a data-ng-click="onCurrentMemberContainerClick();" role="menuitem" tabindex="-1">
-        <i class="fa fa-user"></i>
+        <i class="icon-user-fill"></i>
         <span translate>@common-profile-settings</span>
       </a>
     </li>
@@ -28,7 +27,7 @@
     <!-- 로그아웃 -->
     <li class="" role="presentation">
       <a ng-click="onSignOutClick();" role="menuitem" tabindex="-1">
-        <i class="icon-logout"></i>
+        <i class="icon-sign-out"></i>
         <span translate>@common-sign-out</span>
       </a>
     </li>

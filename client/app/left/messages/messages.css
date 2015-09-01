@@ -16,6 +16,9 @@
 .lpanel-list ul li:hover .left-panel_leave {
     opacity: 0.6;
 }
+.lpanel-list ul li:hover .left-panel_leave .icon-delete {
+    font-size: 8px;
+}
 .has-unread-msg .left-panel_leave {
     display: none;
 }
