@@ -9,7 +9,7 @@
     .service('OtherTeamNotification', OtherTeamNotification);
 
   /* @ngInject */
-  function OtherTeamNotification(desktopNotificationHelper, accountService, configuration,
+  function OtherTeamNotification(desktopNotificationHelper, accountService, configuration, DesktopNotificationUtil,
                                  jndWebSocketCommon, pcAppHelper,  $filter, DesktopNotification) {
     this.addNotification = addNotification;
 
@@ -35,8 +35,8 @@
             tag: 'tag',
             body: _getBody(teamName),
             icon: 'assets/images/jandi-logo-200x200.png',
-            callbackFn: _otherTeamNotificationCallbackFn,
-            callbackParam: _.extend(socketEvent, {teamDomain: teamDomain})
+            callback: _onNotificationClicked,
+            data: _.extend(socketEvent, {teamDomain: teamDomain})
 
           };
 
@@ -68,7 +68,7 @@
      * @param {object} param - socket event
      * @private
      */
-    function _otherTeamNotificationCallbackFn(param) {
+    function _onNotificationClicked(param) {
       if (!pcAppHelper.isPcApp()) {
         // 기본적으로 /app/# 까지 포함한 주소를 만든다.
         var url = configuration.base_protocol + param['teamDomain'] + configuration.base_url + '/app/#';

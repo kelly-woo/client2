@@ -72,10 +72,10 @@
        */
       function onNotificationClick() {
         var fn;
-        if (_.isFunction(that.options.callbackFn)) {
-          fn = that.options.callbackFn;
-          if (!_.isUndefined(that.options.callbackParam)) {
-            fn(that.options.callbackParam);
+        if (_.isFunction(that.options.callback)) {
+          fn = that.options.callback;
+          if (!_.isUndefined(that.options.data)) {
+            fn(that.options.data);
           } else {
             fn();
           }
