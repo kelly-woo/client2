@@ -59,7 +59,6 @@
       notification.onclick = onNotificationClick;
 
       if (hybridAppHelper.isMacApp()) {
-
         hybridAppHelper.trigger('notification', {
           title: title,
           body: options.body,

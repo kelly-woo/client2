@@ -116,32 +116,37 @@
      * @returns {string}
      */
     function getNotificationUrl(data) {
-      var teamInfo = getTeamInfo(data.teamId);
+      var teamInfo;
+      var url;
       var type;
       var roomId;
 
-      // 기본적으로 /app/# 까지 포함한 주소를 만든다.
-      var url = configuration.base_protocol + teamInfo.teamDomain + configuration.base_url + '/app/#';
+      if (_.isObject(data)) {
+        teamInfo = getTeamInfo(data.teamId);
 
-      if (isChatType(data)) {
-        // chat 일 경우
+        // 기본적으로 /app/# 까지 포함한 주소를 만든다.
+        url = configuration.base_protocol + teamInfo.teamDomain + configuration.base_url + '/app/#';
 
-        type = 'user';
-        // 방 url이 roomId(혹은 entityId)로 되어있지 않고 user의 id로 되어있기에 그 값을 설정한다.
-        roomId = data.writer;
-      } else {
-        // channel 일 경우
+        if (isChatType(data)) {
+          // chat 일 경우
 
-        type = data.room.type.toLowerCase();
-        roomId = data.room.id;
-      }
+          type = 'user';
+          // 방 url이 roomId(혹은 entityId)로 되어있지 않고 user의 id로 되어있기에 그 값을 설정한다.
+          roomId = data.writer;
+        } else {
+          // channel 일 경우
 
-      // url 뒤에 가고 싶은 방의 타입과 주소를 설정한다.
-      url += '/' + type + 's/' + roomId;
+          type = data.room.type.toLowerCase();
+          roomId = data.room.id;
+        }
 
-      if (!!data.messageType && data.messageType === 'file_comment') {
-        // file comment socket event일 때
-        url += '/files/' + data.file.id;
+        // url 뒤에 가고 싶은 방의 타입과 주소를 설정한다.
+        url += '/' + type + 's/' + roomId;
+
+        if (!!data.messageType && data.messageType === 'file_comment') {
+          // file comment socket event일 때
+          url += '/files/' + data.file.id;
+        }
       }
 
       return url;
