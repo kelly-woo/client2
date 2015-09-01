@@ -29,7 +29,7 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
-
+    pkg: grunt.file.readJSON('package.json'),
     // Project settings
     yeoman: {
       // configurable paths
@@ -626,9 +626,16 @@ module.exports = function (grunt) {
       },
       local: {
         options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/local.json')
-          }]
+          patterns: [
+            {
+              json: grunt.file.readJSON('./config/environments/local.json')
+            },
+            {
+              json: {
+                version: '<%=pkg.version%>'
+              }
+            }
+          ]
         },
         files: [{
           expand: true,
@@ -639,9 +646,16 @@ module.exports = function (grunt) {
       },
       local_ie9: {
         options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/local_ie9.json')
-          }]
+          patterns: [
+            {
+              json: grunt.file.readJSON('./config/environments/local_ie9.json')
+            },
+            {
+              json: {
+                version: '<%=pkg.version%>'
+              }
+            }
+          ]
         },
         files: [{
           expand: true,
@@ -652,9 +666,16 @@ module.exports = function (grunt) {
       },
       development: {
         options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/development.json')
-          }]
+          patterns: [
+            {
+              json: grunt.file.readJSON('./config/environments/development.json')
+            },
+            {
+              json: {
+                version: '<%=pkg.version%>'
+              }
+            }
+          ]
         },
         files: [{
           expand: true,
@@ -665,9 +686,16 @@ module.exports = function (grunt) {
       },
       staging: {
         options: {
-          patterns: [{
-            json: grunt.file.readJSON('./config/environments/staging.json')
-          }]
+          patterns: [
+            {
+              json: grunt.file.readJSON('./config/environments/staging.json')
+            },
+            {
+              json: {
+                version: '<%=pkg.version%>'
+              }
+            }
+          ]
         },
         files: [{
           expand: true,
@@ -693,14 +721,14 @@ module.exports = function (grunt) {
         commit: false,
         commitMessage: 'Release v%VERSION%',
         commitFiles: ['package.json'],
-        createTag: true,
+        createTag: true, //tobe true
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
         push: false,
-        pushTo: 'upstream',
+        pushTo: 'origin',
         gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
         globalReplace: false,
-        prereleaseName: false,
+        prereleaseName: 'alpha',
         regExp: false
       }
     }
@@ -885,8 +913,38 @@ module.exports = function (grunt) {
     'build'
   ]);
 
-  grunt.registerTask('version', [
-    'bump',
-    'changelog'
-  ]);
+  grunt.registerTask('change-version-log', function() {
+    grunt.config.set('changelog.options.version', grunt.file.readJSON('package.json').version);
+    grunt.task.run('changelog');
+  });
+
+  grunt.registerTask('version-new', function(target) {
+    switch (target) {
+      case 'major':
+        target = 'premajor';
+        break;
+      case 'minor':
+        target = 'preminor';
+        break;
+      default:
+        target = 'prepatch';
+        break;
+    }
+    var bumpTask = 'bump:' + target;
+    grunt.config.set('bump.options.createTag', false);
+    grunt.config.set('bump.options.push', false);
+    grunt.task.run([bumpTask]);
+  });
+
+  grunt.registerTask('version-fix', function(target) {
+    grunt.config.set('bump.options.createTag', false);
+    grunt.config.set('bump.options.push', false);
+    grunt.task.run(['bump:prerelease']);
+  });
+
+  grunt.registerTask('version-release', function(target) {
+    grunt.config.set('bump.options.createTag', true);
+    grunt.config.set('bump.options.push', true);
+    grunt.task.run(['bump', 'change-version-log']);
+  });
 };
