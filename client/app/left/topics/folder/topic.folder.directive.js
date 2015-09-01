@@ -52,7 +52,7 @@
 
       function _onMouseOver() {
         if (_draggingScope && _hasFolderAction()) {
-          el.addClass('topic-merge');
+          el.addClass('topic-folder-push');
         }
       }
 
@@ -63,14 +63,14 @@
 
       function _onMouseOut(){
         if (_draggingScope) {
-          el.removeClass('topic-merge');
+          el.removeClass('topic-folder-push');
         }
       }
 
       function _onDragStatusChange(angularEvent, draggingScope) {
         _draggingScope = draggingScope;
         if (!_draggingScope) {
-          el.removeClass('topic-merge');
+          el.removeClass('topic-folder-push');
         }
       }
     }
