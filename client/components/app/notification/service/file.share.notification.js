@@ -20,8 +20,8 @@
         tag: 'tag',
         body: _getBody(socketEvent),
         icon: $filter('getSmallThumbnail')(entityAPIservice.getEntityById('users', socketEvent.writer)),
-        callbackFn: _onNotificationClicked,
-        callbackParam: socketEvent
+        callback: _onNotificationClicked,
+        data: socketEvent
       };
 
       (notification = _createInstance(options)) && notification.show();
