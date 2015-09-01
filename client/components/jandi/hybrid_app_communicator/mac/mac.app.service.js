@@ -33,7 +33,7 @@
      * @private
      */
     function isHybridApp() {
-      return typeof window.jandimac != null;
+      return window.jandimac != null;
     }
   }
 })();

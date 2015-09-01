@@ -66,7 +66,7 @@
      * @private
      */
     function isHybridApp() {
-      return typeof jandipc !== 'undefined';
+      return window.jandipc != null;
     }
   }
 })();
