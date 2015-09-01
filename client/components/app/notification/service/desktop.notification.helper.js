@@ -9,7 +9,7 @@
     .service('desktopNotificationHelper', desktopNotificationHelper);
 
   /* @ngInject */
-  function desktopNotificationHelper($filter, $state, RouterHelper, hybridAppHelper) {
+  function desktopNotificationHelper($filter, $state, RouterHelper, hybridAppHelper, DesktopNotificationUtil) {
     var NOTIFICATION_EXPIRE_TIME = 5000;
 
     /**
@@ -58,8 +58,14 @@
       notification.onshow = onNotificationShow;
       notification.onclick = onNotificationClick;
 
-      if (hybridAppHelper.isHybridApp()) {
-        hybridAppHelper.trigger('notification', _.extend({title: title}, options));
+      if (hybridAppHelper.isMacApp()) {
+
+        hybridAppHelper.trigger('notification', {
+          title: title,
+          body: options.body,
+          icon: options.icon,
+          url: DesktopNotificationUtil.getNotificationUrl(options.data)
+        });
       }
 
       /**
@@ -76,14 +82,11 @@
        * 노티피케이션이 클릭되었을 경우 호출된다.
        */
       function onNotificationClick() {
-        if (_.isFunction(that.options.callbackFn)) {
-
-          var fn = that.options.callbackFn;
-
-          console.log('has callback!! ', that.options.callbackParam);
-
-          if (!_.isUndefined(that.options.callbackParam)) {
-            fn(that.options.callbackParam);
+        var fn;
+        if (_.isFunction(that.options.callback)) {
+          fn = that.options.callback;
+          if (!_.isUndefined(that.options.data)) {
+            fn(that.options.data);
           } else {
             fn();
           }

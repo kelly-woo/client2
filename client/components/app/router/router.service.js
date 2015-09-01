@@ -45,10 +45,10 @@
       }
 
       if (_isStateChange(toState, toParams, fromState, fromParams) && NetInterceptor.isConnected()) {
-        //console.info("==============================[stateChange]==============================");
-        //console.info("   from    ", fromState.name, ' / ', fromParams);
-        //console.info("    to     ", toState.name, ' / ',toParams);
-        //console.info("=========================================================================");
+        console.info("==============================[stateChange]==============================");
+        console.info("   from    ", fromState.name, ' / ', fromParams);
+        console.info("    to     ", toState.name, ' / ',toParams);
+        console.info("=========================================================================");
 
         if (currentSessionHelper.isMobile && toState.name != 'mobile') {
           if (toState.name == "password") {

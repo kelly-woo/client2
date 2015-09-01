@@ -27,13 +27,16 @@
         'isHybridApp'
       ];
 
-      if (window.jandipc != null) {
+      if (isPcApp()) {
         appHelper = pcAppHelper;
-      } else if (window.jandimac != null) {
+      } else if (isMacApp()) {
         appHelper = macAppHelper;
       }
 
       _implement(appHelper, interfas);
+
+      delegator.isPcApp = isPcApp;
+      delegator.isMacApp = isMacApp;
     }
 
     /**
@@ -54,6 +57,14 @@
           };
         }(interfas[i]));
       }
+    }
+
+    function isMacApp() {
+      return macAppHelper.isHybridApp();
+    }
+
+    function isPcApp() {
+      return pcAppHelper.isHybridApp();
     }
   }
 })();

@@ -32,8 +32,10 @@
 
       data[AnalyticsConstant.LOG.EVENT] = event;
       data[AnalyticsConstant.LOG.IDENTIFY] = identify;
-      if (hybridAppHelper.isHybridApp()) {
+      if (hybridAppHelper.isPcApp()) {
         data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM.WIN_APP;
+      } else if (hybridAppHelper.isMacApp()) {
+        data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM.MAC_APP;
       } else {
         data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM.WEB;
       }
