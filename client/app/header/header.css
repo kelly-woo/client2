@@ -45,7 +45,7 @@
 .header-navbar-menu.open,
 .header-navbar-file.open,
 .header-navbar-settings.open {
-  background: #366480;
+  background: #173e54;
   color: #fff;
 }
 .header-navbar-menu .dot{
@@ -64,7 +64,7 @@
   z-index: 101;
 }
 .header-navbar-menu.open .dot {
-  border: 2px solid #366480;
+  border: 2px solid #173e54
 }
 	
 
