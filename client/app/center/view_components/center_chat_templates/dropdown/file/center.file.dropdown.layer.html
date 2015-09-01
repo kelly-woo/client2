@@ -2,7 +2,7 @@
   <!--  SHARE -->
   <li class="cursor_pointer" ng-click="onShareClick(msg.message);">
     <a class="share-file">
-      <i class="icon-share"></i>
+      <i class="icon-share-right-fill"></i>
       <span translate>@btn-share</span>
     </a>
   </li>
@@ -12,7 +12,7 @@
     <a class="cursor_pointer"
        download-tracker="{{track(msg.message)}}"
        href="{{downloadUrl}}">
-      <i class="icon-download"></i>
+      <i class="icon-download-fill"></i>
       <span translate>@common-download</span>
     </a>
   </li>
@@ -20,7 +20,7 @@
   <!-- COMMENT  -->
   <li class="cursor_pointer">
     <a class="focus-comment-file" ng-click="setCommentFocus(msg.message);">
-      <i class="fa fa-comment-o"></i>
+      <i class="icon-comment"></i>
       <span translate>@btn-comment</span>
     </a>
   </li>
@@ -30,13 +30,13 @@
     <a class="cursor_pointer"
         href="{{originalUrl}}"
         target="_blank">
-      <i class="fa fa-external-link"></i>
+      <i class="icon-minimize"></i>
       <span translate>@msg-open-original</span>
     </a>
   </li>
   <li class="cursor_pointer" ng-if="isFileOwner || isAdmin" ng-click="onFileDeleteClick();">
     <a class="delete-file">
-      <i class="fa fa-trash"></i>
+      <i class="icon-trash"></i>
       <span translate>@message-delete</span>
     </a>
   </li>

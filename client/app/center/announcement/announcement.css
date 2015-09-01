@@ -72,12 +72,12 @@
 }
 .announcement-arrow-container {
   position: absolute;
-  right: 14px;
-  top: 16px;
+  right: 20px;
+  top: 20px;
 }
 .announcement-minimize__arrow {
   color: #154a67;
-  font-size: 28px;
+  font-size: 18px;
 }
 
 .announcement-inner {
@@ -104,6 +104,9 @@
   font-size: 12px;
   color: #154a67;
   padding-bottom: 2px;
+}
+.announcement-header .icon-clock{
+  padding-left: 4px;
 }
 
 .minimized .announcement-body {
@@ -147,8 +150,8 @@
   margin-left: 30px;
 }
 .maximized-announcement__icon {
-  font-size: 16px;
-  vertical-align: text-bottom;
+  font-size: 14px;
+  vertical-align: text-top;
 }
 
 .maximized-announcement-icon__text {
