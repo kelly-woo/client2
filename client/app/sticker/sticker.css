@@ -9,6 +9,7 @@
   position: absolute;
   right: 10px;
   bottom: 8px;
+  width:16px;
   z-index: 2;
 }
 .sticker_panel_wrap.shift{
