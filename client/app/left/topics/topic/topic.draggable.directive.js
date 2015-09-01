@@ -132,6 +132,7 @@
       function _showDraggable(mouseEvent) {
         var currentRoom = scope.currentRoom;
         var isNotificationOff = scope.isNotificationOff;
+
         _jqDraggable = $(_template({
           isNotificationOff: isNotificationOff,
           isPrivate: currentRoom.type === 'privategroups',
@@ -143,9 +144,12 @@
           currentRoom: currentRoom
         }));
         $('body').append(_jqDraggable);
+
         _width = _jqDraggable.width();
         _height = _jqDraggable.height();
+
         _setDraggablePosition(mouseEvent);
+        $(mouseEvent.target).trigger('mouseover');
       }
 
       function _setDraggablePosition(mouseEvent) {
