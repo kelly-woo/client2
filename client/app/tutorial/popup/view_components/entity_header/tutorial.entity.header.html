@@ -1,12 +1,12 @@
 <div class="tutorial_topic_entity_header">
   <div class="panel-title-container">
     <span class="prefix star">
-      <i class="icon-star" ng-class="{'icon-star-fill starred-on' : entity.isStarred}"></i>
+      <i class="icon-star-off" ng-class="{'icon-star-on starred-on' : entity.isStarred}"></i>
     </span>
     <span class="prefix">
       <i ng-class="{
-      'icon-topic-fill': entity.type === 'channels',
-      'icon-private-group': entity.type === 'privategroups',
+      'icon-topic': entity.type === 'channels',
+      'icon-lock': entity.type === 'privategroups',
       'icon-user': entity.type === 'users'
       }"></i>
     </span>
@@ -17,7 +17,7 @@
       </span>
     </span>
     <span class="panel-title-topic-description cursor_pointer">
-      <i class="fa fa-info-circle">
+      <i class="icon-circle">
       </i>
     </span>
     <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__more panel-title-right-menu__item">
@@ -28,15 +28,15 @@
     <span  ng-if="entity.memberCount" class="panel-title-right-menu pull-right cursor_pointer">
       <span class="panel-title-member panel-title-right-menu__item pull-left">
         <div class="dropdown-toggle panel-title-member__more">
-          <i class="icon icon-user"></i>
+          <i class="icon-user"></i>
           <span class="panel-title-member__count">{{ entity.memberCount }}</span>
-          <i class="icon icon-down"></i>
+          <i class="icon-arrow-down"></i>
         </div>
       </span>
     </span>
     <span class="panel-title-right-menu pull-right cursor_pointer panel-title-right-menu__item panel-title-right-menu__notification_bell">
       <div class="panel-title-right-menu__more_icon">
-        <i class="fa fa-bell-o"></i>
+        <i class="icon-bell"></i>
       </div>
     </span>
   </div>

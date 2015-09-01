@@ -21,6 +21,7 @@
 .sticker_panel_btn:hover {
   color: #00abe6;
   opacity: 0.9;
+  text-decoration: none;
 }
 .sticker_panel_btn.on {
   color: #00abe6;

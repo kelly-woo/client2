@@ -21,8 +21,8 @@
             'active': topic.isActive
           }">
         <a>
-          <i class="icon-star left-star"
-             ng-class="{'icon-star-fill': topic.isStarred}"></i>
+          <i class="icon-star-off left-star"
+             ng-class="{'icon-star-on': topic.isStarred}"></i>
           <span class="inline-overflow-ellipsis left-panel__name" >{{ topic.name }}</span>
         </a>
       </li>
@@ -46,8 +46,8 @@
             'active': dm.isActive
           }">
         <a>
-          <i class="icon-star left-star"
-             ng-class="{'icon-star-fill': dm.isStarred}"></i>
+          <i class="icon-star-off left-star"
+             ng-class="{'icon-star-on': dm.isStarred}"></i>
           <span class="inline-overflow-ellipsis left-panel__name" >{{ dm.name }}</span>
         </a>
       </li>
