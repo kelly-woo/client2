@@ -725,7 +725,7 @@ module.exports = function (grunt) {
         tagName: 'v%VERSION%',
         tagMessage: 'Version %VERSION%',
         push: false,
-        pushTo: 'upstream',
+        pushTo: 'origin',
         gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
         globalReplace: false,
         prereleaseName: 'alpha',
@@ -912,9 +912,39 @@ module.exports = function (grunt) {
     'staging',
     'build'
   ]);
+  grunt.registerTask('version-new', function(target) {
+    switch (target) {
+      case 'major':
+        target = 'premajor';
+        break;
+      case 'minor':
+        target = 'preminor';
+        break;
+      default:
+        target = 'prepatch';
+        break;
+    }
+    var bumpTask = 'bump:' + target;
+    grunt.config.set('bump.options.createTag', false);
+    grunt.config.set('bump.options.push', false);
+    grunt.task.run(bumpTask);
+    grunt.config.set('changelog.version', require('./package.json').version);
+    grunt.task.run('changelog');
+  });
 
-  grunt.registerTask('version', [
-    'bump',
-    'changelog'
-  ]);
+  grunt.registerTask('version-fix', function(target) {
+    grunt.config.set('bump.options.createTag', false);
+    grunt.config.set('bump.options.push', false);
+    grunt.task.run('bump:prerelease');
+    grunt.config.set('changelog.version', require('./package.json').version);
+    grunt.task.run('changelog');
+  });
+
+  grunt.registerTask('version-release', function(target) {
+    grunt.config.set('bump.options.createTag', true);
+    grunt.config.set('bump.options.push', true);
+    grunt.task.run('bump');
+    grunt.config.set('changelog.version', require('./package.json').version);
+    grunt.task.run('changelog');
+  });
 };
