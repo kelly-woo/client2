@@ -1,6 +1,6 @@
 <div class="rpanel-header">
   <div class="ng-hide" ng-show="initialLoaded">
-    <i class="icon-prev" ng-click="backToFileList()"></i>
+    <i class="icon-arrow-left" ng-click="backToFileList()"></i>
     <span class="file-detail-title">{{:: file_detail.content.title}}</span>
   </div>
 </div>
@@ -27,7 +27,7 @@
         <div class="file-item-meta__action">
           <div class="action-star cursor_pointer"
                 tooltip="{{'@star' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
-            <i class="file_action star-btn" ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{ file_detail.id }}"></i>
+            <i class="file_action star-btn" ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" message-id="{{ file_detail.id }}"></i>
           </div>
 
           <div class="action-download cursor_pointer"
@@ -48,13 +48,13 @@
             <ul class="dropdown-menu grey_dropdown file-item-meta__action__dropdown right-align" role="menu">
               <li class="cursor_pointer">
                 <a ng-click="onClickShare(file_detail);">
-                  <i class="icon-share"></i>
+                  <i class="icon-share-right-fill"></i>
                   <span translate>@btn-share</span>
                 </a>
               </li>
               <li class="cursor_pointer">
                 <a ng-click="onCommentFocusClick();">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="icon-comment"></i>
                   <span translate>@btn-comment</span>
                 </a>
               </li>
@@ -68,19 +68,19 @@
               </li>
               <li class="cursor_pointer">
                 <a class="cursor_pointer" href="{{::originalUrl}}" target="_blank">
-                  <i class="fa fa-external-link"></i>
+                  <i class="icon-minimize"></i>
                   <span translate>@msg-open-original</span>
                 </a>
               </li>
               <li class="cursor_pointer">
                 <a ng-click="onStarClick();">
-                  <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'"></i>
+                  <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
                   <span><span ng-if="isStarred" translate>@star-un</span><span ng-if="!isStarred" translate>@star</span></span>
                 </a>
               </li>
               <li class="cursor_pointer" ng-if="::(isFileOwner || isAdmin)">
                 <a ng-click="onFileDeleteClick(file_detail.id);">
-                  <i class="fa fa-trash"></i>
+                  <i class="icon-trash"></i>
                   <span translate>@message-delete</span>
                 </a>
               </li>
@@ -117,7 +117,7 @@
                     {{ sharedEntity.prefix }}{{ sharedEntity.name }}
                   </span>
                   <a class="link-remove link-unshare cursor_pointer" ng-click="onClickUnshare(file_detail, sharedEntity)">
-                    <i class="fa fa-times-circle"
+                    <i class="icon-remove-circle"
                        tooltip="{{ '@file-action-unshare' | translate }}" tooltip-placement="right"></i>
                   </a>
                 </span>
@@ -144,18 +144,18 @@
             <div class="comment-item-header__action pull-right">
               <div class="comment-item-action comment-item-action-more" dropdown ng-if="::(member.id === comment.writerId || isAdmin) ">
                 <a href="#" class="link-dark" dropdown-toggle>
-                  <i class="fa fa-cog"></i>
+                  <i class="icon-cog"></i>
                 </a>
                 <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
                   <li class="cursor_pointer" ng-if="::!comment.isSticker">
                     <a ng-click="starComment($event)">
-                      <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'"></i>
+                      <i ng-class="comment.isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
                       <span><span ng-if="comment.isStarred" translate>@star-un</span><span ng-if="!comment.isStarred" translate>@star</span></span>
                     </a>
                   </li>
                   <li class="cursor_pointer">
                     <a ng-click="deleteComment(comment.id, comment.isSticker)">
-                      <i class="fa fa-times"></i>
+                      <i class="icon-clock"></i>
                       <span translate>@btn-delete</span>
                     </a>
                   </li>
@@ -163,7 +163,7 @@
               </div>
               <div class="comment-item-action comment-star" ng-class="{'show-inline-block': comment.isStarred}" ng-if="::!comment.isSticker">
                 <a class="link-dark cursor_pointer">
-                  <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
+                  <i ng-class="comment.isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
                 </a>
               </div>
             </div>
@@ -263,18 +263,18 @@
             <div class="comment-item-header__action pull-right">
               <div class="comment-item-action comment-item-action-more" dropdown ng-if="::(member.id === comment.writerId)">
                 <a href="#" class="link-dark" dropdown-toggle>
-                  <i class="fa fa-cog"></i>
+                  <i class="icon-cog"></i>
                 </a>
                 <ul class="comment-item-dropdown dropdown-menu grey_dropdown" role="menu">
                   <li class="cursor_pointer" ng-if="::!comment.isSticker">
                     <a ng-click="starComment($event)">
-                      <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'"></i>
+                      <i ng-class="comment.isStarred ? 'icon-star-on' : 'icon-star-off'"></i>
                       <span><span ng-if="comment.isStarred" translate>@star-un</span><span ng-if="!comment.isStarred" translate>@star</span></span>
                     </a>
                   </li>
                   <li class="cursor_pointer">
                     <a ng-click="deleteComment(comment.id, comment.isSticker)">
-                      <i class="fa fa-times"></i>
+                      <i class="icon-clock"></i>
                       <span translate>@btn-delete</span>
                     </a>
                   </li>
@@ -282,7 +282,7 @@
               </div>
               <div class="comment-item-action comment-star" ng-class="{'show-inline-block': comment.isStarred}" ng-if="::!comment.isSticker">
                 <a class="link-dark cursor_pointer">
-                  <i ng-class="comment.isStarred ? 'icon-star-fill' : 'icon-star'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
+                  <i ng-class="comment.isStarred ? 'icon-star-off' : 'icon-star-on'" star-view="comment.isStarred" message-id="{{ comment.id }}"></i>
                 </a>
               </div>
             </div>
