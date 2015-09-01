@@ -183,7 +183,7 @@
       }
 
       /**
-       * version 정보를 parsing 하여 version string 으로 반홚나다.
+       * version 정보를 parsing 하여 version string 으로 반환한다.
        * @param {string} versionStr
        * @returns {string[]}
        * @private
