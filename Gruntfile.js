@@ -912,6 +912,12 @@ module.exports = function (grunt) {
     'staging',
     'build'
   ]);
+
+  grunt.registerTask('change-version-log', function() {
+    grunt.config.set('changelog.options.version', grunt.file.readJSON('package.json').version);
+    grunt.task.run('changelog');
+  });
+
   grunt.registerTask('version-new', function(target) {
     switch (target) {
       case 'major':
@@ -927,24 +933,18 @@ module.exports = function (grunt) {
     var bumpTask = 'bump:' + target;
     grunt.config.set('bump.options.createTag', false);
     grunt.config.set('bump.options.push', false);
-    grunt.task.run(bumpTask);
-    grunt.config.set('changelog.version', require('./package.json').version);
-    grunt.task.run('changelog');
+    grunt.task.run([bumpTask]);
   });
 
   grunt.registerTask('version-fix', function(target) {
     grunt.config.set('bump.options.createTag', false);
     grunt.config.set('bump.options.push', false);
-    grunt.task.run('bump:prerelease');
-    grunt.config.set('changelog.version', require('./package.json').version);
-    grunt.task.run('changelog');
+    grunt.task.run(['bump:prerelease']);
   });
 
   grunt.registerTask('version-release', function(target) {
     grunt.config.set('bump.options.createTag', true);
     grunt.config.set('bump.options.push', true);
-    grunt.task.run('bump');
-    grunt.config.set('changelog.version', require('./package.json').version);
-    grunt.task.run('changelog');
+    grunt.task.run(['bump', 'change-version-log']);
   });
 };
