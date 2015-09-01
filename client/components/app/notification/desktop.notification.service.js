@@ -76,20 +76,28 @@
       isNotificationSupported = 'Notification' in window;
       if (hybridAppHelper.isNativeApp()) {
         // 네이티브 앱 일 경우
-        _whenNativeApp();
+        _initNativeSetting();
       } else {
-        _setNotificationPermission();
-        _loadLocalNotificationFlag();
-        _loadShowNotificationContentFlag();
+        _initSetting();
       }
 
     }
 
     /**
-     * 네이티브 앱일 경우 우선 첫 설정을 'granted'로 한다.
-      * @private
+     * 웹일 경우 첫 설정 펑션
+     * @private
      */
-    function _whenNativeApp() {
+    function _initSetting() {
+      _setNotificationPermission();
+      _loadLocalNotificationFlag();
+      _loadShowNotificationContentFlag();
+    }
+
+    /**
+     * 네이티브 앱일 경우 우선 첫 설정을 'granted'로 한다.
+     * @private
+     */
+    function _initNativeSetting() {
       notificationPermission = 'granted';
       _onNotificationSettingChanged();
       _onPermissionGranted();
