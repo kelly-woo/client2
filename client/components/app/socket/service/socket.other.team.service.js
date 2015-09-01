@@ -36,6 +36,8 @@
         _updateOtherTeamUnreadAlert();
       } else if (_isRoomSubscriptionUpdated(socketEvent)) {
         _onRoomSubscriptionUpdated(socketEvent);
+      } else if (_shouldUpdateBadgeCountOnly(socketEvent)) {
+        _updateOtherTeamUnreadAlert();
       } else if (_shouldBeNotified(socketEvent) && !!socketEvent.teamId) {
         // 처리하려는 소켓이벤트는 무조건 팀아이디와 방의 정보가 있어야한다.
         _notificationSender(socketEvent);
@@ -236,6 +238,7 @@
       }
 
       timeoutCaller = $timeout(function() {
+
         if (DesktopNotification.canSendNotification()) {
           OtherTeamNotification.addNotification(socketEvent);
         }
@@ -254,11 +257,11 @@
      */
     function _afterNotificationSent(teamId, socketEvent) {
 
-      jndPubSub.pub('blinkDotIndicator');
-
       _updateOtherTeamUnreadAlert();
 
-      // 혹시 모르니 $timoue을 cancel 시킨다.
+      jndPubSub.pub('blinkDotIndicator');
+
+      // 혹시 모르니 $timeout을 cancel 시킨다.
       var timeout = _getTimeoutCaller(teamId);
       $timeout.cancel(timeout);
     }
@@ -395,6 +398,21 @@
     }
 
     /**
+     * browser notification은 보내면 안되지만 다른 팀의 뱃지카운트는 업데이트 해야하는 경우인지 아닌지 확인한다.
+     * 예를 들면 메세지 삭제/파일 언쉐어 등등 생겼던 content가 없어지는 경우가 여기에 해당되지않나 조심스레 예측해본다.
+     * @param {object} socketEvent - socket event parameter
+     * @returns {boolean}
+     * @private
+     */
+    function _shouldUpdateBadgeCountOnly(socketEvent) {
+      if (socketEvent.event === 'message' && socketEvent.messageType === 'message_delete') {
+        return true;
+      }
+
+      return false;
+    }
+
+    /**
      * 현재 소켓이벤트를 browser notification으로 날려야할지 말지 알아보자.
      * @param {object} socketEvent - socket event param
      * @returns {boolean}
@@ -412,7 +430,7 @@
      */
     function _isNewMessage(socketEvent) {
       if (socketEvent.event === 'message') {
-        if (socketEvent.messageType === 'file_comment' || socketEvent.messageType === 'file_share' || socketEvent.messageType === 'message_delete' || _.isUndefined(socketEvent.messageType)) {
+        if (socketEvent.messageType === 'file_comment' || socketEvent.messageType === 'file_share' || _.isUndefined(socketEvent.messageType)) {
           return true;
         }
       }
