@@ -59,10 +59,18 @@
       }
     }
 
+    /**
+     * mac app 인지 아닌지 확인한다.
+     * @returns {*}
+     */
     function isMacApp() {
       return macAppHelper.isHybridApp();
     }
 
+    /**
+     * pc app 인지 아닌지 확인한다.
+     * @returns {*}
+     */
     function isPcApp() {
       return pcAppHelper.isHybridApp();
     }

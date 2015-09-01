@@ -6,8 +6,9 @@
     .service('DesktopNotification', DesktopNotification);
 
   /* @ngInject */
-  function DesktopNotification($filter, logger, jndPubSub, localStorage, configuration,
-                               accountService, desktopNotificationHelper, memberService) {
+  function DesktopNotification($filter, logger, jndPubSub, localStorage,
+                               accountService, desktopNotificationHelper,
+                               memberService, hybridAppHelper, configuration) {
     var that = this;
 
     var appName;
@@ -25,7 +26,6 @@
 
     var NOTIFICATION_SHOW_CONTENT_FLAG_KEY = 'show_notification_content';
     var NOTIFICATION_LOCAL_STORAGE_KEY = 'local_notification_flag';
-
     var NOTIFICATION_NEVER_ASK_KEY = 'notification_never_ask_flag';
 
     // Notification support 여부
@@ -74,12 +74,34 @@
       appName = config.name;
 
       isNotificationSupported = 'Notification' in window;
+      if (hybridAppHelper.isHybridApp()) {
+        // hybrid 앱 일 경우
+        _initHybridSetting();
+      } else {
+        _initSetting();
+      }
+
+    }
+
+    /**
+     * 웹일 경우 첫 설정 펑션
+     * @private
+     */
+    function _initSetting() {
       _setNotificationPermission();
       _loadLocalNotificationFlag();
       _loadShowNotificationContentFlag();
     }
 
-
+    /**
+     * hybrid 앱일 경우 우선 첫 설정을 'granted'로 한다.
+     * @private
+     */
+    function _initHybridSetting() {
+      notificationPermission = 'granted';
+      _onNotificationSettingChanged();
+      _onPermissionGranted();
+    }
 
     /**
      * 현재 노티피케이션의 permission 상태를 리턴한다.
