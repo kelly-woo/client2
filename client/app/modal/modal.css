@@ -58,7 +58,8 @@
 }
 
 .modal-header .close {
-  font-size: 16px;
+  font-size: 12px;
+  line-height: 16px;
   color: white;
   margin-top: 0;
 
@@ -167,8 +168,8 @@
   border-radius: 0;
   border-right: none;
   position: relative;
-  font-size: 18px;
-  padding-top: 3px;
+  font-size: 14px;
+  padding-top: 1px;
   padding-bottom: 0px;
   padding-left: 8px;
   padding-right: 0px;
