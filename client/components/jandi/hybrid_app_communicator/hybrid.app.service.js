@@ -1,6 +1,5 @@
 /**
- * @fileoverview Service that calls functions in pc application through 'jandipc'
- * @author JiHoon Kim <jihoonk@tosslab.com>
+ * @fileoverview Service that calls functions in hybrid application
  *
  */
 (function() {
