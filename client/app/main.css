@@ -843,7 +843,9 @@ input[type="button"] {
 .grey_dropdown .divider {
   margin: 3px 0;
 }
-
+.grey_dropdown .icon-trash {
+  font-size: 15px;
+}
 
 .green_dropdown {
   background-color: #31c08a !important;

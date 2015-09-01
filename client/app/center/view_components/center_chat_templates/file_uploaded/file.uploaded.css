@@ -24,12 +24,13 @@
   position: relative;
 }
 .msg-file-meta-down .icon-cog-fill{
-  font-size: 15px;
+  font-size: 14px;
   padding-left: 0px;
 }
 .msg-file-meta-down .icon-share-right-fill{
   padding-left: 0px;
   padding-right: 0px;
+  font-size: 15px;
 }
 
 .file-uploaded-extra {

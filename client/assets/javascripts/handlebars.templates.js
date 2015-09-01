@@ -161,7 +161,7 @@ this["Handlebars"]["templates"]["center.file"] = Handlebars.template({"1":functi
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.imageUrl : stack1)) != null ? stack1.small : stack1), depth0))
     + "\"\n                     image-max-height=\"65\"\n                     image-max-width=\"65\"\n                     image-is-square=\"true\"\n                    jnd-thumbnail-scale-up>\n                </div>\n              </div>\n              <div class=\"_fileLargeThumb\" style=\"display:none\">\n                <div class=\"cursor_pointer opac-zero large-thumbnail _compile\"\n                  image-loader=\""
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0.file : depth0)) != null ? stack1.imageUrl : stack1)) != null ? stack1.large : stack1), depth0))
-    + "\"\n                  image-max-width=\"700\">\n                </div>\n                <div class=\"large-thumbnail-full-screen _fileExpand\">\n                  <i class=\"fa fa-expand\"></i>\n                </div>\n              </div>\n            </div>\n          </div>\n";
+    + "\"\n                  image-max-width=\"700\">\n                </div>\n                <div class=\"large-thumbnail-full-screen _fileExpand\">\n                  <i class=\"icon-minimize\"></i>\n                </div>\n              </div>\n            </div>\n          </div>\n";
 },"6":function(depth0,helpers,partials,data) {
     var stack1;
 

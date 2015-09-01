@@ -83,11 +83,11 @@
 .language-navbar-menu {
   margin-left: 15px;
 }
-#invite .icon-user-plus-fill {
-  font-size: 16px;
+#invite .icon-user-plus {
+  font-size: 17px;
   float: left;
-  padding-top: 13px;
-  padding-right: 4px;
+  padding-top: 12px;
+  padding-right: 2px;
 }
 
 .header-navbar__menu-icon {
@@ -95,16 +95,16 @@
   padding-right: 0px;
 }
 .header-navbar__topmenu .icon-reorder {
-  font-size: 15px;
-  line-height: 24px;
+  font-size: 17px;
+  line-height: 20px;
   vertical-align: middle;
 }
 .header-navbar__topmenu .icon-help {
-  font-size: 18px;
+  font-size: 20px;
   vertical-align: middle;
 }
 .header-navbar__topmenu .icon-global {
-  font-size: 16px;
+  font-size: 18px;
   /*line-height: 41px;*/
 }
 

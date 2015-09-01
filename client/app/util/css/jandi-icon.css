@@ -23,6 +23,15 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-bullhorn-fill:before {
+	content: "\e66c";
+}
+.icon-comment-fill:before {
+	content: "\e66d";
+}
+.icon-users-line:before {
+	content: "\e66e";
+}
 .icon-accounthome:before {
 	content: "\e600";
 }

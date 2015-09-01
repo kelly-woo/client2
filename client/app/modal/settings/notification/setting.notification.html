@@ -14,9 +14,9 @@
     <div class="notification-switch cursor_pointer" ng-click="onNotificationButtonClicked();" ng-if="!isNotificationDenied"
          ng-class="{'to-on': shouldTurnOnNotification,
                     'to-off': !shouldTurnOnNotification}">
-      <span class="fa"
-            ng-class="{ 'fa-bell': shouldTurnOnNotification,
-                        'fa-bell-slash': !shouldTurnOnNotification}"></span>
+      <span class=""
+            ng-class="{ 'icon-bell-fill': shouldTurnOnNotification,
+                        'icon-bell-slash-fill': !shouldTurnOnNotification}"></span>
 
       <span class="notification-btn-text">{{notificationBtnText | translate}}</span>
 

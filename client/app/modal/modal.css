@@ -696,7 +696,7 @@
   height: 50px;
   float: left;
   width: 33%;
-  padding-top: 8px;
+  padding-top: 5px;
   cursor: pointer;
   color: rgb(85, 84, 89);
 }
@@ -716,6 +716,9 @@
   background-repeat: no-repeat;
   background-position: center center;
   text-align: center;
+  font-size: 18px;
+  opacity: 0.7;
+  padding-bottom: 2px;
 }
 
 .cropArea {
