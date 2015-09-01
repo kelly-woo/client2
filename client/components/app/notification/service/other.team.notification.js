@@ -32,7 +32,7 @@
           options = {
             tag: 'tag',
             body: _getBody(teamName),
-            icon: 'assets/images/jandi-logo-200x200.png',
+            icon: configuration.assets_url + 'assets/images/jandi-logo-200x200.png',
             callback: _onNotificationClicked,
             data: socketEvent
           };

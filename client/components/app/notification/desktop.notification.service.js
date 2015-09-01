@@ -6,7 +6,7 @@
     .service('DesktopNotification', DesktopNotification);
 
   /* @ngInject */
-  function DesktopNotification($filter, logger, jndPubSub, localStorage,
+  function DesktopNotification($filter, logger, jndPubSub, localStorage, configuration,
                                accountService, desktopNotificationHelper, memberService) {
     var that = this;
 
@@ -172,7 +172,7 @@
       var options = {
         tag: 'tag',
         body: $filter('translate')('@web-notification-sample-body-text'),
-        icon: 'assets/images/jandi-logo-200x200.png'
+        icon: configuration.assets_url + 'assets/images/jandi-logo-200x200.png'
       };
       var sampleNotification = _createInstance(options);
       sampleNotification.show();
