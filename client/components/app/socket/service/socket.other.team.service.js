@@ -15,6 +15,11 @@
     var OTHER_TEAM_TOPIC_NOTIFICATION_STATUS_MAP = 'other_team_topic_status';
     var ROOM_SUBSCRIPTION_UPDATED = 'room_subscription_updated';
 
+    var MESSAGE = 'message';
+    var MESSAGE_TYPE_FILE_SHARE = 'file_share';
+    var MESSAGE_TYPE_FILE_COMMENT = 'file_comment';
+    var MESSAGE_TYPE_MESSAGE_DELETED = 'message_delete';
+    var FILE_COMMENT_DELETED = 'file_comment_deleted';
 
     var TIMEOUT_CALLER = 'timeout_caller';
     var IS_WAITING = 'is_waiting';
@@ -32,17 +37,18 @@
      * @param socketEvent
      */
     function onSocketEvent(socketEvent) {
+      _setLastLinkId(socketEvent);
+
       if (_isRoomMarkerUpdatedByMe(socketEvent)) {
         _updateOtherTeamUnreadAlert();
       } else if (_isRoomSubscriptionUpdated(socketEvent)) {
         _onRoomSubscriptionUpdated(socketEvent);
       } else if (_shouldUpdateBadgeCountOnly(socketEvent)) {
-        _updateOtherTeamUnreadAlert();
+        _updateBadgeCountOnly(socketEvent);
       } else if (_shouldBeNotified(socketEvent) && !!socketEvent.teamId) {
         // 처리하려는 소켓이벤트는 무조건 팀아이디와 방의 정보가 있어야한다.
         _notificationSender(socketEvent);
       }
-      _setLastLinkId(socketEvent);
     }
 
     /**
@@ -198,7 +204,6 @@
       }
     }
 
-
     /**
      * teamId에 해당하는 팀에 있는 방들 중 roomId를 가진 방의 subscibe 값을 리턴한다.
      * @param {number} teamId - 알고 싶은 팀의 아이디
@@ -304,9 +309,14 @@
       return _foundMentionToMe;
     }
 
-
-
-
+    /**
+     * badge count만 업데이트한다.
+     * @param {object} socketEvent - socket event param
+     * @private
+     */
+    function _updateBadgeCountOnly(socketEvent) {
+      _updateOtherTeamUnreadAlert();
+    }
 
     /**
      * 해당 팀아이디의 정보를 호출하고 있는지 확인한다.
@@ -405,11 +415,16 @@
      * @private
      */
     function _shouldUpdateBadgeCountOnly(socketEvent) {
-      if (socketEvent.event === 'message' && socketEvent.messageType === 'message_delete') {
-        return true;
+      var returnValue = false;
+
+      if (socketEvent.event === MESSAGE && socketEvent.messageType === MESSAGE_TYPE_MESSAGE_DELETED) {
+        returnValue = true;
+      }
+      if (socketEvent.event === FILE_COMMENT_DELETED) {
+        returnValue = true
       }
 
-      return false;
+      return returnValue;
     }
 
     /**
@@ -429,8 +444,8 @@
      * @private
      */
     function _isNewMessage(socketEvent) {
-      if (socketEvent.event === 'message') {
-        if (socketEvent.messageType === 'file_comment' || socketEvent.messageType === 'file_share' || _.isUndefined(socketEvent.messageType)) {
+      if (socketEvent.event === MESSAGE) {
+        if (socketEvent.messageType === MESSAGE_TYPE_FILE_COMMENT || socketEvent.messageType === MESSAGE_TYPE_FILE_SHARE || _.isUndefined(socketEvent.messageType)) {
           return true;
         }
       }
@@ -454,8 +469,9 @@
       var teamId = _getTeamId(socketEvent);
       var result = jndWebSocketCommon.getLastLinkId(socketEvent);
 
-      jndWebSocketOtherTeamManagerHelper.set(teamId, LAST_LINK_ID, result.value);
-
+      if (result.hasFound) {
+        jndWebSocketOtherTeamManagerHelper.set(teamId, LAST_LINK_ID, result.value);
+      }
     }
 
     /**
