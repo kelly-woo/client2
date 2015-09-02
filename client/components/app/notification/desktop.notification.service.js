@@ -80,7 +80,6 @@
       } else {
         _initSetting();
       }
-
     }
 
     /**

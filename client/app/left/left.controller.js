@@ -689,6 +689,7 @@ app.controller('leftPanelController1', function(
   function enterEntity(entity) {
     if (!$scope.isCenterLoading && NetInterceptor.isConnected()) {
       NotificationManager.set(entity, 0);
+      hybridAppHelper.onAlarmCntChanged(entity.id, 0);
       entity.alarmCnt = '';
       $scope.isCenterLoading = true;
       $scope.entityId = entity.id;
@@ -855,7 +856,7 @@ app.controller('leftPanelController1', function(
     if(!accountService.hasSeenTutorial()) {
       //@fixme: remove old tutorial logic
       //$scope.initTutorialStatus();
-      if (hybridAppHelper.isHybridApp()) {
+      if (hybridAppHelper.isPcApp()) {
         jndPubSub.pub('initTutorialStatus');
       }
     }

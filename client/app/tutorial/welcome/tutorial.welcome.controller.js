@@ -25,7 +25,7 @@
      * @private
      */
     function _init() {
-      if (!hybridAppHelper.isHybridApp()) {
+      if (!hybridAppHelper.isPcApp()) {
         _attachEvents();
       }
     }
