@@ -391,6 +391,10 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           });
         } catch (e) {
         }
+
+        Dialog.success({
+          title: $filter('translate')('@success-file-unshare').replace('{{filename}}', message.content.title)
+        });
       })
       .error(function(err) {
         alert(err.msg);

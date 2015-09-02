@@ -97,6 +97,7 @@
           }
         };
         modal = _modalOpener(modalOption);
+        $scope.$apply();
       }
     }
 

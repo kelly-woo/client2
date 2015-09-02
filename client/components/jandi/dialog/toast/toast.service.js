@@ -14,7 +14,7 @@
   /* @ngInject */
   function Toast(toastr) {
     var that = this;
-    var singleToast = true;
+    var singleToast = false;
     var toastInstance;
 
     _init();
