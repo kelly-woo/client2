@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function jndWebSocket($rootScope, socketFactory, config, currentSessionHelper, memberService,
-                        storageAPIservice, jndWebSocketHelper, $injector, NetInterceptor,
+                        storageAPIservice, jndWebSocketHelper, $injector, NetInterceptor, jndWebSocketCommon,
                         jndWebSocketServiceHelper, logger, jndWebSocketEmitter, jndWebSocketOtherTeamManager) {
 
     var $scope = $rootScope.$new();
@@ -177,10 +177,9 @@
      */
     function _isCurrentTeamEvent(socketEvent) {
       var currentTeamId = currentSessionHelper.getCurrentTeam().id;
+      var teamId = jndWebSocketCommon.getTeamId(socketEvent);
 
-      return socketEvent.teamId === currentTeamId ||
-             !!socketEvent.team && socketEvent.team.id === currentTeamId ||
-             !!socketEvent.data && !!socketEvent.data.teamId && socketEvent.data.teamId === currentTeamId;
+      return teamId > -1 && currentTeamId === teamId;
     }
 
     /**

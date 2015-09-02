@@ -292,11 +292,9 @@
         scope = jqParentEl.scope();
         scope.$apply(function() {
           scope.hide();
-          Popup.close();
         });
-      } else {
-        Popup.close();
       }
+      Popup.close();
     }
 
     /**

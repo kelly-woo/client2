@@ -193,12 +193,14 @@
      * @param {object} params
      */
     function reloadCurrentPage(currentState, params) {
+      //TODO: 현재 transitionTo 를 사용 시 profile modal 및 center panel L10N 이 제대로 설정되지 않아 location.reload 를 사용함.
       // 현재 state 다시 로드
-      $state.transitionTo(currentState, params, {
-        reload: true,
-        inherit: false,
-        notify: true
-      });
+      //$state.transitionTo(currentState, params, {
+      //  reload: true,
+      //  inherit: false,
+      //  notify: true
+      //});
+      window.location.reload();
     }
 
     function openNewTab(url) {

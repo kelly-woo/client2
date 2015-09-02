@@ -75,7 +75,6 @@
 
     /**
      * Notification object 생성
-     *
      * @param {object} options - object options
      */
     function _createInstance(options) {

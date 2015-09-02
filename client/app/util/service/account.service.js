@@ -8,6 +8,7 @@
   /* @ngInject */
   function accountService($location, configuration, $http, $rootScope, jndPubSub) {
     var accountLanguage;
+    var _membershipMap = {};
 
     var service = {
       getAccountInfo: getAccountInfo,
@@ -23,7 +24,8 @@
       hasChangeLog: hasChangeLog,
       hasSeenTutorial: hasSeenTutorial,
       updateAccountTutoredTime: updateAccountTutoredTime,
-      updateCurrentAccount: updateCurrentAccount
+      updateCurrentAccount: updateCurrentAccount,
+      getMemberId: getMemberId
     };
 
     return service;
@@ -48,6 +50,7 @@
     function setAccount(account) {
       $rootScope.account = account;
       accountLanguage = account.lang;
+      _setMembershipMap(account);
       jndPubSub.pub('accountLoaded');
     }
     function removeAccount() {
@@ -138,6 +141,35 @@
         .success(function(response) {
           setAccount(response);
         })
+    }
+
+    /**
+     * 현재 account의 memberships를 활용하여 map을 만든다.
+     * @param {object} account - account model
+     * @private
+     */
+    function _setMembershipMap(account) {
+      _.forEach(account.memberships, function(membership) {
+        _membershipMap[membership['teamId']] = membership;
+      });
+    }
+
+    /**
+     * teamId에 해당하는 membership정보를 리턴한다.
+     * @param {number} teamId - 알고싶은 membership의 아이디
+     * @returns {boolean|*}
+     */
+    function getMembership(teamId) {
+      return !!_membershipMap[teamId] && _membershipMap[teamId];
+    }
+
+    /**
+     * teamId에 해당하는 membership 정보 중 memberId값을 리턴한다.
+     * @param {number} teamId - 알고 싶은 membership 의 아이디
+     * @returns {boolean|*|.params.memberId|param.memberId|d.memberId|a.y.memberId|*}
+     */
+    function getMemberId(teamId) {
+      return !!getMembership(teamId) && getMembership(teamId).memberId;
     }
   }
 })();
