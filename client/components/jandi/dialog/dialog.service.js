@@ -19,19 +19,21 @@
     function _init() {
       /**
        * alert modal
+       * @function alert
        * @param {object} options
-       * @param {string} [title]            - modal title
-       * @param {string} body               - modal body
-       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
-       * @param {function} [onClose]        - close callback
+       *  @param {string} [options.title]            - modal title
+       *  @param {string} options.body               - modal body
+       *  @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       *  @param {function} [options.onClose]        - close callback
        */
       /**
        * confirm modal
+       * @function confirm
        * @param {object} options
-       * @param {string} title              - modal title
-       * @param {string} body               - modal body
-       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
-       * @param {function} [onClose]        - close callback
+       *  @param {string} options.title              - modal title
+       *  @param {string} options.body               - modal body
+       *  @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       *  @param {function} [options.onClose]        - close callback
        */
       _.each(modals, function(name) {
         that[name] = (function(name) {
@@ -46,39 +48,43 @@
 
       /**
        * success toast
+       * @function success
        * @param {object} options
-       * @param {string} title              - toast title
-       * @param {string} body               - toast body
-       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
-       * @param {function} [onClose]        - close callback
-       * @param {number} [timeOut=5000]     - toast 유지시간
+       *  @param {string} options.title              - toast title
+       *  @param {string} options.body               - toast body
+       *  @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       *  @param {function} [options.onClose]        - close callback
+       *  @param {number} [options.timeOut=5000]     - toast 유지시간
        */
       /**
        * info toast
+       * @function info
        * @param {object} options
-       * @param {string} title              - toast title
-       * @param {string} body               - toast body
-       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
-       * @param {function} [onClose]        - close callback
-       * @param {number} [timeOut=5000]     - toast 유지시간
+       *  @param {string} options.title              - toast title
+       *  @param {string} options.body               - toast body
+       *  @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       *  @param {function} [options.onClose]        - close callback
+       *  @param {number} [options.timeOut=5000]     - toast 유지시간
        */
       /**
        * warning toast
+       * @function warning
        * @param {object} options
-       * @param {string} title              - toast title
-       * @param {string} body               - toast body
-       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
-       * @param {function} [onClose]        - close callback
-       * @param {number} [timeOut=5000]     - toast 유지시간
+       *  @param {string} options.title              - toast title
+       *  @param {string} options.body               - toast body
+       *  @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       *  @param {function} [options.onClose]        - close callback
+       *  @param {number} [options.timeOut=5000]     - toast 유지시간
        */
       /**
        * error toast
+       * @function error
        * @param {object} options
-       * @param {string} title              - toast title
-       * @param {string} body               - toast body
-       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
-       * @param {function} [onClose]        - close callback
-       * @param {number} [timeOut=5000]     - toast 유지시간
+       *  @param {string} options.title              - toast title
+       *  @param {string} options.body               - toast body
+       *  @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       *  @param {function} [options.onClose]        - close callback
+       *  @param {number} [options.timeOut=5000]     - toast 유지시간
        */
       _.each(toasts, function(name) {
         that[name] = (function(name) {
