@@ -78,7 +78,7 @@
       selectOptions = fileAPIservice.removeSharedEntities(fileToShare, selectOptions);
 
       if (!selectOptions.length) {
-        Dialog.toast('error', {
+        Dialog.toast('warning', {
           title: $filter('translate')('@common-all-shared')
         });
       } else {

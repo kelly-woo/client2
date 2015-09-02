@@ -129,7 +129,7 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
       teamName + ' ' +
       $filter('translate')('@current-member-disabled-notice-msg-post');
 
-    Dialog.toast('error', {
+    Dialog.toast('warning', {
       title: disabledMsg,
       onClose: function() {
         location.href = mainTeamAddr;
