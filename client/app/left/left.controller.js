@@ -688,7 +688,9 @@ app.controller('leftPanelController1', function(
 
   function enterEntity(entity) {
     if (!$scope.isCenterLoading && NetInterceptor.isConnected()) {
+
       NotificationManager.set(entity, 0);
+      pcAppHelper.onAlarmCntChanged(entity.id, 0);
       entity.alarmCnt = '';
       $scope.isCenterLoading = true;
       $scope.entityId = entity.id;

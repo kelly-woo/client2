@@ -8,6 +8,7 @@
   angular
     .module('config.common', [])
     .constant('configuration', {
+      version             : '@@version',
       name                : '@@name',
       api_address         : '@@api_address',
       socket_address      : '@@socket_address',
