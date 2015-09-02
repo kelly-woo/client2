@@ -219,11 +219,7 @@
       var _teamId = getTeamId(socketEvent);
       var _writer = socketEvent.writer;
 
-      if (_teamId > 0) {
-        return accountService.getMemberId(_teamId) === _writer;
-      }
-
-      return false;
+      return _teamId > 0 && accountService.getMemberId(_teamId) === _writer;
     }
 
     /**
@@ -235,15 +231,11 @@
     function getTeamId(socketEvent) {
       var _teamId = -1;
 
-      if (!!socketEvent.teamId) {
+      if (socketEvent.teamId) {
         _teamId = socketEvent.teamId;
-      }
-
-      if (!!socketEvent.team && socketEvent.team.id) {
+      } else if (socketEvent.team && socketEvent.team.id) {
         _teamId = socketEvent.team.id;
-      }
-
-      if (!!socketEvent.data && !!socketEvent.data.teamId && socketEvent.data.teamId) {
+      } else if (socketEvent.data && socketEvent.data.teamId && socketEvent.data.teamId) {
         _teamId = socketEvent.data.teamId;
       }
 
