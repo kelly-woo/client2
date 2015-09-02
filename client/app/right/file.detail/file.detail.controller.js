@@ -11,6 +11,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
   var fileId;
   var _commentIdToScroll;
   var timerGetFileDetail;
+  var _unsharedForMe;
 
   //file detail에서 integraiton preview로 들어갈 image map
   var noPreviewAvailableImage;
@@ -392,9 +393,7 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
         } catch (e) {
         }
 
-        Dialog.success({
-          title: $filter('translate')('@success-file-unshare').replace('{{filename}}', message.content.title)
-        });
+        _unsharedForMe = true;
       })
       .error(function(err) {
         alert(err.msg);
@@ -420,8 +419,21 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _fileUnshared($event, data) {
+    var promise;
+
     if (data.file.id == fileId) {
-      getFileDetail();
+      promise = getFileDetail();
+
+      promise.finally(function() {
+        if (_unsharedForMe) {
+
+          // unshared된 다음 바로 list가 갱신되지 않기때문에 unshared되고 file detail이 새로 생성된 다음 dialog.success를 호출함
+          Dialog.success({
+            title: $filter('translate')('@success-file-unshare').replace('{{filename}}', $scope.file_detail.content.title)
+          });
+        }
+        _unsharedForMe = false;
+      });
     }
   }
 
