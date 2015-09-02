@@ -115,7 +115,7 @@
       });
 
       // events off
-      jqWindow.off('reisze.imageCarousel');
+      jqWindow.off('resize.imageCarousel');
       jqModal
         .off('keydown.imageCarousel')
         .off('click.imageCarousel')
