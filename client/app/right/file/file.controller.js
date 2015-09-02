@@ -108,6 +108,9 @@
                 } catch (e) {
                 }
 
+                Dialog.success({
+                  title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.contentTitle)
+                });
                 $rootScope.$broadcast('onFileDeleted', fileId);
               })
               .error(function(err) {

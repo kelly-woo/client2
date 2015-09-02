@@ -1120,6 +1120,18 @@ msgstr "取消标示"
 msgid "@star-un"
 msgstr "取消标示"
 
+#: client/app/center/center.html
+msgid "@success-file-delete"
+msgstr "\"{{filename}}\"已被删除"
+
+#: client/app/center/center.html
+msgid "@success-file-share"
+msgstr "\"{{filename}}\"已被分享"
+
+#: client/app/center/center.html
+msgid "@success-file-unshare"
+msgstr "\"{{filename}}\"已被取消分享"
+
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"

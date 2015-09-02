@@ -171,15 +171,18 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
           // 저장된 file detail을 그대로 사용함
 
           _onSuccessFileDetail(fileDetail);
+          deferred.resolve();
         } else {
           fileAPIservice.getFileDetail(fileId)
             .success(_onSuccessFileDetail)
-            .error(_onErrorFileDetail);
+            .error(_onErrorFileDetail)
+            .finally(function() {
+              deferred.resolve();
+            });
         }
 
         $scope.fileLoadStatus.loading = false;
         $('.file-detail-body').addClass('opac_in');
-        deferred.resolve();
       }, timerGetFileDetail == null ? 0 : 800);
     } else {
       deferred.reject();
@@ -471,6 +474,9 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
               } catch (e) {
               }
 
+              Dialog.success({
+                title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.file_detail.content.title)
+              });
               $rootScope.$broadcast('onFileDeleted', fileId);
             })
             .error(function(err) {
@@ -690,8 +696,16 @@ app.controller('fileDetailCtrl', function ($scope, $rootScope, $state, $modal, $
    * @private
    */
   function _onSuccessDelete() {
+    var promise;
+
     $scope.glued = true;
-    getFileDetail();
+
+    promise = getFileDetail();
+    promise.finally(function() {
+      Dialog.success({
+        title: $filter('translate')('@message-deleted')
+      });
+    })
   }
 
   /**

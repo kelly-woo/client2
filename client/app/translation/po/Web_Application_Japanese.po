@@ -1160,6 +1160,18 @@ msgstr "お気に入りを解除する"
 msgid "@star-un"
 msgstr "スター解除"
 
+#: client/app/center/center.html
+msgid "@success-file-delete"
+msgstr "\"{{filename}}\"が削除されました"
+
+#: client/app/center/center.html
+msgid "@success-file-share"
+msgstr "\"{{filename}}\"が共有されました"
+
+#: client/app/center/center.html
+msgid "@success-file-unshare"
+msgstr "\"{{filename}}\"が非共有にされました"
+
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"

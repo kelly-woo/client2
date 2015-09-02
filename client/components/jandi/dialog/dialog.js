@@ -6,7 +6,6 @@
 
   angular
     .module('jandi.dialog', [
-      'app.keyCode',
       'ui.bootstrap',
       'toastr'
     ])

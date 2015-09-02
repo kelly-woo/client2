@@ -1154,6 +1154,18 @@ msgstr "즐겨찾기 해제"
 msgid "@star-un"
 msgstr "즐겨찾기 해제"
 
+#: client/app/center/center.html
+msgid "@success-file-delete"
+msgstr "\"{{filename}}\"이(가) 삭제되었습니다."
+
+#: client/app/center/center.html
+msgid "@success-file-share"
+msgstr "\"{{filename}}\"이(가) 공유되었습니다."
+
+#: client/app/center/center.html
+msgid "@success-file-unshare"
+msgstr "\"{{filename}}\"이(가) 공유 해제되었습니다."
+
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"

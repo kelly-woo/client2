@@ -122,10 +122,14 @@
       jndPubSub.hideLoading();
 
       $scope.file.shareEntities.push(_entityId);
-      console.log('$scope.file.shareEntities', $scope.file.shareEntities, _entityId);
+
       try {
         _sendAnalytics(_entityType);
       } catch(e) {}
+
+      Dialog.success({
+        title: $filter('translate')('@success-file-share').replace('{{filename}}', $scope.file.content.title)
+      });
 
       if (_targetId !== currentSessionHelper.getCurrentEntityId()) {
         Dialog.confirm({

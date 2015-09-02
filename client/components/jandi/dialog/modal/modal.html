@@ -8,10 +8,10 @@
   </div>
   <div class="btn-container">
     <div ng-switch on="isAlert">
-      <div ng-switch-default class="btn {{::cancelClass}}" ng-click="cancel();">{{::('@btn-cancel' | translate)}}</div>
-      <div ng-switch-default class="btn {{::okayClass}}" ng-click="okay();">{{::('@btn-confirm' | translate)}}</div>
+      <button ng-switch-default class="btn {{::cancelClass}}" ng-click="cancel();">{{::('@btn-cancel' | translate)}}</button>
+      <button ng-switch-default class="btn {{::okayClass}}" ng-click="okay();">{{::('@btn-confirm' | translate)}}</button>
 
-      <div ng-switch-when="true" class="btn {{::okayClass}}" ng-click="okay();">{{::('@btn-confirm' | translate)}}</div>
+      <button ng-switch-when="true" class="btn {{::okayClass}}" ng-click="okay();">{{::('@btn-confirm' | translate)}}</button>
     </div>
   </div>
 </div>

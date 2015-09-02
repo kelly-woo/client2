@@ -1157,6 +1157,18 @@ msgstr "Unstar"
 msgid "@star-un"
 msgstr "Unstar"
 
+#: client/app/center/center.html
+msgid "@success-file-delete"
+msgstr "\"{{filename}}\" has been deleted."
+
+#: client/app/center/center.html
+msgid "@success-file-share"
+msgstr "\"{{filename}}\" has been shared."
+
+#: client/app/center/center.html
+msgid "@success-file-unshare"
+msgstr "\"{{filename}}\" has been unshared."
+
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
