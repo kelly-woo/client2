@@ -309,7 +309,7 @@
           .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
           .replace('{{topicParticipantsCount}}', parseInt(entityAPIservice.getMemberLength(currentEntity), 10) - 1);
 
-        Dialog.toast('warning', {
+        Dialog.warning({
           title: msg
         });
 

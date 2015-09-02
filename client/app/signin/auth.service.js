@@ -123,16 +123,16 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
    */
   authAPI.onCurrentMemberDisabled = function() {
     var teamName = storageAPIservice.getTeamName();
-    var mainTeamAddr = configuration.main_address+'team';
+    var mainTeamAddr = configuration.main_address + 'team';
 
     var disabledMsg = $filter('translate')('@current-member-disabled-notice-msg-pre') +
       teamName + ' ' +
       $filter('translate')('@current-member-disabled-notice-msg-post');
 
-    Dialog.toast('warning', {
+    Dialog.alert({
       title: disabledMsg,
       onClose: function() {
-        location.href = mainTeamAddr;
+        publicService.redirectTo(mainTeamAddr);
       }
     });
   };

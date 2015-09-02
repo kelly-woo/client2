@@ -242,7 +242,7 @@
         msg.message.isStarred = !msg.message.isStarred;
         _refreshStar(msg);
 
-        Dialog.toast('error', {
+        Dialog.error({
           title: $filter('translate')('@star-forbidden')
         });
       }

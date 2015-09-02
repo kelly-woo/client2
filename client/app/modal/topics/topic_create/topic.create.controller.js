@@ -102,7 +102,7 @@
     function _onCreateError(err) {
       if (err.code === duplicate_name_error) {
         // Duplicate name error.
-        Dialog.toast('error', {
+        Dialog.error({
           title: $filter('translate')('@common-duplicate-name-err')
         });
       }

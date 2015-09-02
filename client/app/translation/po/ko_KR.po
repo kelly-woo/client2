@@ -925,6 +925,10 @@ msgstr "아직 다른 팀 멤버로부터 받은 멘션이 없습니다."
 msgid "@message-delete"
 msgstr "삭제"
 
+#: client/app/center/center.html
+msgid "@message-deleted"
+msgstr "메시지가 삭제되었습니다."
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
 msgstr "알림을 사용하지 않으시면 중요한 메시지를 놓치실 수 있습니다. "

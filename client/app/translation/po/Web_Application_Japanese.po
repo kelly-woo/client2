@@ -929,6 +929,10 @@ msgstr "メンションされたことがありません"
 msgid "@message-delete"
 msgstr "削除する"
 
+#: client/app/center/center.html
+msgid "@message-deleted"
+msgstr "このメッセージは削除されました"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
 msgstr "重要なメッセージを見落とすかもしれません"

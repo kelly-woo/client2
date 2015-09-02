@@ -881,6 +881,10 @@ msgstr ""
 msgid "@message-delete"
 msgstr ""
 
+#: client/app/center/center.html
+msgid "@message-deleted"
+msgstr ""
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
 msgstr ""

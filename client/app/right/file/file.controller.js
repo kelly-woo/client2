@@ -70,7 +70,7 @@
             $state.go($scope.file.type + 's', {userName: $scope.writerName, itemId: $scope.file.id});
           })
           .error(function() {
-            Dialog.toast('error', {
+            Dialog.error({
               title: $filter('translate')('@common-leaved-topic')
             });
           });

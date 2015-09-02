@@ -11,43 +11,85 @@
   /* @ngInject */
   function Dialog($rootScope, $modal, Toast) {
     var that = this;
+    var modals = ['alert', 'confirm'];
+    var toasts = ['success', 'info', 'warning', 'error'];
 
     _init();
 
     function _init() {
-      that.alert = alert;
-      that.confirm = confirm;
-      that.toast = toast;
-    }
+      /**
+       * alert modal
+       * @param {object} options
+       * @param {string} [title]            - modal title
+       * @param {string} body               - modal body
+       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       * @param {function} [onClose]        - close callback
+       */
+      /**
+       * confirm modal
+       * @param {object} options
+       * @param {string} title              - modal title
+       * @param {string} body               - modal body
+       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       * @param {function} [onClose]        - close callback
+       */
+      _.each(modals, function(name) {
+        that[name] = (function(name) {
+          return function(options) {
+            if (_.isObject(options)) {
+              options.type = name;
+              $modal.open(_getModalOptions(options));
+            }
+          };
+        }(name));
+      });
 
-    /**
-     * alert dialog
-     * @param {object} options
-     * @param {string} [title]            - modal title
-     * @param {string} body               - modal body
-     * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
-     * @param {function} [onClose]        - close callback
-     */
-    function alert(options) {
-      if (_.isObject(options)) {
-        options.type = 'alert';
-        $modal.open(_getModalOptions(options));
-      }
-    }
-
-    /**
-     * confirm dialog
-     * @param {object} options
-     * @param {string} title              - modal title
-     * @param {string} body               - modal body
-     * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
-     * @param {function} [onClose]        - close callback
-     */
-    function confirm(options) {
-      if (_.isObject(options)) {
-        options.type = 'confirm';
-        $modal.open(_getModalOptions(options));
-      }
+      /**
+       * success toast
+       * @param {object} options
+       * @param {string} title              - toast title
+       * @param {string} body               - toast body
+       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       * @param {function} [onClose]        - close callback
+       * @param {number} [timeOut=5000]     - toast 유지시간
+       */
+      /**
+       * info toast
+       * @param {object} options
+       * @param {string} title              - toast title
+       * @param {string} body               - toast body
+       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       * @param {function} [onClose]        - close callback
+       * @param {number} [timeOut=5000]     - toast 유지시간
+       */
+      /**
+       * warning toast
+       * @param {object} options
+       * @param {string} title              - toast title
+       * @param {string} body               - toast body
+       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       * @param {function} [onClose]        - close callback
+       * @param {number} [timeOut=5000]     - toast 유지시간
+       */
+      /**
+       * error toast
+       * @param {object} options
+       * @param {string} title              - toast title
+       * @param {string} body               - toast body
+       * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
+       * @param {function} [onClose]        - close callback
+       * @param {number} [timeOut=5000]     - toast 유지시간
+       */
+      _.each(toasts, function(name) {
+        that[name] = (function(name) {
+          return function(options) {
+            if (_.isFunction(Toast[name]) && _.isObject(options)) {
+              options.type = name;
+              Toast.show(name, options);
+            }
+          }
+        }(name));
+      });
     }
 
     /**
@@ -68,22 +110,6 @@
           }
         }
       };
-    }
-
-    /**
-     *
-     * @param {string} type               - info, warning, error
-     * @param {object} options
-     * @param {string} title              - toast title
-     * @param {string} body               - toast body
-     * @param {boolean} [allowHtml=false] - title,body property 값으로 html tag 가능 여부
-     * @param {function} [onClose]        - close callback
-     * @param {number} [timeOut=5000]     - toast 유지시간
-     */
-    function toast(type, options) {
-      if (_.isFunction(Toast[type]) && _.isObject(options)) {
-        Toast.show(type, options);
-      }
     }
   }
 })();

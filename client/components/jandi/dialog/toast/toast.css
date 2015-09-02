@@ -35,8 +35,11 @@
   font-size: 20px;
 }
 
-#toast-container .c-toast-info {
+#toast-container .c-toast-success {
   background-color: #00a6e9;
+}
+#toast-container .c-toast-info {
+  background-color: #fff;
 }
 #toast-container .c-toast-warning {
   background-color: #f9bb00;
@@ -55,4 +58,7 @@
 }
 #toast-container .toast-message {
   font-size: 13px;
+}
+#toast-container .c-toast-warning {
+  color: #000;
 }

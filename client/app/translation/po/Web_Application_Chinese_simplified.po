@@ -899,6 +899,10 @@ msgstr "还没有人提及你"
 msgid "@message-delete"
 msgstr "删除"
 
+#: client/app/center/center.html
+msgid "@message-deleted"
+msgstr "信息已删除"
+
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
 msgstr "若关闭推播通知，将不再显示通知提示和内容摘要"

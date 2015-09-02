@@ -135,7 +135,7 @@
             });
           });
         } else {
-          Dialog.toast('error', {
+          Dialog.error({
             title: $filter('translate')('@common-leaved-topic')
           });
         }
@@ -155,13 +155,13 @@
 
             fn();
           } else {
-            Dialog.toast('error', {
+            Dialog.error({
               title: $filter('translate')('@common-removed-origin')
             });
           }
         })
         .error(function() {
-          Dialog.toast('error', {
+          Dialog.error({
             title: $filter('translate')('@common-leaved-topic')
           });
         });

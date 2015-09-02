@@ -66,10 +66,19 @@
               MessageSendingCollection.remove($scope.msg);
             } else {
               if ($scope.msg.message.contentType === 'sticker') {
-                messageAPIservice.deleteSticker($scope.msg.messageId);
+                messageAPIservice.deleteSticker($scope.msg.messageId)
+                  .success(function() {
+                    Dialog.success({
+                      title: $filter('translate')('@message-deleted')
+                    });
+                  });
               } else {
                 messageAPIservice.deleteMessage(_entityType, _entityId, $scope.msg.messageId)
                   .success(function () {
+                    Dialog.success({
+                      title: $filter('translate')('@message-deleted')
+                    });
+
                     try {
                       AnalyticsHelper.track(AnalyticsHelper.EVENT.MESSAGE_DELETE, {
                         'MESSAGE_ID': message.messageId,
