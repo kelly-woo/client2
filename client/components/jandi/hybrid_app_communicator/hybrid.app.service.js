@@ -12,18 +12,17 @@
   /* @ngInject */
   function hybridAppHelper(macAppHelper, pcAppHelper) {
     var delegator = this;
+    var appHelper;
 
     _init();
 
     function _init() {
-      var appHelper;
       var interfas = [
         'trigger',
         'onSignedOut',
         'onSignedIn',
         'onAlarmCntChanged',
-        'onLanguageChanged',
-        'isHybridApp'
+        'onLanguageChanged'
       ];
 
       if (isPcApp()) {
@@ -36,6 +35,7 @@
 
       delegator.isPcApp = isPcApp;
       delegator.isMacApp = isMacApp;
+      delegator.isHybridApp = isHybridApp;
     }
 
     /**
@@ -59,19 +59,27 @@
     }
 
     /**
-     * mac app 인지 아닌지 확인한다.
+     * mac app 인지 여부
      * @returns {*}
      */
     function isMacApp() {
-      return macAppHelper.isHybridApp();
+      return macAppHelper.isMacApp();
     }
 
     /**
-     * pc app 인지 아닌지 확인한다.
+     * pc app 인지 여부
      * @returns {*}
      */
     function isPcApp() {
-      return pcAppHelper.isHybridApp();
+      return pcAppHelper.isPcApp();
+    }
+
+    /**
+     * hybrid app 인지 여부
+     * @returns {boolean}
+     */
+    function isHybridApp() {
+      return !!appHelper;
     }
   }
 })();

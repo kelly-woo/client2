@@ -18,13 +18,13 @@
     that.onSignedIn = onSignedIn;
     that.onAlarmCntChanged = onAlarmCntChanged;
     that.onLanguageChanged = onLanguageChanged;
-    that.isHybridApp = isHybridApp;
+    that.isPcApp = isPcApp;
 
     /**
      * Call 'onSignedOut' function in pc application.
      */
     function onSignedOut() {
-      if (isHybridApp()) {
+      if (isPcApp()) {
         jandipc.onSignedOut();
       }
     }
@@ -33,7 +33,7 @@
      * Call 'onSignedIn' function in pc application.
      */
     function onSignedIn() {
-      if (isHybridApp()) {
+      if (isPcApp()) {
         jandipc.onSignedIn();
       }
     }
@@ -44,7 +44,7 @@
      * @param {number} alarmCnt number of alarms that was changed to.
      */
     function onAlarmCntChanged(id, alarmCnt) {
-      if (isHybridApp()) {
+      if (isPcApp()) {
         jandipc.onAlarmCntChanged(id, alarmCnt);
       }
     }
@@ -54,7 +54,7 @@
      * @param {string} lang - 현재 설정된 language
      */
     function onLanguageChanged(lang) {
-      if (isHybridApp()) {
+      if (isPcApp()) {
         jandipc.onLanguageChanged(lang);
       }
     }
@@ -65,7 +65,7 @@
      * @returns {boolean}
      * @private
      */
-    function isHybridApp() {
+    function isPcApp() {
       return window.jandipc != null;
     }
   }

@@ -13,7 +13,7 @@
     var that = this;
 
     that.trigger = trigger;
-    that.isHybridApp = isHybridApp;
+    that.isMacApp = isMacApp;
 
     /**
      * app event trigger
@@ -21,7 +21,7 @@
      * @param {string|object} data
      */
     function trigger(type, data) {
-      if (isHybridApp()) {
+      if (isMacApp()) {
         window.jandimac.trigger(type, data);
       }
     }
@@ -32,7 +32,7 @@
      * @returns {boolean}
      * @private
      */
-    function isHybridApp() {
+    function isMacApp() {
       return window.jandimac != null;
     }
   }
