@@ -102,13 +102,16 @@
             // In this case, message list still needs to be updated because entity may not be on the list.
             // However, I don't need to update/increment badge count for current entity.
             // Thus, update badge count for entities that I'm not viewing.
+            // 원래는 위와 같은 이유로 현재 보고 있지 않는 엔티티에 대해서만 badge 를 update했지만,
+            // 백앤드에 내가 작성한 메세지에 대해서는 unread를 증가시ㅣ지 않는 방향으로 가기로 함.
+            // 그래서 모든 엔티티에 대해서 badge를 update해도 됨.
 
-            _currentEntity = currentSessionHelper.getCurrentEntity();
+            entityAPIservice.updateBadgeValue(entity, message.unread);
 
-            if (message.companionId != _currentEntity.id) {
-              entityAPIservice.updateBadgeValue(entity, message.unread);
-            }
+            //_currentEntity = currentSessionHelper.getCurrentEntity();
+            //if (message.companionId != _currentEntity.id) {
 
+            //}
           }
 
           // merge message object to entity object so that list can be sorted by 'lastMessageId' attribute in message object.
