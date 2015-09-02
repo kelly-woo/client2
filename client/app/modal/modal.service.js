@@ -95,10 +95,10 @@
               return selectOptions;
             }
           }
-        };
-        modal = _modalOpener(modalOption);
-        $scope.$apply();
-      }
+        }
+      };
+      modal = _modalOpener(modalOption);
+      _safeApply($scope);
     }
 
     /**
@@ -283,7 +283,18 @@
       };
 
       modal = _modalOpener(modalOption);
-      $scope.$apply();
+      _safeApply($scope);
+    }
+
+    /**
+     * apply 를 안전하게 수행한다.
+     * @param {object} scope
+     * @private
+     */
+    function _safeApply(scope) {
+      if (scope.$$phase !== '$apply' && scope.$$phase !== '$digest') {
+        scope.$apply();
+      }
     }
 
     /**
