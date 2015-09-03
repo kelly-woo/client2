@@ -943,8 +943,9 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('version-release', function(target) {
-    grunt.config.set('bump.options.createTag', true);
+    grunt.config.set('bump.options.commit', true);
     grunt.config.set('bump.options.push', true);
+    grunt.config.set('bump.options.createTag', true);
     grunt.task.run(['bump', 'change-version-log']);
   });
 };

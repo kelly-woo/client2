@@ -182,6 +182,9 @@
   left: auto !important;
   right: 8px;
 }
+.panel-title-invite-tooltip .tooltip-inner:lang(ja) {
+  width: 124px;
+}
 
 .panel-title-right-menu__separator {
   height: 100%;
