@@ -10,7 +10,7 @@
     .module('jandiApp')
     .service('TopicFolderModel', TopicFolderModel);
 
-  function TopicFolderModel($q, memberService, EntityMapManager, jndPubSub, TopicFolderAPI) {
+  function TopicFolderModel($q, memberService, EntityMapManager, jndPubSub, TopicFolderAPI, TopicFolderStorage) {
     var _raw = {
       folderList: [],
       entityList: []
@@ -83,6 +83,7 @@
           return false;
         }
       });
+      TopicFolderStorage.removeOpenStatus(folderId);
       update();
     }
 

@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('topicFolder', topicFolder);
 
-  function topicFolder(memberService, jndKeyCode, TopicFolderModel) {
+  function topicFolder(memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage) {
     return {
       restrict: 'E',
       controller: 'TopicFolderCtrl',
@@ -34,6 +34,10 @@
 
         _attachEvents();
         _attachDomEvents();
+
+        if (!TopicFolderStorage.getOpenStatus(scope.folder.id)) {
+          el.find('ul').css('display', 'none');
+        }
       }
 
       /**
@@ -129,8 +133,11 @@
       function collapse() {
         var jqUl = el.find('ul');
         if (jqUl.css('display') === 'none') {
+          TopicFolderStorage.setOpenStatus(scope.folder.id, true);
           el.find('ul').slideDown();
+
         } else {
+          TopicFolderStorage.setOpenStatus(scope.folder.id, false);
           el.find('ul').slideUp();
         }
       }
