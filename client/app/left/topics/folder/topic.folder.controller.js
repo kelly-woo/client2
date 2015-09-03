@@ -9,7 +9,7 @@
     .controller('TopicFolderCtrl', TopicFolderCtrl);
 
   /* @ngInject */
-  function TopicFolderCtrl($scope, memberService, TopicFolderModel, TopicFolderAPI) {
+  function TopicFolderCtrl($scope, memberService, TopicFolderModel) {
 
     $scope.rename = rename;
     $scope.remove = remove;
@@ -26,10 +26,7 @@
 
     }
     function remove() {
-      TopicFolderAPI.remove(memberService.getTeamId(), $scope.folder.id)
-        .then(function() {
-          TopicFolderModel.reload();
-        });
+      TopicFolderModel.remove($scope.folder.id);
     }
   }
 })();

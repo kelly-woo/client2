@@ -114,6 +114,18 @@
   /*display: block;*/
 }
 
+.lpanel-list-option-cog {
+  height: inherit;
+  border: 0;
+  font-size: 12px;
+  color: #7c7c7c;
+  padding: 0 8px;
+}
+
+.lpanel-list-option-cog:hover {
+  color: #333333;
+}
+
 /*  list */
 .lpanel-list ul {
   list-style-type: none;
@@ -128,8 +140,8 @@
 /*  first element of list */
 .lpanel-list ul li:first-child {
   /*margin-top: 10px;*/
-  padding-top: 10px;
-  height: 38px;
+  /*padding-top: 10px;*/
+  /*height: 38px;*/
 }
 /* last element of list */
 .lpanel-list ul li:last-child {

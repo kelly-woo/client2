@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('topicFolder', topicFolder);
 
-  function topicFolder(memberService, TopicFolderModel, TopicFolderAPI) {
+  function topicFolder(memberService, jndKeyCode, TopicFolderModel) {
     return {
       restrict: 'E',
       controller: 'TopicFolderCtrl',
@@ -15,8 +15,10 @@
     };
 
     function link(scope, el, attrs) {
-      var _draggingScope;
+      var _draggingTopicScope;
       var _teamId;
+      var _jqTitle;
+      var _jqInput;
       _init();
 
       /**
@@ -26,53 +28,121 @@
       function _init() {
         _teamId = memberService.getTeamId();
         scope.hasEmptyArea = scope.folder.id === -1 && !scope.folder.entityList.length;
+
+        scope.startEdit = startEdit;
+        scope.collapse = collapse;
+
         _attachEvents();
         _attachDomEvents();
       }
 
+      /**
+       * scope event 를 attach 한다.
+       * @private
+       */
       function _attachEvents() {
-        scope.$on('topic:drag', _onDragStatusChange);
+        scope.$on('topic:drag', _onTopicDragStatusChange);
+        scope.$on('topic-folder:rename', _onRename);
       }
+
+      /**
+       * dom 이벤트를 attach 한다.
+       * @private
+       */
       function _attachDomEvents() {
         el.on('mouseover', _onMouseOver);
         el.on('mouseout', _onMouseOut);
         el.on('mouseup', _onMouseUp);
       }
 
+      /**
+       * rename 이벤트 핸들러
+       * @param {object} angularEvent
+       * @param {number} folderId
+       * @private
+       */
+      function _onRename(angularEvent, folderId) {
+        if (folderId === scope.folder.id) {
+          startEdit();
+        }
+      }
+
       function _onMouseUp() {
-        if (_draggingScope && _hasFolderAction()) {
-          if (scope.folder.id === -1) {
-            TopicFolderAPI.pop(_teamId, _draggingScope.currentRoom.extFolderId, _draggingScope.currentRoom.id);
-          } else {
-            TopicFolderAPI.push(_teamId, scope.folder.id, _draggingScope.currentRoom.id);
-          }
-          TopicFolderModel.push(scope.folder.id, _draggingScope.currentRoom.id);
+        if (_draggingTopicScope && _isFolderPushable()) {
+          TopicFolderModel.push(scope.folder.id, _draggingTopicScope.currentRoom.id);
         }
       }
 
       function _onMouseOver() {
-        if (_draggingScope && _hasFolderAction()) {
-          el.addClass('topic-folder-push');
+        if (_draggingTopicScope && _isFolderPushable()) {
+          el.addClass('hover');
         }
       }
 
-      function _hasFolderAction() {
+      function _isFolderPushable() {
         return scope.folder.id !== -1 ||
-          (scope.folder.id === -1  && _draggingScope.currentRoom.extHasFolder);
+          (scope.folder.id === -1  && _draggingTopicScope.currentRoom.extHasFolder);
       }
 
       function _onMouseOut(){
-        if (_draggingScope) {
-          el.removeClass('topic-folder-push');
+        if (_draggingTopicScope) {
+          el.removeClass('hover');
         }
       }
 
-      function _onDragStatusChange(angularEvent, draggingScope) {
-        _draggingScope = draggingScope;
-        if (!_draggingScope) {
-          el.removeClass('topic-folder-push');
+      function _onTopicDragStatusChange(angularEvent, draggingScope) {
+        _draggingTopicScope = draggingScope;
+        if (!_draggingTopicScope) {
+          el.removeClass('hover');
         }
       }
+
+      function startEdit() {
+        el.find('._folderTitle').hide();
+        el.find('input:first')
+          .val(scope.folder.name)
+          .show()
+          .on('keydown', _onKeydownInput)
+          .on('blur', _endEdit)
+          .focus()
+          .select();
+      }
+
+      function _onKeydownInput(keyDownEvent) {
+        if (jndKeyCode.match('ENTER', keyDownEvent.keyCode)) {
+          _endEdit(keyDownEvent);
+        }
+      }
+
+      function _endEdit(blurEvent) {
+        var jqTarget = $(blurEvent.target);
+        var text = _.trim(jqTarget.val());
+        TopicFolderModel.modify(scope.folder.id, {
+          name: text
+        });
+        el.find('._folderTitle').text(text).show();
+        jqTarget.hide()
+          .off('blur', _endEdit)
+          .off('keydown', _onKeydownInput);
+      }
+
+      function collapse() {
+        var jqUl = el.find('ul');
+        if (jqUl.css('display') === 'none') {
+          el.find('ul').slideDown();
+        } else {
+          el.find('ul').slideUp();
+        }
+      }
+
+      //function _onFolderDragStatusChange(angularEvent, draggingScope) {
+      //  _draggingFolderScope = draggingScope;
+      //  if (!_draggingFolderScope) {
+      //    el.find('._border').removeClass('active');
+      //  } else {
+      //    el.find('._border').addClass('active');
+      //  }
+      //}
     }
   }
 })();

@@ -1,6 +1,6 @@
 .topic-draggable {
   position: absolute;
-  z-index: 710;
+  z-index: 999;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   color: #ffffff;
@@ -18,4 +18,8 @@
 .topic-merge {
   border: 1px solid #00abe6 !important;
   cursor: copy;
+}
+
+.topic-dragging {
+  opacity:0;
 }

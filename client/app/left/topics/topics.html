@@ -1,5 +1,35 @@
-<div id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">
-  <div ng-repeat="folder in folderData.folderList">
-    <topic-folder></topic-folder>
+<div>
+  <!--    HEADER  -->
+  <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isTopicsCollapsed = !leftListCollapseStatus.isTopicsCollapsed"
+       ng-class="{'collapsed': leftListCollapseStatus.isTopicsCollapsed}">
+
+    <i class="fa lpanel-collapse-arrow" ng-class="{'fa-caret-down': !leftListCollapseStatus.isTopicsCollapsed,
+                                                  'fa-caret-right': leftListCollapseStatus.isTopicsCollapsed}"></i>
+
+    <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-topics</span>
+
+
+    <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();"
+         tooltip="{{'@create-new-topic-tooltip' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
+      <i class="icon-add"></i>
+    </div>
+
+    <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();"
+         tooltip="{{'@browse-more-topics' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
+      <i class="icon-list"></i>
+    </div>
+
+    <div class="lpanel-list-option-cog pull-right" ng-click="createTopicFolder($event);">
+      <i class="fa fa-cog"></i>
+    </div>
+
+  </div>
+  <!-- TOPICS -->
+  <div class="lpanel-list__topics">
+    <div id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">
+      <div ng-repeat="folder in folderData.folderList">
+        <topic-folder></topic-folder>
+      </div>
+    </div>
   </div>
 </div>

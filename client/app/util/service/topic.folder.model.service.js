@@ -10,25 +10,110 @@
     .module('jandiApp')
     .service('TopicFolderModel', TopicFolderModel);
 
-  function TopicFolderModel($q, EntityMapManager, jndPubSub, TopicFolderAPI) {
+  function TopicFolderModel($q, memberService, EntityMapManager, jndPubSub, TopicFolderAPI) {
     var _raw = {
       folderList: [],
       entityList: []
     };
+    var FOLDER_NAME = 'New Folder';
+
     var _folderData = {};
     var _folderList = [];
-    var _entityList = [];
-    var _tempFolderList = [];
 
-    var _folderStructure = [];
-
+    this.create = create;
     this.set = set;
     this.push = push;
+    this.remove = remove;
+    this.modify = modify;
+    this.merge = merge;
     this.update = update;
     this.load = load;
     this.reload = reload;
     this.getFolderData = getFolderData;
 
+
+    function _getAnonymousFolderName() {
+      var nameList = [];
+      var suffix = 0;
+      var folderName = FOLDER_NAME;
+
+      _.forEach(_raw.folderList, function(folder) {
+        nameList.push(folder.name);
+      });
+
+      while (nameList.indexOf(folderName) !== -1) {
+        suffix++;
+        folderName = FOLDER_NAME + ' ' + suffix;
+      }
+
+      return folderName;
+    }
+
+    function create(folderName) {
+      folderName = folderName || _getAnonymousFolderName();
+      return TopicFolderAPI.create(memberService.getTeamId(), folderName);
+    }
+
+    /**
+     * 폴더를 삭제한다.
+     * @param {number} folderId
+     */
+    function remove(folderId) {
+      _remove(folderId);
+      TopicFolderAPI.remove(memberService.getTeamId(), folderId)
+        .error(function() {
+          reload();
+        });
+    }
+
+    /**
+     * view 의 폴더를 삭제한다.
+     * @param {number} folderId
+     * @private
+     */
+    function _remove(folderId) {
+      _.forEach(_raw.entityList, function(entity) {
+        if (entity.folderId === folderId) {
+          entity.folderId = -1;
+        }
+      });
+      _.forEach(_raw.folderList, function(folder, index) {
+        if (folder.id === folderId) {
+          _raw.folderList.splice(index, 1);
+          return false;
+        }
+      });
+      update();
+    }
+
+    function modify(folderId, updateItems) {
+      var seq = updateItems.seq;
+      var name = updateItems.name;
+      var targetFolder;
+      var teamId = memberService.getTeamId();
+      _.forEach(_raw.folderList, function(folder) {
+        if (folder.id === folderId) {
+          targetFolder = folder;
+          return false;
+        }
+      });
+
+      if (name) {
+        targetFolder.name = name;
+      }
+
+      if (seq) {
+        seq = parseInt(seq, 10) - 0.5;
+        targetFolder.seq = seq;
+        _raw.folderList = _.sortBy(_raw.folderList, 'seq');
+        _.forEach(_raw.folderList, function(folder, index) {
+          folder.seq = index + 1;
+        });
+      }
+      TopicFolderAPI.modify(teamId, folderId, updateItems)
+        .error(reload);
+      update();
+    }
     /**
      *
      * @param {number} folderId
@@ -76,7 +161,7 @@
     }
 
     function reload() {
-      load().then(function() {
+      return load().then(function() {
         update();
       });
     }
@@ -91,12 +176,14 @@
       _folderData.folderList.push({
         name: '',
         id: -1,
+        seq: _folderData.folderList.length + 1,
         entityList: getEntityList(-1, 'joined')
       });
       jndPubSub.pub('topic-folder:update', _folderData);
     }
 
     function push(folderId, entityId) {
+      var teamId = memberService.getTeamId();
       _.forEach(_raw.entityList, function(entity) {
         if (entity.roomId === entityId) {
           entity.folderId = folderId;
@@ -104,6 +191,20 @@
         }
       });
       update();
+
+      if (folderId === -1) {
+        TopicFolderAPI.pop(teamId, folderId, entityId);
+      } else {
+        TopicFolderAPI.push(teamId, folderId, entityId);
+      }
+    }
+
+    function merge(name, entities) {
+      var teamId = memberService.getTeamId();
+      TopicFolderAPI.merge(teamId, name, entities)
+        .then(function() {
+          reload();
+        });
     }
 
     function _find(folderId) {
@@ -127,7 +228,7 @@
      * @param obj
      */
     function set(obj) {
-      _raw.folderList = obj.folderList;
+      _raw.folderList = _.sortBy(obj.folderList, 'seq');
       _raw.entityList = obj.entityList;
       update();
     }

@@ -63,13 +63,14 @@
       });
     }
 
-    function merge(teamId, name, entityId1, entityId2) {
-      return create(teamId, name).then(function(result) {
-        var folderId = result.data.folderId;
-        return $q.all([
-          push(teamId, folderId, entityId1),
-          push(teamId, folderId, entityId2)
-        ]);
+    function merge(teamId, name, entities) {
+      return $http({
+        method: 'POST',
+        url: server_address + 'teams/' + teamId + '/folders/items',
+        data: {
+          name: name,
+          roomIds: entities
+        }
       });
     }
 

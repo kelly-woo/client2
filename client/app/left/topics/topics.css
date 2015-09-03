@@ -33,3 +33,32 @@
   height: 28px;
   margin-left: 2px;
 }
+
+.topic-new-folder {
+  height: 30px;
+  line-height: 30px;
+  text-align: left;
+  background-color: #F9F9F9;
+  position: relative;
+  font-size: 13px;
+  padding-left: 10px;
+  margin: 0;
+  border-bottom: 1px solid #e1e1e1;
+  color: #1c6c88;
+}
+
+.topic-new-folder:hover {
+  color: #154a67;
+}
+
+.topic-new-folder-text {
+  vertical-align: 10%;
+}
+.topic-new-folder-text:hover {
+  text-decoration: underline;
+}
+
+.topic-new-folder i {
+  font-size: 18px;
+}
+

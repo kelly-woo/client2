@@ -11,7 +11,7 @@
   /**
    *
    */
-  function topicDraggable(jndPubSub, memberService, TopicFolderModel, TopicFolderAPI) {
+  function topicDraggable(jndPubSub, memberService, TopicFolderModel) {
 
 
     return {
@@ -71,10 +71,7 @@
             //todo: click 이벤트 발생하지 않도록 막아야함.
           } else {
             //todo: make folder
-            TopicFolderAPI.merge(_teamId, (new Date()).getTime(), scope.currentRoom.id, _draggingScope.currentRoom.id)
-              .then(function() {
-                TopicFolderModel.reload();
-              });
+            TopicFolderModel.merge((new Date()).getTime(), [scope.currentRoom.id, _draggingScope.currentRoom.id]);
           }
         }
       }
@@ -119,6 +116,7 @@
         _cursor = $('#lpanel-list-container').css('cursor');
         $('#lpanel-list-container').css('cursor', 'pointer');
         _showDraggable(mouseEvent);
+        el.addClass('topic-dragging');
       }
 
       function _endDrag() {
@@ -126,6 +124,7 @@
           jndPubSub.pub('topic:drag', null);
           $('#lpanel-list-container').css('cursor', _cursor);
           _hideDraggable();
+          el.removeClass('topic-dragging');
         }
       }
 
@@ -143,8 +142,8 @@
           },
           currentRoom: currentRoom
         }));
-        $('body').append(_jqDraggable);
 
+        $('body').append(_jqDraggable);
         _width = _jqDraggable.width();
         _height = _jqDraggable.height();
 
@@ -209,7 +208,7 @@
             //console.log(targetScope.currentRoom);
           }
         } else {
-          if (_getDistance(mouseEvent) > 10) {
+          if (_getDistance(mouseEvent) > 5) {
             _startDrag(mouseEvent);
           }
         }
