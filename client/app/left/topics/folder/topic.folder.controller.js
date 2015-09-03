@@ -26,7 +26,7 @@
 
     }
     function remove() {
-      TopicFolderModel.remove($scope.folder.id);
+
     }
   }
 })();

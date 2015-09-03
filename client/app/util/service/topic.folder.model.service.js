@@ -144,13 +144,12 @@
      * @param {string} [mapType] - total|joined|private|member|memberEntityId
      * @returns {Array}
      */
-    function getEntityList(folderId, mapType) {
+    function getEntityList(folderId) {
       var entityList = [];
       var tempEntity;
-      mapType = mapType || 'total';
       _.forEach(_raw.entityList, function(entity) {
         if (entity.folderId === folderId) {
-          tempEntity = EntityMapManager.get(mapType, entity.roomId);
+          tempEntity = EntityMapManager.get('total', entity.roomId);
           if (tempEntity) {
             tempEntity.extFolderId = folderId;
             tempEntity.extHasFolder = (folderId !== -1);
@@ -193,7 +192,7 @@
     function update() {
       _folderList = _.sortBy(_raw.folderList, 'seq');
       _.forEach(_folderList, function(folder) {
-        folder.entityList = getEntityList(folder.id, 'joined');
+        folder.entityList = getEntityList(folder.id);
       });
 
       _folderData.folderList = _folderList;
@@ -201,7 +200,7 @@
         name: '',
         id: -1,
         seq: _folderData.folderList.length + 1,
-        entityList: getEntityList(-1, 'joined')
+        entityList: getEntityList(-1)
       });
       jndPubSub.pub('topic-folder:update', _folderData);
     }

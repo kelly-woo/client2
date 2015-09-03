@@ -109,7 +109,7 @@
         // 조금 더 아름답게 노출하기 위해 왼쪽에서 보정값 20을 더하고 위에서 보정값 3을 뺀다.
         //var left = offset.left + target.width() - _jqTarget.outerWidth() - parentOffset.left;
         //var top = offset.top - _jqTarget.outerHeight() + $('#msgs-container').scrollTop() - parentOffset.top - 8;
-        var left = offset.left - parentOffset.left + target.outerWidth();
+        var left = offset.left - parentOffset.left + target.outerWidth() + 15;
         var top = offset.top - parentOffset.top;
 
         top = top < 0 ? 0 : top;
