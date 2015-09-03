@@ -7,21 +7,45 @@
   </div>
   <div ng-if="!hasEmptyArea"
        ng-class="{'topic-folder-area': folder.id !== -1}">
+    <!--folder title-->
     <div ng-if="::folder.id !== -1" class="topic-folder-title"
+         ng-class="{
+          'topic-cursor-open': !isOpened,
+          'topic-cursor-close': isOpened
+         }"
          topic-folder-draggable="folder"
          ng-click="collapse()">
-      <i class="fa fa-folder-open-o"></i>
-      <span class="_folderTitle">{{folder.name}}</span>
-      <input style="display:none"
-             type="text"
-             placeholder="{{ ::'@topic-folder-rename' | translate }}"/>
-      <span>({{folder.entityList.length}})</span>
-      <i class="fa fa-pencil" ng-click="startEdit();"></i>
-      <i class="fa fa-trash-o" ng-click="remove();"></i>
+      <span class="topic-folder-area-icon">
+        <i class="fa "
+           ng-class="{
+                'fa-folder-open-o': isOpened,
+                'fa-folder-o': !isOpened
+              }"></i>
+      </span>
+      <span class="topic-folder-title-text">
+        <span class="_folderTitle">{{folder.name}}</span>
+        <input style="display:none"
+               type="text"
+               placeholder="{{ ::'@topic-folder-rename' | translate }}"/>
+      </span>
+      <span class="topic-folder-title-count">({{folder.entityList.length}})</span>
+      <span class="topic-folder-more">
+        <i class="icon-more cursor_pointer" left-folder-dropdown></i>
+      </span>
+      <!--<i class="fa fa-pencil" ng-click="startEdit();"></i>-->
+      <!--<i class="fa fa-trash-o" ng-click="remove();"></i>-->
     </div>
+
+    <!--folder 에 포함되지 않은 영역일 때, 순서 변경 시 border 로 사용될 영역-->
     <div ng-if="::folder.id === -1" class="topic-folder-border" topic-folder-draggable="folder">
     </div>
-    <ul>
+
+    <!-- 토픽 리스트 -->
+
+    <ul ng-if="folder.entityList.length"
+        ng-style="{
+      'display': isOpened ? 'block' : 'none'
+    }">
       <li ng-repeat="joinedEntity in folder.entityList | orderBy: ['isStarred', '-name']: true track by $index"
           ng-class="{active: entityId == joinedEntity.id}"
           data-ng-click="enterEntity(joinedEntity);"

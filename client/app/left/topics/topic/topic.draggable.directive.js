@@ -71,13 +71,9 @@
             //todo: click 이벤트 발생하지 않도록 막아야함.
           } else {
             //todo: make folder
-            TopicFolderModel.merge((new Date()).getTime(), [scope.currentRoom.id, _draggingScope.currentRoom.id]);
+            TopicFolderModel.merge([scope.currentRoom.id, _draggingScope.currentRoom.id], true);
           }
         }
-      }
-
-      function _isTopic(scope) {
-        return true;
       }
 
       function _onMouseOver() {

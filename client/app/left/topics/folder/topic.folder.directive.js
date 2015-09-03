@@ -31,13 +31,10 @@
 
         scope.startEdit = startEdit;
         scope.collapse = collapse;
-
+        scope.isOpened = TopicFolderStorage.getOpenStatus(scope.folder.id);
         _attachEvents();
         _attachDomEvents();
 
-        if (!TopicFolderStorage.getOpenStatus(scope.folder.id)) {
-          el.find('ul').css('display', 'none');
-        }
       }
 
       /**
@@ -132,24 +129,32 @@
 
       function collapse() {
         var jqUl = el.find('ul');
-        if (jqUl.css('display') === 'none') {
-          TopicFolderStorage.setOpenStatus(scope.folder.id, true);
-          el.find('ul').slideDown();
+        var hasEntity = !!scope.folder.entityList.length;
+        var callback = function() {
+          _safeApply(function() {
+            scope.isOpened = !scope.isOpened;
+          });
+        };
 
+        TopicFolderStorage.setOpenStatus(scope.folder.id, !scope.isOpened);
+        if (hasEntity) {
+          if (scope.isOpened) {
+            el.find('ul').slideUp(callback);
+          } else {
+            el.find('ul').slideDown(callback);
+          }
         } else {
-          TopicFolderStorage.setOpenStatus(scope.folder.id, false);
-          el.find('ul').slideUp();
+          callback();
         }
       }
 
-      //function _onFolderDragStatusChange(angularEvent, draggingScope) {
-      //  _draggingFolderScope = draggingScope;
-      //  if (!_draggingFolderScope) {
-      //    el.find('._border').removeClass('active');
-      //  } else {
-      //    el.find('._border').addClass('active');
-      //  }
-      //}
+      function _safeApply(fn) {
+        if (scope.$$phase !== '$apply' && scope.$$phase !== '$digest') {
+          scope.$apply(fn);
+        } else {
+          fn();
+        }
+      }
     }
   }
 })();

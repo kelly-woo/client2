@@ -21,22 +21,25 @@
 
       scope.folderData = TopicFolderModel.getFolderData();
       scope.$on('topic-folder:update', function(e, folderData) {
-        scope.folderData = folderData;
+        _safeApply(function() {
+          scope.folderData = folderData;
+        });
       });
 
       function createTopicFolder(clickEvent) {
         clickEvent.stopPropagation();
-        TopicFolderModel.create()
-          .success(_onCreateFolderSuccess);
+        TopicFolderModel.create(true);
       }
-      function _onCreateFolderSuccess(response) {
-        TopicFolderModel.reload().then(function() {
-          $timeout(function() {
-              jndPubSub.pub('topic-folder:rename', response.folderId);
-          }, 10);
 
-        });
+      function _safeApply(fn) {
+        if (scope.$$phase !== '$apply' && scope.$$phase !== '$digest') {
+          scope.$apply(fn);
+        } else {
+          fn();
+        }
       }
     }
+
+
   }
 })();

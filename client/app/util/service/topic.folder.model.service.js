@@ -10,7 +10,7 @@
     .module('jandiApp')
     .service('TopicFolderModel', TopicFolderModel);
 
-  function TopicFolderModel($q, memberService, EntityMapManager, jndPubSub, TopicFolderAPI, TopicFolderStorage) {
+  function TopicFolderModel($q, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI, TopicFolderStorage) {
     var _raw = {
       folderList: [],
       entityList: []
@@ -49,11 +49,34 @@
       return folderName;
     }
 
-    function create(folderName) {
-      folderName = folderName || _getAnonymousFolderName();
-      return TopicFolderAPI.create(memberService.getTeamId(), folderName);
+    function create(isRename) {
+      var folderName = _getAnonymousFolderName();
+      TopicFolderAPI.create(memberService.getTeamId(), folderName)
+        .success(_.bind(_onCreateSuccess, this, isRename))
+        .error(_onCreateFailed);
     }
 
+    function merge(entities, isRename) {
+      var teamId = memberService.getTeamId();
+      var folderName = _getAnonymousFolderName();
+      return TopicFolderAPI.merge(teamId, folderName, entities)
+        .success(_.bind(_onCreateSuccess, this, isRename))
+        .error(_onCreateFailed);
+    }
+
+    function _onCreateFailed() {
+      //todo: error logic
+      reload();
+    }
+    function _onCreateSuccess(isRename, response) {
+      reload().then(function() {
+        if (isRename) {
+          $timeout(function () {
+            jndPubSub.pub('topic-folder:rename', response.folderId);
+          });
+        }
+      });
+    }
     /**
      * 폴더를 삭제한다.
      * @param {number} folderId
@@ -200,13 +223,6 @@
       }
     }
 
-    function merge(name, entities) {
-      var teamId = memberService.getTeamId();
-      TopicFolderAPI.merge(teamId, name, entities)
-        .then(function() {
-          reload();
-        });
-    }
 
     function _find(folderId) {
       var result = {

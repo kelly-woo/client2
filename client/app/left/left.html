@@ -52,6 +52,7 @@
     <div ng-if="unread.below.length" class="lpanel-list-help-unread below">
       <button type="button" class="btn btn-danger" ng-click="goUnreadBelow($event);"><span translate>@common-new-message</span> <i class="fa fa-angle-double-down"></i></button>
     </div>
+    <left-folder-dropdown-layer></left-folder-dropdown-layer>
   </aside>
   <div class="cpanel opac-zero" id="cpanel"
        ng-class="{
