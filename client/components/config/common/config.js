@@ -8,7 +8,7 @@
   angular
     .module('config.common', [])
     .constant('configuration', {
-      version             : '1.0.0-alpha.0',
+      version             : '1.0.1-alpha.0',
       name                : 'local',
       api_address         : 'http://i1.jandi.io:8888/',
       socket_address      : 'http://ws.jandi.io:8888/',
