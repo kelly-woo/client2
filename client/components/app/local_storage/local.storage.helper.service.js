@@ -7,10 +7,10 @@
 
   angular
     .module('app.local.storage')
-    .service('localStorage', localStorage);
+    .service('localStorageHelper', localStorageHelper);
 
   /* @ngInject */
-  function localStorage(localStorageService) {
+  function localStorageHelper(localStorageService) {
     var that = this;
 
     that.set = set;

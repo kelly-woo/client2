@@ -6,7 +6,7 @@
     .service('DesktopNotification', DesktopNotification);
 
   /* @ngInject */
-  function DesktopNotification($filter, logger, jndPubSub, localStorage,
+  function DesktopNotification($filter, logger, jndPubSub, localStorageHelper,
                                accountService, desktopNotificationHelper, memberService) {
     var that = this;
 
@@ -256,7 +256,7 @@
      * @private
      */
     function _storeShowNotificationContentFlag() {
-      localStorage.set(NOTIFICATION_SHOW_CONTENT_FLAG_KEY, isShowNotificationContent);
+      localStorageHelper.set(NOTIFICATION_SHOW_CONTENT_FLAG_KEY, isShowNotificationContent);
     }
 
     /**
@@ -265,12 +265,12 @@
      * @private
      */
     function _loadShowNotificationContentFlag() {
-      var localIsShowContentFlag = localStorage.get(NOTIFICATION_SHOW_CONTENT_FLAG_KEY);
+      var localIsShowContentFlag = localStorageHelper.get(NOTIFICATION_SHOW_CONTENT_FLAG_KEY);
 
       if (localIsShowContentFlag === null) {
         localIsShowContentFlag = shouldSendNotification();
       } else {
-        localIsShowContentFlag = _getBoolean(localStorage.get(NOTIFICATION_SHOW_CONTENT_FLAG_KEY));
+        localIsShowContentFlag = _getBoolean(localStorageHelper.get(NOTIFICATION_SHOW_CONTENT_FLAG_KEY));
       }
 
       isShowNotificationContent = localIsShowContentFlag;
@@ -281,7 +281,7 @@
      * @private
      */
     function _storeLocalNotificationFlag() {
-      localStorage.set(NOTIFICATION_LOCAL_STORAGE_KEY, isNotificationOnLocally);
+      localStorageHelper.set(NOTIFICATION_LOCAL_STORAGE_KEY, isNotificationOnLocally);
     }
 
     /**
@@ -290,7 +290,7 @@
      * @private
      */
     function _loadLocalNotificationFlag() {
-      isNotificationOnLocally = _getBoolean(localStorage.get(NOTIFICATION_LOCAL_STORAGE_KEY));
+      isNotificationOnLocally = _getBoolean(localStorageHelper.get(NOTIFICATION_LOCAL_STORAGE_KEY));
     }
 
     /**
@@ -310,7 +310,7 @@
      * local storage 에 never_ask 관련 flag 를 true 로 바꾼다.
      */
     function setNeverAskFlag() {
-      localStorage.set(NOTIFICATION_NEVER_ASK_KEY, true);
+      localStorageHelper.set(NOTIFICATION_NEVER_ASK_KEY, true);
     }
 
     /**
@@ -318,14 +318,14 @@
      * @private
      */
     function _getNeverAskFlag() {
-      return localStorage.get(NOTIFICATION_NEVER_ASK_KEY);
+      return localStorageHelper.get(NOTIFICATION_NEVER_ASK_KEY);
     }
 
     /**
      * local storage 에서 never ask flag 를 없앤다.
      */
     function _resetNeverAskFlag() {
-      localStorage.remove(NOTIFICATION_NEVER_ASK_KEY)
+      localStorageHelper.remove(NOTIFICATION_NEVER_ASK_KEY)
     }
 
     /**
