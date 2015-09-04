@@ -203,6 +203,10 @@
         entityList: getEntityList(-1)
       });
       jndPubSub.pub('topic-folder:update', _folderData);
+      //update digest 가 끝난 이후 badge position 을 업데이트 해야하기 때문에 timeout 을 준다.
+      $timeout(function() {
+        jndPubSub.updateBadgePosition();
+      });
     }
 
     function push(folderId, entityId) {
