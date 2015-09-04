@@ -54,7 +54,10 @@
 
         _draggingScope = draggingScope;
         if (!_draggingScope) {
+          jndPubSub.pub('topic-update-lock', false);
           el.removeClass('topic-merge');
+        } else {
+          jndPubSub.pub('topic-update-lock', true);
         }
       }
 
@@ -108,6 +111,7 @@
       }
 
       function _startDrag(mouseEvent) {
+        _draggingScope = scope;
         jndPubSub.pub('topic:drag', scope);
         _cursor = $('#lpanel-list-container').css('cursor');
         $('#lpanel-list-container').css('cursor', 'pointer');
@@ -117,34 +121,37 @@
 
       function _endDrag() {
         if (_draggingScope) {
+          _draggingScope = null;
           jndPubSub.pub('topic:drag', null);
           $('#lpanel-list-container').css('cursor', _cursor);
           _hideDraggable();
           el.removeClass('topic-dragging');
+
         }
       }
 
       function _showDraggable(mouseEvent) {
         var currentRoom = scope.currentRoom;
         var isNotificationOff = scope.isNotificationOff;
+        if (!_jqDraggable || !_jqDraggable.length) {
+          _jqDraggable = $(_template({
+            isNotificationOff: isNotificationOff,
+            isPrivate: currentRoom.type === 'privategroups',
+            css: {
+              star: currentRoom.isStarred ? 'icon-star-fill' : '',
+              unread: currentRoom.alarmCnt ? 'has-unread-msg' : '',
+              bell: isNotificationOff ? 'with-bell' : ''
+            },
+            currentRoom: currentRoom
+          }));
 
-        _jqDraggable = $(_template({
-          isNotificationOff: isNotificationOff,
-          isPrivate: currentRoom.type === 'privategroups',
-          css: {
-            star: currentRoom.isStarred ? 'icon-star-fill': '',
-            unread: currentRoom.alarmCnt ? 'has-unread-msg': '',
-            bell: isNotificationOff ? 'with-bell' : ''
-          },
-          currentRoom: currentRoom
-        }));
+          $('body').append(_jqDraggable);
+          _width = _jqDraggable.width();
+          _height = _jqDraggable.height();
 
-        $('body').append(_jqDraggable);
-        _width = _jqDraggable.width();
-        _height = _jqDraggable.height();
-
-        _setDraggablePosition(mouseEvent);
-        $(mouseEvent.target).trigger('mouseover');
+          _setDraggablePosition(mouseEvent);
+          $(mouseEvent.target).trigger('mouseover');
+        }
       }
 
       function _setDraggablePosition(mouseEvent) {
