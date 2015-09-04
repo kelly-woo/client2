@@ -78,34 +78,42 @@
 }
 .header-navbar__topmenu {
   display: block;
-  padding: 0 11px 0 14px;
+  padding: 0 4px 0 8px;
 }
-#invite .icon-invite-fill {
-  font-size: 16px;
+.language-navbar-menu {
+  margin-left: 15px;
+}
+#invite .icon-user-plus {
+  font-size: 17px;
   float: left;
-  padding-top: 13px;
-  padding-right: 4px;
+  padding-top: 12px;
+  padding-right: 2px;
 }
 
 .header-navbar__menu-icon {
   vertical-align: middle;
-  padding-right: 2px;
+  padding-right: 0px;
 }
-.header-navbar__topmenu .fa-question-circle {
-  font-size: 19px;
+.header-navbar__topmenu .icon-reorder {
+  font-size: 17px;
+  line-height: 20px;
   vertical-align: middle;
-  padding-right: 3px;
 }
-.header-navbar__topmenu .icon-language {
+.header-navbar__topmenu .icon-help {
   font-size: 20px;
+  vertical-align: middle;
+}
+.header-navbar__topmenu .icon-global {
+  font-size: 18px;
   /*line-height: 41px;*/
 }
 
-.open .header-navbar__topmenu .fa-caret-down {
+.open .header-navbar__topmenu .icon-angle-down {
   color: white;
 }
-.header-navbar__topmenu .fa-caret-down {
-  color: #6A8FA6;
+.header-navbar__topmenu .icon-angle-down {
+  color: white;
+  opacity: 0.4;
   vertical-align: middle;
 }
 
@@ -120,7 +128,7 @@
   min-width: 200px;
 }
 
-.header-navbar__dropdown .icon_signout {
+/*.header-navbar__dropdown .icon_signout {
   position: absolute;
   top: 8px;
   left: 16px;
@@ -134,6 +142,12 @@
   position: absolute;
   top: 11px;
   left: 17px;
+}*/
+.header-navbar__dropdown .icon-users {
+  font-size: 19px;
+}
+.header-navbar__dropdown .icon-bell-fill {
+  font-size: 17px;
 }
 
 .header-navbar__dropdown > li > a > .badge {
@@ -160,16 +174,16 @@
   width: 29px;
   height: 29px;
   display: table-cell;
-  font-size: 20px;
+  font-size: 18px;
   color: #fff;
   border: 1px solid rgba(255,255,255,0.2);
   cursor: pointer;
   border-radius: 20px;
 
 }
-.header-toolbar li:last-child .info-tool {
+/*.header-toolbar li:last-child .info-tool {
   font-size: 18px;
-}
+}*/
 .header-toolbar .info-tool.active {
   border-color: #0D3952;
   background-color: #062F46;
@@ -187,13 +201,21 @@
   top: 3px;
   left: 3.5px;
 }
-.header-toolbar .info-tool.file-tool > i,
+.header-toolbar .info-tool.file-tool > i {
+  top: 4px;
+  left: 5px;
+}
 .header-toolbar .info-tool.message-tool > i {
   top: 4px;
+  left: 4.5px;
+}
+.header-toolbar .info-tool.star-tool > i {
+  top: 3.5px;
+  left: 4.5px;
 }
 .header-toolbar .info-tool.mention-tool > i {
-  top: 5px;
-  left: 6px;
+  top: 4px;
+  left: 4px;
 }
 
 @media (max-width: 825px) {

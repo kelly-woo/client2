@@ -94,7 +94,7 @@
         <span class="file-uploaded-download" ng-if="!isIntegrateFile">
           <a download-file file-url="{{::msg.message.content.fileUrl}}"
              download-tracker="{{track(msg.message)}}" file-title="{{::msg.message.content.title}}">
-            <i class="icon-download cursor_pointer file-action"
+            <i class="icon-download-fill cursor_pointer file-action"
                tooltip="{{'@common-download' | translate}}" tooltip-placement="top" append-to-body="true"></i>
           </a>
 
@@ -103,14 +103,14 @@
         <span class="separator" ng-if="!isIntegrateFile"></span>
 
         <!--  SHARE -->
-        <i class="icon-share cursor_pointer file-action" ng-click="onShareClick(msg.message);"
+        <i class="icon-share-right-fill cursor_pointer file-action" ng-click="onShareClick(msg.message);"
            tooltip="{{'@btn-share' | translate}}" tooltip-placement="top" append-to-body="true"></i>
 
         <span class="separator"></span>
 
         <!--  MORE  -->
         <span class="file-uploaded-more" tooltip="{{'@file-action-more' | translate}}" tooltip-placement="top" append-to-body="true">
-          <i class="fa fa-cog cursor_pointer file-action" center-file-dropdown></i>
+          <i class="icon-cog-fill cursor_pointer file-action" center-file-dropdown></i>
         </span>
 
       </div>
@@ -122,7 +122,7 @@
             star-view="msg.message.isStarred"
             event-bubble="on"
             message-id="{{ ::msg.message.id }}">
-        <i class="icon-star-fill"></i>
+        <i class="icon-star-on"></i>
       </span>
     </div>
   </div>

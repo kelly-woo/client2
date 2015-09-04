@@ -191,9 +191,9 @@
   position: absolute;
   display: block;
   color: #154a67;
-  font-size: 24px;
-  margin-top: 6px;
-  margin-left: 10px;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-left: 13px;
   cursor: pointer;
 }
 .rpanel-header span {
