@@ -10,9 +10,9 @@
     .service('hybridAppHelper', hybridAppHelper);
   
   /* @ngInject */
-  function hybridAppHelper(macAppHelper, pcAppHelper) {
+  function hybridAppHelper(pcAppHelper, macAppHelper) {
     var delegator = this;
-    var appHelper;
+    var _appHelper;
 
     _init();
 
@@ -26,12 +26,12 @@
       ];
 
       if (isPcApp()) {
-        appHelper = pcAppHelper;
+        _appHelper = pcAppHelper;
       } else if (isMacApp()) {
-        appHelper = macAppHelper;
+        _appHelper = macAppHelper;
       }
 
-      _implement(appHelper, interfas);
+      _implement(_appHelper, interfas);
 
       delegator.isPcApp = isPcApp;
       delegator.isMacApp = isMacApp;
@@ -59,14 +59,6 @@
     }
 
     /**
-     * mac app 인지 여부
-     * @returns {*}
-     */
-    function isMacApp() {
-      return macAppHelper.isMacApp();
-    }
-
-    /**
      * pc app 인지 여부
      * @returns {*}
      */
@@ -75,11 +67,19 @@
     }
 
     /**
+     * mac app 인지 여부
+     * @returns {*}
+     */
+    function isMacApp() {
+      return macAppHelper.isMacApp();
+    }
+
+    /**
      * hybrid app 인지 여부
      * @returns {boolean}
      */
     function isHybridApp() {
-      return !!appHelper;
+      return !!_appHelper;
     }
   }
 })();
