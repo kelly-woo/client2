@@ -64,8 +64,11 @@
         .error(_onCreateFailed);
     }
 
-    function _onCreateFailed() {
+    function _onCreateFailed(data) {
       //todo: error logic
+      console.log(data);
+      alert('error');
+
       reload();
     }
     function _onCreateSuccess(isRename, response) {
@@ -128,15 +131,18 @@
 
       if (seq) {
         seq = parseInt(seq, 10) - 0.5;
-        targetFolder.seq = seq;
+
+        targetFolder.seq = targetFolder.seq < seq ? seq + 1 : seq;
         _raw.folderList = _.sortBy(_raw.folderList, 'seq');
         _.forEach(_raw.folderList, function(folder, index) {
           folder.seq = index + 1;
         });
       }
+      update();
+
       TopicFolderAPI.modify(teamId, folderId, updateItems)
         .error(reload);
-      update();
+
     }
     /**
      *
@@ -191,6 +197,12 @@
 
     function update() {
       _folderList = _.sortBy(_raw.folderList, 'seq');
+
+      //fixme: 서버에서 seq 1 부터 주는 작업 완료될 경우 아래 map 과업 제거해야함.
+      _folderList = _.map(_folderList, function(folder, index) {
+        folder.seq = index + 1;
+        return folder;
+      });
       _.forEach(_folderList, function(folder) {
         folder.entityList = getEntityList(folder.id);
       });
@@ -222,8 +234,19 @@
       if (folderId === -1) {
         TopicFolderAPI.pop(teamId, folderId, entityId);
       } else {
-        TopicFolderAPI.push(teamId, folderId, entityId);
+        TopicFolderAPI.push(teamId, folderId, entityId).
+          error(_onPushError);
       }
+    }
+    function _onPushError(response) {
+      if (response) {
+        if (response.code === 40016) {
+          alert('@already-folder-item-exists');
+        } else {
+          alert(response.msg);
+        }
+      }
+      reload();
     }
 
 

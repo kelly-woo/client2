@@ -5,7 +5,7 @@
     .module('jandiApp')
     .directive('topicFolder', topicFolder);
 
-  function topicFolder(memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub) {
+  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub) {
     return {
       restrict: 'E',
       controller: 'TopicFolderCtrl',
@@ -17,8 +17,7 @@
     function link(scope, el, attrs) {
       var _draggingTopicScope;
       var _teamId;
-      var _jqTitle;
-      var _jqInput;
+      var _more = $filter('translate')('@file-action-more');
       _init();
 
       /**
@@ -28,13 +27,29 @@
       function _init() {
         _teamId = memberService.getTeamId();
         scope.hasEmptyArea = scope.folder.id === -1 && !scope.folder.entityList.length;
-        scope.startEdit = startEdit;
-        scope.collapse = collapse;
         scope.alarmCnt = _getTotalAlarmCnt();
         scope.isOpened = TopicFolderStorage.getOpenStatus(scope.folder.id);
+
+        scope.startEdit = startEdit;
+        scope.collapse = collapse;
+        scope.showTooltip = showTooltip;
+        scope.hideTooltip = hideTooltip;
+
         _attachEvents();
         _attachDomEvents();
 
+      }
+
+      function showTooltip(mouseEvent) {
+        jndPubSub.pub('tooltip:show', {
+          direction: 'top',
+          content: _more,
+          target: $(mouseEvent.target)
+        });
+      }
+
+      function hideTooltip(mouseEvent) {
+        jndPubSub.pub('tooltip:hide');
       }
 
       function _getTotalAlarmCnt() {
@@ -60,7 +75,6 @@
         _safeApply(function() {
           scope.alarmCnt = _getTotalAlarmCnt();
         });
-
       }
 
       /**
@@ -86,21 +100,23 @@
       }
 
       function _onMouseUp() {
-        if (_draggingTopicScope && _isFolderPushable()) {
+        if (_draggingTopicScope && _isFolderInsertable()) {
           TopicFolderModel.push(scope.folder.id, _draggingTopicScope.currentRoom.id);
         }
       }
 
       function _onMouseOver() {
-        if (_draggingTopicScope && _isFolderPushable()) {
+        if (_draggingTopicScope && _isFolderInsertable()) {
           el.addClass('hover');
         }
         _hideBadge();
       }
 
-      function _isFolderPushable() {
-        return scope.folder.id !== -1 ||
-          (scope.folder.id === -1  && _draggingTopicScope.currentRoom.extHasFolder);
+      function _isFolderInsertable() {
+        var currentRoom = _draggingTopicScope.currentRoom;
+        var currentFolder = scope.folder;
+        return (currentFolder.id !== -1  && currentFolder.id !== currentRoom.extFolderId) ||
+            (scope.folder.id === -1  && currentRoom.extHasFolder);
       }
 
       function _onMouseOut(){

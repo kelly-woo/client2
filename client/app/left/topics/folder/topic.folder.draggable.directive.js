@@ -67,8 +67,9 @@
 
       function _onMouseUp(mouseEvent) {
         if (_isFolderMovable()) {
+          var seq = _draggingScope.folder.seq < scope.folder.seq ? scope.folder.seq - 1 : scope.folder.seq;
           TopicFolderModel.modify(_draggingScope.folder.id, {
-            seq: scope.folder.seq
+            seq: seq
           });
         }
       }

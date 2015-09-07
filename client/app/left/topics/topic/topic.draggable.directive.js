@@ -120,17 +120,15 @@
       }
 
       function _endDrag() {
-        if (_draggingScope) {
-          _draggingScope = null;
-          jndPubSub.pub('topic:drag', null);
-          $('#lpanel-list-container').css('cursor', _cursor);
-          _hideDraggable();
-          el.removeClass('topic-dragging');
-
-        }
+        _draggingScope = null;
+        jndPubSub.pub('topic:drag', null);
+        $('#lpanel-list-container').css('cursor', _cursor);
+        _hideDraggable();
+        el.removeClass('topic-dragging');
       }
 
       function _showDraggable(mouseEvent) {
+        console.log('_showDraggable', _jqDraggable);
         var currentRoom = scope.currentRoom;
         var isNotificationOff = scope.isNotificationOff;
         if (!_jqDraggable || !_jqDraggable.length) {
@@ -165,6 +163,7 @@
 
       function _hideDraggable() {
         _jqDraggable.remove();
+        _jqDraggable = null;
       }
 
       /**

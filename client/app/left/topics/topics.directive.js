@@ -18,23 +18,27 @@
 
     function link(scope, el, attrs) {
       var _isLocked = false;
+      var _hasToUpdate = false;
       scope.createTopicFolder = createTopicFolder;
       scope.folderData = TopicFolderModel.getFolderData();
       scope.$on('topic-update-lock', _onLock);
       scope.$on('topic-folder:update', function(e, folderData) {
         if (!_isLocked) {
           _updateFolderData(folderData);
+        } else {
+          _hasToUpdate = true;
         }
       });
 
       function _onLock(angularEvent, isLocked) {
         _isLocked = isLocked;
-        if (!_isLocked) {
+        if (!_isLocked && _hasToUpdate) {
           _updateFolderData(TopicFolderModel.getFolderData());
         }
       }
 
       function _updateFolderData(folderData) {
+        _hasToUpdate = false;
         _safeApply(function() {
           scope.folderData = folderData;
         });

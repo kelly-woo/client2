@@ -32,7 +32,9 @@
           ng-class="{
             'topic-folder-more-hide': !isOpened && alarmCnt
           }">
-        <i class="icon-more cursor_pointer" left-folder-dropdown></i>
+        <i class="icon-more cursor_pointer" left-folder-dropdown
+           ng-mouseenter="showTooltip($event);"
+           ng-mouseleave="hideTooltip($event);" ></i>
       </span>
     </div>
 
