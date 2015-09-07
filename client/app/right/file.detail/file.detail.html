@@ -1,7 +1,8 @@
 <div class="rpanel-header">
   <div class="ng-hide" ng-show="initialLoaded">
     <i class="icon-prev" ng-click="backToFileList()"></i>
-    <span class="file-detail-title">{{:: file_detail.content.title}}</span>
+    <span ng-if="!isFileArchived" class="file-detail-title">{{::file_detail.content.title}}</span>
+    <span ng-if="isFileArchived" class="file-detail-title" translate>@common-deleted-file-title</span>
   </div>
 </div>
 <div class="rpanel-body" scroll-glue ng-model="glued">
@@ -233,12 +234,11 @@
           <div class="file-detail-header__writer">{{ file_detail.extWriterName }}</div>
 
           <div class="file-detail-header__title archived-file__title">
-            <a original-file file-url="{{file_detail.content.fileUrl}}" ng-if="!isFileArchived">
+            <a href="{{::originalUrl}}" target="_blank" ng-if="!isFileArchived">
               {{ file_detail.content | fileTitle }}
             </a>
             <div translate>@common-deleted-file-title</div>
           </div>
-
         </div>
       </div>
 

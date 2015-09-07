@@ -49,8 +49,9 @@
      * hide 한다.
      */
     function hide() {
-      if (Popup.get('tutorial')) {
-        Popup.close();
+      var tutorial = Popup.get('tutorial');
+      if (tutorial) {
+        Popup.close(tutorial);
       }
       $scope.isComplete = true;
     }
