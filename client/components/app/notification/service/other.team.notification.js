@@ -33,7 +33,7 @@
             tag: 'tag',
             body: _getBody(teamName),
             icon: configuration.assets_url + 'assets/images/jandi-logo-200x200.png',
-            callback: _onNotificationClicked,
+            callback: _onClick,
             data: socketEvent
           };
 
@@ -64,7 +64,7 @@
      * @param {object} param - socket event
      * @private
      */
-    function _onNotificationClicked(param) {
+    function _onClick(param) {
       var newWindow;
 
       if (!hybridAppHelper.isHybridApp()) {

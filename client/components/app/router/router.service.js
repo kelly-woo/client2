@@ -20,11 +20,11 @@
     }
 
     function onStateNotFound(event, unfoundState, fromState, fromParams) {
-      //console.info("==============================[stateNotFound]==============================");
-      //console.info("   to", unfoundState.to); // "lazy.state"
-      //console.info("   toParams", unfoundState.toParams); // {a:1, b:2}
-      //console.info("   options", unfoundState.options); // {inherit:false} + default options
-      //console.info("===========================================================================");
+      console.info("==============================[stateNotFound]==============================");
+      console.info("   to", unfoundState.to); // "lazy.state"
+      console.info("   toParams", unfoundState.toParams); // {a:1, b:2}
+      console.info("   options", unfoundState.options); // {inherit:false} + default options
+      console.info("===========================================================================");
     }
 
     function onLocationChangeSuccess(event) {
@@ -45,10 +45,10 @@
       }
 
       if (_isStateChange(toState, toParams, fromState, fromParams) && NetInterceptor.isConnected()) {
-        console.info("==============================[stateChange]==============================");
-        console.info("   from    ", fromState.name, ' / ', fromParams);
-        console.info("    to     ", toState.name, ' / ',toParams);
-        console.info("=========================================================================");
+        //console.info("==============================[stateChange]==============================");
+        //console.info("   from    ", fromState.name, ' / ', fromParams);
+        //console.info("    to     ", toState.name, ' / ',toParams);
+        //console.info("=========================================================================");
 
         if (currentSessionHelper.isMobile && toState.name != 'mobile') {
           if (toState.name == "password") {
