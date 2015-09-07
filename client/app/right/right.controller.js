@@ -77,11 +77,13 @@
       var tab;
 
       if (tab = $scope.tabs[data.type]) {
-        tab.active = true;
-        $scope.activeTabName = tab.name;
+        if (!data.toUrl || !data.fromUrl || (data.toUrl !== data.fromUrl)) {
+          tab.active = true;
+          $scope.activeTabName = tab.name;
 
-        // reset input element
-        //jndPubSub.pub('resetRPanelSearchStatusKeyword');
+          // reset input element
+          jndPubSub.pub('resetRPanelSearchStatusKeyword');
+        }
       }
     });
 

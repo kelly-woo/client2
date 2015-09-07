@@ -37,8 +37,10 @@
       if (data.type === 'mentions') {
         isActivated = true;
 
-        _initMentionListData();
-        _initGetMentionList();
+        if (!data.toUrl || !data.fromUrl || (data.toUrl !== data.fromUrl)) {
+          _initMentionListData();
+          _initGetMentionList();
+        }
       } else {
         isActivated = false;
       }

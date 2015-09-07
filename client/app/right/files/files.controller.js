@@ -205,10 +205,8 @@
         _isActivated = true;
         $scope.fileRequest.keyword = '';
 
-        // files uri에서 files uri로 변경시 'onRightPanel'에서 file list refresh 하지 않음
-        // 'onCurrentEntityChanged'에서 file list refresh 함
-        if (!data.toUrl || !data.fromUrl || (data.toUrl !== data.fromUrl)) {
-
+        // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니라면 file list 갱신함
+        if (!data.toUrl || !data.fromUrl || (data.toUrl !== data.fromUrl) && !/item/g.test(data.fromUrl)) {
           _refreshFileList();
         }
       } else {
