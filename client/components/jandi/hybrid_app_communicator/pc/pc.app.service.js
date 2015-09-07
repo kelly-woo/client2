@@ -28,7 +28,7 @@
         jandipc.onSignedOut();
       }
     }
-    
+
     /**
      * Call 'onSignedIn' function in pc application.
      */
@@ -37,7 +37,7 @@
         jandipc.onSignedIn();
       }
     }
-    
+
     /**
      * Call 'onAlarmCntChanged' function in pc application.
      * @param {number} id id of entity whose alarm count(badge count) just changed.
@@ -48,7 +48,7 @@
         jandipc.onAlarmCntChanged(id, alarmCnt);
       }
     }
-    
+
     /**
      * Call 'onLangguageChanged' function in pc application.
      * @param {string} lang - 현재 설정된 language
@@ -58,7 +58,7 @@
         jandipc.onLanguageChanged(lang);
       }
     }
-    
+
     /**
      * Return true if 'jandipc' exists as a variable.
      * 'jandipc' id first declared and defined by pc application. so 'jandipc' is defined if and only if when it's running on pc application.

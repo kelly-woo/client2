@@ -20,11 +20,11 @@
     }
 
     function onStateNotFound(event, unfoundState, fromState, fromParams) {
-      console.info("==============================[stateNotFound]==============================");
-      console.info("   to", unfoundState.to); // "lazy.state"
-      console.info("   toParams", unfoundState.toParams); // {a:1, b:2}
-      console.info("   options", unfoundState.options); // {inherit:false} + default options
-      console.info("===========================================================================");
+      //console.info("==============================[stateNotFound]==============================");
+      //console.info("   to", unfoundState.to); // "lazy.state"
+      //console.info("   toParams", unfoundState.toParams); // {a:1, b:2}
+      //console.info("   options", unfoundState.options); // {inherit:false} + default options
+      //console.info("===========================================================================");
     }
 
     function onLocationChangeSuccess(event) {
