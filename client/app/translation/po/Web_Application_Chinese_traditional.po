@@ -1465,7 +1465,6 @@ msgid "@tutorial-welcome-title"
 msgstr "歡迎使用JANDI!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
->>>>>>> develop
 #: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr "以下為未讀訊息"
