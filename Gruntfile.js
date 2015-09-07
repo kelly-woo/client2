@@ -340,7 +340,13 @@ module.exports = function (grunt) {
         }]
       }
     },
-
+    uglify: {
+      options: {
+        compress: {
+          drop_console: true
+        }
+      }
+    },
     // Package all the html partials into a single javascript payload
     ngtemplates: {
       options: {
