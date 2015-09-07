@@ -5,18 +5,20 @@
  */
 (function() {
   'use strict';
-
+  
   angular
-    .module('jandi.pcApp')
-    .service('pcAppHelper', pcAppHelper);
-
+    .module('jandi.hybridApp')
+    .service('PcAppHelper', pcAppHelper);
+  
   /* @ngInject */
   function pcAppHelper() {
-    this.onSignedOut = onSignedOut;
-    this.onSignedIn = onSignedIn;
-    this.onAlarmCntChanged = onAlarmCntChanged;
-    this.onLanguageChanged = onLanguageChanged;
-    this.isPcApp = isPcApp;
+    var that = this;
+
+    that.onSignedOut = onSignedOut;
+    that.onSignedIn = onSignedIn;
+    that.onAlarmCntChanged = onAlarmCntChanged;
+    that.onLanguageChanged = onLanguageChanged;
+    that.isPcApp = isPcApp;
 
     /**
      * Call 'onSignedOut' function in pc application.
@@ -64,9 +66,7 @@
      * @private
      */
     function isPcApp() {
-      return typeof jandipc !== 'undefined';
+      return window.jandipc != null;
     }
-
   }
-
 })();

@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function entityAPIservice($rootScope, EntityMapManager, $state, $window, storageAPIservice, jndPubSub,
-                            currentSessionHelper, pcAppHelper, NotificationManager) {
+                            currentSessionHelper, HybridAppHelper, NotificationManager) {
     var service = {
       getEntityFromListByEntityId: getEntityFromListByEntityId,
       getEntityFromListById: getEntityFromListById,
@@ -133,7 +133,7 @@
     //  return null if 'getEntityById' return nothing.
     function setCurrentEntity (currentEntity) {
       currentEntity.alarmCnt = '';
-      pcAppHelper.onAlarmCntChanged(currentEntity.id, 0);
+      HybridAppHelper.onAlarmCntChanged(currentEntity.id, 0);
       NotificationManager.remove(currentEntity);
 
       currentSessionHelper.setCurrentEntity(currentEntity);
@@ -207,10 +207,10 @@
         } else {
           curEntity.alarmCnt++;
         }
-        pcAppHelper.onAlarmCntChanged(entity.id, curEntity.alarmCnt);
+        HybridAppHelper.onAlarmCntChanged(entity.id, curEntity.alarmCnt);
       } else {
         curEntity.alarmCnt = alarmCount;
-        pcAppHelper.onAlarmCntChanged(entity.id, alarmCount);
+        HybridAppHelper.onAlarmCntChanged(entity.id, alarmCount);
       }
     }
 
