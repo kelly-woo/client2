@@ -73,7 +73,9 @@
       isTopicNotificationOn: isTopicNotificationOn,
       setTopicNotificationStatus: setTopicNotificationStatus,
 
-      isAdmin: isAdmin
+      isAdmin: isAdmin,
+      isDisabled: isDisabled,
+      isDeleted: isDeleted
     };
 
 
@@ -525,6 +527,22 @@
     function isAdmin() {
       var admin = currentSessionHelper.getCurrentTeamAdmin();
       return admin && (admin.id === getMemberId());
+    }
+
+    /**
+     * member의 status가 disabled인지 아닌지 확인한다.
+     */
+    function isDisabled(member) {
+      return member.status && member.status === 'disabled';
+    }
+
+    /**
+     * member의 status가 deleted인지 아닌지 확인한다.
+     * @param {object} member - member object
+     * @returns {*|boolean}
+     */
+    function isDeleted(member) {
+      return member.status && member.status === 'deleted';
     }
   }
 })();

@@ -12,7 +12,7 @@
   /* @ngInject */
   function publicService($rootScope, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, pcAppHelper, $filter) {
+                         entityAPIservice, pcAppHelper, $filter, memberService) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -131,6 +131,11 @@
       location.href = url;
     }
 
+    /**
+     * member가 enable status 가 아니면 true를 리턴한다.
+     * @param {number|object} member - 찾으려는 member
+     * @returns {*}
+     */
     function isDisabledMember(member) {
       if (member == null) {
         return false;
@@ -142,7 +147,7 @@
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
       }
 
-      return member ? member.status === 'disabled' : true;
+      return memberService.isDisabled(member) || memberService.isDeleted(member);
     }
 
     function _isNumber(obj) {

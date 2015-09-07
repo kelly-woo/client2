@@ -10,7 +10,7 @@
     .controller('ProfileViewCtrl', ProfileViewCtrl);
 
   /* @ngInject */
-  function ProfileViewCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub) {
+  function ProfileViewCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, publicService) {
 
     (function() {
       init();
@@ -73,7 +73,7 @@
      * @private
      */
     function _isCurrentUserDisabled() {
-      return $scope.curUser.status === 'disabled';
+      return publicService.isDisabledMember($scope.curUser);
     }
 
     /**
