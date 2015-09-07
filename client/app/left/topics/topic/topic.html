@@ -1,5 +1,5 @@
 <a data-channel-id="{{currentRoom.id}}" id="topic{{currentRoom.id}}" topic-draggable>
-  <i class="icon-star left-star" ng-class="{'icon-star-fill': currentRoom.isStarred}"
+  <i class="icon-star-off left-star" ng-class="{'icon-star-on': currentRoom.isStarred}"
      data-ng-click="onStarClick(currentRoom.type, currentRoom.id);
                           $event.preventDefault(); $event.stopPropagation();"></i>
 
@@ -15,8 +15,8 @@
         {{currentRoom.name}}
     </span>
 
-  <i class="icon-private-group topic-setting-icon" ng-if="currentRoom.type=='privategroups'"></i>
-  <i class="off-topic-notification-indicator fa fa-bell-slash-o topic-setting-icon" ng-if="isNotificationOff"></i>
+  <i class="icon-lock topic-setting-icon" ng-if="currentRoom.type=='privategroups'"></i>
+  <i class="off-topic-notification-indicator icon-bell-slash topic-setting-icon" ng-if="isNotificationOff"></i>
 
   <badge content="{{currentRoom.alarmCnt}}" group="topic" key="{{currentRoom.id}}" entity="{{currentRoom}}"></badge>
 </a>
