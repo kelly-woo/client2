@@ -13,16 +13,15 @@
       event-bubble="on"
       message-id="{{ msg.message.id }}">
     <a role="menuitem" tabindex="-1">
-      <i class="icon-star"></i>
-      <span ng-if="!msg.message.isStarred" translate>@star-add</span>
-      <span ng-if="msg.message.isStarred" translate>@star-remove</span>
+      <i ng-if="!msg.message.isStarred" class="icon-star-off"></i><span ng-if="!msg.message.isStarred" translate>@star-add</span>
+      <i ng-if="msg.message.isStarred" class="icon-star-on"></i><span ng-if="msg.message.isStarred" translate>@star-remove</span>
     </a>
   </li>
   <li role="presentation" tabindex="-1"
       ng-if="isMyMessage || isAdmin"
       ng-click="deleteMessage()">
     <a role="menuitem" tabindex="-1">
-      <i class="fa fa-trash msg-item-action-icon"></i>
+      <i class="icon-trash msg-item-action-icon"></i>
       <span translate>@message-delete</span>
     </a>
   </li>

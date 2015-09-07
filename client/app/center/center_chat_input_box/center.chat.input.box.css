@@ -29,7 +29,7 @@
   padding:0 .5rem;
   border:2px solid #e0e0e0;
   text-align:center;
-  font-size:1.5rem;
+  font-size:1.2rem;
   -webkit-transitionDISABLED:background .1s,border-color .1s,color .1s .2s ease-out;
   -moz-transitionDISABLED:background .1s,border-color .1s,color .1s .2s ease-out;
   -o-transitionDISABLED:background .1s,border-color .1s,color .1s .2s ease-out;
@@ -151,9 +151,9 @@
   line-height: 36px;
 }
 .has-new-msg-alert-container-close {
-  padding-top: 8px;
-  padding-right: 8px;
-  font-size: 18px;
+  padding-top: 12px;
+  padding-right: 12px;
+  font-size: 13px;
   color: rgba(255,255,255,0.7);
 }
 

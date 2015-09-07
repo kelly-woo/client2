@@ -32,13 +32,13 @@
   font-size: 14px;
   font-weight: 500;
 }
-.lpanel-user__team .team-setting-icon {
+/*.lpanel-user__team .team-setting-icon {
   position: absolute;
   right: 15px;
   top: 12px;
   font-size: 11px;
   color: #666;
-}
+}*/
 
 .lpanel-user__user {
   height: 53px;

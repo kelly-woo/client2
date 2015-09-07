@@ -21,13 +21,13 @@
 }
 
 .off-topic-notification-indicator {
-  font-size: 10px;
+  margin-left: 3px !important;
   color: black;
   opacity: 0.3;
-  margin-left: 3px !important;
 }
 
 .topic-setting-icon {
+  font-size: 13px;
   float: left;
   line-height: 28px !important;
   height: 28px;

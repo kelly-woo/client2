@@ -19,6 +19,6 @@
   </div>
   <div class="message-star" ng-class="{'show': isStarred}" ng-show="hasStar"
        tooltip="{{::'@common-star' | translate}}" tooltip-placement="left">
-    <i ng-class="isStarred ? 'icon-star-fill' : 'icon-star'" star-view="isStarred" message-id="{{message.id}}"></i>
+    <i ng-class="isStarred ? 'icon-star-on' : 'icon-star-off'" star-view="isStarred" message-id="{{message.id}}"></i>
   </div>
 </div>
