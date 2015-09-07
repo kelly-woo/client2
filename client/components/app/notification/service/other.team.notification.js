@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function OtherTeamNotification(desktopNotificationHelper, accountService, configuration, DesktopNotificationUtil,
-                                 jndWebSocketCommon, hybridAppHelper,  $filter, DesktopNotification) {
+                                 jndWebSocketCommon, HybridAppHelper,  $filter, DesktopNotification) {
     this.addNotification = addNotification;
 
     /**
@@ -67,7 +67,7 @@
     function _onClick(param) {
       var newWindow;
 
-      if (!hybridAppHelper.isHybridApp()) {
+      if (!HybridAppHelper.isHybridApp()) {
         newWindow = window.open('', '_blank');
         newWindow.location.href = DesktopNotificationUtil.getNotificationUrl(param);
       }

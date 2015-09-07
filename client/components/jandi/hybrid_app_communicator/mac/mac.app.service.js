@@ -6,7 +6,7 @@
   
   angular
     .module('jandi.hybridApp')
-    .service('macAppHelper', macAppHelper);
+    .service('MacAppHelper', macAppHelper);
   
   /* @ngInject */
   function macAppHelper() {

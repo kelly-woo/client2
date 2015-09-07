@@ -12,7 +12,7 @@
   /* @ngInject */
   function publicService($rootScope, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, hybridAppHelper, $filter) {
+                         entityAPIservice, HybridAppHelper, $filter) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -105,7 +105,7 @@
       jndWebSocket.disconnectTeam();
 
       // PC app function.
-      hybridAppHelper.onSignedOut();
+      HybridAppHelper.onSignedOut();
 
       if ( $state.current.name == 'signin') {
         // 현재 state 다시 로드

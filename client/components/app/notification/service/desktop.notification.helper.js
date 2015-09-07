@@ -9,7 +9,7 @@
     .service('desktopNotificationHelper', desktopNotificationHelper);
 
   /* @ngInject */
-  function desktopNotificationHelper($filter, $state, RouterHelper, hybridAppHelper, DesktopNotificationUtil) {
+  function desktopNotificationHelper($filter, $state, RouterHelper, HybridAppHelper, DesktopNotificationUtil) {
     var NOTIFICATION_EXPIRE_TIME = 5000;
 
     /**
@@ -58,8 +58,8 @@
       notification.onshow = onNotificationShow;
       notification.onclick = onNotificationClick;
 
-      if (hybridAppHelper.isMacApp()) {
-        hybridAppHelper.trigger('notification', {
+      if (HybridAppHelper.isMacApp()) {
+        HybridAppHelper.trigger('notification', {
           title: title,
           body: options.body,
           icon: options.icon,

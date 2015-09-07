@@ -8,7 +8,7 @@
   
   angular
     .module('jandi.hybridApp')
-    .service('pcAppHelper', pcAppHelper);
+    .service('PcAppHelper', pcAppHelper);
   
   /* @ngInject */
   function pcAppHelper() {

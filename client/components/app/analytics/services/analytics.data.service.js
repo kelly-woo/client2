@@ -11,7 +11,7 @@
     .service('AnalyticsData', AnalyticsData);
 
   /* @ngInject */
-  function AnalyticsData(AnalyticsTranslate, config, AnalyticsConstant, hybridAppHelper) {
+  function AnalyticsData(AnalyticsTranslate, config, AnalyticsConstant, HybridAppHelper) {
     
     this.track = track;
     /**
@@ -32,9 +32,9 @@
 
       data[AnalyticsConstant.LOG.EVENT] = event;
       data[AnalyticsConstant.LOG.IDENTIFY] = identify;
-      if (hybridAppHelper.isPcApp()) {
+      if (HybridAppHelper.isPcApp()) {
         data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM.WIN_APP;
-      } else if (hybridAppHelper.isMacApp()) {
+      } else if (HybridAppHelper.isMacApp()) {
         data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM.MAC_APP;
       } else {
         data[AnalyticsConstant.LOG.PLATFORM] = AnalyticsConstant.PLATFORM.WEB;

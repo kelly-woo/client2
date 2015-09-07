@@ -8,7 +8,7 @@
   /* @ngInject */
   function authController($scope, $rootScope, $state, authAPIservice, analyticsService,
                           storageAPIservice, accountService, memberService, publicService,
-                          hybridAppHelper, modalHelper, jndWebSocket, AnalyticsHelper, jndPubSub) {
+                          HybridAppHelper, modalHelper, jndWebSocket, AnalyticsHelper, jndPubSub) {
 
     var vm = this;
     jndWebSocket.disconnect();
@@ -254,7 +254,7 @@
     };
 
     function pcAppOnSignedIn() {
-      hybridAppHelper.onSignedIn();
+      HybridAppHelper.onSignedIn();
     }
 
     function _goToMessageHome() {

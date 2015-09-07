@@ -7,10 +7,10 @@
   
   angular
     .module('jandi.hybridApp')
-    .service('hybridAppHelper', hybridAppHelper);
+    .service('HybridAppHelper', hybridAppHelper);
   
   /* @ngInject */
-  function hybridAppHelper(pcAppHelper, macAppHelper) {
+  function hybridAppHelper(PcAppHelper, MacAppHelper) {
     var delegator = this;
     var _appHelper;
 
@@ -26,9 +26,9 @@
       ];
 
       if (isPcApp()) {
-        _appHelper = pcAppHelper;
+        _appHelper = PcAppHelper;
       } else if (isMacApp()) {
-        _appHelper = macAppHelper;
+        _appHelper = MacAppHelper;
       }
 
       _implement(_appHelper, interfas);
@@ -40,7 +40,7 @@
 
     /**
      * delegator의 method implements
-     * @param {object} appHelper - pcAppHelper 또는 macAppHelper
+     * @param {object} appHelper - PcAppHelper 또는 MacAppHelper
      * @param {array} interfas
      * @private
      */
@@ -63,7 +63,7 @@
      * @returns {*}
      */
     function isPcApp() {
-      return pcAppHelper.isPcApp();
+      return PcAppHelper.isPcApp();
     }
 
     /**
@@ -71,7 +71,7 @@
      * @returns {*}
      */
     function isMacApp() {
-      return macAppHelper.isMacApp();
+      return MacAppHelper.isMacApp();
     }
 
     /**

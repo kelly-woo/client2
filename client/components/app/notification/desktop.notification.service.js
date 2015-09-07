@@ -8,7 +8,7 @@
   /* @ngInject */
   function DesktopNotification($filter, logger, jndPubSub, localStorage,
                                accountService, desktopNotificationHelper,
-                               memberService, hybridAppHelper, configuration) {
+                               memberService, HybridAppHelper, configuration) {
     var that = this;
 
     var appName;
@@ -74,7 +74,7 @@
       appName = config.name;
 
       isNotificationSupported = 'Notification' in window;
-      if (hybridAppHelper.isHybridApp()) {
+      if (HybridAppHelper.isHybridApp()) {
         // hybrid 앱 일 경우
         _initHybridSetting();
       } else {

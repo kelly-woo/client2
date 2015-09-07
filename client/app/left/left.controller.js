@@ -6,7 +6,7 @@ app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, hybridAppHelper, TopicMessageCache, $q, NotificationManager) {
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q, NotificationManager) {
 
   /**
    * @namespace
@@ -689,7 +689,7 @@ app.controller('leftPanelController1', function(
   function enterEntity(entity) {
     if (!$scope.isCenterLoading && NetInterceptor.isConnected()) {
       NotificationManager.set(entity, 0);
-      hybridAppHelper.onAlarmCntChanged(entity.id, 0);
+      HybridAppHelper.onAlarmCntChanged(entity.id, 0);
       entity.alarmCnt = '';
       $scope.isCenterLoading = true;
       $scope.entityId = entity.id;
@@ -856,7 +856,7 @@ app.controller('leftPanelController1', function(
     if(!accountService.hasSeenTutorial()) {
       //@fixme: remove old tutorial logic
       //$scope.initTutorialStatus();
-      if (hybridAppHelper.isPcApp()) {
+      if (HybridAppHelper.isPcApp()) {
         jndPubSub.pub('initTutorialStatus');
       }
     }
