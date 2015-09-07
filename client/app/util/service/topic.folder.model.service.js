@@ -16,7 +16,6 @@
       entityList: []
     };
     var FOLDER_NAME = 'New Folder';
-
     var _folderData = {};
     var _folderList = [];
 
@@ -223,15 +222,21 @@
 
     function push(folderId, entityId) {
       var teamId = memberService.getTeamId();
+      var isPop = (folderId === -1);
       _.forEach(_raw.entityList, function(entity) {
         if (entity.roomId === entityId) {
-          entity.folderId = folderId;
+          if (isPop) {
+           folderId = entity.folderId;
+           entity.folderId = -1;
+          } else {
+           entity.folderId = folderId;
+          }
           return false;
         }
       });
       update();
 
-      if (folderId === -1) {
+      if (isPop) {
         TopicFolderAPI.pop(teamId, folderId, entityId);
       } else {
         TopicFolderAPI.push(teamId, folderId, entityId).

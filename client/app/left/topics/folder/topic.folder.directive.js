@@ -1,3 +1,6 @@
+/**
+ * @fileoverview 토픽 폴더 directive
+ */
 (function() {
   'use strict';
 
@@ -8,16 +11,17 @@
   function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub) {
     return {
       restrict: 'E',
-      controller: 'TopicFolderCtrl',
       templateUrl: 'app/left/topics/folder/topic.folder.html',
       link: link,
       replace: true
     };
 
     function link(scope, el, attrs) {
+      var SLIDE_DURATION = 300;
       var _draggingTopicScope;
       var _teamId;
       var _more = $filter('translate')('@file-action-more');
+
       _init();
 
       /**
@@ -26,20 +30,23 @@
        */
       function _init() {
         _teamId = memberService.getTeamId();
-        scope.hasEmptyArea = scope.folder.id === -1 && !scope.folder.entityList.length;
-        scope.alarmCnt = _getTotalAlarmCnt();
-        scope.isOpened = TopicFolderStorage.getOpenStatus(scope.folder.id);
-
-        scope.startEdit = startEdit;
         scope.collapse = collapse;
         scope.showTooltip = showTooltip;
         scope.hideTooltip = hideTooltip;
+        
+        scope.hasEmptyArea = scope.folder.id === -1 && !scope.folder.entityList.length;
+        scope.alarmCnt = _getTotalAlarmCnt();
+        scope.isOpening = scope.isOpened = TopicFolderStorage.getOpenStatus(scope.folder.id);
+        scope.isShowBadge = !scope.isOpening;
 
         _attachEvents();
         _attachDomEvents();
-
       }
 
+      /**
+       * tooltip 더보기를 노출한다.
+       * @param {Event} mouseEvent
+       */
       function showTooltip(mouseEvent) {
         jndPubSub.pub('tooltip:show', {
           direction: 'top',
@@ -48,10 +55,19 @@
         });
       }
 
+      /**
+       * tooltip 더보기를 숨긴다.
+       * @param mouseEvent
+       */
       function hideTooltip(mouseEvent) {
         jndPubSub.pub('tooltip:hide');
       }
 
+      /**
+       * 해당 folder 의 전체 alarmCount 를 계산한다.
+       * @returns {number}
+       * @private
+       */
       function _getTotalAlarmCnt() {
         var count = 0;
         _.forEach(scope.folder.entityList, function(entity) {
@@ -71,6 +87,12 @@
         scope.$on('badgeCountChange', _onBadgeCountChange);
       }
 
+      /**
+       * badgeCountChange 변경시 이벤트 핸들러
+       * @param angularEvent
+       * @param data
+       * @private
+       */
       function _onBadgeCountChange(angularEvent, data) {
         _safeApply(function() {
           scope.alarmCnt = _getTotalAlarmCnt();
@@ -95,23 +117,38 @@
        */
       function _onRename(angularEvent, folderId) {
         if (folderId === scope.folder.id) {
-          startEdit();
+          _startEdit();
         }
       }
 
+      /**
+       * mouse-up 이벤트 핸들러
+       * @private
+       */
       function _onMouseUp() {
         if (_draggingTopicScope && _isFolderInsertable()) {
           TopicFolderModel.push(scope.folder.id, _draggingTopicScope.currentRoom.id);
         }
       }
 
+      /**
+       * mouse-over 이벤트 핸들러
+       * @private
+       */
       function _onMouseOver() {
         if (_draggingTopicScope && _isFolderInsertable()) {
           el.addClass('hover');
         }
-        _hideBadge();
+        _safeApply(function() {
+          scope.isShowBadge = false;
+        });
       }
 
+      /**
+       * 현재 scope 의 폴더에 토픽 추가 가능한지 여부를 반환한다.
+       * @returns {boolean|*}
+       * @private
+       */
       function _isFolderInsertable() {
         var currentRoom = _draggingTopicScope.currentRoom;
         var currentFolder = scope.folder;
@@ -119,26 +156,25 @@
             (scope.folder.id === -1  && currentRoom.extHasFolder);
       }
 
+      /**
+       * mouseout 이벤트 핸들러
+       * @private
+       */
       function _onMouseOut(){
         if (_draggingTopicScope) {
           el.removeClass('hover');
         }
-        _showBadge();
+        _safeApply(function() {
+          scope.isShowBadge = true;
+        });
       }
 
-      function _hideBadge() {
-        var jqBadge = el.find('badge[group="folder"]');
-        if (jqBadge.length) {
-          jqBadge.children().hide();
-        }
-      }
-      function _showBadge() {
-        var jqBadge = el.find('badge[group="folder"]');
-        if (jqBadge.length) {
-          jqBadge.children().show();
-        }
-      }
-
+      /**
+       * drag 상태 변경시 이벤트 핸들러
+       * @param {event} angularEvent
+       * @param {object} draggingScope
+       * @private
+       */
       function _onTopicDragStatusChange(angularEvent, draggingScope) {
         _draggingTopicScope = draggingScope;
         if (!_draggingTopicScope) {
@@ -146,7 +182,11 @@
         }
       }
 
-      function startEdit() {
+      /**
+       * 폴더 이름 변경을 시작한다.
+       * @private
+       */
+      function _startEdit() {
         el.find('._folderTitle').hide();
         el.find('input:first')
           .val(scope.folder.name)
@@ -157,6 +197,11 @@
           .select();
       }
 
+      /**
+       * 폴더 이름 변경 시작시 input keydown 이벤트 핸들러
+       * @param {Event} keyDownEvent
+       * @private
+       */
       function _onKeydownInput(keyDownEvent) {
         var keyCode = keyDownEvent.keyCode;
         if (jndKeyCode.match('ENTER', keyCode)) {
@@ -166,6 +211,11 @@
         }
       }
 
+      /**
+       * 폴더 이름 변경 완료
+       * @param {Event} domEvent
+       * @private
+       */
       function _endEdit(domEvent) {
         var jqTarget = $(domEvent.target);
         var text = _.trim(jqTarget.val());
@@ -178,18 +228,29 @@
           .off('keydown', _onKeydownInput);
       }
 
+      /**
+       * 폴더 이름 변경 취소
+       * @param {Event} domEvent
+       * @private
+       */
       function _cancelEdit(domEvent) {
         var jqTarget = $(domEvent.target);
         jqTarget.val(scope.folder.name);
         _endEdit(domEvent);
       }
 
+      /**
+       * 폴더의 collapse 를 toggle 한다.
+       */
       function collapse() {
-        var jqUl = el.find('ul');
         var hasEntity = !!scope.folder.entityList.length;
         var callback = function() {
           _safeApply(function() {
-            scope.isOpened = !scope.isOpened;
+            scope.isOpened = scope.isOpening;
+            scope.isShowBadge = !scope.isOpened;
+
+            scope.alarmCnt = _getTotalAlarmCnt();
+            TopicFolderStorage.setOpenStatus(scope.folder.id, scope.isOpened);
           });
         };
         var animationCallback = function() {
@@ -197,18 +258,29 @@
           jndPubSub.updateBadgePosition();
         };
 
-        TopicFolderStorage.setOpenStatus(scope.folder.id, !scope.isOpened);
+        _safeApply(function() {
+          if (scope.isOpening) {
+            scope.isShowBadge = false;
+          }
+          scope.isOpening = !scope.isOpening;
+        });
+
         if (hasEntity) {
-          if (scope.isOpened) {
-            el.find('ul').slideUp(animationCallback);
+          if (!scope.isOpening) {
+            el.find('ul').stop().slideUp(SLIDE_DURATION, animationCallback);
           } else {
-            el.find('ul').slideDown(animationCallback);
+            el.find('ul').stop().slideDown(SLIDE_DURATION, animationCallback);
           }
         } else {
           callback();
         }
       }
 
+      /**
+       * 안전하게 apply callback 을 수행한다.
+       * @param {function} fn
+       * @private
+       */
       function _safeApply(fn) {
         if (scope.$$phase !== '$apply' && scope.$$phase !== '$digest') {
           scope.$apply(fn);

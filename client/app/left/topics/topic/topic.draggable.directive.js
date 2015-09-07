@@ -48,10 +48,6 @@
       }
 
       function _onDragStatusChange(angularEvent, draggingScope) {
-        if (_draggingScope === scope) {
-
-        }
-
         _draggingScope = draggingScope;
         if (!_draggingScope) {
           jndPubSub.pub('topic-update-lock', false);
@@ -128,7 +124,6 @@
       }
 
       function _showDraggable(mouseEvent) {
-        console.log('_showDraggable', _jqDraggable);
         var currentRoom = scope.currentRoom;
         var isNotificationOff = scope.isNotificationOff;
         if (!_jqDraggable || !_jqDraggable.length) {
@@ -162,7 +157,7 @@
       }
 
       function _hideDraggable() {
-        _jqDraggable.remove();
+        _jqDraggable && _jqDraggable.remove();
         _jqDraggable = null;
       }
 
@@ -205,10 +200,6 @@
       function _onWindowMouseMove(mouseEvent) {
         if (_draggingScope) {
           _setDraggablePosition(mouseEvent);
-          var targetScope = angular.element(mouseEvent.target).scope();
-          if (targetScope.currentRoom) {
-            //console.log(targetScope.currentRoom);
-          }
         } else {
           if (_getDistance(mouseEvent) > 5) {
             _startDrag(mouseEvent);

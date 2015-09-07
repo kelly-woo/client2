@@ -3,7 +3,12 @@
   <div class="topic-folder-border _border">
     <!--upper line-->
   </div>
+  <!--folder 에 포함되지 않은 영역일 때, 순서 변경 시 border 로 사용될 영역-->
+  <div ng-if="::folder.id === -1" class="topic-folder-border" topic-folder-draggable="folder">
+  </div>
+
   <div ng-if="hasEmptyArea" style="height: 30px;">
+
   </div>
   <div ng-if="!hasEmptyArea"
        ng-class="{'topic-folder-area': folder.id !== -1}">
@@ -14,8 +19,8 @@
       <span class="topic-folder-area-icon">
         <i class="fa "
            ng-class="{
-                'fa-folder-open-o': isOpened,
-                'fa-folder-o': !isOpened
+                'fa-folder-open-o': isOpening,
+                'fa-folder-o': !isOpening
               }"></i>
       </span>
       <span class="topic-folder-title-text">
@@ -25,7 +30,7 @@
                placeholder="{{ ::'@topic-folder-rename' | translate }}"/>
       </span>
       <span class="topic-folder-title-count">({{folder.entityList.length}})</span>
-      <span ng-if="!isOpened && alarmCnt" class="topic-folder-badge">
+      <span ng-if="!isOpening && isShowBadge && alarmCnt" class="topic-folder-badge">
         <badge group="folder" key="{{folder.id}}" content="{{alarmCnt}}"></badge>
       </span>
       <span class="topic-folder-more"
@@ -38,12 +43,7 @@
       </span>
     </div>
 
-    <!--folder 에 포함되지 않은 영역일 때, 순서 변경 시 border 로 사용될 영역-->
-    <div ng-if="::folder.id === -1" class="topic-folder-border" topic-folder-draggable="folder">
-    </div>
-
     <!-- 토픽 리스트 -->
-
     <ul ng-if="folder.entityList.length"
         ng-style="{
       'display': isOpened ? 'block' : 'none'

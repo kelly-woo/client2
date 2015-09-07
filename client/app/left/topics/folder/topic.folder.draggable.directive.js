@@ -25,12 +25,10 @@
       var _draggingScope;
       var _pageX;
       var _pageY;
-      var _template;
       var _width;
       var _height;
       var _jqDraggable;
       var _cursor;
-      var _teamId;
       _init();
 
       /**
@@ -126,7 +124,7 @@
       }
 
       function _showDraggable(mouseEvent) {
-        _jqDraggable = $('<div class="lpanel-list topic-folder-draggable"></div>')
+        _jqDraggable = $('<div class="lpanel-list topic-folder has-folder topic-folder-draggable"></div>')
           .append(el.parent().html());
 
         $('body').append(_jqDraggable);
