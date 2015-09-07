@@ -37,7 +37,7 @@
       if (data.type === 'mentions') {
         isActivated = true;
 
-        if (!data.toUrl || !data.fromUrl || (data.toUrl !== data.fromUrl)) {
+        if (data.toUrl !== data.fromUrl) {
           _initMentionListData();
           _initGetMentionList();
         }

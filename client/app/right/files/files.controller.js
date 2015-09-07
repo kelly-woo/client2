@@ -206,7 +206,7 @@
         $scope.fileRequest.keyword = '';
 
         // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니라면 file list 갱신함
-        if (!data.toUrl || !data.fromUrl || (data.toUrl !== data.fromUrl) && !/item/g.test(data.fromUrl)) {
+        if ((data.toUrl !== data.fromUrl) && data.fromTitle !== 'FILE DETAIL') {
           _refreshFileList();
         }
       } else {
