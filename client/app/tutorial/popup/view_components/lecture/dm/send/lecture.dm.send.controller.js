@@ -107,8 +107,8 @@
       _purseDataList = [
         {
           isShown: true,
-          top: 446,
-          left: 195
+          top: 456,
+          left: 198
         },
         {
           isShown: true,
