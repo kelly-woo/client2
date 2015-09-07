@@ -15,16 +15,19 @@
 
     function addNotification(socketEvent) {
       var notification;
+      var options;
 
-      var options = {
-        tag: 'tag',
-        body: _getBody(socketEvent),
-        icon: $filter('getSmallThumbnail')(entityAPIservice.getEntityById('users', socketEvent.writer)),
-        callback: _onNotificationClicked,
-        data: socketEvent
-      };
+      if (DesktopNotification.canSendNotification()) {
+        options = {
+          tag: 'tag',
+          body: _getBody(socketEvent),
+          icon: $filter('getSmallThumbnail')(entityAPIservice.getEntityById('users', socketEvent.writer)),
+          callback: _onNotificationClicked,
+          data: socketEvent
+        };
 
-      (notification = _createInstance(options)) && notification.show();
+        (notification = _createInstance(options)) && notification.show();
+      }
     }
 
     function _getBody(socketEvent) {
