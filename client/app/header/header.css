@@ -239,7 +239,8 @@
 .flag.flag-zh-tw {
   background-position: -64px -154px;
 }
-.header-info-tool.absolute-right-tooltip .tooltip-arrow {
-  right: 12px;
-  left: auto;
+
+.header-toolbar .tooltip-inner {
+  white-space: pre;
+  max-width: none;
 }

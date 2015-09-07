@@ -25,6 +25,11 @@
   transitionDISABLED: .15s;
 }
 
+.panel-title-container .tooltip-inner {
+  white-space: pre;
+  max-width: none;
+}
+
 .panel-title-info {
   max-width: 73%;
 }
@@ -172,7 +177,7 @@
 }
 .absolute-right-tooltip {
   left: auto !important;
-  right: 10px;
+  right: 2px;
 }
 .panel-title-invite-tooltip.absolute-right-tooltip .tooltip-arrow {
   left: auto !important;

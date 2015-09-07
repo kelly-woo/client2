@@ -1,9 +1,8 @@
 <div>
   <div class="tutorial_dimm"
       ng-class="{
-        'dm_add': step === 0,
         'member_select': step === 1,
-        'full': step === 2,
+        'full': step === 0 || step === 2,
         'center': step === 3 || step === 7,
         'center_msg': step === 4,
         'center_msg_sticker': step === 5 || step === 6
