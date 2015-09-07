@@ -299,7 +299,7 @@ module.exports = function (grunt) {
           ],
           css: [
             [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the CSS to reference our revved images'],
-            [/(assets\/fonts\/.*?\.(?:eot|woff|svg))/gm, 'Update the JS to reference our revved fonts']
+            [/(assets\/fonts\/.*?\.(?:eot|woff|ttf|svg))/gm, 'Update the JS to reference our revved fonts']
           ]
         }
       }
