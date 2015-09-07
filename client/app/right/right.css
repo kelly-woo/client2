@@ -7,6 +7,12 @@
   z-index: 30;
 }
 
+/* one lien tooltip */
+.rpanel .tooltip-inner {
+  white-space: pre;
+  max-width: none;
+}
+
 .rpanel.shadow {
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
