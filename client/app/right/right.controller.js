@@ -47,8 +47,6 @@
 
       $scope.isLoading = false;
       if (activeTabName = Router.getActiveRightTabName($state.current)) {
-        //jndPubSub.pub('onRightPanel', activeTabName);
-
         $scope.tabs[activeTabName].active = true;
         $scope.activeTabName = $scope.tabs[activeTabName].name;
       }
@@ -77,11 +75,15 @@
       var tab;
 
       if (tab = $scope.tabs[data.type]) {
-        tab.active = true;
-        $scope.activeTabName = tab.name;
+        if (data.toUrl !== data.fromUrl) {
+          tab.active = true;
+          $scope.activeTabName = tab.name;
 
-        // reset input element
-        //jndPubSub.pub('resetRPanelSearchStatusKeyword');
+          if (data.fromTitle !== 'FILE DETAIL') {
+            // reset input element
+            jndPubSub.pub('resetRPanelSearchStatusKeyword');
+          }
+        }
       }
     });
 
