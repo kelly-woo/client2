@@ -8,7 +8,8 @@
 
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService, $rootScope,
-                              jndPubSub, fileToShare, modalHelper, AnalyticsHelper, currentSessionHelper) {
+                              jndPubSub, fileToShare, modalHelper, AnalyticsHelper, currentSessionHelper,
+                              TopicFolderModel) {
     var _entityId;
     var _entityType;
     var _targetId;
@@ -41,7 +42,7 @@
     function _initSelectOptions() {
       var selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
       selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
-      $scope.selectOptions = selectOptions;
+      $scope.selectOptions = TopicFolderModel.getNgOptions(selectOptions);
     }
 
     /**
