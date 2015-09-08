@@ -16,7 +16,8 @@
 }
 
 .topic-merge {
-  border: 1px solid #00abe6 !important;
+  border: 1px solid #C4DAEF !important;
+  background-color:#ECF3F7;
   cursor: copy;
 }
 
