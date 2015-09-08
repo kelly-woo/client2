@@ -161,7 +161,9 @@
             jndPubSub.pub('onRightPanel', {
               type: getActiveRightTabName(toState),
               toUrl: toState.url,
-              fromUrl: fromState.url
+              toTitle: toState.title,
+              fromUrl: fromState.url,
+              fromTitle: fromState.title
             });
             break;
           case '404':
