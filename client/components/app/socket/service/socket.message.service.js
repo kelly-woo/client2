@@ -196,6 +196,8 @@
      * @private
      */
     function _onDm(data) {
+      data.room.extWriterId = data.writer;
+
       if (jndWebSocketCommon.isCurrentEntity(data.room)) {
         jndPubSub.updateCenterPanel();
       }
