@@ -144,7 +144,7 @@
 
   border-bottom: 1px solid rgba(0,0,0,0);
   padding-top:4px;
-  padding-bottom:10px;
+  padding-bottom:2px;
 }
 
 /*  first element of list
@@ -157,11 +157,11 @@ last element of list
   padding-bottom: 10px;
   height: 47px;
 }
- */
+
 .lpanel-list__users ul li:last-child {
   height: 47px;
 }
-
+ */
 /*  every element in list */
 .lpanel-list ul li {
   font-size: 14px;
@@ -169,7 +169,10 @@ last element of list
   height: 30px;
   position:relative;
 }
-
+.lpanel-list  ul li:hover
+ {
+	background: #F1F1F1;
+}
 /*  text in element */
 .lpanel-list ul li a {
   border: 1px solid transparent;
