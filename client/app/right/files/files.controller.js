@@ -10,7 +10,7 @@
 
   function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, Router, entityheaderAPIservice,
                              fileAPIservice, analyticsService, publicService, entityAPIservice,
-                             currentSessionHelper, logger, AnalyticsHelper, EntityMapManager) {
+                             currentSessionHelper, logger, AnalyticsHelper, EntityMapManager, TopicFolderModel) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -154,6 +154,8 @@
       _generateShareOptions();
 
     });
+
+    $scope.$on('topic-folder:update', _generateShareOptions);
 
     /**
      * socket 단위의 delete file event handler
@@ -332,7 +334,7 @@
       // If current member is disabled member, add current member to options just for now.
       // Set the flag to true.
       if (isDisabledMember(currentMember)) {
-        $scope.selectOptions = $scope.selectOptions.concat(currentMember);
+        $scope.selectOptions = TopicFolderModel.getNgOptions($scope.selectOptions.concat(currentMember));
         disabledMemberAddedOnSharedIn = true;
       }
     }
@@ -343,7 +345,7 @@
      */
     function _generateShareOptions() {
       //console.log('generating shared options')
-      $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
+      $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList));
     }
 
     /**

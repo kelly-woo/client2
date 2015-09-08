@@ -1,5 +1,5 @@
 /**
- * @fileoverview unread badge 의 위치 정보를 담고 있는 service
+ * @fileoverview 토픽 폴더 모델. data model 과 api 의 다리 역할을 한다.
  * @author Young Park <young.park@tosslab.com>
  */
 
@@ -13,14 +13,15 @@
   function TopicFolderModel($q, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI, TopicFolderStorage) {
     var _raw = {
       folderList: [],
-      entityList: []
+      folderMap: {},
+      entityList: [],
+      entityMap: {}
     };
     var FOLDER_NAME = 'New Folder';
     var _folderData = {};
     var _folderList = [];
 
     this.create = create;
-    this.set = set;
     this.push = push;
     this.remove = remove;
     this.modify = modify;
@@ -29,8 +30,14 @@
     this.load = load;
     this.reload = reload;
     this.getFolderData = getFolderData;
-
-
+    this.getEntityMap = getEntityMap;
+    this.getFolderMap = getFolderMap;
+    this.getNgOptions = getNgOptions;
+    /**
+     * 익명 폴더 이름을 생성한다.
+     * @returns {string}
+     * @private
+     */
     function _getAnonymousFolderName() {
       var nameList = [];
       var suffix = 0;
@@ -48,28 +55,50 @@
       return folderName;
     }
 
+
+    /**
+     * 폴더를 생성한다.
+     * @param {boolean} isRename - 생성하며 rename 모드로 진입할지 여부
+     */
     function create(isRename) {
       var folderName = _getAnonymousFolderName();
       TopicFolderAPI.create(memberService.getTeamId(), folderName)
-        .success(_.bind(_onCreateSuccess, this, isRename))
+        .success(_.bind(_onCreateSuccess, null, isRename))
         .error(_onCreateFailed);
     }
 
+    /**
+     * 두 폴더를 합치며 생성한다.
+     * @param {Array} entities - 합칠 entity id 리스트
+     * @param {Boolean} isRename - 생성하며 rename 모드로 진입할지 여부
+     * @returns {*}
+     */
     function merge(entities, isRename) {
       var teamId = memberService.getTeamId();
       var folderName = _getAnonymousFolderName();
       return TopicFolderAPI.merge(teamId, folderName, entities)
-        .success(_.bind(_onCreateSuccess, this, isRename))
+        .success(_.bind(_onCreateSuccess, null, isRename))
         .error(_onCreateFailed);
     }
 
+    /**
+     * 생성 API 실패시 핸들러
+     * TODO: 로직 완성 해야함
+     * @param {object} data - response 데이터
+     * @private
+     */
     function _onCreateFailed(data) {
       //todo: error logic
-      console.log(data);
       alert('error');
-
       reload();
     }
+
+    /**
+     * 생성 API 성공 핸들러
+     * @param {boolean} isRename - rename 할지 여부
+     * @param {object} response - 응답값
+     * @private
+     */
     function _onCreateSuccess(isRename, response) {
       reload().then(function() {
         if (isRename) {
@@ -79,6 +108,7 @@
         }
       });
     }
+
     /**
      * 폴더를 삭제한다.
      * @param {number} folderId
@@ -87,6 +117,7 @@
       _remove(folderId);
       TopicFolderAPI.remove(memberService.getTeamId(), folderId)
         .error(function() {
+          //todo: 삭제 실패
           reload();
         });
     }
@@ -112,6 +143,11 @@
       update();
     }
 
+    /**
+     * updateItems 정보에 따라 폴더의 정보를 수정한다.
+     * @param {number} folderId - 수정할 폴더 ID
+     * @param {object} updateItems - 수정할 정보들
+     */
     function modify(folderId, updateItems) {
       var seq = updateItems.seq;
       var name = updateItems.name;
@@ -143,13 +179,13 @@
         .error(reload);
 
     }
+
     /**
-     *
+     * folderId 에 해당하는 entityList 를 반환한다.
      * @param {number} folderId
-     * @param {string} [mapType] - total|joined|private|member|memberEntityId
      * @returns {Array}
      */
-    function getEntityList(folderId) {
+    function _getEntityList(folderId) {
       var entityList = [];
       var tempEntity;
       _.forEach(_raw.entityList, function(entity) {
@@ -165,6 +201,21 @@
       return entityList;
     }
 
+    function getNgOptions(entities) {
+      _.forEach(entities, function(entity)  {
+        var folderId = entity.extFolderId;
+        var folder = _raw.folderMap[folderId];
+        if (folder) {
+          entity.extGroupName = '[' + folder.name + ']';
+          entity.extSeq = folder.seq;
+        } else {
+          entity.extGroupName = entity.typeCategory;
+          entity.extSeq = _raw.folderList.length + 1;
+        }
+      });
+      entities = _.sortBy(entities, 'extSeq');
+      return entities;
+    }
     /**
      *
      * @returns {Array|{criteria, index, value}}
@@ -181,13 +232,22 @@
       return $q.all([
         TopicFolderAPI.getFolders().then(function(result) {
           _raw.folderList = result.data;
+          _raw.folderMap = _.indexBy(_raw.folderList, 'id');
         }),
         TopicFolderAPI.getEntities().then(function(result) {
           _raw.entityList = result.data;
+          _raw.entityMap = _.indexBy(_raw.entityList, 'id');
         })
       ]);
     }
 
+    function getFolderMap() {
+      return _raw.folderMap;
+    }
+    function getEntityMap() {
+      return _raw.entityMap;
+    }
+    
     function reload() {
       return load().then(function() {
         update();
@@ -203,7 +263,7 @@
         return folder;
       });
       _.forEach(_folderList, function(folder) {
-        folder.entityList = getEntityList(folder.id);
+        folder.entityList = _getEntityList(folder.id);
       });
 
       _folderData.folderList = _folderList;
@@ -211,7 +271,7 @@
         name: '',
         id: -1,
         seq: _folderData.folderList.length + 1,
-        entityList: getEntityList(-1)
+        entityList: _getEntityList(-1)
       });
       jndPubSub.pub('topic-folder:update', _folderData);
       //update digest 가 끝난 이후 badge position 을 업데이트 해야하기 때문에 timeout 을 준다.
@@ -270,15 +330,6 @@
         }
       });
       return result;
-    }
-    /**
-     *
-     * @param obj
-     */
-    function set(obj) {
-      _raw.folderList = _.sortBy(obj.folderList, 'seq');
-      _raw.entityList = obj.entityList;
-      update();
     }
   }
 })();
