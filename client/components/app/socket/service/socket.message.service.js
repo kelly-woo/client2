@@ -213,7 +213,7 @@
       if (jndWebSocketCommon.isCurrentEntity(data.room)) {
         jndPubSub.updateCenterPanel();
       } else {
-        jndPubSub.updateLeftPanel();
+        jndPubSub.updateLeftBadgeCount();
       }
 
       if (_hasMention(data)) {

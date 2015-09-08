@@ -11,7 +11,7 @@
   /**
    *
    */
-  function topicFolderDraggable(jndPubSub, memberService, TopicFolderModel) {
+  function topicFolderDraggable(jndPubSub, TopicUpdateLock, TopicFolderModel) {
     return {
       restrict: 'A',
       replace: true,
@@ -47,11 +47,9 @@
       function _onDragStatusChange(angularEvent, draggingScope) {
         _draggingScope = draggingScope;
         if (!_draggingScope) {
-          jndPubSub.pub('topic-update-lock', false);
           el.removeClass('topic-folder-dropzone-active');
           _hideBorder();
         } else {
-          jndPubSub.pub('topic-update-lock', true);
           el.addClass('topic-folder-dropzone-active');
         }
       }
@@ -106,6 +104,7 @@
 
       function _startDrag(mouseEvent) {
         _draggingScope = scope;
+        TopicUpdateLock.lock();
         jndPubSub.pub('topic-folder:drag', scope);
         _cursor = $('#lpanel-list-container').css('cursor');
         $('#lpanel-list-container').css('cursor', 'pointer');
@@ -120,6 +119,7 @@
           $('#lpanel-list-container').css('cursor', _cursor);
           _hideDraggable();
           el.parent().removeClass('topic-dragging');
+          TopicUpdateLock.unlock();
         }
       }
 

@@ -8,7 +8,8 @@
     .module('jandiApp')
     .directive('topicFolder', topicFolder);
 
-  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub) {
+  function topicFolder($filter, memberService, jndKeyCode, TopicFolderModel, TopicFolderStorage, jndPubSub,
+                       TopicUpdateLock) {
     return {
       restrict: 'E',
       templateUrl: 'app/left/topics/folder/topic.folder.html',
@@ -21,7 +22,7 @@
       var _draggingTopicScope;
       var _teamId;
       var _more = $filter('translate')('@file-action-more');
-
+      var _hasToUpdate = false;
       _init();
 
       /**
@@ -85,8 +86,14 @@
         scope.$on('topic:drag', _onTopicDragStatusChange);
         scope.$on('topic-folder:rename', _onRename);
         scope.$on('badgeCountChange', _onBadgeCountChange);
+        scope.$on('topic-update-lock', _onLock);
       }
 
+      function _onLock(isLocked) {
+        if (!isLocked && _hasToUpdate) {
+          _onBadgeCountChange();
+        }
+      }
       /**
        * badgeCountChange 변경시 이벤트 핸들러
        * @param angularEvent
@@ -94,9 +101,14 @@
        * @private
        */
       function _onBadgeCountChange(angularEvent, data) {
-        _safeApply(function() {
-          scope.alarmCnt = _getTotalAlarmCnt();
-        });
+        if (!TopicUpdateLock.isLocked()) {
+          _hasToUpdate = false;
+          _safeApply(function() {
+            scope.alarmCnt = _getTotalAlarmCnt();
+          });
+        } else {
+          _hasToUpdate = true;
+        }
       }
 
       /**
@@ -255,6 +267,7 @@
         };
         var animationCallback = function() {
           callback();
+          el.find('ul').css('height', '');
           jndPubSub.updateBadgePosition();
         };
 

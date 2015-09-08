@@ -11,7 +11,7 @@
   /**
    *
    */
-  function topicDraggable(jndPubSub, memberService, TopicFolderModel) {
+  function topicDraggable(jndPubSub, memberService, TopicFolderModel, TopicUpdateLock) {
 
 
     return {
@@ -50,10 +50,7 @@
       function _onDragStatusChange(angularEvent, draggingScope) {
         _draggingScope = draggingScope;
         if (!_draggingScope) {
-          jndPubSub.pub('topic-update-lock', false);
           el.removeClass('topic-merge');
-        } else {
-          jndPubSub.pub('topic-update-lock', true);
         }
       }
 
@@ -108,6 +105,7 @@
 
       function _startDrag(mouseEvent) {
         _draggingScope = scope;
+        TopicUpdateLock.lock();
         jndPubSub.pub('topic:drag', scope);
         _cursor = $('#lpanel-list-container').css('cursor');
         $('#lpanel-list-container').css('cursor', 'pointer');
@@ -121,6 +119,7 @@
         $('#lpanel-list-container').css('cursor', _cursor);
         _hideDraggable();
         el.removeClass('topic-dragging');
+        TopicUpdateLock.unlock();
       }
 
       function _showDraggable(mouseEvent) {

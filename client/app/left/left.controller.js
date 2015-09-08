@@ -7,7 +7,7 @@ app.controller('leftPanelController1', function(
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
   jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, pcAppHelper, TopicMessageCache, $q,
-  NotificationManager, topicFolder, TopicFolderModel) {
+  NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock) {
 
   /**
    * @namespace
@@ -23,12 +23,15 @@ app.controller('leftPanelController1', function(
 
   //collapse 이후 갱신 요청할 timer
   var collapseTimer;
-
+  var _updateLock = false;
   var _getLeftListDeferredObject;
 
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
   var _isBadgeMoveLocked = false;
+
+  var _isLock = false;
+  var _hasToUpdate = false;
 
   $scope.entityId = $state.params.entityId;
 
@@ -365,6 +368,8 @@ app.controller('leftPanelController1', function(
     $scope.onTutorialPulseClick($event);
   });
 
+  $scope.$on('topic-update-lock', _onUpdateLock);
+  $scope.$on('updateLeftBadgeCount', onUpdateLeftBadgeCount);
   /**
    * Tutorial 상태를 초기화 한다.
    */
@@ -610,6 +615,24 @@ app.controller('leftPanelController1', function(
   }
 
   /**
+   * left badge count 를 업데이트 한다.
+   * fixme: 중복 코드 전부 리펙토링 필요함.
+   */
+  function onUpdateLeftBadgeCount() {
+    if (!_.isUndefined(_getLeftListDeferredObject)) {
+      _getLeftListDeferredObject.resolve();
+    }
+    _getLeftListDeferredObject = $q.defer();
+    leftpanelAPIservice.getLists(_getLeftListDeferredObject)
+      .success(function(response) {
+        //  When there is unread messages on left Panel.
+        if (response.alarmInfoCount != 0) {
+          leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
+        }
+      });
+  }
+
+  /**
    * left panel 에 담겨 있는 모든 정보를 불러온다.
    */
   function getLeftLists() {
@@ -621,9 +644,11 @@ app.controller('leftPanelController1', function(
     TopicFolderModel.load().then(function() {
       leftpanelAPIservice.getLists(_getLeftListDeferredObject)
         .success(function (data) {
-          response = data;
-          //console.log('-- getLeft good')
-          initLeftList();
+          if (!TopicUpdateLock.isLocked()) {
+            response = data;
+            //console.log('-- getLeft good')
+            initLeftList();
+          }
         })
         .error(function (err) {
           console.log(err);
@@ -638,10 +663,22 @@ app.controller('leftPanelController1', function(
   };
 
   // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
-  $scope.updateLeftPanelCaller = function() {
-    getLeftLists();
-  };
+  $scope.updateLeftPanelCaller = updateLeftPanelCaller;
 
+  function updateLeftPanelCaller() {
+    if (!TopicUpdateLock.isLocked()) {
+      getLeftLists();
+      _hasToUpdate = false;
+    } else {
+      _hasToUpdate = true;
+    }
+  }
+
+  function _onUpdateLock(angularEvent, isLock) {
+    if (!isLock && _hasToUpdate) {
+      updateLeftPanelCaller();
+    }
+  }
   // right, detail panel don't have direct access to scope function in left controller.
   // so they emit event through rootscope.
   /**
