@@ -8,10 +8,10 @@
   
   angular
     .module('jandi.hybridApp')
-    .service('PcAppHelper', pcAppHelper);
+    .service('PcAppHelper', PcAppHelper);
   
   /* @ngInject */
-  function pcAppHelper() {
+  function PcAppHelper() {
     var that = this;
 
     that.onSignedOut = onSignedOut;

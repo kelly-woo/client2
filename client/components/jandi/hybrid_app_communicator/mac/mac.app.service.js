@@ -6,10 +6,10 @@
   
   angular
     .module('jandi.hybridApp')
-    .service('MacAppHelper', macAppHelper);
+    .service('MacAppHelper', MacAppHelper);
   
   /* @ngInject */
-  function macAppHelper() {
+  function MacAppHelper() {
     var that = this;
 
     that.trigger = trigger;

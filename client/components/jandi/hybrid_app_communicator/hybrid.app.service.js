@@ -7,10 +7,10 @@
   
   angular
     .module('jandi.hybridApp')
-    .service('HybridAppHelper', hybridAppHelper);
+    .service('HybridAppHelper', HybridAppHelper);
   
   /* @ngInject */
-  function hybridAppHelper(PcAppHelper, MacAppHelper) {
+  function HybridAppHelper(PcAppHelper, MacAppHelper) {
     var delegator = this;
     var _appHelper;
 
