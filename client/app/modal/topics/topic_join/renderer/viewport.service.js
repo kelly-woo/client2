@@ -12,9 +12,12 @@
   function Viewport() {
     var Viewport = {
       init: init,
-      getPosition: getPosition,
       updateList: updateList,
-      render: render
+      render: render,
+      remove: remove,
+
+      getList: getList,
+      getPosition: getPosition
     };
 
     return {
@@ -34,15 +37,15 @@
 
       that.options = {
         viewportHeight: 0,
-        list: [],
         itemHeight: 25,
+        list: [],
         listHeight: 0,
         bufferLength: 10
       };
 
       _.extend(that.options, options);
 
-      updateList.call(that, options.list);
+      //updateList.call(that, options.list);
       that.options.viewportMaxHeight == null && (that.options.viewportMaxHeight = that.options.viewportHeight);
 
       return that;
@@ -111,7 +114,9 @@
       options.viewportHeight = options.listHeight > options.viewportMaxHeight ? options.viewportMaxHeight : options.listHeight;
       that.jqViewport.css('height', options.viewportHeight);
 
+      that.remove();
       that.renderedMap = {};
+      that.prevRenderList = [];
 
       return that;
     }
@@ -125,8 +130,8 @@
         index = position.beginIndex + index;
 
         if (map[index] == null) {
-          console.log(index * that.options.itemHeight);
-          map[index] = $(element).appendTo(that.jqList).css({position: 'absolute', top: index * that.options.itemHeight});
+          map[index] = $(element).appendTo(that.jqList).css({top: index * that.options.itemHeight});
+          that.options.onCreateItem && that.options.onCreateItem(map[index], that.options.list[index]);
         }
 
         renderList.push(index);
@@ -134,13 +139,32 @@
 
       _.each(that.prevRenderList, function(value) {
         if (position.beginIndex > value || position.endIndex < value) {
-          map[value].remove();
-          delete map[value];
+          that.remove(value);
         }
       });
 
       that.prevRenderList = renderList;
     }
 
+    function remove(index) {
+      var that = this;
+      var map = that.renderedMap;
+
+      if (_.isNumber(index)) {
+        map[index].remove();
+        delete map[index];
+      } else {
+        for (index in map) {
+          if (map.hasOwnProperty(index)) {
+            map[index].remove();
+            delete map[index];
+          }
+        }
+      }
+    }
+
+    function getList() {
+      return this.options.list;
+    }
   }
 })();

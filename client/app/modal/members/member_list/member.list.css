@@ -5,7 +5,10 @@
   min-height: 77px;
 }
 
-.modal-body .no-result-container,
+.modal-body .member-list .no-result-container {
+  padding: 9px 9px 0 9px;
+}
+
 .modal-body .member-item {
   padding: 9px 9px 0 9px;
   background-color: white;

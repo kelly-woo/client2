@@ -816,6 +816,7 @@
 */
 .modal-body .list-tabs .tab-pane {
   margin-top: 0;
+  min-height: 44px;
   max-height: 662px;
   overflow-y: auto;
 }
@@ -858,4 +859,11 @@
 .modal_team_member_list,
 .modal_topic_list {
   margin-top: 20px;
+}
+
+.modal-body .no-result-container {
+  background-color: white;
+  width: 100%;
+  height: 44px;
+  border-bottom: 1px solid #f2f2f2;
 }

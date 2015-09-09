@@ -1,16 +1,16 @@
 /**
- * @fileoverview joinable topic renderer 서비스
+ * @fileoverview topic join item renderer 서비스
  */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .service('JoinableTopicRenderer', JoinableTopicRenderer);
+    .service('TopicItemRenderer', TopicItemRenderer);
 
   /* @ngInject */
-  function JoinableTopicRenderer($filter) {
-    var _template = '';
+  function TopicItemRenderer($filter) {
+    var _template;
 
     this.render = render;
 
@@ -21,12 +21,12 @@
      * @private
      */
     function _init() {
-      _template = Handlebars.templates['topic.joinable'];
+      _template = Handlebars.templates['topic.item'];
     }
 
     /**
-     * index 에 해당하는 메세지를 랜더링한다.
-     * @param {number} index
+     * topic item을 랜더링한다.
+     * @param {object} data
      * @returns {*}
      */
     function render(data) {
@@ -36,8 +36,7 @@
         topicDescription: data.description,
         creatorName: $filter('getName')(data.ch_creatorId),
         memberCount: data.ch_members.length,
-        commonJoinedMessage: $filter('translate')('@common-joined'),
-        btnJoinMessage: $filter('translate')('@btn-join')
+        commonJoinedMessage: $filter('translate')('@common-joined')
       });
     }
   }

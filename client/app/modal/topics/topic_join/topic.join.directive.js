@@ -9,19 +9,12 @@
     .module('jandiApp')
     .directive('topicList', topicList);
 
-  function topicList(Viewport, TopicListRenderer) {
+  function topicList($state, Viewport, TopicListRenderer, entityheaderAPIservice, analyticsService, jndPubSub) {
     return {
       restrict: 'E',
       replace: true,
       link: link
     };
-
-    //list: [],
-    //  jqViewport: viewport,
-    //  viewportHeight: 0,
-    //  itemHeight: 25,
-    //  listHeight: 0,
-    //  bufferLength: 10
 
     function link(scope, el, attrs) {
       var model = attrs.model;
@@ -34,12 +27,14 @@
       var viewport = Viewport.create(jqViewport, jqList, {
         viewport: '.list',
         viewportMaxHeight: 662,
-        list: list,
-        itemHeight: 73,
-        bufferLength: 10
+        itemHeight: 139,
+        bufferLength: 5,
+        onCreateItem: function(jqElement, data) {
+          jqElement.data('entity', data);
+        }
       });
 
-      var matches = list;
+      var matches;
 
       function getMatches(value) {
         return _.chain(list).filter(function (item) {
@@ -47,20 +42,63 @@
         }).sortBy('name').value();
       }
 
-      TopicListRenderer.render(type, list, viewport);
+      function updateList(value) {
+        matches = getMatches(value);
+        scope[type + 'Length'] = matches.length;
 
-      jqFilter.on('blur', function() {
-        matches = getMatches(scope.$eval(model));
         TopicListRenderer.render(type, matches, viewport);
+      }
+
+      function onClick(event) {
+        var entity = $(event.currentTarget).data('entity');
+        var entityId;
+
+        if (entity) {
+          entityId = entity.id;
+          if (type === 'joinable') {
+            if (!scope.isLoading) {
+              jndPubSub.showLoading();
+
+              entityheaderAPIservice.joinChannel(entityId)
+                .success(function() {
+                  topicJoin(entityId);
+                })
+                .finally(function() {
+                  jndPubSub.hideLoading();
+                });
+            }
+          } else if (type === 'joined') {
+            topicJoin(entityId);
+          }
+        }
+      }
+
+      function topicJoin(entityId) {
+        // analytics
+        analyticsService.mixpanelTrack( "topic Join" );
+
+        //jndPubSub.updateLeftPanel();
+
+        // TODO: REFACTOR -> ROUTE SERVICE
+        $state.go('archives', {entityType: 'channels', entityId: entityId});
+
+        scope.cancel();
+      }
+
+      function onScroll() {
+        TopicListRenderer.render(type, matches, viewport);
+      }
+
+      updateList('');
+
+      jqFilter.on('keyup', function() {
+        updateList(scope.$eval(model));
       });
 
       jqViewport
-        .on('scroll', function() {
-          TopicListRenderer.render(type, matches, viewport);
-        })
-        .on('mousewheel', function() {
-          TopicListRenderer.render(type, matches, viewport);
-        });
+        .on('scroll', onScroll)
+        .on('mousewheel', onScroll)
+        .on('click', '.join-modal-channel_container', onClick);
     }
   }
 })();

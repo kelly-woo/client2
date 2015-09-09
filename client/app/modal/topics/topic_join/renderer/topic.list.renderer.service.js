@@ -9,8 +9,8 @@
     .service('TopicListRenderer', TopicListRenderer);
 
   /* @ngInject */
-  function TopicListRenderer(JoinableTopicRenderer, JoinedTopicRenderer) {
-    var _template = '';
+  function TopicListRenderer(TopicItemRenderer) {
+    var _template;
 
     this.render = render;
 
@@ -25,19 +25,20 @@
     }
 
     /**
-     * index 에 해당하는 메세지를 랜더링한다.
-     * @param {number} index
-     * @returns {*}
+     * topic list를 랜더링한다.
+     * @param {string} type - rendering type
+     * @param {array} list - topic list
+     * @param {object} viewport
      */
     function render(type, list, viewport) {
       var elements = [];
-      var itemRenderer = type === 'joinable' ? JoinableTopicRenderer : JoinedTopicRenderer;
+      var itemRenderer = TopicItemRenderer;
       var i;
       var len;
 
       var position;
 
-      if (list.length !== viewport.list.length) {
+      if (list.length !== viewport.getList().length) {
         viewport.updateList(list);
       }
 
