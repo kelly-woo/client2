@@ -10,14 +10,15 @@
     .module('jandiApp')
     .service('TopicFolderModel', TopicFolderModel);
 
-  function TopicFolderModel($q, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI, TopicFolderStorage) {
+  function TopicFolderModel($q, $filter, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI,
+                            TopicFolderStorage) {
     var _raw = {
       folderList: [],
       folderMap: {},
       entityList: [],
       entityMap: {}
     };
-    var FOLDER_NAME = 'New Folder';
+    var FOLDER_NAME = $filter('translate')('@folder-new');
     var _folderData = {};
     var _folderList = [];
 
@@ -84,12 +85,16 @@
     /**
      * 생성 API 실패시 핸들러
      * TODO: 로직 완성 해야함
-     * @param {object} data - response 데이터
+     * @param {object} response - response 데이터
      * @private
      */
-    function _onCreateFailed(data) {
-      //todo: error logic
-      alert('error');
+    function _onCreateFailed(response) {
+      if (response.code === 40008) {
+        alert($filter('translate')('@folder-name-taken'));
+      } else {
+        //todo: general error
+        _alertCommonError(response);
+      }
       reload();
     }
 
@@ -107,6 +112,10 @@
           });
         }
       });
+    }
+
+    function _alertCommonError(response) {
+      alert('error :' + response.code + '\n' + response.msg);
     }
 
     /**
@@ -176,10 +185,18 @@
       update();
 
       TopicFolderAPI.modify(teamId, folderId, updateItems)
-        .error(reload);
+        .error(_onModifyError);
 
     }
 
+    function _onModifyError(response) {
+      if (response.code === 40008) {
+        alert($filter('translate')('@folder-name-taken'));
+      } else {
+        _alertCommonError(response);
+      }
+      reload();
+    }
     /**
      * folderId 에 해당하는 entityList 를 반환한다.
      * @param {number} folderId
@@ -306,9 +323,9 @@
     function _onPushError(response) {
       if (response) {
         if (response.code === 40016) {
-          alert('@already-folder-item-exists');
+          alert('@folder-item-already-exists');
         } else {
-          alert(response.msg);
+          _alertCommonError(response);
         }
       }
       reload();
