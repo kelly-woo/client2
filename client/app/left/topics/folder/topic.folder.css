@@ -134,6 +134,8 @@
   width: 120px;
   line-height:20px;
   outline: 0;
+  border: 1px solid #8CC0E6;
+  margin-left:-1px;
 }
 
 .topic-folder-title-count {
