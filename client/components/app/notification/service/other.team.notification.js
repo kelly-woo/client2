@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function OtherTeamNotification(desktopNotificationHelper, accountService, configuration, DesktopNotificationUtil,
-                                 jndWebSocketCommon, pcAppHelper,  $filter, DesktopNotification) {
+                                 jndWebSocketCommon, HybridAppHelper,  $filter, DesktopNotification) {
     this.addNotification = addNotification;
 
     /**
@@ -20,30 +20,26 @@
     function addNotification(socketEvent) {
       var teamInfo;
       var teamName;
-      var teamDomain;
 
       var options;
       var notification;
 
       if (_isGoodtoSendNotification(socketEvent)) {
-        teamInfo = _getTeamInfo(socketEvent.teamId);
+        teamInfo = DesktopNotificationUtil.getTeamInfo(socketEvent.teamId);
         teamName = teamInfo.teamName;
-        teamDomain = teamInfo.teamDomain;
 
         if (!_.isUndefined(teamName)) {
           options = {
             tag: 'tag',
             body: _getBody(teamName),
-            icon: 'assets/images/jandi-logo-200x200.png',
-            callback: _onNotificationClicked,
-            data: _.extend(socketEvent, {teamDomain: teamDomain})
-
+            icon: configuration.assets_url + 'assets/images/jandi-logo-200x200.png',
+            callback: _onClick,
+            data: socketEvent
           };
 
           (notification = _createInstance(options)) && notification.show();
         }
       }
-
     }
 
     /**
@@ -68,57 +64,13 @@
      * @param {object} param - socket event
      * @private
      */
-    function _onNotificationClicked(param) {
-      if (!pcAppHelper.isPcApp()) {
-        // 기본적으로 /app/# 까지 포함한 주소를 만든다.
-        var url = configuration.base_protocol + param['teamDomain'] + configuration.base_url + '/app/#';
+    function _onClick(param) {
+      var newWindow;
 
-        var type = param.room.type.toLowerCase();
-        var roomId = param.room.id;
-
-      if (DesktopNotificationUtil.isChatType(param)) {
-        type = 'user';
-        // chat 일 경우, 방 url이 roomId(혹은 entityId)로 되어있지 않고 user의 id로 되어있기에 그 값을 설정한다.
-        roomId = param.writer;
+      if (!HybridAppHelper.isHybridApp()) {
+        newWindow = window.open('', '_blank');
+        newWindow.location.href = DesktopNotificationUtil.getNotificationUrl(param);
       }
-
-        // url 뒤에 가고 싶은 방의 타입과 주소를 설정한다.
-        url += '/' + type + 's/' + roomId;
-
-        if (!!param.messageType && param.messageType === 'file_comment') {
-          // file comment socket event일 때
-          url += '/files/' + param.file.id;
-        }
-
-        var open_link = window.open('', '_blank');
-        open_link.location.href = url;
-      }
-    }
-
-    /**
-     * 현재 유저의 membership을 돌면서 teamId가 같은  team을 찾는다.
-     * 그 팀의 이름과 도메인을 리턴한다.
-     * @param {number} teamId - 찾으려는 팀의 아이디
-     * @returns {{teamName: *, teamDomain: *}}
-     * @private
-     */
-    function _getTeamInfo(teamId) {
-      var account = accountService.getAccount();
-      var memberships = account.memberships;
-      var teamName;
-      var teamDomain;
-
-      _.forEach(memberships, function(team) {
-        if (team.teamId === teamId) {
-          teamName = team.name;
-          teamDomain = team.t_domain;
-        }
-      });
-
-      return {
-        teamName: teamName,
-        teamDomain: teamDomain
-      };
     }
 
     /**

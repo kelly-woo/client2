@@ -9,7 +9,7 @@
     .service('DesktopNotificationUtil', DesktopNotificationUtil);
 
   /* @ngInject */
-  function DesktopNotificationUtil() {
+  function DesktopNotificationUtil(configuration, accountService) {
     this.isChatType = isChatType;
 
     this.getRoomTypeForRoute = getRoomTypeForRoute;
@@ -18,6 +18,9 @@
     this.getFileTitleFormat = getFileTitleFormat;
     this.getSenderContentFormat = getSenderContentFormat;
     this.getRoomFormat = getRoomFormat;
+
+    this.getTeamInfo = getTeamInfo;
+    this.getNotificationUrl = getNotificationUrl;
 
     /**
      * socketEvent가 dm을 향한건지 토픽을 향한건지 확인한다.
@@ -79,6 +82,74 @@
      */
     function getRoomFormat(title) {
       return '[' + title + ']';
+    }
+
+    /**
+     * 현재 유저의 membership을 돌면서 teamId가 같은  team을 찾는다.
+     * 그 팀의 이름과 도메인을 리턴한다.
+     * @param {number} teamId - 찾으려는 팀의 아이디
+     * @returns {{teamName: *, teamDomain: *}}
+     * @private
+     */
+    function getTeamInfo(teamId) {
+      var account = accountService.getAccount();
+      var memberships = account.memberships;
+      var teamName;
+      var teamDomain;
+
+      _.forEach(memberships, function(team) {
+        if (team.teamId === teamId) {
+          teamName = team.name;
+          teamDomain = team.t_domain;
+        }
+      });
+
+      return {
+        teamName: teamName,
+        teamDomain: teamDomain
+      };
+    }
+
+    /**
+     * notification에 대한 url을 전달함
+     * @param {object} data
+     * @returns {string}
+     */
+    function getNotificationUrl(data) {
+      var teamInfo;
+      var url;
+      var type;
+      var roomId;
+
+      if (_.isObject(data)) {
+        teamInfo = getTeamInfo(data.teamId);
+
+        // 기본적으로 /app/# 까지 포함한 주소를 만든다.
+        url = configuration.base_protocol + teamInfo.teamDomain + configuration.base_url + '/app/#';
+
+        if (isChatType(data)) {
+          // chat 일 경우
+
+          type = 'user';
+          // 방 url이 roomId(혹은 entityId)로 되어있지 않고 user의 id로 되어있기에 그 값을 설정한다.
+          roomId = data.writer;
+        } else {
+          // channel 일 경우
+
+          type = data.room.type.toLowerCase();
+          roomId = data.room.id;
+        }
+
+        // url 뒤에 가고 싶은 방의 타입과 주소를 설정한다.
+        url += '/' + type + 's/' + roomId;
+
+        if (!!data.messageType && data.messageType === 'file_comment') {
+          // file comment socket event일 때
+          url += '/files/' + data.file.id;
+        }
+      }
+
+      return url;
     }
   }
 })();
