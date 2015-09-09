@@ -527,8 +527,7 @@
     }
 
     function _getDateKey(time) {
-      return DateFormatter.getDate(time);
-      //return $filter('ordinalDate')(time, "yyyyMMddEEEE, MMMM doo, yyyy");
+      return DateFormatter.getFormattedDate(time);
     }
 
     /**

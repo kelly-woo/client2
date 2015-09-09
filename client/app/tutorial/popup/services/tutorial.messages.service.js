@@ -159,6 +159,7 @@
      */
     function _getDate(time) {
       time = time || (new Date()).getTime();
+      //TODO: @YOUNG PARK, 이 부분 'DateFormatter'라는 서비스의 getOrdinalDate()으로 대체될 수 있음을 알려드립니다!
       return $filter('ordinalDate')(time, "EEEE, MMMM doo, yyyy");
     }
   }
