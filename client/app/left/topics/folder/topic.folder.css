@@ -6,11 +6,9 @@
     margin-top:2px;
 }
 .topic-folder.has-folder {
-  /*background: #F1F1F1;*/
   	background: #F1F1F1;
 	border-top: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
-  margin-top:2px;
 }
 .topic-folder.has-folder ul {
   background: transparent;
@@ -34,14 +32,6 @@
   background-color:#ECF3F7;
   border-top: 1px solid #C4DAEF;
   border-bottom:1px solid #C4DAEF;
-}
-.topic-folder.hover ul {
-  background-color:#ECF3F7;
-}
-.topic-folder.has-folder:hover {
-	background: #F1F1F1;
-	border-top: 1px solid #e1e1e1;
-  border-bottom: 1px solid #e1e1e1;
 }
 .topic-folder-border {
   top: -3px;
