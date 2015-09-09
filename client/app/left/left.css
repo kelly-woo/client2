@@ -148,7 +148,9 @@
   padding-top:4px;
   padding-bottom:2px;
 }
-
+.lpanel-list .topic-folder ul {
+	padding-top:0px;
+}
 /*  first element of list
 .lpanel-list ul li:first-child {
   padding-top: 9px;
