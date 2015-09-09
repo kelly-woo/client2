@@ -26,7 +26,7 @@
           alert($filter('translate')('@password-reset-email-fail'));
         })
         .finally(function() {
-          $scope.toggleLoading();
+          $scope.isLoading = !$scope.isLoading;
         });
 
 
