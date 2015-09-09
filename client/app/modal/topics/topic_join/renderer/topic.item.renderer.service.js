@@ -1,5 +1,5 @@
 /**
- * @fileoverview topic join item renderer 서비스
+ * @fileoverview topic item renderer 서비스
  */
 (function() {
   'use strict';
@@ -16,10 +16,6 @@
 
     _init();
 
-    /**
-     * 생성자 함수
-     * @private
-     */
     function _init() {
       _template = Handlebars.templates['topic.item'];
     }

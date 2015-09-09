@@ -861,6 +861,10 @@
   margin-top: 20px;
 }
 
+.modal-body .active {
+  background-color: #f2fbff;
+}
+
 .modal-body .no-result-container {
   background-color: white;
   width: 100%;

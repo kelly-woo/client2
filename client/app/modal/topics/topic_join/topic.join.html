@@ -21,23 +21,22 @@
              placeholder="{{'@input-search-channel-name' | translate}}" />
     </div>
   </div>
-  <div class="modal_topic_list" ng-click="onMemberListClick();">
+  <div class="modal_topic_list" ng-click="onListClick();">
     <tabset class="list-tabs">
-      <tab class="joinable-topic-list-container tab-title overflow-ellipsis" active="true">
+      <tab class="joinable-topic-list-container tab-title overflow-ellipsis" active="unJoinedChannelListActive">
         <tab-heading>
           <div translate>@modal-join-ch-you-can</div>
         </tab-heading>
-        <topic-list type="joinable" list="unJoinedChannelList" model="channelTitleQuery" filter="#invite-member-filter"></topic-list>
+        <topic-list type="joinable" list="unJoinedChannelList" model="channelTitleQuery" filter="#invite-member-filter" activeted="unJoinedChannelListActive"></topic-list>
         <div class="no-result-container" ng-show="joinableLength === 0">
           <span translate>@alert-no-result</span>
         </div>
       </tab>  <!-- END OF JOINABLE TOPIC LIST -->
-
-      <tab class="joined-topic-list-container tab-title tab-title-overflow-ellipsis">
+      <tab class="joined-topic-list-container tab-title tab-title-overflow-ellipsis" active="joinedChannelListActive">
         <tab-heading>
           <span translate>@modal-join-ch-you-belong</span>
         </tab-heading>
-        <topic-list type="joined" list="joinedChannelList" model="channelTitleQuery" filter="#invite-member-filter"></topic-list>
+        <topic-list type="joined" list="joinedChannelList" model="channelTitleQuery" filter="#invite-member-filter" activeted="joinedChannelListActive"></topic-list>
         <div class="no-result-container" ng-show="joinedChannelList.length === 0">
           <span translate>@alert-empty-ch-belong</span>
         </div>
@@ -47,9 +46,5 @@
       </tab>  <!-- END OF JOINED TOPIC LIST  -->
     </tabset> <!--  END OF TABSET -->
   </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-cancel" ng-click="cancel()"><span translate>@btn-close</span></button>
-  <a class="new_channel_btn btn btn-ok " ng-click="newChannel();"><span translate>@common-create-ch</span></a>
 </div>
 <jnd-loading></jnd-loading>

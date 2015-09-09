@@ -117,24 +117,26 @@
        * @param {number} matchIndex
        */
       function focusItem(matchIndex) {
+        var jqContainer;
         var jqMentionItem;
         var itemPosition;
         var contPosition;
         var scrollTop;
         var compare;
 
+        jqContainer = el.parent();
         jqMentionItem = el.children().eq(matchIndex);
         if (jqMentionItem.length) {
-          scrollTop = el.scrollTop();
+          scrollTop = jqContainer.scrollTop();
 
           itemPosition = $position.offset(jqMentionItem);
-          contPosition = $position.offset(el);
+          contPosition = $position.offset(jqContainer);
 
           compare = itemPosition.top - contPosition.top;
           if (compare < 0) {
-            el.scrollTop(scrollTop + compare);
+            jqContainer.scrollTop(scrollTop + compare);
           } else if (compare + itemPosition.height > contPosition.height) {
-            el.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
+            jqContainer.scrollTop(scrollTop + compare - contPosition.height + itemPosition.height);
           }
 
           scope.setActiveIndex(matchIndex);

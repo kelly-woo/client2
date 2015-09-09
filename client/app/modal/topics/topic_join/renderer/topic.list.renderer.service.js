@@ -1,5 +1,5 @@
 /**
- * @fileoverview Center renderer 서비스
+ * @fileoverview topic list renderer 서비스
  */
 (function() {
   'use strict';
@@ -16,10 +16,6 @@
 
     _init();
 
-    /**
-     * 생성자
-     * @private
-     */
     function _init() {
       _template = Handlebars.templates['topic.list'];
     }
@@ -38,13 +34,13 @@
 
       var position;
 
-      if (list.length !== viewport.getList().length) {
+      if (list.length !== viewport.getItem().length) {
         viewport.updateList(list);
       }
 
-      position = viewport.getPosition()
+      position = viewport.getPosition();
 
-      for (i = position.beginIndex, len = position.endIndex; i < len; ++i) {
+      for (i = position.beginIndex, len = position.endIndex; i <= len; ++i) {
         elements.push(itemRenderer.render(list[i]));
       }
 
