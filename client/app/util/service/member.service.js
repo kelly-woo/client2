@@ -533,7 +533,7 @@
      * member의 status가 disabled인지 아닌지 확인한다.
      */
     function isDisabled(member) {
-      return member.status && member.status === 'disabled';
+      return member && member.status === 'disabled';
     }
 
     /**
@@ -542,7 +542,7 @@
      * @returns {*|boolean}
      */
     function isDeleted(member) {
-      return member.status && member.status === 'deleted';
+      return member && member.status === 'deleted';
     }
   }
 })();
