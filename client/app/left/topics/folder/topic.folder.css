@@ -4,6 +4,11 @@
   border-bottom: 1px solid rgba(0,0,0,0);
     padding-bottom:4px;
     margin-top:2px;
+    -webkit-transition: background 0.2s, border 0.2s;
+  -moz-transition: background 0.2s, border 0.2s;
+  -ms-transition: background 0.2s, border 0.2s;
+  -o-transition: background 0.2s, border 0.2s;
+  transition: background 0.2s, border 0.2s;
 }
 .topic-folder.has-folder:hover {
   	background: #F1F1F1;
@@ -17,9 +22,19 @@
 }
 .topic-folder.hover ul {
 	background-color:#ECF3F7;
+	-webkit-transition: background 0.2s, border 0.2s;
+  -moz-transition: background 0.2s, border 0.2s;
+  -ms-transition: background 0.2s, border 0.2s;
+  -o-transition: background 0.2s, border 0.2s;
+  transition: background 0.2s, border 0.2s;	
 }
 .topic-folder.has-folder .topic-folder-area ul li {
 	padding-left:10px;
+	-webkit-transition: background 0.2s, border 0.2s;
+  -moz-transition: background 0.2s, border 0.2s;
+  -ms-transition: background 0.2s, border 0.2s;
+  -o-transition: background 0.2s, border 0.2s;
+  transition: background 0.2s, border 0.2s;
 }
 .topic-folder.has-folder .topic-folder-area ul li:hover
  {
@@ -43,6 +58,11 @@
   height: 4px;
   width:100%;
   background: transparent;
+  -webkit-transition: background 0.2s;
+  -moz-transition: background 0.2s;
+  -ms-transition: background 0.2s;
+  -o-transition: background 0.2s;
+  transition: background 0.2s;
 }
 
 .topic-folder-border.on{
