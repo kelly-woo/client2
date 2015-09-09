@@ -7,15 +7,9 @@ var app = angular.module('jandiApp');
  *  @usage      : "oo"
  *  @example    : doo, ddoo
  */
-app.filter('ordinalDate', function($filter) {
-  var suffixes = ["th", "st", "nd", "rd"];
+app.filter('ordinalDate', function($filter, DateFormatter) {
   return function(input, format) {
-    if (isNaN(input)) return false;
-    var dtfilter = $filter('date')(input, format);
-    var day = parseInt($filter('date')(input, 'dd'));
-    var relevantDigits = (day < 30) ? day % 20 : day % 30;
-    var suffix = (relevantDigits <= 3) ? suffixes[relevantDigits] : suffixes[0];
-    return dtfilter.replace('oo', suffix);
+    return DateFormatter.getOrdinalDate(input, format);
   };
 });
 

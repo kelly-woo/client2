@@ -9,7 +9,7 @@
     .service('DateDividerRenderer', DateDividerRenderer);
 
   /* @ngInject */
-  function DateDividerRenderer(MessageCollection) {
+  function DateDividerRenderer(MessageCollection, $filter) {
     var _template = '';
 
     this.render = render;
@@ -31,9 +31,10 @@
      */
     function render(index) {
       var msg = MessageCollection.list[index];
+
       return _template({
         msg: msg,
-        date: msg.date.substr(8)
+        date: msg.date
       });
     }
   }

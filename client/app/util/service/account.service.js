@@ -74,8 +74,8 @@
 
       if (configuration.name == 'local') {
         if (prefix == 'local') {
-          //prefix = 'jihoonk';
-          prefix = 'tosslab';
+          prefix = 'jihoonk';
+          //prefix = 'tosslab';
         }
       }
 

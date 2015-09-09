@@ -1,0 +1,133 @@
+/**
+ * @fileoverview date를 format에 맞게 리턴하는 서비스
+ */
+(function() {
+
+  'use strict';
+
+  angular
+    .module('jandiApp')
+    .service('DateFormatter', DateFormatter);
+
+  /* @ngInject */
+  function DateFormatter($filter, language) {
+    var _suffixes = ["th", "st", "nd", "rd"];
+
+    this.getOrdinalDate = getOrdinalDate;
+    this.getDate = getDate;
+
+    /*
+     *  @filter     : date formatting especially append ordinal suffix of day
+     *  @usage      : "oo"
+     *  @example    : doo, ddoo
+     */
+    function getOrdinalDate(input, format) {
+      if (isNaN(input)) return false;
+      var dtfilter = $filter('date')(input, format);
+      var day = parseInt($filter('date')(input, 'dd'));
+      var relevantDigits = (day < 30) ? day % 20 : day % 30;
+      var suffix = (relevantDigits <= 3) ? _suffixes[relevantDigits] : _suffixes[0];
+      return dtfilter.replace('oo', suffix);
+    }
+
+    function getDate(input) {
+      var date;
+
+      _getHumanReadableDate(input);
+
+      console.log(language.getCurrentLanguage().language)
+      switch (language.getCurrentLanguage().language) {
+        case 'ko':
+          date = _getKoreanFormat(input);
+          break;
+        case 'ja':
+          date = _getJapaneseFormat(input);
+          break;
+        case 'en':
+          date = _getEnglishFormat(input);
+          break;
+        default:
+          date = _getChineseFormat(date);
+          break;
+      }
+
+      return date;
+    }
+
+
+    /**
+     *  한글 format에 맞는 date를 리턴한다.
+     *  ex) 2015년 mm월_dd일_월요일
+     * @param {number} time - server에서 msg에 실어주는 unix timestamp과 똑같음
+     * @returns {*}
+     * @private
+     */
+    function _getKoreanFormat(time) {
+      var date = _getHumanReadableDate(time);
+      return date.year + ' ' + date.month + ' ' + date.date + ' ' + _getDayInLanguage(date.day);
+    }
+
+    /**
+     *  일어 format에 맞는 date를 리턴한다.
+     *  ex)  yyyy年mm月dd日_月曜日
+     * @param {number} time - server에서 msg에 실어주는 unix timestamp과 똑같음
+     * @returns {*}
+     * @private
+     */
+    function _getJapaneseFormat(time) {
+      var date = _getHumanReadableDate(time);
+      return date.year + date.month + date.date + _getDayInLanguage(date.day);
+    }
+
+    /**
+     *  중문 format에 맞는 date를 리턴한다.
+     *  ex) yyyy年_mm月_dd日
+     * @param {number} time - server에서 msg에 실어주는 unix timestamp과 똑같음
+     * @returns {*}
+     * @private
+     */
+    function _getChineseFormat(time) {
+      var date = _getHumanReadableDate(time);
+      return date.year + ' ' + date.month + ' ' + date.date;
+    }
+
+    /**
+     * 영어 format에 맞는 date를 리턴한다.
+     *  ex) Tuesday, September 8th, 2015
+     * @param {number} time - server에서 msg에 실어주는 unix timestamp과 똑같음
+     * @returns {*}
+     * @private
+     */
+    function _getEnglishFormat(time) {
+      return getOrdinalDate(time, "EEEE, MMMM doo, yyyy");
+    }
+
+    /**
+     * unix timestamp형식을 '년', '월', '일' 이 추가된 형식으로 사람이 읽을 수 있는 형식으로 변환해서 리턴한다.
+     * @param {number} time - server에서 msg에 실어주는 unix timestamp과 똑같음
+     * @returns {{}}
+     * @private
+     */
+    function _getHumanReadableDate(time) {
+      var readableDate = {};
+
+      readableDate.year = $filter('date')(time, 'yyyy') + $filter('translate')('@suffix-year');
+      readableDate.month = $filter('date')(time, 'M') + $filter('translate')('@suffix-month');
+      readableDate.date = $filter('date')(time, 'd')  + $filter('translate')('@suffix-day');
+      readableDate.day = $filter('date')(time, 'EEEE');
+
+      return readableDate;
+    }
+
+    /**
+     * day을 **요일 포맷을 바꿔준다.
+     *   ex) Tuesday -> 화요일
+     * @param {string} day - day returned from angular date filter using 'EEEE' as format
+     * @returns {*}
+     * @private
+     */
+    function _getDayInLanguage(day) {
+      return $filter('translate')('@' + day.toLowerCase());
+    }
+  }
+})();

@@ -566,7 +566,7 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
 
       messageAPIservice.getMessages(entityType, entityId, MessageQuery.get(), deferredObject.getMessage)
         .success(function(response) {
-          //console.log('::getMessageSuccess');
+          console.log('::getMessageSuccess', response);
 
           // Save entityId of current entity.
           centerService.setEntityId(response.entityId);
