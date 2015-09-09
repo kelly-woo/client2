@@ -38,9 +38,9 @@
       $scope.inviteTeamMsg1 = $filter('translate')(msg1);
       $scope.inviteTeamMsg2 = $filter('translate')(msg2);
 
-      $scope.onInviteTeamClick = onInviteTeamClick;
-      $scope.onRemove = onRemove;
       $scope.onMemberClick = onMemberClick;
+      $scope.onInviteTeamClick = onInviteTeamClick;
+      $scope.onSelectAll = onSelectAll;
       $scope.onInviteClick = onInviteClick;
       $scope.cancel = cancel;
     }
@@ -79,7 +79,14 @@
       $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
         return user.selected === false;
       });
-      $scope.inviteChannel = $scope.availableMemberList.length !== 0;
+
+      $scope.isInviteChannel = $scope.availableMemberList.length !== 0;
+      if ($scope.isInviteChannel) {
+        // 초대 가능한 member가 존재하므로 topic 초대 process 진행함
+
+        // has all members
+        $scope.hasAllMembers = $scope.inviteUsers.length === $scope.availableMemberList.length;
+      }
     }
 
     /**
@@ -91,26 +98,38 @@
     }
 
     /**
-     * remove selected member
-     * @param {object} item
+     * member click event handler
+     * @param {object} member
+     * @param {boolean} value
      */
-    function onRemove(item) {
-      item.selected = false;
-      $scope.inviteUsers.splice($scope.inviteUsers.indexOf(item), 1);
+    function onMemberClick(member, value) {
+      var fn = value !== false ? _addMember : _removeMember;
 
-      $timeout(function() {
-        $('#invite-member-filter').focus();
-      });
+      fn(member);
+
+      focusInput();
     }
 
     /**
-     * member click event handler
+     * add selected member
+     * @param {object} member
      */
-    function onMemberClick(member) {
+    function _addMember(member) {
       var inviteUsers = $scope.inviteUsers;
 
       member.selected = true;
       inviteUsers.indexOf(member) < 0 && inviteUsers.unshift(member);
+    }
+
+    /**
+     * remove selected member
+     * @param {object} member
+     */
+    function _removeMember(member) {
+      var inviteUsers = $scope.inviteUsers;
+
+      member.selected = false;
+      inviteUsers.splice(inviteUsers.indexOf(member), 1);
     }
 
     /**
@@ -119,8 +138,6 @@
      */
     function onInviteClick(entityType) {
       var guestList = [];
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if (!$scope.isLoading && $scope.inviteUsers.length > 0) {
 
         jndPubSub.showLoading();
@@ -130,8 +147,7 @@
         }, guestList);
 
         entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
-          .success(function(response) {
-            //console.log(response)
+          .success(function() {
             // analytics
             var entity_type = "";
             switch (entityType) {
@@ -185,6 +201,29 @@
      */
     function cancel() {
       $modalInstance.dismiss('cancel');
+    }
+
+    /**
+     * select all members event handler
+     * @param {boolean} value
+     */
+    function onSelectAll(value) {
+      var fn = value ? _addMember : _removeMember;
+
+      _.each($scope.availableMemberList, function(member) {
+        fn(member);
+      });
+
+      focusInput();
+    }
+
+    /**
+     * input filter에 focus
+     */
+    function focusInput() {
+      $timeout(function() {
+        $('#invite-member-filter').focus();
+      });
     }
   }
 })();

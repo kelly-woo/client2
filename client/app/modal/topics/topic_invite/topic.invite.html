@@ -7,7 +7,7 @@
   </h3>
 </div>
 <div class="modal-container invite-channel non-selectable">
-  <div class="invite-channel-full" ng-if="!inviteChannel">
+  <div class="invite-channel-full" ng-if="!isInviteChannel">
     <div class="modal-body form-invite-body cursor_pointer"  ng-click="onInviteTeamClick();">
       <div class="image help-invite-members"></div>
       <div class="invite-members-desc">
@@ -21,13 +21,13 @@
     </div>
   </div>
 
-  <div class="invite-channel-extra" ng-if="inviteChannel">
+  <div class="invite-channel-extra" ng-if="isInviteChannel">
     <div class="modal-body form-invite-body">
       <!--    LIST OF USERS WHO WILL BE INVITED WHEN BUTTON IS CLICKED    -->
       <div class="form-invite-body__selected">
         <span class="cursor_pointer"
               ng-repeat="user in inviteUsers"
-              ng-click="onRemove(user);">
+              ng-click="onMemberClick(user, false);">
           <span class="form-invite-body__selected-user btn-ok">
             {{ user | getName }} <span class="fa fa-times"></span>
           </span>
@@ -52,6 +52,9 @@
       </member-list>
       <div class="no-result-container" ng-show="selectingMembers.length === 0">
         <span translate>@alert-no-result</span>
+      </div>
+      <div class="select-all-container checkbox">
+        <label><input type="checkbox" ng-model="hasAllMembers" ng-click="onSelectAll(hasAllMembers)"/><span translate>@select-all-members</span></label>
       </div>
     </div>
 

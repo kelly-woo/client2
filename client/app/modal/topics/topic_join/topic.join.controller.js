@@ -1,3 +1,6 @@
+/**
+ * @fileoverview join topic controller
+ */
 (function() {
   'use strict';
 
@@ -12,9 +15,7 @@
     // id of topic to join
     var entityIdToJoin;
 
-    (function() {
-      init();
-    })();
+    init();
 
     /**
      * 처음 모달이 열렸을 때 실행되어야 할 부분.
@@ -51,12 +52,7 @@
       entityIdToJoin = entityId;
 
       entityheaderAPIservice.joinChannel(entityIdToJoin)
-        .success(
-          _onTopicJoinSuccess
-        )
-        .error(function(error) {
-          console.log('onJoinClick', error.msg);
-        })
+        .success(_onTopicJoinSuccess)
         .finally(function() {
           jndPubSub.hideLoading();
         });

@@ -1,10 +1,10 @@
 .modal-dialog .invite-channel .help-invite-members {
 	display: inline-block;
-    width: 76px;
-    height: 89px;
-    background-size: 76px 89px;
-    margin-top: 32px;
-    margin-bottom: 20px;
+	width: 76px;
+	height: 89px;
+	background-size: 76px 89px;
+	margin-top: 32px;
+	margin-bottom: 20px;
 }
 
 .invite-channel .invite-channel-full {
@@ -32,4 +32,19 @@
 
 .invite-channel .no-result-container {
 	margin-top: 20px;
+}
+
+.invite-channel .select-all-container {
+	margin-top: 12px;
+	padding: 4px;
+	line-height: 20px;
+}
+
+.invite-channel .select-all-container span:hover {
+	background-color: #e2e9ef;
+	text-decoration: underline;
+}
+
+.invite-channel .select-all-container input {
+	height: 12px;
 }

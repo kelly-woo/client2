@@ -810,3 +810,52 @@
 .send-invite.disabled:active {
   color: #999;
 }
+
+/*
+    MODAL TAB HEADER
+*/
+.modal-body .list-tabs .tab-pane {
+  margin-top: 0;
+  max-height: 662px;
+  overflow-y: auto;
+}
+
+.modal-body .list-tabs li {
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.modal-body .list-tabs li a:last-child {
+  margin-right: 0;
+}
+.modal-body .list-tabs a {
+  color: #999999;
+}
+.modal-body .list-tabs a:hover {
+  color: #366480;
+  background-color: #E6ECF2 !important;
+}
+.modal-body .list-tabs .active a  {
+  background-color: white !important;
+}
+
+.modal-body .list-tabs .nav-tabs {
+  border: 0;
+}
+
+.modal-body .list-tabs .nav-tabs > li > a:hover {
+  border-bottom-color: rgba(0,0,0,0);
+}
+
+.modal-body .list-tabs .nav-tabs > li.active > a,
+.modal-body .list-tabs .nav-tabs > li.active > a:hover,
+.modal-body .list-tabs .nav-tabs > li.active > a:focus {
+  border-color: rgba(0,0,0,0);
+  color: #333333;
+}
+
+.modal_team_member_list,
+.modal_topic_list {
+  margin-top: 20px;
+}
