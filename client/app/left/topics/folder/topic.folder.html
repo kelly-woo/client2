@@ -7,7 +7,7 @@
   <div ng-if="::folder.id === -1" class="topic-folder-border" topic-folder-draggable="folder">
   </div>
 
-  <div ng-if="hasEmptyArea" style="height: 30px;">
+  <div ng-if="hasEmptyArea" style="height: 12px;">
 
   </div>
   <div ng-if="!hasEmptyArea"
@@ -37,7 +37,7 @@
           ng-class="{
             'topic-folder-more-hide': !isOpened && alarmCnt
           }">
-        <i class="icon-more cursor_pointer" left-folder-dropdown
+        <i class="icon-more-fill cursor_pointer" left-folder-dropdown
            ng-mouseenter="showTooltip($event);"
            ng-mouseleave="hideTooltip($event);" ></i>
       </span>

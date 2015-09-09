@@ -4,9 +4,11 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   color: #ffffff;
-  height: 30px;
+  height:30px;
+  margin-top:-2px;
+  opacity: 0.8;
 }
-.topic-draggable ul li {
+.topic-draggable ul, .topic-draggable ul li {
   padding-top: 0 !important;
 }
 
@@ -16,10 +18,17 @@
 }
 
 .topic-merge {
-  border: 1px solid #00abe6 !important;
+  border: 1px solid #C4DAEF !important;
+  background-color:#ECF3F7;
   cursor: copy;
+  -webkit-transition: background 0.2s, border 0.2s;
+  -moz-transition: background 0.2s, border 0.2s;
+  -ms-transition: background 0.2s, border 0.2s;
+  -o-transition: background 0.2s, border 0.2s;
+  transition: background 0.2s, border 0.2s;
 }
 
 .topic-dragging {
-  opacity:0;
+  opacity:0.2;
+  
 }
