@@ -28,8 +28,6 @@
         .finally(function() {
           $scope.isLoading = !$scope.isLoading;
         });
-
-
-    }
+    };
   }
 })();
