@@ -1,18 +1,25 @@
 .topic-folder {
   position: relative;
-    border-top: 1px solid rgba(0,0,0,0);
+  border-top: 1px solid rgba(0,0,0,0);
   border-bottom: 1px solid rgba(0,0,0,0);
-    padding-bottom:3px;
-    margin-top:0px;
-    -webkit-transition: background 0.2s, border 0.2s;
+  padding-bottom: 3px;
+  -webkit-transition: background 0.2s, border 0.2s;
   -moz-transition: background 0.2s, border 0.2s;
   -ms-transition: background 0.2s, border 0.2s;
   -o-transition: background 0.2s, border 0.2s;
   transition: background 0.2s, border 0.2s;
 }
+.topic-folder.has-folder {
+  margin-top: 1px;
+}
 .topic-folder.has-folder:hover {
-  	background: #F1F1F1;
+  background: #F1F1F1;
 	border-top: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
+}
+.topic-folder.has-folder.open {
+  background: #F1F1F1;
+  border-top: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
 }
 .topic-folder.has-folder ul {
@@ -20,6 +27,7 @@
   padding-top:2px;
   padding-bottom:0px;
 }
+
 .topic-folder.hover ul {
 	background-color:#ECF3F7;
 	-webkit-transition: background 0.2s, border 0.2s;
@@ -28,6 +36,7 @@
   -o-transition: background 0.2s, border 0.2s;
   transition: background 0.2s, border 0.2s;	
 }
+
 .topic-folder.has-folder .topic-folder-area ul li {
 	padding-left:10px;
 	-webkit-transition: background 0.2s, border 0.2s;
@@ -36,8 +45,8 @@
   -o-transition: background 0.2s, border 0.2s;
   transition: background 0.2s, border 0.2s;
 }
-.topic-folder.has-folder .topic-folder-area ul li:hover
- {
+
+.topic-folder.has-folder .topic-folder-area ul li:hover {
 	background: #E2E2E2;
 }
 

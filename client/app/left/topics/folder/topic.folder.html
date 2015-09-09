@@ -1,5 +1,8 @@
 <div class="topic-folder"
-     ng-class="{'has-folder': folder.id !== -1}">
+     ng-class="{
+     'has-folder': folder.id !== -1,
+     'open': isOpened
+     }">
   <div class="topic-folder-border _border">
     <!--upper line-->
   </div>
