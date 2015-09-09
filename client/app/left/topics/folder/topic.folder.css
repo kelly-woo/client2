@@ -47,9 +47,13 @@
 
 .topic-folder.hover {
   /*background-color:#f2fbff;*/
-  background-color:#ECF3F7;
-  border-top: 1px solid #C4DAEF;
-  border-bottom:1px solid #C4DAEF;
+  background-color:#ECF3F7 !important;
+  border-top: 1px solid #C4DAEF !important;
+  border-bottom:1px solid #C4DAEF !important;
+}
+.lpanel-list .topic-folder.hover ul li:hover {
+	background-color:transparent;
+	
 }
 .topic-folder-border {
   top: -3px;
