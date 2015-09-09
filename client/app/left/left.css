@@ -33,7 +33,9 @@
   background: #F9F9F9;
   border-right: 1px solid #e1e1e1;
   box-sizing: content-box;
-
+}
+.lpanel-list__topics {
+	padding-top:2px;	
 }
 .lpanel-list__channels,
 .lpanel-list__groups,

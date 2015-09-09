@@ -2,8 +2,8 @@
   position: relative;
     border-top: 1px solid rgba(0,0,0,0);
   border-bottom: 1px solid rgba(0,0,0,0);
-    padding-bottom:4px;
-    margin-top:2px;
+    padding-bottom:3px;
+    margin-top:0px;
     -webkit-transition: background 0.2s, border 0.2s;
   -moz-transition: background 0.2s, border 0.2s;
   -ms-transition: background 0.2s, border 0.2s;
@@ -59,7 +59,7 @@
   top: -3px;
   z-index: 730;
   position: absolute;
-  height: 4px;
+  height: 2px;
   width:100%;
   background: transparent;
   -webkit-transition: background 0.2s;
