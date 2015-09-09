@@ -7,7 +7,7 @@
 
   /* @ngInject */
   function jndWebSocketMessage(jndWebSocketCommon, jndPubSub, entityAPIservice,
-                               memberService, currentSessionHelper, DesktopNotification) {
+                               memberService, currentSessionHelper, DesktopNotification, FileShareDesktopNotification) {
 
     var MESSAGE = 'message';
 
@@ -74,6 +74,9 @@
           _onTopicJoin(data);
           break;
         case 'file_share':
+          _onFileShared(data);
+          _onTopicFileShareStatusChange(data);
+          break;
         case 'file_unshare':
           _onTopicFileShareStatusChange(data);
           break;
@@ -145,6 +148,19 @@
     }
 
     /**
+     * message -> file_share 일때
+     * @param {object} data - socket event parameter
+     * @private
+     */
+    function _onFileShared(data) {
+      if (_shouldSendNotification(data)) {
+        if (memberService.isTopicNotificationOn(data.room.id)) {
+          FileShareDesktopNotification.addNotification(data);
+        }
+      }
+    }
+
+    /**
      * 현재 보고 있는 토픽에 일어난 이벤트에만 센터를 업데이트한다.
      * @param data
      * @private
@@ -196,6 +212,8 @@
      * @private
      */
     function _onDm(data) {
+      data.room.extWriterId = data.writer;
+
       if (jndWebSocketCommon.isCurrentEntity(data.room)) {
         jndPubSub.updateCenterPanel();
       }

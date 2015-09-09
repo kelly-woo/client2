@@ -7,7 +7,8 @@
 
   /* @ngInject */
   function DesktopNotification($filter, logger, jndPubSub, localStorageHelper,
-                               accountService, desktopNotificationHelper, memberService) {
+                               accountService, desktopNotificationHelper,
+                               memberService, HybridAppHelper, configuration) {
     var that = this;
 
     var appName;
@@ -25,7 +26,6 @@
 
     var NOTIFICATION_SHOW_CONTENT_FLAG_KEY = 'show_notification_content';
     var NOTIFICATION_LOCAL_STORAGE_KEY = 'local_notification_flag';
-
     var NOTIFICATION_NEVER_ASK_KEY = 'notification_never_ask_flag';
 
     // Notification support 여부
@@ -74,12 +74,33 @@
       appName = config.name;
 
       isNotificationSupported = 'Notification' in window;
+      if (HybridAppHelper.isHybridApp()) {
+        // hybrid 앱 일 경우
+        _initHybridSetting();
+      } else {
+        _initSetting();
+      }
+    }
+
+    /**
+     * 웹일 경우 첫 설정 펑션
+     * @private
+     */
+    function _initSetting() {
       _setNotificationPermission();
       _loadLocalNotificationFlag();
       _loadShowNotificationContentFlag();
     }
 
-
+    /**
+     * hybrid 앱일 경우 우선 첫 설정을 'granted'로 한다.
+     * @private
+     */
+    function _initHybridSetting() {
+      notificationPermission = 'granted';
+      _onNotificationSettingChanged();
+      _onPermissionGranted();
+    }
 
     /**
      * 현재 노티피케이션의 permission 상태를 리턴한다.
@@ -172,7 +193,7 @@
       var options = {
         tag: 'tag',
         body: $filter('translate')('@web-notification-sample-body-text'),
-        icon: 'assets/images/jandi-logo-200x200.png'
+        icon: configuration.assets_url + 'assets/images/jandi-logo-200x200.png'
       };
       var sampleNotification = _createInstance(options);
       sampleNotification.show();
@@ -367,7 +388,7 @@
         if (isFileComment) {
           options = _getOptionsForFileComment(data, writerEntity);
         } else {
-          options = _getOptionsForMessage(isUser, writerEntity, roomEntity, message);
+          options = _getOptionsForMessage(data, isUser, writerEntity, roomEntity, message);
         }
 
         options.icon = $filter('getSmallThumbnail')(writerEntity);
@@ -378,25 +399,26 @@
 
     /**
      * options에 들어갈 정보들을 file comment case에 맞춰서 재설정한다.
-     * @param {object} data - socket으로부터 받은 param과 동일
+     * @param {object} socketEvent - socket으로부터 받은 param과 동일
      * @param {object} writerEntity - 작성자 entity
      * @returns {{body: *, tag: *, data: {id: *, type: string}}}
      * @private
      */
-    function _getOptionsForFileComment(data, writerEntity) {
+    function _getOptionsForFileComment(socketEvent, writerEntity) {
       return {
-        body: _getBodyForFileComment(data, writerEntity),
-        tag: data.file.id,
-        data: {
-          id: data.file.id,
+        body: _getBodyForFileComment(socketEvent, writerEntity),
+        tag: socketEvent.file.id,
+        data: _.extend(socketEvent, {
+          id: socketEvent.file.id,
           type: 'file_comment',
-          commentId: data.comment.id
-        }
+          commentId: socketEvent.comment.id
+        })
       };
     }
 
     /**
      * options에 들어갈 정보들을 message case에 맞춰서 재설정한다.
+     * @param {object} socketEvent - socket으로부터 받은 param과 동일
      * @param {boolean} isUser - 1:1 dm인지 아닌지 알려주는 flag
      * @param {object} writerEntity - 작성자 entity
      * @param {object} roomEntity - 메세지가 작성된 방의 entity
@@ -404,14 +426,14 @@
      * @returns {{body: string, tag: *, data: {id: *, type: *}}}
      * @private
      */
-    function _getOptionsForMessage(isUser, writerEntity, roomEntity, message) {
+    function _getOptionsForMessage(socketEvent, isUser, writerEntity, roomEntity, message) {
       return {
         body: _getOptionsBody(isUser, writerEntity, roomEntity, message),
         tag: isUser ? writerEntity.id : roomEntity.id,
-        data: {
+        data: _.extend(socketEvent, {
           id: roomEntity.id,
           type: roomEntity.type
-        }
+        })
       };
     }
 
@@ -579,16 +601,21 @@
       return isNotificationPermissionGranted() && isNotificationOnLocally;
     }
 
-
-    function sendMentionNotification(data, writerEntity, roomEntity) {
+    /**
+     * mention notification object 생성
+     * @param {object} socketEvent
+     * @param {object} writerEntity
+     * @param {object} roomEntity
+     */
+    function sendMentionNotification(socketEvent, writerEntity, roomEntity) {
       var options = {};
       var notification;
       var message;
       var isUser = roomEntity.type === 'users';
 
-      if (_validateNotificationParams(data, writerEntity, roomEntity)) {
+      if (_validateNotificationParams(socketEvent, writerEntity, roomEntity)) {
         options.icon = $filter('getSmallThumbnail')(writerEntity);
-        message = decodeURIComponent(data.message);
+        message = decodeURIComponent(socketEvent.message);
 
         if (isShowNotificationContent) {
           options.body = _getBodyForMentionWithMessage(writerEntity, roomEntity, message);
@@ -597,10 +624,10 @@
         }
 
         options.tag = isUser ? writerEntity.id : roomEntity.id;
-        options.data = {
+        options.data = _.extend(socketEvent, {
           id: roomEntity.id,
           type: roomEntity.type
-        };
+        });
 
         (notification = _createInstance(options)) && notification.show();
       }

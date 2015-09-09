@@ -8,7 +8,7 @@
 
   angular
     .module('jandi.framework', [
-      'jandi.pcApp',
+      'jandi.hybridApp',
       'jandi.preloader',
       'jandi.popup',
       'jandi.browser'

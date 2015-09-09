@@ -41,8 +41,15 @@
     function isCurrentEntity(room) {
       var roomId = room.id;
       var currentEntity = currentSessionHelper.getCurrentEntity();
+
       if (room.type === _chatEntity) {
-        return roomId === currentEntity.entityId;
+        // dm일 경우
+        if (room.extWriterId) {
+          // 방에 작성자 정보가 있을 경우
+          return room.extWriterId === currentEntity.id;
+        } else {
+          return roomId === currentEntity.entityId;
+        }
       } else {
         return roomId === currentEntity.id;
       }

@@ -2,17 +2,14 @@
   'use strict';
 
   angular
-    .module('jandi.pcApp', [])
+    .module('jandi.hybridApp', [])
     .config(config)
     .run(run);
 
 
   function config() {
-
   }
 
   function run() {
-
   }
-
 })();
