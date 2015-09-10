@@ -14,6 +14,34 @@
 
     rImage = /image/;
 
+    /**
+     * open alert
+     * @param {array} alerts
+     * @param {number} index
+     * @param {object} defer
+     * @returns {*}
+     * @private
+     */
+    function _openAlert(alerts, index, defer) {
+      var body = alerts[index];
+      defer = defer || $q.defer();
+
+      Dialog.alert({
+        body: body,
+        onClose: (function(index) {
+          return function() {
+            if (alerts[index]) {
+              _openAlert(alerts, index, defer);
+            } else {
+              defer.resolve();
+            }
+          };
+        }(++index))
+      });
+
+      return defer.promise;
+    }
+
     return {
       /**
        * object 생성자
@@ -47,6 +75,7 @@
         var alerts = [];
         var file;
         var i, len;
+        var promise;
 
         for (i = 0, len = that.options.multiple ? $files.length : 1; i < len; ++i) {
           file = options.createFileObject ? options.createFileObject($files[i]) : $files[i];
@@ -63,22 +92,10 @@
         }
 
         if (alerts.length > 0) {
-          Dialog.alert({
-            body: alerts[0],
-            onClose: (function _onClose(i) {
-              return function () {
-                i++;
-                if (alerts[i]) {
-                  Dialog.alert({
-                    body: alerts[i],
-                    onClose: _onClose(i)
-                  });
-                } else {
-                  that.files = files;
-                  deferred.resolve(files);
-                }
-              };
-            }(0))
+          promise = _openAlert(alerts, 0);
+          promise.then(function() {
+            that.files = files;
+            deferred.resolve(files);
           });
         } else {
           that.files = files;
