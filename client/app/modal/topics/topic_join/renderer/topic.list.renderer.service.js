@@ -25,8 +25,9 @@
      * @param {string} type - rendering type
      * @param {array} list - topic list
      * @param {object} viewport
+     * @param {boolean} isUpdateList
      */
-    function render(type, list, viewport) {
+    function render(type, list, viewport, isUpdateList) {
       var elements = [];
       var itemRenderer = TopicItemRenderer;
       var i;
@@ -34,7 +35,7 @@
 
       var position;
 
-      if (list.length !== viewport.getItem().length) {
+      if (isUpdateList) {
         viewport.updateList(list);
       }
 

@@ -132,7 +132,7 @@
         matches = getMatches(value);
         scope[type + 'Length'] = matches.length;
 
-        TopicListRenderer.render(type, matches, viewport);
+        TopicListRenderer.render(type, matches, viewport, true);
       }
 
       /**
