@@ -465,7 +465,7 @@ this["Handlebars"]["templates"]["member.item"] = Handlebars.template({"1":functi
 
   return "    <i class=\"icon-star-off right-star opac-zero "
     + this.escapeExpression(((helper = (helper = helpers.starClass || (depth0 != null ? depth0.starClass : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"starClass","hash":{},"data":data}) : helper)))
-    + "\" ng-click=\"onStarClick('users', member)\"></i>\r\n";
+    + "\"></i>\r\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
