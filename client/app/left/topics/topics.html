@@ -27,7 +27,7 @@
   <!-- TOPICS -->
   <div class="lpanel-list__topics">
     <div id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">
-      <div ng-repeat="folder in folderData.folderList">
+      <div ng-repeat="folder in folderData.folderList track by folder.id">
         <topic-folder></topic-folder>
       </div>
     </div>

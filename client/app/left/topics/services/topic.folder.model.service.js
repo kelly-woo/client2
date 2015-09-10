@@ -34,6 +34,7 @@
     this.getEntityMap = getEntityMap;
     this.getFolderMap = getFolderMap;
     this.getNgOptions = getNgOptions;
+
     /**
      * 익명 폴더 이름을 생성한다.
      * @returns {string}
@@ -170,7 +171,11 @@
       });
 
       if (name) {
-        targetFolder.name = name;
+        if (targetFolder.name === name) {
+          delete updateItems.name;
+        } else {
+          targetFolder.name = name;
+        }
       }
 
       if (seq) {
@@ -183,13 +188,19 @@
         });
       }
       update();
-
-      TopicFolderAPI.modify(teamId, folderId, updateItems)
-        .error(_onModifyError);
-
+      if (!_.isEmpty(updateItems)) {
+        TopicFolderAPI.modify(teamId, folderId, updateItems)
+          .error(_onModifyError);
+      }
     }
 
+    /**
+     * 수정 API 오류 발생 시 핸들러
+     * @param {Object} response
+     * @private
+     */
     function _onModifyError(response) {
+      //중복된 이름 존재
       if (response.code === 40008) {
         alert($filter('translate')('@folder-name-taken'));
       } else {
@@ -197,6 +208,7 @@
       }
       reload();
     }
+
     /**
      * folderId 에 해당하는 entityList 를 반환한다.
      * @param {number} folderId
@@ -218,6 +230,12 @@
       return entityList;
     }
 
+    /**
+     * selectbox 에서의 토픽 그룹핑 제공을 위해
+     * entities 배열을 받아 ngOptions 에서 활용할 수 있도록 추가 정보를 덧붙인다.
+     * @param entities
+     * @returns {Array|{criteria, index, value}|*}
+     */
     function getNgOptions(entities) {
       _.forEach(entities, function(entity)  {
         var folderId = entity.extFolderId;
@@ -233,14 +251,19 @@
       entities = _.sortBy(entities, 'extSeq');
       return entities;
     }
+
     /**
-     *
+     * 폴더 리스트를 반환한다.
      * @returns {Array|{criteria, index, value}}
      */
     function getFolderList() {
       return _folderList;
     }
 
+    /**
+     * 폴더 데이터를 반환한다.
+     * @returns {{}}
+     */
     function getFolderData() {
       return _folderData;
     }

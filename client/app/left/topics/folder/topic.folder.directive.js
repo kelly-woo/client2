@@ -222,9 +222,11 @@
       function _endEdit(domEvent) {
         var jqTarget = $(domEvent.target);
         var text = _.trim(jqTarget.val());
-        TopicFolderModel.modify(scope.folder.id, {
-          name: text
-        });
+        if (scope.folder.name !== text) {
+          TopicFolderModel.modify(scope.folder.id, {
+            name: text
+          });
+        }
         el.find('._folderTitle').text(text).show();
         jqTarget.hide()
           .off('blur', _endEdit)

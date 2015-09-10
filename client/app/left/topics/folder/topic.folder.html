@@ -52,7 +52,7 @@
         ng-style="{
       'display': isOpened ? 'block' : 'none'
     }">
-      <li ng-repeat="joinedEntity in folder.entityList | orderBy: ['isStarred', '-name']: true track by $index"
+      <li ng-repeat="joinedEntity in folder.entityList | orderBy: ['isStarred', '-name']: true track by joinedEntity.id"
           ng-class="{active: entityId == joinedEntity.id}"
           data-ng-click="enterEntity(joinedEntity);"
           class="cursor_pointer">
