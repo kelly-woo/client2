@@ -467,7 +467,7 @@ this["Handlebars"]["templates"]["topic.draggable"] = Handlebars.template({"1":fu
 },"5":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "          <span class=\"badge left-panel_badge green_badge pull-right\">"
+  return "          <span class=\"badge left-panel_badge red_badge pull-right\">"
     + this.escapeExpression(this.lambda(((stack1 = (depth0 != null ? depth0.currentRoom : depth0)) != null ? stack1.alarmCnt : stack1), depth0))
     + "</span>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
