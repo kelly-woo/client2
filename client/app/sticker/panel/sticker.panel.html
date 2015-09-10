@@ -4,7 +4,7 @@
           data-toggle="dropdown"
           ng-class="{'on': status.isOpen}"
           on-toggle="onToggled(open);">
-  <i class="fa fa-smile-o"></i> </a>
+  <i class="icon-sticker"></i> </a>
   <!-- 스티커 패널 -->
   <div class="sticker_panel dropdown-menu dropdown-menu-right" role="menu">
     <!-- 스티커 리스트-->
@@ -13,7 +13,7 @@
       <div ng-if="!list.length">
         <div ng-if="isRecent">
           <div class="sticker_panel_empty_icon">
-            <i class="fa fa-smile-o"></i>
+            <i class="icon-sticker"></i>
           </div>
           <div class="sticker_panel_empty_text">
             Recent Stickers
@@ -38,7 +38,7 @@
                data-ng-class="{ 'on': group.isSelected,
                                 'recent': group.isRecent,
                                 'basic': !group.isRecent }">
-            <i ng-if="group.isRecent" class="fa fa-clock-o"></i>
+            <i ng-if="group.isRecent" class="icon-clock"></i>
           </div>
         </li>
       </ul>

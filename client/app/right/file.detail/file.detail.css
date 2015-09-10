@@ -429,7 +429,7 @@
                  STAR
 
 ********************************************/
-.rpanel-body-content.file-detail .comment-star .icon-star-fill,
-.rpanel-body-content.file-detail .action-star .icon-star-fill {
+.rpanel-body-content.file-detail .comment-star .icon-star-on,
+.rpanel-body-content.file-detail .action-star .icon-star-on {
   color: #f9bb00;
 }

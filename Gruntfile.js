@@ -299,7 +299,7 @@ module.exports = function (grunt) {
           ],
           css: [
             [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the CSS to reference our revved images'],
-            [/(assets\/fonts\/.*?\.(?:eot|woff|svg))/gm, 'Update the JS to reference our revved fonts']
+            [/(assets\/fonts\/.*?\.(?:eot|woff|ttf|svg))/gm, 'Update the JS to reference our revved fonts']
           ]
         }
       }
@@ -340,7 +340,13 @@ module.exports = function (grunt) {
         }]
       }
     },
-
+    uglify: {
+      options: {
+        compress: {
+          drop_console: true
+        }
+      }
+    },
     // Package all the html partials into a single javascript payload
     ngtemplates: {
       options: {
@@ -710,7 +716,7 @@ module.exports = function (grunt) {
       options: {
         // Task-specific options go here.
         repository: 'https://github.com/tosslab/web_client.git',
-        version: require('./package.json').version
+        version: '<%=pkg.version%>'
       }
     },
 
@@ -913,9 +919,8 @@ module.exports = function (grunt) {
     'build'
   ]);
 
-  grunt.registerTask('change-version-log', function() {
-    grunt.config.set('changelog.options.version', grunt.file.readJSON('package.json').version);
-    grunt.task.run('changelog');
+  grunt.registerTask('package-update', function() {
+    grunt.config.set('pkg', grunt.file.readJSON('package.json'));
   });
 
   grunt.registerTask('version-new', function(target) {
@@ -933,18 +938,19 @@ module.exports = function (grunt) {
     var bumpTask = 'bump:' + target;
     grunt.config.set('bump.options.createTag', false);
     grunt.config.set('bump.options.push', false);
-    grunt.task.run([bumpTask]);
+    grunt.task.run([bumpTask, 'package-update', 'local']);
   });
 
   grunt.registerTask('version-fix', function(target) {
     grunt.config.set('bump.options.createTag', false);
     grunt.config.set('bump.options.push', false);
-    grunt.task.run(['bump:prerelease']);
+    grunt.task.run(['bump:prerelease', 'package-update', 'local']);
   });
 
   grunt.registerTask('version-release', function(target) {
-    grunt.config.set('bump.options.createTag', true);
+    grunt.config.set('bump.options.commit', true);
     grunt.config.set('bump.options.push', true);
-    grunt.task.run(['bump', 'change-version-log']);
+    grunt.config.set('bump.options.createTag', true);
+    grunt.task.run(['bump', 'package-update', 'changelog']);
   });
 };

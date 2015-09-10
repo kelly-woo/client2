@@ -31,7 +31,8 @@
 
     this.PLATFORM = {
       WEB: 'web',
-      WIN_APP: 'winapp'
+      WIN_APP: 'winapp',
+      MAC_APP: 'macapp'
     };
 
     this.CHANNEL = 'app';

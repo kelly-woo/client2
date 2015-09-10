@@ -14,6 +14,7 @@
     var _entityType;
     var _targetId;
     var callback;
+
     $scope.selected = {
       data: null
     };
@@ -28,10 +29,21 @@
       // then select first entity in list.
       _initSelectOptions();
       _initDefaultSelected();
+
       $scope.hasPreview = $scope.file.hasPreview == null ? $filter('hasPreview')($scope.file.content) : $scope.file.hasPreview;
+
       if ($scope.hasPreview) {
         $scope.thumbnailImage = $filter('getFileUrl')($scope.file.content.extraInfo.smallThumbnailUrl);
       }
+      _attachEventListener();
+    }
+
+    /**
+     * 현재 스콮이 들어야 할 이벤트들을 추가한다.
+     * @private
+     */
+    function _attachEventListener() {
+      $scope.$on('$destroy', _onScopeDestroy);
     }
 
     /**
@@ -49,29 +61,16 @@
      */
     function _initDefaultSelected() {
       //set default select
-      var tempOptions;
-      var groupOptions;
       var selectOptions = $scope.selectOptions;
       var currentIndex = selectOptions.indexOf(currentSessionHelper.getCurrentEntity());
 
       if (currentIndex === -1) {
-        if ($scope.selectOptions.length) {
-          groupOptions = _.groupBy(selectOptions, 'typeCategory');
-          if (groupOptions['토픽'] && groupOptions['토픽'].length) {
-            tempOptions = groupOptions['토픽'];
-          } else if (groupOptions['1:1 대화방'] && groupOptions['1:1 대화방'].length){
-            tempOptions = groupOptions['1:1 대화방'];
-          }
-          if (tempOptions) {
-            tempOptions = $filter('orderBy')(tempOptions, 'name');
-            $scope.selected.data = tempOptions[0];
-          }
-        }
-      } else {
-        $scope.selected.data = $scope.selectOptions[currentIndex];
+        currentIndex = 0;
       }
 
+      $scope.selected.data = $scope.selectOptions[currentIndex];
     }
+
     /**
      * 파일을 다른 곳으로 쉐어한다.
      * @param {object} shareChannel - share 할 entity

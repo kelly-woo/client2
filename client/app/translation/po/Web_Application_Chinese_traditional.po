@@ -1501,6 +1501,10 @@ msgid "@web-notification"
 msgstr "通知"
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-file-share"
+msgstr " 分享檔案"
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr " 在 "
 
@@ -1545,6 +1549,10 @@ msgstr "來的新訊息"
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-pre"
 msgstr "在"
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-file-share"
+msgstr "新上傳的檔案已被分享"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-sample-body-text"

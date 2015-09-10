@@ -1,20 +1,24 @@
 .empty-message-list-container {
-  padding: 10px 30px 10px 30px;
+  padding: 10px 30px 15px 30px;
   text-align: center;
   color: #777;
-  font-size: 13.5px;
+  font-size: 13px;
   line-height: 1.6em;
 }
 .empty-message-list-container:hover .empty-message-list__new-message {
   text-decoration: underline;
 }
-.empty-message-list__img {
-  width: 40px;
+.empty-message-list__icon {
+  font-size: 28px;
   display: block;
   margin: 10px auto;
+  opacity: 0.6;
 }
 .lpanel-list ul li:hover .left-panel_leave {
     opacity: 0.6;
+}
+.lpanel-list ul li:hover .left-panel_leave .icon-delete {
+    font-size: 8px;
 }
 .has-unread-msg .left-panel_leave {
     display: none;

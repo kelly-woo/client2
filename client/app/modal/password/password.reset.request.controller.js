@@ -8,14 +8,14 @@
   /* @ngInject */
   function PasswordRequestCtrl($scope, modalHelper, authAPIservice, $filter) {
     $scope.onLoadDone = true;
-
+    $scope.email = '';
     $('#passwordResetEmailInput').focus();
 
     $scope.cancel = modalHelper.closeModal;
 
     $scope.onPasswordResetRequestClick = function(email) {
       if ($scope.isLoading) return;
-      $scope.toggleLoading();
+      $scope.isLoading = !$scope.isLoading;
 
       authAPIservice.requestPasswordEmail(email)
         .success(function(response) {
@@ -26,10 +26,8 @@
           alert($filter('translate')('@password-reset-email-fail'));
         })
         .finally(function() {
-          $scope.toggleLoading();
+          $scope.isLoading = !$scope.isLoading;
         });
-
-
-    }
+    };
   }
 })();

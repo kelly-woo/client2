@@ -9,6 +9,9 @@
   text-decoration: none !important;
 }
 
+.msg-file-meta-down {
+   padding-top: 5px;
+}
 .msg-file-meta-down .separator {
    width: 1px;
    height: 17px;
@@ -20,13 +23,14 @@
 .file-uploaded-more {
   position: relative;
 }
-.msg-file-meta-down .fa-cog{
-  font-size: 15px;
+.msg-file-meta-down .icon-cog-fill{
+  font-size: 14px;
   padding-left: 0px;
 }
-.msg-file-meta-down .icon-share{
+.msg-file-meta-down .icon-share-right-fill{
   padding-left: 0px;
   padding-right: 0px;
+  font-size: 15px;
 }
 
 .file-uploaded-extra {

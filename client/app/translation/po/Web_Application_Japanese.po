@@ -915,8 +915,6 @@ msgstr "@all（トピック内）"
 #: client/app/right/right.html
 msgid "@mention-all-toast"
 msgstr ""
-"「@all」機能で現在{{topicName}}に参加している{{topicParticipantsCount}}名"
-"のメンバーにスマートフォンやウェブ通知が届きます"
 
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
@@ -1562,6 +1560,10 @@ msgid "@web-notification"
 msgstr "通知"
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-file-share"
+msgstr "さんがファイルを共有しました"
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr "さんが"
 
@@ -1607,6 +1609,10 @@ msgstr "に投稿しました"
 #, fuzzy
 msgid "@web-notification-body-topic-pre"
 msgstr " "
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-file-share"
+msgstr "新しいファイルが共有されました"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-sample-body-text"

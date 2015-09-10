@@ -57,7 +57,7 @@
                   image-max-width="700">
                 </div>
                 <div class="large-thumbnail-full-screen _fileExpand">
-                  <i class="fa fa-expand"></i>
+                  <i class="icon-minimize"></i>
                 </div>
               </div>
             </div>
@@ -103,7 +103,7 @@
           <!--  DOWNLOAD  -->
           <span class="file-uploaded-download">
             <a class="_fileDownload" {{{ attrs.download }}}>
-              <i class="icon-download cursor_pointer file-action _compile"
+              <i class="icon-download-fill cursor_pointer file-action _compile"
                  jnd-tooltip-trigger="{{translate '@common-download'}}"
                  data-direction="top"></i>
             </a>
@@ -111,7 +111,7 @@
           <span class="separator"></span>
           {{/unless}}
           <!--  SHARE -->
-          <i class="icon-share cursor_pointer file-action _compile _fileShare"
+          <i class="icon-share-right-fill cursor_pointer file-action _compile _fileShare"
              jnd-tooltip-trigger="{{translate '@btn-share'}}"
              data-direction="top"></i>
 
@@ -119,7 +119,7 @@
 
           <!--  MORE  -->
           <span class="file-uploaded-more _fileMore">
-            <i class="fa fa-cog cursor_pointer file-action _compile"
+            <i class="icon-cog-fill cursor_pointer file-action _compile"
                jnd-tooltip-trigger="{{translate '@file-action-more'}}"
                data-direction="top"></i>
           </span>
@@ -131,7 +131,7 @@
       <!-- Star -->
       <div class="msg-extra file-uploaded-extra">
         <span class="cursor_pointer msg-item-star msg-item-icon msg-item-circle _star {{css.star}}">
-          <i class="icon-star-fill"></i>
+          <i class="icon-star-on"></i>
         </span>
       </div>
       {{/unless}}

@@ -10,7 +10,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.4\n"
-"X-Poedit-Bookmarks: -1,328,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -1570,6 +1569,10 @@ msgid "@web-notification"
 msgstr "Notifications"
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-file-share"
+msgstr " shared a file"
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr " added a comment to "
 
@@ -1614,6 +1617,10 @@ msgstr " "
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-pre"
 msgstr "in "
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-file-share"
+msgstr "A new file has been shared."
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-sample-body-text"

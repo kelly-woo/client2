@@ -1,7 +1,7 @@
 <page-tracker page="topic/browse" title="Browse Topics"></page-tracker>
 <!-- Modal: Join Channel -->
 <div class="modal-header">
-  <button type="button" class="close" data-ng-click="cancel()"><i class="icon-cancel"></i></button>
+  <button type="button" class="close" data-ng-click="cancel()"><i class="icon-delete"></i></button>
     <span class="create_channel_on_top" data-ng-click="newChannel();">
         <span translate>@common-create-ch</span>
     </span>
@@ -32,17 +32,17 @@
       <div class="join-modal-channel_title">
         <span class="join-modal-channel_title_area inline-overflow-ellipsis cursor_pointer"
               ng-click="onJoinClick(channel.id);">
-          <i class="icon-topic-fill"></i> {{ ::channel | getName }}
+          <i class="icon-topic"></i> {{ ::channel | getName }}
         </span>
         <span class="pull-right">
-          <i class="fa fa-clock-o"></i>{{ ::channel.ch_createTime | getyyyyMMddformat }}
+          <i class="icon-clock"></i>{{ ::channel.ch_createTime | getyyyyMMddformat }}
         </span>
       </div>
 
       <div class="topic-description display-2-lines">{{::channel.description}}</div>
 
       <div class="topic-general-info">
-        <i class="icon-group"></i>
+        <i class="icon-user"></i>
         <span class="join-modal-channel_creator"> {{ ::channel.ch_creatorId | getName }}</span>
         <span class="bullet"> • </span>
 
@@ -50,7 +50,7 @@
 
         <span class="join-button pull-right cursor_pointer" ng-click="onJoinClick(channel.id);">
           <span translate>@btn-join</span>
-          <i class="pull-right icon-next"></i>
+          <i class="pull-right icon-arrow-right"></i>
         </span>
       </div>
     </div>
@@ -71,17 +71,17 @@
 
       <div class="join-modal-channel_title">
         <span class="join-modal-channel_title_area inline-overflow-ellipsis cursor_pointer">
-          <i class="icon-topic-fill"></i> {{::joinedChannel.name}}
+          <i class="icon-topic"></i> {{::joinedChannel.name}}
         </span>
         <span class="pull-right">
-          <i class="fa fa-clock-o"></i>{{ ::joinedChannel.ch_createTime | getyyyyMMddformat }}
+          <i class="icon-clock"></i>{{ ::joinedChannel.ch_createTime | getyyyyMMddformat }}
         </span>
       </div>
 
       <div class="topic-description display-2-lines">{{::joinedChannel.description}}</div>
 
       <div class="topic-general-info">
-        <i class="icon-group"></i>
+        <i class="icon-user"></i>
         <span class="join-modal-channel_creator"> {{ ::joinedChannel.ch_creatorId | getName }}</span>
         <span class="bullet"> • </span>
 

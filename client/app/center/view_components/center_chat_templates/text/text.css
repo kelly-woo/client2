@@ -39,25 +39,29 @@
 
 .msg-item-star {
   margin-right: 5px;
-  padding: 1px 0 0 1.5px !important;
-  font-size:18px !important;
+  padding: 2px 0 0 1.5px !important;
+  font-size: 16px !important;
   color: #f9bb00;
   background: transparent;
 }
 
 .msg-item-star.off {
-  padding: 2px 0 0 2px !important;
-  font-size: 16px !important;
+  padding: 3px 0 0 3px !important;
+  font-size: 14px !important;
   color: #ffffff;
   background: #d7e0e8;
 }
 .msg-item-star.off:hover {
   background: #f9bb00;
 }
+.comment-continue .msg-item-star.off {
+  padding: 1px 0 0 3px !important;
+}
+
 
 .msg-item-more {
-  padding: 1px 0 0 1px;
-  font-size:18px;
+  padding: 2px;
+  font-size: 16px;
   color: #FFFFFF;
   background: #d7e0e8;
 }

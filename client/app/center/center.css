@@ -290,11 +290,12 @@ by ysyun 2015.2.25
   background-color: black;
   opacity: 0.4;
 }
-.msg-file-body-float .fa-comment {
+.msg-file-body-float .icon-comment {
   position: absolute;
-  bottom: 11px;
-  right: 11px;
-  width: 15px;
+  bottom: 9px;
+  right: 7px;
+  width: 18px;
+  font-size: 18px;
   color: white;
   opacity: 0.8;
   /*z-index: 1;  center chat 영역 위에 출력되는 layout이 있을때 comment 이미지가 해당 layout을 침범함*/
@@ -775,13 +776,13 @@ by ysyun 2015.2.25
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(208, 236, 237, 0.9);
   border-radius: 10px;
-  padding: 3px 3px 3px 2px;
+  padding: 6px 6px 6px 7px;
 }
 .scroll-to-bottom-container:active {
   bottom: 63px;
 }
 .scroll-to-bottom-icon {
-  font-size: 28px;
+  font-size: 18px;
   color: #00abe6;
 }
 
