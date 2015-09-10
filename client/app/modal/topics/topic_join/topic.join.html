@@ -27,7 +27,17 @@
         <tab-heading>
           <div translate>@modal-join-ch-you-can</div>
         </tab-heading>
-        <topic-list type="joinable" list="unJoinedChannelList" model="channelTitleQuery" filter="#invite-member-filter" activeted="unJoinedChannelListActive"></topic-list>
+        <list-on-modal list="unJoinedChannelList"
+                       item-type="topic"
+                       item-class="join-modal-channel_container"
+                       model="channelTitleQuery"
+                       filter="#invite-member-filter"
+                       on-select="onSelect"
+                       get-matches="getMatches"
+                       activeted="unJoinedChannelListActive"
+                       viewport-max-height="662"
+                       item-height="130"
+                       buffer-length="5"></list-on-modal>
         <div class="no-result-container" ng-show="joinableLength === 0">
           <span translate>@alert-no-result</span>
         </div>
@@ -36,7 +46,17 @@
         <tab-heading>
           <span translate>@modal-join-ch-you-belong</span>
         </tab-heading>
-        <topic-list type="joined" list="joinedChannelList" model="channelTitleQuery" filter="#invite-member-filter" activeted="joinedChannelListActive"></topic-list>
+        <list-on-modal list="joinedChannelList"
+                       item-type="topic"
+                       item-class="join-modal-channel_container"
+                       model="channelTitleQuery"
+                       filter="#invite-member-filter"
+                       on-select="onSelect"
+                       get-matches="getMatches"
+                       activeted="joinedChannelListActive"
+                       viewport-max-height="662"
+                       item-height="130"
+                       buffer-length="5"></list-on-modal>
         <div class="no-result-container" ng-show="joinedChannelList.length === 0">
           <span translate>@alert-empty-ch-belong</span>
         </div>

@@ -460,24 +460,28 @@ this["Handlebars"]["templates"]["center.unread.bookmark"] = Handlebars.template(
     + "</span>\r\n    </div>\r\n  </div>\r\n</div>";
 },"useData":true});
 
-this["Handlebars"]["templates"]["member.item"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+this["Handlebars"]["templates"]["member.item"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+    var helper;
 
-  return "<div class=\"member-item cursor_pointer\">\r\n  <img class=\"member-profile-image\" on-image-load src=\""
+  return "    <i class=\"icon-star-off right-star opac-zero "
+    + this.escapeExpression(((helper = (helper = helpers.starClass || (depth0 != null ? depth0.starClass : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"starClass","hash":{},"data":data}) : helper)))
+    + "\" ng-click=\"onStarClick('users', member)\"></i>\r\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return "<div class=\"member-item cursor_pointer\">\r\n  <img class=\"member-profile-image\" src=\""
     + alias3(((helper = (helper = helpers.profileImage || (depth0 != null ? depth0.profileImage : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"profileImage","hash":{},"data":data}) : helper)))
     + "\"/>\r\n  <span class=\"member-name inline-overflow-ellipsis\">"
     + alias3(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"userName","hash":{},"data":data}) : helper)))
-    + "</span>\r\n  <i class=\"icon-star-off right-star opac-zero\"></i>\r\n</div>\r\n";
-},"useData":true});
-
-this["Handlebars"]["templates"]["member.list"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    return "";
+    + "</span>\r\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.isShowStar : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "</div>\r\n";
 },"useData":true});
 
 this["Handlebars"]["templates"]["topic.item"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
-  return "<div class=\"join-modal-channel_container file-item-meta__listview cursor_pointer white_background\">\r\n  <div class=\"join-modal-channel_title\">\r\n    <span class=\"join-modal-channel_title_area inline-overflow-ellipsis cursor_pointer\">\r\n      <i class=\"icon-topic\"></i>"
+  return "<div class=\"join-modal-channel_container file-item-meta__listview cursor_pointer white_background modal-list-item\">\r\n  <div class=\"join-modal-channel_title\">\r\n    <span class=\"join-modal-channel_title_area inline-overflow-ellipsis cursor_pointer\">\r\n      <i class=\"icon-topic\"></i>"
     + alias3(((helper = (helper = helpers.topicName || (depth0 != null ? depth0.topicName : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"topicName","hash":{},"data":data}) : helper)))
     + "\r\n    </span>\r\n    <span class=\"pull-right\">\r\n      <i class=\"icon-clock\"></i>"
     + alias3(((helper = (helper = helpers.createTime || (depth0 != null ? depth0.createTime : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"createTime","hash":{},"data":data}) : helper)))

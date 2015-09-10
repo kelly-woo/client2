@@ -9,7 +9,7 @@
     .service('MemberItemRenderer', MemberItemRenderer);
 
   /* @ngInject */
-  function MemberItemRenderer($filter) {
+  function MemberItemRenderer($filter, publicService, memberService) {
     var _template;
 
     this.render = render;
@@ -28,7 +28,9 @@
     function render(data) {
       return _template({
         profileImage: $filter('getSmallThumbnail')(data),
-        userName: $filter('getName')(data)
+        userName: $filter('getName')(data),
+        starClass: data.isStarred ? 'icon-star-on' : '',
+        isShowStar: !publicService.isDisabledMember(data) && data.id !== memberService.getMemberId()
       });
     }
   }

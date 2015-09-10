@@ -871,3 +871,60 @@
   height: 44px;
   border-bottom: 1px solid #f2f2f2;
 }
+
+/*
+  MEMBER LIST
+*/
+.modal-body .member-list {
+  position: relative;
+}
+
+.modal-body .no-result-container {
+  padding: 9px 9px 0 9px;
+}
+
+.modal-body .member-item {
+  position: absolute;
+  padding: 9px 9px 0 9px;
+  background-color: white;
+  width: 100%;
+  height: 44px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.modal-body .member-item:hover .icon-star {
+  opacity: 1;
+}
+
+.modal-body .member-item.active {
+  background-color: #f2fbff;
+}
+.modal-body .member-item.active i {
+  opacity: 1;
+}
+
+.modal-body .member-item .member-profile-image {
+  display: block;
+  width: 25px;
+  border-radius: 25px;
+  float: left;
+}
+
+.modal-body .member-item .right-star {
+  float: right;
+  line-height: 25px;
+}
+
+.modal-body .member-item .icon-star-on {
+  color: #f9bb00;
+  opacity: 1;
+}
+.modal-body .member-item .member-name {
+  line-height: 25px;
+  margin-left: 7px;
+  width: 350px;
+}
+
+.modal-body .member-item.active {
+  background-color: #f2fbff;
+}

@@ -34,14 +34,18 @@
           <tab-heading>
             <div translate>@common-active-member</div>
           </tab-heading>
-
-          <member-list ng-show="filteredEnableMembers.length !== 0"
-                       activeted="!memberListSetting.enabledMemberList.active"
-                       selector="#team-member-filter"
-                       list="filteredEnableMembers"
-                       repeat="member in filteredEnableMembers = (enabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
-                       on-select="onMemberClick">
-          </member-list>
+          <list-on-modal type="enabledMember"
+                         list="enabledMemberList"
+                         item-type="member"
+                         item-class="member-item"
+                         model="memberNameQuery"
+                         filter="#team-member-filter"
+                         on-select="onMemberClick"
+                         get-matches="getMatches"
+                         activeted="memberListSetting.enabledMemberList.active"
+                         viewport-max-height="500"
+                         item-height="44"
+                         buffer-length="10"></list-on-modal>
           <div class="no-result-container" ng-show="filteredEnableMembers.length === 0">
             <span translate>@alert-no-result</span>
           </div>
@@ -52,14 +56,18 @@
           <tab-heading>
             <span translate>@common-inactive-member</span>
           </tab-heading>
-
-          <member-list ng-show="filteredDisableMembers.length !== 0"
-                       activeted="!memberListSetting.disabledMemberList.active"
-                       selector="#team-member-filter"
-                       list="filteredDisableMembers"
-                       repeat="member in filteredDisableMembers = (disabledMemberList | userByName: memberNameQuery | orderBy: ['!isStarred', 'name'])"
-                       on-select="onMemberClick">
-          </member-list>
+          <list-on-modal type="disabledMember"
+                         list="disabledMemberList"
+                         item-type="member"
+                         item-class="member-item"
+                         model="memberNameQuery"
+                         filter="#team-member-filter"
+                         on-select="onMemberClick"
+                         get-matches="getMatches"
+                         activeted="memberListSetting.disabledMemberList.active"
+                         viewport-max-height="500"
+                         item-height="44"
+                         buffer-length="10"></list-on-modal>
           <div class="no-result-container" ng-show="filteredDisableMembers.length === 0">
             <span translate>@alert-no-result</span>
           </div>

@@ -9,7 +9,8 @@
     .controller('TopicJoinCtrl', TopicJoinCtrl);
 
   /* @ngInject */
-  function TopicJoinCtrl($scope, $timeout, memberService, modalHelper) {
+  function TopicJoinCtrl($scope, $timeout, $state, entityheaderAPIservice, analyticsService,
+                         jndPubSub, memberService, modalHelper, EntityMapManager) {
     _init();
 
     /**
@@ -21,7 +22,9 @@
 
       $scope.cancel = modalHelper.closeModal;
       $scope.newChannel = newChannel;
+      $scope.getMatches = getMatches;
 
+      $scope.onSelect = onSelect;
       $scope.onListClick = onListClick;
     }
 
@@ -31,6 +34,78 @@
     function newChannel() {
       $scope.cancel();
       modalHelper.openTopicCreateModal();
+    }
+
+    /**
+     * list에서 filter된 list를 전달한다.
+     * @param {array} list
+     * @param {string} value
+     * @returns {*}
+     */
+    function getMatches(list, value) {
+      var matches;
+
+      value = value.toLowerCase();
+
+      matches = _.chain(list).filter(function (item) {
+        return item.name.toLowerCase().indexOf(value) > -1;
+      }).sortBy('name').value();
+
+      if ($scope.unJoinedChannelList === list) {
+        $scope.joinableLength = matches.length;
+      } else {
+        $scope.joinedLength = matches.length;
+      }
+
+      return matches;
+    }
+
+    /**
+     * topic select event callback
+     * @param {object} item
+     */
+    function onSelect(item) {
+      var entity = item;
+      var entityId;
+
+      if (entity) {
+        entityId = entity.id;
+        if (EntityMapManager.contains('joined', entityId)) {
+          // join한 topic
+
+          _topicJoin(entityId);
+        } else {
+          // join하지 않은 topic이므로 join 가능한지 requst 후 topic에 join 함
+
+          if (!$scope.isLoading) {
+            jndPubSub.showLoading();
+
+            entityheaderAPIservice.joinChannel(entityId)
+              .success(function() {
+                _topicJoin(entityId);
+              })
+              .finally(function() {
+                jndPubSub.hideLoading();
+              });
+          }
+        }
+      }
+    }
+
+    /**
+     * 특정 topic에 join한다.
+     * @param {number} entityId
+     */
+    function _topicJoin(entityId) {
+      // analytics
+      analyticsService.mixpanelTrack( "topic Join" );
+
+      //jndPubSub.updateLeftPanel();
+
+      // TODO: REFACTOR -> ROUTE SERVICE
+      $state.go('archives', {entityType: 'channels', entityId: entityId});
+
+      $scope.cancel();
     }
 
     /**

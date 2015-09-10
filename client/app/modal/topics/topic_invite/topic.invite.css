@@ -7,6 +7,15 @@
 	margin-bottom: 20px;
 }
 
+.modal-dialog .invite-member-filter-container {
+	margin-bottom: 20px;
+}
+
+.modal-dialog .invite-channel .member-list-container {
+	max-height: 500px;
+	overflow-y: auto;
+}
+
 .invite-channel .invite-channel-full {
 	text-align: center;
 }
@@ -28,10 +37,6 @@
 .invite-channel .invite-channel-full span:last-child {
 	font-size: 14px;
 	color: #666;
-}
-
-.invite-channel .no-result-container {
-	margin-top: 20px;
 }
 
 .invite-channel .select-all-container {

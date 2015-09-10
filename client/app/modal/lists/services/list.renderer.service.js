@@ -6,21 +6,22 @@
 
   angular
     .module('jandiApp')
-    .service('MemberListRenderer', MemberListRenderer);
+    .service('ListRenderer', ListRenderer);
 
   /* @ngInject */
-  function MemberListRenderer(MemberItemRenderer) {
+  function ListRenderer(ItemRenderFactory) {
     this.render = render;
 
     /**
      * member list를 랜더링한다.
+     * @param {string} type - renderer type
      * @param {array} list - topic list
      * @param {object} viewport
      * @param {boolean} isUpdateList
      */
-    function render(list, viewport, isUpdateList) {
+    function render(type, list, viewport, isUpdateList) {
       var elements = [];
-      var itemRenderer = MemberItemRenderer;
+      var itemRenderer = ItemRenderFactory.get(type);
       var i;
       var len;
 

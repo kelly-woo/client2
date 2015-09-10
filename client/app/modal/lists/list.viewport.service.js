@@ -1,5 +1,5 @@
 /**
- * @fileoverview viewport 서비스
+ * @fileoverview viewport 서비스. viewport 영역에 출력 해야할 data를 전달한다.
  */
 (function() {
   'use strict';
