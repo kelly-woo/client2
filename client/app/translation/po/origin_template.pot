@@ -1477,6 +1477,10 @@ msgid "@web-notification"
 msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-body-file-share"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr ""
 
@@ -1518,6 +1522,10 @@ msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-pre"
+msgstr ""
+
+#: client/app/modal/settings/notification/setting.notification.html
+msgid "@web-notification-file-share"
 msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html

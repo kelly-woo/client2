@@ -77,13 +77,10 @@
 
         if (!keyword) {
           _resetMessageSearchResult();
-          return;
+        } else {
+          _refreshSearchQuery();
+          searchMessages();
         }
-
-        if (!_isMessageTabActive()) return;
-
-        _refreshSearchQuery();
-        searchMessages();
       }
     });
 
