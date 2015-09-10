@@ -11,8 +11,8 @@
   /* @ngInject */
   function Dialog($rootScope, $modal, $q, Toast) {
     var that = this;
-    var modals = ['alert', 'confirm'];
-    var toasts = ['success', 'info', 'warning', 'error'];
+    var _modals = ['alert', 'confirm'];
+    var _toasts = ['success', 'info', 'warning', 'error'];
 
     _init();
 
@@ -25,6 +25,7 @@
        * @param {string} options.body               - modal body
        * @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
        * @param {function} [options.onClose]        - close callback
+       * @returns {*}
        */
       /**
        * confirm modal
@@ -34,8 +35,9 @@
        * @param {string} options.body               - modal body
        * @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
        * @param {function} [options.onClose]        - close callback
+       * @returns {*}
        */
-      _.each(modals, function(name) {
+      _.each(_modals, function(name) {
         that[name] = (function(name) {
           return function(options) {
             var deferred  = $q.defer();
@@ -60,6 +62,7 @@
        * @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
        * @param {function} [options.onClose]        - close callback
        * @param {number} [options.timeOut=5000]     - toast 유지시간
+       * @returns {*}
        */
       /**
        * info toast
@@ -69,7 +72,8 @@
        * @param {string} options.body               - toast body
        * @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
        * @param {function} [options.onClose]        - close callback
-       * @param {number} [options.timeOut=5000]     - toast 유지시간
+       * @param {number} [options.timeOut=5000]     - toast 유지시간(ms)
+       * @returns {*}
        */
       /**
        * warning toast
@@ -79,7 +83,8 @@
        * @param {string} options.body               - toast body
        * @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
        * @param {function} [options.onClose]        - close callback
-       * @param {number} [options.timeOut=5000]     - toast 유지시간
+       * @param {number} [options.timeOut=5000]     - toast 유지시간(ms)
+       * @returns {*}
        */
       /**
        * error toast
@@ -89,9 +94,10 @@
        * @param {string} options.body               - toast body
        * @param {boolean} [options.allowHtml=false] - title,body property 값으로 html tag 가능 여부
        * @param {function} [options.onClose]        - close callback
-       * @param {number} [options.timeOut=5000]     - toast 유지시간
+       * @param {number} [options.timeOut=5000]     - toast 유지시간(ms)
+       * @returns {*}
        */
-      _.each(toasts, function(name) {
+      _.each(_toasts, function(name) {
         that[name] = (function(name) {
           return function(options) {
             var deferred = $q.defer();
@@ -102,7 +108,7 @@
             }
 
             return deferred.promise;
-          }
+          };
         }(name));
       });
     }

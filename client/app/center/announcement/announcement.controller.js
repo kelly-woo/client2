@@ -143,19 +143,13 @@
       var messageId = param.messageId;
 
       if ($scope.hasAnnouncement) {
-        var promise = Dialog.confirm({
+        Dialog.confirm({
           body: $filter('translate')('@announcement-create-confirm'),
           onClose: function(result) {
             if (result === 'okay') {
               AnnouncementData.createAnnouncement(entityId, messageId);
             }
           }
-        });
-
-        promise.then(function(result) {
-          console.log('confirm ::: ok', result);
-        }, function(result) {
-          console.log('confirm ::: cancel', result);
         });
       } else {
         AnnouncementData.createAnnouncement(entityId, messageId)

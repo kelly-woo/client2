@@ -16,6 +16,7 @@
 
     // toastr customization
     _.merge(toastrConfig, {
+      closeButton: true,
       positionClass: 'toast-top-center',
       iconClasses: {
         success: 'c-toast-success',

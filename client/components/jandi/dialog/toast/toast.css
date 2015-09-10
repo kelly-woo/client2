@@ -62,3 +62,8 @@
 #toast-container .c-toast-warning {
   color: #000;
 }
+
+#toast-container .toast-close-button {
+  top: 2px;
+  left: 12px;
+}

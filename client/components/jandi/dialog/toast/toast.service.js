@@ -14,8 +14,8 @@
   /* @ngInject */
   function Toast(toastr) {
     var that = this;
-    var singleToast = false;
-    var toastInstance;
+    var _isSingleToast = false;
+    var _toastInstance;
 
     _init();
 
@@ -37,11 +37,11 @@
       var title = options.title;
       var body = options.body;
 
-      if (singleToast && toastInstance) {
-        toastr.clear(toastInstance);
+      if (_isSingleToast && _toastInstance) {
+        toastr.clear(_toastInstance);
       }
 
-      toastInstance = that[type](title, body, _.extend(options, {
+      _toastInstance = that[type](title, body, _.extend(options, {
         onHidden: _getOnClose(options, deferred)
       }));
     }
