@@ -1,5 +1,5 @@
 <div class="image-item">
-  <div ng-if="hasRotater" class="ie9-image-rotator cursor_pointer" ng-click="imageRotate($event)">
+  <div ng-if="::(hasRotater)" class="ie9-image-rotator cursor_pointer" ng-click="imageRotate($event)">
     <i id="fromModal" class="fa fa-rotate-right"></i>
   </div>
   <div class="image-item-footer">
@@ -16,7 +16,7 @@
     </div>
     <div class="options non-selectable">
       <div class="actions">
-        <a class="downdload" download-file file-title="{{::fileTitle}}" file-url="{{::fileUrl}}"><i class="fa fa-download"></i></a>
+        <a class="downdload" href="{{::downloadUrl}}"><i class="fa fa-download"></i></a>
       </div>
     </div>
   </div>

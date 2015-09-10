@@ -1,7 +1,7 @@
 <div class="footer">
   <div class="has-new-msg-banner-container cursor_pointer" id="has-new-msg-banner" ng-click="onHasNewMessageAlertClicked();">
     <span class="has-new-msg-alert-container-text inline-overflow-ellipsis" translate>@has-new-message-alert-msg</span>
-    <i class="icon-cancel pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
+    <i class="icon-delete pull-right has-new-msg-alert-container-close" ng-click="onHasNewMessageAlertCloseClicked(); $event.stopPropagation();"></i>
   </div>
 
   <div class="tutorial-clicker tutorial-z-index pulse" id="chatTutorial"
@@ -10,10 +10,10 @@
   </div>
 
   <div id="primary_file_button" class="file_upload_btn cursor_pointer" style="height: 35px;" ng-class="{'disabled': msgLoadStatus.loading || isDisabledMember(currentEntity)}" dropdown dropdown-toggle="true">
-    <i class="icon-upload"></i>
+    <i class="icon-upload-fill"></i>
     <div id="file-upload-menu" class="dropdown-menu" style="top: -102px;">
       <ul>
-        <li class="computer"><i class="item-icon icon-notebook"></i><span class="item-text" translate>@file-upload-computer</span></li>
+        <li class="computer"><i class="item-icon icon-laptop"></i><span class="item-text" translate>@file-upload-computer</span></li>
         <li class="google-drive"><i class="item-icon icon-google-drive"></i><span class="item-text" translate>@file-upload-google-drive</span></li>
         <li class="dropbox"><i class="item-icon icon-dropbox"></i><span class="item-text" translate>@file-upload-dropbox</span></li>
       </ul>

@@ -85,15 +85,15 @@
   display: none;
   position: absolute;
   top: 15px;
-  right: 15px;
-  font-size: 20px;
+  right: 17px;
+  font-size: 18px;
 }
 
 .message-card:hover .message-star {
   display: block;
 }
 
-.message-card .icon-star-fill {
+.message-card .icon-star-on {
   color: #f9bb00;
 }
 

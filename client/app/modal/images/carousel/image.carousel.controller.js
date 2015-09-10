@@ -13,10 +13,16 @@
 
   /* @ngInject */
   function imageCarouselCtrl($scope, $templateRequest, $state, $filter, modalHelper, ImageCarousel, data, Browser) {
-    $scope.hasNext = false;
-    $scope.hasPrev = false;
 
-    $scope.onload = onload;
+    _init();
+
+    function _init() {
+      $scope.hasNext = false;
+      $scope.hasPrev = false;
+
+      $scope.onload = onload;
+      $scope.close = close;
+    }
 
     /**
      * image carousel modal의 dom load callback
@@ -31,8 +37,6 @@
           });
       }
     }
-
-    $scope.close = close;
 
     /**
      * modal close
@@ -74,8 +78,7 @@
             $itemScope.userName = data.userName;
             $itemScope.uploadDate = $filter('getyyyyMMddformat')(data.uploadDate);
             $itemScope.fileTitle = data.fileTitle;
-            $itemScope.fileUrl = data.fileUrl;
-
+            $itemScope.downloadUrl = $filter('downloadFile')(false, data.fileTitle, data.fileUrl).downloadUrl;
             $itemScope.hasRotater = Browser.msie && Browser.version === 9;
 
             $itemScope.fileDetail = _fileDetail;

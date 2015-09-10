@@ -7,8 +7,6 @@
 
 }
 .join-modal-search .input-group-addon {
-  padding: 2px 0px 0px 9px;
-  font-size: 20px;
   color: #999;
 }
 .join-modal-search .form-control {
@@ -74,14 +72,14 @@
   font-weight: 800;
 }
 
-.join-modal-channel_container .topic-general-info .join-button:hover .icon-next {
+.join-modal-channel_container .topic-general-info .join-button:hover .icon-arrow-right {
   font-weight: 800;
 }
 
-.join-modal-channel_container .topic-general-info .join-button .icon-next {
+.join-modal-channel_container .topic-general-info .join-button .icon-arrow-right {
   font-weight: 600;
-  width: 13px;
-  height: 13px;
+  font-size: 10px;
+  line-height: 13px;
 }
 .join-modal-channel_title:hover {
   /*text-decoration: none;*/

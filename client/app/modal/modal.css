@@ -58,7 +58,8 @@
 }
 
 .modal-header .close {
-  font-size: 16px;
+  font-size: 12px;
+  line-height: 16px;
   color: white;
   margin-top: 0;
 
@@ -167,8 +168,8 @@
   border-radius: 0;
   border-right: none;
   position: relative;
-  font-size: 18px;
-  padding-top: 3px;
+  font-size: 14px;
+  padding-top: 1px;
   padding-bottom: 0px;
   padding-left: 8px;
   padding-right: 0px;
@@ -695,7 +696,7 @@
   height: 50px;
   float: left;
   width: 33%;
-  padding-top: 8px;
+  padding-top: 5px;
   cursor: pointer;
   color: rgb(85, 84, 89);
 }
@@ -715,6 +716,9 @@
   background-repeat: no-repeat;
   background-position: center center;
   text-align: center;
+  font-size: 18px;
+  opacity: 0.7;
+  padding-bottom: 2px;
 }
 
 .cropArea {

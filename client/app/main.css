@@ -326,6 +326,11 @@ input[type="email"] {
 .green_badge {
   background-color: #00abe6;
 }
+
+.red_badge {
+  background-color: #FF5B49;
+}
+
 .green_background {
   background-color: #31c08a !important;
 }
@@ -678,7 +683,8 @@ input[type="button"] {
 }
 
 .file-item-meta__comments {
-  background-image: url('../assets/images/icon-comment.png');
+  padding-right: 2px;
+  /*background-image: url('../assets/images/icon-comment.png');*/
 }
 
 .private-topic-icon {
@@ -760,8 +766,9 @@ input[type="button"] {
 .dropdown-menu {
   padding: 0 !important;
   margin: 0 !important;
-  padding-top:3px !important;
-  padding-bottom:3px !important;
+  padding-top:0px !important;
+  padding-bottom:0px !important;
+  z-index: 1111;
 }
 .dropdown-menu li {
   position: relative;
@@ -842,7 +849,9 @@ input[type="button"] {
 .grey_dropdown .divider {
   margin: 3px 0;
 }
-
+.grey_dropdown .icon-trash {
+  font-size: 15px;
+}
 
 .green_dropdown {
   background-color: #31c08a !important;

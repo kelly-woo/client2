@@ -6,8 +6,8 @@
     <!-- TEAM -->
     <div class="header-navbar-menu" id="team-menu" dropdown>
 
-      <span class="header-navbar__topmenu" dropdown-toggle ng-click="updateTeamBadge();" other-team-badge-indicator>
-        <i class="fa fa-bars header-navbar__menu-icon"></i>
+      <span class="header-navbar__topmenu" dropdown-toggle ng-click="updateTeamBadge();">
+        <i class="icon-reorder header-navbar__menu-icon"></i>
         <span class="header-navbar__title" translate>@common-team</span>
       </span>
 
@@ -15,7 +15,7 @@
         <!-- 팀원 보기 -->
         <li class="" role="presentation">
           <a data-ng-click="openModal('team-member');" role="menuitem" tabindex="-1">
-            <i class="icon-group"></i>
+            <i class="icon-users"></i>
             <span translate>@team-members</span>
           </a>
         </li>
@@ -23,7 +23,7 @@
         <!-- 노티피케이션 -->
         <li class="" role="presentation" ng-if="!isIe">
           <a data-ng-click="openModal('setting-notifications');" role="menuitem" tabindex="-1">
-            <i class="fa fa-bell"></i>
+            <i class="icon-bell-fill"></i>
             <span translate>@web-notification</span>
           </a>
         </li>
@@ -35,14 +35,14 @@
           <a data-ng-click="openModal('team-change');" role="menuitem" tabindex="-1">
             <i class="icon-switch"></i>
             <span translate>@team-switch</span>
-            <span class="badge green_badge pull-right" ng-if="hasBadgeOnOtherTeam">{{otherTeamBadgeCount}}</span>
+            <span class="badge red_badge pull-right" ng-if="hasBadgeOnOtherTeam">{{otherTeamBadgeCount}}</span>
           </a>
         </li>
 
         <!-- 홈으로 -->
         <li role="presentation">
           <a data-ng-click="toTeam();" role="menuitem" tabindex="-1">
-            <i class="icon-account-home"></i>
+            <i class="icon-accounthome"></i>
             <span translate>@to-account-home</span>
           </a>
         </li>
@@ -55,7 +55,7 @@
     <!-- INVITE -->
     <div class="header-navbar-menu invite-navbar-menu" id="invite">
       <span class="header-navbar__topmenu" data-ng-click="openModal('invite');">
-        <i class="icon-invite-fill header-navbar__menu-icon"></i>
+        <i class="icon-user-plus header-navbar__menu-icon"></i>
         <span class="header-navbar__title" translate>@btn-invite</span>
       </span>
     </div>  <!--  END OF MENU -->
@@ -63,8 +63,8 @@
     <!-- LANGUAGE -->
     <div class="header-navbar-menu language-navbar-menu" dropdown id="language">
       <span class="header-navbar__topmenu" dropdown-toggle>
-        <i class="icon-language header-navbar__menu-icon"></i>
-        <i class="fa fa-caret-down"></i>
+        <i class="icon-global header-navbar__menu-icon"></i>
+        <i class="icon-angle-down"></i>
       </span>
 
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown">
@@ -82,20 +82,20 @@
     <div class="header-navbar-settings" dropdown>
 
       <span class="header-navbar__topmenu" dropdown-toggle>
-        <i class="fa fa-question-circle"></i>
-        <i class="fa fa-caret-down"></i>
+        <i class="icon-help"></i>
+        <i class="icon-angle-down"></i>
       </span>
       <ul class="dropdown-menu grey_dropdown header-navbar__dropdown" role="menu">
         <li role="presentation">
           <a href="http://support.jandi.com" target="_blank" role="menuitem" tabindex="-1">
-            <i class="fa fa-info-circle"></i>
+            <i class="icon-info-fill"></i>
             <span translate>@common-faq</span>
           </a>
         </li>
 
         <li role="presentation">
           <a data-ng-click="onShowTutorialClick();" role="menuitem" tabindex="-1">
-            <i class="fa fa-question-circle"></i>
+            <i class="icon-help-fill"></i>
             <span translate>@common-show-tutorial</span>
           </a>
         </li>
@@ -104,14 +104,14 @@
 
         <li class="" role="presentation">
           <a data-ng-click="openModal('agreement');" role="menuitem" tabindex="-1">
-            <i class="fa fa-folder"></i>
+            <i class="icon-folder-fill"></i>
             <span translate>@common-terms-of-service</span>
           </a>
         </li>
 
         <li class="" role="presentation">
           <a data-ng-click="openModal('privacy');" role="menuitem" tabindex="-1">
-            <i class="fa fa-lock"></i>
+            <i class="icon-lock"></i>
             <span translate>@common-privacy-policy</span>
           </a>
         </li>
@@ -123,26 +123,26 @@
     <ul>
       <li>
         <a class="info-tool file-tool" ng-class="{active: toolbar.files}" ng-click="openRightPanel('files')"
-            tooltip="{{::'@common-files' | translate}}" tooltip-append-to-body="true" tooltip-placement="bottom">
+            tooltip="{{::'@common-files' | translate}}" tooltip-placement="bottom">
           <i class="icon-file"></i>
         </a>
       </li>
       <li>
         <a class="info-tool message-tool" ng-class="{active: toolbar.messages}" ng-click="openRightPanel('messages')"
-          tooltip="{{::'@common-message-search' | translate}}" tooltip-append-to-body="true" tooltip-placement="bottom">
+          tooltip="{{::'@common-message-search' | translate}}" tooltip-placement="bottom">
           <i class="icon-chat"></i>
         </a>
       </li>
       <li>
         <a class="info-tool star-tool" ng-class="{active: toolbar.stars}" ng-click="openRightPanel('stars')"
-          tooltip="{{::'@common-star' | translate}}" tooltip-append-to-body="true" tooltip-placement="bottom">
-          <i class="icon-star"></i>
+          tooltip="{{::'@common-star' | translate}}" tooltip-placement="bottom">
+          <i class="icon-star-off"></i>
         </a>
       </li>
       <li>
         <a class="info-tool mention-tool" ng-class="{active: toolbar.mentions}" ng-click="openRightPanel('mentions');"
-            tooltip="{{::'@common-mention' | translate}}" tooltip-append-to-body="true" tooltip-placement="bottom" tooltip-class="header-info-tool absolute-right-tooltip">
-          <i class="fa fa-at"></i>
+            tooltip="{{::'@common-mention' | translate}}" tooltip-placement="bottom">
+          <i class="icon-at"></i>
         </a>
       </li>
     </ul>
