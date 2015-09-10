@@ -33,7 +33,7 @@
      * @param {string} type - info, warning, error
      * @param {object} options
      */
-    function show(type, options) {
+    function show(type, options, deferred) {
       var title = options.title;
       var body = options.body;
 
@@ -42,7 +42,7 @@
       }
 
       toastInstance = that[type](title, body, _.extend(options, {
-        onHidden: _getOnClose(options)
+        onHidden: _getOnClose(options, deferred)
       }));
     }
 
@@ -93,14 +93,16 @@
     /**
      * close callback 전달
      * @param {object} options
+     * @param {object} deferred
      * @returns {Function}
      * @private
      */
-    function _getOnClose(options) {
+    function _getOnClose(options, deferred) {
       return function() {
         var fn = options.onClose;
 
         fn && fn();
+        deferred.resolve();
       };
     }
   }

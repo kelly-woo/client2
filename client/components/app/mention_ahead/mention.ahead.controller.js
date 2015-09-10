@@ -309,8 +309,12 @@
           .replace('{{topicName}}', '\'' + currentEntity.name + '\'')
           .replace('{{topicParticipantsCount}}', parseInt(entityAPIservice.getMemberLength(currentEntity), 10) - 1);
 
-        Dialog.warning({
+        var promise = Dialog.warning({
           title: msg
+        });
+
+        promise.then(function() {
+          console.log('toast hidden ::: ');
         });
 
         _onSelect($item);

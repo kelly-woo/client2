@@ -26,7 +26,15 @@
       $scope.okay = okay;
       $scope.cancel = cancel;
 
-      $modalInstance.result.then(_close, _close);
+      $modalInstance.result.then(
+        function(result) {
+          _close(result);
+          $scope.deferred.resolve(result);
+        },
+        function(result) {
+          _close(result);
+          $scope.deferred.reject(result);
+        });
     }
 
     /**
