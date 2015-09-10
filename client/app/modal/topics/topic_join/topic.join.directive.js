@@ -132,7 +132,7 @@
         matches = getMatches(value);
         scope[type + 'Length'] = matches.length;
 
-        TopicListRenderer.render(type, matches, viewport, true);
+        TopicListRenderer.render(matches, viewport, true);
       }
 
       /**
@@ -187,7 +187,7 @@
        * scroll event handler
        */
       function onScroll() {
-        TopicListRenderer.render(type, matches, viewport);
+        TopicListRenderer.render(matches, viewport);
       }
 
       /**

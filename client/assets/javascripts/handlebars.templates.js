@@ -460,6 +460,20 @@ this["Handlebars"]["templates"]["center.unread.bookmark"] = Handlebars.template(
     + "</span>\r\n    </div>\r\n  </div>\r\n</div>";
 },"useData":true});
 
+this["Handlebars"]["templates"]["member.item"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return "<div class=\"member-item cursor_pointer\">\r\n  <img class=\"member-profile-image\" on-image-load src=\""
+    + alias3(((helper = (helper = helpers.profileImage || (depth0 != null ? depth0.profileImage : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"profileImage","hash":{},"data":data}) : helper)))
+    + "\"/>\r\n  <span class=\"member-name inline-overflow-ellipsis\">"
+    + alias3(((helper = (helper = helpers.userName || (depth0 != null ? depth0.userName : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"userName","hash":{},"data":data}) : helper)))
+    + "</span>\r\n  <i class=\"icon-star-off right-star opac-zero\"></i>\r\n</div>\r\n";
+},"useData":true});
+
+this["Handlebars"]["templates"]["member.list"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    return "";
+},"useData":true});
+
 this["Handlebars"]["templates"]["topic.item"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
@@ -476,11 +490,4 @@ this["Handlebars"]["templates"]["topic.item"] = Handlebars.template({"compiler":
     + "<span>"
     + alias3(((helper = (helper = helpers.commonJoinedMessage || (depth0 != null ? depth0.commonJoinedMessage : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"commonJoinedMessage","hash":{},"data":data}) : helper)))
     + "</span>\r\n  </div>\r\n</div>\r\n";
-},"useData":true});
-
-this["Handlebars"]["templates"]["topic.list"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    var stack1, helper;
-
-  return ((stack1 = ((helper = (helper = helpers.items || (depth0 != null ? depth0.items : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"items","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\r\n";
 },"useData":true});

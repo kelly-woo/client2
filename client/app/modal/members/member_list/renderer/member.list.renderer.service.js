@@ -1,26 +1,26 @@
 /**
- * @fileoverview topic list renderer 서비스
+ * @fileoverview member list renderer 서비스
  */
 (function() {
   'use strict';
 
   angular
     .module('jandiApp')
-    .service('TopicListRenderer', TopicListRenderer);
+    .service('MemberListRenderer', MemberListRenderer);
 
   /* @ngInject */
-  function TopicListRenderer(TopicItemRenderer) {
+  function MemberListRenderer(MemberItemRenderer) {
     this.render = render;
 
     /**
-     * topic list를 랜더링한다.
+     * member list를 랜더링한다.
      * @param {array} list - topic list
      * @param {object} viewport
      * @param {boolean} isUpdateList
      */
     function render(list, viewport, isUpdateList) {
       var elements = [];
-      var itemRenderer = TopicItemRenderer;
+      var itemRenderer = MemberItemRenderer;
       var i;
       var len;
 
