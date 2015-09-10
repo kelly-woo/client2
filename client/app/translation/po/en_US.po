@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.8.2\n"
 "X-Poedit-Bookmarks: -1,328,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: client/app/tpl/503/503.html
@@ -41,6 +41,7 @@ msgid "@alert-no-messages-found"
 msgstr "No messages found matching"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
+#: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-no-result"
 msgstr "No matches"
@@ -67,7 +68,7 @@ msgstr "Hide"
 msgid "@ask-me-later"
 msgstr "Ask me later"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@browse-more-topics"
 msgstr "Browse other topics"
 
@@ -147,7 +148,6 @@ msgstr "Send"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -283,8 +283,6 @@ msgid "@common-customer-service"
 msgstr "Customer Service"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "Deleted File"
@@ -322,7 +320,6 @@ msgstr "Done"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -330,6 +327,7 @@ msgid "@common-download"
 msgstr "Download"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr "That topic name is already in use. Please try again."
 
@@ -600,7 +598,7 @@ msgstr "Terms of Service"
 msgid "@common-title"
 msgstr "Title"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "Topics"
@@ -623,7 +621,7 @@ msgstr "Upload File"
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
 msgstr "Create a new topic"
 
@@ -698,7 +696,6 @@ msgid "@error-404-title"
 msgstr "Oops!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -746,6 +743,32 @@ msgstr "Dropbox"
 msgid "@file-upload-google-drive"
 msgstr "Google Drive"
 
+#: client/app/left/topics/topics.html
+msgid "@folder-enter-name"
+msgstr "Insert the folder name"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-item-already-exists"
+msgstr "The topic already exists in the folder."
+
+#: client/app/left/topics/topics.html
+msgid "@folder-name-taken"
+msgstr "That name is already taken"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-new"
+msgstr "New folder"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-remove"
+msgstr "Delete"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-rename"
+msgstr "Rename"
+
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "You received a new message"
@@ -787,10 +810,6 @@ msgstr "You've exceeded the maximum character limit (60)"
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr "You've exceeded the maximum character limit"
-
-#: client/app/modal/topics/topic_rename/topic.rename.html
-msgid "@input-rename"
-msgstr "Enter name to change"
 
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@input-search-channel-name"
@@ -1000,12 +1019,10 @@ msgid "@more-dm-list"
 msgstr "Choose a member to message"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "created this public topic."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "created this private topic."
 
@@ -1015,22 +1032,18 @@ msgid "@msg-help-multiline"
 msgstr "shift+enter to multiline"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "invited"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr " "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "has joined"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "has left"
 
@@ -1156,14 +1169,12 @@ msgid "@star-un"
 msgstr "Unstar"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
 msgstr ""
 "{{msg.message.content.actionOwner}} posted {{msg.announceWriterName}}'s "
 "message as an announcement."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} deleted the announcement."
 
@@ -1533,7 +1544,6 @@ msgid "@tutorial-welcome-title"
 msgstr "Welcome to JANDI! "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr "Unread messages below"
 
@@ -1616,6 +1626,9 @@ msgstr "It's working!"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
+
+#~ msgid "@input-rename"
+#~ msgstr "Enter name to change"
 
 #~ msgid "@common-search"
 #~ msgstr "Search"
