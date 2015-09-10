@@ -74,6 +74,8 @@
       setTopicNotificationStatus: setTopicNotificationStatus,
 
       isAdmin: isAdmin,
+      isActiveMember: isActiveMember,
+      isDeactivatedMember: isDeactivatedMember,
       isDisabled: isDisabled,
       isDeleted: isDeleted
     };
@@ -530,7 +532,29 @@
     }
 
     /**
+     * member가 active(enabled)상태인지 아닌지 확인한다.
+     * 외부 서비스에서 사용하기 편하려고 만들었다.
+     * @param {object} member - member object
+     * @returns {*|*|boolean}
+     */
+    function isActiveMember(member) {
+      return !isDeactivatedMember(member);
+    }
+
+    /**
+     * member가 disabled이거나 deleted인지 확인한다.
+     * 외부 서비스에서 사용하기 편하려고 만들었다.
+     * @param {object} member - member object
+     * @returns {*|*|boolean}
+     */
+    function isDeactivatedMember(member) {
+      return isDisabled(member) || isDeleted(member);
+    }
+
+    /**
      * member의 status가 disabled인지 아닌지 확인한다.
+     * @param {object} member - member object
+     * @returns {*|*|boolean}
      */
     function isDisabled(member) {
       return member && member.status === 'disabled';
