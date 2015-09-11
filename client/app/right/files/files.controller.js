@@ -343,7 +343,7 @@
      */
     function _generateShareOptions() {
       //console.log('generating shared options')
-      $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
+      $scope.selectOptions = fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList);
     }
 
     /**

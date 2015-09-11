@@ -294,7 +294,7 @@
      * @private
      */
     function _initChatRoomOption() {
-      var newOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
+      var newOptions = fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList);
       var newMessageLocation = _getMessageLocation(newOptions);
 
       $scope.chatRoomOptions = newOptions;
@@ -344,7 +344,7 @@
      * @private
      */
     function _initChatWriterOption() {
-      $scope.chatWriterOptions = fileAPIservice.getShareOptions([$scope.member], $scope.memberList);
+      $scope.chatWriterOptions = fileAPIservice.getShareOptions($scope.memberList);
     }
 
     /**
