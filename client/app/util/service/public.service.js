@@ -151,7 +151,7 @@
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
       }
 
-      return memberService.isDisabled(member) || memberService.isDeleted(member);
+      return memberService.isDeactivatedMember(member);
     }
 
     function _isNumber(obj) {
