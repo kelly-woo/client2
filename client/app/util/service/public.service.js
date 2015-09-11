@@ -12,7 +12,7 @@
   /* @ngInject */
   function publicService($rootScope, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, HybridAppHelper, $filter, memberService) {
+                         entityAPIservice, HybridAppHelper, $filter, memberService, configuration) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -22,6 +22,7 @@
       signOut: signOut,
       getBrowserInfo: getBrowserInfo,
       redirectTo: redirectTo,
+      redirectToMain: redirectToMain,
       isDisabledMember: isDisabledMember,
       isNullOrUndefined: isNullOrUndefined,
       goToDefaultTopic: goToDefaultTopic,
@@ -129,6 +130,9 @@
     function redirectTo(url) {
       // Direct to 'url'.
       location.href = url;
+    }
+    function redirectToMain() {
+      redirectTo(configuration.main_address + 'team');
     }
 
     /**
