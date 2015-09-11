@@ -79,7 +79,9 @@
      * member list click event handler
      */
     function onMemberListClick() {
-      $scope.hasFocus = true;
+      $timeout(function() {
+        $('#team-member-filter').focus();
+      });
     }
 
     /**
