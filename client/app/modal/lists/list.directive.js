@@ -117,13 +117,14 @@
             });
         }
 
-        scope.$watch(model, function(newValue, oldValue) {
-          if (newValue !== oldValue) {
-            // model value changed
+        scope
+          .$watch(model, function(newValue, oldValue) {
+            if (newValue !== oldValue) {
+              // model value changed
 
-            _updateList(newValue);
-          }
-        });
+              _updateList(newValue);
+            }
+          });
 
         jqFilter
           .on('keydown', function (event) {

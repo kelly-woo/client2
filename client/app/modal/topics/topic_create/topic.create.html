@@ -20,6 +20,7 @@
                  name="entityName"
                  jnd-input-model="topicName"
                  jnd-is-trim="on"
+                 focus-me="true"
                  placeholder="{{ ::'@input-create-ch' | translate }}"/>
           <alert type="warning" class="profile-settings-body__alert" ng-if="topicName.length > nameMaxLength">
             {{ ::'@input-max-length-error' | translate}}

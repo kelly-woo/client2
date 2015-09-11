@@ -22,8 +22,9 @@
         <input class="form-control green-input-box"
                id="team-member-filter"
                type="text"
-               placeholder="{{ '@input-search-user-name' | translate }}"
-               jnd-input-model="memberNameQuery">
+               jnd-input-model="memberNameQuery"
+               focus-me="hasFocus"
+               placeholder="{{ '@input-search-user-name' | translate }}">
       </div>
     </div>  <!-- END OF SEARCH BOX  -->
 
@@ -46,7 +47,7 @@
                          viewport-max-height="500"
                          item-height="44"
                          buffer-length="10"></list-on-modal>
-          <div class="no-result-container" ng-show="filteredEnableMembers.length === 0">
+          <div class="no-result-container" ng-show="enableMembersLength === 0">
             <span translate>@alert-no-result</span>
           </div>
         </tab>  <!-- END OF ENABLED MEMBER LIST -->
@@ -68,7 +69,7 @@
                          viewport-max-height="500"
                          item-height="44"
                          buffer-length="10"></list-on-modal>
-          <div class="no-result-container" ng-show="filteredDisableMembers.length === 0">
+          <div class="no-result-container" ng-show="disableMembersLength === 0">
             <span translate>@alert-no-result</span>
           </div>
         </tab>  <!-- END OF DISABLED MEMBER LIST  -->

@@ -112,9 +112,7 @@
      * list click event handler
      */
     function onListClick() {
-      $timeout(function() {
-        $('#invite-member-filter').focus();
-      });
+      $scope.hasFocus = true;
     }
   }
 })();

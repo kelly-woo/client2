@@ -646,6 +646,7 @@
   line-height: 22px;
   font-weight: 700;
   color: #333;
+  word-wrap: break-word;
 }
 .user-profile__nickName {
   font-size: 14px;

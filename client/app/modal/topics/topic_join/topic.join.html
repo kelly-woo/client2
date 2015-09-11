@@ -2,9 +2,6 @@
 <!-- Modal: Join Channel -->
 <div class="modal-header">
   <button type="button" class="close" ng-click="cancel()"><i class="icon-delete"></i></button>
-    <span class="create_channel_on_top" ng-click="newChannel();">
-        <span translate>@common-create-ch</span>
-    </span>
   <h3 class="modal-header__title">
     <span translate>@modal-browse-ch</span>
   </h3>
@@ -18,6 +15,7 @@
              id="invite-member-filter"
              jnd-input-model="channelTitleQuery"
              type="text"
+             focus-me="hasFocus"
              placeholder="{{'@input-search-channel-name' | translate}}" />
     </div>
   </div>
@@ -35,7 +33,7 @@
                        on-select="onSelect"
                        get-matches="getMatches"
                        activeted="unJoinedChannelListActive"
-                       viewport-max-height="662"
+                       viewport-max-height="600"
                        item-height="130"
                        buffer-length="5"></list-on-modal>
         <div class="no-result-container" ng-show="joinableLength === 0">
@@ -54,7 +52,7 @@
                        on-select="onSelect"
                        get-matches="getMatches"
                        activeted="joinedChannelListActive"
-                       viewport-max-height="662"
+                       viewport-max-height="600"
                        item-height="130"
                        buffer-length="5"></list-on-modal>
         <div class="no-result-container" ng-show="joinedChannelList.length === 0">
@@ -66,5 +64,9 @@
       </tab>  <!-- END OF JOINED TOPIC LIST  -->
     </tabset> <!--  END OF TABSET -->
   </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-cancel" data-ng-click="cancel()"><span translate>@btn-close</span></button>
+  <button class="new_channel_btn btn btn-ok " data-ng-click="newChannel();"><span translate>@common-create-ch</span></button>
 </div>
 <jnd-loading></jnd-loading>
