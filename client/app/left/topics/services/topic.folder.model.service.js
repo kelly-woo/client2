@@ -11,7 +11,7 @@
     .service('TopicFolderModel', TopicFolderModel);
 
   function TopicFolderModel($q, $filter, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI,
-                            TopicFolderStorage) {
+                            TopicFolderStorage, currentSessionHelper) {
     var _raw = {
       folderList: [],
       folderMap: {},
@@ -31,6 +31,7 @@
     this.load = load;
     this.reload = reload;
     this.getFolderData = getFolderData;
+    this.setCurrentEntity = setCurrentEntity;
     this.getEntityMap = getEntityMap;
     this.getFolderMap = getFolderMap;
     this.getNgOptions = getNgOptions;
@@ -215,12 +216,15 @@
      * @returns {Array}
      */
     function _getEntityList(folderId) {
+      var currentEntity = currentSessionHelper.getCurrentEntity();
       var entityList = [];
       var tempEntity;
+
       _.forEach(_raw.entityList, function(entity) {
         if (entity.folderId === folderId) {
           tempEntity = EntityMapManager.get('total', entity.roomId);
           if (tempEntity) {
+            tempEntity.extIsCurrent = (tempEntity.id === currentEntity.id);
             tempEntity.extFolderId = folderId;
             tempEntity.extHasFolder = (folderId !== -1);
             entityList.push(tempEntity);
@@ -294,7 +298,22 @@
       });
     }
 
+    function setCurrentEntity(entityId) {
+      _.forEach(_folderList, function(folder) {
+        var isCurrent = false;
+        _.forEach(folder.entityList, function(entity) {
+          entity.extIsCurrent = (entity.id === entityId);
+          if (entity.extIsCurrent) {
+            isCurrent = true;
+          }
+        });
+        folder.isCurrent = isCurrent;
+      });
+    }
+
     function update() {
+      var currentEntity = currentSessionHelper.getCurrentEntity();
+
       _folderList = _.sortBy(_raw.folderList, 'seq');
 
       //fixme: 서버에서 seq 1 부터 주는 작업 완료될 경우 아래 map 과업 제거해야함.
@@ -302,8 +321,11 @@
         folder.seq = index + 1;
         return folder;
       });
+
+
       _.forEach(_folderList, function(folder) {
         folder.entityList = _getEntityList(folder.id);
+        folder.isCurrent = _.findIndex(folder.entityList, {extIsCurrent: true}) !== -1;
       });
 
       _folderData.folderList = _folderList;
@@ -313,6 +335,8 @@
         seq: _folderData.folderList.length + 1,
         entityList: _getEntityList(-1)
       });
+
+
       jndPubSub.pub('topic-folder:update', _folderData);
       //update digest 가 끝난 이후 badge position 을 업데이트 해야하기 때문에 timeout 을 준다.
       $timeout(function() {

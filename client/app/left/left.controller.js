@@ -729,13 +729,28 @@ app.controller('leftPanelController1', function(
 
   function enterEntity(entity) {
     if (!$scope.isCenterLoading && NetInterceptor.isConnected()) {
-      NotificationManager.set(entity, 0);
-      HybridAppHelper.onAlarmCntChanged(entity.id, 0);
-      entity.alarmCnt = '';
-      $scope.isCenterLoading = true;
-      $scope.entityId = entity.id;
-      jndPubSub.pub('changeEntityHeaderTitle', entity);
+      _safeApply(function() {
+        NotificationManager.set(entity, 0);
+        HybridAppHelper.onAlarmCntChanged(entity.id, 0);
+        entity.alarmCnt = '';
+        $scope.isCenterLoading = true;
+        $scope.entityId = entity.id;
+        jndPubSub.pub('onBeforeEntityChange', entity);
+      });
       _doEnter(entity);
+    }
+  }
+
+  /**
+   * 안전하게 apply callback 을 수행한다.
+   * @param {function} fn
+   * @private
+   */
+  function _safeApply(fn) {
+    if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
+      $scope.$apply(fn);
+    } else {
+      fn();
     }
   }
 

@@ -9,6 +9,9 @@
   -o-transition: background 0.2s, border 0.2s;
   transition: background 0.2s, border 0.2s;
 }
+.topic-folder-current {
+  font-weight: 700;
+}
 .topic-folder.has-folder {
   margin-top: 1px;
 }

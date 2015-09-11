@@ -86,7 +86,17 @@
         scope.$on('topic-folder:rename', _onRename);
         scope.$on('badgeCountChange', _onBadgeCountChange);
         scope.$on('topic-folder:update', _onBadgeCountChange);
+        scope.$on('onBeforeEntityChange', _onBeforeEntityChange);
+      }
 
+      /**
+       * currentEntity 가 변경되기 직전 수행된다.
+       * @param {event} angularEvent
+       * @param {object} entity
+       * @private
+       */
+      function _onBeforeEntityChange(angularEvent, entity) {
+        TopicFolderModel.setCurrentEntity(entity.id);
       }
 
       /**

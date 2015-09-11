@@ -28,7 +28,10 @@
               }"></i>
       </span>
       <span class="topic-folder-title-text">
-        <span class="_folderTitle">{{folder.name}}</span>
+        <span class="_folderTitle"
+            ng-class="{
+              'topic-folder-current': folder.isCurrent
+            }">{{folder.name}}</span>
         <input style="display:none"
                type="text"
                placeholder="{{ ::'@folder-enter-name' | translate }}"/>
