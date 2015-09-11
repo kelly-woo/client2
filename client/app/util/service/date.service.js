@@ -24,10 +24,11 @@
     this.getOrdinalDate = getOrdinalDate;
     this.getFormattedDate = getFormattedDate;
 
-    /*
-     *  @filter     : date formatting especially append ordinal suffix of day
-     *  @usage      : "oo"
-     *  @example    : doo, ddoo
+    /**
+     * timestamp를 받아 Tuesday, August 5th, 2015 이런 형태로 변환하여 리턴한다.
+     * @param {number} input - unix timestamp
+     * @param {string} format - 결과물이 보여질 포맷
+     * @returns {*}
      */
     function getOrdinalDate(input, format) {
       if (isNaN(input)) return false;
@@ -102,11 +103,14 @@
      * unix timestamp형식을 '년', '월', '일' 이 추가된 형식으로 사람이 읽을 수 있는 형식으로 변환해서 리턴한다.
      * @param {number} time - server에서 msg에 실어주는 unix timestamp과 똑같음
      * @returns {{object}}
-     *            {string} year - xxxx년
-     *            {string} month - xx월
-     *            {string} date - xx일
-     *            {string} day - x요일
      * @private
+     * @example
+     *  {
+     *    year: 2015년
+     *    month: 12월
+     *    date: 12일
+     *    day: 화요일
+     *  }
      */
     function _getHumanReadableDate(time) {
       var readableDate = {};
