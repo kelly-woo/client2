@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function jndWebSocketTeam(currentSessionHelper, memberService, storageAPIservice,
-                            configuration, jndWebSocketEmitter, publicService) {
+                            configuration, jndWebSocketEmitter, publicService, jndWebSocketCommon) {
     var _isConnected;
 
     var CHECK_CONNECT_TEAM = 'check_connect_team';
@@ -141,26 +141,23 @@
     }
 
     /**
-     * 팀이 삭제되었을 경우
-     * @param {object} socketEvent - socket event param
+     * 현재 팀이 삭제되었을 경우
      * @private
      */
-    function _onTeamDeleted(socketEvent) {
-      var teamId = socketEvent.team.id;
-      var currentTeamId = currentSessionHelper.getCurrentTeam().id;
-
-      if (teamId === currentTeamId) {
-        publicService.redirectToMain();
-      }
+    function _onTeamDeleted() {
+      publicService.redirectToMain();
     }
 
     /**
-     * 현재 팀을 탈퇴 경우
+     * 현재 팀을 누군가 탈퇴했을 경우
      * @param {object} socketEvent - socket event param
      * @private
      */
     function _onTeamLeft(socketEvent) {
-
+      if (jndWebSocketCommon.isActionFromMe(socketEvent.member.id)) {
+        // 내가 현재 팀을 나갔을 경우
+        publicService.redirectToMain();
+      }
     }
   }
 })();

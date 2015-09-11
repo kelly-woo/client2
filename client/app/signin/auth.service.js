@@ -128,8 +128,6 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
       teamName +
       $filter('translate')('@current-member-disabled-notice-msg-post');
 
-    confirm(disabledMsg);
-
     location.href = mainTeamAddr;
 
   };
