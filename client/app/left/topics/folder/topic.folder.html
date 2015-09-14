@@ -34,6 +34,7 @@
             }">{{folder.name}}</span>
         <input style="display:none"
                type="text"
+               ng-click="$event.stopPropagation()"
                placeholder="{{ ::'@folder-enter-name' | translate }}"/>
       </span>
       <span class="topic-folder-title-count">({{folder.entityList.length}})</span>

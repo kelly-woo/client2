@@ -232,6 +232,8 @@
       function _endEdit(domEvent) {
         var jqTarget = $(domEvent.target);
         var text = _.trim(jqTarget.val());
+        text = text.length ? text : scope.folder.name;
+        
         if (scope.folder.name !== text) {
           TopicFolderModel.modify(scope.folder.id, {
             name: text
