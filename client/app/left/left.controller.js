@@ -67,7 +67,7 @@ app.controller('leftPanelController1', function(
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
-  if (!leftPanel) return;
+  if (!leftPanel || !topicFolder) return;
 
   // leftPanel의 상태가 200이 아닐 경우 에러로 처리.
   if (leftPanel.status != 200) {
@@ -391,6 +391,8 @@ app.controller('leftPanelController1', function(
    * TODO: MOVE VARIABLES FROM '$rootScope' to 'session.service'
    */
   function initLeftList () {
+    var entityId = $state.params.entityId;
+    var entityType = $state.params.entityType || 'total';
     // 1. 현재 팀의 멤버가 아니거나
     // 2. 로그인을 해야 하는 상황이 아닌 경우에는
     // 로그아웃 시키고 sign in page 로 돌아간다.
@@ -522,8 +524,11 @@ app.controller('leftPanelController1', function(
       $rootScope.$broadcast('onSetStarDone');
     }
 
-    if ($state.params.entityId)
-      entityAPIservice.setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
+    if (!entityId) {
+      entityId = currentSessionHelper.getDefaultTopicId();
+    }
+
+    entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
 
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();
