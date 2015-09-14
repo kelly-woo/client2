@@ -13,8 +13,10 @@
 .topic-folder-tutorial.dropdown-menu {
 	display: block;
 	padding:18px !important;
+	padding-top:14px !important;
 	left:236px;
 	top:102px;
+	min-width: 304px;
 	z-index: 9999;
 }
 .left-arrow {
@@ -38,7 +40,7 @@
 }
 .tuto-img-container {
 	border:1px solid #e2e2e2;
-	width:280px;
+	width:202px;
 	height: 186px;
 	margin-top:18px;
 	margin-bottom:14px;
@@ -52,21 +54,32 @@
 }
 .dropdown-title {
 	font-size: 16px;
+	line-height: 22px;
 	font-weight: 700;
+	max-width: 200px !important;
+	display: inline;
+	position: relative;
+	margin-right: 5px;
+	top:2px;
+	word-break:keep-all;
+}
+.dropdown-title:lang(ko), .dropdown-title:lang(ja) {
+	line-height: 23px;
 }
 .dropdown-contents {
 	line-height: 21px;
 	padding-left: 4px;
 	padding-right: 4px;
+	word-break: keep-all;
 }
 .topic-folder-tutorial button.close {
 	outline: 0;
 	font-size: 14px !important;
+	margin-top:6px;
+	margin-left:12px;
 }
 .topic-folder-tutorial .green_badge {
-	margin-top:-1px;
-	margin-left:8px;
-	position: absolute;
+	line-height: 13px;
 }
 .topic-folder-tutorial .dont-show-again-container {
 margin-top: 12px;
