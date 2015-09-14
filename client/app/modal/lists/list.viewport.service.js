@@ -231,20 +231,26 @@
       var viewportHeight = that.options.viewportHeight;
       var viewportTop = that.jqViewport.offset().top;
 
-      var itemHeight = _getItemHeight(that.options.list, that.options.itemHeight, index);
-      var itemTop = _getTotalItemHeight(that.options.list, that.options.itemHeight, index) + viewportTop - viewportScrollTop;
+      var itemHeight;
+      var itemTop;
 
-      var compare = itemTop - viewportTop;
+      var compare;
       var scrollTop;
 
-      if (compare <= 0) {
-        // 위로 가기
+      if (that.options.list[index]) {
+        itemHeight = _getItemHeight(that.options.list, that.options.itemHeight, index);
+        itemTop = _getTotalItemHeight(that.options.list, that.options.itemHeight, index) + viewportTop - viewportScrollTop;
 
-        scrollTop = viewportScrollTop + compare;
-      } else if (compare + itemHeight > viewportHeight) { // 밑으로 갈 하나의 item height
-        // 밑으로 가기
+        compare = itemTop - viewportTop;
+        if (compare <= 0) {
+          // 위로 가기
 
-        scrollTop = viewportScrollTop + compare - viewportHeight + itemHeight;
+          scrollTop = viewportScrollTop + compare;
+        } else if (compare + itemHeight > viewportHeight) { // 밑으로 갈 하나의 item height
+          // 밑으로 가기
+
+          scrollTop = viewportScrollTop + compare - viewportHeight + itemHeight;
+        }
       }
 
       return scrollTop;
