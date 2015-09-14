@@ -20,11 +20,12 @@
   </div>
   <div class="modal_topic_list" ng-click="onListClick();">
     <tabset class="list-tabs">
-      <tab class="joinable-topic-list-container tab-title overflow-ellipsis" active="unJoinedChannelListActive">
+      <tab class="joinable-topic-list-container tab-title overflow-ellipsis" active="unJoinedChannelListActive" deselect="onTabDeselect('unJoinedChannel')">
         <tab-heading>
           <div translate>@modal-join-ch-you-can</div>
         </tab-heading>
-        <list-on-modal list="unJoinedChannelList"
+        <list-on-modal type="unJoinedChannel"
+                       list="unJoinedChannelList"
                        item-type="topic"
                        item-class="join-modal-channel_container"
                        model="channelTitleQuery"
@@ -33,17 +34,18 @@
                        get-matches="getMatches"
                        activeted="unJoinedChannelListActive"
                        viewport-max-height="600"
-                       item-height="130"
+                       item-height="getItemHeight"
                        buffer-length="5"></list-on-modal>
         <div class="no-result-container" ng-show="joinableLength === 0">
           <span translate>@alert-no-result</span>
         </div>
       </tab>  <!-- END OF JOINABLE TOPIC LIST -->
-      <tab class="joined-topic-list-container tab-title tab-title-overflow-ellipsis" active="joinedChannelListActive">
+      <tab class="joined-topic-list-container tab-title tab-title-overflow-ellipsis" active="joinedChannelListActive" deselect="onTabDeselect('joinedChannel')">
         <tab-heading>
           <span translate>@modal-join-ch-you-belong</span>
         </tab-heading>
-        <list-on-modal list="joinedChannelList"
+        <list-on-modal type="joinedChannel"
+                       list="joinedChannelList"
                        item-type="topic"
                        item-class="join-modal-channel_container"
                        model="channelTitleQuery"
@@ -52,7 +54,7 @@
                        get-matches="getMatches"
                        activeted="joinedChannelListActive"
                        viewport-max-height="600"
-                       item-height="130"
+                       item-height="getItemHeight"
                        buffer-length="5"></list-on-modal>
         <div class="no-result-container" ng-show="joinedChannelList.length === 0">
           <span translate>@alert-empty-ch-belong</span>

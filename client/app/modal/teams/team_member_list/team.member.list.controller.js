@@ -28,6 +28,7 @@
 
       $scope.getMatches = getMatches;
 
+      $scope.onTabDeselect = onTabDeselect;
       $scope.onMemberClick = onMemberClick;
       $scope.onMemberListClick = onMemberListClick;
       $scope.cancel = cancel;
@@ -73,6 +74,10 @@
       }
 
       return matches;
+    }
+
+    function onTabDeselect(type) {
+      jndPubSub.pub('setActiveIndex:' + type, 0);
     }
 
     /**

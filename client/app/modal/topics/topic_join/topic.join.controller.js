@@ -23,8 +23,10 @@
       $scope.cancel = modalHelper.closeModal;
       $scope.newChannel = newChannel;
       $scope.getMatches = getMatches;
+      $scope.getItemHeight = getItemHeight;
 
       $scope.onSelect = onSelect;
+      $scope.onTabDeselect = onTabDeselect;
       $scope.onListClick = onListClick;
     }
 
@@ -93,6 +95,13 @@
     }
 
     /**
+     * tab select event callback
+     */
+    function onTabDeselect(type) {
+      jndPubSub.pub('setActiveIndex:' + type, 0);
+    }
+
+    /**
      * 특정 topic에 join한다.
      * @param {number} entityId
      */
@@ -115,6 +124,13 @@
       $timeout(function() {
         $('#invite-member-filter').focus();
       });
+    }
+
+    /**
+     * item height 전달한다.
+     */
+    function getItemHeight(item) {
+      return (_.isString(item.description) && item.description != '') ? 130 : 77;
     }
   }
 })();

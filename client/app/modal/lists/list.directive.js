@@ -11,7 +11,6 @@
   function listOnModal($timeout, Viewport, ListRenderer, jndKeyCode, jndPubSub) {
     return {
       restrict: 'E',
-      replace: true,
       link: link
     };
 
@@ -43,7 +42,7 @@
       var maxHeight = parseInt(attrs.viewportMaxHeight, 10);
 
       // item의 height
-      var itemHeight = parseInt(attrs.itemHeight, 10);
+      var itemHeight = _.isString(attrs.itemHeight) ? scope.$eval(attrs.itemHeight) : parseInt(attrs.itemHeight, 10);
 
       // 자연스러운 scrollring을 위한 buffer length
       var bufferLength = parseInt(attrs.bufferLength, 10);
@@ -55,7 +54,7 @@
       var jqViewport = el.parent();
 
       // list element
-      var jqList = $('<div class="list"></div>').appendTo(el);
+      var jqList = $('<div class="list"></div>').appendTo(jqViewport);
       
       var viewport = Viewport.create(jqViewport, jqList, {
         viewportMaxHeight: maxHeight,
@@ -96,6 +95,7 @@
         _focusItem(activeIndex);
 
         $timeout(function() {
+          el.remove();
           jqFilter.focus();
         });
 
@@ -112,47 +112,16 @@
       function _on() {
         if (type != null) {
           scope
-            .$on('updateList:' + type, function() {
-              _updateList(jqFilter.val());
-            });
+            .$on('updateList:' + type, _onUpdateList);
+          scope
+            .$on('setActiveIndex:' + type, _onSetActiveIndex);
         }
 
         scope
-          .$watch(model, function(newValue, oldValue) {
-            if (newValue !== oldValue) {
-              // model value changed
-
-              _updateList(newValue);
-            }
-          });
+          .$watch(model, _onFilterValueChanged);
 
         jqFilter
-          .on('keydown', function (event) {
-            var which = event.which;
-
-            if (scope.$eval(attrs.activeted)) {
-              if (jndKeyCode.match('UP_ARROW', which)) {
-                event.preventDefault();
-
-                activeIndex = (activeIndex > 0 ? activeIndex : matches.length) - 1;
-                _focusItem(activeIndex);
-                ListRenderer.render(itemType, matches, viewport);
-              } else if (jndKeyCode.match('DOWN_ARROW', which)) {
-                event.preventDefault();
-
-                activeIndex = ((activeIndex + 1) % matches.length);
-                _focusItem(activeIndex);
-                ListRenderer.render(itemType, matches, viewport);
-              } else if (jndKeyCode.match('ENTER', which)) {
-                event.preventDefault();
-  
-                _select();
-              } else {
-                activeIndex = 0;
-                _focusItem(activeIndex);
-              }
-            }
-          });
+          .on('keydown', _onKeydown);
 
         jqViewport
           .on('scroll', _onScroll)
@@ -179,13 +148,66 @@
       }
 
       /**
-       * topic list를 갱신한다.
-       * @param {array} value
+       * update list event handler
        * @private
        */
-      function _updateList(value) {
-        matches = getMatches(scope.$eval(list), value);
-        ListRenderer.render(itemType, matches, viewport, true);
+      function _onUpdateList() {
+        _updateList(jqFilter.val());
+      }
+
+      /**
+       * set active index event handler
+       * @param {object} event
+       * @param {number} index
+       * @private
+       */
+      function _onSetActiveIndex(event, index) {
+        setActiveIndex(index);
+      }
+
+      /**
+       * filter value changed event handler
+       * @param {string} newValue
+       * @param {string} oldValue
+       * @private
+       */
+      function _onFilterValueChanged(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          // model value changed
+
+          _updateList(newValue);
+
+          setActiveIndex(0);
+        }
+      }
+
+      /**
+       * key down event handler
+       * @param event
+       * @private
+       */
+      function _onKeydown(event) {
+        var which = event.which;
+
+        if (scope.$eval(attrs.activeted)) {
+          if (jndKeyCode.match('UP_ARROW', which)) {
+            event.preventDefault();
+
+            activeIndex = (activeIndex > 0 ? activeIndex : matches.length) - 1;
+            _focusItem(activeIndex);
+            ListRenderer.render(itemType, matches, viewport);
+          } else if (jndKeyCode.match('DOWN_ARROW', which)) {
+            event.preventDefault();
+
+            activeIndex = ((activeIndex + 1) % matches.length);
+            _focusItem(activeIndex);
+            ListRenderer.render(itemType, matches, viewport);
+          } else if (jndKeyCode.match('ENTER', which)) {
+            event.preventDefault();
+
+            _select();
+          }
+        }
       }
 
       /**
@@ -268,6 +290,16 @@
         if (element = viewport.getItemElement(activeIndex)) {
           prevActiveElement = element.addClass('active');
         }
+      }
+
+      /**
+       * topic list를 갱신한다.
+       * @param {array} value
+       * @private
+       */
+      function _updateList(value) {
+        matches = getMatches(scope.$eval(list), value);
+        ListRenderer.render(itemType, matches, viewport, true);
       }
     }
   }

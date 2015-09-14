@@ -39,13 +39,13 @@
      * @param {object} jqViewport
      * @param {object} jqList
      * @param {object} options
-     * @param {number} options.viewportHeight     - viewport의 height
-     * @param {number} options.viewportMaxHeight  - viewport의 최대 height
-     * @param {number} options.itemHeight         - item의 height
-     * @param {array} options.list                - list data
-     * @param {number} options.bufferLength       - 자연스러운 scroll을 위해 여분으로 생성될 item 수
-     * @param {function} options.onCreateItem     - 특정 dom element가 생성된 후 수행할 callback
-     * @param {function} options.onRendered       - viewport에 노출될 dom element가 전부 생성된 후 수행할 callback
+     * @param {number} options.viewportHeight       - viewport의 height
+     * @param {number} options.viewportMaxHeight    - viewport의 최대 height
+     * @param {number|function} options.itemHeight  - item의 height
+     * @param {array} options.list                  - list data
+     * @param {number} options.bufferLength         - 자연스러운 scroll을 위해 여분으로 생성될 item 수
+     * @param {function} options.onCreateItem       - 특정 dom element가 생성된 후 수행할 callback
+     * @param {function} options.onRendered         - viewport에 노출될 dom element가 전부 생성된 후 수행할 callback
      * @returns {init}
      */
     function init(jqViewport, jqList, options) {
@@ -78,8 +78,6 @@
      * @returns {{
      *  oriBeginIndex : bufferLength option 제외한 begin index,
      *  oriEndIndex   : bufferLength options 제외한 end index,
-     *  beginY        : viewport에 노출된 list의 begin y position(list의 시작점 0을 기준으로함),
-     *  endY          : viewport에 노출된 list의 end y position(list의 시작점 0을 기준으로함),
      *  beginIndex    : bufferLength options을 포함한 begin index,
      *  endIndex      : bufferLength options을 포함한 end index}}
      */
@@ -98,11 +96,11 @@
         beginY = that.jqViewport.scrollTop() || 0;
         endY = beginY + options.viewportHeight;
 
-        oriBeginIndex = Math.floor(beginY / options.itemHeight);
+        oriBeginIndex = _getIndexOnPosition(options.list, options.itemHeight, beginY);
         beginIndex = oriBeginIndex - options.bufferLength;
         beginIndex = beginIndex < 0 ? 0 : beginIndex;
 
-        oriEndIndex = Math.floor(endY / options.itemHeight);
+        oriEndIndex = _getIndexOnPosition(options.list, options.itemHeight, endY);
         endIndex = oriEndIndex + options.bufferLength;
         endIndex = endIndex >= listLength ? listLength - 1 : endIndex;
 
@@ -113,29 +111,43 @@
         if (endIndex > listLength) {
           endIndex = listLength - 1;
         }
-
-        beginY = beginY - options.bufferLength * options.itemHeight;
-        if (beginY < options.itemHeight) {
-          beginY = 0;
-        }
-
-        endY = options.listHeight - beginY - ((endIndex - beginIndex) * options.itemHeight);
-        if (endY > options.listHeight) {
-          beginY = options.listHeight - (endIndex - beginIndex) * options.itemHeight;
-        } else if (endY < 0) {
-          beginY = beginY + endY;
-          endY = 0;
-        }
       }
 
       return {
         oriBeginIndex: oriBeginIndex,
         oriEndIndex: oriEndIndex,
-        beginY: beginY,
-        endY: endY,
         beginIndex: beginIndex,
         endIndex: endIndex
       };
+    }
+
+    /**
+     * position y 지점까지 포함되는 item index를 전달한다.
+     * @param {array} list
+     * @param {number|function} itemHeight
+     * @param {number} y
+     * @returns {*}
+     * @private
+     */
+    function _getIndexOnPosition(list, itemHeight, y) {
+      var result;
+
+      if (_.isFunction(itemHeight)) {
+        result = 0;
+
+        _.each(list, function (item, index) {
+          result += item.extItemHeight;
+
+          if (y < result) {
+            result = index;
+            return false;
+          }
+        });
+      } else {
+        result = Math.floor(y / itemHeight);
+      }
+
+      return result;
     }
 
     /**
@@ -149,13 +161,13 @@
 
       options.list = list;
 
-      if (options.itemHeight != null) {
-        options.listHeight = list.length * options.itemHeight;    // 전체 item height
-      } else if (options.onItemHeight != null) {
+      if (_.isFunction(options.itemHeight)) {
         options.listHeight = 0;
         _.each(options.list, function(item) {
-          options.listHeight += item.extItemHeight = options.onItemHeight(item);
+          options.listHeight += item.extItemHeight = options.itemHeight(item);
         });
+      } else {
+        options.listHeight = list.length * options.itemHeight;    // 전체 item height
       }
       that.jqList.empty().css('height', options.listHeight);
 
@@ -185,7 +197,10 @@
         index = position.beginIndex + index;
         if (map[index] == null) {
           // index마다 각자의 item Height
-          map[index] = $(element).appendTo(that.jqList).css({top: index * that.options.itemHeight}).data('viewport-index', index);
+          map[index] = $(element)
+            .appendTo(that.jqList)
+            .css({top: _getTotalItemHeight(that.options.list, that.options.itemHeight, index)})
+            .data('viewport-index', index);
           that.options.onCreateItem && that.options.onCreateItem(map[index], that.options.list[index]);
         }
 
@@ -216,13 +231,13 @@
       var viewportHeight = that.options.viewportHeight;
       var viewportTop = that.jqViewport.offset().top;
 
-      var itemHeight = that.options.itemHeight;
-      var itemTop = index * that.options.itemHeight + viewportTop - viewportScrollTop;  // index 까지의 전체 itemHeight
+      var itemHeight = _getItemHeight(that.options.list, that.options.itemHeight, index);
+      var itemTop = _getTotalItemHeight(that.options.list, that.options.itemHeight, index) + viewportTop - viewportScrollTop;
 
       var compare = itemTop - viewportTop;
       var scrollTop;
 
-      if (compare < 0) {
+      if (compare <= 0) {
         // 위로 가기
 
         scrollTop = viewportScrollTop + compare;
@@ -233,6 +248,42 @@
       }
 
       return scrollTop;
+    }
+
+    /**
+     * 특정 item의 height를 전달한다.
+     * @param {array} list
+     * @param {number|function} itemHeight
+     * @param {number} index
+     * @returns {*}
+     * @private
+     */
+    function _getItemHeight(list, itemHeight, index) {
+      return _.isFunction(itemHeight) ? list[index].extItemHeight : itemHeight;
+    }
+
+    /**
+     * 처음 부터 특정 item까지의 height를 전달한다.
+     * @param {array} list
+     * @param {number|function} itemHeight
+     * @param {number} index
+     * @returns {number}
+     * @private
+     */
+    function _getTotalItemHeight(list, itemHeight, index) {
+      var i;
+      var len;
+      var total = 0;
+
+      if (_.isFunction(itemHeight)) {
+        for (i = 0, len = index; i < len; i++) {
+          total += list[i].extItemHeight;
+        }
+      } else {
+        total = index * itemHeight;
+      }
+
+      return total;
     }
 
     /**

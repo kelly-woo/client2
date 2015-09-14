@@ -7,7 +7,9 @@
       <i class="icon-clock"></i>{{createTime}}
     </span>
   </div>
-  <div class="topic-description display-2-lines">{{topicDescription}}</div>
+  {{#if topicDescription}}
+    <div class="topic-description display-2-lines">{{topicDescription}}</div>
+  {{/if}}
   <div class="topic-general-info">
     <i class="icon-user"></i>
     <span class="join-modal-channel_creator inline-overflow-ellipsis"> {{creatorName}}</span>
