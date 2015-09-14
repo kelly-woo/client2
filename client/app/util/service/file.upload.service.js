@@ -9,7 +9,7 @@
    * File upload service
    */
   /* @ngInject */
-  function FilesUpload($rootScope, fileAPIservice, analyticsService) {
+  function FilesUpload($rootScope, fileAPIservice) {
     /**
      * fileAPIservice를 사용하여 file을 upload 함.
      * confirm 그리고 sequence type upload를 제공하기 위해 service로 구현함.
@@ -177,7 +177,9 @@
                   // file upload queue의 index
                   that.currentProgressIndex++;
 
-                  that._upload(file, fileInfo, index, length, invoke);
+                  if (that._it.hasNext()) {
+                    that._upload(file, fileInfo, index, length, invoke);
+                  }
               };
             }(that._file, that._fileInfo)));
 

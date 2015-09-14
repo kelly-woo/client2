@@ -247,6 +247,10 @@
             analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
 
             TopicMessageCache.remove(_entityId);
+
+            // topic 삭제시 file upload 중이라면 전부 취소하는 event를 broadcast함
+            jndPubSub.pub('onFileUploadAllClear');
+
             publicService.goToDefaultTopic();
           })
           .error(function(error) {

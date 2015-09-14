@@ -664,7 +664,6 @@ app.controller('leftPanelController1', function(
   };
 
   $rootScope.$on('onUserClick', function(event, user) {
-    console.log('root onUserClick');
     $scope.onUserClick(user);
   });
   //  Add 'onUserClick' to redirect to direct message to 'user'
@@ -822,6 +821,9 @@ app.controller('leftPanelController1', function(
   $scope.$on('onFileSelect', function(event, files){
     $scope.onFileSelect(files);
   });
+
+  $scope.$on('onFileUploadAllClear', _fileUploadAllClear);
+
   // Callback function from file finder(navigation) for uploading a file.
   $scope.onFileSelect = function($files, options) {
     var fileObject = Object.create(fileObjectService).init($files, options);
@@ -954,5 +956,24 @@ app.controller('leftPanelController1', function(
       }
     }
   }
-});
 
+  /**
+   * 모든 file upload를 취소한다.
+   * @private
+   */
+  function _fileUploadAllClear() {
+    if ($scope.fileObject) {
+      $scope.fileObject.empty();
+      $scope.onFileUploadAbortClick();
+
+      // hide progress bar
+      $timeout(function() {
+        $('.file-upload-progress-container').css('opacity', 0);
+        // opacity 0된 후 clear upload info
+        $timeout(function() {
+          fileAPIservice.clearCurUpload();
+        }, 500);
+      }, 2000);
+    }
+  }
+});
