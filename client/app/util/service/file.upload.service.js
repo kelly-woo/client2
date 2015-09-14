@@ -177,7 +177,7 @@
                   // file upload queue의 index
                   that.currentProgressIndex++;
 
-                  if (that._it.hasNext()) {
+                  if (that.fileObject.getFile(index - 1)) {
                     that._upload(file, fileInfo, index, length, invoke);
                   }
               };

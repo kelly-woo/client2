@@ -102,14 +102,11 @@
           },
           next: function() {
             return index < length ? files[index++] : undefined;
-          },
-          hasNext: function() {
-            return !!files[index + 1];
           }
         };
       },
       empty: function() {
-        this.files = [];
+        this.files.length = 0;
       }
     };
   }
