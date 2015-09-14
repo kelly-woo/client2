@@ -148,7 +148,15 @@
       var options = that.options;
 
       options.list = list;
-      options.listHeight = list.length * options.itemHeight;
+
+      if (options.itemHeight != null) {
+        options.listHeight = list.length * options.itemHeight;    // 전체 item height
+      } else if (options.onItemHeight != null) {
+        options.listHeight = 0;
+        _.each(options.list, function(item) {
+          options.listHeight += item.extItemHeight = options.onItemHeight(item);
+        });
+      }
       that.jqList.empty().css('height', options.listHeight);
 
       options.viewportHeight = options.listHeight > options.viewportMaxHeight ? options.viewportMaxHeight : options.listHeight;
@@ -176,6 +184,7 @@
       _.each(elements, function(element, index) {
         index = position.beginIndex + index;
         if (map[index] == null) {
+          // index마다 각자의 item Height
           map[index] = $(element).appendTo(that.jqList).css({top: index * that.options.itemHeight}).data('viewport-index', index);
           that.options.onCreateItem && that.options.onCreateItem(map[index], that.options.list[index]);
         }
@@ -208,7 +217,7 @@
       var viewportTop = that.jqViewport.offset().top;
 
       var itemHeight = that.options.itemHeight;
-      var itemTop = index * that.options.itemHeight + viewportTop - viewportScrollTop;
+      var itemTop = index * that.options.itemHeight + viewportTop - viewportScrollTop;  // index 까지의 전체 itemHeight
 
       var compare = itemTop - viewportTop;
       var scrollTop;
@@ -217,7 +226,7 @@
         // 위로 가기
 
         scrollTop = viewportScrollTop + compare;
-      } else if (compare + itemHeight > viewportHeight) {
+      } else if (compare + itemHeight > viewportHeight) { // 밑으로 갈 하나의 item height
         // 밑으로 가기
 
         scrollTop = viewportScrollTop + compare - viewportHeight + itemHeight;
