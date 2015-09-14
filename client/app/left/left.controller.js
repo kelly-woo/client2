@@ -67,7 +67,7 @@ app.controller('leftPanelController1', function(
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
-  if (!leftPanel || !topicFolder) return;
+  if (!leftPanel) return;
 
   // leftPanel의 상태가 200이 아닐 경우 에러로 처리.
   if (leftPanel.status != 200) {
