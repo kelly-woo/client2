@@ -10,16 +10,16 @@
   z-index: 700;
   overflow: visible;
 }
-.topic-folder-tutorial.dropdown-menu {
+.topic-foldering.tutorial-popup.dropdown-menu {
 	display: block;
 	padding:18px !important;
 	padding-top:14px !important;
 	left:236px;
 	top:102px;
-	min-width: 304px;
+	min-width: 296px;
 	z-index: 9999;
 }
-.left-arrow {
+.popup-left-arrow {
 	position:absolute;
 	left:-13px;
 	top:20px;
@@ -30,7 +30,7 @@
 	border-top:10px solid transparent;
 	border-bottom:10px solid transparent;
 }
-.inner-arrow {
+.popup-inner-arrow {
 	position: absolute;
 	top:-10px;
 	left:2px;
@@ -56,21 +56,22 @@
 	font-size: 16px;
 	line-height: 22px;
 	font-weight: 700;
-	max-width: 270px !important;
 	display: inline-block;
 	position: relative;
 	margin-right: 0px;
 	margin-bottom:6px;
 	top:1px;
-	word-break: break-word; /*fallback*/
+	word-break: break-all; /*fallback*/
 }
-.dropdown-title:lang(ko), {
+.dropdown-title:lang(ko) {
 	line-height: 23px;
 	word-break: keep-all;
 }
 .dropdown-title:lang(ja) {
 	line-height: 23px;
-	word-break: break-all;
+}
+.dropdown-title:lang(en) {
+	word-break: break-word;
 }
 .dropdown-contents {
 	line-height: 21px;
@@ -78,38 +79,38 @@
 	padding-right: 4px;
 	word-break: keep-all;
 }
-.topic-folder-tutorial button.close {
+.tutorial-popup button.close {
 	outline: 0;
 	font-size: 14px !important;
 	margin-top:6px;
-	margin-left:0px;
+	margin-left:10px;
 }
-.topic-folder-tutorial .green_badge {
+.tutorial-popup .green_badge {
 	line-height: 11px;
 	margin-right:4px;
 	position: relative;
 	margin-bottom:6px;
 }
-.topic-folder-tutorial .dont-show-again-container {
+.tutorial-popup .dont-show-again-container {
 margin-top: 12px;
 padding: 4px;
 padding-top:14px;
 position:relative;
 border-top:1px solid rgba(0,0,0,0.1);
 }
-.topic-folder-tutorial .dont-show-again-container:hover {
+.tutorial-popup .dont-show-again-container:hover {
 background-color:#E2E9EF;
 background-color: transparent;
 cursor: pointer;
 text-decoration: underline;
 }
-.topic-folder-tutorial .dont-show-again-container input {
+.tutorial-popup .dont-show-again-container input {
 margin-top:0px;
 height:12px;
 top:-1px;
 position: relative;
 }
-.topic-folder-tutorial .dont-show-again-container span {
+.tutorial-popup .dont-show-again-container span {
 margin-left:4px;
 }
 
