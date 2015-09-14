@@ -595,15 +595,11 @@ by ysyun 2015.2.25
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 1010;
 }
 
 .dnd-over-content .dnd-over-border {
   border: 5px solid rgba(0, 166, 233, 0.5);
-}
-
-.dnd-over-content .dnd-over-area {
-  /*background-color: #fff;*/
-  /*opacity: 0.2;*/
 }
 
 .dnd-over-content .dnd-over-msg {
