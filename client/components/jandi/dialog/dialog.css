@@ -1,0 +1,12 @@
+.center-dialog-modal.modal {
+  height: 100%;
+}
+.center-dialog-modal .modal-dialog {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%) !important;
+  max-width: 500px;
+  min-width: 360px;
+  margin: auto;
+  border-radius: 5px;
+}
