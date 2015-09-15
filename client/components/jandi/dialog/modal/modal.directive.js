@@ -16,7 +16,7 @@
       link: function(scope) {
         $timeout(function() {
           $('.' + scope.okayClass).focus();
-        });
+        }, 10);
       }
     };
   }
