@@ -125,6 +125,7 @@
         controller: 'ModalCtrl',
         templateUrl: 'components/jandi/dialog/modal/modal.html',
         windowClass: 'center-dialog-modal',
+        backdrop: 'static',
         resolve: {
           options: function() {
             return options;
