@@ -1,1513 +1,1048 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
+"MIME-Version: 1.0\n"
 
-#: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
 msgstr ""
 
-#: client/app/tpl/503/503.html
 msgid "@503-will-be-back-msg"
 msgstr ""
 
-#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-empty-ch-belong"
 msgstr ""
 
-#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-empty-ch-can-join"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr ""
 
-#: client/app/right/file.detail/file.detail.html
 msgid "@alert-empty-file-shared"
 msgstr ""
 
-#: client/app/right/search.messages/search.messages.html
 msgid "@alert-no-messages-found"
 msgstr ""
 
-#: client/app/modal/teams/team_member_list/team.member.list.html
-#: client/app/modal/topics/topic_invite/topic.invite.html
-#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-no-result"
 msgstr ""
 
-#: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 msgid "@announcement-create"
 msgstr ""
 
-#: client/app/center/announcement/announcement.html
 msgid "@announcement-create-confirm"
 msgstr ""
 
-#: client/app/center/announcement/announcement.html
 msgid "@announcement-delete-confirm"
 msgstr ""
 
-#: client/app/center/announcement/announcement.html
 msgid "@announcement-hide"
 msgstr ""
 
-#: client/app/banner/desktop.notification.banner.html
 msgid "@ask-me-later"
 msgstr ""
 
-#: client/app/left/topics/topics.html
 msgid "@browse-more-topics"
 msgstr ""
 
-#: client/app/modal/files/integration/integration.html
-#: client/app/modal/files/share/share.html
-#: client/app/modal/files/upload/upload.html
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/modal/password/password.reset.request.html
-#: client/app/modal/teams/team_change/team.change.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@btn-cancel"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@btn-change"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/modal/password/password.reset.request.html
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_invite/topic.invite.html
-#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
-#: client/app/modal/topics/topic_join/topic.join.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
-#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@btn-close"
 msgstr ""
 
-#: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/file/file.html
-#: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@btn-comment"
 msgstr ""
 
-#: client/app/modal/files/integration/integration.html
 msgid "@btn-confirm"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@btn-create"
 msgstr ""
 
-#: client/app/center/announcement/announcement.html
-#: client/app/right/file.detail/file.detail.html
 msgid "@btn-delete"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/modal/password/password.reset.request.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@btn-edit"
 msgstr ""
 
-#: client/app/header/header.html
-#: client/app/modal/topics/topic_invite/topic.invite.html
-#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
-#: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@btn-invite"
 msgstr ""
 
-#: client/app/modal/topics/topic_join/topic.join.html
-#: client/app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.html
 msgid "@btn-join"
 msgstr ""
 
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
 msgid "@btn-next"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@btn-send"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/modal/files/share/share.html
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/file/file.html
-#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@btn-share"
 msgstr ""
 
-#: client/app/modal/files/upload/upload.html
 msgid "@btn-upload"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-delete"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-delete-confirm"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
-#: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-invite"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
-#: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-leave"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
-#: client/app/tutorial/popup/view_components/lecture/topic/leave/lecture.topic.leave.html
 msgid "@ch-menu-star"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@ch-menu-un-star"
 msgstr ""
 
-#: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-1"
 msgstr ""
 
-#: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-2"
 msgstr ""
 
-#: client/app/modal/change_log/changeLog.html
 msgid "@change-log-explanation-3"
 msgstr ""
 
-#: client/app/modal/change_log/changeLog.html
 msgid "@change-log-title"
 msgstr ""
 
-#: client/app/left/left.html
 msgid "@channel"
 msgstr ""
 
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/popup/view_components/tutor/tutorial.tutor.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@common_skip_all"
-msgstr ""
-
-#: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-active-member"
 msgstr ""
 
-#: client/app/modal/files/share/share.html
 msgid "@common-all-shared"
 msgstr ""
 
-#: client/app/center/center.html
-#: client/app/left/left.html
-#: client/app/right/search.messages/search.messages.html
 msgid "@common-api-error-msg"
 msgstr ""
 
-#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-chat-dm"
 msgstr ""
 
-#: client/app/modal/password/password.reset.request.html
 msgid "@common-check-email-inbox"
 msgstr ""
 
-#: client/app/modal/files/share/share.html
-#: client/app/modal/files/upload/upload.html
 msgid "@common-comment"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-connection-retry"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
-#: client/app/left/messages/messages.html
 msgid "@common-conversation-leave"
 msgstr ""
 
-#: client/app/left/messages/messages.html
 msgid "@common-conversation-leave-confirm"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@common-copy"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_join/topic.join.html
-#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-create-ch"
 msgstr ""
 
-#: client/app/tpl/header.tpl.html
 msgid "@common-customer-service"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/modal/members/member_profile/member.profile.view.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-department"
 msgstr ""
 
-#: client/app/left/messages/messages.html
-#: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-direct-messages"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@common-disabled-member-notice-msg-short"
 msgstr ""
 
-#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-disabled-member-profile-msg"
 msgstr ""
 
-#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@common-dm-invite-to"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-done"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/file/file.html
-#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@common-download"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/modal/members/member_profile/member.profile.view.html
-#: client/app/modal/password/password.reset.request.html
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/signin/signin.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-email"
 msgstr ""
 
-#: client/app/right/search.messages/search.messages.html
 msgid "@common-entity-location"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-entity-type"
 msgstr ""
 
-#: client/app/header/header.html
 msgid "@common-faq"
 msgstr ""
 
-#: client/app/modal/files/share/share.html
-#: client/app/right/right.html
 msgid "@common-file"
 msgstr ""
 
-#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-file-list"
 msgstr ""
 
-#: client/app/modal/files/share/share.html
 msgid "@common-file-share-jump-channel-confirm-msg"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-all"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-audio"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-documents"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-google-docs"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-google-documents"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-google-presentations"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-google-spreadsheets"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-images"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-others"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-pdf"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-presentations"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-spreadsheets"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-file-type-video"
 msgstr ""
 
-#: client/app/center/center.html
 msgid "@common-file-upload-abort-msg"
 msgstr ""
 
-#: client/app/center/center.html
 msgid "@common-file-upload-done-msg"
 msgstr ""
 
-#: client/app/center/center.html
 msgid "@common-file-upload-progress-msg"
 msgstr ""
 
-#: client/app/mobile/mobile.catcher.html
 msgid "@common-has-jandi-app"
 msgstr ""
 
-#: client/app/modal/teams/team_member_list/team.member.list.html
 msgid "@common-inactive-member"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-info-basic"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-info-optional"
 msgstr ""
 
-#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@common-joined"
 msgstr ""
 
-#: client/app/right/right.html
 msgid "@common-leaved-topic"
 msgstr ""
 
-#: client/app/right/files/files.html
 msgid "@common-member"
 msgstr ""
 
-#: client/app/right/right.html
 msgid "@common-mention"
 msgstr ""
 
-#: client/app/right/right.html
 msgid "@common-message"
 msgstr ""
 
-#: client/app/header/header.html
 msgid "@common-message-search"
 msgstr ""
 
-#: client/app/right/search.messages/search.messages.html
 msgid "@common-message-writer"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
-#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-name"
 msgstr ""
 
-#: client/app/disconnect/disconnect.html
 msgid "@common-network-disconnect-body"
 msgstr ""
 
-#: client/app/disconnect/disconnect.html
 msgid "@common-network-disconnect-header"
 msgstr ""
 
-#: client/app/left/left.html
 msgid "@common-new-message"
 msgstr ""
 
-#: client/app/signin/signin.html
 msgid "@common-password"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/modal/members/member_profile/member.profile.view.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-phone"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/modal/members/member_profile/member.profile.view.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-position"
 msgstr ""
 
-#: client/app/header/header.html
-#: client/app/tpl/footer.tpl.html
 msgid "@common-privacy-policy"
 msgstr ""
 
-#: client/app/left/member/member.html
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-profile-settings"
 msgstr ""
 
-#: client/app/right/right.html
 msgid "@common-removed-origin"
 msgstr ""
 
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-rename"
 msgstr ""
 
-#: client/app/modal/members/member_profile/member.profile.view.html
 msgid "@common-send-mail"
 msgstr ""
 
-#: client/app/modal/files/share/share.html
 msgid "@common-share-file"
 msgstr ""
 
-#: client/app/modal/files/share/share.html
-#: client/app/modal/files/upload/upload.html
 msgid "@common-share-in"
 msgstr ""
 
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/files/files.html
 msgid "@common-shared-in"
 msgstr ""
 
-#: client/app/header/header.html
 msgid "@common-show-tutorial"
 msgstr ""
 
-#: client/app/signin/signin.html
 msgid "@common-sign-in"
 msgstr ""
 
-#: client/app/left/member/member.html
-#: client/app/tutorial/popup/view_components/lecture/profile/change/lecture.profile.change.html
 msgid "@common-sign-out"
 msgstr ""
 
-#: client/app/right/right.html
 msgid "@common-star"
 msgstr ""
 
-#: client/app/left/messages/messages.html
 msgid "@common-start-new-message"
 msgstr ""
 
-#: client/app/mobile/mobile.catcher.html
 msgid "@common-start-using-mobile"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-status-msg"
 msgstr ""
 
-#: client/app/header/header.html
-#: client/app/tutorial/popup/view_components/top/tutorial.top.html
 msgid "@common-team"
 msgstr ""
 
-#: client/app/header/header.html
-#: client/app/tpl/footer.tpl.html
 msgid "@common-terms-of-service"
 msgstr ""
 
-#: client/app/modal/files/upload/upload.html
 msgid "@common-title"
 msgstr ""
 
-#: client/app/left/topics/topics.html
-#: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-type-private"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@common-type-public"
 msgstr ""
 
-#: client/app/modal/files/upload/upload.html
 msgid "@common-upload-file"
 msgstr ""
 
-#: client/app/tpl/header.tpl.html
 msgid "@common-visit-homepage"
 msgstr ""
 
-#: client/app/left/topics/topics.html
+msgid "@common_skip_all"
+msgstr ""
+
 msgid "@create-new-topic-tooltip"
 msgstr ""
 
-#: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-post"
 msgstr ""
 
-#: client/app/signin/signin.html
 msgid "@current-member-disabled-notice-msg-pre"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-file"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-invite"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@dm-menu-profile"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@edit-topic-information"
 msgstr ""
 
-#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-team"
 msgstr ""
 
-#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-invite-to-current-topic"
 msgstr ""
 
-#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-click-to-share-file"
 msgstr ""
 
-#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-everyone-in-current-topic"
 msgstr ""
 
-#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-invite-not-joined-teammate"
 msgstr ""
 
-#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-no-team-member-joined"
 msgstr ""
 
-#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-start-chatting-heading"
 msgstr ""
 
-#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-you-are-all-alone-heading"
 msgstr ""
 
-#: client/app/center/help_messages/help.messages.html
 msgid "@emptyMsg-your-file-drawer-is-empty-heading"
 msgstr ""
 
-#: client/app/error/404.html
 msgid "@error-404-message"
 msgstr ""
 
-#: client/app/error/404.html
 msgid "@error-404-title"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/file/file.html
-#: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
 msgid "@file-action-more"
 msgstr ""
 
-#: client/app/right/file.detail/file.detail.html
 msgid "@file-action-unshare"
 msgstr ""
 
-#: client/app/right/right.html
 msgid "@file-delete-confirm-msg"
 msgstr ""
 
-#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-post"
 msgstr ""
 
-#: client/app/right/file.detail/file.detail.html
 msgid "@file-delete-time-msg-pre"
 msgstr ""
 
-#: client/app/left/left.html
 msgid "@file-size-too-large-error"
 msgstr ""
 
-#: client/app/right/file.detail/file.detail.html
 msgid "@file-unshared-no-longer-accessible"
 msgstr ""
 
-#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
-#: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-computer"
 msgstr ""
 
-#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
-#: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-dropbox"
 msgstr ""
 
-#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
-#: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-google-drive"
 msgstr ""
 
-#: client/app/left/topics/topics.html
 msgid "@folder-enter-name"
 msgstr ""
 
-#: client/app/left/topics/topics.html
 msgid "@folder-item-already-exists"
 msgstr ""
 
-#: client/app/left/topics/topics.html
 msgid "@folder-name-taken"
 msgstr ""
 
-#: client/app/left/topics/topics.html
 msgid "@folder-new"
 msgstr ""
 
-#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
-#: client/app/left/topics/topics.html
 msgid "@folder-remove"
 msgstr ""
 
-#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
-#: client/app/left/topics/topics.html
 msgid "@folder-rename"
 msgstr ""
 
-#: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr ""
 
-#: client/app/modal/files/upload/upload.html
 msgid "@ie9-file-preview"
 msgstr ""
 
-#: client/app/modal/files/upload/upload.html
 msgid "@ie9-please-do-not-use"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@ie9-profile-image-support"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@input-create-ch"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@input-max-length-20-error"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
 msgid "@input-max-length-60-error"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr ""
 
-#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@input-search-channel-name"
 msgstr ""
 
-#: client/app/modal/teams/team_member_list/team.member.list.html
-#: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@input-search-user-name"
 msgstr ""
 
-#: client/app/right/search.messages/search.messages.html
 msgid "@input-to-search"
 msgstr ""
 
-#: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-3"
 msgstr ""
 
-#: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-dropbox-1"
 msgstr ""
 
-#: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-dropbox-2"
 msgstr ""
 
-#: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-1"
 msgstr ""
 
-#: client/app/modal/files/integration/integration.html
 msgid "@integration-desc-google-drive-2"
 msgstr ""
 
-#: client/app/modal/files/integration/integration.html
 msgid "@integration-submit"
 msgstr ""
 
-#: client/app/modal/files/integration/integration.html
 msgid "@integration-title-dropbox"
 msgstr ""
 
-#: client/app/modal/files/integration/integration.html
 msgid "@integration-title-google-drive"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
-msgid "@invitation_success_copy_link"
-msgstr ""
-
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-already-member"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-contact-desc"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled-amdin-postfix"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-disabled-amdin-prefix"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-invaild-email"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-link-desc"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@invitation-more-email"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
 msgid "@invitation-some-fail"
 msgstr ""
 
-#: client/app/signin/signin.html
+msgid "@invitation_success_copy_link"
+msgstr ""
+
 msgid "@keep-me-logged-in"
 msgstr ""
 
-#: client/app/mobile/mobile.catcher.html
 msgid "@landing-footer-app-download"
 msgstr ""
 
-#: client/app/mobile/mobile.catcher.html
 msgid "@landing-footer-app-download-desc"
 msgstr ""
 
-#: client/app/signin/signin.html
 msgid "@login-invalid"
 msgstr ""
 
-#: client/app/modal/password/password.reset.request.html
-#: client/app/signin/signin.html
 msgid "@login-reset-password"
 msgstr ""
 
-#: client/app/right/right.html
 msgid "@mention-all"
 msgstr ""
 
-#: client/app/right/right.html
 msgid "@mention-all-confirm"
 msgstr ""
 
-#: client/app/right/mentions/mentions.html
+msgid "@mention-all-toast"
+msgstr ""
+
 msgid "@mention-empty"
 msgstr ""
 
-#: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/file/file.html
 msgid "@message-delete"
 msgstr ""
 
-#: client/app/banner/desktop.notification.banner.html
+msgid "@message-deleted"
+msgstr ""
+
 msgid "@miss-out-important-msg"
 msgstr ""
 
-#: client/app/modal/topics/topic_join/topic.join.html
-#: client/app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.html
 msgid "@modal-browse-ch"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/tutorial/popup/view_components/modal/topic_create/tutorial.modal.topic.create.html
 msgid "@modal-create-entity-title"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-1"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-2"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
 msgid "@modal-create-private-topic-help-msg-3"
 msgstr ""
 
-#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@modal-dm-invite"
 msgstr ""
 
-#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@modal-dm-invite-msg1"
 msgstr ""
 
-#: client/app/modal/topics/topic_invite/topic.invite.html
 msgid "@modal-invite-members"
 msgstr ""
 
-#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@modal-join-ch-you-belong"
 msgstr ""
 
-#: client/app/modal/topics/topic_join/topic.join.html
 msgid "@modal-join-ch-you-can"
 msgstr ""
 
-#: client/app/modal/teams/team_member_list/team.member.list.html
-#: client/app/tutorial/popup/view_components/modal/member_list/tutorial.modal.member.list.html
 msgid "@modal-member-list-title"
 msgstr ""
 
-#: client/app/modal/members/current_member_profile/current.member.profile.html
-#: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@modal-setting-profile-msg1"
 msgstr ""
 
-#: client/app/modal/files/upload/upload.html
 msgid "@modal-upload-title-msg1"
 msgstr ""
 
-#: client/app/left/messages/messages.html
 msgid "@more-dm-list"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@msg-create-ch"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@msg-create-pg"
 msgstr ""
 
-#: client/app/right/file.detail/file.detail.html
-#: client/app/tutorial/popup/view_components/lecture/file/comment/lecture.file.comment.html
 msgid "@msg-help-multiline"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@msg-invited"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@msg-invited-postfix"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@msg-joined"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@msg-left"
 msgstr ""
 
-#: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/file/file.html
 msgid "@msg-open-original"
 msgstr ""
 
-#: client/app/banner/desktop.notification.banner.html
 msgid "@never-ask-me"
 msgstr ""
 
-#: client/app/banner/desktop.notification.banner.html
 msgid "@never-miss-a-message"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@no-topic-description"
 msgstr ""
 
-#: client/app/banner/desktop.notification.banner.html
 msgid "@noti-banner-turn-on"
 msgstr ""
 
-#: client/app/modal/topics/topic_invite_from_dm/topic.invite.direct.html
 msgid "@option-choose"
 msgstr ""
 
-#: client/app/modal/password/password.reset.request.html
 msgid "@password-reset-email"
 msgstr ""
 
-#: client/app/modal/password/password.reset.request.html
 msgid "@password-reset-email-fail"
 msgstr ""
 
-#: client/app/modal/password/password.reset.request.html
 msgid "@password-reset-email-sent"
 msgstr ""
 
-#: client/app/left/left.html
 msgid "@privateGroup"
 msgstr ""
 
-#: client/app/right/files/files.html
-#: client/app/right/mentions/mentions.html
-#: client/app/right/search.messages/search.messages.html
-#: client/app/right/stars/stars.html
 msgid "@search-in-progress"
 msgstr ""
 
-#: client/app/right/files/files.html
-#: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-denied"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-recommendation-msg"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-show-content-msg"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-off"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@setting-notification-turn-on"
 msgstr ""
 
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/file/file.html
 msgid "@star"
 msgstr ""
 
-#: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 msgid "@star-add"
 msgstr ""
 
-#: client/app/right/stars/stars.html
 msgid "@star-all"
 msgstr ""
 
-#: client/app/right/stars/stars.html
 msgid "@star-all-empty"
 msgstr ""
 
-#: client/app/right/stars/stars.html
 msgid "@star-files"
 msgstr ""
 
-#: client/app/right/stars/stars.html
 msgid "@star-files-empty"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@star-forbidden"
 msgstr ""
 
-#: client/app/center/view_components/center_chat_templates/dropdown/item/center.item.dropdown.layer.html
 msgid "@star-remove"
 msgstr ""
 
-#: client/app/right/file.detail/file.detail.html
-#: client/app/right/file/file.html
 msgid "@star-un"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@success-file-delete"
+msgstr ""
+
+msgid "@success-file-share"
+msgstr ""
+
+msgid "@success-file-unshare"
+msgstr ""
+
 msgid "@system-msg-announcement-created"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-deleted"
 msgstr ""
 
-#: client/app/modal/teams/team_invite/team.invite.html
-#: client/app/tutorial/popup/view_components/modal/invitation/tutorial.modal.team.invitation.html
 msgid "@team-invite"
 msgstr ""
 
-#: client/app/header/header.html
-#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@team-members"
 msgstr ""
 
-#: client/app/header/header.html
-#: client/app/modal/teams/team_change/team.change.html
-#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@team-switch"
 msgstr ""
 
-#: client/app/header/header.html
-#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@to-account-home"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description"
 msgstr ""
 
-#: client/app/modal/topics/topic_create/topic.create.html
-#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@topic-description-placeholder"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-off-topic-alarm"
 msgstr ""
 
-#: client/app/banner/desktop.notification.banner.html
 msgid "@turn-on-desktop-notification!"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-on-topic-alarm"
 msgstr ""
 
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_awesome"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_congratulations"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_congratulations_content"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_click_list"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_post"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_sticker_let"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_sticker_success"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_success"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_talk"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_dm_try"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_file_comment"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_file_comment_click"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_file_comment_title"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_file_download_desc"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_get_started"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_great"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_help_remember"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_leave_click_title"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_leave_lets"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_leave_success"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_leave_success_desc"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_profile_desc"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_profile_setup"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_click"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_click_invite"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_definition"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_desc"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_explain_invitation"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_team_intro"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_team_title"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_there_we_go"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_click_join"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_click_list"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_click_plus"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_create_own"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_created"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_definition"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_join"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_topic_let_create"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_upload_preview"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_upload_sources"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_upload_title"
-msgstr ""
-
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_welcome_again_content"
-msgstr ""
-
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_welcome_again_continue"
-msgstr ""
-
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_welcome_again_new_start"
-msgstr ""
-
-#: client/app/tutorial/welcome/tutorial.welcome.html
-msgid "@tutorial_welcome_again_title"
-msgstr ""
-
-#: client/app/tutorial/popup/tutorial.main.html
-msgid "@tutorial_welcome_title"
-msgstr ""
-
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-click-blink"
 msgstr ""
 
-#: client/app/modal/change_log/changeLog.html
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-done"
 msgstr ""
 
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg1"
 msgstr ""
 
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg2"
 msgstr ""
 
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-msg3"
 msgstr ""
 
-#: client/app/modal/change_log/changeLog.msg.search.html
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-file-title"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-message-file-title"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-msg-explanation"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-skip"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-tips"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-dm-explanation"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-group-explanation"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-title"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-topic-topic-explanation"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-tour"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-intro"
 msgstr ""
 
-#: client/app/tutorial/tutorial.html
 msgid "@tutorial-welcome-title"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tutorial_awesome"
+msgstr ""
+
+msgid "@tutorial_congratulations"
+msgstr ""
+
+msgid "@tutorial_congratulations_content"
+msgstr ""
+
+msgid "@tutorial_dm_click_list"
+msgstr ""
+
+msgid "@tutorial_dm_post"
+msgstr ""
+
+msgid "@tutorial_dm_sticker_let"
+msgstr ""
+
+msgid "@tutorial_dm_sticker_success"
+msgstr ""
+
+msgid "@tutorial_dm_success"
+msgstr ""
+
+msgid "@tutorial_dm_talk"
+msgstr ""
+
+msgid "@tutorial_dm_try"
+msgstr ""
+
+msgid "@tutorial_file_comment"
+msgstr ""
+
+msgid "@tutorial_file_comment_click"
+msgstr ""
+
+msgid "@tutorial_file_comment_title"
+msgstr ""
+
+msgid "@tutorial_file_download_desc"
+msgstr ""
+
+msgid "@tutorial_get_started"
+msgstr ""
+
+msgid "@tutorial_great"
+msgstr ""
+
+msgid "@tutorial_help_remember"
+msgstr ""
+
+msgid "@tutorial_leave_click_title"
+msgstr ""
+
+msgid "@tutorial_leave_lets"
+msgstr ""
+
+msgid "@tutorial_leave_success"
+msgstr ""
+
+msgid "@tutorial_leave_success_desc"
+msgstr ""
+
+msgid "@tutorial_profile_desc"
+msgstr ""
+
+msgid "@tutorial_profile_setup"
+msgstr ""
+
+msgid "@tutorial_team_click"
+msgstr ""
+
+msgid "@tutorial_team_click_invite"
+msgstr ""
+
+msgid "@tutorial_team_definition"
+msgstr ""
+
+msgid "@tutorial_team_desc"
+msgstr ""
+
+msgid "@tutorial_team_explain_invitation"
+msgstr ""
+
+msgid "@tutorial_team_intro"
+msgstr ""
+
+msgid "@tutorial_team_title"
+msgstr ""
+
+msgid "@tutorial_there_we_go"
+msgstr ""
+
+msgid "@tutorial_topic_click_join"
+msgstr ""
+
+msgid "@tutorial_topic_click_list"
+msgstr ""
+
+msgid "@tutorial_topic_click_plus"
+msgstr ""
+
+msgid "@tutorial_topic_create_own"
+msgstr ""
+
+msgid "@tutorial_topic_created"
+msgstr ""
+
+msgid "@tutorial_topic_definition"
+msgstr ""
+
+msgid "@tutorial_topic_join"
+msgstr ""
+
+msgid "@tutorial_topic_let_create"
+msgstr ""
+
+msgid "@tutorial_upload_preview"
+msgstr ""
+
+msgid "@tutorial_upload_sources"
+msgstr ""
+
+msgid "@tutorial_upload_title"
+msgstr ""
+
+msgid "@tutorial_welcome_again_content"
+msgstr ""
+
+msgid "@tutorial_welcome_again_continue"
+msgstr ""
+
+msgid "@tutorial_welcome_again_new_start"
+msgstr ""
+
+msgid "@tutorial_welcome_again_title"
+msgstr ""
+
+msgid "@tutorial_welcome_title"
+msgstr ""
+
 msgid "@unread-bookmark-message"
 msgstr ""
 
-#: client/app/left/left.html
 msgid "@user"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-star"
 msgstr ""
 
-#: client/app/center/view_components/entity_header/entity.header.html
 msgid "@user-menu-un-star"
 msgstr ""
 
-#: client/app/header/header.html
-#: client/app/modal/settings/notification/setting.notification.html
-#: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@web-notification"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-file-share"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-mid"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-post"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-message-file-comment-pre"
 msgstr ""
 
-#: client/app/center/center.html
 msgid "@web-notification-body-messages-confirm-delete"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-messages-post"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-messages-pre"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-other-team-post"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-other-team-pre"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-mid"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-post"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-body-topic-pre"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-file-share"
 msgstr ""
 
-#: client/app/modal/settings/notification/setting.notification.html
 msgid "@web-notification-sample-body-text"
 msgstr ""
 
-#: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr ""

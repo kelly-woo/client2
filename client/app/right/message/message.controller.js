@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function MessageCtrl($scope, $state, $filter, EntityMapManager, MessageQuery, jndPubSub, MessageData,
-                       currentSessionHelper, entityAPIservice, memberService, messageAPIservice) {
+                       currentSessionHelper, entityAPIservice, memberService, messageAPIservice, Dialog) {
     _init();
 
     // First function to be called.
@@ -135,7 +135,9 @@
             });
           });
         } else {
-          alert($filter('translate')('@common-leaved-topic'));
+          Dialog.error({
+            title: $filter('translate')('@common-leaved-topic')
+          });
         }
       }
     }
@@ -153,11 +155,15 @@
 
             fn();
           } else {
-            alert($filter('translate')('@common-removed-origin'));
+            Dialog.error({
+              title: $filter('translate')('@common-removed-origin')
+            });
           }
         })
         .error(function() {
-          alert($filter('translate')('@common-leaved-topic'));
+          Dialog.error({
+            title: $filter('translate')('@common-leaved-topic')
+          });
         });
     }
 

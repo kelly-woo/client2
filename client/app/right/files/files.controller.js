@@ -10,7 +10,8 @@
 
   function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, Router, entityheaderAPIservice,
                              fileAPIservice, analyticsService, publicService, entityAPIservice,
-                             currentSessionHelper, logger, AnalyticsHelper, EntityMapManager, TopicFolderModel) {
+                             currentSessionHelper, logger, AnalyticsHelper, EntityMapManager,
+                             modalHelper, Dialog, TopicFolderModel) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -595,7 +596,7 @@
      * @param file
      */
     function onClickShare(file) {
-      fileAPIservice.openFileShareModal($scope, file);
+      modalHelper.openFileShareModal($scope, file);
     }
 
     /**
@@ -631,6 +632,10 @@
             "size"          : message.content.size
           };
           analyticsService.mixpanelTrack( "File Unshare", share_data );
+
+          Dialog.success({
+            title: $filter('translate')('@success-file-unshare').replace('{{filename}}', message.content.title)
+          });
         })
         .error(function(err) {
           alert(err.msg);

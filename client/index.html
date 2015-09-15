@@ -19,6 +19,7 @@
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
+  <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
   <link rel="stylesheet" href="bower_components/ngImgCrop/compile/minified/ng-img-crop.css" />
   <!-- endbower -->
@@ -111,6 +112,9 @@
   <link rel="stylesheet" href="app/util/css/spinners.css">
   <link rel="stylesheet" href="app/util/directive/jnd.tooltip.css">
   <link rel="stylesheet" href="components/app/mention_ahead/mention.ahead.css">
+  <link rel="stylesheet" href="components/jandi/dialog/dialog.css">
+  <link rel="stylesheet" href="components/jandi/dialog/modal/modal.css">
+  <link rel="stylesheet" href="components/jandi/dialog/toast/toast.css">
   <!-- endinjector -->
   <!-- endbuild -->
 </head>
@@ -191,6 +195,7 @@
 <script src="bower_components/angular-socket-io/socket.js"></script>
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/angular-local-storage/angular-local-storage.js"></script>
+<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
 <script src="bower_components/lodash/lodash.js"></script>
 <script src="bower_components/jquery.lazyload/jquery.lazyload.js"></script>
 <script src="bower_components/jquery.lazyload/jquery.scrollstop.js"></script>
@@ -212,11 +217,13 @@
 <!-- endbuild -->
 
 <!-- build:js({.tmp,client}) app/app.js -->
-<script src="components/jandi/browser/browser.js"></script>
 <script src="components/config/config.framework.js"></script>
 <script src="components/base/base.framework.js"></script>
+
+<script src="components/jandi/browser/browser.js"></script>
 <script src="components/jandi/jandi.framework.js"></script>
 <script src="components/jandi/preloader/preloader.js"></script>
+<script src="components/jandi/dialog/dialog.js"></script>
 
 <script src="components/app/analytics/analytics.js"></script>
 <script src="components/app/router/router.js"></script>
@@ -528,6 +535,11 @@
 <script src="components/config/common/config.service.js"></script>
 <script src="components/jandi/browser/browser.js"></script>
 <script src="components/jandi/browser/browser.service.js"></script>
+<script src="components/jandi/dialog/dialog.js"></script>
+<script src="components/jandi/dialog/dialog.service.js"></script>
+<script src="components/jandi/dialog/modal/modal.controller.js"></script>
+<script src="components/jandi/dialog/modal/modal.directive.js"></script>
+<script src="components/jandi/dialog/toast/toast.service.js"></script>
 <script src="components/jandi/hybrid_app_communicator/hybrid.app.js"></script>
 <script src="components/jandi/hybrid_app_communicator/hybrid.app.service.js"></script>
 <script src="components/jandi/hybrid_app_communicator/mac/mac.app.service.js"></script>
