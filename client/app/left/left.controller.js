@@ -29,8 +29,8 @@ app.controller('leftPanelController1', function(
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
   var _isBadgeMoveLocked = false;
+  var _entityEnterTimer;
 
-  var _isLock = false;
   var _hasToUpdate = false;
 
   $scope.entityId = $state.params.entityId;
@@ -733,17 +733,16 @@ app.controller('leftPanelController1', function(
   }
 
   function enterEntity(entity) {
-    if (!$scope.isCenterLoading && NetInterceptor.isConnected()) {
-      _safeApply(function() {
-        NotificationManager.set(entity, 0);
-        HybridAppHelper.onAlarmCntChanged(entity.id, 0);
-        entity.alarmCnt = '';
-        $scope.isCenterLoading = true;
-        $scope.entityId = entity.id;
-        jndPubSub.pub('onBeforeEntityChange', entity);
-      });
-      _doEnter(entity);
-    }
+    _safeApply(function() {
+      $timeout.cancel(_entityEnterTimer);
+      NotificationManager.set(entity, 0);
+      HybridAppHelper.onAlarmCntChanged(entity.id, 0);
+      entity.alarmCnt = '';
+      $scope.isCenterLoading = true;
+      $scope.entityId = entity.id;
+      jndPubSub.pub('onBeforeEntityChange', entity);
+    });
+    _entityEnterTimer = $timeout(_.bind(_doEnter, this, entity), 10);
   }
 
   /**

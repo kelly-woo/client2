@@ -55,10 +55,15 @@
       }
 
       function _attachDomEvents() {
+        el.on('dragstart', _onDragStart);
         el.on('mousedown', _onMouseDown);
         el.on('mouseover', _onMouseOver);
         el.on('mouseout', _onMouseOut);
         el.on('mouseup', _onMouseUp);
+      }
+
+      function _onDragStart(mouseEvent) {
+        mouseEvent.preventDefault();
       }
 
       function _onMouseUp(mouseEvent) {

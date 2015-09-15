@@ -40,10 +40,20 @@
         _attachDomEvents();
       }
 
+      /**
+       * Scope 이벤트 리스너를 추가한다.
+       * @private
+       */
       function _attachEvents() {
         scope.$on('topic-folder:drag', _onDragStatusChange);
       }
 
+      /**
+       * dragging status 변경 시 핸들러
+       * @param {event} angularEvent
+       * @param {object} draggingScope
+       * @private
+       */
       function _onDragStatusChange(angularEvent, draggingScope) {
         _draggingScope = draggingScope;
         if (!_draggingScope) {
@@ -55,10 +65,15 @@
       }
 
       function _attachDomEvents() {
+        el.on('dragstart', _onDragStart);
         el.on('mousedown', _onMouseDown);
         el.on('mouseover', _onMouseOver);
         el.on('mouseout', _onMouseOut);
         el.on('mouseup', _onMouseUp);
+      }
+
+      function _onDragStart(mouseEvent) {
+        mouseEvent.preventDefault();
       }
 
       function _onMouseUp(mouseEvent) {

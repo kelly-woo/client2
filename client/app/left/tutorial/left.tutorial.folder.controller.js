@@ -6,7 +6,7 @@
     .controller('LeftTutorialFolderCtrl', LeftTutorialFolderCtrl);
 
   function LeftTutorialFolderCtrl($scope) {
-    $scope.isShow = false;
+    $scope.isShown = false;
     $scope.close = close;
 
     _init();
@@ -16,14 +16,14 @@
      * @private
      */
     function _init() {
-      $scope.isShow = true;
+      $scope.isShown = true;
     }
 
     /**
      *
      */
     function close() {
-      $scope.isShow = false;
+      $scope.isShown = false;
     }
   }
 })();
