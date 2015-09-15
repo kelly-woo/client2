@@ -21,7 +21,6 @@
       zh_CN: _getChineseFormat
     };
 
-    this.getOrdinalDate = getOrdinalDate;
     this.getFormattedDate = getFormattedDate;
 
     /**
@@ -30,7 +29,7 @@
      * @param {string} format - 결과물이 보여질 포맷
      * @returns {*}
      */
-    function getOrdinalDate(input, format) {
+    function _getOrdinalDate(input, format) {
       if (isNaN(input)) return false;
       var dtfilter = $filter('date')(input, format);
       var day = parseInt($filter('date')(input, 'dd'));
@@ -96,7 +95,7 @@
      * @private
      */
     function _getEnglishFormat(time) {
-      return getOrdinalDate(time, "EEEE, MMMM doo, yyyy");
+      return _getOrdinalDate(time, "EEEE, MMMM doo, yyyy");
     }
 
     /**
