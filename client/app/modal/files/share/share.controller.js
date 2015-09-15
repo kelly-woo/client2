@@ -47,6 +47,13 @@
     }
 
     /**
+     * destroy 이벤트 핸들러
+     * @private
+     */
+    function _onScopeDestroy() {
+    }
+
+    /**
      * select options 를 초기화 한다.
      * @private
      */
@@ -61,7 +68,7 @@
      */
     function _initDefaultSelected() {
       //set default select
-      var selectOptions = $scope.selectOptions;
+      var selectOptions = TopicFolderModel.getNgOptions($scope.selectOptions);
       var currentIndex = selectOptions.indexOf(currentSessionHelper.getCurrentEntity());
 
       if (currentIndex === -1) {
