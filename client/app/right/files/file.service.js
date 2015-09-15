@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp');
 
 app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter,
-                                       memberService, entityAPIservice, storageAPIservice, modalHelper) {
+                                       memberService, entityAPIservice, storageAPIservice) {
   var fileSizeLimit = 300; // 300MB
   var integrateMap = {
     'google': true,
@@ -34,7 +34,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.generateFileTypeFilter = generateFileTypeFilter;
   this.isIntegrateFile = isIntegrateFile;
   this.dataURItoBlob = dataURItoBlob;
-  this.openFileShareModal = openFileShareModal;
 
   this.broadcastCommentFocus = broadcastCommentFocus;
 
@@ -245,13 +244,13 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   // Simply putting every channel, user, and private group into one array.
   // No exception.
-
   function getShareOptions(joinedChannelList, memberList) {
     var enabledMemberList = [];
 
     _.each(memberList, function(member, index) {
-      if (member.status != 'disabled')
+      if (memberService.isActiveMember(member)) {
         enabledMemberList.push(member);
+      }
     });
 
     joinedChannelList = _orderByName(joinedChannelList);
@@ -312,10 +311,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       return entityAPIservice.getEntityById('all', sharedEntityId) ||
         entityAPIservice.getEntityByEntityId(sharedEntityId);
     });
-  }
-
-  function openFileShareModal($scope, file) {
-    modalHelper.openFileShareModal($scope, file);
   }
 
   function broadcastFileShare(file) {

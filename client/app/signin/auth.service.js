@@ -2,7 +2,8 @@
 
 var app = angular.module('jandiApp');
 
-app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice, accountService, $filter, configuration, publicService) {
+app.factory('authAPIservice', function($http, $rootScope, $state, $location, storageAPIservice,
+                                       accountService, $filter, configuration, publicService, Dialog) {
   var authAPI = {};
 
   authAPI.signIn = function(userdata) {
@@ -116,5 +117,6 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
   authAPI.on40300Err = function() {
     $state.go('messages.home');
   };
+
   return authAPI;
 });

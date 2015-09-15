@@ -1,0 +1,17 @@
+<div dialog-modal class="modal-body dialog-modal">
+  <div ng-switch on="allowHtml">
+    <div ng-switch-default ng-if="::(title)" class="{{::titleClass}}">{{::title}}</div>
+    <div ng-switch-default class="{{::bodyClass}}">{{::body}}</div>
+
+    <div ng-switch-when="true" ng-if="::(title)" class="{{::titleClass}}" ng-bind-html="title"></div>
+    <div ng-switch-when="true" class="{{::bodyClass}}" ng-bind-html="body"></div>
+  </div>
+  <div class="btn-container">
+    <div ng-switch on="isAlert">
+      <button ng-switch-default class="btn {{::cancelClass}}" ng-click="cancel();">{{::('@btn-cancel' | translate)}}</button>
+      <button ng-switch-default class="btn {{::okayClass}}" ng-click="okay();">{{::('@btn-confirm' | translate)}}</button>
+
+      <button ng-switch-when="true" class="btn {{::okayClass}}" ng-click="okay();">{{::('@btn-confirm' | translate)}}</button>
+    </div>
+  </div>
+</div>

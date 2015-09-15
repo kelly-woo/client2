@@ -11,7 +11,7 @@
 
   /* @ngInject */
   function AnnouncementCtrl($scope, Announcement, AnnouncementData, memberService, $stateParams,
-                            config, jndPubSub, $filter) {
+                            config, jndPubSub, $filter, Dialog) {
 
     var _topicType = $stateParams.entityType;
     var _topicId = parseInt($stateParams.entityId, 10);
@@ -142,9 +142,22 @@
       var entityId = param.entityId;
       var messageId = param.messageId;
 
-      if (!($scope.hasAnnouncement && !confirm($filter('translate')('@announcement-create-confirm')))) {
+      if ($scope.hasAnnouncement) {
+        Dialog.confirm({
+          body: $filter('translate')('@announcement-create-confirm'),
+          onClose: function(result) {
+            if (result === 'okay') {
+              AnnouncementData.createAnnouncement(entityId, messageId);
+            }
+          }
+        });
+      } else {
         AnnouncementData.createAnnouncement(entityId, messageId)
       }
+
+      //if (!($scope.hasAnnouncement && !confirm($filter('translate')('@announcement-create-confirm')))) {
+      //  AnnouncementData.createAnnouncement(entityId, messageId)
+      //}
     }
 
     /**
@@ -285,10 +298,16 @@
      */
     function deleteAnnouncement() {
       _setHasOwnEventHandler();
-      if (confirm($filter('translate')('@announcement-delete-confirm'))) {
-        AnnouncementData.deleteAnnouncement(_topicId)
-          .success(_detachAnnouncement);
-      }
+
+      Dialog.confirm({
+        body: $filter('translate')('@announcement-delete-confirm'),
+        onClose: function(result) {
+          if (result === 'okay') {
+            AnnouncementData.deleteAnnouncement(_topicId)
+              .success(_detachAnnouncement);
+          }
+        }
+      });
     }
 
     function toggleAnnouncementStatus() {

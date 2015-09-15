@@ -9,7 +9,7 @@
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
-                           entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub) {
+                           entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
     var members;
     var msg1;
     var msg2;
@@ -66,14 +66,16 @@
       members = entityAPIservice.getMemberList($scope.currentEntity);
 
       $scope.availableMemberMap = {};
+
       $scope.availableMemberList = _.reject($scope.memberList, function(user) {
+
         if (prevAvailableMemberMap && prevAvailableMemberMap[user.id]) {
           user.selected = prevAvailableMemberMap[user.id].selected;
         }
 
         $scope.availableMemberMap[user.id] = user;
 
-        return members.indexOf(user.id) > -1 || user.status == 'disabled';
+        return members.indexOf(user.id) > -1 || !memberService.isActiveMember(user);
       });
 
       $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {

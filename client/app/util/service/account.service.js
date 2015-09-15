@@ -75,7 +75,7 @@
       if (configuration.name == 'local') {
         if (prefix == 'local') {
           //prefix = 'tosslab';
-          prefix = 'qwet235612346';
+          prefix = '23oi4joisadjfasdfzxcv';
         }
       }
 

@@ -105,16 +105,13 @@
           createFileObject: that._createFileObject.bind(that)
         });
 
-        if (fileObject.size() > 0) {
-          // direct upload user interface 사용
-          $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
-          that._fileUploadSequence(fileObject);
-
-          // upload modal user interface 사용
-          // $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
-          // that.options.scope.fileObject = fileObject;
-          // that.options.scope.openModal('file');
-        }
+        fileObject.promise.then(function() {
+          if (fileObject.size() > 0) {
+            // direct upload user interface 사용
+            $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
+            that._fileUploadSequence(fileObject);
+          }
+        });
       },
       /**
        * 연속된 file upload

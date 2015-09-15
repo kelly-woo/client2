@@ -8,7 +8,8 @@
 
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService, $rootScope,
-                              jndPubSub, fileToShare, modalHelper, AnalyticsHelper, currentSessionHelper) {
+                              jndPubSub, fileToShare, selectOptions, modalHelper, AnalyticsHelper,
+                              currentSessionHelper, Dialog) {
     var _entityId;
     var _entityType;
     var _targetId;
@@ -17,7 +18,7 @@
     $scope.selected = {
       data: null
     };
-    $scope.file = fileToShare;
+
     $scope.cancel = modalHelper.closeModal;
     $scope.onFileShareClick = onFileShareClick;
 
@@ -50,8 +51,7 @@
      * @private
      */
     function _initSelectOptions() {
-      var selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
-      selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
+      $scope.file = fileToShare;
       $scope.selectOptions = selectOptions;
     }
 
@@ -121,26 +121,30 @@
       jndPubSub.hideLoading();
 
       $scope.file.shareEntities.push(_entityId);
-      console.log('$scope.file.shareEntities', $scope.file.shareEntities, _entityId);
+
       try {
         _sendAnalytics(_entityType);
       } catch(e) {}
 
+      Dialog.success({
+        title: $filter('translate')('@success-file-share').replace('{{filename}}', $scope.file.content.title)
+      });
+
       if (_targetId !== currentSessionHelper.getCurrentEntityId()) {
+        Dialog.confirm({
+          body: $filter('translate')('@common-file-share-jump-channel-confirm-msg'),
+          onClose: function(result) {
+            if (result === 'okay') {
+              if (_entityType === "users") {
+                jndPubSub.updateLeftChatList();
+              }
 
-        if (confirm($filter('translate')('@common-file-share-jump-channel-confirm-msg'))) {
-          if (_entityType === "users") {
-            jndPubSub.updateLeftChatList();
-            //$rootScope.$broadcast('updateMessageList');
+              _goToSharedEntity && _goToSharedEntity();
+            }
           }
-          modalHelper.closeModal();
-
-          callback = _goToSharedEntity;
-        }
+        });
       }
-
       modalHelper.closeModal();
-
     }
 
     /**
@@ -183,16 +187,5 @@
     function _goToSharedEntity() {
       $state.go('archives', {entityType: _entityType, entityId: _targetId});
     }
-
-    /**
-     * 현재 scope 가 없어질 때 호출된다.
-     * @private
-     */
-    function _onScopeDestroy() {
-      if (!!callback) {
-        callback();
-      }
-    }
   }
-
 }());
