@@ -74,7 +74,7 @@
      * @private
      */
     function _getJapaneseFormat(date) {
-      return date.year + date.month + date.date + _getDayInLanguage(date.day);
+      return date.year + ' ' + date.month + ' ' + date.date + ' ' + _getDayInLanguage(date.day);
     }
 
     /**
