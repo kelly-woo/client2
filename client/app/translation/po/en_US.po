@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Jay Kim <jay@tosslab.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -67,7 +67,7 @@ msgstr "Hide"
 msgid "@ask-me-later"
 msgstr "Ask me later"
 
-#: client/app/left/topics/topics.html
+#: client/app/left/left.html
 msgid "@browse-more-topics"
 msgstr "Browse other topics"
 
@@ -147,6 +147,7 @@ msgstr "Send"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -282,6 +283,8 @@ msgid "@common-customer-service"
 msgstr "Customer Service"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "Deleted File"
@@ -319,6 +322,7 @@ msgstr "Done"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -597,7 +601,7 @@ msgstr "Terms of Service"
 msgid "@common-title"
 msgstr "Title"
 
-#: client/app/left/topics/topics.html
+#: client/app/left/left.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "Topics"
@@ -620,7 +624,7 @@ msgstr "Upload File"
 msgid "@common-visit-homepage"
 msgstr "Visit Homepage"
 
-#: client/app/left/topics/topics.html
+#: client/app/left/left.html
 msgid "@create-new-topic-tooltip"
 msgstr "Create a new topic"
 
@@ -695,6 +699,7 @@ msgid "@error-404-title"
 msgstr "Oops!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -741,48 +746,6 @@ msgstr "Dropbox"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-google-drive"
 msgstr "Google Drive"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-enter-name"
-msgstr "Insert the folder name"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-item-already-exists"
-msgstr "The topic already exists in the folder."
-
-#: client/app/left/topics/topics.html
-msgid "@folder-name-taken"
-msgstr "That name is already taken"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-new"
-msgstr "New folder"
-
-#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
-#: client/app/left/topics/topics.html
-msgid "@folder-remove"
-msgstr "Delete"
-
-#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
-#: client/app/left/topics/topics.html
-msgid "@folder-rename"
-msgstr "Rename"
-
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "@folder-tutorial-content"
-msgstr ""
-"Having trouble with too many topics? Now you can group them into folders and "
-"organize them the way you want. Try it for yourself! Drag and drop a topic "
-"onto another to create a new folder, and drag a topic into an existing "
-"folder to move it."
-
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "@folder-tutorial-never-show"
-msgstr "Don't show it again"
-
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "@folder-tutorial-title"
-msgstr "Sort the topic with folders!"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
@@ -1038,10 +1001,12 @@ msgid "@more-dm-list"
 msgstr "Choose a member to message"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "created this public topic."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "created this private topic."
 
@@ -1051,18 +1016,22 @@ msgid "@msg-help-multiline"
 msgstr "shift+enter to multiline"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "invited"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr " "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "has joined"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "has left"
 
@@ -1200,12 +1169,14 @@ msgid "@success-file-unshare"
 msgstr "\"{{filename}}\" has been unshared."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
 msgstr ""
 "{{msg.message.content.actionOwner}} posted {{msg.announceWriterName}}'s "
 "message as an announcement."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} deleted the announcement."
 
@@ -1575,6 +1546,7 @@ msgid "@tutorial-welcome-title"
 msgstr "Welcome to JANDI! "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr "Unread messages below"
 
@@ -1658,10 +1630,6 @@ msgstr "It's working!"
 msgid "@web-notification-title"
 msgstr "JANDI Message Received"
 
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "<span translate=\"\">@folder-tutorial-title</span>"
-msgstr ""
-
 #~ msgid "@input-rename"
 #~ msgstr "Enter name to change"
 
@@ -1670,29 +1638,83 @@ msgstr ""
 #~ "Are you sure you want to mention all {{topicParticipantsCount}} members "
 #~ "in {{topicName}}?"
 
-#~ msgid "@alert-empty-file"
-#~ msgstr "No files found"
+#~ msgid "@common-search"
+#~ msgstr "Search"
+
+#~ msgid "@msg-file"
+#~ msgstr "file"
+
+#~ msgid "@msg-shared"
+#~ msgstr "Shared"
+
+#~ msgid "@msg-whose"
+#~ msgstr "'s"
+
+#~ msgid "@common-add"
+#~ msgstr "Add"
+
+#~ msgid "@msg-unshared"
+#~ msgstr "Unshared"
+
+#~ msgid "@common-more"
+#~ msgstr "Browse"
+
+#~ msgid "@common-files"
+#~ msgstr "Files"
+
+#~ msgid "@ch-menu-rename"
+#~ msgstr "Rename topic"
+
+#~ msgid "@common-new-name"
+#~ msgstr "New Name"
+
+#~ msgid "@go-to-latest-message-msg"
+#~ msgstr "Go to the most recent messages"
+
+#~ msgid "@btn-update-name"
+#~ msgstr "Update Name"
+
+#, fuzzy
+#~ msgid "@tutorial_explore_jandi"
+#~ msgstr "Welcome to JANDI!"
+
+#~ msgid "@tutorial_congratulation"
+#~ msgstr "CONGRATULATIONS {{username}}!"
+
+#~ msgid "@dnd-file-upload-msg"
+#~ msgstr "Drag and drop your file here to upload"
+
+#~ msgid "@placeholder-input-message"
+#~ msgstr "Enter your message (press Shift+Enter for multiple lines)"
+
+#, fuzzy
+#~ msgid "@announcement-delete"
+#~ msgstr "Delete topic"
+
+#~ msgid "@input-search-file-title"
+#~ msgstr "Search by keyword(s)"
+
+#~ msgid "@option-all-members"
+#~ msgstr "All"
+
+#~ msgid "@option-all-rooms"
+#~ msgstr "All"
+
+#~ msgid "@system-msg-announcement-created-mid"
+#~ msgstr " has updated "
+
+#~ msgid "@system-msg-announcement-created-post"
+#~ msgstr "'s message as the announcement."
+
+#, fuzzy
+#~ msgid "{{notificationBtnText}}"
+#~ msgstr "JANDI Message Received"
 
 #~ msgid "@alert-invalid-password"
 #~ msgstr "invalid password"
 
-#~ msgid "@alert-missing-info"
-#~ msgstr "Missing Information"
-
 #~ msgid "@alert-required"
 #~ msgstr "required"
-
-#~ msgid "@alert-send-mail-fail"
-#~ msgstr "Invitation could not be sent"
-
-#~ msgid "@alert-send-mail-invalid"
-#~ msgstr " is an invalid email address"
-
-#~ msgid "@alert-send-mail-success"
-#~ msgstr "Invitation was sent successfully"
-
-#~ msgid "@alert-send-mail-taken"
-#~ msgstr " is already a member of your team"
 
 #~ msgid "@alert-update-fail"
 #~ msgstr "Update not successful"
@@ -1700,56 +1722,14 @@ msgstr ""
 #~ msgid "@alert-update-success"
 #~ msgstr "Update completed successfully"
 
-#, fuzzy
-#~ msgid "@announcement-delete"
-#~ msgstr "Delete topic"
-
-#~ msgid "@btn-add"
-#~ msgstr "Add"
-
 #~ msgid "@btn-click-to-view"
 #~ msgstr "Click to view"
-
-#~ msgid "@btn-update-name"
-#~ msgstr "Update Name"
 
 #~ msgid "@btn-update-password"
 #~ msgstr "Update Password"
 
-#~ msgid "@ch-menu-delete-short"
-#~ msgstr "Delete"
-
-#~ msgid "@ch-menu-invite-short"
-#~ msgstr "Invite members"
-
-#~ msgid "@ch-menu-leave-private-confirm"
-#~ msgstr ""
-#~ "If you leave this private topic, you will only be able to rejoin if you "
-#~ "receive another invitation. Are you sure you want to leave?"
-
-#~ msgid "@ch-menu-leave-short"
-#~ msgstr "Leave"
-
-#~ msgid "@ch-menu-rename"
-#~ msgstr "Rename topic"
-
-#~ msgid "@ch-menu-rename-short"
-#~ msgstr "Rename"
-
-#~ msgid "@ch-menu-star-short"
-#~ msgstr "Star"
-
-#~ msgid "@ch-menu-un-star-short"
-#~ msgstr "Unstar"
-
 #~ msgid "@common-account-settings"
 #~ msgstr "Account Settings"
-
-#~ msgid "@common-add"
-#~ msgstr "Add"
-
-#~ msgid "@common-channels"
-#~ msgstr "Topics"
 
 #~ msgid "@common-create-pg"
 #~ msgstr "Create Private Topic"
@@ -1761,29 +1741,11 @@ msgstr ""
 #~ msgstr ""
 #~ "This feature is currently in development and will be available soon."
 
-#~ msgid "@common-file-type-google-document"
-#~ msgstr "Google Documents"
-
-#~ msgid "@common-file-type-google-presentation"
-#~ msgstr "Google Spreadsheets"
-
-#~ msgid "@common-file-type-google-spreadsheet"
-#~ msgstr "Google Presentations"
-
-#~ msgid "@common-files"
-#~ msgstr "Files"
-
 #~ msgid "@common-invalid-request"
 #~ msgstr "Invalid Request. "
 
 #~ msgid "@common-language"
 #~ msgstr "Language"
-
-#~ msgid "@common-more"
-#~ msgstr "Browse"
-
-#~ msgid "@common-new-name"
-#~ msgstr "New Name"
 
 #~ msgid "@common-new-password"
 #~ msgstr "New Password"
@@ -1791,18 +1753,8 @@ msgstr ""
 #~ msgid "@common-pasword-enter"
 #~ msgstr "Enter your password"
 
-#~ msgid "@common-private-groups"
-#~ msgstr "Private Groups"
-
-#, fuzzy
-#~ msgid "@common-profile-settingstranslate"
-#~ msgstr "Profile Settings"
-
 #~ msgid "@common-purpose"
 #~ msgstr "Description"
-
-#~ msgid "@common-search"
-#~ msgstr "Search"
 
 #~ msgid "@common-service-settings"
 #~ msgstr "Service Preferences"
@@ -1810,62 +1762,8 @@ msgstr ""
 #~ msgid "@common-warning"
 #~ msgstr "WARNING"
 
-#~ msgid "@dnd-file-upload-msg"
-#~ msgstr "Drag and drop your file here to upload"
-
-#~ msgid "@file-all"
-#~ msgstr "File Drawer"
-
-#~ msgid "@file-audio"
-#~ msgstr "Audio"
-
-#~ msgid "@file-image"
-#~ msgstr "Images"
-
-#~ msgid "@file-pdf"
-#~ msgstr "PDFs"
-
-#~ msgid "@file-video"
-#~ msgstr "Video"
-
-#~ msgid "@file-your"
-#~ msgstr "My Files"
-
-#~ msgid "@go-to-latest-message-msg"
-#~ msgstr "Go to the most recent messages"
-
-#~ msgid "@header-file"
-#~ msgstr "Files"
-
-#~ msgid "@header-help"
-#~ msgstr "Help"
-
-#~ msgid "@header-menu"
-#~ msgstr "Menu"
-
-#~ msgid "@header-setting"
-#~ msgstr "Settings"
-
 #~ msgid "@input-create-pg"
 #~ msgstr "Enter new private topic name"
-
-#~ msgid "@input-invite-email"
-#~ msgstr "Enter email address to invite"
-
-#~ msgid "@input-password-average"
-#~ msgstr "Average"
-
-#~ msgid "@input-password-excellent"
-#~ msgstr "Excellent"
-
-#~ msgid "@input-password-good"
-#~ msgstr "Good"
-
-#~ msgid "@input-password-very-weak"
-#~ msgstr "Weak"
-
-#~ msgid "@input-search-file-title"
-#~ msgstr "Search by keyword(s)"
 
 #~ msgid "@input-user-password-error"
 #~ msgstr ""
@@ -1877,12 +1775,6 @@ msgstr ""
 
 #~ msgid "@input-user-password-min-length-error"
 #~ msgstr "Must be 8+ characters"
-
-#~ msgid "@login-message"
-#~ msgstr "Enter your email and password"
-
-#~ msgid "@login-welcome {{teamInfo.name}}"
-#~ msgstr "Welcome to {{teamInfo.name}}"
 
 #~ msgid "@modal-create-ch-msg1"
 #~ msgstr "Create topics that anyone can join"
@@ -1928,27 +1820,6 @@ msgstr ""
 #~ "Change your team settings here. Please note that any modifications will "
 #~ "also be applied to your teammates."
 
-#~ msgid "@modal-team-invite-msg1"
-#~ msgstr "Invite other team members to JANDI!"
-
-#~ msgid "@msg-file"
-#~ msgstr "file"
-
-#~ msgid "@msg-shared"
-#~ msgstr "Shared"
-
-#~ msgid "@msg-unshared"
-#~ msgstr "Unshared"
-
-#~ msgid "@msg-whose"
-#~ msgstr "'s"
-
-#~ msgid "@option-all-members"
-#~ msgstr "All"
-
-#~ msgid "@option-all-rooms"
-#~ msgstr "All"
-
 #~ msgid "@option-noti-all"
 #~ msgstr "For all messages"
 
@@ -1964,48 +1835,6 @@ msgstr ""
 
 #~ msgid "@password-reset-message"
 #~ msgstr "Forgot your password? Choose a new one."
-
-#~ msgid "@pg-menu-delete"
-#~ msgstr "Delete this private group"
-
-#~ msgid "@pg-menu-delete-short"
-#~ msgstr "Delete"
-
-#~ msgid "@pg-menu-invite"
-#~ msgstr "Invite members to this private group"
-
-#~ msgid "@pg-menu-invite-short"
-#~ msgstr "Invite members"
-
-#~ msgid "@pg-menu-leave"
-#~ msgstr "Leave private group"
-
-#~ msgid "@pg-menu-leave-short"
-#~ msgstr "Leave"
-
-#~ msgid "@pg-menu-rename"
-#~ msgstr "Rename this private group"
-
-#~ msgid "@pg-menu-rename-short"
-#~ msgstr "Rename"
-
-#~ msgid "@pg-menu-star"
-#~ msgstr "Star this user "
-
-#~ msgid "@pg-menu-star-short"
-#~ msgstr "Star"
-
-#~ msgid "@pg-menu-un-star"
-#~ msgstr "Unstar this private group"
-
-#~ msgid "@pg-menu-un-star-short"
-#~ msgstr "Unstar"
-
-#~ msgid "@placeholder-input-message"
-#~ msgstr "Enter your message (press Shift+Enter for multiple lines)"
-
-#~ msgid "@search-result-summary-post"
-#~ msgstr " "
 
 #~ msgid "@setting-team-delete"
 #~ msgstr "Delete Team"
@@ -2047,19 +1876,158 @@ msgstr ""
 #~ msgid "@setting-team-title"
 #~ msgstr "Team Settings"
 
-#~ msgid "@system-msg-announcement-created-mid"
-#~ msgstr " has updated "
+#~ msgid "@alert-missing-info"
+#~ msgstr "Missing Information"
 
-#~ msgid "@system-msg-announcement-created-post"
-#~ msgstr "'s message as the announcement."
+#~ msgid "@alert-send-mail-fail"
+#~ msgstr "Invitation could not be sent"
 
-#~ msgid "@tutorial_congratulation"
-#~ msgstr "CONGRATULATIONS {{username}}!"
+#~ msgid "@alert-send-mail-invalid"
+#~ msgstr " is an invalid email address"
+
+#~ msgid "@alert-send-mail-success"
+#~ msgstr "Invitation was sent successfully"
+
+#~ msgid "@alert-send-mail-taken"
+#~ msgstr " is already a member of your team"
+
+#~ msgid "@modal-team-invite-msg1"
+#~ msgstr "Invite other team members to JANDI!"
+
+#~ msgid "@btn-add"
+#~ msgstr "Add"
+
+#~ msgid "@input-invite-email"
+#~ msgstr "Enter email address to invite"
+
+#~ msgid "@common-file-type-google-document"
+#~ msgstr "Google Documents"
+
+#~ msgid "@common-file-type-google-presentation"
+#~ msgstr "Google Spreadsheets"
+
+#~ msgid "@common-file-type-google-spreadsheet"
+#~ msgstr "Google Presentations"
+
+#~ msgid "@ch-menu-leave-private-confirm"
+#~ msgstr ""
+#~ "If you leave this private topic, you will only be able to rejoin if you "
+#~ "receive another invitation. Are you sure you want to leave?"
+
+#~ msgid "@alert-empty-file"
+#~ msgstr "No files found"
+
+#~ msgid "@file-all"
+#~ msgstr "File Drawer"
+
+#~ msgid "@file-your"
+#~ msgstr "My Files"
+
+#~ msgid "@header-setting"
+#~ msgstr "Settings"
+
+#~ msgid "@header-file"
+#~ msgstr "Files"
+
+#~ msgid "@header-help"
+#~ msgstr "Help"
+
+#~ msgid "@header-menu"
+#~ msgstr "Menu"
+
+#~ msgid "@search-result-summary-post"
+#~ msgstr " "
+
+#~ msgid "@file-audio"
+#~ msgstr "Audio"
+
+#~ msgid "@file-image"
+#~ msgstr "Images"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDFs"
+
+#~ msgid "@file-video"
+#~ msgstr "Video"
+
+#~ msgid "@ch-menu-delete-short"
+#~ msgstr "Delete"
+
+#~ msgid "@ch-menu-invite-short"
+#~ msgstr "Invite members"
+
+#~ msgid "@ch-menu-leave-short"
+#~ msgstr "Leave"
+
+#~ msgid "@ch-menu-rename-short"
+#~ msgstr "Rename"
+
+#~ msgid "@ch-menu-star-short"
+#~ msgstr "Star"
+
+#~ msgid "@ch-menu-un-star-short"
+#~ msgstr "Unstar"
+
+#~ msgid "@pg-menu-delete"
+#~ msgstr "Delete this private group"
+
+#~ msgid "@pg-menu-delete-short"
+#~ msgstr "Delete"
+
+#~ msgid "@pg-menu-invite"
+#~ msgstr "Invite members to this private group"
+
+#~ msgid "@pg-menu-invite-short"
+#~ msgstr "Invite members"
+
+#~ msgid "@pg-menu-leave"
+#~ msgstr "Leave private group"
+
+#~ msgid "@pg-menu-leave-short"
+#~ msgstr "Leave"
+
+#~ msgid "@pg-menu-rename"
+#~ msgstr "Rename this private group"
+
+#~ msgid "@pg-menu-rename-short"
+#~ msgstr "Rename"
+
+#~ msgid "@pg-menu-star"
+#~ msgstr "Star this user "
+
+#~ msgid "@pg-menu-star-short"
+#~ msgstr "Star"
+
+#~ msgid "@pg-menu-un-star"
+#~ msgstr "Unstar this private group"
+
+#~ msgid "@pg-menu-un-star-short"
+#~ msgstr "Unstar"
+
+#~ msgid "@common-private-groups"
+#~ msgstr "Private Groups"
+
+#~ msgid "@common-channels"
+#~ msgstr "Topics"
+
+#~ msgid "@input-password-average"
+#~ msgstr "Average"
+
+#~ msgid "@input-password-excellent"
+#~ msgstr "Excellent"
+
+#~ msgid "@input-password-good"
+#~ msgstr "Good"
+
+#~ msgid "@input-password-very-weak"
+#~ msgstr "Weak"
+
+#~ msgid "@login-message"
+#~ msgstr "Enter your email and password"
+
+#~ msgid "@login-welcome {{teamInfo.name}}"
+#~ msgstr "Welcome to {{teamInfo.name}}"
 
 #, fuzzy
-#~ msgid "@tutorial_explore_jandi"
-#~ msgstr "Welcome to JANDI!"
-
-#, fuzzy
-#~ msgid "{{notificationBtnText}}"
-#~ msgstr "JANDI Message Received"
+#~ msgid "@common-profile-settingstranslate"
+#~ msgstr "Profile Settings"

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -67,7 +67,7 @@ msgstr "最小化"
 msgid "@ask-me-later"
 msgstr "あとで確認する"
 
-#: client/app/left/topics/topics.html
+#: client/app/left/left.html
 msgid "@browse-more-topics"
 msgstr "未参加のトピック一覧"
 
@@ -147,6 +147,7 @@ msgstr "送信"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -279,6 +280,8 @@ msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "削除されたファイル"
@@ -316,6 +319,7 @@ msgstr "確認"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -594,7 +598,7 @@ msgstr "サービス利用規約"
 msgid "@common-title"
 msgstr "タイトル"
 
-#: client/app/left/topics/topics.html
+#: client/app/left/left.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "トピック"
@@ -617,7 +621,7 @@ msgstr "アップロード"
 msgid "@common-visit-homepage"
 msgstr "ホームページを見る"
 
-#: client/app/left/topics/topics.html
+#: client/app/left/left.html
 msgid "@create-new-topic-tooltip"
 msgstr "新規トピック作成"
 
@@ -693,6 +697,7 @@ msgid "@error-404-title"
 msgstr "エラーが発生しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -737,48 +742,6 @@ msgstr "Dropboxからインポート"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-google-drive"
 msgstr "Googleドライブ"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-enter-name"
-msgstr "フォルダ名を入力ください"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-item-already-exists"
-msgstr "このトピックは既にフォルダに入っています"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-name-taken"
-msgstr "その名前は既に使用されています"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-new"
-msgstr "新規フォルダ"
-
-#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
-#: client/app/left/topics/topics.html
-msgid "@folder-remove"
-msgstr "削除"
-
-#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
-#: client/app/left/topics/topics.html
-msgid "@folder-rename"
-msgstr "変更する"
-
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "@folder-tutorial-content"
-msgstr ""
-"お仕事が増えるほど、増えていくトピックの数で困っていましたか？これからはト"
-"ピックをフォルダでまとめて管理することができます。今すぐ一つのトピックを他"
-"のトピックの上にドラッグ&ドロップをし、簡単にフォルダを作成してみてくださ"
-"い"
-
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "@folder-tutorial-never-show"
-msgstr "今後表示しない"
-
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "@folder-tutorial-title"
-msgstr "フォルダでトピックをまとめてみましょう！"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
@@ -1039,10 +1002,12 @@ msgid "@more-dm-list"
 msgstr "ダイレクトメッセージの相手を選択する"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "さんが公開トピックを作成しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "さんが非公開トピックを作成しました"
 
@@ -1052,18 +1017,22 @@ msgid "@msg-help-multiline"
 msgstr "shift+enterで改行"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "が"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr "さんを招待しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "さんが参加しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "が退出しました"
 
@@ -1109,8 +1078,7 @@ msgstr "メールが送信されました"
 msgid "@privateGroup"
 msgstr "プライベートグループ "
 
-#: client/app/right/files/files.html
-#: client/app/right/mentions/mentions.html
+#: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
 msgid "@search-in-progress"
@@ -1203,12 +1171,14 @@ msgid "@success-file-unshare"
 msgstr "\"{{filename}}\"が非共有にされました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
 msgstr ""
 "{{msg.message.content.actionOwner}} さんが {{msg.announceWriterName}} さん"
 "のメッセージを告知に登録しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} さんが告知を削除しました"
 
@@ -1567,6 +1537,7 @@ msgid "@tutorial-welcome-title"
 msgstr "JANDIへようこそ!!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr "ここから未読メッセージ"
 
@@ -1651,10 +1622,6 @@ msgstr " 成功しました！"
 msgid "@web-notification-title"
 msgstr "JANDI 新着メッセージ通知"
 
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "<span translate=\"\">@folder-tutorial-title</span>"
-msgstr ""
-
 #~ msgid "@input-rename"
 #~ msgstr "名前を入力"
 
@@ -1663,35 +1630,60 @@ msgstr ""
 #~ "「@all」機能で現在{{topicName}}に参加している{{topicParticipantsCount}}"
 #~ "名のメンバーにスマートフォンやウェブ通知が届きます。"
 
-#~ msgid "@alert-empty-file"
-#~ msgstr "ファイルがありません"
+#~ msgid "@common-search"
+#~ msgstr "検索"
 
-#~ msgid "@alert-invalid-password"
-#~ msgstr "パスワードが間違っています"
+#~ msgid "@msg-file"
+#~ msgstr "ファイル"
 
-#~ msgid "@alert-missing-info"
-#~ msgstr "必要な情報が入力されていません"
+#~ msgid "@msg-shared"
+#~ msgstr "共有"
 
-#~ msgid "@alert-required"
-#~ msgstr "必須"
+#~ msgid "@msg-whose"
+#~ msgstr "の"
 
-#~ msgid "@alert-send-mail-fail"
-#~ msgstr "招待メッセージは送信されませんでした"
+#~ msgid "@common-add"
+#~ msgstr "追加"
 
-#~ msgid "@alert-send-mail-invalid"
-#~ msgstr "は適切なメールアドレス形式ではありません"
+#~ msgid "@msg-unshared"
+#~ msgstr "非共有"
 
-#~ msgid "@alert-send-mail-success"
-#~ msgstr "招待メールが送信されました"
+#, fuzzy
+#~ msgid "star"
+#~ msgstr "このチャネルから退出"
 
-#~ msgid "@alert-send-mail-taken"
-#~ msgstr "は既にチームに登録されています"
+#~ msgid "@common-more"
+#~ msgstr "表示"
 
-#~ msgid "@alert-update-fail"
-#~ msgstr "更新することができませんでした"
+#~ msgid "@common-files"
+#~ msgstr "ファイル"
 
-#~ msgid "@alert-update-success"
-#~ msgstr "更新されました"
+#~ msgid "@ch-menu-rename"
+#~ msgstr "このトピックの名称を変更する"
+
+#~ msgid "@common-new-name"
+#~ msgstr "新しい名前"
+
+#~ msgid "@go-to-latest-message-msg"
+#~ msgstr "最新のメッセージに移動"
+
+#~ msgid "@btn-update-name"
+#~ msgstr "名前の更新"
+
+#, fuzzy
+#~ msgid "@tutorial_explore_jandi"
+#~ msgstr "初めてJANDIをご利用ですか？"
+
+#~ msgid "@tutorial_congratulation"
+#~ msgstr ""
+#~ "おめでとうございます{{username}}さん！チュートリアルを完了しました。"
+
+#~ msgid "@dnd-file-upload-msg"
+#~ msgstr "ファイルをドラッグ＆ドロップして共有"
+
+#~ msgid "@placeholder-input-message"
+#~ msgstr ""
+#~ "ここにメッセージを記入（Shift + エンターキーでテキストボックス内で改行"
 
 #, fuzzy
 #~ msgid "@announcement-creator"
@@ -1703,35 +1695,45 @@ msgstr ""
 #~ "この告知を削除しますか？削除時トピック内の他のメンバーたちにもこれから"
 #~ "この告知が見えますが、元のメッセージは保存されます"
 
-#~ msgid "@btn-add"
-#~ msgstr "追加"
+#~ msgid "@input-search-file-title"
+#~ msgstr "キーワードで検索"
+
+#~ msgid "@option-all-members"
+#~ msgstr "全てのメンバー"
+
+#~ msgid "@option-all-rooms"
+#~ msgstr "全トピック"
+
+#~ msgid "@system-msg-announcement-created-mid"
+#~ msgstr "さんが"
+
+#~ msgid "@system-msg-announcement-created-post"
+#~ msgstr "さんのメッセージを告知に登録しました。"
+
+#, fuzzy
+#~ msgid "{{notificationBtnText | translate}}"
+#~ msgstr "JANDI 新着メッセージ通知"
+
+#~ msgid "@alert-invalid-password"
+#~ msgstr "パスワードが間違っています"
+
+#~ msgid "@alert-required"
+#~ msgstr "必須"
+
+#~ msgid "@alert-update-fail"
+#~ msgstr "更新することができませんでした"
+
+#~ msgid "@alert-update-success"
+#~ msgstr "更新されました"
 
 #~ msgid "@btn-click-to-view"
 #~ msgstr "表示"
 
-#~ msgid "@btn-update-name"
-#~ msgstr "名前の更新"
-
 #~ msgid "@btn-update-password"
 #~ msgstr "パスワードの更新"
 
-#~ msgid "@ch-menu-leave-private-confirm"
-#~ msgstr ""
-#~ "プライベートトピックから退出すると、そのプライベートトピックのメンバー"
-#~ "に改めて招待されない限り再び参加することはできません。本当に退出します"
-#~ "か？"
-
-#~ msgid "@ch-menu-rename"
-#~ msgstr "このトピックの名称を変更する"
-
 #~ msgid "@common-account-settings"
 #~ msgstr "アカウント設定"
-
-#~ msgid "@common-add"
-#~ msgstr "追加"
-
-#~ msgid "@common-channels"
-#~ msgstr "トピック一覧"
 
 #~ msgid "@common-create-pg"
 #~ msgstr "新規プライベートグループを作成する"
@@ -1742,20 +1744,11 @@ msgstr ""
 #~ msgid "@common-feature-not-supported-msg"
 #~ msgstr "この機能は現在開発中です。近日提供開始予定です"
 
-#~ msgid "@common-files"
-#~ msgstr "ファイル"
-
 #~ msgid "@common-invalid-request"
 #~ msgstr "不適切なリクエスト"
 
 #~ msgid "@common-language"
 #~ msgstr "言語"
-
-#~ msgid "@common-more"
-#~ msgstr "表示"
-
-#~ msgid "@common-new-name"
-#~ msgstr "新しい名前"
 
 #~ msgid "@common-new-password"
 #~ msgstr "新しいパスワード"
@@ -1763,14 +1756,8 @@ msgstr ""
 #~ msgid "@common-pasword-enter"
 #~ msgstr "パスワードを入力してください"
 
-#~ msgid "@common-private-groups"
-#~ msgstr "プライベートグループ"
-
 #~ msgid "@common-purpose"
 #~ msgstr "用途"
-
-#~ msgid "@common-search"
-#~ msgstr "検索"
 
 #~ msgid "@common-service-settings"
 #~ msgstr "環境設定"
@@ -1778,62 +1765,8 @@ msgstr ""
 #~ msgid "@common-warning"
 #~ msgstr "警告"
 
-#~ msgid "@dnd-file-upload-msg"
-#~ msgstr "ファイルをドラッグ＆ドロップして共有"
-
-#~ msgid "@file-all"
-#~ msgstr "全てのファイル"
-
-#~ msgid "@file-audio"
-#~ msgstr "音声"
-
-#~ msgid "@file-image"
-#~ msgstr "画像"
-
-#~ msgid "@file-pdf"
-#~ msgstr "PDF"
-
-#~ msgid "@file-video"
-#~ msgstr "動画"
-
-#~ msgid "@file-your"
-#~ msgstr "あなたのファイル"
-
-#~ msgid "@go-to-latest-message-msg"
-#~ msgstr "最新のメッセージに移動"
-
-#~ msgid "@header-file"
-#~ msgstr "ファイル"
-
-#~ msgid "@header-help"
-#~ msgstr "ヘルプ"
-
-#~ msgid "@header-menu"
-#~ msgstr "メニュー"
-
-#~ msgid "@header-setting"
-#~ msgstr "設定"
-
 #~ msgid "@input-create-pg"
 #~ msgstr "新規プライベートグループの名称を入力"
-
-#~ msgid "@input-invite-email"
-#~ msgstr "招待するメールアドレスを入力"
-
-#~ msgid "@input-password-average"
-#~ msgstr "普通 "
-
-#~ msgid "@input-password-excellent"
-#~ msgstr "非常に強い"
-
-#~ msgid "@input-password-good"
-#~ msgstr "強い "
-
-#~ msgid "@input-password-very-weak"
-#~ msgstr "弱い "
-
-#~ msgid "@input-search-file-title"
-#~ msgstr "キーワードで検索"
 
 #~ msgid "@input-user-password-error"
 #~ msgstr "最低1文字以上の数字か大文字か記号を含めてください"
@@ -1843,12 +1776,6 @@ msgstr ""
 
 #~ msgid "@input-user-password-min-length-error"
 #~ msgstr "パスワードは8文字以上にしてください"
-
-#~ msgid "@login-message"
-#~ msgstr "メールアドレスとパスワードを入力"
-
-#~ msgid "@login-welcome {{teamInfo.name}}"
-#~ msgstr "Welcome to"
 
 #~ msgid "@modal-create-ch-msg1"
 #~ msgstr "新規トピックを作成。どのメンバーも参加することができます"
@@ -1894,27 +1821,6 @@ msgstr ""
 #~ "チーム設定の変更ができます。ここで変更された内容は、チームメンバーにも"
 #~ "適用されますのでご注意下さい"
 
-#~ msgid "@modal-team-invite-msg1"
-#~ msgstr "あなたのチームメンバーをJANDIに招待しましょう！"
-
-#~ msgid "@msg-file"
-#~ msgstr "ファイル"
-
-#~ msgid "@msg-shared"
-#~ msgstr "共有"
-
-#~ msgid "@msg-unshared"
-#~ msgstr "非共有"
-
-#~ msgid "@msg-whose"
-#~ msgstr "の"
-
-#~ msgid "@option-all-members"
-#~ msgstr "全てのメンバー"
-
-#~ msgid "@option-all-rooms"
-#~ msgstr "全トピック"
-
 #~ msgid "@option-noti-all"
 #~ msgstr "全てのメッセージ"
 
@@ -1930,31 +1836,6 @@ msgstr ""
 
 #~ msgid "@password-reset-message"
 #~ msgstr "パスワードをお忘れですか？ 新しいパスワードを入力してください。"
-
-#~ msgid "@pg-menu-delete"
-#~ msgstr "このグループを削除する"
-
-#~ msgid "@pg-menu-invite"
-#~ msgstr "このグループにメンバーを招待する"
-
-#~ msgid "@pg-menu-leave"
-#~ msgstr "このグループから退出する"
-
-#~ msgid "@pg-menu-rename"
-#~ msgstr "このグループの名称を変更する"
-
-#~ msgid "@pg-menu-star"
-#~ msgstr "このグループをお気に入りに追加する"
-
-#~ msgid "@pg-menu-un-star"
-#~ msgstr "このグループをお気に入りから削除する"
-
-#~ msgid "@placeholder-input-message"
-#~ msgstr ""
-#~ "ここにメッセージを記入（Shift + エンターキーでテキストボックス内で改行"
-
-#~ msgid "@search-result-summary-post"
-#~ msgstr "件あります"
 
 #~ msgid "@setting-team-delete"
 #~ msgstr "チーム削除"
@@ -1995,24 +1876,110 @@ msgstr ""
 #~ msgid "@setting-team-title"
 #~ msgstr "チーム設定"
 
-#~ msgid "@system-msg-announcement-created-mid"
-#~ msgstr "さんが"
+#~ msgid "@alert-missing-info"
+#~ msgstr "必要な情報が入力されていません"
 
-#~ msgid "@system-msg-announcement-created-post"
-#~ msgstr "さんのメッセージを告知に登録しました。"
+#~ msgid "@alert-send-mail-fail"
+#~ msgstr "招待メッセージは送信されませんでした"
 
-#~ msgid "@tutorial_congratulation"
+#~ msgid "@alert-send-mail-invalid"
+#~ msgstr "は適切なメールアドレス形式ではありません"
+
+#~ msgid "@alert-send-mail-success"
+#~ msgstr "招待メールが送信されました"
+
+#~ msgid "@alert-send-mail-taken"
+#~ msgstr "は既にチームに登録されています"
+
+#~ msgid "@modal-team-invite-msg1"
+#~ msgstr "あなたのチームメンバーをJANDIに招待しましょう！"
+
+#~ msgid "@btn-add"
+#~ msgstr "追加"
+
+#~ msgid "@input-invite-email"
+#~ msgstr "招待するメールアドレスを入力"
+
+#~ msgid "@ch-menu-leave-private-confirm"
 #~ msgstr ""
-#~ "おめでとうございます{{username}}さん！チュートリアルを完了しました。"
+#~ "プライベートトピックから退出すると、そのプライベートトピックのメンバー"
+#~ "に改めて招待されない限り再び参加することはできません。本当に退出します"
+#~ "か？"
 
-#, fuzzy
-#~ msgid "@tutorial_explore_jandi"
-#~ msgstr "初めてJANDIをご利用ですか？"
+#~ msgid "@alert-empty-file"
+#~ msgstr "ファイルがありません"
 
-#, fuzzy
-#~ msgid "star"
-#~ msgstr "このチャネルから退出"
+#~ msgid "@file-all"
+#~ msgstr "全てのファイル"
 
-#, fuzzy
-#~ msgid "{{notificationBtnText | translate}}"
-#~ msgstr "JANDI 新着メッセージ通知"
+#~ msgid "@file-your"
+#~ msgstr "あなたのファイル"
+
+#~ msgid "@header-setting"
+#~ msgstr "設定"
+
+#~ msgid "@header-file"
+#~ msgstr "ファイル"
+
+#~ msgid "@header-help"
+#~ msgstr "ヘルプ"
+
+#~ msgid "@header-menu"
+#~ msgstr "メニュー"
+
+#~ msgid "@search-result-summary-post"
+#~ msgstr "件あります"
+
+#~ msgid "@file-audio"
+#~ msgstr "音声"
+
+#~ msgid "@file-image"
+#~ msgstr "画像"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDF"
+
+#~ msgid "@file-video"
+#~ msgstr "動画"
+
+#~ msgid "@pg-menu-delete"
+#~ msgstr "このグループを削除する"
+
+#~ msgid "@pg-menu-invite"
+#~ msgstr "このグループにメンバーを招待する"
+
+#~ msgid "@pg-menu-leave"
+#~ msgstr "このグループから退出する"
+
+#~ msgid "@pg-menu-rename"
+#~ msgstr "このグループの名称を変更する"
+
+#~ msgid "@pg-menu-star"
+#~ msgstr "このグループをお気に入りに追加する"
+
+#~ msgid "@pg-menu-un-star"
+#~ msgstr "このグループをお気に入りから削除する"
+
+#~ msgid "@common-channels"
+#~ msgstr "トピック一覧"
+
+#~ msgid "@common-private-groups"
+#~ msgstr "プライベートグループ"
+
+#~ msgid "@input-password-average"
+#~ msgstr "普通 "
+
+#~ msgid "@input-password-excellent"
+#~ msgstr "非常に強い"
+
+#~ msgid "@input-password-good"
+#~ msgstr "強い "
+
+#~ msgid "@input-password-very-weak"
+#~ msgstr "弱い "
+
+#~ msgid "@login-message"
+#~ msgstr "メールアドレスとパスワードを入力"
+
+#~ msgid "@login-welcome {{teamInfo.name}}"
+#~ msgstr "Welcome to"

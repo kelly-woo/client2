@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: [Web] Application\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -65,7 +65,7 @@ msgstr "最小化"
 msgid "@ask-me-later"
 msgstr "稍后再询问"
 
-#: client/app/left/topics/topics.html
+#: client/app/left/left.html
 msgid "@browse-more-topics"
 msgstr "浏览其他议题"
 
@@ -145,6 +145,7 @@ msgstr "送出"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -271,6 +272,8 @@ msgid "@common-customer-service"
 msgstr "客服"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
+#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "已删除文件"
@@ -306,6 +309,7 @@ msgstr "确认"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -583,7 +587,7 @@ msgstr "使用条款"
 msgid "@common-title"
 msgstr "议题"
 
-#: client/app/left/topics/topics.html
+#: client/app/left/left.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "议题"
@@ -606,7 +610,7 @@ msgstr "上传文件"
 msgid "@common-visit-homepage"
 msgstr "造访首页"
 
-#: client/app/left/topics/topics.html
+#: client/app/left/left.html
 msgid "@create-new-topic-tooltip"
 msgstr "建立新议题"
 
@@ -679,6 +683,7 @@ msgid "@error-404-title"
 msgstr "错误"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -723,46 +728,6 @@ msgstr "Dropbox"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-google-drive"
 msgstr "Google云端硬盘"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-enter-name"
-msgstr "键入文件夹名称"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-item-already-exists"
-msgstr "议题已存于文件夹里"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-name-taken"
-msgstr "这名称已被使用"
-
-#: client/app/left/topics/topics.html
-msgid "@folder-new"
-msgstr "新的文件夹"
-
-#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
-#: client/app/left/topics/topics.html
-msgid "@folder-remove"
-msgstr "删除"
-
-#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
-#: client/app/left/topics/topics.html
-msgid "@folder-rename"
-msgstr "重新命名"
-
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "@folder-tutorial-content"
-msgstr ""
-"面对杂乱无章的议题列表束手无策吗？ 有了议题文件夹，轻松整理、归类你的议题列"
-"表！ 拖、拉、放，三步骤即可建立文件夹并移动议题至新文件夹。"
-
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "@folder-tutorial-never-show"
-msgstr "不再显示"
-
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "@folder-tutorial-title"
-msgstr "使用议题文件夹打理你的议题列表"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
@@ -1003,10 +968,12 @@ msgid "@more-dm-list"
 msgstr "选择一位成员传信"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "建立公开议题"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "建立私人议题"
 
@@ -1016,18 +983,22 @@ msgid "@msg-help-multiline"
 msgstr "Shift+Enter键进行换行"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "已邀请"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr "  "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "已经加入"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "已经离开"
 
@@ -1162,12 +1133,14 @@ msgid "@success-file-unshare"
 msgstr "\"{{filename}}\"已被取消分享"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
 msgstr ""
 "{{msg.message.content.actionOwner}} 更新 {{msg.announceWriterName}} 的信息"
 "为公告"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} 删除公告"
 
@@ -1506,6 +1479,7 @@ msgid "@tutorial-welcome-title"
 msgstr "欢迎使用JANDI!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
+#: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr "以下为未读信息"
 
@@ -1589,10 +1563,6 @@ msgstr "设置成功"
 msgid "@web-notification-title"
 msgstr "JANDI 新信息"
 
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "<span translate=\"\">@folder-tutorial-title</span>"
-msgstr ""
-
 #~ msgid "@input-rename"
 #~ msgstr "输入修改的名字"
 
@@ -1600,29 +1570,79 @@ msgstr ""
 #~ msgstr ""
 #~ "你确定要提及在 {{topicName}} 里的 {{topicParticipantsCount}} 位成员吗？"
 
-#~ msgid "@alert-empty-file"
-#~ msgstr "没有上传档案"
+#~ msgid "@common-search"
+#~ msgstr "搜索"
+
+#~ msgid "@msg-file"
+#~ msgstr "文件"
+
+#~ msgid "@msg-shared"
+#~ msgstr "分享过"
+
+#~ msgid "@msg-whose"
+#~ msgstr "的"
+
+#~ msgid "@common-add"
+#~ msgstr "增加"
+
+#~ msgid "@msg-unshared"
+#~ msgstr "未分享过"
+
+#~ msgid "@common-more"
+#~ msgstr "浏览"
+
+#~ msgid "@common-files"
+#~ msgstr "文件"
+
+#~ msgid "@ch-menu-rename"
+#~ msgstr "重新命名议题"
+
+#~ msgid "@common-new-name"
+#~ msgstr "新姓名"
+
+#~ msgid "@go-to-latest-message-msg"
+#~ msgstr "去到最近的信息"
+
+#~ msgid "@btn-update-name"
+#~ msgstr "更新姓名"
+
+#~ msgid "@tutorial_congratulation"
+#~ msgstr "恭喜 {{username}}！"
+
+#~ msgid "@dnd-file-upload-msg"
+#~ msgstr "拖拽您的文件到这里上传"
+
+#~ msgid "@placeholder-input-message"
+#~ msgstr "输入信息（Shift+Enter 进行换行）"
+
+#, fuzzy
+#~ msgid "@announcement-delete"
+#~ msgstr "删除议题"
+
+#~ msgid "@input-search-file-title"
+#~ msgstr "关键词搜索"
+
+#~ msgid "@option-all-members"
+#~ msgstr "全部"
+
+#~ msgid "@option-all-rooms"
+#~ msgstr "全部"
+
+#~ msgid "@system-msg-announcement-created-mid"
+#~ msgstr " 更新 "
+
+#~ msgid "@system-msg-announcement-created-post"
+#~ msgstr " 的信息为公告"
+
+#, fuzzy
+#~ msgid "{{notificationBtnText}}"
+#~ msgstr "JANDI 新信息"
 
 #~ msgid "@alert-invalid-password"
 #~ msgstr "密码无效"
 
-#~ msgid "@alert-missing-info"
-#~ msgstr "资料不全"
-
 #~ msgid "@alert-required"
 #~ msgstr "必须填写"
-
-#~ msgid "@alert-send-mail-fail"
-#~ msgstr "邀请送出不成功"
-
-#~ msgid "@alert-send-mail-invalid"
-#~ msgstr "是无效的电子邮件地址"
-
-#~ msgid "@alert-send-mail-success"
-#~ msgstr "邀请送出成功"
-
-#~ msgid "@alert-send-mail-taken"
-#~ msgstr "已经是您团队的成员"
 
 #~ msgid "@alert-update-fail"
 #~ msgstr "更新不成功"
@@ -1630,38 +1650,14 @@ msgstr ""
 #~ msgid "@alert-update-success"
 #~ msgstr "更新成功完成"
 
-#, fuzzy
-#~ msgid "@announcement-delete"
-#~ msgstr "删除议题"
-
-#~ msgid "@btn-add"
-#~ msgstr "增加"
-
 #~ msgid "@btn-click-to-view"
 #~ msgstr "点击检视"
-
-#~ msgid "@btn-update-name"
-#~ msgstr "更新姓名"
 
 #~ msgid "@btn-update-password"
 #~ msgstr "更新密码"
 
-#~ msgid "@ch-menu-leave-private-confirm"
-#~ msgstr ""
-#~ "离开私人议题后，未来希望能够重新加入，必须先取得其它人的邀请。您确定要离"
-#~ "开吗？"
-
-#~ msgid "@ch-menu-rename"
-#~ msgstr "重新命名议题"
-
 #~ msgid "@common-account-settings"
 #~ msgstr "帐号设定"
-
-#~ msgid "@common-add"
-#~ msgstr "增加"
-
-#~ msgid "@common-channels"
-#~ msgstr "议题群组"
 
 #~ msgid "@common-create-pg"
 #~ msgstr "建立私人议题"
@@ -1672,20 +1668,11 @@ msgstr ""
 #~ msgid "@common-feature-not-supported-msg"
 #~ msgstr "这功能目前正在开发中并且即将推出。"
 
-#~ msgid "@common-files"
-#~ msgstr "文件"
-
 #~ msgid "@common-invalid-request"
 #~ msgstr "请求无效"
 
 #~ msgid "@common-language"
 #~ msgstr "语言"
-
-#~ msgid "@common-more"
-#~ msgstr "浏览"
-
-#~ msgid "@common-new-name"
-#~ msgstr "新姓名"
 
 #~ msgid "@common-new-password"
 #~ msgstr "新密码"
@@ -1693,14 +1680,8 @@ msgstr ""
 #~ msgid "@common-pasword-enter"
 #~ msgstr "输入您的密码"
 
-#~ msgid "@common-private-groups"
-#~ msgstr "私人群组"
-
 #~ msgid "@common-purpose"
 #~ msgstr "叙述"
-
-#~ msgid "@common-search"
-#~ msgstr "搜索"
 
 #~ msgid "@common-service-settings"
 #~ msgstr "服务偏好"
@@ -1708,62 +1689,8 @@ msgstr ""
 #~ msgid "@common-warning"
 #~ msgstr "警示"
 
-#~ msgid "@dnd-file-upload-msg"
-#~ msgstr "拖拽您的文件到这里上传"
-
-#~ msgid "@file-all"
-#~ msgstr "全部档案"
-
-#~ msgid "@file-audio"
-#~ msgstr "音频档案"
-
-#~ msgid "@file-image"
-#~ msgstr "图像"
-
-#~ msgid "@file-pdf"
-#~ msgstr "PDF"
-
-#~ msgid "@file-video"
-#~ msgstr "视频档案"
-
-#~ msgid "@file-your"
-#~ msgstr "您的档案"
-
-#~ msgid "@go-to-latest-message-msg"
-#~ msgstr "去到最近的信息"
-
-#~ msgid "@header-file"
-#~ msgstr "档案"
-
-#~ msgid "@header-help"
-#~ msgstr "支援"
-
-#~ msgid "@header-menu"
-#~ msgstr "选单"
-
-#~ msgid "@header-setting"
-#~ msgstr "设定"
-
 #~ msgid "@input-create-pg"
 #~ msgstr "输入新的私人议题名称"
-
-#~ msgid "@input-invite-email"
-#~ msgstr "输入电子邮件地址进行邀请"
-
-#~ msgid "@input-password-average"
-#~ msgstr "普通"
-
-#~ msgid "@input-password-excellent"
-#~ msgstr "非常强"
-
-#~ msgid "@input-password-good"
-#~ msgstr "强"
-
-#~ msgid "@input-password-very-weak"
-#~ msgstr "弱"
-
-#~ msgid "@input-search-file-title"
-#~ msgstr "关键词搜索"
 
 #~ msgid "@input-user-password-error"
 #~ msgstr "必须至少包含一个数字或大写字母或特殊字符"
@@ -1773,12 +1700,6 @@ msgstr ""
 
 #~ msgid "@input-user-password-min-length-error"
 #~ msgstr "一定要超过8个字符"
-
-#~ msgid "@login-message"
-#~ msgstr "输入您的电子邮件及密码"
-
-#~ msgid "@login-welcome {{teamInfo.name}}"
-#~ msgstr "欢迎"
 
 #~ msgid "@modal-create-ch-msg1"
 #~ msgstr "建立任何人皆可加入的新议题"
@@ -1819,27 +1740,6 @@ msgstr ""
 #~ msgstr ""
 #~ "您可以在这裏变更您的团队设定。请注意，任何变更也将适用到您的团队成员。"
 
-#~ msgid "@modal-team-invite-msg1"
-#~ msgstr "邀请其他团队成员加入JANDI!"
-
-#~ msgid "@msg-file"
-#~ msgstr "文件"
-
-#~ msgid "@msg-shared"
-#~ msgstr "分享过"
-
-#~ msgid "@msg-unshared"
-#~ msgstr "未分享过"
-
-#~ msgid "@msg-whose"
-#~ msgstr "的"
-
-#~ msgid "@option-all-members"
-#~ msgstr "全部"
-
-#~ msgid "@option-all-rooms"
-#~ msgstr "全部"
-
 #~ msgid "@option-noti-all"
 #~ msgstr "给所有信息"
 
@@ -1854,30 +1754,6 @@ msgstr ""
 
 #~ msgid "@password-reset-message"
 #~ msgstr "忘记密码？ 重新设定一组新密码。"
-
-#~ msgid "@pg-menu-delete"
-#~ msgstr "删除这私人群组"
-
-#~ msgid "@pg-menu-invite"
-#~ msgstr "邀请成员到这私人群组"
-
-#~ msgid "@pg-menu-leave"
-#~ msgstr "离开私人群组"
-
-#~ msgid "@pg-menu-rename"
-#~ msgstr "重新命名这私人群组"
-
-#~ msgid "@pg-menu-star"
-#~ msgstr "离开群组 "
-
-#~ msgid "@pg-menu-un-star"
-#~ msgstr "邀请成员到这群组 "
-
-#~ msgid "@placeholder-input-message"
-#~ msgstr "输入信息（Shift+Enter 进行换行）"
-
-#~ msgid "@search-result-summary-post"
-#~ msgstr " 符合"
 
 #~ msgid "@setting-team-delete"
 #~ msgstr "删除团队"
@@ -1916,15 +1792,109 @@ msgstr ""
 #~ msgid "@setting-team-title"
 #~ msgstr "团队设定"
 
-#~ msgid "@system-msg-announcement-created-mid"
-#~ msgstr " 更新 "
+#~ msgid "@alert-missing-info"
+#~ msgstr "资料不全"
 
-#~ msgid "@system-msg-announcement-created-post"
-#~ msgstr " 的信息为公告"
+#~ msgid "@alert-send-mail-fail"
+#~ msgstr "邀请送出不成功"
 
-#~ msgid "@tutorial_congratulation"
-#~ msgstr "恭喜 {{username}}！"
+#~ msgid "@alert-send-mail-invalid"
+#~ msgstr "是无效的电子邮件地址"
 
-#, fuzzy
-#~ msgid "{{notificationBtnText}}"
-#~ msgstr "JANDI 新信息"
+#~ msgid "@alert-send-mail-success"
+#~ msgstr "邀请送出成功"
+
+#~ msgid "@alert-send-mail-taken"
+#~ msgstr "已经是您团队的成员"
+
+#~ msgid "@modal-team-invite-msg1"
+#~ msgstr "邀请其他团队成员加入JANDI!"
+
+#~ msgid "@btn-add"
+#~ msgstr "增加"
+
+#~ msgid "@input-invite-email"
+#~ msgstr "输入电子邮件地址进行邀请"
+
+#~ msgid "@ch-menu-leave-private-confirm"
+#~ msgstr ""
+#~ "离开私人议题后，未来希望能够重新加入，必须先取得其它人的邀请。您确定要离"
+#~ "开吗？"
+
+#~ msgid "@alert-empty-file"
+#~ msgstr "没有上传档案"
+
+#~ msgid "@file-all"
+#~ msgstr "全部档案"
+
+#~ msgid "@file-your"
+#~ msgstr "您的档案"
+
+#~ msgid "@header-setting"
+#~ msgstr "设定"
+
+#~ msgid "@header-file"
+#~ msgstr "档案"
+
+#~ msgid "@header-help"
+#~ msgstr "支援"
+
+#~ msgid "@header-menu"
+#~ msgstr "选单"
+
+#~ msgid "@search-result-summary-post"
+#~ msgstr " 符合"
+
+#~ msgid "@file-audio"
+#~ msgstr "音频档案"
+
+#~ msgid "@file-image"
+#~ msgstr "图像"
+
+#~ msgid "@file-pdf"
+#~ msgstr "PDF"
+
+#~ msgid "@file-video"
+#~ msgstr "视频档案"
+
+#~ msgid "@pg-menu-delete"
+#~ msgstr "删除这私人群组"
+
+#~ msgid "@pg-menu-invite"
+#~ msgstr "邀请成员到这私人群组"
+
+#~ msgid "@pg-menu-leave"
+#~ msgstr "离开私人群组"
+
+#~ msgid "@pg-menu-rename"
+#~ msgstr "重新命名这私人群组"
+
+#~ msgid "@pg-menu-star"
+#~ msgstr "离开群组 "
+
+#~ msgid "@pg-menu-un-star"
+#~ msgstr "邀请成员到这群组 "
+
+#~ msgid "@common-channels"
+#~ msgstr "议题群组"
+
+#~ msgid "@common-private-groups"
+#~ msgstr "私人群组"
+
+#~ msgid "@input-password-average"
+#~ msgstr "普通"
+
+#~ msgid "@input-password-excellent"
+#~ msgstr "非常强"
+
+#~ msgid "@input-password-good"
+#~ msgstr "强"
+
+#~ msgid "@input-password-very-weak"
+#~ msgstr "弱"
+
+#~ msgid "@login-message"
+#~ msgstr "输入您的电子邮件及密码"
+
+#~ msgid "@login-welcome {{teamInfo.name}}"
+#~ msgstr "欢迎"
