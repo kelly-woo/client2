@@ -11,7 +11,7 @@
     .service('TopicFolderModel', TopicFolderModel);
 
   function TopicFolderModel($q, $filter, $timeout, memberService, EntityMapManager, jndPubSub, TopicFolderAPI,
-                            TopicFolderStorage, currentSessionHelper) {
+                            TopicFolderStorage, currentSessionHelper, Dialog) {
     var _raw = {
       folderList: [],
       folderMap: {},
@@ -92,7 +92,10 @@
      */
     function _onCreateFailed(response) {
       if (response.code === 40008) {
-        alert($filter('translate')('@folder-name-taken'));
+        Dialog.alert({
+          body: $filter('translate')('@folder-name-taken')
+        });
+        //alert($filter('translate')('@folder-name-taken'));
       } else {
         //todo: general error
         _alertCommonError(response);
@@ -117,7 +120,9 @@
     }
 
     function _alertCommonError(response) {
-      alert('error :' + response.code + '\n' + response.msg);
+      Dialog.alert({
+        body: 'error :' + response.code + '\n' + response.msg
+      });
     }
 
     /**
@@ -203,7 +208,10 @@
     function _onModifyError(response) {
       //중복된 이름 존재
       if (response.code === 40008) {
-        alert($filter('translate')('@folder-name-taken'));
+        Dialog.alert({
+          body: $filter('translate')('@folder-name-taken')
+        });
+        //alert($filter('translate')('@folder-name-taken'));
       } else {
         _alertCommonError(response);
       }
@@ -370,7 +378,9 @@
     function _onPushError(response) {
       if (response) {
         if (response.code === 40016) {
-          alert('@folder-item-already-exists');
+          Dialog.alert({
+            body: $filter('translate')('@folder-item-already-exists')
+          });
         } else {
           _alertCommonError(response);
         }
