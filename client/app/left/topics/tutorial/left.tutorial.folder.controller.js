@@ -8,20 +8,32 @@
     .module('jandiApp')
     .controller('LeftTutorialFolderCtrl', LeftTutorialFolderCtrl);
 
-  function LeftTutorialFolderCtrl($scope) {
+  function LeftTutorialFolderCtrl($scope, $timeout, accountService, AccountHasSeenService) {
     $scope.isShown = false;
+
     $scope.close = close;
     $scope.closeAndNeverShow = closeAndNeverShow;
+
     _init();
 
     /**
-     *
+     * 생성자
      * @private
      */
     function _init() {
-      $scope.isShown = true;
+      if (accountService.getAccount()) {
+        _setIsShown();
+      } else {
+        $scope.$on('accountLoaded', _setIsShown);
+      }
     }
 
+
+    function _setIsShown() {
+      $timeout(function() {
+        $scope.isShown = !AccountHasSeenService.get('GUIDE_TOPIC_FOLDER');
+      }, 2000);
+    }
     /**
      * 닫기
      */
@@ -33,6 +45,7 @@
      * 다시 보지 않기
      */
     function closeAndNeverShow() {
+      AccountHasSeenService.set('GUIDE_TOPIC_FOLDER', true);
       close();
     }
   }

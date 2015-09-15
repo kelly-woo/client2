@@ -1,4 +1,7 @@
-<div ng-if="isShown" class="tutorial-popup topic-foldering dropdown-menu">
+<div ng-show="isShown" class="opac-zero tutorial-popup topic-foldering dropdown-menu"
+    ng-class="{
+    'opac-in': isShown
+    }">
   <div class="popup-left-arrow"><div class="popup-inner-arrow"></div></div>
   <button type="button" class="close" ng-click="close();"><i class="icon-delete"></i></button>
   <span class="badge left-panel_badge green_badge ng-binding">NEW</span>
