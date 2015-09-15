@@ -11,7 +11,8 @@
     .service('modalHelper', modalWindowHelper);
 
   /* @ngInject */
-  function modalWindowHelper($modal, teamAPIservice, accountService, NetInterceptor) {
+  function modalWindowHelper($rootScope, $modal, $filter, teamAPIservice, fileAPIservice, accountService,
+                             NetInterceptor, Dialog) {
 
     var that = this;
 
@@ -70,14 +71,29 @@
      * @param $scope
      */
     function openFileShareModal($scope, fileToShare) {
-      var modalOption = {
-        scope: $scope.$new(),
-        templateUrl: 'app/modal/files/share/share.html',
-        controller: 'FileShareModalCtrl',
-        size: 'lg',
-        resolve: {
-          fileToShare: function () {
-            return fileToShare;
+      var modalOption;
+      var selectOptions;
+
+      selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
+      selectOptions = fileAPIservice.removeSharedEntities(fileToShare, selectOptions);
+
+      if (!selectOptions.length) {
+        Dialog.warning({
+          title: $filter('translate')('@common-all-shared')
+        });
+      } else {
+        modalOption = {
+          scope: $scope.$new(),
+          templateUrl: 'app/modal/files/share/share.html',
+          controller: 'FileShareModalCtrl',
+          size: 'lg',
+          resolve: {
+            fileToShare: function () {
+              return fileToShare;
+            },
+            selectOptions: function (){
+              return selectOptions;
+            }
           }
         }
       };

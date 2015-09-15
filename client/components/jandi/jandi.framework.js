@@ -11,7 +11,8 @@
       'jandi.hybridApp',
       'jandi.preloader',
       'jandi.popup',
-      'jandi.browser'
+      'jandi.browser',
+      'jandi.dialog'
     ])
     .run(run)
     .config(config);

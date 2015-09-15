@@ -871,7 +871,7 @@ msgid "@mention-all"
 msgstr ""
 
 #: client/app/right/right.html
-msgid "@mention-all-confirm"
+msgid "@mention-all-toast"
 msgstr ""
 
 #: client/app/right/mentions/mentions.html
@@ -883,6 +883,10 @@ msgstr ""
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@message-delete"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@message-deleted"
 msgstr ""
 
 #: client/app/banner/desktop.notification.banner.html
@@ -1106,6 +1110,18 @@ msgstr ""
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 msgid "@star-un"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@success-file-delete"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@success-file-share"
+msgstr ""
+
+#: client/app/center/center.html
+msgid "@success-file-unshare"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html

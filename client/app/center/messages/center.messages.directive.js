@@ -10,7 +10,7 @@
     .directive('centerMessagesDirective', centerMessagesDirective);
 
   function centerMessagesDirective($compile, $filter, CenterRenderer, CenterRendererFactory, MessageCollection,
-                                   StarAPIService, jndPubSub, fileAPIservice, memberService) {
+                                   StarAPIService, jndPubSub, fileAPIservice, memberService, Dialog) {
     return {
       restrict: 'E',
       replace: true,
@@ -241,7 +241,10 @@
       function _onStarRequestError(msg) {
         msg.message.isStarred = !msg.message.isStarred;
         _refreshStar(msg);
-        alert($filter('translate')('@star-forbidden'));
+
+        Dialog.error({
+          title: $filter('translate')('@star-forbidden')
+        });
       }
 
       /**

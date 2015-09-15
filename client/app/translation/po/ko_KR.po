@@ -912,11 +912,11 @@ msgid "@mention-all"
 msgstr "@all (모든 토픽 멤버)"
 
 #: client/app/right/right.html
-msgid "@mention-all-confirm"
+msgid "@mention-all-toast"
 msgstr ""
 "'@all' 기능을 사용하시면 현재 {{topicName}} 토픽에 참여하고 있는 "
 "{{topicParticipantsCount}}명의 멤버에게 모바일 기기 또는 웹으로 푸쉬 알림을 "
-"하게 됩니다. 전송하시겠습니까?"
+"하게 됩니다."
 
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
@@ -928,6 +928,10 @@ msgstr "아직 다른 팀 멤버로부터 받은 멘션이 없습니다."
 #: client/app/right/file/file.html
 msgid "@message-delete"
 msgstr "삭제"
+
+#: client/app/center/center.html
+msgid "@message-deleted"
+msgstr "메시지가 삭제되었습니다."
 
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
@@ -1161,6 +1165,18 @@ msgstr "즐겨찾기 해제"
 #: client/app/right/file/file.html
 msgid "@star-un"
 msgstr "즐겨찾기 해제"
+
+#: client/app/center/center.html
+msgid "@success-file-delete"
+msgstr "\"{{filename}}\"이(가) 삭제되었습니다."
+
+#: client/app/center/center.html
+msgid "@success-file-share"
+msgstr "\"{{filename}}\"이(가) 공유되었습니다."
+
+#: client/app/center/center.html
+msgid "@success-file-unshare"
+msgstr "\"{{filename}}\"이(가) 공유 해제되었습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@suffix-day"
@@ -1650,6 +1666,15 @@ msgstr "수요일"
 
 #~ msgid "@input-rename"
 #~ msgstr "변경할 이름을 입력하세요"
+
+#~ msgid "@input-rename"
+#~ msgstr "변경할 이름을 입력하세요"
+
+#~ msgid "@mention-all-confirm"
+#~ msgstr ""
+#~ "'@all' 기능을 사용하시면 현재 {{topicName}} 토픽에 참여하고 있는 "
+#~ "{{topicParticipantsCount}}명의 멤버에게 모바일 기기 또는 웹으로 푸쉬 알림"
+#~ "을 하게 됩니다. 전송하시겠습니까?"
 
 #~ msgid "@common-search"
 #~ msgstr "검색"

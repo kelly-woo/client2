@@ -10,7 +10,8 @@
     .controller('CenterFileDropdownLayerCtrl', CenterFileDropdownLayerCtrl);
 
   /* @ngInject */
-  function CenterFileDropdownLayerCtrl($scope, $rootScope, $filter, fileAPIservice, AnalyticsHelper) {
+  function CenterFileDropdownLayerCtrl($scope, $rootScope, $filter, fileAPIservice, AnalyticsHelper,
+                                       Dialog) {
     // 현재 로그인되어있는 멤버(나)의 아이디
     var _myId;
     // 현재 토픽의 타입
@@ -37,39 +38,47 @@
     }
 
     function onFileDeleteClick() {
-      var fileId = $scope.msg.message.id;
+      Dialog.confirm({
+        body: $filter('translate')('@file-delete-confirm-msg'),
+        onClose: function(result) {
+          var fileId;
 
-      if (!confirm($filter('translate')('@file-delete-confirm-msg'))) {
-        return;
-      }
+          if (result === 'okay') {
+            fileId = $scope.msg.message.id;
 
-      fileAPIservice.deleteFile(fileId)
-        .success(function(response) {
-          try {
-            //analytics
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
-              'RESPONSE_SUCCESS': true,
-              'FILE_ID': fileId
-            });
-          } catch (e) {
+            fileAPIservice.deleteFile(fileId)
+              .success(function(response) {
+                try {
+                  //analytics
+                  AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+                    'RESPONSE_SUCCESS': true,
+                    'FILE_ID': fileId
+                  });
+                } catch (e) {
+                }
+
+                Dialog.success({
+                  title: $filter('translate')('@success-file-delete').replace('{{filename}}', $scope.msg.message.content.title)
+                });
+                $rootScope.$broadcast('onFileDeleted', fileId);
+              })
+              .error(function(err) {
+                console.log(err);
+                try {
+                  //analytics
+                  AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
+                    'RESPONSE_SUCCESS': false,
+                    'ERROR_CODE': err.code
+                  });
+                } catch (e) {
+                }
+              })
+              .finally(function() {
+
+              });
           }
-
-          $rootScope.$broadcast('onFileDeleted', fileId);
-        })
-        .error(function(err) {
-          console.log(err);
-          try {
-            //analytics
-            AnalyticsHelper.track(AnalyticsHelper.EVENT.FILE_DELETE, {
-              'RESPONSE_SUCCESS': false,
-              'ERROR_CODE': err.code
-            });
-          } catch (e) {
-          }
-        })
-        .finally(function() {
-
-        });
+        }
+      });
     }
   }
 })();

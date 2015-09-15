@@ -407,6 +407,10 @@
         list.splice(index, 1);
         delete map[messageId];
       }
+
+      if (!list.length) {
+        _setEmptyTab(activeTabName, true);
+      }
     }
 
     /**
