@@ -1,18 +1,6 @@
 'use strict';
 
 var app = angular.module('jandiApp');
-
-/*
- *  @filter     : date formatting especially append ordinal suffix of day
- *  @usage      : "oo"
- *  @example    : doo, ddoo
- */
-app.filter('ordinalDate', function($filter, DateFormatter) {
-  return function(input, format) {
-    return DateFormatter.getOrdinalDate(input, format);
-  };
-});
-
 /*
  *  @filter     : byte formatting
  */
