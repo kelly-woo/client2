@@ -359,9 +359,8 @@ last element of list
 }
 
 .lpanel-list-help-unread .btn-danger {
-    background-color: #00abe6 !important;
-    font-size: 13px;
-    border-radius: 12px;
+  font-size: 13px;
+  border-radius: 20px;
 }
 .lpanel-list-help-unread.above {
     top: 95px;
