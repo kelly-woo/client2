@@ -11,7 +11,7 @@
       scope: true,
       restrict: 'E',
       controller: 'LeftTutorialFolderCtrl',
-      templateUrl: 'app/left/tutorial/left.tutorial.folder.html'
+      templateUrl: 'app/left/topics/tutorial/left.tutorial.folder.html'
     };
 
     function link(scope, el, attrs) {
