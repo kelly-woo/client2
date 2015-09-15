@@ -2,7 +2,11 @@
   position: relative;
   border-top: 1px solid rgba(0,0,0,0);
   border-bottom: 1px solid rgba(0,0,0,0);
-  padding-bottom: 3px;
+  padding-bottom: 2px;
+  padding-top:1px;
+  margin-top:2px;
+  margin-bottom:2px;
+  min-height: 16px;
   -webkit-transition: background 0.2s, border 0.2s;
   -moz-transition: background 0.2s, border 0.2s;
   -ms-transition: background 0.2s, border 0.2s;
@@ -13,11 +17,11 @@
   font-weight: 700;
 }
 .topic-folder.has-folder {
-  margin-top: 1px;
+  padding-top:0px;
 }
 .topic-folder.has-folder:hover {
   background: #F1F1F1;
-	border-top: 1px solid #e1e1e1;
+  border-top: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
 }
 .topic-folder.has-folder.open {
