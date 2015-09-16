@@ -60,7 +60,7 @@
         angular.extend(this.options, options);
 
         // files setting
-        this.promise = this.setFiles($files);
+        this.setFiles($files);
 
         return this;
       },
@@ -68,14 +68,20 @@
        * file object setter
        */
       setFiles: function($files) {
-        var deferred = $q.defer();
         var that = this;
+        var deferred = $q.defer();
         var options = that.options;
-        var files = [];
         var alerts = [];
+        var files;
         var file;
-        var i, len;
+        var i;
+        var len;
         var promise;
+  
+        files = that.files || [];
+
+        // fileObject format
+        // name, type, size
 
         for (i = 0, len = that.options.multiple ? $files.length : 1; i < len; ++i) {
           file = options.createFileObject ? options.createFileObject($files[i]) : $files[i];
@@ -102,7 +108,8 @@
           deferred.resolve(files);
         }
 
-        return deferred.promise;
+        that.promise = deferred.promise;
+        return that;
       },
       /**
        * file object getter
@@ -121,18 +128,20 @@
        * file object 처리 반복자
        */
       iterator: function() {    // 상위 개념 object와 prototype 연결 필요함
-        var files = this.files,
-            index = 0,
-            length = files.length;
+        var files = this.files;
+        var index = 0;
 
         return {
           currentIndex: function() {
             return index;
           },
           next: function() {
-            return index < length ? files[index++] : undefined;
+            return index < files.length ? files[index++] : undefined;
           }
         };
+      },
+      empty: function() {
+        this.files.length = 0;
       }
     };
   }

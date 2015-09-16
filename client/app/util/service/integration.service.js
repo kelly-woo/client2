@@ -20,7 +20,7 @@
         var that = this;
 
         // file upload object
-        that.filesUpload = FilesUpload.createInstance(undefined, {
+        that.filesUpload = FilesUpload.createInstance({
           sequence: true,
           uploadType: 'integration',
           supportFileAPI: true,

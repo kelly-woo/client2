@@ -91,6 +91,9 @@
      */
     function _onTopicLDeleted(data) {
       _updateLeftPanel(data);
+
+      // topic 삭제시 file upload 중이라면 전부 취소하는 event를 broadcast함
+      jndPubSub.pub('onFileUploadAllClear');
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
       }

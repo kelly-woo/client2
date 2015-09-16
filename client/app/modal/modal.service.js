@@ -55,13 +55,18 @@
      * file 을 upload 하는 모달창을 연다.
      * @param $scope
      */
-    function openFileUploadModal($scope) {
+    function openFileUploadModal($scope, options) {
       var modalOption = {
         scope: $scope,
         templateUrl: 'app/modal/files/upload/upload.html',
         controller: 'FileUploadModalCtrl',
         size: 'lg',
-        backdrop: 'static'
+        backdrop: 'static',
+        resolve: {
+          fileUplodOptions: function() {
+            return options;
+          }
+        }
       };
       modal = _modalOpener(modalOption);
     }
