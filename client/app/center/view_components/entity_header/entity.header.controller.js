@@ -62,7 +62,7 @@
       $scope.$on('disconnected', _onDisconnected);
       $scope.$on('onTopicDeleted', _onTopicDeleted);
       $scope.$on('onTopicLeft', _onTopicLeft);
-      $scope.$on('changeEntityHeaderTitle', changeEntityHeaderTitle);
+      $scope.$on('onBeforeEntityChange', changeEntityHeaderTitle);
 
       $scope.$on('onCurrentEntityChanged', function(event, param) {
         if (_currentEntity !== param) {

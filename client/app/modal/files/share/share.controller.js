@@ -9,7 +9,7 @@
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService, $rootScope,
                               jndPubSub, fileToShare, selectOptions, modalHelper, AnalyticsHelper,
-                              currentSessionHelper, Dialog) {
+                              currentSessionHelper, Dialog, TopicFolderModel) {
     var _entityId;
     var _entityType;
     var _targetId;
@@ -37,12 +37,19 @@
     }
 
     /**
+     * destroy 이벤트 핸들러
+     * @private
+     */
+    function _onScopeDestroy() {
+    }
+
+    /**
      * select options 를 초기화 한다.
      * @private
      */
     function _initSelectOptions() {
       $scope.file = fileToShare;
-      $scope.selectOptions = selectOptions;
+      $scope.selectOptions = TopicFolderModel.getNgOptions(selectOptions);
     }
 
     /**
@@ -51,7 +58,7 @@
      */
     function _initDefaultSelected() {
       //set default select
-      var selectOptions = $scope.selectOptions;
+      var selectOptions = TopicFolderModel.getNgOptions($scope.selectOptions);
       var currentIndex = selectOptions.indexOf(currentSessionHelper.getCurrentEntity());
 
       if (currentIndex === -1) {

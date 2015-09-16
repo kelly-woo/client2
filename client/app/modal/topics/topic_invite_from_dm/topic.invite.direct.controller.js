@@ -6,11 +6,11 @@
     .controller('TopicInviteFromDmCtrl', TopicInviteFromDmCtrl);
 
   /* @ngInject */
-  function TopicInviteFromDmCtrl($scope, modalHelper, jndPubSub, entityheaderAPIservice, publicService, $rootScope) {
+  function TopicInviteFromDmCtrl($scope, modalHelper, jndPubSub, entityheaderAPIservice, publicService, $rootScope, TopicFolderModel) {
     // WHEN INVITING FROM DIRECT MESSAGE
     $scope.cancel = modalHelper.closeModal;
 
-    $scope.inviteOptions = publicService.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList, $scope.currentEntity.id);
+    $scope.inviteOptions = TopicFolderModel.getNgOptions(publicService.getInviteOptions($rootScope.joinedChannelList, $rootScope.privateGroupList, $scope.currentEntity.id));
 
     $scope.onInviteClick = function(inviteTo) {
       var invitedId = [];

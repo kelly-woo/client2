@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -65,7 +65,7 @@ msgstr "最小化"
 msgid "@ask-me-later"
 msgstr "稍後再詢問"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@browse-more-topics"
 msgstr "瀏覽其他議題"
 
@@ -145,7 +145,6 @@ msgstr "送出"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -272,8 +271,6 @@ msgid "@common-customer-service"
 msgstr "客服"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "已刪除檔案"
@@ -309,7 +306,6 @@ msgstr "確認"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -587,7 +583,7 @@ msgstr "使用條款"
 msgid "@common-title"
 msgstr "議題"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "議題"
@@ -610,7 +606,7 @@ msgstr "上傳檔案"
 msgid "@common-visit-homepage"
 msgstr "造訪首頁"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
 msgstr "建立新議題"
 
@@ -683,7 +679,6 @@ msgid "@error-404-title"
 msgstr "錯誤"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -728,6 +723,46 @@ msgstr "Dropbox"
 #: client/app/tutorial/popup/view_components/lecture/file/upload/lecture.file.upload.html
 msgid "@file-upload-google-drive"
 msgstr " Google雲端硬碟"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-enter-name"
+msgstr "鍵入資料夾名稱"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-item-already-exists"
+msgstr "議題已存於資料夾裡"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-name-taken"
+msgstr "這名稱已被使用"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-new"
+msgstr "新的資料夾"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-remove"
+msgstr "刪除"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-rename"
+msgstr "重新命名"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-content"
+msgstr ""
+"面對雜亂無章的議題列表束手無策嗎？有了議題資料夾，輕鬆整理、歸類你的議題列"
+"表！拖、拉、放，三步驟即可建立資料夾並移動議題至新資料夾。"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-never-show"
+msgstr "不再顯示"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-title"
+msgstr "使用資料夾打理你的議題列表"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
@@ -968,12 +1003,10 @@ msgid "@more-dm-list"
 msgstr "選擇ㄧ位成員傳訊"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "建立公開議題 "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "建立私人議題"
 
@@ -983,22 +1016,18 @@ msgid "@msg-help-multiline"
 msgstr "Shift+Enter鍵進行換行"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "已邀請"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr " "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "已經加入"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "已經離開"
 
@@ -1133,14 +1162,12 @@ msgid "@success-file-unshare"
 msgstr "\"{{filename}}\"已被取消分享"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
 msgstr ""
 "{{msg.message.content.actionOwner}} 更新 {{msg.announceWriterName}} 的訊息"
 "為公告"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} 刪除公告"
 
@@ -1478,7 +1505,6 @@ msgid "@tutorial-welcome-title"
 msgstr "歡迎使用JANDI!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr "以下為未讀訊息"
 
@@ -1561,6 +1587,10 @@ msgstr "設置成功"
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 新訊息"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "<span translate=\"\">@folder-tutorial-title</span>"
+msgstr ""
 
 #~ msgid "@input-rename"
 #~ msgstr "輸入修改的名字"

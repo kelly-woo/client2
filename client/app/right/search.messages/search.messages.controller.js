@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function rPanelMessageTabCtrl($scope, $rootScope, $filter, $state, Router, fileAPIservice,
-                                messageAPIservice, AnalyticsHelper) {
+                                messageAPIservice, AnalyticsHelper, TopicFolderModel) {
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
 
@@ -111,6 +111,8 @@
       // messageLocation 초기화 하여 shared entity list를 갱신함.
       $scope.messageLocation = null;
     });
+
+    $scope.$on('topic-folder:update', _initChatRoomOption);
 
     /**
      * When entity location filter is changed.
@@ -297,7 +299,7 @@
       var newOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
       var newMessageLocation = _getMessageLocation(newOptions);
 
-      $scope.chatRoomOptions = newOptions;
+      $scope.chatRoomOptions = TopicFolderModel.getNgOptions(newOptions);
 
       if (newMessageLocation) {
         $scope.messageLocation = newMessageLocation;

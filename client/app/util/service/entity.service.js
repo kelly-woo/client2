@@ -193,6 +193,10 @@
       this.setBadgeValue(list, entity, alarmCount);
 
       NotificationManager.set(entity, alarmCount);
+      jndPubSub.pub('badgeCountChange', {
+        entity: entity,
+        count: alarmCount
+      });
     }
 
     //  TODO: EXPLAIN THE SITUATION WHEN 'alarmCount' is 0.
@@ -212,6 +216,10 @@
         curEntity.alarmCnt = alarmCount;
         HybridAppHelper.onAlarmCntChanged(entity.id, alarmCount);
       }
+      jndPubSub.pub('badgeCountChange', {
+        entity: entity,
+        count: alarmCount
+      });
     }
 
 

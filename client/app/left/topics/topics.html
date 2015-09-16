@@ -1,5 +1,43 @@
-<div class="lpanel-list__topics">
-  <ul id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">
-    <div ng-transclude></div>
-  </ul>
+<div>
+  <!--    HEADER  -->
+  <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isTopicsCollapsed = !leftListCollapseStatus.isTopicsCollapsed"
+       ng-class="{'collapsed': leftListCollapseStatus.isTopicsCollapsed}">
+
+    <i class="fa lpanel-collapse-arrow" ng-class="{'icon-angle-down': !leftListCollapseStatus.isTopicsCollapsed,
+                                                  'icon-angle-right': leftListCollapseStatus.isTopicsCollapsed}"></i>
+
+    <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-topics</span>
+
+
+    <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();"
+         tooltip="{{'@create-new-topic-tooltip' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
+      <i class="icon-plus"></i>
+    </div>
+
+    <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();"
+         tooltip="{{'@browse-more-topics' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
+      <i class="icon-reorder"></i>
+    </div>
+
+    <!--<div class="lpanel-list-option-cog pull-right" ng-click="createTopicFolder($event);">-->
+      <!--<i class="fa fa-cog"></i>-->
+    <!--</div>-->
+
+  </div>
+  <!-- TOPICS -->
+  <div class="lpanel-list__topics">
+    <div id="topics-list" collapse="leftListCollapseStatus.isTopicsCollapsed">
+      <div ng-repeat="folder in folderData.folderList track by folder.id">
+        <topic-folder></topic-folder>
+      </div>
+    </div>
+  </div>
+  <div ng-if="false">
+    <span translate>@folder-item-already-exists</span>
+    <span translate>@folder-rename</span>
+    <span translate>@folder-remove</span>
+    <span translate>@folder-new</span>
+    <span translate>@folder-enter-name</span>
+    <span translate>@folder-name-taken</span>
+  </div>
 </div>

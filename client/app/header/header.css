@@ -50,16 +50,12 @@
 }
 .header-navbar-menu .dot{
   position: absolute;
-
-  left: 22px;
-  top: 12px;
-
+  left: 26px;
+  top: 11px;
   width: 10px;
   height: 10px;
-
   background-color: #e63939;
   border: 2px solid #154a67;
-
   border-radius: 100%;
   z-index: 101;
 }
