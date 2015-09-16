@@ -9,39 +9,34 @@
 }
 .popup-left-arrow {
   position:absolute;
-  left:-13px;
+  left:-8px;
   top:20px;
-  height: 0;
-  width: 0;
-  border-right:12px solid rgba(0,0,0,0.15);
-  border-right:12px solid #C2C2C2;
-  border-top:10px solid transparent;
-  border-bottom:10px solid transparent;
-}
-.popup-inner-arrow {
-  position: absolute;
-  top:-10px;
-  left:2px;
-  border-right:12px solid white;
-  border-top:10px solid transparent;
-  border-bottom:10px solid transparent;
+  height: 14px;
+	width: 14px;
+	background-color:#fff;
+	border-left:1px solid #d1d1d1;
+	border-top:1px solid #d1d1d1;
+	-ms-transform:rotate(-45deg);
+	-webkit-transform:rotate(-45deg);
+	transform:rotate(-45deg);
+	z-index: -1;
 }
 .tuto-img-container {
   border:1px solid #e2e2e2;
-  width:202px;
-  height: 186px;
+  width:200px;
+	height: 212px;
   margin-top:12px;
   margin-bottom:14px;
+  margin-left: 2px;
   overflow:hidden;
 }
 .tuto-img-container img {
   left:-20px;
   top:-5px;
-  width:300px;
   position: relative;
 }
 .dropdown-title {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 22px;
   font-weight: 700;
   display: inline-block;
@@ -65,11 +60,14 @@
   line-height: 21px;
   padding-left: 4px;
   padding-right: 4px;
+  word-break: break-all; /*fallback*/
+}
+.dropdown-contents:lang(ko) {
   word-break: keep-all;
 }
 .tutorial-popup button.close {
   outline: 0;
-  font-size: 14px !important;
+  font-size: 13px !important;
   margin-top:6px;
   margin-left:10px;
 }
