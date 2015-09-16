@@ -1,7 +1,12 @@
-# JANDI - Client
+# JANDI
 
 ## Release note
-- *Center*
-  - JND-3447 메세지에 {{텍스트}} 와 같이 입력시 Angular parse 오류 수정
-  - 파일 삭제 시 파일 코멘트 메세지 에는 삭제결과 반영 안되던 현상 수정 
-  
+- *web_landing*
+  - 없음
+- *web_client*
+  - alert, confirm 을 Toast 모달로 변경
+  - 토픽 폴더링 기능 추가
+- *web_admin*
+  - UI, UX 개선
+  - 팀 탈퇴
+
