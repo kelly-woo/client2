@@ -1,10 +1,11 @@
 .toast-top-center {
   top: 16px;
   left: 50%;
-  right: initial;
+  right: auto;
+  -webkit-transform: -webkit-translateX(-50%) !important;
   transform: translateX(-50%) !important;
 
-  width: initial;
+  width: auto;
   max-width: 670px;
   min-width: 370px;
 }

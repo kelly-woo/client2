@@ -13,7 +13,6 @@
     var _entityId;
     var _entityType;
     var _targetId;
-    var callback;
 
     $scope.selected = {
       data: null
@@ -35,15 +34,6 @@
       if ($scope.hasPreview) {
         $scope.thumbnailImage = $filter('getFileUrl')($scope.file.content.extraInfo.smallThumbnailUrl);
       }
-      _attachEventListener();
-    }
-
-    /**
-     * 현재 스콮이 들어야 할 이벤트들을 추가한다.
-     * @private
-     */
-    function _attachEventListener() {
-      $scope.$on('$destroy', _onScopeDestroy);
     }
 
     /**
@@ -125,10 +115,6 @@
       try {
         _sendAnalytics(_entityType);
       } catch(e) {}
-
-      Dialog.success({
-        title: $filter('translate')('@success-file-share').replace('{{filename}}', $scope.file.content.title)
-      });
 
       if (_targetId !== currentSessionHelper.getCurrentEntityId()) {
         Dialog.confirm({
