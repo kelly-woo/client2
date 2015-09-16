@@ -22,7 +22,10 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.deleteSticker = deleteSticker;
   this.addShareEntity = addShareEntity;
   this.unShareEntity = unShareEntity;
+
   this.getShareOptions = getShareOptions;
+  this.getShareOptionsWithoutMe = getShareOptionsWithoutMe;
+
   this.removeSharedEntities = removeSharedEntities;
   this.getSharedEntities = getSharedEntities;
   this.updateShared = updateShared;
@@ -257,6 +260,20 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
     enabledMemberList = _orderByName(enabledMemberList);
 
     return joinedChannelList.concat(enabledMemberList);
+  }
+
+  /**
+   * 나를 제외한 share options 전달
+   * @param {array} joinedChannelList
+   * @param {array} memberList
+   * @returns {Array.<T>|string|*|{options, dist}|{}|{test, test3}}
+   */
+  function getShareOptionsWithoutMe(joinedChannelList, memberList) {
+    memberList = _.filter(memberList, function(member) {
+      return member.id !== memberService.getMemberId();
+    });
+
+    return getShareOptions(joinedChannelList, memberList);
   }
 
   //  Removes entity that exists in 'file.shareEntities' from 'list'.

@@ -208,8 +208,8 @@
         _isActivated = true;
         $scope.fileRequest.keyword = '';
 
-        // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니라면 file list 갱신함
-        if ((data.toUrl !== data.fromUrl) && data.fromTitle !== 'FILE DETAIL') {
+        // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니거나 최초 load가 수행되지 않았다면 file list 갱신함
+        if ((data.toUrl !== data.fromUrl) && (data.fromTitle !== 'FILE DETAIL' || !initialLoadDone)) {
           _refreshFileList();
         }
       } else {
@@ -345,8 +345,7 @@
      * @private
      */
     function _generateShareOptions() {
-      //console.log('generating shared options')
-      $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList));
+      $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
     }
 
     /**
