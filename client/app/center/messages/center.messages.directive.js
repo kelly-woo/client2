@@ -219,11 +219,11 @@
        */
       function _onClickFileGo(msg) {
         var contentType = msg.message.contentType;
-        var userName = msg.message.writer.name;
+        var userName = $filter('getName')(msg.message.writerId);;
         var itemId = msg.message.id;
 
-        if (contentType !== 'file') {
-          userName = msg.feedback.writer.name;
+        if (msg.feedback && contentType !== 'file') {
+          userName = $filter('getName')(msg.feedback.writerId);
           itemId = msg.feedback.id;
         }
         $state.go('files', {
