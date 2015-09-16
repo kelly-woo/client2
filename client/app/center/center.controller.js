@@ -444,6 +444,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         linkId: MessageCollection.getLastLinkId()
       });
       loadMore();
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -456,6 +459,9 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
         linkId: MessageCollection.getFirstLinkId()
       });
       loadMore();
+      return true;
+    } else {
+      return false;
     }
   }
 

@@ -141,7 +141,7 @@
     //}
   }
 
-  function whenScrolled() {
+  function whenScrolled(jndPubSub) {
     return {
       restrict: 'A',
       link: link
@@ -183,9 +183,15 @@
 
         if (scope.isInitialLoadingCompleted) {
           if (direction === 'new' && scrollDiff < 2000) {
-            scope.loadNewMessages();
+            if (scope.loadNewMessages()) {
+              jndPubSub.pub('hide:center-file-dropdown');
+              jndPubSub.pub('hide:center-item-dropdown');
+            }
           } else if (direction === 'old' && scrollTop < 2000) {
-            scope.loadOldMessages();
+            if (scope.loadOldMessages()) {
+              jndPubSub.pub('hide:center-file-dropdown');
+              jndPubSub.pub('hide:center-item-dropdown');
+            }
           }
         }
       });
