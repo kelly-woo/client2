@@ -30,7 +30,7 @@
             attr[key] = _unescape(value);
           }
         });
-        if (el.html().indexOf('{{') !== -1) {
+        if (el.html().indexOf('\\{\\{') !== -1) {
           el.html(_unescape(el.html()));
         }
       }
