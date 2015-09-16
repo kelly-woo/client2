@@ -3,7 +3,7 @@
 var app = angular.module('jandiApp');
 
 app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $filter,
-                                       memberService, entityAPIservice, storageAPIservice, modalHelper) {
+                                       memberService, entityAPIservice, storageAPIservice) {
   var fileSizeLimit = 300; // 300MB
   var integrateMap = {
     'google': true,
@@ -22,7 +22,10 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.deleteSticker = deleteSticker;
   this.addShareEntity = addShareEntity;
   this.unShareEntity = unShareEntity;
+
   this.getShareOptions = getShareOptions;
+  this.getShareOptionsWithoutMe = getShareOptionsWithoutMe;
+
   this.removeSharedEntities = removeSharedEntities;
   this.getSharedEntities = getSharedEntities;
   this.updateShared = updateShared;
@@ -34,7 +37,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
   this.generateFileTypeFilter = generateFileTypeFilter;
   this.isIntegrateFile = isIntegrateFile;
   this.dataURItoBlob = dataURItoBlob;
-  this.openFileShareModal = openFileShareModal;
 
   this.broadcastCommentFocus = broadcastCommentFocus;
 
@@ -245,19 +247,33 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   // Simply putting every channel, user, and private group into one array.
   // No exception.
-
   function getShareOptions(joinedChannelList, memberList) {
     var enabledMemberList = [];
 
     _.each(memberList, function(member, index) {
-      if (member.status != 'disabled')
+      if (memberService.isActiveMember(member)) {
         enabledMemberList.push(member);
+      }
     });
 
     joinedChannelList = _orderByName(joinedChannelList);
     enabledMemberList = _orderByName(enabledMemberList);
 
     return joinedChannelList.concat(enabledMemberList);
+  }
+
+  /**
+   * 나를 제외한 share options 전달
+   * @param {array} joinedChannelList
+   * @param {array} memberList
+   * @returns {Array.<T>|string|*|{options, dist}|{}|{test, test3}}
+   */
+  function getShareOptionsWithoutMe(joinedChannelList, memberList) {
+    memberList = _.filter(memberList, function(member) {
+      return member.id !== memberService.getMemberId();
+    });
+
+    return getShareOptions(joinedChannelList, memberList);
   }
 
   //  Removes entity that exists in 'file.shareEntities' from 'list'.
@@ -312,10 +328,6 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
       return entityAPIservice.getEntityById('all', sharedEntityId) ||
         entityAPIservice.getEntityByEntityId(sharedEntityId);
     });
-  }
-
-  function openFileShareModal($scope, file) {
-    modalHelper.openFileShareModal($scope, file);
   }
 
   function broadcastFileShare(file) {

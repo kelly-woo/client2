@@ -11,7 +11,8 @@
 
   /* @ngInject */
   function entityHeaderCtrl($scope, $filter, $rootScope, entityHeader, entityAPIservice, memberService, currentSessionHelper,
-                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache) {
+                            publicService, jndPubSub, analyticsService, modalHelper, AnalyticsHelper, $state, TopicMessageCache,
+                            Dialog) {
 
     //console.info('[enter] entityHeaderCtrl', currentSessionHelper.getCurrentEntity());
     var _entityId = $state.params.entityId;
@@ -61,7 +62,7 @@
       $scope.$on('disconnected', _onDisconnected);
       $scope.$on('onTopicDeleted', _onTopicDeleted);
       $scope.$on('onTopicLeft', _onTopicLeft);
-      $scope.$on('changeEntityHeaderTitle', changeEntityHeaderTitle);
+      $scope.$on('onBeforeEntityChange', changeEntityHeaderTitle);
 
       $scope.$on('onCurrentEntityChanged', function(event, param) {
         if (_currentEntity !== param) {
@@ -231,41 +232,46 @@
      * 현재 entity(toppic)를 지운다.
      */
     function deleteCurrentEntity() {
-      if (confirm($filter('translate')('@ch-menu-delete-confirm'))) {
-        entityHeader.deleteEntity(_entityType, _entityId)
-          .success(function() {
-            var entity_type = analyticsService.getEntityType(_entityType);
-            // analytics
-            try {
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, {
-                'RESPONSE_SUCCESS': true,
-                'TOPIC_ID': parseInt(_entityId, 10)
+      Dialog.confirm({
+        body: $filter('translate')('@ch-menu-delete-confirm'),
+        onClose: function(result) {
+          if (result === 'okay') {
+            entityHeader.deleteEntity(_entityType, _entityId)
+              .success(function() {
+                var entity_type = analyticsService.getEntityType(_entityType);
+                // analytics
+                try {
+                  AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, {
+                    'RESPONSE_SUCCESS': true,
+                    'TOPIC_ID': parseInt(_entityId, 10)
+                  });
+                } catch (e) {
+                }
+
+                analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
+    
+                TopicMessageCache.remove(_entityId);
+    
+                // topic 삭제시 file upload 중이라면 전부 취소하는 event를 broadcast함
+                jndPubSub.pub('onFileUploadAllClear');
+    
+                publicService.goToDefaultTopic();
+              })
+              .error(function(error) {
+                // analytics
+                try {
+                  AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, {
+                    'RESPONSE_SUCCESS': false,
+                    'ERROR_CODE': error.code
+                  });
+                } catch (e) {
+                }
+
+                alert(error.msg);
               });
-            } catch (e) {   
-            }
-
-            analyticsService.mixpanelTrack("Entity Delete", {'type': entity_type});
-
-            TopicMessageCache.remove(_entityId);
-
-            // topic 삭제시 file upload 중이라면 전부 취소하는 event를 broadcast함
-            jndPubSub.pub('onFileUploadAllClear');
-
-            publicService.goToDefaultTopic();
-          })
-          .error(function(error) {
-            // analytics
-            try {
-              AnalyticsHelper.track(AnalyticsHelper.EVENT.TOPIC_DELETE, {
-                'RESPONSE_SUCCESS': false,
-                'ERROR_CODE': error.code
-              });
-            } catch (e) {
-            }
-
-            alert(error.msg);
-          });
-      }
+          }
+        }
+      });
     }
 
     /**

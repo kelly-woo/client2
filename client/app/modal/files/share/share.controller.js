@@ -8,16 +8,16 @@
 
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService, $rootScope,
-                              jndPubSub, fileToShare, modalHelper, AnalyticsHelper, currentSessionHelper) {
+                              jndPubSub, fileToShare, selectOptions, modalHelper, AnalyticsHelper,
+                              currentSessionHelper, Dialog, TopicFolderModel) {
     var _entityId;
     var _entityType;
     var _targetId;
-    var callback;
 
     $scope.selected = {
       data: null
     };
-    $scope.file = fileToShare;
+
     $scope.cancel = modalHelper.closeModal;
     $scope.onFileShareClick = onFileShareClick;
 
@@ -34,15 +34,13 @@
       if ($scope.hasPreview) {
         $scope.thumbnailImage = $filter('getFileUrl')($scope.file.content.extraInfo.smallThumbnailUrl);
       }
-      _attachEventListener();
     }
 
     /**
-     * 현재 스콮이 들어야 할 이벤트들을 추가한다.
+     * destroy 이벤트 핸들러
      * @private
      */
-    function _attachEventListener() {
-      $scope.$on('$destroy', _onScopeDestroy);
+    function _onScopeDestroy() {
     }
 
     /**
@@ -50,9 +48,8 @@
      * @private
      */
     function _initSelectOptions() {
-      var selectOptions = fileAPIservice.getShareOptions($rootScope.joinedEntities, $rootScope.memberList);
-      selectOptions = fileAPIservice.removeSharedEntities($scope.file, selectOptions);
-      $scope.selectOptions = selectOptions;
+      $scope.file = fileToShare;
+      $scope.selectOptions = TopicFolderModel.getNgOptions(selectOptions);
     }
 
     /**
@@ -61,7 +58,7 @@
      */
     function _initDefaultSelected() {
       //set default select
-      var selectOptions = $scope.selectOptions;
+      var selectOptions = TopicFolderModel.getNgOptions($scope.selectOptions);
       var currentIndex = selectOptions.indexOf(currentSessionHelper.getCurrentEntity());
 
       if (currentIndex === -1) {
@@ -121,26 +118,26 @@
       jndPubSub.hideLoading();
 
       $scope.file.shareEntities.push(_entityId);
-      console.log('$scope.file.shareEntities', $scope.file.shareEntities, _entityId);
+
       try {
         _sendAnalytics(_entityType);
       } catch(e) {}
 
       if (_targetId !== currentSessionHelper.getCurrentEntityId()) {
+        Dialog.confirm({
+          body: $filter('translate')('@common-file-share-jump-channel-confirm-msg'),
+          onClose: function(result) {
+            if (result === 'okay') {
+              if (_entityType === "users") {
+                jndPubSub.updateLeftChatList();
+              }
 
-        if (confirm($filter('translate')('@common-file-share-jump-channel-confirm-msg'))) {
-          if (_entityType === "users") {
-            jndPubSub.updateLeftChatList();
-            //$rootScope.$broadcast('updateMessageList');
+              _goToSharedEntity && _goToSharedEntity();
+            }
           }
-          modalHelper.closeModal();
-
-          callback = _goToSharedEntity;
-        }
+        });
       }
-
       modalHelper.closeModal();
-
     }
 
     /**
@@ -183,16 +180,5 @@
     function _goToSharedEntity() {
       $state.go('archives', {entityType: _entityType, entityId: _targetId});
     }
-
-    /**
-     * 현재 scope 가 없어질 때 호출된다.
-     * @private
-     */
-    function _onScopeDestroy() {
-      if (!!callback) {
-        callback();
-      }
-    }
   }
-
 }());

@@ -10,7 +10,8 @@
 
   /* @ngInject */
   function MessageCollection($filter, $rootScope, $timeout, $sce, entityAPIservice, fileAPIservice, markerService,
-                             jndPubSub, memberService, currentSessionHelper, centerService, MessageComment, MessageText) {
+                             jndPubSub, memberService, currentSessionHelper, centerService, MessageComment,
+                             MessageText, DateFormatter) {
     var that = this;
     var _systemMessageCount = 0;
     var _hasBookmark = false;
@@ -526,7 +527,7 @@
     }
 
     function _getDateKey(time) {
-      return $filter('ordinalDate')(time, "yyyyMMddEEEE, MMMM doo, yyyy");
+      return DateFormatter.getFormattedDate(time);
     }
 
     /**

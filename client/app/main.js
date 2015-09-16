@@ -40,6 +40,9 @@
                     .error(function (err) {
                       publicService.signOut();
                     });
+                },
+                topicFolder: function(publicService, TopicFolderModel) {
+                  return TopicFolderModel.load();
                 }
               }
             },

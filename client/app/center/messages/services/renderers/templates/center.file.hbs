@@ -48,13 +48,15 @@
                      image-max-height="65"
                      image-max-width="65"
                      image-is-square="true"
-                    jnd-thumbnail-scale-up>
+                     jnd-thumbnail-scale-up
+                     jnd-ignore-braces>
                 </div>
               </div>
               <div class="_fileLargeThumb" style="display:none">
                 <div class="cursor_pointer opac-zero large-thumbnail _compile"
                   image-loader="{{file.imageUrl.large}}"
-                  image-max-width="700">
+                  image-max-width="700"
+                  jnd-ignore-braces>
                 </div>
                 <div class="large-thumbnail-full-screen _fileExpand">
                   <i class="icon-minimize"></i>
@@ -77,8 +79,7 @@
         <div class="msg-file-meta-up">
           {{#if isArchived}}
           <div class="archived-file-title">
-            <a class="msg-file-meta__title file__name _compile"
-               ui-sref="files({ userName: '{{msg.message.writer.name}}', itemId: '{{msg.message.id}}' })">
+            <a class="msg-file-meta__title file__name cursor_pointer _fileGo">
               <span>{{translate '@common-deleted-file-title'}}</span>
             </a>
           </div>
@@ -86,8 +87,7 @@
           <!--  NOT ARCHIVED FILE -->
           <div>
             <!--    TITLE   -->
-            <a class="msg-file-meta__title file__name break-word _compile"
-               ui-sref="files({ userName: '{{msg.message.writer.name}}', itemId: '{{msg.message.id}}' })">
+            <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">
               {{ file.title }}
             </a>
             {{#if file.size}}
@@ -98,12 +98,12 @@
             <span class="msg-file-meta-info">{{ file.type }}</span>
           </div>
         </div>
-        <div class="msg-file-meta-down">
+        <div class="msg-file-meta-down _compile">
           {{#unless file.isIntegrateFile}}
           <!--  DOWNLOAD  -->
           <span class="file-uploaded-download">
             <a class="_fileDownload" {{{ attrs.download }}}>
-              <i class="icon-download-fill cursor_pointer file-action _compile"
+              <i class="icon-download-fill cursor_pointer file-action"
                  jnd-tooltip-trigger="{{translate '@common-download'}}"
                  data-direction="top"></i>
             </a>
@@ -111,7 +111,7 @@
           <span class="separator"></span>
           {{/unless}}
           <!--  SHARE -->
-          <i class="icon-share-right-fill cursor_pointer file-action _compile _fileShare"
+          <i class="icon-share-right-fill cursor_pointer file-action _fileShare"
              jnd-tooltip-trigger="{{translate '@btn-share'}}"
              data-direction="top"></i>
 
@@ -119,7 +119,7 @@
 
           <!--  MORE  -->
           <span class="file-uploaded-more _fileMore">
-            <i class="icon-cog-fill cursor_pointer file-action _compile"
+            <i class="icon-cog-fill cursor_pointer file-action"
                jnd-tooltip-trigger="{{translate '@file-action-more'}}"
                data-direction="top"></i>
           </span>

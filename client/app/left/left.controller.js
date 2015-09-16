@@ -6,7 +6,8 @@ app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
   analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
-  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q, NotificationManager) {
+  jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q,
+  NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock) {
 
   /**
    * @namespace
@@ -22,12 +23,15 @@ app.controller('leftPanelController1', function(
 
   //collapse 이후 갱신 요청할 timer
   var collapseTimer;
-
+  var _updateLock = false;
   var _getLeftListDeferredObject;
 
   //unread 갱신시 $timeout 에 사용될 타이머
   var unreadTimer;
   var _isBadgeMoveLocked = false;
+  var _entityEnterTimer;
+
+  var _hasToUpdate = false;
 
   $scope.entityId = $state.params.entityId;
 
@@ -63,7 +67,7 @@ app.controller('leftPanelController1', function(
 
   // 처음에 state의 resolve인 leftPanel의 상태를 확인한다.
   var response = null;
-  if (!leftPanel) return;
+  if (!leftPanel || !topicFolder) return;
 
   // leftPanel의 상태가 200이 아닐 경우 에러로 처리.
   if (leftPanel.status != 200) {
@@ -364,6 +368,8 @@ app.controller('leftPanelController1', function(
     $scope.onTutorialPulseClick($event);
   });
 
+  $scope.$on('topic-update-lock', _onUpdateLock);
+  $scope.$on('updateLeftBadgeCount', onUpdateLeftBadgeCount);
   /**
    * Tutorial 상태를 초기화 한다.
    */
@@ -385,6 +391,8 @@ app.controller('leftPanelController1', function(
    * TODO: MOVE VARIABLES FROM '$rootScope' to 'session.service'
    */
   function initLeftList () {
+    var entityId = $state.params.entityId;
+    var entityType = $state.params.entityType || 'total';
     // 1. 현재 팀의 멤버가 아니거나
     // 2. 로그인을 해야 하는 상황이 아닌 경우에는
     // 로그아웃 시키고 sign in page 로 돌아간다.
@@ -516,13 +524,17 @@ app.controller('leftPanelController1', function(
       $rootScope.$broadcast('onSetStarDone');
     }
 
-    if ($state.params.entityId)
-      entityAPIservice.setCurrentEntityWithTypeAndId($state.params.entityType, $state.params.entityId);
+    if (!entityId) {
+      entityId = currentSessionHelper.getDefaultTopicId();
+    }
+
+    entityAPIservice.setCurrentEntityWithTypeAndId(entityType, entityId);
 
     if (_hasAfterLeftInit()) {
       _broadcastAfterLeftInit();
       _resetAfterLeftInit();
     }
+    TopicFolderModel.update();
     $rootScope.$broadcast('onInitLeftListDone');
   }
 
@@ -607,6 +619,24 @@ app.controller('leftPanelController1', function(
   }
 
   /**
+   * left badge count 를 업데이트 한다.
+   * fixme: 중복 코드 전부 리펙토링 필요함.
+   */
+  function onUpdateLeftBadgeCount() {
+    if (!_.isUndefined(_getLeftListDeferredObject)) {
+      _getLeftListDeferredObject.resolve();
+    }
+    _getLeftListDeferredObject = $q.defer();
+    leftpanelAPIservice.getLists(_getLeftListDeferredObject)
+      .success(function(response) {
+        //  When there is unread messages on left Panel.
+        if (response.alarmInfoCount != 0) {
+          leftPanelAlarmHandler(response.alarmInfoCount, response.alarmInfos);
+        }
+      });
+  }
+
+  /**
    * left panel 에 담겨 있는 모든 정보를 불러온다.
    */
   function getLeftLists() {
@@ -615,15 +645,19 @@ app.controller('leftPanelController1', function(
     }
 
     _getLeftListDeferredObject = $q.defer();
-    leftpanelAPIservice.getLists(_getLeftListDeferredObject)
-      .success(function(data) {
-        response = data;
-        //console.log('-- getLeft good')
-        initLeftList();
-      })
-      .error(function(err) {
-        console.log(err);
-      });
+    TopicFolderModel.load().then(function() {
+      leftpanelAPIservice.getLists(_getLeftListDeferredObject)
+        .success(function (data) {
+          if (!TopicUpdateLock.isLocked()) {
+            response = data;
+            //console.log('-- getLeft good')
+            initLeftList();
+          }
+        })
+        .error(function (err) {
+          console.log(err);
+        });
+    });
   }
 
   // User pressed an enter key from invite modal view in private group.
@@ -633,10 +667,22 @@ app.controller('leftPanelController1', function(
   };
 
   // Whenever left panel needs to be updated, just invoke 'updateLeftPanel' event.
-  $scope.updateLeftPanelCaller = function() {
-    getLeftLists();
-  };
+  $scope.updateLeftPanelCaller = updateLeftPanelCaller;
 
+  function updateLeftPanelCaller() {
+    if (!TopicUpdateLock.isLocked()) {
+      getLeftLists();
+      _hasToUpdate = false;
+    } else {
+      _hasToUpdate = true;
+    }
+  }
+
+  function _onUpdateLock(angularEvent, isLock) {
+    if (!isLock && _hasToUpdate) {
+      updateLeftPanelCaller();
+    }
+  }
   // right, detail panel don't have direct access to scope function in left controller.
   // so they emit event through rootscope.
   /**
@@ -686,14 +732,28 @@ app.controller('leftPanelController1', function(
   }
 
   function enterEntity(entity) {
-    if (!$scope.isCenterLoading && NetInterceptor.isConnected()) {
+    _safeApply(function() {
+      $timeout.cancel(_entityEnterTimer);
       NotificationManager.set(entity, 0);
       HybridAppHelper.onAlarmCntChanged(entity.id, 0);
       entity.alarmCnt = '';
       $scope.isCenterLoading = true;
       $scope.entityId = entity.id;
-      jndPubSub.pub('changeEntityHeaderTitle', entity);
-      _doEnter(entity);
+      jndPubSub.pub('onBeforeEntityChange', entity);
+    });
+    _entityEnterTimer = $timeout(_.bind(_doEnter, this, entity), 10);
+  }
+
+  /**
+   * 안전하게 apply callback 을 수행한다.
+   * @param {function} fn
+   * @private
+   */
+  function _safeApply(fn) {
+    if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
+      $scope.$apply(fn);
+    } else {
+      fn();
     }
   }
 
@@ -835,20 +895,22 @@ app.controller('leftPanelController1', function(
     }
 
     if (fileObject.size() > 0) {
-      $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
-      $scope.fileObject = fileObject;
-      $scope.openModal('file', {
-        onEnd: function() {
-          // hide progress bar
-          $timeout(function() {
-            $('.file-upload-progress-container').css('opacity', 0);
-            // opacity 0된 후 clear upload info
-            $timeout(function() {
-              fileAPIservice.clearCurUpload();
-              delete $scope.fileObject;
-            }, 500);
-          }, 2000);
-        }
+      fileObject.promise.then(function() {
+        $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
+        $scope.fileObject = fileObject;
+        $scope.openModal('file', {
+          onEnd: function () {
+            // hide progress bar
+            $timeout(function () {
+              $('.file-upload-progress-container').css('opacity', 0);
+              // opacity 0된 후 clear upload info
+              $timeout(function () {
+                fileAPIservice.clearCurUpload();
+                delete $scope.fileObject;
+              }, 500);
+            }, 2000);
+          }
+        });
       });
     }
   };

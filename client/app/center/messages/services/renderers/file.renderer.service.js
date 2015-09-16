@@ -9,10 +9,9 @@
     .service('FileRenderer', FileRenderer);
 
   /* @ngInject */
-  function FileRenderer($filter, modalHelper, MessageCollection, FileUploaded, memberService, centerService,
-                        RendererUtil, fileAPIservice, jndPubSub, configuration, AnalyticsHelper, currentSessionHelper) {
+  function FileRenderer($filter, modalHelper, MessageCollection, memberService, centerService, RendererUtil,
+                        fileAPIservice, jndPubSub, AnalyticsHelper, currentSessionHelper) {
     var _template = '';
-    var _regxHTTP = /^[http|https]/i;
 
     this.render = render;
 
@@ -207,13 +206,15 @@
     function _getSmallThumbnailUrl(msg) {
       var content = _getFeedbackContent(msg);
       var hasPreview = $filter('hasPreview')(content);
-      return hasPreview ? FileUploaded.getSmallThumbnailUrl(_getFeedbackContent(msg)) : '';
+
+      return hasPreview ? $filter('getFileUrl')(content.extraInfo.smallThumbnailUrl) : '';
     }
 
     function _getLargeThumbnailUrl(msg) {
       var content = _getFeedbackContent(msg);
       var hasPreview = $filter('hasPreview')(content);
-      return hasPreview ? FileUploaded.getLargeThumbnailUrl(_getFeedbackContent(msg)) : '';
+
+      return hasPreview ? $filter('getFileUrl')(content.extraInfo.largeThumbnailUrl) : '';
     }
 
     /**

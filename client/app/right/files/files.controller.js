@@ -10,7 +10,8 @@
 
   function rPanelFileTabCtrl($scope, $rootScope, $state, $filter, Router, entityheaderAPIservice,
                              fileAPIservice, analyticsService, publicService, entityAPIservice,
-                             currentSessionHelper, logger, AnalyticsHelper, EntityMapManager) {
+                             currentSessionHelper, logger, AnalyticsHelper, EntityMapManager,
+                             modalHelper, Dialog, TopicFolderModel) {
     var initialLoadDone = false;
     var startMessageId   = -1;
     var disabledMemberAddedOnSharedIn = false;
@@ -155,6 +156,8 @@
 
     });
 
+    $scope.$on('topic-folder:update', _generateShareOptions);
+
     /**
      * socket 단위의 delete file event handler
      */
@@ -205,8 +208,8 @@
         _isActivated = true;
         $scope.fileRequest.keyword = '';
 
-        // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니라면 file list 갱신함
-        if ((data.toUrl !== data.fromUrl) && data.fromTitle !== 'FILE DETAIL') {
+        // fromUrl과 toUrl이 상이하고 fromUrl이 file detail로 부터 진행된 것이 아니거나 최초 load가 수행되지 않았다면 file list 갱신함
+        if ((data.toUrl !== data.fromUrl) && (data.fromTitle !== 'FILE DETAIL' || !initialLoadDone)) {
           _refreshFileList();
         }
       } else {
@@ -332,7 +335,7 @@
       // If current member is disabled member, add current member to options just for now.
       // Set the flag to true.
       if (isDisabledMember(currentMember)) {
-        $scope.selectOptions = $scope.selectOptions.concat(currentMember);
+        $scope.selectOptions = TopicFolderModel.getNgOptions($scope.selectOptions.concat(currentMember));
         disabledMemberAddedOnSharedIn = true;
       }
     }
@@ -342,8 +345,7 @@
      * @private
      */
     function _generateShareOptions() {
-      //console.log('generating shared options')
-      $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinedEntities, $scope.memberList);
+      $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
     }
 
     /**
@@ -593,7 +595,7 @@
      * @param file
      */
     function onClickShare(file) {
-      fileAPIservice.openFileShareModal($scope, file);
+      modalHelper.openFileShareModal($scope, file);
     }
 
     /**
@@ -629,6 +631,10 @@
             "size"          : message.content.size
           };
           analyticsService.mixpanelTrack( "File Unshare", share_data );
+
+          Dialog.success({
+            title: $filter('translate')('@success-file-unshare').replace('{{filename}}', message.content.title)
+          });
         })
         .error(function(err) {
           alert(err.msg);

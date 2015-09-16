@@ -47,14 +47,14 @@
 
           {{#if isArchived}}
           <div>
-            <a class="archived-msg-file-meta__title _compile" ui-sref="files({ userName: '{{ msg.feedback.writer.name }}', itemId: '{{msg.feedback.id}}' })">
+            <a class="archived-msg-file-meta__title cursor_pointer _fileGo">
               <span>{{translate '@common-deleted-file-title'}}</span>
             </a>
           </div>
           {{else}}
           <!--    FILE TITLE/NAME  -->
           <div>
-            <a class="msg-file-meta__title file__name break-word _compile" ui-sref="files({ userName: '{{msg.feedback.writer.name}}', itemId: '{{msg.feedback.id}}' })">
+            <a class="msg-file-meta__title file__name break-word cursor_pointer _fileGo">
               {{ file.title }}
             </a>
           </div>
@@ -83,7 +83,7 @@
           </div>
           {{else}}
           <span>
-            <span class="keep _compile">{{{ msg.message.content.body }}}</span>
+            <span class="keep _compile" jnd-ignore-braces>{{{ msg.message.content.body }}}</span>
             <span class="msg-item-header__created">
               {{ msg.extTime }}
             </span>

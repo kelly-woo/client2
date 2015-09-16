@@ -1,24 +1,6 @@
 'use strict';
 
 var app = angular.module('jandiApp');
-
-/*
- *  @filter     : date formatting especially append ordinal suffix of day
- *  @usage      : "oo"
- *  @example    : doo, ddoo
- */
-app.filter('ordinalDate', function($filter) {
-  var suffixes = ["th", "st", "nd", "rd"];
-  return function(input, format) {
-    if (isNaN(input)) return false;
-    var dtfilter = $filter('date')(input, format);
-    var day = parseInt($filter('date')(input, 'dd'));
-    var relevantDigits = (day < 30) ? day % 20 : day % 30;
-    var suffix = (relevantDigits <= 3) ? suffixes[relevantDigits] : suffixes[0];
-    return dtfilter.replace('oo', suffix);
-  };
-});
-
 /*
  *  @filter     : byte formatting
  */
@@ -261,9 +243,9 @@ app.filter('getMixPanelFormat', function() {
   };
 });
 
-app.filter('isDisabledMember', function() {
+app.filter('isDisabledMember', function(memberService) {
   return function(member) {
-    return member.status == 'disabled';
+    return !memberService.isActiveMember(member);
   };
 });
 

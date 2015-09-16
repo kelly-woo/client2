@@ -9,17 +9,44 @@
    * fileObjectService는 jandiApp에서 제공하는 file object이다.
    */
   /* @ngInject */
-  function fileObjectService($filter, fileAPIservice) {
+  function fileObjectService($filter, $q, fileAPIservice, Dialog) {
     var rImage;
 
     rImage = /image/;
+
+    /**
+     * open alert
+     * @param {array} alerts
+     * @param {number} index
+     * @param {object} defer
+     * @returns {*}
+     * @private
+     */
+    function _openAlert(alerts, index, defer) {
+      var body = alerts[index];
+      defer = defer || $q.defer();
+
+      Dialog.alert({
+        body: body,
+        onClose: (function(index) {
+          return function() {
+            if (alerts[index]) {
+              _openAlert(alerts, index, defer);
+            } else {
+              defer.resolve();
+            }
+          };
+        }(++index))
+      });
+
+      return defer.promise;
+    }
 
     return {
       /**
        * object 생성자
        */
       init: function($files, options) {
-
         // options
         this.options = {
           validateFileSize: true,
@@ -33,7 +60,7 @@
         angular.extend(this.options, options);
 
         // files setting
-        this.setFiles(this.files = $files);
+        this.promise = this.setFiles($files);
 
         return this;
       },
@@ -42,11 +69,15 @@
        */
       setFiles: function($files, files) {
         var that = this;
+        var deferred = $q.defer();
         var options = that.options;
-        var files = files || [];
+        var alerts = [];
         var file;
         var i;
         var len;
+        var promise;
+  
+        files = files || [];
 
         // fileObject format
         // name, type, size
@@ -56,23 +87,27 @@
 
           // file size check 300MB이상은 upload 하지 않음
           if (options.validateFileSize && fileAPIservice.isFileTooLarge(file)) {
-              files.splice(i, 1);
-              --i;
-              --len;
+            alerts.push(options.msgIsLarge + '\r\n' + (file.name || file.title));
+          } else {
+            // image file 여부
+            file.isImage = (options.supportFileReader && rImage.test(file.type));
 
-              alert(options.msgIsLarge + '\r\n' + (file.name || file.title));
-              continue;
+            files.push(file);
           }
-
-          // image file 여부
-          file.isImage = (options.supportFileReader && rImage.test(file.type));
-
-          files.push(file);
         }
 
-        that.files = files;
+        if (alerts.length > 0) {
+          promise = _openAlert(alerts, 0);
+          promise.then(function() {
+            that.files = files;
+            deferred.resolve(files);
+          });
+        } else {
+          that.files = files;
+          deferred.resolve(files);
+        }
 
-        return that;
+        return deferred.promise;
       },
       append: function($files) {
         return this.setFiles($files, this.files);

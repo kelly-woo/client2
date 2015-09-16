@@ -9,7 +9,7 @@
     .controller('TopicInviteCtrl', TopicInviteCtrl);
 
   function TopicInviteCtrl($scope, $rootScope, $modalInstance, $timeout, currentSessionHelper, entityheaderAPIservice, $state, $filter,
-                           entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub) {
+                           entityAPIservice, analyticsService, modalHelper, AnalyticsHelper, jndPubSub, memberService) {
     var members;
     var msg1;
     var msg2;
@@ -24,6 +24,7 @@
 
       generateMemberList();
       $scope.selectedUser = '';
+      $scope.hasAllMembers = false;
 
       if ($scope.account && $scope.account.memberships.length >= 2) {
         // team size >= 2
@@ -38,9 +39,11 @@
       $scope.inviteTeamMsg1 = $filter('translate')(msg1);
       $scope.inviteTeamMsg2 = $filter('translate')(msg2);
 
-      $scope.onInviteTeamClick = onInviteTeamClick;
-      $scope.onRemove = onRemove;
+      $scope.getMatches = getMatches;
+
       $scope.onMemberClick = onMemberClick;
+      $scope.onInviteTeamClick = onInviteTeamClick;
+      $scope.onSelectAll = onSelectAll;
       $scope.onInviteClick = onInviteClick;
       $scope.cancel = cancel;
     }
@@ -53,6 +56,7 @@
      */
     function _onSetStarDone() {
       generateMemberList();
+      _updateMemberList();
     }
 
     /**
@@ -66,20 +70,50 @@
       members = entityAPIservice.getMemberList($scope.currentEntity);
 
       $scope.availableMemberMap = {};
+
       $scope.availableMemberList = _.reject($scope.memberList, function(user) {
+
         if (prevAvailableMemberMap && prevAvailableMemberMap[user.id]) {
           user.selected = prevAvailableMemberMap[user.id].selected;
         }
 
         $scope.availableMemberMap[user.id] = user;
 
-        return members.indexOf(user.id) > -1 || user.status == 'disabled';
+        return members.indexOf(user.id) > -1 || !memberService.isActiveMember(user);
       });
 
       $scope.inviteUsers = _.reject($scope.availableMemberList, function(user) {
         return user.selected === false;
       });
-      $scope.inviteChannel = $scope.availableMemberList.length !== 0;
+
+      $scope.isInviteChannel = $scope.availableMemberList.length !== 0;
+      if ($scope.isInviteChannel) {
+        // 초대 가능한 member가 존재하므로 topic 초대 process 진행함
+
+        // has all members
+        $scope.hasAllMembers = $scope.inviteUsers.length === $scope.availableMemberList.length;
+      }
+
+      _setAllMembersStatus();
+    }
+
+    /**
+     * list에서 filter된 list를 전달한다.
+     * @param {array} list
+     * @param {string} value
+     * @returns {*}
+     */
+    function getMatches(list, value) {
+      value = value.toLowerCase();
+
+      return $scope.selectingMembers = _.chain(list)
+        .filter(function (item) {
+          return item.name.toLowerCase().indexOf(value) > -1 && item.selected === false;
+        })
+        .sortBy(function (item) {
+          return [!item.isStarred, item.name];
+        })
+        .value();
     }
 
     /**
@@ -91,26 +125,48 @@
     }
 
     /**
-     * remove selected member
-     * @param {object} item
+     * member click event handler
+     * @param {object} member
+     * @param {boolean} value
      */
-    function onRemove(item) {
-      item.selected = false;
-      $scope.inviteUsers.splice($scope.inviteUsers.indexOf(item), 1);
+    function onMemberClick(member, value) {
+      var fn = value !== false ? _addMember : _removeMember;
 
-      $timeout(function() {
-        $('#invite-member-filter').focus();
-      });
+      fn(member);
+
+      _setAllMembersStatus();
+      _focusInput();
+      _updateMemberList();
     }
 
     /**
-     * member click event handler
+     * add selected member
+     * @param {object} member
      */
-    function onMemberClick(member) {
+    function _addMember(member) {
       var inviteUsers = $scope.inviteUsers;
+      var activeIndex = $scope.getActiveIndex();
+      var list = $scope.selectingMembers;
 
       member.selected = true;
       inviteUsers.indexOf(member) < 0 && inviteUsers.unshift(member);
+
+      // activeIndex가 제일 마지막 item일때 선택되었다면
+      // activeIndex를 마지막 item의 이전 item으로 설정하여 activeIndex list에 항상 보이도록 함
+      if (list.length - 1 === activeIndex) {
+        $scope.setActiveIndex(list.length - 2);
+      }
+    }
+
+    /**
+     * remove selected member
+     * @param {object} member
+     */
+    function _removeMember(member) {
+      var inviteUsers = $scope.inviteUsers;
+
+      member.selected = false;
+      inviteUsers.splice(inviteUsers.indexOf(member), 1);
     }
 
     /**
@@ -119,8 +175,6 @@
      */
     function onInviteClick(entityType) {
       var guestList = [];
-      var property = {};
-      var PROPERTY_CONSTANT = AnalyticsHelper.PROPERTY;
       if (!$scope.isLoading && $scope.inviteUsers.length > 0) {
 
         jndPubSub.showLoading();
@@ -130,8 +184,7 @@
         }, guestList);
 
         entityheaderAPIservice.inviteUsers(entityType, $state.params.entityId, guestList)
-          .success(function(response) {
-            //console.log(response)
+          .success(function() {
             // analytics
             var entity_type = "";
             switch (entityType) {
@@ -185,6 +238,59 @@
      */
     function cancel() {
       $modalInstance.dismiss('cancel');
+    }
+
+    /**
+     * select all members event handler
+     * @param {boolean} value
+     */
+    function onSelectAll() {
+      var fn;
+
+      $scope.hasAllMembers = !$scope.hasAllMembers;
+      fn = $scope.hasAllMembers ? _addMember : _removeMember;
+
+      _.each($scope.availableMemberList, function(member) {
+        fn(member);
+      });
+
+      _setAllMembersStatus($scope.hasAllMembers);
+      _focusInput();
+      _updateMemberList();
+    }
+  
+    /**
+     * update member list
+     * @private
+     */
+    function _updateMemberList() {
+      jndPubSub.pub('updateList:avaliableMember');
+    }
+
+    /**
+     * input filter에 focus
+     */
+    function _focusInput() {
+      $timeout(function() {
+        $('#invite-member-filter').focus();
+      });
+    }
+
+    /**
+     * set all member
+     * ng-model, attr로 checkbox 값은 변경하여도 checkbox의 모양이 바뀌지 않아 dom element의 property를 수정함
+     */
+    function _setAllMembersStatus(value) {
+      if (value == null) {
+        // select all checkbox 갱신
+        if ($scope.availableMemberList.length === $scope.inviteUsers.length) {
+          $scope.hasAllMembers = value = true;
+        } else {
+          $scope.hasAllMembers = value = false;
+        }
+      }
+
+      $('#select-all-members').prop('checked', value);
     }
   }
 })();

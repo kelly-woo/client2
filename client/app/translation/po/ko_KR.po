@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -40,6 +40,7 @@ msgid "@alert-no-messages-found"
 msgstr "검색 결과가 없습니다"
 
 #: client/app/modal/teams/team_member_list/team.member.list.html
+#: client/app/modal/topics/topic_invite/topic.invite.html
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@alert-no-result"
 msgstr "검색 결과가 없습니다"
@@ -66,7 +67,7 @@ msgstr "최소화"
 msgid "@ask-me-later"
 msgstr "나중에 하기"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@browse-more-topics"
 msgstr "참여하지 않은 토픽 목록 보기"
 
@@ -146,7 +147,6 @@ msgstr "보내기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -276,8 +276,6 @@ msgid "@common-customer-service"
 msgstr "고객 센터"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "삭제된 파일"
@@ -313,7 +311,6 @@ msgstr "완료"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -321,6 +318,7 @@ msgid "@common-download"
 msgstr "다운로드"
 
 #: client/app/modal/topics/topic_create/topic.create.html
+#: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@common-duplicate-name-err"
 msgstr ""
 "업무의 혼란을 줄이기 위해 중복된 이름의 토픽은 허용하지 않고 있습니다. 다른 "
@@ -593,7 +591,7 @@ msgstr "이용약관"
 msgid "@common-title"
 msgstr "타이틀"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "토픽"
@@ -616,7 +614,7 @@ msgstr "파일 업로드"
 msgid "@common-visit-homepage"
 msgstr "홈페이지 방문하기"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
 msgstr "새로운 토픽 생성하기"
 
@@ -689,7 +687,6 @@ msgid "@error-404-title"
 msgstr ".. 길을 잃었습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -735,6 +732,51 @@ msgstr "드롭박스"
 msgid "@file-upload-google-drive"
 msgstr "구글 드라이브"
 
+#: client/app/left/topics/topics.html
+msgid "@folder-enter-name"
+msgstr "폴더명을 입력해주세요."
+
+#: client/app/left/topics/topics.html
+msgid "@folder-item-already-exists"
+msgstr "이동하려는 토픽이 폴더에 이미 존재합니다."
+
+#: client/app/left/topics/topics.html
+msgid "@folder-name-taken"
+msgstr "이미 존재하는 이름입니다"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-new"
+msgstr "새 폴더"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-remove"
+msgstr "삭제하기"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-rename"
+msgstr "이름변경"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-content"
+msgstr ""
+"많아지는 업무 만큼 늘어나기만 하는 토픽 수가 곤란하셨나요? 이제 토픽을 폴더"
+"로 분류하여 관리할 수 있습니다. 지금 한 토픽을 다른 토픽 위에 드래그&드롭 하"
+"여 간단하게 폴더를 만들어보세요!"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-never-show"
+msgstr "다시 보지 않기"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-title"
+msgstr "토픽을 폴더로 분류하세요!"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@friday"
+msgstr "금요일"
+
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
 msgstr "새로운 메시지가 있습니다."
@@ -775,10 +817,6 @@ msgstr "최대 입력 글자 수가 넘었습니다: 60자 "
 #: client/app/modal/topics/topic_rename/topic.rename.html
 msgid "@input-max-length-error"
 msgstr "최대 입력 글자 수가 넘었습니다.  "
-
-#: client/app/modal/topics/topic_rename/topic.rename.html
-msgid "@input-rename"
-msgstr "변경할 이름을 입력하세요"
 
 #: client/app/modal/topics/topic_join/topic.join.html
 msgid "@input-search-channel-name"
@@ -910,11 +948,11 @@ msgid "@mention-all"
 msgstr "@all (모든 토픽 멤버)"
 
 #: client/app/right/right.html
-msgid "@mention-all-confirm"
+msgid "@mention-all-toast"
 msgstr ""
 "'@all' 기능을 사용하시면 현재 {{topicName}} 토픽에 참여하고 있는 "
 "{{topicParticipantsCount}}명의 멤버에게 모바일 기기 또는 웹으로 푸쉬 알림을 "
-"하게 됩니다. 전송하시겠습니까?"
+"하게 됩니다."
 
 #: client/app/right/mentions/mentions.html
 msgid "@mention-empty"
@@ -926,6 +964,10 @@ msgstr "아직 다른 팀 멤버로부터 받은 멘션이 없습니다."
 #: client/app/right/file/file.html
 msgid "@message-delete"
 msgstr "삭제"
+
+#: client/app/center/center.html
+msgid "@message-deleted"
+msgstr "메시지가 삭제되었습니다."
 
 #: client/app/banner/desktop.notification.banner.html
 msgid "@miss-out-important-msg"
@@ -990,17 +1032,19 @@ msgstr "닉네임, 전화번호, 직책 등 기본적인 프로필 정보를 수
 msgid "@modal-upload-title-msg1"
 msgstr "파일명으로 파일을 쉽게 검색할 수 있습니다"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@monday"
+msgstr "월요일"
+
 #: client/app/left/messages/messages.html
 msgid "@more-dm-list"
 msgstr "대화 상대 선택하기"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "님이 공개 토픽을 생성했습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "님이 비공개 토픽을 생성했습니다."
 
@@ -1010,22 +1054,18 @@ msgid "@msg-help-multiline"
 msgstr "줄바꿈: shift+enter"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "님이"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr "님을 초대했습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "님이 참여했습니다"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "님이 떠났습니다"
 
@@ -1071,6 +1111,10 @@ msgstr "이메일이 성공적으로 발송되었습니다"
 msgid "@privateGroup"
 msgstr "토픽 생성 "
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@saturday"
+msgstr "토요일"
+
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
@@ -1086,6 +1130,10 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>에 대한 "
 "<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>개의 검색 "
 "결과가 있습니다."
+
+#: client/app/modal/topics/topic_invite/topic.invite.html
+msgid "@select-all-members"
+msgstr "모든 멤버 선택하기"
 
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
@@ -1152,15 +1200,41 @@ msgstr "즐겨찾기 해제"
 msgid "@star-un"
 msgstr "즐겨찾기 해제"
 
+#: client/app/center/center.html
+msgid "@success-file-delete"
+msgstr "\"{{filename}}\"이(가) 삭제되었습니다."
+
+#: client/app/center/center.html
+msgid "@success-file-share"
+msgstr "\"{{filename}}\"이(가) 공유되었습니다."
+
+#: client/app/center/center.html
+msgid "@success-file-unshare"
+msgstr "\"{{filename}}\"이(가) 공유 해제되었습니다."
+
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
+msgid "@suffix-day"
+msgstr "일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@suffix-month"
+msgstr "월"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@suffix-year"
+msgstr "년"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@sunday"
+msgstr "일요일"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@system-msg-announcement-created"
 msgstr ""
 "{{msg.message.content.actionOwner}}님이  {{msg.announceWriterName}}님의 메시"
 "지를 공지사항으로 게시했습니다."
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}}님이 공지사항을 삭제했습니다."
 
@@ -1180,6 +1254,10 @@ msgstr "전체 멤버 보기"
 msgid "@team-switch"
 msgstr "팀 전환하기"
 
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@thursday"
+msgstr "목요일"
+
 #: client/app/header/header.html
 #: client/app/tutorial/popup/view_components/lecture/menu/team/lecture.menu.team.html
 msgid "@to-account-home"
@@ -1198,6 +1276,10 @@ msgstr "토픽에 대해 설명해주세요. (옵션)"
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@topic-joined-member"
 msgstr "참여 멤버"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@tuesday"
+msgstr "화요일"
 
 #: client/app/center/view_components/entity_header/entity.header.html
 msgid "@turn-off-topic-alarm"
@@ -1526,7 +1608,6 @@ msgid "@tutorial-welcome-title"
 msgstr "Welcome to JANDI!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr "여기까지 읽었습니다."
 
@@ -1609,6 +1690,13 @@ msgstr "잔디 테스트 메시지입니다."
 #: client/app/center/center.html
 msgid "@web-notification-title"
 msgstr "JANDI 메시지"
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@wednesday"
+msgstr "수요일"
+
+#~ msgid "@input-rename"
+#~ msgstr "변경할 이름을 입력하세요"
 
 #~ msgid "@common-search"
 #~ msgstr "검색"

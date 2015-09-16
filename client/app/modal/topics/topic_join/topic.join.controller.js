@@ -1,3 +1,6 @@
+/**
+ * @fileoverview join topic controller
+ */
 (function() {
   'use strict';
 
@@ -6,77 +9,128 @@
     .controller('TopicJoinCtrl', TopicJoinCtrl);
 
   /* @ngInject */
-  function TopicJoinCtrl($scope, $state, entityheaderAPIservice, analyticsService, memberService,
-                         jndPubSub, modalHelper) {
-
-    // id of topic to join
-    var entityIdToJoin;
-
-    (function() {
-      init();
-    })();
+  function TopicJoinCtrl($scope, $timeout, $state, entityheaderAPIservice, analyticsService,
+                         jndPubSub, memberService, modalHelper, EntityMapManager) {
+    _init();
 
     /**
      * 처음 모달이 열렸을 때 실행되어야 할 부분.
      */
-    function init() {
+    function _init() {
       $scope.memberId = memberService.getMemberId();
       $scope.channelTitleQuery = '';
-      entityIdToJoin = -1;
-    }
 
-    /**
-     * 모달을 닫는다.
-     */
-    $scope.cancel = modalHelper.closeModal;
+      $scope.cancel = modalHelper.closeModal;
+      $scope.newChannel = newChannel;
+      $scope.getMatches = getMatches;
+      $scope.getItemHeight = getItemHeight;
+
+      $scope.onSelect = onSelect;
+      $scope.onTabDeselect = onTabDeselect;
+      $scope.onListClick = onListClick;
+    }
 
     /**
      * 토픽을 만드는 모달을 열고 현재 열려있는 조인 모달은 닫는다.
      */
-    $scope.newChannel = function() {
+    function newChannel() {
       $scope.cancel();
       modalHelper.openTopicCreateModal();
-    };
-
-
-    /**
-     * 선택 된 토픽을 조인한다.
-     * @param entityId {number} id of topic to join
-     */
-    $scope.onJoinClick = function(entityId) {
-      if ($scope.isLoading) return;
-
-      jndPubSub.showLoading();
-
-      entityIdToJoin = entityId;
-
-      entityheaderAPIservice.joinChannel(entityIdToJoin)
-        .success(
-          _onTopicJoinSuccess
-        )
-        .error(function(error) {
-          console.log('onJoinClick', error.msg);
-        })
-        .finally(function() {
-          jndPubSub.hideLoading();
-        });
-    };
-
+    }
 
     /**
-     * Callback function for topic join success.
-     * @private
+     * list에서 filter된 list를 전달한다.
+     * @param {array} list
+     * @param {string} value
+     * @returns {*}
      */
-    function _onTopicJoinSuccess() {
+    function getMatches(list, value) {
+      var matches;
+
+      value = value.toLowerCase();
+
+      matches = _.chain(list).filter(function (item) {
+        return item.name.toLowerCase().indexOf(value) > -1;
+      }).sortBy('name').value();
+
+      if ($scope.unJoinedChannelList === list) {
+        $scope.joinableLength = matches.length;
+      } else {
+        $scope.joinedLength = matches.length;
+      }
+
+      return matches;
+    }
+
+    /**
+     * topic select event callback
+     * @param {object} item
+     */
+    function onSelect(item) {
+      var entity = item;
+      var entityId;
+
+      if (entity) {
+        entityId = entity.id;
+        if (EntityMapManager.contains('joined', entityId)) {
+          // join한 topic
+
+          _topicJoin(entityId);
+        } else {
+          // join하지 않은 topic이므로 join 가능한지 requst 후 topic에 join 함
+
+          if (!$scope.isLoading) {
+            jndPubSub.showLoading();
+
+            entityheaderAPIservice.joinChannel(entityId)
+              .success(function() {
+                _topicJoin(entityId);
+              })
+              .finally(function() {
+                jndPubSub.hideLoading();
+              });
+          }
+        }
+      }
+    }
+
+    /**
+     * tab select event callback
+     */
+    function onTabDeselect(type) {
+      jndPubSub.pub('setActiveIndex:' + type, 0);
+    }
+
+    /**
+     * 특정 topic에 join한다.
+     * @param {number} entityId
+     */
+    function _topicJoin(entityId) {
       // analytics
       analyticsService.mixpanelTrack( "topic Join" );
 
       //jndPubSub.updateLeftPanel();
 
       // TODO: REFACTOR -> ROUTE SERVICE
-      $state.go('archives', {entityType: 'channels', entityId: entityIdToJoin});
+      $state.go('archives', {entityType: 'channels', entityId: entityId});
 
       $scope.cancel();
+    }
+
+    /**
+     * list click event handler
+     */
+    function onListClick() {
+      $timeout(function() {
+        $('#invite-member-filter').focus();
+      });
+    }
+
+    /**
+     * item height 전달한다.
+     */
+    function getItemHeight(item) {
+      return (_.isString(item.description) && item.description != '') ? 130 : 77;
     }
   }
 })();

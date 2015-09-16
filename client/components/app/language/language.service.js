@@ -15,6 +15,7 @@
     this.setConfig = setConfig;
     this.setDebugMode = setDebugMode;
     this.getLanguageList = getLanguageList;
+    this.getCurrentLanguage = getCurrentLanguage;
 
     /**
      * @namespace
@@ -135,6 +136,10 @@
      */
     function getLanguageList() {
       return listLangs;
+    }
+
+    function getCurrentLanguage() {
+      return preferences;
     }
   }
 })();

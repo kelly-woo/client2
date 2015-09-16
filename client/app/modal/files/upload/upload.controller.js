@@ -9,7 +9,7 @@
   /* @ngInject */
   function FileUploadModalCtrl($rootScope, $scope, $modalInstance, FilesUpload, currentSessionHelper,
                                fileAPIservice, analyticsService, $timeout, ImagesHelper, AnalyticsHelper,
-                               fileUplodOptions) {
+                               TopicFolderModel, fileUplodOptions) {
     var PUBLIC_FILE = 744;    // PUBLIC_FILE code
     var jqProgressBar;
     var filesUpload;
@@ -20,7 +20,7 @@
     $scope.isLoading = false;
 
     // $scope.joinedChannelList 는 어차피 parent scope 에 없기때문에 rootScope까지 가서 찾는다. 그렇기에 left와 right panel 사이에 sync가 맞는다.
-    $scope.selectOptions = fileAPIservice.getShareOptions($scope.joinEntities, $scope.memberList);
+    $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
     $scope.eventHandler = function eventHandler(btnType) {
       filesUpload.upload(!!btnType);
     };

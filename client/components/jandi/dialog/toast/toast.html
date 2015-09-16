@@ -1,0 +1,14 @@
+<div class="{{::toastClass}} {{::toastType}}" ng-click="tapToast()">
+  <i class="fa"
+     ng-class="::{'fa-check-circle-o': toastType === 'c-toast-success',
+                'fa-info-circle': toastType === 'c-toast-info',
+                'fa-question-circle': toastType === 'c-toast-warning',
+                'fa-exclamation-circle': toastType === 'c-toast-error'}"></i>
+  <div class="toast-text" ng-switch on="allowHtml">
+    <div ng-switch-default ng-if="::(title)" class="{{::titleClass}}">{{::title}}</div>
+    <div ng-switch-default ng-if="::(message)" class="{{::messageClass}}">{{::message}}</div>
+    <div ng-switch-when="true" ng-if="::(title)" class="{{::titleClass}}" ng-bind-html="title"></div>
+    <div ng-switch-when="true" ng-if="::(message)" class="{{::messageClass}}" ng-bind-html="message"></div>
+  </div>
+  <progress-bar ng-if="progressBar"></progress-bar>
+</div>

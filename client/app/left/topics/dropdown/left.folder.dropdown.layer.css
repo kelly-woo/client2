@@ -1,0 +1,6 @@
+.left-folder-dropdown-layer {
+  position: absolute;
+  display: block;
+  z-index: 100;
+  left:230px !important;
+}
