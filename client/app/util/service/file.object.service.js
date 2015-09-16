@@ -40,18 +40,17 @@
       /**
        * file object setter
        */
-      setFiles: function($files, fileObject) {
-        var that = this,
-            options = that.options,
-            files,
-            file,
-            fileReader,
-            i, len;
+      setFiles: function($files, files) {
+        var that = this;
+        var options = that.options;
+        var files = files || [];
+        var file;
+        var i;
+        var len;
 
         // fileObject format
         // name, type, size
 
-        files = [];
         for (i = 0, len = that.options.multiple ? $files.length : 1; i < len; ++i) {
           file = options.createFileObject ? options.createFileObject($files[i]) : $files[i];
 
@@ -75,6 +74,9 @@
 
         return that;
       },
+      append: function($files) {
+        return this.setFiles($files, this.files);
+      },
       /**
        * file object getter
        */
@@ -92,16 +94,15 @@
        * file object 처리 반복자
        */
       iterator: function() {    // 상위 개념 object와 prototype 연결 필요함
-        var files = this.files,
-            index = 0,
-            length = files.length;
+        var files = this.files;
+        var index = 0;
 
         return {
           currentIndex: function() {
             return index;
           },
           next: function() {
-            return index < length ? files[index++] : undefined;
+            return index < files.length ? files[index++] : undefined;
           }
         };
       },

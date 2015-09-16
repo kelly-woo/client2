@@ -651,13 +651,13 @@ app.controller('leftPanelController1', function(
     $scope.memberList = currentSessionHelper.getCurrentTeamMemberList();
   });
 
-  $scope.openModal = function(selector) {
+  $scope.openModal = function(selector, options) {
     if (selector == 'join') {
       modalHelper.openTopicJoinModal($scope);
     } else if (selector == 'channel') {
       modalHelper.openTopicCreateModal($scope);
     } else if (selector == 'file') {
-      modalHelper.openFileUploadModal($scope);
+      modalHelper.openFileUploadModal($scope, options);
     } else if (selector == 'topic') {
       modalHelper.openTopicCreateModal($scope);
     }
@@ -826,11 +826,30 @@ app.controller('leftPanelController1', function(
 
   // Callback function from file finder(navigation) for uploading a file.
   $scope.onFileSelect = function($files, options) {
-    var fileObject = Object.create(fileObjectService).init($files, options);
+    var fileObject;
+
+    if ($scope.fileObject) {
+      fileObject = $scope.fileObject.append($files);
+    } else {
+      fileObject = Object.create(fileObjectService).init($files, options);
+    }
+
     if (fileObject.size() > 0) {
       $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
       $scope.fileObject = fileObject;
-      $scope.openModal('file');
+      $scope.openModal('file', {
+        onEnd: function() {
+          // hide progress bar
+          $timeout(function() {
+            $('.file-upload-progress-container').css('opacity', 0);
+            // opacity 0된 후 clear upload info
+            $timeout(function() {
+              fileAPIservice.clearCurUpload();
+              delete $scope.fileObject;
+            }, 500);
+          }, 2000);
+        }
+      });
     }
   };
 
@@ -845,6 +864,7 @@ app.controller('leftPanelController1', function(
     $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
       function() {
         fileAPIservice.clearCurUpload();
+        delete $scope.fileObject;
       }
     )
   };
@@ -972,6 +992,7 @@ app.controller('leftPanelController1', function(
         // opacity 0된 후 clear upload info
         $timeout(function() {
           fileAPIservice.clearCurUpload();
+          delete $scope.fileObject;
         }, 500);
       }, 2000);
     }

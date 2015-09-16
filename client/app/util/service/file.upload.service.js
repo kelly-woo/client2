@@ -60,12 +60,6 @@
 
         that._initUploadQueue();
 
-        // confirm upload 사용시 초기화 설정
-        if (!that.options.sequence) {
-          that.lastProgressIndex = that.currentProgressIndex = 0;
-          that._convertFileObjects(that._it.next());
-        }
-
         return that;
       },
       /**
@@ -82,6 +76,9 @@
           that._fileUploadQueue = [];
           that._fileUploadQueueIndex = 0;
           that._fileUploadLock = false;
+
+          that.lastProgressIndex = that.currentProgressIndex = 0;
+          that._convertFileObjects(that._it.next());
         }
       },
       /**

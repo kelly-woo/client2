@@ -8,7 +8,8 @@
 
   /* @ngInject */
   function FileUploadModalCtrl($rootScope, $scope, $modalInstance, FilesUpload, currentSessionHelper,
-                               fileAPIservice, analyticsService, $timeout, ImagesHelper, AnalyticsHelper) {
+                               fileAPIservice, analyticsService, $timeout, ImagesHelper, AnalyticsHelper,
+                               fileUplodOptions) {
     var PUBLIC_FILE = 744;    // PUBLIC_FILE code
     var jqProgressBar;
     var filesUpload;
@@ -67,28 +68,28 @@
       },
       // upload sequence 시작
       onBegin: function() {
-        $scope.currentIndex = 1;
         $scope.lastIndex = fileObject.size();
       },
       // 하나의 file upload 시작
       onUpload: function(file, fileInfo) {
         // 공유 entity id 와 comment는 최초 설정된 값에서 변경 가능하므로 재설정함
         fileInfo.share = $scope.currentEntity.id;
-        fileInfo.comment = $scope.comment;
 
         // scope comment 초기화
         $scope.comment = '';
 
         // progress bar 초기화
         $rootScope.curUpload = {};
-        $rootScope.curUpload.lFileIndex = filesUpload.lastProgressIndex;
-        $rootScope.curUpload.cFileIndex = filesUpload.currentProgressIndex;
+        $rootScope.curUpload.lFileIndex = !!filesUpload.lastProgressIndex;
+        $rootScope.curUpload.cFileIndex = !!filesUpload.currentProgressIndex;
         $rootScope.curUpload.title = file.name;
         $rootScope.curUpload.progress = 0;
         $rootScope.curUpload.status = 'initiate';
       },
       // 하나의 file upload 중
       onProgress: function(evt, file) {
+        $scope.lastIndex = fileObject.size();
+
         // stop transition
         jqProgressBar && jqProgressBar.removeClass('init-progress-bar');
 
@@ -177,16 +178,7 @@
         $modalInstance.dismiss('cancel');
       },
       // upload sequence end
-      onEnd: function() {
-        // hide progress bar
-        $timeout(function() {
-          $('.file-upload-progress-container').css('opacity', 0);
-          // opacity 0된 후 clear upload info
-          $timeout(function() {
-            fileAPIservice.clearCurUpload();
-          }, 500);
-        }, 2000);
-      }
+      onEnd: fileUplodOptions.onEnd
     });
 
     /**
