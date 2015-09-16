@@ -73,7 +73,11 @@
       isTopicNotificationOn: isTopicNotificationOn,
       setTopicNotificationStatus: setTopicNotificationStatus,
 
-      isAdmin: isAdmin
+      isAdmin: isAdmin,
+      isActiveMember: isActiveMember,
+      isDeactivatedMember: isDeactivatedMember,
+      isDisabled: isDisabled,
+      isDeleted: isDeleted
     };
 
 
@@ -525,6 +529,44 @@
     function isAdmin() {
       var admin = currentSessionHelper.getCurrentTeamAdmin();
       return admin && (admin.id === getMemberId());
+    }
+
+    /**
+     * member가 active(enabled)상태인지 아닌지 확인한다.
+     * 외부 서비스에서 사용하기 편하려고 만들었다.
+     * @param {object} member - member object
+     * @returns {*|*|boolean}
+     */
+    function isActiveMember(member) {
+      return !isDeactivatedMember(member);
+    }
+
+    /**
+     * member가 disabled이거나 deleted인지 확인한다.
+     * 외부 서비스에서 사용하기 편하려고 만들었다.
+     * @param {object} member - member object
+     * @returns {*|*|boolean}
+     */
+    function isDeactivatedMember(member) {
+      return isDisabled(member) || isDeleted(member);
+    }
+
+    /**
+     * member의 status가 disabled인지 아닌지 확인한다.
+     * @param {object} member - member object
+     * @returns {*|*|boolean}
+     */
+    function isDisabled(member) {
+      return member && member.status === 'disabled';
+    }
+
+    /**
+     * member의 status가 deleted인지 아닌지 확인한다.
+     * @param {object} member - member object
+     * @returns {*|boolean}
+     */
+    function isDeleted(member) {
+      return member && member.status === 'deleted';
     }
   }
 })();

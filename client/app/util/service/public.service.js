@@ -12,7 +12,7 @@
   /* @ngInject */
   function publicService($rootScope, accountService, storageAPIservice, jndWebSocket,
                          currentSessionHelper, $state, analyticsService, tutorialService, language,
-                         entityAPIservice, HybridAppHelper, $filter) {
+                         entityAPIservice, HybridAppHelper, $filter, memberService, configuration) {
     var service = {
       getInviteOptions: getInviteOptions,
       openTutorialModal: openTutorialModal,
@@ -22,6 +22,7 @@
       signOut: signOut,
       getBrowserInfo: getBrowserInfo,
       redirectTo: redirectTo,
+      redirectToMain: redirectToMain,
       isDisabledMember: isDisabledMember,
       isNullOrUndefined: isNullOrUndefined,
       goToDefaultTopic: goToDefaultTopic,
@@ -130,7 +131,15 @@
       // Direct to 'url'.
       location.href = url;
     }
+    function redirectToMain() {
+      redirectTo(configuration.main_address + 'team');
+    }
 
+    /**
+     * member가 enable status 가 아니면 true를 리턴한다.
+     * @param {number|object} member - 찾으려는 member
+     * @returns {*}
+     */
     function isDisabledMember(member) {
       if (member == null) {
         return false;
@@ -142,7 +151,7 @@
         member = entityAPIservice.getEntityFromListById($rootScope.memberList, member.id);
       }
 
-      return member ? member.status === 'disabled' : true;
+      return memberService.isDeactivatedMember(member);
     }
 
     function _isNumber(obj) {

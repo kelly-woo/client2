@@ -9,11 +9,10 @@
   /* @ngInject */
   function FileShareModalCtrl($scope, $filter, $state, fileAPIservice, analyticsService, $rootScope,
                               jndPubSub, fileToShare, selectOptions, modalHelper, AnalyticsHelper,
-                              currentSessionHelper, Dialog) {
+                              currentSessionHelper, Dialog, TopicFolderModel) {
     var _entityId;
     var _entityType;
     var _targetId;
-    var callback;
 
     $scope.selected = {
       data: null
@@ -35,15 +34,13 @@
       if ($scope.hasPreview) {
         $scope.thumbnailImage = $filter('getFileUrl')($scope.file.content.extraInfo.smallThumbnailUrl);
       }
-      _attachEventListener();
     }
 
     /**
-     * 현재 스콮이 들어야 할 이벤트들을 추가한다.
+     * destroy 이벤트 핸들러
      * @private
      */
-    function _attachEventListener() {
-      $scope.$on('$destroy', _onScopeDestroy);
+    function _onScopeDestroy() {
     }
 
     /**
@@ -52,7 +49,7 @@
      */
     function _initSelectOptions() {
       $scope.file = fileToShare;
-      $scope.selectOptions = selectOptions;
+      $scope.selectOptions = TopicFolderModel.getNgOptions(selectOptions);
     }
 
     /**
@@ -61,7 +58,7 @@
      */
     function _initDefaultSelected() {
       //set default select
-      var selectOptions = $scope.selectOptions;
+      var selectOptions = TopicFolderModel.getNgOptions($scope.selectOptions);
       var currentIndex = selectOptions.indexOf(currentSessionHelper.getCurrentEntity());
 
       if (currentIndex === -1) {
@@ -125,10 +122,6 @@
       try {
         _sendAnalytics(_entityType);
       } catch(e) {}
-
-      Dialog.success({
-        title: $filter('translate')('@success-file-share').replace('{{filename}}', $scope.file.content.title)
-      });
 
       if (_targetId !== currentSessionHelper.getCurrentEntityId()) {
         Dialog.confirm({

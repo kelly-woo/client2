@@ -243,9 +243,9 @@ app.filter('getMixPanelFormat', function() {
   };
 });
 
-app.filter('isDisabledMember', function() {
+app.filter('isDisabledMember', function(memberService) {
   return function(member) {
-    return member.status == 'disabled';
+    return !memberService.isActiveMember(member);
   };
 });
 

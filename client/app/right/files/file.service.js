@@ -244,13 +244,13 @@ app.service('fileAPIservice', function($http, $rootScope, $window, $upload, $fil
 
   // Simply putting every channel, user, and private group into one array.
   // No exception.
-
   function getShareOptions(joinedChannelList, memberList) {
     var enabledMemberList = [];
 
     _.each(memberList, function(member, index) {
-      if (member.status != 'disabled')
+      if (memberService.isActiveMember(member)) {
         enabledMemberList.push(member);
+      }
     });
 
     joinedChannelList = _orderByName(joinedChannelList);

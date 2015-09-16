@@ -19,7 +19,7 @@
                 <div class="col-sm-9">
                     <select class="form-control"
                             data-ng-model="inviteChannel"
-                            data-ng-options="channel as channel|getName group by channel.typeCategory for channel in inviteOptions">
+                            data-ng-options="channel as channel|getName group by channel.channel.typeCategory for channel in inviteOptions">
                         <option value="">{{ '@option-choose' | translate }}</option>
                     </select>
                 </div>

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -67,7 +67,7 @@ msgstr "最小化"
 msgid "@ask-me-later"
 msgstr "あとで確認する"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@browse-more-topics"
 msgstr "未参加のトピック一覧"
 
@@ -147,7 +147,6 @@ msgstr "送信"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -274,8 +273,6 @@ msgid "@common-customer-service"
 msgstr "カスタマー・サービス"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "削除されたファイル"
@@ -313,7 +310,6 @@ msgstr "確認"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -592,7 +588,7 @@ msgstr "サービス利用規約"
 msgid "@common-title"
 msgstr "タイトル"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "トピック"
@@ -622,6 +618,7 @@ msgid "@common_skip_all"
 msgstr "チュートリアルをスキップ"
 
 #: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
 msgstr "新規トピック作成"
 
@@ -697,7 +694,6 @@ msgid "@error-404-title"
 msgstr "エラーが発生しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -746,6 +742,47 @@ msgstr "Googleドライブ"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@friday"
 msgstr "金曜日"
+#: client/app/left/topics/topics.html
+msgid "@folder-enter-name"
+msgstr "フォルダ名を入力ください"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-item-already-exists"
+msgstr "このトピックは既にフォルダに入っています"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-name-taken"
+msgstr "その名前は既に使用されています"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-new"
+msgstr "新規フォルダ"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-remove"
+msgstr "削除"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-rename"
+msgstr "変更する"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-content"
+msgstr ""
+"お仕事が増えるほど、増えていくトピックの数で困っていましたか？これからはト"
+"ピックをフォルダでまとめて管理することができます。今すぐ一つのトピックを他"
+"のトピックの上にドラッグ&ドロップをし、簡単にフォルダを作成してみてくださ"
+"い"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-never-show"
+msgstr "今後表示しない"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-title"
+msgstr "フォルダでトピックをまとめてみましょう！"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
@@ -1016,12 +1053,10 @@ msgid "@more-dm-list"
 msgstr "ダイレクトメッセージの相手を選択する"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "さんが公開トピックを作成しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "さんが非公開トピックを作成しました"
 
@@ -1031,22 +1066,18 @@ msgid "@msg-help-multiline"
 msgstr "shift+enterで改行"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "が"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr "さんを招待しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "さんが参加しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "が退出しました"
 
@@ -1097,6 +1128,8 @@ msgid "@saturday"
 msgstr "土曜日"
 
 #: client/app/right/files/files.html client/app/right/mentions/mentions.html
+#: client/app/right/files/files.html
+#: client/app/right/mentions/mentions.html
 #: client/app/right/search.messages/search.messages.html
 #: client/app/right/stars/stars.html
 msgid "@search-in-progress"
@@ -1212,7 +1245,6 @@ msgstr ""
 "のメッセージを告知に登録しました"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} さんが告知を削除しました"
 
@@ -1678,7 +1710,6 @@ msgid "@tutorial-welcome-title"
 msgstr "JANDIへようこそ!!"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr "ここから未読メッセージ"
 
@@ -1769,6 +1800,9 @@ msgstr "水曜日"
 
 #~ msgid "@input-rename"
 #~ msgstr "名前を入力"
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "<span translate=\"\">@folder-tutorial-title</span>"
+msgstr ""
 
 #~ msgid "@input-rename"
 #~ msgstr "名前を入力"

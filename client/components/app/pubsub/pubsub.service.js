@@ -16,6 +16,7 @@
     that.pub = publish;
 
     that.updateLeftPanel = updateLeftPanel;
+    that.updateLeftBadgeCount = updateLeftBadgeCount;
     that.updateCenterPanel = updateCenterPanel;
 
     that.updateChatList = updateChatList;
@@ -56,6 +57,14 @@
      */
     function updateLeftPanel() {
       $rootScope.$broadcast('updateLeftPanelCaller');
+      updateBadgePosition();
+    }
+
+    /**
+     * 뱃지 카운트를 업데이트 한다.
+     */
+    function updateLeftBadgeCount() {
+      $rootScope.$broadcast('updateLeftBadgeCount');
       updateBadgePosition();
     }
 

@@ -29,42 +29,20 @@
     'opac-in': isReady,
     'scroll_blue': !browser.platform.isMac
   }">
-    <!-- USER INFO CONTAINER -->
+    <left-tutorial-folder></left-tutorial-folder>
     <current-user></current-user>
-
+    
     <div class="tutorial-clicker tutorial-z-index pulse" id="topicTutorial" data-ng-click="onTutorialPulseClick($event);"
          data-ng-if="!tutorialStatus.topicTutorial"></div>
-
+         
     <!-- LIST CONTAINER -->
     <div class="lpanel-list" id="lpanel-list-container">
-      <!--    HEADER  -->
-      <div class="lpanel-list__header cursor_pointer" ng-click="leftListCollapseStatus.isTopicsCollapsed = !leftListCollapseStatus.isTopicsCollapsed"
-           ng-class="{'collapsed': leftListCollapseStatus.isTopicsCollapsed}">
 
-        <i class="lpanel-collapse-arrow" ng-class="{'icon-angle-down': !leftListCollapseStatus.isTopicsCollapsed,
-                                                'icon-angle-right': leftListCollapseStatus.isTopicsCollapsed}"></i>
-
-        <span class="lpanel-list__title inline-overflow-ellipsis" translate>@common-topics</span>
-
-        <div class="lpanel-list-option pull-right" ng-click="openModal('channel'); $event.stopPropagation(); $event.preventDefault();"
-             tooltip="{{'@create-new-topic-tooltip' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
-          <i class="icon-plus"></i>
-        </div>
-
-        <div class="lpanel-list-option pull-right" ng-click="openModal('join'); $event.stopPropagation(); $event.preventDefault();"
-             tooltip="{{'@browse-more-topics' | translate}}" tooltip-placement="bottom" tooltip-append-to-body="true">
-          <i class="icon-reorder"></i>
-        </div>
-
-      </div>
-      <topics>
-        <topic></topic>
-      </topics>
-
+      <!-- TOPICS -->
+      <topics></topics>
       <!-- DIRECT MESSAGES    -->
       <div class="lpanel-list__users">
-        <messages>
-        </messages>
+        <messages></messages>
       </div>
     </div>
     <!--<div ng-if="unread.above.length" class="lpanel-list-help-unread above">-->
@@ -73,6 +51,7 @@
     <div ng-if="unread.below.length" class="lpanel-list-help-unread below">
       <button type="button" class="btn btn-danger" ng-click="goUnreadBelow($event);"><span translate>@common-new-message</span> <i class="icon-angle-double-down"></i></button>
     </div>
+    <left-folder-dropdown-layer></left-folder-dropdown-layer>
   </aside>
   <div class="cpanel opac-zero" id="cpanel"
        ng-class="{

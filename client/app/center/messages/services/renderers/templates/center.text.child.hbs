@@ -6,7 +6,7 @@
         {{#if isSticker}}
           <img class="sticker size_5" src="{{msg.message.content.url}}"/>
         {{else}}
-          <span class="keep msg-text-body _compile">{{{ msg.message.content.body }}}</span>
+          <span class="keep msg-text-body _compile" jnd-ignore-braces>{{{ msg.message.content.body }}}</span>
         {{/if}}
         <!--  TIME  -->
         <span class="msg-item-header__created">{{ msg.extTime }}</span>

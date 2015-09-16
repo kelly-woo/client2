@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.2\n"
 
 #: client/app/tpl/503/503.html
 msgid "@503-unavailable-msg"
@@ -65,7 +65,7 @@ msgstr "最小化"
 msgid "@ask-me-later"
 msgstr "稍后再询问"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@browse-more-topics"
 msgstr "浏览其他议题"
 
@@ -145,7 +145,6 @@ msgstr "送出"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/modal/files/share/share.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
@@ -266,8 +265,6 @@ msgid "@common-customer-service"
 msgstr "客服"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
-#: client/app/center/view_components/center_chat_templates/title_comment/title.comment.html
 #: client/app/right/file.detail/file.detail.html
 msgid "@common-deleted-file-title"
 msgstr "已删除文件"
@@ -303,7 +300,6 @@ msgstr "确认"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 #: client/app/center/view_components/center_chat_templates/dropdown/file/center.file.dropdown.layer.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -581,7 +577,7 @@ msgstr "使用条款"
 msgid "@common-title"
 msgstr "议题"
 
-#: client/app/left/left.html
+#: client/app/left/topics/topics.html
 #: client/app/tutorial/popup/view_components/left/tutorial.left.html
 msgid "@common-topics"
 msgstr "议题"
@@ -611,6 +607,7 @@ msgid "@common_skip_all"
 msgstr "省略使用教学"
 
 #: client/app/left/left.html
+#: client/app/left/topics/topics.html
 msgid "@create-new-topic-tooltip"
 msgstr "建立新议题"
 
@@ -683,7 +680,6 @@ msgid "@error-404-title"
 msgstr "错误"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/file_uploaded/file.uploaded.html
 #: client/app/right/file.detail/file.detail.html
 #: client/app/right/file/file.html
 #: client/app/tutorial/popup/view_components/center/file/tutorial.center.file.html
@@ -732,6 +728,46 @@ msgstr "Google云端硬盘"
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@friday"
 msgstr "星期五"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-enter-name"
+msgstr "键入文件夹名称"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-item-already-exists"
+msgstr "议题已存于文件夹里"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-name-taken"
+msgstr "这名称已被使用"
+
+#: client/app/left/topics/topics.html
+msgid "@folder-new"
+msgstr "新的文件夹"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-remove"
+msgstr "删除"
+
+#: client/app/left/topics/dropdown/left.folder.dropdown.layer.html
+#: client/app/left/topics/topics.html
+msgid "@folder-rename"
+msgstr "重新命名"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-content"
+msgstr ""
+"面对杂乱无章的议题列表束手无策吗？ 有了议题文件夹，轻松整理、归类你的议题列"
+"表！ 拖、拉、放，三步骤即可建立文件夹并移动议题至新文件夹。"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-never-show"
+msgstr "不再显示"
+
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "@folder-tutorial-title"
+msgstr "使用文件夹打理你的议题列表"
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
 msgid "@has-new-message-alert-msg"
@@ -976,12 +1012,10 @@ msgid "@more-dm-list"
 msgstr "选择一位成员传信"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-ch"
 msgstr "建立公开议题"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-create-pg"
 msgstr "建立私人议题"
 
@@ -991,22 +1025,18 @@ msgid "@msg-help-multiline"
 msgstr "Shift+Enter键进行换行"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited"
 msgstr "已邀请"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-invited-postfix"
 msgstr "  "
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-joined"
 msgstr "已经加入"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@msg-left"
 msgstr "已经离开"
 
@@ -1168,7 +1198,6 @@ msgstr ""
 "为公告"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-deleted"
 msgstr "{{msg.message.content.actionOwner}} 删除公告"
 
@@ -1515,7 +1544,6 @@ msgid "@tutorial_welcome_title"
 msgstr "欢迎 {{username}}"
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/unread_bookmark/unread.bookmark.html
 msgid "@unread-bookmark-message"
 msgstr "以下为未读信息"
 
@@ -1603,8 +1631,9 @@ msgstr "JANDI 新信息"
 msgid "@wednesday"
 msgstr "星期三"
 
-#~ msgid "@input-rename"
-#~ msgstr "输入修改的名字"
+#: client/app/left/topics/tutorial/left.tutorial.folder.html
+msgid "<span translate=\"\">@folder-tutorial-title</span>"
+msgstr ""
 
 #~ msgid "@input-rename"
 #~ msgstr "输入修改的名字"

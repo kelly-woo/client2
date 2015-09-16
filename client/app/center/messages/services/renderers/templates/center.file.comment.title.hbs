@@ -21,8 +21,8 @@
         <div>
           {{#if file.hasPreview}}
           <!--    IMAGE THUMBNAIL -->
-          <div class="image_wrapper msg-file-body__img__background">
-            <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center _compile"
+          <div class="image_wrapper msg-file-body__img__background _compile" jnd-ignore-braces>
+            <div class="opac-zero msg-file-body__img cursor_pointer jnd-text-center"
                  image-loader="{{file.imageUrl}}"
                  image-max-height="63" image-max-width="63" image-is-square="true">
             </div>
@@ -42,19 +42,19 @@
 
       <!--    RIGHT PART OF BODY CONTENT  -->
       <div class="msg-file-meta">
-        <div class="msg-comment-header">
+        <div class="msg-comment-header _compile" jnd-ignore-braces>
           Commented on
 
           {{#if isArchived}}
           <div>
-            <a class="archived-msg-file-meta__title _compile" ui-sref="files({ userName: '{{ msg.feedback.writer.name }}', itemId: '{{msg.feedback.id}}' })">
+            <a class="archived-msg-file-meta__title" ui-sref="files({ userName: '{{ msg.feedback.writer.name }}', itemId: '{{msg.feedback.id}}' })">
               <span>{{translate '@common-deleted-file-title'}}</span>
             </a>
           </div>
           {{else}}
           <!--    FILE TITLE/NAME  -->
           <div>
-            <a class="msg-file-meta__title file__name break-word _compile" ui-sref="files({ userName: '{{msg.feedback.writer.name}}', itemId: '{{msg.feedback.id}}' })">
+            <a class="msg-file-meta__title file__name break-word" ui-sref="files({ userName: '{{msg.feedback.writer.name}}', itemId: '{{msg.feedback.id}}' })">
               {{ file.title }}
             </a>
           </div>
@@ -83,7 +83,7 @@
           </div>
           {{else}}
           <span>
-            <span class="keep _compile">{{{ msg.message.content.body }}}</span>
+            <span class="keep _compile" jnd-ignore-braces>{{{ msg.message.content.body }}}</span>
             <span class="msg-item-header__created">
               {{ msg.extTime }}
             </span>

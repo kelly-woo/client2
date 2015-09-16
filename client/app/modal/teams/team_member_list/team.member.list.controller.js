@@ -78,7 +78,7 @@
       var disabledMemberList = [];
 
       _.forEach($scope.memberList, function(member) {
-        if (member.status == DISABLED_MEMBER_STATUS) {
+        if (memberService.isDeactivatedMember(member)) {
           disabledMemberList.push(member);
         } else {
           if (memberService.getMemberId() !== member.id) {
@@ -99,5 +99,6 @@
     function cancel() {
       $modalInstance.dismiss('close');
     }
+
   }
 })();

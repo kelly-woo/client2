@@ -1,10 +1,10 @@
 .toast-top-center {
   top: 16px;
   left: 50%;
-  right: initial;
+  right: auto;
+  -webkit-transform: translateX(-50%) !important;
   transform: translateX(-50%) !important;
-
-  width: initial;
+  width: auto;
   max-width: 670px;
   min-width: 370px;
 }
@@ -17,6 +17,21 @@
   opacity: .9;
   color: white;
 }
+
+#toast-container .toast-text {
+  -webkit-align-items: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+#toast-container .toast-text > div {
+  flex: auto;
+}
+
 #toast-container .toast > i {
   position: absolute;
   top: 14px;

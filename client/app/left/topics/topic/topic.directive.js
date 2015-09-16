@@ -7,17 +7,17 @@
 
   function topic() {
     return {
-      restrict: 'EA',
-      require: '^topics',
-      scope: true,
+      restrict: 'E',
       controller: 'TopicCtrl',
+      templateUrl: 'app/left/topics/topic/topic.html',
+      scope: {
+        currentRoom: '='
+      },
       link: link,
-      replace: true,
-      templateUrl: 'app/left/topics/topic/topic.html'
+      replace: true
     };
 
-    function link(scope, el, attrs, ctrl) {
+    function link(scope, element, attrs) {
     }
   }
-
 })();
