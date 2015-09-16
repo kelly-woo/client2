@@ -1237,7 +1237,17 @@ app.controller('centerpanelController', function($scope, $rootScope, $state, $fi
     $scope.hasNoMessage = _hasNoMessage();
 
     // Current topic has messages going on. NO NEED TO DISPLAY ANY TYPE OF HELP MESSAGES.
-    if (!$scope.hasNoMessage) { return; }
+    // FIXME: this is not how we return. - jihoon
+    if (!$scope.hasNoMessage) {
+      return;
+    }
+
+    // current topic is 1:1 dm and disactivated member.
+    // FIXME: this is not how we return. - jihoon
+    if (centerService.isChat() && !memberService.isActiveMember(currentSessionHelper.getCurrentEntity())) {
+      return;
+    }
+
 
     var emptyMessageStateHelper = 'NO_CONVERSATION_IN_TOPIC';
 

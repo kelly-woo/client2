@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function jndWebSocketTeam(currentSessionHelper, memberService, storageAPIservice,
-                            configuration, jndWebSocketEmitter) {
+                            configuration, jndWebSocketEmitter, publicService, jndWebSocketCommon) {
     var _isConnected;
 
     var CHECK_CONNECT_TEAM = 'check_connect_team';
@@ -19,6 +19,9 @@
 
     var TEAM_NAME_UPDATED = 'team_name_updated';
     var TEAM_DOMAIN_UPDATED = 'team_domain_updated';
+
+    var TEAM_DELETED = 'team_deleted';
+    var TEAM_LEFT = 'team_left';
 
     var events = [
       //{
@@ -36,6 +39,14 @@
       {
         name: TEAM_DOMAIN_UPDATED,
         handler: _onTeamDomainUpdated
+      },
+      {
+        name: TEAM_DELETED,
+        handler: _onTeamDeleted
+      },
+      {
+        name: TEAM_LEFT,
+        handler: _onTeamLeft
       }
     ];
 
@@ -127,6 +138,26 @@
       alert('Your team domain address has been changed to ' + newAddress + '. Click \'okay\' to proceed.');
 
       location.href = newAddress;
+    }
+
+    /**
+     * 현재 팀이 삭제되었을 경우
+     * @private
+     */
+    function _onTeamDeleted() {
+      publicService.redirectToMain();
+    }
+
+    /**
+     * 현재 팀을 누군가 탈퇴했을 경우
+     * @param {object} socketEvent - socket event param
+     * @private
+     */
+    function _onTeamLeft(socketEvent) {
+      if (jndWebSocketCommon.isActionFromMe(socketEvent.member.id)) {
+        // 내가 현재 팀을 나갔을 경우
+        publicService.redirectToMain();
+      }
     }
   }
 })();

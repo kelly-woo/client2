@@ -117,25 +117,6 @@ app.factory('authAPIservice', function($http, $rootScope, $state, $location, sto
   authAPI.on40300Err = function() {
     $state.go('messages.home');
   };
-  /**
-   * Pop up alert window saying current member has been disabled from current team.
-   * Keep member logged in but redirect to main.
-   */
-  authAPI.onCurrentMemberDisabled = function() {
-    var teamName = storageAPIservice.getTeamName();
-    var mainTeamAddr = configuration.main_address + 'team';
-
-    var disabledMsg = $filter('translate')('@current-member-disabled-notice-msg-pre') +
-      teamName + ' ' +
-      $filter('translate')('@current-member-disabled-notice-msg-post');
-
-    Dialog.alert({
-      title: disabledMsg,
-      onClose: function() {
-        publicService.redirectTo(mainTeamAddr);
-      }
-    });
-  };
 
   return authAPI;
 });
