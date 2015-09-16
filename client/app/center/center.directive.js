@@ -98,7 +98,7 @@
 
       dndContent
         .appendTo(element[0])
-        .on('dragleave', function(event) {
+        .on('dragleave', function() {
           element.removeClass('dnd-over');
         })
         .on('drop', function() {
