@@ -4,7 +4,7 @@
 .center-dialog-modal .modal-dialog {
   position: relative;
   top: 50%;
-  -webkit-transform: -webkit-translateY(-50%) !important;
+  -webkit-transform: translateY(-50%) !important;
   transform: translateY(-50%) !important;
   max-width: 500px;
   min-width: 360px;
