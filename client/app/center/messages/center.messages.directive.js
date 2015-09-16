@@ -9,7 +9,7 @@
     .module('jandiApp')
     .directive('centerMessagesDirective', centerMessagesDirective);
 
-  function centerMessagesDirective($compile, $filter, CenterRenderer, CenterRendererFactory, MessageCollection,
+  function centerMessagesDirective($compile, $filter, $state, CenterRenderer, CenterRendererFactory, MessageCollection,
                                    StarAPIService, jndPubSub, fileAPIservice, memberService) {
     return {
       restrict: 'E',
@@ -97,6 +97,10 @@
         _.forEach(MessageCollection.list, function(msg, index) {
           if (msg.message.id === deletedFileId) {
             msg.message.status = 'archived';
+            _refresh(msg.id, index);
+          }
+          if (msg.feedback && msg.feedback.id === deletedFileId) {
+            msg.feedback.status = 'archived';
             _refresh(msg.id, index);
           }
         });
@@ -203,7 +207,29 @@
           _onClickUser(msg);
         } else if (jqTarget.closest('._fileShare').length) {
           _onClickFileShare(msg);
+        } else if (jqTarget.closest('._fileGo').length) {
+          _onClickFileGo(msg);
         }
+      }
+
+      /**
+       * 우측 패널 오픈
+       * @param {Object} msg
+       * @private
+       */
+      function _onClickFileGo(msg) {
+        var contentType = msg.message.contentType;
+        var userName = msg.message.writer.name;
+        var itemId = msg.message.id;
+
+        if (contentType !== 'file') {
+          userName = msg.feedback.writer.name;
+          itemId = msg.feedback.id;
+        }
+        $state.go('files', {
+          userName: userName,
+          itemId: itemId
+        });
       }
 
       /**
