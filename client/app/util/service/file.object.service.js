@@ -60,24 +60,25 @@
         angular.extend(this.options, options);
 
         // files setting
-        this.promise = this.setFiles($files);
+        this.setFiles($files);
 
         return this;
       },
       /**
        * file object setter
        */
-      setFiles: function($files, files) {
+      setFiles: function($files) {
         var that = this;
         var deferred = $q.defer();
         var options = that.options;
         var alerts = [];
+        var files;
         var file;
         var i;
         var len;
         var promise;
   
-        files = files || [];
+        files = that.files || [];
 
         // fileObject format
         // name, type, size
@@ -107,10 +108,8 @@
           deferred.resolve(files);
         }
 
-        return deferred.promise;
-      },
-      append: function($files) {
-        return this.setFiles($files, this.files);
+        that.promise = deferred.promise;
+        return that;
       },
       /**
        * file object getter

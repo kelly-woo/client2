@@ -9,7 +9,7 @@
    * File upload service
    */
   /* @ngInject */
-  function FilesUpload($rootScope, fileAPIservice) {
+  function FilesUpload($rootScope, fileAPIservice, fileObjectService) {
     /**
      * fileAPIservice를 사용하여 file을 upload 함.
      * confirm 그리고 sequence type upload를 제공하기 위해 service로 구현함.
@@ -17,7 +17,6 @@
     var FilesUpload = {
       /**
        * @constructor
-       * @param {FileObject} fileObject - upload할 file object를 wrapping한 object
        * @param {object} options
        * @param {boolean} [options.multiple=true]       - multiple upload 여부
        * @param {string} [options.uploadtype=file]      - fileAPIservice에 전달할 upload type[file, integraiton]
@@ -34,10 +33,8 @@
        * @param {function} options.onError              - 하나의 file upload error
        * @param {function} options.onConfirmDone        - 하나의 file upload confirm done
        */
-      init: function(fileObject, options) {
+      init: function(options) {
         var that = this;
-
-        that.fileObject = fileObject;   // fileObject
 
         that.options = {
           multiple: true,
@@ -56,11 +53,26 @@
           onConfirmEnd: function() {}
         };
 
-        angular.extend(this.options, options);
-
-        that._initUploadQueue();
+        options && that.setOptions(options);
 
         return that;
+      },
+      setOptions: function(options) {
+        var that = this;
+
+        _.extend(that.options, options);
+        that._initUploadQueue();
+
+        if (!that.options.sequence) {
+          that.lastProgressIndex = that.currentProgressIndex = 0;
+          that._convertFileObjects(that._it.next());
+        }
+
+        return that;
+      },
+      updateUploadStatus: function() {
+        this._fileUploadLock = true;
+        this._convertFileObjects(this._it.next());
       },
       /**
        * upload queue, file object 반복자 초기화
@@ -76,9 +88,6 @@
           that._fileUploadQueue = [];
           that._fileUploadQueueIndex = 0;
           that._fileUploadLock = false;
-
-          that.lastProgressIndex = that.currentProgressIndex = 0;
-          that._convertFileObjects(that._it.next());
         }
       },
       /**
@@ -87,18 +96,15 @@
        */
       upload: function(confirm) {
         var that = this;
-        var len = that.fileObject.size();
 
         that.options.onBegin();
 
         if (that.options.sequence) {
-          len = that.fileObject.size();
-
-          that._uploadSequence(that._it.currentIndex(), len, that._it.next(), function invoke() {
-            that._uploadSequence(that._it.currentIndex(), len, that._it.next(), invoke);
+          that._uploadSequence(that._it.currentIndex(), that._it.next(), function invoke() {
+            that._uploadSequence(that._it.currentIndex(), that._it.next(), invoke);
           });
         } else {
-          that._uploadConfirm(confirm, that._it.currentIndex(), len);
+          that._uploadConfirm(confirm, that._it.currentIndex());
         }
       },
       /**
@@ -106,10 +112,9 @@
        * @param {object} file     - browser file object
        * @param {object} fileInfo - file이 공유될 entity 또는 file property가 추가적으로 가져야할 data
        * @param {number} index   - 현재 upload되는 file의 index
-       * @param {number} length  - upload 하려고 하는 file의 length
        * @param {function} invoke
        */
-      _upload: function(file, fileInfo, index, length, invoke) {
+      _upload: function(file, fileInfo, index, invoke) {
         var that = this;
 
         that.options.onUpload(file, fileInfo);
@@ -125,22 +130,22 @@
           // success
           function(response) {
             if (response) {
-              that.options.onSuccess(response, index, length);
+              that.options.onSuccess(response, index, that.fileLength());
             } else {
-              that.options.onError(response, index, length);
+              that.options.onError(response, index, that.fileLength());
             }
 
             invoke();
           },
           // error
           function(error) {
-            that.options.onError(error, index, length);
+            that.options.onError(error, index, that.fileLength());
 
             invoke();
           },
           // progress
           function(evt) {
-            that.options.onProgress(evt, file, index, length);
+            that.options.onProgress(evt, file, index, that.fileLength());
           }
         );
       },
@@ -148,9 +153,8 @@
        * confirm type upload
        * @param {boolean} confirm   - 해당 index의 file upload 수행할지 여부
        * @param {number} index
-       * @param {number} length
        */
-      _uploadConfirm: function(confirm, index, length) {
+      _uploadConfirm: function(confirm, index) {
         var that = this;
         var file;
 
@@ -175,20 +179,20 @@
                   that.currentProgressIndex++;
 
                   if (that.fileObject.getFile(index - 1)) {
-                    that._upload(file, fileInfo, index, length, invoke);
+                    that._upload(file, fileInfo, index, invoke);
                   }
               };
             }(that._file, that._fileInfo)));
 
             // lock이 풀려 있다면 다음 file을 upload 시작
             if (!that._fileUploadLock) {
-              that._fileUploadQueueShift(length);
+              that._fileUploadQueueShift();
             }
           } else {
             that._fileUploadQueueIndex++;
 
             // confirm cancel시 마지막 confirm 인지 여부
-            if (length === that._fileUploadQueueIndex) {
+            if (that.fileLength() === that._fileUploadQueueIndex) {
               // that._initUploadQueue();
               that.options.onConfirmEnd();
             }
@@ -206,21 +210,20 @@
       },
       /**
        * file upload queue shift 함
-       * @param {number} length - upload queue length
        */
-      _fileUploadQueueShift: function(length) {
+      _fileUploadQueueShift: function() {
         var that = this;
         var fileUpload;
 
         if (fileUpload = that._fileUploadQueue.shift()) {
           // fileUploadQueue에 upload해야할 file이 존재한다면 file upload 시작
           fileUpload(function () {
-            that._fileUploadQueueShift(length); // 다음 file upload 수행
+            that._fileUploadQueueShift(that.fileLength()); // 다음 file upload 수행
             that._fileUploadLock = false;         // lock 풀기
             that._fileUploadQueueIndex++;    // fileUploadQueue index 증가
 
             // 모든 작업이 마무리 되었다면 progress bar 숨기기
-            if (length === that._fileUploadQueueIndex) {
+            if (that.fileLength() === that._fileUploadQueueIndex) {
               that._initUploadQueue();
               that.options.onEnd();
             }
@@ -240,11 +243,10 @@
       /**
        * 순차적으로 file upload 수행함
        * @param {number} index   - upload file index
-       * @param {number} length  - upload할 file length
        * @param {object} file     - fileObject의 특정 file object
        * @param {function} invoke
        */
-      _uploadSequence: function(index, length, file, invoke) {
+      _uploadSequence: function(index, file, invoke) {
         var that = this;
 
         if (file) {
@@ -252,7 +254,6 @@
             that.options.convertFile ? that.options.convertFile(file) : file,
             that.options.convertFileInfo ? that.options.convertFileInfo(file) : file,
             index,
-            length,
             invoke
           );
         } else {
@@ -269,6 +270,30 @@
 
         that.fileObject = fileObject;
         that._initUploadQueue();
+      },
+
+      setFiles: function(files) {
+        var that = this;
+
+        if (that.fileObject) {
+          that.fileObject.setFiles(files);
+        } else {
+          that.setFileObject(Object.create(fileObjectService).init(files));
+        }
+
+        return that.fileObject.promise;
+      },
+
+      isUploadingStatus: function() {
+        return !!this.lastProgressIndex;
+      },
+
+      fileLength: function() {
+        return this.fileObject ? this.fileObject.size() : 0;
+      },
+
+      clear: function() {
+        return this.fileObject.empty();
       }
     };
 

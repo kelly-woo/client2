@@ -5,7 +5,7 @@ var app = angular.module('jandiApp');
 app.controller('leftPanelController1', function(
   $scope, $rootScope, $state, $stateParams, $filter, $modal, $window, $timeout, leftpanelAPIservice, leftPanel,
   entityAPIservice, entityheaderAPIservice, accountService, publicService, memberService, storageAPIservice,
-  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, fileObjectService, jndWebSocket,
+  analyticsService, tutorialService, currentSessionHelper, fileAPIservice, FilesUpload, fileObjectService, jndWebSocket,
   jndPubSub, modalHelper, UnreadBadge, NetInterceptor, AnalyticsHelper, HybridAppHelper, TopicMessageCache, $q,
   NotificationManager, topicFolder, TopicFolderModel, TopicUpdateLock) {
 
@@ -885,34 +885,45 @@ app.controller('leftPanelController1', function(
   $scope.$on('onFileUploadAllClear', _fileUploadAllClear);
 
   // Callback function from file finder(navigation) for uploading a file.
-  $scope.onFileSelect = function($files, options) {
-    var fileObject;
+  $scope.onFileSelect = function($files) {
+    var currentEntity = currentSessionHelper.getCurrentEntity();
+    var fileUploader;
 
-    if ($scope.fileObject) {
-      fileObject = $scope.fileObject.append($files);
+    if ($scope.fileUploader) {
+      fileUploader = $scope.fileUploader;
+
+      if (fileUploader.currentEntity.id !== currentEntity.id) {
+        fileUploader.currentEntity = currentEntity;
+        _fileUploadAllClear();
+      } else {
+        fileUploader.currentEntity = currentEntity;
+      }
     } else {
-      fileObject = Object.create(fileObjectService).init($files, options);
+      fileUploader = FilesUpload.createInstance();
+      fileUploader.currentEntity = currentEntity;
     }
 
-    if (fileObject.size() > 0) {
-      fileObject.promise.then(function() {
-        $rootScope.supportHtml5 = angular.isDefined(FileAPI.support) ? !!FileAPI.support.html5 : fileObject.options.supportAllFileAPI;
-        $scope.fileObject = fileObject;
-        $scope.openModal('file', {
-          onEnd: function () {
-            // hide progress bar
-            $timeout(function () {
-              $('.file-upload-progress-container').css('opacity', 0);
-              // opacity 0된 후 clear upload info
+    fileUploader
+      .setFiles($files)
+      .then(function() {
+        if (fileUploader.fileLength() > 0) {
+          $scope.fileUploader = fileUploader;
+          $scope.openModal('file', {
+            fileUploader: fileUploader,
+            onEnd: function () {
+              // hide progress bar
               $timeout(function () {
-                fileAPIservice.clearCurUpload();
-                delete $scope.fileObject;
-              }, 500);
-            }, 2000);
-          }
-        });
+                $('.file-upload-progress-container').css('opacity', 0);
+                // opacity 0된 후 clear upload info
+                $timeout(function () {
+                  fileAPIservice.clearCurUpload();
+                  delete $scope.fileUploader;
+                }, 500);
+              }, 2000);
+            }
+          });
+        }
       });
-    }
   };
 
   $scope.onFileUploadAbortClick = function() {
@@ -926,7 +937,7 @@ app.controller('leftPanelController1', function(
     $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
       function() {
         fileAPIservice.clearCurUpload();
-        delete $scope.fileObject;
+        delete $scope.fileUploader;
       }
     )
   };
@@ -1044,19 +1055,23 @@ app.controller('leftPanelController1', function(
    * @private
    */
   function _fileUploadAllClear() {
-    if ($scope.fileObject) {
-      $scope.fileObject.empty();
-      $scope.onFileUploadAbortClick();
+    var currentEntity = currentSessionHelper.getCurrentEntity();
 
-      // hide progress bar
-      $timeout(function() {
-        $('.file-upload-progress-container').css('opacity', 0);
-        // opacity 0된 후 clear upload info
-        $timeout(function() {
-          fileAPIservice.clearCurUpload();
-          delete $scope.fileObject;
-        }, 500);
-      }, 2000);
+    if ($scope.fileUploader) {
+      if ($scope.fileUploader.currentEntity.id === currentEntity.id) {
+        $scope.fileUploader.clear();
+        $scope.onFileUploadAbortClick();
+
+        // hide progress bar
+        $timeout(function () {
+          $('.file-upload-progress-container').css('opacity', 0);
+          // opacity 0된 후 clear upload info
+          $timeout(function () {
+            fileAPIservice.clearCurUpload();
+            delete $scope.fileUploader;
+          }, 500);
+        }, 2000);
+      }
     }
   }
 });
