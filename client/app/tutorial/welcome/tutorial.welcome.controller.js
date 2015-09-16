@@ -10,7 +10,7 @@
     .controller('TutorialWelcomeCtrl', TutorialWelcomeCtrl);
 
   function TutorialWelcomeCtrl($scope, $filter, accountService, TutorialAPI, Popup, HybridAppHelper) {
-
+    var _isAccountLoaded = false;
     $scope.isComplete = true;
     $scope.completedStep = -1;
     $scope.onClickStart = onClickStart;
@@ -109,13 +109,16 @@
      * @private
      */
     function _onAccountLoaded() {
-      var account = accountService.getAccount();
-      $scope.title = $filter('translate')('@tutorial_welcome_title').replace('{{username}}', account.name);
-      $scope.isComplete = account.tutorialConfirm;
-      $scope.isOpened = account.tutorialOpened;
-      //@fixme: remove isComplete = false; for test
-      //$scope.isComplete = false;
-      $scope.completedStep = account.tutorialStep;
+      if (!_isAccountLoaded) {
+        var account = accountService.getAccount();
+        $scope.title = $filter('translate')('@tutorial_welcome_title').replace('{{username}}', account.name);
+        $scope.isComplete = account.tutorialConfirm;
+        $scope.isOpened = account.tutorialOpened;
+        //@fixme: remove isComplete = false; for test
+        //$scope.isComplete = false;
+        $scope.completedStep = account.tutorialStep;
+        _isAccountLoaded = true;
+      }
     }
 
 
