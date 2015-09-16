@@ -1131,6 +1131,10 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span>개의 검색 "
 "결과가 있습니다."
 
+#: client/app/modal/topics/topic_invite/topic.invite.html
+msgid "@select-all-members"
+msgstr "모든 멤버 선택하기"
+
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
 msgstr "테스트 메시지 받기"
@@ -1693,12 +1697,6 @@ msgstr "수요일"
 
 #~ msgid "@input-rename"
 #~ msgstr "변경할 이름을 입력하세요"
-
-#~ msgid "@mention-all-confirm"
-#~ msgstr ""
-#~ "'@all' 기능을 사용하시면 현재 {{topicName}} 토픽에 참여하고 있는 "
-#~ "{{topicParticipantsCount}}명의 멤버에게 모바일 기기 또는 웹으로 푸쉬 알림"
-#~ "을 하게 됩니다. 전송하시겠습니까?"
 
 #~ msgid "@common-search"
 #~ msgstr "검색"

@@ -16,10 +16,6 @@ msgstr ""
 msgid "@alert-empty-ch-belong"
 msgstr ""
 
-#: client/app/modal/topics/topic_join/topic.join.html
-msgid "@alert-empty-ch-can-join"
-msgstr ""
-
 #: client/app/right/files/files.html
 msgid "@alert-empty-file-search"
 msgstr ""
@@ -122,7 +118,6 @@ msgstr ""
 msgid "@btn-invite"
 msgstr ""
 
-#: client/app/modal/topics/topic_join/topic.join.html
 #: client/app/tutorial/popup/view_components/modal/topic_list/tutorial.modal.topic.list.html
 msgid "@btn-join"
 msgstr ""
@@ -424,10 +419,6 @@ msgstr ""
 #: client/app/modal/members/current_member_profile/current.member.profile.html
 #: client/app/tutorial/popup/view_components/modal/profile/tutorial.modal.profile.html
 msgid "@common-info-optional"
-msgstr ""
-
-#: client/app/modal/topics/topic_join/topic.join.html
-msgid "@common-joined"
 msgstr ""
 
 #: client/app/right/right.html
@@ -1075,6 +1066,10 @@ msgstr ""
 #: client/app/right/files/files.html
 #: client/app/right/search.messages/search.messages.html
 msgid "@search-result-summary"
+msgstr ""
+
+#: client/app/modal/topics/topic_invite/topic.invite.html
+msgid "@select-all-members"
 msgstr ""
 
 #: client/app/modal/settings/notification/setting.notification.html

@@ -656,6 +656,7 @@
   line-height: 22px;
   font-weight: 700;
   color: #333;
+  word-wrap: break-word;
 }
 .user-profile__nickName {
   font-size: 14px;
@@ -819,4 +820,121 @@
 .send-invite.disabled:hover,
 .send-invite.disabled:active {
   color: #999;
+}
+
+/*
+    MODAL TAB HEADER
+*/
+.modal-body .list-tabs .tab-pane {
+  margin-top: 0;
+  min-height: 44px;
+  max-height: 662px;
+  overflow-y: auto;
+}
+
+.modal-body .list-tabs li {
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.modal-body .list-tabs li a:last-child {
+  margin-right: 0;
+}
+.modal-body .list-tabs a {
+  color: #999999;
+}
+.modal-body .list-tabs a:hover {
+  color: #366480;
+  background-color: #E6ECF2 !important;
+}
+.modal-body .list-tabs .active a  {
+  background-color: white !important;
+}
+
+.modal-body .list-tabs .nav-tabs {
+  border: 0;
+}
+
+.modal-body .list-tabs .nav-tabs > li > a:hover {
+  border-bottom-color: rgba(0,0,0,0);
+}
+
+.modal-body .list-tabs .nav-tabs > li.active > a,
+.modal-body .list-tabs .nav-tabs > li.active > a:hover,
+.modal-body .list-tabs .nav-tabs > li.active > a:focus {
+  border-color: rgba(0,0,0,0);
+  color: #333333;
+}
+
+.modal_team_member_list,
+.modal_topic_list {
+  margin-top: 20px;
+}
+
+.modal-body .active {
+  background-color: #f2fbff;
+}
+
+.modal-body .no-result-container {
+  background-color: white;
+  width: 100%;
+  height: 44px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+/*
+  MEMBER LIST
+*/
+.modal-body .member-list {
+  position: relative;
+}
+
+.modal-body .no-result-container {
+  padding: 9px 9px 0 9px;
+}
+
+.modal-body .member-item {
+  position: absolute;
+  padding: 9px 9px 0 9px;
+  background-color: white;
+  width: 100%;
+  height: 44px;
+}
+
+.modal-body .member-item:hover .icon-star {
+  opacity: 1;
+}
+
+.modal-body .member-item.active {
+  background-color: #f2fbff;
+}
+.modal-body .member-item.active i {
+  opacity: 1;
+}
+
+.modal-body .member-item .member-profile-image {
+  display: block;
+  width: 25px;
+  border-radius: 25px;
+  float: left;
+}
+
+.modal-body .member-item .right-star {
+  float: right;
+  line-height: 25px;
+}
+
+.modal-body .member-item .icon-star-on {
+  color: #f9bb00;
+  opacity: 1;
+}
+.modal-body .member-item .member-name {
+  line-height: 25px;
+  margin-left: 7px;
+  width: 350px;
+}
+
+.modal-body .member-item.active {
+  background-color: #f2fbff;
 }

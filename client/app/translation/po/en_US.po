@@ -1135,6 +1135,10 @@ msgstr ""
 "<span class=\"searchQueryKeyword\">{{searchStatus.length}}</span> matches "
 "for <span class=\"searchQueryKeyword\">{{searchStatus.keyword}}</span>"
 
+#: client/app/modal/topics/topic_invite/topic.invite.html
+msgid "@select-all-members"
+msgstr "Select all members"
+
 #: client/app/modal/settings/notification/setting.notification.html
 msgid "@send-test-notification"
 msgstr "Send me a test message"
@@ -1700,11 +1704,6 @@ msgstr ""
 
 #~ msgid "@input-rename"
 #~ msgstr "Enter name to change"
-
-#~ msgid "@mention-all-confirm"
-#~ msgstr ""
-#~ "Are you sure you want to mention all {{topicParticipantsCount}} members "
-#~ "in {{topicName}}?"
 
 #~ msgid "@common-search"
 #~ msgstr "Search"
