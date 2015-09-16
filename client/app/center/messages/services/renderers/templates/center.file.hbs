@@ -42,8 +42,8 @@
             <!-- thumbnail parent -->
             <div class="image_wrapper msg-file-body__img__background jnd-text-center">
               <!-- large thumbnail add-->
-              <div class="_fileSmallThumb">
-                <div class="opac-zero msg-file-body__img cursor_pointer _compile"
+              <div class="_fileSmallThumb _compile" jnd-ignore-braces>
+                <div class="opac-zero msg-file-body__img cursor_pointer"
                     image-loader="{{file.imageUrl.small}}"
                      image-max-height="65"
                      image-max-width="65"
@@ -51,8 +51,8 @@
                     jnd-thumbnail-scale-up>
                 </div>
               </div>
-              <div class="_fileLargeThumb" style="display:none">
-                <div class="cursor_pointer opac-zero large-thumbnail _compile"
+              <div class="_fileLargeThumb _compile" style="display:none" jnd-ignore-braces>
+                <div class="cursor_pointer opac-zero large-thumbnail"
                   image-loader="{{file.imageUrl.large}}"
                   image-max-width="700">
                 </div>
@@ -74,10 +74,10 @@
 
       <!--  FILE INFO -->
       <div class="msg-file-meta">
-        <div class="msg-file-meta-up">
+        <div class="msg-file-meta-up _compile" jnd-ignore-braces>
           {{#if isArchived}}
           <div class="archived-file-title">
-            <a class="msg-file-meta__title file__name _compile"
+            <a class="msg-file-meta__title file__name"
                ui-sref="files({ userName: '{{msg.message.writer.name}}', itemId: '{{msg.message.id}}' })">
               <span>{{translate '@common-deleted-file-title'}}</span>
             </a>
@@ -86,7 +86,7 @@
           <!--  NOT ARCHIVED FILE -->
           <div>
             <!--    TITLE   -->
-            <a class="msg-file-meta__title file__name break-word _compile"
+            <a class="msg-file-meta__title file__name break-word"
                ui-sref="files({ userName: '{{msg.message.writer.name}}', itemId: '{{msg.message.id}}' })">
               {{ file.title }}
             </a>
@@ -98,12 +98,12 @@
             <span class="msg-file-meta-info">{{ file.type }}</span>
           </div>
         </div>
-        <div class="msg-file-meta-down">
+        <div class="msg-file-meta-down _compile">
           {{#unless file.isIntegrateFile}}
           <!--  DOWNLOAD  -->
           <span class="file-uploaded-download">
             <a class="_fileDownload" {{{ attrs.download }}}>
-              <i class="icon-download-fill cursor_pointer file-action _compile"
+              <i class="icon-download-fill cursor_pointer file-action"
                  jnd-tooltip-trigger="{{translate '@common-download'}}"
                  data-direction="top"></i>
             </a>
@@ -111,7 +111,7 @@
           <span class="separator"></span>
           {{/unless}}
           <!--  SHARE -->
-          <i class="icon-share-right-fill cursor_pointer file-action _compile _fileShare"
+          <i class="icon-share-right-fill cursor_pointer file-action _fileShare"
              jnd-tooltip-trigger="{{translate '@btn-share'}}"
              data-direction="top"></i>
 
@@ -119,7 +119,7 @@
 
           <!--  MORE  -->
           <span class="file-uploaded-more _fileMore">
-            <i class="icon-cog-fill cursor_pointer file-action _compile"
+            <i class="icon-cog-fill cursor_pointer file-action"
                jnd-tooltip-trigger="{{translate '@file-action-more'}}"
                data-direction="top"></i>
           </span>
