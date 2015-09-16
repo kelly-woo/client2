@@ -346,6 +346,9 @@
      */
     function _generateShareOptions() {
       $scope.selectOptions = TopicFolderModel.getNgOptions(fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList));
+      if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
+        $('._chatRoomOptions').change();
+      }
     }
 
     /**

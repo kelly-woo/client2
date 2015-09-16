@@ -29,6 +29,6 @@
         .finally(function() {
           jndPubSub.hideLoading();
         });
-    }
+    };
   }
 })();

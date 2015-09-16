@@ -10,7 +10,7 @@
 
   /* @ngInject */
   function rPanelMessageTabCtrl($scope, $rootScope, $filter, $state, Router, fileAPIservice,
-                                messageAPIservice, AnalyticsHelper, TopicFolderModel) {
+                                messageAPIservice, AnalyticsHelper, TopicFolderModel, JndUtil) {
     var DEFAULT_PAGE = 1;
     var DEFAULT_PER_PAGE = 20;
 
@@ -298,8 +298,10 @@
     function _initChatRoomOption() {
       var newOptions = fileAPIservice.getShareOptionsWithoutMe($scope.joinedEntities, $scope.memberList);
       var newMessageLocation = _getMessageLocation(newOptions);
-
       $scope.chatRoomOptions = TopicFolderModel.getNgOptions(newOptions);
+      if ($scope.$$phase !== '$apply' && $scope.$$phase !== '$digest') {
+        $('._chatRoomOptions').change();
+      }
 
       if (newMessageLocation) {
         $scope.messageLocation = newMessageLocation;
