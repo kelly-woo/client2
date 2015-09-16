@@ -7,7 +7,7 @@
     <div class="user-profile__nickName">{{ curUser | getUserStatusMessage }}</div>
   </div>
 
-  <div class="profile-view-info-container" ng-if="!isUserDisabled">
+  <div class="profile-view-info-container" ng-if="!isDeactivatedUser">
     <div class="profile-view__info border-bottom_grey">
       <div class="info-title"><span translate>@common-department</span></div>
       <div class="info-content">{{ curUser | getUserDepartment }}</div>
@@ -26,14 +26,14 @@
     </div>
   </div>
 
-  <div class="profile-view-info-container disabled-member-profile-body" ng-if="isUserDisabled">
+  <div class="profile-view-info-container disabled-member-profile-body" ng-if="isDeactivatedUser">
     <img class="disabled-member-profile-body__image" src="assets/images/icon-disabled-member.png"/>
-    <span translate>@common-disabled-member-profile-msg</span>
+    <span>{{::deactivatedMessage}}</span>
   </div>
 
   <div class="profile-view-action-container">
     <div class="profile-view-action border-right_grey" data-ng-click="onActionClick('email');"
-       ng-class="{'disabled-member-opac-overlay': isUserDisabled}">
+         ng-class="{'disabled-member-opac-overlay': isUserDisabled}">
       <div class="profile-view-action__img">
         <i class="icon-mail"></i>
       </div>
@@ -57,4 +57,7 @@
     </div>
   </div>
 
+  <span ng-if="false">
+    <span translate>@common-deleted-member-profile-msg</span>
+  </span>
 </div>

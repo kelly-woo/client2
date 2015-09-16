@@ -10,7 +10,7 @@
     .controller('ProfileViewCtrl', ProfileViewCtrl);
 
   /* @ngInject */
-  function ProfileViewCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, publicService) {
+  function ProfileViewCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, publicService, memberService) {
 
     (function() {
       init();
@@ -19,7 +19,7 @@
     function init() {
       curUser.exProfileImg = $filter('getSmallThumbnail')(curUser);
       $scope.curUser = curUser;
-      $scope.isUserDisabled = _isCurrentUserDisabled();
+      $scope.isDeactivatedUser = _isDeactivatedUser();
       $scope.isMyself = _isMyself();
       $scope.$on('updateMemberProfile', _onUpdateMemberProfile);
     }
@@ -71,8 +71,23 @@
      * @returns {boolean} true, disabled 됐다면
      * @private
      */
-    function _isCurrentUserDisabled() {
-      return publicService.isDisabledMember($scope.curUser);
+    function _isDeactivatedUser() {
+      var DEACTIVATED_MESSAGE_KEY;
+      var isDeactivated = false;
+
+      if (memberService.isDisabled($scope.curUser)) {
+        isDeactivated = true;
+        DEACTIVATED_MESSAGE_KEY = '@common-disabled-member-profile-msg';
+      } else if (memberService.isDeleted($scope.curUser)) {
+        isDeactivated = true;
+        DEACTIVATED_MESSAGE_KEY = '@common-deleted-member-profile-msg';
+      }
+
+      if (isDeactivated) {
+        $scope.deactivatedMessage = $filter('translate')(DEACTIVATED_MESSAGE_KEY);
+      }
+
+      return isDeactivated;
     }
 
     /**
