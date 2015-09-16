@@ -10,7 +10,7 @@
     .controller('ProfileViewCtrl', ProfileViewCtrl);
 
   /* @ngInject */
-  function ProfileViewCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, publicService, memberService) {
+  function ProfileViewCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, memberService) {
 
     (function() {
       init();
@@ -72,19 +72,19 @@
      * @private
      */
     function _isDeactivatedUser() {
-      var DEACTIVATED_MESSAGE_KEY;
+      var deactivatedMessageKey;
       var isDeactivated = false;
 
       if (memberService.isDisabled($scope.curUser)) {
         isDeactivated = true;
-        DEACTIVATED_MESSAGE_KEY = '@common-disabled-member-profile-msg';
+        deactivatedMessageKey = '@common-disabled-member-profile-msg';
       } else if (memberService.isDeleted($scope.curUser)) {
         isDeactivated = true;
-        DEACTIVATED_MESSAGE_KEY = '@common-deleted-member-profile-msg';
+        deactivatedMessageKey = '@common-deleted-member-profile-msg';
       }
 
       if (isDeactivated) {
-        $scope.deactivatedMessage = $filter('translate')(DEACTIVATED_MESSAGE_KEY);
+        $scope.deactivatedMessage = $filter('translate')(deactivatedMessageKey);
       }
 
       return isDeactivated;
