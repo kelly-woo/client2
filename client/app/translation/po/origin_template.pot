@@ -713,8 +713,6 @@ msgstr ""
 msgid "@file-upload-google-drive"
 msgstr ""
 
-#: client/app/center/messages/services/renderers/templates/translate.html
-msgid "@friday"
 #: client/app/left/topics/topics.html
 msgid "@folder-enter-name"
 msgstr ""
@@ -751,6 +749,10 @@ msgstr ""
 
 #: client/app/left/topics/tutorial/left.tutorial.folder.html
 msgid "@folder-tutorial-title"
+msgstr ""
+
+#: client/app/center/messages/services/renderers/templates/translate.html
+msgid "@friday"
 msgstr ""
 
 #: client/app/center/view_components/center_chat_input_box/center.chat.input.box.html
@@ -1166,7 +1168,6 @@ msgid "@sunday"
 msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
-#: client/app/center/view_components/center_chat_templates/system_event/system.event.html
 msgid "@system-msg-announcement-created"
 msgstr ""
 
@@ -1577,6 +1578,4 @@ msgstr ""
 
 #: client/app/center/messages/services/renderers/templates/translate.html
 msgid "@wednesday"
-#: client/app/left/topics/tutorial/left.tutorial.folder.html
-msgid "<span translate=\"\">@folder-tutorial-title</span>"
 msgstr ""
