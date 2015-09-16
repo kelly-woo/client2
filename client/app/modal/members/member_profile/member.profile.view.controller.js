@@ -10,7 +10,7 @@
     .controller('ProfileViewCtrl', ProfileViewCtrl);
 
   /* @ngInject */
-  function ProfileViewCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, publicService, memberService) {
+  function ProfileViewCtrl($scope, $filter, curUser, $state, modalHelper, jndPubSub, memberService) {
 
     (function() {
       init();
