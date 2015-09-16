@@ -90,10 +90,9 @@
      * @private
      */
     function _onTopicLDeleted(data) {
+      _updateLeftPanel(data);
       if (jndWebSocketCommon.isCurrentEntity(data.topic)) {
         jndPubSub.toDefaultTopic();
-      } else {
-        _updateLeftPanel(data);
       }
     }
 
