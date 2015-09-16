@@ -14,15 +14,37 @@
         compile: compile
       };
       function compile(el, attr) {
-        el.html(el.html().replace(/({{)(.*)(}})/g, function(str, brace1, content, brace2) {
-          return '\\{\\{' + content + '\\}\\}';
-        }));
+        _.each(attr, function(value, key) {
+          if (key.indexOf('$') === -1){
+            attr[key] = _escape(value);
+          }
+        });
+        if (el.html().indexOf('{{') !== -1) {
+          el.html(_escape(el.html()));
+        }
         return link;
       }
       function link(scope, el, attr) {
-        el.html(el.html().replace(/(\\{\\{)(.*)(\\}\\})/g, function(str, brace1, content, brace2) {
+        _.each(attr, function(value, key) {
+          if (key.indexOf('$') === -1){
+            attr[key] = _unescape(value);
+          }
+        });
+        if (el.html().indexOf('\\{\\{') !== -1) {
+          el.html(_unescape(el.html()));
+        }
+      }
+      function _escape(str) {
+        str = str || '';
+        return str.replace(/({{)(.*)(}})/g, function(str, brace1, content, brace2) {
+          return '\\{\\{' + content + '\\}\\}';
+        });
+      }
+      function _unescape(str) {
+        str = str || '';
+        return str.replace(/(\\{\\{)(.*)(\\}\\})/g, function(str, brace1, content, brace2) {
           return '{{' + content + '}}';
-        }));
+        });
       }
     }
 })();
