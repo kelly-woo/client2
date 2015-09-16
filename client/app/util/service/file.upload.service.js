@@ -57,6 +57,11 @@
 
         return that;
       },
+      /**
+       * fileUpload object의 options를 설정한다.
+       * @param options
+       * @returns {FilesUpload}
+       */
       setOptions: function(options) {
         var that = this;
 
@@ -70,6 +75,9 @@
 
         return that;
       },
+      /**
+       * upload status를 갱신하여 file upload를 연속해서 가능하도록 한다.
+       */
       updateUploadStatus: function() {
         this._fileUploadLock = true;
         this._convertFileObjects(this._it.next());
@@ -271,7 +279,11 @@
         that.fileObject = fileObject;
         that._initUploadQueue();
       },
-
+      /**
+       * upload할 file object를 설정한다.
+       * @param {object} files
+       * @returns {*}
+       */
       setFiles: function(files) {
         var that = this;
 
@@ -283,15 +295,24 @@
 
         return that.fileObject.promise;
       },
-
+      /**
+       * upload 중인지 상태를 전달한다.
+       * @returns {boolean}
+       */
       isUploadingStatus: function() {
         return !!this.lastProgressIndex;
       },
-
+      /**
+       * upload할 file 수를 전달한다.
+       * @returns {*}
+       */
       fileLength: function() {
         return this.fileObject ? this.fileObject.size() : 0;
       },
-
+      /**
+       * upload를 clear한다.
+       * @returns {*}
+       */
       clear: function() {
         return this.fileObject.empty();
       }

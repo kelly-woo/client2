@@ -889,25 +889,28 @@ app.controller('leftPanelController1', function(
     var currentEntity = currentSessionHelper.getCurrentEntity();
     var fileUploader;
 
-    if ($scope.fileUploader) {
-      fileUploader = $scope.fileUploader;
+    if ($rootScope.fileUploader) {
+      fileUploader = $rootScope.fileUploader;
 
       if (fileUploader.currentEntity.id !== currentEntity.id) {
-        fileUploader.currentEntity = currentEntity;
-        _fileUploadAllClear();
-      } else {
-        fileUploader.currentEntity = currentEntity;
+        // 다른 topic에서 upload를 시도함
+        $rootScope.fileUploader.clear();
+        $scope.onFileUploadAbortClick();
+        fileAPIservice.clearCurUpload();
+        delete $rootScope.fileUploader;
+
+        fileUploader = undefined;
       }
-    } else {
-      fileUploader = FilesUpload.createInstance();
-      fileUploader.currentEntity = currentEntity;
     }
+
+    fileUploader = fileUploader || FilesUpload.createInstance();
+    fileUploader.currentEntity = currentEntity;
 
     fileUploader
       .setFiles($files)
       .then(function() {
         if (fileUploader.fileLength() > 0) {
-          $scope.fileUploader = fileUploader;
+          $rootScope.fileUploader = fileUploader;
           $scope.openModal('file', {
             fileUploader: fileUploader,
             onEnd: function () {
@@ -917,7 +920,7 @@ app.controller('leftPanelController1', function(
                 // opacity 0된 후 clear upload info
                 $timeout(function () {
                   fileAPIservice.clearCurUpload();
-                  delete $scope.fileUploader;
+                  delete $rootScope.fileUploader;
                 }, 500);
               }, 2000);
             }
@@ -937,7 +940,7 @@ app.controller('leftPanelController1', function(
     $('.file-upload-progress-container').animate( {'opacity': 0 }, 500,
       function() {
         fileAPIservice.clearCurUpload();
-        delete $scope.fileUploader;
+        delete $rootScope.fileUploader;
       }
     )
   };
@@ -1057,9 +1060,9 @@ app.controller('leftPanelController1', function(
   function _fileUploadAllClear() {
     var currentEntity = currentSessionHelper.getCurrentEntity();
 
-    if ($scope.fileUploader) {
-      if ($scope.fileUploader.currentEntity.id === currentEntity.id) {
-        $scope.fileUploader.clear();
+    if ($rootScope.fileUploader) {
+      if ($rootScope.fileUploader.currentEntity.id === currentEntity.id) {
+        $rootScope.fileUploader.clear();
         $scope.onFileUploadAbortClick();
 
         // hide progress bar
@@ -1068,7 +1071,7 @@ app.controller('leftPanelController1', function(
           // opacity 0된 후 clear upload info
           $timeout(function () {
             fileAPIservice.clearCurUpload();
-            delete $scope.fileUploader;
+            delete $rootScope.fileUploader;
           }, 500);
         }, 2000);
       }

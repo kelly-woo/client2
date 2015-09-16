@@ -27,9 +27,11 @@
 
     fileObject = fileUplodOptions.fileUploader.fileObject;
     if (fileUplodOptions.fileUploader.isUploadingStatus()) {
+      // 현재 upload 중이고 이어서 upload함
       fileUploader = fileUplodOptions.fileUploader;
       fileUploader.updateUploadStatus();
     } else {
+      // 최초 upload함
       fileUploader = fileUplodOptions.fileUploader.setOptions({
         // file api 제공 여부
         supportFileAPI: true,
